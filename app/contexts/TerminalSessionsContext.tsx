@@ -17,16 +17,17 @@ export interface TerminalSession {
   title: string;
   isActive: boolean;
   createdAt: Date;
+  type: "terminal" | "stats" | "filemanager";
 }
 
 interface TerminalSessionsContextType {
   sessions: TerminalSession[];
   activeSessionId: string | null;
-  addSession: (host: SSHHost) => string;
+  addSession: (host: SSHHost, type?: "terminal" | "stats" | "filemanager") => string;
   removeSession: (sessionId: string) => void;
   setActiveSession: (sessionId: string) => void;
   clearAllSessions: () => void;
-  navigateToSessions: (host?: SSHHost) => void;
+  navigateToSessions: (host?: SSHHost, type?: "terminal" | "stats" | "filemanager") => void;
   isCustomKeyboardVisible: boolean;
   toggleCustomKeyboard: () => void;
   lastKeyboardHeight: number;
@@ -64,24 +65,28 @@ export const TerminalSessionsProvider: React.FC<
   const keyboardIntentionallyHiddenRef = useRef(false);
   const [, forceUpdate] = useState({});
 
-  const addSession = useCallback((host: SSHHost): string => {
+  const addSession = useCallback((host: SSHHost, type: "terminal" | "stats" | "filemanager" = "terminal"): string => {
     setSessions((prev) => {
       const existingSessions = prev.filter(
-        (session) => session.host.id === host.id,
+        (session) => session.host.id === host.id && session.type === type,
       );
 
-      let title = host.name;
+      const typeLabel = type === "stats" ? "Stats" : type === "filemanager" ? "Files" : "";
+      let title = typeLabel ? `${host.name} - ${typeLabel}` : host.name;
       if (existingSessions.length > 0) {
-        title = `${host.name} (${existingSessions.length + 1})`;
+        title = typeLabel
+          ? `${host.name} - ${typeLabel} (${existingSessions.length + 1})`
+          : `${host.name} (${existingSessions.length + 1})`;
       }
 
-      const sessionId = `${host.id}-${Date.now()}`;
+      const sessionId = `${host.id}-${type}-${Date.now()}`;
       const newSession: TerminalSession = {
         id: sessionId,
         host,
         title,
         isActive: true,
         createdAt: new Date(),
+        type,
       };
 
       const updatedSessions = prev.map((session) => ({
@@ -109,8 +114,9 @@ export const TerminalSessionsProvider: React.FC<
         );
 
         const hostId = sessionToRemove.host.id;
+        const sessionType = sessionToRemove.type;
         const sameHostSessions = updatedSessions.filter(
-          (session) => session.host.id === hostId,
+          (session) => session.host.id === hostId && session.type === sessionType,
         );
 
         if (sameHostSessions.length > 0) {
@@ -123,12 +129,14 @@ export const TerminalSessionsProvider: React.FC<
               (s) => s.id === session.id,
             );
             if (sessionIndex !== -1) {
+              const typeLabel = session.type === "stats" ? "Stats" : session.type === "filemanager" ? "Files" : "";
+              const baseName = typeLabel ? `${session.host.name} - ${typeLabel}` : session.host.name;
               updatedSessions[sessionIndex] = {
                 ...session,
                 title:
                   index === 0
-                    ? session.host.name
-                    : `${session.host.name} (${index + 1})`,
+                    ? baseName
+                    : `${baseName} (${index + 1})`,
               };
             }
           });
@@ -165,9 +173,9 @@ export const TerminalSessionsProvider: React.FC<
   }, []);
 
   const navigateToSessions = useCallback(
-    (host?: SSHHost) => {
+    (host?: SSHHost, type: "terminal" | "stats" | "filemanager" = "terminal") => {
       if (host) {
-        addSession(host);
+        addSession(host, type);
       }
       router.push("/(tabs)/sessions");
     },

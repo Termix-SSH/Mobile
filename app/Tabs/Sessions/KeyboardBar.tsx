@@ -12,6 +12,7 @@ import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
+import { useOrientation } from "@/app/utils/orientation";
 
 interface KeyboardBarProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
@@ -28,6 +29,7 @@ export default function KeyboardBar({
 }: KeyboardBarProps) {
   const { config } = useKeyboardCustomization();
   const { keyboardHeight, isKeyboardVisible } = useKeyboard();
+  const { isLandscape } = useOrientation();
   const [ctrlPressed, setCtrlPressed] = useState(false);
   const [altPressed, setAltPressed] = useState(false);
 
@@ -129,12 +131,16 @@ export default function KeyboardBar({
       style={[
         styles.keyboardBar,
         isKeyboardIntentionallyHidden && { paddingBottom: 16 },
+        isLandscape && styles.keyboardBarLandscape,
       ]}
     >
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          isLandscape && styles.scrollContentLandscape,
+        ]}
         keyboardShouldPersistTaps="handled"
       >
         {hasPinnedKeys && (
@@ -156,11 +162,18 @@ const styles = StyleSheet.create({
     borderTopWidth: 1.5,
     borderTopColor: "#303032",
   },
+  keyboardBarLandscape: {
+    borderTopWidth: 1,
+  },
   scrollContent: {
     paddingHorizontal: 8,
     paddingVertical: 8,
     alignItems: "center",
     gap: 6,
+  },
+  scrollContentLandscape: {
+    paddingVertical: 6,
+    gap: 4,
   },
   separator: {
     width: 1,

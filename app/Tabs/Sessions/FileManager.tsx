@@ -1,0 +1,564 @@
+import { useState, useEffect, useRef, useCallback, forwardRef, useImperativeHandle } from "react";
+import { View, Alert, TextInput, Modal, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { SSHHost } from "@/types";
+import {
+  connectSSH,
+  listSSHFiles,
+  readSSHFile,
+  writeSSHFile,
+  createSSHFile,
+  createSSHFolder,
+  deleteSSHItem,
+  renameSSHItem,
+  copySSHItem,
+  moveSSHItem,
+  verifySSHTOTP,
+  keepSSHAlive,
+} from "@/app/main-axios";
+import { FileList } from "./FileManager/FileList";
+import { FileManagerHeader } from "./FileManager/FileManagerHeader";
+import { FileManagerToolbar } from "./FileManager/FileManagerToolbar";
+import { ContextMenu } from "./FileManager/ContextMenu";
+import { FileViewer } from "./FileManager/FileViewer";
+import { joinPath, isTextFile, isArchiveFile } from "./FileManager/utils/fileUtils";
+import { showToast } from "@/app/utils/toast";
+
+interface FileManagerProps {
+  host: SSHHost;
+  sessionId: string;
+}
+
+interface FileItem {
+  name: string;
+  path: string;
+  type: "file" | "directory" | "link";
+  size?: number;
+  modified?: string;
+  permissions?: string;
+}
+
+export interface FileManagerHandle {
+  handleDisconnect: () => void;
+}
+
+export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
+  ({ host, sessionId }, ref) => {
+    const [currentPath, setCurrentPath] = useState("/");
+    const [files, setFiles] = useState<FileItem[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isConnected, setIsConnected] = useState(false);
+    const [sshSessionId, setSshSessionId] = useState<string | null>(null);
+
+    // Selection and clipboard
+    const [selectionMode, setSelectionMode] = useState(false);
+    const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+    const [clipboard, setClipboard] = useState<{
+      files: string[];
+      operation: "copy" | "cut" | null;
+    }>({ files: [], operation: null });
+
+    // Dialogs
+    const [contextMenu, setContextMenu] = useState<{
+      visible: boolean;
+      file: FileItem | null;
+    }>({ visible: false, file: null });
+    const [totpDialog, setTotpDialog] = useState(false);
+    const [totpCode, setTotpCode] = useState("");
+    const [createDialog, setCreateDialog] = useState<{
+      visible: boolean;
+      type: "file" | "folder" | null;
+    }>({ visible: false, type: null });
+    const [createName, setCreateName] = useState("");
+    const [renameDialog, setRenameDialog] = useState<{
+      visible: boolean;
+      file: FileItem | null;
+    }>({ visible: false, file: null });
+    const [renameName, setRenameName] = useState("");
+    const [fileViewer, setFileViewer] = useState<{
+      visible: boolean;
+      file: FileItem | null;
+      content: string;
+    }>({ visible: false, file: null, content: "" });
+
+    // Keepalive
+    const keepaliveInterval = useRef<NodeJS.Timeout | null>(null);
+
+    // Connect to SSH
+    const connectToSSH = useCallback(async () => {
+      try {
+        setIsLoading(true);
+        const response = await connectSSH(sessionId, {
+          hostId: host.id,
+          ip: host.ip,
+          port: host.port,
+          username: host.username,
+          password: host.authType === "password" ? host.password : undefined,
+          sshKey: host.authType === "key" ? host.key : undefined,
+          keyPassword: host.keyPassword,
+          authType: host.authType,
+          credentialId: host.credentialId,
+          forceKeyboardInteractive: host.forceKeyboardInteractive,
+        });
+
+        if (response.requires_totp) {
+          setTotpDialog(true);
+          return;
+        }
+
+        setSshSessionId(sessionId);
+        setIsConnected(true);
+
+        // Start keepalive
+        keepaliveInterval.current = setInterval(() => {
+          keepSSHAlive(sessionId).catch(() => {});
+        }, 30000);
+
+        // Load initial directory
+        await loadDirectory(host.defaultPath || "/");
+      } catch (error: any) {
+        showToast(error.message || "Failed to connect to SSH", "error");
+      } finally {
+        setIsLoading(false);
+      }
+    }, [host, sessionId]);
+
+    const handleTOTPVerify = async () => {
+      try {
+        await verifySSHTOTP(sessionId, totpCode);
+        setTotpDialog(false);
+        setTotpCode("");
+        setSshSessionId(sessionId);
+        setIsConnected(true);
+
+        // Start keepalive
+        keepaliveInterval.current = setInterval(() => {
+          keepSSHAlive(sessionId).catch(() => {});
+        }, 30000);
+
+        // Load initial directory
+        await loadDirectory(host.defaultPath || "/");
+      } catch (error: any) {
+        showToast(error.message || "Invalid TOTP code", "error");
+      }
+    };
+
+    const loadDirectory = useCallback(async (path: string) => {
+      if (!sessionId) return;
+
+      try {
+        setIsLoading(true);
+        const response = await listSSHFiles(sessionId, path);
+        setFiles(response.files || []);
+        setCurrentPath(response.path || path);
+      } catch (error: any) {
+        showToast(error.message || "Failed to load directory", "error");
+      } finally {
+        setIsLoading(false);
+      }
+    }, [sessionId]);
+
+    // File operations
+    const handleFilePress = (file: FileItem) => {
+      if (file.type === "directory") {
+        loadDirectory(file.path);
+      } else if (isTextFile(file.name)) {
+        handleViewFile(file);
+      } else {
+        showToast("File type not supported for viewing", "info");
+      }
+    };
+
+    const handleFileLongPress = (file: FileItem) => {
+      setContextMenu({ visible: true, file });
+    };
+
+    const handleViewFile = async (file: FileItem) => {
+      try {
+        setIsLoading(true);
+        const response = await readSSHFile(sessionId!, file.path);
+        setFileViewer({ visible: true, file, content: response.content });
+      } catch (error: any) {
+        showToast(error.message || "Failed to read file", "error");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const handleSaveFile = async (content: string) => {
+      if (!fileViewer.file) return;
+
+      try {
+        await writeSSHFile(sessionId!, fileViewer.file.path, content, host.id);
+        showToast("File saved successfully", "success");
+        await loadDirectory(currentPath);
+      } catch (error: any) {
+        throw new Error(error.message || "Failed to save file");
+      }
+    };
+
+    const handleCreateFolder = () => {
+      setCreateDialog({ visible: true, type: "folder" });
+      setCreateName("");
+    };
+
+    const handleCreateFile = () => {
+      setCreateDialog({ visible: true, type: "file" });
+      setCreateName("");
+    };
+
+    const handleCreateConfirm = async () => {
+      if (!createDialog.type || !createName.trim()) return;
+
+      try {
+        setIsLoading(true);
+        if (createDialog.type === "folder") {
+          await createSSHFolder(sessionId!, currentPath, createName, host.id);
+          showToast("Folder created successfully", "success");
+        } else {
+          await createSSHFile(sessionId!, currentPath, createName, "", host.id);
+          showToast("File created successfully", "success");
+        }
+        setCreateDialog({ visible: false, type: null });
+        setCreateName("");
+        await loadDirectory(currentPath);
+      } catch (error: any) {
+        showToast(error.message || "Failed to create item", "error");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const handleRename = (file: FileItem) => {
+      setRenameDialog({ visible: true, file });
+      setRenameName(file.name);
+    };
+
+    const handleRenameConfirm = async () => {
+      if (!renameDialog.file || !renameName.trim()) return;
+
+      try {
+        setIsLoading(true);
+        await renameSSHItem(sessionId!, renameDialog.file.path, renameName, host.id);
+        showToast("Item renamed successfully", "success");
+        setRenameDialog({ visible: false, file: null });
+        setRenameName("");
+        await loadDirectory(currentPath);
+      } catch (error: any) {
+        showToast(error.message || "Failed to rename item", "error");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const handleCopy = (file?: FileItem) => {
+      const filesToCopy = file ? [file.path] : selectedFiles;
+      setClipboard({ files: filesToCopy, operation: "copy" });
+      setSelectionMode(false);
+      setSelectedFiles([]);
+      showToast(`${filesToCopy.length} item(s) copied`, "success");
+    };
+
+    const handleCut = (file?: FileItem) => {
+      const filesToCut = file ? [file.path] : selectedFiles;
+      setClipboard({ files: filesToCut, operation: "cut" });
+      setSelectionMode(false);
+      setSelectedFiles([]);
+      showToast(`${filesToCut.length} item(s) cut`, "success");
+    };
+
+    const handlePaste = async () => {
+      if (clipboard.files.length === 0 || !clipboard.operation) return;
+
+      try {
+        setIsLoading(true);
+        for (const filePath of clipboard.files) {
+          if (clipboard.operation === "copy") {
+            await copySSHItem(sessionId!, filePath, currentPath, host.id);
+          } else {
+            await moveSSHItem(sessionId!, filePath, joinPath(currentPath, filePath.split("/").pop()!), host.id);
+          }
+        }
+        showToast(`${clipboard.files.length} item(s) pasted`, "success");
+        setClipboard({ files: [], operation: null });
+        await loadDirectory(currentPath);
+      } catch (error: any) {
+        showToast(error.message || "Failed to paste items", "error");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const handleDelete = async (file?: FileItem) => {
+      const filesToDelete = file ? [file] : files.filter((f) => selectedFiles.includes(f.path));
+
+      Alert.alert(
+        "Confirm Delete",
+        `Are you sure you want to delete ${filesToDelete.length} item(s)?`,
+        [
+          { text: "Cancel", style: "cancel" },
+          {
+            text: "Delete",
+            style: "destructive",
+            onPress: async () => {
+              try {
+                setIsLoading(true);
+                for (const fileItem of filesToDelete) {
+                  await deleteSSHItem(
+                    sessionId!,
+                    fileItem.path,
+                    fileItem.type === "directory",
+                    host.id
+                  );
+                }
+                showToast(`${filesToDelete.length} item(s) deleted`, "success");
+                setSelectionMode(false);
+                setSelectedFiles([]);
+                await loadDirectory(currentPath);
+              } catch (error: any) {
+                showToast(error.message || "Failed to delete items", "error");
+              } finally {
+                setIsLoading(false);
+              }
+            },
+          },
+        ]
+      );
+    };
+
+    const handleSelectToggle = (path: string) => {
+      setSelectedFiles((prev) =>
+        prev.includes(path) ? prev.filter((p) => p !== path) : [...prev, path]
+      );
+    };
+
+    const handleCancelSelection = () => {
+      setSelectionMode(false);
+      setSelectedFiles([]);
+    };
+
+    // Initialize
+    useEffect(() => {
+      connectToSSH();
+
+      return () => {
+        if (keepaliveInterval.current) {
+          clearInterval(keepaliveInterval.current);
+        }
+      };
+    }, [connectToSSH]);
+
+    // Expose disconnect method to parent
+    useImperativeHandle(ref, () => ({
+      handleDisconnect: () => {
+        if (keepaliveInterval.current) {
+          clearInterval(keepaliveInterval.current);
+        }
+        setIsConnected(false);
+      },
+    }));
+
+    if (!isConnected) {
+      return (
+        <View className="flex-1 bg-dark-bg items-center justify-center">
+          <ActivityIndicator size="large" color="#3B82F6" />
+          <Text className="text-white mt-4">Connecting to {host.name}...</Text>
+
+          {/* TOTP Dialog */}
+          <Modal visible={totpDialog} transparent animationType="fade">
+            <View className="flex-1 bg-black/50 items-center justify-center p-4">
+              <View className="bg-dark-bg-button rounded-lg border-2 border-dark-border p-6 w-full max-w-sm">
+                <Text className="text-white text-lg font-semibold mb-4">
+                  Two-Factor Authentication
+                </Text>
+                <Text className="text-gray-400 mb-4">
+                  Enter your TOTP code to continue
+                </Text>
+                <TextInput
+                  className="bg-dark-bg-darker border border-dark-border rounded px-4 py-3 text-white mb-4"
+                  value={totpCode}
+                  onChangeText={setTotpCode}
+                  placeholder="000000"
+                  placeholderTextColor="#6B7280"
+                  keyboardType="number-pad"
+                  maxLength={6}
+                  autoFocus
+                />
+                <View className="flex-row gap-2">
+                  <TouchableOpacity
+                    onPress={() => {
+                      setTotpDialog(false);
+                      setTotpCode("");
+                    }}
+                    className="flex-1 bg-dark-bg-darker border border-dark-border rounded py-3"
+                    activeOpacity={0.7}
+                  >
+                    <Text className="text-white text-center font-medium">Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={handleTOTPVerify}
+                    className="flex-1 bg-blue-500 border border-blue-600 rounded py-3"
+                    activeOpacity={0.7}
+                  >
+                    <Text className="text-white text-center font-medium">Verify</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+        </View>
+      );
+    }
+
+    return (
+      <View className="flex-1 bg-dark-bg">
+        <FileManagerHeader
+          currentPath={currentPath}
+          onNavigateToPath={loadDirectory}
+          onRefresh={() => loadDirectory(currentPath)}
+          onCreateFolder={handleCreateFolder}
+          onCreateFile={handleCreateFile}
+          onMenuPress={() => setSelectionMode(true)}
+          isLoading={isLoading}
+        />
+
+        <FileList
+          files={files}
+          onFilePress={handleFilePress}
+          onFileLongPress={handleFileLongPress}
+          selectedFiles={selectedFiles}
+          onSelectToggle={handleSelectToggle}
+          selectionMode={selectionMode}
+          isLoading={isLoading}
+          onRefresh={() => loadDirectory(currentPath)}
+        />
+
+        <FileManagerToolbar
+          selectionMode={selectionMode}
+          selectedCount={selectedFiles.length}
+          onCopy={() => handleCopy()}
+          onCut={() => handleCut()}
+          onPaste={handlePaste}
+          onDelete={() => handleDelete()}
+          onCancelSelection={handleCancelSelection}
+          clipboardCount={clipboard.files.length}
+          clipboardOperation={clipboard.operation}
+        />
+
+        {/* Context Menu */}
+        {contextMenu.file && (
+          <ContextMenu
+            visible={contextMenu.visible}
+            onClose={() => setContextMenu({ visible: false, file: null })}
+            fileName={contextMenu.file.name}
+            fileType={contextMenu.file.type}
+            onView={
+              isTextFile(contextMenu.file.name)
+                ? () => handleViewFile(contextMenu.file!)
+                : undefined
+            }
+            onEdit={
+              isTextFile(contextMenu.file.name)
+                ? () => handleViewFile(contextMenu.file!)
+                : undefined
+            }
+            onRename={() => handleRename(contextMenu.file!)}
+            onCopy={() => handleCopy(contextMenu.file!)}
+            onCut={() => handleCut(contextMenu.file!)}
+            onDelete={() => handleDelete(contextMenu.file!)}
+            isArchive={isArchiveFile(contextMenu.file.name)}
+          />
+        )}
+
+        {/* Create Dialog */}
+        <Modal visible={createDialog.visible} transparent animationType="fade">
+          <View className="flex-1 bg-black/50 items-center justify-center p-4">
+            <View className="bg-dark-bg-button rounded-lg border-2 border-dark-border p-6 w-full max-w-sm">
+              <Text className="text-white text-lg font-semibold mb-4">
+                Create New {createDialog.type === "folder" ? "Folder" : "File"}
+              </Text>
+              <TextInput
+                className="bg-dark-bg-darker border border-dark-border rounded px-4 py-3 text-white mb-4"
+                value={createName}
+                onChangeText={setCreateName}
+                placeholder="Name"
+                placeholderTextColor="#6B7280"
+                autoFocus
+              />
+              <View className="flex-row gap-2">
+                <TouchableOpacity
+                  onPress={() => {
+                    setCreateDialog({ visible: false, type: null });
+                    setCreateName("");
+                  }}
+                  className="flex-1 bg-dark-bg-darker border border-dark-border rounded py-3"
+                  activeOpacity={0.7}
+                >
+                  <Text className="text-white text-center font-medium">Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleCreateConfirm}
+                  className="flex-1 bg-blue-500 border border-blue-600 rounded py-3"
+                  activeOpacity={0.7}
+                >
+                  <Text className="text-white text-center font-medium">Create</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        {/* Rename Dialog */}
+        <Modal visible={renameDialog.visible} transparent animationType="fade">
+          <View className="flex-1 bg-black/50 items-center justify-center p-4">
+            <View className="bg-dark-bg-button rounded-lg border-2 border-dark-border p-6 w-full max-w-sm">
+              <Text className="text-white text-lg font-semibold mb-4">
+                Rename Item
+              </Text>
+              <TextInput
+                className="bg-dark-bg-darker border border-dark-border rounded px-4 py-3 text-white mb-4"
+                value={renameName}
+                onChangeText={setRenameName}
+                placeholder="New name"
+                placeholderTextColor="#6B7280"
+                autoFocus
+              />
+              <View className="flex-row gap-2">
+                <TouchableOpacity
+                  onPress={() => {
+                    setRenameDialog({ visible: false, file: null });
+                    setRenameName("");
+                  }}
+                  className="flex-1 bg-dark-bg-darker border border-dark-border rounded py-3"
+                  activeOpacity={0.7}
+                >
+                  <Text className="text-white text-center font-medium">Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleRenameConfirm}
+                  className="flex-1 bg-blue-500 border border-blue-600 rounded py-3"
+                  activeOpacity={0.7}
+                >
+                  <Text className="text-white text-center font-medium">Rename</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        {/* File Viewer */}
+        {fileViewer.file && (
+          <FileViewer
+            visible={fileViewer.visible}
+            onClose={() => setFileViewer({ visible: false, file: null, content: "" })}
+            fileName={fileViewer.file.name}
+            filePath={fileViewer.file.path}
+            initialContent={fileViewer.content}
+            onSave={handleSaveFile}
+          />
+        )}
+      </View>
+    );
+  }
+);
+
+FileManager.displayName = "FileManager";

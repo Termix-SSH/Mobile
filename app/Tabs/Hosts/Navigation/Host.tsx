@@ -15,6 +15,7 @@ import {
   Lock,
   MoreVertical,
   X,
+  Activity,
 } from "lucide-react-native";
 import { SSHHost } from "@/types";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
@@ -95,7 +96,17 @@ function Host({ host, status, isLast = false }: HostProps) {
   };
 
   const handleTerminalPress = () => {
-    navigateToSessions(host);
+    navigateToSessions(host, "terminal");
+    setShowContextMenu(false);
+  };
+
+  const handleStatsPress = () => {
+    navigateToSessions(host, "stats");
+    setShowContextMenu(false);
+  };
+
+  const handleFileManagerPress = () => {
+    navigateToSessions(host, "filemanager");
     setShowContextMenu(false);
   };
 
@@ -345,6 +356,46 @@ function Host({ host, status, isLast = false }: HostProps) {
                         >
                           {host.ip}
                           {host.username ? `  •  ${host.username}` : ""}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  )}
+
+                  <TouchableOpacity
+                    onPress={handleStatsPress}
+                    className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
+                    activeOpacity={0.7}
+                  >
+                    <Activity size={20} color="#22C55E" />
+                    <View className="flex-1">
+                      <Text className="text-white font-medium">
+                        View Server Stats
+                      </Text>
+                      <Text
+                        className="text-gray-400 text-xs"
+                        numberOfLines={1}
+                      >
+                        Monitor CPU, memory, and disk usage
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+
+                  {host.enableFileManager && (
+                    <TouchableOpacity
+                      onPress={handleFileManagerPress}
+                      className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
+                      activeOpacity={0.7}
+                    >
+                      <FolderOpen size={20} color="#3B82F6" />
+                      <View className="flex-1">
+                        <Text className="text-white font-medium">
+                          File Manager
+                        </Text>
+                        <Text
+                          className="text-gray-400 text-xs"
+                          numberOfLines={1}
+                        >
+                          Browse and manage files
                         </Text>
                       </View>
                     </TouchableOpacity>

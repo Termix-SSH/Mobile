@@ -18,6 +18,8 @@ import {
 import { TerminalSession } from "@/app/contexts/TerminalSessionsContext";
 import { useRouter } from "expo-router";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
+import { useOrientation } from "@/app/utils/orientation";
+import { getTabBarHeight, getButtonSize } from "@/app/utils/responsive";
 
 interface TabBarProps {
   sessions: TerminalSession[];
@@ -48,6 +50,10 @@ export default function TabBar({
 }: TabBarProps) {
   const router = useRouter();
   const { isKeyboardVisible } = useKeyboard();
+  const { isLandscape } = useOrientation();
+
+  const tabBarHeight = getTabBarHeight(isLandscape);
+  const buttonSize = getButtonSize(isLandscape);
 
   const handleToggleSystemKeyboard = () => {
     if (keyboardIntentionallyHiddenRef.current) {
@@ -69,10 +75,10 @@ export default function TabBar({
     <View
       style={{
         backgroundColor: "#0e0e10",
-        borderTopWidth: 1.5,
+        borderTopWidth: isLandscape ? 1 : 1.5,
         borderTopColor: "#303032",
-        minHeight: 60,
-        maxHeight: 60,
+        minHeight: tabBarHeight,
+        maxHeight: tabBarHeight,
       }}
       focusable={false}
     >
@@ -90,9 +96,9 @@ export default function TabBar({
           className="items-center justify-center rounded-md"
           activeOpacity={0.7}
           style={{
-            width: 44,
-            height: 44,
-            borderWidth: 2,
+            width: buttonSize,
+            height: buttonSize,
+            borderWidth: isLandscape ? 1.5 : 2,
             borderColor: "#303032",
             backgroundColor: "#2a2a2a",
             shadowColor: "#000",
@@ -100,10 +106,10 @@ export default function TabBar({
             shadowOpacity: 0.1,
             shadowRadius: 4,
             elevation: 2,
-            marginRight: 8,
+            marginRight: isLandscape ? 6 : 8,
           }}
         >
-          <ArrowLeft size={20} color="#ffffff" />
+          <ArrowLeft size={isLandscape ? 18 : 20} color="#ffffff" />
         </TouchableOpacity>
 
         <View style={{ flex: 1, justifyContent: "center" }}>
@@ -142,7 +148,7 @@ export default function TabBar({
                   focusable={false}
                   className="flex-row items-center rounded-md"
                   style={{
-                    borderWidth: 2,
+                    borderWidth: isLandscape ? 1.5 : 2,
                     borderColor: isActive ? "#22c55e" : "#303032",
                     backgroundColor: isActive ? "#1a1a1a" : "#1a1a1a",
                     shadowColor: isActive ? "#22c55e" : "transparent",
@@ -150,8 +156,8 @@ export default function TabBar({
                     shadowOpacity: isActive ? 0.2 : 0,
                     shadowRadius: 4,
                     elevation: isActive ? 3 : 0,
-                    minWidth: 120,
-                    height: 44,
+                    minWidth: isLandscape ? 100 : 120,
+                    height: buttonSize,
                   }}
                 >
                   <View className="flex-1 px-3 py-2">
@@ -173,14 +179,14 @@ export default function TabBar({
                     className="items-center justify-center"
                     activeOpacity={0.7}
                     style={{
-                      width: 36,
-                      height: 44,
-                      borderLeftWidth: 2,
+                      width: isLandscape ? 32 : 36,
+                      height: buttonSize,
+                      borderLeftWidth: isLandscape ? 1.5 : 2,
                       borderLeftColor: isActive ? "#22c55e" : "#303032",
                     }}
                   >
                     <X
-                      size={16}
+                      size={isLandscape ? 14 : 16}
                       color={isActive ? "#ffffff" : "#9CA3AF"}
                       strokeWidth={2}
                     />
@@ -198,9 +204,9 @@ export default function TabBar({
             className="items-center justify-center rounded-md"
             activeOpacity={0.7}
             style={{
-              width: 44,
-              height: 44,
-              borderWidth: 2,
+              width: buttonSize,
+              height: buttonSize,
+              borderWidth: isLandscape ? 1.5 : 2,
               borderColor: "#303032",
               backgroundColor: "#2a2a2a",
               shadowColor: "#000",
@@ -208,13 +214,13 @@ export default function TabBar({
               shadowOpacity: 0.1,
               shadowRadius: 4,
               elevation: 2,
-              marginLeft: 8,
+              marginLeft: isLandscape ? 6 : 8,
             }}
           >
             {keyboardIntentionallyHiddenRef.current ? (
-              <ChevronUp size={20} color="#ffffff" />
+              <ChevronUp size={isLandscape ? 18 : 20} color="#ffffff" />
             ) : (
-              <ChevronDown size={20} color="#ffffff" />
+              <ChevronDown size={isLandscape ? 18 : 20} color="#ffffff" />
             )}
           </TouchableOpacity>
         )}
@@ -225,9 +231,9 @@ export default function TabBar({
           className="items-center justify-center rounded-md"
           activeOpacity={0.7}
           style={{
-            width: 44,
-            height: 44,
-            borderWidth: 2,
+            width: buttonSize,
+            height: buttonSize,
+            borderWidth: isLandscape ? 1.5 : 2,
             borderColor: "#303032",
             backgroundColor: "#2a2a2a",
             shadowColor: "#000",
@@ -235,13 +241,13 @@ export default function TabBar({
             shadowOpacity: 0.1,
             shadowRadius: 4,
             elevation: 2,
-            marginLeft: 8,
+            marginLeft: isLandscape ? 6 : 8,
           }}
         >
           {isCustomKeyboardVisible ? (
-            <Minus size={20} color="#ffffff" />
+            <Minus size={isLandscape ? 18 : 20} color="#ffffff" />
           ) : (
-            <Plus size={20} color="#ffffff" />
+            <Plus size={isLandscape ? 18 : 20} color="#ffffff" />
           )}
         </TouchableOpacity>
       </View>

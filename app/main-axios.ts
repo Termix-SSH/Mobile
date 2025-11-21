@@ -89,6 +89,10 @@ interface UserCount {
   count: number;
 }
 
+interface OIDCAuthorize {
+  auth_url: string;
+}
+
 // ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
@@ -186,7 +190,7 @@ function createApiInstance(
       config.headers["User-Agent"] = `Termix-Mobile/${platform.OS}`;
     }
 
-    return config;
+    return config;\
   });
 
   instance.interceptors.response.use(
@@ -725,11 +729,21 @@ export async function createSSHHost(hostData: SSHHostData): Promise<SSHHost> {
       keyType: hostData.authType === "key" ? hostData.keyType : null,
       credentialId:
         hostData.authType === "credential" ? hostData.credentialId : null,
+      overrideCredentialUsername: Boolean(hostData.overrideCredentialUsername),
       enableTerminal: Boolean(hostData.enableTerminal),
       enableTunnel: Boolean(hostData.enableTunnel),
       enableFileManager: Boolean(hostData.enableFileManager),
       defaultPath: hostData.defaultPath || "/",
       tunnelConnections: hostData.tunnelConnections || [],
+      jumpHosts: hostData.jumpHosts || [],
+      quickActions: hostData.quickActions || [],
+      statsConfig: hostData.statsConfig
+        ? typeof hostData.statsConfig === "string"
+          ? hostData.statsConfig
+          : JSON.stringify(hostData.statsConfig)
+        : null,
+      terminalConfig: hostData.terminalConfig || null,
+      forceKeyboardInteractive: Boolean(hostData.forceKeyboardInteractive),
     };
 
     if (!submitData.enableTunnel) {
@@ -781,11 +795,21 @@ export async function updateSSHHost(
       keyType: hostData.authType === "key" ? hostData.keyType : null,
       credentialId:
         hostData.authType === "credential" ? hostData.credentialId : null,
+      overrideCredentialUsername: Boolean(hostData.overrideCredentialUsername),
       enableTerminal: Boolean(hostData.enableTerminal),
       enableTunnel: Boolean(hostData.enableTunnel),
       enableFileManager: Boolean(hostData.enableFileManager),
       defaultPath: hostData.defaultPath || "/",
       tunnelConnections: hostData.tunnelConnections || [],
+      jumpHosts: hostData.jumpHosts || [],
+      quickActions: hostData.quickActions || [],
+      statsConfig: hostData.statsConfig
+        ? typeof hostData.statsConfig === "string"
+          ? hostData.statsConfig
+          : JSON.stringify(hostData.statsConfig)
+        : null,
+      terminalConfig: hostData.terminalConfig || null,
+      forceKeyboardInteractive: Boolean(hostData.forceKeyboardInteractive),
     };
 
     if (!submitData.enableTunnel) {
@@ -845,6 +869,65 @@ export async function getSSHHostById(hostId: number): Promise<SSHHost> {
     return response.data;
   } catch (error) {
     handleApiError(error, "fetch SSH host");
+  }
+}
+
+export async function exportSSHHostWithCredentials(
+  hostId: number,
+): Promise<SSHHost> {
+  try {
+    const response = await sshHostApi.get(`/db/host/${hostId}/export`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "export SSH host with credentials");
+  }
+}
+
+// ============================================================================
+// SSH AUTOSTART MANAGEMENT
+// ============================================================================
+
+export async function enableAutoStart(
+  sshConfigId: number,
+): Promise<any> {
+  try {
+    const response = await sshHostApi.post("/autostart/enable", {
+      sshConfigId,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "enable autostart");
+  }
+}
+
+export async function disableAutoStart(
+  sshConfigId: number,
+): Promise<any> {
+  try {
+    const response = await sshHostApi.delete("/autostart/disable", {
+      data: { sshConfigId },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "disable autostart");
+  }
+}
+
+export async function getAutoStartStatus(): Promise<{
+  autostart_configs: Array<{
+    sshConfigId: number;
+    host: string;
+    port: number;
+    username: string;
+    authType: string;
+  }>;
+  total_count: number;
+}> {
+  try {
+    const response = await sshHostApi.get("/autostart/status");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch autostart status");
   }
 }
 
@@ -1029,6 +1112,7 @@ export async function connectSSH(
     authType?: string;
     credentialId?: number;
     userId?: string;
+    forceKeyboardInteractive?: boolean;
   },
 ): Promise<any> {
   try {
@@ -1066,17 +1150,58 @@ export async function getSSHStatus(
   }
 }
 
+export async function verifySSHTOTP(
+  sessionId: string,
+  totpCode: string,
+): Promise<any> {
+  try {
+    const response = await fileManagerApi.post("/ssh/connect-totp", {
+      sessionId,
+      totpCode,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "verify SSH TOTP");
+  }
+}
+
+export async function keepSSHAlive(sessionId: string): Promise<any> {
+  try {
+    const response = await fileManagerApi.post("/ssh/keepalive", {
+      sessionId,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "SSH keepalive");
+  }
+}
+
 export async function listSSHFiles(
   sessionId: string,
   path: string,
-): Promise<any[]> {
+): Promise<{ files: any[]; path: string }> {
   try {
     const response = await fileManagerApi.get("/ssh/listFiles", {
       params: { sessionId, path },
     });
-    return response.data || [];
+    return response.data || { files: [], path };
   } catch (error) {
     handleApiError(error, "list SSH files");
+    return { files: [], path };
+  }
+}
+
+export async function identifySSHSymlink(
+  sessionId: string,
+  path: string,
+): Promise<{ path: string; target: string; type: "directory" | "file" }> {
+  try {
+    const response = await fileManagerApi.get("/ssh/identifySymlink", {
+      params: { sessionId, path },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "identify SSH symlink");
   }
 }
 
@@ -1089,7 +1214,13 @@ export async function readSSHFile(
       params: { sessionId, path },
     });
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
+    if (error?.response?.status === 404) {
+      const customError: any = new Error("File not found");
+      customError.response = error.response;
+      customError.isFileNotFound = error.response.data?.fileNotFound || true;
+      throw customError;
+    }
     handleApiError(error, "read SSH file");
   }
 }
@@ -1232,6 +1363,360 @@ export async function renameSSHItem(
     return response.data;
   } catch (error) {
     handleApiError(error, "rename SSH item");
+    throw error;
+  }
+}
+
+export async function downloadSSHFile(
+  sessionId: string,
+  filePath: string,
+  hostId?: number,
+  userId?: string,
+): Promise<any> {
+  try {
+    const response = await fileManagerApi.post("/ssh/downloadFile", {
+      sessionId,
+      path: filePath,
+      hostId,
+      userId,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "download SSH file");
+  }
+}
+
+export async function copySSHItem(
+  sessionId: string,
+  sourcePath: string,
+  targetDir: string,
+  hostId?: number,
+  userId?: string,
+): Promise<any> {
+  try {
+    const response = await fileManagerApi.post(
+      "/ssh/copyItem",
+      {
+        sessionId,
+        sourcePath,
+        targetDir,
+        hostId,
+        userId,
+      },
+      {
+        timeout: 60000,
+      },
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "copy SSH item");
+    throw error;
+  }
+}
+
+export async function moveSSHItem(
+  sessionId: string,
+  oldPath: string,
+  newPath: string,
+  hostId?: number,
+  userId?: string,
+): Promise<any> {
+  try {
+    const response = await fileManagerApi.put(
+      "/ssh/moveItem",
+      {
+        sessionId,
+        oldPath,
+        newPath,
+        hostId,
+        userId,
+      },
+      {
+        timeout: 60000,
+      },
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "move SSH item");
+    throw error;
+  }
+}
+
+export async function changeSSHPermissions(
+  sessionId: string,
+  path: string,
+  permissions: string,
+  hostId?: number,
+  userId?: string,
+): Promise<{ success: boolean; message: string }> {
+  try {
+    fileLogger.info("Changing SSH file permissions", {
+      operation: "change_permissions",
+      sessionId,
+      path,
+      permissions,
+      hostId,
+      userId,
+    });
+
+    const response = await fileManagerApi.post("/ssh/changePermissions", {
+      sessionId,
+      path,
+      permissions,
+      hostId,
+      userId,
+    });
+
+    fileLogger.success("SSH file permissions changed successfully", {
+      operation: "change_permissions",
+      sessionId,
+      path,
+      permissions,
+    });
+
+    return response.data;
+  } catch (error) {
+    fileLogger.error("Failed to change SSH file permissions", error, {
+      operation: "change_permissions",
+      sessionId,
+      path,
+      permissions,
+    });
+    handleApiError(error, "change SSH permissions");
+    throw error;
+  }
+}
+
+export async function extractSSHArchive(
+  sessionId: string,
+  archivePath: string,
+  extractPath?: string,
+  hostId?: number,
+  userId?: string,
+): Promise<{ success: boolean; message: string; extractPath: string }> {
+  try {
+    fileLogger.info("Extracting archive", {
+      operation: "extract_archive",
+      sessionId,
+      archivePath,
+      extractPath,
+      hostId,
+      userId,
+    });
+
+    const response = await fileManagerApi.post("/ssh/extractArchive", {
+      sessionId,
+      archivePath,
+      extractPath,
+      hostId,
+      userId,
+    });
+
+    fileLogger.success("Archive extracted successfully", {
+      operation: "extract_archive",
+      sessionId,
+      archivePath,
+      extractPath: response.data.extractPath,
+    });
+
+    return response.data;
+  } catch (error) {
+    fileLogger.error("Failed to extract archive", error, {
+      operation: "extract_archive",
+      sessionId,
+      archivePath,
+      extractPath,
+    });
+    handleApiError(error, "extract archive");
+    throw error;
+  }
+}
+
+export async function compressSSHFiles(
+  sessionId: string,
+  paths: string[],
+  archiveName: string,
+  format?: string,
+  hostId?: number,
+  userId?: string,
+): Promise<{ success: boolean; message: string; archivePath: string }> {
+  try {
+    fileLogger.info("Compressing files", {
+      operation: "compress_files",
+      sessionId,
+      paths,
+      archiveName,
+      format,
+      hostId,
+      userId,
+    });
+
+    const response = await fileManagerApi.post("/ssh/compressFiles", {
+      sessionId,
+      paths,
+      archiveName,
+      format: format || "zip",
+      hostId,
+      userId,
+    });
+
+    fileLogger.success("Files compressed successfully", {
+      operation: "compress_files",
+      sessionId,
+      paths,
+      archivePath: response.data.archivePath,
+    });
+
+    return response.data;
+  } catch (error) {
+    fileLogger.error("Failed to compress files", error, {
+      operation: "compress_files",
+      sessionId,
+      paths,
+      archiveName,
+      format,
+    });
+    handleApiError(error, "compress files");
+    throw error;
+  }
+}
+
+// ============================================================================
+// FILE MANAGER DATA
+// ============================================================================
+
+export async function getRecentFiles(hostId: number): Promise<any> {
+  try {
+    const response = await authApi.get("/ssh/file_manager/recent", {
+      params: { hostId },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "get recent files");
+    throw error;
+  }
+}
+
+export async function addRecentFile(
+  hostId: number,
+  path: string,
+  name?: string,
+): Promise<any> {
+  try {
+    const response = await authApi.post("/ssh/file_manager/recent", {
+      hostId,
+      path,
+      name,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "add recent file");
+    throw error;
+  }
+}
+
+export async function removeRecentFile(
+  hostId: number,
+  path: string,
+): Promise<any> {
+  try {
+    const response = await authApi.delete("/ssh/file_manager/recent", {
+      data: { hostId, path },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "remove recent file");
+    throw error;
+  }
+}
+
+export async function getPinnedFiles(hostId: number): Promise<any> {
+  try {
+    const response = await authApi.get("/ssh/file_manager/pinned", {
+      params: { hostId },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "get pinned files");
+    throw error;
+  }
+}
+
+export async function addPinnedFile(
+  hostId: number,
+  path: string,
+  name?: string,
+): Promise<any> {
+  try {
+    const response = await authApi.post("/ssh/file_manager/pinned", {
+      hostId,
+      path,
+      name,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "add pinned file");
+    throw error;
+  }
+}
+
+export async function removePinnedFile(
+  hostId: number,
+  path: string,
+): Promise<any> {
+  try {
+    const response = await authApi.delete("/ssh/file_manager/pinned", {
+      data: { hostId, path },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "remove pinned file");
+    throw error;
+  }
+}
+
+export async function getFolderShortcuts(hostId: number): Promise<any> {
+  try {
+    const response = await authApi.get("/ssh/file_manager/shortcuts", {
+      params: { hostId },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "get folder shortcuts");
+    throw error;
+  }
+}
+
+export async function addFolderShortcut(
+  hostId: number,
+  path: string,
+  name?: string,
+): Promise<any> {
+  try {
+    const response = await authApi.post("/ssh/file_manager/shortcuts", {
+      hostId,
+      path,
+      name,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "add folder shortcut");
+    throw error;
+  }
+}
+
+export async function removeFolderShortcut(
+  hostId: number,
+  path: string,
+): Promise<any> {
+  try {
+    const response = await authApi.delete("/ssh/file_manager/shortcuts", {
+      data: { hostId, path },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "remove folder shortcut");
+    throw error;
   }
 }
 
@@ -1301,6 +1786,24 @@ export async function getServerMetricsById(id: number): Promise<ServerMetrics> {
       }
     }
     handleApiError(error, "fetch server metrics");
+  }
+}
+
+export async function refreshServerPolling(): Promise<void> {
+  try {
+    await statsApi.post("/refresh");
+  } catch (error) {
+    console.warn("Failed to refresh server polling:", error);
+  }
+}
+
+export async function notifyHostCreatedOrUpdated(
+  hostId: number,
+): Promise<void> {
+  try {
+    await statsApi.post("/host-updated", { hostId });
+  } catch (error) {
+    console.warn("Failed to notify stats server of host update:", error);
   }
 }
 
@@ -1451,6 +1954,17 @@ export async function getUserInfo(): Promise<UserInfo> {
   }
 }
 
+export async function unlockUserData(
+  password: string,
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const response = await authApi.post("/users/unlock-data", { password });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "unlock user data");
+  }
+}
+
 export async function getRegistrationAllowed(): Promise<{ allowed: boolean }> {
   try {
     const response = await authApi.get("/users/registration-allowed");
@@ -1469,6 +1983,46 @@ export async function getRegistrationAllowed(): Promise<{ allowed: boolean }> {
       }
     }
     handleApiError(error, "check registration status");
+  }
+}
+
+export async function getPasswordLoginAllowed(): Promise<{ allowed: boolean }> {
+  try {
+    const response = await authApi.get("/users/password-login-allowed");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "check password login status");
+  }
+}
+
+export async function getOIDCConfig(): Promise<any> {
+  try {
+    const response = await authApi.get("/users/oidc-config");
+    return response.data;
+  } catch (error: any) {
+    console.warn(
+      "Failed to fetch OIDC config:",
+      error.response?.data?.error || error.message,
+    );
+    return null;
+  }
+}
+
+export async function getAdminOIDCConfig(): Promise<any> {
+  try {
+    const response = await authApi.get("/users/oidc-config/admin");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch admin OIDC config");
+  }
+}
+
+export async function getSetupRequired(): Promise<{ setup_required: boolean }> {
+  try {
+    const response = await authApi.get("/users/setup-required");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "check setup status");
   }
 }
 
@@ -1522,6 +2076,30 @@ export async function completePasswordReset(
   }
 }
 
+export async function changePassword(
+  oldPassword: string,
+  newPassword: string,
+): Promise<any> {
+  try {
+    const response = await authApi.post("/users/change-password", {
+      oldPassword,
+      newPassword,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "change password");
+  }
+}
+
+export async function getOIDCAuthorizeUrl(): Promise<OIDCAuthorize> {
+  try {
+    const response = await authApi.get("/users/oidc/authorize");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "get OIDC authorize URL");
+  }
+}
+
 // ============================================================================
 // USER MANAGEMENT
 // ============================================================================
@@ -1532,6 +2110,53 @@ export async function getUserList(): Promise<{ users: UserInfo[] }> {
     return response.data;
   } catch (error) {
     handleApiError(error, "fetch user list");
+  }
+}
+
+export async function getSessions(): Promise<{
+  sessions: Array<{
+    id: string;
+    userId: string;
+    username?: string;
+    deviceType: string;
+    deviceInfo: string;
+    createdAt: string;
+    expiresAt: string;
+    lastActiveAt: string;
+    jwtToken: string;
+    isRevoked?: boolean;
+  }>;
+}> {
+  try {
+    const response = await authApi.get("/users/sessions");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch sessions");
+  }
+}
+
+export async function revokeSession(
+  sessionId: string,
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const response = await authApi.delete(`/users/sessions/${sessionId}`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "revoke session");
+  }
+}
+
+export async function revokeAllUserSessions(
+  userId: string,
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const response = await authApi.post("/users/sessions/revoke-all", {
+      targetUserId: userId,
+      exceptCurrent: false,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "revoke all user sessions");
   }
 }
 
@@ -1585,6 +2210,37 @@ export async function updateRegistrationAllowed(
     return response.data;
   } catch (error) {
     handleApiError(error, "update registration allowed");
+  }
+}
+
+export async function updatePasswordLoginAllowed(
+  allowed: boolean,
+): Promise<{ allowed: boolean }> {
+  try {
+    const response = await authApi.patch("/users/password-login-allowed", {
+      allowed,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "update password login allowed");
+  }
+}
+
+export async function updateOIDCConfig(config: any): Promise<any> {
+  try {
+    const response = await authApi.post("/users/oidc-config", config);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "update OIDC config");
+  }
+}
+
+export async function disableOIDCConfig(): Promise<any> {
+  try {
+    const response = await authApi.delete("/users/oidc-config");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "disable OIDC config");
   }
 }
 
@@ -1729,23 +2385,18 @@ export async function generateBackupCodes(
   }
 }
 
-export async function getUserAlerts(
-  userId: string,
-): Promise<{ alerts: any[] }> {
+export async function getUserAlerts(): Promise<{ alerts: any[] }> {
   try {
-    const response = await authApi.get(`/alerts/user/${userId}`);
+    const response = await authApi.get(`/alerts`);
     return response.data;
   } catch (error) {
     handleApiError(error, "fetch user alerts");
   }
 }
 
-export async function dismissAlert(
-  userId: string,
-  alertId: string,
-): Promise<any> {
+export async function dismissAlert(alertId: string): Promise<any> {
   try {
-    const response = await authApi.post("/alerts/dismiss", { userId, alertId });
+    const response = await authApi.post("/alerts/dismiss", { alertId });
     return response.data;
   } catch (error) {
     handleApiError(error, "dismiss alert");
@@ -2067,6 +2718,92 @@ export async function renameFolder(
   }
 }
 
+export async function getSSHFolders(): Promise<any[]> {
+  try {
+    sshLogger.info("Fetching SSH folders", {
+      operation: "fetch_ssh_folders",
+    });
+
+    const response = await authApi.get("/ssh/folders");
+
+    sshLogger.success("SSH folders fetched successfully", {
+      operation: "fetch_ssh_folders",
+      count: response.data.length,
+    });
+
+    return response.data;
+  } catch (error) {
+    sshLogger.error("Failed to fetch SSH folders", error, {
+      operation: "fetch_ssh_folders",
+    });
+    handleApiError(error, "fetch SSH folders");
+    throw error;
+  }
+}
+
+export async function updateFolderMetadata(
+  name: string,
+  color?: string,
+  icon?: string,
+): Promise<void> {
+  try {
+    sshLogger.info("Updating folder metadata", {
+      operation: "update_folder_metadata",
+      name,
+      color,
+      icon,
+    });
+
+    await authApi.put("/ssh/folders/metadata", {
+      name,
+      color,
+      icon,
+    });
+
+    sshLogger.success("Folder metadata updated successfully", {
+      operation: "update_folder_metadata",
+      name,
+    });
+  } catch (error) {
+    sshLogger.error("Failed to update folder metadata", error, {
+      operation: "update_folder_metadata",
+      name,
+    });
+    handleApiError(error, "update folder metadata");
+    throw error;
+  }
+}
+
+export async function deleteAllHostsInFolder(
+  folderName: string,
+): Promise<{ deletedCount: number }> {
+  try {
+    sshLogger.info("Deleting all hosts in folder", {
+      operation: "delete_folder_hosts",
+      folderName,
+    });
+
+    const response = await authApi.delete(
+      `/ssh/folders/${encodeURIComponent(folderName)}/hosts`,
+    );
+
+    sshLogger.success("All hosts in folder deleted successfully", {
+      operation: "delete_folder_hosts",
+      folderName,
+      deletedCount: response.data.deletedCount,
+    });
+
+    return response.data;
+  } catch (error) {
+    sshLogger.error("Failed to delete hosts in folder", error, {
+      operation: "delete_folder_hosts",
+      folderName,
+    });
+    handleApiError(error, "delete hosts in folder");
+    throw error;
+  }
+}
+
 export async function renameCredentialFolder(
   oldName: string,
   newName: string,
@@ -2079,5 +2816,417 @@ export async function renameCredentialFolder(
     return response.data;
   } catch (error) {
     handleApiError(error, "rename credential folder");
+    throw error;
+  }
+}
+
+export async function detectKeyType(
+  privateKey: string,
+  keyPassword?: string,
+): Promise<any> {
+  try {
+    const response = await authApi.post("/credentials/detect-key-type", {
+      privateKey,
+      keyPassword,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "detect key type");
+    throw error;
+  }
+}
+
+export async function detectPublicKeyType(publicKey: string): Promise<any> {
+  try {
+    const response = await authApi.post("/credentials/detect-public-key-type", {
+      publicKey,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "detect public key type");
+    throw error;
+  }
+}
+
+export async function validateKeyPair(
+  privateKey: string,
+  publicKey: string,
+  keyPassword?: string,
+): Promise<any> {
+  try {
+    const response = await authApi.post("/credentials/validate-key-pair", {
+      privateKey,
+      publicKey,
+      keyPassword,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "validate key pair");
+    throw error;
+  }
+}
+
+export async function generatePublicKeyFromPrivate(
+  privateKey: string,
+  keyPassword?: string,
+): Promise<any> {
+  try {
+    const response = await authApi.post("/credentials/generate-public-key", {
+      privateKey,
+      keyPassword,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "generate public key from private key");
+    throw error;
+  }
+}
+
+export async function generateKeyPair(
+  keyType: "ssh-ed25519" | "ssh-rsa" | "ecdsa-sha2-nistp256",
+  keySize?: number,
+  passphrase?: string,
+): Promise<any> {
+  try {
+    const response = await authApi.post("/credentials/generate-key-pair", {
+      keyType,
+      keySize,
+      passphrase,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "generate SSH key pair");
+    throw error;
+  }
+}
+
+export async function deployCredentialToHost(
+  credentialId: number,
+  targetHostId: number,
+): Promise<any> {
+  try {
+    const response = await authApi.post(
+      `/credentials/${credentialId}/deploy-to-host`,
+      { targetHostId },
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "deploy credential to host");
+    throw error;
+  }
+}
+
+// ============================================================================
+// SNIPPETS API
+// ============================================================================
+
+export async function getSnippets(): Promise<any> {
+  try {
+    const response = await authApi.get("/snippets");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch snippets");
+    throw error;
+  }
+}
+
+export async function createSnippet(snippetData: any): Promise<any> {
+  try {
+    const response = await authApi.post("/snippets", snippetData);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "create snippet");
+    throw error;
+  }
+}
+
+export async function updateSnippet(
+  snippetId: number,
+  snippetData: any,
+): Promise<any> {
+  try {
+    const response = await authApi.put(`/snippets/${snippetId}`, snippetData);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "update snippet");
+    throw error;
+  }
+}
+
+export async function deleteSnippet(snippetId: number): Promise<any> {
+  try {
+    const response = await authApi.delete(`/snippets/${snippetId}`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "delete snippet");
+    throw error;
+  }
+}
+
+export async function executeSnippet(
+  snippetId: number,
+  hostId: number,
+): Promise<{ success: boolean; output: string; error?: string }> {
+  try {
+    const response = await authApi.post("/snippets/execute", {
+      snippetId,
+      hostId,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "execute snippet");
+    throw error;
+  }
+}
+
+export async function reorderSnippets(
+  snippets: Array<{ id: number; order: number; folder?: string }>,
+): Promise<{ success: boolean; updated: number }> {
+  try {
+    const response = await authApi.put("/snippets/reorder", { snippets });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "reorder snippets");
+    throw error;
+  }
+}
+
+export async function getSnippetFolders(): Promise<any> {
+  try {
+    const response = await authApi.get("/snippets/folders");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch snippet folders");
+    throw error;
+  }
+}
+
+export async function createSnippetFolder(folderData: {
+  name: string;
+  color?: string;
+  icon?: string;
+}): Promise<any> {
+  try {
+    const response = await authApi.post("/snippets/folders", folderData);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "create snippet folder");
+    throw error;
+  }
+}
+
+export async function updateSnippetFolderMetadata(
+  folderName: string,
+  metadata: { color?: string; icon?: string },
+): Promise<any> {
+  try {
+    const response = await authApi.put(
+      `/snippets/folders/${encodeURIComponent(folderName)}/metadata`,
+      metadata,
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "update snippet folder metadata");
+    throw error;
+  }
+}
+
+export async function renameSnippetFolder(
+  oldName: string,
+  newName: string,
+): Promise<{ success: boolean; oldName: string; newName: string }> {
+  try {
+    const response = await authApi.put("/snippets/folders/rename", {
+      oldName,
+      newName,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "rename snippet folder");
+    throw error;
+  }
+}
+
+export async function deleteSnippetFolder(
+  folderName: string,
+): Promise<{ success: boolean }> {
+  try {
+    const response = await authApi.delete(
+      `/snippets/folders/${encodeURIComponent(folderName)}`,
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "delete snippet folder");
+    throw error;
+  }
+}
+
+// ============================================================================
+// HOMEPAGE API
+// ============================================================================
+
+export interface UptimeInfo {
+  uptimeMs: number;
+  uptimeSeconds: number;
+  formatted: string;
+}
+
+export interface RecentActivityItem {
+  id: number;
+  userId: string;
+  type: "terminal" | "file_manager";
+  hostId: number;
+  hostName: string;
+  timestamp: string;
+}
+
+export async function getUptime(): Promise<UptimeInfo> {
+  try {
+    const response = await authApi.get("/uptime");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch uptime");
+    throw error;
+  }
+}
+
+export async function getRecentActivity(
+  limit?: number,
+): Promise<RecentActivityItem[]> {
+  try {
+    const response = await authApi.get("/activity/recent", {
+      params: { limit },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch recent activity");
+    throw error;
+  }
+}
+
+export async function logActivity(
+  type: "terminal" | "file_manager",
+  hostId: number,
+  hostName: string,
+): Promise<{ message: string; id: number | string }> {
+  try {
+    const response = await authApi.post("/activity/log", {
+      type,
+      hostId,
+      hostName,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "log activity");
+    throw error;
+  }
+}
+
+export async function resetRecentActivity(): Promise<{ message: string }> {
+  try {
+    const response = await authApi.delete("/activity/reset");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "reset recent activity");
+    throw error;
+  }
+}
+
+// ============================================================================
+// COMMAND HISTORY API
+// ============================================================================
+
+export async function saveCommandToHistory(
+  hostId: number,
+  command: string,
+): Promise<{ id: number; command: string; executedAt: string }> {
+  try {
+    const response = await authApi.post("/terminal/command_history", {
+      hostId,
+      command,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "save command to history");
+    throw error;
+  }
+}
+
+export async function getCommandHistory(
+  hostId: number,
+  limit: number = 100,
+): Promise<string[]> {
+  try {
+    const response = await authApi.get(`/terminal/command_history/${hostId}`, {
+      params: { limit },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch command history");
+    throw error;
+  }
+}
+
+export async function deleteCommandFromHistory(
+  hostId: number,
+  command: string,
+): Promise<{ success: boolean }> {
+  try {
+    const response = await authApi.post("/terminal/command_history/delete", {
+      hostId,
+      command,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "delete command from history");
+    throw error;
+  }
+}
+
+export async function clearCommandHistory(
+  hostId: number,
+): Promise<{ success: boolean }> {
+  try {
+    const response = await authApi.delete(
+      `/terminal/command_history/${hostId}`,
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "clear command history");
+    throw error;
+  }
+}
+
+// ============================================================================
+// OIDC ACCOUNT LINKING
+// ============================================================================
+
+export async function linkOIDCToPasswordAccount(
+  oidcUserId: string,
+  targetUsername: string,
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const response = await authApi.post("/users/link-oidc-to-password", {
+      oidcUserId,
+      targetUsername,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "link OIDC account to password account");
+    throw error;
+  }
+}
+
+export async function unlinkOIDCFromPasswordAccount(
+  userId: string,
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const response = await authApi.post("/users/unlink-oidc-from-password", {
+      userId,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "unlink OIDC from password account");
+    throw error;
   }
 }

@@ -21,14 +21,19 @@ import { useRouter } from "expo-router";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import { Terminal, TerminalHandle } from "@/app/Tabs/Sessions/Terminal";
+import { ServerStats, ServerStatsHandle } from "@/app/Tabs/Sessions/ServerStats";
+import { FileManager, FileManagerHandle } from "@/app/Tabs/Sessions/FileManager";
 import TabBar from "@/app/Tabs/Sessions/Navigation/TabBar";
-import CustomKeyboard from "@/app/Tabs/Sessions/CustomKeyboard";
+import BottomToolbar from "@/app/Tabs/Sessions/BottomToolbar";
 import KeyboardBar from "@/app/Tabs/Sessions/KeyboardBar";
 import { ArrowLeft } from "lucide-react-native";
+import { useOrientation } from "@/app/utils/orientation";
+import { getMaxKeyboardHeight } from "@/app/utils/responsive";
 
 export default function Sessions() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { height, isLandscape } = useOrientation();
   const {
     sessions,
     activeSessionId,
@@ -46,6 +51,12 @@ export default function Sessions() {
   const terminalRefs = useRef<Record<string, React.RefObject<TerminalHandle>>>(
     {},
   );
+  const statsRefs = useRef<Record<string, React.RefObject<ServerStatsHandle>>>(
+    {},
+  );
+  const fileManagerRefs = useRef<Record<string, React.RefObject<FileManagerHandle>>>(
+    {},
+  );
   const [activeModifiers, setActiveModifiers] = useState({
     ctrl: false,
     alt: false,
@@ -55,22 +66,85 @@ export default function Sessions() {
   );
   const [keyboardType, setKeyboardType] = useState<any>("default");
 
+  // Calculate responsive keyboard heights and margins
+  const maxKeyboardHeight = getMaxKeyboardHeight(height, isLandscape);
+  const effectiveKeyboardHeight = isLandscape
+    ? Math.min(lastKeyboardHeight, maxKeyboardHeight)
+    : lastKeyboardHeight;
+  const currentKeyboardHeight = isLandscape
+    ? Math.min(keyboardHeight, maxKeyboardHeight)
+    : keyboardHeight;
+
+  // Calculate bottom margins for content
+  const getBottomMargin = () => {
+    const tabBarHeight = 60;
+    const keyboardBarHeight = 50;
+    const baseMargin = tabBarHeight + keyboardBarHeight + 5;
+
+    if (keyboardIntentionallyHiddenRef.current) {
+      return 126;
+    }
+
+    if (isCustomKeyboardVisible) {
+      return effectiveKeyboardHeight + baseMargin;
+    }
+
+    if (isKeyboardVisible && currentKeyboardHeight > 0) {
+      return currentKeyboardHeight + baseMargin;
+    }
+
+    if (effectiveKeyboardHeight > 0) {
+      return effectiveKeyboardHeight + baseMargin;
+    }
+
+    return baseMargin;
+  };
+
   useEffect(() => {
-    const map: Record<string, React.RefObject<TerminalHandle>> = {
+    const terminalMap: Record<string, React.RefObject<TerminalHandle>> = {
       ...terminalRefs.current,
     };
+    const statsMap: Record<string, React.RefObject<ServerStatsHandle>> = {
+      ...statsRefs.current,
+    };
+    const fileManagerMap: Record<string, React.RefObject<FileManagerHandle>> = {
+      ...fileManagerRefs.current,
+    };
+
     sessions.forEach((s) => {
-      if (!map[s.id]) {
-        map[s.id] =
+      if (s.type === "terminal" && !terminalMap[s.id]) {
+        terminalMap[s.id] =
           React.createRef<TerminalHandle>() as React.RefObject<TerminalHandle>;
+      } else if (s.type === "stats" && !statsMap[s.id]) {
+        statsMap[s.id] =
+          React.createRef<ServerStatsHandle>() as React.RefObject<ServerStatsHandle>;
+      } else if (s.type === "filemanager" && !fileManagerMap[s.id]) {
+        fileManagerMap[s.id] =
+          React.createRef<FileManagerHandle>() as React.RefObject<FileManagerHandle>;
       }
     });
-    Object.keys(map).forEach((id) => {
-      if (!sessions.find((s) => s.id === id)) {
-        delete map[id];
+
+    Object.keys(terminalMap).forEach((id) => {
+      if (!sessions.find((s) => s.id === id && s.type === "terminal")) {
+        delete terminalMap[id];
       }
     });
-    terminalRefs.current = map;
+
+    Object.keys(statsMap).forEach((id) => {
+      if (!sessions.find((s) => s.id === id && s.type === "stats")) {
+        delete statsMap[id];
+      }
+    });
+
+    Object.keys(fileManagerMap).forEach((id) => {
+      if (!sessions.find((s) => s.id === id && s.type === "filemanager")) {
+        delete fileManagerMap[id];
+      }
+    });
+
+    terminalRefs.current = terminalMap;
+    statsRefs.current = statsMap;
+    fileManagerRefs.current = fileManagerMap;
   }, [sessions]);
 
   useFocusEffect(
@@ -265,41 +339,72 @@ export default function Sessions() {
       <View
         style={{
           flex: 1,
-          marginBottom: keyboardIntentionallyHiddenRef.current
-            ? 126
-            : isCustomKeyboardVisible
-              ? lastKeyboardHeight + 115
-              : isKeyboardVisible && keyboardHeight > 0
-                ? keyboardHeight + 115
-                : lastKeyboardHeight > 0
-                  ? lastKeyboardHeight + 115
-                  : 115,
+          marginBottom: getBottomMargin(),
         }}
       >
-        {sessions.map((session) => (
-          <Terminal
-            key={session.id}
-            ref={terminalRefs.current[session.id]}
-            hostConfig={{
-              id: parseInt(session.host.id.toString()),
-              name: session.host.name,
-              ip: session.host.ip,
-              port: parseInt(session.host.port.toString()),
-              username: session.host.username,
-              authType: session.host.authType,
-              password: session.host.password,
-              key: session.host.key,
-              keyPassword: session.host.keyPassword,
-              keyType: session.host.keyType,
-              credentialId: session.host.credentialId
-                ? parseInt(session.host.credentialId.toString())
-                : undefined,
-            }}
-            isVisible={session.id === activeSessionId}
-            title={session.title}
-            onClose={() => handleTabClose(session.id)}
-          />
-        ))}
+        {sessions.map((session) => {
+          if (session.type === "terminal") {
+            return (
+              <Terminal
+                key={session.id}
+                ref={terminalRefs.current[session.id]}
+                hostConfig={{
+                  id: parseInt(session.host.id.toString()),
+                  name: session.host.name,
+                  ip: session.host.ip,
+                  port: parseInt(session.host.port.toString()),
+                  username: session.host.username,
+                  authType: session.host.authType,
+                  password: session.host.password,
+                  key: session.host.key,
+                  keyPassword: session.host.keyPassword,
+                  keyType: session.host.keyType,
+                  credentialId: session.host.credentialId
+                    ? parseInt(session.host.credentialId.toString())
+                    : undefined,
+                }}
+                isVisible={session.id === activeSessionId}
+                title={session.title}
+                onClose={() => handleTabClose(session.id)}
+              />
+            );
+          } else if (session.type === "stats") {
+            return (
+              <ServerStats
+                key={session.id}
+                ref={statsRefs.current[session.id]}
+                hostConfig={{
+                  id: parseInt(session.host.id.toString()),
+                  name: session.host.name,
+                }}
+                isVisible={session.id === activeSessionId}
+                title={session.title}
+                onClose={() => handleTabClose(session.id)}
+              />
+            );
+          } else if (session.type === "filemanager") {
+            return (
+              <View
+                key={session.id}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  display: session.id === activeSessionId ? "flex" : "none",
+                }}
+              >
+                <FileManager
+                  ref={fileManagerRefs.current[session.id]}
+                  host={session.host}
+                  sessionId={session.id}
+                />
+              </View>
+            );
+          }
+          return null;
+        })}
       </View>
 
       {sessions.length === 0 && (
@@ -397,31 +502,23 @@ export default function Sessions() {
             bottom: 0,
             left: 0,
             right: 0,
-            height: keyboardIntentionallyHiddenRef.current
-              ? 126
-              : isCustomKeyboardVisible
-                ? lastKeyboardHeight + 115
-                : isKeyboardVisible && keyboardHeight > 0
-                  ? keyboardHeight + 115
-                  : lastKeyboardHeight > 0
-                    ? lastKeyboardHeight + 115
-                    : 115,
+            height: getBottomMargin(),
             backgroundColor: "#09090b",
             zIndex: 999,
           }}
         />
       )}
 
-      {sessions.length > 0 && (
+      {sessions.length > 0 && activeSession?.type === "terminal" && (
         <View
           style={{
             position: "absolute",
             bottom: keyboardIntentionallyHiddenRef.current
               ? 0
               : isCustomKeyboardVisible
-                ? lastKeyboardHeight
-                : isKeyboardVisible && keyboardHeight > 0
-                  ? keyboardHeight
+                ? effectiveKeyboardHeight
+                : isKeyboardVisible && currentKeyboardHeight > 0
+                  ? currentKeyboardHeight
                   : 0,
             left: 0,
             right: 0,
@@ -450,9 +547,9 @@ export default function Sessions() {
           bottom: keyboardIntentionallyHiddenRef.current
             ? 66
             : isCustomKeyboardVisible
-              ? lastKeyboardHeight + 50
-              : isKeyboardVisible && keyboardHeight > 0
-                ? keyboardHeight + 50
+              ? effectiveKeyboardHeight + 50
+              : isKeyboardVisible && currentKeyboardHeight > 0
+                ? currentKeyboardHeight + 50
                 : 50,
           left: 0,
           right: 0,
@@ -475,7 +572,7 @@ export default function Sessions() {
         />
       </View>
 
-      {sessions.length > 0 && isCustomKeyboardVisible && (
+      {sessions.length > 0 && isCustomKeyboardVisible && activeSession?.type === "terminal" && (
         <View
           style={{
             position: "absolute",
@@ -485,27 +582,30 @@ export default function Sessions() {
             zIndex: 1002,
           }}
         >
-          <CustomKeyboard
+          <BottomToolbar
             terminalRef={
               activeSessionId
                 ? terminalRefs.current[activeSessionId]
                 : React.createRef<TerminalHandle>()
             }
             isVisible={isCustomKeyboardVisible}
-            keyboardHeight={lastKeyboardHeight}
+            keyboardHeight={effectiveKeyboardHeight}
             isKeyboardIntentionallyHidden={
               keyboardIntentionallyHiddenRef.current
+            }
+            currentHostId={
+              activeSession ? parseInt(activeSession.host.id.toString()) : undefined
             }
           />
         </View>
       )}
 
-      {sessions.length > 0 && !isCustomKeyboardVisible && (
+      {sessions.length > 0 && !isCustomKeyboardVisible && activeSession?.type === "terminal" && (
         <TextInput
           ref={hiddenInputRef}
           style={{
             position: "absolute",
-            bottom: keyboardHeight > 0 ? keyboardHeight : 0,
+            bottom: currentKeyboardHeight > 0 ? currentKeyboardHeight : 0,
             left: 0,
             width: 1,
             height: 1,

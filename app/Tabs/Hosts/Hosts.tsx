@@ -21,6 +21,8 @@ import {
   ServerStatus,
 } from "@/app/main-axios";
 import { SSHHost } from "@/types";
+import { useOrientation } from "@/app/utils/orientation";
+import { getResponsivePadding, getColumnCount } from "@/app/utils/responsive";
 
 interface FolderData {
   name: string;
@@ -36,6 +38,7 @@ interface FolderData {
 
 export default function Hosts() {
   const insets = useSafeAreaInsets();
+  const { width, isLandscape } = useOrientation();
   const [folders, setFolders] = useState<FolderData[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -44,6 +47,9 @@ export default function Hosts() {
     Record<number, ServerStatus>
   >({});
   const isRefreshingRef = useRef(false);
+
+  const padding = getResponsivePadding(isLandscape);
+  const columnCount = getColumnCount(width, isLandscape, 400);
 
   const fetchData = useCallback(async (isRefresh = false) => {
     if (isRefreshingRef.current) return;
@@ -173,8 +179,8 @@ export default function Hosts() {
 
   return (
     <View
-      className="flex-1 bg-dark-bg px-6"
-      style={{ paddingTop: insets.top + 20 }}
+      className="flex-1 bg-dark-bg"
+      style={{ paddingTop: insets.top + 20, paddingHorizontal: padding }}
     >
       <View className="flex-1 gap-2">
         <View className="flex-row items-center justify-between">

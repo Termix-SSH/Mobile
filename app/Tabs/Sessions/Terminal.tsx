@@ -11,13 +11,16 @@ import {
   Text,
   ActivityIndicator,
   Dimensions,
-  Platform,
   TouchableWithoutFeedback,
   Keyboard,
   TextInput,
 } from "react-native";
 import { WebView } from "react-native-webview";
-import { getCurrentServerUrl, getCookie } from "../../main-axios";
+import {
+  getCurrentServerUrl,
+  getCookie,
+  logActivity,
+} from "../../main-axios";
 import { showToast } from "../../utils/toast";
 import { useTerminalCustomization } from "../../contexts/TerminalCustomizationContext";
 
@@ -45,7 +48,7 @@ export type TerminalHandle = {
   fit: () => void;
 };
 
-export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
+const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
   ({ hostConfig, isVisible, title = "Terminal", onClose }, ref) => {
     const webViewRef = useRef<WebView>(null);
     const { config } = useTerminalCustomization();
@@ -64,6 +67,8 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
     const connectionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
       null,
     );
+    const hiddenInputRef = useRef<TextInput>(null);
+    const isComposingRef = useRef(false);
 
     useEffect(() => {
       const subscription = Dimensions.addEventListener(
@@ -133,10 +138,14 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
 </html>`;
       }
 
-      // Use font size from context
       const baseFontSize = config.fontSize;
-      const terminalWidth = Math.floor(width / 8);
-      const terminalHeight = Math.floor(height / 16);
+      // Improved calculation based on font size
+      // Average monospace char width is roughly 0.6 * fontSize
+      // Line height is roughly 1.2 * fontSize
+      const charWidth = baseFontSize * 0.6;
+      const lineHeight = baseFontSize * 1.2;
+      const terminalWidth = Math.floor(width / charWidth);
+      const terminalHeight = Math.floor(height / lineHeight);
 
       return `
 <!DOCTYPE html>
@@ -149,13 +158,43 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
   <script src="https://unpkg.com/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/xterm@5.3.0/css/xterm.css" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-    
+    @font-face {
+      font-family: 'Caskaydia Cove Nerd Font Mono';
+      src: url('https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@master/patched-fonts/CascadiaCode/Regular/CaskaydiaCoveNerdFontMono-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Caskaydia Cove Nerd Font Mono';
+      src: url('https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@master/patched-fonts/CascadiaCode/Bold/CaskaydiaCoveNerdFontMono-Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Caskaydia Cove Nerd Font Mono';
+      src: url('https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@master/patched-fonts/CascadiaCode/Italic/CaskaydiaCoveNerdFontMono-Italic.ttf') format('truetype');
+      font-weight: normal;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Caskaydia Cove Nerd Font Mono';
+      src: url('https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@master/patched-fonts/CascadiaCode/BoldItalic/CaskaydiaCoveNerdFontMono-BoldItalic.ttf') format('truetype');
+      font-weight: bold;
+      font-style: italic;
+      font-display: swap;
+    }
+
     body {
       margin: 0;
       padding: 0;
       background-color: #09090b;
-      font-family: 'JetBrains Mono', 'MesloLGS NF', 'FiraCode Nerd Font', 'Cascadia Code', 'JetBrains Mono', Consolas, 'Courier New', monospace;
+      font-family: 'Caskaydia Cove Nerd Font Mono', 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
       overflow: hidden;
       width: 100vw;
       height: 100vh;
@@ -188,8 +227,12 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
     }
     
     .xterm .xterm-screen {
-      font-family: 'JetBrains Mono', 'MesloLGS NF', 'FiraCode Nerd Font', 'Cascadia Code', 'JetBrains Mono', Consolas, "Courier New", monospace !important;
+      font-family: 'Caskaydia Cove Nerd Font Mono', 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
       font-variant-ligatures: contextual;
+    }
+
+    .xterm .xterm-screen .xterm-char {
+      font-feature-settings: "liga" 1, "calt" 1;
     }
     
     .xterm .xterm-viewport::-webkit-scrollbar {
@@ -214,9 +257,27 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
       -webkit-user-select: none;
       -ms-user-select: none;
     }
+
+    /* Hidden input for better keyboard handling */
+    #hidden-input {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
+  <input
+    id="hidden-input"
+    type="text"
+    autocomplete="off"
+    autocorrect="off"
+    autocapitalize="off"
+    spellcheck="false"
+  />
   <div id="terminal"></div>
   
   <script>
@@ -230,9 +291,9 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
       cursorStyle: 'bar',
       scrollback: 10000,
       fontSize: baseFontSize,
-      fontFamily: '"JetBrains Mono", "MesloLGS NF", "FiraCode Nerd Font", "Cascadia Code", "JetBrains Mono", Consolas, "Courier New", monospace',
-      theme: { 
-        background: '#09090b', 
+      fontFamily: '"Caskaydia Cove Nerd Font Mono", "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+      theme: {
+        background: '#09090b',
         foreground: '#f7f7f7',
         cursor: '#f7f7f7',
         selection: 'rgba(255, 255, 255, 0.3)'
@@ -259,8 +320,9 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
     
     const hostConfig = ${JSON.stringify(hostConfig)};
     const wsUrl = '${wsUrl}';
-    
+
     let ws = null;
+    window.ws = null;
     let reconnectAttempts = 0;
     const maxReconnectAttempts = 3;
     let reconnectTimeout = null;
@@ -314,13 +376,91 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
     }
 
     const terminalElement = document.getElementById('terminal');
-    ['touchstart','touchend','mousedown','mouseup','click','dblclick','contextmenu'].forEach(function(ev){
+    const hiddenInput = document.getElementById('hidden-input');
+
+    let isComposing = false;
+    let lastInputTime = 0;
+    let lastInputValue = '';
+    const INPUT_DEBOUNCE_MS = 10;
+
+    // Handle IME composition events
+    if (hiddenInput) {
+      hiddenInput.addEventListener('compositionstart', function() {
+        isComposing = true;
+      });
+
+      hiddenInput.addEventListener('compositionupdate', function(e) {
+        isComposing = true;
+      });
+
+      hiddenInput.addEventListener('compositionend', function(e) {
+        isComposing = false;
+        if (e.data && ws && ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ type: 'input', data: e.data }));
+        }
+        hiddenInput.value = '';
+      });
+
+      hiddenInput.addEventListener('input', function(e) {
+        if (isComposing) return;
+
+        const now = Date.now();
+        const value = e.target.value;
+
+        // Debounce rapid duplicate inputs
+        if (now - lastInputTime < INPUT_DEBOUNCE_MS && value === lastInputValue) {
+          return;
+        }
+
+        lastInputTime = now;
+        lastInputValue = value;
+
+        if (value && ws && ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ type: 'input', data: value }));
+        }
+        hiddenInput.value = '';
+      });
+
+      hiddenInput.addEventListener('keydown', function(e) {
+        if (isComposing) return;
+
+        // Handle special keys
+        if (e.key === 'Backspace') {
+          e.preventDefault();
+          if (ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({ type: 'input', data: '\\x7f' }));
+          }
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({ type: 'input', data: '\\r' }));
+          }
+        } else if (e.key === 'Tab') {
+          e.preventDefault();
+          if (ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({ type: 'input', data: '\\t' }));
+          }
+        }
+      });
+    }
+
+    // Focus hidden input when terminal is tapped
+    ['touchstart','touchend','mousedown','mouseup','click','dblclick'].forEach(function(ev){
       terminalElement.addEventListener(ev, function(e){
         e.preventDefault();
         e.stopPropagation();
+        if (hiddenInput) {
+          hiddenInput.focus();
+        }
         return false;
       }, { passive: false });
     });
+
+    terminalElement.addEventListener('contextmenu', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }, { passive: false });
 
     function connectWebSocket() {
       try {
@@ -330,9 +470,11 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
         }
         
         notifyConnectionState('connecting', { retryCount: reconnectAttempts });
-        
+
         ws = new WebSocket(wsUrl);
-        
+        window.ws = ws;
+        window.hiddenInput = hiddenInput;
+
         connectionTimeout = setTimeout(() => {
           if (ws && ws.readyState === WebSocket.CONNECTING) {
             try { ws.close(); } catch (_) {}
@@ -349,11 +491,11 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
           notifyConnectionState('connected', { hostName: hostConfig.name });
           hasNotifiedFailure = false;
           reconnectAttempts = 0;
-          
+
           terminal.clear();
           terminal.reset();
           terminal.write('\x1b[2J\x1b[H');
-          
+
           const connectMessage = {
             type: 'connectToHost',
             data: {
@@ -362,15 +504,13 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
               hostConfig: hostConfig
             }
           };
-          
+
           ws.send(JSON.stringify(connectMessage));
-          
-          terminal.onData(function(data) {
-            if (ws && ws.readyState === WebSocket.OPEN) {
-              ws.send(JSON.stringify({ type: 'input', data: data }));
-            }
-          });
-          
+
+          // Disable terminal's built-in keyboard handling
+          // We use the hidden input element instead for better IME support
+          // terminal.onData is intentionally not used here
+
           startPingInterval();
         };
         
@@ -485,6 +625,8 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
       if (ws) {
         ws.close();
       }
+      window.ws = null;
+      window.hiddenInput = null;
     });
   </script>
 </body>
@@ -523,6 +665,9 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
               setIsRetrying(false);
               setIsConnected(true);
               setRetryCount(0);
+
+              // Log terminal activity
+              logActivity("terminal", hostConfig.id).catch(() => {});
               break;
 
             case "dataReceived":
@@ -595,12 +740,39 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
     }, [hostConfig.id, currentHostId]);
 
     useEffect(() => {
+      if (isVisible && isConnected && !showConnectingOverlay) {
+        setTimeout(() => {
+          focusTerminal();
+        }, 300);
+      }
+    }, [isVisible, isConnected, showConnectingOverlay, focusTerminal]);
+
+    useEffect(() => {
       return () => {
         if (connectionTimeoutRef.current) {
           clearTimeout(connectionTimeoutRef.current);
         }
       };
     }, []);
+
+    const handleNativeTextChange = useCallback((text: string) => {
+      if (!isComposingRef.current && text && webViewRef.current) {
+        try {
+          const escaped = JSON.stringify(text);
+          webViewRef.current.injectJavaScript(
+            `if (window.hiddenInput) { window.hiddenInput.value = ${escaped}; window.hiddenInput.dispatchEvent(new Event('input', { bubbles: true })); } true;`,
+          );
+        } catch (e) {
+          console.error("Failed to send input:", e);
+        }
+      }
+    }, []);
+
+    const focusTerminal = useCallback(() => {
+      if (hiddenInputRef.current && isConnected && !showConnectingOverlay) {
+        hiddenInputRef.current.focus();
+      }
+    }, [isConnected, showConnectingOverlay]);
 
     return (
       <View
@@ -626,44 +798,75 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
           }}
         >
           <View style={{ flex: 1 }}>
-            <WebView
-              key={`terminal-${hostConfig.id}-${webViewKey}`}
-              ref={webViewRef}
-              source={{ html: htmlContent }}
+            {/* Hidden TextInput for better keyboard support on Android */}
+            <TextInput
+              ref={hiddenInputRef}
               style={{
-                flex: 1,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "#09090b",
-                opacity: showConnectingOverlay || isRetrying ? 0 : 1,
+                position: "absolute",
+                left: -9999,
+                width: 1,
+                height: 1,
+                opacity: 0,
               }}
-              javaScriptEnabled={true}
-              domStorageEnabled={true}
-              startInLoadingState={false}
-              scalesPageToFit={false}
-              allowsInlineMediaPlayback={true}
-              mediaPlaybackRequiresUserAction={false}
-              keyboardDisplayRequiresUserAction={false}
-              onScroll={() => {}}
-              onMessage={handleWebViewMessage}
-              onError={(syntheticEvent) => {
-                const { nativeEvent } = syntheticEvent;
-                handleConnectionFailure(
-                  `WebView error: ${nativeEvent.description}`,
-                );
+              autoComplete="off"
+              autoCorrect={false}
+              autoCapitalize="none"
+              spellCheck={false}
+              keyboardType="default"
+              returnKeyType="send"
+              blurOnSubmit={false}
+              onChangeText={handleNativeTextChange}
+              onFocus={() => {
+                Keyboard.dismiss();
+                setTimeout(() => {
+                  if (hiddenInputRef.current) {
+                    hiddenInputRef.current.focus();
+                  }
+                }, 50);
               }}
-              onHttpError={(syntheticEvent) => {
-                const { nativeEvent } = syntheticEvent;
-                handleConnectionFailure(
-                  `WebView HTTP error: ${nativeEvent.statusCode}`,
-                );
-              }}
-              scrollEnabled={false}
-              bounces={false}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              nestedScrollEnabled={false}
             />
+            <TouchableWithoutFeedback onPress={focusTerminal}>
+              <View style={{ flex: 1 }}>
+                <WebView
+                  key={`terminal-${hostConfig.id}-${webViewKey}`}
+                  ref={webViewRef}
+                  source={{ html: htmlContent }}
+                  style={{
+                    flex: 1,
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "#09090b",
+                    opacity: showConnectingOverlay || isRetrying ? 0 : 1,
+                  }}
+                  javaScriptEnabled={true}
+                  domStorageEnabled={true}
+                  startInLoadingState={false}
+                  scalesPageToFit={false}
+                  allowsInlineMediaPlayback={true}
+                  mediaPlaybackRequiresUserAction={false}
+                  keyboardDisplayRequiresUserAction={false}
+                  onScroll={() => {}}
+                  onMessage={handleWebViewMessage}
+                  onError={(syntheticEvent) => {
+                    const { nativeEvent } = syntheticEvent;
+                    handleConnectionFailure(
+                      `WebView error: ${nativeEvent.description}`,
+                    );
+                  }}
+                  onHttpError={(syntheticEvent) => {
+                    const { nativeEvent } = syntheticEvent;
+                    handleConnectionFailure(
+                      `WebView HTTP error: ${nativeEvent.statusCode}`,
+                    );
+                  }}
+                  scrollEnabled={false}
+                  bounces={false}
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                  nestedScrollEnabled={false}
+                />
+              </View>
+            </TouchableWithoutFeedback>
           </View>
 
           {(showConnectingOverlay || isRetrying) && (
@@ -746,4 +949,7 @@ export const Terminal = forwardRef<TerminalHandle, TerminalProps>(
   },
 );
 
-export default Terminal;
+TerminalComponent.displayName = "Terminal";
+
+export { TerminalComponent as Terminal };
+export default TerminalComponent;

@@ -4,9 +4,12 @@ import { useRouter } from "expo-router";
 import { useAppContext } from "@/app/AppContext";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import { clearAuth, clearServerConfig, logoutUser } from "@/app/main-axios";
+import { useOrientation } from "@/app/utils/orientation";
+import { getResponsivePadding } from "@/app/utils/responsive";
 
 export default function Settings() {
   const router = useRouter();
+  const { isLandscape } = useOrientation();
   const {
     setAuthenticated,
     setShowLoginForm,
@@ -16,6 +19,8 @@ export default function Settings() {
   } = useAppContext();
   const { clearAllSessions } = useTerminalSessions();
   const insets = useSafeAreaInsets();
+
+  const padding = getResponsivePadding(isLandscape);
 
   const handleLogout = async () => {
     try {
@@ -35,7 +40,7 @@ export default function Settings() {
 
   return (
     <ScrollView className="flex-1 bg-dark-bg">
-      <View className="p-6" style={{ paddingTop: insets.top + 20 }}>
+      <View style={{ padding, paddingTop: insets.top + 20 }}>
         <Text
           className="text-3xl font-bold text-white mb-6"
           style={{ lineHeight: 36, includeFontPadding: false }}
