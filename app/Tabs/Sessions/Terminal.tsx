@@ -20,6 +20,7 @@ import {
   getCurrentServerUrl,
   getCookie,
   logActivity,
+  saveCommandToHistory,
 } from "../../main-axios";
 import { showToast } from "../../utils/toast";
 import { useTerminalCustomization } from "../../contexts/TerminalCustomizationContext";
@@ -67,8 +68,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     const connectionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
       null,
     );
-    const hiddenInputRef = useRef<TextInput>(null);
-    const isComposingRef = useRef(false);
+    const currentCommandRef = useRef<string>("");
+    const commandHistoryRef = useRef<string[]>([]);
 
     useEffect(() => {
       const subscription = Dimensions.addEventListener(
@@ -329,7 +330,40 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     let connectionTimeout = null;
     let shouldNotReconnect = false;
     let hasNotifiedFailure = false;
-    
+
+    // Command history tracking
+    let currentCommand = '';
+    let commandHistory = [];
+
+    function trackInput(data) {
+      if (data === '\\r' || data === '\\n') {
+        // Enter key pressed - command executed
+        const cmd = currentCommand.trim();
+        if (cmd && cmd.length > 0) {
+          // Notify React Native about the command
+          if (window.ReactNativeWebView) {
+            window.ReactNativeWebView.postMessage(JSON.stringify({
+              type: 'commandExecuted',
+              data: { command: cmd }
+            }));
+          }
+        }
+        currentCommand = '';
+      } else if (data === '\\x7f' || data === '\\b') {
+        // Backspace
+        currentCommand = currentCommand.slice(0, -1);
+      } else if (data === '\\x03') {
+        // Ctrl+C - clear current command
+        currentCommand = '';
+      } else if (data === '\\x15') {
+        // Ctrl+U - clear line
+        currentCommand = '';
+      } else if (data.length === 1 && data.charCodeAt(0) >= 32) {
+        // Printable character
+        currentCommand += data;
+      }
+    }
+
     function notifyConnectionState(state, data = {}) {
       if (window.ReactNativeWebView) {
         window.ReactNativeWebView.postMessage(JSON.stringify({
@@ -367,6 +401,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     
     window.nativeInput = function(data) {
       try {
+        trackInput(data);
         if (ws && ws.readyState === WebSocket.OPEN) {
           ws.send(JSON.stringify({ type: 'input', data: data }));
         } else {
@@ -396,6 +431,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       hiddenInput.addEventListener('compositionend', function(e) {
         isComposing = false;
         if (e.data && ws && ws.readyState === WebSocket.OPEN) {
+          trackInput(e.data);
           ws.send(JSON.stringify({ type: 'input', data: e.data }));
         }
         hiddenInput.value = '';
@@ -416,6 +452,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         lastInputValue = value;
 
         if (value && ws && ws.readyState === WebSocket.OPEN) {
+          trackInput(value);
           ws.send(JSON.stringify({ type: 'input', data: value }));
         }
         hiddenInput.value = '';
@@ -428,11 +465,13 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         if (e.key === 'Backspace') {
           e.preventDefault();
           if (ws && ws.readyState === WebSocket.OPEN) {
+            trackInput('\\x7f');
             ws.send(JSON.stringify({ type: 'input', data: '\\x7f' }));
           }
         } else if (e.key === 'Enter') {
           e.preventDefault();
           if (ws && ws.readyState === WebSocket.OPEN) {
+            trackInput('\\r');
             ws.send(JSON.stringify({ type: 'input', data: '\\r' }));
           }
         } else if (e.key === 'Tab') {
@@ -692,10 +731,28 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 `${message.data.hostName}: ${message.data.message}`,
               );
               break;
+
+            case "commandExecuted":
+              // Save command to history
+              if (message.data.command && hostConfig.id) {
+                const cmd = message.data.command;
+                currentCommandRef.current = "";
+
+                // Don't save duplicate commands or very short commands
+                if (cmd.length > 1 && !commandHistoryRef.current.includes(cmd)) {
+                  commandHistoryRef.current = [cmd, ...commandHistoryRef.current];
+
+                  // Save to backend asynchronously
+                  saveCommandToHistory(hostConfig.id, cmd).catch((error) => {
+                    console.error("Failed to save command to history:", error);
+                  });
+                }
+              }
+              break;
           }
         } catch (error) {}
       },
-      [handleConnectionFailure, onClose],
+      [handleConnectionFailure, onClose, hostConfig.id],
     );
 
     useImperativeHandle(
@@ -739,13 +796,14 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       }
     }, [hostConfig.id, currentHostId]);
 
-    useEffect(() => {
-      if (isVisible && isConnected && !showConnectingOverlay) {
-        setTimeout(() => {
-          focusTerminal();
-        }, 300);
-      }
-    }, [isVisible, isConnected, showConnectingOverlay, focusTerminal]);
+    // Focus handling removed - now managed by Sessions.tsx
+    // useEffect(() => {
+    //   if (isVisible && isConnected && !showConnectingOverlay) {
+    //     setTimeout(() => {
+    //       focusTerminal();
+    //     }, 300);
+    //   }
+    // }, [isVisible, isConnected, showConnectingOverlay, focusTerminal]);
 
     useEffect(() => {
       return () => {
@@ -755,24 +813,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       };
     }, []);
 
-    const handleNativeTextChange = useCallback((text: string) => {
-      if (!isComposingRef.current && text && webViewRef.current) {
-        try {
-          const escaped = JSON.stringify(text);
-          webViewRef.current.injectJavaScript(
-            `if (window.hiddenInput) { window.hiddenInput.value = ${escaped}; window.hiddenInput.dispatchEvent(new Event('input', { bubbles: true })); } true;`,
-          );
-        } catch (e) {
-          console.error("Failed to send input:", e);
-        }
-      }
-    }, []);
-
     const focusTerminal = useCallback(() => {
-      if (hiddenInputRef.current && isConnected && !showConnectingOverlay) {
-        hiddenInputRef.current.focus();
-      }
-    }, [isConnected, showConnectingOverlay]);
+      // Focus is now handled by Sessions.tsx
+    }, []);
 
     return (
       <View
@@ -798,33 +841,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           }}
         >
           <View style={{ flex: 1 }}>
-            {/* Hidden TextInput for better keyboard support on Android */}
-            <TextInput
-              ref={hiddenInputRef}
-              style={{
-                position: "absolute",
-                left: -9999,
-                width: 1,
-                height: 1,
-                opacity: 0,
-              }}
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              spellCheck={false}
-              keyboardType="default"
-              returnKeyType="send"
-              blurOnSubmit={false}
-              onChangeText={handleNativeTextChange}
-              onFocus={() => {
-                Keyboard.dismiss();
-                setTimeout(() => {
-                  if (hiddenInputRef.current) {
-                    hiddenInputRef.current.focus();
-                  }
-                }, 50);
-              }}
-            />
+            {/* Note: Hidden TextInput removed - keyboard handled by Sessions.tsx */}
             <TouchableWithoutFeedback onPress={focusTerminal}>
               <View style={{ flex: 1 }}>
                 <WebView

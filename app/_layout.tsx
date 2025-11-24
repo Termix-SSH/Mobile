@@ -6,7 +6,7 @@ import { KeyboardProvider } from "./contexts/KeyboardContext";
 import { KeyboardCustomizationProvider } from "./contexts/KeyboardCustomizationContext";
 import ServerForm from "./Authentication/ServerForm";
 import LoginForm from "./Authentication/LoginForm";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Toaster } from "sonner-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -27,6 +27,15 @@ function RootLayoutContent() {
       <View className="flex-1 bg-dark-bg justify-center items-center">
         <ActivityIndicator size="large" color="#22c55e" />
         <Text className="text-white text-lg mt-4">Initializing...</Text>
+        <TouchableOpacity
+          onPress={() => {
+            setShowLoginForm(false);
+            setShowServerManager(true);
+          }}
+          className="mt-6 px-6 py-3 bg-[#1a1a1a] border border-[#303032] rounded-lg"
+        >
+          <Text className="text-white font-semibold">Cancel</Text>
+        </TouchableOpacity>
       </View>
     );
   }

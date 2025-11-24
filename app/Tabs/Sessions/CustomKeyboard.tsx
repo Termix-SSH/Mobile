@@ -124,8 +124,10 @@ export default function CustomKeyboard({
     return baseStyle;
   };
 
+  const safeKeyboardHeight = Math.max(200, Math.min(keyboardHeight, 500));
+
   return (
-    <View style={[styles.keyboard, { height: keyboardHeight }]}>
+    <View style={[styles.keyboard, { height: safeKeyboardHeight, maxHeight: 500 }]}>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}

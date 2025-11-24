@@ -1,4 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   ChevronLeft,
   RefreshCw,
@@ -8,6 +9,7 @@ import {
   MoreVertical,
 } from "lucide-react-native";
 import { breadcrumbsFromPath, getBreadcrumbLabel } from "./utils/fileUtils";
+import { getResponsivePadding, getResponsiveFontSize } from "@/app/utils/responsive";
 
 interface FileManagerHeaderProps {
   currentPath: string;
@@ -18,6 +20,7 @@ interface FileManagerHeaderProps {
   onUpload?: () => void;
   onMenuPress: () => void;
   isLoading: boolean;
+  isLandscape: boolean;
 }
 
 export function FileManagerHeader({
@@ -29,52 +32,70 @@ export function FileManagerHeader({
   onUpload,
   onMenuPress,
   isLoading,
+  isLandscape,
 }: FileManagerHeaderProps) {
+  const insets = useSafeAreaInsets();
   const breadcrumbs = breadcrumbsFromPath(currentPath);
   const isRoot = currentPath === "/";
+  const padding = getResponsivePadding(isLandscape);
+  const iconSize = isLandscape ? 16 : 18;
+  const chevronSize = isLandscape ? 18 : 20;
+  const buttonPadding = isLandscape ? 6 : 8;
 
   return (
-    <View className="bg-dark-bg-header border-b-2 border-dark-border">
+    <View
+      style={{
+        backgroundColor: "#1a1a1a",
+        borderBottomWidth: 2,
+        borderBottomColor: "#303032",
+        paddingHorizontal: Math.max(insets.left, insets.right, padding),
+      }}
+    >
       {/* Path breadcrumbs */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        className="px-4 py-3 border-b border-dark-border-medium"
+        style={{
+          paddingVertical: isLandscape ? 8 : 12,
+          borderBottomWidth: 1,
+          borderBottomColor: "#3f3f46",
+        }}
       >
-        <View className="flex-row items-center">
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           {!isRoot && (
             <TouchableOpacity
               onPress={() => {
                 const parentPath = breadcrumbs[breadcrumbs.length - 2] || "/";
                 onNavigateToPath(parentPath);
               }}
-              className="mr-2 p-1"
+              style={{ marginRight: 8, padding: 4 }}
               activeOpacity={0.7}
             >
-              <ChevronLeft size={20} color="#9CA3AF" />
+              <ChevronLeft size={chevronSize} color="#9CA3AF" />
             </TouchableOpacity>
           )}
 
           {breadcrumbs.map((path, index) => (
-            <View key={path} className="flex-row items-center">
+            <View key={path} style={{ flexDirection: "row", alignItems: "center" }}>
               {index > 0 && (
-                <Text className="text-gray-500 mx-1">/</Text>
+                <Text style={{ color: "#6B7280", marginHorizontal: 4, fontSize: isLandscape ? 12 : 14 }}>/</Text>
               )}
               <TouchableOpacity
                 onPress={() => onNavigateToPath(path)}
-                className={`px-2 py-1 rounded ${
-                  index === breadcrumbs.length - 1
-                    ? "bg-dark-bg-button"
-                    : ""
-                }`}
+                style={{
+                  paddingHorizontal: 8,
+                  paddingVertical: 4,
+                  borderRadius: 4,
+                  backgroundColor: index === breadcrumbs.length - 1 ? "#27272a" : "transparent",
+                }}
                 activeOpacity={0.7}
               >
                 <Text
-                  className={
-                    index === breadcrumbs.length - 1
-                      ? "text-white font-medium"
-                      : "text-gray-400"
-                  }
+                  style={{
+                    color: index === breadcrumbs.length - 1 ? "#ffffff" : "#9CA3AF",
+                    fontWeight: index === breadcrumbs.length - 1 ? "500" : "400",
+                    fontSize: isLandscape ? 12 : 14,
+                  }}
                 >
                   {getBreadcrumbLabel(path)}
                 </Text>
@@ -85,15 +106,22 @@ export function FileManagerHeader({
       </ScrollView>
 
       {/* Action buttons */}
-      <View className="flex-row items-center px-4 py-2">
+      <View style={{ flexDirection: "row", alignItems: "center", paddingVertical: isLandscape ? 6 : 8 }}>
         <TouchableOpacity
           onPress={onRefresh}
-          className="mr-3 p-2 bg-dark-bg-button rounded border border-dark-border"
+          style={{
+            marginRight: 8,
+            padding: buttonPadding,
+            backgroundColor: "#27272a",
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: "#303032",
+          }}
           activeOpacity={0.7}
           disabled={isLoading}
         >
           <RefreshCw
-            size={18}
+            size={iconSize}
             color={isLoading ? "#6B7280" : "#9CA3AF"}
             style={{
               transform: [{ rotate: isLoading ? "45deg" : "0deg" }],
@@ -103,38 +131,65 @@ export function FileManagerHeader({
 
         <TouchableOpacity
           onPress={onCreateFolder}
-          className="mr-3 p-2 bg-dark-bg-button rounded border border-dark-border"
+          style={{
+            marginRight: 8,
+            padding: buttonPadding,
+            backgroundColor: "#27272a",
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: "#303032",
+          }}
           activeOpacity={0.7}
         >
-          <FolderPlus size={18} color="#3B82F6" />
+          <FolderPlus size={iconSize} color="#3B82F6" />
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={onCreateFile}
-          className="mr-3 p-2 bg-dark-bg-button rounded border border-dark-border"
+          style={{
+            marginRight: 8,
+            padding: buttonPadding,
+            backgroundColor: "#27272a",
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: "#303032",
+          }}
           activeOpacity={0.7}
         >
-          <FilePlus size={18} color="#10B981" />
+          <FilePlus size={iconSize} color="#10B981" />
         </TouchableOpacity>
 
         {onUpload && (
           <TouchableOpacity
             onPress={onUpload}
-            className="mr-3 p-2 bg-dark-bg-button rounded border border-dark-border"
+            style={{
+              marginRight: 8,
+              padding: buttonPadding,
+              backgroundColor: "#27272a",
+              borderRadius: 4,
+              borderWidth: 1,
+              borderColor: "#303032",
+            }}
             activeOpacity={0.7}
           >
-            <Upload size={18} color="#F59E0B" />
+            <Upload size={iconSize} color="#F59E0B" />
           </TouchableOpacity>
         )}
 
-        <View className="flex-1" />
+        <View style={{ flex: 1 }} />
 
         <TouchableOpacity
           onPress={onMenuPress}
-          className="p-2 bg-dark-bg-button rounded border border-dark-border"
+          style={{
+            padding: buttonPadding,
+            backgroundColor: "#27272a",
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: "#303032",
+          }}
           activeOpacity={0.7}
         >
-          <MoreVertical size={18} color="#9CA3AF" />
+          <MoreVertical size={iconSize} color="#9CA3AF" />
         </TouchableOpacity>
       </View>
     </View>

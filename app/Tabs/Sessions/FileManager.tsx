@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef, useCallback, forwardRef, useImperativeHandle } from "react";
 import { View, Alert, TextInput, Modal, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SSHHost } from "@/types";
+import { useOrientation } from "@/app/utils/orientation";
+import { getResponsivePadding, getTabBarHeight } from "@/app/utils/responsive";
 import {
   connectSSH,
   listSSHFiles,
@@ -43,6 +46,8 @@ export interface FileManagerHandle {
 
 export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
   ({ host, sessionId }, ref) => {
+    const insets = useSafeAreaInsets();
+    const { width, isLandscape } = useOrientation();
     const [currentPath, setCurrentPath] = useState("/");
     const [files, setFiles] = useState<FileItem[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -409,8 +414,11 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       );
     }
 
+    const padding = getResponsivePadding(isLandscape);
+    const tabBarHeight = getTabBarHeight(isLandscape);
+
     return (
-      <View className="flex-1 bg-dark-bg">
+      <View className="flex-1 bg-dark-bg" style={{ paddingTop: insets.top }}>
         <FileManagerHeader
           currentPath={currentPath}
           onNavigateToPath={loadDirectory}
@@ -419,6 +427,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           onCreateFile={handleCreateFile}
           onMenuPress={() => setSelectionMode(true)}
           isLoading={isLoading}
+          isLandscape={isLandscape}
         />
 
         <FileList
@@ -430,6 +439,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           selectionMode={selectionMode}
           isLoading={isLoading}
           onRefresh={() => loadDirectory(currentPath)}
+          isLandscape={isLandscape}
+          width={width}
+          toolbarHeight={tabBarHeight + insets.bottom}
         />
 
         <FileManagerToolbar
@@ -442,6 +454,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           onCancelSelection={handleCancelSelection}
           clipboardCount={clipboard.files.length}
           clipboardOperation={clipboard.operation}
+          isLandscape={isLandscape}
+          bottomInset={insets.bottom}
+          tabBarHeight={tabBarHeight}
         />
 
         {/* Context Menu */}

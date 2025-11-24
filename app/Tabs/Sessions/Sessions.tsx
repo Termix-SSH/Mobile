@@ -151,17 +151,20 @@ export default function Sessions() {
     React.useCallback(() => {
       if (
         sessions.length > 0 &&
+        activeSession?.type === "terminal" &&
         !isCustomKeyboardVisible &&
         !keyboardIntentionallyHiddenRef.current
       ) {
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           hiddenInputRef.current?.focus();
-        }, 1000);
+        }, 500);
+        return () => clearTimeout(timeoutId);
       }
 
       return () => {};
     }, [
       sessions.length,
+      activeSession?.type,
       isCustomKeyboardVisible,
       keyboardIntentionallyHiddenRef,
     ]),
@@ -172,16 +175,13 @@ export default function Sessions() {
       if (nextAppState === "active") {
         if (
           sessions.length > 0 &&
+          activeSession?.type === "terminal" &&
           !isCustomKeyboardVisible &&
           !keyboardIntentionallyHiddenRef.current
         ) {
           setTimeout(() => {
-            setKeyboardType("email-address");
-            setTimeout(() => {
-              setKeyboardType("default");
-              hiddenInputRef.current?.focus();
-            }, 100);
-          }, 250);
+            hiddenInputRef.current?.focus();
+          }, 300);
         }
       }
     });
@@ -189,7 +189,7 @@ export default function Sessions() {
     return () => {
       subscription.remove();
     };
-  }, [sessions.length, isCustomKeyboardVisible, activeSessionId]);
+  }, [sessions.length, activeSession?.type, isCustomKeyboardVisible]);
 
   useEffect(() => {
     if (Platform.OS === "android" && sessions.length > 0) {
@@ -211,24 +211,25 @@ export default function Sessions() {
     }
   }, [sessions.length, isKeyboardVisible]);
 
-  useEffect(() => {
-    if (
-      sessions.length > 0 &&
-      !isKeyboardVisible &&
-      !isCustomKeyboardVisible &&
-      !keyboardIntentionallyHiddenRef.current
-    ) {
-      const timeoutId = setTimeout(() => {
-        hiddenInputRef.current?.focus();
-      }, 3000);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [
-    isKeyboardVisible,
-    sessions.length,
-    isCustomKeyboardVisible,
-    keyboardIntentionallyHiddenRef,
-  ]);
+  // Remove the auto-focus after 3 seconds - it causes keyboard flickering
+  // useEffect(() => {
+  //   if (
+  //     sessions.length > 0 &&
+  //     !isKeyboardVisible &&
+  //     !isCustomKeyboardVisible &&
+  //     !keyboardIntentionallyHiddenRef.current
+  //   ) {
+  //     const timeoutId = setTimeout(() => {
+  //       hiddenInputRef.current?.focus();
+  //     }, 3000);
+  //     return () => clearTimeout(timeoutId);
+  //   }
+  // }, [
+  //   isKeyboardVisible,
+  //   sessions.length,
+  //   isCustomKeyboardVisible,
+  //   keyboardIntentionallyHiddenRef,
+  // ]);
 
   useEffect(() => {
     const subscription = Dimensions.addEventListener("change", ({ window }) => {
@@ -266,6 +267,7 @@ export default function Sessions() {
     React.useCallback(() => {
       if (
         sessions.length > 0 &&
+        activeSession?.type === "terminal" &&
         !isCustomKeyboardVisible &&
         !keyboardIntentionallyHiddenRef.current
       ) {
@@ -280,26 +282,30 @@ export default function Sessions() {
     }, [
       sessions.length,
       activeSessionId,
+      activeSession?.type,
       isCustomKeyboardVisible,
       keyboardIntentionallyHiddenRef,
     ]),
   );
 
   const handleTabPress = (sessionId: string) => {
+    const session = sessions.find(s => s.id === sessionId);
     setKeyboardIntentionallyHidden(false);
-    hiddenInputRef.current?.focus();
-    requestAnimationFrame(() => {
-      setActiveSession(sessionId);
-      setTimeout(() => hiddenInputRef.current?.focus(), 0);
-    });
+    setActiveSession(sessionId);
+    setTimeout(() => {
+      if (session?.type === "terminal" && !isCustomKeyboardVisible) {
+        hiddenInputRef.current?.focus();
+      }
+    }, 100);
   };
 
   const handleTabClose = (sessionId: string) => {
-    hiddenInputRef.current?.focus();
-    requestAnimationFrame(() => {
-      removeSession(sessionId);
-      setTimeout(() => hiddenInputRef.current?.focus(), 0);
-    });
+    removeSession(sessionId);
+    setTimeout(() => {
+      if (activeSession?.type === "terminal" && !isCustomKeyboardVisible && sessions.length > 1) {
+        hiddenInputRef.current?.focus();
+      }
+    }, 100);
   };
 
   const handleAddSession = () => {
@@ -339,7 +345,7 @@ export default function Sessions() {
       <View
         style={{
           flex: 1,
-          marginBottom: getBottomMargin(),
+          marginBottom: activeSession?.type === "terminal" ? getBottomMargin() : 60 + insets.bottom,
         }}
       >
         {sessions.map((session) => {
@@ -494,7 +500,7 @@ export default function Sessions() {
         </View>
       )}
 
-      {sessions.length > 0 && (
+      {sessions.length > 0 && activeSession?.type === "terminal" && (
         <View
           pointerEvents="none"
           style={{
@@ -541,16 +547,32 @@ export default function Sessions() {
         </View>
       )}
 
+      {sessions.length > 0 && (activeSession?.type === "stats" || activeSession?.type === "filemanager") && isCustomKeyboardVisible && (
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: effectiveKeyboardHeight,
+            backgroundColor: "#09090b",
+            zIndex: 1002,
+          }}
+        />
+      )}
+
       <View
         style={{
           position: "absolute",
-          bottom: keyboardIntentionallyHiddenRef.current
-            ? 66
-            : isCustomKeyboardVisible
-              ? effectiveKeyboardHeight + 50
-              : isKeyboardVisible && currentKeyboardHeight > 0
-                ? currentKeyboardHeight + 50
-                : 50,
+          bottom: activeSession?.type === "terminal"
+            ? keyboardIntentionallyHiddenRef.current
+              ? 66
+              : isCustomKeyboardVisible
+                ? effectiveKeyboardHeight + 50
+                : isKeyboardVisible && currentKeyboardHeight > 0
+                  ? currentKeyboardHeight + 50
+                  : 50
+            : 0,
           left: 0,
           right: 0,
           height: 60,
@@ -569,6 +591,7 @@ export default function Sessions() {
           onHideKeyboard={() => setKeyboardIntentionallyHidden(true)}
           onShowKeyboard={() => setKeyboardIntentionallyHidden(false)}
           keyboardIntentionallyHiddenRef={keyboardIntentionallyHiddenRef}
+          activeSessionType={activeSession?.type}
         />
       </View>
 
@@ -629,58 +652,65 @@ export default function Sessions() {
           contextMenuHidden
           underlineColorAndroid="transparent"
           multiline
-          onChangeText={(text) => {}}
+          onChangeText={() => {
+            // Do nothing - we handle input in onKeyPress only
+          }}
           onKeyPress={({ nativeEvent }) => {
             const key = nativeEvent.key;
             const activeRef = activeSessionId
               ? terminalRefs.current[activeSessionId]
               : null;
-            if (activeRef && activeRef.current) {
-              let finalKey = key;
 
-              if (activeModifiers.ctrl) {
-                switch (key.toLowerCase()) {
-                  case "c":
-                    finalKey = "\x03";
-                    break;
-                  case "d":
-                    finalKey = "\x04";
-                    break;
-                  case "z":
-                    finalKey = "\x1a";
-                    break;
-                  case "l":
-                    finalKey = "\x0c";
-                    break;
-                  case "a":
-                    finalKey = "\x01";
-                    break;
-                  case "e":
-                    finalKey = "\x05";
-                    break;
-                  case "k":
-                    finalKey = "\x0b";
-                    break;
-                  case "u":
-                    finalKey = "\x15";
-                    break;
-                  case "w":
-                    finalKey = "\x17";
-                    break;
-                  default:
+            if (!activeRef?.current) return;
+
+            let finalKey = key;
+
+            // Handle modifiers
+            if (activeModifiers.ctrl) {
+              switch (key.toLowerCase()) {
+                case "c":
+                  finalKey = "\x03";
+                  break;
+                case "d":
+                  finalKey = "\x04";
+                  break;
+                case "z":
+                  finalKey = "\x1a";
+                  break;
+                case "l":
+                  finalKey = "\x0c";
+                  break;
+                case "a":
+                  finalKey = "\x01";
+                  break;
+                case "e":
+                  finalKey = "\x05";
+                  break;
+                case "k":
+                  finalKey = "\x0b";
+                  break;
+                case "u":
+                  finalKey = "\x15";
+                  break;
+                case "w":
+                  finalKey = "\x17";
+                  break;
+                default:
+                  if (key.length === 1) {
                     finalKey = String.fromCharCode(key.charCodeAt(0) & 0x1f);
-                }
-              } else if (activeModifiers.alt) {
-                finalKey = `\x1b${key}`;
+                  }
               }
+            } else if (activeModifiers.alt) {
+              finalKey = `\x1b${key}`;
+            }
 
-              if (key === "Enter") {
-                activeRef.current.sendInput("\r");
-              } else if (key === "Backspace") {
-                activeRef.current.sendInput("\b");
-              } else if (key.length === 1) {
-                activeRef.current.sendInput(finalKey);
-              }
+            // Send the appropriate key
+            if (key === "Enter") {
+              activeRef.current.sendInput("\r");
+            } else if (key === "Backspace") {
+              activeRef.current.sendInput("\b");
+            } else if (key.length === 1) {
+              activeRef.current.sendInput(finalKey);
             }
           }}
           onFocus={() => {

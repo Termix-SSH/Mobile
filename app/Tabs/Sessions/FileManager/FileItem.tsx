@@ -12,6 +12,8 @@ interface FileItemProps {
   onLongPress: () => void;
   onSelectToggle?: () => void;
   selectionMode?: boolean;
+  columnCount?: number;
+  useGrid?: boolean;
 }
 
 export function FileItem({
@@ -24,15 +26,29 @@ export function FileItem({
   onLongPress,
   onSelectToggle,
   selectionMode = false,
+  columnCount = 1,
+  useGrid = false,
 }: FileItemProps) {
   const iconColor = getFileIconColor(name, type);
   const IconComponent = type === "directory" ? Folder : type === "link" ? Link : File;
 
+  const itemWidth = useGrid ? `${100 / columnCount - 0.5}%` : "100%";
+
   return (
     <TouchableOpacity
-      className={`flex-row items-center p-3 border-b border-dark-border ${
-        isSelected ? "bg-dark-bg-active" : "bg-dark-bg-darker"
-      }`}
+      style={{
+        width: itemWidth,
+        backgroundColor: isSelected ? "#27272a" : "#18181b",
+        borderBottomWidth: useGrid ? 0 : 1,
+        borderBottomColor: "#303032",
+        borderWidth: useGrid ? 1 : 0,
+        borderColor: useGrid ? "#303032" : undefined,
+        borderRadius: useGrid ? 8 : 0,
+        margin: useGrid ? 4 : 0,
+        padding: 12,
+        flexDirection: "row",
+        alignItems: "center",
+      }}
       onPress={selectionMode && onSelectToggle ? onSelectToggle : onPress}
       onLongPress={onLongPress}
       activeOpacity={0.7}

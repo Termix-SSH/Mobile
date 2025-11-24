@@ -366,7 +366,7 @@ function Host({ host, status, isLast = false }: HostProps) {
                     className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                     activeOpacity={0.7}
                   >
-                    <Activity size={20} color="#22C55E" />
+                    <Activity size={20} color="#FFFFFF" />
                     <View className="flex-1">
                       <Text className="text-white font-medium">
                         View Server Stats
@@ -386,7 +386,7 @@ function Host({ host, status, isLast = false }: HostProps) {
                       className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                       activeOpacity={0.7}
                     >
-                      <FolderOpen size={20} color="#3B82F6" />
+                      <FolderOpen size={20} color="#FFFFFF" />
                       <View className="flex-1">
                         <Text className="text-white font-medium">
                           File Manager

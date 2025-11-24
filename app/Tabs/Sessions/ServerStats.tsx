@@ -14,6 +14,7 @@ import {
   RefreshControl,
   TouchableOpacity,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   Cpu,
   MemoryStick,
@@ -26,7 +27,7 @@ import { getServerMetricsById } from "../../main-axios";
 import { showToast } from "../../utils/toast";
 import type { ServerMetrics } from "../../../types/index";
 import { useOrientation } from "@/app/utils/orientation";
-import { getResponsivePadding, getColumnCount } from "@/app/utils/responsive";
+import { getResponsivePadding, getColumnCount, getTabBarHeight } from "@/app/utils/responsive";
 
 interface ServerStatsProps {
   hostConfig: {
@@ -44,6 +45,7 @@ export type ServerStatsHandle = {
 
 export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
   ({ hostConfig, isVisible, title = "Server Stats", onClose }, ref) => {
+    const insets = useSafeAreaInsets();
     const { width, isLandscape } = useOrientation();
     const [metrics, setMetrics] = useState<ServerMetrics | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -53,6 +55,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
 
     const padding = getResponsivePadding(isLandscape);
     const columnCount = getColumnCount(width, isLandscape, 350);
+    const tabBarHeight = getTabBarHeight(isLandscape);
 
     const fetchMetrics = useCallback(
       async (showLoadingSpinner = true) => {
@@ -180,9 +183,8 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
       <View
         style={{
           flex: 1,
-          width: "100%",
-          height: "100%",
           backgroundColor: "#09090b",
+          paddingTop: insets.top,
         }}
       >
         {isLoading && !metrics ? (
@@ -257,6 +259,9 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
             style={{ flex: 1 }}
             contentContainerStyle={{
               padding,
+              paddingLeft: Math.max(insets.left, padding),
+              paddingRight: Math.max(insets.right, padding),
+              paddingBottom: tabBarHeight + insets.bottom + 12,
               flexDirection: isLandscape && columnCount > 1 ? "row" : "column",
               flexWrap: "wrap",
               gap: 12,

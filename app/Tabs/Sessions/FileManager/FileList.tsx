@@ -1,6 +1,7 @@
 import { ScrollView, RefreshControl, View, Text } from "react-native";
 import { FileItem } from "./FileItem";
 import { sortFiles } from "./utils/fileUtils";
+import { getColumnCount } from "@/app/utils/responsive";
 
 interface FileListItem {
   name: string;
@@ -22,6 +23,9 @@ interface FileListProps {
   onRefresh: () => void;
   sortBy?: "name" | "size" | "modified";
   sortOrder?: "asc" | "desc";
+  isLandscape: boolean;
+  width: number;
+  toolbarHeight: number;
 }
 
 export function FileList({
@@ -35,8 +39,13 @@ export function FileList({
   onRefresh,
   sortBy = "name",
   sortOrder = "asc",
+  isLandscape,
+  width,
+  toolbarHeight,
 }: FileListProps) {
   const sortedFiles = sortFiles(files, sortBy, sortOrder);
+  const columnCount = getColumnCount(width, isLandscape, 300);
+  const useGrid = isLandscape && columnCount > 1;
 
   if (!isLoading && files.length === 0) {
     return (
@@ -59,6 +68,11 @@ export function FileList({
   return (
     <ScrollView
       className="flex-1 bg-dark-bg"
+      contentContainerStyle={{
+        flexDirection: useGrid ? "row" : "column",
+        flexWrap: useGrid ? "wrap" : "nowrap",
+        paddingBottom: toolbarHeight + 12,
+      }}
       refreshControl={
         <RefreshControl
           refreshing={isLoading}
@@ -79,10 +93,10 @@ export function FileList({
           onLongPress={() => onFileLongPress(file)}
           onSelectToggle={() => onSelectToggle(file.path)}
           selectionMode={selectionMode}
+          columnCount={columnCount}
+          useGrid={useGrid}
         />
       ))}
-      {/* Add bottom padding for toolbar */}
-      <View className="h-20" />
     </ScrollView>
   );
 }

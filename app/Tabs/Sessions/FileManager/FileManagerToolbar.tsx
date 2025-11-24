@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Copy, Scissors, Clipboard, Trash2, X } from "lucide-react-native";
+import { getResponsivePadding } from "@/app/utils/responsive";
 
 interface FileManagerToolbarProps {
   selectionMode: boolean;
@@ -11,6 +12,9 @@ interface FileManagerToolbarProps {
   onCancelSelection: () => void;
   clipboardCount?: number;
   clipboardOperation?: "copy" | "cut" | null;
+  isLandscape: boolean;
+  bottomInset: number;
+  tabBarHeight: number;
 }
 
 export function FileManagerToolbar({
@@ -23,30 +27,55 @@ export function FileManagerToolbar({
   onCancelSelection,
   clipboardCount = 0,
   clipboardOperation = null,
+  isLandscape,
+  bottomInset,
+  tabBarHeight,
 }: FileManagerToolbarProps) {
   if (!selectionMode && clipboardCount === 0) {
     return null;
   }
 
+  const padding = getResponsivePadding(isLandscape);
+  const iconSize = isLandscape ? 18 : 20;
+  const buttonPadding = isLandscape ? 6 : 8;
+
   return (
-    <View className="absolute bottom-0 left-0 right-0 bg-dark-bg-button border-t-2 border-dark-border px-4 py-3">
+    <View
+      style={{
+        position: "absolute",
+        bottom: tabBarHeight + bottomInset,
+        left: 0,
+        right: 0,
+        backgroundColor: "#27272a",
+        borderTopWidth: 2,
+        borderTopColor: "#303032",
+        paddingHorizontal: padding,
+        paddingVertical: isLandscape ? 8 : 12,
+      }}
+    >
       {selectionMode ? (
-        <View className="flex-row items-center">
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           {/* Selection count */}
-          <Text className="text-white font-medium mr-4">
+          <Text style={{ color: "#ffffff", fontWeight: "500", marginRight: 16, fontSize: isLandscape ? 12 : 14 }}>
             {selectedCount} selected
           </Text>
 
-          <View className="flex-1 flex-row items-center justify-end gap-2">
+          <View style={{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "flex-end", gap: 8 }}>
             {/* Copy */}
             <TouchableOpacity
               onPress={onCopy}
-              className="p-2 bg-dark-bg-darker rounded border border-dark-border"
+              style={{
+                padding: buttonPadding,
+                backgroundColor: "#18181b",
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: "#303032",
+              }}
               activeOpacity={0.7}
               disabled={selectedCount === 0}
             >
               <Copy
-                size={20}
+                size={iconSize}
                 color={selectedCount === 0 ? "#4B5563" : "#3B82F6"}
               />
             </TouchableOpacity>
@@ -54,12 +83,18 @@ export function FileManagerToolbar({
             {/* Cut */}
             <TouchableOpacity
               onPress={onCut}
-              className="p-2 bg-dark-bg-darker rounded border border-dark-border"
+              style={{
+                padding: buttonPadding,
+                backgroundColor: "#18181b",
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: "#303032",
+              }}
               activeOpacity={0.7}
               disabled={selectedCount === 0}
             >
               <Scissors
-                size={20}
+                size={iconSize}
                 color={selectedCount === 0 ? "#4B5563" : "#F59E0B"}
               />
             </TouchableOpacity>
@@ -67,12 +102,18 @@ export function FileManagerToolbar({
             {/* Delete */}
             <TouchableOpacity
               onPress={onDelete}
-              className="p-2 bg-dark-bg-darker rounded border border-dark-border"
+              style={{
+                padding: buttonPadding,
+                backgroundColor: "#18181b",
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: "#303032",
+              }}
               activeOpacity={0.7}
               disabled={selectedCount === 0}
             >
               <Trash2
-                size={20}
+                size={iconSize}
                 color={selectedCount === 0 ? "#4B5563" : "#EF4444"}
               />
             </TouchableOpacity>
@@ -80,23 +121,30 @@ export function FileManagerToolbar({
             {/* Cancel */}
             <TouchableOpacity
               onPress={onCancelSelection}
-              className="ml-2 p-2 bg-dark-bg-darker rounded border border-dark-border"
+              style={{
+                marginLeft: 8,
+                padding: buttonPadding,
+                backgroundColor: "#18181b",
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: "#303032",
+              }}
               activeOpacity={0.7}
             >
-              <X size={20} color="#9CA3AF" />
+              <X size={iconSize} color="#9CA3AF" />
             </TouchableOpacity>
           </View>
         </View>
       ) : (
-        <View className="flex-row items-center">
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           {/* Clipboard info */}
-          <View className="flex-1 flex-row items-center">
+          <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
             {clipboardOperation === "copy" ? (
-              <Copy size={18} color="#3B82F6" />
+              <Copy size={iconSize} color="#3B82F6" />
             ) : (
-              <Scissors size={18} color="#F59E0B" />
+              <Scissors size={iconSize} color="#F59E0B" />
             )}
-            <Text className="text-white ml-2">
+            <Text style={{ color: "#ffffff", marginLeft: 8, fontSize: isLandscape ? 12 : 14 }}>
               {clipboardCount} item{clipboardCount !== 1 ? "s" : ""}{" "}
               {clipboardOperation === "copy" ? "copied" : "cut"}
             </Text>
@@ -105,11 +153,20 @@ export function FileManagerToolbar({
           {/* Paste button */}
           <TouchableOpacity
             onPress={onPaste}
-            className="flex-row items-center px-4 py-2 bg-blue-500 rounded border border-blue-600"
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              paddingHorizontal: isLandscape ? 12 : 16,
+              paddingVertical: isLandscape ? 6 : 8,
+              backgroundColor: "#3B82F6",
+              borderRadius: 4,
+              borderWidth: 1,
+              borderColor: "#2563EB",
+            }}
             activeOpacity={0.7}
           >
-            <Clipboard size={18} color="white" />
-            <Text className="text-white font-medium ml-2">Paste</Text>
+            <Clipboard size={iconSize} color="white" />
+            <Text style={{ color: "#ffffff", fontWeight: "500", marginLeft: 8, fontSize: isLandscape ? 12 : 14 }}>Paste</Text>
           </TouchableOpacity>
         </View>
       )}

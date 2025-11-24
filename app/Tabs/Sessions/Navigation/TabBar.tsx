@@ -7,6 +7,7 @@ import {
   TextInput,
   Keyboard,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   X,
   ArrowLeft,
@@ -33,6 +34,7 @@ interface TabBarProps {
   onHideKeyboard?: () => void;
   onShowKeyboard?: () => void;
   keyboardIntentionallyHiddenRef: React.MutableRefObject<boolean>;
+  activeSessionType?: "terminal" | "stats" | "filemanager";
 }
 
 export default function TabBar({
@@ -47,13 +49,18 @@ export default function TabBar({
   onHideKeyboard,
   onShowKeyboard,
   keyboardIntentionallyHiddenRef,
+  activeSessionType,
 }: TabBarProps) {
   const router = useRouter();
   const { isKeyboardVisible } = useKeyboard();
   const { isLandscape } = useOrientation();
+  const insets = useSafeAreaInsets();
 
   const tabBarHeight = getTabBarHeight(isLandscape);
   const buttonSize = getButtonSize(isLandscape);
+
+  // Add bottom padding for non-terminal sessions (when tab bar is at the bottom)
+  const needsBottomPadding = activeSessionType !== "terminal";
 
   const handleToggleSystemKeyboard = () => {
     if (keyboardIntentionallyHiddenRef.current) {
@@ -77,8 +84,9 @@ export default function TabBar({
         backgroundColor: "#0e0e10",
         borderTopWidth: isLandscape ? 1 : 1.5,
         borderTopColor: "#303032",
-        minHeight: tabBarHeight,
-        maxHeight: tabBarHeight,
+        minHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
+        maxHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
+        paddingBottom: needsBottomPadding ? insets.bottom : 0,
       }}
       focusable={false}
     >
@@ -86,7 +94,7 @@ export default function TabBar({
         style={{
           flexDirection: "row",
           alignItems: "center",
-          height: "100%",
+          height: tabBarHeight,
           paddingHorizontal: 8,
         }}
       >
@@ -197,7 +205,7 @@ export default function TabBar({
           </ScrollView>
         </View>
 
-        {!isCustomKeyboardVisible && (
+        {activeSessionType === "terminal" && !isCustomKeyboardVisible && (
           <TouchableOpacity
             onPress={handleToggleSystemKeyboard}
             focusable={false}
@@ -225,31 +233,33 @@ export default function TabBar({
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity
-          onPress={() => onToggleKeyboard?.()}
-          focusable={false}
-          className="items-center justify-center rounded-md"
-          activeOpacity={0.7}
-          style={{
-            width: buttonSize,
-            height: buttonSize,
-            borderWidth: isLandscape ? 1.5 : 2,
-            borderColor: "#303032",
-            backgroundColor: "#2a2a2a",
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.1,
-            shadowRadius: 4,
-            elevation: 2,
-            marginLeft: isLandscape ? 6 : 8,
-          }}
-        >
-          {isCustomKeyboardVisible ? (
-            <Minus size={isLandscape ? 18 : 20} color="#ffffff" />
-          ) : (
-            <Plus size={isLandscape ? 18 : 20} color="#ffffff" />
-          )}
-        </TouchableOpacity>
+        {activeSessionType === "terminal" && (
+          <TouchableOpacity
+            onPress={() => onToggleKeyboard?.()}
+            focusable={false}
+            className="items-center justify-center rounded-md"
+            activeOpacity={0.7}
+            style={{
+              width: buttonSize,
+              height: buttonSize,
+              borderWidth: isLandscape ? 1.5 : 2,
+              borderColor: "#303032",
+              backgroundColor: "#2a2a2a",
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.1,
+              shadowRadius: 4,
+              elevation: 2,
+              marginLeft: isLandscape ? 6 : 8,
+            }}
+          >
+            {isCustomKeyboardVisible ? (
+              <Minus size={isLandscape ? 18 : 20} color="#ffffff" />
+            ) : (
+              <Plus size={isLandscape ? 18 : 20} color="#ffffff" />
+            )}
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

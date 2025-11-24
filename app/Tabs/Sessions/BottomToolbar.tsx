@@ -28,6 +28,9 @@ export default function BottomToolbar({
 
   if (!isVisible) return null;
 
+  // Constrain keyboard height to safe values
+  const safeKeyboardHeight = Math.max(200, Math.min(keyboardHeight, 500));
+
   const tabs: { id: ToolbarMode; label: string; icon: string }[] = [
     { id: "keyboard", label: "Keyboard", icon: "⌨️" },
     { id: "snippets", label: "Snippets", icon: "📋" },
@@ -62,12 +65,12 @@ export default function BottomToolbar({
       </View>
 
       {/* Content Area */}
-      <View style={styles.content}>
+      <View style={[styles.content, { height: safeKeyboardHeight }]}>
         {mode === "keyboard" && (
           <CustomKeyboard
             terminalRef={terminalRef}
             isVisible={true}
-            keyboardHeight={keyboardHeight}
+            keyboardHeight={safeKeyboardHeight}
             isKeyboardIntentionallyHidden={isKeyboardIntentionallyHidden}
           />
         )}
@@ -76,7 +79,7 @@ export default function BottomToolbar({
           <SnippetsBar
             terminalRef={terminalRef}
             isVisible={true}
-            height={keyboardHeight}
+            height={safeKeyboardHeight}
           />
         )}
 
@@ -84,7 +87,7 @@ export default function BottomToolbar({
           <CommandHistoryBar
             terminalRef={terminalRef}
             isVisible={true}
-            height={keyboardHeight}
+            height={safeKeyboardHeight}
             currentHostId={currentHostId}
           />
         )}
@@ -98,6 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0e0e10",
     borderTopWidth: 1.5,
     borderTopColor: "#303032",
+    maxHeight: 550,
   },
   tabBar: {
     flexDirection: "row",
@@ -131,6 +135,6 @@ const styles = StyleSheet.create({
     color: "#9333ea",
   },
   content: {
-    flex: 1,
+    overflow: "hidden",
   },
 });

@@ -190,7 +190,7 @@ function createApiInstance(
       config.headers["User-Agent"] = `Termix-Mobile/${platform.OS}`;
     }
 
-    return config;\
+    return config;
   });
 
   instance.interceptors.response.use(
