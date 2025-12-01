@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   ScrollView,
-  StyleSheet,
   Text,
   Clipboard,
   Platform,
@@ -13,6 +12,7 @@ import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationCo
 import { KeyConfig } from "@/types/keyboard";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import { useOrientation } from "@/app/utils/orientation";
+import { BORDERS, BORDER_COLORS } from "@/app/constants/designTokens";
 
 interface KeyboardBarProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
@@ -128,25 +128,31 @@ export default function KeyboardBar({
 
   return (
     <View
-      style={[
-        styles.keyboardBar,
-        isKeyboardIntentionallyHidden && { paddingBottom: 16 },
-        isLandscape && styles.keyboardBarLandscape,
-      ]}
+      className="bg-dark-bg-darkest pt-px"
+      style={{
+        borderTopWidth: BORDERS.MAJOR,
+        borderTopColor: BORDER_COLORS.PRIMARY,
+        paddingBottom: isKeyboardIntentionallyHidden ? 16 : 0,
+      }}
     >
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={[
-          styles.scrollContent,
-          isLandscape && styles.scrollContentLandscape,
-        ]}
+        contentContainerStyle={{
+          paddingHorizontal: 8,
+          paddingVertical: isLandscape ? 6 : 8,
+          alignItems: "center",
+          gap: isLandscape ? 4 : 6,
+        }}
         keyboardShouldPersistTaps="handled"
       >
         {hasPinnedKeys && (
           <>
             {pinnedKeys.map((key, index) => renderKey(key, index))}
-            <View style={styles.separator} />
+            <View
+              className="w-px h-[30px] mx-2"
+              style={{ backgroundColor: BORDER_COLORS.SEPARATOR }}
+            />
           </>
         )}
 
@@ -155,41 +161,3 @@ export default function KeyboardBar({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  keyboardBar: {
-    backgroundColor: "#0e0e10",
-    borderTopWidth: 1.5,
-    borderTopColor: "#303032",
-  },
-  keyboardBarLandscape: {
-    borderTopWidth: 1,
-  },
-  scrollContent: {
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-    alignItems: "center",
-    gap: 6,
-  },
-  scrollContentLandscape: {
-    paddingVertical: 6,
-    gap: 4,
-  },
-  separator: {
-    width: 1,
-    height: 30,
-    backgroundColor: "#404040",
-    marginHorizontal: 8,
-  },
-  hintContainer: {
-    paddingHorizontal: 12,
-    paddingBottom: 2,
-    paddingTop: 0,
-    alignItems: "center",
-  },
-  hintText: {
-    fontSize: 10,
-    color: "#666",
-    fontStyle: "italic",
-  },
-});

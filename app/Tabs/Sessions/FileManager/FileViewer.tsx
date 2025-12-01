@@ -142,9 +142,9 @@ export function FileViewer({
                     disabled={isSaving}
                   >
                     {isSaving ? (
-                      <ActivityIndicator size="small" color="white" />
+                      <ActivityIndicator size="small" color="#22C55E" />
                     ) : (
-                      <Save size={18} color="white" />
+                      <Save size={18} color="#22C55E" />
                     )}
                   </TouchableOpacity>
                 </>
@@ -211,10 +211,10 @@ export function FileViewer({
                 disabled={isSaving}
               >
                 {isSaving ? (
-                  <ActivityIndicator size="small" color="white" />
+                  <ActivityIndicator size="small" color="#22C55E" />
                 ) : (
                   <>
-                    <Save size={18} color="white" />
+                    <Save size={18} color="#22C55E" />
                     <Text className="text-white font-medium ml-2">Save</Text>
                   </>
                 )}

@@ -252,33 +252,29 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       scrollbar-color: rgba(180,180,180,0.7) transparent;
     }
     /* Disable text selection and callouts to avoid native dialogues */
-    * { -webkit-tap-highlight-color: transparent; }
-    html, body, #terminal, .xterm * {
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+    html, body, #terminal, .xterm, .xterm * {
       user-select: none;
       -webkit-user-select: none;
       -ms-user-select: none;
+      -moz-user-select: none;
     }
 
-    /* Hidden input for better keyboard handling */
-    #hidden-input {
-      position: absolute;
-      left: -9999px;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-      pointer-events: none;
+    /* Prevent all input elements from being focusable but keep them in DOM */
+    input, textarea, [contenteditable], .xterm-helper-textarea {
+      position: absolute !important;
+      left: -9999px !important;
+      width: 1px !important;
+      height: 1px !important;
+      opacity: 0 !important;
     }
+
   </style>
 </head>
 <body>
-  <input
-    id="hidden-input"
-    type="text"
-    autocomplete="off"
-    autocorrect="off"
-    autocapitalize="off"
-    spellcheck="false"
-  />
   <div id="terminal"></div>
   
   <script>
@@ -308,7 +304,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       fastScrollModifier: 'alt',
       fastScrollSensitivity: 5,
       allowProposedApi: true,
-      disableStdin: false,
+      disableStdin: true,
       cursorInactiveStyle: 'bar'
     });
 
@@ -411,89 +407,19 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     }
 
     const terminalElement = document.getElementById('terminal');
-    const hiddenInput = document.getElementById('hidden-input');
 
-    let isComposing = false;
-    let lastInputTime = 0;
-    let lastInputValue = '';
-    const INPUT_DEBOUNCE_MS = 10;
-
-    // Handle IME composition events
-    if (hiddenInput) {
-      hiddenInput.addEventListener('compositionstart', function() {
-        isComposing = true;
-      });
-
-      hiddenInput.addEventListener('compositionupdate', function(e) {
-        isComposing = true;
-      });
-
-      hiddenInput.addEventListener('compositionend', function(e) {
-        isComposing = false;
-        if (e.data && ws && ws.readyState === WebSocket.OPEN) {
-          trackInput(e.data);
-          ws.send(JSON.stringify({ type: 'input', data: e.data }));
-        }
-        hiddenInput.value = '';
-      });
-
-      hiddenInput.addEventListener('input', function(e) {
-        if (isComposing) return;
-
-        const now = Date.now();
-        const value = e.target.value;
-
-        // Debounce rapid duplicate inputs
-        if (now - lastInputTime < INPUT_DEBOUNCE_MS && value === lastInputValue) {
-          return;
-        }
-
-        lastInputTime = now;
-        lastInputValue = value;
-
-        if (value && ws && ws.readyState === WebSocket.OPEN) {
-          trackInput(value);
-          ws.send(JSON.stringify({ type: 'input', data: value }));
-        }
-        hiddenInput.value = '';
-      });
-
-      hiddenInput.addEventListener('keydown', function(e) {
-        if (isComposing) return;
-
-        // Handle special keys
-        if (e.key === 'Backspace') {
-          e.preventDefault();
-          if (ws && ws.readyState === WebSocket.OPEN) {
-            trackInput('\\x7f');
-            ws.send(JSON.stringify({ type: 'input', data: '\\x7f' }));
-          }
-        } else if (e.key === 'Enter') {
-          e.preventDefault();
-          if (ws && ws.readyState === WebSocket.OPEN) {
-            trackInput('\\r');
-            ws.send(JSON.stringify({ type: 'input', data: '\\r' }));
-          }
-        } else if (e.key === 'Tab') {
-          e.preventDefault();
-          if (ws && ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify({ type: 'input', data: '\\t' }));
-          }
-        }
-      });
-    }
-
-    // Focus hidden input when terminal is tapped
-    ['touchstart','touchend','mousedown','mouseup','click','dblclick'].forEach(function(ev){
-      terminalElement.addEventListener(ev, function(e){
+    // Prevent focus on any textarea/input created by xterm
+    document.addEventListener('focusin', function(e) {
+      if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) {
         e.preventDefault();
         e.stopPropagation();
-        if (hiddenInput) {
-          hiddenInput.focus();
-        }
-        return false;
-      }, { passive: false });
-    });
+        setTimeout(function() {
+          if (e.target && e.target.blur) {
+            e.target.blur();
+          }
+        }, 0);
+      }
+    }, true);
 
     terminalElement.addEventListener('contextmenu', function(e){
       e.preventDefault();
@@ -512,7 +438,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
         ws = new WebSocket(wsUrl);
         window.ws = ws;
-        window.hiddenInput = hiddenInput;
 
         connectionTimeout = setTimeout(() => {
           if (ws && ws.readyState === WebSocket.CONNECTING) {
@@ -665,7 +590,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         ws.close();
       }
       window.ws = null;
-      window.hiddenInput = null;
     });
   </script>
 </body>
@@ -842,9 +766,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         >
           <View style={{ flex: 1 }}>
             {/* Note: Hidden TextInput removed - keyboard handled by Sessions.tsx */}
-            <TouchableWithoutFeedback onPress={focusTerminal}>
-              <View style={{ flex: 1 }}>
-                <WebView
+            <WebView
                   key={`terminal-${hostConfig.id}-${webViewKey}`}
                   ref={webViewRef}
                   source={{ html: htmlContent }}
@@ -862,6 +784,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                   allowsInlineMediaPlayback={true}
                   mediaPlaybackRequiresUserAction={false}
                   keyboardDisplayRequiresUserAction={false}
+                  hideKeyboardAccessoryView={true}
                   onScroll={() => {}}
                   onMessage={handleWebViewMessage}
                   onError={(syntheticEvent) => {
@@ -876,15 +799,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                       `WebView HTTP error: ${nativeEvent.statusCode}`,
                     );
                   }}
-                  scrollEnabled={false}
+                  scrollEnabled={true}
                   bounces={false}
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}
                   nestedScrollEnabled={false}
-                />
-              </View>
-            </TouchableWithoutFeedback>
-          </View>
+                /></View>
 
           {(showConnectingOverlay || isRetrying) && (
             <View

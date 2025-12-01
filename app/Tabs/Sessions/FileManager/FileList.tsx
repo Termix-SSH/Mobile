@@ -44,8 +44,6 @@ export function FileList({
   toolbarHeight,
 }: FileListProps) {
   const sortedFiles = sortFiles(files, sortBy, sortOrder);
-  const columnCount = getColumnCount(width, isLandscape, 300);
-  const useGrid = isLandscape && columnCount > 1;
 
   if (!isLoading && files.length === 0) {
     return (
@@ -69,9 +67,7 @@ export function FileList({
     <ScrollView
       className="flex-1 bg-dark-bg"
       contentContainerStyle={{
-        flexDirection: useGrid ? "row" : "column",
-        flexWrap: useGrid ? "wrap" : "nowrap",
-        paddingBottom: toolbarHeight + 12,
+        paddingBottom: toolbarHeight > 0 ? toolbarHeight + 12 : 12,
       }}
       refreshControl={
         <RefreshControl
@@ -93,8 +89,6 @@ export function FileList({
           onLongPress={() => onFileLongPress(file)}
           onSelectToggle={() => onSelectToggle(file.path)}
           selectionMode={selectionMode}
-          columnCount={columnCount}
-          useGrid={useGrid}
         />
       ))}
     </ScrollView>

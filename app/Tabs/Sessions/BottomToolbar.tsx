@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { TerminalHandle } from "./Terminal";
 import CustomKeyboard from "./CustomKeyboard";
 import SnippetsBar from "./SnippetsBar";
 import CommandHistoryBar from "./CommandHistoryBar";
+import { BORDERS, BORDER_COLORS, BACKGROUNDS } from "@/app/constants/designTokens";
 
 type ToolbarMode = "keyboard" | "snippets" | "history";
 
@@ -31,41 +32,67 @@ export default function BottomToolbar({
   // Constrain keyboard height to safe values
   const safeKeyboardHeight = Math.max(200, Math.min(keyboardHeight, 500));
 
-  const tabs: { id: ToolbarMode; label: string; icon: string }[] = [
-    { id: "keyboard", label: "Keyboard", icon: "⌨️" },
-    { id: "snippets", label: "Snippets", icon: "📋" },
-    { id: "history", label: "History", icon: "🕒" },
+  const tabs: { id: ToolbarMode; label: string }[] = [
+    { id: "keyboard", label: "KEYBOARD" },
+    { id: "snippets", label: "SNIPPETS" },
+    { id: "history", label: "HISTORY" },
   ];
+
+  // Total height includes tab bar + content area (padding handled separately)
+  const TAB_BAR_HEIGHT = 36;
 
   return (
     <View
-      style={[
-        styles.container,
-        {
-          paddingBottom: insets.bottom,
-        },
-      ]}
+      className="bg-dark-bg-darkest"
+      style={{
+        borderTopWidth: BORDERS.MAJOR,
+        borderTopColor: BORDER_COLORS.PRIMARY,
+      }}
     >
       {/* Tab Bar */}
-      <View style={styles.tabBar}>
-        {tabs.map((tab) => (
+      <View
+        className="flex-row bg-dark-bg-darkest"
+        style={{
+          height: TAB_BAR_HEIGHT,
+          borderBottomWidth: BORDERS.STANDARD,
+          borderBottomColor: BORDER_COLORS.SECONDARY,
+        }}
+      >
+        {tabs.map((tab, index) => (
           <TouchableOpacity
             key={tab.id}
-            style={[styles.tab, mode === tab.id && styles.tabActive]}
+            className="flex-1 items-center justify-center py-1.5 px-1 bg-dark-bg-darkest"
             onPress={() => setMode(tab.id)}
+            style={{
+              borderRightWidth: index !== tabs.length - 1 ? BORDERS.STANDARD : 0,
+              borderRightColor: BORDER_COLORS.SECONDARY,
+            }}
           >
-            <Text style={styles.tabIcon}>{tab.icon}</Text>
             <Text
-              style={[styles.tabLabel, mode === tab.id && styles.tabLabelActive]}
+              className={`text-[10px] font-bold tracking-wide text-center leading-[14px] ${
+                mode === tab.id ? "text-gray-200" : "text-gray-600"
+              }`}
             >
               {tab.label}
             </Text>
+            {mode === tab.id && (
+              <View
+                className="absolute bottom-0 left-0 right-0 h-0.5"
+                style={{ backgroundColor: BORDER_COLORS.ACTIVE }}
+              />
+            )}
           </TouchableOpacity>
         ))}
       </View>
 
       {/* Content Area */}
-      <View style={[styles.content, { height: safeKeyboardHeight }]}>
+      <View
+        className="overflow-hidden"
+        style={{
+          height: safeKeyboardHeight,
+          paddingBottom: insets.bottom,
+        }}
+      >
         {mode === "keyboard" && (
           <CustomKeyboard
             terminalRef={terminalRef}
@@ -95,46 +122,3 @@ export default function BottomToolbar({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#0e0e10",
-    borderTopWidth: 1.5,
-    borderTopColor: "#303032",
-    maxHeight: 550,
-  },
-  tabBar: {
-    flexDirection: "row",
-    backgroundColor: "#18181b",
-    borderBottomWidth: 1,
-    borderBottomColor: "#303032",
-  },
-  tab: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    gap: 6,
-    backgroundColor: "#18181b",
-  },
-  tabActive: {
-    backgroundColor: "#0e0e10",
-    borderBottomWidth: 2,
-    borderBottomColor: "#9333ea",
-  },
-  tabIcon: {
-    fontSize: 16,
-  },
-  tabLabel: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: "#888",
-  },
-  tabLabelActive: {
-    color: "#9333ea",
-  },
-  content: {
-    overflow: "hidden",
-  },
-});

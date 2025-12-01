@@ -6,6 +6,7 @@ import {
   Switch,
   Modal,
   Pressable,
+  ScrollView,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -273,7 +274,7 @@ export default function KeyboardCustomization() {
   };
 
   const renderPresets = () => (
-    <View className="flex-1 px-4 py-4">
+    <ScrollView className="flex-1 px-4 py-4">
       <Text className="text-white text-lg font-semibold mb-2">
         Keyboard Presets
       </Text>
@@ -316,7 +317,7 @@ export default function KeyboardCustomization() {
           </Text>
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 
   const validateTopBarDrag = (newData: UnifiedListItem[]): boolean => {
@@ -514,7 +515,7 @@ export default function KeyboardCustomization() {
   );
 
   const renderSettings = () => (
-    <View className="flex-1 px-4 py-4">
+    <ScrollView className="flex-1 px-4 py-4">
       <Text className="text-white text-lg font-semibold mb-2">
         Keyboard Settings
       </Text>
@@ -609,7 +610,7 @@ export default function KeyboardCustomization() {
           Reset Everything to Default
         </Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 
   return (

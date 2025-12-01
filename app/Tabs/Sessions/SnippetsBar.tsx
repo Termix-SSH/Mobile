@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
@@ -10,6 +9,7 @@ import {
 import { TerminalHandle } from "./Terminal";
 import { getSnippets, getSnippetFolders } from "@/app/main-axios";
 import { showToast } from "@/app/utils/toast";
+import { BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";
 
 interface Snippet {
   id: number;
@@ -68,7 +68,7 @@ export default function SnippetsBar({
         )
       );
     } catch (error) {
-      showToast("Failed to load snippets", "error");
+      showToast.error("Failed to load snippets");
     } finally {
       setLoading(false);
     }
@@ -77,7 +77,7 @@ export default function SnippetsBar({
   const executeSnippet = (snippet: Snippet) => {
     if (terminalRef.current) {
       terminalRef.current.sendInput(snippet.content + "\n");
-      showToast(`Executed: ${snippet.name}`, "success");
+      showToast.success(`Executed: ${snippet.name}`);
     }
   };
 
@@ -101,8 +101,8 @@ export default function SnippetsBar({
 
   if (loading) {
     return (
-      <View style={[styles.container, { height }]}>
-        <ActivityIndicator color="#9333ea" size="small" />
+      <View className="h-full bg-dark-bg-darkest" style={{ height }}>
+        <ActivityIndicator color="#22C55E" size="small" />
       </View>
     );
   }
@@ -110,26 +110,41 @@ export default function SnippetsBar({
   const unfolderedSnippets = getSnippetsInFolder(null);
 
   return (
-    <View style={[styles.container, { height }]}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Snippets</Text>
-        <TouchableOpacity onPress={loadSnippets} style={styles.refreshButton}>
-          <Text style={styles.refreshText}>↻</Text>
+    <View className="h-full bg-dark-bg-darkest">
+      <View
+        className="flex-row justify-between items-center px-3 py-2.5 bg-dark-bg"
+        style={{
+          borderBottomWidth: 1,
+          borderBottomColor: BORDER_COLORS.SECONDARY,
+        }}
+      >
+        <Text className="text-sm font-semibold text-gray-200">Snippets</Text>
+        <TouchableOpacity onPress={loadSnippets} className="p-1">
+          <Text className="text-lg text-[#22C55E]">↻</Text>
         </TouchableOpacity>
       </View>
 
       <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+        className="h-full"
+        contentContainerStyle={{
+          paddingHorizontal: 12,
+          paddingTop: 8,
+          paddingBottom: 12,
+        }}
         showsVerticalScrollIndicator={false}
       >
         {unfolderedSnippets.map((snippet) => (
           <TouchableOpacity
             key={snippet.id}
-            style={styles.snippetItem}
+            className="bg-dark-bg px-3 py-2.5 mb-1.5"
+            style={{
+              borderWidth: 1,
+              borderColor: BORDER_COLORS.BUTTON,
+              borderRadius: RADIUS.BUTTON,
+            }}
             onPress={() => executeSnippet(snippet)}
           >
-            <Text style={styles.snippetName} numberOfLines={1}>
+            <Text className="text-[13px] text-gray-200 font-medium" numberOfLines={1}>
               {snippet.name}
             </Text>
           </TouchableOpacity>
@@ -140,24 +155,28 @@ export default function SnippetsBar({
           const isCollapsed = collapsedFolders.has(folder.id);
 
           return (
-            <View key={folder.id} style={styles.folderContainer}>
+            <View key={folder.id} className="mb-2">
               <TouchableOpacity
-                style={[
-                  styles.folderHeader,
-                  folder.color && { borderLeftColor: folder.color },
-                ]}
+                className="flex-row justify-between items-center bg-dark-bg px-3 py-2.5 mb-1.5"
+                style={{
+                  borderWidth: 1,
+                  borderColor: BORDER_COLORS.BUTTON,
+                  borderLeftWidth: 3,
+                  borderLeftColor: folder.color || "#22C55E",
+                  borderRadius: RADIUS.BUTTON,
+                }}
                 onPress={() => toggleFolder(folder.id)}
               >
-                <View style={styles.folderHeaderContent}>
+                <View className="flex-row items-center flex-1">
                   {folder.icon && (
-                    <Text style={styles.folderIcon}>{folder.icon}</Text>
+                    <Text className="text-base mr-2">{folder.icon}</Text>
                   )}
-                  <Text style={styles.folderName} numberOfLines={1}>
+                  <Text className="text-sm font-semibold text-gray-200 flex-1" numberOfLines={1}>
                     {folder.name}
                   </Text>
-                  <Text style={styles.folderCount}>({folderSnippets.length})</Text>
+                  <Text className="text-xs text-gray-500 ml-1">({folderSnippets.length})</Text>
                 </View>
-                <Text style={styles.collapseIcon}>
+                <Text className="text-[10px] text-gray-500 ml-2">
                   {isCollapsed ? "▶" : "▼"}
                 </Text>
               </TouchableOpacity>
@@ -166,10 +185,15 @@ export default function SnippetsBar({
                 folderSnippets.map((snippet) => (
                   <TouchableOpacity
                     key={snippet.id}
-                    style={styles.snippetItemInFolder}
+                    className="bg-dark-bg px-3 py-2.5 mb-1.5 ml-4"
+                    style={{
+                      borderWidth: 1,
+                      borderColor: BORDER_COLORS.BUTTON,
+                      borderRadius: RADIUS.BUTTON,
+                    }}
                     onPress={() => executeSnippet(snippet)}
                   >
-                    <Text style={styles.snippetName} numberOfLines={1}>
+                    <Text className="text-[13px] text-gray-200 font-medium" numberOfLines={1}>
                       {snippet.name}
                     </Text>
                   </TouchableOpacity>
@@ -179,9 +203,9 @@ export default function SnippetsBar({
         })}
 
         {snippets.length === 0 && (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No snippets yet</Text>
-            <Text style={styles.emptySubtext}>
+          <View className="py-8 items-center">
+            <Text className="text-sm text-gray-500 font-semibold">No snippets yet</Text>
+            <Text className="text-xs text-gray-600 mt-1">
               Create snippets in Settings
             </Text>
           </View>
@@ -190,119 +214,3 @@ export default function SnippetsBar({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#0e0e10",
-    borderTopWidth: 1.5,
-    borderTopColor: "#303032",
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: "#303032",
-  },
-  headerText: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#e5e5e7",
-  },
-  refreshButton: {
-    padding: 4,
-  },
-  refreshText: {
-    fontSize: 18,
-    color: "#9333ea",
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-  },
-  snippetItem: {
-    backgroundColor: "#18181b",
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderRadius: 6,
-    marginBottom: 6,
-    borderWidth: 1,
-    borderColor: "#303032",
-  },
-  snippetItemInFolder: {
-    backgroundColor: "#18181b",
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderRadius: 6,
-    marginBottom: 6,
-    marginLeft: 16,
-    borderWidth: 1,
-    borderColor: "#303032",
-  },
-  snippetName: {
-    fontSize: 13,
-    color: "#e5e5e7",
-    fontWeight: "500",
-  },
-  folderContainer: {
-    marginBottom: 8,
-  },
-  folderHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#18181b",
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderRadius: 6,
-    marginBottom: 6,
-    borderWidth: 1,
-    borderColor: "#303032",
-    borderLeftWidth: 3,
-    borderLeftColor: "#9333ea",
-  },
-  folderHeaderContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-  },
-  folderIcon: {
-    fontSize: 16,
-    marginRight: 8,
-  },
-  folderName: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#e5e5e7",
-    flex: 1,
-  },
-  folderCount: {
-    fontSize: 12,
-    color: "#888",
-    marginLeft: 4,
-  },
-  collapseIcon: {
-    fontSize: 10,
-    color: "#888",
-    marginLeft: 8,
-  },
-  emptyContainer: {
-    paddingVertical: 32,
-    alignItems: "center",
-  },
-  emptyText: {
-    fontSize: 14,
-    color: "#888",
-    fontWeight: "600",
-  },
-  emptySubtext: {
-    fontSize: 12,
-    color: "#666",
-    marginTop: 4,
-  },
-});

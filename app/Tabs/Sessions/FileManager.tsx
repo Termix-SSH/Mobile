@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback, forwardRef, useImperativeHandle } from "react";
-import { View, Alert, TextInput, Modal, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Alert, TextInput, Modal, Text, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SSHHost } from "@/types";
 import { useOrientation } from "@/app/utils/orientation";
 import { getResponsivePadding, getTabBarHeight } from "@/app/utils/responsive";
+import { BORDERS, BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";
 import {
   connectSSH,
   listSSHFiles,
@@ -17,6 +18,7 @@ import {
   moveSSHItem,
   verifySSHTOTP,
   keepSSHAlive,
+  identifySSHSymlink,
 } from "@/app/main-axios";
 import { FileList } from "./FileManager/FileList";
 import { FileManagerHeader } from "./FileManager/FileManagerHeader";
@@ -29,6 +31,7 @@ import { showToast } from "@/app/utils/toast";
 interface FileManagerProps {
   host: SSHHost;
   sessionId: string;
+  isVisible: boolean;
 }
 
 interface FileItem {
@@ -45,7 +48,7 @@ export interface FileManagerHandle {
 }
 
 export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
-  ({ host, sessionId }, ref) => {
+  ({ host, sessionId, isVisible }, ref) => {
     const insets = useSafeAreaInsets();
     const { width, isLandscape } = useOrientation();
     const [currentPath, setCurrentPath] = useState("/");
@@ -121,7 +124,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         // Load initial directory
         await loadDirectory(host.defaultPath || "/");
       } catch (error: any) {
-        showToast(error.message || "Failed to connect to SSH", "error");
+        showToast.error(error.message || "Failed to connect to SSH");
       } finally {
         setIsLoading(false);
       }
@@ -143,7 +146,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         // Load initial directory
         await loadDirectory(host.defaultPath || "/");
       } catch (error: any) {
-        showToast(error.message || "Invalid TOTP code", "error");
+        showToast.error(error.message || "Invalid TOTP code");
       }
     };
 
@@ -156,20 +159,49 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         setFiles(response.files || []);
         setCurrentPath(response.path || path);
       } catch (error: any) {
-        showToast(error.message || "Failed to load directory", "error");
+        showToast.error(error.message || "Failed to load directory");
       } finally {
         setIsLoading(false);
       }
     }, [sessionId]);
 
     // File operations
-    const handleFilePress = (file: FileItem) => {
+    const handleFilePress = async (file: FileItem) => {
+      // Handle symlinks by resolving target first
+      if (file.type === "link") {
+        try {
+          setIsLoading(true);
+          const symlinkInfo = await identifySSHSymlink(sessionId!, file.path);
+
+          if (symlinkInfo.type === "directory") {
+            // Navigate to target directory
+            await loadDirectory(symlinkInfo.target);
+          } else if (isTextFile(symlinkInfo.target)) {
+            // View target file
+            const targetFile: FileItem = {
+              name: file.name,
+              path: symlinkInfo.target,
+              type: "file",
+            };
+            await handleViewFile(targetFile);
+          } else {
+            showToast.info("File type not supported for viewing");
+          }
+        } catch (error: any) {
+          showToast.error(error.message || "Failed to follow symlink");
+        } finally {
+          setIsLoading(false);
+        }
+        return;
+      }
+
+      // Handle regular files and directories
       if (file.type === "directory") {
         loadDirectory(file.path);
       } else if (isTextFile(file.name)) {
         handleViewFile(file);
       } else {
-        showToast("File type not supported for viewing", "info");
+        showToast.info("File type not supported for viewing");
       }
     };
 
@@ -183,7 +215,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         const response = await readSSHFile(sessionId!, file.path);
         setFileViewer({ visible: true, file, content: response.content });
       } catch (error: any) {
-        showToast(error.message || "Failed to read file", "error");
+        showToast.error(error.message || "Failed to read file");
       } finally {
         setIsLoading(false);
       }
@@ -194,7 +226,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
 
       try {
         await writeSSHFile(sessionId!, fileViewer.file.path, content, host.id);
-        showToast("File saved successfully", "success");
+        showToast.success("File saved successfully");
         await loadDirectory(currentPath);
       } catch (error: any) {
         throw new Error(error.message || "Failed to save file");
@@ -218,16 +250,16 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         setIsLoading(true);
         if (createDialog.type === "folder") {
           await createSSHFolder(sessionId!, currentPath, createName, host.id);
-          showToast("Folder created successfully", "success");
+          showToast.success("Folder created successfully");
         } else {
           await createSSHFile(sessionId!, currentPath, createName, "", host.id);
-          showToast("File created successfully", "success");
+          showToast.success("File created successfully");
         }
         setCreateDialog({ visible: false, type: null });
         setCreateName("");
         await loadDirectory(currentPath);
       } catch (error: any) {
-        showToast(error.message || "Failed to create item", "error");
+        showToast.error(error.message || "Failed to create item");
       } finally {
         setIsLoading(false);
       }
@@ -244,12 +276,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       try {
         setIsLoading(true);
         await renameSSHItem(sessionId!, renameDialog.file.path, renameName, host.id);
-        showToast("Item renamed successfully", "success");
+        showToast.success("Item renamed successfully");
         setRenameDialog({ visible: false, file: null });
         setRenameName("");
         await loadDirectory(currentPath);
       } catch (error: any) {
-        showToast(error.message || "Failed to rename item", "error");
+        showToast.error(error.message || "Failed to rename item");
       } finally {
         setIsLoading(false);
       }
@@ -260,7 +292,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       setClipboard({ files: filesToCopy, operation: "copy" });
       setSelectionMode(false);
       setSelectedFiles([]);
-      showToast(`${filesToCopy.length} item(s) copied`, "success");
+      showToast.success(`${filesToCopy.length} item(s) copied`);
     };
 
     const handleCut = (file?: FileItem) => {
@@ -268,7 +300,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       setClipboard({ files: filesToCut, operation: "cut" });
       setSelectionMode(false);
       setSelectedFiles([]);
-      showToast(`${filesToCut.length} item(s) cut`, "success");
+      showToast.success(`${filesToCut.length} item(s) cut`);
     };
 
     const handlePaste = async () => {
@@ -283,11 +315,11 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
             await moveSSHItem(sessionId!, filePath, joinPath(currentPath, filePath.split("/").pop()!), host.id);
           }
         }
-        showToast(`${clipboard.files.length} item(s) pasted`, "success");
+        showToast.success(`${clipboard.files.length} item(s) pasted`);
         setClipboard({ files: [], operation: null });
         await loadDirectory(currentPath);
       } catch (error: any) {
-        showToast(error.message || "Failed to paste items", "error");
+        showToast.error(error.message || "Failed to paste items");
       } finally {
         setIsLoading(false);
       }
@@ -315,12 +347,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     host.id
                   );
                 }
-                showToast(`${filesToDelete.length} item(s) deleted`, "success");
+                showToast.success(`${filesToDelete.length} item(s) deleted`);
                 setSelectionMode(false);
                 setSelectedFiles([]);
                 await loadDirectory(currentPath);
               } catch (error: any) {
-                showToast(error.message || "Failed to delete items", "error");
+                showToast.error(error.message || "Failed to delete items");
               } finally {
                 setIsLoading(false);
               }
@@ -365,13 +397,20 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     if (!isConnected) {
       return (
         <View className="flex-1 bg-dark-bg items-center justify-center">
-          <ActivityIndicator size="large" color="#3B82F6" />
+          <ActivityIndicator size="large" color="#22C55E" />
           <Text className="text-white mt-4">Connecting to {host.name}...</Text>
 
           {/* TOTP Dialog */}
           <Modal visible={totpDialog} transparent animationType="fade">
             <View className="flex-1 bg-black/50 items-center justify-center p-4">
-              <View className="bg-dark-bg-button rounded-lg border-2 border-dark-border p-6 w-full max-w-sm">
+              <View
+                className="bg-dark-bg-button p-6 w-full max-w-sm"
+                style={{
+                  borderWidth: BORDERS.MAJOR,
+                  borderColor: BORDER_COLORS.PRIMARY,
+                  borderRadius: RADIUS.LARGE,
+                }}
+              >
                 <Text className="text-white text-lg font-semibold mb-4">
                   Two-Factor Authentication
                 </Text>
@@ -379,7 +418,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   Enter your TOTP code to continue
                 </Text>
                 <TextInput
-                  className="bg-dark-bg-darker border border-dark-border rounded px-4 py-3 text-white mb-4"
+                  className="bg-dark-bg-darker px-4 py-3 text-white mb-4"
+                  style={{
+                    borderWidth: BORDERS.STANDARD,
+                    borderColor: BORDER_COLORS.BUTTON,
+                    borderRadius: RADIUS.BUTTON,
+                  }}
                   value={totpCode}
                   onChangeText={setTotpCode}
                   placeholder="000000"
@@ -394,14 +438,24 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                       setTotpDialog(false);
                       setTotpCode("");
                     }}
-                    className="flex-1 bg-dark-bg-darker border border-dark-border rounded py-3"
+                    className="flex-1 bg-dark-bg-darker py-3"
+                    style={{
+                      borderWidth: BORDERS.STANDARD,
+                      borderColor: BORDER_COLORS.BUTTON,
+                      borderRadius: RADIUS.BUTTON,
+                    }}
                     activeOpacity={0.7}
                   >
                     <Text className="text-white text-center font-medium">Cancel</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={handleTOTPVerify}
-                    className="flex-1 bg-blue-500 border border-blue-600 rounded py-3"
+                    className="flex-1 bg-blue-500 py-3"
+                    style={{
+                      borderWidth: BORDERS.STANDARD,
+                      borderColor: "#2563EB",
+                      borderRadius: RADIUS.BUTTON,
+                    }}
                     activeOpacity={0.7}
                   >
                     <Text className="text-white text-center font-medium">Verify</Text>
@@ -417,8 +471,22 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     const padding = getResponsivePadding(isLandscape);
     const tabBarHeight = getTabBarHeight(isLandscape);
 
+    // Calculate toolbar height (only visible when in selection mode or clipboard has items)
+    const toolbarPaddingVertical = isLandscape ? 8 : 12;
+    const toolbarContentHeight = isLandscape ? 34 : 44; // Approximate content height
+    const toolbarBorderHeight = 2;
+    const effectiveToolbarHeight = (selectionMode || clipboard.files.length > 0)
+      ? (toolbarPaddingVertical * 2) + toolbarContentHeight + toolbarBorderHeight
+      : 0;
+
     return (
-      <View className="flex-1 bg-dark-bg" style={{ paddingTop: insets.top }}>
+      <View
+        className="flex-1 bg-dark-bg"
+        style={{
+          opacity: isVisible ? 1 : 0,
+          display: isVisible ? "flex" : "none",
+        }}
+      >
         <FileManagerHeader
           currentPath={currentPath}
           onNavigateToPath={loadDirectory}
@@ -441,7 +509,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           onRefresh={() => loadDirectory(currentPath)}
           isLandscape={isLandscape}
           width={width}
-          toolbarHeight={tabBarHeight + insets.bottom}
+          toolbarHeight={effectiveToolbarHeight}
         />
 
         <FileManagerToolbar
@@ -486,78 +554,134 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
 
         {/* Create Dialog */}
         <Modal visible={createDialog.visible} transparent animationType="fade">
-          <View className="flex-1 bg-black/50 items-center justify-center p-4">
-            <View className="bg-dark-bg-button rounded-lg border-2 border-dark-border p-6 w-full max-w-sm">
-              <Text className="text-white text-lg font-semibold mb-4">
-                Create New {createDialog.type === "folder" ? "Folder" : "File"}
-              </Text>
-              <TextInput
-                className="bg-dark-bg-darker border border-dark-border rounded px-4 py-3 text-white mb-4"
-                value={createName}
-                onChangeText={setCreateName}
-                placeholder="Name"
-                placeholderTextColor="#6B7280"
-                autoFocus
-              />
-              <View className="flex-row gap-2">
-                <TouchableOpacity
-                  onPress={() => {
-                    setCreateDialog({ visible: false, type: null });
-                    setCreateName("");
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            className="flex-1"
+          >
+            <View className="flex-1 bg-black/50 items-center justify-center p-4">
+              <View
+                className="bg-[#1a1a1a] p-6 w-full max-w-sm"
+                style={{
+                  borderWidth: 2,
+                  borderColor: "#303032",
+                  borderRadius: 12,
+                  marginBottom: insets.bottom,
+                }}
+              >
+                <Text className="text-white text-lg font-semibold mb-4">
+                  Create New {createDialog.type === "folder" ? "Folder" : "File"}
+                </Text>
+                <TextInput
+                  className="bg-[#0d0d0d] px-4 py-3 text-white mb-4"
+                  style={{
+                    borderWidth: 2,
+                    borderColor: "#303032",
+                    borderRadius: 8,
                   }}
-                  className="flex-1 bg-dark-bg-darker border border-dark-border rounded py-3"
-                  activeOpacity={0.7}
-                >
-                  <Text className="text-white text-center font-medium">Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={handleCreateConfirm}
-                  className="flex-1 bg-blue-500 border border-blue-600 rounded py-3"
-                  activeOpacity={0.7}
-                >
-                  <Text className="text-white text-center font-medium">Create</Text>
-                </TouchableOpacity>
+                  value={createName}
+                  onChangeText={setCreateName}
+                  placeholder="Name"
+                  placeholderTextColor="#6B7280"
+                  autoFocus
+                />
+                <View className="flex-row gap-2">
+                  <TouchableOpacity
+                    onPress={() => {
+                      setCreateDialog({ visible: false, type: null });
+                      setCreateName("");
+                    }}
+                    className="flex-1 bg-[#27272a] py-3"
+                    style={{
+                      borderWidth: 2,
+                      borderColor: "#3f3f46",
+                      borderRadius: 8,
+                    }}
+                    activeOpacity={0.7}
+                  >
+                    <Text className="text-white text-center font-semibold">Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={handleCreateConfirm}
+                    className="flex-1 bg-green-600 py-3"
+                    style={{
+                      borderWidth: 2,
+                      borderColor: "#16a34a",
+                      borderRadius: 8,
+                    }}
+                    activeOpacity={0.7}
+                  >
+                    <Text className="text-white text-center font-semibold">Create</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
+          </KeyboardAvoidingView>
         </Modal>
 
         {/* Rename Dialog */}
         <Modal visible={renameDialog.visible} transparent animationType="fade">
-          <View className="flex-1 bg-black/50 items-center justify-center p-4">
-            <View className="bg-dark-bg-button rounded-lg border-2 border-dark-border p-6 w-full max-w-sm">
-              <Text className="text-white text-lg font-semibold mb-4">
-                Rename Item
-              </Text>
-              <TextInput
-                className="bg-dark-bg-darker border border-dark-border rounded px-4 py-3 text-white mb-4"
-                value={renameName}
-                onChangeText={setRenameName}
-                placeholder="New name"
-                placeholderTextColor="#6B7280"
-                autoFocus
-              />
-              <View className="flex-row gap-2">
-                <TouchableOpacity
-                  onPress={() => {
-                    setRenameDialog({ visible: false, file: null });
-                    setRenameName("");
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            className="flex-1"
+          >
+            <View className="flex-1 bg-black/50 items-center justify-center p-4">
+              <View
+                className="bg-[#1a1a1a] p-6 w-full max-w-sm"
+                style={{
+                  borderWidth: 2,
+                  borderColor: "#303032",
+                  borderRadius: 12,
+                  marginBottom: insets.bottom,
+                }}
+              >
+                <Text className="text-white text-lg font-semibold mb-4">
+                  Rename Item
+                </Text>
+                <TextInput
+                  className="bg-[#0d0d0d] px-4 py-3 text-white mb-4"
+                  style={{
+                    borderWidth: 2,
+                    borderColor: "#303032",
+                    borderRadius: 8,
                   }}
-                  className="flex-1 bg-dark-bg-darker border border-dark-border rounded py-3"
-                  activeOpacity={0.7}
-                >
-                  <Text className="text-white text-center font-medium">Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={handleRenameConfirm}
-                  className="flex-1 bg-blue-500 border border-blue-600 rounded py-3"
-                  activeOpacity={0.7}
-                >
-                  <Text className="text-white text-center font-medium">Rename</Text>
-                </TouchableOpacity>
+                  value={renameName}
+                  onChangeText={setRenameName}
+                  placeholder="New name"
+                  placeholderTextColor="#6B7280"
+                  autoFocus
+                />
+                <View className="flex-row gap-2">
+                  <TouchableOpacity
+                    onPress={() => {
+                      setRenameDialog({ visible: false, file: null });
+                      setRenameName("");
+                    }}
+                    className="flex-1 bg-[#27272a] py-3"
+                    style={{
+                      borderWidth: 2,
+                      borderColor: "#3f3f46",
+                      borderRadius: 8,
+                    }}
+                    activeOpacity={0.7}
+                  >
+                    <Text className="text-white text-center font-semibold">Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={handleRenameConfirm}
+                    className="flex-1 bg-green-600 py-3"
+                    style={{
+                      borderWidth: 2,
+                      borderColor: "#16a34a",
+                      borderRadius: 8,
+                    }}
+                    activeOpacity={0.7}
+                  >
+                    <Text className="text-white text-center font-semibold">Rename</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
+          </KeyboardAvoidingView>
         </Modal>
 
         {/* File Viewer */}

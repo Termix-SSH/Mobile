@@ -171,7 +171,7 @@ export default function Hosts() {
         className="flex-1 bg-dark-bg px-6 justify-center items-center"
         style={{ paddingTop: insets.top + 24 }}
       >
-        <ActivityIndicator size="large" color="#22c55e" />
+        <ActivityIndicator size="large" color="#22C55E" />
         <Text className="text-white mt-4">Loading hosts...</Text>
       </View>
     );

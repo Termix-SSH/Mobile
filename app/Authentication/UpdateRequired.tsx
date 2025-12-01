@@ -65,7 +65,7 @@ export default function UpdateRequired() {
         className="flex-1 bg-[#18181b] justify-center items-center"
         style={{ paddingTop: insets.top }}
       >
-        <ActivityIndicator size="large" color="#ffffff" />
+        <ActivityIndicator size="large" color="#22C55E" />
         <Text className="text-white text-lg">
           Loading version information...
         </Text>

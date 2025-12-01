@@ -27,6 +27,11 @@ module.exports = {
         'dark-border-panel': '#222224',
         'dark-bg-panel-hover': '#232327',
       },
+      borderRadius: {
+        'button': '6px',
+        'card': '12px',
+        'small': '4px',
+      },
     },
   },
   plugins: [],

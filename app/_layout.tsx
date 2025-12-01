@@ -16,10 +16,13 @@ import UpdateRequired from "@/app/Authentication/UpdateRequired";
 function RootLayoutContent() {
   const {
     showServerManager,
+    setShowServerManager,
     showLoginForm,
+    setShowLoginForm,
     isAuthenticated,
     showUpdateScreen,
     isLoading,
+    setIsLoading,
   } = useAppContext();
 
   if (isLoading) {

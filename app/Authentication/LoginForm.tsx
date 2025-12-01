@@ -364,7 +364,7 @@ export default function LoginForm() {
   if (!source.uri) {
     return (
       <View className="flex-1 justify-center items-center bg-dark-bg">
-        <ActivityIndicator size="large" color="#ffffff" />
+        <ActivityIndicator size="large" color="#22C55E" />
         <Text className="text-white mt-4">Loading server configuration...</Text>
       </View>
     );
@@ -437,7 +437,7 @@ export default function LoginForm() {
               alignItems: "center",
             }}
           >
-            <ActivityIndicator size="large" color="#ffffff" />
+            <ActivityIndicator size="large" color="#22C55E" />
           </View>
         )}
       />

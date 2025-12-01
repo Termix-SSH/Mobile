@@ -28,6 +28,7 @@ import { showToast } from "../../utils/toast";
 import type { ServerMetrics } from "../../../types/index";
 import { useOrientation } from "@/app/utils/orientation";
 import { getResponsivePadding, getColumnCount, getTabBarHeight } from "@/app/utils/responsive";
+import { BACKGROUNDS, BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";
 
 interface ServerStatsProps {
   hostConfig: {
@@ -116,6 +117,10 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
       };
     }, [isVisible, fetchMetrics]);
 
+    const cardWidth = isLandscape && columnCount > 1
+      ? `${(100 / columnCount) - 1}%`
+      : "100%";
+
     const formatUptime = (seconds: number | null): string => {
       if (seconds === null || seconds === undefined) return "N/A";
 
@@ -139,18 +144,14 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
       subtitle: string,
       color: string,
     ) => {
-      const cardWidth = isLandscape && columnCount > 1
-        ? `${100 / columnCount - 1}%`
-        : "100%";
-
       return (
         <View
           style={{
-            backgroundColor: "#1a1a1a",
-            borderRadius: 12,
+            backgroundColor: BACKGROUNDS.CARD,
+            borderRadius: RADIUS.CARD,
             padding: 16,
             borderWidth: 1,
-            borderColor: "#303032",
+            borderColor: BORDER_COLORS.BUTTON,
             marginBottom: isLandscape && columnCount > 1 ? 0 : 12,
             width: cardWidth,
           }}
@@ -183,8 +184,9 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
       <View
         style={{
           flex: 1,
-          backgroundColor: "#09090b",
-          paddingTop: insets.top,
+          backgroundColor:BACKGROUNDS.DARK,
+          opacity: isVisible ? 1 : 0,
+          display: isVisible ? "flex" : "none",
         }}
       >
         {isLoading && !metrics ? (
@@ -193,7 +195,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "#09090b",
+              backgroundColor: BACKGROUNDS.DARKEST,
             }}
           >
             <ActivityIndicator size="large" color="#22C55E" />
@@ -213,7 +215,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "#09090b",
+              backgroundColor: BACKGROUNDS.DARKEST,
               paddingHorizontal: 24,
             }}
           >
@@ -245,7 +247,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                 backgroundColor: "#22C55E",
                 paddingHorizontal: 24,
                 paddingVertical: 12,
-                borderRadius: 8,
+                borderRadius: RADIUS.BUTTON,
                 marginTop: 24,
               }}
             >
@@ -259,12 +261,10 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
             style={{ flex: 1 }}
             contentContainerStyle={{
               padding,
+              paddingTop: padding / 2,
               paddingLeft: Math.max(insets.left, padding),
               paddingRight: Math.max(insets.right, padding),
-              paddingBottom: tabBarHeight + insets.bottom + 12,
-              flexDirection: isLandscape && columnCount > 1 ? "row" : "column",
-              flexWrap: "wrap",
-              gap: 12,
+              paddingBottom: padding,
             }}
             refreshControl={
               <RefreshControl
@@ -276,7 +276,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
             }
           >
             {/* Header */}
-            <View style={{ marginBottom: 20 }}>
+            <View style={{ marginBottom: 12 }}>
               <Text style={{ color: "#ffffff", fontSize: 24, fontWeight: "700" }}>
                 {hostConfig.name}
               </Text>
@@ -285,120 +285,110 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
               </Text>
             </View>
 
-            {/* CPU Metrics */}
-            {renderMetricCard(
-              <Cpu size={20} color="#60A5FA" />,
-              "CPU Usage",
-              typeof metrics?.cpu?.percent === "number"
-                ? `${metrics.cpu.percent}%`
-                : "N/A",
-              typeof metrics?.cpu?.cores === "number"
-                ? `${metrics.cpu.cores} cores`
-                : "N/A",
-              "#60A5FA",
-            )}
-
-            {/* Load Average */}
-            {metrics?.cpu?.load && (
-              <View
-                style={{
-                  backgroundColor: "#1a1a1a",
-                  borderRadius: 12,
-                  padding: 16,
-                  borderWidth: 1,
-                  borderColor: "#303032",
-                  marginBottom: 12,
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 12 }}>
-                  <Activity size={20} color="#A78BFA" />
-                  <Text style={{ color: "#ffffff", fontSize: 16, fontWeight: "600" }}>
-                    Load Average
-                  </Text>
-                </View>
-                <View style={{ flexDirection: "row", gap: 16 }}>
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ color: "#A78BFA", fontSize: 20, fontWeight: "700" }}>
-                      {metrics.cpu.load[0].toFixed(2)}
-                    </Text>
-                    <Text style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}>
-                      1 min
-                    </Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ color: "#A78BFA", fontSize: 20, fontWeight: "700" }}>
-                      {metrics.cpu.load[1].toFixed(2)}
-                    </Text>
-                    <Text style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}>
-                      5 min
-                    </Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ color: "#A78BFA", fontSize: 20, fontWeight: "700" }}>
-                      {metrics.cpu.load[2].toFixed(2)}
-                    </Text>
-                    <Text style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}>
-                      15 min
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            )}
-
-            {/* Memory Metrics */}
-            {renderMetricCard(
-              <MemoryStick size={20} color="#34D399" />,
-              "Memory Usage",
-              typeof metrics?.memory?.percent === "number"
-                ? `${metrics.memory.percent}%`
-                : "N/A",
-              (() => {
-                const used = metrics?.memory?.usedGiB;
-                const total = metrics?.memory?.totalGiB;
-                if (typeof used === "number" && typeof total === "number") {
-                  return `${used.toFixed(1)} / ${total.toFixed(1)} GiB`;
-                }
-                return "N/A";
-              })(),
-              "#34D399",
-            )}
-
-            {/* Disk Metrics */}
-            {renderMetricCard(
-              <HardDrive size={20} color="#F59E0B" />,
-              "Disk Usage",
-              typeof metrics?.disk?.percent === "number"
-                ? `${metrics.disk.percent}%`
-                : "N/A",
-              (() => {
-                const used = metrics?.disk?.usedHuman;
-                const total = metrics?.disk?.totalHuman;
-                if (used && total) {
-                  return `${used} / ${total}`;
-                }
-                return "N/A";
-              })(),
-              "#F59E0B",
-            )}
-
-            {/* Last Updated */}
+            {/* Grid Container */}
             <View
               style={{
-                backgroundColor: "#1a1a1a",
-                borderRadius: 12,
-                padding: 16,
-                borderWidth: 1,
-                borderColor: "#303032",
-                marginBottom: 12,
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 8,
+                flexDirection: isLandscape && columnCount > 1 ? "row" : "column",
+                flexWrap: "wrap",
+                gap: 12,
               }}
             >
-              <Clock size={16} color="#9CA3AF" />
-              <Text style={{ color: "#9CA3AF", fontSize: 12 }}>
-                Last updated: {new Date(metrics?.lastChecked || "").toLocaleTimeString()}
-              </Text>
+              {/* CPU Metrics */}
+              {renderMetricCard(
+                <Cpu size={20} color="#60A5FA" />,
+                "CPU Usage",
+                typeof metrics?.cpu?.percent === "number"
+                  ? `${metrics.cpu.percent}%`
+                  : "N/A",
+                typeof metrics?.cpu?.cores === "number"
+                  ? `${metrics.cpu.cores} cores`
+                  : "N/A",
+                "#60A5FA",
+              )}
+
+              {/* Load Average */}
+              {metrics?.cpu?.load && (
+                <View
+                  style={{
+                    backgroundColor: BACKGROUNDS.CARD,
+                    borderRadius: RADIUS.CARD,
+                    padding: 16,
+                    borderWidth: 1,
+                    borderColor: BORDER_COLORS.BUTTON,
+                    marginBottom: isLandscape && columnCount > 1 ? 0 : 12,
+                    width: cardWidth,
+                  }}
+                >
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                    <Activity size={20} color="#A78BFA" />
+                    <Text style={{ color: "#ffffff", fontSize: 16, fontWeight: "600" }}>
+                      Load Average
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: "row", gap: 16 }}>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ color: "#A78BFA", fontSize: 20, fontWeight: "700" }}>
+                        {metrics.cpu.load[0].toFixed(2)}
+                      </Text>
+                      <Text style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}>
+                        1 min
+                      </Text>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ color: "#A78BFA", fontSize: 20, fontWeight: "700" }}>
+                        {metrics.cpu.load[1].toFixed(2)}
+                      </Text>
+                      <Text style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}>
+                        5 min
+                      </Text>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ color: "#A78BFA", fontSize: 20, fontWeight: "700" }}>
+                        {metrics.cpu.load[2].toFixed(2)}
+                      </Text>
+                      <Text style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}>
+                        15 min
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              )}
+
+              {/* Memory Metrics */}
+              {renderMetricCard(
+                <MemoryStick size={20} color="#34D399" />,
+                "Memory Usage",
+                typeof metrics?.memory?.percent === "number"
+                  ? `${metrics.memory.percent}%`
+                  : "N/A",
+                (() => {
+                  const used = metrics?.memory?.usedGiB;
+                  const total = metrics?.memory?.totalGiB;
+                  if (typeof used === "number" && typeof total === "number") {
+                    return `${used.toFixed(1)} / ${total.toFixed(1)} GiB`;
+                  }
+                  return "N/A";
+                })(),
+                "#34D399",
+              )}
+
+              {/* Disk Metrics */}
+              {renderMetricCard(
+                <HardDrive size={20} color="#F59E0B" />,
+                "Disk Usage",
+                typeof metrics?.disk?.percent === "number"
+                  ? `${metrics.disk.percent}%`
+                  : "N/A",
+                (() => {
+                  const used = metrics?.disk?.usedHuman;
+                  const total = metrics?.disk?.totalHuman;
+                  if (used && total) {
+                    return `${used} / ${total}`;
+                  }
+                  return "N/A";
+                })(),
+                "#F59E0B",
+              )}
             </View>
           </ScrollView>
         )}

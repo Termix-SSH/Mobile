@@ -21,6 +21,7 @@ import { useRouter } from "expo-router";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import { useOrientation } from "@/app/utils/orientation";
 import { getTabBarHeight, getButtonSize } from "@/app/utils/responsive";
+import { BORDERS, BORDER_COLORS, BACKGROUNDS, RADIUS } from "@/app/constants/designTokens";
 
 interface TabBarProps {
   sessions: TerminalSession[];
@@ -79,36 +80,40 @@ export default function TabBar({
   }
 
   return (
-    <View
-      style={{
-        backgroundColor: "#0e0e10",
-        borderTopWidth: isLandscape ? 1 : 1.5,
-        borderTopColor: "#303032",
-        minHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
-        maxHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
-        paddingBottom: needsBottomPadding ? insets.bottom : 0,
-      }}
-      focusable={false}
-    >
+    <>
       <View
         style={{
-          flexDirection: "row",
-          alignItems: "center",
-          height: tabBarHeight,
-          paddingHorizontal: 8,
+          backgroundColor: BACKGROUNDS.DARKER,
+          borderTopWidth: BORDERS.MAJOR,
+          borderTopColor: BORDER_COLORS.PRIMARY,
+          borderBottomWidth: activeSessionType === "terminal" ? BORDERS.STANDARD : 0,
+          borderBottomColor: BORDER_COLORS.PRIMARY,
+          minHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
+          maxHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
+          paddingBottom: needsBottomPadding ? insets.bottom : 0,
         }}
+        focusable={false}
       >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            height: tabBarHeight,
+            paddingHorizontal: 8,
+          }}
+        >
         <TouchableOpacity
           onPress={() => router.navigate("/hosts" as any)}
           focusable={false}
-          className="items-center justify-center rounded-md"
+          className="items-center justify-center"
           activeOpacity={0.7}
           style={{
             width: buttonSize,
             height: buttonSize,
-            borderWidth: isLandscape ? 1.5 : 2,
-            borderColor: "#303032",
-            backgroundColor: "#2a2a2a",
+            borderWidth: BORDERS.STANDARD,
+            borderColor: BORDER_COLORS.BUTTON,
+            backgroundColor: BACKGROUNDS.BUTTON,
+            borderRadius: RADIUS.BUTTON,
             shadowColor: "#000",
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.1,
@@ -154,12 +159,13 @@ export default function TabBar({
                   key={session.id}
                   onPress={() => onTabPress(session.id)}
                   focusable={false}
-                  className="flex-row items-center rounded-md"
+                  className="flex-row items-center"
                   style={{
-                    borderWidth: isLandscape ? 1.5 : 2,
-                    borderColor: isActive ? "#22c55e" : "#303032",
-                    backgroundColor: isActive ? "#1a1a1a" : "#1a1a1a",
-                    shadowColor: isActive ? "#22c55e" : "transparent",
+                    borderWidth: BORDERS.STANDARD,
+                    borderColor: isActive ? BORDER_COLORS.ACTIVE : BORDER_COLORS.BUTTON,
+                    backgroundColor: BACKGROUNDS.CARD,
+                    borderRadius: RADIUS.BUTTON,
+                    shadowColor: isActive ? BORDER_COLORS.ACTIVE : "transparent",
                     shadowOffset: { width: 0, height: 2 },
                     shadowOpacity: isActive ? 0.2 : 0,
                     shadowRadius: 4,
@@ -189,8 +195,8 @@ export default function TabBar({
                     style={{
                       width: isLandscape ? 32 : 36,
                       height: buttonSize,
-                      borderLeftWidth: isLandscape ? 1.5 : 2,
-                      borderLeftColor: isActive ? "#22c55e" : "#303032",
+                      borderLeftWidth: BORDERS.STANDARD,
+                      borderLeftColor: isActive ? BORDER_COLORS.ACTIVE : BORDER_COLORS.BUTTON,
                     }}
                   >
                     <X
@@ -209,14 +215,15 @@ export default function TabBar({
           <TouchableOpacity
             onPress={handleToggleSystemKeyboard}
             focusable={false}
-            className="items-center justify-center rounded-md"
+            className="items-center justify-center"
             activeOpacity={0.7}
             style={{
               width: buttonSize,
               height: buttonSize,
-              borderWidth: isLandscape ? 1.5 : 2,
-              borderColor: "#303032",
-              backgroundColor: "#2a2a2a",
+              borderWidth: BORDERS.STANDARD,
+              borderColor: BORDER_COLORS.BUTTON,
+              backgroundColor: BACKGROUNDS.BUTTON,
+              borderRadius: RADIUS.BUTTON,
               shadowColor: "#000",
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.1,
@@ -237,14 +244,15 @@ export default function TabBar({
           <TouchableOpacity
             onPress={() => onToggleKeyboard?.()}
             focusable={false}
-            className="items-center justify-center rounded-md"
+            className="items-center justify-center"
             activeOpacity={0.7}
             style={{
               width: buttonSize,
               height: buttonSize,
-              borderWidth: isLandscape ? 1.5 : 2,
-              borderColor: "#303032",
-              backgroundColor: "#2a2a2a",
+              borderWidth: BORDERS.STANDARD,
+              borderColor: BORDER_COLORS.BUTTON,
+              backgroundColor: BACKGROUNDS.BUTTON,
+              borderRadius: RADIUS.BUTTON,
               shadowColor: "#000",
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.1,
@@ -260,7 +268,16 @@ export default function TabBar({
             )}
           </TouchableOpacity>
         )}
+
+
+        </View>
       </View>
-    </View>
+      <View
+        style={{
+          height: 1000,
+          backgroundColor: BACKGROUNDS.DARKER,
+        }}
+      />
+    </>
   );
 }

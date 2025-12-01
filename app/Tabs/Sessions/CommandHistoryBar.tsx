@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
@@ -15,6 +14,7 @@ import {
   clearCommandHistory,
 } from "@/app/main-axios";
 import { showToast } from "@/app/utils/toast";
+import { BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";
 
 interface CommandHistoryItem {
   id: number;
@@ -57,6 +57,12 @@ export default function CommandHistoryBar({
   const loadHistory = async () => {
     try {
       setLoading(true);
+      // Don't load if no currentHostId
+      if (!currentHostId) {
+        setHistory([]);
+        setLoading(false);
+        return;
+      }
       const historyData = await getCommandHistory();
 
       // Sort by timestamp descending (most recent first)
@@ -67,7 +73,7 @@ export default function CommandHistoryBar({
 
       setHistory(sortedHistory);
     } catch (error) {
-      showToast("Failed to load command history", "error");
+      showToast.error("Failed to load command history");
     } finally {
       setLoading(false);
     }
@@ -95,7 +101,7 @@ export default function CommandHistoryBar({
   const executeCommand = (command: string) => {
     if (terminalRef.current) {
       terminalRef.current.sendInput(command + "\n");
-      showToast("Command executed", "success");
+      showToast.success("Command executed");
     }
   };
 
@@ -103,9 +109,9 @@ export default function CommandHistoryBar({
     try {
       await deleteCommandFromHistory(commandId);
       setHistory((prev) => prev.filter((item) => item.id !== commandId));
-      showToast("Command deleted", "success");
+      showToast.success("Command deleted");
     } catch (error) {
-      showToast("Failed to delete command", "error");
+      showToast.error("Failed to delete command");
     }
   };
 
@@ -113,9 +119,9 @@ export default function CommandHistoryBar({
     try {
       await clearCommandHistory();
       setHistory([]);
-      showToast("History cleared", "success");
+      showToast.success("History cleared");
     } catch (error) {
-      showToast("Failed to clear history", "error");
+      showToast.error("Failed to clear history");
     }
   };
 
@@ -139,31 +145,48 @@ export default function CommandHistoryBar({
 
   if (loading) {
     return (
-      <View style={[styles.container, { height }]}>
-        <ActivityIndicator color="#9333ea" size="small" />
+      <View className="h-full bg-dark-bg-darkest" style={{ height }}>
+        <ActivityIndicator color="#22C55E" size="small" />
       </View>
     );
   }
 
   return (
-    <View style={[styles.container, { height }]}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Command History</Text>
-        <View style={styles.headerActions}>
-          <TouchableOpacity onPress={loadHistory} style={styles.iconButton}>
-            <Text style={styles.refreshText}>↻</Text>
+    <View className="h-full bg-dark-bg-darkest">
+      <View
+        className="flex-row justify-between items-center px-3 py-2.5 bg-dark-bg"
+        style={{
+          borderBottomWidth: 1,
+          borderBottomColor: BORDER_COLORS.SECONDARY,
+        }}
+      >
+        <Text className="text-sm font-semibold text-gray-200">Command History</Text>
+        <View className="flex-row gap-2">
+          <TouchableOpacity onPress={loadHistory} className="p-1">
+            <Text className="text-lg text-[#22C55E]">↻</Text>
           </TouchableOpacity>
           {history.length > 0 && (
-            <TouchableOpacity onPress={clearAll} style={styles.iconButton}>
-              <Text style={styles.clearText}>🗑</Text>
+            <TouchableOpacity onPress={clearAll} className="p-1">
+              <Text className="text-base text-red-500">🗑</Text>
             </TouchableOpacity>
           )}
         </View>
       </View>
 
-      <View style={styles.searchContainer}>
+      <View
+        className="px-3 py-2.5 bg-dark-bg-darkest"
+        style={{
+          borderBottomWidth: 1,
+          borderBottomColor: BORDER_COLORS.SECONDARY,
+        }}
+      >
         <TextInput
-          style={styles.searchInput}
+          className="bg-dark-bg text-gray-200 px-3 py-2 text-[13px]"
+          style={{
+            borderWidth: 1,
+            borderColor: BORDER_COLORS.BUTTON,
+            borderRadius: RADIUS.BUTTON,
+          }}
           placeholder="Search commands..."
           placeholderTextColor="#666"
           value={searchQuery}
@@ -174,48 +197,60 @@ export default function CommandHistoryBar({
       </View>
 
       <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+        className="h-full"
+        contentContainerStyle={{
+          paddingHorizontal: 12,
+          paddingTop: 8,
+          paddingBottom: 12,
+        }}
         showsVerticalScrollIndicator={false}
       >
         {filteredHistory.map((item) => (
-          <View key={item.id} style={styles.historyItem}>
+          <View
+            key={item.id}
+            className="flex-row bg-dark-bg mb-1.5 overflow-hidden"
+            style={{
+              borderWidth: 1,
+              borderColor: BORDER_COLORS.BUTTON,
+              borderRadius: RADIUS.BUTTON,
+            }}
+          >
             <TouchableOpacity
-              style={styles.commandTouchable}
+              className="flex-1 px-3 py-2.5"
               onPress={() => executeCommand(item.command)}
             >
-              <Text style={styles.commandText} numberOfLines={2}>
+              <Text className="text-[13px] text-gray-200 font-medium font-mono mb-1" numberOfLines={2}>
                 {item.command}
               </Text>
-              <View style={styles.metaRow}>
-                <Text style={styles.hostText}>{item.hostName}</Text>
-                <Text style={styles.timestampText}>
+              <View className="flex-row justify-between items-center">
+                <Text className="text-[11px] text-[#22C55E] font-semibold">{item.hostName}</Text>
+                <Text className="text-[11px] text-gray-600">
                   {formatTimestamp(item.timestamp)}
                 </Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.deleteButton}
+              className="justify-center items-center px-3 bg-[#1a1a1d]"
               onPress={() => deleteCommand(item.id)}
             >
-              <Text style={styles.deleteText}>×</Text>
+              <Text className="text-2xl text-red-500 font-light">×</Text>
             </TouchableOpacity>
           </View>
         ))}
 
         {filteredHistory.length === 0 && !searchQuery && (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No command history yet</Text>
-            <Text style={styles.emptySubtext}>
+          <View className="py-8 items-center">
+            <Text className="text-sm text-gray-500 font-semibold">No command history yet</Text>
+            <Text className="text-xs text-gray-600 mt-1">
               Commands you run will appear here
             </Text>
           </View>
         )}
 
         {filteredHistory.length === 0 && searchQuery && (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No matching commands</Text>
-            <Text style={styles.emptySubtext}>
+          <View className="py-8 items-center">
+            <Text className="text-sm text-gray-500 font-semibold">No matching commands</Text>
+            <Text className="text-xs text-gray-600 mt-1">
               Try a different search term
             </Text>
           </View>
@@ -224,123 +259,3 @@ export default function CommandHistoryBar({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#0e0e10",
-    borderTopWidth: 1.5,
-    borderTopColor: "#303032",
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: "#303032",
-  },
-  headerText: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#e5e5e7",
-  },
-  headerActions: {
-    flexDirection: "row",
-    gap: 8,
-  },
-  iconButton: {
-    padding: 4,
-  },
-  refreshText: {
-    fontSize: 18,
-    color: "#9333ea",
-  },
-  clearText: {
-    fontSize: 16,
-    color: "#ef4444",
-  },
-  searchContainer: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: "#303032",
-  },
-  searchInput: {
-    backgroundColor: "#18181b",
-    color: "#e5e5e7",
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: "#303032",
-    fontSize: 13,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-  },
-  historyItem: {
-    flexDirection: "row",
-    backgroundColor: "#18181b",
-    borderRadius: 6,
-    marginBottom: 6,
-    borderWidth: 1,
-    borderColor: "#303032",
-    overflow: "hidden",
-  },
-  commandTouchable: {
-    flex: 1,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-  },
-  commandText: {
-    fontSize: 13,
-    color: "#e5e5e7",
-    fontWeight: "500",
-    fontFamily: "monospace",
-    marginBottom: 4,
-  },
-  metaRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  hostText: {
-    fontSize: 11,
-    color: "#9333ea",
-    fontWeight: "600",
-  },
-  timestampText: {
-    fontSize: 11,
-    color: "#666",
-  },
-  deleteButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 12,
-    backgroundColor: "#1a1a1d",
-  },
-  deleteText: {
-    fontSize: 24,
-    color: "#ef4444",
-    fontWeight: "300",
-  },
-  emptyContainer: {
-    paddingVertical: 32,
-    alignItems: "center",
-  },
-  emptyText: {
-    fontSize: 14,
-    color: "#888",
-    fontWeight: "600",
-  },
-  emptySubtext: {
-    fontSize: 12,
-    color: "#666",
-    marginTop: 4,
-  },
-});

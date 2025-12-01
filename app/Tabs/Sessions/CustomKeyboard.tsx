@@ -1,9 +1,10 @@
 import React from "react";
-import { View, StyleSheet, ScrollView, Clipboard, Text } from "react-native";
+import { View, ScrollView, Clipboard, Text } from "react-native";
 import { TerminalHandle } from "./Terminal";
 import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";
+import { BORDER_COLORS, SPACING } from "@/app/constants/designTokens";
 
 interface CustomKeyboardProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
@@ -127,27 +128,28 @@ export default function CustomKeyboard({
   const safeKeyboardHeight = Math.max(200, Math.min(keyboardHeight, 500));
 
   return (
-    <View style={[styles.keyboard, { height: safeKeyboardHeight, maxHeight: 500 }]}>
+    <View className="h-full bg-dark-bg-darkest">
       <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+        className="h-full"
+        contentContainerStyle={{ paddingHorizontal: 8, paddingVertical: 8 }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
         {visibleRows.map((row, rowIndex) => (
           <View key={row.id}>
             {row.label && (
-              <View style={styles.rowLabelContainer}>
-                <Text style={styles.rowLabel}>{row.label}</Text>
+              <View className="mb-1 mt-1">
+                <Text className="text-[11px] text-gray-500 font-semibold uppercase tracking-wide">
+                  {row.label}
+                </Text>
               </View>
             )}
 
             <View
-              style={[
-                row.category === "number" ? styles.numberRow : styles.keyRow,
-                { gap: getKeyGap() },
-                compactMode && styles.compactRow,
-              ]}
+              className={`flex-row items-center mb-0 ${
+                row.category === "number" ? "flex-nowrap" : "flex-wrap"
+              } ${compactMode ? "-mb-0.5" : ""}`}
+              style={{ gap: getKeyGap() }}
             >
               {row.keys.map((key, keyIndex) => (
                 <KeyboardKey
@@ -163,83 +165,24 @@ export default function CustomKeyboard({
 
             {rowIndex < visibleRows.length - 1 && (
               <View
-                style={[
-                  styles.separator,
-                  compactMode && styles.compactSeparator,
-                ]}
+                className="h-px mx-0"
+                style={{
+                  backgroundColor: BORDER_COLORS.SEPARATOR,
+                  marginVertical: compactMode ? 4 : 8,
+                }}
               />
             )}
           </View>
         ))}
 
         {config.settings.showHints && !isKeyboardIntentionallyHidden && (
-          <View style={styles.hintContainer}>
-            <Text style={styles.hintText}>Customize in Settings</Text>
+          <View className="px-2 pt-2 pb-1 items-center">
+            <Text className="text-[10px] text-gray-600 italic">
+              Customize in Settings
+            </Text>
           </View>
         )}
       </ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  keyboard: {
-    backgroundColor: "#0e0e10",
-    borderTopWidth: 1.5,
-    borderTopColor: "#303032",
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-    flexGrow: 1,
-  },
-  rowLabelContainer: {
-    marginBottom: 4,
-    marginTop: 4,
-  },
-  rowLabel: {
-    fontSize: 11,
-    color: "#888",
-    fontWeight: "600",
-    textTransform: "uppercase",
-    letterSpacing: 0.5,
-  },
-  keyRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 0,
-    flexWrap: "wrap",
-  },
-  numberRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 0,
-    flexWrap: "nowrap",
-  },
-  compactRow: {
-    marginBottom: -2,
-  },
-  separator: {
-    height: 1,
-    backgroundColor: "#404040",
-    marginVertical: 8,
-    marginHorizontal: 0,
-  },
-  compactSeparator: {
-    marginVertical: 4,
-  },
-  hintContainer: {
-    paddingHorizontal: 8,
-    paddingTop: 8,
-    paddingBottom: 4,
-    alignItems: "center",
-  },
-  hintText: {
-    fontSize: 10,
-    color: "#666",
-    fontStyle: "italic",
-  },
-});

@@ -167,11 +167,19 @@ export function getFileIconColor(filename: string, type: string): string {
 
 export function breadcrumbsFromPath(path: string): string[] {
   if (!path || path === "/") return ["/"];
-  const parts = path.split("/").filter((p) => p);
-  const breadcrumbs = ["/"];
+
+  // Split and filter empty strings to handle paths properly
+  const parts = path.split("/").filter((p) => p.trim() !== "");
+
+  const breadcrumbs: string[] = ["/"];
+
+  // Build cumulative paths without double slashes
   parts.forEach((part, index) => {
-    breadcrumbs.push("/" + parts.slice(0, index + 1).join("/"));
+    const cumulativeParts = parts.slice(0, index + 1);
+    const breadcrumbPath = "/" + cumulativeParts.join("/");
+    breadcrumbs.push(breadcrumbPath);
   });
+
   return breadcrumbs;
 }
 

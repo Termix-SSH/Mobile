@@ -32,19 +32,13 @@ export function FileItem({
   const iconColor = getFileIconColor(name, type);
   const IconComponent = type === "directory" ? Folder : type === "link" ? Link : File;
 
-  const itemWidth = useGrid ? `${100 / columnCount - 0.5}%` : "100%";
-
   return (
     <TouchableOpacity
       style={{
-        width: itemWidth,
+        width: "100%",
         backgroundColor: isSelected ? "#27272a" : "#18181b",
-        borderBottomWidth: useGrid ? 0 : 1,
+        borderBottomWidth: 1,
         borderBottomColor: "#303032",
-        borderWidth: useGrid ? 1 : 0,
-        borderColor: useGrid ? "#303032" : undefined,
-        borderRadius: useGrid ? 8 : 0,
-        margin: useGrid ? 4 : 0,
         padding: 12,
         flexDirection: "row",
         alignItems: "center",

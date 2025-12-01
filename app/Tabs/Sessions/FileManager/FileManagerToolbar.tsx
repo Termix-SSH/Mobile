@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Copy, Scissors, Clipboard, Trash2, X } from "lucide-react-native";
 import { getResponsivePadding } from "@/app/utils/responsive";
+import { BORDERS, BORDER_COLORS, BACKGROUNDS, RADIUS } from "@/app/constants/designTokens";
 
 interface FileManagerToolbarProps {
   selectionMode: boolean;
@@ -43,14 +44,15 @@ export function FileManagerToolbar({
     <View
       style={{
         position: "absolute",
-        bottom: tabBarHeight + bottomInset,
+        bottom: 23,
         left: 0,
         right: 0,
-        backgroundColor: "#27272a",
-        borderTopWidth: 2,
-        borderTopColor: "#303032",
+        backgroundColor: BACKGROUNDS.HEADER,
+        borderTopWidth: BORDERS.MAJOR,
+        borderTopColor: BORDER_COLORS.PRIMARY,
         paddingHorizontal: padding,
         paddingVertical: isLandscape ? 8 : 12,
+        zIndex: 1000,
       }}
     >
       {selectionMode ? (
@@ -66,10 +68,10 @@ export function FileManagerToolbar({
               onPress={onCopy}
               style={{
                 padding: buttonPadding,
-                backgroundColor: "#18181b",
-                borderRadius: 4,
-                borderWidth: 1,
-                borderColor: "#303032",
+                backgroundColor: BACKGROUNDS.BUTTON_ALT,
+                borderRadius: RADIUS.SMALL,
+                borderWidth: BORDERS.STANDARD,
+                borderColor: BORDER_COLORS.BUTTON,
               }}
               activeOpacity={0.7}
               disabled={selectedCount === 0}
@@ -85,10 +87,10 @@ export function FileManagerToolbar({
               onPress={onCut}
               style={{
                 padding: buttonPadding,
-                backgroundColor: "#18181b",
-                borderRadius: 4,
-                borderWidth: 1,
-                borderColor: "#303032",
+                backgroundColor: BACKGROUNDS.BUTTON_ALT,
+                borderRadius: RADIUS.SMALL,
+                borderWidth: BORDERS.STANDARD,
+                borderColor: BORDER_COLORS.BUTTON,
               }}
               activeOpacity={0.7}
               disabled={selectedCount === 0}
@@ -104,10 +106,10 @@ export function FileManagerToolbar({
               onPress={onDelete}
               style={{
                 padding: buttonPadding,
-                backgroundColor: "#18181b",
-                borderRadius: 4,
-                borderWidth: 1,
-                borderColor: "#303032",
+                backgroundColor: BACKGROUNDS.BUTTON_ALT,
+                borderRadius: RADIUS.SMALL,
+                borderWidth: BORDERS.STANDARD,
+                borderColor: BORDER_COLORS.BUTTON,
               }}
               activeOpacity={0.7}
               disabled={selectedCount === 0}
@@ -124,10 +126,10 @@ export function FileManagerToolbar({
               style={{
                 marginLeft: 8,
                 padding: buttonPadding,
-                backgroundColor: "#18181b",
-                borderRadius: 4,
-                borderWidth: 1,
-                borderColor: "#303032",
+                backgroundColor: BACKGROUNDS.BUTTON_ALT,
+                borderRadius: RADIUS.SMALL,
+                borderWidth: BORDERS.STANDARD,
+                borderColor: BORDER_COLORS.BUTTON,
               }}
               activeOpacity={0.7}
             >
@@ -159,8 +161,8 @@ export function FileManagerToolbar({
               paddingHorizontal: isLandscape ? 12 : 16,
               paddingVertical: isLandscape ? 6 : 8,
               backgroundColor: "#3B82F6",
-              borderRadius: 4,
-              borderWidth: 1,
+              borderRadius: RADIUS.SMALL,
+              borderWidth: BORDERS.STANDARD,
               borderColor: "#2563EB",
             }}
             activeOpacity={0.7}

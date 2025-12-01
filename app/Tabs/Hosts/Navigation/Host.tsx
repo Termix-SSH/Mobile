@@ -309,6 +309,7 @@ function Host({ host, status, isLast = false }: HostProps) {
         transparent={true}
         animationType="fade"
         onRequestClose={handleCloseContextMenu}
+        supportedOrientations={['portrait', 'landscape']}
       >
         <TouchableWithoutFeedback onPress={handleCloseContextMenu}>
           <View className="flex-1 bg-black/50 justify-end">

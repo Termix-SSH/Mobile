@@ -28,7 +28,7 @@ import BottomToolbar from "@/app/Tabs/Sessions/BottomToolbar";
 import KeyboardBar from "@/app/Tabs/Sessions/KeyboardBar";
 import { ArrowLeft } from "lucide-react-native";
 import { useOrientation } from "@/app/utils/orientation";
-import { getMaxKeyboardHeight } from "@/app/utils/responsive";
+import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
 
 export default function Sessions() {
   const insets = useSafeAreaInsets();
@@ -75,18 +75,32 @@ export default function Sessions() {
     ? Math.min(keyboardHeight, maxKeyboardHeight)
     : keyboardHeight;
 
+  // BottomToolbar height includes tab bar + content + safe area insets
+  const TAB_BAR_HEIGHT = 36;
+  const bottomToolbarHeight = isCustomKeyboardVisible
+    ? TAB_BAR_HEIGHT + effectiveKeyboardHeight + insets.bottom
+    : 0;
+
   // Calculate bottom margins for content
-  const getBottomMargin = () => {
-    const tabBarHeight = 60;
+  const getBottomMargin = (sessionType: "terminal" | "stats" | "filemanager" = "terminal") => {
+    const sessionTabBarHeight = getTabBarHeight(isLandscape);
+
+    // For non-terminal sessions, use simple tab bar height + safe area
+    if (sessionType !== "terminal") {
+      return sessionTabBarHeight + insets.bottom;
+    }
+
+    // Terminal-specific logic with keyboard handling
     const keyboardBarHeight = 50;
-    const baseMargin = tabBarHeight + keyboardBarHeight + 5;
+    const baseMargin = sessionTabBarHeight + keyboardBarHeight;
 
     if (keyboardIntentionallyHiddenRef.current) {
-      return 126;
+      return sessionTabBarHeight + 66; // 66 is the larger keyboard bar height when hidden
     }
 
     if (isCustomKeyboardVisible) {
-      return effectiveKeyboardHeight + baseMargin;
+      // Custom keyboard: session tab bar + keyboard bar + TAB_BAR_HEIGHT + keyboard content
+      return sessionTabBarHeight + keyboardBarHeight + TAB_BAR_HEIGHT + effectiveKeyboardHeight;
     }
 
     if (isKeyboardVisible && currentKeyboardHeight > 0) {
@@ -345,7 +359,7 @@ export default function Sessions() {
       <View
         style={{
           flex: 1,
-          marginBottom: activeSession?.type === "terminal" ? getBottomMargin() : 60 + insets.bottom,
+          marginBottom: getBottomMargin(activeSession?.type),
         }}
       >
         {sessions.map((session) => {
@@ -390,23 +404,13 @@ export default function Sessions() {
             );
           } else if (session.type === "filemanager") {
             return (
-              <View
+              <FileManager
                 key={session.id}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  display: session.id === activeSessionId ? "flex" : "none",
-                }}
-              >
-                <FileManager
-                  ref={fileManagerRefs.current[session.id]}
-                  host={session.host}
-                  sessionId={session.id}
-                />
-              </View>
+                ref={fileManagerRefs.current[session.id]}
+                host={session.host}
+                sessionId={session.id}
+                isVisible={session.id === activeSessionId}
+              />
             );
           }
           return null;
@@ -502,34 +506,20 @@ export default function Sessions() {
 
       {sessions.length > 0 && activeSession?.type === "terminal" && (
         <View
-          pointerEvents="none"
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: getBottomMargin(),
-            backgroundColor: "#09090b",
-            zIndex: 999,
-          }}
-        />
-      )}
-
-      {sessions.length > 0 && activeSession?.type === "terminal" && (
-        <View
           style={{
             position: "absolute",
             bottom: keyboardIntentionallyHiddenRef.current
               ? 0
               : isCustomKeyboardVisible
-                ? effectiveKeyboardHeight
+                ? effectiveKeyboardHeight + TAB_BAR_HEIGHT
                 : isKeyboardVisible && currentKeyboardHeight > 0
                   ? currentKeyboardHeight
                   : 0,
             left: 0,
             right: 0,
-            height: keyboardIntentionallyHiddenRef.current ? 66 : 50,
+            height: keyboardIntentionallyHiddenRef.current ? 66 : 52,
             zIndex: 1003,
+            overflow: "visible",
           }}
         >
           <KeyboardBar
@@ -566,13 +556,13 @@ export default function Sessions() {
           position: "absolute",
           bottom: activeSession?.type === "terminal"
             ? keyboardIntentionallyHiddenRef.current
-              ? 66
+              ? 66 + 1
               : isCustomKeyboardVisible
-                ? effectiveKeyboardHeight + 50
+                ? TAB_BAR_HEIGHT + effectiveKeyboardHeight + 52
                 : isKeyboardVisible && currentKeyboardHeight > 0
                   ? currentKeyboardHeight + 50
                   : 50
-            : 0,
+            : 32,
           left: 0,
           right: 0,
           height: 60,
@@ -715,6 +705,14 @@ export default function Sessions() {
           }}
           onFocus={() => {
             setKeyboardIntentionallyHidden(false);
+          }}
+          onBlur={() => {
+            // Immediately refocus if keyboard wasn't intentionally hidden
+            if (!keyboardIntentionallyHiddenRef.current && !isCustomKeyboardVisible && activeSession?.type === "terminal") {
+              setTimeout(() => {
+                hiddenInputRef.current?.focus();
+              }, 0);
+            }
           }}
         />
       )}
