@@ -65,6 +65,7 @@ export function ContextMenu({
       transparent
       animationType="fade"
       onRequestClose={onClose}
+      supportedOrientations={['portrait', 'landscape']}
     >
       <TouchableWithoutFeedback onPress={onClose}>
         <View className="flex-1 bg-black/50 justify-end">
@@ -91,7 +92,7 @@ export function ContextMenu({
                     className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                     activeOpacity={0.7}
                   >
-                    <Eye size={20} color="#3B82F6" />
+                    <Eye size={20} color="white" />
                     <Text className="text-white font-medium">View</Text>
                   </TouchableOpacity>
                 )}
@@ -102,7 +103,7 @@ export function ContextMenu({
                     className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                     activeOpacity={0.7}
                   >
-                    <Edit size={20} color="#10B981" />
+                    <Edit size={20} color="white" />
                     <Text className="text-white font-medium">Edit</Text>
                   </TouchableOpacity>
                 )}
@@ -112,7 +113,7 @@ export function ContextMenu({
                   className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                   activeOpacity={0.7}
                 >
-                  <FileText size={20} color="#F59E0B" />
+                  <FileText size={20} color="white" />
                   <Text className="text-white font-medium">Rename</Text>
                 </TouchableOpacity>
 
@@ -121,7 +122,7 @@ export function ContextMenu({
                   className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                   activeOpacity={0.7}
                 >
-                  <Copy size={20} color="#3B82F6" />
+                  <Copy size={20} color="white" />
                   <Text className="text-white font-medium">Copy</Text>
                 </TouchableOpacity>
 
@@ -130,7 +131,7 @@ export function ContextMenu({
                   className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                   activeOpacity={0.7}
                 >
-                  <Scissors size={20} color="#F59E0B" />
+                  <Scissors size={20} color="white" />
                   <Text className="text-white font-medium">Cut</Text>
                 </TouchableOpacity>
 
@@ -140,7 +141,7 @@ export function ContextMenu({
                     className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                     activeOpacity={0.7}
                   >
-                    <Download size={20} color="#8B5CF6" />
+                    <Download size={20} color="white" />
                     <Text className="text-white font-medium">Download</Text>
                   </TouchableOpacity>
                 )}
@@ -151,7 +152,7 @@ export function ContextMenu({
                     className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                     activeOpacity={0.7}
                   >
-                    <Lock size={20} color="#6B7280" />
+                    <Lock size={20} color="white" />
                     <Text className="text-white font-medium">Permissions</Text>
                   </TouchableOpacity>
                 )}
@@ -162,7 +163,7 @@ export function ContextMenu({
                     className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                     activeOpacity={0.7}
                   >
-                    <Archive size={20} color="#8B5CF6" />
+                    <Archive size={20} color="white" />
                     <Text className="text-white font-medium">Compress</Text>
                   </TouchableOpacity>
                 )}
@@ -173,18 +174,18 @@ export function ContextMenu({
                     className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                     activeOpacity={0.7}
                   >
-                    <PackageOpen size={20} color="#10B981" />
+                    <PackageOpen size={20} color="white" />
                     <Text className="text-white font-medium">Extract</Text>
                   </TouchableOpacity>
                 )}
 
                 <TouchableOpacity
                   onPress={() => handleAction(onDelete)}
-                  className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-red-500"
+                  className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                   activeOpacity={0.7}
                 >
-                  <Trash2 size={20} color="#EF4444" />
-                  <Text className="text-red-500 font-medium">Delete</Text>
+                  <Trash2 size={20} color="white" />
+                  <Text className="text-white font-medium">Delete</Text>
                 </TouchableOpacity>
               </View>
             </View>

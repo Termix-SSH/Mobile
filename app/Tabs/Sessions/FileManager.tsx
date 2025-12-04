@@ -198,10 +198,8 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       // Handle regular files and directories
       if (file.type === "directory") {
         loadDirectory(file.path);
-      } else if (isTextFile(file.name)) {
-        handleViewFile(file);
       } else {
-        showToast.info("File type not supported for viewing");
+        handleViewFile(file);
       }
     };
 
@@ -520,6 +518,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           onPaste={handlePaste}
           onDelete={() => handleDelete()}
           onCancelSelection={handleCancelSelection}
+          onCancelClipboard={() => setClipboard({ files: [], operation: null })}
           clipboardCount={clipboard.files.length}
           clipboardOperation={clipboard.operation}
           isLandscape={isLandscape}
@@ -535,12 +534,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
             fileName={contextMenu.file.name}
             fileType={contextMenu.file.type}
             onView={
-              isTextFile(contextMenu.file.name)
+              contextMenu.file.type === "file"
                 ? () => handleViewFile(contextMenu.file!)
                 : undefined
             }
             onEdit={
-              isTextFile(contextMenu.file.name)
+              contextMenu.file.type === "file"
                 ? () => handleViewFile(contextMenu.file!)
                 : undefined
             }

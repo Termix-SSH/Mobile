@@ -11,6 +11,7 @@ interface FileManagerToolbarProps {
   onPaste: () => void;
   onDelete: () => void;
   onCancelSelection: () => void;
+  onCancelClipboard?: () => void;
   clipboardCount?: number;
   clipboardOperation?: "copy" | "cut" | null;
   isLandscape: boolean;
@@ -26,6 +27,7 @@ export function FileManagerToolbar({
   onPaste,
   onDelete,
   onCancelSelection,
+  onCancelClipboard,
   clipboardCount = 0,
   clipboardOperation = null,
   isLandscape,
@@ -39,12 +41,14 @@ export function FileManagerToolbar({
   const padding = getResponsivePadding(isLandscape);
   const iconSize = isLandscape ? 18 : 20;
   const buttonPadding = isLandscape ? 6 : 8;
+  // Position above tab bar: in portrait we need more space, in landscape it's closer
+  const bottomPosition = isLandscape ? bottomInset : 0;
 
   return (
     <View
       style={{
         position: "absolute",
-        bottom: 23,
+        bottom: bottomPosition,
         left: 0,
         right: 0,
         backgroundColor: BACKGROUNDS.HEADER,
@@ -78,7 +82,7 @@ export function FileManagerToolbar({
             >
               <Copy
                 size={iconSize}
-                color={selectedCount === 0 ? "#4B5563" : "#3B82F6"}
+                color={selectedCount === 0 ? "#4B5563" : "white"}
               />
             </TouchableOpacity>
 
@@ -97,7 +101,7 @@ export function FileManagerToolbar({
             >
               <Scissors
                 size={iconSize}
-                color={selectedCount === 0 ? "#4B5563" : "#F59E0B"}
+                color={selectedCount === 0 ? "#4B5563" : "white"}
               />
             </TouchableOpacity>
 
@@ -116,7 +120,7 @@ export function FileManagerToolbar({
             >
               <Trash2
                 size={iconSize}
-                color={selectedCount === 0 ? "#4B5563" : "#EF4444"}
+                color={selectedCount === 0 ? "#4B5563" : "white"}
               />
             </TouchableOpacity>
 
@@ -133,43 +137,51 @@ export function FileManagerToolbar({
               }}
               activeOpacity={0.7}
             >
-              <X size={iconSize} color="#9CA3AF" />
+              <X size={iconSize} color="white" />
             </TouchableOpacity>
           </View>
         </View>
       ) : (
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           {/* Clipboard info */}
-          <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-            {clipboardOperation === "copy" ? (
-              <Copy size={iconSize} color="#3B82F6" />
-            ) : (
-              <Scissors size={iconSize} color="#F59E0B" />
-            )}
-            <Text style={{ color: "#ffffff", marginLeft: 8, fontSize: isLandscape ? 12 : 14 }}>
-              {clipboardCount} item{clipboardCount !== 1 ? "s" : ""}{" "}
-              {clipboardOperation === "copy" ? "copied" : "cut"}
-            </Text>
-          </View>
+          <Text style={{ color: "#ffffff", fontWeight: "500", marginRight: 16, fontSize: isLandscape ? 12 : 14 }}>
+            {clipboardCount} item{clipboardCount !== 1 ? "s" : ""}{" "}
+            {clipboardOperation === "copy" ? "copied" : "cut"}
+          </Text>
 
-          {/* Paste button */}
-          <TouchableOpacity
-            onPress={onPaste}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              paddingHorizontal: isLandscape ? 12 : 16,
-              paddingVertical: isLandscape ? 6 : 8,
-              backgroundColor: "#3B82F6",
-              borderRadius: RADIUS.SMALL,
-              borderWidth: BORDERS.STANDARD,
-              borderColor: "#2563EB",
-            }}
-            activeOpacity={0.7}
-          >
-            <Clipboard size={iconSize} color="white" />
-            <Text style={{ color: "#ffffff", fontWeight: "500", marginLeft: 8, fontSize: isLandscape ? 12 : 14 }}>Paste</Text>
-          </TouchableOpacity>
+          <View style={{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "flex-end", gap: 8 }}>
+            {/* Paste */}
+            <TouchableOpacity
+              onPress={onPaste}
+              style={{
+                padding: buttonPadding,
+                backgroundColor: BACKGROUNDS.BUTTON_ALT,
+                borderRadius: RADIUS.SMALL,
+                borderWidth: BORDERS.STANDARD,
+                borderColor: BORDER_COLORS.BUTTON,
+              }}
+              activeOpacity={0.7}
+            >
+              <Clipboard size={iconSize} color="white" />
+            </TouchableOpacity>
+
+            {/* Cancel */}
+            {onCancelClipboard && (
+              <TouchableOpacity
+                onPress={onCancelClipboard}
+                style={{
+                  padding: buttonPadding,
+                  backgroundColor: BACKGROUNDS.BUTTON_ALT,
+                  borderRadius: RADIUS.SMALL,
+                  borderWidth: BORDERS.STANDARD,
+                  borderColor: BORDER_COLORS.BUTTON,
+                }}
+                activeOpacity={0.7}
+              >
+                <X size={iconSize} color="white" />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       )}
     </View>

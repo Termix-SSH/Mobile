@@ -5,11 +5,15 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  ScrollView,
   ActivityIndicator,
   Alert,
+  Platform,
+  KeyboardAvoidingView,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { X, Save, RotateCcw } from "lucide-react-native";
+import { showToast } from "@/app/utils/toast";
+import { useOrientation } from "@/app/utils/orientation";
 
 interface FileViewerProps {
   visible: boolean;
@@ -21,6 +25,12 @@ interface FileViewerProps {
   readOnly?: boolean;
 }
 
+const MONOSPACE_FONT = Platform.select({
+  ios: 'Courier',
+  android: 'monospace',
+  default: 'monospace'
+});
+
 export function FileViewer({
   visible,
   onClose,
@@ -30,6 +40,8 @@ export function FileViewer({
   onSave,
   readOnly = false,
 }: FileViewerProps) {
+  const insets = useSafeAreaInsets();
+  const { isLandscape } = useOrientation();
   const [content, setContent] = useState(initialContent);
   const [isSaving, setIsSaving] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
@@ -51,9 +63,8 @@ export function FileViewer({
       setIsSaving(true);
       await onSave(content);
       setHasChanges(false);
-      Alert.alert("Success", "File saved successfully");
     } catch (error: any) {
-      Alert.alert("Error", error.message || "Failed to save file");
+      showToast.error(error.message || "Failed to save file");
     } finally {
       setIsSaving(false);
     }
@@ -110,119 +121,101 @@ export function FileViewer({
       visible={visible}
       animationType="slide"
       onRequestClose={handleClose}
+      supportedOrientations={['portrait', 'landscape']}
     >
-      <View className="flex-1 bg-dark-bg">
-        {/* Header */}
-        <View className="bg-dark-bg-header border-b-2 border-dark-border px-4 py-3">
-          <View className="flex-row items-center justify-between">
-            <View className="flex-1 mr-4">
-              <Text className="text-white font-semibold text-base" numberOfLines={1}>
-                {fileName}
-              </Text>
-              <Text className="text-gray-400 text-xs mt-0.5" numberOfLines={1}>
-                {filePath}
-              </Text>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1, backgroundColor: '#18181b' }}
+        keyboardVerticalOffset={0}
+      >
+        <View className="flex-1 bg-dark-bg">
+          {/* Header */}
+          <View
+            className="bg-dark-bg-header border-b-2 border-dark-border"
+            style={{
+              paddingTop: isLandscape ? Math.max(insets.top, 8) : insets.top + 12,
+              paddingBottom: isLandscape ? 8 : 12,
+              paddingLeft: Math.max(insets.left, 16),
+              paddingRight: Math.max(insets.right, 16),
+            }}
+          >
+            <View className="flex-row items-center justify-between">
+              <View className="flex-1 mr-4">
+                <Text className="text-white font-semibold text-base" numberOfLines={1}>
+                  {fileName}
+                </Text>
+                <Text className="text-gray-400 text-xs mt-0.5" numberOfLines={1}>
+                  {filePath}
+                </Text>
+              </View>
+
+              <View className="flex-row items-center gap-2">
+                {!readOnly && hasChanges && (
+                  <>
+                    <TouchableOpacity
+                      onPress={handleRevert}
+                      className="p-2 bg-dark-bg-button rounded border border-dark-border"
+                      activeOpacity={0.7}
+                    >
+                      <RotateCcw size={18} color="white" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      onPress={handleSave}
+                      className="p-2 bg-dark-bg-button rounded border border-dark-border"
+                      activeOpacity={0.7}
+                      disabled={isSaving}
+                      style={{ width: 34, height: 34, alignItems: 'center', justifyContent: 'center' }}
+                    >
+                      {isSaving ? (
+                        <ActivityIndicator size="small" color="white" />
+                      ) : (
+                        <Save size={18} color="white" />
+                      )}
+                    </TouchableOpacity>
+                  </>
+                )}
+
+                <TouchableOpacity
+                  onPress={handleClose}
+                  className="p-2 bg-dark-bg-button rounded border border-dark-border"
+                  activeOpacity={0.7}
+                >
+                  <X size={18} color="white" />
+                </TouchableOpacity>
+              </View>
             </View>
 
-            <View className="flex-row items-center gap-2">
-              {!readOnly && hasChanges && (
-                <>
-                  <TouchableOpacity
-                    onPress={handleRevert}
-                    className="p-2 bg-dark-bg-button rounded border border-dark-border"
-                    activeOpacity={0.7}
-                  >
-                    <RotateCcw size={18} color="#F59E0B" />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    onPress={handleSave}
-                    className="p-2 bg-blue-500 rounded border border-blue-600"
-                    activeOpacity={0.7}
-                    disabled={isSaving}
-                  >
-                    {isSaving ? (
-                      <ActivityIndicator size="small" color="#22C55E" />
-                    ) : (
-                      <Save size={18} color="#22C55E" />
-                    )}
-                  </TouchableOpacity>
-                </>
-              )}
-
-              <TouchableOpacity
-                onPress={handleClose}
-                className="p-2 bg-dark-bg-button rounded border border-dark-border"
-                activeOpacity={0.7}
-              >
-                <X size={18} color="white" />
-              </TouchableOpacity>
-            </View>
+            {readOnly && (
+              <View className="mt-2 px-2 py-1 bg-gray-800 border border-gray-700 rounded">
+                <Text className="text-gray-400 text-xs">Read-only mode</Text>
+              </View>
+            )}
           </View>
 
-          {hasChanges && !readOnly && (
-            <View className="mt-2 px-2 py-1 bg-yellow-900/30 border border-yellow-700 rounded">
-              <Text className="text-yellow-500 text-xs">Unsaved changes</Text>
-            </View>
-          )}
-
-          {readOnly && (
-            <View className="mt-2 px-2 py-1 bg-gray-800 border border-gray-700 rounded">
-              <Text className="text-gray-400 text-xs">Read-only mode</Text>
-            </View>
-          )}
-        </View>
-
-        {/* Content */}
-        <ScrollView className="flex-1 p-4">
+          {/* Code Editor */}
           <TextInput
-            className="text-white font-mono text-sm bg-dark-bg-darker border border-dark-border rounded p-3"
+            className="flex-1 text-white bg-dark-bg"
             value={content}
             onChangeText={handleContentChange}
             multiline
             editable={!readOnly}
-            scrollEnabled={false}
+            scrollEnabled={true}
+            showsVerticalScrollIndicator={true}
             style={{
-              minHeight: 400,
+              fontFamily: MONOSPACE_FONT,
+              fontSize: 14,
+              paddingTop: 16,
+              paddingBottom: Math.max(insets.bottom, 16),
+              paddingLeft: Math.max(insets.left, 16),
+              paddingRight: Math.max(insets.right, 16),
               textAlignVertical: "top",
             }}
             placeholder={readOnly ? "File content..." : "Enter file content..."}
             placeholderTextColor="#6B7280"
           />
-        </ScrollView>
-
-        {/* Bottom buttons (mobile-friendly) */}
-        {!readOnly && hasChanges && (
-          <View className="bg-dark-bg-header border-t-2 border-dark-border p-4">
-            <View className="flex-row gap-2">
-              <TouchableOpacity
-                onPress={handleRevert}
-                className="flex-1 flex-row items-center justify-center px-4 py-3 bg-dark-bg-button rounded border border-dark-border"
-                activeOpacity={0.7}
-              >
-                <RotateCcw size={18} color="#F59E0B" />
-                <Text className="text-white font-medium ml-2">Revert</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={handleSave}
-                className="flex-1 flex-row items-center justify-center px-4 py-3 bg-blue-500 rounded border border-blue-600"
-                activeOpacity={0.7}
-                disabled={isSaving}
-              >
-                {isSaving ? (
-                  <ActivityIndicator size="small" color="#22C55E" />
-                ) : (
-                  <>
-                    <Save size={18} color="#22C55E" />
-                    <Text className="text-white font-medium ml-2">Save</Text>
-                  </>
-                )}
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-      </View>
+        </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }
