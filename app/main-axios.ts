@@ -887,9 +887,7 @@ export async function exportSSHHostWithCredentials(
 // SSH AUTOSTART MANAGEMENT
 // ============================================================================
 
-export async function enableAutoStart(
-  sshConfigId: number,
-): Promise<any> {
+export async function enableAutoStart(sshConfigId: number): Promise<any> {
   try {
     const response = await sshHostApi.post("/autostart/enable", {
       sshConfigId,
@@ -900,9 +898,7 @@ export async function enableAutoStart(
   }
 }
 
-export async function disableAutoStart(
-  sshConfigId: number,
-): Promise<any> {
+export async function disableAutoStart(sshConfigId: number): Promise<any> {
   try {
     const response = await sshHostApi.delete("/autostart/disable", {
       data: { sshConfigId },
@@ -914,13 +910,13 @@ export async function disableAutoStart(
 }
 
 export async function getAutoStartStatus(): Promise<{
-  autostart_configs: Array<{
+  autostart_configs: {
     sshConfigId: number;
     host: string;
     port: number;
     username: string;
     authType: string;
-  }>;
+  }[];
   total_count: number;
 }> {
   try {
@@ -2114,7 +2110,7 @@ export async function getUserList(): Promise<{ users: UserInfo[] }> {
 }
 
 export async function getSessions(): Promise<{
-  sessions: Array<{
+  sessions: {
     id: string;
     userId: string;
     username?: string;
@@ -2125,7 +2121,7 @@ export async function getSessions(): Promise<{
     lastActiveAt: string;
     jwtToken: string;
     isRevoked?: boolean;
-  }>;
+  }[];
 }> {
   try {
     const response = await authApi.get("/users/sessions");
@@ -2980,7 +2976,7 @@ export async function executeSnippet(
 }
 
 export async function reorderSnippets(
-  snippets: Array<{ id: number; order: number; folder?: string }>,
+  snippets: { id: number; order: number; folder?: string }[],
 ): Promise<{ success: boolean; updated: number }> {
   try {
     const response = await authApi.put("/snippets/reorder", { snippets });
@@ -3128,71 +3124,6 @@ export async function resetRecentActivity(): Promise<{ message: string }> {
     return response.data;
   } catch (error) {
     handleApiError(error, "reset recent activity");
-    throw error;
-  }
-}
-
-// ============================================================================
-// COMMAND HISTORY API
-// ============================================================================
-
-export async function saveCommandToHistory(
-  hostId: number,
-  command: string,
-): Promise<{ id: number; command: string; executedAt: string }> {
-  try {
-    const response = await authApi.post("/terminal/command_history", {
-      hostId,
-      command,
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "save command to history");
-    throw error;
-  }
-}
-
-export async function getCommandHistory(
-  hostId: number,
-  limit: number = 100,
-): Promise<string[]> {
-  try {
-    const response = await authApi.get(`/terminal/command_history/${hostId}`, {
-      params: { limit },
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "fetch command history");
-    throw error;
-  }
-}
-
-export async function deleteCommandFromHistory(
-  hostId: number,
-  command: string,
-): Promise<{ success: boolean }> {
-  try {
-    const response = await authApi.post("/terminal/command_history/delete", {
-      hostId,
-      command,
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "delete command from history");
-    throw error;
-  }
-}
-
-export async function clearCommandHistory(
-  hostId: number,
-): Promise<{ success: boolean }> {
-  try {
-    const response = await authApi.delete(
-      `/terminal/command_history/${hostId}`,
-    );
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "clear command history");
     throw error;
   }
 }

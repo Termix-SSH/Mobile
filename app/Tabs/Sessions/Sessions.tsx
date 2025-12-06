@@ -21,14 +21,21 @@ import { useRouter } from "expo-router";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import { Terminal, TerminalHandle } from "@/app/Tabs/Sessions/Terminal";
-import { ServerStats, ServerStatsHandle } from "@/app/Tabs/Sessions/ServerStats";
-import { FileManager, FileManagerHandle } from "@/app/Tabs/Sessions/FileManager";
+import {
+  ServerStats,
+  ServerStatsHandle,
+} from "@/app/Tabs/Sessions/ServerStats";
+import {
+  FileManager,
+  FileManagerHandle,
+} from "@/app/Tabs/Sessions/FileManager";
 import TabBar from "@/app/Tabs/Sessions/Navigation/TabBar";
 import BottomToolbar from "@/app/Tabs/Sessions/BottomToolbar";
 import KeyboardBar from "@/app/Tabs/Sessions/KeyboardBar";
 import { ArrowLeft } from "lucide-react-native";
 import { useOrientation } from "@/app/utils/orientation";
 import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
+import { BACKGROUNDS, BORDER_COLORS } from "@/app/constants/designTokens";
 
 export default function Sessions() {
   const insets = useSafeAreaInsets();
@@ -54,9 +61,9 @@ export default function Sessions() {
   const statsRefs = useRef<Record<string, React.RefObject<ServerStatsHandle>>>(
     {},
   );
-  const fileManagerRefs = useRef<Record<string, React.RefObject<FileManagerHandle>>>(
-    {},
-  );
+  const fileManagerRefs = useRef<
+    Record<string, React.RefObject<FileManagerHandle>>
+  >({});
   const [activeModifiers, setActiveModifiers] = useState({
     ctrl: false,
     alt: false,
@@ -75,43 +82,84 @@ export default function Sessions() {
     ? Math.min(keyboardHeight, maxKeyboardHeight)
     : keyboardHeight;
 
-  // BottomToolbar height includes tab bar + content + safe area insets
-  const TAB_BAR_HEIGHT = 36;
-  const bottomToolbarHeight = isCustomKeyboardVisible
-    ? TAB_BAR_HEIGHT + effectiveKeyboardHeight + insets.bottom
-    : 0;
+  // Component height constants
+  const SESSION_TAB_BAR_HEIGHT = getTabBarHeight(isLandscape); // 50-60px
+  const CUSTOM_KEYBOARD_TAB_HEIGHT = 36;
+  const KEYBOARD_BAR_HEIGHT = 52; // Normal keyboard bar height
+  const KEYBOARD_BAR_HEIGHT_EXTENDED = 66; // When keyboard intentionally hidden
 
-  // Calculate bottom margins for content
-  const getBottomMargin = (sessionType: "terminal" | "stats" | "filemanager" = "terminal") => {
-    const sessionTabBarHeight = getTabBarHeight(isLandscape);
+  // Helper function to calculate TabBar bottom position
+  const getTabBarBottomPosition = () => {
+    const position = (() => {
+      if (activeSession?.type !== "terminal") {
+        return 0; // Non-terminal sessions: sits at bottom
+      }
 
-    // For non-terminal sessions, use simple tab bar height + safe area
+      // Terminal session positioning - TabBar sits above KeyboardBar and any keyboards
+      if (keyboardIntentionallyHiddenRef.current) {
+        return KEYBOARD_BAR_HEIGHT_EXTENDED; // Above extended keyboard bar
+      }
+
+      if (isCustomKeyboardVisible) {
+        // Above: KeyboardBar + BottomToolbar (which includes tabs + content)
+        // BottomToolbar height = CUSTOM_KEYBOARD_TAB_HEIGHT + effectiveKeyboardHeight
+        return KEYBOARD_BAR_HEIGHT + CUSTOM_KEYBOARD_TAB_HEIGHT + effectiveKeyboardHeight;
+      }
+
+      if (isKeyboardVisible && currentKeyboardHeight > 0) {
+        // Above: KeyboardBar + system keyboard
+        return KEYBOARD_BAR_HEIGHT + currentKeyboardHeight;
+      }
+
+      return KEYBOARD_BAR_HEIGHT; // Just above keyboard bar (no keyboard showing)
+    })();
+
+    console.log('[TabBar Position]', {
+      activeSessionType: activeSession?.type,
+      isCustomKeyboardVisible,
+      keyboardIntentionallyHidden: keyboardIntentionallyHiddenRef.current,
+      isKeyboardVisible,
+      currentKeyboardHeight,
+      KEYBOARD_BAR_HEIGHT,
+      CUSTOM_KEYBOARD_TAB_HEIGHT,
+      effectiveKeyboardHeight,
+      calculatedPosition: position,
+    });
+
+    return position;
+  };
+
+  // Calculate bottom margins for content (terminal content area)
+  const getBottomMargin = (
+    sessionType: "terminal" | "stats" | "filemanager" = "terminal",
+  ) => {
+    // For non-terminal sessions, just the session tab bar
     if (sessionType !== "terminal") {
-      return sessionTabBarHeight + insets.bottom;
+      return SESSION_TAB_BAR_HEIGHT + insets.bottom;
     }
 
-    // Terminal-specific logic with keyboard handling
-    const keyboardBarHeight = 50;
-    const baseMargin = sessionTabBarHeight + keyboardBarHeight;
+    // Terminal sessions need to account for: SessionTabBar + KeyboardBar + (optional keyboard)
+    let margin = SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT;
 
     if (keyboardIntentionallyHiddenRef.current) {
-      return sessionTabBarHeight + 66; // 66 is the larger keyboard bar height when hidden
+      // No keyboard, but extended keyboard bar
+      return SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT_EXTENDED;
     }
 
     if (isCustomKeyboardVisible) {
-      // Custom keyboard: session tab bar + keyboard bar + TAB_BAR_HEIGHT + keyboard content
-      return sessionTabBarHeight + keyboardBarHeight + TAB_BAR_HEIGHT + effectiveKeyboardHeight;
+      // Custom keyboard showing: add tab bar + keyboard content
+      margin += CUSTOM_KEYBOARD_TAB_HEIGHT + effectiveKeyboardHeight;
+      return margin;
     }
 
     if (isKeyboardVisible && currentKeyboardHeight > 0) {
-      return currentKeyboardHeight + baseMargin;
+      // System keyboard showing
+      margin += currentKeyboardHeight;
+      return margin;
     }
 
-    if (effectiveKeyboardHeight > 0) {
-      return effectiveKeyboardHeight + baseMargin;
-    }
-
-    return baseMargin;
+    // No keyboard showing, just bars
+    return margin;
   };
 
   useEffect(() => {
@@ -303,7 +351,7 @@ export default function Sessions() {
   );
 
   const handleTabPress = (sessionId: string) => {
-    const session = sessions.find(s => s.id === sessionId);
+    const session = sessions.find((s) => s.id === sessionId);
     setKeyboardIntentionallyHidden(false);
     setActiveSession(sessionId);
     setTimeout(() => {
@@ -316,7 +364,11 @@ export default function Sessions() {
   const handleTabClose = (sessionId: string) => {
     removeSession(sessionId);
     setTimeout(() => {
-      if (activeSession?.type === "terminal" && !isCustomKeyboardVisible && sessions.length > 1) {
+      if (
+        activeSession?.type === "terminal" &&
+        !isCustomKeyboardVisible &&
+        sessions.length > 1
+      ) {
         hiddenInputRef.current?.focus();
       }
     }, 100);
@@ -328,13 +380,19 @@ export default function Sessions() {
 
   const handleToggleKeyboard = () => {
     if (isCustomKeyboardVisible) {
+      // Closing custom keyboard - reopen system keyboard
+      toggleCustomKeyboard();
+      setTimeout(() => {
+        setKeyboardIntentionallyHidden(false);
+        hiddenInputRef.current?.focus();
+      }, 150);
+    } else {
+      // Opening custom keyboard - close system keyboard
+      setKeyboardIntentionallyHidden(true);
       Keyboard.dismiss();
       setTimeout(() => {
         toggleCustomKeyboard();
       }, 100);
-    } else {
-      setKeyboardIntentionallyHidden(false);
-      toggleCustomKeyboard();
     }
   };
 
@@ -434,12 +492,12 @@ export default function Sessions() {
         >
           <View
             style={{
-              backgroundColor: "#1a1a1a",
+              backgroundColor: BACKGROUNDS.CARD,
               borderRadius: 12,
               padding: 32,
               alignItems: "center",
               borderWidth: 1,
-              borderColor: "#303032",
+              borderColor: BORDER_COLORS.PRIMARY,
               minWidth: 280,
               maxWidth: 400,
               shadowColor: "#000",
@@ -511,13 +569,13 @@ export default function Sessions() {
             bottom: keyboardIntentionallyHiddenRef.current
               ? 0
               : isCustomKeyboardVisible
-                ? effectiveKeyboardHeight + TAB_BAR_HEIGHT
+                ? CUSTOM_KEYBOARD_TAB_HEIGHT + effectiveKeyboardHeight
                 : isKeyboardVisible && currentKeyboardHeight > 0
                   ? currentKeyboardHeight
                   : 0,
             left: 0,
             right: 0,
-            height: keyboardIntentionallyHiddenRef.current ? 66 : 52,
+            height: keyboardIntentionallyHiddenRef.current ? KEYBOARD_BAR_HEIGHT_EXTENDED : KEYBOARD_BAR_HEIGHT,
             zIndex: 1003,
             overflow: "visible",
           }}
@@ -537,32 +595,27 @@ export default function Sessions() {
         </View>
       )}
 
-      {sessions.length > 0 && (activeSession?.type === "stats" || activeSession?.type === "filemanager") && isCustomKeyboardVisible && (
-        <View
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: effectiveKeyboardHeight,
-            backgroundColor: "#09090b",
-            zIndex: 1002,
-          }}
-        />
-      )}
+      {sessions.length > 0 &&
+        (activeSession?.type === "stats" ||
+          activeSession?.type === "filemanager") &&
+        isCustomKeyboardVisible && (
+          <View
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: effectiveKeyboardHeight,
+              backgroundColor: BACKGROUNDS.DARKEST,
+              zIndex: 1002,
+            }}
+          />
+        )}
 
       <View
         style={{
           position: "absolute",
-          bottom: activeSession?.type === "terminal"
-            ? keyboardIntentionallyHiddenRef.current
-              ? 66 + 1
-              : isCustomKeyboardVisible
-                ? TAB_BAR_HEIGHT + effectiveKeyboardHeight + 52
-                : isKeyboardVisible && currentKeyboardHeight > 0
-                  ? currentKeyboardHeight + 50
-                  : 50
-            : 32,
+          bottom: getTabBarBottomPosition(),
           left: 0,
           right: 0,
           height: 60,
@@ -585,137 +638,149 @@ export default function Sessions() {
         />
       </View>
 
-      {sessions.length > 0 && isCustomKeyboardVisible && activeSession?.type === "terminal" && (
-        <View
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 1002,
-          }}
-        >
-          <BottomToolbar
-            terminalRef={
-              activeSessionId
-                ? terminalRefs.current[activeSessionId]
-                : React.createRef<TerminalHandle>()
-            }
-            isVisible={isCustomKeyboardVisible}
-            keyboardHeight={effectiveKeyboardHeight}
-            isKeyboardIntentionallyHidden={
-              keyboardIntentionallyHiddenRef.current
-            }
-            currentHostId={
-              activeSession ? parseInt(activeSession.host.id.toString()) : undefined
-            }
-          />
-        </View>
-      )}
-
-      {sessions.length > 0 && !isCustomKeyboardVisible && activeSession?.type === "terminal" && (
-        <TextInput
-          ref={hiddenInputRef}
-          style={{
-            position: "absolute",
-            bottom: currentKeyboardHeight > 0 ? currentKeyboardHeight : 0,
-            left: 0,
-            width: 1,
-            height: 1,
-            opacity: 0,
-            color: "transparent",
-            backgroundColor: "transparent",
-            zIndex: 1001,
-          }}
-          pointerEvents="none"
-          autoFocus={false}
-          showSoftInputOnFocus={true}
-          keyboardType={keyboardType}
-          returnKeyType="default"
-          blurOnSubmit={false}
-          editable={true}
-          autoCorrect={false}
-          autoCapitalize="none"
-          spellCheck={false}
-          textContentType="none"
-          caretHidden
-          contextMenuHidden
-          underlineColorAndroid="transparent"
-          multiline
-          onChangeText={() => {
-            // Do nothing - we handle input in onKeyPress only
-          }}
-          onKeyPress={({ nativeEvent }) => {
-            const key = nativeEvent.key;
-            const activeRef = activeSessionId
-              ? terminalRefs.current[activeSessionId]
-              : null;
-
-            if (!activeRef?.current) return;
-
-            let finalKey = key;
-
-            // Handle modifiers
-            if (activeModifiers.ctrl) {
-              switch (key.toLowerCase()) {
-                case "c":
-                  finalKey = "\x03";
-                  break;
-                case "d":
-                  finalKey = "\x04";
-                  break;
-                case "z":
-                  finalKey = "\x1a";
-                  break;
-                case "l":
-                  finalKey = "\x0c";
-                  break;
-                case "a":
-                  finalKey = "\x01";
-                  break;
-                case "e":
-                  finalKey = "\x05";
-                  break;
-                case "k":
-                  finalKey = "\x0b";
-                  break;
-                case "u":
-                  finalKey = "\x15";
-                  break;
-                case "w":
-                  finalKey = "\x17";
-                  break;
-                default:
-                  if (key.length === 1) {
-                    finalKey = String.fromCharCode(key.charCodeAt(0) & 0x1f);
-                  }
+      {sessions.length > 0 &&
+        isCustomKeyboardVisible &&
+        activeSession?.type === "terminal" && (
+          <View
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              zIndex: 1002,
+            }}
+          >
+            <BottomToolbar
+              terminalRef={
+                activeSessionId
+                  ? terminalRefs.current[activeSessionId]
+                  : React.createRef<TerminalHandle>()
               }
-            } else if (activeModifiers.alt) {
-              finalKey = `\x1b${key}`;
-            }
+              isVisible={isCustomKeyboardVisible}
+              keyboardHeight={effectiveKeyboardHeight}
+              isKeyboardIntentionallyHidden={
+                keyboardIntentionallyHiddenRef.current
+              }
+            />
+          </View>
+        )}
 
-            // Send the appropriate key
-            if (key === "Enter") {
-              activeRef.current.sendInput("\r");
-            } else if (key === "Backspace") {
-              activeRef.current.sendInput("\b");
-            } else if (key.length === 1) {
-              activeRef.current.sendInput(finalKey);
-            }
-          }}
-          onFocus={() => {
-            setKeyboardIntentionallyHidden(false);
-          }}
-          onBlur={() => {
-            // Immediately refocus if keyboard wasn't intentionally hidden
-            if (!keyboardIntentionallyHiddenRef.current && !isCustomKeyboardVisible && activeSession?.type === "terminal") {
-              setTimeout(() => {
-                hiddenInputRef.current?.focus();
-              }, 0);
-            }
-          }}
-        />
-      )}
+      {sessions.length > 0 &&
+        !isCustomKeyboardVisible &&
+        activeSession?.type === "terminal" && (
+          <TextInput
+            ref={hiddenInputRef}
+            style={{
+              position: "absolute",
+              bottom: currentKeyboardHeight > 0 ? currentKeyboardHeight : 0,
+              left: 0,
+              width: 1,
+              height: 1,
+              opacity: 0,
+              color: "transparent",
+              backgroundColor: "transparent",
+              zIndex: 1001,
+            }}
+            pointerEvents="none"
+            autoFocus={false}
+            showSoftInputOnFocus={true}
+            keyboardType={keyboardType}
+            returnKeyType="default"
+            blurOnSubmit={false}
+            editable={true}
+            autoCorrect={false}
+            autoCapitalize="none"
+            spellCheck={false}
+            textContentType="none"
+            caretHidden
+            contextMenuHidden
+            underlineColorAndroid="transparent"
+            multiline
+            onChangeText={() => {
+              // Do nothing - we handle input in onKeyPress only
+            }}
+            onKeyPress={({ nativeEvent }) => {
+              const key = nativeEvent.key;
+              const activeRef = activeSessionId
+                ? terminalRefs.current[activeSessionId]
+                : null;
+
+              if (!activeRef?.current) return;
+
+              let finalKey = key;
+
+              // Handle modifiers
+              if (activeModifiers.ctrl) {
+                switch (key.toLowerCase()) {
+                  case "c":
+                    finalKey = "\x03";
+                    break;
+                  case "d":
+                    finalKey = "\x04";
+                    break;
+                  case "z":
+                    finalKey = "\x1a";
+                    break;
+                  case "l":
+                    finalKey = "\x0c";
+                    break;
+                  case "a":
+                    finalKey = "\x01";
+                    break;
+                  case "e":
+                    finalKey = "\x05";
+                    break;
+                  case "k":
+                    finalKey = "\x0b";
+                    break;
+                  case "u":
+                    finalKey = "\x15";
+                    break;
+                  case "w":
+                    finalKey = "\x17";
+                    break;
+                  default:
+                    if (key.length === 1) {
+                      finalKey = String.fromCharCode(key.charCodeAt(0) & 0x1f);
+                    }
+                }
+              } else if (activeModifiers.alt) {
+                finalKey = `\x1b${key}`;
+              }
+
+              // Send the appropriate key
+              if (key === "Enter") {
+                activeRef.current.sendInput("\r");
+              } else if (key === "Backspace") {
+                activeRef.current.sendInput("\b");
+              } else if (key.length === 1) {
+                activeRef.current.sendInput(finalKey);
+              }
+            }}
+            onFocus={() => {
+              setKeyboardIntentionallyHidden(false);
+            }}
+            onBlur={() => {
+              // Use a longer delay to avoid flicker from accidental touches
+              // but still maintain focus for typing
+              if (
+                !keyboardIntentionallyHiddenRef.current &&
+                !isCustomKeyboardVisible &&
+                activeSession?.type === "terminal"
+              ) {
+                setTimeout(() => {
+                  if (
+                    !keyboardIntentionallyHiddenRef.current &&
+                    !isCustomKeyboardVisible &&
+                    activeSession?.type === "terminal"
+                  ) {
+                    hiddenInputRef.current?.focus();
+                  }
+                }, 200); // 200ms delay to allow intentional taps to complete
+              }
+            }}
+          />
+        )}
     </View>
   );
 }

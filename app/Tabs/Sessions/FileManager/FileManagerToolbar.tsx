@@ -1,7 +1,12 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Copy, Scissors, Clipboard, Trash2, X } from "lucide-react-native";
 import { getResponsivePadding } from "@/app/utils/responsive";
-import { BORDERS, BORDER_COLORS, BACKGROUNDS, RADIUS } from "@/app/constants/designTokens";
+import {
+  BORDERS,
+  BORDER_COLORS,
+  BACKGROUNDS,
+  RADIUS,
+} from "@/app/constants/designTokens";
 
 interface FileManagerToolbarProps {
   selectionMode: boolean;
@@ -62,11 +67,26 @@ export function FileManagerToolbar({
       {selectionMode ? (
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           {/* Selection count */}
-          <Text style={{ color: "#ffffff", fontWeight: "500", marginRight: 16, fontSize: isLandscape ? 12 : 14 }}>
+          <Text
+            style={{
+              color: "#ffffff",
+              fontWeight: "500",
+              marginRight: 16,
+              fontSize: isLandscape ? 12 : 14,
+            }}
+          >
             {selectedCount} selected
           </Text>
 
-          <View style={{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "flex-end", gap: 8 }}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              gap: 8,
+            }}
+          >
             {/* Copy */}
             <TouchableOpacity
               onPress={onCopy}
@@ -144,12 +164,27 @@ export function FileManagerToolbar({
       ) : (
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           {/* Clipboard info */}
-          <Text style={{ color: "#ffffff", fontWeight: "500", marginRight: 16, fontSize: isLandscape ? 12 : 14 }}>
+          <Text
+            style={{
+              color: "#ffffff",
+              fontWeight: "500",
+              marginRight: 16,
+              fontSize: isLandscape ? 12 : 14,
+            }}
+          >
             {clipboardCount} item{clipboardCount !== 1 ? "s" : ""}{" "}
             {clipboardOperation === "copy" ? "copied" : "cut"}
           </Text>
 
-          <View style={{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "flex-end", gap: 8 }}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              gap: 8,
+            }}
+          >
             {/* Paste */}
             <TouchableOpacity
               onPress={onPaste}

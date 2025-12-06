@@ -26,9 +26,9 @@ interface FileViewerProps {
 }
 
 const MONOSPACE_FONT = Platform.select({
-  ios: 'Courier',
-  android: 'monospace',
-  default: 'monospace'
+  ios: "Courier",
+  android: "monospace",
+  default: "monospace",
 });
 
 export function FileViewer({
@@ -86,7 +86,7 @@ export function FileViewer({
             setHasChanges(false);
           },
         },
-      ]
+      ],
     );
   };
 
@@ -109,7 +109,7 @@ export function FileViewer({
               onClose();
             },
           },
-        ]
+        ],
       );
     } else {
       onClose();
@@ -121,11 +121,11 @@ export function FileViewer({
       visible={visible}
       animationType="slide"
       onRequestClose={handleClose}
-      supportedOrientations={['portrait', 'landscape']}
+      supportedOrientations={["portrait", "landscape"]}
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1, backgroundColor: '#18181b' }}
+        style={{ flex: 1, backgroundColor: "#18181b" }}
         keyboardVerticalOffset={0}
       >
         <View className="flex-1 bg-dark-bg">
@@ -133,7 +133,9 @@ export function FileViewer({
           <View
             className="bg-dark-bg-header border-b-2 border-dark-border"
             style={{
-              paddingTop: isLandscape ? Math.max(insets.top, 8) : insets.top + 12,
+              paddingTop: isLandscape
+                ? Math.max(insets.top, 8)
+                : insets.top + 12,
               paddingBottom: isLandscape ? 8 : 12,
               paddingLeft: Math.max(insets.left, 16),
               paddingRight: Math.max(insets.right, 16),
@@ -141,10 +143,16 @@ export function FileViewer({
           >
             <View className="flex-row items-center justify-between">
               <View className="flex-1 mr-4">
-                <Text className="text-white font-semibold text-base" numberOfLines={1}>
+                <Text
+                  className="text-white font-semibold text-base"
+                  numberOfLines={1}
+                >
                   {fileName}
                 </Text>
-                <Text className="text-gray-400 text-xs mt-0.5" numberOfLines={1}>
+                <Text
+                  className="text-gray-400 text-xs mt-0.5"
+                  numberOfLines={1}
+                >
                   {filePath}
                 </Text>
               </View>
@@ -165,7 +173,12 @@ export function FileViewer({
                       className="p-2 bg-dark-bg-button rounded border border-dark-border"
                       activeOpacity={0.7}
                       disabled={isSaving}
-                      style={{ width: 34, height: 34, alignItems: 'center', justifyContent: 'center' }}
+                      style={{
+                        width: 34,
+                        height: 34,
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
                     >
                       {isSaving ? (
                         <ActivityIndicator size="small" color="white" />

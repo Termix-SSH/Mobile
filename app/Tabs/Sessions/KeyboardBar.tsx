@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  ScrollView,
-  Text,
-  Clipboard,
-  Platform,
-} from "react-native";
+import { View, ScrollView, Text, Clipboard, Platform } from "react-native";
 import { TerminalHandle } from "./Terminal";
 import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import { useOrientation } from "@/app/utils/orientation";
-import { BORDERS, BORDER_COLORS } from "@/app/constants/designTokens";
+import {
+  BORDERS,
+  BORDER_COLORS,
+  BACKGROUNDS,
+} from "@/app/constants/designTokens";
 
 interface KeyboardBarProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
@@ -128,10 +126,11 @@ export default function KeyboardBar({
 
   return (
     <View
-      className="bg-dark-bg-darkest pt-px"
       style={{
+        backgroundColor: BACKGROUNDS.DARKER,
         borderTopWidth: BORDERS.MAJOR,
         borderTopColor: BORDER_COLORS.PRIMARY,
+        paddingTop: 1,
         paddingBottom: isKeyboardIntentionallyHidden ? 16 : 0,
       }}
     >

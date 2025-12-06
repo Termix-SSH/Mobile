@@ -20,10 +20,10 @@ import {
   getCurrentServerUrl,
   getCookie,
   logActivity,
-  saveCommandToHistory,
 } from "../../main-axios";
 import { showToast } from "../../utils/toast";
 import { useTerminalCustomization } from "../../contexts/TerminalCustomizationContext";
+import { BACKGROUNDS, BORDER_COLORS } from "../../constants/designTokens";
 
 interface TerminalProps {
   hostConfig: {
@@ -68,8 +68,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     const connectionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
       null,
     );
-    const currentCommandRef = useRef<string>("");
-    const commandHistoryRef = useRef<string[]>([]);
 
     useEffect(() => {
       const subscription = Dimensions.addEventListener(
@@ -327,39 +325,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     let shouldNotReconnect = false;
     let hasNotifiedFailure = false;
 
-    // Command history tracking
-    let currentCommand = '';
-    let commandHistory = [];
-
-    function trackInput(data) {
-      if (data === '\\r' || data === '\\n') {
-        // Enter key pressed - command executed
-        const cmd = currentCommand.trim();
-        if (cmd && cmd.length > 0) {
-          // Notify React Native about the command
-          if (window.ReactNativeWebView) {
-            window.ReactNativeWebView.postMessage(JSON.stringify({
-              type: 'commandExecuted',
-              data: { command: cmd }
-            }));
-          }
-        }
-        currentCommand = '';
-      } else if (data === '\\x7f' || data === '\\b') {
-        // Backspace
-        currentCommand = currentCommand.slice(0, -1);
-      } else if (data === '\\x03') {
-        // Ctrl+C - clear current command
-        currentCommand = '';
-      } else if (data === '\\x15') {
-        // Ctrl+U - clear line
-        currentCommand = '';
-      } else if (data.length === 1 && data.charCodeAt(0) >= 32) {
-        // Printable character
-        currentCommand += data;
-      }
-    }
-
     function notifyConnectionState(state, data = {}) {
       if (window.ReactNativeWebView) {
         window.ReactNativeWebView.postMessage(JSON.stringify({
@@ -397,7 +362,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     
     window.nativeInput = function(data) {
       try {
-        trackInput(data);
         if (ws && ws.readyState === WebSocket.OPEN) {
           ws.send(JSON.stringify({ type: 'input', data: data }));
         } else {
@@ -656,23 +620,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               );
               break;
 
-            case "commandExecuted":
-              // Save command to history
-              if (message.data.command && hostConfig.id) {
-                const cmd = message.data.command;
-                currentCommandRef.current = "";
-
-                // Don't save duplicate commands or very short commands
-                if (cmd.length > 1 && !commandHistoryRef.current.includes(cmd)) {
-                  commandHistoryRef.current = [cmd, ...commandHistoryRef.current];
-
-                  // Save to backend asynchronously
-                  saveCommandToHistory(hostConfig.id, cmd).catch((error) => {
-                    console.error("Failed to save command to history:", error);
-                  });
-                }
-              }
-              break;
           }
         } catch (error) {}
       },
@@ -767,44 +714,45 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           <View style={{ flex: 1 }}>
             {/* Note: Hidden TextInput removed - keyboard handled by Sessions.tsx */}
             <WebView
-                  key={`terminal-${hostConfig.id}-${webViewKey}`}
-                  ref={webViewRef}
-                  source={{ html: htmlContent }}
-                  style={{
-                    flex: 1,
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "#09090b",
-                    opacity: showConnectingOverlay || isRetrying ? 0 : 1,
-                  }}
-                  javaScriptEnabled={true}
-                  domStorageEnabled={true}
-                  startInLoadingState={false}
-                  scalesPageToFit={false}
-                  allowsInlineMediaPlayback={true}
-                  mediaPlaybackRequiresUserAction={false}
-                  keyboardDisplayRequiresUserAction={false}
-                  hideKeyboardAccessoryView={true}
-                  onScroll={() => {}}
-                  onMessage={handleWebViewMessage}
-                  onError={(syntheticEvent) => {
-                    const { nativeEvent } = syntheticEvent;
-                    handleConnectionFailure(
-                      `WebView error: ${nativeEvent.description}`,
-                    );
-                  }}
-                  onHttpError={(syntheticEvent) => {
-                    const { nativeEvent } = syntheticEvent;
-                    handleConnectionFailure(
-                      `WebView HTTP error: ${nativeEvent.statusCode}`,
-                    );
-                  }}
-                  scrollEnabled={true}
-                  bounces={false}
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
-                  nestedScrollEnabled={false}
-                /></View>
+              key={`terminal-${hostConfig.id}-${webViewKey}`}
+              ref={webViewRef}
+              source={{ html: htmlContent }}
+              style={{
+                flex: 1,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#09090b",
+                opacity: showConnectingOverlay || isRetrying ? 0 : 1,
+              }}
+              javaScriptEnabled={true}
+              domStorageEnabled={true}
+              startInLoadingState={false}
+              scalesPageToFit={false}
+              allowsInlineMediaPlayback={true}
+              mediaPlaybackRequiresUserAction={false}
+              keyboardDisplayRequiresUserAction={false}
+              hideKeyboardAccessoryView={true}
+              onScroll={() => {}}
+              onMessage={handleWebViewMessage}
+              onError={(syntheticEvent) => {
+                const { nativeEvent } = syntheticEvent;
+                handleConnectionFailure(
+                  `WebView error: ${nativeEvent.description}`,
+                );
+              }}
+              onHttpError={(syntheticEvent) => {
+                const { nativeEvent } = syntheticEvent;
+                handleConnectionFailure(
+                  `WebView HTTP error: ${nativeEvent.statusCode}`,
+                );
+              }}
+              scrollEnabled={true}
+              bounces={false}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              nestedScrollEnabled={false}
+            />
+          </View>
 
           {(showConnectingOverlay || isRetrying) && (
             <View
@@ -816,18 +764,18 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 bottom: 0,
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "#09090b",
+                backgroundColor: BACKGROUNDS.DARKEST,
                 padding: 20,
               }}
             >
               <View
                 style={{
-                  backgroundColor: "#1a1a1a",
+                  backgroundColor: BACKGROUNDS.CARD,
                   borderRadius: 12,
                   padding: 24,
                   alignItems: "center",
                   borderWidth: 1,
-                  borderColor: "#303032",
+                  borderColor: BORDER_COLORS.PRIMARY,
                   minWidth: 280,
                 }}
               >
@@ -856,13 +804,13 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 {retryCount > 0 && (
                   <View
                     style={{
-                      backgroundColor: "#0f0f0f",
+                      backgroundColor: BACKGROUNDS.DARKER,
                       borderRadius: 8,
                       paddingHorizontal: 12,
                       paddingVertical: 6,
                       marginTop: 12,
                       borderWidth: 1,
-                      borderColor: "#303032",
+                      borderColor: BORDER_COLORS.PRIMARY,
                     }}
                   >
                     <Text

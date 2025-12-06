@@ -9,8 +9,16 @@ import {
   MoreVertical,
 } from "lucide-react-native";
 import { breadcrumbsFromPath, getBreadcrumbLabel } from "./utils/fileUtils";
-import { getResponsivePadding, getResponsiveFontSize } from "@/app/utils/responsive";
-import { BORDERS, BORDER_COLORS, BACKGROUNDS, RADIUS } from "@/app/constants/designTokens";
+import {
+  getResponsivePadding,
+  getResponsiveFontSize,
+} from "@/app/utils/responsive";
+import {
+  BORDERS,
+  BORDER_COLORS,
+  BACKGROUNDS,
+  RADIUS,
+} from "@/app/constants/designTokens";
 
 interface FileManagerHeaderProps {
   currentPath: string;
@@ -77,9 +85,18 @@ export function FileManagerHeader({
           )}
 
           {breadcrumbs.map((path, index) => (
-            <View key={path} style={{ flexDirection: "row", alignItems: "center" }}>
+            <View
+              key={path}
+              style={{ flexDirection: "row", alignItems: "center" }}
+            >
               {index > 0 && breadcrumbs[index - 1] !== "/" && (
-                <Text style={{ color: "#6B7280", marginHorizontal: 6, fontSize: isLandscape ? 12 : 14 }}>
+                <Text
+                  style={{
+                    color: "#6B7280",
+                    marginHorizontal: 6,
+                    fontSize: isLandscape ? 12 : 14,
+                  }}
+                >
                   /
                 </Text>
               )}
@@ -89,14 +106,19 @@ export function FileManagerHeader({
                   paddingHorizontal: 8,
                   paddingVertical: 4,
                   borderRadius: RADIUS.SMALL,
-                  backgroundColor: index === breadcrumbs.length - 1 ? BACKGROUNDS.BUTTON_ALT : "transparent",
+                  backgroundColor:
+                    index === breadcrumbs.length - 1
+                      ? BACKGROUNDS.BUTTON_ALT
+                      : "transparent",
                 }}
                 activeOpacity={0.7}
               >
                 <Text
                   style={{
-                    color: index === breadcrumbs.length - 1 ? "#ffffff" : "#9CA3AF",
-                    fontWeight: index === breadcrumbs.length - 1 ? "500" : "400",
+                    color:
+                      index === breadcrumbs.length - 1 ? "#ffffff" : "#9CA3AF",
+                    fontWeight:
+                      index === breadcrumbs.length - 1 ? "500" : "400",
                     fontSize: isLandscape ? 12 : 14,
                   }}
                 >
@@ -109,7 +131,13 @@ export function FileManagerHeader({
       </ScrollView>
 
       {/* Action buttons */}
-      <View style={{ flexDirection: "row", alignItems: "center", paddingVertical: isLandscape ? 6 : 8 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          paddingVertical: isLandscape ? 6 : 8,
+        }}
+      >
         <TouchableOpacity
           onPress={onRefresh}
           style={{

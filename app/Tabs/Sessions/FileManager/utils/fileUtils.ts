@@ -39,10 +39,43 @@ export function joinPath(...parts: string[]): string {
 export function isTextFile(filename: string): boolean {
   const ext = getFileExtension(filename);
   const textExtensions = [
-    "txt", "md", "json", "xml", "html", "css", "js", "ts", "tsx", "jsx",
-    "py", "java", "c", "cpp", "h", "hpp", "cs", "php", "rb", "go", "rs",
-    "sh", "bash", "zsh", "fish", "yml", "yaml", "toml", "ini", "cfg", "conf",
-    "log", "env", "gitignore", "dockerignore", "editorconfig", "prettierrc",
+    "txt",
+    "md",
+    "json",
+    "xml",
+    "html",
+    "css",
+    "js",
+    "ts",
+    "tsx",
+    "jsx",
+    "py",
+    "java",
+    "c",
+    "cpp",
+    "h",
+    "hpp",
+    "cs",
+    "php",
+    "rb",
+    "go",
+    "rs",
+    "sh",
+    "bash",
+    "zsh",
+    "fish",
+    "yml",
+    "yaml",
+    "toml",
+    "ini",
+    "cfg",
+    "conf",
+    "log",
+    "env",
+    "gitignore",
+    "dockerignore",
+    "editorconfig",
+    "prettierrc",
   ];
   return textExtensions.includes(ext);
 }
@@ -55,7 +88,16 @@ export function isArchiveFile(filename: string): boolean {
 
 export function isImageFile(filename: string): boolean {
   const ext = getFileExtension(filename);
-  const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "svg", "webp", "ico"];
+  const imageExtensions = [
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "bmp",
+    "svg",
+    "webp",
+    "ico",
+  ];
   return imageExtensions.includes(ext);
 }
 
@@ -94,7 +136,7 @@ export function formatDate(dateString: string | undefined): string {
 export function sortFiles(
   files: any[],
   sortBy: "name" | "size" | "modified" = "name",
-  sortOrder: "asc" | "desc" = "asc"
+  sortOrder: "asc" | "desc" = "asc",
 ): any[] {
   const sorted = [...files].sort((a, b) => {
     // Always put directories first
@@ -111,7 +153,9 @@ export function sortFiles(
         compareValue = (a.size || 0) - (b.size || 0);
         break;
       case "modified":
-        compareValue = new Date(a.modified || 0).getTime() - new Date(b.modified || 0).getTime();
+        compareValue =
+          new Date(a.modified || 0).getTime() -
+          new Date(b.modified || 0).getTime();
         break;
     }
 
@@ -141,7 +185,8 @@ export function getFileIconColor(filename: string, type: string): string {
   if (["json", "xml"].includes(ext)) return "#F59E0B"; // amber
 
   // Config files
-  if (["yml", "yaml", "toml", "ini", "conf", "cfg"].includes(ext)) return "#8B5CF6"; // purple
+  if (["yml", "yaml", "toml", "ini", "conf", "cfg"].includes(ext))
+    return "#8B5CF6"; // purple
   if (["env", "gitignore", "dockerignore"].includes(ext)) return "#6B7280"; // gray
 
   // Documents

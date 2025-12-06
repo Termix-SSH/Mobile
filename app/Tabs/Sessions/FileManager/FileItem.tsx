@@ -1,6 +1,10 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { File, Folder, Link } from "lucide-react-native";
-import { formatFileSize, formatDate, getFileIconColor } from "./utils/fileUtils";
+import {
+  formatFileSize,
+  formatDate,
+  getFileIconColor,
+} from "./utils/fileUtils";
 
 interface FileItemProps {
   name: string;
@@ -30,7 +34,8 @@ export function FileItem({
   useGrid = false,
 }: FileItemProps) {
   const iconColor = getFileIconColor(name, type);
-  const IconComponent = type === "directory" ? Folder : type === "link" ? Link : File;
+  const IconComponent =
+    type === "directory" ? Folder : type === "link" ? Link : File;
 
   return (
     <TouchableOpacity
@@ -57,7 +62,9 @@ export function FileItem({
                 : "bg-dark-bg border-dark-border-light"
             }`}
           >
-            {isSelected && <Text className="text-white text-xs font-bold">✓</Text>}
+            {isSelected && (
+              <Text className="text-white text-xs font-bold">✓</Text>
+            )}
           </View>
         </View>
       )}
@@ -78,14 +85,18 @@ export function FileItem({
           ) : (
             <>
               {size !== undefined && (
-                <Text className="text-gray-400 text-xs">{formatFileSize(size)}</Text>
+                <Text className="text-gray-400 text-xs">
+                  {formatFileSize(size)}
+                </Text>
               )}
               {modified && (
                 <>
                   {size !== undefined && (
                     <Text className="text-gray-500 text-xs mx-1">•</Text>
                   )}
-                  <Text className="text-gray-400 text-xs">{formatDate(modified)}</Text>
+                  <Text className="text-gray-400 text-xs">
+                    {formatDate(modified)}
+                  </Text>
                 </>
               )}
             </>

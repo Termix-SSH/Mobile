@@ -27,8 +27,17 @@ import { getServerMetricsById } from "../../main-axios";
 import { showToast } from "../../utils/toast";
 import type { ServerMetrics } from "../../../types/index";
 import { useOrientation } from "@/app/utils/orientation";
-import { getResponsivePadding, getColumnCount, getTabBarHeight } from "@/app/utils/responsive";
-import { BACKGROUNDS, BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";
+import {
+  getResponsivePadding,
+  getColumnCount,
+  getTabBarHeight,
+} from "@/app/utils/responsive";
+import {
+  BACKGROUNDS,
+  BORDER_COLORS,
+  RADIUS,
+  TEXT_COLORS,
+} from "@/app/constants/designTokens";
 
 interface ServerStatsProps {
   hostConfig: {
@@ -117,9 +126,8 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
       };
     }, [isVisible, fetchMetrics]);
 
-    const cardWidth = isLandscape && columnCount > 1
-      ? `${(100 / columnCount) - 1}%`
-      : "100%";
+    const cardWidth =
+      isLandscape && columnCount > 1 ? `${100 / columnCount - 1}%` : "100%";
 
     const formatUptime = (seconds: number | null): string => {
       if (seconds === null || seconds === undefined) return "N/A";
@@ -156,21 +164,32 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
             width: cardWidth,
           }}
         >
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 8,
+              marginBottom: 12,
+            }}
+          >
+            {icon}
+            <Text style={{ color: "#ffffff", fontSize: 16, fontWeight: "600" }}>
+              {title}
+            </Text>
+          </View>
 
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 12 }}>
-          {icon}
-          <Text style={{ color: "#ffffff", fontSize: 16, fontWeight: "600" }}>
-            {title}
-          </Text>
-        </View>
-
-          <View style={{ flexDirection: "row", alignItems: "baseline", gap: 12, marginBottom: 4 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "baseline",
+              gap: 12,
+              marginBottom: 4,
+            }}
+          >
             <Text style={{ color, fontSize: 32, fontWeight: "700" }}>
               {value}
             </Text>
-            <Text style={{ color: "#9CA3AF", fontSize: 12 }}>
-              {subtitle}
-            </Text>
+            <Text style={{ color: "#9CA3AF", fontSize: 12 }}>{subtitle}</Text>
           </View>
         </View>
       );
@@ -184,7 +203,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
       <View
         style={{
           flex: 1,
-          backgroundColor:BACKGROUNDS.DARK,
+          backgroundColor: BACKGROUNDS.DARK,
           opacity: isVisible ? 1 : 0,
           display: isVisible ? "flex" : "none",
         }}
@@ -251,7 +270,9 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                 marginTop: 24,
               }}
             >
-              <Text style={{ color: "#ffffff", fontSize: 14, fontWeight: "600" }}>
+              <Text
+                style={{ color: "#ffffff", fontSize: 14, fontWeight: "600" }}
+              >
                 Retry
               </Text>
             </TouchableOpacity>
@@ -277,7 +298,9 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
           >
             {/* Header */}
             <View style={{ marginBottom: 12 }}>
-              <Text style={{ color: "#ffffff", fontSize: 24, fontWeight: "700" }}>
+              <Text
+                style={{ color: "#ffffff", fontSize: 24, fontWeight: "700" }}
+              >
                 {hostConfig.name}
               </Text>
               <Text style={{ color: "#9CA3AF", fontSize: 14, marginTop: 4 }}>
@@ -288,7 +311,8 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
             {/* Grid Container */}
             <View
               style={{
-                flexDirection: isLandscape && columnCount > 1 ? "row" : "column",
+                flexDirection:
+                  isLandscape && columnCount > 1 ? "row" : "column",
                 flexWrap: "wrap",
                 gap: 12,
               }}
@@ -319,34 +343,71 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                     width: cardWidth,
                   }}
                 >
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 8,
+                      marginBottom: 12,
+                    }}
+                  >
                     <Activity size={20} color="#A78BFA" />
-                    <Text style={{ color: "#ffffff", fontSize: 16, fontWeight: "600" }}>
+                    <Text
+                      style={{
+                        color: "#ffffff",
+                        fontSize: 16,
+                        fontWeight: "600",
+                      }}
+                    >
                       Load Average
                     </Text>
                   </View>
                   <View style={{ flexDirection: "row", gap: 16 }}>
                     <View style={{ flex: 1 }}>
-                      <Text style={{ color: "#A78BFA", fontSize: 20, fontWeight: "700" }}>
+                      <Text
+                        style={{
+                          color: "#A78BFA",
+                          fontSize: 20,
+                          fontWeight: "700",
+                        }}
+                      >
                         {metrics.cpu.load[0].toFixed(2)}
                       </Text>
-                      <Text style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}>
+                      <Text
+                        style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}
+                      >
                         1 min
                       </Text>
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Text style={{ color: "#A78BFA", fontSize: 20, fontWeight: "700" }}>
+                      <Text
+                        style={{
+                          color: "#A78BFA",
+                          fontSize: 20,
+                          fontWeight: "700",
+                        }}
+                      >
                         {metrics.cpu.load[1].toFixed(2)}
                       </Text>
-                      <Text style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}>
+                      <Text
+                        style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}
+                      >
                         5 min
                       </Text>
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Text style={{ color: "#A78BFA", fontSize: 20, fontWeight: "700" }}>
+                      <Text
+                        style={{
+                          color: "#A78BFA",
+                          fontSize: 20,
+                          fontWeight: "700",
+                        }}
+                      >
                         {metrics.cpu.load[2].toFixed(2)}
                       </Text>
-                      <Text style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}>
+                      <Text
+                        style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}
+                      >
                         15 min
                       </Text>
                     </View>

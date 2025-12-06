@@ -1,10 +1,32 @@
-import { useState, useEffect, useRef, useCallback, forwardRef, useImperativeHandle } from "react";
-import { View, Alert, TextInput, Modal, Text, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import {
+  View,
+  Alert,
+  TextInput,
+  Modal,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SSHHost } from "@/types";
 import { useOrientation } from "@/app/utils/orientation";
 import { getResponsivePadding, getTabBarHeight } from "@/app/utils/responsive";
-import { BORDERS, BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";
+import {
+  BORDERS,
+  BORDER_COLORS,
+  RADIUS,
+  BACKGROUNDS,
+} from "@/app/constants/designTokens";
 import {
   connectSSH,
   listSSHFiles,
@@ -25,7 +47,11 @@ import { FileManagerHeader } from "./FileManager/FileManagerHeader";
 import { FileManagerToolbar } from "./FileManager/FileManagerToolbar";
 import { ContextMenu } from "./FileManager/ContextMenu";
 import { FileViewer } from "./FileManager/FileViewer";
-import { joinPath, isTextFile, isArchiveFile } from "./FileManager/utils/fileUtils";
+import {
+  joinPath,
+  isTextFile,
+  isArchiveFile,
+} from "./FileManager/utils/fileUtils";
 import { showToast } from "@/app/utils/toast";
 
 interface FileManagerProps {
@@ -150,20 +176,23 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       }
     };
 
-    const loadDirectory = useCallback(async (path: string) => {
-      if (!sessionId) return;
+    const loadDirectory = useCallback(
+      async (path: string) => {
+        if (!sessionId) return;
 
-      try {
-        setIsLoading(true);
-        const response = await listSSHFiles(sessionId, path);
-        setFiles(response.files || []);
-        setCurrentPath(response.path || path);
-      } catch (error: any) {
-        showToast.error(error.message || "Failed to load directory");
-      } finally {
-        setIsLoading(false);
-      }
-    }, [sessionId]);
+        try {
+          setIsLoading(true);
+          const response = await listSSHFiles(sessionId, path);
+          setFiles(response.files || []);
+          setCurrentPath(response.path || path);
+        } catch (error: any) {
+          showToast.error(error.message || "Failed to load directory");
+        } finally {
+          setIsLoading(false);
+        }
+      },
+      [sessionId],
+    );
 
     // File operations
     const handleFilePress = async (file: FileItem) => {
@@ -273,7 +302,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
 
       try {
         setIsLoading(true);
-        await renameSSHItem(sessionId!, renameDialog.file.path, renameName, host.id);
+        await renameSSHItem(
+          sessionId!,
+          renameDialog.file.path,
+          renameName,
+          host.id,
+        );
         showToast.success("Item renamed successfully");
         setRenameDialog({ visible: false, file: null });
         setRenameName("");
@@ -310,7 +344,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           if (clipboard.operation === "copy") {
             await copySSHItem(sessionId!, filePath, currentPath, host.id);
           } else {
-            await moveSSHItem(sessionId!, filePath, joinPath(currentPath, filePath.split("/").pop()!), host.id);
+            await moveSSHItem(
+              sessionId!,
+              filePath,
+              joinPath(currentPath, filePath.split("/").pop()!),
+              host.id,
+            );
           }
         }
         showToast.success(`${clipboard.files.length} item(s) pasted`);
@@ -324,7 +363,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     };
 
     const handleDelete = async (file?: FileItem) => {
-      const filesToDelete = file ? [file] : files.filter((f) => selectedFiles.includes(f.path));
+      const filesToDelete = file
+        ? [file]
+        : files.filter((f) => selectedFiles.includes(f.path));
 
       Alert.alert(
         "Confirm Delete",
@@ -342,7 +383,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     sessionId!,
                     fileItem.path,
                     fileItem.type === "directory",
-                    host.id
+                    host.id,
                   );
                 }
                 showToast.success(`${filesToDelete.length} item(s) deleted`);
@@ -356,13 +397,13 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
               }
             },
           },
-        ]
+        ],
       );
     };
 
     const handleSelectToggle = (path: string) => {
       setSelectedFiles((prev) =>
-        prev.includes(path) ? prev.filter((p) => p !== path) : [...prev, path]
+        prev.includes(path) ? prev.filter((p) => p !== path) : [...prev, path],
       );
     };
 
@@ -444,7 +485,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-white text-center font-medium">Cancel</Text>
+                    <Text className="text-white text-center font-medium">
+                      Cancel
+                    </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={handleTOTPVerify}
@@ -456,7 +499,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-white text-center font-medium">Verify</Text>
+                    <Text className="text-white text-center font-medium">
+                      Verify
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -473,9 +518,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     const toolbarPaddingVertical = isLandscape ? 8 : 12;
     const toolbarContentHeight = isLandscape ? 34 : 44; // Approximate content height
     const toolbarBorderHeight = 2;
-    const effectiveToolbarHeight = (selectionMode || clipboard.files.length > 0)
-      ? (toolbarPaddingVertical * 2) + toolbarContentHeight + toolbarBorderHeight
-      : 0;
+    const effectiveToolbarHeight =
+      selectionMode || clipboard.files.length > 0
+        ? toolbarPaddingVertical * 2 +
+          toolbarContentHeight +
+          toolbarBorderHeight
+        : 0;
 
     return (
       <View
@@ -559,23 +607,26 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           >
             <View className="flex-1 bg-black/50 items-center justify-center p-4">
               <View
-                className="bg-[#1a1a1a] p-6 w-full max-w-sm"
+                className="p-6 w-full max-w-sm"
                 style={{
-                  borderWidth: 2,
-                  borderColor: "#303032",
-                  borderRadius: 12,
+                  backgroundColor: BACKGROUNDS.CARD,
+                  borderWidth: BORDERS.MAJOR,
+                  borderColor: BORDER_COLORS.PRIMARY,
+                  borderRadius: RADIUS.CARD,
                   marginBottom: insets.bottom,
                 }}
               >
                 <Text className="text-white text-lg font-semibold mb-4">
-                  Create New {createDialog.type === "folder" ? "Folder" : "File"}
+                  Create New{" "}
+                  {createDialog.type === "folder" ? "Folder" : "File"}
                 </Text>
                 <TextInput
-                  className="bg-[#0d0d0d] px-4 py-3 text-white mb-4"
+                  className="px-4 py-3 text-white mb-4"
                   style={{
-                    borderWidth: 2,
-                    borderColor: "#303032",
-                    borderRadius: 8,
+                    backgroundColor: BACKGROUNDS.DARKER,
+                    borderWidth: BORDERS.MAJOR,
+                    borderColor: BORDER_COLORS.PRIMARY,
+                    borderRadius: RADIUS.BUTTON,
                   }}
                   value={createName}
                   onChangeText={setCreateName}
@@ -589,15 +640,18 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                       setCreateDialog({ visible: false, type: null });
                       setCreateName("");
                     }}
-                    className="flex-1 bg-[#27272a] py-3"
+                    className="flex-1 py-3"
                     style={{
-                      borderWidth: 2,
-                      borderColor: "#3f3f46",
-                      borderRadius: 8,
+                      backgroundColor: BACKGROUNDS.BUTTON,
+                      borderWidth: BORDERS.MAJOR,
+                      borderColor: BORDER_COLORS.BUTTON,
+                      borderRadius: RADIUS.BUTTON,
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-white text-center font-semibold">Cancel</Text>
+                    <Text className="text-white text-center font-semibold">
+                      Cancel
+                    </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={handleCreateConfirm}
@@ -609,7 +663,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-white text-center font-semibold">Create</Text>
+                    <Text className="text-white text-center font-semibold">
+                      Create
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -625,11 +681,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           >
             <View className="flex-1 bg-black/50 items-center justify-center p-4">
               <View
-                className="bg-[#1a1a1a] p-6 w-full max-w-sm"
+                className="p-6 w-full max-w-sm"
                 style={{
-                  borderWidth: 2,
-                  borderColor: "#303032",
-                  borderRadius: 12,
+                  backgroundColor: BACKGROUNDS.CARD,
+                  borderWidth: BORDERS.MAJOR,
+                  borderColor: BORDER_COLORS.PRIMARY,
+                  borderRadius: RADIUS.CARD,
                   marginBottom: insets.bottom,
                 }}
               >
@@ -637,11 +694,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   Rename Item
                 </Text>
                 <TextInput
-                  className="bg-[#0d0d0d] px-4 py-3 text-white mb-4"
+                  className="px-4 py-3 text-white mb-4"
                   style={{
-                    borderWidth: 2,
-                    borderColor: "#303032",
-                    borderRadius: 8,
+                    backgroundColor: BACKGROUNDS.DARKER,
+                    borderWidth: BORDERS.MAJOR,
+                    borderColor: BORDER_COLORS.PRIMARY,
+                    borderRadius: RADIUS.BUTTON,
                   }}
                   value={renameName}
                   onChangeText={setRenameName}
@@ -655,15 +713,18 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                       setRenameDialog({ visible: false, file: null });
                       setRenameName("");
                     }}
-                    className="flex-1 bg-[#27272a] py-3"
+                    className="flex-1 py-3"
                     style={{
-                      borderWidth: 2,
-                      borderColor: "#3f3f46",
-                      borderRadius: 8,
+                      backgroundColor: BACKGROUNDS.BUTTON,
+                      borderWidth: BORDERS.MAJOR,
+                      borderColor: BORDER_COLORS.BUTTON,
+                      borderRadius: RADIUS.BUTTON,
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-white text-center font-semibold">Cancel</Text>
+                    <Text className="text-white text-center font-semibold">
+                      Cancel
+                    </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={handleRenameConfirm}
@@ -675,7 +736,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-white text-center font-semibold">Rename</Text>
+                    <Text className="text-white text-center font-semibold">
+                      Rename
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -687,7 +750,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         {fileViewer.file && (
           <FileViewer
             visible={fileViewer.visible}
-            onClose={() => setFileViewer({ visible: false, file: null, content: "" })}
+            onClose={() =>
+              setFileViewer({ visible: false, file: null, content: "" })
+            }
             fileName={fileViewer.file.name}
             filePath={fileViewer.file.path}
             initialContent={fileViewer.content}
@@ -696,7 +761,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         )}
       </View>
     );
-  }
+  },
 );
 
 FileManager.displayName = "FileManager";

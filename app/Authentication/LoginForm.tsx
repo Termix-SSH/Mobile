@@ -394,9 +394,11 @@ export default function LoginForm() {
         key={webViewKey}
         ref={webViewRef}
         source={source}
-        userAgent={Platform.OS === "android"
-          ? "Termix-Mobile/Android"
-          : "Termix-Mobile/iOS"}
+        userAgent={
+          Platform.OS === "android"
+            ? "Termix-Mobile/Android"
+            : "Termix-Mobile/iOS"
+        }
         style={{ flex: 1, backgroundColor: "#18181b" }}
         containerStyle={{ backgroundColor: "#18181b" }}
         onNavigationStateChange={handleNavigationStateChange}

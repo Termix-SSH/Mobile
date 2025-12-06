@@ -65,7 +65,7 @@ export function ContextMenu({
       transparent
       animationType="fade"
       onRequestClose={onClose}
-      supportedOrientations={['portrait', 'landscape']}
+      supportedOrientations={["portrait", "landscape"]}
     >
       <TouchableWithoutFeedback onPress={onClose}>
         <View className="flex-1 bg-black/50 justify-end">
@@ -73,7 +73,10 @@ export function ContextMenu({
             <View className="bg-dark-bg-button rounded-t-2xl border-t-2 border-x-2 border-dark-border px-4 pt-4 pb-6">
               {/* Header */}
               <View className="flex-row items-center justify-between mb-3">
-                <Text className="text-white font-semibold text-base" numberOfLines={1}>
+                <Text
+                  className="text-white font-semibold text-base"
+                  numberOfLines={1}
+                >
                   {fileName}
                 </Text>
                 <TouchableOpacity

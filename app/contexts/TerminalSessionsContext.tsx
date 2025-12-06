@@ -23,11 +23,17 @@ export interface TerminalSession {
 interface TerminalSessionsContextType {
   sessions: TerminalSession[];
   activeSessionId: string | null;
-  addSession: (host: SSHHost, type?: "terminal" | "stats" | "filemanager") => string;
+  addSession: (
+    host: SSHHost,
+    type?: "terminal" | "stats" | "filemanager",
+  ) => string;
   removeSession: (sessionId: string) => void;
   setActiveSession: (sessionId: string) => void;
   clearAllSessions: () => void;
-  navigateToSessions: (host?: SSHHost, type?: "terminal" | "stats" | "filemanager") => void;
+  navigateToSessions: (
+    host?: SSHHost,
+    type?: "terminal" | "stats" | "filemanager",
+  ) => void;
   isCustomKeyboardVisible: boolean;
   toggleCustomKeyboard: () => void;
   lastKeyboardHeight: number;
@@ -65,41 +71,48 @@ export const TerminalSessionsProvider: React.FC<
   const keyboardIntentionallyHiddenRef = useRef(false);
   const [, forceUpdate] = useState({});
 
-  const addSession = useCallback((host: SSHHost, type: "terminal" | "stats" | "filemanager" = "terminal"): string => {
-    setSessions((prev) => {
-      const existingSessions = prev.filter(
-        (session) => session.host.id === host.id && session.type === type,
-      );
+  const addSession = useCallback(
+    (
+      host: SSHHost,
+      type: "terminal" | "stats" | "filemanager" = "terminal",
+    ): string => {
+      setSessions((prev) => {
+        const existingSessions = prev.filter(
+          (session) => session.host.id === host.id && session.type === type,
+        );
 
-      const typeLabel = type === "stats" ? "Stats" : type === "filemanager" ? "Files" : "";
-      let title = typeLabel ? `${host.name} - ${typeLabel}` : host.name;
-      if (existingSessions.length > 0) {
-        title = typeLabel
-          ? `${host.name} - ${typeLabel} (${existingSessions.length + 1})`
-          : `${host.name} (${existingSessions.length + 1})`;
-      }
+        const typeLabel =
+          type === "stats" ? "Stats" : type === "filemanager" ? "Files" : "";
+        let title = typeLabel ? `${host.name} - ${typeLabel}` : host.name;
+        if (existingSessions.length > 0) {
+          title = typeLabel
+            ? `${host.name} - ${typeLabel} (${existingSessions.length + 1})`
+            : `${host.name} (${existingSessions.length + 1})`;
+        }
 
-      const sessionId = `${host.id}-${type}-${Date.now()}`;
-      const newSession: TerminalSession = {
-        id: sessionId,
-        host,
-        title,
-        isActive: true,
-        createdAt: new Date(),
-        type,
-      };
+        const sessionId = `${host.id}-${type}-${Date.now()}`;
+        const newSession: TerminalSession = {
+          id: sessionId,
+          host,
+          title,
+          isActive: true,
+          createdAt: new Date(),
+          type,
+        };
 
-      const updatedSessions = prev.map((session) => ({
-        ...session,
-        isActive: false,
-      }));
+        const updatedSessions = prev.map((session) => ({
+          ...session,
+          isActive: false,
+        }));
 
-      setActiveSessionId(sessionId);
-      return [...updatedSessions, newSession];
-    });
+        setActiveSessionId(sessionId);
+        return [...updatedSessions, newSession];
+      });
 
-    return "";
-  }, []);
+      return "";
+    },
+    [],
+  );
 
   const removeSession = useCallback(
     (sessionId: string) => {
@@ -116,7 +129,8 @@ export const TerminalSessionsProvider: React.FC<
         const hostId = sessionToRemove.host.id;
         const sessionType = sessionToRemove.type;
         const sameHostSessions = updatedSessions.filter(
-          (session) => session.host.id === hostId && session.type === sessionType,
+          (session) =>
+            session.host.id === hostId && session.type === sessionType,
         );
 
         if (sameHostSessions.length > 0) {
@@ -129,14 +143,18 @@ export const TerminalSessionsProvider: React.FC<
               (s) => s.id === session.id,
             );
             if (sessionIndex !== -1) {
-              const typeLabel = session.type === "stats" ? "Stats" : session.type === "filemanager" ? "Files" : "";
-              const baseName = typeLabel ? `${session.host.name} - ${typeLabel}` : session.host.name;
+              const typeLabel =
+                session.type === "stats"
+                  ? "Stats"
+                  : session.type === "filemanager"
+                    ? "Files"
+                    : "";
+              const baseName = typeLabel
+                ? `${session.host.name} - ${typeLabel}`
+                : session.host.name;
               updatedSessions[sessionIndex] = {
                 ...session,
-                title:
-                  index === 0
-                    ? baseName
-                    : `${baseName} (${index + 1})`,
+                title: index === 0 ? baseName : `${baseName} (${index + 1})`,
               };
             }
           });
@@ -163,17 +181,27 @@ export const TerminalSessionsProvider: React.FC<
   );
 
   const setActiveSession = useCallback((sessionId: string) => {
-    setSessions((prev) =>
-      prev.map((session) => ({
+    setSessions((prev) => {
+      const newSession = prev.find(s => s.id === sessionId);
+
+      // Auto-close custom keyboard when switching to non-terminal sessions
+      if (newSession?.type !== 'terminal' && isCustomKeyboardVisible) {
+        setIsCustomKeyboardVisible(false);
+      }
+
+      return prev.map((session) => ({
         ...session,
         isActive: session.id === sessionId,
-      })),
-    );
+      }));
+    });
     setActiveSessionId(sessionId);
-  }, []);
+  }, [isCustomKeyboardVisible]);
 
   const navigateToSessions = useCallback(
-    (host?: SSHHost, type: "terminal" | "stats" | "filemanager" = "terminal") => {
+    (
+      host?: SSHHost,
+      type: "terminal" | "stats" | "filemanager" = "terminal",
+    ) => {
       if (host) {
         addSession(host, type);
       }

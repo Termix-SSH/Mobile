@@ -4,17 +4,19 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { TerminalHandle } from "./Terminal";
 import CustomKeyboard from "./CustomKeyboard";
 import SnippetsBar from "./SnippetsBar";
-import CommandHistoryBar from "./CommandHistoryBar";
-import { BORDERS, BORDER_COLORS, BACKGROUNDS } from "@/app/constants/designTokens";
+import {
+  BORDERS,
+  BORDER_COLORS,
+  BACKGROUNDS,
+} from "@/app/constants/designTokens";
 
-type ToolbarMode = "keyboard" | "snippets" | "history";
+type ToolbarMode = "keyboard" | "snippets";
 
 interface BottomToolbarProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
   isVisible: boolean;
   keyboardHeight: number;
   isKeyboardIntentionallyHidden?: boolean;
-  currentHostId?: number;
 }
 
 export default function BottomToolbar({
@@ -22,7 +24,6 @@ export default function BottomToolbar({
   isVisible,
   keyboardHeight,
   isKeyboardIntentionallyHidden = false,
-  currentHostId,
 }: BottomToolbarProps) {
   const [mode, setMode] = useState<ToolbarMode>("keyboard");
   const insets = useSafeAreaInsets();
@@ -35,7 +36,6 @@ export default function BottomToolbar({
   const tabs: { id: ToolbarMode; label: string }[] = [
     { id: "keyboard", label: "KEYBOARD" },
     { id: "snippets", label: "SNIPPETS" },
-    { id: "history", label: "HISTORY" },
   ];
 
   // Total height includes tab bar + content area (padding handled separately)
@@ -64,7 +64,8 @@ export default function BottomToolbar({
             className="flex-1 items-center justify-center py-1.5 px-1 bg-dark-bg-darkest"
             onPress={() => setMode(tab.id)}
             style={{
-              borderRightWidth: index !== tabs.length - 1 ? BORDERS.STANDARD : 0,
+              borderRightWidth:
+                index !== tabs.length - 1 ? BORDERS.STANDARD : 0,
               borderRightColor: BORDER_COLORS.SECONDARY,
             }}
           >
@@ -107,15 +108,6 @@ export default function BottomToolbar({
             terminalRef={terminalRef}
             isVisible={true}
             height={safeKeyboardHeight}
-          />
-        )}
-
-        {mode === "history" && (
-          <CommandHistoryBar
-            terminalRef={terminalRef}
-            isVisible={true}
-            height={safeKeyboardHeight}
-            currentHostId={currentHostId}
           />
         )}
       </View>

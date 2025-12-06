@@ -309,7 +309,7 @@ function Host({ host, status, isLast = false }: HostProps) {
         transparent={true}
         animationType="fade"
         onRequestClose={handleCloseContextMenu}
-        supportedOrientations={['portrait', 'landscape']}
+        supportedOrientations={["portrait", "landscape"]}
       >
         <TouchableWithoutFeedback onPress={handleCloseContextMenu}>
           <View className="flex-1 bg-black/50 justify-end">
@@ -372,10 +372,7 @@ function Host({ host, status, isLast = false }: HostProps) {
                       <Text className="text-white font-medium">
                         View Server Stats
                       </Text>
-                      <Text
-                        className="text-gray-400 text-xs"
-                        numberOfLines={1}
-                      >
+                      <Text className="text-gray-400 text-xs" numberOfLines={1}>
                         Monitor CPU, memory, and disk usage
                       </Text>
                     </View>

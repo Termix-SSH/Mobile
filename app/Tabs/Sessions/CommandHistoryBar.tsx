@@ -39,7 +39,7 @@ export default function CommandHistoryBar({
 }: CommandHistoryBarProps) {
   const [history, setHistory] = useState<CommandHistoryItem[]>([]);
   const [filteredHistory, setFilteredHistory] = useState<CommandHistoryItem[]>(
-    []
+    [],
   );
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
@@ -68,7 +68,7 @@ export default function CommandHistoryBar({
       // Sort by timestamp descending (most recent first)
       const sortedHistory = historyData.sort(
         (a: CommandHistoryItem, b: CommandHistoryItem) =>
-          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
       );
 
       setHistory(sortedHistory);
@@ -91,7 +91,7 @@ export default function CommandHistoryBar({
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter((item) =>
-        item.command.toLowerCase().includes(query)
+        item.command.toLowerCase().includes(query),
       );
     }
 
@@ -160,7 +160,9 @@ export default function CommandHistoryBar({
           borderBottomColor: BORDER_COLORS.SECONDARY,
         }}
       >
-        <Text className="text-sm font-semibold text-gray-200">Command History</Text>
+        <Text className="text-sm font-semibold text-gray-200">
+          Command History
+        </Text>
         <View className="flex-row gap-2">
           <TouchableOpacity onPress={loadHistory} className="p-1">
             <Text className="text-lg text-[#22C55E]">↻</Text>
@@ -219,11 +221,16 @@ export default function CommandHistoryBar({
               className="flex-1 px-3 py-2.5"
               onPress={() => executeCommand(item.command)}
             >
-              <Text className="text-[13px] text-gray-200 font-medium font-mono mb-1" numberOfLines={2}>
+              <Text
+                className="text-[13px] text-gray-200 font-medium font-mono mb-1"
+                numberOfLines={2}
+              >
                 {item.command}
               </Text>
               <View className="flex-row justify-between items-center">
-                <Text className="text-[11px] text-[#22C55E] font-semibold">{item.hostName}</Text>
+                <Text className="text-[11px] text-[#22C55E] font-semibold">
+                  {item.hostName}
+                </Text>
                 <Text className="text-[11px] text-gray-600">
                   {formatTimestamp(item.timestamp)}
                 </Text>
@@ -240,7 +247,9 @@ export default function CommandHistoryBar({
 
         {filteredHistory.length === 0 && !searchQuery && (
           <View className="py-8 items-center">
-            <Text className="text-sm text-gray-500 font-semibold">No command history yet</Text>
+            <Text className="text-sm text-gray-500 font-semibold">
+              No command history yet
+            </Text>
             <Text className="text-xs text-gray-600 mt-1">
               Commands you run will appear here
             </Text>
@@ -249,7 +258,9 @@ export default function CommandHistoryBar({
 
         {filteredHistory.length === 0 && searchQuery && (
           <View className="py-8 items-center">
-            <Text className="text-sm text-gray-500 font-semibold">No matching commands</Text>
+            <Text className="text-sm text-gray-500 font-semibold">
+              No matching commands
+            </Text>
             <Text className="text-xs text-gray-600 mt-1">
               Try a different search term
             </Text>

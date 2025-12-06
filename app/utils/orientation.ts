@@ -1,6 +1,6 @@
-import { useWindowDimensions } from 'react-native';
+import { useWindowDimensions } from "react-native";
 
-export type Orientation = 'portrait' | 'landscape';
+export type Orientation = "portrait" | "landscape";
 
 /**
  * Hook to get current orientation and dimensions
@@ -8,7 +8,7 @@ export type Orientation = 'portrait' | 'landscape';
 export function useOrientation() {
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
-  const orientation: Orientation = isLandscape ? 'landscape' : 'portrait';
+  const orientation: Orientation = isLandscape ? "landscape" : "portrait";
 
   return {
     width,
@@ -25,7 +25,7 @@ export function useOrientation() {
 export function getResponsiveValue<T>(
   portraitValue: T,
   landscapeValue: T,
-  isLandscape: boolean
+  isLandscape: boolean,
 ): T {
   return isLandscape ? landscapeValue : portraitValue;
 }

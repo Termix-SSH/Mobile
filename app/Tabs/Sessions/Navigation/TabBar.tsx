@@ -21,7 +21,12 @@ import { useRouter } from "expo-router";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import { useOrientation } from "@/app/utils/orientation";
 import { getTabBarHeight, getButtonSize } from "@/app/utils/responsive";
-import { BORDERS, BORDER_COLORS, BACKGROUNDS, RADIUS } from "@/app/constants/designTokens";
+import {
+  BORDERS,
+  BORDER_COLORS,
+  BACKGROUNDS,
+  RADIUS,
+} from "@/app/constants/designTokens";
 
 interface TabBarProps {
   sessions: TerminalSession[];
@@ -80,28 +85,28 @@ export default function TabBar({
   }
 
   return (
-    <>
+    <View
+      style={{
+        backgroundColor: BACKGROUNDS.DARKER,
+        borderTopWidth: BORDERS.MAJOR,
+        borderTopColor: BORDER_COLORS.PRIMARY,
+        borderBottomWidth:
+          activeSessionType === "terminal" ? BORDERS.STANDARD : 0,
+        borderBottomColor: BORDER_COLORS.PRIMARY,
+        minHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
+        maxHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
+        paddingBottom: needsBottomPadding ? insets.bottom : 0,
+      }}
+      focusable={false}
+    >
       <View
         style={{
-          backgroundColor: BACKGROUNDS.DARKER,
-          borderTopWidth: BORDERS.MAJOR,
-          borderTopColor: BORDER_COLORS.PRIMARY,
-          borderBottomWidth: activeSessionType === "terminal" ? BORDERS.STANDARD : 0,
-          borderBottomColor: BORDER_COLORS.PRIMARY,
-          minHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
-          maxHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
-          paddingBottom: needsBottomPadding ? insets.bottom : 0,
+          flexDirection: "row",
+          alignItems: "center",
+          height: tabBarHeight,
+          paddingHorizontal: 8,
         }}
-        focusable={false}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            height: tabBarHeight,
-            paddingHorizontal: 8,
-          }}
-        >
         <TouchableOpacity
           onPress={() => router.navigate("/hosts" as any)}
           focusable={false}
@@ -162,10 +167,14 @@ export default function TabBar({
                   className="flex-row items-center"
                   style={{
                     borderWidth: BORDERS.STANDARD,
-                    borderColor: isActive ? BORDER_COLORS.ACTIVE : BORDER_COLORS.BUTTON,
+                    borderColor: isActive
+                      ? BORDER_COLORS.ACTIVE
+                      : BORDER_COLORS.BUTTON,
                     backgroundColor: BACKGROUNDS.CARD,
                     borderRadius: RADIUS.BUTTON,
-                    shadowColor: isActive ? BORDER_COLORS.ACTIVE : "transparent",
+                    shadowColor: isActive
+                      ? BORDER_COLORS.ACTIVE
+                      : "transparent",
                     shadowOffset: { width: 0, height: 2 },
                     shadowOpacity: isActive ? 0.2 : 0,
                     shadowRadius: 4,
@@ -196,7 +205,9 @@ export default function TabBar({
                       width: isLandscape ? 32 : 36,
                       height: buttonSize,
                       borderLeftWidth: BORDERS.STANDARD,
-                      borderLeftColor: isActive ? BORDER_COLORS.ACTIVE : BORDER_COLORS.BUTTON,
+                      borderLeftColor: isActive
+                        ? BORDER_COLORS.ACTIVE
+                        : BORDER_COLORS.BUTTON,
                     }}
                   >
                     <X
@@ -268,16 +279,7 @@ export default function TabBar({
             )}
           </TouchableOpacity>
         )}
-
-
-        </View>
       </View>
-      <View
-        style={{
-          height: 1000,
-          backgroundColor: BACKGROUNDS.DARKER,
-        }}
-      />
-    </>
+    </View>
   );
 }

@@ -41,7 +41,7 @@ export default function SnippetsBar({
   const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [folders, setFolders] = useState<SnippetFolder[]>([]);
   const [collapsedFolders, setCollapsedFolders] = useState<Set<number>>(
-    new Set()
+    new Set(),
   );
   const [loading, setLoading] = useState(true);
 
@@ -55,20 +55,24 @@ export default function SnippetsBar({
     try {
       setLoading(true);
       const [snippetsData, foldersData] = await Promise.all([
-        getSnippets(),
-        getSnippetFolders(),
+        getSnippets().catch(() => []),
+        getSnippetFolders().catch(() => []),
       ]);
 
       setSnippets(
-        snippetsData.sort((a: Snippet, b: Snippet) => a.sortOrder - b.sortOrder)
+        (snippetsData || []).sort(
+          (a: Snippet, b: Snippet) => a.sortOrder - b.sortOrder,
+        ),
       );
       setFolders(
-        foldersData.sort(
-          (a: SnippetFolder, b: SnippetFolder) => a.sortOrder - b.sortOrder
-        )
+        (foldersData || []).sort(
+          (a: SnippetFolder, b: SnippetFolder) => a.sortOrder - b.sortOrder,
+        ),
       );
     } catch (error) {
-      showToast.error("Failed to load snippets");
+      console.error("Failed to load snippets:", error);
+      setSnippets([]);
+      setFolders([]);
     } finally {
       setLoading(false);
     }
@@ -144,7 +148,10 @@ export default function SnippetsBar({
             }}
             onPress={() => executeSnippet(snippet)}
           >
-            <Text className="text-[13px] text-gray-200 font-medium" numberOfLines={1}>
+            <Text
+              className="text-[13px] text-gray-200 font-medium"
+              numberOfLines={1}
+            >
               {snippet.name}
             </Text>
           </TouchableOpacity>
@@ -171,10 +178,15 @@ export default function SnippetsBar({
                   {folder.icon && (
                     <Text className="text-base mr-2">{folder.icon}</Text>
                   )}
-                  <Text className="text-sm font-semibold text-gray-200 flex-1" numberOfLines={1}>
+                  <Text
+                    className="text-sm font-semibold text-gray-200 flex-1"
+                    numberOfLines={1}
+                  >
                     {folder.name}
                   </Text>
-                  <Text className="text-xs text-gray-500 ml-1">({folderSnippets.length})</Text>
+                  <Text className="text-xs text-gray-500 ml-1">
+                    ({folderSnippets.length})
+                  </Text>
                 </View>
                 <Text className="text-[10px] text-gray-500 ml-2">
                   {isCollapsed ? "▶" : "▼"}
@@ -193,7 +205,10 @@ export default function SnippetsBar({
                     }}
                     onPress={() => executeSnippet(snippet)}
                   >
-                    <Text className="text-[13px] text-gray-200 font-medium" numberOfLines={1}>
+                    <Text
+                      className="text-[13px] text-gray-200 font-medium"
+                      numberOfLines={1}
+                    >
                       {snippet.name}
                     </Text>
                   </TouchableOpacity>
@@ -204,7 +219,9 @@ export default function SnippetsBar({
 
         {snippets.length === 0 && (
           <View className="py-8 items-center">
-            <Text className="text-sm text-gray-500 font-semibold">No snippets yet</Text>
+            <Text className="text-sm text-gray-500 font-semibold">
+              No snippets yet
+            </Text>
             <Text className="text-xs text-gray-600 mt-1">
               Create snippets in Settings
             </Text>
