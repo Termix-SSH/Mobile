@@ -47,7 +47,7 @@ export function FileManagerToolbar({
   const iconSize = isLandscape ? 18 : 20;
   const buttonPadding = isLandscape ? 6 : 8;
   // Position above tab bar: in portrait we need more space, in landscape it's closer
-  const bottomPosition = isLandscape ? bottomInset : 0;
+  const bottomPosition = isLandscape ? bottomInset - 10 : 0;
 
   return (
     <View

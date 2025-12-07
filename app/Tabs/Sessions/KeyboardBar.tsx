@@ -128,9 +128,6 @@ export default function KeyboardBar({
     <View
       style={{
         backgroundColor: BACKGROUNDS.DARKER,
-        borderTopWidth: BORDERS.MAJOR,
-        borderTopColor: BORDER_COLORS.PRIMARY,
-        paddingTop: 1,
         paddingBottom: isKeyboardIntentionallyHidden ? 16 : 0,
       }}
     >

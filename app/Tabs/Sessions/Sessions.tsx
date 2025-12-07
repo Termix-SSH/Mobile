@@ -72,6 +72,7 @@ export default function Sessions() {
     Dimensions.get("window"),
   );
   const [keyboardType, setKeyboardType] = useState<any>("default");
+  const lastBlurTimeRef = useRef<number>(0);
 
   // Calculate responsive keyboard heights and margins
   const maxKeyboardHeight = getMaxKeyboardHeight(height, isLandscape);
@@ -92,7 +93,7 @@ export default function Sessions() {
   const getTabBarBottomPosition = () => {
     const position = (() => {
       if (activeSession?.type !== "terminal") {
-        return 0; // Non-terminal sessions: sits at bottom
+        return insets.bottom; // Non-terminal sessions: sits at bottom with safe area padding
       }
 
       // Terminal session positioning - TabBar sits above KeyboardBar and any keyboards
@@ -133,7 +134,7 @@ export default function Sessions() {
   const getBottomMargin = (
     sessionType: "terminal" | "stats" | "filemanager" = "terminal",
   ) => {
-    // For non-terminal sessions, just the session tab bar
+    // For non-terminal sessions, just the session tab bar + bottom safe area
     if (sessionType !== "terminal") {
       return SESSION_TAB_BAR_HEIGHT + insets.bottom;
     }
@@ -761,22 +762,17 @@ export default function Sessions() {
               setKeyboardIntentionallyHidden(false);
             }}
             onBlur={() => {
-              // Use a longer delay to avoid flicker from accidental touches
-              // but still maintain focus for typing
+              // Immediately refocus to prevent keyboard from closing when touching terminal
+              // This prevents the flicker/dismiss that happens when touching the WebView
               if (
                 !keyboardIntentionallyHiddenRef.current &&
                 !isCustomKeyboardVisible &&
                 activeSession?.type === "terminal"
               ) {
-                setTimeout(() => {
-                  if (
-                    !keyboardIntentionallyHiddenRef.current &&
-                    !isCustomKeyboardVisible &&
-                    activeSession?.type === "terminal"
-                  ) {
-                    hiddenInputRef.current?.focus();
-                  }
-                }, 200); // 200ms delay to allow intentional taps to complete
+                // Use requestAnimationFrame for immediate refocus
+                requestAnimationFrame(() => {
+                  hiddenInputRef.current?.focus();
+                });
               }
             }}
           />
