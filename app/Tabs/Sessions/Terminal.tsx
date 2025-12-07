@@ -567,7 +567,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         setHtmlContent(html);
       };
       updateHtml();
-    }, [generateHTML]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Only generate HTML on mount, not on dimension changes
 
     const handleWebViewMessage = useCallback(
       (event: any) => {
@@ -594,7 +595,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               setRetryCount(0);
 
               // Log terminal activity
-              logActivity("terminal", hostConfig.id).catch(() => {});
+              logActivity("terminal", hostConfig.id, hostConfig.name).catch(() => {});
               break;
 
             case "dataReceived":

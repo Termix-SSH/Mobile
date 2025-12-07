@@ -35,7 +35,7 @@ import KeyboardBar from "@/app/Tabs/Sessions/KeyboardBar";
 import { ArrowLeft } from "lucide-react-native";
 import { useOrientation } from "@/app/utils/orientation";
 import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
-import { BACKGROUNDS, BORDER_COLORS } from "@/app/constants/designTokens";
+import { BACKGROUNDS, BORDER_COLORS, BORDERS } from "@/app/constants/designTokens";
 
 export default function Sessions() {
   const insets = useSafeAreaInsets();
@@ -83,51 +83,42 @@ export default function Sessions() {
     ? Math.min(keyboardHeight, maxKeyboardHeight)
     : keyboardHeight;
 
-  // Component height constants
-  const SESSION_TAB_BAR_HEIGHT = getTabBarHeight(isLandscape); // 50-60px
+  // Custom keyboard height MUST match BottomToolbar.tsx calculation (line 34)
+  const customKeyboardHeight = Math.max(200, Math.min(effectiveKeyboardHeight, 500));
+
+  // Component height constants (responsive to landscape)
+  const SESSION_TAB_BAR_HEIGHT = getTabBarHeight(isLandscape) + 2; // Content height + 2px top border (BORDERS.MAJOR)
   const CUSTOM_KEYBOARD_TAB_HEIGHT = 36;
-  const KEYBOARD_BAR_HEIGHT = 52; // Normal keyboard bar height
-  const KEYBOARD_BAR_HEIGHT_EXTENDED = 66; // When keyboard intentionally hidden
+  // KeyboardBar heights: paddingVertical (6px landscape, 8px portrait) + 36px key + paddingBottom when hidden
+  const KEYBOARD_BAR_HEIGHT = isLandscape ? 48 : 52; // 6+36+6=48 landscape, 8+36+8=52 portrait
+  const KEYBOARD_BAR_HEIGHT_EXTENDED = isLandscape ? 64 : 68; // +16px extra paddingBottom when hidden
 
   // Helper function to calculate TabBar bottom position
   const getTabBarBottomPosition = () => {
-    const position = (() => {
-      if (activeSession?.type !== "terminal") {
-        return insets.bottom; // Non-terminal sessions: sits at bottom with safe area padding
-      }
+    // Non-terminal sessions: sits at bottom with safe area padding
+    if (activeSession?.type !== "terminal") {
+      return insets.bottom;
+    }
 
-      // Terminal session positioning - TabBar sits above KeyboardBar and any keyboards
-      if (keyboardIntentionallyHiddenRef.current) {
-        return KEYBOARD_BAR_HEIGHT_EXTENDED; // Above extended keyboard bar
-      }
+    // Terminal session positioning - TabBar sits above KeyboardBar and any keyboards
+    // PRIORITY 1: Custom keyboard (check FIRST to avoid race condition)
+    if (isCustomKeyboardVisible) {
+      // Above BottomToolbar only (KeyboardBar hidden when custom keyboard visible)
+      return CUSTOM_KEYBOARD_TAB_HEIGHT + customKeyboardHeight;
+    }
 
-      if (isCustomKeyboardVisible) {
-        // Above: KeyboardBar + BottomToolbar (which includes tabs + content)
-        // BottomToolbar height = CUSTOM_KEYBOARD_TAB_HEIGHT + effectiveKeyboardHeight
-        return KEYBOARD_BAR_HEIGHT + CUSTOM_KEYBOARD_TAB_HEIGHT + effectiveKeyboardHeight;
-      }
+    // PRIORITY 2: Keyboard intentionally hidden (chevron down)
+    if (keyboardIntentionallyHiddenRef.current) {
+      return KEYBOARD_BAR_HEIGHT_EXTENDED;
+    }
 
-      if (isKeyboardVisible && currentKeyboardHeight > 0) {
-        // Above: KeyboardBar + system keyboard
-        return KEYBOARD_BAR_HEIGHT + currentKeyboardHeight;
-      }
+    // PRIORITY 3: System keyboard visible
+    if (isKeyboardVisible && currentKeyboardHeight > 0) {
+      return KEYBOARD_BAR_HEIGHT + currentKeyboardHeight;
+    }
 
-      return KEYBOARD_BAR_HEIGHT; // Just above keyboard bar (no keyboard showing)
-    })();
-
-    console.log('[TabBar Position]', {
-      activeSessionType: activeSession?.type,
-      isCustomKeyboardVisible,
-      keyboardIntentionallyHidden: keyboardIntentionallyHiddenRef.current,
-      isKeyboardVisible,
-      currentKeyboardHeight,
-      KEYBOARD_BAR_HEIGHT,
-      CUSTOM_KEYBOARD_TAB_HEIGHT,
-      effectiveKeyboardHeight,
-      calculatedPosition: position,
-    });
-
-    return position;
+    // DEFAULT: Just above keyboard bar (no keyboard showing)
+    return KEYBOARD_BAR_HEIGHT;
   };
 
   // Calculate bottom margins for content (terminal content area)
@@ -139,28 +130,24 @@ export default function Sessions() {
       return SESSION_TAB_BAR_HEIGHT + insets.bottom;
     }
 
-    // Terminal sessions need to account for: SessionTabBar + KeyboardBar + (optional keyboard)
-    let margin = SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT;
+    // PRIORITY 1: Custom keyboard (check FIRST to avoid race condition)
+    if (isCustomKeyboardVisible) {
+      // BottomToolbar replaces KeyboardBar entirely - calculate from scratch
+      return SESSION_TAB_BAR_HEIGHT + CUSTOM_KEYBOARD_TAB_HEIGHT + customKeyboardHeight;
+    }
 
+    // PRIORITY 2: Keyboard intentionally hidden (chevron down)
     if (keyboardIntentionallyHiddenRef.current) {
-      // No keyboard, but extended keyboard bar
       return SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT_EXTENDED;
     }
 
-    if (isCustomKeyboardVisible) {
-      // Custom keyboard showing: add tab bar + keyboard content
-      margin += CUSTOM_KEYBOARD_TAB_HEIGHT + effectiveKeyboardHeight;
-      return margin;
-    }
-
+    // PRIORITY 3: System keyboard visible
     if (isKeyboardVisible && currentKeyboardHeight > 0) {
-      // System keyboard showing
-      margin += currentKeyboardHeight;
-      return margin;
+      return SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT + currentKeyboardHeight;
     }
 
-    // No keyboard showing, just bars
-    return margin;
+    // DEFAULT: Just KeyboardBar visible (no keyboard showing)
+    return SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT;
   };
 
   useEffect(() => {
@@ -383,17 +370,18 @@ export default function Sessions() {
     if (isCustomKeyboardVisible) {
       // Closing custom keyboard - reopen system keyboard
       toggleCustomKeyboard();
+      setKeyboardIntentionallyHidden(false);
       setTimeout(() => {
-        setKeyboardIntentionallyHidden(false);
         hiddenInputRef.current?.focus();
       }, 150);
     } else {
-      // Opening custom keyboard - close system keyboard
-      setKeyboardIntentionallyHidden(true);
-      Keyboard.dismiss();
-      setTimeout(() => {
-        toggleCustomKeyboard();
-      }, 100);
+      // Opening custom keyboard - toggle state first, then blur to prevent auto-refocus
+      toggleCustomKeyboard(); // Update state immediately
+      setKeyboardIntentionallyHidden(false);
+      // Blur on next frame after state updates to prevent onBlur from refocusing
+      requestAnimationFrame(() => {
+        hiddenInputRef.current?.blur();
+      });
     }
   };
 
@@ -410,9 +398,15 @@ export default function Sessions() {
 
   return (
     <View
-      className="flex-1 bg-dark-bg"
+      className="flex-1"
       style={{
         paddingTop: insets.top,
+        backgroundColor:
+          activeSession?.type === "terminal"
+            ? BACKGROUNDS.DARKEST // Terminal: #09090b
+            : activeSession?.type === "filemanager"
+              ? BACKGROUNDS.HEADER // FileManager: #131316
+              : "#18181b", // Stats: default app bg
       }}
     >
       <View
@@ -563,22 +557,21 @@ export default function Sessions() {
         </View>
       )}
 
-      {sessions.length > 0 && activeSession?.type === "terminal" && (
+      {sessions.length > 0 && activeSession?.type === "terminal" && !isCustomKeyboardVisible && (
         <View
           style={{
             position: "absolute",
             bottom: keyboardIntentionallyHiddenRef.current
               ? 0
-              : isCustomKeyboardVisible
-                ? CUSTOM_KEYBOARD_TAB_HEIGHT + effectiveKeyboardHeight
-                : isKeyboardVisible && currentKeyboardHeight > 0
-                  ? currentKeyboardHeight
-                  : 0,
+              : isKeyboardVisible && currentKeyboardHeight > 0
+                ? currentKeyboardHeight + (isLandscape ? 4 : 0)
+                : 0,
             left: 0,
             right: 0,
             height: keyboardIntentionallyHiddenRef.current ? KEYBOARD_BAR_HEIGHT_EXTENDED : KEYBOARD_BAR_HEIGHT,
             zIndex: 1003,
             overflow: "visible",
+            justifyContent: "center",
           }}
         >
           <KeyboardBar
@@ -619,7 +612,7 @@ export default function Sessions() {
           bottom: getTabBarBottomPosition(),
           left: 0,
           right: 0,
-          height: 60,
+          height: SESSION_TAB_BAR_HEIGHT,
           zIndex: 1004,
         }}
       >
@@ -643,6 +636,7 @@ export default function Sessions() {
         isCustomKeyboardVisible &&
         activeSession?.type === "terminal" && (
           <View
+            pointerEvents="box-none"
             style={{
               position: "absolute",
               bottom: 0,
@@ -658,7 +652,7 @@ export default function Sessions() {
                   : React.createRef<TerminalHandle>()
               }
               isVisible={isCustomKeyboardVisible}
-              keyboardHeight={effectiveKeyboardHeight}
+              keyboardHeight={customKeyboardHeight}
               isKeyboardIntentionallyHidden={
                 keyboardIntentionallyHiddenRef.current
               }

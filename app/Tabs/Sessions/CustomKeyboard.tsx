@@ -128,12 +128,13 @@ export default function CustomKeyboard({
   const safeKeyboardHeight = Math.max(200, Math.min(keyboardHeight, 500));
 
   return (
-    <View className="h-full bg-dark-bg-darkest">
+    <View className="h-full bg-dark-bg-darkest" pointerEvents="box-none">
       <ScrollView
         className="h-full"
         contentContainerStyle={{ paddingHorizontal: 8, paddingVertical: 8 }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
+        pointerEvents="auto"
       >
         {visibleRows.map((row, rowIndex) => (
           <View key={row.id}>

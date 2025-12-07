@@ -44,10 +44,7 @@ export default function BottomToolbar({
   return (
     <View
       className="bg-dark-bg-darkest"
-      style={{
-        borderTopWidth: BORDERS.MAJOR,
-        borderTopColor: BORDER_COLORS.PRIMARY,
-      }}
+      pointerEvents="box-none"
     >
       {/* Tab Bar */}
       <View

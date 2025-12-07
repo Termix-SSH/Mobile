@@ -527,10 +527,11 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
 
     return (
       <View
-        className="flex-1 bg-dark-bg"
+        className="flex-1"
         style={{
           opacity: isVisible ? 1 : 0,
           display: isVisible ? "flex" : "none",
+          backgroundColor: BACKGROUNDS.HEADER, // Match FileManagerHeader background (#131316)
         }}
       >
         <FileManagerHeader

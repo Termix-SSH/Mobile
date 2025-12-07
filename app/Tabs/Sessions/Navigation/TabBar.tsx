@@ -67,7 +67,6 @@ export default function TabBar({
 
   // Add bottom padding for non-terminal sessions (when tab bar is at the bottom)
   const needsBottomPadding = activeSessionType !== "terminal";
-  const needsExtraMinHeight = activeSessionType !== "terminal";
 
   const handleToggleSystemKeyboard = () => {
     if (keyboardIntentionallyHiddenRef.current) {
@@ -94,13 +93,9 @@ export default function TabBar({
         borderBottomWidth:
           activeSessionType === "terminal" ? BORDERS.STANDARD : 0,
         borderBottomColor: BORDER_COLORS.PRIMARY,
-        minHeight:
-          tabBarHeight +
-          (needsBottomPadding ? insets.bottom : 0) +
-          (needsExtraMinHeight ? 20 : 0),
-        maxHeight: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
+        height: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
         paddingBottom: needsBottomPadding ? insets.bottom : 0,
-        justifyContent: activeSessionType === "terminal" ? "center" : undefined,
+        justifyContent: activeSessionType === "terminal" ? "center" : "flex-start",
       }}
       focusable={false}
     >
