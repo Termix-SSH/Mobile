@@ -60,7 +60,6 @@ export function FileManagerHeader({
         paddingHorizontal: Math.max(insets.left, insets.right, padding),
       }}
     >
-      {/* Path breadcrumbs */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -130,7 +129,6 @@ export function FileManagerHeader({
         </View>
       </ScrollView>
 
-      {/* Action buttons */}
       <View
         style={{
           flexDirection: "row",

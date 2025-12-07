@@ -71,7 +71,6 @@ export function ContextMenu({
         <View className="flex-1 bg-black/50 justify-end">
           <TouchableWithoutFeedback onPress={() => {}}>
             <View className="bg-dark-bg-button rounded-t-2xl border-t-2 border-x-2 border-dark-border px-4 pt-4 pb-6">
-              {/* Header */}
               <View className="flex-row items-center justify-between mb-3">
                 <Text
                   className="text-white font-semibold text-base"
@@ -87,7 +86,6 @@ export function ContextMenu({
                 </TouchableOpacity>
               </View>
 
-              {/* Actions */}
               <View className="gap-2">
                 {onView && fileType === "file" && (
                   <TouchableOpacity

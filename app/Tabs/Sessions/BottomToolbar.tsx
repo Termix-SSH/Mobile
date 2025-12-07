@@ -30,7 +30,6 @@ export default function BottomToolbar({
 
   if (!isVisible) return null;
 
-  // Constrain keyboard height to safe values
   const safeKeyboardHeight = Math.max(200, Math.min(keyboardHeight, 500));
 
   const tabs: { id: ToolbarMode; label: string }[] = [
@@ -38,15 +37,10 @@ export default function BottomToolbar({
     { id: "snippets", label: "SNIPPETS" },
   ];
 
-  // Total height includes tab bar + content area (padding handled separately)
   const TAB_BAR_HEIGHT = 36;
 
   return (
-    <View
-      className="bg-dark-bg-darkest"
-      pointerEvents="box-none"
-    >
-      {/* Tab Bar */}
+    <View className="bg-dark-bg-darkest" pointerEvents="box-none">
       <View
         className="flex-row bg-dark-bg-darkest"
         style={{
@@ -83,7 +77,6 @@ export default function BottomToolbar({
         ))}
       </View>
 
-      {/* Content Area */}
       <View
         className="overflow-hidden"
         style={{

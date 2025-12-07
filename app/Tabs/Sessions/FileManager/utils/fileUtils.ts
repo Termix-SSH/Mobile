@@ -1,5 +1,3 @@
-// File utility functions for the file manager
-
 export function formatFileSize(bytes: number | undefined): string {
   if (!bytes || bytes === 0) return "0 B";
 
@@ -139,7 +137,6 @@ export function sortFiles(
   sortOrder: "asc" | "desc" = "asc",
 ): any[] {
   const sorted = [...files].sort((a, b) => {
-    // Always put directories first
     if (a.type === "directory" && b.type !== "directory") return -1;
     if (a.type !== "directory" && b.type === "directory") return 1;
 
@@ -166,59 +163,48 @@ export function sortFiles(
 }
 
 export function getFileIconColor(filename: string, type: string): string {
-  if (type === "directory") return "#3B82F6"; // blue
-  if (type === "link") return "#8B5CF6"; // purple
+  if (type === "directory") return "#3B82F6";
+  if (type === "link") return "#8B5CF6";
 
   const ext = getFileExtension(filename);
 
-  // Code files
-  if (["js", "jsx", "ts", "tsx"].includes(ext)) return "#F59E0B"; // amber
-  if (["py"].includes(ext)) return "#3B82F6"; // blue
-  if (["java", "class"].includes(ext)) return "#EF4444"; // red
-  if (["c", "cpp", "h", "hpp"].includes(ext)) return "#06B6D4"; // cyan
-  if (["go"].includes(ext)) return "#06B6D4"; // cyan
-  if (["rs"].includes(ext)) return "#F97316"; // orange
+  if (["js", "jsx", "ts", "tsx"].includes(ext)) return "#F59E0B";
+  if (["py"].includes(ext)) return "#3B82F6";
+  if (["java", "class"].includes(ext)) return "#EF4444";
+  if (["c", "cpp", "h", "hpp"].includes(ext)) return "#06B6D4";
+  if (["go"].includes(ext)) return "#06B6D4";
+  if (["rs"].includes(ext)) return "#F97316";
 
-  // Web files
-  if (["html", "htm"].includes(ext)) return "#F97316"; // orange
-  if (["css", "scss", "sass", "less"].includes(ext)) return "#3B82F6"; // blue
-  if (["json", "xml"].includes(ext)) return "#F59E0B"; // amber
+  if (["html", "htm"].includes(ext)) return "#F97316";
+  if (["css", "scss", "sass", "less"].includes(ext)) return "#3B82F6";
+  if (["json", "xml"].includes(ext)) return "#F59E0B";
 
-  // Config files
   if (["yml", "yaml", "toml", "ini", "conf", "cfg"].includes(ext))
-    return "#8B5CF6"; // purple
-  if (["env", "gitignore", "dockerignore"].includes(ext)) return "#6B7280"; // gray
+    return "#8B5CF6";
+  if (["env", "gitignore", "dockerignore"].includes(ext)) return "#6B7280";
 
-  // Documents
-  if (["md", "txt"].includes(ext)) return "#10B981"; // green
-  if (["pdf"].includes(ext)) return "#EF4444"; // red
-  if (["doc", "docx"].includes(ext)) return "#3B82F6"; // blue
+  if (["md", "txt"].includes(ext)) return "#10B981";
+  if (["pdf"].includes(ext)) return "#EF4444";
+  if (["doc", "docx"].includes(ext)) return "#3B82F6";
 
-  // Archives
-  if (isArchiveFile(filename)) return "#8B5CF6"; // purple
+  if (isArchiveFile(filename)) return "#8B5CF6";
 
-  // Images
-  if (isImageFile(filename)) return "#EC4899"; // pink
+  if (isImageFile(filename)) return "#EC4899";
 
-  // Videos
-  if (isVideoFile(filename)) return "#F59E0B"; // amber
+  if (isVideoFile(filename)) return "#F59E0B";
 
-  // Shell scripts
-  if (["sh", "bash", "zsh", "fish"].includes(ext)) return "#10B981"; // green
+  if (["sh", "bash", "zsh", "fish"].includes(ext)) return "#10B981";
 
-  // Default
-  return "#9CA3AF"; // gray-400
+  return "#9CA3AF";
 }
 
 export function breadcrumbsFromPath(path: string): string[] {
   if (!path || path === "/") return ["/"];
 
-  // Split and filter empty strings to handle paths properly
   const parts = path.split("/").filter((p) => p.trim() !== "");
 
   const breadcrumbs: string[] = ["/"];
 
-  // Build cumulative paths without double slashes
   parts.forEach((part, index) => {
     const cumulativeParts = parts.slice(0, index + 1);
     const breadcrumbPath = "/" + cumulativeParts.join("/");

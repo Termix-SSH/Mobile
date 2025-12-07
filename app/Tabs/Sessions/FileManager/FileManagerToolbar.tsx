@@ -46,7 +46,6 @@ export function FileManagerToolbar({
   const padding = getResponsivePadding(isLandscape);
   const iconSize = isLandscape ? 18 : 20;
   const buttonPadding = isLandscape ? 6 : 8;
-  // Position above tab bar: in portrait we need more space, in landscape it's closer
   const bottomPosition = isLandscape ? bottomInset - 20 : 0;
 
   return (
@@ -66,7 +65,6 @@ export function FileManagerToolbar({
     >
       {selectionMode ? (
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          {/* Selection count */}
           <Text
             style={{
               color: "#ffffff",
@@ -87,7 +85,6 @@ export function FileManagerToolbar({
               gap: 8,
             }}
           >
-            {/* Copy */}
             <TouchableOpacity
               onPress={onCopy}
               style={{
@@ -106,7 +103,6 @@ export function FileManagerToolbar({
               />
             </TouchableOpacity>
 
-            {/* Cut */}
             <TouchableOpacity
               onPress={onCut}
               style={{
@@ -125,7 +121,6 @@ export function FileManagerToolbar({
               />
             </TouchableOpacity>
 
-            {/* Delete */}
             <TouchableOpacity
               onPress={onDelete}
               style={{
@@ -144,7 +139,6 @@ export function FileManagerToolbar({
               />
             </TouchableOpacity>
 
-            {/* Cancel */}
             <TouchableOpacity
               onPress={onCancelSelection}
               style={{
@@ -163,7 +157,6 @@ export function FileManagerToolbar({
         </View>
       ) : (
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          {/* Clipboard info */}
           <Text
             style={{
               color: "#ffffff",
@@ -185,7 +178,6 @@ export function FileManagerToolbar({
               gap: 8,
             }}
           >
-            {/* Paste */}
             <TouchableOpacity
               onPress={onPaste}
               style={{
@@ -200,7 +192,6 @@ export function FileManagerToolbar({
               <Clipboard size={iconSize} color="white" />
             </TouchableOpacity>
 
-            {/* Cancel */}
             {onCancelClipboard && (
               <TouchableOpacity
                 onPress={onCancelClipboard}

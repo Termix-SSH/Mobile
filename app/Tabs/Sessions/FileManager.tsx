@@ -83,7 +83,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     const [isConnected, setIsConnected] = useState(false);
     const [sshSessionId, setSshSessionId] = useState<string | null>(null);
 
-    // Selection and clipboard
     const [selectionMode, setSelectionMode] = useState(false);
     const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
     const [clipboard, setClipboard] = useState<{
@@ -91,7 +90,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       operation: "copy" | "cut" | null;
     }>({ files: [], operation: null });
 
-    // Dialogs
     const [contextMenu, setContextMenu] = useState<{
       visible: boolean;
       file: FileItem | null;
@@ -114,10 +112,8 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       content: string;
     }>({ visible: false, file: null, content: "" });
 
-    // Keepalive
     const keepaliveInterval = useRef<NodeJS.Timeout | null>(null);
 
-    // Connect to SSH
     const connectToSSH = useCallback(async () => {
       try {
         setIsLoading(true);
@@ -142,12 +138,10 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         setSshSessionId(sessionId);
         setIsConnected(true);
 
-        // Start keepalive
         keepaliveInterval.current = setInterval(() => {
           keepSSHAlive(sessionId).catch(() => {});
         }, 30000);
 
-        // Load initial directory
         await loadDirectory(host.defaultPath || "/");
       } catch (error: any) {
         showToast.error(error.message || "Failed to connect to SSH");
@@ -164,12 +158,10 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         setSshSessionId(sessionId);
         setIsConnected(true);
 
-        // Start keepalive
         keepaliveInterval.current = setInterval(() => {
           keepSSHAlive(sessionId).catch(() => {});
         }, 30000);
 
-        // Load initial directory
         await loadDirectory(host.defaultPath || "/");
       } catch (error: any) {
         showToast.error(error.message || "Invalid TOTP code");
@@ -194,19 +186,15 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       [sessionId],
     );
 
-    // File operations
     const handleFilePress = async (file: FileItem) => {
-      // Handle symlinks by resolving target first
       if (file.type === "link") {
         try {
           setIsLoading(true);
           const symlinkInfo = await identifySSHSymlink(sessionId!, file.path);
 
           if (symlinkInfo.type === "directory") {
-            // Navigate to target directory
             await loadDirectory(symlinkInfo.target);
           } else if (isTextFile(symlinkInfo.target)) {
-            // View target file
             const targetFile: FileItem = {
               name: file.name,
               path: symlinkInfo.target,
@@ -224,7 +212,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         return;
       }
 
-      // Handle regular files and directories
       if (file.type === "directory") {
         loadDirectory(file.path);
       } else {
@@ -412,7 +399,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       setSelectedFiles([]);
     };
 
-    // Initialize
     useEffect(() => {
       connectToSSH();
 
@@ -423,7 +409,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       };
     }, [connectToSSH]);
 
-    // Expose disconnect method to parent
     useImperativeHandle(ref, () => ({
       handleDisconnect: () => {
         if (keepaliveInterval.current) {
@@ -439,7 +424,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           <ActivityIndicator size="large" color="#22C55E" />
           <Text className="text-white mt-4">Connecting to {host.name}...</Text>
 
-          {/* TOTP Dialog */}
           <Modal visible={totpDialog} transparent animationType="fade">
             <View className="flex-1 bg-black/50 items-center justify-center p-4">
               <View
@@ -514,9 +498,8 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     const padding = getResponsivePadding(isLandscape);
     const tabBarHeight = getTabBarHeight(isLandscape);
 
-    // Calculate toolbar height (only visible when in selection mode or clipboard has items)
     const toolbarPaddingVertical = isLandscape ? 8 : 12;
-    const toolbarContentHeight = isLandscape ? 34 : 44; // Approximate content height
+    const toolbarContentHeight = isLandscape ? 34 : 44;
     const toolbarBorderHeight = 2;
     const effectiveToolbarHeight =
       selectionMode || clipboard.files.length > 0
@@ -531,7 +514,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         style={{
           opacity: isVisible ? 1 : 0,
           display: isVisible ? "flex" : "none",
-          backgroundColor: BACKGROUNDS.HEADER, // Match FileManagerHeader background (#131316)
+          backgroundColor: BACKGROUNDS.HEADER,
         }}
       >
         <FileManagerHeader
@@ -575,7 +558,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           tabBarHeight={tabBarHeight}
         />
 
-        {/* Context Menu */}
         {contextMenu.file && (
           <ContextMenu
             visible={contextMenu.visible}
@@ -600,7 +582,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           />
         )}
 
-        {/* Create Dialog */}
         <Modal visible={createDialog.visible} transparent animationType="fade">
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -674,7 +655,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           </KeyboardAvoidingView>
         </Modal>
 
-        {/* Rename Dialog */}
         <Modal visible={renameDialog.visible} transparent animationType="fade">
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -747,7 +727,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           </KeyboardAvoidingView>
         </Modal>
 
-        {/* File Viewer */}
         {fileViewer.file && (
           <FileViewer
             visible={fileViewer.visible}

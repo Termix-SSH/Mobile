@@ -180,22 +180,24 @@ export const TerminalSessionsProvider: React.FC<
     [activeSessionId],
   );
 
-  const setActiveSession = useCallback((sessionId: string) => {
-    setSessions((prev) => {
-      const newSession = prev.find(s => s.id === sessionId);
+  const setActiveSession = useCallback(
+    (sessionId: string) => {
+      setSessions((prev) => {
+        const newSession = prev.find((s) => s.id === sessionId);
 
-      // Auto-close custom keyboard when switching to non-terminal sessions
-      if (newSession?.type !== 'terminal' && isCustomKeyboardVisible) {
-        setIsCustomKeyboardVisible(false);
-      }
+        if (newSession?.type !== "terminal" && isCustomKeyboardVisible) {
+          setIsCustomKeyboardVisible(false);
+        }
 
-      return prev.map((session) => ({
-        ...session,
-        isActive: session.id === sessionId,
-      }));
-    });
-    setActiveSessionId(sessionId);
-  }, [isCustomKeyboardVisible]);
+        return prev.map((session) => ({
+          ...session,
+          isActive: session.id === sessionId,
+        }));
+      });
+      setActiveSessionId(sessionId);
+    },
+    [isCustomKeyboardVisible],
+  );
 
   const navigateToSessions = useCallback(
     (

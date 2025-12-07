@@ -35,7 +35,11 @@ import KeyboardBar from "@/app/Tabs/Sessions/KeyboardBar";
 import { ArrowLeft } from "lucide-react-native";
 import { useOrientation } from "@/app/utils/orientation";
 import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
-import { BACKGROUNDS, BORDER_COLORS, BORDERS } from "@/app/constants/designTokens";
+import {
+  BACKGROUNDS,
+  BORDER_COLORS,
+  BORDERS,
+} from "@/app/constants/designTokens";
 
 export default function Sessions() {
   const insets = useSafeAreaInsets();
@@ -74,7 +78,6 @@ export default function Sessions() {
   const [keyboardType, setKeyboardType] = useState<any>("default");
   const lastBlurTimeRef = useRef<number>(0);
 
-  // Calculate responsive keyboard heights and margins
   const maxKeyboardHeight = getMaxKeyboardHeight(height, isLandscape);
   const effectiveKeyboardHeight = isLandscape
     ? Math.min(lastKeyboardHeight, maxKeyboardHeight)
@@ -83,70 +86,62 @@ export default function Sessions() {
     ? Math.min(keyboardHeight, maxKeyboardHeight)
     : keyboardHeight;
 
-  // Custom keyboard height MUST match BottomToolbar.tsx calculation (line 34)
-  const customKeyboardHeight = Math.max(200, Math.min(effectiveKeyboardHeight, 500));
+  const customKeyboardHeight = Math.max(
+    200,
+    Math.min(effectiveKeyboardHeight, 500),
+  );
 
-  // Component height constants (responsive to landscape)
-  const SESSION_TAB_BAR_HEIGHT = getTabBarHeight(isLandscape) + 2; // Content height + 2px top border (BORDERS.MAJOR)
+  const SESSION_TAB_BAR_HEIGHT = getTabBarHeight(isLandscape) + 2;
   const CUSTOM_KEYBOARD_TAB_HEIGHT = 36;
-  // KeyboardBar heights: paddingVertical (6px landscape, 8px portrait) + 36px key + paddingBottom when hidden
-  const KEYBOARD_BAR_HEIGHT = isLandscape ? 48 : 52; // 6+36+6=48 landscape, 8+36+8=52 portrait
-  const KEYBOARD_BAR_HEIGHT_EXTENDED = isLandscape ? 64 : 68; // +16px extra paddingBottom when hidden
 
-  // Helper function to calculate TabBar bottom position
+  const KEYBOARD_BAR_HEIGHT = isLandscape ? 48 : 52;
+  const KEYBOARD_BAR_HEIGHT_EXTENDED = isLandscape ? 64 : 68;
+
   const getTabBarBottomPosition = () => {
-    // Non-terminal sessions: sits at bottom with safe area padding
     if (activeSession?.type !== "terminal") {
       return insets.bottom;
     }
 
-    // Terminal session positioning - TabBar sits above KeyboardBar and any keyboards
-    // PRIORITY 1: Custom keyboard (check FIRST to avoid race condition)
     if (isCustomKeyboardVisible) {
-      // Above BottomToolbar only (KeyboardBar hidden when custom keyboard visible)
       return CUSTOM_KEYBOARD_TAB_HEIGHT + customKeyboardHeight;
     }
 
-    // PRIORITY 2: Keyboard intentionally hidden (chevron down)
     if (keyboardIntentionallyHiddenRef.current) {
       return KEYBOARD_BAR_HEIGHT_EXTENDED;
     }
 
-    // PRIORITY 3: System keyboard visible
     if (isKeyboardVisible && currentKeyboardHeight > 0) {
       return KEYBOARD_BAR_HEIGHT + currentKeyboardHeight;
     }
 
-    // DEFAULT: Just above keyboard bar (no keyboard showing)
     return KEYBOARD_BAR_HEIGHT;
   };
 
-  // Calculate bottom margins for content (terminal content area)
   const getBottomMargin = (
     sessionType: "terminal" | "stats" | "filemanager" = "terminal",
   ) => {
-    // For non-terminal sessions, just the session tab bar + bottom safe area
     if (sessionType !== "terminal") {
       return SESSION_TAB_BAR_HEIGHT + insets.bottom;
     }
 
-    // PRIORITY 1: Custom keyboard (check FIRST to avoid race condition)
     if (isCustomKeyboardVisible) {
-      // BottomToolbar replaces KeyboardBar entirely - calculate from scratch
-      return SESSION_TAB_BAR_HEIGHT + CUSTOM_KEYBOARD_TAB_HEIGHT + customKeyboardHeight;
+      return (
+        SESSION_TAB_BAR_HEIGHT +
+        CUSTOM_KEYBOARD_TAB_HEIGHT +
+        customKeyboardHeight
+      );
     }
 
-    // PRIORITY 2: Keyboard intentionally hidden (chevron down)
     if (keyboardIntentionallyHiddenRef.current) {
       return SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT_EXTENDED;
     }
 
-    // PRIORITY 3: System keyboard visible
     if (isKeyboardVisible && currentKeyboardHeight > 0) {
-      return SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT + currentKeyboardHeight;
+      return (
+        SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT + currentKeyboardHeight
+      );
     }
 
-    // DEFAULT: Just KeyboardBar visible (no keyboard showing)
     return SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT;
   };
 
@@ -261,26 +256,6 @@ export default function Sessions() {
     }
   }, [sessions.length, isKeyboardVisible]);
 
-  // Remove the auto-focus after 3 seconds - it causes keyboard flickering
-  // useEffect(() => {
-  //   if (
-  //     sessions.length > 0 &&
-  //     !isKeyboardVisible &&
-  //     !isCustomKeyboardVisible &&
-  //     !keyboardIntentionallyHiddenRef.current
-  //   ) {
-  //     const timeoutId = setTimeout(() => {
-  //       hiddenInputRef.current?.focus();
-  //     }, 3000);
-  //     return () => clearTimeout(timeoutId);
-  //   }
-  // }, [
-  //   isKeyboardVisible,
-  //   sessions.length,
-  //   isCustomKeyboardVisible,
-  //   keyboardIntentionallyHiddenRef,
-  // ]);
-
   useEffect(() => {
     const subscription = Dimensions.addEventListener("change", ({ window }) => {
       setScreenDimensions(window);
@@ -368,17 +343,14 @@ export default function Sessions() {
 
   const handleToggleKeyboard = () => {
     if (isCustomKeyboardVisible) {
-      // Closing custom keyboard - reopen system keyboard
       toggleCustomKeyboard();
       setKeyboardIntentionallyHidden(false);
       setTimeout(() => {
         hiddenInputRef.current?.focus();
       }, 150);
     } else {
-      // Opening custom keyboard - toggle state first, then blur to prevent auto-refocus
-      toggleCustomKeyboard(); // Update state immediately
+      toggleCustomKeyboard();
       setKeyboardIntentionallyHidden(false);
-      // Blur on next frame after state updates to prevent onBlur from refocusing
       requestAnimationFrame(() => {
         hiddenInputRef.current?.blur();
       });
@@ -403,10 +375,10 @@ export default function Sessions() {
         paddingTop: insets.top,
         backgroundColor:
           activeSession?.type === "terminal"
-            ? BACKGROUNDS.DARKEST // Terminal: #09090b
+            ? BACKGROUNDS.DARKEST
             : activeSession?.type === "filemanager"
-              ? BACKGROUNDS.HEADER // FileManager: #131316
-              : "#18181b", // Stats: default app bg
+              ? BACKGROUNDS.HEADER
+              : "#18181b",
       }}
     >
       <View
@@ -557,37 +529,41 @@ export default function Sessions() {
         </View>
       )}
 
-      {sessions.length > 0 && activeSession?.type === "terminal" && !isCustomKeyboardVisible && (
-        <View
-          style={{
-            position: "absolute",
-            bottom: keyboardIntentionallyHiddenRef.current
-              ? 0
-              : isKeyboardVisible && currentKeyboardHeight > 0
-                ? currentKeyboardHeight + (isLandscape ? 4 : 0)
-                : 0,
-            left: 0,
-            right: 0,
-            height: keyboardIntentionallyHiddenRef.current ? KEYBOARD_BAR_HEIGHT_EXTENDED : KEYBOARD_BAR_HEIGHT,
-            zIndex: 1003,
-            overflow: "visible",
-            justifyContent: "center",
-          }}
-        >
-          <KeyboardBar
-            terminalRef={
-              activeSessionId
-                ? terminalRefs.current[activeSessionId]
-                : React.createRef<TerminalHandle>()
-            }
-            isVisible={true}
-            onModifierChange={handleModifierChange}
-            isKeyboardIntentionallyHidden={
-              keyboardIntentionallyHiddenRef.current
-            }
-          />
-        </View>
-      )}
+      {sessions.length > 0 &&
+        activeSession?.type === "terminal" &&
+        !isCustomKeyboardVisible && (
+          <View
+            style={{
+              position: "absolute",
+              bottom: keyboardIntentionallyHiddenRef.current
+                ? 0
+                : isKeyboardVisible && currentKeyboardHeight > 0
+                  ? currentKeyboardHeight + (isLandscape ? 4 : 0)
+                  : 0,
+              left: 0,
+              right: 0,
+              height: keyboardIntentionallyHiddenRef.current
+                ? KEYBOARD_BAR_HEIGHT_EXTENDED
+                : KEYBOARD_BAR_HEIGHT,
+              zIndex: 1003,
+              overflow: "visible",
+              justifyContent: "center",
+            }}
+          >
+            <KeyboardBar
+              terminalRef={
+                activeSessionId
+                  ? terminalRefs.current[activeSessionId]
+                  : React.createRef<TerminalHandle>()
+              }
+              isVisible={true}
+              onModifierChange={handleModifierChange}
+              isKeyboardIntentionallyHidden={
+                keyboardIntentionallyHiddenRef.current
+              }
+            />
+          </View>
+        )}
 
       {sessions.length > 0 &&
         (activeSession?.type === "stats" ||
@@ -691,9 +667,7 @@ export default function Sessions() {
             contextMenuHidden
             underlineColorAndroid="transparent"
             multiline
-            onChangeText={() => {
-              // Do nothing - we handle input in onKeyPress only
-            }}
+            onChangeText={() => {}}
             onKeyPress={({ nativeEvent }) => {
               const key = nativeEvent.key;
               const activeRef = activeSessionId
@@ -704,7 +678,6 @@ export default function Sessions() {
 
               let finalKey = key;
 
-              // Handle modifiers
               if (activeModifiers.ctrl) {
                 switch (key.toLowerCase()) {
                   case "c":
@@ -743,7 +716,6 @@ export default function Sessions() {
                 finalKey = `\x1b${key}`;
               }
 
-              // Send the appropriate key
               if (key === "Enter") {
                 activeRef.current.sendInput("\r");
               } else if (key === "Backspace") {
@@ -756,14 +728,11 @@ export default function Sessions() {
               setKeyboardIntentionallyHidden(false);
             }}
             onBlur={() => {
-              // Immediately refocus to prevent keyboard from closing when touching terminal
-              // This prevents the flicker/dismiss that happens when touching the WebView
               if (
                 !keyboardIntentionallyHiddenRef.current &&
                 !isCustomKeyboardVisible &&
                 activeSession?.type === "terminal"
               ) {
-                // Use requestAnimationFrame for immediate refocus
                 requestAnimationFrame(() => {
                   hiddenInputRef.current?.focus();
                 });

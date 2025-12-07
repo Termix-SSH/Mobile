@@ -108,7 +108,6 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
       if (isVisible) {
         fetchMetrics();
 
-        // Auto-refresh every 5 seconds
         refreshIntervalRef.current = setInterval(() => {
           fetchMetrics(false);
         }, 5000);
@@ -296,7 +295,6 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
               />
             }
           >
-            {/* Header */}
             <View style={{ marginBottom: 12 }}>
               <Text
                 style={{ color: "#ffffff", fontSize: 24, fontWeight: "700" }}
@@ -308,7 +306,6 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
               </Text>
             </View>
 
-            {/* Grid Container */}
             <View
               style={{
                 flexDirection:
@@ -317,7 +314,6 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                 gap: 12,
               }}
             >
-              {/* CPU Metrics */}
               {renderMetricCard(
                 <Cpu size={20} color="#60A5FA" />,
                 "CPU Usage",
@@ -330,7 +326,6 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                 "#60A5FA",
               )}
 
-              {/* Load Average */}
               {metrics?.cpu?.load && (
                 <View
                   style={{
@@ -415,7 +410,6 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                 </View>
               )}
 
-              {/* Memory Metrics */}
               {renderMetricCard(
                 <MemoryStick size={20} color="#34D399" />,
                 "Memory Usage",
@@ -433,7 +427,6 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                 "#34D399",
               )}
 
-              {/* Disk Metrics */}
               {renderMetricCard(
                 <HardDrive size={20} color="#F59E0B" />,
                 "Disk Usage",

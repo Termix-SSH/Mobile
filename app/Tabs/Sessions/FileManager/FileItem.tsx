@@ -52,7 +52,6 @@ export function FileItem({
       onLongPress={onLongPress}
       activeOpacity={0.7}
     >
-      {/* Selection Checkbox (visible in selection mode) */}
       {selectionMode && (
         <View className="mr-3">
           <View
@@ -69,12 +68,10 @@ export function FileItem({
         </View>
       )}
 
-      {/* File Icon */}
       <View className="mr-3">
         <IconComponent size={24} color={iconColor} />
       </View>
 
-      {/* File Info */}
       <View className="flex-1">
         <Text className="text-white font-medium" numberOfLines={1}>
           {name}
@@ -104,7 +101,6 @@ export function FileItem({
         </View>
       </View>
 
-      {/* Link indicator */}
       {type === "link" && !selectionMode && (
         <View className="ml-2">
           <Link size={16} color="#8B5CF6" />

@@ -129,7 +129,6 @@ export function FileViewer({
         keyboardVerticalOffset={0}
       >
         <View className="flex-1 bg-dark-bg">
-          {/* Header */}
           <View
             className="bg-dark-bg-header border-b-2 border-dark-border"
             style={{
@@ -206,7 +205,6 @@ export function FileViewer({
             )}
           </View>
 
-          {/* Code Editor */}
           <TextInput
             className="flex-1 text-white bg-dark-bg"
             value={content}

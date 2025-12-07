@@ -16,11 +16,7 @@ import {
   TextInput,
 } from "react-native";
 import { WebView } from "react-native-webview";
-import {
-  getCurrentServerUrl,
-  getCookie,
-  logActivity,
-} from "../../main-axios";
+import { getCurrentServerUrl, getCookie, logActivity } from "../../main-axios";
 import { showToast } from "../../utils/toast";
 import { useTerminalCustomization } from "../../contexts/TerminalCustomizationContext";
 import { BACKGROUNDS, BORDER_COLORS } from "../../constants/designTokens";
@@ -138,9 +134,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       }
 
       const baseFontSize = config.fontSize;
-      // Improved calculation based on font size
-      // Average monospace char width is roughly 0.6 * fontSize
-      // Line height is roughly 1.2 * fontSize
       const charWidth = baseFontSize * 0.6;
       const lineHeight = baseFontSize * 1.2;
       const terminalWidth = Math.floor(width / charWidth);
@@ -372,7 +365,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     const terminalElement = document.getElementById('terminal');
 
-    // Prevent focus on any textarea/input created by xterm
     document.addEventListener('focusin', function(e) {
       if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) {
         e.preventDefault();
@@ -434,10 +426,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           };
 
           ws.send(JSON.stringify(connectMessage));
-
-          // Disable terminal's built-in keyboard handling
-          // We use the hidden input element instead for better IME support
-          // terminal.onData is intentionally not used here
 
           startPingInterval();
         };
@@ -567,8 +555,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         setHtmlContent(html);
       };
       updateHtml();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // Only generate HTML on mount, not on dimension changes
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleWebViewMessage = useCallback(
       (event: any) => {
@@ -594,8 +582,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               setIsConnected(true);
               setRetryCount(0);
 
-              // Log terminal activity
-              logActivity("terminal", hostConfig.id, hostConfig.name).catch(() => {});
+              logActivity("terminal", hostConfig.id, hostConfig.name).catch(
+                () => {},
+              );
               break;
 
             case "dataReceived":
@@ -620,7 +609,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 `${message.data.hostName}: ${message.data.message}`,
               );
               break;
-
           }
         } catch (error) {}
       },
@@ -668,15 +656,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       }
     }, [hostConfig.id, currentHostId]);
 
-    // Focus handling removed - now managed by Sessions.tsx
-    // useEffect(() => {
-    //   if (isVisible && isConnected && !showConnectingOverlay) {
-    //     setTimeout(() => {
-    //       focusTerminal();
-    //     }, 300);
-    //   }
-    // }, [isVisible, isConnected, showConnectingOverlay, focusTerminal]);
-
     useEffect(() => {
       return () => {
         if (connectionTimeoutRef.current) {
@@ -685,9 +664,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       };
     }, []);
 
-    const focusTerminal = useCallback(() => {
-      // Focus is now handled by Sessions.tsx
-    }, []);
+    const focusTerminal = useCallback(() => {}, []);
 
     return (
       <View

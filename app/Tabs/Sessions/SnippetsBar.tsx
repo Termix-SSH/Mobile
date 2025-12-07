@@ -71,7 +71,6 @@ export default function SnippetsBar({
         }),
       ]);
 
-      // Ensure we have arrays and proper data structure
       const snippetsArray = Array.isArray(snippetsData) ? snippetsData : [];
       const foldersArray = Array.isArray(foldersData) ? foldersData : [];
 
@@ -116,13 +115,14 @@ export default function SnippetsBar({
 
   const unfolderedSnippets = getSnippetsInFolder(null);
 
-
   return (
     <View className="h-full bg-dark-bg-darkest">
       {loading ? (
         <View className="flex-1 items-center justify-center py-12">
           <ActivityIndicator size="large" color="#22C55E" />
-          <Text className="text-sm text-gray-500 mt-3">Loading snippets...</Text>
+          <Text className="text-sm text-gray-500 mt-3">
+            Loading snippets...
+          </Text>
         </View>
       ) : (
         <ScrollView

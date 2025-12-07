@@ -97,10 +97,6 @@ interface OIDCAuthorize {
 // UTILITY FUNCTIONS
 // ============================================================================
 
-export function isElectron(): boolean {
-  return false;
-}
-
 function getLoggerForService(serviceName: string) {
   if (serviceName.includes("SSH") || serviceName.includes("ssh")) {
     return sshLogger;

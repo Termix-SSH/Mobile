@@ -1,46 +1,42 @@
 /**
- * Centralized design tokens for Termix Mobile Sessions UI
- * Ensures visual consistency across all components
+ * Includes a default value for all margins, borders, design elements, etc.
+ * These can be used across all components as a default inside the style tag in a component
+ * Any styling not included as a default here, can be set inside a className using NativeWind
  */
 
-// Border widths
 export const BORDERS = {
-  MAJOR: 2, // TabBar, BottomToolbar, FileManagerHeader, FileManagerToolbar
-  STANDARD: 1, // Buttons, cards, internal elements
-  SEPARATOR: 1, // KeyboardBar separator, breadcrumb divider
+  MAJOR: 2,
+  STANDARD: 1,
+  SEPARATOR: 1,
 } as const;
 
-// Border colors
 export const BORDER_COLORS = {
-  PRIMARY: "#303032", // Main borders (major boundaries)
-  SECONDARY: "#373739", // Secondary borders (internal dividers)
-  SEPARATOR: "#404040", // Separators (keyboard divider, etc.)
-  BUTTON: "#303032", // Button borders
-  ACTIVE: "#22C55E", // Active/selected state
+  PRIMARY: "#303032",
+  SECONDARY: "#373739",
+  SEPARATOR: "#404040",
+  BUTTON: "#303032",
+  ACTIVE: "#22C55E",
 } as const;
 
-// Background colors
 export const BACKGROUNDS = {
-  DARKEST: "#09090b", // Terminal, ServerStats main bg
-  DARKER: "#0e0e10", // TabBar
-  HEADER: "#131316", // FileManagerHeader, FileManagerToolbar
-  DARK: "#18181b", // FileManager, general dark bg
-  CARD: "#1a1a1a", // ServerStats cards, file items
-  BUTTON: "#2a2a2a", // Standard button background
-  BUTTON_ALT: "#23232a", // Alternative button background (FileManager)
-  ACTIVE: "#4a4a4a", // Active button state
-  HOVER: "#2d2d30", // Hover state
+  DARKEST: "#09090b",
+  DARKER: "#0e0e10",
+  HEADER: "#131316",
+  DARK: "#18181b",
+  CARD: "#1a1a1a",
+  BUTTON: "#2a2a2a",
+  BUTTON_ALT: "#23232a",
+  ACTIVE: "#4a4a4a",
+  HOVER: "#2d2d30",
 } as const;
 
-// Border radius
 export const RADIUS = {
-  BUTTON: 6, // Standard button radius
-  CARD: 12, // Card/panel radius
-  SMALL: 4, // Small elements (breadcrumb, tiny buttons)
-  LARGE: 16, // Modals, large panels
+  BUTTON: 6,
+  CARD: 12,
+  SMALL: 4,
+  LARGE: 16,
 } as const;
 
-// Spacing
 export const SPACING = {
   TOOLBAR_PADDING_PORTRAIT: 12,
   TOOLBAR_PADDING_LANDSCAPE: 8,
@@ -50,7 +46,6 @@ export const SPACING = {
   BUTTON_GAP: 8,
 } as const;
 
-// Text colors
 export const TEXT_COLORS = {
   PRIMARY: "#ffffff",
   SECONDARY: "#9CA3AF",
@@ -59,9 +54,8 @@ export const TEXT_COLORS = {
   ACCENT: "#22C55E",
 } as const;
 
-// Icon sizes
 export const ICON_SIZES = {
-  SMALL: 16, // Landscape mode
-  MEDIUM: 18, // Standard
-  LARGE: 20, // Portrait mode, important actions
+  SMALL: 16,
+  MEDIUM: 18,
+  LARGE: 20,
 } as const;

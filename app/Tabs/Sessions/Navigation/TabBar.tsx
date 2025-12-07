@@ -65,7 +65,6 @@ export default function TabBar({
   const tabBarHeight = getTabBarHeight(isLandscape);
   const buttonSize = getButtonSize(isLandscape);
 
-  // Add bottom padding for non-terminal sessions (when tab bar is at the bottom)
   const needsBottomPadding = activeSessionType !== "terminal";
 
   const handleToggleSystemKeyboard = () => {
@@ -95,7 +94,8 @@ export default function TabBar({
         borderBottomColor: BORDER_COLORS.PRIMARY,
         height: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
         paddingBottom: needsBottomPadding ? insets.bottom : 0,
-        justifyContent: activeSessionType === "terminal" ? "center" : "flex-start",
+        justifyContent:
+          activeSessionType === "terminal" ? "center" : "flex-start",
       }}
       focusable={false}
     >
