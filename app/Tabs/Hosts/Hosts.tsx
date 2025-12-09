@@ -18,9 +18,8 @@ import {
   getAllServerStatuses,
   initializeServerConfig,
   getCurrentServerUrl,
-  ServerStatus,
 } from "@/app/main-axios";
-import { SSHHost } from "@/types";
+import { SSHHost, ServerStatus } from "@/types";
 import { useOrientation } from "@/app/utils/orientation";
 import { getResponsivePadding, getColumnCount } from "@/app/utils/responsive";
 

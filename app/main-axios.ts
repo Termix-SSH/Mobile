@@ -10,6 +10,16 @@ import type {
   ApiResponse,
   FileManagerFile,
   FileManagerShortcut,
+  ServerStatus,
+  ServerMetrics,
+  AuthResponse,
+  UserInfo,
+  UserCount,
+  OIDCAuthorize,
+  FileManagerOperation,
+  ServerConfig,
+  UptimeInfo,
+  RecentActivityItem,
 } from "../types/index";
 import {
   apiLogger,
@@ -23,75 +33,11 @@ import {
 } from "../lib/frontend-logger";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import platform from "expo-modules-core/src/Platform";
+import { Platform } from "react-native";
 
-interface FileManagerOperation {
-  name: string;
-  path: string;
-  isSSH: boolean;
-  sshSessionId?: string;
-  hostId: number;
-}
+const platform = Platform;
 
-export type ServerStatus = {
-  status: "online" | "offline";
-  lastChecked: string;
-};
-
-interface CpuMetrics {
-  percent: number | null;
-  cores: number | null;
-  load: [number, number, number] | null;
-}
-
-interface MemoryMetrics {
-  percent: number | null;
-  usedGiB: number | null;
-  totalGiB: number | null;
-}
-
-interface DiskMetrics {
-  percent: number | null;
-  usedHuman: string | null;
-  totalHuman: string | null;
-}
-
-export type ServerMetrics = {
-  cpu: CpuMetrics;
-  memory: MemoryMetrics;
-  disk: DiskMetrics;
-  lastChecked: string;
-};
-
-interface AuthResponse {
-  token: string;
-  success?: boolean;
-  is_admin?: boolean;
-  username?: string;
-  userId?: string;
-  is_oidc?: boolean;
-  totp_enabled?: boolean;
-  data_unlocked?: boolean;
-  requires_totp?: boolean;
-  temp_token?: string;
-}
-
-interface UserInfo {
-  totp_enabled: boolean;
-  userId: string;
-  username: string;
-  is_admin: boolean;
-  is_oidc: boolean;
-  data_unlocked: boolean;
-}
-
-interface UserCount {
-  count: number;
-}
-
-interface OIDCAuthorize {
-  auth_url: string;
-}
+// All types are now imported from ../types/index.ts
 
 // ============================================================================
 // UTILITY FUNCTIONS
@@ -308,11 +254,6 @@ export function setAuthStateCallback(
 }
 
 let configuredServerUrl: string | null = null;
-
-export interface ServerConfig {
-  serverUrl: string;
-  lastUpdated: string;
-}
 
 export async function saveServerConfig(config: ServerConfig): Promise<boolean> {
   try {
@@ -3056,21 +2997,6 @@ export async function deleteSnippetFolder(
 // ============================================================================
 // HOMEPAGE API
 // ============================================================================
-
-export interface UptimeInfo {
-  uptimeMs: number;
-  uptimeSeconds: number;
-  formatted: string;
-}
-
-export interface RecentActivityItem {
-  id: number;
-  userId: string;
-  type: "terminal" | "file_manager";
-  hostId: number;
-  hostName: string;
-  timestamp: string;
-}
 
 export async function getUptime(): Promise<UptimeInfo> {
   try {

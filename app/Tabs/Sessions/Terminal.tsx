@@ -28,7 +28,7 @@ interface TerminalProps {
     ip: string;
     port: number;
     username: string;
-    authType: "password" | "key" | "credential";
+    authType: "password" | "key" | "credential" | "none";
     password?: string;
     key?: string;
     keyPassword?: string;
