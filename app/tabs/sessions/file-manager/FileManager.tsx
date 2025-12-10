@@ -18,6 +18,7 @@ import {
   Platform,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Server } from "lucide-react-native";
 import { SSHHost } from "@/types";
 import { useOrientation } from "@/app/utils/orientation";
 import { getResponsivePadding, getTabBarHeight } from "@/app/utils/responsive";
@@ -42,17 +43,18 @@ import {
   keepSSHAlive,
   identifySSHSymlink,
 } from "@/app/main-axios";
-import { FileList } from "./FileManager/FileList";
-import { FileManagerHeader } from "./FileManager/FileManagerHeader";
-import { FileManagerToolbar } from "./FileManager/FileManagerToolbar";
-import { ContextMenu } from "./FileManager/ContextMenu";
-import { FileViewer } from "./FileManager/FileViewer";
+import { FileList } from "@/app/tabs/sessions/file-manager/FileList";
+import { FileManagerHeader } from "@/app/tabs/sessions/file-manager/FileManagerHeader";
+import { FileManagerToolbar } from "@/app/tabs/sessions/file-manager/FileManagerToolbar";
+import { ContextMenu } from "@/app/tabs/sessions/file-manager/ContextMenu";
+import { FileViewer } from "@/app/tabs/sessions/file-manager/FileViewer";
 import {
   joinPath,
   isTextFile,
   isArchiveFile,
-} from "./FileManager/utils/fileUtils";
+} from "@/app/tabs/sessions/file-manager/utils/fileUtils";
 import { showToast } from "@/app/utils/toast";
+import { TOTPDialog } from "@/app/tabs/dialogs";
 
 interface FileManagerProps {
   host: SSHHost;
@@ -150,9 +152,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       }
     }, [host, sessionId]);
 
-    const handleTOTPVerify = async () => {
+    const handleTOTPVerify = async (code: string) => {
       try {
-        await verifySSHTOTP(sessionId, totpCode);
+        await verifySSHTOTP(sessionId, code);
         setTotpDialog(false);
         setTotpCode("");
         setSshSessionId(sessionId);
@@ -418,79 +420,60 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       },
     }));
 
+    // Check if file manager is disabled
+    if (!host.enableFileManager) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: BACKGROUNDS.DARKEST,
+          }}
+        >
+          <Server size={48} color="#EF4444" />
+          <Text
+            style={{
+              color: "#ffffff",
+              fontSize: 18,
+              fontWeight: "600",
+              marginTop: 16,
+            }}
+          >
+            File Manager Disabled
+          </Text>
+          <Text
+            style={{
+              color: "#9CA3AF",
+              fontSize: 14,
+              marginTop: 8,
+              textAlign: "center",
+              paddingHorizontal: 24,
+            }}
+          >
+            File Manager is not enabled for this host. Contact your
+            administrator to enable it.
+          </Text>
+        </View>
+      );
+    }
+
     if (!isConnected) {
       return (
         <View className="flex-1 bg-dark-bg items-center justify-center">
           <ActivityIndicator size="large" color="#22C55E" />
           <Text className="text-white mt-4">Connecting to {host.name}...</Text>
 
-          <Modal visible={totpDialog} transparent animationType="fade">
-            <View className="flex-1 bg-black/50 items-center justify-center p-4">
-              <View
-                className="bg-dark-bg-button p-6 w-full max-w-sm"
-                style={{
-                  borderWidth: BORDERS.MAJOR,
-                  borderColor: BORDER_COLORS.PRIMARY,
-                  borderRadius: RADIUS.LARGE,
-                }}
-              >
-                <Text className="text-white text-lg font-semibold mb-4">
-                  Two-Factor Authentication
-                </Text>
-                <Text className="text-gray-400 mb-4">
-                  Enter your TOTP code to continue
-                </Text>
-                <TextInput
-                  className="bg-dark-bg-darker px-4 py-3 text-white mb-4"
-                  style={{
-                    borderWidth: BORDERS.STANDARD,
-                    borderColor: BORDER_COLORS.BUTTON,
-                    borderRadius: RADIUS.BUTTON,
-                  }}
-                  value={totpCode}
-                  onChangeText={setTotpCode}
-                  placeholder="000000"
-                  placeholderTextColor="#6B7280"
-                  keyboardType="number-pad"
-                  maxLength={6}
-                  autoFocus
-                />
-                <View className="flex-row gap-2">
-                  <TouchableOpacity
-                    onPress={() => {
-                      setTotpDialog(false);
-                      setTotpCode("");
-                    }}
-                    className="flex-1 bg-dark-bg-darker py-3"
-                    style={{
-                      borderWidth: BORDERS.STANDARD,
-                      borderColor: BORDER_COLORS.BUTTON,
-                      borderRadius: RADIUS.BUTTON,
-                    }}
-                    activeOpacity={0.7}
-                  >
-                    <Text className="text-white text-center font-medium">
-                      Cancel
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={handleTOTPVerify}
-                    className="flex-1 bg-blue-500 py-3"
-                    style={{
-                      borderWidth: BORDERS.STANDARD,
-                      borderColor: "#2563EB",
-                      borderRadius: RADIUS.BUTTON,
-                    }}
-                    activeOpacity={0.7}
-                  >
-                    <Text className="text-white text-center font-medium">
-                      Verify
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </Modal>
+          <TOTPDialog
+            visible={totpDialog}
+            onSubmit={handleTOTPVerify}
+            onCancel={() => {
+              setTotpDialog(false);
+              setTotpCode("");
+            }}
+            prompt="Two-Factor Authentication"
+            isPasswordPrompt={false}
+          />
         </View>
       );
     }

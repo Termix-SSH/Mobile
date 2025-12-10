@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Animated } from "react-native";
-import Host from "@/app/Tabs/Hosts/Navigation/Host";
+import Host from "@/app/tabs/hosts/navigation/Host";
 import { ChevronDown } from "lucide-react-native";
 import { useState, useRef, useEffect } from "react";
 import { SSHHost } from "@/types";

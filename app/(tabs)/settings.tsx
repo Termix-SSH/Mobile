@@ -1,4 +1,4 @@
-import Settings from "@/app/Tabs/Settings/Settings";
+import Settings from "@/app/tabs/settings/Settings";
 
 export default function SettingsScreen() {
   return <Settings />;

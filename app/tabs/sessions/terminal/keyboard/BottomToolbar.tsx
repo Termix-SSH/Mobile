@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { TerminalHandle } from "./Terminal";
+import { TerminalHandle } from "../Terminal";
 import CustomKeyboard from "./CustomKeyboard";
 import SnippetsBar from "./SnippetsBar";
 import {

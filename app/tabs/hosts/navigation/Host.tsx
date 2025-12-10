@@ -399,6 +399,34 @@ function Host({ host, status, isLast = false }: HostProps) {
                     </TouchableOpacity>
                   )}
 
+                  {host.enableTunnel &&
+                    host.tunnelConnections &&
+                    host.tunnelConnections.length > 0 && (
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigateToSessions(host, "tunnel");
+                          setShowContextMenu(false);
+                        }}
+                        className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
+                        activeOpacity={0.7}
+                      >
+                        <Activity size={20} color="#FFFFFF" />
+                        <View className="flex-1">
+                          <Text className="text-white font-medium">
+                            Manage Tunnels
+                          </Text>
+                          <Text
+                            className="text-gray-400 text-xs"
+                            numberOfLines={1}
+                          >
+                            {host.tunnelConnections.length} tunnel
+                            {host.tunnelConnections.length !== 1 ? "s" : ""}{" "}
+                            configured
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
+
                   <TouchableOpacity
                     className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                     onPress={closeContextMenu}

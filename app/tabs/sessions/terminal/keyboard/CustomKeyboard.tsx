@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ScrollView, Clipboard, Text } from "react-native";
-import { TerminalHandle } from "./Terminal";
+import { TerminalHandle } from "../Terminal";
 import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";

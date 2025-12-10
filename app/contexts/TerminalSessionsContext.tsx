@@ -17,7 +17,7 @@ export interface TerminalSession {
   title: string;
   isActive: boolean;
   createdAt: Date;
-  type: "terminal" | "stats" | "filemanager";
+  type: "terminal" | "stats" | "filemanager" | "tunnel";
 }
 
 interface TerminalSessionsContextType {
@@ -25,14 +25,14 @@ interface TerminalSessionsContextType {
   activeSessionId: string | null;
   addSession: (
     host: SSHHost,
-    type?: "terminal" | "stats" | "filemanager",
+    type?: "terminal" | "stats" | "filemanager" | "tunnel",
   ) => string;
   removeSession: (sessionId: string) => void;
   setActiveSession: (sessionId: string) => void;
   clearAllSessions: () => void;
   navigateToSessions: (
     host?: SSHHost,
-    type?: "terminal" | "stats" | "filemanager",
+    type?: "terminal" | "stats" | "filemanager" | "tunnel",
   ) => void;
   isCustomKeyboardVisible: boolean;
   toggleCustomKeyboard: () => void;
@@ -74,7 +74,7 @@ export const TerminalSessionsProvider: React.FC<
   const addSession = useCallback(
     (
       host: SSHHost,
-      type: "terminal" | "stats" | "filemanager" = "terminal",
+      type: "terminal" | "stats" | "filemanager" | "tunnel" = "terminal",
     ): string => {
       setSessions((prev) => {
         const existingSessions = prev.filter(
@@ -82,7 +82,10 @@ export const TerminalSessionsProvider: React.FC<
         );
 
         const typeLabel =
-          type === "stats" ? "Stats" : type === "filemanager" ? "Files" : "";
+          type === "stats" ? "Stats"
+          : type === "filemanager" ? "Files"
+          : type === "tunnel" ? "Tunnels"
+          : "";
         let title = typeLabel ? `${host.name} - ${typeLabel}` : host.name;
         if (existingSessions.length > 0) {
           title = typeLabel
@@ -148,6 +151,8 @@ export const TerminalSessionsProvider: React.FC<
                   ? "Stats"
                   : session.type === "filemanager"
                     ? "Files"
+                    : session.type === "tunnel"
+                    ? "Tunnels"
                     : "";
               const baseName = typeLabel
                 ? `${session.host.name} - ${typeLabel}`
@@ -202,7 +207,7 @@ export const TerminalSessionsProvider: React.FC<
   const navigateToSessions = useCallback(
     (
       host?: SSHHost,
-      type: "terminal" | "stats" | "filemanager" = "terminal",
+      type: "terminal" | "stats" | "filemanager" | "tunnel" = "terminal",
     ) => {
       if (host) {
         addSession(host, type);

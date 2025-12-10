@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { TerminalHandle } from "./Terminal";
+import { TerminalHandle } from "@/app/tabs/sessions/terminal/Terminal";
 import { getSnippets, getSnippetFolders } from "@/app/main-axios";
 import { showToast } from "@/app/utils/toast";
 import { BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";

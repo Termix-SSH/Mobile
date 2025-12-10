@@ -4,14 +4,14 @@ import { TerminalSessionsProvider } from "./contexts/TerminalSessionsContext";
 import { TerminalCustomizationProvider } from "./contexts/TerminalCustomizationContext";
 import { KeyboardProvider } from "./contexts/KeyboardContext";
 import { KeyboardCustomizationProvider } from "./contexts/KeyboardCustomizationContext";
-import ServerForm from "./Authentication/ServerForm";
-import LoginForm from "./Authentication/LoginForm";
+import ServerForm from "@/app/authentication/ServerForm";
+import LoginForm from "@/app/authentication/LoginForm";
 import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Toaster } from "sonner-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "../global.css";
-import UpdateRequired from "@/app/Authentication/UpdateRequired";
+import UpdateRequired from "@/app/authentication/UpdateRequired";
 
 function RootLayoutContent() {
   const {

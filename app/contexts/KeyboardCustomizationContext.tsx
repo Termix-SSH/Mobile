@@ -16,7 +16,7 @@ import {
 import {
   PRESET_DEFINITIONS,
   getPresetById,
-} from "@/app/Tabs/Sessions/KeyDefinitions";
+} from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
 
 const STORAGE_KEY = "keyboardCustomization";
 const DEFAULT_PRESET_ID: PresetType = "default";

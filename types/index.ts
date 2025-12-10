@@ -1,12 +1,4 @@
 // ============================================================================
-// CENTRAL TYPE DEFINITIONS
-// ============================================================================
-// This file contains all shared interfaces and types used across the application
-// to avoid duplication and ensure consistency.
-
-// Note: SSH2 and Express types not imported for React Native compatibility
-
-// ============================================================================
 // SSH HOST TYPES
 // ============================================================================
 
@@ -355,6 +347,26 @@ export interface TabContextTab {
   hostConfig?: SSHHost;
   terminalRef?: any;
   initialTab?: string;
+}
+
+export interface TunnelSessionProps {
+  hostConfig: {
+    id: number;
+    name: string;
+    enableTunnel: boolean;
+    tunnelConnections: TunnelConnection[];
+  };
+  isVisible: boolean;
+  title?: string;
+  onClose?: () => void;
+}
+
+export interface TunnelCardProps {
+  tunnel: TunnelConnection;
+  tunnelName: string;
+  status: TunnelStatus | null;
+  isLoading: boolean;
+  onAction: (action: "connect" | "disconnect" | "cancel") => Promise<void>;
 }
 
 export type SplitLayout = "2h" | "2v" | "3l" | "3r" | "3t" | "4grid";

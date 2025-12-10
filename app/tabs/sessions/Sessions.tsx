@@ -20,18 +20,22 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
-import { Terminal, TerminalHandle } from "@/app/Tabs/Sessions/Terminal";
+import { Terminal, TerminalHandle } from "@/app/tabs/sessions/terminal/Terminal";
 import {
   ServerStats,
   ServerStatsHandle,
-} from "@/app/Tabs/Sessions/ServerStats";
+} from "@/app/tabs/sessions/server-stats/ServerStats";
 import {
   FileManager,
   FileManagerHandle,
-} from "@/app/Tabs/Sessions/FileManager";
-import TabBar from "@/app/Tabs/Sessions/Navigation/TabBar";
-import BottomToolbar from "@/app/Tabs/Sessions/BottomToolbar";
-import KeyboardBar from "@/app/Tabs/Sessions/KeyboardBar";
+} from "@/app/tabs/sessions/file-manager/FileManager";
+import {
+  TunnelManager,
+  TunnelManagerHandle,
+} from "@/app/tabs/sessions/tunnel/TunnelManager";
+import TabBar from "@/app/tabs/sessions/navigation/TabBar";
+import BottomToolbar from "@/app/tabs/sessions/terminal/keyboard/BottomToolbar";
+import KeyboardBar from "@/app/tabs/sessions/terminal/keyboard/KeyboardBar";
 import { ArrowLeft } from "lucide-react-native";
 import { useOrientation } from "@/app/utils/orientation";
 import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
@@ -68,6 +72,9 @@ export default function Sessions() {
   const fileManagerRefs = useRef<
     Record<string, React.RefObject<FileManagerHandle>>
   >({});
+  const tunnelManagerRefs = useRef<
+    Record<string, React.RefObject<TunnelManagerHandle>>
+  >({});
   const [activeModifiers, setActiveModifiers] = useState({
     ctrl: false,
     alt: false,
@@ -77,6 +84,7 @@ export default function Sessions() {
   );
   const [keyboardType, setKeyboardType] = useState<any>("default");
   const lastBlurTimeRef = useRef<number>(0);
+  const [terminalBackgroundColors, setTerminalBackgroundColors] = useState<Record<string, string>>({});
 
   const maxKeyboardHeight = getMaxKeyboardHeight(height, isLandscape);
   const effectiveKeyboardHeight = isLandscape
@@ -368,6 +376,10 @@ export default function Sessions() {
     (session) => session.id === activeSessionId,
   );
 
+  const activeTerminalBgColor = activeSession?.type === "terminal" && activeSessionId
+    ? terminalBackgroundColors[activeSessionId] || BACKGROUNDS.DARKEST
+    : BACKGROUNDS.DARKEST;
+
   return (
     <View
       className="flex-1"
@@ -375,7 +387,7 @@ export default function Sessions() {
         paddingTop: insets.top,
         backgroundColor:
           activeSession?.type === "terminal"
-            ? BACKGROUNDS.DARKEST
+            ? activeTerminalBgColor
             : activeSession?.type === "filemanager"
               ? BACKGROUNDS.HEADER
               : "#18181b",
@@ -407,10 +419,17 @@ export default function Sessions() {
                   credentialId: session.host.credentialId
                     ? parseInt(session.host.credentialId.toString())
                     : undefined,
+                  terminalConfig: session.host.terminalConfig,
                 }}
                 isVisible={session.id === activeSessionId}
                 title={session.title}
                 onClose={() => handleTabClose(session.id)}
+                onBackgroundColorChange={(color) => {
+                  setTerminalBackgroundColors((prev) => ({
+                    ...prev,
+                    [session.id]: color,
+                  }));
+                }}
               />
             );
           } else if (session.type === "stats") {
@@ -435,6 +454,22 @@ export default function Sessions() {
                 host={session.host}
                 sessionId={session.id}
                 isVisible={session.id === activeSessionId}
+              />
+            );
+          } else if (session.type === "tunnel") {
+            return (
+              <TunnelManager
+                key={session.id}
+                ref={tunnelManagerRefs.current[session.id]}
+                hostConfig={{
+                  id: parseInt(session.host.id.toString()),
+                  name: session.host.name,
+                  enableTunnel: session.host.enableTunnel,
+                  tunnelConnections: session.host.tunnelConnections,
+                }}
+                isVisible={session.id === activeSessionId}
+                title={session.title}
+                onClose={() => handleTabClose(session.id)}
               />
             );
           }

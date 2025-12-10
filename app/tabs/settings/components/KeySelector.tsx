@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { KeyConfig, KeyCategory } from "@/types/keyboard";
-import { ALL_KEYS } from "@/app/Tabs/Sessions/KeyDefinitions";
+import { ALL_KEYS } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
 
 interface KeySelectorProps {
   visible: boolean;

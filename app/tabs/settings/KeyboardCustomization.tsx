@@ -11,7 +11,7 @@ import {
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
-import { PRESET_DEFINITIONS } from "@/app/Tabs/Sessions/KeyDefinitions";
+import { PRESET_DEFINITIONS } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
 import { PresetType, KeyConfig } from "@/types/keyboard";
 import { showToast } from "@/app/utils/toast";
 import KeySelector from "./components/KeySelector";

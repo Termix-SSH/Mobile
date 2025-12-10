@@ -6,22 +6,21 @@ import React, {
   useCallback,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { TerminalConfig } from "@/types";
+import { MOBILE_DEFAULT_TERMINAL_CONFIG } from "@/constants/terminal-config";
 
-const STORAGE_KEY = "terminalCustomization";
+const STORAGE_KEY = "terminalConfig";
 
-export interface TerminalCustomization {
-  fontSize: number;
-}
-
-const getDefaultConfig = (): TerminalCustomization => {
-  return {
-    fontSize: 16,
-  };
+const getDefaultConfig = (): Partial<TerminalConfig> => {
+  return MOBILE_DEFAULT_TERMINAL_CONFIG;
 };
 
 interface TerminalCustomizationContextType {
-  config: TerminalCustomization;
+  config: Partial<TerminalConfig>;
   isLoading: boolean;
+  updateConfig: (config: Partial<TerminalConfig>) => Promise<void>;
+  resetConfig: () => Promise<void>;
+  // Legacy support
   updateFontSize: (fontSize: number) => Promise<void>;
   resetToDefault: () => Promise<void>;
 }
@@ -34,7 +33,7 @@ export const TerminalCustomizationProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [config, setConfig] =
-    useState<TerminalCustomization>(getDefaultConfig());
+    useState<Partial<TerminalConfig>>(getDefaultConfig());
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -42,7 +41,7 @@ export const TerminalCustomizationProvider: React.FC<{
       try {
         const stored = await AsyncStorage.getItem(STORAGE_KEY);
         if (stored) {
-          const parsed = JSON.parse(stored) as TerminalCustomization;
+          const parsed = JSON.parse(stored) as Partial<TerminalConfig>;
           setConfig(parsed);
         }
       } catch (error) {
@@ -55,7 +54,7 @@ export const TerminalCustomizationProvider: React.FC<{
     loadConfig();
   }, []);
 
-  const saveConfig = useCallback(async (newConfig: TerminalCustomization) => {
+  const saveConfig = useCallback(async (newConfig: Partial<TerminalConfig>) => {
     try {
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newConfig));
       setConfig(newConfig);
@@ -64,24 +63,38 @@ export const TerminalCustomizationProvider: React.FC<{
     }
   }, []);
 
-  const updateFontSize = useCallback(
-    async (fontSize: number) => {
+  const updateConfig = useCallback(
+    async (updates: Partial<TerminalConfig>) => {
       const newConfig = {
         ...config,
-        fontSize,
+        ...updates,
       };
       await saveConfig(newConfig);
     },
     [config, saveConfig],
   );
 
-  const resetToDefault = useCallback(async () => {
+  const resetConfig = useCallback(async () => {
     await saveConfig(getDefaultConfig());
   }, [saveConfig]);
+
+  // Legacy support for existing code
+  const updateFontSize = useCallback(
+    async (fontSize: number) => {
+      await updateConfig({ fontSize });
+    },
+    [updateConfig],
+  );
+
+  const resetToDefault = useCallback(async () => {
+    await resetConfig();
+  }, [resetConfig]);
 
   const value: TerminalCustomizationContextType = {
     config,
     isLoading,
+    updateConfig,
+    resetConfig,
     updateFontSize,
     resetToDefault,
   };

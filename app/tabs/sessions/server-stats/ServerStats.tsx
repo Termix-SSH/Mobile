@@ -23,9 +23,9 @@ import {
   Clock,
   Server,
 } from "lucide-react-native";
-import { getServerMetricsById } from "../../main-axios";
-import { showToast } from "../../utils/toast";
-import type { ServerMetrics } from "../../../types/index";
+import { getServerMetricsById, executeSnippet } from "../../../main-axios";
+import { showToast } from "../../../utils/toast";
+import type { ServerMetrics, QuickAction } from "../../../../types";
 import { useOrientation } from "@/app/utils/orientation";
 import {
   getResponsivePadding,
@@ -43,6 +43,7 @@ interface ServerStatsProps {
   hostConfig: {
     id: number;
     name: string;
+    quickActions?: QuickAction[];
   };
   isVisible: boolean;
   title?: string;
@@ -61,6 +62,9 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     const [isLoading, setIsLoading] = useState(true);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [executingActions, setExecutingActions] = useState<Set<number>>(
+      new Set()
+    );
     const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const padding = getResponsivePadding(isLandscape);
@@ -141,6 +145,35 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
         return `${hours}h ${minutes}m`;
       } else {
         return `${minutes}m`;
+      }
+    };
+
+    const handleQuickAction = async (action: QuickAction) => {
+      setExecutingActions((prev) => new Set(prev).add(action.snippetId));
+      showToast.loading(`Executing ${action.name}...`);
+
+      try {
+        const result = await executeSnippet(action.snippetId, hostConfig.id);
+
+        if (result.success) {
+          showToast.success(`${action.name} completed`, {
+            description: result.output?.substring(0, 200),
+          });
+        } else {
+          showToast.error(`${action.name} failed`, {
+            description: result.error || result.output,
+          });
+        }
+      } catch (error: any) {
+        showToast.error(`${action.name} error`, {
+          description: error?.message || "Unknown error",
+        });
+      } finally {
+        setExecutingActions((prev) => {
+          const next = new Set(prev);
+          next.delete(action.snippetId);
+          return next;
+        });
       }
     };
 
@@ -305,6 +338,72 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                 Server Statistics
               </Text>
             </View>
+
+            {/* Quick Actions Section */}
+            {hostConfig?.quickActions &&
+              hostConfig.quickActions.length > 0 && (
+                <View style={{ marginBottom: 16 }}>
+                  <Text
+                    style={{
+                      color: "#ffffff",
+                      fontSize: 18,
+                      fontWeight: "600",
+                      marginBottom: 12,
+                    }}
+                  >
+                    Quick Actions
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                      gap: 8,
+                    }}
+                  >
+                    {hostConfig.quickActions.map((action) => {
+                      const isExecuting = executingActions.has(
+                        action.snippetId
+                      );
+                      return (
+                        <TouchableOpacity
+                          key={action.snippetId}
+                          onPress={() => handleQuickAction(action)}
+                          disabled={isExecuting}
+                          style={{
+                            backgroundColor: isExecuting
+                              ? "#374151"
+                              : "#22C55E",
+                            paddingHorizontal: 16,
+                            paddingVertical: 10,
+                            borderRadius: RADIUS.BUTTON,
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 8,
+                            opacity: isExecuting ? 0.6 : 1,
+                          }}
+                          activeOpacity={0.7}
+                        >
+                          {isExecuting && (
+                            <ActivityIndicator
+                              size="small"
+                              color="#ffffff"
+                            />
+                          )}
+                          <Text
+                            style={{
+                              color: "#ffffff",
+                              fontSize: 14,
+                              fontWeight: "600",
+                            }}
+                          >
+                            {action.name}
+                          </Text>
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </View>
+                </View>
+              )}
 
             <View
               style={{

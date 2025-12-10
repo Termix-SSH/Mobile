@@ -11,7 +11,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { RefreshCw } from "lucide-react-native";
-import Folder from "@/app/Tabs/Hosts/Navigation/Folder";
+import Folder from "@/app/tabs/hosts/navigation/Folder";
 import {
   getSSHHosts,
   getFoldersWithStats,

@@ -16,10 +16,14 @@ import {
   TextInput,
 } from "react-native";
 import { WebView } from "react-native-webview";
-import { getCurrentServerUrl, getCookie, logActivity } from "../../main-axios";
-import { showToast } from "../../utils/toast";
-import { useTerminalCustomization } from "../../contexts/TerminalCustomizationContext";
-import { BACKGROUNDS, BORDER_COLORS } from "../../constants/designTokens";
+import { getCurrentServerUrl, getCookie, logActivity, getSnippets } from "../../../main-axios";
+import { showToast } from "../../../utils/toast";
+import { useTerminalCustomization } from "../../../contexts/TerminalCustomizationContext";
+import { BACKGROUNDS, BORDER_COLORS } from "../../../constants/designTokens";
+import { TOTPDialog, SSHAuthDialog } from "@/app/tabs/dialogs";
+import { TERMINAL_THEMES, TERMINAL_FONTS } from "@/constants/terminal-themes";
+import { MOBILE_DEFAULT_TERMINAL_CONFIG } from "@/constants/terminal-config";
+import type { TerminalConfig } from "@/types";
 
 interface TerminalProps {
   hostConfig: {
@@ -34,10 +38,12 @@ interface TerminalProps {
     keyPassword?: string;
     keyType?: string;
     credentialId?: number;
+    terminalConfig?: Partial<TerminalConfig>;
   };
   isVisible: boolean;
   title?: string;
   onClose?: () => void;
+  onBackgroundColorChange?: (color: string) => void;
 }
 
 export type TerminalHandle = {
@@ -46,7 +52,7 @@ export type TerminalHandle = {
 };
 
 const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
-  ({ hostConfig, isVisible, title = "Terminal", onClose }, ref) => {
+  ({ hostConfig, isVisible, title = "Terminal", onClose, onBackgroundColorChange }, ref) => {
     const webViewRef = useRef<WebView>(null);
     const { config } = useTerminalCustomization();
     const [webViewKey, setWebViewKey] = useState(0);
@@ -61,9 +67,19 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     const [showConnectingOverlay, setShowConnectingOverlay] = useState(true);
     const [htmlContent, setHtmlContent] = useState("");
     const [currentHostId, setCurrentHostId] = useState<number | null>(null);
+    const [terminalBackgroundColor, setTerminalBackgroundColor] = useState("#09090b");
     const connectionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
       null,
     );
+
+    // TOTP and Auth dialog state
+    const [totpRequired, setTotpRequired] = useState(false);
+    const [totpPrompt, setTotpPrompt] = useState("");
+    const [isPasswordPrompt, setIsPasswordPrompt] = useState(false);
+    const [showAuthDialog, setShowAuthDialog] = useState(false);
+    const [authDialogReason, setAuthDialogReason] = useState<
+      "no_keyboard" | "auth_failed" | "timeout"
+    >("auth_failed");
 
     useEffect(() => {
       const subscription = Dimensions.addEventListener(
@@ -133,11 +149,37 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 </html>`;
       }
 
-      const baseFontSize = config.fontSize;
+      // Merge terminal config (host config > global config > defaults)
+      const terminalConfig: Partial<TerminalConfig> = {
+        ...MOBILE_DEFAULT_TERMINAL_CONFIG,
+        ...config,
+        ...hostConfig.terminalConfig,
+      };
+
+      // Use user's custom fontSize from context, not from API
+      const baseFontSize = config.fontSize || 16;
       const charWidth = baseFontSize * 0.6;
       const lineHeight = baseFontSize * 1.2;
       const terminalWidth = Math.floor(width / charWidth);
       const terminalHeight = Math.floor(height / lineHeight);
+
+      // Get theme colors
+      const themeName = terminalConfig.theme || "termix";
+      const themeColors = TERMINAL_THEMES[themeName]?.colors || TERMINAL_THEMES.termix.colors;
+
+      // Update background color state and notify parent
+      const bgColor = themeColors.background;
+      setTerminalBackgroundColor(bgColor);
+      if (onBackgroundColorChange) {
+        onBackgroundColorChange(bgColor);
+      }
+
+      // Get font family
+      const fontConfig = TERMINAL_FONTS.find(
+        (f) => f.value === terminalConfig.fontFamily
+      );
+      const fontFamily =
+        fontConfig?.fallback || TERMINAL_FONTS[0].fallback;
 
       return `
 <!DOCTYPE html>
@@ -185,8 +227,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     body {
       margin: 0;
       padding: 0;
-      background-color: #09090b;
-      font-family: 'Caskaydia Cove Nerd Font Mono', 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      background-color: ${themeColors.background};
+      font-family: ${fontFamily};
       overflow: hidden;
       width: 100vw;
       height: 100vh;
@@ -273,18 +315,38 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     const screenHeight = ${height};
 
     const baseFontSize = ${baseFontSize};
-    
+
     const terminal = new Terminal({
-      cursorBlink: false,
-      cursorStyle: 'bar',
-      scrollback: 10000,
+      cursorBlink: ${terminalConfig.cursorBlink || false},
+      cursorStyle: '${terminalConfig.cursorStyle || "bar"}',
+      scrollback: ${terminalConfig.scrollback || 10000},
       fontSize: baseFontSize,
-      fontFamily: '"Caskaydia Cove Nerd Font Mono", "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+      fontFamily: ${JSON.stringify(fontFamily)},
+      letterSpacing: ${terminalConfig.letterSpacing || 0},
+      lineHeight: ${terminalConfig.lineHeight || 1.2},
       theme: {
-        background: '#09090b',
-        foreground: '#f7f7f7',
-        cursor: '#f7f7f7',
-        selection: 'rgba(255, 255, 255, 0.3)'
+        background: '${themeColors.background}',
+        foreground: '${themeColors.foreground}',
+        cursor: '${themeColors.cursor || themeColors.foreground}',
+        cursorAccent: '${themeColors.cursorAccent || themeColors.background}',
+        selectionBackground: '${themeColors.selectionBackground || "rgba(255, 255, 255, 0.3)"}',
+        selectionForeground: '${themeColors.selectionForeground || ""}',
+        black: '${themeColors.black}',
+        red: '${themeColors.red}',
+        green: '${themeColors.green}',
+        yellow: '${themeColors.yellow}',
+        blue: '${themeColors.blue}',
+        magenta: '${themeColors.magenta}',
+        cyan: '${themeColors.cyan}',
+        white: '${themeColors.white}',
+        brightBlack: '${themeColors.brightBlack}',
+        brightRed: '${themeColors.brightRed}',
+        brightGreen: '${themeColors.brightGreen}',
+        brightYellow: '${themeColors.brightYellow}',
+        brightBlue: '${themeColors.brightBlue}',
+        brightMagenta: '${themeColors.brightMagenta}',
+        brightCyan: '${themeColors.brightCyan}',
+        brightWhite: '${themeColors.brightWhite}'
       },
       allowTransparency: true,
       convertEol: true,
@@ -296,7 +358,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       fastScrollSensitivity: 5,
       allowProposedApi: true,
       disableStdin: true,
-      cursorInactiveStyle: 'bar'
+      cursorInactiveStyle: '${terminalConfig.cursorStyle || "bar"}'
     });
 
     const fitAddon = new FitAddon.FitAddon();
@@ -433,10 +495,28 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         ws.onmessage = function(event) {
           try {
             const msg = JSON.parse(event.data);
-            
+
             if (msg.type === 'data') {
               terminal.write(msg.data);
               notifyConnectionState('dataReceived', { hostName: hostConfig.name });
+            } else if (msg.type === 'totp_required') {
+              notifyConnectionState('totpRequired', {
+                prompt: msg.prompt || 'Verification code:',
+                isPassword: false
+              });
+            } else if (msg.type === 'password_required') {
+              notifyConnectionState('totpRequired', {
+                prompt: msg.prompt || 'Password:',
+                isPassword: true
+              });
+            } else if (msg.type === 'keyboard_interactive_available') {
+              notifyConnectionState('authDialogNeeded', {
+                reason: 'no_keyboard'
+              });
+            } else if (msg.type === 'auth_method_not_available') {
+              notifyConnectionState('authDialogNeeded', {
+                reason: 'no_keyboard'
+              });
             } else if (msg.type === 'error') {
               const message = msg.message || 'Unknown error';
               if (isUnrecoverableError(message)) {
@@ -446,6 +526,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 return;
               }
             } else if (msg.type === 'connected') {
+              // Post-connection setup: inject env vars and startup snippet
+              notifyConnectionState('setupPostConnection', {});
             } else if (msg.type === 'disconnected') {
               notifyConnectionState('disconnected', { hostName: hostConfig.name });
             } else if (msg.type === 'pong') {
@@ -558,6 +640,102 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const handleTotpSubmit = useCallback((code: string) => {
+      webViewRef.current?.injectJavaScript(`
+        if (window.ws && window.ws.readyState === WebSocket.OPEN) {
+          window.ws.send(JSON.stringify({
+            type: '${isPasswordPrompt ? "password_response" : "totp_response"}',
+            data: { code: '${code.replace(/'/g, "\\'")}' }
+          }));
+        }
+        true;
+      `);
+      setTotpRequired(false);
+      setTotpPrompt("");
+      setIsPasswordPrompt(false);
+    }, [isPasswordPrompt]);
+
+    const handleAuthDialogSubmit = useCallback((credentials: {
+      password?: string;
+      sshKey?: string;
+      keyPassword?: string;
+    }) => {
+      const password = credentials.password?.replace(/'/g, "\\'") || "";
+      const sshKey = credentials.sshKey?.replace(/'/g, "\\'") || "";
+      const keyPassword = credentials.keyPassword?.replace(/'/g, "\\'") || "";
+
+      webViewRef.current?.injectJavaScript(`
+        if (window.ws && window.ws.readyState === WebSocket.OPEN) {
+          window.ws.send(JSON.stringify({
+            type: 'reconnect_with_credentials',
+            data: {
+              password: ${credentials.password ? `'${password}'` : "undefined"},
+              sshKey: ${credentials.sshKey ? `'${sshKey}'` : "undefined"},
+              keyPassword: ${credentials.keyPassword ? `'${keyPassword}'` : "undefined"}
+            }
+          }));
+        }
+        true;
+      `);
+      setShowAuthDialog(false);
+      setIsConnecting(true);
+    }, []);
+
+    const handlePostConnectionSetup = useCallback(async () => {
+      const terminalConfig: Partial<TerminalConfig> = {
+        ...MOBILE_DEFAULT_TERMINAL_CONFIG,
+        ...config,
+        ...hostConfig.terminalConfig,
+      };
+
+      // Wait for terminal to be ready
+      setTimeout(async () => {
+        // Inject environment variables
+        if (terminalConfig.environmentVariables?.length) {
+          terminalConfig.environmentVariables.forEach((envVar, index) => {
+            setTimeout(() => {
+              const key = envVar.key.replace(/'/g, "\\'");
+              const value = envVar.value.replace(/'/g, "\\'");
+              webViewRef.current?.injectJavaScript(`
+                if (window.ws && window.ws.readyState === WebSocket.OPEN) {
+                  window.ws.send(JSON.stringify({
+                    type: 'input',
+                    data: 'export ${key}="${value}"\\n'
+                  }));
+                }
+                true;
+              `);
+            }, 100 * (index + 1));
+          });
+        }
+
+        // Execute startup snippet
+        if (terminalConfig.startupSnippetId) {
+          const snippetDelay = 100 * (terminalConfig.environmentVariables?.length || 0) + 200;
+          setTimeout(async () => {
+            try {
+              const snippets = await getSnippets();
+              const snippet = snippets.find(s => s.id === terminalConfig.startupSnippetId);
+              if (snippet) {
+                const content = snippet.content.replace(/'/g, "\\'");
+                webViewRef.current?.injectJavaScript(`
+                  if (window.ws && window.ws.readyState === WebSocket.OPEN) {
+                    window.ws.send(JSON.stringify({
+                      type: 'input',
+                      data: '${content}\\n'
+                    }));
+                  }
+                  true;
+                `);
+              }
+            } catch (err) {
+              console.warn("Failed to execute startup snippet:", err);
+            }
+          }, snippetDelay);
+        }
+      }, 500);
+    }, [config, hostConfig.terminalConfig]);
+
     const handleWebViewMessage = useCallback(
       (event: any) => {
         try {
@@ -587,6 +765,22 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               );
               break;
 
+            case "totpRequired":
+              setTotpPrompt(message.data.prompt);
+              setIsPasswordPrompt(message.data.isPassword);
+              setTotpRequired(true);
+              break;
+
+            case "authDialogNeeded":
+              setAuthDialogReason(message.data.reason);
+              setShowAuthDialog(true);
+              setIsConnecting(false);
+              break;
+
+            case "setupPostConnection":
+              handlePostConnectionSetup();
+              break;
+
             case "dataReceived":
               setHasReceivedData(true);
               setShowConnectingOverlay(false);
@@ -612,7 +806,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           }
         } catch (error) {}
       },
-      [handleConnectionFailure, onClose, hostConfig.id],
+      [handleConnectionFailure, onClose, hostConfig.id, handlePostConnectionSetup],
     );
 
     useImperativeHandle(
@@ -677,6 +871,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           left: isVisible ? 0 : 0,
           right: isVisible ? 0 : 0,
           bottom: isVisible ? 0 : 0,
+          backgroundColor: terminalBackgroundColor,
         }}
       >
         <View
@@ -687,9 +882,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             opacity: isVisible ? 1 : 0,
             position: "relative",
             zIndex: isVisible ? 1 : -1,
+            backgroundColor: terminalBackgroundColor,
           }}
         >
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, backgroundColor: terminalBackgroundColor }}>
             {/* Note: Hidden TextInput removed - keyboard handled by Sessions.tsx */}
             <WebView
               key={`terminal-${hostConfig.id}-${webViewKey}`}
@@ -699,7 +895,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 flex: 1,
                 width: "100%",
                 height: "100%",
-                backgroundColor: "#09090b",
+                backgroundColor: terminalBackgroundColor,
                 opacity: showConnectingOverlay || isRetrying ? 0 : 1,
               }}
               javaScriptEnabled={true}
@@ -742,7 +938,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 bottom: 0,
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: BACKGROUNDS.DARKEST,
+                backgroundColor: terminalBackgroundColor,
                 padding: 20,
               }}
             >
@@ -807,6 +1003,37 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             </View>
           )}
         </View>
+
+        {/* TOTP Dialog */}
+        <TOTPDialog
+          visible={totpRequired}
+          onSubmit={handleTotpSubmit}
+          onCancel={() => {
+            setTotpRequired(false);
+            setTotpPrompt("");
+            setIsPasswordPrompt(false);
+            if (onClose) onClose();
+          }}
+          prompt={totpPrompt}
+          isPasswordPrompt={isPasswordPrompt}
+        />
+
+        {/* SSH Auth Dialog */}
+        <SSHAuthDialog
+          visible={showAuthDialog}
+          onSubmit={handleAuthDialogSubmit}
+          onCancel={() => {
+            setShowAuthDialog(false);
+            if (onClose) onClose();
+          }}
+          hostInfo={{
+            name: hostConfig.name,
+            ip: hostConfig.ip,
+            port: hostConfig.port,
+            username: hostConfig.username,
+          }}
+          reason={authDialogReason}
+        />
       </View>
     );
   },
