@@ -740,6 +740,24 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             }
           }, snippetDelay);
         }
+
+        if (terminalConfig.autoMosh && terminalConfig.moshCommand) {
+          const moshDelay =
+            100 * (terminalConfig.environmentVariables?.length || 0) +
+            (terminalConfig.startupSnippetId ? 400 : 200);
+          setTimeout(() => {
+            const moshCommand = terminalConfig.moshCommand!.replace(/'/g, "\\'");
+            webViewRef.current?.injectJavaScript(`
+              if (window.ws && window.ws.readyState === WebSocket.OPEN) {
+                window.ws.send(JSON.stringify({
+                  type: 'input',
+                  data: '${moshCommand}\\n'
+                }));
+              }
+              true;
+            `);
+          }, moshDelay);
+        }
       }, 500);
     }, [config, hostConfig.terminalConfig]);
 
