@@ -1,8 +1,13 @@
-import React from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
-import { Cpu } from 'lucide-react-native';
-import { ServerMetrics } from '@/types';
-import { BORDERS, BORDER_COLORS, RADIUS, BACKGROUNDS } from '@/app/constants/designTokens';
+import React from "react";
+import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { Cpu } from "lucide-react-native";
+import { ServerMetrics } from "@/types";
+import {
+  BORDERS,
+  BORDER_COLORS,
+  RADIUS,
+  BACKGROUNDS,
+} from "@/app/constants/designTokens";
 
 interface WidgetProps {
   metrics: ServerMetrics | null;
@@ -32,11 +37,11 @@ export const CpuWidget: React.FC<WidgetProps> = ({ metrics, isLoading }) => {
       </View>
 
       <View style={styles.metricRow}>
-        <Text style={[styles.value, { color: '#60A5FA' }]}>
-          {cpuPercent !== null ? `${cpuPercent.toFixed(1)}%` : 'N/A'}
+        <Text style={[styles.value, { color: "#60A5FA" }]}>
+          {cpuPercent !== null ? `${cpuPercent.toFixed(1)}%` : "N/A"}
         </Text>
         <Text style={styles.subtitle}>
-          {cores !== null ? `${cores} cores` : 'N/A'}
+          {cores !== null ? `${cores} cores` : "N/A"}
         </Text>
       </View>
 
@@ -69,17 +74,17 @@ export const CpuWidget: React.FC<WidgetProps> = ({ metrics, isLoading }) => {
 const styles = StyleSheet.create({
   widgetCard: {
     padding: 16,
-    position: 'relative',
+    position: "relative",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 12,
   },
   title: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     marginLeft: 8,
   },
   metricRow: {
@@ -87,40 +92,40 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 32,
-    fontWeight: '700',
+    fontWeight: "700",
     marginBottom: 4,
   },
   subtitle: {
-    color: '#9CA3AF',
+    color: "#9CA3AF",
     fontSize: 14,
   },
   loadRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginTop: 8,
   },
   loadItem: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   loadValue: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   loadLabel: {
-    color: '#9CA3AF',
+    color: "#9CA3AF",
     fontSize: 12,
     marginTop: 2,
   },
   loadingOverlay: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 12,
   },
 });

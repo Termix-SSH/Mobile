@@ -20,7 +20,10 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
-import { Terminal, TerminalHandle } from "@/app/tabs/sessions/terminal/Terminal";
+import {
+  Terminal,
+  TerminalHandle,
+} from "@/app/tabs/sessions/terminal/Terminal";
 import {
   ServerStats,
   ServerStatsHandle,
@@ -84,7 +87,9 @@ export default function Sessions() {
   );
   const [keyboardType, setKeyboardType] = useState<any>("default");
   const lastBlurTimeRef = useRef<number>(0);
-  const [terminalBackgroundColors, setTerminalBackgroundColors] = useState<Record<string, string>>({});
+  const [terminalBackgroundColors, setTerminalBackgroundColors] = useState<
+    Record<string, string>
+  >({});
 
   const maxKeyboardHeight = getMaxKeyboardHeight(height, isLandscape);
   const effectiveKeyboardHeight = isLandscape
@@ -376,9 +381,10 @@ export default function Sessions() {
     (session) => session.id === activeSessionId,
   );
 
-  const activeTerminalBgColor = activeSession?.type === "terminal" && activeSessionId
-    ? terminalBackgroundColors[activeSessionId] || BACKGROUNDS.DARKEST
-    : BACKGROUNDS.DARKEST;
+  const activeTerminalBgColor =
+    activeSession?.type === "terminal" && activeSessionId
+      ? terminalBackgroundColors[activeSessionId] || BACKGROUNDS.DARKEST
+      : BACKGROUNDS.DARKEST;
 
   return (
     <View
@@ -440,6 +446,7 @@ export default function Sessions() {
                 hostConfig={{
                   id: parseInt(session.host.id.toString()),
                   name: session.host.name,
+                  quickActions: session.host.quickActions,
                 }}
                 isVisible={session.id === activeSessionId}
                 title={session.title}
@@ -654,6 +661,7 @@ export default function Sessions() {
               left: 0,
               right: 0,
               zIndex: 1002,
+              backgroundColor: BACKGROUNDS.DARKEST,
             }}
           >
             <BottomToolbar
@@ -763,10 +771,17 @@ export default function Sessions() {
               setKeyboardIntentionallyHidden(false);
             }}
             onBlur={() => {
+              const activeRef = activeSessionId
+                ? terminalRefs.current[activeSessionId]
+                : null;
+              const isDialogOpen =
+                activeRef?.current?.isDialogOpen?.() || false;
+
               if (
                 !keyboardIntentionallyHiddenRef.current &&
                 !isCustomKeyboardVisible &&
-                activeSession?.type === "terminal"
+                activeSession?.type === "terminal" &&
+                !isDialogOpen
               ) {
                 requestAnimationFrame(() => {
                   hiddenInputRef.current?.focus();

@@ -37,8 +37,6 @@ import { Platform } from "react-native";
 
 const platform = Platform;
 
-// All types are now imported from ../types/index.ts
-
 // ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
@@ -1046,6 +1044,8 @@ export async function connectSSH(
     credentialId?: number;
     userId?: string;
     forceKeyboardInteractive?: boolean;
+    overrideCredentialUsername?: boolean;
+    jumpHosts?: { hostId: number }[];
   },
 ): Promise<any> {
   try {

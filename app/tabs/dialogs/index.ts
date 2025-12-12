@@ -1,2 +1,2 @@
-export { TOTPDialog } from './TOTPDialog';
-export { SSHAuthDialog } from './SSHAuthDialog';
+export { TOTPDialog } from "./TOTPDialog";
+export { SSHAuthDialog } from "./SSHAuthDialog";

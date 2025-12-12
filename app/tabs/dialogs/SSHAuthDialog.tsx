@@ -1,6 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
-import { BORDERS, BORDER_COLORS, RADIUS } from '@/app/constants/designTokens';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Modal,
+  ScrollView,
+  Platform,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+} from "react-native";
+import {
+  BORDERS,
+  BORDER_COLORS,
+  RADIUS,
+  BACKGROUNDS,
+} from "@/app/constants/designTokens";
+import { useOrientation } from "@/app/utils/orientation";
+import { getResponsivePadding } from "@/app/utils/responsive";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface SSHAuthDialogProps {
   visible: boolean;
@@ -16,200 +40,299 @@ interface SSHAuthDialogProps {
     port: number;
     username: string;
   };
-  reason: 'no_keyboard' | 'auth_failed' | 'timeout';
+  reason: "no_keyboard" | "auth_failed" | "timeout";
 }
 
-export const SSHAuthDialog: React.FC<SSHAuthDialogProps> = ({
+const SSHAuthDialogComponent: React.FC<SSHAuthDialogProps> = ({
   visible,
   onSubmit,
   onCancel,
   hostInfo,
   reason,
 }) => {
-  const [authMethod, setAuthMethod] = useState<'password' | 'key'>('password');
-  const [password, setPassword] = useState('');
-  const [sshKey, setSshKey] = useState('');
-  const [keyPassword, setKeyPassword] = useState('');
+  const [authMethod, setAuthMethod] = useState<"password" | "key">("password");
+  const [password, setPassword] = useState("");
+  const [sshKey, setSshKey] = useState("");
+  const [keyPassword, setKeyPassword] = useState("");
+  const { isLandscape } = useOrientation();
+  const insets = useSafeAreaInsets();
+  const padding = getResponsivePadding(isLandscape);
+  const passwordInputRef = useRef<TextInput>(null);
+  const sshKeyInputRef = useRef<TextInput>(null);
 
-  // Clear inputs when dialog closes
   useEffect(() => {
     if (!visible) {
-      setPassword('');
-      setSshKey('');
-      setKeyPassword('');
-      setAuthMethod('password');
+      setPassword("");
+      setSshKey("");
+      setKeyPassword("");
+      setAuthMethod("password");
     }
   }, [visible]);
 
-  const getReasonMessage = () => {
-    switch (reason) {
-      case 'no_keyboard':
-        return 'Keyboard-interactive authentication is not supported on mobile. Please provide credentials directly.';
-      case 'auth_failed':
-        return 'Authentication failed. Please re-enter your credentials.';
-      case 'timeout':
-        return 'Connection timed out. Please try again with your credentials.';
-      default:
-        return 'Please provide your credentials to connect.';
+  useEffect(() => {
+    if (visible) {
+      const timer = setTimeout(() => {
+        if (authMethod === "password") {
+          passwordInputRef.current?.focus();
+        } else {
+          sshKeyInputRef.current?.focus();
+        }
+      }, 300);
+      return () => clearTimeout(timer);
     }
-  };
+  }, [visible, authMethod]);
 
-  const handleSubmit = () => {
-    if (authMethod === 'password' && password.trim()) {
+  const getReasonMessage = useCallback(() => {
+    switch (reason) {
+      case "no_keyboard":
+        return "Keyboard-interactive authentication is not supported on mobile. Please provide credentials directly.";
+      case "auth_failed":
+        return "Authentication failed. Please re-enter your credentials.";
+      case "timeout":
+        return "Connection timed out. Please try again with your credentials.";
+      default:
+        return "Please provide your credentials to connect.";
+    }
+  }, [reason]);
+
+  const handleSubmit = useCallback(() => {
+    if (authMethod === "password" && password.trim()) {
       onSubmit({ password });
-      setPassword('');
-    } else if (authMethod === 'key' && sshKey.trim()) {
+      setPassword("");
+    } else if (authMethod === "key" && sshKey.trim()) {
       onSubmit({
         sshKey,
         keyPassword: keyPassword.trim() || undefined,
       });
-      setSshKey('');
-      setKeyPassword('');
+      setSshKey("");
+      setKeyPassword("");
     }
-  };
+  }, [authMethod, password, sshKey, keyPassword, onSubmit]);
 
-  const handleCancel = () => {
-    setPassword('');
-    setSshKey('');
-    setKeyPassword('');
+  const handleCancel = useCallback(() => {
+    setPassword("");
+    setSshKey("");
+    setKeyPassword("");
     onCancel();
-  };
+  }, [onCancel]);
 
-  const isValid = authMethod === 'password' ? password.trim() : sshKey.trim();
+  const handleSetAuthMethod = useCallback((method: "password" | "key") => {
+    setAuthMethod(method);
+  }, []);
+
+  const isValid = useMemo(
+    () =>
+      authMethod === "password"
+        ? password.trim().length > 0
+        : sshKey.trim().length > 0,
+    [authMethod, password, sshKey],
+  );
 
   return (
-    <Modal visible={visible} transparent animationType="fade">
-      <View className="flex-1 bg-black/50 items-center justify-center p-4">
+    <Modal
+      visible={visible}
+      animationType="fade"
+      supportedOrientations={["portrait", "landscape"]}
+      presentationStyle="overFullScreen"
+      statusBarTranslucent
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1, backgroundColor: BACKGROUNDS.DARK }}
+      >
         <ScrollView
+          style={{ flex: 1 }}
           contentContainerStyle={{
-            flexGrow: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
+            paddingTop: insets.top + padding,
+            paddingBottom: insets.bottom + padding,
+            paddingHorizontal: padding,
           }}
           keyboardShouldPersistTaps="handled"
+          scrollEnabled={true}
         >
           <View
-            className="bg-dark-bg-button p-6 w-full max-w-md"
             style={{
+              backgroundColor: "#1f1f23",
+              padding: 24,
               borderWidth: BORDERS.MAJOR,
               borderColor: BORDER_COLORS.PRIMARY,
               borderRadius: RADIUS.LARGE,
+              maxWidth: isLandscape ? 600 : "100%",
+              width: "100%",
+              alignSelf: "center",
             }}
           >
-            <Text className="text-white text-lg font-semibold mb-2">
+            <Text
+              style={{
+                color: "#ffffff",
+                fontSize: 20,
+                fontWeight: "bold",
+                marginBottom: 16,
+              }}
+            >
               SSH Authentication Required
             </Text>
 
-            {/* Host Info */}
-            <View className="mb-4 p-3 bg-dark-bg-darker rounded">
-              <Text className="text-gray-400 text-sm">
-                {hostInfo.name && (
-                  <Text className="text-white font-medium">{hostInfo.name}</Text>
-                )}
-                {hostInfo.name && '\n'}
-                <Text className="text-gray-400">
-                  {hostInfo.username}@{hostInfo.ip}:{hostInfo.port}
-                </Text>
-              </Text>
-            </View>
-
-            {/* Reason Message */}
-            <View className="mb-4 p-3 bg-yellow-900/20 rounded">
-              <Text className="text-yellow-200 text-sm">
+            <View
+              style={{
+                marginBottom: 24,
+                padding: 16,
+                backgroundColor: "rgba(113, 63, 18, 0.2)",
+                borderRadius: 8,
+                borderWidth: 1,
+                borderColor: "#ca8a04",
+              }}
+            >
+              <Text style={{ color: "#fef08a", fontSize: 14, lineHeight: 20 }}>
                 {getReasonMessage()}
               </Text>
             </View>
 
-            {/* Auth Method Selector */}
-            <View className="flex-row gap-2 mb-4">
+            <View style={{ flexDirection: "row", gap: 12, marginBottom: 24 }}>
               <TouchableOpacity
-                onPress={() => setAuthMethod('password')}
-                className={`flex-1 py-2 ${
-                  authMethod === 'password' ? 'bg-blue-500' : 'bg-dark-bg-darker'
-                }`}
+                onPress={() => handleSetAuthMethod("password")}
                 style={{
+                  flex: 1,
+                  paddingVertical: 12,
+                  backgroundColor:
+                    authMethod === "password" ? "#16a34a" : "#1a1a1a",
                   borderWidth: BORDERS.STANDARD,
-                  borderColor: authMethod === 'password' ? '#2563EB' : BORDER_COLORS.BUTTON,
+                  borderColor:
+                    authMethod === "password"
+                      ? "#16a34a"
+                      : BORDER_COLORS.BUTTON,
                   borderRadius: RADIUS.BUTTON,
                 }}
                 activeOpacity={0.7}
               >
-                <Text className="text-white text-center font-medium">
+                <Text
+                  style={{
+                    color: "#ffffff",
+                    textAlign: "center",
+                    fontWeight: "600",
+                  }}
+                >
                   Password
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => setAuthMethod('key')}
-                className={`flex-1 py-2 ${
-                  authMethod === 'key' ? 'bg-blue-500' : 'bg-dark-bg-darker'
-                }`}
+                onPress={() => handleSetAuthMethod("key")}
                 style={{
+                  flex: 1,
+                  paddingVertical: 12,
+                  backgroundColor: authMethod === "key" ? "#16a34a" : "#1a1a1a",
                   borderWidth: BORDERS.STANDARD,
-                  borderColor: authMethod === 'key' ? '#2563EB' : BORDER_COLORS.BUTTON,
+                  borderColor:
+                    authMethod === "key" ? "#16a34a" : BORDER_COLORS.BUTTON,
                   borderRadius: RADIUS.BUTTON,
                 }}
                 activeOpacity={0.7}
               >
-                <Text className="text-white text-center font-medium">
+                <Text
+                  style={{
+                    color: "#ffffff",
+                    textAlign: "center",
+                    fontWeight: "600",
+                  }}
+                >
                   SSH Key
                 </Text>
               </TouchableOpacity>
             </View>
 
-            {/* Password Input */}
-            {authMethod === 'password' && (
-              <View className="mb-4">
-                <Text className="text-gray-300 text-sm mb-2">Password</Text>
-                <TextInput
-                  className="bg-dark-bg-darker px-4 py-3 text-white"
+            {authMethod === "password" && (
+              <View style={{ marginBottom: 24 }}>
+                <Text
                   style={{
+                    color: "#d1d5db",
+                    fontSize: 14,
+                    fontWeight: "500",
+                    marginBottom: 8,
+                  }}
+                >
+                  Password
+                </Text>
+                <TextInput
+                  ref={passwordInputRef}
+                  style={{
+                    backgroundColor: "#1a1a1a",
                     borderWidth: BORDERS.STANDARD,
                     borderColor: BORDER_COLORS.BUTTON,
                     borderRadius: RADIUS.BUTTON,
+                    paddingHorizontal: 16,
+                    paddingVertical: 12,
+                    fontSize: 16,
+                    color: "#ffffff",
                   }}
                   value={password}
                   onChangeText={setPassword}
                   placeholder="Enter password"
                   placeholderTextColor="#6B7280"
                   secureTextEntry
-                  autoFocus
+                  autoFocus={false}
                   onSubmitEditing={handleSubmit}
                 />
               </View>
             )}
 
-            {/* SSH Key Inputs */}
-            {authMethod === 'key' && (
+            {authMethod === "key" && (
               <>
-                <View className="mb-4">
-                  <Text className="text-gray-300 text-sm mb-2">Private SSH Key</Text>
-                  <TextInput
-                    className="bg-dark-bg-darker px-4 py-3 text-white"
+                <View style={{ marginBottom: 16 }}>
+                  <Text
                     style={{
+                      color: "#d1d5db",
+                      fontSize: 14,
+                      fontWeight: "500",
+                      marginBottom: 8,
+                    }}
+                  >
+                    Private SSH Key
+                  </Text>
+                  <TextInput
+                    ref={sshKeyInputRef}
+                    style={{
+                      backgroundColor: "#1a1a1a",
                       borderWidth: BORDERS.STANDARD,
                       borderColor: BORDER_COLORS.BUTTON,
                       borderRadius: RADIUS.BUTTON,
-                      minHeight: 100,
+                      paddingHorizontal: 16,
+                      paddingVertical: 12,
+                      fontSize: 14,
+                      color: "#ffffff",
+                      minHeight: 120,
+                      fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
+                      textAlignVertical: "top",
                     }}
                     value={sshKey}
                     onChangeText={setSshKey}
-                    placeholder="-----BEGIN OPENSSH PRIVATE KEY-----"
+                    placeholder="-----BEGIN OPENSSH PRIVATE KEY-----&#10;Paste your private key here...&#10;-----END OPENSSH PRIVATE KEY-----"
                     placeholderTextColor="#6B7280"
                     multiline
-                    numberOfLines={4}
-                    autoFocus
+                    numberOfLines={6}
+                    autoFocus={false}
                   />
                 </View>
-                <View className="mb-4">
-                  <Text className="text-gray-300 text-sm mb-2">
+                <View style={{ marginBottom: 24 }}>
+                  <Text
+                    style={{
+                      color: "#d1d5db",
+                      fontSize: 14,
+                      fontWeight: "500",
+                      marginBottom: 8,
+                    }}
+                  >
                     Key Password (optional)
                   </Text>
                   <TextInput
-                    className="bg-dark-bg-darker px-4 py-3 text-white"
                     style={{
+                      backgroundColor: "#1a1a1a",
                       borderWidth: BORDERS.STANDARD,
                       borderColor: BORDER_COLORS.BUTTON,
                       borderRadius: RADIUS.BUTTON,
+                      paddingHorizontal: 16,
+                      paddingVertical: 12,
+                      fontSize: 16,
+                      color: "#ffffff",
                     }}
                     value={keyPassword}
                     onChangeText={setKeyPassword}
@@ -222,42 +345,61 @@ export const SSHAuthDialog: React.FC<SSHAuthDialogProps> = ({
               </>
             )}
 
-            {/* Action Buttons */}
-            <View className="flex-row gap-2">
+            <View style={{ flexDirection: "row", gap: 12 }}>
               <TouchableOpacity
                 onPress={handleCancel}
-                className="flex-1 bg-dark-bg-darker py-3"
                 style={{
+                  flex: 1,
+                  backgroundColor: "#1a1a1a",
+                  paddingVertical: 14,
                   borderWidth: BORDERS.STANDARD,
                   borderColor: BORDER_COLORS.BUTTON,
                   borderRadius: RADIUS.BUTTON,
                 }}
                 activeOpacity={0.7}
               >
-                <Text className="text-white text-center font-medium">
+                <Text
+                  style={{
+                    color: "#ffffff",
+                    textAlign: "center",
+                    fontWeight: "600",
+                    fontSize: 16,
+                  }}
+                >
                   Cancel
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={handleSubmit}
-                className="flex-1 bg-blue-500 py-3"
                 style={{
+                  flex: 1,
+                  paddingVertical: 14,
+                  backgroundColor: isValid ? "#22c55e" : "#374151",
                   borderWidth: BORDERS.STANDARD,
-                  borderColor: '#2563EB',
+                  borderColor: isValid ? "#16a34a" : BORDER_COLORS.BUTTON,
                   borderRadius: RADIUS.BUTTON,
                   opacity: isValid ? 1 : 0.5,
                 }}
                 activeOpacity={0.7}
                 disabled={!isValid}
               >
-                <Text className="text-white text-center font-medium">
+                <Text
+                  style={{
+                    color: "#ffffff",
+                    textAlign: "center",
+                    fontWeight: "600",
+                    fontSize: 16,
+                  }}
+                >
                   Connect
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
+
+export const SSHAuthDialog = React.memo(SSHAuthDialogComponent);

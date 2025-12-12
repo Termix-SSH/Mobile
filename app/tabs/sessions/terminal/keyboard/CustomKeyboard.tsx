@@ -41,7 +41,7 @@ export default function CustomKeyboard({
         sendKey(" ");
         break;
       case "backspace":
-        sendKey("\x08");
+        sendKey("\x7f");
         break;
       case "escape":
         sendKey("\x1b");

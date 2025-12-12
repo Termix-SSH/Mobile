@@ -82,10 +82,13 @@ export const TerminalSessionsProvider: React.FC<
         );
 
         const typeLabel =
-          type === "stats" ? "Stats"
-          : type === "filemanager" ? "Files"
-          : type === "tunnel" ? "Tunnels"
-          : "";
+          type === "stats"
+            ? "Stats"
+            : type === "filemanager"
+              ? "Files"
+              : type === "tunnel"
+                ? "Tunnels"
+                : "";
         let title = typeLabel ? `${host.name} - ${typeLabel}` : host.name;
         if (existingSessions.length > 0) {
           title = typeLabel
@@ -152,8 +155,8 @@ export const TerminalSessionsProvider: React.FC<
                   : session.type === "filemanager"
                     ? "Files"
                     : session.type === "tunnel"
-                    ? "Tunnels"
-                    : "";
+                      ? "Tunnels"
+                      : "";
               const baseName = typeLabel
                 ? `${session.host.name} - ${typeLabel}`
                 : session.host.name;

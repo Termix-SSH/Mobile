@@ -197,6 +197,7 @@ export default function TerminalCustomization() {
           setShowCustomInput(false);
           setCustomFontSize("");
         }}
+        supportedOrientations={["portrait", "landscape"]}
       >
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -265,6 +266,7 @@ export default function TerminalCustomization() {
         transparent
         animationType="fade"
         onRequestClose={() => setShowResetConfirm(false)}
+        supportedOrientations={["portrait", "landscape"]}
       >
         <Pressable
           className="flex-1 bg-black/50 justify-center items-center"

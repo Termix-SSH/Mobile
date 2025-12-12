@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Animated,
   Easing,
+  ScrollView,
 } from "react-native";
 import {
   Terminal,
@@ -20,6 +21,7 @@ import {
 import { SSHHost } from "@/types";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import { useEffect, useRef, useState } from "react";
+import { StatsConfig, DEFAULT_STATS_CONFIG } from "@/constants/stats-config";
 
 interface HostProps {
   host: SSHHost;
@@ -33,6 +35,16 @@ function Host({ host, status, isLast = false }: HostProps) {
   const [tagsContainerWidth, setTagsContainerWidth] = useState<number>(0);
   const statusLabel =
     status === "online" ? "UP" : status === "offline" ? "DOWN" : "UNK";
+
+  const parsedStatsConfig: StatsConfig = (() => {
+    try {
+      return host.statsConfig
+        ? JSON.parse(host.statsConfig)
+        : DEFAULT_STATS_CONFIG;
+    } catch {
+      return DEFAULT_STATS_CONFIG;
+    }
+  })();
 
   const getStatusColor = () => {
     switch (status) {
@@ -314,7 +326,10 @@ function Host({ host, status, isLast = false }: HostProps) {
         <TouchableWithoutFeedback onPress={handleCloseContextMenu}>
           <View className="flex-1 bg-black/50 justify-end">
             <TouchableWithoutFeedback onPress={() => {}}>
-              <View className="bg-dark-bg-button rounded-t-2xl border-t-2 border-x-2 border-dark-border px-4 pt-4 pb-6">
+              <View
+                className="bg-dark-bg-button rounded-t-2xl border-t-2 border-x-2 border-dark-border px-4 pt-4 pb-6"
+                style={{ maxHeight: "80%" }}
+              >
                 <View className="flex-row items-center justify-between mb-3">
                   <View className="flex-row items-center">
                     <View
@@ -339,103 +354,108 @@ function Host({ host, status, isLast = false }: HostProps) {
                   </TouchableOpacity>
                 </View>
 
-                <View className="gap-2">
-                  {host.enableTerminal && (
-                    <TouchableOpacity
-                      onPress={handleTerminalPress}
-                      className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
-                      activeOpacity={0.7}
-                    >
-                      <Terminal size={20} color="white" />
-                      <View className="flex-1">
-                        <Text className="text-white font-medium">
-                          Open SSH Terminal
-                        </Text>
-                        <Text
-                          className="text-gray-400 text-xs"
-                          numberOfLines={1}
-                        >
-                          {host.ip}
-                          {host.username ? `  •  ${host.username}` : ""}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  )}
-
-                  <TouchableOpacity
-                    onPress={handleStatsPress}
-                    className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
-                    activeOpacity={0.7}
-                  >
-                    <Activity size={20} color="#FFFFFF" />
-                    <View className="flex-1">
-                      <Text className="text-white font-medium">
-                        View Server Stats
-                      </Text>
-                      <Text className="text-gray-400 text-xs" numberOfLines={1}>
-                        Monitor CPU, memory, and disk usage
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-
-                  {host.enableFileManager && (
-                    <TouchableOpacity
-                      onPress={handleFileManagerPress}
-                      className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
-                      activeOpacity={0.7}
-                    >
-                      <FolderOpen size={20} color="#FFFFFF" />
-                      <View className="flex-1">
-                        <Text className="text-white font-medium">
-                          File Manager
-                        </Text>
-                        <Text
-                          className="text-gray-400 text-xs"
-                          numberOfLines={1}
-                        >
-                          Browse and manage files
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  )}
-
-                  {host.enableTunnel &&
-                    host.tunnelConnections &&
-                    host.tunnelConnections.length > 0 && (
+                <ScrollView showsVerticalScrollIndicator={false}>
+                  <View className="gap-2">
+                    {host.enableTerminal && (
                       <TouchableOpacity
-                        onPress={() => {
-                          navigateToSessions(host, "tunnel");
-                          setShowContextMenu(false);
-                        }}
+                        onPress={handleTerminalPress}
+                        className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
+                        activeOpacity={0.7}
+                      >
+                        <Terminal size={20} color="white" />
+                        <View className="flex-1">
+                          <Text className="text-white font-medium">
+                            Open SSH Terminal
+                          </Text>
+                          <Text
+                            className="text-gray-400 text-xs"
+                            numberOfLines={1}
+                          >
+                            {host.ip}
+                            {host.username ? `  •  ${host.username}` : ""}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
+
+                    {parsedStatsConfig.metricsEnabled && (
+                      <TouchableOpacity
+                        onPress={handleStatsPress}
                         className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
                         activeOpacity={0.7}
                       >
                         <Activity size={20} color="#FFFFFF" />
                         <View className="flex-1">
                           <Text className="text-white font-medium">
-                            Manage Tunnels
+                            View Server Stats
                           </Text>
                           <Text
                             className="text-gray-400 text-xs"
                             numberOfLines={1}
                           >
-                            {host.tunnelConnections.length} tunnel
-                            {host.tunnelConnections.length !== 1 ? "s" : ""}{" "}
-                            configured
+                            Monitor CPU, memory, and disk usage
                           </Text>
                         </View>
                       </TouchableOpacity>
                     )}
 
-                  <TouchableOpacity
-                    className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
-                    onPress={closeContextMenu}
-                    activeOpacity={0.7}
-                  >
-                    <X size={20} color="white" />
-                    <Text className="text-white font-medium">Close</Text>
-                  </TouchableOpacity>
-                </View>
+                    {host.enableFileManager && (
+                      <TouchableOpacity
+                        onPress={handleFileManagerPress}
+                        className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
+                        activeOpacity={0.7}
+                      >
+                        <FolderOpen size={20} color="#FFFFFF" />
+                        <View className="flex-1">
+                          <Text className="text-white font-medium">
+                            File Manager
+                          </Text>
+                          <Text
+                            className="text-gray-400 text-xs"
+                            numberOfLines={1}
+                          >
+                            Browse and manage files
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
+
+                    {host.enableTunnel &&
+                      host.tunnelConnections &&
+                      host.tunnelConnections.length > 0 && (
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigateToSessions(host, "tunnel");
+                            setShowContextMenu(false);
+                          }}
+                          className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
+                          activeOpacity={0.7}
+                        >
+                          <Activity size={20} color="#FFFFFF" />
+                          <View className="flex-1">
+                            <Text className="text-white font-medium">
+                              Manage Tunnels
+                            </Text>
+                            <Text
+                              className="text-gray-400 text-xs"
+                              numberOfLines={1}
+                            >
+                              Browse and control SSH tunnels
+                            </Text>
+                          </View>
+                        </TouchableOpacity>
+                      )}
+
+                    <TouchableOpacity
+                      className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
+                      onPress={closeContextMenu}
+                      activeOpacity={0.7}
+                    >
+                      <X size={20} color="white" />
+                      <Text className="text-white font-medium">Close</Text>
+                    </TouchableOpacity>
+                  </View>
+                </ScrollView>
               </View>
             </TouchableWithoutFeedback>
           </View>

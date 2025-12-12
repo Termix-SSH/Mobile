@@ -97,17 +97,18 @@ const TunnelCard: React.FC<TunnelCardProps> = ({
   const statusInfo = getStatusInfo();
   const StatusIcon = statusInfo.icon;
 
-  // Determine available actions
   const statusValue = status?.status?.toUpperCase() || "DISCONNECTED";
   const canConnect =
-    !status || statusValue === "DISCONNECTED" || statusValue === "ERROR" || statusValue === "FAILED";
+    !status ||
+    statusValue === "DISCONNECTED" ||
+    statusValue === "ERROR" ||
+    statusValue === "FAILED";
   const canDisconnect = statusValue === "CONNECTED";
   const canCancel =
     statusValue === "CONNECTING" ||
     statusValue === "RETRYING" ||
     statusValue === "WAITING";
 
-  // Format port mapping display
   const portMapping = `${tunnel.sourcePort} → ${tunnel.endpointHost}:${tunnel.endpointPort}`;
 
   return (
@@ -121,7 +122,6 @@ const TunnelCard: React.FC<TunnelCardProps> = ({
         minHeight: 160,
       }}
     >
-      {/* Header: Status Badge */}
       <View
         style={{
           flexDirection: "row",
@@ -166,7 +166,6 @@ const TunnelCard: React.FC<TunnelCardProps> = ({
         </View>
       </View>
 
-      {/* Port Mapping */}
       <View
         style={{
           backgroundColor: BACKGROUNDS.DARKER,
@@ -196,7 +195,6 @@ const TunnelCard: React.FC<TunnelCardProps> = ({
         </Text>
       </View>
 
-      {/* Error Message */}
       {(statusValue === "ERROR" || statusValue === "FAILED") &&
         status?.reason && (
           <View
@@ -221,13 +219,12 @@ const TunnelCard: React.FC<TunnelCardProps> = ({
           </View>
         )}
 
-      {/* Action Buttons */}
       <View style={{ flexDirection: "row", gap: 8, marginTop: "auto" }}>
         {canConnect && (
           <TouchableOpacity
             style={{
               flex: 1,
-              backgroundColor: isLoading ? "#374151" : "#3b82f6",
+              backgroundColor: isLoading ? "#374151" : "#22c55e",
               borderRadius: RADIUS.BUTTON,
               paddingVertical: 10,
               flexDirection: "row",

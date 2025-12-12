@@ -16,7 +16,12 @@ import {
   TextInput,
 } from "react-native";
 import { WebView } from "react-native-webview";
-import { getCurrentServerUrl, getCookie, logActivity, getSnippets } from "../../../main-axios";
+import {
+  getCurrentServerUrl,
+  getCookie,
+  logActivity,
+  getSnippets,
+} from "../../../main-axios";
 import { showToast } from "../../../utils/toast";
 import { useTerminalCustomization } from "../../../contexts/TerminalCustomizationContext";
 import { BACKGROUNDS, BORDER_COLORS } from "../../../constants/designTokens";
@@ -49,10 +54,20 @@ interface TerminalProps {
 export type TerminalHandle = {
   sendInput: (data: string) => void;
   fit: () => void;
+  isDialogOpen: () => boolean;
 };
 
 const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
-  ({ hostConfig, isVisible, title = "Terminal", onClose, onBackgroundColorChange }, ref) => {
+  (
+    {
+      hostConfig,
+      isVisible,
+      title = "Terminal",
+      onClose,
+      onBackgroundColorChange,
+    },
+    ref,
+  ) => {
     const webViewRef = useRef<WebView>(null);
     const { config } = useTerminalCustomization();
     const [webViewKey, setWebViewKey] = useState(0);
@@ -67,12 +82,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     const [showConnectingOverlay, setShowConnectingOverlay] = useState(true);
     const [htmlContent, setHtmlContent] = useState("");
     const [currentHostId, setCurrentHostId] = useState<number | null>(null);
-    const [terminalBackgroundColor, setTerminalBackgroundColor] = useState("#09090b");
+    const [terminalBackgroundColor, setTerminalBackgroundColor] =
+      useState("#09090b");
     const connectionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
       null,
     );
 
-    // TOTP and Auth dialog state
     const [totpRequired, setTotpRequired] = useState(false);
     const [totpPrompt, setTotpPrompt] = useState("");
     const [isPasswordPrompt, setIsPasswordPrompt] = useState(false);
@@ -149,37 +164,32 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 </html>`;
       }
 
-      // Merge terminal config (host config > global config > defaults)
       const terminalConfig: Partial<TerminalConfig> = {
         ...MOBILE_DEFAULT_TERMINAL_CONFIG,
         ...config,
         ...hostConfig.terminalConfig,
       };
 
-      // Use user's custom fontSize from context, not from API
       const baseFontSize = config.fontSize || 16;
       const charWidth = baseFontSize * 0.6;
       const lineHeight = baseFontSize * 1.2;
       const terminalWidth = Math.floor(width / charWidth);
       const terminalHeight = Math.floor(height / lineHeight);
 
-      // Get theme colors
       const themeName = terminalConfig.theme || "termix";
-      const themeColors = TERMINAL_THEMES[themeName]?.colors || TERMINAL_THEMES.termix.colors;
+      const themeColors =
+        TERMINAL_THEMES[themeName]?.colors || TERMINAL_THEMES.termix.colors;
 
-      // Update background color state and notify parent
       const bgColor = themeColors.background;
       setTerminalBackgroundColor(bgColor);
       if (onBackgroundColorChange) {
         onBackgroundColorChange(bgColor);
       }
 
-      // Get font family
       const fontConfig = TERMINAL_FONTS.find(
-        (f) => f.value === terminalConfig.fontFamily
+        (f) => f.value === terminalConfig.fontFamily,
       );
-      const fontFamily =
-        fontConfig?.fallback || TERMINAL_FONTS[0].fallback;
+      const fontFamily = fontConfig?.fallback || TERMINAL_FONTS[0].fallback;
 
       return `
 <!DOCTYPE html>
@@ -192,38 +202,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
   <script src="https://unpkg.com/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/xterm@5.3.0/css/xterm.css" />
   <style>
-    @font-face {
-      font-family: 'Caskaydia Cove Nerd Font Mono';
-      src: url('https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@master/patched-fonts/CascadiaCode/Regular/CaskaydiaCoveNerdFontMono-Regular.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'Caskaydia Cove Nerd Font Mono';
-      src: url('https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@master/patched-fonts/CascadiaCode/Bold/CaskaydiaCoveNerdFontMono-Bold.ttf') format('truetype');
-      font-weight: bold;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'Caskaydia Cove Nerd Font Mono';
-      src: url('https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@master/patched-fonts/CascadiaCode/Italic/CaskaydiaCoveNerdFontMono-Italic.ttf') format('truetype');
-      font-weight: normal;
-      font-style: italic;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'Caskaydia Cove Nerd Font Mono';
-      src: url('https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@master/patched-fonts/CascadiaCode/BoldItalic/CaskaydiaCoveNerdFontMono-BoldItalic.ttf') format('truetype');
-      font-weight: bold;
-      font-style: italic;
-      font-display: swap;
-    }
-
     body {
       margin: 0;
       padding: 0;
@@ -284,7 +262,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       scrollbar-width: thin;
       scrollbar-color: rgba(180,180,180,0.7) transparent;
     }
-    /* Disable text selection and callouts to avoid native dialogues */
     * {
       -webkit-tap-highlight-color: transparent;
       -webkit-touch-callout: none;
@@ -296,7 +273,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       -moz-user-select: none;
     }
 
-    /* Prevent all input elements from being focusable but keep them in DOM */
     input, textarea, [contenteditable], .xterm-helper-textarea {
       position: absolute !important;
       left: -9999px !important;
@@ -470,7 +446,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         
         ws.onopen = function() {
           clearTimeout(connectionTimeout);
-          notifyConnectionState('connected', { hostName: hostConfig.name });
           hasNotifiedFailure = false;
           reconnectAttempts = 0;
 
@@ -526,11 +501,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 return;
               }
             } else if (msg.type === 'connected') {
-              // Post-connection setup: inject env vars and startup snippet
+              notifyConnectionState('connected', { hostName: hostConfig.name });
               notifyConnectionState('setupPostConnection', {});
             } else if (msg.type === 'disconnected') {
               notifyConnectionState('disconnected', { hostName: hostConfig.name });
             } else if (msg.type === 'pong') {
+            } else if (msg.type === 'resized') {
             }
           } catch (error) {
             terminal.write(event.data);
@@ -640,46 +616,74 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleTotpSubmit = useCallback((code: string) => {
-      webViewRef.current?.injectJavaScript(`
-        if (window.ws && window.ws.readyState === WebSocket.OPEN) {
-          window.ws.send(JSON.stringify({
-            type: '${isPasswordPrompt ? "password_response" : "totp_response"}',
-            data: { code: '${code.replace(/'/g, "\\'")}' }
-          }));
-        }
+    const handleTotpSubmit = useCallback(
+      (code: string) => {
+        const responseType = isPasswordPrompt
+          ? "password_response"
+          : "totp_response";
+
+        webViewRef.current?.injectJavaScript(`
+        (function() {
+          if (window.ws && window.ws.readyState === WebSocket.OPEN) {
+            window.ws.send(JSON.stringify({
+              type: '${responseType}',
+              data: { code: ${JSON.stringify(code)} }
+            }));
+          }
+        })();
         true;
       `);
-      setTotpRequired(false);
-      setTotpPrompt("");
-      setIsPasswordPrompt(false);
-    }, [isPasswordPrompt]);
 
-    const handleAuthDialogSubmit = useCallback((credentials: {
-      password?: string;
-      sshKey?: string;
-      keyPassword?: string;
-    }) => {
-      const password = credentials.password?.replace(/'/g, "\\'") || "";
-      const sshKey = credentials.sshKey?.replace(/'/g, "\\'") || "";
-      const keyPassword = credentials.keyPassword?.replace(/'/g, "\\'") || "";
+        setTotpRequired(false);
+        setTotpPrompt("");
+        setIsPasswordPrompt(false);
+        setIsConnecting(true);
+        setShowConnectingOverlay(true);
+      },
+      [isPasswordPrompt],
+    );
 
-      webViewRef.current?.injectJavaScript(`
-        if (window.ws && window.ws.readyState === WebSocket.OPEN) {
-          window.ws.send(JSON.stringify({
-            type: 'reconnect_with_credentials',
-            data: {
-              password: ${credentials.password ? `'${password}'` : "undefined"},
-              sshKey: ${credentials.sshKey ? `'${sshKey}'` : "undefined"},
-              keyPassword: ${credentials.keyPassword ? `'${keyPassword}'` : "undefined"}
-            }
-          }));
-        }
+    const handleAuthDialogSubmit = useCallback(
+      (credentials: {
+        password?: string;
+        sshKey?: string;
+        keyPassword?: string;
+      }) => {
+        const updatedHostConfig = {
+          ...hostConfig,
+          password: credentials.password,
+          key: credentials.sshKey,
+          keyPassword: credentials.keyPassword,
+          authType: credentials.password ? "password" : "key",
+        };
+
+        const messageData = {
+          password: credentials.password,
+          sshKey: credentials.sshKey,
+          keyPassword: credentials.keyPassword,
+          hostConfig: updatedHostConfig,
+        };
+
+        webViewRef.current?.injectJavaScript(`
+        (function() {
+          if (window.ws && window.ws.readyState === WebSocket.OPEN && window.terminal) {
+            const data = ${JSON.stringify(messageData)};
+            data.cols = window.terminal.cols;
+            data.rows = window.terminal.rows;
+            
+            window.ws.send(JSON.stringify({
+              type: 'reconnect_with_credentials',
+              data: data
+            }));
+          }
+        })();
         true;
       `);
-      setShowAuthDialog(false);
-      setIsConnecting(true);
-    }, []);
+        setShowAuthDialog(false);
+        setIsConnecting(true);
+      },
+      [hostConfig],
+    );
 
     const handlePostConnectionSetup = useCallback(async () => {
       const terminalConfig: Partial<TerminalConfig> = {
@@ -688,15 +692,14 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         ...hostConfig.terminalConfig,
       };
 
-      // Wait for terminal to be ready
       setTimeout(async () => {
-        // Inject environment variables
         if (terminalConfig.environmentVariables?.length) {
           terminalConfig.environmentVariables.forEach((envVar, index) => {
-            setTimeout(() => {
-              const key = envVar.key.replace(/'/g, "\\'");
-              const value = envVar.value.replace(/'/g, "\\'");
-              webViewRef.current?.injectJavaScript(`
+            setTimeout(
+              () => {
+                const key = envVar.key.replace(/'/g, "\\'");
+                const value = envVar.value.replace(/'/g, "\\'");
+                webViewRef.current?.injectJavaScript(`
                 if (window.ws && window.ws.readyState === WebSocket.OPEN) {
                   window.ws.send(JSON.stringify({
                     type: 'input',
@@ -705,17 +708,21 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 }
                 true;
               `);
-            }, 100 * (index + 1));
+              },
+              100 * (index + 1),
+            );
           });
         }
 
-        // Execute startup snippet
         if (terminalConfig.startupSnippetId) {
-          const snippetDelay = 100 * (terminalConfig.environmentVariables?.length || 0) + 200;
+          const snippetDelay =
+            100 * (terminalConfig.environmentVariables?.length || 0) + 200;
           setTimeout(async () => {
             try {
               const snippets = await getSnippets();
-              const snippet = snippets.find(s => s.id === terminalConfig.startupSnippetId);
+              const snippet = snippets.find(
+                (s) => s.id === terminalConfig.startupSnippetId,
+              );
               if (snippet) {
                 const content = snippet.content.replace(/'/g, "\\'");
                 webViewRef.current?.injectJavaScript(`
@@ -759,6 +766,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               setIsRetrying(false);
               setIsConnected(true);
               setRetryCount(0);
+              setShowConnectingOverlay(false);
 
               logActivity("terminal", hostConfig.id, hostConfig.name).catch(
                 () => {},
@@ -804,9 +812,16 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               );
               break;
           }
-        } catch (error) {}
+        } catch (error) {
+          console.error("[Terminal] Error parsing WebView message:", error);
+        }
       },
-      [handleConnectionFailure, onClose, hostConfig.id, handlePostConnectionSetup],
+      [
+        handleConnectionFailure,
+        onClose,
+        hostConfig.id,
+        handlePostConnectionSetup,
+      ],
     );
 
     useImperativeHandle(
@@ -827,8 +842,11 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             );
           } catch (e) {}
         },
+        isDialogOpen: () => {
+          return totpRequired || showAuthDialog;
+        },
       }),
-      [],
+      [totpRequired, showAuthDialog],
     );
 
     useEffect(() => {
@@ -885,8 +903,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             backgroundColor: terminalBackgroundColor,
           }}
         >
-          <View style={{ flex: 1, backgroundColor: terminalBackgroundColor }}>
-            {/* Note: Hidden TextInput removed - keyboard handled by Sessions.tsx */}
+          <View
+            style={{ flex: 1, backgroundColor: terminalBackgroundColor }}
+            pointerEvents={totpRequired || showAuthDialog ? "none" : "auto"}
+          >
             <WebView
               key={`terminal-${hostConfig.id}-${webViewKey}`}
               ref={webViewRef}
@@ -1004,7 +1024,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           )}
         </View>
 
-        {/* TOTP Dialog */}
         <TOTPDialog
           visible={totpRequired}
           onSubmit={handleTotpSubmit}
@@ -1018,7 +1037,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           isPasswordPrompt={isPasswordPrompt}
         />
 
-        {/* SSH Auth Dialog */}
         <SSHAuthDialog
           visible={showAuthDialog}
           onSubmit={handleAuthDialogSubmit}

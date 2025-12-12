@@ -125,35 +125,47 @@ export default function KeyboardBar({
   const hasPinnedKeys = pinnedKeys.length > 0;
 
   return (
-    <View
-      style={{
-        backgroundColor: BACKGROUNDS.DARKER,
-        paddingBottom: isKeyboardIntentionallyHidden ? 16 : 0,
-      }}
-    >
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingHorizontal: 8,
-          paddingVertical: isLandscape ? 6 : 8,
-          alignItems: "center",
-          gap: isLandscape ? 4 : 6,
+    <View style={{ position: "relative", marginTop: isLandscape ? -2 : -4 }}>
+      <View
+        style={{
+          backgroundColor: BACKGROUNDS.DARKER,
+          paddingBottom: isKeyboardIntentionallyHidden ? 16 : 0,
         }}
-        keyboardShouldPersistTaps="handled"
       >
-        {hasPinnedKeys && (
-          <>
-            {pinnedKeys.map((key, index) => renderKey(key, index))}
-            <View
-              className="w-px h-[30px] mx-2"
-              style={{ backgroundColor: BORDER_COLORS.SEPARATOR }}
-            />
-          </>
-        )}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingHorizontal: 8,
+            paddingVertical: isLandscape ? 6 : 8,
+            alignItems: "center",
+            gap: isLandscape ? 4 : 6,
+          }}
+          keyboardShouldPersistTaps="handled"
+        >
+          {hasPinnedKeys && (
+            <>
+              {pinnedKeys.map((key, index) => renderKey(key, index))}
+              <View
+                className="w-px h-[30px] mx-2"
+                style={{ backgroundColor: BORDER_COLORS.SEPARATOR }}
+              />
+            </>
+          )}
 
-        {keys.map((key, index) => renderKey(key, index))}
-      </ScrollView>
+          {keys.map((key, index) => renderKey(key, index))}
+        </ScrollView>
+      </View>
+      <View
+        style={{
+          position: "absolute",
+          bottom: -52,
+          left: 0,
+          right: 0,
+          backgroundColor: BACKGROUNDS.DARKER,
+          height: 55,
+        }}
+      />
     </View>
   );
 }

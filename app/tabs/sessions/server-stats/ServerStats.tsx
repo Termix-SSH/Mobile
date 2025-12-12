@@ -63,7 +63,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [executingActions, setExecutingActions] = useState<Set<number>>(
-      new Set()
+      new Set(),
     );
     const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -150,24 +150,18 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
 
     const handleQuickAction = async (action: QuickAction) => {
       setExecutingActions((prev) => new Set(prev).add(action.snippetId));
-      showToast.loading(`Executing ${action.name}...`);
+      showToast.info(`Executing ${action.name}...`);
 
       try {
         const result = await executeSnippet(action.snippetId, hostConfig.id);
 
         if (result.success) {
-          showToast.success(`${action.name} completed`, {
-            description: result.output?.substring(0, 200),
-          });
+          showToast.success(`${action.name} completed successfully`);
         } else {
-          showToast.error(`${action.name} failed`, {
-            description: result.error || result.output,
-          });
+          showToast.error(`${action.name} failed`);
         }
       } catch (error: any) {
-        showToast.error(`${action.name} error`, {
-          description: error?.message || "Unknown error",
-        });
+        showToast.error(error?.message || `Failed to execute ${action.name}`);
       } finally {
         setExecutingActions((prev) => {
           const next = new Set(prev);
@@ -339,71 +333,62 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
               </Text>
             </View>
 
-            {/* Quick Actions Section */}
-            {hostConfig?.quickActions &&
-              hostConfig.quickActions.length > 0 && (
-                <View style={{ marginBottom: 16 }}>
-                  <Text
-                    style={{
-                      color: "#ffffff",
-                      fontSize: 18,
-                      fontWeight: "600",
-                      marginBottom: 12,
-                    }}
-                  >
-                    Quick Actions
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flexWrap: "wrap",
-                      gap: 8,
-                    }}
-                  >
-                    {hostConfig.quickActions.map((action) => {
-                      const isExecuting = executingActions.has(
-                        action.snippetId
-                      );
-                      return (
-                        <TouchableOpacity
-                          key={action.snippetId}
-                          onPress={() => handleQuickAction(action)}
-                          disabled={isExecuting}
+            {hostConfig?.quickActions && hostConfig.quickActions.length > 0 && (
+              <View style={{ marginBottom: 16 }}>
+                <Text
+                  style={{
+                    color: "#ffffff",
+                    fontSize: 18,
+                    fontWeight: "600",
+                    marginBottom: 12,
+                  }}
+                >
+                  Quick Actions
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    gap: 8,
+                  }}
+                >
+                  {hostConfig.quickActions.map((action) => {
+                    const isExecuting = executingActions.has(action.snippetId);
+                    return (
+                      <TouchableOpacity
+                        key={action.snippetId}
+                        onPress={() => handleQuickAction(action)}
+                        disabled={isExecuting}
+                        style={{
+                          backgroundColor: isExecuting ? "#374151" : "#22C55E",
+                          paddingHorizontal: 16,
+                          paddingVertical: 10,
+                          borderRadius: RADIUS.BUTTON,
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 8,
+                          opacity: isExecuting ? 0.6 : 1,
+                        }}
+                        activeOpacity={0.7}
+                      >
+                        {isExecuting && (
+                          <ActivityIndicator size="small" color="#ffffff" />
+                        )}
+                        <Text
                           style={{
-                            backgroundColor: isExecuting
-                              ? "#374151"
-                              : "#22C55E",
-                            paddingHorizontal: 16,
-                            paddingVertical: 10,
-                            borderRadius: RADIUS.BUTTON,
-                            flexDirection: "row",
-                            alignItems: "center",
-                            gap: 8,
-                            opacity: isExecuting ? 0.6 : 1,
+                            color: "#ffffff",
+                            fontSize: 14,
+                            fontWeight: "600",
                           }}
-                          activeOpacity={0.7}
                         >
-                          {isExecuting && (
-                            <ActivityIndicator
-                              size="small"
-                              color="#ffffff"
-                            />
-                          )}
-                          <Text
-                            style={{
-                              color: "#ffffff",
-                              fontSize: 14,
-                              fontWeight: "600",
-                            }}
-                          >
-                            {action.name}
-                          </Text>
-                        </TouchableOpacity>
-                      );
-                    })}
-                  </View>
+                          {action.name}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
                 </View>
-              )}
+              </View>
+            )}
 
             <View
               style={{
@@ -413,101 +398,145 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                 gap: 12,
               }}
             >
-              {renderMetricCard(
-                <Cpu size={20} color="#60A5FA" />,
-                "CPU Usage",
-                typeof metrics?.cpu?.percent === "number"
-                  ? `${metrics.cpu.percent}%`
-                  : "N/A",
-                typeof metrics?.cpu?.cores === "number"
-                  ? `${metrics.cpu.cores} cores`
-                  : "N/A",
-                "#60A5FA",
-              )}
-
-              {metrics?.cpu?.load && (
+              <View
+                style={{
+                  backgroundColor: BACKGROUNDS.CARD,
+                  borderRadius: RADIUS.CARD,
+                  padding: 16,
+                  borderWidth: 1,
+                  borderColor: BORDER_COLORS.BUTTON,
+                  marginBottom: isLandscape && columnCount > 1 ? 0 : 12,
+                  width: cardWidth,
+                }}
+              >
                 <View
                   style={{
-                    backgroundColor: BACKGROUNDS.CARD,
-                    borderRadius: RADIUS.CARD,
-                    padding: 16,
-                    borderWidth: 1,
-                    borderColor: BORDER_COLORS.BUTTON,
-                    marginBottom: isLandscape && columnCount > 1 ? 0 : 12,
-                    width: cardWidth,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 8,
+                    marginBottom: 12,
                   }}
                 >
-                  <View
+                  <Cpu size={20} color="#60A5FA" />
+                  <Text
                     style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 8,
-                      marginBottom: 12,
+                      color: "#ffffff",
+                      fontSize: 16,
+                      fontWeight: "600",
                     }}
                   >
-                    <Activity size={20} color="#A78BFA" />
+                    CPU Usage
+                  </Text>
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "baseline",
+                    gap: 12,
+                    marginBottom: 12,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#60A5FA",
+                      fontSize: 32,
+                      fontWeight: "700",
+                    }}
+                  >
+                    {typeof metrics?.cpu?.percent === "number"
+                      ? `${metrics.cpu.percent}%`
+                      : "N/A"}
+                  </Text>
+                  <Text style={{ color: "#9CA3AF", fontSize: 12 }}>
+                    {typeof metrics?.cpu?.cores === "number"
+                      ? `${metrics.cpu.cores} cores`
+                      : "N/A"}
+                  </Text>
+                </View>
+
+                {metrics?.cpu?.load && (
+                  <View
+                    style={{
+                      borderTopWidth: 1,
+                      borderTopColor: BORDER_COLORS.BUTTON,
+                      paddingTop: 12,
+                    }}
+                  >
                     <Text
                       style={{
-                        color: "#ffffff",
-                        fontSize: 16,
-                        fontWeight: "600",
+                        color: "#9CA3AF",
+                        fontSize: 12,
+                        marginBottom: 8,
                       }}
                     >
                       Load Average
                     </Text>
+                    <View style={{ flexDirection: "row", gap: 16 }}>
+                      <View style={{ flex: 1 }}>
+                        <Text
+                          style={{
+                            color: "#60A5FA",
+                            fontSize: 18,
+                            fontWeight: "700",
+                          }}
+                        >
+                          {metrics.cpu.load[0].toFixed(2)}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#6B7280",
+                            fontSize: 11,
+                            marginTop: 2,
+                          }}
+                        >
+                          1 min
+                        </Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text
+                          style={{
+                            color: "#60A5FA",
+                            fontSize: 18,
+                            fontWeight: "700",
+                          }}
+                        >
+                          {metrics.cpu.load[1].toFixed(2)}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#6B7280",
+                            fontSize: 11,
+                            marginTop: 2,
+                          }}
+                        >
+                          5 min
+                        </Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text
+                          style={{
+                            color: "#60A5FA",
+                            fontSize: 18,
+                            fontWeight: "700",
+                          }}
+                        >
+                          {metrics.cpu.load[2].toFixed(2)}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#6B7280",
+                            fontSize: 11,
+                            marginTop: 2,
+                          }}
+                        >
+                          15 min
+                        </Text>
+                      </View>
+                    </View>
                   </View>
-                  <View style={{ flexDirection: "row", gap: 16 }}>
-                    <View style={{ flex: 1 }}>
-                      <Text
-                        style={{
-                          color: "#A78BFA",
-                          fontSize: 20,
-                          fontWeight: "700",
-                        }}
-                      >
-                        {metrics.cpu.load[0].toFixed(2)}
-                      </Text>
-                      <Text
-                        style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}
-                      >
-                        1 min
-                      </Text>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <Text
-                        style={{
-                          color: "#A78BFA",
-                          fontSize: 20,
-                          fontWeight: "700",
-                        }}
-                      >
-                        {metrics.cpu.load[1].toFixed(2)}
-                      </Text>
-                      <Text
-                        style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}
-                      >
-                        5 min
-                      </Text>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <Text
-                        style={{
-                          color: "#A78BFA",
-                          fontSize: 20,
-                          fontWeight: "700",
-                        }}
-                      >
-                        {metrics.cpu.load[2].toFixed(2)}
-                      </Text>
-                      <Text
-                        style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}
-                      >
-                        15 min
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              )}
+                )}
+              </View>
 
               {renderMetricCard(
                 <MemoryStick size={20} color="#34D399" />,

@@ -20,7 +20,7 @@ interface TerminalCustomizationContextType {
   isLoading: boolean;
   updateConfig: (config: Partial<TerminalConfig>) => Promise<void>;
   resetConfig: () => Promise<void>;
-  // Legacy support
+
   updateFontSize: (fontSize: number) => Promise<void>;
   resetToDefault: () => Promise<void>;
 }
@@ -78,7 +78,6 @@ export const TerminalCustomizationProvider: React.FC<{
     await saveConfig(getDefaultConfig());
   }, [saveConfig]);
 
-  // Legacy support for existing code
   const updateFontSize = useCallback(
     async (fontSize: number) => {
       await updateConfig({ fontSize });

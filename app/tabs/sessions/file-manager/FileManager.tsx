@@ -129,7 +129,10 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           keyPassword: host.keyPassword,
           authType: host.authType,
           credentialId: host.credentialId,
+          userId: host.userId,
           forceKeyboardInteractive: host.forceKeyboardInteractive,
+          overrideCredentialUsername: host.overrideCredentialUsername,
+          jumpHosts: host.jumpHosts,
         });
 
         if (response.requires_totp) {
@@ -420,7 +423,6 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       },
     }));
 
-    // Check if file manager is disabled
     if (!host.enableFileManager) {
       return (
         <View

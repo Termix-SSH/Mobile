@@ -54,7 +54,7 @@ export default function Settings() {
           </Text>
           <TouchableOpacity
             onPress={() =>
-              router.push("/Tabs/Settings/TerminalCustomization" as any)
+              router.push("/tabs/settings/TerminalCustomization" as any)
             }
             className="bg-[#1a1a1a] border border-[#303032] px-6 py-4 rounded-lg flex-row items-center justify-between"
           >
@@ -76,7 +76,7 @@ export default function Settings() {
           </Text>
           <TouchableOpacity
             onPress={() =>
-              router.push("/Tabs/Settings/KeyboardCustomization" as any)
+              router.push("/tabs/settings/KeyboardCustomization" as any)
             }
             className="bg-[#1a1a1a] border border-[#303032] px-6 py-4 rounded-lg flex-row items-center justify-between"
           >

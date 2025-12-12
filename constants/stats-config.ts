@@ -2,11 +2,6 @@ export type WidgetType =
     | 'cpu'
     | 'memory'
     | 'disk'
-    | 'network'
-    | 'uptime'
-    | 'processes'
-    | 'system'
-    | 'login_stats';
 
 export interface StatsConfig {
     enabledWidgets: WidgetType[];
@@ -15,7 +10,7 @@ export interface StatsConfig {
 }
 
 export const DEFAULT_STATS_CONFIG: StatsConfig = {
-    enabledWidgets: ['cpu', 'memory', 'disk', 'uptime'],
+    enabledWidgets: ['cpu', 'memory', 'disk'],
     statusCheckEnabled: true,
     metricsEnabled: true,
 };

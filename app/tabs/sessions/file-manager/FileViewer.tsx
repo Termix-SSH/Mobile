@@ -118,6 +118,7 @@ export function FileViewer({
 
   return (
     <Modal
+      key={isLandscape ? "landscape" : "portrait"}
       visible={visible}
       animationType="slide"
       onRequestClose={handleClose}
