@@ -23,18 +23,13 @@ const withNetworkSecurityConfig = (config) => {
 
         const networkSecurityConfig = `<?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <!-- Allow cleartext traffic for all domains (for local development and IP addresses) -->
-    <!-- Trust both system certificates AND user-installed certificates (for self-signed certs) -->
     <base-config cleartextTrafficPermitted="true">
         <trust-anchors>
-            <!-- System certificates (built-in CAs) -->
             <certificates src="system" />
-            <!-- User-installed certificates (for self-signed/local CA certificates) -->
             <certificates src="user" />
         </trust-anchors>
     </base-config>
 
-    <!-- Specifically allow local network addresses -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">127.0.0.1</domain>
