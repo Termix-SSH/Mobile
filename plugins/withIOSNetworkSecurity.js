@@ -3,10 +3,11 @@ const { withInfoPlist } = require("@expo/config-plugins");
 const withIOSNetworkSecurity = (config) => {
   return withInfoPlist(config, (config) => {
     const existingPlist = config.modResults;
-
     existingPlist.NSAppTransportSecurity = {
       NSAllowsArbitraryLoads: true,
       NSAllowsLocalNetworking: true,
+      NSAllowsArbitraryLoadsInWebContent: true,
+      NSAllowsArbitraryLoadsForMedia: true,
     };
 
     existingPlist.NSLocalNetworkUsageDescription =
