@@ -131,6 +131,21 @@ export default function LoginForm() {
       if (data.type === "AUTH_SUCCESS" && data.token) {
         setIsAuthenticating(true);
 
+        try {
+          const tokenParts = data.token.split('.');
+          if (tokenParts.length === 3) {
+            const payload = JSON.parse(atob(tokenParts[1]));
+            if (payload.exp) {
+              const expirationDate = new Date(payload.exp * 1000);
+              const now = new Date();
+              const daysUntilExpiration = Math.floor((expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+              console.log(`[LoginForm] JWT token received - Expires: ${expirationDate.toISOString()} (${daysUntilExpiration} days from now)`);
+            }
+          }
+        } catch (jwtParseError) {
+          console.error("[LoginForm] Failed to parse JWT for diagnostics:", jwtParseError);
+        }
+
         await setCookie("jwt", data.token);
 
         const savedToken = await AsyncStorage.getItem("jwt");

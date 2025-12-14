@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, Text, Clipboard, Platform } from "react-native";
+import { View, ScrollView, Text, Platform } from "react-native";
+import * as Clipboard from "expo-clipboard";
 import { TerminalHandle } from "../Terminal";
 import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";

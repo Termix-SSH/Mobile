@@ -9,7 +9,8 @@ import {
   RefreshControl,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { RefreshCw } from "lucide-react-native";
 import Folder from "@/app/tabs/hosts/navigation/Folder";
 import {
@@ -124,11 +125,19 @@ export default function Hosts() {
 
       setFolders(foldersArray);
       setServerStatuses(statuses);
-    } catch (error) {
-      Alert.alert(
-        "Error",
-        "Failed to load hosts. Please check your connection and try again.",
-      );
+    } catch (error: any) {
+      console.error("[Hosts] Error loading hosts:", error);
+
+      const isAuthError = error?.response?.status === 401 ||
+                         error?.status === 401 ||
+                         error?.message?.includes("Authentication required");
+
+      if (isAuthError) {
+        console.log("[Hosts] Authentication error detected, authStateCallback will handle logout");
+      } else {
+        const errorMessage = error?.message || "Failed to load hosts. Please check your connection and try again.";
+        Alert.alert("Error Loading Hosts", errorMessage);
+      }
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -142,9 +151,11 @@ export default function Hosts() {
     }
   }, [fetchData]);
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchData();
+    }, [fetchData])
+  );
 
   const filteredFolders = folders
     .map((folder) => ({

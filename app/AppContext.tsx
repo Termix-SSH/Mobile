@@ -4,7 +4,9 @@ import React, {
   useState,
   ReactNode,
   useEffect,
+  useRef,
 } from "react";
+import { AppState, AppStateStatus } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   getVersionInfo,
@@ -175,6 +177,44 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       }
     });
   }, []);
+
+  const lastValidationTimeRef = useRef<number>(0);
+  const validationInProgressRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    const handleAppStateChange = async (nextAppState: AppStateStatus) => {
+      if (nextAppState === "active" && isAuthenticated && !validationInProgressRef.current) {
+        const now = Date.now();
+        const timeSinceLastValidation = now - lastValidationTimeRef.current;
+
+        if (timeSinceLastValidation < 2000) {
+          return;
+        }
+
+        validationInProgressRef.current = true;
+        lastValidationTimeRef.current = now;
+
+        try {
+          const { getUserInfo } = await import("./main-axios");
+          const userInfo = await getUserInfo();
+
+          if (!userInfo || !userInfo.username || userInfo.data_unlocked === false) {
+            console.log("[AppContext] Auth validation failed on app resume");
+          }
+        } catch (error) {
+          console.log("[AppContext] Auth validation error on app resume (will be handled by authStateCallback if 401):", error);
+        } finally {
+          validationInProgressRef.current = false;
+        }
+      }
+    };
+
+    const subscription = AppState.addEventListener("change", handleAppStateChange);
+
+    return () => {
+      subscription.remove();
+    };
+  }, [isAuthenticated]);
 
   return (
     <AppContext.Provider

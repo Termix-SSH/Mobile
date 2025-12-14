@@ -14,8 +14,8 @@ import {
   ScrollView,
   Platform,
   KeyboardAvoidingView,
-  Clipboard,
 } from "react-native";
+import * as Clipboard from "expo-clipboard";
 import { Clipboard as ClipboardIcon } from "lucide-react-native";
 import {
   BORDERS,
