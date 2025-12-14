@@ -91,7 +91,6 @@ export default function Sessions() {
   const [terminalBackgroundColors, setTerminalBackgroundColors] = useState<
     Record<string, string>
   >({});
-  const isSelectingTextRef = useRef(false);
 
   const maxKeyboardHeight = getMaxKeyboardHeight(height, isLandscape);
   const effectiveKeyboardHeight = isLandscape
@@ -233,18 +232,17 @@ export default function Sessions() {
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       if (nextAppState === "active") {
-        // App returned to foreground - check and reconnect all terminal sessions
+        // App returned to foreground - notify all terminals
         sessions.forEach((session) => {
           if (session.type === "terminal") {
             const terminalRef = terminalRefs.current[session.id];
             if (terminalRef?.current) {
               terminalRef.current.notifyForegrounded();
-              terminalRef.current.checkAndReconnect();
             }
           }
         });
 
-        // Refocus active terminal
+        // Refocus active terminal after reconnection
         if (
           sessions.length > 0 &&
           activeSession?.type === "terminal" &&
@@ -253,7 +251,7 @@ export default function Sessions() {
         ) {
           setTimeout(() => {
             hiddenInputRef.current?.focus();
-          }, 300);
+          }, 500); // Increased from 300ms to allow reconnection to complete
         }
       } else if (nextAppState === "background") {
         // App going to background - notify all terminals
@@ -359,14 +357,6 @@ export default function Sessions() {
   const handleTabPress = (sessionId: string) => {
     const session = sessions.find((s) => s.id === sessionId);
     setKeyboardIntentionallyHidden(false);
-
-    // Clear selection from previous terminal session
-    if (activeSessionId && activeSessionId !== sessionId) {
-      const prevRef = terminalRefs.current[activeSessionId];
-      if (prevRef?.current && typeof prevRef.current.clearSelection === 'function') {
-        prevRef.current.clearSelection();
-      }
-    }
 
     setActiveSession(sessionId);
     setTimeout(() => {
@@ -502,19 +492,6 @@ export default function Sessions() {
                     ...prev,
                     [session.id]: color,
                   }));
-                }}
-                onSelectionStateChange={(isSelecting) => {
-                  isSelectingTextRef.current = isSelecting;
-                  // Dismiss keyboard when selection starts to prevent interference
-                  if (isSelecting && !isCustomKeyboardVisible) {
-                    Keyboard.dismiss();
-                  }
-                  // Restore keyboard when selection ends
-                  if (!isSelecting && !isCustomKeyboardVisible && !keyboardIntentionallyHiddenRef.current) {
-                    setTimeout(() => {
-                      hiddenInputRef.current?.focus();
-                    }, 100);
-                  }
                 }}
               />
             );
@@ -857,13 +834,11 @@ export default function Sessions() {
               const isDialogOpen =
                 activeRef?.current?.isDialogOpen?.() || false;
 
-              // Don't refocus if user is selecting text
               if (
                 !keyboardIntentionallyHiddenRef.current &&
                 !isCustomKeyboardVisible &&
                 activeSession?.type === "terminal" &&
-                !isDialogOpen &&
-                !isSelectingTextRef.current
+                !isDialogOpen
               ) {
                 requestAnimationFrame(() => {
                   hiddenInputRef.current?.focus();

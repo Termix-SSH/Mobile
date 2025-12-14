@@ -51,17 +51,14 @@ interface TerminalProps {
   title?: string;
   onClose?: () => void;
   onBackgroundColorChange?: (color: string) => void;
-  onSelectionStateChange?: (isSelecting: boolean) => void;
 }
 
 export type TerminalHandle = {
   sendInput: (data: string) => void;
   fit: () => void;
   isDialogOpen: () => boolean;
-  clearSelection: () => void;
   notifyBackgrounded: () => void;
   notifyForegrounded: () => void;
-  checkAndReconnect: () => void;
   scrollToBottom: () => void;
 };
 
@@ -73,7 +70,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       title = "Terminal",
       onClose,
       onBackgroundColorChange,
-      onSelectionStateChange,
     },
     ref,
   ) => {
@@ -83,20 +79,15 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     const [screenDimensions, setScreenDimensions] = useState(
       Dimensions.get("window"),
     );
-    const [isConnecting, setIsConnecting] = useState(true);
-    const [isRetrying, setIsRetrying] = useState(false);
+    type ConnectionState = 'connecting' | 'connected' | 'reconnecting' | 'disconnected' | 'failed';
+    const [connectionState, setConnectionState] = useState<ConnectionState>('connecting');
     const [retryCount, setRetryCount] = useState(0);
-    const [isConnected, setIsConnected] = useState(false);
     const [hasReceivedData, setHasReceivedData] = useState(false);
-    const [showConnectingOverlay, setShowConnectingOverlay] = useState(true);
     const [htmlContent, setHtmlContent] = useState("");
     const [currentHostId, setCurrentHostId] = useState<number | null>(null);
     const [terminalBackgroundColor, setTerminalBackgroundColor] =
       useState("#09090b");
     const connectionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
-      null,
-    );
-    const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
       null,
     );
 
@@ -108,11 +99,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       "no_keyboard" | "auth_failed" | "timeout"
     >("auth_failed");
 
-    const [hasSelection, setHasSelection] = useState(false);
-    const [selectedText, setSelectedText] = useState("");
-    const [isSelectingText, setIsSelectingText] = useState(false);
-    const [isReconnectingFromBackground, setIsReconnectingFromBackground] = useState(false);
-    const [backgroundReconnectReason, setBackgroundReconnectReason] = useState("");
 
     useEffect(() => {
       const subscription = Dimensions.addEventListener(
@@ -125,33 +111,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       return () => subscription?.remove();
     }, []);
 
-    // Failsafe timeout to clear stuck reconnecting overlay
-    const startReconnectTimeout = useCallback(() => {
-      // Clear any existing timeout
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-      }
-
-      // Set 30-second failsafe timeout
-      reconnectTimeoutRef.current = setTimeout(() => {
-        setIsReconnectingFromBackground(false);
-        setBackgroundReconnectReason("");
-        showToast.warning("Connection check timed out");
-      }, 30000);
-    }, []);
-
-    const clearReconnectTimeout = useCallback(() => {
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-        reconnectTimeoutRef.current = null;
-      }
-    }, []);
-
     const handleConnectionFailure = useCallback(
       (errorMessage: string) => {
         showToast.error(errorMessage);
-        setIsConnecting(false);
-        setIsConnected(false);
+        setConnectionState('failed');
         if (onClose) {
           onClose();
         }
@@ -401,6 +364,23 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     let lastPongTime = Date.now();
     let lastPingSentTime = null;
 
+    // Track all timeouts for proper cleanup
+    let activeTimeouts = [];
+
+    function safeSetTimeout(fn, delay) {
+      const id = setTimeout(() => {
+        activeTimeouts = activeTimeouts.filter(t => t !== id);
+        fn();
+      }, delay);
+      activeTimeouts.push(id);
+      return id;
+    }
+
+    function clearAllTimeouts() {
+      activeTimeouts.forEach(id => clearTimeout(id));
+      activeTimeouts = [];
+    }
+
     function notifyConnectionState(state, data = {}) {
       if (window.ReactNativeWebView) {
         window.ReactNativeWebView.postMessage(JSON.stringify({
@@ -425,23 +405,19 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     function scheduleReconnect() {
       if (shouldNotReconnect) return;
 
-      // Don't count background disconnections against retry limit
-      if (!isAppInBackground && reconnectAttempts >= maxReconnectAttempts) {
+      if (reconnectAttempts >= maxReconnectAttempts) {
         notifyFailureOnce('Maximum reconnection attempts reached');
         return;
       }
 
-      if (!isAppInBackground) {
-        reconnectAttempts += 1;
-      }
+      reconnectAttempts += 1; // Always increment
 
-      const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 5000);
+      const delay = Math.min(1000 * Math.pow(2, reconnectAttempts - 1), 5000);
       notifyConnectionState('connecting', {
-        retryCount: reconnectAttempts,
-        fromBackground: isAppInBackground
+        retryCount: reconnectAttempts
       });
 
-      reconnectTimeout = setTimeout(() => {
+      reconnectTimeout = safeSetTimeout(() => {
         connectWebSocket();
       }, delay);
     }
@@ -460,116 +436,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     }
 
     const terminalElement = document.getElementById('terminal');
-
-    // Selection state management
-    let isSelecting = false;
-    let longPressTimeout = null;
-    let selectionStartX = 0;
-    let selectionStartY = 0;
-    let selectionTouchHandlers = null;
-
-    // Setup selection handlers with cleanup capability
-    function setupSelectionHandlers() {
-      // Remove old handlers if they exist
-      if (selectionTouchHandlers) {
-        terminalElement.removeEventListener('touchstart', selectionTouchHandlers.start);
-        terminalElement.removeEventListener('touchmove', selectionTouchHandlers.move);
-        terminalElement.removeEventListener('touchend', selectionTouchHandlers.end);
-      }
-
-      // Create new handlers
-      const handlers = {
-        start: function(e) {
-          if (e.touches.length === 1) {
-            selectionStartX = e.touches[0].clientX;
-            selectionStartY = e.touches[0].clientY;
-
-            longPressTimeout = setTimeout(() => {
-              isSelecting = true;
-              // Enable xterm.js selection mode
-              terminal.options.disableStdin = false;
-              notifyConnectionState('selectionStarted', {});
-            }, 500); // 500ms long-press threshold
-          }
-        },
-        move: function(e) {
-          // Cancel long-press if finger moves too much
-          if (longPressTimeout && e.touches.length === 1) {
-            const deltaX = Math.abs(e.touches[0].clientX - selectionStartX);
-            const deltaY = Math.abs(e.touches[0].clientY - selectionStartY);
-            if (deltaX > 20 || deltaY > 20) {  // Increased threshold to 20px
-              clearTimeout(longPressTimeout);
-              longPressTimeout = null;
-            }
-          }
-
-          // Track selection changes and prevent scroll during selection
-          if (isSelecting) {
-            const selectedText = terminal.getSelection();
-            if (selectedText && selectedText.length > 0) {
-              e.preventDefault();  // Prevent scroll when actively selecting
-              notifyConnectionState('selectionChanged', { hasSelection: true });
-            } else {
-              notifyConnectionState('selectionChanged', { hasSelection: false });
-            }
-          }
-        },
-        end: function(e) {
-          if (longPressTimeout) {
-            clearTimeout(longPressTimeout);
-            longPressTimeout = null;
-          }
-
-          // Always reset selecting state after touch ends
-          if (isSelecting) {
-            // Give xterm.js time to process the selection (100ms delay)
-            setTimeout(() => {
-              const selectedText = terminal.getSelection();
-
-              if (selectedText && selectedText.length > 0) {
-                notifyConnectionState('selectionComplete', {
-                  text: selectedText,
-                  hasSelection: true
-                });
-                // Keep disableStdin = false so user can interact with selection
-              } else {
-                notifyConnectionState('selectionComplete', { hasSelection: false });
-                terminal.options.disableStdin = true;
-                isSelecting = false;  // Only reset if no selection
-              }
-            }, 100);
-          }
-        }
-      };
-
-      // Add event listeners with new handlers
-      terminalElement.addEventListener('touchstart', handlers.start, { passive: true });
-      terminalElement.addEventListener('touchmove', handlers.move, { passive: false });
-      terminalElement.addEventListener('touchend', handlers.end, { passive: false });
-
-      // Store handlers for cleanup
-      selectionTouchHandlers = handlers;
-    }
-
-    // Initial setup of selection handlers
-    setupSelectionHandlers();
-
-    // Function to clear selection (callable from React Native)
-    window.clearSelection = function() {
-      terminal.clearSelection();
-      isSelecting = false;
-      terminal.options.disableStdin = true;
-      notifyConnectionState('selectionCleared', {});
-    }
-
-    // Function to get current selection (callable from React Native)
-    window.getSelection = function() {
-      const selectedText = terminal.getSelection();
-      notifyConnectionState('selectionRequested', {
-        text: selectedText || '',
-        hasSelection: !!(selectedText && selectedText.length > 0)
-      });
-    }
 
     // Function to reset scroll if it breaks (callable from React Native)
     window.resetScroll = function() {
@@ -607,7 +473,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         ws = new WebSocket(wsUrl);
         window.ws = ws;
 
-        connectionTimeout = setTimeout(() => {
+        connectionTimeout = safeSetTimeout(() => {
           if (ws && ws.readyState === WebSocket.CONNECTING) {
             try { ws.close(); } catch (_) {}
             if (!shouldNotReconnect) {
@@ -741,69 +607,48 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     window.notifyBackgrounded = function() {
       isAppInBackground = true;
       backgroundTime = Date.now();
-      notifyConnectionState('backgrounded', { time: backgroundTime });
+
+      // Stop ping interval to prevent failed attempts
+      stopPingInterval();
+
+      // Close WebSocket cleanly to avoid zombie connections
+      if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
+        shouldNotReconnect = true; // Prevent auto-reconnect during background
+        try {
+          ws.close(1000, 'App backgrounded');
+        } catch(e) {
+          console.error('[BACKGROUND] Error closing WebSocket:', e);
+        }
+        ws = null;
+        window.ws = null;
+      }
+
+      // Clear all pending timeouts
+      clearAllTimeouts();
+
+      notifyConnectionState('backgrounded', { closed: true });
     }
 
     window.notifyForegrounded = function() {
       const wasInBackground = isAppInBackground;
       isAppInBackground = false;
+      shouldNotReconnect = false; // Re-enable reconnection
 
       if (wasInBackground) {
         const backgroundDuration = Date.now() - (backgroundTime || 0);
+
+        // WebSocket was closed on background - reconnect immediately
+        reconnectAttempts = 0; // Reset retry counter for clean foreground reconnection
+
         notifyConnectionState('foregrounded', {
           duration: backgroundDuration,
-          wasConnected: ws && ws.readyState === WebSocket.OPEN
+          reconnecting: true
         });
 
-        // Check if connection is still alive
-        if (ws && ws.readyState === WebSocket.OPEN) {
-          // Send ping to verify connection
-          try {
-            const pingSentTime = Date.now();
-            lastPingSentTime = pingSentTime; // Track when we sent the ping
-            ws.send(JSON.stringify({ type: 'ping' }));
-
-            // Wait for pong response
-            setTimeout(() => {
-              // Check if we received a pong AFTER we sent this specific ping
-              if (lastPongTime > pingSentTime) {
-                // Connection is healthy - pong was received after our ping
-                reconnectAttempts = 0; // Reset retry counter
-                notifyConnectionState('connectionHealthy', {});
-              } else {
-                // No pong received after our ping within timeout window
-                connectionHealthy = false;
-                notifyConnectionState('connectionUnhealthy', {});
-                try { ws.close(); } catch(_) {}
-                scheduleReconnect();
-              }
-            }, 15000); // Wait 15 seconds for pong (increased for reliability)
-          } catch(e) {
-            // Send failed, connection is dead
-            notifyConnectionState('connectionUnhealthy', {});
-            scheduleReconnect();
-          }
-        } else {
-          // Not connected, reconnect
-          reconnectAttempts = 0; // Reset retry counter for foreground reconnects
-          scheduleReconnect();
-        }
-      }
-    }
-
-    window.checkConnectionHealth = function() {
-      if (ws && ws.readyState === WebSocket.OPEN) {
-        notifyConnectionState('connectionStatus', {
-          connected: true,
-          readyState: ws.readyState
-        });
-        return true;
-      } else {
-        notifyConnectionState('connectionStatus', {
-          connected: false,
-          readyState: ws ? ws.readyState : -1
-        });
-        return false;
+        // Small delay for smooth UI transition, then reconnect
+        safeSetTimeout(() => {
+          connectWebSocket();
+        }, 100);
       }
     }
 
@@ -840,17 +685,14 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     connectWebSocket();
     
     window.addEventListener('beforeunload', function() {
+      clearAllTimeouts();
       stopPingInterval();
-      if (reconnectTimeout) {
-        clearTimeout(reconnectTimeout);
-      }
-      if (connectionTimeout) {
-        clearTimeout(connectionTimeout);
-      }
+      if (reconnectTimeout) clearTimeout(reconnectTimeout);
+      if (connectionTimeout) clearTimeout(connectionTimeout);
       if (ws) {
         ws.close();
+        window.ws = null;
       }
-      window.ws = null;
     });
   </script>
 </body>
@@ -1019,30 +861,15 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
           switch (message.type) {
             case "connecting":
-              if (message.data.retryCount > 0) {
-                setIsRetrying(true);
-                setIsConnecting(false);
-              } else {
-                setIsConnecting(true);
-                setIsRetrying(false);
-              }
+              setConnectionState(message.data.retryCount > 0 ? 'reconnecting' : 'connecting');
               setRetryCount(message.data.retryCount);
-              setShowConnectingOverlay(true);
               break;
 
             case "connected":
-              setIsConnecting(false);
-              setIsRetrying(false);
-              setIsConnected(true);
+              setConnectionState('connected');
               setRetryCount(0);
-              setShowConnectingOverlay(false);
-              clearReconnectTimeout();
-              setIsReconnectingFromBackground(false);
-              setBackgroundReconnectReason("");
-
-              logActivity("terminal", hostConfig.id, hostConfig.name).catch(
-                () => {},
-              );
+              setHasReceivedData(false);
+              logActivity("terminal", hostConfig.id, hostConfig.name).catch(() => {});
               break;
 
             case "totpRequired":
@@ -1054,7 +881,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             case "authDialogNeeded":
               setAuthDialogReason(message.data.reason);
               setShowAuthDialog(true);
-              setIsConnecting(false);
+              setConnectionState('disconnected');
               break;
 
             case "setupPostConnection":
@@ -1063,112 +890,38 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
             case "dataReceived":
               setHasReceivedData(true);
-              setShowConnectingOverlay(false);
               break;
 
             case "disconnected":
-              setIsConnecting(false);
-              setIsRetrying(false);
-              setIsConnected(false);
+              setConnectionState('disconnected');
               showToast.warning(`Disconnected from ${message.data.hostName}`);
-              if (onClose) {
-                onClose();
-              }
+              if (onClose) onClose();
               break;
 
             case "connectionFailed":
-              setIsConnecting(false);
-              setIsRetrying(false);
-              handleConnectionFailure(
-                `${message.data.hostName}: ${message.data.message}`,
-              );
-              break;
-
-            case "selectionStarted":
-              setIsSelectingText(true);
-              setHasSelection(false);
-              if (onSelectionStateChange) {
-                onSelectionStateChange(true);
-              }
-              break;
-
-            case "selectionChanged":
-              setHasSelection(message.data.hasSelection);
-              break;
-
-            case "selectionComplete":
-              setIsSelectingText(false);
-              if (message.data.hasSelection && message.data.text) {
-                setSelectedText(message.data.text);
-                setHasSelection(true);
-              } else {
-                setHasSelection(false);
-                setSelectedText("");
-              }
-              if (onSelectionStateChange) {
-                onSelectionStateChange(false);
-              }
-              break;
-
-            case "selectionCleared":
-              setHasSelection(false);
-              setSelectedText("");
-              setIsSelectingText(false);
-              if (onSelectionStateChange) {
-                onSelectionStateChange(false);
-              }
-              break;
-
-            case "selectionRequested":
-              if (message.data.hasSelection && message.data.text) {
-                setSelectedText(message.data.text);
-                setHasSelection(true);
-              }
+              setConnectionState('failed');
+              handleConnectionFailure(`${message.data.hostName}: ${message.data.message}`);
               break;
 
             case "backgrounded":
-              // App went to background, no UI change needed
+              // App went to background, WebSocket closed cleanly
+              setConnectionState('disconnected');
               break;
 
             case "foregrounded":
-              // App returned to foreground
-              if (!message.data.wasConnected) {
-                setIsReconnectingFromBackground(true);
-                setBackgroundReconnectReason("Reconnecting after background...");
-                startReconnectTimeout();
-              }
-              break;
-
-            case "connectionHealthy":
-              clearReconnectTimeout();
-              setIsReconnectingFromBackground(false);
-              setBackgroundReconnectReason("");
-              break;
-
-            case "connectionUnhealthy":
-              setIsReconnectingFromBackground(true);
-              setBackgroundReconnectReason("Connection lost, reconnecting...");
-              startReconnectTimeout();
+              // App returned to foreground, reconnecting
+              setConnectionState('reconnecting');
               break;
 
             case "connectionStatus":
-              if (!message.data.connected) {
-                setIsReconnectingFromBackground(true);
-                setBackgroundReconnectReason("Reconnecting...");
-                startReconnectTimeout();
-              }
+              // Ignore - no longer used
               break;
           }
         } catch (error) {
           console.error("[Terminal] Error parsing WebView message:", error);
         }
       },
-      [
-        handleConnectionFailure,
-        onClose,
-        hostConfig.id,
-        handlePostConnectionSetup,
-      ],
+      [handleConnectionFailure, onClose, hostConfig.id, handlePostConnectionSetup],
     );
 
     useImperativeHandle(
@@ -1192,16 +945,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         isDialogOpen: () => {
           return totpRequired || showAuthDialog;
         },
-        clearSelection: () => {
-          try {
-            webViewRef.current?.injectJavaScript(`
-              window.clearSelection && window.clearSelection();
-              true;
-            `);
-            setHasSelection(false);
-            setSelectedText("");
-          } catch (e) {}
-        },
         notifyBackgrounded: () => {
           try {
             webViewRef.current?.injectJavaScript(`
@@ -1214,14 +957,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           try {
             webViewRef.current?.injectJavaScript(`
               window.notifyForegrounded && window.notifyForegrounded();
-              true;
-            `);
-          } catch (e) {}
-        },
-        checkAndReconnect: () => {
-          try {
-            webViewRef.current?.injectJavaScript(`
-              window.checkConnectionHealth && window.checkConnectionHealth();
               true;
             `);
           } catch (e) {}
@@ -1242,11 +977,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       if (hostConfig.id !== currentHostId) {
         setCurrentHostId(hostConfig.id);
         setWebViewKey((prev) => prev + 1);
-        setIsConnecting(true);
-        setIsRetrying(false);
-        setIsConnected(false);
+        setConnectionState('connecting');
         setHasReceivedData(false);
-        setShowConnectingOverlay(true);
         setRetryCount(0);
 
         const updateHtml = async () => {
@@ -1259,11 +991,27 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     useEffect(() => {
       return () => {
+        // Notify WebView to clean up all resources
+        webViewRef.current?.injectJavaScript(`
+          (function() {
+            try {
+              clearAllTimeouts();
+              stopPingInterval();
+              if (window.ws) {
+                window.ws.close(1000, 'Component unmounted');
+                window.ws = null;
+              }
+            } catch(e) {
+              console.error('[CLEANUP] Error:', e);
+            }
+          })();
+          true;
+        `);
+
+        // Clear React-side timeouts
         if (connectionTimeoutRef.current) {
           clearTimeout(connectionTimeoutRef.current);
-        }
-        if (reconnectTimeoutRef.current) {
-          clearTimeout(reconnectTimeoutRef.current);
+          connectionTimeoutRef.current = null;
         }
       };
     }, []);
@@ -1308,7 +1056,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 width: "100%",
                 height: "100%",
                 backgroundColor: terminalBackgroundColor,
-                opacity: showConnectingOverlay || isRetrying ? 0 : 1,
+                opacity: connectionState === 'connected' && hasReceivedData ? 1 : 0,
               }}
               javaScriptEnabled={true}
               domStorageEnabled={true}
@@ -1339,7 +1087,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                   `WebView HTTP error: ${nativeEvent.statusCode}`,
                 );
               }}
-              scrollEnabled={!hasSelection}
+              scrollEnabled={true}
               overScrollMode="never"
               bounces={false}
               showsHorizontalScrollIndicator={false}
@@ -1348,71 +1096,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             />
           </View>
 
-          {/* Copy Button Overlay */}
-          {hasSelection && !totpRequired && !showAuthDialog && (
-            <View
-              style={{
-                position: "absolute",
-                top: 8,
-                right: 8,
-                zIndex: 1005,
-                backgroundColor: "rgba(34, 197, 94, 0.95)",
-                borderRadius: 8,
-                paddingHorizontal: 16,
-                paddingVertical: 12,
-                borderWidth: 1,
-                borderColor: "#22C55E",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.3,
-                shadowRadius: 4,
-                elevation: 5,
-              }}
-            >
-              <TouchableOpacity
-                onPress={async () => {
-                  try {
-                    await Clipboard.setString(selectedText);
-                    showToast.success("Copied to clipboard");
-                    // Clear selection
-                    webViewRef.current?.injectJavaScript(`
-                      window.clearSelection && window.clearSelection();
-                      true;
-                    `);
-                    setHasSelection(false);
-                    setSelectedText("");
-                  } catch (error) {
-                    showToast.error("Failed to copy text");
-                  }
-                }}
-                activeOpacity={0.7}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Text
-                    style={{
-                      color: "#ffffff",
-                      fontSize: 14,
-                      fontWeight: "600",
-                      marginRight: 8,
-                    }}
-                  >
-                    Copy
-                  </Text>
-                  <View
-                    style={{
-                      width: 16,
-                      height: 16,
-                      borderWidth: 2,
-                      borderColor: "#ffffff",
-                      borderRadius: 3,
-                    }}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-          )}
-
-          {(showConnectingOverlay || isRetrying || isReconnectingFromBackground) && (
+          {(connectionState === 'connecting' || connectionState === 'reconnecting') && (
             <View
               style={{
                 position: "absolute",
@@ -1447,11 +1131,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                     textAlign: "center",
                   }}
                 >
-                  {isReconnectingFromBackground
-                    ? backgroundReconnectReason
-                    : isRetrying
-                      ? "Reconnecting..."
-                      : "Connecting..."}
+                  {connectionState === 'reconnecting' ? 'Reconnecting...' : 'Connecting...'}
                 </Text>
                 <Text
                   style={{
