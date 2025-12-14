@@ -183,7 +183,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const handleAppStateChange = async (nextAppState: AppStateStatus) => {
-      if (nextAppState === "active" && isAuthenticated && !validationInProgressRef.current) {
+      if (
+        nextAppState === "active" &&
+        isAuthenticated &&
+        !validationInProgressRef.current
+      ) {
         const now = Date.now();
         const timeSinceLastValidation = now - lastValidationTimeRef.current;
 
@@ -198,18 +202,23 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           const { getUserInfo } = await import("./main-axios");
           const userInfo = await getUserInfo();
 
-          if (!userInfo || !userInfo.username || userInfo.data_unlocked === false) {
-            console.log("[AppContext] Auth validation failed on app resume");
+          if (
+            !userInfo ||
+            !userInfo.username ||
+            userInfo.data_unlocked === false
+          ) {
           }
         } catch (error) {
-          console.log("[AppContext] Auth validation error on app resume (will be handled by authStateCallback if 401):", error);
         } finally {
           validationInProgressRef.current = false;
         }
       }
     };
 
-    const subscription = AppState.addEventListener("change", handleAppStateChange);
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange,
+    );
 
     return () => {
       subscription.remove();

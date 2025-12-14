@@ -128,14 +128,16 @@ export default function Hosts() {
     } catch (error: any) {
       console.error("[Hosts] Error loading hosts:", error);
 
-      const isAuthError = error?.response?.status === 401 ||
-                         error?.status === 401 ||
-                         error?.message?.includes("Authentication required");
+      const isAuthError =
+        error?.response?.status === 401 ||
+        error?.status === 401 ||
+        error?.message?.includes("Authentication required");
 
       if (isAuthError) {
-        console.log("[Hosts] Authentication error detected, authStateCallback will handle logout");
       } else {
-        const errorMessage = error?.message || "Failed to load hosts. Please check your connection and try again.";
+        const errorMessage =
+          error?.message ||
+          "Failed to load hosts. Please check your connection and try again.";
         Alert.alert("Error Loading Hosts", errorMessage);
       }
     } finally {
@@ -154,7 +156,7 @@ export default function Hosts() {
   useFocusEffect(
     useCallback(() => {
       fetchData();
-    }, [fetchData])
+    }, [fetchData]),
   );
 
   const filteredFolders = folders

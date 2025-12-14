@@ -91,6 +91,8 @@ export default function Sessions() {
   const [terminalBackgroundColors, setTerminalBackgroundColors] = useState<
     Record<string, string>
   >({});
+  const isSelectingRef = useRef(false);
+  const keyboardWasHiddenBeforeSelectionRef = useRef(false);
 
   const maxKeyboardHeight = getMaxKeyboardHeight(height, isLandscape);
   const effectiveKeyboardHeight = isLandscape
@@ -232,7 +234,6 @@ export default function Sessions() {
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       if (nextAppState === "active") {
-        // App returned to foreground - notify all terminals
         sessions.forEach((session) => {
           if (session.type === "terminal") {
             const terminalRef = terminalRefs.current[session.id];
@@ -242,7 +243,6 @@ export default function Sessions() {
           }
         });
 
-        // Refocus active terminal after reconnection
         if (
           sessions.length > 0 &&
           activeSession?.type === "terminal" &&
@@ -251,10 +251,9 @@ export default function Sessions() {
         ) {
           setTimeout(() => {
             hiddenInputRef.current?.focus();
-          }, 500); // Increased from 300ms to allow reconnection to complete
+          }, 500);
         }
       } else if (nextAppState === "background") {
-        // App going to background - notify all terminals
         sessions.forEach((session) => {
           if (session.type === "terminal") {
             const terminalRef = terminalRefs.current[session.id];
@@ -313,13 +312,60 @@ export default function Sessions() {
   }, [keyboardHeight, setLastKeyboardHeight]);
 
   useEffect(() => {
+    if (!activeSessionId || activeSession?.type !== "terminal") return;
+
+    const checkSelectionState = () => {
+      const activeRef = terminalRefs.current[activeSessionId];
+      if (!activeRef?.current) return;
+
+      const isCurrentlySelecting = activeRef.current.isSelecting();
+
+      if (isCurrentlySelecting && !isSelectingRef.current) {
+        isSelectingRef.current = true;
+
+        keyboardWasHiddenBeforeSelectionRef.current =
+          keyboardIntentionallyHiddenRef.current;
+
+        if (!keyboardIntentionallyHiddenRef.current) {
+          setKeyboardIntentionallyHidden(true);
+          hiddenInputRef.current?.blur();
+          Keyboard.dismiss();
+        } else {
+        }
+      } else if (!isCurrentlySelecting && isSelectingRef.current) {
+        isSelectingRef.current = false;
+
+        if (!keyboardWasHiddenBeforeSelectionRef.current) {
+          setKeyboardIntentionallyHidden(false);
+          if (!isCustomKeyboardVisible) {
+            setTimeout(() => {
+              hiddenInputRef.current?.focus();
+            }, 100);
+          }
+        } else {
+        }
+
+        keyboardWasHiddenBeforeSelectionRef.current = false;
+      }
+    };
+
+    const interval = setInterval(checkSelectionState, 50);
+    return () => clearInterval(interval);
+  }, [
+    activeSessionId,
+    activeSession?.type,
+    isCustomKeyboardVisible,
+    setKeyboardIntentionallyHidden,
+  ]);
+
+  useEffect(() => {
     const activeRef = activeSessionId
       ? terminalRefs.current[activeSessionId]
       : null;
     if (activeRef && activeRef.current) {
       setTimeout(() => {
         activeRef.current?.fit();
-      }, 100); // Increase delay to let layout settle
+      }, 100);
     }
   }, [
     keyboardHeight,
@@ -392,14 +438,12 @@ export default function Sessions() {
       setTimeout(() => {
         hiddenInputRef.current?.focus();
       }, 50);
-      // Fit terminal after keyboard closes and animation completes
       setTimeout(() => {
         const activeRef = activeSessionId
           ? terminalRefs.current[activeSessionId]
           : null;
         if (activeRef?.current) {
           activeRef.current.fit();
-          // Scroll to bottom after resize to maintain user position
           setTimeout(() => {
             activeRef.current?.scrollToBottom();
           }, 50);
@@ -411,14 +455,12 @@ export default function Sessions() {
       requestAnimationFrame(() => {
         hiddenInputRef.current?.blur();
       });
-      // Fit terminal after keyboard opens and animation completes
       setTimeout(() => {
         const activeRef = activeSessionId
           ? terminalRefs.current[activeSessionId]
           : null;
         if (activeRef?.current) {
           activeRef.current.fit();
-          // Scroll to bottom after resize to maintain user position
           setTimeout(() => {
             activeRef.current?.scrollToBottom();
           }, 50);
@@ -743,14 +785,14 @@ export default function Sessions() {
             ref={hiddenInputRef}
             style={{
               position: "absolute",
-              bottom: currentKeyboardHeight > 0 ? currentKeyboardHeight : 0,
-              left: 0,
+              bottom: -1000,
+              left: -1000,
               width: 1,
               height: 1,
               opacity: 0,
               color: "transparent",
               backgroundColor: "transparent",
-              zIndex: 1001,
+              zIndex: -1,
             }}
             pointerEvents="none"
             autoFocus={false}
@@ -833,15 +875,23 @@ export default function Sessions() {
                 : null;
               const isDialogOpen =
                 activeRef?.current?.isDialogOpen?.() || false;
+              const isCurrentlySelecting =
+                activeRef?.current?.isSelecting?.() || false;
 
               if (
                 !keyboardIntentionallyHiddenRef.current &&
                 !isCustomKeyboardVisible &&
                 activeSession?.type === "terminal" &&
-                !isDialogOpen
+                !isDialogOpen &&
+                !isCurrentlySelecting &&
+                !isSelectingRef.current
               ) {
                 requestAnimationFrame(() => {
-                  hiddenInputRef.current?.focus();
+                  const stillNotSelecting =
+                    !activeRef?.current?.isSelecting?.();
+                  if (stillNotSelecting) {
+                    hiddenInputRef.current?.focus();
+                  }
                 });
               }
             }}
