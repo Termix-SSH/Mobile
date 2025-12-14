@@ -413,11 +413,19 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       reconnectAttempts += 1; // Always increment
 
       const delay = Math.min(1000 * Math.pow(2, reconnectAttempts - 1), 5000);
+
+      // Always show "reconnecting" when retry count > 0
       notifyConnectionState('connecting', {
         retryCount: reconnectAttempts
       });
 
+      // Clear any existing reconnect timeout before scheduling new one
+      if (reconnectTimeout) {
+        clearTimeout(reconnectTimeout);
+      }
+
       reconnectTimeout = safeSetTimeout(() => {
+        reconnectTimeout = null; // Clear reference when firing
         connectWebSocket();
       }, delay);
     }
@@ -467,7 +475,21 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           notifyFailureOnce('No WebSocket URL available - server not configured');
           return;
         }
-        
+
+        // Close old WebSocket if it exists to prevent old event handlers from firing
+        if (ws) {
+          try {
+            // Remove event handlers from old WebSocket to prevent them from triggering
+            ws.onclose = null;
+            ws.onerror = null;
+            ws.onmessage = null;
+            ws.onopen = null;
+            ws.close();
+          } catch (e) {
+            console.error('[CONNECT] Error closing old WebSocket:', e);
+          }
+        }
+
         notifyConnectionState('connecting', { retryCount: reconnectAttempts });
 
         ws = new WebSocket(wsUrl);
@@ -475,17 +497,28 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
         connectionTimeout = safeSetTimeout(() => {
           if (ws && ws.readyState === WebSocket.CONNECTING) {
-            try { ws.close(); } catch (_) {}
-            if (!shouldNotReconnect) {
+            console.log('[CONNECT] Connection timeout after 10s');
+            try {
+              ws.onclose = null; // Prevent onclose from triggering scheduleReconnect again
+              ws.close();
+            } catch (_) {}
+            if (!shouldNotReconnect && reconnectAttempts < maxReconnectAttempts) {
               scheduleReconnect();
             } else {
               notifyFailureOnce('Connection timeout - server not responding');
             }
           }
-        }, 30000);
+        }, 10000); // Reduced from 30s to 10s
         
         ws.onopen = function() {
+          // Clear all timeouts to prevent any pending reconnects from firing
           clearTimeout(connectionTimeout);
+          if (reconnectTimeout) {
+            clearTimeout(reconnectTimeout);
+            reconnectTimeout = null;
+          }
+          clearAllTimeouts(); // Clear any other pending timeouts
+
           hasNotifiedFailure = false;
           reconnectAttempts = 0;
 
@@ -563,15 +596,25 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         ws.onclose = function(event) {
           clearTimeout(connectionTimeout);
           stopPingInterval();
-          
+
+          // If we're in background, this is an intentional close - don't notify failure
+          if (isAppInBackground) {
+            return;
+          }
+
+          // If shouldNotReconnect is set and we're NOT in background, it's an auth error
           if (shouldNotReconnect) {
             notifyFailureOnce('Connection closed');
             return;
           }
+
+          // Normal close codes during foreground operation should not reconnect
           if (event.code === 1000 || event.code === 1001) {
             notifyFailureOnce('Connection closed');
             return;
           }
+
+          // Unexpected disconnection - try to reconnect
           scheduleReconnect();
         };
         
@@ -608,6 +651,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       isAppInBackground = true;
       backgroundTime = Date.now();
 
+      // Reset retry counter when going to background - fresh start on foreground
+      reconnectAttempts = 0;
+
       // Stop ping interval to prevent failed attempts
       stopPingInterval();
 
@@ -637,8 +683,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       if (wasInBackground) {
         const backgroundDuration = Date.now() - (backgroundTime || 0);
 
-        // WebSocket was closed on background - reconnect immediately
-        reconnectAttempts = 0; // Reset retry counter for clean foreground reconnection
+        // Don't reset reconnectAttempts - continue from where we were
+        // This ensures proper retry counter display
 
         notifyConnectionState('foregrounded', {
           duration: backgroundDuration,
@@ -647,7 +693,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
         // Small delay for smooth UI transition, then reconnect
         safeSetTimeout(() => {
-          connectWebSocket();
+          scheduleReconnect(); // Use scheduleReconnect instead of direct connectWebSocket
         }, 100);
       }
     }
