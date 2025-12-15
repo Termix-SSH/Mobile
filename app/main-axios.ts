@@ -1,5 +1,4 @@
 import axios, { AxiosError, type AxiosInstance } from "axios";
-import fetchAdapter from "axios-fetch-adapter";
 import type {
   SSHHost,
   SSHHostData,
@@ -89,7 +88,32 @@ function createApiInstance(
     baseURL,
     headers: { "Content-Type": "application/json" },
     timeout: 30000,
-    ...(platform.OS === "ios" && { adapter: fetchAdapter }),
+    ...(platform.OS === "ios" && {
+      adapter: async (config) => {
+        const url = axios.getUri(config);
+        const token = await getCookie("jwt");
+
+        const response = await fetch(url, {
+          method: config.method?.toUpperCase() || "GET",
+          headers: {
+            ...config.headers,
+            ...(token && { Authorization: `Bearer ${token}` }),
+          },
+          body: config.data ? JSON.stringify(config.data) : undefined,
+        });
+
+        const data = await response.json();
+
+        return {
+          data,
+          status: response.status,
+          statusText: response.statusText,
+          headers: Object.fromEntries(response.headers.entries()),
+          config,
+          request: {},
+        };
+      },
+    }),
   });
 
   instance.interceptors.request.use(async (config) => {
