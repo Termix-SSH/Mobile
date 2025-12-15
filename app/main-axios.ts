@@ -1,4 +1,5 @@
 import axios, { AxiosError, type AxiosInstance } from "axios";
+import fetchAdapter from "axios-fetch-adapter";
 import type {
   SSHHost,
   SSHHostData,
@@ -88,7 +89,7 @@ function createApiInstance(
     baseURL,
     headers: { "Content-Type": "application/json" },
     timeout: 30000,
-    ...(platform.OS === "ios" && { adapter: "fetch" }),
+    ...(platform.OS === "ios" && { adapter: fetchAdapter }),
   });
 
   instance.interceptors.request.use(async (config) => {

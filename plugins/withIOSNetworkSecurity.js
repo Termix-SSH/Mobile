@@ -7,6 +7,12 @@ const withIOSNetworkSecurity = (config) => {
       NSAllowsArbitraryLoadsInWebContent: true,
       NSAllowsLocalNetworking: true,
       NSAllowsArbitraryLoadsForMedia: true,
+      NSExceptionDomains: {
+        localhost: {
+          NSExceptionAllowsInsecureHTTPLoads: true,
+          NSIncludesSubdomains: true,
+        },
+      },
     };
 
     config.modResults.NSLocalNetworkUsageDescription =
