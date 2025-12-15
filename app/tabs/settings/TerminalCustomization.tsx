@@ -90,7 +90,10 @@ export default function TerminalCustomization() {
         </View>
       </View>
 
-      <ScrollView className="flex-1 px-4 py-4">
+      <ScrollView
+        className="flex-1 px-4 py-4"
+        contentContainerStyle={{ paddingBottom: Math.max(insets.bottom, 16) }}
+      >
         <Text className="text-white text-lg font-semibold mb-2">
           Terminal Settings
         </Text>

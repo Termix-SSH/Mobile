@@ -57,12 +57,13 @@
             "usesCleartextTraffic": true
           },
           "ios": {
-            "newArchEnabled": true
+            "newArchEnabled": true,
+            "deploymentTarget": "15.1"
           }
         }
       ],
-      "./plugins/withNetworkSecurityConfig.js",
       "./plugins/withIOSNetworkSecurity.js",
+      "./plugins/withNetworkSecurityConfig.js",
       "expo-dev-client"
     ],
     "experiments": {

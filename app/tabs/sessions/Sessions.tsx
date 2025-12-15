@@ -636,7 +636,7 @@ export default function Sessions() {
                 marginBottom: 20,
               }}
             >
-              Connect to a host from the Hosts tab to start a terminal session
+              Connect to a host from the Hosts tab to start a session
             </Text>
             <View
               style={{

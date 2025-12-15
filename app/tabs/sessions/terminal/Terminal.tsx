@@ -496,27 +496,78 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     let selectionEndTimeout = null;
     let isCurrentlySelecting = false;
     let lastInteractionTime = Date.now();
-    let keyboardWasVisibleBeforeSelection = false;
+    let touchStartTime = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let hasMoved = false;
+    let longPressTimeout = null;
 
     terminalElement.addEventListener('touchstart', (e) => {
       lastInteractionTime = Date.now();
-      if (!isCurrentlySelecting) {
-        notifyConnectionState('selectionStart', {});
-        isCurrentlySelecting = true;
+      touchStartTime = Date.now();
+      hasMoved = false;
+
+      if (e.touches && e.touches.length > 0) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+
+      if (longPressTimeout) {
+        clearTimeout(longPressTimeout);
+      }
+
+      longPressTimeout = setTimeout(() => {
+        if (!hasMoved) {
+          if (!isCurrentlySelecting) {
+            notifyConnectionState('selectionStart', {});
+            isCurrentlySelecting = true;
+          }
+        }
+      }, 350);
+    }, { passive: true });
+
+    terminalElement.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+        const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+
+        if (deltaX > 10 || deltaY > 10) {
+          hasMoved = true;
+          if (longPressTimeout) {
+            clearTimeout(longPressTimeout);
+            longPressTimeout = null;
+          }
+        }
       }
     }, { passive: true });
 
-    terminalElement.addEventListener('mousedown', (e) => {
-      lastInteractionTime = Date.now();
-      if (!isCurrentlySelecting) {
-        notifyConnectionState('selectionStart', {});
-        isCurrentlySelecting = true;
+    terminalElement.addEventListener('touchend', () => {
+      if (longPressTimeout) {
+        clearTimeout(longPressTimeout);
+        longPressTimeout = null;
       }
+
+      const touchDuration = Date.now() - touchStartTime;
+
+      setTimeout(() => {
+        const selection = terminal.getSelection();
+        const hasSelection = selection && selection.length > 0;
+
+        if (hasSelection) {
+          lastInteractionTime = Date.now();
+          if (!isCurrentlySelecting) {
+            isCurrentlySelecting = true;
+            notifyConnectionState('selectionStart', {});
+          }
+        } else if (!isCurrentlySelecting && (touchDuration < 350 || hasMoved)) {
+          lastInteractionTime = Date.now();
+          checkIfDoneSelecting();
+        }
+      }, 100);
     });
 
-    terminalElement.addEventListener('touchend', () => {
+    terminalElement.addEventListener('mousedown', (e) => {
       lastInteractionTime = Date.now();
-      checkIfDoneSelecting();
     });
 
     terminalElement.addEventListener('mouseup', () => {
@@ -532,24 +583,36 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       selectionEndTimeout = setTimeout(() => {
         const selection = terminal.getSelection();
         const hasSelection = selection && selection.length > 0;
-        const timeSinceLastInteraction = Date.now() - lastInteractionTime;
 
-        if (!hasSelection && timeSinceLastInteraction >= 150) {
-          isCurrentlySelecting = false;
-          notifyConnectionState('selectionEnd', {});
-        } else if (hasSelection) {
-          checkIfDoneSelecting();
-        } else {
-          checkIfDoneSelecting();
+        if (hasSelection) {
+          if (!isCurrentlySelecting) {
+            isCurrentlySelecting = true;
+            notifyConnectionState('selectionStart', {});
+          }
+        } else if (isCurrentlySelecting) {
+          const timeSinceLastInteraction = Date.now() - lastInteractionTime;
+          if (timeSinceLastInteraction >= 150) {
+            isCurrentlySelecting = false;
+            notifyConnectionState('selectionEnd', {});
+          } else {
+            checkIfDoneSelecting();
+          }
         }
-      }, 200);
+      }, 100);
     }
 
     terminal.onSelectionChange(() => {
       const selection = terminal.getSelection();
       const hasSelection = selection && selection.length > 0;
 
-      if (!hasSelection && isCurrentlySelecting) {
+      if (hasSelection) {
+        lastInteractionTime = Date.now();
+        if (!isCurrentlySelecting) {
+          isCurrentlySelecting = true;
+          notifyConnectionState('selectionStart', {});
+        }
+      } else if (isCurrentlySelecting) {
+        lastInteractionTime = Date.now();
         checkIfDoneSelecting();
       }
     });

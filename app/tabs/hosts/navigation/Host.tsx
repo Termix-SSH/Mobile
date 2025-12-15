@@ -22,6 +22,7 @@ import { SSHHost } from "@/types";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import { useEffect, useRef, useState } from "react";
 import { StatsConfig, DEFAULT_STATS_CONFIG } from "@/constants/stats-config";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface HostProps {
   host: SSHHost;
@@ -31,6 +32,7 @@ interface HostProps {
 
 function Host({ host, status, isLast = false }: HostProps) {
   const { navigateToSessions } = useTerminalSessions();
+  const insets = useSafeAreaInsets();
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [tagsContainerWidth, setTagsContainerWidth] = useState<number>(0);
   const statusLabel =
@@ -327,8 +329,8 @@ function Host({ host, status, isLast = false }: HostProps) {
           <View className="flex-1 bg-black/50 justify-end">
             <TouchableWithoutFeedback onPress={() => {}}>
               <View
-                className="bg-dark-bg-button rounded-t-2xl border-t-2 border-x-2 border-dark-border px-4 pt-4 pb-6"
-                style={{ maxHeight: "80%" }}
+                className="bg-dark-bg-button rounded-t-2xl border-t-2 border-x-2 border-dark-border px-4 pt-4"
+                style={{ maxHeight: "80%", paddingBottom: Math.max(insets.bottom, 16) }}
               >
                 <View className="flex-row items-center justify-between mb-3">
                   <View className="flex-row items-center">
