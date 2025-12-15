@@ -20,11 +20,7 @@
       },
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
-        "ITSAppUsesNonExemptEncryption": false,
-        "NSAppTransportSecurity": {
-          "NSAllowsArbitraryLoads": true,
-          "NSAllowsLocalNetworking": true
-        }
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {

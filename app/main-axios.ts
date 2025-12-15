@@ -88,6 +88,7 @@ function createApiInstance(
     baseURL,
     headers: { "Content-Type": "application/json" },
     timeout: 30000,
+    ...(platform.OS === "ios" && { adapter: "fetch" }),
   });
 
   instance.interceptors.request.use(async (config) => {
