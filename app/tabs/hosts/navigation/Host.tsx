@@ -330,7 +330,10 @@ function Host({ host, status, isLast = false }: HostProps) {
             <TouchableWithoutFeedback onPress={() => {}}>
               <View
                 className="bg-dark-bg-button rounded-t-2xl border-t-2 border-x-2 border-dark-border px-4 pt-4"
-                style={{ maxHeight: "80%", paddingBottom: Math.max(insets.bottom, 16) }}
+                style={{
+                  maxHeight: "80%",
+                  paddingBottom: Math.max(insets.bottom, 16),
+                }}
               >
                 <View className="flex-row items-center justify-between mb-3">
                   <View className="flex-row items-center">

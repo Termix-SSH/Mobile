@@ -567,9 +567,14 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           />
         )}
 
-        <Modal visible={createDialog.visible} transparent animationType="fade">
+        <Modal
+          visible={createDialog.visible}
+          transparent
+          animationType="fade"
+          supportedOrientations={["portrait", "landscape"]}
+        >
           <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
             className="flex-1"
           >
             <View className="flex-1 bg-black/50 items-center justify-center p-4">
@@ -580,7 +585,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   borderWidth: BORDERS.MAJOR,
                   borderColor: BORDER_COLORS.PRIMARY,
                   borderRadius: RADIUS.CARD,
-                  marginBottom: insets.bottom,
+                  marginBottom: isLandscape ? 0 : insets.bottom,
                 }}
               >
                 <Text className="text-white text-lg font-semibold mb-4">
@@ -640,9 +645,14 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           </KeyboardAvoidingView>
         </Modal>
 
-        <Modal visible={renameDialog.visible} transparent animationType="fade">
+        <Modal
+          visible={renameDialog.visible}
+          transparent
+          animationType="fade"
+          supportedOrientations={["portrait", "landscape"]}
+        >
           <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
             className="flex-1"
           >
             <View className="flex-1 bg-black/50 items-center justify-center p-4">
@@ -653,7 +663,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   borderWidth: BORDERS.MAJOR,
                   borderColor: BORDER_COLORS.PRIMARY,
                   borderRadius: RADIUS.CARD,
-                  marginBottom: insets.bottom,
+                  marginBottom: isLandscape ? 0 : insets.bottom,
                 }}
               >
                 <Text className="text-white text-lg font-semibold mb-4">

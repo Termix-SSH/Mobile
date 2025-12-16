@@ -286,10 +286,17 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     input, textarea, [contenteditable], .xterm-helper-textarea {
       position: absolute !important;
       left: -9999px !important;
+      top: -9999px !important;
       width: 1px !important;
       height: 1px !important;
       opacity: 0 !important;
       pointer-events: none !important;
+      color: transparent !important;
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      caret-color: transparent !important;
+      -webkit-text-fill-color: transparent !important;
     }
 
   </style>
@@ -354,6 +361,20 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     terminal.open(document.getElementById('terminal'));
 
     fitAddon.fit();
+
+    // Disable autocomplete and suggestions on all input elements
+    setTimeout(() => {
+      const inputs = document.querySelectorAll('input, textarea, .xterm-helper-textarea');
+      inputs.forEach(input => {
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('autocorrect', 'off');
+        input.setAttribute('autocapitalize', 'off');
+        input.setAttribute('spellcheck', 'false');
+        input.style.color = 'transparent';
+        input.style.caretColor = 'transparent';
+        input.style.webkitTextFillColor = 'transparent';
+      });
+    }, 100);
 
     const hostConfig = ${JSON.stringify(hostConfig)};
     const wsUrl = '${wsUrl}';
@@ -1293,6 +1314,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
               nestedScrollEnabled={false}
+              textZoom={100}
+              setSupportMultipleWindows={false}
             />
           </View>
 

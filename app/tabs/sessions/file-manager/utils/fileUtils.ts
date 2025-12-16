@@ -109,8 +109,32 @@ export function formatDate(dateString: string | undefined): string {
   if (!dateString) return "";
 
   try {
-    const date = new Date(dateString);
     const now = new Date();
+    let date: Date;
+
+    const parts = dateString.trim().split(/\s+/);
+    if (parts.length === 3) {
+      const [month, day, yearOrTime] = parts;
+
+      if (yearOrTime.includes(":")) {
+        const dateStr = `${month} ${day}, ${now.getFullYear()} ${yearOrTime}:00`;
+        date = new Date(dateStr);
+
+        if (date > now) {
+          const lastYearStr = `${month} ${day}, ${now.getFullYear() - 1} ${yearOrTime}:00`;
+          date = new Date(lastYearStr);
+        }
+      } else {
+        date = new Date(`${month} ${day}, ${yearOrTime}`);
+      }
+    } else {
+      date = new Date(dateString);
+    }
+
+    if (isNaN(date.getTime())) {
+      return dateString;
+    }
+
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
     const diffHours = Math.floor(diffMs / 3600000);
@@ -127,7 +151,7 @@ export function formatDate(dateString: string | undefined): string {
       year: date.getFullYear() !== now.getFullYear() ? "numeric" : undefined,
     });
   } catch {
-    return "";
+    return dateString;
   }
 }
 
