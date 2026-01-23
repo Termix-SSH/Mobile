@@ -1,0 +1,75 @@
+name: Build iPadOS App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-ipados:
+    runs-on: macos-15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate iOS project
+        run: npx expo prebuild --platform ios --clean
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ios
+          pod install
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(node -p "require('./app.json').expo.version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create release directory
+        run: mkdir -p release
+
+      - name: Build unsigned IPA
+        run: |
+          cd ios
+
+          # Build for generic iOS device (unsigned)
+          xcodebuild -workspace Termix.xcworkspace \
+            -scheme Termix \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath ../release/Termix.xcarchive \
+            archive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE_SPECIFIER=""
+
+      - name: Create unsigned IPA
+        run: |
+          cd release
+          mkdir -p Payload
+          cp -r Termix.xcarchive/Products/Applications/Termix.app Payload/
+          zip -r termix_ios_${{ steps.version.outputs.version }}.ipa Payload
+          rm -rf Payload
+
+      - name: Upload iPadOS IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: termix_ipados_${{ steps.version.outputs.version }}
+          path: release/termix_ios_${{ steps.version.outputs.version }}.ipa
+          retention-days: 30
+          if-no-files-found: error
