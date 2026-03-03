@@ -67,6 +67,8 @@ export class NativeWebSocketManager {
   private cols = 80;
   private rows = 24;
   private wsUrl: string | null = null;
+  private serverSessionId: string | null = null;
+  private pendingReattach = false;
 
   constructor(config: NativeWSConfig) {
     this.config = config;
@@ -105,6 +107,12 @@ export class NativeWebSocketManager {
   destroy(): void {
     this.destroyed = true;
     this.shouldNotReconnect = true;
+    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      try {
+        this.ws.send(JSON.stringify({ type: "disconnect" }));
+      } catch (_) {}
+    }
+    this.serverSessionId = null;
     this.clearAllTimers();
     if (this.ws) {
       try {
@@ -309,16 +317,30 @@ export class NativeWebSocketManager {
       this.currentConnectionFromBackground = this.isReconnectFromBackground;
       this.isReconnectFromBackground = false;
 
-      ws.send(
-        JSON.stringify({
-          type: "connectToHost",
-          data: {
-            cols: this.cols,
-            rows: this.rows,
-            hostConfig: this.config.hostConfig,
-          },
-        }),
-      );
+      if (this.serverSessionId) {
+        this.pendingReattach = true;
+        ws.send(
+          JSON.stringify({
+            type: "attachSession",
+            data: {
+              sessionId: this.serverSessionId,
+              cols: this.cols,
+              rows: this.rows,
+            },
+          }),
+        );
+      } else {
+        ws.send(
+          JSON.stringify({
+            type: "connectToHost",
+            data: {
+              cols: this.cols,
+              rows: this.rows,
+              hostConfig: this.config.hostConfig,
+            },
+          }),
+        );
+      }
 
       this.startPingInterval();
     };
@@ -381,17 +403,44 @@ export class NativeWebSocketManager {
             return;
           }
         } else if (msg.type === "connected") {
+          const isReattach = this.pendingReattach;
+          this.pendingReattach = false;
           this.config.onStateChange("connected", {
             hostName: this.config.hostConfig.name,
             fromBackground: this.currentConnectionFromBackground,
+            isReattach,
           });
-          if (!this.currentConnectionFromBackground) {
+          if (!this.currentConnectionFromBackground && !isReattach) {
             this.config.onPostConnectionSetup();
           }
         } else if (msg.type === "disconnected") {
+          this.serverSessionId = null;
           this.config.onDisconnected(this.config.hostConfig.name);
         } else if (msg.type === "pong") {
         } else if (msg.type === "resized") {
+        } else if (msg.type === "sessionCreated") {
+          this.serverSessionId = msg.sessionId as string;
+        } else if (msg.type === "sessionAttached") {
+          this.serverSessionId = msg.sessionId as string;
+        } else if (msg.type === "sessionExpired") {
+          this.serverSessionId = null;
+          this.pendingReattach = false;
+          if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+            this.ws.send(
+              JSON.stringify({
+                type: "connectToHost",
+                data: {
+                  cols: this.cols,
+                  rows: this.rows,
+                  hostConfig: this.config.hostConfig,
+                },
+              }),
+            );
+          }
+        } else if (msg.type === "sessionTakenOver") {
+          this.serverSessionId = null;
+          this.shouldNotReconnect = true;
+          this.config.onDisconnected(this.config.hostConfig.name);
         }
       } catch (_) {
         this.config.onData(event.data as string);

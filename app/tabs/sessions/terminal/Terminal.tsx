@@ -746,14 +746,17 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               break;
             case "connected": {
               const fromBackground = data?.fromBackground as boolean;
+              const isReattach = data?.isReattach as boolean;
               setConnectionState("connected");
               setRetryCount(0);
-              if (!fromBackground) {
+              if (!fromBackground && !isReattach) {
                 setHasReceivedData(false);
               }
-              webViewRef.current?.injectJavaScript(
-                `window.notifyConnected(${fromBackground}); true;`,
-              );
+              if (!isReattach) {
+                webViewRef.current?.injectJavaScript(
+                  `window.notifyConnected(${fromBackground}); true;`,
+                );
+              }
               logActivity("terminal", hostConfig.id, hostConfig.name).catch(
                 () => {},
               );
