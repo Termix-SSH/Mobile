@@ -1028,6 +1028,7 @@ export default function Sessions() {
                       finalKey = `\x1b${key}`;
                     } else {
                       finalKey = key;
+                      dictationSentRef.current = hiddenInputValue + key;
                     }
                   }
               }

@@ -403,10 +403,14 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       try { terminal.write(data); } catch(e) {}
     };
 
-    window.notifyConnected = function(fromBackground) {
+    window.notifyConnected = function(fromBackground, isReattach) {
       terminal.clear();
-      terminal.reset();
-      terminal.write('\\x1b[2J\\x1b[H');
+      if (isReattach) {
+        terminal.write('\\x1b[2J\\x1b[H');
+      } else {
+        terminal.reset();
+        terminal.write('\\x1b[2J\\x1b[H');
+      }
     };
 
     const terminalElement = document.getElementById('terminal');
@@ -749,14 +753,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               const isReattach = data?.isReattach as boolean;
               setConnectionState("connected");
               setRetryCount(0);
-              if (!fromBackground && !isReattach) {
+              if (!isReattach) {
                 setHasReceivedData(false);
               }
-              if (!isReattach) {
-                webViewRef.current?.injectJavaScript(
-                  `window.notifyConnected(${fromBackground}); true;`,
-                );
-              }
+              webViewRef.current?.injectJavaScript(
+                `window.notifyConnected(${fromBackground}, ${isReattach}); true;`,
+              );
               logActivity("terminal", hostConfig.id, hostConfig.name).catch(
                 () => {},
               );
