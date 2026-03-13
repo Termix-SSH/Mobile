@@ -84,7 +84,12 @@ export default function Hosts() {
         throw hostsResult.reason;
       }
 
-      const hosts = hostsResult.value;
+      const hostsRaw = hostsResult.value;
+      const hosts: SSHHost[] = Array.isArray(hostsRaw)
+        ? hostsRaw
+        : Array.isArray((hostsRaw as any)?.hosts)
+          ? (hostsRaw as any).hosts
+          : [];
       const statuses =
         statusesResult.status === "fulfilled" ? statusesResult.value : {};
 
@@ -105,7 +110,7 @@ export default function Hosts() {
         });
       }
 
-      hosts.forEach((host: SSHHost) => {
+      hosts.filter((host: SSHHost) => !host.connectionType || host.connectionType === "ssh").forEach((host: SSHHost) => {
         const folderName = host.folder || "No Folder";
         if (!folderMap.has(folderName)) {
           folderMap.set(folderName, {

@@ -13,6 +13,7 @@ export interface QuickAction {
 
 export interface SSHHost {
   id: number;
+  connectionType?: string;
   name: string;
   ip: string;
   port: number;

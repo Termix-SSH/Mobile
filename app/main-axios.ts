@@ -347,8 +347,22 @@ function getSshBase(defaultPort: number): string {
   return `http://localhost:${defaultPort}/ssh`;
 }
 
+function getHostBase(defaultPort: number): string {
+  if (configuredServerUrl) {
+    const trimmed = configuredServerUrl.replace(/\/$/, "");
+
+    if (/\/host$/.test(trimmed)) {
+      return trimmed;
+    }
+
+    const withoutSsh = trimmed.replace(/\/ssh$/, "");
+    return `${withoutSsh}/host`;
+  }
+  return `http://localhost:${defaultPort}/host`;
+}
+
 function initializeApiInstances() {
-  sshHostApi = createApiInstance(getApiUrl("/ssh", 8081), "SSH_HOST");
+  sshHostApi = createApiInstance(getHostBase(8081), "SSH_HOST");
 
   tunnelApi = createApiInstance(getApiUrl("/ssh", 8083), "TUNNEL");
 
@@ -359,20 +373,22 @@ function initializeApiInstances() {
 
   statsApi = createApiInstance(getApiUrl("", 8085), "STATS");
 
-  authApi = createApiInstance(getApiUrl("", 8081), "AUTH");
+  authApi = createApiInstance(getRootBase(8081), "AUTH");
 }
 
 async function detectAndUpdateApiInstances(): Promise<void> {
   try {
+    const token = await getCookie("jwt");
+    const authHeaders = {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    };
+
     const [statsRootOk, statsSshOk, authRootOk, authSshOk] = await Promise.all([
       (async () => {
         try {
           const base = getRootBase(8085).replace(/\/$/, "");
-          const testInstance = axios.create({
-            baseURL: base,
-            timeout: 5000,
-            headers: { "Content-Type": "application/json" },
-          });
+          const testInstance = axios.create({ baseURL: base, timeout: 5000, headers: authHeaders });
           await testInstance.head("/status");
           return true;
         } catch {
@@ -382,11 +398,7 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       (async () => {
         try {
           const base = getSshBase(8085).replace(/\/$/, "");
-          const testInstance = axios.create({
-            baseURL: base,
-            timeout: 5000,
-            headers: { "Content-Type": "application/json" },
-          });
+          const testInstance = axios.create({ baseURL: base, timeout: 5000, headers: authHeaders });
           await testInstance.head("/status");
           return true;
         } catch {
@@ -396,11 +408,7 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       (async () => {
         try {
           const base = getRootBase(8081).replace(/\/$/, "");
-          const testInstance = axios.create({
-            baseURL: base,
-            timeout: 5000,
-            headers: { "Content-Type": "application/json" },
-          });
+          const testInstance = axios.create({ baseURL: base, timeout: 5000, headers: authHeaders });
           await testInstance.head("/users/registration-allowed");
           return true;
         } catch {
@@ -410,11 +418,7 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       (async () => {
         try {
           const base = getSshBase(8081).replace(/\/$/, "");
-          const testInstance = axios.create({
-            baseURL: base,
-            timeout: 5000,
-            headers: { "Content-Type": "application/json" },
-          });
+          const testInstance = axios.create({ baseURL: base, timeout: 5000, headers: authHeaders });
           await testInstance.head("/users/registration-allowed");
           return true;
         } catch {
@@ -1520,7 +1524,7 @@ export async function compressSSHFiles(
 
 export async function getRecentFiles(hostId: number): Promise<any> {
   try {
-    const response = await authApi.get("/ssh/file_manager/recent", {
+    const response = await authApi.get("/host/file_manager/recent", {
       params: { hostId },
     });
     return response.data;
@@ -1536,7 +1540,7 @@ export async function addRecentFile(
   name?: string,
 ): Promise<any> {
   try {
-    const response = await authApi.post("/ssh/file_manager/recent", {
+    const response = await authApi.post("/host/file_manager/recent", {
       hostId,
       path,
       name,
@@ -1553,7 +1557,7 @@ export async function removeRecentFile(
   path: string,
 ): Promise<any> {
   try {
-    const response = await authApi.delete("/ssh/file_manager/recent", {
+    const response = await authApi.delete("/host/file_manager/recent", {
       data: { hostId, path },
     });
     return response.data;
@@ -1565,7 +1569,7 @@ export async function removeRecentFile(
 
 export async function getPinnedFiles(hostId: number): Promise<any> {
   try {
-    const response = await authApi.get("/ssh/file_manager/pinned", {
+    const response = await authApi.get("/host/file_manager/pinned", {
       params: { hostId },
     });
     return response.data;
@@ -1581,7 +1585,7 @@ export async function addPinnedFile(
   name?: string,
 ): Promise<any> {
   try {
-    const response = await authApi.post("/ssh/file_manager/pinned", {
+    const response = await authApi.post("/host/file_manager/pinned", {
       hostId,
       path,
       name,
@@ -1598,7 +1602,7 @@ export async function removePinnedFile(
   path: string,
 ): Promise<any> {
   try {
-    const response = await authApi.delete("/ssh/file_manager/pinned", {
+    const response = await authApi.delete("/host/file_manager/pinned", {
       data: { hostId, path },
     });
     return response.data;
@@ -1610,7 +1614,7 @@ export async function removePinnedFile(
 
 export async function getFolderShortcuts(hostId: number): Promise<any> {
   try {
-    const response = await authApi.get("/ssh/file_manager/shortcuts", {
+    const response = await authApi.get("/host/file_manager/shortcuts", {
       params: { hostId },
     });
     return response.data;
@@ -1626,7 +1630,7 @@ export async function addFolderShortcut(
   name?: string,
 ): Promise<any> {
   try {
-    const response = await authApi.post("/ssh/file_manager/shortcuts", {
+    const response = await authApi.post("/host/file_manager/shortcuts", {
       hostId,
       path,
       name,
@@ -1643,7 +1647,7 @@ export async function removeFolderShortcut(
   path: string,
 ): Promise<any> {
   try {
-    const response = await authApi.delete("/ssh/file_manager/shortcuts", {
+    const response = await authApi.delete("/host/file_manager/shortcuts", {
       data: { hostId, path },
     });
     return response.data;
@@ -1774,78 +1778,93 @@ export async function registerUser(
   }
 }
 
+function extractJwtFromSetCookie(headers: any): string | null {
+  const cookieHeader = headers["set-cookie"];
+  if (cookieHeader) {
+    const cookies = Array.isArray(cookieHeader) ? cookieHeader : [cookieHeader];
+    for (const cookie of cookies) {
+      if (cookie.startsWith("jwt=")) {
+        return cookie.split("jwt=")[1].split(";")[0];
+      }
+    }
+  }
+  return null;
+}
+
+async function loginWithFetch(
+  baseUrl: string,
+  username: string,
+  password: string,
+): Promise<{ data: any; token: string | null }> {
+  const url = `${baseUrl.replace(/\/$/, "")}/users/login`;
+  const fetchResponse = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (!fetchResponse.ok) {
+    const errData = await fetchResponse.json().catch(() => ({}));
+    const err: any = new Error(errData?.error || "Login failed");
+    err.response = { status: fetchResponse.status, data: errData };
+    throw err;
+  }
+
+  const data = await fetchResponse.json();
+
+  let token: string | null = data.token || null;
+  const setCookie = fetchResponse.headers.get("set-cookie");
+  if (!token && setCookie) {
+    const match = setCookie.match(/(?:^|,\s*)jwt=([^;]+)/);
+    if (match) token = match[1];
+  }
+
+  return { data, token };
+}
+
 export async function loginUser(
   username: string,
   password: string,
 ): Promise<AuthResponse> {
   try {
-    const response = await authApi.post("/users/login", { username, password });
+    const baseUrl = getRootBase(8081);
+    const { data, token } = await loginWithFetch(baseUrl, username, password);
 
-    if (response.data.requires_totp) {
-      return {
-        ...response.data,
-        token: response.data.temp_token || "",
-      };
+    if (data.requires_totp) {
+      return { ...data, token: data.temp_token || "" };
     }
 
-    let token = null;
-    const cookieHeader = response.headers["set-cookie"];
-    if (cookieHeader && Array.isArray(cookieHeader)) {
-      for (const cookie of cookieHeader) {
-        if (cookie.startsWith("jwt=")) {
-          token = cookie.split("jwt=")[1].split(";")[0];
-          break;
-        }
+
+    let finalToken = token;
+    if (!finalToken) {
+      try {
+        const axiosResponse = await authApi.post("/users/login", { username, password });
+        finalToken = extractJwtFromSetCookie(axiosResponse.headers) || axiosResponse.data.token || null;
+      } catch {
+        // ignore, we already have data
       }
     }
 
-    const result = {
-      ...response.data,
-      token: token || response.data.token,
-    };
-
-    if (result.token && !response.data.requires_totp) {
-      await AsyncStorage.setItem("jwt", result.token);
+    if (finalToken) {
+      await AsyncStorage.setItem("jwt", finalToken);
     }
 
-    return result;
+    return { ...data, token: finalToken || "" };
   } catch (error: any) {
     if (error?.response?.status === 404) {
       try {
-        const alt = axios.create({
-          baseURL: getSshBase(8081),
-          headers: { "Content-Type": "application/json" },
-        });
-        const response = await alt.post("/users/login", { username, password });
+        const altBase = getSshBase(8081);
+        const { data, token } = await loginWithFetch(altBase, username, password);
 
-        if (response.data.requires_totp) {
-          return {
-            ...response.data,
-            token: response.data.temp_token || "",
-          };
+        if (data.requires_totp) {
+          return { ...data, token: data.temp_token || "" };
         }
 
-        let token = null;
-        const cookieHeader = response.headers["set-cookie"];
-        if (cookieHeader && Array.isArray(cookieHeader)) {
-          for (const cookie of cookieHeader) {
-            if (cookie.startsWith("jwt=")) {
-              token = cookie.split("jwt=")[1].split(";")[0];
-              break;
-            }
-          }
+        if (token) {
+          await AsyncStorage.setItem("jwt", token);
         }
 
-        const result = {
-          ...response.data,
-          token: token || response.data.token,
-        };
-
-        if (result.token && !response.data.requires_totp) {
-          await AsyncStorage.setItem("jwt", result.token);
-        }
-
-        return result;
+        return { ...data, token: token || "" };
       } catch (e) {
         handleApiError(e, "login user");
       }
@@ -2613,7 +2632,7 @@ export async function getFoldersWithStats(): Promise<any> {
       });
 
       try {
-        const response = await tempInstance.get("/ssh/folders");
+        const response = await tempInstance.get("/host/folders");
         return response.data;
       } catch (err: any) {
         if (err.response?.status === 404) {
@@ -2641,7 +2660,7 @@ export async function renameFolder(
   newName: string,
 ): Promise<any> {
   try {
-    const response = await authApi.put("/ssh/folders/rename", {
+    const response = await authApi.put("/host/folders/rename", {
       oldName,
       newName,
     });
@@ -2657,7 +2676,7 @@ export async function getSSHFolders(): Promise<any[]> {
       operation: "fetch_ssh_folders",
     });
 
-    const response = await authApi.get("/ssh/folders");
+    const response = await authApi.get("/host/folders");
 
     sshLogger.success("SSH folders fetched successfully", {
       operation: "fetch_ssh_folders",
@@ -2687,7 +2706,7 @@ export async function updateFolderMetadata(
       icon,
     });
 
-    await authApi.put("/ssh/folders/metadata", {
+    await authApi.put("/host/folders/metadata", {
       name,
       color,
       icon,
@@ -2717,7 +2736,7 @@ export async function deleteAllHostsInFolder(
     });
 
     const response = await authApi.delete(
-      `/ssh/folders/${encodeURIComponent(folderName)}/hosts`,
+      `/host/folders/${encodeURIComponent(folderName)}/hosts`,
     );
 
     sshLogger.success("All hosts in folder deleted successfully", {
