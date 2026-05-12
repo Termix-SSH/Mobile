@@ -262,6 +262,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     .xterm-viewport {
       width: 100% !important;
       height: 100% !important;
+      -webkit-overflow-scrolling: touch;
     }
 
     .xterm {
@@ -592,6 +593,25 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     window.addEventListener('orientationchange', function() {
       setTimeout(handleResize, 100);
     });
+
+    // Touch-scroll acceleration for iOS WebView
+    (function() {
+      var scrollTouchY = null;
+      var lineH = terminal._core._renderService.dimensions.css.cell.height || ${baseFontSize * 1.2};
+      terminalElement.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) scrollTouchY = e.touches[0].clientY;
+      }, { passive: true, capture: true });
+      terminalElement.addEventListener('touchmove', function(e) {
+        if (scrollTouchY === null || e.touches.length !== 1) return;
+        var dy = scrollTouchY - e.touches[0].clientY;
+        scrollTouchY = e.touches[0].clientY;
+        var lines = Math.trunc(dy / lineH);
+        if (lines !== 0) terminal.scrollLines(lines);
+      }, { passive: true, capture: true });
+      terminalElement.addEventListener('touchend', function() {
+        scrollTouchY = null;
+      }, { passive: true, capture: true });
+    })();
 
     terminal.clear();
     terminal.reset();
