@@ -73,6 +73,11 @@ extension UIViewController {
     rightCmd.wantsPriorityOverSystemBehavior = true
     commands.append(rightCmd)
 
+    // Tab (unmodified)
+    let tab = UIKeyCommand(input: "\t", modifierFlags: [], action: #selector(hk_handleTab))
+    tab.wantsPriorityOverSystemBehavior = true
+    commands.append(tab)
+
     // Escape
     let esc = UIKeyCommand(input: UIKeyCommand.inputEscape, modifierFlags: [], action: #selector(hk_handleEscape))
     esc.wantsPriorityOverSystemBehavior = true
@@ -92,6 +97,7 @@ extension UIViewController {
     return commands
   }
 
+  @objc func hk_handleTab()         { HardwareKeyboardModule.emitToAll("\t",         shift: false) }
   @objc func hk_handleShiftTab()   { HardwareKeyboardModule.emitToAll("\t",         shift: true) }
   @objc func hk_handleArrowUp()    { HardwareKeyboardModule.emitToAll("ArrowUp",    shift: false) }
   @objc func hk_handleArrowDown()  { HardwareKeyboardModule.emitToAll("ArrowDown",  shift: false) }

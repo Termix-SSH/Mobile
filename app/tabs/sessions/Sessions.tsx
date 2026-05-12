@@ -395,8 +395,8 @@ export default function Sessions() {
         : null;
       if (!activeRef?.current) return;
 
-      if (event.shift && event.input === "\t") {
-        activeRef.current.sendInput("\x1b[Z");
+      if (event.input === "\t") {
+        activeRef.current.sendInput(event.shift ? "\x1b[Z" : "\t");
         return;
       }
 
