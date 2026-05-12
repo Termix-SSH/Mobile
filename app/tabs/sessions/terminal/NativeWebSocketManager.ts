@@ -12,6 +12,9 @@ export interface TerminalHostConfig {
   keyPassword?: string;
   keyType?: string;
   credentialId?: number;
+  jumpHosts?: { hostId: number }[];
+  forceKeyboardInteractive?: boolean;
+  overrideCredentialUsername?: boolean;
 }
 
 export type WsState =

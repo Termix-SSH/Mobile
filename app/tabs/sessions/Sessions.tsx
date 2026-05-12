@@ -571,6 +571,11 @@ export default function Sessions() {
                   credentialId: session.host.credentialId
                     ? parseInt(session.host.credentialId.toString())
                     : undefined,
+                  jumpHosts: session.host.jumpHosts,
+                  forceKeyboardInteractive:
+                    session.host.forceKeyboardInteractive,
+                  overrideCredentialUsername:
+                    session.host.overrideCredentialUsername,
                   terminalConfig: session.host.terminalConfig,
                 }}
                 isVisible={session.id === activeSessionId}
