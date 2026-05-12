@@ -45,6 +45,7 @@ interface TerminalProps {
     keyPassword?: string;
     keyType?: string;
     credentialId?: number;
+    jumpHosts?: { hostId: number }[];
     terminalConfig?: Partial<TerminalConfig>;
   };
   isVisible: boolean;

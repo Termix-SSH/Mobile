@@ -12,6 +12,7 @@ export interface TerminalHostConfig {
   keyPassword?: string;
   keyType?: string;
   credentialId?: number;
+  jumpHosts?: { hostId: number }[];
 }
 
 export type WsState =
