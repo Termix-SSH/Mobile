@@ -1,6 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   ActivityIndicator,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -16,7 +23,12 @@ import {
   getGuacamoleWebSocketUrl,
 } from "@/app/main-axios";
 
-type ConnectionState = "idle" | "connecting" | "connected" | "disconnected" | "failed";
+type ConnectionState =
+  | "idle"
+  | "connecting"
+  | "connected"
+  | "disconnected"
+  | "failed";
 
 interface RemoteDesktopProps {
   host: SSHHost;
@@ -25,11 +37,7 @@ interface RemoteDesktopProps {
   onClose?: () => void;
 }
 
-export function RemoteDesktop({
-  host,
-  isVisible,
-  title,
-}: RemoteDesktopProps) {
+export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
   const { width, height } = useWindowDimensions();
   const initialSizeRef = useRef({
     width: Math.round(width),
@@ -57,7 +65,9 @@ export function RemoteDesktop({
     } catch (error) {
       setConnectionState("failed");
       setErrorMessage(
-        error instanceof Error ? error.message : "Failed to start remote session",
+        error instanceof Error
+          ? error.message
+          : "Failed to start remote session",
       );
     }
   }, [host.id]);
@@ -174,6 +184,10 @@ export function RemoteDesktop({
           keysyms.forEach((keysym) => client.sendKeyEvent(1, keysym));
           keysyms.slice().reverse().forEach((keysym) => client.sendKeyEvent(0, keysym));
         },
+        resize: (width, height) => {
+          client.sendSize(Math.max(1, Math.round(width)), Math.max(1, Math.round(height)));
+          window.requestAnimationFrame(resizeDisplay);
+        },
         sendText: (text) => {
           Array.from(text).forEach((char) => {
             const codepoint = char.codePointAt(0);
@@ -258,6 +272,14 @@ export function RemoteDesktop({
   const protocol = (host.connectionType || "rdp").toUpperCase();
   const canSendInput = connectionState === "connected";
 
+  useEffect(() => {
+    if (!canSendInput) return;
+
+    injectRemoteCommand(
+      `window.termixRemote && window.termixRemote.resize(${Math.round(width)}, ${Math.round(height)})`,
+    );
+  }, [canSendInput, height, injectRemoteCommand, width]);
+
   return (
     <View
       pointerEvents={isVisible ? "auto" : "none"}
@@ -289,7 +311,9 @@ export function RemoteDesktop({
           }}
           onHttpError={(event) => {
             setConnectionState("failed");
-            setErrorMessage(`WebView HTTP error: ${event.nativeEvent.statusCode}`);
+            setErrorMessage(
+              `WebView HTTP error: ${event.nativeEvent.statusCode}`,
+            );
           }}
           scrollEnabled={false}
           overScrollMode="never"
@@ -311,9 +335,13 @@ export function RemoteDesktop({
       {(connectionState === "failed" || connectionState === "disconnected") && (
         <View style={styles.overlay}>
           <Text style={styles.overlayTitle}>
-            {connectionState === "failed" ? "Connection Failed" : "Disconnected"}
+            {connectionState === "failed"
+              ? "Connection Failed"
+              : "Disconnected"}
           </Text>
-          {errorMessage ? <Text style={styles.overlayText}>{errorMessage}</Text> : null}
+          {errorMessage ? (
+            <Text style={styles.overlayText}>{errorMessage}</Text>
+          ) : null}
           <TouchableOpacity style={styles.retryButton} onPress={reconnect}>
             <RotateCcw size={16} color="#ffffff" />
             <Text style={styles.retryText}>Reconnect</Text>
@@ -339,19 +367,30 @@ export function RemoteDesktop({
             spellCheck={false}
             style={styles.hiddenInput}
           />
-          <RemoteKeyButton
-            label="Keys"
-            icon={<Keyboard size={16} color="#ffffff" />}
-            onPress={() => inputRef.current?.focus()}
-          />
-          <RemoteKeyButton label="Esc" onPress={() => sendKeysym(0xff1b)} />
-          <RemoteKeyButton label="Tab" onPress={() => sendKeysym(0xff09)} />
-          <RemoteKeyButton label="Enter" onPress={() => sendKeysym(0xff0d)} />
-          <RemoteKeyButton label="Bksp" onPress={() => sendKeysym(0xff08)} />
-          <RemoteKeyButton
-            label="CAD"
-            onPress={() => sendKeysyms([0xffe3, 0xffe9, 0xffff])}
-          />
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+            contentContainerStyle={styles.toolbarContent}
+          >
+            <RemoteKeyButton
+              label="Keys"
+              icon={<Keyboard size={16} color="#ffffff" />}
+              onPress={() => inputRef.current?.focus()}
+            />
+            <RemoteKeyButton label="Esc" onPress={() => sendKeysym(0xff1b)} />
+            <RemoteKeyButton label="Tab" onPress={() => sendKeysym(0xff09)} />
+            <RemoteKeyButton label="Enter" onPress={() => sendKeysym(0xff0d)} />
+            <RemoteKeyButton label="Bksp" onPress={() => sendKeysym(0xff08)} />
+            <RemoteKeyButton label="Left" onPress={() => sendKeysym(0xff51)} />
+            <RemoteKeyButton label="Up" onPress={() => sendKeysym(0xff52)} />
+            <RemoteKeyButton label="Down" onPress={() => sendKeysym(0xff54)} />
+            <RemoteKeyButton label="Right" onPress={() => sendKeysym(0xff53)} />
+            <RemoteKeyButton
+              label="CAD"
+              onPress={() => sendKeysyms([0xffe3, 0xffe9, 0xffff])}
+            />
+          </ScrollView>
         </View>
       )}
     </View>
@@ -435,6 +474,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#111827",
     borderTopWidth: 1,
     borderTopColor: "#303032",
+  },
+  toolbarContent: {
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
