@@ -12,8 +12,10 @@ import {
   ActivityIndicator,
   Dimensions,
   AccessibilityInfo,
+  TouchableOpacity,
 } from "react-native";
 import { WebView } from "react-native-webview";
+import { ChevronDown } from "lucide-react-native";
 import { logActivity, getSnippets } from "../../../main-axios";
 import { showToast } from "../../../utils/toast";
 import { useTerminalCustomization } from "../../../contexts/TerminalCustomizationContext";
@@ -110,6 +112,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       "no_keyboard" | "auth_failed" | "timeout"
     >("auth_failed");
     const [isSelecting, setIsSelecting] = useState(false);
+    const [showScrollToBottomButton, setShowScrollToBottomButton] =
+      useState(false);
     const [hostKeyVerification, setHostKeyVerification] = useState<{
       scenario: "new" | "changed";
       data: HostKeyData;
@@ -233,6 +237,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
   <title>Terminal</title>
   <script src="https://unpkg.com/xterm@5.3.0/lib/xterm.js"></script>
   <script src="https://unpkg.com/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js"></script>
+  <script src="https://unpkg.com/xterm-addon-webgl@0.16.0/lib/xterm-addon-webgl.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/xterm@5.3.0/css/xterm.css" />
   <style>
     body {
@@ -384,6 +389,17 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     terminal.open(document.getElementById('terminal'));
 
+    try {
+      if (window.WebglAddon && window.WebglAddon.WebglAddon) {
+        const webglAddon = new WebglAddon.WebglAddon();
+        terminal.loadAddon(webglAddon);
+        webglAddon.onContextLoss(function(event) {
+          event.preventDefault();
+          webglAddon.dispose();
+        });
+      }
+    } catch(e) {}
+
     fitAddon.fit();
 
     setTimeout(() => {
@@ -399,8 +415,55 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       });
     }, 100);
 
+    let isScrolledToBottom = true;
+    let scrollStateFrame = null;
+
+    function getIsScrolledToBottom() {
+      try {
+        return terminal.buffer.active.viewportY >= terminal.buffer.active.baseY;
+      } catch(e) {
+        return true;
+      }
+    }
+
+    function postScrollState() {
+      const nextIsAtBottom = getIsScrolledToBottom();
+      if (nextIsAtBottom === isScrolledToBottom) {
+        return;
+      }
+
+      isScrolledToBottom = nextIsAtBottom;
+      if (window.ReactNativeWebView) {
+        window.ReactNativeWebView.postMessage(JSON.stringify({
+          type: 'scrollState',
+          data: { isAtBottom: isScrolledToBottom }
+        }));
+      }
+    }
+
+    function scheduleScrollStateUpdate() {
+      if (scrollStateFrame !== null) {
+        return;
+      }
+
+      scrollStateFrame = requestAnimationFrame(function() {
+        scrollStateFrame = null;
+        postScrollState();
+      });
+    }
+
+    terminal.onScroll(scheduleScrollStateUpdate);
+
     window.writeToTerminal = function(data) {
-      try { terminal.write(data); } catch(e) {}
+      const shouldStickToBottom = getIsScrolledToBottom();
+      try {
+        terminal.write(data, function() {
+          if (shouldStickToBottom) {
+            terminal.scrollToBottom();
+          }
+          scheduleScrollStateUpdate();
+        });
+      } catch(e) {}
     };
 
     window.notifyConnected = function(fromBackground, isReattach) {
@@ -417,6 +480,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     window.resetScroll = function() {
       terminal.scrollToBottom();
+      scheduleScrollStateUpdate();
     }
 
     document.addEventListener('focusin', function(e) {
@@ -727,6 +791,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           case "selectionEnd":
             setIsSelecting(false);
             break;
+
+          case "scrollState":
+            setShowScrollToBottomButton(!message.data.isAtBottom);
+            break;
         }
       } catch (error) {
         console.error("[Terminal] Error parsing WebView message:", error);
@@ -811,6 +879,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       setConnectionState("connecting");
       setHasReceivedData(false);
       setRetryCount(0);
+      setShowScrollToBottomButton(false);
 
       const html = generateHTML();
       setHtmlContent(html);
@@ -856,6 +925,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         },
         scrollToBottom: () => {
           try {
+            setShowScrollToBottomButton(false);
             webViewRef.current?.injectJavaScript(
               `window.resetScroll && window.resetScroll(); true;`,
             );
@@ -949,6 +1019,45 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               setSupportMultipleWindows={false}
             />
           </View>
+
+          {showScrollToBottomButton &&
+            isVisible &&
+            connectionState === "connected" &&
+            !totpRequired &&
+            !showAuthDialog &&
+            hostKeyVerification === null && (
+              <TouchableOpacity
+                accessibilityRole="button"
+                accessibilityLabel="Scroll to bottom"
+                onPress={() => {
+                  setShowScrollToBottomButton(false);
+                  webViewRef.current?.injectJavaScript(
+                    `window.resetScroll && window.resetScroll(); true;`,
+                  );
+                }}
+                style={{
+                  position: "absolute",
+                  right: 16,
+                  bottom: 20,
+                  width: 44,
+                  height: 44,
+                  borderRadius: 22,
+                  backgroundColor: "rgba(24, 24, 27, 0.92)",
+                  borderWidth: 1,
+                  borderColor: BORDER_COLORS.PRIMARY,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 20,
+                  shadowColor: "#000",
+                  shadowOpacity: 0.25,
+                  shadowRadius: 8,
+                  shadowOffset: { width: 0, height: 4 },
+                  elevation: 6,
+                }}
+              >
+                <ChevronDown size={24} color="#ffffff" />
+              </TouchableOpacity>
+            )}
 
           {(connectionState === "connecting" ||
             connectionState === "reconnecting") && (
