@@ -4,10 +4,6 @@ import type {
   SSHHostData,
   TunnelConfig,
   TunnelStatus,
-  Credential,
-  CredentialData,
-  HostInfo,
-  ApiResponse,
   FileManagerFile,
   FileManagerShortcut,
   ServerStatus,
@@ -285,6 +281,15 @@ export async function initializeServerConfig(): Promise<void> {
 
 export function getCurrentServerUrl(): string | null {
   return configuredServerUrl;
+}
+
+export function getGuacamoleWebSocketUrl(token: string): string {
+  const base = getRootBase(8081).replace(/\/$/, "");
+  const websocketBase = base.replace(/^http/i, (scheme) =>
+    scheme.toLowerCase() === "https" ? "wss" : "ws",
+  );
+
+  return `${websocketBase}/guacamole/websocket/?token=${encodeURIComponent(token)}`;
 }
 
 export async function isAuthenticated(): Promise<boolean> {
@@ -819,6 +824,17 @@ export async function exportSSHHostWithCredentials(
     return response.data;
   } catch (error) {
     handleApiError(error, "export SSH host with credentials");
+  }
+}
+
+export async function getGuacamoleTokenFromHost(
+  hostId: number,
+): Promise<{ token: string }> {
+  try {
+    const response = await authApi.post(`/guacamole/connect-host/${hostId}`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "connect Guacamole host");
   }
 }
 

@@ -11,29 +11,30 @@ import { SSHHost } from "@/types";
 import { router } from "expo-router";
 import { useAppContext } from "@/app/AppContext";
 
+export type SessionType =
+  | "terminal"
+  | "stats"
+  | "filemanager"
+  | "tunnel"
+  | "remoteDesktop";
+
 export interface TerminalSession {
   id: string;
   host: SSHHost;
   title: string;
   isActive: boolean;
   createdAt: Date;
-  type: "terminal" | "stats" | "filemanager" | "tunnel";
+  type: SessionType;
 }
 
 interface TerminalSessionsContextType {
   sessions: TerminalSession[];
   activeSessionId: string | null;
-  addSession: (
-    host: SSHHost,
-    type?: "terminal" | "stats" | "filemanager" | "tunnel",
-  ) => string;
+  addSession: (host: SSHHost, type?: SessionType) => string;
   removeSession: (sessionId: string) => void;
   setActiveSession: (sessionId: string) => void;
   clearAllSessions: () => void;
-  navigateToSessions: (
-    host?: SSHHost,
-    type?: "terminal" | "stats" | "filemanager" | "tunnel",
-  ) => void;
+  navigateToSessions: (host?: SSHHost, type?: SessionType) => void;
   isCustomKeyboardVisible: boolean;
   toggleCustomKeyboard: () => void;
   lastKeyboardHeight: number;
@@ -72,10 +73,7 @@ export const TerminalSessionsProvider: React.FC<
   const [, forceUpdate] = useState({});
 
   const addSession = useCallback(
-    (
-      host: SSHHost,
-      type: "terminal" | "stats" | "filemanager" | "tunnel" = "terminal",
-    ): string => {
+    (host: SSHHost, type: SessionType = "terminal"): string => {
       setSessions((prev) => {
         const existingSessions = prev.filter(
           (session) => session.host.id === host.id && session.type === type,
@@ -88,7 +86,9 @@ export const TerminalSessionsProvider: React.FC<
               ? "Files"
               : type === "tunnel"
                 ? "Tunnels"
-                : "";
+                : type === "remoteDesktop"
+                  ? "Remote"
+                  : "";
         let title = typeLabel ? `${host.name} - ${typeLabel}` : host.name;
         if (existingSessions.length > 0) {
           title = typeLabel
@@ -156,7 +156,9 @@ export const TerminalSessionsProvider: React.FC<
                     ? "Files"
                     : session.type === "tunnel"
                       ? "Tunnels"
-                      : "";
+                      : session.type === "remoteDesktop"
+                        ? "Remote"
+                        : "";
               const baseName = typeLabel
                 ? `${session.host.name} - ${typeLabel}`
                 : session.host.name;
@@ -208,10 +210,7 @@ export const TerminalSessionsProvider: React.FC<
   );
 
   const navigateToSessions = useCallback(
-    (
-      host?: SSHHost,
-      type: "terminal" | "stats" | "filemanager" | "tunnel" = "terminal",
-    ) => {
+    (host?: SSHHost, type: SessionType = "terminal") => {
       if (host) {
         addSession(host, type);
       }
