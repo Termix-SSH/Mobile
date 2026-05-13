@@ -16,8 +16,41 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ArrowLeft, RefreshCw } from "lucide-react-native";
 import { WebView, WebViewNavigation } from "react-native-webview";
-import { WebViewSource } from "react-native-webview/lib/WebViewTypes";
+import { ShouldStartLoadRequest } from "react-native-webview/lib/WebViewTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as WebBrowser from "expo-web-browser";
+
+const supportsHttpsAuthSessionCallback = () => {
+  if (Platform.OS !== "ios") {
+    return false;
+  }
+
+  const [major = 0, minor = 0] = String(Platform.Version)
+    .split(".")
+    .map((part) => Number(part));
+
+  return major > 17 || (major === 17 && minor >= 4);
+};
+
+const getOIDCCallbackUrl = (nextUrl: string) => {
+  try {
+    const parsedUrl = new URL(nextUrl);
+    const redirectUri = parsedUrl.searchParams.get("redirect_uri");
+    if (
+      parsedUrl.searchParams.get("response_type") !== "code" ||
+      !redirectUri
+    ) {
+      return null;
+    }
+
+    const callbackUrl = new URL(redirectUri);
+    return callbackUrl.pathname === "/users/oidc/callback"
+      ? callbackUrl.toString()
+      : null;
+  } catch {
+    return null;
+  }
+};
 
 export default function LoginForm() {
   const {
@@ -31,9 +64,10 @@ export default function LoginForm() {
   const [url, setUrl] = useState("");
   const [canGoBack, setCanGoBack] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [source, setSource] = useState<WebViewSource>({ uri: "" });
+  const [source, setSource] = useState({ uri: "" });
   const [webViewKey, setWebViewKey] = useState(() => String(Date.now()));
   const [hasNavigated, setHasNavigated] = useState(false);
+  const externalOIDCUrlRef = useRef<string | null>(null);
 
   useEffect(() => {
     const initializeLogin = async () => {
@@ -116,6 +150,59 @@ export default function LoginForm() {
       nativeEvent.statusCode,
       nativeEvent.url,
     );
+  };
+
+  const continueOIDCCallbackInWebView = (callbackUrl: string) => {
+    setSource({ uri: callbackUrl });
+    setUrl(callbackUrl);
+    setWebViewKey(String(Date.now()));
+  };
+
+  const openOIDCInSystemSession = async (
+    authUrl: string,
+    callbackUrl: string,
+  ) => {
+    externalOIDCUrlRef.current = authUrl;
+    setLoading(true);
+
+    try {
+      const result = await WebBrowser.openAuthSessionAsync(
+        authUrl,
+        callbackUrl,
+        { preferEphemeralSession: false },
+      );
+
+      if (result.type === "success" && result.url) {
+        continueOIDCCallbackInWebView(result.url);
+      }
+    } catch (error) {
+      console.error("[LoginForm] Failed to open OIDC auth session:", error);
+      Alert.alert(
+        "OIDC Authentication Error",
+        "Unable to open the system authentication session. Please try again.",
+      );
+    } finally {
+      externalOIDCUrlRef.current = null;
+      setLoading(false);
+    }
+  };
+
+  const handleShouldStartLoad = (request: ShouldStartLoadRequest) => {
+    if (!supportsHttpsAuthSessionCallback()) {
+      return true;
+    }
+
+    const callbackUrl = getOIDCCallbackUrl(request.url);
+    if (!callbackUrl) {
+      return true;
+    }
+
+    if (externalOIDCUrlRef.current === request.url) {
+      return false;
+    }
+
+    void openOIDCInSystemSession(request.url, callbackUrl);
+    return false;
   };
 
   const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -383,25 +470,25 @@ export default function LoginForm() {
 
   if (!source.uri) {
     return (
-      <View className="flex-1 justify-center items-center bg-dark-bg">
+      <View className="flex-1 items-center justify-center bg-dark-bg">
         <ActivityIndicator size="large" color="#22C55E" />
-        <Text className="text-white mt-4">Loading server configuration...</Text>
+        <Text className="mt-4 text-white">Loading server configuration...</Text>
       </View>
     );
   }
 
   return (
     <View className="flex-1 bg-dark-bg" style={{ paddingTop: insets.top }}>
-      <View className="flex-row items-center justify-between p-4 bg-dark-bg">
+      <View className="flex-row items-center justify-between bg-dark-bg p-4">
         <TouchableOpacity
           onPress={handleBackToServerConfig}
           className="flex-row items-center"
         >
           <ArrowLeft size={20} color="#ffffff" />
-          <Text className="text-white text-lg ml-2">Server</Text>
+          <Text className="ml-2 text-lg text-white">Server</Text>
         </TouchableOpacity>
-        <View className="flex-1 mx-4">
-          <Text className="text-gray-400 text-center" numberOfLines={1}>
+        <View className="mx-4 flex-1">
+          <Text className="text-center text-gray-400" numberOfLines={1}>
             {url.replace(/^https?:\/\//, "")}
           </Text>
         </View>
@@ -425,6 +512,7 @@ export default function LoginForm() {
         onMessage={onMessage}
         onError={handleError}
         onHttpError={handleHttpError}
+        onShouldStartLoadWithRequest={handleShouldStartLoad}
         injectedJavaScript={injectedJavaScript}
         injectedJavaScriptBeforeContentLoaded={`
           document.body.style.backgroundColor = '#18181b';
@@ -438,7 +526,6 @@ export default function LoginForm() {
         startInLoadingState={true}
         sharedCookiesEnabled={false}
         thirdPartyCookiesEnabled={true}
-        opaque={false}
         {...(Platform.OS === "android" && {
           mixedContentMode: "always",
           allowFileAccess: false,
