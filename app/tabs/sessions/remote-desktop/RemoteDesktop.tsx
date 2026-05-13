@@ -3,11 +3,13 @@ import {
   ActivityIndicator,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { WebView } from "react-native-webview";
-import { RotateCcw } from "lucide-react-native";
+import { Keyboard, RotateCcw } from "lucide-react-native";
 import type { SSHHost } from "@/types";
 import {
   getGuacamoleTokenFromHost,
@@ -28,12 +30,19 @@ export function RemoteDesktop({
   isVisible,
   title,
 }: RemoteDesktopProps) {
+  const { width, height } = useWindowDimensions();
+  const initialSizeRef = useRef({
+    width: Math.round(width),
+    height: Math.round(height),
+  });
   const webViewRef = useRef<WebView>(null);
+  const inputRef = useRef<TextInput>(null);
   const [connectionState, setConnectionState] =
     useState<ConnectionState>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [webSocketUrl, setWebSocketUrl] = useState<string | null>(null);
   const [webViewKey, setWebViewKey] = useState(0);
+  const [inputValue, setInputValue] = useState("");
 
   const connect = useCallback(async () => {
     try {
@@ -41,7 +50,10 @@ export function RemoteDesktop({
       setErrorMessage(null);
 
       const { token } = await getGuacamoleTokenFromHost(Number(host.id));
-      setWebSocketUrl(getGuacamoleWebSocketUrl(token));
+      const initialSize = initialSizeRef.current;
+      setWebSocketUrl(
+        getGuacamoleWebSocketUrl(token, initialSize.width, initialSize.height),
+      );
     } catch (error) {
       setConnectionState("failed");
       setErrorMessage(
@@ -123,16 +135,17 @@ export function RemoteDesktop({
 
       displayContainer.appendChild(displayElement);
 
+      let currentScale = 1;
       const resizeDisplay = () => {
         const width = display.getWidth();
         const height = display.getHeight();
         if (!width || !height) return;
 
-        const scale = Math.min(
+        currentScale = Math.min(
           displayContainer.clientWidth / width,
           displayContainer.clientHeight / height
         );
-        display.scale(Math.max(scale, 0.1));
+        display.scale(Math.max(currentScale, 0.1));
       };
 
       display.onresize = resizeDisplay;
@@ -141,10 +154,36 @@ export function RemoteDesktop({
       const mouse = Guacamole.Mouse.Touchscreen
         ? new Guacamole.Mouse.Touchscreen(displayElement)
         : new Guacamole.Mouse(displayElement);
+      const sendMouseState = (state) => {
+        const scale = Math.max(currentScale, 0.1);
+        state.x = Math.round(state.x / scale);
+        state.y = Math.round(state.y / scale);
+        client.sendMouseState(state);
+      };
       mouse.onmousedown =
         mouse.onmouseup =
         mouse.onmousemove =
-          (state) => client.sendMouseState(state);
+          sendMouseState;
+
+      window.termixRemote = {
+        sendKeysym: (keysym) => {
+          client.sendKeyEvent(1, keysym);
+          client.sendKeyEvent(0, keysym);
+        },
+        sendKeysyms: (keysyms) => {
+          keysyms.forEach((keysym) => client.sendKeyEvent(1, keysym));
+          keysyms.slice().reverse().forEach((keysym) => client.sendKeyEvent(0, keysym));
+        },
+        sendText: (text) => {
+          Array.from(text).forEach((char) => {
+            const codepoint = char.codePointAt(0);
+            if (!codepoint) return;
+            const keysym = codepoint <= 0xff ? codepoint : (0x01000000 | codepoint);
+            client.sendKeyEvent(1, keysym);
+            client.sendKeyEvent(0, keysym);
+          });
+        },
+      };
 
       client.onstatechange = (state) => {
         if (state === Guacamole.Client.State.CONNECTED) {
@@ -175,7 +214,49 @@ export function RemoteDesktop({
     setWebViewKey((current) => current + 1);
   }, []);
 
+  const injectRemoteCommand = useCallback((script: string) => {
+    webViewRef.current?.injectJavaScript(`${script}; true;`);
+  }, []);
+
+  const sendKeysym = useCallback(
+    (keysym: number) => {
+      injectRemoteCommand(
+        `window.termixRemote && window.termixRemote.sendKeysym(${keysym})`,
+      );
+    },
+    [injectRemoteCommand],
+  );
+
+  const sendKeysyms = useCallback(
+    (keysyms: number[]) => {
+      injectRemoteCommand(
+        `window.termixRemote && window.termixRemote.sendKeysyms(${JSON.stringify(keysyms)})`,
+      );
+    },
+    [injectRemoteCommand],
+  );
+
+  const sendText = useCallback(
+    (text: string) => {
+      injectRemoteCommand(
+        `window.termixRemote && window.termixRemote.sendText(${JSON.stringify(text)})`,
+      );
+    },
+    [injectRemoteCommand],
+  );
+
+  const handleInputChange = useCallback(
+    (text: string) => {
+      if (text) {
+        sendText(text);
+      }
+      setInputValue("");
+    },
+    [sendText],
+  );
+
   const protocol = (host.connectionType || "rdp").toUpperCase();
+  const canSendInput = connectionState === "connected";
 
   return (
     <View
@@ -239,7 +320,58 @@ export function RemoteDesktop({
           </TouchableOpacity>
         </View>
       )}
+
+      {canSendInput && (
+        <View style={styles.toolbar}>
+          <TextInput
+            ref={inputRef}
+            value={inputValue}
+            onChangeText={handleInputChange}
+            onKeyPress={({ nativeEvent }) => {
+              if (nativeEvent.key === "Backspace") {
+                sendKeysym(0xff08);
+              } else if (nativeEvent.key === "Enter") {
+                sendKeysym(0xff0d);
+              }
+            }}
+            autoCapitalize="none"
+            autoCorrect={false}
+            spellCheck={false}
+            style={styles.hiddenInput}
+          />
+          <RemoteKeyButton
+            label="Keys"
+            icon={<Keyboard size={16} color="#ffffff" />}
+            onPress={() => inputRef.current?.focus()}
+          />
+          <RemoteKeyButton label="Esc" onPress={() => sendKeysym(0xff1b)} />
+          <RemoteKeyButton label="Tab" onPress={() => sendKeysym(0xff09)} />
+          <RemoteKeyButton label="Enter" onPress={() => sendKeysym(0xff0d)} />
+          <RemoteKeyButton label="Bksp" onPress={() => sendKeysym(0xff08)} />
+          <RemoteKeyButton
+            label="CAD"
+            onPress={() => sendKeysyms([0xffe3, 0xffe9, 0xffff])}
+          />
+        </View>
+      )}
     </View>
+  );
+}
+
+function RemoteKeyButton({
+  label,
+  icon,
+  onPress,
+}: {
+  label: string;
+  icon?: React.ReactNode;
+  onPress: () => void;
+}) {
+  return (
+    <TouchableOpacity style={styles.keyButton} onPress={onPress}>
+      {icon}
+      <Text style={styles.keyButtonText}>{label}</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -290,6 +422,46 @@ const styles = StyleSheet.create({
   retryText: {
     color: "#ffffff",
     fontSize: 14,
+    fontWeight: "600",
+  },
+  toolbar: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    minHeight: 48,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    backgroundColor: "#111827",
+    borderTopWidth: 1,
+    borderTopColor: "#303032",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  hiddenInput: {
+    position: "absolute",
+    width: 1,
+    height: 1,
+    opacity: 0,
+    color: "transparent",
+  },
+  keyButton: {
+    minWidth: 44,
+    height: 36,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#303032",
+    backgroundColor: "#1F2937",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 4,
+  },
+  keyButtonText: {
+    color: "#ffffff",
+    fontSize: 12,
     fontWeight: "600",
   },
 });

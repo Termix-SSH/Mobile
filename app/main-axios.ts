@@ -283,13 +283,21 @@ export function getCurrentServerUrl(): string | null {
   return configuredServerUrl;
 }
 
-export function getGuacamoleWebSocketUrl(token: string): string {
+export function getGuacamoleWebSocketUrl(
+  token: string,
+  width?: number,
+  height?: number,
+): string {
   const base = getRootBase(8081).replace(/\/$/, "");
   const websocketBase = base.replace(/^http/i, (scheme) =>
     scheme.toLowerCase() === "https" ? "wss" : "ws",
   );
+  const params = new URLSearchParams({ token });
 
-  return `${websocketBase}/guacamole/websocket/?token=${encodeURIComponent(token)}`;
+  if (width) params.set("width", String(width));
+  if (height) params.set("height", String(height));
+
+  return `${websocketBase}/guacamole/websocket/?${params.toString()}`;
 }
 
 export async function isAuthenticated(): Promise<boolean> {
