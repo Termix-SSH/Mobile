@@ -272,7 +272,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     }
 
     .xterm .xterm-screen {
-      font-family: 'Caskaydia Cove Nerd Font Mono', 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+      font-family: ${fontFamily} !important;
       font-variant-ligatures: contextual;
     }
 

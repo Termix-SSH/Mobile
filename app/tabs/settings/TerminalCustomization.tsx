@@ -14,6 +14,7 @@ import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTerminalCustomization } from "@/app/contexts/TerminalCustomizationContext";
 import { showToast } from "@/app/utils/toast";
+import { TERMINAL_FONTS } from "@/constants/terminal-themes";
 
 const FONT_SIZE_OPTIONS = [
   { label: "Extra Small", value: 12 },
@@ -27,7 +28,8 @@ const FONT_SIZE_OPTIONS = [
 export default function TerminalCustomization() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { config, updateFontSize, resetToDefault } = useTerminalCustomization();
+  const { config, updateFontFamily, updateFontSize, resetToDefault } =
+    useTerminalCustomization();
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [customFontSize, setCustomFontSize] = useState("");
   const [showCustomInput, setShowCustomInput] = useState(false);
@@ -40,8 +42,17 @@ export default function TerminalCustomization() {
     try {
       await updateFontSize(fontSize);
       showToast.success(`Font size updated to ${fontSize}px`);
-    } catch (error) {
+    } catch {
       showToast.error("Failed to update font size");
+    }
+  };
+
+  const handleFontFamilyChange = async (fontFamily: string, label: string) => {
+    try {
+      await updateFontFamily(fontFamily);
+      showToast.success(`Font updated to ${label}`);
+    } catch {
+      showToast.error("Failed to update font");
     }
   };
 
@@ -50,7 +61,7 @@ export default function TerminalCustomization() {
       await resetToDefault();
       showToast.success("Terminal settings reset to default");
       setShowResetConfirm(false);
-    } catch (error) {
+    } catch {
       showToast.error("Failed to reset settings");
     }
   };
@@ -66,7 +77,7 @@ export default function TerminalCustomization() {
       showToast.success(`Font size updated to ${fontSize}px`);
       setShowCustomInput(false);
       setCustomFontSize("");
-    } catch (error) {
+    } catch {
       showToast.error("Failed to update font size");
     }
   };
@@ -74,16 +85,16 @@ export default function TerminalCustomization() {
   return (
     <View className="flex-1 bg-[#18181b]">
       <View
-        className="bg-[#1a1a1a] border-b border-[#303032] px-4"
+        className="border-b border-[#303032] bg-[#1a1a1a] px-4"
         style={{ paddingTop: insets.top + 12, paddingBottom: 12 }}
       >
         <View className="flex-row items-center justify-between">
           <TouchableOpacity onPress={() => router.back()}>
-            <Text className="text-green-500 text-base font-semibold">
+            <Text className="text-base font-semibold text-green-500">
               ← Back
             </Text>
           </TouchableOpacity>
-          <Text className="text-white text-lg font-semibold">
+          <Text className="text-lg font-semibold text-white">
             Terminal Customization
           </Text>
           <View style={{ width: 60 }} />
@@ -94,18 +105,69 @@ export default function TerminalCustomization() {
         className="flex-1 px-4 py-4"
         contentContainerStyle={{ paddingBottom: Math.max(insets.bottom, 16) }}
       >
-        <Text className="text-white text-lg font-semibold mb-2">
+        <Text className="mb-2 text-lg font-semibold text-white">
           Terminal Settings
         </Text>
-        <Text className="text-gray-400 text-sm mb-4">
+        <Text className="mb-4 text-sm text-gray-400">
           Customize terminal appearance and behavior
         </Text>
 
         <View className="mb-6">
-          <Text className="text-white text-base font-semibold mb-3">
+          <Text className="mb-3 text-base font-semibold text-white">Font</Text>
+          <Text className="mb-3 text-sm text-gray-400">
+            Select the terminal font family. Nerd Font support depends on the
+            selected font being available to the WebView.
+          </Text>
+          <View className="gap-2">
+            {TERMINAL_FONTS.map((option) => {
+              const isActive = config.fontFamily === option.value;
+              return (
+                <TouchableOpacity
+                  key={option.value}
+                  onPress={() =>
+                    handleFontFamilyChange(option.value, option.label)
+                  }
+                  className={`rounded-lg border p-4 ${
+                    isActive
+                      ? "border-green-500 bg-green-900/20"
+                      : "border-[#303032] bg-[#1a1a1a]"
+                  }`}
+                >
+                  <View className="flex-row items-center justify-between">
+                    <View className="flex-1 pr-3">
+                      <Text
+                        className={`text-base font-semibold ${
+                          isActive ? "text-green-400" : "text-white"
+                        }`}
+                      >
+                        {option.label}
+                      </Text>
+                      <Text
+                        className="mt-1 text-sm text-gray-400"
+                        style={{ fontFamily: option.fallback }}
+                      >
+                        Aa Bb Cc 123 
+                      </Text>
+                    </View>
+                    {isActive && (
+                      <View className="rounded-full bg-green-500 px-2 py-1">
+                        <Text className="text-xs font-semibold text-white">
+                          ACTIVE
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </View>
+
+        <View className="mb-6">
+          <Text className="mb-3 text-base font-semibold text-white">
             Font Size
           </Text>
-          <Text className="text-gray-400 text-sm mb-3">
+          <Text className="mb-3 text-sm text-gray-400">
             Base font size for terminal text. The actual size will be adjusted
             based on your screen width. This number will override the font size
             you configured on a host in the Termix Web UI.
@@ -115,10 +177,10 @@ export default function TerminalCustomization() {
               <TouchableOpacity
                 key={option.value}
                 onPress={() => handleFontSizeChange(option.value)}
-                className={`p-4 rounded-lg border ${
+                className={`rounded-lg border p-4 ${
                   config.fontSize === option.value
-                    ? "bg-green-900/20 border-green-500"
-                    : "bg-[#1a1a1a] border-[#303032]"
+                    ? "border-green-500 bg-green-900/20"
+                    : "border-[#303032] bg-[#1a1a1a]"
                 }`}
               >
                 <View className="flex-row items-center justify-between">
@@ -132,13 +194,13 @@ export default function TerminalCustomization() {
                     >
                       {option.label}
                     </Text>
-                    <Text className="text-gray-400 text-xs mt-0.5">
+                    <Text className="mt-0.5 text-xs text-gray-400">
                       {option.value}px base size
                     </Text>
                   </View>
                   {config.fontSize === option.value && (
-                    <View className="bg-green-500 rounded-full px-2 py-1">
-                      <Text className="text-white text-xs font-semibold">
+                    <View className="rounded-full bg-green-500 px-2 py-1">
+                      <Text className="text-xs font-semibold text-white">
                         ACTIVE
                       </Text>
                     </View>
@@ -149,10 +211,10 @@ export default function TerminalCustomization() {
 
             <TouchableOpacity
               onPress={() => setShowCustomInput(true)}
-              className={`p-4 rounded-lg border ${
+              className={`rounded-lg border p-4 ${
                 isCustomFontSize
-                  ? "bg-green-900/20 border-green-500"
-                  : "bg-[#1a1a1a] border-[#303032]"
+                  ? "border-green-500 bg-green-900/20"
+                  : "border-[#303032] bg-[#1a1a1a]"
               }`}
             >
               <View className="flex-row items-center justify-between">
@@ -164,15 +226,15 @@ export default function TerminalCustomization() {
                   >
                     Custom
                   </Text>
-                  <Text className="text-gray-400 text-xs mt-0.5">
+                  <Text className="mt-0.5 text-xs text-gray-400">
                     {isCustomFontSize
                       ? `${config.fontSize}px base size`
                       : "Enter any custom size"}
                   </Text>
                 </View>
                 {isCustomFontSize && (
-                  <View className="bg-green-500 rounded-full px-2 py-1">
-                    <Text className="text-white text-xs font-semibold">
+                  <View className="rounded-full bg-green-500 px-2 py-1">
+                    <Text className="text-xs font-semibold text-white">
                       ACTIVE
                     </Text>
                   </View>
@@ -184,9 +246,9 @@ export default function TerminalCustomization() {
 
         <TouchableOpacity
           onPress={() => setShowResetConfirm(true)}
-          className="bg-red-900/20 border border-red-700 rounded-lg p-3"
+          className="rounded-lg border border-red-700 bg-red-900/20 p-3"
         >
-          <Text className="text-red-400 text-center font-semibold">
+          <Text className="text-center font-semibold text-red-400">
             Reset to Default
           </Text>
         </TouchableOpacity>
@@ -207,17 +269,17 @@ export default function TerminalCustomization() {
           className="flex-1"
         >
           <Pressable
-            className="flex-1 bg-black/50 justify-center items-center"
+            className="flex-1 items-center justify-center bg-black/50"
             onPress={() => {
               setShowCustomInput(false);
               setCustomFontSize("");
             }}
           >
-            <Pressable className="bg-[#1a1a1a] rounded-lg p-6 mx-8 border border-[#303032] w-80">
-              <Text className="text-white text-lg font-semibold mb-2">
+            <Pressable className="mx-8 w-80 rounded-lg border border-[#303032] bg-[#1a1a1a] p-6">
+              <Text className="mb-2 text-lg font-semibold text-white">
                 Custom Font Size
               </Text>
-              <Text className="text-gray-400 text-sm mb-4">
+              <Text className="mb-4 text-sm text-gray-400">
                 Enter your preferred font size for the terminal.
               </Text>
               <TextInput
@@ -238,23 +300,23 @@ export default function TerminalCustomization() {
                   textAlignVertical: "center",
                 }}
               />
-              <View className="flex-row gap-3 mt-4">
+              <View className="mt-4 flex-row gap-3">
                 <TouchableOpacity
                   onPress={() => {
                     setShowCustomInput(false);
                     setCustomFontSize("");
                   }}
-                  className="flex-1 bg-[#27272a] border border-[#3f3f46] rounded-lg p-3"
+                  className="flex-1 rounded-lg border border-[#3f3f46] bg-[#27272a] p-3"
                 >
-                  <Text className="text-white text-center font-semibold">
+                  <Text className="text-center font-semibold text-white">
                     Cancel
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={handleCustomFontSize}
-                  className="flex-1 bg-green-600 rounded-lg p-3"
+                  className="flex-1 rounded-lg bg-green-600 p-3"
                 >
-                  <Text className="text-white text-center font-semibold">
+                  <Text className="text-center font-semibold text-white">
                     Apply
                   </Text>
                 </TouchableOpacity>
@@ -272,30 +334,30 @@ export default function TerminalCustomization() {
         supportedOrientations={["portrait", "landscape"]}
       >
         <Pressable
-          className="flex-1 bg-black/50 justify-center items-center"
+          className="flex-1 items-center justify-center bg-black/50"
           onPress={() => setShowResetConfirm(false)}
         >
-          <Pressable className="bg-[#1a1a1a] rounded-lg p-6 mx-8 border border-[#303032]">
-            <Text className="text-white text-lg font-semibold mb-2">
+          <Pressable className="mx-8 rounded-lg border border-[#303032] bg-[#1a1a1a] p-6">
+            <Text className="mb-2 text-lg font-semibold text-white">
               Confirm Reset
             </Text>
-            <Text className="text-gray-400 text-sm mb-6">
+            <Text className="mb-6 text-sm text-gray-400">
               This will reset all terminal customizations to default settings.
             </Text>
             <View className="flex-row gap-3">
               <TouchableOpacity
                 onPress={() => setShowResetConfirm(false)}
-                className="flex-1 bg-[#27272a] border border-[#3f3f46] rounded-lg p-3"
+                className="flex-1 rounded-lg border border-[#3f3f46] bg-[#27272a] p-3"
               >
-                <Text className="text-white text-center font-semibold">
+                <Text className="text-center font-semibold text-white">
                   Cancel
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={handleReset}
-                className="flex-1 bg-red-600 rounded-lg p-3"
+                className="flex-1 rounded-lg bg-red-600 p-3"
               >
-                <Text className="text-white text-center font-semibold">
+                <Text className="text-center font-semibold text-white">
                   Reset
                 </Text>
               </TouchableOpacity>

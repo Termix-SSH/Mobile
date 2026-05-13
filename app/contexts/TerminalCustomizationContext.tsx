@@ -22,6 +22,7 @@ interface TerminalCustomizationContextType {
   resetConfig: () => Promise<void>;
 
   updateFontSize: (fontSize: number) => Promise<void>;
+  updateFontFamily: (fontFamily: string) => Promise<void>;
   resetToDefault: () => Promise<void>;
 }
 
@@ -42,7 +43,10 @@ export const TerminalCustomizationProvider: React.FC<{
         const stored = await AsyncStorage.getItem(STORAGE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored) as Partial<TerminalConfig>;
-          setConfig(parsed);
+          setConfig({
+            ...getDefaultConfig(),
+            ...parsed,
+          });
         }
       } catch (error) {
         console.error("Failed to load terminal configuration:", error);
@@ -85,6 +89,13 @@ export const TerminalCustomizationProvider: React.FC<{
     [updateConfig],
   );
 
+  const updateFontFamily = useCallback(
+    async (fontFamily: string) => {
+      await updateConfig({ fontFamily });
+    },
+    [updateConfig],
+  );
+
   const resetToDefault = useCallback(async () => {
     await resetConfig();
   }, [resetConfig]);
@@ -95,6 +106,7 @@ export const TerminalCustomizationProvider: React.FC<{
     updateConfig,
     resetConfig,
     updateFontSize,
+    updateFontFamily,
     resetToDefault,
   };
 
