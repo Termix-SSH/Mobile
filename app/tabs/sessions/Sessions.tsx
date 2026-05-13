@@ -2,15 +2,9 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   View,
   Text,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
   Keyboard,
-  KeyboardAvoidingView,
   Platform,
   TextInput,
-  TouchableWithoutFeedback,
-  Pressable,
   Dimensions,
   BackHandler,
   AppState,
@@ -40,15 +34,16 @@ import {
 import TabBar from "@/app/tabs/sessions/navigation/TabBar";
 import BottomToolbar from "@/app/tabs/sessions/terminal/keyboard/BottomToolbar";
 import KeyboardBar from "@/app/tabs/sessions/terminal/keyboard/KeyboardBar";
-import { ArrowLeft } from "lucide-react-native";
 import { useOrientation } from "@/app/utils/orientation";
 import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
-import {
-  BACKGROUNDS,
-  BORDER_COLORS,
-  BORDERS,
-} from "@/app/constants/designTokens";
+import { BACKGROUNDS, BORDER_COLORS } from "@/app/constants/designTokens";
 import { addKeyCommandListener } from "@/modules/hardware-keyboard";
+
+type ActiveModifiers = {
+  ctrl: boolean;
+  alt: boolean;
+  shift: boolean;
+};
 
 export default function Sessions() {
   const insets = useSafeAreaInsets();
@@ -84,6 +79,7 @@ export default function Sessions() {
   const [activeModifiers, setActiveModifiers] = useState({
     ctrl: false,
     alt: false,
+    shift: false,
   });
   const [screenDimensions, setScreenDimensions] = useState(
     Dimensions.get("window"),
@@ -516,12 +512,9 @@ export default function Sessions() {
     }
   };
 
-  const handleModifierChange = useCallback(
-    (modifiers: { ctrl: boolean; alt: boolean }) => {
-      setActiveModifiers(modifiers);
-    },
-    [],
-  );
+  const handleModifierChange = useCallback((modifiers: ActiveModifiers) => {
+    setActiveModifiers(modifiers);
+  }, []);
 
   const activeSession = sessions.find(
     (session) => session.id === activeSessionId,
@@ -952,7 +945,7 @@ export default function Sessions() {
                   finalKey = "\x7f";
                   break;
                 case "Tab":
-                  finalKey = "\t";
+                  finalKey = activeModifiers.shift ? "\x1b[Z" : "\t";
                   break;
                 case "Escape":
                   finalKey = "\x1b";
@@ -1025,10 +1018,12 @@ export default function Sessions() {
                     if (activeModifiers.ctrl) {
                       finalKey = String.fromCharCode(key.charCodeAt(0) & 0x1f);
                     } else if (activeModifiers.alt) {
-                      finalKey = `\x1b${key}`;
+                      finalKey = `\x1b${activeModifiers.shift ? key.toUpperCase() : key}`;
                     } else {
-                      finalKey = key;
-                      dictationSentRef.current = hiddenInputValue + key;
+                      finalKey = activeModifiers.shift
+                        ? key.toUpperCase()
+                        : key;
+                      dictationSentRef.current = hiddenInputValue + finalKey;
                     }
                   }
               }
