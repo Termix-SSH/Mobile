@@ -1,15 +1,16 @@
 import React, { useState, useMemo } from "react";
 import {
   View,
-  Text,
   Modal,
-  TouchableOpacity,
   ScrollView,
-  TextInput,
+  Pressable,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { X } from "lucide-react-native";
 import { KeyConfig, KeyCategory } from "@/types/keyboard";
 import { ALL_KEYS } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
+import { Text, Button, Input, Label } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 interface KeySelectorProps {
   visible: boolean;
@@ -19,7 +20,8 @@ interface KeySelectorProps {
   title?: string;
 }
 
-const CATEGORIES: { id: KeyCategory; label: string }[] = [
+const CATEGORIES: { id: KeyCategory | "all"; label: string }[] = [
+  { id: "all", label: "All" },
   { id: "modifier", label: "Modifiers" },
   { id: "arrow", label: "Arrows" },
   { id: "navigation", label: "Navigation" },
@@ -40,9 +42,8 @@ export default function KeySelector({
   title = "Add Key",
 }: KeySelectorProps) {
   const insets = useSafeAreaInsets();
-  const [selectedCategory, setSelectedCategory] = useState<KeyCategory | "all">(
-    "all",
-  );
+  const color = useThemeColor();
+  const [selectedCategory, setSelectedCategory] = useState<KeyCategory | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   const allKeysArray = useMemo(() => Object.values(ALL_KEYS), []);
@@ -64,14 +65,8 @@ export default function KeySelector({
       );
     }
 
-    keys = keys.filter((key) => !excludeKeys.includes(key.id));
-
-    return keys;
+    return keys.filter((key) => !excludeKeys.includes(key.id));
   }, [allKeysArray, selectedCategory, searchQuery, excludeKeys]);
-
-  const handleSelectKey = (key: KeyConfig) => {
-    onSelectKey(key);
-  };
 
   return (
     <Modal
@@ -80,26 +75,21 @@ export default function KeySelector({
       transparent={false}
       onRequestClose={onClose}
     >
-      <View className="flex-1 bg-[#18181b]">
-        <View
-          className="bg-[#1a1a1a] border-b border-[#303032] px-4"
-          style={{ paddingTop: insets.top + 12, paddingBottom: 12 }}
-        >
-          <View className="flex-row items-center justify-between">
-            <Text className="text-foreground text-lg font-semibold">{title}</Text>
-            <TouchableOpacity onPress={onClose}>
-              <Text className="text-accent-brand text-base font-semibold">
-                Done
-              </Text>
-            </TouchableOpacity>
-          </View>
+      <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
+        {/* Header */}
+        <View className="flex-row items-center gap-3 px-4 pt-3 pb-3 border-b border-border">
+          <Text weight="bold" className="text-xl text-foreground flex-1">
+            {title}
+          </Text>
+          <Pressable onPress={onClose} hitSlop={8} className="shrink-0">
+            <X size={18} color={color("foreground")} />
+          </Pressable>
         </View>
 
-        <View className="bg-[#1a1a1a] border-b border-[#303032] px-4 py-3">
-          <TextInput
-            className="bg-[#27272a] border border-[#3f3f46] rounded-lg px-4 py-2 text-foreground"
+        {/* Search */}
+        <View className="px-4 py-3 border-b border-border">
+          <Input
             placeholder="Search keys..."
-            placeholderTextColor="#6b7280"
             value={searchQuery}
             onChangeText={setSearchQuery}
             autoCapitalize="none"
@@ -107,94 +97,76 @@ export default function KeySelector({
           />
         </View>
 
-        <View className="bg-[#1a1a1a] border-b border-[#303032]">
+        {/* Category filter */}
+        <View className="border-b border-border">
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ paddingHorizontal: 16 }}
           >
-            <TouchableOpacity
-              onPress={() => setSelectedCategory("all")}
-              className={`px-4 py-3 mr-2 ${
-                selectedCategory === "all" ? "border-b-2 border-green-500" : ""
-              }`}
-            >
-              <Text
-                className={`text-sm font-semibold ${
-                  selectedCategory === "all"
-                    ? "text-accent-brand"
-                    : "text-muted-foreground"
-                }`}
-              >
-                All
-              </Text>
-            </TouchableOpacity>
-            {CATEGORIES.map((cat) => (
-              <TouchableOpacity
-                key={cat.id}
-                onPress={() => setSelectedCategory(cat.id)}
-                className={`px-4 py-3 mr-2 ${
-                  selectedCategory === cat.id
-                    ? "border-b-2 border-green-500"
-                    : ""
-                }`}
-              >
-                <Text
-                  className={`text-sm font-semibold ${
-                    selectedCategory === cat.id
-                      ? "text-accent-brand"
-                      : "text-muted-foreground"
-                  }`}
+            {CATEGORIES.map((cat) => {
+              const isActive = selectedCategory === cat.id;
+              return (
+                <Pressable
+                  key={cat.id}
+                  onPress={() => setSelectedCategory(cat.id)}
+                  className={`px-3 py-2.5 mr-1 border-b-2 ${isActive ? "border-accent-brand" : "border-transparent"}`}
                 >
-                  {cat.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    weight={isActive ? "medium" : "regular"}
+                    className={`text-xs ${isActive ? "text-accent-brand" : "text-muted-foreground"}`}
+                  >
+                    {cat.label}
+                  </Text>
+                </Pressable>
+              );
+            })}
           </ScrollView>
         </View>
 
-        <ScrollView className="flex-1 px-4 py-4">
+        {/* Key list */}
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ padding: 16, gap: 8, paddingBottom: 40 }}
+        >
           {filteredKeys.length === 0 ? (
-            <View className="py-8">
-              <Text className="text-muted-foreground text-center">
-                {searchQuery
-                  ? "No keys found matching your search"
-                  : "No keys available"}
+            <View className="py-10 items-center">
+              <Text className="text-sm text-muted-foreground">
+                {searchQuery ? "No keys match your search" : "No keys available"}
               </Text>
             </View>
           ) : (
-            <View className="gap-2">
-              {filteredKeys.map((key) => (
-                <TouchableOpacity
-                  key={key.id}
-                  onPress={() => handleSelectKey(key)}
-                  className="bg-[#1a1a1a] border border-[#303032] rounded-lg p-4 flex-row items-center justify-between"
-                >
-                  <View className="flex-1 mr-4">
-                    <View className="flex-row items-center gap-2 mb-1">
-                      <View className="bg-[#27272a] border border-[#3f3f46] rounded px-3 py-1.5">
-                        <Text className="text-foreground text-sm font-mono">
-                          {key.label}
-                        </Text>
-                      </View>
-                      <Text className="text-muted-foreground text-xs">
-                        {key.category}
+            filteredKeys.map((key) => (
+              <Pressable
+                key={key.id}
+                onPress={() => onSelectKey(key)}
+                className="bg-card border border-border flex-row items-center px-3 py-2.5 active:opacity-70"
+              >
+                <View className="flex-1 min-w-0 mr-3">
+                  <View className="flex-row items-center gap-2 mb-0.5">
+                    <View className="bg-muted border border-border px-2 py-1 shrink-0">
+                      <Text weight="medium" className="text-xs text-foreground">
+                        {key.label}
                       </Text>
                     </View>
-                    {key.description && (
-                      <Text className="text-muted-foreground text-xs mt-1">
-                        {key.description}
-                      </Text>
-                    )}
-                  </View>
-                  <View className="bg-accent-brand rounded-lg px-4 py-2">
-                    <Text className="text-foreground text-sm font-semibold">
-                      Add
+                    <Text className="text-[10px] text-muted-foreground">
+                      {key.category}
                     </Text>
                   </View>
-                </TouchableOpacity>
-              ))}
-            </View>
+                  {key.description ? (
+                    <Text
+                      className="text-[10px] text-muted-foreground mt-0.5"
+                      numberOfLines={1}
+                    >
+                      {key.description}
+                    </Text>
+                  ) : null}
+                </View>
+                <Button variant="accent" size="sm" onPress={() => onSelectKey(key)}>
+                  Add
+                </Button>
+              </Pressable>
+            ))
           )}
         </ScrollView>
       </View>

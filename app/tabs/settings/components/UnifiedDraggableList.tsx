@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Pressable } from "react-native";
 import DraggableFlatList, {
   RenderItemParams,
   ScaleDecorator,
 } from "react-native-draggable-flatlist";
+import { Text, Button, Label } from "@/app/components/ui";
 
 export type UnifiedListItem =
   | {
@@ -67,57 +68,41 @@ export default function UnifiedDraggableList({
     item,
     drag,
     isActive,
-    getIndex,
   }: RenderItemParams<UnifiedListItem>) => {
     if (item.type === "header") {
       return (
-        <View className="mb-3">
-          <View className="flex-row items-center justify-between">
-            <View className="flex-1">
-              <Text className="text-foreground text-lg font-semibold">
-                {item.title}
+        <View className="flex-row items-center justify-between mb-3">
+          <View className="flex-1 min-w-0">
+            <Label>{item.title}</Label>
+            {item.subtitle ? (
+              <Text className="text-[10px] text-muted-foreground mt-0.5">
+                {item.subtitle}
               </Text>
-              {item.subtitle && (
-                <Text className="text-muted-foreground text-xs mt-0.5">
-                  {item.subtitle}
-                </Text>
-              )}
-            </View>
-            {item.onAddPress && (
-              <TouchableOpacity
-                onPress={item.onAddPress}
-                className="bg-accent-brand rounded-lg px-4 py-2"
-              >
-                <Text className="text-foreground text-sm font-semibold">
-                  {item.addButtonLabel || "+ Add"}
-                </Text>
-              </TouchableOpacity>
-            )}
+            ) : null}
           </View>
+          {item.onAddPress ? (
+            <Button variant="accent" size="sm" onPress={item.onAddPress}>
+              {item.addButtonLabel ?? "+ Add"}
+            </Button>
+          ) : null}
         </View>
       );
     }
 
     if (item.type === "draggable-key") {
       const isRowKey = item.rowId !== undefined;
-
       return (
         <ScaleDecorator>
-          <View style={{ opacity: isActive ? 0.5 : 1 }}>
-            <View
-              className={
-                isRowKey
-                  ? "bg-[#1a1a1a] px-4 border-l border-r border-[#303032]"
-                  : ""
-              }
-            >
-              {item.renderItem(
-                item.data,
-                () => onRemoveKey?.(item.id, item.section),
-                drag,
-                isActive,
-              )}
-            </View>
+          <View
+            style={{ opacity: isActive ? 0.5 : 1 }}
+            className={isRowKey ? "bg-card border-x border-border" : ""}
+          >
+            {item.renderItem(
+              item.data,
+              () => onRemoveKey?.(item.id, item.section),
+              drag,
+              isActive,
+            )}
           </View>
         </ScaleDecorator>
       );
@@ -135,60 +120,43 @@ export default function UnifiedDraggableList({
 
     if (item.type === "row-keys-header") {
       return (
-        <View className="px-4 pb-2 pt-4 border-t border-l border-r border-[#303032] bg-[#1a1a1a] -mt-px">
-          <View className="flex-row items-center justify-between mb-2">
-            <Text className="text-foreground text-sm font-semibold">
+        <View className="px-3 pt-3 pb-2 bg-card border-x border-t border-border -mt-px">
+          <View className="flex-row items-center justify-between">
+            <Text weight="medium" className="text-xs text-foreground">
               Keys in this row
             </Text>
-            {item.onAddPress && (
-              <TouchableOpacity
-                onPress={item.onAddPress}
-                className="bg-accent-brand rounded px-3 py-1.5"
-              >
-                <Text className="text-foreground text-xs font-semibold">
-                  + Add Key
-                </Text>
-              </TouchableOpacity>
-            )}
+            {item.onAddPress ? (
+              <Button variant="accent" size="sm" onPress={item.onAddPress}>
+                + Add Key
+              </Button>
+            ) : null}
           </View>
         </View>
       );
     }
 
     if (item.type === "button") {
-      const isDanger = item.variant === "danger";
       return (
-        <TouchableOpacity
+        <Button
+          variant={item.variant === "danger" ? "destructive" : "outline"}
           onPress={item.onPress}
-          className={`rounded-lg p-3 mb-3 ${
-            isDanger
-              ? "bg-red-900/20 border border-red-700"
-              : "bg-[#27272a] border border-[#3f3f46]"
-          }`}
+          className="mb-3"
         >
-          <Text
-            className={`text-center font-semibold ${
-              isDanger ? "text-red-400" : "text-foreground"
-            }`}
-          >
-            {item.label}
-          </Text>
-        </TouchableOpacity>
+          {item.label}
+        </Button>
       );
     }
 
     if (item.type === "spacer") {
       const isRowClose = item.id.startsWith("row-close-");
-
       if (isRowClose) {
         return (
           <View
-            className="bg-[#1a1a1a] border-l border-r border-b border-[#303032] rounded-b-lg mb-3"
+            className="bg-card border-x border-b border-border mb-3"
             style={{ height: item.height }}
           />
         );
       }
-
       return <View style={{ height: item.height }} />;
     }
 

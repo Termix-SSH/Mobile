@@ -23,6 +23,7 @@ import {
   getCurrentServerUrl,
 } from "@/app/main-axios";
 import { Screen } from "@/app/components/Screen";
+import { LockScreen } from "@/app/components/LockScreen";
 import {
   Text,
   Button,
@@ -58,9 +59,13 @@ export default function Settings() {
   );
   const [open, setOpen] = useState<string | null>("appearance");
 
-  // App-lock PIN dialog
+  // App-lock PIN setup dialog (two-step: enter then confirm)
   const [pinDialog, setPinDialog] = useState(false);
-  const [pin, setPin] = useState("");
+  const [pinStep, setPinStep] = useState<"enter" | "confirm">("enter");
+  const [pin, setPin] = useState(""); // first entry
+  const [confirm, setConfirm] = useState(""); // second entry
+  // Re-auth gate shown before disabling app lock.
+  const [reauth, setReauth] = useState<null | "disable">(null);
 
   useEffect(() => {
     setServerUrl(getCurrentServerUrl() ?? "");
@@ -99,24 +104,45 @@ export default function Settings() {
 
   const handleChangeServer = () => openAuthFlow("server");
 
-  const handleAppLockToggle = async (v: boolean) => {
+  const handleAppLockToggle = (v: boolean) => {
     if (v) {
       setPin("");
+      setConfirm("");
+      setPinStep("enter");
       setPinDialog(true);
     } else {
-      await appLock.disable();
-      toast.success("App lock disabled");
+      // Require re-authentication before disabling — the switch stays on
+      // (it's controlled by appLock.enabled) until the gate succeeds.
+      setReauth("disable");
     }
   };
 
-  const confirmPin = async () => {
-    if (pin.length < 4) {
-      toast.error("PIN must be at least 4 digits");
+  const advancePin = async () => {
+    if (pinStep === "enter") {
+      if (pin.length !== 4) {
+        toast.error("PIN must be 4 digits");
+        return;
+      }
+      setPinStep("confirm");
+      return;
+    }
+    if (confirm !== pin) {
+      toast.error("PINs don't match");
+      setPin("");
+      setConfirm("");
+      setPinStep("enter");
       return;
     }
     await appLock.enable(pin);
     setPinDialog(false);
     toast.success("App lock enabled");
+  };
+
+  const closePinDialog = () => {
+    setPinDialog(false);
+    setPin("");
+    setConfirm("");
+    setPinStep("enter");
   };
 
   return (
@@ -370,33 +396,66 @@ export default function Settings() {
         </AccordionSection>
       </ScrollView>
 
-      {/* App-lock PIN dialog */}
+      {/* App-lock PIN setup dialog (two-step) */}
       <Dialog
         visible={pinDialog}
-        onClose={() => setPinDialog(false)}
-        title="Set App Lock PIN"
-        description="Choose a 4+ digit PIN. Biometrics will be used when available."
+        onClose={closePinDialog}
+        title={pinStep === "enter" ? "Set App Lock PIN" : "Confirm PIN"}
+        description={
+          pinStep === "enter"
+            ? "Choose a 4-digit PIN. Biometrics can be used to unlock when available."
+            : "Re-enter your PIN to confirm."
+        }
         icon={<Lock size={15} color={color("accent-brand")} />}
         footer={
           <>
-            <Button variant="ghost" size="sm" onPress={() => setPinDialog(false)}>
+            <Button variant="ghost" size="sm" onPress={closePinDialog}>
               Cancel
             </Button>
-            <Button variant="accent" size="sm" onPress={confirmPin}>
-              Enable
+            <Button variant="accent" size="sm" onPress={advancePin}>
+              {pinStep === "enter" ? "Next" : "Enable"}
             </Button>
           </>
         }
       >
-        <Input
-          value={pin}
-          onChangeText={(v) => setPin(v.replace(/\D/g, "").slice(0, 8))}
-          keyboardType="number-pad"
-          secureTextEntry
-          placeholder="••••"
-          autoFocus
-        />
+        {pinStep === "enter" ? (
+          <Input
+            key="pin-enter"
+            value={pin}
+            onChangeText={(v) => setPin(v.replace(/\D/g, "").slice(0, 4))}
+            keyboardType="number-pad"
+            secureTextEntry
+            placeholder="••••"
+            autoFocus
+          />
+        ) : (
+          <Input
+            key="pin-confirm"
+            value={confirm}
+            onChangeText={(v) => setConfirm(v.replace(/\D/g, "").slice(0, 4))}
+            keyboardType="number-pad"
+            secureTextEntry
+            placeholder="••••"
+            autoFocus
+          />
+        )}
       </Dialog>
+
+      {/* Re-auth gate before disabling app lock */}
+      {reauth === "disable" ? (
+        <LockScreen
+          title="Confirm it's you"
+          subtitle="Enter your PIN to disable App Lock"
+          onVerifyPin={appLock.verifyPin}
+          onBiometric={appLock.authenticateBiometrics}
+          onCancel={() => setReauth(null)}
+          onSuccess={async () => {
+            await appLock.disable();
+            setReauth(null);
+            toast.success("App lock disabled");
+          }}
+        />
+      ) : null}
     </Screen>
   );
 }

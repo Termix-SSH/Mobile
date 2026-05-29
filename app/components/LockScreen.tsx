@@ -1,55 +1,93 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
-import { Lock, Fingerprint, Delete } from "lucide-react-native";
-import { Pressable } from "react-native";
+import { View, Pressable } from "react-native";
+import { Lock, Fingerprint, Delete, ChevronLeft } from "lucide-react-native";
 import { useAppLock } from "@/app/contexts/AppLockContext";
 import { Text } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 
+interface LockScreenProps {
+  title?: string;
+  subtitle?: string;
+  /**
+   * Verify-mode overrides. When provided, the keypad calls these instead of the
+   * context's unlock methods and does NOT change global lock state — used for
+   * re-authentication (e.g. disabling app lock in Settings).
+   */
+  onVerifyPin?: (pin: string) => Promise<boolean>;
+  onBiometric?: () => Promise<boolean>;
+  /** Called after a successful PIN/biometric verification. */
+  onSuccess?: () => void;
+  /** When set, shows a Cancel affordance and makes the screen dismissible. */
+  onCancel?: () => void;
+}
+
 /**
- * Full-screen lock overlay shown when app lock is enabled and the app is
- * locked. Offers biometrics (if available) and a numeric PIN keypad.
+ * Full-screen 4-digit PIN gate. Used both as the app-lock overlay (default
+ * mode) and as a re-auth screen in Settings (verify mode via props). Biometrics
+ * are opt-in: the user taps the fingerprint button — they are never prompted
+ * automatically, and the OS device passcode is never offered as a fallback.
  */
-export function LockScreen() {
+export function LockScreen({
+  title = "Termix Locked",
+  subtitle = "Enter your PIN to continue",
+  onVerifyPin,
+  onBiometric,
+  onSuccess,
+  onCancel,
+}: LockScreenProps = {}) {
   const { hasBiometrics, unlockWithBiometrics, unlockWithPin } = useAppLock();
   const color = useThemeColor();
   const [pin, setPin] = useState("");
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    // Offer biometrics immediately on appear.
-    if (hasBiometrics) unlockWithBiometrics();
-  }, [hasBiometrics, unlockWithBiometrics]);
+  const verifyPin = onVerifyPin ?? unlockWithPin;
+  const biometric = onBiometric ?? unlockWithBiometrics;
 
   useEffect(() => {
-    if (pin.length === 4) {
-      unlockWithPin(pin).then((ok) => {
-        if (!ok) {
-          setError(true);
-          setTimeout(() => {
-            setPin("");
-            setError(false);
-          }, 600);
-        }
-      });
-    }
-  }, [pin, unlockWithPin]);
+    if (pin.length !== 4) return;
+    verifyPin(pin).then((ok) => {
+      if (ok) {
+        onSuccess?.();
+      } else {
+        setError(true);
+        setTimeout(() => {
+          setPin("");
+          setError(false);
+        }, 600);
+      }
+    });
+  }, [pin, verifyPin, onSuccess]);
 
   const press = (d: string) => {
     if (pin.length < 4) setPin((p) => p + d);
   };
 
+  const handleBiometric = async () => {
+    if (!hasBiometrics) return;
+    const ok = await biometric();
+    if (ok) onSuccess?.();
+  };
+
   return (
     <View className="absolute inset-0 bg-background items-center justify-center px-8 z-50">
+      {onCancel ? (
+        <Pressable
+          onPress={onCancel}
+          className="absolute top-14 left-5 flex-row items-center"
+          hitSlop={12}
+        >
+          <ChevronLeft size={20} color={color("muted-foreground")} />
+          <Text className="text-sm text-muted-foreground">Cancel</Text>
+        </Pressable>
+      ) : null}
+
       <View className="w-14 h-14 border border-accent-brand/40 bg-accent-brand/10 items-center justify-center mb-5">
         <Lock size={26} color={color("accent-brand")} />
       </View>
       <Text weight="bold" className="text-lg text-foreground">
-        Termix Locked
+        {title}
       </Text>
-      <Text className="text-xs text-muted-foreground mt-1 mb-6">
-        Enter your PIN to continue
-      </Text>
+      <Text className="text-xs text-muted-foreground mt-1 mb-6">{subtitle}</Text>
 
       {/* PIN dots */}
       <View className="flex-row gap-3 mb-8">
@@ -82,7 +120,7 @@ export function LockScreen() {
         ))}
         <View className="flex-row gap-3">
           <Pressable
-            onPress={() => hasBiometrics && unlockWithBiometrics()}
+            onPress={handleBiometric}
             className="w-16 h-16 items-center justify-center"
           >
             {hasBiometrics ? (

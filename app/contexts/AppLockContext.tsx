@@ -28,10 +28,21 @@ interface AppLockContextValue {
   hasBiometrics: boolean;
   /** Enable app lock with a numeric PIN (biometrics used when available). */
   enable: (pin: string) => Promise<void>;
+  /**
+   * Tear down app lock. Performs no verification — callers MUST authenticate
+   * the user (via `verifyPin` / `authenticateBiometrics`) first.
+   */
   disable: () => Promise<void>;
-  /** Attempt unlock via biometrics; returns success. */
+  /** Compare a PIN against the stored one. Does NOT change lock state. */
+  verifyPin: (pin: string) => Promise<boolean>;
+  /**
+   * Prompt for biometrics (no device-passcode fallback). Does NOT change lock
+   * state — used for re-authentication in Settings.
+   */
+  authenticateBiometrics: () => Promise<boolean>;
+  /** Attempt unlock via biometrics; unlocks on success. Returns success. */
   unlockWithBiometrics: () => Promise<boolean>;
-  /** Attempt unlock via PIN; returns success. */
+  /** Attempt unlock via PIN; unlocks on success. Returns success. */
   unlockWithPin: (pin: string) => Promise<boolean>;
 }
 
@@ -46,13 +57,17 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     (async () => {
-      const [isEnabled, hw] = await Promise.all([
+      const [isEnabled, hw, enrolled] = await Promise.all([
         AsyncStorage.getItem(ENABLED_KEY),
         LocalAuthentication.hasHardwareAsync().catch(() => false),
+        LocalAuthentication.isEnrolledAsync().catch(() => false),
       ]);
       const on = isEnabled === "true";
       setEnabled(on);
-      setHasBiometrics(!!hw);
+      // Only treat biometrics as available when the device has a sensor AND a
+      // biometric is actually enrolled — otherwise the fingerprint button would
+      // appear but do nothing.
+      setHasBiometrics(!!hw && !!enrolled);
       if (on) setLocked(true); // lock on cold start
     })();
   }, []);
@@ -87,32 +102,43 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
     setLocked(false);
   }, []);
 
-  const unlockWithBiometrics = useCallback(async () => {
+  // Prompt biometrics without changing lock state. Device-passcode fallback is
+  // disabled so iOS never shows the phone passcode prompt — the in-app PIN is
+  // the only fallback.
+  const authenticateBiometrics = useCallback(async () => {
     try {
       const enrolled = await LocalAuthentication.isEnrolledAsync();
       if (!enrolled) return false;
       const res = await LocalAuthentication.authenticateAsync({
         promptMessage: "Unlock Termix",
-        fallbackLabel: "Use PIN",
+        disableDeviceFallback: true,
+        cancelLabel: "Use PIN",
       });
-      if (res.success) {
-        setLocked(false);
-        return true;
-      }
-      return false;
+      return res.success;
     } catch {
       return false;
     }
   }, []);
 
-  const unlockWithPin = useCallback(async (pin: string) => {
+  const unlockWithBiometrics = useCallback(async () => {
+    const ok = await authenticateBiometrics();
+    if (ok) setLocked(false);
+    return ok;
+  }, [authenticateBiometrics]);
+
+  const verifyPin = useCallback(async (pin: string) => {
     const stored = await SecureStore.getItemAsync(PIN_KEY).catch(() => null);
-    if (stored && stored === pin) {
-      setLocked(false);
-      return true;
-    }
-    return false;
+    return !!stored && stored === pin;
   }, []);
+
+  const unlockWithPin = useCallback(
+    async (pin: string) => {
+      const ok = await verifyPin(pin);
+      if (ok) setLocked(false);
+      return ok;
+    },
+    [verifyPin],
+  );
 
   return (
     <AppLockContext.Provider
@@ -122,6 +148,8 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
         hasBiometrics,
         enable,
         disable,
+        verifyPin,
+        authenticateBiometrics,
         unlockWithBiometrics,
         unlockWithPin,
       }}

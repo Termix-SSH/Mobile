@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Switch } from "react-native";
+import { View, Pressable } from "react-native";
 import { KeyboardRow, KeyConfig } from "@/types/keyboard";
-import { GripVertical } from "lucide-react-native";
+import { GripVertical, ChevronRight } from "lucide-react-native";
+import { Text, FakeSwitch } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 interface RenderRowItemProps {
   item: KeyboardRow;
@@ -15,74 +17,62 @@ interface RenderRowItemProps {
   onToggleExpand: (rowId: string) => void;
 }
 
-export function renderRowItem({
+export function renderRowItem(props: RenderRowItemProps) {
+  return <RowItem {...props} />;
+}
+
+function RowItem({
   item,
   drag,
   isActive,
   onToggleVisibility,
-  onRemoveKey,
-  onReorderKeys,
-  onAddKeyToRow,
   expandedRowId,
   onToggleExpand,
 }: RenderRowItemProps) {
+  const color = useThemeColor();
   const isExpanded = expandedRowId === item.id;
 
   return (
     <View
-      className={`bg-[#1a1a1a] border border-[#303032] rounded-lg ${isExpanded ? "mb-0 rounded-b-none" : "mb-3"}`}
+      className={`bg-card border border-border ${isExpanded ? "mb-0" : "mb-1.5"}`}
     >
-      <View className="flex-row items-center p-3">
-        <TouchableOpacity
+      <View className="flex-row items-center">
+        <Pressable
           onLongPress={drag}
           delayLongPress={200}
           disabled={isActive}
-          activeOpacity={0.7}
-          className="mr-2"
-          style={{
-            width: 40,
-            height: 40,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          className="w-10 h-10 items-center justify-center shrink-0"
         >
-          <Text
-            style={{
-              fontSize: 20,
-              color: "#9CA3AF",
-              lineHeight: 20,
-            }}
-          >
-            <GripVertical color={"#D3D3D3"} />
-          </Text>
-        </TouchableOpacity>
+          <GripVertical size={16} color={color("muted-foreground")} />
+        </Pressable>
 
-        <TouchableOpacity
+        <Pressable
           onPress={() => onToggleExpand(item.id)}
           disabled={isActive}
-          className="flex-1 flex-row items-center"
-          activeOpacity={0.6}
+          className="flex-1 flex-row items-center py-2.5 active:opacity-70"
         >
-          <View className="flex-1">
-            <Text className="text-foreground text-base font-semibold">
+          <View className="flex-1 min-w-0">
+            <Text weight="medium" className="text-sm text-foreground">
               {item.label}
             </Text>
-            <Text className="text-muted-foreground text-xs mt-0.5">
-              {item.keys.length} keys • {item.category}
+            <Text className="text-[10px] text-muted-foreground mt-0.5">
+              {item.keys.length} keys · {item.category}
             </Text>
           </View>
+          <View
+            style={{
+              transform: [{ rotate: isExpanded ? "90deg" : "0deg" }],
+            }}
+            className="mx-2 shrink-0"
+          >
+            <ChevronRight size={14} color={color("muted-foreground")} />
+          </View>
+        </Pressable>
 
-          <Text className="text-muted-foreground text-base ml-3">
-            {isExpanded ? "▼" : "▶"}
-          </Text>
-        </TouchableOpacity>
-
-        <View className="ml-3" style={{ justifyContent: "center" }}>
-          <Switch
-            value={item.visible}
-            onValueChange={() => onToggleVisibility(item.id)}
-            trackColor={{ false: "#3f3f46", true: "#f59145" }}
-            thumbColor={item.visible ? "#ffffff" : "#9ca3af"}
+        <View className="shrink-0 mr-2">
+          <FakeSwitch
+            checked={item.visible}
+            onChange={() => onToggleVisibility(item.id)}
           />
         </View>
       </View>

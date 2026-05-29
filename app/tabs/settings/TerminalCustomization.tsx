@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   ScrollView,
-  TouchableOpacity,
-  Modal,
   Pressable,
-  TextInput,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ArrowLeft, Type, AlignLeft } from "lucide-react-native";
 import { useTerminalCustomization } from "@/app/contexts/TerminalCustomizationContext";
-import { showToast } from "@/app/utils/toast";
+import { toast } from "@/app/utils/toast";
 import { TERMINAL_FONTS } from "@/constants/terminal-themes";
+import {
+  Text,
+  Button,
+  Label,
+  Input,
+  Dialog,
+  FakeSwitch,
+} from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 const FONT_SIZE_OPTIONS = [
   { label: "Extra Small", value: 12 },
@@ -28,6 +34,7 @@ const FONT_SIZE_OPTIONS = [
 export default function TerminalCustomization() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const color = useThemeColor();
   const { config, updateFontFamily, updateFontSize, resetToDefault } =
     useTerminalCustomization();
   const [showResetConfirm, setShowResetConfirm] = useState(false);
@@ -41,330 +48,265 @@ export default function TerminalCustomization() {
   const handleFontSizeChange = async (fontSize: number) => {
     try {
       await updateFontSize(fontSize);
-      showToast.success(`Font size updated to ${fontSize}px`);
+      toast.success(`Font size updated to ${fontSize}px`);
     } catch {
-      showToast.error("Failed to update font size");
+      toast.error("Failed to update font size");
     }
   };
 
   const handleFontFamilyChange = async (fontFamily: string, label: string) => {
     try {
       await updateFontFamily(fontFamily);
-      showToast.success(`Font updated to ${label}`);
+      toast.success(`Font updated to ${label}`);
     } catch {
-      showToast.error("Failed to update font");
+      toast.error("Failed to update font");
     }
   };
 
   const handleReset = async () => {
     try {
       await resetToDefault();
-      showToast.success("Terminal settings reset to default");
+      toast.success("Terminal settings reset to default");
       setShowResetConfirm(false);
     } catch {
-      showToast.error("Failed to reset settings");
+      toast.error("Failed to reset settings");
     }
   };
 
   const handleCustomFontSize = async () => {
     const fontSize = parseInt(customFontSize);
     if (isNaN(fontSize) || fontSize <= 0) {
-      showToast.error("Please enter a valid font size");
+      toast.error("Please enter a valid font size");
       return;
     }
     try {
       await updateFontSize(fontSize);
-      showToast.success(`Font size updated to ${fontSize}px`);
+      toast.success(`Font size updated to ${fontSize}px`);
       setShowCustomInput(false);
       setCustomFontSize("");
     } catch {
-      showToast.error("Failed to update font size");
+      toast.error("Failed to update font size");
     }
   };
 
   return (
-    <View className="flex-1 bg-[#18181b]">
-      <View
-        className="border-b border-[#303032] bg-[#1a1a1a] px-4"
-        style={{ paddingTop: insets.top + 12, paddingBottom: 12 }}
-      >
-        <View className="flex-row items-center justify-between">
-          <TouchableOpacity onPress={() => router.back()}>
-            <Text className="text-base font-semibold text-accent-brand">
-              ← Back
-            </Text>
-          </TouchableOpacity>
-          <Text className="text-lg font-semibold text-foreground">
-            Terminal Customization
-          </Text>
-          <View style={{ width: 60 }} />
-        </View>
+    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
+      {/* Header */}
+      <View className="flex-row items-center gap-3 px-4 pt-3 pb-3 border-b border-border">
+        <Pressable onPress={() => router.back()} hitSlop={8} className="shrink-0">
+          <ArrowLeft size={18} color={color("foreground")} />
+        </Pressable>
+        <Text weight="bold" className="text-xl text-foreground flex-1">
+          Terminal
+        </Text>
       </View>
 
       <ScrollView
-        className="flex-1 px-4 py-4"
-        contentContainerStyle={{ paddingBottom: Math.max(insets.bottom, 16) }}
+        className="flex-1"
+        contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}
       >
-        <Text className="mb-2 text-lg font-semibold text-foreground">
-          Terminal Settings
-        </Text>
-        <Text className="mb-4 text-sm text-muted-foreground">
-          Customize terminal appearance and behavior
-        </Text>
-
-        <View className="mb-6">
-          <Text className="mb-3 text-base font-semibold text-foreground">Font</Text>
-          <Text className="mb-3 text-sm text-muted-foreground">
-            Select the terminal font family. Nerd Font support depends on the
-            selected font being available to the WebView.
-          </Text>
-          <View className="gap-2">
-            {TERMINAL_FONTS.map((option) => {
+        {/* Font Family */}
+        <View className="bg-card border border-border">
+          <View className="flex-row items-center gap-2 px-3 py-3 border-b border-border">
+            <Type size={14} color={color("muted-foreground")} />
+            <Text
+              weight="bold"
+              className="text-[11px] uppercase tracking-[2px] text-foreground"
+            >
+              Font Family
+            </Text>
+          </View>
+          <View className="px-3 pb-3 pt-2 gap-1.5">
+            <Text className="text-[11px] text-muted-foreground mb-1">
+              Nerd Font support depends on the selected font being available to
+              the WebView.
+            </Text>
+            {TERMINAL_FONTS.map((option, i) => {
               const isActive = config.fontFamily === option.value;
+              const isLast = i === TERMINAL_FONTS.length - 1;
               return (
-                <TouchableOpacity
+                <Pressable
                   key={option.value}
-                  onPress={() =>
-                    handleFontFamilyChange(option.value, option.label)
-                  }
-                  className={`rounded-lg border p-4 ${
-                    isActive
-                      ? "border-green-500 bg-green-900/20"
-                      : "border-[#303032] bg-[#1a1a1a]"
-                  }`}
+                  onPress={() => handleFontFamilyChange(option.value, option.label)}
+                  className={`flex-row items-center justify-between py-2.5 ${!isLast ? "border-b border-border" : ""}`}
                 >
-                  <View className="flex-row items-center justify-between">
-                    <View className="flex-1 pr-3">
+                  <View className="flex-1 min-w-0">
+                    <Text
+                      weight="medium"
+                      className={`text-sm ${isActive ? "text-accent-brand" : "text-foreground"}`}
+                    >
+                      {option.label}
+                    </Text>
+                    <Text
+                      className="text-[10px] text-muted-foreground mt-0.5"
+                      style={{ fontFamily: option.fallback }}
+                    >
+                      Aa Bb Cc 123
+                    </Text>
+                  </View>
+                  {isActive ? (
+                    <View className="px-1.5 py-0.5 bg-accent-brand/10 border border-accent-brand/40 shrink-0">
                       <Text
-                        className={`text-base font-semibold ${
-                          isActive ? "text-accent-brand" : "text-foreground"
-                        }`}
+                        weight="bold"
+                        className="text-[8px] uppercase tracking-wider text-accent-brand"
                       >
-                        {option.label}
-                      </Text>
-                      <Text
-                        className="mt-1 text-sm text-muted-foreground"
-                        style={{ fontFamily: option.fallback }}
-                      >
-                        Aa Bb Cc 123 
+                        Active
                       </Text>
                     </View>
-                    {isActive && (
-                      <View className="rounded-full bg-accent-brand px-2 py-1">
-                        <Text className="text-xs font-semibold text-foreground">
-                          ACTIVE
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-                </TouchableOpacity>
+                  ) : null}
+                </Pressable>
               );
             })}
           </View>
         </View>
 
-        <View className="mb-6">
-          <Text className="mb-3 text-base font-semibold text-foreground">
-            Font Size
-          </Text>
-          <Text className="mb-3 text-sm text-muted-foreground">
-            Base font size for terminal text. The actual size will be adjusted
-            based on your screen width. This number will override the font size
-            you configured on a host in the Termix Web UI.
-          </Text>
-          <View className="gap-2">
-            {FONT_SIZE_OPTIONS.map((option) => (
-              <TouchableOpacity
-                key={option.value}
-                onPress={() => handleFontSizeChange(option.value)}
-                className={`rounded-lg border p-4 ${
-                  config.fontSize === option.value
-                    ? "border-green-500 bg-green-900/20"
-                    : "border-[#303032] bg-[#1a1a1a]"
-                }`}
-              >
-                <View className="flex-row items-center justify-between">
+        {/* Font Size */}
+        <View className="bg-card border border-border">
+          <View className="flex-row items-center gap-2 px-3 py-3 border-b border-border">
+            <AlignLeft size={14} color={color("muted-foreground")} />
+            <Text
+              weight="bold"
+              className="text-[11px] uppercase tracking-[2px] text-foreground"
+            >
+              Font Size
+            </Text>
+          </View>
+          <View className="px-3 pb-3 pt-2 gap-1.5">
+            <Text className="text-[11px] text-muted-foreground mb-1">
+              Base size for terminal text. Overrides the font size configured on
+              the host in Termix Web UI.
+            </Text>
+            {FONT_SIZE_OPTIONS.map((option, i) => {
+              const isActive = config.fontSize === option.value;
+              return (
+                <Pressable
+                  key={option.value}
+                  onPress={() => handleFontSizeChange(option.value)}
+                  className={`flex-row items-center justify-between py-2.5 ${i < FONT_SIZE_OPTIONS.length - 1 || !isCustomFontSize ? "border-b border-border" : ""}`}
+                >
                   <View>
                     <Text
-                      className={`text-base font-semibold ${
-                        config.fontSize === option.value
-                          ? "text-accent-brand"
-                          : "text-foreground"
-                      }`}
+                      weight="medium"
+                      className={`text-sm ${isActive ? "text-accent-brand" : "text-foreground"}`}
                     >
                       {option.label}
                     </Text>
-                    <Text className="mt-0.5 text-xs text-muted-foreground">
-                      {option.value}px base size
+                    <Text className="text-[10px] text-muted-foreground mt-0.5">
+                      {option.value}px
                     </Text>
                   </View>
-                  {config.fontSize === option.value && (
-                    <View className="rounded-full bg-accent-brand px-2 py-1">
-                      <Text className="text-xs font-semibold text-foreground">
-                        ACTIVE
+                  {isActive ? (
+                    <View className="px-1.5 py-0.5 bg-accent-brand/10 border border-accent-brand/40">
+                      <Text
+                        weight="bold"
+                        className="text-[8px] uppercase tracking-wider text-accent-brand"
+                      >
+                        Active
                       </Text>
                     </View>
-                  )}
-                </View>
-              </TouchableOpacity>
-            ))}
+                  ) : null}
+                </Pressable>
+              );
+            })}
 
-            <TouchableOpacity
+            {/* Custom size row */}
+            <Pressable
               onPress={() => setShowCustomInput(true)}
-              className={`rounded-lg border p-4 ${
-                isCustomFontSize
-                  ? "border-green-500 bg-green-900/20"
-                  : "border-[#303032] bg-[#1a1a1a]"
-              }`}
+              className="flex-row items-center justify-between py-2.5"
             >
-              <View className="flex-row items-center justify-between">
-                <View>
+              <View>
+                <Text
+                  weight="medium"
+                  className={`text-sm ${isCustomFontSize ? "text-accent-brand" : "text-foreground"}`}
+                >
+                  Custom
+                </Text>
+                <Text className="text-[10px] text-muted-foreground mt-0.5">
+                  {isCustomFontSize
+                    ? `${config.fontSize}px`
+                    : "Enter any size"}
+                </Text>
+              </View>
+              {isCustomFontSize ? (
+                <View className="px-1.5 py-0.5 bg-accent-brand/10 border border-accent-brand/40">
                   <Text
-                    className={`text-base font-semibold ${
-                      isCustomFontSize ? "text-accent-brand" : "text-foreground"
-                    }`}
+                    weight="bold"
+                    className="text-[8px] uppercase tracking-wider text-accent-brand"
                   >
-                    Custom
-                  </Text>
-                  <Text className="mt-0.5 text-xs text-muted-foreground">
-                    {isCustomFontSize
-                      ? `${config.fontSize}px base size`
-                      : "Enter any custom size"}
+                    Active
                   </Text>
                 </View>
-                {isCustomFontSize && (
-                  <View className="rounded-full bg-accent-brand px-2 py-1">
-                    <Text className="text-xs font-semibold text-foreground">
-                      ACTIVE
-                    </Text>
-                  </View>
-                )}
-              </View>
-            </TouchableOpacity>
+              ) : null}
+            </Pressable>
           </View>
         </View>
 
-        <TouchableOpacity
+        {/* Reset */}
+        <Button
+          variant="destructive"
           onPress={() => setShowResetConfirm(true)}
-          className="rounded-lg border border-red-700 bg-red-900/20 p-3"
         >
-          <Text className="text-center font-semibold text-red-400">
-            Reset to Default
-          </Text>
-        </TouchableOpacity>
+          Reset to Default
+        </Button>
       </ScrollView>
 
-      <Modal
+      {/* Custom font size dialog */}
+      <Dialog
         visible={showCustomInput}
-        transparent
-        animationType="fade"
-        onRequestClose={() => {
+        onClose={() => {
           setShowCustomInput(false);
           setCustomFontSize("");
         }}
-        supportedOrientations={["portrait", "landscape"]}
+        title="Custom Font Size"
+        description="Enter your preferred font size for the terminal."
+        footer={
+          <>
+            <Button
+              variant="ghost"
+              size="sm"
+              onPress={() => {
+                setShowCustomInput(false);
+                setCustomFontSize("");
+              }}
+            >
+              Cancel
+            </Button>
+            <Button variant="accent" size="sm" onPress={handleCustomFontSize}>
+              Apply
+            </Button>
+          </>
+        }
       >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          className="flex-1"
-        >
-          <Pressable
-            className="flex-1 items-center justify-center bg-black/50"
-            onPress={() => {
-              setShowCustomInput(false);
-              setCustomFontSize("");
-            }}
-          >
-            <Pressable className="mx-8 w-80 rounded-lg border border-[#303032] bg-[#1a1a1a] p-6">
-              <Text className="mb-2 text-lg font-semibold text-foreground">
-                Custom Font Size
-              </Text>
-              <Text className="mb-4 text-sm text-muted-foreground">
-                Enter your preferred font size for the terminal.
-              </Text>
-              <TextInput
-                value={customFontSize}
-                onChangeText={setCustomFontSize}
-                placeholder="e.g., 15"
-                placeholderTextColor="#6b7280"
-                keyboardType="number-pad"
-                autoFocus
-                style={{
-                  backgroundColor: "#27272a",
-                  borderWidth: 1,
-                  borderColor: "#3f3f46",
-                  borderRadius: 8,
-                  padding: 12,
-                  color: "#ffffff",
-                  fontSize: 16,
-                  textAlignVertical: "center",
-                }}
-              />
-              <View className="mt-4 flex-row gap-3">
-                <TouchableOpacity
-                  onPress={() => {
-                    setShowCustomInput(false);
-                    setCustomFontSize("");
-                  }}
-                  className="flex-1 rounded-lg border border-[#3f3f46] bg-[#27272a] p-3"
-                >
-                  <Text className="text-center font-semibold text-foreground">
-                    Cancel
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={handleCustomFontSize}
-                  className="flex-1 rounded-lg bg-accent-brand p-3"
-                >
-                  <Text className="text-center font-semibold text-foreground">
-                    Apply
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </Pressable>
-          </Pressable>
-        </KeyboardAvoidingView>
-      </Modal>
+        <Input
+          value={customFontSize}
+          onChangeText={setCustomFontSize}
+          placeholder="e.g. 15"
+          keyboardType="number-pad"
+          autoFocus
+        />
+      </Dialog>
 
-      <Modal
+      {/* Reset confirm dialog */}
+      <Dialog
         visible={showResetConfirm}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setShowResetConfirm(false)}
-        supportedOrientations={["portrait", "landscape"]}
-      >
-        <Pressable
-          className="flex-1 items-center justify-center bg-black/50"
-          onPress={() => setShowResetConfirm(false)}
-        >
-          <Pressable className="mx-8 rounded-lg border border-[#303032] bg-[#1a1a1a] p-6">
-            <Text className="mb-2 text-lg font-semibold text-foreground">
-              Confirm Reset
-            </Text>
-            <Text className="mb-6 text-sm text-muted-foreground">
-              This will reset all terminal customizations to default settings.
-            </Text>
-            <View className="flex-row gap-3">
-              <TouchableOpacity
-                onPress={() => setShowResetConfirm(false)}
-                className="flex-1 rounded-lg border border-[#3f3f46] bg-[#27272a] p-3"
-              >
-                <Text className="text-center font-semibold text-foreground">
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={handleReset}
-                className="flex-1 rounded-lg bg-red-600 p-3"
-              >
-                <Text className="text-center font-semibold text-foreground">
-                  Reset
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </Pressable>
-        </Pressable>
-      </Modal>
+        onClose={() => setShowResetConfirm(false)}
+        title="Confirm Reset"
+        description="This will reset all terminal customizations to default settings."
+        footer={
+          <>
+            <Button
+              variant="ghost"
+              size="sm"
+              onPress={() => setShowResetConfirm(false)}
+            >
+              Cancel
+            </Button>
+            <Button variant="destructive" size="sm" onPress={handleReset}>
+              Reset
+            </Button>
+          </>
+        }
+      />
     </View>
   );
 }

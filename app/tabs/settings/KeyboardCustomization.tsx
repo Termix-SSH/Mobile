@@ -1,19 +1,20 @@
 import React, { useState, useMemo } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Switch,
-  Modal,
-  Pressable,
-  ScrollView,
-} from "react-native";
+import { View, ScrollView, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  ArrowLeft,
+  LayoutGrid,
+  Rows3,
+  Keyboard,
+  SlidersHorizontal,
+} from "lucide-react-native";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { PRESET_DEFINITIONS } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
 import { PresetType, KeyConfig } from "@/types/keyboard";
-import { showToast } from "@/app/utils/toast";
+import { toast } from "@/app/utils/toast";
+import { Text, Button, Label, FakeSwitch, Dialog } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
 import KeySelector from "./components/KeySelector";
 import UnifiedDraggableList, {
   UnifiedListItem,
@@ -24,9 +25,17 @@ import { renderRowItem, useRowExpansion } from "./components/DraggableRowList";
 type TabType = "presets" | "topbar" | "fullKeyboard" | "settings";
 type AddKeyMode = "pinned" | "topbar" | "row" | null;
 
+const TABS: { id: TabType; label: string; icon: (c: string) => React.ReactNode }[] = [
+  { id: "presets", label: "Presets", icon: (c) => <LayoutGrid size={14} color={c} /> },
+  { id: "topbar", label: "Top Bar", icon: (c) => <Rows3 size={14} color={c} /> },
+  { id: "fullKeyboard", label: "Full Keyboard", icon: (c) => <Keyboard size={14} color={c} /> },
+  { id: "settings", label: "Settings", icon: (c) => <SlidersHorizontal size={14} color={c} /> },
+];
+
 export default function KeyboardCustomization() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const color = useThemeColor();
   const {
     config,
     setPreset,
@@ -49,9 +58,7 @@ export default function KeyboardCustomization() {
 
   const [activeTab, setActiveTab] = useState<TabType>("presets");
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-  const [resetType, setResetType] = useState<"all" | "topbar" | "fullkeyboard">(
-    "all",
-  );
+  const [resetType, setResetType] = useState<"all" | "topbar" | "fullkeyboard">("all");
   const [showKeySelector, setShowKeySelector] = useState(false);
   const [addKeyMode, setAddKeyMode] = useState<AddKeyMode>(null);
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
@@ -82,7 +89,7 @@ export default function KeyboardCustomization() {
       });
     });
 
-    items.push({ type: "spacer", id: "spacer-1", height: 20 });
+    items.push({ type: "spacer", id: "spacer-1", height: 16 });
 
     items.push({
       type: "header",
@@ -104,7 +111,7 @@ export default function KeyboardCustomization() {
       });
     });
 
-    items.push({ type: "spacer", id: "spacer-2", height: 20 });
+    items.push({ type: "spacer", id: "spacer-2", height: 16 });
 
     items.push({
       type: "button",
@@ -169,15 +176,11 @@ export default function KeyboardCustomization() {
           });
         });
 
-        items.push({
-          type: "spacer",
-          id: `row-close-${row.id}`,
-          height: 12,
-        });
+        items.push({ type: "spacer", id: `row-close-${row.id}`, height: 12 });
       }
     });
 
-    items.push({ type: "spacer", id: "spacer-3", height: 20 });
+    items.push({ type: "spacer", id: "spacer-3", height: 16 });
 
     items.push({
       type: "button",
@@ -196,11 +199,11 @@ export default function KeyboardCustomization() {
   const handlePresetSelect = async (presetId: PresetType) => {
     try {
       await setPreset(presetId);
-      showToast.success(
+      toast.success(
         `Switched to ${PRESET_DEFINITIONS.find((p) => p.id === presetId)?.name} preset`,
       );
-    } catch (error) {
-      showToast.error("Failed to switch preset");
+    } catch {
+      toast.error("Failed to switch preset");
     }
   };
 
@@ -208,16 +211,16 @@ export default function KeyboardCustomization() {
     try {
       if (addKeyMode === "pinned") {
         await addPinnedKey(key);
-        showToast.success(`Added ${key.label} to pinned keys`);
+        toast.success(`Added ${key.label} to pinned keys`);
       } else if (addKeyMode === "topbar") {
         await addTopBarKey(key);
-        showToast.success(`Added ${key.label} to top bar`);
+        toast.success(`Added ${key.label} to top bar`);
       } else if (addKeyMode === "row" && selectedRowId) {
         await addKeyToRow(selectedRowId, key);
-        showToast.success(`Added ${key.label} to row`);
+        toast.success(`Added ${key.label} to row`);
       }
-    } catch (error) {
-      showToast.error("Failed to add key");
+    } catch {
+      toast.error("Failed to add key");
     }
   };
 
@@ -228,97 +231,14 @@ export default function KeyboardCustomization() {
   };
 
   const getExcludedKeys = (): string[] => {
-    if (addKeyMode === "pinned") {
-      return config.topBar.pinnedKeys.map((k) => k.id);
-    } else if (addKeyMode === "topbar") {
-      return config.topBar.keys.map((k) => k.id);
-    } else if (addKeyMode === "row" && selectedRowId) {
+    if (addKeyMode === "pinned") return config.topBar.pinnedKeys.map((k) => k.id);
+    if (addKeyMode === "topbar") return config.topBar.keys.map((k) => k.id);
+    if (addKeyMode === "row" && selectedRowId) {
       const row = config.fullKeyboard.rows.find((r) => r.id === selectedRowId);
       return row ? row.keys.map((k) => k.id) : [];
     }
     return [];
   };
-
-  const handleKeySizeChange = async (size: "small" | "medium" | "large") => {
-    await updateSettings({ keySize: size });
-  };
-
-  const handleCompactModeToggle = async (value: boolean) => {
-    await updateSettings({ compactMode: value });
-  };
-
-  const handleHapticToggle = async (value: boolean) => {
-    await updateSettings({ hapticFeedback: value });
-  };
-
-  const handleHintsToggle = async (value: boolean) => {
-    await updateSettings({ showHints: value });
-  };
-
-  const handleReset = async () => {
-    try {
-      if (resetType === "all") {
-        await resetToDefault();
-        showToast.success("Keyboard reset to default");
-      } else if (resetType === "topbar") {
-        await resetTopBar();
-        showToast.success("Top bar reset to default");
-      } else if (resetType === "fullkeyboard") {
-        await resetFullKeyboard();
-        showToast.success("Full keyboard reset to default");
-      }
-      setShowResetConfirm(false);
-    } catch (error) {
-      showToast.error("Failed to reset");
-    }
-  };
-
-  const renderPresets = () => (
-    <ScrollView className="flex-1 px-4 py-4">
-      <Text className="text-foreground text-lg font-semibold mb-2">
-        Keyboard Presets
-      </Text>
-      <Text className="text-muted-foreground text-sm mb-4">
-        Choose a preset layout optimized for different use cases
-      </Text>
-
-      {PRESET_DEFINITIONS.map((preset) => (
-        <TouchableOpacity
-          key={preset.id}
-          onPress={() => handlePresetSelect(preset.id)}
-          className={`mb-3 p-4 rounded-lg border ${
-            config.preset === preset.id
-              ? "bg-green-900/20 border-green-500"
-              : "bg-[#1a1a1a] border-[#303032]"
-          }`}
-        >
-          <View className="flex-row items-center justify-between mb-1">
-            <Text className="text-foreground text-base font-semibold">
-              {preset.name}
-            </Text>
-            {config.preset === preset.id && (
-              <View className="bg-accent-brand rounded-full px-2 py-1">
-                <Text className="text-foreground text-xs font-semibold">ACTIVE</Text>
-              </View>
-            )}
-          </View>
-          <Text className="text-muted-foreground text-sm">{preset.description}</Text>
-        </TouchableOpacity>
-      ))}
-
-      {config.preset === "custom" && (
-        <View className="mt-2 p-4 bg-blue-900/20 border border-blue-500 rounded-lg">
-          <Text className="text-blue-400 text-sm font-semibold mb-1">
-            Custom Layout
-          </Text>
-          <Text className="text-muted-foreground text-xs">
-            You have made custom changes. Select a preset above to reset to a
-            predefined layout.
-          </Text>
-        </View>
-      )}
-    </ScrollView>
-  );
 
   const validateTopBarDrag = (newData: UnifiedListItem[]): boolean => {
     const pinnedHeaderIndex = newData.findIndex(
@@ -332,32 +252,124 @@ export default function KeyboardCustomization() {
     );
 
     for (let i = 0; i <= pinnedHeaderIndex; i++) {
-      const item = newData[i];
-      if (item.type === "draggable-key") {
-        return false;
-      }
+      if (newData[i].type === "draggable-key") return false;
     }
-
     for (let i = 0; i < newData.length; i++) {
       const item = newData[i];
       if (item.type === "draggable-key" && item.section === "pinned") {
-        if (i <= pinnedHeaderIndex || i >= topbarHeaderIndex) {
-          return false;
-        }
+        if (i <= pinnedHeaderIndex || i >= topbarHeaderIndex) return false;
       }
     }
-
     for (let i = 0; i < newData.length; i++) {
       const item = newData[i];
       if (item.type === "draggable-key" && item.section === "topbar") {
-        if (i <= topbarHeaderIndex || i >= resetButtonIndex) {
-          return false;
-        }
+        if (i <= topbarHeaderIndex || i >= resetButtonIndex) return false;
       }
+    }
+    return true;
+  };
+
+  const validateFullKeyboardDrag = (newData: UnifiedListItem[]): boolean => {
+    const mainHeaderIndex = newData.findIndex(
+      (item) => item.type === "header" && item.id === "header-rows",
+    );
+    const resetButtonIndex = newData.findIndex(
+      (item) => item.type === "button" && item.id === "reset-fullkeyboard",
+    );
+
+    for (let i = 0; i <= mainHeaderIndex; i++) {
+      const item = newData[i];
+      if (item.type === "draggable-key" || item.type === "draggable-row") return false;
+    }
+    for (let i = resetButtonIndex; i < newData.length; i++) {
+      const item = newData[i];
+      if (item.type === "draggable-key" || item.type === "draggable-row") return false;
+    }
+
+    if (!expandedRowId) return true;
+
+    const rowKeysHeaderIndex = newData.findIndex(
+      (item) =>
+        item.type === "row-keys-header" && (item as any).rowId === expandedRowId,
+    );
+    const rowCloseIndex = newData.findIndex(
+      (item) =>
+        item.type === "spacer" && item.id === `row-close-${expandedRowId}`,
+    );
+
+    if (rowKeysHeaderIndex === -1 || rowCloseIndex === -1) return true;
+
+    for (let i = 0; i < newData.length; i++) {
+      const item = newData[i];
+      if (item.type === "draggable-key" && (item as any).rowId === expandedRowId) {
+        if (i <= rowKeysHeaderIndex || i >= rowCloseIndex) return false;
+      }
+    }
+    for (let i = rowKeysHeaderIndex + 1; i < rowCloseIndex; i++) {
+      const item = newData[i];
+      if (item.type === "draggable-key" && (item as any).rowId !== expandedRowId) return false;
+      if (item.type === "draggable-row") return false;
     }
 
     return true;
   };
+
+  const renderPresets = () => (
+    <ScrollView
+      className="flex-1"
+      contentContainerStyle={{ padding: 16, gap: 10, paddingBottom: 40 }}
+    >
+      <Label className="mb-1">Layout Presets</Label>
+      <Text className="text-[11px] text-muted-foreground mb-2">
+        Choose a preset layout optimized for different use cases.
+      </Text>
+
+      {PRESET_DEFINITIONS.map((preset) => {
+        const isActive = config.preset === preset.id;
+        return (
+          <Pressable
+            key={preset.id}
+            onPress={() => handlePresetSelect(preset.id)}
+            className={`bg-card border px-3 py-3 active:opacity-80 ${isActive ? "border-accent-brand/50" : "border-border"}`}
+          >
+            <View className="flex-row items-center justify-between mb-1">
+              <Text
+                weight="medium"
+                className={`text-sm ${isActive ? "text-accent-brand" : "text-foreground"}`}
+              >
+                {preset.name}
+              </Text>
+              {isActive ? (
+                <View className="px-1.5 py-0.5 bg-accent-brand/10 border border-accent-brand/40">
+                  <Text
+                    weight="bold"
+                    className="text-[8px] uppercase tracking-wider text-accent-brand"
+                  >
+                    Active
+                  </Text>
+                </View>
+              ) : null}
+            </View>
+            <Text className="text-[11px] text-muted-foreground">
+              {preset.description}
+            </Text>
+          </Pressable>
+        );
+      })}
+
+      {config.preset === "custom" ? (
+        <View className="bg-card border border-border px-3 py-3 mt-1">
+          <Text weight="medium" className="text-xs text-accent-brand mb-0.5">
+            Custom Layout
+          </Text>
+          <Text className="text-[10px] text-muted-foreground">
+            You have made custom changes. Select a preset above to reset to a
+            predefined layout.
+          </Text>
+        </View>
+      ) : null}
+    </ScrollView>
+  );
 
   const renderTopBar = () => (
     <View className="flex-1 px-4 py-4">
@@ -366,22 +378,20 @@ export default function KeyboardCustomization() {
         data={topBarData}
         onDragEnd={(newData) => {
           if (!validateTopBarDrag(newData)) {
-            showToast.error("Cannot move items between sections");
+            toast.error("Cannot move items between sections");
             setListResetKey((prev) => prev + 1);
             return;
           }
 
           const pinnedKeys = newData
             .filter(
-              (item) =>
-                item.type === "draggable-key" && item.section === "pinned",
+              (item) => item.type === "draggable-key" && item.section === "pinned",
             )
             .map((item) => (item as any).data);
 
           const topBarKeys = newData
             .filter(
-              (item) =>
-                item.type === "draggable-key" && item.section === "topbar",
+              (item) => item.type === "draggable-key" && item.section === "topbar",
             )
             .map((item) => (item as any).data);
 
@@ -390,85 +400,12 @@ export default function KeyboardCustomization() {
         }}
         onRemoveKey={(itemId, section) => {
           const keyId = itemId.replace(`${section}-`, "");
-          if (section === "pinned") {
-            removePinnedKey(keyId);
-          } else if (section === "topbar") {
-            removeTopBarKey(keyId);
-          }
+          if (section === "pinned") removePinnedKey(keyId);
+          else if (section === "topbar") removeTopBarKey(keyId);
         }}
       />
     </View>
   );
-
-  const validateFullKeyboardDrag = (newData: UnifiedListItem[]): boolean => {
-    const mainHeaderIndex = newData.findIndex(
-      (item) => item.type === "header" && item.id === "header-rows",
-    );
-
-    const resetButtonIndex = newData.findIndex(
-      (item) => item.type === "button" && item.id === "reset-fullkeyboard",
-    );
-
-    for (let i = 0; i <= mainHeaderIndex; i++) {
-      const item = newData[i];
-      if (item.type === "draggable-key" || item.type === "draggable-row") {
-        return false;
-      }
-    }
-
-    for (let i = resetButtonIndex; i < newData.length; i++) {
-      const item = newData[i];
-      if (item.type === "draggable-key" || item.type === "draggable-row") {
-        return false;
-      }
-    }
-
-    if (!expandedRowId) {
-      return true;
-    }
-
-    const rowKeysHeaderIndex = newData.findIndex(
-      (item) =>
-        item.type === "row-keys-header" &&
-        (item as any).rowId === expandedRowId,
-    );
-
-    const rowCloseIndex = newData.findIndex(
-      (item) =>
-        item.type === "spacer" && item.id === `row-close-${expandedRowId}`,
-    );
-
-    if (rowKeysHeaderIndex === -1 || rowCloseIndex === -1) {
-      return true;
-    }
-
-    for (let i = 0; i < newData.length; i++) {
-      const item = newData[i];
-      if (
-        item.type === "draggable-key" &&
-        (item as any).rowId === expandedRowId
-      ) {
-        if (i <= rowKeysHeaderIndex || i >= rowCloseIndex) {
-          return false;
-        }
-      }
-    }
-
-    for (let i = rowKeysHeaderIndex + 1; i < rowCloseIndex; i++) {
-      const item = newData[i];
-      if (
-        item.type === "draggable-key" &&
-        (item as any).rowId !== expandedRowId
-      ) {
-        return false;
-      }
-      if (item.type === "draggable-row") {
-        return false;
-      }
-    }
-
-    return true;
-  };
 
   const renderFullKeyboard = () => (
     <View className="flex-1 px-4 py-4">
@@ -477,7 +414,7 @@ export default function KeyboardCustomization() {
         data={fullKeyboardData}
         onDragEnd={(newData) => {
           if (!validateFullKeyboardDrag(newData)) {
-            showToast.error("Cannot move items between sections");
+            toast.error("Cannot move items between sections");
             setListResetKey((prev) => prev + 1);
             return;
           }
@@ -504,9 +441,7 @@ export default function KeyboardCustomization() {
           if (section === "row") {
             const match = itemId.match(/^row-(.+)-key-(.+)$/);
             if (match) {
-              const rowId = match[1];
-              const keyId = match[2];
-              removeKeyFromRow(rowId, keyId);
+              removeKeyFromRow(match[1], match[2]);
             }
           }
         }}
@@ -515,148 +450,159 @@ export default function KeyboardCustomization() {
   );
 
   const renderSettings = () => (
-    <ScrollView className="flex-1 px-4 py-4">
-      <Text className="text-foreground text-lg font-semibold mb-2">
-        Keyboard Settings
-      </Text>
-      <Text className="text-muted-foreground text-sm mb-4">
-        Adjust keyboard appearance and behavior
-      </Text>
-
-      <View className="mb-6">
-        <Text className="text-foreground text-base font-semibold mb-3">
-          Key Size
-        </Text>
-        <View className="flex-row gap-2">
-          {(["small", "medium", "large"] as const).map((size) => (
-            <TouchableOpacity
-              key={size}
-              onPress={() => handleKeySizeChange(size)}
-              className={`flex-1 p-3 rounded-lg border ${
-                config.settings.keySize === size
-                  ? "bg-green-900/20 border-green-500"
-                  : "bg-[#1a1a1a] border-[#303032]"
-              }`}
-            >
-              <Text
-                className={`text-center font-semibold ${
-                  config.settings.keySize === size
-                    ? "text-accent-brand"
-                    : "text-muted-foreground"
-                }`}
+    <ScrollView
+      className="flex-1"
+      contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}
+    >
+      {/* Key Size */}
+      <View className="bg-card border border-border">
+        <View className="px-3 py-3 border-b border-border">
+          <Label>Key Size</Label>
+        </View>
+        <View className="px-3 pb-3 pt-2.5 flex-row gap-2">
+          {(["small", "medium", "large"] as const).map((size) => {
+            const isActive = config.settings.keySize === size;
+            return (
+              <Pressable
+                key={size}
+                onPress={() => updateSettings({ keySize: size })}
+                className={`flex-1 py-2.5 border items-center active:opacity-80 ${isActive ? "border-accent-brand/50 bg-accent-brand/10" : "border-border"}`}
               >
-                {size.charAt(0).toUpperCase() + size.slice(1)}
+                <Text
+                  weight="medium"
+                  className={`text-xs ${isActive ? "text-accent-brand" : "text-muted-foreground"}`}
+                >
+                  {size.charAt(0).toUpperCase() + size.slice(1)}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      </View>
+
+      {/* Toggles */}
+      <View className="bg-card border border-border">
+        <View className="px-3 py-3 border-b border-border">
+          <Label>Behavior</Label>
+        </View>
+        <View className="px-3">
+          <View className="flex-row items-center justify-between py-2.5 border-b border-border">
+            <View className="flex-1 min-w-0 mr-3">
+              <Text weight="medium" className="text-xs text-foreground">
+                Compact Mode
               </Text>
-            </TouchableOpacity>
-          ))}
+              <Text className="text-[10px] text-muted-foreground mt-0.5">
+                Tighter spacing for more keys on screen
+              </Text>
+            </View>
+            <FakeSwitch
+              checked={config.settings.compactMode}
+              onChange={(v) => updateSettings({ compactMode: v })}
+            />
+          </View>
+
+          <View className="flex-row items-center justify-between py-2.5 border-b border-border">
+            <View className="flex-1 min-w-0 mr-3">
+              <Text weight="medium" className="text-xs text-foreground">
+                Haptic Feedback
+              </Text>
+              <Text className="text-[10px] text-muted-foreground mt-0.5">
+                Vibrate on key press
+              </Text>
+            </View>
+            <FakeSwitch
+              checked={config.settings.hapticFeedback}
+              onChange={(v) => updateSettings({ hapticFeedback: v })}
+            />
+          </View>
+
+          <View className="flex-row items-center justify-between py-2.5">
+            <View className="flex-1 min-w-0 mr-3">
+              <Text weight="medium" className="text-xs text-foreground">
+                Show Hints
+              </Text>
+              <Text className="text-[10px] text-muted-foreground mt-0.5">
+                Display the "Customize in Settings" hint
+              </Text>
+            </View>
+            <FakeSwitch
+              checked={config.settings.showHints}
+              onChange={(v) => updateSettings({ showHints: v })}
+            />
+          </View>
         </View>
       </View>
 
-      <View className="flex-row items-center justify-between bg-[#1a1a1a] border border-[#303032] rounded-lg p-4 mb-3">
-        <View className="flex-1 mr-4">
-          <Text className="text-foreground text-sm font-semibold">Compact Mode</Text>
-          <Text className="text-muted-foreground text-xs mt-0.5">
-            Tighter spacing for more keys on screen
-          </Text>
-        </View>
-        <Switch
-          value={config.settings.compactMode}
-          onValueChange={handleCompactModeToggle}
-          trackColor={{ false: "#3f3f46", true: "#f59145" }}
-          thumbColor={config.settings.compactMode ? "#ffffff" : "#9ca3af"}
-        />
-      </View>
-
-      <View className="flex-row items-center justify-between bg-[#1a1a1a] border border-[#303032] rounded-lg p-4 mb-3">
-        <View className="flex-1 mr-4">
-          <Text className="text-foreground text-sm font-semibold">
-            Haptic Feedback
-          </Text>
-          <Text className="text-muted-foreground text-xs mt-0.5">
-            Vibrate on key press
-          </Text>
-        </View>
-        <Switch
-          value={config.settings.hapticFeedback}
-          onValueChange={handleHapticToggle}
-          trackColor={{ false: "#3f3f46", true: "#f59145" }}
-          thumbColor={config.settings.hapticFeedback ? "#ffffff" : "#9ca3af"}
-        />
-      </View>
-
-      <View className="flex-row items-center justify-between bg-[#1a1a1a] border border-[#303032] rounded-lg p-4 mb-6">
-        <View className="flex-1 mr-4">
-          <Text className="text-foreground text-sm font-semibold">Show Hints</Text>
-          <Text className="text-muted-foreground text-xs mt-0.5">
-            Display the “Customize in Settings” hint
-          </Text>
-        </View>
-        <Switch
-          value={config.settings.showHints}
-          onValueChange={handleHintsToggle}
-          trackColor={{ false: "#3f3f46", true: "#f59145" }}
-          thumbColor={config.settings.showHints ? "#ffffff" : "#9ca3af"}
-        />
-      </View>
-
-      <TouchableOpacity
+      {/* Reset */}
+      <Button
+        variant="destructive"
         onPress={() => {
           setResetType("all");
           setShowResetConfirm(true);
         }}
-        className="bg-red-900/20 border border-red-700 rounded-lg p-3"
       >
-        <Text className="text-red-400 text-center font-semibold">
-          Reset Everything to Default
-        </Text>
-      </TouchableOpacity>
+        Reset Everything to Default
+      </Button>
     </ScrollView>
   );
 
+  const resetMessage =
+    resetType === "all"
+      ? "This will reset all keyboard customizations to default settings."
+      : resetType === "topbar"
+        ? "This will reset the top bar to default keys."
+        : "This will reset the full keyboard to default rows.";
+
+  const handleReset = async () => {
+    try {
+      if (resetType === "all") {
+        await resetToDefault();
+        toast.success("Keyboard reset to default");
+      } else if (resetType === "topbar") {
+        await resetTopBar();
+        toast.success("Top bar reset to default");
+      } else {
+        await resetFullKeyboard();
+        toast.success("Full keyboard reset to default");
+      }
+      setShowResetConfirm(false);
+    } catch {
+      toast.error("Failed to reset");
+    }
+  };
+
   return (
-    <View className="flex-1 bg-[#18181b]">
-      <View
-        className="bg-[#1a1a1a] border-b border-[#303032] px-4"
-        style={{ paddingTop: insets.top + 12, paddingBottom: 12 }}
-      >
-        <View className="flex-row items-center justify-between">
-          <TouchableOpacity onPress={() => router.back()}>
-            <Text className="text-accent-brand text-base font-semibold">
-              ← Back
-            </Text>
-          </TouchableOpacity>
-          <Text className="text-foreground text-lg font-semibold">
-            Keyboard Customization
-          </Text>
-          <View style={{ width: 60 }} />
-        </View>
+    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
+      {/* Header */}
+      <View className="flex-row items-center gap-3 px-4 pt-3 pb-3 border-b border-border">
+        <Pressable onPress={() => router.back()} hitSlop={8} className="shrink-0">
+          <ArrowLeft size={18} color={color("foreground")} />
+        </Pressable>
+        <Text weight="bold" className="text-xl text-foreground flex-1">
+          Keyboard
+        </Text>
       </View>
 
-      <View className="bg-[#1a1a1a] border-b border-[#303032]">
-        <View className="flex-row px-4">
-          {[
-            { id: "presets", label: "Presets" },
-            { id: "topbar", label: "Top Bar" },
-            { id: "fullKeyboard", label: "Full Keyboard" },
-            { id: "settings", label: "Settings" },
-          ].map((tab) => (
-            <TouchableOpacity
+      {/* Tab bar */}
+      <View className="flex-row border-b border-border bg-card">
+        {TABS.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <Pressable
               key={tab.id}
-              onPress={() => setActiveTab(tab.id as TabType)}
-              className={`px-4 py-3 mr-2 ${
-                activeTab === tab.id ? "border-b-2 border-green-500" : ""
-              }`}
+              onPress={() => setActiveTab(tab.id)}
+              className={`flex-1 items-center py-2.5 gap-1 border-b-2 ${isActive ? "border-accent-brand" : "border-transparent"}`}
             >
+              {tab.icon(isActive ? color("accent-brand") : color("muted-foreground"))}
               <Text
-                className={`text-sm font-semibold ${
-                  activeTab === tab.id ? "text-accent-brand" : "text-muted-foreground"
-                }`}
+                weight={isActive ? "medium" : "regular"}
+                className={`text-[9px] ${isActive ? "text-accent-brand" : "text-muted-foreground"}`}
               >
                 {tab.label}
               </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+            </Pressable>
+          );
+        })}
       </View>
 
       {activeTab === "presets" && renderPresets()}
@@ -678,48 +624,26 @@ export default function KeyboardCustomization() {
         }
       />
 
-      <Modal
+      <Dialog
         visible={showResetConfirm}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setShowResetConfirm(false)}
-      >
-        <Pressable
-          className="flex-1 bg-black/50 justify-center items-center"
-          onPress={() => setShowResetConfirm(false)}
-        >
-          <Pressable className="bg-[#1a1a1a] rounded-lg p-6 mx-8 border border-[#303032]">
-            <Text className="text-foreground text-lg font-semibold mb-2">
-              Confirm Reset
-            </Text>
-            <Text className="text-muted-foreground text-sm mb-6">
-              {resetType === "all"
-                ? "This will reset all keyboard customizations to default settings."
-                : resetType === "topbar"
-                  ? "This will reset the top bar to default keys."
-                  : "This will reset the full keyboard to default rows."}
-            </Text>
-            <View className="flex-row gap-3">
-              <TouchableOpacity
-                onPress={() => setShowResetConfirm(false)}
-                className="flex-1 bg-[#27272a] border border-[#3f3f46] rounded-lg p-3"
-              >
-                <Text className="text-foreground text-center font-semibold">
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={handleReset}
-                className="flex-1 bg-red-600 rounded-lg p-3"
-              >
-                <Text className="text-foreground text-center font-semibold">
-                  Reset
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </Pressable>
-        </Pressable>
-      </Modal>
+        onClose={() => setShowResetConfirm(false)}
+        title="Confirm Reset"
+        description={resetMessage}
+        footer={
+          <>
+            <Button
+              variant="ghost"
+              size="sm"
+              onPress={() => setShowResetConfirm(false)}
+            >
+              Cancel
+            </Button>
+            <Button variant="destructive" size="sm" onPress={handleReset}>
+              Reset
+            </Button>
+          </>
+        }
+      />
     </View>
   );
 }
