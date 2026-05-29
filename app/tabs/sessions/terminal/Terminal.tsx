@@ -45,6 +45,9 @@ interface TerminalProps {
     keyPassword?: string;
     keyType?: string;
     credentialId?: number;
+    jumpHosts?: { hostId: number }[];
+    forceKeyboardInteractive?: boolean;
+    overrideCredentialUsername?: boolean;
     terminalConfig?: Partial<TerminalConfig>;
   };
   isVisible: boolean;
