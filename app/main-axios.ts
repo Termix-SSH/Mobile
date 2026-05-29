@@ -2165,21 +2165,6 @@ export async function completePasswordReset(
   }
 }
 
-export async function changePassword(
-  oldPassword: string,
-  newPassword: string,
-): Promise<any> {
-  try {
-    const response = await authApi.post("/users/change-password", {
-      oldPassword,
-      newPassword,
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "change password");
-  }
-}
-
 export async function getOIDCAuthorizeUrl(): Promise<OIDCAuthorize> {
   try {
     const response = await authApi.get("/users/oidc/authorize");

@@ -19,8 +19,6 @@ export type ThemeId =
   | "one-dark"
   | "gruvbox";
 
-export type FontSizeId = "xs" | "sm" | "md" | "lg" | "xl";
-
 /** Full variable set keyed by token name (without the leading --). */
 export type ThemeVars = Record<string, string>;
 
@@ -419,14 +417,6 @@ export const ACCENT_PRESET_COLORS = [
 
 export const DEFAULT_ACCENT = "#f59145";
 
-export const FONT_SIZES: { id: FontSizeId; label: string; px: number }[] = [
-  { id: "xs", label: "XS", px: 11 },
-  { id: "sm", label: "Small", px: 12 },
-  { id: "md", label: "Normal", px: 14 },
-  { id: "lg", label: "Large", px: 16 },
-  { id: "xl", label: "XL", px: 18 },
-];
-
 export const FOLDER_COLORS = [
   "#ef4444",
   "#f97316",
@@ -457,5 +447,4 @@ export function hexToRgbTriplet(hex: string): string | null {
 export const STORAGE_KEYS = {
   theme: "termix-theme",
   accent: "termix-accent",
-  fontSize: "termix-font-size",
 } as const;

@@ -7,10 +7,8 @@ import {
   Shield,
   SlidersHorizontal,
   ChevronRight,
-  Type,
   LogOut,
   Lock,
-  KeyRound,
   Server as ServerIcon,
 } from "lucide-react-native";
 import { useAppContext } from "@/app/AppContext";
@@ -22,7 +20,6 @@ import {
   logoutUser,
   getUserInfo,
   getVersionInfo,
-  changePassword,
   getCurrentServerUrl,
 } from "@/app/main-axios";
 import { Screen } from "@/app/components/Screen";
@@ -34,16 +31,13 @@ import {
   AccordionSection,
   SettingRow,
   FakeSwitch,
-  SegmentedControl,
   Dialog,
 } from "@/app/components/ui";
 import {
   ACCENT_PRESET_COLORS,
-  FONT_SIZES,
   THEMES,
   THEME_LABELS,
   type ThemeId,
-  type FontSizeId,
 } from "@/app/constants/theme";
 import { toast } from "@/app/utils/toast";
 
@@ -52,8 +46,7 @@ export default function Settings() {
   const color = useThemeColor();
   const { isAuthenticated, setAuthenticated, openAuthFlow } = useAppContext();
   const { clearAllSessions } = useTerminalSessions();
-  const { theme, setTheme, accent, setAccent, fontSize, setFontSize } =
-    useTheme();
+  const { theme, setTheme, accent, setAccent } = useTheme();
   const appLock = useAppLock();
 
   const [username, setUsername] = useState("—");
@@ -68,10 +61,6 @@ export default function Settings() {
   // App-lock PIN dialog
   const [pinDialog, setPinDialog] = useState(false);
   const [pin, setPin] = useState("");
-  // Change-password dialog
-  const [pwDialog, setPwDialog] = useState(false);
-  const [curPw, setCurPw] = useState("");
-  const [newPw, setNewPw] = useState("");
 
   useEffect(() => {
     setServerUrl(getCurrentServerUrl() ?? "");
@@ -128,22 +117,6 @@ export default function Settings() {
     await appLock.enable(pin);
     setPinDialog(false);
     toast.success("App lock enabled");
-  };
-
-  const handleChangePassword = async () => {
-    if (!curPw || newPw.length < 6) {
-      toast.error("Enter current password and a new one (min 6 chars)");
-      return;
-    }
-    try {
-      await changePassword(curPw, newPw);
-      toast.success("Password updated");
-      setPwDialog(false);
-      setCurPw("");
-      setNewPw("");
-    } catch (e: any) {
-      toast.error(e?.response?.data?.error || "Failed to update password");
-    }
   };
 
   return (
@@ -325,19 +298,6 @@ export default function Settings() {
                 <Text className="text-[10px] text-muted-foreground">hex</Text>
               </View>
             </View>
-
-            {/* Font size */}
-            <View className="gap-2">
-              <View className="flex-row items-center gap-1.5">
-                <Type size={12} color={color("muted-foreground")} />
-                <Label>Font Size</Label>
-              </View>
-              <SegmentedControl<FontSizeId>
-                value={fontSize}
-                onChange={setFontSize}
-                options={FONT_SIZES.map((f) => ({ id: f.id, label: f.label }))}
-              />
-            </View>
           </View>
         </AccordionSection>
 
@@ -356,28 +316,13 @@ export default function Settings() {
                   ? "Require biometrics or PIN to open the app"
                   : "Require a PIN to open the app"
               }
+              last
             >
               <FakeSwitch
                 checked={appLock.enabled}
                 onChange={handleAppLockToggle}
               />
             </SettingRow>
-            {isAuthenticated ? (
-              <SettingRow
-                label="Change Password"
-                description="Update your account password"
-                last
-              >
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onPress={() => setPwDialog(true)}
-                  icon={<KeyRound size={14} color={color("foreground")} />}
-                >
-                  Change
-                </Button>
-              </SettingRow>
-            ) : null}
           </View>
         </AccordionSection>
 
@@ -451,45 +396,6 @@ export default function Settings() {
           placeholder="••••"
           autoFocus
         />
-      </Dialog>
-
-      {/* Change-password dialog */}
-      <Dialog
-        visible={pwDialog}
-        onClose={() => setPwDialog(false)}
-        title="Change Password"
-        icon={<KeyRound size={15} color={color("accent-brand")} />}
-        footer={
-          <>
-            <Button variant="ghost" size="sm" onPress={() => setPwDialog(false)}>
-              Cancel
-            </Button>
-            <Button variant="accent" size="sm" onPress={handleChangePassword}>
-              Update
-            </Button>
-          </>
-        }
-      >
-        <View className="gap-3">
-          <View className="gap-1.5">
-            <Label>Current Password</Label>
-            <Input
-              value={curPw}
-              onChangeText={setCurPw}
-              secureTextEntry
-              autoCapitalize="none"
-            />
-          </View>
-          <View className="gap-1.5">
-            <Label>New Password</Label>
-            <Input
-              value={newPw}
-              onChangeText={setNewPw}
-              secureTextEntry
-              autoCapitalize="none"
-            />
-          </View>
-        </View>
       </Dialog>
     </Screen>
   );

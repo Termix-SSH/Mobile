@@ -11,12 +11,10 @@ import { vars } from "nativewind";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   DEFAULT_ACCENT,
-  FONT_SIZES,
   hexToRgbTriplet,
   STORAGE_KEYS,
   THEME_IS_DARK,
   THEME_VARS,
-  type FontSizeId,
   type ThemeId,
 } from "@/app/constants/theme";
 
@@ -28,12 +26,9 @@ interface ThemeContextValue {
   isDark: boolean;
   accent: string; // hex, e.g. "#f59145"
   accentTriplet: string; // "245 145 69"
-  fontSize: FontSizeId;
-  fontScale: number; // multiplier vs the 14px baseline
   ready: boolean;
   setTheme: (t: ThemeId) => void;
   setAccent: (hex: string) => void;
-  setFontSize: (id: FontSizeId) => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -44,22 +39,19 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const systemScheme = useRNColorScheme();
   const [theme, setThemeState] = useState<ThemeId>("dark");
   const [accent, setAccentState] = useState<string>(DEFAULT_ACCENT);
-  const [fontSize, setFontSizeState] = useState<FontSizeId>("md");
   const [ready, setReady] = useState(false);
 
   // Load persisted preferences once on mount.
   useEffect(() => {
     (async () => {
       try {
-        const [savedTheme, savedAccent, savedFont] = await Promise.all([
+        const [savedTheme, savedAccent] = await Promise.all([
           AsyncStorage.getItem(STORAGE_KEYS.theme),
           AsyncStorage.getItem(STORAGE_KEYS.accent),
-          AsyncStorage.getItem(STORAGE_KEYS.fontSize),
         ]);
         if (savedTheme) setThemeState(savedTheme as ThemeId);
         if (savedAccent && hexToRgbTriplet(savedAccent))
           setAccentState(savedAccent);
-        if (savedFont) setFontSizeState(savedFont as FontSizeId);
       } catch {
         // best-effort; fall back to defaults
       } finally {
@@ -79,18 +71,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     AsyncStorage.setItem(STORAGE_KEYS.accent, hex).catch(() => {});
   }, []);
 
-  const setFontSize = useCallback((id: FontSizeId) => {
-    setFontSizeState(id);
-    AsyncStorage.setItem(STORAGE_KEYS.fontSize, id).catch(() => {});
-  }, []);
-
   const resolvedTheme: Exclude<ThemeId, "system"> =
     theme === "system" ? (systemScheme === "light" ? "light" : "dark") : theme;
 
   const isDark = THEME_IS_DARK[resolvedTheme];
   const accentTriplet = hexToRgbTriplet(accent) ?? DEFAULT_ACCENT_TRIPLET;
-  const fontScale =
-    (FONT_SIZES.find((f) => f.id === fontSize)?.px ?? 14) / 14;
 
   // Build the CSS-variable style for the active theme + accent.
   const themeStyle = useMemo(() => {
@@ -109,12 +94,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       isDark,
       accent,
       accentTriplet,
-      fontSize,
-      fontScale,
       ready,
       setTheme,
       setAccent,
-      setFontSize,
     }),
     [
       theme,
@@ -122,12 +104,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       isDark,
       accent,
       accentTriplet,
-      fontSize,
-      fontScale,
       ready,
       setTheme,
       setAccent,
-      setFontSize,
     ],
   );
 
