@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, Text, Platform } from "react-native";
+import { View, ScrollView } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { TerminalHandle } from "../Terminal";
 import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";
-import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import { useOrientation } from "@/app/utils/orientation";
-import {
-  BORDERS,
-  BORDER_COLORS,
-  BACKGROUNDS,
-} from "@/app/constants/designTokens";
+import { BORDER_COLORS, BACKGROUNDS } from "@/app/constants/designTokens";
 
 interface KeyboardBarProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
   isVisible: boolean;
-  onModifierChange?: (modifiers: { ctrl: boolean; alt: boolean }) => void;
+  onModifierChange?: (modifiers: {
+    ctrl: boolean;
+    alt: boolean;
+    shift: boolean;
+  }) => void;
   isKeyboardIntentionallyHidden?: boolean;
 }
 
@@ -27,12 +26,10 @@ export default function KeyboardBar({
   isKeyboardIntentionallyHidden = false,
 }: KeyboardBarProps) {
   const { config } = useKeyboardCustomization();
-  const { keyboardHeight, isKeyboardVisible } = useKeyboard();
   const { isLandscape } = useOrientation();
   const [ctrlPressed, setCtrlPressed] = useState(false);
   const [altPressed, setAltPressed] = useState(false);
-
-  if (!isVisible) return null;
+  const [shiftPressed, setShiftPressed] = useState(false);
 
   const sendKey = (key: string) => {
     terminalRef.current?.sendInput(key);
@@ -48,7 +45,10 @@ export default function KeyboardBar({
       case "tab":
       case "complete":
       case "comp":
-        sendKey("\t");
+        sendKey(shiftPressed ? "\x1b[Z" : "\t");
+        break;
+      case "shiftTab":
+        sendKey("\x1b[Z");
         break;
       case "arrowUp":
       case "history":
@@ -78,10 +78,10 @@ export default function KeyboardBar({
       if (clipboardContent) {
         sendKey(clipboardContent);
       }
-    } catch (error) {}
+    } catch {}
   };
 
-  const toggleModifier = (modifier: "ctrl" | "alt") => {
+  const toggleModifier = (modifier: "ctrl" | "alt" | "shift") => {
     switch (modifier) {
       case "ctrl":
         setCtrlPressed(!ctrlPressed);
@@ -89,20 +89,33 @@ export default function KeyboardBar({
       case "alt":
         setAltPressed(!altPressed);
         break;
+      case "shift":
+        setShiftPressed(!shiftPressed);
+        break;
     }
   };
 
   useEffect(() => {
     if (onModifierChange) {
-      onModifierChange({ ctrl: ctrlPressed, alt: altPressed });
+      onModifierChange({
+        ctrl: ctrlPressed,
+        alt: altPressed,
+        shift: shiftPressed,
+      });
     }
-  }, [ctrlPressed, altPressed]);
+  }, [ctrlPressed, altPressed, shiftPressed, onModifierChange]);
+
+  if (!isVisible) return null;
 
   const renderKey = (keyConfig: KeyConfig, index: number) => {
     const isModifier =
-      keyConfig.isModifier || keyConfig.id === "ctrl" || keyConfig.id === "alt";
+      keyConfig.isModifier ||
+      keyConfig.id === "ctrl" ||
+      keyConfig.id === "alt" ||
+      keyConfig.id === "shift";
     const isCtrl = keyConfig.id === "ctrl";
     const isAlt = keyConfig.id === "alt";
+    const isShift = keyConfig.id === "shift";
 
     return (
       <KeyboardKey
@@ -112,12 +125,21 @@ export default function KeyboardBar({
           if (isModifier) {
             if (isCtrl) toggleModifier("ctrl");
             else if (isAlt) toggleModifier("alt");
+            else if (isShift) toggleModifier("shift");
           } else {
             sendSpecialKey(keyConfig);
           }
         }}
         isModifier={isModifier}
-        isActive={isCtrl ? ctrlPressed : isAlt ? altPressed : false}
+        isActive={
+          isCtrl
+            ? ctrlPressed
+            : isAlt
+              ? altPressed
+              : isShift
+                ? shiftPressed
+                : false
+        }
         keySize={config.settings.keySize}
         hapticFeedback={config.settings.hapticFeedback}
       />
@@ -150,7 +172,7 @@ export default function KeyboardBar({
             <>
               {pinnedKeys.map((key, index) => renderKey(key, index))}
               <View
-                className="w-px h-[30px] mx-2"
+                className="mx-2 h-[30px] w-px"
                 style={{ backgroundColor: BORDER_COLORS.SEPARATOR }}
               />
             </>
