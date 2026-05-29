@@ -7,7 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "termix-mobile",
     "githubUrl": "https://github.com/Termix-SSH/Mobile",
-    "backgroundColor": "#18181b",
+    "backgroundColor": "#0c0d0b",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -29,7 +29,7 @@
       "package": "com.karmaa.termix",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#18181b"
+        "backgroundColor": "#0c0d0b"
       }
     },
     "web": {
@@ -47,12 +47,12 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#18181b",
+          "backgroundColor": "#0c0d0b",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "dark": {
             "image": "./assets/images/splash-icon.png",
-            "backgroundColor": "#18181b"
+            "backgroundColor": "#0c0d0b"
           }
         }
       ],
