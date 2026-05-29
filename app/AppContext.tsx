@@ -5,6 +5,7 @@ import React, {
   ReactNode,
   useEffect,
   useRef,
+  useCallback,
 } from "react";
 import { AppState, AppStateStatus } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -13,6 +14,7 @@ import {
   initializeServerConfig,
   getLatestGitHubRelease,
   setAuthStateCallback,
+  getCurrentServerUrl,
 } from "./main-axios";
 import Constants from "expo-constants";
 
@@ -21,11 +23,10 @@ interface Server {
   ip: string;
 }
 
+/** Steps the auth flow can be opened directly to. */
+export type AuthStep = "server" | "login" | "signup";
+
 interface AppContextType {
-  showServerManager: boolean;
-  setShowServerManager: (show: boolean) => void;
-  showLoginForm: boolean;
-  setShowLoginForm: (show: boolean) => void;
   selectedServer: Server | null;
   setSelectedServer: (server: Server | null) => void;
   isAuthenticated: boolean;
@@ -34,6 +35,16 @@ interface AppContextType {
   setShowUpdateScreen: (show: boolean) => void;
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
+
+  /** Whether a server URL is currently configured (drives empty states). */
+  hasServerConfigured: boolean;
+  setHasServerConfigured: (has: boolean) => void;
+
+  /** Auth flow overlay control. */
+  authFlowVisible: boolean;
+  authFlowInitialStep: AuthStep;
+  openAuthFlow: (step?: AuthStep) => void;
+  closeAuthFlow: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -51,13 +62,24 @@ interface AppProviderProps {
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
-  const [showServerManager, setShowServerManager] = useState(false);
-  const [showLoginForm, setShowLoginForm] = useState(false);
   const [selectedServer, setSelectedServer] = useState<Server | null>(null);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
   const [showUpdateScreen, setShowUpdateScreen] = useState<boolean>(false);
+  const [hasServerConfigured, setHasServerConfigured] = useState(false);
+
+  const [authFlowVisible, setAuthFlowVisible] = useState(false);
+  const [authFlowInitialStep, setAuthFlowInitialStep] =
+    useState<AuthStep>("server");
+
+  const openAuthFlow = useCallback((step: AuthStep = "server") => {
+    setAuthFlowInitialStep(step);
+    setAuthFlowVisible(true);
+  }, []);
+
+  const closeAuthFlow = useCallback(() => {
+    setAuthFlowVisible(false);
+  }, []);
 
   const checkShouldShowUpdateScreen = async (): Promise<boolean> => {
     try {
@@ -97,12 +119,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         const serverConfig = await AsyncStorage.getItem("serverConfig");
         const legacyServer = await AsyncStorage.getItem("server");
 
-        const version = await getVersionInfo();
+        await getVersionInfo();
 
         const shouldShowUpdateScreen = await checkShouldShowUpdateScreen();
         setShowUpdateScreen(shouldShowUpdateScreen);
 
-        if (serverConfig || legacyServer) {
+        const serverConfigured = !!(serverConfig || legacyServer);
+        setHasServerConfigured(serverConfigured);
+
+        if (serverConfigured) {
           let authStatus = false;
 
           const jwtToken = await AsyncStorage.getItem("jwt");
@@ -111,67 +136,49 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             try {
               const { getUserInfo } = await import("./main-axios");
               const meRes = await getUserInfo();
-              if (meRes && meRes.username) {
-                if (meRes.data_unlocked === false) {
-                  authStatus = false;
-                } else {
-                  authStatus = true;
-                }
-              } else {
+              if (meRes && meRes.username && meRes.data_unlocked !== false) {
+                authStatus = true;
               }
             } catch (e) {
               console.error("[AppContext] Auto-login failed:", e);
               authStatus = false;
               await AsyncStorage.removeItem("jwt");
             }
-          } else {
           }
 
-          let serverInfo = null;
+          let serverInfo: Server | null = null;
           if (legacyServer) {
             serverInfo = JSON.parse(legacyServer);
           } else if (serverConfig) {
             const config = JSON.parse(serverConfig);
-            serverInfo = {
-              name: "Server",
-              ip: config.serverUrl,
-            };
+            serverInfo = { name: "Server", ip: config.serverUrl };
           }
+          setSelectedServer(serverInfo);
 
-          if (authStatus) {
-            setAuthenticated(true);
-            setShowServerManager(false);
-            setShowLoginForm(false);
-            setSelectedServer(serverInfo);
-          } else {
-            setAuthenticated(false);
-            setShowServerManager(false);
-            setShowLoginForm(true);
-            setSelectedServer(serverInfo);
-          }
+          setAuthenticated(authStatus);
+          // A configured-but-unauthenticated server lands the user on the
+          // empty-state shell; they re-open the auth flow themselves.
         } else {
+          // Brand-new install: guide the user, but the flow is dismissible.
           setAuthenticated(false);
-          setShowServerManager(true);
-          setShowLoginForm(false);
+          openAuthFlow("server");
         }
       } catch (error) {
         setAuthenticated(false);
-        setShowServerManager(true);
-        setShowLoginForm(false);
       } finally {
         setIsLoading(false);
       }
     };
 
     initializeApp();
-  }, []);
+  }, [openAuthFlow]);
 
   useEffect(() => {
-    setAuthStateCallback(async (isAuthenticated: boolean) => {
-      if (!isAuthenticated) {
+    setAuthStateCallback((authed: boolean) => {
+      if (!authed) {
+        // Token expired / 401: drop to the empty-state shell. Tabs render
+        // their "no server connected" prompt; the user re-authenticates.
         setAuthenticated(false);
-        setShowLoginForm(true);
-        setShowServerManager(false);
       }
     });
   }, []);
@@ -205,8 +212,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             !userInfo.username ||
             userInfo.data_unlocked === false
           ) {
+            setAuthenticated(false);
           }
         } catch (error) {
+          // Network blips shouldn't log the user out; the 401 callback handles
+          // genuine auth failures.
         } finally {
           validationInProgressRef.current = false;
         }
@@ -223,13 +233,17 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     };
   }, [isAuthenticated]);
 
+  // Keep hasServerConfigured in sync whenever the auth flow closes (the user
+  // may have just added or changed a server inside it).
+  useEffect(() => {
+    if (!authFlowVisible) {
+      setHasServerConfigured(!!getCurrentServerUrl());
+    }
+  }, [authFlowVisible]);
+
   return (
     <AppContext.Provider
       value={{
-        showServerManager,
-        setShowServerManager,
-        showLoginForm,
-        setShowLoginForm,
         selectedServer,
         setSelectedServer,
         isAuthenticated,
@@ -238,6 +252,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         setShowUpdateScreen,
         isLoading,
         setIsLoading,
+        hasServerConfigured,
+        setHasServerConfigured,
+        authFlowVisible,
+        authFlowInitialStep,
+        openAuthFlow,
+        closeAuthFlow,
       }}
     >
       {children}

@@ -7,8 +7,7 @@ import { KeyboardCustomizationProvider } from "./contexts/KeyboardCustomizationC
 import { ThemeProvider, useTheme, useThemeColor } from "./contexts/ThemeContext";
 import { AppLockProvider, useAppLock } from "./contexts/AppLockContext";
 import { LockScreen } from "@/app/components/LockScreen";
-import ServerForm from "@/app/authentication/ServerForm";
-import LoginForm from "@/app/authentication/LoginForm";
+import AuthFlow from "@/app/authentication/AuthFlow";
 import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -21,11 +20,8 @@ import UpdateRequired from "@/app/authentication/UpdateRequired";
 
 function RootLayoutContent() {
   const {
-    showServerManager,
-    setShowServerManager,
-    showLoginForm,
-    setShowLoginForm,
-    isAuthenticated,
+    authFlowVisible,
+    openAuthFlow,
     showUpdateScreen,
     isLoading,
     setIsLoading,
@@ -45,8 +41,7 @@ function RootLayoutContent() {
         <TouchableOpacity
           onPress={() => {
             setIsLoading(false);
-            setShowLoginForm(false);
-            setShowServerManager(true);
+            openAuthFlow("server");
           }}
           className="mt-6 px-6 py-3 bg-card border border-border"
         >
@@ -62,22 +57,24 @@ function RootLayoutContent() {
   }
 
   if (showUpdateScreen) return <UpdateRequired />;
-  if (showServerManager) return <ServerForm />;
-  if (showLoginForm) return <LoginForm />;
 
-  if (isAuthenticated) {
-    return (
-      <View className="flex-1 bg-background">
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-        <AppLockGate />
-      </View>
-    );
-  }
-
-  return <LoginForm />;
+  // The tab shell always renders once loaded. When the user isn't connected,
+  // the tabs themselves show a "no server connected" empty state. The auth flow
+  // is layered on top as a dismissible full-screen overlay.
+  return (
+    <View className="flex-1 bg-background">
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+      <AppLockGate />
+      {authFlowVisible ? (
+        <View className="absolute inset-0 bg-background">
+          <AuthFlow />
+        </View>
+      ) : null}
+    </View>
+  );
 }
 
 function AppLockGate() {

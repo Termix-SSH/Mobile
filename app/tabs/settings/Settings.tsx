@@ -11,10 +11,11 @@ import {
   LogOut,
   Lock,
   KeyRound,
+  Server as ServerIcon,
 } from "lucide-react-native";
 import { useAppContext } from "@/app/AppContext";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
-import { useTheme } from "@/app/contexts/ThemeContext";
+import { useTheme, useThemeColor } from "@/app/contexts/ThemeContext";
 import { useAppLock } from "@/app/contexts/AppLockContext";
 import {
   clearAuth,
@@ -22,6 +23,7 @@ import {
   getUserInfo,
   getVersionInfo,
   changePassword,
+  getCurrentServerUrl,
 } from "@/app/main-axios";
 import { Screen } from "@/app/components/Screen";
 import {
@@ -35,7 +37,6 @@ import {
   SegmentedControl,
   Dialog,
 } from "@/app/components/ui";
-import { useThemeColor } from "@/app/contexts/ThemeContext";
 import {
   ACCENT_PRESET_COLORS,
   FONT_SIZES,
@@ -49,11 +50,7 @@ import { toast } from "@/app/utils/toast";
 export default function Settings() {
   const router = useRouter();
   const color = useThemeColor();
-  const {
-    setAuthenticated,
-    setShowLoginForm,
-    setShowServerManager,
-  } = useAppContext();
+  const { isAuthenticated, setAuthenticated, openAuthFlow } = useAppContext();
   const { clearAllSessions } = useTerminalSessions();
   const { theme, setTheme, accent, setAccent, fontSize, setFontSize } =
     useTheme();
@@ -63,6 +60,9 @@ export default function Settings() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [totpEnabled, setTotpEnabled] = useState(false);
   const [version, setVersion] = useState("");
+  const [serverUrl, setServerUrl] = useState<string>(
+    () => getCurrentServerUrl() ?? "",
+  );
   const [open, setOpen] = useState<string | null>("appearance");
 
   // App-lock PIN dialog
@@ -74,6 +74,13 @@ export default function Settings() {
   const [newPw, setNewPw] = useState("");
 
   useEffect(() => {
+    setServerUrl(getCurrentServerUrl() ?? "");
+    if (!isAuthenticated) {
+      setUsername("—");
+      setIsAdmin(false);
+      setTotpEnabled(false);
+      return;
+    }
     getUserInfo()
       .then((u) => {
         setUsername(u.username ?? "—");
@@ -84,22 +91,24 @@ export default function Settings() {
     getVersionInfo()
       .then((v) => setVersion(v?.localVersion ?? v?.version ?? ""))
       .catch(() => {});
-  }, []);
+  }, [isAuthenticated]);
 
   const toggle = (id: string) => setOpen((o) => (o === id ? null : id));
 
   const handleLogout = async () => {
     try {
       await logoutUser();
-      await clearAuth();
-      clearAllSessions();
-      setAuthenticated(false);
-      setShowLoginForm(true);
-      setShowServerManager(false);
     } catch {
-      // best-effort
+      // best-effort — server-side logout may fail if token already expired
     }
+    await clearAuth();
+    clearAllSessions();
+    setAuthenticated(false);
+    // The tabs fall back to their "no server connected" empty states; the user
+    // re-authenticates from there or from this Server section.
   };
+
+  const handleChangeServer = () => openAuthFlow("server");
 
   const handleAppLockToggle = async (v: boolean) => {
     if (v) {
@@ -142,7 +151,66 @@ export default function Settings() {
       <ScrollView
         contentContainerStyle={{ padding: 16, gap: 10, paddingBottom: 40 }}
       >
+        {/* Server */}
+        <AccordionSection
+          label="Server"
+          icon={<ServerIcon size={14} color={color("muted-foreground")} />}
+          open={open === "server"}
+          onToggle={() => toggle("server")}
+        >
+          <View className="pt-3 gap-2.5">
+            <View className="gap-1">
+              <Label>Active Server</Label>
+              <View className="flex-row items-center gap-2">
+                <View
+                  className={`w-2 h-2 rounded-full ${isAuthenticated ? "bg-accent-brand" : "bg-muted-foreground"}`}
+                />
+                <Text
+                  weight="medium"
+                  className="flex-1 text-sm text-foreground"
+                  numberOfLines={1}
+                >
+                  {serverUrl
+                    ? serverUrl.replace(/^https?:\/\//, "")
+                    : "Not configured"}
+                </Text>
+              </View>
+              <Text className="text-[11px] text-muted-foreground">
+                {isAuthenticated
+                  ? "Connected"
+                  : serverUrl
+                    ? "Configured but not signed in"
+                    : "No server added yet"}
+              </Text>
+            </View>
+
+            <Button
+              variant="outline"
+              className="mt-1"
+              onPress={handleChangeServer}
+              icon={<ServerIcon size={15} color={color("foreground")} />}
+            >
+              {serverUrl ? "Change server" : "Add server"}
+            </Button>
+
+            {isAuthenticated ? (
+              <Button
+                variant="destructive"
+                onPress={handleLogout}
+                icon={<LogOut size={15} color={color("destructive")} />}
+              >
+                Sign out
+              </Button>
+            ) : serverUrl ? (
+              <Button variant="accent" onPress={() => openAuthFlow("login")}>
+                Sign in
+              </Button>
+            ) : null}
+          </View>
+        </AccordionSection>
+
         {/* Account */}
+        {isAuthenticated ? (
         <AccordionSection
           label="Account"
           icon={<User size={14} color={color("muted-foreground")} />}
@@ -181,16 +249,9 @@ export default function Settings() {
                 </Text>
               </View>
             ) : null}
-            <Button
-              variant="destructive"
-              className="mt-2"
-              onPress={handleLogout}
-              icon={<LogOut size={15} color={color("destructive")} />}
-            >
-              Logout
-            </Button>
           </View>
         </AccordionSection>
+        ) : null}
 
         {/* Appearance — headline feature */}
         <AccordionSection
@@ -301,20 +362,22 @@ export default function Settings() {
                 onChange={handleAppLockToggle}
               />
             </SettingRow>
-            <SettingRow
-              label="Change Password"
-              description="Update your account password"
-              last
-            >
-              <Button
-                variant="outline"
-                size="sm"
-                onPress={() => setPwDialog(true)}
-                icon={<KeyRound size={14} color={color("foreground")} />}
+            {isAuthenticated ? (
+              <SettingRow
+                label="Change Password"
+                description="Update your account password"
+                last
               >
-                Change
-              </Button>
-            </SettingRow>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onPress={() => setPwDialog(true)}
+                  icon={<KeyRound size={14} color={color("foreground")} />}
+                >
+                  Change
+                </Button>
+              </SettingRow>
+            ) : null}
           </View>
         </AccordionSection>
 

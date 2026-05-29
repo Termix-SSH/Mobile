@@ -1850,6 +1850,54 @@ function extractJwtFromSetCookie(headers: any): string | null {
   return null;
 }
 
+/**
+ * Detects whether the server URL sits behind a reverse-proxy authentication
+ * gate (Cloudflare Access, Authelia, etc.) that intercepts requests and serves
+ * its own HTML login page instead of forwarding them to Termix. In that case a
+ * native login form cannot work — the user must authenticate to the proxy in a
+ * browser context (the WebView/SSO flow).
+ *
+ * Returns true when a known JSON endpoint responds with HTML (or otherwise
+ * non-JSON) content, which is the tell-tale sign of an interposing auth proxy.
+ */
+export async function isReverseProxyAuthGate(): Promise<boolean> {
+  const probe = async (base: string): Promise<boolean | null> => {
+    try {
+      const url = `${base.replace(/\/$/, "")}/users/registration-allowed`;
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "User-Agent": `Termix-Mobile/${Platform.OS === "android" ? "Android" : "iOS"}`,
+        },
+      });
+      const contentType = (res.headers.get("content-type") || "").toLowerCase();
+      const body = await res.text();
+      // A genuine Termix API endpoint returns JSON. An auth proxy returns its
+      // login HTML (often with a 200 or a redirect-resolved 200).
+      if (contentType.includes("application/json")) return false;
+      const looksHtml =
+        contentType.includes("text/html") ||
+        /^\s*<(?:!doctype|html)/i.test(body);
+      if (looksHtml) return true;
+      // Unknown content-type but valid JSON body → treat as real API.
+      try {
+        JSON.parse(body);
+        return false;
+      } catch {
+        return looksHtml ? true : null;
+      }
+    } catch {
+      return null;
+    }
+  };
+
+  const rootResult = await probe(getRootBase(8081));
+  if (rootResult !== null) return rootResult;
+  const sshResult = await probe(getSshBase(8081));
+  return sshResult === true;
+}
+
 async function loginWithFetch(
   baseUrl: string,
   username: string,
@@ -1862,14 +1910,38 @@ async function loginWithFetch(
     body: JSON.stringify({ username, password }),
   });
 
+  const contentType = (
+    fetchResponse.headers.get("content-type") || ""
+  ).toLowerCase();
+  const rawBody = await fetchResponse.text();
+
+  // A reverse-proxy auth gate intercepts the request and returns its HTML login
+  // page instead of Termix JSON. Surface a clear, actionable error rather than
+  // crashing on JSON.parse of "<!DOCTYPE html>…".
+  const looksHtml =
+    contentType.includes("text/html") || /^\s*<(?:!doctype|html)/i.test(rawBody);
+  if (looksHtml) {
+    const err: any = new Error(
+      "This server is behind a login proxy. Use the external sign-in option instead.",
+    );
+    err.code = "PROXY_AUTH_GATE";
+    err.response = { status: fetchResponse.status, data: {} };
+    throw err;
+  }
+
   if (!fetchResponse.ok) {
-    const errData = await fetchResponse.json().catch(() => ({}));
+    let errData: any = {};
+    try {
+      errData = rawBody ? JSON.parse(rawBody) : {};
+    } catch {
+      errData = {};
+    }
     const err: any = new Error(errData?.error || "Login failed");
     err.response = { status: fetchResponse.status, data: errData };
     throw err;
   }
 
-  const data = await fetchResponse.json();
+  const data = JSON.parse(rawBody);
 
   let token: string | null = data.token || null;
   const setCookie = fetchResponse.headers.get("set-cookie");
@@ -1910,6 +1982,9 @@ export async function loginUser(
 
     return { ...data, token: finalToken || "" };
   } catch (error: any) {
+    if (error?.code === "PROXY_AUTH_GATE") {
+      throw new ApiError(error.message, 0, "PROXY_AUTH_GATE");
+    }
     if (error?.response?.status === 404) {
       try {
         const altBase = getSshBase(8081);
@@ -1924,7 +1999,10 @@ export async function loginUser(
         }
 
         return { ...data, token: token || "" };
-      } catch (e) {
+      } catch (e: any) {
+        if (e?.code === "PROXY_AUTH_GATE") {
+          throw new ApiError(e.message, 0, "PROXY_AUTH_GATE");
+        }
         handleApiError(e, "login user");
       }
     }
