@@ -4,12 +4,18 @@ import { TerminalSessionsProvider } from "./contexts/TerminalSessionsContext";
 import { TerminalCustomizationProvider } from "./contexts/TerminalCustomizationContext";
 import { KeyboardProvider } from "./contexts/KeyboardContext";
 import { KeyboardCustomizationProvider } from "./contexts/KeyboardCustomizationContext";
+import { ThemeProvider, useTheme, useThemeColor } from "./contexts/ThemeContext";
+import { AppLockProvider, useAppLock } from "./contexts/AppLockContext";
+import { LockScreen } from "@/app/components/LockScreen";
 import ServerForm from "@/app/authentication/ServerForm";
 import LoginForm from "@/app/authentication/LoginForm";
 import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 import { Toaster } from "sonner-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useFonts } from "expo-font";
+import { FONT_MAP, MONO_FONT, MONO_FONT_BOLD } from "./constants/fonts";
 import "../global.css";
 import UpdateRequired from "@/app/authentication/UpdateRequired";
 
@@ -24,49 +30,49 @@ function RootLayoutContent() {
     isLoading,
     setIsLoading,
   } = useAppContext();
+  const accent = useThemeColor()("accent-brand");
 
   if (isLoading) {
     return (
-      <View className="flex-1 bg-dark-bg justify-center items-center">
-        <ActivityIndicator size="large" color="#22c55e" />
-        <Text className="text-white text-lg mt-4">Initializing...</Text>
+      <View className="flex-1 bg-background justify-center items-center">
+        <ActivityIndicator size="large" color={accent} />
+        <Text
+          className="text-foreground text-base mt-4"
+          style={{ fontFamily: MONO_FONT }}
+        >
+          Initializing…
+        </Text>
         <TouchableOpacity
           onPress={() => {
+            setIsLoading(false);
             setShowLoginForm(false);
             setShowServerManager(true);
           }}
-          className="mt-6 px-6 py-3 bg-[#1a1a1a] border border-[#303032] rounded-lg"
+          className="mt-6 px-6 py-3 bg-card border border-border"
         >
-          <Text className="text-white font-semibold">Cancel</Text>
+          <Text
+            className="text-foreground"
+            style={{ fontFamily: MONO_FONT_BOLD }}
+          >
+            Cancel
+          </Text>
         </TouchableOpacity>
       </View>
     );
   }
 
-  if (showUpdateScreen) {
-    return <UpdateRequired />;
-  }
-
-  if (showServerManager) {
-    return <ServerForm />;
-  }
-
-  if (showLoginForm) {
-    return <LoginForm />;
-  }
+  if (showUpdateScreen) return <UpdateRequired />;
+  if (showServerManager) return <ServerForm />;
+  if (showLoginForm) return <LoginForm />;
 
   if (isAuthenticated) {
     return (
-      <View className="flex-1 bg-dark-bg">
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: "#18181b" },
-          }}
-        >
+      <View className="flex-1 bg-background">
+        <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
+        <AppLockGate />
       </View>
     );
   }
@@ -74,35 +80,67 @@ function RootLayoutContent() {
   return <LoginForm />;
 }
 
+function AppLockGate() {
+  const { enabled, locked } = useAppLock();
+  if (!enabled || !locked) return null;
+  return <LockScreen />;
+}
+
+function ThemedToaster() {
+  const { isDark } = useTheme();
+  const card = useThemeColor()("card");
+  const border = useThemeColor()("border");
+  return (
+    <Toaster
+      theme={isDark ? "dark" : "light"}
+      position="top-center"
+      toastOptions={{
+        style: {
+          backgroundColor: card,
+          borderWidth: 1,
+          borderColor: border,
+          borderRadius: 0,
+        },
+      }}
+      richColors={false}
+      closeButton
+      duration={4000}
+    />
+  );
+}
+
+function ThemedStatusBar() {
+  const { isDark } = useTheme();
+  return <StatusBar style={isDark ? "light" : "dark"} />;
+}
+
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts(FONT_MAP);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <AppProvider>
-          <TerminalSessionsProvider>
-            <TerminalCustomizationProvider>
-              <KeyboardProvider>
-                <KeyboardCustomizationProvider>
-                  <RootLayoutContent />
-                  <Toaster
-                    theme="dark"
-                    position="top-center"
-                    toastOptions={{
-                      style: {
-                        backgroundColor: "#18181b",
-                        borderWidth: 1,
-                        borderColor: "#27272a",
-                      },
-                    }}
-                    richColors={false}
-                    closeButton={true}
-                    duration={4000}
-                  />
-                </KeyboardCustomizationProvider>
-              </KeyboardProvider>
-            </TerminalCustomizationProvider>
-          </TerminalSessionsProvider>
-        </AppProvider>
+        <ThemeProvider>
+          <ThemedStatusBar />
+          {!fontsLoaded ? (
+            <View className="flex-1 bg-background" />
+          ) : (
+            <AppLockProvider>
+              <AppProvider>
+                <TerminalSessionsProvider>
+                  <TerminalCustomizationProvider>
+                    <KeyboardProvider>
+                      <KeyboardCustomizationProvider>
+                        <RootLayoutContent />
+                        <ThemedToaster />
+                      </KeyboardCustomizationProvider>
+                    </KeyboardProvider>
+                  </TerminalCustomizationProvider>
+                </TerminalSessionsProvider>
+              </AppProvider>
+            </AppLockProvider>
+          )}
+        </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

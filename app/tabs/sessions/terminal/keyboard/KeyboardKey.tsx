@@ -87,7 +87,7 @@ export default function KeyboardKey({
       delayLongPress={500}
     >
       <Text
-        className={`text-white font-medium text-center ${getTextSizeClass()}`}
+        className={`text-foreground font-medium text-center ${getTextSizeClass()}`}
         style={textStyle}
       >
         {label}

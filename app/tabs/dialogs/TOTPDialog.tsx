@@ -77,7 +77,7 @@ const TOTPDialogComponent: React.FC<TOTPDialogProps> = ({
 
   const handlePaste = useCallback(async () => {
     try {
-      const clipboardContent = await Clipboard.getString();
+      const clipboardContent = await Clipboard.getStringAsync();
       if (clipboardContent) {
         const pastedCode = isPasswordPrompt
           ? clipboardContent

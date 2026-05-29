@@ -1,11 +1,4 @@
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  Alert,
-  ActivityIndicator,
-  Platform,
-} from "react-native";
+import { View, TouchableOpacity, Alert, ActivityIndicator, Platform } from "react-native";
 import { useAppContext } from "../AppContext";
 import { useState, useEffect, useRef } from "react";
 import {
@@ -16,8 +9,9 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ArrowLeft, RefreshCw } from "lucide-react-native";
 import { WebView, WebViewNavigation } from "react-native-webview";
-import { WebViewSource } from "react-native-webview/lib/WebViewTypes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Text } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 export default function LoginForm() {
   const {
@@ -27,11 +21,14 @@ export default function LoginForm() {
     selectedServer,
   } = useAppContext();
   const insets = useSafeAreaInsets();
+  const color = useThemeColor();
+  const bg = color("background") ?? "#0c0d0b";
+  const accent = color("accent-brand") ?? "#f59145";
   const webViewRef = useRef<WebView>(null);
   const [url, setUrl] = useState("");
   const [canGoBack, setCanGoBack] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [source, setSource] = useState<WebViewSource>({ uri: "" });
+  const [source, setSource] = useState<{ uri: string }>({ uri: "" });
   const [webViewKey, setWebViewKey] = useState(() => String(Date.now()));
   const [hasNavigated, setHasNavigated] = useState(false);
 
@@ -383,30 +380,35 @@ export default function LoginForm() {
 
   if (!source.uri) {
     return (
-      <View className="flex-1 justify-center items-center bg-dark-bg">
-        <ActivityIndicator size="large" color="#22C55E" />
-        <Text className="text-white mt-4">Loading server configuration...</Text>
+      <View className="flex-1 justify-center items-center bg-background">
+        <ActivityIndicator size="large" color={accent} />
+        <Text className="text-muted-foreground mt-4 text-sm">
+          Loading server configuration…
+        </Text>
       </View>
     );
   }
 
   return (
-    <View className="flex-1 bg-dark-bg" style={{ paddingTop: insets.top }}>
-      <View className="flex-row items-center justify-between p-4 bg-dark-bg">
+    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
+      <View className="flex-row items-center justify-between px-3 py-2.5 border-b border-border">
         <TouchableOpacity
           onPress={handleBackToServerConfig}
-          className="flex-row items-center"
+          className="flex-row items-center gap-1.5 py-1 pr-2"
+          hitSlop={8}
         >
-          <ArrowLeft size={20} color="#ffffff" />
-          <Text className="text-white text-lg ml-2">Server</Text>
+          <ArrowLeft size={18} color={color("foreground")} />
+          <Text weight="medium" className="text-foreground text-sm">
+            Server
+          </Text>
         </TouchableOpacity>
-        <View className="flex-1 mx-4">
-          <Text className="text-gray-400 text-center" numberOfLines={1}>
+        <View className="flex-1 mx-3">
+          <Text className="text-muted-foreground text-xs text-center" numberOfLines={1}>
             {url.replace(/^https?:\/\//, "")}
           </Text>
         </View>
-        <TouchableOpacity onPress={handleRefresh}>
-          <RefreshCw size={20} color="#ffffff" />
+        <TouchableOpacity onPress={handleRefresh} hitSlop={8} className="py-1 pl-2">
+          <RefreshCw size={18} color={color("foreground")} />
         </TouchableOpacity>
       </View>
 
@@ -419,16 +421,16 @@ export default function LoginForm() {
             ? "Termix-Mobile/Android"
             : "Termix-Mobile/iOS"
         }
-        style={{ flex: 1, backgroundColor: "#18181b" }}
-        containerStyle={{ backgroundColor: "#18181b" }}
+        style={{ flex: 1, backgroundColor: bg }}
+        containerStyle={{ backgroundColor: bg }}
         onNavigationStateChange={handleNavigationStateChange}
         onMessage={onMessage}
         onError={handleError}
         onHttpError={handleHttpError}
         injectedJavaScript={injectedJavaScript}
         injectedJavaScriptBeforeContentLoaded={`
-          document.body.style.backgroundColor = '#18181b';
-          document.documentElement.style.backgroundColor = '#18181b';
+          document.body.style.backgroundColor = '${bg}';
+          document.documentElement.style.backgroundColor = '${bg}';
         `}
         incognito={false}
         cacheEnabled={false}
@@ -438,9 +440,8 @@ export default function LoginForm() {
         startInLoadingState={true}
         sharedCookiesEnabled={false}
         thirdPartyCookiesEnabled={true}
-        opaque={false}
         {...(Platform.OS === "android" && {
-          mixedContentMode: "always",
+          mixedContentMode: "always" as const,
           allowFileAccess: false,
         })}
         {...(Platform.OS === "ios" && {
@@ -449,7 +450,7 @@ export default function LoginForm() {
         renderLoading={() => (
           <View
             style={{
-              backgroundColor: "#18181b",
+              backgroundColor: bg,
               position: "absolute",
               top: 0,
               left: 0,
@@ -459,7 +460,7 @@ export default function LoginForm() {
               alignItems: "center",
             }}
           >
-            <ActivityIndicator size="large" color="#22C55E" />
+            <ActivityIndicator size="large" color={accent} />
           </View>
         )}
       />

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   View,
-  Text,
   Keyboard,
   Platform,
   TextInput,
@@ -35,12 +34,15 @@ import {
   TunnelManagerHandle,
 } from "@/app/tabs/sessions/tunnel/TunnelManager";
 import { RemoteDesktop } from "@/app/tabs/sessions/remote-desktop/RemoteDesktop";
+import { Docker } from "@/app/tabs/sessions/docker/Docker";
+import { ConnectionsPanel } from "@/app/tabs/sessions/ConnectionsPanel";
+import { Screen } from "@/app/components/Screen";
 import TabBar from "@/app/tabs/sessions/navigation/TabBar";
 import BottomToolbar from "@/app/tabs/sessions/terminal/keyboard/BottomToolbar";
 import KeyboardBar from "@/app/tabs/sessions/terminal/keyboard/KeyboardBar";
 import { useOrientation } from "@/app/utils/orientation";
 import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
-import { BACKGROUNDS, BORDER_COLORS } from "@/app/constants/designTokens";
+import { BACKGROUNDS } from "@/app/constants/designTokens";
 import { addKeyCommandListener } from "@/modules/hardware-keyboard";
 
 type ActiveModifiers = {
@@ -59,6 +61,7 @@ export default function Sessions() {
     activeSessionId,
     setActiveSession,
     removeSession,
+    setBackendSessionId,
     isCustomKeyboardVisible,
     toggleCustomKeyboard,
     lastKeyboardHeight,
@@ -539,7 +542,7 @@ export default function Sessions() {
             ? activeTerminalBgColor
             : activeSession?.type === "filemanager"
               ? BACKGROUNDS.HEADER
-              : "#18181b",
+              : BACKGROUNDS.DARK,
       }}
     >
       <View
@@ -577,6 +580,11 @@ export default function Sessions() {
                 }}
                 isVisible={session.id === activeSessionId}
                 title={session.title}
+                tabInstanceId={session.instanceId}
+                initialSessionId={session.restoredSessionId}
+                onSessionIdChange={(backendId) =>
+                  setBackendSessionId(session.id, backendId)
+                }
                 onClose={() => handleTabClose(session.id)}
                 onBackgroundColorChange={(color) => {
                   setTerminalBackgroundColors((prev) => ({
@@ -637,6 +645,14 @@ export default function Sessions() {
                 onClose={() => handleTabClose(session.id)}
               />
             );
+          } else if (session.type === "docker") {
+            return (
+              <Docker
+                key={session.id}
+                host={session.host}
+                isVisible={session.id === activeSessionId}
+              />
+            );
           }
           return null;
         })}
@@ -646,86 +662,16 @@ export default function Sessions() {
         <View
           style={{
             position: "absolute",
-            top: insets.top,
+            top: 0,
             left: 0,
             right: 0,
-            bottom: 115,
-            justifyContent: "center",
-            alignItems: "center",
-            paddingHorizontal: 24,
-            pointerEvents: "box-none",
+            bottom: 0,
             zIndex: 1005,
           }}
         >
-          <View
-            style={{
-              backgroundColor: BACKGROUNDS.CARD,
-              borderRadius: 12,
-              padding: 32,
-              alignItems: "center",
-              borderWidth: 1,
-              borderColor: BORDER_COLORS.PRIMARY,
-              minWidth: 280,
-              maxWidth: 400,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.3,
-              shadowRadius: 12,
-              elevation: 8,
-              pointerEvents: "box-none",
-            }}
-          >
-            <Text
-              style={{
-                color: "#ffffff",
-                fontSize: 20,
-                fontWeight: "600",
-                marginBottom: 12,
-                textAlign: "center",
-              }}
-            >
-              No Active Terminal Sessions
-            </Text>
-            <Text
-              style={{
-                color: "#9CA3AF",
-                fontSize: 14,
-                lineHeight: 20,
-                textAlign: "center",
-                marginBottom: 20,
-              }}
-            >
-              Connect to a host from the Hosts tab to start a session
-            </Text>
-            <View
-              style={{
-                backgroundColor: "#22C55E",
-                paddingHorizontal: 32,
-                paddingVertical: 16,
-                borderRadius: 8,
-                borderWidth: 1,
-                borderColor: "#16A34A",
-                minHeight: 48,
-                minWidth: 120,
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 1004,
-              }}
-              onTouchEnd={() => {
-                handleAddSession();
-              }}
-            >
-              <Text
-                style={{
-                  color: "#ffffff",
-                  fontSize: 14,
-                  fontWeight: "600",
-                }}
-              >
-                Go to Hosts
-              </Text>
-            </View>
-          </View>
+          <Screen title="Connections">
+            <ConnectionsPanel />
+          </Screen>
         </View>
       )}
 

@@ -14,7 +14,6 @@ import {
   KeyboardSettings,
 } from "@/types/keyboard";
 import {
-  PRESET_DEFINITIONS,
   getPresetById,
 } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
 

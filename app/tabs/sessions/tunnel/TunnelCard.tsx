@@ -224,7 +224,7 @@ const TunnelCard: React.FC<TunnelCardProps> = ({
           <TouchableOpacity
             style={{
               flex: 1,
-              backgroundColor: isLoading ? "#374151" : "#22c55e",
+              backgroundColor: isLoading ? "#374151" : "#f59145",
               borderRadius: RADIUS.BUTTON,
               paddingVertical: 10,
               flexDirection: "row",

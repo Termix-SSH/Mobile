@@ -56,6 +56,12 @@ interface TerminalProps {
   title?: string;
   onClose?: () => void;
   onBackgroundColorChange?: (color: string) => void;
+  /** Stable tab instance id (cross-device session tracking). */
+  tabInstanceId?: string;
+  /** Backend session id to attach to on first connect (reviving a tab). */
+  initialSessionId?: string | null;
+  /** Fired when the backend session id is created/attached/cleared. */
+  onSessionIdChange?: (sessionId: string | null) => void;
 }
 
 export type TerminalHandle = {
@@ -76,6 +82,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       title = "Terminal",
       onClose,
       onBackgroundColorChange,
+      tabInstanceId,
+      initialSessionId,
+      onSessionIdChange,
     },
     ref,
   ) => {
@@ -829,6 +838,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
       wsManagerRef.current = new NativeWebSocketManager({
         hostConfig: hostConfig as TerminalHostConfig,
+        tabInstanceId,
+        initialSessionId,
+        onSessionIdChange,
         onStateChange: (state, data) => {
           switch (state) {
             case "connecting":
@@ -1017,8 +1029,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               cacheEnabled={false}
               cacheMode="LOAD_NO_CACHE"
               androidLayerType="hardware"
-              onScroll={(event) => {}}
-              scrollEventThrottle={16}
               onMessage={handleWebViewMessage}
               onError={(syntheticEvent) => {
                 const { nativeEvent } = syntheticEvent;
@@ -1108,7 +1118,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                   minWidth: 280,
                 }}
               >
-                <ActivityIndicator size="large" color="#22C55E" />
+                <ActivityIndicator size="large" color="#f59145" />
                 <Text
                   style={{
                     color: "#ffffff",

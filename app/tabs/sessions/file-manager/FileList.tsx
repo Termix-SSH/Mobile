@@ -1,7 +1,6 @@
-import { ScrollView, RefreshControl, View, Text } from "react-native";
+import { ScrollView, RefreshControl, Text } from "react-native";
 import { FileItem } from "./FileItem";
 import { sortFiles } from "./utils/fileUtils";
-import { getColumnCount } from "@/app/utils/responsive";
 
 interface FileListItem {
   name: string;
@@ -48,7 +47,7 @@ export function FileList({
   if (!isLoading && files.length === 0) {
     return (
       <ScrollView
-        className="flex-1 bg-dark-bg"
+        className="flex-1 bg-background"
         contentContainerClassName="flex-1 items-center justify-center"
         refreshControl={
           <RefreshControl
@@ -58,14 +57,14 @@ export function FileList({
           />
         }
       >
-        <Text className="text-gray-400 text-center">This folder is empty</Text>
+        <Text className="text-muted-foreground text-center">This folder is empty</Text>
       </ScrollView>
     );
   }
 
   return (
     <ScrollView
-      className="flex-1 bg-dark-bg"
+      className="flex-1 bg-background"
       contentContainerStyle={{
         paddingBottom: toolbarHeight > 0 ? toolbarHeight + 12 : 12,
       }}

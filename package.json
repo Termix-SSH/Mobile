@@ -16,6 +16,7 @@
     "build-ios": "eas build --platform ios --profile development"
   },
   "dependencies": {
+    "@expo-google-fonts/jetbrains-mono": "^0.4.1",
     "@expo/metro-runtime": "~6.1.2",
     "@expo/vector-icons": "^15.0.2",
     "@react-native-async-storage/async-storage": "^2.2.0",
@@ -32,7 +33,9 @@
     "expo-haptics": "~15.0.7",
     "expo-image": "~3.0.9",
     "expo-linking": "~8.0.8",
+    "expo-local-authentication": "~17.0.8",
     "expo-router": "~6.0.12",
+    "expo-secure-store": "~15.0.8",
     "expo-splash-screen": "~31.0.10",
     "expo-status-bar": "~3.0.8",
     "expo-symbols": "~1.0.7",

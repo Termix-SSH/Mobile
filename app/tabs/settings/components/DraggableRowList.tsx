@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Switch } from "react-native";
 import { KeyboardRow, KeyConfig } from "@/types/keyboard";
-import { renderKeyItem } from "./DraggableKeyList";
 import { GripVertical } from "lucide-react-native";
 
 interface RenderRowItemProps {
@@ -65,15 +64,15 @@ export function renderRowItem({
           activeOpacity={0.6}
         >
           <View className="flex-1">
-            <Text className="text-white text-base font-semibold">
+            <Text className="text-foreground text-base font-semibold">
               {item.label}
             </Text>
-            <Text className="text-gray-400 text-xs mt-0.5">
+            <Text className="text-muted-foreground text-xs mt-0.5">
               {item.keys.length} keys • {item.category}
             </Text>
           </View>
 
-          <Text className="text-gray-400 text-base ml-3">
+          <Text className="text-muted-foreground text-base ml-3">
             {isExpanded ? "▼" : "▶"}
           </Text>
         </TouchableOpacity>
@@ -82,7 +81,7 @@ export function renderRowItem({
           <Switch
             value={item.visible}
             onValueChange={() => onToggleVisibility(item.id)}
-            trackColor={{ false: "#3f3f46", true: "#22C55E" }}
+            trackColor={{ false: "#3f3f46", true: "#f59145" }}
             thumbColor={item.visible ? "#ffffff" : "#9ca3af"}
           />
         </View>

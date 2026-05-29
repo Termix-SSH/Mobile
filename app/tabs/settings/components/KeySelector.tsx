@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
-  Pressable,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { KeyConfig, KeyCategory } from "@/types/keyboard";
@@ -87,9 +86,9 @@ export default function KeySelector({
           style={{ paddingTop: insets.top + 12, paddingBottom: 12 }}
         >
           <View className="flex-row items-center justify-between">
-            <Text className="text-white text-lg font-semibold">{title}</Text>
+            <Text className="text-foreground text-lg font-semibold">{title}</Text>
             <TouchableOpacity onPress={onClose}>
-              <Text className="text-green-500 text-base font-semibold">
+              <Text className="text-accent-brand text-base font-semibold">
                 Done
               </Text>
             </TouchableOpacity>
@@ -98,7 +97,7 @@ export default function KeySelector({
 
         <View className="bg-[#1a1a1a] border-b border-[#303032] px-4 py-3">
           <TextInput
-            className="bg-[#27272a] border border-[#3f3f46] rounded-lg px-4 py-2 text-white"
+            className="bg-[#27272a] border border-[#3f3f46] rounded-lg px-4 py-2 text-foreground"
             placeholder="Search keys..."
             placeholderTextColor="#6b7280"
             value={searchQuery}
@@ -123,8 +122,8 @@ export default function KeySelector({
               <Text
                 className={`text-sm font-semibold ${
                   selectedCategory === "all"
-                    ? "text-green-500"
-                    : "text-gray-400"
+                    ? "text-accent-brand"
+                    : "text-muted-foreground"
                 }`}
               >
                 All
@@ -143,8 +142,8 @@ export default function KeySelector({
                 <Text
                   className={`text-sm font-semibold ${
                     selectedCategory === cat.id
-                      ? "text-green-500"
-                      : "text-gray-400"
+                      ? "text-accent-brand"
+                      : "text-muted-foreground"
                   }`}
                 >
                   {cat.label}
@@ -157,7 +156,7 @@ export default function KeySelector({
         <ScrollView className="flex-1 px-4 py-4">
           {filteredKeys.length === 0 ? (
             <View className="py-8">
-              <Text className="text-gray-400 text-center">
+              <Text className="text-muted-foreground text-center">
                 {searchQuery
                   ? "No keys found matching your search"
                   : "No keys available"}
@@ -174,22 +173,22 @@ export default function KeySelector({
                   <View className="flex-1 mr-4">
                     <View className="flex-row items-center gap-2 mb-1">
                       <View className="bg-[#27272a] border border-[#3f3f46] rounded px-3 py-1.5">
-                        <Text className="text-white text-sm font-mono">
+                        <Text className="text-foreground text-sm font-mono">
                           {key.label}
                         </Text>
                       </View>
-                      <Text className="text-gray-500 text-xs">
+                      <Text className="text-muted-foreground text-xs">
                         {key.category}
                       </Text>
                     </View>
                     {key.description && (
-                      <Text className="text-gray-400 text-xs mt-1">
+                      <Text className="text-muted-foreground text-xs mt-1">
                         {key.description}
                       </Text>
                     )}
                   </View>
-                  <View className="bg-green-600 rounded-lg px-4 py-2">
-                    <Text className="text-white text-sm font-semibold">
+                  <View className="bg-accent-brand rounded-lg px-4 py-2">
+                    <Text className="text-foreground text-sm font-semibold">
                       Add
                     </Text>
                   </View>

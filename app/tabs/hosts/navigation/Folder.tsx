@@ -1,87 +1,80 @@
-import { View, Text, TouchableOpacity, Animated } from "react-native";
-import Host from "@/app/tabs/hosts/navigation/Host";
-import { ChevronDown } from "lucide-react-native";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
+import { View, Pressable } from "react-native";
+import { ChevronRight, Folder as FolderIcon } from "lucide-react-native";
 import { SSHHost } from "@/types";
+import Host from "@/app/tabs/hosts/navigation/Host";
+import { Text } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 interface FolderProps {
   name: string;
   hosts: SSHHost[];
+  color?: string;
+  defaultExpanded?: boolean;
+  showTags?: boolean;
   getHostStatus: (hostId: number) => "online" | "offline" | "unknown";
+  onHostPress: (host: SSHHost) => void;
 }
 
-export default function Folder({ name, hosts, getHostStatus }: FolderProps) {
-  const [isExpanded, setIsExpanded] = useState(true);
-  const rotateValue = useRef(new Animated.Value(0)).current;
-
-  const toggleExpanded = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  useEffect(() => {
-    Animated.timing(rotateValue, {
-      toValue: isExpanded ? 0 : 1,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  }, [isExpanded, rotateValue]);
-
-  const rotate = rotateValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "180deg"],
-  });
+export default function Folder({
+  name,
+  hosts,
+  color: folderColor,
+  defaultExpanded = true,
+  showTags = true,
+  getHostStatus,
+  onHostPress,
+}: FolderProps) {
+  const [expanded, setExpanded] = useState(defaultExpanded);
+  const resolve = useThemeColor();
+  const muted = resolve("muted-foreground");
 
   return (
-    <View
-      className={`mb-3 w-full h-auto border-2 border-dark-border rounded-md overflow-hidden`}
-    >
-      <View
-        className={`bg-dark-bg-header ${isExpanded ? "border-b-2 border-dark-border" : ""}`}
+    <View className="mb-3">
+      <Pressable
+        onPress={() => setExpanded((e) => !e)}
+        className="flex-row items-center gap-2 px-2 py-2"
       >
-        <TouchableOpacity
-          onPress={toggleExpanded}
-          className="flex-row items-center justify-between p-3"
-          activeOpacity={0.7}
+        <View
+          style={{ transform: [{ rotate: expanded ? "90deg" : "0deg" }] }}
+          className="shrink-0"
         >
-          <View className="flex-row items-center flex-1">
-            <Text className="text-lg font-bold text-white" numberOfLines={1}>
-              {name}
-            </Text>
-            <Text className="text-sm text-gray-400 ml-3">
-              {hosts.length} host{hosts.length !== 1 ? "s" : ""}
-            </Text>
-          </View>
-          <View className="bg-dark-bg-button rounded-md border-2 border-dark-border w-[30px] h-[30px] items-center justify-center ml-2">
-            <Animated.View style={{ transform: [{ rotate }] }}>
-              <ChevronDown size={16} color="white" />
-            </Animated.View>
-          </View>
-        </TouchableOpacity>
-      </View>
-      {isExpanded && (
-        <View className="bg-dark-bg p-3">
+          <ChevronRight size={14} color={muted} />
+        </View>
+        <FolderIcon
+          size={14}
+          color={folderColor ?? muted}
+          fill={folderColor ? folderColor : "transparent"}
+        />
+        <Text
+          weight="bold"
+          className="text-xs uppercase tracking-wider text-foreground flex-1"
+          numberOfLines={1}
+        >
+          {name}
+        </Text>
+        <Text className="text-[10px] text-muted-foreground">{hosts.length}</Text>
+      </Pressable>
+
+      {expanded ? (
+        <View className="gap-1.5 pl-1">
           {hosts.length === 0 ? (
-            <View className="py-4 px-4">
-              <Text className="text-white text-center">
-                No hosts in this folder
-              </Text>
-            </View>
+            <Text className="text-[11px] text-muted-foreground px-2 py-2">
+              No hosts in this folder
+            </Text>
           ) : (
-            hosts.map((host, index) => (
-              <View
+            hosts.map((host) => (
+              <Host
                 key={host.id}
-                className={`${index < hosts.length - 1 ? "mb-2" : ""}`}
-              >
-                <Host
-                  host={host}
-                  status={getHostStatus(host.id)}
-                  isLast={index === hosts.length - 1}
-                />
-              </View>
+                host={host}
+                status={getHostStatus(host.id)}
+                showTags={showTags}
+                onPress={onHostPress}
+              />
             ))
           )}
         </View>
-      )}
+      ) : null}
     </View>
   );
 }

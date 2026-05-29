@@ -20,7 +20,8 @@
       },
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSFaceIDUsageDescription": "Use Face ID to unlock Termix."
       }
     },
     "android": {
@@ -37,6 +38,12 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Use Face ID to unlock Termix."
+        }
+      ],
       [
         "expo-splash-screen",
         {
@@ -64,7 +71,8 @@
       ],
       "./plugins/withIOSNetworkSecurity.js",
       "./plugins/withNetworkSecurityConfig.js",
-      "expo-dev-client"
+      "expo-dev-client",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,

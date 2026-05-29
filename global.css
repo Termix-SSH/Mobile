@@ -1,3 +1,89 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+ * Termix Mobile theme tokens — ported 1:1 from the web app
+ * (../Termix/Termix/src/ui/index.css). Colors are stored as
+ * space-separated RGB triplets so Tailwind's <alpha-value> works
+ * (e.g. bg-accent-brand/10, border-border/60).
+ *
+ * The base :root (light) and .dark blocks below give NativeWind a
+ * static baseline for the `dark:` variant. Full multi-theme + custom
+ * accent switching happens at runtime via vars() in ThemeContext, which
+ * applies the matching THEME_VARS map (see app/constants/theme.ts).
+ */
+
+:root {
+  --accent-brand: 245 145 69; /* #f59145 */
+
+  --background: 255 255 255;
+  --foreground: 17 18 16;
+  --card: 255 255 255;
+  --card-foreground: 17 18 16;
+  --popover: 255 255 255;
+  --popover-foreground: 17 18 16;
+  --primary: 24 25 23;
+  --primary-foreground: 250 250 250;
+  --secondary: 245 245 245;
+  --secondary-foreground: 24 25 23;
+  --muted: 245 245 245;
+  --muted-foreground: 115 115 115;
+  --accent: 245 245 245;
+  --accent-foreground: 24 25 23;
+  --destructive: 231 0 11;
+  --border: 229 229 229;
+  --input: 229 229 229;
+  --ring: 161 161 161;
+  --surface: 245 245 245;
+  --surface-dim: 235 235 235;
+  --chart-1: 212 212 212;
+  --chart-2: 115 115 115;
+  --chart-3: 82 82 82;
+  --chart-4: 64 64 64;
+  --chart-5: 38 38 38;
+  --sidebar: 250 250 250;
+  --sidebar-foreground: 17 18 16;
+  --sidebar-primary: 24 25 23;
+  --sidebar-primary-foreground: 250 250 250;
+  --sidebar-accent: 245 245 245;
+  --sidebar-accent-foreground: 24 25 23;
+  --sidebar-border: 229 229 229;
+  --sidebar-ring: 161 161 161;
+}
+
+.dark {
+  --background: 12 13 11;
+  --foreground: 250 250 250;
+  --card: 24 25 23;
+  --card-foreground: 250 250 250;
+  --popover: 24 25 23;
+  --popover-foreground: 250 250 250;
+  --primary: 229 229 229;
+  --primary-foreground: 24 25 23;
+  --secondary: 38 38 38;
+  --secondary-foreground: 250 250 250;
+  --muted: 35 35 35;
+  --muted-foreground: 164 164 164;
+  --accent: 35 35 35;
+  --accent-foreground: 250 250 250;
+  --destructive: 255 100 103;
+  --border: 50 50 50;
+  --input: 56 56 56;
+  --ring: 115 115 115;
+  --surface: 18 19 17;
+  --surface-dim: 14 15 13;
+  --chart-1: 212 212 212;
+  --chart-2: 115 115 115;
+  --chart-3: 82 82 82;
+  --chart-4: 64 64 64;
+  --chart-5: 38 38 38;
+  --sidebar: 20 21 19;
+  --sidebar-foreground: 250 250 250;
+  --sidebar-primary: 20 71 230;
+  --sidebar-primary-foreground: 250 250 250;
+  --sidebar-accent: 35 35 35;
+  --sidebar-accent-foreground: 250 250 250;
+  --sidebar-border: 50 50 50;
+  --sidebar-ring: 115 115 115;
+}

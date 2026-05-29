@@ -129,9 +129,9 @@ export function FileViewer({
         style={{ flex: 1, backgroundColor: "#18181b" }}
         keyboardVerticalOffset={0}
       >
-        <View className="flex-1 bg-dark-bg">
+        <View className="flex-1 bg-background">
           <View
-            className="bg-dark-bg-header border-b-2 border-dark-border"
+            className="bg-card border-b-2 border-border"
             style={{
               paddingTop: isLandscape
                 ? Math.max(insets.top, 8)
@@ -144,13 +144,13 @@ export function FileViewer({
             <View className="flex-row items-center justify-between">
               <View className="flex-1 mr-4">
                 <Text
-                  className="text-white font-semibold text-base"
+                  className="text-foreground font-semibold text-base"
                   numberOfLines={1}
                 >
                   {fileName}
                 </Text>
                 <Text
-                  className="text-gray-400 text-xs mt-0.5"
+                  className="text-muted-foreground text-xs mt-0.5"
                   numberOfLines={1}
                 >
                   {filePath}
@@ -162,7 +162,7 @@ export function FileViewer({
                   <>
                     <TouchableOpacity
                       onPress={handleRevert}
-                      className="p-2 bg-dark-bg-button rounded border border-dark-border"
+                      className="p-2 bg-muted rounded border border-border"
                       activeOpacity={0.7}
                     >
                       <RotateCcw size={18} color="white" />
@@ -170,7 +170,7 @@ export function FileViewer({
 
                     <TouchableOpacity
                       onPress={handleSave}
-                      className="p-2 bg-dark-bg-button rounded border border-dark-border"
+                      className="p-2 bg-muted rounded border border-border"
                       activeOpacity={0.7}
                       disabled={isSaving}
                       style={{
@@ -191,7 +191,7 @@ export function FileViewer({
 
                 <TouchableOpacity
                   onPress={handleClose}
-                  className="p-2 bg-dark-bg-button rounded border border-dark-border"
+                  className="p-2 bg-muted rounded border border-border"
                   activeOpacity={0.7}
                 >
                   <X size={18} color="white" />
@@ -201,19 +201,18 @@ export function FileViewer({
 
             {readOnly && (
               <View className="mt-2 px-2 py-1 bg-gray-800 border border-gray-700 rounded">
-                <Text className="text-gray-400 text-xs">Read-only mode</Text>
+                <Text className="text-muted-foreground text-xs">Read-only mode</Text>
               </View>
             )}
           </View>
 
           <TextInput
-            className="flex-1 text-white bg-dark-bg"
+            className="flex-1 text-foreground bg-background"
             value={content}
             onChangeText={handleContentChange}
             multiline
             editable={!readOnly}
             scrollEnabled={true}
-            showsVerticalScrollIndicator={true}
             style={{
               fontFamily: MONOSPACE_FONT,
               fontSize: 14,

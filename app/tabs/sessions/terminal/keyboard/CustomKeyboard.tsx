@@ -136,7 +136,7 @@ export default function CustomKeyboard({
   };
 
   return (
-    <View className="h-full bg-dark-bg-darkest" pointerEvents="box-none">
+    <View className="h-full bg-background" pointerEvents="box-none">
       <ScrollView
         className="h-full"
         contentContainerStyle={{ paddingHorizontal: 8, paddingVertical: 8 }}
@@ -148,7 +148,7 @@ export default function CustomKeyboard({
           <View key={row.id}>
             {row.label && (
               <View className="mb-1 mt-1">
-                <Text className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+                <Text className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
                   {row.label}
                 </Text>
               </View>

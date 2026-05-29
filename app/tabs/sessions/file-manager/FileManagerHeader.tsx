@@ -11,7 +11,6 @@ import {
 import { breadcrumbsFromPath, getBreadcrumbLabel } from "./utils/fileUtils";
 import {
   getResponsivePadding,
-  getResponsiveFontSize,
 } from "@/app/utils/responsive";
 import {
   BORDERS,

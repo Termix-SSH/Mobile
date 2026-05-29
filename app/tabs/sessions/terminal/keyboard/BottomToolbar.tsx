@@ -7,7 +7,6 @@ import SnippetsBar from "./SnippetsBar";
 import {
   BORDERS,
   BORDER_COLORS,
-  BACKGROUNDS,
 } from "@/app/constants/designTokens";
 
 type ToolbarMode = "keyboard" | "snippets";
@@ -40,9 +39,9 @@ export default function BottomToolbar({
   const TAB_BAR_HEIGHT = 36;
 
   return (
-    <View className="bg-dark-bg-darkest" pointerEvents="box-none">
+    <View className="bg-background" pointerEvents="box-none">
       <View
-        className="flex-row bg-dark-bg-darkest"
+        className="flex-row bg-background"
         style={{
           height: TAB_BAR_HEIGHT,
           borderBottomWidth: BORDERS.STANDARD,
@@ -52,7 +51,7 @@ export default function BottomToolbar({
         {tabs.map((tab, index) => (
           <TouchableOpacity
             key={tab.id}
-            className="flex-1 items-center justify-center py-1.5 px-1 bg-dark-bg-darkest"
+            className="flex-1 items-center justify-center py-1.5 px-1 bg-background"
             onPress={() => setMode(tab.id)}
             style={{
               borderRightWidth:

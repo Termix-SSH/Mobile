@@ -37,6 +37,10 @@ export interface HostKeyData {
 
 export interface NativeWSConfig {
   hostConfig: TerminalHostConfig;
+  /** Stable tab instance id for cross-device session tracking (open-tabs). */
+  tabInstanceId?: string;
+  /** Backend session id to attach to on first connect (reviving a tab). */
+  initialSessionId?: string | null;
   onStateChange: (state: WsState, data?: Record<string, unknown>) => void;
   onData: (data: string) => void;
   onTotpRequired: (prompt: string, isPassword: boolean) => void;
@@ -50,6 +54,8 @@ export interface NativeWSConfig {
   onPostConnectionSetup: () => void;
   onDisconnected: (hostName: string) => void;
   onConnectionFailed: (message: string) => void;
+  /** Fired when the backend session id is created/attached/cleared. */
+  onSessionIdChange?: (sessionId: string | null) => void;
 }
 
 export class NativeWebSocketManager {
@@ -75,6 +81,16 @@ export class NativeWebSocketManager {
 
   constructor(config: NativeWSConfig) {
     this.config = config;
+    // Seed the backend session id when reviving a backgrounded/cross-device tab.
+    if (config.initialSessionId) {
+      this.serverSessionId = config.initialSessionId;
+    }
+  }
+
+  private setServerSessionId(id: string | null) {
+    if (this.serverSessionId === id) return;
+    this.serverSessionId = id;
+    this.config.onSessionIdChange?.(id);
   }
 
   async connect(cols: number, rows: number): Promise<void> {
@@ -329,6 +345,7 @@ export class NativeWebSocketManager {
               sessionId: this.serverSessionId,
               cols: this.cols,
               rows: this.rows,
+              tabInstanceId: this.config.tabInstanceId,
             },
           }),
         );
@@ -340,6 +357,7 @@ export class NativeWebSocketManager {
               cols: this.cols,
               rows: this.rows,
               hostConfig: this.config.hostConfig,
+              tabInstanceId: this.config.tabInstanceId,
             },
           }),
         );
@@ -417,16 +435,16 @@ export class NativeWebSocketManager {
             this.config.onPostConnectionSetup();
           }
         } else if (msg.type === "disconnected") {
-          this.serverSessionId = null;
+          this.setServerSessionId(null);
           this.config.onDisconnected(this.config.hostConfig.name);
         } else if (msg.type === "pong") {
         } else if (msg.type === "resized") {
         } else if (msg.type === "sessionCreated") {
-          this.serverSessionId = msg.sessionId as string;
+          this.setServerSessionId(msg.sessionId as string);
         } else if (msg.type === "sessionAttached") {
-          this.serverSessionId = msg.sessionId as string;
+          this.setServerSessionId(msg.sessionId as string);
         } else if (msg.type === "sessionExpired") {
-          this.serverSessionId = null;
+          this.setServerSessionId(null);
           this.pendingReattach = false;
           if (this.ws && this.ws.readyState === WebSocket.OPEN) {
             this.ws.send(
@@ -436,12 +454,13 @@ export class NativeWebSocketManager {
                   cols: this.cols,
                   rows: this.rows,
                   hostConfig: this.config.hostConfig,
+                  tabInstanceId: this.config.tabInstanceId,
                 },
               }),
             );
           }
         } else if (msg.type === "sessionTakenOver") {
-          this.serverSessionId = null;
+          this.setServerSessionId(null);
           this.shouldNotReconnect = true;
           this.config.onDisconnected(this.config.hostConfig.name);
         }

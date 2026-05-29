@@ -1,40 +1,49 @@
 /**
- * Includes a default value for all margins, borders, design elements, etc.
- * These can be used across all components as a default inside the style tag in a component
- * Any styling not included as a default here, can be set inside a className using NativeWind
+ * Static design tokens for the dark session surfaces (terminal, stats, file
+ * manager, tunnels, tab bar). These mirror the redesigned web app's dark
+ * theme. They are intentionally static (not theme-context driven) because the
+ * terminal/console area stays dark in every app theme — matching the web,
+ * where the terminal canvas is always dark. For themable chrome elsewhere in
+ * the app, use Tailwind tokens + useTheme() instead.
  */
 
 export const BORDERS = {
-  MAJOR: 2,
+  MAJOR: 1,
   STANDARD: 1,
   SEPARATOR: 1,
 } as const;
 
+// Brand accent (orange) — replaces the old terminal green.
+export const ACCENT = "#f59145";
+
 export const BORDER_COLORS = {
-  PRIMARY: "#303032",
-  SECONDARY: "#373739",
-  SEPARATOR: "#404040",
-  BUTTON: "#303032",
-  ACTIVE: "#22C55E",
+  PRIMARY: "#323232",
+  SECONDARY: "#383838",
+  SEPARATOR: "#2a2a2a",
+  BUTTON: "#323232",
+  PANEL: "#262626",
+  ACTIVE: ACCENT,
 } as const;
 
 export const BACKGROUNDS = {
-  DARKEST: "#09090b",
-  DARKER: "#0e0e10",
-  HEADER: "#131316",
-  DARK: "#18181b",
-  CARD: "#1a1a1a",
-  BUTTON: "#2a2a2a",
-  BUTTON_ALT: "#23232a",
-  ACTIVE: "#4a4a4a",
-  HOVER: "#2d2d30",
+  DARKEST: "#0c0d0b",
+  DARKER: "#141513",
+  HEADER: "#141513",
+  DARK: "#0c0d0b",
+  CARD: "#181917",
+  PANEL: "#181917",
+  BUTTON: "#232323",
+  BUTTON_ALT: "#232323",
+  ACTIVE: "#2a2a2a",
+  HOVER: "#232323",
 } as const;
 
 export const RADIUS = {
-  BUTTON: 6,
-  CARD: 12,
-  SMALL: 4,
-  LARGE: 16,
+  // Square corners everywhere — matches the web redesign.
+  BUTTON: 0,
+  CARD: 0,
+  SMALL: 0,
+  LARGE: 0,
 } as const;
 
 export const SPACING = {
@@ -47,11 +56,11 @@ export const SPACING = {
 } as const;
 
 export const TEXT_COLORS = {
-  PRIMARY: "#ffffff",
-  SECONDARY: "#9CA3AF",
-  TERTIARY: "#6B7280",
-  DISABLED: "#4B5563",
-  ACCENT: "#22C55E",
+  PRIMARY: "#fafafa",
+  SECONDARY: "#a4a4a4",
+  TERTIARY: "#737373",
+  DISABLED: "#525252",
+  ACCENT,
 } as const;
 
 export const ICON_SIZES = {

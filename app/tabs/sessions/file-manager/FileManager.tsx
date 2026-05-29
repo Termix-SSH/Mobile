@@ -114,7 +114,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       content: string;
     }>({ visible: false, file: null, content: "" });
 
-    const keepaliveInterval = useRef<NodeJS.Timeout | null>(null);
+    const keepaliveInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
     const connectToSSH = useCallback(async () => {
       try {
@@ -462,9 +462,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
 
     if (!isConnected) {
       return (
-        <View className="flex-1 bg-dark-bg items-center justify-center">
-          <ActivityIndicator size="large" color="#22C55E" />
-          <Text className="text-white mt-4">Connecting to {host.name}...</Text>
+        <View className="flex-1 bg-background items-center justify-center">
+          <ActivityIndicator size="large" color="#f59145" />
+          <Text className="text-foreground mt-4">Connecting to {host.name}...</Text>
 
           <TOTPDialog
             visible={totpDialog}
@@ -588,12 +588,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   marginBottom: isLandscape ? 0 : insets.bottom,
                 }}
               >
-                <Text className="text-white text-lg font-semibold mb-4">
+                <Text className="text-foreground text-lg font-semibold mb-4">
                   Create New{" "}
                   {createDialog.type === "folder" ? "Folder" : "File"}
                 </Text>
                 <TextInput
-                  className="px-4 py-3 text-white mb-4"
+                  className="px-4 py-3 text-foreground mb-4"
                   style={{
                     backgroundColor: BACKGROUNDS.DARKER,
                     borderWidth: BORDERS.MAJOR,
@@ -621,13 +621,13 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-white text-center font-semibold">
+                    <Text className="text-foreground text-center font-semibold">
                       Cancel
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={handleCreateConfirm}
-                    className="flex-1 bg-green-600 py-3"
+                    className="flex-1 bg-accent-brand py-3"
                     style={{
                       borderWidth: 2,
                       borderColor: "#16a34a",
@@ -635,7 +635,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-white text-center font-semibold">
+                    <Text className="text-foreground text-center font-semibold">
                       Create
                     </Text>
                   </TouchableOpacity>
@@ -666,11 +666,11 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   marginBottom: isLandscape ? 0 : insets.bottom,
                 }}
               >
-                <Text className="text-white text-lg font-semibold mb-4">
+                <Text className="text-foreground text-lg font-semibold mb-4">
                   Rename Item
                 </Text>
                 <TextInput
-                  className="px-4 py-3 text-white mb-4"
+                  className="px-4 py-3 text-foreground mb-4"
                   style={{
                     backgroundColor: BACKGROUNDS.DARKER,
                     borderWidth: BORDERS.MAJOR,
@@ -698,13 +698,13 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-white text-center font-semibold">
+                    <Text className="text-foreground text-center font-semibold">
                       Cancel
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={handleRenameConfirm}
-                    className="flex-1 bg-green-600 py-3"
+                    className="flex-1 bg-accent-brand py-3"
                     style={{
                       borderWidth: 2,
                       borderColor: "#16a34a",
@@ -712,7 +712,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-white text-center font-semibold">
+                    <Text className="text-foreground text-center font-semibold">
                       Rename
                     </Text>
                   </TouchableOpacity>

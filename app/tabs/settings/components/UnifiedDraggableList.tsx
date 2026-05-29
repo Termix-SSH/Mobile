@@ -74,11 +74,11 @@ export default function UnifiedDraggableList({
         <View className="mb-3">
           <View className="flex-row items-center justify-between">
             <View className="flex-1">
-              <Text className="text-white text-lg font-semibold">
+              <Text className="text-foreground text-lg font-semibold">
                 {item.title}
               </Text>
               {item.subtitle && (
-                <Text className="text-gray-400 text-xs mt-0.5">
+                <Text className="text-muted-foreground text-xs mt-0.5">
                   {item.subtitle}
                 </Text>
               )}
@@ -86,9 +86,9 @@ export default function UnifiedDraggableList({
             {item.onAddPress && (
               <TouchableOpacity
                 onPress={item.onAddPress}
-                className="bg-green-600 rounded-lg px-4 py-2"
+                className="bg-accent-brand rounded-lg px-4 py-2"
               >
-                <Text className="text-white text-sm font-semibold">
+                <Text className="text-foreground text-sm font-semibold">
                   {item.addButtonLabel || "+ Add"}
                 </Text>
               </TouchableOpacity>
@@ -137,15 +137,15 @@ export default function UnifiedDraggableList({
       return (
         <View className="px-4 pb-2 pt-4 border-t border-l border-r border-[#303032] bg-[#1a1a1a] -mt-px">
           <View className="flex-row items-center justify-between mb-2">
-            <Text className="text-white text-sm font-semibold">
+            <Text className="text-foreground text-sm font-semibold">
               Keys in this row
             </Text>
             {item.onAddPress && (
               <TouchableOpacity
                 onPress={item.onAddPress}
-                className="bg-green-600 rounded px-3 py-1.5"
+                className="bg-accent-brand rounded px-3 py-1.5"
               >
-                <Text className="text-white text-xs font-semibold">
+                <Text className="text-foreground text-xs font-semibold">
                   + Add Key
                 </Text>
               </TouchableOpacity>
@@ -168,7 +168,7 @@ export default function UnifiedDraggableList({
         >
           <Text
             className={`text-center font-semibold ${
-              isDanger ? "text-red-400" : "text-white"
+              isDanger ? "text-red-400" : "text-foreground"
             }`}
           >
             {item.label}

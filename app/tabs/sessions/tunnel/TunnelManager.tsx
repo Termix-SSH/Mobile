@@ -13,6 +13,7 @@ import {
   ActivityIndicator,
   RefreshControl,
   TouchableOpacity,
+  type DimensionValue,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Activity } from "lucide-react-native";
@@ -27,16 +28,13 @@ import { showToast } from "../../../utils/toast";
 import type {
   TunnelStatus,
   SSHHost,
-  TunnelConnection,
   TunnelSessionProps,
 } from "../../../../types";
 import { useOrientation } from "@/app/utils/orientation";
 import { getResponsivePadding, getColumnCount } from "@/app/utils/responsive";
 import {
   BACKGROUNDS,
-  BORDER_COLORS,
   RADIUS,
-  TEXT_COLORS,
 } from "@/app/constants/designTokens";
 import TunnelCard from "@/app/tabs/sessions/tunnel/TunnelCard";
 
@@ -59,7 +57,7 @@ export const TunnelManager = forwardRef<
   const [error, setError] = useState<string | null>(null);
   const [allHosts, setAllHosts] = useState<SSHHost[]>([]);
   const [currentHostConfig, setCurrentHostConfig] = useState(hostConfig);
-  const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const refreshIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const padding = getResponsivePadding(isLandscape);
   const columnCount = getColumnCount(width, isLandscape, 350);
@@ -250,8 +248,10 @@ export const TunnelManager = forwardRef<
     }
   };
 
-  const cardWidth =
-    isLandscape && columnCount > 1 ? `${100 / columnCount - 1}%` : "100%";
+  const cardWidth: DimensionValue =
+    isLandscape && columnCount > 1
+      ? (`${100 / columnCount - 1}%` as DimensionValue)
+      : "100%";
 
   if (!isVisible) {
     return null;
@@ -275,7 +275,7 @@ export const TunnelManager = forwardRef<
             backgroundColor: BACKGROUNDS.DARKEST,
           }}
         >
-          <ActivityIndicator size="large" color="#22C55E" />
+          <ActivityIndicator size="large" color="#f59145" />
           <Text
             style={{
               color: "#9CA3AF",
@@ -321,7 +321,7 @@ export const TunnelManager = forwardRef<
           <TouchableOpacity
             onPress={handleRefresh}
             style={{
-              backgroundColor: "#22C55E",
+              backgroundColor: "#f59145",
               paddingHorizontal: 24,
               paddingVertical: 12,
               borderRadius: RADIUS.BUTTON,
@@ -364,7 +364,7 @@ export const TunnelManager = forwardRef<
               fontSize: 14,
             }}
           >
-            This host doesn't have any SSH tunnels configured.
+            This host has no SSH tunnels configured.
           </Text>
           <Text
             style={{
@@ -391,8 +391,8 @@ export const TunnelManager = forwardRef<
             <RefreshControl
               refreshing={isRefreshing}
               onRefresh={handleRefresh}
-              tintColor="#22C55E"
-              colors={["#22C55E"]}
+              tintColor="#f59145"
+              colors={["#f59145"]}
             />
           }
         >
@@ -443,5 +443,7 @@ export const TunnelManager = forwardRef<
     </View>
   );
 });
+
+TunnelManager.displayName = "TunnelManager";
 
 export default TunnelManager;

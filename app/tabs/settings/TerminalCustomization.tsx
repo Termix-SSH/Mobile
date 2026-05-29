@@ -90,11 +90,11 @@ export default function TerminalCustomization() {
       >
         <View className="flex-row items-center justify-between">
           <TouchableOpacity onPress={() => router.back()}>
-            <Text className="text-base font-semibold text-green-500">
+            <Text className="text-base font-semibold text-accent-brand">
               ← Back
             </Text>
           </TouchableOpacity>
-          <Text className="text-lg font-semibold text-white">
+          <Text className="text-lg font-semibold text-foreground">
             Terminal Customization
           </Text>
           <View style={{ width: 60 }} />
@@ -105,16 +105,16 @@ export default function TerminalCustomization() {
         className="flex-1 px-4 py-4"
         contentContainerStyle={{ paddingBottom: Math.max(insets.bottom, 16) }}
       >
-        <Text className="mb-2 text-lg font-semibold text-white">
+        <Text className="mb-2 text-lg font-semibold text-foreground">
           Terminal Settings
         </Text>
-        <Text className="mb-4 text-sm text-gray-400">
+        <Text className="mb-4 text-sm text-muted-foreground">
           Customize terminal appearance and behavior
         </Text>
 
         <View className="mb-6">
-          <Text className="mb-3 text-base font-semibold text-white">Font</Text>
-          <Text className="mb-3 text-sm text-gray-400">
+          <Text className="mb-3 text-base font-semibold text-foreground">Font</Text>
+          <Text className="mb-3 text-sm text-muted-foreground">
             Select the terminal font family. Nerd Font support depends on the
             selected font being available to the WebView.
           </Text>
@@ -137,21 +137,21 @@ export default function TerminalCustomization() {
                     <View className="flex-1 pr-3">
                       <Text
                         className={`text-base font-semibold ${
-                          isActive ? "text-green-400" : "text-white"
+                          isActive ? "text-accent-brand" : "text-foreground"
                         }`}
                       >
                         {option.label}
                       </Text>
                       <Text
-                        className="mt-1 text-sm text-gray-400"
+                        className="mt-1 text-sm text-muted-foreground"
                         style={{ fontFamily: option.fallback }}
                       >
                         Aa Bb Cc 123 
                       </Text>
                     </View>
                     {isActive && (
-                      <View className="rounded-full bg-green-500 px-2 py-1">
-                        <Text className="text-xs font-semibold text-white">
+                      <View className="rounded-full bg-accent-brand px-2 py-1">
+                        <Text className="text-xs font-semibold text-foreground">
                           ACTIVE
                         </Text>
                       </View>
@@ -164,10 +164,10 @@ export default function TerminalCustomization() {
         </View>
 
         <View className="mb-6">
-          <Text className="mb-3 text-base font-semibold text-white">
+          <Text className="mb-3 text-base font-semibold text-foreground">
             Font Size
           </Text>
-          <Text className="mb-3 text-sm text-gray-400">
+          <Text className="mb-3 text-sm text-muted-foreground">
             Base font size for terminal text. The actual size will be adjusted
             based on your screen width. This number will override the font size
             you configured on a host in the Termix Web UI.
@@ -188,19 +188,19 @@ export default function TerminalCustomization() {
                     <Text
                       className={`text-base font-semibold ${
                         config.fontSize === option.value
-                          ? "text-green-400"
-                          : "text-white"
+                          ? "text-accent-brand"
+                          : "text-foreground"
                       }`}
                     >
                       {option.label}
                     </Text>
-                    <Text className="mt-0.5 text-xs text-gray-400">
+                    <Text className="mt-0.5 text-xs text-muted-foreground">
                       {option.value}px base size
                     </Text>
                   </View>
                   {config.fontSize === option.value && (
-                    <View className="rounded-full bg-green-500 px-2 py-1">
-                      <Text className="text-xs font-semibold text-white">
+                    <View className="rounded-full bg-accent-brand px-2 py-1">
+                      <Text className="text-xs font-semibold text-foreground">
                         ACTIVE
                       </Text>
                     </View>
@@ -221,20 +221,20 @@ export default function TerminalCustomization() {
                 <View>
                   <Text
                     className={`text-base font-semibold ${
-                      isCustomFontSize ? "text-green-400" : "text-white"
+                      isCustomFontSize ? "text-accent-brand" : "text-foreground"
                     }`}
                   >
                     Custom
                   </Text>
-                  <Text className="mt-0.5 text-xs text-gray-400">
+                  <Text className="mt-0.5 text-xs text-muted-foreground">
                     {isCustomFontSize
                       ? `${config.fontSize}px base size`
                       : "Enter any custom size"}
                   </Text>
                 </View>
                 {isCustomFontSize && (
-                  <View className="rounded-full bg-green-500 px-2 py-1">
-                    <Text className="text-xs font-semibold text-white">
+                  <View className="rounded-full bg-accent-brand px-2 py-1">
+                    <Text className="text-xs font-semibold text-foreground">
                       ACTIVE
                     </Text>
                   </View>
@@ -276,10 +276,10 @@ export default function TerminalCustomization() {
             }}
           >
             <Pressable className="mx-8 w-80 rounded-lg border border-[#303032] bg-[#1a1a1a] p-6">
-              <Text className="mb-2 text-lg font-semibold text-white">
+              <Text className="mb-2 text-lg font-semibold text-foreground">
                 Custom Font Size
               </Text>
-              <Text className="mb-4 text-sm text-gray-400">
+              <Text className="mb-4 text-sm text-muted-foreground">
                 Enter your preferred font size for the terminal.
               </Text>
               <TextInput
@@ -308,15 +308,15 @@ export default function TerminalCustomization() {
                   }}
                   className="flex-1 rounded-lg border border-[#3f3f46] bg-[#27272a] p-3"
                 >
-                  <Text className="text-center font-semibold text-white">
+                  <Text className="text-center font-semibold text-foreground">
                     Cancel
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={handleCustomFontSize}
-                  className="flex-1 rounded-lg bg-green-600 p-3"
+                  className="flex-1 rounded-lg bg-accent-brand p-3"
                 >
-                  <Text className="text-center font-semibold text-white">
+                  <Text className="text-center font-semibold text-foreground">
                     Apply
                   </Text>
                 </TouchableOpacity>
@@ -338,10 +338,10 @@ export default function TerminalCustomization() {
           onPress={() => setShowResetConfirm(false)}
         >
           <Pressable className="mx-8 rounded-lg border border-[#303032] bg-[#1a1a1a] p-6">
-            <Text className="mb-2 text-lg font-semibold text-white">
+            <Text className="mb-2 text-lg font-semibold text-foreground">
               Confirm Reset
             </Text>
-            <Text className="mb-6 text-sm text-gray-400">
+            <Text className="mb-6 text-sm text-muted-foreground">
               This will reset all terminal customizations to default settings.
             </Text>
             <View className="flex-row gap-3">
@@ -349,7 +349,7 @@ export default function TerminalCustomization() {
                 onPress={() => setShowResetConfirm(false)}
                 className="flex-1 rounded-lg border border-[#3f3f46] bg-[#27272a] p-3"
               >
-                <Text className="text-center font-semibold text-white">
+                <Text className="text-center font-semibold text-foreground">
                   Cancel
                 </Text>
               </TouchableOpacity>
@@ -357,7 +357,7 @@ export default function TerminalCustomization() {
                 onPress={handleReset}
                 className="flex-1 rounded-lg bg-red-600 p-3"
               >
-                <Text className="text-center font-semibold text-white">
+                <Text className="text-center font-semibold text-foreground">
                   Reset
                 </Text>
               </TouchableOpacity>

@@ -190,7 +190,7 @@ export default function TabBar({
                     <View className="flex-1 px-3 py-2">
                       <Text
                         className={`text-sm font-medium ${
-                          isActive ? "text-green-400" : "text-gray-400"
+                          isActive ? "text-accent-brand" : "text-muted-foreground"
                         }`}
                       >
                         {session.title}

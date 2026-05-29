@@ -13,14 +13,13 @@ import {
   ActivityIndicator,
   RefreshControl,
   TouchableOpacity,
+  type DimensionValue,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   Cpu,
   MemoryStick,
   HardDrive,
-  Activity,
-  Clock,
   Server,
 } from "lucide-react-native";
 import { getServerMetricsById, executeSnippet } from "../../../main-axios";
@@ -36,7 +35,6 @@ import {
   BACKGROUNDS,
   BORDER_COLORS,
   RADIUS,
-  TEXT_COLORS,
 } from "@/app/constants/designTokens";
 
 interface ServerStatsProps {
@@ -65,7 +63,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     const [executingActions, setExecutingActions] = useState<Set<number>>(
       new Set(),
     );
-    const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null);
+    const refreshIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     const padding = getResponsivePadding(isLandscape);
     const columnCount = getColumnCount(width, isLandscape, 350);
@@ -129,8 +127,10 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
       };
     }, [isVisible, fetchMetrics]);
 
-    const cardWidth =
-      isLandscape && columnCount > 1 ? `${100 / columnCount - 1}%` : "100%";
+    const cardWidth: DimensionValue =
+      isLandscape && columnCount > 1
+        ? (`${100 / columnCount - 1}%` as DimensionValue)
+        : "100%";
 
     const formatUptime = (seconds: number | null): string => {
       if (seconds === null || seconds === undefined) return "N/A";
@@ -243,7 +243,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
               backgroundColor: BACKGROUNDS.DARKEST,
             }}
           >
-            <ActivityIndicator size="large" color="#22C55E" />
+            <ActivityIndicator size="large" color="#f59145" />
             <Text
               style={{
                 color: "#9CA3AF",
@@ -289,7 +289,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
             <TouchableOpacity
               onPress={handleRefresh}
               style={{
-                backgroundColor: "#22C55E",
+                backgroundColor: "#f59145",
                 paddingHorizontal: 24,
                 paddingVertical: 12,
                 borderRadius: RADIUS.BUTTON,
@@ -317,8 +317,8 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
               <RefreshControl
                 refreshing={isRefreshing}
                 onRefresh={handleRefresh}
-                tintColor="#22C55E"
-                colors={["#22C55E"]}
+                tintColor="#f59145"
+                colors={["#f59145"]}
               />
             }
           >
@@ -360,7 +360,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                         onPress={() => handleQuickAction(action)}
                         disabled={isExecuting}
                         style={{
-                          backgroundColor: isExecuting ? "#374151" : "#22C55E",
+                          backgroundColor: isExecuting ? "#374151" : "#f59145",
                           paddingHorizontal: 16,
                           paddingVertical: 10,
                           borderRadius: RADIUS.BUTTON,
@@ -578,5 +578,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     );
   },
 );
+
+ServerStats.displayName = "ServerStats";
 
 export default ServerStats;

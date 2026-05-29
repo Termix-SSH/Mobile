@@ -19,7 +19,7 @@ import {
 import { useOrientation } from "@/app/utils/orientation";
 import { getResponsivePadding } from "@/app/utils/responsive";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import type { HostKeyData } from "./NativeWebSocketManager";
+import type { HostKeyData } from "@/app/tabs/sessions/terminal/NativeWebSocketManager";
 
 interface HostKeyVerificationDialogProps {
   visible: boolean;

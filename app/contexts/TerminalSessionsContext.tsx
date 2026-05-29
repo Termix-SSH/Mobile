@@ -10,12 +10,20 @@ import React, {
 import { SSHHost } from "@/types";
 import { router } from "expo-router";
 import { useAppContext } from "@/app/AppContext";
+import {
+  addOpenTab,
+  deleteOpenTab,
+  getOpenTabs,
+  patchOpenTab,
+  type OpenTabRecord,
+} from "@/app/main-axios";
 
 export type SessionType =
   | "terminal"
   | "stats"
   | "filemanager"
   | "tunnel"
+  | "docker"
   | "remoteDesktop";
 
 export interface TerminalSession {
@@ -25,15 +33,62 @@ export interface TerminalSession {
   isActive: boolean;
   createdAt: Date;
   type: SessionType;
+  /** Stable per-tab instance id used for cross-device tab sync (open-tabs API). */
+  instanceId: string;
+  /** Backend SSH session id this tab is attached to, when resumed/created. */
+  backendSessionId?: string | null;
+  /** When set, the terminal should attach to this backend session on connect. */
+  restoredSessionId?: string | null;
+}
+
+const TYPE_LABELS: Record<SessionType, string> = {
+  terminal: "",
+  stats: "Stats",
+  filemanager: "Files",
+  tunnel: "Tunnels",
+  docker: "Docker",
+  remoteDesktop: "Remote",
+};
+
+/** open-tabs tabType is shared with the web app; map our session types to it. */
+function toTabType(type: SessionType): string {
+  switch (type) {
+    case "filemanager":
+      return "files";
+    case "remoteDesktop":
+      return "rdp";
+    default:
+      return type;
+  }
+}
+
+function uuid(): string {
+  // RN-safe UUID v4 (crypto.randomUUID is not always available).
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }
 
 interface TerminalSessionsContextType {
   sessions: TerminalSession[];
   activeSessionId: string | null;
-  addSession: (host: SSHHost, type?: SessionType) => string;
+  /** Background tab records that exist server-side but aren't open here. */
+  backgroundTabRecords: OpenTabRecord[];
+  refreshBackgroundTabs: () => Promise<void>;
+  addSession: (
+    host: SSHHost,
+    type?: SessionType,
+    opts?: { instanceId?: string; restoredSessionId?: string | null },
+  ) => string;
   removeSession: (sessionId: string) => void;
   setActiveSession: (sessionId: string) => void;
   clearAllSessions: () => void;
+  /** Persist the backend session id created/attached for a tab (cross-device). */
+  setBackendSessionId: (sessionId: string, backendId: string | null) => void;
+  /** Forget a server-side background tab record. */
+  forgetBackgroundTab: (recordId: string) => void;
   navigateToSessions: (host?: SSHHost, type?: SessionType) => void;
   isCustomKeyboardVisible: boolean;
   toggleCustomKeyboard: () => void;
@@ -67,28 +122,34 @@ export const TerminalSessionsProvider: React.FC<
   const { isAuthenticated } = useAppContext();
   const [sessions, setSessions] = useState<TerminalSession[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
+  const [backgroundTabRecords, setBackgroundTabRecords] = useState<
+    OpenTabRecord[]
+  >([]);
   const [isCustomKeyboardVisible, setIsCustomKeyboardVisible] = useState(false);
   const [lastKeyboardHeight, setLastKeyboardHeight] = useState(300);
   const keyboardIntentionallyHiddenRef = useRef(false);
   const [, forceUpdate] = useState({});
 
+  const refreshBackgroundTabs = useCallback(async () => {
+    const records = await getOpenTabs();
+    setBackgroundTabRecords(records);
+  }, []);
+
   const addSession = useCallback(
-    (host: SSHHost, type: SessionType = "terminal"): string => {
+    (
+      host: SSHHost,
+      type: SessionType = "terminal",
+      opts?: { instanceId?: string; restoredSessionId?: string | null },
+    ): string => {
+      const instanceId = opts?.instanceId ?? uuid();
+      const sessionId = `${host.id}-${type}-${Date.now()}`;
+
       setSessions((prev) => {
         const existingSessions = prev.filter(
           (session) => session.host.id === host.id && session.type === type,
         );
 
-        const typeLabel =
-          type === "stats"
-            ? "Stats"
-            : type === "filemanager"
-              ? "Files"
-              : type === "tunnel"
-                ? "Tunnels"
-                : type === "remoteDesktop"
-                  ? "Remote"
-                  : "";
+        const typeLabel = TYPE_LABELS[type];
         let title = typeLabel ? `${host.name} - ${typeLabel}` : host.name;
         if (existingSessions.length > 0) {
           title = typeLabel
@@ -96,7 +157,6 @@ export const TerminalSessionsProvider: React.FC<
             : `${host.name} (${existingSessions.length + 1})`;
         }
 
-        const sessionId = `${host.id}-${type}-${Date.now()}`;
         const newSession: TerminalSession = {
           id: sessionId,
           host,
@@ -104,18 +164,30 @@ export const TerminalSessionsProvider: React.FC<
           isActive: true,
           createdAt: new Date(),
           type,
+          instanceId,
+          backendSessionId: opts?.restoredSessionId ?? null,
+          restoredSessionId: opts?.restoredSessionId ?? null,
         };
+
+        // Persist this tab server-side for cross-device awareness.
+        addOpenTab({
+          id: instanceId,
+          tabType: toTabType(type),
+          hostId: host.id,
+          label: title,
+          tabOrder: prev.length,
+          backendSessionId: opts?.restoredSessionId ?? null,
+        });
 
         const updatedSessions = prev.map((session) => ({
           ...session,
           isActive: false,
         }));
-
-        setActiveSessionId(sessionId);
         return [...updatedSessions, newSession];
       });
 
-      return "";
+      setActiveSessionId(sessionId);
+      return sessionId;
     },
     [],
   );
@@ -127,6 +199,9 @@ export const TerminalSessionsProvider: React.FC<
           (session) => session.id === sessionId,
         );
         if (!sessionToRemove) return prev;
+
+        // Forget the server-side record for this tab.
+        deleteOpenTab(sessionToRemove.instanceId);
 
         const updatedSessions = prev.filter(
           (session) => session.id !== sessionId,
@@ -149,16 +224,7 @@ export const TerminalSessionsProvider: React.FC<
               (s) => s.id === session.id,
             );
             if (sessionIndex !== -1) {
-              const typeLabel =
-                session.type === "stats"
-                  ? "Stats"
-                  : session.type === "filemanager"
-                    ? "Files"
-                    : session.type === "tunnel"
-                      ? "Tunnels"
-                      : session.type === "remoteDesktop"
-                        ? "Remote"
-                        : "";
+              const typeLabel = TYPE_LABELS[session.type];
               const baseName = typeLabel
                 ? `${session.host.name} - ${typeLabel}`
                 : session.host.name;
@@ -209,6 +275,26 @@ export const TerminalSessionsProvider: React.FC<
     [isCustomKeyboardVisible],
   );
 
+  const setBackendSessionId = useCallback(
+    (sessionId: string, backendId: string | null) => {
+      setSessions((prev) => {
+        const target = prev.find((s) => s.id === sessionId);
+        if (!target) return prev;
+        patchOpenTab(target.instanceId, { backendSessionId: backendId });
+        return prev.map((s) =>
+          s.id === sessionId
+            ? { ...s, backendSessionId: backendId, restoredSessionId: null }
+            : s,
+        );
+      });
+    },
+    [],
+  );
+
+  const forgetBackgroundTab = useCallback((recordId: string) => {
+    setBackgroundTabRecords((prev) => prev.filter((r) => r.id !== recordId));
+  }, []);
+
   const navigateToSessions = useCallback(
     (host?: SSHHost, type: SessionType = "terminal") => {
       if (host) {
@@ -231,6 +317,7 @@ export const TerminalSessionsProvider: React.FC<
   const clearAllSessions = useCallback(() => {
     setSessions([]);
     setActiveSessionId(null);
+    setBackgroundTabRecords([]);
     setIsCustomKeyboardVisible(false);
     keyboardIntentionallyHiddenRef.current = false;
   }, []);
@@ -238,18 +325,25 @@ export const TerminalSessionsProvider: React.FC<
   useEffect(() => {
     if (!isAuthenticated) {
       clearAllSessions();
+    } else {
+      // Hydrate background tab records (e.g. tabs opened on another device).
+      refreshBackgroundTabs();
     }
-  }, [isAuthenticated, clearAllSessions]);
+  }, [isAuthenticated, clearAllSessions, refreshBackgroundTabs]);
 
   return (
     <TerminalSessionsContext.Provider
       value={{
         sessions,
         activeSessionId,
+        backgroundTabRecords,
+        refreshBackgroundTabs,
         addSession,
         removeSession,
         setActiveSession,
         clearAllSessions,
+        setBackendSessionId,
+        forgetBackgroundTab,
         navigateToSessions,
         isCustomKeyboardVisible,
         toggleCustomKeyboard,

@@ -37,12 +37,12 @@ export function renderKeyItem({
       <View className="flex-1">
         <View className="flex-row items-center gap-2">
           <View className="bg-[#27272a] border border-[#3f3f46] rounded px-3 py-1.5">
-            <Text className="text-white text-sm font-mono">{item.label}</Text>
+            <Text className="text-foreground text-sm font-mono">{item.label}</Text>
           </View>
-          <Text className="text-gray-500 text-xs">{item.category}</Text>
+          <Text className="text-muted-foreground text-xs">{item.category}</Text>
         </View>
         {item.description && (
-          <Text className="text-gray-400 text-xs mt-1" numberOfLines={1}>
+          <Text className="text-muted-foreground text-xs mt-1" numberOfLines={1}>
             {item.description}
           </Text>
         )}

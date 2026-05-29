@@ -275,10 +275,10 @@ export default function KeyboardCustomization() {
 
   const renderPresets = () => (
     <ScrollView className="flex-1 px-4 py-4">
-      <Text className="text-white text-lg font-semibold mb-2">
+      <Text className="text-foreground text-lg font-semibold mb-2">
         Keyboard Presets
       </Text>
-      <Text className="text-gray-400 text-sm mb-4">
+      <Text className="text-muted-foreground text-sm mb-4">
         Choose a preset layout optimized for different use cases
       </Text>
 
@@ -293,16 +293,16 @@ export default function KeyboardCustomization() {
           }`}
         >
           <View className="flex-row items-center justify-between mb-1">
-            <Text className="text-white text-base font-semibold">
+            <Text className="text-foreground text-base font-semibold">
               {preset.name}
             </Text>
             {config.preset === preset.id && (
-              <View className="bg-green-500 rounded-full px-2 py-1">
-                <Text className="text-white text-xs font-semibold">ACTIVE</Text>
+              <View className="bg-accent-brand rounded-full px-2 py-1">
+                <Text className="text-foreground text-xs font-semibold">ACTIVE</Text>
               </View>
             )}
           </View>
-          <Text className="text-gray-400 text-sm">{preset.description}</Text>
+          <Text className="text-muted-foreground text-sm">{preset.description}</Text>
         </TouchableOpacity>
       ))}
 
@@ -311,8 +311,8 @@ export default function KeyboardCustomization() {
           <Text className="text-blue-400 text-sm font-semibold mb-1">
             Custom Layout
           </Text>
-          <Text className="text-gray-400 text-xs">
-            You've made custom changes. Select a preset above to reset to a
+          <Text className="text-muted-foreground text-xs">
+            You have made custom changes. Select a preset above to reset to a
             predefined layout.
           </Text>
         </View>
@@ -516,15 +516,15 @@ export default function KeyboardCustomization() {
 
   const renderSettings = () => (
     <ScrollView className="flex-1 px-4 py-4">
-      <Text className="text-white text-lg font-semibold mb-2">
+      <Text className="text-foreground text-lg font-semibold mb-2">
         Keyboard Settings
       </Text>
-      <Text className="text-gray-400 text-sm mb-4">
+      <Text className="text-muted-foreground text-sm mb-4">
         Adjust keyboard appearance and behavior
       </Text>
 
       <View className="mb-6">
-        <Text className="text-white text-base font-semibold mb-3">
+        <Text className="text-foreground text-base font-semibold mb-3">
           Key Size
         </Text>
         <View className="flex-row gap-2">
@@ -541,8 +541,8 @@ export default function KeyboardCustomization() {
               <Text
                 className={`text-center font-semibold ${
                   config.settings.keySize === size
-                    ? "text-green-400"
-                    : "text-gray-400"
+                    ? "text-accent-brand"
+                    : "text-muted-foreground"
                 }`}
               >
                 {size.charAt(0).toUpperCase() + size.slice(1)}
@@ -554,47 +554,47 @@ export default function KeyboardCustomization() {
 
       <View className="flex-row items-center justify-between bg-[#1a1a1a] border border-[#303032] rounded-lg p-4 mb-3">
         <View className="flex-1 mr-4">
-          <Text className="text-white text-sm font-semibold">Compact Mode</Text>
-          <Text className="text-gray-400 text-xs mt-0.5">
+          <Text className="text-foreground text-sm font-semibold">Compact Mode</Text>
+          <Text className="text-muted-foreground text-xs mt-0.5">
             Tighter spacing for more keys on screen
           </Text>
         </View>
         <Switch
           value={config.settings.compactMode}
           onValueChange={handleCompactModeToggle}
-          trackColor={{ false: "#3f3f46", true: "#22C55E" }}
+          trackColor={{ false: "#3f3f46", true: "#f59145" }}
           thumbColor={config.settings.compactMode ? "#ffffff" : "#9ca3af"}
         />
       </View>
 
       <View className="flex-row items-center justify-between bg-[#1a1a1a] border border-[#303032] rounded-lg p-4 mb-3">
         <View className="flex-1 mr-4">
-          <Text className="text-white text-sm font-semibold">
+          <Text className="text-foreground text-sm font-semibold">
             Haptic Feedback
           </Text>
-          <Text className="text-gray-400 text-xs mt-0.5">
+          <Text className="text-muted-foreground text-xs mt-0.5">
             Vibrate on key press
           </Text>
         </View>
         <Switch
           value={config.settings.hapticFeedback}
           onValueChange={handleHapticToggle}
-          trackColor={{ false: "#3f3f46", true: "#22C55E" }}
+          trackColor={{ false: "#3f3f46", true: "#f59145" }}
           thumbColor={config.settings.hapticFeedback ? "#ffffff" : "#9ca3af"}
         />
       </View>
 
       <View className="flex-row items-center justify-between bg-[#1a1a1a] border border-[#303032] rounded-lg p-4 mb-6">
         <View className="flex-1 mr-4">
-          <Text className="text-white text-sm font-semibold">Show Hints</Text>
-          <Text className="text-gray-400 text-xs mt-0.5">
-            Display "Customize in Settings" hint
+          <Text className="text-foreground text-sm font-semibold">Show Hints</Text>
+          <Text className="text-muted-foreground text-xs mt-0.5">
+            Display the “Customize in Settings” hint
           </Text>
         </View>
         <Switch
           value={config.settings.showHints}
           onValueChange={handleHintsToggle}
-          trackColor={{ false: "#3f3f46", true: "#22C55E" }}
+          trackColor={{ false: "#3f3f46", true: "#f59145" }}
           thumbColor={config.settings.showHints ? "#ffffff" : "#9ca3af"}
         />
       </View>
@@ -621,11 +621,11 @@ export default function KeyboardCustomization() {
       >
         <View className="flex-row items-center justify-between">
           <TouchableOpacity onPress={() => router.back()}>
-            <Text className="text-green-500 text-base font-semibold">
+            <Text className="text-accent-brand text-base font-semibold">
               ← Back
             </Text>
           </TouchableOpacity>
-          <Text className="text-white text-lg font-semibold">
+          <Text className="text-foreground text-lg font-semibold">
             Keyboard Customization
           </Text>
           <View style={{ width: 60 }} />
@@ -649,7 +649,7 @@ export default function KeyboardCustomization() {
             >
               <Text
                 className={`text-sm font-semibold ${
-                  activeTab === tab.id ? "text-green-500" : "text-gray-400"
+                  activeTab === tab.id ? "text-accent-brand" : "text-muted-foreground"
                 }`}
               >
                 {tab.label}
@@ -689,10 +689,10 @@ export default function KeyboardCustomization() {
           onPress={() => setShowResetConfirm(false)}
         >
           <Pressable className="bg-[#1a1a1a] rounded-lg p-6 mx-8 border border-[#303032]">
-            <Text className="text-white text-lg font-semibold mb-2">
+            <Text className="text-foreground text-lg font-semibold mb-2">
               Confirm Reset
             </Text>
-            <Text className="text-gray-400 text-sm mb-6">
+            <Text className="text-muted-foreground text-sm mb-6">
               {resetType === "all"
                 ? "This will reset all keyboard customizations to default settings."
                 : resetType === "topbar"
@@ -704,7 +704,7 @@ export default function KeyboardCustomization() {
                 onPress={() => setShowResetConfirm(false)}
                 className="flex-1 bg-[#27272a] border border-[#3f3f46] rounded-lg p-3"
               >
-                <Text className="text-white text-center font-semibold">
+                <Text className="text-foreground text-center font-semibold">
                   Cancel
                 </Text>
               </TouchableOpacity>
@@ -712,7 +712,7 @@ export default function KeyboardCustomization() {
                 onPress={handleReset}
                 className="flex-1 bg-red-600 rounded-lg p-3"
               >
-                <Text className="text-white text-center font-semibold">
+                <Text className="text-foreground text-center font-semibold">
                   Reset
                 </Text>
               </TouchableOpacity>

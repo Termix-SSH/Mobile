@@ -1,44 +1,68 @@
 import {
   ScrollView,
-  Text,
-  TextInput,
   View,
   ActivityIndicator,
-  Alert,
-  TouchableOpacity,
   RefreshControl,
+  Pressable,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState, useCallback, useRef } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { RefreshCw } from "lucide-react-native";
+import {
+  RefreshCw,
+  Search,
+  X,
+  ArrowUpDown,
+  Check,
+  Zap,
+} from "lucide-react-native";
 import Folder from "@/app/tabs/hosts/navigation/Folder";
+import { HostActionSheet } from "@/app/tabs/hosts/HostActionSheet";
+import HostForm from "@/app/tabs/hosts/HostForm";
+import { QuickConnect } from "@/app/tabs/hosts/QuickConnect";
 import {
   getSSHHosts,
   getFoldersWithStats,
   getAllServerStatuses,
   initializeServerConfig,
   getCurrentServerUrl,
+  deleteSSHHost,
+  updateSSHHost,
 } from "@/app/main-axios";
 import { SSHHost, ServerStatus } from "@/types";
-import { useOrientation } from "@/app/utils/orientation";
-import { getResponsivePadding, getColumnCount } from "@/app/utils/responsive";
+import { Screen } from "@/app/components/Screen";
+import {
+  Text,
+  Input,
+  Button,
+  BottomSheet,
+  SheetRow,
+} from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
+import { toast } from "@/app/utils/toast";
 
 interface FolderData {
   name: string;
+  color?: string;
   hosts: SSHHost[];
-  stats?: {
-    totalHosts: number;
-    hostsByType: {
-      type: string;
-      count: number;
-    }[];
-  };
 }
 
+type SortKey =
+  | "default"
+  | "name-asc"
+  | "name-desc"
+  | "status-online"
+  | "pinned";
+
+const SORT_OPTIONS: { id: SortKey; label: string }[] = [
+  { id: "default", label: "Default" },
+  { id: "name-asc", label: "Name (A–Z)" },
+  { id: "name-desc", label: "Name (Z–A)" },
+  { id: "status-online", label: "Online first" },
+  { id: "pinned", label: "Pinned first" },
+];
+
 export default function Hosts() {
-  const insets = useSafeAreaInsets();
-  const { width, isLandscape } = useOrientation();
+  const color = useThemeColor();
   const [folders, setFolders] = useState<FolderData[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -46,32 +70,27 @@ export default function Hosts() {
   const [serverStatuses, setServerStatuses] = useState<
     Record<number, ServerStatus>
   >({});
-  const isRefreshingRef = useRef(false);
+  const [sortKey, setSortKey] = useState<SortKey>("default");
+  const [showSort, setShowSort] = useState(false);
 
-  const padding = getResponsivePadding(isLandscape);
-  const columnCount = getColumnCount(width, isLandscape, 400);
+  // Action sheet + form state
+  const [sheetHost, setSheetHost] = useState<SSHHost | null>(null);
+  const [formHost, setFormHost] = useState<SSHHost | null>(null);
+  const [formOpen, setFormOpen] = useState(false);
+  const [quickConnectOpen, setQuickConnectOpen] = useState(false);
+
+  const isRefreshingRef = useRef(false);
 
   const fetchData = useCallback(async (isRefresh = false) => {
     if (isRefreshingRef.current) return;
-
     try {
       isRefreshingRef.current = true;
-
-      if (isRefresh) {
-        setRefreshing(true);
-      } else {
-        setLoading(true);
-      }
+      if (isRefresh) setRefreshing(true);
+      else setLoading(true);
 
       await initializeServerConfig();
-
-      const currentServerUrl = getCurrentServerUrl();
-
-      if (!currentServerUrl) {
-        Alert.alert(
-          "No Server Configured",
-          "Please configure a server first in the settings.",
-        );
+      if (!getCurrentServerUrl()) {
+        toast.error("No server configured. Set one up in Settings.");
         return;
       }
 
@@ -80,70 +99,54 @@ export default function Hosts() {
         getAllServerStatuses(),
       ]);
 
-      if (hostsResult.status !== "fulfilled") {
-        throw hostsResult.reason;
-      }
+      if (hostsResult.status !== "fulfilled") throw hostsResult.reason;
 
-      const hostsRaw = hostsResult.value;
-      const hosts: SSHHost[] = Array.isArray(hostsRaw)
-        ? hostsRaw
-        : Array.isArray((hostsRaw as any)?.hosts)
-          ? (hostsRaw as any).hosts
+      const raw = hostsResult.value as any;
+      const hosts: SSHHost[] = Array.isArray(raw)
+        ? raw
+        : Array.isArray(raw?.hosts)
+          ? raw.hosts
           : [];
       const statuses =
         statusesResult.status === "fulfilled" ? statusesResult.value : {};
 
-      let foldersData = null;
+      let foldersData: any = null;
       try {
         foldersData = await getFoldersWithStats();
-      } catch (error) {}
-
-      const folderMap = new Map<string, FolderData>();
-
-      if (foldersData && Array.isArray(foldersData)) {
-        foldersData.forEach((folder: any) => {
-          folderMap.set(folder.name, {
-            name: folder.name,
-            hosts: [],
-            stats: folder.stats,
-          });
-        });
+      } catch {
+        // folders are optional
       }
 
-      hosts.forEach((host: SSHHost) => {
+      const folderMap = new Map<string, FolderData>();
+      if (Array.isArray(foldersData)) {
+        foldersData.forEach((f: any) =>
+          folderMap.set(f.name, { name: f.name, color: f.color, hosts: [] }),
+        );
+      }
+
+      hosts.forEach((host) => {
         const folderName = host.folder || "No Folder";
-        if (!folderMap.has(folderName)) {
-          folderMap.set(folderName, {
-            name: folderName,
-            hosts: [],
-            stats: { totalHosts: 0, hostsByType: [] },
-          });
-        }
+        if (!folderMap.has(folderName))
+          folderMap.set(folderName, { name: folderName, hosts: [] });
         folderMap.get(folderName)!.hosts.push(host);
       });
 
-      const foldersArray = Array.from(folderMap.values()).sort((a, b) => {
-        if (a.name === "No Folder") return 1;
-        if (b.name === "No Folder") return -1;
-        return a.name.localeCompare(b.name);
-      });
+      const arr = Array.from(folderMap.values())
+        .filter((f) => f.hosts.length > 0)
+        .sort((a, b) => {
+          if (a.name === "No Folder") return 1;
+          if (b.name === "No Folder") return -1;
+          return a.name.localeCompare(b.name);
+        });
 
-      setFolders(foldersArray);
+      setFolders(arr);
       setServerStatuses(statuses);
     } catch (error: any) {
-      console.error("[Hosts] Error loading hosts:", error);
-
-      const isAuthError =
+      const isAuth =
         error?.response?.status === 401 ||
-        error?.status === 401 ||
         error?.message?.includes("Authentication required");
-
-      if (isAuthError) {
-      } else {
-        const errorMessage =
-          error?.message ||
-          "Failed to load hosts. Please check your connection and try again.";
-        Alert.alert("Error Loading Hosts", errorMessage);
+      if (!isAuth) {
+        toast.error(error?.message || "Failed to load hosts.");
       }
     } finally {
       setLoading(false);
@@ -153,9 +156,7 @@ export default function Hosts() {
   }, []);
 
   const handleRefresh = useCallback(() => {
-    if (!isRefreshingRef.current) {
-      fetchData(true);
-    }
+    if (!isRefreshingRef.current) fetchData(true);
   }, [fetchData]);
 
   useFocusEffect(
@@ -164,108 +165,231 @@ export default function Hosts() {
     }, [fetchData]),
   );
 
+  const getHostStatus = (
+    hostId: number,
+  ): "online" | "offline" | "unknown" => {
+    return serverStatuses[hostId]?.status ?? "unknown";
+  };
+
+  const sortHosts = (hosts: SSHHost[]): SSHHost[] => {
+    if (sortKey === "default") return hosts;
+    const copy = [...hosts];
+    copy.sort((a, b) => {
+      switch (sortKey) {
+        case "name-asc":
+          return a.name.localeCompare(b.name);
+        case "name-desc":
+          return b.name.localeCompare(a.name);
+        case "status-online":
+          return (
+            (getHostStatus(b.id) === "online" ? 1 : 0) -
+            (getHostStatus(a.id) === "online" ? 1 : 0)
+          );
+        case "pinned":
+          return (b.pin ? 1 : 0) - (a.pin ? 1 : 0);
+        default:
+          return 0;
+      }
+    });
+    return copy;
+  };
+
+  const q = searchQuery.trim().toLowerCase();
   const filteredFolders = folders
     .map((folder) => ({
       ...folder,
-      hosts: folder.hosts.filter(
-        (host) =>
-          host.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          host.ip.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          host.username.toLowerCase().includes(searchQuery.toLowerCase()),
+      hosts: sortHosts(
+        folder.hosts.filter(
+          (h) =>
+            !q ||
+            h.name.toLowerCase().includes(q) ||
+            h.ip.toLowerCase().includes(q) ||
+            (h.username ?? "").toLowerCase().includes(q) ||
+            (h.tags ?? []).some((t) => t.toLowerCase().includes(q)),
+        ),
       ),
     }))
-    .filter((folder) => folder.hosts.length > 0 || searchQuery === "");
+    .filter((folder) => folder.hosts.length > 0);
 
-  const getHostStatus = (hostId: number): "online" | "offline" | "unknown" => {
-    const status = serverStatuses[hostId];
-    if (!status) return "unknown";
-    return status.status;
+  const handleTogglePin = async (host: SSHHost) => {
+    try {
+      await updateSSHHost(host.id, { ...(host as any), pin: !host.pin });
+      toast.success(host.pin ? "Unpinned" : "Pinned");
+      fetchData(true);
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to update host");
+    }
   };
 
-  if (loading) {
-    return (
-      <View
-        className="flex-1 bg-dark-bg px-6 justify-center items-center"
-        style={{ paddingTop: insets.top + 24 }}
-      >
-        <ActivityIndicator size="large" color="#22C55E" />
-        <Text className="text-white mt-4">Loading hosts...</Text>
-      </View>
-    );
-  }
+  const handleDelete = async (host: SSHHost) => {
+    try {
+      await deleteSSHHost(host.id);
+      toast.success(`Deleted ${host.name}`);
+      fetchData(true);
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to delete host");
+    }
+  };
+
+  const openEdit = (host: SSHHost) => {
+    setFormHost(host);
+    setFormOpen(true);
+  };
 
   return (
-    <View
-      className="flex-1 bg-dark-bg"
-      style={{ paddingTop: insets.top + 20, paddingHorizontal: padding }}
-    >
-      <View className="flex-1 gap-2">
-        <View className="flex-row items-center justify-between">
-          <Text
-            className="text-white font-bold text-3xl"
-            style={{ lineHeight: 36, includeFontPadding: false }}
-          >
-            Hosts
-          </Text>
-          <TouchableOpacity
+    <Screen
+      title="Hosts"
+      headerRight={
+        <View className="flex-row items-center gap-1.5">
+          <Button
+            variant="ghost"
+            size="icon"
+            onPress={() => setQuickConnectOpen(true)}
+            icon={<Zap size={18} color={color("muted-foreground")} />}
+          />
+          <Button
+            variant="ghost"
+            size="icon"
+            onPress={() => setShowSort(true)}
+            icon={
+              <ArrowUpDown
+                size={18}
+                color={
+                  sortKey !== "default"
+                    ? color("accent-brand")
+                    : color("muted-foreground")
+                }
+              />
+            }
+          />
+          <Button
+            variant="ghost"
+            size="icon"
             onPress={handleRefresh}
-            disabled={refreshing || loading}
-            className={`bg-[#1a1a1a] p-2 rounded-md border border-[#303032] ${
-              refreshing || loading ? "opacity-50" : ""
-            }`}
-            activeOpacity={0.7}
-          >
-            <RefreshCw
-              size={20}
-              color="#22c55e"
-              style={{
-                transform: [{ rotate: refreshing ? "180deg" : "0deg" }],
-              }}
-            />
-          </TouchableOpacity>
+            disabled={refreshing}
+            icon={
+              <RefreshCw
+                size={18}
+                color={color("muted-foreground")}
+                style={{ transform: [{ rotate: refreshing ? "180deg" : "0deg" }] }}
+              />
+            }
+          />
         </View>
-        <TextInput
-          className="text-white w-full h-auto bg-[#1a1a1a] rounded-md border border-[#303032] px-3 py-2"
-          placeholder="Search hosts..."
-          placeholderTextColor="#9CA3AF"
+      }
+    >
+      <View className="px-4 pt-3 pb-2">
+        <Input
+          placeholder="Search hosts…"
           value={searchQuery}
           onChangeText={setSearchQuery}
+          autoCapitalize="none"
+          autoCorrect={false}
+          leading={<Search size={15} color={color("muted-foreground")} />}
+          trailing={
+            searchQuery ? (
+              <Pressable onPress={() => setSearchQuery("")} hitSlop={8}>
+                <X size={15} color={color("muted-foreground")} />
+              </Pressable>
+            ) : undefined
+          }
         />
+      </View>
+
+      {loading ? (
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator size="large" color={color("accent-brand")} />
+          <Text className="text-muted-foreground text-sm mt-3">
+            Loading hosts…
+          </Text>
+        </View>
+      ) : (
         <ScrollView
-          className="flex-1 w-full"
-          contentContainerStyle={{ flexGrow: 1, width: "100%", gap: "5px" }}
+          className="flex-1"
+          contentContainerStyle={{ paddingHorizontal: 12, paddingBottom: 24 }}
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
               onRefresh={handleRefresh}
-              tintColor="#22c55e"
-              colors={["#22c55e"]}
-              progressBackgroundColor="transparent"
-              titleColor="#ffffff"
+              tintColor={color("accent-brand")}
+              colors={[color("accent-brand") ?? "#f59145"]}
             />
           }
         >
           {filteredFolders.length === 0 ? (
-            <View className="flex-1 justify-center items-center py-8">
-              <Text className="text-gray-400 text-lg">
+            <View className="items-center justify-center py-16">
+              <Text className="text-muted-foreground text-sm text-center">
                 {searchQuery
-                  ? "No hosts found matching your search"
-                  : "No hosts configured"}
+                  ? "No hosts match your search"
+                  : "No hosts. Add hosts from the Termix web app."}
               </Text>
             </View>
           ) : (
-            filteredFolders.map((folder, index) => (
+            filteredFolders.map((folder) => (
               <Folder
                 key={folder.name}
                 name={folder.name}
                 hosts={folder.hosts}
+                color={folder.color}
                 getHostStatus={getHostStatus}
+                onHostPress={setSheetHost}
               />
             ))
           )}
         </ScrollView>
-      </View>
-    </View>
+      )}
+
+      {/* Action sheet on host tap */}
+      <HostActionSheet
+        host={sheetHost}
+        status={sheetHost ? getHostStatus(sheetHost.id) : "unknown"}
+        visible={sheetHost !== null}
+        onClose={() => setSheetHost(null)}
+        onEdit={openEdit}
+        onTogglePin={handleTogglePin}
+        onDelete={handleDelete}
+      />
+
+      {/* Sort menu */}
+      <BottomSheet
+        visible={showSort}
+        onClose={() => setShowSort(false)}
+        title="Sort hosts"
+      >
+        {SORT_OPTIONS.map((opt) => (
+          <SheetRow
+            key={opt.id}
+            label={opt.label}
+            onPress={() => {
+              setSortKey(opt.id);
+              setShowSort(false);
+            }}
+            trailing={
+              sortKey === opt.id ? (
+                <Check size={16} color={color("accent-brand")} />
+              ) : undefined
+            }
+          />
+        ))}
+      </BottomSheet>
+
+      {/* Create / edit form */}
+      <HostForm
+        visible={formOpen}
+        host={formHost}
+        onClose={() => setFormOpen(false)}
+        onSaved={() => {
+          setFormOpen(false);
+          fetchData(true);
+        }}
+      />
+
+      {/* Quick connect (ad-hoc, unsaved) */}
+      <QuickConnect
+        visible={quickConnectOpen}
+        onClose={() => setQuickConnectOpen(false)}
+      />
+    </Screen>
   );
 }

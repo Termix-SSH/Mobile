@@ -1,9 +1,5 @@
 import {
-  TextInput,
   View,
-  TouchableOpacity,
-  Text,
-  Alert,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
@@ -12,11 +8,10 @@ import { useAppContext } from "../AppContext";
 import { useState, useEffect } from "react";
 import { saveServerConfig, getCurrentServerUrl } from "../main-axios";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Server } from "lucide-react-native";
-
-type ServerDetails = {
-  ip: string;
-};
+import { Server, ShieldAlert } from "lucide-react-native";
+import { Text, Input, Button, Label } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
+import { toast } from "@/app/utils/toast";
 
 export default function ServerForm() {
   const {
@@ -26,64 +21,38 @@ export default function ServerForm() {
     selectedServer,
   } = useAppContext();
   const insets = useSafeAreaInsets();
-  const [formData, setFormData] = useState<ServerDetails>({ ip: "" });
+  const color = useThemeColor();
+  const [serverUrl, setServerUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const loadExistingConfig = async () => {
-      try {
-        const currentUrl = getCurrentServerUrl();
-        if (currentUrl) {
-          setFormData({ ip: currentUrl });
-        } else if (selectedServer?.ip) {
-          setFormData({ ip: selectedServer.ip });
-        }
-      } catch (error) {}
-    };
-    loadExistingConfig();
+    const current = getCurrentServerUrl();
+    if (current) setServerUrl(current);
+    else if (selectedServer?.ip) setServerUrl(selectedServer.ip);
   }, [selectedServer]);
 
-  const handleInputChange = (field: keyof ServerDetails, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
   const handleConnect = async () => {
-    const serverUrl = formData.ip.trim();
-    if (!serverUrl) {
-      Alert.alert("Error", "Please enter a server address");
+    const url = serverUrl.trim();
+    if (!url) {
+      toast.error("Please enter a server address");
       return;
     }
-
-    if (!/^https?:\/\//.test(serverUrl)) {
-      Alert.alert(
-        "Error",
-        "Server address must start with http:// or https://",
-      );
+    if (!/^https?:\/\//.test(url)) {
+      toast.error("Server address must start with http:// or https://");
       return;
     }
 
     setIsLoading(true);
-
     try {
-      const serverConfig = {
-        serverUrl,
+      await saveServerConfig({
+        serverUrl: url,
         lastUpdated: new Date().toISOString(),
-      };
-      await saveServerConfig(serverConfig);
-
-      const serverInfo = {
-        name: "Server",
-        ip: serverUrl,
-      };
-
-      setSelectedServer(serverInfo);
+      });
+      setSelectedServer({ name: "Server", ip: url });
       setShowServerManager(false);
       setShowLoginForm(true);
     } catch (error: any) {
-      Alert.alert(
-        "Error",
-        `Failed to save server: ${error?.message || "Unknown error"}`,
-      );
+      toast.error(`Failed to save server: ${error?.message || "Unknown error"}`);
     } finally {
       setIsLoading(false);
     }
@@ -91,66 +60,77 @@ export default function ServerForm() {
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-[#18181b]"
+      className="flex-1 bg-background"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <View className="flex-1" style={{ paddingTop: insets.top }}>
-        <View className="p-4 bg-[#18181b]">
-          <Text className="text-white text-2xl font-bold text-center">
-            Server Connection
-          </Text>
-        </View>
-
-        <ScrollView
-          className="flex-1"
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-        >
-          <View className="flex-1 justify-center px-6 pb-10">
-            <View className="mb-8">
-              <Text className="text-gray-300 text-sm font-medium mb-2">
-                Server Address
-              </Text>
-              <View className="relative">
-                <View className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
-                  <Server size={20} color="#9CA3AF" />
-                </View>
-                <TextInput
-                  className="bg-[#1a1a1a] rounded-xl text-white border border-[#303032]"
-                  style={{
-                    height: 56,
-                    paddingLeft: 48,
-                    paddingRight: 16,
-                  }}
-                  placeholder="http://127.0.0.1:8080"
-                  placeholderTextColor="#9CA3AF"
-                  value={formData.ip}
-                  onChangeText={(value) => handleInputChange("ip", value)}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  autoComplete="off"
-                  editable={!isLoading}
-                />
-              </View>
-              <Text className="text-gray-400 text-xs mt-2">
-                Enter the address of your self-hosted Termix server.
-              </Text>
-            </View>
-
-            <TouchableOpacity
-              onPress={handleConnect}
-              disabled={isLoading}
-              className={`px-6 py-4 rounded-xl mt-4 ${
-                isLoading ? "bg-gray-600" : "bg-green-600"
-              }`}
-            >
-              <Text className="text-white text-center font-semibold text-lg">
-                {isLoading ? "Saving..." : "Connect"}
-              </Text>
-            </TouchableOpacity>
+      <ScrollView
+        className="flex-1"
+        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+        keyboardShouldPersistTaps="handled"
+        style={{ paddingTop: insets.top }}
+      >
+        <View className="px-6 pb-12 items-center">
+          {/* Brand mark */}
+          <View className="w-16 h-16 border border-accent-brand/40 bg-accent-brand/10 items-center justify-center mb-5">
+            <Server size={30} color={color("accent-brand")} />
           </View>
-        </ScrollView>
-      </View>
+          <Text
+            weight="bold"
+            className="text-3xl tracking-[3px] text-foreground"
+          >
+            TERMIX
+          </Text>
+          <Text className="text-xs text-muted-foreground tracking-[2px] mt-1 mb-8">
+            CONNECT TO YOUR SERVER
+          </Text>
+
+          {/* Card */}
+          <View className="w-full max-w-md bg-card border border-border p-5">
+            <Label>Server Address</Label>
+            <View className="mt-2">
+              <Input
+                placeholder="https://termix.example.com"
+                value={serverUrl}
+                onChangeText={setServerUrl}
+                autoCapitalize="none"
+                autoCorrect={false}
+                autoComplete="off"
+                keyboardType="url"
+                editable={!isLoading}
+                leading={<Server size={16} color={color("muted-foreground")} />}
+                onSubmitEditing={handleConnect}
+              />
+            </View>
+            <Text className="text-[11px] text-muted-foreground mt-2">
+              Enter the address of your self-hosted Termix server, including
+              http:// or https://.
+            </Text>
+
+            <Button
+              variant="accent"
+              size="lg"
+              className="mt-5"
+              loading={isLoading}
+              onPress={handleConnect}
+            >
+              {isLoading ? "Saving…" : "Continue"}
+            </Button>
+          </View>
+
+          {/* HTTPS / cert hint */}
+          <View className="w-full max-w-md flex-row gap-2.5 mt-4 border border-border bg-card/60 px-3 py-2.5">
+            <ShieldAlert
+              size={15}
+              color={color("muted-foreground")}
+              style={{ marginTop: 1 }}
+            />
+            <Text className="flex-1 text-[10px] text-muted-foreground leading-4">
+              Using a self-signed certificate? Install its root CA on your
+              device first. Local HTTP servers are supported.
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }

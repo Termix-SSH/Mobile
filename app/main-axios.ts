@@ -696,6 +696,7 @@ export async function createSSHHost(hostData: SSHHostData): Promise<SSHHost> {
         : null,
       terminalConfig: hostData.terminalConfig || null,
       forceKeyboardInteractive: Boolean(hostData.forceKeyboardInteractive),
+      ...buildProtocolFields(hostData),
     };
 
     if (!submitData.enableTunnel) {
@@ -725,6 +726,39 @@ export async function createSSHHost(hostData: SSHHostData): Promise<SSHHost> {
   } catch (error) {
     handleApiError(error, "create SSH host");
   }
+}
+
+/**
+ * Modern multi-protocol fields shared by create/update. Only included when the
+ * caller provides them so legacy SSH-only payloads are unchanged. SSH defaults
+ * to enabled when no protocol flags are specified.
+ */
+function buildProtocolFields(hostData: SSHHostData): Record<string, unknown> {
+  const anyProtocol =
+    hostData.enableSsh !== undefined ||
+    hostData.enableRdp ||
+    hostData.enableVnc ||
+    hostData.enableTelnet;
+  return {
+    enableSsh: anyProtocol ? Boolean(hostData.enableSsh) : true,
+    enableRdp: Boolean(hostData.enableRdp),
+    enableVnc: Boolean(hostData.enableVnc),
+    enableTelnet: Boolean(hostData.enableTelnet),
+    enableDocker: Boolean(hostData.enableDocker),
+    notes: hostData.notes ?? "",
+    rdpUser: hostData.enableRdp ? (hostData.rdpUser ?? null) : null,
+    rdpPassword: hostData.enableRdp ? (hostData.rdpPassword ?? null) : null,
+    rdpDomain: hostData.enableRdp ? (hostData.rdpDomain ?? null) : null,
+    rdpPort: hostData.enableRdp ? (hostData.rdpPort ?? null) : null,
+    vncUser: hostData.enableVnc ? (hostData.vncUser ?? null) : null,
+    vncPassword: hostData.enableVnc ? (hostData.vncPassword ?? null) : null,
+    vncPort: hostData.enableVnc ? (hostData.vncPort ?? null) : null,
+    telnetUser: hostData.enableTelnet ? (hostData.telnetUser ?? null) : null,
+    telnetPassword: hostData.enableTelnet
+      ? (hostData.telnetPassword ?? null)
+      : null,
+    telnetPort: hostData.enableTelnet ? (hostData.telnetPort ?? null) : null,
+  };
 }
 
 export async function updateSSHHost(
@@ -762,6 +796,7 @@ export async function updateSSHHost(
         : null,
       terminalConfig: hostData.terminalConfig || null,
       forceKeyboardInteractive: Boolean(hostData.forceKeyboardInteractive),
+      ...buildProtocolFields(hostData),
     };
 
     if (!submitData.enableTunnel) {
@@ -3123,6 +3158,152 @@ export async function unlinkOIDCFromPasswordAccount(
     return response.data;
   } catch (error) {
     handleApiError(error, "unlink OIDC from password account");
+    throw error;
+  }
+}
+
+// ============================================================================
+// OPEN TABS / CROSS-DEVICE SESSIONS
+// Persists open tabs per user so connections can be revived and switched
+// between devices (open on desktop, continue on mobile). Mirrors the web app.
+// ============================================================================
+
+export interface OpenTabRecord {
+  id: string;
+  userId: string;
+  tabType: string;
+  hostId: number | null;
+  label: string;
+  tabOrder: number;
+  backendSessionId: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface OpenTabUpsertPayload {
+  id: string;
+  tabType: string;
+  hostId?: number | null;
+  label: string;
+  tabOrder: number;
+  backendSessionId?: string | null;
+}
+
+export interface ActiveSessionInfo {
+  sessionId: string;
+  hostId: number;
+  hostName: string;
+  tabInstanceId: string | null;
+  isConnected: boolean;
+  createdAt: number;
+}
+
+export async function getOpenTabs(): Promise<OpenTabRecord[]> {
+  try {
+    const response = await authApi.get("/open-tabs");
+    return Array.isArray(response.data) ? response.data : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function addOpenTab(tab: OpenTabUpsertPayload): Promise<void> {
+  try {
+    await authApi.post("/open-tabs", tab);
+  } catch {
+    // best-effort; cross-device sync is non-critical to local use
+  }
+}
+
+export async function patchOpenTab(
+  instanceId: string,
+  updates: Partial<
+    Pick<OpenTabRecord, "label" | "tabOrder" | "backendSessionId">
+  >,
+): Promise<void> {
+  try {
+    await authApi.patch(`/open-tabs/${instanceId}`, updates);
+  } catch {
+    // best-effort
+  }
+}
+
+export async function deleteOpenTab(instanceId: string): Promise<void> {
+  try {
+    await authApi.delete(`/open-tabs/${instanceId}`);
+  } catch {
+    // best-effort
+  }
+}
+
+export async function getActiveSessions(): Promise<ActiveSessionInfo[]> {
+  try {
+    const response = await authApi.get("/open-tabs/active-sessions");
+    return Array.isArray(response.data) ? response.data : [];
+  } catch {
+    return [];
+  }
+}
+
+// ============================================================================
+// DOCKER — container management over the host's docker socket
+// (Guacamole helpers getGuacamoleWebSocketUrl/getGuacamoleTokenFromHost are
+//  defined earlier in this file — they came in with the dev-1.4.0 remote
+//  desktop work.)
+// ============================================================================
+
+export interface DockerContainer {
+  id: string;
+  name: string;
+  image: string;
+  state: string;
+  status: string;
+}
+
+export async function getDockerContainers(
+  hostId: number,
+): Promise<DockerContainer[]> {
+  try {
+    const response = await sshHostApi.get(`/${hostId}/docker/containers`);
+    const data = response.data;
+    return Array.isArray(data) ? data : (data?.containers ?? []);
+  } catch (error) {
+    handleApiError(error, "list docker containers");
+    throw error;
+  }
+}
+
+export async function dockerContainerAction(
+  hostId: number,
+  containerId: string,
+  action: "start" | "stop" | "restart" | "pause" | "unpause" | "remove",
+): Promise<void> {
+  try {
+    if (action === "remove") {
+      await sshHostApi.delete(`/${hostId}/docker/containers/${containerId}`);
+    } else {
+      await sshHostApi.post(
+        `/${hostId}/docker/containers/${containerId}/${action}`,
+      );
+    }
+  } catch (error) {
+    handleApiError(error, `docker ${action}`);
+    throw error;
+  }
+}
+
+export async function getDockerContainerLogs(
+  hostId: number,
+  containerId: string,
+): Promise<string> {
+  try {
+    const response = await sshHostApi.get(
+      `/${hostId}/docker/containers/${containerId}/logs`,
+    );
+    const data = response.data;
+    return typeof data === "string" ? data : (data?.logs ?? "");
+  } catch (error) {
+    handleApiError(error, "fetch docker logs");
     throw error;
   }
 }

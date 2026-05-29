@@ -58,11 +58,11 @@ export function FileItem({
             className={`w-6 h-6 rounded border-2 items-center justify-center ${
               isSelected
                 ? "bg-blue-500 border-blue-600"
-                : "bg-dark-bg border-dark-border-light"
+                : "bg-background border-border"
             }`}
           >
             {isSelected && (
-              <Text className="text-white text-xs font-bold">✓</Text>
+              <Text className="text-foreground text-xs font-bold">✓</Text>
             )}
           </View>
         </View>
@@ -73,25 +73,25 @@ export function FileItem({
       </View>
 
       <View className="flex-1">
-        <Text className="text-white font-medium" numberOfLines={1}>
+        <Text className="text-foreground font-medium" numberOfLines={1}>
           {name}
         </Text>
         <View className="flex-row items-center mt-0.5">
           {type === "directory" ? (
-            <Text className="text-gray-400 text-xs">Folder</Text>
+            <Text className="text-muted-foreground text-xs">Folder</Text>
           ) : (
             <>
               {size !== undefined && (
-                <Text className="text-gray-400 text-xs">
+                <Text className="text-muted-foreground text-xs">
                   {formatFileSize(size)}
                 </Text>
               )}
               {modified && (
                 <>
                   {size !== undefined && (
-                    <Text className="text-gray-500 text-xs mx-1">•</Text>
+                    <Text className="text-muted-foreground text-xs mx-1">•</Text>
                   )}
-                  <Text className="text-gray-400 text-xs">
+                  <Text className="text-muted-foreground text-xs">
                     {formatDate(modified)}
                   </Text>
                 </>

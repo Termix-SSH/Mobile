@@ -14,7 +14,6 @@ import {
   ScrollView,
   Platform,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
 } from "react-native";
 import {
   BORDERS,

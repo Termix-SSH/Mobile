@@ -11,10 +11,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   getVersionInfo,
   initializeServerConfig,
-  isAuthenticated as checkAuthStatus,
   getLatestGitHubRelease,
   setAuthStateCallback,
-  clearServerConfig,
 } from "./main-axios";
 import Constants from "expo-constants";
 

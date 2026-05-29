@@ -46,6 +46,28 @@ export interface SSHHost {
   terminalConfig?: TerminalConfig;
   createdAt: string;
   updatedAt: string;
+
+  // --- Modern multi-protocol model (matches the redesigned web backend).
+  // All optional so legacy SSH-only hosts keep working unchanged.
+  enableSsh?: boolean;
+  enableRdp?: boolean;
+  enableVnc?: boolean;
+  enableTelnet?: boolean;
+  enableDocker?: boolean;
+  sshPort?: number;
+  notes?: string;
+  // Remote desktop (Guacamole) protocol fields
+  rdpUser?: string;
+  rdpPassword?: string;
+  rdpDomain?: string;
+  rdpPort?: number;
+  vncUser?: string;
+  vncPassword?: string;
+  vncPort?: number;
+  telnetUser?: string;
+  telnetPassword?: string;
+  telnetPort?: number;
+  dockerConfig?: string;
 }
 
 export interface JumpHostData {
@@ -82,6 +104,24 @@ export interface SSHHostData {
   quickActions?: QuickActionData[];
   statsConfig?: string | Record<string, unknown>;
   terminalConfig?: TerminalConfig;
+
+  // --- Modern multi-protocol model (optional; SSH-only hosts omit these).
+  enableSsh?: boolean;
+  enableRdp?: boolean;
+  enableVnc?: boolean;
+  enableTelnet?: boolean;
+  enableDocker?: boolean;
+  notes?: string;
+  rdpUser?: string;
+  rdpPassword?: string;
+  rdpDomain?: string;
+  rdpPort?: number;
+  vncUser?: string;
+  vncPassword?: string;
+  vncPort?: number;
+  telnetUser?: string;
+  telnetPassword?: string;
+  telnetPort?: number;
 }
 
 export interface SSHFolder {
