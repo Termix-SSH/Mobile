@@ -13,7 +13,7 @@ export interface QuickAction {
 
 export interface SSHHost {
   id: number;
-  connectionType?: string;
+  connectionType?: "ssh" | "rdp" | "vnc" | "telnet" | string;
   name: string;
   ip: string;
   port: number;

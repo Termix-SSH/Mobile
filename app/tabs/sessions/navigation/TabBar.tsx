@@ -16,7 +16,10 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react-native";
-import { TerminalSession } from "@/app/contexts/TerminalSessionsContext";
+import {
+  SessionType,
+  TerminalSession,
+} from "@/app/contexts/TerminalSessionsContext";
 import { useRouter } from "expo-router";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import { useOrientation } from "@/app/utils/orientation";
@@ -40,7 +43,7 @@ interface TabBarProps {
   onHideKeyboard?: () => void;
   onShowKeyboard?: () => void;
   keyboardIntentionallyHiddenRef: React.MutableRefObject<boolean>;
-  activeSessionType?: "terminal" | "stats" | "filemanager";
+  activeSessionType?: SessionType;
 }
 
 export default function TabBar({

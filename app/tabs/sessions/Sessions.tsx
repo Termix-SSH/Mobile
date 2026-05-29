@@ -2,15 +2,9 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   View,
   Text,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
   Keyboard,
-  KeyboardAvoidingView,
   Platform,
   TextInput,
-  TouchableWithoutFeedback,
-  Pressable,
   Dimensions,
   BackHandler,
   AppState,
@@ -19,7 +13,10 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
 import { useRouter } from "expo-router";
-import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
+import {
+  SessionType,
+  useTerminalSessions,
+} from "@/app/contexts/TerminalSessionsContext";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import {
   Terminal,
@@ -37,17 +34,13 @@ import {
   TunnelManager,
   TunnelManagerHandle,
 } from "@/app/tabs/sessions/tunnel/TunnelManager";
+import { RemoteDesktop } from "@/app/tabs/sessions/remote-desktop/RemoteDesktop";
 import TabBar from "@/app/tabs/sessions/navigation/TabBar";
 import BottomToolbar from "@/app/tabs/sessions/terminal/keyboard/BottomToolbar";
 import KeyboardBar from "@/app/tabs/sessions/terminal/keyboard/KeyboardBar";
-import { ArrowLeft } from "lucide-react-native";
 import { useOrientation } from "@/app/utils/orientation";
 import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
-import {
-  BACKGROUNDS,
-  BORDER_COLORS,
-  BORDERS,
-} from "@/app/constants/designTokens";
+import { BACKGROUNDS, BORDER_COLORS } from "@/app/constants/designTokens";
 import { addKeyCommandListener } from "@/modules/hardware-keyboard";
 
 export default function Sessions() {
@@ -125,6 +118,10 @@ export default function Sessions() {
   const KEYBOARD_BAR_HEIGHT = isLandscape ? 48 : 52;
   const KEYBOARD_BAR_HEIGHT_EXTENDED = isLandscape ? 64 : 68;
 
+  const activeSession = sessions.find(
+    (session) => session.id === activeSessionId,
+  );
+
   const getTabBarBottomPosition = () => {
     if (activeSession?.type !== "terminal") {
       return insets.bottom;
@@ -146,7 +143,7 @@ export default function Sessions() {
   };
 
   const getBottomMargin = (
-    sessionType: "terminal" | "stats" | "filemanager" = "terminal",
+    sessionType: SessionType = "terminal",
   ) => {
     if (sessionType !== "terminal") {
       return SESSION_TAB_BAR_HEIGHT + insets.bottom;
@@ -523,10 +520,6 @@ export default function Sessions() {
     [],
   );
 
-  const activeSession = sessions.find(
-    (session) => session.id === activeSessionId,
-  );
-
   const activeTerminalBgColor =
     activeSession?.type === "terminal" && activeSessionId
       ? terminalBackgroundColors[activeSessionId] || BACKGROUNDS.DARKEST
@@ -625,6 +618,16 @@ export default function Sessions() {
                   enableTunnel: session.host.enableTunnel,
                   tunnelConnections: session.host.tunnelConnections,
                 }}
+                isVisible={session.id === activeSessionId}
+                title={session.title}
+                onClose={() => handleTabClose(session.id)}
+              />
+            );
+          } else if (session.type === "remoteDesktop") {
+            return (
+              <RemoteDesktop
+                key={session.id}
+                host={session.host}
                 isVisible={session.id === activeSessionId}
                 title={session.title}
                 onClose={() => handleTabClose(session.id)}

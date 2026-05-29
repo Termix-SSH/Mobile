@@ -10,13 +10,11 @@ import {
 } from "react-native";
 import {
   Terminal,
-  Server,
   FolderOpen,
-  Key,
-  Lock,
   MoreVertical,
   X,
   Activity,
+  Monitor,
 } from "lucide-react-native";
 import { SSHHost } from "@/types";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
@@ -37,6 +35,14 @@ function Host({ host, status, isLast = false }: HostProps) {
   const [tagsContainerWidth, setTagsContainerWidth] = useState<number>(0);
   const statusLabel =
     status === "online" ? "UP" : status === "offline" ? "DOWN" : "UNK";
+  const connectionType = (host.connectionType || "ssh").toLowerCase();
+  const isRemoteDesktopHost = ["rdp", "vnc", "telnet"].includes(connectionType);
+  const remoteDesktopLabel =
+    connectionType === "vnc"
+      ? "Open VNC Session"
+      : connectionType === "telnet"
+        ? "Open Telnet Session"
+        : "Open RDP Session";
 
   const parsedStatsConfig: StatsConfig = (() => {
     try {
@@ -114,6 +120,11 @@ function Host({ host, status, isLast = false }: HostProps) {
     setShowContextMenu(false);
   };
 
+  const handleRemoteDesktopPress = () => {
+    navigateToSessions(host, "remoteDesktop");
+    setShowContextMenu(false);
+  };
+
   const handleStatsPress = () => {
     navigateToSessions(host, "stats");
     setShowContextMenu(false);
@@ -136,7 +147,7 @@ function Host({ host, status, isLast = false }: HostProps) {
     <>
       <TouchableOpacity
         className="p-3 bg-dark-bg-darker rounded-md border-2 border-dark-border"
-        onPress={handleTerminalPress}
+        onPress={isRemoteDesktopHost ? handleRemoteDesktopPress : handleTerminalPress}
         activeOpacity={0.7}
       >
         <View className="flex flex-row items-center">
@@ -361,7 +372,28 @@ function Host({ host, status, isLast = false }: HostProps) {
 
                 <ScrollView showsVerticalScrollIndicator={false}>
                   <View className="gap-2">
-                    {host.enableTerminal && (
+                    {isRemoteDesktopHost && (
+                      <TouchableOpacity
+                        onPress={handleRemoteDesktopPress}
+                        className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"
+                        activeOpacity={0.7}
+                      >
+                        <Monitor size={20} color="#FFFFFF" />
+                        <View className="flex-1">
+                          <Text className="text-white font-medium">
+                            {remoteDesktopLabel}
+                          </Text>
+                          <Text
+                            className="text-gray-400 text-xs"
+                            numberOfLines={1}
+                          >
+                            {host.ip}:{host.port}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
+
+                    {host.enableTerminal && !isRemoteDesktopHost && (
                       <TouchableOpacity
                         onPress={handleTerminalPress}
                         className="flex-row items-center gap-3 p-3 rounded-md bg-dark-bg-darker border border-dark-border"

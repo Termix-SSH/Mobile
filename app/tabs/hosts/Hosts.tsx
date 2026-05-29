@@ -110,7 +110,7 @@ export default function Hosts() {
         });
       }
 
-      hosts.filter((host: SSHHost) => !host.connectionType || host.connectionType === "ssh").forEach((host: SSHHost) => {
+      hosts.forEach((host: SSHHost) => {
         const folderName = host.folder || "No Folder";
         if (!folderMap.has(folderName)) {
           folderMap.set(folderName, {
