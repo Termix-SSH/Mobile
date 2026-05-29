@@ -45,7 +45,8 @@ import { toast } from "@/app/utils/toast";
 export default function Settings() {
   const router = useRouter();
   const color = useThemeColor();
-  const { isAuthenticated, setAuthenticated, openAuthFlow } = useAppContext();
+  const { isAuthenticated, setAuthenticated, openAuthFlow, authFlowVisible } =
+    useAppContext();
   const { clearAllSessions } = useTerminalSessions();
   const { theme, setTheme, accent, setAccent } = useTheme();
   const appLock = useAppLock();
@@ -67,7 +68,11 @@ export default function Settings() {
   // Re-auth gate shown before disabling app lock.
   const [reauth, setReauth] = useState<null | "disable">(null);
 
+  // Re-read on auth changes and whenever the auth flow closes — the user may
+  // have just changed the active server inside it (which leaves isAuthenticated
+  // unchanged, so we can't rely on that alone).
   useEffect(() => {
+    if (authFlowVisible) return;
     setServerUrl(getCurrentServerUrl() ?? "");
     if (!isAuthenticated) {
       setUsername("—");
@@ -85,7 +90,7 @@ export default function Settings() {
     getVersionInfo()
       .then((v) => setVersion(v?.localVersion ?? v?.version ?? ""))
       .catch(() => {});
-  }, [isAuthenticated]);
+  }, [isAuthenticated, authFlowVisible]);
 
   const toggle = (id: string) => setOpen((o) => (o === id ? null : id));
 
