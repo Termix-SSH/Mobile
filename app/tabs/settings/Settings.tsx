@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ScrollView, View, Pressable } from "react-native";
 import { useRouter } from "expo-router";
+import Constants from "expo-constants";
 import {
   User,
   Palette,
@@ -45,6 +46,7 @@ import { toast } from "@/app/utils/toast";
 export default function Settings() {
   const router = useRouter();
   const color = useThemeColor();
+  const appVersion = Constants.expoConfig?.version ?? "";
   const { isAuthenticated, setAuthenticated, openAuthFlow, authFlowVisible } =
     useAppContext();
   const { clearAllSessions } = useTerminalSessions();
@@ -399,6 +401,11 @@ export default function Settings() {
             </Pressable>
           </View>
         </AccordionSection>
+
+        {/* Version footer */}
+        <Text className="text-[11px] text-muted-foreground text-center mt-4">
+          {appVersion ? `Termix Mobile v${appVersion}` : "Termix Mobile"}
+        </Text>
       </ScrollView>
 
       {/* App-lock PIN setup dialog (two-step) */}
