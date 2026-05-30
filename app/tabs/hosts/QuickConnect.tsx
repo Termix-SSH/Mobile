@@ -1,14 +1,20 @@
 import { useState } from "react";
-import { View } from "react-native";
+import {
+  View,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { Zap } from "lucide-react-native";
 import { SSHHost } from "@/types";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import {
-  Dialog,
+  BottomSheet,
   Input,
   Button,
   Label,
   SegmentedControl,
+  Text,
 } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
@@ -76,87 +82,107 @@ export function QuickConnect({
   };
 
   return (
-    <Dialog
-      visible={visible}
-      onClose={onClose}
-      title="Quick Connect"
-      description="Connect to a host without saving it."
-      icon={<Zap size={15} color={color("accent-brand")} />}
-      footer={
-        <>
-          <Button variant="ghost" size="sm" onPress={onClose}>
-            Cancel
-          </Button>
-          <Button variant="accent" size="sm" onPress={connect}>
-            Connect
-          </Button>
-        </>
-      }
-    >
-      <View className="gap-3">
-        <View className="flex-row gap-2.5">
-          <View className="flex-[3] gap-1.5">
-            <Label>Host / IP</Label>
-            <Input
-              value={ip}
-              onChangeText={setIp}
-              autoCapitalize="none"
-              autoCorrect={false}
-              placeholder="192.168.1.10"
-            />
+    <BottomSheet visible={visible} onClose={onClose}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        {/* Header */}
+        <View className="flex-row items-center gap-2.5 px-4 pb-3 pt-1 border-b border-border">
+          <View className="w-8 h-8 border border-border bg-muted items-center justify-center shrink-0">
+            <Zap size={15} color={color("accent-brand")} />
           </View>
-          <View className="flex-1 gap-1.5">
-            <Label>Port</Label>
-            <Input
-              value={port}
-              onChangeText={(v) => setPort(v.replace(/\D/g, ""))}
-              keyboardType="number-pad"
-            />
+          <View className="flex-1 min-w-0">
+            <Text weight="bold" className="text-base text-foreground">
+              Quick Connect
+            </Text>
+            <Text className="text-xs text-muted-foreground">
+              Connect to a host without saving it.
+            </Text>
           </View>
         </View>
-        <View className="gap-1.5">
-          <Label>Username</Label>
-          <Input
-            value={username}
-            onChangeText={setUsername}
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder="root"
+
+        <ScrollView
+          contentContainerStyle={{ padding: 16, gap: 12 }}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <View className="flex-row gap-2.5">
+            <View className="flex-[3] gap-1.5">
+              <Label>Host / IP</Label>
+              <Input
+                value={ip}
+                onChangeText={setIp}
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="192.168.1.10"
+              />
+            </View>
+            <View className="flex-1 gap-1.5">
+              <Label>Port</Label>
+              <Input
+                value={port}
+                onChangeText={(v) => setPort(v.replace(/\D/g, ""))}
+                keyboardType="number-pad"
+              />
+            </View>
+          </View>
+
+          <View className="gap-1.5">
+            <Label>Username</Label>
+            <Input
+              value={username}
+              onChangeText={setUsername}
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="root"
+            />
+          </View>
+
+          <SegmentedControl<AuthType>
+            value={authType}
+            onChange={setAuthType}
+            options={[
+              { id: "password", label: "Password" },
+              { id: "key", label: "Key" },
+            ]}
           />
-        </View>
-        <SegmentedControl<AuthType>
-          value={authType}
-          onChange={setAuthType}
-          options={[
-            { id: "password", label: "Password" },
-            { id: "key", label: "Key" },
-          ]}
-        />
-        {authType === "password" ? (
-          <View className="gap-1.5">
-            <Label>Password</Label>
-            <Input
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              autoCapitalize="none"
-            />
+
+          {authType === "password" ? (
+            <View className="gap-1.5">
+              <Label>Password</Label>
+              <Input
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                autoCapitalize="none"
+              />
+            </View>
+          ) : (
+            <View className="gap-1.5">
+              <Label>Private Key</Label>
+              <Input
+                value={key}
+                onChangeText={setKey}
+                multiline
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="-----BEGIN OPENSSH PRIVATE KEY-----"
+                style={{ minHeight: 120 }}
+              />
+            </View>
+          )}
+
+          {/* Actions */}
+          <View className="flex-row justify-end gap-2 pt-1">
+            <Button variant="ghost" size="sm" onPress={onClose}>
+              Cancel
+            </Button>
+            <Button variant="accent" size="sm" onPress={connect}>
+              Connect
+            </Button>
           </View>
-        ) : (
-          <View className="gap-1.5">
-            <Label>Private Key</Label>
-            <Input
-              value={key}
-              onChangeText={setKey}
-              multiline
-              autoCapitalize="none"
-              autoCorrect={false}
-              placeholder="-----BEGIN OPENSSH PRIVATE KEY-----"
-              style={{ minHeight: 80, textAlignVertical: "top" }}
-            />
-          </View>
-        )}
-      </View>
-    </Dialog>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </BottomSheet>
   );
 }

@@ -1,21 +1,26 @@
 import { View, ScrollView } from "react-native";
+import * as Clipboard from "expo-clipboard";
 import {
-  SquareTerminal,
-  FolderOpen,
-  Activity,
+  Terminal,
+  FolderSearch,
+  Server,
   Network,
-  Container,
+  Box,
   Monitor,
+  MousePointerClick,
+  MessagesSquare,
   Pencil,
-  Pin,
-  PinOff,
+  Copy,
+  CopyPlus,
   Trash2,
 } from "lucide-react-native";
 import { SSHHost } from "@/types";
+import type { HostMetrics } from "@/app/tabs/hosts/navigation/Host";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import type { SessionType } from "@/app/contexts/TerminalSessionsContext";
 import { BottomSheet, SheetRow, Text } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
+import { toast } from "@/app/utils/toast";
 import { StatsConfig, DEFAULT_STATS_CONFIG } from "@/constants/stats-config";
 
 function parseStatsConfig(host: SSHHost): StatsConfig {
@@ -26,27 +31,38 @@ function parseStatsConfig(host: SSHHost): StatsConfig {
   }
 }
 
+/**
+ * Whether the host speaks SSH. The redesigned multi-protocol backend sets
+ * `enableSsh`; legacy SSH-only hosts omit it, so undefined means SSH-enabled
+ * (matches the web's getSshActions gating).
+ */
+function isSshHost(host: SSHHost): boolean {
+  if (host.enableSsh != null) return host.enableSsh;
+  return !host.enableRdp && !host.enableVnc && !host.enableTelnet;
+}
+
 export function HostActionSheet({
   host,
   status,
+  metrics,
   visible,
   onClose,
   onEdit,
-  onTogglePin,
+  onClone,
   onDelete,
 }: {
   host: SSHHost | null;
   status: "online" | "offline" | "unknown";
+  metrics?: HostMetrics;
   visible: boolean;
   onClose: () => void;
   onEdit: (host: SSHHost) => void;
-  onTogglePin: (host: SSHHost) => void;
+  onClone: (host: SSHHost) => void;
   onDelete: (host: SSHHost) => void;
 }) {
   const { navigateToSessions } = useTerminalSessions();
   const color = useThemeColor();
   const iconColor = color("foreground") ?? "#fafafa";
-  const accent = color("accent-brand") ?? "#f59145";
 
   if (!host) return null;
 
@@ -55,9 +71,46 @@ export function HostActionSheet({
     onClose();
   };
 
-  const statsEnabled = parseStatsConfig(host).metricsEnabled;
-  const hasRemoteDesktop =
-    host.enableRdp || host.enableVnc || host.enableTelnet;
+  const copyAddress = async () => {
+    await Clipboard.setStringAsync(
+      `${host.username ? `${host.username}@` : ""}${host.ip}`,
+    );
+    toast.success("Address copied");
+    onClose();
+  };
+
+  const ssh = isSshHost(host);
+  const metricsEnabled = ssh && parseStatsConfig(host).metricsEnabled !== false;
+
+  // SSH-gated connection actions (mirrors the web's getSshActions).
+  const sshActions = [
+    ssh && host.enableTerminal !== false
+      ? { type: "terminal" as SessionType, icon: Terminal, label: "Terminal" }
+      : null,
+    ssh && host.enableFileManager
+      ? { type: "filemanager" as SessionType, icon: FolderSearch, label: "File Manager" }
+      : null,
+    ssh && host.enableDocker
+      ? { type: "docker" as SessionType, icon: Box, label: "Docker" }
+      : null,
+    ssh &&
+    host.enableTunnel &&
+    host.tunnelConnections &&
+    host.tunnelConnections.length > 0
+      ? { type: "tunnel" as SessionType, icon: Network, label: "Tunnels" }
+      : null,
+    metricsEnabled
+      ? { type: "stats" as SessionType, icon: Server, label: "Server Stats" }
+      : null,
+  ].filter(Boolean) as { type: SessionType; icon: typeof Terminal; label: string }[];
+
+  // Separate protocol actions (RDP / VNC / Telnet), each with its own icon —
+  // matches the web rather than lumping them into one "Remote Desktop" row.
+  const protocolActions = [
+    host.enableRdp ? { icon: Monitor, label: "RDP" } : null,
+    host.enableVnc ? { icon: MousePointerClick, label: "VNC" } : null,
+    host.enableTelnet ? { icon: MessagesSquare, label: "Telnet" } : null,
+  ].filter(Boolean) as { icon: typeof Monitor; label: string }[];
 
   const dotColor =
     status === "online" ? "#22c55e" : status === "offline" ? "#ef4444" : "#9ca3af";
@@ -80,57 +133,47 @@ export function HostActionSheet({
             {host.port ? `:${host.port}` : ""}
           </Text>
         </View>
+        {status === "online" &&
+        metrics &&
+        (metrics.cpu != null || metrics.ram != null) ? (
+          <View className="items-end shrink-0">
+            {metrics.cpu != null ? (
+              <Text className="text-[10px] text-muted-foreground">
+                CPU {Math.round(metrics.cpu)}%
+              </Text>
+            ) : null}
+            {metrics.ram != null ? (
+              <Text className="text-[10px] text-muted-foreground">
+                RAM {Math.round(metrics.ram)}%
+              </Text>
+            ) : null}
+          </View>
+        ) : null}
       </View>
 
-      <ScrollView style={{ maxHeight: 420 }}>
-        {host.enableTerminal !== false ? (
+      <ScrollView style={{ maxHeight: 440 }}>
+        {/* Connection actions (SSH features + protocols) */}
+        {sshActions.map(({ type, icon: Icon, label }) => (
           <SheetRow
-            icon={<SquareTerminal size={18} color={iconColor} />}
-            label="Terminal"
-            onPress={() => open("terminal")}
+            key={type}
+            icon={<Icon size={18} color={iconColor} />}
+            label={label}
+            onPress={() => open(type)}
           />
-        ) : null}
-        {host.enableFileManager ? (
+        ))}
+        {protocolActions.map(({ icon: Icon, label }) => (
           <SheetRow
-            icon={<FolderOpen size={18} color={iconColor} />}
-            label="File Manager"
-            onPress={() => open("filemanager")}
-          />
-        ) : null}
-        {statsEnabled ? (
-          <SheetRow
-            icon={<Activity size={18} color={iconColor} />}
-            label="Server Stats"
-            onPress={() => open("stats")}
-          />
-        ) : null}
-        {host.enableTunnel &&
-        host.tunnelConnections &&
-        host.tunnelConnections.length > 0 ? (
-          <SheetRow
-            icon={<Network size={18} color={iconColor} />}
-            label="Tunnels"
-            onPress={() => open("tunnel")}
-          />
-        ) : null}
-        {host.enableDocker ? (
-          <SheetRow
-            icon={<Container size={18} color={iconColor} />}
-            label="Docker"
-            onPress={() => open("docker")}
-          />
-        ) : null}
-        {hasRemoteDesktop ? (
-          <SheetRow
-            icon={<Monitor size={18} color={iconColor} />}
-            label="Remote Desktop"
+            key={label}
+            icon={<Icon size={18} color={iconColor} />}
+            label={label}
             onPress={() => open("remoteDesktop")}
           />
-        ) : null}
+        ))}
 
-        {/* Management actions */}
+        {/* Management actions (no pin — matches the web). Rows sit flush with
+            the connection group; each row's own bottom border separates them. */}
         <SheetRow
-          icon={<Pencil size={18} color={accent} />}
+          icon={<Pencil size={18} color={iconColor} />}
           label="Edit Host"
           onPress={() => {
             onEdit(host);
@@ -138,16 +181,15 @@ export function HostActionSheet({
           }}
         />
         <SheetRow
-          icon={
-            host.pin ? (
-              <PinOff size={18} color={iconColor} />
-            ) : (
-              <Pin size={18} color={iconColor} />
-            )
-          }
-          label={host.pin ? "Unpin" : "Pin"}
+          icon={<Copy size={18} color={iconColor} />}
+          label="Copy Address"
+          onPress={copyAddress}
+        />
+        <SheetRow
+          icon={<CopyPlus size={18} color={iconColor} />}
+          label="Clone Host"
           onPress={() => {
-            onTogglePin(host);
+            onClone(host);
             onClose();
           }}
         />

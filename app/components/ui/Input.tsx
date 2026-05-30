@@ -13,21 +13,33 @@ interface InputProps extends TextInputProps {
 }
 
 export const Input = forwardRef<TextInput, InputProps>(function Input(
-  { className, leading, trailing, containerClassName, style, ...props },
+  { className, leading, trailing, containerClassName, style, multiline, ...props },
   ref,
 ) {
   const placeholderColor = useThemeColor()("muted-foreground", 0.7);
 
+  // Multiline grows with content, so the container can't be a fixed-height
+  // centered row — it must allow height and top-align its children. Single-line
+  // keeps the original fixed 40px row.
+  const layout = multiline
+    ? "flex-row items-start gap-2 min-h-10 py-2 px-2.5"
+    : "flex-row items-center gap-2 h-10 px-2.5";
+
   return (
     <View
-      className={`flex-row items-center gap-2 h-10 px-2.5 bg-card border border-input ${containerClassName ?? ""}`}
+      className={`${layout} bg-card border border-input ${containerClassName ?? ""}`}
     >
       {leading ? <View className="shrink-0">{leading}</View> : null}
       <TextInput
         ref={ref}
+        multiline={multiline}
         placeholderTextColor={placeholderColor}
         className={`flex-1 text-sm text-foreground ${className ?? ""}`}
-        style={[{ fontFamily: MONO_FONT, paddingVertical: 0 }, style]}
+        style={[
+          { fontFamily: MONO_FONT, paddingVertical: 0 },
+          multiline ? { textAlignVertical: "top" } : null,
+          style,
+        ]}
         {...props}
       />
       {trailing ? <View className="shrink-0">{trailing}</View> : null}

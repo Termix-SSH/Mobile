@@ -134,6 +134,22 @@ export interface SSHFolder {
   updatedAt: string;
 }
 
+/**
+ * A node in the host sidebar tree. Folders nest recursively — built from each
+ * host's `folder` string by splitting on " / " (matches the web app). Leaves
+ * are hosts. `path` is the full accumulated folder path (e.g. "Prod / DBs") and
+ * is used as a stable key for expansion state.
+ */
+export type HostTreeNode =
+  | { kind: "host"; host: SSHHost }
+  | {
+      kind: "folder";
+      name: string;
+      path: string;
+      color?: string;
+      children: HostTreeNode[];
+    };
+
 // ============================================================================
 // CREDENTIAL TYPES
 // ============================================================================
