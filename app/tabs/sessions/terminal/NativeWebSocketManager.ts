@@ -1,4 +1,5 @@
 import { getCurrentServerUrl, getCookie } from "../../../main-axios";
+import { Platform } from "react-native";
 
 export interface TerminalHostConfig {
   id: number;
@@ -76,6 +77,7 @@ export class NativeWebSocketManager {
   private cols = 80;
   private rows = 24;
   private wsUrl: string | null = null;
+  private wsHeaders: Record<string, string> = {};
   private serverSessionId: string | null = null;
   private pendingReattach = false;
 
@@ -119,6 +121,16 @@ export class NativeWebSocketManager {
     const wsHost = serverUrl.replace(/^https?:\/\//, "");
     const cleanHost = wsHost.replace(/\/$/, "");
     this.wsUrl = `${wsProtocol}${cleanHost}/ssh/websocket/?token=${encodeURIComponent(jwtToken)}`;
+    this.wsHeaders = {
+      Authorization: `Bearer ${jwtToken}`,
+      Cookie: `jwt=${encodeURIComponent(jwtToken)}`,
+      "User-Agent":
+        Platform.OS === "android"
+          ? "Termix-Mobile/Android"
+          : Platform.OS === "ios"
+            ? "Termix-Mobile/iOS"
+            : `Termix-Mobile/${Platform.OS}`,
+    };
 
     this.connectWebSocket();
   }
@@ -303,7 +315,9 @@ export class NativeWebSocketManager {
       retryCount: this.reconnectAttempts,
     });
 
-    const ws = new WebSocket(this.wsUrl);
+    const ws = new (WebSocket as any)(this.wsUrl, undefined, {
+      headers: this.wsHeaders,
+    }) as WebSocket;
     this.ws = ws;
 
     this.connectionTimeout = setTimeout(() => {

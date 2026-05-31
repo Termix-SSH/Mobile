@@ -47,13 +47,7 @@ import {
   isReverseProxyAuthGate,
 } from "../main-axios";
 
-type Step =
-  | "server"
-  | "login"
-  | "totp"
-  | "signup"
-  | "reset"
-  | "oidc";
+type Step = "server" | "login" | "totp" | "signup" | "reset" | "oidc";
 
 /** Server capabilities probed after the server URL is set. */
 interface ServerCaps {
@@ -68,8 +62,12 @@ function errMessage(e: any, fallback: string): string {
 }
 
 export default function AuthFlow() {
-  const { authFlowInitialStep, closeAuthFlow, setAuthenticated, setSelectedServer } =
-    useAppContext();
+  const {
+    authFlowInitialStep,
+    closeAuthFlow,
+    setAuthenticated,
+    setSelectedServer,
+  } = useAppContext();
   const insets = useSafeAreaInsets();
   const color = useThemeColor();
   const bg = color("background") ?? "#0c0d0b";
@@ -250,7 +248,7 @@ export default function AuthFlow() {
           behavior={Platform.OS === "ios" ? "padding" : undefined}
         >
           {/* Shared header */}
-          <View className="flex-row items-center justify-between px-4 py-3 border-b border-border">
+          <View className="flex-row items-center justify-between border-b border-border px-4 py-3">
             {step !== "server" ? (
               <TouchableOpacity
                 onPress={goToServer}
@@ -258,14 +256,18 @@ export default function AuthFlow() {
                 hitSlop={8}
               >
                 <ArrowLeft size={18} color={color("foreground")} />
-                <Text className="text-foreground text-xs" numberOfLines={1}>
+                <Text className="text-xs text-foreground" numberOfLines={1}>
                   {activeHost || "Server"}
                 </Text>
               </TouchableOpacity>
             ) : (
               <View className="flex-1" />
             )}
-            <TouchableOpacity onPress={closeAuthFlow} hitSlop={8} className="py-1 pl-2">
+            <TouchableOpacity
+              onPress={closeAuthFlow}
+              hitSlop={8}
+              className="py-1 pl-2"
+            >
               <X size={20} color={muted} />
             </TouchableOpacity>
           </View>
@@ -275,15 +277,18 @@ export default function AuthFlow() {
             contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
             keyboardShouldPersistTaps="handled"
           >
-            <View className="px-6 py-10 items-center">
+            <View className="items-center px-6 py-10">
               {/* Brand mark */}
-              <View className="w-16 h-16 border border-accent-brand/40 bg-accent-brand/10 items-center justify-center mb-5">
+              <View className="mb-5 h-16 w-16 items-center justify-center border border-accent-brand/40 bg-accent-brand/10">
                 <Server size={30} color={accent} />
               </View>
-              <Text weight="bold" className="text-3xl tracking-[3px] text-foreground">
+              <Text
+                weight="bold"
+                className="text-3xl tracking-[3px] text-foreground"
+              >
                 TERMIX
               </Text>
-              <Text className="text-xs text-muted-foreground tracking-[2px] mt-1 mb-8">
+              <Text className="mb-8 mt-1 text-xs tracking-[2px] text-muted-foreground">
                 {step === "server"
                   ? "CONNECT TO YOUR SERVER"
                   : (activeHost || "").toUpperCase()}
@@ -318,7 +323,7 @@ export default function AuthFlow() {
               {step === "login" && !caps && (
                 <View className="items-center py-6">
                   <ActivityIndicator size="large" color={accent} />
-                  <Text className="text-muted-foreground text-sm mt-4">
+                  <Text className="mt-4 text-sm text-muted-foreground">
                     Connecting…
                   </Text>
                 </View>
@@ -338,7 +343,9 @@ export default function AuthFlow() {
                   color={color}
                   firstUser={!!caps?.setupRequired}
                   onAuthenticated={finishAuthenticated}
-                  onBack={() => setStep(caps?.setupRequired ? "server" : "login")}
+                  onBack={() =>
+                    setStep(caps?.setupRequired ? "server" : "login")
+                  }
                 />
               )}
 
@@ -374,7 +381,7 @@ function ServerStep({
 }) {
   return (
     <>
-      <View className="w-full max-w-md bg-card border border-border p-5">
+      <View className="w-full max-w-md border border-border bg-card p-5">
         <Label>Server Address</Label>
         <View className="mt-2">
           <Input
@@ -391,9 +398,9 @@ function ServerStep({
             returnKeyType="go"
           />
         </View>
-        <Text className="text-[11px] text-muted-foreground mt-2">
-          Enter the address of your self-hosted Termix server, including
-          http:// or https://.
+        <Text className="mt-2 text-[11px] text-muted-foreground">
+          Enter the address of your self-hosted Termix server, including http://
+          or https://.
         </Text>
         <Button
           variant="accent"
@@ -406,13 +413,13 @@ function ServerStep({
         </Button>
       </View>
 
-      <View className="w-full max-w-md flex-row gap-2.5 mt-4 border border-border bg-card/60 px-3 py-2.5">
+      <View className="mt-4 w-full max-w-md flex-row gap-2.5 border border-border bg-card/60 px-3 py-2.5">
         <ShieldAlert
           size={15}
           color={color("muted-foreground")}
           style={{ marginTop: 1 }}
         />
-        <Text className="flex-1 text-[10px] text-muted-foreground leading-4">
+        <Text className="flex-1 text-[10px] leading-4 text-muted-foreground">
           Using a self-signed certificate? Install its root CA on your device
           first. Local HTTP servers are supported.
         </Text>
@@ -501,7 +508,9 @@ function LoginStep({
     } catch (e: any) {
       if (e?.code === "PROXY_AUTH_GATE") {
         // The server is behind a login proxy — fall back to the browser flow.
-        toast.error("This server uses a login proxy — opening external sign-in");
+        toast.error(
+          "This server uses a login proxy — opening external sign-in",
+        );
         onOidc();
         return;
       }
@@ -516,9 +525,9 @@ function LoginStep({
   return (
     <View className="w-full max-w-md">
       {showPasswordCard ? (
-        <View className="bg-card border border-border p-5">
+        <View className="border border-border bg-card p-5">
           <Label>Username</Label>
-          <View className="mt-2 mb-4">
+          <View className="mb-4 mt-2">
             <Input
               placeholder="username"
               value={username}
@@ -552,7 +561,7 @@ function LoginStep({
             {busy ? "Signing in…" : "Sign in"}
           </Button>
 
-          <View className="flex-row justify-between mt-4">
+          <View className="mt-4 flex-row justify-between">
             <TouchableOpacity onPress={onForgot} hitSlop={8}>
               <Text className="text-[11px] text-muted-foreground">
                 Forgot password?
@@ -566,8 +575,8 @@ function LoginStep({
           </View>
         </View>
       ) : (
-        <View className="bg-card border border-border p-5">
-          <Text className="text-sm text-muted-foreground leading-5">
+        <View className="border border-border bg-card p-5">
+          <Text className="text-sm leading-5 text-muted-foreground">
             Password login is disabled on this server. Use external sign-in
             below.
           </Text>
@@ -577,12 +586,12 @@ function LoginStep({
       {caps.oidcAvailable ? (
         <>
           {showPasswordCard ? (
-            <View className="flex-row items-center my-4 gap-3">
-              <View className="flex-1 h-px bg-border" />
-              <Text className="text-[10px] text-muted-foreground tracking-[2px]">
+            <View className="my-4 flex-row items-center gap-3">
+              <View className="h-px flex-1 bg-border" />
+              <Text className="text-[10px] tracking-[2px] text-muted-foreground">
                 OR
               </Text>
-              <View className="flex-1 h-px bg-border" />
+              <View className="h-px flex-1 bg-border" />
             </View>
           ) : (
             <View className="h-4" />
@@ -599,8 +608,8 @@ function LoginStep({
       ) : null}
 
       {!showPasswordCard && !caps.oidcAvailable ? (
-        <View className="bg-card border border-destructive/40 p-4 mt-3">
-          <Text className="text-xs text-destructive leading-5">
+        <View className="mt-3 border border-destructive/40 bg-card p-4">
+          <Text className="text-xs leading-5 text-destructive">
             This server has no available sign-in methods (password login is
             disabled and no SSO provider is configured). Check the server
             configuration.
@@ -643,7 +652,7 @@ function TotpStep({
   };
 
   return (
-    <View className="w-full max-w-md bg-card border border-border p-5">
+    <View className="w-full max-w-md border border-border bg-card p-5">
       <Label>Two-Factor Code</Label>
       <View className="mt-2">
         <Input
@@ -659,7 +668,7 @@ function TotpStep({
           leading={<KeyRound size={16} color={color("muted-foreground")} />}
         />
       </View>
-      <Text className="text-[11px] text-muted-foreground mt-2">
+      <Text className="mt-2 text-[11px] text-muted-foreground">
         Enter the 6-digit code from your authenticator app, or one of your
         backup codes.
       </Text>
@@ -672,8 +681,14 @@ function TotpStep({
       >
         {busy ? "Verifying…" : "Verify"}
       </Button>
-      <TouchableOpacity onPress={onBack} hitSlop={8} className="mt-4 self-center">
-        <Text className="text-[11px] text-muted-foreground">Back to sign in</Text>
+      <TouchableOpacity
+        onPress={onBack}
+        hitSlop={8}
+        className="mt-4 self-center"
+      >
+        <Text className="text-[11px] text-muted-foreground">
+          Back to sign in
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -722,10 +737,10 @@ function SignupStep({
   };
 
   return (
-    <View className="w-full max-w-md bg-card border border-border p-5">
+    <View className="w-full max-w-md border border-border bg-card p-5">
       <Label>{firstUser ? "Create Admin Account" : "Create Account"}</Label>
       {firstUser ? (
-        <Text className="text-[11px] text-muted-foreground mt-1 mb-3">
+        <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
           This is the first account on the server and will be an administrator.
         </Text>
       ) : (
@@ -772,7 +787,11 @@ function SignupStep({
       >
         {busy ? "Creating…" : "Create account"}
       </Button>
-      <TouchableOpacity onPress={onBack} hitSlop={8} className="mt-4 self-center">
+      <TouchableOpacity
+        onPress={onBack}
+        hitSlop={8}
+        className="mt-4 self-center"
+      >
         <Text className="text-[11px] text-muted-foreground">
           {firstUser ? "Back" : "Already have an account? Sign in"}
         </Text>
@@ -790,7 +809,9 @@ function ResetStep({
   onDone: () => void;
   onBack: () => void;
 }) {
-  const [phase, setPhase] = useState<"request" | "code" | "password">("request");
+  const [phase, setPhase] = useState<"request" | "code" | "password">(
+    "request",
+  );
   const [username, setUsername] = useState("");
   const [resetCode, setResetCode] = useState("");
   const [tempToken, setTempToken] = useState("");
@@ -821,7 +842,10 @@ function ResetStep({
     }
     setBusy(true);
     try {
-      const res = await verifyPasswordResetCode(username.trim(), resetCode.trim());
+      const res = await verifyPasswordResetCode(
+        username.trim(),
+        resetCode.trim(),
+      );
       setTempToken(res?.tempToken || "");
       setPhase("password");
     } catch (e: any) {
@@ -849,12 +873,12 @@ function ResetStep({
   };
 
   return (
-    <View className="w-full max-w-md bg-card border border-border p-5">
+    <View className="w-full max-w-md border border-border bg-card p-5">
       <Label>Reset Password</Label>
 
       {phase === "request" && (
         <>
-          <Text className="text-[11px] text-muted-foreground mt-1 mb-3">
+          <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
             Enter your username. A reset code will be generated and printed to
             the server&apos;s logs.
           </Text>
@@ -881,7 +905,7 @@ function ResetStep({
 
       {phase === "code" && (
         <>
-          <Text className="text-[11px] text-muted-foreground mt-1 mb-3">
+          <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
             Enter the 6-digit reset code from the server logs.
           </Text>
           <Input
@@ -908,7 +932,7 @@ function ResetStep({
 
       {phase === "password" && (
         <>
-          <Text className="text-[11px] text-muted-foreground mt-1 mb-3">
+          <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
             Choose a new password.
           </Text>
           <PasswordInput
@@ -931,8 +955,14 @@ function ResetStep({
         </>
       )}
 
-      <TouchableOpacity onPress={onBack} hitSlop={8} className="mt-4 self-center">
-        <Text className="text-[11px] text-muted-foreground">Back to sign in</Text>
+      <TouchableOpacity
+        onPress={onBack}
+        hitSlop={8}
+        className="mt-4 self-center"
+      >
+        <Text className="text-[11px] text-muted-foreground">
+          Back to sign in
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -1084,20 +1114,20 @@ function OidcStep({
 
   return (
     <View className="flex-1 bg-background">
-      <View className="flex-row items-center justify-between px-3 py-2.5 border-b border-border">
+      <View className="flex-row items-center justify-between border-b border-border px-3 py-2.5">
         <TouchableOpacity
           onPress={onBack}
           className="flex-row items-center gap-1.5 py-1 pr-2"
           hitSlop={8}
         >
           <ArrowLeft size={18} color={color("foreground")} />
-          <Text weight="medium" className="text-foreground text-sm">
+          <Text weight="medium" className="text-sm text-foreground">
             Sign in
           </Text>
         </TouchableOpacity>
-        <View className="flex-1 mx-3">
+        <View className="mx-3 flex-1">
           <Text
-            className="text-muted-foreground text-xs text-center"
+            className="text-center text-xs text-muted-foreground"
             numberOfLines={1}
           >
             {url.replace(/^https?:\/\//, "")}
@@ -1141,7 +1171,7 @@ function OidcStep({
           javaScriptEnabled
           domStorageEnabled
           startInLoadingState
-          sharedCookiesEnabled={false}
+          sharedCookiesEnabled
           thirdPartyCookiesEnabled
           {...(Platform.OS === "android" && {
             mixedContentMode: "always" as const,
@@ -1168,7 +1198,7 @@ function OidcStep({
           )}
         />
       ) : (
-        <View className="flex-1 justify-center items-center bg-background">
+        <View className="flex-1 items-center justify-center bg-background">
           <ActivityIndicator size="large" color={accent} />
         </View>
       )}
