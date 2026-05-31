@@ -46,7 +46,9 @@ export default function CredentialListModal({
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sheetCredential, setSheetCredential] = useState<Credential | null>(null);
+  const [sheetCredential, setSheetCredential] = useState<Credential | null>(
+    null,
+  );
   const [formCredential, setFormCredential] = useState<Credential | null>(null);
   const [formOpen, setFormOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<Credential | null>(null);
@@ -57,7 +59,9 @@ export default function CredentialListModal({
     else setLoading(true);
     try {
       const res = await getCredentials();
-      const list: Credential[] = Array.isArray(res) ? res : (res?.credentials ?? []);
+      const list: Credential[] = Array.isArray(res)
+        ? res
+        : (res?.credentials ?? []);
       setCredentials(list);
     } catch (e: any) {
       toast.error(e?.message || "Failed to load credentials");
@@ -119,7 +123,7 @@ export default function CredentialListModal({
     >
       <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
         {/* Header */}
-        <View className="flex-row items-center justify-between px-4 py-3 border-b border-border">
+        <View className="flex-row items-center justify-between border-b border-border px-4 py-3">
           <Pressable
             onPress={onClose}
             hitSlop={8}
@@ -144,7 +148,7 @@ export default function CredentialListModal({
         </View>
 
         {/* Search bar */}
-        <View className="px-4 pt-3 pb-2">
+        <View className="px-4 pb-2 pt-3">
           <Input
             placeholder="Search credentials…"
             value={searchQuery}
@@ -182,7 +186,7 @@ export default function CredentialListModal({
             keyboardShouldPersistTaps="handled"
           >
             {filtered.length === 0 ? (
-              <View className="items-center justify-center py-16 gap-3">
+              <View className="items-center justify-center gap-3 py-16">
                 <Text className="text-sm text-muted-foreground">
                   {searchQuery.trim()
                     ? "No credentials match your search"
@@ -213,8 +217,12 @@ export default function CredentialListModal({
         visible={sheetCredential !== null}
         onClose={() => setSheetCredential(null)}
       >
-        <View className="px-4 pb-3 pt-1 border-b border-border">
-          <Text weight="bold" className="text-base text-foreground" numberOfLines={1}>
+        <View className="border-b border-border px-4 pb-3 pt-1">
+          <Text
+            weight="bold"
+            className="text-base text-foreground"
+            numberOfLines={1}
+          >
             {sheetCredential?.name}
           </Text>
           <Text className="text-xs text-muted-foreground" numberOfLines={1}>
@@ -298,17 +306,21 @@ function CredentialRow({
   return (
     <Pressable
       onPress={onPress}
-      className="flex-row items-center gap-3 px-4 py-3.5 border-b border-border/60 active:bg-muted/40"
+      className="flex-row items-center gap-3 border-b border-border/60 px-4 py-3.5 active:bg-muted/40"
     >
-      <View className="w-8 h-8 bg-card border border-border items-center justify-center shrink-0">
+      <View className="h-8 w-8 shrink-0 items-center justify-center border border-border bg-card">
         {c.authType === "key" ? (
           <KeyRound size={16} color={color("accent-brand")} />
         ) : (
           <Lock size={16} color={color("muted-foreground")} />
         )}
       </View>
-      <View className="flex-1 min-w-0">
-        <Text weight="medium" className="text-sm text-foreground" numberOfLines={1}>
+      <View className="min-w-0 flex-1">
+        <Text
+          weight="medium"
+          className="text-sm text-foreground"
+          numberOfLines={1}
+        >
           {c.name}
         </Text>
         {subtitle ? (
@@ -318,7 +330,7 @@ function CredentialRow({
         ) : null}
       </View>
       {c.usageCount > 0 ? (
-        <Text className="text-[10px] text-muted-foreground shrink-0">
+        <Text className="shrink-0 text-[10px] text-muted-foreground">
           {c.usageCount} host{c.usageCount !== 1 ? "s" : ""}
         </Text>
       ) : null}

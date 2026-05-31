@@ -4,10 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { TerminalHandle } from "../Terminal";
 import CustomKeyboard from "./CustomKeyboard";
 import SnippetsBar from "./SnippetsBar";
-import {
-  BORDERS,
-  BORDER_COLORS,
-} from "@/app/constants/designTokens";
+import { BORDERS, BORDER_COLORS } from "@/app/constants/designTokens";
 
 type ToolbarMode = "keyboard" | "snippets";
 
@@ -51,7 +48,7 @@ export default function BottomToolbar({
         {tabs.map((tab, index) => (
           <TouchableOpacity
             key={tab.id}
-            className="flex-1 items-center justify-center py-1.5 px-1 bg-background"
+            className="flex-1 items-center justify-center bg-background px-1 py-1.5"
             onPress={() => setMode(tab.id)}
             style={{
               borderRightWidth:
@@ -60,7 +57,7 @@ export default function BottomToolbar({
             }}
           >
             <Text
-              className={`text-[10px] font-bold tracking-wide text-center leading-[14px] ${
+              className={`text-center text-[10px] font-bold leading-[14px] tracking-wide ${
                 mode === tab.id ? "text-gray-200" : "text-gray-600"
               }`}
             >

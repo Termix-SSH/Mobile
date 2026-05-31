@@ -1,5 +1,9 @@
 import { Text as RNText, type TextProps as RNTextProps } from "react-native";
-import { MONO_FONT, MONO_FONT_BOLD, MONO_FONT_MEDIUM } from "@/app/constants/fonts";
+import {
+  MONO_FONT,
+  MONO_FONT_BOLD,
+  MONO_FONT_MEDIUM,
+} from "@/app/constants/fonts";
 
 export type TextWeight = "regular" | "medium" | "bold";
 

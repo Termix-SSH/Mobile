@@ -32,14 +32,14 @@ export function BottomSheet({
     >
       <Pressable className="flex-1 bg-black/50" onPress={onClose} />
       <View
-        className="bg-popover border-t border-border"
+        className="border-t border-border bg-popover"
         style={{ paddingBottom: insets.bottom + 8, maxHeight: "80%" }}
       >
-        <View className="items-center pt-2.5 pb-1">
-          <View className="w-9 h-1 rounded-full bg-muted-foreground/40" />
+        <View className="items-center pb-1 pt-2.5">
+          <View className="h-1 w-9 rounded-full bg-muted-foreground/40" />
         </View>
         {title ? (
-          <View className="px-4 pb-2 border-b border-border">
+          <View className="border-b border-border px-4 pb-2">
             <Text
               weight="bold"
               className="text-[11px] uppercase tracking-[2px] text-muted-foreground"
@@ -71,7 +71,7 @@ export function SheetRow({
   return (
     <Pressable
       onPress={onPress}
-      className="flex-row items-center gap-3 px-4 py-3.5 border-b border-border/60 active:bg-muted/40"
+      className="flex-row items-center gap-3 border-b border-border/60 px-4 py-3.5 active:bg-muted/40"
     >
       {icon ? <View className="w-5 items-center">{icon}</View> : null}
       <Text

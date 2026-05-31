@@ -57,7 +57,9 @@ export function FileList({
           />
         }
       >
-        <Text className="text-muted-foreground text-center">This folder is empty</Text>
+        <Text className="text-center text-muted-foreground">
+          This folder is empty
+        </Text>
       </ScrollView>
     );
   }

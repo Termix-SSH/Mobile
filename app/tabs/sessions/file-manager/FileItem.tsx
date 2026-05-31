@@ -55,14 +55,14 @@ export function FileItem({
       {selectionMode && (
         <View className="mr-3">
           <View
-            className={`w-6 h-6 rounded border-2 items-center justify-center ${
+            className={`h-6 w-6 items-center justify-center rounded border-2 ${
               isSelected
-                ? "bg-blue-500 border-blue-600"
-                : "bg-background border-border"
+                ? "border-blue-600 bg-blue-500"
+                : "border-border bg-background"
             }`}
           >
             {isSelected && (
-              <Text className="text-foreground text-xs font-bold">✓</Text>
+              <Text className="text-xs font-bold text-foreground">✓</Text>
             )}
           </View>
         </View>
@@ -73,25 +73,27 @@ export function FileItem({
       </View>
 
       <View className="flex-1">
-        <Text className="text-foreground font-medium" numberOfLines={1}>
+        <Text className="font-medium text-foreground" numberOfLines={1}>
           {name}
         </Text>
-        <View className="flex-row items-center mt-0.5">
+        <View className="mt-0.5 flex-row items-center">
           {type === "directory" ? (
-            <Text className="text-muted-foreground text-xs">Folder</Text>
+            <Text className="text-xs text-muted-foreground">Folder</Text>
           ) : (
             <>
               {size !== undefined && (
-                <Text className="text-muted-foreground text-xs">
+                <Text className="text-xs text-muted-foreground">
                   {formatFileSize(size)}
                 </Text>
               )}
               {modified && (
                 <>
                   {size !== undefined && (
-                    <Text className="text-muted-foreground text-xs mx-1">•</Text>
+                    <Text className="mx-1 text-xs text-muted-foreground">
+                      •
+                    </Text>
                   )}
-                  <Text className="text-muted-foreground text-xs">
+                  <Text className="text-xs text-muted-foreground">
                     {formatDate(modified)}
                   </Text>
                 </>

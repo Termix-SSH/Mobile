@@ -35,38 +35,42 @@ export function Dialog({
       statusBarTranslucent
     >
       <Pressable
-        className="flex-1 bg-black/50 items-center justify-center px-5"
+        className="flex-1 items-center justify-center bg-black/50 px-5"
         onPress={onClose}
       >
         <Pressable
-          className="w-full max-w-md bg-popover border border-border"
+          className="w-full max-w-md border border-border bg-popover"
           onPress={(e) => e.stopPropagation()}
         >
           {title ? (
-            <View className="flex-row items-start gap-2.5 px-4 pt-4 pb-3 border-b border-border">
+            <View className="flex-row items-start gap-2.5 border-b border-border px-4 pb-3 pt-4">
               {icon ? (
-                <View className="w-8 h-8 border border-border bg-muted items-center justify-center shrink-0">
+                <View className="h-8 w-8 shrink-0 items-center justify-center border border-border bg-muted">
                   {icon}
                 </View>
               ) : null}
-              <View className="flex-1 min-w-0">
+              <View className="min-w-0 flex-1">
                 <Text weight="bold" className="text-base text-foreground">
                   {title}
                 </Text>
                 {description ? (
-                  <Text className="text-xs text-muted-foreground mt-0.5">
+                  <Text className="mt-0.5 text-xs text-muted-foreground">
                     {description}
                   </Text>
                 ) : null}
               </View>
-              <Pressable onPress={onClose} hitSlop={8} className="shrink-0 mt-0.5">
+              <Pressable
+                onPress={onClose}
+                hitSlop={8}
+                className="mt-0.5 shrink-0"
+              >
                 <X size={16} color={muted} />
               </Pressable>
             </View>
           ) : null}
           {children ? <View className="px-4 py-4">{children}</View> : null}
           {footer ? (
-            <View className="flex-row justify-end gap-2 px-4 py-3 border-t border-border">
+            <View className="flex-row justify-end gap-2 border-t border-border px-4 py-3">
               {footer}
             </View>
           ) : null}

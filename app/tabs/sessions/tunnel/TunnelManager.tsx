@@ -32,10 +32,7 @@ import type {
 } from "../../../../types";
 import { useOrientation } from "@/app/utils/orientation";
 import { getResponsivePadding, getColumnCount } from "@/app/utils/responsive";
-import {
-  BACKGROUNDS,
-  RADIUS,
-} from "@/app/constants/designTokens";
+import { BACKGROUNDS, RADIUS } from "@/app/constants/designTokens";
 import TunnelCard from "@/app/tabs/sessions/tunnel/TunnelCard";
 
 export type TunnelManagerHandle = {
@@ -57,7 +54,9 @@ export const TunnelManager = forwardRef<
   const [error, setError] = useState<string | null>(null);
   const [allHosts, setAllHosts] = useState<SSHHost[]>([]);
   const [currentHostConfig, setCurrentHostConfig] = useState(hostConfig);
-  const refreshIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const refreshIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
+    null,
+  );
 
   const padding = getResponsivePadding(isLandscape);
   const columnCount = getColumnCount(width, isLandscape, 350);

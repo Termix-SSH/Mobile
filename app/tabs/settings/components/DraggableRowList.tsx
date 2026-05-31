@@ -34,14 +34,14 @@ function RowItem({
 
   return (
     <View
-      className={`bg-card border border-border ${isExpanded ? "mb-0" : "mb-1.5"}`}
+      className={`border border-border bg-card ${isExpanded ? "mb-0" : "mb-1.5"}`}
     >
       <View className="flex-row items-center">
         <Pressable
           onLongPress={drag}
           delayLongPress={200}
           disabled={isActive}
-          className="w-10 h-10 items-center justify-center shrink-0"
+          className="h-10 w-10 shrink-0 items-center justify-center"
         >
           <GripVertical size={16} color={color("muted-foreground")} />
         </Pressable>
@@ -51,11 +51,11 @@ function RowItem({
           disabled={isActive}
           className="flex-1 flex-row items-center py-2.5 active:opacity-70"
         >
-          <View className="flex-1 min-w-0">
+          <View className="min-w-0 flex-1">
             <Text weight="medium" className="text-sm text-foreground">
               {item.label}
             </Text>
-            <Text className="text-[10px] text-muted-foreground mt-0.5">
+            <Text className="mt-0.5 text-[10px] text-muted-foreground">
               {item.keys.length} keys · {item.category}
             </Text>
           </View>
@@ -69,7 +69,7 @@ function RowItem({
           </View>
         </Pressable>
 
-        <View className="shrink-0 mr-2">
+        <View className="mr-2 shrink-0">
           <FakeSwitch
             checked={item.visible}
             onChange={() => onToggleVisibility(item.id)}

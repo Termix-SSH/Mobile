@@ -4,7 +4,11 @@ import { TerminalSessionsProvider } from "./contexts/TerminalSessionsContext";
 import { TerminalCustomizationProvider } from "./contexts/TerminalCustomizationContext";
 import { KeyboardProvider } from "./contexts/KeyboardContext";
 import { KeyboardCustomizationProvider } from "./contexts/KeyboardCustomizationContext";
-import { ThemeProvider, useTheme, useThemeColor } from "./contexts/ThemeContext";
+import {
+  ThemeProvider,
+  useTheme,
+  useThemeColor,
+} from "./contexts/ThemeContext";
 import { AppLockProvider, useAppLock } from "./contexts/AppLockContext";
 import { LockScreen } from "@/app/components/LockScreen";
 import AuthFlow from "@/app/authentication/AuthFlow";
@@ -30,10 +34,10 @@ function RootLayoutContent() {
 
   if (isLoading) {
     return (
-      <View className="flex-1 bg-background justify-center items-center">
+      <View className="flex-1 items-center justify-center bg-background">
         <ActivityIndicator size="large" color={accent} />
         <Text
-          className="text-foreground text-base mt-4"
+          className="mt-4 text-base text-foreground"
           style={{ fontFamily: MONO_FONT }}
         >
           Initializing…
@@ -43,7 +47,7 @@ function RootLayoutContent() {
             setIsLoading(false);
             openAuthFlow("server");
           }}
-          className="mt-6 px-6 py-3 bg-card border border-border"
+          className="mt-6 border border-border bg-card px-6 py-3"
         >
           <Text
             className="text-foreground"

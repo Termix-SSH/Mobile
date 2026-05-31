@@ -13,7 +13,15 @@ interface InputProps extends TextInputProps {
 }
 
 export const Input = forwardRef<TextInput, InputProps>(function Input(
-  { className, leading, trailing, containerClassName, style, multiline, ...props },
+  {
+    className,
+    leading,
+    trailing,
+    containerClassName,
+    style,
+    multiline,
+    ...props
+  },
   ref,
 ) {
   const placeholderColor = useThemeColor()("muted-foreground", 0.7);
@@ -27,7 +35,7 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
 
   return (
     <View
-      className={`${layout} bg-card border border-input ${containerClassName ?? ""}`}
+      className={`${layout} border border-input bg-card ${containerClassName ?? ""}`}
     >
       {leading ? <View className="shrink-0">{leading}</View> : null}
       <TextInput

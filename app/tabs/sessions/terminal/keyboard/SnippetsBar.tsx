@@ -120,7 +120,7 @@ export default function SnippetsBar({
       {loading ? (
         <View className="flex-1 items-center justify-center py-12">
           <ActivityIndicator size="large" color="#f59145" />
-          <Text className="text-sm text-muted-foreground mt-3">
+          <Text className="mt-3 text-sm text-muted-foreground">
             Loading snippets...
           </Text>
         </View>
@@ -137,7 +137,7 @@ export default function SnippetsBar({
           {unfolderedSnippets.length > 0 && (
             <View key={0} className="mb-2">
               <TouchableOpacity
-                className="flex-row justify-between items-center bg-muted px-3 py-2.5 mb-1.5"
+                className="mb-1.5 flex-row items-center justify-between bg-muted px-3 py-2.5"
                 style={{
                   borderWidth: 1,
                   borderColor: BORDER_COLORS.BUTTON,
@@ -147,18 +147,18 @@ export default function SnippetsBar({
                 }}
                 onPress={() => toggleFolder(0)}
               >
-                <View className="flex-row items-center flex-1">
+                <View className="flex-1 flex-row items-center">
                   <Text
-                    className="text-sm font-semibold text-foreground flex-1"
+                    className="flex-1 text-sm font-semibold text-foreground"
                     numberOfLines={1}
                   >
                     Uncategorized
                   </Text>
-                  <Text className="text-xs text-muted-foreground ml-1">
+                  <Text className="ml-1 text-xs text-muted-foreground">
                     ({unfolderedSnippets.length})
                   </Text>
                 </View>
-                <Text className="text-[10px] text-muted-foreground ml-2">
+                <Text className="ml-2 text-[10px] text-muted-foreground">
                   {collapsedFolders.has(0) ? "▶" : "▼"}
                 </Text>
               </TouchableOpacity>
@@ -167,7 +167,7 @@ export default function SnippetsBar({
                 unfolderedSnippets.map((snippet) => (
                   <TouchableOpacity
                     key={snippet.id}
-                    className="bg-muted px-3 py-2.5 mb-1.5 ml-4"
+                    className="mb-1.5 ml-4 bg-muted px-3 py-2.5"
                     style={{
                       borderWidth: 1,
                       borderColor: BORDER_COLORS.BUTTON,
@@ -176,7 +176,7 @@ export default function SnippetsBar({
                     onPress={() => executeSnippet(snippet)}
                   >
                     <Text
-                      className="text-[13px] text-foreground font-medium"
+                      className="text-[13px] font-medium text-foreground"
                       numberOfLines={1}
                     >
                       {snippet.name}
@@ -193,7 +193,7 @@ export default function SnippetsBar({
             return (
               <View key={folder.id} className="mb-2">
                 <TouchableOpacity
-                  className="flex-row justify-between items-center bg-muted px-3 py-2.5 mb-1.5"
+                  className="mb-1.5 flex-row items-center justify-between bg-muted px-3 py-2.5"
                   style={{
                     borderWidth: 1,
                     borderColor: BORDER_COLORS.BUTTON,
@@ -203,18 +203,18 @@ export default function SnippetsBar({
                   }}
                   onPress={() => toggleFolder(folder.id)}
                 >
-                  <View className="flex-row items-center flex-1">
+                  <View className="flex-1 flex-row items-center">
                     <Text
-                      className="text-sm font-semibold text-foreground flex-1"
+                      className="flex-1 text-sm font-semibold text-foreground"
                       numberOfLines={1}
                     >
                       {folder.name}
                     </Text>
-                    <Text className="text-xs text-muted-foreground ml-1">
+                    <Text className="ml-1 text-xs text-muted-foreground">
                       ({folderSnippets.length})
                     </Text>
                   </View>
-                  <Text className="text-[10px] text-muted-foreground ml-2">
+                  <Text className="ml-2 text-[10px] text-muted-foreground">
                     {isCollapsed ? "▶" : "▼"}
                   </Text>
                 </TouchableOpacity>
@@ -223,7 +223,7 @@ export default function SnippetsBar({
                   folderSnippets.map((snippet) => (
                     <TouchableOpacity
                       key={snippet.id}
-                      className="bg-muted px-3 py-2.5 mb-1.5 ml-4"
+                      className="mb-1.5 ml-4 bg-muted px-3 py-2.5"
                       style={{
                         borderWidth: 1,
                         borderColor: BORDER_COLORS.BUTTON,
@@ -232,7 +232,7 @@ export default function SnippetsBar({
                       onPress={() => executeSnippet(snippet)}
                     >
                       <Text
-                        className="text-[13px] text-foreground font-medium"
+                        className="text-[13px] font-medium text-foreground"
                         numberOfLines={1}
                       >
                         {snippet.name}
@@ -244,11 +244,11 @@ export default function SnippetsBar({
           })}
 
           {snippets.length === 0 && (
-            <View className="py-8 items-center">
-              <Text className="text-sm text-muted-foreground font-semibold">
+            <View className="items-center py-8">
+              <Text className="text-sm font-semibold text-muted-foreground">
                 No snippets yet
               </Text>
-              <Text className="text-xs text-gray-600 mt-1">
+              <Text className="mt-1 text-xs text-gray-600">
                 Create snippets in the Termix web/desktop version
               </Text>
             </View>

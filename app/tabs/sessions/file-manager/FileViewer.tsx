@@ -131,7 +131,7 @@ export function FileViewer({
       >
         <View className="flex-1 bg-background">
           <View
-            className="bg-card border-b-2 border-border"
+            className="border-b-2 border-border bg-card"
             style={{
               paddingTop: isLandscape
                 ? Math.max(insets.top, 8)
@@ -142,15 +142,15 @@ export function FileViewer({
             }}
           >
             <View className="flex-row items-center justify-between">
-              <View className="flex-1 mr-4">
+              <View className="mr-4 flex-1">
                 <Text
-                  className="text-foreground font-semibold text-base"
+                  className="text-base font-semibold text-foreground"
                   numberOfLines={1}
                 >
                   {fileName}
                 </Text>
                 <Text
-                  className="text-muted-foreground text-xs mt-0.5"
+                  className="mt-0.5 text-xs text-muted-foreground"
                   numberOfLines={1}
                 >
                   {filePath}
@@ -162,7 +162,7 @@ export function FileViewer({
                   <>
                     <TouchableOpacity
                       onPress={handleRevert}
-                      className="p-2 bg-muted rounded border border-border"
+                      className="rounded border border-border bg-muted p-2"
                       activeOpacity={0.7}
                     >
                       <RotateCcw size={18} color="white" />
@@ -170,7 +170,7 @@ export function FileViewer({
 
                     <TouchableOpacity
                       onPress={handleSave}
-                      className="p-2 bg-muted rounded border border-border"
+                      className="rounded border border-border bg-muted p-2"
                       activeOpacity={0.7}
                       disabled={isSaving}
                       style={{
@@ -191,7 +191,7 @@ export function FileViewer({
 
                 <TouchableOpacity
                   onPress={handleClose}
-                  className="p-2 bg-muted rounded border border-border"
+                  className="rounded border border-border bg-muted p-2"
                   activeOpacity={0.7}
                 >
                   <X size={18} color="white" />
@@ -200,14 +200,16 @@ export function FileViewer({
             </View>
 
             {readOnly && (
-              <View className="mt-2 px-2 py-1 bg-gray-800 border border-gray-700 rounded">
-                <Text className="text-muted-foreground text-xs">Read-only mode</Text>
+              <View className="mt-2 rounded border border-gray-700 bg-gray-800 px-2 py-1">
+                <Text className="text-xs text-muted-foreground">
+                  Read-only mode
+                </Text>
               </View>
             )}
           </View>
 
           <TextInput
-            className="flex-1 text-foreground bg-background"
+            className="flex-1 bg-background text-foreground"
             value={content}
             onChangeText={handleContentChange}
             multiline

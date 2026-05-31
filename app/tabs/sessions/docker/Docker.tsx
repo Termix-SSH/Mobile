@@ -96,7 +96,7 @@ export function Docker({ host, isVisible }: DockerProps) {
       {loading && containers.length === 0 ? (
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color={color("accent-brand")} />
-          <Text className="text-muted-foreground text-sm mt-3">
+          <Text className="mt-3 text-sm text-muted-foreground">
             Loading containers…
           </Text>
         </View>
@@ -115,41 +115,80 @@ export function Docker({ host, isVisible }: DockerProps) {
           }
         >
           {containers.length === 0 ? (
-            <Text className="text-sm text-muted-foreground text-center mt-12">
+            <Text className="mt-12 text-center text-sm text-muted-foreground">
               No containers found
             </Text>
           ) : (
             containers.map((c) => {
               const running = /up|running/i.test(c.state || c.status || "");
               return (
-                <View key={c.id} className="px-3 py-3 bg-card border border-border gap-2.5">
+                <View
+                  key={c.id}
+                  className="gap-2.5 border border-border bg-card px-3 py-3"
+                >
                   <View className="flex-row items-center gap-2.5">
                     <View
-                      style={{ backgroundColor: running ? "#22c55e" : color("muted-foreground", 0.4) ?? "#555" }}
-                      className="w-2.5 h-2.5 rounded-full"
+                      style={{
+                        backgroundColor: running
+                          ? "#22c55e"
+                          : (color("muted-foreground", 0.4) ?? "#555"),
+                      }}
+                      className="h-2.5 w-2.5 rounded-full"
                     />
                     <Container size={15} color={color("muted-foreground")} />
-                    <View className="flex-1 min-w-0">
-                      <Text weight="medium" className="text-sm text-foreground" numberOfLines={1}>
+                    <View className="min-w-0 flex-1">
+                      <Text
+                        weight="medium"
+                        className="text-sm text-foreground"
+                        numberOfLines={1}
+                      >
                         {c.name}
                       </Text>
-                      <Text className="text-[10px] text-muted-foreground" numberOfLines={1}>
+                      <Text
+                        className="text-[10px] text-muted-foreground"
+                        numberOfLines={1}
+                      >
                         {c.image} · {c.status}
                       </Text>
                     </View>
                     {busy === c.id ? (
-                      <ActivityIndicator size="small" color={color("accent-brand")} />
+                      <ActivityIndicator
+                        size="small"
+                        color={color("accent-brand")}
+                      />
                     ) : null}
                   </View>
                   <View className="flex-row gap-1.5">
                     {running ? (
-                      <DockerBtn icon={<Square size={13} color={color("foreground")} />} label="Stop" onPress={() => act(c, "stop")} />
+                      <DockerBtn
+                        icon={<Square size={13} color={color("foreground")} />}
+                        label="Stop"
+                        onPress={() => act(c, "stop")}
+                      />
                     ) : (
-                      <DockerBtn icon={<Play size={13} color={color("accent-brand")} />} label="Start" onPress={() => act(c, "start")} accent />
+                      <DockerBtn
+                        icon={<Play size={13} color={color("accent-brand")} />}
+                        label="Start"
+                        onPress={() => act(c, "start")}
+                        accent
+                      />
                     )}
-                    <DockerBtn icon={<RotateCcw size={13} color={color("foreground")} />} label="Restart" onPress={() => act(c, "restart")} />
-                    <DockerBtn icon={<FileText size={13} color={color("foreground")} />} label="Logs" onPress={() => showLogs(c)} />
-                    <DockerBtn icon={<Trash2 size={13} color={color("destructive")} />} label="Remove" onPress={() => act(c, "remove")} destructive />
+                    <DockerBtn
+                      icon={<RotateCcw size={13} color={color("foreground")} />}
+                      label="Restart"
+                      onPress={() => act(c, "restart")}
+                    />
+                    <DockerBtn
+                      icon={<FileText size={13} color={color("foreground")} />}
+                      label="Logs"
+                      onPress={() => showLogs(c)}
+                    />
+                    <DockerBtn
+                      icon={<Trash2 size={13} color={color("destructive")} />}
+                      label="Remove"
+                      onPress={() => act(c, "remove")}
+                      destructive
+                    />
                   </View>
                 </View>
               );
@@ -159,10 +198,21 @@ export function Docker({ host, isVisible }: DockerProps) {
       )}
 
       {/* Logs viewer */}
-      <Modal visible={logs !== null} animationType="slide" onRequestClose={() => setLogs(null)}>
-        <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-          <View className="flex-row items-center justify-between px-4 py-3 border-b border-border">
-            <Text weight="bold" className="text-base text-foreground" numberOfLines={1}>
+      <Modal
+        visible={logs !== null}
+        animationType="slide"
+        onRequestClose={() => setLogs(null)}
+      >
+        <View
+          className="flex-1 bg-background"
+          style={{ paddingTop: insets.top }}
+        >
+          <View className="flex-row items-center justify-between border-b border-border px-4 py-3">
+            <Text
+              weight="bold"
+              className="text-base text-foreground"
+              numberOfLines={1}
+            >
               {logs?.name} logs
             </Text>
             <Pressable onPress={() => setLogs(null)} hitSlop={8}>
@@ -199,7 +249,7 @@ function DockerBtn({
   return (
     <Pressable
       onPress={onPress}
-      className={`flex-row items-center gap-1 px-2 py-1.5 border active:opacity-80 ${
+      className={`flex-row items-center gap-1 border px-2 py-1.5 active:opacity-80 ${
         accent
           ? "border-accent-brand/40 bg-accent-brand/10"
           : destructive

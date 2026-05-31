@@ -193,7 +193,8 @@ function hostPassesFilters(
   }
   if (filters.features.length > 0) {
     const ok =
-      (filters.features.includes("terminal") && host.enableTerminal !== false) ||
+      (filters.features.includes("terminal") &&
+        host.enableTerminal !== false) ||
       (filters.features.includes("fileManager") && !!host.enableFileManager) ||
       (filters.features.includes("tunnel") && !!host.enableTunnel) ||
       (filters.features.includes("docker") && !!host.enableDocker);

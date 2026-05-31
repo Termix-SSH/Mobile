@@ -152,9 +152,7 @@ export default function Sessions() {
     return KEYBOARD_BAR_HEIGHT;
   };
 
-  const getBottomMargin = (
-    sessionType: SessionType = "terminal",
-  ) => {
+  const getBottomMargin = (sessionType: SessionType = "terminal") => {
     if (sessionType !== "terminal") {
       return SESSION_TAB_BAR_HEIGHT + insets.bottom;
     }

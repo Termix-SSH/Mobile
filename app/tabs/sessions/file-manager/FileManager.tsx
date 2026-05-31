@@ -114,7 +114,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       content: string;
     }>({ visible: false, file: null, content: "" });
 
-    const keepaliveInterval = useRef<ReturnType<typeof setInterval> | null>(null);
+    const keepaliveInterval = useRef<ReturnType<typeof setInterval> | null>(
+      null,
+    );
 
     const connectToSSH = useCallback(async () => {
       try {
@@ -462,9 +464,11 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
 
     if (!isConnected) {
       return (
-        <View className="flex-1 bg-background items-center justify-center">
+        <View className="flex-1 items-center justify-center bg-background">
           <ActivityIndicator size="large" color="#f59145" />
-          <Text className="text-foreground mt-4">Connecting to {host.name}...</Text>
+          <Text className="mt-4 text-foreground">
+            Connecting to {host.name}...
+          </Text>
 
           <TOTPDialog
             visible={totpDialog}
@@ -577,9 +581,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             className="flex-1"
           >
-            <View className="flex-1 bg-black/50 items-center justify-center p-4">
+            <View className="flex-1 items-center justify-center bg-black/50 p-4">
               <View
-                className="p-6 w-full max-w-sm"
+                className="w-full max-w-sm p-6"
                 style={{
                   backgroundColor: BACKGROUNDS.CARD,
                   borderWidth: BORDERS.MAJOR,
@@ -588,12 +592,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   marginBottom: isLandscape ? 0 : insets.bottom,
                 }}
               >
-                <Text className="text-foreground text-lg font-semibold mb-4">
+                <Text className="mb-4 text-lg font-semibold text-foreground">
                   Create New{" "}
                   {createDialog.type === "folder" ? "Folder" : "File"}
                 </Text>
                 <TextInput
-                  className="px-4 py-3 text-foreground mb-4"
+                  className="mb-4 px-4 py-3 text-foreground"
                   style={{
                     backgroundColor: BACKGROUNDS.DARKER,
                     borderWidth: BORDERS.MAJOR,
@@ -621,7 +625,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-foreground text-center font-semibold">
+                    <Text className="text-center font-semibold text-foreground">
                       Cancel
                     </Text>
                   </TouchableOpacity>
@@ -635,7 +639,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-foreground text-center font-semibold">
+                    <Text className="text-center font-semibold text-foreground">
                       Create
                     </Text>
                   </TouchableOpacity>
@@ -655,9 +659,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             className="flex-1"
           >
-            <View className="flex-1 bg-black/50 items-center justify-center p-4">
+            <View className="flex-1 items-center justify-center bg-black/50 p-4">
               <View
-                className="p-6 w-full max-w-sm"
+                className="w-full max-w-sm p-6"
                 style={{
                   backgroundColor: BACKGROUNDS.CARD,
                   borderWidth: BORDERS.MAJOR,
@@ -666,11 +670,11 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   marginBottom: isLandscape ? 0 : insets.bottom,
                 }}
               >
-                <Text className="text-foreground text-lg font-semibold mb-4">
+                <Text className="mb-4 text-lg font-semibold text-foreground">
                   Rename Item
                 </Text>
                 <TextInput
-                  className="px-4 py-3 text-foreground mb-4"
+                  className="mb-4 px-4 py-3 text-foreground"
                   style={{
                     backgroundColor: BACKGROUNDS.DARKER,
                     borderWidth: BORDERS.MAJOR,
@@ -698,7 +702,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-foreground text-center font-semibold">
+                    <Text className="text-center font-semibold text-foreground">
                       Cancel
                     </Text>
                   </TouchableOpacity>
@@ -712,7 +716,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     }}
                     activeOpacity={0.7}
                   >
-                    <Text className="text-foreground text-center font-semibold">
+                    <Text className="text-center font-semibold text-foreground">
                       Rename
                     </Text>
                   </TouchableOpacity>

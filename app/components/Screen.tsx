@@ -25,19 +25,19 @@ export function Screen({
   return (
     <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
       {title && !scrollableHeader ? (
-        <View className="flex-row items-end justify-between px-4 pt-3 pb-3 border-b border-border">
-          <View className="flex-1 min-w-0">
+        <View className="flex-row items-end justify-between border-b border-border px-4 pb-3 pt-3">
+          <View className="min-w-0 flex-1">
             <Text weight="bold" className="text-xl text-foreground">
               {title}
             </Text>
             {subtitle ? (
-              <Text className="text-xs text-muted-foreground mt-0.5">
+              <Text className="mt-0.5 text-xs text-muted-foreground">
                 {subtitle}
               </Text>
             ) : null}
           </View>
           {headerRight ? (
-            <View className="shrink-0 ml-3">{headerRight}</View>
+            <View className="ml-3 shrink-0">{headerRight}</View>
           ) : null}
         </View>
       ) : null}

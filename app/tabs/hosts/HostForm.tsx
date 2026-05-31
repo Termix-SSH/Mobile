@@ -225,7 +225,12 @@ export default function HostForm({
       toast.error("Host address is required");
       return;
     }
-    if (!form.enableSsh && !form.enableRdp && !form.enableVnc && !form.enableTelnet) {
+    if (
+      !form.enableSsh &&
+      !form.enableRdp &&
+      !form.enableVnc &&
+      !form.enableTelnet
+    ) {
       toast.error("Enable at least one protocol");
       return;
     }
@@ -300,7 +305,7 @@ export default function HostForm({
     >
       <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
         {/* Header */}
-        <View className="flex-row items-center justify-between px-4 py-3 border-b border-border">
+        <View className="flex-row items-center justify-between border-b border-border px-4 py-3">
           <Pressable
             onPress={onClose}
             hitSlop={8}
@@ -329,7 +334,11 @@ export default function HostForm({
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 12, gap: 6, paddingVertical: 8 }}
+            contentContainerStyle={{
+              paddingHorizontal: 12,
+              gap: 6,
+              paddingVertical: 8,
+            }}
           >
             {tabs.map((tab) => {
               const active = tab.id === activeTab;
@@ -337,9 +346,9 @@ export default function HostForm({
                 <Pressable
                   key={tab.id}
                   onPress={() => setActiveTab(tab.id)}
-                  className={`px-3.5 py-1.5 border ${
+                  className={`border px-3.5 py-1.5 ${
                     active
-                      ? "bg-accent-brand/10 border-accent-brand/40"
+                      ? "border-accent-brand/40 bg-accent-brand/10"
                       : "border-border active:bg-muted/40"
                   }`}
                 >
@@ -517,9 +526,7 @@ export default function HostForm({
                         variant="outline"
                         size="sm"
                         onPress={pickKeyFile}
-                        icon={
-                          <Upload size={13} color={color("foreground")} />
-                        }
+                        icon={<Upload size={13} color={color("foreground")} />}
                       >
                         Choose file
                       </Button>
@@ -548,8 +555,9 @@ export default function HostForm({
                 {form.authType === "credential" ? (
                   <Field label="Credential">
                     {credentials.length === 0 ? (
-                      <Text className="text-xs text-muted-foreground py-2">
-                        No saved credentials. Tap the key icon in Hosts to add one.
+                      <Text className="py-2 text-xs text-muted-foreground">
+                        No saved credentials. Tap the key icon in Hosts to add
+                        one.
                       </Text>
                     ) : (
                       <View className="gap-1.5">
@@ -559,7 +567,7 @@ export default function HostForm({
                             <Pressable
                               key={c.id}
                               onPress={() => set("credentialId", c.id)}
-                              className={`px-3 py-2.5 border ${selected ? "border-accent-brand/40 bg-accent-brand/10" : "border-border bg-card"}`}
+                              className={`border px-3 py-2.5 ${selected ? "border-accent-brand/40 bg-accent-brand/10" : "border-border bg-card"}`}
                             >
                               <Text
                                 weight="medium"
@@ -638,7 +646,9 @@ export default function HostForm({
                   value={form.rdpPassword}
                   onChangeText={(v) => set("rdpPassword", v)}
                   secureTextEntry
-                  placeholder={isEdit ? "•••••• (unchanged if blank)" : "Password"}
+                  placeholder={
+                    isEdit ? "•••••• (unchanged if blank)" : "Password"
+                  }
                   autoCapitalize="none"
                 />
               </Field>
@@ -792,7 +802,7 @@ function Field({
 
 function AdvancedNote() {
   return (
-    <Text className="text-[11px] text-muted-foreground pt-1">
+    <Text className="pt-1 text-[11px] text-muted-foreground">
       Advanced display, audio, and clipboard settings are available in the
       Termix web app.
     </Text>

@@ -24,7 +24,7 @@ export function SegmentedControl<T extends string>({
           <Pressable
             key={opt.id}
             onPress={() => onChange(opt.id)}
-            className={`flex-1 py-2 items-center border ${active ? "bg-accent-brand/10 border-accent-brand/40" : "border-border active:bg-muted/40"}`}
+            className={`flex-1 items-center border py-2 ${active ? "border-accent-brand/40 bg-accent-brand/10" : "border-border active:bg-muted/40"}`}
           >
             <Text
               weight="bold"

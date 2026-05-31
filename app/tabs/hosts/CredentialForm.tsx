@@ -80,8 +80,10 @@ export default function CredentialForm({
   const [generatingPublicKey, setGeneratingPublicKey] = useState(false);
   const isEdit = !!credential;
 
-  const set = <K extends keyof CredentialFormState>(k: K, v: CredentialFormState[K]) =>
-    setForm((f) => ({ ...f, [k]: v }));
+  const set = <K extends keyof CredentialFormState>(
+    k: K,
+    v: CredentialFormState[K],
+  ) => setForm((f) => ({ ...f, [k]: v }));
 
   useEffect(() => {
     if (!visible) return;
@@ -120,7 +122,9 @@ export default function CredentialForm({
 
   const pickPrivateKeyFile = async () => {
     try {
-      const result = await DocumentPicker.getDocumentAsync({ copyToCacheDirectory: true });
+      const result = await DocumentPicker.getDocumentAsync({
+        copyToCacheDirectory: true,
+      });
       if (result.canceled || !result.assets?.[0]) return;
       const text = await fetch(result.assets[0].uri).then((r) => r.text());
       set("key", text.trim());
@@ -133,7 +137,9 @@ export default function CredentialForm({
 
   const pickCertFile = async () => {
     try {
-      const result = await DocumentPicker.getDocumentAsync({ copyToCacheDirectory: true });
+      const result = await DocumentPicker.getDocumentAsync({
+        copyToCacheDirectory: true,
+      });
       if (result.canceled || !result.assets?.[0]) return;
       const text = await fetch(result.assets[0].uri).then((r) => r.text());
       set("certPublicKey", text.trim());
@@ -216,7 +222,8 @@ export default function CredentialForm({
       if (form.key) payload.key = form.key;
       if (form.publicKey) payload.publicKey = form.publicKey;
       if (form.keyPassword) payload.keyPassword = form.keyPassword;
-      if (form.certPublicKey) (payload as any).certPublicKey = form.certPublicKey;
+      if (form.certPublicKey)
+        (payload as any).certPublicKey = form.certPublicKey;
     }
 
     setSaving(true);
@@ -245,7 +252,7 @@ export default function CredentialForm({
     >
       <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
         {/* Header */}
-        <View className="flex-row items-center justify-between px-4 py-3 border-b border-border">
+        <View className="flex-row items-center justify-between border-b border-border px-4 py-3">
           <Pressable
             onPress={onClose}
             hitSlop={8}
@@ -274,7 +281,11 @@ export default function CredentialForm({
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 12, gap: 6, paddingVertical: 8 }}
+            contentContainerStyle={{
+              paddingHorizontal: 12,
+              gap: 6,
+              paddingVertical: 8,
+            }}
           >
             {TABS.map((tab) => {
               const active = tab.id === activeTab;
@@ -282,9 +293,9 @@ export default function CredentialForm({
                 <Pressable
                   key={tab.id}
                   onPress={() => setActiveTab(tab.id)}
-                  className={`px-3.5 py-1.5 border ${
+                  className={`border px-3.5 py-1.5 ${
                     active
-                      ? "bg-accent-brand/10 border-accent-brand/40"
+                      ? "border-accent-brand/40 bg-accent-brand/10"
                       : "border-border active:bg-muted/40"
                   }`}
                 >
@@ -376,7 +387,9 @@ export default function CredentialForm({
                       value={form.password}
                       onChangeText={(v) => set("password", v)}
                       secureTextEntry
-                      placeholder={isEdit ? "•••••• (unchanged if blank)" : "Password"}
+                      placeholder={
+                        isEdit ? "•••••• (unchanged if blank)" : "Password"
+                      }
                       autoCapitalize="none"
                     />
                   </Field>
@@ -399,22 +412,29 @@ export default function CredentialForm({
                   </Section>
 
                   <Section title="Key Generation">
-                    <View className="bg-card border border-border px-3 py-3 gap-2.5">
+                    <View className="gap-2.5 border border-border bg-card px-3 py-3">
                       <View className="gap-0.5">
-                        <Text weight="medium" className="text-sm text-foreground">
+                        <Text
+                          weight="medium"
+                          className="text-sm text-foreground"
+                        >
                           Generate new key pair
                         </Text>
                         <Text className="text-[10px] text-muted-foreground">
                           Replaces current private and public key
                         </Text>
                       </View>
-                      <View className="flex-row gap-2 flex-wrap">
+                      <View className="flex-row flex-wrap gap-2">
                         <Button
                           variant="outline"
                           size="sm"
                           loading={generatingKey === "ed25519"}
                           onPress={() =>
-                            handleGenerateKeyPair("ssh-ed25519", undefined, "ed25519")
+                            handleGenerateKeyPair(
+                              "ssh-ed25519",
+                              undefined,
+                              "ed25519",
+                            )
                           }
                         >
                           Ed25519
@@ -525,16 +545,18 @@ export default function CredentialForm({
                   </Section>
 
                   <AccordionSection label="CA Certificate" defaultOpen={false}>
-                    <View className="pt-3 gap-2.5">
+                    <View className="gap-2.5 pt-3">
                       <View className="flex-row items-center justify-between">
-                        <Text className="text-[10px] text-muted-foreground flex-1 pr-2">
+                        <Text className="flex-1 pr-2 text-[10px] text-muted-foreground">
                           Certificate signed by a CA for certificate-based auth
                         </Text>
                         <Button
                           variant="outline"
                           size="sm"
                           onPress={pickCertFile}
-                          icon={<Upload size={13} color={color("foreground")} />}
+                          icon={
+                            <Upload size={13} color={color("foreground")} />
+                          }
                         >
                           Upload
                         </Button>
@@ -560,7 +582,13 @@ export default function CredentialForm({
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <View className="gap-2.5">
       <Text
@@ -574,7 +602,13 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <View className="gap-1.5">
       <Label>{label}</Label>

@@ -25,11 +25,31 @@ import { renderRowItem, useRowExpansion } from "./components/DraggableRowList";
 type TabType = "presets" | "topbar" | "fullKeyboard" | "settings";
 type AddKeyMode = "pinned" | "topbar" | "row" | null;
 
-const TABS: { id: TabType; label: string; icon: (c: string) => React.ReactNode }[] = [
-  { id: "presets", label: "Presets", icon: (c) => <LayoutGrid size={14} color={c} /> },
-  { id: "topbar", label: "Top Bar", icon: (c) => <Rows3 size={14} color={c} /> },
-  { id: "fullKeyboard", label: "Full Keyboard", icon: (c) => <Keyboard size={14} color={c} /> },
-  { id: "settings", label: "Settings", icon: (c) => <SlidersHorizontal size={14} color={c} /> },
+const TABS: {
+  id: TabType;
+  label: string;
+  icon: (c: string) => React.ReactNode;
+}[] = [
+  {
+    id: "presets",
+    label: "Presets",
+    icon: (c) => <LayoutGrid size={14} color={c} />,
+  },
+  {
+    id: "topbar",
+    label: "Top Bar",
+    icon: (c) => <Rows3 size={14} color={c} />,
+  },
+  {
+    id: "fullKeyboard",
+    label: "Full Keyboard",
+    icon: (c) => <Keyboard size={14} color={c} />,
+  },
+  {
+    id: "settings",
+    label: "Settings",
+    icon: (c) => <SlidersHorizontal size={14} color={c} />,
+  },
 ];
 
 export default function KeyboardCustomization() {
@@ -58,7 +78,9 @@ export default function KeyboardCustomization() {
 
   const [activeTab, setActiveTab] = useState<TabType>("presets");
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-  const [resetType, setResetType] = useState<"all" | "topbar" | "fullkeyboard">("all");
+  const [resetType, setResetType] = useState<"all" | "topbar" | "fullkeyboard">(
+    "all",
+  );
   const [showKeySelector, setShowKeySelector] = useState(false);
   const [addKeyMode, setAddKeyMode] = useState<AddKeyMode>(null);
   const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
@@ -231,7 +253,8 @@ export default function KeyboardCustomization() {
   };
 
   const getExcludedKeys = (): string[] => {
-    if (addKeyMode === "pinned") return config.topBar.pinnedKeys.map((k) => k.id);
+    if (addKeyMode === "pinned")
+      return config.topBar.pinnedKeys.map((k) => k.id);
     if (addKeyMode === "topbar") return config.topBar.keys.map((k) => k.id);
     if (addKeyMode === "row" && selectedRowId) {
       const row = config.fullKeyboard.rows.find((r) => r.id === selectedRowId);
@@ -279,18 +302,21 @@ export default function KeyboardCustomization() {
 
     for (let i = 0; i <= mainHeaderIndex; i++) {
       const item = newData[i];
-      if (item.type === "draggable-key" || item.type === "draggable-row") return false;
+      if (item.type === "draggable-key" || item.type === "draggable-row")
+        return false;
     }
     for (let i = resetButtonIndex; i < newData.length; i++) {
       const item = newData[i];
-      if (item.type === "draggable-key" || item.type === "draggable-row") return false;
+      if (item.type === "draggable-key" || item.type === "draggable-row")
+        return false;
     }
 
     if (!expandedRowId) return true;
 
     const rowKeysHeaderIndex = newData.findIndex(
       (item) =>
-        item.type === "row-keys-header" && (item as any).rowId === expandedRowId,
+        item.type === "row-keys-header" &&
+        (item as any).rowId === expandedRowId,
     );
     const rowCloseIndex = newData.findIndex(
       (item) =>
@@ -301,13 +327,20 @@ export default function KeyboardCustomization() {
 
     for (let i = 0; i < newData.length; i++) {
       const item = newData[i];
-      if (item.type === "draggable-key" && (item as any).rowId === expandedRowId) {
+      if (
+        item.type === "draggable-key" &&
+        (item as any).rowId === expandedRowId
+      ) {
         if (i <= rowKeysHeaderIndex || i >= rowCloseIndex) return false;
       }
     }
     for (let i = rowKeysHeaderIndex + 1; i < rowCloseIndex; i++) {
       const item = newData[i];
-      if (item.type === "draggable-key" && (item as any).rowId !== expandedRowId) return false;
+      if (
+        item.type === "draggable-key" &&
+        (item as any).rowId !== expandedRowId
+      )
+        return false;
       if (item.type === "draggable-row") return false;
     }
 
@@ -320,7 +353,7 @@ export default function KeyboardCustomization() {
       contentContainerStyle={{ padding: 16, gap: 10, paddingBottom: 40 }}
     >
       <Label className="mb-1">Layout Presets</Label>
-      <Text className="text-[11px] text-muted-foreground mb-2">
+      <Text className="mb-2 text-[11px] text-muted-foreground">
         Choose a preset layout optimized for different use cases.
       </Text>
 
@@ -330,9 +363,9 @@ export default function KeyboardCustomization() {
           <Pressable
             key={preset.id}
             onPress={() => handlePresetSelect(preset.id)}
-            className={`bg-card border px-3 py-3 active:opacity-80 ${isActive ? "border-accent-brand/50" : "border-border"}`}
+            className={`border bg-card px-3 py-3 active:opacity-80 ${isActive ? "border-accent-brand/50" : "border-border"}`}
           >
-            <View className="flex-row items-center justify-between mb-1">
+            <View className="mb-1 flex-row items-center justify-between">
               <Text
                 weight="medium"
                 className={`text-sm ${isActive ? "text-accent-brand" : "text-foreground"}`}
@@ -340,7 +373,7 @@ export default function KeyboardCustomization() {
                 {preset.name}
               </Text>
               {isActive ? (
-                <View className="px-1.5 py-0.5 bg-accent-brand/10 border border-accent-brand/40">
+                <View className="border border-accent-brand/40 bg-accent-brand/10 px-1.5 py-0.5">
                   <Text
                     weight="bold"
                     className="text-[8px] uppercase tracking-wider text-accent-brand"
@@ -358,8 +391,8 @@ export default function KeyboardCustomization() {
       })}
 
       {config.preset === "custom" ? (
-        <View className="bg-card border border-border px-3 py-3 mt-1">
-          <Text weight="medium" className="text-xs text-accent-brand mb-0.5">
+        <View className="mt-1 border border-border bg-card px-3 py-3">
+          <Text weight="medium" className="mb-0.5 text-xs text-accent-brand">
             Custom Layout
           </Text>
           <Text className="text-[10px] text-muted-foreground">
@@ -385,13 +418,15 @@ export default function KeyboardCustomization() {
 
           const pinnedKeys = newData
             .filter(
-              (item) => item.type === "draggable-key" && item.section === "pinned",
+              (item) =>
+                item.type === "draggable-key" && item.section === "pinned",
             )
             .map((item) => (item as any).data);
 
           const topBarKeys = newData
             .filter(
-              (item) => item.type === "draggable-key" && item.section === "topbar",
+              (item) =>
+                item.type === "draggable-key" && item.section === "topbar",
             )
             .map((item) => (item as any).data);
 
@@ -455,18 +490,18 @@ export default function KeyboardCustomization() {
       contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}
     >
       {/* Key Size */}
-      <View className="bg-card border border-border">
-        <View className="px-3 py-3 border-b border-border">
+      <View className="border border-border bg-card">
+        <View className="border-b border-border px-3 py-3">
           <Label>Key Size</Label>
         </View>
-        <View className="px-3 pb-3 pt-2.5 flex-row gap-2">
+        <View className="flex-row gap-2 px-3 pb-3 pt-2.5">
           {(["small", "medium", "large"] as const).map((size) => {
             const isActive = config.settings.keySize === size;
             return (
               <Pressable
                 key={size}
                 onPress={() => updateSettings({ keySize: size })}
-                className={`flex-1 py-2.5 border items-center active:opacity-80 ${isActive ? "border-accent-brand/50 bg-accent-brand/10" : "border-border"}`}
+                className={`flex-1 items-center border py-2.5 active:opacity-80 ${isActive ? "border-accent-brand/50 bg-accent-brand/10" : "border-border"}`}
               >
                 <Text
                   weight="medium"
@@ -481,17 +516,17 @@ export default function KeyboardCustomization() {
       </View>
 
       {/* Toggles */}
-      <View className="bg-card border border-border">
-        <View className="px-3 py-3 border-b border-border">
+      <View className="border border-border bg-card">
+        <View className="border-b border-border px-3 py-3">
           <Label>Behavior</Label>
         </View>
         <View className="px-3">
-          <View className="flex-row items-center justify-between py-2.5 border-b border-border">
-            <View className="flex-1 min-w-0 mr-3">
+          <View className="flex-row items-center justify-between border-b border-border py-2.5">
+            <View className="mr-3 min-w-0 flex-1">
               <Text weight="medium" className="text-xs text-foreground">
                 Compact Mode
               </Text>
-              <Text className="text-[10px] text-muted-foreground mt-0.5">
+              <Text className="mt-0.5 text-[10px] text-muted-foreground">
                 Tighter spacing for more keys on screen
               </Text>
             </View>
@@ -501,12 +536,12 @@ export default function KeyboardCustomization() {
             />
           </View>
 
-          <View className="flex-row items-center justify-between py-2.5 border-b border-border">
-            <View className="flex-1 min-w-0 mr-3">
+          <View className="flex-row items-center justify-between border-b border-border py-2.5">
+            <View className="mr-3 min-w-0 flex-1">
               <Text weight="medium" className="text-xs text-foreground">
                 Haptic Feedback
               </Text>
-              <Text className="text-[10px] text-muted-foreground mt-0.5">
+              <Text className="mt-0.5 text-[10px] text-muted-foreground">
                 Vibrate on key press
               </Text>
             </View>
@@ -517,12 +552,12 @@ export default function KeyboardCustomization() {
           </View>
 
           <View className="flex-row items-center justify-between py-2.5">
-            <View className="flex-1 min-w-0 mr-3">
+            <View className="mr-3 min-w-0 flex-1">
               <Text weight="medium" className="text-xs text-foreground">
                 Show Hints
               </Text>
-              <Text className="text-[10px] text-muted-foreground mt-0.5">
-                Display the "Customize in Settings" hint
+              <Text className="mt-0.5 text-[10px] text-muted-foreground">
+                Display the Customize in Settings hint
               </Text>
             </View>
             <FakeSwitch
@@ -574,11 +609,15 @@ export default function KeyboardCustomization() {
   return (
     <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
       {/* Header */}
-      <View className="flex-row items-center gap-3 px-4 pt-3 pb-3 border-b border-border">
-        <Pressable onPress={() => router.back()} hitSlop={8} className="shrink-0">
+      <View className="flex-row items-center gap-3 border-b border-border px-4 pb-3 pt-3">
+        <Pressable
+          onPress={() => router.back()}
+          hitSlop={8}
+          className="shrink-0"
+        >
           <ArrowLeft size={18} color={color("foreground")} />
         </Pressable>
-        <Text weight="bold" className="text-xl text-foreground flex-1">
+        <Text weight="bold" className="flex-1 text-xl text-foreground">
           Keyboard
         </Text>
       </View>
@@ -587,13 +626,15 @@ export default function KeyboardCustomization() {
       <View className="flex-row border-b border-border bg-card">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id;
+          const iconColor =
+            color(isActive ? "accent-brand" : "muted-foreground") || "#71717a";
           return (
             <Pressable
               key={tab.id}
               onPress={() => setActiveTab(tab.id)}
-              className={`flex-1 items-center py-2.5 gap-1 border-b-2 ${isActive ? "border-accent-brand" : "border-transparent"}`}
+              className={`flex-1 items-center gap-1 border-b-2 py-2.5 ${isActive ? "border-accent-brand" : "border-transparent"}`}
             >
-              {tab.icon(isActive ? color("accent-brand") : color("muted-foreground"))}
+              {tab.icon(iconColor)}
               <Text
                 weight={isActive ? "medium" : "regular"}
                 className={`text-[9px] ${isActive ? "text-accent-brand" : "text-muted-foreground"}`}

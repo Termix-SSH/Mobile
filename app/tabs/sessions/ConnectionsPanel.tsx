@@ -23,10 +23,7 @@ import {
 import { Text } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { SSHHost } from "@/types";
-import {
-  getSSHHosts,
-  deleteOpenTab,
-} from "@/app/main-axios";
+import { getSSHHosts, deleteOpenTab } from "@/app/main-axios";
 
 const TYPE_LABELS: Record<string, string> = {
   terminal: "SSH",
@@ -83,14 +80,14 @@ function toSessionType(tabType: string): SessionType {
 
 function SectionHeader({ label, count }: { label: string; count: number }) {
   return (
-    <View className="flex-row items-center gap-2 px-4 py-2 border-b border-border bg-muted/20">
+    <View className="flex-row items-center gap-2 border-b border-border bg-muted/20 px-4 py-2">
       <Text
         weight="bold"
-        className="text-[10px] uppercase tracking-widest text-muted-foreground flex-1"
+        className="flex-1 text-[10px] uppercase tracking-widest text-muted-foreground"
       >
         {label}
       </Text>
-      <View className="px-1.5 py-0.5 bg-muted">
+      <View className="bg-muted px-1.5 py-0.5">
         <Text className="text-[10px] text-muted-foreground">{count}</Text>
       </View>
     </View>
@@ -123,45 +120,48 @@ function ConnectionRow({
   return (
     <Pressable
       onPress={onSwitch}
-      className={`flex-row items-center gap-2.5 px-4 py-3 border-b border-border/40 active:bg-muted/40 ${
-        isActive ? "bg-accent-brand/10 border-l-2 border-l-accent-brand" : ""
+      className={`flex-row items-center gap-2.5 border-b border-border/40 px-4 py-3 active:bg-muted/40 ${
+        isActive ? "border-l-2 border-l-accent-brand bg-accent-brand/10" : ""
       }`}
     >
       <View
-        className={`w-7 h-7 items-center justify-center ${
+        className={`h-7 w-7 items-center justify-center ${
           isActive ? "bg-accent-brand/15" : "bg-muted/60"
         }`}
       >
         {tabIcon(tabType, iconColor)}
       </View>
-      <View className="flex-1 min-w-0">
+      <View className="min-w-0 flex-1">
         <View className="flex-row items-center gap-1.5">
           <View
             style={{
               backgroundColor: isLive
                 ? "#22c55e"
-                : color("muted-foreground", 0.3) ?? "#555",
+                : (color("muted-foreground", 0.3) ?? "#555"),
             }}
-            className="w-1.5 h-1.5 rounded-full"
+            className="h-1.5 w-1.5 rounded-full"
           />
           <Text
             weight="medium"
-            className={`text-xs flex-1 ${isActive ? "text-accent-brand" : "text-foreground"}`}
+            className={`flex-1 text-xs ${isActive ? "text-accent-brand" : "text-foreground"}`}
             numberOfLines={1}
           >
             {name}
           </Text>
-          <View className="px-1 py-px border border-border/60">
+          <View className="border border-border/60 px-1 py-px">
             <Text className="text-[9px] text-muted-foreground">
               {TYPE_LABELS[tabType] ?? tabType}
             </Text>
           </View>
         </View>
-        <Text className="text-[10px] text-muted-foreground/70 pl-3 mt-0.5" numberOfLines={1}>
+        <Text
+          className="mt-0.5 pl-3 text-[10px] text-muted-foreground/70"
+          numberOfLines={1}
+        >
           {subLabel}
         </Text>
       </View>
-      <View className="flex-row items-center gap-1 shrink-0">
+      <View className="shrink-0 flex-row items-center gap-1">
         {reconnectHint ? (
           <ExternalLink size={13} color={color("muted-foreground")} />
         ) : null}
@@ -171,7 +171,7 @@ function ConnectionRow({
             onClose();
           }}
           hitSlop={8}
-          className="w-6 h-6 items-center justify-center"
+          className="h-6 w-6 items-center justify-center"
         >
           <X size={13} color={color("muted-foreground")} />
         </Pressable>
@@ -256,14 +256,17 @@ export function ConnectionsPanel() {
 
   if (!hasAny) {
     return (
-      <View className="flex-1 items-center justify-center px-8 gap-3">
-        <View className="w-12 h-12 rounded-full bg-muted/40 items-center justify-center">
+      <View className="flex-1 items-center justify-center gap-3 px-8">
+        <View className="h-12 w-12 items-center justify-center rounded-full bg-muted/40">
           <Plug size={22} color={color("muted-foreground", 0.5)} />
         </View>
-        <Text weight="medium" className="text-sm text-muted-foreground text-center">
+        <Text
+          weight="medium"
+          className="text-center text-sm text-muted-foreground"
+        >
           No active connections
         </Text>
-        <Text className="text-xs text-muted-foreground/60 text-center">
+        <Text className="text-center text-xs text-muted-foreground/60">
           Connect to a host to start a session. Tabs you open on other devices
           will appear here too.
         </Text>
@@ -291,7 +294,8 @@ export function ConnectionsPanel() {
           <SectionHeader label="Open" count={sessions.length} />
           {sessions.map((s) => {
             const live = sessionByInstance.get(s.instanceId);
-            const isLive = s.type === "terminal" ? (live?.isConnected ?? false) : true;
+            const isLive =
+              s.type === "terminal" ? (live?.isConnected ?? false) : true;
             return (
               <ConnectionRow
                 key={s.id}
@@ -318,7 +322,7 @@ export function ConnectionsPanel() {
       {backgroundTabs.length > 0 ? (
         <View className={sessions.length > 0 ? "mt-2" : ""}>
           <SectionHeader label="Background" count={backgroundTabs.length} />
-          <View className="px-4 py-1.5 border-b border-border/40">
+          <View className="border-b border-border/40 px-4 py-1.5">
             <Text className="text-[10px] text-muted-foreground/60">
               Sessions from other devices or backgrounded tabs. Tap to revive.
             </Text>
@@ -333,7 +337,9 @@ export function ConnectionsPanel() {
                 tabType={r.tabType}
                 name={host?.name ?? r.label}
                 subLabel={
-                  live?.isConnected ? "Live — tap to reconnect" : "Tap to reopen"
+                  live?.isConnected
+                    ? "Live — tap to reconnect"
+                    : "Tap to reopen"
                 }
                 reconnectHint
                 onSwitch={() => reviveBackground(r)}

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Pressable } from "react-native";
+import { View } from "react-native";
 import DraggableFlatList, {
   RenderItemParams,
   ScaleDecorator,
@@ -71,11 +71,11 @@ export default function UnifiedDraggableList({
   }: RenderItemParams<UnifiedListItem>) => {
     if (item.type === "header") {
       return (
-        <View className="flex-row items-center justify-between mb-3">
-          <View className="flex-1 min-w-0">
+        <View className="mb-3 flex-row items-center justify-between">
+          <View className="min-w-0 flex-1">
             <Label>{item.title}</Label>
             {item.subtitle ? (
-              <Text className="text-[10px] text-muted-foreground mt-0.5">
+              <Text className="mt-0.5 text-[10px] text-muted-foreground">
                 {item.subtitle}
               </Text>
             ) : null}
@@ -95,7 +95,7 @@ export default function UnifiedDraggableList({
         <ScaleDecorator>
           <View
             style={{ opacity: isActive ? 0.5 : 1 }}
-            className={isRowKey ? "bg-card border-x border-border" : ""}
+            className={isRowKey ? "border-x border-border bg-card" : ""}
           >
             {item.renderItem(
               item.data,
@@ -120,7 +120,7 @@ export default function UnifiedDraggableList({
 
     if (item.type === "row-keys-header") {
       return (
-        <View className="px-3 pt-3 pb-2 bg-card border-x border-t border-border -mt-px">
+        <View className="-mt-px border-x border-t border-border bg-card px-3 pb-2 pt-3">
           <View className="flex-row items-center justify-between">
             <Text weight="medium" className="text-xs text-foreground">
               Keys in this row
@@ -152,7 +152,7 @@ export default function UnifiedDraggableList({
       if (isRowClose) {
         return (
           <View
-            className="bg-card border-x border-b border-border mb-3"
+            className="mb-3 border-x border-b border-border bg-card"
             style={{ height: item.height }}
           />
         );

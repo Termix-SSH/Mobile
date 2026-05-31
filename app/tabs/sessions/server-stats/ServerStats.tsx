@@ -16,12 +16,7 @@ import {
   type DimensionValue,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {
-  Cpu,
-  MemoryStick,
-  HardDrive,
-  Server,
-} from "lucide-react-native";
+import { Cpu, MemoryStick, HardDrive, Server } from "lucide-react-native";
 import { getServerMetricsById, executeSnippet } from "../../../main-axios";
 import { showToast } from "../../../utils/toast";
 import type { ServerMetrics, QuickAction } from "../../../../types";
@@ -63,7 +58,9 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     const [executingActions, setExecutingActions] = useState<Set<number>>(
       new Set(),
     );
-    const refreshIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const refreshIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
+      null,
+    );
 
     const padding = getResponsivePadding(isLandscape);
     const columnCount = getColumnCount(width, isLandscape, 350);

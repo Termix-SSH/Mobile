@@ -1,4 +1,8 @@
-const { withInfoPlist, withDangerousMod, IOSConfig } = require("@expo/config-plugins");
+const {
+  withInfoPlist,
+  withDangerousMod,
+  IOSConfig,
+} = require("@expo/config-plugins");
 const fs = require("fs");
 
 const withIOSNetworkSecurity = (config) => {
@@ -32,8 +36,7 @@ const withIOSNetworkSecurity = (config) => {
         };
 
         IOSConfig.InfoPlist.write(platformProjectRoot, infoPlist);
-      } catch (e) {
-      }
+      } catch (e) {}
 
       return config;
     },

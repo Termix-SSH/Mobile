@@ -18,35 +18,39 @@ export function renderKeyItem({
   drag,
   isActive,
 }: RenderKeyItemProps) {
-  return <KeyItem item={item} onRemove={onRemove} drag={drag} isActive={isActive} />;
+  return (
+    <KeyItem item={item} onRemove={onRemove} drag={drag} isActive={isActive} />
+  );
 }
 
 function KeyItem({ item, onRemove, drag, isActive }: RenderKeyItemProps) {
   const color = useThemeColor();
 
   return (
-    <View className="flex-row items-center bg-card border border-border mb-1.5">
+    <View className="mb-1.5 flex-row items-center border border-border bg-card">
       <Pressable
         onLongPress={drag}
         delayLongPress={200}
         disabled={isActive}
-        className="w-10 h-10 items-center justify-center shrink-0"
+        className="h-10 w-10 shrink-0 items-center justify-center"
       >
         <GripVertical size={16} color={color("muted-foreground")} />
       </Pressable>
 
-      <View className="flex-1 min-w-0 py-2 pr-2">
+      <View className="min-w-0 flex-1 py-2 pr-2">
         <View className="flex-row items-center gap-2">
-          <View className="bg-muted border border-border px-2 py-1 shrink-0">
+          <View className="shrink-0 border border-border bg-muted px-2 py-1">
             <Text weight="medium" className="text-xs text-foreground">
               {item.label}
             </Text>
           </View>
-          <Text className="text-[10px] text-muted-foreground">{item.category}</Text>
+          <Text className="text-[10px] text-muted-foreground">
+            {item.category}
+          </Text>
         </View>
         {item.description ? (
           <Text
-            className="text-[10px] text-muted-foreground mt-0.5"
+            className="mt-0.5 text-[10px] text-muted-foreground"
             numberOfLines={1}
           >
             {item.description}
@@ -57,7 +61,7 @@ function KeyItem({ item, onRemove, drag, isActive }: RenderKeyItemProps) {
       <Pressable
         onPress={onRemove}
         hitSlop={8}
-        className="w-8 h-8 items-center justify-center shrink-0 mr-1 border border-destructive/40 active:opacity-70"
+        className="mr-1 h-8 w-8 shrink-0 items-center justify-center border border-destructive/40 active:opacity-70"
       >
         <X size={13} color={color("destructive")} />
       </Pressable>

@@ -18,7 +18,9 @@ export function FakeSwitch({
   disabled?: boolean;
 }) {
   const thumbStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: withTiming(checked ? 16 : 2, { duration: 150 }) }],
+    transform: [
+      { translateX: withTiming(checked ? 16 : 2, { duration: 150 }) },
+    ],
   }));
 
   return (
@@ -26,11 +28,11 @@ export function FakeSwitch({
       disabled={disabled}
       onPress={() => onChange(!checked)}
       hitSlop={8}
-      className={`w-9 h-5 rounded-full justify-center ${checked ? "bg-accent-brand" : "bg-muted"} ${disabled ? "opacity-50" : ""}`}
+      className={`h-5 w-9 justify-center rounded-full ${checked ? "bg-accent-brand" : "bg-muted"} ${disabled ? "opacity-50" : ""}`}
     >
       <Animated.View
         style={thumbStyle}
-        className="w-4 h-4 rounded-full bg-white"
+        className="h-4 w-4 rounded-full bg-white"
       />
     </Pressable>
   );
@@ -51,9 +53,9 @@ export function Checkbox({
       disabled={disabled}
       onPress={() => onChange(!checked)}
       hitSlop={8}
-      className={`w-4 h-4 rounded-check border items-center justify-center ${checked ? "bg-accent-brand border-accent-brand" : "border-input bg-transparent"} ${disabled ? "opacity-50" : ""}`}
+      className={`h-4 w-4 items-center justify-center rounded-check border ${checked ? "border-accent-brand bg-accent-brand" : "border-input bg-transparent"} ${disabled ? "opacity-50" : ""}`}
     >
-      {checked ? <View className="w-2 h-2 bg-white rounded-check" /> : null}
+      {checked ? <View className="h-2 w-2 rounded-check bg-white" /> : null}
     </Pressable>
   );
 }

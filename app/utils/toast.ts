@@ -17,7 +17,8 @@ function withBorder(color?: string) {
 }
 
 export const toast = {
-  success: (m: string) => sonnerToast.success(m, withBorder(STATUS_BORDER.success)),
+  success: (m: string) =>
+    sonnerToast.success(m, withBorder(STATUS_BORDER.success)),
   error: (m: string) => sonnerToast.error(m, withBorder(STATUS_BORDER.error)),
   warning: (m: string) =>
     sonnerToast.warning(m, withBorder(STATUS_BORDER.warning)),
