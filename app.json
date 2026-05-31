@@ -71,6 +71,7 @@
       ],
       "./plugins/withIOSNetworkSecurity.js",
       "./plugins/withNetworkSecurityConfig.js",
+      "./plugins/withAndroidLocalNetworkSsl.js",
       "expo-dev-client",
       "expo-secure-store"
     ],
