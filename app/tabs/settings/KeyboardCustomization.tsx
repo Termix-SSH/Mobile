@@ -522,7 +522,7 @@ export default function KeyboardCustomization() {
                 Show Hints
               </Text>
               <Text className="text-[10px] text-muted-foreground mt-0.5">
-                Display the "Customize in Settings" hint
+                Display the Customize in Settings hint
               </Text>
             </View>
             <FakeSwitch
@@ -587,13 +587,16 @@ export default function KeyboardCustomization() {
       <View className="flex-row border-b border-border bg-card">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id;
+          const iconColor =
+            color(isActive ? "accent-brand" : "muted-foreground") ||
+            "#71717a";
           return (
             <Pressable
               key={tab.id}
               onPress={() => setActiveTab(tab.id)}
               className={`flex-1 items-center py-2.5 gap-1 border-b-2 ${isActive ? "border-accent-brand" : "border-transparent"}`}
             >
-              {tab.icon(isActive ? color("accent-brand") : color("muted-foreground"))}
+              {tab.icon(iconColor)}
               <Text
                 weight={isActive ? "medium" : "regular"}
                 className={`text-[9px] ${isActive ? "text-accent-brand" : "text-muted-foreground"}`}
