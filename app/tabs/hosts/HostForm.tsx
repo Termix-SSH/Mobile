@@ -256,6 +256,7 @@ export default function HostForm({
       enableFileManager: form.enableFileManager,
       enableDocker: form.enableDocker,
       defaultPath: form.defaultPath,
+      jumpHosts: host?.jumpHosts ?? [],
       notes: form.notes,
       enableSsh: form.enableSsh,
       enableRdp: form.enableRdp,

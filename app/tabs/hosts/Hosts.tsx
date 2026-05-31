@@ -400,6 +400,7 @@ export default function Hosts() {
         enableFileManager: host.enableFileManager,
         enableDocker: host.enableDocker,
         defaultPath: host.defaultPath ?? "/",
+        jumpHosts: host.jumpHosts ?? [],
         forceKeyboardInteractive: host.forceKeyboardInteractive,
         tunnelConnections: host.tunnelConnections ?? [],
         notes: host.notes,
