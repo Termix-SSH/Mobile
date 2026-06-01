@@ -1,5 +1,4 @@
 import { getCurrentServerUrl, getCookie } from "../../../main-axios";
-import { Platform } from "react-native";
 
 export interface TerminalHostConfig {
   id: number;
@@ -81,7 +80,6 @@ export class NativeWebSocketManager {
   private cols = 80;
   private rows = 24;
   private wsUrl: string | null = null;
-  private wsHeaders: Record<string, string> = {};
   private serverSessionId: string | null = null;
   private pendingReattach = false;
   private awaitingAuthCredentials = false;
@@ -126,16 +124,6 @@ export class NativeWebSocketManager {
     const wsHost = serverUrl.replace(/^https?:\/\//, "");
     const cleanHost = wsHost.replace(/\/$/, "");
     this.wsUrl = `${wsProtocol}${cleanHost}/ssh/websocket/?token=${encodeURIComponent(jwtToken)}`;
-    this.wsHeaders = {
-      Authorization: `Bearer ${jwtToken}`,
-      Cookie: `jwt=${encodeURIComponent(jwtToken)}`,
-      "User-Agent":
-        Platform.OS === "android"
-          ? "Termix-Mobile/Android"
-          : Platform.OS === "ios"
-            ? "Termix-Mobile/iOS"
-            : `Termix-Mobile/${Platform.OS}`,
-    };
 
     this.connectWebSocket();
   }
@@ -354,9 +342,7 @@ export class NativeWebSocketManager {
       retryCount: this.reconnectAttempts,
     });
 
-    const ws = new (WebSocket as any)(this.wsUrl, undefined, {
-      headers: this.wsHeaders,
-    }) as WebSocket;
+    const ws = new WebSocket(this.wsUrl);
     this.ws = ws;
 
     this.connectionTimeout = setTimeout(() => {
@@ -436,6 +422,7 @@ export class NativeWebSocketManager {
           );
         } else if (msg.type === "password_required") {
           this.awaitingAuthCredentials = true;
+          this.shouldNotReconnect = true;
           this.config.onTotpRequired(
             (msg.prompt as string) || "Password:",
             true,
@@ -445,6 +432,7 @@ export class NativeWebSocketManager {
           msg.type === "auth_method_not_available"
         ) {
           this.awaitingAuthCredentials = true;
+          this.shouldNotReconnect = true;
           this.config.onAuthDialogNeeded("no_keyboard");
         } else if (msg.type === "host_key_verification_required") {
           if (this.connectionTimeout) {
@@ -490,6 +478,7 @@ export class NativeWebSocketManager {
             this.isAuthenticationError(message)
           ) {
             this.awaitingAuthCredentials = true;
+            this.shouldNotReconnect = true;
             this.config.onAuthDialogNeeded("no_keyboard");
             return;
           }
@@ -564,10 +553,6 @@ export class NativeWebSocketManager {
       }
 
       if (this.destroyed) return;
-
-      if (this.awaitingAuthCredentials) {
-        return;
-      }
 
       if (this.shouldNotReconnect) {
         this.notifyFailureOnce("Connection closed");

@@ -32,10 +32,10 @@ export const TERMINAL_THEMES: Record<string, TerminalTheme> = {
     name: "Termix Default",
     category: "dark",
     colors: {
-      background: "#18181b",
+      background: "#0c0d0b",
       foreground: "#f7f7f7",
       cursor: "#f7f7f7",
-      cursorAccent: "#18181b",
+      cursorAccent: "#0c0d0b",
       selectionBackground: "#3a3a3d",
       black: "#2e3436",
       red: "#cc0000",

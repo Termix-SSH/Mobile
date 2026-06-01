@@ -59,6 +59,7 @@ export function Docker({ host, isVisible }: DockerProps) {
   const [menuFor, setMenuFor] = useState<DockerContainer | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [dockerAvailable, setDockerAvailable] = useState<boolean | null>(null);
+  const [initialLoadDone, setInitialLoadDone] = useState(false);
 
   const loadContainers = useCallback(
     async (sessionId: string) => {
@@ -87,15 +88,20 @@ export function Docker({ host, isVisible }: DockerProps) {
 
   const onConnected = useCallback(
     async (sessionId: string) => {
+      setInitialLoadDone(false);
       // Confirm Docker is actually installed before listing.
       try {
         const v = await dockerValidate(sessionId);
         setDockerAvailable(v.available);
-        if (!v.available) return;
+        if (!v.available) {
+          setInitialLoadDone(true);
+          return;
+        }
       } catch {
         setDockerAvailable(true); // assume available; list call will surface real errors
       }
       await loadContainers(sessionId);
+      setInitialLoadDone(true);
     },
     [loadContainers],
   );
@@ -167,7 +173,7 @@ export function Docker({ host, isVisible }: DockerProps) {
 
   // Map connect-state → SessionFrame status.
   const frameStatus =
-    conn.state === "connecting" || conn.state === "idle"
+    conn.state === "connecting" || conn.state === "idle" || (conn.state === "connected" && !initialLoadDone)
       ? "loading"
       : conn.state === "error"
         ? "error"

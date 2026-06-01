@@ -17,6 +17,7 @@ interface KeyboardBarProps {
     shift: boolean;
   }) => void;
   isKeyboardIntentionallyHidden?: boolean;
+  bottomInset?: number;
 }
 
 export default function KeyboardBar({
@@ -24,6 +25,7 @@ export default function KeyboardBar({
   isVisible,
   onModifierChange,
   isKeyboardIntentionallyHidden = false,
+  bottomInset = 0,
 }: KeyboardBarProps) {
   const { config } = useKeyboardCustomization();
   const { isLandscape } = useOrientation();
@@ -153,7 +155,7 @@ export default function KeyboardBar({
     <View
       style={{
         backgroundColor: BACKGROUNDS.DARKEST,
-        paddingBottom: isKeyboardIntentionallyHidden ? 16 : 0,
+        paddingBottom: isKeyboardIntentionallyHidden ? bottomInset : 0,
         marginTop: 2,
         borderTopWidth: StyleSheet.hairlineWidth,
         borderTopColor: BORDER_COLORS.PRIMARY,

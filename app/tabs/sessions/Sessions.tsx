@@ -103,16 +103,10 @@ export default function Sessions() {
   const dictationSentRef = useRef("");
   const dictationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const ignoreNextTextChangeRef = useRef(false);
-  const ignoreTextChangeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null,
-  );
 
   const resetHiddenInputState = useCallback(() => {
     if (dictationTimerRef.current) clearTimeout(dictationTimerRef.current);
-    if (ignoreTextChangeTimerRef.current)
-      clearTimeout(ignoreTextChangeTimerRef.current);
     dictationTimerRef.current = null;
-    ignoreTextChangeTimerRef.current = null;
     dictationBufferRef.current = "";
     dictationSentRef.current = "";
     setHiddenInputValue("");
@@ -146,7 +140,14 @@ export default function Sessions() {
   const CUSTOM_KEYBOARD_TAB_HEIGHT = 36;
 
   const KEYBOARD_BAR_HEIGHT = isLandscape ? 48 : 52;
-  const KEYBOARD_BAR_HEIGHT_EXTENDED = isLandscape ? 64 : 68;
+  // When the system keyboard is dismissed the keyboard bar reserves the
+  // home-indicator safe area below its keys. The TabBar floats directly on top
+  // of the bar, so it must be lifted by the keys' height PLUS that same
+  // reservation — otherwise the reserved space falls between the TabBar and the
+  // keys and the TabBar looks bottom-heavy. Keep these two in lockstep.
+  const KEYBOARD_BAR_BOTTOM_INSET = Math.max(insets.bottom, 8);
+  const KEYBOARD_BAR_HEIGHT_EXTENDED =
+    KEYBOARD_BAR_HEIGHT + KEYBOARD_BAR_BOTTOM_INSET;
 
   const activeSession = sessions.find(
     (session) => session.id === activeSessionId,
@@ -791,6 +792,7 @@ export default function Sessions() {
               isKeyboardIntentionallyHidden={
                 keyboardIntentionallyHiddenRef.current
               }
+              bottomInset={KEYBOARD_BAR_BOTTOM_INSET}
             />
           </View>
         )}
@@ -912,6 +914,11 @@ export default function Sessions() {
             value={hiddenInputValue}
             onChangeText={(text) => {
               if (Platform.OS === "ios") {
+                if (ignoreNextTextChangeRef.current) {
+                  ignoreNextTextChangeRef.current = false;
+                  return;
+                }
+
                 const activeRef = activeSessionId
                   ? terminalRefs.current[activeSessionId]
                   : null;
@@ -1101,19 +1108,15 @@ export default function Sessions() {
                   break;
                 default:
                   if (key.length === 1) {
-                    if (
-                      Platform.OS === "ios" &&
-                      !activeModifiers.ctrl &&
-                      !activeModifiers.alt &&
-                      !activeModifiers.shift
-                    ) {
-                      return;
-                    }
-
                     if (activeModifiers.ctrl) {
                       finalKey = String.fromCharCode(key.charCodeAt(0) & 0x1f);
                     } else if (activeModifiers.alt) {
                       finalKey = `\x1b${activeModifiers.shift ? key.toUpperCase() : key}`;
+                    } else if (Platform.OS === "ios") {
+                      // On iOS, onChangeText handles bare printable chars to
+                      // support dictation/IME composition. Skip here to avoid
+                      // double-sending.
+                      return;
                     } else {
                       finalKey = activeModifiers.shift
                         ? key.toUpperCase()
@@ -1127,10 +1130,6 @@ export default function Sessions() {
                 if (key.length !== 1 || key === "Tab") {
                   resetHiddenInputState();
                   ignoreNextTextChangeRef.current = true;
-                  ignoreTextChangeTimerRef.current = setTimeout(() => {
-                    ignoreNextTextChangeRef.current = false;
-                    ignoreTextChangeTimerRef.current = null;
-                  }, 100);
                   if (Platform.OS === "android") {
                     requestAnimationFrame(() => {
                       hiddenInputRef.current?.focus();

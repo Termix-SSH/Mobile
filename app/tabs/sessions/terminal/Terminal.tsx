@@ -35,6 +35,7 @@ import {
   type TerminalHostConfig,
   type HostKeyData,
 } from "./NativeWebSocketManager";
+import { loadXtermAssets } from "./loadXtermAssets";
 import { useConnectionLog, ConnectionLog } from "../_shared/useConnectionLog";
 
 interface TerminalProps {
@@ -140,6 +141,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       data: HostKeyData;
     } | null>(null);
 
+    const xtermAssetsRef = useRef<{
+      xtermJs: string;
+      xtermCss: string;
+      fitAddonJs: string;
+    } | null>(null);
+
     const [isScreenReaderEnabled, setIsScreenReaderEnabled] = useState(false);
     const isScreenReaderEnabledRef = useRef(false);
     const [accessibilityText, setAccessibilityText] = useState("");
@@ -216,7 +223,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       [onClose],
     );
 
-    const generateHTML = useCallback(() => {
+    const generateHTML = useCallback((assets: { xtermJs: string; xtermCss: string; fitAddonJs: string }) => {
       const { width, height } = screenDimensions;
 
       const terminalConfig: Partial<TerminalConfig> = {
@@ -256,9 +263,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terminal</title>
-  <script src="https://unpkg.com/xterm@5.3.0/lib/xterm.js"></script>
-  <script src="https://unpkg.com/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/xterm@5.3.0/css/xterm.css" />
+  <style>${assets.xtermCss}</style>
+  <script>${assets.xtermJs}</script>
+  <script>${assets.fitAddonJs}</script>
   <style>
     body {
       margin: 0;
@@ -465,10 +472,17 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     terminal.onScroll(scheduleScrollStateUpdate);
 
+    let hasNotifiedDataReceived = false;
     window.writeToTerminal = function(data) {
       const shouldStickToBottom = getIsScrolledToBottom();
       try {
         terminal.write(data, function() {
+          if (!hasNotifiedDataReceived) {
+            hasNotifiedDataReceived = true;
+            if (window.ReactNativeWebView) {
+              window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'dataReceived' }));
+            }
+          }
           if (shouldStickToBottom) {
             terminal.scrollToBottom();
           }
@@ -478,6 +492,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     };
 
     window.notifyConnected = function(fromBackground, isReattach) {
+      hasNotifiedDataReceived = false;
       terminal.clear();
       if (isReattach) {
         terminal.write('\\x1b[2J\\x1b[H\\x1b[?25h');
@@ -712,7 +727,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     ]);
 
     useEffect(() => {
-      setHtmlContent(generateHTML());
+      loadXtermAssets().then((assets) => {
+        xtermAssetsRef.current = assets;
+        setHtmlContent(generateHTML(assets));
+      });
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -930,8 +948,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       setRetryCount(0);
       setShowScrollToBottomButton(false);
 
-      const html = generateHTML();
-      setHtmlContent(html);
+      if (xtermAssetsRef.current) {
+        setHtmlContent(generateHTML(xtermAssetsRef.current));
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hostConfig.id]);
 
@@ -1112,9 +1131,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               </TouchableOpacity>
             )}
 
-          {/* Spinner only shown before the first log entry arrives */}
-          {(connectionState === "connecting" || connectionState === "reconnecting") &&
-            log.entries.length === 0 && (
+          {/* Spinner shown until terminal has rendered its first output */}
+          {(connectionState === "connecting" || connectionState === "reconnecting" || !hasReceivedData) &&
+            connectionState !== "failed" && (
             <View
               style={{
                 position: "absolute",
@@ -1125,6 +1144,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 justifyContent: "center",
                 alignItems: "center",
                 backgroundColor: terminalBackgroundColor,
+                zIndex: 120,
               }}
             >
               <ActivityIndicator size="large" color={ACCENT} />

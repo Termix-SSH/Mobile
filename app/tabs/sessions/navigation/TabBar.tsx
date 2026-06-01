@@ -138,6 +138,7 @@ export default function TabBar({
             alignItems: "center",
             height: tabBarHeight,
             paddingHorizontal: 8,
+            marginTop: 4,
           }}
         >
           {/* Connections panel button */}
@@ -163,21 +164,6 @@ export default function TabBar({
             >
               <Layers size={isLandscape ? 16 : 18} color="#ffffff" />
             </TouchableOpacity>
-            {hasBackgroundSessions && (
-              <View
-                style={{
-                  position: "absolute",
-                  top: 2,
-                  right: 2,
-                  width: 6,
-                  height: 6,
-                  borderRadius: 3,
-                  backgroundColor: "#22c55e",
-                  borderWidth: 1,
-                  borderColor: BACKGROUNDS.DARKEST,
-                }}
-              />
-            )}
           </View>
 
           {/* Back to hosts button */}
