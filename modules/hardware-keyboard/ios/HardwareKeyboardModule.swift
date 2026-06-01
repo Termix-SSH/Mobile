@@ -4,6 +4,7 @@ import UIKit
 public class HardwareKeyboardModule: Module {
   private static var swizzled = false
   private static var instances: [ObjectIdentifier: HardwareKeyboardModule] = [:]
+  private static var lastEmit: (input: String, shift: Bool, ctrl: Bool, alt: Bool, time: TimeInterval)?
 
   public func definition() -> ModuleDefinition {
     Name("HardwareKeyboard")
@@ -25,7 +26,7 @@ public class HardwareKeyboardModule: Module {
     guard !swizzled else { return }
     swizzled = true
 
-    guard
+    if
       let original = class_getInstanceMethod(
         UIViewController.self,
         #selector(getter: UIViewController.keyCommands)
@@ -34,15 +35,84 @@ public class HardwareKeyboardModule: Module {
         UIViewController.self,
         #selector(UIViewController.hk_keyCommands)
       )
-    else { return }
+    {
+      method_exchangeImplementations(original, replacement)
+    }
 
-    method_exchangeImplementations(original, replacement)
+    if
+      let original = class_getInstanceMethod(
+        UIResponder.self,
+        #selector(UIResponder.pressesBegan(_:with:))
+      ),
+      let replacement = class_getInstanceMethod(
+        UIResponder.self,
+        #selector(UIResponder.hk_pressesBegan(_:with:))
+      )
+    {
+      method_exchangeImplementations(original, replacement)
+    }
   }
 
   static func emitToAll(_ input: String, shift: Bool, ctrl: Bool = false, alt: Bool = false) {
+    let now = Date().timeIntervalSince1970
+    if let last = lastEmit,
+       last.input == input,
+       last.shift == shift,
+       last.ctrl == ctrl,
+       last.alt == alt,
+       now - last.time < 0.03
+    {
+      return
+    }
+    lastEmit = (input, shift, ctrl, alt, now)
+
     let payload: [String: Any] = ["input": input, "shift": shift, "ctrl": ctrl, "alt": alt]
     for instance in instances.values {
       instance.sendEvent("onKeyCommand", payload)
+    }
+  }
+}
+
+extension UIResponder {
+  @objc func hk_pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+    let handled = presses.contains { press in
+      guard press.type == .keyboard, let key = press.key else { return false }
+
+      let modifiers = key.modifierFlags
+      let shift = modifiers.contains(.shift)
+      let ctrl = modifiers.contains(.control)
+      let alt = modifiers.contains(.alternate)
+
+      switch key.keyCode {
+      case .keyboardTab:
+        HardwareKeyboardModule.emitToAll("\t", shift: shift, ctrl: ctrl, alt: alt)
+        return true
+      case .keyboardUpArrow:
+        HardwareKeyboardModule.emitToAll("ArrowUp", shift: shift, ctrl: ctrl, alt: alt)
+        return true
+      case .keyboardDownArrow:
+        HardwareKeyboardModule.emitToAll("ArrowDown", shift: shift, ctrl: ctrl, alt: alt)
+        return true
+      case .keyboardLeftArrow:
+        HardwareKeyboardModule.emitToAll("ArrowLeft", shift: shift, ctrl: ctrl, alt: alt)
+        return true
+      case .keyboardRightArrow:
+        HardwareKeyboardModule.emitToAll("ArrowRight", shift: shift, ctrl: ctrl, alt: alt)
+        return true
+      case .keyboardEscape:
+        HardwareKeyboardModule.emitToAll("Escape", shift: shift, ctrl: ctrl, alt: alt)
+        return true
+      default:
+        if ctrl, let input = key.charactersIgnoringModifiers, input.count == 1 {
+          HardwareKeyboardModule.emitToAll(input, shift: shift, ctrl: true, alt: alt)
+          return true
+        }
+        return false
+      }
+    }
+
+    if !handled {
+      self.hk_pressesBegan(presses, with: event)
     }
   }
 }
