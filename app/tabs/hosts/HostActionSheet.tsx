@@ -25,7 +25,9 @@ import { StatsConfig, DEFAULT_STATS_CONFIG } from "@/constants/stats-config";
 
 function parseStatsConfig(host: SSHHost): StatsConfig {
   try {
-    return host.statsConfig ? JSON.parse(host.statsConfig) : DEFAULT_STATS_CONFIG;
+    return host.statsConfig
+      ? JSON.parse(host.statsConfig)
+      : DEFAULT_STATS_CONFIG;
   } catch {
     return DEFAULT_STATS_CONFIG;
   }
@@ -88,7 +90,11 @@ export function HostActionSheet({
       ? { type: "terminal" as SessionType, icon: Terminal, label: "Terminal" }
       : null,
     ssh && host.enableFileManager
-      ? { type: "filemanager" as SessionType, icon: FolderSearch, label: "File Manager" }
+      ? {
+          type: "filemanager" as SessionType,
+          icon: FolderSearch,
+          label: "File Manager",
+        }
       : null,
     ssh && host.enableDocker
       ? { type: "docker" as SessionType, icon: Box, label: "Docker" }
@@ -102,7 +108,11 @@ export function HostActionSheet({
     metricsEnabled
       ? { type: "stats" as SessionType, icon: Server, label: "Server Stats" }
       : null,
-  ].filter(Boolean) as { type: SessionType; icon: typeof Terminal; label: string }[];
+  ].filter(Boolean) as {
+    type: SessionType;
+    icon: typeof Terminal;
+    label: string;
+  }[];
 
   // Separate protocol actions (RDP / VNC / Telnet), each with its own icon —
   // matches the web rather than lumping them into one "Remote Desktop" row.
@@ -113,18 +123,26 @@ export function HostActionSheet({
   ].filter(Boolean) as { icon: typeof Monitor; label: string }[];
 
   const dotColor =
-    status === "online" ? "#22c55e" : status === "offline" ? "#ef4444" : "#9ca3af";
+    status === "online"
+      ? "#22c55e"
+      : status === "offline"
+        ? "#ef4444"
+        : "#9ca3af";
 
   return (
     <BottomSheet visible={visible} onClose={onClose}>
       {/* Header */}
-      <View className="flex-row items-center gap-2.5 px-4 pb-3 pt-1 border-b border-border">
+      <View className="flex-row items-center gap-2.5 border-b border-border px-4 pb-3 pt-1">
         <View
           style={{ backgroundColor: dotColor }}
-          className="w-2.5 h-2.5 rounded-full"
+          className="h-2.5 w-2.5 rounded-full"
         />
-        <View className="flex-1 min-w-0">
-          <Text weight="bold" className="text-base text-foreground" numberOfLines={1}>
+        <View className="min-w-0 flex-1">
+          <Text
+            weight="bold"
+            className="text-base text-foreground"
+            numberOfLines={1}
+          >
             {host.name}
           </Text>
           <Text className="text-xs text-muted-foreground" numberOfLines={1}>
@@ -136,7 +154,7 @@ export function HostActionSheet({
         {status === "online" &&
         metrics &&
         (metrics.cpu != null || metrics.ram != null) ? (
-          <View className="items-end shrink-0">
+          <View className="shrink-0 items-end">
             {metrics.cpu != null ? (
               <Text className="text-[10px] text-muted-foreground">
                 CPU {Math.round(metrics.cpu)}%

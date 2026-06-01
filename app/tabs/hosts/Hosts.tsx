@@ -169,18 +169,14 @@ export default function Hosts() {
   }, []);
 
   const getHostStatus = useCallback(
-    (hostId: number): HostStatus =>
-      serverStatuses[hostId]?.status ?? "unknown",
+    (hostId: number): HostStatus => serverStatuses[hostId]?.status ?? "unknown",
     [serverStatuses],
   );
 
   // Fetch CPU/RAM for online hosts. Never throws; failures are ignored so the
   // list always renders.
   const fetchMetrics = useCallback(
-    async (
-      hostList: SSHHost[],
-      statuses: Record<number, ServerStatus>,
-    ) => {
+    async (hostList: SSHHost[], statuses: Record<number, ServerStatus>) => {
       const onlineIds = hostList
         .filter((h) => statuses[h.id]?.status === "online")
         .map((h) => h.id);
@@ -317,10 +313,9 @@ export default function Hosts() {
       const next = new Set(prev);
       if (next.has(path)) next.delete(path);
       else next.add(path);
-      AsyncStorage.setItem(
-        STORAGE_EXPANDED,
-        JSON.stringify([...next]),
-      ).catch(() => {});
+      AsyncStorage.setItem(STORAGE_EXPANDED, JSON.stringify([...next])).catch(
+        () => {},
+      );
       return next;
     });
   }, []);
@@ -339,10 +334,9 @@ export default function Hosts() {
           ? arr.filter((v) => v !== value)
           : [...arr, value];
         const updated = { ...prev, [group]: nextArr } as FilterState;
-        AsyncStorage.setItem(
-          STORAGE_FILTER,
-          JSON.stringify(updated),
-        ).catch(() => {});
+        AsyncStorage.setItem(STORAGE_FILTER, JSON.stringify(updated)).catch(
+          () => {},
+        );
         return updated;
       });
     },
@@ -351,10 +345,9 @@ export default function Hosts() {
 
   const clearFilters = useCallback(() => {
     setFilterState(DEFAULT_FILTERS);
-    AsyncStorage.setItem(
-      STORAGE_FILTER,
-      JSON.stringify(DEFAULT_FILTERS),
-    ).catch(() => {});
+    AsyncStorage.setItem(STORAGE_FILTER, JSON.stringify(DEFAULT_FILTERS)).catch(
+      () => {},
+    );
   }, []);
 
   const getHostMetrics = useCallback(
@@ -498,14 +491,16 @@ export default function Hosts() {
               <RefreshCw
                 size={18}
                 color={color("muted-foreground")}
-                style={{ transform: [{ rotate: refreshing ? "180deg" : "0deg" }] }}
+                style={{
+                  transform: [{ rotate: refreshing ? "180deg" : "0deg" }],
+                }}
               />
             }
           />
         </View>
       }
     >
-      <View className="px-4 pt-3 pb-2">
+      <View className="px-4 pb-2 pt-3">
         <Input
           placeholder="Search hosts…"
           value={searchQuery}
@@ -526,7 +521,7 @@ export default function Hosts() {
       {loading ? (
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color={color("accent-brand")} />
-          <Text className="text-muted-foreground text-sm mt-3">
+          <Text className="mt-3 text-sm text-muted-foreground">
             Loading hosts…
           </Text>
         </View>
@@ -545,8 +540,8 @@ export default function Hosts() {
           }
         >
           {isEmpty ? (
-            <View className="items-center justify-center py-16 gap-3">
-              <Text className="text-muted-foreground text-sm text-center">
+            <View className="items-center justify-center gap-3 py-16">
+              <Text className="text-center text-sm text-muted-foreground">
                 {q || isFilterActive
                   ? "No hosts match your search"
                   : "No hosts yet"}
@@ -624,7 +619,7 @@ export default function Hosts() {
         ) : null}
         {FILTER_GROUPS.map((grp) => (
           <View key={grp.group}>
-            <View className="px-4 pt-3 pb-1">
+            <View className="px-4 pb-1 pt-3">
               <Text
                 weight="bold"
                 className="text-[10px] uppercase tracking-[2px] text-muted-foreground/60"
@@ -640,7 +635,7 @@ export default function Hosts() {
                 <Pressable
                   key={opt.value}
                   onPress={() => toggleFilter(grp.group, opt.value)}
-                  className="flex-row items-center gap-3 px-4 py-3 border-b border-border/60 active:bg-muted/40"
+                  className="flex-row items-center gap-3 border-b border-border/60 px-4 py-3 active:bg-muted/40"
                 >
                   <Checkbox
                     checked={checked}
@@ -656,7 +651,7 @@ export default function Hosts() {
         ))}
         {allTags.length > 0 ? (
           <View>
-            <View className="px-4 pt-3 pb-1">
+            <View className="px-4 pb-1 pt-3">
               <Text
                 weight="bold"
                 className="text-[10px] uppercase tracking-[2px] text-muted-foreground/60"
@@ -670,13 +665,16 @@ export default function Hosts() {
                 <Pressable
                   key={tag}
                   onPress={() => toggleFilter("tags", tag)}
-                  className="flex-row items-center gap-3 px-4 py-3 border-b border-border/60 active:bg-muted/40"
+                  className="flex-row items-center gap-3 border-b border-border/60 px-4 py-3 active:bg-muted/40"
                 >
                   <Checkbox
                     checked={checked}
                     onChange={() => toggleFilter("tags", tag)}
                   />
-                  <Text className="flex-1 text-sm text-foreground" numberOfLines={1}>
+                  <Text
+                    className="flex-1 text-sm text-foreground"
+                    numberOfLines={1}
+                  >
                     {tag}
                   </Text>
                 </Pressable>

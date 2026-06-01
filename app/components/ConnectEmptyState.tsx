@@ -21,13 +21,13 @@ export function ConnectEmptyState({
 
   return (
     <View className="flex-1 items-center justify-center px-8">
-      <View className="w-16 h-16 border border-border bg-card items-center justify-center mb-5">
+      <View className="mb-5 h-16 w-16 items-center justify-center border border-border bg-card">
         <ServerOff size={28} color={color("muted-foreground")} />
       </View>
-      <Text weight="bold" className="text-lg text-foreground text-center">
+      <Text weight="bold" className="text-center text-lg text-foreground">
         {title}
       </Text>
-      <Text className="text-sm text-muted-foreground text-center mt-2 leading-5">
+      <Text className="mt-2 text-center text-sm leading-5 text-muted-foreground">
         {message}
       </Text>
       <Button

@@ -35,7 +35,7 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
 
   return (
     <View
-      className="flex-row items-stretch bg-sidebar border-t border-border"
+      className="flex-row items-stretch border-t border-border bg-sidebar"
       style={{ paddingBottom: insets.bottom }}
     >
       {state.routes.map((route, index) => {

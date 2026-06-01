@@ -164,12 +164,12 @@ export default function Settings() {
           open={open === "server"}
           onToggle={() => toggle("server")}
         >
-          <View className="pt-3 gap-2.5">
+          <View className="gap-2.5 pt-3">
             <View className="gap-1">
               <Label>Active Server</Label>
               <View className="flex-row items-center gap-2">
                 <View
-                  className={`w-2 h-2 rounded-full ${isAuthenticated ? "bg-accent-brand" : "bg-muted-foreground"}`}
+                  className={`h-2 w-2 rounded-full ${isAuthenticated ? "bg-accent-brand" : "bg-muted-foreground"}`}
                 />
                 <Text
                   weight="medium"
@@ -217,46 +217,46 @@ export default function Settings() {
 
         {/* Account */}
         {isAuthenticated ? (
-        <AccordionSection
-          label="Account"
-          icon={<User size={14} color={color("muted-foreground")} />}
-          open={open === "account"}
-          onToggle={() => toggle("account")}
-        >
-          <View className="pt-3 gap-2.5">
-            <View className="flex-row justify-between">
-              <Label>Username</Label>
-              <Text weight="medium" className="text-sm text-foreground">
-                {username}
-              </Text>
-            </View>
-            <View className="flex-row justify-between">
-              <Label>Role</Label>
-              <View className="px-1.5 py-0.5 bg-accent-brand/10 border border-accent-brand/40">
-                <Text className="text-[10px] text-accent-brand uppercase tracking-wider">
-                  {isAdmin ? "Administrator" : "User"}
-                </Text>
-              </View>
-            </View>
-            <View className="flex-row justify-between">
-              <Label>2FA</Label>
-              <Text
-                weight="medium"
-                className={`text-sm ${totpEnabled ? "text-accent-brand" : "text-muted-foreground"}`}
-              >
-                {totpEnabled ? "Enabled" : "Disabled"}
-              </Text>
-            </View>
-            {version ? (
+          <AccordionSection
+            label="Account"
+            icon={<User size={14} color={color("muted-foreground")} />}
+            open={open === "account"}
+            onToggle={() => toggle("account")}
+          >
+            <View className="gap-2.5 pt-3">
               <View className="flex-row justify-between">
-                <Label>Version</Label>
-                <Text weight="medium" className="text-sm text-accent-brand">
-                  v{version}
+                <Label>Username</Label>
+                <Text weight="medium" className="text-sm text-foreground">
+                  {username}
                 </Text>
               </View>
-            ) : null}
-          </View>
-        </AccordionSection>
+              <View className="flex-row justify-between">
+                <Label>Role</Label>
+                <View className="border border-accent-brand/40 bg-accent-brand/10 px-1.5 py-0.5">
+                  <Text className="text-[10px] uppercase tracking-wider text-accent-brand">
+                    {isAdmin ? "Administrator" : "User"}
+                  </Text>
+                </View>
+              </View>
+              <View className="flex-row justify-between">
+                <Label>2FA</Label>
+                <Text
+                  weight="medium"
+                  className={`text-sm ${totpEnabled ? "text-accent-brand" : "text-muted-foreground"}`}
+                >
+                  {totpEnabled ? "Enabled" : "Disabled"}
+                </Text>
+              </View>
+              {version ? (
+                <View className="flex-row justify-between">
+                  <Label>Version</Label>
+                  <Text weight="medium" className="text-sm text-accent-brand">
+                    v{version}
+                  </Text>
+                </View>
+              ) : null}
+            </View>
+          </AccordionSection>
         ) : null}
 
         {/* Appearance — headline feature */}
@@ -266,7 +266,7 @@ export default function Settings() {
           open={open === "appearance"}
           onToggle={() => toggle("appearance")}
         >
-          <View className="pt-3 gap-4">
+          <View className="gap-4 pt-3">
             {/* Theme */}
             <View className="gap-2">
               <Label>Theme</Label>
@@ -277,12 +277,12 @@ export default function Settings() {
                     <Pressable
                       key={th.id}
                       onPress={() => setTheme(th.id as ThemeId)}
-                      className={`flex-row items-center gap-1.5 px-2 py-1.5 border ${active ? "border-accent-brand/50 bg-accent-brand/10" : "border-border"}`}
+                      className={`flex-row items-center gap-1.5 border px-2 py-1.5 ${active ? "border-accent-brand/50 bg-accent-brand/10" : "border-border"}`}
                     >
                       {th.preview !== "auto" ? (
                         <View
                           style={{ backgroundColor: th.preview }}
-                          className="w-3 h-3 border border-border/50"
+                          className="h-3 w-3 border border-border/50"
                         />
                       ) : null}
                       <Text
@@ -308,15 +308,15 @@ export default function Settings() {
                       key={ac.value}
                       onPress={() => setAccent(ac.value)}
                       style={{ backgroundColor: ac.value }}
-                      className={`w-8 h-8 border-2 ${active ? "border-foreground" : "border-transparent"}`}
+                      className={`h-8 w-8 border-2 ${active ? "border-foreground" : "border-transparent"}`}
                     />
                   );
                 })}
               </View>
-              <View className="flex-row items-center gap-2 border border-border bg-card px-2.5 h-9 mt-1">
+              <View className="mt-1 h-9 flex-row items-center gap-2 border border-border bg-card px-2.5">
                 <View
                   style={{ backgroundColor: accent }}
-                  className="w-4 h-4 border border-border/60"
+                  className="h-4 w-4 border border-border/60"
                 />
                 <Input
                   containerClassName="flex-1 h-9 border-0 bg-transparent px-0"
@@ -362,7 +362,9 @@ export default function Settings() {
         {/* Customization */}
         <AccordionSection
           label="Customization"
-          icon={<SlidersHorizontal size={14} color={color("muted-foreground")} />}
+          icon={
+            <SlidersHorizontal size={14} color={color("muted-foreground")} />
+          }
           open={open === "customization"}
           onToggle={() => toggle("customization")}
         >
@@ -371,13 +373,13 @@ export default function Settings() {
               onPress={() =>
                 router.push("/tabs/settings/TerminalCustomization" as any)
               }
-              className="flex-row items-center justify-between py-3 border-b border-border"
+              className="flex-row items-center justify-between border-b border-border py-3"
             >
               <View>
                 <Text weight="medium" className="text-sm text-foreground">
                   Terminal
                 </Text>
-                <Text className="text-[11px] text-muted-foreground mt-0.5">
+                <Text className="mt-0.5 text-[11px] text-muted-foreground">
                   Font, theme, cursor, scrollback
                 </Text>
               </View>
@@ -393,7 +395,7 @@ export default function Settings() {
                 <Text weight="medium" className="text-sm text-foreground">
                   Keyboard
                 </Text>
-                <Text className="text-[11px] text-muted-foreground mt-0.5">
+                <Text className="mt-0.5 text-[11px] text-muted-foreground">
                   Layout, keys, presets
                 </Text>
               </View>
@@ -403,7 +405,7 @@ export default function Settings() {
         </AccordionSection>
 
         {/* Version footer */}
-        <Text className="text-[11px] text-muted-foreground text-center mt-4">
+        <Text className="mt-4 text-center text-[11px] text-muted-foreground">
           {appVersion ? `Termix Mobile v${appVersion}` : "Termix Mobile"}
         </Text>
       </ScrollView>

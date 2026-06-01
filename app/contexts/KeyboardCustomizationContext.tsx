@@ -13,9 +13,7 @@ import {
   PresetType,
   KeyboardSettings,
 } from "@/types/keyboard";
-import {
-  getPresetById,
-} from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
+import { getPresetById } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
 
 const STORAGE_KEY = "keyboardCustomization";
 const DEFAULT_PRESET_ID: PresetType = "default";

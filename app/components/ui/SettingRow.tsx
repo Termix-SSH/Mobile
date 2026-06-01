@@ -22,13 +22,13 @@ export function SettingRow({
     <View
       className={`flex-row items-center justify-between gap-3 py-2.5 ${last ? "" : "border-b border-border"}`}
     >
-      <View className="flex-1 min-w-0">
+      <View className="min-w-0 flex-1">
         <View className="flex-row items-center gap-1.5">
           <Text weight="medium" className="text-xs text-foreground">
             {label}
           </Text>
           {badge ? (
-            <View className="px-1 py-px bg-accent-brand/15 border border-accent-brand/30">
+            <View className="border border-accent-brand/30 bg-accent-brand/15 px-1 py-px">
               <Text
                 weight="bold"
                 className="text-[8px] uppercase tracking-wider text-accent-brand"
@@ -39,7 +39,7 @@ export function SettingRow({
           ) : null}
         </View>
         {description ? (
-          <Text className="text-[10px] text-muted-foreground mt-0.5">
+          <Text className="mt-0.5 text-[10px] text-muted-foreground">
             {description}
           </Text>
         ) : null}

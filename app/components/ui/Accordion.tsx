@@ -29,7 +29,7 @@ export function AccordionSection({
   const muted = useThemeColor()("muted-foreground");
 
   return (
-    <View className="bg-card border border-border overflow-hidden">
+    <View className="overflow-hidden border border-border bg-card">
       <Pressable
         onPress={() => {
           if (isControlled) onToggle?.();
@@ -40,7 +40,7 @@ export function AccordionSection({
         {icon ? <View className="shrink-0">{icon}</View> : null}
         <Text
           weight="bold"
-          className="text-[11px] uppercase tracking-[2px] text-foreground flex-1"
+          className="flex-1 text-[11px] uppercase tracking-[2px] text-foreground"
         >
           {label}
         </Text>

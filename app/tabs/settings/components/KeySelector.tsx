@@ -1,15 +1,10 @@
 import React, { useState, useMemo } from "react";
-import {
-  View,
-  Modal,
-  ScrollView,
-  Pressable,
-} from "react-native";
+import { View, Modal, ScrollView, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { X } from "lucide-react-native";
 import { KeyConfig, KeyCategory } from "@/types/keyboard";
 import { ALL_KEYS } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
-import { Text, Button, Input, Label } from "@/app/components/ui";
+import { Text, Button, Input } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 interface KeySelectorProps {
@@ -43,7 +38,9 @@ export default function KeySelector({
 }: KeySelectorProps) {
   const insets = useSafeAreaInsets();
   const color = useThemeColor();
-  const [selectedCategory, setSelectedCategory] = useState<KeyCategory | "all">("all");
+  const [selectedCategory, setSelectedCategory] = useState<KeyCategory | "all">(
+    "all",
+  );
   const [searchQuery, setSearchQuery] = useState("");
 
   const allKeysArray = useMemo(() => Object.values(ALL_KEYS), []);
@@ -77,8 +74,8 @@ export default function KeySelector({
     >
       <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
         {/* Header */}
-        <View className="flex-row items-center gap-3 px-4 pt-3 pb-3 border-b border-border">
-          <Text weight="bold" className="text-xl text-foreground flex-1">
+        <View className="flex-row items-center gap-3 border-b border-border px-4 pb-3 pt-3">
+          <Text weight="bold" className="flex-1 text-xl text-foreground">
             {title}
           </Text>
           <Pressable onPress={onClose} hitSlop={8} className="shrink-0">
@@ -87,7 +84,7 @@ export default function KeySelector({
         </View>
 
         {/* Search */}
-        <View className="px-4 py-3 border-b border-border">
+        <View className="border-b border-border px-4 py-3">
           <Input
             placeholder="Search keys..."
             value={searchQuery}
@@ -110,7 +107,7 @@ export default function KeySelector({
                 <Pressable
                   key={cat.id}
                   onPress={() => setSelectedCategory(cat.id)}
-                  className={`px-3 py-2.5 mr-1 border-b-2 ${isActive ? "border-accent-brand" : "border-transparent"}`}
+                  className={`mr-1 border-b-2 px-3 py-2.5 ${isActive ? "border-accent-brand" : "border-transparent"}`}
                 >
                   <Text
                     weight={isActive ? "medium" : "regular"}
@@ -130,9 +127,11 @@ export default function KeySelector({
           contentContainerStyle={{ padding: 16, gap: 8, paddingBottom: 40 }}
         >
           {filteredKeys.length === 0 ? (
-            <View className="py-10 items-center">
+            <View className="items-center py-10">
               <Text className="text-sm text-muted-foreground">
-                {searchQuery ? "No keys match your search" : "No keys available"}
+                {searchQuery
+                  ? "No keys match your search"
+                  : "No keys available"}
               </Text>
             </View>
           ) : (
@@ -140,11 +139,11 @@ export default function KeySelector({
               <Pressable
                 key={key.id}
                 onPress={() => onSelectKey(key)}
-                className="bg-card border border-border flex-row items-center px-3 py-2.5 active:opacity-70"
+                className="flex-row items-center border border-border bg-card px-3 py-2.5 active:opacity-70"
               >
-                <View className="flex-1 min-w-0 mr-3">
-                  <View className="flex-row items-center gap-2 mb-0.5">
-                    <View className="bg-muted border border-border px-2 py-1 shrink-0">
+                <View className="mr-3 min-w-0 flex-1">
+                  <View className="mb-0.5 flex-row items-center gap-2">
+                    <View className="shrink-0 border border-border bg-muted px-2 py-1">
                       <Text weight="medium" className="text-xs text-foreground">
                         {key.label}
                       </Text>
@@ -155,14 +154,18 @@ export default function KeySelector({
                   </View>
                   {key.description ? (
                     <Text
-                      className="text-[10px] text-muted-foreground mt-0.5"
+                      className="mt-0.5 text-[10px] text-muted-foreground"
                       numberOfLines={1}
                     >
                       {key.description}
                     </Text>
                   ) : null}
                 </View>
-                <Button variant="accent" size="sm" onPress={() => onSelectKey(key)}>
+                <Button
+                  variant="accent"
+                  size="sm"
+                  onPress={() => onSelectKey(key)}
+                >
                   Add
                 </Button>
               </Pressable>

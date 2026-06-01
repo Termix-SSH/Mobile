@@ -28,7 +28,7 @@ export function Badge({
   const v = VARIANTS[variant];
   return (
     <View
-      className={`px-1.5 py-0.5 border self-start ${v.box} ${className ?? ""}`}
+      className={`self-start border px-1.5 py-0.5 ${v.box} ${className ?? ""}`}
     >
       <Text
         weight="medium"

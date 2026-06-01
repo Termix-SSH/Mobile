@@ -1,25 +1,12 @@
 import React, { useState } from "react";
-import {
-  View,
-  ScrollView,
-  Pressable,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import { View, ScrollView, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ArrowLeft, Type, AlignLeft } from "lucide-react-native";
 import { useTerminalCustomization } from "@/app/contexts/TerminalCustomizationContext";
 import { toast } from "@/app/utils/toast";
 import { TERMINAL_FONTS } from "@/constants/terminal-themes";
-import {
-  Text,
-  Button,
-  Label,
-  Input,
-  Dialog,
-  FakeSwitch,
-} from "@/app/components/ui";
+import { Text, Button, Input, Dialog } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 const FONT_SIZE_OPTIONS = [
@@ -92,11 +79,15 @@ export default function TerminalCustomization() {
   return (
     <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
       {/* Header */}
-      <View className="flex-row items-center gap-3 px-4 pt-3 pb-3 border-b border-border">
-        <Pressable onPress={() => router.back()} hitSlop={8} className="shrink-0">
+      <View className="flex-row items-center gap-3 border-b border-border px-4 pb-3 pt-3">
+        <Pressable
+          onPress={() => router.back()}
+          hitSlop={8}
+          className="shrink-0"
+        >
           <ArrowLeft size={18} color={color("foreground")} />
         </Pressable>
-        <Text weight="bold" className="text-xl text-foreground flex-1">
+        <Text weight="bold" className="flex-1 text-xl text-foreground">
           Terminal
         </Text>
       </View>
@@ -106,8 +97,8 @@ export default function TerminalCustomization() {
         contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}
       >
         {/* Font Family */}
-        <View className="bg-card border border-border">
-          <View className="flex-row items-center gap-2 px-3 py-3 border-b border-border">
+        <View className="border border-border bg-card">
+          <View className="flex-row items-center gap-2 border-b border-border px-3 py-3">
             <Type size={14} color={color("muted-foreground")} />
             <Text
               weight="bold"
@@ -116,8 +107,8 @@ export default function TerminalCustomization() {
               Font Family
             </Text>
           </View>
-          <View className="px-3 pb-3 pt-2 gap-1.5">
-            <Text className="text-[11px] text-muted-foreground mb-1">
+          <View className="gap-1.5 px-3 pb-3 pt-2">
+            <Text className="mb-1 text-[11px] text-muted-foreground">
               Nerd Font support depends on the selected font being available to
               the WebView.
             </Text>
@@ -127,10 +118,12 @@ export default function TerminalCustomization() {
               return (
                 <Pressable
                   key={option.value}
-                  onPress={() => handleFontFamilyChange(option.value, option.label)}
+                  onPress={() =>
+                    handleFontFamilyChange(option.value, option.label)
+                  }
                   className={`flex-row items-center justify-between py-2.5 ${!isLast ? "border-b border-border" : ""}`}
                 >
-                  <View className="flex-1 min-w-0">
+                  <View className="min-w-0 flex-1">
                     <Text
                       weight="medium"
                       className={`text-sm ${isActive ? "text-accent-brand" : "text-foreground"}`}
@@ -138,14 +131,14 @@ export default function TerminalCustomization() {
                       {option.label}
                     </Text>
                     <Text
-                      className="text-[10px] text-muted-foreground mt-0.5"
+                      className="mt-0.5 text-[10px] text-muted-foreground"
                       style={{ fontFamily: option.fallback }}
                     >
                       Aa Bb Cc 123
                     </Text>
                   </View>
                   {isActive ? (
-                    <View className="px-1.5 py-0.5 bg-accent-brand/10 border border-accent-brand/40 shrink-0">
+                    <View className="shrink-0 border border-accent-brand/40 bg-accent-brand/10 px-1.5 py-0.5">
                       <Text
                         weight="bold"
                         className="text-[8px] uppercase tracking-wider text-accent-brand"
@@ -161,8 +154,8 @@ export default function TerminalCustomization() {
         </View>
 
         {/* Font Size */}
-        <View className="bg-card border border-border">
-          <View className="flex-row items-center gap-2 px-3 py-3 border-b border-border">
+        <View className="border border-border bg-card">
+          <View className="flex-row items-center gap-2 border-b border-border px-3 py-3">
             <AlignLeft size={14} color={color("muted-foreground")} />
             <Text
               weight="bold"
@@ -171,8 +164,8 @@ export default function TerminalCustomization() {
               Font Size
             </Text>
           </View>
-          <View className="px-3 pb-3 pt-2 gap-1.5">
-            <Text className="text-[11px] text-muted-foreground mb-1">
+          <View className="gap-1.5 px-3 pb-3 pt-2">
+            <Text className="mb-1 text-[11px] text-muted-foreground">
               Base size for terminal text. Overrides the font size configured on
               the host in Termix Web UI.
             </Text>
@@ -191,12 +184,12 @@ export default function TerminalCustomization() {
                     >
                       {option.label}
                     </Text>
-                    <Text className="text-[10px] text-muted-foreground mt-0.5">
+                    <Text className="mt-0.5 text-[10px] text-muted-foreground">
                       {option.value}px
                     </Text>
                   </View>
                   {isActive ? (
-                    <View className="px-1.5 py-0.5 bg-accent-brand/10 border border-accent-brand/40">
+                    <View className="border border-accent-brand/40 bg-accent-brand/10 px-1.5 py-0.5">
                       <Text
                         weight="bold"
                         className="text-[8px] uppercase tracking-wider text-accent-brand"
@@ -221,14 +214,12 @@ export default function TerminalCustomization() {
                 >
                   Custom
                 </Text>
-                <Text className="text-[10px] text-muted-foreground mt-0.5">
-                  {isCustomFontSize
-                    ? `${config.fontSize}px`
-                    : "Enter any size"}
+                <Text className="mt-0.5 text-[10px] text-muted-foreground">
+                  {isCustomFontSize ? `${config.fontSize}px` : "Enter any size"}
                 </Text>
               </View>
               {isCustomFontSize ? (
-                <View className="px-1.5 py-0.5 bg-accent-brand/10 border border-accent-brand/40">
+                <View className="border border-accent-brand/40 bg-accent-brand/10 px-1.5 py-0.5">
                   <Text
                     weight="bold"
                     className="text-[8px] uppercase tracking-wider text-accent-brand"
@@ -242,10 +233,7 @@ export default function TerminalCustomization() {
         </View>
 
         {/* Reset */}
-        <Button
-          variant="destructive"
-          onPress={() => setShowResetConfirm(true)}
-        >
+        <Button variant="destructive" onPress={() => setShowResetConfirm(true)}>
           Reset to Default
         </Button>
       </ScrollView>

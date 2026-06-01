@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  View,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import { View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { Zap } from "lucide-react-native";
 import { SSHHost } from "@/types";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
@@ -87,11 +82,11 @@ export function QuickConnect({
         behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         {/* Header */}
-        <View className="flex-row items-center gap-2.5 px-4 pb-3 pt-1 border-b border-border">
-          <View className="w-8 h-8 border border-border bg-muted items-center justify-center shrink-0">
+        <View className="flex-row items-center gap-2.5 border-b border-border px-4 pb-3 pt-1">
+          <View className="h-8 w-8 shrink-0 items-center justify-center border border-border bg-muted">
             <Zap size={15} color={color("accent-brand")} />
           </View>
-          <View className="flex-1 min-w-0">
+          <View className="min-w-0 flex-1">
             <Text weight="bold" className="text-base text-foreground">
               Quick Connect
             </Text>

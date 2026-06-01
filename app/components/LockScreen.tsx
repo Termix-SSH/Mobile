@@ -69,11 +69,11 @@ export function LockScreen({
   };
 
   return (
-    <View className="absolute inset-0 bg-background items-center justify-center px-8 z-50">
+    <View className="absolute inset-0 z-50 items-center justify-center bg-background px-8">
       {onCancel ? (
         <Pressable
           onPress={onCancel}
-          className="absolute top-14 left-5 flex-row items-center"
+          className="absolute left-5 top-14 flex-row items-center"
           hitSlop={12}
         >
           <ChevronLeft size={20} color={color("muted-foreground")} />
@@ -81,20 +81,22 @@ export function LockScreen({
         </Pressable>
       ) : null}
 
-      <View className="w-14 h-14 border border-accent-brand/40 bg-accent-brand/10 items-center justify-center mb-5">
+      <View className="mb-5 h-14 w-14 items-center justify-center border border-accent-brand/40 bg-accent-brand/10">
         <Lock size={26} color={color("accent-brand")} />
       </View>
       <Text weight="bold" className="text-lg text-foreground">
         {title}
       </Text>
-      <Text className="text-xs text-muted-foreground mt-1 mb-6">{subtitle}</Text>
+      <Text className="mb-6 mt-1 text-xs text-muted-foreground">
+        {subtitle}
+      </Text>
 
       {/* PIN dots */}
-      <View className="flex-row gap-3 mb-8">
+      <View className="mb-8 flex-row gap-3">
         {[0, 1, 2, 3].map((i) => (
           <View
             key={i}
-            className={`w-3.5 h-3.5 rounded-full border ${
+            className={`h-3.5 w-3.5 rounded-full border ${
               error
                 ? "border-destructive bg-destructive"
                 : i < pin.length
@@ -121,7 +123,7 @@ export function LockScreen({
         <View className="flex-row gap-3">
           <Pressable
             onPress={handleBiometric}
-            className="w-16 h-16 items-center justify-center"
+            className="h-16 w-16 items-center justify-center"
           >
             {hasBiometrics ? (
               <Fingerprint size={24} color={color("muted-foreground")} />
@@ -130,7 +132,7 @@ export function LockScreen({
           <Key label="0" onPress={() => press("0")} />
           <Pressable
             onPress={() => setPin((p) => p.slice(0, -1))}
-            className="w-16 h-16 items-center justify-center border border-border active:bg-muted/40"
+            className="h-16 w-16 items-center justify-center border border-border active:bg-muted/40"
           >
             <Delete size={20} color={color("foreground")} />
           </Pressable>
@@ -144,7 +146,7 @@ function Key({ label, onPress }: { label: string; onPress: () => void }) {
   return (
     <Pressable
       onPress={onPress}
-      className="w-16 h-16 items-center justify-center border border-border bg-card active:bg-muted/40"
+      className="h-16 w-16 items-center justify-center border border-border bg-card active:bg-muted/40"
     >
       <Text weight="medium" className="text-xl text-foreground">
         {label}

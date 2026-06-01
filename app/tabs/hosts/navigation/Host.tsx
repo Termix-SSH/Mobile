@@ -23,7 +23,7 @@ interface HostProps {
 /** Compact protocol/feature tag (e.g. RDP, VNC, DKR) shown beside a host. */
 function FeatureChip({ label }: { label: string }) {
   return (
-    <View className="px-1 py-px bg-muted/30 border border-border/50">
+    <View className="border border-border/50 bg-muted/30 px-1 py-px">
       <Text className="text-[9px] uppercase tracking-wider text-muted-foreground/70">
         {label}
       </Text>
@@ -45,18 +45,22 @@ function MetricBar({
 }) {
   const color = useThemeColor();
   const accent = color("accent-brand") ?? "#f59145";
-  const barColor =
-    value > high ? "#f87171" : value > mid ? "#facc15" : accent;
+  const barColor = value > high ? "#f87171" : value > mid ? "#facc15" : accent;
   return (
     <View className="flex-row items-center gap-1">
       {icon}
-      <View className="w-9 h-[3px] rounded-full overflow-hidden bg-muted-foreground/15">
+      <View className="h-[3px] w-9 overflow-hidden rounded-full bg-muted-foreground/15">
         <View
-          style={{ width: `${Math.min(100, Math.max(0, value))}%`, backgroundColor: barColor }}
+          style={{
+            width: `${Math.min(100, Math.max(0, value))}%`,
+            backgroundColor: barColor,
+          }}
           className="h-full rounded-full"
         />
       </View>
-      <Text className="text-[9px] text-muted-foreground/50">{Math.round(value)}%</Text>
+      <Text className="text-[9px] text-muted-foreground/50">
+        {Math.round(value)}%
+      </Text>
     </View>
   );
 }
@@ -100,30 +104,35 @@ export default function Host({
         className="w-[3px] shrink-0"
       />
 
-      <View className="flex-1 min-w-0 px-2.5 py-2.5 gap-1">
+      <View className="min-w-0 flex-1 gap-1 px-2.5 py-2.5">
         {/* Name row */}
         <View className="flex-row items-center gap-1.5">
           <View
-            style={{ backgroundColor: online ? accent : color("muted-foreground", 0.25) }}
-            className="w-1.5 h-1.5 rounded-full shrink-0"
+            style={{
+              backgroundColor: online
+                ? accent
+                : color("muted-foreground", 0.25),
+            }}
+            className="h-1.5 w-1.5 shrink-0 rounded-full"
           />
           <Text
             weight="medium"
-            className="text-[13px] text-foreground shrink"
+            className="shrink text-[13px] text-foreground"
             numberOfLines={1}
           >
             {host.name}
           </Text>
-          {host.pin ? (
-            <Pin size={11} color={accent} fill={accent} />
-          ) : null}
+          {host.pin ? <Pin size={11} color={accent} fill={accent} /> : null}
           {protocols.map((p) => (
             <FeatureChip key={p} label={p} />
           ))}
         </View>
 
         {/* Address */}
-        <Text className="text-[11px] text-muted-foreground/60 pl-3" numberOfLines={1}>
+        <Text
+          className="pl-3 text-[11px] text-muted-foreground/60"
+          numberOfLines={1}
+        >
           {host.username ? `${host.username}@` : ""}
           {host.ip}
           {host.port ? `:${host.port}` : ""}
@@ -131,7 +140,7 @@ export default function Host({
 
         {/* Live metrics */}
         {showCpu || showRam ? (
-          <View className="flex-row items-center gap-3 pl-3 mt-0.5">
+          <View className="mt-0.5 flex-row items-center gap-3 pl-3">
             {showCpu ? (
               <MetricBar
                 icon={<Cpu size={10} color={color("muted-foreground", 0.4)} />}
@@ -142,7 +151,12 @@ export default function Host({
             ) : null}
             {showRam ? (
               <MetricBar
-                icon={<MemoryStick size={10} color={color("muted-foreground", 0.4)} />}
+                icon={
+                  <MemoryStick
+                    size={10}
+                    color={color("muted-foreground", 0.4)}
+                  />
+                }
                 value={metrics!.ram!}
                 high={80}
                 mid={60}
@@ -153,11 +167,11 @@ export default function Host({
 
         {/* Tags */}
         {showTags && host.tags && host.tags.length > 0 ? (
-          <View className="flex-row flex-wrap items-center gap-1 pl-3 mt-0.5">
+          <View className="mt-0.5 flex-row flex-wrap items-center gap-1 pl-3">
             {host.tags.slice(0, 4).map((tag, i) => (
               <View
                 key={`${tag}-${i}`}
-                className="px-1 py-px bg-muted/30 border border-border/50"
+                className="border border-border/50 bg-muted/30 px-1 py-px"
               >
                 <Text
                   className="text-[9px] lowercase text-muted-foreground/70"
