@@ -1,35 +1,61 @@
 import {
   useState,
-  useEffect,
-  useRef,
   useCallback,
+  useMemo,
   forwardRef,
   useImperativeHandle,
+  useRef,
 } from "react";
 import {
   View,
+  ScrollView,
+  Pressable,
+  RefreshControl,
   Alert,
-  TextInput,
   Modal,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
+  TextInput,
   KeyboardAvoidingView,
   Platform,
+  Animated,
+  ActivityIndicator,
 } from "react-native";
+import { Swipeable } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Server } from "lucide-react-native";
-import { SSHHost } from "@/types";
-import { useOrientation } from "@/app/utils/orientation";
-import { getResponsivePadding, getTabBarHeight } from "@/app/utils/responsive";
+import * as Clipboard from "expo-clipboard";
+import * as DocumentPicker from "expo-document-picker";
 import {
-  BORDERS,
-  BORDER_COLORS,
-  RADIUS,
-  BACKGROUNDS,
-} from "@/app/constants/designTokens";
+  ChevronRight,
+  File as FileIcon,
+  Folder,
+  Link as LinkIcon,
+  Search,
+  RefreshCw,
+  FolderPlus,
+  FilePlus,
+  ClipboardPaste,
+  Eye,
+  Pencil,
+  Copy,
+  Scissors,
+  Trash2,
+  Lock,
+  ClipboardCopy,
+  MoreVertical,
+  ChevronLeft,
+  ArrowUpDown,
+  Upload,
+  Archive,
+  CheckSquare,
+  Square,
+  X,
+} from "lucide-react-native";
+import { SSHHost, SessionAuthOverrides } from "@/types";
 import {
   connectSSH,
+  verifySSHTOTP,
+  verifySSHWarpgate,
+  keepSSHAlive,
+  disconnectSSH,
   listSSHFiles,
   readSSHFile,
   writeSSHFile,
@@ -39,22 +65,35 @@ import {
   renameSSHItem,
   copySSHItem,
   moveSSHItem,
-  verifySSHTOTP,
-  keepSSHAlive,
+  changeSSHPermissions,
   identifySSHSymlink,
+  uploadSSHFile,
+  extractSSHArchive,
 } from "@/app/main-axios";
-import { FileList } from "@/app/tabs/sessions/file-manager/FileList";
-import { FileManagerHeader } from "@/app/tabs/sessions/file-manager/FileManagerHeader";
-import { FileManagerToolbar } from "@/app/tabs/sessions/file-manager/FileManagerToolbar";
-import { ContextMenu } from "@/app/tabs/sessions/file-manager/ContextMenu";
-import { FileViewer } from "@/app/tabs/sessions/file-manager/FileViewer";
+import { Text, Input, Button } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
+import { toast } from "@/app/utils/toast";
+import {
+  SessionFrame,
+  useSessionConnect,
+  AuthDialogs,
+  ContextSheet,
+  type ContextAction,
+} from "@/app/tabs/sessions/_shared";
+import { FileViewer } from "./FileViewer";
+import { PermissionsDialog } from "./PermissionsDialog";
 import {
   joinPath,
   isTextFile,
   isArchiveFile,
-} from "@/app/tabs/sessions/file-manager/utils/fileUtils";
-import { showToast } from "@/app/utils/toast";
-import { TOTPDialog } from "@/app/tabs/dialogs";
+  formatFileSize,
+  formatDate,
+  getFileIconColor,
+  breadcrumbsFromPath,
+  getBreadcrumbLabel,
+  getParentPath,
+  sortFiles,
+} from "./utils/fileUtils";
 
 interface FileManagerProps {
   host: SSHHost;
@@ -69,674 +108,1078 @@ interface FileItem {
   size?: number;
   modified?: string;
   permissions?: string;
+  owner?: string;
+  group?: string;
 }
 
 export interface FileManagerHandle {
   handleDisconnect: () => void;
 }
 
+type SortBy = "name" | "size" | "modified";
+
 export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
-  ({ host, sessionId, isVisible }, ref) => {
+  ({ host, isVisible }, ref) => {
+    const color = useThemeColor();
     const insets = useSafeAreaInsets();
-    const { width, isLandscape } = useOrientation();
+
     const [currentPath, setCurrentPath] = useState("/");
     const [files, setFiles] = useState<FileItem[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isConnected, setIsConnected] = useState(false);
-    const [sshSessionId, setSshSessionId] = useState<string | null>(null);
+    const [loadingDir, setLoadingDir] = useState(false);
+    const [, setBusy] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
+    const [query, setQuery] = useState("");
 
-    const [selectionMode, setSelectionMode] = useState(false);
-    const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+    const [sortBy, setSortBy] = useState<SortBy>("name");
+    const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
     const [clipboard, setClipboard] = useState<{
       files: string[];
       operation: "copy" | "cut" | null;
     }>({ files: [], operation: null });
 
-    const [contextMenu, setContextMenu] = useState<{
-      visible: boolean;
-      file: FileItem | null;
-    }>({ visible: false, file: null });
-    const [totpDialog, setTotpDialog] = useState(false);
-    const [totpCode, setTotpCode] = useState("");
-    const [createDialog, setCreateDialog] = useState<{
-      visible: boolean;
-      type: "file" | "folder" | null;
-    }>({ visible: false, type: null });
+    const [selectionMode, setSelectionMode] = useState(false);
+    const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
+
+    const [menuFile, setMenuFile] = useState<FileItem | null>(null);
+    const [moreMenuVisible, setMoreMenuVisible] = useState(false);
+    const [permsFile, setPermsFile] = useState<FileItem | null>(null);
+    const [createDialog, setCreateDialog] = useState<"file" | "folder" | null>(null);
     const [createName, setCreateName] = useState("");
-    const [renameDialog, setRenameDialog] = useState<{
-      visible: boolean;
-      file: FileItem | null;
-    }>({ visible: false, file: null });
+    const [renameTarget, setRenameTarget] = useState<FileItem | null>(null);
     const [renameName, setRenameName] = useState("");
-    const [fileViewer, setFileViewer] = useState<{
-      visible: boolean;
-      file: FileItem | null;
+    const [viewer, setViewer] = useState<{
+      file: FileItem;
       content: string;
-    }>({ visible: false, file: null, content: "" });
+    } | null>(null);
 
-    const keepaliveInterval = useRef<ReturnType<typeof setInterval> | null>(null);
-
-    const connectToSSH = useCallback(async () => {
-      try {
-        setIsLoading(true);
-        const response = await connectSSH(sessionId, {
-          hostId: host.id,
-          ip: host.ip,
-          port: host.port,
-          username: host.username,
-          password: host.authType === "password" ? host.password : undefined,
-          sshKey: host.authType === "key" ? host.key : undefined,
-          keyPassword: host.keyPassword,
-          authType: host.authType,
-          credentialId: host.credentialId,
-          userId: host.userId,
-          forceKeyboardInteractive: host.forceKeyboardInteractive,
-          overrideCredentialUsername: host.overrideCredentialUsername,
-          jumpHosts: host.jumpHosts,
-        });
-
-        if (response.requires_totp) {
-          setTotpDialog(true);
-          return;
-        }
-
-        setSshSessionId(sessionId);
-        setIsConnected(true);
-
-        keepaliveInterval.current = setInterval(() => {
-          keepSSHAlive(sessionId).catch(() => {});
-        }, 30000);
-
-        await loadDirectory(host.defaultPath || "/");
-      } catch (error: any) {
-        showToast.error(error.message || "Failed to connect to SSH");
-      } finally {
-        setIsLoading(false);
-      }
-    }, [host, sessionId]);
-
-    const handleTOTPVerify = async (code: string) => {
-      try {
-        await verifySSHTOTP(sessionId, code);
-        setTotpDialog(false);
-        setTotpCode("");
-        setSshSessionId(sessionId);
-        setIsConnected(true);
-
-        keepaliveInterval.current = setInterval(() => {
-          keepSSHAlive(sessionId).catch(() => {});
-        }, 30000);
-
-        await loadDirectory(host.defaultPath || "/");
-      } catch (error: any) {
-        showToast.error(error.message || "Invalid TOTP code");
-      }
-    };
-
-    const loadDirectory = useCallback(
-      async (path: string) => {
-        if (!sessionId) return;
-
-        try {
-          setIsLoading(true);
-          const response = await listSSHFiles(sessionId, path);
-          setFiles(response.files || []);
-          setCurrentPath(response.path || path);
-        } catch (error: any) {
-          showToast.error(error.message || "Failed to load directory");
-        } finally {
-          setIsLoading(false);
-        }
-      },
-      [sessionId],
+    // --- Transport ---
+    const transport = useMemo(
+      () => ({
+        prefix: "fm",
+        connect: (
+          sid: string,
+          h: SSHHost,
+          userId: string | undefined,
+          overrides: SessionAuthOverrides,
+        ) =>
+          connectSSH(sid, {
+            hostId: h.id,
+            ip: h.ip,
+            port: h.port,
+            username: h.username,
+            password:
+              overrides.userProvidedPassword ??
+              (h.authType === "password" ? h.password : undefined),
+            sshKey:
+              overrides.userProvidedSshKey ??
+              (h.authType === "key" ? h.key : undefined),
+            keyPassword: overrides.userProvidedKeyPassword ?? h.keyPassword,
+            authType: h.authType,
+            credentialId: h.credentialId,
+            userId,
+            forceKeyboardInteractive: h.forceKeyboardInteractive,
+            overrideCredentialUsername: h.overrideCredentialUsername,
+            jumpHosts: h.jumpHosts,
+          }),
+        submitTotp: (sid: string, code: string) => verifySSHTOTP(sid, code),
+        submitWarpgate: (sid: string, url: string, key?: string) =>
+          verifySSHWarpgate(sid, url, key),
+        keepAlive: (sid: string) => keepSSHAlive(sid),
+        disconnect: (sid: string) => disconnectSSH(sid),
+      }),
+      [],
     );
 
-    const handleFilePress = async (file: FileItem) => {
+    const loadDirectory = useCallback(
+      async (path: string, sid?: string) => {
+        const session = sid || conn.sessionId.current;
+        if (!session) return;
+        setBusy(true);
+        setLoadingDir(true);
+        try {
+          const response = await listSSHFiles(session, path);
+          setFiles((response.files as FileItem[]) || []);
+          setCurrentPath(response.path || path);
+          setSelectedFiles(new Set());
+          setSelectionMode(false);
+        } catch (e: any) {
+          toast.error(e?.message || "Failed to load directory");
+        } finally {
+          setBusy(false);
+          setLoadingDir(false);
+        }
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [],
+    );
+
+    const onConnected = useCallback(
+      (sid: string) => loadDirectory(host.defaultPath || "/", sid),
+      [host.defaultPath, loadDirectory],
+    );
+
+    const conn = useSessionConnect(
+      isVisible && host.enableFileManager ? host : null,
+      transport,
+      onConnected,
+      { autoConnect: true, keepAliveMs: 30000 },
+    );
+
+    useImperativeHandle(ref, () => ({
+      handleDisconnect: () => conn.disconnect(),
+    }));
+
+    // --- File interactions ---
+    const openFile = async (file: FileItem) => {
+      if (selectionMode) {
+        toggleSelect(file.path);
+        return;
+      }
       if (file.type === "link") {
         try {
-          setIsLoading(true);
-          const symlinkInfo = await identifySSHSymlink(sessionId!, file.path);
-
-          if (symlinkInfo.type === "directory") {
-            await loadDirectory(symlinkInfo.target);
-          } else if (isTextFile(symlinkInfo.target)) {
-            const targetFile: FileItem = {
-              name: file.name,
-              path: symlinkInfo.target,
-              type: "file",
-            };
-            await handleViewFile(targetFile);
+          setBusy(true);
+          const info = await identifySSHSymlink(conn.sessionId.current, file.path);
+          if (info.type === "directory") {
+            await loadDirectory(info.target);
+          } else if (isTextFile(info.target)) {
+            await viewFile({ ...file, path: info.target, type: "file" });
           } else {
-            showToast.info("File type not supported for viewing");
+            toast.info("File type not supported for viewing");
           }
-        } catch (error: any) {
-          showToast.error(error.message || "Failed to follow symlink");
+        } catch (e: any) {
+          toast.error(e?.message || "Failed to follow symlink");
         } finally {
-          setIsLoading(false);
+          setBusy(false);
         }
         return;
       }
-
       if (file.type === "directory") {
         loadDirectory(file.path);
       } else {
-        handleViewFile(file);
+        viewFile(file);
       }
     };
 
-    const handleFileLongPress = (file: FileItem) => {
-      setContextMenu({ visible: true, file });
-    };
-
-    const handleViewFile = async (file: FileItem) => {
+    const viewFile = async (file: FileItem) => {
       try {
-        setIsLoading(true);
-        const response = await readSSHFile(sessionId!, file.path);
-        setFileViewer({ visible: true, file, content: response.content });
-      } catch (error: any) {
-        showToast.error(error.message || "Failed to read file");
+        setBusy(true);
+        const response = await readSSHFile(conn.sessionId.current, file.path);
+        setViewer({ file, content: response.content });
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to read file");
       } finally {
-        setIsLoading(false);
+        setBusy(false);
       }
     };
 
-    const handleSaveFile = async (content: string) => {
-      if (!fileViewer.file) return;
+    const saveFile = async (content: string) => {
+      if (!viewer) return;
+      await writeSSHFile(conn.sessionId.current, viewer.file.path, content, host.id);
+      toast.success("File saved");
+      await loadDirectory(currentPath);
+    };
 
+    const confirmCreate = async () => {
+      if (!createDialog || !createName.trim()) return;
       try {
-        await writeSSHFile(sessionId!, fileViewer.file.path, content, host.id);
-        showToast.success("File saved successfully");
-        await loadDirectory(currentPath);
-      } catch (error: any) {
-        throw new Error(error.message || "Failed to save file");
-      }
-    };
-
-    const handleCreateFolder = () => {
-      setCreateDialog({ visible: true, type: "folder" });
-      setCreateName("");
-    };
-
-    const handleCreateFile = () => {
-      setCreateDialog({ visible: true, type: "file" });
-      setCreateName("");
-    };
-
-    const handleCreateConfirm = async () => {
-      if (!createDialog.type || !createName.trim()) return;
-
-      try {
-        setIsLoading(true);
-        if (createDialog.type === "folder") {
-          await createSSHFolder(sessionId!, currentPath, createName, host.id);
-          showToast.success("Folder created successfully");
+        setBusy(true);
+        if (createDialog === "folder") {
+          await createSSHFolder(conn.sessionId.current, currentPath, createName, host.id);
         } else {
-          await createSSHFile(sessionId!, currentPath, createName, "", host.id);
-          showToast.success("File created successfully");
+          await createSSHFile(conn.sessionId.current, currentPath, createName, "", host.id);
         }
-        setCreateDialog({ visible: false, type: null });
+        toast.success(`${createDialog === "folder" ? "Folder" : "File"} created`);
+        setCreateDialog(null);
         setCreateName("");
         await loadDirectory(currentPath);
-      } catch (error: any) {
-        showToast.error(error.message || "Failed to create item");
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to create");
       } finally {
-        setIsLoading(false);
+        setBusy(false);
       }
     };
 
-    const handleRename = (file: FileItem) => {
-      setRenameDialog({ visible: true, file });
-      setRenameName(file.name);
-    };
-
-    const handleRenameConfirm = async () => {
-      if (!renameDialog.file || !renameName.trim()) return;
-
+    const confirmRename = async () => {
+      if (!renameTarget || !renameName.trim()) return;
       try {
-        setIsLoading(true);
-        await renameSSHItem(
-          sessionId!,
-          renameDialog.file.path,
-          renameName,
-          host.id,
-        );
-        showToast.success("Item renamed successfully");
-        setRenameDialog({ visible: false, file: null });
+        setBusy(true);
+        await renameSSHItem(conn.sessionId.current, renameTarget.path, renameName, host.id);
+        toast.success("Renamed");
+        setRenameTarget(null);
         setRenameName("");
         await loadDirectory(currentPath);
-      } catch (error: any) {
-        showToast.error(error.message || "Failed to rename item");
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to rename");
       } finally {
-        setIsLoading(false);
+        setBusy(false);
       }
     };
 
-    const handleCopy = (file?: FileItem) => {
-      const filesToCopy = file ? [file.path] : selectedFiles;
-      setClipboard({ files: filesToCopy, operation: "copy" });
-      setSelectionMode(false);
-      setSelectedFiles([]);
-      showToast.success(`${filesToCopy.length} item(s) copied`);
+    const doDelete = (file: FileItem) => {
+      Alert.alert("Delete", `Delete "${file.name}"?`, [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              setBusy(true);
+              await deleteSSHItem(
+                conn.sessionId.current,
+                file.path,
+                file.type === "directory",
+                host.id,
+              );
+              toast.success("Deleted");
+              await loadDirectory(currentPath);
+            } catch (e: any) {
+              toast.error(e?.message || "Failed to delete");
+            } finally {
+              setBusy(false);
+            }
+          },
+        },
+      ]);
     };
 
-    const handleCut = (file?: FileItem) => {
-      const filesToCut = file ? [file.path] : selectedFiles;
-      setClipboard({ files: filesToCut, operation: "cut" });
-      setSelectionMode(false);
-      setSelectedFiles([]);
-      showToast.success(`${filesToCut.length} item(s) cut`);
+    const doDeleteSelected = () => {
+      const count = selectedFiles.size;
+      Alert.alert("Delete", `Delete ${count} item${count !== 1 ? "s" : ""}?`, [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              setBusy(true);
+              for (const path of selectedFiles) {
+                const file = files.find((f) => f.path === path);
+                await deleteSSHItem(
+                  conn.sessionId.current,
+                  path,
+                  file?.type === "directory",
+                  host.id,
+                );
+              }
+              toast.success(`${count} item${count !== 1 ? "s" : ""} deleted`);
+              setSelectionMode(false);
+              setSelectedFiles(new Set());
+              await loadDirectory(currentPath);
+            } catch (e: any) {
+              toast.error(e?.message || "Failed to delete");
+            } finally {
+              setBusy(false);
+            }
+          },
+        },
+      ]);
     };
 
-    const handlePaste = async () => {
-      if (clipboard.files.length === 0 || !clipboard.operation) return;
-
+    const doPaste = async () => {
+      if (!clipboard.files.length || !clipboard.operation) return;
       try {
-        setIsLoading(true);
-        for (const filePath of clipboard.files) {
+        setBusy(true);
+        for (const p of clipboard.files) {
           if (clipboard.operation === "copy") {
-            await copySSHItem(sessionId!, filePath, currentPath, host.id);
+            await copySSHItem(conn.sessionId.current, p, currentPath, host.id);
           } else {
             await moveSSHItem(
-              sessionId!,
-              filePath,
-              joinPath(currentPath, filePath.split("/").pop()!),
+              conn.sessionId.current,
+              p,
+              joinPath(currentPath, p.split("/").pop()!),
               host.id,
             );
           }
         }
-        showToast.success(`${clipboard.files.length} item(s) pasted`);
+        toast.success(`${clipboard.files.length} item(s) pasted`);
         setClipboard({ files: [], operation: null });
         await loadDirectory(currentPath);
-      } catch (error: any) {
-        showToast.error(error.message || "Failed to paste items");
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to paste");
       } finally {
-        setIsLoading(false);
+        setBusy(false);
       }
     };
 
-    const handleDelete = async (file?: FileItem) => {
-      const filesToDelete = file
-        ? [file]
-        : files.filter((f) => selectedFiles.includes(f.path));
-
-      Alert.alert(
-        "Confirm Delete",
-        `Are you sure you want to delete ${filesToDelete.length} item(s)?`,
-        [
-          { text: "Cancel", style: "cancel" },
-          {
-            text: "Delete",
-            style: "destructive",
-            onPress: async () => {
-              try {
-                setIsLoading(true);
-                for (const fileItem of filesToDelete) {
-                  await deleteSSHItem(
-                    sessionId!,
-                    fileItem.path,
-                    fileItem.type === "directory",
-                    host.id,
-                  );
-                }
-                showToast.success(`${filesToDelete.length} item(s) deleted`);
-                setSelectionMode(false);
-                setSelectedFiles([]);
-                await loadDirectory(currentPath);
-              } catch (error: any) {
-                showToast.error(error.message || "Failed to delete items");
-              } finally {
-                setIsLoading(false);
-              }
-            },
-          },
-        ],
-      );
+    const applyPermissions = async (octal: string) => {
+      if (!permsFile) return;
+      try {
+        await changeSSHPermissions(conn.sessionId.current, permsFile.path, octal, host.id);
+        toast.success(`Permissions set to ${octal}`);
+        setPermsFile(null);
+        await loadDirectory(currentPath);
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to change permissions");
+      }
     };
 
-    const handleSelectToggle = (path: string) => {
-      setSelectedFiles((prev) =>
-        prev.includes(path) ? prev.filter((p) => p !== path) : [...prev, path],
-      );
+    const doUpload = async () => {
+      try {
+        const result = await DocumentPicker.getDocumentAsync({
+          copyToCacheDirectory: true,
+          multiple: false,
+        });
+        if (result.canceled || !result.assets?.[0]) return;
+        const asset = result.assets[0];
+        setBusy(true);
+        const response = await fetch(asset.uri);
+        const buffer = await response.arrayBuffer();
+        const base64 = btoa(
+          String.fromCharCode(...new Uint8Array(buffer)),
+        );
+        await uploadSSHFile(conn.sessionId.current, currentPath, asset.name, base64, host.id);
+        toast.success(`Uploaded ${asset.name}`);
+        await loadDirectory(currentPath);
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to upload file");
+      } finally {
+        setBusy(false);
+      }
     };
 
-    const handleCancelSelection = () => {
+    const doExtract = async (file: FileItem) => {
+      try {
+        setBusy(true);
+        await extractSSHArchive(conn.sessionId.current, file.path, currentPath, host.id);
+        toast.success("Extracted successfully");
+        await loadDirectory(currentPath);
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to extract archive");
+      } finally {
+        setBusy(false);
+      }
+    };
+
+    // --- Selection helpers ---
+    const toggleSelect = (path: string) => {
+      setSelectedFiles((prev) => {
+        const next = new Set(prev);
+        if (next.has(path)) next.delete(path);
+        else next.add(path);
+        return next;
+      });
+    };
+
+    const activateSelection = (file: FileItem) => {
+      setSelectionMode(true);
+      setSelectedFiles(new Set([file.path]));
+    };
+
+    const cancelSelection = () => {
       setSelectionMode(false);
-      setSelectedFiles([]);
+      setSelectedFiles(new Set());
     };
 
-    useEffect(() => {
-      connectToSSH();
+    const copySelected = () => {
+      setClipboard({ files: Array.from(selectedFiles), operation: "copy" });
+      cancelSelection();
+      toast.success(`${selectedFiles.size} item(s) copied`);
+    };
 
-      return () => {
-        if (keepaliveInterval.current) {
-          clearInterval(keepaliveInterval.current);
-        }
-      };
-    }, [connectToSSH]);
+    const cutSelected = () => {
+      setClipboard({ files: Array.from(selectedFiles), operation: "cut" });
+      cancelSelection();
+      toast.success(`${selectedFiles.size} item(s) cut`);
+    };
 
-    useImperativeHandle(ref, () => ({
-      handleDisconnect: () => {
-        if (keepaliveInterval.current) {
-          clearInterval(keepaliveInterval.current);
+    // --- Sort cycling: tap once to switch field, tap again to flip order ---
+    const SORT_FIELDS: SortBy[] = ["name", "size", "modified"];
+    const cycleSortBy = () => {
+      setSortBy((prevField) => {
+        setSortOrder((prevOrder) => {
+          if (prevOrder === "asc") return "desc";
+          // was desc → advance to next field, reset to asc
+          return "asc";
+        });
+        // Only advance field when flipping from desc back to asc
+        // We do this by reading sortOrder directly (stale closure is fine here —
+        // we just need the value at the moment of the press)
+        if (sortOrder === "desc") {
+          const idx = SORT_FIELDS.indexOf(prevField);
+          return SORT_FIELDS[(idx + 1) % SORT_FIELDS.length];
         }
-        setIsConnected(false);
-      },
-    }));
+        return prevField;
+      });
+    };
+
+    const sortLabel: Record<SortBy, string> = { name: "Name", size: "Size", modified: "Date" };
+
+    // --- Filtered + sorted files ---
+    const filtered = useMemo(() => {
+      const q = query.trim().toLowerCase();
+      const list = q ? files.filter((f) => f.name.toLowerCase().includes(q)) : files;
+      return sortFiles(list, sortBy, sortOrder);
+    }, [files, query, sortBy, sortOrder]);
+
+    if (!isVisible) return null;
 
     if (!host.enableFileManager) {
       return (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: BACKGROUNDS.DARKEST,
-          }}
-        >
-          <Server size={48} color="#EF4444" />
-          <Text
-            style={{
-              color: "#ffffff",
-              fontSize: 18,
-              fontWeight: "600",
-              marginTop: 16,
-            }}
-          >
-            File Manager Disabled
-          </Text>
-          <Text
-            style={{
-              color: "#9CA3AF",
-              fontSize: 14,
-              marginTop: 8,
-              textAlign: "center",
-              paddingHorizontal: 24,
-            }}
-          >
-            File Manager is not enabled for this host. Contact your
-            administrator to enable it.
-          </Text>
-        </View>
+        <SessionFrame
+          title={host.name}
+          subtitle="File Manager"
+          status="empty"
+          emptyMessage="File Manager is not enabled for this host."
+        />
       );
     }
 
-    if (!isConnected) {
-      return (
-        <View className="flex-1 bg-background items-center justify-center">
-          <ActivityIndicator size="large" color="#f59145" />
-          <Text className="text-foreground mt-4">Connecting to {host.name}...</Text>
+    const frameStatus =
+      conn.state === "connecting" || conn.state === "idle"
+        ? "loading"
+        : conn.state === "error"
+          ? "error"
+          : "ready";
 
-          <TOTPDialog
-            visible={totpDialog}
-            onSubmit={handleTOTPVerify}
-            onCancel={() => {
-              setTotpDialog(false);
-              setTotpCode("");
-            }}
-            prompt="Two-Factor Authentication"
-            isPasswordPrompt={false}
-          />
-        </View>
-      );
-    }
+    const breadcrumbs = breadcrumbsFromPath(currentPath);
+    const isConnected = conn.state === "connected";
 
-    const padding = getResponsivePadding(isLandscape);
-    const tabBarHeight = getTabBarHeight(isLandscape);
-
-    const toolbarPaddingVertical = isLandscape ? 8 : 12;
-    const toolbarContentHeight = isLandscape ? 34 : 44;
-    const toolbarBorderHeight = 2;
-    const effectiveToolbarHeight =
-      selectionMode || clipboard.files.length > 0
-        ? toolbarPaddingVertical * 2 +
-          toolbarContentHeight +
-          toolbarBorderHeight
-        : 0;
+    // More-menu actions
+    const moreActions: (ContextAction | null)[] = [
+      {
+        key: "new-folder",
+        icon: <FolderPlus size={18} color={color("foreground")} />,
+        label: "New Folder",
+        onPress: () => setCreateDialog("folder"),
+      },
+      {
+        key: "new-file",
+        icon: <FilePlus size={18} color={color("foreground")} />,
+        label: "New File",
+        onPress: () => setCreateDialog("file"),
+      },
+      {
+        key: "upload",
+        icon: <Upload size={18} color={color("foreground")} />,
+        label: "Upload File",
+        onPress: doUpload,
+      },
+      clipboard.files.length > 0
+        ? {
+            key: "paste",
+            icon: <ClipboardPaste size={18} color={color("accent-brand")} />,
+            label: `Paste ${clipboard.files.length} item${clipboard.files.length !== 1 ? "s" : ""}`,
+            onPress: doPaste,
+          }
+        : null,
+      {
+        key: "refresh",
+        icon: <RefreshCw size={18} color={color("foreground")} />,
+        label: "Refresh",
+        onPress: () => loadDirectory(currentPath),
+      },
+    ];
 
     return (
-      <View
-        className="flex-1"
-        style={{
-          opacity: isVisible ? 1 : 0,
-          display: isVisible ? "flex" : "none",
-          backgroundColor: BACKGROUNDS.HEADER,
-        }}
-      >
-        <FileManagerHeader
-          currentPath={currentPath}
-          onNavigateToPath={loadDirectory}
-          onRefresh={() => loadDirectory(currentPath)}
-          onCreateFolder={handleCreateFolder}
-          onCreateFile={handleCreateFile}
-          onMenuPress={() => setSelectionMode(true)}
-          isLoading={isLoading}
-          isLandscape={isLandscape}
-        />
-
-        <FileList
-          files={files}
-          onFilePress={handleFilePress}
-          onFileLongPress={handleFileLongPress}
-          selectedFiles={selectedFiles}
-          onSelectToggle={handleSelectToggle}
-          selectionMode={selectionMode}
-          isLoading={isLoading}
-          onRefresh={() => loadDirectory(currentPath)}
-          isLandscape={isLandscape}
-          width={width}
-          toolbarHeight={effectiveToolbarHeight}
-        />
-
-        <FileManagerToolbar
-          selectionMode={selectionMode}
-          selectedCount={selectedFiles.length}
-          onCopy={() => handleCopy()}
-          onCut={() => handleCut()}
-          onPaste={handlePaste}
-          onDelete={() => handleDelete()}
-          onCancelSelection={handleCancelSelection}
-          onCancelClipboard={() => setClipboard({ files: [], operation: null })}
-          clipboardCount={clipboard.files.length}
-          clipboardOperation={clipboard.operation}
-          isLandscape={isLandscape}
-          bottomInset={insets.bottom}
-          tabBarHeight={tabBarHeight}
-        />
-
-        {contextMenu.file && (
-          <ContextMenu
-            visible={contextMenu.visible}
-            onClose={() => setContextMenu({ visible: false, file: null })}
-            fileName={contextMenu.file.name}
-            fileType={contextMenu.file.type}
-            onView={
-              contextMenu.file.type === "file"
-                ? () => handleViewFile(contextMenu.file!)
-                : undefined
-            }
-            onEdit={
-              contextMenu.file.type === "file"
-                ? () => handleViewFile(contextMenu.file!)
-                : undefined
-            }
-            onRename={() => handleRename(contextMenu.file!)}
-            onCopy={() => handleCopy(contextMenu.file!)}
-            onCut={() => handleCut(contextMenu.file!)}
-            onDelete={() => handleDelete(contextMenu.file!)}
-            isArchive={isArchiveFile(contextMenu.file.name)}
-          />
-        )}
-
-        <Modal
-          visible={createDialog.visible}
-          transparent
-          animationType="fade"
-          supportedOrientations={["portrait", "landscape"]}
-        >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
-            className="flex-1"
-          >
-            <View className="flex-1 bg-black/50 items-center justify-center p-4">
-              <View
-                className="p-6 w-full max-w-sm"
-                style={{
-                  backgroundColor: BACKGROUNDS.CARD,
-                  borderWidth: BORDERS.MAJOR,
-                  borderColor: BORDER_COLORS.PRIMARY,
-                  borderRadius: RADIUS.CARD,
-                  marginBottom: isLandscape ? 0 : insets.bottom,
-                }}
-              >
-                <Text className="text-foreground text-lg font-semibold mb-4">
-                  Create New{" "}
-                  {createDialog.type === "folder" ? "Folder" : "File"}
-                </Text>
-                <TextInput
-                  className="px-4 py-3 text-foreground mb-4"
-                  style={{
-                    backgroundColor: BACKGROUNDS.DARKER,
-                    borderWidth: BORDERS.MAJOR,
-                    borderColor: BORDER_COLORS.PRIMARY,
-                    borderRadius: RADIUS.BUTTON,
-                  }}
-                  value={createName}
-                  onChangeText={setCreateName}
-                  placeholder="Name"
-                  placeholderTextColor="#6B7280"
-                  autoFocus
-                />
-                <View className="flex-row gap-2">
-                  <TouchableOpacity
-                    onPress={() => {
-                      setCreateDialog({ visible: false, type: null });
-                      setCreateName("");
-                    }}
-                    className="flex-1 py-3"
-                    style={{
-                      backgroundColor: BACKGROUNDS.BUTTON,
-                      borderWidth: BORDERS.MAJOR,
-                      borderColor: BORDER_COLORS.BUTTON,
-                      borderRadius: RADIUS.BUTTON,
-                    }}
-                    activeOpacity={0.7}
+      <>
+        <SessionFrame
+          title={host.name}
+          subtitle="File Manager"
+          status={frameStatus}
+          loadingLabel={`Connecting to ${host.name}…`}
+          errorMessage={conn.errorMessage}
+          onRetry={conn.state === "error" ? conn.retry : undefined}
+          logEntries={conn.logEntries}
+          isConnecting={conn.state === "connecting" || conn.state === "idle"}
+          isConnected={isConnected}
+          hasConnectionError={conn.state === "error"}
+          onLogClear={conn.logClear}
+          toolbar={
+            isConnected ? (
+              <View>
+                {/* Nav row */}
+                <View className="flex-row items-center gap-1 px-2 py-1.5 border-b border-border/40">
+                  {/* Back / up */}
+                  <Pressable
+                    onPress={() => loadDirectory(getParentPath(currentPath))}
+                    hitSlop={8}
+                    className="p-1.5 rounded active:bg-muted/40"
+                    disabled={currentPath === "/"}
+                    style={{ opacity: currentPath === "/" ? 0.35 : 1 }}
                   >
-                    <Text className="text-foreground text-center font-semibold">
-                      Cancel
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={handleCreateConfirm}
-                    className="flex-1 bg-accent-brand py-3"
-                    style={{
-                      borderWidth: 2,
-                      borderColor: "#16a34a",
-                      borderRadius: 8,
-                    }}
-                    activeOpacity={0.7}
+                    <ChevronLeft size={18} color={color("foreground")} />
+                  </Pressable>
+
+                  {/* Breadcrumb scroll */}
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ alignItems: "center", flexGrow: 1 }}
+                    style={{ flex: 1 }}
                   >
-                    <Text className="text-foreground text-center font-semibold">
-                      Create
+                    {breadcrumbs.map((bc, i) => (
+                      <View key={bc} className="flex-row items-center">
+                        {i > 0 ? (
+                          <ChevronRight size={12} color={color("muted-foreground", 0.5)} />
+                        ) : null}
+                        <Pressable
+                          onPress={() => loadDirectory(bc)}
+                          className="px-1 py-1 rounded active:bg-muted/40"
+                          hitSlop={4}
+                        >
+                          <Text
+                            className={`text-xs ${
+                              i === breadcrumbs.length - 1
+                                ? "text-foreground"
+                                : "text-muted-foreground"
+                            }`}
+                            weight={i === breadcrumbs.length - 1 ? "medium" : "regular"}
+                          >
+                            {getBreadcrumbLabel(bc)}
+                          </Text>
+                        </Pressable>
+                      </View>
+                    ))}
+                  </ScrollView>
+
+                  {/* Sort toggle */}
+                  <Pressable
+                    onPress={cycleSortBy}
+                    hitSlop={8}
+                    className="flex-row items-center gap-0.5 px-1.5 py-1 rounded active:bg-muted/40"
+                  >
+                    <ArrowUpDown size={13} color={color("muted-foreground")} />
+                    <Text className="text-[10px] text-muted-foreground">
+                      {sortLabel[sortBy]} {sortOrder === "asc" ? "↑" : "↓"}
                     </Text>
-                  </TouchableOpacity>
+                  </Pressable>
+
+                  {/* More menu */}
+                  <Pressable
+                    onPress={() => setMoreMenuVisible(true)}
+                    hitSlop={8}
+                    className="p-1.5 rounded active:bg-muted/40"
+                  >
+                    <MoreVertical size={16} color={color("muted-foreground")} />
+                  </Pressable>
+                </View>
+
+                {/* Search row */}
+                <View className="px-3 py-1.5">
+                  <Input
+                    value={query}
+                    onChangeText={setQuery}
+                    placeholder="Search…"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    leading={<Search size={13} color={color("muted-foreground")} />}
+                    className="h-8 text-xs"
+                  />
                 </View>
               </View>
-            </View>
-          </KeyboardAvoidingView>
-        </Modal>
-
-        <Modal
-          visible={renameDialog.visible}
-          transparent
-          animationType="fade"
-          supportedOrientations={["portrait", "landscape"]}
+            ) : undefined
+          }
         >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
-            className="flex-1"
-          >
-            <View className="flex-1 bg-black/50 items-center justify-center p-4">
-              <View
-                className="p-6 w-full max-w-sm"
-                style={{
-                  backgroundColor: BACKGROUNDS.CARD,
-                  borderWidth: BORDERS.MAJOR,
-                  borderColor: BORDER_COLORS.PRIMARY,
-                  borderRadius: RADIUS.CARD,
-                  marginBottom: isLandscape ? 0 : insets.bottom,
+          <ScrollView
+            contentContainerStyle={{ paddingBottom: selectionMode || clipboard.files.length > 0 ? 80 : 16 }}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                tintColor={color("accent-brand")}
+                onRefresh={async () => {
+                  setRefreshing(true);
+                  await loadDirectory(currentPath);
+                  setRefreshing(false);
                 }}
-              >
-                <Text className="text-foreground text-lg font-semibold mb-4">
-                  Rename Item
-                </Text>
-                <TextInput
-                  className="px-4 py-3 text-foreground mb-4"
-                  style={{
-                    backgroundColor: BACKGROUNDS.DARKER,
-                    borderWidth: BORDERS.MAJOR,
-                    borderColor: BORDER_COLORS.PRIMARY,
-                    borderRadius: RADIUS.BUTTON,
-                  }}
-                  value={renameName}
-                  onChangeText={setRenameName}
-                  placeholder="New name"
-                  placeholderTextColor="#6B7280"
-                  autoFocus
-                />
-                <View className="flex-row gap-2">
-                  <TouchableOpacity
-                    onPress={() => {
-                      setRenameDialog({ visible: false, file: null });
-                      setRenameName("");
-                    }}
-                    className="flex-1 py-3"
-                    style={{
-                      backgroundColor: BACKGROUNDS.BUTTON,
-                      borderWidth: BORDERS.MAJOR,
-                      borderColor: BORDER_COLORS.BUTTON,
-                      borderRadius: RADIUS.BUTTON,
-                    }}
-                    activeOpacity={0.7}
-                  >
-                    <Text className="text-foreground text-center font-semibold">
-                      Cancel
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={handleRenameConfirm}
-                    className="flex-1 bg-accent-brand py-3"
-                    style={{
-                      borderWidth: 2,
-                      borderColor: "#16a34a",
-                      borderRadius: 8,
-                    }}
-                    activeOpacity={0.7}
-                  >
-                    <Text className="text-foreground text-center font-semibold">
-                      Rename
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+              />
+            }
+          >
+            {loadingDir && !refreshing ? (
+              <View className="flex-1 items-center justify-center mt-16">
+                <ActivityIndicator size="small" color={color("accent-brand")} />
               </View>
-            </View>
-          </KeyboardAvoidingView>
-        </Modal>
+            ) : filtered.length === 0 ? (
+              <Text className="text-sm text-muted-foreground text-center mt-16">
+                {query ? "No matching files" : "Empty folder"}
+              </Text>
+            ) : (
+              filtered.map((file) => (
+                <FileRow
+                  key={file.path}
+                  file={file}
+                  selected={selectedFiles.has(file.path)}
+                  selectionMode={selectionMode}
+                  onPress={() => openFile(file)}
+                  onLongPress={() => {
+                    if (selectionMode) {
+                      toggleSelect(file.path);
+                    } else {
+                      activateSelection(file);
+                    }
+                  }}
+                  onMenu={() => setMenuFile(file)}
+                  onDelete={() => doDelete(file)}
+                  color={color}
+                />
+              ))
+            )}
+          </ScrollView>
 
-        {fileViewer.file && (
+          {/* Bottom action bar — selection or clipboard */}
+          {(selectionMode || clipboard.files.length > 0) && (
+            <View
+              className="absolute left-0 right-0 bottom-0 bg-card border-t border-border"
+            >
+            <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 12, gap: 8, height: 48 }}>
+              {selectionMode ? (
+                <>
+                  <Text className="text-sm text-muted-foreground flex-1">
+                    {selectedFiles.size} selected
+                  </Text>
+                  <Pressable
+                    onPress={copySelected}
+                    disabled={selectedFiles.size === 0}
+                    hitSlop={6}
+                    className="p-2 rounded border border-border active:bg-muted/40"
+                    style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
+                  >
+                    <Copy size={16} color={color("foreground")} />
+                  </Pressable>
+                  <Pressable
+                    onPress={cutSelected}
+                    disabled={selectedFiles.size === 0}
+                    hitSlop={6}
+                    className="p-2 rounded border border-border active:bg-muted/40"
+                    style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
+                  >
+                    <Scissors size={16} color={color("foreground")} />
+                  </Pressable>
+                  <Pressable
+                    onPress={doDeleteSelected}
+                    disabled={selectedFiles.size === 0}
+                    hitSlop={6}
+                    className="p-2 rounded border border-destructive/40 active:bg-destructive/10"
+                    style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
+                  >
+                    <Trash2 size={16} color={color("destructive")} />
+                  </Pressable>
+                  <Pressable
+                    onPress={cancelSelection}
+                    hitSlop={6}
+                    className="p-2 rounded border border-border active:bg-muted/40 ml-1"
+                  >
+                    <X size={16} color={color("muted-foreground")} />
+                  </Pressable>
+                </>
+              ) : clipboard.files.length > 0 ? (
+                <>
+                  <Text className="text-sm text-muted-foreground flex-1">
+                    {clipboard.files.length} item{clipboard.files.length !== 1 ? "s" : ""}{" "}
+                    {clipboard.operation === "copy" ? "copied" : "cut"}
+                  </Text>
+                  <Pressable
+                    onPress={doPaste}
+                    hitSlop={6}
+                    className="flex-row items-center gap-1.5 px-3 py-2 rounded bg-accent-brand/10 border border-accent-brand/30 active:bg-accent-brand/20"
+                  >
+                    <ClipboardPaste size={15} color={color("accent-brand")} />
+                    <Text className="text-sm text-accent-brand" weight="medium">Paste</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => setClipboard({ files: [], operation: null })}
+                    hitSlop={6}
+                    className="p-2 rounded border border-border active:bg-muted/40"
+                  >
+                    <X size={16} color={color("muted-foreground")} />
+                  </Pressable>
+                </>
+              ) : null}
+            </View>
+            </View>
+          )}
+        </SessionFrame>
+
+        {/* Per-file action menu */}
+        <ContextSheet
+          visible={menuFile !== null}
+          onClose={() => setMenuFile(null)}
+          title={menuFile?.name}
+          subtitle={menuFile?.path}
+          actions={buildFileActions(menuFile, color, {
+            view: viewFile,
+            rename: (f) => {
+              setRenameTarget(f);
+              setRenameName(f.name);
+            },
+            copy: (f) => setClipboard({ files: [f.path], operation: "copy" }),
+            cut: (f) => setClipboard({ files: [f.path], operation: "cut" }),
+            perms: (f) => setPermsFile(f),
+            copyPath: async (f) => {
+              await Clipboard.setStringAsync(f.path);
+              toast.success("Path copied");
+            },
+            del: doDelete,
+            extract: doExtract,
+          })}
+        />
+
+        {/* More / overflow menu */}
+        <ContextSheet
+          visible={moreMenuVisible}
+          onClose={() => setMoreMenuVisible(false)}
+          title="Actions"
+          actions={moreActions}
+        />
+
+        {/* Permissions editor */}
+        <PermissionsDialog
+          visible={permsFile !== null}
+          fileName={permsFile?.name || ""}
+          permissions={permsFile?.permissions}
+          onClose={() => setPermsFile(null)}
+          onApply={applyPermissions}
+        />
+
+        {/* Create / rename dialogs */}
+        <NameDialog
+          visible={createDialog !== null}
+          title={`New ${createDialog === "folder" ? "Folder" : "File"}`}
+          value={createName}
+          onChange={setCreateName}
+          onClose={() => {
+            setCreateDialog(null);
+            setCreateName("");
+          }}
+          onConfirm={confirmCreate}
+          confirmLabel="Create"
+          insetBottom={insets.bottom}
+        />
+        <NameDialog
+          visible={renameTarget !== null}
+          title="Rename"
+          value={renameName}
+          onChange={setRenameName}
+          onClose={() => {
+            setRenameTarget(null);
+            setRenameName("");
+          }}
+          onConfirm={confirmRename}
+          confirmLabel="Rename"
+          insetBottom={insets.bottom}
+        />
+
+        {/* Text/code viewer + editor */}
+        {viewer ? (
           <FileViewer
-            visible={fileViewer.visible}
-            onClose={() =>
-              setFileViewer({ visible: false, file: null, content: "" })
-            }
-            fileName={fileViewer.file.name}
-            filePath={fileViewer.file.path}
-            initialContent={fileViewer.content}
-            onSave={handleSaveFile}
+            visible
+            onClose={() => setViewer(null)}
+            fileName={viewer.file.name}
+            filePath={viewer.file.path}
+            initialContent={viewer.content}
+            onSave={saveFile}
           />
-        )}
-      </View>
+        ) : null}
+
+        {/* Shared auth dialogs */}
+        <AuthDialogs
+          state={conn.state}
+          errorMessage={conn.errorMessage}
+          onSubmitTotp={conn.submitTotp}
+          onSubmitWarpgate={conn.submitWarpgate}
+          onSubmitAuth={conn.submitAuth}
+          onCancel={conn.cancelAuth}
+        />
+      </>
     );
   },
 );
 
 FileManager.displayName = "FileManager";
+
+// ─── buildFileActions ────────────────────────────────────────────────────────
+
+function buildFileActions(
+  file: FileItem | null,
+  color: ReturnType<typeof useThemeColor>,
+  handlers: {
+    view: (f: FileItem) => void;
+    rename: (f: FileItem) => void;
+    copy: (f: FileItem) => void;
+    cut: (f: FileItem) => void;
+    perms: (f: FileItem) => void;
+    copyPath: (f: FileItem) => void;
+    del: (f: FileItem) => void;
+    extract: (f: FileItem) => void;
+  },
+): (ContextAction | null)[] {
+  if (!file) return [];
+  const fg = color("foreground") ?? "#fafafa";
+  const isFile = file.type === "file";
+  return [
+    isFile && isTextFile(file.name)
+      ? {
+          key: "view",
+          icon: <Eye size={18} color={fg} />,
+          label: "View / Edit",
+          onPress: () => handlers.view(file),
+        }
+      : null,
+    {
+      key: "rename",
+      icon: <Pencil size={18} color={fg} />,
+      label: "Rename",
+      onPress: () => handlers.rename(file),
+    },
+    {
+      key: "copy",
+      icon: <Copy size={18} color={fg} />,
+      label: "Copy",
+      onPress: () => handlers.copy(file),
+    },
+    {
+      key: "cut",
+      icon: <Scissors size={18} color={fg} />,
+      label: "Cut",
+      onPress: () => handlers.cut(file),
+    },
+    isFile && isArchiveFile(file.name)
+      ? {
+          key: "extract",
+          icon: <Archive size={18} color={fg} />,
+          label: "Extract Here",
+          onPress: () => handlers.extract(file),
+        }
+      : null,
+    {
+      key: "perms",
+      icon: <Lock size={18} color={fg} />,
+      label: "Permissions",
+      onPress: () => handlers.perms(file),
+    },
+    {
+      key: "copyPath",
+      icon: <ClipboardCopy size={18} color={fg} />,
+      label: "Copy Path",
+      onPress: () => handlers.copyPath(file),
+    },
+    {
+      key: "delete",
+      icon: <Trash2 size={18} color={color("destructive")} />,
+      label: "Delete",
+      destructive: true,
+      onPress: () => handlers.del(file),
+    },
+  ];
+}
+
+// ─── FileRow ─────────────────────────────────────────────────────────────────
+
+function FileRow({
+  file,
+  selected,
+  selectionMode,
+  onPress,
+  onLongPress,
+  onMenu,
+  onDelete,
+  color,
+}: {
+  file: FileItem;
+  selected: boolean;
+  selectionMode: boolean;
+  onPress: () => void;
+  onLongPress: () => void;
+  onMenu: () => void;
+  onDelete: () => void;
+  color: ReturnType<typeof useThemeColor>;
+}) {
+  const swipeableRef = useRef<Swipeable>(null);
+  const iconColor = getFileIconColor(file.name, file.type);
+  const Icon =
+    file.type === "directory" ? Folder : file.type === "link" ? LinkIcon : FileIcon;
+  const isDir = file.type === "directory";
+
+  const renderRightActions = (
+    progress: Animated.AnimatedInterpolation<number>,
+    dragX: Animated.AnimatedInterpolation<number>,
+  ) => {
+    const scale = dragX.interpolate({
+      inputRange: [-80, 0],
+      outputRange: [1, 0.85],
+      extrapolate: "clamp",
+    });
+    return (
+      <Animated.View
+        style={{
+          transform: [{ scale }],
+          justifyContent: "center",
+          alignItems: "center",
+          width: 72,
+          backgroundColor: "#ef4444",
+        }}
+      >
+        <Pressable
+          onPress={() => {
+            swipeableRef.current?.close();
+            onDelete();
+          }}
+          style={{ flex: 1, justifyContent: "center", alignItems: "center", width: "100%" }}
+        >
+          <Trash2 size={20} color="#fff" />
+        </Pressable>
+      </Animated.View>
+    );
+  };
+
+  const rowContent = (
+    <Pressable
+      onPress={onPress}
+      onLongPress={onLongPress}
+      className={`flex-row items-center gap-3 px-4 py-3.5 border-b border-border/50 ${
+        selected ? "bg-accent-brand/8" : "active:bg-muted/30"
+      }`}
+    >
+      {/* Selection checkbox */}
+      {selectionMode ? (
+        <View className="mr-0.5">
+          {selected ? (
+            <CheckSquare size={20} color={color("accent-brand")} />
+          ) : (
+            <Square size={20} color={color("muted-foreground", 0.6)} />
+          )}
+        </View>
+      ) : null}
+
+      {/* File icon */}
+      <Icon size={20} color={iconColor} />
+
+      {/* Name + meta */}
+      <View className="flex-1 min-w-0">
+        <Text
+          className="text-[15px] text-foreground"
+          weight="medium"
+          numberOfLines={1}
+        >
+          {file.name}
+        </Text>
+        <View className="flex-row items-center gap-1.5 mt-0.5 flex-wrap">
+          {isDir ? (
+            <Text className="text-[11px] text-muted-foreground">Folder</Text>
+          ) : (
+            <>
+              {file.size !== undefined ? (
+                <Text className="text-[11px] text-muted-foreground">
+                  {formatFileSize(file.size)}
+                </Text>
+              ) : null}
+              {file.modified ? (
+                <>
+                  {file.size !== undefined ? (
+                    <Text className="text-[11px] text-muted-foreground">·</Text>
+                  ) : null}
+                  <Text className="text-[11px] text-muted-foreground">
+                    {formatDate(file.modified)}
+                  </Text>
+                </>
+              ) : null}
+            </>
+          )}
+          {file.permissions ? (
+            <>
+              <Text className="text-[11px] text-muted-foreground">·</Text>
+              <Text className="text-[11px] text-muted-foreground/70 font-mono">
+                {file.permissions}
+              </Text>
+            </>
+          ) : null}
+        </View>
+      </View>
+
+      {/* Right indicator */}
+      {isDir ? (
+        <ChevronRight size={16} color={color("muted-foreground", 0.4)} />
+      ) : !selectionMode ? (
+        <Pressable onPress={onMenu} hitSlop={8} className="p-1">
+          <MoreVertical size={15} color={color("muted-foreground", 0.5)} />
+        </Pressable>
+      ) : null}
+    </Pressable>
+  );
+
+  // In selection mode, disable swipe
+  if (selectionMode) {
+    return rowContent;
+  }
+
+  return (
+    <Swipeable
+      ref={swipeableRef}
+      renderRightActions={renderRightActions}
+      rightThreshold={40}
+      overshootRight={false}
+      friction={2}
+    >
+      {rowContent}
+    </Swipeable>
+  );
+}
+
+// ─── NameDialog ──────────────────────────────────────────────────────────────
+
+function NameDialog({
+  visible,
+  title,
+  value,
+  onChange,
+  onClose,
+  onConfirm,
+  confirmLabel,
+  insetBottom,
+}: {
+  visible: boolean;
+  title: string;
+  value: string;
+  onChange: (v: string) => void;
+  onClose: () => void;
+  onConfirm: () => void;
+  confirmLabel: string;
+  insetBottom: number;
+}) {
+  const color = useThemeColor();
+  return (
+    <Modal visible={visible} transparent animationType="fade" statusBarTranslucent>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        className="flex-1"
+      >
+        <Pressable
+          className="flex-1 bg-black/50 items-center justify-center px-5"
+          onPress={onClose}
+        >
+          <Pressable
+            className="w-full max-w-md bg-popover border border-border p-4"
+            style={{ marginBottom: insetBottom }}
+            onPress={(e) => e.stopPropagation()}
+          >
+            <Text weight="bold" className="text-base text-foreground mb-3">
+              {title}
+            </Text>
+            <TextInput
+              value={value}
+              onChangeText={onChange}
+              placeholder="Name"
+              placeholderTextColor={color("muted-foreground", 0.7)}
+              autoFocus
+              autoCapitalize="none"
+              className="text-sm text-foreground bg-card border border-input px-2.5 h-10 mb-3"
+            />
+            <View className="flex-row gap-2">
+              <Button variant="outline" className="flex-1" onPress={onClose}>
+                Cancel
+              </Button>
+              <Button
+                variant="accent"
+                className="flex-1"
+                onPress={onConfirm}
+                disabled={!value.trim()}
+              >
+                {confirmLabel}
+              </Button>
+            </View>
+          </Pressable>
+        </Pressable>
+      </KeyboardAvoidingView>
+    </Modal>
+  );
+}

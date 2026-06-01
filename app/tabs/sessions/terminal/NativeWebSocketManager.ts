@@ -51,11 +51,15 @@ export interface NativeWSConfig {
     scenario: "new" | "changed",
     data: HostKeyData,
   ) => void;
+  onPassphraseRequired?: () => void;
+  onWarpgateAuthRequired?: (url: string, securityKey: string) => void;
   onPostConnectionSetup: () => void;
   onDisconnected: (hostName: string) => void;
   onConnectionFailed: (message: string) => void;
   /** Fired when the backend session id is created/attached/cleared. */
   onSessionIdChange?: (sessionId: string | null) => void;
+  /** Fired for each `connection_log` WS message from the server. */
+  onConnectionLog?: (entry: { level?: string; stage?: string; message: string }) => void;
 }
 
 export class NativeWebSocketManager {
@@ -225,6 +229,32 @@ export class NativeWebSocketManager {
           }),
         );
       } catch (e) {}
+    }
+  }
+
+  sendWarpgateContinue(): void {
+    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      try {
+        this.ws.send(JSON.stringify({ type: "warpgate_auth_continue", data: {} }));
+      } catch (_) {}
+    }
+  }
+
+  sendPassphraseResponse(passphrase: string): void {
+    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      try {
+        this.ws.send(
+          JSON.stringify({
+            type: "reconnect_with_credentials",
+            data: {
+              keyPassword: passphrase,
+              hostConfig: { ...this.config.hostConfig, keyPassword: passphrase },
+              cols: this.cols,
+              rows: this.rows,
+            },
+          }),
+        );
+      } catch (_) {}
     }
   }
 
@@ -413,6 +443,21 @@ export class NativeWebSocketManager {
               msg.data as HostKeyData,
             );
           }
+        } else if (msg.type === "passphrase_required") {
+          if (this.connectionTimeout) {
+            clearTimeout(this.connectionTimeout);
+            this.connectionTimeout = null;
+          }
+          this.config.onPassphraseRequired?.();
+        } else if (msg.type === "warpgate_auth_required") {
+          if (this.connectionTimeout) {
+            clearTimeout(this.connectionTimeout);
+            this.connectionTimeout = null;
+          }
+          this.config.onWarpgateAuthRequired?.(
+            (msg.url as string) || "",
+            (msg.securityKey as string) || "",
+          );
         } else if (msg.type === "error") {
           const message = (msg.message as string) || "Unknown error";
           if (this.isUnrecoverableError(message)) {
@@ -463,6 +508,10 @@ export class NativeWebSocketManager {
           this.setServerSessionId(null);
           this.shouldNotReconnect = true;
           this.config.onDisconnected(this.config.hostConfig.name);
+        } else if (msg.type === "connection_log") {
+          if (msg.data) {
+            this.config.onConnectionLog?.(msg.data as { level?: string; stage?: string; message: string });
+          }
         }
       } catch (_) {
         this.config.onData(event.data as string);

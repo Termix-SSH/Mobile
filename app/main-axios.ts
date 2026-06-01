@@ -8,6 +8,7 @@ import type {
   FileManagerShortcut,
   ServerStatus,
   ServerMetrics,
+  LoginStatsMetrics,
   AuthResponse,
   UserInfo,
   UserCount,
@@ -16,6 +17,10 @@ import type {
   ServerConfig,
   UptimeInfo,
   RecentActivityItem,
+  DockerContainer,
+  DockerContainerStats,
+  DockerContainerAction as DockerActionType,
+  SessionAuthOverrides,
 } from "../types/index";
 import {
   apiLogger,
@@ -217,6 +222,13 @@ function createApiInstance(
         } else {
           logger.networkError(method, fullUrl, message, context);
         }
+      } else if (
+        status === 404 &&
+        serviceName === "STATS" &&
+        url.includes("/metrics/")
+      ) {
+        // 404 on metrics means data isn't ready yet — suppress as debug noise.
+        logger.debug(`Metrics not yet available: ${method} ${url}`, context);
       } else {
         logger.requestError(
           method,
@@ -281,6 +293,23 @@ export async function initializeServerConfig(): Promise<void> {
 
 export function getCurrentServerUrl(): string | null {
   return configuredServerUrl;
+}
+
+/**
+ * WebSocket URL for the Docker exec console (backend WS server on port 30009).
+ * Token is passed as a query param (the WS server accepts cookie / Bearer /
+ * `?token=`). The console speaks JSON messages: connect/input/resize/disconnect.
+ */
+export function getDockerConsoleWebSocketUrl(token: string): string {
+  const base = getRootBase(30009).replace(/\/$/, "");
+  const websocketBase = base.replace(/^http/i, (scheme) =>
+    scheme.toLowerCase() === "https" ? "wss" : "ws",
+  );
+  const params = new URLSearchParams({ token });
+  // When a real server URL is configured, nginx routes /docker/console/ → port 30009.
+  // In local dev (no configuredServerUrl), getRootBase already includes :30009.
+  const path = configuredServerUrl ? "/docker/console/" : "/";
+  return `${websocketBase}${path}?${params.toString()}`;
 }
 
 export function getGuacamoleWebSocketUrl(
@@ -493,6 +522,22 @@ class ApiError extends Error {
     super(message);
     this.name = "ApiError";
   }
+}
+
+/**
+ * Pulls a `connectionLogs` array off a connect response (or an axios error's
+ * response body). Session connect endpoints return these on both success and
+ * failure so the UI can surface a connection log. Returns [] when absent.
+ */
+export function extractConnectionLogs(
+  source: unknown,
+): { type: string; stage?: string; message: string }[] {
+  const data =
+    axios.isAxiosError(source)
+      ? (source.response?.data as any)
+      : (source as any);
+  const logs = data?.connectionLogs;
+  return Array.isArray(logs) ? logs : [];
 }
 
 function handleApiError(error: unknown, operation: string): never {
@@ -1122,6 +1167,23 @@ export async function connectSSH(
   }
 }
 
+export async function verifySSHWarpgate(
+  sessionId: string,
+  warpgateUrl: string,
+  securityKey?: string,
+): Promise<any> {
+  try {
+    const response = await fileManagerApi.post("/ssh/connect-warpgate", {
+      sessionId,
+      warpgateUrl,
+      securityKey,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "verify SSH Warpgate");
+  }
+}
+
 export async function disconnectSSH(sessionId: string): Promise<any> {
   try {
     const response = await fileManagerApi.post("/ssh/disconnect", {
@@ -1577,6 +1639,108 @@ export async function compressSSHFiles(
   }
 }
 
+export async function resolveSSHPath(
+  sessionId: string,
+  path: string,
+): Promise<{ resolved: string }> {
+  try {
+    const response = await fileManagerApi.get("/ssh/resolvePath", {
+      params: { sessionId, path },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "resolve SSH path");
+  }
+}
+
+export async function executeSSHFile(
+  sessionId: string,
+  path: string,
+  hostId?: number,
+  userId?: string,
+): Promise<any> {
+  try {
+    const response = await fileManagerApi.post("/ssh/executeFile", {
+      sessionId,
+      path,
+      hostId,
+      userId,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "execute SSH file");
+  }
+}
+
+/**
+ * Store a sudo password for a session so the backend can satisfy sudo prompts
+ * during file operations (mirrors the web file-manager sudo flow).
+ */
+export async function setSSHSudoPassword(
+  sessionId: string,
+  password: string,
+): Promise<any> {
+  try {
+    const response = await fileManagerApi.post("/sudo-password", {
+      sessionId,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "set sudo password");
+  }
+}
+
+// ============================================================================
+// TERMINAL COMMAND HISTORY
+// ============================================================================
+
+/** Per-host shell command history (deduped, newest first, max 500). */
+export async function getCommandHistory(hostId: number): Promise<string[]> {
+  try {
+    const response = await authApi.get(`/terminal/command_history/${hostId}`);
+    const data = response.data;
+    if (Array.isArray(data)) {
+      return data
+        .map((row: any) => (typeof row === "string" ? row : row?.command))
+        .filter((c: unknown): c is string => typeof c === "string");
+    }
+    return [];
+  } catch {
+    return [];
+  }
+}
+
+export async function saveCommandToHistory(
+  hostId: number,
+  command: string,
+): Promise<void> {
+  try {
+    await authApi.post("/terminal/command_history", { hostId, command });
+  } catch {
+    // History is best-effort; never block the terminal on it.
+  }
+}
+
+export async function deleteCommandFromHistory(
+  hostId: number,
+  command: string,
+): Promise<void> {
+  try {
+    await authApi.post("/terminal/command_history/delete", { hostId, command });
+  } catch {
+    // Best-effort.
+  }
+}
+
+export async function clearCommandHistory(hostId: number): Promise<void> {
+  try {
+    await authApi.delete(`/terminal/command_history/${hostId}`);
+  } catch {
+    // Best-effort.
+  }
+}
+
 // ============================================================================
 // FILE MANAGER DATA
 // ============================================================================
@@ -1764,24 +1928,130 @@ export async function getServerStatusById(id: number): Promise<ServerStatus> {
   }
 }
 
-export async function getServerMetricsById(id: number): Promise<ServerMetrics> {
+function normalizeMetrics(raw: any): ServerMetrics {
+  // Processes: coerce cpu/mem strings → numbers (backend sends "2.5" not 2.5)
+  let processes = raw.processes;
+  if (processes?.top) {
+    processes = {
+      ...processes,
+      top: processes.top.map((p: any) => ({
+        ...p,
+        cpu: Number(p.cpu) || 0,
+        mem: Number(p.mem) || 0,
+      })),
+    };
+  }
+
+  // Network: map rxBytes/txBytes → rx/tx
+  let network = raw.network;
+  if (network?.interfaces) {
+    network = {
+      ...network,
+      interfaces: network.interfaces.map((iface: any) => ({
+        ...iface,
+        rx: iface.rx ?? iface.rxBytes ?? null,
+        tx: iface.tx ?? iface.txBytes ?? null,
+      })),
+    };
+  }
+
+  // Login stats: snake_case backend key → camelCase, map to correct shape
+  const rawLogin = raw.login_stats ?? raw.loginStats;
+  const loginStats: LoginStatsMetrics | undefined = rawLogin
+    ? {
+        recentLogins: Array.isArray(rawLogin.recentLogins) ? rawLogin.recentLogins : [],
+        failedLogins: Array.isArray(rawLogin.failedLogins) ? rawLogin.failedLogins : [],
+        totalLogins: rawLogin.totalLogins ?? 0,
+        uniqueIPs: rawLogin.uniqueIPs ?? 0,
+      }
+    : undefined;
+
+  return { ...raw, processes, network, loginStats } as ServerMetrics;
+}
+
+export async function getServerMetricsById(id: number): Promise<ServerMetrics | null> {
   try {
     const response = await statsApi.get(`/metrics/${id}`);
-    return response.data;
+    return response.data ? normalizeMetrics(response.data) : null;
   } catch (error: any) {
     if (error?.response?.status === 404) {
-      try {
-        const alt = axios.create({
-          baseURL: getRootBase(8085),
-          headers: { "Content-Type": "application/json" },
-        });
-        const response = await alt.get(`/metrics/${id}`);
-        return response.data;
-      } catch (e) {
-        handleApiError(e, "fetch server metrics");
-      }
+      // Metrics not ready yet — backend is still starting collection.
+      return null;
     }
     handleApiError(error, "fetch server metrics");
+  }
+}
+
+/**
+ * Start metrics collection for a host. Returns a viewerSessionId that must be
+ * passed to heartbeat/stop/unregister calls. May return requiresTOTP for 2FA hosts.
+ */
+export async function startMetricsPolling(id: number): Promise<{
+  success?: boolean;
+  requiresTOTP?: boolean;
+  sessionId?: string;
+  viewerSessionId?: string;
+}> {
+  try {
+    const response = await statsApi.post(`/metrics/start/${id}`);
+    return response.data || {};
+  } catch (error) {
+    handleApiError(error, "start metrics polling");
+  }
+}
+
+export async function stopMetricsPolling(id: number, viewerSessionId?: string): Promise<void> {
+  try {
+    await statsApi.post(`/metrics/stop/${id}`, viewerSessionId ? { viewerSessionId } : undefined);
+  } catch {
+    // Best-effort on teardown.
+  }
+}
+
+export async function submitMetricsTOTP(
+  sessionId: string,
+  totpCode: string,
+): Promise<any> {
+  try {
+    const response = await statsApi.post("/metrics/connect-totp", {
+      sessionId,
+      totpCode,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "submit metrics TOTP");
+  }
+}
+
+/** Register this viewer so the backend keeps polling while the screen is open. Returns a viewerSessionId. */
+export async function registerMetricsViewer(id: number): Promise<{
+  success?: boolean;
+  viewerSessionId?: string;
+  skipped?: boolean;
+}> {
+  try {
+    const response = await statsApi.post("/metrics/register-viewer", { hostId: id });
+    return response.data || {};
+  } catch {
+    // Best-effort.
+    return {};
+  }
+}
+
+export async function unregisterMetricsViewer(id: number, viewerSessionId: string): Promise<void> {
+  try {
+    await statsApi.post("/metrics/unregister-viewer", { hostId: id, viewerSessionId });
+  } catch {
+    // Best-effort on teardown.
+  }
+}
+
+/** Heartbeat so the backend knows a viewer is still watching this host. */
+export async function sendMetricsHeartbeat(viewerSessionId: string): Promise<void> {
+  try {
+    await statsApi.post("/metrics/heartbeat", { viewerSessionId });
+  } catch {
+    // Best-effort.
   }
 }
 
@@ -3309,64 +3579,191 @@ export async function getActiveSessions(): Promise<ActiveSessionInfo[]> {
 }
 
 // ============================================================================
-// DOCKER — container management over the host's docker socket
-// (Guacamole helpers getGuacamoleWebSocketUrl/getGuacamoleTokenFromHost are
-//  defined earlier in this file — they came in with the dev-1.4.0 remote
-//  desktop work.)
+// DOCKER — session-based container management over SSH.
+//
+// IMPORTANT: Docker uses the SAME session-based REST contract as the file
+// manager (connect → sessionId → keepalive/status/disconnect → operations),
+// served by the SSH/file-manager backend service (`fileManagerApi` base, paths
+// under `/docker/...`). The previous mobile implementation called
+// `sshHostApi /:hostId/docker/...` endpoints that DO NOT EXIST on the backend,
+// so Docker never actually worked — this is the corrected wiring.
+//
+// Guacamole helpers (getGuacamoleWebSocketUrl/getGuacamoleTokenFromHost) live
+// earlier in this file.
 // ============================================================================
 
-export interface DockerContainer {
-  id: string;
-  name: string;
-  image: string;
-  state: string;
-  status: string;
+export type {
+  DockerContainer,
+  DockerContainerStats,
+} from "../types/index";
+
+/**
+ * Docker REST API base. nginx routes /docker/* → port 30007 from the server
+ * root (no /ssh prefix). In local dev without a configured server URL,
+ * getRootBase falls back to localhost:30007.
+ */
+function getDockerBase(): string {
+  return getRootBase(30007).replace(/\/$/, "");
+}
+
+function dockerApi(): AxiosInstance {
+  return createApiInstance(getDockerBase(), "DOCKER");
+}
+
+/** Establish (or reuse) an SSH session for Docker operations on a host. */
+export async function dockerConnect(
+  sessionId: string,
+  hostId: number,
+  overrides?: SessionAuthOverrides,
+): Promise<any> {
+  try {
+    const response = await dockerApi().post("/docker/ssh/connect", {
+      sessionId,
+      hostId,
+      userProvidedPassword: overrides?.userProvidedPassword,
+      userProvidedSshKey: overrides?.userProvidedSshKey,
+      userProvidedKeyPassword: overrides?.userProvidedKeyPassword,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "connect Docker session");
+  }
+}
+
+export async function dockerConnectTOTP(
+  sessionId: string,
+  totpCode: string,
+): Promise<any> {
+  try {
+    const response = await dockerApi().post("/docker/ssh/connect-totp", {
+      sessionId,
+      totpCode,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "submit Docker TOTP");
+  }
+}
+
+export async function dockerKeepAlive(sessionId: string): Promise<void> {
+  try {
+    await dockerApi().post("/docker/ssh/keepalive", { sessionId });
+  } catch {
+    // Best-effort heartbeat.
+  }
+}
+
+export async function dockerDisconnect(sessionId: string): Promise<void> {
+  try {
+    await dockerApi().post("/docker/ssh/disconnect", { sessionId });
+  } catch {
+    // Best-effort on teardown.
+  }
+}
+
+export async function dockerStatus(
+  sessionId: string,
+): Promise<{ connected: boolean }> {
+  try {
+    const response = await dockerApi().get("/docker/ssh/status", {
+      params: { sessionId },
+    });
+    return response.data || { connected: false };
+  } catch {
+    return { connected: false };
+  }
+}
+
+/** Whether Docker is actually available on the connected host. */
+export async function dockerValidate(
+  sessionId: string,
+): Promise<{ available: boolean; version?: string; error?: string }> {
+  try {
+    const response = await dockerApi().get(`/docker/validate/${sessionId}`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "validate Docker");
+  }
 }
 
 export async function getDockerContainers(
-  hostId: number,
+  sessionId: string,
+  all = true,
 ): Promise<DockerContainer[]> {
   try {
-    const response = await sshHostApi.get(`/${hostId}/docker/containers`);
+    const response = await dockerApi().get(
+      `/docker/containers/${sessionId}`,
+      { params: { all } },
+    );
     const data = response.data;
     return Array.isArray(data) ? data : (data?.containers ?? []);
   } catch (error) {
-    handleApiError(error, "list docker containers");
-    throw error;
+    handleApiError(error, "list Docker containers");
+  }
+}
+
+export async function getDockerContainerDetail(
+  sessionId: string,
+  containerId: string,
+): Promise<any> {
+  try {
+    const response = await dockerApi().get(
+      `/docker/containers/${sessionId}/${containerId}`,
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "inspect Docker container");
+  }
+}
+
+export async function getDockerContainerStats(
+  sessionId: string,
+  containerId: string,
+): Promise<DockerContainerStats> {
+  try {
+    const response = await dockerApi().get(
+      `/docker/containers/${sessionId}/${containerId}/stats`,
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch Docker stats");
   }
 }
 
 export async function dockerContainerAction(
-  hostId: number,
+  sessionId: string,
   containerId: string,
-  action: "start" | "stop" | "restart" | "pause" | "unpause" | "remove",
+  action: DockerActionType,
 ): Promise<void> {
   try {
     if (action === "remove") {
-      await sshHostApi.delete(`/${hostId}/docker/containers/${containerId}`);
+      await dockerApi().delete(
+        `/docker/containers/${sessionId}/${containerId}`,
+      );
     } else {
-      await sshHostApi.post(
-        `/${hostId}/docker/containers/${containerId}/${action}`,
+      await dockerApi().post(
+        `/docker/containers/${sessionId}/${containerId}/${action}`,
       );
     }
   } catch (error) {
     handleApiError(error, `docker ${action}`);
-    throw error;
   }
 }
 
 export async function getDockerContainerLogs(
-  hostId: number,
+  sessionId: string,
   containerId: string,
+  tail = 200,
 ): Promise<string> {
   try {
-    const response = await sshHostApi.get(
-      `/${hostId}/docker/containers/${containerId}/logs`,
+    const response = await dockerApi().get(
+      `/docker/containers/${sessionId}/${containerId}/logs`,
+      { params: { tail } },
     );
     const data = response.data;
-    return typeof data === "string" ? data : (data?.logs ?? "");
+    if (typeof data === "string") return data;
+    return data?.logs ?? "";
   } catch (error) {
-    handleApiError(error, "fetch docker logs");
-    throw error;
+    handleApiError(error, "fetch Docker logs");
   }
 }

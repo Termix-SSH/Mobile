@@ -1,29 +1,8 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef,
-} from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Modal,
-  ScrollView,
-  Platform,
-  KeyboardAvoidingView,
-} from "react-native";
-import {
-  BORDERS,
-  BORDER_COLORS,
-  RADIUS,
-  BACKGROUNDS,
-} from "@/app/constants/designTokens";
-import { useOrientation } from "@/app/utils/orientation";
-import { getResponsivePadding } from "@/app/utils/responsive";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useState, useEffect, useCallback } from "react";
+import { View, Platform } from "react-native";
+import { Lock } from "lucide-react-native";
+import { Dialog, Input, Button, Text, SegmentedControl } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 interface SSHAuthDialogProps {
   visible: boolean;
@@ -42,22 +21,18 @@ interface SSHAuthDialogProps {
   reason: "no_keyboard" | "auth_failed" | "timeout";
 }
 
-const SSHAuthDialogComponent: React.FC<SSHAuthDialogProps> = ({
+export function SSHAuthDialog({
   visible,
   onSubmit,
   onCancel,
   hostInfo,
   reason,
-}) => {
+}: SSHAuthDialogProps) {
+  const color = useThemeColor();
   const [authMethod, setAuthMethod] = useState<"password" | "key">("password");
   const [password, setPassword] = useState("");
   const [sshKey, setSshKey] = useState("");
   const [keyPassword, setKeyPassword] = useState("");
-  const { isLandscape } = useOrientation();
-  const insets = useSafeAreaInsets();
-  const padding = getResponsivePadding(isLandscape);
-  const passwordInputRef = useRef<TextInput>(null);
-  const sshKeyInputRef = useRef<TextInput>(null);
 
   useEffect(() => {
     if (!visible) {
@@ -68,349 +43,116 @@ const SSHAuthDialogComponent: React.FC<SSHAuthDialogProps> = ({
     }
   }, [visible]);
 
-  useEffect(() => {
-    if (visible) {
-      const timer = setTimeout(() => {
-        if (authMethod === "password") {
-          passwordInputRef.current?.focus();
-        } else {
-          sshKeyInputRef.current?.focus();
-        }
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [visible, authMethod]);
-
-  const getReasonMessage = useCallback(() => {
-    switch (reason) {
-      case "no_keyboard":
-        return "Keyboard-interactive authentication is not supported on mobile. Please provide credentials directly.";
-      case "auth_failed":
-        return "Authentication failed. Please re-enter your credentials.";
-      case "timeout":
-        return "Connection timed out. Please try again with your credentials.";
-      default:
-        return "Please provide your credentials to connect.";
-    }
-  }, [reason]);
-
   const handleSubmit = useCallback(() => {
     if (authMethod === "password" && password.trim()) {
       onSubmit({ password });
-      setPassword("");
     } else if (authMethod === "key" && sshKey.trim()) {
-      onSubmit({
-        sshKey,
-        keyPassword: keyPassword.trim() || undefined,
-      });
-      setSshKey("");
-      setKeyPassword("");
+      onSubmit({ sshKey, keyPassword: keyPassword.trim() || undefined });
     }
   }, [authMethod, password, sshKey, keyPassword, onSubmit]);
 
-  const handleCancel = useCallback(() => {
-    setPassword("");
-    setSshKey("");
-    setKeyPassword("");
-    onCancel();
-  }, [onCancel]);
+  const isValid =
+    authMethod === "password" ? !!password.trim() : !!sshKey.trim();
 
-  const handleSetAuthMethod = useCallback((method: "password" | "key") => {
-    setAuthMethod(method);
-  }, []);
+  const hostLabel = hostInfo.name
+    ? `${hostInfo.name} · ${hostInfo.username}@${hostInfo.ip}:${hostInfo.port}`
+    : `${hostInfo.username}@${hostInfo.ip}:${hostInfo.port}`;
 
-  const isValid = useMemo(
-    () =>
-      authMethod === "password"
-        ? password.trim().length > 0
-        : sshKey.trim().length > 0,
-    [authMethod, password, sshKey],
-  );
+  const reasonText =
+    reason === "no_keyboard"
+      ? "Keyboard-interactive auth is not available. Enter credentials directly."
+      : reason === "auth_failed"
+        ? "Authentication failed. Please re-enter your credentials."
+        : "Connection timed out. Please try again with your credentials.";
+
+  const bannerBg =
+    reason === "auth_failed" || reason === "timeout"
+      ? "bg-destructive/10 border-destructive/40"
+      : "bg-yellow-500/10 border-yellow-500/40";
+  const bannerText =
+    reason === "auth_failed" || reason === "timeout"
+      ? "text-destructive"
+      : "text-yellow-400";
 
   return (
-    <Modal
+    <Dialog
       visible={visible}
-      animationType="fade"
-      supportedOrientations={["portrait", "landscape"]}
-      presentationStyle="overFullScreen"
-      statusBarTranslucent
-    >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1, backgroundColor: BACKGROUNDS.DARK }}
-      >
-        <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{
-            paddingTop: insets.top + padding,
-            paddingBottom: insets.bottom + padding,
-            paddingHorizontal: padding,
-          }}
-          keyboardShouldPersistTaps="handled"
-          scrollEnabled={true}
-        >
-          <View
-            style={{
-              backgroundColor: "#1f1f23",
-              padding: 24,
-              borderWidth: BORDERS.MAJOR,
-              borderColor: BORDER_COLORS.PRIMARY,
-              borderRadius: RADIUS.LARGE,
-              maxWidth: isLandscape ? 600 : "100%",
-              width: "100%",
-              alignSelf: "center",
-            }}
+      onClose={onCancel}
+      icon={<Lock size={18} color={color("accent-brand")} />}
+      title="SSH Authentication Required"
+      description={hostLabel}
+      footer={
+        <View className="flex-row gap-2 flex-1">
+          <Button variant="outline" className="flex-1" onPress={onCancel}>
+            Cancel
+          </Button>
+          <Button
+            variant="accent"
+            className="flex-1"
+            onPress={handleSubmit}
+            disabled={!isValid}
           >
-            <Text
-              style={{
-                color: "#ffffff",
-                fontSize: 20,
-                fontWeight: "bold",
-                marginBottom: 16,
-              }}
-            >
-              SSH Authentication Required
-            </Text>
+            Connect
+          </Button>
+        </View>
+      }
+    >
+      <View className={`border rounded px-3 py-2.5 mb-3 ${bannerBg}`}>
+        <Text className={`text-xs ${bannerText}`}>{reasonText}</Text>
+      </View>
 
-            <View
-              style={{
-                marginBottom: 24,
-                padding: 16,
-                backgroundColor: "rgba(113, 63, 18, 0.2)",
-                borderRadius: 8,
-                borderWidth: 1,
-                borderColor: "#ca8a04",
-              }}
-            >
-              <Text style={{ color: "#fef08a", fontSize: 14, lineHeight: 20 }}>
-                {getReasonMessage()}
-              </Text>
-            </View>
+      <SegmentedControl<"password" | "key">
+        options={[
+          { id: "password", label: "Password" },
+          { id: "key", label: "SSH Key" },
+        ]}
+        value={authMethod}
+        onChange={setAuthMethod}
+        className="mb-3"
+      />
 
-            <View style={{ flexDirection: "row", gap: 12, marginBottom: 24 }}>
-              <TouchableOpacity
-                onPress={() => handleSetAuthMethod("password")}
-                style={{
-                  flex: 1,
-                  paddingVertical: 12,
-                  backgroundColor:
-                    authMethod === "password" ? "#16a34a" : "#1a1a1a",
-                  borderWidth: BORDERS.STANDARD,
-                  borderColor:
-                    authMethod === "password"
-                      ? "#16a34a"
-                      : BORDER_COLORS.BUTTON,
-                  borderRadius: RADIUS.BUTTON,
-                }}
-                activeOpacity={0.7}
-              >
-                <Text
-                  style={{
-                    color: "#ffffff",
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  Password
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => handleSetAuthMethod("key")}
-                style={{
-                  flex: 1,
-                  paddingVertical: 12,
-                  backgroundColor: authMethod === "key" ? "#16a34a" : "#1a1a1a",
-                  borderWidth: BORDERS.STANDARD,
-                  borderColor:
-                    authMethod === "key" ? "#16a34a" : BORDER_COLORS.BUTTON,
-                  borderRadius: RADIUS.BUTTON,
-                }}
-                activeOpacity={0.7}
-              >
-                <Text
-                  style={{
-                    color: "#ffffff",
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  SSH Key
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            {authMethod === "password" && (
-              <View style={{ marginBottom: 24 }}>
-                <Text
-                  style={{
-                    color: "#d1d5db",
-                    fontSize: 14,
-                    fontWeight: "500",
-                    marginBottom: 8,
-                  }}
-                >
-                  Password
-                </Text>
-                <TextInput
-                  ref={passwordInputRef}
-                  style={{
-                    backgroundColor: "#1a1a1a",
-                    borderWidth: BORDERS.STANDARD,
-                    borderColor: BORDER_COLORS.BUTTON,
-                    borderRadius: RADIUS.BUTTON,
-                    paddingHorizontal: 16,
-                    paddingVertical: 12,
-                    fontSize: 16,
-                    color: "#ffffff",
-                  }}
-                  value={password}
-                  onChangeText={setPassword}
-                  placeholder="Enter password"
-                  placeholderTextColor="#6B7280"
-                  secureTextEntry
-                  autoFocus={false}
-                  autoCorrect={false}
-                  autoCapitalize="none"
-                  importantForAutofill="no"
-                  autoComplete="off"
-                  onSubmitEditing={handleSubmit}
-                />
-              </View>
-            )}
-
-            {authMethod === "key" && (
-              <>
-                <View style={{ marginBottom: 16 }}>
-                  <Text
-                    style={{
-                      color: "#d1d5db",
-                      fontSize: 14,
-                      fontWeight: "500",
-                      marginBottom: 8,
-                    }}
-                  >
-                    Private SSH Key
-                  </Text>
-                  <TextInput
-                    ref={sshKeyInputRef}
-                    style={{
-                      backgroundColor: "#1a1a1a",
-                      borderWidth: BORDERS.STANDARD,
-                      borderColor: BORDER_COLORS.BUTTON,
-                      borderRadius: RADIUS.BUTTON,
-                      paddingHorizontal: 16,
-                      paddingVertical: 12,
-                      fontSize: 14,
-                      color: "#ffffff",
-                      minHeight: 120,
-                      fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
-                      textAlignVertical: "top",
-                    }}
-                    value={sshKey}
-                    onChangeText={setSshKey}
-                    placeholder="-----BEGIN OPENSSH PRIVATE KEY-----&#10;Paste your private key here...&#10;-----END OPENSSH PRIVATE KEY-----"
-                    placeholderTextColor="#6B7280"
-                    multiline
-                    numberOfLines={6}
-                    autoFocus={false}
-                    autoCorrect={false}
-                    autoCapitalize="none"
-                    importantForAutofill="no"
-                    autoComplete="off"
-                  />
-                </View>
-                <View style={{ marginBottom: 24 }}>
-                  <Text
-                    style={{
-                      color: "#d1d5db",
-                      fontSize: 14,
-                      fontWeight: "500",
-                      marginBottom: 8,
-                    }}
-                  >
-                    Key Password (optional)
-                  </Text>
-                  <TextInput
-                    style={{
-                      backgroundColor: "#1a1a1a",
-                      borderWidth: BORDERS.STANDARD,
-                      borderColor: BORDER_COLORS.BUTTON,
-                      borderRadius: RADIUS.BUTTON,
-                      paddingHorizontal: 16,
-                      paddingVertical: 12,
-                      fontSize: 16,
-                      color: "#ffffff",
-                    }}
-                    value={keyPassword}
-                    onChangeText={setKeyPassword}
-                    placeholder="Key password (if encrypted)"
-                    placeholderTextColor="#6B7280"
-                    secureTextEntry
-                    autoCorrect={false}
-                    autoCapitalize="none"
-                    importantForAutofill="no"
-                    autoComplete="off"
-                    onSubmitEditing={handleSubmit}
-                  />
-                </View>
-              </>
-            )}
-
-            <View style={{ flexDirection: "row", gap: 12 }}>
-              <TouchableOpacity
-                onPress={handleCancel}
-                style={{
-                  flex: 1,
-                  backgroundColor: "#1a1a1a",
-                  paddingVertical: 14,
-                  borderWidth: BORDERS.STANDARD,
-                  borderColor: BORDER_COLORS.BUTTON,
-                  borderRadius: RADIUS.BUTTON,
-                }}
-                activeOpacity={0.7}
-              >
-                <Text
-                  style={{
-                    color: "#ffffff",
-                    textAlign: "center",
-                    fontWeight: "600",
-                    fontSize: 16,
-                  }}
-                >
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={handleSubmit}
-                style={{
-                  flex: 1,
-                  paddingVertical: 14,
-                  backgroundColor: isValid ? "#22c55e" : "#374151",
-                  borderWidth: BORDERS.STANDARD,
-                  borderColor: isValid ? "#16a34a" : BORDER_COLORS.BUTTON,
-                  borderRadius: RADIUS.BUTTON,
-                  opacity: isValid ? 1 : 0.5,
-                }}
-                activeOpacity={0.7}
-                disabled={!isValid}
-              >
-                <Text
-                  style={{
-                    color: "#ffffff",
-                    textAlign: "center",
-                    fontWeight: "600",
-                    fontSize: 16,
-                  }}
-                >
-                  Connect
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </Modal>
+      {authMethod === "password" ? (
+        <Input
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Password"
+          secureTextEntry
+          autoCapitalize="none"
+          autoCorrect={false}
+          autoComplete="off"
+          autoFocus
+          onSubmitEditing={handleSubmit}
+        />
+      ) : (
+        <View className="gap-2">
+          <Input
+            value={sshKey}
+            onChangeText={setSshKey}
+            placeholder={"-----BEGIN OPENSSH PRIVATE KEY-----\nPaste your private key here...\n-----END OPENSSH PRIVATE KEY-----"}
+            multiline
+            numberOfLines={5}
+            autoCapitalize="none"
+            autoCorrect={false}
+            autoComplete="off"
+            autoFocus
+            style={{
+              minHeight: 110,
+              fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
+              fontSize: 12,
+            }}
+          />
+          <Input
+            value={keyPassword}
+            onChangeText={setKeyPassword}
+            placeholder="Key passphrase (optional)"
+            secureTextEntry
+            autoCapitalize="none"
+            autoCorrect={false}
+            autoComplete="off"
+            onSubmitEditing={handleSubmit}
+          />
+        </View>
+      )}
+    </Dialog>
   );
-};
-
-export const SSHAuthDialog = React.memo(SSHAuthDialogComponent);
+}

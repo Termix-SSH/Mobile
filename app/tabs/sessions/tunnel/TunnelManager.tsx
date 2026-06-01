@@ -1,448 +1,240 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useCallback,
+import {
   forwardRef,
   useImperativeHandle,
+  useState,
+  useCallback,
+  useEffect,
 } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  ActivityIndicator,
-  RefreshControl,
-  TouchableOpacity,
-  type DimensionValue,
-} from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Activity } from "lucide-react-native";
+import { ScrollView, RefreshControl } from "react-native";
+import { Network } from "lucide-react-native";
 import {
   getTunnelStatuses,
   connectTunnel,
   disconnectTunnel,
   cancelTunnel,
   getSSHHosts,
-} from "../../../main-axios";
-import { showToast } from "../../../utils/toast";
-import type {
-  TunnelStatus,
-  SSHHost,
-  TunnelSessionProps,
-} from "../../../../types";
-import { useOrientation } from "@/app/utils/orientation";
-import { getResponsivePadding, getColumnCount } from "@/app/utils/responsive";
-import {
-  BACKGROUNDS,
-  RADIUS,
-} from "@/app/constants/designTokens";
-import TunnelCard from "@/app/tabs/sessions/tunnel/TunnelCard";
+} from "@/app/main-axios";
+import type { TunnelStatus, SSHHost, TunnelSessionProps } from "@/types";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
+import { toast } from "@/app/utils/toast";
+import { SessionFrame, usePolling } from "@/app/tabs/sessions/_shared";
+import TunnelCard from "./TunnelCard";
 
 export type TunnelManagerHandle = {
   refresh: () => void;
 };
 
-export const TunnelManager = forwardRef<
-  TunnelManagerHandle,
-  TunnelSessionProps
->(({ hostConfig, isVisible, title = "Manage Tunnels", onClose }, ref) => {
-  const insets = useSafeAreaInsets();
-  const { width, isLandscape } = useOrientation();
-  const [tunnelStatuses, setTunnelStatuses] = useState<
-    Record<string, TunnelStatus>
-  >({});
-  const [loadingTunnels, setLoadingTunnels] = useState<Set<string>>(new Set());
-  const [isLoading, setIsLoading] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [allHosts, setAllHosts] = useState<SSHHost[]>([]);
-  const [currentHostConfig, setCurrentHostConfig] = useState(hostConfig);
-  const refreshIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+/**
+ * Stable tunnel name shared with the backend (host_sourcePort_endpoint_port).
+ * Matches the legacy naming the backend's parseTunnelName understands.
+ */
+function tunnelKey(
+  hostName: string,
+  hostId: number,
+  t: { sourcePort: number; endpointHost: string; endpointPort: number },
+): string {
+  return `${hostName || hostId}_${t.sourcePort}_${t.endpointHost}_${t.endpointPort}`;
+}
 
-  const padding = getResponsivePadding(isLandscape);
-  const columnCount = getColumnCount(width, isLandscape, 350);
+export const TunnelManager = forwardRef<TunnelManagerHandle, TunnelSessionProps>(
+  ({ hostConfig, isVisible }, ref) => {
+    const color = useThemeColor();
+    const [statuses, setStatuses] = useState<Record<string, TunnelStatus>>({});
+    const [loadingKeys, setLoadingKeys] = useState<Set<string>>(new Set());
+    const [allHosts, setAllHosts] = useState<SSHHost[]>([]);
+    const [status, setStatus] = useState<"loading" | "ready" | "error">(
+      "loading",
+    );
+    const [error, setError] = useState("");
+    const [refreshing, setRefreshing] = useState(false);
 
-  const fetchTunnelStatuses = useCallback(async (showLoadingSpinner = true) => {
-    try {
-      if (showLoadingSpinner) {
-        setIsLoading(true);
+    const tunnels = hostConfig.tunnelConnections || [];
+
+    const fetchStatuses = useCallback(async () => {
+      try {
+        const data = await getTunnelStatuses();
+        setStatuses(data);
+        setStatus("ready");
+        setError("");
+      } catch (e: any) {
+        setError(e?.message || "Failed to fetch tunnel statuses");
+        setStatus((s) => (s === "loading" ? "error" : s));
       }
-      setError(null);
+    }, []);
 
-      const statuses = await getTunnelStatuses();
-      setTunnelStatuses(statuses);
-    } catch (err: any) {
-      const errorMessage = err?.message || "Failed to fetch tunnel statuses";
-      setError(errorMessage);
-      if (showLoadingSpinner) {
-        showToast.error(errorMessage);
+    const fetchHosts = useCallback(async () => {
+      try {
+        setAllHosts(await getSSHHosts());
+      } catch {
+        // Endpoint lookup is best-effort; connect will surface a clear error.
       }
-    } finally {
-      setIsLoading(false);
-      setIsRefreshing(false);
-    }
-  }, []);
+    }, []);
 
-  const fetchAllHosts = useCallback(async () => {
-    try {
-      const hosts = await getSSHHosts();
-      setAllHosts(hosts);
-
-      const updatedHost = hosts.find((h) => h.id === hostConfig.id);
-      if (updatedHost) {
-        setCurrentHostConfig({
-          id: updatedHost.id,
-          name: updatedHost.name,
-          enableTunnel: updatedHost.enableTunnel,
-          tunnelConnections: updatedHost.tunnelConnections,
-        });
+    useEffect(() => {
+      if (isVisible) {
+        fetchStatuses();
+        fetchHosts();
       }
-    } catch (err: any) {
-      console.error("Failed to fetch hosts for tunnel endpoint lookup:", err);
-    }
-  }, [hostConfig.id]);
+    }, [isVisible, fetchStatuses, fetchHosts]);
 
-  const handleRefresh = useCallback(async () => {
-    setIsRefreshing(true);
-    await Promise.all([fetchTunnelStatuses(false), fetchAllHosts()]);
-    setIsRefreshing(false);
-  }, [fetchTunnelStatuses, fetchAllHosts]);
+    usePolling(fetchStatuses, 4000, isVisible && status !== "error");
 
-  useImperativeHandle(
-    ref,
-    () => ({
-      refresh: handleRefresh,
-    }),
-    [handleRefresh],
-  );
+    useImperativeHandle(ref, () => ({ refresh: fetchStatuses }), [
+      fetchStatuses,
+    ]);
 
-  useEffect(() => {
-    if (isVisible) {
-      fetchTunnelStatuses();
-      fetchAllHosts();
+    const handleAction = useCallback(
+      async (
+        action: "connect" | "disconnect" | "cancel",
+        tunnel: (typeof tunnels)[number],
+        idx: number,
+      ) => {
+        const key = tunnelKey(hostConfig.name, hostConfig.id, tunnel);
+        setLoadingKeys((prev) => new Set(prev).add(key));
+        try {
+          if (action === "connect") {
+            const sourceHost = allHosts.find((h) => h.id === hostConfig.id);
+            const endpointHost = allHosts.find(
+              (h) =>
+                h.name === tunnel.endpointHost ||
+                `${h.username}@${h.ip}` === tunnel.endpointHost,
+            );
+            if (!sourceHost) throw new Error("Source host not found");
+            if (!endpointHost)
+              throw new Error(`Endpoint host not found: ${tunnel.endpointHost}`);
 
-      refreshIntervalRef.current = setInterval(() => {
-        fetchTunnelStatuses(false);
-      }, 5000);
-    } else {
-      if (refreshIntervalRef.current) {
-        clearInterval(refreshIntervalRef.current);
-        refreshIntervalRef.current = null;
-      }
-    }
-
-    return () => {
-      if (refreshIntervalRef.current) {
-        clearInterval(refreshIntervalRef.current);
-      }
-    };
-  }, [isVisible, fetchTunnelStatuses, fetchAllHosts]);
-
-  const handleTunnelAction = async (
-    action: "connect" | "disconnect" | "cancel",
-    tunnelIndex: number,
-  ) => {
-    const tunnel = currentHostConfig.tunnelConnections[tunnelIndex];
-    const tunnelName = `${currentHostConfig.name || `${currentHostConfig.id}`}_${tunnel.sourcePort}_${tunnel.endpointHost}_${tunnel.endpointPort}`;
-
-    setLoadingTunnels((prev) => new Set(prev).add(tunnelName));
-
-    try {
-      if (action === "connect") {
-        const endpointHost = allHosts.find(
-          (h) =>
-            h.name === tunnel.endpointHost ||
-            `${h.username}@${h.ip}` === tunnel.endpointHost,
-        );
-
-        if (!endpointHost) {
-          throw new Error(`Endpoint host not found: ${tunnel.endpointHost}`);
+            await connectTunnel({
+              name: key,
+              scope: tunnel.scope,
+              mode: tunnel.mode,
+              tunnelType: tunnel.tunnelType,
+              bindHost: tunnel.bindHost,
+              targetHost: tunnel.targetHost,
+              sourceHostId: hostConfig.id,
+              tunnelIndex: idx,
+              hostName:
+                sourceHost.name || `${sourceHost.username}@${sourceHost.ip}`,
+              sourceIP: sourceHost.ip,
+              sourceSSHPort: sourceHost.port,
+              sourceUsername: sourceHost.username,
+              sourcePassword:
+                sourceHost.authType === "password"
+                  ? sourceHost.password
+                  : undefined,
+              sourceAuthMethod: sourceHost.authType,
+              sourceSSHKey:
+                sourceHost.authType === "key" ? sourceHost.key : undefined,
+              sourceKeyPassword:
+                sourceHost.authType === "key"
+                  ? sourceHost.keyPassword
+                  : undefined,
+              sourceKeyType:
+                sourceHost.authType === "key" ? sourceHost.keyType : undefined,
+              sourceCredentialId: sourceHost.credentialId,
+              sourceUserId: sourceHost.userId,
+              endpointIP: endpointHost.ip,
+              endpointSSHPort: endpointHost.port,
+              endpointUsername: endpointHost.username,
+              endpointPassword:
+                endpointHost.authType === "password"
+                  ? endpointHost.password
+                  : undefined,
+              endpointAuthMethod: endpointHost.authType,
+              endpointSSHKey:
+                endpointHost.authType === "key" ? endpointHost.key : undefined,
+              endpointKeyPassword:
+                endpointHost.authType === "key"
+                  ? endpointHost.keyPassword
+                  : undefined,
+              endpointKeyType:
+                endpointHost.authType === "key"
+                  ? endpointHost.keyType
+                  : undefined,
+              endpointCredentialId: endpointHost.credentialId,
+              endpointUserId: endpointHost.userId,
+              sourcePort: tunnel.sourcePort,
+              endpointPort: tunnel.endpointPort,
+              maxRetries: tunnel.maxRetries,
+              retryInterval: tunnel.retryInterval * 1000,
+              autoStart: tunnel.autoStart,
+              isPinned: sourceHost.pin,
+            });
+            toast.success(`Connecting tunnel on port ${tunnel.sourcePort}`);
+          } else if (action === "disconnect") {
+            await disconnectTunnel(key);
+            toast.success(`Disconnecting port ${tunnel.sourcePort}`);
+          } else {
+            await cancelTunnel(key);
+            toast.success(`Cancelling port ${tunnel.sourcePort}`);
+          }
+          await fetchStatuses();
+        } catch (e: any) {
+          toast.error(e?.message || `Failed to ${action} tunnel`);
+        } finally {
+          setLoadingKeys((prev) => {
+            const next = new Set(prev);
+            next.delete(key);
+            return next;
+          });
         }
+      },
+      [allHosts, hostConfig.id, hostConfig.name, fetchStatuses],
+    );
 
-        const sourceHost: Partial<SSHHost> = {
-          id: currentHostConfig.id,
-          name: currentHostConfig.name,
-          ip: "",
-          port: 0,
-          username: "",
-          authType: "none",
-          folder: "",
-          tags: [],
-          pin: false,
-          enableTerminal: true,
-          enableTunnel: true,
-          enableFileManager: true,
-          defaultPath: "",
-          tunnelConnections: currentHostConfig.tunnelConnections,
-          createdAt: "",
-          updatedAt: "",
-        };
+    if (!isVisible) return null;
 
-        const fullHost = allHosts.find((h) => h.id === currentHostConfig.id);
-        if (!fullHost) {
-          throw new Error("Source host not found");
-        }
+    const frameStatus =
+      status === "loading"
+        ? "loading"
+        : status === "error"
+          ? "error"
+          : tunnels.length === 0
+            ? "empty"
+            : "ready";
 
-        const tunnelConfig = {
-          name: tunnelName,
-          hostName: fullHost.name || `${fullHost.username}@${fullHost.ip}`,
-          sourceIP: fullHost.ip,
-          sourceSSHPort: fullHost.port,
-          sourceUsername: fullHost.username,
-          sourcePassword:
-            fullHost.authType === "password" ? fullHost.password : undefined,
-          sourceAuthMethod: fullHost.authType,
-          sourceSSHKey: fullHost.authType === "key" ? fullHost.key : undefined,
-          sourceKeyPassword:
-            fullHost.authType === "key" ? fullHost.keyPassword : undefined,
-          sourceKeyType:
-            fullHost.authType === "key" ? fullHost.keyType : undefined,
-          sourceCredentialId: fullHost.credentialId,
-          sourceUserId: fullHost.userId,
-          endpointIP: endpointHost.ip,
-          endpointSSHPort: endpointHost.port,
-          endpointUsername: endpointHost.username,
-          endpointPassword:
-            endpointHost.authType === "password"
-              ? endpointHost.password
-              : undefined,
-          endpointAuthMethod: endpointHost.authType,
-          endpointSSHKey:
-            endpointHost.authType === "key" ? endpointHost.key : undefined,
-          endpointKeyPassword:
-            endpointHost.authType === "key"
-              ? endpointHost.keyPassword
-              : undefined,
-          endpointKeyType:
-            endpointHost.authType === "key" ? endpointHost.keyType : undefined,
-          endpointCredentialId: endpointHost.credentialId,
-          endpointUserId: endpointHost.userId,
-          sourcePort: tunnel.sourcePort,
-          endpointPort: tunnel.endpointPort,
-          maxRetries: tunnel.maxRetries,
-          retryInterval: tunnel.retryInterval * 1000,
-          autoStart: tunnel.autoStart,
-          isPinned: fullHost.pin,
-        };
-
-        await connectTunnel(tunnelConfig);
-        showToast.success(`Connecting tunnel on port ${tunnel.sourcePort}`);
-      } else if (action === "disconnect") {
-        await disconnectTunnel(tunnelName);
-        showToast.success(`Disconnecting tunnel on port ${tunnel.sourcePort}`);
-      } else if (action === "cancel") {
-        await cancelTunnel(tunnelName);
-        showToast.success(`Cancelling tunnel on port ${tunnel.sourcePort}`);
-      }
-
-      await fetchTunnelStatuses(false);
-    } catch (err: any) {
-      const errorMsg = err?.message || `Failed to ${action} tunnel`;
-      showToast.error(errorMsg);
-    } finally {
-      setLoadingTunnels((prev) => {
-        const newSet = new Set(prev);
-        newSet.delete(tunnelName);
-        return newSet;
-      });
-    }
-  };
-
-  const cardWidth: DimensionValue =
-    isLandscape && columnCount > 1
-      ? (`${100 / columnCount - 1}%` as DimensionValue)
-      : "100%";
-
-  if (!isVisible) {
-    return null;
-  }
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: BACKGROUNDS.DARK,
-        opacity: isVisible ? 1 : 0,
-        display: isVisible ? "flex" : "none",
-      }}
-    >
-      {isLoading && !tunnelStatuses ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: BACKGROUNDS.DARKEST,
-          }}
-        >
-          <ActivityIndicator size="large" color="#f59145" />
-          <Text
-            style={{
-              color: "#9CA3AF",
-              fontSize: 14,
-              marginTop: 16,
-            }}
-          >
-            Loading tunnels...
-          </Text>
-        </View>
-      ) : error ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: BACKGROUNDS.DARKEST,
-            paddingHorizontal: 24,
-          }}
-        >
-          <Activity size={48} color="#EF4444" />
-          <Text
-            style={{
-              color: "#ffffff",
-              fontSize: 18,
-              fontWeight: "600",
-              marginTop: 16,
-              textAlign: "center",
-            }}
-          >
-            Failed to Load Tunnels
-          </Text>
-          <Text
-            style={{
-              color: "#9CA3AF",
-              fontSize: 14,
-              marginTop: 8,
-              textAlign: "center",
-            }}
-          >
-            {error}
-          </Text>
-          <TouchableOpacity
-            onPress={handleRefresh}
-            style={{
-              backgroundColor: "#f59145",
-              paddingHorizontal: 24,
-              paddingVertical: 12,
-              borderRadius: RADIUS.BUTTON,
-              marginTop: 24,
-            }}
-          >
-            <Text style={{ color: "#ffffff", fontSize: 14, fontWeight: "600" }}>
-              Retry
-            </Text>
-          </TouchableOpacity>
-        </View>
-      ) : !currentHostConfig.enableTunnel ||
-        !currentHostConfig.tunnelConnections ||
-        currentHostConfig.tunnelConnections.length === 0 ? (
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 32,
-            marginTop: 80,
-          }}
-        >
-          <Activity size={64} color="#6b7280" />
-          <Text
-            style={{
-              color: "#9CA3AF",
-              fontSize: 18,
-              fontWeight: "600",
-              marginTop: 16,
-            }}
-          >
-            No Tunnels Configured
-          </Text>
-          <Text
-            style={{
-              color: "#6B7280",
-              textAlign: "center",
-              marginTop: 8,
-              fontSize: 14,
-            }}
-          >
-            This host has no SSH tunnels configured.
-          </Text>
-          <Text
-            style={{
-              color: "#6B7280",
-              textAlign: "center",
-              marginTop: 4,
-              fontSize: 14,
-            }}
-          >
-            Configure tunnels from the desktop app.
-          </Text>
-        </View>
-      ) : (
+    return (
+      <SessionFrame
+        title={hostConfig.name}
+        subtitle={`Tunnels · ${tunnels.length}`}
+        status={frameStatus}
+        loadingLabel="Loading tunnels…"
+        errorMessage={error}
+        emptyMessage="No SSH tunnels configured for this host. Add tunnels from the host form."
+        emptyIcon={<Network size={32} color={color("muted-foreground")} />}
+        onRetry={status === "error" ? fetchStatuses : undefined}
+      >
         <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{
-            padding,
-            paddingTop: padding / 2,
-            paddingLeft: Math.max(insets.left, padding),
-            paddingRight: Math.max(insets.right, padding),
-            paddingBottom: padding,
-          }}
+          contentContainerStyle={{ padding: 12, gap: 10, paddingBottom: 120 }}
           refreshControl={
             <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={handleRefresh}
-              tintColor="#f59145"
-              colors={["#f59145"]}
+              refreshing={refreshing}
+              tintColor={color("accent-brand")}
+              onRefresh={async () => {
+                setRefreshing(true);
+                await Promise.all([fetchStatuses(), fetchHosts()]);
+                setRefreshing(false);
+              }}
             />
           }
         >
-          <View style={{ marginBottom: 12 }}>
-            <Text style={{ color: "#ffffff", fontSize: 24, fontWeight: "700" }}>
-              SSH Tunnels
-            </Text>
-            <Text style={{ color: "#9CA3AF", fontSize: 14, marginTop: 4 }}>
-              {currentHostConfig.tunnelConnections.length} tunnel
-              {currentHostConfig.tunnelConnections.length !== 1 ? "s" : ""}{" "}
-              configured for {currentHostConfig.name}
-            </Text>
-          </View>
-
-          <View
-            style={{
-              flexDirection: isLandscape && columnCount > 1 ? "row" : "column",
-              flexWrap: "wrap",
-              gap: 12,
-            }}
-          >
-            {currentHostConfig.tunnelConnections.map((tunnel, idx) => {
-              const tunnelName = `${currentHostConfig.name || `${currentHostConfig.id}`}_${tunnel.sourcePort}_${tunnel.endpointHost}_${tunnel.endpointPort}`;
-              const status = tunnelStatuses[tunnelName] || null;
-              const isLoadingTunnel = loadingTunnels.has(tunnelName);
-
-              return (
-                <View
-                  key={idx}
-                  style={{
-                    width: cardWidth,
-                    marginBottom: isLandscape && columnCount > 1 ? 0 : 12,
-                  }}
-                >
-                  <TunnelCard
-                    tunnel={tunnel}
-                    tunnelName={tunnelName}
-                    status={status}
-                    isLoading={isLoadingTunnel}
-                    onAction={async (action) => handleTunnelAction(action, idx)}
-                  />
-                </View>
-              );
-            })}
-          </View>
+          {tunnels.map((tunnel, idx) => {
+            const key = tunnelKey(hostConfig.name, hostConfig.id, tunnel);
+            return (
+              <TunnelCard
+                key={`${key}-${idx}`}
+                tunnel={tunnel}
+                tunnelName={key}
+                status={statuses[key] || null}
+                isLoading={loadingKeys.has(key)}
+                onAction={(action) => handleAction(action, tunnel, idx)}
+              />
+            );
+          })}
         </ScrollView>
-      )}
-    </View>
-  );
-});
+      </SessionFrame>
+    );
+  },
+);
 
 TunnelManager.displayName = "TunnelManager";
 

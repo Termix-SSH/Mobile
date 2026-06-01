@@ -1,98 +1,36 @@
-import React from "react";
-import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import { MemoryStick } from "lucide-react-native";
 import { ServerMetrics } from "@/types";
-import {
-  BORDERS,
-  BORDER_COLORS,
-  RADIUS,
-  BACKGROUNDS,
-} from "@/app/constants/designTokens";
+import { Text } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
+import { WidgetCard, Meter } from "./WidgetCard";
 
-interface WidgetProps {
-  metrics: ServerMetrics | null;
-  isLoading?: boolean;
-}
-
-export const MemoryWidget: React.FC<WidgetProps> = ({ metrics, isLoading }) => {
-  const memoryPercent = metrics?.memory?.percent ?? null;
-  const usedGiB = metrics?.memory?.usedGiB ?? null;
-  const totalGiB = metrics?.memory?.totalGiB ?? null;
+export function MemoryWidget({
+  metrics,
+  history,
+}: {
+  metrics: ServerMetrics;
+  history?: number[];
+}) {
+  const color = useThemeColor();
+  const mem = metrics.memory;
+  const percent = Number(mem?.percent ?? 0);
 
   return (
-    <View
-      style={[
-        styles.widgetCard,
-        {
-          backgroundColor: BACKGROUNDS.DARKER,
-          borderWidth: BORDERS.STANDARD,
-          borderColor: BORDER_COLORS.PANEL,
-          borderRadius: RADIUS.LARGE,
-        },
-      ]}
+    <WidgetCard
+      icon={<MemoryStick size={15} color={color("accent-brand")} />}
+      title="Memory"
+      trailing={
+        <Text className="text-xs text-muted-foreground">
+          {percent.toFixed(0)}%
+        </Text>
+      }
     >
-      <View style={styles.header}>
-        <MemoryStick size={20} color="#10B981" />
-        <Text style={styles.title}>Memory Usage</Text>
-      </View>
-
-      <View style={styles.metricRow}>
-        <Text style={[styles.value, { color: "#10B981" }]}>
-          {memoryPercent !== null ? `${memoryPercent.toFixed(1)}%` : "N/A"}
+      <Meter percent={percent} history={history} />
+      {mem?.usedGiB != null && mem?.totalGiB != null ? (
+        <Text className="text-[10px] text-muted-foreground mt-1.5">
+          {Number(mem.usedGiB).toFixed(1)} / {Number(mem.totalGiB).toFixed(1)} GiB
         </Text>
-        <Text style={styles.subtitle}>
-          {usedGiB !== null && totalGiB !== null
-            ? `${usedGiB.toFixed(2)} / ${totalGiB.toFixed(2)} GiB`
-            : "N/A"}
-        </Text>
-      </View>
-
-      {isLoading && (
-        <View style={styles.loadingOverlay}>
-          <ActivityIndicator size="small" color="#10B981" />
-        </View>
-      )}
-    </View>
+      ) : null}
+    </WidgetCard>
   );
-};
-
-const styles = StyleSheet.create({
-  widgetCard: {
-    padding: 16,
-    position: "relative",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 12,
-  },
-  title: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "600",
-    marginLeft: 8,
-  },
-  metricRow: {
-    marginBottom: 12,
-  },
-  value: {
-    fontSize: 32,
-    fontWeight: "700",
-    marginBottom: 4,
-  },
-  subtitle: {
-    color: "#9CA3AF",
-    fontSize: 14,
-  },
-  loadingOverlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 12,
-  },
-});
+}

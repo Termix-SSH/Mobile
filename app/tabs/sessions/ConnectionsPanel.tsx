@@ -187,7 +187,7 @@ function ConnectionRow({
  * tab reconnects to its live backend session when one exists, enabling
  * cross-device tab switching.
  */
-export function ConnectionsPanel() {
+export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
   const color = useThemeColor();
   const {
     sessions,
@@ -250,6 +250,7 @@ export function ConnectionsPanel() {
       restoredSessionId: live?.sessionId ?? record.backendSessionId ?? null,
     });
     navigateToSessions();
+    onClose?.();
   };
 
   const hasAny = sessions.length > 0 || backgroundTabs.length > 0;
@@ -291,7 +292,10 @@ export function ConnectionsPanel() {
           <SectionHeader label="Open" count={sessions.length} />
           {sessions.map((s) => {
             const live = sessionByInstance.get(s.instanceId);
-            const isLive = s.type === "terminal" ? (live?.isConnected ?? false) : true;
+            const isLive =
+              s.type === "terminal"
+                ? (live?.isConnected ?? !!s.backendSessionId)
+                : true;
             return (
               <ConnectionRow
                 key={s.id}
@@ -307,6 +311,7 @@ export function ConnectionsPanel() {
                 onSwitch={() => {
                   setActiveSession(s.id);
                   navigateToSessions();
+                  onClose?.();
                 }}
                 onClose={() => removeSession(s.id)}
               />

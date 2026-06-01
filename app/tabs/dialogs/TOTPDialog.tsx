@@ -1,31 +1,9 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef,
-} from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Modal,
-  ScrollView,
-  Platform,
-  KeyboardAvoidingView,
-} from "react-native";
+import { useState, useEffect, useCallback } from "react";
+import { View } from "react-native";
 import * as Clipboard from "expo-clipboard";
-import { Clipboard as ClipboardIcon } from "lucide-react-native";
-import {
-  BORDERS,
-  BORDER_COLORS,
-  RADIUS,
-  BACKGROUNDS,
-} from "@/app/constants/designTokens";
-import { useOrientation } from "@/app/utils/orientation";
-import { getResponsivePadding } from "@/app/utils/responsive";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ShieldCheck, Clipboard as ClipboardIcon } from "lucide-react-native";
+import { Dialog, Input, Button, Text } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 interface TOTPDialogProps {
   visible: boolean;
@@ -35,222 +13,97 @@ interface TOTPDialogProps {
   isPasswordPrompt?: boolean;
 }
 
-const TOTPDialogComponent: React.FC<TOTPDialogProps> = ({
+export function TOTPDialog({
   visible,
   onSubmit,
   onCancel,
-  prompt = "Two-Factor Authentication",
+  prompt,
   isPasswordPrompt = false,
-}) => {
+}: TOTPDialogProps) {
+  const color = useThemeColor();
   const [code, setCode] = useState("");
-  const { isLandscape } = useOrientation();
-  const insets = useSafeAreaInsets();
-  const padding = getResponsivePadding(isLandscape);
-  const inputRef = useRef<TextInput>(null);
+  const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     if (!visible) {
       setCode("");
+      setBusy(false);
     }
   }, [visible]);
 
-  useEffect(() => {
-    if (visible) {
-      const timer = setTimeout(() => {
-        inputRef.current?.focus();
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [visible]);
-
-  const handleSubmit = useCallback(() => {
-    if (code.trim()) {
-      onSubmit(code);
-      setCode("");
+  const handleSubmit = useCallback(async () => {
+    if (!code.trim()) return;
+    setBusy(true);
+    try {
+      onSubmit(code.trim());
+    } finally {
+      setBusy(false);
     }
   }, [code, onSubmit]);
 
-  const handleCancel = useCallback(() => {
-    setCode("");
-    onCancel();
-  }, [onCancel]);
-
   const handlePaste = useCallback(async () => {
     try {
-      const clipboardContent = await Clipboard.getStringAsync();
-      if (clipboardContent) {
-        const pastedCode = isPasswordPrompt
-          ? clipboardContent
-          : clipboardContent.replace(/\D/g, "").slice(0, 6);
-        setCode(pastedCode);
+      const text = await Clipboard.getStringAsync();
+      if (text) {
+        setCode(isPasswordPrompt ? text : text.replace(/\D/g, "").slice(0, 6));
       }
-    } catch (error) {
-      console.error("Failed to paste from clipboard:", error);
-    }
+    } catch {}
   }, [isPasswordPrompt]);
 
-  const isCodeValid = useMemo(() => code.trim().length > 0, [code]);
+  const title = prompt || (isPasswordPrompt ? "Password Required" : "Two-Factor Authentication");
+  const description = isPasswordPrompt
+    ? "Enter your password to continue."
+    : "Enter the 6-digit code from your authenticator app.";
 
   return (
-    <Modal
+    <Dialog
       visible={visible}
-      animationType="fade"
-      supportedOrientations={["portrait", "landscape"]}
-      presentationStyle="overFullScreen"
-      statusBarTranslucent
-    >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1, backgroundColor: BACKGROUNDS.DARK }}
-      >
-        <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{
-            flexGrow: 1,
-            justifyContent: "center",
-            paddingTop: insets.top + padding,
-            paddingBottom: insets.bottom + padding,
-            paddingHorizontal: padding,
-          }}
-          keyboardShouldPersistTaps="handled"
-          scrollEnabled={true}
-        >
-          <View
-            style={{
-              backgroundColor: "#1f1f23",
-              padding: 24,
-              borderWidth: BORDERS.MAJOR,
-              borderColor: BORDER_COLORS.PRIMARY,
-              borderRadius: RADIUS.LARGE,
-              maxWidth: isLandscape ? 500 : "100%",
-              width: "100%",
-              alignSelf: "center",
-            }}
+      onClose={onCancel}
+      icon={<ShieldCheck size={18} color={color("accent-brand")} />}
+      title={title}
+      description={description}
+      footer={
+        <View className="flex-row gap-2 flex-1">
+          <Button variant="outline" className="flex-1" onPress={onCancel}>
+            Cancel
+          </Button>
+          <Button
+            variant="accent"
+            className="flex-1"
+            onPress={handleSubmit}
+            loading={busy}
+            disabled={!code.trim() || (!isPasswordPrompt && code.trim().length < 6)}
           >
-            <Text
-              style={{
-                color: "#ffffff",
-                fontSize: 20,
-                fontWeight: "bold",
-                marginBottom: 12,
-              }}
-            >
-              {prompt}
-            </Text>
-            <Text
-              style={{
-                color: "#9ca3af",
-                fontSize: 16,
-                lineHeight: 24,
-                marginBottom: 24,
-              }}
-            >
-              {isPasswordPrompt
-                ? "Enter your password to continue"
-                : "Enter your TOTP verification code"}
-            </Text>
-            <View style={{ flexDirection: "row", gap: 12, marginBottom: 24 }}>
-              <TextInput
-                ref={inputRef}
-                style={{
-                  flex: 1,
-                  backgroundColor: "#1a1a1a",
-                  borderWidth: BORDERS.STANDARD,
-                  borderColor: BORDER_COLORS.BUTTON,
-                  borderRadius: RADIUS.BUTTON,
-                  paddingHorizontal: 16,
-                  paddingVertical: 12,
-                  fontSize: 18,
-                  color: "#ffffff",
-                  textAlign: "center",
-                  letterSpacing: isPasswordPrompt ? 0 : 4,
-                }}
-                value={code}
-                onChangeText={setCode}
-                placeholder={isPasswordPrompt ? "Password" : "000000"}
-                placeholderTextColor="#6B7280"
-                keyboardType={isPasswordPrompt ? "default" : "number-pad"}
-                secureTextEntry={isPasswordPrompt}
-                maxLength={isPasswordPrompt ? undefined : 6}
-                autoFocus={false}
-                autoCorrect={false}
-                autoCapitalize="none"
-                importantForAutofill="no"
-                autoComplete="off"
-                onSubmitEditing={handleSubmit}
-              />
-              <TouchableOpacity
-                onPress={handlePaste}
-                style={{
-                  backgroundColor: "#1a1a1a",
-                  width: 48,
-                  height: 48,
-                  borderWidth: BORDERS.STANDARD,
-                  borderColor: BORDER_COLORS.BUTTON,
-                  borderRadius: RADIUS.BUTTON,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                activeOpacity={0.7}
-              >
-                <ClipboardIcon size={20} color="#22c55e" />
-              </TouchableOpacity>
-            </View>
-            <View style={{ flexDirection: "row", gap: 12 }}>
-              <TouchableOpacity
-                onPress={handleCancel}
-                style={{
-                  flex: 1,
-                  backgroundColor: "#1a1a1a",
-                  paddingVertical: 14,
-                  borderWidth: BORDERS.STANDARD,
-                  borderColor: BORDER_COLORS.BUTTON,
-                  borderRadius: RADIUS.BUTTON,
-                }}
-                activeOpacity={0.7}
-              >
-                <Text
-                  style={{
-                    color: "#ffffff",
-                    textAlign: "center",
-                    fontWeight: "600",
-                    fontSize: 16,
-                  }}
-                >
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={handleSubmit}
-                style={{
-                  flex: 1,
-                  paddingVertical: 14,
-                  backgroundColor: isCodeValid ? "#22c55e" : "#374151",
-                  borderWidth: BORDERS.STANDARD,
-                  borderColor: isCodeValid ? "#16a34a" : BORDER_COLORS.BUTTON,
-                  borderRadius: RADIUS.BUTTON,
-                  opacity: isCodeValid ? 1 : 0.5,
-                }}
-                activeOpacity={0.7}
-                disabled={!isCodeValid}
-              >
-                <Text
-                  style={{
-                    color: "#ffffff",
-                    textAlign: "center",
-                    fontWeight: "600",
-                    fontSize: 16,
-                  }}
-                >
-                  {isPasswordPrompt ? "Submit" : "Verify"}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </Modal>
+            {isPasswordPrompt ? "Submit" : "Verify"}
+          </Button>
+        </View>
+      }
+    >
+      <Input
+        value={code}
+        onChangeText={(t) =>
+          setCode(isPasswordPrompt ? t : t.replace(/[^0-9]/g, "").slice(0, 6))
+        }
+        placeholder={isPasswordPrompt ? "Password" : "000000"}
+        keyboardType={isPasswordPrompt ? "default" : "number-pad"}
+        secureTextEntry={isPasswordPrompt}
+        autoFocus
+        autoCapitalize="none"
+        autoCorrect={false}
+        autoComplete="off"
+        maxLength={isPasswordPrompt ? undefined : 6}
+        onSubmitEditing={handleSubmit}
+        trailing={
+          <Button
+            variant="ghost"
+            size="icon"
+            onPress={handlePaste}
+            className="h-8 w-8"
+          >
+            <ClipboardIcon size={16} color={color("accent-brand")} />
+          </Button>
+        }
+      />
+    </Dialog>
   );
-};
-
-export const TOTPDialog = React.memo(TOTPDialogComponent);
+}

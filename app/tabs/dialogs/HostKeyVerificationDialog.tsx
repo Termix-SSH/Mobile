@@ -1,24 +1,9 @@
-import React, { useState, useCallback } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  ScrollView,
-  Platform,
-  KeyboardAvoidingView,
-} from "react-native";
+import { useState, useCallback } from "react";
+import { View, Platform, Modal, Pressable, ScrollView } from "react-native";
 import * as Clipboard from "expo-clipboard";
-import { Shield, AlertTriangle, Copy } from "lucide-react-native";
-import {
-  BORDERS,
-  BORDER_COLORS,
-  RADIUS,
-  BACKGROUNDS,
-} from "@/app/constants/designTokens";
-import { useOrientation } from "@/app/utils/orientation";
-import { getResponsivePadding } from "@/app/utils/responsive";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Shield, AlertTriangle, Copy, Check } from "lucide-react-native";
+import { Button, Text } from "@/app/components/ui";
+import { useThemeColor } from "@/app/contexts/ThemeContext";
 import type { HostKeyData } from "@/app/tabs/sessions/terminal/NativeWebSocketManager";
 
 interface HostKeyVerificationDialogProps {
@@ -29,14 +14,20 @@ interface HostKeyVerificationDialogProps {
   onReject: () => void;
 }
 
-const formatFingerprint = (fp: string) => fp.match(/.{1,2}/g)?.join(":") || fp;
+const formatFingerprint = (fp: string) => fp.match(/.{1,2}/g)?.join(":") ?? fp;
 
-const FingerprintRow: React.FC<{
+function FingerprintRow({
+  label,
+  algorithm,
+  fingerprint,
+  keyType,
+}: {
   label: string;
   algorithm: string;
   fingerprint: string;
   keyType: string;
-}> = ({ label, algorithm, fingerprint, keyType }) => {
+}) {
+  const color = useThemeColor();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(async () => {
@@ -44,53 +35,22 @@ const FingerprintRow: React.FC<{
       await Clipboard.setStringAsync(formatFingerprint(fingerprint));
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (_) {}
+    } catch {}
   }, [fingerprint]);
 
   return (
-    <View style={{ marginBottom: 12 }}>
-      <Text
-        style={{
-          color: "#9ca3af",
-          fontSize: 12,
-          fontWeight: "500",
-          marginBottom: 6,
-          textTransform: "uppercase",
-          letterSpacing: 0.5,
-        }}
-      >
+    <View className="mb-3">
+      <Text className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">
         {label}
       </Text>
-      <View
-        style={{
-          backgroundColor: "#141416",
-          borderWidth: BORDERS.STANDARD,
-          borderColor: BORDER_COLORS.BUTTON,
-          borderRadius: RADIUS.BUTTON,
-          padding: 12,
-        }}
-      >
-        <Text
-          style={{
-            color: "#6b7280",
-            fontSize: 11,
-            marginBottom: 4,
-          }}
-        >
+      <View className="bg-card border border-border p-3">
+        <Text className="text-xs text-muted-foreground mb-1.5">
           {algorithm.toUpperCase()} ({keyType})
         </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "flex-start",
-            gap: 8,
-          }}
-        >
+        <View className="flex-row items-start gap-2">
           <Text
+            className="flex-1 text-xs text-foreground"
             style={{
-              flex: 1,
-              color: "#e5e7eb",
-              fontSize: 12,
               fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
               lineHeight: 18,
             }}
@@ -98,232 +58,175 @@ const FingerprintRow: React.FC<{
           >
             {formatFingerprint(fingerprint)}
           </Text>
-          <TouchableOpacity
+          <Button
+            variant={copied ? "accent" : "outline"}
+            size="sm"
             onPress={handleCopy}
-            style={{
-              backgroundColor: copied ? "#16a34a" : "#1a1a1a",
-              borderWidth: BORDERS.STANDARD,
-              borderColor: copied ? "#16a34a" : BORDER_COLORS.BUTTON,
-              borderRadius: RADIUS.BUTTON,
-              paddingHorizontal: 10,
-              paddingVertical: 6,
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 4,
-              minWidth: 70,
-              justifyContent: "center",
-            }}
-            activeOpacity={0.7}
+            icon={
+              copied ? (
+                <Check size={12} color={color("accent-brand")} />
+              ) : (
+                <Copy size={12} color={color("muted-foreground")} />
+              )
+            }
           >
-            <Copy size={12} color={copied ? "#ffffff" : "#9ca3af"} />
-            <Text
-              style={{
-                color: copied ? "#ffffff" : "#9ca3af",
-                fontSize: 11,
-                fontWeight: "500",
-              }}
-            >
-              {copied ? "Copied!" : "Copy"}
-            </Text>
-          </TouchableOpacity>
+            {copied ? "Copied" : "Copy"}
+          </Button>
         </View>
       </View>
     </View>
   );
-};
+}
 
-const HostKeyVerificationDialogComponent: React.FC<
-  HostKeyVerificationDialogProps
-> = ({ visible, scenario, data, onAccept, onReject }) => {
-  const { isLandscape } = useOrientation();
-  const insets = useSafeAreaInsets();
-  const padding = getResponsivePadding(isLandscape);
-
+export function HostKeyVerificationDialog({
+  visible,
+  scenario,
+  data,
+  onAccept,
+  onReject,
+}: HostKeyVerificationDialogProps) {
+  const color = useThemeColor();
   const isChanged = scenario === "changed";
-  const accentColor = isChanged ? "#ef4444" : "#22c55e";
-  const accentBorder = isChanged ? "#dc2626" : "#16a34a";
-
-  const hostLabel = data ? `${data.hostname || data.ip}:${data.port}` : "";
+  const hostLabel = data ? `${data.hostname ?? data.ip}:${data.port}` : "";
 
   return (
     <Modal
       visible={visible}
+      transparent
       animationType="fade"
-      supportedOrientations={["portrait", "landscape"]}
-      presentationStyle="overFullScreen"
+      onRequestClose={onReject}
       statusBarTranslucent
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1, backgroundColor: BACKGROUNDS.DARK }}
+      <Pressable
+        className="flex-1 bg-black/50 items-center justify-center px-5"
+        onPress={onReject}
       >
-        <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{
-            flexGrow: 1,
-            justifyContent: "center",
-            paddingTop: insets.top + padding,
-            paddingBottom: insets.bottom + padding,
-            paddingHorizontal: padding,
-          }}
-          keyboardShouldPersistTaps="handled"
-          scrollEnabled={true}
+        <Pressable
+          className="w-full max-w-md"
+          onPress={(e) => e.stopPropagation()}
         >
-          <View
-            style={{
-              backgroundColor: "#1f1f23",
-              padding: 24,
-              borderWidth: BORDERS.MAJOR,
-              borderColor: isChanged ? "#7f1d1d" : BORDER_COLORS.PRIMARY,
-              borderRadius: RADIUS.LARGE,
-              maxWidth: isLandscape ? 600 : "100%",
-              width: "100%",
-              alignSelf: "center",
-            }}
+          <ScrollView
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
           >
+            {/* Card with scenario-aware border */}
             <View
+              className="bg-popover border"
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 10,
-                marginBottom: 6,
-              }}
-            >
-              {isChanged ? (
-                <AlertTriangle size={22} color="#ef4444" />
-              ) : (
-                <Shield size={22} color="#22c55e" />
-              )}
-              <Text
-                style={{
-                  color: isChanged ? "#ef4444" : "#ffffff",
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  flex: 1,
-                }}
-              >
-                {isChanged ? "Host Key Changed!" : "Verify Host Key"}
-              </Text>
-            </View>
-
-            <Text
-              style={{
-                color: "#6b7280",
-                fontSize: 13,
-                marginBottom: 16,
-                fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
-              }}
-            >
-              {hostLabel}
-            </Text>
-
-            <View
-              style={{
-                backgroundColor: isChanged
-                  ? "rgba(239,68,68,0.08)"
-                  : "rgba(34,197,94,0.06)",
-                borderWidth: 1,
                 borderColor: isChanged
-                  ? "rgba(239,68,68,0.3)"
-                  : "rgba(34,197,94,0.25)",
-                borderRadius: RADIUS.BUTTON,
-                padding: 12,
-                marginBottom: 20,
+                  ? color("destructive", 0.5)
+                  : color("border"),
               }}
             >
-              <Text
-                style={{
-                  color: isChanged ? "#fca5a5" : "#86efac",
-                  fontSize: 13,
-                  lineHeight: 20,
-                }}
+              {/* Header */}
+              <View
+                className="flex-row items-center gap-2.5 px-4 pt-4 pb-3 border-b"
+                style={{ borderColor: isChanged ? color("destructive", 0.3) : color("border") }}
               >
-                {isChanged
-                  ? "The host key has changed."
-                  : "First time connecting."}
-              </Text>
-            </View>
-
-            {data && isChanged && data.oldFingerprint ? (
-              <>
-                <FingerprintRow
-                  label="Previous Key"
-                  algorithm={data.algorithm}
-                  fingerprint={data.oldFingerprint}
-                  keyType={data.oldKeyType || data.keyType}
-                />
-                <FingerprintRow
-                  label="New Fingerprint"
-                  algorithm={data.algorithm}
-                  fingerprint={data.fingerprint}
-                  keyType={data.keyType}
-                />
-              </>
-            ) : data ? (
-              <FingerprintRow
-                label="Host Fingerprint"
-                algorithm={data.algorithm}
-                fingerprint={data.fingerprint}
-                keyType={data.keyType}
-              />
-            ) : null}
-
-            <View style={{ flexDirection: "row", gap: 12, marginTop: 4 }}>
-              <TouchableOpacity
-                onPress={onReject}
-                style={{
-                  flex: 1,
-                  backgroundColor: "#1a1a1a",
-                  paddingVertical: 14,
-                  borderWidth: BORDERS.STANDARD,
-                  borderColor: BORDER_COLORS.BUTTON,
-                  borderRadius: RADIUS.BUTTON,
-                }}
-                activeOpacity={0.7}
-              >
-                <Text
+                <View
+                  className="w-8 h-8 border items-center justify-center shrink-0"
                   style={{
-                    color: "#ffffff",
-                    textAlign: "center",
-                    fontWeight: "600",
-                    fontSize: 16,
+                    borderColor: isChanged
+                      ? color("destructive", 0.4)
+                      : color("border"),
+                    backgroundColor: isChanged
+                      ? color("destructive", 0.1)
+                      : color("muted"),
                   }}
                 >
-                  Cancel
-                </Text>
-              </TouchableOpacity>
+                  {isChanged ? (
+                    <AlertTriangle size={16} color={color("destructive")} />
+                  ) : (
+                    <Shield size={16} color={color("accent-brand")} />
+                  )}
+                </View>
+                <View className="flex-1 min-w-0">
+                  <Text
+                    weight="bold"
+                    className="text-base"
+                    style={{ color: isChanged ? color("destructive") : color("foreground") }}
+                  >
+                    {isChanged ? "Host Key Changed!" : "Verify Host Key"}
+                  </Text>
+                  <Text
+                    className="text-xs mt-0.5"
+                    style={{
+                      fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
+                      color: color("muted-foreground"),
+                    }}
+                  >
+                    {hostLabel}
+                  </Text>
+                </View>
+              </View>
 
-              <TouchableOpacity
-                onPress={onAccept}
-                style={{
-                  flex: 1,
-                  paddingVertical: 14,
-                  backgroundColor: accentColor,
-                  borderWidth: BORDERS.STANDARD,
-                  borderColor: accentBorder,
-                  borderRadius: RADIUS.BUTTON,
-                }}
-                activeOpacity={0.7}
-              >
-                <Text
+              {/* Body */}
+              <View className="px-4 py-4">
+                {/* Status banner */}
+                <View
+                  className="border px-3 py-2.5 mb-4"
                   style={{
-                    color: "#ffffff",
-                    textAlign: "center",
-                    fontWeight: "600",
-                    fontSize: 16,
+                    borderColor: isChanged
+                      ? color("destructive", 0.4)
+                      : color("accent-brand", 0.3),
+                    backgroundColor: isChanged
+                      ? color("destructive", 0.08)
+                      : color("accent-brand", 0.06),
                   }}
+                >
+                  <Text
+                    className="text-xs"
+                    style={{ color: isChanged ? color("destructive") : color("accent-brand") }}
+                  >
+                    {isChanged
+                      ? "The host's SSH key has changed since your last connection. This could indicate a security risk."
+                      : "You are connecting to this host for the first time. Verify the fingerprint before trusting."}
+                  </Text>
+                </View>
+
+                {/* Fingerprints */}
+                {data && isChanged && data.oldFingerprint ? (
+                  <>
+                    <FingerprintRow
+                      label="Previous Key"
+                      algorithm={data.algorithm}
+                      fingerprint={data.oldFingerprint}
+                      keyType={data.oldKeyType ?? data.keyType}
+                    />
+                    <FingerprintRow
+                      label="New Fingerprint"
+                      algorithm={data.algorithm}
+                      fingerprint={data.fingerprint}
+                      keyType={data.keyType}
+                    />
+                  </>
+                ) : data ? (
+                  <FingerprintRow
+                    label="Host Fingerprint"
+                    algorithm={data.algorithm}
+                    fingerprint={data.fingerprint}
+                    keyType={data.keyType}
+                  />
+                ) : null}
+              </View>
+
+              {/* Footer */}
+              <View className="flex-row justify-end gap-2 px-4 py-3 border-t border-border">
+                <Button variant="outline" className="flex-1" onPress={onReject}>
+                  Cancel
+                </Button>
+                <Button
+                  variant={isChanged ? "destructive" : "accent"}
+                  className="flex-1"
+                  onPress={onAccept}
                 >
                   {isChanged ? "Accept New Key" : "Connect & Trust"}
-                </Text>
-              </TouchableOpacity>
+                </Button>
+              </View>
             </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+          </ScrollView>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
-};
-
-export const HostKeyVerificationDialog = React.memo(
-  HostKeyVerificationDialogComponent,
-);
+}

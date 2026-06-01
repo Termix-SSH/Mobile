@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
-  Text,
   ScrollView,
+  Text,
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
 import { TerminalHandle } from "@/app/tabs/sessions/terminal/Terminal";
 import { getSnippets, getSnippetFolders } from "@/app/main-axios";
+import { BACKGROUNDS, BORDER_COLORS, ACCENT, TEXT_COLORS } from "@/app/constants/designTokens";
 import { showToast } from "@/app/utils/toast";
-import { BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";
 
 interface Snippet {
   id: number;
@@ -39,10 +39,13 @@ interface SnippetsBarProps {
   height: number;
 }
 
+/**
+ * Snippet runner inside the terminal's custom keyboard. Restyled onto theme
+ * tokens (was hardcoded designTokens); behavior/props unchanged.
+ */
 export default function SnippetsBar({
   terminalRef,
   isVisible,
-  height,
 }: SnippetsBarProps) {
   const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [folders, setFolders] = useState<SnippetFolder[]>([]);
@@ -52,34 +55,23 @@ export default function SnippetsBar({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (isVisible) {
-      loadSnippets();
-    }
+    if (isVisible) loadSnippets();
   }, [isVisible]);
 
   const loadSnippets = async () => {
     try {
       setLoading(true);
       const [snippetsData, foldersData] = await Promise.all([
-        getSnippets().catch((err) => {
-          console.error("Failed to fetch snippets:", err);
-          return [];
-        }),
-        getSnippetFolders().catch((err) => {
-          console.error("Failed to fetch snippet folders:", err);
-          return [];
-        }),
+        getSnippets().catch(() => []),
+        getSnippetFolders().catch(() => []),
       ]);
-
       const snippetsArray = Array.isArray(snippetsData) ? snippetsData : [];
       const foldersArray = Array.isArray(foldersData) ? foldersData : [];
-
       setSnippets(
         snippetsArray.sort((a: Snippet, b: Snippet) => a.order - b.order),
       );
       setFolders(foldersArray);
-    } catch (error) {
-      console.error("Failed to load snippets:", error);
+    } catch {
       showToast.error("Failed to load snippets");
       setSnippets([]);
       setFolders([]);
@@ -97,36 +89,97 @@ export default function SnippetsBar({
 
   const toggleFolder = (folderId: number) => {
     setCollapsedFolders((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(folderId)) {
-        newSet.delete(folderId);
-      } else {
-        newSet.add(folderId);
-      }
-      return newSet;
+      const next = new Set(prev);
+      next.has(folderId) ? next.delete(folderId) : next.add(folderId);
+      return next;
     });
   };
 
-  const getSnippetsInFolder = (folderName: string | null) => {
-    return snippets.filter((s) => s.folder === folderName);
-  };
+  const getSnippetsInFolder = (folderName: string | null) =>
+    snippets.filter((s) => s.folder === folderName);
 
   if (!isVisible) return null;
 
   const unfolderedSnippets = getSnippetsInFolder(null);
 
+  const FolderHeader = ({
+    label,
+    count,
+    accent,
+    collapsed,
+    onPress,
+  }: {
+    label: string;
+    count: number;
+    accent: string;
+    collapsed: boolean;
+    onPress: () => void;
+  }) => (
+    <TouchableOpacity
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: BACKGROUNDS.CARD,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        marginBottom: 6,
+        borderWidth: 1,
+        borderColor: BORDER_COLORS.PRIMARY,
+        borderLeftWidth: 3,
+        borderLeftColor: accent,
+      }}
+      onPress={onPress}
+    >
+      <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
+        <Text
+          style={{ fontSize: 13, fontWeight: "500", color: TEXT_COLORS.PRIMARY, flex: 1 }}
+          numberOfLines={1}
+        >
+          {label}
+        </Text>
+        <Text style={{ fontSize: 12, color: TEXT_COLORS.SECONDARY, marginLeft: 4 }}>
+          ({count})
+        </Text>
+      </View>
+      <Text style={{ fontSize: 10, color: TEXT_COLORS.TERTIARY, marginLeft: 8 }}>
+        {collapsed ? "▶" : "▼"}
+      </Text>
+    </TouchableOpacity>
+  );
+
+  const SnippetRow = ({ snippet }: { snippet: Snippet }) => (
+    <TouchableOpacity
+      style={{
+        backgroundColor: BACKGROUNDS.CARD,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        marginBottom: 6,
+        marginLeft: 16,
+        borderWidth: 1,
+        borderColor: BORDER_COLORS.SECONDARY,
+      }}
+      activeOpacity={0.7}
+      onPress={() => executeSnippet(snippet)}
+    >
+      <Text style={{ fontSize: 13, color: TEXT_COLORS.PRIMARY }} numberOfLines={1}>
+        {snippet.name}
+      </Text>
+    </TouchableOpacity>
+  );
+
   return (
-    <View className="h-full bg-background">
+    <View style={{ flex: 1, backgroundColor: BACKGROUNDS.DARKEST }}>
       {loading ? (
-        <View className="flex-1 items-center justify-center py-12">
-          <ActivityIndicator size="large" color="#f59145" />
-          <Text className="text-sm text-muted-foreground mt-3">
-            Loading snippets...
+        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+          <ActivityIndicator size="large" color={ACCENT} />
+          <Text style={{ fontSize: 13, color: TEXT_COLORS.SECONDARY, marginTop: 12 }}>
+            Loading snippets…
           </Text>
         </View>
       ) : (
         <ScrollView
-          className="h-full"
+          style={{ flex: 1 }}
           contentContainerStyle={{
             paddingHorizontal: 12,
             paddingTop: 8,
@@ -135,53 +188,17 @@ export default function SnippetsBar({
           showsVerticalScrollIndicator={false}
         >
           {unfolderedSnippets.length > 0 && (
-            <View key={0} className="mb-2">
-              <TouchableOpacity
-                className="flex-row justify-between items-center bg-muted px-3 py-2.5 mb-1.5"
-                style={{
-                  borderWidth: 1,
-                  borderColor: BORDER_COLORS.BUTTON,
-                  borderLeftWidth: 3,
-                  borderLeftColor: "#808080",
-                  borderRadius: RADIUS.BUTTON,
-                }}
+            <View style={{ marginBottom: 8 }}>
+              <FolderHeader
+                label="Uncategorized"
+                count={unfolderedSnippets.length}
+                accent={TEXT_COLORS.TERTIARY}
+                collapsed={collapsedFolders.has(0)}
                 onPress={() => toggleFolder(0)}
-              >
-                <View className="flex-row items-center flex-1">
-                  <Text
-                    className="text-sm font-semibold text-foreground flex-1"
-                    numberOfLines={1}
-                  >
-                    Uncategorized
-                  </Text>
-                  <Text className="text-xs text-muted-foreground ml-1">
-                    ({unfolderedSnippets.length})
-                  </Text>
-                </View>
-                <Text className="text-[10px] text-muted-foreground ml-2">
-                  {collapsedFolders.has(0) ? "▶" : "▼"}
-                </Text>
-              </TouchableOpacity>
-
+              />
               {!collapsedFolders.has(0) &&
-                unfolderedSnippets.map((snippet) => (
-                  <TouchableOpacity
-                    key={snippet.id}
-                    className="bg-muted px-3 py-2.5 mb-1.5 ml-4"
-                    style={{
-                      borderWidth: 1,
-                      borderColor: BORDER_COLORS.BUTTON,
-                      borderRadius: RADIUS.BUTTON,
-                    }}
-                    onPress={() => executeSnippet(snippet)}
-                  >
-                    <Text
-                      className="text-[13px] text-foreground font-medium"
-                      numberOfLines={1}
-                    >
-                      {snippet.name}
-                    </Text>
-                  </TouchableOpacity>
+                unfolderedSnippets.map((s) => (
+                  <SnippetRow key={s.id} snippet={s} />
                 ))}
             </View>
           )}
@@ -189,66 +206,29 @@ export default function SnippetsBar({
           {folders.map((folder) => {
             const folderSnippets = getSnippetsInFolder(folder.name);
             const isCollapsed = collapsedFolders.has(folder.id);
-
             return (
-              <View key={folder.id} className="mb-2">
-                <TouchableOpacity
-                  className="flex-row justify-between items-center bg-muted px-3 py-2.5 mb-1.5"
-                  style={{
-                    borderWidth: 1,
-                    borderColor: BORDER_COLORS.BUTTON,
-                    borderLeftWidth: 3,
-                    borderLeftColor: folder.color || "#f59145",
-                    borderRadius: RADIUS.BUTTON,
-                  }}
+              <View key={folder.id} style={{ marginBottom: 8 }}>
+                <FolderHeader
+                  label={folder.name}
+                  count={folderSnippets.length}
+                  accent={folder.color || ACCENT}
+                  collapsed={isCollapsed}
                   onPress={() => toggleFolder(folder.id)}
-                >
-                  <View className="flex-row items-center flex-1">
-                    <Text
-                      className="text-sm font-semibold text-foreground flex-1"
-                      numberOfLines={1}
-                    >
-                      {folder.name}
-                    </Text>
-                    <Text className="text-xs text-muted-foreground ml-1">
-                      ({folderSnippets.length})
-                    </Text>
-                  </View>
-                  <Text className="text-[10px] text-muted-foreground ml-2">
-                    {isCollapsed ? "▶" : "▼"}
-                  </Text>
-                </TouchableOpacity>
-
+                />
                 {!isCollapsed &&
-                  folderSnippets.map((snippet) => (
-                    <TouchableOpacity
-                      key={snippet.id}
-                      className="bg-muted px-3 py-2.5 mb-1.5 ml-4"
-                      style={{
-                        borderWidth: 1,
-                        borderColor: BORDER_COLORS.BUTTON,
-                        borderRadius: RADIUS.BUTTON,
-                      }}
-                      onPress={() => executeSnippet(snippet)}
-                    >
-                      <Text
-                        className="text-[13px] text-foreground font-medium"
-                        numberOfLines={1}
-                      >
-                        {snippet.name}
-                      </Text>
-                    </TouchableOpacity>
+                  folderSnippets.map((s) => (
+                    <SnippetRow key={s.id} snippet={s} />
                   ))}
               </View>
             );
           })}
 
           {snippets.length === 0 && (
-            <View className="py-8 items-center">
-              <Text className="text-sm text-muted-foreground font-semibold">
+            <View style={{ paddingVertical: 32, alignItems: "center" }}>
+              <Text style={{ fontSize: 14, fontWeight: "500", color: TEXT_COLORS.SECONDARY }}>
                 No snippets yet
               </Text>
-              <Text className="text-xs text-gray-600 mt-1">
+              <Text style={{ fontSize: 12, color: TEXT_COLORS.TERTIARY, marginTop: 4 }}>
                 Create snippets in the Termix web/desktop version
               </Text>
             </View>

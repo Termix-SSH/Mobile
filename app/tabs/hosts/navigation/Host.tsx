@@ -73,10 +73,15 @@ export default function Host({
   const accent = color("accent-brand") ?? "#f59145";
   const online = status === "online";
 
+  const sshActive = host.enableSsh !== false && host.connectionType !== "rdp" && host.connectionType !== "vnc" && host.connectionType !== "telnet";
   const protocols: string[] = [];
+  if (sshActive) protocols.push("SSH");
   if (host.enableRdp) protocols.push("RDP");
   if (host.enableVnc) protocols.push("VNC");
   if (host.enableTelnet) protocols.push("TEL");
+  if (sshActive && host.enableTerminal) protocols.push("TERM");
+  if (sshActive && host.enableFileManager) protocols.push("FILES");
+  if (sshActive && host.enableTunnel) protocols.push("TUNNEL");
   if (host.enableDocker) protocols.push("DKR");
 
   const showCpu = online && metrics?.cpu != null && metrics.cpu > 0;

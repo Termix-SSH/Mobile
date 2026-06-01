@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { TerminalHandle } from "../Terminal";
 import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";
 import { useOrientation } from "@/app/utils/orientation";
-import { BORDER_COLORS, BACKGROUNDS } from "@/app/constants/designTokens";
+import { BACKGROUNDS, BORDER_COLORS } from "@/app/constants/designTokens";
 
 interface KeyboardBarProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
@@ -150,47 +150,38 @@ export default function KeyboardBar({
   const hasPinnedKeys = pinnedKeys.length > 0;
 
   return (
-    <View style={{ position: "relative", marginTop: isLandscape ? -2 : -4 }}>
-      <View
-        style={{
-          backgroundColor: BACKGROUNDS.DARKER,
-          paddingBottom: isKeyboardIntentionallyHidden ? 16 : 0,
+    <View
+      style={{
+        backgroundColor: BACKGROUNDS.DARKEST,
+        paddingBottom: isKeyboardIntentionallyHidden ? 16 : 0,
+        marginTop: 2,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: BORDER_COLORS.PRIMARY,
+      }}
+    >
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingHorizontal: 8,
+          paddingVertical: isLandscape ? 6 : 8,
+          alignItems: "center",
+          gap: isLandscape ? 4 : 6,
         }}
+        keyboardShouldPersistTaps="handled"
       >
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingHorizontal: 8,
-            paddingVertical: isLandscape ? 6 : 8,
-            alignItems: "center",
-            gap: isLandscape ? 4 : 6,
-          }}
-          keyboardShouldPersistTaps="handled"
-        >
-          {hasPinnedKeys && (
-            <>
-              {pinnedKeys.map((key, index) => renderKey(key, index))}
-              <View
-                className="mx-2 h-[30px] w-px"
-                style={{ backgroundColor: BORDER_COLORS.SEPARATOR }}
-              />
-            </>
-          )}
+        {hasPinnedKeys && (
+          <>
+            {pinnedKeys.map((key, index) => renderKey(key, index))}
+            <View
+              className="mx-2 h-[30px] w-px"
+              style={{ backgroundColor: BORDER_COLORS.PRIMARY }}
+            />
+          </>
+        )}
 
-          {keys.map((key, index) => renderKey(key, index))}
-        </ScrollView>
-      </View>
-      <View
-        style={{
-          position: "absolute",
-          bottom: -52,
-          left: 0,
-          right: 0,
-          backgroundColor: BACKGROUNDS.DARKER,
-          height: 55,
-        }}
-      />
+        {keys.map((key, index) => renderKey(key, index))}
+      </ScrollView>
     </View>
   );
 }

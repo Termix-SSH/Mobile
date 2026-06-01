@@ -214,9 +214,16 @@ export interface CredentialData {
 // ============================================================================
 
 export interface TunnelConnection {
+  scope?: "s2s" | "c2s";
+  mode?: "local" | "remote" | "dynamic";
+  tunnelType?: "local" | "remote";
+  bindHost?: string;
+  sourceHostId?: number;
+  sourceHostName?: string;
+  targetHost?: string;
   sourcePort: number;
   endpointPort: number;
-  endpointHost: string;
+  endpointHost?: string;
 
   endpointPassword?: string;
   endpointKey?: string;
@@ -231,6 +238,13 @@ export interface TunnelConnection {
 
 export interface TunnelConfig {
   name: string;
+  scope?: "s2s" | "c2s";
+  mode?: "local" | "remote" | "dynamic";
+  tunnelType?: "local" | "remote";
+  bindHost?: string;
+  targetHost?: string;
+  sourceHostId: number;
+  tunnelIndex: number;
   hostName: string;
   sourceIP: string;
   sourceSSHPort: number;
@@ -766,18 +780,196 @@ export interface DiskMetrics {
   percent: number | null;
   usedHuman: string | null;
   totalHuman: string | null;
+  availableHuman?: string | null;
 }
 
+export interface NetworkInterface {
+  name: string;
+  state?: "UP" | "DOWN" | string;
+  ip?: string | null;
+  rx?: string | null;
+  tx?: string | null;
+  rxBytes?: string | null;
+  txBytes?: string | null;
+}
+
+export interface NetworkMetrics {
+  interfaces: NetworkInterface[];
+}
+
+export interface UptimeMetrics {
+  seconds: number | null;
+  formatted: string | null;
+}
+
+export interface ProcessInfo {
+  pid: string | number;
+  cpu: number;
+  mem: number;
+  command: string;
+  user?: string;
+}
+
+export interface ProcessesMetrics {
+  total: number | null;
+  running: number | null;
+  top: ProcessInfo[];
+}
+
+export interface SystemMetrics {
+  hostname: string | null;
+  kernel: string | null;
+  os: string | null;
+}
+
+export interface LoginEvent {
+  user: string;
+  from?: string;
+  time?: string;
+  type?: string;
+}
+
+export interface LoginStatsMetrics {
+  recentLogins: LoginEvent[];
+  failedLogins: LoginEvent[];
+  totalLogins: number;
+  uniqueIPs: number;
+}
+
+/**
+ * Full metrics payload from `GET /metrics/:id`. Mirrors the web's widget
+ * collectors — every connection-type widget reads from here. All fields
+ * nullable because the host may not have collected a given metric yet.
+ */
 export interface ServerMetrics {
   cpu: CpuMetrics;
   memory: MemoryMetrics;
   disk: DiskMetrics;
+  network?: NetworkMetrics;
+  uptime?: UptimeMetrics;
+  processes?: ProcessesMetrics;
+  system?: SystemMetrics;
+  ports?: PortsMetrics;
+  firewall?: FirewallMetrics;
+  loginStats?: LoginStatsMetrics;
   lastChecked: string;
+}
+
+// Re-exported here so server-stats widgets can pull metric shapes from a single
+// place. Definitions live in app/constants/stats-config.ts.
+export interface ListeningPort {
+  protocol: "tcp" | "udp";
+  localAddress: string;
+  localPort: number;
+  state?: string;
+  pid?: number;
+  process?: string;
+}
+
+export interface PortsMetrics {
+  source: "ss" | "netstat" | "none";
+  ports: ListeningPort[];
+}
+
+export interface FirewallRule {
+  chain: string;
+  target: string;
+  protocol: string;
+  source: string;
+  destination: string;
+  dport?: string;
+  sport?: string;
+  state?: string;
+  interface?: string;
+  extra?: string;
+}
+
+export interface FirewallChain {
+  name: string;
+  policy: string;
+  rules: FirewallRule[];
+}
+
+export interface FirewallMetrics {
+  type: "iptables" | "nftables" | "none";
+  status: "active" | "inactive" | "unknown";
+  chains: FirewallChain[];
 }
 
 export interface ServerStatus {
   status: "online" | "offline";
   lastChecked: string;
+}
+
+// ============================================================================
+// CONNECTION LOG TYPES
+// ============================================================================
+
+/**
+ * A single connection-log entry. Mirrors the web `src/types/connection-log`.
+ * Connect endpoints return arrays of these (sans id/timestamp) as
+ * `connectionLogs`; the mobile useConnectionLog hook stamps id/timestamp.
+ */
+export type ConnectionLogLevel = "info" | "success" | "warning" | "error";
+
+export interface ConnectionLogEntry {
+  id: string;
+  timestamp: number;
+  level: ConnectionLogLevel;
+  stage?: string;
+  message: string;
+}
+
+export type ConnectionLogPayload = Omit<ConnectionLogEntry, "id" | "timestamp">;
+
+// ============================================================================
+// DOCKER TYPES
+// ============================================================================
+
+export interface DockerContainer {
+  id: string;
+  name: string;
+  image: string;
+  status: string;
+  state: string;
+  ports?: string;
+  created?: string;
+}
+
+export interface DockerContainerStats {
+  cpu: string;
+  memoryUsed: string;
+  memoryLimit: string;
+  memoryPercent: string;
+  netInput: string;
+  netOutput: string;
+  blockRead: string;
+  blockWrite: string;
+  pids: string;
+}
+
+export type DockerContainerAction =
+  | "start"
+  | "stop"
+  | "restart"
+  | "pause"
+  | "unpause"
+  | "remove";
+
+// ============================================================================
+// SESSION CONNECT TYPES
+// ============================================================================
+
+/**
+ * Auth material a user supplies interactively when a stored host needs more
+ * (e.g. credential-less host, key passphrase, TOTP). Passed to the
+ * session-based connect endpoints (file manager / docker).
+ */
+export interface SessionAuthOverrides {
+  userProvidedPassword?: string;
+  userProvidedSshKey?: string;
+  userProvidedKeyPassword?: string;
+  totpCode?: string;
 }
 
 // ============================================================================

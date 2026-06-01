@@ -8,6 +8,7 @@ import {
   BackHandler,
   AppState,
   LayoutAnimation,
+  Pressable,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "@react-navigation/native";
@@ -16,6 +17,7 @@ import {
   SessionType,
   useTerminalSessions,
 } from "@/app/contexts/TerminalSessionsContext";
+import { X } from "lucide-react-native";
 import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import {
   Terminal,
@@ -37,12 +39,13 @@ import { RemoteDesktop } from "@/app/tabs/sessions/remote-desktop/RemoteDesktop"
 import { Docker } from "@/app/tabs/sessions/docker/Docker";
 import { ConnectionsPanel } from "@/app/tabs/sessions/ConnectionsPanel";
 import { Screen } from "@/app/components/Screen";
+import { Text } from "@/app/components/ui";
 import TabBar from "@/app/tabs/sessions/navigation/TabBar";
 import BottomToolbar from "@/app/tabs/sessions/terminal/keyboard/BottomToolbar";
 import KeyboardBar from "@/app/tabs/sessions/terminal/keyboard/KeyboardBar";
 import { useOrientation } from "@/app/utils/orientation";
 import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
-import { BACKGROUNDS } from "@/app/constants/designTokens";
+import { BACKGROUNDS, BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";
 import { addKeyCommandListener } from "@/modules/hardware-keyboard";
 
 type ActiveModifiers = {
@@ -59,6 +62,7 @@ export default function Sessions() {
   const {
     sessions,
     activeSessionId,
+    backgroundTabRecords,
     setActiveSession,
     removeSession,
     setBackendSessionId,
@@ -69,6 +73,8 @@ export default function Sessions() {
     keyboardIntentionallyHiddenRef,
     setKeyboardIntentionallyHidden,
   } = useTerminalSessions();
+
+  const [showConnectionsPanel, setShowConnectionsPanel] = useState(false);
   const { keyboardHeight, isKeyboardVisible } = useKeyboard();
   const hiddenInputRef = useRef<TextInput>(null);
   const terminalRefs = useRef<Record<string, React.RefObject<TerminalHandle>>>(
@@ -131,6 +137,15 @@ export default function Sessions() {
   const activeSession = sessions.find(
     (session) => session.id === activeSessionId,
   );
+
+  const [isRdpKeyboardOpen, setIsRdpKeyboardOpen] = useState(false);
+  useEffect(() => {
+    const show = Keyboard.addListener("keyboardDidShow", () => {
+      if (activeSession?.type === "remoteDesktop") setIsRdpKeyboardOpen(true);
+    });
+    const hide = Keyboard.addListener("keyboardDidHide", () => setIsRdpKeyboardOpen(false));
+    return () => { show.remove(); hide.remove(); };
+  }, [activeSession?.type]);
 
   const getTabBarBottomPosition = () => {
     if (activeSession?.type !== "terminal") {
@@ -294,6 +309,10 @@ export default function Sessions() {
       const backHandler = BackHandler.addEventListener(
         "hardwareBackPress",
         () => {
+          if (showConnectionsPanel) {
+            setShowConnectionsPanel(false);
+            return true;
+          }
           if (isKeyboardVisible) {
             setKeyboardIntentionallyHidden(true);
             Keyboard.dismiss();
@@ -307,7 +326,7 @@ export default function Sessions() {
         backHandler.remove();
       };
     }
-  }, [sessions.length, isKeyboardVisible]);
+  }, [sessions.length, isKeyboardVisible, showConnectionsPanel]);
 
   useEffect(() => {
     const subscription = Dimensions.addEventListener("change", ({ window }) => {
@@ -479,6 +498,14 @@ export default function Sessions() {
     }, 100);
   };
 
+  const closeConnectionsPanel = useCallback(() => {
+    setShowConnectionsPanel(false);
+    if (activeSession?.type === "terminal" && !isCustomKeyboardVisible) {
+      setKeyboardIntentionallyHidden(false);
+      setTimeout(() => hiddenInputRef.current?.focus(), 100);
+    }
+  }, [activeSession?.type, isCustomKeyboardVisible, setKeyboardIntentionallyHidden]);
+
   const handleAddSession = () => {
     router.navigate("/hosts" as any);
   };
@@ -602,6 +629,7 @@ export default function Sessions() {
                 hostConfig={{
                   id: parseInt(session.host.id.toString()),
                   name: session.host.name,
+                  statsConfig: session.host.statsConfig,
                   quickActions: session.host.quickActions,
                 }}
                 isVisible={session.id === activeSessionId}
@@ -658,7 +686,8 @@ export default function Sessions() {
         })}
       </View>
 
-      {sessions.length === 0 && (
+      {/* Connections panel: full screen when no sessions, overlay when sessions exist */}
+      {(sessions.length === 0 || showConnectionsPanel) && (
         <View
           style={{
             position: "absolute",
@@ -666,12 +695,55 @@ export default function Sessions() {
             left: 0,
             right: 0,
             bottom: 0,
-            zIndex: 1005,
+            zIndex: 1010,
           }}
         >
-          <Screen title="Connections">
-            <ConnectionsPanel />
-          </Screen>
+          {sessions.length === 0 ? (
+            <Screen title="Connections">
+              <ConnectionsPanel />
+            </Screen>
+          ) : (
+            <View style={{ flex: 1, backgroundColor: BACKGROUNDS.DARKEST }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingTop: insets.top + 8,
+                  paddingBottom: 8,
+                  paddingHorizontal: 16,
+                  borderBottomWidth: 1,
+                  borderBottomColor: "rgba(255,255,255,0.08)",
+                  backgroundColor: BACKGROUNDS.DARKEST,
+                }}
+              >
+                <View style={{ flex: 1 }}>
+                  <Text
+                    weight="bold"
+                    className="text-base text-foreground"
+                  >
+                    Connections
+                  </Text>
+                </View>
+                <Pressable
+                  onPress={closeConnectionsPanel}
+                  hitSlop={10}
+                  style={{
+                    width: 32,
+                    height: 32,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: RADIUS.BUTTON,
+                    borderWidth: 1,
+                    borderColor: BORDER_COLORS.BUTTON,
+                    backgroundColor: BACKGROUNDS.BUTTON,
+                  }}
+                >
+                  <X size={15} color="#ffffff" />
+                </Pressable>
+              </View>
+              <ConnectionsPanel onClose={closeConnectionsPanel} />
+            </View>
+          )}
         </View>
       )}
 
@@ -736,6 +808,7 @@ export default function Sessions() {
           right: 0,
           height: SESSION_TAB_BAR_HEIGHT,
           zIndex: 1004,
+          display: isRdpKeyboardOpen ? "none" : "flex",
         }}
       >
         <TabBar
@@ -751,6 +824,15 @@ export default function Sessions() {
           onShowKeyboard={() => setKeyboardIntentionallyHidden(false)}
           keyboardIntentionallyHiddenRef={keyboardIntentionallyHiddenRef}
           activeSessionType={activeSession?.type}
+          onShowConnections={() => {
+            setKeyboardIntentionallyHidden(true);
+            Keyboard.dismiss();
+            hiddenInputRef.current?.blur();
+            setShowConnectionsPanel(true);
+          }}
+          hasBackgroundSessions={backgroundTabRecords.some(
+            (r) => !sessions.find((s) => s.instanceId === r.id),
+          )}
         />
       </View>
 

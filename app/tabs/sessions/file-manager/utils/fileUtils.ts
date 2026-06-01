@@ -35,47 +35,25 @@ export function joinPath(...parts: string[]): string {
 }
 
 export function isTextFile(filename: string): boolean {
+  // Dotfiles with no extension (e.g. .bashrc, .zshrc, .profile) are always text
+  if (filename.startsWith(".") && !filename.slice(1).includes(".")) return true;
+
   const ext = getFileExtension(filename);
-  const textExtensions = [
-    "txt",
-    "md",
-    "json",
-    "xml",
-    "html",
-    "css",
-    "js",
-    "ts",
-    "tsx",
-    "jsx",
-    "py",
-    "java",
-    "c",
-    "cpp",
-    "h",
-    "hpp",
-    "cs",
-    "php",
-    "rb",
-    "go",
-    "rs",
-    "sh",
-    "bash",
-    "zsh",
-    "fish",
-    "yml",
-    "yaml",
-    "toml",
-    "ini",
-    "cfg",
-    "conf",
-    "log",
-    "env",
-    "gitignore",
-    "dockerignore",
-    "editorconfig",
-    "prettierrc",
+
+  // No extension at all — treat as text (e.g. Makefile, Dockerfile, LICENSE)
+  if (!ext) return true;
+
+  const binaryExtensions = [
+    "png", "jpg", "jpeg", "gif", "bmp", "ico", "webp", "svg",
+    "mp4", "avi", "mov", "wmv", "flv", "mkv", "webm",
+    "mp3", "wav", "ogg", "flac", "aac", "m4a",
+    "zip", "tar", "gz", "bz2", "xz", "7z", "rar",
+    "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx",
+    "exe", "bin", "so", "dylib", "dll", "class", "pyc",
+    "db", "sqlite", "sqlite3",
+    "woff", "woff2", "ttf", "otf", "eot",
   ];
-  return textExtensions.includes(ext);
+  return !binaryExtensions.includes(ext);
 }
 
 export function isArchiveFile(filename: string): boolean {

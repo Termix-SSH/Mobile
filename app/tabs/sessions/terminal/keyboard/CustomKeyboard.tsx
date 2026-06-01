@@ -5,7 +5,7 @@ import { TerminalHandle } from "../Terminal";
 import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";
-import { BORDER_COLORS } from "@/app/constants/designTokens";
+import { BACKGROUNDS, BORDER_COLORS, TEXT_COLORS } from "@/app/constants/designTokens";
 
 interface CustomKeyboardProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
@@ -136,9 +136,9 @@ export default function CustomKeyboard({
   };
 
   return (
-    <View className="h-full bg-background" pointerEvents="box-none">
+    <View style={{ flex: 1, backgroundColor: BACKGROUNDS.DARKEST }} pointerEvents="box-none">
       <ScrollView
-        className="h-full"
+        style={{ flex: 1 }}
         contentContainerStyle={{ paddingHorizontal: 8, paddingVertical: 8 }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
@@ -147,18 +147,29 @@ export default function CustomKeyboard({
         {visibleRows.map((row, rowIndex) => (
           <View key={row.id}>
             {row.label && (
-              <View className="mb-1 mt-1">
-                <Text className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+              <View style={{ marginBottom: 4, marginTop: 4 }}>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    fontWeight: "600",
+                    textTransform: "uppercase",
+                    letterSpacing: 0.8,
+                    color: TEXT_COLORS.TERTIARY,
+                  }}
+                >
                   {row.label}
                 </Text>
               </View>
             )}
 
             <View
-              className={`mb-0 flex-row items-center ${
-                row.category === "number" ? "flex-nowrap" : "flex-wrap"
-              } ${compactMode ? "-mb-0.5" : ""}`}
-              style={{ gap: getKeyGap() }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                flexWrap: row.category === "number" ? "nowrap" : "wrap",
+                gap: getKeyGap(),
+                marginBottom: compactMode ? -2 : 0,
+              }}
             >
               {row.keys.map((key, keyIndex) => (
                 <KeyboardKey
@@ -176,8 +187,8 @@ export default function CustomKeyboard({
 
             {rowIndex < visibleRows.length - 1 && (
               <View
-                className="mx-0 h-px"
                 style={{
+                  height: 1,
                   backgroundColor: BORDER_COLORS.SEPARATOR,
                   marginVertical: compactMode ? 4 : 8,
                 }}
@@ -187,8 +198,8 @@ export default function CustomKeyboard({
         ))}
 
         {config.settings.showHints && !isKeyboardIntentionallyHidden && (
-          <View className="items-center px-2 pb-1 pt-2">
-            <Text className="text-[10px] italic text-gray-600">
+          <View style={{ alignItems: "center", paddingHorizontal: 8, paddingBottom: 4, paddingTop: 8 }}>
+            <Text style={{ fontSize: 10, fontStyle: "italic", color: TEXT_COLORS.TERTIARY }}>
               Customize in Settings
             </Text>
           </View>
