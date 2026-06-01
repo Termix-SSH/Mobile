@@ -84,6 +84,7 @@ export class NativeWebSocketManager {
   private wsHeaders: Record<string, string> = {};
   private serverSessionId: string | null = null;
   private pendingReattach = false;
+  private awaitingAuthCredentials = false;
 
   constructor(config: NativeWSConfig) {
     this.config = config;
@@ -213,7 +214,7 @@ export class NativeWebSocketManager {
   ): void {
     this.cols = cols;
     this.rows = rows;
-    const updatedHostConfig = {
+    const updatedHostConfig: TerminalHostConfig = {
       ...this.config.hostConfig,
       password: credentials.password,
       key: credentials.sshKey,
@@ -222,6 +223,11 @@ export class NativeWebSocketManager {
         | "password"
         | "key",
     };
+
+    this.config.hostConfig = updatedHostConfig;
+    this.awaitingAuthCredentials = false;
+    this.shouldNotReconnect = false;
+    this.hasNotifiedFailure = false;
 
     const messageData = {
       password: credentials.password,
@@ -241,7 +247,10 @@ export class NativeWebSocketManager {
           }),
         );
       } catch (e) {}
+      return;
     }
+
+    this.connectWebSocket();
   }
 
   sendWarpgateContinue(): void {
@@ -426,6 +435,7 @@ export class NativeWebSocketManager {
             false,
           );
         } else if (msg.type === "password_required") {
+          this.awaitingAuthCredentials = true;
           this.config.onTotpRequired(
             (msg.prompt as string) || "Password:",
             true,
@@ -434,6 +444,7 @@ export class NativeWebSocketManager {
           msg.type === "keyboard_interactive_available" ||
           msg.type === "auth_method_not_available"
         ) {
+          this.awaitingAuthCredentials = true;
           this.config.onAuthDialogNeeded("no_keyboard");
         } else if (msg.type === "host_key_verification_required") {
           if (this.connectionTimeout) {
@@ -474,6 +485,15 @@ export class NativeWebSocketManager {
           );
         } else if (msg.type === "error") {
           const message = (msg.message as string) || "Unknown error";
+          if (
+            this.config.hostConfig.authType === "none" &&
+            this.isAuthenticationError(message)
+          ) {
+            this.awaitingAuthCredentials = true;
+            this.config.onAuthDialogNeeded("no_keyboard");
+            return;
+          }
+
           if (this.isUnrecoverableError(message)) {
             this.shouldNotReconnect = true;
             this.notifyFailureOnce("Authentication failed: " + message);
@@ -544,6 +564,10 @@ export class NativeWebSocketManager {
       }
 
       if (this.destroyed) return;
+
+      if (this.awaitingAuthCredentials) {
+        return;
+      }
 
       if (this.shouldNotReconnect) {
         this.notifyFailureOnce("Connection closed");
@@ -642,6 +666,10 @@ export class NativeWebSocketManager {
   }
 
   private isUnrecoverableError(message: string): boolean {
+    return this.isAuthenticationError(message);
+  }
+
+  private isAuthenticationError(message: string): boolean {
     if (!message) return false;
     const m = message.toLowerCase();
     return (
