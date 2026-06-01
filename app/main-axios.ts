@@ -430,7 +430,11 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       (async () => {
         try {
           const base = getRootBase(8085).replace(/\/$/, "");
-          const testInstance = axios.create({ baseURL: base, timeout: 5000, headers: authHeaders });
+          const testInstance = axios.create({
+            baseURL: base,
+            timeout: 5000,
+            headers: authHeaders,
+          });
           await testInstance.head("/status");
           return true;
         } catch {
@@ -440,7 +444,11 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       (async () => {
         try {
           const base = getSshBase(8085).replace(/\/$/, "");
-          const testInstance = axios.create({ baseURL: base, timeout: 5000, headers: authHeaders });
+          const testInstance = axios.create({
+            baseURL: base,
+            timeout: 5000,
+            headers: authHeaders,
+          });
           await testInstance.head("/status");
           return true;
         } catch {
@@ -450,7 +458,11 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       (async () => {
         try {
           const base = getRootBase(8081).replace(/\/$/, "");
-          const testInstance = axios.create({ baseURL: base, timeout: 5000, headers: authHeaders });
+          const testInstance = axios.create({
+            baseURL: base,
+            timeout: 5000,
+            headers: authHeaders,
+          });
           await testInstance.head("/users/registration-allowed");
           return true;
         } catch {
@@ -460,7 +472,11 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       (async () => {
         try {
           const base = getSshBase(8081).replace(/\/$/, "");
-          const testInstance = axios.create({ baseURL: base, timeout: 5000, headers: authHeaders });
+          const testInstance = axios.create({
+            baseURL: base,
+            timeout: 5000,
+            headers: authHeaders,
+          });
           await testInstance.head("/users/registration-allowed");
           return true;
         } catch {
@@ -2220,7 +2236,8 @@ async function loginWithFetch(
   // page instead of Termix JSON. Surface a clear, actionable error rather than
   // crashing on JSON.parse of "<!DOCTYPE html>…".
   const looksHtml =
-    contentType.includes("text/html") || /^\s*<(?:!doctype|html)/i.test(rawBody);
+    contentType.includes("text/html") ||
+    /^\s*<(?:!doctype|html)/i.test(rawBody);
   if (looksHtml) {
     const err: any = new Error(
       "This server is behind a login proxy. Use the external sign-in option instead.",
@@ -2266,12 +2283,17 @@ export async function loginUser(
       return { ...data, token: data.temp_token || "" };
     }
 
-
     let finalToken = token;
     if (!finalToken) {
       try {
-        const axiosResponse = await authApi.post("/users/login", { username, password });
-        finalToken = extractJwtFromSetCookie(axiosResponse.headers) || axiosResponse.data.token || null;
+        const axiosResponse = await authApi.post("/users/login", {
+          username,
+          password,
+        });
+        finalToken =
+          extractJwtFromSetCookie(axiosResponse.headers) ||
+          axiosResponse.data.token ||
+          null;
       } catch {
         // ignore, we already have data
       }
@@ -2289,7 +2311,11 @@ export async function loginUser(
     if (error?.response?.status === 404) {
       try {
         const altBase = getSshBase(8081);
-        const { data, token } = await loginWithFetch(altBase, username, password);
+        const { data, token } = await loginWithFetch(
+          altBase,
+          username,
+          password,
+        );
 
         if (data.requires_totp) {
           return { ...data, token: data.temp_token || "" };
@@ -2466,9 +2492,13 @@ export async function completePasswordReset(
   }
 }
 
-export async function getOIDCAuthorizeUrl(): Promise<OIDCAuthorize> {
+export async function getOIDCAuthorizeUrl(
+  appCallbackUrl?: string,
+): Promise<OIDCAuthorize> {
   try {
-    const response = await authApi.get("/users/oidc/authorize");
+    const response = await authApi.get("/users/oidc/authorize", {
+      params: appCallbackUrl ? { appCallbackUrl } : undefined,
+    });
     return response.data;
   } catch (error) {
     handleApiError(error, "get OIDC authorize URL");
