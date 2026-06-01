@@ -700,10 +700,41 @@ function handleApiError(error: unknown, operation: string): never {
 // SSH HOST MANAGEMENT
 // ============================================================================
 
+function normalizeJumpHosts(value: unknown): { hostId: number }[] {
+  const raw =
+    typeof value === "string"
+      ? (() => {
+          try {
+            return JSON.parse(value);
+          } catch {
+            return [];
+          }
+        })()
+      : value;
+
+  if (!Array.isArray(raw)) return [];
+
+  return raw
+    .map((item) => {
+      const hostId = Number((item as { hostId?: unknown })?.hostId);
+      return Number.isFinite(hostId) ? { hostId } : null;
+    })
+    .filter((item): item is { hostId: number } => item !== null);
+}
+
+function normalizeSSHHost(host: SSHHost): SSHHost {
+  return {
+    ...host,
+    jumpHosts: normalizeJumpHosts((host as { jumpHosts?: unknown }).jumpHosts),
+  };
+}
+
 export async function getSSHHosts(): Promise<SSHHost[]> {
   try {
     const response = await sshHostApi.get("/db/host");
-    return response.data;
+    return Array.isArray(response.data)
+      ? response.data.map(normalizeSSHHost)
+      : response.data;
   } catch (error) {
     handleApiError(error, "fetch SSH hosts");
   }
@@ -2889,7 +2920,7 @@ export async function getSSHHostWithCredentials(hostId: number): Promise<any> {
     const response = await sshHostApi.get(
       `/db/host/${hostId}/with-credentials`,
     );
-    return response.data;
+    return response.data ? normalizeSSHHost(response.data) : response.data;
   } catch (error) {
     handleApiError(error, "fetch SSH host with credentials");
   }
