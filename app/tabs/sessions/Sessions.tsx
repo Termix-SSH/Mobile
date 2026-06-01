@@ -911,9 +911,30 @@ export default function Sessions() {
             underlineColorAndroid="transparent"
             value={hiddenInputValue}
             onChangeText={(text) => {
-              if (ignoreNextTextChangeRef.current) {
-                ignoreNextTextChangeRef.current = false;
-                resetHiddenInputState();
+              if (Platform.OS === "ios") {
+                const activeRef = activeSessionId
+                  ? terminalRefs.current[activeSessionId]
+                  : null;
+
+                if (!activeRef?.current || !text) {
+                  dictationBufferRef.current = "";
+                  dictationSentRef.current = "";
+                  setHiddenInputValue("");
+                  return;
+                }
+
+                const alreadySent = dictationSentRef.current;
+                const newText = text.startsWith(alreadySent)
+                  ? text.slice(alreadySent.length)
+                  : text;
+
+                dictationBufferRef.current = "";
+                dictationSentRef.current = text;
+                setHiddenInputValue("");
+                if (newText) activeRef.current.sendInput(newText);
+                requestAnimationFrame(() => {
+                  dictationSentRef.current = "";
+                });
                 return;
               }
 
@@ -1080,6 +1101,15 @@ export default function Sessions() {
                   break;
                 default:
                   if (key.length === 1) {
+                    if (
+                      Platform.OS === "ios" &&
+                      !activeModifiers.ctrl &&
+                      !activeModifiers.alt &&
+                      !activeModifiers.shift
+                    ) {
+                      return;
+                    }
+
                     if (activeModifiers.ctrl) {
                       finalKey = String.fromCharCode(key.charCodeAt(0) & 0x1f);
                     } else if (activeModifiers.alt) {
