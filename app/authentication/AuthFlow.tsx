@@ -1254,7 +1254,7 @@ function OidcStep({
           javaScriptEnabled
           domStorageEnabled
           startInLoadingState
-          sharedCookiesEnabled={false}
+          sharedCookiesEnabled
           thirdPartyCookiesEnabled
           {...(Platform.OS === "android" && {
             mixedContentMode: "always" as const,
