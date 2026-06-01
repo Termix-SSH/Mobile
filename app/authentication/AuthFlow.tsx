@@ -11,6 +11,7 @@ import {
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as ExpoLinking from "expo-linking";
+import * as WebBrowser from "expo-web-browser";
 import {
   Server,
   ShieldAlert,
@@ -1046,15 +1047,38 @@ function OidcStep({
     [completeNativeAuth],
   );
 
-  const openBrowser = useCallback(async (authUrl: string) => {
-    setOpeningBrowser(true);
-    try {
-      await Linking.openURL(authUrl);
-    } catch {
-      Alert.alert("Error", "Could not open the system browser.");
-    } finally {
-      setOpeningBrowser(false);
-    }
+  const openBrowser = useCallback(
+    async (authUrl: string) => {
+      setOpeningBrowser(true);
+      try {
+        const callbackUrl = ExpoLinking.createURL("oidc-callback", {
+          scheme: "termix-mobile",
+        });
+        // openAuthSessionAsync uses ASWebAuthenticationSession on iOS and
+        // Chrome Custom Tabs on Android — both support WebAuthn/passkeys (RFC 8252).
+        const result = await WebBrowser.openAuthSessionAsync(
+          authUrl,
+          callbackUrl,
+        );
+        if (result.type === "success" && result.url) {
+          await handleCallbackUrl(result.url);
+        }
+        // result.type === "cancel" means user dismissed — no error needed
+      } catch {
+        Alert.alert("Error", "Could not open the authentication browser.");
+      } finally {
+        setOpeningBrowser(false);
+      }
+    },
+    [handleCallbackUrl],
+  );
+
+  // Pre-warm Chrome Custom Tab on Android for faster open
+  useEffect(() => {
+    if (Platform.OS === "android") void WebBrowser.warmUpAsync();
+    return () => {
+      if (Platform.OS === "android") void WebBrowser.coolDownAsync();
+    };
   }, []);
 
   useEffect(() => {
