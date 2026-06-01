@@ -102,12 +102,26 @@ export default function Sessions() {
   const dictationBufferRef = useRef("");
   const dictationSentRef = useRef("");
   const dictationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(() => {
+  const ignoreNextTextChangeRef = useRef(false);
+  const ignoreTextChangeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+
+  const resetHiddenInputState = useCallback(() => {
     if (dictationTimerRef.current) clearTimeout(dictationTimerRef.current);
+    if (ignoreTextChangeTimerRef.current)
+      clearTimeout(ignoreTextChangeTimerRef.current);
+    dictationTimerRef.current = null;
+    ignoreTextChangeTimerRef.current = null;
     dictationBufferRef.current = "";
     dictationSentRef.current = "";
     setHiddenInputValue("");
-  }, [activeSessionId]);
+  }, []);
+
+  useEffect(() => {
+    resetHiddenInputState();
+    ignoreNextTextChangeRef.current = false;
+  }, [activeSessionId, resetHiddenInputState]);
   const lastBlurTimeRef = useRef<number>(0);
   const [terminalBackgroundColors, setTerminalBackgroundColors] = useState<
     Record<string, string>
@@ -167,9 +181,7 @@ export default function Sessions() {
     return KEYBOARD_BAR_HEIGHT;
   };
 
-  const getBottomMargin = (
-    sessionType: SessionType = "terminal",
-  ) => {
+  const getBottomMargin = (sessionType: SessionType = "terminal") => {
     if (sessionType !== "terminal") {
       return SESSION_TAB_BAR_HEIGHT + insets.bottom;
     }
@@ -899,6 +911,12 @@ export default function Sessions() {
             underlineColorAndroid="transparent"
             value={hiddenInputValue}
             onChangeText={(text) => {
+              if (ignoreNextTextChangeRef.current) {
+                ignoreNextTextChangeRef.current = false;
+                resetHiddenInputState();
+                return;
+              }
+
               if (text.length <= dictationSentRef.current.length) {
                 const hasPendingBuffer =
                   Platform.OS === "android" &&
@@ -1076,6 +1094,19 @@ export default function Sessions() {
               }
 
               if (finalKey !== null) {
+                if (key.length !== 1 || key === "Tab") {
+                  resetHiddenInputState();
+                  ignoreNextTextChangeRef.current = true;
+                  ignoreTextChangeTimerRef.current = setTimeout(() => {
+                    ignoreNextTextChangeRef.current = false;
+                    ignoreTextChangeTimerRef.current = null;
+                  }, 100);
+                  if (Platform.OS === "android") {
+                    requestAnimationFrame(() => {
+                      hiddenInputRef.current?.focus();
+                    });
+                  }
+                }
                 activeRef.current.sendInput(finalKey);
               }
             }}
