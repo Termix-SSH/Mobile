@@ -9,7 +9,7 @@ on:
         required: true
         options:
           - both
-          - ios
+          - apple
           - android
       action:
         type: choice
@@ -24,10 +24,10 @@ on:
 jobs:
   build:
     name: build-${{ matrix.platform }}
-    runs-on: ${{ matrix.platform == 'ios' && 'blacksmith-6vcpu-macos-latest' || 'blacksmith-8vcpu-ubuntu-2404' }}
+    runs-on: ${{ matrix.platform == 'apple' && 'blacksmith-6vcpu-macos-latest' || 'blacksmith-8vcpu-ubuntu-2404' }}
     strategy:
       matrix:
-        platform: ${{ github.event.inputs.platform == 'both' && fromJSON('["ios", "android"]') || fromJSON(format('["{0}"]', github.event.inputs.platform)) }}
+        platform: ${{ github.event.inputs.platform == 'both' && fromJSON('["apple", "android"]') || fromJSON(format('["{0}"]', github.event.inputs.platform)) }}
         node: [20.x]
     steps:
       - name: Setup repo
@@ -54,7 +54,8 @@ jobs:
           echo "EAS configuration:"
           cat eas.json
           echo "Validating configuration..."
-          eas build:configure --platform ${{ matrix.platform }}
+          EAS_PLATFORM=${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
+          eas build:configure --platform $EAS_PLATFORM
 
       - name: Build app
         run: |
@@ -72,9 +73,11 @@ jobs:
           VERSION=$(node -p "require('./app.json').expo.version")
           echo "App version: $VERSION"
 
+          EAS_PLATFORM=${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
+
           eas build --local \
             --non-interactive \
-            --platform=${{ matrix.platform }} \
+            --platform=$EAS_PLATFORM \
             --profile=$PROFILE
 
           if [ "${{ matrix.platform }}" = "android" ]; then
@@ -111,7 +114,7 @@ jobs:
                 fi
               fi
             fi
-          elif [ "${{ matrix.platform }}" = "ios" ]; then
+          elif [ "${{ matrix.platform }}" = "apple" ]; then
             echo "Searching for iOS build artifacts..."
 
             IPA_FILE=$(find . -maxdepth 1 -type f -name "build-*.ipa" 2>/dev/null | head -1)
@@ -175,7 +178,8 @@ jobs:
 
           if [ -n "$BUILD_FILE" ] && [ -f "$BUILD_FILE" ]; then
             echo "Submitting file: $BUILD_FILE"
-            eas submit -p ${{ matrix.platform }} --profile production --path "$BUILD_FILE"
+            EAS_PLATFORM=${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
+            eas submit -p $EAS_PLATFORM --profile production --path "$BUILD_FILE"
           else
             echo "No build file found to submit"
             exit 1
@@ -191,7 +195,7 @@ jobs:
           if-no-files-found: error
 
       - name: Upload iOS IPA
-        if: ${{ github.event.inputs.action == 'file' && matrix.platform == 'ios' }}
+        if: ${{ github.event.inputs.action == 'file' && matrix.platform == 'apple' }}
         uses: actions/upload-artifact@v4
         with:
           name: termix_ios_universal
@@ -258,7 +262,7 @@ jobs:
               echo "ERROR: Android APK not found: $APK_FILE"
               exit 1
             fi
-          elif [ "${{ matrix.platform }}" = "ios" ]; then
+          elif [ "${{ matrix.platform }}" = "apple" ]; then
             IPA_FILE="build-artifacts/termix_ios.ipa"
             if [ -f "$IPA_FILE" ]; then
               echo "Uploading $IPA_FILE to Termix-SSH/Termix..."
