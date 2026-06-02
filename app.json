@@ -61,7 +61,8 @@
         {
           "android": {
             "newArchEnabled": true,
-            "usesCleartextTraffic": true
+            "usesCleartextTraffic": true,
+            "gradle": "8.13.1"
           },
           "ios": {
             "newArchEnabled": true,
