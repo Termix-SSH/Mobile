@@ -580,9 +580,7 @@ export default function Sessions() {
         backgroundColor:
           activeSession?.type === "terminal"
             ? activeTerminalBgColor
-            : activeSession?.type === "filemanager"
-              ? BACKGROUNDS.HEADER
-              : BACKGROUNDS.DARK,
+            : BACKGROUNDS.DARK,
       }}
     >
       <View

@@ -19,7 +19,9 @@
 
 ## Overview
 
-Full remote SSH control of your servers with Termix, the ultimate SSH server management tool. It connects to your existing Termix server to provide you with SSH server access.
+Requires a Termix server. Install at https://docs.termix.site/install
+
+Termix gives you full control of your servers from your phone. Connect to your Termix server and manage everything from one place.
 
 <br />
 
@@ -30,35 +32,55 @@ Full remote SSH control of your servers with Termix, the ultimate SSH server man
 <td width="50%" valign="top">
 
 **SSH Terminal:**
-SSH terminal with multi-session support. Switch between two keyboard modes: the system keyboard and a custom terminal keyboard optimized for terminal use. The custom keyboard is completely configurable. Has support for background-keepalive, VoiceOver, dictation, Bluetooth/physical keyboards, emojis, etc.
+Open multiple terminal sessions at once with tab-based navigation. Switch between a standard keyboard and a custom terminal keyboard built for SSH use. Customize the keyboard layout, save snippets for quick reuse, and use hardware keyboards, dictation, and VoiceOver. Sessions stay alive in the background.
 
 </td>
 <td width="50%" valign="top">
 
-**SSH File Manager:**
-View, edit, modify, and move files and folders via SSH.
+**File Manager:**
+Browse, view, edit, move, and manage files and folders over SSH.
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-**SSH Server Stats:**
-Get information on a server's status such as CPU, RAM, disk usage, and more.
+**Server Stats:**
+Monitor CPU, memory, disk, network, uptime, running processes, open ports, firewall rules, and login history in real time.
 
 </td>
 <td width="50%" valign="top">
 
 **SSH Tunnels:**
-Start, stop, and manage SSH tunnels directly from your mobile device.
+Create, start, and stop SSH tunnels.
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-**Server Configuration:**
-Easily connect to your existing Termix server via IP/domain. Supports reverse proxy access login pages, OIDC login, and standard username/password logins.
+**Docker:**
+View and manage Docker containers directly from your phone.
+
+</td>
+<td width="50%" valign="top">
+
+**Remote Desktop:**
+Access a graphical desktop on your server (RDP, VNC, and Telnet supported).
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+**Host Management:**
+Organize your servers into folders. Save credentials and SSH keys per host. Use Quick Connect to jump into a session fast.
+
+</td>
+<td width="50%" valign="top">
+
+**Settings:**
+Customize your terminal appearance, keyboard layout, and keys. Manage API keys, active sessions, and two-factor authentication for your Termix account.
 
 </td>
 </tr>
@@ -85,6 +107,10 @@ Termix Mobile is available for both [Android](https://docs.termix.site/install/c
 <td><img src="./repo-images/Image 3.png" alt="Termix Mobile Screenshot 3" width="160" /></td>
 <td><img src="./repo-images/Image 4.png" alt="Termix Mobile Screenshot 4" width="160" /></td>
 <td><img src="./repo-images/Image 5.png" alt="Termix Mobile Screenshot 5" width="160" /></td>
+<td><img src="./repo-images/Image 6.png" alt="Termix Mobile Screenshot 6" width="160" /></td>
+<td><img src="./repo-images/Image 7.png" alt="Termix Mobile Screenshot 7" width="160" /></td>
+<td><img src="./repo-images/Image 8.png" alt="Termix Mobile Screenshot 8" width="160" /></td>
+<td><img src="./repo-images/Image 9.png" alt="Termix Mobile Screenshot 9" width="160" /></td>
 </tr>
 </table>
 
