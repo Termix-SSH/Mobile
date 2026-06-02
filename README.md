@@ -105,9 +105,13 @@ Termix Mobile is available for both [Android](https://docs.termix.site/install/c
 <td><img src="./repo-images/Image 1.png" alt="Termix Mobile Screenshot 1" width="160" /></td>
 <td><img src="./repo-images/Image 2.png" alt="Termix Mobile Screenshot 2" width="160" /></td>
 <td><img src="./repo-images/Image 3.png" alt="Termix Mobile Screenshot 3" width="160" /></td>
+</tr>
+<tr>
 <td><img src="./repo-images/Image 4.png" alt="Termix Mobile Screenshot 4" width="160" /></td>
 <td><img src="./repo-images/Image 5.png" alt="Termix Mobile Screenshot 5" width="160" /></td>
 <td><img src="./repo-images/Image 6.png" alt="Termix Mobile Screenshot 6" width="160" /></td>
+</tr>
+<tr>
 <td><img src="./repo-images/Image 7.png" alt="Termix Mobile Screenshot 7" width="160" /></td>
 <td><img src="./repo-images/Image 8.png" alt="Termix Mobile Screenshot 8" width="160" /></td>
 <td><img src="./repo-images/Image 9.png" alt="Termix Mobile Screenshot 9" width="160" /></td>
