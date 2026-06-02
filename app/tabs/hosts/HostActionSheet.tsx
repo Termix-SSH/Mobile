@@ -13,6 +13,7 @@ import {
   Copy,
   CopyPlus,
   Trash2,
+  Zap,
 } from "lucide-react-native";
 import { SSHHost } from "@/types";
 import type { HostMetrics } from "@/app/tabs/hosts/navigation/Host";
@@ -22,6 +23,7 @@ import { BottomSheet, SheetRow, Text } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
 import { StatsConfig, DEFAULT_STATS_CONFIG } from "@/constants/stats-config";
+import { wakeHost } from "@/app/main-axios";
 
 function parseStatsConfig(host: SSHHost): StatsConfig {
   try {
@@ -79,6 +81,16 @@ export function HostActionSheet({
     );
     toast.success("Address copied");
     onClose();
+  };
+
+  const handleWake = async () => {
+    onClose();
+    try {
+      await wakeHost(host.id);
+      toast.success(`Wake-on-LAN sent to ${host.name}`);
+    } catch {
+      toast.error("Failed to send Wake-on-LAN packet");
+    }
   };
 
   const ssh = isSshHost(host);
@@ -190,6 +202,13 @@ export function HostActionSheet({
 
         {/* Management actions (no pin — matches the web). Rows sit flush with
             the connection group; each row's own bottom border separates them. */}
+        {host.macAddress ? (
+          <SheetRow
+            icon={<Zap size={18} color={iconColor} />}
+            label="Wake on LAN"
+            onPress={handleWake}
+          />
+        ) : null}
         <SheetRow
           icon={<Pencil size={18} color={iconColor} />}
           label="Edit Host"

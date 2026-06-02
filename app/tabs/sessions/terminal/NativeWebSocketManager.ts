@@ -70,6 +70,7 @@ export class NativeWebSocketManager {
   private reconnectTimeout: ReturnType<typeof setTimeout> | null = null;
   private connectionTimeout: ReturnType<typeof setTimeout> | null = null;
   private pingInterval: ReturnType<typeof setInterval> | null = null;
+  private pongTimeout: ReturnType<typeof setTimeout> | null = null;
   private shouldNotReconnect = false;
   private hasNotifiedFailure = false;
   private isAppInBackground = false;
@@ -131,6 +132,7 @@ export class NativeWebSocketManager {
   destroy(): void {
     this.destroyed = true;
     this.shouldNotReconnect = true;
+    this.awaitingAuthCredentials = false;
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       try {
         this.ws.send(JSON.stringify({ type: "disconnect" }));
@@ -238,6 +240,9 @@ export class NativeWebSocketManager {
       return;
     }
 
+    // Clear any pending connection timeout before starting a new connect to
+    // prevent the old timer from closing the newly-created socket.
+    this.clearAllTimers();
     this.connectWebSocket();
   }
 
@@ -292,7 +297,7 @@ export class NativeWebSocketManager {
     }
 
     this.isReconnectFromBackground = true;
-    this.reconnectAttempts = 1;
+    this.reconnectAttempts = 0;
 
     if (this.ws) {
       try {
@@ -444,6 +449,11 @@ export class NativeWebSocketManager {
               "new",
               msg.data as HostKeyData,
             );
+          } else {
+            this.shouldNotReconnect = true;
+            this.notifyFailureOnce(
+              "Host key verification required but no handler is registered",
+            );
           }
         } else if (msg.type === "host_key_changed") {
           if (this.connectionTimeout) {
@@ -454,6 +464,11 @@ export class NativeWebSocketManager {
             this.config.onHostKeyVerificationRequired(
               "changed",
               msg.data as HostKeyData,
+            );
+          } else {
+            this.shouldNotReconnect = true;
+            this.notifyFailureOnce(
+              "Host key changed but no handler is registered",
             );
           }
         } else if (msg.type === "passphrase_required") {
@@ -506,6 +521,7 @@ export class NativeWebSocketManager {
           this.setServerSessionId(null);
           this.config.onDisconnected(this.config.hostConfig.name);
         } else if (msg.type === "pong") {
+          this.clearPongTimeout();
         } else if (msg.type === "resized") {
         } else if (msg.type === "sessionCreated") {
           this.setServerSessionId(msg.sessionId as string);
@@ -537,7 +553,7 @@ export class NativeWebSocketManager {
           }
         }
       } catch (_) {
-        this.config.onData(event.data as string);
+        // Malformed/non-JSON frame — discard rather than printing garbage to terminal.
       }
     };
 
@@ -547,6 +563,13 @@ export class NativeWebSocketManager {
         this.connectionTimeout = null;
       }
       this.stopPingInterval();
+      this.clearPongTimeout();
+      // Only reset awaitingAuthCredentials when the connection closed without
+      // us actively waiting for user input (e.g. network drop). If shouldNotReconnect
+      // is set alongside it, we're mid-auth-dialog — leave both intact.
+      if (!this.shouldNotReconnect) {
+        this.awaitingAuthCredentials = false;
+      }
 
       if (this.isAppInBackground) {
         return;
@@ -614,6 +637,21 @@ export class NativeWebSocketManager {
       if (this.ws && this.ws.readyState === WebSocket.OPEN) {
         try {
           this.ws.send(JSON.stringify({ type: "ping" }));
+          // Start a pong timeout — if no pong arrives within 10s the connection
+          // is silently dead (TCP hang) and we need to force-reconnect.
+          this.clearPongTimeout();
+          this.pongTimeout = setTimeout(() => {
+            this.pongTimeout = null;
+            if (this.destroyed || this.isAppInBackground) return;
+            if (this.ws) {
+              try {
+                this.ws.onclose = null;
+                this.ws.close();
+              } catch (_) {}
+              this.ws = null;
+            }
+            this.scheduleReconnect();
+          }, 10000);
         } catch (_) {}
       }
     }, 25000);
@@ -623,6 +661,13 @@ export class NativeWebSocketManager {
     if (this.pingInterval) {
       clearInterval(this.pingInterval);
       this.pingInterval = null;
+    }
+  }
+
+  private clearPongTimeout(): void {
+    if (this.pongTimeout) {
+      clearTimeout(this.pongTimeout);
+      this.pongTimeout = null;
     }
   }
 
@@ -636,6 +681,7 @@ export class NativeWebSocketManager {
   private clearAllTimers(): void {
     this.stopPingInterval();
     this.clearReconnectTimeout();
+    this.clearPongTimeout();
     if (this.connectionTimeout) {
       clearTimeout(this.connectionTimeout);
       this.connectionTimeout = null;

@@ -65,7 +65,11 @@ export async function setCookie(
 ): Promise<void> {
   try {
     await AsyncStorage.setItem(name, value);
-  } catch (error) {}
+  } catch (error) {
+    systemLogger.error(`[setCookie] Failed to persist ${name} to AsyncStorage`, error, {
+      operation: "set_cookie",
+    });
+  }
 }
 
 export async function getCookie(name: string): Promise<string | undefined> {
@@ -73,10 +77,9 @@ export async function getCookie(name: string): Promise<string | undefined> {
     const token = await AsyncStorage.getItem(name);
     return token || undefined;
   } catch (error) {
-    console.error(
-      `[getCookie] Error reading ${name} from AsyncStorage:`,
-      error,
-    );
+    systemLogger.error(`[getCookie] Failed to read ${name} from AsyncStorage`, error, {
+      operation: "get_cookie",
+    });
     return undefined;
   }
 }
@@ -284,11 +287,13 @@ export async function initializeServerConfig(): Promise<void> {
         configuredServerUrl = config.serverUrl;
         updateApiInstances();
         await detectAndUpdateApiInstances();
-      } else {
       }
-    } else {
     }
-  } catch (error) {}
+  } catch (error) {
+    systemLogger.error("[initializeServerConfig] Failed to load server config", error, {
+      operation: "initialize_server_config",
+    });
+  }
 }
 
 export function getCurrentServerUrl(): string | null {
@@ -341,7 +346,11 @@ export async function isAuthenticated(): Promise<boolean> {
 export async function clearAuth(): Promise<void> {
   try {
     await AsyncStorage.removeItem("jwt");
-  } catch (error) {}
+  } catch (error) {
+    systemLogger.error("[clearAuth] Failed to remove jwt from AsyncStorage", error, {
+      operation: "clear_auth",
+    });
+  }
 }
 
 export async function clearServerConfig(): Promise<void> {
@@ -2106,7 +2115,7 @@ export async function refreshServerPolling(): Promise<void> {
   try {
     await statsApi.post("/refresh");
   } catch (error) {
-    console.warn("Failed to refresh server polling:", error);
+    statsLogger.warn("Failed to refresh server polling", { operation: "refresh_polling" });
   }
 }
 
@@ -2116,7 +2125,7 @@ export async function notifyHostCreatedOrUpdated(
   try {
     await statsApi.post("/host-updated", { hostId });
   } catch (error) {
-    console.warn("Failed to notify stats server of host update:", error);
+    statsLogger.warn("Failed to notify stats server of host update", { operation: "notify_host_updated" });
   }
 }
 
@@ -2181,13 +2190,21 @@ export async function isReverseProxyAuthGate(): Promise<boolean> {
   const probe = async (base: string): Promise<boolean | null> => {
     try {
       const url = `${base.replace(/\/$/, "")}/users/registration-allowed`;
-      const res = await fetch(url, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "User-Agent": `Termix-Mobile/${Platform.OS === "android" ? "Android" : "iOS"}`,
-        },
-      });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      let res: Response;
+      try {
+        res = await fetch(url, {
+          method: "GET",
+          signal: controller.signal,
+          headers: {
+            Accept: "application/json",
+            "User-Agent": `Termix-Mobile/${Platform.OS === "android" ? "Android" : "iOS"}`,
+          },
+        });
+      } finally {
+        clearTimeout(timeoutId);
+      }
       const contentType = (res.headers.get("content-type") || "").toLowerCase();
       const body = await res.text();
       // A genuine Termix API endpoint returns JSON. An auth proxy returns its
@@ -2416,10 +2433,10 @@ export async function getOIDCConfig(): Promise<any> {
     const response = await authApi.get("/users/oidc-config");
     return response.data;
   } catch (error: any) {
-    console.warn(
-      "Failed to fetch OIDC config:",
-      error.response?.data?.error || error.message,
-    );
+    authLogger.warn("Failed to fetch OIDC config", {
+      operation: "get_oidc_config",
+      error: error.response?.data?.error || error.message,
+    });
     return null;
   }
 }
@@ -3042,9 +3059,15 @@ export function connectToTerminalHost(
         hostConfig,
       },
     };
-
     ws.send(JSON.stringify(connectMessage));
   } else {
+    sshLogger.warn(
+      "[connectToTerminalHost] WebSocket is not open — connect message dropped",
+      {
+        operation: "connect_to_host",
+        readyState: ws.readyState,
+      },
+    );
   }
 }
 
@@ -3826,5 +3849,77 @@ export async function getDockerContainerLogs(
     return data?.logs ?? "";
   } catch (error) {
     handleApiError(error, "fetch Docker logs");
+  }
+}
+
+// ============================================================================
+// WAKE-ON-LAN
+// ============================================================================
+
+export async function wakeHost(hostId: number): Promise<{ success: boolean; message: string }> {
+  try {
+    const response = await sshHostApi.post(`/db/host/${hostId}/wake`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "wake host");
+  }
+}
+
+// ============================================================================
+// API KEY MANAGEMENT
+// ============================================================================
+
+export interface ApiKey {
+  id: string;
+  name: string;
+  createdAt: string;
+  lastUsedAt: string | null;
+  expiresAt: string | null;
+}
+
+export async function getApiKeys(): Promise<{ apiKeys: ApiKey[] }> {
+  try {
+    const response = await authApi.get("/users/api-keys");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch API keys");
+  }
+}
+
+export async function createApiKey(
+  name: string,
+  userId: string,
+  expiresAt?: string,
+): Promise<{ apiKey: ApiKey & { key: string; token: string } }> {
+  try {
+    const response = await authApi.post("/users/api-keys", {
+      name,
+      userId,
+      expiresAt: expiresAt ?? null,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "create API key");
+  }
+}
+
+export async function deleteApiKey(keyId: string): Promise<void> {
+  try {
+    await authApi.delete(`/users/api-keys/${keyId}`);
+  } catch (error) {
+    handleApiError(error, "delete API key");
+  }
+}
+
+// ============================================================================
+// TOTP BACKUP CODES
+// ============================================================================
+
+export async function getTOTPBackupCodes(): Promise<{ backup_codes: string[] }> {
+  try {
+    const response = await authApi.get("/users/totp/backup-codes");
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "fetch TOTP backup codes");
   }
 }

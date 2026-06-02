@@ -11,6 +11,9 @@ import {
   LogOut,
   Lock,
   Server as ServerIcon,
+  ShieldCheck,
+  Monitor,
+  Key,
 } from "lucide-react-native";
 import { useAppContext } from "@/app/AppContext";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
@@ -255,6 +258,49 @@ export default function Settings() {
                   </Text>
                 </View>
               ) : null}
+
+              <View className="mt-1 gap-0">
+                <Pressable
+                  onPress={() => router.push("/tabs/settings/TwoFactorAuth" as any)}
+                  className="flex-row items-center justify-between border-t border-border py-3"
+                >
+                  <View className="flex-row items-center gap-2">
+                    <ShieldCheck size={15} color={color("muted-foreground")} />
+                    <Text weight="medium" className="text-sm text-foreground">
+                      Two-Factor Authentication
+                    </Text>
+                  </View>
+                  <ChevronRight size={15} color={color("muted-foreground")} />
+                </Pressable>
+                {isAdmin ? (
+                  <Pressable
+                    onPress={() => router.push("/tabs/settings/ActiveSessions" as any)}
+                    className="flex-row items-center justify-between border-t border-border py-3"
+                  >
+                    <View className="flex-row items-center gap-2">
+                      <Monitor size={15} color={color("muted-foreground")} />
+                      <Text weight="medium" className="text-sm text-foreground">
+                        Active Sessions
+                      </Text>
+                    </View>
+                    <ChevronRight size={15} color={color("muted-foreground")} />
+                  </Pressable>
+                ) : null}
+                {isAdmin ? (
+                  <Pressable
+                    onPress={() => router.push("/tabs/settings/ApiKeys" as any)}
+                    className="flex-row items-center justify-between border-t border-border py-3"
+                  >
+                    <View className="flex-row items-center gap-2">
+                      <Key size={15} color={color("muted-foreground")} />
+                      <Text weight="medium" className="text-sm text-foreground">
+                        API Keys
+                      </Text>
+                    </View>
+                    <ChevronRight size={15} color={color("muted-foreground")} />
+                  </Pressable>
+                ) : null}
+              </View>
             </View>
           </AccordionSection>
         ) : null}

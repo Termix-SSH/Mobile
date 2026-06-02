@@ -68,6 +68,7 @@ export interface SSHHost {
   telnetPassword?: string;
   telnetPort?: number;
   dockerConfig?: string;
+  macAddress?: string;
 }
 
 export interface JumpHostData {

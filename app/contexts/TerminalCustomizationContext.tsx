@@ -23,6 +23,8 @@ interface TerminalCustomizationContextType {
 
   updateFontSize: (fontSize: number) => Promise<void>;
   updateFontFamily: (fontFamily: string) => Promise<void>;
+  updateLetterSpacing: (letterSpacing: number) => Promise<void>;
+  updateLineHeight: (lineHeight: number) => Promise<void>;
   resetToDefault: () => Promise<void>;
 }
 
@@ -96,6 +98,20 @@ export const TerminalCustomizationProvider: React.FC<{
     [updateConfig],
   );
 
+  const updateLetterSpacing = useCallback(
+    async (letterSpacing: number) => {
+      await updateConfig({ letterSpacing });
+    },
+    [updateConfig],
+  );
+
+  const updateLineHeight = useCallback(
+    async (lineHeight: number) => {
+      await updateConfig({ lineHeight });
+    },
+    [updateConfig],
+  );
+
   const resetToDefault = useCallback(async () => {
     await resetConfig();
   }, [resetConfig]);
@@ -107,6 +123,8 @@ export const TerminalCustomizationProvider: React.FC<{
     resetConfig,
     updateFontSize,
     updateFontFamily,
+    updateLetterSpacing,
+    updateLineHeight,
     resetToDefault,
   };
 

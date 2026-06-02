@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, ScrollView, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ArrowLeft, Type, AlignLeft } from "lucide-react-native";
+import { ArrowLeft, Type, AlignLeft, Rows3 } from "lucide-react-native";
 import { useTerminalCustomization } from "@/app/contexts/TerminalCustomizationContext";
 import { toast } from "@/app/utils/toast";
 import { TERMINAL_FONTS } from "@/constants/terminal-themes";
@@ -18,12 +18,33 @@ const FONT_SIZE_OPTIONS = [
   { label: "Huge", value: 24 },
 ];
 
+const LETTER_SPACING_OPTIONS = [
+  { label: "Default", value: 0 },
+  { label: "Relaxed", value: 0.5 },
+  { label: "Wide", value: 1 },
+  { label: "Wider", value: 1.5 },
+  { label: "Widest", value: 2 },
+];
+
+const LINE_HEIGHT_OPTIONS = [
+  { label: "Compact", value: 1.0 },
+  { label: "Default", value: 1.2 },
+  { label: "Relaxed", value: 1.4 },
+  { label: "Spacious", value: 1.6 },
+];
+
 export default function TerminalCustomization() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const color = useThemeColor();
-  const { config, updateFontFamily, updateFontSize, resetToDefault } =
-    useTerminalCustomization();
+  const {
+    config,
+    updateFontFamily,
+    updateFontSize,
+    updateLetterSpacing,
+    updateLineHeight,
+    resetToDefault,
+  } = useTerminalCustomization();
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [customFontSize, setCustomFontSize] = useState("");
   const [showCustomInput, setShowCustomInput] = useState(false);
@@ -47,6 +68,22 @@ export default function TerminalCustomization() {
       toast.success(`Font updated to ${label}`);
     } catch {
       toast.error("Failed to update font");
+    }
+  };
+
+  const handleLetterSpacingChange = async (value: number) => {
+    try {
+      await updateLetterSpacing(value);
+    } catch {
+      toast.error("Failed to update letter spacing");
+    }
+  };
+
+  const handleLineHeightChange = async (value: number) => {
+    try {
+      await updateLineHeight(value);
+    } catch {
+      toast.error("Failed to update line height");
     }
   };
 
@@ -229,6 +266,88 @@ export default function TerminalCustomization() {
                 </View>
               ) : null}
             </Pressable>
+          </View>
+        </View>
+
+        {/* Spacing */}
+        <View className="border border-border bg-card">
+          <View className="flex-row items-center gap-2 border-b border-border px-3 py-3">
+            <Rows3 size={14} color={color("muted-foreground")} />
+            <Text
+              weight="bold"
+              className="text-[11px] uppercase tracking-[2px] text-foreground"
+            >
+              Spacing
+            </Text>
+          </View>
+          <View className="px-3 pb-3 pt-2">
+            <Text className="mb-3 text-[11px] text-muted-foreground">
+              Letter Spacing
+            </Text>
+            <View className="gap-1.5">
+              {LETTER_SPACING_OPTIONS.map((option, i) => {
+                const isActive =
+                  (config.letterSpacing ?? 0) === option.value;
+                return (
+                  <Pressable
+                    key={option.value}
+                    onPress={() => handleLetterSpacingChange(option.value)}
+                    className={`flex-row items-center justify-between py-2.5 ${i < LETTER_SPACING_OPTIONS.length - 1 ? "border-b border-border" : ""}`}
+                  >
+                    <Text
+                      weight="medium"
+                      className={`text-sm ${isActive ? "text-accent-brand" : "text-foreground"}`}
+                    >
+                      {option.label}
+                    </Text>
+                    {isActive ? (
+                      <View className="border border-accent-brand/40 bg-accent-brand/10 px-1.5 py-0.5">
+                        <Text
+                          weight="bold"
+                          className="text-[8px] uppercase tracking-wider text-accent-brand"
+                        >
+                          Active
+                        </Text>
+                      </View>
+                    ) : null}
+                  </Pressable>
+                );
+              })}
+            </View>
+
+            <Text className="mb-3 mt-4 text-[11px] text-muted-foreground">
+              Line Height
+            </Text>
+            <View className="gap-1.5">
+              {LINE_HEIGHT_OPTIONS.map((option, i) => {
+                const isActive =
+                  (config.lineHeight ?? 1.2) === option.value;
+                return (
+                  <Pressable
+                    key={option.value}
+                    onPress={() => handleLineHeightChange(option.value)}
+                    className={`flex-row items-center justify-between py-2.5 ${i < LINE_HEIGHT_OPTIONS.length - 1 ? "border-b border-border" : ""}`}
+                  >
+                    <Text
+                      weight="medium"
+                      className={`text-sm ${isActive ? "text-accent-brand" : "text-foreground"}`}
+                    >
+                      {option.label}
+                    </Text>
+                    {isActive ? (
+                      <View className="border border-accent-brand/40 bg-accent-brand/10 px-1.5 py-0.5">
+                        <Text
+                          weight="bold"
+                          className="text-[8px] uppercase tracking-wider text-accent-brand"
+                        >
+                          Active
+                        </Text>
+                      </View>
+                    ) : null}
+                  </Pressable>
+                );
+              })}
+            </View>
           </View>
         </View>
 

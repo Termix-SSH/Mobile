@@ -192,69 +192,67 @@ export const TerminalSessionsProvider: React.FC<
     [],
   );
 
-  const removeSession = useCallback(
-    (sessionId: string) => {
-      setSessions((prev) => {
-        const sessionToRemove = prev.find(
-          (session) => session.id === sessionId,
+  const removeSession = useCallback((sessionId: string) => {
+    // All reads of activeSessionId happen inside the setSessions updater so we
+    // always see the latest state regardless of how quickly sessions are removed.
+    setSessions((prev) => {
+      const sessionToRemove = prev.find((session) => session.id === sessionId);
+      if (!sessionToRemove) return prev;
+
+      // Forget the server-side record for this tab.
+      deleteOpenTab(sessionToRemove.instanceId);
+
+      let updatedSessions = prev.filter((session) => session.id !== sessionId);
+
+      // Re-number sibling sessions of the same host/type.
+      const hostId = sessionToRemove.host.id;
+      const sessionType = sessionToRemove.type;
+      const sameHostSessions = updatedSessions.filter(
+        (session) =>
+          session.host.id === hostId && session.type === sessionType,
+      );
+
+      if (sameHostSessions.length > 0) {
+        sameHostSessions.sort(
+          (a, b) => a.createdAt.getTime() - b.createdAt.getTime(),
         );
-        if (!sessionToRemove) return prev;
-
-        // Forget the server-side record for this tab.
-        deleteOpenTab(sessionToRemove.instanceId);
-
-        const updatedSessions = prev.filter(
-          (session) => session.id !== sessionId,
-        );
-
-        const hostId = sessionToRemove.host.id;
-        const sessionType = sessionToRemove.type;
-        const sameHostSessions = updatedSessions.filter(
-          (session) =>
-            session.host.id === hostId && session.type === sessionType,
-        );
-
-        if (sameHostSessions.length > 0) {
-          sameHostSessions.sort(
-            (a, b) => a.createdAt.getTime() - b.createdAt.getTime(),
+        sameHostSessions.forEach((session, index) => {
+          const sessionIndex = updatedSessions.findIndex(
+            (s) => s.id === session.id,
           );
-
-          sameHostSessions.forEach((session, index) => {
-            const sessionIndex = updatedSessions.findIndex(
-              (s) => s.id === session.id,
-            );
-            if (sessionIndex !== -1) {
-              const typeLabel = TYPE_LABELS[session.type];
-              const baseName = typeLabel
-                ? `${session.host.name} - ${typeLabel}`
-                : session.host.name;
-              updatedSessions[sessionIndex] = {
-                ...session,
-                title: index === 0 ? baseName : `${baseName} (${index + 1})`,
-              };
-            }
-          });
-        }
-
-        if (activeSessionId === sessionId) {
-          if (updatedSessions.length > 0) {
-            const newActiveSession =
-              updatedSessions[updatedSessions.length - 1];
-            setActiveSessionId(newActiveSession.id);
-            updatedSessions[updatedSessions.length - 1] = {
-              ...newActiveSession,
-              isActive: true,
+          if (sessionIndex !== -1) {
+            const typeLabel = TYPE_LABELS[session.type];
+            const baseName = typeLabel
+              ? `${session.host.name} - ${typeLabel}`
+              : session.host.name;
+            updatedSessions[sessionIndex] = {
+              ...session,
+              title: index === 0 ? baseName : `${baseName} (${index + 1})`,
             };
-          } else {
-            setActiveSessionId(null);
           }
-        }
+        });
+      }
 
-        return updatedSessions;
-      });
-    },
-    [activeSessionId],
-  );
+      // Check whether the removed session was the active one — and if so pick a
+      // new active session. Using setActiveSessionId inside a setSessions updater
+      // is safe: React batches these in the same flush.
+      const removedWasActive = !updatedSessions.some((s) => s.isActive);
+      if (removedWasActive) {
+        if (updatedSessions.length > 0) {
+          const newActive = updatedSessions[updatedSessions.length - 1];
+          setActiveSessionId(newActive.id);
+          updatedSessions = updatedSessions.map((s) => ({
+            ...s,
+            isActive: s.id === newActive.id,
+          }));
+        } else {
+          setActiveSessionId(null);
+        }
+      }
+
+      return updatedSessions;
+    });
+  }, []);
 
   const setActiveSession = useCallback(
     (sessionId: string) => {

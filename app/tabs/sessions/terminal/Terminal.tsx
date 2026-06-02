@@ -472,13 +472,19 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     terminal.onScroll(scheduleScrollStateUpdate);
 
-    let hasNotifiedDataReceived = false;
+    // connectionEpoch is incremented each time notifyConnected fires.
+    // The write callback captures its epoch at call time; if it no longer
+    // matches the current epoch the connection already moved on, so we skip
+    // the dataReceived notification to avoid spurious state changes.
+    let connectionEpoch = 0;
+    let notifiedEpoch = -1;
     window.writeToTerminal = function(data) {
       const shouldStickToBottom = getIsScrolledToBottom();
+      const capturedEpoch = connectionEpoch;
       try {
         terminal.write(data, function() {
-          if (!hasNotifiedDataReceived) {
-            hasNotifiedDataReceived = true;
+          if (notifiedEpoch !== capturedEpoch) {
+            notifiedEpoch = capturedEpoch;
             if (window.ReactNativeWebView) {
               window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'dataReceived' }));
             }
@@ -492,7 +498,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     };
 
     window.notifyConnected = function(fromBackground, isReattach) {
-      hasNotifiedDataReceived = false;
+      connectionEpoch += 1;
       terminal.clear();
       if (isReattach) {
         terminal.write('\\x1b[2J\\x1b[H\\x1b[?25h');
@@ -723,6 +729,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       hostConfig,
       screenDimensions,
       config.fontSize,
+      config.fontFamily,
       onBackgroundColorChange,
     ]);
 
@@ -947,6 +954,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       setHasReceivedData(false);
       setRetryCount(0);
       setShowScrollToBottomButton(false);
+      // Clear any stale auth/verification dialogs from a previous connection attempt.
+      setHostKeyVerification(null);
+      setTotpRequired(false);
+      setShowAuthDialog(false);
+      setPassphraseRequired(false);
+      setWarpgateAuth(null);
 
       if (xtermAssetsRef.current) {
         setHtmlContent(generateHTML(xtermAssetsRef.current));

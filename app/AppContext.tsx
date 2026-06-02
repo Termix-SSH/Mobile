@@ -136,7 +136,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             try {
               const { getUserInfo } = await import("./main-axios");
               const meRes = await getUserInfo();
-              if (meRes && meRes.username && meRes.data_unlocked !== false) {
+              if (meRes && meRes.username && meRes.data_unlocked === true) {
                 authStatus = true;
               }
             } catch (e) {

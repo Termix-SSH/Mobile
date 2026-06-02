@@ -205,14 +205,16 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
   const [hosts, setHosts] = useState<SSHHost[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const refreshRef = useRef(refreshBackgroundTabs);
+  refreshRef.current = refreshBackgroundTabs;
 
   const refresh = useCallback(async () => {
     const [live] = await Promise.all([
       getActiveSessions(),
-      refreshBackgroundTabs(),
+      refreshRef.current(),
     ]);
     setActiveSessions(live);
-  }, [refreshBackgroundTabs]);
+  }, []);
 
   useEffect(() => {
     getSSHHosts()
@@ -229,7 +231,9 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
     return () => {
       if (pollRef.current) clearInterval(pollRef.current);
     };
-  }, [refresh]);
+    // refresh is stable (no deps); interval starts once and runs until unmount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const sessionByInstance = new Map(
     activeSessions.map((s) => [s.tabInstanceId, s]),
