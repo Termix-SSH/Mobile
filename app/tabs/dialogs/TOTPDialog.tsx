@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { View } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { ShieldCheck, Clipboard as ClipboardIcon } from "lucide-react-native";
-import { Dialog, Input, Button, Text } from "@/app/components/ui";
+import { Dialog, Input, Button } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 interface TOTPDialogProps {

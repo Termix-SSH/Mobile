@@ -33,7 +33,6 @@ import { useKeyboard } from "@/app/contexts/KeyboardContext";
 import { useOrientation } from "@/app/utils/orientation";
 import { getTabBarHeight, getButtonSize } from "@/app/utils/responsive";
 import {
-  BORDERS,
   BORDER_COLORS,
   BACKGROUNDS,
   RADIUS,

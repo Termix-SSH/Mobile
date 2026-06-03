@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { KeyboardAvoidingView, Platform, View, ScrollView, Image } from "react-native";
+import { KeyboardAvoidingView, Platform, View, ScrollView, Image , Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ArrowLeft, ShieldCheck, ShieldOff, Copy, KeyRound } from "lucide-react-native";
-import { Pressable } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import {
   setupTOTP,

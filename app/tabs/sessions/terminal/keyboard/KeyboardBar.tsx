@@ -6,7 +6,7 @@ import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";
 import { useOrientation } from "@/app/utils/orientation";
-import { BACKGROUNDS, BORDER_COLORS, ACCENT, TEXT_COLORS } from "@/app/constants/designTokens";
+import { BACKGROUNDS, BORDER_COLORS, ACCENT } from "@/app/constants/designTokens";
 
 interface KeyboardBarProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
