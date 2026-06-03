@@ -21,7 +21,7 @@ import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import { useTheme, useThemeColor } from "@/app/contexts/ThemeContext";
 import { useAppLock } from "@/app/contexts/AppLockContext";
 import {
-  clearAuth,
+  clearSession,
   logoutUser,
   getUserInfo,
   getVersionInfo,
@@ -56,6 +56,13 @@ export default function Settings() {
   const { clearAllSessions } = useTerminalSessions();
   const { theme, setTheme, accent, setAccent } = useTheme();
   const appLock = useAppLock();
+
+  const [accentDraft, setAccentDraft] = useState(accent);
+
+  // Keep draft in sync when accent changes from a swatch tap
+  useEffect(() => {
+    setAccentDraft(accent);
+  }, [accent]);
 
   const [username, setUsername] = useState("—");
   const [isAdmin, setIsAdmin] = useState(false);
@@ -106,14 +113,25 @@ export default function Settings() {
     } catch {
       // best-effort — server-side logout may fail if token already expired
     }
-    await clearAuth();
+    await clearSession();
     clearAllSessions();
     setAuthenticated(false);
     // The tabs fall back to their "no server connected" empty states; the user
     // re-authenticates from there or from this Server section.
   };
 
-  const handleChangeServer = () => openAuthFlow("server");
+  const handleChangeServer = async () => {
+    // Mirror sign-out: invalidate the server-side session too (not just the
+    // local JWT), otherwise the still-valid Termix cookie in the browser/WebView
+    // lets the next OIDC resume the old account.
+    try {
+      await logoutUser();
+    } catch {
+      // best-effort — session may already be gone
+    }
+    await clearSession();
+    openAuthFlow("server");
+  };
 
   const handleAppLockToggle = (v: boolean) => {
     if (v) {
@@ -379,10 +397,15 @@ export default function Settings() {
                 />
                 <Input
                   containerClassName="flex-1 h-9 border-0 bg-transparent px-0"
-                  value={accent}
+                  value={accentDraft}
                   onChangeText={(v) => {
+                    setAccentDraft(v);
                     if (/^#[0-9a-fA-F]{6}$/.test(v.trim())) setAccent(v.trim());
-                    else setAccent(v); // keep typing; ThemeProvider validates
+                  }}
+                  onBlur={() => {
+                    if (!/^#[0-9a-fA-F]{6}$/.test(accentDraft.trim())) {
+                      setAccentDraft(accent);
+                    }
                   }}
                   autoCapitalize="none"
                   placeholder="#f59145"

@@ -11,7 +11,7 @@ import { useAppContext } from "@/app/AppContext";
  */
 export function ConnectEmptyState({
   title = "No server connected",
-  message = "Connect to a Termix server to manage your hosts, terminals and files.",
+  message = "Connect to a Termix server to manage your hosts, terminals, files and more.",
 }: {
   title?: string;
   message?: string;

@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import * as ExpoLinking from "expo-linking";
 import * as WebBrowser from "expo-web-browser";
 import {
   Server,
@@ -48,9 +47,17 @@ import {
   getOIDCConfig,
   getOIDCAuthorizeUrl,
   isReverseProxyAuthGate,
+  clearSession,
+  consumeFreshWebSession,
+  logoutUser,
 } from "../main-axios";
 
 type Step = "server" | "login" | "totp" | "signup" | "reset" | "oidc";
+
+// TEMP (testing): force the embedded web-version login (WebView) for every
+// sign-in — skip the native login form AND the system-browser OIDC popup.
+// Set back to false to restore normal behavior.
+const FORCE_WEBVIEW_LOGIN = false;
 
 /** Server capabilities probed after the server URL is set. */
 interface ServerCaps {
@@ -113,6 +120,11 @@ export default function AuthFlow() {
    * (server unreachable) so callers can react.
    */
   const probeServer = useCallback(async (): Promise<boolean> => {
+    if (FORCE_WEBVIEW_LOGIN) {
+      setStep("oidc");
+      return true;
+    }
+
     // If the server sits behind a reverse-proxy auth gate (Cloudflare Access,
     // Authelia, …), API endpoints return the proxy's HTML login page rather
     // than JSON — a native form can't work. Send the user to the browser-based
@@ -179,6 +191,11 @@ export default function AuthFlow() {
 
     setBusy(true);
     try {
+      // Reset the session before connecting to a (possibly different) server:
+      // clears the JWT and the reverse-proxy cookie/session so a fresh proxy
+      // login is shown and a subsequent sign-in can't resolve to the old account.
+      await clearSession();
+
       await saveServerConfig({
         serverUrl: url,
         lastUpdated: new Date().toISOString(),
@@ -220,6 +237,18 @@ export default function AuthFlow() {
   }, []);
 
   const goToServer = () => {
+    // Changing server must not carry the old session/proxy login forward.
+    // Invalidate the server-side session FIRST (while the JWT still exists), then
+    // clear local state — otherwise the live Termix cookie lets OIDC resume the
+    // old account.
+    void (async () => {
+      try {
+        await logoutUser();
+      } catch {
+        // best-effort
+      }
+      await clearSession();
+    })();
     setCaps(null);
     setStep("server");
   };
@@ -238,7 +267,9 @@ export default function AuthFlow() {
             // If there's a usable native login step, return to it; otherwise
             // (pure reverse-proxy case) go back to the server step.
             setStep(
-              caps && (caps.passwordLoginAllowed || caps.oidcAvailable)
+              !FORCE_WEBVIEW_LOGIN &&
+                caps &&
+                (caps.passwordLoginAllowed || caps.oidcAvailable)
                 ? "login"
                 : "server",
             )
@@ -975,6 +1006,12 @@ function ResetStep({
 // OIDC opens in the system browser so provider-side captcha/passkey checks work.
 // Reverse-proxy auth still falls back to the embedded web view.
 
+// Fixed deep link the server redirects to after OIDC. Must use the registered
+// "termix-mobile" scheme (app.json) so the backend accepts it as appCallbackUrl
+// and handleCallbackUrl matches it. Hardcoded because ExpoLinking.createURL is
+// unreliable in dev-client builds (can yield an exp:// dev-server URL).
+const OIDC_CALLBACK_URL = "termix-mobile://oidc-callback";
+
 function OidcStep({
   bg,
   accent,
@@ -991,32 +1028,90 @@ function OidcStep({
   const [source, setSource] = useState<{ uri: string } | null>(null);
   const [url, setUrl] = useState("");
   const [authenticating, setAuthenticating] = useState(false);
+  // After a reset (logout/change-server), load the WebView with an ephemeral
+  // cookie store so the reverse-proxy login screen shows again instead of
+  // silently resuming the old proxy session.
+  const [incognito, setIncognito] = useState(false);
   const [browserAuthUrl, setBrowserAuthUrl] = useState<string | null>(null);
   const [openingBrowser, setOpeningBrowser] = useState(false);
   const [webViewKey, setWebViewKey] = useState(() => String(Date.now()));
+  // Synchronous guards: state updates are async, so two near-simultaneous
+  // callbacks (openAuthSessionAsync result + the OS deep-link listener) can both
+  // pass a useState check before the first re-render. Refs prevent that.
+  const authStartedRef = useRef(false);
+  const browserOpenedRef = useRef(false);
+  // Set when a reset (logout/change-server) asked for a fresh sign-in. Drives an
+  // ephemeral system-browser auth session (no shared Safari cookies) and an
+  // incognito embedded WebView, so the proxy/IdP login is shown instead of
+  // silently resuming the previous account.
+  const freshSessionRef = useRef(false);
 
   const completeNativeAuth = useCallback(
     async (token: string) => {
-      if (authenticating) return;
+      if (authStartedRef.current) return;
+      authStartedRef.current = true;
       setAuthenticating(true);
       try {
         await setCookie("jwt", token);
         const saved = await AsyncStorage.getItem("jwt");
         if (!saved) {
           Alert.alert("Error", "Failed to save authentication token.");
+          authStartedRef.current = false;
           return;
         }
         await initializeServerConfig();
-        const me = await getUserInfo();
-        if (!me?.username) return;
+
+        // Confirm the token, tolerating transient gateway hiccups (502 / brief
+        // network blips from the reverse proxy). A real 401 means the token is
+        // bad; a non-user payload (e.g. the proxy's HTML login page) means the
+        // native request isn't reaching Termix — surface that rather than
+        // pretending we're signed in.
+        let confirmed = false;
+        for (let attempt = 0; attempt < 3 && !confirmed; attempt++) {
+          try {
+            const me = await getUserInfo();
+            if (me?.username) {
+              confirmed = true;
+              break;
+            }
+            // Got a response, but not a Termix user object.
+            await new Promise((r) => setTimeout(r, 600));
+          } catch (e: any) {
+            if (e?.response?.status === 401) {
+              await AsyncStorage.removeItem("jwt");
+              Alert.alert(
+                "Sign in failed",
+                "The server rejected the session token. Please try again.",
+              );
+              authStartedRef.current = false;
+              return;
+            }
+            // Transient (502/HTML/network) — wait briefly and retry.
+            await new Promise((r) => setTimeout(r, 600));
+          }
+        }
+
+        if (!confirmed) {
+          await AsyncStorage.removeItem("jwt");
+          Alert.alert(
+            "Sign in failed",
+            "Signed in, but the app couldn't reach Termix's API (a reverse proxy may be blocking the request). Please try again.",
+          );
+          authStartedRef.current = false;
+          return;
+        }
+
+        // Proceed even if confirmation didn't succeed: the token is saved and
+        // valid as far as we know; the app's startup will verify it again.
         await onAuthenticated();
       } catch {
         Alert.alert("Error", "Could not complete sign-in.");
+        authStartedRef.current = false;
       } finally {
         setAuthenticating(false);
       }
     },
-    [authenticating, onAuthenticated],
+    [onAuthenticated],
   );
 
   const handleCallbackUrl = useCallback(
@@ -1055,16 +1150,28 @@ function OidcStep({
 
   const openBrowser = useCallback(
     async (authUrl: string) => {
+      // Don't reopen if a session is already in flight or auth already started
+      // (e.g. a deep-link remount re-running init, or a double tap).
+      if (openingBrowser || authStartedRef.current) return;
       setOpeningBrowser(true);
       try {
-        const callbackUrl = ExpoLinking.createURL("oidc-callback", {
-          scheme: "termix-mobile",
-        });
+        // Use a fixed deep link rather than ExpoLinking.createURL: in dev-client
+        // builds createURL can return an exp:// dev-server URL, which the backend
+        // rejects (protocol must be "termix-mobile:") and which handleCallbackUrl
+        // wouldn't match. The fixed form works in both dev and production.
+        const callbackUrl = OIDC_CALLBACK_URL;
         // openAuthSessionAsync uses ASWebAuthenticationSession on iOS and
         // Chrome Custom Tabs on Android — both support WebAuthn/passkeys (RFC 8252).
+        // It captures the termix-mobile:// redirect itself and returns it as
+        // result.url, so the global Linking listener is a backup, not the primary.
         const result = await WebBrowser.openAuthSessionAsync(
           authUrl,
           callbackUrl,
+          // After a reset, don't share Safari's cookies (iOS) so the IdP/proxy
+          // doesn't auto-resume the previous account — forces a fresh login.
+          freshSessionRef.current
+            ? { preferEphemeralSession: true }
+            : undefined,
         );
         if (result.type === "success" && result.url) {
           await handleCallbackUrl(result.url);
@@ -1076,7 +1183,7 @@ function OidcStep({
         setOpeningBrowser(false);
       }
     },
-    [handleCallbackUrl],
+    [handleCallbackUrl, openingBrowser],
   );
 
   // Pre-warm Chrome Custom Tab on Android for faster open
@@ -1098,21 +1205,46 @@ function OidcStep({
   }, [handleCallbackUrl]);
 
   useEffect(() => {
+    // Run exactly once per mount. Guarding with a ref (not the effect deps)
+    // prevents re-entry when openBrowser is recreated, and prevents a second
+    // browser prompt if a deep-link return remounts/re-renders this screen.
+    if (browserOpenedRef.current) return;
+    browserOpenedRef.current = true;
+
     const init = async () => {
-      const callbackUrl = ExpoLinking.createURL("oidc-callback", {
-        scheme: "termix-mobile",
-      });
-      try {
-        const res = await getOIDCAuthorizeUrl(callbackUrl);
-        if (res?.auth_url) {
-          setBrowserAuthUrl(res.auth_url);
-          setUrl(res.auth_url);
-          await openBrowser(res.auth_url);
-          return;
+      // Start every sign-in attempt from a clean slate: a leftover token would
+      // let confirmation pass as the previous account.
+      await AsyncStorage.removeItem("jwt");
+      // If a reset (logout / change-server) requested it, force a fresh login so
+      // the proxy/IdP login is shown instead of resuming the previous account.
+      const fresh = await consumeFreshWebSession();
+      if (fresh || FORCE_WEBVIEW_LOGIN) {
+        setIncognito(true);
+        if (fresh) freshSessionRef.current = true;
+      }
+
+      // The system browser is preferred (passkeys/captcha work there), but on a
+      // reset it can't be wiped on Android (Custom Tabs share the device browser
+      // cookies; only iOS supports an ephemeral session). So on a reset+Android,
+      // skip the system browser and use the incognito embedded WebView, which
+      // reliably starts from an empty cookie jar on both platforms.
+      const useEmbeddedForFresh =
+        (fresh && Platform.OS === "android") || FORCE_WEBVIEW_LOGIN;
+
+      if (!useEmbeddedForFresh) {
+        const callbackUrl = OIDC_CALLBACK_URL;
+        try {
+          const res = await getOIDCAuthorizeUrl(callbackUrl);
+          if (res?.auth_url) {
+            setBrowserAuthUrl(res.auth_url);
+            setUrl(res.auth_url);
+            await openBrowser(res.auth_url);
+            return;
+          }
+        } catch {
+          // ignore — fall back to the server root, which renders the web login
+          // (covers reverse-proxy login forms).
         }
-      } catch {
-        // ignore — fall back to the server root, which renders the web login
-        // (covers reverse-proxy login forms).
       }
 
       const fallbackUrl = getCurrentServerUrl();
@@ -1122,7 +1254,8 @@ function OidcStep({
       }
     };
     init();
-  }, [openBrowser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleNav = (navState: WebViewNavigation) => {
     if (!navState.loading) setUrl(navState.url);
@@ -1145,12 +1278,21 @@ function OidcStep({
   };
 
   const onMessage = async (event: any) => {
-    if (authenticating) return;
+    if (authStartedRef.current) return;
     try {
       const data = JSON.parse(event.nativeEvent.data);
-      if (data.type === "AUTH_SUCCESS" && data.token) {
-        await completeNativeAuth(data.token);
+      if (data.type !== "AUTH_SUCCESS") return;
+      if (!data.token || String(data.token).length < 20) {
+        // The web page signalled success but couldn't hand us a usable token
+        // (e.g. an older server build, or the JWT cookie wasn't readable). Don't
+        // leave the user stuck on the web "Redirecting…" screen with no feedback.
+        Alert.alert(
+          "Sign in failed",
+          "Signed in on the web page but the app didn't receive a session token. Make sure the server is up to date, then try again.",
+        );
+        return;
       }
+      await completeNativeAuth(String(data.token));
     } catch {
       setAuthenticating(false);
     }
@@ -1161,6 +1303,25 @@ function OidcStep({
       const isCallback = window.location.href.includes('/oidc/callback') ||
                          window.location.href.includes('?success=') ||
                          window.location.href.includes('?error=');
+
+      // On a fresh (non-callback) page load, drop any JS-readable leftover token
+      // so the web app doesn't silently resume the PREVIOUS account — otherwise
+      // an OIDC sign-in can hand back the old user's token. (HttpOnly cookies
+      // can't be cleared here, but this covers the localStorage/readable-cookie
+      // case the web app uses for the handoff.)
+      if (!isCallback) {
+        try {
+          localStorage.removeItem('jwt');
+          sessionStorage.removeItem('jwt');
+          document.cookie.split(';').forEach(function(c) {
+            const name = c.split('=')[0].trim();
+            if (name === 'jwt') {
+              document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;';
+              document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;domain=' + window.location.hostname;
+            }
+          });
+        } catch (e) {}
+      }
 
       let hasNotified = false;
       let initialCheckComplete = false;
@@ -1176,8 +1337,30 @@ function OidcStep({
         } catch (e) {}
       };
 
+      // Primary recovery path: the web app authenticates via an HttpOnly cookie,
+      // which JS cannot read. A same-origin credentialed fetch to /users/me/token
+      // sends that cookie automatically and returns the JWT in the body.
+      const fetchTokenFromServer = () => {
+        if (hasNotified) return;
+        // Try the origin root first (standard nginx routes the API there), then
+        // a path relative to the current document directory (sub-path mounts).
+        const dir = window.location.pathname.replace(/[^/]*$/, '');
+        const candidates = ['/users/me/token', dir + 'users/me/token'];
+        candidates.forEach((url) => {
+          try {
+            fetch(url, { credentials: 'include', headers: { Accept: 'application/json' } })
+              .then((r) => (r.ok ? r.json() : null))
+              .then((d) => { if (d && d.token) notifyAuth(d.token); })
+              .catch(() => {});
+          } catch (e) {}
+        });
+      };
+
       const checkAuth = () => {
         try {
+          // Secondary fallbacks. Note: an HttpOnly 'jwt' cookie is invisible to
+          // document.cookie, so that scrape is a no-op for the standard flow and
+          // only catches non-HttpOnly storage some setups may use.
           const ls = localStorage.getItem('jwt');
           if (ls) { notifyAuth(ls); return true; }
           const ss = sessionStorage.getItem('jwt');
@@ -1197,8 +1380,10 @@ function OidcStep({
       const id = setInterval(() => {
         if (hasNotified) { clearInterval(id); return; }
         if (checkAuth()) clearInterval(id);
+        else if (isCallback) fetchTokenFromServer();
       }, 500);
       checkAuth();
+      if (isCallback) fetchTokenFromServer();
       setTimeout(() => { initialCheckComplete = true; }, 1000);
       setTimeout(() => clearInterval(id), 120000);
     })();
@@ -1278,13 +1463,19 @@ function OidcStep({
             document.body && (document.body.style.backgroundColor = '${bg}');
             document.documentElement.style.backgroundColor = '${bg}';
           `}
-          incognito={false}
+          incognito={incognito}
           cacheEnabled={false}
           cacheMode="LOAD_NO_CACHE"
           javaScriptEnabled
           domStorageEnabled
           startInLoadingState
-          sharedCookiesEnabled
+          // Keep the WebView's cookie jar ISOLATED from the native HTTP layer.
+          // With a reverse-proxy auth gate (e.g. Pangolin) in front, sharing
+          // cookies leaks the proxy's session cookies into native API requests,
+          // which makes the proxy bounce them to its HTML login page instead of
+          // reaching Termix. The native app authenticates purely via the Bearer
+          // JWT captured from the WebView, so it must NOT share cookies.
+          sharedCookiesEnabled={false}
           thirdPartyCookiesEnabled
           {...(Platform.OS === "android" && {
             mixedContentMode: "always" as const,
