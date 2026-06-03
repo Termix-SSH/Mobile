@@ -14,6 +14,7 @@ import {
   ShieldCheck,
   Monitor,
   Key,
+  FileText,
 } from "lucide-react-native";
 import { useAppContext } from "@/app/AppContext";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
@@ -300,6 +301,18 @@ export default function Settings() {
                     <ChevronRight size={15} color={color("muted-foreground")} />
                   </Pressable>
                 ) : null}
+                <Pressable
+                  onPress={() => router.push("/tabs/settings/Snippets" as any)}
+                  className="flex-row items-center justify-between border-t border-border py-3"
+                >
+                  <View className="flex-row items-center gap-2">
+                    <FileText size={15} color={color("muted-foreground")} />
+                    <Text weight="medium" className="text-sm text-foreground">
+                      Snippets
+                    </Text>
+                  </View>
+                  <ChevronRight size={15} color={color("muted-foreground")} />
+                </Pressable>
               </View>
             </View>
           </AccordionSection>

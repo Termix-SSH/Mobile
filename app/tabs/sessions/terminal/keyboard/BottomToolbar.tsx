@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { TerminalHandle } from "../Terminal";
@@ -18,6 +18,7 @@ interface BottomToolbarProps {
   isVisible: boolean;
   keyboardHeight: number;
   isKeyboardIntentionallyHidden?: boolean;
+  initialTab?: ToolbarMode;
 }
 
 export default function BottomToolbar({
@@ -25,9 +26,14 @@ export default function BottomToolbar({
   isVisible,
   keyboardHeight,
   isKeyboardIntentionallyHidden = false,
+  initialTab = "keyboard",
 }: BottomToolbarProps) {
-  const [mode, setMode] = useState<ToolbarMode>("keyboard");
+  const [mode, setMode] = useState<ToolbarMode>(initialTab);
   const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    setMode(initialTab);
+  }, [initialTab]);
 
   if (!isVisible) return null;
 

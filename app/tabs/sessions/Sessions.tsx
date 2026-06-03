@@ -98,6 +98,7 @@ export default function Sessions() {
     Dimensions.get("window"),
   );
   const [keyboardType, setKeyboardType] = useState<any>("default");
+  const [customKeyboardInitialTab, setCustomKeyboardInitialTab] = useState<"keyboard" | "snippets" | "history">("keyboard");
   const [hiddenInputValue, setHiddenInputValue] = useState("");
   const dictationBufferRef = useRef("");
   const dictationSentRef = useRef("");
@@ -446,13 +447,51 @@ export default function Sessions() {
         return;
       }
 
+      if (event.alt && !event.ctrl && event.input.length === 1) {
+        activeRef.current.sendInput(`\x1b${event.shift ? event.input.toUpperCase() : event.input}`);
+        return;
+      }
+
       const specialMap: Record<string, string> = {
         ArrowUp: "\x1b[A",
         ArrowDown: "\x1b[B",
         ArrowLeft: "\x1b[D",
         ArrowRight: "\x1b[C",
         Escape: "\x1b",
+        Backspace: "\x7f",
+        Delete: "\x1b[3~",
+        Home: "\x1b[H",
+        End: "\x1b[F",
+        PageUp: "\x1b[5~",
+        PageDown: "\x1b[6~",
+        F1: "\x1bOP",
+        F2: "\x1bOQ",
+        F3: "\x1bOR",
+        F4: "\x1bOS",
+        F5: "\x1b[15~",
+        F6: "\x1b[17~",
+        F7: "\x1b[18~",
+        F8: "\x1b[19~",
+        F9: "\x1b[20~",
+        F10: "\x1b[21~",
+        F11: "\x1b[23~",
+        F12: "\x1b[24~",
       };
+
+      // Shift+Arrow: send xterm modifier sequences
+      if (event.shift) {
+        const shiftArrowMap: Record<string, string> = {
+          ArrowUp: "\x1b[1;2A",
+          ArrowDown: "\x1b[1;2B",
+          ArrowRight: "\x1b[1;2C",
+          ArrowLeft: "\x1b[1;2D",
+        };
+        if (shiftArrowMap[event.input]) {
+          activeRef.current.sendInput(shiftArrowMap[event.input]);
+          return;
+        }
+      }
+
       if (specialMap[event.input]) {
         activeRef.current.sendInput(specialMap[event.input]);
         return;
@@ -527,6 +566,7 @@ export default function Sessions() {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
     if (isCustomKeyboardVisible) {
+      setCustomKeyboardInitialTab("keyboard");
       toggleCustomKeyboard();
       setKeyboardIntentionallyHidden(false);
       setTimeout(() => {
@@ -562,6 +602,23 @@ export default function Sessions() {
       }, 300);
     }
   };
+
+  const handleOpenSnippets = useCallback(() => {
+    setCustomKeyboardInitialTab("snippets");
+    if (!isCustomKeyboardVisible) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      toggleCustomKeyboard();
+      setKeyboardIntentionallyHidden(false);
+      requestAnimationFrame(() => { hiddenInputRef.current?.blur(); });
+      setTimeout(() => {
+        const activeRef = activeSessionId ? terminalRefs.current[activeSessionId] : null;
+        if (activeRef?.current) {
+          activeRef.current.fit();
+          setTimeout(() => activeRef.current?.scrollToBottom(), 50);
+        }
+      }, 300);
+    }
+  }, [isCustomKeyboardVisible, toggleCustomKeyboard, setKeyboardIntentionallyHidden, activeSessionId]);
 
   const handleModifierChange = useCallback((modifiers: ActiveModifiers) => {
     setActiveModifiers(modifiers);
@@ -791,6 +848,7 @@ export default function Sessions() {
                 keyboardIntentionallyHiddenRef.current
               }
               bottomInset={KEYBOARD_BAR_BOTTOM_INSET}
+              onOpenSnippets={handleOpenSnippets}
             />
           </View>
         )}
@@ -873,6 +931,7 @@ export default function Sessions() {
               isKeyboardIntentionallyHidden={
                 keyboardIntentionallyHiddenRef.current
               }
+              initialTab={customKeyboardInitialTab}
             />
           </View>
         )}
@@ -1010,7 +1069,7 @@ export default function Sessions() {
                   dictationSentRef.current = finalText;
                   if (finalText) activeRef.current?.sendInput(finalText);
                 }
-              }, 300);
+              }, 30);
             }}
             onSubmitEditing={() => {
               const activeRef = activeSessionId
@@ -1125,7 +1184,12 @@ export default function Sessions() {
               }
 
               if (finalKey !== null) {
-                if (key.length !== 1 || key === "Tab") {
+                // Only reset + suppress the next onChangeText for keys that
+                // actually mutate the hidden input value (backspace, enter,
+                // tab, escape). Delete/arrows/F-keys don't change it and
+                // should not eat the next typed character.
+                const resetsInput = ["Backspace", "Enter", "Tab", "Escape"].includes(key);
+                if (resetsInput) {
                   resetHiddenInputState();
                   ignoreNextTextChangeRef.current = true;
                   if (Platform.OS === "android") {

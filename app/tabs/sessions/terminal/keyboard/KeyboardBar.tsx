@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { TerminalHandle } from "../Terminal";
 import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";
 import { useOrientation } from "@/app/utils/orientation";
-import { BACKGROUNDS, BORDER_COLORS } from "@/app/constants/designTokens";
+import { BACKGROUNDS, BORDER_COLORS, ACCENT, TEXT_COLORS } from "@/app/constants/designTokens";
 
 interface KeyboardBarProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
@@ -18,6 +18,7 @@ interface KeyboardBarProps {
   }) => void;
   isKeyboardIntentionallyHidden?: boolean;
   bottomInset?: number;
+  onOpenSnippets?: () => void;
 }
 
 export default function KeyboardBar({
@@ -26,6 +27,7 @@ export default function KeyboardBar({
   onModifierChange,
   isKeyboardIntentionallyHidden = false,
   bottomInset = 0,
+  onOpenSnippets,
 }: KeyboardBarProps) {
   const { config } = useKeyboardCustomization();
   const { isLandscape } = useOrientation();
@@ -183,6 +185,35 @@ export default function KeyboardBar({
         )}
 
         {keys.map((key, index) => renderKey(key, index))}
+
+        {onOpenSnippets && (
+          <>
+            <View
+              style={{
+                width: StyleSheet.hairlineWidth,
+                height: 30,
+                backgroundColor: BORDER_COLORS.PRIMARY,
+                marginHorizontal: 8,
+              }}
+            />
+            <TouchableOpacity
+              onPress={onOpenSnippets}
+              style={{
+                height: 32,
+                paddingHorizontal: 10,
+                alignItems: "center",
+                justifyContent: "center",
+                borderWidth: StyleSheet.hairlineWidth,
+                borderColor: BORDER_COLORS.PRIMARY,
+                backgroundColor: BACKGROUNDS.CARD,
+              }}
+            >
+              <Text style={{ fontSize: 11, fontWeight: "600", color: ACCENT, letterSpacing: 0.5 }}>
+                {"{ }"}
+              </Text>
+            </TouchableOpacity>
+          </>
+        )}
       </ScrollView>
     </View>
   );

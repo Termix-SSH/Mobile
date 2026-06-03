@@ -1023,20 +1023,26 @@ function OidcStep({
     async (callbackUrl: string) => {
       if (!callbackUrl.startsWith("termix-mobile://oidc-callback")) return;
 
-      let parsed: URL;
-      try {
-        parsed = new URL(callbackUrl);
-      } catch {
-        return;
+      // Hermes's URL implementation may not parse custom schemes reliably,
+      // so extract query params manually from the raw string.
+      const qIndex = callbackUrl.indexOf("?");
+      const queryString = qIndex !== -1 ? callbackUrl.slice(qIndex + 1) : "";
+      const params: Record<string, string> = {};
+      for (const pair of queryString.split("&")) {
+        const eqIdx = pair.indexOf("=");
+        if (eqIdx === -1) continue;
+        const k = decodeURIComponent(pair.slice(0, eqIdx));
+        const v = decodeURIComponent(pair.slice(eqIdx + 1));
+        params[k] = v;
       }
 
-      const error = parsed.searchParams.get("error");
+      const error = params["error"];
       if (error) {
         Alert.alert("Sign in failed", error);
         return;
       }
 
-      const token = parsed.searchParams.get("token");
+      const token = params["token"];
       if (!token) {
         Alert.alert("Sign in failed", "The server did not return a token.");
         return;

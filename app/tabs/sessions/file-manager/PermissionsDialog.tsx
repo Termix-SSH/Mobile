@@ -74,9 +74,7 @@ export function PermissionsDialog({
             variant="accent"
             className="flex-1"
             onPress={() => onApply(octal)}
-          >
-            Apply ({octal})
-          </Button>
+          >{`Apply (${octal})`}</Button>
         </View>
       }
     >
