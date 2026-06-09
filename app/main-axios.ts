@@ -1007,9 +1007,13 @@ export async function exportSSHHostWithCredentials(
 
 export async function getGuacamoleTokenFromHost(
   hostId: number,
+  protocol?: "rdp" | "vnc" | "telnet",
 ): Promise<{ token: string }> {
   try {
-    const response = await authApi.post(`/guacamole/connect-host/${hostId}`);
+    const response = await authApi.post(
+      `/guacamole/connect-host/${hostId}`,
+      protocol ? { protocol } : {},
+    );
     return response.data;
   } catch (error) {
     handleApiError(error, "connect Guacamole host");

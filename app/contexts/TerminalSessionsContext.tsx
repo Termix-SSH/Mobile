@@ -26,6 +26,8 @@ export type SessionType =
   | "docker"
   | "remoteDesktop";
 
+export type RemoteDesktopProtocol = "rdp" | "vnc" | "telnet";
+
 export interface TerminalSession {
   id: string;
   host: SSHHost;
@@ -39,24 +41,49 @@ export interface TerminalSession {
   backendSessionId?: string | null;
   /** When set, the terminal should attach to this backend session on connect. */
   restoredSessionId?: string | null;
+  /** Selected protocol for remote desktop tabs. */
+  remoteProtocol?: RemoteDesktopProtocol;
 }
 
-const TYPE_LABELS: Record<SessionType, string> = {
+const TYPE_LABELS: Record<Exclude<SessionType, "remoteDesktop">, string> = {
   terminal: "",
   stats: "Stats",
   filemanager: "Files",
   tunnel: "Tunnels",
   docker: "Docker",
-  remoteDesktop: "Remote",
 };
 
+function getSessionTypeLabel(
+  type: SessionType,
+  remoteProtocol?: RemoteDesktopProtocol,
+): string {
+  if (type === "remoteDesktop") {
+    return remoteProtocol ? remoteProtocol.toUpperCase() : "Remote";
+  }
+  return TYPE_LABELS[type];
+}
+
+function isSameSessionKind(
+  session: Pick<TerminalSession, "host" | "type" | "remoteProtocol">,
+  host: SSHHost,
+  type: SessionType,
+  remoteProtocol?: RemoteDesktopProtocol,
+): boolean {
+  if (session.host.id !== host.id || session.type !== type) return false;
+  if (type !== "remoteDesktop") return true;
+  return session.remoteProtocol === remoteProtocol;
+}
+
 /** open-tabs tabType is shared with the web app; map our session types to it. */
-function toTabType(type: SessionType): string {
+function toTabType(
+  type: SessionType,
+  remoteProtocol?: RemoteDesktopProtocol,
+): string {
   switch (type) {
     case "filemanager":
       return "files";
     case "remoteDesktop":
-      return "rdp";
+      return remoteProtocol ?? "rdp";
     default:
       return type;
   }
@@ -80,7 +107,11 @@ interface TerminalSessionsContextType {
   addSession: (
     host: SSHHost,
     type?: SessionType,
-    opts?: { instanceId?: string; restoredSessionId?: string | null },
+    opts?: {
+      instanceId?: string;
+      restoredSessionId?: string | null;
+      remoteProtocol?: RemoteDesktopProtocol;
+    },
   ) => string;
   removeSession: (sessionId: string) => void;
   setActiveSession: (sessionId: string) => void;
@@ -89,7 +120,11 @@ interface TerminalSessionsContextType {
   setBackendSessionId: (sessionId: string, backendId: string | null) => void;
   /** Forget a server-side background tab record. */
   forgetBackgroundTab: (recordId: string) => void;
-  navigateToSessions: (host?: SSHHost, type?: SessionType) => void;
+  navigateToSessions: (
+    host?: SSHHost,
+    type?: SessionType,
+    opts?: { remoteProtocol?: RemoteDesktopProtocol },
+  ) => void;
   isCustomKeyboardVisible: boolean;
   toggleCustomKeyboard: () => void;
   lastKeyboardHeight: number;
@@ -139,17 +174,22 @@ export const TerminalSessionsProvider: React.FC<
     (
       host: SSHHost,
       type: SessionType = "terminal",
-      opts?: { instanceId?: string; restoredSessionId?: string | null },
+      opts?: {
+        instanceId?: string;
+        restoredSessionId?: string | null;
+        remoteProtocol?: RemoteDesktopProtocol;
+      },
     ): string => {
       const instanceId = opts?.instanceId ?? uuid();
       const sessionId = `${host.id}-${type}-${Date.now()}`;
 
       setSessions((prev) => {
         const existingSessions = prev.filter(
-          (session) => session.host.id === host.id && session.type === type,
+          (session) =>
+            isSameSessionKind(session, host, type, opts?.remoteProtocol),
         );
 
-        const typeLabel = TYPE_LABELS[type];
+        const typeLabel = getSessionTypeLabel(type, opts?.remoteProtocol);
         let title = typeLabel ? `${host.name} - ${typeLabel}` : host.name;
         if (existingSessions.length > 0) {
           title = typeLabel
@@ -167,12 +207,13 @@ export const TerminalSessionsProvider: React.FC<
           instanceId,
           backendSessionId: opts?.restoredSessionId ?? null,
           restoredSessionId: opts?.restoredSessionId ?? null,
+          remoteProtocol: opts?.remoteProtocol,
         };
 
         // Persist this tab server-side for cross-device awareness.
         addOpenTab({
           id: instanceId,
-          tabType: toTabType(type),
+          tabType: toTabType(type, opts?.remoteProtocol),
           hostId: host.id,
           label: title,
           tabOrder: prev.length,
@@ -205,11 +246,16 @@ export const TerminalSessionsProvider: React.FC<
       let updatedSessions = prev.filter((session) => session.id !== sessionId);
 
       // Re-number sibling sessions of the same host/type.
-      const hostId = sessionToRemove.host.id;
       const sessionType = sessionToRemove.type;
+      const remoteProtocol = sessionToRemove.remoteProtocol;
       const sameHostSessions = updatedSessions.filter(
         (session) =>
-          session.host.id === hostId && session.type === sessionType,
+          isSameSessionKind(
+            session,
+            sessionToRemove.host,
+            sessionType,
+            remoteProtocol,
+          ),
       );
 
       if (sameHostSessions.length > 0) {
@@ -221,7 +267,10 @@ export const TerminalSessionsProvider: React.FC<
             (s) => s.id === session.id,
           );
           if (sessionIndex !== -1) {
-            const typeLabel = TYPE_LABELS[session.type];
+            const typeLabel = getSessionTypeLabel(
+              session.type,
+              session.remoteProtocol,
+            );
             const baseName = typeLabel
               ? `${session.host.name} - ${typeLabel}`
               : session.host.name;
@@ -294,9 +343,13 @@ export const TerminalSessionsProvider: React.FC<
   }, []);
 
   const navigateToSessions = useCallback(
-    (host?: SSHHost, type: SessionType = "terminal") => {
+    (
+      host?: SSHHost,
+      type: SessionType = "terminal",
+      opts?: { remoteProtocol?: RemoteDesktopProtocol },
+    ) => {
       if (host) {
-        addSession(host, type);
+        addSession(host, type, opts);
       }
       router.push("/(tabs)/sessions");
     },
