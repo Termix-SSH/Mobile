@@ -332,6 +332,8 @@ export function RemoteDesktop({
       // ── Single touch state ───────────────────────────────────────────────
       let tpX = 0, tpY = 0, tpTime = 0, tpMoved = false;
       let tfTimer = null;
+      const TAP_MS = 350;
+      const TAP_MOVE_PX = 8;
 
       const dist2 = (e) => {
         const dx = e.touches[1].clientX - e.touches[0].clientX;
@@ -430,13 +432,15 @@ export function RemoteDesktop({
 
         if (e.touches.length !== 1) return;
         const tx = e.touches[0].clientX, ty = e.touches[0].clientY;
-        if (Math.abs(tx - tpX) > 4 || Math.abs(ty - tpY) > 4) tpMoved = true;
+        const moved =
+          Math.abs(tx - tpX) > TAP_MOVE_PX ||
+          Math.abs(ty - tpY) > TAP_MOVE_PX;
 
         if (currentMode === 'touch') {
           // Single finger always drives the remote mouse (click+drag), even when zoomed.
           // The coordinate mapping (toRemote) already accounts for pan+zoom.
           sendMouseAt(tx, ty, false, false, false, false);
-          tpMoved = true;
+          if (moved) tpMoved = true;
         } else {
           // Trackpad: relative movement
           const rdx = (tx - tpX) * SENS * (remoteW / vpW()) / zoom;
@@ -457,7 +461,7 @@ export function RemoteDesktop({
 
         if (currentMode === 'touch') {
           // Tap (no movement, quick) = click
-          if (!tpMoved && dur < 250 && e.changedTouches.length === 1 && e.touches.length === 0) {
+          if (!tpMoved && dur < TAP_MS && e.changedTouches.length === 1 && e.touches.length === 0) {
             const tx = e.changedTouches[0].clientX, ty = e.changedTouches[0].clientY;
             sendMouseAt(tx, ty, true, false, false, false);
             setTimeout(() => sendMouseAt(tx, ty, false, false, false, false), 60);
@@ -465,7 +469,7 @@ export function RemoteDesktop({
         } else {
           // Trackpad
           if (e.touches.length === 0) {
-            if (!tpMoved && dur < 250 && e.changedTouches.length === 1) {
+            if (!tpMoved && dur < TAP_MS && e.changedTouches.length === 1) {
               sendMouseCursor(true, false);
               setTimeout(() => sendMouseCursor(false, false), 60);
             }
