@@ -2291,6 +2291,37 @@ function extractJwtFromSetCookie(headers: any): string | null {
   return null;
 }
 
+function isLocalNetworkHttpsUrl(url: string): boolean {
+  if (!url.startsWith("https://")) return false;
+
+  try {
+    const host = new URL(url).hostname.replace(/^\[|\]$/g, "");
+    if (host === "localhost" || host === "::1") return true;
+
+    const parts = host.split(".").map((part) => Number(part));
+    if (parts.length !== 4 || parts.some((part) => !Number.isInteger(part))) {
+      return false;
+    }
+
+    const [first, second] = parts;
+    return (
+      first === 10 ||
+      first === 127 ||
+      (first === 169 && second === 254) ||
+      (first === 172 && second >= 16 && second <= 31) ||
+      (first === 192 && second === 168)
+    );
+  } catch {
+    return false;
+  }
+}
+
+function isNativeNetworkFailure(error: unknown): boolean {
+  return (
+    error instanceof Error && error.message.includes("Network request failed")
+  );
+}
+
 /**
  * Detects whether the server URL sits behind a reverse-proxy authentication
  * gate (Cloudflare Access, Authelia, etc.) that intercepts requests and serves
@@ -2353,11 +2384,23 @@ async function loginWithFetch(
   password: string,
 ): Promise<{ data: any; token: string | null }> {
   const url = `${baseUrl.replace(/\/$/, "")}/users/login`;
-  const fetchResponse = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password }),
-  });
+  let fetchResponse: Response;
+  try {
+    fetchResponse = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+  } catch (error) {
+    if (isLocalNetworkHttpsUrl(url) && isNativeNetworkFailure(error)) {
+      throw new ApiError(
+        "The app could not trust HTTPS for this local IP. Use a DNS name with a valid certificate, a certificate for this IP, or HTTP on a trusted local/VPN network.",
+        0,
+        "LOCAL_IP_HTTPS_CERTIFICATE_ERROR",
+      );
+    }
+    throw error;
+  }
 
   const contentType = (
     fetchResponse.headers.get("content-type") || ""
