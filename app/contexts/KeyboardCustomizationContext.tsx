@@ -14,6 +14,10 @@ import {
   KeyboardSettings,
 } from "@/types/keyboard";
 import { getPresetById } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
+import {
+  DEFAULT_KEY_REPEAT_INTERVAL,
+  DEFAULT_KEY_REPEAT_INITIAL_DELAY,
+} from "@/constants/keyboard-repeat-config";
 
 const STORAGE_KEY = "keyboardCustomization";
 const DEFAULT_PRESET_ID: PresetType = "default";
@@ -42,6 +46,8 @@ const getDefaultConfig = (): KeyboardCustomization => {
       compactMode: false,
       hapticFeedback: false,
       showHints: true,
+      keyRepeatInterval: DEFAULT_KEY_REPEAT_INTERVAL,
+      keyRepeatInitialDelay: DEFAULT_KEY_REPEAT_INITIAL_DELAY,
     },
   };
 };

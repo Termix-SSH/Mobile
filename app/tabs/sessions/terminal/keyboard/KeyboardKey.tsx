@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { TouchableOpacity, Text } from "react-native";
 import * as Haptics from "expo-haptics";
 import { KeySize } from "@/types/keyboard";
@@ -7,6 +7,11 @@ import {
   BORDER_COLORS,
   ACCENT,
 } from "@/app/constants/designTokens";
+import {
+  DEFAULT_KEY_REPEAT_INTERVAL,
+  DEFAULT_KEY_REPEAT_INITIAL_DELAY,
+  useKeyRepeat,
+} from "@/constants/keyboard-repeat-config";
 
 interface KeyboardKeyProps {
   label: string;
@@ -18,6 +23,9 @@ interface KeyboardKeyProps {
   keySize?: KeySize;
   hapticFeedback?: boolean;
   onLongPress?: () => void;
+  keyRepeatEnabled?: boolean;
+  keyRepeatInterval?: number;
+  keyRepeatInitialDelay?: number;
 }
 
 export default function KeyboardKey({
@@ -30,16 +38,43 @@ export default function KeyboardKey({
   keySize = "medium",
   hapticFeedback = false,
   onLongPress,
+  keyRepeatEnabled = false,
+  keyRepeatInterval = DEFAULT_KEY_REPEAT_INTERVAL,
+  keyRepeatInitialDelay = DEFAULT_KEY_REPEAT_INITIAL_DELAY,
 }: KeyboardKeyProps) {
-  const handlePress = () => {
-    if (hapticFeedback) {
+  const [isPressed, setIsPressed] = useState(false);
+  const onPressRef = useRef(onPress);
+  const hapticFeedbackRef = useRef(hapticFeedback);
+
+  useEffect(() => {
+    onPressRef.current = onPress;
+  }, [onPress]);
+
+  useEffect(() => {
+    hapticFeedbackRef.current = hapticFeedback;
+  }, [hapticFeedback]);
+
+  const handlePressIn = useCallback(() => {
+    setIsPressed(true);
+  }, []);
+
+  const handlePress = useCallback(() => {
+    if (hapticFeedbackRef.current) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
-    onPress();
-  };
+    onPressRef.current();
+  }, []);
+
+  useKeyRepeat(
+    isPressed, keyRepeatEnabled, handlePress, keyRepeatInterval, keyRepeatInitialDelay,
+  );
+
+  const handlePressOut = useCallback(() => {
+    setIsPressed(false);
+  }, []);
 
   const handleLongPress = () => {
-    if (hapticFeedback) {
+    if (hapticFeedbackRef.current) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     }
     if (onLongPress) {
@@ -88,6 +123,8 @@ export default function KeyboardKey({
         borderColor,
         borderRadius: 0,
       }}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
       onPress={handlePress}
       onLongPress={onLongPress ? handleLongPress : undefined}
       activeOpacity={0.7}
