@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { View, ScrollView, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -10,11 +10,17 @@ import {
   SlidersHorizontal,
 } from "lucide-react-native";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
-import { PRESET_DEFINITIONS } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
+import { ALL_KEYS, PRESET_DEFINITIONS } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
 import { PresetType, KeyConfig } from "@/types/keyboard";
 import { toast } from "@/app/utils/toast";
-import { Text, Button, Label, FakeSwitch, Dialog } from "@/app/components/ui";
+import { Text, Button, Label, FakeSwitch, Dialog, Input, SettingRow } from "@/app/components/ui";
+import { AccordionSection } from "@/app/components/ui/Accordion";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
+import {
+  DEFAULT_KEY_REPEAT_INTERVAL,
+  DEFAULT_KEY_REPEAT_INITIAL_DELAY,
+  REPEATING_KEY_IDS,
+} from "@/constants/keyboard-repeat-config";
 import KeySelector from "./components/KeySelector";
 import UnifiedDraggableList, {
   UnifiedListItem,
@@ -78,6 +84,15 @@ export default function KeyboardCustomization() {
 
   const [activeTab, setActiveTab] = useState<TabType>("presets");
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+
+  const [repeatIntervalText, setRepeatIntervalText] = useState(config.settings.keyRepeatInterval?.toString() || "");
+  const [initialDelayText, setInitialDelayText] = useState(config.settings.keyRepeatInitialDelay?.toString() || "");
+
+  useEffect(() => {
+    setRepeatIntervalText(config.settings.keyRepeatInterval?.toString() || "");
+    setInitialDelayText(config.settings.keyRepeatInitialDelay?.toString() || "");
+  }, [config.settings.keyRepeatInterval, config.settings.keyRepeatInitialDelay]);
+
   const [resetType, setResetType] = useState<"all" | "topbar" | "fullkeyboard">(
     "all",
   );
@@ -565,7 +580,70 @@ export default function KeyboardCustomization() {
               onChange={(v) => updateSettings({ showHints: v })}
             />
           </View>
+
         </View>
+      </View>
+
+      {/* Key Repeat */}
+      <View className="border border-border bg-card">
+        <View className="border-b border-border px-3 py-3">
+          <Label>Key Repeat</Label>
+        </View>
+        <View className="px-3 mb-2">
+          <SettingRow label="Initial Delay" description="Milliseconds before repeat starts">
+            <Input
+              containerClassName="w-16"
+              className="w-16"
+              keyboardType="number-pad"
+              placeholder={String(DEFAULT_KEY_REPEAT_INITIAL_DELAY)}
+              textAlign="right"
+              maxLength={4}
+              value={initialDelayText}
+              onChangeText={(t) => setInitialDelayText(t.replace(/\D/g, "")) }
+              onEndEditing={(e) => {
+                const val = parseInt(e.nativeEvent.text.replace(/\D/g, ""));
+                updateSettings({ keyRepeatInitialDelay: val || undefined });
+                setInitialDelayText(String(val || ""));
+              }}
+            />
+          </SettingRow>
+
+          <SettingRow label="Repeat Interval" description="Milliseconds between repeated keystrokes" last={true}>
+            <Input
+              containerClassName="w-16"
+              className="w-16"
+              keyboardType="number-pad"
+              placeholder={String(DEFAULT_KEY_REPEAT_INTERVAL)}
+              textAlign="right"
+              maxLength={4}
+              value={repeatIntervalText}
+              onChangeText={(t) => setRepeatIntervalText(t.replace(/\D/g, "")) }
+              onEndEditing={(e) => {
+                const val = parseInt(e.nativeEvent.text.replace(/\D/g, ""));
+                updateSettings({ keyRepeatInterval: val || undefined });
+                setRepeatIntervalText(String(val || ""));
+              }}
+            />
+          </SettingRow>
+        </View>
+
+        <AccordionSection label="Repeating keys">
+          <Text className="px-3 py-3 mt-0.5 text-[10px] text-muted-foreground">These keys repeat continuously when held down</Text>
+          {Array.from(REPEATING_KEY_IDS).map((id) => {
+            const keyConfig = ALL_KEYS[id];
+            if (!keyConfig) return null;
+            return (
+              <View key={id} className="flex-row items-center gap-2 py-0.5">
+                <Text className="w-20 text-center text-sm text-foreground">
+                  {keyConfig.label}
+                </Text>
+                <Text className="text-[11px] text-muted-foreground">
+                  {keyConfig.description ?? id}
+                </Text>
+              </View>
+            );
+          })}
+        </AccordionSection>
       </View>
 
       {/* Reset */}

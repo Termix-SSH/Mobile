@@ -15,6 +15,7 @@ export function AccordionSection({
   open: controlledOpen,
   onToggle,
   children,
+  containerClassName,
 }: {
   label: string;
   icon?: React.ReactNode;
@@ -22,6 +23,7 @@ export function AccordionSection({
   open?: boolean;
   onToggle?: () => void;
   children: React.ReactNode;
+  containerClassName?: string;
 }) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
   const isControlled = controlledOpen !== undefined;
@@ -29,7 +31,7 @@ export function AccordionSection({
   const muted = useThemeColor()("muted-foreground");
 
   return (
-    <View className="overflow-hidden border border-border bg-card">
+    <View className={`overflow-hidden border border-border bg-card ${containerClassName}`}>
       <Pressable
         onPress={() => {
           if (isControlled) onToggle?.();
