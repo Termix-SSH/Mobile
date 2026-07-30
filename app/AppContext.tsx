@@ -136,13 +136,24 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             try {
               const { getUserInfo } = await import("./main-axios");
               const meRes = await getUserInfo();
-              if (meRes && meRes.username && meRes.data_unlocked === true) {
+              if (meRes && meRes.username) {
                 authStatus = true;
               }
-            } catch (e) {
-              console.error("[AppContext] Auto-login failed:", e);
-              authStatus = false;
-              await AsyncStorage.removeItem("jwt");
+            } catch (e: any) {
+              const status = e?.status ?? e?.response?.status;
+              if (status === 401 || e?.code === "AUTH_REQUIRED") {
+                // Token rejected by the server, so drop it.
+                authStatus = false;
+                await AsyncStorage.removeItem("jwt");
+              } else {
+                // Server unreachable; keep the session and let the 401
+                // interceptor sign out if the token is actually bad.
+                console.warn(
+                  "[AppContext] Auth probe failed, keeping session:",
+                  e,
+                );
+                authStatus = true;
+              }
             }
           }
 
@@ -207,11 +218,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           const { getUserInfo } = await import("./main-axios");
           const userInfo = await getUserInfo();
 
-          if (
-            !userInfo ||
-            !userInfo.username ||
-            userInfo.data_unlocked === false
-          ) {
+        if (!userInfo || !userInfo.username) {
             setAuthenticated(false);
           }
         } catch (error) {
