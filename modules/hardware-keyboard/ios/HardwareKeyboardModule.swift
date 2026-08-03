@@ -75,7 +75,7 @@ public class HardwareKeyboardModule: Module {
 
 extension UIResponder {
   @objc func hk_pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-    let handled = presses.contains { press in
+    let handled = presses.contains(where: { press in
       guard press.type == .keyboard, let key = press.key else { return false }
 
       let modifiers = key.modifierFlags
@@ -169,7 +169,7 @@ extension UIResponder {
         }
         return false
       }
-    }
+    })
 
     if !handled {
       self.hk_pressesBegan(presses, with: event)
