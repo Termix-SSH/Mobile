@@ -46,6 +46,7 @@ import {
   type ThemeId,
 } from "@/app/constants/theme";
 import { toast } from "@/app/utils/toast";
+import { clearCachedUserId } from "@/app/utils/user";
 
 export default function Settings() {
   const router = useRouter();
@@ -114,6 +115,7 @@ export default function Settings() {
       // best-effort — server-side logout may fail if token already expired
     }
     await clearSession();
+    clearCachedUserId();
     clearAllSessions();
     setAuthenticated(false);
     // The tabs fall back to their "no server connected" empty states; the user
@@ -130,6 +132,7 @@ export default function Settings() {
       // best-effort — session may already be gone
     }
     await clearSession();
+    clearCachedUserId();
     openAuthFlow("server");
   };
 

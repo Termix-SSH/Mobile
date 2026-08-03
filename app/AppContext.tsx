@@ -15,8 +15,12 @@ import {
   getLatestGitHubRelease,
   setAuthStateCallback,
   getCurrentServerUrl,
+  getUserInfo,
+  clearAuth,
+  isUnauthorizedError,
 } from "./main-axios";
 import Constants from "expo-constants";
+import { clearCachedUserId } from "./utils/user";
 
 interface Server {
   name: string;
@@ -116,55 +120,85 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
         await initializeServerConfig();
 
-        const serverConfig = await AsyncStorage.getItem("serverConfig");
-        const legacyServer = await AsyncStorage.getItem("server");
-
-        await getVersionInfo();
-
-        const shouldShowUpdateScreen = await checkShouldShowUpdateScreen();
-        setShowUpdateScreen(shouldShowUpdateScreen);
-
-        const serverConfigured = !!(serverConfig || legacyServer);
+        const serverUrl = getCurrentServerUrl();
+        const serverConfigured = !!serverUrl;
         setHasServerConfigured(serverConfigured);
+        setSelectedServer(serverUrl ? { name: "Server", ip: serverUrl } : null);
 
         if (serverConfigured) {
-          let authStatus = false;
-
           const jwtToken = await AsyncStorage.getItem("jwt");
 
           if (jwtToken) {
-            try {
-              const { getUserInfo } = await import("./main-axios");
-              const meRes = await getUserInfo();
-              if (meRes && meRes.username && meRes.data_unlocked === true) {
-                authStatus = true;
+            const validationPromise = getUserInfo();
+            const validationResult = await Promise.race([
+              validationPromise.then(
+                (user) => ({ type: "user" as const, user }),
+                (error) => ({ type: "error" as const, error }),
+              ),
+              new Promise<{ type: "timeout" }>((resolve) => {
+                setTimeout(() => resolve({ type: "timeout" }), 1500);
+              }),
+            ]);
+
+            if (validationResult.type === "user") {
+              setAuthenticated(
+                !!(
+                  validationResult.user?.username &&
+                  validationResult.user.data_unlocked !== false
+                ),
+              );
+            } else if (
+              validationResult.type === "error" &&
+              isUnauthorizedError(validationResult.error)
+            ) {
+              clearCachedUserId();
+              await clearAuth();
+              setAuthenticated(false);
+            } else {
+              // A slow/offline server must not destroy the persisted session.
+              // If the request is still running, apply its eventual authoritative
+              // response after the app has opened.
+              setAuthenticated(true);
+              if (validationResult.type === "timeout") {
+                void validationPromise
+                  .then((user) => {
+                    setAuthenticated(
+                      !!(user?.username && user.data_unlocked !== false),
+                    );
+                  })
+                  .catch(async (error) => {
+                    if (isUnauthorizedError(error)) {
+                      clearCachedUserId();
+                      await clearAuth();
+                      setAuthenticated(false);
+                    }
+                  });
               }
-            } catch (e) {
-              console.error("[AppContext] Auto-login failed:", e);
-              authStatus = false;
-              await AsyncStorage.removeItem("jwt");
             }
+          } else {
+            setAuthenticated(false);
           }
 
-          let serverInfo: Server | null = null;
-          if (legacyServer) {
-            serverInfo = JSON.parse(legacyServer);
-          } else if (serverConfig) {
-            const config = JSON.parse(serverConfig);
-            serverInfo = { name: "Server", ip: config.serverUrl };
-          }
-          setSelectedServer(serverInfo);
-
-          setAuthenticated(authStatus);
-          // A configured-but-unauthenticated server lands the user on the
-          // empty-state shell; they re-open the auth flow themselves.
+          // Server/version availability must not delay or determine whether
+          // local state can be restored on launch.
+          void getVersionInfo().catch((error) => {
+            console.warn("[AppContext] Version check failed:", error);
+          });
         } else {
-          // Brand-new install: guide the user, but the flow is dismissible.
           setAuthenticated(false);
           openAuthFlow("server");
         }
+
+        void checkShouldShowUpdateScreen().then(setShowUpdateScreen);
       } catch (error) {
+        const serverUrl = getCurrentServerUrl();
+        setHasServerConfigured(!!serverUrl);
+        setSelectedServer(serverUrl ? { name: "Server", ip: serverUrl } : null);
         setAuthenticated(false);
+        if (!serverUrl) {
+          openAuthFlow("server");
+        }
+        console.error("[AppContext] Failed to initialize app:", error);
       } finally {
         setIsLoading(false);
       }
@@ -176,9 +210,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   useEffect(() => {
     setAuthStateCallback((authed: boolean) => {
       if (!authed) {
-        // Token expired / 401: drop to the empty-state shell. Tabs render
-        // their "no server connected" prompt; the user re-authenticates.
+        // Critical API 401: clear only the invalid JWT. The configured server
+        // remains available so the user sees "Sign in", not "Add server".
         setAuthenticated(false);
+        clearCachedUserId();
+        void clearAuth();
       }
     });
   }, []);

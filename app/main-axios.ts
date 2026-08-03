@@ -69,6 +69,7 @@ export async function setCookie(
     systemLogger.error(`[setCookie] Failed to persist ${name} to AsyncStorage`, error, {
       operation: "set_cookie",
     });
+    throw error;
   }
 }
 
@@ -278,16 +279,53 @@ export async function saveServerConfig(config: ServerConfig): Promise<boolean> {
 
 export async function initializeServerConfig(): Promise<void> {
   try {
-    const configStr = await AsyncStorage.getItem("serverConfig");
+    const [configStr, legacyServerStr] = await Promise.all([
+      AsyncStorage.getItem("serverConfig"),
+      AsyncStorage.getItem("server"),
+    ]);
+
+    let serverUrl: string | null = null;
 
     if (configStr) {
-      const config = JSON.parse(configStr);
-
-      if (config?.serverUrl) {
-        configuredServerUrl = config.serverUrl;
-        updateApiInstances();
-        await detectAndUpdateApiInstances();
+      try {
+        const config = JSON.parse(configStr);
+        if (typeof config?.serverUrl === "string" && config.serverUrl.trim()) {
+          serverUrl = config.serverUrl.trim();
+        }
+      } catch (error) {
+        systemLogger.warn("[initializeServerConfig] Invalid serverConfig JSON", {
+          operation: "initialize_server_config",
+          error: error instanceof Error ? error.message : String(error),
+        });
       }
+    }
+
+    if (!serverUrl && legacyServerStr) {
+      try {
+        const legacyServer = JSON.parse(legacyServerStr);
+        const legacyUrl = legacyServer?.serverUrl ?? legacyServer?.ip;
+        if (typeof legacyUrl === "string" && legacyUrl.trim()) {
+          serverUrl = legacyUrl.trim();
+          await AsyncStorage.setItem(
+            "serverConfig",
+            JSON.stringify({
+              serverUrl,
+              lastUpdated: new Date().toISOString(),
+            }),
+          );
+        }
+      } catch (error) {
+        systemLogger.warn("[initializeServerConfig] Invalid legacy server data", {
+          operation: "initialize_server_config",
+          error: error instanceof Error ? error.message : String(error),
+        });
+      }
+    }
+
+    if (serverUrl) {
+      configuredServerUrl = serverUrl;
+      updateApiInstances();
+      await detectAndUpdateApiInstances();
     }
   } catch (error) {
     systemLogger.error("[initializeServerConfig] Failed to load server config", error, {
@@ -581,6 +619,31 @@ class ApiError extends Error {
     super(message);
     this.name = "ApiError";
   }
+}
+
+export function isUnauthorizedError(error: unknown): boolean {
+  if (axios.isAxiosError(error)) {
+    return error.response?.status === 401;
+  }
+
+  if (error instanceof ApiError) {
+    return error.status === 401 || error.code === "AUTH_REQUIRED";
+  }
+
+  if (error && typeof error === "object") {
+    const candidate = error as {
+      status?: number;
+      code?: string;
+      response?: { status?: number };
+    };
+    return (
+      candidate.status === 401 ||
+      candidate.response?.status === 401 ||
+      candidate.code === "AUTH_REQUIRED"
+    );
+  }
+
+  return false;
 }
 
 /**
@@ -2202,8 +2265,9 @@ function extractJwtFromSetCookie(headers: any): string | null {
   if (cookieHeader) {
     const cookies = Array.isArray(cookieHeader) ? cookieHeader : [cookieHeader];
     for (const cookie of cookies) {
-      if (cookie.startsWith("jwt=")) {
-        return cookie.split("jwt=")[1].split(";")[0];
+      const match = String(cookie).match(/(?:^|,\s*)jwt=([^;]+)/);
+      if (match) {
+        return match[1];
       }
     }
   }
@@ -2275,6 +2339,7 @@ async function loginWithFetch(
   const fetchResponse = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
+    credentials: "include",
     body: JSON.stringify({ username, password }),
   });
 
@@ -2322,6 +2387,36 @@ async function loginWithFetch(
   return { data, token };
 }
 
+async function fetchReusableJwtFromSession(
+  baseUrls: string[],
+): Promise<string | null> {
+  const uniqueBaseUrls = [
+    ...new Set(baseUrls.map((base) => base.replace(/\/$/, ""))),
+  ];
+
+  for (const baseUrl of uniqueBaseUrls) {
+    try {
+      const response = await fetch(`${baseUrl}/users/me/token`, {
+        method: "GET",
+        credentials: "include",
+        headers: { Accept: "application/json" },
+      });
+      if (!response.ok) {
+        continue;
+      }
+
+      const data = await response.json();
+      if (typeof data?.token === "string" && data.token) {
+        return data.token;
+      }
+    } catch {
+      // Try the next API layout before reporting a missing reusable token.
+    }
+  }
+
+  return null;
+}
+
 export async function loginUser(
   username: string,
   password: string,
@@ -2350,11 +2445,24 @@ export async function loginUser(
       }
     }
 
-    if (finalToken) {
-      await AsyncStorage.setItem("jwt", finalToken);
+    if (!finalToken) {
+      finalToken = await fetchReusableJwtFromSession([
+        baseUrl,
+        getSshBase(8081),
+      ]);
     }
 
-    return { ...data, token: finalToken || "" };
+    if (!finalToken) {
+      throw new ApiError(
+        "The server signed in successfully but did not expose a reusable mobile token. Update Termix Server or enable /users/me/token.",
+        undefined,
+        "AUTH_TOKEN_MISSING",
+      );
+    }
+
+    await AsyncStorage.setItem("jwt", finalToken);
+
+    return { ...data, token: finalToken };
   } catch (error: any) {
     if (error?.code === "PROXY_AUTH_GATE") {
       throw new ApiError(error.message, 0, "PROXY_AUTH_GATE");
@@ -2372,11 +2480,24 @@ export async function loginUser(
           return { ...data, token: data.temp_token || "" };
         }
 
-        if (token) {
-          await AsyncStorage.setItem("jwt", token);
+        const finalToken =
+          token ||
+          (await fetchReusableJwtFromSession([
+            altBase,
+            getRootBase(8081),
+          ]));
+
+        if (!finalToken) {
+          throw new ApiError(
+            "The server signed in successfully but did not expose a reusable mobile token. Update Termix Server or enable /users/me/token.",
+            undefined,
+            "AUTH_TOKEN_MISSING",
+          );
         }
 
-        return { ...data, token: token || "" };
+        await AsyncStorage.setItem("jwt", finalToken);
+
+        return { ...data, token: finalToken };
       } catch (e: any) {
         if (e?.code === "PROXY_AUTH_GATE") {
           throw new ApiError(e.message, 0, "PROXY_AUTH_GATE");
@@ -2407,9 +2528,13 @@ export async function getUserInfo(): Promise<UserInfo> {
   } catch (error: any) {
     if (error?.response?.status === 404) {
       try {
+        const token = await getCookie("jwt");
         const alt = axios.create({
           baseURL: getSshBase(8081),
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
         });
         const response = await alt.get("/users/me");
         return response.data;
@@ -2755,25 +2880,28 @@ export async function verifyTOTPLogin(
       totp_code,
     });
 
-    let token = null;
-    const cookieHeader = response.headers["set-cookie"];
-    if (cookieHeader && Array.isArray(cookieHeader)) {
-      for (const cookie of cookieHeader) {
-        if (cookie.startsWith("jwt=")) {
-          token = cookie.split("jwt=")[1].split(";")[0];
-          break;
-        }
-      }
+    const token = extractJwtFromSetCookie(response.headers);
+    let finalToken = token || response.data.token;
+    if (!finalToken) {
+      finalToken = await fetchReusableJwtFromSession([
+        getRootBase(8081),
+        getSshBase(8081),
+      ]);
+    }
+    if (!finalToken) {
+      throw new ApiError(
+        "The server signed in successfully but did not expose a reusable mobile token. Update Termix Server or enable /users/me/token.",
+        undefined,
+        "AUTH_TOKEN_MISSING",
+      );
     }
 
     const result = {
       ...response.data,
-      token: token || response.data.token,
+      token: finalToken,
     };
 
-    if (result.token) {
-      await AsyncStorage.setItem("jwt", result.token);
-    }
+    await AsyncStorage.setItem("jwt", finalToken);
 
     return result;
   } catch (error: any) {
@@ -2794,25 +2922,28 @@ export async function verifyTOTPLogin(
           totp_code,
         });
 
-        let extractedToken = null;
-        const cookieHeader = response.headers["set-cookie"];
-        if (cookieHeader && Array.isArray(cookieHeader)) {
-          for (const cookie of cookieHeader) {
-            if (cookie.startsWith("jwt=")) {
-              extractedToken = cookie.split("jwt=")[1].split(";")[0];
-              break;
-            }
-          }
+        const extractedToken = extractJwtFromSetCookie(response.headers);
+        let finalToken = extractedToken || response.data.token;
+        if (!finalToken) {
+          finalToken = await fetchReusableJwtFromSession([
+            getSshBase(8081),
+            getRootBase(8081),
+          ]);
+        }
+        if (!finalToken) {
+          throw new ApiError(
+            "The server signed in successfully but did not expose a reusable mobile token. Update Termix Server or enable /users/me/token.",
+            undefined,
+            "AUTH_TOKEN_MISSING",
+          );
         }
 
         const result = {
           ...response.data,
-          token: extractedToken || response.data.token,
+          token: finalToken,
         };
 
-        if (result.token) {
-          await AsyncStorage.setItem("jwt", result.token);
-        }
+        await AsyncStorage.setItem("jwt", finalToken);
 
         return result;
       } catch (e) {

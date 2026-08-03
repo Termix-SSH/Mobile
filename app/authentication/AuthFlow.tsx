@@ -28,6 +28,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, Input, Button, Label } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
+import { clearCachedUserId } from "@/app/utils/user";
 import { useAppContext } from "../AppContext";
 import {
   saveServerConfig,
@@ -50,6 +51,7 @@ import {
   clearSession,
   consumeFreshWebSession,
   logoutUser,
+  isUnauthorizedError,
 } from "../main-axios";
 
 type Step = "server" | "login" | "totp" | "signup" | "reset" | "oidc";
@@ -103,9 +105,14 @@ export default function AuthFlow() {
   }, []);
 
   const finishAuthenticated = useCallback(async () => {
-    try {
-      await initializeServerConfig();
-    } catch {}
+    const savedToken = await AsyncStorage.getItem("jwt");
+    if (!savedToken) {
+      throw new Error(
+        "The server did not provide a reusable login session. Please try again.",
+      );
+    }
+
+    await initializeServerConfig();
     const url = getCurrentServerUrl();
     if (url) setSelectedServer({ name: "Server", ip: url });
     setAuthenticated(true);
@@ -195,11 +202,17 @@ export default function AuthFlow() {
       // clears the JWT and the reverse-proxy cookie/session so a fresh proxy
       // login is shown and a subsequent sign-in can't resolve to the old account.
       await clearSession();
+      clearCachedUserId();
 
-      await saveServerConfig({
+      const saved = await saveServerConfig({
         serverUrl: url,
         lastUpdated: new Date().toISOString(),
       });
+      if (!saved) {
+        throw new Error(
+          "Could not save the server address on this device. Please try again.",
+        );
+      }
       setSelectedServer({ name: "Server", ip: url });
 
       const ok = await probeServer();
@@ -248,6 +261,7 @@ export default function AuthFlow() {
         // best-effort
       }
       await clearSession();
+      clearCachedUserId();
     })();
     setCaps(null);
     setStep("server");
@@ -1077,7 +1091,7 @@ function OidcStep({
             // Got a response, but not a Termix user object.
             await new Promise((r) => setTimeout(r, 600));
           } catch (e: any) {
-            if (e?.response?.status === 401) {
+            if (isUnauthorizedError(e)) {
               await AsyncStorage.removeItem("jwt");
               Alert.alert(
                 "Sign in failed",
