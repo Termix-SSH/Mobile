@@ -3,7 +3,6 @@ package expo.modules.terminalimeinput
 import android.content.Context
 import android.graphics.Color
 import android.text.InputType
-import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
@@ -11,24 +10,18 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputConnectionWrapper
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.widget.AppCompatEditText
+import android.widget.EditText
 import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 import expo.modules.kotlin.viewevent.EventDispatcher
 import expo.modules.kotlin.views.ExpoView
 
-private class TerminalImeEditText : AppCompatEditText {
-  private var owner: TerminalImeInputView? = null
-
-  constructor(context: Context, owner: TerminalImeInputView) : super(context) {
-    this.owner = owner
-    initView()
-  }
-
-  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-
-  private fun initView() {
+private class TerminalImeEditText(
+  context: Context,
+  private val owner: TerminalImeInputView,
+) : EditText(context) {
+  init {
     setBackgroundColor(Color.TRANSPARENT)
     setTextColor(Color.TRANSPARENT)
     highlightColor = Color.TRANSPARENT
@@ -49,11 +42,11 @@ private class TerminalImeEditText : AppCompatEditText {
 
   override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
     val mappedKey = mapSpecialKey(keyCode) ?: return super.onKeyDown(keyCode, event)
-    if (owner?.isCompositionActive() == true) {
+    if (owner.isCompositionActive()) {
       return super.onKeyDown(keyCode, event)
     }
 
-    owner?.onSpecialKey(
+    owner.emitSpecialKey(
       key = mappedKey,
       shift = event.isShiftPressed,
       ctrl = event.isCtrlPressed,
@@ -85,7 +78,7 @@ private class TerminalImeEditText : AppCompatEditText {
   fun clearInputState() {
     setText("")
     setSelection(text?.length ?: 0)
-    owner?.setCompositionActive(false)
+    owner.setCompositionActive(false)
   }
 
   fun onCommittedText(text: CharSequence?) {
@@ -93,16 +86,16 @@ private class TerminalImeEditText : AppCompatEditText {
       return
     }
 
-    owner?.onCommittedText(text.toString())
+    owner.emitCommittedText(text.toString())
     clearInputState()
   }
 
   fun onCompositionTextChanged(active: Boolean) {
-    owner?.setCompositionActive(active)
+    owner.setCompositionActive(active)
   }
 
   fun onDeleteFromIme(): Boolean {
-    if (owner?.isCompositionActive() == true) {
+    if (owner.isCompositionActive()) {
       return false
     }
 
@@ -110,24 +103,23 @@ private class TerminalImeEditText : AppCompatEditText {
       return false
     }
 
-    owner?.onSpecialKey("Backspace")
+    owner.emitSpecialKey("Backspace")
     return true
   }
 
   fun onEnterFromIme(): Boolean {
-    if (owner?.isCompositionActive() == true) {
+    if (owner.isCompositionActive()) {
       return false
     }
 
-    owner?.onSpecialKey("Enter")
+    owner.emitSpecialKey("Enter")
     clearInputState()
     return true
   }
 
   private fun mapSpecialKey(keyCode: Int): String? = when (keyCode) {
     KeyEvent.KEYCODE_ENTER,
-    KeyEvent.KEYCODE_NUMPAD_ENTER,
-    -> "Enter"
+    KeyEvent.KEYCODE_NUMPAD_ENTER -> "Enter"
     KeyEvent.KEYCODE_DEL -> "Backspace"
     KeyEvent.KEYCODE_FORWARD_DEL -> "Delete"
     KeyEvent.KEYCODE_TAB -> "Tab"
@@ -164,6 +156,11 @@ private class TerminalImeEditText : AppCompatEditText {
       return super.setComposingText(text, newCursorPosition)
     }
 
+    override fun setComposingRegion(start: Int, end: Int): Boolean {
+      editText.onCompositionTextChanged(start != end)
+      return super.setComposingRegion(start, end)
+    }
+
     override fun finishComposingText(): Boolean {
       editText.onCompositionTextChanged(false)
       return super.finishComposingText()
@@ -189,6 +186,16 @@ private class TerminalImeEditText : AppCompatEditText {
       }
       return super.deleteSurroundingText(beforeLength, afterLength)
     }
+
+    override fun deleteSurroundingTextInCodePoints(
+      beforeLength: Int,
+      afterLength: Int,
+    ): Boolean {
+      if (beforeLength > 0 && afterLength == 0 && editText.onDeleteFromIme()) {
+        return true
+      }
+      return super.deleteSurroundingTextInCodePoints(beforeLength, afterLength)
+    }
   }
 }
 
@@ -207,7 +214,7 @@ class TerminalImeInputView(
 
   init {
     setBackgroundColor(Color.TRANSPARENT)
-    inputView.layoutParams = LayoutParams(
+    inputView.layoutParams = ViewGroup.LayoutParams(
       ViewGroup.LayoutParams.MATCH_PARENT,
       ViewGroup.LayoutParams.MATCH_PARENT,
     )
@@ -233,11 +240,11 @@ class TerminalImeInputView(
     inputView.clearInputState()
   }
 
-  internal fun onCommittedText(text: String) {
+  internal fun emitCommittedText(text: String) {
     onCommitText(mapOf("text" to text))
   }
 
-  internal fun onSpecialKey(
+  internal fun emitSpecialKey(
     key: String,
     shift: Boolean = false,
     ctrl: Boolean = false,
