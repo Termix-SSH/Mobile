@@ -3,7 +3,6 @@ import {
   View,
   Keyboard,
   Platform,
-  TextInput,
   Dimensions,
   BackHandler,
   AppState,
@@ -45,12 +44,19 @@ import BottomToolbar from "@/app/tabs/sessions/terminal/keyboard/BottomToolbar";
 import KeyboardBar from "@/app/tabs/sessions/terminal/keyboard/KeyboardBar";
 import { useOrientation } from "@/app/utils/orientation";
 import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
-import {
-  BACKGROUNDS,
-  BORDER_COLORS,
-  RADIUS,
-} from "@/app/constants/designTokens";
+import { BACKGROUNDS, BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";
 import { addKeyCommandListener } from "@/modules/hardware-keyboard";
+import TerminalImeInput, {
+  type TerminalImeInputHandle,
+} from "@/modules/terminal-ime-input";
+import {
+  type TerminalSpecialKeyEvent,
+  type TerminalSpecialKeyRecord,
+  isDuplicateTerminalSpecialKey,
+  makeTerminalSpecialKeyRecord,
+  translateCommittedText,
+  translateSpecialKeyEvent,
+} from "@/app/tabs/sessions/terminal/keyboard/terminalInputMapping";
 
 type ActiveModifiers = {
   ctrl: boolean;
@@ -80,7 +86,7 @@ export default function Sessions() {
 
   const [showConnectionsPanel, setShowConnectionsPanel] = useState(false);
   const { keyboardHeight, isKeyboardVisible } = useKeyboard();
-  const hiddenInputRef = useRef<TextInput>(null);
+  const hiddenInputRef = useRef<TerminalImeInputHandle | null>(null);
   const terminalRefs = useRef<Record<string, React.RefObject<TerminalHandle>>>(
     {},
   );
@@ -101,27 +107,11 @@ export default function Sessions() {
   const [screenDimensions, setScreenDimensions] = useState(
     Dimensions.get("window"),
   );
-  const [keyboardType, setKeyboardType] = useState<any>("default");
   const [customKeyboardInitialTab, setCustomKeyboardInitialTab] = useState<
     "keyboard" | "snippets" | "history"
   >("keyboard");
-  const [hiddenInputValue, setHiddenInputValue] = useState("");
-  const dictationBufferRef = useRef("");
-  const dictationSentRef = useRef("");
-  const dictationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const resetHiddenInputState = useCallback(() => {
-    if (dictationTimerRef.current) clearTimeout(dictationTimerRef.current);
-    dictationTimerRef.current = null;
-    dictationBufferRef.current = "";
-    dictationSentRef.current = "";
-    setHiddenInputValue("");
-  }, []);
-
-  useEffect(() => {
-    resetHiddenInputState();
-  }, [activeSessionId, resetHiddenInputState]);
-  const lastBlurTimeRef = useRef<number>(0);
+  const compositionActiveRef = useRef(false);
+  const lastSpecialKeyRef = useRef<TerminalSpecialKeyRecord | null>(null);
   const [terminalBackgroundColors, setTerminalBackgroundColors] = useState<
     Record<string, string>
   >({});
@@ -158,18 +148,66 @@ export default function Sessions() {
     (session) => session.id === activeSessionId,
   );
 
+  const getActiveTerminalRef = useCallback(() => {
+    return activeSessionId ? terminalRefs.current[activeSessionId] : null;
+  }, [activeSessionId]);
+
+  const dispatchCommittedText = useCallback(
+    (text: string) => {
+      const activeRef = getActiveTerminalRef();
+      if (!activeRef?.current || !text) {
+        return;
+      }
+
+      const translatedText = translateCommittedText(text, activeModifiers);
+      if (translatedText) {
+        activeRef.current.sendInput(translatedText);
+      }
+    },
+    [activeModifiers, getActiveTerminalRef],
+  );
+
+  const dispatchSpecialKey = useCallback(
+    (event: TerminalSpecialKeyEvent) => {
+      if (compositionActiveRef.current) {
+        return;
+      }
+
+      const now = Date.now();
+      if (isDuplicateTerminalSpecialKey(lastSpecialKeyRef.current, event, now)) {
+        return;
+      }
+
+      const translatedKey = translateSpecialKeyEvent(event);
+      if (!translatedKey) {
+        return;
+      }
+
+      const activeRef = getActiveTerminalRef();
+      if (!activeRef?.current) {
+        return;
+      }
+
+      lastSpecialKeyRef.current = makeTerminalSpecialKeyRecord(event, now);
+      activeRef.current.sendInput(translatedKey);
+    },
+    [getActiveTerminalRef],
+  );
+
   const [isRdpKeyboardOpen, setIsRdpKeyboardOpen] = useState(false);
+
+  useEffect(() => {
+    hiddenInputRef.current?.clear?.();
+    compositionActiveRef.current = false;
+    lastSpecialKeyRef.current = null;
+  }, [activeSessionId]);
+
   useEffect(() => {
     const show = Keyboard.addListener("keyboardDidShow", () => {
       if (activeSession?.type === "remoteDesktop") setIsRdpKeyboardOpen(true);
     });
-    const hide = Keyboard.addListener("keyboardDidHide", () =>
-      setIsRdpKeyboardOpen(false),
-    );
-    return () => {
-      show.remove();
-      hide.remove();
-    };
+    const hide = Keyboard.addListener("keyboardDidHide", () => setIsRdpKeyboardOpen(false));
+    return () => { show.remove(); hide.remove(); };
   }, [activeSession?.type]);
 
   const getTabBarBottomPosition = () => {
@@ -439,77 +477,16 @@ export default function Sessions() {
   useEffect(() => {
     if (Platform.OS !== "ios") return;
     const sub = addKeyCommandListener((event) => {
-      const activeRef = activeSessionId
-        ? terminalRefs.current[activeSessionId]
-        : null;
-      if (!activeRef?.current) return;
-
-      if (event.input === "\t") {
-        activeRef.current.sendInput(event.shift ? "\x1b[Z" : "\t");
-        return;
-      }
-
-      if (event.ctrl) {
-        const ch = event.input.toLowerCase();
-        const code = ch.charCodeAt(0) & 0x1f;
-        activeRef.current.sendInput(String.fromCharCode(code));
-        return;
-      }
-
-      if (event.alt && !event.ctrl && event.input.length === 1) {
-        activeRef.current.sendInput(
-          `\x1b${event.shift ? event.input.toUpperCase() : event.input}`,
-        );
-        return;
-      }
-
-      const specialMap: Record<string, string> = {
-        ArrowUp: "\x1b[A",
-        ArrowDown: "\x1b[B",
-        ArrowLeft: "\x1b[D",
-        ArrowRight: "\x1b[C",
-        Escape: "\x1b",
-        Backspace: "\x7f",
-        Delete: "\x1b[3~",
-        Home: "\x1b[H",
-        End: "\x1b[F",
-        PageUp: "\x1b[5~",
-        PageDown: "\x1b[6~",
-        F1: "\x1bOP",
-        F2: "\x1bOQ",
-        F3: "\x1bOR",
-        F4: "\x1bOS",
-        F5: "\x1b[15~",
-        F6: "\x1b[17~",
-        F7: "\x1b[18~",
-        F8: "\x1b[19~",
-        F9: "\x1b[20~",
-        F10: "\x1b[21~",
-        F11: "\x1b[23~",
-        F12: "\x1b[24~",
-      };
-
-      // Shift+Arrow: send xterm modifier sequences
-      if (event.shift) {
-        const shiftArrowMap: Record<string, string> = {
-          ArrowUp: "\x1b[1;2A",
-          ArrowDown: "\x1b[1;2B",
-          ArrowRight: "\x1b[1;2C",
-          ArrowLeft: "\x1b[1;2D",
-        };
-        if (shiftArrowMap[event.input]) {
-          activeRef.current.sendInput(shiftArrowMap[event.input]);
-          return;
-        }
-      }
-
-      if (specialMap[event.input]) {
-        activeRef.current.sendInput(specialMap[event.input]);
-        return;
-      }
+      dispatchSpecialKey({
+        key: event.input === "\t" ? "Tab" : event.input,
+        shift: event.shift,
+        ctrl: event.ctrl,
+        alt: event.alt,
+        source: "ios-keycommand",
+      });
     });
     return () => sub?.remove();
-  }, [activeSessionId]);
+  }, [dispatchSpecialKey]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -567,11 +544,7 @@ export default function Sessions() {
       setKeyboardIntentionallyHidden(false);
       setTimeout(() => hiddenInputRef.current?.focus(), 100);
     }
-  }, [
-    activeSession?.type,
-    isCustomKeyboardVisible,
-    setKeyboardIntentionallyHidden,
-  ]);
+  }, [activeSession?.type, isCustomKeyboardVisible, setKeyboardIntentionallyHidden]);
 
   const handleAddSession = () => {
     router.navigate("/hosts" as any);
@@ -624,25 +597,16 @@ export default function Sessions() {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       toggleCustomKeyboard();
       setKeyboardIntentionallyHidden(false);
-      requestAnimationFrame(() => {
-        hiddenInputRef.current?.blur();
-      });
+      requestAnimationFrame(() => { hiddenInputRef.current?.blur(); });
       setTimeout(() => {
-        const activeRef = activeSessionId
-          ? terminalRefs.current[activeSessionId]
-          : null;
+        const activeRef = activeSessionId ? terminalRefs.current[activeSessionId] : null;
         if (activeRef?.current) {
           activeRef.current.fit();
           setTimeout(() => activeRef.current?.scrollToBottom(), 50);
         }
       }, 300);
     }
-  }, [
-    isCustomKeyboardVisible,
-    toggleCustomKeyboard,
-    setKeyboardIntentionallyHidden,
-    activeSessionId,
-  ]);
+  }, [isCustomKeyboardVisible, toggleCustomKeyboard, setKeyboardIntentionallyHidden, activeSessionId]);
 
   const handleModifierChange = useCallback((modifiers: ActiveModifiers) => {
     setActiveModifiers(modifiers);
@@ -810,7 +774,10 @@ export default function Sessions() {
                 }}
               >
                 <View style={{ flex: 1 }}>
-                  <Text weight="bold" className="text-base text-foreground">
+                  <Text
+                    weight="bold"
+                    className="text-base text-foreground"
+                  >
                     Connections
                   </Text>
                 </View>
@@ -961,7 +928,7 @@ export default function Sessions() {
       {sessions.length > 0 &&
         !isCustomKeyboardVisible &&
         activeSession?.type === "terminal" && (
-          <TextInput
+          <TerminalImeInput
             ref={hiddenInputRef}
             style={{
               position: "absolute",
@@ -970,255 +937,19 @@ export default function Sessions() {
               width: 1,
               height: 1,
               opacity: 0,
-              color: "transparent",
-              backgroundColor: "transparent",
               zIndex: -1,
             }}
             pointerEvents="box-none"
-            autoFocus={false}
-            showSoftInputOnFocus={true}
-            keyboardType={keyboardType}
-            returnKeyType="default"
-            blurOnSubmit={false}
-            editable={true}
-            autoCorrect={false}
-            autoCapitalize="none"
-            spellCheck={false}
-            textContentType="none"
-            importantForAutofill="no"
-            autoComplete="off"
-            caretHidden
-            contextMenuHidden
-            underlineColorAndroid="transparent"
-            value={hiddenInputValue}
-            onChangeText={(text) => {
-              if (Platform.OS === "ios") {
-                const activeRef = activeSessionId
-                  ? terminalRefs.current[activeSessionId]
-                  : null;
-
-                if (!activeRef?.current || !text) {
-                  dictationBufferRef.current = "";
-                  dictationSentRef.current = "";
-                  setHiddenInputValue("");
-                  return;
-                }
-
-                const alreadySent = dictationSentRef.current;
-                const newText = text.startsWith(alreadySent)
-                  ? text.slice(alreadySent.length)
-                  : text;
-
-                dictationBufferRef.current = "";
-                dictationSentRef.current = text;
-                setHiddenInputValue("");
-                if (newText) activeRef.current.sendInput(newText);
-                requestAnimationFrame(() => {
-                  dictationSentRef.current = "";
-                });
-                return;
-              }
-
-              if (text.length <= dictationSentRef.current.length) {
-                const hasPendingBuffer =
-                  Platform.OS === "android" &&
-                  !text &&
-                  dictationBufferRef.current &&
-                  dictationTimerRef.current !== null;
-
-                if (hasPendingBuffer) {
-                  clearTimeout(dictationTimerRef.current!);
-                  dictationTimerRef.current = null;
-                  const pendingText = dictationBufferRef.current;
-                  const alreadySent = dictationSentRef.current;
-                  dictationBufferRef.current = "";
-                  dictationSentRef.current = "";
-                  setHiddenInputValue("");
-                  const activeRef = activeSessionId
-                    ? terminalRefs.current[activeSessionId]
-                    : null;
-                  if (activeRef?.current) {
-                    if (pendingText.startsWith(alreadySent)) {
-                      const newText = pendingText.slice(alreadySent.length);
-                      if (newText) activeRef.current.sendInput(newText);
-                    } else {
-                      if (pendingText) activeRef.current.sendInput(pendingText);
-                    }
-                  }
-                  return;
-                }
-
-                if (text) dictationSentRef.current = text;
-                dictationBufferRef.current = "";
-                if (!text) setHiddenInputValue("");
-                return;
-              }
-              if (!text) {
-                dictationBufferRef.current = "";
-                dictationSentRef.current = "";
-                return;
-              }
-              const activeRef = activeSessionId
-                ? terminalRefs.current[activeSessionId]
-                : null;
-              if (!activeRef?.current) {
-                setHiddenInputValue("");
-                dictationBufferRef.current = "";
-                return;
-              }
-              dictationBufferRef.current = text;
-              setHiddenInputValue(text);
-              if (dictationTimerRef.current)
-                clearTimeout(dictationTimerRef.current);
-              dictationTimerRef.current = setTimeout(() => {
-                const finalText = dictationBufferRef.current;
-                const alreadySent = dictationSentRef.current;
-                dictationBufferRef.current = "";
-                dictationTimerRef.current = null;
-                setHiddenInputValue("");
-                if (finalText.startsWith(alreadySent)) {
-                  const newText = finalText.slice(alreadySent.length);
-                  if (newText) {
-                    dictationSentRef.current = finalText;
-                    activeRef.current?.sendInput(newText);
-                  }
-                } else {
-                  dictationSentRef.current = finalText;
-                  if (finalText) activeRef.current?.sendInput(finalText);
-                }
-              }, 30);
+            onCommitText={({ nativeEvent }) => {
+              dispatchCommittedText(nativeEvent.text);
             }}
-            onSubmitEditing={() => {
-              const activeRef = activeSessionId
-                ? terminalRefs.current[activeSessionId]
-                : null;
-              activeRef?.current?.sendInput("\r");
+            onSpecialKey={({ nativeEvent }) => {
+              dispatchSpecialKey(nativeEvent);
             }}
-            onKeyPress={({ nativeEvent }) => {
-              const key = nativeEvent.key;
-              const activeRef = activeSessionId
-                ? terminalRefs.current[activeSessionId]
-                : null;
-
-              if (!activeRef?.current) return;
-
-              let finalKey: string | null = null;
-
-              switch (key) {
-                case "Enter":
-                  finalKey = "\r";
-                  break;
-                case "Backspace":
-                  finalKey = "\x7f";
-                  break;
-                case "Tab":
-                  finalKey = activeModifiers.shift ? "\x1b[Z" : "\t";
-                  break;
-                case "Escape":
-                  finalKey = "\x1b";
-                  break;
-                case "Delete":
-                  finalKey = "\x1b[3~";
-                  break;
-                case "Home":
-                  finalKey = "\x1b[H";
-                  break;
-                case "End":
-                  finalKey = "\x1b[F";
-                  break;
-                case "PageUp":
-                  finalKey = "\x1b[5~";
-                  break;
-                case "PageDown":
-                  finalKey = "\x1b[6~";
-                  break;
-                case "ArrowUp":
-                  finalKey = "\x1b[A";
-                  break;
-                case "ArrowDown":
-                  finalKey = "\x1b[B";
-                  break;
-                case "ArrowRight":
-                  finalKey = "\x1b[C";
-                  break;
-                case "ArrowLeft":
-                  finalKey = "\x1b[D";
-                  break;
-                case "F1":
-                  finalKey = "\x1bOP";
-                  break;
-                case "F2":
-                  finalKey = "\x1bOQ";
-                  break;
-                case "F3":
-                  finalKey = "\x1bOR";
-                  break;
-                case "F4":
-                  finalKey = "\x1bOS";
-                  break;
-                case "F5":
-                  finalKey = "\x1b[15~";
-                  break;
-                case "F6":
-                  finalKey = "\x1b[17~";
-                  break;
-                case "F7":
-                  finalKey = "\x1b[18~";
-                  break;
-                case "F8":
-                  finalKey = "\x1b[19~";
-                  break;
-                case "F9":
-                  finalKey = "\x1b[20~";
-                  break;
-                case "F10":
-                  finalKey = "\x1b[21~";
-                  break;
-                case "F11":
-                  finalKey = "\x1b[23~";
-                  break;
-                case "F12":
-                  finalKey = "\x1b[24~";
-                  break;
-                default:
-                  if (key.length === 1) {
-                    if (activeModifiers.ctrl) {
-                      finalKey = String.fromCharCode(key.charCodeAt(0) & 0x1f);
-                    } else if (activeModifiers.alt) {
-                      finalKey = `\x1b${activeModifiers.shift ? key.toUpperCase() : key}`;
-                    } else if (Platform.OS === "ios") {
-                      // On iOS, onChangeText handles bare printable chars to
-                      // support dictation/IME composition. Skip here to avoid
-                      // double-sending.
-                      return;
-                    } else {
-                      finalKey = activeModifiers.shift
-                        ? key.toUpperCase()
-                        : key;
-                      dictationSentRef.current = hiddenInputValue + finalKey;
-                    }
-                  }
-              }
-
-              if (finalKey !== null) {
-                // Reset keys that mutate the hidden input value. Empty change
-                // events are ignored by onChangeText without suppressing the
-                // next printable character.
-                const resetsInput = [
-                  "Backspace",
-                  "Enter",
-                  "Tab",
-                  "Escape",
-                ].includes(key);
-                if (resetsInput) {
-                  resetHiddenInputState();
-                  if (Platform.OS === "android") {
-                    requestAnimationFrame(() => {
-                      hiddenInputRef.current?.focus();
-                    });
-                  }
-                }
-                activeRef.current.sendInput(finalKey);
+            onCompositionStateChange={({ nativeEvent }) => {
+              compositionActiveRef.current = nativeEvent.active;
+              if (nativeEvent.active) {
+                lastSpecialKeyRef.current = null;
               }
             }}
             onFocus={() => {
