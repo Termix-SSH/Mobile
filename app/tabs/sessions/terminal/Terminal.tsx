@@ -13,6 +13,7 @@ import {
   Dimensions,
   AccessibilityInfo,
   TouchableOpacity,
+  type LayoutChangeEvent,
 } from "react-native";
 import { WebView } from "react-native-webview";
 import { ChevronDown } from "lucide-react-native";
@@ -96,6 +97,19 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     const wsManagerRef = useRef<NativeWebSocketManager | null>(null);
     const terminalColsRef = useRef(80);
     const terminalRowsRef = useRef(24);
+    // Pixel height of the visible terminal area as measured by RN layout.
+    // The WebView is shrunk by the TabBar/KeyboardBar/system-keyboard via the
+    // parent's marginBottom, but inside the WebView `100vh`/`window.innerHeight`
+    // is unreliable (WKWebView reports stale values after a frame resize). Pushing
+    // the exact laid-out height lets xterm compute the correct row count, so TUI
+    // apps (Claude Code, Codex, …) draw their bottom input row inside the visible
+    // area instead of behind the chrome.
+    const viewportHeightRef = useRef<number | null>(null);
+    // Debounces onLayout pushes during LayoutAnimation / keyboard slide so the
+    // pty isn't spammed with resize storms (each resize → SIGWINCH → TUI redraw).
+    const viewportDebounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+      null,
+    );
     const pendingDataRef = useRef<string[]>([]);
     const dataFlushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
       null,
@@ -679,11 +693,57 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       }
     }
 
-    window.nativeFit = function() {
-      try { handleResize(); } catch(e) {}
+    var lastViewportHeight = null;
+    function applyViewportHeight(px, force) {
+      var el = document.getElementById('terminal');
+      if (!el || !px || px <= 0) return;
+      if (!force && Math.abs(px - (lastViewportHeight || 0)) < 1) return;
+      lastViewportHeight = px;
+
+      el.style.height = px + 'px';
+      el.style.minHeight = '0px';
+
+      try {
+        fitAddon.fit();
+        if (window.ReactNativeWebView) {
+          window.ReactNativeWebView.postMessage(JSON.stringify({
+            type: 'resize',
+            data: { cols: terminal.cols, rows: terminal.rows }
+          }));
+        }
+        // If the user was scrolled near the bottom, keep them pinned there so
+        // the prompt/TUI input row stays visible after the resize.
+        try {
+          if (terminal.buffer.active.viewportY >= terminal.buffer.active.baseY - 1) {
+            terminal.scrollToBottom();
+          }
+        } catch(e2) {}
+      } catch(e) {}
+    }
+    window.setTerminalViewportHeight = function(px) {
+      applyViewportHeight(px, false);
     }
 
-    window.addEventListener('resize', handleResize);
+    // Re-fit using the last RN-measured viewport height (if known) instead of
+    // the possibly-stale 100vh, so RN-driven resizes (keyboard, orientation,
+    // chrome show/hide) keep the row count in sync with the visible area.
+    window.nativeFit = function() {
+      if (lastViewportHeight) {
+        applyViewportHeight(lastViewportHeight, true);
+      } else {
+        try { handleResize(); } catch(e) {}
+      }
+    }
+
+    window.addEventListener('resize', function() {
+      // Prefer the RN-measured height; fall back to the WebView's own viewport
+      // when RN hasn't measured yet (e.g. initial load before onLayout).
+      if (lastViewportHeight) {
+        applyViewportHeight(lastViewportHeight, true);
+      } else {
+        try { handleResize(); } catch(e) {}
+      }
+    });
 
     window.addEventListener('orientationchange', function() {
       setTimeout(handleResize, 100);
@@ -819,6 +879,26 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       [],
     );
 
+    const handleTerminalLayout = useCallback((event: LayoutChangeEvent) => {
+      const h = Math.round(event.nativeEvent.layout.height || 0);
+      if (h <= 0 || h === viewportHeightRef.current) {
+        return;
+      }
+      viewportHeightRef.current = h;
+      // Debounce so mid-animation frames don't each trigger a pty resize.
+      if (viewportDebounceTimerRef.current) {
+        clearTimeout(viewportDebounceTimerRef.current);
+      }
+      viewportDebounceTimerRef.current = setTimeout(() => {
+        viewportDebounceTimerRef.current = null;
+        try {
+          webViewRef.current?.injectJavaScript(
+            `window.setTerminalViewportHeight && window.setTerminalViewportHeight(${h}); true;`,
+          );
+        } catch (err) {}
+      }, 80);
+    }, []);
+
     const handleWebViewMessage = useCallback((event: any) => {
       try {
         const message = JSON.parse(event.nativeEvent.data);
@@ -827,6 +907,13 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           case "terminalReady":
             terminalColsRef.current = message.data.cols;
             terminalRowsRef.current = message.data.rows;
+            // Re-apply the RN-measured viewport height now that the terminal
+            // exists — onLayout may have fired before the HTML finished loading.
+            if (viewportHeightRef.current) {
+              webViewRef.current?.injectJavaScript(
+                `window.setTerminalViewportHeight && window.setTerminalViewportHeight(${viewportHeightRef.current}); true;`,
+              );
+            }
             wsManagerRef.current?.connect(message.data.cols, message.data.rows);
             break;
 
@@ -979,6 +1066,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           clearTimeout(accessibilityTimerRef.current);
           accessibilityTimerRef.current = null;
         }
+        if (viewportDebounceTimerRef.current) {
+          clearTimeout(viewportDebounceTimerRef.current);
+          viewportDebounceTimerRef.current = null;
+        }
       };
     }, []);
 
@@ -1027,6 +1118,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     return (
       <View
+        onLayout={handleTerminalLayout}
         style={{
           flex: isVisible ? 1 : 0,
           width: "100%",
