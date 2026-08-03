@@ -102,10 +102,10 @@ private final class TerminalImeTextView: UITextView, UITextViewDelegate {
   func textView(
     _ textView: UITextView,
     shouldChangeTextIn range: NSRange,
-    replacementText replacementText: String
+    replacementText text: String
   ) -> Bool {
     let isComposing = markedTextRange != nil
-    if replacementText == "\n" && !isComposing {
+    if text == "\n" && !isComposing {
       onSpecialKey?("Enter", false, false, false)
       clearInput()
       return false
