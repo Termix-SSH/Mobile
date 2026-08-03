@@ -75,6 +75,11 @@
     "prettier-plugin-tailwindcss": "^0.7.3",
     "typescript": "~5.9.2"
   },
+  "expo": {
+    "autolinking": {
+      "nativeModulesDir": "./modules"
+    }
+  },
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
