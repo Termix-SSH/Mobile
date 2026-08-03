@@ -267,10 +267,9 @@ class TerminalImeInputView(
 
 class TerminalImeInputModule : Module() {
   override fun definition() = ModuleDefinition {
-    Name("TerminalImeInputModule")
+    Name("TerminalImeInput")
 
     View(TerminalImeInputView::class) {
-      Name("TerminalImeInputView")
       Events(
         "onCommitText",
         "onSpecialKey",

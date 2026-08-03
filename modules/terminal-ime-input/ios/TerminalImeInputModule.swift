@@ -29,7 +29,7 @@ private final class TerminalImeTextView: UITextView, UITextViewDelegate {
     isOpaque = false
     isScrollEnabled = false
     textContainerInset = .zero
-    textContainer.lineFragmentPadding = 0
+    textContainer?.lineFragmentPadding = 0
     keyboardDismissMode = .none
     returnKeyType = .default
     inputAssistantItem.leadingBarButtonGroups = []
@@ -196,10 +196,9 @@ final class TerminalImeInputView: ExpoView {
 
 public final class TerminalImeInputModule: Module {
   public func definition() -> ModuleDefinition {
-    Name("TerminalImeInputModule")
+    Name("TerminalImeInput")
 
     View(TerminalImeInputView.self) {
-      Name("TerminalImeInputView")
       Events(
         "onCommitText",
         "onSpecialKey",

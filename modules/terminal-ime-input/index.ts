@@ -42,7 +42,7 @@ export type TerminalImeInputHandle = NativeModule & {
 };
 
 const NativeTerminalImeInputView =
-  requireNativeViewManager<TerminalImeInputProps>("TerminalImeInputView");
+  requireNativeViewManager<TerminalImeInputProps>("TerminalImeInput");
 
 type TerminalImeInputNativeComponent = React.ComponentType<
   TerminalImeInputProps & React.RefAttributes<TerminalImeInputHandle>
