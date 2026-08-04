@@ -311,6 +311,18 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       -webkit-overflow-scrolling: touch;
     }
 
+    /* Disable native touch-scrolling of the embedded terminal at the source.
+       The terminal is scroll-driven exclusively by JS (synthetic WheelEvent →
+       viewport.scrollTop). Without this, iOS WKWebView / Android WebView's
+       native touch scroll of .xterm-viewport bubbles to the page when the
+       (alternate) buffer is at its top, scrolling the whole WebView instead of
+       the terminal. */
+    html, body, #terminal, .xterm, .xterm-viewport, .xterm-screen {
+      touch-action: none;
+      -webkit-touch-action: none;
+      -ms-touch-action: none;
+    }
+
     .xterm {
       font-feature-settings: "liga" 1, "calt" 1;
       text-rendering: optimizeLegibility;
