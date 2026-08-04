@@ -422,7 +422,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       fastScrollModifier: 'alt',
       fastScrollSensitivity: 5,
       allowProposedApi: true,
-      disableStdin: true,
+      disableStdin: false,
       cursorInactiveStyle: '${terminalConfig.cursorStyle || "bar"}'
     });
 
@@ -430,6 +430,15 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     terminal.loadAddon(fitAddon);
 
     terminal.open(document.getElementById('terminal'));
+
+    // Bridge xterm-originated input (e.g. wheel events synthesized into SGR
+    // mouse sequences / arrow keys) back to the pty. Regular keyboard input
+    // goes through the RN IME and does not pass through this onData.
+    terminal.onData(function(data) {
+      if (window.ReactNativeWebView) {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'input', data: data }));
+      }
+    });
 
     fitAddon.fit();
     terminal.write('\x1b[?25h');
@@ -749,9 +758,15 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       setTimeout(handleResize, 100);
     });
 
-    // Touch-scroll acceleration for iOS WebView
+    // Touch-scroll for both the normal scrollback and TUI alternate-screen
+    // buffers. Instead of calling terminal.scrollLines() (which is a no-op on
+    // the alt buffer that Claude Code / Codex run in), synthesize a wheel
+    // event on the xterm root element: xterm then routes it either to the
+    // scrollback (normal buffer) or to SGR mouse / arrow-key sequences the TUI
+    // understands (alternate buffer with/without mouse tracking).
     (function() {
       var scrollTouchY = null;
+      var pendingLines = 0;
       var lineH = terminal._core._renderService.dimensions.css.cell.height || ${baseFontSize * 1.2};
       terminalElement.addEventListener('touchstart', function(e) {
         if (e.touches.length === 1) scrollTouchY = e.touches[0].clientY;
@@ -760,11 +775,22 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         if (scrollTouchY === null || e.touches.length !== 1) return;
         var dy = scrollTouchY - e.touches[0].clientY;
         scrollTouchY = e.touches[0].clientY;
-        var lines = Math.trunc(dy / lineH);
-        if (lines !== 0) terminal.scrollLines(lines);
+        pendingLines += dy / lineH;
+        var whole = Math.trunc(pendingLines);
+        if (whole !== 0) {
+          pendingLines -= whole;
+          try {
+            terminal.element.dispatchEvent(new WheelEvent('wheel', {
+              deltaY: whole,
+              deltaMode: WheelEvent.DOM_DELTA_LINE,
+              cancelable: true
+            }));
+          } catch(e2) {}
+        }
       }, { passive: true, capture: true });
       terminalElement.addEventListener('touchend', function() {
         scrollTouchY = null;
+        pendingLines = 0;
       }, { passive: true, capture: true });
     })();
 
@@ -936,6 +962,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
           case "scrollState":
             setShowScrollToBottomButton(!message.data.isAtBottom);
+            break;
+
+          case "input":
+            // Wheel/mouse input synthesized inside the WebView (xterm onData),
+            // forwarded to the pty so TUI apps can scroll their context.
+            wsManagerRef.current?.sendInput(message.data);
             break;
         }
       } catch (error) {
