@@ -308,7 +308,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     .xterm-viewport {
       width: 100% !important;
       height: 100% !important;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden !important;
+      -webkit-overflow-scrolling: auto;
     }
 
     /* Disable native touch-scrolling of the embedded terminal at the source.
@@ -776,6 +777,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     // event on the xterm root element: xterm then routes it either to the
     // scrollback (normal buffer) or to SGR mouse / arrow-key sequences the TUI
     // understands (alternate buffer with/without mouse tracking).
+    // touchmove is non-passive so we can preventDefault and stop the native
+    // WebView/page from hijacking the swipe (especially up-swipe when the
+    // alt buffer is already at its top).
     (function() {
       var scrollTouchY = null;
       var pendingLines = 0;
@@ -785,6 +789,14 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       }, { passive: true, capture: true });
       terminalElement.addEventListener('touchmove', function(e) {
         if (scrollTouchY === null || e.touches.length !== 1) return;
+        // While the user is text-selecting, leave the gesture alone so xterm's
+        // selection drag can track the finger.
+        if (typeof isCurrentlySelecting !== 'undefined' && isCurrentlySelecting) {
+          return;
+        }
+        // Claim the gesture so WKWebView / Android WebView do not scroll the
+        // whole page when the terminal content cannot scroll further.
+        try { e.preventDefault(); } catch(e3) {}
         var dy = scrollTouchY - e.touches[0].clientY;
         scrollTouchY = e.touches[0].clientY;
         pendingLines += dy / lineH;
@@ -799,7 +811,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             }));
           } catch(e2) {}
         }
-      }, { passive: true, capture: true });
+      }, { passive: false, capture: true });
       terminalElement.addEventListener('touchend', function() {
         scrollTouchY = null;
         pendingLines = 0;
@@ -1230,7 +1242,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                   `WebView HTTP error: ${nativeEvent.statusCode}`,
                 );
               }}
-              scrollEnabled={true}
+              scrollEnabled={false}
               overScrollMode="never"
               bounces={false}
               showsHorizontalScrollIndicator={false}
