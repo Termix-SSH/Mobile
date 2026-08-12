@@ -28,6 +28,7 @@ import {
   X,
 } from "lucide-react-native";
 import type { SSHHost } from "@/types";
+import type { RemoteDesktopProtocol } from "@/app/contexts/TerminalSessionsContext";
 import {
   getGuacamoleTokenFromHost,
   getGuacamoleWebSocketUrl,
@@ -60,10 +61,16 @@ interface RemoteDesktopProps {
   host: SSHHost;
   isVisible: boolean;
   title: string;
+  protocol?: RemoteDesktopProtocol;
   onClose?: () => void;
 }
 
-export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
+export function RemoteDesktop({
+  host,
+  isVisible,
+  title,
+  protocol,
+}: RemoteDesktopProps) {
   const color = useThemeColor();
   const { bottom: safeBottom } = useSafeAreaInsets();
 
@@ -140,7 +147,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
     try {
       setConnectionState("connecting");
       setErrorMessage(null);
-      const { token } = await getGuacamoleTokenFromHost(Number(host.id));
+      const { token } = await getGuacamoleTokenFromHost(
+        Number(host.id),
+        protocol,
+      );
       // Use measured layout size; fall back to ref if layout fired already
       const measured = availableSizeRef.current;
       const remW = measured ? measured.w : 1280;
@@ -155,7 +165,7 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
           : "Failed to start remote session",
       );
     }
-  }, [host.id]);
+  }, [host.id, protocol]);
 
   useEffect(() => {
     connect();
@@ -590,7 +600,11 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
   }, [inject]);
 
   const canSendInput = connectionState === "connected";
-  const protocol = (host.connectionType || "rdp").toUpperCase();
+  const protocolLabel = (
+    protocol ??
+    host.connectionType ??
+    "rdp"
+  ).toUpperCase();
 
   // The keyboard height event is from the screen bottom. Our container's bottom
   // already sits SESSION_TAB_BAR_HEIGHT + safeBottom above the screen bottom
@@ -827,7 +841,7 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
       {(connectionState === "connecting" || connectionState === "idle") && (
         <View style={styles.overlay}>
           <ActivityIndicator size="large" color={themeAccent} />
-          <Text style={styles.overlayTitle}>Connecting {protocol}</Text>
+          <Text style={styles.overlayTitle}>Connecting {protocolLabel}</Text>
           <Text style={styles.overlayText}>{title}</Text>
         </View>
       )}

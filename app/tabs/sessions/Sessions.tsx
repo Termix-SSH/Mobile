@@ -764,6 +764,7 @@ export default function Sessions() {
                 host={session.host}
                 isVisible={session.id === activeSessionId}
                 title={session.title}
+                protocol={session.remoteProtocol}
                 onClose={() => handleTabClose(session.id)}
               />
             );
