@@ -109,7 +109,6 @@ export default function Sessions() {
   const dictationBufferRef = useRef("");
   const dictationSentRef = useRef("");
   const dictationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const ignoreNextTextChangeRef = useRef(false);
 
   const resetHiddenInputState = useCallback(() => {
     if (dictationTimerRef.current) clearTimeout(dictationTimerRef.current);
@@ -121,7 +120,6 @@ export default function Sessions() {
 
   useEffect(() => {
     resetHiddenInputState();
-    ignoreNextTextChangeRef.current = false;
   }, [activeSessionId, resetHiddenInputState]);
   const lastBlurTimeRef = useRef<number>(0);
   const [terminalBackgroundColors, setTerminalBackgroundColors] = useState<
@@ -994,11 +992,6 @@ export default function Sessions() {
             value={hiddenInputValue}
             onChangeText={(text) => {
               if (Platform.OS === "ios") {
-                if (ignoreNextTextChangeRef.current) {
-                  ignoreNextTextChangeRef.current = false;
-                  return;
-                }
-
                 const activeRef = activeSessionId
                   ? terminalRefs.current[activeSessionId]
                   : null;
@@ -1207,10 +1200,9 @@ export default function Sessions() {
               }
 
               if (finalKey !== null) {
-                // Only reset + suppress the next onChangeText for keys that
-                // actually mutate the hidden input value (backspace, enter,
-                // tab, escape). Delete/arrows/F-keys don't change it and
-                // should not eat the next typed character.
+                // Reset keys that mutate the hidden input value. Empty change
+                // events are ignored by onChangeText without suppressing the
+                // next printable character.
                 const resetsInput = [
                   "Backspace",
                   "Enter",
@@ -1219,7 +1211,6 @@ export default function Sessions() {
                 ].includes(key);
                 if (resetsInput) {
                   resetHiddenInputState();
-                  ignoreNextTextChangeRef.current = true;
                   if (Platform.OS === "android") {
                     requestAnimationFrame(() => {
                       hiddenInputRef.current?.focus();
