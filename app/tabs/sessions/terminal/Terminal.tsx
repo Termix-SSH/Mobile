@@ -426,7 +426,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       fastScrollModifier: 'alt',
       fastScrollSensitivity: 5,
       allowProposedApi: true,
-      disableStdin: false,
+      disableStdin: true,
       cursorInactiveStyle: '${terminalConfig.cursorStyle || "bar"}'
     });
 
@@ -435,9 +435,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     terminal.open(document.getElementById('terminal'));
 
-    // Bridge xterm-originated input (e.g. wheel events synthesized into SGR
-    // mouse sequences / arrow keys) back to the pty. Regular keyboard input
-    // goes through the RN IME and does not pass through this onData.
+    // Bridge xterm-originated wheel input back to the pty. Stdin remains
+    // disabled outside the synchronous wheel dispatch below, so keyboard text
+    // continues to use only the React Native input path.
     terminal.onData(function(data) {
       if (window.ReactNativeWebView) {
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'input', data: data }));
@@ -749,11 +749,16 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         if (whole !== 0) {
           pendingLines -= whole;
           try {
-            terminal.element.dispatchEvent(new WheelEvent('wheel', {
-              deltaY: whole,
-              deltaMode: WheelEvent.DOM_DELTA_LINE,
-              cancelable: true
-            }));
+            terminal.options.disableStdin = false;
+            try {
+              terminal.element.dispatchEvent(new WheelEvent('wheel', {
+                deltaY: whole,
+                deltaMode: WheelEvent.DOM_DELTA_LINE,
+                cancelable: true
+              }));
+            } finally {
+              terminal.options.disableStdin = true;
+            }
           } catch(e2) {}
         }
       }, { passive: false, capture: true });
