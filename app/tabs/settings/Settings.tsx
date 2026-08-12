@@ -280,7 +280,9 @@ export default function Settings() {
 
               <View className="mt-1 gap-0">
                 <Pressable
-                  onPress={() => router.push("/tabs/settings/TwoFactorAuth" as any)}
+                  onPress={() =>
+                    router.push("/tabs/settings/TwoFactorAuth" as any)
+                  }
                   className="flex-row items-center justify-between border-t border-border py-3"
                 >
                   <View className="flex-row items-center gap-2">
@@ -293,7 +295,9 @@ export default function Settings() {
                 </Pressable>
                 {isAdmin ? (
                   <Pressable
-                    onPress={() => router.push("/tabs/settings/ActiveSessions" as any)}
+                    onPress={() =>
+                      router.push("/tabs/settings/ActiveSessions" as any)
+                    }
                     className="flex-row items-center justify-between border-t border-border py-3"
                   >
                     <View className="flex-row items-center gap-2">

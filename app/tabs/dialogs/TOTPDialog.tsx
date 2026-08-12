@@ -50,7 +50,9 @@ export function TOTPDialog({
     } catch {}
   }, [isPasswordPrompt]);
 
-  const title = prompt || (isPasswordPrompt ? "Password Required" : "Two-Factor Authentication");
+  const title =
+    prompt ||
+    (isPasswordPrompt ? "Password Required" : "Two-Factor Authentication");
   const description = isPasswordPrompt
     ? "Enter your password to continue."
     : "Enter the 6-digit code from your authenticator app.";
@@ -63,7 +65,7 @@ export function TOTPDialog({
       title={title}
       description={description}
       footer={
-        <View className="flex-row gap-2 flex-1">
+        <View className="flex-1 flex-row gap-2">
           <Button variant="outline" className="flex-1" onPress={onCancel}>
             Cancel
           </Button>
@@ -72,7 +74,9 @@ export function TOTPDialog({
             className="flex-1"
             onPress={handleSubmit}
             loading={busy}
-            disabled={!code.trim() || (!isPasswordPrompt && code.trim().length < 6)}
+            disabled={
+              !code.trim() || (!isPasswordPrompt && code.trim().length < 6)
+            }
           >
             {isPasswordPrompt ? "Submit" : "Verify"}
           </Button>

@@ -11,7 +11,7 @@ function Row({ label, value }: { label: string; value?: string | null }) {
     <View className="flex-row justify-between gap-3 py-0.5">
       <Text className="text-[11px] text-muted-foreground">{label}</Text>
       <Text
-        className="text-[11px] text-foreground flex-1 text-right"
+        className="flex-1 text-right text-[11px] text-foreground"
         numberOfLines={1}
       >
         {value}

@@ -8,7 +8,12 @@ import {
 } from "react-native";
 import { TerminalHandle } from "@/app/tabs/sessions/terminal/Terminal";
 import { getSnippets, getSnippetFolders } from "@/app/main-axios";
-import { BACKGROUNDS, BORDER_COLORS, ACCENT, TEXT_COLORS } from "@/app/constants/designTokens";
+import {
+  BACKGROUNDS,
+  BORDER_COLORS,
+  ACCENT,
+  TEXT_COLORS,
+} from "@/app/constants/designTokens";
 import { showToast } from "@/app/utils/toast";
 
 interface Snippet {
@@ -133,16 +138,25 @@ export default function SnippetsBar({
     >
       <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
         <Text
-          style={{ fontSize: 13, fontWeight: "500", color: TEXT_COLORS.PRIMARY, flex: 1 }}
+          style={{
+            fontSize: 13,
+            fontWeight: "500",
+            color: TEXT_COLORS.PRIMARY,
+            flex: 1,
+          }}
           numberOfLines={1}
         >
           {label}
         </Text>
-        <Text style={{ fontSize: 12, color: TEXT_COLORS.SECONDARY, marginLeft: 4 }}>
+        <Text
+          style={{ fontSize: 12, color: TEXT_COLORS.SECONDARY, marginLeft: 4 }}
+        >
           ({count})
         </Text>
       </View>
-      <Text style={{ fontSize: 10, color: TEXT_COLORS.TERTIARY, marginLeft: 8 }}>
+      <Text
+        style={{ fontSize: 10, color: TEXT_COLORS.TERTIARY, marginLeft: 8 }}
+      >
         {collapsed ? "▶" : "▼"}
       </Text>
     </TouchableOpacity>
@@ -162,7 +176,10 @@ export default function SnippetsBar({
       activeOpacity={0.7}
       onPress={() => executeSnippet(snippet)}
     >
-      <Text style={{ fontSize: 13, color: TEXT_COLORS.PRIMARY }} numberOfLines={1}>
+      <Text
+        style={{ fontSize: 13, color: TEXT_COLORS.PRIMARY }}
+        numberOfLines={1}
+      >
         {snippet.name}
       </Text>
     </TouchableOpacity>
@@ -171,9 +188,17 @@ export default function SnippetsBar({
   return (
     <View style={{ flex: 1, backgroundColor: BACKGROUNDS.DARKEST }}>
       {loading ? (
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
           <ActivityIndicator size="large" color={ACCENT} />
-          <Text style={{ fontSize: 13, color: TEXT_COLORS.SECONDARY, marginTop: 12 }}>
+          <Text
+            style={{
+              fontSize: 13,
+              color: TEXT_COLORS.SECONDARY,
+              marginTop: 12,
+            }}
+          >
             Loading snippets…
           </Text>
         </View>
@@ -225,10 +250,22 @@ export default function SnippetsBar({
 
           {snippets.length === 0 && (
             <View style={{ paddingVertical: 32, alignItems: "center" }}>
-              <Text style={{ fontSize: 14, fontWeight: "500", color: TEXT_COLORS.SECONDARY }}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "500",
+                  color: TEXT_COLORS.SECONDARY,
+                }}
+              >
                 No snippets yet
               </Text>
-              <Text style={{ fontSize: 12, color: TEXT_COLORS.TERTIARY, marginTop: 4 }}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: TEXT_COLORS.TERTIARY,
+                  marginTop: 4,
+                }}
+              >
                 Create snippets in the Termix web/desktop version
               </Text>
             </View>

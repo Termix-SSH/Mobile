@@ -76,7 +76,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
 
   // True available size measured from onLayout — avoids using full window
   // height which includes areas already consumed by the tab bar and insets.
-  const [availableSize, setAvailableSize] = useState<{ w: number; h: number } | null>(null);
+  const [availableSize, setAvailableSize] = useState<{
+    w: number;
+    h: number;
+  } | null>(null);
   const availableSizeRef = useRef<{ w: number; h: number } | null>(null);
   const containerRef = useRef<View>(null);
 
@@ -125,7 +128,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
       setIsKeyboardOpen(false);
       setKeyboardHeight(0);
     });
-    return () => { show.remove(); hide.remove(); };
+    return () => {
+      show.remove();
+      hide.remove();
+    };
   }, []);
 
   // ── Connection ────────────────────────────────────────────────────────────
@@ -144,7 +150,9 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
     } catch (error) {
       setConnectionState("failed");
       setErrorMessage(
-        error instanceof Error ? error.message : "Failed to start remote session",
+        error instanceof Error
+          ? error.message
+          : "Failed to start remote session",
       );
     }
   }, [host.id]);
@@ -540,23 +548,32 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
   }, []);
 
   const sendKeysym = useCallback(
-    (k: number) => inject(`window.termixRemote && window.termixRemote.sendKeysym(${k})`),
+    (k: number) =>
+      inject(`window.termixRemote && window.termixRemote.sendKeysym(${k})`),
     [inject],
   );
 
   const sendKeysyms = useCallback(
-    (ks: number[]) => inject(`window.termixRemote && window.termixRemote.sendKeysyms(${JSON.stringify(ks)})`),
+    (ks: number[]) =>
+      inject(
+        `window.termixRemote && window.termixRemote.sendKeysyms(${JSON.stringify(ks)})`,
+      ),
     [inject],
   );
 
   const sendText = useCallback(
-    (t: string) => inject(`window.termixRemote && window.termixRemote.sendText(${JSON.stringify(t)})`),
+    (t: string) =>
+      inject(
+        `window.termixRemote && window.termixRemote.sendText(${JSON.stringify(t)})`,
+      ),
     [inject],
   );
 
   const sendWithMods = useCallback(
     (k: number) => {
-      inject(`window.termixRemote && window.termixRemote.sendWithModifiers(${k}, ${JSON.stringify(modifiers)})`);
+      inject(
+        `window.termixRemote && window.termixRemote.sendWithModifiers(${k}, ${JSON.stringify(modifiers)})`,
+      );
       setModifiers({ ctrl: false, alt: false, shift: false, win: false });
     },
     [inject, modifiers],
@@ -579,7 +596,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
   // already sits SESSION_TAB_BAR_HEIGHT + safeBottom above the screen bottom
   // (applied by Sessions.tsx). The actual overlap on our container is:
   const SESSION_TAB_BAR_HEIGHT = 62; // getTabBarHeight(portrait) + 2
-  const kbOverlap = Math.max(0, keyboardHeight - SESSION_TAB_BAR_HEIGHT - safeBottom);
+  const kbOverlap = Math.max(
+    0,
+    keyboardHeight - SESSION_TAB_BAR_HEIGHT - safeBottom,
+  );
 
   // Tell remote to render at the true available size when connected or when
   // the container size changes (orientation change) or keyboard opens/closes.
@@ -754,7 +774,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
     color: active ? "#fff" : themeMuted,
   });
 
-  const FKEYS = useMemo(() => Array.from({ length: 12 }, (_, i) => 0xffbe + i), []);
+  const FKEYS = useMemo(
+    () => Array.from({ length: 12 }, (_, i) => 0xffbe + i),
+    [],
+  );
 
   // ── Render ────────────────────────────────────────────────────────────────
 
@@ -762,7 +785,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
     <View
       ref={containerRef}
       pointerEvents={isVisible ? "auto" : "none"}
-      style={[styles.container, { opacity: isVisible ? 1 : 0, zIndex: isVisible ? 1 : -1 }]}
+      style={[
+        styles.container,
+        { opacity: isVisible ? 1 : 0, zIndex: isVisible ? 1 : -1 },
+      ]}
       onLayout={handleContainerLayout}
     >
       {/* WebView */}
@@ -780,8 +806,14 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
           cacheMode="LOAD_NO_CACHE"
           androidLayerType="hardware"
           onMessage={handleMessage}
-          onError={(e) => { setConnectionState("failed"); setErrorMessage(e.nativeEvent.description); }}
-          onHttpError={(e) => { setConnectionState("failed"); setErrorMessage(`HTTP ${e.nativeEvent.statusCode}`); }}
+          onError={(e) => {
+            setConnectionState("failed");
+            setErrorMessage(e.nativeEvent.description);
+          }}
+          onHttpError={(e) => {
+            setConnectionState("failed");
+            setErrorMessage(`HTTP ${e.nativeEvent.statusCode}`);
+          }}
           scrollEnabled={false}
           overScrollMode="never"
           bounces={false}
@@ -804,7 +836,9 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
       {(connectionState === "failed" || connectionState === "disconnected") && (
         <View style={styles.overlay}>
           <Text style={styles.overlayTitle}>
-            {connectionState === "failed" ? "Connection Failed" : "Disconnected"}
+            {connectionState === "failed"
+              ? "Connection Failed"
+              : "Disconnected"}
           </Text>
           {errorMessage ? (
             <Text style={styles.overlayText}>{errorMessage}</Text>
@@ -824,7 +858,9 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
       <TextInput
         ref={inputRef}
         value=""
-        onChangeText={(text) => { if (text) sendText(text); }}
+        onChangeText={(text) => {
+          if (text) sendText(text);
+        }}
         onKeyPress={({ nativeEvent }) => {
           if (nativeEvent.key === "Backspace") sendKeysym(0xff08);
         }}
@@ -852,9 +888,19 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
           >
             {/* Modifier keys */}
             {(["ctrl", "alt", "shift", "win"] as const).map((k) => (
-              <TouchableOpacity key={k} style={modKeyStyle(modifiers[k])} onPress={() => toggleModifier(k)}>
+              <TouchableOpacity
+                key={k}
+                style={modKeyStyle(modifiers[k])}
+                onPress={() => toggleModifier(k)}
+              >
                 <Text style={modKeyTextStyle(modifiers[k])}>
-                  {k === "ctrl" ? "Ctrl" : k === "alt" ? "Alt" : k === "shift" ? "⇧" : "Win"}
+                  {k === "ctrl"
+                    ? "Ctrl"
+                    : k === "alt"
+                      ? "Alt"
+                      : k === "shift"
+                        ? "⇧"
+                        : "Win"}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -864,7 +910,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
             {/* Keyboard toggle */}
             {isKeyboardOpen ? (
               <TouchableOpacity
-                style={[styles.key, { borderColor: themeAccent, backgroundColor: themeAccent }]}
+                style={[
+                  styles.key,
+                  { borderColor: themeAccent, backgroundColor: themeAccent },
+                ]}
                 onPress={() => Keyboard.dismiss()}
               >
                 <X size={13} color="#fff" />
@@ -886,7 +935,11 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
               { label: "Esc", k: 0xff1b },
               { label: "Tab", k: 0xff09 },
             ].map(({ label, k }) => (
-              <TouchableOpacity key={label} style={styles.key} onPress={() => sendWithMods(k)}>
+              <TouchableOpacity
+                key={label}
+                style={styles.key}
+                onPress={() => sendWithMods(k)}
+              >
                 <Text style={styles.keyText}>{label}</Text>
               </TouchableOpacity>
             ))}
@@ -894,16 +947,28 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
             <View style={styles.divider} />
 
             {/* Arrow keys */}
-            <TouchableOpacity style={styles.iconKey} onPress={() => sendWithMods(0xff51)}>
+            <TouchableOpacity
+              style={styles.iconKey}
+              onPress={() => sendWithMods(0xff51)}
+            >
               <ChevronLeft size={14} color={themeFg} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconKey} onPress={() => sendWithMods(0xff52)}>
+            <TouchableOpacity
+              style={styles.iconKey}
+              onPress={() => sendWithMods(0xff52)}
+            >
               <ChevronUp size={14} color={themeFg} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconKey} onPress={() => sendWithMods(0xff54)}>
+            <TouchableOpacity
+              style={styles.iconKey}
+              onPress={() => sendWithMods(0xff54)}
+            >
               <ChevronDown size={14} color={themeFg} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconKey} onPress={() => sendWithMods(0xff53)}>
+            <TouchableOpacity
+              style={styles.iconKey}
+              onPress={() => sendWithMods(0xff53)}
+            >
               <ChevronRight size={14} color={themeFg} />
             </TouchableOpacity>
 
@@ -919,7 +984,11 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
               { label: "Del", k: 0xffff },
               { label: "Enter", k: 0xff0d },
             ].map(({ label, k }) => (
-              <TouchableOpacity key={label} style={styles.key} onPress={() => sendWithMods(k)}>
+              <TouchableOpacity
+                key={label}
+                style={styles.key}
+                onPress={() => sendWithMods(k)}
+              >
                 <Text style={styles.keyText}>{label}</Text>
               </TouchableOpacity>
             ))}
@@ -927,10 +996,16 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
             <View style={styles.divider} />
 
             {/* System combos */}
-            <TouchableOpacity style={styles.key} onPress={() => sendKeysyms([0xffe3, 0xffe9, 0xffff])}>
+            <TouchableOpacity
+              style={styles.key}
+              onPress={() => sendKeysyms([0xffe3, 0xffe9, 0xffff])}
+            >
               <Text style={styles.keyText}>CAD</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.key} onPress={() => sendKeysyms([0xffeb])}>
+            <TouchableOpacity
+              style={styles.key}
+              onPress={() => sendKeysyms([0xffeb])}
+            >
               <Text style={styles.keyText}>Win</Text>
             </TouchableOpacity>
 
@@ -938,23 +1013,41 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
 
             {/* F-key toggle */}
             <TouchableOpacity
-              style={[styles.key, showFunctionKeys && { borderColor: themeAccent, backgroundColor: themeAccent }]}
+              style={[
+                styles.key,
+                showFunctionKeys && {
+                  borderColor: themeAccent,
+                  backgroundColor: themeAccent,
+                },
+              ]}
               onPress={() => setShowFKeys((v) => !v)}
             >
-              <Text style={[styles.keyText, showFunctionKeys && { color: "#fff" }]}>Fn</Text>
+              <Text
+                style={[styles.keyText, showFunctionKeys && { color: "#fff" }]}
+              >
+                Fn
+              </Text>
             </TouchableOpacity>
 
             {/* F1–F12 (shown inline when toggled) */}
-            {showFunctionKeys && FKEYS.map((ks, i) => (
-              <TouchableOpacity key={ks} style={styles.key} onPress={() => sendWithMods(ks)}>
-                <Text style={styles.keyText}>F{i + 1}</Text>
-              </TouchableOpacity>
-            ))}
+            {showFunctionKeys &&
+              FKEYS.map((ks, i) => (
+                <TouchableOpacity
+                  key={ks}
+                  style={styles.key}
+                  onPress={() => sendWithMods(ks)}
+                >
+                  <Text style={styles.keyText}>F{i + 1}</Text>
+                </TouchableOpacity>
+              ))}
 
             <View style={styles.divider} />
 
             {/* Settings */}
-            <TouchableOpacity style={styles.iconKey} onPress={() => setShowSettings(true)}>
+            <TouchableOpacity
+              style={styles.iconKey}
+              onPress={() => setShowSettings(true)}
+            >
               <Settings2 size={15} color={themeMuted} />
             </TouchableOpacity>
           </ScrollView>
@@ -979,7 +1072,9 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
             value={mouseMode}
             onChange={(m) => {
               setMouseMode(m);
-              inject(`window.termixRemote && window.termixRemote.setMouseMode('${m}')`);
+              inject(
+                `window.termixRemote && window.termixRemote.setMouseMode('${m}')`,
+              );
             }}
           />
           <Text style={styles.sheetDesc}>

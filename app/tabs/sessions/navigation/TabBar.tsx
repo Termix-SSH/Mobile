@@ -141,7 +141,9 @@ export default function TabBar({
           }}
         >
           {/* Connections panel button */}
-          <View style={{ position: "relative", marginRight: isLandscape ? 6 : 8 }}>
+          <View
+            style={{ position: "relative", marginRight: isLandscape ? 6 : 8 }}
+          >
             <TouchableOpacity
               onPress={onShowConnections}
               focusable={false}
@@ -254,7 +256,7 @@ export default function TabBar({
                         strokeWidth={2}
                       />
                       <Text
-                        className="text-sm font-medium flex-1"
+                        className="flex-1 text-sm font-medium"
                         style={{ color: iconColor }}
                         numberOfLines={1}
                       >
@@ -281,7 +283,9 @@ export default function TabBar({
                     >
                       <X
                         size={isLandscape ? 13 : 14}
-                        color={isActive ? TEXT_COLORS.PRIMARY : TEXT_COLORS.TERTIARY}
+                        color={
+                          isActive ? TEXT_COLORS.PRIMARY : TEXT_COLORS.TERTIARY
+                        }
                         strokeWidth={2.5}
                       />
                     </TouchableOpacity>
