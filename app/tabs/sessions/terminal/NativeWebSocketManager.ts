@@ -70,7 +70,6 @@ export class NativeWebSocketManager {
   private reconnectTimeout: ReturnType<typeof setTimeout> | null = null;
   private connectionTimeout: ReturnType<typeof setTimeout> | null = null;
   private pingInterval: ReturnType<typeof setInterval> | null = null;
-  private pongTimeout: ReturnType<typeof setTimeout> | null = null;
   private shouldNotReconnect = false;
   private hasNotifiedFailure = false;
   private isAppInBackground = false;
@@ -520,8 +519,6 @@ export class NativeWebSocketManager {
         } else if (msg.type === "disconnected") {
           this.setServerSessionId(null);
           this.config.onDisconnected(this.config.hostConfig.name);
-        } else if (msg.type === "pong") {
-          this.clearPongTimeout();
         } else if (msg.type === "resized") {
         } else if (msg.type === "sessionCreated") {
           this.setServerSessionId(msg.sessionId as string);
@@ -563,7 +560,6 @@ export class NativeWebSocketManager {
         this.connectionTimeout = null;
       }
       this.stopPingInterval();
-      this.clearPongTimeout();
       // Only reset awaitingAuthCredentials when the connection closed without
       // us actively waiting for user input (e.g. network drop). If shouldNotReconnect
       // is set alongside it, we're mid-auth-dialog — leave both intact.
@@ -637,21 +633,6 @@ export class NativeWebSocketManager {
       if (this.ws && this.ws.readyState === WebSocket.OPEN) {
         try {
           this.ws.send(JSON.stringify({ type: "ping" }));
-          // Start a pong timeout — if no pong arrives within 10s the connection
-          // is silently dead (TCP hang) and we need to force-reconnect.
-          this.clearPongTimeout();
-          this.pongTimeout = setTimeout(() => {
-            this.pongTimeout = null;
-            if (this.destroyed || this.isAppInBackground) return;
-            if (this.ws) {
-              try {
-                this.ws.onclose = null;
-                this.ws.close();
-              } catch (_) {}
-              this.ws = null;
-            }
-            this.scheduleReconnect();
-          }, 10000);
         } catch (_) {}
       }
     }, 25000);
@@ -661,13 +642,6 @@ export class NativeWebSocketManager {
     if (this.pingInterval) {
       clearInterval(this.pingInterval);
       this.pingInterval = null;
-    }
-  }
-
-  private clearPongTimeout(): void {
-    if (this.pongTimeout) {
-      clearTimeout(this.pongTimeout);
-      this.pongTimeout = null;
     }
   }
 
@@ -681,7 +655,6 @@ export class NativeWebSocketManager {
   private clearAllTimers(): void {
     this.stopPingInterval();
     this.clearReconnectTimeout();
-    this.clearPongTimeout();
     if (this.connectionTimeout) {
       clearTimeout(this.connectionTimeout);
       this.connectionTimeout = null;
