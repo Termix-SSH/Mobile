@@ -5,7 +5,11 @@ import { TerminalHandle } from "../Terminal";
 import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";
-import { BACKGROUNDS, BORDER_COLORS, TEXT_COLORS } from "@/app/constants/designTokens";
+import {
+  BACKGROUNDS,
+  BORDER_COLORS,
+  TEXT_COLORS,
+} from "@/app/constants/designTokens";
 
 interface CustomKeyboardProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
@@ -136,7 +140,10 @@ export default function CustomKeyboard({
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: BACKGROUNDS.DARKEST }} pointerEvents="box-none">
+    <View
+      style={{ flex: 1, backgroundColor: BACKGROUNDS.DARKEST }}
+      pointerEvents="box-none"
+    >
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingHorizontal: 8, paddingVertical: 8 }}
@@ -198,8 +205,21 @@ export default function CustomKeyboard({
         ))}
 
         {config.settings.showHints && !isKeyboardIntentionallyHidden && (
-          <View style={{ alignItems: "center", paddingHorizontal: 8, paddingBottom: 4, paddingTop: 8 }}>
-            <Text style={{ fontSize: 10, fontStyle: "italic", color: TEXT_COLORS.TERTIARY }}>
+          <View
+            style={{
+              alignItems: "center",
+              paddingHorizontal: 8,
+              paddingBottom: 4,
+              paddingTop: 8,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 10,
+                fontStyle: "italic",
+                color: TEXT_COLORS.TERTIARY,
+              }}
+            >
               Customize in Settings
             </Text>
           </View>

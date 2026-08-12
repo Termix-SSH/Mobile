@@ -208,8 +208,7 @@ export const TerminalSessionsProvider: React.FC<
       const hostId = sessionToRemove.host.id;
       const sessionType = sessionToRemove.type;
       const sameHostSessions = updatedSessions.filter(
-        (session) =>
-          session.host.id === hostId && session.type === sessionType,
+        (session) => session.host.id === hostId && session.type === sessionType,
       );
 
       if (sameHostSessions.length > 0) {

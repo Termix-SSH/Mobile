@@ -5,11 +5,7 @@ import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { ConnectionLog } from "./useConnectionLog";
 import type { ConnectionLogEntry } from "@/types";
 
-export type SessionFrameStatus =
-  | "loading"
-  | "ready"
-  | "error"
-  | "empty";
+export type SessionFrameStatus = "loading" | "ready" | "error" | "empty";
 
 /**
  * SessionFrame — the standard chrome shared by every session type (file
@@ -67,8 +63,8 @@ export function SessionFrame({
   return (
     <View className="flex-1 bg-background">
       {(title || headerActions) && (
-        <View className="flex-row items-center gap-2 px-4 py-3 border-b border-border">
-          <View className="flex-1 min-w-0">
+        <View className="flex-row items-center gap-2 border-b border-border px-4 py-3">
+          <View className="min-w-0 flex-1">
             {title ? (
               <Text
                 weight="bold"
@@ -79,16 +75,15 @@ export function SessionFrame({
               </Text>
             ) : null}
             {subtitle ? (
-              <Text
-                className="text-xs text-muted-foreground"
-                numberOfLines={1}
-              >
+              <Text className="text-xs text-muted-foreground" numberOfLines={1}>
                 {subtitle}
               </Text>
             ) : null}
           </View>
           {headerActions ? (
-            <View className="flex-row items-center gap-1.5">{headerActions}</View>
+            <View className="flex-row items-center gap-1.5">
+              {headerActions}
+            </View>
           ) : null}
         </View>
       )}
@@ -109,15 +104,16 @@ export function SessionFrame({
       ) : null}
 
       {/* Suppress the loading spinner when the log overlay is covering the screen */}
-      {status === "loading" && !(logEntries && logEntries.length > 0 && !isConnected) ? (
+      {status === "loading" &&
+      !(logEntries && logEntries.length > 0 && !isConnected) ? (
         <View className="flex-1 items-center justify-center gap-3">
           <ActivityIndicator size="large" color={color("accent-brand")} />
           <Text className="text-sm text-muted-foreground">{loadingLabel}</Text>
         </View>
       ) : status === "error" ? (
-        <View className="flex-1 items-center justify-center px-8 gap-3">
+        <View className="flex-1 items-center justify-center gap-3 px-8">
           <AlertCircle size={36} color={color("destructive")} />
-          <Text className="text-sm text-muted-foreground text-center leading-5">
+          <Text className="text-center text-sm leading-5 text-muted-foreground">
             {errorMessage || "Something went wrong"}
           </Text>
           {onRetry ? (
@@ -132,9 +128,11 @@ export function SessionFrame({
           ) : null}
         </View>
       ) : status === "empty" ? (
-        <View className="flex-1 items-center justify-center px-8 gap-3">
-          {emptyIcon ?? <AlertCircle size={32} color={color("muted-foreground")} />}
-          <Text className="text-sm text-muted-foreground text-center">
+        <View className="flex-1 items-center justify-center gap-3 px-8">
+          {emptyIcon ?? (
+            <AlertCircle size={32} color={color("muted-foreground")} />
+          )}
+          <Text className="text-center text-sm text-muted-foreground">
             {emptyMessage}
           </Text>
           {onRetry ? (

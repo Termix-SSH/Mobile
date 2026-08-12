@@ -77,7 +77,11 @@ export default function Host({
   const accent = color("accent-brand") ?? "#f59145";
   const online = status === "online";
 
-  const sshActive = host.enableSsh !== false && host.connectionType !== "rdp" && host.connectionType !== "vnc" && host.connectionType !== "telnet";
+  const sshActive =
+    host.enableSsh !== false &&
+    host.connectionType !== "rdp" &&
+    host.connectionType !== "vnc" &&
+    host.connectionType !== "telnet";
   const protocols: string[] = [];
   if (sshActive) protocols.push("SSH");
   if (host.enableRdp) protocols.push("RDP");

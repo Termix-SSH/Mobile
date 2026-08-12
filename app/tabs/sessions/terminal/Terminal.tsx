@@ -19,7 +19,11 @@ import { ChevronDown } from "lucide-react-native";
 import { logActivity, getSnippets } from "../../../main-axios";
 import { showToast } from "../../../utils/toast";
 import { useTerminalCustomization } from "../../../contexts/TerminalCustomizationContext";
-import { BACKGROUNDS, ACCENT, TEXT_COLORS } from "../../../constants/designTokens";
+import {
+  BACKGROUNDS,
+  ACCENT,
+  TEXT_COLORS,
+} from "../../../constants/designTokens";
 import {
   TOTPDialog,
   SSHAuthDialog,
@@ -223,40 +227,41 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       [onClose],
     );
 
-    const generateHTML = useCallback((assets: { xtermJs: string; xtermCss: string; fitAddonJs: string }) => {
-      const { width, height } = screenDimensions;
+    const generateHTML = useCallback(
+      (assets: { xtermJs: string; xtermCss: string; fitAddonJs: string }) => {
+        const { width, height } = screenDimensions;
 
-      const terminalConfig: Partial<TerminalConfig> = {
-        ...MOBILE_DEFAULT_TERMINAL_CONFIG,
-        ...config,
-        ...hostConfig.terminalConfig,
-      };
+        const terminalConfig: Partial<TerminalConfig> = {
+          ...MOBILE_DEFAULT_TERMINAL_CONFIG,
+          ...config,
+          ...hostConfig.terminalConfig,
+        };
 
-      const baseFontSize = config.fontSize || 16;
-      const charWidth = baseFontSize * 0.6;
-      const lineHeight = baseFontSize * 1.2;
-      const terminalWidth = Math.floor(width / charWidth);
-      const terminalHeight = Math.floor(height / lineHeight);
+        const baseFontSize = config.fontSize || 16;
+        const charWidth = baseFontSize * 0.6;
+        const lineHeight = baseFontSize * 1.2;
+        const terminalWidth = Math.floor(width / charWidth);
+        const terminalHeight = Math.floor(height / lineHeight);
 
-      void terminalWidth;
-      void terminalHeight;
+        void terminalWidth;
+        void terminalHeight;
 
-      const themeName = terminalConfig.theme || "termix";
-      const themeColors =
-        TERMINAL_THEMES[themeName]?.colors || TERMINAL_THEMES.termix.colors;
+        const themeName = terminalConfig.theme || "termix";
+        const themeColors =
+          TERMINAL_THEMES[themeName]?.colors || TERMINAL_THEMES.termix.colors;
 
-      const bgColor = themeColors.background;
-      setTerminalBackgroundColor(bgColor);
-      if (onBackgroundColorChange) {
-        onBackgroundColorChange(bgColor);
-      }
+        const bgColor = themeColors.background;
+        setTerminalBackgroundColor(bgColor);
+        if (onBackgroundColorChange) {
+          onBackgroundColorChange(bgColor);
+        }
 
-      const fontConfig = TERMINAL_FONTS.find(
-        (f) => f.value === terminalConfig.fontFamily,
-      );
-      const fontFamily = fontConfig?.fallback || TERMINAL_FONTS[0].fallback;
+        const fontConfig = TERMINAL_FONTS.find(
+          (f) => f.value === terminalConfig.fontFamily,
+        );
+        const fontFamily = fontConfig?.fallback || TERMINAL_FONTS[0].fallback;
 
-      return `
+        return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -725,13 +730,15 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 </body>
 </html>
     `;
-    }, [
-      hostConfig,
-      screenDimensions,
-      config.fontSize,
-      config.fontFamily,
-      onBackgroundColorChange,
-    ]);
+      },
+      [
+        hostConfig,
+        screenDimensions,
+        config.fontSize,
+        config.fontFamily,
+        onBackgroundColorChange,
+      ],
+    );
 
     useEffect(() => {
       loadXtermAssets().then((assets) => {
@@ -868,13 +875,16 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           switch (state) {
             case "connecting": {
               const retryCount = (data?.retryCount as number) || 0;
-              setConnectionState(retryCount > 0 ? "reconnecting" : "connecting");
+              setConnectionState(
+                retryCount > 0 ? "reconnecting" : "connecting",
+              );
               setRetryCount(retryCount);
               log.append({
                 level: "info",
-                message: retryCount > 0
-                  ? `Reconnecting… (attempt ${retryCount})`
-                  : `Connecting to ${hostConfig.name}…`,
+                message:
+                  retryCount > 0
+                    ? `Reconnecting… (attempt ${retryCount})`
+                    : `Connecting to ${hostConfig.name}…`,
               });
               break;
             }
@@ -1145,54 +1155,59 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             )}
 
           {/* Spinner shown until terminal has rendered its first output */}
-          {(connectionState === "connecting" || connectionState === "reconnecting" || !hasReceivedData) &&
+          {(connectionState === "connecting" ||
+            connectionState === "reconnecting" ||
+            !hasReceivedData) &&
             connectionState !== "failed" && (
-            <View
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: terminalBackgroundColor,
-                zIndex: 120,
-              }}
-            >
-              <ActivityIndicator size="large" color={ACCENT} />
-              <Text
+              <View
                 style={{
-                  color: TEXT_COLORS.PRIMARY,
-                  fontSize: 16,
-                  fontWeight: "600",
-                  marginTop: 20,
-                  textAlign: "center",
-                  letterSpacing: 0.3,
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: terminalBackgroundColor,
+                  zIndex: 120,
                 }}
               >
-                {connectionState === "reconnecting"
-                  ? "Reconnecting..."
-                  : "Connecting..."}
-              </Text>
-              <Text
-                style={{
-                  color: TEXT_COLORS.SECONDARY,
-                  fontSize: 13,
-                  marginTop: 6,
-                  textAlign: "center",
-                }}
-              >
-                {hostConfig.name}
-                {"  ·  "}
-                {hostConfig.ip}
-              </Text>
-            </View>
-          )}
+                <ActivityIndicator size="large" color={ACCENT} />
+                <Text
+                  style={{
+                    color: TEXT_COLORS.PRIMARY,
+                    fontSize: 16,
+                    fontWeight: "600",
+                    marginTop: 20,
+                    textAlign: "center",
+                    letterSpacing: 0.3,
+                  }}
+                >
+                  {connectionState === "reconnecting"
+                    ? "Reconnecting..."
+                    : "Connecting..."}
+                </Text>
+                <Text
+                  style={{
+                    color: TEXT_COLORS.SECONDARY,
+                    fontSize: 13,
+                    marginTop: 6,
+                    textAlign: "center",
+                  }}
+                >
+                  {hostConfig.name}
+                  {"  ·  "}
+                  {hostConfig.ip}
+                </Text>
+              </View>
+            )}
 
           <ConnectionLog
             entries={log.entries}
-            isConnecting={connectionState === "connecting" || connectionState === "reconnecting"}
+            isConnecting={
+              connectionState === "connecting" ||
+              connectionState === "reconnecting"
+            }
             isConnected={connectionState === "connected"}
             hasConnectionError={connectionState === "failed"}
             onClear={log.clear}

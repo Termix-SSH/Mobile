@@ -66,9 +66,13 @@ export async function setCookie(
   try {
     await AsyncStorage.setItem(name, value);
   } catch (error) {
-    systemLogger.error(`[setCookie] Failed to persist ${name} to AsyncStorage`, error, {
-      operation: "set_cookie",
-    });
+    systemLogger.error(
+      `[setCookie] Failed to persist ${name} to AsyncStorage`,
+      error,
+      {
+        operation: "set_cookie",
+      },
+    );
   }
 }
 
@@ -77,9 +81,13 @@ export async function getCookie(name: string): Promise<string | undefined> {
     const token = await AsyncStorage.getItem(name);
     return token || undefined;
   } catch (error) {
-    systemLogger.error(`[getCookie] Failed to read ${name} from AsyncStorage`, error, {
-      operation: "get_cookie",
-    });
+    systemLogger.error(
+      `[getCookie] Failed to read ${name} from AsyncStorage`,
+      error,
+      {
+        operation: "get_cookie",
+      },
+    );
     return undefined;
   }
 }
@@ -290,9 +298,13 @@ export async function initializeServerConfig(): Promise<void> {
       }
     }
   } catch (error) {
-    systemLogger.error("[initializeServerConfig] Failed to load server config", error, {
-      operation: "initialize_server_config",
-    });
+    systemLogger.error(
+      "[initializeServerConfig] Failed to load server config",
+      error,
+      {
+        operation: "initialize_server_config",
+      },
+    );
   }
 }
 
@@ -347,9 +359,13 @@ export async function clearAuth(): Promise<void> {
   try {
     await AsyncStorage.removeItem("jwt");
   } catch (error) {
-    systemLogger.error("[clearAuth] Failed to remove jwt from AsyncStorage", error, {
-      operation: "clear_auth",
-    });
+    systemLogger.error(
+      "[clearAuth] Failed to remove jwt from AsyncStorage",
+      error,
+      {
+        operation: "clear_auth",
+      },
+    );
   }
 }
 
@@ -591,10 +607,9 @@ class ApiError extends Error {
 export function extractConnectionLogs(
   source: unknown,
 ): { type: string; stage?: string; message: string }[] {
-  const data =
-    axios.isAxiosError(source)
-      ? (source.response?.data as any)
-      : (source as any);
+  const data = axios.isAxiosError(source)
+    ? (source.response?.data as any)
+    : (source as any);
   const logs = data?.connectionLogs;
   return Array.isArray(logs) ? logs : [];
 }
@@ -2049,8 +2064,12 @@ function normalizeMetrics(raw: any): ServerMetrics {
   const rawLogin = raw.login_stats ?? raw.loginStats;
   const loginStats: LoginStatsMetrics | undefined = rawLogin
     ? {
-        recentLogins: Array.isArray(rawLogin.recentLogins) ? rawLogin.recentLogins : [],
-        failedLogins: Array.isArray(rawLogin.failedLogins) ? rawLogin.failedLogins : [],
+        recentLogins: Array.isArray(rawLogin.recentLogins)
+          ? rawLogin.recentLogins
+          : [],
+        failedLogins: Array.isArray(rawLogin.failedLogins)
+          ? rawLogin.failedLogins
+          : [],
         totalLogins: rawLogin.totalLogins ?? 0,
         uniqueIPs: rawLogin.uniqueIPs ?? 0,
       }
@@ -2059,7 +2078,9 @@ function normalizeMetrics(raw: any): ServerMetrics {
   return { ...raw, processes, network, loginStats } as ServerMetrics;
 }
 
-export async function getServerMetricsById(id: number): Promise<ServerMetrics | null> {
+export async function getServerMetricsById(
+  id: number,
+): Promise<ServerMetrics | null> {
   try {
     const response = await statsApi.get(`/metrics/${id}`);
     return response.data ? normalizeMetrics(response.data) : null;
@@ -2090,9 +2111,15 @@ export async function startMetricsPolling(id: number): Promise<{
   }
 }
 
-export async function stopMetricsPolling(id: number, viewerSessionId?: string): Promise<void> {
+export async function stopMetricsPolling(
+  id: number,
+  viewerSessionId?: string,
+): Promise<void> {
   try {
-    await statsApi.post(`/metrics/stop/${id}`, viewerSessionId ? { viewerSessionId } : undefined);
+    await statsApi.post(
+      `/metrics/stop/${id}`,
+      viewerSessionId ? { viewerSessionId } : undefined,
+    );
   } catch {
     // Best-effort on teardown.
   }
@@ -2120,7 +2147,9 @@ export async function registerMetricsViewer(id: number): Promise<{
   skipped?: boolean;
 }> {
   try {
-    const response = await statsApi.post("/metrics/register-viewer", { hostId: id });
+    const response = await statsApi.post("/metrics/register-viewer", {
+      hostId: id,
+    });
     return response.data || {};
   } catch {
     // Best-effort.
@@ -2128,16 +2157,24 @@ export async function registerMetricsViewer(id: number): Promise<{
   }
 }
 
-export async function unregisterMetricsViewer(id: number, viewerSessionId: string): Promise<void> {
+export async function unregisterMetricsViewer(
+  id: number,
+  viewerSessionId: string,
+): Promise<void> {
   try {
-    await statsApi.post("/metrics/unregister-viewer", { hostId: id, viewerSessionId });
+    await statsApi.post("/metrics/unregister-viewer", {
+      hostId: id,
+      viewerSessionId,
+    });
   } catch {
     // Best-effort on teardown.
   }
 }
 
 /** Heartbeat so the backend knows a viewer is still watching this host. */
-export async function sendMetricsHeartbeat(viewerSessionId: string): Promise<void> {
+export async function sendMetricsHeartbeat(
+  viewerSessionId: string,
+): Promise<void> {
   try {
     await statsApi.post("/metrics/heartbeat", { viewerSessionId });
   } catch {
@@ -2149,7 +2186,9 @@ export async function refreshServerPolling(): Promise<void> {
   try {
     await statsApi.post("/refresh");
   } catch (error) {
-    statsLogger.warn("Failed to refresh server polling", { operation: "refresh_polling" });
+    statsLogger.warn("Failed to refresh server polling", {
+      operation: "refresh_polling",
+    });
   }
 }
 
@@ -2159,7 +2198,9 @@ export async function notifyHostCreatedOrUpdated(
   try {
     await statsApi.post("/host-updated", { hostId });
   } catch (error) {
-    statsLogger.warn("Failed to notify stats server of host update", { operation: "notify_host_updated" });
+    statsLogger.warn("Failed to notify stats server of host update", {
+      operation: "notify_host_updated",
+    });
   }
 }
 
@@ -3710,10 +3751,7 @@ export async function getActiveSessions(): Promise<ActiveSessionInfo[]> {
 // earlier in this file.
 // ============================================================================
 
-export type {
-  DockerContainer,
-  DockerContainerStats,
-} from "../types/index";
+export type { DockerContainer, DockerContainerStats } from "../types/index";
 
 /**
  * Docker REST API base. nginx routes /docker/* → port 30007 from the server
@@ -3809,10 +3847,9 @@ export async function getDockerContainers(
   all = true,
 ): Promise<DockerContainer[]> {
   try {
-    const response = await dockerApi().get(
-      `/docker/containers/${sessionId}`,
-      { params: { all } },
-    );
+    const response = await dockerApi().get(`/docker/containers/${sessionId}`, {
+      params: { all },
+    });
     const data = response.data;
     return Array.isArray(data) ? data : (data?.containers ?? []);
   } catch (error) {
@@ -3890,7 +3927,9 @@ export async function getDockerContainerLogs(
 // WAKE-ON-LAN
 // ============================================================================
 
-export async function wakeHost(hostId: number): Promise<{ success: boolean; message: string }> {
+export async function wakeHost(
+  hostId: number,
+): Promise<{ success: boolean; message: string }> {
   try {
     const response = await sshHostApi.post(`/db/host/${hostId}/wake`);
     return response.data;
@@ -3949,7 +3988,9 @@ export async function deleteApiKey(keyId: string): Promise<void> {
 // TOTP BACKUP CODES
 // ============================================================================
 
-export async function getTOTPBackupCodes(): Promise<{ backup_codes: string[] }> {
+export async function getTOTPBackupCodes(): Promise<{
+  backup_codes: string[];
+}> {
   try {
     const response = await authApi.get("/users/totp/backup-codes");
     return response.data;

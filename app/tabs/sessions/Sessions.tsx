@@ -45,7 +45,11 @@ import BottomToolbar from "@/app/tabs/sessions/terminal/keyboard/BottomToolbar";
 import KeyboardBar from "@/app/tabs/sessions/terminal/keyboard/KeyboardBar";
 import { useOrientation } from "@/app/utils/orientation";
 import { getMaxKeyboardHeight, getTabBarHeight } from "@/app/utils/responsive";
-import { BACKGROUNDS, BORDER_COLORS, RADIUS } from "@/app/constants/designTokens";
+import {
+  BACKGROUNDS,
+  BORDER_COLORS,
+  RADIUS,
+} from "@/app/constants/designTokens";
 import { addKeyCommandListener } from "@/modules/hardware-keyboard";
 
 type ActiveModifiers = {
@@ -98,7 +102,9 @@ export default function Sessions() {
     Dimensions.get("window"),
   );
   const [keyboardType, setKeyboardType] = useState<any>("default");
-  const [customKeyboardInitialTab, setCustomKeyboardInitialTab] = useState<"keyboard" | "snippets" | "history">("keyboard");
+  const [customKeyboardInitialTab, setCustomKeyboardInitialTab] = useState<
+    "keyboard" | "snippets" | "history"
+  >("keyboard");
   const [hiddenInputValue, setHiddenInputValue] = useState("");
   const dictationBufferRef = useRef("");
   const dictationSentRef = useRef("");
@@ -159,8 +165,13 @@ export default function Sessions() {
     const show = Keyboard.addListener("keyboardDidShow", () => {
       if (activeSession?.type === "remoteDesktop") setIsRdpKeyboardOpen(true);
     });
-    const hide = Keyboard.addListener("keyboardDidHide", () => setIsRdpKeyboardOpen(false));
-    return () => { show.remove(); hide.remove(); };
+    const hide = Keyboard.addListener("keyboardDidHide", () =>
+      setIsRdpKeyboardOpen(false),
+    );
+    return () => {
+      show.remove();
+      hide.remove();
+    };
   }, [activeSession?.type]);
 
   const getTabBarBottomPosition = () => {
@@ -448,7 +459,9 @@ export default function Sessions() {
       }
 
       if (event.alt && !event.ctrl && event.input.length === 1) {
-        activeRef.current.sendInput(`\x1b${event.shift ? event.input.toUpperCase() : event.input}`);
+        activeRef.current.sendInput(
+          `\x1b${event.shift ? event.input.toUpperCase() : event.input}`,
+        );
         return;
       }
 
@@ -556,7 +569,11 @@ export default function Sessions() {
       setKeyboardIntentionallyHidden(false);
       setTimeout(() => hiddenInputRef.current?.focus(), 100);
     }
-  }, [activeSession?.type, isCustomKeyboardVisible, setKeyboardIntentionallyHidden]);
+  }, [
+    activeSession?.type,
+    isCustomKeyboardVisible,
+    setKeyboardIntentionallyHidden,
+  ]);
 
   const handleAddSession = () => {
     router.navigate("/hosts" as any);
@@ -609,16 +626,25 @@ export default function Sessions() {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       toggleCustomKeyboard();
       setKeyboardIntentionallyHidden(false);
-      requestAnimationFrame(() => { hiddenInputRef.current?.blur(); });
+      requestAnimationFrame(() => {
+        hiddenInputRef.current?.blur();
+      });
       setTimeout(() => {
-        const activeRef = activeSessionId ? terminalRefs.current[activeSessionId] : null;
+        const activeRef = activeSessionId
+          ? terminalRefs.current[activeSessionId]
+          : null;
         if (activeRef?.current) {
           activeRef.current.fit();
           setTimeout(() => activeRef.current?.scrollToBottom(), 50);
         }
       }, 300);
     }
-  }, [isCustomKeyboardVisible, toggleCustomKeyboard, setKeyboardIntentionallyHidden, activeSessionId]);
+  }, [
+    isCustomKeyboardVisible,
+    toggleCustomKeyboard,
+    setKeyboardIntentionallyHidden,
+    activeSessionId,
+  ]);
 
   const handleModifierChange = useCallback((modifiers: ActiveModifiers) => {
     setActiveModifiers(modifiers);
@@ -785,10 +811,7 @@ export default function Sessions() {
                 }}
               >
                 <View style={{ flex: 1 }}>
-                  <Text
-                    weight="bold"
-                    className="text-base text-foreground"
-                  >
+                  <Text weight="bold" className="text-base text-foreground">
                     Connections
                   </Text>
                 </View>
@@ -1188,7 +1211,12 @@ export default function Sessions() {
                 // actually mutate the hidden input value (backspace, enter,
                 // tab, escape). Delete/arrows/F-keys don't change it and
                 // should not eat the next typed character.
-                const resetsInput = ["Backspace", "Enter", "Tab", "Escape"].includes(key);
+                const resetsInput = [
+                  "Backspace",
+                  "Enter",
+                  "Tab",
+                  "Escape",
+                ].includes(key);
                 if (resetsInput) {
                   resetHiddenInputState();
                   ignoreNextTextChangeRef.current = true;

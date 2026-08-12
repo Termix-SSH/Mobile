@@ -4,10 +4,7 @@ import { WebView } from "react-native-webview";
 import { RotateCcw } from "lucide-react-native";
 import { Text } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
-import {
-  getCookie,
-  getDockerConsoleWebSocketUrl,
-} from "@/app/main-axios";
+import { getCookie, getDockerConsoleWebSocketUrl } from "@/app/main-axios";
 import type { SSHHost, DockerContainer } from "@/types";
 
 /**
@@ -144,7 +141,7 @@ export function DockerConsole({
         style={{ flex: 1, backgroundColor: "#000" }}
       />
       {status !== "connected" ? (
-        <View className="absolute inset-0 items-center justify-center bg-black/80 gap-3">
+        <View className="absolute inset-0 items-center justify-center gap-3 bg-black/80">
           {status === "connecting" ? (
             <>
               <ActivityIndicator size="large" color={color("accent-brand")} />
@@ -154,12 +151,12 @@ export function DockerConsole({
             </>
           ) : (
             <>
-              <Text className="text-sm text-destructive text-center px-8">
+              <Text className="px-8 text-center text-sm text-destructive">
                 {errorMessage || "Console disconnected"}
               </Text>
               <Pressable
                 onPress={reconnect}
-                className="flex-row items-center gap-1.5 px-3 py-2 border border-border active:bg-muted/40"
+                className="flex-row items-center gap-1.5 border border-border px-3 py-2 active:bg-muted/40"
               >
                 <RotateCcw size={14} color={color("foreground")} />
                 <Text className="text-xs text-foreground">Reconnect</Text>

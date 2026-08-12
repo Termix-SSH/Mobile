@@ -15,23 +15,18 @@ export function NetworkWidget({ metrics }: { metrics: ServerMetrics }) {
       title="Network"
     >
       {interfaces.length === 0 ? (
-        <Text className="text-[11px] text-muted-foreground">
-          No interfaces
-        </Text>
+        <Text className="text-[11px] text-muted-foreground">No interfaces</Text>
       ) : (
         <View className="gap-2">
           {interfaces.map((iface) => {
             const up = (iface.state || "").toUpperCase() === "UP";
             return (
-              <View
-                key={iface.name}
-                className="flex-row items-center gap-2"
-              >
+              <View key={iface.name} className="flex-row items-center gap-2">
                 <View
                   style={{ backgroundColor: up ? "#22c55e" : "#ef4444" }}
-                  className="w-2 h-2 rounded-full"
+                  className="h-2 w-2 rounded-full"
                 />
-                <View className="flex-1 min-w-0">
+                <View className="min-w-0 flex-1">
                   <Text
                     weight="medium"
                     className="text-[12px] text-foreground"
@@ -46,9 +41,13 @@ export function NetworkWidget({ metrics }: { metrics: ServerMetrics }) {
                     ) : null}
                   </Text>
                 </View>
-                {iface.rx != null || iface.tx != null || iface.rxBytes != null || iface.txBytes != null ? (
+                {iface.rx != null ||
+                iface.tx != null ||
+                iface.rxBytes != null ||
+                iface.txBytes != null ? (
                   <Text className="text-[10px] text-muted-foreground">
-                    ↓ {iface.rx ?? iface.rxBytes ?? "—"} ↑ {iface.tx ?? iface.txBytes ?? "—"}
+                    ↓ {iface.rx ?? iface.rxBytes ?? "—"} ↑{" "}
+                    {iface.tx ?? iface.txBytes ?? "—"}
                   </Text>
                 ) : null}
               </View>
