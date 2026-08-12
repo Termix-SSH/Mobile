@@ -462,6 +462,14 @@ function getHostBase(defaultPort: number): string {
   return `http://localhost:${defaultPort}/host`;
 }
 
+function getHostBaseCandidates(defaultPort: number): string[] {
+  return [
+    getHostBase(defaultPort),
+    getSshBase(defaultPort),
+    getRootBase(defaultPort),
+  ].filter((base, index, candidates) => candidates.indexOf(base) === index);
+}
+
 function initializeApiInstances() {
   sshHostApi = createApiInstance(getHostBase(8081), "SSH_HOST");
 
@@ -803,15 +811,43 @@ function normalizeSSHHost(host: SSHHost): SSHHost {
   };
 }
 
+function normalizeSSHHostResponse(data: unknown): SSHHost[] | null {
+  const hosts = Array.isArray(data)
+    ? data
+    : Array.isArray((data as { hosts?: unknown } | null)?.hosts)
+      ? (data as { hosts: SSHHost[] }).hosts
+      : null;
+
+  return hosts?.map(normalizeSSHHost) ?? null;
+}
+
 export async function getSSHHosts(): Promise<SSHHost[]> {
-  try {
-    const response = await sshHostApi.get("/db/host");
-    return Array.isArray(response.data)
-      ? response.data.map(normalizeSSHHost)
-      : response.data;
-  } catch (error) {
-    handleApiError(error, "fetch SSH hosts");
+  let lastError: unknown;
+
+  for (const baseURL of getHostBaseCandidates(8081)) {
+    const candidateApi = createApiInstance(baseURL, "SSH_HOST");
+
+    try {
+      const response = await candidateApi.get("/db/host", {
+        headers: { "Cache-Control": "no-cache" },
+      });
+      const hosts = normalizeSSHHostResponse(response.data);
+      if (hosts) {
+        sshHostApi = candidateApi;
+        return hosts;
+      }
+      lastError = new Error(`Unexpected host response from ${baseURL}`);
+    } catch (error) {
+      lastError = error;
+      if (
+        axios.isAxiosError(error) &&
+        [401, 403].includes(error.response?.status ?? 0)
+      )
+        break;
+    }
   }
+
+  handleApiError(lastError, "fetch SSH hosts");
 }
 
 export async function createSSHHost(hostData: SSHHostData): Promise<SSHHost> {
