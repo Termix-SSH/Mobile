@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  requireNativeViewManager,
-  type NativeModule,
-} from "expo-modules-core";
+import { requireNativeViewManager, type NativeModule } from "expo-modules-core";
 import type { NativeSyntheticEvent, ViewProps } from "react-native";
 
 export type TerminalImeInputCommitEvent = {
