@@ -34,8 +34,12 @@ export function ContextSheet({
   return (
     <BottomSheet visible={visible} onClose={onClose}>
       {title ? (
-        <View className="px-4 pb-3 pt-1 border-b border-border">
-          <Text weight="bold" className="text-base text-foreground" numberOfLines={1}>
+        <View className="border-b border-border px-4 pb-3 pt-1">
+          <Text
+            weight="bold"
+            className="text-base text-foreground"
+            numberOfLines={1}
+          >
             {title}
           </Text>
           {subtitle ? (

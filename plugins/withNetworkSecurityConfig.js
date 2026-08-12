@@ -5,6 +5,27 @@ const {
 const path = require("path");
 const fs = require("fs");
 
+const NETWORK_SECURITY_CONFIG = `<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain>
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>
+`;
+
 const withNetworkSecurityConfig = (config) => {
   config = withAndroidManifest(config, async (config) => {
     const mainApplication = config.modResults.manifest.application[0];
@@ -38,28 +59,7 @@ const withNetworkSecurityConfig = (config) => {
         "network_security_config.xml",
       );
 
-      const networkSecurityConfig = `<?xml version="1.0" encoding="utf-8"?>
-<network-security-config>
-    <base-config cleartextTrafficPermitted="true">
-        <trust-anchors>
-            <certificates src="system" />
-            <certificates src="user" />
-        </trust-anchors>
-    </base-config>
-
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">localhost</domain>
-        <domain includeSubdomains="true">127.0.0.1</domain>
-        <domain includeSubdomains="true">10.0.2.2</domain>
-        <trust-anchors>
-            <certificates src="system" />
-            <certificates src="user" />
-        </trust-anchors>
-    </domain-config>
-</network-security-config>
-`;
-
-      fs.writeFileSync(networkSecurityConfigPath, networkSecurityConfig);
+      fs.writeFileSync(networkSecurityConfigPath, NETWORK_SECURITY_CONFIG);
 
       return config;
     },
@@ -69,3 +69,4 @@ const withNetworkSecurityConfig = (config) => {
 };
 
 module.exports = withNetworkSecurityConfig;
+module.exports.NETWORK_SECURITY_CONFIG = NETWORK_SECURITY_CONFIG;

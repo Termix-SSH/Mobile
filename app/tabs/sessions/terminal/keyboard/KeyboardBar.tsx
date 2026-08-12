@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { TerminalHandle } from "../Terminal";
 import KeyboardKey from "./KeyboardKey";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
 import { KeyConfig } from "@/types/keyboard";
 import { useOrientation } from "@/app/utils/orientation";
-import { BACKGROUNDS, BORDER_COLORS, ACCENT } from "@/app/constants/designTokens";
+import {
+  BACKGROUNDS,
+  BORDER_COLORS,
+  ACCENT,
+} from "@/app/constants/designTokens";
 
 interface KeyboardBarProps {
   terminalRef: React.RefObject<TerminalHandle | null>;
@@ -208,7 +218,14 @@ export default function KeyboardBar({
                 backgroundColor: BACKGROUNDS.CARD,
               }}
             >
-              <Text style={{ fontSize: 11, fontWeight: "600", color: ACCENT, letterSpacing: 0.5 }}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: "600",
+                  color: ACCENT,
+                  letterSpacing: 0.5,
+                }}
+              >
                 {"{ }"}
               </Text>
             </TouchableOpacity>

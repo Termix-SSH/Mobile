@@ -27,7 +27,7 @@ export function CpuWidget({
     >
       <Meter percent={percent} history={history} />
       {cpu?.cores != null ? (
-        <Text className="text-[10px] text-muted-foreground mt-1.5">
+        <Text className="mt-1.5 text-[10px] text-muted-foreground">
           {cpu.cores} cores
           {cpu.load
             ? ` · load ${cpu.load.map((l) => Number(l).toFixed(2)).join(", ")}`

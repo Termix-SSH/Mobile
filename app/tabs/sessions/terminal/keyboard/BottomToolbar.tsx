@@ -48,7 +48,15 @@ export default function BottomToolbar({
   const TAB_BAR_HEIGHT = 36;
 
   return (
-    <View style={{ backgroundColor: BACKGROUNDS.DARKEST, marginTop: 2, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: BORDER_COLORS.PRIMARY }} pointerEvents="box-none">
+    <View
+      style={{
+        backgroundColor: BACKGROUNDS.DARKEST,
+        marginTop: 2,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: BORDER_COLORS.PRIMARY,
+      }}
+      pointerEvents="box-none"
+    >
       <View
         style={{
           flexDirection: "row",
@@ -67,8 +75,11 @@ export default function BottomToolbar({
                 justifyContent: "center",
                 paddingVertical: 6,
                 paddingHorizontal: 4,
-                backgroundColor: isActive ? BACKGROUNDS.CARD : BACKGROUNDS.DARKEST,
-                borderRightWidth: index !== tabs.length - 1 ? StyleSheet.hairlineWidth : 0,
+                backgroundColor: isActive
+                  ? BACKGROUNDS.CARD
+                  : BACKGROUNDS.DARKEST,
+                borderRightWidth:
+                  index !== tabs.length - 1 ? StyleSheet.hairlineWidth : 0,
                 borderRightColor: BORDER_COLORS.PRIMARY,
               }}
               onPress={() => setMode(tab.id)}

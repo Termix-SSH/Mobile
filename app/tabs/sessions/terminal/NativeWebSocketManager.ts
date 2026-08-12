@@ -59,7 +59,11 @@ export interface NativeWSConfig {
   /** Fired when the backend session id is created/attached/cleared. */
   onSessionIdChange?: (sessionId: string | null) => void;
   /** Fired for each `connection_log` WS message from the server. */
-  onConnectionLog?: (entry: { level?: string; stage?: string; message: string }) => void;
+  onConnectionLog?: (entry: {
+    level?: string;
+    stage?: string;
+    message: string;
+  }) => void;
 }
 
 export class NativeWebSocketManager {
@@ -248,7 +252,9 @@ export class NativeWebSocketManager {
   sendWarpgateContinue(): void {
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       try {
-        this.ws.send(JSON.stringify({ type: "warpgate_auth_continue", data: {} }));
+        this.ws.send(
+          JSON.stringify({ type: "warpgate_auth_continue", data: {} }),
+        );
       } catch (_) {}
     }
   }
@@ -261,7 +267,10 @@ export class NativeWebSocketManager {
             type: "reconnect_with_credentials",
             data: {
               keyPassword: passphrase,
-              hostConfig: { ...this.config.hostConfig, keyPassword: passphrase },
+              hostConfig: {
+                ...this.config.hostConfig,
+                keyPassword: passphrase,
+              },
               cols: this.cols,
               rows: this.rows,
             },
@@ -546,7 +555,9 @@ export class NativeWebSocketManager {
           this.config.onDisconnected(this.config.hostConfig.name);
         } else if (msg.type === "connection_log") {
           if (msg.data) {
-            this.config.onConnectionLog?.(msg.data as { level?: string; stage?: string; message: string });
+            this.config.onConnectionLog?.(
+              msg.data as { level?: string; stage?: string; message: string },
+            );
           }
         }
       } catch (_) {

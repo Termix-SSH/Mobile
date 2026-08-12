@@ -61,17 +61,14 @@ export function Docker({ host, isVisible }: DockerProps) {
   const [dockerAvailable, setDockerAvailable] = useState<boolean | null>(null);
   const [initialLoadDone, setInitialLoadDone] = useState(false);
 
-  const loadContainers = useCallback(
-    async (sessionId: string) => {
-      try {
-        const list = await getDockerContainers(sessionId);
-        setContainers(list);
-      } catch (e: any) {
-        toast.error(e?.message || "Failed to load containers");
-      }
-    },
-    [],
-  );
+  const loadContainers = useCallback(async (sessionId: string) => {
+    try {
+      const list = await getDockerContainers(sessionId);
+      setContainers(list);
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to load containers");
+    }
+  }, []);
 
   const connectTransport = useMemo(
     () => ({
@@ -173,7 +170,9 @@ export function Docker({ host, isVisible }: DockerProps) {
 
   // Map connect-state → SessionFrame status.
   const frameStatus =
-    conn.state === "connecting" || conn.state === "idle" || (conn.state === "connected" && !initialLoadDone)
+    conn.state === "connecting" ||
+    conn.state === "idle" ||
+    (conn.state === "connected" && !initialLoadDone)
       ? "loading"
       : conn.state === "error"
         ? "error"
@@ -198,7 +197,9 @@ export function Docker({ host, isVisible }: DockerProps) {
               ? "No containers found"
               : "No containers match your filters"
         }
-        emptyIcon={<ContainerIcon size={32} color={color("muted-foreground")} />}
+        emptyIcon={
+          <ContainerIcon size={32} color={color("muted-foreground")} />
+        }
         onRetry={conn.state === "error" ? conn.retry : undefined}
         logEntries={conn.logEntries}
         isConnecting={conn.state === "connecting" || conn.state === "idle"}
@@ -208,8 +209,7 @@ export function Docker({ host, isVisible }: DockerProps) {
         headerActions={
           <Pressable
             onPress={() =>
-              conn.sessionId.current &&
-              loadContainers(conn.sessionId.current)
+              conn.sessionId.current && loadContainers(conn.sessionId.current)
             }
             hitSlop={8}
             className="p-1.5"
@@ -219,7 +219,7 @@ export function Docker({ host, isVisible }: DockerProps) {
         }
         toolbar={
           conn.state === "connected" && dockerAvailable !== false ? (
-            <View className="px-3 py-2.5 gap-2.5">
+            <View className="gap-2.5 px-3 py-2.5">
               <Input
                 value={query}
                 onChangeText={setQuery}
@@ -361,17 +361,19 @@ function ContainerRow({
     <Pressable
       onPress={onPress}
       onLongPress={onMenu}
-      className="px-3 py-3 bg-card border border-border active:bg-muted/30"
+      className="border border-border bg-card px-3 py-3 active:bg-muted/30"
     >
       <View className="flex-row items-center gap-2.5">
         <View
           style={{
-            backgroundColor: running ? "#22c55e" : color("muted-foreground", 0.4),
+            backgroundColor: running
+              ? "#22c55e"
+              : color("muted-foreground", 0.4),
           }}
-          className="w-2.5 h-2.5 rounded-full"
+          className="h-2.5 w-2.5 rounded-full"
         />
         <ContainerIcon size={15} color={color("muted-foreground")} />
-        <View className="flex-1 min-w-0">
+        <View className="min-w-0 flex-1">
           <Text
             weight="medium"
             className="text-sm text-foreground"
@@ -386,7 +388,12 @@ function ContainerRow({
         <Badge variant={running ? "success" : "muted"}>
           {running ? "running" : container.state || "stopped"}
         </Badge>
-        <Pressable onPress={onMenu} hitSlop={8} disabled={busy} className="pl-1">
+        <Pressable
+          onPress={onMenu}
+          hitSlop={8}
+          disabled={busy}
+          className="pl-1"
+        >
           <MoreVertical size={16} color={color("muted-foreground")} />
         </Pressable>
       </View>
