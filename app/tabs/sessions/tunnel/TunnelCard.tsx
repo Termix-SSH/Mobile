@@ -51,10 +51,10 @@ export default function TunnelCard({
   };
 
   return (
-    <View className="bg-card border border-border p-3.5 gap-3">
+    <View className="gap-3 border border-border bg-card p-3.5">
       {/* Header: title + status badge */}
       <View className="flex-row items-center justify-between gap-2">
-        <View className="flex-row items-center gap-1.5 flex-1 min-w-0">
+        <View className="min-w-0 flex-1 flex-row items-center gap-1.5">
           <StatusIcon size={14} color={info.color} />
           <Text
             weight="medium"
@@ -70,21 +70,21 @@ export default function TunnelCard({
       {/* Port mapping */}
       <Pressable
         onPress={copyLocal}
-        className="bg-background border border-border px-3 py-2.5 flex-row items-center gap-2 active:bg-muted/30"
+        className="flex-row items-center gap-2 border border-border bg-background px-3 py-2.5 active:bg-muted/30"
       >
-        <View className="flex-1 min-w-0">
+        <View className="min-w-0 flex-1">
           <View className="flex-row items-center gap-2">
             <Text className="text-[10px] uppercase tracking-[1px] text-muted-foreground">
               Port Mapping
             </Text>
-            {(tunnel.mode || tunnel.tunnelType) ? (
-              <Text className="text-[9px] uppercase tracking-[1px] text-accent-brand font-medium">
+            {tunnel.mode || tunnel.tunnelType ? (
+              <Text className="text-[9px] font-medium uppercase tracking-[1px] text-accent-brand">
                 {(tunnel.mode || tunnel.tunnelType)!.toUpperCase()}
               </Text>
             ) : null}
           </View>
           <Text
-            className="text-[13px] text-foreground mt-0.5"
+            className="mt-0.5 text-[13px] text-foreground"
             style={{ fontFamily: MONO_FONT }}
             numberOfLines={1}
           >
@@ -97,8 +97,9 @@ export default function TunnelCard({
       </Pressable>
 
       {/* Error reason */}
-      {(statusValue === "ERROR" || statusValue === "FAILED") && status?.reason ? (
-        <View className="bg-destructive/10 border border-destructive/30 px-2.5 py-2">
+      {(statusValue === "ERROR" || statusValue === "FAILED") &&
+      status?.reason ? (
+        <View className="border border-destructive/30 bg-destructive/10 px-2.5 py-2">
           <Text className="text-[11px] text-destructive" numberOfLines={3}>
             {status.reason}
           </Text>
@@ -155,10 +156,8 @@ function ActionButton({
     <Pressable
       onPress={onPress}
       disabled={loading}
-      className={`flex-1 flex-row items-center justify-center gap-1.5 py-2.5 border ${
-        accent
-          ? "border-accent-brand/40 bg-accent-brand/10"
-          : "border-border"
+      className={`flex-1 flex-row items-center justify-center gap-1.5 border py-2.5 ${
+        accent ? "border-accent-brand/40 bg-accent-brand/10" : "border-border"
       } ${loading ? "opacity-50" : "active:opacity-80"}`}
     >
       {loading ? (
@@ -189,14 +188,34 @@ function statusInfo(
 } {
   switch (statusValue) {
     case "CONNECTED":
-      return { label: "Connected", color: "#22c55e", icon: CheckCircle, badge: "success" };
+      return {
+        label: "Connected",
+        color: "#22c55e",
+        icon: CheckCircle,
+        badge: "success",
+      };
     case "CONNECTING":
-      return { label: "Connecting", color: color("accent-brand") ?? "#f59145", icon: RotateCcw, badge: "accent" };
+      return {
+        label: "Connecting",
+        color: color("accent-brand") ?? "#f59145",
+        icon: RotateCcw,
+        badge: "accent",
+      };
     case "DISCONNECTING":
-      return { label: "Disconnecting", color: "#f59e0b", icon: RotateCcw, badge: "muted" };
+      return {
+        label: "Disconnecting",
+        color: "#f59e0b",
+        icon: RotateCcw,
+        badge: "muted",
+      };
     case "ERROR":
     case "FAILED":
-      return { label: "Error", color: color("destructive") ?? "#ef4444", icon: AlertCircle, badge: "destructive" };
+      return {
+        label: "Error",
+        color: color("destructive") ?? "#ef4444",
+        icon: AlertCircle,
+        badge: "destructive",
+      };
     case "RETRYING":
       return {
         label: `Retrying (${status?.retryCount || 0}/${status?.maxRetries || 0})`,
@@ -214,6 +233,11 @@ function statusInfo(
         badge: "muted",
       };
     default:
-      return { label: "Disconnected", color: color("muted-foreground") ?? "#888", icon: Circle, badge: "muted" };
+      return {
+        label: "Disconnected",
+        color: color("muted-foreground") ?? "#888",
+        icon: Circle,
+        badge: "muted",
+      };
   }
 }
