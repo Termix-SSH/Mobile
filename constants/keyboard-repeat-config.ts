@@ -1,13 +1,13 @@
 /**
  * Keyboard repeat configuration constants.
- * 
+ *
  * These constants define the default behavior for keyboard key repeat
  * (auto-repeat when keys are held down) functionality in the virtual keyboard.
- * 
+ *
  * Standard behavior across operating systems:
  * - Initial delay: 250-500ms (time before repeat starts)
  * - Repeat interval: 50-200ms (time between repeated keystrokes)
- * 
+ *
  * Optimization for touch devices:
  * - Slightly longer initial delay (250ms) to allow natural key release
  * - Slightly longer repeat interval (100ms) for comfortable touch interaction
@@ -24,10 +24,15 @@ import { useRef, useEffect } from "react";
  * mobile long-press menus (e.g. é, ñ, ü) remain functional.
  */
 export const REPEATING_KEY_IDS = new Set([
-  "arrowUp", "arrowDown", "arrowLeft", "arrowRight",
-  "backspace", "delete",
+  "arrowUp",
+  "arrowDown",
+  "arrowLeft",
+  "arrowRight",
+  "backspace",
+  "delete",
   "space",
-  "pageUp", "pageDown",
+  "pageUp",
+  "pageDown",
 ]);
 
 /**
@@ -50,6 +55,11 @@ export const DEFAULT_KEY_REPEAT_INITIAL_DELAY = 250;
  */
 export const DEFAULT_KEY_REPEAT_INTERVAL = 100;
 
+export const normalizeKeyRepeatInterval = (value: number): number =>
+  Math.min(1000, Math.max(30, value || DEFAULT_KEY_REPEAT_INTERVAL));
+
+export const normalizeKeyRepeatInitialDelay = (value: number): number =>
+  Math.min(2000, Math.max(100, value || DEFAULT_KEY_REPEAT_INITIAL_DELAY));
 
 const clearTimers = (
   timeoutRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>,
@@ -89,8 +99,8 @@ export const useKeyRepeat = (
       repeatTimeoutRef.current = setTimeout(() => {
         repeatIntervalRef.current = setInterval(() => {
           onPressRef.current();
-        }, repeatingInterval);
-      }, initialDelay);
+        }, normalizeKeyRepeatInterval(repeatingInterval));
+      }, normalizeKeyRepeatInitialDelay(initialDelay));
 
       return () => clearTimers(repeatTimeoutRef, repeatIntervalRef);
     }

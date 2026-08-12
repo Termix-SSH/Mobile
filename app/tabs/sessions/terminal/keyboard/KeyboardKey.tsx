@@ -54,10 +54,6 @@ export default function KeyboardKey({
     hapticFeedbackRef.current = hapticFeedback;
   }, [hapticFeedback]);
 
-  const handlePressIn = useCallback(() => {
-    setIsPressed(true);
-  }, []);
-
   const handlePress = useCallback(() => {
     if (hapticFeedbackRef.current) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -65,8 +61,17 @@ export default function KeyboardKey({
     onPressRef.current();
   }, []);
 
+  const handlePressIn = useCallback(() => {
+    setIsPressed(true);
+    if (keyRepeatEnabled) handlePress();
+  }, [handlePress, keyRepeatEnabled]);
+
   useKeyRepeat(
-    isPressed, keyRepeatEnabled, handlePress, keyRepeatInterval, keyRepeatInitialDelay,
+    isPressed,
+    keyRepeatEnabled,
+    handlePress,
+    keyRepeatInterval,
+    keyRepeatInitialDelay,
   );
 
   const handlePressOut = useCallback(() => {
@@ -125,7 +130,7 @@ export default function KeyboardKey({
       }}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      onPress={handlePress}
+      onPress={keyRepeatEnabled ? undefined : handlePress}
       onLongPress={onLongPress ? handleLongPress : undefined}
       activeOpacity={0.7}
       delayLongPress={500}

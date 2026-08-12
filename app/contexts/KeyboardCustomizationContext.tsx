@@ -101,7 +101,11 @@ export const KeyboardCustomizationProvider: React.FC<{
         const stored = await AsyncStorage.getItem(STORAGE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored) as KeyboardCustomization;
-          setConfig(parsed);
+          const defaults = getDefaultConfig();
+          setConfig({
+            ...parsed,
+            settings: { ...defaults.settings, ...parsed.settings },
+          });
         }
       } catch (error) {
         console.error("Failed to load keyboard configuration:", error);

@@ -10,15 +10,28 @@ import {
   SlidersHorizontal,
 } from "lucide-react-native";
 import { useKeyboardCustomization } from "@/app/contexts/KeyboardCustomizationContext";
-import { ALL_KEYS, PRESET_DEFINITIONS } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
+import {
+  ALL_KEYS,
+  PRESET_DEFINITIONS,
+} from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
 import { PresetType, KeyConfig } from "@/types/keyboard";
 import { toast } from "@/app/utils/toast";
-import { Text, Button, Label, FakeSwitch, Dialog, Input, SettingRow } from "@/app/components/ui";
+import {
+  Text,
+  Button,
+  Label,
+  FakeSwitch,
+  Dialog,
+  Input,
+  SettingRow,
+} from "@/app/components/ui";
 import { AccordionSection } from "@/app/components/ui/Accordion";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import {
   DEFAULT_KEY_REPEAT_INTERVAL,
   DEFAULT_KEY_REPEAT_INITIAL_DELAY,
+  normalizeKeyRepeatInitialDelay,
+  normalizeKeyRepeatInterval,
   REPEATING_KEY_IDS,
 } from "@/constants/keyboard-repeat-config";
 import KeySelector from "./components/KeySelector";
@@ -85,13 +98,22 @@ export default function KeyboardCustomization() {
   const [activeTab, setActiveTab] = useState<TabType>("presets");
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
-  const [repeatIntervalText, setRepeatIntervalText] = useState(config.settings.keyRepeatInterval?.toString() || "");
-  const [initialDelayText, setInitialDelayText] = useState(config.settings.keyRepeatInitialDelay?.toString() || "");
+  const [repeatIntervalText, setRepeatIntervalText] = useState(
+    config.settings.keyRepeatInterval?.toString() || "",
+  );
+  const [initialDelayText, setInitialDelayText] = useState(
+    config.settings.keyRepeatInitialDelay?.toString() || "",
+  );
 
   useEffect(() => {
     setRepeatIntervalText(config.settings.keyRepeatInterval?.toString() || "");
-    setInitialDelayText(config.settings.keyRepeatInitialDelay?.toString() || "");
-  }, [config.settings.keyRepeatInterval, config.settings.keyRepeatInitialDelay]);
+    setInitialDelayText(
+      config.settings.keyRepeatInitialDelay?.toString() || "",
+    );
+  }, [
+    config.settings.keyRepeatInterval,
+    config.settings.keyRepeatInitialDelay,
+  ]);
 
   const [resetType, setResetType] = useState<"all" | "topbar" | "fullkeyboard">(
     "all",
@@ -580,7 +602,6 @@ export default function KeyboardCustomization() {
               onChange={(v) => updateSettings({ showHints: v })}
             />
           </View>
-
         </View>
       </View>
 
@@ -589,8 +610,11 @@ export default function KeyboardCustomization() {
         <View className="border-b border-border px-3 py-3">
           <Label>Key Repeat</Label>
         </View>
-        <View className="px-3 mb-2">
-          <SettingRow label="Initial Delay" description="Milliseconds before repeat starts">
+        <View className="mb-2 px-3">
+          <SettingRow
+            label="Initial Delay"
+            description="Milliseconds before repeat starts"
+          >
             <Input
               containerClassName="w-16"
               className="w-16"
@@ -599,16 +623,21 @@ export default function KeyboardCustomization() {
               textAlign="right"
               maxLength={4}
               value={initialDelayText}
-              onChangeText={(t) => setInitialDelayText(t.replace(/\D/g, "")) }
+              onChangeText={(t) => setInitialDelayText(t.replace(/\D/g, ""))}
               onEndEditing={(e) => {
                 const val = parseInt(e.nativeEvent.text.replace(/\D/g, ""));
-                updateSettings({ keyRepeatInitialDelay: val || undefined });
-                setInitialDelayText(String(val || ""));
+                const delay = normalizeKeyRepeatInitialDelay(val);
+                updateSettings({ keyRepeatInitialDelay: delay });
+                setInitialDelayText(String(delay));
               }}
             />
           </SettingRow>
 
-          <SettingRow label="Repeat Interval" description="Milliseconds between repeated keystrokes" last={true}>
+          <SettingRow
+            label="Repeat Interval"
+            description="Milliseconds between repeated keystrokes"
+            last={true}
+          >
             <Input
               containerClassName="w-16"
               className="w-16"
@@ -617,18 +646,21 @@ export default function KeyboardCustomization() {
               textAlign="right"
               maxLength={4}
               value={repeatIntervalText}
-              onChangeText={(t) => setRepeatIntervalText(t.replace(/\D/g, "")) }
+              onChangeText={(t) => setRepeatIntervalText(t.replace(/\D/g, ""))}
               onEndEditing={(e) => {
                 const val = parseInt(e.nativeEvent.text.replace(/\D/g, ""));
-                updateSettings({ keyRepeatInterval: val || undefined });
-                setRepeatIntervalText(String(val || ""));
+                const interval = normalizeKeyRepeatInterval(val);
+                updateSettings({ keyRepeatInterval: interval });
+                setRepeatIntervalText(String(interval));
               }}
             />
           </SettingRow>
         </View>
 
         <AccordionSection label="Repeating keys">
-          <Text className="px-3 py-3 mt-0.5 text-[10px] text-muted-foreground">These keys repeat continuously when held down</Text>
+          <Text className="mt-0.5 px-3 py-3 text-[10px] text-muted-foreground">
+            These keys repeat continuously when held down
+          </Text>
           {Array.from(REPEATING_KEY_IDS).map((id) => {
             const keyConfig = ALL_KEYS[id];
             if (!keyConfig) return null;

@@ -32,11 +32,9 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
   const layout = multiline
     ? "flex-row items-start gap-2 py-2"
     : "flex-row items-center gap-2";
-  const inputLayout = multiline
-    ? "min-h-10 px-2.5"
-    : "h-10 px-2.5";
+  const inputLayout = multiline ? "min-h-10 px-2.5" : "h-10 px-2.5";
 
-    return (
+  return (
     <View
       className={`${layout} border border-input bg-card ${containerClassName ?? ""}`}
     >

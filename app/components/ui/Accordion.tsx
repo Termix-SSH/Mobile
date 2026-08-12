@@ -31,7 +31,9 @@ export function AccordionSection({
   const muted = useThemeColor()("muted-foreground");
 
   return (
-    <View className={`overflow-hidden border border-border bg-card ${containerClassName}`}>
+    <View
+      className={`overflow-hidden border border-border bg-card ${containerClassName}`}
+    >
       <Pressable
         onPress={() => {
           if (isControlled) onToggle?.();
