@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "verify:android-network-security": "node scripts/verify-android-network-security.cjs",
+    "verify:oidc-callback-intent-filter": "node scripts/verify-oidc-callback-intent-filter.cjs",
     "build-all": "eas build --platform all --profile development",
     "build-android": "eas build --platform android --profile development",
     "build-ios": "eas build --platform ios --profile development"

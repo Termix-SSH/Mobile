@@ -38,6 +38,7 @@
     },
     "plugins": [
       "expo-router",
+      "./plugins/withOidcCallbackIntentFilter.js",
       [
         "expo-local-authentication",
         {
