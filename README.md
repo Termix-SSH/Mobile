@@ -129,7 +129,7 @@ Termix Mobile is available for both [Android](https://docs.termix.site/install/c
 
 ## Planned Features
 
-See [Projects](https://github.com/orgs/Termix-SSH/projects/5) for all planned features. If you are looking to contribute, see [Contributing](https://github.com/Termix-SSH/Termix/blob/main/CONTRIBUTING.md).
+See [Projects](https://github.com/orgs/Termix-SSH/projects/5) for all planned features. If you are looking to contribute, see [Contributing](https://github.com/Termix-SSH/Mobile/blob/main/CONTRIBUTING.md).
 
 <br />
 
