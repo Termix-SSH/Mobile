@@ -313,7 +313,20 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     .xterm-viewport {
       width: 100% !important;
       height: 100% !important;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden !important;
+      -webkit-overflow-scrolling: auto;
+    }
+
+    /* Disable native touch-scrolling of the embedded terminal at the source.
+       The terminal is scroll-driven exclusively by JS (synthetic WheelEvent →
+       viewport.scrollTop). Without this, iOS WKWebView / Android WebView's
+       native touch scroll of .xterm-viewport bubbles to the page when the
+       (alternate) buffer is at its top, scrolling the whole WebView instead of
+       the terminal. */
+    html, body, #terminal, .xterm, .xterm-viewport, .xterm-screen {
+      touch-action: none;
+      -webkit-touch-action: none;
+      -ms-touch-action: none;
     }
 
     .xterm {
@@ -435,6 +448,15 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     terminal.loadAddon(fitAddon);
 
     terminal.open(document.getElementById('terminal'));
+
+    // Bridge xterm-originated wheel input back to the pty. Stdin remains
+    // disabled outside the synchronous wheel dispatch below, so keyboard text
+    // continues to use only the React Native input path.
+    terminal.onData(function(data) {
+      if (window.ReactNativeWebView) {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'input', data: data }));
+      }
+    });
 
     fitAddon.fit();
     terminal.write('\x1b[?25h');
@@ -754,22 +776,55 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       setTimeout(handleResize, 100);
     });
 
-    // Touch-scroll acceleration for iOS WebView
+    // Touch-scroll for both the normal scrollback and TUI alternate-screen
+    // buffers. Instead of calling terminal.scrollLines() (which is a no-op on
+    // the alt buffer that Claude Code / Codex run in), synthesize a wheel
+    // event on the xterm root element: xterm then routes it either to the
+    // scrollback (normal buffer) or to SGR mouse / arrow-key sequences the TUI
+    // understands (alternate buffer with/without mouse tracking).
+    // touchmove is non-passive so we can preventDefault and stop the native
+    // WebView/page from hijacking the swipe (especially up-swipe when the
+    // alt buffer is already at its top).
     (function() {
       var scrollTouchY = null;
+      var pendingLines = 0;
       var lineH = terminal._core._renderService.dimensions.css.cell.height || ${baseFontSize * 1.2};
       terminalElement.addEventListener('touchstart', function(e) {
         if (e.touches.length === 1) scrollTouchY = e.touches[0].clientY;
       }, { passive: true, capture: true });
       terminalElement.addEventListener('touchmove', function(e) {
         if (scrollTouchY === null || e.touches.length !== 1) return;
+        // While the user is text-selecting, leave the gesture alone so xterm's
+        // selection drag can track the finger.
+        if (typeof isCurrentlySelecting !== 'undefined' && isCurrentlySelecting) {
+          return;
+        }
+        // Claim the gesture so WKWebView / Android WebView do not scroll the
+        // whole page when the terminal content cannot scroll further.
+        try { e.preventDefault(); } catch(e3) {}
         var dy = scrollTouchY - e.touches[0].clientY;
         scrollTouchY = e.touches[0].clientY;
-        var lines = Math.trunc(dy / lineH);
-        if (lines !== 0) terminal.scrollLines(lines);
-      }, { passive: true, capture: true });
+        pendingLines += dy / lineH;
+        var whole = Math.trunc(pendingLines);
+        if (whole !== 0) {
+          pendingLines -= whole;
+          try {
+            terminal.options.disableStdin = false;
+            try {
+              terminal.element.dispatchEvent(new WheelEvent('wheel', {
+                deltaY: whole,
+                deltaMode: WheelEvent.DOM_DELTA_LINE,
+                cancelable: true
+              }));
+            } finally {
+              terminal.options.disableStdin = true;
+            }
+          } catch(e2) {}
+        }
+      }, { passive: false, capture: true });
       terminalElement.addEventListener('touchend', function() {
         scrollTouchY = null;
+        pendingLines = 0;
       }, { passive: true, capture: true });
     })();
 
@@ -943,6 +998,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
           case "scrollState":
             setShowScrollToBottomButton(!message.data.isAtBottom);
+            break;
+
+          case "input":
+            // Wheel/mouse input synthesized inside the WebView (xterm onData),
+            // forwarded to the pty so TUI apps can scroll their context.
+            wsManagerRef.current?.sendInput(message.data);
             break;
         }
       } catch (error) {
@@ -1196,7 +1257,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                   `WebView HTTP error: ${nativeEvent.statusCode}`,
                 );
               }}
-              scrollEnabled={true}
+              scrollEnabled={false}
               overScrollMode="never"
               bounces={false}
               showsHorizontalScrollIndicator={false}
