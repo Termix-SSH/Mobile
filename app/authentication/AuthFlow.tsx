@@ -30,6 +30,11 @@ import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
 import { useAppContext } from "../AppContext";
 import {
+  consumeOidcCallback,
+  isOidcCallbackHandled,
+  markOidcCallbackHandled,
+} from "@/app/utils/oidc-callback";
+import {
   saveServerConfig,
   getCurrentServerUrl,
   initializeServerConfig,
@@ -1117,6 +1122,11 @@ function OidcStep({
   const handleCallbackUrl = useCallback(
     async (callbackUrl: string) => {
       if (!callbackUrl.startsWith("termix-mobile://oidc-callback")) return;
+      // The same intent can reach us twice — openAuthSessionAsync's result, the
+      // Linking listener, and the /oidc-callback route all see it. Claim it once
+      // so a second, failing confirmation can't clear the JWT the first stored.
+      if (isOidcCallbackHandled(callbackUrl)) return;
+      markOidcCallbackHandled(callbackUrl);
 
       // Hermes's URL implementation may not parse custom schemes reliably,
       // so extract query params manually from the raw string.
@@ -1212,6 +1222,16 @@ function OidcStep({
     browserOpenedRef.current = true;
 
     const init = async () => {
+      // A deep link the OS delivered before this screen existed (cold start, or
+      // a Custom Tab that handed the redirect to the router). Finish that
+      // sign-in instead of starting a second trip to the IdP — and before the
+      // jwt wipe below, which would otherwise discard what we just received.
+      const pendingCallback = consumeOidcCallback();
+      if (pendingCallback) {
+        await handleCallbackUrl(pendingCallback);
+        return;
+      }
+
       // Start every sign-in attempt from a clean slate: a leftover token would
       // let confirmation pass as the previous account.
       await AsyncStorage.removeItem("jwt");
@@ -1456,6 +1476,18 @@ function OidcStep({
           style={{ flex: 1, backgroundColor: bg }}
           containerStyle={{ backgroundColor: bg }}
           onNavigationStateChange={handleNav}
+          // The web login hands the session back through postMessage, but a
+          // server that was handed an appCallbackUrl answers the OIDC callback
+          // with a termix-mobile:// redirect instead. Android would fire that at
+          // the OS as an intent and the sign-in would leave the WebView for the
+          // router; catch it here and complete in place.
+          onShouldStartLoadWithRequest={(request) => {
+            if (request.url.startsWith("termix-mobile://oidc-callback")) {
+              void handleCallbackUrl(request.url);
+              return false;
+            }
+            return true;
+          }}
           onMessage={onMessage}
           onError={handleError}
           injectedJavaScript={injectedJavaScript}
