@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Server label on the left, snapshot freshness on the right. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/termix_widget_footer"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal"
+  android:gravity="center_vertical"
+  android:paddingTop="7dp">
+
+  <TextView
+    android:id="@+id/termix_widget_server"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:maxLines="1"
+    android:ellipsize="middle"
+    android:textColor="@color/termix_widget_text_tertiary"
+    android:textSize="8sp"
+    android:fontFamily="monospace" />
+
+  <TextView
+    android:id="@+id/termix_widget_age"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/termix_widget_text_tertiary"
+    android:textSize="8sp"
+    android:fontFamily="monospace" />
+</LinearLayout>

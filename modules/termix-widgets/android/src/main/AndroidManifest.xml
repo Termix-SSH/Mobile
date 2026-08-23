@@ -1,0 +1,50 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <application>
+    <!--
+      Home-screen widgets. Declared in the module's library manifest so the app
+      picks them up through normal manifest merging — no config-plugin edits to
+      the generated AndroidManifest are required on Android.
+    -->
+    <receiver
+      android:name="expo.modules.termixwidgets.QuickConnectWidgetProvider"
+      android:exported="false"
+      android:label="@string/termix_widget_quick_connect_label">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/termix_widget_quick_connect_info" />
+    </receiver>
+
+    <receiver
+      android:name="expo.modules.termixwidgets.StatusWidgetProvider"
+      android:exported="false"
+      android:label="@string/termix_widget_status_label">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/termix_widget_status_info" />
+    </receiver>
+
+    <receiver
+      android:name="expo.modules.termixwidgets.SnippetsWidgetProvider"
+      android:exported="false"
+      android:label="@string/termix_widget_snippets_label">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/termix_widget_snippets_info" />
+    </receiver>
+
+    <!-- Feeds host and snippet rows to the collection widgets. -->
+    <service
+      android:name="expo.modules.termixwidgets.HostCollectionService"
+      android:exported="false"
+      android:permission="android.permission.BIND_REMOTEVIEWS" />
+  </application>
+</manifest>

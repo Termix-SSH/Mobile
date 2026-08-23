@@ -73,6 +73,7 @@
       "./plugins/withIOSNetworkSecurity.js",
       "./plugins/withNetworkSecurityConfig.js",
       "./plugins/withAndroidLocalNetworkSsl.js",
+      "./plugins/withTermixWidgets.js",
       "expo-dev-client",
       "expo-secure-store",
       "expo-web-browser"
@@ -89,9 +90,7 @@
         "projectId": "cf86f530-ca4b-44bf-bb68-4d178b264910"
       }
     },
-    "assetBundlePatterns": [
-      "assets/**/*"
-    ],
+    "assetBundlePatterns": ["assets/**/*"],
     "owner": "termix"
   }
 }

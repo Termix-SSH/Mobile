@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Overridden on API 31+ to match the launcher's own corner radius. -->
+  <dimen name="termix_widget_radius">16dp</dimen>
+  <dimen name="termix_widget_padding">12dp</dimen>
+  <dimen name="termix_widget_gap">6dp</dimen>
+  <dimen name="termix_widget_track_width">62dp</dimen>
+  <!-- Minimum tile width; GridView fits as many columns as the widget allows. -->
+  <dimen name="termix_widget_tile_width">128dp</dimen>
+  <dimen name="termix_widget_bar_height">3dp</dimen>
+</resources>

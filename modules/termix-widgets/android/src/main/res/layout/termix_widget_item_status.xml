@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  One host with CPU/memory bars. Each bar is a fixed-width track with a fill
+  TextView whose width and colour are set at runtime — both are remotable on
+  every supported API level, unlike ProgressBar tinting.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/termix_item_root"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:paddingStart="8dp"
+  android:paddingEnd="8dp"
+  android:paddingTop="7dp"
+  android:paddingBottom="7dp"
+  android:background="@drawable/termix_widget_card">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <ImageView
+      android:id="@+id/termix_item_dot"
+      android:layout_width="6dp"
+      android:layout_height="6dp"
+      android:layout_marginEnd="5dp"
+      android:src="@drawable/termix_widget_dot"
+      android:importantForAccessibility="no" />
+
+    <TextView
+      android:id="@+id/termix_item_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:maxLines="1"
+      android:ellipsize="end"
+      android:textColor="@color/termix_widget_text_primary"
+      android:textSize="11sp"
+      android:textStyle="bold"
+      android:fontFamily="monospace" />
+
+    <TextView
+      android:id="@+id/termix_item_subtitle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginStart="6dp"
+      android:gravity="end"
+      android:maxLines="1"
+      android:ellipsize="middle"
+      android:textColor="@color/termix_widget_text_tertiary"
+      android:textSize="8sp"
+      android:fontFamily="monospace" />
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/termix_item_offline"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:textColor="@color/termix_widget_text_tertiary"
+    android:textSize="8sp"
+    android:textStyle="bold"
+    android:letterSpacing="0.1"
+    android:visibility="gone"
+    android:fontFamily="monospace" />
+
+  <LinearLayout
+    android:id="@+id/termix_item_metrics"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    android:orientation="horizontal">
+
+    <!-- CPU -->
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:layout_marginEnd="12dp">
+
+      <LinearLayout
+        android:layout_width="@dimen/termix_widget_track_width"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="CPU"
+          android:textColor="@color/termix_widget_text_tertiary"
+          android:textSize="8sp"
+          android:textStyle="bold"
+          android:letterSpacing="0.08"
+          android:fontFamily="monospace" />
+
+        <TextView
+          android:id="@+id/termix_item_cpu_value"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/termix_widget_text_secondary"
+          android:textSize="8sp"
+          android:fontFamily="monospace" />
+      </LinearLayout>
+
+      <!-- Block meter. Drawn as monospaced text with colour spans: the only
+           fully dynamic bar that needs no API-gated RemoteViews call. -->
+      <TextView
+        android:id="@+id/termix_item_cpu_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:includeFontPadding="false"
+        android:textSize="7sp"
+        android:fontFamily="monospace" />
+    </LinearLayout>
+
+    <!-- Memory -->
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <LinearLayout
+        android:layout_width="@dimen/termix_widget_track_width"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="MEM"
+          android:textColor="@color/termix_widget_text_tertiary"
+          android:textSize="8sp"
+          android:textStyle="bold"
+          android:letterSpacing="0.08"
+          android:fontFamily="monospace" />
+
+        <TextView
+          android:id="@+id/termix_item_mem_value"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/termix_widget_text_secondary"
+          android:textSize="8sp"
+          android:fontFamily="monospace" />
+      </LinearLayout>
+
+      <!-- Block meter. Drawn as monospaced text with colour spans: the only
+           fully dynamic bar that needs no API-gated RemoteViews call. -->
+      <TextView
+        android:id="@+id/termix_item_mem_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:includeFontPadding="false"
+        android:textSize="7sp"
+        android:fontFamily="monospace" />
+    </LinearLayout>
+  </LinearLayout>
+</LinearLayout>

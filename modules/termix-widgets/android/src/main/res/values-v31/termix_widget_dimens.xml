@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Android 12+ exposes the launcher's widget corner radius; matching it
+       makes the widget sit flush with system widgets. -->
+  <dimen name="termix_widget_radius">@android:dimen/system_app_widget_background_radius</dimen>
+</resources>

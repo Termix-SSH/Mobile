@@ -21,6 +21,7 @@ import { useFonts } from "expo-font";
 import { FONT_MAP, MONO_FONT, MONO_FONT_BOLD } from "./constants/fonts";
 import "../global.css";
 import UpdateRequired from "@/app/authentication/UpdateRequired";
+import { useWidgetDeepLink } from "@/app/widgets";
 
 function RootLayoutContent() {
   const {
@@ -31,6 +32,10 @@ function RootLayoutContent() {
     setIsLoading,
   } = useAppContext();
   const accent = useThemeColor()("accent-brand");
+
+  // Turns home-screen widget taps into in-app navigation. Mounted here so it is
+  // active for the whole session, including cold starts from a widget.
+  useWidgetDeepLink();
 
   if (isLoading) {
     return (
