@@ -21,6 +21,7 @@ import { useFonts } from "expo-font";
 import { FONT_MAP, MONO_FONT, MONO_FONT_BOLD } from "./constants/fonts";
 import "../global.css";
 import UpdateRequired from "@/app/authentication/UpdateRequired";
+import { WidgetDeepLinkHost } from "@/app/widgets";
 
 function RootLayoutContent() {
   const {
@@ -71,6 +72,10 @@ function RootLayoutContent() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
+      {/* Home-screen widget taps: session navigation and the snippet run
+          sheet. Mounted here so it is active for the whole session, including
+          cold starts from a widget. */}
+      <WidgetDeepLinkHost />
       <AppLockGate />
       {authFlowVisible ? (
         <View className="absolute inset-0 bg-background">

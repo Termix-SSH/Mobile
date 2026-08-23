@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "verify:android-network-security": "node scripts/verify-android-network-security.cjs",
+    "verify:widget-contract": "node scripts/verify-widget-contract.cjs",
     "build-all": "eas build --platform all --profile development",
     "build-android": "eas build --platform android --profile development",
     "build-ios": "eas build --platform ios --profile development"

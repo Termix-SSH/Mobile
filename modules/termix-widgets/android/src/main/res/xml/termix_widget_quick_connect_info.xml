@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+  android:minWidth="180dp"
+  android:minHeight="110dp"
+  android:minResizeWidth="110dp"
+  android:minResizeHeight="70dp"
+  android:targetCellWidth="4"
+  android:targetCellHeight="2"
+  android:resizeMode="horizontal|vertical"
+  android:widgetCategory="home_screen"
+  android:description="@string/termix_widget_quick_connect_description"
+  android:previewLayout="@layout/termix_widget_quick_connect"
+  android:initialLayout="@layout/termix_widget_quick_connect"
+  android:updatePeriodMillis="0" />

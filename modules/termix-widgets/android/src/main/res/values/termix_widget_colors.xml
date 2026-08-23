@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Widget palette. Mirrors app/constants/designTokens.ts and the iOS widget
+  theme so a Termix widget looks identical on both platforms. The accent is not
+  listed here: it travels in the snapshot and is applied at runtime.
+-->
+<resources>
+  <color name="termix_widget_background">#0C0D0B</color>
+  <color name="termix_widget_surface">#141513</color>
+  <color name="termix_widget_card">#181917</color>
+  <color name="termix_widget_border">#2A2A2A</color>
+  <color name="termix_widget_track">#3A3A3A</color>
+
+  <color name="termix_widget_text_primary">#FAFAFA</color>
+  <color name="termix_widget_text_secondary">#A4A4A4</color>
+  <color name="termix_widget_text_tertiary">#737373</color>
+</resources>

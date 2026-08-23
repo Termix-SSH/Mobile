@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Quick Connect widget: a scrollable grid of host tiles. The column count is
+  adapted to the widget's width by QuickConnectWidgetProvider.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:padding="@dimen/termix_widget_padding"
+  android:background="@drawable/termix_widget_background">
+
+  <include layout="@layout/termix_widget_header" />
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
+
+    <GridView
+      android:id="@+id/termix_widget_grid"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:numColumns="auto_fit"
+      android:columnWidth="@dimen/termix_widget_tile_width"
+      android:stretchMode="columnWidth"
+      android:horizontalSpacing="@dimen/termix_widget_gap"
+      android:verticalSpacing="@dimen/termix_widget_gap"
+      android:scrollbars="none"
+      android:listSelector="@android:color/transparent" />
+
+    <include layout="@layout/termix_widget_empty" />
+  </FrameLayout>
+
+  <include layout="@layout/termix_widget_footer" />
+</LinearLayout>
