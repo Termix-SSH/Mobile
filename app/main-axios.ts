@@ -3946,6 +3946,56 @@ export async function deleteApiKey(keyId: string): Promise<void> {
 }
 
 // ============================================================================
+// SECURITY KEYS (WebAuthn)
+// ============================================================================
+
+/**
+ * A security key / passkey registered on the account.
+ *
+ * Registration and sign-in run the WebAuthn ceremony, which needs a browser on
+ * the server's own origin — the app therefore reads and revokes keys, and hands
+ * registration off to the web interface. Mirrors the web app's
+ * `WebAuthnCredentialSummary`.
+ */
+export interface WebAuthnCredential {
+  id: string;
+  name: string;
+  /** "singleDevice" for a hardware key, "multiDevice" for a synced passkey. */
+  deviceType?: string | null;
+  /** Whether the credential is backed up to a passkey provider. */
+  backedUp: boolean;
+  /** e.g. ["usb", "nfc"], ["internal", "hybrid"]. May be empty. */
+  transports: string[];
+  userVerification: "discouraged" | "preferred" | "required";
+  createdAt: string;
+  lastUsedAt?: string | null;
+}
+
+export async function getWebAuthnCredentials(): Promise<{
+  credentials: WebAuthnCredential[];
+}> {
+  try {
+    const response = await authApi.get("/users/webauthn/credentials");
+    const credentials = response.data?.credentials;
+    return { credentials: Array.isArray(credentials) ? credentials : [] };
+  } catch (error) {
+    handleApiError(error, "fetch security keys");
+  }
+}
+
+export async function deleteWebAuthnCredential(
+  credentialId: string,
+): Promise<void> {
+  try {
+    await authApi.delete(
+      `/users/webauthn/credentials/${encodeURIComponent(credentialId)}`,
+    );
+  } catch (error) {
+    handleApiError(error, "remove security key");
+  }
+}
+
+// ============================================================================
 // TOTP BACKUP CODES
 // ============================================================================
 

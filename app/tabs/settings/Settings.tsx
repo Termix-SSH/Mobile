@@ -280,7 +280,9 @@ export default function Settings() {
 
               <View className="mt-1 gap-0">
                 <Pressable
-                  onPress={() => router.push("/tabs/settings/TwoFactorAuth" as any)}
+                  onPress={() =>
+                    router.push("/tabs/settings/TwoFactorAuth" as any)
+                  }
                   className="flex-row items-center justify-between border-t border-border py-3"
                 >
                   <View className="flex-row items-center gap-2">
@@ -293,7 +295,9 @@ export default function Settings() {
                 </Pressable>
                 {isAdmin ? (
                   <Pressable
-                    onPress={() => router.push("/tabs/settings/ActiveSessions" as any)}
+                    onPress={() =>
+                      router.push("/tabs/settings/ActiveSessions" as any)
+                    }
                     className="flex-row items-center justify-between border-t border-border py-3"
                   >
                     <View className="flex-row items-center gap-2">
@@ -431,13 +435,31 @@ export default function Settings() {
                   ? "Require biometrics or PIN to open the app"
                   : "Require a PIN to open the app"
               }
-              last
             >
               <FakeSwitch
                 checked={appLock.enabled}
                 onChange={handleAppLockToggle}
               />
             </SettingRow>
+
+            {isAuthenticated ? (
+              <Pressable
+                onPress={() =>
+                  router.push("/tabs/settings/SecurityKeys" as never)
+                }
+                className="flex-row items-center justify-between py-3"
+              >
+                <View>
+                  <Text weight="medium" className="text-sm text-foreground">
+                    Security Keys
+                  </Text>
+                  <Text className="mt-0.5 text-[11px] text-muted-foreground">
+                    Review and revoke passkeys and hardware keys
+                  </Text>
+                </View>
+                <ChevronRight size={16} color={color("muted-foreground")} />
+              </Pressable>
+            ) : null}
           </View>
         </AccordionSection>
 
