@@ -163,7 +163,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       xtermJs: string;
       xtermCss: string;
       fitAddonJs: string;
-      nerdFontBase64: string;
+      nerdFontBase64?: string;
     } | null>(null);
 
     const [isScreenReaderEnabled, setIsScreenReaderEnabled] = useState(false);
@@ -247,7 +247,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         xtermJs: string;
         xtermCss: string;
         fitAddonJs: string;
-        nerdFontBase64: string;
+        nerdFontBase64?: string;
       }) => {
         const { width, height } = screenDimensions;
 
@@ -280,6 +280,15 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           (f) => f.value === terminalConfig.fontFamily,
         );
         const fontFamily = fontConfig?.fallback || TERMINAL_FONTS[0].fallback;
+        const nerdFontFace = assets.nerdFontBase64
+          ? `@font-face {
+      font-family: "Caskaydia Cove Nerd Font Mono";
+      src: url("data:font/ttf;base64,${assets.nerdFontBase64}") format("truetype");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }`
+          : "";
 
         return `
 <!DOCTYPE html>
@@ -292,13 +301,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
   <script>${assets.xtermJs}</script>
   <script>${assets.fitAddonJs}</script>
   <style>
-    @font-face {
-      font-family: "Caskaydia Cove Nerd Font Mono";
-      src: url("data:font/ttf;base64,${assets.nerdFontBase64}") format("truetype");
-      font-style: normal;
-      font-weight: 400;
-      font-display: block;
-    }
+    ${nerdFontFace}
 
     body {
       margin: 0;
@@ -870,10 +873,17 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     );
 
     useEffect(() => {
-      loadXtermAssets().then((assets) => {
-        xtermAssetsRef.current = assets;
-        setHtmlContent(generateHTML(assets));
-      });
+      const fontFamily = {
+        ...MOBILE_DEFAULT_TERMINAL_CONFIG,
+        ...config,
+        ...hostConfig.terminalConfig,
+      }.fontFamily;
+      loadXtermAssets(fontFamily === "Caskaydia Cove Nerd Font Mono").then(
+        (assets) => {
+          xtermAssetsRef.current = assets;
+          setHtmlContent(generateHTML(assets));
+        },
+      );
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
