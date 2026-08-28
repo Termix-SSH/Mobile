@@ -61,12 +61,8 @@ private final class TerminalImeTextView: UITextView, UITextViewDelegate {
       unmarkText()
     }
     selectedRange = NSRange(location: 0, length: 0)
-
-    DispatchQueue.main.async { [weak self] in
-      guard let self else { return }
-      self.isResettingText = false
-      self.emitCompositionStateIfNeeded(force: true)
-    }
+    isResettingText = false
+    emitCompositionStateIfNeeded(force: true)
   }
 
   func textViewDidBeginEditing(_ textView: UITextView) {
