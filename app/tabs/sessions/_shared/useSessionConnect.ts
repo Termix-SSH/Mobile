@@ -219,7 +219,16 @@ export function useSessionConnect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [host?.id, options?.autoConnect]);
 
-  useEffect(() => stopKeepAlive, [stopKeepAlive]);
+  useEffect(
+    () => () => {
+      stopKeepAlive();
+      if (sessionIdRef.current) {
+        transport.disconnect?.(sessionIdRef.current).catch(() => {});
+        sessionIdRef.current = "";
+      }
+    },
+    [transport, stopKeepAlive],
+  );
 
   return {
     state,
