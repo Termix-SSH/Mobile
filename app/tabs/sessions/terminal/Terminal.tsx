@@ -163,6 +163,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       xtermJs: string;
       xtermCss: string;
       fitAddonJs: string;
+      nerdFontBase64: string;
     } | null>(null);
 
     const [isScreenReaderEnabled, setIsScreenReaderEnabled] = useState(false);
@@ -242,7 +243,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     );
 
     const generateHTML = useCallback(
-      (assets: { xtermJs: string; xtermCss: string; fitAddonJs: string }) => {
+      (assets: {
+        xtermJs: string;
+        xtermCss: string;
+        fitAddonJs: string;
+        nerdFontBase64: string;
+      }) => {
         const { width, height } = screenDimensions;
 
         const terminalConfig: Partial<TerminalConfig> = {
@@ -286,6 +292,14 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
   <script>${assets.xtermJs}</script>
   <script>${assets.fitAddonJs}</script>
   <style>
+    @font-face {
+      font-family: "Caskaydia Cove Nerd Font Mono";
+      src: url("data:font/ttf;base64,${assets.nerdFontBase64}") format("truetype");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
     body {
       margin: 0;
       padding: 0;
