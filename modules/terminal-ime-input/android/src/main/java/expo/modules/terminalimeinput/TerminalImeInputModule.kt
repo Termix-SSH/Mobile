@@ -90,6 +90,11 @@ private class TerminalImeEditText(
     clearInputState()
   }
 
+  fun onDirectCommittedText(text: String) {
+    owner.emitCommittedText(text)
+    onCompositionTextChanged(false)
+  }
+
   fun onCompositionTextChanged(active: Boolean) {
     owner.setCompositionActive(active)
   }
@@ -169,6 +174,14 @@ private class TerminalImeEditText(
     override fun commitText(text: CharSequence?, newCursorPosition: Int): Boolean {
       val committed = text?.toString().orEmpty()
       if (committed == "\n" && editText.onEnterFromIme()) {
+        return true
+      }
+
+      // Most Android keyboards commit ordinary typing one character at a time.
+      // Keep the hidden EditText empty in that path: calling setText("") after
+      // every key restarts the IME suggestion session and can drop fast input.
+      if (committed.isNotEmpty() && editText.text.isNullOrEmpty()) {
+        editText.onDirectCommittedText(committed)
         return true
       }
 
