@@ -29,14 +29,24 @@ private class TerminalImeEditText(
     isFocusable = true
     isFocusableInTouchMode = true
     setSingleLine(false)
-    imeOptions = EditorInfo.IME_ACTION_NONE or EditorInfo.IME_FLAG_NO_EXTRACT_UI
-    inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+    imeOptions =
+      EditorInfo.IME_ACTION_NONE or
+        EditorInfo.IME_FLAG_NO_EXTRACT_UI or
+        EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING
+    inputType =
+      InputType.TYPE_CLASS_TEXT or
+        InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD or
+        InputType.TYPE_TEXT_FLAG_MULTI_LINE or
+        InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
     setPadding(0, 0, 0, 0)
   }
 
   override fun onCreateInputConnection(outAttrs: EditorInfo): InputConnection? {
     val base = super.onCreateInputConnection(outAttrs) ?: return null
-    outAttrs.imeOptions = outAttrs.imeOptions or EditorInfo.IME_FLAG_NO_EXTRACT_UI
+    outAttrs.imeOptions =
+      outAttrs.imeOptions or
+        EditorInfo.IME_FLAG_NO_EXTRACT_UI or
+        EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING
     return TerminalImeInputConnection(this, base)
   }
 
