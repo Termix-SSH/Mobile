@@ -23,6 +23,27 @@ interface Server {
   ip: string;
 }
 
+function isNewerVersion(latest: string, current: string): boolean {
+  const latestParts = latest.split(".").map(Number);
+  const currentParts = current.split(".").map(Number);
+
+  if (
+    latestParts.length !== 3 ||
+    currentParts.length !== 3 ||
+    [...latestParts, ...currentParts].some(Number.isNaN)
+  ) {
+    return false;
+  }
+
+  for (let index = 0; index < latestParts.length; index += 1) {
+    if (latestParts[index] !== currentParts[index]) {
+      return latestParts[index] > currentParts[index];
+    }
+  }
+
+  return false;
+}
+
 /** Steps the auth flow can be opened directly to. */
 export type AuthStep = "server" | "login" | "signup";
 
@@ -110,7 +131,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         return false;
       }
 
-      if (currentAppVersion === latestRelease.version) {
+      if (!isNewerVersion(latestRelease.version, currentAppVersion)) {
         return false;
       }
 
