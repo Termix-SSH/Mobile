@@ -390,7 +390,7 @@ export default function Sessions() {
             Keyboard.dismiss();
             return true;
           }
-          return true;
+          return false;
         },
       );
 
