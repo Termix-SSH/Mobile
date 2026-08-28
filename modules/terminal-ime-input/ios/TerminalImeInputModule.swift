@@ -127,6 +127,49 @@ private final class TerminalImeTextView: UITextView, UITextViewDelegate {
     emitCompositionStateIfNeeded()
   }
 
+  override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+    let unhandled = presses.filter { press in
+      guard press.type == .keyboard, let key = press.key else { return true }
+
+      let modifiers = key.modifierFlags
+      let shift = modifiers.contains(.shift)
+      let ctrl = modifiers.contains(.control)
+      let alt = modifiers.contains(.alternate)
+      let specialKey: String?
+
+      switch key.keyCode {
+      case .keyboardTab: specialKey = "Tab"
+      case .keyboardUpArrow: specialKey = "ArrowUp"
+      case .keyboardDownArrow: specialKey = "ArrowDown"
+      case .keyboardLeftArrow: specialKey = "ArrowLeft"
+      case .keyboardRightArrow: specialKey = "ArrowRight"
+      case .keyboardEscape: specialKey = "Escape"
+      case .keyboardDeleteOrBackspace: specialKey = "Backspace"
+      case .keyboardDeleteForward: specialKey = "Delete"
+      case .keyboardHome: specialKey = "Home"
+      case .keyboardEnd: specialKey = "End"
+      case .keyboardPageUp: specialKey = "PageUp"
+      case .keyboardPageDown: specialKey = "PageDown"
+      default: specialKey = nil
+      }
+
+      if let specialKey {
+        onSpecialKey?(specialKey, shift, ctrl, alt)
+        return false
+      }
+
+      if (ctrl || alt), let input = key.charactersIgnoringModifiers, input.count == 1 {
+        onSpecialKey?(input, shift, ctrl, alt)
+        return false
+      }
+      return true
+    }
+
+    if !unhandled.isEmpty {
+      super.pressesBegan(Set(unhandled), with: event)
+    }
+  }
+
   private func emitCompositionStateIfNeeded(force: Bool = false) {
     let isActive = markedTextRange != nil
     if force || isActive != lastCompositionState {
