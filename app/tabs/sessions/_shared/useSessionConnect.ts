@@ -77,10 +77,16 @@ export function useSessionConnect(
     stopKeepAlive();
     keepAliveRef.current = setInterval(() => {
       if (sessionIdRef.current && AppState.currentState === "active") {
-        transport.keepAlive?.(sessionIdRef.current).catch(() => {});
+        transport.keepAlive?.(sessionIdRef.current).catch((error: any) => {
+          stopKeepAlive();
+          const message = error?.message || "Connection lost";
+          setErrorMessage(message);
+          setState("error");
+          log.append({ level: "error", message });
+        });
       }
     }, keepAliveMs);
-  }, [transport, keepAliveMs, stopKeepAlive]);
+  }, [transport, keepAliveMs, stopKeepAlive, log]);
 
   const markConnected = useCallback(async () => {
     setState("connected");
