@@ -41,7 +41,33 @@ private class TerminalImeEditText(
   }
 
   override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-    val mappedKey = mapSpecialKey(keyCode) ?: return super.onKeyDown(keyCode, event)
+    val mappedKey = mapSpecialKey(keyCode)
+    if (mappedKey == null) {
+      if (owner.isCompositionActive()) {
+        return super.onKeyDown(keyCode, event)
+      }
+
+      val textMetaState = event.metaState and
+        (KeyEvent.META_CTRL_MASK or KeyEvent.META_ALT_MASK).inv()
+      val codePoint = event.getUnicodeChar(textMetaState)
+      if (codePoint == 0) {
+        return super.onKeyDown(keyCode, event)
+      }
+
+      val text = String(Character.toChars(codePoint))
+      if (event.isCtrlPressed || event.isAltPressed) {
+        owner.emitSpecialKey(
+          key = text,
+          shift = event.isShiftPressed,
+          ctrl = event.isCtrlPressed,
+          alt = event.isAltPressed,
+        )
+      } else {
+        owner.emitCommittedText(text)
+      }
+      return true
+    }
+
     if (owner.isCompositionActive()) {
       return super.onKeyDown(keyCode, event)
     }
