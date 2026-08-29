@@ -23,6 +23,27 @@ interface Server {
   ip: string;
 }
 
+function isNewerVersion(latest: string, current: string): boolean {
+  const latestParts = latest.split(".").map(Number);
+  const currentParts = current.split(".").map(Number);
+
+  if (
+    latestParts.length !== 3 ||
+    currentParts.length !== 3 ||
+    [...latestParts, ...currentParts].some(Number.isNaN)
+  ) {
+    return false;
+  }
+
+  for (let index = 0; index < latestParts.length; index += 1) {
+    if (latestParts[index] !== currentParts[index]) {
+      return latestParts[index] > currentParts[index];
+    }
+  }
+
+  return false;
+}
+
 /** Steps the auth flow can be opened directly to. */
 export type AuthStep = "server" | "login" | "signup";
 
@@ -61,6 +82,25 @@ interface AppProviderProps {
   children: ReactNode;
 }
 
+function getErrorStatus(error: unknown): number | undefined {
+  if (!error || typeof error !== "object") return undefined;
+
+  if ("status" in error && typeof error.status === "number") {
+    return error.status;
+  }
+
+  if (
+    "response" in error &&
+    error.response &&
+    typeof error.response === "object"
+  ) {
+    const response = error.response as { status?: unknown };
+    return typeof response.status === "number" ? response.status : undefined;
+  }
+
+  return undefined;
+}
+
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [selectedServer, setSelectedServer] = useState<Server | null>(null);
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -91,7 +131,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         return false;
       }
 
-      if (currentAppVersion === latestRelease.version) {
+      if (!isNewerVersion(latestRelease.version, currentAppVersion)) {
         return false;
       }
 
@@ -133,16 +173,17 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           const jwtToken = await AsyncStorage.getItem("jwt");
 
           if (jwtToken) {
+            authStatus = true;
             try {
               const { getUserInfo } = await import("./main-axios");
               const meRes = await getUserInfo();
-              if (meRes && meRes.username && meRes.data_unlocked === true) {
-                authStatus = true;
-              }
+              authStatus = !!meRes?.username;
             } catch (e) {
               console.error("[AppContext] Auto-login failed:", e);
-              authStatus = false;
-              await AsyncStorage.removeItem("jwt");
+              if (getErrorStatus(e) === 401) {
+                authStatus = false;
+                await AsyncStorage.removeItem("jwt");
+              }
             }
           }
 
@@ -207,11 +248,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           const { getUserInfo } = await import("./main-axios");
           const userInfo = await getUserInfo();
 
-          if (
-            !userInfo ||
-            !userInfo.username ||
-            userInfo.data_unlocked === false
-          ) {
+          if (!userInfo?.username) {
             setAuthenticated(false);
           }
         } catch (error) {

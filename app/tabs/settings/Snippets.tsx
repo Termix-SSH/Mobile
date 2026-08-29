@@ -1,12 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
-import {
-  View,
-  ScrollView,
-  Pressable,
-  RefreshControl,
-} from "react-native";
+import { View, ScrollView, Pressable, RefreshControl } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import {
+  ArrowLeft,
   ChevronRight,
   Copy,
   FolderOpen,
@@ -15,6 +11,7 @@ import {
   Trash2,
   Check,
 } from "lucide-react-native";
+import { useRouter } from "expo-router";
 import {
   getSnippets,
   getSnippetFolders,
@@ -27,13 +24,7 @@ import {
 import { Snippet, SnippetFolder } from "@/types";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { Screen } from "@/app/components/Screen";
-import {
-  Text,
-  Button,
-  Input,
-  Label,
-  Dialog,
-} from "@/app/components/ui";
+import { Text, Button, Input, Label, Dialog } from "@/app/components/ui";
 import { toast } from "@/app/utils/toast";
 
 type SnippetFormData = {
@@ -45,6 +36,7 @@ type SnippetFormData = {
 
 export default function Snippets() {
   const color = useThemeColor();
+  const router = useRouter();
 
   const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [folders, setFolders] = useState<SnippetFolder[]>([]);
@@ -78,7 +70,8 @@ export default function Snippets() {
   const [creatingFolder, setCreatingFolder] = useState(false);
 
   // Delete folder confirm
-  const [deleteFolderTarget, setDeleteFolderTarget] = useState<SnippetFolder | null>(null);
+  const [deleteFolderTarget, setDeleteFolderTarget] =
+    useState<SnippetFolder | null>(null);
   const [deletingFolder, setDeletingFolder] = useState(false);
 
   const load = useCallback(async () => {
@@ -87,7 +80,11 @@ export default function Snippets() {
         getSnippets().catch(() => []),
         getSnippetFolders().catch(() => []),
       ]);
-      setSnippets(Array.isArray(s) ? s.sort((a: Snippet, b: Snippet) => (a.order ?? 0) - (b.order ?? 0)) : []);
+      setSnippets(
+        Array.isArray(s)
+          ? s.sort((a: Snippet, b: Snippet) => (a.order ?? 0) - (b.order ?? 0))
+          : [],
+      );
       setFolders(Array.isArray(f) ? f : []);
     } catch {
       toast.error("Failed to load snippets");
@@ -236,10 +233,17 @@ export default function Snippets() {
         onLongPress={() => openEdit(snippet)}
         className="flex-1 active:opacity-60"
       >
-        <Text weight="medium" className="text-sm text-foreground" numberOfLines={1}>
+        <Text
+          weight="medium"
+          className="text-sm text-foreground"
+          numberOfLines={1}
+        >
           {snippet.name}
         </Text>
-        <Text className="mt-0.5 text-xs text-muted-foreground" numberOfLines={1}>
+        <Text
+          className="mt-0.5 text-xs text-muted-foreground"
+          numberOfLines={1}
+        >
           {snippet.description || snippet.content}
         </Text>
       </Pressable>
@@ -284,9 +288,7 @@ export default function Snippets() {
           >
             {label}
           </Text>
-          <Text className="text-xs text-muted-foreground">
-            {items.length}
-          </Text>
+          <Text className="text-xs text-muted-foreground">{items.length}</Text>
           {folderKey !== null && (
             <Pressable
               onPress={() => {
@@ -305,8 +307,8 @@ export default function Snippets() {
             style={{ transform: [{ rotate: collapsed ? "-90deg" : "0deg" }] }}
           />
         </Pressable>
-        {!collapsed && (
-          items.length === 0 ? (
+        {!collapsed &&
+          (items.length === 0 ? (
             <View className="border-b border-border px-4 py-3">
               <Text className="text-xs italic text-muted-foreground">
                 No snippets in this folder
@@ -314,8 +316,7 @@ export default function Snippets() {
             </View>
           ) : (
             items.map(renderSnippet)
-          )
-        )}
+          ))}
       </View>
     );
   };
@@ -323,6 +324,16 @@ export default function Snippets() {
   return (
     <Screen
       title="Snippets"
+      headerLeft={
+        <Pressable
+          onPress={() => router.back()}
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+          hitSlop={8}
+        >
+          <ArrowLeft size={20} color={color("foreground")} />
+        </Pressable>
+      }
       headerRight={
         <View className="flex-row gap-2">
           <Button

@@ -27,8 +27,9 @@ export function MemoryWidget({
     >
       <Meter percent={percent} history={history} />
       {mem?.usedGiB != null && mem?.totalGiB != null ? (
-        <Text className="text-[10px] text-muted-foreground mt-1.5">
-          {Number(mem.usedGiB).toFixed(1)} / {Number(mem.totalGiB).toFixed(1)} GiB
+        <Text className="mt-1.5 text-[10px] text-muted-foreground">
+          {Number(mem.usedGiB).toFixed(1)} / {Number(mem.totalGiB).toFixed(1)}{" "}
+          GiB
         </Text>
       ) : null}
     </WidgetCard>

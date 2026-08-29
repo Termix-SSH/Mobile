@@ -55,7 +55,7 @@ export function PassphraseDialog({
       title="Passphrase Required"
       description="Enter the passphrase for your SSH key."
       footer={
-        <View className="flex-row gap-2 flex-1">
+        <View className="flex-1 flex-row gap-2">
           <Button variant="outline" className="flex-1" onPress={onCancel}>
             Cancel
           </Button>
@@ -72,7 +72,7 @@ export function PassphraseDialog({
       }
     >
       <Text
-        className="text-xs text-muted-foreground mb-3"
+        className="mb-3 text-xs text-muted-foreground"
         style={{ fontFamily: Platform.OS === "ios" ? "Courier" : "monospace" }}
       >
         {hostLabel}

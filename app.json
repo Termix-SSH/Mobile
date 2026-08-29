@@ -38,6 +38,7 @@
     },
     "plugins": [
       "expo-router",
+      "./plugins/withOidcCallbackIntentFilter.js",
       [
         "expo-local-authentication",
         {
@@ -89,9 +90,7 @@
         "projectId": "cf86f530-ca4b-44bf-bb68-4d178b264910"
       }
     },
-    "assetBundlePatterns": [
-      "assets/**/*"
-    ],
+    "assetBundlePatterns": ["assets/**/*"],
     "owner": "termix"
   }
 }

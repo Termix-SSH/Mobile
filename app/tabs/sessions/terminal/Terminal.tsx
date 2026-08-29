@@ -13,13 +13,18 @@ import {
   Dimensions,
   AccessibilityInfo,
   TouchableOpacity,
+  type LayoutChangeEvent,
 } from "react-native";
 import { WebView } from "react-native-webview";
 import { ChevronDown } from "lucide-react-native";
 import { logActivity, getSnippets } from "../../../main-axios";
 import { showToast } from "../../../utils/toast";
 import { useTerminalCustomization } from "../../../contexts/TerminalCustomizationContext";
-import { BACKGROUNDS, ACCENT, TEXT_COLORS } from "../../../constants/designTokens";
+import {
+  BACKGROUNDS,
+  ACCENT,
+  TEXT_COLORS,
+} from "../../../constants/designTokens";
 import {
   TOTPDialog,
   SSHAuthDialog,
@@ -96,6 +101,19 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     const wsManagerRef = useRef<NativeWebSocketManager | null>(null);
     const terminalColsRef = useRef(80);
     const terminalRowsRef = useRef(24);
+    // Pixel height of the visible terminal area as measured by RN layout.
+    // The WebView is shrunk by the TabBar/KeyboardBar/system-keyboard via the
+    // parent's marginBottom, but inside the WebView `100vh`/`window.innerHeight`
+    // is unreliable (WKWebView reports stale values after a frame resize). Pushing
+    // the exact laid-out height lets xterm compute the correct row count, so TUI
+    // apps (Claude Code, Codex, …) draw their bottom input row inside the visible
+    // area instead of behind the chrome.
+    const viewportHeightRef = useRef<number | null>(null);
+    // Debounces onLayout pushes during LayoutAnimation / keyboard slide so the
+    // pty isn't spammed with resize storms (each resize → SIGWINCH → TUI redraw).
+    const viewportDebounceTimerRef = useRef<ReturnType<
+      typeof setTimeout
+    > | null>(null);
     const pendingDataRef = useRef<string[]>([]);
     const dataFlushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
       null,
@@ -145,6 +163,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       xtermJs: string;
       xtermCss: string;
       fitAddonJs: string;
+      nerdFontBase64?: string;
     } | null>(null);
 
     const [isScreenReaderEnabled, setIsScreenReaderEnabled] = useState(false);
@@ -223,40 +242,55 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       [onClose],
     );
 
-    const generateHTML = useCallback((assets: { xtermJs: string; xtermCss: string; fitAddonJs: string }) => {
-      const { width, height } = screenDimensions;
+    const generateHTML = useCallback(
+      (assets: {
+        xtermJs: string;
+        xtermCss: string;
+        fitAddonJs: string;
+        nerdFontBase64?: string;
+      }) => {
+        const { width, height } = screenDimensions;
 
-      const terminalConfig: Partial<TerminalConfig> = {
-        ...MOBILE_DEFAULT_TERMINAL_CONFIG,
-        ...config,
-        ...hostConfig.terminalConfig,
-      };
+        const terminalConfig: Partial<TerminalConfig> = {
+          ...MOBILE_DEFAULT_TERMINAL_CONFIG,
+          ...config,
+          ...hostConfig.terminalConfig,
+        };
 
-      const baseFontSize = config.fontSize || 16;
-      const charWidth = baseFontSize * 0.6;
-      const lineHeight = baseFontSize * 1.2;
-      const terminalWidth = Math.floor(width / charWidth);
-      const terminalHeight = Math.floor(height / lineHeight);
+        const baseFontSize = config.fontSize || 16;
+        const charWidth = baseFontSize * 0.6;
+        const lineHeight = baseFontSize * 1.2;
+        const terminalWidth = Math.floor(width / charWidth);
+        const terminalHeight = Math.floor(height / lineHeight);
 
-      void terminalWidth;
-      void terminalHeight;
+        void terminalWidth;
+        void terminalHeight;
 
-      const themeName = terminalConfig.theme || "termix";
-      const themeColors =
-        TERMINAL_THEMES[themeName]?.colors || TERMINAL_THEMES.termix.colors;
+        const themeName = terminalConfig.theme || "termix";
+        const themeColors =
+          TERMINAL_THEMES[themeName]?.colors || TERMINAL_THEMES.termix.colors;
 
-      const bgColor = themeColors.background;
-      setTerminalBackgroundColor(bgColor);
-      if (onBackgroundColorChange) {
-        onBackgroundColorChange(bgColor);
-      }
+        const bgColor = themeColors.background;
+        setTerminalBackgroundColor(bgColor);
+        if (onBackgroundColorChange) {
+          onBackgroundColorChange(bgColor);
+        }
 
-      const fontConfig = TERMINAL_FONTS.find(
-        (f) => f.value === terminalConfig.fontFamily,
-      );
-      const fontFamily = fontConfig?.fallback || TERMINAL_FONTS[0].fallback;
+        const fontConfig = TERMINAL_FONTS.find(
+          (f) => f.value === terminalConfig.fontFamily,
+        );
+        const fontFamily = fontConfig?.fallback || TERMINAL_FONTS[0].fallback;
+        const nerdFontFace = assets.nerdFontBase64
+          ? `@font-face {
+      font-family: "Caskaydia Cove Nerd Font Mono";
+      src: url("data:font/ttf;base64,${assets.nerdFontBase64}") format("truetype");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }`
+          : "";
 
-      return `
+        return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -267,6 +301,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
   <script>${assets.xtermJs}</script>
   <script>${assets.fitAddonJs}</script>
   <style>
+    ${nerdFontFace}
+
     body {
       margin: 0;
       padding: 0;
@@ -294,7 +330,20 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     .xterm-viewport {
       width: 100% !important;
       height: 100% !important;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden !important;
+      -webkit-overflow-scrolling: auto;
+    }
+
+    /* Disable native touch-scrolling of the embedded terminal at the source.
+       The terminal is scroll-driven exclusively by JS (synthetic WheelEvent →
+       viewport.scrollTop). Without this, iOS WKWebView / Android WebView's
+       native touch scroll of .xterm-viewport bubbles to the page when the
+       (alternate) buffer is at its top, scrolling the whole WebView instead of
+       the terminal. */
+    html, body, #terminal, .xterm, .xterm-viewport, .xterm-screen {
+      touch-action: none;
+      -webkit-touch-action: none;
+      -ms-touch-action: none;
     }
 
     .xterm {
@@ -416,6 +465,15 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     terminal.loadAddon(fitAddon);
 
     terminal.open(document.getElementById('terminal'));
+
+    // Bridge xterm-originated wheel input back to the pty. Stdin remains
+    // disabled outside the synchronous wheel dispatch below, so keyboard text
+    // continues to use only the React Native input path.
+    terminal.onData(function(data) {
+      if (window.ReactNativeWebView) {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'input', data: data }));
+      }
+    });
 
     fitAddon.fit();
     terminal.write('\x1b[?25h');
@@ -679,32 +737,111 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       }
     }
 
-    window.nativeFit = function() {
-      try { handleResize(); } catch(e) {}
+    var lastViewportHeight = null;
+    function applyViewportHeight(px, force) {
+      var el = document.getElementById('terminal');
+      if (!el || !px || px <= 0) return;
+      if (!force && Math.abs(px - (lastViewportHeight || 0)) < 1) return;
+      lastViewportHeight = px;
+
+      el.style.height = px + 'px';
+      el.style.minHeight = '0px';
+
+      try {
+        fitAddon.fit();
+        if (window.ReactNativeWebView) {
+          window.ReactNativeWebView.postMessage(JSON.stringify({
+            type: 'resize',
+            data: { cols: terminal.cols, rows: terminal.rows }
+          }));
+        }
+        // If the user was scrolled near the bottom, keep them pinned there so
+        // the prompt/TUI input row stays visible after the resize.
+        try {
+          if (terminal.buffer.active.viewportY >= terminal.buffer.active.baseY - 1) {
+            terminal.scrollToBottom();
+          }
+        } catch(e2) {}
+      } catch(e) {}
+    }
+    window.setTerminalViewportHeight = function(px) {
+      applyViewportHeight(px, false);
     }
 
-    window.addEventListener('resize', handleResize);
+    // Re-fit using the last RN-measured viewport height (if known) instead of
+    // the possibly-stale 100vh, so RN-driven resizes (keyboard, orientation,
+    // chrome show/hide) keep the row count in sync with the visible area.
+    window.nativeFit = function() {
+      if (lastViewportHeight) {
+        applyViewportHeight(lastViewportHeight, true);
+      } else {
+        try { handleResize(); } catch(e) {}
+      }
+    }
+
+    window.addEventListener('resize', function() {
+      // Prefer the RN-measured height; fall back to the WebView's own viewport
+      // when RN hasn't measured yet (e.g. initial load before onLayout).
+      if (lastViewportHeight) {
+        applyViewportHeight(lastViewportHeight, true);
+      } else {
+        try { handleResize(); } catch(e) {}
+      }
+    });
 
     window.addEventListener('orientationchange', function() {
       setTimeout(handleResize, 100);
     });
 
-    // Touch-scroll acceleration for iOS WebView
+    // Touch-scroll for both the normal scrollback and TUI alternate-screen
+    // buffers. Instead of calling terminal.scrollLines() (which is a no-op on
+    // the alt buffer that Claude Code / Codex run in), synthesize a wheel
+    // event on the xterm root element: xterm then routes it either to the
+    // scrollback (normal buffer) or to SGR mouse / arrow-key sequences the TUI
+    // understands (alternate buffer with/without mouse tracking).
+    // touchmove is non-passive so we can preventDefault and stop the native
+    // WebView/page from hijacking the swipe (especially up-swipe when the
+    // alt buffer is already at its top).
     (function() {
       var scrollTouchY = null;
+      var pendingLines = 0;
       var lineH = terminal._core._renderService.dimensions.css.cell.height || ${baseFontSize * 1.2};
       terminalElement.addEventListener('touchstart', function(e) {
         if (e.touches.length === 1) scrollTouchY = e.touches[0].clientY;
       }, { passive: true, capture: true });
       terminalElement.addEventListener('touchmove', function(e) {
         if (scrollTouchY === null || e.touches.length !== 1) return;
+        // While the user is text-selecting, leave the gesture alone so xterm's
+        // selection drag can track the finger.
+        if (typeof isCurrentlySelecting !== 'undefined' && isCurrentlySelecting) {
+          return;
+        }
+        // Claim the gesture so WKWebView / Android WebView do not scroll the
+        // whole page when the terminal content cannot scroll further.
+        try { e.preventDefault(); } catch(e3) {}
         var dy = scrollTouchY - e.touches[0].clientY;
         scrollTouchY = e.touches[0].clientY;
-        var lines = Math.trunc(dy / lineH);
-        if (lines !== 0) terminal.scrollLines(lines);
-      }, { passive: true, capture: true });
+        pendingLines += dy / lineH;
+        var whole = Math.trunc(pendingLines);
+        if (whole !== 0) {
+          pendingLines -= whole;
+          try {
+            terminal.options.disableStdin = false;
+            try {
+              terminal.element.dispatchEvent(new WheelEvent('wheel', {
+                deltaY: whole,
+                deltaMode: WheelEvent.DOM_DELTA_LINE,
+                cancelable: true
+              }));
+            } finally {
+              terminal.options.disableStdin = true;
+            }
+          } catch(e2) {}
+        }
+      }, { passive: false, capture: true });
       terminalElement.addEventListener('touchend', function() {
         scrollTouchY = null;
+        pendingLines = 0;
       }, { passive: true, capture: true });
     })();
 
@@ -725,19 +862,28 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 </body>
 </html>
     `;
-    }, [
-      hostConfig,
-      screenDimensions,
-      config.fontSize,
-      config.fontFamily,
-      onBackgroundColorChange,
-    ]);
+      },
+      [
+        hostConfig,
+        screenDimensions,
+        config.fontSize,
+        config.fontFamily,
+        onBackgroundColorChange,
+      ],
+    );
 
     useEffect(() => {
-      loadXtermAssets().then((assets) => {
-        xtermAssetsRef.current = assets;
-        setHtmlContent(generateHTML(assets));
-      });
+      const fontFamily = {
+        ...MOBILE_DEFAULT_TERMINAL_CONFIG,
+        ...config,
+        ...hostConfig.terminalConfig,
+      }.fontFamily;
+      loadXtermAssets(fontFamily === "Caskaydia Cove Nerd Font Mono").then(
+        (assets) => {
+          xtermAssetsRef.current = assets;
+          setHtmlContent(generateHTML(assets));
+        },
+      );
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -819,6 +965,26 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       [],
     );
 
+    const handleTerminalLayout = useCallback((event: LayoutChangeEvent) => {
+      const h = Math.round(event.nativeEvent.layout.height || 0);
+      if (h <= 0 || h === viewportHeightRef.current) {
+        return;
+      }
+      viewportHeightRef.current = h;
+      // Debounce so mid-animation frames don't each trigger a pty resize.
+      if (viewportDebounceTimerRef.current) {
+        clearTimeout(viewportDebounceTimerRef.current);
+      }
+      viewportDebounceTimerRef.current = setTimeout(() => {
+        viewportDebounceTimerRef.current = null;
+        try {
+          webViewRef.current?.injectJavaScript(
+            `window.setTerminalViewportHeight && window.setTerminalViewportHeight(${h}); true;`,
+          );
+        } catch (err) {}
+      }, 80);
+    }, []);
+
     const handleWebViewMessage = useCallback((event: any) => {
       try {
         const message = JSON.parse(event.nativeEvent.data);
@@ -827,6 +993,13 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           case "terminalReady":
             terminalColsRef.current = message.data.cols;
             terminalRowsRef.current = message.data.rows;
+            // Re-apply the RN-measured viewport height now that the terminal
+            // exists — onLayout may have fired before the HTML finished loading.
+            if (viewportHeightRef.current) {
+              webViewRef.current?.injectJavaScript(
+                `window.setTerminalViewportHeight && window.setTerminalViewportHeight(${viewportHeightRef.current}); true;`,
+              );
+            }
             wsManagerRef.current?.connect(message.data.cols, message.data.rows);
             break;
 
@@ -850,6 +1023,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           case "scrollState":
             setShowScrollToBottomButton(!message.data.isAtBottom);
             break;
+
+          case "input":
+            // Wheel/mouse input synthesized inside the WebView (xterm onData),
+            // forwarded to the pty so TUI apps can scroll their context.
+            wsManagerRef.current?.sendInput(message.data);
+            break;
         }
       } catch (error) {
         console.error("[Terminal] Error parsing WebView message:", error);
@@ -868,13 +1047,16 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           switch (state) {
             case "connecting": {
               const retryCount = (data?.retryCount as number) || 0;
-              setConnectionState(retryCount > 0 ? "reconnecting" : "connecting");
+              setConnectionState(
+                retryCount > 0 ? "reconnecting" : "connecting",
+              );
               setRetryCount(retryCount);
               log.append({
                 level: "info",
-                message: retryCount > 0
-                  ? `Reconnecting… (attempt ${retryCount})`
-                  : `Connecting to ${hostConfig.name}…`,
+                message:
+                  retryCount > 0
+                    ? `Reconnecting… (attempt ${retryCount})`
+                    : `Connecting to ${hostConfig.name}…`,
               });
               break;
             }
@@ -979,6 +1161,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           clearTimeout(accessibilityTimerRef.current);
           accessibilityTimerRef.current = null;
         }
+        if (viewportDebounceTimerRef.current) {
+          clearTimeout(viewportDebounceTimerRef.current);
+          viewportDebounceTimerRef.current = null;
+        }
       };
     }, []);
 
@@ -1027,6 +1213,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     return (
       <View
+        onLayout={handleTerminalLayout}
         style={{
           flex: isVisible ? 1 : 0,
           width: "100%",
@@ -1094,7 +1281,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                   `WebView HTTP error: ${nativeEvent.statusCode}`,
                 );
               }}
-              scrollEnabled={true}
+              scrollEnabled={false}
               overScrollMode="never"
               bounces={false}
               showsHorizontalScrollIndicator={false}
@@ -1145,54 +1332,59 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             )}
 
           {/* Spinner shown until terminal has rendered its first output */}
-          {(connectionState === "connecting" || connectionState === "reconnecting" || !hasReceivedData) &&
+          {(connectionState === "connecting" ||
+            connectionState === "reconnecting" ||
+            !hasReceivedData) &&
             connectionState !== "failed" && (
-            <View
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: terminalBackgroundColor,
-                zIndex: 120,
-              }}
-            >
-              <ActivityIndicator size="large" color={ACCENT} />
-              <Text
+              <View
                 style={{
-                  color: TEXT_COLORS.PRIMARY,
-                  fontSize: 16,
-                  fontWeight: "600",
-                  marginTop: 20,
-                  textAlign: "center",
-                  letterSpacing: 0.3,
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: terminalBackgroundColor,
+                  zIndex: 120,
                 }}
               >
-                {connectionState === "reconnecting"
-                  ? "Reconnecting..."
-                  : "Connecting..."}
-              </Text>
-              <Text
-                style={{
-                  color: TEXT_COLORS.SECONDARY,
-                  fontSize: 13,
-                  marginTop: 6,
-                  textAlign: "center",
-                }}
-              >
-                {hostConfig.name}
-                {"  ·  "}
-                {hostConfig.ip}
-              </Text>
-            </View>
-          )}
+                <ActivityIndicator size="large" color={ACCENT} />
+                <Text
+                  style={{
+                    color: TEXT_COLORS.PRIMARY,
+                    fontSize: 16,
+                    fontWeight: "600",
+                    marginTop: 20,
+                    textAlign: "center",
+                    letterSpacing: 0.3,
+                  }}
+                >
+                  {connectionState === "reconnecting"
+                    ? "Reconnecting..."
+                    : "Connecting..."}
+                </Text>
+                <Text
+                  style={{
+                    color: TEXT_COLORS.SECONDARY,
+                    fontSize: 13,
+                    marginTop: 6,
+                    textAlign: "center",
+                  }}
+                >
+                  {hostConfig.name}
+                  {"  ·  "}
+                  {hostConfig.ip}
+                </Text>
+              </View>
+            )}
 
           <ConnectionLog
             entries={log.entries}
-            isConnecting={connectionState === "connecting" || connectionState === "reconnecting"}
+            isConnecting={
+              connectionState === "connecting" ||
+              connectionState === "reconnecting"
+            }
             isConnected={connectionState === "connected"}
             hasConnectionError={connectionState === "failed"}
             onClear={log.clear}

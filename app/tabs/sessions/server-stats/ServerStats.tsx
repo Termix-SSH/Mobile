@@ -60,7 +60,9 @@ const HISTORY_LEN = 20;
 
 function parseConfig(raw?: string): StatsConfig {
   try {
-    return raw ? { ...DEFAULT_STATS_CONFIG, ...JSON.parse(raw) } : DEFAULT_STATS_CONFIG;
+    return raw
+      ? { ...DEFAULT_STATS_CONFIG, ...JSON.parse(raw) }
+      : DEFAULT_STATS_CONFIG;
   } catch {
     return DEFAULT_STATS_CONFIG;
   }
@@ -82,9 +84,11 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     const viewerSessionIdRef = useRef<string | null>(null);
 
     // Sparkline history for cpu/memory/disk.
-    const historyRef = useRef<{ cpu: number[]; memory: number[]; disk: number[] }>(
-      { cpu: [], memory: [], disk: [] },
-    );
+    const historyRef = useRef<{
+      cpu: number[];
+      memory: number[];
+      disk: number[];
+    }>({ cpu: [], memory: [], disk: [] });
     const [, forceTick] = useState(0);
 
     const pushHistory = useCallback((m: ServerMetrics) => {
@@ -226,7 +230,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                 <Pressable
                   key={qa.snippetId}
                   onPress={() => runQuickAction(qa.snippetId, qa.name)}
-                  className="flex-row items-center gap-1.5 px-2.5 py-1.5 border border-accent-brand/40 bg-accent-brand/10 active:opacity-80"
+                  className="flex-row items-center gap-1.5 border border-accent-brand/40 bg-accent-brand/10 px-2.5 py-1.5 active:opacity-80"
                 >
                   <Zap size={12} color={color("accent-brand")} />
                   <Text className="text-[11px] text-accent-brand">
