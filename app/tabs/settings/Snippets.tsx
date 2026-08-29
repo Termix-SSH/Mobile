@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { View, ScrollView, Pressable, RefreshControl } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import {
+  ArrowLeft,
   ChevronRight,
   Copy,
   FolderOpen,
@@ -10,6 +11,7 @@ import {
   Trash2,
   Check,
 } from "lucide-react-native";
+import { useRouter } from "expo-router";
 import {
   getSnippets,
   getSnippetFolders,
@@ -35,6 +37,7 @@ type SnippetFormData = {
 
 export default function Snippets() {
   const color = useThemeColor();
+  const router = useRouter();
 
   const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [folders, setFolders] = useState<SnippetFolder[]>([]);
@@ -323,6 +326,16 @@ export default function Snippets() {
   return (
     <Screen
       title="Snippets"
+      headerLeft={
+        <Pressable
+          onPress={() => router.back()}
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+          hitSlop={8}
+        >
+          <ArrowLeft size={20} color={color("foreground")} />
+        </Pressable>
+      }
       headerRight={
         <View className="flex-row gap-2">
           <Button

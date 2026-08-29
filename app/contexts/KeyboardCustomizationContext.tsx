@@ -14,6 +14,10 @@ import {
   KeyboardSettings,
 } from "@/types/keyboard";
 import { getPresetById } from "@/app/tabs/sessions/terminal/keyboard/KeyDefinitions";
+import {
+  DEFAULT_KEY_REPEAT_INTERVAL,
+  DEFAULT_KEY_REPEAT_INITIAL_DELAY,
+} from "@/constants/keyboard-repeat-config";
 
 const STORAGE_KEY = "keyboardCustomization";
 const DEFAULT_PRESET_ID: PresetType = "default";
@@ -42,6 +46,8 @@ const getDefaultConfig = (): KeyboardCustomization => {
       compactMode: false,
       hapticFeedback: false,
       showHints: true,
+      keyRepeatInterval: DEFAULT_KEY_REPEAT_INTERVAL,
+      keyRepeatInitialDelay: DEFAULT_KEY_REPEAT_INITIAL_DELAY,
     },
   };
 };
@@ -95,7 +101,11 @@ export const KeyboardCustomizationProvider: React.FC<{
         const stored = await AsyncStorage.getItem(STORAGE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored) as KeyboardCustomization;
-          setConfig(parsed);
+          const defaults = getDefaultConfig();
+          setConfig({
+            ...parsed,
+            settings: { ...defaults.settings, ...parsed.settings },
+          });
         }
       } catch (error) {
         console.error("Failed to load keyboard configuration:", error);

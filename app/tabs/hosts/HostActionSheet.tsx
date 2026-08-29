@@ -18,7 +18,10 @@ import {
 import { SSHHost } from "@/types";
 import type { HostMetrics } from "@/app/tabs/hosts/navigation/Host";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
-import type { SessionType } from "@/app/contexts/TerminalSessionsContext";
+import type {
+  RemoteDesktopProtocol,
+  SessionType,
+} from "@/app/contexts/TerminalSessionsContext";
 import { BottomSheet, SheetRow, Text } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
@@ -72,6 +75,11 @@ export function HostActionSheet({
 
   const open = (type: SessionType) => {
     navigateToSessions(host, type);
+    onClose();
+  };
+
+  const openRemoteDesktop = (protocol: RemoteDesktopProtocol) => {
+    navigateToSessions(host, "remoteDesktop", { remoteProtocol: protocol });
     onClose();
   };
 
@@ -129,10 +137,32 @@ export function HostActionSheet({
   // Separate protocol actions (RDP / VNC / Telnet), each with its own icon —
   // matches the web rather than lumping them into one "Remote Desktop" row.
   const protocolActions = [
-    host.enableRdp ? { icon: Monitor, label: "RDP" } : null,
-    host.enableVnc ? { icon: MousePointerClick, label: "VNC" } : null,
-    host.enableTelnet ? { icon: MessagesSquare, label: "Telnet" } : null,
-  ].filter(Boolean) as { icon: typeof Monitor; label: string }[];
+    host.enableRdp
+      ? {
+          icon: Monitor,
+          label: "RDP",
+          protocol: "rdp" as RemoteDesktopProtocol,
+        }
+      : null,
+    host.enableVnc
+      ? {
+          icon: MousePointerClick,
+          label: "VNC",
+          protocol: "vnc" as RemoteDesktopProtocol,
+        }
+      : null,
+    host.enableTelnet
+      ? {
+          icon: MessagesSquare,
+          label: "Telnet",
+          protocol: "telnet" as RemoteDesktopProtocol,
+        }
+      : null,
+  ].filter(Boolean) as {
+    icon: typeof Monitor;
+    label: string;
+    protocol: RemoteDesktopProtocol;
+  }[];
 
   const dotColor =
     status === "online"
@@ -191,12 +221,12 @@ export function HostActionSheet({
             onPress={() => open(type)}
           />
         ))}
-        {protocolActions.map(({ icon: Icon, label }) => (
+        {protocolActions.map(({ icon: Icon, label, protocol }) => (
           <SheetRow
             key={label}
             icon={<Icon size={18} color={iconColor} />}
             label={label}
-            onPress={() => open("remoteDesktop")}
+            onPress={() => openRemoteDesktop(protocol)}
           />
         ))}
 

@@ -166,6 +166,9 @@ export default function Settings() {
       // best-effort — session may already be gone
     }
     await clearSession();
+    // Same reason as sign-out: the old server's hosts must not linger on the
+    // home screen while the user points the app somewhere else.
+    await resetWidgets();
     openAuthFlow("server");
   };
 

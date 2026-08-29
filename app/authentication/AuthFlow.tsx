@@ -1,6 +1,7 @@
 import {
   View,
   ScrollView,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   Linking,
@@ -29,6 +30,11 @@ import { Text, Input, Button, Label } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
 import { useAppContext } from "../AppContext";
+import {
+  consumeOidcCallback,
+  isOidcCallbackHandled,
+  markOidcCallbackHandled,
+} from "@/app/utils/oidc-callback";
 import {
   saveServerConfig,
   getCurrentServerUrl,
@@ -71,6 +77,34 @@ function errMessage(e: any, fallback: string): string {
   return e?.response?.data?.error || e?.message || fallback;
 }
 
+/**
+ * Tracks whether the software keyboard is on screen.
+ *
+ * iOS fires `keyboardWillShow` ahead of the animation, so the layout change
+ * lands in the same frame as the keyboard sliding up; Android only has the
+ * `did` events.
+ */
+function useKeyboardVisible(): boolean {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const showEvent =
+      Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
+    const hideEvent =
+      Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
+
+    const show = Keyboard.addListener(showEvent, () => setVisible(true));
+    const hide = Keyboard.addListener(hideEvent, () => setVisible(false));
+
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, []);
+
+  return visible;
+}
+
 export default function AuthFlow() {
   const {
     authFlowInitialStep,
@@ -79,6 +113,7 @@ export default function AuthFlow() {
     setSelectedServer,
   } = useAppContext();
   const insets = useSafeAreaInsets();
+  const keyboardVisible = useKeyboardVisible();
   const color = useThemeColor();
   const bg = color("background") ?? "#0c0d0b";
   const accent = color("accent-brand") ?? "#f59145";
@@ -255,34 +290,45 @@ export default function AuthFlow() {
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
-    <View
-      className="flex-1 bg-background"
-      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
-    >
+    // The safe-area insets deliberately live *inside* this view rather than on
+    // it: KeyboardAvoidingView measures its own frame relative to its parent,
+    // so padding on an ancestor makes it under-shoot by exactly that amount and
+    // the keyboard ends up covering the fields.
+    <View className="flex-1 bg-background">
       {step === "oidc" ? (
-        <OidcStep
-          bg={bg}
-          accent={accent}
-          onBack={() =>
-            // If there's a usable native login step, return to it; otherwise
-            // (pure reverse-proxy case) go back to the server step.
-            setStep(
-              !FORCE_WEBVIEW_LOGIN &&
-                caps &&
-                (caps.passwordLoginAllowed || caps.oidcAvailable)
-                ? "login"
-                : "server",
-            )
-          }
-          onAuthenticated={finishAuthenticated}
-        />
+        <View
+          className="flex-1"
+          style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+        >
+          <OidcStep
+            bg={bg}
+            accent={accent}
+            onBack={() =>
+              // If there's a usable native login step, return to it; otherwise
+              // (pure reverse-proxy case) go back to the server step.
+              setStep(
+                !FORCE_WEBVIEW_LOGIN &&
+                  caps &&
+                  (caps.passwordLoginAllowed || caps.oidcAvailable)
+                  ? "login"
+                  : "server",
+              )
+            }
+            onAuthenticated={finishAuthenticated}
+          />
+        </View>
       ) : (
         <KeyboardAvoidingView
           className="flex-1"
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          // Android no longer resizes the window under the keyboard now that the
+          // app is edge-to-edge, so it needs a behavior too.
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           {/* Shared header */}
-          <View className="flex-row items-center justify-between border-b border-border px-4 py-3">
+          <View
+            className="flex-row items-center justify-between border-b border-border px-4 pb-3"
+            style={{ paddingTop: insets.top + 12 }}
+          >
             {step !== "server" ? (
               <TouchableOpacity
                 onPress={goToServer}
@@ -308,21 +354,36 @@ export default function AuthFlow() {
 
           <ScrollView
             className="flex-1"
-            contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: "center",
+              paddingBottom: insets.bottom,
+            }}
             keyboardShouldPersistTaps="handled"
+            keyboardDismissMode={
+              Platform.OS === "ios" ? "interactive" : "on-drag"
+            }
+            showsVerticalScrollIndicator={false}
           >
-            <View className="items-center px-6 py-10">
-              {/* Brand mark */}
-              <View className="mb-5 h-16 w-16 items-center justify-center border border-accent-brand/40 bg-accent-brand/10">
-                <Server size={30} color={accent} />
-              </View>
+            <View
+              className={`items-center px-6 ${keyboardVisible ? "py-4" : "py-10"}`}
+            >
+              {/* Brand mark — dropped while typing so short screens keep the
+                  form fully visible above the keyboard. */}
+              {keyboardVisible ? null : (
+                <View className="mb-5 h-16 w-16 items-center justify-center border border-accent-brand/40 bg-accent-brand/10">
+                  <Server size={30} color={accent} />
+                </View>
+              )}
               <Text
                 weight="bold"
                 className="text-3xl tracking-[3px] text-foreground"
               >
                 TERMIX
               </Text>
-              <Text className="mb-8 mt-1 text-xs tracking-[2px] text-muted-foreground">
+              <Text
+                className={`mt-1 text-xs tracking-[2px] text-muted-foreground ${keyboardVisible ? "mb-5" : "mb-8"}`}
+              >
                 {step === "server"
                   ? "CONNECT TO YOUR SERVER"
                   : (activeHost || "").toUpperCase()}
@@ -1117,6 +1178,11 @@ function OidcStep({
   const handleCallbackUrl = useCallback(
     async (callbackUrl: string) => {
       if (!callbackUrl.startsWith("termix-mobile://oidc-callback")) return;
+      // The same intent can reach us twice — openAuthSessionAsync's result, the
+      // Linking listener, and the /oidc-callback route all see it. Claim it once
+      // so a second, failing confirmation can't clear the JWT the first stored.
+      if (isOidcCallbackHandled(callbackUrl)) return;
+      markOidcCallbackHandled(callbackUrl);
 
       // Hermes's URL implementation may not parse custom schemes reliably,
       // so extract query params manually from the raw string.
@@ -1212,6 +1278,16 @@ function OidcStep({
     browserOpenedRef.current = true;
 
     const init = async () => {
+      // A deep link the OS delivered before this screen existed (cold start, or
+      // a Custom Tab that handed the redirect to the router). Finish that
+      // sign-in instead of starting a second trip to the IdP — and before the
+      // jwt wipe below, which would otherwise discard what we just received.
+      const pendingCallback = consumeOidcCallback();
+      if (pendingCallback) {
+        await handleCallbackUrl(pendingCallback);
+        return;
+      }
+
       // Start every sign-in attempt from a clean slate: a leftover token would
       // let confirmation pass as the previous account.
       await AsyncStorage.removeItem("jwt");
@@ -1259,6 +1335,17 @@ function OidcStep({
 
   const handleNav = (navState: WebViewNavigation) => {
     if (!navState.loading) setUrl(navState.url);
+  };
+
+  // The web login hands the session back through postMessage, but a server
+  // that was handed an appCallbackUrl answers the OIDC callback with a
+  // termix-mobile:// redirect instead. Android would fire that at the OS as an
+  // intent and the sign-in would leave the WebView for the router; catch it
+  // here and complete in place.
+  const handleWebViewRequest = (request: { url: string }) => {
+    if (!request.url.startsWith(OIDC_CALLBACK_URL)) return true;
+    void handleCallbackUrl(request.url);
+    return false;
   };
 
   const handleError = (syntheticEvent: any) => {
@@ -1456,6 +1543,7 @@ function OidcStep({
           style={{ flex: 1, backgroundColor: bg }}
           containerStyle={{ backgroundColor: bg }}
           onNavigationStateChange={handleNav}
+          onShouldStartLoadWithRequest={handleWebViewRequest}
           onMessage={onMessage}
           onError={handleError}
           injectedJavaScript={injectedJavaScript}

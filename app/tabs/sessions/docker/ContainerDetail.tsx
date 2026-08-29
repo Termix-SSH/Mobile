@@ -56,11 +56,11 @@ export function ContainerDetail({
   return (
     <View className="flex-1 bg-background">
       {/* Header */}
-      <View className="flex-row items-center gap-2.5 px-3 py-3 border-b border-border">
+      <View className="flex-row items-center gap-2.5 border-b border-border px-3 py-3">
         <Pressable onPress={onBack} hitSlop={8} className="p-1">
           <ArrowLeft size={18} color={color("foreground")} />
         </Pressable>
-        <View className="flex-1 min-w-0">
+        <View className="min-w-0 flex-1">
           <Text
             weight="bold"
             className="text-base text-foreground"
@@ -78,7 +78,7 @@ export function ContainerDetail({
       </View>
 
       {/* Quick actions */}
-      <View className="flex-row gap-1.5 px-3 py-2 border-b border-border">
+      <View className="flex-row gap-1.5 border-b border-border px-3 py-2">
         {running ? (
           <ActionChip
             icon={<Square size={13} color={color("foreground")} />}
@@ -110,7 +110,7 @@ export function ContainerDetail({
       </View>
 
       {/* Tab strip */}
-      <View className="px-3 py-2 border-b border-border">
+      <View className="border-b border-border px-3 py-2">
         <SegmentedControl<DetailTab>
           value={tab}
           onChange={setTab}
@@ -156,7 +156,7 @@ function ActionChip({
   return (
     <Pressable
       onPress={onPress}
-      className={`flex-row items-center gap-1 px-2.5 py-1.5 border active:opacity-80 ${
+      className={`flex-row items-center gap-1 border px-2.5 py-1.5 active:opacity-80 ${
         accent
           ? "border-accent-brand/40 bg-accent-brand/10"
           : destructive
@@ -213,7 +213,7 @@ function LogsTab({
 
   return (
     <View className="flex-1">
-      <View className="flex-row justify-end px-3 py-1.5 border-b border-border">
+      <View className="flex-row justify-end border-b border-border px-3 py-1.5">
         <Pressable
           onPress={copy}
           hitSlop={6}
@@ -264,7 +264,7 @@ function StatsTab({
   if (!running) {
     return (
       <View className="flex-1 items-center justify-center px-8">
-        <Text className="text-sm text-muted-foreground text-center">
+        <Text className="text-center text-sm text-muted-foreground">
           Container is not running — no live stats.
         </Text>
       </View>
@@ -274,7 +274,7 @@ function StatsTab({
   if (error) {
     return (
       <View className="flex-1 items-center justify-center px-8">
-        <Text className="text-sm text-destructive text-center">{error}</Text>
+        <Text className="text-center text-sm text-destructive">{error}</Text>
       </View>
     );
   }
@@ -318,15 +318,15 @@ function StatCard({
   sub?: string;
 }) {
   return (
-    <View className="px-3 py-3 bg-card border border-border">
+    <View className="border border-border bg-card px-3 py-3">
       <Text className="text-[10px] uppercase tracking-[1px] text-muted-foreground">
         {label}
       </Text>
-      <Text weight="bold" className="text-base text-foreground mt-0.5">
+      <Text weight="bold" className="mt-0.5 text-base text-foreground">
         {value}
       </Text>
       {sub ? (
-        <Text className="text-[11px] text-muted-foreground mt-0.5">{sub}</Text>
+        <Text className="mt-0.5 text-[11px] text-muted-foreground">{sub}</Text>
       ) : null}
     </View>
   );

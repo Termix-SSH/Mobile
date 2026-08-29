@@ -26,7 +26,7 @@ const path = require("path");
  * Options (all optional):
  *   appGroupIdentifier  defaults to `group.<bundleId>.widgets`
  *   targetName          defaults to "TermixWidgets"
- *   deploymentTarget    defaults to "15.1" (matches the app)
+ *   deploymentTarget    defaults to "16.0" (see below)
  */
 
 const DEFAULT_TARGET_NAME = "TermixWidgets";

@@ -13,6 +13,7 @@
     "format:check": "prettier --check .",
     "verify:android-network-security": "node scripts/verify-android-network-security.cjs",
     "verify:widget-contract": "node scripts/verify-widget-contract.cjs",
+    "verify:oidc-callback-intent-filter": "node scripts/verify-oidc-callback-intent-filter.cjs",
     "build-all": "eas build --platform all --profile development",
     "build-android": "eas build --platform android --profile development",
     "build-ios": "eas build --platform ios --profile development"
@@ -75,6 +76,11 @@
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.3",
     "typescript": "~5.9.2"
+  },
+  "expo": {
+    "autolinking": {
+      "nativeModulesDir": "./modules"
+    }
   },
   "lint-staged": {
     "*.{ts,tsx}": [

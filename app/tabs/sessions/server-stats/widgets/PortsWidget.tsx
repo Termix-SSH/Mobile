@@ -27,15 +27,18 @@ export function PortsWidget({ metrics }: { metrics: ServerMetrics }) {
       ) : (
         <View className="gap-1">
           {ports.slice(0, 20).map((p, i) => (
-            <View key={`${p.localPort}-${p.protocol}-${i}`} className="flex-row gap-2">
+            <View
+              key={`${p.localPort}-${p.protocol}-${i}`}
+              className="flex-row gap-2"
+            >
               <Text
-                className="text-[10px] text-foreground w-16"
+                className="w-16 text-[10px] text-foreground"
                 style={{ fontFamily: MONO_FONT }}
               >
                 {p.protocol}/{p.localPort}
               </Text>
               <Text
-                className="text-[10px] text-muted-foreground flex-1"
+                className="flex-1 text-[10px] text-muted-foreground"
                 numberOfLines={1}
                 style={{ fontFamily: MONO_FONT }}
               >
