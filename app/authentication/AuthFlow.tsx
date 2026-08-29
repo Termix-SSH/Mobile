@@ -1261,6 +1261,12 @@ function OidcStep({
     if (!navState.loading) setUrl(navState.url);
   };
 
+  const handleWebViewRequest = (request: { url: string }) => {
+    if (!request.url.startsWith(OIDC_CALLBACK_URL)) return true;
+    void handleCallbackUrl(request.url);
+    return false;
+  };
+
   const handleError = (syntheticEvent: any) => {
     const { nativeEvent } = syntheticEvent;
     if (
@@ -1456,6 +1462,7 @@ function OidcStep({
           style={{ flex: 1, backgroundColor: bg }}
           containerStyle={{ backgroundColor: bg }}
           onNavigationStateChange={handleNav}
+          onShouldStartLoadWithRequest={handleWebViewRequest}
           onMessage={onMessage}
           onError={handleError}
           injectedJavaScript={injectedJavaScript}
