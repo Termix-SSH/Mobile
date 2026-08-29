@@ -45,7 +45,7 @@ function isNewerVersion(latest: string, current: string): boolean {
 }
 
 /** Steps the auth flow can be opened directly to. */
-export type AuthStep = "server" | "login" | "signup";
+export type AuthStep = "server" | "login" | "signup" | "oidc";
 
 interface AppContextType {
   selectedServer: Server | null;
