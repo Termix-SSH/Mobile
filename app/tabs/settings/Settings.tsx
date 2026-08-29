@@ -15,6 +15,7 @@ import {
   Monitor,
   Key,
   FileText,
+  LayoutGrid,
 } from "lucide-react-native";
 import { useAppContext } from "@/app/AppContext";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
@@ -46,6 +47,16 @@ import {
   type ThemeId,
 } from "@/app/constants/theme";
 import { toast } from "@/app/utils/toast";
+import {
+  DEFAULT_WIDGET_PREFERENCES,
+  isWidgetSupported,
+  loadWidgetPreferences,
+  publishSignedOutSnapshot,
+  republishWithPreferences,
+  resetWidgets,
+  saveWidgetPreferences,
+  type WidgetPreferences,
+} from "@/app/widgets";
 
 export default function Settings() {
   const router = useRouter();
@@ -72,6 +83,29 @@ export default function Settings() {
     () => getCurrentServerUrl() ?? "",
   );
   const [open, setOpen] = useState<string | null>("appearance");
+
+  // Home-screen widget preferences (no-ops on builds without widget support).
+  const [widgetPrefs, setWidgetPrefs] = useState<WidgetPreferences>(
+    DEFAULT_WIDGET_PREFERENCES,
+  );
+
+  useEffect(() => {
+    if (!isWidgetSupported) return;
+    loadWidgetPreferences()
+      .then(setWidgetPrefs)
+      .catch(() => {});
+  }, []);
+
+  const updateWidgetPref = async (patch: Partial<WidgetPreferences>) => {
+    const next = await saveWidgetPreferences(patch);
+    setWidgetPrefs(next);
+    // Reflect the change on the home screen right away.
+    if (next.enabled) {
+      await republishWithPreferences();
+    } else {
+      await publishSignedOutSnapshot();
+    }
+  };
 
   // App-lock PIN setup dialog (two-step: enter then confirm)
   const [pinDialog, setPinDialog] = useState(false);
@@ -115,6 +149,8 @@ export default function Settings() {
     }
     await clearSession();
     clearAllSessions();
+    // Host names and addresses must not survive on the home screen.
+    await resetWidgets();
     setAuthenticated(false);
     // The tabs fall back to their "no server connected" empty states; the user
     // re-authenticates from there or from this Server section.
@@ -130,6 +166,9 @@ export default function Settings() {
       // best-effort — session may already be gone
     }
     await clearSession();
+    // Same reason as sign-out: the old server's hosts must not linger on the
+    // home screen while the user points the app somewhere else.
+    await resetWidgets();
     openAuthFlow("server");
   };
 
@@ -444,6 +483,104 @@ export default function Settings() {
             </SettingRow>
           </View>
         </AccordionSection>
+
+        {/* Home-screen widgets */}
+        {isWidgetSupported ? (
+          <AccordionSection
+            label="Widgets"
+            icon={<LayoutGrid size={14} color={color("muted-foreground")} />}
+            open={open === "widgets"}
+            onToggle={() => toggle("widgets")}
+          >
+            <View className="pt-1">
+              <Text className="pb-2 text-[11px] text-muted-foreground">
+                Add Termix widgets from your home screen: Quick Connect, Server
+                Status and Snippets. They render a snapshot written by this app
+                — never your credentials — and never connect on their own.
+              </Text>
+
+              <SettingRow
+                label="Home screen widgets"
+                description="Publish hosts and snippets to your widgets"
+                last={!widgetPrefs.enabled}
+              >
+                <FakeSwitch
+                  checked={widgetPrefs.enabled}
+                  onChange={(value) => updateWidgetPref({ enabled: value })}
+                />
+              </SettingRow>
+
+              {/* The rest only matters while publishing is on. */}
+              {widgetPrefs.enabled ? (
+                <>
+                  <SettingRow
+                    label="Show addresses"
+                    description="Display user@host under each server"
+                  >
+                    <FakeSwitch
+                      checked={widgetPrefs.showAddresses}
+                      onChange={(value) =>
+                        updateWidgetPref({ showAddresses: value })
+                      }
+                    />
+                  </SettingRow>
+
+                  <SettingRow
+                    label="Include offline hosts"
+                    description="Otherwise only online servers are listed"
+                  >
+                    <FakeSwitch
+                      checked={widgetPrefs.includeOffline}
+                      onChange={(value) =>
+                        updateWidgetPref({ includeOffline: value })
+                      }
+                    />
+                  </SettingRow>
+
+                  <SettingRow
+                    label="Pinned hosts only"
+                    description="Limit widgets to hosts you pinned"
+                  >
+                    <FakeSwitch
+                      checked={widgetPrefs.pinnedOnly}
+                      onChange={(value) =>
+                        updateWidgetPref({ pinnedOnly: value })
+                      }
+                    />
+                  </SettingRow>
+
+                  <SettingRow
+                    label="Snippets widget"
+                    description="Run saved commands from the home screen"
+                    last={!widgetPrefs.includeSnippets}
+                  >
+                    <FakeSwitch
+                      checked={widgetPrefs.includeSnippets}
+                      onChange={(value) =>
+                        updateWidgetPref({ includeSnippets: value })
+                      }
+                    />
+                  </SettingRow>
+
+                  {widgetPrefs.includeSnippets ? (
+                    <SettingRow
+                      label="Show command preview"
+                      description="Display the first line of each snippet"
+                      last
+                    >
+                      <FakeSwitch
+                        checked={widgetPrefs.showSnippetPreview}
+                        onChange={(value) =>
+                          updateWidgetPref({ showSnippetPreview: value })
+                        }
+                      />
+                    </SettingRow>
+                  ) : null}
+                </>
+              ) : null}
+            </View>
+          </AccordionSection>
+        ) : null}
 
         {/* Customization */}
         <AccordionSection

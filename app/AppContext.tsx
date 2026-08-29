@@ -17,6 +17,7 @@ import {
   getCurrentServerUrl,
 } from "./main-axios";
 import Constants from "expo-constants";
+import { publishSignedOutSnapshot } from "@/app/widgets";
 
 interface Server {
   name: string;
@@ -223,6 +224,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       }
     });
   }, []);
+
+  // Losing authentication (sign-out elsewhere, expired token, server change)
+  // must also empty the home-screen widgets — they would otherwise keep showing
+  // host names the user can no longer reach.
+  useEffect(() => {
+    if (isLoading || isAuthenticated) return;
+    void publishSignedOutSnapshot();
+  }, [isAuthenticated, isLoading]);
 
   const lastValidationTimeRef = useRef<number>(0);
   const validationInProgressRef = useRef<boolean>(false);

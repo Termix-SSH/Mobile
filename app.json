@@ -74,6 +74,7 @@
       "./plugins/withIOSNetworkSecurity.js",
       "./plugins/withNetworkSecurityConfig.js",
       "./plugins/withAndroidLocalNetworkSsl.js",
+      "./plugins/withTermixWidgets.js",
       "expo-dev-client",
       "expo-secure-store",
       "expo-web-browser"
