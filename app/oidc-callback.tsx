@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { Redirect, useLocalSearchParams } from "expo-router";
 import { rememberOidcCallback } from "@/app/utils/oidc-callback";
+import { useAppContext } from "@/app/AppContext";
 
 // Route for the `termix-mobile://oidc-callback` deep link.
 //
@@ -15,7 +17,15 @@ import { rememberOidcCallback } from "@/app/utils/oidc-callback";
 // effect, and child effects flush before the parent's, so an effect here could
 // race the unmount. rememberOidcCallback is idempotent, which is what makes
 // that safe under a double render.
+//
+// Parking alone does not finish the sign-in. OidcStep drains the parked link
+// from its mount effect, but the auth flow is a dismissible overlay rather than
+// a route, and a configured-but-unauthenticated app deliberately starts on the
+// empty-state shell with that overlay closed. Nothing would mount to consume
+// the token and the user would land signed out on the hosts tab, so open the
+// flow at the oidc step to complete it.
 export default function OidcCallback() {
+  const { openAuthFlow } = useAppContext();
   const params = useLocalSearchParams<{
     success?: string;
     token?: string;
@@ -33,6 +43,10 @@ export default function OidcCallback() {
   rememberOidcCallback(
     `termix-mobile://oidc-callback${query ? `?${query}` : ""}`,
   );
+
+  useEffect(() => {
+    openAuthFlow("oidc");
+  }, [openAuthFlow]);
 
   return <Redirect href="/(tabs)/hosts" />;
 }
