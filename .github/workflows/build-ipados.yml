@@ -5,7 +5,8 @@ on:
 
 jobs:
   build-ipados:
-    runs-on: blacksmith-6vcpu-macos-latest
+    # Match branches that already build IPA successfully (not Blacksmith).
+    runs-on: macos-15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,13 +20,30 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate iOS project
-        run: npx expo prebuild --platform ios --clean
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24.x"
+          cache-dependency-path: modules/termix-tailscale/native/go.sum
 
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
+
+      # Userspace Tailscale (tsnet) C archive — must exist before prebuild/pods.
+      - name: Build Termix Tailscale iOS archive
+        run: |
+          set -euo pipefail
+          make -C modules/termix-tailscale/native ios
+          test -f modules/termix-tailscale/ios/lib/libtermix_ts.a
+          test -f modules/termix-tailscale/ios/lib/termix_ts.h
+          # Ensure symbols we call from ObjC are present in the archive.
+          nm -gU modules/termix-tailscale/ios/lib/libtermix_ts.a | grep -E 'TermixTS_(IsAvailable|Configure|Up|StartForward|Close)'
+          ls -lh modules/termix-tailscale/ios/lib/
+
+      - name: Generate iOS project
+        run: npx expo prebuild --platform ios --clean
 
       - name: Cache CocoaPods
         uses: actions/cache@v4

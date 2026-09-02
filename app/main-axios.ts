@@ -92,17 +92,149 @@ export async function getCookie(name: string): Promise<string | undefined> {
   }
 }
 
+type ApiInstanceOptions = {
+  timeout?: number;
+  headers?: Record<string, string>;
+};
+
+function trimPathname(pathname: string): string {
+  return pathname === "/" ? "" : pathname.replace(/\/+$/, "");
+}
+
+function parseHttpUrl(value: string): URL | null {
+  try {
+    const parsed = new URL(value.trim());
+    if (
+      (parsed.protocol !== "http:" && parsed.protocol !== "https:") ||
+      !parsed.hostname
+    ) {
+      return null;
+    }
+    // Fragments are never sent to the server and must not become part of a
+    // runtime or persisted base URL.
+    parsed.hash = "";
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function formatBaseUrl(parsed: URL): string {
+  const pathname = trimPathname(parsed.pathname);
+  return `${parsed.origin}${pathname}${parsed.search}`;
+}
+
+export function normalizeServerUrl(value: string): string {
+  const parsed = parseHttpUrl(value);
+  return parsed ? formatBaseUrl(parsed) : value.trim();
+}
+
+function normalizeServerConfig(config: ServerConfig): ServerConfig {
+  return {
+    ...config,
+    serverUrl: normalizeServerUrl(config.serverUrl),
+    ...(config.displayUrl
+      ? { displayUrl: normalizeServerUrl(config.displayUrl) }
+      : {}),
+  };
+}
+
+function appendUrlPath(base: URL, path: string): URL {
+  const result = new URL(base.toString());
+  const basePath = trimPathname(result.pathname);
+  const cleanPath = path.trim();
+  result.hash = "";
+
+  if (!cleanPath || cleanPath === "/") {
+    result.pathname = basePath || "/";
+    return result;
+  }
+
+  result.pathname = `${basePath}/${cleanPath.replace(/^\/+/, "")}`;
+  return result;
+}
+
+function getAxiosBase(baseURL: string): {
+  baseURL: string;
+  baseSearch: string;
+} {
+  const parsed = parseHttpUrl(baseURL);
+  if (!parsed) {
+    return { baseURL: baseURL.trim(), baseSearch: "" };
+  }
+
+  const baseSearch = parsed.search;
+  parsed.search = "";
+  return { baseURL: formatBaseUrl(parsed), baseSearch };
+}
+
+function mergeBaseSearchParams(config: any, baseSearch: string): void {
+  if (!baseSearch) return;
+
+  const merged = new URLSearchParams(baseSearch);
+  const requestParams = config.params;
+  if (requestParams instanceof URLSearchParams) {
+    for (const [key, value] of requestParams.entries()) {
+      merged.set(key, value);
+    }
+  } else if (typeof requestParams === "string") {
+    for (const [key, value] of new URLSearchParams(requestParams).entries()) {
+      merged.set(key, value);
+    }
+  } else if (requestParams && typeof requestParams === "object") {
+    for (const [key, value] of Object.entries(requestParams)) {
+      merged.delete(key);
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          if (item !== null && item !== undefined) {
+            merged.append(key, String(item));
+          }
+        }
+      } else if (value !== null && value !== undefined) {
+        merged.set(key, String(value));
+      }
+    }
+  }
+
+  config.params = merged;
+}
+
+function normalizeHostname(hostname: string): string {
+  return hostname.replace(/^\[|\]$/g, "").toLowerCase();
+}
+
+function isLoopbackUrl(value: string): boolean {
+  const parsed = parseHttpUrl(value);
+  if (!parsed) return false;
+
+  const hostname = normalizeHostname(parsed.hostname);
+  if (hostname === "localhost" || hostname === "::1") return true;
+
+  const parts = hostname.split(".").map(Number);
+  return (
+    parts.length === 4 &&
+    parts.every((part) => Number.isInteger(part) && part >= 0 && part <= 255) &&
+    parts[0] === 127
+  );
+}
+
 function createApiInstance(
   baseURL: string,
   serviceName: string = "API",
+  options: ApiInstanceOptions = {},
 ): AxiosInstance {
+  const { baseURL: axiosBaseURL, baseSearch } = getAxiosBase(baseURL);
   const instance = axios.create({
-    baseURL,
-    headers: { "Content-Type": "application/json" },
-    timeout: 30000,
+    baseURL: axiosBaseURL,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers ?? {}),
+    },
+    timeout: options.timeout ?? 30000,
   });
 
   instance.interceptors.request.use(async (config) => {
+    mergeBaseSearchParams(config, baseSearch);
     const startTime = performance.now();
     const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
@@ -271,30 +403,184 @@ export function setAuthStateCallback(
 }
 
 let configuredServerUrl: string | null = null;
+/** Full last-saved config (includes displayUrl / viaTailscale when set). */
+let configuredServerMeta: ServerConfig | null = null;
+let apiConfigGeneration = 0;
 
-export async function saveServerConfig(config: ServerConfig): Promise<boolean> {
+export type SaveServerConfigOptions = {
+  /** Skip route detection when the caller will set the runtime transport next. */
+  detect?: boolean;
+};
+
+export async function saveServerConfig(
+  config: ServerConfig,
+  options: SaveServerConfigOptions = {},
+): Promise<boolean> {
   try {
-    await AsyncStorage.setItem("serverConfig", JSON.stringify(config));
-    configuredServerUrl = config.serverUrl;
+    const normalizedConfig = normalizeServerConfig(config);
+    await AsyncStorage.setItem(
+      "serverConfig",
+      JSON.stringify(normalizedConfig),
+    );
+    configuredServerUrl = normalizedConfig.serverUrl;
+    configuredServerMeta = normalizedConfig;
     updateApiInstances();
-    await detectAndUpdateApiInstances();
+    if (options.detect !== false) {
+      await detectAndUpdateApiInstances();
+    }
     return true;
   } catch (error) {
     return false;
   }
 }
 
-export async function initializeServerConfig(): Promise<void> {
+export type InitializeServerConfigOptions = {
+  /**
+   * When true (default), try to keep/restore a Tailscale localhost forward if
+   * the saved config used Tailscale. Safe to call repeatedly: live forwards are
+   * reused and not torn down.
+   */
+  rehydrateTailscale?: boolean;
+  /**
+   * When false, skip the root-vs-/ssh network probes. Use during boot before a
+   * transport is chosen (the stored LAN URL is not reachable from cellular),
+   * then let applyServerTransportMode / later calls run detection.
+   */
+  detect?: boolean;
+};
+
+/**
+ * Load server config into memory and refresh axios bases.
+ *
+ * IMPORTANT: Hosts and other screens call this often. It must NOT destroy an
+ * already-working Tailscale localhost forward (that was the "loading hosts"
+ * hang after login).
+ */
+export async function initializeServerConfig(
+  options: InitializeServerConfigOptions = {},
+): Promise<void> {
+  const rehydrateTailscale = options.rehydrateTailscale !== false;
+
   try {
     const configStr = await AsyncStorage.getItem("serverConfig");
 
     if (configStr) {
-      const config = JSON.parse(configStr);
+      const config = normalizeServerConfig(
+        JSON.parse(configStr) as ServerConfig,
+      );
 
-      if (config?.serverUrl) {
-        configuredServerUrl = config.serverUrl;
+      if (config?.serverUrl || config?.displayUrl) {
+        const displayUrl = config.displayUrl || config.serverUrl;
+        const currentRuntimeUrl = configuredServerUrl;
+        const preserveLiveTailscaleTransport =
+          config.viaTailscale === true &&
+          !!currentRuntimeUrl &&
+          isLoopbackUrl(currentRuntimeUrl);
+        configuredServerMeta = { ...config, displayUrl };
+        configuredServerUrl = preserveLiveTailscaleTransport
+          ? currentRuntimeUrl
+          : config.serverUrl || displayUrl;
+
+        // Prefer a live Tailscale forward over stale localhost ports from disk.
+        if (displayUrl) {
+          try {
+            const {
+              getLiveTransportUrl,
+              rehydrateTailscaleTransport,
+              isTailscaleConfigured,
+            } = await import("./utils/tailscaleConnect");
+
+            const live = await getLiveTransportUrl(displayUrl);
+            if (live) {
+              configuredServerUrl = live;
+              configuredServerMeta = {
+                ...configuredServerMeta,
+                serverUrl: live,
+                displayUrl,
+                viaTailscale: true,
+              };
+            } else if (
+              rehydrateTailscale &&
+              (config.viaTailscale || (await isTailscaleConfigured()))
+            ) {
+              // Only auto-rejoin when the last session used TS, or when the
+              // caller explicitly wants rehydrate (boot path handles chooser).
+              if (config.viaTailscale) {
+                const transportUrl =
+                  await rehydrateTailscaleTransport(displayUrl);
+                if (transportUrl) {
+                  configuredServerUrl = transportUrl;
+                  configuredServerMeta = {
+                    ...configuredServerMeta,
+                    serverUrl: transportUrl,
+                    displayUrl,
+                    viaTailscale: true,
+                    lastUpdated: new Date().toISOString(),
+                  };
+                  // Persist transport only for crash recovery hints; displayUrl stays.
+                  await AsyncStorage.setItem(
+                    "serverConfig",
+                    JSON.stringify({
+                      ...configuredServerMeta,
+                      // Store display as serverUrl fallback so cold start without
+                      // rehydrate still has a usable absolute URL.
+                      serverUrl: displayUrl,
+                      displayUrl,
+                      viaTailscale: true,
+                    }),
+                  );
+                } else {
+                  // Keep memory pointing at display URL for direct attempt; do not
+                  // wipe viaTailscale capability from disk permanently here.
+                  configuredServerUrl = displayUrl;
+                  configuredServerMeta = {
+                    ...configuredServerMeta,
+                    serverUrl: displayUrl,
+                    displayUrl,
+                    viaTailscale: false,
+                  };
+                }
+              }
+            } else if (
+              configuredServerUrl &&
+              isLoopbackUrl(configuredServerUrl) &&
+              displayUrl &&
+              !live
+            ) {
+              // Stale localhost from a previous process, or a forward that
+              // died while preserving the live runtime — fall back to display.
+              configuredServerUrl = displayUrl;
+              configuredServerMeta = {
+                ...configuredServerMeta,
+                serverUrl: displayUrl,
+                displayUrl,
+                viaTailscale: false,
+              };
+            }
+          } catch (e) {
+            systemLogger.warn(
+              "[initializeServerConfig] Tailscale rehydrate failed",
+              {
+                operation: "initialize_server_config",
+                error: e instanceof Error ? e.message : String(e),
+              },
+            );
+            if (displayUrl) {
+              configuredServerUrl = displayUrl;
+              configuredServerMeta = {
+                ...configuredServerMeta!,
+                serverUrl: displayUrl,
+                displayUrl,
+                viaTailscale: false,
+              };
+            }
+          }
+        }
+
         updateApiInstances();
-        await detectAndUpdateApiInstances();
+        if (options.detect !== false) {
+          await detectAndUpdateApiInstances();
+        }
       }
     }
   } catch (error) {
@@ -308,8 +594,109 @@ export async function initializeServerConfig(): Promise<void> {
   }
 }
 
+/**
+ * Apply transport for the session: direct display URL, or Tailscale forward.
+ * Persists displayUrl + viaTailscale preference without requiring re-entry.
+ */
+export async function applyServerTransportMode(
+  mode: "direct" | "tailscale",
+): Promise<boolean> {
+  const displayUrl =
+    configuredServerMeta?.displayUrl ||
+    configuredServerMeta?.serverUrl ||
+    configuredServerUrl;
+  // Need a real remote origin; refuse to treat localhost as display URL.
+  const origin =
+    normalizeServerUrl(
+      (configuredServerMeta?.displayUrl || displayUrl || "").trim(),
+    ) || null;
+  if (!origin || isLoopbackUrl(origin)) {
+    return false;
+  }
+
+  try {
+    if (mode === "direct") {
+      const { shutdownTailscale } = await import("./utils/tailscaleConnect");
+      try {
+        await shutdownTailscale();
+      } catch {
+        // optional
+      }
+      configuredServerUrl = origin;
+      configuredServerMeta = {
+        serverUrl: origin,
+        displayUrl: origin,
+        viaTailscale: false,
+        lastUpdated: new Date().toISOString(),
+      };
+      await AsyncStorage.setItem(
+        "serverConfig",
+        JSON.stringify(configuredServerMeta),
+      );
+      updateApiInstances();
+      await detectAndUpdateApiInstances();
+      return true;
+    }
+
+    const { rehydrateTailscaleTransport, loadTailscaleSettings } =
+      await import("./utils/tailscaleConnect");
+    const settings = await loadTailscaleSettings();
+    if (!settings.authKey) return false;
+
+    const transportUrl = await rehydrateTailscaleTransport(origin);
+    if (!transportUrl) return false;
+
+    // Disk keeps the real origin; memory uses localhost transport.
+    configuredServerMeta = {
+      serverUrl: origin,
+      displayUrl: origin,
+      viaTailscale: true,
+      lastUpdated: new Date().toISOString(),
+    };
+    await AsyncStorage.setItem(
+      "serverConfig",
+      JSON.stringify(configuredServerMeta),
+    );
+    configuredServerUrl = transportUrl;
+    updateApiInstances();
+    await detectAndUpdateApiInstances();
+    return true;
+  } catch (e) {
+    systemLogger.warn("[applyServerTransportMode] failed", {
+      operation: "apply_server_transport_mode",
+      error: e instanceof Error ? e.message : String(e),
+    });
+    return false;
+  }
+}
+
 export function getCurrentServerUrl(): string | null {
   return configuredServerUrl;
+}
+
+/** User-facing URL (Tailscale remote / LAN), falling back to transport URL. */
+export function getDisplayServerUrl(): string | null {
+  return (
+    configuredServerMeta?.displayUrl ||
+    configuredServerMeta?.serverUrl ||
+    configuredServerUrl
+  );
+}
+
+export function getServerConfigMeta(): ServerConfig | null {
+  return configuredServerMeta;
+}
+
+/**
+ * Point axios/WS at a transport URL without rewriting the persisted display URL.
+ * Used after Tailscale local-forward setup (http://127.0.0.1:port).
+ */
+export async function setRuntimeTransportUrl(
+  transportUrl: string,
+): Promise<void> {
+  configuredServerUrl = normalizeServerUrl(transportUrl);
+  updateApiInstances();
+  await detectAndUpdateApiInstances();
 }
 
 /**
@@ -317,16 +704,27 @@ export function getCurrentServerUrl(): string | null {
  * Token is passed as a query param (the WS server accepts cookie / Bearer /
  * `?token=`). The console speaks JSON messages: connect/input/resize/disconnect.
  */
+function buildWebSocketUrl(
+  baseUrl: string,
+  path: string,
+  params: Record<string, string>,
+): string {
+  const parsed = parseHttpUrl(baseUrl);
+  if (!parsed) throw new Error("Invalid WebSocket base URL");
+
+  const websocketUrl = appendUrlPath(parsed, path);
+  websocketUrl.protocol = websocketUrl.protocol === "https:" ? "wss:" : "ws:";
+  for (const [key, value] of Object.entries(params)) {
+    websocketUrl.searchParams.set(key, value);
+  }
+  return websocketUrl.toString();
+}
+
 export function getDockerConsoleWebSocketUrl(token: string): string {
-  const base = getRootBase(30009).replace(/\/$/, "");
-  const websocketBase = base.replace(/^http/i, (scheme) =>
-    scheme.toLowerCase() === "https" ? "wss" : "ws",
-  );
-  const params = new URLSearchParams({ token });
-  // When a real server URL is configured, nginx routes /docker/console/ → port 30009.
-  // In local dev (no configuredServerUrl), getRootBase already includes :30009.
+  // When a real server URL is configured, nginx routes /docker/console/ → port
+  // 30009. In local dev, getRootBase already includes :30009.
   const path = configuredServerUrl ? "/docker/console/" : "/";
-  return `${websocketBase}${path}?${params.toString()}`;
+  return buildWebSocketUrl(getRootBase(30009), path, { token });
 }
 
 export function getGuacamoleWebSocketUrl(
@@ -334,16 +732,10 @@ export function getGuacamoleWebSocketUrl(
   width?: number,
   height?: number,
 ): string {
-  const base = getRootBase(8081).replace(/\/$/, "");
-  const websocketBase = base.replace(/^http/i, (scheme) =>
-    scheme.toLowerCase() === "https" ? "wss" : "ws",
-  );
-  const params = new URLSearchParams({ token });
-
-  if (width) params.set("width", String(width));
-  if (height) params.set("height", String(height));
-
-  return `${websocketBase}/guacamole/websocket/?${params.toString()}`;
+  const params: Record<string, string> = { token };
+  if (width) params.width = String(width);
+  if (height) params.height = String(height);
+  return buildWebSocketUrl(getRootBase(8081), "/guacamole/websocket/", params);
 }
 
 export async function isAuthenticated(): Promise<boolean> {
@@ -374,6 +766,14 @@ export async function clearServerConfig(): Promise<void> {
     await AsyncStorage.removeItem("serverConfig");
     await AsyncStorage.removeItem("server");
     configuredServerUrl = null;
+    configuredServerMeta = null;
+    updateApiInstances();
+    try {
+      const { shutdownTailscale } = await import("./utils/tailscaleConnect");
+      await shutdownTailscale();
+    } catch {
+      // optional native module
+    }
     systemLogger.info("Server configuration cleared", {
       operation: "clear_server_config",
     });
@@ -418,48 +818,65 @@ export async function clearSession(): Promise<void> {
   await requestFreshWebSession();
 }
 
+function getUrlWithPath(baseUrl: string, path: string): string {
+  const base = parseHttpUrl(baseUrl);
+  if (!base) throw new Error("Invalid server URL");
+  return formatBaseUrl(appendUrlPath(base, path));
+}
+
+function getConfiguredBase(defaultPort: number): URL {
+  return (
+    (configuredServerUrl && parseHttpUrl(configuredServerUrl)) ||
+    new URL(`http://localhost:${defaultPort}`)
+  );
+}
+
 function getApiUrl(path: string, defaultPort: number): string {
-  if (configuredServerUrl) {
-    const baseUrl = configuredServerUrl.replace(/\/$/, "");
-    const fullUrl = `${baseUrl}${path}`;
-    return fullUrl;
-  }
-  const fallbackUrl = `http://localhost:${defaultPort}${path}`;
-  return fallbackUrl;
+  const base = getConfiguredBase(defaultPort);
+  const basePath = trimPathname(base.pathname);
+  const cleanPath = path.trim();
+
+  // A saved URL may already identify the backend's /ssh service. Avoid
+  // producing /ssh/ssh while still accepting the normal root deployment URL.
+  const apiPath =
+    basePath.endsWith("/ssh") &&
+    (cleanPath === "/ssh" || cleanPath.startsWith("/ssh/"))
+      ? cleanPath.slice("/ssh".length) || "/"
+      : cleanPath;
+
+  return formatBaseUrl(appendUrlPath(base, apiPath));
 }
 
 function getRootBase(defaultPort: number): string {
-  if (configuredServerUrl) {
-    const trimmed = configuredServerUrl.replace(/\/$/, "");
-    const withoutSsh = trimmed.replace(/\/(ssh)(\/$)?$/, "");
-    return withoutSsh || trimmed;
+  const base = getConfiguredBase(defaultPort);
+  const basePath = trimPathname(base.pathname);
+  if (basePath.endsWith("/ssh")) {
+    base.pathname = basePath.slice(0, -"/ssh".length) || "/";
   }
-  return `http://localhost:${defaultPort}`;
+  return formatBaseUrl(base);
 }
 
 function getSshBase(defaultPort: number): string {
-  if (configuredServerUrl) {
-    const trimmed = configuredServerUrl.replace(/\/$/, "");
-    if (/\/(ssh)$/.test(trimmed)) {
-      return trimmed;
-    }
-    return `${trimmed}/ssh`;
+  const base = getConfiguredBase(defaultPort);
+  const basePath = trimPathname(base.pathname);
+  if (!basePath.endsWith("/ssh")) {
+    base.pathname = `${basePath}/ssh`;
   }
-  return `http://localhost:${defaultPort}/ssh`;
+  return formatBaseUrl(base);
 }
 
 function getHostBase(defaultPort: number): string {
-  if (configuredServerUrl) {
-    const trimmed = configuredServerUrl.replace(/\/$/, "");
-
-    if (/\/host$/.test(trimmed)) {
-      return trimmed;
-    }
-
-    const withoutSsh = trimmed.replace(/\/ssh$/, "");
-    return `${withoutSsh}/host`;
+  const base = getConfiguredBase(defaultPort);
+  const basePath = trimPathname(base.pathname);
+  if (basePath.endsWith("/host")) {
+    return formatBaseUrl(base);
   }
-  return `http://localhost:${defaultPort}/host`;
+
+  const withoutSsh = basePath.endsWith("/ssh")
+    ? basePath.slice(0, -"/ssh".length)
+    : basePath;
+  base.pathname = `${withoutSsh}/host`;
+  return formatBaseUrl(base);
 }
 
 function getHostBaseCandidates(defaultPort: number): string[] {
@@ -486,6 +903,15 @@ function initializeApiInstances() {
 }
 
 async function detectAndUpdateApiInstances(): Promise<void> {
+  // Probes may outlive a transport switch. Snapshot both the target bases and
+  // the configuration generation, then discard stale results rather than
+  // installing clients that point at an old loopback forward.
+  const detectionGeneration = apiConfigGeneration;
+  const statsRootBase = getRootBase(8085);
+  const statsSshBase = getSshBase(8085);
+  const authRootBase = getRootBase(8081);
+  const authSshBase = getSshBase(8081);
+
   try {
     const token = await getCookie("jwt");
     const authHeaders = {
@@ -496,9 +922,7 @@ async function detectAndUpdateApiInstances(): Promise<void> {
     const [statsRootOk, statsSshOk, authRootOk, authSshOk] = await Promise.all([
       (async () => {
         try {
-          const base = getRootBase(8085).replace(/\/$/, "");
-          const testInstance = axios.create({
-            baseURL: base,
+          const testInstance = createApiInstance(statsRootBase, "STATS", {
             timeout: 5000,
             headers: authHeaders,
           });
@@ -510,9 +934,7 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       })(),
       (async () => {
         try {
-          const base = getSshBase(8085).replace(/\/$/, "");
-          const testInstance = axios.create({
-            baseURL: base,
+          const testInstance = createApiInstance(statsSshBase, "STATS", {
             timeout: 5000,
             headers: authHeaders,
           });
@@ -524,9 +946,7 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       })(),
       (async () => {
         try {
-          const base = getRootBase(8081).replace(/\/$/, "");
-          const testInstance = axios.create({
-            baseURL: base,
+          const testInstance = createApiInstance(authRootBase, "AUTH", {
             timeout: 5000,
             headers: authHeaders,
           });
@@ -538,9 +958,7 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       })(),
       (async () => {
         try {
-          const base = getSshBase(8081).replace(/\/$/, "");
-          const testInstance = axios.create({
-            baseURL: base,
+          const testInstance = createApiInstance(authSshBase, "AUTH", {
             timeout: 5000,
             headers: authHeaders,
           });
@@ -552,16 +970,18 @@ async function detectAndUpdateApiInstances(): Promise<void> {
       })(),
     ]);
 
+    if (detectionGeneration !== apiConfigGeneration) return;
+
     if (statsRootOk) {
-      statsApi = createApiInstance(getRootBase(8085), "STATS");
+      statsApi = createApiInstance(statsRootBase, "STATS");
     } else if (statsSshOk) {
-      statsApi = createApiInstance(getSshBase(8085), "STATS");
+      statsApi = createApiInstance(statsSshBase, "STATS");
     }
 
     if (authRootOk) {
-      authApi = createApiInstance(getRootBase(8081), "AUTH");
+      authApi = createApiInstance(authRootBase, "AUTH");
     } else if (authSshOk) {
-      authApi = createApiInstance(getSshBase(8081), "AUTH");
+      authApi = createApiInstance(authSshBase, "AUTH");
     }
   } catch (e) {}
 }
@@ -579,6 +999,7 @@ export let authApi: AxiosInstance;
 initializeApiInstances();
 
 function updateApiInstances() {
+  apiConfigGeneration += 1;
   systemLogger.info("Updating API instances with new server configuration", {
     operation: "api_instance_update",
     configuredServerUrl,
@@ -2038,10 +2459,7 @@ export async function getAllServerStatuses(): Promise<
   } catch (error: any) {
     if (error?.response?.status === 404) {
       try {
-        const alt = axios.create({
-          baseURL: getRootBase(8085),
-          headers: { "Content-Type": "application/json" },
-        });
+        const alt = createApiInstance(getRootBase(8085), "STATS");
         const response = await alt.get("/status");
         return response.data || {};
       } catch (e) {
@@ -2059,10 +2477,7 @@ export async function getServerStatusById(id: number): Promise<ServerStatus> {
   } catch (error: any) {
     if (error?.response?.status === 404) {
       try {
-        const alt = axios.create({
-          baseURL: getRootBase(8085),
-          headers: { "Content-Type": "application/json" },
-        });
+        const alt = createApiInstance(getRootBase(8085), "STATS");
         const response = await alt.get(`/status/${id}`);
         return response.data;
       } catch (e) {
@@ -2261,10 +2676,7 @@ export async function registerUser(
   } catch (error: any) {
     if (error?.response?.status === 404) {
       try {
-        const alt = axios.create({
-          baseURL: getSshBase(8081),
-          headers: { "Content-Type": "application/json" },
-        });
+        const alt = createApiInstance(getSshBase(8081), "AUTH");
         const response = await alt.post("/users/create", {
           username,
           password,
@@ -2334,24 +2746,22 @@ function isNativeNetworkFailure(error: unknown): boolean {
  */
 export async function isReverseProxyAuthGate(): Promise<boolean> {
   const probe = async (base: string): Promise<boolean | null> => {
+    const url = getUrlWithPath(base, "/users/registration-allowed");
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
     try {
-      const url = `${base.replace(/\/$/, "")}/users/registration-allowed`;
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-      let res: Response;
-      try {
-        res = await fetch(url, {
-          method: "GET",
-          signal: controller.signal,
-          headers: {
-            Accept: "application/json",
-            "User-Agent": `Termix-Mobile/${Platform.OS === "android" ? "Android" : "iOS"}`,
-          },
-        });
-      } finally {
-        clearTimeout(timeoutId);
-      }
+      const res = await fetch(url, {
+        method: "GET",
+        signal: controller.signal,
+        headers: {
+          Accept: "application/json",
+          "User-Agent": `Termix-Mobile/${Platform.OS === "android" ? "Android" : "iOS"}`,
+        },
+      });
       const contentType = (res.headers.get("content-type") || "").toLowerCase();
+      // Keep the deadline active through body consumption. A proxy can send
+      // headers promptly and then stall while streaming its login page.
       const body = await res.text();
       // A genuine Termix API endpoint returns JSON. An auth proxy returns its
       // login HTML (often with a 200 or a redirect-resolved 200).
@@ -2369,6 +2779,8 @@ export async function isReverseProxyAuthGate(): Promise<boolean> {
       }
     } catch {
       return null;
+    } finally {
+      clearTimeout(timeoutId);
     }
   };
 
@@ -2383,14 +2795,20 @@ async function loginWithFetch(
   username: string,
   password: string,
 ): Promise<{ data: any; token: string | null }> {
-  const url = `${baseUrl.replace(/\/$/, "")}/users/login`;
+  const url = getUrlWithPath(baseUrl, "/users/login");
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000);
   let fetchResponse: Response;
+  let rawBody: string;
   try {
     fetchResponse = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
+      signal: controller.signal,
     });
+    // Keep the deadline active while reading a slow or stalled response body.
+    rawBody = await fetchResponse.text();
   } catch (error) {
     if (isLocalNetworkHttpsUrl(url) && isNativeNetworkFailure(error)) {
       throw new ApiError(
@@ -2400,13 +2818,13 @@ async function loginWithFetch(
       );
     }
     throw error;
+  } finally {
+    clearTimeout(timeoutId);
   }
 
   const contentType = (
     fetchResponse.headers.get("content-type") || ""
   ).toLowerCase();
-  const rawBody = await fetchResponse.text();
-
   // A reverse-proxy auth gate intercepts the request and returns its HTML login
   // page instead of Termix JSON. Surface a clear, actionable error rather than
   // crashing on JSON.parse of "<!DOCTYPE html>…".
@@ -2531,10 +2949,7 @@ export async function getUserInfo(): Promise<UserInfo> {
   } catch (error: any) {
     if (error?.response?.status === 404) {
       try {
-        const alt = axios.create({
-          baseURL: getSshBase(8081),
-          headers: { "Content-Type": "application/json" },
-        });
+        const alt = createApiInstance(getSshBase(8081), "AUTH");
         const response = await alt.get("/users/me");
         return response.data;
       } catch (e) {
@@ -2563,10 +2978,7 @@ export async function getRegistrationAllowed(): Promise<{ allowed: boolean }> {
   } catch (error: any) {
     if (error?.response?.status === 404) {
       try {
-        const alt = axios.create({
-          baseURL: getSshBase(8081),
-          headers: { "Content-Type": "application/json" },
-        });
+        const alt = createApiInstance(getSshBase(8081), "AUTH");
         const response = await alt.get("/users/registration-allowed");
         return response.data;
       } catch (e) {
@@ -2903,10 +3315,7 @@ export async function verifyTOTPLogin(
   } catch (error: any) {
     if (error?.response?.status === 404 || error?.response?.status === 500) {
       try {
-        const alt = axios.create({
-          baseURL: getSshBase(8081),
-          headers: { "Content-Type": "application/json" },
-        });
+        const alt = createApiInstance(getSshBase(8081), "AUTH");
 
         const token = await getCookie("jwt");
         if (token) {
@@ -3013,6 +3422,7 @@ export async function getLatestGitHubRelease(): Promise<{
   try {
     const response = await axios.get(
       "https://api.github.com/repos/Termix-SSH/Mobile/releases/latest",
+      { timeout: 8000 },
     );
     const release = response.data;
 
@@ -3177,6 +3587,31 @@ export async function migrateHostToCredential(
 // TERMINAL WEBSOCKET CONNECTION
 // ============================================================================
 
+/**
+ * Build the terminal WebSocket URL from a complete server origin.
+ * Preserve any deployment path prefix and replace the HTTP scheme with WS.
+ */
+export function getTerminalWebSocketUrl(
+  serverUrl: string,
+  jwtToken: string,
+): string {
+  const parsed = new URL(serverUrl);
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+    throw new Error("Server URL must use http:// or https://");
+  }
+
+  const basePath = parsed.pathname.replace(/\/+$/, "");
+  const sshPath = basePath.endsWith("/ssh")
+    ? `${basePath}/websocket/`
+    : `${basePath}/ssh/websocket/`;
+
+  parsed.protocol = parsed.protocol === "https:" ? "wss:" : "ws:";
+  parsed.pathname = sshPath || "/ssh/websocket/";
+  parsed.searchParams.set("token", jwtToken);
+  parsed.hash = "";
+  return parsed.toString();
+}
+
 export async function createTerminalWebSocket(): Promise<WebSocket | null> {
   try {
     const serverUrl = getCurrentServerUrl();
@@ -3190,13 +3625,7 @@ export async function createTerminalWebSocket(): Promise<WebSocket | null> {
       return null;
     }
 
-    const wsProtocol = serverUrl.startsWith("https://") ? "wss://" : "ws://";
-    const wsHost = serverUrl.replace(/^https?:\/\//, "");
-
-    const cleanHost = wsHost.replace(/\/$/, "");
-    const wsUrl = `${wsProtocol}${cleanHost}/ssh/websocket/?token=${encodeURIComponent(jwtToken)}`;
-
-    return new WebSocket(wsUrl);
+    return new WebSocket(getTerminalWebSocketUrl(serverUrl, jwtToken));
   } catch (error) {
     return null;
   }
@@ -3254,9 +3683,7 @@ export async function getFoldersWithStats(): Promise<any> {
     const token = await getCookie("jwt");
 
     const tryFetch = async (baseUrl: string) => {
-      const cleanBase = baseUrl.replace(/\/$/, "");
-      const tempInstance = axios.create({
-        baseURL: cleanBase,
+      const tempInstance = createApiInstance(baseUrl, "SSH_HOST", {
         timeout: 10000,
         headers: {
           Accept: "application/json",

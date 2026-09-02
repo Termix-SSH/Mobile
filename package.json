@@ -17,9 +17,13 @@
     "build-all": "eas build --platform all --profile development",
     "build-android": "eas build --platform android --profile development",
     "build-ios": "eas build --platform ios --profile development",
-    "start:tailscale": "node scripts/start-tailscale.cjs"
+    "start:tailscale": "node scripts/start-tailscale.cjs",
+    "build:tailscale-ios": "make -C modules/termix-tailscale/native ios",
+    "build:tailscale-android": "make -C modules/termix-tailscale/native android",
+    "build:tailscale-host": "make -C modules/termix-tailscale/native host"
   },
   "dependencies": {
+    "termix-tailscale": "file:modules/termix-tailscale",
     "@expo-google-fonts/jetbrains-mono": "^0.4.1",
     "@expo/metro-runtime": "~6.1.2",
     "@expo/vector-icons": "^15.0.2",

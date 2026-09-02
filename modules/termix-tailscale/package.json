@@ -1,0 +1,17 @@
+{
+  "name": "termix-tailscale",
+  "version": "0.1.0",
+  "description": "Userspace Tailscale (tsnet) + local TCP forward for Termix Mobile",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "build:native": "make -C native host",
+    "build:ios": "make -C native ios",
+    "build:android": "make -C native android"
+  },
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  }
+}

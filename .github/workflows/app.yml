@@ -49,13 +49,64 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Userspace Tailscale native libraries must exist before native packaging.
+      - name: Setup Go
+        if: matrix.platform == 'apple' || matrix.platform == 'android'
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24.x"
+          cache-dependency-path: modules/termix-tailscale/native/go.sum
+
+      - name: Setup Android SDK
+        if: matrix.platform == 'android'
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android NDK and CMake
+        if: matrix.platform == 'android'
+        env:
+          ANDROID_NDK_VERSION: "27.1.12297006"
+          CMAKE_VERSION: "3.22.1"
+        run: |
+          set -euo pipefail
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "ndk;${ANDROID_NDK_VERSION}" "cmake;${CMAKE_VERSION}"
+          SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME}}"
+          test -d "${SDK_ROOT}/ndk/${ANDROID_NDK_VERSION}"
+          test -d "${SDK_ROOT}/cmake/${CMAKE_VERSION}"
+          echo "ANDROID_NDK_HOME=${SDK_ROOT}/ndk/${ANDROID_NDK_VERSION}" >> "$GITHUB_ENV"
+
+      - name: Setup Xcode
+        if: matrix.platform == 'apple'
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Build Termix Tailscale iOS archive
+        if: matrix.platform == 'apple'
+        run: |
+          set -euo pipefail
+          make -C modules/termix-tailscale/native ios
+          test -f modules/termix-tailscale/ios/lib/libtermix_ts.a
+          test -f modules/termix-tailscale/ios/lib/termix_ts.h
+          nm -gU modules/termix-tailscale/ios/lib/libtermix_ts.a | grep -E 'TermixTS_(IsAvailable|Configure|Up|StartForward|Close)'
+          ls -lh modules/termix-tailscale/ios/lib/
+
+      - name: Build Termix Tailscale Android library
+        if: matrix.platform == 'android'
+        run: |
+          set -euo pipefail
+          make -C modules/termix-tailscale/native android
+          test -f modules/termix-tailscale/android/src/main/jniLibs/arm64-v8a/libtermix_ts.so
+          test -f modules/termix-tailscale/android/src/main/jniLibs/termix_ts.h
+          ls -lh modules/termix-tailscale/android/src/main/jniLibs/arm64-v8a/
+
       - name: Validate EAS configuration
         run: |
           echo "EAS configuration:"
           cat eas.json
           echo "Validating configuration..."
           EAS_PLATFORM=${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
-          eas build:configure --platform $EAS_PLATFORM
+          eas build:configure --platform "$EAS_PLATFORM" --non-interactive
 
       - name: Build app
         run: |
@@ -83,48 +134,52 @@ jobs:
           if [ "${{ matrix.platform }}" = "android" ]; then
             echo "Searching for Android build artifacts..."
 
-            APK_FILE=$(find . -maxdepth 1 -type f -name "build-*.apk" 2>/dev/null | head -1)
+            APK_FILE=$(find . -maxdepth 1 -type f -name "build-*.apk" -print 2>/dev/null | sed -n '1p')
 
             if [ -n "$APK_FILE" ]; then
               cp "$APK_FILE" "build-artifacts/termix_android.apk"
-              echo "Copied to build-artifacts/termix_android_universal_${VERSION}.apk"
+              echo "Copied to build-artifacts/termix_android.apk"
             else
               echo "Trying /tmp search..."
-              APK_FILE=$(find /tmp -type f -name "app-release.apk" 2>/dev/null | grep "eas-build-local-nodejs" | head -1)
+              APK_FILE=$(find /tmp -type f -name "app-release.apk" 2>/dev/null | grep "eas-build-local-nodejs" | sed -n '1p' || true)
 
               if [ -n "$APK_FILE" ]; then
                 echo "Found APK in /tmp: $APK_FILE"
-                cp "$APK_FILE" "build-artifacts/termix_android_universal_${VERSION}.apk"
+                cp "$APK_FILE" "build-artifacts/termix_android.apk"
               else
                 echo "ERROR: APK not found after build"
                 ls -la . | grep -E '\.apk|build-'
+                exit 1
               fi
             fi
 
             if [ "$PROFILE" = "production" ]; then
-              AAB_FILE=$(find . -maxdepth 1 -type f -name "build-*.aab" 2>/dev/null | head -1)
+              AAB_FILE=$(find . -maxdepth 1 -type f -name "build-*.aab" -print 2>/dev/null | sed -n '1p')
 
               if [ -n "$AAB_FILE" ]; then
                 cp "$AAB_FILE" "build-artifacts/termix_android.aab"
               else
-                AAB_FILE=$(find /tmp -type f -name "app-release.aab" 2>/dev/null | grep "eas-build-local-nodejs" | head -1)
+                AAB_FILE=$(find /tmp -type f -name "app-release.aab" 2>/dev/null | grep "eas-build-local-nodejs" | sed -n '1p' || true)
                 if [ -n "$AAB_FILE" ]; then
                   echo "Found AAB in /tmp: $AAB_FILE"
-                  cp "$AAB_FILE" "build-artifacts/termix_android_${VERSION}.aab"
+                  cp "$AAB_FILE" "build-artifacts/termix_android.aab"
+                else
+                  echo "ERROR: AAB not found after production build"
+                  exit 1
                 fi
               fi
             fi
           elif [ "${{ matrix.platform }}" = "apple" ]; then
             echo "Searching for iOS build artifacts..."
 
-            IPA_FILE=$(find . -maxdepth 1 -type f -name "build-*.ipa" 2>/dev/null | head -1)
+            IPA_FILE=$(find . -maxdepth 1 -type f -name "build-*.ipa" -print 2>/dev/null | sed -n '1p')
 
             if [ -n "$IPA_FILE" ]; then
               echo "Found IPA in project root: $IPA_FILE"
               cp "$IPA_FILE" "build-artifacts/termix_ios.ipa"
-              echo "Copied to build-artifacts/termix_ios_universal_${VERSION}.ipa"
+              echo "Copied to build-artifacts/termix_ios.ipa"
             else
-              IPA_FILE=$(find . -type f -name "*.ipa" -not -path "*/node_modules/*" 2>/dev/null | head -1)
+              IPA_FILE=$(find . -type f -name "*.ipa" -not -path "*/node_modules/*" -print 2>/dev/null | sed -n '1p')
 
               if [ -n "$IPA_FILE" ]; then
                 echo "Found IPA: $IPA_FILE"
@@ -132,6 +187,7 @@ jobs:
               else
                 echo "ERROR: IPA not found after build"
                 ls -la . | grep -E '\.ipa|build-'
+                exit 1
               fi
             fi
           fi

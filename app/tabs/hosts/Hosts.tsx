@@ -34,6 +34,7 @@ import {
   getServerMetricsById,
   initializeServerConfig,
   getCurrentServerUrl,
+  getDisplayServerUrl,
   deleteSSHHost,
   createSSHHost,
   getSnippets,
@@ -50,6 +51,7 @@ import {
   Checkbox,
 } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
+import { useAppContext } from "@/app/AppContext";
 import { toast } from "@/app/utils/toast";
 import {
   SortKey,
@@ -120,6 +122,7 @@ const STORAGE_EXPANDED = "hostExpandedFolders";
 export default function Hosts() {
   const color = useThemeColor();
   const router = useRouter();
+  const { isAuthenticated, authFlowVisible } = useAppContext();
   const [hosts, setHosts] = useState<SSHHost[]>([]);
   const [folderColors, setFolderColors] = useState<
     Record<string, string | undefined>
@@ -150,9 +153,40 @@ export default function Hosts() {
   const [credentialListOpen, setCredentialListOpen] = useState(false);
 
   const isRefreshingRef = useRef(false);
+  const dataRequestIdRef = useRef(0);
+  const mountedRef = useRef(true);
+  const folderColorsRequestRef = useRef(0);
   // Tracks whether the user has manually toggled folders this session, so a data
   // refresh doesn't blow away their expansion choices.
   const expansionInitializedRef = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+      dataRequestIdRef.current += 1;
+      isRefreshingRef.current = false;
+    };
+  }, []);
+
+  // Invalidate work when authentication or the selected server changes. The
+  // Hosts tab can remain mounted behind the auth overlay during a server change,
+  // so an older response must not repopulate the new session's list/widgets.
+  useEffect(() => {
+    dataRequestIdRef.current += 1;
+    isRefreshingRef.current = false;
+    if (!isAuthenticated) {
+      setHosts([]);
+      setFolderColors({});
+      setServerStatuses({});
+      setMetrics({});
+      setSnippets(null);
+      setLoading(false);
+      setRefreshing(false);
+    } else if (authFlowVisible) {
+      setLoading(true);
+      setRefreshing(false);
+    }
+  }, [isAuthenticated, authFlowVisible]);
 
   // --- Load persisted preferences once on mount.
   useEffect(() => {
@@ -185,17 +219,36 @@ export default function Hosts() {
   // Fetch CPU/RAM for online hosts. Never throws; failures are ignored so the
   // list always renders.
   const fetchMetrics = useCallback(
-    async (hostList: SSHHost[], statuses: Record<number, ServerStatus>) => {
+    async (
+      hostList: SSHHost[],
+      statuses: Record<number, ServerStatus>,
+      requestId: number,
+    ) => {
       const onlineIds = hostList
         .filter((h) => statuses[h.id]?.status === "online")
         .map((h) => h.id);
       if (onlineIds.length === 0) {
-        setMetrics({});
+        if (
+          mountedRef.current &&
+          requestId === dataRequestIdRef.current &&
+          isAuthenticated &&
+          !authFlowVisible
+        ) {
+          setMetrics({});
+        }
         return;
       }
       const results = await Promise.allSettled(
         onlineIds.map((id) => getServerMetricsById(id)),
       );
+      if (
+        !mountedRef.current ||
+        requestId !== dataRequestIdRef.current ||
+        !isAuthenticated ||
+        authFlowVisible
+      ) {
+        return;
+      }
       const next: Record<number, HostMetrics> = {};
       results.forEach((res, i) => {
         if (res.status === "fulfilled" && res.value) {
@@ -207,68 +260,107 @@ export default function Hosts() {
       });
       setMetrics(next);
     },
-    [],
+    [isAuthenticated, authFlowVisible],
   );
 
   const fetchData = useCallback(
     async (isRefresh = false) => {
+      if (!isAuthenticated || authFlowVisible) {
+        if (!isAuthenticated) {
+          setLoading(false);
+          setRefreshing(false);
+        }
+        return;
+      }
       if (isRefreshingRef.current) return;
+
+      const requestId = ++dataRequestIdRef.current;
+      const isCurrentRequest = () =>
+        mountedRef.current &&
+        requestId === dataRequestIdRef.current &&
+        isAuthenticated &&
+        !authFlowVisible;
+
       try {
         isRefreshingRef.current = true;
         if (isRefresh) setRefreshing(true);
         else setLoading(true);
 
-        await initializeServerConfig();
+        // Rehydrate a dead Tailscale forward on authenticated focus/resume, but
+        // skip route detection: the transport was already selected by login or
+        // the cold-start chooser, and probing a saved LAN URL can block cellular
+        // startup. A live forward is reused without tearing it down.
+        await initializeServerConfig({
+          rehydrateTailscale: true,
+          detect: false,
+        });
+        if (!isCurrentRequest()) return;
+
         if (!getCurrentServerUrl()) {
           toast.error("No server configured. Set one up in Settings.");
           return;
         }
 
-        const [hostsResult, statusesResult, snippetsResult] =
-          await Promise.allSettled([
-            getSSHHosts(),
-            getAllServerStatuses(),
-            getSnippets(),
-          ]);
+        // Hosts are the primary payload. Render them as soon as they arrive;
+        // statuses, snippets, folder colors, and metrics are deliberately
+        // best-effort background work so one slow optional endpoint cannot hold
+        // the main list behind a Tailscale forward.
+        const raw = (await getSSHHosts()) as any;
+        if (!isCurrentRequest()) return;
 
-        if (hostsResult.status !== "fulfilled") throw hostsResult.reason;
-
-        const raw = hostsResult.value as any;
         const hostList: SSHHost[] = Array.isArray(raw)
           ? raw
           : Array.isArray(raw?.hosts)
             ? raw.hosts
             : [];
-        const statuses =
-          statusesResult.status === "fulfilled" ? statusesResult.value : {};
-
-        let foldersData: any = null;
-        try {
-          foldersData = await getFoldersWithStats();
-        } catch {
-          // folders are optional
-        }
-        const colors: Record<string, string | undefined> = {};
-        if (Array.isArray(foldersData)) {
-          foldersData.forEach((f: any) => {
-            if (f?.name) colors[f.name] = f.color;
-          });
-        }
-
         setHosts(hostList);
-        setFolderColors(colors);
-        setServerStatuses(statuses);
+        setFolderColors({});
+        setLoading(false);
+        setRefreshing(false);
 
-        if (
-          snippetsResult.status === "fulfilled" &&
-          Array.isArray(snippetsResult.value)
-        ) {
-          setSnippets(snippetsResult.value as Snippet[]);
-        }
+        const folderRequestId = ++folderColorsRequestRef.current;
+        void getFoldersWithStats()
+          .then((foldersData) => {
+            if (
+              !isCurrentRequest() ||
+              folderRequestId !== folderColorsRequestRef.current
+            ) {
+              return;
+            }
 
-        // Best-effort live metrics for online hosts only.
-        void fetchMetrics(hostList, statuses);
+            const colors: Record<string, string | undefined> = {};
+            if (Array.isArray(foldersData)) {
+              foldersData.forEach((f: any) => {
+                if (f?.name) colors[f.name] = f.color;
+              });
+            }
+            setFolderColors(colors);
+          })
+          .catch(() => {
+            // Folder colors are optional; the host list is already visible.
+          });
+
+        void Promise.allSettled([getAllServerStatuses(), getSnippets()]).then(
+          ([statusesResult, snippetsResult]) => {
+            if (!isCurrentRequest()) return;
+
+            const statuses =
+              statusesResult.status === "fulfilled" ? statusesResult.value : {};
+            setServerStatuses(statuses);
+            if (
+              snippetsResult.status === "fulfilled" &&
+              Array.isArray(snippetsResult.value)
+            ) {
+              setSnippets(snippetsResult.value as Snippet[]);
+            }
+
+            // Best-effort live metrics for online hosts only, after statuses
+            // identify which hosts need them.
+            void fetchMetrics(hostList, statuses, requestId);
+          },
+        );
       } catch (error: any) {
+        if (!isCurrentRequest()) return;
         const isAuth =
           error?.response?.status === 401 ||
           error?.message?.includes("Authentication required");
@@ -276,12 +368,14 @@ export default function Hosts() {
           toast.error(error?.message || "Failed to load hosts.");
         }
       } finally {
-        setLoading(false);
-        setRefreshing(false);
         isRefreshingRef.current = false;
+        if (requestId === dataRequestIdRef.current) {
+          setLoading(false);
+          setRefreshing(false);
+        }
       }
     },
-    [fetchMetrics],
+    [authFlowVisible, fetchMetrics, isAuthenticated],
   );
 
   const handleRefresh = useCallback(() => {
@@ -294,20 +388,35 @@ export default function Hosts() {
     }, [fetchData]),
   );
 
+  // Closing AuthFlow does not necessarily emit a navigation-focus event. Trigger
+  // an explicit refresh so a successful login or server change immediately
+  // populates Hosts even when the tab stayed focused behind the overlay.
+  useEffect(() => {
+    if (isAuthenticated && !authFlowVisible) void fetchData();
+  }, [authFlowVisible, fetchData, isAuthenticated]);
+
   // Keep the home-screen widgets in sync with whatever this screen shows. The
   // publisher throttles and de-dupes, so re-running on every data change is
   // cheap. This screen only renders for an authenticated user.
   useEffect(() => {
-    if (loading) return;
+    if (loading || !isAuthenticated || authFlowVisible) return;
     void publishHostSnapshot({
       hosts,
       statuses: serverStatuses,
       metrics,
       snippets: snippets ?? undefined,
-      serverUrl: getCurrentServerUrl(),
+      serverUrl: getDisplayServerUrl() ?? getCurrentServerUrl(),
       authenticated: true,
     });
-  }, [loading, hosts, serverStatuses, metrics, snippets]);
+  }, [
+    authFlowVisible,
+    hosts,
+    isAuthenticated,
+    loading,
+    metrics,
+    serverStatuses,
+    snippets,
+  ]);
 
   // --- Build, sort, and filter the tree.
   const tree = useMemo(

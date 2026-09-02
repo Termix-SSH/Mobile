@@ -1,4 +1,10 @@
-import { getCurrentServerUrl, getCookie } from "../../../main-axios";
+import {
+  getCookie,
+  getCurrentServerUrl,
+  getDisplayServerUrl,
+  getServerConfigMeta,
+  getTerminalWebSocketUrl,
+} from "../../../main-axios";
 
 export interface TerminalHostConfig {
   id: number;
@@ -84,6 +90,9 @@ export class NativeWebSocketManager {
   private cols = 80;
   private rows = 24;
   private wsUrl: string | null = null;
+  private wsServerUrl: string | null = null;
+  private jwtToken: string | null = null;
+  private connectionRequestId = 0;
   private serverSessionId: string | null = null;
   private pendingReattach = false;
   private awaitingAuthCredentials = false;
@@ -102,13 +111,20 @@ export class NativeWebSocketManager {
     this.config.onSessionIdChange?.(id);
   }
 
+  private getWebSocketServerUrl(): string | null {
+    const serverMeta = getServerConfigMeta();
+    return serverMeta?.viaTailscale
+      ? getCurrentServerUrl()
+      : (getDisplayServerUrl() ?? getCurrentServerUrl());
+  }
+
   async connect(cols: number, rows: number): Promise<void> {
     if (this.destroyed) return;
 
     this.cols = cols;
     this.rows = rows;
 
-    const serverUrl = getCurrentServerUrl();
+    let serverUrl = this.getWebSocketServerUrl();
     if (!serverUrl) {
       this.config.onConnectionFailed(
         "No server URL found - please configure a server first",
@@ -124,15 +140,53 @@ export class NativeWebSocketManager {
       return;
     }
 
-    const wsProtocol = serverUrl.startsWith("https://") ? "wss://" : "ws://";
-    const wsHost = serverUrl.replace(/^https?:\/\//, "");
-    const cleanHost = wsHost.replace(/\/$/, "");
-    this.wsUrl = `${wsProtocol}${cleanHost}/ssh/websocket/?token=${encodeURIComponent(jwtToken)}`;
+    // The transport can be recreated while the cookie lookup is in flight
+    // (for example, when a Tailscale forward gets a new local port).
+    serverUrl = this.getWebSocketServerUrl();
+    if (!serverUrl) {
+      this.config.onConnectionFailed(
+        "No server URL found - please configure a server first",
+      );
+      return;
+    }
 
-    this.connectWebSocket();
+    let parsedServerUrl: URL;
+    try {
+      parsedServerUrl = new URL(serverUrl);
+    } catch {
+      this.config.onConnectionFailed(
+        `${this.config.hostConfig.name}: Invalid server URL`,
+      );
+      return;
+    }
+    if (
+      parsedServerUrl.protocol !== "http:" &&
+      parsedServerUrl.protocol !== "https:"
+    ) {
+      this.config.onConnectionFailed(
+        `${this.config.hostConfig.name}: Server URL must use http:// or https://`,
+      );
+      return;
+    }
+
+    let wsUrl: string;
+    try {
+      wsUrl = getTerminalWebSocketUrl(serverUrl, jwtToken);
+    } catch {
+      this.config.onConnectionFailed(
+        `${this.config.hostConfig.name}: Invalid server URL`,
+      );
+      return;
+    }
+
+    this.jwtToken = jwtToken;
+    this.wsServerUrl = serverUrl;
+    this.wsUrl = wsUrl;
+    await this.connectWebSocket(jwtToken);
   }
 
   destroy(): void {
+    this.connectionRequestId += 1;
     this.destroyed = true;
     this.shouldNotReconnect = true;
     this.awaitingAuthCredentials = false;
@@ -142,6 +196,9 @@ export class NativeWebSocketManager {
       } catch (_) {}
     }
     this.serverSessionId = null;
+    this.wsUrl = null;
+    this.wsServerUrl = null;
+    this.jwtToken = null;
     this.clearAllTimers();
     if (this.ws) {
       try {
@@ -246,7 +303,7 @@ export class NativeWebSocketManager {
     // Clear any pending connection timeout before starting a new connect to
     // prevent the old timer from closing the newly-created socket.
     this.clearAllTimers();
-    this.connectWebSocket();
+    void this.connectWebSocket();
   }
 
   sendWarpgateContinue(): void {
@@ -319,11 +376,51 @@ export class NativeWebSocketManager {
     }
     this.stopPingInterval();
 
-    this.connectWebSocket();
+    void this.connectWebSocket();
   }
 
-  private connectWebSocket(): void {
+  private async connectWebSocket(initialJwtToken?: string): Promise<void> {
     if (this.destroyed) return;
+
+    const requestId = ++this.connectionRequestId;
+    const jwtToken = initialJwtToken ?? (await getCookie("jwt"));
+    if (this.destroyed || requestId !== this.connectionRequestId) return;
+
+    if (!jwtToken || jwtToken.trim() === "") {
+      this.jwtToken = null;
+      this.wsUrl = null;
+      this.wsServerUrl = null;
+      this.shouldNotReconnect = true;
+      this.notifyFailureOnce("Authentication required - please log in again");
+      return;
+    }
+
+    const currentServerUrl = this.getWebSocketServerUrl();
+    if (!currentServerUrl) {
+      this.jwtToken = jwtToken;
+      this.wsUrl = null;
+      this.wsServerUrl = null;
+      this.notifyFailureOnce(
+        "Server transport is no longer available - please configure a server first",
+      );
+      return;
+    }
+
+    let wsUrl: string;
+    try {
+      wsUrl = getTerminalWebSocketUrl(currentServerUrl, jwtToken);
+    } catch {
+      this.jwtToken = jwtToken;
+      this.wsUrl = null;
+      this.wsServerUrl = currentServerUrl;
+      this.notifyFailureOnce("Invalid server URL");
+      return;
+    }
+
+    if (this.destroyed || requestId !== this.connectionRequestId) return;
+    this.jwtToken = jwtToken;
+    this.wsServerUrl = currentServerUrl;
+    this.wsUrl = wsUrl;
 
     if (!this.wsUrl) {
       this.notifyFailureOnce(
@@ -634,7 +731,7 @@ export class NativeWebSocketManager {
       this.reconnectTimeout = null;
       if (this.destroyed) return;
       if (this.ws && this.ws.readyState === WebSocket.OPEN) return;
-      this.connectWebSocket();
+      void this.connectWebSocket();
     }, delay);
   }
 

@@ -1,1 +1,8 @@
 assets/xterm/*.html
+
+# Generated native build output
+android/
+ios/
+**/build/
+**/.cxx/
+.expo/

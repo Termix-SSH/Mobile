@@ -1,5 +1,12 @@
 node_modules/
 
+# Termix Tailscale native build artifacts (rebuild via npm run build:tailscale-*)
+modules/termix-tailscale/native/libtermix_ts_host.*
+modules/termix-tailscale/ios/lib/
+modules/termix-tailscale/android/src/main/jniLibs/
+modules/termix-tailscale/android/.cxx/
+modules/termix-tailscale/android/build/
+
 .expo/
 dist/
 web-build/
@@ -30,6 +37,11 @@ app-example
 /android
 /credentials/
 /credentials.json
+/build-artifacts/
+/release/
+/build-*.apk
+/build-*.aab
+/build-*.ipa
 /nul
 /CLAUDE.md
 /.claude/

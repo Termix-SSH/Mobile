@@ -18,6 +18,7 @@ const MAX_TRACKED = 8;
 
 let pendingCallbackUrl: string | null = null;
 const handledFingerprints: number[] = [];
+const processingFingerprints = new Set<number>();
 
 /** djb2. Not a security primitive — only used to avoid retaining tokens. */
 function fingerprint(url: string): number {
@@ -30,7 +31,7 @@ function fingerprint(url: string): number {
 
 /** Park a callback URL that arrived while no sign-in screen was listening. */
 export function rememberOidcCallback(url: string): void {
-  if (isOidcCallbackHandled(url)) return;
+  if (isOidcCallbackHandled(url) || isOidcCallbackProcessing(url)) return;
   pendingCallbackUrl = url;
 }
 
@@ -45,15 +46,36 @@ export function isOidcCallbackHandled(url: string): boolean {
   return handledFingerprints.includes(fingerprint(url));
 }
 
+export function isOidcCallbackProcessing(url: string): boolean {
+  return processingFingerprints.has(fingerprint(url));
+}
+
 /**
- * Claim a callback URL. Both the route and the Linking listener can see the
- * same intent; whichever gets there first owns it, so a token is never
- * submitted twice (a duplicate confirmation that fails would clear the JWT the
- * other one just stored). The list is bounded — one entry per sign-in attempt
- * is all this ever needs to remember.
+ * Claim a callback URL for one asynchronous completion attempt. A duplicate
+ * intent arriving while the first attempt is in flight is ignored, but a
+ * failed attempt can release the claim and be retried later.
  */
-export function markOidcCallbackHandled(url: string): void {
-  handledFingerprints.push(fingerprint(url));
+export function claimOidcCallback(url: string): boolean {
+  const id = fingerprint(url);
+  if (handledFingerprints.includes(id) || processingFingerprints.has(id)) {
+    return false;
+  }
+  processingFingerprints.add(id);
+  return true;
+}
+
+/** Record whether an asynchronous callback attempt completed successfully. */
+export function settleOidcCallback(url: string, handled: boolean): void {
+  const id = fingerprint(url);
+  processingFingerprints.delete(id);
+  if (!handled || handledFingerprints.includes(id)) return;
+
+  handledFingerprints.push(id);
   if (handledFingerprints.length > MAX_TRACKED) handledFingerprints.shift();
   if (pendingCallbackUrl === url) pendingCallbackUrl = null;
+}
+
+/** Backwards-compatible helper for callers that already completed the callback. */
+export function markOidcCallbackHandled(url: string): void {
+  settleOidcCallback(url, true);
 }

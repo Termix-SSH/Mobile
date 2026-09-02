@@ -12,10 +12,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   getVersionInfo,
   initializeServerConfig,
+  applyServerTransportMode,
   getLatestGitHubRelease,
   setAuthStateCallback,
   getCurrentServerUrl,
+  getDisplayServerUrl,
 } from "./main-axios";
+import {
+  isTailscaleConfigured,
+  getLiveTransportUrl,
+} from "./utils/tailscaleConnect";
+import {
+  NetworkModeDialog,
+  type NetworkModeChoice,
+} from "./components/NetworkModeDialog";
 import Constants from "expo-constants";
 import { publishSignedOutSnapshot } from "@/app/widgets";
 
@@ -112,6 +122,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [authFlowVisible, setAuthFlowVisible] = useState(false);
   const [authFlowInitialStep, setAuthFlowInitialStep] =
     useState<AuthStep>("server");
+  const [networkModeVisible, setNetworkModeVisible] = useState(false);
+  const [networkModeBusy, setNetworkModeBusy] = useState(false);
+  const [networkModeError, setNetworkModeError] = useState<string | null>(null);
+  const [networkModeServerLabel, setNetworkModeServerLabel] = useState("");
+  const networkModeResolverRef = useRef<
+    ((choice: NetworkModeChoice | null) => void) | null
+  >(null);
+  const networkModeBusyRef = useRef(false);
 
   const openAuthFlow = useCallback((step: AuthStep = "server") => {
     setAuthFlowInitialStep(step);
@@ -120,6 +138,75 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   const closeAuthFlow = useCallback(() => {
     setAuthFlowVisible(false);
+  }, []);
+
+  const promptNetworkMode = useCallback(
+    (serverLabel: string): Promise<NetworkModeChoice | null> => {
+      // Resolve a superseded prompt before replacing its resolver. This keeps a
+      // restarted provider from leaving the previous startup caller pending.
+      networkModeResolverRef.current?.(null);
+      networkModeResolverRef.current = null;
+      networkModeBusyRef.current = false;
+      setNetworkModeServerLabel(serverLabel);
+      setNetworkModeError(null);
+      setNetworkModeBusy(false);
+      setNetworkModeVisible(true);
+      return new Promise((resolve) => {
+        networkModeResolverRef.current = resolve;
+      });
+    },
+    [],
+  );
+
+  const handleNetworkModeChoice = useCallback(
+    async (choice: NetworkModeChoice) => {
+      if (networkModeBusyRef.current) return;
+      networkModeBusyRef.current = true;
+      setNetworkModeBusy(true);
+      setNetworkModeError(null);
+      try {
+        const ok = await applyServerTransportMode(choice);
+        if (!ok) {
+          setNetworkModeError(
+            choice === "tailscale"
+              ? "Could not start Tailscale for this server. Check the auth key, ACLs, and subnet routes, or choose Direct / LAN to try the saved address."
+              : "Could not connect directly to the saved server. Choose Via Tailscale to try the userspace connection instead.",
+          );
+          return;
+        }
+
+        networkModeResolverRef.current?.(choice);
+        networkModeResolverRef.current = null;
+        setNetworkModeVisible(false);
+      } catch {
+        setNetworkModeError(
+          choice === "tailscale"
+            ? "Could not start Tailscale for this server. Check the auth key, ACLs, and subnet routes, or choose Direct / LAN to try the saved address."
+            : "Could not connect directly to the saved server. Choose Via Tailscale to try the userspace connection instead.",
+        );
+      } finally {
+        networkModeBusyRef.current = false;
+        setNetworkModeBusy(false);
+      }
+    },
+    [],
+  );
+
+  const handleNetworkModeDismiss = useCallback(() => {
+    // Dismiss = prefer direct for this session, unless another choice is still
+    // being applied.
+    if (networkModeBusyRef.current) return;
+    void handleNetworkModeChoice("direct");
+  }, [handleNetworkModeChoice]);
+
+  useEffect(() => {
+    return () => {
+      // Do not leave startup awaiting a chooser that can no longer resolve after
+      // the provider unmounts (for example, during a native root reset).
+      networkModeResolverRef.current?.(null);
+      networkModeResolverRef.current = null;
+      networkModeBusyRef.current = false;
+    };
   }, []);
 
   const checkShouldShowUpdateScreen = async (): Promise<boolean> => {
@@ -155,20 +242,63 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       try {
         setIsLoading(true);
 
-        await initializeServerConfig();
+        // Load config WITHOUT network probes (stored LAN URL is unreachable on
+        // cellular) and WITHOUT auto-joining Tailscale — we prompt first.
+        await initializeServerConfig({
+          rehydrateTailscale: false,
+          detect: false,
+        });
 
         const serverConfig = await AsyncStorage.getItem("serverConfig");
         const legacyServer = await AsyncStorage.getItem("server");
-
-        await getVersionInfo();
-
-        const shouldShowUpdateScreen = await checkShouldShowUpdateScreen();
-        setShowUpdateScreen(shouldShowUpdateScreen);
 
         const serverConfigured = !!(serverConfig || legacyServer);
         setHasServerConfigured(serverConfigured);
 
         if (serverConfigured) {
+          let displayUrl = getDisplayServerUrl() || getCurrentServerUrl();
+          if (!displayUrl && serverConfig) {
+            try {
+              const parsed = JSON.parse(serverConfig) as {
+                displayUrl?: string;
+                serverUrl?: string;
+              };
+              displayUrl = parsed.displayUrl || parsed.serverUrl || null;
+            } catch {
+              displayUrl = null;
+            }
+          }
+
+          // If a Tailscale auth key is saved and no live forward exists, ask
+          // whether this session should use Tailscale or direct/LAN.
+          // This MUST happen before any network calls (getVersionInfo etc.) so
+          // cellular users are not blocked by a 30s timeout to an unreachable LAN IP.
+          const tsConfigured = await isTailscaleConfigured();
+          const live =
+            displayUrl && tsConfigured
+              ? await getLiveTransportUrl(displayUrl)
+              : null;
+          if (tsConfigured && displayUrl && !live) {
+            await promptNetworkMode(displayUrl);
+            // Choice handler already applied transport mode + re-detected. Keep
+            // the app loading until the choice resolves so Hosts cannot issue a
+            // request against the saved direct URL in the meantime.
+          }
+
+          // Best-effort version + update check. Runs after the chooser and never
+          // blocks boot: on cellular the LAN /version request would throw, and the
+          // GitHub check needs a hard timeout to avoid a multi-minute hang.
+          try {
+            const [versionRes, shouldShowUpdate] = await Promise.all([
+              getVersionInfo().catch(() => null),
+              checkShouldShowUpdateScreen(),
+            ]);
+            void versionRes;
+            if (shouldShowUpdate) setShowUpdateScreen(true);
+          } catch {
+            // never block boot on update checks
+          }
+
           let authStatus = false;
 
           const jwtToken = await AsyncStorage.getItem("jwt");
@@ -191,9 +321,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           let serverInfo: Server | null = null;
           if (legacyServer) {
             serverInfo = JSON.parse(legacyServer);
-          } else if (serverConfig) {
-            const config = JSON.parse(serverConfig);
-            serverInfo = { name: "Server", ip: config.serverUrl };
+          } else {
+            serverInfo = {
+              name: "Server",
+              ip: getDisplayServerUrl() || getCurrentServerUrl() || "Server",
+            };
           }
           setSelectedServer(serverInfo);
 
@@ -213,7 +345,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     };
 
     initializeApp();
-  }, [openAuthFlow]);
+  }, [openAuthFlow, promptNetworkMode]);
 
   useEffect(() => {
     setAuthStateCallback((authed: boolean) => {
@@ -307,6 +439,16 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       }}
     >
       {children}
+      <NetworkModeDialog
+        visible={networkModeVisible}
+        busy={networkModeBusy}
+        error={networkModeError ?? undefined}
+        serverLabel={networkModeServerLabel}
+        onChoose={(mode) => {
+          void handleNetworkModeChoice(mode);
+        }}
+        onDismiss={handleNetworkModeDismiss}
+      />
     </AppContext.Provider>
   );
 };

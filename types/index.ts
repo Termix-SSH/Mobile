@@ -1024,8 +1024,19 @@ export interface FileManagerOperation {
 // ============================================================================
 
 export interface ServerConfig {
+  /**
+   * Origin used for HTTP/WS. When Tailscale local-forward is active this is
+   * typically `http://127.0.0.1:<port>`; otherwise the user-entered URL.
+   */
   serverUrl: string;
   lastUpdated: string;
+  /**
+   * User-facing backend URL (e.g. `http://100.x.y.z:8080` or LAN address).
+   * Kept so Settings can show the real target while transport uses localhost.
+   */
+  displayUrl?: string;
+  /** Whether the active transport is a userspace Tailscale local forward. */
+  viaTailscale?: boolean;
 }
 
 // ============================================================================

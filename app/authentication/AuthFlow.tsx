@@ -23,22 +23,33 @@ import {
   RefreshCw,
   Globe,
   X,
+  Network,
 } from "lucide-react-native";
 import { WebView, WebViewNavigation } from "react-native-webview";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Text, Input, Button, Label } from "@/app/components/ui";
+import { Text, Input, Button, Label, FakeSwitch } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
+import {
+  connectServerViaTailscale,
+  isTailscaleNativeAvailable,
+  loadTailscaleSettings,
+  saveTailscaleSettings,
+  shutdownTailscale,
+} from "@/app/utils/tailscaleConnect";
 import { useAppContext } from "../AppContext";
 import {
+  claimOidcCallback,
   consumeOidcCallback,
-  isOidcCallbackHandled,
-  markOidcCallbackHandled,
+  settleOidcCallback,
 } from "@/app/utils/oidc-callback";
 import {
   saveServerConfig,
   getCurrentServerUrl,
+  getDisplayServerUrl,
+  getServerConfigMeta,
   initializeServerConfig,
+  setRuntimeTransportUrl,
   setCookie,
   getUserInfo,
   loginUser,
@@ -56,6 +67,7 @@ import {
   clearSession,
   consumeFreshWebSession,
   logoutUser,
+  normalizeServerUrl,
 } from "../main-axios";
 
 type Step = "server" | "login" | "totp" | "signup" | "reset" | "oidc";
@@ -126,22 +138,38 @@ export default function AuthFlow() {
   // Carries the TOTP temp token between the login and totp steps.
   const totpTempTokenRef = useRef<string>("");
 
-  // Hostname shown in the shared header.
-  const activeHost = (getCurrentServerUrl() ?? serverUrl).replace(
-    /^https?:\/\//,
-    "",
-  );
+  // Optional userspace Tailscale path (native module; no system VPN).
+  const tailscaleAvailable = isTailscaleNativeAvailable();
+  const [useTailscale, setUseTailscale] = useState(false);
+  const [tailscaleAuthKey, setTailscaleAuthKey] = useState("");
+  const [tailscaleHostname, setTailscaleHostname] = useState("termix-mobile");
+
+  // Hostname shown in the shared header (prefer user-facing display URL).
+  const activeHost = (
+    getDisplayServerUrl() ??
+    getCurrentServerUrl() ??
+    serverUrl
+  ).replace(/^https?:\/\//, "");
 
   useEffect(() => {
-    const current = getCurrentServerUrl();
+    const current = getDisplayServerUrl() ?? getCurrentServerUrl();
     if (current) setServerUrl(current);
-  }, []);
+    void loadTailscaleSettings().then((s) => {
+      setUseTailscale(s.enabled && tailscaleAvailable);
+      if (s.authKey) setTailscaleAuthKey(s.authKey);
+      if (s.hostname) setTailscaleHostname(s.hostname);
+    });
+  }, [tailscaleAvailable]);
 
   const finishAuthenticated = useCallback(async () => {
     try {
-      await initializeServerConfig();
+      // Preserve live Tailscale localhost forward — full rehydrate tears it down.
+      await initializeServerConfig({
+        rehydrateTailscale: false,
+        detect: false,
+      });
     } catch {}
-    const url = getCurrentServerUrl();
+    const url = getDisplayServerUrl() ?? getCurrentServerUrl();
     if (url) setSelectedServer({ name: "Server", ip: url });
     setAuthenticated(true);
     closeAuthFlow();
@@ -214,7 +242,7 @@ export default function AuthFlow() {
   }, []);
 
   const handleConnect = async () => {
-    const url = serverUrl.trim().replace(/\/$/, "");
+    const url = normalizeServerUrl(serverUrl);
     if (!url) {
       toast.error("Please enter a server address");
       return;
@@ -222,6 +250,18 @@ export default function AuthFlow() {
     if (!/^https?:\/\//.test(url)) {
       toast.error("Server address must start with http:// or https://");
       return;
+    }
+    if (useTailscale) {
+      if (!tailscaleAvailable) {
+        toast.error(
+          "Tailscale requires a custom native build (termix-tailscale module).",
+        );
+        return;
+      }
+      if (!tailscaleAuthKey.trim()) {
+        toast.error("Enter a Tailscale auth key (tskey-auth-…)");
+        return;
+      }
     }
 
     setBusy(true);
@@ -231,15 +271,67 @@ export default function AuthFlow() {
       // login is shown and a subsequent sign-in can't resolve to the old account.
       await clearSession();
 
-      await saveServerConfig({
-        serverUrl: url,
-        lastUpdated: new Date().toISOString(),
-      });
-      setSelectedServer({ name: "Server", ip: url });
+      let transportUrl = url;
+      let displayUrl = url;
+      let viaTailscale = false;
+
+      if (useTailscale) {
+        await saveTailscaleSettings({
+          enabled: true,
+          authKey: tailscaleAuthKey,
+          hostname: tailscaleHostname,
+        });
+        const connected = await connectServerViaTailscale({
+          serverUrl: url,
+          authKey: tailscaleAuthKey,
+          hostname: tailscaleHostname,
+          ephemeral: true,
+        });
+        transportUrl = connected.transportUrl;
+        displayUrl = connected.displayUrl;
+        viaTailscale = true;
+      } else {
+        // Keep any previously saved auth key so cold-start can still offer TS,
+        // but mark TS as not preferred for this save.
+        await saveTailscaleSettings({
+          enabled: false,
+          authKey: tailscaleAuthKey,
+          hostname: tailscaleHostname,
+        });
+        // Drop any previous userspace node so direct mode is clean.
+        try {
+          await shutdownTailscale();
+        } catch {
+          // optional
+        }
+      }
+
+      // Persist the user-facing URL on disk. Runtime transport (localhost forward)
+      // is applied in memory only — otherwise Hosts re-init would treat a dead
+      // 127.0.0.1 port as the server and hang after login.
+      await saveServerConfig(
+        {
+          serverUrl: displayUrl,
+          displayUrl,
+          viaTailscale,
+          lastUpdated: new Date().toISOString(),
+        },
+        // Tailscale sets the localhost runtime transport immediately after this;
+        // probing the display URL here adds a needless timeout before that switch.
+        { detect: !viaTailscale },
+      );
+      if (viaTailscale && transportUrl !== displayUrl) {
+        await setRuntimeTransportUrl(transportUrl);
+      }
+      setSelectedServer({ name: "Server", ip: displayUrl });
 
       const ok = await probeServer();
       if (!ok) {
-        toast.error("Could not reach that server");
+        toast.error(
+          viaTailscale
+            ? "Could not reach that server over Tailscale. Check auth key, ACL, and subnet routes."
+            : "Could not reach that server",
+        );
       }
     } catch (e: any) {
       toast.error(errMessage(e, "Could not reach that server"));
@@ -272,20 +364,33 @@ export default function AuthFlow() {
   }, []);
 
   const goToServer = () => {
+    if (busy) return;
+
     // Changing server must not carry the old session/proxy login forward.
     // Invalidate the server-side session FIRST (while the JWT still exists), then
     // clear local state — otherwise the live Termix cookie lets OIDC resume the
-    // old account.
-    void (async () => {
-      try {
-        await logoutUser();
-      } catch {
-        // best-effort
-      }
-      await clearSession();
-    })();
+    // old account. Keep the form busy until cleanup finishes so Continue cannot
+    // race the logout/shutdown sequence.
+    setBusy(true);
     setCaps(null);
     setStep("server");
+    void (async () => {
+      try {
+        try {
+          await logoutUser();
+        } catch {
+          // best-effort
+        }
+        try {
+          await shutdownTailscale();
+        } catch {
+          // best-effort — server changes must not depend on native teardown
+        }
+        await clearSession();
+      } finally {
+        setBusy(false);
+      }
+    })();
   };
 
   // ── Render ───────────────────────────────────────────────────────────────
@@ -332,6 +437,7 @@ export default function AuthFlow() {
             {step !== "server" ? (
               <TouchableOpacity
                 onPress={goToServer}
+                disabled={busy}
                 className="flex-row items-center gap-1.5 py-1 pr-2"
                 hitSlop={8}
               >
@@ -396,6 +502,13 @@ export default function AuthFlow() {
                   busy={busy}
                   onConnect={handleConnect}
                   color={color}
+                  tailscaleAvailable={tailscaleAvailable}
+                  useTailscale={useTailscale}
+                  setUseTailscale={setUseTailscale}
+                  tailscaleAuthKey={tailscaleAuthKey}
+                  setTailscaleAuthKey={setTailscaleAuthKey}
+                  tailscaleHostname={tailscaleHostname}
+                  setTailscaleHostname={setTailscaleHostname}
                 />
               )}
 
@@ -467,12 +580,26 @@ function ServerStep({
   busy,
   onConnect,
   color,
+  tailscaleAvailable,
+  useTailscale,
+  setUseTailscale,
+  tailscaleAuthKey,
+  setTailscaleAuthKey,
+  tailscaleHostname,
+  setTailscaleHostname,
 }: {
   serverUrl: string;
   setServerUrl: (v: string) => void;
   busy: boolean;
   onConnect: () => void;
   color: ReturnType<typeof useThemeColor>;
+  tailscaleAvailable: boolean;
+  useTailscale: boolean;
+  setUseTailscale: (v: boolean) => void;
+  tailscaleAuthKey: string;
+  setTailscaleAuthKey: (v: string) => void;
+  tailscaleHostname: string;
+  setTailscaleHostname: (v: string) => void;
 }) {
   return (
     <>
@@ -480,7 +607,11 @@ function ServerStep({
         <Label>Server Address</Label>
         <View className="mt-2">
           <Input
-            placeholder="https://termix.example.com"
+            placeholder={
+              useTailscale
+                ? "http://100.x.y.z:8080 or http://192.168.x.x:PORT"
+                : "https://termix.example.com"
+            }
             value={serverUrl}
             onChangeText={setServerUrl}
             autoCapitalize="none"
@@ -496,7 +627,82 @@ function ServerStep({
         <Text className="mt-2 text-[11px] text-muted-foreground">
           Enter the address of your self-hosted Termix server, including http://
           or https://.
+          {useTailscale
+            ? " With Tailscale, prefer a 100.x / MagicDNS host, or a LAN IP only if a subnet router advertises that range."
+            : ""}
         </Text>
+
+        <View className="mt-4 border-t border-border pt-4">
+          <View className="flex-row items-center justify-between gap-3">
+            <View className="min-w-0 flex-1 flex-row items-center gap-2">
+              <Network size={15} color={color("muted-foreground")} />
+              <View className="min-w-0 flex-1">
+                <Text weight="medium" className="text-sm text-foreground">
+                  Connect via Tailscale
+                </Text>
+                <Text className="text-[10px] text-muted-foreground">
+                  {tailscaleAvailable
+                    ? "Userspace node in-app (no system VPN)"
+                    : "Needs custom native build"}
+                </Text>
+              </View>
+            </View>
+            <FakeSwitch
+              checked={useTailscale && tailscaleAvailable}
+              onChange={(v) => {
+                if (!tailscaleAvailable) {
+                  toast.error(
+                    "Rebuild the app with the termix-tailscale native module to enable this.",
+                  );
+                  return;
+                }
+                setUseTailscale(v);
+              }}
+              disabled={busy}
+            />
+          </View>
+
+          {useTailscale && tailscaleAvailable ? (
+            <View className="mt-3 gap-3">
+              <View>
+                <Label>Auth key</Label>
+                <View className="mt-2">
+                  <Input
+                    placeholder="tskey-auth-…"
+                    value={tailscaleAuthKey}
+                    onChangeText={setTailscaleAuthKey}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    autoComplete="off"
+                    editable={!busy}
+                    leading={
+                      <KeyRound size={16} color={color("muted-foreground")} />
+                    }
+                  />
+                </View>
+                <Text className="mt-1.5 text-[10px] leading-4 text-muted-foreground">
+                  Prefer a short-lived or one-off key. Stored in the device
+                  keychain. LAN IPs require an approved subnet route on your
+                  tailnet.
+                </Text>
+              </View>
+              <View>
+                <Label>Node hostname (optional)</Label>
+                <View className="mt-2">
+                  <Input
+                    placeholder="termix-mobile"
+                    value={tailscaleHostname}
+                    onChangeText={setTailscaleHostname}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    editable={!busy}
+                  />
+                </View>
+              </View>
+            </View>
+          ) : null}
+        </View>
+
         <Button
           variant="accent"
           size="lg"
@@ -504,7 +710,11 @@ function ServerStep({
           loading={busy}
           onPress={onConnect}
         >
-          {busy ? "Connecting…" : "Continue"}
+          {busy
+            ? useTailscale
+              ? "Joining Tailscale…"
+              : "Connecting…"
+            : "Continue"}
         </Button>
       </View>
 
@@ -517,6 +727,9 @@ function ServerStep({
         <Text className="flex-1 text-[10px] leading-4 text-muted-foreground">
           Using a self-signed certificate? Install its root CA on your device
           first. Local HTTP servers are supported.
+          {useTailscale
+            ? " Tailscale uses a local HTTP transport; HTTPS backends keep TLS and the original hostname inside the native forward."
+            : ""}
         </Text>
       </View>
     </>
@@ -1073,6 +1286,69 @@ function ResetStep({
 // unreliable in dev-client builds (can yield an exp:// dev-server URL).
 const OIDC_CALLBACK_URL = "termix-mobile://oidc-callback";
 
+function isOidcCallbackUrl(value: string): boolean {
+  return (
+    value === OIDC_CALLBACK_URL || value.startsWith(`${OIDC_CALLBACK_URL}?`)
+  );
+}
+
+/**
+ * Resolve an OIDC URL for the embedded WebView when the app is using the
+ * userspace Tailscale forward. Only the configured backend origin is moved to
+ * localhost; external identity-provider URLs must remain unchanged.
+ */
+function getTailscaleWebViewUrl(authUrl: string): string | null {
+  const displayUrl = getDisplayServerUrl();
+  const transportUrl = getCurrentServerUrl();
+  if (!displayUrl || !transportUrl) return null;
+
+  let display: URL;
+  let transport: URL;
+  let candidate: URL;
+  try {
+    display = new URL(displayUrl);
+    transport = new URL(transportUrl);
+    candidate = new URL(authUrl, displayUrl);
+  } catch {
+    return null;
+  }
+
+  const isHttp = (value: URL) =>
+    value.protocol === "http:" || value.protocol === "https:";
+  const isLocalTransport =
+    transport.protocol === "http:" &&
+    transport.hostname === "127.0.0.1" &&
+    !!transport.port;
+  if (
+    !isHttp(display) ||
+    !isHttp(transport) ||
+    !isHttp(candidate) ||
+    !isLocalTransport
+  ) {
+    return null;
+  }
+
+  if (candidate.origin === display.origin) {
+    candidate.protocol = transport.protocol;
+    candidate.host = transport.host;
+  }
+
+  return candidate.toString();
+}
+
+function isTailscaleTransportUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    return (
+      parsed.protocol === "http:" &&
+      parsed.hostname === "127.0.0.1" &&
+      !!parsed.port
+    );
+  } catch {
+    return false;
+  }
+}
+
 function OidcStep({
   bg,
   accent,
@@ -1086,6 +1362,7 @@ function OidcStep({
 }) {
   const color = useThemeColor();
   const webViewRef = useRef<WebView>(null);
+  const viaTailscale = getServerConfigMeta()?.viaTailscale === true;
   const [source, setSource] = useState<{ uri: string } | null>(null);
   const [url, setUrl] = useState("");
   const [authenticating, setAuthenticating] = useState(false);
@@ -1095,6 +1372,8 @@ function OidcStep({
   const [incognito, setIncognito] = useState(false);
   const [browserAuthUrl, setBrowserAuthUrl] = useState<string | null>(null);
   const [openingBrowser, setOpeningBrowser] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [webViewKey, setWebViewKey] = useState(() => String(Date.now()));
   // Synchronous guards: state updates are async, so two near-simultaneous
   // callbacks (openAuthSessionAsync result + the OS deep-link listener) can both
@@ -1108,8 +1387,8 @@ function OidcStep({
   const freshSessionRef = useRef(false);
 
   const completeNativeAuth = useCallback(
-    async (token: string) => {
-      if (authStartedRef.current) return;
+    async (token: string): Promise<boolean> => {
+      if (authStartedRef.current) return false;
       authStartedRef.current = true;
       setAuthenticating(true);
       try {
@@ -1118,9 +1397,12 @@ function OidcStep({
         if (!saved) {
           Alert.alert("Error", "Failed to save authentication token.");
           authStartedRef.current = false;
-          return;
+          return false;
         }
-        await initializeServerConfig();
+        await initializeServerConfig({
+          rehydrateTailscale: false,
+          detect: false,
+        });
 
         // Confirm the token, tolerating transient gateway hiccups (502 / brief
         // network blips from the reverse proxy). A real 401 means the token is
@@ -1145,7 +1427,7 @@ function OidcStep({
                 "The server rejected the session token. Please try again.",
               );
               authStartedRef.current = false;
-              return;
+              return false;
             }
             // Transient (502/HTML/network) — wait briefly and retry.
             await new Promise((r) => setTimeout(r, 600));
@@ -1159,15 +1441,15 @@ function OidcStep({
             "Signed in, but the app couldn't reach Termix's API (a reverse proxy may be blocking the request). Please try again.",
           );
           authStartedRef.current = false;
-          return;
+          return false;
         }
 
-        // Proceed even if confirmation didn't succeed: the token is saved and
-        // valid as far as we know; the app's startup will verify it again.
         await onAuthenticated();
+        return true;
       } catch {
         Alert.alert("Error", "Could not complete sign-in.");
         authStartedRef.current = false;
+        return false;
       } finally {
         setAuthenticating(false);
       }
@@ -1177,39 +1459,65 @@ function OidcStep({
 
   const handleCallbackUrl = useCallback(
     async (callbackUrl: string) => {
-      if (!callbackUrl.startsWith("termix-mobile://oidc-callback")) return;
+      if (!isOidcCallbackUrl(callbackUrl)) return;
       // The same intent can reach us twice — openAuthSessionAsync's result, the
       // Linking listener, and the /oidc-callback route all see it. Claim it once
-      // so a second, failing confirmation can't clear the JWT the first stored.
-      if (isOidcCallbackHandled(callbackUrl)) return;
-      markOidcCallbackHandled(callbackUrl);
+      // so duplicate deliveries cannot race native authentication.
+      if (!claimOidcCallback(callbackUrl)) return;
 
-      // Hermes's URL implementation may not parse custom schemes reliably,
-      // so extract query params manually from the raw string.
-      const qIndex = callbackUrl.indexOf("?");
-      const queryString = qIndex !== -1 ? callbackUrl.slice(qIndex + 1) : "";
-      const params: Record<string, string> = {};
-      for (const pair of queryString.split("&")) {
-        const eqIdx = pair.indexOf("=");
-        if (eqIdx === -1) continue;
-        const k = decodeURIComponent(pair.slice(0, eqIdx));
-        const v = decodeURIComponent(pair.slice(eqIdx + 1));
-        params[k] = v;
+      let handled = false;
+      try {
+        // Hermes's URL implementation may not parse custom schemes reliably,
+        // so extract query params manually from the raw string.
+        const qIndex = callbackUrl.indexOf("?");
+        const queryString = qIndex !== -1 ? callbackUrl.slice(qIndex + 1) : "";
+        const params: Record<string, string> = {};
+        for (const pair of queryString.split("&")) {
+          const eqIdx = pair.indexOf("=");
+          if (eqIdx === -1) continue;
+          const k = decodeURIComponent(pair.slice(0, eqIdx));
+          const v = decodeURIComponent(pair.slice(eqIdx + 1));
+          params[k] = v;
+        }
+
+        const error = params["error"];
+        if (error) {
+          const message = `The identity provider rejected sign-in: ${error}`;
+          setLoadError(message);
+          Alert.alert("Sign in failed", error);
+          // The provider explicitly rejected or cancelled this authorization;
+          // there is no transient native work left to retry for this callback.
+          handled = true;
+          return;
+        }
+
+        const token = params["token"];
+        if (!token) {
+          const message = "The server did not return a sign-in token.";
+          setLoadError(message);
+          Alert.alert("Sign in failed", message);
+          // A callback without a token is terminally consumed as malformed.
+          handled = true;
+          return;
+        }
+
+        // Only a fully confirmed native session marks the callback handled.
+        // Transient proxy/API failures release the claim in finally so a later
+        // delivery can try again.
+        handled = await completeNativeAuth(token);
+        if (!handled) {
+          setLoadError(
+            "The session could not be confirmed through this server. Try again or switch to Direct / LAN.",
+          );
+        }
+      } catch {
+        const message =
+          "The authentication callback was invalid. Please try again.";
+        setLoadError(message);
+        Alert.alert("Sign in failed", message);
+      } finally {
+        settleOidcCallback(callbackUrl, handled);
       }
-
-      const error = params["error"];
-      if (error) {
-        Alert.alert("Sign in failed", error);
-        return;
-      }
-
-      const token = params["token"];
-      if (!token) {
-        Alert.alert("Sign in failed", "The server did not return a token.");
-        return;
-      }
-
-      await completeNativeAuth(token);
     },
     [completeNativeAuth],
   );
@@ -1219,6 +1527,7 @@ function OidcStep({
       // Don't reopen if a session is already in flight or auth already started
       // (e.g. a deep-link remount re-running init, or a double tap).
       if (openingBrowser || authStartedRef.current) return;
+      setLoadError(null);
       setOpeningBrowser(true);
       try {
         // Use a fixed deep link rather than ExpoLinking.createURL: in dev-client
@@ -1244,7 +1553,9 @@ function OidcStep({
         }
         // result.type === "cancel" means user dismissed — no error needed
       } catch {
-        Alert.alert("Error", "Could not open the authentication browser.");
+        const message = "Could not open the authentication browser.";
+        setLoadError(message);
+        Alert.alert("Error", message);
       } finally {
         setOpeningBrowser(false);
       }
@@ -1278,6 +1589,7 @@ function OidcStep({
     browserOpenedRef.current = true;
 
     const init = async () => {
+      setLoadError(null);
       // A deep link the OS delivered before this screen existed (cold start, or
       // a Custom Tab that handed the redirect to the router). Finish that
       // sign-in instead of starting a second trip to the IdP — and before the
@@ -1312,26 +1624,54 @@ function OidcStep({
         try {
           const res = await getOIDCAuthorizeUrl(callbackUrl);
           if (res?.auth_url) {
+            if (viaTailscale) {
+              const embeddedUrl = getTailscaleWebViewUrl(res.auth_url);
+              if (!embeddedUrl) {
+                const message =
+                  "The server returned an authorization URL that cannot be reached safely through the local Tailscale transport. Check the server's OIDC callback configuration or switch to Direct / LAN.";
+                setLoadError(message);
+                Alert.alert("Tailscale sign-in unavailable", message);
+                return;
+              }
+              setSource({ uri: embeddedUrl });
+              setUrl(embeddedUrl);
+              return;
+            }
+
             setBrowserAuthUrl(res.auth_url);
             setUrl(res.auth_url);
             await openBrowser(res.auth_url);
             return;
           }
         } catch {
-          // ignore — fall back to the server root, which renders the web login
-          // (covers reverse-proxy login forms).
+          // Ignore and fall back to the server root, which renders the web
+          // login (including reverse-proxy login forms).
         }
       }
 
       const fallbackUrl = getCurrentServerUrl();
-      if (fallbackUrl) {
+      if (
+        fallbackUrl &&
+        (!viaTailscale || isTailscaleTransportUrl(fallbackUrl))
+      ) {
         setSource({ uri: fallbackUrl });
         setUrl(fallbackUrl);
+      } else if (viaTailscale) {
+        const message =
+          "The app no longer has a live local Tailscale transport for this server. Return to the connection screen and choose Via Tailscale again, or switch to Direct / LAN.";
+        setLoadError(message);
+        Alert.alert("Tailscale sign-in unavailable", message);
+      } else {
+        setLoadError(
+          "Could not prepare the sign-in page. Check the server address and try again.",
+        );
       }
     };
     init();
+    // The retry counter deliberately re-runs this one-shot loader without
+    // coupling it to every callback/helper identity used inside init.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loadAttempt]);
 
   const handleNav = (navState: WebViewNavigation) => {
     if (!navState.loading) setUrl(navState.url);
@@ -1343,25 +1683,57 @@ function OidcStep({
   // intent and the sign-in would leave the WebView for the router; catch it
   // here and complete in place.
   const handleWebViewRequest = (request: { url: string }) => {
-    if (!request.url.startsWith(OIDC_CALLBACK_URL)) return true;
-    void handleCallbackUrl(request.url);
-    return false;
+    if (isOidcCallbackUrl(request.url)) {
+      void handleCallbackUrl(request.url);
+      return false;
+    }
+
+    // OIDC providers commonly redirect through the backend before handing the
+    // token to the app. A WebView cannot reach a userspace-Tailscale-only
+    // backend origin, so keep those redirects on the local forward as well.
+    if (viaTailscale && /^https?:\/\//i.test(request.url)) {
+      const embeddedUrl = getTailscaleWebViewUrl(request.url);
+      if (!embeddedUrl) {
+        const message =
+          "The sign-in redirect cannot be reached through the local Tailscale transport. Return to the connection screen and choose Via Tailscale again, or switch to Direct / LAN.";
+        setLoadError(message);
+        Alert.alert("Tailscale sign-in unavailable", message);
+        return false;
+      }
+      if (embeddedUrl !== request.url) {
+        webViewRef.current?.stopLoading();
+        webViewRef.current?.injectJavaScript(
+          `window.location.replace(${JSON.stringify(embeddedUrl)}); true;`,
+        );
+        return false;
+      }
+    }
+
+    return true;
   };
 
   const handleError = (syntheticEvent: any) => {
     const { nativeEvent } = syntheticEvent;
+    const description = nativeEvent.description || "Unknown sign-in page error";
     if (
-      nativeEvent.description?.includes("SSL") ||
-      nativeEvent.description?.includes("certificate") ||
-      nativeEvent.description?.includes("ERR_CERT")
+      description.includes("SSL") ||
+      description.includes("certificate") ||
+      description.includes("ERR_CERT")
     ) {
+      const message =
+        "Unable to verify the server's SSL certificate. Install your self-signed certificate's root CA on the device (as a CA certificate) and rebuild the app.";
+      setLoadError(message);
       Alert.alert(
         "SSL Certificate Error",
-        "Unable to verify the server's SSL certificate. Install your self-signed certificate's root CA on the device (as a CA certificate) and rebuild the app.\n\nError: " +
-          (nativeEvent.description || "Unknown SSL error"),
+        `${message}\n\nError: ${description}`,
         [{ text: "OK" }],
       );
+      return;
     }
+
+    setLoadError(
+      "The sign-in page could not be loaded. Check the server connection and try again.",
+    );
   };
 
   const onMessage = async (event: any) => {
@@ -1373,14 +1745,15 @@ function OidcStep({
         // The web page signalled success but couldn't hand us a usable token
         // (e.g. an older server build, or the JWT cookie wasn't readable). Don't
         // leave the user stuck on the web "Redirecting…" screen with no feedback.
-        Alert.alert(
-          "Sign in failed",
-          "Signed in on the web page but the app didn't receive a session token. Make sure the server is up to date, then try again.",
-        );
+        const message =
+          "Signed in on the web page but the app didn't receive a session token. Make sure the server is up to date, then try again.";
+        setLoadError(message);
+        Alert.alert("Sign in failed", message);
         return;
       }
       await completeNativeAuth(String(data.token));
     } catch {
+      setLoadError("Could not process the sign-in response. Please try again.");
       setAuthenticating(false);
     }
   };
@@ -1477,6 +1850,17 @@ function OidcStep({
     true;
   `;
 
+  const retry = useCallback(() => {
+    authStartedRef.current = false;
+    browserOpenedRef.current = false;
+    setSource(null);
+    setBrowserAuthUrl(null);
+    setUrl("");
+    setLoadError(null);
+    setWebViewKey((key) => `${key}-retry`);
+    setLoadAttempt((attempt) => attempt + 1);
+  }, []);
+
   return (
     <View className="flex-1 bg-background">
       <View className="flex-row items-center justify-between border-b border-border px-3 py-2.5">
@@ -1500,6 +1884,10 @@ function OidcStep({
         </View>
         <TouchableOpacity
           onPress={() => {
+            if (loadError) {
+              retry();
+              return;
+            }
             setWebViewKey(String(Date.now()));
             webViewRef.current?.reload();
           }}
@@ -1510,7 +1898,28 @@ function OidcStep({
         </TouchableOpacity>
       </View>
 
-      {browserAuthUrl ? (
+      {loadError ? (
+        <View className="flex-1 items-center justify-center bg-background px-6">
+          <ShieldAlert size={38} color={accent} />
+          <Text
+            weight="medium"
+            className="mt-4 text-center text-lg text-foreground"
+          >
+            Unable to continue sign-in
+          </Text>
+          <Text className="mt-2 max-w-md text-center text-sm leading-5 text-muted-foreground">
+            {loadError}
+          </Text>
+          <View className="mt-6 w-full max-w-xs gap-2.5">
+            <Button variant="accent" size="lg" onPress={retry}>
+              Try again
+            </Button>
+            <Button variant="outline" size="lg" onPress={onBack}>
+              Back
+            </Button>
+          </View>
+        </View>
+      ) : browserAuthUrl ? (
         <View className="flex-1 items-center justify-center bg-background px-6">
           <Globe size={38} color={accent} />
           <Text weight="medium" className="mt-4 text-lg text-foreground">

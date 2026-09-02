@@ -1,0 +1,43 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.termixtailscale'
+version = '0.1.0'
+
+android {
+  namespace "expo.modules.termixtailscale"
+
+  defaultConfig {
+    versionCode 1
+    versionName '0.1.0'
+    consumerProguardFiles 'proguard-rules.pro'
+
+    // tsnet Go library is built for arm64-v8a only today. Restrict this
+    // module's native output so CMake doesn't try other ABIs.
+    ndk {
+      abiFilters += "arm64-v8a"
+    }
+  }
+
+  externalNativeBuild {
+    cmake {
+      path "src/main/cpp/CMakeLists.txt"
+      version "3.22.1"
+    }
+  }
+
+  sourceSets {
+    main {
+      jniLibs.srcDirs = ['src/main/jniLibs']
+    }
+  }
+
+  packagingOptions {
+    jniLibs {
+      keepDebugSymbols += '**/libtermix_ts.so'
+      keepDebugSymbols += '**/libtermix_ts_jni.so'
+    }
+  }
+}
