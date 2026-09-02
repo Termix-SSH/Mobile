@@ -16,10 +16,11 @@ npm run build:tailscale-host
 npm run build:tailscale-ios
 
 # Android arm64-v8a .so (set ANDROID_NDK_HOME or ANDROID_NDK_ROOT)
+# The output is 16 KB page-size aligned for Android 15+ devices.
 npm run build:tailscale-android
 ```
 
-If the Go library is missing, iOS and Android link a **stub** that returns clear errors so direct mode still builds and the JS UI can show “needs native build”.
+If the Go library is missing, iOS and Android link a **stub** that returns clear errors so direct mode still builds and the JS UI can show “needs native build”. Running Go alone does not change an already-installed app; rebuild the Android app after `npm run build:tailscale-android` (or use `npm run android:tailscale`) so the `.so` is packaged. The Android Tailscale library currently supports `arm64-v8a` only.
 
 ## JS API
 

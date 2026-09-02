@@ -19,6 +19,7 @@ export type ForwardHandle = {
 
 type NativeModule = {
   isAvailable(): boolean;
+  getNativeLoadError?(): string;
   configure(options: {
     authKey: string;
     hostname: string;
@@ -55,6 +56,16 @@ const Native = requireOptionalNativeModule<NativeModule>("TermixTailscale");
 /** True when the native module is linked (dev client / production build). */
 export function isTermixTailscaleAvailable(): boolean {
   return !!Native?.isAvailable?.();
+}
+
+/**
+ * Returns a safe native-loader diagnostic when the module is linked but its
+ * platform libraries could not be loaded. It never includes app credentials.
+ */
+export function getTermixTailscaleNativeLoadError(): string | null {
+  if (!Native || Native.isAvailable()) return null;
+  const message = Native.getNativeLoadError?.() ?? "";
+  return message.trim() || null;
 }
 
 export async function configureTermixTailscale(

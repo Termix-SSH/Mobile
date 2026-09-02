@@ -30,9 +30,9 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
   // centered row — it must allow height and top-align its children. Single-line
   // keeps the original fixed 40px row.
   const layout = multiline
-    ? "flex-row items-start gap-2 py-2"
-    : "flex-row items-center gap-2";
-  const inputLayout = multiline ? "min-h-10 px-2.5" : "h-10 px-2.5";
+    ? "flex-row items-start gap-2 px-2.5 py-2"
+    : "flex-row items-center gap-2 px-2.5";
+  const inputLayout = multiline ? "min-h-10" : "h-10";
 
   return (
     <View

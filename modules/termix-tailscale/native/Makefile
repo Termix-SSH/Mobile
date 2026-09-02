@@ -54,14 +54,16 @@ ios: deps
 	cp $(HEADER) $(IOS_OUT)/termix_ts.h
 	@echo "Installed $(IOS_OUT)/libtermix_ts.a"
 
-# arm64-v8a shared library for Android.
+# arm64-v8a shared library for Android. Use 16 KB ELF segment alignment so
+# the library loads on Android devices with 16 KB system page sizes.
 android: deps
 	@test -n "$(ANDROID_NDK_DIR)" || (echo "Set ANDROID_NDK_HOME or ANDROID_NDK_ROOT" && exit 1)
 	@test -x "$(ANDROID_CLANG)" || (echo "Android compiler not found: $(ANDROID_CLANG)" && exit 1)
 	mkdir -p $(ANDROID_OUT)/arm64-v8a
 	GOOS=android GOARCH=arm64 CGO_ENABLED=1 \
 		CC="$(ANDROID_CLANG)" \
-		go build -ldflags="-checklinkname=0" -buildmode=c-shared -o $(ANDROID_OUT)/arm64-v8a/libtermix_ts.so .
+		go build -ldflags="-checklinkname=0 -extldflags=-Wl,-z,max-page-size=16384" \
+			-buildmode=c-shared -o $(ANDROID_OUT)/arm64-v8a/libtermix_ts.so .
 	cp $(HEADER) $(ANDROID_OUT)/termix_ts.h
 	@echo "Installed $(ANDROID_OUT)/arm64-v8a/libtermix_ts.so"
 

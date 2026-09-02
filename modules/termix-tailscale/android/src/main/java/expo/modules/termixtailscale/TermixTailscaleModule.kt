@@ -1,5 +1,7 @@
 package expo.modules.termixtailscale
 
+import android.os.Build
+import android.util.Log
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 import java.io.File
@@ -11,7 +13,13 @@ import java.io.File
  * TermixTS_* C functions are exposed here as native methods.
  */
 class TermixTailscaleModule : Module() {
-  private var libraryLoaded = false
+  @Volatile private var libraryLoaded = false
+  @Volatile private var nativeLoadError: String? = null
+
+  private companion object {
+    const val TAG = "TermixTailscale"
+    const val SUPPORTED_ABI = "arm64-v8a"
+  }
 
   // -- JNI bindings (see src/main/cpp/termix_ts_jni.c) ---------------------
   private external fun nativeConfigure(
@@ -55,6 +63,10 @@ class TermixTailscaleModule : Module() {
 
     Function("isAvailable") {
       libraryLoaded
+    }
+
+    Function("getNativeLoadError") {
+      nativeLoadError ?: ""
     }
 
     AsyncFunction("getDefaultStateDir") {
@@ -122,21 +134,43 @@ class TermixTailscaleModule : Module() {
 
   private fun ensureLoaded() {
     if (!libraryLoaded) {
+      val detail = nativeLoadError?.let { ": $it" } ?: ""
       throw Exception(
-        "Termix Tailscale native library not loaded. Run: make -C modules/termix-tailscale/native android"
+        "Termix Tailscale native library not loaded$detail. " +
+          "Run: make -C modules/termix-tailscale/native android"
       )
     }
   }
 
   private fun loadNativeLibraries(): Boolean {
+    nativeLoadError = null
     return try {
       System.loadLibrary("termix_ts")
       System.loadLibrary("termix_ts_jni")
       true
-    } catch (_: UnsatisfiedLinkError) {
+    } catch (error: UnsatisfiedLinkError) {
+      recordNativeLoadFailure(error)
       false
-    } catch (_: Exception) {
+    } catch (error: SecurityException) {
+      recordNativeLoadFailure(error)
       false
     }
+  }
+
+  private fun recordNativeLoadFailure(error: Throwable) {
+    val rawReason = error.message
+      ?.replace(Regex("\\s+"), " ")
+      ?.trim()
+      ?.take(512)
+    val reason = if (rawReason.isNullOrEmpty()) {
+      error::class.java.simpleName
+    } else {
+      rawReason
+    }
+    val deviceAbis = Build.SUPPORTED_ABIS
+      .joinToString(",")
+      .ifEmpty { "unknown" }
+    nativeLoadError = "$reason (device ABIs: $deviceAbis; this build: $SUPPORTED_ABI)"
+    Log.e(TAG, "Unable to load Tailscale native libraries: $nativeLoadError", error)
   }
 }

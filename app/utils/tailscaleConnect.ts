@@ -2,6 +2,7 @@ import * as SecureStore from "expo-secure-store";
 import {
   closeTermixTailscale,
   configureTermixTailscale,
+  getTermixTailscaleNativeLoadError,
   isTermixTailscaleAvailable,
   isTermixTailscaleForwardActive,
   isTermixTailscaleUp,
@@ -53,6 +54,10 @@ function withTailscaleLifecycleLock<T>(
 
 export function isTailscaleNativeAvailable(): boolean {
   return isTermixTailscaleAvailable();
+}
+
+export function getTailscaleNativeLoadError(): string | null {
+  return getTermixTailscaleNativeLoadError();
 }
 
 export async function loadTailscaleSettings(): Promise<{
@@ -222,8 +227,11 @@ async function connectServerViaTailscaleUnsafe(
   opts: ConnectServerViaTailscaleOptions,
 ): Promise<ConnectServerViaTailscaleResult> {
   if (!isTermixTailscaleAvailable()) {
+    const loadError = getTermixTailscaleNativeLoadError();
     throw new Error(
-      "Tailscale is not available in this build. Use a custom dev client with termix-tailscale native module.",
+      loadError
+        ? `Tailscale native library failed to load: ${loadError}`
+        : "Tailscale is not available in this build. Use a custom dev client with termix-tailscale native module.",
     );
   }
   const parsed = parseServerUrl(opts.serverUrl);

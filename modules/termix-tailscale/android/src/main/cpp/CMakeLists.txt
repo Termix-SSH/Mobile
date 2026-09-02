@@ -48,4 +48,8 @@ else()
   target_link_libraries(termix_ts_jni PRIVATE termix_ts_stub)
 endif()
 
+# Android 15+ devices may use 16 KB system pages. Align this JNI library the
+# same way as the Go library so the loader can map both native dependencies.
+target_link_options(termix_ts_jni PRIVATE "-Wl,-z,max-page-size=16384")
+
 target_link_libraries(termix_ts_jni PRIVATE log)

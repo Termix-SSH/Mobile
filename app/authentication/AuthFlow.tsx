@@ -32,6 +32,7 @@ import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
 import {
   connectServerViaTailscale,
+  getTailscaleNativeLoadError,
   isTailscaleNativeAvailable,
   loadTailscaleSettings,
   saveTailscaleSettings,
@@ -140,6 +141,7 @@ export default function AuthFlow() {
 
   // Optional userspace Tailscale path (native module; no system VPN).
   const tailscaleAvailable = isTailscaleNativeAvailable();
+  const tailscaleLoadError = getTailscaleNativeLoadError();
   const [useTailscale, setUseTailscale] = useState(false);
   const [tailscaleAuthKey, setTailscaleAuthKey] = useState("");
   const [tailscaleHostname, setTailscaleHostname] = useState("termix-mobile");
@@ -254,7 +256,9 @@ export default function AuthFlow() {
     if (useTailscale) {
       if (!tailscaleAvailable) {
         toast.error(
-          "Tailscale requires a custom native build (termix-tailscale module).",
+          tailscaleLoadError
+            ? `Tailscale native library failed to load: ${tailscaleLoadError}`
+            : "Tailscale requires a custom native build (termix-tailscale module).",
         );
         return;
       }
@@ -503,6 +507,7 @@ export default function AuthFlow() {
                   onConnect={handleConnect}
                   color={color}
                   tailscaleAvailable={tailscaleAvailable}
+                  tailscaleLoadError={tailscaleLoadError}
                   useTailscale={useTailscale}
                   setUseTailscale={setUseTailscale}
                   tailscaleAuthKey={tailscaleAuthKey}
@@ -581,6 +586,7 @@ function ServerStep({
   onConnect,
   color,
   tailscaleAvailable,
+  tailscaleLoadError,
   useTailscale,
   setUseTailscale,
   tailscaleAuthKey,
@@ -594,6 +600,7 @@ function ServerStep({
   onConnect: () => void;
   color: ReturnType<typeof useThemeColor>;
   tailscaleAvailable: boolean;
+  tailscaleLoadError: string | null;
   useTailscale: boolean;
   setUseTailscale: (v: boolean) => void;
   tailscaleAuthKey: string;
@@ -643,7 +650,9 @@ function ServerStep({
                 <Text className="text-[10px] text-muted-foreground">
                   {tailscaleAvailable
                     ? "Userspace node in-app (no system VPN)"
-                    : "Needs custom native build"}
+                    : tailscaleLoadError
+                      ? "Native library failed to load"
+                      : "Needs custom native build"}
                 </Text>
               </View>
             </View>
@@ -652,7 +661,9 @@ function ServerStep({
               onChange={(v) => {
                 if (!tailscaleAvailable) {
                   toast.error(
-                    "Rebuild the app with the termix-tailscale native module to enable this.",
+                    tailscaleLoadError
+                      ? `Tailscale native library failed to load: ${tailscaleLoadError}`
+                      : "Rebuild the app with the termix-tailscale native module to enable this.",
                   );
                   return;
                 }
@@ -661,6 +672,11 @@ function ServerStep({
               disabled={busy}
             />
           </View>
+          {!tailscaleAvailable && tailscaleLoadError ? (
+            <Text className="mt-2 text-[10px] leading-4 text-muted-foreground">
+              {tailscaleLoadError}
+            </Text>
+          ) : null}
 
           {useTailscale && tailscaleAvailable ? (
             <View className="mt-3 gap-3">
