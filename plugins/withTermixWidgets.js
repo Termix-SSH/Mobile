@@ -37,6 +37,9 @@ const DEFAULT_TARGET_NAME = "TermixWidgets";
  * offer the widgets.
  */
 const DEFAULT_DEPLOYMENT_TARGET = "16.0";
+// Keep the WidgetKit extension's Swift module separate from the TermixWidgets
+// Expo bridge pod, which must remain available to the iOS 15.1 app target.
+const WIDGET_EXTENSION_MODULE_NAME = "TermixWidgetExtension";
 const APP_GROUP_INFO_KEY = "TermixWidgetsAppGroup";
 const APP_GROUP_ENTITLEMENT = "com.apple.security.application-groups";
 const APP_GROUP_BUILD_SETTING = "TERMIX_WIDGETS_APP_GROUP";
@@ -263,6 +266,7 @@ const withWidgetTarget = (config, options) =>
       PRODUCT_NAME: `"$(TARGET_NAME)"`,
       SKIP_INSTALL: "YES",
       SWIFT_EMIT_LOC_STRINGS: "YES",
+      SWIFT_MODULE_NAME: WIDGET_EXTENSION_MODULE_NAME,
       SWIFT_VERSION: "5.0",
       TARGETED_DEVICE_FAMILY: `"1,2"`,
       // Consumed by the extension's Info.plist so the App Group id is defined
