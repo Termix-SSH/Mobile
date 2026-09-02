@@ -154,7 +154,8 @@ private final class TerminalImeTextView: UITextView, UITextViewDelegate {
         return false
       }
 
-      if (ctrl || alt), let input = key.charactersIgnoringModifiers, input.count == 1 {
+      let input = key.charactersIgnoringModifiers
+      if (ctrl || alt), input.count == 1 {
         onSpecialKey?(input, shift, ctrl, alt)
         return false
       }
