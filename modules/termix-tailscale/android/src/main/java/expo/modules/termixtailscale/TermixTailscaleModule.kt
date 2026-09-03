@@ -161,16 +161,20 @@ class TermixTailscaleModule : Module() {
     val rawReason = error.message
       ?.replace(Regex("\\s+"), " ")
       ?.trim()
-      ?.take(512)
-    val reason = if (rawReason.isNullOrEmpty()) {
-      error::class.java.simpleName
-    } else {
-      rawReason
-    }
+    val reason = sanitizeNativeLoadMessage(
+      if (rawReason.isNullOrEmpty()) error::class.java.simpleName else rawReason
+    ).take(512)
     val deviceAbis = Build.SUPPORTED_ABIS
       .joinToString(",")
       .ifEmpty { "unknown" }
     nativeLoadError = "$reason (device ABIs: $deviceAbis; this build: $SUPPORTED_ABI)"
-    Log.e(TAG, "Unable to load Tailscale native libraries: $nativeLoadError", error)
+    Log.e(TAG, "Unable to load Tailscale native libraries: $nativeLoadError")
+  }
+
+  /** Remove filesystem paths from linker diagnostics before exposing them to JS. */
+  private fun sanitizeNativeLoadMessage(message: String): String {
+    return message.replace(
+      Regex("""(?:/[^\s"']+/)?(libtermix_ts(?:_jni)?\.so)"""),
+    ) { match -> match.groupValues[1] }
   }
 }

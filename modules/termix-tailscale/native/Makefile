@@ -62,7 +62,7 @@ android: deps
 	mkdir -p $(ANDROID_OUT)/arm64-v8a
 	GOOS=android GOARCH=arm64 CGO_ENABLED=1 \
 		CC="$(ANDROID_CLANG)" \
-		go build -ldflags="-checklinkname=0 -extldflags=-Wl,-z,max-page-size=16384" \
+		go build -ldflags="-checklinkname=0 -extldflags=-Wl,-soname,libtermix_ts.so,-z,max-page-size=16384" \
 			-buildmode=c-shared -o $(ANDROID_OUT)/arm64-v8a/libtermix_ts.so .
 	cp $(HEADER) $(ANDROID_OUT)/termix_ts.h
 	@echo "Installed $(ANDROID_OUT)/arm64-v8a/libtermix_ts.so"

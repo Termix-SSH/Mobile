@@ -39,6 +39,7 @@ if(EXISTS "${GO_LIBRARY}")
   add_library(termix_ts_prebuilt SHARED IMPORTED GLOBAL)
   set_target_properties(termix_ts_prebuilt PROPERTIES
     IMPORTED_LOCATION "${GO_LIBRARY}"
+    IMPORTED_SONAME "libtermix_ts.so"
   )
   target_link_libraries(termix_ts_jni PRIVATE termix_ts_prebuilt)
 else()
