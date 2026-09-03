@@ -5,8 +5,7 @@ on:
 
 jobs:
   build-ipados:
-    # Match branches that already build IPA successfully (not Blacksmith).
-    runs-on: macos-15
+    runs-on: blacksmith-6vcpu-macos-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
