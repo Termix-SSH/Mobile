@@ -26,13 +26,14 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
 ) {
   const placeholderColor = useThemeColor()("muted-foreground", 0.7);
 
+  // Padding lives on the container so leading/trailing icons are inset from the
+  // border by the same amount as the text, instead of sitting flush against it.
   // Multiline grows with content, so the container can't be a fixed-height
   // centered row — it must allow height and top-align its children. Single-line
   // keeps the original fixed 40px row.
   const layout = multiline
-    ? "flex-row items-start gap-2 py-2"
-    : "flex-row items-center gap-2";
-  const inputLayout = multiline ? "min-h-10 px-2.5" : "h-10 px-2.5";
+    ? "flex-row items-start gap-2 px-2.5 py-2"
+    : "flex-row items-center gap-2 h-10 px-2.5";
 
   return (
     <View
@@ -43,9 +44,9 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
         ref={ref}
         multiline={multiline}
         placeholderTextColor={placeholderColor}
-        className={`${inputLayout} flex-1 text-sm text-foreground ${className ?? ""}`}
+        className={`${multiline ? "min-h-6" : "h-full"} flex-1 text-sm text-foreground ${className ?? ""}`}
         style={[
-          { fontFamily: MONO_FONT, paddingVertical: 0 },
+          { fontFamily: MONO_FONT, paddingVertical: 0, paddingHorizontal: 0 },
           multiline ? { textAlignVertical: "top" } : null,
           style,
         ]}

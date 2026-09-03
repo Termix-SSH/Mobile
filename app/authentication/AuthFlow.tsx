@@ -461,6 +461,24 @@ export default function AuthFlow() {
 
 // ── Sub-steps ───────────────────────────────────────────────────────────────
 
+/** Label above a field, with consistent spacing between the two. */
+function Field({
+  label,
+  className,
+  children,
+}: {
+  label: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <View className={className}>
+      <Label className="mb-1.5">{label}</Label>
+      {children}
+    </View>
+  );
+}
+
 function ServerStep({
   serverUrl,
   setServerUrl,
@@ -477,8 +495,7 @@ function ServerStep({
   return (
     <>
       <View className="w-full max-w-md border border-border bg-card p-5">
-        <Label>Server Address</Label>
-        <View className="mt-2">
+        <Field label="Server Address">
           <Input
             placeholder="https://termix.example.com"
             value={serverUrl}
@@ -492,7 +509,7 @@ function ServerStep({
             onSubmitEditing={onConnect}
             returnKeyType="go"
           />
-        </View>
+        </Field>
         <Text className="mt-2 text-[11px] text-muted-foreground">
           Enter the address of your self-hosted Termix server, including http://
           or https://.
@@ -621,8 +638,7 @@ function LoginStep({
     <View className="w-full max-w-md">
       {showPasswordCard ? (
         <View className="border border-border bg-card p-5">
-          <Label>Username</Label>
-          <View className="mb-4 mt-2">
+          <Field label="Username">
             <Input
               placeholder="username"
               value={username}
@@ -633,9 +649,8 @@ function LoginStep({
               editable={!busy}
               leading={<UserIcon size={16} color={color("muted-foreground")} />}
             />
-          </View>
-          <Label>Password</Label>
-          <View className="mt-2">
+          </Field>
+          <Field label="Password" className="mt-4">
             <PasswordInput
               value={password}
               onChangeText={setPassword}
@@ -644,7 +659,7 @@ function LoginStep({
               onSubmitEditing={handleLogin}
               color={color}
             />
-          </View>
+          </Field>
 
           <Button
             variant="accent"
@@ -748,8 +763,7 @@ function TotpStep({
 
   return (
     <View className="w-full max-w-md border border-border bg-card p-5">
-      <Label>Two-Factor Code</Label>
-      <View className="mt-2">
+      <Field label="Two-Factor Code">
         <Input
           placeholder="123456"
           value={code}
@@ -762,7 +776,7 @@ function TotpStep({
           returnKeyType="go"
           leading={<KeyRound size={16} color={color("muted-foreground")} />}
         />
-      </View>
+      </Field>
       <Text className="mt-2 text-[11px] text-muted-foreground">
         Enter the 6-digit code from your authenticator app, or one of your
         backup codes.
@@ -833,27 +847,28 @@ function SignupStep({
 
   return (
     <View className="w-full max-w-md border border-border bg-card p-5">
-      <Label>{firstUser ? "Create Admin Account" : "Create Account"}</Label>
-      {firstUser ? (
-        <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
-          This is the first account on the server and will be an administrator.
-        </Text>
-      ) : (
-        <View className="mb-3" />
-      )}
+      <Text weight="medium" className="text-sm text-foreground">
+        {firstUser ? "Create Admin Account" : "Create Account"}
+      </Text>
+      <Text className="mb-4 mt-1 text-[11px] text-muted-foreground">
+        {firstUser
+          ? "This is the first account on the server and will be an administrator."
+          : "Pick a username and password for this server."}
+      </Text>
 
-      <View className="mb-4">
+      <Field label="Username">
         <Input
           placeholder="username"
           value={username}
           onChangeText={setUsername}
           autoCapitalize="none"
           autoCorrect={false}
+          autoComplete="username-new"
           editable={!busy}
           leading={<UserIcon size={16} color={color("muted-foreground")} />}
         />
-      </View>
-      <View className="mb-4">
+      </Field>
+      <Field label="Password" className="mt-4">
         <PasswordInput
           value={password}
           onChangeText={setPassword}
@@ -861,8 +876,8 @@ function SignupStep({
           editable={!busy}
           color={color}
         />
-      </View>
-      <View>
+      </Field>
+      <Field label="Confirm Password" className="mt-4">
         <PasswordInput
           value={confirm}
           onChangeText={setConfirm}
@@ -871,7 +886,7 @@ function SignupStep({
           onSubmitEditing={handleSignup}
           color={color}
         />
-      </View>
+      </Field>
 
       <Button
         variant="accent"
@@ -969,23 +984,27 @@ function ResetStep({
 
   return (
     <View className="w-full max-w-md border border-border bg-card p-5">
-      <Label>Reset Password</Label>
+      <Text weight="medium" className="text-sm text-foreground">
+        Reset Password
+      </Text>
 
       {phase === "request" && (
         <>
-          <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
+          <Text className="mb-4 mt-1 text-[11px] text-muted-foreground">
             Enter your username. A reset code will be generated and printed to
             the server&apos;s logs.
           </Text>
-          <Input
-            placeholder="username"
-            value={username}
-            onChangeText={setUsername}
-            autoCapitalize="none"
-            autoCorrect={false}
-            editable={!busy}
-            leading={<UserIcon size={16} color={color("muted-foreground")} />}
-          />
+          <Field label="Username">
+            <Input
+              placeholder="username"
+              value={username}
+              onChangeText={setUsername}
+              autoCapitalize="none"
+              autoCorrect={false}
+              editable={!busy}
+              leading={<UserIcon size={16} color={color("muted-foreground")} />}
+            />
+          </Field>
           <Button
             variant="accent"
             size="lg"
@@ -1000,19 +1019,21 @@ function ResetStep({
 
       {phase === "code" && (
         <>
-          <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
+          <Text className="mb-4 mt-1 text-[11px] text-muted-foreground">
             Enter the 6-digit reset code from the server logs.
           </Text>
-          <Input
-            placeholder="123456"
-            value={resetCode}
-            onChangeText={setResetCode}
-            keyboardType="number-pad"
-            autoCapitalize="none"
-            autoCorrect={false}
-            editable={!busy}
-            leading={<KeyRound size={16} color={color("muted-foreground")} />}
-          />
+          <Field label="Reset Code">
+            <Input
+              placeholder="123456"
+              value={resetCode}
+              onChangeText={setResetCode}
+              keyboardType="number-pad"
+              autoCapitalize="none"
+              autoCorrect={false}
+              editable={!busy}
+              leading={<KeyRound size={16} color={color("muted-foreground")} />}
+            />
+          </Field>
           <Button
             variant="accent"
             size="lg"
@@ -1027,17 +1048,19 @@ function ResetStep({
 
       {phase === "password" && (
         <>
-          <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
+          <Text className="mb-4 mt-1 text-[11px] text-muted-foreground">
             Choose a new password.
           </Text>
-          <PasswordInput
-            value={newPassword}
-            onChangeText={setNewPassword}
-            placeholder="new password"
-            editable={!busy}
-            onSubmitEditing={setNew}
-            color={color}
-          />
+          <Field label="New Password">
+            <PasswordInput
+              value={newPassword}
+              onChangeText={setNewPassword}
+              placeholder="new password"
+              editable={!busy}
+              onSubmitEditing={setNew}
+              color={color}
+            />
+          </Field>
           <Button
             variant="accent"
             size="lg"
