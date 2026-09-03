@@ -3,6 +3,8 @@ package expo.modules.terminalimeinput
 import android.content.Context
 import android.graphics.Color
 import android.text.InputType
+import android.view.InputDevice
+import android.view.KeyCharacterMap
 import android.view.KeyEvent
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
@@ -33,11 +35,9 @@ private class TerminalImeEditText(
       EditorInfo.IME_ACTION_NONE or
         EditorInfo.IME_FLAG_NO_EXTRACT_UI or
         EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING
-    inputType =
-      InputType.TYPE_CLASS_TEXT or
-        InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD or
-        InputType.TYPE_TEXT_FLAG_MULTI_LINE or
-        InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+    // Keep this a normal composing text field. Password/no-suggestions flags
+    // prevent Gboard and other IMEs from producing CJK preedit candidates.
+    inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
     setPadding(0, 0, 0, 0)
   }
 
@@ -53,7 +53,10 @@ private class TerminalImeEditText(
   override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
     val mappedKey = mapSpecialKey(keyCode)
     if (mappedKey == null) {
-      if (owner.isCompositionActive()) {
+      // Printable software-IME keys must reach InputConnection first. Gboard
+      // uses composing text for Pinyin; only use this fallback for hardware
+      // keyboard events that do not go through InputConnection.
+      if (owner.isCompositionActive() || !isHardwareKeyEvent(event)) {
         return super.onKeyDown(keyCode, event)
       }
 
@@ -156,6 +159,11 @@ private class TerminalImeEditText(
     owner.emitSpecialKey("Enter")
     clearInputState()
     return true
+  }
+
+  private fun isHardwareKeyEvent(event: KeyEvent): Boolean {
+    return event.deviceId != KeyCharacterMap.VIRTUAL_KEYBOARD &&
+      event.isFromSource(InputDevice.SOURCE_KEYBOARD)
   }
 
   private fun mapSpecialKey(keyCode: Int): String? = when (keyCode) {
