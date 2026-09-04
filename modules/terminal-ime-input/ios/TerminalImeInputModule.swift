@@ -125,7 +125,7 @@ private final class TerminalImeTextView: UITextView, UITextViewDelegate {
 
   override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
     let unhandled = presses.filter { press in
-      guard press.type == .keyboard, let key = press.key else { return true }
+      guard let key = press.key else { return true }
 
       let modifiers = key.modifierFlags
       let shift = modifiers.contains(.shift)
