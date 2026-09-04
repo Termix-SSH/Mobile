@@ -62,12 +62,10 @@
         "expo-build-properties",
         {
           "android": {
-            "newArchEnabled": true,
             "usesCleartextTraffic": true,
             "gradle": "8.13.1"
           },
           "ios": {
-            "newArchEnabled": true,
             "deploymentTarget": "15.1"
           }
         }
