@@ -89,7 +89,24 @@
         "origin": false
       },
       "eas": {
-        "projectId": "cf86f530-ca4b-44bf-bb68-4d178b264910"
+        "projectId": "cf86f530-ca4b-44bf-bb68-4d178b264910",
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "targetName": "TermixWidgets",
+                  "bundleIdentifier": "com.karmaa.termix.widgets",
+                  "entitlements": {
+                    "com.apple.security.application-groups": [
+                      "group.com.karmaa.termix.widgets"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
       }
     },
     "assetBundlePatterns": ["assets/**/*"],
