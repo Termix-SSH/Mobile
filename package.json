@@ -78,6 +78,9 @@
     "prettier-plugin-tailwindcss": "^0.7.3",
     "typescript": "~5.9.2"
   },
+  "overrides": {
+    "@expo/fingerprint": "0.15.5"
+  },
   "expo": {
     "autolinking": {
       "nativeModulesDir": "./modules"
