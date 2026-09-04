@@ -273,6 +273,55 @@ const withWidgetTarget = (config, options) =>
     return config;
   });
 
+/**
+ * Copies the app target's DEVELOPMENT_TEAM onto the widget target.
+ *
+ * The extension signs with CODE_SIGN_STYLE=Automatic, which requires a team.
+ * EAS injects the team into the app target from the build credentials, long
+ * after the target above is created, and it knows nothing about targets a
+ * plugin added — so the extension would otherwise reach Xcode with no team and
+ * fail with "resource bundles are signed by default, which requires setting the
+ * development team for each resource bundle target".
+ *
+ * Reading the value back off the app target keeps the id out of the repo and
+ * works for any credentials the build happens to run with. This runs as a
+ * separate mod so it applies on re-runs too, when the target already exists.
+ */
+function copyDevelopmentTeamToWidget(project, targetName) {
+  const target = project.pbxTargetByName(targetName);
+  if (!target) return false;
+
+  const appTarget = project.getFirstTarget();
+  const configurations = project.pbxXCBuildConfigurationSection();
+  const lists = project.pbxXCConfigurationList();
+
+  // The app's team: whatever EAS (or a local Xcode) resolved for it.
+  let team;
+  const appListUuid = appTarget?.firstTarget?.buildConfigurationList;
+  for (const entry of lists[appListUuid]?.buildConfigurations ?? []) {
+    const found = configurations[entry.value]?.buildSettings?.DEVELOPMENT_TEAM;
+    if (found) {
+      team = found;
+      break;
+    }
+  }
+
+  if (!team) return false;
+
+  applyBuildSettings(
+    project,
+    { pbxNativeTarget: target },
+    { DEVELOPMENT_TEAM: team },
+  );
+  return true;
+}
+
+const withWidgetSigning = (config, options) =>
+  withXcodeProject(config, (config) => {
+    copyDevelopmentTeamToWidget(config.modResults, options.targetName);
+    return config;
+  });
+
 const withTermixWidgets = (config, props = {}) => {
   const options = resolveOptions(config, props);
 
@@ -280,6 +329,8 @@ const withTermixWidgets = (config, props = {}) => {
   config = withAppGroupInfoPlist(config, options);
   config = withWidgetSources(config, options);
   config = withWidgetTarget(config, options);
+  // Must run after the target exists.
+  config = withWidgetSigning(config, options);
 
   return config;
 };
