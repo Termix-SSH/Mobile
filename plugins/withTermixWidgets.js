@@ -274,51 +274,89 @@ const withWidgetTarget = (config, options) =>
   });
 
 /**
- * Copies the app target's DEVELOPMENT_TEAM onto the widget target.
+ * Makes the widget extension signable on EAS.
  *
- * The extension signs with CODE_SIGN_STYLE=Automatic, which requires a team.
- * EAS injects the team into the app target from the build credentials, long
- * after the target above is created, and it knows nothing about targets a
- * plugin added — so the extension would otherwise reach Xcode with no team and
- * fail with "resource bundles are signed by default, which requires setting the
- * development team for each resource bundle target".
+ * Two problems, both visible in the failing Xcode log
+ * ("Signing for \"TermixWidgets\" requires a development team"):
  *
- * Reading the value back off the app target keeps the id out of the repo and
- * works for any credentials the build happens to run with. This runs as a
- * separate mod so it applies on re-runs too, when the target already exists.
+ *  1. No team. EAS only sets DEVELOPMENT_TEAM when `ios.appleTeamId` is in the
+ *     app config; without it no target gets a team, so there is nothing to
+ *     inherit. We recover it from the provisioning profile EAS installs for the
+ *     app target, which always carries the team id.
+ *  2. Automatic signing. The target asked Xcode to fetch its own profile for
+ *     <bundleId>.widgets, but EAS only registers credentials for the app's
+ *     bundle id (see the "Detected provisioning profile mapping" log line) and
+ *     no Xcode account is signed in on the builder. Manual signing with an
+ *     empty profile lets the extension ride along with the app's signature,
+ *     which is what an internal/development build needs.
+ *
+ * Reading the team at build time keeps the id out of the repo. Setting
+ * `ios.appleTeamId` in app.json also works and takes precedence, since Expo's
+ * own withDevelopmentTeam then sets the team on every target before this runs.
  */
-function copyDevelopmentTeamToWidget(project, targetName) {
-  const target = project.pbxTargetByName(targetName);
-  if (!target) return false;
-
-  const appTarget = project.getFirstTarget();
+function findAppleTeamId(project) {
   const configurations = project.pbxXCBuildConfigurationSection();
-  const lists = project.pbxXCConfigurationList();
+  for (const key of Object.keys(configurations)) {
+    const team = configurations[key]?.buildSettings?.DEVELOPMENT_TEAM;
+    if (team) return String(team).replace(/"/g, "");
+  }
+  return null;
+}
 
-  // The app's team: whatever EAS (or a local Xcode) resolved for it.
-  let team;
-  const appListUuid = appTarget?.firstTarget?.buildConfigurationList;
-  for (const entry of lists[appListUuid]?.buildConfigurations ?? []) {
-    const found = configurations[entry.value]?.buildSettings?.DEVELOPMENT_TEAM;
-    if (found) {
-      team = found;
-      break;
-    }
+/** Reads the team id out of an installed .mobileprovision, if one is present. */
+function teamIdFromProvisioningProfile() {
+  const home = process.env.HOME;
+  if (!home) return null;
+
+  const dir = path.join(
+    home,
+    "Library",
+    "MobileDevice",
+    "Provisioning Profiles",
+  );
+  let files;
+  try {
+    files = fs.readdirSync(dir).filter((f) => f.endsWith(".mobileprovision"));
+  } catch {
+    return null;
   }
 
-  if (!team) return false;
-
-  applyBuildSettings(
-    project,
-    { pbxNativeTarget: target },
-    { DEVELOPMENT_TEAM: team },
-  );
-  return true;
+  for (const file of files) {
+    try {
+      // A .mobileprovision is CMS-wrapped, but the embedded plist is plain
+      // text, so the value can be read without decoding the container.
+      const raw = fs.readFileSync(path.join(dir, file), "latin1");
+      const match = raw.match(
+        /<key>TeamIdentifier<\/key>\s*<array>\s*<string>([^<]+)<\/string>/,
+      );
+      if (match) return match[1];
+    } catch {
+      // Unreadable profile — try the next one.
+    }
+  }
+  return null;
 }
 
 const withWidgetSigning = (config, options) =>
   withXcodeProject(config, (config) => {
-    copyDevelopmentTeamToWidget(config.modResults, options.targetName);
+    const project = config.modResults;
+    const target = project.pbxTargetByName(options.targetName);
+    if (!target) return config;
+
+    const team = findAppleTeamId(project) ?? teamIdFromProvisioningProfile();
+
+    applyBuildSettings(
+      project,
+      { pbxNativeTarget: target },
+      {
+        // Ride on the app's signature instead of resolving a second profile
+        // for the extension's own bundle id, which EAS has not registered.
+        CODE_SIGN_STYLE: "Manual",
+        PROVISIONING_PROFILE_SPECIFIER: '""',
+        ...(team ? { DEVELOPMENT_TEAM: team } : {}),
+      },
+    );
+
     return config;
   });
 
