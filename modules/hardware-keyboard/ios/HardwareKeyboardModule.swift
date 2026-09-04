@@ -157,7 +157,8 @@ extension UIResponder {
         HardwareKeyboardModule.emitToAll("F12", shift: shift, ctrl: ctrl, alt: alt)
         return true
       default:
-        if let input = key.charactersIgnoringModifiers, input.count == 1 {
+        let input = key.charactersIgnoringModifiers
+        if input.count == 1 {
           if ctrl {
             HardwareKeyboardModule.emitToAll(input, shift: shift, ctrl: true, alt: alt)
             return true
