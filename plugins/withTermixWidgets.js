@@ -177,7 +177,11 @@ const withWidgetTarget = (config, options) =>
 
     // Prebuild regenerates the project, but a re-run (or `prebuild` without
     // `--clean`) must not create the target twice.
-    if (project.pbxTargetByName(targetName)) {
+    // xcode stores the target name quoted, so check both forms.
+    if (
+      project.pbxTargetByName(targetName) ??
+      project.pbxTargetByName(`"${targetName}"`)
+    ) {
       return config;
     }
 
@@ -264,48 +268,19 @@ const withWidgetTarget = (config, options) =>
       SKIP_INSTALL: "YES",
       SWIFT_EMIT_LOC_STRINGS: "YES",
       SWIFT_VERSION: "5.0",
+      // Xcode refuses to archive an extension with no team ("Signing for
+      // TermixWidgets requires a development team"). Expo's withDevelopmentTeam
+      // only covers targets that already existed when it ran, and xcodeproj mods
+      // run last-registered-first, so a later mod of ours would execute BEFORE
+      // this target exists. Setting it here is the only ordering that works.
+      ...(config.ios?.appleTeamId
+        ? { DEVELOPMENT_TEAM: config.ios.appleTeamId }
+        : {}),
       TARGETED_DEVICE_FAMILY: `"1,2"`,
       // Consumed by the extension's Info.plist so the App Group id is defined
       // in exactly one place.
       [APP_GROUP_BUILD_SETTING]: `"${options.appGroupIdentifier}"`,
     });
-
-    return config;
-  });
-
-/**
- * Guarantees the widget extension has a DEVELOPMENT_TEAM.
- *
- * Xcode refuses to archive an extension without one ("Signing for
- * \"TermixWidgets\" requires a development team"). Expo's own
- * withDevelopmentTeam sets the team on every target, but only when
- * `ios.appleTeamId` is present in app.json — this re-applies it to the widget
- * target as a safety net, since the target is created by this plugin and would
- * otherwise depend on mod ordering.
- */
-function findAppleTeamId(project) {
-  const configurations = project.pbxXCBuildConfigurationSection();
-  for (const key of Object.keys(configurations)) {
-    const team = configurations[key]?.buildSettings?.DEVELOPMENT_TEAM;
-    if (team) return String(team).replace(/"/g, "");
-  }
-  return null;
-}
-
-const withWidgetSigning = (config, options) =>
-  withXcodeProject(config, (config) => {
-    const project = config.modResults;
-    const target = project.pbxTargetByName(options.targetName);
-    if (!target) return config;
-
-    const team = config.ios?.appleTeamId ?? findAppleTeamId(project);
-    if (!team) return config;
-
-    applyBuildSettings(
-      project,
-      { pbxNativeTarget: target },
-      { DEVELOPMENT_TEAM: team },
-    );
 
     return config;
   });
@@ -317,8 +292,6 @@ const withTermixWidgets = (config, props = {}) => {
   config = withAppGroupInfoPlist(config, options);
   config = withWidgetSources(config, options);
   config = withWidgetTarget(config, options);
-  // Must run after the target exists.
-  config = withWidgetSigning(config, options);
 
   return config;
 };
