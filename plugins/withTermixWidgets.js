@@ -256,7 +256,12 @@ const withWidgetTarget = (config, options) =>
       ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: "NO",
       CLANG_ENABLE_MODULES: "YES",
       CODE_SIGN_ENTITLEMENTS: `"${targetName}/${entitlementsFile}"`,
-      CODE_SIGN_STYLE: "Automatic",
+      // EAS signs manually with a profile for the app's bundle id only, so
+      // automatic signing would send Xcode looking for a profile for
+      // <bundleId>.widgets that does not exist. Empty identity/profile makes
+      // the extension inherit the app target's signing instead.
+      CODE_SIGN_STYLE: "Manual",
+      PROVISIONING_PROFILE_SPECIFIER: `""`,
       CURRENT_PROJECT_VERSION: `"${config.ios?.buildNumber ?? "1"}"`,
       GENERATE_INFOPLIST_FILE: "NO",
       INFOPLIST_FILE: `"${targetName}/Info.plist"`,
