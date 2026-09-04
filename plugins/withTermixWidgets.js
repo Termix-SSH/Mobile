@@ -175,9 +175,8 @@ const withWidgetTarget = (config, options) =>
     const project = config.modResults;
     const { targetName } = options;
 
-    // Prebuild regenerates the project, but a re-run (or `prebuild` without
-    // `--clean`) must not create the target twice.
-    // xcode stores the target name quoted, so check both forms.
+    // A re-run must not create the target twice. xcode stores the name
+    // quoted, so check both forms.
     if (
       project.pbxTargetByName(targetName) ??
       project.pbxTargetByName(`"${targetName}"`)
@@ -256,11 +255,8 @@ const withWidgetTarget = (config, options) =>
       ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: "NO",
       CLANG_ENABLE_MODULES: "YES",
       CODE_SIGN_ENTITLEMENTS: `"${targetName}/${entitlementsFile}"`,
-      // EAS provisions this target's own profile via
-      // extra.eas.build.experimental.ios.appExtensions in app.json, and injects
-      // it with manual signing (its App Group entitlement rules out riding on
-      // the app's profile). It fills in the specifier itself, so none is set
-      // here.
+      // EAS provisions this target's profile from the appExtensions entry in
+      // app.json and fills in the specifier itself.
       CODE_SIGN_STYLE: "Manual",
       CURRENT_PROJECT_VERSION: `"${config.ios?.buildNumber ?? "1"}"`,
       GENERATE_INFOPLIST_FILE: "NO",
@@ -273,11 +269,8 @@ const withWidgetTarget = (config, options) =>
       SKIP_INSTALL: "YES",
       SWIFT_EMIT_LOC_STRINGS: "YES",
       SWIFT_VERSION: "5.0",
-      // Xcode refuses to archive an extension with no team ("Signing for
-      // TermixWidgets requires a development team"). Expo's withDevelopmentTeam
-      // only covers targets that already existed when it ran, and xcodeproj mods
-      // run last-registered-first, so a later mod of ours would execute BEFORE
-      // this target exists. Setting it here is the only ordering that works.
+      // Must be set here: xcodeproj mods run last-registered-first, so a later
+      // mod would run before this target exists.
       ...(config.ios?.appleTeamId
         ? { DEVELOPMENT_TEAM: config.ios.appleTeamId }
         : {}),

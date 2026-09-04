@@ -26,11 +26,9 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
 ) {
   const placeholderColor = useThemeColor()("muted-foreground", 0.7);
 
-  // Padding lives on the container so leading/trailing icons are inset from the
-  // border by the same amount as the text, instead of sitting flush against it.
-  // Multiline grows with content, so the container can't be a fixed-height
-  // centered row — it must allow height and top-align its children. Single-line
-  // keeps the original fixed 40px row.
+  // Padding sits on the container so leading/trailing icons are inset from the
+  // border like the text is. Multiline grows with content, so it can't use a
+  // fixed height.
   const layout = multiline
     ? "flex-row items-start gap-2 px-2.5 py-2"
     : "flex-row items-center gap-2 h-10 px-2.5";
