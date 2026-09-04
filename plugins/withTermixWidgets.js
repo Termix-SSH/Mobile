@@ -25,11 +25,14 @@ const path = require("path");
  *
  * Options (all optional):
  *   appGroupIdentifier  defaults to `group.<bundleId>.widgets`
- *   targetName          defaults to "TermixWidgets"
+ *   targetName          defaults to "TermixWidgetsExtension"
  *   deploymentTarget    defaults to "16.0" (see below)
  */
 
-const DEFAULT_TARGET_NAME = "TermixWidgets";
+// Must not collide with the TermixWidgets pod (the module bridge): the app does
+// `import TermixWidgets`, and a target of the same name shadows the pod with the
+// extension's iOS 16 module.
+const DEFAULT_TARGET_NAME = "TermixWidgetsExtension";
 /**
  * The extension targets iOS 16 even though the app supports 15.1: WidgetKit's
  * modern layout APIs (and SwiftUI's `Text.tracking`) require it. An extension

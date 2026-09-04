@@ -93,7 +93,7 @@
             "ios": {
               "appExtensions": [
                 {
-                  "targetName": "TermixWidgets",
+                  "targetName": "TermixWidgetsExtension",
                   "bundleIdentifier": "com.karmaa.termix.widgets",
                   "entitlements": {
                     "com.apple.security.application-groups": [
