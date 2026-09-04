@@ -11,6 +11,7 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
+      "appleTeamId": "2CPC5YZYFN",
       "supportsTablet": true,
       "bundleIdentifier": "com.karmaa.termix",
       "icon": {
