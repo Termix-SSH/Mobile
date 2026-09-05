@@ -1,0 +1,91 @@
+name: Build iOS Development
+
+on:
+  workflow_dispatch:
+    inputs:
+      wait:
+        type: boolean
+        description: Wait for the build to finish and download the IPA
+        default: true
+      clear_cache:
+        type: boolean
+        description: Clear the EAS build cache
+        default: false
+
+concurrency:
+  group: build-ios-dev-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: eas build (development, ios)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          token: ${{ secrets.EXPO_TOKEN }}
+          eas-version: latest
+          packager: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check Expo auth
+        run: eas whoami
+
+      - name: Build
+        env:
+          # App Store Connect API key, used for signing and device/profile sync.
+          EXPO_ASC_API_KEY_PATH: ${{ github.workspace }}/asc-api-key.p8
+          EXPO_ASC_KEY_ID: ${{ secrets.EXPO_ASC_KEY_ID }}
+          EXPO_ASC_ISSUER_ID: ${{ secrets.EXPO_ASC_ISSUER_ID }}
+          EXPO_APPLE_TEAM_ID: ${{ secrets.EXPO_APPLE_TEAM_ID }}
+          EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
+          # Fallback when no API key is configured.
+          EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
+          EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+          ASC_API_KEY: ${{ secrets.EXPO_ASC_API_KEY_P8 }}
+        run: |
+          if [ -n "$ASC_API_KEY" ]; then
+            printf '%s\n' "$ASC_API_KEY" > "$EXPO_ASC_API_KEY_PATH"
+            chmod 600 "$EXPO_ASC_API_KEY_PATH"
+            echo "Using App Store Connect API key $EXPO_ASC_KEY_ID"
+          else
+            unset EXPO_ASC_API_KEY_PATH EXPO_ASC_KEY_ID EXPO_ASC_ISSUER_ID
+            echo "No ASC API key set, falling back to Apple ID auth"
+          fi
+
+          ARGS="--platform ios --profile development --non-interactive"
+          if [ "${{ inputs.clear_cache }}" = "true" ]; then
+            ARGS="$ARGS --clear-cache"
+          fi
+
+          if [ "${{ inputs.wait }}" = "true" ]; then
+            mkdir -p build-artifacts
+            eas build $ARGS --output build-artifacts/termix-ios-development.ipa
+          else
+            eas build $ARGS --no-wait
+          fi
+
+      - name: Remove API key
+        if: always()
+        run: rm -f "${{ github.workspace }}/asc-api-key.p8"
+
+      - name: Upload IPA
+        if: ${{ inputs.wait }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: termix-ios-development
+          path: build-artifacts/termix-ios-development.ipa
+          retention-days: 30
+          if-no-files-found: error
