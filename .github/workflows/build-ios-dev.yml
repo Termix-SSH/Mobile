@@ -19,7 +19,7 @@ concurrency:
 jobs:
   build:
     name: eas build (development, ios)
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-8vcpu-ubuntu-2404
     steps:
       - name: Setup repo
         uses: actions/checkout@v4
@@ -45,13 +45,11 @@ jobs:
 
       - name: Build
         env:
-          # App Store Connect API key, used for signing and device/profile sync.
           EXPO_ASC_API_KEY_PATH: ${{ github.workspace }}/asc-api-key.p8
           EXPO_ASC_KEY_ID: ${{ secrets.EXPO_ASC_KEY_ID }}
           EXPO_ASC_ISSUER_ID: ${{ secrets.EXPO_ASC_ISSUER_ID }}
           EXPO_APPLE_TEAM_ID: ${{ secrets.EXPO_APPLE_TEAM_ID }}
           EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
-          # Fallback when no API key is configured.
           EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
           ASC_API_KEY: ${{ secrets.EXPO_ASC_API_KEY_P8 }}
