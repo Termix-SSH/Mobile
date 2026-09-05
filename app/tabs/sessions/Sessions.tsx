@@ -973,10 +973,10 @@ export default function Sessions() {
                 lastSpecialKeyRef.current = null;
               }
             }}
-            onFocus={() => {
+            onImeFocus={() => {
               setKeyboardIntentionallyHidden(false);
             }}
-            onBlur={() => {
+            onImeBlur={() => {
               const activeRef = activeSessionId
                 ? terminalRefs.current[activeSessionId]
                 : null;

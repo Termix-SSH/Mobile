@@ -28,8 +28,8 @@ export type TerminalImeInputProps = ViewProps & {
   onCompositionStateChange?: (
     event: NativeSyntheticEvent<TerminalImeInputCompositionStateEvent>,
   ) => void;
-  onFocus?: (event: NativeSyntheticEvent<Record<string, never>>) => void;
-  onBlur?: (event: NativeSyntheticEvent<Record<string, never>>) => void;
+  onImeFocus?: (event: NativeSyntheticEvent<Record<string, never>>) => void;
+  onImeBlur?: (event: NativeSyntheticEvent<Record<string, never>>) => void;
 };
 
 export type TerminalImeInputHandle = NativeModule & {

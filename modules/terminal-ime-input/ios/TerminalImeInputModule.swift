@@ -5,8 +5,8 @@ private final class TerminalImeTextView: UITextView, UITextViewDelegate {
   var onCommitText: ((String) -> Void)?
   var onSpecialKey: ((String, Bool, Bool, Bool) -> Void)?
   var onCompositionStateChange: ((Bool) -> Void)?
-  var onFocus: (() -> Void)?
-  var onBlur: (() -> Void)?
+  var onImeFocus: (() -> Void)?
+  var onImeBlur: (() -> Void)?
 
   private var isResettingText = false
   private var lastCompositionState = false
@@ -66,11 +66,11 @@ private final class TerminalImeTextView: UITextView, UITextViewDelegate {
   }
 
   func textViewDidBeginEditing(_ textView: UITextView) {
-    onFocus?()
+    onImeFocus?()
   }
 
   func textViewDidEndEditing(_ textView: UITextView) {
-    onBlur?()
+    onImeBlur?()
   }
 
   func textViewDidChange(_ textView: UITextView) {
@@ -180,8 +180,8 @@ final class TerminalImeInputView: ExpoView {
   let onCommitText = EventDispatcher()
   let onSpecialKey = EventDispatcher()
   let onCompositionStateChange = EventDispatcher()
-  let onFocus = EventDispatcher()
-  let onBlur = EventDispatcher()
+  let onImeFocus = EventDispatcher()
+  let onImeBlur = EventDispatcher()
 
   private let textView = TerminalImeTextView(frame: .zero)
 
@@ -206,11 +206,11 @@ final class TerminalImeInputView: ExpoView {
     textView.onCompositionStateChange = { [weak self] active in
       self?.onCompositionStateChange(["active": active])
     }
-    textView.onFocus = { [weak self] in
-      self?.onFocus([:])
+    textView.onImeFocus = { [weak self] in
+      self?.onImeFocus([:])
     }
-    textView.onBlur = { [weak self] in
-      self?.onBlur([:])
+    textView.onImeBlur = { [weak self] in
+      self?.onImeBlur([:])
     }
 
     addSubview(textView)
@@ -243,8 +243,8 @@ public final class TerminalImeInputModule: Module {
         "onCommitText",
         "onSpecialKey",
         "onCompositionStateChange",
-        "onFocus",
-        "onBlur"
+        "onImeFocus",
+        "onImeBlur"
       )
 
       AsyncFunction("focus") { (view: TerminalImeInputView) in

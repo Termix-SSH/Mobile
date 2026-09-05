@@ -255,8 +255,8 @@ class TerminalImeInputView(
   val onCommitText by EventDispatcher()
   val onSpecialKey by EventDispatcher()
   val onCompositionStateChange by EventDispatcher()
-  val onFocus by EventDispatcher()
-  val onBlur by EventDispatcher()
+  val onImeFocus by EventDispatcher()
+  val onImeBlur by EventDispatcher()
 
   private val inputView = TerminalImeEditText(context, this)
   private var compositionActive = false
@@ -269,9 +269,9 @@ class TerminalImeInputView(
     )
     inputView.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
       if (hasFocus) {
-        onFocus(mapOf<String, Any>())
+        onImeFocus(mapOf<String, Any>())
       } else {
-        onBlur(mapOf<String, Any>())
+        onImeBlur(mapOf<String, Any>())
       }
     }
     addView(inputView)
@@ -330,8 +330,8 @@ class TerminalImeInputModule : Module() {
         "onCommitText",
         "onSpecialKey",
         "onCompositionStateChange",
-        "onFocus",
-        "onBlur"
+        "onImeFocus",
+        "onImeBlur"
       )
 
       AsyncFunction("focus") { view: TerminalImeInputView ->
