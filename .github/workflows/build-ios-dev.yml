@@ -69,8 +69,15 @@ jobs:
           fi
 
           if [ "${{ inputs.wait }}" = "true" ]; then
+            eas build $ARGS
             mkdir -p build-artifacts
-            eas build $ARGS --output build-artifacts/termix-ios-development.ipa
+            URL=$(eas build:list --platform ios --build-profile development               --status finished --limit 1 --json --non-interactive               | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const b=JSON.parse(d)[0];process.stdout.write(b&&b.artifacts&&b.artifacts.applicationArchiveUrl||'')})")
+            if [ -z "$URL" ]; then
+              echo "No finished build artifact found"
+              exit 1
+            fi
+            echo "Downloading $URL"
+            curl -fSL "$URL" -o build-artifacts/termix-ios-development.ipa
           else
             eas build $ARGS --no-wait
           fi
