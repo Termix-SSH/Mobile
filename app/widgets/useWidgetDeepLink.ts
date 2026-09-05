@@ -16,7 +16,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Linking } from "react-native";
-import { router } from "expo-router";
+import { router, useRootNavigationState } from "expo-router";
 import { useAppContext } from "@/app/AppContext";
 import {
   useTerminalSessions,
@@ -92,6 +92,12 @@ export function useWidgetDeepLink(): {
   const { isAuthenticated } = useAppContext();
   const { navigateToSessions } = useTerminalSessions();
 
+  // router.push is a no-op until the root navigator has mounted, which is not
+  // the case yet on a cold start from a widget tap. Links are parked until this
+  // turns truthy rather than fired into a navigator that will drop them.
+  const navigationState = useRootNavigationState();
+  const navigatorReady = Boolean(navigationState?.key);
+
   /** Snippet resolved from a widget tap, waiting for the user to pick a host. */
   const [pendingSnippet, setPendingSnippet] = useState<Snippet | null>(null);
 
@@ -99,8 +105,14 @@ export function useWidgetDeepLink(): {
   const pendingRef = useRef<WidgetLink | null>(null);
   /** Guards against the same URL being delivered twice (listener + initial). */
   const lastHandledRef = useRef<{ url: string; at: number } | null>(null);
+  /** Link seen at startup, held until the navigator can accept it. */
+  const initialUrlRef = useRef<string | null>(null);
+  /** True once the startup link has been consumed (or found to be absent). */
+  const initialDrainedRef = useRef(false);
   const authenticatedRef = useRef(isAuthenticated);
   authenticatedRef.current = isAuthenticated;
+  const navigatorReadyRef = useRef(navigatorReady);
+  navigatorReadyRef.current = navigatorReady;
 
   /**
    * Resolves the snippet a widget tap referenced. The widget only carries the
@@ -186,10 +198,10 @@ export function useWidgetDeepLink(): {
       if (!link) return;
       lastHandledRef.current = { url, at: now };
 
-      if (!authenticatedRef.current) {
-        // Park it: the effect below replays it the moment sign-in lands.
+      if (!authenticatedRef.current || !navigatorReadyRef.current) {
+        // Park it: the effect below replays it once sign-in lands and the
+        // navigator is mounted.
         pendingRef.current = link;
-        router.push("/(tabs)/hosts");
         return;
       }
 
@@ -200,24 +212,52 @@ export function useWidgetDeepLink(): {
 
   useEffect(() => {
     const subscription = Linking.addEventListener("url", (event) => {
+      // A live event is always genuine, so let it supersede a stale startup
+      // intent that has not been drained yet.
+      initialDrainedRef.current = true;
       handleUrl(event.url);
     });
-    void Linking.getInitialURL()
-      .then(handleUrl)
-      .catch(() => {
-        // No initial URL is the normal case.
-      });
+
+    if (!initialDrainedRef.current && initialUrlRef.current === null) {
+      void Linking.getInitialURL()
+        .then((url) => {
+          initialUrlRef.current = url ?? "";
+        })
+        .catch(() => {
+          // No initial URL is the normal case.
+          initialUrlRef.current = "";
+        });
+    }
+
     return () => subscription.remove();
   }, [handleUrl]);
 
-  // Replay a parked link once the user is authenticated.
+  // Drain the startup link once the app can actually act on it.
+  //
+  // Android launches MainActivity as singleTask, so relaunching the app from
+  // the task a widget tap created replays that same intent and getInitialURL
+  // keeps returning it. Consuming it exactly once per process stops a tapped
+  // widget from re-navigating (or re-showing an unmatched route) on every
+  // later launch.
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (initialDrainedRef.current) return;
+    if (!navigatorReady) return;
+    const url = initialUrlRef.current;
+    if (url === null) return; // getInitialURL still in flight
+    initialDrainedRef.current = true;
+    // handleUrl parks the link when signed out, so a cold start from a widget
+    // still lands on the right screen after sign-in.
+    if (url) handleUrl(url);
+  }, [navigatorReady, handleUrl]);
+
+  // Replay a parked link once the user is authenticated and the navigator is up.
+  useEffect(() => {
+    if (!isAuthenticated || !navigatorReady) return;
     const pending = pendingRef.current;
     if (!pending) return;
     pendingRef.current = null;
     void runLink(pending);
-  }, [isAuthenticated, runLink]);
+  }, [isAuthenticated, navigatorReady, runLink]);
 
   // Signing out mid-flight must close the run sheet with it.
   useEffect(() => {
