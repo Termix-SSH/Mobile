@@ -305,19 +305,23 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     body {
       margin: 0;
-      padding: 0;
+      padding: 4px 4px 0 4px;
       background-color: ${themeColors.background};
       font-family: ${fontFamily};
       overflow: hidden;
       width: 100vw;
       height: 100vh;
+      box-sizing: border-box;
     }
 
+    /* Padding lives on body, not #terminal: the fit addon derives the row
+       count from #terminal's height but subtracts .xterm's padding (which is
+       0), so any padding here would not be accounted for and the bottom row
+       would be clipped. No bottom padding: the row count is floored, so up to
+       a cell of slack already sits below the last row. */
     #terminal {
-      width: 100vw;
-      height: 100vh;
-      min-height: 100vh;
-      padding: 4px 4px 20px 4px;
+      width: 100%;
+      height: 100%;
       margin: 0;
       box-sizing: border-box;
     }
@@ -744,7 +748,13 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       if (!force && Math.abs(px - (lastViewportHeight || 0)) < 1) return;
       lastViewportHeight = px;
 
-      el.style.height = px + 'px';
+      // px is the RN-measured height of the whole WebView; body's vertical
+      // padding has to come off before sizing #terminal, or the fit addon
+      // rounds up a row that then gets clipped.
+      var bodyStyle = window.getComputedStyle(document.body);
+      var vPad = (parseFloat(bodyStyle.paddingTop) || 0) +
+                 (parseFloat(bodyStyle.paddingBottom) || 0);
+      el.style.height = Math.max(0, px - vPad) + 'px';
       el.style.minHeight = '0px';
 
       try {
