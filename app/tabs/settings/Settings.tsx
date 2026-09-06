@@ -493,12 +493,6 @@ export default function Settings() {
             onToggle={() => toggle("widgets")}
           >
             <View className="pt-1">
-              <Text className="pb-2 text-[11px] text-muted-foreground">
-                Add Termix widgets from your home screen: Quick Connect, Server
-                Status and Snippets. They render a snapshot written by this app
-                — never your credentials — and never connect on their own.
-              </Text>
-
               <SettingRow
                 label="Home screen widgets"
                 description="Publish hosts and snippets to your widgets"
