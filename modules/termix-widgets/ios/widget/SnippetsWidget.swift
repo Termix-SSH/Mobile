@@ -16,7 +16,7 @@ struct SnippetsWidget: Widget {
       SnippetsView(entry: entry)
     }
     .configurationDisplayName("Snippets")
-    .description("Run one of your saved commands on any server.")
+    .description("Run a saved command on a server.")
     .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
   }
 }
@@ -28,11 +28,13 @@ struct SnippetsView: View {
   private var snapshot: WidgetSnapshot { entry.snapshot }
   private var accent: Color { Theme.accent(snapshot.accent) }
 
+  // Counts that fit the container. Overshooting here does not clip cleanly, the
+  // widget gallery renders the overflow running off the preview.
   private var capacity: Int {
     switch family {
-    case .systemSmall: return 3
-    case .systemMedium: return 4
-    default: return 8
+    case .systemSmall: return 2
+    case .systemMedium: return 3
+    default: return 7
     }
   }
 
@@ -89,6 +91,8 @@ struct SnippetsView: View {
 
   private var list: some View {
     // One column reads better than a grid: commands are wide, names are short.
+    // The clipped container guarantees nothing escapes the widget even at a
+    // large Dynamic Type size.
     VStack(spacing: 6) {
       ForEach(visible) { snippet in
         SnippetTile(
@@ -98,5 +102,7 @@ struct SnippetsView: View {
         )
       }
     }
+    .frame(maxWidth: .infinity, alignment: .top)
+    .clipped()
   }
 }

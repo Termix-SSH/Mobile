@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Host picker shown when a widget is placed, and from "Resize/Edit" after. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:background="@color/termix_widget_background"
+  android:padding="20dp">
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/termix_widget_configure_title"
+    android:textColor="@color/termix_widget_text_primary"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    android:fontFamily="monospace" />
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:text="@string/termix_widget_configure_message"
+    android:textColor="@color/termix_widget_text_tertiary"
+    android:textSize="12sp"
+    android:fontFamily="monospace" />
+
+  <ListView
+    android:id="@+id/termix_configure_list"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_marginTop="16dp"
+    android:divider="@android:color/transparent"
+    android:dividerHeight="6dp" />
+
+  <LinearLayout
+    android:id="@+id/termix_configure_empty"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_marginTop="16dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:visibility="gone">
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="@string/termix_widget_configure_empty"
+      android:textColor="@color/termix_widget_text_tertiary"
+      android:textSize="12sp"
+      android:fontFamily="monospace" />
+
+    <Button
+      android:id="@+id/termix_configure_empty_action"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:text="@string/termix_widget_configure_add_anyway" />
+  </LinearLayout>
+</LinearLayout>

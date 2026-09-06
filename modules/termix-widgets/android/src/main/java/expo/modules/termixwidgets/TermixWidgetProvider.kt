@@ -41,6 +41,12 @@ abstract class TermixWidgetProvider : AppWidgetProvider() {
     }
   }
 
+  /** Drops the host choice of a removed widget so ids are not recycled with it. */
+  override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+    super.onDeleted(context, appWidgetIds)
+    runCatching { WidgetSelection.forget(context, appWidgetIds) }
+  }
+
   override fun onAppWidgetOptionsChanged(
     context: Context,
     appWidgetManager: AppWidgetManager,
@@ -110,11 +116,6 @@ abstract class TermixWidgetProvider : AppWidgetProvider() {
   protected open val showsSummaryDot: Boolean = true
 
   private fun renderFooter(views: RemoteViews, snapshot: WidgetSnapshot) {
-    views.setTextViewText(R.id.termix_widget_server, snapshot.server)
-    views.setViewVisibility(
-      R.id.termix_widget_server,
-      if (snapshot.server.isEmpty()) View.GONE else View.VISIBLE
-    )
     views.setTextViewText(
       R.id.termix_widget_age,
       WidgetTheme.relativeAge(snapshot.updatedAt)
@@ -123,8 +124,8 @@ abstract class TermixWidgetProvider : AppWidgetProvider() {
 
   private fun renderEmptyState(views: RemoteViews, snapshot: WidgetSnapshot, accent: Int) {
     val signedOut = snapshot.state == SnapshotState.SIGNED_OUT
-    // The account having hosts while the list is empty means the widget's own
-    // filters excluded them — "no hosts yet" would be a lie.
+    // Hosts exist but none passed the widget filters, so "no hosts yet" would
+    // be wrong here.
     val filteredOut = !signedOut && snapshot.summary.total > 0
     val subject = emptySubject.dropLast(1)
 
@@ -139,10 +140,9 @@ abstract class TermixWidgetProvider : AppWidgetProvider() {
     views.setTextViewText(
       R.id.termix_widget_empty_message,
       when {
-        signedOut -> "Open Termix to connect to your server."
-        filteredOut ->
-          "Widget filters hide every $subject. Change them in Settings \u2192 Widgets."
-        else -> "Add a $subject in Termix, or enable them in Settings \u2192 Widgets."
+        signedOut -> "Open Termix to sign in."
+        filteredOut -> "Your filters hide every $subject. Change them in Settings."
+        else -> "Add a $subject in Termix to see it here."
       }
     )
     views.setTextColor(R.id.termix_widget_empty_action, accent)

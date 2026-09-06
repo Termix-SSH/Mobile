@@ -495,7 +495,7 @@ export default function Settings() {
             <View className="pt-1">
               <SettingRow
                 label="Home screen widgets"
-                description="Publish hosts and snippets to your widgets"
+                description="Show your hosts and snippets on the home screen"
                 last={!widgetPrefs.enabled}
               >
                 <FakeSwitch
@@ -509,7 +509,7 @@ export default function Settings() {
                 <>
                   <SettingRow
                     label="Show addresses"
-                    description="Display user@host under each server"
+                    description="Show user@host under each server name"
                   >
                     <FakeSwitch
                       checked={widgetPrefs.showAddresses}
@@ -521,7 +521,7 @@ export default function Settings() {
 
                   <SettingRow
                     label="Include offline hosts"
-                    description="Otherwise only online servers are listed"
+                    description="Off shows only servers that are online"
                   >
                     <FakeSwitch
                       checked={widgetPrefs.includeOffline}
@@ -533,7 +533,7 @@ export default function Settings() {
 
                   <SettingRow
                     label="Pinned hosts only"
-                    description="Limit widgets to hosts you pinned"
+                    description="Show only the hosts you pinned"
                   >
                     <FakeSwitch
                       checked={widgetPrefs.pinnedOnly}
@@ -545,7 +545,7 @@ export default function Settings() {
 
                   <SettingRow
                     label="Snippets widget"
-                    description="Run saved commands from the home screen"
+                    description="Show saved commands on the home screen"
                     last={!widgetPrefs.includeSnippets}
                   >
                     <FakeSwitch
@@ -559,7 +559,7 @@ export default function Settings() {
                   {widgetPrefs.includeSnippets ? (
                     <SettingRow
                       label="Show command preview"
-                      description="Display the first line of each snippet"
+                      description="Show the first line of each command"
                       last
                     >
                       <FakeSwitch

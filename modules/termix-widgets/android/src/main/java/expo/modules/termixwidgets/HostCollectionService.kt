@@ -1,5 +1,6 @@
 package expo.modules.termixwidgets
 
+import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.text.SpannableString
@@ -20,7 +21,11 @@ import android.widget.RemoteViewsService
 class HostCollectionService : RemoteViewsService() {
   override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
     val kind = intent.getStringExtra(EXTRA_KIND) ?: KIND_QUICK
-    return HostCollectionFactory(applicationContext, kind)
+    val appWidgetId = intent.getIntExtra(
+      AppWidgetManager.EXTRA_APPWIDGET_ID,
+      AppWidgetManager.INVALID_APPWIDGET_ID
+    )
+    return HostCollectionFactory(applicationContext, kind, appWidgetId)
   }
 
   companion object {
@@ -33,7 +38,8 @@ class HostCollectionService : RemoteViewsService() {
 
 private class HostCollectionFactory(
   private val context: Context,
-  private val kind: String
+  private val kind: String,
+  private val appWidgetId: Int
 ) : RemoteViewsService.RemoteViewsFactory {
 
   /** Cells in a block meter. Ten reads cleanly at widget sizes. */
@@ -55,13 +61,18 @@ private class HostCollectionFactory(
   private fun reload() {
     snapshot = SnapshotStore.read(context)
     snippets = if (kind == HostCollectionService.KIND_SNIPPETS) snapshot.snippets else emptyList()
-    hosts = if (kind == HostCollectionService.KIND_STATUS) {
-      // The status widget leads with hosts that actually report metrics, but
-      // never goes blank just because nothing is online.
-      val online = snapshot.hosts.filter { it.status == HostStatus.ONLINE }
-      if (online.isEmpty()) snapshot.hosts else online
-    } else {
-      snapshot.hosts
+
+    val chosenId = WidgetSelection.hostId(context, appWidgetId)
+    val chosen = WidgetSelection.hasChoice(snapshot.hosts, chosenId)
+
+    hosts = when {
+      // An explicit choice outranks everything, including the metrics ordering.
+      chosen -> WidgetSelection.prioritize(snapshot.hosts, chosenId)
+      kind == HostCollectionService.KIND_STATUS ->
+        // Lead with hosts that report load, but keep the rest below them rather
+        // than dropping them, so the list matches what the app shows.
+        snapshot.hosts.sortedByDescending { it.cpu != null || it.mem != null }
+      else -> snapshot.hosts
     }
   }
 
@@ -81,7 +92,10 @@ private class HostCollectionFactory(
     return id?.toLong() ?: position.toLong()
   }
 
-  override fun getLoadingView(): RemoteViews? = null
+  // Android's default loading view is a bright bar that looks broken on a dark
+  // widget, so supply our own.
+  override fun getLoadingView(): RemoteViews =
+    RemoteViews(context.packageName, R.layout.termix_widget_item_loading)
 
   override fun getViewAt(position: Int): RemoteViews {
     val accent = WidgetTheme.parseAccent(snapshot.accent)
@@ -163,17 +177,19 @@ private class HostCollectionFactory(
       if (host.subtitle.isEmpty()) View.GONE else View.VISIBLE
     )
 
-    val online = host.status == HostStatus.ONLINE
+    // Show the bars whenever a reading exists. Metrics and reachability are
+    // collected separately, so a host can report load before its status lands.
+    val hasMetrics = host.cpu != null || host.mem != null
     views.setViewVisibility(
       R.id.termix_item_metrics,
-      if (online) View.VISIBLE else View.GONE
+      if (hasMetrics) View.VISIBLE else View.GONE
     )
     views.setViewVisibility(
       R.id.termix_item_offline,
-      if (online) View.GONE else View.VISIBLE
+      if (hasMetrics) View.GONE else View.VISIBLE
     )
 
-    if (online) {
+    if (hasMetrics) {
       bindMetric(
         views,
         percent = host.cpu,
@@ -191,7 +207,11 @@ private class HostCollectionFactory(
     } else {
       views.setTextViewText(
         R.id.termix_item_offline,
-        if (host.status == HostStatus.OFFLINE) "OFFLINE" else "STATUS UNKNOWN"
+        when (host.status) {
+          HostStatus.OFFLINE -> "OFFLINE"
+          HostStatus.ONLINE -> "NO DATA"
+          HostStatus.UNKNOWN -> "CHECKING"
+        }
       )
     }
 
@@ -266,8 +286,8 @@ private class HostCollectionFactory(
       HostStatus.OFFLINE -> "offline"
       HostStatus.UNKNOWN -> "status unknown"
     }
-    val load = if (host.status == HostStatus.ONLINE && host.cpu != null) {
-      ", CPU ${host.cpu}%, memory ${host.mem ?: 0}%"
+    val load = if (host.cpu != null || host.mem != null) {
+      ", CPU ${host.cpu ?: 0}%, memory ${host.mem ?: 0}%"
     } else {
       ""
     }

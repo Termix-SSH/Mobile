@@ -31,6 +31,9 @@ class TermixWidgetsModule : Module() {
 
     AsyncFunction("clearSnapshot") {
       SnapshotStore.clear(context)
+      // Host ids restart per server, so a stale choice must not survive a
+      // sign-out into a different account.
+      WidgetSelection.clearAll(context)
       WidgetUpdater.updateAll(context)
     }
 

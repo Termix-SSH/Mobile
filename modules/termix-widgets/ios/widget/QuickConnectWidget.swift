@@ -16,10 +16,29 @@ struct QuickConnectWidget: Widget {
       QuickConnectView(entry: entry)
     }
     .configurationDisplayName("Quick Connect")
-    .description("Jump straight into a terminal session on your servers.")
+    .description("Open a terminal on your servers.")
     .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
   }
 }
+
+#if canImport(AppIntents)
+  /// iOS 17+ variant: same view, plus a host picker under "Edit Widget".
+  @available(iOSApplicationExtension 17.0, *)
+  struct ConfigurableQuickConnectWidget: Widget {
+    var body: some WidgetConfiguration {
+      AppIntentConfiguration(
+        kind: QuickConnectWidget.kind,
+        intent: SelectHostIntent.self,
+        provider: TermixConfigurableProvider()
+      ) { entry in
+        QuickConnectView(entry: entry)
+      }
+      .configurationDisplayName("Quick Connect")
+      .description("Open a terminal on your servers.")
+      .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+    }
+  }
+#endif
 
 struct QuickConnectView: View {
   @Environment(\.widgetFamily) private var family
@@ -95,7 +114,6 @@ struct QuickConnectView: View {
       Spacer(minLength: 6)
 
       HStack(spacing: 4) {
-        Rectangle().fill(accent).frame(width: 6, height: 1)
         Text("CONNECT")
           .font(Theme.label(8))
           .tracking(1.2)
@@ -131,6 +149,8 @@ struct QuickConnectView: View {
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
   }
 
+  // The clipped container guarantees tiles never escape the widget, even at a
+  // large Dynamic Type size.
   private func tileGrid(columns: Int) -> some View {
     let visible = Array(snapshot.hosts.prefix(capacity))
     return VStack(spacing: 6) {
@@ -148,6 +168,8 @@ struct QuickConnectView: View {
         }
       }
     }
+    .frame(maxWidth: .infinity, alignment: .top)
+    .clipped()
   }
 }
 

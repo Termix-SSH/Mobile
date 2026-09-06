@@ -46,5 +46,18 @@
       android:name="expo.modules.termixwidgets.HostCollectionService"
       android:exported="false"
       android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+    <!--
+      Host picker shown when a Quick Connect or Server Status widget is placed.
+      Must be exported: the launcher starts it from its own process.
+    -->
+    <activity
+      android:name="expo.modules.termixwidgets.WidgetConfigureActivity"
+      android:exported="true"
+      android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+      </intent-filter>
+    </activity>
   </application>
 </manifest>

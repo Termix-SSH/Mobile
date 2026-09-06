@@ -11,4 +11,6 @@
   android:description="@string/termix_widget_quick_connect_description"
   android:previewLayout="@layout/termix_widget_quick_connect"
   android:initialLayout="@layout/termix_widget_quick_connect"
+  android:configure="expo.modules.termixwidgets.WidgetConfigureActivity"
+  android:widgetFeatures="reconfigurable|configuration_optional"
   android:updatePeriodMillis="0" />

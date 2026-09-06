@@ -105,6 +105,16 @@ extension View {
       .background(fill)
       .overlay(Rectangle().strokeBorder(border, lineWidth: 1))
   }
+
+  /// Strips the tint SwiftUI gives a `Link` label. Without it the shapes inside
+  /// a tile (status dot, pin marker, metric bars) are repainted with the link
+  /// colour and show up as blank light blocks on the widget.
+  func widgetLinkReset() -> some View {
+    self
+      .buttonStyle(.plain)
+      .tint(Theme.textPrimary)
+      .foregroundColor(Theme.textPrimary)
+  }
 }
 
 /// Compact "3m" / "2h" freshness label.

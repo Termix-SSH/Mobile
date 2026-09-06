@@ -73,18 +73,22 @@ struct MetricBar: View {
           .foregroundColor(percent == nil ? Theme.textTertiary : Theme.textSecondary)
       }
 
-      GeometryReader { geometry in
-        ZStack(alignment: .leading) {
-          Rectangle()
-            .fill(Theme.borderStrong.opacity(0.55))
-          if let percent {
-            Rectangle()
-              .fill(Theme.loadColor(percent, accent: accent))
-              .frame(width: max(2, geometry.size.width * CGFloat(percent) / 100))
+      // The track is always drawn, so the row keeps its shape even before a
+      // reading arrives. GeometryReader sits inside a fixed-height frame so it
+      // has a definite size to measure against.
+      Rectangle()
+        .fill(Theme.borderStrong.opacity(0.55))
+        .frame(height: 3)
+        .overlay(alignment: .leading) {
+          GeometryReader { geometry in
+            if let percent {
+              let ratio = CGFloat(min(100, max(0, percent))) / 100
+              Rectangle()
+                .fill(Theme.loadColor(percent, accent: accent))
+                .frame(width: geometry.size.width * ratio)
+            }
           }
         }
-      }
-      .frame(height: 3)
     }
   }
 }
@@ -129,6 +133,7 @@ struct HostTile: View {
         border: host.status == .online ? accent.opacity(0.30) : Theme.border
       )
     }
+    .widgetLinkReset()
     .accessibilityLabel(host.accessibilityDescription)
   }
 }
@@ -158,13 +163,15 @@ struct HostMetricRow: View {
           }
         }
 
-        if host.status == .online {
+        // Load and reachability are collected separately, so show the bars
+        // whenever a reading exists rather than gating them on the status.
+        if host.hasMetrics {
           HStack(spacing: 10) {
             MetricBar(label: "CPU", percent: host.cpu, accent: accent)
             MetricBar(label: "MEM", percent: host.mem, accent: accent)
           }
         } else {
-          Text(host.status == .offline ? "OFFLINE" : "STATUS UNKNOWN")
+          Text(host.stateLabel)
             .font(Theme.label(8))
             .tracking(0.8)
             .foregroundColor(Theme.textTertiary)
@@ -175,6 +182,7 @@ struct HostMetricRow: View {
       .frame(maxWidth: .infinity, alignment: .leading)
       .termixCard()
     }
+    .widgetLinkReset()
     .accessibilityLabel(host.accessibilityDescription)
   }
 }
@@ -187,8 +195,8 @@ struct EmptyStateView: View {
   /// What the widget would have listed — drives the "nothing here yet" copy.
   var subject: String = "hosts"
 
-  /// True when the account has hosts but the widget's filters excluded them —
-  /// "no hosts yet" would be a lie in that case.
+  /// Hosts exist but none passed the widget filters, so "no hosts yet" would
+  /// be wrong here.
   private var filteredOut: Bool {
     snapshot.state != .signedOut && snapshot.summary.total > 0
   }
@@ -200,12 +208,12 @@ struct EmptyStateView: View {
 
   private var message: String {
     if snapshot.state == .signedOut {
-      return "Open Termix to connect to your server."
+      return "Open Termix to sign in."
     }
     if filteredOut {
-      return "Widget filters hide every \(subject.dropLast()). Change them in Settings → Widgets."
+      return "Your filters hide every \(subject.dropLast()). Change them in Settings."
     }
-    return "Add a \(subject.dropLast()) in Termix, or enable them in Settings → Widgets."
+    return "Add a \(subject.dropLast()) in Termix to see it here."
   }
 
   var body: some View {
@@ -223,13 +231,10 @@ struct EmptyStateView: View {
           .minimumScaleFactor(0.9)
       }
       Spacer(minLength: 0)
-      HStack(spacing: 4) {
-        Rectangle().fill(accent).frame(width: 6, height: 1)
-        Text("OPEN TERMIX")
-          .font(Theme.label(8))
-          .tracking(1)
-          .foregroundColor(accent)
-      }
+      Text("OPEN TERMIX")
+        .font(Theme.label(8))
+        .tracking(1)
+        .foregroundColor(accent)
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     .widgetURL(WidgetSnapshot.fallbackLink)
@@ -271,24 +276,20 @@ struct SnippetTile: View {
       .frame(maxWidth: .infinity, alignment: .leading)
       .termixCard()
     }
+    .widgetLinkReset()
     .accessibilityLabel("\(snippet.name). Runs this snippet on a host you pick.")
   }
 }
 
-/// Footer line: server label on the left, data freshness on the right.
+/// Footer line: how old the data is. The server address is deliberately not
+/// shown, it tells the user nothing they don't already know and puts an
+/// internal hostname on the home screen.
 struct WidgetFooter: View {
   let snapshot: WidgetSnapshot
 
   var body: some View {
     HStack(spacing: 4) {
-      if !snapshot.server.isEmpty {
-        Text(snapshot.server)
-          .font(Theme.mono(8))
-          .foregroundColor(Theme.textTertiary)
-          .lineLimit(1)
-          .truncationMode(.middle)
-      }
-      Spacer(minLength: 4)
+      Spacer(minLength: 0)
       Text(relativeAge(from: snapshot.updatedDate))
         .font(Theme.mono(8))
         .foregroundColor(Theme.textTertiary)

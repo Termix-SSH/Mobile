@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Server label on the left, snapshot freshness on the right. -->
+<!--
+  Footer: how old the data is. The server address is deliberately not shown, it
+  tells the user nothing they don't already know and puts an internal hostname
+  on the home screen.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/termix_widget_footer"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="horizontal"
-  android:gravity="center_vertical"
+  android:gravity="center_vertical|end"
   android:paddingTop="7dp">
-
-  <TextView
-    android:id="@+id/termix_widget_server"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:maxLines="1"
-    android:ellipsize="middle"
-    android:textColor="@color/termix_widget_text_tertiary"
-    android:textSize="8sp"
-    android:fontFamily="monospace" />
 
   <TextView
     android:id="@+id/termix_widget_age"

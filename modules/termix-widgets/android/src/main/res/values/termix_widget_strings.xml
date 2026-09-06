@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="termix_widget_quick_connect_label">Termix Quick Connect</string>
-  <string name="termix_widget_quick_connect_description">Jump straight into a terminal session on your servers.</string>
+  <string name="termix_widget_quick_connect_description">Open a terminal on your servers.</string>
   <string name="termix_widget_status_label">Termix Server Status</string>
-  <string name="termix_widget_status_description">CPU and memory load for the servers you care about.</string>
+  <string name="termix_widget_status_description">CPU and memory for your servers.</string>
   <string name="termix_widget_snippets_label">Termix Snippets</string>
-  <string name="termix_widget_snippets_description">Run one of your saved commands on any server.</string>
+  <string name="termix_widget_snippets_description">Run a saved command on a server.</string>
   <string name="termix_widget_wordmark">TERMIX</string>
   <string name="termix_widget_snippets_wordmark">SNIPPETS</string>
   <string name="termix_widget_open_action">OPEN TERMIX</string>
+  <string name="termix_widget_loading">Loading</string>
+  <string name="termix_widget_configure_title">Choose a server</string>
+  <string name="termix_widget_configure_message">Pick the server this widget shows.</string>
+  <string name="termix_widget_configure_automatic">Automatic</string>
+  <string name="termix_widget_configure_automatic_detail">Follows your pinned and online servers</string>
+  <string name="termix_widget_configure_empty">No servers yet. Open Termix and sign in, then this widget fills in on its own.</string>
+  <string name="termix_widget_configure_add_anyway">Add widget</string>
 </resources>

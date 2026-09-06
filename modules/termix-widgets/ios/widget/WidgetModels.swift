@@ -46,7 +46,19 @@ struct HostEntry: Codable, Identifiable, Hashable {
     URL(string: url) ?? WidgetSnapshot.fallbackLink
   }
 
-  /// Spoken description — the visual status dot and bars carry no text.
+  /// Whether this host reported any load reading.
+  var hasMetrics: Bool { cpu != nil || mem != nil }
+
+  /// Shown in place of the bars when no reading has arrived.
+  var stateLabel: String {
+    switch status {
+    case .offline: return "OFFLINE"
+    case .online: return "NO DATA"
+    case .unknown: return "CHECKING"
+    }
+  }
+
+  /// Spoken description. The status dot and bars carry no text of their own.
   var accessibilityDescription: String {
     let state: String
     switch status {
@@ -56,8 +68,8 @@ struct HostEntry: Codable, Identifiable, Hashable {
     }
 
     var description = "\(name), \(state)"
-    if status == .online, let cpu {
-      description += ", CPU \(cpu) percent, memory \(mem ?? 0) percent"
+    if hasMetrics {
+      description += ", CPU \(cpu ?? 0) percent, memory \(mem ?? 0) percent"
     }
     return description + ". Opens a terminal session."
   }
@@ -140,6 +152,29 @@ struct WidgetSnapshot: Codable, Hashable {
 
   var updatedDate: Date {
     Date(timeIntervalSince1970: updatedAt / 1000)
+  }
+
+  /**
+   Moves the user's chosen host to the front, leaving everything else in order.
+
+   Reordering rather than filtering means the medium and large families still
+   fill their remaining rows, and a small widget (which shows only the first
+   entry) lands on the chosen host. A selection naming a host that has since
+   been deleted falls back to the normal ordering rather than rendering empty.
+   */
+  func prioritizing(hostId: Int?) -> WidgetSnapshot {
+    guard let hostId, hosts.contains(where: { $0.id == hostId }) else { return self }
+    let reordered = hosts.filter { $0.id == hostId } + hosts.filter { $0.id != hostId }
+    return WidgetSnapshot(
+      version: version,
+      updatedAt: updatedAt,
+      state: state,
+      accent: accent,
+      server: server,
+      summary: summary,
+      hosts: reordered,
+      snippets: snippets
+    )
   }
 
   /// Shown before any snapshot exists and in the widget gallery.

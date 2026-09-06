@@ -190,22 +190,31 @@ export default function Hosts() {
         .filter((h) => statuses[h.id]?.status === "online")
         .map((h) => h.id);
       if (onlineIds.length === 0) {
-        setMetrics({});
+        setMetrics((previous) =>
+          Object.keys(previous).length === 0 ? previous : {},
+        );
         return;
       }
       const results = await Promise.allSettled(
         onlineIds.map((id) => getServerMetricsById(id)),
       );
-      const next: Record<number, HostMetrics> = {};
-      results.forEach((res, i) => {
-        if (res.status === "fulfilled" && res.value) {
-          next[onlineIds[i]] = {
-            cpu: res.value.cpu?.percent ?? null,
-            ram: res.value.memory?.percent ?? null,
-          };
-        }
+      setMetrics((previous) => {
+        const next: Record<number, HostMetrics> = {};
+        results.forEach((res, i) => {
+          const id = onlineIds[i];
+          if (res.status === "fulfilled" && res.value) {
+            next[id] = {
+              cpu: res.value.cpu?.percent ?? null,
+              ram: res.value.memory?.percent ?? null,
+            };
+          } else if (previous[id]) {
+            // The backend only reports once collection is running, so keep the
+            // last reading instead of blanking the row on an empty response.
+            next[id] = previous[id];
+          }
+        });
+        return next;
       });
-      setMetrics(next);
     },
     [],
   );
