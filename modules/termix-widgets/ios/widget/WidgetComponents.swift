@@ -98,9 +98,11 @@ struct HostTile: View {
   let host: HostEntry
   let accent: Color
   var showsSubtitle: Bool = true
+  /// Tab this tile opens. Set per widget in "Edit Widget".
+  var opens: SessionKind = .terminal
 
   var body: some View {
-    Link(destination: host.link) {
+    Link(destination: host.link(for: opens)) {
       VStack(alignment: .leading, spacing: 3) {
         HStack(spacing: 5) {
           StatusDot(status: host.status)
@@ -134,7 +136,7 @@ struct HostTile: View {
       )
     }
     .widgetLinkReset()
-    .accessibilityLabel(host.accessibilityDescription)
+    .accessibilityLabel(host.accessibilityDescription(opens: opens))
   }
 }
 
@@ -143,9 +145,12 @@ struct HostMetricRow: View {
   let host: HostEntry
   let accent: Color
   var showsSubtitle: Bool = true
+  /// Tab this row opens. Defaults to the server stats tab, since that is what
+  /// the row is showing.
+  var opens: SessionKind = .stats
 
   var body: some View {
-    Link(destination: host.link) {
+    Link(destination: host.link(for: opens)) {
       VStack(alignment: .leading, spacing: 5) {
         HStack(spacing: 5) {
           StatusDot(status: host.status)
@@ -183,7 +188,7 @@ struct HostMetricRow: View {
       .termixCard()
     }
     .widgetLinkReset()
-    .accessibilityLabel(host.accessibilityDescription)
+    .accessibilityLabel(host.accessibilityDescription(opens: opens))
   }
 }
 

@@ -13,6 +13,7 @@ import android.content.Context
 object WidgetSelection {
   private const val PREFERENCES_NAME = "termix_widget_selection"
   private const val KEY_PREFIX = "host_for_widget_"
+  private const val SESSION_KEY_PREFIX = "session_for_widget_"
 
   /** Sentinel meaning "no specific host", stored as an absent key. */
   const val NO_HOST = -1
@@ -34,6 +35,19 @@ object WidgetSelection {
     editor.apply()
   }
 
+  /** Which tab this widget's tiles open. */
+  fun sessionKind(context: Context, appWidgetId: Int, fallback: SessionKind): SessionKind =
+    runCatching {
+      val stored = preferences(context).getString(SESSION_KEY_PREFIX + appWidgetId, null)
+      if (stored == null) fallback else SessionKind.from(stored)
+    }.getOrDefault(fallback)
+
+  fun setSessionKind(context: Context, appWidgetId: Int, session: SessionKind) {
+    preferences(context).edit()
+      .putString(SESSION_KEY_PREFIX + appWidgetId, session.slug)
+      .apply()
+  }
+
   /**
    * Drops the choices of deleted widgets. Without this the preferences file
    * grows every time a widget is added and removed, and a recycled widget id
@@ -41,7 +55,10 @@ object WidgetSelection {
    */
   fun forget(context: Context, appWidgetIds: IntArray) {
     val editor = preferences(context).edit()
-    appWidgetIds.forEach { editor.remove(KEY_PREFIX + it) }
+    appWidgetIds.forEach {
+      editor.remove(KEY_PREFIX + it)
+      editor.remove(SESSION_KEY_PREFIX + it)
+    }
     editor.apply()
   }
 

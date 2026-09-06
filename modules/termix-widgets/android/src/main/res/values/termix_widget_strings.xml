@@ -16,4 +16,8 @@
   <string name="termix_widget_configure_automatic_detail">Follows your pinned and online servers</string>
   <string name="termix_widget_configure_empty">No servers yet. Open Termix and sign in, then this widget fills in on its own.</string>
   <string name="termix_widget_configure_add_anyway">Add widget</string>
+  <string name="termix_widget_configure_opens">OPENS</string>
+  <string name="termix_widget_configure_opens_terminal">Terminal</string>
+  <string name="termix_widget_configure_opens_stats">Stats</string>
+  <string name="termix_widget_configure_opens_files">Files</string>
 </resources>

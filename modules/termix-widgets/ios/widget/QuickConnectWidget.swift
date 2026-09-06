@@ -31,7 +31,7 @@ struct QuickConnectWidget: Widget {
         intent: SelectHostIntent.self,
         provider: TermixConfigurableProvider()
       ) { entry in
-        QuickConnectView(entry: entry)
+        QuickConnectView(entry: entry, opens: entry.opens)
       }
       .configurationDisplayName("Quick Connect")
       .description("Open a terminal on your servers.")
@@ -43,6 +43,8 @@ struct QuickConnectWidget: Widget {
 struct QuickConnectView: View {
   @Environment(\.widgetFamily) private var family
   let entry: TermixEntry
+  /// Tab a tap opens. Set per widget in "Edit Widget".
+  var opens: SessionKind = .terminal
 
   private var snapshot: WidgetSnapshot { entry.snapshot }
   private var accent: Color { Theme.accent(snapshot.accent) }
@@ -114,7 +116,7 @@ struct QuickConnectView: View {
       Spacer(minLength: 6)
 
       HStack(spacing: 4) {
-        Text("CONNECT")
+        Text(opens.label)
           .font(Theme.label(8))
           .tracking(1.2)
           .foregroundColor(accent)
@@ -125,7 +127,7 @@ struct QuickConnectView: View {
       }
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-    .widgetURL(featured?.link ?? WidgetSnapshot.fallbackLink)
+    .widgetURL(featured?.link(for: opens) ?? WidgetSnapshot.fallbackLink)
   }
 
   private func gridLayout(columns: Int) -> some View {
@@ -157,7 +159,7 @@ struct QuickConnectView: View {
       ForEach(Array(chunked(visible, into: columns).enumerated()), id: \.offset) { _, row in
         HStack(spacing: 6) {
           ForEach(row) { host in
-            HostTile(host: host, accent: accent)
+            HostTile(host: host, accent: accent, opens: opens)
           }
           // Keep the last row aligned with the ones above it.
           if row.count < columns {

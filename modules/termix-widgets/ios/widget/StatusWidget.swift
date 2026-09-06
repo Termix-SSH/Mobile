@@ -34,7 +34,11 @@ struct StatusWidget: Widget {
         intent: SelectHostIntent.self,
         provider: TermixConfigurableProvider()
       ) { entry in
-        StatusView(entry: entry, hasExplicitHost: entry.hasExplicitHost)
+        StatusView(
+          entry: entry,
+          hasExplicitHost: entry.hasExplicitHost,
+          opens: entry.opens
+        )
       }
       .configurationDisplayName("Server Status")
       .description("CPU and memory for your servers.")
@@ -49,6 +53,9 @@ struct StatusView: View {
   /// True when the user picked a host in "Edit Widget". Their choice then wins
   /// over the metrics-first ranking below.
   var hasExplicitHost: Bool = false
+  /// Tab a tap opens. Defaults to server stats: this widget is showing metrics,
+  /// so opening the terminal was the wrong destination.
+  var opens: SessionKind = .stats
 
   private var snapshot: WidgetSnapshot { entry.snapshot }
   private var accent: Color { Theme.accent(snapshot.accent) }
@@ -129,7 +136,7 @@ struct StatusView: View {
       WidgetFooter(snapshot: snapshot)
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-    .widgetURL(host?.link ?? WidgetSnapshot.fallbackLink)
+    .widgetURL(host?.link(for: opens) ?? WidgetSnapshot.fallbackLink)
   }
 
   private var listLayout: some View {
@@ -141,7 +148,12 @@ struct StatusView: View {
       // the user runs a large Dynamic Type size.
       VStack(spacing: 6) {
         ForEach(rankedHosts) { host in
-          HostMetricRow(host: host, accent: accent, showsSubtitle: family != .systemMedium)
+          HostMetricRow(
+            host: host,
+            accent: accent,
+            showsSubtitle: family != .systemMedium,
+            opens: opens
+          )
         }
       }
       .frame(maxWidth: .infinity, alignment: .top)

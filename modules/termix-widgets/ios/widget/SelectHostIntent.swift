@@ -70,16 +70,43 @@ import WidgetKit
   struct SelectHostIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Select Host"
     static var description = IntentDescription(
-      "Choose which server this widget shows. Leave it empty to follow your pinned and online hosts."
+      "Choose which server this widget shows, and which tab it opens."
     )
 
     @Parameter(title: "Host")
     var host: HostOption?
 
+    /// Which tab a tap opens. Defaults to the terminal, matching how the
+    /// widgets behaved before this was configurable.
+    @Parameter(title: "Opens", default: .terminal)
+    var opens: SessionKindOption
+
     init() {}
 
-    init(host: HostOption?) {
+    init(host: HostOption?, opens: SessionKindOption = .terminal) {
       self.host = host
+      self.opens = opens
     }
+
+    /// Resolved tab choice, as the plain enum the views and links use.
+    var sessionKind: SessionKind { opens.kind }
+  }
+
+  /// `SessionKind` as an AppEnum so it can appear in the widget's editor.
+  @available(iOSApplicationExtension 17.0, *)
+  enum SessionKindOption: String, AppEnum {
+    case terminal
+    case stats
+    case filemanager
+
+    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Tab")
+
+    static var caseDisplayRepresentations: [SessionKindOption: DisplayRepresentation] = [
+      .terminal: DisplayRepresentation(title: "Terminal"),
+      .stats: DisplayRepresentation(title: "Server stats"),
+      .filemanager: DisplayRepresentation(title: "Files"),
+    ]
+
+    var kind: SessionKind { SessionKind(rawValue: rawValue) ?? .terminal }
   }
 #endif

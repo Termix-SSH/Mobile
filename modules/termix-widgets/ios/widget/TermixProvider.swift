@@ -14,6 +14,8 @@ struct TermixEntry: TimelineEntry {
   /// True when the user picked a host in "Edit Widget", so the views know to
   /// keep it in front rather than applying their own ranking.
   var hasExplicitHost: Bool = false
+  /// Which tab a tap opens. Terminal unless the user chose otherwise.
+  var opens: SessionKind = .terminal
 }
 
 struct TermixProvider: TimelineProvider {
@@ -84,7 +86,8 @@ func chunked<T>(_ items: [T], into size: Int) -> [[T]] {
       return TermixEntry(
         date: date,
         snapshot: snapshot.prioritizing(hostId: resolved?.id),
-        hasExplicitHost: resolved != nil
+        hasExplicitHost: resolved != nil,
+        opens: configuration.sessionKind
       )
     }
 

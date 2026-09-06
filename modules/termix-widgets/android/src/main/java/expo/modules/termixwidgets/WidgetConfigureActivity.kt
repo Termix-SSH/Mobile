@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
+import android.widget.RadioGroup
 import android.widget.TextView
 
 /**
@@ -23,6 +24,8 @@ import android.widget.TextView
  */
 class WidgetConfigureActivity : Activity() {
   private var appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
+  /** Tab the tiles open. Seeded from the widget's current setting. */
+  private var session: SessionKind = SessionKind.TERMINAL
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -47,7 +50,15 @@ class WidgetConfigureActivity : Activity() {
     val list = findViewById<ListView>(R.id.termix_configure_list)
     val empty = findViewById<View>(R.id.termix_configure_empty)
 
+    // The status widget is about metrics, so it opens the stats tab unless the
+    // user says otherwise. Quick Connect opens a terminal.
+    val defaultSession =
+      if (isStatusWidget()) SessionKind.STATS else SessionKind.TERMINAL
+    session = WidgetSelection.sessionKind(this, appWidgetId, defaultSession)
+    bindSessionPicker()
+
     if (hosts.isEmpty()) {
+      findViewById<View>(R.id.termix_configure_session).visibility = View.GONE
       // No snapshot yet, which is normal when the widget is added before
       // signing in. Committing "Automatic" still places a usable widget, and it
       // fills in as soon as the app publishes.
@@ -72,9 +83,40 @@ class WidgetConfigureActivity : Activity() {
     }
   }
 
+  /**
+   * Which provider this widget belongs to. The launcher hands the configuration
+   * activity only a widget id, so the provider is looked up from it.
+   */
+  private fun isStatusWidget(): Boolean = runCatching {
+    AppWidgetManager.getInstance(this)
+      ?.getAppWidgetInfo(appWidgetId)
+      ?.provider
+      ?.className
+      ?.contains("Status") == true
+  }.getOrDefault(false)
+
+  private fun bindSessionPicker() {
+    val group = findViewById<RadioGroup>(R.id.termix_configure_session_group)
+    group.check(
+      when (session) {
+        SessionKind.TERMINAL -> R.id.termix_configure_session_terminal
+        SessionKind.STATS -> R.id.termix_configure_session_stats
+        SessionKind.FILES -> R.id.termix_configure_session_files
+      }
+    )
+    group.setOnCheckedChangeListener { _, checkedId ->
+      session = when (checkedId) {
+        R.id.termix_configure_session_stats -> SessionKind.STATS
+        R.id.termix_configure_session_files -> SessionKind.FILES
+        else -> SessionKind.TERMINAL
+      }
+    }
+  }
+
   /** Stores the choice, redraws the widget, and lets the launcher place it. */
   private fun commit(hostId: Int) {
     WidgetSelection.setHostId(this, appWidgetId, hostId)
+    WidgetSelection.setSessionKind(this, appWidgetId, session)
     runCatching { WidgetUpdater.updateAll(this) }
     setResult(RESULT_OK, resultIntent())
     finish()

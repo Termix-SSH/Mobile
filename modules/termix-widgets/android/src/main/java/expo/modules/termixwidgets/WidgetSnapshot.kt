@@ -40,6 +40,24 @@ enum class SnapshotState {
   }
 }
 
+/**
+ * Which tab a host tile opens.
+ *
+ * Mirrors the session types `app/widgets/useWidgetDeepLink.ts` accepts. Anything
+ * outside this set is rejected by the parser and falls back to a terminal, so
+ * the two lists must stay in step.
+ */
+enum class SessionKind(val slug: String, val label: String) {
+  TERMINAL("terminal", "Terminal"),
+  STATS("stats", "Server stats"),
+  FILES("filemanager", "Files");
+
+  companion object {
+    fun from(slug: String?): SessionKind =
+      entries.firstOrNull { it.slug == slug } ?: TERMINAL
+  }
+}
+
 data class HostEntry(
   val id: Int,
   val name: String,
@@ -53,6 +71,22 @@ data class HostEntry(
 ) {
   val uri: Uri
     get() = runCatching { Uri.parse(url) }.getOrDefault(WidgetSnapshot.FALLBACK_URI)
+
+  /**
+   * The host's deep link retargeted at a different tab.
+   *
+   * The snapshot carries one URL per host (built with `type=terminal`) because
+   * it is shared by every widget, while the tab is a per-widget choice.
+   * Rewriting the query here keeps the payload single-purpose.
+   */
+  fun uriFor(session: SessionKind): Uri = runCatching {
+    val base = Uri.parse(url)
+    val rebuilt = base.buildUpon().clearQuery()
+    base.queryParameterNames
+      .filter { it != "type" }
+      .forEach { rebuilt.appendQueryParameter(it, base.getQueryParameter(it)) }
+    rebuilt.appendQueryParameter("type", session.slug).build()
+  }.getOrDefault(uri)
 }
 
 data class SnippetEntry(

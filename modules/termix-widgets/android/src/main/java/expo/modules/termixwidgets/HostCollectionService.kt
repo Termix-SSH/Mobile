@@ -49,6 +49,13 @@ private class HostCollectionFactory(
   private var hosts: List<HostEntry> = emptyList()
   private var snippets: List<SnippetEntry> = emptyList()
 
+  /**
+   * Tab a tile opens. The status widget defaults to server stats since that is
+   * what its rows show; everything else defaults to a terminal. The user can
+   * override this per widget in the configuration screen.
+   */
+  private var session: SessionKind = SessionKind.TERMINAL
+
   override fun onCreate() = reload()
 
   override fun onDataSetChanged() = reload()
@@ -61,6 +68,10 @@ private class HostCollectionFactory(
   private fun reload() {
     snapshot = SnapshotStore.read(context)
     snippets = if (kind == HostCollectionService.KIND_SNIPPETS) snapshot.snippets else emptyList()
+
+    val defaultSession =
+      if (kind == HostCollectionService.KIND_STATUS) SessionKind.STATS else SessionKind.TERMINAL
+    session = WidgetSelection.sessionKind(context, appWidgetId, defaultSession)
 
     val chosenId = WidgetSelection.hostId(context, appWidgetId)
     val chosen = WidgetSelection.hasChoice(snapshot.hosts, chosenId)
@@ -142,7 +153,7 @@ private class HostCollectionFactory(
       views.setInt(R.id.termix_item_pin, "setColorFilter", accent)
     }
 
-    views.setOnClickFillInIntent(R.id.termix_item_root, WidgetLinks.fillIn(host.uri))
+    views.setOnClickFillInIntent(R.id.termix_item_root, WidgetLinks.fillIn(host.uriFor(session)))
     return views
   }
 
@@ -215,7 +226,7 @@ private class HostCollectionFactory(
       )
     }
 
-    views.setOnClickFillInIntent(R.id.termix_item_root, WidgetLinks.fillIn(host.uri))
+    views.setOnClickFillInIntent(R.id.termix_item_root, WidgetLinks.fillIn(host.uriFor(session)))
     return views
   }
 
@@ -291,7 +302,7 @@ private class HostCollectionFactory(
     } else {
       ""
     }
-    return "${host.name}, $status$load. Opens a terminal session."
+    return "${host.name}, $status$load. Opens ${session.label.lowercase()}."
   }
 
   private companion object {

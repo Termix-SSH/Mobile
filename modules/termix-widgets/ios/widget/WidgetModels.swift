@@ -8,6 +8,28 @@ import Foundation
  future app version adds fields or a payload arrives half-written.
  */
 
+/**
+ Which tab a host tile opens.
+
+ Mirrors the session types `app/widgets/useWidgetDeepLink.ts` accepts. Anything
+ outside this set is rejected by the parser and falls back to a terminal, so the
+ two lists must stay in step.
+ */
+enum SessionKind: String, CaseIterable {
+  case terminal
+  case stats
+  case filemanager
+
+  /// Label used in the picker and the small-family footer.
+  var label: String {
+    switch self {
+    case .terminal: return "TERMINAL"
+    case .stats: return "STATS"
+    case .filemanager: return "FILES"
+    }
+  }
+}
+
 enum HostStatus: String, Codable {
   case online
   case offline
@@ -46,6 +68,22 @@ struct HostEntry: Codable, Identifiable, Hashable {
     URL(string: url) ?? WidgetSnapshot.fallbackLink
   }
 
+  /**
+   The host's deep link retargeted at a different tab.
+
+   The snapshot carries one URL per host (built with `type=terminal`) because it
+   is shared by every widget, while the tab is a per-widget choice. Rewriting
+   the query here keeps the payload single-purpose and avoids widening the
+   contract with one URL per tab type.
+   */
+  func link(for session: SessionKind) -> URL {
+    guard var components = URLComponents(string: url) else { return link }
+    var items = (components.queryItems ?? []).filter { $0.name != "type" }
+    items.append(URLQueryItem(name: "type", value: session.rawValue))
+    components.queryItems = items
+    return components.url ?? link
+  }
+
   /// Whether this host reported any load reading.
   var hasMetrics: Bool { cpu != nil || mem != nil }
 
@@ -59,7 +97,7 @@ struct HostEntry: Codable, Identifiable, Hashable {
   }
 
   /// Spoken description. The status dot and bars carry no text of their own.
-  var accessibilityDescription: String {
+  func accessibilityDescription(opens: SessionKind = .terminal) -> String {
     let state: String
     switch status {
     case .online: state = "online"
@@ -71,7 +109,14 @@ struct HostEntry: Codable, Identifiable, Hashable {
     if hasMetrics {
       description += ", CPU \(cpu ?? 0) percent, memory \(mem ?? 0) percent"
     }
-    return description + ". Opens a terminal session."
+
+    let destination: String
+    switch opens {
+    case .terminal: destination = "a terminal session"
+    case .stats: destination = "server stats"
+    case .filemanager: destination = "the file manager"
+    }
+    return description + ". Opens \(destination)."
   }
 }
 

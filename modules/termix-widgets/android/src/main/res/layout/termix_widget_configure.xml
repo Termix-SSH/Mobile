@@ -25,6 +25,60 @@
     android:textSize="12sp"
     android:fontFamily="monospace" />
 
+  <!-- Which tab a tap opens. Hidden until a snapshot exists, since there is
+       nothing to open without hosts. -->
+  <LinearLayout
+    android:id="@+id/termix_configure_session"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="16dp">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/termix_widget_configure_opens"
+      android:textColor="@color/termix_widget_text_tertiary"
+      android:textSize="11sp"
+      android:textStyle="bold"
+      android:letterSpacing="0.08"
+      android:fontFamily="monospace" />
+
+    <RadioGroup
+      android:id="@+id/termix_configure_session_group"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:orientation="horizontal">
+
+      <RadioButton
+        android:id="@+id/termix_configure_session_terminal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="@string/termix_widget_configure_opens_terminal"
+        android:textColor="@color/termix_widget_text_primary"
+        android:textSize="12sp" />
+
+      <RadioButton
+        android:id="@+id/termix_configure_session_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="@string/termix_widget_configure_opens_stats"
+        android:textColor="@color/termix_widget_text_primary"
+        android:textSize="12sp" />
+
+      <RadioButton
+        android:id="@+id/termix_configure_session_files"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/termix_widget_configure_opens_files"
+        android:textColor="@color/termix_widget_text_primary"
+        android:textSize="12sp" />
+    </RadioGroup>
+  </LinearLayout>
+
   <ListView
     android:id="@+id/termix_configure_list"
     android:layout_width="match_parent"
