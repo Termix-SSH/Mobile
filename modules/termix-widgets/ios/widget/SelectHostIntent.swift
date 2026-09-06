@@ -20,7 +20,7 @@ import WidgetKit
       TypeDisplayRepresentation(name: "Host")
     }
 
-    static var defaultQuery = HostOptionQuery()
+    static var defaultQuery: HostOptionQuery { HostOptionQuery() }
 
     var displayRepresentation: DisplayRepresentation {
       // The subtitle is user@ip, which is what tells two similarly named hosts
@@ -69,9 +69,9 @@ import WidgetKit
   @available(iOSApplicationExtension 17.0, *)
   struct SelectHostIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Select Host"
-    static var description = IntentDescription(
-      "Choose which server this widget shows, and which tab it opens."
-    )
+    static var description: IntentDescription {
+      IntentDescription("Choose which server this widget shows, and which tab it opens.")
+    }
 
     @Parameter(title: "Host")
     var host: HostOption?
@@ -99,13 +99,17 @@ import WidgetKit
     case stats
     case filemanager
 
-    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Tab")
+    static var typeDisplayRepresentation: TypeDisplayRepresentation {
+      TypeDisplayRepresentation(name: "Tab")
+    }
 
-    static var caseDisplayRepresentations: [SessionKindOption: DisplayRepresentation] = [
-      .terminal: DisplayRepresentation(title: "Terminal"),
-      .stats: DisplayRepresentation(title: "Server stats"),
-      .filemanager: DisplayRepresentation(title: "Files"),
-    ]
+    static var caseDisplayRepresentations: [SessionKindOption: DisplayRepresentation] {
+      [
+        .terminal: DisplayRepresentation(title: "Terminal"),
+        .stats: DisplayRepresentation(title: "Server stats"),
+        .filemanager: DisplayRepresentation(title: "Files"),
+      ]
+    }
 
     var kind: SessionKind { SessionKind(rawValue: rawValue) ?? .terminal }
   }
