@@ -37,7 +37,10 @@ import {
   ACCENT,
   TEXT_COLORS,
 } from "@/app/constants/designTokens";
-import type { TerminalImeInputHandle } from "@/modules/terminal-ime-input";
+import {
+  callImeInput,
+  type TerminalImeInputHandle,
+} from "@/modules/terminal-ime-input";
 
 function getSessionIcon(type: SessionType) {
   switch (type) {
@@ -100,10 +103,13 @@ export default function TabBar({
     if (keyboardIntentionallyHiddenRef.current) {
       onShowKeyboard?.();
       setTimeout(() => {
-        hiddenInputRef.current?.focus();
+        callImeInput(hiddenInputRef, "focus");
       }, 50);
     } else {
       onHideKeyboard?.();
+      // Keyboard.dismiss() only reaches RN text inputs; the native IME view
+      // keeps the keyboard up until it is blurred.
+      callImeInput(hiddenInputRef, "blur");
       Keyboard.dismiss();
     }
   };
