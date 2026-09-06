@@ -46,3 +46,27 @@ type TerminalImeInputNativeComponent = React.ComponentType<
 >;
 
 export default NativeTerminalImeInputView as TerminalImeInputNativeComponent;
+
+// The hidden input is conditionally rendered, so a queued timer or animation
+// frame can reach a ref whose native view is already detached. Expo throws
+// "Unable to find the view with tag" in that case, which surfaces as an
+// unhandled promise rejection. These calls are all fire and forget, so swallow
+// the error instead.
+export function callImeInput(
+  ref: React.RefObject<TerminalImeInputHandle | null> | null | undefined,
+  method: "focus" | "blur" | "clear",
+): void {
+  const handle = ref?.current;
+  if (!handle) {
+    return;
+  }
+
+  try {
+    const result = handle[method]?.();
+    if (result && typeof (result as Promise<void>).catch === "function") {
+      (result as Promise<void>).catch(() => {});
+    }
+  } catch {
+    // view is gone
+  }
+}

@@ -51,6 +51,7 @@ import {
 } from "@/app/constants/designTokens";
 import { addKeyCommandListener } from "@/modules/hardware-keyboard";
 import TerminalImeInput, {
+  callImeInput,
   type TerminalImeInputHandle,
 } from "@/modules/terminal-ime-input";
 import {
@@ -203,10 +204,14 @@ export default function Sessions() {
   const [isRdpKeyboardOpen, setIsRdpKeyboardOpen] = useState(false);
 
   useEffect(() => {
-    hiddenInputRef.current?.clear?.();
+    // Only the terminal session renders the hidden input, so skip the native
+    // call when switching to any other session type.
+    if (activeSession?.type === "terminal" && !isCustomKeyboardVisible) {
+      callImeInput(hiddenInputRef, "clear");
+    }
     compositionActiveRef.current = false;
     lastSpecialKeyRef.current = null;
-  }, [activeSessionId]);
+  }, [activeSessionId, activeSession?.type, isCustomKeyboardVisible]);
 
   useEffect(() => {
     const show = Keyboard.addListener("keyboardDidShow", () => {
@@ -323,7 +328,7 @@ export default function Sessions() {
         !keyboardIntentionallyHiddenRef.current
       ) {
         const timeoutId = setTimeout(() => {
-          hiddenInputRef.current?.focus();
+          callImeInput(hiddenInputRef, "focus");
         }, 500);
         return () => clearTimeout(timeoutId);
       }
@@ -356,7 +361,7 @@ export default function Sessions() {
           !keyboardIntentionallyHiddenRef.current
         ) {
           setTimeout(() => {
-            hiddenInputRef.current?.focus();
+            callImeInput(hiddenInputRef, "focus");
           }, 500);
         }
       } else if (nextAppState === "background") {
@@ -438,7 +443,7 @@ export default function Sessions() {
 
         if (!keyboardIntentionallyHiddenRef.current) {
           setKeyboardIntentionallyHidden(true);
-          hiddenInputRef.current?.blur();
+          callImeInput(hiddenInputRef, "blur");
           Keyboard.dismiss();
         } else {
         }
@@ -449,7 +454,7 @@ export default function Sessions() {
           setKeyboardIntentionallyHidden(false);
           if (!isCustomKeyboardVisible) {
             setTimeout(() => {
-              hiddenInputRef.current?.focus();
+              callImeInput(hiddenInputRef, "focus");
             }, 100);
           }
         } else {
@@ -508,7 +513,7 @@ export default function Sessions() {
         !keyboardIntentionallyHiddenRef.current
       ) {
         setTimeout(() => {
-          hiddenInputRef.current?.focus();
+          callImeInput(hiddenInputRef, "focus");
           const activeRef = activeSessionId
             ? terminalRefs.current[activeSessionId]
             : null;
@@ -531,7 +536,7 @@ export default function Sessions() {
     setActiveSession(sessionId);
     setTimeout(() => {
       if (session?.type === "terminal" && !isCustomKeyboardVisible) {
-        hiddenInputRef.current?.focus();
+        callImeInput(hiddenInputRef, "focus");
       }
     }, 100);
   };
@@ -544,7 +549,7 @@ export default function Sessions() {
         !isCustomKeyboardVisible &&
         sessions.length > 1
       ) {
-        hiddenInputRef.current?.focus();
+        callImeInput(hiddenInputRef, "focus");
       }
     }, 100);
   };
@@ -553,7 +558,7 @@ export default function Sessions() {
     setShowConnectionsPanel(false);
     if (activeSession?.type === "terminal" && !isCustomKeyboardVisible) {
       setKeyboardIntentionallyHidden(false);
-      setTimeout(() => hiddenInputRef.current?.focus(), 100);
+      setTimeout(() => callImeInput(hiddenInputRef, "focus"), 100);
     }
   }, [
     activeSession?.type,
@@ -573,7 +578,7 @@ export default function Sessions() {
       toggleCustomKeyboard();
       setKeyboardIntentionallyHidden(false);
       setTimeout(() => {
-        hiddenInputRef.current?.focus();
+        callImeInput(hiddenInputRef, "focus");
       }, 50);
       setTimeout(() => {
         const activeRef = activeSessionId
@@ -590,7 +595,7 @@ export default function Sessions() {
       toggleCustomKeyboard();
       setKeyboardIntentionallyHidden(false);
       requestAnimationFrame(() => {
-        hiddenInputRef.current?.blur();
+        callImeInput(hiddenInputRef, "blur");
       });
       setTimeout(() => {
         const activeRef = activeSessionId
@@ -613,7 +618,7 @@ export default function Sessions() {
       toggleCustomKeyboard();
       setKeyboardIntentionallyHidden(false);
       requestAnimationFrame(() => {
-        hiddenInputRef.current?.blur();
+        callImeInput(hiddenInputRef, "blur");
       });
       setTimeout(() => {
         const activeRef = activeSessionId
@@ -907,7 +912,7 @@ export default function Sessions() {
           onShowConnections={() => {
             setKeyboardIntentionallyHidden(true);
             Keyboard.dismiss();
-            hiddenInputRef.current?.blur();
+            callImeInput(hiddenInputRef, "blur");
             setShowConnectionsPanel(true);
           }}
           hasBackgroundSessions={backgroundTabRecords.some(
@@ -997,7 +1002,7 @@ export default function Sessions() {
                   const stillNotSelecting =
                     !activeRef?.current?.isSelecting?.();
                   if (stillNotSelecting) {
-                    hiddenInputRef.current?.focus();
+                    callImeInput(hiddenInputRef, "focus");
                   }
                 });
               }
