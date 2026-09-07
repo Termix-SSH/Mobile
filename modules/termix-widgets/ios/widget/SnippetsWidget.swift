@@ -36,7 +36,7 @@ struct ModernSnippetsWidget: Widget {
     .configurationDisplayName("Snippets")
     .description("Run a saved command on a server.")
     .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
-    .termixFullColor()
+    .termixEssentialBackground()
   }
 }
 

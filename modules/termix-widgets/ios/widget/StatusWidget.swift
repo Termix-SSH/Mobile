@@ -43,7 +43,7 @@ struct StatusWidget: Widget {
       .configurationDisplayName("Server Status")
       .description("CPU and memory for your servers.")
       .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
-      .termixFullColor()
+      .termixEssentialBackground()
     }
   }
 #endif

@@ -137,20 +137,24 @@ func relativeAge(from date: Date, now: Date = Date()) -> String {
 }
 
 /**
- Forces full-colour rendering.
+ Marks the widget's background as essential.
 
- iOS 17 renders widgets in `.accented` or `.vibrant` mode on tinted home screens
- and throughout the widget gallery. Both flatten the view tree into solid
- tint-coloured shapes, which is what turned every tile into an opaque bar with
- the text invisible underneath. These widgets carry their own dark palette and
- have nothing to gain from tinting, so they opt out entirely.
+ iOS 17 offers to strip a widget's background on the Home Screen and renders the
+ result in its accented/vibrant modes, which flatten the view tree into solid
+ tint-coloured shapes — the opaque bars over unreadable text. These widgets are
+ a dark terminal surface and are illegible without their background, so they
+ declare it non-removable and stay in full colour.
 
- This is a `WidgetConfiguration` modifier, so the availability split is resolved
- by the caller the same way `TermixWidgetBundle` picks a bundle.
+ There is no modifier that forces a rendering mode: `widgetRenderingMode` is
+ read-only environment state the system sets. Declaring the background essential
+ is the supported way to opt out.
+
+ A `WidgetConfiguration` modifier, so the availability split is resolved by the
+ caller the same way `TermixWidgetBundle` picks a bundle.
  */
 extension WidgetConfiguration {
   @available(iOSApplicationExtension 17.0, *)
-  func termixFullColor() -> some WidgetConfiguration {
-    widgetRenderingMode(.fullColor)
+  func termixEssentialBackground() -> some WidgetConfiguration {
+    containerBackgroundRemovable(false)
   }
 }

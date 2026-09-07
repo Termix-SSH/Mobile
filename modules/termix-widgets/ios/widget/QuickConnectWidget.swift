@@ -36,7 +36,7 @@ struct QuickConnectWidget: Widget {
       .configurationDisplayName("Quick Connect")
       .description("Open a terminal on your servers.")
       .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
-      .termixFullColor()
+      .termixEssentialBackground()
     }
   }
 #endif
