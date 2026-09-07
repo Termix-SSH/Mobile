@@ -21,6 +21,26 @@ struct SnippetsWidget: Widget {
   }
 }
 
+/**
+ iOS 17+ variant.
+
+ Snippets have nothing to configure (the host is picked in the app when the
+ command runs), so this exists purely to opt out of the system content margins
+ the way the other two widgets do.
+ */
+@available(iOSApplicationExtension 17.0, *)
+struct ModernSnippetsWidget: Widget {
+  var body: some WidgetConfiguration {
+    StaticConfiguration(kind: SnippetsWidget.kind, provider: TermixProvider()) { entry in
+      SnippetsView(entry: entry)
+    }
+    .configurationDisplayName("Snippets")
+    .description("Run a saved command on a server.")
+    .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+    .termixContentMargins()
+  }
+}
+
 struct SnippetsView: View {
   @Environment(\.widgetFamily) private var family
   let entry: TermixEntry
@@ -29,11 +49,12 @@ struct SnippetsView: View {
   private var accent: Color { Theme.accent(snapshot.accent) }
 
   // Counts that fit the container. Overshooting here does not clip cleanly, the
-  // widget gallery renders the overflow running off the preview.
+  // widget gallery renders the overflow running off the preview. Medium fits
+  // two: with the header and footer, a third tile pushed both off the preview.
   private var capacity: Int {
     switch family {
     case .systemSmall: return 2
-    case .systemMedium: return 3
+    case .systemMedium: return 2
     default: return 7
     }
   }
@@ -68,6 +89,7 @@ struct SnippetsView: View {
     }
     .padding(family == .systemSmall ? 10 : 12)
     .widgetBackground()
+    .unredacted()
   }
 
   private var header: some View {

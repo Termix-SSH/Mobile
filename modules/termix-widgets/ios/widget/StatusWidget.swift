@@ -43,6 +43,7 @@ struct StatusWidget: Widget {
       .configurationDisplayName("Server Status")
       .description("CPU and memory for your servers.")
       .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+      .termixContentMargins()
     }
   }
 #endif
@@ -95,6 +96,7 @@ struct StatusView: View {
     }
     .padding(family == .systemSmall ? 10 : 12)
     .widgetBackground()
+    .unredacted()
   }
 
   // MARK: - Layouts

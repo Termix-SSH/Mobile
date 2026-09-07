@@ -155,6 +155,44 @@ function addBuildFileForReference(project, fileRefUuid, basename, phaseName) {
   return { value: buildFileUuid, comment: `${basename} in ${phaseName}` };
 }
 
+/**
+ * Adds the ExtractAppIntentsMetadata phase Xcode generates for targets that
+ * declare AppIntents types.
+ *
+ * `xcode` cannot express the native phase, so this is the shell-script form of
+ * the same step: it runs the SDK's appintentsmetadataprocessor over the
+ * target's Swift sources and writes Metadata.appintents into the built product.
+ * Without it the widget's host picker has nothing to query.
+ */
+function addAppIntentsMetadataPhase(project, target, targetName) {
+  const lines = [
+    "set -e",
+    // The processor moved between Xcode versions; try both homes and skip
+    // quietly rather than failing the build on a toolchain that lacks it.
+    'PROCESSOR="$DEVELOPER_DIR/usr/bin/appintentsmetadataprocessor"',
+    'if [ ! -x "$PROCESSOR" ]; then',
+    '  PROCESSOR="$TOOLCHAIN_DIR/usr/bin/appintentsmetadataprocessor"',
+    "fi",
+    'if [ ! -x "$PROCESSOR" ]; then',
+    '  echo "note: appintentsmetadataprocessor not found, skipping"',
+    "  exit 0",
+    "fi",
+    `SOURCES=$(find "$SRCROOT/${targetName}" -name "*.swift")`,
+    `"$PROCESSOR" --toolchain-dir "$TOOLCHAIN_DIR" --module-name "${targetName}" --sdk-root "$SDKROOT" --xcode-version "$XCODE_PRODUCT_BUILD_VERSION" --platform-family "$PLATFORM_FAMILY_NAME" --deployment-target "$IPHONEOS_DEPLOYMENT_TARGET" --output "$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH" --source-files $SOURCES`,
+  ];
+
+  project.addBuildPhase(
+    [],
+    "PBXShellScriptBuildPhase",
+    "ExtractAppIntentsMetadata",
+    target.uuid,
+    {
+      shellPath: "/bin/sh",
+      shellScript: lines.join("\n"),
+    },
+  );
+}
+
 /** Applies build settings to every configuration of a target. */
 function applyBuildSettings(project, target, settings) {
   const configurations = project.pbxXCBuildConfigurationSection();
@@ -238,11 +276,19 @@ const withWidgetTarget = (config, options) =>
       target.uuid,
     );
     project.addBuildPhase(
-      [],
+      // Implicit module linking usually covers these, but AppIntents metadata
+      // extraction is fragile without an explicit link: without it the host
+      // picker in "Edit Widget" spins on "Loading..." and dismisses.
+      ["WidgetKit.framework", "SwiftUI.framework", "AppIntents.framework"],
       "PBXFrameworksBuildPhase",
       "Frameworks",
       target.uuid,
     );
+
+    // Xcode adds this phase to any target containing AppIntents types. It emits
+    // the Metadata.appintents bundle that describes HostOptionQuery to the
+    // system; the configuration picker cannot resolve its options without it.
+    addAppIntentsMetadataPhase(project, target, targetName);
 
     // Compile exactly the Swift files, reusing the group's file references.
     const swiftBasenames = new Set(swiftFiles);
@@ -272,6 +318,10 @@ const withWidgetTarget = (config, options) =>
       SKIP_INSTALL: "YES",
       SWIFT_EMIT_LOC_STRINGS: "YES",
       SWIFT_VERSION: "5.0",
+      // Drives AppIntents metadata generation. Without these the widget's
+      // host picker has nothing to query and dismisses itself.
+      ENABLE_APPINTENTS_DEPLOYMENT_AWARE_PROCESSING: "YES",
+      APPINTENTS_DEPLOYMENT_POSTPROCESSING: "YES",
       // Must be set here: xcodeproj mods run last-registered-first, so a later
       // mod would run before this target exists.
       ...(config.ios?.appleTeamId

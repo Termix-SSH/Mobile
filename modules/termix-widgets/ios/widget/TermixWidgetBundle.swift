@@ -37,8 +37,9 @@ enum TermixWidgetBundle {
       ConfigurableQuickConnectWidget()
       ConfigurableStatusWidget()
       // Snippets are not host-specific: the target is chosen in the app when
-      // the command runs, so there is nothing to configure here.
-      SnippetsWidget()
+      // the command runs, so there is nothing to configure here. The modern
+      // variant only differs in opting out of the system content margins.
+      ModernSnippetsWidget()
     }
   }
 #endif

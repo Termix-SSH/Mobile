@@ -40,10 +40,23 @@ import WidgetKit
     init(entry: HostEntry) {
       self.init(id: entry.id, name: entry.name, subtitle: entry.subtitle)
     }
+
+    /// Placeholder row shown when there is nothing to choose from. Host ids are
+    /// positive, so this can never collide with a real one.
+    static let unavailable = HostOption(
+      id: -1,
+      name: "No hosts available",
+      subtitle: "Open Termix and sign in"
+    )
   }
 
+  /**
+   `EntityStringQuery`, not a bare `EntityQuery`: the picker renders a
+   searchable list, and the string variant is the surface the system expects for
+   a configuration parameter. A bare `EntityQuery` leaves the search field dead.
+   */
   @available(iOSApplicationExtension 17.0, *)
-  struct HostOptionQuery: EntityQuery {
+  struct HostOptionQuery: EntityStringQuery {
     /// Every host in the current snapshot, in the order the widgets rank them.
     private var hosts: [HostEntry] { SharedStore.loadSnapshot().hosts }
 
@@ -54,8 +67,32 @@ import WidgetKit
       }
     }
 
+    /// Backs the picker's search field. Matches the address too, since that is
+    /// what tells two similarly named hosts apart.
+    func entities(matching string: String) async throws -> [HostOption] {
+      let needle = string.trimmingCharacters(in: .whitespacesAndNewlines)
+      guard !needle.isEmpty else { return try await suggestedEntities() }
+      return hosts
+        .filter {
+          $0.name.localizedCaseInsensitiveContains(needle)
+            || $0.subtitle.localizedCaseInsensitiveContains(needle)
+        }
+        .map(HostOption.init(entry:))
+    }
+
+    /**
+     The list the picker opens on.
+
+     An empty snapshot (signed out, widgets turned off, or every host filtered
+     out by the widget preferences) would otherwise vend an empty sheet, which
+     reads as a hang rather than as a state to fix. One explanatory row says
+     what to do instead. It carries a sentinel id that never matches a real
+     host, so picking it resolves to nothing and the widget keeps its automatic
+     ordering.
+     */
     func suggestedEntities() async throws -> [HostOption] {
-      hosts.map(HostOption.init(entry:))
+      guard !hosts.isEmpty else { return [HostOption.unavailable] }
+      return hosts.map(HostOption.init(entry:))
     }
   }
 

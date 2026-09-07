@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   clearWidgetSnapshot,
   isWidgetSupported,
+  reloadWidgets,
   setWidgetSnapshotJson,
 } from "@/modules/termix-widgets";
 import { DEFAULT_ACCENT, STORAGE_KEYS } from "@/app/constants/theme";
@@ -186,12 +187,16 @@ export async function publishSnippetSnapshot(
  */
 export async function republishWithPreferences(): Promise<void> {
   if (!isWidgetSupported) return;
-  // Nothing has been reported yet (e.g. the user opened Settings before the
-  // Hosts screen loaded). Rebuilding now would publish an empty snapshot and
-  // blank the widgets; the next refresh will apply the new preferences.
-  if (!sourcePopulated) return;
   return enqueue(async () => {
     try {
+      // Nothing has been reported yet (e.g. the user opened Settings before the
+      // Hosts screen loaded). Rebuilding would publish an empty snapshot and
+      // blank the widgets, so nudge the host to re-render what it already has
+      // and let the next refresh apply the change.
+      if (!sourcePopulated) {
+        await reloadWidgets();
+        return;
+      }
       await rebuild(true);
     } catch (error) {
       logFailure("[widgets] failed to republish snapshot", error);

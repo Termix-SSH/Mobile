@@ -136,6 +136,7 @@ struct HostTile: View {
       )
     }
     .widgetLinkReset()
+    .unredacted()
     .accessibilityLabel(host.accessibilityDescription(opens: opens))
   }
 }
@@ -188,6 +189,7 @@ struct HostMetricRow: View {
       .termixCard()
     }
     .widgetLinkReset()
+    .unredacted()
     .accessibilityLabel(host.accessibilityDescription(opens: opens))
   }
 }
@@ -282,6 +284,7 @@ struct SnippetTile: View {
       .termixCard()
     }
     .widgetLinkReset()
+    .unredacted()
     .accessibilityLabel("\(snippet.name). Runs this snippet on a host you pick.")
   }
 }

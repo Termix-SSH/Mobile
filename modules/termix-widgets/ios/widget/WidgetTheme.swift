@@ -1,4 +1,5 @@
 import SwiftUI
+import WidgetKit
 
 /**
  Visual language for the widgets.
@@ -124,4 +125,24 @@ func relativeAge(from date: Date, now: Date = Date()) -> String {
   if seconds < 3600 { return "\(Int(seconds / 60))m" }
   if seconds < 86_400 { return "\(Int(seconds / 3600))h" }
   return "\(Int(seconds / 86_400))d"
+}
+
+/**
+ Turns off the system's default widget content margins.
+
+ The views set their own padding, and iOS adds ~16pt of its own on top of it
+ once a widget adopts `containerBackground`. The two compound differently per
+ family in the widget gallery, which is what made the previews disagree. Owning
+ the inset outright keeps all nine previews consistent.
+
+ `contentMarginsDisabled()` returns a different concrete type, so the two
+ branches cannot both be returned from one `some WidgetConfiguration`. The
+ availability check is resolved by the caller picking a whole configuration
+ instead, the same split `TermixWidgetBundle` uses.
+ */
+extension WidgetConfiguration {
+  @available(iOSApplicationExtension 17.0, *)
+  func termixContentMargins() -> some WidgetConfiguration {
+    contentMarginsDisabled()
+  }
 }
