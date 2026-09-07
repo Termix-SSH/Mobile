@@ -82,7 +82,13 @@ extension Color {
   }
 }
 
-/// Applies the widget container background on iOS 17+, a plain background below.
+/**
+ Applies the widget container background on iOS 17+, a plain background below.
+
+ iOS 17 applies its own content margins inside `containerBackground`, so the
+ views add no padding of their own. iOS 16 has neither, so the inset is applied
+ here to keep the two paths looking the same.
+ */
 struct WidgetBackground: ViewModifier {
   let color: Color
 
@@ -90,7 +96,10 @@ struct WidgetBackground: ViewModifier {
     if #available(iOSApplicationExtension 17.0, *) {
       content.containerBackground(color, for: .widget)
     } else {
-      content.background(color)
+      content
+        .padding(16)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(color)
     }
   }
 }
@@ -128,21 +137,20 @@ func relativeAge(from date: Date, now: Date = Date()) -> String {
 }
 
 /**
- Turns off the system's default widget content margins.
+ Forces full-colour rendering.
 
- The views set their own padding, and iOS adds ~16pt of its own on top of it
- once a widget adopts `containerBackground`. The two compound differently per
- family in the widget gallery, which is what made the previews disagree. Owning
- the inset outright keeps all nine previews consistent.
+ iOS 17 renders widgets in `.accented` or `.vibrant` mode on tinted home screens
+ and throughout the widget gallery. Both flatten the view tree into solid
+ tint-coloured shapes, which is what turned every tile into an opaque bar with
+ the text invisible underneath. These widgets carry their own dark palette and
+ have nothing to gain from tinting, so they opt out entirely.
 
- `contentMarginsDisabled()` returns a different concrete type, so the two
- branches cannot both be returned from one `some WidgetConfiguration`. The
- availability check is resolved by the caller picking a whole configuration
- instead, the same split `TermixWidgetBundle` uses.
+ This is a `WidgetConfiguration` modifier, so the availability split is resolved
+ by the caller the same way `TermixWidgetBundle` picks a bundle.
  */
 extension WidgetConfiguration {
   @available(iOSApplicationExtension 17.0, *)
-  func termixContentMargins() -> some WidgetConfiguration {
-    contentMarginsDisabled()
+  func termixFullColor() -> some WidgetConfiguration {
+    widgetRenderingMode(.fullColor)
   }
 }

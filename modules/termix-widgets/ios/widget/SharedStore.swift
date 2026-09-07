@@ -23,6 +23,19 @@ enum SharedStore {
     return value
   }
 
+  /// Whether the app has ever written a snapshot into the shared container.
+  /// Distinguishes "signed out" from "this build cannot see the App Group",
+  /// which otherwise present identically.
+  static var hasStoredSnapshot: Bool {
+    guard
+      let groupId = appGroupId,
+      let defaults = UserDefaults(suiteName: groupId)
+    else {
+      return false
+    }
+    return defaults.string(forKey: snapshotKey) != nil
+  }
+
   static func loadSnapshot() -> WidgetSnapshot {
     guard
       let groupId = appGroupId,

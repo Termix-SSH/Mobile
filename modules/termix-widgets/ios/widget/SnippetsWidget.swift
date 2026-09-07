@@ -24,9 +24,8 @@ struct SnippetsWidget: Widget {
 /**
  iOS 17+ variant.
 
- Snippets have nothing to configure (the host is picked in the app when the
- command runs), so this exists purely to opt out of the system content margins
- the way the other two widgets do.
+ Snippets have nothing to configure, so this exists only to opt out of the
+ accented/vibrant rendering modes the way the other two widgets do.
  */
 @available(iOSApplicationExtension 17.0, *)
 struct ModernSnippetsWidget: Widget {
@@ -37,7 +36,7 @@ struct ModernSnippetsWidget: Widget {
     .configurationDisplayName("Snippets")
     .description("Run a saved command on a server.")
     .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
-    .termixContentMargins()
+    .termixFullColor()
   }
 }
 
@@ -87,7 +86,9 @@ struct SnippetsView: View {
         .widgetURL(family == .systemSmall ? WidgetSnapshot.snippetsLink : nil)
       }
     }
-    .padding(family == .systemSmall ? 10 : 12)
+    // No manual padding: iOS applies its own content margins inside
+    // `containerBackground`, and adding to them is what made the gallery
+    // previews disagree per family.
     .widgetBackground()
     .unredacted()
   }

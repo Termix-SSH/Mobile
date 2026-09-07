@@ -43,7 +43,7 @@ struct StatusWidget: Widget {
       .configurationDisplayName("Server Status")
       .description("CPU and memory for your servers.")
       .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
-      .termixContentMargins()
+      .termixFullColor()
     }
   }
 #endif
@@ -94,7 +94,9 @@ struct StatusView: View {
         listLayout
       }
     }
-    .padding(family == .systemSmall ? 10 : 12)
+    // No manual padding: iOS applies its own content margins inside
+    // `containerBackground`, and adding to them is what made the gallery
+    // previews disagree per family.
     .widgetBackground()
     .unredacted()
   }

@@ -41,13 +41,29 @@ import WidgetKit
       self.init(id: entry.id, name: entry.name, subtitle: entry.subtitle)
     }
 
-    /// Placeholder row shown when there is nothing to choose from. Host ids are
-    /// positive, so this can never collide with a real one.
-    static let unavailable = HostOption(
-      id: -1,
-      name: "No hosts available",
-      subtitle: "Open Termix and sign in"
-    )
+    /**
+     Placeholder row shown when there is nothing to choose from.
+
+     The subtitle names the actual reason, because "no hosts" has three very
+     different causes and the user cannot tell them apart otherwise: no snapshot
+     has ever been written, one was written while signed out, or every host was
+     filtered out by the widget preferences. Host ids are positive, so the
+     sentinel can never collide with a real one.
+     */
+    static func unavailable(_ snapshot: WidgetSnapshot) -> HostOption {
+      let reason: String
+      switch snapshot.state {
+      case .signedOut:
+        reason = SharedStore.hasStoredSnapshot
+          ? "Sign in to Termix"
+          : "Open Termix, then reopen this picker"
+      case .empty, .ready:
+        reason = snapshot.summary.total > 0
+          ? "Widget filters hide every host"
+          : "Add a host in Termix"
+      }
+      return HostOption(id: -1, name: "No hosts available", subtitle: reason)
+    }
   }
 
   /**
@@ -91,8 +107,11 @@ import WidgetKit
      ordering.
      */
     func suggestedEntities() async throws -> [HostOption] {
-      guard !hosts.isEmpty else { return [HostOption.unavailable] }
-      return hosts.map(HostOption.init(entry:))
+      let snapshot = SharedStore.loadSnapshot()
+      guard !snapshot.hosts.isEmpty else {
+        return [HostOption.unavailable(snapshot)]
+      }
+      return snapshot.hosts.map(HostOption.init(entry:))
     }
   }
 
