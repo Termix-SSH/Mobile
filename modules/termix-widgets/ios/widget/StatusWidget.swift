@@ -147,24 +147,23 @@ struct StatusView: View {
     VStack(alignment: .leading, spacing: 8) {
       WidgetHeader(snapshot: snapshot, accent: accent)
 
-      // fixedSize keeps each row at its natural height and layoutPriority lets
-      // the spacer below absorb the slack. Without them the stack expanded to
-      // fill the container, and in the gallery's shorter preview render that
-      // starved the spacer and pressed the rows against the top and bottom
-      // edges. clipped() still guarantees nothing escapes at large type sizes.
+      // Medium uses the compact row: two full-height rows plus the header and
+      // footer overflow the container, which collapses the spacer and presses
+      // both against the edges. clipped() still guarantees nothing escapes at
+      // large Dynamic Type sizes.
       VStack(spacing: 6) {
         ForEach(rankedHosts) { host in
           HostMetricRow(
             host: host,
             accent: accent,
             showsSubtitle: family != .systemMedium,
-            opens: opens
+            opens: opens,
+            compact: family == .systemMedium
           )
         }
       }
       .frame(maxWidth: .infinity, alignment: .top)
       .fixedSize(horizontal: false, vertical: true)
-      .layoutPriority(1)
       .clipped()
 
       Spacer(minLength: 0)

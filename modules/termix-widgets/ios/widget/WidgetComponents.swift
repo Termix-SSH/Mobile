@@ -149,9 +149,51 @@ struct HostMetricRow: View {
   /// Tab this row opens. Defaults to the server stats tab, since that is what
   /// the row is showing.
   var opens: SessionKind = .stats
+  /**
+   Puts the bars beside the name instead of under it, halving the row height.
+
+   Two stacked rows plus a header and footer overflow a medium widget, which
+   collapses the spacer and presses the header and footer against the edges.
+   The large family has the height for the taller form, so it keeps it.
+   */
+  var compact: Bool = false
 
   var body: some View {
     Link(destination: host.link(for: opens)) {
+      content
+        .padding(.horizontal, 8)
+        .padding(.vertical, 7)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .termixCard()
+    }
+    .widgetLinkReset()
+    .unredacted()
+    .accessibilityLabel(host.accessibilityDescription(opens: opens))
+  }
+
+  @ViewBuilder private var content: some View {
+    if compact {
+      HStack(spacing: 8) {
+        StatusDot(status: host.status)
+        Text(host.name)
+          .font(Theme.mono(11, weight: .semibold))
+          .foregroundColor(Theme.textPrimary)
+          .lineLimit(1)
+          .truncationMode(.tail)
+        Spacer(minLength: 4)
+        if host.hasMetrics {
+          MetricBar(label: "CPU", percent: host.cpu, accent: accent)
+            .frame(width: 46)
+          MetricBar(label: "MEM", percent: host.mem, accent: accent)
+            .frame(width: 46)
+        } else {
+          Text(host.stateLabel)
+            .font(Theme.label(8))
+            .tracking(0.8)
+            .foregroundColor(Theme.textTertiary)
+        }
+      }
+    } else {
       VStack(alignment: .leading, spacing: 5) {
         HStack(spacing: 5) {
           StatusDot(status: host.status)
@@ -183,14 +225,7 @@ struct HostMetricRow: View {
             .foregroundColor(Theme.textTertiary)
         }
       }
-      .padding(.horizontal, 8)
-      .padding(.vertical, 7)
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .termixCard()
     }
-    .widgetLinkReset()
-    .unredacted()
-    .accessibilityLabel(host.accessibilityDescription(opens: opens))
   }
 }
 
