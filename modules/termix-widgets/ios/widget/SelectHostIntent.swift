@@ -51,12 +51,28 @@ import WidgetKit
      sentinel can never collide with a real one.
      */
     static func unavailable(_ snapshot: WidgetSnapshot) -> HostOption {
+      // The container state is the part that cannot be inferred from the
+      // snapshot alone: a missing App Group and a signed-out user both decode
+      // to the same signed-out payload.
+      guard SharedStore.appGroupId != nil else {
+        return HostOption(
+          id: -1,
+          name: "Widget storage unavailable",
+          subtitle: "No app group. Reinstall the app."
+        )
+      }
+      guard SharedStore.hasStoredSnapshot else {
+        return HostOption(
+          id: -1,
+          name: "No hosts available",
+          subtitle: "Open Termix, then reopen this picker"
+        )
+      }
+
       let reason: String
       switch snapshot.state {
       case .signedOut:
-        reason = SharedStore.hasStoredSnapshot
-          ? "Sign in to Termix"
-          : "Open Termix, then reopen this picker"
+        reason = "Sign in to Termix"
       case .empty, .ready:
         reason = snapshot.summary.total > 0
           ? "Widget filters hide every host"

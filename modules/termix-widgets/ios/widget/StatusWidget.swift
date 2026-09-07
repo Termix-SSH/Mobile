@@ -147,9 +147,11 @@ struct StatusView: View {
     VStack(alignment: .leading, spacing: 8) {
       WidgetHeader(snapshot: snapshot, accent: accent)
 
-      // fixedSize stops a row from being compressed below its natural height,
-      // and the clipped container guarantees nothing escapes the widget even if
-      // the user runs a large Dynamic Type size.
+      // fixedSize keeps each row at its natural height and layoutPriority lets
+      // the spacer below absorb the slack. Without them the stack expanded to
+      // fill the container, and in the gallery's shorter preview render that
+      // starved the spacer and pressed the rows against the top and bottom
+      // edges. clipped() still guarantees nothing escapes at large type sizes.
       VStack(spacing: 6) {
         ForEach(rankedHosts) { host in
           HostMetricRow(
@@ -161,6 +163,8 @@ struct StatusView: View {
         }
       }
       .frame(maxWidth: .infinity, alignment: .top)
+      .fixedSize(horizontal: false, vertical: true)
+      .layoutPriority(1)
       .clipped()
 
       Spacer(minLength: 0)
