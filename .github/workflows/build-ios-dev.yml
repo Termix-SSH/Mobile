@@ -3,23 +3,22 @@ name: Build iOS Development
 on:
   workflow_dispatch:
     inputs:
-      wait:
-        type: boolean
-        description: Wait for the build to finish and download the IPA
-        default: true
       clear_cache:
         type: boolean
-        description: Clear the EAS build cache
+        description: Clear the prebuild output and derived data before building
         default: false
 
 concurrency:
   group: build-ios-dev-${{ github.ref }}
   cancel-in-progress: false
 
+permissions:
+  contents: write
+
 jobs:
   build:
-    name: eas build (development, ios)
-    runs-on: blacksmith-8vcpu-ubuntu-2404
+    name: eas build --local (development, ios)
+    runs-on: blacksmith-6vcpu-macos-latest
     steps:
       - name: Setup repo
         uses: actions/checkout@v4
@@ -43,8 +42,13 @@ jobs:
       - name: Check Expo auth
         run: eas whoami
 
+      - name: Clear cache
+        if: ${{ inputs.clear_cache }}
+        run: rm -rf ios ~/Library/Developer/Xcode/DerivedData
+
       - name: Build
         env:
+          EAS_SKIP_AUTO_FINGERPRINT: 1
           EXPO_ASC_API_KEY_PATH: ${{ github.workspace }}/asc-api-key.p8
           EXPO_ASC_KEY_ID: ${{ secrets.EXPO_ASC_KEY_ID }}
           EXPO_ASC_ISSUER_ID: ${{ secrets.EXPO_ASC_ISSUER_ID }}
@@ -54,6 +58,8 @@ jobs:
           EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
           ASC_API_KEY: ${{ secrets.EXPO_ASC_API_KEY_P8 }}
         run: |
+          set -e
+
           if [ -n "$ASC_API_KEY" ]; then
             printf '%s\n' "$ASC_API_KEY" > "$EXPO_ASC_API_KEY_PATH"
             chmod 600 "$EXPO_ASC_API_KEY_PATH"
@@ -63,31 +69,135 @@ jobs:
             echo "No ASC API key set, falling back to Apple ID auth"
           fi
 
-          ARGS="--platform ios --profile development --non-interactive"
-          if [ "${{ inputs.clear_cache }}" = "true" ]; then
-            ARGS="$ARGS --clear-cache"
-          fi
+          eas build --local --non-interactive --platform=ios --profile=development
 
-          if [ "${{ inputs.wait }}" = "true" ]; then
-            eas build $ARGS
-            mkdir -p build-artifacts
-            URL=$(eas build:list --platform ios --build-profile development               --status finished --limit 1 --json --non-interactive               | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const b=JSON.parse(d)[0];process.stdout.write(b&&b.artifacts&&b.artifacts.applicationArchiveUrl||'')})")
-            if [ -z "$URL" ]; then
-              echo "No finished build artifact found"
-              exit 1
-            fi
-            echo "Downloading $URL"
-            curl -fSL "$URL" -o build-artifacts/termix-ios-development.ipa
-          else
-            eas build $ARGS --no-wait
+          mkdir -p build-artifacts
+          IPA_FILE=$(find . -maxdepth 1 -type f -name "build-*.ipa" | head -1)
+          if [ -z "$IPA_FILE" ]; then
+            IPA_FILE=$(find . -type f -name "*.ipa" -not -path "*/node_modules/*" | head -1)
           fi
+          if [ -z "$IPA_FILE" ]; then
+            echo "ERROR: IPA not found after build"
+            exit 1
+          fi
+          echo "Found IPA: $IPA_FILE"
+          cp "$IPA_FILE" build-artifacts/termix-ios-development.ipa
 
       - name: Remove API key
         if: always()
         run: rm -f "${{ github.workspace }}/asc-api-key.p8"
 
+      - name: Publish install page
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+
+          OWNER="${GITHUB_REPOSITORY%%/*}"
+          REPO="${GITHUB_REPOSITORY##*/}"
+          OWNER_LC=$(echo "$OWNER" | tr '[:upper:]' '[:lower:]')
+          BASE="https://${OWNER_LC}.github.io/${REPO}/ios-dev"
+
+          BUNDLE_ID=$(node -p "require('./app.json').expo.ios.bundleIdentifier")
+          VERSION=$(node -p "require('./app.json').expo.version")
+          APP_NAME=$(node -p "require('./app.json').expo.name")
+
+          WORK=$(mktemp -d)
+          cp build-artifacts/termix-ios-development.ipa "$WORK/termix.ipa"
+          cp assets/images/icon.png "$WORK/icon.png"
+
+          BASE="$BASE" BUNDLE_ID="$BUNDLE_ID" VERSION="$VERSION" APP_NAME="$APP_NAME" OUT_DIR="$WORK" \
+            node -e '
+              const fs = require("fs");
+              const { BASE, BUNDLE_ID, VERSION, APP_NAME, OUT_DIR } = process.env;
+              const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+              const plist = `<?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>items</key>
+            <array>
+              <dict>
+                <key>assets</key>
+                <array>
+                  <dict>
+                    <key>kind</key>
+                    <string>software-package</string>
+                    <key>url</key>
+                    <string>${esc(BASE)}/termix.ipa</string>
+                  </dict>
+                  <dict>
+                    <key>kind</key>
+                    <string>display-image</string>
+                    <key>url</key>
+                    <string>${esc(BASE)}/icon.png</string>
+                  </dict>
+                  <dict>
+                    <key>kind</key>
+                    <string>full-size-image</string>
+                    <key>url</key>
+                    <string>${esc(BASE)}/icon.png</string>
+                  </dict>
+                </array>
+                <key>metadata</key>
+                <dict>
+                  <key>bundle-identifier</key>
+                  <string>${esc(BUNDLE_ID)}</string>
+                  <key>bundle-version</key>
+                  <string>${esc(VERSION)}</string>
+                  <key>kind</key>
+                  <string>software</string>
+                  <key>title</key>
+                  <string>${esc(APP_NAME)}</string>
+                </dict>
+              </dict>
+            </array>
+          </dict>
+          </plist>
+          `;
+              const href = "itms-services://?action=download-manifest&amp;url=" + esc(BASE) + "/manifest.plist";
+              const html = `<!doctype html>
+          <html>
+          <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>${esc(APP_NAME)}</title>
+          <style>
+          body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#18181b;font-family:-apple-system,system-ui,sans-serif}
+          a{background:#fff;color:#18181b;text-decoration:none;font-size:20px;font-weight:600;padding:18px 48px;border-radius:12px}
+          </style>
+          </head>
+          <body>
+          <a href="${href}">Install</a>
+          </body>
+          </html>
+          `;
+              fs.writeFileSync(OUT_DIR + "/manifest.plist", plist);
+              fs.writeFileSync(OUT_DIR + "/index.html", html);
+            '
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          PAGES=$(mktemp -d)
+          git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$PAGES"
+
+          cd "$PAGES"
+          git checkout --orphan gh-pages
+          git rm -rf . > /dev/null 2>&1 || true
+          rm -rf ./* .gitignore 2>/dev/null || true
+
+          mkdir -p ios-dev
+          cp "$WORK/termix.ipa" "$WORK/manifest.plist" "$WORK/icon.png" "$WORK/index.html" ios-dev/
+          touch .nojekyll
+
+          git add -A
+          git commit -m "ios dev build ${VERSION} (${GITHUB_SHA:0:7})"
+          git push --force origin gh-pages
+
+          echo "Install page: ${BASE}/" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload IPA
-        if: ${{ inputs.wait }}
         uses: actions/upload-artifact@v4
         with:
           name: termix-ios-development
