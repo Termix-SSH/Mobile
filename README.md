@@ -37,13 +37,13 @@ Termix gives you full control of your servers from your phone. Connect to your T
 <td width="50%" valign="top">
 
 **SSH Terminal:**
-Open multiple terminal sessions at once with tab-based navigation. Switch between a standard keyboard and a custom terminal keyboard built for SSH use. Customize the keyboard layout, save snippets for quick reuse, and use hardware keyboards, dictation, and VoiceOver. Sessions stay alive in the background.
+Open multiple terminal sessions at once with tab-based navigation. Switch between a standard keyboard and a custom terminal keyboard built for SSH use. Customize the keyboard layout and key repeat, save snippets for quick reuse, recall past commands from the history bar, and use hardware keyboards, dictation, and VoiceOver. Sessions stay alive in the background.
 
 </td>
 <td width="50%" valign="top">
 
 **File Manager:**
-Browse, view, edit, move, and manage files and folders over SSH.
+Browse, view, edit, move, and manage files and folders over SSH. Pin files and add folder shortcuts to get back to what you use most. Compress files, download them through the share sheet, and restore deleted items from the trash.
 
 </td>
 </tr>
@@ -51,13 +51,13 @@ Browse, view, edit, move, and manage files and folders over SSH.
 <td width="50%" valign="top">
 
 **Server Stats:**
-Monitor CPU, memory, disk, network, uptime, running processes, open ports, firewall rules, and login history in real time.
+Monitor CPU, memory, disk, network, uptime, running processes, open ports, firewall rules, and login history in real time. Server alerts show up on the hosts screen.
 
 </td>
 <td width="50%" valign="top">
 
 **SSH Tunnels:**
-Create, start, and stop SSH tunnels.
+Create, start, and stop SSH tunnels, and set them up per host right from the host editor.
 
 </td>
 </tr>
@@ -78,14 +78,28 @@ Access a graphical desktop on your server (RDP, VNC, and Telnet supported).
 <tr>
 <td width="50%" valign="top">
 
-**Host Management:**
-Organize your servers into folders. Save credentials and SSH keys per host. Use Quick Connect to jump into a session fast.
+**Home Screen Widgets:**
+Add widgets on iOS and Android to jump straight into a host, run a snippet, or check server status without opening the app. Pick which hosts each widget shows and which tab it opens.
 
 </td>
 <td width="50%" valign="top">
 
+**Host Management:**
+Organize your servers into folders. Save credentials and SSH keys per host. Use Quick Connect to jump into a session fast, and wake a machine over the network with Wake-on-LAN.
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
 **Settings:**
-Customize your terminal appearance, keyboard layout, and keys. Manage API keys, active sessions, and two-factor authentication for your Termix account.
+Customize your terminal appearance, keyboard layout, and keys. Manage API keys, active sessions, and two-factor authentication for your Termix account, plus change your password or delete your account.
+
+</td>
+<td width="50%" valign="top">
+
+**App Lock:**
+Lock the app behind Face ID, Touch ID, or fingerprint, with a PIN as backup.
 
 </td>
 </tr>
