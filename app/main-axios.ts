@@ -657,6 +657,9 @@ function handleApiError(error: unknown, operation: string): never {
         url.includes("/websocket");
 
       if (isCriticalEndpoint && authStateCallback) {
+        // Drop the dead token too, otherwise it keeps getting sent on every
+        // request and websocket connect until the next cold start.
+        void clearAuth();
         authStateCallback(false);
       }
 
@@ -2389,7 +2392,10 @@ async function loginWithFetch(
     fetchResponse = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      // Mobile has no "remember me" toggle; staying signed in is the expected
+      // default. Without this the server issues a 24h token and users get
+      // logged out after about a day.
+      body: JSON.stringify({ username, password, rememberMe: true }),
     });
   } catch (error) {
     if (isLocalNetworkHttpsUrl(url) && isNativeNetworkFailure(error)) {
@@ -2464,6 +2470,7 @@ export async function loginUser(
         const axiosResponse = await authApi.post("/users/login", {
           username,
           password,
+          rememberMe: true,
         });
         finalToken =
           extractJwtFromSetCookie(axiosResponse.headers) ||
@@ -2877,6 +2884,7 @@ export async function verifyTOTPLogin(
     const response = await authApi.post("/users/totp/verify-login", {
       temp_token,
       totp_code,
+      rememberMe: true,
     });
 
     let token = null;
@@ -2916,6 +2924,7 @@ export async function verifyTOTPLogin(
         const response = await alt.post("/users/totp/verify-login", {
           temp_token,
           totp_code,
+          rememberMe: true,
         });
 
         let extractedToken = null;
