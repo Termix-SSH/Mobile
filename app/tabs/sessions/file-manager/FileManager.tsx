@@ -22,6 +22,8 @@ import { Swipeable } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Clipboard from "expo-clipboard";
 import * as DocumentPicker from "expo-document-picker";
+import * as FileSystem from "expo-file-system/legacy";
+import * as Sharing from "expo-sharing";
 import {
   ChevronRight,
   File as FileIcon,
@@ -43,6 +45,7 @@ import {
   ChevronLeft,
   ArrowUpDown,
   Upload,
+  Download,
   Archive,
   CheckSquare,
   Square,
@@ -68,6 +71,7 @@ import {
   identifySSHSymlink,
   uploadSSHFile,
   extractSSHArchive,
+  downloadSSHFile,
 } from "@/app/main-axios";
 import { Text, Input, Button } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
@@ -469,6 +473,37 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         await loadDirectory(currentPath);
       } catch (e: any) {
         toast.error(e?.message || "Failed to upload file");
+      } finally {
+        setBusy(false);
+      }
+    };
+
+    const doDownload = async (file: FileItem) => {
+      try {
+        setBusy(true);
+        const res = await downloadSSHFile(
+          conn.sessionId.current,
+          file.path,
+          host.id,
+        );
+        if (!res?.content) throw new Error("Empty response from server");
+
+        const name = res.fileName || file.name;
+        const target = `${FileSystem.cacheDirectory}${name}`;
+        await FileSystem.writeAsStringAsync(target, res.content, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+
+        if (!(await Sharing.isAvailableAsync())) {
+          toast.error("Sharing is not available on this device");
+          return;
+        }
+        await Sharing.shareAsync(target, {
+          mimeType: res.mimeType || undefined,
+          dialogTitle: name,
+        });
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to download file");
       } finally {
         setBusy(false);
       }
@@ -887,6 +922,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
             },
             del: doDelete,
             extract: doExtract,
+            download: doDownload,
           })}
         />
 
@@ -977,6 +1013,7 @@ function buildFileActions(
     copyPath: (f: FileItem) => void;
     del: (f: FileItem) => void;
     extract: (f: FileItem) => void;
+    download: (f: FileItem) => void;
   },
 ): (ContextAction | null)[] {
   if (!file) return [];
@@ -1015,6 +1052,14 @@ function buildFileActions(
           icon: <Archive size={18} color={fg} />,
           label: "Extract Here",
           onPress: () => handlers.extract(file),
+        }
+      : null,
+    isFile
+      ? {
+          key: "download",
+          icon: <Download size={18} color={fg} />,
+          label: "Download",
+          onPress: () => handlers.download(file),
         }
       : null,
     {
