@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { loadXtermAssets } from "@/app/tabs/sessions/terminal/loadXtermAssets";
 import { View, ActivityIndicator, Pressable } from "react-native";
 import { WebView } from "react-native-webview";
 import { RotateCcw } from "lucide-react-native";
@@ -33,6 +34,7 @@ export function DockerConsole({
   >("connecting");
   const [errorMessage, setErrorMessage] = useState("");
   const [webViewKey, setWebViewKey] = useState(0);
+  const [consoleHtml, setConsoleHtml] = useState<string | null>(null);
 
   const send = useCallback((msg: object) => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
@@ -107,6 +109,23 @@ export function DockerConsole({
   }, [host.id, host.ip, host.syncId, container.id, send]);
 
   useEffect(() => {
+    let cancelled = false;
+    loadXtermAssets(false)
+      .then((assets) => {
+        if (!cancelled) setConsoleHtml(buildConsoleHtml(assets));
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setStatus("error");
+          setErrorMessage("Failed to load the console");
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
     connect();
     return () => {
       try {
@@ -133,14 +152,14 @@ export function DockerConsole({
 
   const reconnect = () => setWebViewKey((k) => k + 1);
 
-  if (!isVisible) return null;
+  if (!isVisible || !consoleHtml) return null;
 
   return (
     <View className="flex-1 bg-black">
       <WebView
         key={webViewKey}
         ref={webViewRef}
-        source={{ html: CONSOLE_HTML }}
+        source={{ html: consoleHtml }}
         onMessage={onWebViewMessage}
         originWhitelist={["*"]}
         javaScriptEnabled
@@ -178,13 +197,17 @@ export function DockerConsole({
   );
 }
 
-const CONSOLE_HTML = `<!DOCTYPE html>
+const buildConsoleHtml = (assets: {
+  xtermJs: string;
+  xtermCss: string;
+  fitAddonJs: string;
+}) => `<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<script src="https://unpkg.com/xterm@5.3.0/lib/xterm.js"></script>
-<script src="https://unpkg.com/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/xterm@5.3.0/css/xterm.css" />
+<script>${assets.xtermJs}</script>
+<script>${assets.fitAddonJs}</script>
+<style>${assets.xtermCss}</style>
 <style>
   html, body, #term { margin:0; padding:0; height:100%; width:100%; background:#000; overflow:hidden; }
   .xterm { padding:6px; }
