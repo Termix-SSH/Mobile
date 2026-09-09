@@ -71,6 +71,7 @@ import {
   identifySSHSymlink,
   uploadSSHFile,
   extractSSHArchive,
+  compressSSHFiles,
   downloadSSHFile,
 } from "@/app/main-axios";
 import { Text, Input, Button } from "@/app/components/ui";
@@ -152,6 +153,8 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     );
     const [createName, setCreateName] = useState("");
     const [renameTarget, setRenameTarget] = useState<FileItem | null>(null);
+    const [compressName, setCompressName] = useState("");
+    const [compressVisible, setCompressVisible] = useState(false);
     const [renameName, setRenameName] = useState("");
     const [viewer, setViewer] = useState<{
       file: FileItem;
@@ -473,6 +476,30 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         await loadDirectory(currentPath);
       } catch (e: any) {
         toast.error(e?.message || "Failed to upload file");
+      } finally {
+        setBusy(false);
+      }
+    };
+
+    const confirmCompress = async () => {
+      const name = compressName.trim();
+      if (!name) return;
+      try {
+        setBusy(true);
+        await compressSSHFiles(
+          conn.sessionId.current,
+          Array.from(selectedFiles),
+          name,
+          undefined,
+          host.id,
+        );
+        toast.success(`Created ${name}`);
+        setCompressVisible(false);
+        setCompressName("");
+        cancelSelection();
+        await loadDirectory(currentPath);
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to compress files");
       } finally {
         setBusy(false);
       }
@@ -849,6 +876,18 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                       <Scissors size={16} color={color("foreground")} />
                     </Pressable>
                     <Pressable
+                      onPress={() => {
+                        setCompressName("archive.tar.gz");
+                        setCompressVisible(true);
+                      }}
+                      disabled={selectedFiles.size === 0}
+                      hitSlop={6}
+                      className="rounded border border-border p-2 active:bg-muted/40"
+                      style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
+                    >
+                      <Archive size={16} color={color("foreground")} />
+                    </Pressable>
+                    <Pressable
                       onPress={doDeleteSelected}
                       disabled={selectedFiles.size === 0}
                       hitSlop={6}
@@ -968,6 +1007,19 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           }}
           onConfirm={confirmRename}
           confirmLabel="Rename"
+          insetBottom={insets.bottom}
+        />
+        <NameDialog
+          visible={compressVisible}
+          title="Compress"
+          value={compressName}
+          onChange={setCompressName}
+          onClose={() => {
+            setCompressVisible(false);
+            setCompressName("");
+          }}
+          onConfirm={confirmCompress}
+          confirmLabel="Compress"
           insetBottom={insets.bottom}
         />
 
