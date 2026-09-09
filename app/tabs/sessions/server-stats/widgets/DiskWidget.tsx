@@ -27,7 +27,7 @@ export function DiskWidget({
     >
       <Meter percent={percent} history={history} />
       {disk?.usedHuman && disk?.totalHuman ? (
-        <Text className="text-[10px] text-muted-foreground mt-1.5">
+        <Text className="mt-1.5 text-[10px] text-muted-foreground">
           {disk.usedHuman} / {disk.totalHuman}
           {disk.availableHuman ? ` · ${disk.availableHuman} free` : ""}
         </Text>

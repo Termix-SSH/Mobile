@@ -1,4 +1,10 @@
-import { KeyboardAvoidingView, Modal, Platform, Pressable, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  View,
+} from "react-native";
 import { X } from "lucide-react-native";
 import { Text } from "./Text";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
@@ -74,7 +80,9 @@ export function Dialog({
             ) : null}
             {children ? <View className="px-4 py-4">{children}</View> : null}
             {footer ? (
-              <View className={`px-4 py-3 ${children ? "border-t border-border" : ""}`}>
+              <View
+                className={`px-4 py-3 ${children ? "border-t border-border" : ""}`}
+              >
                 {footer}
               </View>
             ) : null}

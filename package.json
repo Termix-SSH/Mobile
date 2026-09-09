@@ -1,7 +1,7 @@
 {
   "name": "termix-mobile",
   "main": "expo-router/entry",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -12,9 +12,12 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "verify:android-network-security": "node scripts/verify-android-network-security.cjs",
+    "verify:widget-contract": "node scripts/verify-widget-contract.cjs",
+    "verify:oidc-callback-intent-filter": "node scripts/verify-oidc-callback-intent-filter.cjs",
     "build-all": "eas build --platform all --profile development",
     "build-android": "eas build --platform android --profile development",
-    "build-ios": "eas build --platform ios --profile development"
+    "build-ios": "eas build --platform ios --profile development",
+    "start:tailscale": "node scripts/start-tailscale.cjs"
   },
   "dependencies": {
     "@expo-google-fonts/jetbrains-mono": "^0.4.1",
@@ -39,11 +42,13 @@
     "expo-local-authentication": "~17.0.8",
     "expo-router": "~6.0.12",
     "expo-secure-store": "~15.0.8",
+    "expo-sharing": "~14.0.8",
     "expo-splash-screen": "~31.0.10",
     "expo-status-bar": "~3.0.8",
     "expo-symbols": "~1.0.7",
     "expo-system-ui": "~6.0.7",
     "expo-web-browser": "~15.0.11",
+    "guacamole-common-js": "^1.5.0",
     "lucide-react-native": "^0.544.0",
     "nativewind": "^4.2.1",
     "react": "19.1.0",
@@ -74,6 +79,14 @@
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.3",
     "typescript": "~5.9.2"
+  },
+  "overrides": {
+    "@expo/fingerprint": "0.15.5"
+  },
+  "expo": {
+    "autolinking": {
+      "nativeModulesDir": "./modules"
+    }
   },
   "lint-staged": {
     "*.{ts,tsx}": [

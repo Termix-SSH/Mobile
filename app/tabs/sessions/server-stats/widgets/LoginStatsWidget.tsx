@@ -39,21 +39,21 @@ export function LoginStatsWidget({ metrics }: { metrics: ServerMetrics }) {
 
           {recent.length > 0 ? (
             <View className="gap-1">
-              <Text className="text-[9px] text-muted-foreground uppercase tracking-wide">
+              <Text className="text-[9px] uppercase tracking-wide text-muted-foreground">
                 Recent
               </Text>
               {recent.map((e, i) => (
                 <View key={i} className="flex-row gap-2">
                   <Text
                     weight="medium"
-                    className="text-[10px] text-foreground w-20"
+                    className="w-20 text-[10px] text-foreground"
                     numberOfLines={1}
                     style={{ fontFamily: MONO_FONT }}
                   >
                     {e.user}
                   </Text>
                   <Text
-                    className="text-[10px] text-muted-foreground flex-1"
+                    className="flex-1 text-[10px] text-muted-foreground"
                     numberOfLines={1}
                   >
                     {[e.from, e.time, e.type].filter(Boolean).join(" · ")}
@@ -65,21 +65,21 @@ export function LoginStatsWidget({ metrics }: { metrics: ServerMetrics }) {
 
           {failed.length > 0 ? (
             <View className="gap-1">
-              <Text className="text-[9px] text-destructive uppercase tracking-wide">
+              <Text className="text-[9px] uppercase tracking-wide text-destructive">
                 Failed
               </Text>
               {failed.map((e, i) => (
                 <View key={i} className="flex-row gap-2">
                   <Text
                     weight="medium"
-                    className="text-[10px] text-destructive w-20"
+                    className="w-20 text-[10px] text-destructive"
                     numberOfLines={1}
                     style={{ fontFamily: MONO_FONT }}
                   >
                     {e.user}
                   </Text>
                   <Text
-                    className="text-[10px] text-muted-foreground flex-1"
+                    className="flex-1 text-[10px] text-muted-foreground"
                     numberOfLines={1}
                   >
                     {[e.from, e.time, e.type].filter(Boolean).join(" · ")}

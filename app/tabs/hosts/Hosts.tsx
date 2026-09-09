@@ -7,17 +7,20 @@ import {
 } from "react-native";
 import { useState, useCallback, useRef, useMemo, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   RefreshCw,
   Search,
   X,
+  AlertTriangle,
   ArrowUpDown,
   Filter,
   Check,
   Zap,
   Plus,
   KeyRound,
+  FileText,
 } from "lucide-react-native";
 import HostTree from "@/app/tabs/hosts/navigation/Folder";
 import type { HostMetrics } from "@/app/tabs/hosts/navigation/Host";
@@ -34,8 +37,12 @@ import {
   getCurrentServerUrl,
   deleteSSHHost,
   createSSHHost,
+  getSnippets,
+  getUserAlerts,
+  dismissAlert,
 } from "@/app/main-axios";
-import { SSHHost, ServerStatus } from "@/types";
+import { SSHHost, ServerStatus, Snippet } from "@/types";
+import { publishHostSnapshot } from "@/app/widgets";
 import { Screen } from "@/app/components/Screen";
 import {
   Text,
@@ -115,17 +122,25 @@ const STORAGE_EXPANDED = "hostExpandedFolders";
 
 export default function Hosts() {
   const color = useThemeColor();
+  const router = useRouter();
   const [hosts, setHosts] = useState<SSHHost[]>([]);
   const [folderColors, setFolderColors] = useState<
     Record<string, string | undefined>
   >({});
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [alerts, setAlerts] = useState<
+    { id: string; title: string; message: string }[]
+  >([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [serverStatuses, setServerStatuses] = useState<
     Record<number, ServerStatus>
   >({});
   const [metrics, setMetrics] = useState<Record<number, HostMetrics>>({});
+  // Snippets are fetched here purely to feed the home-screen widget; the list
+  // itself lives under Settings. `null` means "not fetched yet", which keeps a
+  // failed fetch from wiping snippets the Snippets screen already published.
+  const [snippets, setSnippets] = useState<Snippet[] | null>(null);
   const [sortKey, setSortKey] = useState<SortKey>("default");
   const [filterState, setFilterState] = useState<FilterState>(DEFAULT_FILTERS);
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set());
@@ -181,22 +196,31 @@ export default function Hosts() {
         .filter((h) => statuses[h.id]?.status === "online")
         .map((h) => h.id);
       if (onlineIds.length === 0) {
-        setMetrics({});
+        setMetrics((previous) =>
+          Object.keys(previous).length === 0 ? previous : {},
+        );
         return;
       }
       const results = await Promise.allSettled(
         onlineIds.map((id) => getServerMetricsById(id)),
       );
-      const next: Record<number, HostMetrics> = {};
-      results.forEach((res, i) => {
-        if (res.status === "fulfilled" && res.value) {
-          next[onlineIds[i]] = {
-            cpu: res.value.cpu?.percent ?? null,
-            ram: res.value.memory?.percent ?? null,
-          };
-        }
+      setMetrics((previous) => {
+        const next: Record<number, HostMetrics> = {};
+        results.forEach((res, i) => {
+          const id = onlineIds[i];
+          if (res.status === "fulfilled" && res.value) {
+            next[id] = {
+              cpu: res.value.cpu?.percent ?? null,
+              ram: res.value.memory?.percent ?? null,
+            };
+          } else if (previous[id]) {
+            // The backend only reports once collection is running, so keep the
+            // last reading instead of blanking the row on an empty response.
+            next[id] = previous[id];
+          }
+        });
+        return next;
       });
-      setMetrics(next);
     },
     [],
   );
@@ -215,10 +239,12 @@ export default function Hosts() {
           return;
         }
 
-        const [hostsResult, statusesResult] = await Promise.allSettled([
-          getSSHHosts(),
-          getAllServerStatuses(),
-        ]);
+        const [hostsResult, statusesResult, snippetsResult] =
+          await Promise.allSettled([
+            getSSHHosts(),
+            getAllServerStatuses(),
+            getSnippets(),
+          ]);
 
         if (hostsResult.status !== "fulfilled") throw hostsResult.reason;
 
@@ -248,6 +274,13 @@ export default function Hosts() {
         setFolderColors(colors);
         setServerStatuses(statuses);
 
+        if (
+          snippetsResult.status === "fulfilled" &&
+          Array.isArray(snippetsResult.value)
+        ) {
+          setSnippets(snippetsResult.value as Snippet[]);
+        }
+
         // Best-effort live metrics for online hosts only.
         void fetchMetrics(hostList, statuses);
       } catch (error: any) {
@@ -270,11 +303,46 @@ export default function Hosts() {
     if (!isRefreshingRef.current) fetchData(true);
   }, [fetchData]);
 
+  // Server-side notices (maintenance, warnings) shown until dismissed.
+  const loadAlerts = useCallback(async () => {
+    try {
+      const res = await getUserAlerts();
+      setAlerts(Array.isArray(res?.alerts) ? res.alerts : []);
+    } catch {
+      setAlerts([]);
+    }
+  }, []);
+
+  const handleDismissAlert = async (id: string) => {
+    setAlerts((prev) => prev.filter((a) => a.id !== id));
+    try {
+      await dismissAlert(id);
+    } catch {
+      // Dismissal is best-effort; it reappears on the next fetch if it fails.
+    }
+  };
+
   useFocusEffect(
     useCallback(() => {
       fetchData();
-    }, [fetchData]),
+      loadAlerts();
+    }, [fetchData, loadAlerts]),
   );
+
+  // Keep the home-screen widgets in sync with whatever this screen shows. The
+  // publisher throttles and de-dupes, so re-running on every data change is
+  // cheap. This screen only renders for an authenticated user.
+  useEffect(() => {
+    if (loading) return;
+    void publishHostSnapshot({
+      hosts,
+      statuses: serverStatuses,
+      metrics,
+      snippets: snippets ?? undefined,
+      serverUrl: getCurrentServerUrl(),
+      authenticated: true,
+    });
+  }, [loading, hosts, serverStatuses, metrics, snippets]);
 
   // --- Build, sort, and filter the tree.
   const tree = useMemo(
@@ -437,54 +505,35 @@ export default function Hosts() {
           <Button
             variant="ghost"
             size="icon"
+            accessibilityLabel="Add host"
             onPress={openCreate}
             icon={<Plus size={20} color={color("muted-foreground")} />}
           />
           <Button
             variant="ghost"
             size="icon"
+            accessibilityLabel="Snippets"
+            onPress={() => router.push("/tabs/settings/Snippets" as never)}
+            icon={<FileText size={18} color={color("muted-foreground")} />}
+          />
+          <Button
+            variant="ghost"
+            size="icon"
+            accessibilityLabel="Credentials"
             onPress={() => setCredentialListOpen(true)}
             icon={<KeyRound size={18} color={color("muted-foreground")} />}
           />
           <Button
             variant="ghost"
             size="icon"
+            accessibilityLabel="Quick connect"
             onPress={() => setQuickConnectOpen(true)}
             icon={<Zap size={18} color={color("muted-foreground")} />}
           />
           <Button
             variant="ghost"
             size="icon"
-            onPress={() => setShowFilter(true)}
-            icon={
-              <Filter
-                size={18}
-                color={
-                  isFilterActive
-                    ? color("accent-brand")
-                    : color("muted-foreground")
-                }
-              />
-            }
-          />
-          <Button
-            variant="ghost"
-            size="icon"
-            onPress={() => setShowSort(true)}
-            icon={
-              <ArrowUpDown
-                size={18}
-                color={
-                  sortKey !== "default"
-                    ? color("accent-brand")
-                    : color("muted-foreground")
-                }
-              />
-            }
-          />
-          <Button
-            variant="ghost"
-            size="icon"
+            accessibilityLabel="Refresh hosts"
             onPress={handleRefresh}
             disabled={refreshing}
             icon={
@@ -500,8 +549,12 @@ export default function Hosts() {
         </View>
       }
     >
-      <View className="px-4 pb-2 pt-3">
+      {/* Search plus the two controls that shape the list. Keeping sort and
+          filter here (rather than in the header) leaves room for the title on
+          small screens and puts them next to the query they refine. */}
+      <View className="flex-row items-center gap-1.5 px-4 pb-2 pt-3">
         <Input
+          containerClassName="flex-1"
           placeholder="Search hosts…"
           value={searchQuery}
           onChangeText={setSearchQuery}
@@ -514,6 +567,38 @@ export default function Hosts() {
                 <X size={15} color={color("muted-foreground")} />
               </Pressable>
             ) : undefined
+          }
+        />
+        <Button
+          variant="outline"
+          size="icon"
+          accessibilityLabel="Filter hosts"
+          onPress={() => setShowFilter(true)}
+          icon={
+            <Filter
+              size={18}
+              color={
+                isFilterActive
+                  ? color("accent-brand")
+                  : color("muted-foreground")
+              }
+            />
+          }
+        />
+        <Button
+          variant="outline"
+          size="icon"
+          accessibilityLabel="Sort hosts"
+          onPress={() => setShowSort(true)}
+          icon={
+            <ArrowUpDown
+              size={18}
+              color={
+                sortKey !== "default"
+                  ? color("accent-brand")
+                  : color("muted-foreground")
+              }
+            />
           }
         />
       </View>
@@ -539,6 +624,34 @@ export default function Hosts() {
             />
           }
         >
+          {alerts.map((alert) => (
+            <View
+              key={alert.id}
+              className="mt-2 flex-row items-start gap-2 rounded-lg border border-border bg-card p-3"
+            >
+              <AlertTriangle
+                size={15}
+                color={color("accent-brand")}
+                style={{ marginTop: 1 }}
+              />
+              <View className="flex-1">
+                <Text weight="medium" className="text-sm text-foreground">
+                  {alert.title}
+                </Text>
+                <Text className="mt-0.5 text-xs text-muted-foreground">
+                  {alert.message}
+                </Text>
+              </View>
+              <Pressable
+                onPress={() => handleDismissAlert(alert.id)}
+                hitSlop={8}
+                className="rounded p-0.5 active:bg-muted/40"
+              >
+                <X size={14} color={color("muted-foreground")} />
+              </Pressable>
+            </View>
+          ))}
+
           {isEmpty ? (
             <View className="items-center justify-center gap-3 py-16">
               <Text className="text-center text-sm text-muted-foreground">

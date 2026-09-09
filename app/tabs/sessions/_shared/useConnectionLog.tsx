@@ -47,7 +47,14 @@ export function useConnectionLog() {
    * Ingest a backend `connectionLogs` array (the `type` field maps to `level`).
    */
   const ingest = useCallback(
-    (logs: { type?: string; level?: string; stage?: string; message: string }[]) => {
+    (
+      logs: {
+        type?: string;
+        level?: string;
+        stage?: string;
+        message: string;
+      }[],
+    ) => {
       for (const l of logs) {
         const level = (l.level || l.type || "info") as ConnectionLogLevel;
         append({ level, stage: l.stage, message: l.message });
@@ -193,11 +200,13 @@ export function ConnectionLog({
 
       {/* Log panel */}
       <View
-        className={`relative bg-background border-border ${expanded ? "flex-1" : "border-t"}`}
+        className={`relative border-border bg-background ${expanded ? "flex-1" : "border-t"}`}
       >
         {/* Header bar */}
         <Pressable
-          onPress={hasConnectionError ? undefined : () => setExpanded((v) => !v)}
+          onPress={
+            hasConnectionError ? undefined : () => setExpanded((v) => !v)
+          }
           className="flex-row items-center gap-2 px-3 py-2 active:bg-muted/30"
         >
           {expanded ? (
@@ -207,7 +216,7 @@ export function ConnectionLog({
           )}
           <Text
             weight="medium"
-            className="flex-1 text-xs text-muted-foreground uppercase tracking-[1px]"
+            className="flex-1 text-xs uppercase tracking-[1px] text-muted-foreground"
           >
             Connection Log ({entries.length})
           </Text>
@@ -222,11 +231,11 @@ export function ConnectionLog({
         {expanded && (
           <ScrollView
             ref={scrollRef}
-            className="border-t border-border flex-1"
+            className="flex-1 border-t border-border"
             contentContainerStyle={{ padding: 8, gap: 4 }}
           >
             {entries.length === 0 ? (
-              <Text className="text-xs text-muted-foreground text-center py-4">
+              <Text className="py-4 text-center text-xs text-muted-foreground">
                 {isConnecting ? "Waiting for connection…" : "No log entries"}
               </Text>
             ) : (
@@ -236,7 +245,7 @@ export function ConnectionLog({
                     {LEVEL_ICON[e.level](levelColor(e.level))}
                   </View>
                   <Text
-                    className="flex-1 text-[11px] font-mono"
+                    className="flex-1 font-mono text-[11px]"
                     style={{ color: levelColor(e.level) }}
                   >
                     {e.message}

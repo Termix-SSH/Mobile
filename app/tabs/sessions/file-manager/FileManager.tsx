@@ -13,7 +13,6 @@ import {
   RefreshControl,
   Alert,
   Modal,
-  TextInput,
   KeyboardAvoidingView,
   Platform,
   Animated,
@@ -23,6 +22,8 @@ import { Swipeable } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Clipboard from "expo-clipboard";
 import * as DocumentPicker from "expo-document-picker";
+import * as FileSystem from "expo-file-system/legacy";
+import * as Sharing from "expo-sharing";
 import {
   ChevronRight,
   File as FileIcon,
@@ -44,7 +45,10 @@ import {
   ChevronLeft,
   ArrowUpDown,
   Upload,
+  Download,
   Archive,
+  Star,
+  Bookmark,
   CheckSquare,
   Square,
   X,
@@ -69,6 +73,15 @@ import {
   identifySSHSymlink,
   uploadSSHFile,
   extractSSHArchive,
+  compressSSHFiles,
+  downloadSSHFile,
+  getPinnedFiles,
+  addRecentFile,
+  addPinnedFile,
+  removePinnedFile,
+  getFolderShortcuts,
+  addFolderShortcut,
+  removeFolderShortcut,
 } from "@/app/main-axios";
 import { Text, Input, Button } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
@@ -82,6 +95,7 @@ import {
 } from "@/app/tabs/sessions/_shared";
 import { FileViewer } from "./FileViewer";
 import { PermissionsDialog } from "./PermissionsDialog";
+import { TrashView } from "./TrashView";
 import {
   joinPath,
   isTextFile,
@@ -144,9 +158,19 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     const [menuFile, setMenuFile] = useState<FileItem | null>(null);
     const [moreMenuVisible, setMoreMenuVisible] = useState(false);
     const [permsFile, setPermsFile] = useState<FileItem | null>(null);
-    const [createDialog, setCreateDialog] = useState<"file" | "folder" | null>(null);
+    const [createDialog, setCreateDialog] = useState<"file" | "folder" | null>(
+      null,
+    );
     const [createName, setCreateName] = useState("");
     const [renameTarget, setRenameTarget] = useState<FileItem | null>(null);
+    const [compressName, setCompressName] = useState("");
+    const [compressVisible, setCompressVisible] = useState(false);
+    const [trashVisible, setTrashVisible] = useState(false);
+    const [pinned, setPinned] = useState<{ name: string; path: string }[]>([]);
+    const [shortcuts, setShortcuts] = useState<{ name: string; path: string }[]>(
+      [],
+    );
+    const [bookmarksOpen, setBookmarksOpen] = useState(false);
     const [renameName, setRenameName] = useState("");
     const [viewer, setViewer] = useState<{
       file: FileItem;
@@ -214,9 +238,58 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       [],
     );
 
+    const loadBookmarks = useCallback(async () => {
+      const [p, sc] = await Promise.all([
+        getPinnedFiles(host.id).catch(() => []),
+        getFolderShortcuts(host.id).catch(() => []),
+      ]);
+      setPinned(Array.isArray(p) ? p : []);
+      setShortcuts(Array.isArray(sc) ? sc : []);
+    }, [host.id]);
+
+    const isPinned = (path: string) => pinned.some((i) => i.path === path);
+
+    const togglePin = async (file: FileItem) => {
+      try {
+        if (isPinned(file.path)) {
+          setPinned((prev) => prev.filter((i) => i.path !== file.path));
+          await removePinnedFile(host.id, file.path);
+        } else {
+          setPinned((prev) => [...prev, { name: file.name, path: file.path }]);
+          await addPinnedFile(host.id, file.path, file.name);
+        }
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to update pin");
+        loadBookmarks();
+      }
+    };
+
+    const isShortcut = (path: string) => shortcuts.some((i) => i.path === path);
+
+    const toggleShortcut = async (file: FileItem) => {
+      try {
+        if (isShortcut(file.path)) {
+          setShortcuts((prev) => prev.filter((i) => i.path !== file.path));
+          await removeFolderShortcut(host.id, file.path);
+        } else {
+          setShortcuts((prev) => [
+            ...prev,
+            { name: file.name, path: file.path },
+          ]);
+          await addFolderShortcut(host.id, file.path, file.name);
+        }
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to update shortcut");
+        loadBookmarks();
+      }
+    };
+
     const onConnected = useCallback(
-      (sid: string) => loadDirectory(host.defaultPath || "/", sid),
-      [host.defaultPath, loadDirectory],
+      (sid: string) => {
+        loadBookmarks();
+        return loadDirectory(host.defaultPath || "/", sid);
+      },
+      [host.defaultPath, loadDirectory, loadBookmarks],
     );
 
     const conn = useSessionConnect(
@@ -239,7 +312,10 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       if (file.type === "link") {
         try {
           setBusy(true);
-          const info = await identifySSHSymlink(conn.sessionId.current, file.path);
+          const info = await identifySSHSymlink(
+            conn.sessionId.current,
+            file.path,
+          );
           if (info.type === "directory") {
             await loadDirectory(info.target);
           } else if (isTextFile(info.target)) {
@@ -266,6 +342,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         setBusy(true);
         const response = await readSSHFile(conn.sessionId.current, file.path);
         setViewer({ file, content: response.content });
+        addRecentFile(host.id, file.path, file.name).catch(() => {});
       } catch (e: any) {
         toast.error(e?.message || "Failed to read file");
       } finally {
@@ -275,7 +352,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
 
     const saveFile = async (content: string) => {
       if (!viewer) return;
-      await writeSSHFile(conn.sessionId.current, viewer.file.path, content, host.id);
+      await writeSSHFile(
+        conn.sessionId.current,
+        viewer.file.path,
+        content,
+        host.id,
+      );
       toast.success("File saved");
       await loadDirectory(currentPath);
     };
@@ -285,11 +367,24 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       try {
         setBusy(true);
         if (createDialog === "folder") {
-          await createSSHFolder(conn.sessionId.current, currentPath, createName, host.id);
+          await createSSHFolder(
+            conn.sessionId.current,
+            currentPath,
+            createName,
+            host.id,
+          );
         } else {
-          await createSSHFile(conn.sessionId.current, currentPath, createName, "", host.id);
+          await createSSHFile(
+            conn.sessionId.current,
+            currentPath,
+            createName,
+            "",
+            host.id,
+          );
         }
-        toast.success(`${createDialog === "folder" ? "Folder" : "File"} created`);
+        toast.success(
+          `${createDialog === "folder" ? "Folder" : "File"} created`,
+        );
         setCreateDialog(null);
         setCreateName("");
         await loadDirectory(currentPath);
@@ -304,7 +399,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       if (!renameTarget || !renameName.trim()) return;
       try {
         setBusy(true);
-        await renameSSHItem(conn.sessionId.current, renameTarget.path, renameName, host.id);
+        await renameSSHItem(
+          conn.sessionId.current,
+          renameTarget.path,
+          renameName,
+          host.id,
+        );
         toast.success("Renamed");
         setRenameTarget(null);
         setRenameName("");
@@ -405,7 +505,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     const applyPermissions = async (octal: string) => {
       if (!permsFile) return;
       try {
-        await changeSSHPermissions(conn.sessionId.current, permsFile.path, octal, host.id);
+        await changeSSHPermissions(
+          conn.sessionId.current,
+          permsFile.path,
+          octal,
+          host.id,
+        );
         toast.success(`Permissions set to ${octal}`);
         setPermsFile(null);
         await loadDirectory(currentPath);
@@ -425,10 +530,14 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         setBusy(true);
         const response = await fetch(asset.uri);
         const buffer = await response.arrayBuffer();
-        const base64 = btoa(
-          String.fromCharCode(...new Uint8Array(buffer)),
+        const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+        await uploadSSHFile(
+          conn.sessionId.current,
+          currentPath,
+          asset.name,
+          base64,
+          host.id,
         );
-        await uploadSSHFile(conn.sessionId.current, currentPath, asset.name, base64, host.id);
         toast.success(`Uploaded ${asset.name}`);
         await loadDirectory(currentPath);
       } catch (e: any) {
@@ -438,10 +547,70 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       }
     };
 
+    const confirmCompress = async () => {
+      const name = compressName.trim();
+      if (!name) return;
+      try {
+        setBusy(true);
+        await compressSSHFiles(
+          conn.sessionId.current,
+          Array.from(selectedFiles),
+          name,
+          undefined,
+          host.id,
+        );
+        toast.success(`Created ${name}`);
+        setCompressVisible(false);
+        setCompressName("");
+        cancelSelection();
+        await loadDirectory(currentPath);
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to compress files");
+      } finally {
+        setBusy(false);
+      }
+    };
+
+    const doDownload = async (file: FileItem) => {
+      try {
+        setBusy(true);
+        const res = await downloadSSHFile(
+          conn.sessionId.current,
+          file.path,
+          host.id,
+        );
+        if (!res?.content) throw new Error("Empty response from server");
+
+        const name = res.fileName || file.name;
+        const target = `${FileSystem.cacheDirectory}${name}`;
+        await FileSystem.writeAsStringAsync(target, res.content, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+
+        if (!(await Sharing.isAvailableAsync())) {
+          toast.error("Sharing is not available on this device");
+          return;
+        }
+        await Sharing.shareAsync(target, {
+          mimeType: res.mimeType || undefined,
+          dialogTitle: name,
+        });
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to download file");
+      } finally {
+        setBusy(false);
+      }
+    };
+
     const doExtract = async (file: FileItem) => {
       try {
         setBusy(true);
-        await extractSSHArchive(conn.sessionId.current, file.path, currentPath, host.id);
+        await extractSSHArchive(
+          conn.sessionId.current,
+          file.path,
+          currentPath,
+          host.id,
+        );
         toast.success("Extracted successfully");
         await loadDirectory(currentPath);
       } catch (e: any) {
@@ -503,12 +672,18 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       });
     };
 
-    const sortLabel: Record<SortBy, string> = { name: "Name", size: "Size", modified: "Date" };
+    const sortLabel: Record<SortBy, string> = {
+      name: "Name",
+      size: "Size",
+      modified: "Date",
+    };
 
     // --- Filtered + sorted files ---
     const filtered = useMemo(() => {
       const q = query.trim().toLowerCase();
-      const list = q ? files.filter((f) => f.name.toLowerCase().includes(q)) : files;
+      const list = q
+        ? files.filter((f) => f.name.toLowerCase().includes(q))
+        : files;
       return sortFiles(list, sortBy, sortOrder);
     }, [files, query, sortBy, sortOrder]);
 
@@ -564,6 +739,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           }
         : null,
       {
+        key: "trash",
+        icon: <Trash2 size={18} color={color("foreground")} />,
+        label: "Trash",
+        onPress: () => setTrashVisible(true),
+      },
+      {
         key: "refresh",
         icon: <RefreshCw size={18} color={color("foreground")} />,
         label: "Refresh",
@@ -589,12 +770,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
             isConnected ? (
               <View>
                 {/* Nav row */}
-                <View className="flex-row items-center gap-1 px-2 py-1.5 border-b border-border/40">
+                <View className="flex-row items-center gap-1 border-b border-border/40 px-2 py-1.5">
                   {/* Back / up */}
                   <Pressable
                     onPress={() => loadDirectory(getParentPath(currentPath))}
                     hitSlop={8}
-                    className="p-1.5 rounded active:bg-muted/40"
+                    className="rounded p-1.5 active:bg-muted/40"
                     disabled={currentPath === "/"}
                     style={{ opacity: currentPath === "/" ? 0.35 : 1 }}
                   >
@@ -605,17 +786,23 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   <ScrollView
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ alignItems: "center", flexGrow: 1 }}
+                    contentContainerStyle={{
+                      alignItems: "center",
+                      flexGrow: 1,
+                    }}
                     style={{ flex: 1 }}
                   >
                     {breadcrumbs.map((bc, i) => (
                       <View key={bc} className="flex-row items-center">
                         {i > 0 ? (
-                          <ChevronRight size={12} color={color("muted-foreground", 0.5)} />
+                          <ChevronRight
+                            size={12}
+                            color={color("muted-foreground", 0.5)}
+                          />
                         ) : null}
                         <Pressable
                           onPress={() => loadDirectory(bc)}
-                          className="px-1 py-1 rounded active:bg-muted/40"
+                          className="rounded px-1 py-1 active:bg-muted/40"
                           hitSlop={4}
                         >
                           <Text
@@ -624,7 +811,11 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                                 ? "text-foreground"
                                 : "text-muted-foreground"
                             }`}
-                            weight={i === breadcrumbs.length - 1 ? "medium" : "regular"}
+                            weight={
+                              i === breadcrumbs.length - 1
+                                ? "medium"
+                                : "regular"
+                            }
                           >
                             {getBreadcrumbLabel(bc)}
                           </Text>
@@ -637,7 +828,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   <Pressable
                     onPress={cycleSortBy}
                     hitSlop={8}
-                    className="flex-row items-center gap-0.5 px-1.5 py-1 rounded active:bg-muted/40"
+                    className="flex-row items-center gap-0.5 rounded px-1.5 py-1 active:bg-muted/40"
                   >
                     <ArrowUpDown size={13} color={color("muted-foreground")} />
                     <Text className="text-[10px] text-muted-foreground">
@@ -649,7 +840,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                   <Pressable
                     onPress={() => setMoreMenuVisible(true)}
                     hitSlop={8}
-                    className="p-1.5 rounded active:bg-muted/40"
+                    className="rounded p-1.5 active:bg-muted/40"
                   >
                     <MoreVertical size={16} color={color("muted-foreground")} />
                   </Pressable>
@@ -663,16 +854,87 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     placeholder="Search…"
                     autoCapitalize="none"
                     autoCorrect={false}
-                    leading={<Search size={13} color={color("muted-foreground")} />}
-                    className="h-8 text-xs"
+                    leading={
+                      <Search size={13} color={color("muted-foreground")} />
+                    }
+                    size="sm"
                   />
                 </View>
+
+                {/* Pinned files and folder shortcuts */}
+                {pinned.length > 0 || shortcuts.length > 0 ? (
+                  <View className="px-3 pb-1.5">
+                    <Pressable
+                      onPress={() => setBookmarksOpen((v) => !v)}
+                      hitSlop={6}
+                      className="flex-row items-center gap-1 py-1"
+                    >
+                      <Star size={12} color={color("muted-foreground")} />
+                      <Text className="text-[11px] text-muted-foreground">
+                        Pinned and Shortcuts (
+                        {pinned.length + shortcuts.length})
+                      </Text>
+                      <ChevronRight
+                        size={12}
+                        color={color("muted-foreground")}
+                        style={{
+                          transform: [
+                            { rotate: bookmarksOpen ? "90deg" : "0deg" },
+                          ],
+                        }}
+                      />
+                    </Pressable>
+
+                    {bookmarksOpen ? (
+                      <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ gap: 6, paddingVertical: 4 }}
+                      >
+                        {shortcuts.map((item) => (
+                          <Pressable
+                            key={`sc-${item.path}`}
+                            onPress={() => loadDirectory(item.path)}
+                            className="flex-row items-center gap-1 rounded border border-border px-2 py-1 active:bg-muted/40"
+                          >
+                            <Bookmark
+                              size={11}
+                              color={color("muted-foreground")}
+                            />
+                            <Text className="text-[11px]">{item.name}</Text>
+                          </Pressable>
+                        ))}
+                        {pinned.map((item) => (
+                          <Pressable
+                            key={`pin-${item.path}`}
+                            onPress={() =>
+                              viewFile({
+                                name: item.name,
+                                path: item.path,
+                                type: "file",
+                              } as FileItem)
+                            }
+                            className="flex-row items-center gap-1 rounded border border-border px-2 py-1 active:bg-muted/40"
+                          >
+                            <Star size={11} color={color("muted-foreground")} />
+                            <Text className="text-[11px]">{item.name}</Text>
+                          </Pressable>
+                        ))}
+                      </ScrollView>
+                    ) : null}
+                  </View>
+                ) : null}
               </View>
             ) : undefined
           }
         >
           <ScrollView
-            contentContainerStyle={{ paddingBottom: selectionMode || clipboard.files.length > 0 ? 80 : 16 }}
+            className="flex-1"
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingBottom:
+                selectionMode || clipboard.files.length > 0 ? 80 : 16,
+            }}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
@@ -686,11 +948,11 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
             }
           >
             {loadingDir && !refreshing ? (
-              <View className="flex-1 items-center justify-center mt-16">
+              <View className="mt-16 flex-1 items-center justify-center">
                 <ActivityIndicator size="small" color={color("accent-brand")} />
               </View>
             ) : filtered.length === 0 ? (
-              <Text className="text-sm text-muted-foreground text-center mt-16">
+              <Text className="mt-16 text-center text-sm text-muted-foreground">
                 {query ? "No matching files" : "Empty folder"}
               </Text>
             ) : (
@@ -718,74 +980,100 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
 
           {/* Bottom action bar — selection or clipboard */}
           {(selectionMode || clipboard.files.length > 0) && (
-            <View
-              className="absolute left-0 right-0 bottom-0 bg-card border-t border-border"
-            >
-            <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 12, gap: 8, height: 48 }}>
-              {selectionMode ? (
-                <>
-                  <Text className="text-sm text-muted-foreground flex-1">
-                    {selectedFiles.size} selected
-                  </Text>
-                  <Pressable
-                    onPress={copySelected}
-                    disabled={selectedFiles.size === 0}
-                    hitSlop={6}
-                    className="p-2 rounded border border-border active:bg-muted/40"
-                    style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
-                  >
-                    <Copy size={16} color={color("foreground")} />
-                  </Pressable>
-                  <Pressable
-                    onPress={cutSelected}
-                    disabled={selectedFiles.size === 0}
-                    hitSlop={6}
-                    className="p-2 rounded border border-border active:bg-muted/40"
-                    style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
-                  >
-                    <Scissors size={16} color={color("foreground")} />
-                  </Pressable>
-                  <Pressable
-                    onPress={doDeleteSelected}
-                    disabled={selectedFiles.size === 0}
-                    hitSlop={6}
-                    className="p-2 rounded border border-destructive/40 active:bg-destructive/10"
-                    style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
-                  >
-                    <Trash2 size={16} color={color("destructive")} />
-                  </Pressable>
-                  <Pressable
-                    onPress={cancelSelection}
-                    hitSlop={6}
-                    className="p-2 rounded border border-border active:bg-muted/40 ml-1"
-                  >
-                    <X size={16} color={color("muted-foreground")} />
-                  </Pressable>
-                </>
-              ) : clipboard.files.length > 0 ? (
-                <>
-                  <Text className="text-sm text-muted-foreground flex-1">
-                    {clipboard.files.length} item{clipboard.files.length !== 1 ? "s" : ""}{" "}
-                    {clipboard.operation === "copy" ? "copied" : "cut"}
-                  </Text>
-                  <Pressable
-                    onPress={doPaste}
-                    hitSlop={6}
-                    className="flex-row items-center gap-1.5 px-3 py-2 rounded bg-accent-brand/10 border border-accent-brand/30 active:bg-accent-brand/20"
-                  >
-                    <ClipboardPaste size={15} color={color("accent-brand")} />
-                    <Text className="text-sm text-accent-brand" weight="medium">Paste</Text>
-                  </Pressable>
-                  <Pressable
-                    onPress={() => setClipboard({ files: [], operation: null })}
-                    hitSlop={6}
-                    className="p-2 rounded border border-border active:bg-muted/40"
-                  >
-                    <X size={16} color={color("muted-foreground")} />
-                  </Pressable>
-                </>
-              ) : null}
-            </View>
+            <View className="absolute bottom-0 left-0 right-0 border-t border-border bg-card">
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingHorizontal: 12,
+                  gap: 8,
+                  height: 48,
+                }}
+              >
+                {selectionMode ? (
+                  <>
+                    <Text className="flex-1 text-sm text-muted-foreground">
+                      {selectedFiles.size} selected
+                    </Text>
+                    <Pressable
+                      onPress={copySelected}
+                      disabled={selectedFiles.size === 0}
+                      hitSlop={6}
+                      className="rounded border border-border p-2 active:bg-muted/40"
+                      style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
+                    >
+                      <Copy size={16} color={color("foreground")} />
+                    </Pressable>
+                    <Pressable
+                      onPress={cutSelected}
+                      disabled={selectedFiles.size === 0}
+                      hitSlop={6}
+                      className="rounded border border-border p-2 active:bg-muted/40"
+                      style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
+                    >
+                      <Scissors size={16} color={color("foreground")} />
+                    </Pressable>
+                    <Pressable
+                      onPress={() => {
+                        setCompressName("archive.tar.gz");
+                        setCompressVisible(true);
+                      }}
+                      disabled={selectedFiles.size === 0}
+                      hitSlop={6}
+                      className="rounded border border-border p-2 active:bg-muted/40"
+                      style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
+                    >
+                      <Archive size={16} color={color("foreground")} />
+                    </Pressable>
+                    <Pressable
+                      onPress={doDeleteSelected}
+                      disabled={selectedFiles.size === 0}
+                      hitSlop={6}
+                      className="rounded border border-destructive/40 p-2 active:bg-destructive/10"
+                      style={{ opacity: selectedFiles.size === 0 ? 0.4 : 1 }}
+                    >
+                      <Trash2 size={16} color={color("destructive")} />
+                    </Pressable>
+                    <Pressable
+                      onPress={cancelSelection}
+                      hitSlop={6}
+                      className="ml-1 rounded border border-border p-2 active:bg-muted/40"
+                    >
+                      <X size={16} color={color("muted-foreground")} />
+                    </Pressable>
+                  </>
+                ) : clipboard.files.length > 0 ? (
+                  <>
+                    <Text className="flex-1 text-sm text-muted-foreground">
+                      {clipboard.files.length} item
+                      {clipboard.files.length !== 1 ? "s" : ""}{" "}
+                      {clipboard.operation === "copy" ? "copied" : "cut"}
+                    </Text>
+                    <Pressable
+                      onPress={doPaste}
+                      hitSlop={6}
+                      className="flex-row items-center gap-1.5 rounded border border-accent-brand/30 bg-accent-brand/10 px-3 py-2 active:bg-accent-brand/20"
+                    >
+                      <ClipboardPaste size={15} color={color("accent-brand")} />
+                      <Text
+                        className="text-sm text-accent-brand"
+                        weight="medium"
+                      >
+                        Paste
+                      </Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={() =>
+                        setClipboard({ files: [], operation: null })
+                      }
+                      hitSlop={6}
+                      className="rounded border border-border p-2 active:bg-muted/40"
+                    >
+                      <X size={16} color={color("muted-foreground")} />
+                    </Pressable>
+                  </>
+                ) : null}
+              </View>
             </View>
           )}
         </SessionFrame>
@@ -811,6 +1099,11 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
             },
             del: doDelete,
             extract: doExtract,
+            download: doDownload,
+            togglePin,
+            toggleShortcut,
+            isPinned: isPinned(menuFile?.path ?? ""),
+            isShortcut: isShortcut(menuFile?.path ?? ""),
           })}
         />
 
@@ -823,6 +1116,13 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         />
 
         {/* Permissions editor */}
+        <TrashView
+          visible={trashVisible}
+          sessionId={conn.sessionId.current}
+          onClose={() => setTrashVisible(false)}
+          onRestored={() => loadDirectory(currentPath)}
+        />
+
         <PermissionsDialog
           visible={permsFile !== null}
           fileName={permsFile?.name || ""}
@@ -856,6 +1156,19 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           }}
           onConfirm={confirmRename}
           confirmLabel="Rename"
+          insetBottom={insets.bottom}
+        />
+        <NameDialog
+          visible={compressVisible}
+          title="Compress"
+          value={compressName}
+          onChange={setCompressName}
+          onClose={() => {
+            setCompressVisible(false);
+            setCompressName("");
+          }}
+          onConfirm={confirmCompress}
+          confirmLabel="Compress"
           insetBottom={insets.bottom}
         />
 
@@ -901,6 +1214,11 @@ function buildFileActions(
     copyPath: (f: FileItem) => void;
     del: (f: FileItem) => void;
     extract: (f: FileItem) => void;
+    download: (f: FileItem) => void;
+    togglePin: (f: FileItem) => void;
+    toggleShortcut: (f: FileItem) => void;
+    isPinned: boolean;
+    isShortcut: boolean;
   },
 ): (ContextAction | null)[] {
   if (!file) return [];
@@ -941,12 +1259,33 @@ function buildFileActions(
           onPress: () => handlers.extract(file),
         }
       : null,
+    isFile
+      ? {
+          key: "download",
+          icon: <Download size={18} color={fg} />,
+          label: "Download",
+          onPress: () => handlers.download(file),
+        }
+      : null,
     {
       key: "perms",
       icon: <Lock size={18} color={fg} />,
       label: "Permissions",
       onPress: () => handlers.perms(file),
     },
+    isFile
+      ? {
+          key: "pin",
+          icon: <Star size={18} color={fg} />,
+          label: handlers.isPinned ? "Unpin" : "Pin File",
+          onPress: () => handlers.togglePin(file),
+        }
+      : {
+          key: "shortcut",
+          icon: <Bookmark size={18} color={fg} />,
+          label: handlers.isShortcut ? "Remove Shortcut" : "Add Shortcut",
+          onPress: () => handlers.toggleShortcut(file),
+        },
     {
       key: "copyPath",
       icon: <ClipboardCopy size={18} color={fg} />,
@@ -987,7 +1326,11 @@ function FileRow({
   const swipeableRef = useRef<Swipeable>(null);
   const iconColor = getFileIconColor(file.name, file.type);
   const Icon =
-    file.type === "directory" ? Folder : file.type === "link" ? LinkIcon : FileIcon;
+    file.type === "directory"
+      ? Folder
+      : file.type === "link"
+        ? LinkIcon
+        : FileIcon;
   const isDir = file.type === "directory";
 
   const renderRightActions = (
@@ -1014,7 +1357,12 @@ function FileRow({
             swipeableRef.current?.close();
             onDelete();
           }}
-          style={{ flex: 1, justifyContent: "center", alignItems: "center", width: "100%" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
         >
           <Trash2 size={20} color="#fff" />
         </Pressable>
@@ -1026,7 +1374,7 @@ function FileRow({
     <Pressable
       onPress={onPress}
       onLongPress={onLongPress}
-      className={`flex-row items-center gap-3 px-4 py-3.5 border-b border-border/50 ${
+      className={`flex-row items-center gap-3 border-b border-border/50 px-4 py-3.5 ${
         selected ? "bg-accent-brand/8" : "active:bg-muted/30"
       }`}
     >
@@ -1045,7 +1393,7 @@ function FileRow({
       <Icon size={20} color={iconColor} />
 
       {/* Name + meta */}
-      <View className="flex-1 min-w-0">
+      <View className="min-w-0 flex-1">
         <Text
           className="text-[15px] text-foreground"
           weight="medium"
@@ -1053,7 +1401,7 @@ function FileRow({
         >
           {file.name}
         </Text>
-        <View className="flex-row items-center gap-1.5 mt-0.5 flex-wrap">
+        <View className="mt-0.5 flex-row flex-wrap items-center gap-1.5">
           {isDir ? (
             <Text className="text-[11px] text-muted-foreground">Folder</Text>
           ) : (
@@ -1078,7 +1426,7 @@ function FileRow({
           {file.permissions ? (
             <>
               <Text className="text-[11px] text-muted-foreground">·</Text>
-              <Text className="text-[11px] text-muted-foreground/70 font-mono">
+              <Text className="font-mono text-[11px] text-muted-foreground/70">
                 {file.permissions}
               </Text>
             </>
@@ -1136,33 +1484,36 @@ function NameDialog({
   confirmLabel: string;
   insetBottom: number;
 }) {
-  const color = useThemeColor();
   return (
-    <Modal visible={visible} transparent animationType="fade" statusBarTranslucent>
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      statusBarTranslucent
+    >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         className="flex-1"
       >
         <Pressable
-          className="flex-1 bg-black/50 items-center justify-center px-5"
+          className="flex-1 items-center justify-center bg-black/50 px-5"
           onPress={onClose}
         >
           <Pressable
-            className="w-full max-w-md bg-popover border border-border p-4"
+            className="w-full max-w-md border border-border bg-popover p-4"
             style={{ marginBottom: insetBottom }}
             onPress={(e) => e.stopPropagation()}
           >
-            <Text weight="bold" className="text-base text-foreground mb-3">
+            <Text weight="bold" className="mb-3 text-base text-foreground">
               {title}
             </Text>
-            <TextInput
+            <Input
               value={value}
               onChangeText={onChange}
               placeholder="Name"
-              placeholderTextColor={color("muted-foreground", 0.7)}
               autoFocus
               autoCapitalize="none"
-              className="text-sm text-foreground bg-card border border-input px-2.5 h-10 mb-3"
+              containerClassName="mb-3"
             />
             <View className="flex-row gap-2">
               <Button variant="outline" className="flex-1" onPress={onClose}>

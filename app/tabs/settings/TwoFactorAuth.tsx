@@ -1,8 +1,21 @@
 import { useState, useEffect } from "react";
-import { KeyboardAvoidingView, Platform, View, ScrollView, Image , Pressable } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  View,
+  ScrollView,
+  Image,
+  Pressable,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ArrowLeft, ShieldCheck, ShieldOff, Copy, KeyRound } from "lucide-react-native";
+import {
+  ArrowLeft,
+  ShieldCheck,
+  ShieldOff,
+  Copy,
+  KeyRound,
+} from "lucide-react-native";
 import * as Clipboard from "expo-clipboard";
 import {
   setupTOTP,
@@ -130,14 +143,17 @@ export default function TwoFactorAuth() {
         </Text>
       </View>
 
-      <ScrollView contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}>
+      <ScrollView
+        contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}
+      >
         {loading ? (
           <Text className="text-sm text-muted-foreground">Loading…</Text>
         ) : phase === "setup" ? (
           <View className="gap-4">
             <Text className="text-sm text-muted-foreground">
-              Scan this QR code with your authenticator app (Google Authenticator,
-              Authy, etc.), then enter the 6-digit code to confirm.
+              Scan this QR code with your authenticator app (Google
+              Authenticator, Authy, etc.), then enter the 6-digit code to
+              confirm.
             </Text>
             {qrCode ? (
               <View className="items-center">
@@ -153,7 +169,10 @@ export default function TwoFactorAuth() {
                 onPress={copySecret}
                 className="flex-row items-center gap-2 border border-border bg-card p-3"
               >
-                <Text className="flex-1 font-mono text-xs text-muted-foreground" numberOfLines={2}>
+                <Text
+                  className="flex-1 font-mono text-xs text-muted-foreground"
+                  numberOfLines={2}
+                >
                   {secret}
                 </Text>
                 <Copy size={14} color={color("muted-foreground")} />
@@ -161,13 +180,20 @@ export default function TwoFactorAuth() {
             ) : null}
             <Input
               value={verifyCode}
-              onChangeText={(t) => setVerifyCode(t.replace(/\D/g, "").slice(0, 6))}
+              onChangeText={(t) =>
+                setVerifyCode(t.replace(/\D/g, "").slice(0, 6))
+              }
               placeholder="000000"
               keyboardType="number-pad"
               maxLength={6}
               autoFocus
             />
-            <Button variant="accent" onPress={confirmEnable} loading={busy} disabled={verifyCode.trim().length < 6}>
+            <Button
+              variant="accent"
+              onPress={confirmEnable}
+              loading={busy}
+              disabled={verifyCode.trim().length < 6}
+            >
               Verify &amp; Enable
             </Button>
             <Button variant="ghost" onPress={() => setPhase("idle")}>
@@ -186,7 +212,7 @@ export default function TwoFactorAuth() {
               Store these somewhere safe. Each code can only be used once if you
               lose access to your authenticator.
             </Text>
-            <View className="border border-border bg-card p-4 gap-1">
+            <View className="gap-1 border border-border bg-card p-4">
               {backupCodes.map((code) => (
                 <Text key={code} className="font-mono text-sm text-foreground">
                   {code}
@@ -258,7 +284,10 @@ export default function TwoFactorAuth() {
 
       <Dialog
         visible={disableDialog}
-        onClose={() => { setDisableDialog(false); setDisablePassword(""); }}
+        onClose={() => {
+          setDisableDialog(false);
+          setDisablePassword("");
+        }}
         icon={<ShieldOff size={20} color={color("destructive")} />}
         title="Disable Two-Factor Authentication"
         description="Enter your password to confirm. You can re-enable 2FA at any time."
@@ -267,7 +296,10 @@ export default function TwoFactorAuth() {
             <Button
               variant="outline"
               className="flex-1"
-              onPress={() => { setDisableDialog(false); setDisablePassword(""); }}
+              onPress={() => {
+                setDisableDialog(false);
+                setDisablePassword("");
+              }}
             >
               Cancel
             </Button>

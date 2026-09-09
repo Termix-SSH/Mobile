@@ -30,28 +30,28 @@ export function ProcessesWidget({ metrics }: { metrics: ServerMetrics }) {
       ) : (
         <View className="gap-1">
           <View className="flex-row gap-2">
-            <Text className="text-[9px] text-muted-foreground w-12">CPU%</Text>
-            <Text className="text-[9px] text-muted-foreground w-12">MEM%</Text>
-            <Text className="text-[9px] text-muted-foreground flex-1">
+            <Text className="w-12 text-[9px] text-muted-foreground">CPU%</Text>
+            <Text className="w-12 text-[9px] text-muted-foreground">MEM%</Text>
+            <Text className="flex-1 text-[9px] text-muted-foreground">
               COMMAND
             </Text>
           </View>
           {top.map((p, i) => (
             <View key={`${p.pid}-${i}`} className="flex-row gap-2">
               <Text
-                className="text-[10px] text-foreground w-12"
+                className="w-12 text-[10px] text-foreground"
                 style={{ fontFamily: MONO_FONT }}
               >
                 {p.cpu.toFixed(1)}
               </Text>
               <Text
-                className="text-[10px] text-foreground w-12"
+                className="w-12 text-[10px] text-foreground"
                 style={{ fontFamily: MONO_FONT }}
               >
                 {p.mem.toFixed(1)}
               </Text>
               <Text
-                className="text-[10px] text-muted-foreground flex-1"
+                className="flex-1 text-[10px] text-muted-foreground"
                 numberOfLines={1}
                 style={{ fontFamily: MONO_FONT }}
               >

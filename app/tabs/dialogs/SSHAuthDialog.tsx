@@ -1,7 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { View, Platform } from "react-native";
 import { Lock } from "lucide-react-native";
-import { Dialog, Input, Button, Text, SegmentedControl } from "@/app/components/ui";
+import {
+  Dialog,
+  Input,
+  Button,
+  Text,
+  SegmentedControl,
+} from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 interface SSHAuthDialogProps {
@@ -82,7 +88,7 @@ export function SSHAuthDialog({
       title="SSH Authentication Required"
       description={hostLabel}
       footer={
-        <View className="flex-row gap-2 flex-1">
+        <View className="flex-1 flex-row gap-2">
           <Button variant="outline" className="flex-1" onPress={onCancel}>
             Cancel
           </Button>
@@ -97,7 +103,7 @@ export function SSHAuthDialog({
         </View>
       }
     >
-      <View className={`border rounded px-3 py-2.5 mb-3 ${bannerBg}`}>
+      <View className={`mb-3 rounded border px-3 py-2.5 ${bannerBg}`}>
         <Text className={`text-xs ${bannerText}`}>{reasonText}</Text>
       </View>
 
@@ -128,7 +134,9 @@ export function SSHAuthDialog({
           <Input
             value={sshKey}
             onChangeText={setSshKey}
-            placeholder={"-----BEGIN OPENSSH PRIVATE KEY-----\nPaste your private key here...\n-----END OPENSSH PRIVATE KEY-----"}
+            placeholder={
+              "-----BEGIN OPENSSH PRIVATE KEY-----\nPaste your private key here...\n-----END OPENSSH PRIVATE KEY-----"
+            }
             multiline
             numberOfLines={5}
             autoCapitalize="none"

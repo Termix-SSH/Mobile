@@ -24,15 +24,22 @@ export function usePolling(
 
     let timer: ReturnType<typeof setInterval> | null = null;
     let cancelled = false;
+    let running = false;
 
-    const tick = () => {
-      if (!cancelled) void fnRef.current();
+    const tick = async () => {
+      if (cancelled || running) return;
+      running = true;
+      try {
+        await fnRef.current();
+      } finally {
+        running = false;
+      }
     };
 
     const start = () => {
       if (timer) return;
-      tick();
-      timer = setInterval(tick, intervalMs);
+      void tick();
+      timer = setInterval(() => void tick(), intervalMs);
     };
 
     const stop = () => {

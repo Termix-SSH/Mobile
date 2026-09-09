@@ -1,5 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
-import { View, ScrollView, Pressable, RefreshControl } from "react-native";
+import {
+  View,
+  ScrollView,
+  Pressable,
+  RefreshControl,
+  ActivityIndicator,
+} from "react-native";
 import {
   Container as ContainerIcon,
   Search,
@@ -61,17 +67,14 @@ export function Docker({ host, isVisible }: DockerProps) {
   const [dockerAvailable, setDockerAvailable] = useState<boolean | null>(null);
   const [initialLoadDone, setInitialLoadDone] = useState(false);
 
-  const loadContainers = useCallback(
-    async (sessionId: string) => {
-      try {
-        const list = await getDockerContainers(sessionId);
-        setContainers(list);
-      } catch (e: any) {
-        toast.error(e?.message || "Failed to load containers");
-      }
-    },
-    [],
-  );
+  const loadContainers = useCallback(async (sessionId: string) => {
+    try {
+      const list = await getDockerContainers(sessionId);
+      setContainers(list);
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to load containers");
+    }
+  }, []);
 
   const connectTransport = useMemo(
     () => ({
@@ -112,6 +115,21 @@ export function Docker({ host, isVisible }: DockerProps) {
     onConnected,
     { autoConnect: true, keepAliveMs: 30000 },
   );
+
+  // Only meaningful once the session is up; shared by the header button and
+  // pull to refresh so both show the same spinner.
+  const canRefresh = conn.state === "connected" && !refreshing;
+
+  const runRefresh = useCallback(async () => {
+    const sessionId = conn.sessionId.current;
+    if (!sessionId) return;
+    setRefreshing(true);
+    try {
+      await loadContainers(sessionId);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [conn.sessionId, loadContainers]);
 
   // Poll the container list while connected and visible.
   usePolling(
@@ -173,7 +191,9 @@ export function Docker({ host, isVisible }: DockerProps) {
 
   // Map connect-state → SessionFrame status.
   const frameStatus =
-    conn.state === "connecting" || conn.state === "idle" || (conn.state === "connected" && !initialLoadDone)
+    conn.state === "connecting" ||
+    conn.state === "idle" ||
+    (conn.state === "connected" && !initialLoadDone)
       ? "loading"
       : conn.state === "error"
         ? "error"
@@ -198,7 +218,9 @@ export function Docker({ host, isVisible }: DockerProps) {
               ? "No containers found"
               : "No containers match your filters"
         }
-        emptyIcon={<ContainerIcon size={32} color={color("muted-foreground")} />}
+        emptyIcon={
+          <ContainerIcon size={32} color={color("muted-foreground")} />
+        }
         onRetry={conn.state === "error" ? conn.retry : undefined}
         logEntries={conn.logEntries}
         isConnecting={conn.state === "connecting" || conn.state === "idle"}
@@ -207,19 +229,23 @@ export function Docker({ host, isVisible }: DockerProps) {
         onLogClear={conn.logClear}
         headerActions={
           <Pressable
-            onPress={() =>
-              conn.sessionId.current &&
-              loadContainers(conn.sessionId.current)
-            }
+            onPress={runRefresh}
+            disabled={!canRefresh}
             hitSlop={8}
-            className="p-1.5"
+            className={`rounded p-1.5 ${
+              canRefresh ? "active:bg-muted/40" : "opacity-40"
+            }`}
           >
-            <RefreshCw size={16} color={color("muted-foreground")} />
+            {refreshing ? (
+              <ActivityIndicator size="small" color={color("accent-brand")} />
+            ) : (
+              <RefreshCw size={16} color={color("muted-foreground")} />
+            )}
           </Pressable>
         }
         toolbar={
           conn.state === "connected" && dockerAvailable !== false ? (
-            <View className="px-3 py-2.5 gap-2.5">
+            <View className="gap-2.5 px-3 py-2.5">
               <Input
                 value={query}
                 onChangeText={setQuery}
@@ -242,17 +268,18 @@ export function Docker({ host, isVisible }: DockerProps) {
         }
       >
         <ScrollView
-          contentContainerStyle={{ padding: 12, gap: 8, paddingBottom: 120 }}
+          className="flex-1"
+          contentContainerStyle={{
+            flexGrow: 1,
+            padding: 12,
+            gap: 8,
+            paddingBottom: 120,
+          }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
               tintColor={color("accent-brand")}
-              onRefresh={async () => {
-                setRefreshing(true);
-                if (conn.sessionId.current)
-                  await loadContainers(conn.sessionId.current);
-                setRefreshing(false);
-              }}
+              onRefresh={runRefresh}
             />
           }
         >
@@ -361,17 +388,19 @@ function ContainerRow({
     <Pressable
       onPress={onPress}
       onLongPress={onMenu}
-      className="px-3 py-3 bg-card border border-border active:bg-muted/30"
+      className="border border-border bg-card px-3 py-3 active:bg-muted/30"
     >
       <View className="flex-row items-center gap-2.5">
         <View
           style={{
-            backgroundColor: running ? "#22c55e" : color("muted-foreground", 0.4),
+            backgroundColor: running
+              ? "#22c55e"
+              : color("muted-foreground", 0.4),
           }}
-          className="w-2.5 h-2.5 rounded-full"
+          className="h-2.5 w-2.5 rounded-full"
         />
         <ContainerIcon size={15} color={color("muted-foreground")} />
-        <View className="flex-1 min-w-0">
+        <View className="min-w-0 flex-1">
           <Text
             weight="medium"
             className="text-sm text-foreground"
@@ -386,7 +415,12 @@ function ContainerRow({
         <Badge variant={running ? "success" : "muted"}>
           {running ? "running" : container.state || "stopped"}
         </Badge>
-        <Pressable onPress={onMenu} hitSlop={8} disabled={busy} className="pl-1">
+        <Pressable
+          onPress={onMenu}
+          hitSlop={8}
+          disabled={busy}
+          className="pl-1"
+        >
           <MoreVertical size={16} color={color("muted-foreground")} />
         </Pressable>
       </View>

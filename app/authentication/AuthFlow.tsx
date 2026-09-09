@@ -1,6 +1,7 @@
 import {
   View,
   ScrollView,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   Linking,
@@ -29,6 +30,11 @@ import { Text, Input, Button, Label } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
 import { useAppContext } from "../AppContext";
+import {
+  consumeOidcCallback,
+  isOidcCallbackHandled,
+  markOidcCallbackHandled,
+} from "@/app/utils/oidc-callback";
 import {
   saveServerConfig,
   getCurrentServerUrl,
@@ -71,6 +77,34 @@ function errMessage(e: any, fallback: string): string {
   return e?.response?.data?.error || e?.message || fallback;
 }
 
+/**
+ * Tracks whether the software keyboard is on screen.
+ *
+ * iOS fires `keyboardWillShow` ahead of the animation, so the layout change
+ * lands in the same frame as the keyboard sliding up; Android only has the
+ * `did` events.
+ */
+function useKeyboardVisible(): boolean {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const showEvent =
+      Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
+    const hideEvent =
+      Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
+
+    const show = Keyboard.addListener(showEvent, () => setVisible(true));
+    const hide = Keyboard.addListener(hideEvent, () => setVisible(false));
+
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, []);
+
+  return visible;
+}
+
 export default function AuthFlow() {
   const {
     authFlowInitialStep,
@@ -79,6 +113,7 @@ export default function AuthFlow() {
     setSelectedServer,
   } = useAppContext();
   const insets = useSafeAreaInsets();
+  const keyboardVisible = useKeyboardVisible();
   const color = useThemeColor();
   const bg = color("background") ?? "#0c0d0b";
   const accent = color("accent-brand") ?? "#f59145";
@@ -255,34 +290,45 @@ export default function AuthFlow() {
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
-    <View
-      className="flex-1 bg-background"
-      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
-    >
+    // The safe-area insets deliberately live *inside* this view rather than on
+    // it: KeyboardAvoidingView measures its own frame relative to its parent,
+    // so padding on an ancestor makes it under-shoot by exactly that amount and
+    // the keyboard ends up covering the fields.
+    <View className="flex-1 bg-background">
       {step === "oidc" ? (
-        <OidcStep
-          bg={bg}
-          accent={accent}
-          onBack={() =>
-            // If there's a usable native login step, return to it; otherwise
-            // (pure reverse-proxy case) go back to the server step.
-            setStep(
-              !FORCE_WEBVIEW_LOGIN &&
-                caps &&
-                (caps.passwordLoginAllowed || caps.oidcAvailable)
-                ? "login"
-                : "server",
-            )
-          }
-          onAuthenticated={finishAuthenticated}
-        />
+        <View
+          className="flex-1"
+          style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+        >
+          <OidcStep
+            bg={bg}
+            accent={accent}
+            onBack={() =>
+              // If there's a usable native login step, return to it; otherwise
+              // (pure reverse-proxy case) go back to the server step.
+              setStep(
+                !FORCE_WEBVIEW_LOGIN &&
+                  caps &&
+                  (caps.passwordLoginAllowed || caps.oidcAvailable)
+                  ? "login"
+                  : "server",
+              )
+            }
+            onAuthenticated={finishAuthenticated}
+          />
+        </View>
       ) : (
         <KeyboardAvoidingView
           className="flex-1"
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          // Android no longer resizes the window under the keyboard now that the
+          // app is edge-to-edge, so it needs a behavior too.
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           {/* Shared header */}
-          <View className="flex-row items-center justify-between border-b border-border px-4 py-3">
+          <View
+            className="flex-row items-center justify-between border-b border-border px-4 pb-3"
+            style={{ paddingTop: insets.top + 12 }}
+          >
             {step !== "server" ? (
               <TouchableOpacity
                 onPress={goToServer}
@@ -308,21 +354,36 @@ export default function AuthFlow() {
 
           <ScrollView
             className="flex-1"
-            contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: "center",
+              paddingBottom: insets.bottom,
+            }}
             keyboardShouldPersistTaps="handled"
+            keyboardDismissMode={
+              Platform.OS === "ios" ? "interactive" : "on-drag"
+            }
+            showsVerticalScrollIndicator={false}
           >
-            <View className="items-center px-6 py-10">
-              {/* Brand mark */}
-              <View className="mb-5 h-16 w-16 items-center justify-center border border-accent-brand/40 bg-accent-brand/10">
-                <Server size={30} color={accent} />
-              </View>
+            <View
+              className={`items-center px-6 ${keyboardVisible ? "py-4" : "py-10"}`}
+            >
+              {/* Brand mark — dropped while typing so short screens keep the
+                  form fully visible above the keyboard. */}
+              {keyboardVisible ? null : (
+                <View className="mb-5 h-16 w-16 items-center justify-center border border-accent-brand/40 bg-accent-brand/10">
+                  <Server size={30} color={accent} />
+                </View>
+              )}
               <Text
                 weight="bold"
                 className="text-3xl tracking-[3px] text-foreground"
               >
                 TERMIX
               </Text>
-              <Text className="mb-8 mt-1 text-xs tracking-[2px] text-muted-foreground">
+              <Text
+                className={`mt-1 text-xs tracking-[2px] text-muted-foreground ${keyboardVisible ? "mb-5" : "mb-8"}`}
+              >
                 {step === "server"
                   ? "CONNECT TO YOUR SERVER"
                   : (activeHost || "").toUpperCase()}
@@ -400,6 +461,24 @@ export default function AuthFlow() {
 
 // ── Sub-steps ───────────────────────────────────────────────────────────────
 
+/** Label above a field, with consistent spacing between the two. */
+function Field({
+  label,
+  className,
+  children,
+}: {
+  label: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <View className={className}>
+      <Label className="mb-1.5">{label}</Label>
+      {children}
+    </View>
+  );
+}
+
 function ServerStep({
   serverUrl,
   setServerUrl,
@@ -416,8 +495,7 @@ function ServerStep({
   return (
     <>
       <View className="w-full max-w-md border border-border bg-card p-5">
-        <Label>Server Address</Label>
-        <View className="mt-2">
+        <Field label="Server Address">
           <Input
             placeholder="https://termix.example.com"
             value={serverUrl}
@@ -431,7 +509,7 @@ function ServerStep({
             onSubmitEditing={onConnect}
             returnKeyType="go"
           />
-        </View>
+        </Field>
         <Text className="mt-2 text-[11px] text-muted-foreground">
           Enter the address of your self-hosted Termix server, including http://
           or https://.
@@ -560,8 +638,7 @@ function LoginStep({
     <View className="w-full max-w-md">
       {showPasswordCard ? (
         <View className="border border-border bg-card p-5">
-          <Label>Username</Label>
-          <View className="mb-4 mt-2">
+          <Field label="Username">
             <Input
               placeholder="username"
               value={username}
@@ -572,9 +649,8 @@ function LoginStep({
               editable={!busy}
               leading={<UserIcon size={16} color={color("muted-foreground")} />}
             />
-          </View>
-          <Label>Password</Label>
-          <View className="mt-2">
+          </Field>
+          <Field label="Password" className="mt-4">
             <PasswordInput
               value={password}
               onChangeText={setPassword}
@@ -583,7 +659,7 @@ function LoginStep({
               onSubmitEditing={handleLogin}
               color={color}
             />
-          </View>
+          </Field>
 
           <Button
             variant="accent"
@@ -687,8 +763,7 @@ function TotpStep({
 
   return (
     <View className="w-full max-w-md border border-border bg-card p-5">
-      <Label>Two-Factor Code</Label>
-      <View className="mt-2">
+      <Field label="Two-Factor Code">
         <Input
           placeholder="123456"
           value={code}
@@ -701,7 +776,7 @@ function TotpStep({
           returnKeyType="go"
           leading={<KeyRound size={16} color={color("muted-foreground")} />}
         />
-      </View>
+      </Field>
       <Text className="mt-2 text-[11px] text-muted-foreground">
         Enter the 6-digit code from your authenticator app, or one of your
         backup codes.
@@ -772,27 +847,28 @@ function SignupStep({
 
   return (
     <View className="w-full max-w-md border border-border bg-card p-5">
-      <Label>{firstUser ? "Create Admin Account" : "Create Account"}</Label>
-      {firstUser ? (
-        <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
-          This is the first account on the server and will be an administrator.
-        </Text>
-      ) : (
-        <View className="mb-3" />
-      )}
+      <Text weight="medium" className="text-sm text-foreground">
+        {firstUser ? "Create Admin Account" : "Create Account"}
+      </Text>
+      <Text className="mb-4 mt-1 text-[11px] text-muted-foreground">
+        {firstUser
+          ? "This is the first account on the server and will be an administrator."
+          : "Pick a username and password for this server."}
+      </Text>
 
-      <View className="mb-4">
+      <Field label="Username">
         <Input
           placeholder="username"
           value={username}
           onChangeText={setUsername}
           autoCapitalize="none"
           autoCorrect={false}
+          autoComplete="username-new"
           editable={!busy}
           leading={<UserIcon size={16} color={color("muted-foreground")} />}
         />
-      </View>
-      <View className="mb-4">
+      </Field>
+      <Field label="Password" className="mt-4">
         <PasswordInput
           value={password}
           onChangeText={setPassword}
@@ -800,8 +876,8 @@ function SignupStep({
           editable={!busy}
           color={color}
         />
-      </View>
-      <View>
+      </Field>
+      <Field label="Confirm Password" className="mt-4">
         <PasswordInput
           value={confirm}
           onChangeText={setConfirm}
@@ -810,7 +886,7 @@ function SignupStep({
           onSubmitEditing={handleSignup}
           color={color}
         />
-      </View>
+      </Field>
 
       <Button
         variant="accent"
@@ -908,23 +984,27 @@ function ResetStep({
 
   return (
     <View className="w-full max-w-md border border-border bg-card p-5">
-      <Label>Reset Password</Label>
+      <Text weight="medium" className="text-sm text-foreground">
+        Reset Password
+      </Text>
 
       {phase === "request" && (
         <>
-          <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
+          <Text className="mb-4 mt-1 text-[11px] text-muted-foreground">
             Enter your username. A reset code will be generated and printed to
             the server&apos;s logs.
           </Text>
-          <Input
-            placeholder="username"
-            value={username}
-            onChangeText={setUsername}
-            autoCapitalize="none"
-            autoCorrect={false}
-            editable={!busy}
-            leading={<UserIcon size={16} color={color("muted-foreground")} />}
-          />
+          <Field label="Username">
+            <Input
+              placeholder="username"
+              value={username}
+              onChangeText={setUsername}
+              autoCapitalize="none"
+              autoCorrect={false}
+              editable={!busy}
+              leading={<UserIcon size={16} color={color("muted-foreground")} />}
+            />
+          </Field>
           <Button
             variant="accent"
             size="lg"
@@ -939,19 +1019,21 @@ function ResetStep({
 
       {phase === "code" && (
         <>
-          <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
+          <Text className="mb-4 mt-1 text-[11px] text-muted-foreground">
             Enter the 6-digit reset code from the server logs.
           </Text>
-          <Input
-            placeholder="123456"
-            value={resetCode}
-            onChangeText={setResetCode}
-            keyboardType="number-pad"
-            autoCapitalize="none"
-            autoCorrect={false}
-            editable={!busy}
-            leading={<KeyRound size={16} color={color("muted-foreground")} />}
-          />
+          <Field label="Reset Code">
+            <Input
+              placeholder="123456"
+              value={resetCode}
+              onChangeText={setResetCode}
+              keyboardType="number-pad"
+              autoCapitalize="none"
+              autoCorrect={false}
+              editable={!busy}
+              leading={<KeyRound size={16} color={color("muted-foreground")} />}
+            />
+          </Field>
           <Button
             variant="accent"
             size="lg"
@@ -966,17 +1048,19 @@ function ResetStep({
 
       {phase === "password" && (
         <>
-          <Text className="mb-3 mt-1 text-[11px] text-muted-foreground">
+          <Text className="mb-4 mt-1 text-[11px] text-muted-foreground">
             Choose a new password.
           </Text>
-          <PasswordInput
-            value={newPassword}
-            onChangeText={setNewPassword}
-            placeholder="new password"
-            editable={!busy}
-            onSubmitEditing={setNew}
-            color={color}
-          />
+          <Field label="New Password">
+            <PasswordInput
+              value={newPassword}
+              onChangeText={setNewPassword}
+              placeholder="new password"
+              editable={!busy}
+              onSubmitEditing={setNew}
+              color={color}
+            />
+          </Field>
           <Button
             variant="accent"
             size="lg"
@@ -1117,6 +1201,11 @@ function OidcStep({
   const handleCallbackUrl = useCallback(
     async (callbackUrl: string) => {
       if (!callbackUrl.startsWith("termix-mobile://oidc-callback")) return;
+      // The same intent can reach us twice — openAuthSessionAsync's result, the
+      // Linking listener, and the /oidc-callback route all see it. Claim it once
+      // so a second, failing confirmation can't clear the JWT the first stored.
+      if (isOidcCallbackHandled(callbackUrl)) return;
+      markOidcCallbackHandled(callbackUrl);
 
       // Hermes's URL implementation may not parse custom schemes reliably,
       // so extract query params manually from the raw string.
@@ -1212,6 +1301,16 @@ function OidcStep({
     browserOpenedRef.current = true;
 
     const init = async () => {
+      // A deep link the OS delivered before this screen existed (cold start, or
+      // a Custom Tab that handed the redirect to the router). Finish that
+      // sign-in instead of starting a second trip to the IdP — and before the
+      // jwt wipe below, which would otherwise discard what we just received.
+      const pendingCallback = consumeOidcCallback();
+      if (pendingCallback) {
+        await handleCallbackUrl(pendingCallback);
+        return;
+      }
+
       // Start every sign-in attempt from a clean slate: a leftover token would
       // let confirmation pass as the previous account.
       await AsyncStorage.removeItem("jwt");
@@ -1259,6 +1358,17 @@ function OidcStep({
 
   const handleNav = (navState: WebViewNavigation) => {
     if (!navState.loading) setUrl(navState.url);
+  };
+
+  // The web login hands the session back through postMessage, but a server
+  // that was handed an appCallbackUrl answers the OIDC callback with a
+  // termix-mobile:// redirect instead. Android would fire that at the OS as an
+  // intent and the sign-in would leave the WebView for the router; catch it
+  // here and complete in place.
+  const handleWebViewRequest = (request: { url: string }) => {
+    if (!request.url.startsWith(OIDC_CALLBACK_URL)) return true;
+    void handleCallbackUrl(request.url);
+    return false;
   };
 
   const handleError = (syntheticEvent: any) => {
@@ -1456,6 +1566,7 @@ function OidcStep({
           style={{ flex: 1, backgroundColor: bg }}
           containerStyle={{ backgroundColor: bg }}
           onNavigationStateChange={handleNav}
+          onShouldStartLoadWithRequest={handleWebViewRequest}
           onMessage={onMessage}
           onError={handleError}
           injectedJavaScript={injectedJavaScript}

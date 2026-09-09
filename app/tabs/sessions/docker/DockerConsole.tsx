@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { loadXtermAssets } from "@/app/tabs/sessions/terminal/loadXtermAssets";
 import { View, ActivityIndicator, Pressable } from "react-native";
 import { WebView } from "react-native-webview";
 import { RotateCcw } from "lucide-react-native";
 import { Text } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
-import {
-  getCookie,
-  getDockerConsoleWebSocketUrl,
-} from "@/app/main-axios";
+import { getCookie, getDockerConsoleWebSocketUrl } from "@/app/main-axios";
 import type { SSHHost, DockerContainer } from "@/types";
 
 /**
@@ -36,6 +34,7 @@ export function DockerConsole({
   >("connecting");
   const [errorMessage, setErrorMessage] = useState("");
   const [webViewKey, setWebViewKey] = useState(0);
+  const [consoleHtml, setConsoleHtml] = useState<string | null>(null);
 
   const send = useCallback((msg: object) => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
@@ -63,7 +62,16 @@ export function DockerConsole({
       send({
         type: "connect",
         data: {
-          hostConfig: { id: host.id, enableDocker: true },
+          // The server checks the ip we think we picked against the one it
+          // resolves from the id, and refuses the shell if they differ. Sending
+          // only the id reads as a mismatch, so pass the address too. syncId
+          // takes priority there when the host came from a sync server.
+          hostConfig: {
+            id: host.id,
+            ip: host.ip,
+            syncId: host.syncId ?? undefined,
+            enableDocker: true,
+          },
           containerId: container.id,
           cols: 80,
           rows: 24,
@@ -98,7 +106,24 @@ export function DockerConsole({
     ws.onclose = () => {
       setStatus((s) => (s === "error" ? s : "closed"));
     };
-  }, [host.id, container.id, send]);
+  }, [host.id, host.ip, host.syncId, container.id, send]);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadXtermAssets(false)
+      .then((assets) => {
+        if (!cancelled) setConsoleHtml(buildConsoleHtml(assets));
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setStatus("error");
+          setErrorMessage("Failed to load the console");
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     connect();
@@ -127,14 +152,14 @@ export function DockerConsole({
 
   const reconnect = () => setWebViewKey((k) => k + 1);
 
-  if (!isVisible) return null;
+  if (!isVisible || !consoleHtml) return null;
 
   return (
     <View className="flex-1 bg-black">
       <WebView
         key={webViewKey}
         ref={webViewRef}
-        source={{ html: CONSOLE_HTML }}
+        source={{ html: consoleHtml }}
         onMessage={onWebViewMessage}
         originWhitelist={["*"]}
         javaScriptEnabled
@@ -144,7 +169,7 @@ export function DockerConsole({
         style={{ flex: 1, backgroundColor: "#000" }}
       />
       {status !== "connected" ? (
-        <View className="absolute inset-0 items-center justify-center bg-black/80 gap-3">
+        <View className="absolute inset-0 items-center justify-center gap-3 bg-black/80">
           {status === "connecting" ? (
             <>
               <ActivityIndicator size="large" color={color("accent-brand")} />
@@ -154,12 +179,12 @@ export function DockerConsole({
             </>
           ) : (
             <>
-              <Text className="text-sm text-destructive text-center px-8">
+              <Text className="px-8 text-center text-sm text-destructive">
                 {errorMessage || "Console disconnected"}
               </Text>
               <Pressable
                 onPress={reconnect}
-                className="flex-row items-center gap-1.5 px-3 py-2 border border-border active:bg-muted/40"
+                className="flex-row items-center gap-1.5 border border-border px-3 py-2 active:bg-muted/40"
               >
                 <RotateCcw size={14} color={color("foreground")} />
                 <Text className="text-xs text-foreground">Reconnect</Text>
@@ -172,13 +197,17 @@ export function DockerConsole({
   );
 }
 
-const CONSOLE_HTML = `<!DOCTYPE html>
+const buildConsoleHtml = (assets: {
+  xtermJs: string;
+  xtermCss: string;
+  fitAddonJs: string;
+}) => `<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<script src="https://unpkg.com/xterm@5.3.0/lib/xterm.js"></script>
-<script src="https://unpkg.com/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/xterm@5.3.0/css/xterm.css" />
+<script>${assets.xtermJs}</script>
+<script>${assets.fitAddonJs}</script>
+<style>${assets.xtermCss}</style>
 <style>
   html, body, #term { margin:0; padding:0; height:100%; width:100%; background:#000; overflow:hidden; }
   .xterm { padding:6px; }

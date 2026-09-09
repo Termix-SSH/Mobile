@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shown by setEmptyView when the snapshot carries no hosts. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/termix_widget_empty"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:gravity="center_vertical"
+  android:visibility="gone">
+
+  <TextView
+    android:id="@+id/termix_widget_empty_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/termix_widget_text_primary"
+    android:textSize="13sp"
+    android:textStyle="bold"
+    android:fontFamily="monospace" />
+
+  <TextView
+    android:id="@+id/termix_widget_empty_message"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:maxLines="2"
+    android:textColor="@color/termix_widget_text_tertiary"
+    android:textSize="9sp"
+    android:fontFamily="monospace" />
+
+  <TextView
+    android:id="@+id/termix_widget_empty_action"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:text="@string/termix_widget_open_action"
+    android:textColor="#F59145"
+    android:textSize="8sp"
+    android:textStyle="bold"
+    android:letterSpacing="0.1"
+    android:fontFamily="monospace" />
+</LinearLayout>

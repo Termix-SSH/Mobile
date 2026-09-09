@@ -1,12 +1,15 @@
 import { Asset } from "expo-asset";
+import * as FileSystem from "expo-file-system/legacy";
 
 type XtermAssets = {
   xtermJs: string;
   xtermCss: string;
   fitAddonJs: string;
+  nerdFontBase64?: string;
 };
 
-let cached: XtermAssets | null = null;
+let cachedCore: XtermAssets | null = null;
+let cachedNerdFontBase64: string | null = null;
 
 async function readAsset(asset: Asset): Promise<string> {
   const uri = asset.localUri ?? asset.uri;
@@ -14,21 +17,40 @@ async function readAsset(asset: Asset): Promise<string> {
   return response.text();
 }
 
-export async function loadXtermAssets(): Promise<XtermAssets> {
-  if (cached) return cached;
+export async function loadXtermAssets(
+  includeNerdFont: boolean,
+): Promise<XtermAssets> {
+  if (!cachedCore) {
+    const [xtermJsAsset, xtermCssAsset, fitAddonAsset] = await Asset.loadAsync([
+      require("../../../../assets/xterm/xterm.js.html"),
+      require("../../../../assets/xterm/xterm.css.html"),
+      require("../../../../assets/xterm/xterm-addon-fit.js.html"),
+    ]);
 
-  const [xtermJsAsset, xtermCssAsset, fitAddonAsset] = await Asset.loadAsync([
-    require("../../../../assets/xterm/xterm.js.html"),
-    require("../../../../assets/xterm/xterm.css.html"),
-    require("../../../../assets/xterm/xterm-addon-fit.js.html"),
-  ]);
+    const [xtermJs, xtermCss, fitAddonJs] = await Promise.all([
+      readAsset(xtermJsAsset),
+      readAsset(xtermCssAsset),
+      readAsset(fitAddonAsset),
+    ]);
+    cachedCore = { xtermJs, xtermCss, fitAddonJs };
+  }
 
-  const [xtermJs, xtermCss, fitAddonJs] = await Promise.all([
-    readAsset(xtermJsAsset),
-    readAsset(xtermCssAsset),
-    readAsset(fitAddonAsset),
-  ]);
+  if (includeNerdFont && !cachedNerdFontBase64) {
+    const [nerdFontAsset] = await Asset.loadAsync([
+      require("../../../../assets/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf"),
+    ]);
+    cachedNerdFontBase64 = await FileSystem.readAsStringAsync(
+      nerdFontAsset.localUri ?? nerdFontAsset.uri,
+      {
+        encoding: FileSystem.EncodingType.Base64,
+      },
+    );
+  }
 
-  cached = { xtermJs, xtermCss, fitAddonJs };
-  return cached;
+  return {
+    ...cachedCore,
+    nerdFontBase64: includeNerdFont
+      ? (cachedNerdFontBase64 ?? undefined)
+      : undefined,
+  };
 }

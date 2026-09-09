@@ -16,6 +16,7 @@ import {
   View,
 } from "react-native";
 import { WebView } from "react-native-webview";
+import { loadGuacamoleAssets } from "./loadGuacamoleAssets";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   ChevronDown,
@@ -28,6 +29,7 @@ import {
   X,
 } from "lucide-react-native";
 import type { SSHHost } from "@/types";
+import type { RemoteDesktopProtocol } from "@/app/contexts/TerminalSessionsContext";
 import {
   getGuacamoleTokenFromHost,
   getGuacamoleWebSocketUrl,
@@ -60,10 +62,16 @@ interface RemoteDesktopProps {
   host: SSHHost;
   isVisible: boolean;
   title: string;
+  protocol?: RemoteDesktopProtocol;
   onClose?: () => void;
 }
 
-export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
+export function RemoteDesktop({
+  host,
+  isVisible,
+  title,
+  protocol,
+}: RemoteDesktopProps) {
   const color = useThemeColor();
   const { bottom: safeBottom } = useSafeAreaInsets();
 
@@ -76,7 +84,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
 
   // True available size measured from onLayout — avoids using full window
   // height which includes areas already consumed by the tab bar and insets.
-  const [availableSize, setAvailableSize] = useState<{ w: number; h: number } | null>(null);
+  const [availableSize, setAvailableSize] = useState<{
+    w: number;
+    h: number;
+  } | null>(null);
   const availableSizeRef = useRef<{ w: number; h: number } | null>(null);
   const containerRef = useRef<View>(null);
 
@@ -125,7 +136,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
       setIsKeyboardOpen(false);
       setKeyboardHeight(0);
     });
-    return () => { show.remove(); hide.remove(); };
+    return () => {
+      show.remove();
+      hide.remove();
+    };
   }, []);
 
   // ── Connection ────────────────────────────────────────────────────────────
@@ -134,7 +148,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
     try {
       setConnectionState("connecting");
       setErrorMessage(null);
-      const { token } = await getGuacamoleTokenFromHost(Number(host.id));
+      const { token } = await getGuacamoleTokenFromHost(
+        Number(host.id),
+        protocol,
+      );
       // Use measured layout size; fall back to ref if layout fired already
       const measured = availableSizeRef.current;
       const remW = measured ? measured.w : 1280;
@@ -144,10 +161,12 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
     } catch (error) {
       setConnectionState("failed");
       setErrorMessage(
-        error instanceof Error ? error.message : "Failed to start remote session",
+        error instanceof Error
+          ? error.message
+          : "Failed to start remote session",
       );
     }
-  }, [host.id]);
+  }, [host.id, protocol]);
 
   useEffect(() => {
     connect();
@@ -177,8 +196,26 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
 
   // ── WebView HTML ──────────────────────────────────────────────────────────
 
+  const [guacamoleJs, setGuacamoleJs] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadGuacamoleAssets()
+      .then((js) => {
+        if (!cancelled) setGuacamoleJs(js);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setConnectionState("failed");
+        setErrorMessage("Failed to load the remote desktop client");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const htmlContent = useMemo(() => {
-    if (!webSocketUrl) return "";
+    if (!webSocketUrl || !guacamoleJs) return "";
 
     return `<!DOCTYPE html>
 <html>
@@ -217,7 +254,7 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
       height: 100% !important;
     }
   </style>
-  <script src="https://unpkg.com/guacamole-common-js@1.5.0/dist/cjs/guacamole-common.min.js"></script>
+  <script>${guacamoleJs}</script>
 </head>
 <body>
   <div id="display"></div>
@@ -314,6 +351,8 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
       // ── Single touch state ───────────────────────────────────────────────
       let tpX = 0, tpY = 0, tpTime = 0, tpMoved = false;
       let tfTimer = null;
+      const TAP_MS = 350;
+      const TAP_MOVE_PX = 8;
 
       const dist2 = (e) => {
         const dx = e.touches[1].clientX - e.touches[0].clientX;
@@ -412,13 +451,15 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
 
         if (e.touches.length !== 1) return;
         const tx = e.touches[0].clientX, ty = e.touches[0].clientY;
-        if (Math.abs(tx - tpX) > 4 || Math.abs(ty - tpY) > 4) tpMoved = true;
+        const moved =
+          Math.abs(tx - tpX) > TAP_MOVE_PX ||
+          Math.abs(ty - tpY) > TAP_MOVE_PX;
 
         if (currentMode === 'touch') {
           // Single finger always drives the remote mouse (click+drag), even when zoomed.
           // The coordinate mapping (toRemote) already accounts for pan+zoom.
           sendMouseAt(tx, ty, false, false, false, false);
-          tpMoved = true;
+          if (moved) tpMoved = true;
         } else {
           // Trackpad: relative movement
           const rdx = (tx - tpX) * SENS * (remoteW / vpW()) / zoom;
@@ -439,7 +480,7 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
 
         if (currentMode === 'touch') {
           // Tap (no movement, quick) = click
-          if (!tpMoved && dur < 250 && e.changedTouches.length === 1 && e.touches.length === 0) {
+          if (!tpMoved && dur < TAP_MS && e.changedTouches.length === 1 && e.touches.length === 0) {
             const tx = e.changedTouches[0].clientX, ty = e.changedTouches[0].clientY;
             sendMouseAt(tx, ty, true, false, false, false);
             setTimeout(() => sendMouseAt(tx, ty, false, false, false, false), 60);
@@ -447,7 +488,7 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
         } else {
           // Trackpad
           if (e.touches.length === 0) {
-            if (!tpMoved && dur < 250 && e.changedTouches.length === 1) {
+            if (!tpMoved && dur < TAP_MS && e.changedTouches.length === 1) {
               sendMouseCursor(true, false);
               setTimeout(() => sendMouseCursor(false, false), 60);
             }
@@ -522,7 +563,7 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
   </script>
 </body>
 </html>`;
-  }, [webSocketUrl]);
+  }, [webSocketUrl, guacamoleJs]);
 
   // ── Reconnect ─────────────────────────────────────────────────────────────
 
@@ -540,23 +581,32 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
   }, []);
 
   const sendKeysym = useCallback(
-    (k: number) => inject(`window.termixRemote && window.termixRemote.sendKeysym(${k})`),
+    (k: number) =>
+      inject(`window.termixRemote && window.termixRemote.sendKeysym(${k})`),
     [inject],
   );
 
   const sendKeysyms = useCallback(
-    (ks: number[]) => inject(`window.termixRemote && window.termixRemote.sendKeysyms(${JSON.stringify(ks)})`),
+    (ks: number[]) =>
+      inject(
+        `window.termixRemote && window.termixRemote.sendKeysyms(${JSON.stringify(ks)})`,
+      ),
     [inject],
   );
 
   const sendText = useCallback(
-    (t: string) => inject(`window.termixRemote && window.termixRemote.sendText(${JSON.stringify(t)})`),
+    (t: string) =>
+      inject(
+        `window.termixRemote && window.termixRemote.sendText(${JSON.stringify(t)})`,
+      ),
     [inject],
   );
 
   const sendWithMods = useCallback(
     (k: number) => {
-      inject(`window.termixRemote && window.termixRemote.sendWithModifiers(${k}, ${JSON.stringify(modifiers)})`);
+      inject(
+        `window.termixRemote && window.termixRemote.sendWithModifiers(${k}, ${JSON.stringify(modifiers)})`,
+      );
       setModifiers({ ctrl: false, alt: false, shift: false, win: false });
     },
     [inject, modifiers],
@@ -573,13 +623,20 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
   }, [inject]);
 
   const canSendInput = connectionState === "connected";
-  const protocol = (host.connectionType || "rdp").toUpperCase();
+  const protocolLabel = (
+    protocol ??
+    host.connectionType ??
+    "rdp"
+  ).toUpperCase();
 
   // The keyboard height event is from the screen bottom. Our container's bottom
   // already sits SESSION_TAB_BAR_HEIGHT + safeBottom above the screen bottom
   // (applied by Sessions.tsx). The actual overlap on our container is:
   const SESSION_TAB_BAR_HEIGHT = 62; // getTabBarHeight(portrait) + 2
-  const kbOverlap = Math.max(0, keyboardHeight - SESSION_TAB_BAR_HEIGHT - safeBottom);
+  const kbOverlap = Math.max(
+    0,
+    keyboardHeight - SESSION_TAB_BAR_HEIGHT - safeBottom,
+  );
 
   // Tell remote to render at the true available size when connected or when
   // the container size changes (orientation change) or keyboard opens/closes.
@@ -657,7 +714,7 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
         key: {
           height: 34,
           paddingHorizontal: 9,
-          borderRadius: 6,
+          borderRadius: 0,
           borderWidth: 1,
           borderColor: themeBorder,
           backgroundColor: themeCard,
@@ -675,7 +732,7 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
         modKey: {
           height: 34,
           paddingHorizontal: 9,
-          borderRadius: 6,
+          borderRadius: 0,
           borderWidth: 1,
           alignItems: "center",
           justifyContent: "center",
@@ -693,7 +750,7 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
         iconKey: {
           width: 36,
           height: 34,
-          borderRadius: 6,
+          borderRadius: 0,
           borderWidth: 1,
           borderColor: themeBorder,
           backgroundColor: themeCard,
@@ -754,7 +811,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
     color: active ? "#fff" : themeMuted,
   });
 
-  const FKEYS = useMemo(() => Array.from({ length: 12 }, (_, i) => 0xffbe + i), []);
+  const FKEYS = useMemo(
+    () => Array.from({ length: 12 }, (_, i) => 0xffbe + i),
+    [],
+  );
 
   // ── Render ────────────────────────────────────────────────────────────────
 
@@ -762,7 +822,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
     <View
       ref={containerRef}
       pointerEvents={isVisible ? "auto" : "none"}
-      style={[styles.container, { opacity: isVisible ? 1 : 0, zIndex: isVisible ? 1 : -1 }]}
+      style={[
+        styles.container,
+        { opacity: isVisible ? 1 : 0, zIndex: isVisible ? 1 : -1 },
+      ]}
       onLayout={handleContainerLayout}
     >
       {/* WebView */}
@@ -780,8 +843,14 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
           cacheMode="LOAD_NO_CACHE"
           androidLayerType="hardware"
           onMessage={handleMessage}
-          onError={(e) => { setConnectionState("failed"); setErrorMessage(e.nativeEvent.description); }}
-          onHttpError={(e) => { setConnectionState("failed"); setErrorMessage(`HTTP ${e.nativeEvent.statusCode}`); }}
+          onError={(e) => {
+            setConnectionState("failed");
+            setErrorMessage(e.nativeEvent.description);
+          }}
+          onHttpError={(e) => {
+            setConnectionState("failed");
+            setErrorMessage(`HTTP ${e.nativeEvent.statusCode}`);
+          }}
           scrollEnabled={false}
           overScrollMode="never"
           bounces={false}
@@ -795,7 +864,7 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
       {(connectionState === "connecting" || connectionState === "idle") && (
         <View style={styles.overlay}>
           <ActivityIndicator size="large" color={themeAccent} />
-          <Text style={styles.overlayTitle}>Connecting {protocol}</Text>
+          <Text style={styles.overlayTitle}>Connecting {protocolLabel}</Text>
           <Text style={styles.overlayText}>{title}</Text>
         </View>
       )}
@@ -804,7 +873,9 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
       {(connectionState === "failed" || connectionState === "disconnected") && (
         <View style={styles.overlay}>
           <Text style={styles.overlayTitle}>
-            {connectionState === "failed" ? "Connection Failed" : "Disconnected"}
+            {connectionState === "failed"
+              ? "Connection Failed"
+              : "Disconnected"}
           </Text>
           {errorMessage ? (
             <Text style={styles.overlayText}>{errorMessage}</Text>
@@ -824,7 +895,9 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
       <TextInput
         ref={inputRef}
         value=""
-        onChangeText={(text) => { if (text) sendText(text); }}
+        onChangeText={(text) => {
+          if (text) sendText(text);
+        }}
         onKeyPress={({ nativeEvent }) => {
           if (nativeEvent.key === "Backspace") sendKeysym(0xff08);
         }}
@@ -852,9 +925,19 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
           >
             {/* Modifier keys */}
             {(["ctrl", "alt", "shift", "win"] as const).map((k) => (
-              <TouchableOpacity key={k} style={modKeyStyle(modifiers[k])} onPress={() => toggleModifier(k)}>
+              <TouchableOpacity
+                key={k}
+                style={modKeyStyle(modifiers[k])}
+                onPress={() => toggleModifier(k)}
+              >
                 <Text style={modKeyTextStyle(modifiers[k])}>
-                  {k === "ctrl" ? "Ctrl" : k === "alt" ? "Alt" : k === "shift" ? "⇧" : "Win"}
+                  {k === "ctrl"
+                    ? "Ctrl"
+                    : k === "alt"
+                      ? "Alt"
+                      : k === "shift"
+                        ? "⇧"
+                        : "Win"}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -864,7 +947,10 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
             {/* Keyboard toggle */}
             {isKeyboardOpen ? (
               <TouchableOpacity
-                style={[styles.key, { borderColor: themeAccent, backgroundColor: themeAccent }]}
+                style={[
+                  styles.key,
+                  { borderColor: themeAccent, backgroundColor: themeAccent },
+                ]}
                 onPress={() => Keyboard.dismiss()}
               >
                 <X size={13} color="#fff" />
@@ -886,7 +972,11 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
               { label: "Esc", k: 0xff1b },
               { label: "Tab", k: 0xff09 },
             ].map(({ label, k }) => (
-              <TouchableOpacity key={label} style={styles.key} onPress={() => sendWithMods(k)}>
+              <TouchableOpacity
+                key={label}
+                style={styles.key}
+                onPress={() => sendWithMods(k)}
+              >
                 <Text style={styles.keyText}>{label}</Text>
               </TouchableOpacity>
             ))}
@@ -894,16 +984,28 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
             <View style={styles.divider} />
 
             {/* Arrow keys */}
-            <TouchableOpacity style={styles.iconKey} onPress={() => sendWithMods(0xff51)}>
+            <TouchableOpacity
+              style={styles.iconKey}
+              onPress={() => sendWithMods(0xff51)}
+            >
               <ChevronLeft size={14} color={themeFg} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconKey} onPress={() => sendWithMods(0xff52)}>
+            <TouchableOpacity
+              style={styles.iconKey}
+              onPress={() => sendWithMods(0xff52)}
+            >
               <ChevronUp size={14} color={themeFg} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconKey} onPress={() => sendWithMods(0xff54)}>
+            <TouchableOpacity
+              style={styles.iconKey}
+              onPress={() => sendWithMods(0xff54)}
+            >
               <ChevronDown size={14} color={themeFg} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconKey} onPress={() => sendWithMods(0xff53)}>
+            <TouchableOpacity
+              style={styles.iconKey}
+              onPress={() => sendWithMods(0xff53)}
+            >
               <ChevronRight size={14} color={themeFg} />
             </TouchableOpacity>
 
@@ -919,7 +1021,11 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
               { label: "Del", k: 0xffff },
               { label: "Enter", k: 0xff0d },
             ].map(({ label, k }) => (
-              <TouchableOpacity key={label} style={styles.key} onPress={() => sendWithMods(k)}>
+              <TouchableOpacity
+                key={label}
+                style={styles.key}
+                onPress={() => sendWithMods(k)}
+              >
                 <Text style={styles.keyText}>{label}</Text>
               </TouchableOpacity>
             ))}
@@ -927,10 +1033,16 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
             <View style={styles.divider} />
 
             {/* System combos */}
-            <TouchableOpacity style={styles.key} onPress={() => sendKeysyms([0xffe3, 0xffe9, 0xffff])}>
+            <TouchableOpacity
+              style={styles.key}
+              onPress={() => sendKeysyms([0xffe3, 0xffe9, 0xffff])}
+            >
               <Text style={styles.keyText}>CAD</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.key} onPress={() => sendKeysyms([0xffeb])}>
+            <TouchableOpacity
+              style={styles.key}
+              onPress={() => sendKeysyms([0xffeb])}
+            >
               <Text style={styles.keyText}>Win</Text>
             </TouchableOpacity>
 
@@ -938,23 +1050,41 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
 
             {/* F-key toggle */}
             <TouchableOpacity
-              style={[styles.key, showFunctionKeys && { borderColor: themeAccent, backgroundColor: themeAccent }]}
+              style={[
+                styles.key,
+                showFunctionKeys && {
+                  borderColor: themeAccent,
+                  backgroundColor: themeAccent,
+                },
+              ]}
               onPress={() => setShowFKeys((v) => !v)}
             >
-              <Text style={[styles.keyText, showFunctionKeys && { color: "#fff" }]}>Fn</Text>
+              <Text
+                style={[styles.keyText, showFunctionKeys && { color: "#fff" }]}
+              >
+                Fn
+              </Text>
             </TouchableOpacity>
 
             {/* F1–F12 (shown inline when toggled) */}
-            {showFunctionKeys && FKEYS.map((ks, i) => (
-              <TouchableOpacity key={ks} style={styles.key} onPress={() => sendWithMods(ks)}>
-                <Text style={styles.keyText}>F{i + 1}</Text>
-              </TouchableOpacity>
-            ))}
+            {showFunctionKeys &&
+              FKEYS.map((ks, i) => (
+                <TouchableOpacity
+                  key={ks}
+                  style={styles.key}
+                  onPress={() => sendWithMods(ks)}
+                >
+                  <Text style={styles.keyText}>F{i + 1}</Text>
+                </TouchableOpacity>
+              ))}
 
             <View style={styles.divider} />
 
             {/* Settings */}
-            <TouchableOpacity style={styles.iconKey} onPress={() => setShowSettings(true)}>
+            <TouchableOpacity
+              style={styles.iconKey}
+              onPress={() => setShowSettings(true)}
+            >
               <Settings2 size={15} color={themeMuted} />
             </TouchableOpacity>
           </ScrollView>
@@ -979,7 +1109,9 @@ export function RemoteDesktop({ host, isVisible, title }: RemoteDesktopProps) {
             value={mouseMode}
             onChange={(m) => {
               setMouseMode(m);
-              inject(`window.termixRemote && window.termixRemote.setMouseMode('${m}')`);
+              inject(
+                `window.termixRemote && window.termixRemote.setMouseMode('${m}')`,
+              );
             }}
           />
           <Text style={styles.sheetDesc}>

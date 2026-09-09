@@ -9,12 +9,14 @@ import { Text } from "@/app/components/ui";
 export function Screen({
   title,
   subtitle,
+  headerLeft,
   headerRight,
   children,
   scrollableHeader,
 }: {
   title?: string;
   subtitle?: string;
+  headerLeft?: React.ReactNode;
   headerRight?: React.ReactNode;
   children: React.ReactNode;
   /** When true, the header is part of the scroll content (caller handles it). */
@@ -25,7 +27,10 @@ export function Screen({
   return (
     <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
       {title && !scrollableHeader ? (
-        <View className="flex-row items-end justify-between border-b border-border px-4 pb-3 pt-3">
+        <View className="flex-row items-center justify-between border-b border-border px-4 pb-3 pt-3">
+          {headerLeft ? (
+            <View className="mr-3 shrink-0">{headerLeft}</View>
+          ) : null}
           <View className="min-w-0 flex-1">
             <Text weight="bold" className="text-xl text-foreground">
               {title}

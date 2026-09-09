@@ -76,7 +76,7 @@ public class HardwareKeyboardModule: Module {
 extension UIResponder {
   @objc func hk_pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
     let handled = presses.contains { press in
-      guard press.type == .keyboard, let key = press.key else { return false }
+      guard let key = press.key else { return false }
 
       let modifiers = key.modifierFlags
       let shift = modifiers.contains(.shift)
@@ -157,7 +157,8 @@ extension UIResponder {
         HardwareKeyboardModule.emitToAll("F12", shift: shift, ctrl: ctrl, alt: alt)
         return true
       default:
-        if let input = key.charactersIgnoringModifiers, input.count == 1 {
+        let input = key.charactersIgnoringModifiers
+        if input.count == 1 {
           if ctrl {
             HardwareKeyboardModule.emitToAll(input, shift: shift, ctrl: true, alt: alt)
             return true

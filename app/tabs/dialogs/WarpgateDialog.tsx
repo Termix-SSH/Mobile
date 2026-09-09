@@ -32,15 +32,18 @@ export function WarpgateDialog({
     try {
       await Clipboard.setStringAsync(url);
       setCopied(true);
-      showToast("URL copied", "success");
+      showToast.success("URL copied");
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      showToast("Failed to copy", "error");
+      showToast.error("Failed to copy");
     }
   }, [url]);
 
   const handleOpenBrowser = useCallback(() => {
-    if (url) Linking.openURL(url).catch(() => showToast("Could not open browser", "error"));
+    if (url)
+      Linking.openURL(url).catch(() =>
+        showToast.error("Could not open browser"),
+      );
   }, [url]);
 
   return (
@@ -51,7 +54,7 @@ export function WarpgateDialog({
       title="Warpgate Authentication"
       description="Authenticate via the Warpgate portal, then tap Continue."
       footer={
-        <View className="flex-row flex-wrap gap-2 flex-1">
+        <View className="flex-1 flex-row flex-wrap gap-2">
           <Button variant="outline" onPress={onCancel} className="flex-1">
             Cancel
           </Button>
@@ -72,10 +75,10 @@ export function WarpgateDialog({
     >
       {/* Security key — displayed prominently */}
       <View className="mb-4">
-        <Text className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">
+        <Text className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">
           Security Key
         </Text>
-        <View className="bg-accent-brand/5 border border-accent-brand/30 px-4 py-3 items-center">
+        <View className="items-center border border-accent-brand/30 bg-accent-brand/5 px-4 py-3">
           <Text
             className="text-2xl text-accent-brand"
             weight="bold"
@@ -88,7 +91,7 @@ export function WarpgateDialog({
 
       {/* Auth URL */}
       <View>
-        <Text className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">
+        <Text className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">
           Auth URL
         </Text>
         <Input

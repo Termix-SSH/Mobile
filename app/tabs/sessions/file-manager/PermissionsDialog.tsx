@@ -20,7 +20,11 @@ function parsePermissions(perms?: string): [number, number, number] {
   if (tail.length === 9) {
     const calc = (g: string) =>
       (g[0] === "r" ? 4 : 0) + (g[1] === "w" ? 2 : 0) + (g[2] === "x" ? 1 : 0);
-    return [calc(tail.slice(0, 3)), calc(tail.slice(3, 6)), calc(tail.slice(6, 9))];
+    return [
+      calc(tail.slice(0, 3)),
+      calc(tail.slice(3, 6)),
+      calc(tail.slice(6, 9)),
+    ];
   }
   return [7, 5, 5];
 }
@@ -81,19 +85,19 @@ export function PermissionsDialog({
       <View className="gap-2.5">
         {CLASSES.map((cls, idx) => (
           <View key={cls} className="flex-row items-center gap-2">
-            <Text className="text-xs text-muted-foreground w-14 capitalize">
+            <Text className="w-14 text-xs capitalize text-muted-foreground">
               {cls}
             </Text>
-            <View className="flex-row gap-1.5 flex-1">
+            <View className="flex-1 flex-row gap-1.5">
               {BITS.map((bit) => {
                 const active = has(idx, bit);
                 return (
                   <Pressable
                     key={bit}
                     onPress={() => toggle(idx, bit)}
-                    className={`flex-1 py-2 items-center border ${
+                    className={`flex-1 items-center border py-2 ${
                       active
-                        ? "bg-accent-brand/10 border-accent-brand/40"
+                        ? "border-accent-brand/40 bg-accent-brand/10"
                         : "border-border active:bg-muted/40"
                     }`}
                   >

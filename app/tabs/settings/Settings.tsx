@@ -15,6 +15,8 @@ import {
   Monitor,
   Key,
   FileText,
+  LayoutGrid,
+  Trash2,
 } from "lucide-react-native";
 import { useAppContext } from "@/app/AppContext";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
@@ -26,6 +28,8 @@ import {
   getUserInfo,
   getVersionInfo,
   getCurrentServerUrl,
+  changePassword,
+  deleteAccount,
 } from "@/app/main-axios";
 import { Screen } from "@/app/components/Screen";
 import { LockScreen } from "@/app/components/LockScreen";
@@ -46,6 +50,16 @@ import {
   type ThemeId,
 } from "@/app/constants/theme";
 import { toast } from "@/app/utils/toast";
+import {
+  DEFAULT_WIDGET_PREFERENCES,
+  isWidgetSupported,
+  loadWidgetPreferences,
+  publishSignedOutSnapshot,
+  republishWithPreferences,
+  resetWidgets,
+  saveWidgetPreferences,
+  type WidgetPreferences,
+} from "@/app/widgets";
 
 export default function Settings() {
   const router = useRouter();
@@ -73,7 +87,36 @@ export default function Settings() {
   );
   const [open, setOpen] = useState<string | null>("appearance");
 
+  // Home-screen widget preferences (no-ops on builds without widget support).
+  const [widgetPrefs, setWidgetPrefs] = useState<WidgetPreferences>(
+    DEFAULT_WIDGET_PREFERENCES,
+  );
+
+  useEffect(() => {
+    if (!isWidgetSupported) return;
+    loadWidgetPreferences()
+      .then(setWidgetPrefs)
+      .catch(() => {});
+  }, []);
+
+  const updateWidgetPref = async (patch: Partial<WidgetPreferences>) => {
+    const next = await saveWidgetPreferences(patch);
+    setWidgetPrefs(next);
+    // Reflect the change on the home screen right away.
+    if (next.enabled) {
+      await republishWithPreferences();
+    } else {
+      await publishSignedOutSnapshot();
+    }
+  };
+
   // App-lock PIN setup dialog (two-step: enter then confirm)
+  const [passwordDialog, setPasswordDialog] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [deleteDialog, setDeleteDialog] = useState(false);
+  const [deletePassword, setDeletePassword] = useState("");
+  const [accountBusy, setAccountBusy] = useState(false);
   const [pinDialog, setPinDialog] = useState(false);
   const [pinStep, setPinStep] = useState<"enter" | "confirm">("enter");
   const [pin, setPin] = useState(""); // first entry
@@ -115,6 +158,8 @@ export default function Settings() {
     }
     await clearSession();
     clearAllSessions();
+    // Host names and addresses must not survive on the home screen.
+    await resetWidgets();
     setAuthenticated(false);
     // The tabs fall back to their "no server connected" empty states; the user
     // re-authenticates from there or from this Server section.
@@ -130,6 +175,9 @@ export default function Settings() {
       // best-effort — session may already be gone
     }
     await clearSession();
+    // Same reason as sign-out: the old server's hosts must not linger on the
+    // home screen while the user points the app somewhere else.
+    await resetWidgets();
     openAuthFlow("server");
   };
 
@@ -165,6 +213,46 @@ export default function Settings() {
     await appLock.enable(pin);
     setPinDialog(false);
     toast.success("App lock enabled");
+  };
+
+  const closePasswordDialog = () => {
+    setPasswordDialog(false);
+    setOldPassword("");
+    setNewPassword("");
+  };
+
+  const submitPasswordChange = async () => {
+    if (!oldPassword || !newPassword) return;
+    setAccountBusy(true);
+    try {
+      await changePassword(oldPassword, newPassword);
+      toast.success("Password changed");
+      closePasswordDialog();
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to change password");
+    } finally {
+      setAccountBusy(false);
+    }
+  };
+
+  const closeDeleteDialog = () => {
+    setDeleteDialog(false);
+    setDeletePassword("");
+  };
+
+  const submitDeleteAccount = async () => {
+    if (!deletePassword) return;
+    setAccountBusy(true);
+    try {
+      await deleteAccount(deletePassword);
+      closeDeleteDialog();
+      await handleLogout();
+      toast.success("Account deleted");
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to delete account");
+    } finally {
+      setAccountBusy(false);
+    }
   };
 
   const closePinDialog = () => {
@@ -280,7 +368,9 @@ export default function Settings() {
 
               <View className="mt-1 gap-0">
                 <Pressable
-                  onPress={() => router.push("/tabs/settings/TwoFactorAuth" as any)}
+                  onPress={() =>
+                    router.push("/tabs/settings/TwoFactorAuth" as any)
+                  }
                   className="flex-row items-center justify-between border-t border-border py-3"
                 >
                   <View className="flex-row items-center gap-2">
@@ -293,7 +383,9 @@ export default function Settings() {
                 </Pressable>
                 {isAdmin ? (
                   <Pressable
-                    onPress={() => router.push("/tabs/settings/ActiveSessions" as any)}
+                    onPress={() =>
+                      router.push("/tabs/settings/ActiveSessions" as any)
+                    }
                     className="flex-row items-center justify-between border-t border-border py-3"
                   >
                     <View className="flex-row items-center gap-2">
@@ -327,6 +419,30 @@ export default function Settings() {
                     <FileText size={15} color={color("muted-foreground")} />
                     <Text weight="medium" className="text-sm text-foreground">
                       Snippets
+                    </Text>
+                  </View>
+                  <ChevronRight size={15} color={color("muted-foreground")} />
+                </Pressable>
+                <Pressable
+                  onPress={() => setPasswordDialog(true)}
+                  className="flex-row items-center justify-between border-t border-border py-3"
+                >
+                  <View className="flex-row items-center gap-2">
+                    <Lock size={15} color={color("muted-foreground")} />
+                    <Text weight="medium" className="text-sm text-foreground">
+                      Change Password
+                    </Text>
+                  </View>
+                  <ChevronRight size={15} color={color("muted-foreground")} />
+                </Pressable>
+                <Pressable
+                  onPress={() => setDeleteDialog(true)}
+                  className="flex-row items-center justify-between border-t border-border py-3"
+                >
+                  <View className="flex-row items-center gap-2">
+                    <Trash2 size={15} color={color("destructive")} />
+                    <Text weight="medium" className="text-sm text-destructive">
+                      Delete Account
                     </Text>
                   </View>
                   <ChevronRight size={15} color={color("muted-foreground")} />
@@ -441,6 +557,98 @@ export default function Settings() {
           </View>
         </AccordionSection>
 
+        {/* Home-screen widgets */}
+        {isWidgetSupported ? (
+          <AccordionSection
+            label="Widgets"
+            icon={<LayoutGrid size={14} color={color("muted-foreground")} />}
+            open={open === "widgets"}
+            onToggle={() => toggle("widgets")}
+          >
+            <View className="pt-1">
+              <SettingRow
+                label="Home screen widgets"
+                description="Show your hosts and snippets on the home screen"
+                last={!widgetPrefs.enabled}
+              >
+                <FakeSwitch
+                  checked={widgetPrefs.enabled}
+                  onChange={(value) => updateWidgetPref({ enabled: value })}
+                />
+              </SettingRow>
+
+              {/* The rest only matters while publishing is on. */}
+              {widgetPrefs.enabled ? (
+                <>
+                  <SettingRow
+                    label="Show addresses"
+                    description="Show user@host under each server name"
+                  >
+                    <FakeSwitch
+                      checked={widgetPrefs.showAddresses}
+                      onChange={(value) =>
+                        updateWidgetPref({ showAddresses: value })
+                      }
+                    />
+                  </SettingRow>
+
+                  <SettingRow
+                    label="Include offline hosts"
+                    description="Off shows only servers that are online"
+                  >
+                    <FakeSwitch
+                      checked={widgetPrefs.includeOffline}
+                      onChange={(value) =>
+                        updateWidgetPref({ includeOffline: value })
+                      }
+                    />
+                  </SettingRow>
+
+                  <SettingRow
+                    label="Pinned hosts only"
+                    description="Show only the hosts you pinned"
+                  >
+                    <FakeSwitch
+                      checked={widgetPrefs.pinnedOnly}
+                      onChange={(value) =>
+                        updateWidgetPref({ pinnedOnly: value })
+                      }
+                    />
+                  </SettingRow>
+
+                  <SettingRow
+                    label="Snippets widget"
+                    description="Show saved commands on the home screen"
+                    last={!widgetPrefs.includeSnippets}
+                  >
+                    <FakeSwitch
+                      checked={widgetPrefs.includeSnippets}
+                      onChange={(value) =>
+                        updateWidgetPref({ includeSnippets: value })
+                      }
+                    />
+                  </SettingRow>
+
+                  {widgetPrefs.includeSnippets ? (
+                    <SettingRow
+                      label="Show command preview"
+                      description="Show the first line of each command"
+                      last
+                    >
+                      <FakeSwitch
+                        checked={widgetPrefs.showSnippetPreview}
+                        onChange={(value) =>
+                          updateWidgetPref({ showSnippetPreview: value })
+                        }
+                      />
+                    </SettingRow>
+                  ) : null}
+                </>
+              ) : null}
+            </View>
+          </AccordionSection>
+        ) : null}
+
         {/* Customization */}
         <AccordionSection
           label="Customization"
@@ -491,6 +699,79 @@ export default function Settings() {
           {appVersion ? `Termix Mobile v${appVersion}` : "Termix Mobile"}
         </Text>
       </ScrollView>
+
+      {/* Change password */}
+      <Dialog
+        visible={passwordDialog}
+        onClose={closePasswordDialog}
+        title="Change Password"
+        description="Enter your current password, then choose a new one."
+        icon={<Lock size={15} color={color("accent-brand")} />}
+        footer={
+          <>
+            <Button variant="ghost" size="sm" onPress={closePasswordDialog}>
+              Cancel
+            </Button>
+            <Button
+              variant="accent"
+              size="sm"
+              disabled={accountBusy || !oldPassword || !newPassword}
+              onPress={submitPasswordChange}
+            >
+              Change
+            </Button>
+          </>
+        }
+      >
+        <View className="gap-2">
+          <Input
+            value={oldPassword}
+            onChangeText={setOldPassword}
+            secureTextEntry
+            placeholder="Current password"
+            autoCapitalize="none"
+          />
+          <Input
+            value={newPassword}
+            onChangeText={setNewPassword}
+            secureTextEntry
+            placeholder="New password"
+            autoCapitalize="none"
+          />
+        </View>
+      </Dialog>
+
+      {/* Delete account */}
+      <Dialog
+        visible={deleteDialog}
+        onClose={closeDeleteDialog}
+        title="Delete Account"
+        description="This permanently deletes your account and all of its data. This cannot be undone."
+        icon={<Trash2 size={15} color={color("destructive")} />}
+        footer={
+          <>
+            <Button variant="ghost" size="sm" onPress={closeDeleteDialog}>
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              size="sm"
+              disabled={accountBusy || !deletePassword}
+              onPress={submitDeleteAccount}
+            >
+              Delete
+            </Button>
+          </>
+        }
+      >
+        <Input
+          value={deletePassword}
+          onChangeText={setDeletePassword}
+          secureTextEntry
+          placeholder="Confirm your password"
+          autoCapitalize="none"
+        />
+      </Dialog>
 
       {/* App-lock PIN setup dialog (two-step) */}
       <Dialog

@@ -1,4 +1,8 @@
-import { Text as RNText, type TextProps as RNTextProps } from "react-native";
+import {
+  Platform,
+  Text as RNText,
+  type TextProps as RNTextProps,
+} from "react-native";
 import {
   MONO_FONT,
   MONO_FONT_BOLD,
@@ -12,6 +16,12 @@ export interface ThemedTextProps extends RNTextProps {
   /** Tailwind classes (color, size, etc.). Defaults to foreground. */
   className?: string;
 }
+
+// Android reserves extra space above/below the glyphs from the font metrics,
+// which makes text sit off centre inside fixed-height rows and buttons.
+const FONT_PADDING = Platform.select({
+  android: { includeFontPadding: false },
+});
 
 const FONT_BY_WEIGHT: Record<TextWeight, string> = {
   regular: MONO_FONT,
@@ -33,7 +43,7 @@ export function Text({
   return (
     <RNText
       className={`text-foreground ${className ?? ""}`}
-      style={[{ fontFamily: FONT_BY_WEIGHT[weight] }, style]}
+      style={[{ fontFamily: FONT_BY_WEIGHT[weight] }, FONT_PADDING, style]}
       {...props}
     />
   );

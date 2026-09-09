@@ -17,6 +17,7 @@ import {
   THEME_VARS,
   type ThemeId,
 } from "@/app/constants/theme";
+import { republishWithPreferences } from "@/app/widgets";
 
 interface ThemeContextValue {
   /** User selection, may be "system". */
@@ -68,7 +69,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const setAccent = useCallback((hex: string) => {
     if (!hexToRgbTriplet(hex)) return;
     setAccentState(hex);
-    AsyncStorage.setItem(STORAGE_KEYS.accent, hex).catch(() => {});
+    // The widgets carry the accent in their snapshot, and republishing reads it
+    // back from storage, so the write has to land first. Without this the home
+    // screen keeps the old accent until the next Hosts refresh.
+    AsyncStorage.setItem(STORAGE_KEYS.accent, hex)
+      .then(() => republishWithPreferences())
+      .catch(() => {});
   }, []);
 
   const resolvedTheme: Exclude<ThemeId, "system"> =

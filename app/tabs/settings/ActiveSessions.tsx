@@ -1,9 +1,27 @@
 import { useState, useEffect, useCallback } from "react";
-import { View, ScrollView, Pressable, RefreshControl, Alert } from "react-native";
+import {
+  View,
+  ScrollView,
+  Pressable,
+  RefreshControl,
+  Alert,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ArrowLeft, Monitor, Smartphone, Globe, Trash2, LogOut } from "lucide-react-native";
-import { getSessions, revokeSession, revokeAllUserSessions, getUserInfo } from "@/app/main-axios";
+import {
+  ArrowLeft,
+  Monitor,
+  Smartphone,
+  Globe,
+  Trash2,
+  LogOut,
+} from "lucide-react-native";
+import {
+  getSessions,
+  revokeSession,
+  revokeAllUserSessions,
+  getUserInfo,
+} from "@/app/main-axios";
 import { Text, Button, Dialog } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
@@ -23,8 +41,10 @@ interface Session {
 
 function deviceIcon(deviceType: string, color: string) {
   const type = (deviceType ?? "").toLowerCase();
-  if (type.includes("mobile") || type.includes("app")) return <Smartphone size={16} color={color} />;
-  if (type.includes("desktop") || type.includes("electron")) return <Monitor size={16} color={color} />;
+  if (type.includes("mobile") || type.includes("app"))
+    return <Smartphone size={16} color={color} />;
+  if (type.includes("desktop") || type.includes("electron"))
+    return <Monitor size={16} color={color} />;
   return <Globe size={16} color={color} />;
 }
 
@@ -57,7 +77,10 @@ export default function ActiveSessions() {
 
   const load = useCallback(async () => {
     try {
-      const [sessRes, userRes] = await Promise.all([getSessions(), getUserInfo()]);
+      const [sessRes, userRes] = await Promise.all([
+        getSessions(),
+        getUserInfo(),
+      ]);
       setSessions(sessRes?.sessions ?? []);
       setUserId(userRes?.userId ?? null);
     } catch {
@@ -130,7 +153,7 @@ export default function ActiveSessions() {
           }
         >
           {sessions.length === 0 ? (
-            <Text className="text-sm text-muted-foreground text-center mt-8">
+            <Text className="mt-8 text-center text-sm text-muted-foreground">
               No active sessions found.
             </Text>
           ) : (
@@ -140,11 +163,20 @@ export default function ActiveSessions() {
                 className="flex-row items-start gap-3 border border-border bg-card p-3"
               >
                 <View className="mt-0.5">
-                  {deviceIcon(session.deviceType, color("muted-foreground") ?? "#aaa")}
+                  {deviceIcon(
+                    session.deviceType,
+                    color("muted-foreground") ?? "#aaa",
+                  )}
                 </View>
                 <View className="flex-1 gap-0.5">
-                  <Text weight="medium" className="text-sm text-foreground" numberOfLines={1}>
-                    {session.deviceInfo || session.deviceType || "Unknown device"}
+                  <Text
+                    weight="medium"
+                    className="text-sm text-foreground"
+                    numberOfLines={1}
+                  >
+                    {session.deviceInfo ||
+                      session.deviceType ||
+                      "Unknown device"}
                   </Text>
                   <Text className="text-[11px] text-muted-foreground">
                     Last active {formatDate(session.lastActiveAt)}
@@ -155,10 +187,18 @@ export default function ActiveSessions() {
                 </View>
                 <Pressable
                   onPress={() =>
-                    Alert.alert("Revoke session?", "This will sign out that device.", [
-                      { text: "Cancel", style: "cancel" },
-                      { text: "Revoke", style: "destructive", onPress: () => handleRevoke(session.id) },
-                    ])
+                    Alert.alert(
+                      "Revoke session?",
+                      "This will sign out that device.",
+                      [
+                        { text: "Cancel", style: "cancel" },
+                        {
+                          text: "Revoke",
+                          style: "destructive",
+                          onPress: () => handleRevoke(session.id),
+                        },
+                      ],
+                    )
                   }
                   hitSlop={8}
                   className="mt-0.5"
@@ -179,7 +219,11 @@ export default function ActiveSessions() {
         description="This will sign out every device. You will remain signed in on this device."
         footer={
           <View className="flex-row gap-2">
-            <Button variant="outline" className="flex-1" onPress={() => setRevokeAllDialog(false)}>
+            <Button
+              variant="outline"
+              className="flex-1"
+              onPress={() => setRevokeAllDialog(false)}
+            >
               Cancel
             </Button>
             <Button

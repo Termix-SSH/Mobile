@@ -18,6 +18,7 @@ import {
 } from "@/app/main-axios";
 import {
   useTerminalSessions,
+  type RemoteDesktopProtocol,
   type SessionType,
 } from "@/app/contexts/TerminalSessionsContext";
 import { Text } from "@/app/components/ui";
@@ -76,6 +77,13 @@ function toSessionType(tabType: string): SessionType {
     default:
       return "terminal";
   }
+}
+
+function toRemoteProtocol(tabType: string): RemoteDesktopProtocol | undefined {
+  if (tabType === "rdp" || tabType === "vnc" || tabType === "telnet") {
+    return tabType;
+  }
+  return undefined;
 }
 
 function SectionHeader({ label, count }: { label: string; count: number }) {
@@ -252,6 +260,7 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
     addSession(host, toSessionType(record.tabType), {
       instanceId: record.id,
       restoredSessionId: live?.sessionId ?? record.backendSessionId ?? null,
+      remoteProtocol: toRemoteProtocol(record.tabType),
     });
     navigateToSessions();
     onClose?.();
@@ -308,7 +317,11 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
                 key={s.id}
                 isActive={s.id === activeSessionId}
                 isLive={isLive}
-                tabType={s.type}
+                tabType={
+                  s.type === "remoteDesktop"
+                    ? (s.remoteProtocol ?? s.type)
+                    : s.type
+                }
                 name={s.host.name}
                 subLabel={
                   s.host.username

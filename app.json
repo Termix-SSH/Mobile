@@ -2,7 +2,7 @@
   "expo": {
     "name": "Termix",
     "slug": "termix",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "termix-mobile",
@@ -11,6 +11,7 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
+      "appleTeamId": "2CPC5YZYFN",
       "supportsTablet": true,
       "bundleIdentifier": "com.karmaa.termix",
       "icon": {
@@ -38,6 +39,7 @@
     },
     "plugins": [
       "expo-router",
+      "./plugins/withOidcCallbackIntentFilter.js",
       [
         "expo-local-authentication",
         {
@@ -60,12 +62,10 @@
         "expo-build-properties",
         {
           "android": {
-            "newArchEnabled": true,
             "usesCleartextTraffic": true,
             "gradle": "8.13.1"
           },
           "ios": {
-            "newArchEnabled": true,
             "deploymentTarget": "15.1"
           }
         }
@@ -73,6 +73,7 @@
       "./plugins/withIOSNetworkSecurity.js",
       "./plugins/withNetworkSecurityConfig.js",
       "./plugins/withAndroidLocalNetworkSsl.js",
+      "./plugins/withTermixWidgets.js",
       "expo-dev-client",
       "expo-secure-store",
       "expo-web-browser"
@@ -86,12 +87,27 @@
         "origin": false
       },
       "eas": {
-        "projectId": "cf86f530-ca4b-44bf-bb68-4d178b264910"
+        "projectId": "cf86f530-ca4b-44bf-bb68-4d178b264910",
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "targetName": "TermixWidgetsExtension",
+                  "bundleIdentifier": "com.karmaa.termix.widgets",
+                  "entitlements": {
+                    "com.apple.security.application-groups": [
+                      "group.com.karmaa.termix.widgets"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
       }
     },
-    "assetBundlePatterns": [
-      "assets/**/*"
-    ],
+    "assetBundlePatterns": ["assets/**/*"],
     "owner": "termix"
   }
 }

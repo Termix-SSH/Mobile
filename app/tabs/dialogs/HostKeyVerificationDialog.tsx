@@ -40,11 +40,11 @@ function FingerprintRow({
 
   return (
     <View className="mb-3">
-      <Text className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">
+      <Text className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">
         {label}
       </Text>
-      <View className="bg-card border border-border p-3">
-        <Text className="text-xs text-muted-foreground mb-1.5">
+      <View className="border border-border bg-card p-3">
+        <Text className="mb-1.5 text-xs text-muted-foreground">
           {algorithm.toUpperCase()} ({keyType})
         </Text>
         <View className="flex-row items-start gap-2">
@@ -98,7 +98,7 @@ export function HostKeyVerificationDialog({
       statusBarTranslucent
     >
       <Pressable
-        className="flex-1 bg-black/50 items-center justify-center px-5"
+        className="flex-1 items-center justify-center bg-black/50 px-5"
         onPress={onReject}
       >
         <Pressable
@@ -111,7 +111,7 @@ export function HostKeyVerificationDialog({
           >
             {/* Card with scenario-aware border */}
             <View
-              className="bg-popover border"
+              className="border bg-popover"
               style={{
                 borderColor: isChanged
                   ? color("destructive", 0.5)
@@ -120,11 +120,15 @@ export function HostKeyVerificationDialog({
             >
               {/* Header */}
               <View
-                className="flex-row items-center gap-2.5 px-4 pt-4 pb-3 border-b"
-                style={{ borderColor: isChanged ? color("destructive", 0.3) : color("border") }}
+                className="flex-row items-center gap-2.5 border-b px-4 pb-3 pt-4"
+                style={{
+                  borderColor: isChanged
+                    ? color("destructive", 0.3)
+                    : color("border"),
+                }}
               >
                 <View
-                  className="w-8 h-8 border items-center justify-center shrink-0"
+                  className="h-8 w-8 shrink-0 items-center justify-center border"
                   style={{
                     borderColor: isChanged
                       ? color("destructive", 0.4)
@@ -140,18 +144,23 @@ export function HostKeyVerificationDialog({
                     <Shield size={16} color={color("accent-brand")} />
                   )}
                 </View>
-                <View className="flex-1 min-w-0">
+                <View className="min-w-0 flex-1">
                   <Text
                     weight="bold"
                     className="text-base"
-                    style={{ color: isChanged ? color("destructive") : color("foreground") }}
+                    style={{
+                      color: isChanged
+                        ? color("destructive")
+                        : color("foreground"),
+                    }}
                   >
                     {isChanged ? "Host Key Changed!" : "Verify Host Key"}
                   </Text>
                   <Text
-                    className="text-xs mt-0.5"
+                    className="mt-0.5 text-xs"
                     style={{
-                      fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
+                      fontFamily:
+                        Platform.OS === "ios" ? "Courier" : "monospace",
                       color: color("muted-foreground"),
                     }}
                   >
@@ -164,7 +173,7 @@ export function HostKeyVerificationDialog({
               <View className="px-4 py-4">
                 {/* Status banner */}
                 <View
-                  className="border px-3 py-2.5 mb-4"
+                  className="mb-4 border px-3 py-2.5"
                   style={{
                     borderColor: isChanged
                       ? color("destructive", 0.4)
@@ -176,7 +185,11 @@ export function HostKeyVerificationDialog({
                 >
                   <Text
                     className="text-xs"
-                    style={{ color: isChanged ? color("destructive") : color("accent-brand") }}
+                    style={{
+                      color: isChanged
+                        ? color("destructive")
+                        : color("accent-brand"),
+                    }}
                   >
                     {isChanged
                       ? "The host's SSH key has changed since your last connection. This could indicate a security risk."
@@ -211,7 +224,7 @@ export function HostKeyVerificationDialog({
               </View>
 
               {/* Footer */}
-              <View className="flex-row justify-end gap-2 px-4 py-3 border-t border-border">
+              <View className="flex-row justify-end gap-2 border-t border-border px-4 py-3">
                 <Button variant="outline" className="flex-1" onPress={onReject}>
                   Cancel
                 </Button>

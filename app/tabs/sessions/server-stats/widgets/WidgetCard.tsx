@@ -15,8 +15,8 @@ export function WidgetCard({
   children?: React.ReactNode;
 }) {
   return (
-    <View className="bg-card border border-border p-3">
-      <View className="flex-row items-center gap-2 mb-2">
+    <View className="border border-border bg-card p-3">
+      <View className="mb-2 flex-row items-center gap-2">
         {icon}
         <Text weight="medium" className="text-sm text-foreground">
           {title}
@@ -49,7 +49,7 @@ export function Meter({
       {history && history.length > 1 ? (
         <Sparkline data={history} stroke={barColor} />
       ) : null}
-      <View className="h-2 bg-muted overflow-hidden">
+      <View className="h-2 overflow-hidden bg-muted">
         <View
           style={{ width: `${pct}%`, backgroundColor: barColor }}
           className="h-full"
@@ -75,10 +75,7 @@ export function Sparkline({
 }) {
   const max = Math.max(1, ...data);
   return (
-    <View
-      className="flex-row items-end gap-[1px]"
-      style={{ height }}
-    >
+    <View className="flex-row items-end gap-[1px]" style={{ height }}>
       {data.map((v, i) => (
         <View
           key={i}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Wordmark + online summary. Tapping it opens the app. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/termix_widget_header"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal"
+  android:gravity="center_vertical"
+  android:paddingBottom="8dp">
+
+  <!-- Accent block; a TextView so its colour is remotable on every API level. -->
+  <TextView
+    android:id="@+id/termix_widget_accent_block"
+    android:layout_width="3dp"
+    android:layout_height="11dp"
+    android:layout_marginEnd="6dp"
+    android:background="#F59145"
+    android:importantForAccessibility="no" />
+
+  <TextView
+    android:id="@+id/termix_widget_wordmark"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/termix_widget_wordmark"
+    android:textColor="@color/termix_widget_text_primary"
+    android:textSize="9sp"
+    android:textStyle="bold"
+    android:letterSpacing="0.14"
+    android:fontFamily="monospace" />
+
+  <TextView
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:importantForAccessibility="no" />
+
+  <ImageView
+    android:id="@+id/termix_widget_summary_dot"
+    android:layout_width="5dp"
+    android:layout_height="5dp"
+    android:layout_marginEnd="4dp"
+    android:src="@drawable/termix_widget_dot"
+    android:importantForAccessibility="no" />
+
+  <TextView
+    android:id="@+id/termix_widget_summary"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/termix_widget_text_secondary"
+    android:textSize="9sp"
+    android:fontFamily="monospace" />
+</LinearLayout>

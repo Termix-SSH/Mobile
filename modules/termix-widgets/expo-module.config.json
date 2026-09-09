@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android"],
+  "ios": {
+    "modules": ["TermixWidgetsModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.termixwidgets.TermixWidgetsModule"]
+  }
+}

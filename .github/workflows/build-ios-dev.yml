@@ -1,96 +1,83 @@
-name: Build iOS Development
+name: Build iPadOS App
 
 on:
   workflow_dispatch:
-    inputs:
-      wait:
-        type: boolean
-        description: Wait for the build to finish and download the IPA
-        default: true
-      clear_cache:
-        type: boolean
-        description: Clear the EAS build cache
-        default: false
-
-concurrency:
-  group: build-ios-dev-${{ github.ref }}
-  cancel-in-progress: false
 
 jobs:
-  build:
-    name: eas build (development, ios)
-    runs-on: blacksmith-8vcpu-ubuntu-2404
+  build-ipados:
+    runs-on: blacksmith-6vcpu-macos-latest
     steps:
-      - name: Setup repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
-      - name: Setup Expo and EAS
-        uses: expo/expo-github-action@v8
-        with:
-          token: ${{ secrets.EXPO_TOKEN }}
-          eas-version: latest
-          packager: npm
-
       - name: Install dependencies
         run: npm ci
 
-      - name: Check Expo auth
-        run: eas whoami
+      - name: Generate iOS project
+        run: npx expo prebuild --platform ios --clean
 
-      - name: Build
-        env:
-          EXPO_ASC_API_KEY_PATH: ${{ github.workspace }}/asc-api-key.p8
-          EXPO_ASC_KEY_ID: ${{ secrets.EXPO_ASC_KEY_ID }}
-          EXPO_ASC_ISSUER_ID: ${{ secrets.EXPO_ASC_ISSUER_ID }}
-          EXPO_APPLE_TEAM_ID: ${{ secrets.EXPO_APPLE_TEAM_ID }}
-          EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
-          EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
-          EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
-          ASC_API_KEY: ${{ secrets.EXPO_ASC_API_KEY_P8 }}
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Install CocoaPods dependencies
         run: |
-          if [ -n "$ASC_API_KEY" ]; then
-            printf '%s\n' "$ASC_API_KEY" > "$EXPO_ASC_API_KEY_PATH"
-            chmod 600 "$EXPO_ASC_API_KEY_PATH"
-            echo "Using App Store Connect API key $EXPO_ASC_KEY_ID"
-          else
-            unset EXPO_ASC_API_KEY_PATH EXPO_ASC_KEY_ID EXPO_ASC_ISSUER_ID
-            echo "No ASC API key set, falling back to Apple ID auth"
-          fi
+          cd ios
+          pod install
 
-          ARGS="--platform ios --profile development --non-interactive"
-          if [ "${{ inputs.clear_cache }}" = "true" ]; then
-            ARGS="$ARGS --clear-cache"
-          fi
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(node -p "require('./app.json').expo.version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-          if [ "${{ inputs.wait }}" = "true" ]; then
-            eas build $ARGS
-            mkdir -p build-artifacts
-            URL=$(eas build:list --platform ios --build-profile development               --status finished --limit 1 --json --non-interactive               | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const b=JSON.parse(d)[0];process.stdout.write(b&&b.artifacts&&b.artifacts.applicationArchiveUrl||'')})")
-            if [ -z "$URL" ]; then
-              echo "No finished build artifact found"
-              exit 1
-            fi
-            echo "Downloading $URL"
-            curl -fSL "$URL" -o build-artifacts/termix-ios-development.ipa
-          else
-            eas build $ARGS --no-wait
-          fi
+      - name: Create release directory
+        run: mkdir -p release
 
-      - name: Remove API key
-        if: always()
-        run: rm -f "${{ github.workspace }}/asc-api-key.p8"
+      - name: Build unsigned IPA
+        run: |
+          cd ios
 
-      - name: Upload IPA
-        if: ${{ inputs.wait }}
+          # Build for generic iOS device (unsigned)
+          xcodebuild -workspace Termix.xcworkspace \
+            -scheme Termix \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath ../release/Termix.xcarchive \
+            archive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE_SPECIFIER=""
+
+      - name: Create unsigned IPA
+        run: |
+          cd release
+          mkdir -p Payload
+          cp -r Termix.xcarchive/Products/Applications/Termix.app Payload/
+          zip -r termix_ios_${{ steps.version.outputs.version }}.ipa Payload
+          rm -rf Payload
+
+      - name: Upload iPadOS IPA
         uses: actions/upload-artifact@v4
         with:
-          name: termix-ios-development
-          path: build-artifacts/termix-ios-development.ipa
+          name: termix_ipados_${{ steps.version.outputs.version }}
+          path: release/termix_ios_${{ steps.version.outputs.version }}.ipa
           retention-days: 30
           if-no-files-found: error

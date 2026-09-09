@@ -56,6 +56,8 @@ export interface KeyboardSettings {
   compactMode: boolean;
   hapticFeedback: boolean;
   showHints: boolean;
+  keyRepeatInterval: number;
+  keyRepeatInitialDelay: number;
 }
 
 export interface KeyboardCustomization {

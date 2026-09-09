@@ -113,8 +113,15 @@ export default function ApiKeys() {
     // Strip everything except digits and slashes
     const digits = text.replace(/[^\d]/g, "");
     let formatted = digits;
-    if (digits.length > 4) formatted = digits.slice(0, 4) + "/" + digits.slice(4);
-    if (digits.length > 6) formatted = digits.slice(0, 4) + "/" + digits.slice(4, 6) + "/" + digits.slice(6, 8);
+    if (digits.length > 4)
+      formatted = digits.slice(0, 4) + "/" + digits.slice(4);
+    if (digits.length > 6)
+      formatted =
+        digits.slice(0, 4) +
+        "/" +
+        digits.slice(4, 6) +
+        "/" +
+        digits.slice(6, 8);
     setExpiresAt(formatted);
   };
 
@@ -122,7 +129,11 @@ export default function ApiKeys() {
     if (!keyName.trim() || !keyUserId) return;
     setCreateBusy(true);
     try {
-      const res = await createApiKey(keyName.trim(), keyUserId, buildExpiresAt());
+      const res = await createApiKey(
+        keyName.trim(),
+        keyUserId,
+        buildExpiresAt(),
+      );
       closeCreate();
       load();
       const newKey = res?.apiKey as any;
@@ -134,7 +145,9 @@ export default function ApiKeys() {
         }
       }
     } catch (e: any) {
-      toast.error(e?.response?.data?.error ?? e?.message ?? "Failed to create API key");
+      toast.error(
+        e?.response?.data?.error ?? e?.message ?? "Failed to create API key",
+      );
     } finally {
       setCreateBusy(false);
     }
@@ -208,7 +221,11 @@ export default function ApiKeys() {
                 key={k.id}
                 className="flex-row items-start gap-3 border border-border bg-card p-3"
               >
-                <Key size={16} color={color("muted-foreground")} style={{ marginTop: 2 }} />
+                <Key
+                  size={16}
+                  color={color("muted-foreground")}
+                  style={{ marginTop: 2 }}
+                />
                 <View className="flex-1 gap-0.5">
                   <Text weight="medium" className="text-sm text-foreground">
                     {k.name}
@@ -230,7 +247,11 @@ export default function ApiKeys() {
                     </Text>
                   ) : null}
                 </View>
-                <Pressable onPress={() => handleDelete(k.id, k.name)} hitSlop={8} className="mt-0.5">
+                <Pressable
+                  onPress={() => handleDelete(k.id, k.name)}
+                  hitSlop={8}
+                  className="mt-0.5"
+                >
                   <Trash2 size={16} color={color("destructive")} />
                 </Pressable>
               </View>
@@ -279,7 +300,9 @@ export default function ApiKeys() {
           <View className="gap-1.5">
             <Label>User *</Label>
             {users.length === 0 ? (
-              <Text className="text-xs text-muted-foreground">No users available.</Text>
+              <Text className="text-xs text-muted-foreground">
+                No users available.
+              </Text>
             ) : (
               <View className="overflow-hidden border border-border bg-card">
                 {users.map((u, i) => {
@@ -299,7 +322,9 @@ export default function ApiKeys() {
                         {u.username}
                       </Text>
                       {u.is_admin ? (
-                        <Text className="text-[10px] text-muted-foreground">admin</Text>
+                        <Text className="text-[10px] text-muted-foreground">
+                          admin
+                        </Text>
                       ) : null}
                     </Pressable>
                   );
@@ -328,7 +353,10 @@ export default function ApiKeys() {
       {/* Secret reveal — shown once */}
       <Dialog
         visible={revealDialog}
-        onClose={() => { setRevealDialog(false); setNewKeySecret(""); }}
+        onClose={() => {
+          setRevealDialog(false);
+          setNewKeySecret("");
+        }}
         icon={<Key size={20} color={color("accent-brand")} />}
         title="Key created — copy it now"
         description="This token won't be shown again."
@@ -348,7 +376,10 @@ export default function ApiKeys() {
             <Button
               variant="accent"
               className="flex-1"
-              onPress={() => { setRevealDialog(false); setNewKeySecret(""); }}
+              onPress={() => {
+                setRevealDialog(false);
+                setNewKeySecret("");
+              }}
             >
               Done
             </Button>

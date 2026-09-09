@@ -60,7 +60,9 @@ const HISTORY_LEN = 20;
 
 function parseConfig(raw?: string): StatsConfig {
   try {
-    return raw ? { ...DEFAULT_STATS_CONFIG, ...JSON.parse(raw) } : DEFAULT_STATS_CONFIG;
+    return raw
+      ? { ...DEFAULT_STATS_CONFIG, ...JSON.parse(raw) }
+      : DEFAULT_STATS_CONFIG;
   } catch {
     return DEFAULT_STATS_CONFIG;
   }
@@ -79,12 +81,16 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     const [error, setError] = useState("");
     const [refreshing, setRefreshing] = useState(false);
     const startedRef = useRef(false);
+    /** Error from starting polling, surfaced only if no metrics ever arrive. */
+    const startErrorRef = useRef<string | null>(null);
     const viewerSessionIdRef = useRef<string | null>(null);
 
     // Sparkline history for cpu/memory/disk.
-    const historyRef = useRef<{ cpu: number[]; memory: number[]; disk: number[] }>(
-      { cpu: [], memory: [], disk: [] },
-    );
+    const historyRef = useRef<{
+      cpu: number[];
+      memory: number[];
+      disk: number[];
+    }>({ cpu: [], memory: [], disk: [] });
     const [, forceTick] = useState(0);
 
     const pushHistory = useCallback((m: ServerMetrics) => {
@@ -101,7 +107,16 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     const fetchMetrics = useCallback(async () => {
       try {
         const data = await getServerMetricsById(hostConfig.id);
-        if (data === null) return; // Not ready yet — keep polling silently.
+        if (data === null) {
+          // Not ready yet. If starting the poll failed outright, the metrics
+          // are never coming, so stop spinning and show why.
+          if (startErrorRef.current && !metrics) {
+            setError(startErrorRef.current);
+            setStatus("error");
+          }
+          return;
+        }
+        startErrorRef.current = null;
         setMetrics(data);
         pushHistory(data);
         setStatus("ready");
@@ -131,8 +146,11 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
           if (res?.viewerSessionId) {
             viewerSessionIdRef.current = res.viewerSessionId;
           }
-        } catch {
-          // Non-fatal — metrics endpoint may already be polling.
+        } catch (err: any) {
+          // The host may already be polling, in which case metrics still
+          // arrive. A real failure (bad jump host, unreachable host) never
+          // resolves though, so remember it and surface it if nothing shows up.
+          startErrorRef.current = err?.message || "Failed to start metrics";
         }
         // If start didn't return a viewerSessionId, register separately.
         if (!viewerSessionIdRef.current) {
@@ -199,14 +217,22 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
           status === "error"
             ? () => {
                 setStatus("loading");
+                setError("");
                 startedRef.current = false;
+                startErrorRef.current = null;
                 fetchMetrics();
               }
             : undefined
         }
       >
         <ScrollView
-          contentContainerStyle={{ padding: 12, gap: 10, paddingBottom: 120 }}
+          className="flex-1"
+          contentContainerStyle={{
+            flexGrow: 1,
+            padding: 12,
+            gap: 10,
+            paddingBottom: 120,
+          }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -226,7 +252,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
                 <Pressable
                   key={qa.snippetId}
                   onPress={() => runQuickAction(qa.snippetId, qa.name)}
-                  className="flex-row items-center gap-1.5 px-2.5 py-1.5 border border-accent-brand/40 bg-accent-brand/10 active:opacity-80"
+                  className="flex-row items-center gap-1.5 border border-accent-brand/40 bg-accent-brand/10 px-2.5 py-1.5 active:opacity-80"
                 >
                   <Zap size={12} color={color("accent-brand")} />
                   <Text className="text-[11px] text-accent-brand">

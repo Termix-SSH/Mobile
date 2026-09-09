@@ -119,20 +119,29 @@ export function FileViewer({
         <View className="flex-1 bg-background">
           {/* Header */}
           <View
-            className="bg-card border-b border-border flex-row items-center gap-3"
+            className="flex-row items-center gap-3 border-b border-border bg-card"
             style={{
-              paddingTop: isLandscape ? Math.max(insets.top, 8) : insets.top + 12,
+              paddingTop: isLandscape
+                ? Math.max(insets.top, 8)
+                : insets.top + 12,
               paddingBottom: isLandscape ? 8 : 12,
               paddingLeft: Math.max(insets.left, 16),
               paddingRight: Math.max(insets.right, 16),
             }}
           >
             <FileText size={18} color={color("muted-foreground")} />
-            <View className="flex-1 min-w-0">
-              <Text weight="medium" className="text-sm text-foreground" numberOfLines={1}>
+            <View className="min-w-0 flex-1">
+              <Text
+                weight="medium"
+                className="text-sm text-foreground"
+                numberOfLines={1}
+              >
                 {fileName}
               </Text>
-              <Text className="text-[11px] text-muted-foreground" numberOfLines={1}>
+              <Text
+                className="text-[11px] text-muted-foreground"
+                numberOfLines={1}
+              >
                 {filePath}
               </Text>
             </View>
@@ -143,7 +152,7 @@ export function FileViewer({
                   <Pressable
                     onPress={handleRevert}
                     hitSlop={6}
-                    className="p-2 rounded border border-border active:bg-muted/40"
+                    className="rounded border border-border p-2 active:bg-muted/40"
                   >
                     <RotateCcw size={16} color={color("muted-foreground")} />
                   </Pressable>
@@ -151,11 +160,14 @@ export function FileViewer({
                     onPress={handleSave}
                     disabled={isSaving}
                     hitSlop={6}
-                    className="p-2 rounded border border-accent-brand/40 bg-accent-brand/10 active:bg-accent-brand/20"
+                    className="rounded border border-accent-brand/40 bg-accent-brand/10 p-2 active:bg-accent-brand/20"
                     style={{ opacity: isSaving ? 0.7 : 1 }}
                   >
                     {isSaving ? (
-                      <ActivityIndicator size="small" color={color("accent-brand")} />
+                      <ActivityIndicator
+                        size="small"
+                        color={color("accent-brand")}
+                      />
                     ) : (
                       <Save size={16} color={color("accent-brand")} />
                     )}
@@ -165,7 +177,7 @@ export function FileViewer({
               <Pressable
                 onPress={handleClose}
                 hitSlop={6}
-                className="p-2 rounded border border-border active:bg-muted/40"
+                className="rounded border border-border p-2 active:bg-muted/40"
               >
                 <X size={16} color={color("foreground")} />
               </Pressable>
@@ -173,13 +185,15 @@ export function FileViewer({
           </View>
 
           {readOnly ? (
-            <View className="px-4 py-1.5 bg-muted/30 border-b border-border/50">
-              <Text className="text-[11px] text-muted-foreground">Read-only</Text>
+            <View className="border-b border-border/50 bg-muted/30 px-4 py-1.5">
+              <Text className="text-[11px] text-muted-foreground">
+                Read-only
+              </Text>
             </View>
           ) : null}
 
           <TextInput
-            className="flex-1 text-foreground bg-background"
+            className="flex-1 bg-background text-foreground"
             value={content}
             onChangeText={handleContentChange}
             multiline

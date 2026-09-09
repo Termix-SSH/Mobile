@@ -286,8 +286,7 @@ export default function TerminalCustomization() {
             </Text>
             <View className="gap-1.5">
               {LETTER_SPACING_OPTIONS.map((option, i) => {
-                const isActive =
-                  (config.letterSpacing ?? 0) === option.value;
+                const isActive = (config.letterSpacing ?? 0) === option.value;
                 return (
                   <Pressable
                     key={option.value}
@@ -320,8 +319,7 @@ export default function TerminalCustomization() {
             </Text>
             <View className="gap-1.5">
               {LINE_HEIGHT_OPTIONS.map((option, i) => {
-                const isActive =
-                  (config.lineHeight ?? 1.2) === option.value;
+                const isActive = (config.lineHeight ?? 1.2) === option.value;
                 return (
                   <Pressable
                     key={option.value}

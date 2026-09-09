@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { TerminalHandle } from "../Terminal";
 import CustomKeyboard from "./CustomKeyboard";
 import SnippetsBar from "./SnippetsBar";
+import HistoryBar from "./HistoryBar";
 import {
   BACKGROUNDS,
   BORDER_COLORS,
@@ -19,6 +20,7 @@ interface BottomToolbarProps {
   keyboardHeight: number;
   isKeyboardIntentionallyHidden?: boolean;
   initialTab?: ToolbarMode;
+  hostId?: number;
 }
 
 export default function BottomToolbar({
@@ -27,6 +29,7 @@ export default function BottomToolbar({
   keyboardHeight,
   isKeyboardIntentionallyHidden = false,
   initialTab = "keyboard",
+  hostId,
 }: BottomToolbarProps) {
   const [mode, setMode] = useState<ToolbarMode>(initialTab);
   const insets = useSafeAreaInsets();
@@ -48,7 +51,15 @@ export default function BottomToolbar({
   const TAB_BAR_HEIGHT = 36;
 
   return (
-    <View style={{ backgroundColor: BACKGROUNDS.DARKEST, marginTop: 2, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: BORDER_COLORS.PRIMARY }} pointerEvents="box-none">
+    <View
+      style={{
+        backgroundColor: BACKGROUNDS.DARKEST,
+        marginTop: 2,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: BORDER_COLORS.PRIMARY,
+      }}
+      pointerEvents="box-none"
+    >
       <View
         style={{
           flexDirection: "row",
@@ -67,8 +78,11 @@ export default function BottomToolbar({
                 justifyContent: "center",
                 paddingVertical: 6,
                 paddingHorizontal: 4,
-                backgroundColor: isActive ? BACKGROUNDS.CARD : BACKGROUNDS.DARKEST,
-                borderRightWidth: index !== tabs.length - 1 ? StyleSheet.hairlineWidth : 0,
+                backgroundColor: isActive
+                  ? BACKGROUNDS.CARD
+                  : BACKGROUNDS.DARKEST,
+                borderRightWidth:
+                  index !== tabs.length - 1 ? StyleSheet.hairlineWidth : 0,
                 borderRightColor: BORDER_COLORS.PRIMARY,
               }}
               onPress={() => setMode(tab.id)}
@@ -127,30 +141,11 @@ export default function BottomToolbar({
         )}
 
         {mode === "history" && (
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "500",
-                color: TEXT_COLORS.SECONDARY,
-              }}
-            >
-              No history yet
-            </Text>
-            <Text
-              style={{
-                fontSize: 12,
-                color: TEXT_COLORS.TERTIARY,
-                marginTop: 4,
-                textAlign: "center",
-                paddingHorizontal: 24,
-              }}
-            >
-              Commands will appear here as you run them
-            </Text>
-          </View>
+          <HistoryBar
+            terminalRef={terminalRef}
+            hostId={hostId}
+            isVisible={true}
+          />
         )}
       </View>
     </View>

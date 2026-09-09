@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One selectable host in the configuration list. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:background="@drawable/termix_widget_card"
+  android:paddingStart="12dp"
+  android:paddingEnd="12dp"
+  android:paddingTop="10dp"
+  android:paddingBottom="10dp">
+
+  <TextView
+    android:id="@+id/termix_configure_row_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxLines="1"
+    android:ellipsize="end"
+    android:textColor="@color/termix_widget_text_primary"
+    android:textSize="14sp"
+    android:textStyle="bold"
+    android:fontFamily="monospace" />
+
+  <TextView
+    android:id="@+id/termix_configure_row_subtitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:maxLines="1"
+    android:ellipsize="middle"
+    android:textColor="@color/termix_widget_text_tertiary"
+    android:textSize="11sp"
+    android:fontFamily="monospace" />
+</LinearLayout>

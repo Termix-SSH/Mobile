@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { ShieldCheck, KeyRound, Lock, Clock } from "lucide-react-native";
-import { Dialog, Input, Button, Text, SegmentedControl } from "@/app/components/ui";
+import {
+  Dialog,
+  Input,
+  Button,
+  Text,
+  SegmentedControl,
+} from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { SessionAuthOverrides } from "@/types";
 import type { SessionConnectState } from "./useSessionConnect";
@@ -165,7 +171,7 @@ export function AuthDialogs({
           </Text>
         </View>
         {errorMessage ? (
-          <Text className="text-xs text-destructive mt-2">{errorMessage}</Text>
+          <Text className="mt-2 text-xs text-destructive">{errorMessage}</Text>
         ) : null}
       </Dialog>
 
@@ -209,7 +215,7 @@ export function AuthDialogs({
           />
         </View>
         {errorMessage ? (
-          <Text className="text-xs text-destructive mt-2">{errorMessage}</Text>
+          <Text className="mt-2 text-xs text-destructive">{errorMessage}</Text>
         ) : null}
       </Dialog>
 
@@ -278,7 +284,7 @@ export function AuthDialogs({
           </View>
         )}
         {errorMessage ? (
-          <Text className="text-xs text-destructive mt-2">{errorMessage}</Text>
+          <Text className="mt-2 text-xs text-destructive">{errorMessage}</Text>
         ) : null}
       </Dialog>
     </>
