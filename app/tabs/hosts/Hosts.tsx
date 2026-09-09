@@ -13,6 +13,7 @@ import {
   RefreshCw,
   Search,
   X,
+  AlertTriangle,
   ArrowUpDown,
   Filter,
   Check,
@@ -37,6 +38,8 @@ import {
   deleteSSHHost,
   createSSHHost,
   getSnippets,
+  getUserAlerts,
+  dismissAlert,
 } from "@/app/main-axios";
 import { SSHHost, ServerStatus, Snippet } from "@/types";
 import { publishHostSnapshot } from "@/app/widgets";
@@ -126,6 +129,9 @@ export default function Hosts() {
   >({});
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [alerts, setAlerts] = useState<
+    { id: string; title: string; message: string }[]
+  >([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [serverStatuses, setServerStatuses] = useState<
     Record<number, ServerStatus>
@@ -297,10 +303,30 @@ export default function Hosts() {
     if (!isRefreshingRef.current) fetchData(true);
   }, [fetchData]);
 
+  // Server-side notices (maintenance, warnings) shown until dismissed.
+  const loadAlerts = useCallback(async () => {
+    try {
+      const res = await getUserAlerts();
+      setAlerts(Array.isArray(res?.alerts) ? res.alerts : []);
+    } catch {
+      setAlerts([]);
+    }
+  }, []);
+
+  const handleDismissAlert = async (id: string) => {
+    setAlerts((prev) => prev.filter((a) => a.id !== id));
+    try {
+      await dismissAlert(id);
+    } catch {
+      // Dismissal is best-effort; it reappears on the next fetch if it fails.
+    }
+  };
+
   useFocusEffect(
     useCallback(() => {
       fetchData();
-    }, [fetchData]),
+      loadAlerts();
+    }, [fetchData, loadAlerts]),
   );
 
   // Keep the home-screen widgets in sync with whatever this screen shows. The
@@ -598,6 +624,34 @@ export default function Hosts() {
             />
           }
         >
+          {alerts.map((alert) => (
+            <View
+              key={alert.id}
+              className="mt-2 flex-row items-start gap-2 rounded-lg border border-border bg-card p-3"
+            >
+              <AlertTriangle
+                size={15}
+                color={color("accent-brand")}
+                style={{ marginTop: 1 }}
+              />
+              <View className="flex-1">
+                <Text weight="medium" className="text-sm text-foreground">
+                  {alert.title}
+                </Text>
+                <Text className="mt-0.5 text-xs text-muted-foreground">
+                  {alert.message}
+                </Text>
+              </View>
+              <Pressable
+                onPress={() => handleDismissAlert(alert.id)}
+                hitSlop={8}
+                className="rounded p-0.5 active:bg-muted/40"
+              >
+                <X size={14} color={color("muted-foreground")} />
+              </Pressable>
+            </View>
+          ))}
+
           {isEmpty ? (
             <View className="items-center justify-center gap-3 py-16">
               <Text className="text-center text-sm text-muted-foreground">
