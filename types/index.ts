@@ -116,6 +116,7 @@ export interface SSHHostData {
   enableTelnet?: boolean;
   enableDocker?: boolean;
   notes?: string;
+  macAddress?: string;
   rdpUser?: string;
   rdpPassword?: string;
   rdpDomain?: string;

@@ -935,6 +935,7 @@ function buildProtocolFields(hostData: SSHHostData): Record<string, unknown> {
     enableTelnet: Boolean(hostData.enableTelnet),
     enableDocker: Boolean(hostData.enableDocker),
     notes: hostData.notes ?? "",
+    macAddress: hostData.macAddress?.trim() || null,
     rdpUser: hostData.enableRdp ? (hostData.rdpUser ?? null) : null,
     rdpPassword: hostData.enableRdp ? (hostData.rdpPassword ?? null) : null,
     rdpDomain: hostData.enableRdp ? (hostData.rdpDomain ?? null) : null,

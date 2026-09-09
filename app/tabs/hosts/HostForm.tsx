@@ -59,6 +59,7 @@ interface FormState {
   telnetUser: string;
   telnetPassword: string;
   telnetPort: string;
+  macAddress: string;
   // Organization
   folder: string;
   tags: string;
@@ -95,6 +96,7 @@ const EMPTY: FormState = {
   telnetUser: "",
   telnetPassword: "",
   telnetPort: "23",
+  macAddress: "",
   folder: "",
   tags: "",
   pin: false,
@@ -167,6 +169,7 @@ export default function HostForm({
       vncPort: String(host.vncPort ?? 5900),
       telnetUser: host.telnetUser ?? "",
       telnetPort: String(host.telnetPort ?? 23),
+      macAddress: host.macAddress ?? "",
       folder: host.folder ?? "",
       tags: (host.tags ?? []).join(", "),
       pin: !!host.pin,
@@ -263,6 +266,7 @@ export default function HostForm({
       defaultPath: form.defaultPath,
       jumpHosts: host?.jumpHosts ?? [],
       notes: form.notes,
+      macAddress: form.macAddress.trim(),
       enableSsh: form.enableSsh,
       enableRdp: form.enableRdp,
       enableVnc: form.enableVnc,
@@ -409,6 +413,15 @@ export default function HostForm({
                     </Field>
                   </View>
                 </View>
+                <Field label="MAC Address (for Wake-on-LAN)">
+                  <Input
+                    value={form.macAddress}
+                    onChangeText={(v) => set("macAddress", v)}
+                    placeholder="00:1A:2B:3C:4D:5E"
+                    autoCapitalize="characters"
+                    autoCorrect={false}
+                  />
+                </Field>
               </Section>
 
               {/* Protocols */}
