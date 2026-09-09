@@ -929,7 +929,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           }
         >
           <ScrollView
+            className="flex-1"
             contentContainerStyle={{
+              flexGrow: 1,
               paddingBottom:
                 selectionMode || clipboard.files.length > 0 ? 80 : 16,
             }}

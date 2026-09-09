@@ -204,7 +204,13 @@ export const TunnelManager = forwardRef<
       onRetry={status === "error" ? fetchStatuses : undefined}
     >
       <ScrollView
-        contentContainerStyle={{ padding: 12, gap: 10, paddingBottom: 120 }}
+        className="flex-1"
+        contentContainerStyle={{
+          flexGrow: 1,
+          padding: 12,
+          gap: 10,
+          paddingBottom: 120,
+        }}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

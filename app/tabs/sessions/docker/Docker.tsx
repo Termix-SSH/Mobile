@@ -268,7 +268,13 @@ export function Docker({ host, isVisible }: DockerProps) {
         }
       >
         <ScrollView
-          contentContainerStyle={{ padding: 12, gap: 8, paddingBottom: 120 }}
+          className="flex-1"
+          contentContainerStyle={{
+            flexGrow: 1,
+            padding: 12,
+            gap: 8,
+            paddingBottom: 120,
+          }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
