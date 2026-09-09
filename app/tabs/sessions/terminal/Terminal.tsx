@@ -17,7 +17,11 @@ import {
 } from "react-native";
 import { WebView } from "react-native-webview";
 import { ChevronDown } from "lucide-react-native";
-import { logActivity, getSnippets } from "../../../main-axios";
+import {
+  logActivity,
+  getSnippets,
+  saveCommandToHistory,
+} from "../../../main-axios";
 import { showToast } from "../../../utils/toast";
 import { useTerminalCustomization } from "../../../contexts/TerminalCustomizationContext";
 import {
@@ -115,6 +119,29 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       typeof setTimeout
     > | null>(null);
     const pendingDataRef = useRef<string[]>([]);
+    // Buffers typed characters so a command can be saved to history on Enter.
+    const commandBufferRef = useRef("");
+
+    const recordCommandInput = useCallback(
+      (data: string) => {
+        for (const ch of data) {
+          if (ch === "\r" || ch === "\n") {
+            const command = commandBufferRef.current.trim();
+            commandBufferRef.current = "";
+            if (command.length > 1 && hostConfig.id > 0) {
+              saveCommandToHistory(hostConfig.id, command);
+            }
+          } else if (ch === "\x7f" || ch === "\b") {
+            commandBufferRef.current = commandBufferRef.current.slice(0, -1);
+          } else if (ch === "\x03" || ch === "\x15") {
+            commandBufferRef.current = "";
+          } else if (ch >= " ") {
+            commandBufferRef.current += ch;
+          }
+        }
+      },
+      [hostConfig.id],
+    );
     const dataFlushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
       null,
     );
@@ -1182,6 +1209,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       ref,
       () => ({
         sendInput: (data: string) => {
+          recordCommandInput(data);
           wsManagerRef.current?.sendInput(data);
         },
         fit: () => {

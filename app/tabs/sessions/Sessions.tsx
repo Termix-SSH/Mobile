@@ -947,6 +947,7 @@ export default function Sessions() {
                 keyboardIntentionallyHiddenRef.current
               }
               initialTab={customKeyboardInitialTab}
+              hostId={activeSession?.host?.id}
             />
           </View>
         )}
