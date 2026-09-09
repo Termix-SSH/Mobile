@@ -1,14 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import { Modal, View, ScrollView, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { X, Upload } from "lucide-react-native";
+import { X, Upload, Trash2 } from "lucide-react-native";
 import * as DocumentPicker from "expo-document-picker";
-import { SSHHost, SSHHostData, Credential } from "@/types";
+import {
+  SSHHost,
+  SSHHostData,
+  Credential,
+  TunnelConnection,
+} from "@/types";
 import {
   createSSHHost,
   updateSSHHost,
   getSSHHostWithCredentials,
   getCredentials,
+  getSSHHosts,
 } from "@/app/main-axios";
 import {
   Text,
@@ -23,7 +29,7 @@ import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
 
 type AuthType = "password" | "key" | "credential" | "none";
-type TabId = "general" | "ssh" | "rdp" | "vnc" | "telnet";
+type TabId = "general" | "ssh" | "tunnels" | "rdp" | "vnc" | "telnet";
 
 interface FormState {
   name: string;
@@ -118,6 +124,8 @@ export default function HostForm({
   const color = useThemeColor();
   const [form, setForm] = useState<FormState>(EMPTY);
   const [credentials, setCredentials] = useState<Credential[]>([]);
+  const [allHosts, setAllHosts] = useState<SSHHost[]>([]);
+  const [tunnels, setTunnels] = useState<TunnelConnection[]>([]);
   const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState<TabId>("general");
   const isEdit = !!host;
@@ -134,6 +142,9 @@ export default function HostForm({
         setCredentials(list);
       })
       .catch(() => {});
+    getSSHHosts()
+      .then(setAllHosts)
+      .catch(() => {});
   }, [visible]);
 
   // Populate the form when opening (prefill secrets on edit) and reset the tab.
@@ -142,8 +153,10 @@ export default function HostForm({
     setActiveTab("general");
     if (!host) {
       setForm(EMPTY);
+      setTunnels([]);
       return;
     }
+    setTunnels(host.tunnelConnections ?? []);
     // Start from the known fields, then enrich with resolved secrets.
     setForm({
       ...EMPTY,
@@ -197,16 +210,56 @@ export default function HostForm({
       { id: "general", label: "General" },
     ];
     if (form.enableSsh) list.push({ id: "ssh", label: "SSH" });
+    if (form.enableTunnel) list.push({ id: "tunnels", label: "Tunnels" });
     if (form.enableRdp) list.push({ id: "rdp", label: "RDP" });
     if (form.enableVnc) list.push({ id: "vnc", label: "VNC" });
     if (form.enableTelnet) list.push({ id: "telnet", label: "Telnet" });
     return list;
-  }, [form.enableSsh, form.enableRdp, form.enableVnc, form.enableTelnet]);
+  }, [
+    form.enableSsh,
+    form.enableTunnel,
+    form.enableRdp,
+    form.enableVnc,
+    form.enableTelnet,
+  ]);
 
   // If the active tab's protocol gets disabled, fall back to General.
   useEffect(() => {
     if (!tabs.some((t) => t.id === activeTab)) setActiveTab("general");
   }, [tabs, activeTab]);
+
+  // Tunnels are resolved by endpoint host name at connect time, so the picker
+  // only offers other saved hosts.
+  const endpointOptions = useMemo(
+    () =>
+      allHosts
+        .filter((h) => h.id !== host?.id)
+        .map((h) => ({ id: h.name || `${h.username}@${h.ip}`, label: h.name || h.ip })),
+    [allHosts, host?.id],
+  );
+
+  const setTunnel = (idx: number, patch: Partial<TunnelConnection>) =>
+    setTunnels((prev) =>
+      prev.map((t, i) => (i === idx ? { ...t, ...patch } : t)),
+    );
+
+  const removeTunnel = (idx: number) =>
+    setTunnels((prev) => prev.filter((_, i) => i !== idx));
+
+  const addTunnel = () =>
+    setTunnels((prev) => [
+      ...prev,
+      {
+        mode: "local",
+        sourcePort: 8080,
+        endpointHost: endpointOptions[0]?.id ?? "",
+        endpointPort: 80,
+        bindHost: "127.0.0.1",
+        maxRetries: 3,
+        retryInterval: 10,
+        autoStart: false,
+      },
+    ]);
 
   const pickKeyFile = async () => {
     try {
@@ -265,6 +318,7 @@ export default function HostForm({
       enableDocker: form.enableDocker,
       defaultPath: form.defaultPath,
       jumpHosts: host?.jumpHosts ?? [],
+      tunnelConnections: tunnels,
       notes: form.notes,
       macAddress: form.macAddress.trim(),
       enableSsh: form.enableSsh,
@@ -642,6 +696,118 @@ export default function HostForm({
                 ) : null}
               </Section>
             </>
+          ) : null}
+
+          {activeTab === "tunnels" ? (
+            <Section title="Tunnels">
+              {tunnels.length === 0 ? (
+                <Text className="text-[11px] text-muted-foreground">
+                  No tunnels yet. Add one to forward a port from the endpoint
+                  host to this host.
+                </Text>
+              ) : null}
+
+              {tunnels.map((tunnel, idx) => (
+                <View
+                  key={idx}
+                  className="gap-2.5 rounded-lg border border-border p-3"
+                >
+                  <View className="flex-row items-center justify-between">
+                    <Text weight="bold" className="text-xs">
+                      Tunnel {idx + 1}
+                    </Text>
+                    <Pressable
+                      onPress={() => removeTunnel(idx)}
+                      hitSlop={8}
+                      className="rounded border border-destructive/40 p-1.5 active:bg-destructive/10"
+                    >
+                      <Trash2 size={14} color={color("destructive")} />
+                    </Pressable>
+                  </View>
+
+                  <Field label="Endpoint Host">
+                    <SegmentedControl<string>
+                      value={tunnel.endpointHost ?? ""}
+                      onChange={(v) => setTunnel(idx, { endpointHost: v })}
+                      options={endpointOptions}
+                    />
+                  </Field>
+
+                  <View className="flex-row gap-2.5">
+                    <View className="flex-1">
+                      <Field label="Source Port">
+                        <Input
+                          value={String(tunnel.sourcePort ?? "")}
+                          onChangeText={(v) =>
+                            setTunnel(idx, {
+                              sourcePort: Number(v.replace(/\D/g, "")) || 0,
+                            })
+                          }
+                          keyboardType="number-pad"
+                          placeholder="8080"
+                        />
+                      </Field>
+                    </View>
+                    <View className="flex-1">
+                      <Field label="Endpoint Port">
+                        <Input
+                          value={String(tunnel.endpointPort ?? "")}
+                          onChangeText={(v) =>
+                            setTunnel(idx, {
+                              endpointPort: Number(v.replace(/\D/g, "")) || 0,
+                            })
+                          }
+                          keyboardType="number-pad"
+                          placeholder="80"
+                        />
+                      </Field>
+                    </View>
+                  </View>
+
+                  <View className="flex-row gap-2.5">
+                    <View className="flex-1">
+                      <Field label="Max Retries">
+                        <Input
+                          value={String(tunnel.maxRetries ?? "")}
+                          onChangeText={(v) =>
+                            setTunnel(idx, {
+                              maxRetries: Number(v.replace(/\D/g, "")) || 0,
+                            })
+                          }
+                          keyboardType="number-pad"
+                          placeholder="3"
+                        />
+                      </Field>
+                    </View>
+                    <View className="flex-1">
+                      <Field label="Retry Interval (s)">
+                        <Input
+                          value={String(tunnel.retryInterval ?? "")}
+                          onChangeText={(v) =>
+                            setTunnel(idx, {
+                              retryInterval: Number(v.replace(/\D/g, "")) || 0,
+                            })
+                          }
+                          keyboardType="number-pad"
+                          placeholder="10"
+                        />
+                      </Field>
+                    </View>
+                  </View>
+
+                  <SettingRow label="Auto start" last>
+                    <FakeSwitch
+                      checked={!!tunnel.autoStart}
+                      onChange={(v) => setTunnel(idx, { autoStart: v })}
+                    />
+                  </SettingRow>
+                </View>
+              ))}
+
+              <Button variant="outline" size="sm" onPress={addTunnel}>
+                Add Tunnel
+              </Button>
+            </Section>
           ) : null}
 
           {activeTab === "rdp" ? (
