@@ -13,7 +13,6 @@ import {
   RefreshControl,
   Alert,
   Modal,
-  TextInput,
   KeyboardAvoidingView,
   Platform,
   Animated,
@@ -724,7 +723,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     leading={
                       <Search size={13} color={color("muted-foreground")} />
                     }
-                    className="h-8 text-xs"
+                    size="sm"
                   />
                 </View>
               </View>
@@ -1222,7 +1221,6 @@ function NameDialog({
   confirmLabel: string;
   insetBottom: number;
 }) {
-  const color = useThemeColor();
   return (
     <Modal
       visible={visible}
@@ -1246,14 +1244,13 @@ function NameDialog({
             <Text weight="bold" className="mb-3 text-base text-foreground">
               {title}
             </Text>
-            <TextInput
+            <Input
               value={value}
               onChangeText={onChange}
               placeholder="Name"
-              placeholderTextColor={color("muted-foreground", 0.7)}
               autoFocus
               autoCapitalize="none"
-              className="mb-3 h-10 border border-input bg-card px-2.5 text-sm text-foreground"
+              containerClassName="mb-3"
             />
             <View className="flex-row gap-2">
               <Button variant="outline" className="flex-1" onPress={onClose}>
