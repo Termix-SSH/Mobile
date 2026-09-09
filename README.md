@@ -186,6 +186,10 @@ Interested in a paid placement to support development? Email [mail@termix.site](
 <a href="https://ginernet.com/">
   <img src="https://ginernet.com/img/logo-web.png" height="40" alt="Ginernet" />
 </a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://www.hetzner.com/?mtm_campaign=termix&mtm_medium=referral&mtm_content=sponsoring_link">
+  <img src="https://www.plesk.com/wp-content/uploads/2016/08/hetzner-logo-clear-space.png" height="40" alt="Hetzner" />
+</a>
 </div>
 
 <br />

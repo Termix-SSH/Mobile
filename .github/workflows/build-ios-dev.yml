@@ -1,206 +1,83 @@
-name: Build iOS Development
+name: Build iPadOS App
 
 on:
   workflow_dispatch:
-    inputs:
-      clear_cache:
-        type: boolean
-        description: Clear the prebuild output and derived data before building
-        default: false
-
-concurrency:
-  group: build-ios-dev-${{ github.ref }}
-  cancel-in-progress: false
-
-permissions:
-  contents: write
 
 jobs:
-  build:
-    name: eas build --local (development, ios)
+  build-ipados:
     runs-on: blacksmith-6vcpu-macos-latest
     steps:
-      - name: Setup repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
-      - name: Setup Expo and EAS
-        uses: expo/expo-github-action@v8
-        with:
-          token: ${{ secrets.EXPO_TOKEN }}
-          eas-version: latest
-          packager: npm
-
       - name: Install dependencies
         run: npm ci
 
-      - name: Check Expo auth
-        run: eas whoami
+      - name: Generate iOS project
+        run: npx expo prebuild --platform ios --clean
 
-      - name: Clear cache
-        if: ${{ inputs.clear_cache }}
-        run: rm -rf ios ~/Library/Developer/Xcode/DerivedData
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
 
-      - name: Build
-        env:
-          EAS_SKIP_AUTO_FINGERPRINT: 1
-          EXPO_ASC_API_KEY_PATH: ${{ github.workspace }}/asc-api-key.p8
-          EXPO_ASC_KEY_ID: ${{ secrets.EXPO_ASC_KEY_ID }}
-          EXPO_ASC_ISSUER_ID: ${{ secrets.EXPO_ASC_ISSUER_ID }}
-          EXPO_APPLE_TEAM_ID: ${{ secrets.EXPO_APPLE_TEAM_ID }}
-          EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
-          EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
-          EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
-          ASC_API_KEY: ${{ secrets.EXPO_ASC_API_KEY_P8 }}
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Install CocoaPods dependencies
         run: |
-          set -e
+          cd ios
+          pod install
 
-          if [ -n "$ASC_API_KEY" ]; then
-            printf '%s\n' "$ASC_API_KEY" > "$EXPO_ASC_API_KEY_PATH"
-            chmod 600 "$EXPO_ASC_API_KEY_PATH"
-            echo "Using App Store Connect API key $EXPO_ASC_KEY_ID"
-          else
-            unset EXPO_ASC_API_KEY_PATH EXPO_ASC_KEY_ID EXPO_ASC_ISSUER_ID
-            echo "No ASC API key set, falling back to Apple ID auth"
-          fi
-
-          eas build --local --non-interactive --platform=ios --profile=development
-
-          mkdir -p build-artifacts
-          IPA_FILE=$(find . -maxdepth 1 -type f -name "build-*.ipa" | head -1)
-          if [ -z "$IPA_FILE" ]; then
-            IPA_FILE=$(find . -type f -name "*.ipa" -not -path "*/node_modules/*" | head -1)
-          fi
-          if [ -z "$IPA_FILE" ]; then
-            echo "ERROR: IPA not found after build"
-            exit 1
-          fi
-          echo "Found IPA: $IPA_FILE"
-          cp "$IPA_FILE" build-artifacts/termix-ios-development.ipa
-
-      - name: Remove API key
-        if: always()
-        run: rm -f "${{ github.workspace }}/asc-api-key.p8"
-
-      - name: Publish install page
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Get version
+        id: version
         run: |
-          set -e
-
-          OWNER="${GITHUB_REPOSITORY%%/*}"
-          REPO="${GITHUB_REPOSITORY##*/}"
-          OWNER_LC=$(echo "$OWNER" | tr '[:upper:]' '[:lower:]')
-          BASE="https://${OWNER_LC}.github.io/${REPO}/ios-dev"
-
-          BUNDLE_ID=$(node -p "require('./app.json').expo.ios.bundleIdentifier")
           VERSION=$(node -p "require('./app.json').expo.version")
-          APP_NAME=$(node -p "require('./app.json').expo.name")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-          WORK=$(mktemp -d)
-          cp build-artifacts/termix-ios-development.ipa "$WORK/termix.ipa"
-          cp assets/images/icon.png "$WORK/icon.png"
+      - name: Create release directory
+        run: mkdir -p release
 
-          BASE="$BASE" BUNDLE_ID="$BUNDLE_ID" VERSION="$VERSION" APP_NAME="$APP_NAME" OUT_DIR="$WORK" \
-            node -e '
-              const fs = require("fs");
-              const { BASE, BUNDLE_ID, VERSION, APP_NAME, OUT_DIR } = process.env;
-              const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-              const plist = `<?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-            <key>items</key>
-            <array>
-              <dict>
-                <key>assets</key>
-                <array>
-                  <dict>
-                    <key>kind</key>
-                    <string>software-package</string>
-                    <key>url</key>
-                    <string>${esc(BASE)}/termix.ipa</string>
-                  </dict>
-                  <dict>
-                    <key>kind</key>
-                    <string>display-image</string>
-                    <key>url</key>
-                    <string>${esc(BASE)}/icon.png</string>
-                  </dict>
-                  <dict>
-                    <key>kind</key>
-                    <string>full-size-image</string>
-                    <key>url</key>
-                    <string>${esc(BASE)}/icon.png</string>
-                  </dict>
-                </array>
-                <key>metadata</key>
-                <dict>
-                  <key>bundle-identifier</key>
-                  <string>${esc(BUNDLE_ID)}</string>
-                  <key>bundle-version</key>
-                  <string>${esc(VERSION)}</string>
-                  <key>kind</key>
-                  <string>software</string>
-                  <key>title</key>
-                  <string>${esc(APP_NAME)}</string>
-                </dict>
-              </dict>
-            </array>
-          </dict>
-          </plist>
-          `;
-              const href = "itms-services://?action=download-manifest&amp;url=" + esc(BASE) + "/manifest.plist";
-              const html = `<!doctype html>
-          <html>
-          <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width,initial-scale=1">
-          <title>${esc(APP_NAME)}</title>
-          <style>
-          body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#18181b;font-family:-apple-system,system-ui,sans-serif}
-          a{background:#fff;color:#18181b;text-decoration:none;font-size:20px;font-weight:600;padding:18px 48px;border-radius:12px}
-          </style>
-          </head>
-          <body>
-          <a href="${href}">Install</a>
-          </body>
-          </html>
-          `;
-              fs.writeFileSync(OUT_DIR + "/manifest.plist", plist);
-              fs.writeFileSync(OUT_DIR + "/index.html", html);
-            '
+      - name: Build unsigned IPA
+        run: |
+          cd ios
 
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          # Build for generic iOS device (unsigned)
+          xcodebuild -workspace Termix.xcworkspace \
+            -scheme Termix \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath ../release/Termix.xcarchive \
+            archive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE_SPECIFIER=""
 
-          PAGES=$(mktemp -d)
-          git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$PAGES"
+      - name: Create unsigned IPA
+        run: |
+          cd release
+          mkdir -p Payload
+          cp -r Termix.xcarchive/Products/Applications/Termix.app Payload/
+          zip -r termix_ios_${{ steps.version.outputs.version }}.ipa Payload
+          rm -rf Payload
 
-          cd "$PAGES"
-          git checkout --orphan gh-pages
-          git rm -rf . > /dev/null 2>&1 || true
-          rm -rf ./* .gitignore 2>/dev/null || true
-
-          mkdir -p ios-dev
-          cp "$WORK/termix.ipa" "$WORK/manifest.plist" "$WORK/icon.png" "$WORK/index.html" ios-dev/
-          touch .nojekyll
-
-          git add -A
-          git commit -m "ios dev build ${VERSION} (${GITHUB_SHA:0:7})"
-          git push --force origin gh-pages
-
-          echo "Install page: ${BASE}/" >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Upload IPA
+      - name: Upload iPadOS IPA
         uses: actions/upload-artifact@v4
         with:
-          name: termix-ios-development
-          path: build-artifacts/termix-ios-development.ipa
+          name: termix_ipados_${{ steps.version.outputs.version }}
+          path: release/termix_ios_${{ steps.version.outputs.version }}.ipa
           retention-days: 30
           if-no-files-found: error
