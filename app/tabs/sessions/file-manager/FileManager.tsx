@@ -871,8 +871,8 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     >
                       <Star size={12} color={color("muted-foreground")} />
                       <Text className="text-[11px] text-muted-foreground">
-                        Pinned &amp; Shortcuts ({pinned.length + shortcuts.length}
-                        )
+                        Pinned and Shortcuts (
+                        {pinned.length + shortcuts.length})
                       </Text>
                       <ChevronRight
                         size={12}
