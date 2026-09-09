@@ -8,6 +8,8 @@ import {
   FolderOpen,
   FileText,
   ChevronDown,
+  ChevronUp,
+  Pencil,
   Trash2,
   Check,
 } from "lucide-react-native";
@@ -20,6 +22,8 @@ import {
   deleteSnippet,
   createSnippetFolder,
   deleteSnippetFolder,
+  reorderSnippets,
+  renameSnippetFolder,
 } from "@/app/main-axios";
 import { Snippet, SnippetFolder } from "@/types";
 import { publishSnippetSnapshot } from "@/app/widgets";
@@ -74,6 +78,11 @@ export default function Snippets() {
   const [deleteFolderTarget, setDeleteFolderTarget] =
     useState<SnippetFolder | null>(null);
   const [deletingFolder, setDeletingFolder] = useState(false);
+  const [renameFolderTarget, setRenameFolderTarget] = useState<string | null>(
+    null,
+  );
+  const [renameFolderName, setRenameFolderName] = useState("");
+  const [renamingFolder, setRenamingFolder] = useState(false);
 
   const load = useCallback(async () => {
     try {
@@ -224,7 +233,66 @@ export default function Snippets() {
 
   const unfoldered = snippetsInFolder(null);
 
-  const renderSnippet = (snippet: Snippet) => (
+  const submitFolderRename = async () => {
+    const oldName = renameFolderTarget;
+    const newName = renameFolderName.trim();
+    if (!oldName || !newName || newName === oldName) {
+      setRenameFolderTarget(null);
+      return;
+    }
+    setRenamingFolder(true);
+    try {
+      await renameSnippetFolder(oldName, newName);
+      setRenameFolderTarget(null);
+      setRenameFolderName("");
+      await load();
+      toast.success("Folder renamed");
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to rename folder");
+    } finally {
+      setRenamingFolder(false);
+    }
+  };
+
+  // Reordering is persisted per folder, matching how the backend stores order.
+  const moveSnippet = async (
+    list: Snippet[],
+    index: number,
+    delta: number,
+  ) => {
+    const target = index + delta;
+    if (target < 0 || target >= list.length) return;
+
+    const reordered = [...list];
+    const [moved] = reordered.splice(index, 1);
+    reordered.splice(target, 0, moved);
+
+    const orderById = new Map(reordered.map((sn, i) => [sn.id, i]));
+    setSnippets((prev) =>
+      [...prev]
+        .map((sn) =>
+          orderById.has(sn.id)
+            ? { ...sn, order: orderById.get(sn.id) as number }
+            : sn,
+        )
+        .sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
+    );
+
+    try {
+      await reorderSnippets(
+        reordered.map((sn, i) => ({
+          id: sn.id,
+          order: i,
+          folder: sn.folder ?? undefined,
+        })),
+      );
+    } catch {
+      toast.error("Failed to save order");
+      load();
+    }
+  };
+
+  const renderSnippet = (snippet: Snippet, index: number, list: Snippet[]) => (
     <View
       key={snippet.id}
       className="flex-row items-center gap-2 border-b border-border px-4 py-3"
@@ -248,6 +316,24 @@ export default function Snippets() {
         >
           {snippet.description || snippet.content}
         </Text>
+      </Pressable>
+      <Pressable
+        onPress={() => moveSnippet(list, index, -1)}
+        disabled={index === 0}
+        hitSlop={8}
+        className="p-1 active:opacity-60"
+        style={{ opacity: index === 0 ? 0.3 : 1 }}
+      >
+        <ChevronUp size={14} color={color("muted-foreground")} />
+      </Pressable>
+      <Pressable
+        onPress={() => moveSnippet(list, index, 1)}
+        disabled={index === list.length - 1}
+        hitSlop={8}
+        className="p-1 active:opacity-60"
+        style={{ opacity: index === list.length - 1 ? 0.3 : 1 }}
+      >
+        <ChevronDown size={14} color={color("muted-foreground")} />
       </Pressable>
       <Pressable
         onPress={() => handleCopy(snippet)}
@@ -292,16 +378,28 @@ export default function Snippets() {
           </Text>
           <Text className="text-xs text-muted-foreground">{items.length}</Text>
           {folderKey !== null && (
-            <Pressable
-              onPress={() => {
-                const f = folders.find((x) => x.name === folderKey);
-                if (f) setDeleteFolderTarget(f);
-              }}
-              hitSlop={8}
-              className="p-1"
-            >
-              <Trash2 size={12} color={color("muted-foreground")} />
-            </Pressable>
+            <>
+              <Pressable
+                onPress={() => {
+                  setRenameFolderTarget(folderKey);
+                  setRenameFolderName(folderKey);
+                }}
+                hitSlop={8}
+                className="p-1"
+              >
+                <Pencil size={12} color={color("muted-foreground")} />
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  const f = folders.find((x) => x.name === folderKey);
+                  if (f) setDeleteFolderTarget(f);
+                }}
+                hitSlop={8}
+                className="p-1"
+              >
+                <Trash2 size={12} color={color("muted-foreground")} />
+              </Pressable>
+            </>
           )}
           <ChevronDown
             size={13}
@@ -317,7 +415,7 @@ export default function Snippets() {
               </Text>
             </View>
           ) : (
-            items.map(renderSnippet)
+            items.map((sn, i) => renderSnippet(sn, i, items))
           ))}
       </View>
     );
@@ -536,6 +634,42 @@ export default function Snippets() {
           </View>
         }
       />
+
+      {/* Rename folder dialog */}
+      <Dialog
+        visible={renameFolderTarget !== null}
+        onClose={() => setRenameFolderTarget(null)}
+        title="Rename Folder"
+        footer={
+          <View className="flex-row gap-2">
+            <Button
+              variant="outline"
+              className="flex-1"
+              onPress={() => setRenameFolderTarget(null)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="accent"
+              className="flex-1"
+              loading={renamingFolder}
+              onPress={submitFolderRename}
+            >
+              Rename
+            </Button>
+          </View>
+        }
+      >
+        <View className="gap-1">
+          <Label>Folder name</Label>
+          <Input
+            value={renameFolderName}
+            onChangeText={setRenameFolderName}
+            placeholder="e.g. System"
+            autoCapitalize="words"
+          />
+        </View>
+      </Dialog>
 
       {/* New folder dialog */}
       <Dialog
