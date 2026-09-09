@@ -47,6 +47,8 @@ import {
   Upload,
   Download,
   Archive,
+  Star,
+  Bookmark,
   CheckSquare,
   Square,
   X,
@@ -73,6 +75,13 @@ import {
   extractSSHArchive,
   compressSSHFiles,
   downloadSSHFile,
+  getPinnedFiles,
+  addRecentFile,
+  addPinnedFile,
+  removePinnedFile,
+  getFolderShortcuts,
+  addFolderShortcut,
+  removeFolderShortcut,
 } from "@/app/main-axios";
 import { Text, Input, Button } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
@@ -157,6 +166,11 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     const [compressName, setCompressName] = useState("");
     const [compressVisible, setCompressVisible] = useState(false);
     const [trashVisible, setTrashVisible] = useState(false);
+    const [pinned, setPinned] = useState<{ name: string; path: string }[]>([]);
+    const [shortcuts, setShortcuts] = useState<{ name: string; path: string }[]>(
+      [],
+    );
+    const [bookmarksOpen, setBookmarksOpen] = useState(false);
     const [renameName, setRenameName] = useState("");
     const [viewer, setViewer] = useState<{
       file: FileItem;
@@ -224,9 +238,58 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
       [],
     );
 
+    const loadBookmarks = useCallback(async () => {
+      const [p, sc] = await Promise.all([
+        getPinnedFiles(host.id).catch(() => []),
+        getFolderShortcuts(host.id).catch(() => []),
+      ]);
+      setPinned(Array.isArray(p) ? p : []);
+      setShortcuts(Array.isArray(sc) ? sc : []);
+    }, [host.id]);
+
+    const isPinned = (path: string) => pinned.some((i) => i.path === path);
+
+    const togglePin = async (file: FileItem) => {
+      try {
+        if (isPinned(file.path)) {
+          setPinned((prev) => prev.filter((i) => i.path !== file.path));
+          await removePinnedFile(host.id, file.path);
+        } else {
+          setPinned((prev) => [...prev, { name: file.name, path: file.path }]);
+          await addPinnedFile(host.id, file.path, file.name);
+        }
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to update pin");
+        loadBookmarks();
+      }
+    };
+
+    const isShortcut = (path: string) => shortcuts.some((i) => i.path === path);
+
+    const toggleShortcut = async (file: FileItem) => {
+      try {
+        if (isShortcut(file.path)) {
+          setShortcuts((prev) => prev.filter((i) => i.path !== file.path));
+          await removeFolderShortcut(host.id, file.path);
+        } else {
+          setShortcuts((prev) => [
+            ...prev,
+            { name: file.name, path: file.path },
+          ]);
+          await addFolderShortcut(host.id, file.path, file.name);
+        }
+      } catch (e: any) {
+        toast.error(e?.message || "Failed to update shortcut");
+        loadBookmarks();
+      }
+    };
+
     const onConnected = useCallback(
-      (sid: string) => loadDirectory(host.defaultPath || "/", sid),
-      [host.defaultPath, loadDirectory],
+      (sid: string) => {
+        loadBookmarks();
+        return loadDirectory(host.defaultPath || "/", sid);
+      },
+      [host.defaultPath, loadDirectory, loadBookmarks],
     );
 
     const conn = useSessionConnect(
@@ -279,6 +342,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         setBusy(true);
         const response = await readSSHFile(conn.sessionId.current, file.path);
         setViewer({ file, content: response.content });
+        addRecentFile(host.id, file.path, file.name).catch(() => {});
       } catch (e: any) {
         toast.error(e?.message || "Failed to read file");
       } finally {
@@ -796,6 +860,70 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     size="sm"
                   />
                 </View>
+
+                {/* Pinned files and folder shortcuts */}
+                {pinned.length > 0 || shortcuts.length > 0 ? (
+                  <View className="px-3 pb-1.5">
+                    <Pressable
+                      onPress={() => setBookmarksOpen((v) => !v)}
+                      hitSlop={6}
+                      className="flex-row items-center gap-1 py-1"
+                    >
+                      <Star size={12} color={color("muted-foreground")} />
+                      <Text className="text-[11px] text-muted-foreground">
+                        Pinned &amp; Shortcuts ({pinned.length + shortcuts.length}
+                        )
+                      </Text>
+                      <ChevronRight
+                        size={12}
+                        color={color("muted-foreground")}
+                        style={{
+                          transform: [
+                            { rotate: bookmarksOpen ? "90deg" : "0deg" },
+                          ],
+                        }}
+                      />
+                    </Pressable>
+
+                    {bookmarksOpen ? (
+                      <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ gap: 6, paddingVertical: 4 }}
+                      >
+                        {shortcuts.map((item) => (
+                          <Pressable
+                            key={`sc-${item.path}`}
+                            onPress={() => loadDirectory(item.path)}
+                            className="flex-row items-center gap-1 rounded border border-border px-2 py-1 active:bg-muted/40"
+                          >
+                            <Bookmark
+                              size={11}
+                              color={color("muted-foreground")}
+                            />
+                            <Text className="text-[11px]">{item.name}</Text>
+                          </Pressable>
+                        ))}
+                        {pinned.map((item) => (
+                          <Pressable
+                            key={`pin-${item.path}`}
+                            onPress={() =>
+                              viewFile({
+                                name: item.name,
+                                path: item.path,
+                                type: "file",
+                              } as FileItem)
+                            }
+                            className="flex-row items-center gap-1 rounded border border-border px-2 py-1 active:bg-muted/40"
+                          >
+                            <Star size={11} color={color("muted-foreground")} />
+                            <Text className="text-[11px]">{item.name}</Text>
+                          </Pressable>
+                        ))}
+                      </ScrollView>
+                    ) : null}
+                  </View>
+                ) : null}
               </View>
             ) : undefined
           }
@@ -970,6 +1098,10 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
             del: doDelete,
             extract: doExtract,
             download: doDownload,
+            togglePin,
+            toggleShortcut,
+            isPinned: isPinned(menuFile?.path ?? ""),
+            isShortcut: isShortcut(menuFile?.path ?? ""),
           })}
         />
 
@@ -1081,6 +1213,10 @@ function buildFileActions(
     del: (f: FileItem) => void;
     extract: (f: FileItem) => void;
     download: (f: FileItem) => void;
+    togglePin: (f: FileItem) => void;
+    toggleShortcut: (f: FileItem) => void;
+    isPinned: boolean;
+    isShortcut: boolean;
   },
 ): (ContextAction | null)[] {
   if (!file) return [];
@@ -1135,6 +1271,19 @@ function buildFileActions(
       label: "Permissions",
       onPress: () => handlers.perms(file),
     },
+    isFile
+      ? {
+          key: "pin",
+          icon: <Star size={18} color={fg} />,
+          label: handlers.isPinned ? "Unpin" : "Pin File",
+          onPress: () => handlers.togglePin(file),
+        }
+      : {
+          key: "shortcut",
+          icon: <Bookmark size={18} color={fg} />,
+          label: handlers.isShortcut ? "Remove Shortcut" : "Add Shortcut",
+          onPress: () => handlers.toggleShortcut(file),
+        },
     {
       key: "copyPath",
       icon: <ClipboardCopy size={18} color={fg} />,
