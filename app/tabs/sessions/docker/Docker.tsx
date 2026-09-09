@@ -1,5 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
-import { View, ScrollView, Pressable, RefreshControl } from "react-native";
+import {
+  View,
+  ScrollView,
+  Pressable,
+  RefreshControl,
+  ActivityIndicator,
+} from "react-native";
 import {
   Container as ContainerIcon,
   Search,
@@ -110,6 +116,21 @@ export function Docker({ host, isVisible }: DockerProps) {
     { autoConnect: true, keepAliveMs: 30000 },
   );
 
+  // Only meaningful once the session is up; shared by the header button and
+  // pull to refresh so both show the same spinner.
+  const canRefresh = conn.state === "connected" && !refreshing;
+
+  const runRefresh = useCallback(async () => {
+    const sessionId = conn.sessionId.current;
+    if (!sessionId) return;
+    setRefreshing(true);
+    try {
+      await loadContainers(sessionId);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [conn.sessionId, loadContainers]);
+
   // Poll the container list while connected and visible.
   usePolling(
     () => {
@@ -208,13 +229,18 @@ export function Docker({ host, isVisible }: DockerProps) {
         onLogClear={conn.logClear}
         headerActions={
           <Pressable
-            onPress={() =>
-              conn.sessionId.current && loadContainers(conn.sessionId.current)
-            }
+            onPress={runRefresh}
+            disabled={!canRefresh}
             hitSlop={8}
-            className="p-1.5"
+            className={`rounded p-1.5 ${
+              canRefresh ? "active:bg-muted/40" : "opacity-40"
+            }`}
           >
-            <RefreshCw size={16} color={color("muted-foreground")} />
+            {refreshing ? (
+              <ActivityIndicator size="small" color={color("accent-brand")} />
+            ) : (
+              <RefreshCw size={16} color={color("muted-foreground")} />
+            )}
           </Pressable>
         }
         toolbar={
@@ -247,12 +273,7 @@ export function Docker({ host, isVisible }: DockerProps) {
             <RefreshControl
               refreshing={refreshing}
               tintColor={color("accent-brand")}
-              onRefresh={async () => {
-                setRefreshing(true);
-                if (conn.sessionId.current)
-                  await loadContainers(conn.sessionId.current);
-                setRefreshing(false);
-              }}
+              onRefresh={runRefresh}
             />
           }
         >
