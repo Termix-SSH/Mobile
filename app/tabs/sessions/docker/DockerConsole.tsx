@@ -60,7 +60,16 @@ export function DockerConsole({
       send({
         type: "connect",
         data: {
-          hostConfig: { id: host.id, enableDocker: true },
+          // The server checks the ip we think we picked against the one it
+          // resolves from the id, and refuses the shell if they differ. Sending
+          // only the id reads as a mismatch, so pass the address too. syncId
+          // takes priority there when the host came from a sync server.
+          hostConfig: {
+            id: host.id,
+            ip: host.ip,
+            syncId: host.syncId ?? undefined,
+            enableDocker: true,
+          },
           containerId: container.id,
           cols: 80,
           rows: 24,
@@ -95,7 +104,7 @@ export function DockerConsole({
     ws.onclose = () => {
       setStatus((s) => (s === "error" ? s : "closed"));
     };
-  }, [host.id, container.id, send]);
+  }, [host.id, host.ip, host.syncId, container.id, send]);
 
   useEffect(() => {
     connect();

@@ -13,6 +13,9 @@ export interface QuickAction {
 
 export interface SSHHost {
   id: number;
+  // Names the host on both sides of a sync pair. Numeric ids can drift between
+  // a device and its sync server, so connect calls pass this when present.
+  syncId?: string | null;
   connectionType?: "ssh" | "rdp" | "vnc" | "telnet" | string;
   name: string;
   ip: string;
