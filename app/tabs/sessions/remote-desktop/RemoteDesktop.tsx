@@ -16,6 +16,7 @@ import {
   View,
 } from "react-native";
 import { WebView } from "react-native-webview";
+import { loadGuacamoleAssets } from "./loadGuacamoleAssets";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   ChevronDown,
@@ -195,8 +196,26 @@ export function RemoteDesktop({
 
   // ── WebView HTML ──────────────────────────────────────────────────────────
 
+  const [guacamoleJs, setGuacamoleJs] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadGuacamoleAssets()
+      .then((js) => {
+        if (!cancelled) setGuacamoleJs(js);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setConnectionState("failed");
+        setErrorMessage("Failed to load the remote desktop client");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const htmlContent = useMemo(() => {
-    if (!webSocketUrl) return "";
+    if (!webSocketUrl || !guacamoleJs) return "";
 
     return `<!DOCTYPE html>
 <html>
@@ -235,7 +254,7 @@ export function RemoteDesktop({
       height: 100% !important;
     }
   </style>
-  <script src="https://unpkg.com/guacamole-common-js@1.5.0/dist/cjs/guacamole-common.min.js"></script>
+  <script>${guacamoleJs}</script>
 </head>
 <body>
   <div id="display"></div>
@@ -544,7 +563,7 @@ export function RemoteDesktop({
   </script>
 </body>
 </html>`;
-  }, [webSocketUrl]);
+  }, [webSocketUrl, guacamoleJs]);
 
   // ── Reconnect ─────────────────────────────────────────────────────────────
 
