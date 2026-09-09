@@ -714,7 +714,7 @@ export function RemoteDesktop({
         key: {
           height: 34,
           paddingHorizontal: 9,
-          borderRadius: 6,
+          borderRadius: 0,
           borderWidth: 1,
           borderColor: themeBorder,
           backgroundColor: themeCard,
@@ -732,7 +732,7 @@ export function RemoteDesktop({
         modKey: {
           height: 34,
           paddingHorizontal: 9,
-          borderRadius: 6,
+          borderRadius: 0,
           borderWidth: 1,
           alignItems: "center",
           justifyContent: "center",
@@ -750,7 +750,7 @@ export function RemoteDesktop({
         iconKey: {
           width: 36,
           height: 34,
-          borderRadius: 6,
+          borderRadius: 0,
           borderWidth: 1,
           borderColor: themeBorder,
           backgroundColor: themeCard,
