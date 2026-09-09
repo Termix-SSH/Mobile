@@ -1551,6 +1551,74 @@ export async function deleteSSHItem(
   }
 }
 
+export interface TrashItem {
+  id: string;
+  name: string;
+  originalPath: string;
+  isDirectory: boolean;
+  deletedAt: string;
+  size: number;
+}
+
+export async function listSSHTrash(
+  sessionId: string,
+): Promise<{ items: TrashItem[]; retentionDays: number }> {
+  try {
+    const response = await fileManagerApi.get("/ssh/trash", {
+      params: { sessionId },
+    });
+    return {
+      items: response.data?.items ?? [],
+      retentionDays: response.data?.retentionDays ?? 0,
+    };
+  } catch (error) {
+    handleApiError(error, "list SSH trash");
+    throw error;
+  }
+}
+
+export async function restoreSSHTrashItem(
+  sessionId: string,
+  id: string,
+): Promise<any> {
+  try {
+    const response = await fileManagerApi.post(`/ssh/trash/${id}/restore`, {
+      sessionId,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "restore SSH trash item");
+    throw error;
+  }
+}
+
+export async function deleteSSHTrashItem(
+  sessionId: string,
+  id: string,
+): Promise<any> {
+  try {
+    const response = await fileManagerApi.delete(`/ssh/trash/${id}`, {
+      data: { sessionId },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "delete SSH trash item");
+    throw error;
+  }
+}
+
+export async function emptySSHTrash(sessionId: string): Promise<any> {
+  try {
+    const response = await fileManagerApi.delete("/ssh/trash", {
+      data: { sessionId },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "empty SSH trash");
+    throw error;
+  }
+}
+
 export async function renameSSHItem(
   sessionId: string,
   oldPath: string,

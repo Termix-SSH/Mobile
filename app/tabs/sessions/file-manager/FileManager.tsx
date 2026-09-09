@@ -86,6 +86,7 @@ import {
 } from "@/app/tabs/sessions/_shared";
 import { FileViewer } from "./FileViewer";
 import { PermissionsDialog } from "./PermissionsDialog";
+import { TrashView } from "./TrashView";
 import {
   joinPath,
   isTextFile,
@@ -155,6 +156,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     const [renameTarget, setRenameTarget] = useState<FileItem | null>(null);
     const [compressName, setCompressName] = useState("");
     const [compressVisible, setCompressVisible] = useState(false);
+    const [trashVisible, setTrashVisible] = useState(false);
     const [renameName, setRenameName] = useState("");
     const [viewer, setViewer] = useState<{
       file: FileItem;
@@ -673,6 +675,12 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           }
         : null,
       {
+        key: "trash",
+        icon: <Trash2 size={18} color={color("foreground")} />,
+        label: "Trash",
+        onPress: () => setTrashVisible(true),
+      },
+      {
         key: "refresh",
         icon: <RefreshCw size={18} color={color("foreground")} />,
         label: "Refresh",
@@ -974,6 +982,13 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         />
 
         {/* Permissions editor */}
+        <TrashView
+          visible={trashVisible}
+          sessionId={conn.sessionId.current}
+          onClose={() => setTrashVisible(false)}
+          onRestored={() => loadDirectory(currentPath)}
+        />
+
         <PermissionsDialog
           visible={permsFile !== null}
           fileName={permsFile?.name || ""}
