@@ -81,6 +81,8 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     const [error, setError] = useState("");
     const [refreshing, setRefreshing] = useState(false);
     const startedRef = useRef(false);
+    /** Error from starting polling, surfaced only if no metrics ever arrive. */
+    const startErrorRef = useRef<string | null>(null);
     const viewerSessionIdRef = useRef<string | null>(null);
 
     // Sparkline history for cpu/memory/disk.
@@ -105,7 +107,16 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     const fetchMetrics = useCallback(async () => {
       try {
         const data = await getServerMetricsById(hostConfig.id);
-        if (data === null) return; // Not ready yet — keep polling silently.
+        if (data === null) {
+          // Not ready yet. If starting the poll failed outright, the metrics
+          // are never coming, so stop spinning and show why.
+          if (startErrorRef.current && !metrics) {
+            setError(startErrorRef.current);
+            setStatus("error");
+          }
+          return;
+        }
+        startErrorRef.current = null;
         setMetrics(data);
         pushHistory(data);
         setStatus("ready");
@@ -135,8 +146,11 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
           if (res?.viewerSessionId) {
             viewerSessionIdRef.current = res.viewerSessionId;
           }
-        } catch {
-          // Non-fatal — metrics endpoint may already be polling.
+        } catch (err: any) {
+          // The host may already be polling, in which case metrics still
+          // arrive. A real failure (bad jump host, unreachable host) never
+          // resolves though, so remember it and surface it if nothing shows up.
+          startErrorRef.current = err?.message || "Failed to start metrics";
         }
         // If start didn't return a viewerSessionId, register separately.
         if (!viewerSessionIdRef.current) {
@@ -203,7 +217,9 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
           status === "error"
             ? () => {
                 setStatus("loading");
+                setError("");
                 startedRef.current = false;
+                startErrorRef.current = null;
                 fetchMetrics();
               }
             : undefined
