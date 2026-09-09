@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         platform: ${{ github.event.inputs.platform == 'both' && fromJSON('["apple", "android"]') || fromJSON(format('["{0}"]', github.event.inputs.platform)) }}
-        node: [20.x]
+        node: [22.x]
     steps:
       - name: Setup repo
         uses: actions/checkout@v4
