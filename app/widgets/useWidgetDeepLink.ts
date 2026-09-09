@@ -109,6 +109,12 @@ export function useWidgetDeepLink(): {
   const initialUrlRef = useRef<string | null>(null);
   /** True once the startup link has been consumed (or found to be absent). */
   const initialDrainedRef = useRef(false);
+  /**
+   * Guards the act of opening a session, not just the URL. The drain and the
+   * replay effect can both reach runLink for the same tap when sign-in lands
+   * between them, which would otherwise open the host twice.
+   */
+  const lastRunRef = useRef<{ key: string; at: number } | null>(null);
   const authenticatedRef = useRef(isAuthenticated);
   authenticatedRef.current = isAuthenticated;
   const navigatorReadyRef = useRef(navigatorReady);
@@ -145,6 +151,12 @@ export function useWidgetDeepLink(): {
 
   const runLink = useCallback(
     async (link: WidgetLink) => {
+      const key = `${link.action}:${link.hostId ?? ""}:${link.type ?? ""}:${link.snippetId ?? ""}`;
+      const now = Date.now();
+      const lastRun = lastRunRef.current;
+      if (lastRun && lastRun.key === key && now - lastRun.at < 3000) return;
+      lastRunRef.current = { key, at: now };
+
       if (link.action === "snippets") {
         router.push("/tabs/settings/Snippets" as never);
         return;
