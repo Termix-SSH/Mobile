@@ -26,6 +26,7 @@ jobs:
     name: build-${{ matrix.platform }}
     runs-on: ${{ matrix.platform == 'apple' && 'blacksmith-6vcpu-macos-latest' || 'blacksmith-8vcpu-ubuntu-2404' }}
     strategy:
+      fail-fast: false
       matrix:
         platform: ${{ github.event.inputs.platform == 'both' && fromJSON('["apple", "android"]') || fromJSON(format('["{0}"]', github.event.inputs.platform)) }}
         node: [22.x]
