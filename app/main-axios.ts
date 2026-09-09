@@ -2845,6 +2845,22 @@ export async function deleteUser(username: string): Promise<any> {
   }
 }
 
+export async function changePassword(
+  oldPassword: string,
+  newPassword: string,
+): Promise<any> {
+  try {
+    const response = await authApi.post("/users/change-password", {
+      oldPassword,
+      newPassword,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "change password");
+    throw error;
+  }
+}
+
 export async function deleteAccount(password: string): Promise<any> {
   try {
     const response = await authApi.delete("/users/delete-account", {

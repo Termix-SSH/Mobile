@@ -16,6 +16,7 @@ import {
   Key,
   FileText,
   LayoutGrid,
+  Trash2,
 } from "lucide-react-native";
 import { useAppContext } from "@/app/AppContext";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
@@ -27,6 +28,8 @@ import {
   getUserInfo,
   getVersionInfo,
   getCurrentServerUrl,
+  changePassword,
+  deleteAccount,
 } from "@/app/main-axios";
 import { Screen } from "@/app/components/Screen";
 import { LockScreen } from "@/app/components/LockScreen";
@@ -108,6 +111,12 @@ export default function Settings() {
   };
 
   // App-lock PIN setup dialog (two-step: enter then confirm)
+  const [passwordDialog, setPasswordDialog] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [deleteDialog, setDeleteDialog] = useState(false);
+  const [deletePassword, setDeletePassword] = useState("");
+  const [accountBusy, setAccountBusy] = useState(false);
   const [pinDialog, setPinDialog] = useState(false);
   const [pinStep, setPinStep] = useState<"enter" | "confirm">("enter");
   const [pin, setPin] = useState(""); // first entry
@@ -204,6 +213,46 @@ export default function Settings() {
     await appLock.enable(pin);
     setPinDialog(false);
     toast.success("App lock enabled");
+  };
+
+  const closePasswordDialog = () => {
+    setPasswordDialog(false);
+    setOldPassword("");
+    setNewPassword("");
+  };
+
+  const submitPasswordChange = async () => {
+    if (!oldPassword || !newPassword) return;
+    setAccountBusy(true);
+    try {
+      await changePassword(oldPassword, newPassword);
+      toast.success("Password changed");
+      closePasswordDialog();
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to change password");
+    } finally {
+      setAccountBusy(false);
+    }
+  };
+
+  const closeDeleteDialog = () => {
+    setDeleteDialog(false);
+    setDeletePassword("");
+  };
+
+  const submitDeleteAccount = async () => {
+    if (!deletePassword) return;
+    setAccountBusy(true);
+    try {
+      await deleteAccount(deletePassword);
+      closeDeleteDialog();
+      await handleLogout();
+      toast.success("Account deleted");
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to delete account");
+    } finally {
+      setAccountBusy(false);
+    }
   };
 
   const closePinDialog = () => {
@@ -370,6 +419,30 @@ export default function Settings() {
                     <FileText size={15} color={color("muted-foreground")} />
                     <Text weight="medium" className="text-sm text-foreground">
                       Snippets
+                    </Text>
+                  </View>
+                  <ChevronRight size={15} color={color("muted-foreground")} />
+                </Pressable>
+                <Pressable
+                  onPress={() => setPasswordDialog(true)}
+                  className="flex-row items-center justify-between border-t border-border py-3"
+                >
+                  <View className="flex-row items-center gap-2">
+                    <Lock size={15} color={color("muted-foreground")} />
+                    <Text weight="medium" className="text-sm text-foreground">
+                      Change Password
+                    </Text>
+                  </View>
+                  <ChevronRight size={15} color={color("muted-foreground")} />
+                </Pressable>
+                <Pressable
+                  onPress={() => setDeleteDialog(true)}
+                  className="flex-row items-center justify-between border-t border-border py-3"
+                >
+                  <View className="flex-row items-center gap-2">
+                    <Trash2 size={15} color={color("destructive")} />
+                    <Text weight="medium" className="text-sm text-destructive">
+                      Delete Account
                     </Text>
                   </View>
                   <ChevronRight size={15} color={color("muted-foreground")} />
@@ -626,6 +699,79 @@ export default function Settings() {
           {appVersion ? `Termix Mobile v${appVersion}` : "Termix Mobile"}
         </Text>
       </ScrollView>
+
+      {/* Change password */}
+      <Dialog
+        visible={passwordDialog}
+        onClose={closePasswordDialog}
+        title="Change Password"
+        description="Enter your current password, then choose a new one."
+        icon={<Lock size={15} color={color("accent-brand")} />}
+        footer={
+          <>
+            <Button variant="ghost" size="sm" onPress={closePasswordDialog}>
+              Cancel
+            </Button>
+            <Button
+              variant="accent"
+              size="sm"
+              disabled={accountBusy || !oldPassword || !newPassword}
+              onPress={submitPasswordChange}
+            >
+              Change
+            </Button>
+          </>
+        }
+      >
+        <View className="gap-2">
+          <Input
+            value={oldPassword}
+            onChangeText={setOldPassword}
+            secureTextEntry
+            placeholder="Current password"
+            autoCapitalize="none"
+          />
+          <Input
+            value={newPassword}
+            onChangeText={setNewPassword}
+            secureTextEntry
+            placeholder="New password"
+            autoCapitalize="none"
+          />
+        </View>
+      </Dialog>
+
+      {/* Delete account */}
+      <Dialog
+        visible={deleteDialog}
+        onClose={closeDeleteDialog}
+        title="Delete Account"
+        description="This permanently deletes your account and all of its data. This cannot be undone."
+        icon={<Trash2 size={15} color={color("destructive")} />}
+        footer={
+          <>
+            <Button variant="ghost" size="sm" onPress={closeDeleteDialog}>
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              size="sm"
+              disabled={accountBusy || !deletePassword}
+              onPress={submitDeleteAccount}
+            >
+              Delete
+            </Button>
+          </>
+        }
+      >
+        <Input
+          value={deletePassword}
+          onChangeText={setDeletePassword}
+          secureTextEntry
+          placeholder="Confirm your password"
+          autoCapitalize="none"
+        />
+      </Dialog>
 
       {/* App-lock PIN setup dialog (two-step) */}
       <Dialog
