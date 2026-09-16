@@ -27,11 +27,13 @@ const BASE_TEXT_STYLE = {
   ...Platform.select({ android: { includeFontPadding: false } }),
 } as const;
 
-const SIZES: Record<InputSize, { box: string; fontSize: number; line: number }> =
-  {
-    sm: { box: "h-8", fontSize: 12, line: 16 },
-    default: { box: "h-10", fontSize: 14, line: 18 },
-  };
+const SIZES: Record<
+  InputSize,
+  { box: string; fontSize: number; line: number }
+> = {
+  sm: { box: "h-8", fontSize: 12, line: 16 },
+  default: { box: "h-10", fontSize: 14, line: 18 },
+};
 
 export const Input = forwardRef<TextInput, InputProps>(function Input(
   {

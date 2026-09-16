@@ -255,11 +255,7 @@ export default function Snippets() {
   };
 
   // Reordering is persisted per folder, matching how the backend stores order.
-  const moveSnippet = async (
-    list: Snippet[],
-    index: number,
-    delta: number,
-  ) => {
+  const moveSnippet = async (list: Snippet[], index: number, delta: number) => {
     const target = index + delta;
     if (target < 0 || target >= list.length) return;
 

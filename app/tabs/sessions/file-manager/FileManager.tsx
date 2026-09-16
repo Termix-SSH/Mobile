@@ -167,9 +167,9 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
     const [compressVisible, setCompressVisible] = useState(false);
     const [trashVisible, setTrashVisible] = useState(false);
     const [pinned, setPinned] = useState<{ name: string; path: string }[]>([]);
-    const [shortcuts, setShortcuts] = useState<{ name: string; path: string }[]>(
-      [],
-    );
+    const [shortcuts, setShortcuts] = useState<
+      { name: string; path: string }[]
+    >([]);
     const [bookmarksOpen, setBookmarksOpen] = useState(false);
     const [renameName, setRenameName] = useState("");
     const [viewer, setViewer] = useState<{
@@ -871,8 +871,8 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
                     >
                       <Star size={12} color={color("muted-foreground")} />
                       <Text className="text-[11px] text-muted-foreground">
-                        Pinned and Shortcuts (
-                        {pinned.length + shortcuts.length})
+                        Pinned and Shortcuts ({pinned.length + shortcuts.length}
+                        )
                       </Text>
                       <ChevronRight
                         size={12}
