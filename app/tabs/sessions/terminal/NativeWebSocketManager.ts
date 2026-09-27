@@ -84,6 +84,7 @@ export class NativeWebSocketManager {
   private cols = 80;
   private rows = 24;
   private wsUrl: string | null = null;
+  private wsProtocols: string[] = [];
   private serverSessionId: string | null = null;
   private pendingReattach = false;
   private awaitingAuthCredentials = false;
@@ -128,6 +129,7 @@ export class NativeWebSocketManager {
     const wsHost = serverUrl.replace(/^https?:\/\//, "");
     const cleanHost = wsHost.replace(/\/$/, "");
     this.wsUrl = `${wsProtocol}${cleanHost}/ssh/websocket/?token=${encodeURIComponent(jwtToken)}`;
+    this.wsProtocols = [`termix.jwt.${jwtToken}`];
 
     this.connectWebSocket();
   }
@@ -355,7 +357,7 @@ export class NativeWebSocketManager {
       retryCount: this.reconnectAttempts,
     });
 
-    const ws = new WebSocket(this.wsUrl);
+    const ws = new WebSocket(this.wsUrl, this.wsProtocols);
     this.ws = ws;
 
     this.connectionTimeout = setTimeout(() => {

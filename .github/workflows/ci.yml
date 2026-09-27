@@ -37,5 +37,8 @@ jobs:
       - name: Type-check
         run: npx tsc --noEmit --pretty false
 
+      - name: Verify terminal WebSocket authentication
+        run: npm run verify:terminal-websocket-auth
+
       - name: Validate Expo config
         run: npx expo config --type public --json > /tmp/expo-config.json
