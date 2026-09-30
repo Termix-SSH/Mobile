@@ -40,6 +40,9 @@ jobs:
       - name: Type-check
         run: npx tsc --noEmit --pretty false
 
+      - name: Verify remote desktop viewport
+        run: node scripts/verify-remote-viewport.cjs
+
       - name: Verify terminal WebSocket authentication
         run: npm run verify:terminal-websocket-auth
 

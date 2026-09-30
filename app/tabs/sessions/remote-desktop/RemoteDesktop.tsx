@@ -236,28 +236,16 @@ export function RemoteDesktop({
       background: #000;
       touch-action: none;
     }
-    /* The canvas element Guacamole creates sits inside #display.
-       We force it to always fill 100% of the viewport via CSS —
-       this is the "stretch to fill" approach. Guacamole's own
-       display.scale() is disabled; we handle coordinate mapping
-       ourselves so clicks land exactly where you touch. */
     #display {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
       overflow: hidden;
     }
-    /* The actual canvas/div Guacamole appends */
     #display > div {
       position: absolute;
       top: 0; left: 0;
-      width: 100% !important;
-      height: 100% !important;
       transform-origin: top left;
-    }
-    #display > div > canvas {
-      width: 100% !important;
-      height: 100% !important;
     }
   </style>
   <script>${guacamoleJs}</script>
@@ -278,54 +266,41 @@ export function RemoteDesktop({
       const displayElement = display.getElement();
       displayContainer.appendChild(displayElement);
 
-      // Disable Guacamole's own scaling — we stretch via CSS and map coords ourselves.
-      display.onresize = () => { display.scale(1); };
-
-      // ── Coordinate mapping ───────────────────────────────────────────────
-      // The remote canvas is stretched to fill the viewport via CSS.
-      // To convert a touch position (in viewport px) to remote canvas coords:
-      //   remoteX = touchX / viewportW * remoteW   (then undo zoom/pan offset)
-      //   remoteY = touchY / viewportH * remoteH
-      // When zoomed, the viewport shows a sub-region of the canvas.
-      // panX/panY are the top-left corner of that sub-region in remote px.
-
+      // The server owns the framebuffer size, especially for fixed-size VNC.
       let remoteW = ${JSON.stringify(initialSizeRef.current.width)};
       let remoteH = ${JSON.stringify(initialSizeRef.current.height)};
-      let zoom = 1;    // 1 = fit to screen, >1 = zoomed in
-      let panX = 0;    // remote-space offset of viewport top-left
+      let zoom = 1; // Relative to fit-to-screen, not framebuffer pixels.
+      let panX = 0;
       let panY = 0;
 
       const vpW = () => window.innerWidth;
       const vpH = () => window.innerHeight;
-
-      // Convert viewport touch coords → remote canvas coords
+      const fitScale = () => Math.min(vpW() / remoteW, vpH() / remoteH);
       const toRemote = (vx, vy) => ({
-        x: panX + vx / (vpW() * zoom) * remoteW,
-        y: panY + vy / (vpH() * zoom) * remoteH,
+        x: panX + vx / (fitScale() * zoom),
+        y: panY + vy / (fitScale() * zoom),
       });
-
-      // Apply zoom+pan as CSS transform on the display element.
-      // We translate so the zoomed region stays anchored.
       const applyTransform = () => {
-        // At zoom=1: show full remote canvas in viewport (scale=1, no offset).
-        // At zoom=2: show half the canvas; the half starts at (panX,panY) in remote coords.
-        // CSS scale stretches the element, then we translate to show the right region.
-        // The element is already 100vw × 100vh at zoom=1 (via CSS).
-        // After scale(zoom), it becomes zoom*100vw × zoom*100vh.
-        // We shift it left/up so the visible portion starts at panX,panY.
-        const txPx = -(panX / remoteW) * vpW() * zoom;
-        const tyPx = -(panY / remoteH) * vpH() * zoom;
-        displayElement.style.transform = 'scale(' + zoom + ') translate(' + (txPx/zoom) + 'px,' + (tyPx/zoom) + 'px)';
-        displayElement.style.transformOrigin = 'top left';
+        const scale = fitScale() * zoom;
+        display.scale(scale);
+        displayElement.style.transform = 'translate(' + (-panX * scale) + 'px,' + (-panY * scale) + 'px)';
       };
-
-      // Clamp pan so we never show outside the remote canvas
       const clampPan = () => {
-        const visW = remoteW / zoom;  // how many remote px are visible horizontally
-        const visH = remoteH / zoom;
-        panX = Math.max(0, Math.min(remoteW - visW, panX));
-        panY = Math.max(0, Math.min(remoteH - visH, panY));
+        const scale = fitScale() * zoom;
+        panX = Math.max(0, Math.min(remoteW - vpW() / scale, panX));
+        panY = Math.max(0, Math.min(remoteH - vpH() / scale, panY));
       };
+      display.onresize = (width, height) => {
+        if (width <= 0 || height <= 0) return;
+        remoteW = width;
+        remoteH = height;
+        clampPan();
+        applyTransform();
+      };
+      window.addEventListener('resize', () => {
+        clampPan();
+        applyTransform();
+      });
 
       // ── Touch mode ───────────────────────────────────────────────────────
       let currentMode = 'touch';
@@ -417,10 +392,10 @@ export function RemoteDesktop({
             if (tfTimer) { clearTimeout(tfTimer); tfTimer = null; }
 
             const newZoom = Math.max(1, Math.min(8, pinchZoom0 * (d / pinchDist0)));
-            const fixedRX = pinchPanX0 + pinchMidX0 / (vpW() * pinchZoom0) * remoteW;
-            const fixedRY = pinchPanY0 + pinchMidY0 / (vpH() * pinchZoom0) * remoteH;
-            panX = fixedRX - midX / (vpW() * newZoom) * remoteW;
-            panY = fixedRY - midY / (vpH() * newZoom) * remoteH;
+            const fixedRX = pinchPanX0 + pinchMidX0 / (fitScale() * pinchZoom0);
+            const fixedRY = pinchPanY0 + pinchMidY0 / (fitScale() * pinchZoom0);
+            panX = fixedRX - midX / (fitScale() * newZoom);
+            panY = fixedRY - midY / (fitScale() * newZoom);
             zoom = newZoom;
             clampPan();
             applyTransform();
@@ -436,8 +411,8 @@ export function RemoteDesktop({
 
             if (zoom > 1 && currentMode === 'touch') {
               // Pan viewport when zoomed
-              panX -= dragDX / (vpW() * zoom) * remoteW;
-              panY -= dragDY / (vpH() * zoom) * remoteH;
+              panX -= dragDX / (fitScale() * zoom);
+              panY -= dragDY / (fitScale() * zoom);
               clampPan();
               applyTransform();
             } else {
@@ -468,8 +443,8 @@ export function RemoteDesktop({
           if (moved) tpMoved = true;
         } else {
           // Trackpad: relative movement
-          const rdx = (tx - tpX) * SENS * (remoteW / vpW()) / zoom;
-          const rdy = (ty - tpY) * SENS * (remoteH / vpH()) / zoom;
+          const rdx = (tx - tpX) * SENS * 1 / (fitScale() * zoom);
+          const rdy = (ty - tpY) * SENS * 1 / (fitScale() * zoom);
           tpX = tx; tpY = ty;
           if (Math.abs(rdx) > 0.5 || Math.abs(rdy) > 0.5) tpMoved = true;
           mouseRX = Math.max(0, Math.min(remoteW, mouseRX + rdx));
@@ -515,9 +490,7 @@ export function RemoteDesktop({
           ks.slice().reverse().forEach((k) => client.sendKeyEvent(0, k));
         },
         resize: (w, h) => {
-          remoteW = Math.max(1, Math.round(w));
-          remoteH = Math.max(1, Math.round(h));
-          client.sendSize(remoteW, remoteH);
+          client.sendSize(Math.max(1, Math.round(w)), Math.max(1, Math.round(h)));
         },
         sendText: (text) => {
           Array.from(text).forEach((ch) => {
