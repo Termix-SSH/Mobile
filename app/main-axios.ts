@@ -3290,7 +3290,7 @@ export async function createTerminalWebSocket(): Promise<WebSocket | null> {
     const cleanHost = wsHost.replace(/\/$/, "");
     const wsUrl = `${wsProtocol}${cleanHost}/ssh/websocket/?token=${encodeURIComponent(jwtToken)}`;
 
-    return new WebSocket(wsUrl);
+    return new WebSocket(wsUrl, [`termix.jwt.${jwtToken}`]);
   } catch (error) {
     return null;
   }

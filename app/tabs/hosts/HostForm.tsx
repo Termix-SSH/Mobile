@@ -3,12 +3,7 @@ import { Modal, View, ScrollView, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { X, Upload, Trash2 } from "lucide-react-native";
 import * as DocumentPicker from "expo-document-picker";
-import {
-  SSHHost,
-  SSHHostData,
-  Credential,
-  TunnelConnection,
-} from "@/types";
+import { SSHHost, SSHHostData, Credential, TunnelConnection } from "@/types";
 import {
   createSSHHost,
   updateSSHHost,
@@ -234,7 +229,10 @@ export default function HostForm({
     () =>
       allHosts
         .filter((h) => h.id !== host?.id)
-        .map((h) => ({ id: h.name || `${h.username}@${h.ip}`, label: h.name || h.ip })),
+        .map((h) => ({
+          id: h.name || `${h.username}@${h.ip}`,
+          label: h.name || h.ip,
+        })),
     [allHosts, host?.id],
   );
 
