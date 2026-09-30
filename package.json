@@ -1,7 +1,7 @@
 {
   "name": "termix-mobile",
   "main": "expo-router/entry",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
