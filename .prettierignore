@@ -1,1 +1,4 @@
 assets/xterm/*.html
+
+# Vendored JavaScript stored as an Expo text asset
+assets/guacamole/guacamole-common.js.html
