@@ -8,6 +8,7 @@ import React, {
 import {
   ActivityIndicator,
   Keyboard,
+  PixelRatio,
   ScrollView,
   StyleSheet,
   Text,
@@ -16,6 +17,7 @@ import {
   View,
 } from "react-native";
 import { WebView } from "react-native-webview";
+import { resolveRemoteDesktopSize } from "./remoteDesktopSize";
 import { loadGuacamoleAssets } from "./loadGuacamoleAssets";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
@@ -154,8 +156,12 @@ export function RemoteDesktop({
       );
       // Use measured layout size; fall back to ref if layout fired already
       const measured = availableSizeRef.current;
-      const remW = measured ? measured.w : 1280;
-      const remH = measured ? Math.max(1, measured.h - KEY_STRIP_HEIGHT) : 720;
+      const { width: remW, height: remH } = resolveRemoteDesktopSize(
+        host.guacamoleConfig,
+        measured?.w ?? 1280,
+        measured ? Math.max(1, measured.h - KEY_STRIP_HEIGHT) : 720,
+        (protocol ?? host.connectionType) === "rdp" ? PixelRatio.get() : 1,
+      );
       initialSizeRef.current = { width: remW, height: remH };
       setWebSocketUrl(getGuacamoleWebSocketUrl(token, remW, remH));
     } catch (error) {
@@ -166,7 +172,7 @@ export function RemoteDesktop({
           : "Failed to start remote session",
       );
     }
-  }, [host.id, protocol]);
+  }, [host.id, host.guacamoleConfig, host.connectionType, protocol]);
 
   useEffect(() => {
     connect();
@@ -642,12 +648,24 @@ export function RemoteDesktop({
   // the container size changes (orientation change) or keyboard opens/closes.
   useEffect(() => {
     if (!canSendInput || !availableSize) return;
-    const remW = availableSize.w;
-    const remH = Math.max(1, availableSize.h - KEY_STRIP_HEIGHT - kbOverlap);
+    const { width: remW, height: remH } = resolveRemoteDesktopSize(
+      host.guacamoleConfig,
+      availableSize.w,
+      Math.max(1, availableSize.h - KEY_STRIP_HEIGHT - kbOverlap),
+      (protocol ?? host.connectionType) === "rdp" ? PixelRatio.get() : 1,
+    );
     inject(
       `window.termixRemote && window.termixRemote.resize(${remW}, ${remH})`,
     );
-  }, [canSendInput, availableSize, kbOverlap, inject]);
+  }, [
+    canSendInput,
+    availableSize,
+    kbOverlap,
+    inject,
+    host.guacamoleConfig,
+    host.connectionType,
+    protocol,
+  ]);
 
   // ── Styles ────────────────────────────────────────────────────────────────
 

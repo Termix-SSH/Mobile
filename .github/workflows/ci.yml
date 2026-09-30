@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify remote desktop resolution
+        run: node scripts/verify-remote-resolution.cjs
+
       - name: Check formatting
         run: npm run format:check
 

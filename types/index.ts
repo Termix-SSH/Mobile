@@ -59,6 +59,7 @@ export interface SSHHost {
   enableDocker?: boolean;
   sshPort?: number;
   notes?: string;
+  guacamoleConfig?: string | Record<string, unknown> | null;
   // Remote desktop (Guacamole) protocol fields
   rdpUser?: string;
   rdpPassword?: string;
