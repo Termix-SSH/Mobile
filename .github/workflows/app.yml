@@ -77,8 +77,7 @@ jobs:
           EAS_PLATFORM=${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
 
           if [ -n "$ASC_API_KEY" ]; then
-            printf '%s
-' "$ASC_API_KEY" > "$EXPO_ASC_API_KEY_PATH"
+            printf '%s\n' "$ASC_API_KEY" > "$EXPO_ASC_API_KEY_PATH"
             chmod 600 "$EXPO_ASC_API_KEY_PATH"
           else
             unset EXPO_ASC_API_KEY_PATH EXPO_ASC_KEY_ID EXPO_ASC_ISSUER_ID
