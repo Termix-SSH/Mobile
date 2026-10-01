@@ -1,10 +1,10 @@
-name: Build iPadOS App
+name: Build iOS App
 
 on:
   workflow_dispatch:
 
 jobs:
-  build-ipados:
+  build-ios:
     runs-on: blacksmith-6vcpu-macos-latest
     steps:
       - name: Checkout repository
@@ -74,10 +74,10 @@ jobs:
           zip -r termix_ios_${{ steps.version.outputs.version }}.ipa Payload
           rm -rf Payload
 
-      - name: Upload iPadOS IPA
+      - name: Upload iOS IPA
         uses: actions/upload-artifact@v4
         with:
-          name: termix_ipados_${{ steps.version.outputs.version }}
+          name: termix_ios_${{ steps.version.outputs.version }}
           path: release/termix_ios_${{ steps.version.outputs.version }}.ipa
           retention-days: 30
           if-no-files-found: error
