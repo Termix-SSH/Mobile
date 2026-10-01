@@ -639,7 +639,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     }, { passive: false });
 
     // Touch text selection. xterm only selects with a mouse, so long-press
-    // selects a word and dragging extends it. RN shows the copy bar.
+    // selects a word, dragging extends it, and the two handles resize it.
     let isCurrentlySelecting = false;
     let selectDragActive = false;
     let longPressTimeout = null;
@@ -649,6 +649,29 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     let hasMoved = false;
     let wordStart = null;
     let wordEnd = null;
+    let selStart = null;
+    let selEnd = null;
+
+    const HANDLE_SIZE = 40;
+    const handleStyle = document.createElement('style');
+    handleStyle.textContent =
+      '.sel-handle{position:fixed;width:' + HANDLE_SIZE + 'px;height:' + HANDLE_SIZE + 'px;display:none;z-index:50;touch-action:none;}' +
+      '.sel-handle .knob{position:absolute;top:2px;width:18px;height:18px;background:${ACCENT};}' +
+      '.sel-handle.start .knob{right:' + (HANDLE_SIZE / 2 - 1) + 'px;border-radius:50% 0 50% 50%;}' +
+      '.sel-handle.end .knob{left:' + (HANDLE_SIZE / 2 - 1) + 'px;border-radius:0 50% 50% 50%;}';
+    document.head.appendChild(handleStyle);
+
+    function makeHandle(kind) {
+      const el = document.createElement('div');
+      el.className = 'sel-handle ' + kind;
+      const knob = document.createElement('div');
+      knob.className = 'knob';
+      el.appendChild(knob);
+      document.body.appendChild(el);
+      return el;
+    }
+    const startHandle = makeHandle('start');
+    const endHandle = makeHandle('end');
 
     function postToRN(type, data) {
       if (window.ReactNativeWebView) {
@@ -660,21 +683,29 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       postToRN('selectionChanged', { text: terminal.getSelection() || '' });
     }
 
-    function endSelection() {
-      selectDragActive = false;
-      wordStart = null;
-      wordEnd = null;
-      if (terminal.hasSelection()) terminal.clearSelection();
-      if (isCurrentlySelecting) {
-        isCurrentlySelecting = false;
-        postToRN('selectionEnd');
-      }
+    function screenRect() {
+      const screen = terminal.element.querySelector('.xterm-screen') || terminal.element;
+      return screen.getBoundingClientRect();
+    }
+
+    function cellSize() {
+      return terminal._core._renderService.dimensions.css.cell;
+    }
+
+    // Column snaps to the nearest cell edge so handles land between letters.
+    function edgeFromPoint(x, y) {
+      const rect = screenRect();
+      const cell = cellSize();
+      let col = Math.round((x - rect.left) / cell.width);
+      let row = Math.floor((y - rect.top) / cell.height);
+      col = Math.max(0, Math.min(terminal.cols, col));
+      row = Math.max(0, Math.min(terminal.rows - 1, row));
+      return { col: col, row: row + terminal.buffer.active.viewportY };
     }
 
     function cellFromPoint(x, y) {
-      const screen = terminal.element.querySelector('.xterm-screen') || terminal.element;
-      const rect = screen.getBoundingClientRect();
-      const cell = terminal._core._renderService.dimensions.css.cell;
+      const rect = screenRect();
+      const cell = cellSize();
       let col = Math.floor((x - rect.left) / cell.width);
       let row = Math.floor((y - rect.top) / cell.height);
       col = Math.max(0, Math.min(terminal.cols - 1, col));
@@ -703,21 +734,145 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       return a.row < b.row || (a.row === b.row && a.col < b.col);
     }
 
-    function selectRange(a, b) {
-      const len = (b.row - a.row) * terminal.cols + (b.col - a.col) + 1;
-      terminal.select(a.col, a.row, Math.max(1, len));
+    function applySelection() {
+      if (!selStart || !selEnd) return;
+      const len = (selEnd.row - selStart.row) * terminal.cols + (selEnd.col - selStart.col) + 1;
+      terminal.select(selStart.col, selStart.row, Math.max(1, len));
+      updateHandles();
+    }
+
+    function placeHandle(el, pos, isStart) {
+      const visRow = pos.row - terminal.buffer.active.viewportY;
+      if (visRow < 0 || visRow >= terminal.rows) {
+        el.style.display = 'none';
+        return;
+      }
+      const rect = screenRect();
+      const cell = cellSize();
+      const x = rect.left + (isStart ? pos.col : pos.col + 1) * cell.width;
+      const y = rect.top + (visRow + 1) * cell.height;
+      el.style.left = (x - HANDLE_SIZE / 2) + 'px';
+      el.style.top = y + 'px';
+      el.style.display = 'block';
+    }
+
+    function updateHandles() {
+      if (!isCurrentlySelecting || !selStart || !selEnd) {
+        startHandle.style.display = 'none';
+        endHandle.style.display = 'none';
+        return;
+      }
+      placeHandle(startHandle, selStart, true);
+      placeHandle(endHandle, selEnd, false);
+    }
+
+    function endSelection() {
+      selectDragActive = false;
+      wordStart = null;
+      wordEnd = null;
+      selStart = null;
+      selEnd = null;
+      if (terminal.hasSelection()) terminal.clearSelection();
+      if (isCurrentlySelecting) {
+        isCurrentlySelecting = false;
+        postToRN('selectionEnd');
+      }
+      updateHandles();
     }
 
     function extendSelectionTo(pos) {
       if (!wordStart || !wordEnd) return;
       if (before(pos, wordStart)) {
-        selectRange(pos, wordEnd);
+        selStart = pos;
+        selEnd = wordEnd;
       } else if (before(wordEnd, pos)) {
-        selectRange(wordStart, pos);
+        selStart = wordStart;
+        selEnd = pos;
       } else {
-        selectRange(wordStart, wordEnd);
+        selStart = wordStart;
+        selEnd = wordEnd;
       }
+      applySelection();
     }
+
+    function bindHandle(el, isStart) {
+      let offsetX = 0;
+      let offsetY = 0;
+      let scrollTimer = null;
+      let lastX = 0;
+      let lastY = 0;
+
+      function moveTo(x, y) {
+        if (!selStart || !selEnd) return;
+        const edge = edgeFromPoint(x - offsetX, y - offsetY);
+        if (isStart) {
+          let pos = { col: Math.min(edge.col, terminal.cols - 1), row: edge.row };
+          if (before(selEnd, pos)) pos = { col: selEnd.col, row: selEnd.row };
+          selStart = pos;
+        } else {
+          let pos = { col: edge.col - 1, row: edge.row };
+          if (pos.col < 0) {
+            pos = pos.row > 0 ? { col: terminal.cols - 1, row: pos.row - 1 } : { col: 0, row: 0 };
+          }
+          if (before(pos, selStart)) pos = { col: selStart.col, row: selStart.row };
+          selEnd = pos;
+        }
+        applySelection();
+      }
+
+      // Scroll while the handle is held past the top or bottom edge.
+      function autoScroll() {
+        const rect = screenRect();
+        const y = lastY - offsetY;
+        let dir = 0;
+        if (y < rect.top) dir = -1;
+        else if (y > rect.bottom) dir = 1;
+        if (dir !== 0) {
+          terminal.scrollLines(dir);
+          moveTo(lastX, lastY);
+        }
+      }
+
+      el.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length !== 1) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const t = e.touches[0];
+        const r = el.getBoundingClientRect();
+        const cell = cellSize();
+        // Keep the gap between the finger and the selection edge constant.
+        offsetX = t.clientX - (r.left + HANDLE_SIZE / 2);
+        offsetY = t.clientY - (r.top - cell.height / 2);
+        lastX = t.clientX;
+        lastY = t.clientY;
+        if (scrollTimer) clearInterval(scrollTimer);
+        scrollTimer = setInterval(autoScroll, 80);
+      }, { passive: false });
+
+      el.addEventListener('touchmove', (e) => {
+        if (!e.touches || e.touches.length !== 1) return;
+        e.preventDefault();
+        e.stopPropagation();
+        lastX = e.touches[0].clientX;
+        lastY = e.touches[0].clientY;
+        moveTo(lastX, lastY);
+      }, { passive: false });
+
+      function finish(e) {
+        try { e.preventDefault(); } catch(e2) {}
+        e.stopPropagation();
+        if (scrollTimer) clearInterval(scrollTimer);
+        scrollTimer = null;
+        postSelection();
+      }
+      el.addEventListener('touchend', finish, { passive: false });
+      el.addEventListener('touchcancel', finish, { passive: false });
+    }
+    bindHandle(startHandle, true);
+    bindHandle(endHandle, false);
+
+    terminal.onScroll(updateHandles);
+    terminal.onRender(updateHandles);
 
     terminalElement.addEventListener('touchstart', (e) => {
       if (!e.touches || e.touches.length !== 1) {
@@ -737,12 +892,14 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         const word = wordAt(cellFromPoint(touchStartX, touchStartY));
         wordStart = word.start;
         wordEnd = word.end;
-        selectRange(wordStart, wordEnd);
+        selStart = wordStart;
+        selEnd = wordEnd;
         selectDragActive = true;
         if (!isCurrentlySelecting) {
           isCurrentlySelecting = true;
           postToRN('selectionStart');
         }
+        applySelection();
         postSelection();
       }, 400);
     }, { passive: true });
@@ -776,10 +933,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         postSelection();
         return;
       }
-      const isTap = !hasMoved && Date.now() - touchStartTime < 400;
-      if (isTap && isCurrentlySelecting) {
+      if (isCurrentlySelecting) {
         try { e.preventDefault(); } catch(e2) {}
-        endSelection();
+        const isTap = !hasMoved && Date.now() - touchStartTime < 400;
+        if (isTap) endSelection();
       }
     }, { passive: false });
 
@@ -802,13 +959,15 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     });
 
     window.selectAllTerminal = function() {
-      terminal.selectAll();
       wordStart = null;
       wordEnd = null;
+      selStart = { col: 0, row: 0 };
+      selEnd = { col: terminal.cols - 1, row: Math.max(0, terminal.buffer.active.length - 1) };
       if (!isCurrentlySelecting) {
         isCurrentlySelecting = true;
         postToRN('selectionStart');
       }
+      applySelection();
       postSelection();
     };
 
