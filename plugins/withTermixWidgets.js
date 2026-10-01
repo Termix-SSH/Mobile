@@ -178,7 +178,11 @@ function addAppIntentsMetadataPhase(project, target, targetName) {
     "  exit 0",
     "fi",
     `SOURCES=$(find "$SRCROOT/${targetName}" -name "*.swift")`,
-    `"$PROCESSOR" --toolchain-dir "$TOOLCHAIN_DIR" --module-name "${targetName}" --sdk-root "$SDKROOT" --xcode-version "$XCODE_PRODUCT_BUILD_VERSION" --platform-family "$PLATFORM_FAMILY_NAME" --deployment-target "$IPHONEOS_DEPLOYMENT_TARGET" --output "$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH" --source-files $SOURCES`,
+    'ARCH="${ARCHS%% *}"',
+    'TRIPLE="${ARCH}-${LLVM_TARGET_TRIPLE_VENDOR:-apple}-${LLVM_TARGET_TRIPLE_OS_VERSION:-ios$IPHONEOS_DEPLOYMENT_TARGET}${LLVM_TARGET_TRIPLE_SUFFIX}"',
+    `run() { "$PROCESSOR" --toolchain-dir "$TOOLCHAIN_DIR" --module-name "${targetName}" --sdk-root "$SDKROOT" --xcode-version "$XCODE_PRODUCT_BUILD_VERSION" --platform-family "$PLATFORM_FAMILY_NAME" --deployment-target "$IPHONEOS_DEPLOYMENT_TARGET" --output "$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH" "$@" --source-files $SOURCES; }`,
+    // Xcode 27 requires --target-triple; older processors reject it.
+    'run --target-triple "$TRIPLE" || run',
   ];
 
   project.addBuildPhase(
