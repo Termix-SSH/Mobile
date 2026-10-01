@@ -316,6 +316,12 @@ export default function HostForm({
       enableDocker: form.enableDocker,
       defaultPath: form.defaultPath,
       jumpHosts: host?.jumpHosts ?? [],
+      // Fields this form does not edit; keep what the host already has.
+      quickActions: host?.quickActions,
+      statsConfig: host?.statsConfig,
+      terminalConfig: host?.terminalConfig,
+      overrideCredentialUsername: host?.overrideCredentialUsername,
+      forceKeyboardInteractive: host?.forceKeyboardInteractive,
       tunnelConnections: tunnels,
       notes: form.notes,
       macAddress: form.macAddress.trim(),
