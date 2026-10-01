@@ -17,6 +17,8 @@ import {
 } from "react-native";
 import { WebView } from "react-native-webview";
 import { ChevronDown } from "lucide-react-native";
+import * as Clipboard from "expo-clipboard";
+import * as Haptics from "expo-haptics";
 import {
   logActivity,
   getSnippets,
@@ -179,6 +181,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       securityKey: string;
     } | null>(null);
     const [isSelecting, setIsSelecting] = useState(false);
+    const [selectedText, setSelectedText] = useState("");
     const [showScrollToBottomButton, setShowScrollToBottomButton] =
       useState(false);
     const [hostKeyVerification, setHostKeyVerification] = useState<{
@@ -412,11 +415,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       -webkit-tap-highlight-color: transparent;
       -webkit-touch-callout: none;
     }
+    /* Native selection fights the custom touch selection, so turn it off. */
     html, body, #terminal, .xterm {
-      user-select: text;
-      -webkit-user-select: text;
-      -ms-user-select: text;
-      -moz-user-select: text;
+      user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      -moz-user-select: none;
     }
 
     input, textarea, [contenteditable], .xterm-helper-textarea {
@@ -634,129 +638,183 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       return false;
     }, { passive: false });
 
-    let selectionEndTimeout = null;
+    // Touch text selection. xterm only selects with a mouse, so long-press
+    // selects a word and dragging extends it. RN shows the copy bar.
     let isCurrentlySelecting = false;
-    let lastInteractionTime = Date.now();
-    let touchStartTime = 0;
+    let selectDragActive = false;
+    let longPressTimeout = null;
     let touchStartX = 0;
     let touchStartY = 0;
+    let touchStartTime = 0;
     let hasMoved = false;
-    let longPressTimeout = null;
+    let wordStart = null;
+    let wordEnd = null;
+
+    function postToRN(type, data) {
+      if (window.ReactNativeWebView) {
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: type, data: data || {} }));
+      }
+    }
+
+    function postSelection() {
+      postToRN('selectionChanged', { text: terminal.getSelection() || '' });
+    }
+
+    function endSelection() {
+      selectDragActive = false;
+      wordStart = null;
+      wordEnd = null;
+      if (terminal.hasSelection()) terminal.clearSelection();
+      if (isCurrentlySelecting) {
+        isCurrentlySelecting = false;
+        postToRN('selectionEnd');
+      }
+    }
+
+    function cellFromPoint(x, y) {
+      const screen = terminal.element.querySelector('.xterm-screen') || terminal.element;
+      const rect = screen.getBoundingClientRect();
+      const cell = terminal._core._renderService.dimensions.css.cell;
+      let col = Math.floor((x - rect.left) / cell.width);
+      let row = Math.floor((y - rect.top) / cell.height);
+      col = Math.max(0, Math.min(terminal.cols - 1, col));
+      row = Math.max(0, Math.min(terminal.rows - 1, row));
+      return { col: col, row: row + terminal.buffer.active.viewportY };
+    }
+
+    function isWordChar(ch) {
+      return !!ch && ' "()[]{}<>|;,'.indexOf(ch) === -1 && ch !== "'" && ch.charCodeAt(0) !== 96;
+    }
+
+    function wordAt(pos) {
+      const line = terminal.buffer.active.getLine(pos.row);
+      if (!line) return { start: pos, end: pos };
+      const text = line.translateToString(false);
+      let s = pos.col;
+      let e = pos.col;
+      if (isWordChar(text[pos.col])) {
+        while (s > 0 && isWordChar(text[s - 1])) s--;
+        while (e < terminal.cols - 1 && isWordChar(text[e + 1])) e++;
+      }
+      return { start: { col: s, row: pos.row }, end: { col: e, row: pos.row } };
+    }
+
+    function before(a, b) {
+      return a.row < b.row || (a.row === b.row && a.col < b.col);
+    }
+
+    function selectRange(a, b) {
+      const len = (b.row - a.row) * terminal.cols + (b.col - a.col) + 1;
+      terminal.select(a.col, a.row, Math.max(1, len));
+    }
+
+    function extendSelectionTo(pos) {
+      if (!wordStart || !wordEnd) return;
+      if (before(pos, wordStart)) {
+        selectRange(pos, wordEnd);
+      } else if (before(wordEnd, pos)) {
+        selectRange(wordStart, pos);
+      } else {
+        selectRange(wordStart, wordEnd);
+      }
+    }
 
     terminalElement.addEventListener('touchstart', (e) => {
-      lastInteractionTime = Date.now();
+      if (!e.touches || e.touches.length !== 1) {
+        if (longPressTimeout) clearTimeout(longPressTimeout);
+        longPressTimeout = null;
+        return;
+      }
       touchStartTime = Date.now();
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
       hasMoved = false;
 
-      if (e.touches && e.touches.length > 0) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-      }
-
-      if (longPressTimeout) {
-        clearTimeout(longPressTimeout);
-      }
-
+      if (longPressTimeout) clearTimeout(longPressTimeout);
       longPressTimeout = setTimeout(() => {
-        if (!hasMoved) {
-          if (!isCurrentlySelecting) {
-            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'selectionStart', data: {} }));
-            isCurrentlySelecting = true;
-          }
+        longPressTimeout = null;
+        if (hasMoved) return;
+        const word = wordAt(cellFromPoint(touchStartX, touchStartY));
+        wordStart = word.start;
+        wordEnd = word.end;
+        selectRange(wordStart, wordEnd);
+        selectDragActive = true;
+        if (!isCurrentlySelecting) {
+          isCurrentlySelecting = true;
+          postToRN('selectionStart');
         }
-      }, 350);
+        postSelection();
+      }, 400);
     }, { passive: true });
 
     terminalElement.addEventListener('touchmove', (e) => {
-      if (e.touches && e.touches.length > 0) {
-        const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
-        const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
-
-        if (deltaX > 10 || deltaY > 10) {
-          hasMoved = true;
-          if (longPressTimeout) {
-            clearTimeout(longPressTimeout);
-            longPressTimeout = null;
-          }
+      if (!e.touches || e.touches.length === 0) return;
+      const t = e.touches[0];
+      if (selectDragActive) {
+        try { e.preventDefault(); } catch(e2) {}
+        extendSelectionTo(cellFromPoint(t.clientX, t.clientY));
+        return;
+      }
+      if (Math.abs(t.clientX - touchStartX) > 10 || Math.abs(t.clientY - touchStartY) > 10) {
+        hasMoved = true;
+        if (longPressTimeout) {
+          clearTimeout(longPressTimeout);
+          longPressTimeout = null;
         }
       }
-    }, { passive: true });
+    }, { passive: false });
 
-    terminalElement.addEventListener('touchend', () => {
+    terminalElement.addEventListener('touchend', (e) => {
       if (longPressTimeout) {
         clearTimeout(longPressTimeout);
         longPressTimeout = null;
       }
-
-      const touchDuration = Date.now() - touchStartTime;
-
-      setTimeout(() => {
-        const selection = terminal.getSelection();
-        const hasSelection = selection && selection.length > 0;
-
-        if (hasSelection) {
-          lastInteractionTime = Date.now();
-          if (!isCurrentlySelecting) {
-            isCurrentlySelecting = true;
-            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'selectionStart', data: {} }));
-          }
-        } else if (!isCurrentlySelecting && (touchDuration < 350 || hasMoved)) {
-          lastInteractionTime = Date.now();
-          checkIfDoneSelecting();
-        }
-      }, 100);
-    });
-
-    terminalElement.addEventListener('mousedown', (e) => {
-      lastInteractionTime = Date.now();
-    });
-
-    terminalElement.addEventListener('mouseup', () => {
-      lastInteractionTime = Date.now();
-      checkIfDoneSelecting();
-    });
-
-    function checkIfDoneSelecting() {
-      if (selectionEndTimeout) {
-        clearTimeout(selectionEndTimeout);
+      if (selectDragActive) {
+        // Stop the synthesized mouse events, xterm would clear the selection.
+        try { e.preventDefault(); } catch(e2) {}
+        selectDragActive = false;
+        postSelection();
+        return;
       }
+      const isTap = !hasMoved && Date.now() - touchStartTime < 400;
+      if (isTap && isCurrentlySelecting) {
+        try { e.preventDefault(); } catch(e2) {}
+        endSelection();
+      }
+    }, { passive: false });
 
-      selectionEndTimeout = setTimeout(() => {
-        const selection = terminal.getSelection();
-        const hasSelection = selection && selection.length > 0;
+    terminalElement.addEventListener('touchcancel', () => {
+      if (longPressTimeout) {
+        clearTimeout(longPressTimeout);
+        longPressTimeout = null;
+      }
+      if (selectDragActive) {
+        selectDragActive = false;
+        postSelection();
+      }
+    });
 
-        if (hasSelection) {
-          if (!isCurrentlySelecting) {
-            isCurrentlySelecting = true;
-            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'selectionStart', data: {} }));
-          }
-        } else if (isCurrentlySelecting) {
-          const timeSinceLastInteraction = Date.now() - lastInteractionTime;
-          if (timeSinceLastInteraction >= 150) {
-            isCurrentlySelecting = false;
-            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'selectionEnd', data: {} }));
-          } else {
-            checkIfDoneSelecting();
-          }
-        }
-      }, 100);
-    }
-
+    // xterm drops the selection on its own sometimes (buffer switch, trim).
     terminal.onSelectionChange(() => {
-      const selection = terminal.getSelection();
-      const hasSelection = selection && selection.length > 0;
-
-      if (hasSelection) {
-        lastInteractionTime = Date.now();
-        if (!isCurrentlySelecting) {
-          isCurrentlySelecting = true;
-          window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'selectionStart', data: {} }));
-        }
-      } else if (isCurrentlySelecting) {
-        lastInteractionTime = Date.now();
-        checkIfDoneSelecting();
+      if (isCurrentlySelecting && !selectDragActive && !terminal.hasSelection()) {
+        endSelection();
       }
     });
+
+    window.selectAllTerminal = function() {
+      terminal.selectAll();
+      wordStart = null;
+      wordEnd = null;
+      if (!isCurrentlySelecting) {
+        isCurrentlySelecting = true;
+        postToRN('selectionStart');
+      }
+      postSelection();
+    };
+
+    window.clearTerminalSelection = function() {
+      endSelection();
+    };
 
     function handleResize() {
       fitAddon.fit();
@@ -850,7 +908,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         if (scrollTouchY === null || e.touches.length !== 1) return;
         // While the user is text-selecting, leave the gesture alone so xterm's
         // selection drag can track the finger.
-        if (typeof isCurrentlySelecting !== 'undefined' && isCurrentlySelecting) {
+        if (selectDragActive) {
           return;
         }
         // Claim the gesture so WKWebView / Android WebView do not scroll the
@@ -1022,6 +1080,29 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       }, 80);
     }, []);
 
+    const clearSelection = useCallback(() => {
+      webViewRef.current?.injectJavaScript(
+        `window.clearTerminalSelection && window.clearTerminalSelection(); true;`,
+      );
+    }, []);
+
+    const selectAll = useCallback(() => {
+      webViewRef.current?.injectJavaScript(
+        `window.selectAllTerminal && window.selectAllTerminal(); true;`,
+      );
+    }, []);
+
+    const copySelection = useCallback(async () => {
+      if (!selectedText) return;
+      try {
+        await Clipboard.setStringAsync(selectedText);
+        showToast.success("Copied");
+      } catch {
+        showToast.error("Could not copy");
+      }
+      clearSelection();
+    }, [selectedText, clearSelection]);
+
     const handleWebViewMessage = useCallback((event: any) => {
       try {
         const message = JSON.parse(event.nativeEvent.data);
@@ -1051,10 +1132,18 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
           case "selectionStart":
             setIsSelecting(true);
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(
+              () => {},
+            );
+            break;
+
+          case "selectionChanged":
+            setSelectedText(message.data?.text || "");
             break;
 
           case "selectionEnd":
             setIsSelecting(false);
+            setSelectedText("");
             break;
 
           case "scrollState":
@@ -1329,6 +1418,45 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               setSupportMultipleWindows={false}
             />
           </View>
+
+          {isSelecting && isVisible && (
+            <View
+              style={{
+                position: "absolute",
+                top: 8,
+                alignSelf: "center",
+                flexDirection: "row",
+                backgroundColor: BACKGROUNDS.CARD,
+                borderWidth: 1,
+                borderColor: ACCENT,
+                zIndex: 30,
+                elevation: 6,
+              }}
+            >
+              {[
+                { label: "Copy", onPress: copySelection },
+                { label: "Select all", onPress: selectAll },
+                { label: "Cancel", onPress: clearSelection },
+              ].map((action) => (
+                <TouchableOpacity
+                  key={action.label}
+                  accessibilityRole="button"
+                  onPress={action.onPress}
+                  style={{ paddingVertical: 8, paddingHorizontal: 14 }}
+                >
+                  <Text
+                    style={{
+                      color: TEXT_COLORS.PRIMARY,
+                      fontSize: 14,
+                      fontWeight: "600",
+                    }}
+                  >
+                    {action.label}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
 
           {showScrollToBottomButton &&
             isVisible &&
