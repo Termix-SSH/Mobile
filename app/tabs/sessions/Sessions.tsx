@@ -121,7 +121,6 @@ export default function Sessions() {
     Record<string, string>
   >({});
   const isSelectingRef = useRef(false);
-  const keyboardWasHiddenBeforeSelectionRef = useRef(false);
 
   const maxKeyboardHeight = getMaxKeyboardHeight(height, isLandscape, isIPad);
   const effectiveKeyboardHeight = isLandscape
@@ -429,49 +428,17 @@ export default function Sessions() {
   useEffect(() => {
     if (!activeSessionId || activeSession?.type !== "terminal") return;
 
+    // Keyboard stays put while selecting. Hiding it resized the terminal and
+    // made the text jump under the finger.
     const checkSelectionState = () => {
       const activeRef = terminalRefs.current[activeSessionId];
       if (!activeRef?.current) return;
-
-      const isCurrentlySelecting = activeRef.current.isSelecting();
-
-      if (isCurrentlySelecting && !isSelectingRef.current) {
-        isSelectingRef.current = true;
-
-        keyboardWasHiddenBeforeSelectionRef.current =
-          keyboardIntentionallyHiddenRef.current;
-
-        if (!keyboardIntentionallyHiddenRef.current) {
-          setKeyboardIntentionallyHidden(true);
-          callImeInput(hiddenInputRef, "blur");
-          Keyboard.dismiss();
-        } else {
-        }
-      } else if (!isCurrentlySelecting && isSelectingRef.current) {
-        isSelectingRef.current = false;
-
-        if (!keyboardWasHiddenBeforeSelectionRef.current) {
-          setKeyboardIntentionallyHidden(false);
-          if (!isCustomKeyboardVisible) {
-            setTimeout(() => {
-              callImeInput(hiddenInputRef, "focus");
-            }, 100);
-          }
-        } else {
-        }
-
-        keyboardWasHiddenBeforeSelectionRef.current = false;
-      }
+      isSelectingRef.current = activeRef.current.isSelecting();
     };
 
     const interval = setInterval(checkSelectionState, 50);
     return () => clearInterval(interval);
-  }, [
-    activeSessionId,
-    activeSession?.type,
-    isCustomKeyboardVisible,
-    setKeyboardIntentionallyHidden,
-  ]);
+  }, [activeSessionId, activeSession?.type]);
 
   useEffect(() => {
     const activeRef = activeSessionId
@@ -740,6 +707,8 @@ export default function Sessions() {
                 hostConfig={{
                   id: parseInt(session.host.id.toString()),
                   name: session.host.name,
+                  ip: session.host.ip,
+                  username: session.host.username,
                   enableTunnel: session.host.enableTunnel,
                   tunnelConnections: session.host.tunnelConnections,
                 }}

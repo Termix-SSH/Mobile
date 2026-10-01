@@ -23,6 +23,7 @@ import {
   disableTOTP,
   getTOTPBackupCodes,
   getUserInfo,
+  isPluginApi,
 } from "@/app/main-axios";
 import { Text, Button, Input, Dialog } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
@@ -252,14 +253,17 @@ export default function TwoFactorAuth() {
 
             {totpEnabled ? (
               <View className="gap-2">
-                <Button
-                  variant="outline"
-                  onPress={fetchBackupCodes}
-                  loading={busy}
-                  icon={<KeyRound size={15} color={color("foreground")} />}
-                >
-                  View backup codes
-                </Button>
+                {/* 2.9+ servers only regenerate codes, they can't show old ones */}
+                {!isPluginApi() && (
+                  <Button
+                    variant="outline"
+                    onPress={fetchBackupCodes}
+                    loading={busy}
+                    icon={<KeyRound size={15} color={color("foreground")} />}
+                  >
+                    View backup codes
+                  </Button>
+                )}
                 <Button
                   variant="destructive"
                   onPress={() => setDisableDialog(true)}
@@ -290,7 +294,11 @@ export default function TwoFactorAuth() {
         }}
         icon={<ShieldOff size={20} color={color("destructive")} />}
         title="Disable Two-Factor Authentication"
-        description="Enter your password to confirm. You can re-enable 2FA at any time."
+        description={
+          isPluginApi()
+            ? "Enter a code from your authenticator app to confirm. You can re-enable 2FA at any time."
+            : "Enter your password to confirm. You can re-enable 2FA at any time."
+        }
         footer={
           <View className="flex-row gap-2">
             <Button
@@ -317,8 +325,9 @@ export default function TwoFactorAuth() {
         <Input
           value={disablePassword}
           onChangeText={setDisablePassword}
-          placeholder="Your password"
-          secureTextEntry
+          placeholder={isPluginApi() ? "000000" : "Your password"}
+          secureTextEntry={!isPluginApi()}
+          keyboardType={isPluginApi() ? "number-pad" : "default"}
           autoCapitalize="none"
           autoFocus
         />

@@ -1,7 +1,7 @@
 {
   "name": "termix-mobile",
   "main": "expo-router/entry",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -13,6 +13,8 @@
     "format:check": "prettier --check .",
     "verify:android-network-security": "node scripts/verify-android-network-security.cjs",
     "verify:widget-contract": "node scripts/verify-widget-contract.cjs",
+    "verify:terminal-websocket-auth": "node scripts/terminal-websocket-auth.test.cjs",
+    "verify:api-compat": "node scripts/api-compat.test.cjs",
     "verify:oidc-callback-intent-filter": "node scripts/verify-oidc-callback-intent-filter.cjs",
     "build-all": "eas build --platform all --profile development",
     "build-android": "eas build --platform android --profile development",

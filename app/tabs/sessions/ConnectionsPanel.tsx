@@ -65,7 +65,10 @@ function tabIcon(type: string, color: string) {
 function toSessionType(tabType: string): SessionType {
   switch (tabType) {
     case "files":
+    case "sftp":
       return "filemanager";
+    case "host-metrics":
+      return "stats";
     case "rdp":
     case "vnc":
     case "telnet":

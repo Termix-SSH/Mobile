@@ -57,6 +57,10 @@ export function useSessionConnect(
   const log = useConnectionLog();
   const [state, setState] = useState<SessionConnectState>("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [browserSignIn, setBrowserSignIn] = useState<{
+    url: string;
+    securityKey: string;
+  } | null>(null);
   const sessionIdRef = useRef<string>("");
   const keepAliveRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const overridesRef = useRef<SessionAuthOverrides>({});
@@ -117,17 +121,34 @@ export function useSessionConnect(
         );
         log.ingest(extractConnectionLogs(result));
 
-        if (result?.requiresTOTP || result?.totpRequired) {
+        // Servers have used both spellings over time, accept all of them.
+        if (
+          result?.requires_totp ||
+          result?.requiresTOTP ||
+          result?.totpRequired
+        ) {
           setState("totp");
           return;
         }
-        if (result?.requiresWarpgate || result?.warpgateRequired) {
+        if (
+          result?.requires_browser_sign_in ||
+          result?.requires_warpgate ||
+          result?.requiresWarpgate ||
+          result?.warpgateRequired
+        ) {
+          setBrowserSignIn({
+            url: result?.url || result?.warpgateUrl || "",
+            securityKey: result?.code || result?.securityKey || "",
+          });
           setState("warpgate");
           return;
         }
         if (
           result?.requiresAuth ||
           result?.authRequired ||
+          result?.requiresAuthInteraction ||
+          result?.status === "auth_required" ||
+          result?.status === "passphrase_required" ||
           result?.code === "AUTH_REQUIRED"
         ) {
           setState("auth");
@@ -140,7 +161,11 @@ export function useSessionConnect(
         setErrorMessage(msg);
         log.append({ level: "error", message: msg });
         // Surface auth dialog rather than a dead error when the host needs creds.
-        if (error?.status === 401 || error?.code === "AUTH_REQUIRED") {
+        if (
+          error?.status === 401 ||
+          error?.code === "AUTH_REQUIRED" ||
+          error?.response?.data?.requiresAuthInteraction
+        ) {
           setState("auth");
         } else {
           setState("error");
@@ -250,5 +275,6 @@ export function useSessionConnect(
     submitWarpgate,
     submitAuth,
     cancelAuth,
+    browserSignIn,
   };
 }

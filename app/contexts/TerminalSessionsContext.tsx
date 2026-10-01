@@ -15,6 +15,7 @@ import {
   deleteOpenTab,
   getOpenTabs,
   patchOpenTab,
+  isPluginApi,
   type OpenTabRecord,
 } from "@/app/main-axios";
 
@@ -82,6 +83,9 @@ function toTabType(
   switch (type) {
     case "filemanager":
       return "files";
+    case "stats":
+      // 2.9+ web names this tab after its plugin.
+      return isPluginApi() ? "host-metrics" : "stats";
     case "remoteDesktop":
       return remoteProtocol ?? "rdp";
     default:

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Termix",
     "slug": "termix",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "termix-mobile",
@@ -74,6 +74,7 @@
       "./plugins/withNetworkSecurityConfig.js",
       "./plugins/withAndroidLocalNetworkSsl.js",
       "./plugins/withTermixWidgets.js",
+      "./plugins/withPodDeploymentTarget.js",
       "expo-dev-client",
       "expo-secure-store",
       "expo-web-browser"

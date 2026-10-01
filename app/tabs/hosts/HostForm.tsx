@@ -3,12 +3,7 @@ import { Modal, View, ScrollView, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { X, Upload, Trash2 } from "lucide-react-native";
 import * as DocumentPicker from "expo-document-picker";
-import {
-  SSHHost,
-  SSHHostData,
-  Credential,
-  TunnelConnection,
-} from "@/types";
+import { SSHHost, SSHHostData, Credential, TunnelConnection } from "@/types";
 import {
   createSSHHost,
   updateSSHHost,
@@ -234,7 +229,10 @@ export default function HostForm({
     () =>
       allHosts
         .filter((h) => h.id !== host?.id)
-        .map((h) => ({ id: h.name || `${h.username}@${h.ip}`, label: h.name || h.ip })),
+        .map((h) => ({
+          id: h.name || `${h.username}@${h.ip}`,
+          label: h.name || h.ip,
+        })),
     [allHosts, host?.id],
   );
 
@@ -318,6 +316,12 @@ export default function HostForm({
       enableDocker: form.enableDocker,
       defaultPath: form.defaultPath,
       jumpHosts: host?.jumpHosts ?? [],
+      // Fields this form does not edit; keep what the host already has.
+      quickActions: host?.quickActions,
+      statsConfig: host?.statsConfig,
+      terminalConfig: host?.terminalConfig,
+      overrideCredentialUsername: host?.overrideCredentialUsername,
+      forceKeyboardInteractive: host?.forceKeyboardInteractive,
       tunnelConnections: tunnels,
       notes: form.notes,
       macAddress: form.macAddress.trim(),

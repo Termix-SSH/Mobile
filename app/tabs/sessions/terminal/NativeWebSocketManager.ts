@@ -1,4 +1,8 @@
-import { getCurrentServerUrl, getCookie } from "../../../main-axios";
+import {
+  getCurrentServerUrl,
+  getCookie,
+  getTerminalWebSocketUrl,
+} from "../../../main-axios";
 
 export interface TerminalHostConfig {
   id: number;
@@ -84,6 +88,7 @@ export class NativeWebSocketManager {
   private cols = 80;
   private rows = 24;
   private wsUrl: string | null = null;
+  private wsProtocols: string[] = [];
   private serverSessionId: string | null = null;
   private pendingReattach = false;
   private awaitingAuthCredentials = false;
@@ -124,10 +129,8 @@ export class NativeWebSocketManager {
       return;
     }
 
-    const wsProtocol = serverUrl.startsWith("https://") ? "wss://" : "ws://";
-    const wsHost = serverUrl.replace(/^https?:\/\//, "");
-    const cleanHost = wsHost.replace(/\/$/, "");
-    this.wsUrl = `${wsProtocol}${cleanHost}/ssh/websocket/?token=${encodeURIComponent(jwtToken)}`;
+    this.wsUrl = getTerminalWebSocketUrl(jwtToken) ?? "";
+    this.wsProtocols = [`termix.jwt.${jwtToken}`];
 
     this.connectWebSocket();
   }
@@ -249,11 +252,18 @@ export class NativeWebSocketManager {
     this.connectWebSocket();
   }
 
+  // Which sign-in handler asked for the browser round. 2.9 names it per
+  // handler, older servers only had warpgate.
+  private browserSignInId = "warpgate";
+
   sendWarpgateContinue(): void {
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       try {
         this.ws.send(
-          JSON.stringify({ type: "warpgate_auth_continue", data: {} }),
+          JSON.stringify({
+            type: `${this.browserSignInId}_auth_continue`,
+            data: {},
+          }),
         );
       } catch (_) {}
     }
@@ -355,7 +365,7 @@ export class NativeWebSocketManager {
       retryCount: this.reconnectAttempts,
     });
 
-    const ws = new WebSocket(this.wsUrl);
+    const ws = new WebSocket(this.wsUrl, this.wsProtocols);
     this.ws = ws;
 
     this.connectionTimeout = setTimeout(() => {
@@ -485,15 +495,33 @@ export class NativeWebSocketManager {
             this.connectionTimeout = null;
           }
           this.config.onPassphraseRequired?.();
-        } else if (msg.type === "warpgate_auth_required") {
+        } else if (
+          typeof msg.type === "string" &&
+          msg.type.endsWith("_auth_required")
+        ) {
           if (this.connectionTimeout) {
             clearTimeout(this.connectionTimeout);
             this.connectionTimeout = null;
           }
-          this.config.onWarpgateAuthRequired?.(
-            (msg.url as string) || "",
-            (msg.securityKey as string) || "",
-          );
+          if (msg.url) {
+            this.browserSignInId = msg.type.slice(0, -"_auth_required".length);
+            this.config.onWarpgateAuthRequired?.(
+              (msg.url as string) || "",
+              (msg.securityKey as string) || "",
+            );
+          } else {
+            // Sign-ins started from the app side (opkssh and the like).
+            this.shouldNotReconnect = true;
+            this.notifyFailureOnce(
+              (msg.message as string) ||
+                "This host needs a sign-in that only the web app supports",
+            );
+          }
+        } else if (msg.type === "totp_retry") {
+          this.config.onTotpRequired("Invalid code, try again:", false);
+        } else if (msg.type === "session_ended") {
+          this.setServerSessionId(null);
+          this.config.onDisconnected(this.config.hostConfig.name);
         } else if (msg.type === "error") {
           const message = (msg.message as string) || "Unknown error";
           if (
@@ -528,7 +556,7 @@ export class NativeWebSocketManager {
         } else if (msg.type === "disconnected") {
           this.setServerSessionId(null);
           this.config.onDisconnected(this.config.hostConfig.name);
-        } else if (msg.type === "resized") {
+        } else if (msg.type === "resized" || msg.type === "pong") {
         } else if (msg.type === "sessionCreated") {
           this.setServerSessionId(msg.sessionId as string);
         } else if (msg.type === "sessionAttached") {
