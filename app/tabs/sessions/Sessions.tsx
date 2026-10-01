@@ -740,6 +740,8 @@ export default function Sessions() {
                 hostConfig={{
                   id: parseInt(session.host.id.toString()),
                   name: session.host.name,
+                  ip: session.host.ip,
+                  username: session.host.username,
                   enableTunnel: session.host.enableTunnel,
                   tunnelConnections: session.host.tunnelConnections,
                 }}

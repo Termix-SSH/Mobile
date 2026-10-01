@@ -3,6 +3,7 @@ import type {
   SSHHost,
   SSHHostData,
   TunnelConfig,
+  PluginTunnelConnect,
   TunnelStatus,
   FileManagerFile,
   FileManagerShortcut,
@@ -32,6 +33,16 @@ import {
   systemLogger,
   type LogContext,
 } from "../lib/frontend-logger";
+
+import {
+  type ApiGeneration,
+  buildPluginHostSettings,
+  buildTerminalWebSocketUrl,
+  flattenPluginSettings,
+  isVersionAtLeast,
+  toPluginRequest,
+  toWebSocketBase,
+} from "../lib/api-compat";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
@@ -142,11 +153,34 @@ function createApiInstance(
       config.headers["User-Agent"] = `Termix-Mobile/${platform.OS}`;
     }
 
+    rewriteForPluginApi(config);
+
     return config;
   });
 
   instance.interceptors.response.use(
     (response) => {
+      // Routes a server no longer has fall through to its web UI and answer
+      // 200 with index.html. Treat that as a missing endpoint, not data.
+      if (isHtmlPayload(response.data)) {
+        return Promise.reject(
+          new AxiosError(
+            "Endpoint not available on this server",
+            "ERR_BAD_RESPONSE",
+            response.config,
+            response.request,
+            {
+              ...response,
+              status: 404,
+              data: {
+                error: "This server does not support this feature",
+                code: "UNSUPPORTED_ENDPOINT",
+              },
+            },
+          ),
+        );
+      }
+
       const endTime = performance.now();
       const startTime = (response.config as any).startTime;
       const requestId = (response.config as any).requestId;
@@ -272,12 +306,172 @@ export function setAuthStateCallback(
 
 let configuredServerUrl: string | null = null;
 
+// ============================================================================
+// SERVER API GENERATION (pre 2.9 vs 2.9 plugin API)
+// ============================================================================
+
+let apiGeneration: ApiGeneration = "legacy";
+let enabledPlugins: Set<string> | null = null;
+
+function apiGenerationKey(): string {
+  return `apiGeneration:${configuredServerUrl ?? ""}`;
+}
+
+export function getApiGeneration(): ApiGeneration {
+  return apiGeneration;
+}
+
+export function isPluginApi(): boolean {
+  return apiGeneration === "plugin";
+}
+
+/**
+ * True when the feature is available. On pre 2.9 servers every feature is
+ * built in, so this is always true there. Before the plugin list has loaded
+ * it also says true, so nothing flickers off on startup.
+ */
+export function isPluginEnabled(pluginId: string): boolean {
+  if (apiGeneration !== "plugin" || !enabledPlugins) return true;
+  return enabledPlugins.has(pluginId);
+}
+
+function isHtmlPayload(data: unknown): boolean {
+  return typeof data === "string" && /^\s*<(!doctype|html)/i.test(data);
+}
+
+function rewriteForPluginApi(config: {
+  baseURL?: string;
+  url?: string;
+  method?: string;
+}): void {
+  if (apiGeneration !== "plugin" || !configuredServerUrl) return;
+  const root = getRootBase(8081).replace(/\/$/, "");
+  const url = config.url || "";
+  const full = /^https?:\/\//i.test(url)
+    ? url
+    : `${config.baseURL || ""}${url}`;
+  if (!full.startsWith(root)) return;
+  const rel = full.slice(root.length) || "/";
+  const next = toPluginRequest(config.method || "get", rel);
+  if (next === rel) return;
+  config.baseURL = root;
+  config.url = next;
+}
+
+async function setApiGeneration(generation: ApiGeneration): Promise<void> {
+  if (generation !== apiGeneration) {
+    systemLogger.info(`Server API generation: ${generation}`, {
+      operation: "api_generation",
+      configuredServerUrl,
+    });
+  }
+  apiGeneration = generation;
+  try {
+    await AsyncStorage.setItem(apiGenerationKey(), generation);
+  } catch {}
+}
+
+/**
+ * Works out whether the server is 2.9+ (plugin API) or older. The public
+ * plugin manifest only exists on 2.9+, and older servers answer it with
+ * their web UI's HTML.
+ */
+export async function detectApiGeneration(): Promise<ApiGeneration> {
+  if (!configuredServerUrl) return apiGeneration;
+  const root = getRootBase(8081).replace(/\/$/, "");
+  // Without any answer from the server, keep the cached generation.
+  let reached = false;
+  try {
+    const res = await axios.get(`${root}/plugins/public-manifest`, {
+      timeout: 5000,
+    });
+    reached = true;
+    if (!isHtmlPayload(res.data) && res.data && typeof res.data === "object") {
+      await setApiGeneration("plugin");
+      return apiGeneration;
+    }
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) reached = true;
+  }
+
+  try {
+    const token = await getCookie("jwt");
+    if (token) {
+      const res = await axios.get(`${root}/version?checkRemote=false`, {
+        timeout: 5000,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!isHtmlPayload(res.data)) {
+        const version = res.data?.localVersion ?? res.data?.version;
+        await setApiGeneration(
+          isVersionAtLeast(version, "2.9.0") ? "plugin" : "legacy",
+        );
+        return apiGeneration;
+      }
+    }
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) reached = true;
+  }
+
+  if (reached) await setApiGeneration("legacy");
+  return apiGeneration;
+}
+
+/** Loads which plugins are on. Needs a signed in user, so call after login. */
+export async function refreshEnabledPlugins(): Promise<void> {
+  if (apiGeneration !== "plugin") {
+    enabledPlugins = null;
+    return;
+  }
+  try {
+    const res = await authApi.get("/plugins");
+    const list = Array.isArray(res.data) ? res.data : res.data?.plugins;
+    if (Array.isArray(list)) {
+      enabledPlugins = new Set(
+        list
+          .filter(
+            (p: any) =>
+              p?.enabled !== false && (p?.state ?? "active") === "active",
+          )
+          .map((p: any) => String(p.id)),
+      );
+    }
+  } catch {
+    // Keep whatever we had; features stay visible rather than vanishing.
+  }
+}
+
+async function loadServerApi(): Promise<void> {
+  try {
+    const cached = await AsyncStorage.getItem(apiGenerationKey());
+    if (cached === "plugin" || cached === "legacy") apiGeneration = cached;
+  } catch {}
+  enabledPlugins = null;
+  updateApiInstances();
+  await detectApiGeneration();
+  if (apiGeneration === "plugin") {
+    // 2.9 serves everything from one origin, no /ssh probing needed.
+    updateApiInstances();
+    await refreshEnabledPlugins();
+  } else {
+    await detectAndUpdateApiInstances();
+  }
+}
+
+/**
+ * Re-checks the server API and the enabled plugins. Run after sign in, since
+ * the plugin list and the /version fallback both need a token.
+ */
+export async function refreshServerApi(): Promise<void> {
+  if (!configuredServerUrl) return;
+  await loadServerApi();
+}
+
 export async function saveServerConfig(config: ServerConfig): Promise<boolean> {
   try {
     await AsyncStorage.setItem("serverConfig", JSON.stringify(config));
     configuredServerUrl = config.serverUrl;
-    updateApiInstances();
-    await detectAndUpdateApiInstances();
+    await loadServerApi();
     return true;
   } catch (error) {
     return false;
@@ -293,8 +487,7 @@ export async function initializeServerConfig(): Promise<void> {
 
       if (config?.serverUrl) {
         configuredServerUrl = config.serverUrl;
-        updateApiInstances();
-        await detectAndUpdateApiInstances();
+        await loadServerApi();
       }
     }
   } catch (error) {
@@ -312,12 +505,22 @@ export function getCurrentServerUrl(): string | null {
   return configuredServerUrl;
 }
 
+/** Terminal socket URL for the detected server API. */
+export function getTerminalWebSocketUrl(token: string): string | null {
+  if (!configuredServerUrl) return null;
+  return buildTerminalWebSocketUrl(configuredServerUrl, token, apiGeneration);
+}
+
 /**
- * WebSocket URL for the Docker exec console (backend WS server on port 30009).
- * Token is passed as a query param (the WS server accepts cookie / Bearer /
- * `?token=`). The console speaks JSON messages: connect/input/resize/disconnect.
+ * WebSocket URL for the Docker exec console. Open it with the
+ * `termix.jwt.<token>` subprotocol: 2.9 only reads the token from there,
+ * older servers read the `?token=` query. The console speaks JSON messages:
+ * connect/input/resize/disconnect.
  */
 export function getDockerConsoleWebSocketUrl(token: string): string {
+  if (apiGeneration === "plugin" && configuredServerUrl) {
+    return `${toWebSocketBase(configuredServerUrl)}/plugin-ws/docker/console`;
+  }
   const base = getRootBase(30009).replace(/\/$/, "");
   const websocketBase = base.replace(/^http/i, (scheme) =>
     scheme.toLowerCase() === "https" ? "wss" : "ws",
@@ -343,6 +546,9 @@ export function getGuacamoleWebSocketUrl(
   if (width) params.set("width", String(width));
   if (height) params.set("height", String(height));
 
+  if (apiGeneration === "plugin") {
+    return `${websocketBase}/plugin-ws/remote-desktop/display?${params.toString()}`;
+  }
   return `${websocketBase}/guacamole/websocket/?${params.toString()}`;
 }
 
@@ -471,6 +677,20 @@ function getHostBaseCandidates(defaultPort: number): string[] {
 }
 
 function initializeApiInstances() {
+  if (apiGeneration === "plugin" && configuredServerUrl) {
+    // Legacy style bases on the root; rewriteForPluginApi maps the paths.
+    const root = getRootBase(8081).replace(/\/$/, "");
+    sshHostApi = createApiInstance(`${root}/host`, "SSH_HOST");
+    tunnelApi = createApiInstance(`${root}/ssh`, "TUNNEL");
+    fileManagerApi = createApiInstance(
+      `${root}/ssh/file_manager`,
+      "FILE_MANAGER",
+    );
+    statsApi = createApiInstance(root, "STATS");
+    authApi = createApiInstance(root, "AUTH");
+    return;
+  }
+
   sshHostApi = createApiInstance(getHostBase(8081), "SSH_HOST");
 
   tunnelApi = createApiInstance(getApiUrl("/ssh", 8083), "TUNNEL");
@@ -675,6 +895,20 @@ function handleApiError(error: unknown, operation: string): never {
         403,
         "ACCESS_DENIED",
       );
+    } else if (status === 503 && error.response?.data?.pluginId) {
+      apiLogger.warn(`Feature disabled: ${method} ${url}`, errorContext);
+      throw new ApiError(
+        "This feature is turned off on the server.",
+        503,
+        "FEATURE_DISABLED",
+      );
+    } else if (status === 404 && code === "UNSUPPORTED_ENDPOINT") {
+      apiLogger.warn(`Unsupported endpoint: ${method} ${url}`, errorContext);
+      throw new ApiError(
+        "This server does not support this feature.",
+        404,
+        "UNSUPPORTED_ENDPOINT",
+      );
     } else if (status === 404) {
       apiLogger.warn(`Not found: ${method} ${url}`, errorContext);
       throw new ApiError(
@@ -808,10 +1042,101 @@ function normalizeJumpHosts(value: unknown): { hostId: number }[] {
 }
 
 function normalizeSSHHost(host: SSHHost): SSHHost {
+  const flat = flattenPluginSettings(host as SSHHost & Record<string, any>);
   return {
-    ...host,
+    ...flat,
     jumpHosts: normalizeJumpHosts((host as { jumpHosts?: unknown }).jumpHosts),
   };
+}
+
+/**
+ * 2.9 keeps per host feature switches in plugin settings, not on the host
+ * row, so a host save has to write them separately.
+ */
+async function writePluginHostSettings(
+  hostId: number,
+  hostData: SSHHostData,
+): Promise<void> {
+  if (apiGeneration !== "plugin" || !Number.isFinite(hostId)) return;
+
+  // Only send what changed, so untouched keys keep following host defaults.
+  let current: Record<string, Record<string, unknown>> = {};
+  try {
+    const response = await sshHostApi.get(`/db/host/${hostId}`);
+    current = response.data?.pluginSettings ?? {};
+  } catch {}
+  const same = (a: unknown, b: unknown) => {
+    const parse = (v: unknown) => {
+      if (typeof v !== "string") return v;
+      try {
+        return JSON.parse(v);
+      } catch {
+        return v;
+      }
+    };
+    return (
+      JSON.stringify(parse(a) ?? null) === JSON.stringify(parse(b) ?? null)
+    );
+  };
+
+  const entries = Object.entries(
+    buildPluginHostSettings(hostData as Record<string, any>),
+  )
+    .filter(([pluginId]) => isPluginEnabled(pluginId))
+    .map(([pluginId, values]): [string, Record<string, unknown>] => {
+      const existing = current[pluginId];
+      if (!existing) return [pluginId, values];
+      const changed: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(values)) {
+        if (!same(existing[key], value)) changed[key] = value;
+      }
+      return [pluginId, changed];
+    })
+    .filter(([, values]) => Object.keys(values).length > 0);
+
+  const results = await Promise.allSettled(
+    entries.map(([pluginId, values]) =>
+      authApi.put(`/plugins/${pluginId}/settings/host/${hostId}`, values),
+    ),
+  );
+
+  const failures: string[] = [];
+  results.forEach((result, i) => {
+    if (result.status !== "rejected") return;
+    const err = result.reason;
+    const status = axios.isAxiosError(err) ? err.response?.status : undefined;
+    // Missing or disabled plugin: nothing to save for it.
+    if (status === 404 || status === 503) return;
+    const data = axios.isAxiosError(err) ? (err.response?.data as any) : null;
+    const detail = data?.errors
+      ? Object.values(data.errors).join(", ")
+      : data?.error || (err as Error)?.message;
+    failures.push(`${entries[i][0]}: ${detail}`);
+  });
+
+  if (failures.length > 0) {
+    throw new ApiError(
+      `Host saved, but some settings failed: ${failures.join("; ")}`,
+      400,
+      "PLUGIN_SETTINGS_FAILED",
+    );
+  }
+}
+
+async function finishHostSave(
+  saved: SSHHost,
+  hostData: SSHHostData,
+  fallbackId?: number,
+): Promise<SSHHost> {
+  if (apiGeneration !== "plugin") return saved;
+  const hostId = Number(saved?.id ?? fallbackId);
+  await writePluginHostSettings(hostId, hostData);
+  try {
+    const response = await sshHostApi.get(`/db/host/${hostId}`);
+    return normalizeSSHHost(response.data);
+  } catch {
+    return saved;
+  }
 }
 
 function normalizeSSHHostResponse(data: unknown): SSHHost[] | null {
@@ -907,10 +1232,10 @@ export async function createSSHHost(hostData: SSHHostData): Promise<SSHHost> {
       const response = await sshHostApi.post("/db/host", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      return response.data;
+      return await finishHostSave(response.data, hostData);
     } else {
       const response = await sshHostApi.post("/db/host", submitData);
-      return response.data;
+      return await finishHostSave(response.data, hostData);
     }
   } catch (error) {
     handleApiError(error, "create SSH host");
@@ -1007,10 +1332,10 @@ export async function updateSSHHost(
       const response = await sshHostApi.put(`/db/host/${hostId}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      return response.data;
+      return await finishHostSave(response.data, hostData, hostId);
     } else {
       const response = await sshHostApi.put(`/db/host/${hostId}`, submitData);
-      return response.data;
+      return await finishHostSave(response.data, hostData, hostId);
     }
   } catch (error) {
     handleApiError(error, "update SSH host");
@@ -1043,7 +1368,7 @@ export async function deleteSSHHost(hostId: number): Promise<any> {
 export async function getSSHHostById(hostId: number): Promise<SSHHost> {
   try {
     const response = await sshHostApi.get(`/db/host/${hostId}`);
-    return response.data;
+    return normalizeSSHHost(response.data);
   } catch (error) {
     handleApiError(error, "fetch SSH host");
   }
@@ -1141,7 +1466,9 @@ export async function getTunnelStatusByName(
   return statuses[tunnelName];
 }
 
-export async function connectTunnel(tunnelConfig: TunnelConfig): Promise<any> {
+export async function connectTunnel(
+  tunnelConfig: TunnelConfig | PluginTunnelConnect,
+): Promise<any> {
   try {
     const response = await tunnelApi.post("/tunnel/connect", tunnelConfig);
     return response.data;
@@ -1914,6 +2241,7 @@ export async function setSSHSudoPassword(
 
 /** Per-host shell command history (deduped, newest first, max 500). */
 export async function getCommandHistory(hostId: number): Promise<string[]> {
+  if (!isPluginEnabled("ssh-terminal")) return [];
   try {
     const response = await authApi.get(`/terminal/command_history/${hostId}`);
     const data = response.data;
@@ -2101,14 +2429,33 @@ export async function removeFolderShortcut(
 // SERVER STATISTICS
 // ============================================================================
 
+// 2.9 adds "reachable" (port answers, login failed). The UI only knows
+// online/offline, so it counts as online and keeps the raw value.
+function normalizeStatus(entry: any): ServerStatus {
+  if (!entry || typeof entry !== "object") return entry;
+  if (entry.status === "reachable") {
+    return { ...entry, status: "online", rawStatus: "reachable" };
+  }
+  return entry;
+}
+
+function normalizeStatusMap(data: any): Record<number, ServerStatus> {
+  const out: Record<number, ServerStatus> = {};
+  if (!data || typeof data !== "object") return out;
+  for (const [id, entry] of Object.entries(data)) {
+    out[Number(id)] = normalizeStatus(entry);
+  }
+  return out;
+}
+
 export async function getAllServerStatuses(): Promise<
   Record<number, ServerStatus>
 > {
   try {
     const response = await statsApi.get("/status");
-    return response.data || {};
+    return normalizeStatusMap(response.data);
   } catch (error: any) {
-    if (error?.response?.status === 404) {
+    if (error?.response?.status === 404 && apiGeneration === "legacy") {
       try {
         const alt = axios.create({
           baseURL: getRootBase(8085),
@@ -2127,9 +2474,9 @@ export async function getAllServerStatuses(): Promise<
 export async function getServerStatusById(id: number): Promise<ServerStatus> {
   try {
     const response = await statsApi.get(`/status/${id}`);
-    return response.data;
+    return normalizeStatus(response.data);
   } catch (error: any) {
-    if (error?.response?.status === 404) {
+    if (error?.response?.status === 404 && apiGeneration === "legacy") {
       try {
         const alt = axios.create({
           baseURL: getRootBase(8085),
@@ -2193,6 +2540,7 @@ function normalizeMetrics(raw: any): ServerMetrics {
 export async function getServerMetricsById(
   id: number,
 ): Promise<ServerMetrics | null> {
+  if (!isPluginEnabled("host-metrics")) return null;
   try {
     const response = await statsApi.get(`/metrics/${id}`);
     return response.data ? normalizeMetrics(response.data) : null;
@@ -2217,7 +2565,8 @@ export async function startMetricsPolling(id: number): Promise<{
 }> {
   try {
     const response = await statsApi.post(`/metrics/start/${id}`);
-    return response.data || {};
+    const data = response.data || {};
+    return { ...data, requiresTOTP: data.requiresTOTP ?? data.requires_totp };
   } catch (error) {
     handleApiError(error, "start metrics polling");
   }
@@ -2307,6 +2656,8 @@ export async function refreshServerPolling(): Promise<void> {
 export async function notifyHostCreatedOrUpdated(
   hostId: number,
 ): Promise<void> {
+  // 2.9 picks up host changes on its own.
+  if (apiGeneration === "plugin") return;
   try {
     await statsApi.post("/host-updated", { hostId });
   } catch (error) {
@@ -2950,10 +3301,13 @@ export async function disableTOTP(
   totp_code?: string,
 ): Promise<{ message: string }> {
   try {
-    const response = await authApi.post("/users/totp/disable", {
-      password,
-      totp_code,
-    });
+    // 2.9 only takes an authenticator code here.
+    const response = await authApi.post(
+      "/users/totp/disable",
+      apiGeneration === "plugin"
+        ? { totp_code: totp_code ?? password }
+        : { password, totp_code },
+    );
     return response.data;
   } catch (error) {
     handleApiError(error as AxiosError, "disable TOTP");
@@ -3061,6 +3415,24 @@ export async function generateBackupCodes(
 
 export async function getUserAlerts(): Promise<{ alerts: any[] }> {
   try {
+    if (apiGeneration === "plugin") {
+      if (!isPluginEnabled("alerts")) return { alerts: [] };
+      const response = await authApi.get("/plugin-api/alerts/items", {
+        params: { unread: true, limit: 20 },
+      });
+      const items = Array.isArray(response.data?.items)
+        ? response.data.items
+        : [];
+      return {
+        alerts: items.map((item: any) => ({
+          id: String(item.id),
+          title: item.title,
+          message: item.body ?? "",
+          type: item.severity,
+          createdAt: item.createdAt,
+        })),
+      };
+    }
     const response = await authApi.get(`/alerts`);
     return response.data;
   } catch (error) {
@@ -3070,6 +3442,13 @@ export async function getUserAlerts(): Promise<{ alerts: any[] }> {
 
 export async function dismissAlert(alertId: string): Promise<any> {
   try {
+    if (apiGeneration === "plugin") {
+      // 2.9 keeps alerts in an inbox; dismissing here marks it read.
+      const response = await authApi.post("/plugin-api/alerts/items/read", {
+        ids: [Number(alertId)],
+      });
+      return response.data;
+    }
     const response = await authApi.post("/alerts/dismiss", { alertId });
     return response.data;
   } catch (error) {
@@ -3214,12 +3593,41 @@ export async function getCredentialFolders(): Promise<any> {
 }
 
 // Get SSH host with resolved credentials
+const HOST_SECRET_FIELDS = [
+  "password",
+  "key",
+  "keyPassword",
+  "rdpPassword",
+  "vncPassword",
+  "telnetPassword",
+] as const;
+
+/**
+ * The host plus its saved secrets, for prefilling the edit form. Both 2.8 and
+ * 2.9 hand out one secret per call; a 404 just means that one is not set.
+ */
 export async function getSSHHostWithCredentials(hostId: number): Promise<any> {
   try {
-    const response = await sshHostApi.get(
-      `/db/host/${hostId}/with-credentials`,
+    const response = await sshHostApi.get(`/db/host/${hostId}`);
+    const host = normalizeSSHHost(response.data);
+    const secrets = await Promise.all(
+      HOST_SECRET_FIELDS.map(async (field) => {
+        try {
+          const res = await sshHostApi.get(`/db/host/${hostId}/password`, {
+            params: { field },
+          });
+          return [field, res.data?.value] as const;
+        } catch {
+          return [field, undefined] as const;
+        }
+      }),
     );
-    return response.data ? normalizeSSHHost(response.data) : response.data;
+    for (const [field, value] of secrets) {
+      if (typeof value === "string" && value) {
+        (host as unknown as Record<string, unknown>)[field] = value;
+      }
+    }
+    return host;
   } catch (error) {
     handleApiError(error, "fetch SSH host with credentials");
   }
@@ -3284,11 +3692,8 @@ export async function createTerminalWebSocket(): Promise<WebSocket | null> {
       return null;
     }
 
-    const wsProtocol = serverUrl.startsWith("https://") ? "wss://" : "ws://";
-    const wsHost = serverUrl.replace(/^https?:\/\//, "");
-
-    const cleanHost = wsHost.replace(/\/$/, "");
-    const wsUrl = `${wsProtocol}${cleanHost}/ssh/websocket/?token=${encodeURIComponent(jwtToken)}`;
+    const wsUrl = getTerminalWebSocketUrl(jwtToken);
+    if (!wsUrl) return null;
 
     return new WebSocket(wsUrl, [`termix.jwt.${jwtToken}`]);
   } catch (error) {
@@ -3601,6 +4006,7 @@ export async function deployCredentialToHost(
 // ============================================================================
 
 export async function getSnippets(): Promise<any> {
+  if (!isPluginEnabled("snippets")) return [];
   try {
     const response = await authApi.get("/snippets");
     return response.data;
@@ -3975,6 +4381,24 @@ export async function dockerConnectTOTP(
     return response.data;
   } catch (error) {
     handleApiError(error, "submit Docker TOTP");
+  }
+}
+
+/** Continues a browser sign-in (Warpgate and the like) for a Docker session. */
+export async function dockerConnectBrowserSignIn(
+  sessionId: string,
+  warpgateUrl?: string,
+  securityKey?: string,
+): Promise<any> {
+  try {
+    const response = await dockerApi().post("/docker/ssh/connect-warpgate", {
+      sessionId,
+      warpgateUrl,
+      securityKey,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "continue Docker sign-in");
   }
 }
 

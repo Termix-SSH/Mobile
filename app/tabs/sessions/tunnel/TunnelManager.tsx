@@ -13,7 +13,9 @@ import {
   disconnectTunnel,
   cancelTunnel,
   getSSHHosts,
+  isPluginApi,
 } from "@/app/main-axios";
+import { pluginTunnelName } from "@/lib/api-compat";
 import type { TunnelStatus, SSHHost, TunnelSessionProps } from "@/types";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 import { toast } from "@/app/utils/toast";
@@ -25,15 +27,17 @@ export type TunnelManagerHandle = {
 };
 
 /**
- * Stable tunnel name shared with the backend (host_sourcePort_endpoint_port).
- * Matches the legacy naming the backend's parseTunnelName understands.
+ * Stable tunnel name shared with the backend. Pre 2.9 servers use
+ * host_sourcePort_endpoint_port, 2.9+ checks its own format against the
+ * tunnel saved at that index on the host.
  */
 function tunnelKey(
-  hostName: string,
-  hostId: number,
+  host: TunnelSessionProps["hostConfig"],
+  idx: number,
   t: { sourcePort: number; endpointHost?: string; endpointPort: number },
 ): string {
-  return `${hostName || hostId}_${t.sourcePort}_${t.endpointHost}_${t.endpointPort}`;
+  if (isPluginApi()) return pluginTunnelName(host, idx, t);
+  return `${host.name || host.id}_${t.sourcePort}_${t.endpointHost}_${t.endpointPort}`;
 }
 
 export const TunnelManager = forwardRef<
@@ -89,10 +93,26 @@ export const TunnelManager = forwardRef<
       tunnel: (typeof tunnels)[number],
       idx: number,
     ) => {
-      const key = tunnelKey(hostConfig.name, hostConfig.id, tunnel);
+      const key = tunnelKey(hostConfig, idx, tunnel);
       setLoadingKeys((prev) => new Set(prev).add(key));
       try {
-        if (action === "connect") {
+        if (action === "connect" && isPluginApi()) {
+          // 2.9 resolves both hosts and their secrets on the server.
+          await connectTunnel({
+            name: key,
+            sourceHostId: hostConfig.id,
+            tunnelIndex: idx,
+            scope: tunnel.scope,
+            mode: tunnel.mode,
+            sourcePort: tunnel.sourcePort,
+            endpointHost: tunnel.endpointHost,
+            endpointPort: tunnel.endpointPort,
+            maxRetries: tunnel.maxRetries,
+            retryInterval: tunnel.retryInterval * 1000,
+            autoStart: tunnel.autoStart,
+          });
+          toast.success(`Connecting tunnel on port ${tunnel.sourcePort}`);
+        } else if (action === "connect") {
           const sourceHost = allHosts.find((h) => h.id === hostConfig.id);
           const endpointHost = allHosts.find(
             (h) =>
@@ -178,7 +198,7 @@ export const TunnelManager = forwardRef<
         });
       }
     },
-    [allHosts, hostConfig.id, hostConfig.name, fetchStatuses],
+    [allHosts, hostConfig, fetchStatuses],
   );
 
   if (!isVisible) return null;
@@ -224,7 +244,7 @@ export const TunnelManager = forwardRef<
         }
       >
         {tunnels.map((tunnel, idx) => {
-          const key = tunnelKey(hostConfig.name, hostConfig.id, tunnel);
+          const key = tunnelKey(hostConfig, idx, tunnel);
           return (
             <TunnelCard
               key={`${key}-${idx}`}

@@ -55,7 +55,9 @@ export function DockerConsole({
       wsRef.current?.close();
     } catch {}
 
-    const ws = new WebSocket(getDockerConsoleWebSocketUrl(token));
+    const ws = new WebSocket(getDockerConsoleWebSocketUrl(token), [
+      `termix.jwt.${token}`,
+    ]);
     wsRef.current = ws;
 
     ws.onopen = () => {

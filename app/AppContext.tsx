@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   getVersionInfo,
   initializeServerConfig,
+  refreshServerApi,
   getLatestGitHubRelease,
   setAuthStateCallback,
   getCurrentServerUrl,
@@ -224,6 +225,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       }
     });
   }, []);
+
+  // 2.9+ servers: the plugin list needs a signed in user, so load it once
+  // auth is known.
+  useEffect(() => {
+    if (isAuthenticated) void refreshServerApi();
+  }, [isAuthenticated]);
 
   // Losing authentication (sign-out elsewhere, expired token, server change)
   // must also empty the home-screen widgets — they would otherwise keep showing

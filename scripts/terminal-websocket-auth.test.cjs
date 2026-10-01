@@ -23,9 +23,25 @@ const factory = apiSource.statements.find(
 );
 assert.ok(factory, "createTerminalWebSocket must exist");
 
+const compatExports = {};
+vm.runInNewContext(
+  ts.transpileModule(
+    fs.readFileSync(path.join(root, "lib/api-compat.ts"), "utf8"),
+    {
+      compilerOptions: {
+        module: ts.ModuleKind.CommonJS,
+        target: ts.ScriptTarget.ES2022,
+      },
+    },
+  ).outputText,
+  { exports: compatExports },
+);
+const { buildTerminalWebSocketUrl } = compatExports;
+
 function fixture(
   serverUrl = "https://termix.example/base/",
   token = "header.payload.signature",
+  generation = "legacy",
 ) {
   const sockets = [];
   const timers = new Map();
@@ -47,6 +63,8 @@ function fixture(
   const api = {
     getCurrentServerUrl: () => serverUrl,
     getCookie: async () => token,
+    getTerminalWebSocketUrl: (jwt) =>
+      serverUrl ? buildTerminalWebSocketUrl(serverUrl, jwt, generation) : null,
   };
   function load(source) {
     const exports = {};
@@ -95,12 +113,25 @@ function fixture(
   };
 }
 
-function assertAuthenticated(socket, token = "header.payload.signature") {
+function assertAuthenticated(
+  socket,
+  token = "header.payload.signature",
+  generation = "legacy",
+) {
   assert.ok(
     socket.protocols,
     "2.8 requires authentication outside the URL query",
   );
   assert.deepEqual(Array.from(socket.protocols), [`termix.jwt.${token}`]);
+  if (generation === "plugin") {
+    // 2.9 only reads the subprotocol, so the token stays out of the URL.
+    assert.equal(new URL(socket.url).searchParams.get("token"), null);
+    assert.equal(
+      new URL(socket.url).pathname,
+      "/base/plugin-ws/ssh-terminal/terminal",
+    );
+    return;
+  }
   // Retain compatibility with older servers that only accept the URL token.
   assert.equal(new URL(socket.url).searchParams.get("token"), token);
   assert.equal(new URL(socket.url).pathname, "/base/ssh/websocket/");
@@ -138,6 +169,25 @@ test("the shared terminal factory sends the same auth subprotocol", async () => 
   const socket = await f.factory();
   assert.equal(new URL(socket.url).protocol, "ws:");
   assertAuthenticated(socket, "different.token.signature");
+});
+
+test("2.9 servers get the plugin terminal socket", async () => {
+  const f = fixture(
+    "https://termix.example/base/",
+    "header.payload.signature",
+    "plugin",
+  );
+  await f.manager.connect(80, 24);
+  assertAuthenticated(f.sockets[0], "header.payload.signature", "plugin");
+  const socket = await f.factory();
+  assertAuthenticated(socket, "header.payload.signature", "plugin");
+  f.manager.destroy();
+});
+
+test("a saved /ssh suffix does not double the socket path", async () => {
+  const f = fixture("https://termix.example/ssh");
+  const socket = await f.factory();
+  assert.equal(new URL(socket.url).pathname, "/ssh/websocket/");
 });
 
 for (const token of [undefined, "", "   "]) {

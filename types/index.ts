@@ -73,6 +73,13 @@ export interface SSHHost {
   telnetPort?: number;
   dockerConfig?: string;
   macAddress?: string;
+
+  // 2.9+ only. Per plugin host settings; the app reads the flat fields above,
+  // which are filled from this on load.
+  pluginSettings?: Record<string, Record<string, unknown>>;
+  protocolAuth?: Record<string, unknown>;
+  statusCheckEnabled?: boolean;
+  statusCheckInterval?: number | null;
 }
 
 export interface JumpHostData {
@@ -240,6 +247,21 @@ export interface TunnelConnection {
   maxRetries: number;
   retryInterval: number;
   autoStart: boolean;
+}
+
+/** 2.9+ connect body; the server resolves the hosts and secrets. */
+export interface PluginTunnelConnect {
+  name: string;
+  sourceHostId: number;
+  tunnelIndex: number;
+  scope?: "s2s" | "c2s";
+  mode?: "local" | "remote" | "dynamic";
+  sourcePort: number;
+  endpointHost?: string;
+  endpointPort: number;
+  maxRetries?: number;
+  retryInterval?: number;
+  autoStart?: boolean;
 }
 
 export interface TunnelConfig {
@@ -430,6 +452,8 @@ export interface TunnelSessionProps {
   hostConfig: {
     id: number;
     name: string;
+    ip: string;
+    username?: string;
     enableTunnel: boolean;
     tunnelConnections: TunnelConnection[];
   };
@@ -905,6 +929,8 @@ export interface FirewallMetrics {
 export interface ServerStatus {
   status: "online" | "offline";
   lastChecked: string;
+  rawStatus?: "reachable";
+  reason?: string;
 }
 
 // ============================================================================
