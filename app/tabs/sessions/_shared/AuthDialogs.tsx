@@ -32,7 +32,9 @@ export function AuthDialogs({
   onSubmitWarpgate,
   onSubmitAuth,
   onCancel,
+  browserSignIn,
 }: {
+  browserSignIn?: { url: string; securityKey: string } | null;
   state: SessionConnectState;
   errorMessage?: string;
   onSubmitTotp: (code: string) => Promise<void>;
@@ -74,8 +76,11 @@ export function AuthDialogs({
       setWgUrl("");
       setWgKey("");
       setWgBusy(false);
+    } else if (browserSignIn) {
+      setWgUrl(browserSignIn.url);
+      setWgKey(browserSignIn.securityKey);
     }
-  }, [state]);
+  }, [state, browserSignIn]);
 
   const submitWarpgate = async () => {
     if (!wgUrl.trim()) return;

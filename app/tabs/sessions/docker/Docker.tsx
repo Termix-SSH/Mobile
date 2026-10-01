@@ -17,9 +17,15 @@ import {
   Trash2,
   MoreVertical,
 } from "lucide-react-native";
-import { SSHHost, DockerContainer, DockerContainerAction } from "@/types";
+import {
+  SSHHost,
+  DockerContainer,
+  DockerContainerAction,
+  SessionAuthOverrides,
+} from "@/types";
 import {
   dockerConnect,
+  dockerConnectBrowserSignIn,
   dockerConnectTOTP,
   dockerKeepAlive,
   dockerDisconnect,
@@ -79,10 +85,16 @@ export function Docker({ host, isVisible }: DockerProps) {
   const connectTransport = useMemo(
     () => ({
       prefix: "docker",
-      connect: (sessionId: string, h: SSHHost) =>
-        dockerConnect(sessionId, h.id),
+      connect: (
+        sessionId: string,
+        h: SSHHost,
+        _userId: string | undefined,
+        overrides: SessionAuthOverrides,
+      ) => dockerConnect(sessionId, h.id, overrides),
       submitTotp: (sessionId: string, code: string) =>
         dockerConnectTOTP(sessionId, code),
+      submitWarpgate: (sessionId: string, url: string, key?: string) =>
+        dockerConnectBrowserSignIn(sessionId, url, key),
       keepAlive: (sessionId: string) => dockerKeepAlive(sessionId),
       disconnect: (sessionId: string) => dockerDisconnect(sessionId),
     }),
@@ -310,6 +322,7 @@ export function Docker({ host, isVisible }: DockerProps) {
         errorMessage={conn.errorMessage}
         onSubmitTotp={conn.submitTotp}
         onSubmitWarpgate={conn.submitWarpgate}
+        browserSignIn={conn.browserSignIn}
         onSubmitAuth={conn.submitAuth}
         onCancel={conn.cancelAuth}
       />

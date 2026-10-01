@@ -1190,6 +1190,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           errorMessage={conn.errorMessage}
           onSubmitTotp={conn.submitTotp}
           onSubmitWarpgate={conn.submitWarpgate}
+          browserSignIn={conn.browserSignIn}
           onSubmitAuth={conn.submitAuth}
           onCancel={conn.cancelAuth}
         />
