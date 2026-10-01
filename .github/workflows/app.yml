@@ -76,6 +76,14 @@ jobs:
 
           EAS_PLATFORM=${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
 
+          if [ -n "$ASC_API_KEY" ]; then
+            printf '%s
+' "$ASC_API_KEY" > "$EXPO_ASC_API_KEY_PATH"
+            chmod 600 "$EXPO_ASC_API_KEY_PATH"
+          else
+            unset EXPO_ASC_API_KEY_PATH EXPO_ASC_KEY_ID EXPO_ASC_ISSUER_ID
+          fi
+
           eas build --local \
             --non-interactive \
             --platform=$EAS_PLATFORM \
@@ -138,6 +146,12 @@ jobs:
           fi
         env:
           EAS_SKIP_AUTO_FINGERPRINT: 1
+          EXPO_ASC_API_KEY_PATH: ${{ github.workspace }}/asc-api-key.p8
+          EXPO_ASC_KEY_ID: ${{ secrets.EXPO_ASC_KEY_ID }}
+          EXPO_ASC_ISSUER_ID: ${{ secrets.EXPO_ASC_ISSUER_ID }}
+          EXPO_APPLE_TEAM_ID: ${{ secrets.EXPO_APPLE_TEAM_ID }}
+          EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
+          ASC_API_KEY: ${{ secrets.EXPO_ASC_API_KEY_P8 }}
 
       - name: Verify build artifacts
         id: detect-artifacts
