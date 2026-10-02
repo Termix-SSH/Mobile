@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify RDP credential prompts
+        run: node scripts/rdp-login.test.cjs
+
       - name: Verify remote desktop resolution
         run: node scripts/verify-remote-resolution.cjs
 
