@@ -61,6 +61,9 @@ export interface SSHHost {
   notes?: string;
   guacamoleConfig?: string | Record<string, unknown> | null;
   // Remote desktop (Guacamole) protocol fields
+  rdpAuthType?: "direct" | "credential" | "none";
+  authOverrides?: Record<string, { credentialId?: number | string | null }>;
+  domain?: string;
   rdpUser?: string;
   rdpPassword?: string;
   rdpDomain?: string;

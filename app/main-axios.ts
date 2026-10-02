@@ -1,3 +1,4 @@
+import { remoteDesktopConnectBody, type RdpCredentials } from "@/lib/rdp-login";
 import axios, { AxiosError, type AxiosInstance } from "axios";
 import type {
   SSHHost,
@@ -1388,11 +1389,12 @@ export async function exportSSHHostWithCredentials(
 export async function getGuacamoleTokenFromHost(
   hostId: number,
   protocol?: "rdp" | "vnc" | "telnet",
+  credentials?: RdpCredentials,
 ): Promise<{ token: string }> {
   try {
     const response = await authApi.post(
       `/guacamole/connect-host/${hostId}`,
-      protocol ? { protocol } : {},
+      remoteDesktopConnectBody(protocol, credentials),
     );
     return response.data;
   } catch (error) {
