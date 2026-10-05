@@ -220,7 +220,7 @@ jobs:
       - name: Upload to GitHub Release
         if: ${{ github.event.inputs.action == 'release' }}
         env:
-          GH_TOKEN: ${{ secrets.TERMIX_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ secrets.TERMIX_PAT }}
         run: |
           echo "Fetching latest release from Termix-SSH/Mobile..."
           MOBILE_RELEASE=$(gh release list --repo Termix-SSH/Mobile --limit 1 --json tagName,name,isLatest -q '.[0]')
