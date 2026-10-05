@@ -1014,7 +1014,7 @@ export interface AuthResponse {
   is_admin?: boolean;
   username?: string;
   userId?: string;
-  is_oidc?: boolean;
+  is_external?: boolean;
   totp_enabled?: boolean;
   data_unlocked?: boolean;
   requires_totp?: boolean;
@@ -1026,7 +1026,7 @@ export interface UserInfo {
   userId: string;
   username: string;
   is_admin: boolean;
-  is_oidc: boolean;
+  is_external?: boolean;
   data_unlocked: boolean;
 }
 

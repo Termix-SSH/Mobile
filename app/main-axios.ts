@@ -4208,12 +4208,12 @@ export async function resetRecentActivity(): Promise<{ message: string }> {
 // ============================================================================
 
 export async function linkOIDCToPasswordAccount(
-  oidcUserId: string,
+  externalUserId: string,
   targetUsername: string,
 ): Promise<{ success: boolean; message: string }> {
   try {
-    const response = await authApi.post("/users/link-oidc-to-password", {
-      oidcUserId,
+    const response = await authApi.post("/users/link-external-to-password", {
+      externalUserId,
       targetUsername,
     });
     return response.data;
@@ -4227,9 +4227,12 @@ export async function unlinkOIDCFromPasswordAccount(
   userId: string,
 ): Promise<{ success: boolean; message: string }> {
   try {
-    const response = await authApi.post("/users/unlink-oidc-from-password", {
-      userId,
-    });
+    const response = await authApi.post(
+      "/users/unlink-external-from-password",
+      {
+        userId,
+      },
+    );
     return response.data;
   } catch (error) {
     handleApiError(error, "unlink OIDC from password account");
