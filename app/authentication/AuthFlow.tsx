@@ -315,6 +315,10 @@ export default function AuthFlow() {
               )
             }
             onAuthenticated={finishAuthenticated}
+            onSecondFactor={(tempToken) => {
+              totpTempTokenRef.current = tempToken;
+              setStep("totp");
+            }}
           />
         </View>
       ) : (
@@ -1101,11 +1105,13 @@ function OidcStep({
   accent,
   onBack,
   onAuthenticated,
+  onSecondFactor,
 }: {
   bg: string;
   accent: string;
   onBack: () => void;
   onAuthenticated: () => void;
+  onSecondFactor: (tempToken: string) => void;
 }) {
   const color = useThemeColor();
   const webViewRef = useRef<WebView>(null);
@@ -1226,6 +1232,18 @@ function OidcStep({
         return;
       }
 
+      // "Second factor after external login" sends a temp token for the TOTP
+      // step instead of a session token.
+      if (params["second_factor"] === "1") {
+        const tempToken = params["temp_token"];
+        if (!tempToken) {
+          Alert.alert("Sign in failed", "The server did not return a token.");
+          return;
+        }
+        onSecondFactor(tempToken);
+        return;
+      }
+
       const token = params["token"];
       if (!token) {
         Alert.alert("Sign in failed", "The server did not return a token.");
@@ -1234,7 +1252,7 @@ function OidcStep({
 
       await completeNativeAuth(token);
     },
-    [completeNativeAuth],
+    [completeNativeAuth, onSecondFactor],
   );
 
   const openBrowser = useCallback(
