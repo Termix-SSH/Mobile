@@ -49,4 +49,4 @@ This starts the Expo development server. Open it in Expo Go or a development bui
 
 ## Support
 
-To report a bug or request a feature, open a [support ticket](https://github.com/Termix-SSH/Support/issues/new/choose). Please be as detailed as possible, preferably in English. You can also ask in the [Discord](https://discord.gg/jVQGdvHDrf) server.
+Bugs and ideas for the mobile app go in [this repo](https://github.com/Termix-SSH/Mobile/issues/new/choose). Please be as detailed as possible, preferably in English. You can also ask in the [Discord](https://discord.gg/jVQGdvHDrf) server.
