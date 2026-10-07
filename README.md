@@ -4,7 +4,7 @@
 
 <h1>Termix Mobile</h1>
 
-<p>Full remote SSH control of your servers on iOS and Android</p>
+<p>Manage your Termix servers from your phone or tablet</p>
 
 <p>
   <img src="https://img.shields.io/github/stars/Termix-SSH/Mobile?style=flat&label=Stars&color=F39044&labelColor=1a1a1a" />
@@ -24,9 +24,11 @@
 
 ## Overview
 
-Requires a Termix server. Install at https://docs.termix.site/install
+Termix Mobile connects to your [Termix](https://github.com/Termix-SSH/Termix) server so you can manage your servers from your phone or tablet. You need a Termix server to use it. See the [install docs](https://docs.termix.site/install) to set one up.
 
-Termix gives you full control of your servers from your phone. Connect to your Termix server and manage everything from one place.
+Termix is plugin-based, so features like the file manager, Docker, tunnels and metrics show up when the matching plugin is turned on in your server.
+
+Want to try Termix first? Use the [demo](https://demo.termix.site/), any username and password works.
 
 <br />
 
@@ -50,7 +52,7 @@ Browse, view, edit, move, and manage files and folders over SSH. Pin files and a
 <tr>
 <td width="50%" valign="top">
 
-**Server Stats:**
+**Host Metrics:**
 Monitor CPU, memory, disk, network, uptime, running processes, open ports, firewall rules, and login history in real time. Server alerts show up on the hosts screen.
 
 </td>
@@ -110,40 +112,6 @@ Lock the app behind Face ID, Touch ID, or fingerprint, with a PIN as backup.
 ## Installation
 
 Termix Mobile is available for both [Android](https://docs.termix.site/install/connector/android) and [iOS](https://docs.termix.site/install/connector/ios) platforms.
-
-<br />
-
-## Screenshots
-
-<div align="center">
-
-<br />
-
-<table>
-<tr>
-<td><img src="./repo-images/Image 1.png" alt="Termix Mobile Screenshot 1" width="160" /></td>
-<td><img src="./repo-images/Image 2.png" alt="Termix Mobile Screenshot 2" width="160" /></td>
-<td><img src="./repo-images/Image 3.png" alt="Termix Mobile Screenshot 3" width="160" /></td>
-</tr>
-<tr>
-<td><img src="./repo-images/Image 4.png" alt="Termix Mobile Screenshot 4" width="160" /></td>
-<td><img src="./repo-images/Image 5.png" alt="Termix Mobile Screenshot 5" width="160" /></td>
-<td><img src="./repo-images/Image 6.png" alt="Termix Mobile Screenshot 6" width="160" /></td>
-</tr>
-<tr>
-<td><img src="./repo-images/Image 7.png" alt="Termix Mobile Screenshot 7" width="160" /></td>
-<td><img src="./repo-images/Image 8.png" alt="Termix Mobile Screenshot 8" width="160" /></td>
-<td><img src="./repo-images/Image 9.png" alt="Termix Mobile Screenshot 9" width="160" /></td>
-</tr>
-</table>
-
-</div>
-
-<br />
-
-## Planned Features
-
-See [Projects](https://github.com/orgs/Termix-SSH/projects/5) for all planned features. If you are looking to contribute, see [Contributing](https://github.com/Termix-SSH/Mobile/blob/main/CONTRIBUTING.md).
 
 <br />
 

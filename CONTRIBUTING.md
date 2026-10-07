@@ -1,5 +1,7 @@
 # Contributing
 
+Termix Mobile is the iOS and Android app for [Termix](https://github.com/Termix-SSH/Termix), self-hosted, plugin-based server management.
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/) (built with v24)
@@ -25,29 +27,26 @@ Run the following command:
 npm run start
 ```
 
-This will start the Expo development server. You can use `Expo Go` or use it in a development build.
+This starts the Expo development server. Open it in Expo Go or a development build, and sign in to a Termix server. If you do not have one, see the [install docs](https://docs.termix.site/install).
 
-## Contributing
+## Making a change
 
-1. **Fork the repository**: Click the "Fork" button at the top right of
-   the [repository page](https://github.com/Termix-SSH/Mobile).
-2. **Create a new branch**:
+1. **Fork the repository**: Click "Fork" at the top right of the [repository page](https://github.com/Termix-SSH/Mobile).
+2. **Create a branch**:
    ```sh
    git checkout -b feature/my-new-feature
    ```
-3. **Make your changes**: Implement your feature, fix, or improvement.
+3. **Make your changes**.
 4. **Commit your changes**:
    ```sh
-   git commit -m "Feature request my new feature"
+   git commit -m "feat: add my new feature"
    ```
 5. **Push to your fork**:
    ```sh
-   git push origin feature/my-feature-request
+   git push origin feature/my-new-feature
    ```
-6. **Open a pull request**: Go to the original repository and create a PR with a clear description.
+6. **Open a pull request** with a clear description.
 
 ## Support
 
-If you need help or want to request a feature with Termix, visit the [Issues](https://github.com/Termix-SSH/Support/issues) page, log in, and press `New Issue`.
-Please be as detailed as possible in your issue, preferably written in English. You can also join the [Discord](https://discord.gg/jVQGdvHDrf) server and visit the support
-channel, however, response times may be longer.
+To report a bug or request a feature, open a [support ticket](https://github.com/Termix-SSH/Support/issues/new/choose). Please be as detailed as possible, preferably in English. You can also ask in the [Discord](https://discord.gg/jVQGdvHDrf) server.
