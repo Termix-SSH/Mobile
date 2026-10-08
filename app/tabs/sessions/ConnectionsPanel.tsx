@@ -13,9 +13,12 @@ import {
 } from "lucide-react-native";
 import {
   getActiveSessions,
+  hasFeature,
   type ActiveSessionInfo,
   type OpenTabRecord,
 } from "@/app/main-axios";
+import { useServerFeatures } from "@/app/contexts/ServerFeaturesContext";
+import { sessionFeature } from "@/lib/server-features";
 import {
   useTerminalSessions,
   type RemoteDesktopProtocol,
@@ -61,9 +64,14 @@ function tabIcon(type: string, color: string) {
   }
 }
 
-/** Map an open-tabs record tabType back to our local SessionType. */
-function toSessionType(tabType: string): SessionType {
+/**
+ * Map an open-tabs record tabType back to our local SessionType. Tabs from
+ * plugins the app has no screen for give null.
+ */
+function toSessionType(tabType: string): SessionType | null {
   switch (tabType) {
+    case "terminal":
+      return "terminal";
     case "files":
     case "sftp":
       return "filemanager";
@@ -78,8 +86,15 @@ function toSessionType(tabType: string): SessionType {
     case "docker":
       return tabType as SessionType;
     default:
-      return "terminal";
+      return null;
   }
+}
+
+function canRestore(tabType: string): boolean {
+  const type = toSessionType(tabType);
+  if (!type) return false;
+  const feature = sessionFeature(type, toRemoteProtocol(tabType));
+  return !feature || hasFeature(feature);
 }
 
 function toRemoteProtocol(tabType: string): RemoteDesktopProtocol | undefined {
@@ -200,6 +215,8 @@ function ConnectionRow({
  */
 export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
   const color = useThemeColor();
+  // Re-render when plugins turn on or off.
+  useServerFeatures();
   const {
     sessions,
     activeSessionId,
@@ -253,14 +270,15 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
   // Background = server records whose instanceId isn't an open tab here.
   const openInstanceIds = new Set(sessions.map((s) => s.instanceId));
   const backgroundTabs = backgroundTabRecords.filter(
-    (r) => !openInstanceIds.has(r.id),
+    (r) => !openInstanceIds.has(r.id) && canRestore(r.tabType),
   );
 
   const reviveBackground = (record: OpenTabRecord) => {
     const host = hosts.find((h) => h.id === record.hostId);
-    if (!host) return;
+    const type = toSessionType(record.tabType);
+    if (!host || !type) return;
     const live = sessionByInstance.get(record.id);
-    addSession(host, toSessionType(record.tabType), {
+    addSession(host, type, {
       instanceId: record.id,
       restoredSessionId: live?.sessionId ?? record.backendSessionId ?? null,
       remoteProtocol: toRemoteProtocol(record.tabType),

@@ -24,6 +24,7 @@ import type {
 } from "@/app/contexts/TerminalSessionsContext";
 import { BottomSheet, SheetRow, Text } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
+import { useServerFeatures } from "@/app/contexts/ServerFeaturesContext";
 import { toast } from "@/app/utils/toast";
 import { StatsConfig, DEFAULT_STATS_CONFIG } from "@/constants/stats-config";
 import { wakeHost } from "@/app/main-axios";
@@ -68,6 +69,7 @@ export function HostActionSheet({
   onDelete: (host: SSHHost) => void;
 }) {
   const { navigateToSessions } = useTerminalSessions();
+  const { has } = useServerFeatures();
   const color = useThemeColor();
   const iconColor = color("foreground") ?? "#fafafa";
 
@@ -102,24 +104,26 @@ export function HostActionSheet({
   };
 
   const ssh = isSshHost(host);
-  const metricsEnabled = ssh && parseStatsConfig(host).metricsEnabled !== false;
+  const metricsEnabled =
+    ssh && has("metrics") && parseStatsConfig(host).metricsEnabled !== false;
 
   // SSH-gated connection actions (mirrors the web's getSshActions).
   const sshActions = [
-    ssh && host.enableTerminal !== false
+    ssh && has("terminal") && host.enableTerminal !== false
       ? { type: "terminal" as SessionType, icon: Terminal, label: "Terminal" }
       : null,
-    ssh && host.enableFileManager
+    ssh && has("fileManager") && host.enableFileManager
       ? {
           type: "filemanager" as SessionType,
           icon: FolderSearch,
           label: "File Manager",
         }
       : null,
-    ssh && host.enableDocker
+    ssh && has("docker") && host.enableDocker
       ? { type: "docker" as SessionType, icon: Box, label: "Docker" }
       : null,
     ssh &&
+    has("tunnels") &&
     host.enableTunnel &&
     host.tunnelConnections &&
     host.tunnelConnections.length > 0
@@ -137,21 +141,21 @@ export function HostActionSheet({
   // Separate protocol actions (RDP / VNC / Telnet), each with its own icon —
   // matches the web rather than lumping them into one "Remote Desktop" row.
   const protocolActions = [
-    host.enableRdp
+    host.enableRdp && has("rdp")
       ? {
           icon: Monitor,
           label: "RDP",
           protocol: "rdp" as RemoteDesktopProtocol,
         }
       : null,
-    host.enableVnc
+    host.enableVnc && has("vnc")
       ? {
           icon: MousePointerClick,
           label: "VNC",
           protocol: "vnc" as RemoteDesktopProtocol,
         }
       : null,
-    host.enableTelnet
+    host.enableTelnet && has("telnet")
       ? {
           icon: MessagesSquare,
           label: "Telnet",
@@ -232,7 +236,7 @@ export function HostActionSheet({
 
         {/* Management actions (no pin — matches the web). Rows sit flush with
             the connection group; each row's own bottom border separates them. */}
-        {host.macAddress ? (
+        {host.macAddress && has("wakeOnLan") ? (
           <SheetRow
             icon={<Zap size={18} color={iconColor} />}
             label="Wake on LAN"

@@ -1,3 +1,4 @@
+import { rdpLogin, type RdpCredentials } from "@/lib/rdp-login";
 import React, {
   useCallback,
   useEffect,
@@ -37,7 +38,13 @@ import {
   getGuacamoleWebSocketUrl,
 } from "@/app/main-axios";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
-import { BottomSheet, SegmentedControl, Button } from "@/app/components/ui";
+import {
+  BottomSheet,
+  SegmentedControl,
+  Button,
+  Dialog,
+  Input,
+} from "@/app/components/ui";
 
 // Height of the always-visible key strip at the bottom.
 // The parent session area already accounts for the tab bar + safe-area insets,
@@ -45,7 +52,12 @@ import { BottomSheet, SegmentedControl, Button } from "@/app/components/ui";
 const KEY_STRIP_HEIGHT = 44;
 
 type ConnectionState =
-  "idle" | "connecting" | "connected" | "disconnected" | "failed";
+  | "awaiting-credentials"
+  | "idle"
+  | "connecting"
+  | "connected"
+  | "disconnected"
+  | "failed";
 
 type MouseMode = "touch" | "trackpad";
 
@@ -142,33 +154,63 @@ export function RemoteDesktop({
 
   // ── Connection ────────────────────────────────────────────────────────────
 
-  const connect = useCallback(async () => {
-    try {
-      setConnectionState("connecting");
+  const resolvedProtocol = protocol ?? host.connectionType ?? "rdp";
+  const login = rdpLogin(host, resolvedProtocol);
+  const [promptUsername, setPromptUsername] = useState("");
+  const [promptPassword, setPromptPassword] = useState("");
+  const [promptDomain, setPromptDomain] = useState(login.domain);
+
+  const cancelPrompt = () => {
+    setPromptPassword("");
+    setConnectionState("disconnected");
+  };
+
+  const connect = useCallback(
+    async (credentials?: RdpCredentials) => {
+      setWebSocketUrl(null);
       setErrorMessage(null);
-      const { token } = await getGuacamoleTokenFromHost(
-        Number(host.id),
-        protocol,
-      );
-      // Use measured layout size; fall back to ref if layout fired already
-      const measured = availableSizeRef.current;
-      const { width: remW, height: remH } = resolveRemoteDesktopSize(
-        host.guacamoleConfig,
-        measured?.w ?? 1280,
-        measured ? Math.max(1, measured.h - KEY_STRIP_HEIGHT) : 720,
-        (protocol ?? host.connectionType) === "rdp" ? PixelRatio.get() : 1,
-      );
-      initialSizeRef.current = { width: remW, height: remH };
-      setWebSocketUrl(getGuacamoleWebSocketUrl(token, remW, remH));
-    } catch (error) {
-      setConnectionState("failed");
-      setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Failed to start remote session",
-      );
-    }
-  }, [host.id, host.guacamoleConfig, host.connectionType, protocol]);
+      if (login.prompt && !credentials) {
+        setPromptPassword("");
+        setPromptDomain(login.domain);
+        setConnectionState("awaiting-credentials");
+        return;
+      }
+      try {
+        setConnectionState("connecting");
+        setErrorMessage(null);
+        const { token } = await getGuacamoleTokenFromHost(
+          Number(host.id),
+          protocol,
+          credentials,
+        );
+        // Use measured layout size; fall back to ref if layout fired already
+        const measured = availableSizeRef.current;
+        const { width: remW, height: remH } = resolveRemoteDesktopSize(
+          host.guacamoleConfig,
+          measured?.w ?? 1280,
+          measured ? Math.max(1, measured.h - KEY_STRIP_HEIGHT) : 720,
+          (protocol ?? host.connectionType) === "rdp" ? PixelRatio.get() : 1,
+        );
+        initialSizeRef.current = { width: remW, height: remH };
+        setWebSocketUrl(getGuacamoleWebSocketUrl(token, remW, remH));
+      } catch (error) {
+        setConnectionState("failed");
+        setErrorMessage(
+          error instanceof Error
+            ? error.message
+            : "Failed to start remote session",
+        );
+      }
+    },
+    [
+      host.id,
+      host.guacamoleConfig,
+      host.connectionType,
+      protocol,
+      login.prompt,
+      login.domain,
+    ],
+  );
 
   useEffect(() => {
     connect();
@@ -815,6 +857,63 @@ export function RemoteDesktop({
       ]}
       onLayout={handleContainerLayout}
     >
+      <Dialog
+        visible={isVisible && connectionState === "awaiting-credentials"}
+        onClose={cancelPrompt}
+        title="RDP sign-in"
+        description={`Enter credentials for ${title}. They will not be saved.`}
+        footer={
+          <View className="flex-row justify-end gap-2">
+            <Button variant="outline" onPress={cancelPrompt}>
+              Cancel
+            </Button>
+            <Button
+              disabled={!promptUsername.trim()}
+              onPress={() => {
+                const credentials = {
+                  username: promptUsername.trim(),
+                  password: promptPassword,
+                  domain: promptDomain,
+                };
+                setPromptPassword("");
+                Keyboard.dismiss();
+                void connect(credentials);
+              }}
+            >
+              Connect
+            </Button>
+          </View>
+        }
+      >
+        <View className="gap-3">
+          <Text style={{ color: themeFg }}>Username</Text>
+          <Input
+            accessibilityLabel="RDP username"
+            value={promptUsername}
+            onChangeText={setPromptUsername}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          <Text style={{ color: themeFg }}>Domain (optional)</Text>
+          <Input
+            accessibilityLabel="RDP domain"
+            value={promptDomain}
+            onChangeText={setPromptDomain}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          <Text style={{ color: themeFg }}>Password</Text>
+          <Input
+            accessibilityLabel="RDP password"
+            value={promptPassword}
+            onChangeText={setPromptPassword}
+            secureTextEntry
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+      </Dialog>
+
       {/* WebView */}
       {htmlContent ? (
         <WebView

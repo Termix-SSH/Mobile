@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   getVersionInfo,
   initializeServerConfig,
+  refreshEnabledPlugins,
   refreshServerApi,
   getLatestGitHubRelease,
   setAuthStateCallback,
@@ -266,6 +267,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
           if (!userInfo?.username) {
             setAuthenticated(false);
+          } else {
+            // Plugins may have been turned on or off while we were away.
+            void refreshEnabledPlugins();
           }
         } catch (error) {
           // Network blips shouldn't log the user out; the 401 callback handles

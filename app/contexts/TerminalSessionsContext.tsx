@@ -15,9 +15,12 @@ import {
   deleteOpenTab,
   getOpenTabs,
   patchOpenTab,
+  hasFeature,
   isPluginApi,
   type OpenTabRecord,
 } from "@/app/main-axios";
+import { sessionFeature } from "@/lib/server-features";
+import { toast } from "@/app/utils/toast";
 
 export type SessionType =
   "terminal" | "stats" | "filemanager" | "tunnel" | "docker" | "remoteDesktop";
@@ -346,6 +349,14 @@ export const TerminalSessionsProvider: React.FC<
       opts?: { remoteProtocol?: RemoteDesktopProtocol },
     ) => {
       if (host) {
+        const feature = sessionFeature(
+          type,
+          opts?.remoteProtocol ?? host.connectionType,
+        );
+        if (feature && !hasFeature(feature)) {
+          toast.error("This feature is turned off on the server.");
+          return;
+        }
         addSession(host, type, opts);
       }
       router.push("/(tabs)/sessions");

@@ -21,6 +21,7 @@ import {
   SegmentedControl,
 } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
+import { useServerFeatures } from "@/app/contexts/ServerFeaturesContext";
 import { toast } from "@/app/utils/toast";
 
 type AuthType = "password" | "key" | "credential" | "none";
@@ -124,6 +125,7 @@ export default function HostForm({
   const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState<TabId>("general");
   const isEdit = !!host;
+  const { has } = useServerFeatures();
 
   const set = <K extends keyof FormState>(k: K, v: FormState[K]) =>
     setForm((f) => ({ ...f, [k]: v }));
@@ -205,18 +207,52 @@ export default function HostForm({
       { id: "general", label: "General" },
     ];
     if (form.enableSsh) list.push({ id: "ssh", label: "SSH" });
-    if (form.enableTunnel) list.push({ id: "tunnels", label: "Tunnels" });
-    if (form.enableRdp) list.push({ id: "rdp", label: "RDP" });
-    if (form.enableVnc) list.push({ id: "vnc", label: "VNC" });
-    if (form.enableTelnet) list.push({ id: "telnet", label: "Telnet" });
+    if (form.enableTunnel && has("tunnels"))
+      list.push({ id: "tunnels", label: "Tunnels" });
+    if (form.enableRdp && has("rdp")) list.push({ id: "rdp", label: "RDP" });
+    if (form.enableVnc && has("vnc")) list.push({ id: "vnc", label: "VNC" });
+    if (form.enableTelnet && has("telnet"))
+      list.push({ id: "telnet", label: "Telnet" });
     return list;
   }, [
+    has,
     form.enableSsh,
     form.enableTunnel,
     form.enableRdp,
     form.enableVnc,
     form.enableTelnet,
   ]);
+
+  type ToggleKey =
+    | "enableSsh"
+    | "enableRdp"
+    | "enableVnc"
+    | "enableTelnet"
+    | "enableTerminal"
+    | "enableFileManager"
+    | "enableTunnel"
+    | "enableDocker";
+  type Toggle = { key: ToggleKey; label: string; description?: string };
+  const protocolToggles = (
+    [
+      { key: "enableSsh", label: "SSH", description: "Secure Shell" },
+      has("rdp") && {
+        key: "enableRdp",
+        label: "RDP",
+        description: "Remote Desktop",
+      },
+      has("vnc") && { key: "enableVnc", label: "VNC" },
+      has("telnet") && { key: "enableTelnet", label: "Telnet" },
+    ] as (Toggle | false)[]
+  ).filter(Boolean) as Toggle[];
+  const featureToggles = (
+    [
+      has("terminal") && { key: "enableTerminal", label: "Terminal" },
+      has("fileManager") && { key: "enableFileManager", label: "File Manager" },
+      has("tunnels") && { key: "enableTunnel", label: "Tunnels" },
+      has("docker") && { key: "enableDocker", label: "Docker" },
+    ] as (Toggle | false)[]
+  ).filter(Boolean) as Toggle[];
 
   // If the active tab's protocol gets disabled, fall back to General.
   useEffect(() => {
@@ -471,44 +507,35 @@ export default function HostForm({
                     </Field>
                   </View>
                 </View>
-                <Field label="MAC Address (for Wake-on-LAN)">
-                  <Input
-                    value={form.macAddress}
-                    onChangeText={(v) => set("macAddress", v)}
-                    placeholder="00:1A:2B:3C:4D:5E"
-                    autoCapitalize="characters"
-                    autoCorrect={false}
-                  />
-                </Field>
+                {has("wakeOnLan") ? (
+                  <Field label="MAC Address (for Wake-on-LAN)">
+                    <Input
+                      value={form.macAddress}
+                      onChangeText={(v) => set("macAddress", v)}
+                      placeholder="00:1A:2B:3C:4D:5E"
+                      autoCapitalize="characters"
+                      autoCorrect={false}
+                    />
+                  </Field>
+                ) : null}
               </Section>
 
               {/* Protocols */}
               <Section title="Protocols">
                 <View>
-                  <SettingRow label="SSH" description="Secure Shell">
-                    <FakeSwitch
-                      checked={form.enableSsh}
-                      onChange={(v) => set("enableSsh", v)}
-                    />
-                  </SettingRow>
-                  <SettingRow label="RDP" description="Remote Desktop">
-                    <FakeSwitch
-                      checked={form.enableRdp}
-                      onChange={(v) => set("enableRdp", v)}
-                    />
-                  </SettingRow>
-                  <SettingRow label="VNC">
-                    <FakeSwitch
-                      checked={form.enableVnc}
-                      onChange={(v) => set("enableVnc", v)}
-                    />
-                  </SettingRow>
-                  <SettingRow label="Telnet" last>
-                    <FakeSwitch
-                      checked={form.enableTelnet}
-                      onChange={(v) => set("enableTelnet", v)}
-                    />
-                  </SettingRow>
+                  {protocolToggles.map((row, i) => (
+                    <SettingRow
+                      key={row.key}
+                      label={row.label}
+                      description={row.description}
+                      last={i === protocolToggles.length - 1}
+                    >
+                      <FakeSwitch
+                        checked={form[row.key]}
+                        onChange={(v) => set(row.key, v)}
+                      />
+                    </SettingRow>
+                  ))}
                 </View>
                 <Text className="text-[11px] text-muted-foreground">
                   Enable a protocol to configure it in its own tab above.
@@ -661,44 +688,34 @@ export default function HostForm({
                 ) : null}
               </Section>
 
-              <Section title="Features">
-                <View>
-                  <SettingRow label="Terminal">
-                    <FakeSwitch
-                      checked={form.enableTerminal}
-                      onChange={(v) => set("enableTerminal", v)}
-                    />
-                  </SettingRow>
-                  <SettingRow label="File Manager">
-                    <FakeSwitch
-                      checked={form.enableFileManager}
-                      onChange={(v) => set("enableFileManager", v)}
-                    />
-                  </SettingRow>
-                  <SettingRow label="Tunnels">
-                    <FakeSwitch
-                      checked={form.enableTunnel}
-                      onChange={(v) => set("enableTunnel", v)}
-                    />
-                  </SettingRow>
-                  <SettingRow label="Docker" last>
-                    <FakeSwitch
-                      checked={form.enableDocker}
-                      onChange={(v) => set("enableDocker", v)}
-                    />
-                  </SettingRow>
-                </View>
-                {form.enableFileManager ? (
-                  <Field label="Default Path">
-                    <Input
-                      value={form.defaultPath}
-                      onChangeText={(v) => set("defaultPath", v)}
-                      placeholder="/"
-                      autoCapitalize="none"
-                    />
-                  </Field>
-                ) : null}
-              </Section>
+              {featureToggles.length > 0 ? (
+                <Section title="Features">
+                  <View>
+                    {featureToggles.map((row, i) => (
+                      <SettingRow
+                        key={row.key}
+                        label={row.label}
+                        last={i === featureToggles.length - 1}
+                      >
+                        <FakeSwitch
+                          checked={form[row.key]}
+                          onChange={(v) => set(row.key, v)}
+                        />
+                      </SettingRow>
+                    ))}
+                  </View>
+                  {form.enableFileManager && has("fileManager") ? (
+                    <Field label="Default Path">
+                      <Input
+                        value={form.defaultPath}
+                        onChangeText={(v) => set("defaultPath", v)}
+                        placeholder="/"
+                        autoCapitalize="none"
+                      />
+                    </Field>
+                  ) : null}
+                </Section>
+              ) : null}
             </>
           ) : null}
 

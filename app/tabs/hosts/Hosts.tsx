@@ -25,6 +25,8 @@ import {
 import HostTree from "@/app/tabs/hosts/navigation/Folder";
 import type { HostMetrics } from "@/app/tabs/hosts/navigation/Host";
 import { HostActionSheet } from "@/app/tabs/hosts/HostActionSheet";
+import { useServerFeatures } from "@/app/contexts/ServerFeaturesContext";
+import { filterOptionAvailable } from "@/lib/server-features";
 import HostForm from "@/app/tabs/hosts/HostForm";
 import { QuickConnect } from "@/app/tabs/hosts/QuickConnect";
 import CredentialListModal from "@/app/tabs/hosts/CredentialListModal";
@@ -122,6 +124,7 @@ const STORAGE_EXPANDED = "hostExpandedFolders";
 
 export default function Hosts() {
   const color = useThemeColor();
+  const { has, refresh: refreshFeatures } = useServerFeatures();
   const router = useRouter();
   const [hosts, setHosts] = useState<SSHHost[]>([]);
   const [folderColors, setFolderColors] = useState<
@@ -300,8 +303,11 @@ export default function Hosts() {
   );
 
   const handleRefresh = useCallback(() => {
-    if (!isRefreshingRef.current) fetchData(true);
-  }, [fetchData]);
+    if (!isRefreshingRef.current) {
+      void refreshFeatures();
+      fetchData(true);
+    }
+  }, [fetchData, refreshFeatures]);
 
   // Server-side notices (maintenance, warnings) shown until dismissed.
   const loadAlerts = useCallback(async () => {
@@ -352,12 +358,32 @@ export default function Hosts() {
 
   const q = searchQuery.trim().toLowerCase();
 
+  const filterGroups = useMemo(
+    () =>
+      FILTER_GROUPS.map((grp) => ({
+        ...grp,
+        options: grp.options.filter((opt) =>
+          filterOptionAvailable(opt.value, has),
+        ),
+      })),
+    [has],
+  );
+
   const visibleTree = useMemo(() => {
-    let nodes = applyFilters(tree, filterState, getHostStatus);
+    const activeFilters = {
+      ...filterState,
+      protocol: filterState.protocol.filter((v) =>
+        filterOptionAvailable(v, has),
+      ),
+      features: filterState.features.filter((v) =>
+        filterOptionAvailable(v, has),
+      ),
+    };
+    let nodes = applyFilters(tree, activeFilters, getHostStatus);
     nodes = filterTreeByQuery(nodes, q);
     nodes = sortHostTree(nodes, sortKey, getHostStatus);
     return nodes;
-  }, [tree, filterState, q, sortKey, getHostStatus]);
+  }, [tree, filterState, q, sortKey, getHostStatus, has]);
 
   // --- Default expansion: expand all folders the first time hosts load.
   useEffect(() => {
@@ -523,13 +549,15 @@ export default function Hosts() {
             onPress={() => setCredentialListOpen(true)}
             icon={<KeyRound size={18} color={color("muted-foreground")} />}
           />
-          <Button
-            variant="ghost"
-            size="icon"
-            accessibilityLabel="Quick connect"
-            onPress={() => setQuickConnectOpen(true)}
-            icon={<Zap size={18} color={color("muted-foreground")} />}
-          />
+          {has("terminal") ? (
+            <Button
+              variant="ghost"
+              size="icon"
+              accessibilityLabel="Quick connect"
+              onPress={() => setQuickConnectOpen(true)}
+              icon={<Zap size={18} color={color("muted-foreground")} />}
+            />
+          ) : null}
           <Button
             variant="ghost"
             size="icon"
@@ -730,7 +758,7 @@ export default function Hosts() {
             onPress={clearFilters}
           />
         ) : null}
-        {FILTER_GROUPS.map((grp) => (
+        {filterGroups.map((grp) => (
           <View key={grp.group}>
             <View className="px-4 pb-1 pt-3">
               <Text

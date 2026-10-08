@@ -28,6 +28,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify RDP credential prompts
+        run: npm run verify:rdp-login
+
+      - name: Verify server feature gating
+        run: npm run verify:server-features
+
+      - name: Verify 2.9 API compatibility
+        run: npm run verify:api-compat
+
       - name: Verify remote desktop resolution
         run: node scripts/verify-remote-resolution.cjs
 
