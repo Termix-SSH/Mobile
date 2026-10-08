@@ -130,7 +130,7 @@ export function HostActionSheet({
       ? { type: "tunnel" as SessionType, icon: Network, label: "Tunnels" }
       : null,
     metricsEnabled
-      ? { type: "stats" as SessionType, icon: Server, label: "Server Stats" }
+      ? { type: "stats" as SessionType, icon: Server, label: "Host Metrics" }
       : null,
   ].filter(Boolean) as {
     type: SessionType;

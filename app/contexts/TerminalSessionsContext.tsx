@@ -46,7 +46,7 @@ export interface TerminalSession {
 
 const TYPE_LABELS: Record<Exclude<SessionType, "remoteDesktop">, string> = {
   terminal: "",
-  stats: "Stats",
+  stats: "Metrics",
   filemanager: "Files",
   tunnel: "Tunnels",
   docker: "Docker",

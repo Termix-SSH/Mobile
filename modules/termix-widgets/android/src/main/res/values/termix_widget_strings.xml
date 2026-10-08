@@ -2,7 +2,7 @@
 <resources>
   <string name="termix_widget_quick_connect_label">Termix Quick Connect</string>
   <string name="termix_widget_quick_connect_description">Open a terminal on your servers.</string>
-  <string name="termix_widget_status_label">Termix Server Status</string>
+  <string name="termix_widget_status_label">Termix Host Metrics</string>
   <string name="termix_widget_status_description">CPU and memory for your servers.</string>
   <string name="termix_widget_snippets_label">Termix Snippets</string>
   <string name="termix_widget_snippets_description">Run a saved command on a server.</string>
@@ -18,6 +18,6 @@
   <string name="termix_widget_configure_add_anyway">Add widget</string>
   <string name="termix_widget_configure_opens">OPENS</string>
   <string name="termix_widget_configure_opens_terminal">Terminal</string>
-  <string name="termix_widget_configure_opens_stats">Stats</string>
+  <string name="termix_widget_configure_opens_stats">Metrics</string>
   <string name="termix_widget_configure_opens_files">Files</string>
 </resources>

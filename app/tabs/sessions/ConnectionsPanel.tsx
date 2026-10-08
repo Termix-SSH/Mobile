@@ -33,7 +33,7 @@ const TYPE_LABELS: Record<string, string> = {
   terminal: "SSH",
   files: "Files",
   filemanager: "Files",
-  stats: "Stats",
+  stats: "Metrics",
   tunnel: "Tunnel",
   docker: "Docker",
   rdp: "RDP",

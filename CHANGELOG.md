@@ -9,6 +9,10 @@ The app now follows which Termix plugins are turned on, and RDP asks for credent
 - Hide host actions, editor sections, settings and keyboard tabs for features the server has turned off
 - Refresh the server's features on pull to refresh, when the app comes back and when the server reports a feature is off
 
+### Changed
+
+- Renamed Server Stats to Host Metrics, including the home screen widget, to match Termix
+
 ### Fixed
 
 - RDP asks for a username and password when the host has none saved instead of failing with a security type error (#1372)
