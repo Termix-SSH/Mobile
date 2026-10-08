@@ -6,13 +6,7 @@ import { extractConnectionLogs } from "@/app/main-axios";
 import { useConnectionLog } from "./useConnectionLog";
 
 export type SessionConnectState =
-  | "idle"
-  | "connecting"
-  | "connected"
-  | "totp"
-  | "warpgate"
-  | "auth"
-  | "error";
+  "idle" | "connecting" | "connected" | "totp" | "warpgate" | "auth" | "error";
 
 /**
  * The transport-specific calls a session type provides. File manager passes the

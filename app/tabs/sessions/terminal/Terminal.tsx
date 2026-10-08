@@ -155,11 +155,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       Dimensions.get("window"),
     );
     type ConnectionState =
-      | "connecting"
-      | "connected"
-      | "reconnecting"
-      | "disconnected"
-      | "failed";
+      "connecting" | "connected" | "reconnecting" | "disconnected" | "failed";
     const [connectionState, setConnectionState] =
       useState<ConnectionState>("connecting");
     const [retryCount, setRetryCount] = useState(0);

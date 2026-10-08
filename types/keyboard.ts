@@ -16,12 +16,7 @@ export type KeyWidth = "narrow" | "normal" | "wide" | "full";
 export type KeySize = "small" | "medium" | "large";
 
 export type PresetType =
-  | "default"
-  | "minimal"
-  | "developer"
-  | "sysadmin"
-  | "compact"
-  | "custom";
+  "default" | "minimal" | "developer" | "sysadmin" | "compact" | "custom";
 
 export interface KeyConfig {
   id: string;

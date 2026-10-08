@@ -981,12 +981,7 @@ export interface DockerContainerStats {
 }
 
 export type DockerContainerAction =
-  | "start"
-  | "stop"
-  | "restart"
-  | "pause"
-  | "unpause"
-  | "remove";
+  "start" | "stop" | "restart" | "pause" | "unpause" | "remove";
 
 // ============================================================================
 // SESSION CONNECT TYPES

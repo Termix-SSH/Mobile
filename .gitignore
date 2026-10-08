@@ -32,5 +32,9 @@ app-example
 /credentials.json
 /nul
 /CLAUDE.md
-/.claude/
-/.idea/
+
+# Editors and OS
+.idea/
+.vscode/
+.claude/
+Thumbs.db

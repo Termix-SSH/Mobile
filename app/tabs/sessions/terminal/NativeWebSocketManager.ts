@@ -216,8 +216,7 @@ export class NativeWebSocketManager {
       key: credentials.sshKey,
       keyPassword: credentials.keyPassword,
       authType: (credentials.password ? "password" : "key") as
-        | "password"
-        | "key",
+        "password" | "key",
     };
 
     this.config.hostConfig = updatedHostConfig;

@@ -45,11 +45,7 @@ import { BottomSheet, SegmentedControl, Button } from "@/app/components/ui";
 const KEY_STRIP_HEIGHT = 44;
 
 type ConnectionState =
-  | "idle"
-  | "connecting"
-  | "connected"
-  | "disconnected"
-  | "failed";
+  "idle" | "connecting" | "connected" | "disconnected" | "failed";
 
 type MouseMode = "touch" | "trackpad";
 

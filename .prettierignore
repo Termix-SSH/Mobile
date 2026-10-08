@@ -1,4 +1,8 @@
-assets/xterm/*.html
+build
+coverage
+dist
+node_modules
+package-lock.json
 
-# Vendored JavaScript stored as an Expo text asset
+assets/xterm/*.html
 assets/guacamole/guacamole-common.js.html

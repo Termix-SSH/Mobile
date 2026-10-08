@@ -20,12 +20,7 @@ import {
 } from "@/app/main-axios";
 
 export type SessionType =
-  | "terminal"
-  | "stats"
-  | "filemanager"
-  | "tunnel"
-  | "docker"
-  | "remoteDesktop";
+  "terminal" | "stats" | "filemanager" | "tunnel" | "docker" | "remoteDesktop";
 
 export type RemoteDesktopProtocol = "rdp" | "vnc" | "telnet";
 
