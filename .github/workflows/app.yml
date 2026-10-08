@@ -22,8 +22,39 @@ on:
           - release
           - submit
 jobs:
+  release:
+    name: Create the GitHub release
+    if: ${{ github.event.inputs.action == 'release' }}
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    outputs:
+      tag: ${{ steps.create.outputs.tag }}
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v4
+
+      - name: Create or update the draft release from CHANGELOG.md
+        id: create
+        env:
+          GH_TOKEN: ${{ secrets.TERMIX_PAT }}
+        run: |
+          VERSION=$(node -p "require('./app.json').expo.version")
+          TAG="release-$VERSION-tag"
+          node scripts/generate-release-body.cjs --version "$VERSION" > RELEASE_BODY.md
+          cat RELEASE_BODY.md
+
+          if gh release view "$TAG" --repo ${{ github.repository }} >/dev/null 2>&1; then
+            echo "Release $TAG exists, updating its notes"
+            gh release edit "$TAG" --repo ${{ github.repository }}               --title "release-$VERSION" --notes-file RELEASE_BODY.md
+          else
+            echo "Creating draft release $TAG"
+            gh release create "$TAG" --repo ${{ github.repository }}               --draft --title "release-$VERSION" --target "${{ github.sha }}"               --notes-file RELEASE_BODY.md
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
   build:
     name: build-${{ matrix.platform }}
+    needs: [release]
+    if: ${{ !cancelled() && (needs.release.result == 'success' || needs.release.result == 'skipped') }}
     runs-on: ${{ matrix.platform == 'apple' && 'blacksmith-6vcpu-macos-latest' || 'blacksmith-8vcpu-ubuntu-2404' }}
     strategy:
       fail-fast: false
@@ -221,48 +252,32 @@ jobs:
         if: ${{ github.event.inputs.action == 'release' }}
         env:
           GH_TOKEN: ${{ secrets.TERMIX_PAT }}
+          TAG: ${{ needs.release.outputs.tag }}
         run: |
-          echo "Fetching latest release from Termix-SSH/Mobile..."
-          MOBILE_RELEASE=$(gh release list --repo Termix-SSH/Mobile --limit 1 --json tagName,name,isLatest -q '.[0]')
+          if [ "${{ matrix.platform }}" = "android" ]; then
+            FILE="build-artifacts/termix_android.apk"
+          else
+            FILE="build-artifacts/termix_ios.ipa"
+          fi
 
-          if [ -z "$MOBILE_RELEASE" ]; then
-            echo "ERROR: No releases found in Termix-SSH/Mobile"
+          if [ ! -f "$FILE" ]; then
+            echo "ERROR: build file not found: $FILE"
             exit 1
           fi
 
-          MOBILE_TAG=$(echo "$MOBILE_RELEASE" | jq -r '.tagName')
-          MOBILE_NAME=$(echo "$MOBILE_RELEASE" | jq -r '.name')
-          MOBILE_URL="https://github.com/Termix-SSH/Mobile/releases/tag/$MOBILE_TAG"
+          echo "Uploading $FILE to $TAG"
+          gh release upload "$TAG" "$FILE" --repo ${{ github.repository }} --clobber
 
-          echo "Latest Mobile release: $MOBILE_NAME ($MOBILE_TAG)"
-
-          if [ "${{ matrix.platform }}" = "android" ]; then
-            APK_FILE="build-artifacts/termix_android.apk"
-            if [ -f "$APK_FILE" ]; then
-              echo "Uploading $APK_FILE to Termix-SSH/Mobile..."
-              gh release upload "$MOBILE_TAG" \
-                "$APK_FILE" \
-                --repo Termix-SSH/Mobile \
-                --clobber
-              echo "✓ Android APK uploaded to Termix-SSH/Mobile"
-            else
-              echo "ERROR: Android APK not found: $APK_FILE"
-              exit 1
-            fi
-          elif [ "${{ matrix.platform }}" = "apple" ]; then
-            IPA_FILE="build-artifacts/termix_ios.ipa"
-            if [ -f "$IPA_FILE" ]; then
-              echo "Uploading $IPA_FILE to Termix-SSH/Mobile..."
-              gh release upload "$MOBILE_TAG" \
-                "$IPA_FILE" \
-                --repo Termix-SSH/Mobile \
-                --clobber
-              echo "✓ iOS IPA uploaded to Termix-SSH/Mobile"
-            else
-              echo "ERROR: iOS IPA not found: $IPA_FILE"
-              exit 1
-            fi
-          fi
-
-          echo ""
-          echo "Build uploaded to: $MOBILE_URL"
+  publish:
+    name: Publish the GitHub release
+    needs: [release, build]
+    if: ${{ github.event.inputs.action == 'release' }}
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ secrets.TERMIX_PAT }}
+          TAG: ${{ needs.release.outputs.tag }}
+        run: |
+          gh release edit "$TAG" --repo ${{ github.repository }} --draft=false --latest
+          echo "Published https://github.com/${{ github.repository }}/releases/tag/$TAG"
