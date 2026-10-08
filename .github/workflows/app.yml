@@ -60,7 +60,6 @@ jobs:
       fail-fast: false
       matrix:
         platform: ${{ github.event.inputs.platform == 'both' && fromJSON('["apple", "android"]') || fromJSON(format('["{0}"]', github.event.inputs.platform)) }}
-        node: [22.x]
     steps:
       - name: Setup repo
         uses: actions/checkout@v4
@@ -68,7 +67,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4.0.2
         with:
-          node-version: ${{ matrix.node }}
+          node-version-file: ".nvmrc"
           cache: "npm"
 
       - name: Setup Expo and EAS

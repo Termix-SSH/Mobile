@@ -100,5 +100,8 @@
       "prettier --write"
     ]
   },
-  "private": true
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  }
 }
