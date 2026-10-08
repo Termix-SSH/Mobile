@@ -81,7 +81,7 @@ Access a graphical desktop on your server (RDP, VNC, and Telnet supported).
 <td width="50%" valign="top">
 
 **Home Screen Widgets:**
-Add widgets on iOS and Android to jump straight into a host, run a snippet, or check server status without opening the app. Pick which hosts each widget shows and which tab it opens.
+Add widgets on iOS and Android to jump straight into a host, run a snippet, or check host metrics without opening the app. Pick which hosts each widget shows and which tab it opens.
 
 </td>
 <td width="50%" valign="top">

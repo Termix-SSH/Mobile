@@ -1,3 +1,4 @@
+import { remoteDesktopConnectBody, type RdpCredentials } from "@/lib/rdp-login";
 import axios, { AxiosError, type AxiosInstance } from "axios";
 import type {
   SSHHost,
@@ -43,6 +44,12 @@ import {
   toPluginRequest,
   toWebSocketBase,
 } from "../lib/api-compat";
+import {
+  activePlugins,
+  hasServerFeature,
+  type ServerFeature,
+  type ServerPlugin,
+} from "../lib/server-features";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
@@ -311,10 +318,32 @@ let configuredServerUrl: string | null = null;
 // ============================================================================
 
 let apiGeneration: ApiGeneration = "legacy";
-let enabledPlugins: Set<string> | null = null;
+let enabledPlugins: ServerPlugin[] | null = null;
+const serverFeatureListeners = new Set<() => void>();
 
 function apiGenerationKey(): string {
   return `apiGeneration:${configuredServerUrl ?? ""}`;
+}
+
+function enabledPluginsKey(): string {
+  return `enabledPlugins:${configuredServerUrl ?? ""}`;
+}
+
+function setEnabledPlugins(next: ServerPlugin[] | null): void {
+  enabledPlugins = next;
+  serverFeatureListeners.forEach((listener) => listener());
+}
+
+/** Called whenever the server's plugin list or API generation changes. */
+export function subscribeServerFeatures(listener: () => void): () => void {
+  serverFeatureListeners.add(listener);
+  return () => {
+    serverFeatureListeners.delete(listener);
+  };
+}
+
+export function hasFeature(feature: ServerFeature): boolean {
+  return hasServerFeature(feature, apiGeneration === "plugin", enabledPlugins);
 }
 
 export function getApiGeneration(): ApiGeneration {
@@ -332,7 +361,7 @@ export function isPluginApi(): boolean {
  */
 export function isPluginEnabled(pluginId: string): boolean {
   if (apiGeneration !== "plugin" || !enabledPlugins) return true;
-  return enabledPlugins.has(pluginId);
+  return enabledPlugins.some((p) => p.id === pluginId);
 }
 
 function isHtmlPayload(data: unknown): boolean {
@@ -365,7 +394,9 @@ async function setApiGeneration(generation: ApiGeneration): Promise<void> {
       configuredServerUrl,
     });
   }
+  const changed = generation !== apiGeneration;
   apiGeneration = generation;
+  if (changed) serverFeatureListeners.forEach((listener) => listener());
   try {
     await AsyncStorage.setItem(apiGenerationKey(), generation);
   } catch {}
@@ -420,21 +451,19 @@ export async function detectApiGeneration(): Promise<ApiGeneration> {
 /** Loads which plugins are on. Needs a signed in user, so call after login. */
 export async function refreshEnabledPlugins(): Promise<void> {
   if (apiGeneration !== "plugin") {
-    enabledPlugins = null;
+    setEnabledPlugins(null);
     return;
   }
   try {
     const res = await authApi.get("/plugins");
-    const list = Array.isArray(res.data) ? res.data : res.data?.plugins;
-    if (Array.isArray(list)) {
-      enabledPlugins = new Set(
-        list
-          .filter(
-            (p: any) =>
-              p?.enabled !== false && (p?.state ?? "active") === "active",
-          )
-          .map((p: any) => String(p.id)),
-      );
+    const list = activePlugins(
+      Array.isArray(res.data) ? res.data : res.data?.plugins,
+    );
+    if (list) {
+      setEnabledPlugins(list);
+      try {
+        await AsyncStorage.setItem(enabledPluginsKey(), JSON.stringify(list));
+      } catch {}
     }
   } catch {
     // Keep whatever we had; features stay visible rather than vanishing.
@@ -446,7 +475,14 @@ async function loadServerApi(): Promise<void> {
     const cached = await AsyncStorage.getItem(apiGenerationKey());
     if (cached === "plugin" || cached === "legacy") apiGeneration = cached;
   } catch {}
-  enabledPlugins = null;
+  let cachedPlugins: ServerPlugin[] | null = null;
+  if (apiGeneration === "plugin") {
+    try {
+      const raw = await AsyncStorage.getItem(enabledPluginsKey());
+      if (raw) cachedPlugins = activePlugins(JSON.parse(raw));
+    } catch {}
+  }
+  setEnabledPlugins(cachedPlugins);
   updateApiInstances();
   await detectApiGeneration();
   if (apiGeneration === "plugin") {
@@ -897,6 +933,7 @@ function handleApiError(error: unknown, operation: string): never {
       );
     } else if (status === 503 && error.response?.data?.pluginId) {
       apiLogger.warn(`Feature disabled: ${method} ${url}`, errorContext);
+      void refreshEnabledPlugins();
       throw new ApiError(
         "This feature is turned off on the server.",
         503,
@@ -1388,11 +1425,12 @@ export async function exportSSHHostWithCredentials(
 export async function getGuacamoleTokenFromHost(
   hostId: number,
   protocol?: "rdp" | "vnc" | "telnet",
+  credentials?: RdpCredentials,
 ): Promise<{ token: string }> {
   try {
     const response = await authApi.post(
       `/guacamole/connect-host/${hostId}`,
-      protocol ? { protocol } : {},
+      remoteDesktopConnectBody(protocol, credentials),
     );
     return response.data;
   } catch (error) {

@@ -178,7 +178,7 @@ import WidgetKit
     static var caseDisplayRepresentations: [SessionKindOption: DisplayRepresentation] {
       [
         .terminal: DisplayRepresentation(title: "Terminal"),
-        .stats: DisplayRepresentation(title: "Server stats"),
+        .stats: DisplayRepresentation(title: "Host metrics"),
         .filemanager: DisplayRepresentation(title: "Files"),
       ]
     }

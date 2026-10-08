@@ -49,7 +49,7 @@ enum class SnapshotState {
  */
 enum class SessionKind(val slug: String, val label: String) {
   TERMINAL("terminal", "Terminal"),
-  STATS("stats", "Server stats"),
+  STATS("stats", "Host metrics"),
   FILES("filemanager", "Files");
 
   companion object {

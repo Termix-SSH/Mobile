@@ -3,6 +3,7 @@ import { Pin, Cpu, MemoryStick } from "lucide-react-native";
 import { SSHHost } from "@/types";
 import { Text } from "@/app/components/ui";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
+import { useServerFeatures } from "@/app/contexts/ServerFeaturesContext";
 import type { HostStatus } from "@/app/tabs/hosts/navigation/hostTree";
 
 export interface HostMetrics {
@@ -76,6 +77,7 @@ export default function Host({
   const color = useThemeColor();
   const accent = color("accent-brand") ?? "#f59145";
   const online = status === "online";
+  const { has } = useServerFeatures();
 
   const sshActive =
     host.enableSsh !== false &&
@@ -84,13 +86,16 @@ export default function Host({
     host.connectionType !== "telnet";
   const protocols: string[] = [];
   if (sshActive) protocols.push("SSH");
-  if (host.enableRdp) protocols.push("RDP");
-  if (host.enableVnc) protocols.push("VNC");
-  if (host.enableTelnet) protocols.push("TEL");
-  if (sshActive && host.enableTerminal) protocols.push("TERM");
-  if (sshActive && host.enableFileManager) protocols.push("FILES");
-  if (sshActive && host.enableTunnel) protocols.push("TUNNEL");
-  if (host.enableDocker) protocols.push("DKR");
+  if (host.enableRdp && has("rdp")) protocols.push("RDP");
+  if (host.enableVnc && has("vnc")) protocols.push("VNC");
+  if (host.enableTelnet && has("telnet")) protocols.push("TEL");
+  if (sshActive && host.enableTerminal && has("terminal"))
+    protocols.push("TERM");
+  if (sshActive && host.enableFileManager && has("fileManager"))
+    protocols.push("FILES");
+  if (sshActive && host.enableTunnel && has("tunnels"))
+    protocols.push("TUNNEL");
+  if (host.enableDocker && has("docker")) protocols.push("DKR");
 
   const showCpu = online && metrics?.cpu != null && metrics.cpu > 0;
   const showRam = online && metrics?.ram != null && metrics.ram > 0;

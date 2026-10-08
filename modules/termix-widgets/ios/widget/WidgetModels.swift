@@ -24,7 +24,7 @@ enum SessionKind: String, CaseIterable {
   var label: String {
     switch self {
     case .terminal: return "TERMINAL"
-    case .stats: return "STATS"
+    case .stats: return "METRICS"
     case .filemanager: return "FILES"
     }
   }
@@ -113,7 +113,7 @@ struct HostEntry: Codable, Identifiable, Hashable {
     let destination: String
     switch opens {
     case .terminal: destination = "a terminal session"
-    case .stats: destination = "server stats"
+    case .stats: destination = "host metrics"
     case .filemanager: destination = "the file manager"
     }
     return description + ". Opens \(destination)."

@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 
 /**
- Server Status — CPU and memory at a glance.
+ Host Metrics: CPU and memory at a glance.
 
  Reads the same snapshot as Quick Connect but leads with load rather than
  launching: small focuses on one host, medium and large list several. Rows are
@@ -18,7 +18,7 @@ struct StatusWidget: Widget {
     StaticConfiguration(kind: Self.kind, provider: TermixProvider()) { entry in
       StatusView(entry: entry)
     }
-    .configurationDisplayName("Server Status")
+    .configurationDisplayName("Host Metrics")
     .description("CPU and memory for your servers.")
     .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
   }
@@ -40,7 +40,7 @@ struct StatusWidget: Widget {
           opens: entry.opens
         )
       }
-      .configurationDisplayName("Server Status")
+      .configurationDisplayName("Host Metrics")
       .description("CPU and memory for your servers.")
       .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
       .termixEssentialBackground()

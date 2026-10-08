@@ -209,7 +209,7 @@ export const ServerStats = forwardRef<ServerStatsHandle, ServerStatsProps>(
     return (
       <SessionFrame
         title={hostConfig.name}
-        subtitle="Server Stats"
+        subtitle="Host Metrics"
         status={status === "ready" ? "ready" : status}
         loadingLabel="Loading metrics…"
         errorMessage={error}

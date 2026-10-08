@@ -22,6 +22,7 @@ import { useAppContext } from "@/app/AppContext";
 import { useTerminalSessions } from "@/app/contexts/TerminalSessionsContext";
 import { useTheme, useThemeColor } from "@/app/contexts/ThemeContext";
 import { useAppLock } from "@/app/contexts/AppLockContext";
+import { useServerFeatures } from "@/app/contexts/ServerFeaturesContext";
 import {
   clearSession,
   logoutUser,
@@ -63,6 +64,7 @@ import {
 
 export default function Settings() {
   const router = useRouter();
+  const { has } = useServerFeatures();
   const color = useThemeColor();
   const appVersion = Constants.expoConfig?.version ?? "";
   const { isAuthenticated, setAuthenticated, openAuthFlow, authFlowVisible } =
@@ -367,20 +369,25 @@ export default function Settings() {
               ) : null}
 
               <View className="mt-1 gap-0">
-                <Pressable
-                  onPress={() =>
-                    router.push("/tabs/settings/TwoFactorAuth" as any)
-                  }
-                  className="flex-row items-center justify-between border-t border-border py-3"
-                >
-                  <View className="flex-row items-center gap-2">
-                    <ShieldCheck size={15} color={color("muted-foreground")} />
-                    <Text weight="medium" className="text-sm text-foreground">
-                      Two-Factor Authentication
-                    </Text>
-                  </View>
-                  <ChevronRight size={15} color={color("muted-foreground")} />
-                </Pressable>
+                {has("totp") ? (
+                  <Pressable
+                    onPress={() =>
+                      router.push("/tabs/settings/TwoFactorAuth" as any)
+                    }
+                    className="flex-row items-center justify-between border-t border-border py-3"
+                  >
+                    <View className="flex-row items-center gap-2">
+                      <ShieldCheck
+                        size={15}
+                        color={color("muted-foreground")}
+                      />
+                      <Text weight="medium" className="text-sm text-foreground">
+                        Two-Factor Authentication
+                      </Text>
+                    </View>
+                    <ChevronRight size={15} color={color("muted-foreground")} />
+                  </Pressable>
+                ) : null}
                 {isAdmin ? (
                   <Pressable
                     onPress={() =>
@@ -411,18 +418,22 @@ export default function Settings() {
                     <ChevronRight size={15} color={color("muted-foreground")} />
                   </Pressable>
                 ) : null}
-                <Pressable
-                  onPress={() => router.push("/tabs/settings/Snippets" as any)}
-                  className="flex-row items-center justify-between border-t border-border py-3"
-                >
-                  <View className="flex-row items-center gap-2">
-                    <FileText size={15} color={color("muted-foreground")} />
-                    <Text weight="medium" className="text-sm text-foreground">
-                      Snippets
-                    </Text>
-                  </View>
-                  <ChevronRight size={15} color={color("muted-foreground")} />
-                </Pressable>
+                {has("snippets") ? (
+                  <Pressable
+                    onPress={() =>
+                      router.push("/tabs/settings/Snippets" as any)
+                    }
+                    className="flex-row items-center justify-between border-t border-border py-3"
+                  >
+                    <View className="flex-row items-center gap-2">
+                      <FileText size={15} color={color("muted-foreground")} />
+                      <Text weight="medium" className="text-sm text-foreground">
+                        Snippets
+                      </Text>
+                    </View>
+                    <ChevronRight size={15} color={color("muted-foreground")} />
+                  </Pressable>
+                ) : null}
                 <Pressable
                   onPress={() => setPasswordDialog(true)}
                   className="flex-row items-center justify-between border-t border-border py-3"
@@ -607,6 +618,7 @@ export default function Settings() {
                   <SettingRow
                     label="Pinned hosts only"
                     description="Show only the hosts you pinned"
+                    last={!has("snippets")}
                   >
                     <FakeSwitch
                       checked={widgetPrefs.pinnedOnly}
@@ -616,20 +628,22 @@ export default function Settings() {
                     />
                   </SettingRow>
 
-                  <SettingRow
-                    label="Snippets widget"
-                    description="Show saved commands on the home screen"
-                    last={!widgetPrefs.includeSnippets}
-                  >
-                    <FakeSwitch
-                      checked={widgetPrefs.includeSnippets}
-                      onChange={(value) =>
-                        updateWidgetPref({ includeSnippets: value })
-                      }
-                    />
-                  </SettingRow>
+                  {has("snippets") ? (
+                    <SettingRow
+                      label="Snippets widget"
+                      description="Show saved commands on the home screen"
+                      last={!widgetPrefs.includeSnippets}
+                    >
+                      <FakeSwitch
+                        checked={widgetPrefs.includeSnippets}
+                        onChange={(value) =>
+                          updateWidgetPref({ includeSnippets: value })
+                        }
+                      />
+                    </SettingRow>
+                  ) : null}
 
-                  {widgetPrefs.includeSnippets ? (
+                  {widgetPrefs.includeSnippets && has("snippets") ? (
                     <SettingRow
                       label="Show command preview"
                       description="Show the first line of each command"

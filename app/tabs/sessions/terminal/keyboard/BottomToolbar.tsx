@@ -11,6 +11,7 @@ import {
   ACCENT,
   TEXT_COLORS,
 } from "@/app/constants/designTokens";
+import { useServerFeatures } from "@/app/contexts/ServerFeaturesContext";
 
 type ToolbarMode = "keyboard" | "snippets" | "history";
 
@@ -33,6 +34,7 @@ export default function BottomToolbar({
 }: BottomToolbarProps) {
   const [mode, setMode] = useState<ToolbarMode>(initialTab);
   const insets = useSafeAreaInsets();
+  const { has } = useServerFeatures();
 
   useEffect(() => {
     setMode(initialTab);
@@ -42,11 +44,14 @@ export default function BottomToolbar({
 
   const safeKeyboardHeight = Math.max(200, Math.min(keyboardHeight, 500));
 
-  const tabs: { id: ToolbarMode; label: string }[] = [
-    { id: "keyboard", label: "KEYBOARD" },
-    { id: "snippets", label: "SNIPPETS" },
-    { id: "history", label: "HISTORY" },
-  ];
+  const tabs = (
+    [
+      { id: "keyboard", label: "KEYBOARD" },
+      has("snippets") && { id: "snippets", label: "SNIPPETS" },
+      has("commandHistory") && { id: "history", label: "HISTORY" },
+    ] as ({ id: ToolbarMode; label: string } | false)[]
+  ).filter(Boolean) as { id: ToolbarMode; label: string }[];
+  const activeMode = tabs.some((tab) => tab.id === mode) ? mode : "keyboard";
 
   const TAB_BAR_HEIGHT = 36;
 
@@ -68,7 +73,7 @@ export default function BottomToolbar({
         }}
       >
         {tabs.map((tab, index) => {
-          const isActive = mode === tab.id;
+          const isActive = activeMode === tab.id;
           return (
             <TouchableOpacity
               key={tab.id}
@@ -123,7 +128,7 @@ export default function BottomToolbar({
           backgroundColor: BACKGROUNDS.DARKEST,
         }}
       >
-        {mode === "keyboard" && (
+        {activeMode === "keyboard" && (
           <CustomKeyboard
             terminalRef={terminalRef}
             isVisible={true}
@@ -132,7 +137,7 @@ export default function BottomToolbar({
           />
         )}
 
-        {mode === "snippets" && (
+        {activeMode === "snippets" && (
           <SnippetsBar
             terminalRef={terminalRef}
             isVisible={true}
@@ -140,7 +145,7 @@ export default function BottomToolbar({
           />
         )}
 
-        {mode === "history" && (
+        {activeMode === "history" && (
           <HistoryBar
             terminalRef={terminalRef}
             hostId={hostId}
