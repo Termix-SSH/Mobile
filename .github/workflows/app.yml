@@ -38,16 +38,16 @@ jobs:
           GH_TOKEN: ${{ secrets.TERMIX_PAT }}
         run: |
           VERSION=$(node -p "require('./app.json').expo.version")
-          TAG="release-$VERSION-tag"
+          TAG="v$VERSION"
           node scripts/generate-release-body.cjs --version "$VERSION" > RELEASE_BODY.md
           cat RELEASE_BODY.md
 
           if gh release view "$TAG" --repo ${{ github.repository }} >/dev/null 2>&1; then
             echo "Release $TAG exists, updating its notes"
-            gh release edit "$TAG" --repo ${{ github.repository }}               --title "release-$VERSION" --notes-file RELEASE_BODY.md
+            gh release edit "$TAG" --repo ${{ github.repository }}               --title "v$VERSION" --notes-file RELEASE_BODY.md
           else
             echo "Creating draft release $TAG"
-            gh release create "$TAG" --repo ${{ github.repository }}               --draft --title "release-$VERSION" --target "${{ github.sha }}"               --notes-file RELEASE_BODY.md
+            gh release create "$TAG" --repo ${{ github.repository }}               --draft --title "v$VERSION" --target "${{ github.sha }}"               --notes-file RELEASE_BODY.md
           fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 

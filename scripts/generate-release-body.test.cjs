@@ -34,8 +34,8 @@ test("builds the body from the version's section only", () => {
     body,
     /^> \[!WARNING\]\n> Requires Termix v26\.10\.0\+\n\nNew things\./,
   );
-  assert.match(body, /release-1\.6\.0-tag\/termix_android\.apk/);
-  assert.match(body, /release-1\.6\.0-tag\/termix_ios\.ipa/);
+  assert.match(body, /download\/v1\.6\.0\/termix_android\.apk/);
+  assert.match(body, /download\/v1\.6\.0\/termix_ios\.ipa/);
   assert.ok(body.indexOf("| Platform") < body.indexOf("### Added"));
   assert.match(body, /### Fixed\n\n- Bug one\n$/);
   assert.doesNotMatch(body, /Old bug/);

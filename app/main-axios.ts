@@ -3457,7 +3457,9 @@ export async function getLatestGitHubRelease(): Promise<{
     const release = response.data;
 
     const tagName = release.tag_name;
-    const versionMatch = tagName.match(/release-(\d+\.\d+\.\d+)(?:-tag)?/);
+    const versionMatch = tagName.match(
+      /^(?:v|release-)(\d+\.\d+\.\d+)(?:-tag)?$/,
+    );
 
     if (versionMatch) {
       return {

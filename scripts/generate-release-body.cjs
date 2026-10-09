@@ -21,7 +21,7 @@ function changelogSection(changelog, version) {
 }
 
 function buildTable(version) {
-  const base = `https://github.com/Termix-SSH/Mobile/releases/download/release-${version}-tag`;
+  const base = `https://github.com/Termix-SSH/Mobile/releases/download/v${version}`;
   return [
     "| Platform | Download |",
     "|----------|----------|",
