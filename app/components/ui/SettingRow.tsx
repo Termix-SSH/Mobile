@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { Text } from "./Text";
 
 /**
- * SettingRow — label + optional description on the left, a control on the
+ * SettingRow - label + optional description on the left, a control on the
  * right. Mirrors the web app's SettingRow used throughout user preferences.
  */
 export function SettingRow({

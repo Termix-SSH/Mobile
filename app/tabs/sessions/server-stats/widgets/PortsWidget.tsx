@@ -42,7 +42,7 @@ export function PortsWidget({ metrics }: { metrics: ServerMetrics }) {
                 numberOfLines={1}
                 style={{ fontFamily: MONO_FONT }}
               >
-                {p.process || p.pid || "—"}
+                {p.process || p.pid || "-"}
                 {p.localAddress ? `  ${p.localAddress}` : ""}
               </Text>
             </View>

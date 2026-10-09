@@ -5,7 +5,7 @@ import { Text } from "./Text";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 /**
- * AccordionSection — bordered card with a header that expands/collapses,
+ * AccordionSection - bordered card with a header that expands/collapses,
  * matching the web user-profile accordion (uppercase header + chevron).
  */
 export function AccordionSection({

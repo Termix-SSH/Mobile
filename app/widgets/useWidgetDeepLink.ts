@@ -10,7 +10,7 @@
  * authenticated is parked and replayed once sign-in completes.
  *
  * Host links open a session directly. Snippet links resolve the snippet and
- * hand it to the caller, which asks which host to run it on — see
+ * hand it to the caller, which asks which host to run it on - see
  * ./RunSnippetSheet.
  */
 
@@ -44,7 +44,7 @@ interface WidgetLink {
 
 /**
  * Parses a widget deep link. Returns null for anything that isn't ours or that
- * carries values we don't recognise — a widget must never be able to steer the
+ * carries values we don't recognise - a widget must never be able to steer the
  * app somewhere unexpected.
  */
 export function parseWidgetLink(url: string): WidgetLink | null {

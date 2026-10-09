@@ -6,7 +6,7 @@ import WidgetKit
 
  The app writes one JSON snapshot into the shared App Group container; the
  widget extension reads it back. Keeping the transport to a single string keeps
- the two sides decoupled — the contract lives in `app/widgets/types.ts`.
+ the two sides decoupled - the contract lives in `app/widgets/types.ts`.
  */
 public class TermixWidgetsModule: Module {
   /// Info.plist key injected by `plugins/withTermixWidgets.js`.

@@ -61,7 +61,7 @@ import {
 type Step = "server" | "login" | "totp" | "signup" | "reset" | "oidc";
 
 // TEMP (testing): force the embedded web-version login (WebView) for every
-// sign-in — skip the native login form AND the system-browser OIDC popup.
+// sign-in - skip the native login form AND the system-browser OIDC popup.
 // Set back to false to restore normal behavior.
 const FORCE_WEBVIEW_LOGIN = false;
 
@@ -162,7 +162,7 @@ export default function AuthFlow() {
 
     // If the server sits behind a reverse-proxy auth gate (Cloudflare Access,
     // Authelia, …), API endpoints return the proxy's HTML login page rather
-    // than JSON — a native form can't work. Send the user to the browser-based
+    // than JSON - a native form can't work. Send the user to the browser-based
     // external sign-in instead.
     if (await isReverseProxyAuthGate()) {
       setCaps({
@@ -182,7 +182,7 @@ export default function AuthFlow() {
       getOIDCConfig(),
     ]);
 
-    // If every probe failed, the server is unreachable — surface that rather
+    // If every probe failed, the server is unreachable - surface that rather
     // than rendering an empty login form.
     if (
       setupRes.status === "rejected" &&
@@ -274,7 +274,7 @@ export default function AuthFlow() {
   const goToServer = () => {
     // Changing server must not carry the old session/proxy login forward.
     // Invalidate the server-side session FIRST (while the JWT still exists), then
-    // clear local state — otherwise the live Termix cookie lets OIDC resume the
+    // clear local state - otherwise the live Termix cookie lets OIDC resume the
     // old account.
     void (async () => {
       try {
@@ -372,7 +372,7 @@ export default function AuthFlow() {
             <View
               className={`items-center px-6 ${keyboardVisible ? "py-4" : "py-10"}`}
             >
-              {/* Brand mark — dropped while typing so short screens keep the
+              {/* Brand mark - dropped while typing so short screens keep the
                   form fully visible above the keyboard. */}
               {keyboardVisible ? null : (
                 <View className="mb-5 h-16 w-16 items-center justify-center border border-accent-brand/40 bg-accent-brand/10">
@@ -623,10 +623,8 @@ function LoginStep({
       await onAuthenticated();
     } catch (e: any) {
       if (e?.code === "PROXY_AUTH_GATE") {
-        // The server is behind a login proxy — fall back to the browser flow.
-        toast.error(
-          "This server uses a login proxy — opening external sign-in",
-        );
+        // The server is behind a login proxy - fall back to the browser flow.
+        toast.error("This server uses a login proxy. Opening external sign-in");
         onOidc();
         return;
       }
@@ -940,7 +938,7 @@ function ResetStep({
     setBusy(true);
     try {
       await initiatePasswordReset(username.trim());
-      toast.success("Reset code generated — check the server logs");
+      toast.success("Reset code generated. Check the server logs");
       setPhase("code");
     } catch (e: any) {
       toast.error(errMessage(e, "Could not start password reset"));
@@ -977,7 +975,7 @@ function ResetStep({
     setBusy(true);
     try {
       await completePasswordReset(username.trim(), tempToken, newPassword);
-      toast.success("Password reset — you can sign in now");
+      toast.success("Password reset. You can sign in now");
       onDone();
     } catch (e: any) {
       toast.error(errMessage(e, "Could not reset password"));
@@ -1154,7 +1152,7 @@ function OidcStep({
         // Confirm the token, tolerating transient gateway hiccups (502 / brief
         // network blips from the reverse proxy). A real 401 means the token is
         // bad; a non-user payload (e.g. the proxy's HTML login page) means the
-        // native request isn't reaching Termix — surface that rather than
+        // native request isn't reaching Termix - surface that rather than
         // pretending we're signed in.
         let confirmed = false;
         for (let attempt = 0; attempt < 3 && !confirmed; attempt++) {
@@ -1176,7 +1174,7 @@ function OidcStep({
               authStartedRef.current = false;
               return;
             }
-            // Transient (502/HTML/network) — wait briefly and retry.
+            // Transient (502/HTML/network) - wait briefly and retry.
             await new Promise((r) => setTimeout(r, 600));
           }
         }
@@ -1207,7 +1205,7 @@ function OidcStep({
   const handleCallbackUrl = useCallback(
     async (callbackUrl: string) => {
       if (!callbackUrl.startsWith("termix-mobile://oidc-callback")) return;
-      // The same intent can reach us twice — openAuthSessionAsync's result, the
+      // The same intent can reach us twice - openAuthSessionAsync's result, the
       // Linking listener, and the /oidc-callback route all see it. Claim it once
       // so a second, failing confirmation can't clear the JWT the first stored.
       if (isOidcCallbackHandled(callbackUrl)) return;
@@ -1268,14 +1266,14 @@ function OidcStep({
         // wouldn't match. The fixed form works in both dev and production.
         const callbackUrl = OIDC_CALLBACK_URL;
         // openAuthSessionAsync uses ASWebAuthenticationSession on iOS and
-        // Chrome Custom Tabs on Android — both support WebAuthn/passkeys (RFC 8252).
+        // Chrome Custom Tabs on Android - both support WebAuthn/passkeys (RFC 8252).
         // It captures the termix-mobile:// redirect itself and returns it as
         // result.url, so the global Linking listener is a backup, not the primary.
         const result = await WebBrowser.openAuthSessionAsync(
           authUrl,
           callbackUrl,
           // After a reset, don't share Safari's cookies (iOS) so the IdP/proxy
-          // doesn't auto-resume the previous account — forces a fresh login.
+          // doesn't auto-resume the previous account - forces a fresh login.
           freshSessionRef.current
             ? { preferEphemeralSession: true }
             : undefined,
@@ -1283,7 +1281,7 @@ function OidcStep({
         if (result.type === "success" && result.url) {
           await handleCallbackUrl(result.url);
         }
-        // result.type === "cancel" means user dismissed — no error needed
+        // result.type === "cancel" means user dismissed - no error needed
       } catch {
         Alert.alert("Error", "Could not open the authentication browser.");
       } finally {
@@ -1321,7 +1319,7 @@ function OidcStep({
     const init = async () => {
       // A deep link the OS delivered before this screen existed (cold start, or
       // a Custom Tab that handed the redirect to the router). Finish that
-      // sign-in instead of starting a second trip to the IdP — and before the
+      // sign-in instead of starting a second trip to the IdP - and before the
       // jwt wipe below, which would otherwise discard what we just received.
       const pendingCallback = consumeOidcCallback();
       if (pendingCallback) {
@@ -1359,7 +1357,7 @@ function OidcStep({
             return;
           }
         } catch {
-          // ignore — fall back to the server root, which renders the web login
+          // ignore - fall back to the server root, which renders the web login
           // (covers reverse-proxy login forms).
         }
       }
@@ -1433,7 +1431,7 @@ function OidcStep({
                          window.location.href.includes('?error=');
 
       // On a fresh (non-callback) page load, drop any JS-readable leftover token
-      // so the web app doesn't silently resume the PREVIOUS account — otherwise
+      // so the web app doesn't silently resume the PREVIOUS account - otherwise
       // an OIDC sign-in can hand back the old user's token. (HttpOnly cookies
       // can't be cleared here, but this covers the localStorage/readable-cookie
       // case the web app uses for the handoff.)

@@ -1,5 +1,5 @@
 /**
- * Theme constants — ported from the Termix web app
+ * Theme constants - ported from the Termix web app
  * (../Termix/Termix/src/ui/lib/theme.ts + index.css).
  *
  * Colors are space-separated RGB triplets ("R G B") so they can be fed to
@@ -399,7 +399,7 @@ export const THEME_LABELS: Record<ThemeId, string> = {
   gruvbox: "Gruvbox",
 };
 
-/** 12 accent presets — identical set + order to the web app. */
+/** 12 accent presets - identical set + order to the web app. */
 export const ACCENT_PRESET_COLORS = [
   { label: "Orange", value: "#f59145" },
   { label: "Blue", value: "#3b82f6" },

@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text } from "@/app/components/ui";
 
 /**
- * Screen — top-level themed container with safe-area top padding and an
+ * Screen - top-level themed container with safe-area top padding and an
  * optional header (title + actions). Used by Hosts / Tools / Settings.
  */
 export function Screen({

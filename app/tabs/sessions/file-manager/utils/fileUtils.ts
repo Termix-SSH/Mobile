@@ -40,7 +40,7 @@ export function isTextFile(filename: string): boolean {
 
   const ext = getFileExtension(filename);
 
-  // No extension at all — treat as text (e.g. Makefile, Dockerfile, LICENSE)
+  // No extension at all - treat as text (e.g. Makefile, Dockerfile, LICENSE)
   if (!ext) return true;
 
   const binaryExtensions = [

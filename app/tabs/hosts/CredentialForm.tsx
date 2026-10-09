@@ -490,7 +490,7 @@ export default function CredentialForm({
                     />
                     {isEdit && keyExistsOnServer && form.key === "" ? (
                       <Text className="text-[10px] text-muted-foreground">
-                        Key saved — paste or upload to replace
+                        Key saved. Paste or upload to replace
                       </Text>
                     ) : null}
                   </Section>

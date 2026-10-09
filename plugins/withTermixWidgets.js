@@ -8,7 +8,7 @@ const fs = require("fs");
 const path = require("path");
 
 /**
- * withTermixWidgets — wires the home-screen widgets into the native projects.
+ * withTermixWidgets - wires the home-screen widgets into the native projects.
  *
  * Android needs nothing here: the providers, layouts and receiver entries live
  * in `modules/termix-widgets/android` and reach the app through normal Gradle
@@ -36,7 +36,7 @@ const DEFAULT_TARGET_NAME = "TermixWidgetsExtension";
 /**
  * The extension targets iOS 16 even though the app supports 15.1: WidgetKit's
  * modern layout APIs (and SwiftUI's `Text.tracking`) require it. An extension
- * may set a higher minimum than its host app — devices below it simply don't
+ * may set a higher minimum than its host app - devices below it simply don't
  * offer the widgets.
  */
 const DEFAULT_DEPLOYMENT_TARGET = "16.0";

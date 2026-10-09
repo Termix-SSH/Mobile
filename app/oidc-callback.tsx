@@ -8,7 +8,7 @@ import { useAppContext } from "@/app/AppContext";
 // It renders nothing: the sign-in screen completes the authentication, either
 // through the openAuthSessionAsync result or through its Linking listener. This
 // exists because expo-router resolves the link as the path "/oidc-callback",
-// and without a file to match it the user lands on "Unmatched Route — Page
+// and without a file to match it the user lands on "Unmatched Route - Page
 // could not be found" at the end of an otherwise successful sign-in.
 //
 // The URL is rebuilt from the parsed params rather than read back from

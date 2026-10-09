@@ -9,7 +9,7 @@
  *              termixwidgets/WidgetSnapshot.kt
  *
  * Any change here MUST be mirrored in both decoders. Bump SNAPSHOT_VERSION when
- * the shape changes incompatibly — the decoders drop snapshots whose version
+ * the shape changes incompatibly - the decoders drop snapshots whose version
  * they don't understand and render their empty state instead of crashing or
  * showing stale/garbled data.
  */
@@ -51,14 +51,14 @@ export interface WidgetHostEntry {
   id: number;
   /** Display name, already trimmed/fallen back to the address. */
   name: string;
-  /** Secondary line — `user@ip` (or a redacted placeholder). */
+  /** Secondary line - `user@ip` (or a redacted placeholder). */
   subtitle: string;
   /** Folder path, "" when the host lives at the root. */
   folder: string;
   status: WidgetHostStatus;
-  /** CPU load percentage 0–100, or null when unknown. */
+  /** CPU load percentage 0-100, or null when unknown. */
   cpu: number | null;
-  /** Memory usage percentage 0–100, or null when unknown. */
+  /** Memory usage percentage 0-100, or null when unknown. */
   mem: number | null;
   pinned: boolean;
   /** Deep link the widget opens on tap. Precomputed so native code stays dumb. */
@@ -72,7 +72,7 @@ export interface WidgetSnippetEntry {
   folder: string;
   /** One-line preview of the command, already truncated (or redacted). */
   preview: string;
-  /** Deep link the widget opens on tap — runs the snippet on a chosen host. */
+  /** Deep link the widget opens on tap - runs the snippet on a chosen host. */
   url: string;
 }
 
@@ -133,7 +133,7 @@ export function buildWidgetLink(
 /**
  * Builds the deep link a snippet tile opens: the app resolves the snippet and
  * asks which host to run it on. Snippet *content* never leaves the app through
- * the link itself — only the id travels.
+ * the link itself - only the id travels.
  */
 export function buildWidgetSnippetLink(snippetId: number): string {
   return `${WIDGET_LINK_PREFIX}/snippet?snippetId=${snippetId}`;

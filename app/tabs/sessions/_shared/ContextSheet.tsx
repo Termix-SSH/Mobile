@@ -11,7 +11,7 @@ export interface ContextAction {
 }
 
 /**
- * ContextSheet — a long-press action menu built on BottomSheet + SheetRow.
+ * ContextSheet - a long-press action menu built on BottomSheet + SheetRow.
  * Replaces the old absolutely-positioned context menus that could render
  * off-screen. Pass a title (e.g. the file name) and a flat list of actions;
  * tapping a row fires its handler and closes the sheet.

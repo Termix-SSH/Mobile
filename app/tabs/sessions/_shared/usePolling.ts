@@ -3,7 +3,7 @@ import { AppState, type AppStateStatus } from "react-native";
 
 /**
  * Visibility-aware polling. Runs `fn` immediately when enabled, then on an
- * interval — but pauses while the app is backgrounded (the OS suspends timers
+ * interval - but pauses while the app is backgrounded (the OS suspends timers
  * anyway, and we don't want a burst of stale requests on resume). Replaces the
  * hardcoded `setInterval` that each session type used to roll on its own.
  *

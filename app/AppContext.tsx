@@ -234,7 +234,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   }, [isAuthenticated]);
 
   // Losing authentication (sign-out elsewhere, expired token, server change)
-  // must also empty the home-screen widgets — they would otherwise keep showing
+  // must also empty the home-screen widgets - they would otherwise keep showing
   // host names the user can no longer reach.
   useEffect(() => {
     if (isLoading || isAuthenticated) return;

@@ -73,7 +73,7 @@ export function WarpgateDialog({
         </View>
       }
     >
-      {/* Security key — displayed prominently */}
+      {/* Security key - displayed prominently */}
       <View className="mb-4">
         <Text className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">
           Security Key

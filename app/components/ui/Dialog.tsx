@@ -10,7 +10,7 @@ import { Text } from "./Text";
 import { useThemeColor } from "@/app/contexts/ThemeContext";
 
 /**
- * Dialog — centered modal card. Square corners, themed surface, optional
+ * Dialog - centered modal card. Square corners, themed surface, optional
  * title/description and close button. Mirrors the web shadcn dialog.
  */
 export function Dialog({

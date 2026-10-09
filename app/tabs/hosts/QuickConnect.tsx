@@ -17,7 +17,7 @@ import { toast } from "@/app/utils/toast";
 type AuthType = "password" | "key";
 
 /**
- * Quick Connect — open an ad-hoc SSH terminal without saving the host
+ * Quick Connect - open an ad-hoc SSH terminal without saving the host
  * (Support issue #448). Builds a transient SSHHost (negative id) and starts a
  * terminal session directly.
  */

@@ -13,7 +13,7 @@ export function Card({
   );
 }
 
-/** Small uppercase tracking-widest muted label — the web design's section/field label. */
+/** Small uppercase tracking-widest muted label - the web design's section/field label. */
 export function Label({
   children,
   className,

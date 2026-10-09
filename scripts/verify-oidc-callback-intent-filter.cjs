@@ -30,8 +30,17 @@ const manifest = {
 restrictOidcCallbackIntentFilters(manifest);
 
 const filters = manifest.manifest.application[0].activity[0]["intent-filter"];
-assert.equal(filters[0].data[0].$["android:host"], "oidc-callback");
-assert.equal(filters[0].data[1].$["android:host"], "oidc-callback");
+assert.deepEqual(
+  filters[0].data.map((d) => [d.$["android:scheme"], d.$["android:host"]]),
+  [
+    ["termix-mobile", "oidc-callback"],
+    ["termix-mobile", "widget"],
+    ["exp+termix", "oidc-callback"],
+    ["exp+termix", "widget"],
+  ],
+);
 assert.equal(filters[1].data[0].$["android:host"], undefined);
 
-console.log("OIDC callback intent filters are restricted to oidc-callback");
+console.log(
+  "App scheme intent filters are restricted to oidc-callback and widget",
+);

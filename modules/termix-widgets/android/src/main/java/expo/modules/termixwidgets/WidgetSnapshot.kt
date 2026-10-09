@@ -7,7 +7,7 @@ import org.json.JSONObject
  * Decoders for the snapshot the app publishes.
  *
  * The payload shape is defined once in `app/widgets/types.ts`. Parsing is
- * deliberately lenient — unknown fields are ignored and missing ones fall back —
+ * deliberately lenient - unknown fields are ignored and missing ones fall back -
  * so an app update can add fields without breaking a widget that hasn't been
  * rebuilt yet.
  */
@@ -211,7 +211,7 @@ data class WidgetSnapshot(
       }.getOrElse { signedOut() }
     }
 
-    /** Reads a 0–100 metric, treating null/NaN/out-of-range as "unknown". */
+    /** Reads a 0-100 metric, treating null/NaN/out-of-range as "unknown". */
     private fun JSONObject.optPercent(key: String): Int? {
       if (isNull(key)) return null
       val value = optDouble(key, Double.NaN)

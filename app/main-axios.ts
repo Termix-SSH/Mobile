@@ -279,7 +279,7 @@ function createApiInstance(
         serviceName === "STATS" &&
         url.includes("/metrics/")
       ) {
-        // 404 on metrics means data isn't ready yet — suppress as debug noise.
+        // 404 on metrics means data isn't ready yet - suppress as debug noise.
         logger.debug(`Metrics not yet available: ${method} ${url}`, context);
       } else {
         logger.requestError(
@@ -1439,50 +1439,6 @@ export async function getGuacamoleTokenFromHost(
 }
 
 // ============================================================================
-// SSH AUTOSTART MANAGEMENT
-// ============================================================================
-
-export async function enableAutoStart(sshConfigId: number): Promise<any> {
-  try {
-    const response = await sshHostApi.post("/autostart/enable", {
-      sshConfigId,
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "enable autostart");
-  }
-}
-
-export async function disableAutoStart(sshConfigId: number): Promise<any> {
-  try {
-    const response = await sshHostApi.delete("/autostart/disable", {
-      data: { sshConfigId },
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "disable autostart");
-  }
-}
-
-export async function getAutoStartStatus(): Promise<{
-  autostart_configs: {
-    sshConfigId: number;
-    host: string;
-    port: number;
-    username: string;
-    authType: string;
-  }[];
-  total_count: number;
-}> {
-  try {
-    const response = await sshHostApi.get("/autostart/status");
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "fetch autostart status");
-  }
-}
-
-// ============================================================================
 // TUNNEL MANAGEMENT
 // ============================================================================
 
@@ -2584,7 +2540,7 @@ export async function getServerMetricsById(
     return response.data ? normalizeMetrics(response.data) : null;
   } catch (error: any) {
     if (error?.response?.status === 404) {
-      // Metrics not ready yet — backend is still starting collection.
+      // Metrics not ready yet - backend is still starting collection.
       return null;
     }
     handleApiError(error, "fetch server metrics");
@@ -2787,7 +2743,7 @@ function isNativeNetworkFailure(error: unknown): boolean {
  * Detects whether the server URL sits behind a reverse-proxy authentication
  * gate (Cloudflare Access, Authelia, etc.) that intercepts requests and serves
  * its own HTML login page instead of forwarding them to Termix. In that case a
- * native login form cannot work — the user must authenticate to the proxy in a
+ * native login form cannot work - the user must authenticate to the proxy in a
  * browser context (the WebView/SSO flow).
  *
  * Returns true when a known JSON endpoint responds with HTML (or otherwise
@@ -3064,15 +3020,6 @@ export async function getOIDCConfig(): Promise<any> {
   }
 }
 
-export async function getAdminOIDCConfig(): Promise<any> {
-  try {
-    const response = await authApi.get("/users/oidc-config/admin");
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "fetch admin OIDC config");
-  }
-}
-
 export async function getSetupRequired(): Promise<{ setup_required: boolean }> {
   try {
     const response = await authApi.get("/users/setup-required");
@@ -3284,24 +3231,6 @@ export async function updatePasswordLoginAllowed(
     return response.data;
   } catch (error) {
     handleApiError(error, "update password login allowed");
-  }
-}
-
-export async function updateOIDCConfig(config: any): Promise<any> {
-  try {
-    const response = await authApi.post("/users/oidc-config", config);
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "update OIDC config");
-  }
-}
-
-export async function disableOIDCConfig(): Promise<any> {
-  try {
-    const response = await authApi.delete("/users/oidc-config");
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "disable OIDC config");
   }
 }
 
@@ -3687,16 +3616,6 @@ export async function applyCredentialToHost(
   }
 }
 
-// Remove credential from SSH host
-export async function removeCredentialFromHost(hostId: number): Promise<any> {
-  try {
-    const response = await sshHostApi.delete(`/db/host/${hostId}/credential`);
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "remove credential from host");
-  }
-}
-
 // Migrate host to managed credential
 export async function migrateHostToCredential(
   hostId: number,
@@ -3757,7 +3676,7 @@ export function connectToTerminalHost(
     ws.send(JSON.stringify(connectMessage));
   } else {
     sshLogger.warn(
-      "[connectToTerminalHost] WebSocket is not open — connect message dropped",
+      "[connectToTerminalHost] WebSocket is not open, connect message dropped",
       {
         operation: "connect_to_host",
         readyState: ws.readyState,
@@ -4362,14 +4281,14 @@ export async function getActiveSessions(): Promise<ActiveSessionInfo[]> {
 }
 
 // ============================================================================
-// DOCKER — session-based container management over SSH.
+// DOCKER - session-based container management over SSH.
 //
 // IMPORTANT: Docker uses the SAME session-based REST contract as the file
 // manager (connect → sessionId → keepalive/status/disconnect → operations),
 // served by the SSH/file-manager backend service (`fileManagerApi` base, paths
 // under `/docker/...`). The previous mobile implementation called
 // `sshHostApi /:hostId/docker/...` endpoints that DO NOT EXIST on the backend,
-// so Docker never actually worked — this is the corrected wiring.
+// so Docker never actually worked - this is the corrected wiring.
 //
 // Guacamole helpers (getGuacamoleWebSocketUrl/getGuacamoleTokenFromHost) live
 // earlier in this file.

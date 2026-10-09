@@ -27,7 +27,7 @@ object WidgetLinks {
 
   /**
    * FLAG_MUTABLE only exists from API 31, and mutability is the default below
-   * it — so only the immutable case needs a flag on older versions.
+   * it - so only the immutable case needs a flag on older versions.
    */
   private fun flags(mutable: Boolean): Int {
     val base = PendingIntent.FLAG_UPDATE_CURRENT

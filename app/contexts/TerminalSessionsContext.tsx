@@ -282,7 +282,7 @@ export const TerminalSessionsProvider: React.FC<
         });
       }
 
-      // Check whether the removed session was the active one — and if so pick a
+      // Check whether the removed session was the active one - and if so pick a
       // new active session. Using setActiveSessionId inside a setSessions updater
       // is safe: React batches these in the same flush.
       const removedWasActive = !updatedSessions.some((s) => s.isActive);

@@ -83,7 +83,7 @@ export default function TwoFactorAuth() {
       setPhase("backup");
       toast.success("Two-factor authentication enabled");
     } catch (e: any) {
-      toast.error(e?.message ?? "Invalid code — try again");
+      toast.error(e?.message ?? "Invalid code, try again");
     } finally {
       setBusy(false);
     }

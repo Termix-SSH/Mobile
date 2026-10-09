@@ -2,7 +2,7 @@
  * Static design tokens for the dark session surfaces (terminal, stats, file
  * manager, tunnels, tab bar). These mirror the redesigned web app's dark
  * theme. They are intentionally static (not theme-context driven) because the
- * terminal/console area stays dark in every app theme — matching the web,
+ * terminal/console area stays dark in every app theme - matching the web,
  * where the terminal canvas is always dark. For themable chrome elsewhere in
  * the app, use Tailwind tokens + useTheme() instead.
  */
@@ -13,7 +13,7 @@ export const BORDERS = {
   SEPARATOR: 1,
 } as const;
 
-// Brand accent (orange) — replaces the old terminal green.
+// Brand accent (orange) - replaces the old terminal green.
 export const ACCENT = "#f59145";
 
 export const BORDER_COLORS = {
@@ -39,7 +39,7 @@ export const BACKGROUNDS = {
 } as const;
 
 export const RADIUS = {
-  // Square corners everywhere — matches the web redesign.
+  // Square corners everywhere - matches the web redesign.
   BUTTON: 0,
   CARD: 0,
   SMALL: 0,

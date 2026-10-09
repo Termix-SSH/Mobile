@@ -25,7 +25,7 @@ abstract class TermixWidgetProvider : AppWidgetProvider() {
   /** Word shown next to the accent block. */
   protected open val wordmark: String = "TERMIX"
 
-  /** What this widget lists — used in the empty-state copy. */
+  /** What this widget lists - used in the empty-state copy. */
   protected open val emptySubject: String = "hosts"
 
   /** Where a tap on the header (or empty state) lands in the app. */
@@ -166,21 +166,21 @@ abstract class TermixWidgetProvider : AppWidgetProvider() {
   }
 }
 
-/** Launcher grid of hosts — tapping a tile opens a terminal session. */
+/** Launcher grid of hosts - tapping a tile opens a terminal session. */
 class QuickConnectWidgetProvider : TermixWidgetProvider() {
   override val layoutId = R.layout.termix_widget_quick_connect
   override val collectionViewId = R.id.termix_widget_grid
   override val collectionKind = HostCollectionService.KIND_QUICK
 }
 
-/** Metric list — CPU and memory bars per host. */
+/** Metric list - CPU and memory bars per host. */
 class StatusWidgetProvider : TermixWidgetProvider() {
   override val layoutId = R.layout.termix_widget_status
   override val collectionViewId = R.id.termix_widget_list
   override val collectionKind = HostCollectionService.KIND_STATUS
 }
 
-/** Saved commands — tapping one runs it on a host chosen in the app. */
+/** Saved commands - tapping one runs it on a host chosen in the app. */
 class SnippetsWidgetProvider : TermixWidgetProvider() {
   override val layoutId = R.layout.termix_widget_snippets
   override val collectionViewId = R.id.termix_widget_snippet_list

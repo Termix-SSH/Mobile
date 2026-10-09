@@ -151,7 +151,7 @@ export interface SSHFolder {
 }
 
 /**
- * A node in the host sidebar tree. Folders nest recursively — built from each
+ * A node in the host sidebar tree. Folders nest recursively - built from each
  * host's `folder` string by splitting on " / " (matches the web app). Leaves
  * are hosts. `path` is the full accumulated folder path (e.g. "Prod / DBs") and
  * is used as a stable key for expansion state.
@@ -424,7 +424,7 @@ export interface TerminalConfig {
 
   backspaceMode: "normal" | "control-h";
   agentForwarding: boolean;
-  environmentVariables: Array<{ key: string; value: string }>;
+  environmentVariables: { key: string; value: string }[];
   startupSnippetId: number | null;
   autoMosh: boolean;
   moshCommand: string;
@@ -634,10 +634,10 @@ export interface SSHTunnelObjectProps {
 
 export interface FolderStats {
   totalHosts: number;
-  hostsByType: Array<{
+  hostsByType: {
     type: string;
     count: number;
-  }>;
+  }[];
 }
 
 // ============================================================================
@@ -871,7 +871,7 @@ export interface LoginStatsMetrics {
 
 /**
  * Full metrics payload from `GET /metrics/:id`. Mirrors the web's widget
- * collectors — every connection-type widget reads from here. All fields
+ * collectors - every connection-type widget reads from here. All fields
  * nullable because the host may not have collected a given metric yet.
  */
 export interface ServerMetrics {

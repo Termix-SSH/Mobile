@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 
 /**
- Snippets — the commands you keep reaching for, one tap from the home screen.
+ Snippets - the commands you keep reaching for, one tap from the home screen.
 
  Tapping a snippet opens Termix and asks which host to run it on. Only the
  snippet id travels in the deep link; the command itself is read (and executed)

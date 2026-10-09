@@ -365,7 +365,7 @@ export default function HostForm({
       enableRdp: form.enableRdp,
       enableVnc: form.enableVnc,
       enableTelnet: form.enableTelnet,
-      // Protocol fields — the backend null-guards these by their enable flag.
+      // Protocol fields - the backend null-guards these by their enable flag.
       rdpUser: form.rdpUser,
       rdpPassword: form.rdpPassword,
       rdpDomain: form.rdpDomain,

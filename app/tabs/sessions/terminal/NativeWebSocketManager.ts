@@ -588,7 +588,7 @@ export class NativeWebSocketManager {
           }
         }
       } catch (_) {
-        // Malformed/non-JSON frame — discard rather than printing garbage to terminal.
+        // Malformed/non-JSON frame - discard rather than printing garbage to terminal.
       }
     };
 
@@ -600,7 +600,7 @@ export class NativeWebSocketManager {
       this.stopPingInterval();
       // Only reset awaitingAuthCredentials when the connection closed without
       // us actively waiting for user input (e.g. network drop). If shouldNotReconnect
-      // is set alongside it, we're mid-auth-dialog — leave both intact.
+      // is set alongside it, we're mid-auth-dialog - leave both intact.
       if (!this.shouldNotReconnect) {
         this.awaitingAuthCredentials = false;
       }

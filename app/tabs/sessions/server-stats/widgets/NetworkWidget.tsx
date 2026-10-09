@@ -46,8 +46,8 @@ export function NetworkWidget({ metrics }: { metrics: ServerMetrics }) {
                 iface.rxBytes != null ||
                 iface.txBytes != null ? (
                   <Text className="text-[10px] text-muted-foreground">
-                    ↓ {iface.rx ?? iface.rxBytes ?? "—"} ↑{" "}
-                    {iface.tx ?? iface.txBytes ?? "—"}
+                    ↓ {iface.rx ?? iface.rxBytes ?? "-"} ↑{" "}
+                    {iface.tx ?? iface.txBytes ?? "-"}
                   </Text>
                 ) : null}
               </View>

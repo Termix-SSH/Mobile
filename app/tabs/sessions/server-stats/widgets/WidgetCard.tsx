@@ -61,7 +61,7 @@ export function Meter({
 
 /**
  * Tiny sparkline rendered with stacked Views (no SVG dependency). Each sample
- * is a thin vertical bar scaled to the series max — good enough for a 20-point
+ * is a thin vertical bar scaled to the series max - good enough for a 20-point
  * trend strip and avoids pulling in react-native-svg.
  */
 export function Sparkline({

@@ -142,7 +142,7 @@ export default function Sessions() {
   // When the system keyboard is dismissed the keyboard bar reserves the
   // home-indicator safe area below its keys. The TabBar floats directly on top
   // of the bar, so it must be lifted by the keys' height PLUS that same
-  // reservation — otherwise the reserved space falls between the TabBar and the
+  // reservation - otherwise the reserved space falls between the TabBar and the
   // keys and the TabBar looks bottom-heavy. Keep these two in lockstep.
   const KEYBOARD_BAR_BOTTOM_INSET = Math.max(insets.bottom, 8);
   const KEYBOARD_BAR_HEIGHT_EXTENDED =

@@ -20,7 +20,7 @@ export function UptimeWidget({ metrics }: { metrics: ServerMetrics }) {
   const uptime = metrics.uptime;
   const text =
     uptime?.formatted ||
-    (uptime?.seconds != null ? formatUptime(uptime.seconds) : "—");
+    (uptime?.seconds != null ? formatUptime(uptime.seconds) : "-");
 
   return (
     <WidgetCard

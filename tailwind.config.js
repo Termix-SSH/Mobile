@@ -69,7 +69,7 @@ module.exports = {
         sans: ["JetBrainsMono", "monospace"],
       },
       borderRadius: {
-        // Square corners everywhere — matches the web redesign.
+        // Square corners everywhere - matches the web redesign.
         none: "0px",
         sm: "0px",
         DEFAULT: "0px",

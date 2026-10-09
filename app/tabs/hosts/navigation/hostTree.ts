@@ -86,7 +86,7 @@ export function buildHostTree(
   };
 
   // Ensure empty (host-less) folders from metadata still appear is intentionally
-  // skipped — the list only shows folders that contain hosts, like the web.
+  // skipped - the list only shows folders that contain hosts, like the web.
   for (const host of hosts) {
     const path = (host.folder ?? "").trim();
     if (path) {

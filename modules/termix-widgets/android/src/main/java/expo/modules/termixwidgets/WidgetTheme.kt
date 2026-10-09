@@ -36,7 +36,7 @@ object WidgetTheme {
     HostStatus.UNKNOWN -> UNKNOWN
   }
 
-  /** Calm below 60%, warm to 85%, hot above — matches the iOS bars. */
+  /** Calm below 60%, warm to 85%, hot above - matches the iOS bars. */
   fun loadColor(percent: Int, accent: Int): Int = when {
     percent < 60 -> accent
     percent < 85 -> WARN

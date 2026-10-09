@@ -6,7 +6,7 @@ import WidgetKit
  stay visually identical as either evolves.
  */
 
-/// Status dot with a soft halo — reads at a glance without needing a legend.
+/// Status dot with a soft halo - reads at a glance without needing a legend.
 struct StatusDot: View {
   let status: HostStatus
   var size: CGFloat = 6
@@ -234,7 +234,7 @@ struct EmptyStateView: View {
   let snapshot: WidgetSnapshot
   let accent: Color
   var compact: Bool = false
-  /// What the widget would have listed — drives the "nothing here yet" copy.
+  /// What the widget would have listed - drives the "nothing here yet" copy.
   var subject: String = "hosts"
 
   /// Hosts exist but none passed the widget filters, so "no hosts yet" would
@@ -283,7 +283,7 @@ struct EmptyStateView: View {
   }
 }
 
-/// Snippet tile — tapping runs the command on a host chosen in the app.
+/// Snippet tile - tapping runs the command on a host chosen in the app.
 struct SnippetTile: View {
   let snippet: SnippetEntry
   let accent: Color

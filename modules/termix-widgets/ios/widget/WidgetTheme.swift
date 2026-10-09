@@ -6,7 +6,7 @@ import WidgetKit
 
  Mirrors the app's dark session surfaces (`app/constants/designTokens.ts`):
  square corners, hairline borders, monospaced type, one accent color. The
- accent is not hardcoded — it travels in the snapshot so the widget follows the
+ accent is not hardcoded - it travels in the snapshot so the widget follows the
  accent the user picked in Settings.
  */
 enum Theme {
@@ -141,7 +141,7 @@ func relativeAge(from date: Date, now: Date = Date()) -> String {
 
  iOS 17 offers to strip a widget's background on the Home Screen and renders the
  result in its accented/vibrant modes, which flatten the view tree into solid
- tint-coloured shapes — the opaque bars over unreadable text. These widgets are
+ tint-coloured shapes - the opaque bars over unreadable text. These widgets are
  a dark terminal surface and are illegible without their background, so they
  declare it non-removable and stay in full colour.
 

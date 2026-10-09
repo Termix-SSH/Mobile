@@ -37,6 +37,15 @@ jobs:
       - name: Verify 2.9 API compatibility
         run: npm run verify:api-compat
 
+      - name: Verify app link intent filters
+        run: npm run verify:oidc-callback-intent-filter
+
+      - name: Verify widget contract
+        run: npm run verify:widget-contract
+
+      - name: Verify Android network security config
+        run: npm run verify:android-network-security
+
       - name: Verify remote desktop resolution
         run: node scripts/verify-remote-resolution.cjs
 

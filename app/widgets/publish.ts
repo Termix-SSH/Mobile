@@ -1,8 +1,8 @@
 /**
  * Publishing pipeline for home-screen widgets.
  *
- * Callers hand over the data they already have — the Hosts screen supplies
- * hosts/statuses/metrics, the Snippets screen supplies snippets — and this
+ * Callers hand over the data they already have - the Hosts screen supplies
+ * hosts/statuses/metrics, the Snippets screen supplies snippets - and this
  * module keeps the merged picture, applies preferences, dedupes, and performs
  * the native hand-off.
  *
@@ -38,7 +38,7 @@ const UNCHANGED_REPUBLISH_INTERVAL_MS = 5 * 60 * 1000;
 
 /**
  * Everything needed to rebuild a snapshot, merged from whichever screen last
- * reported. Held in memory only — it is rebuilt on the next refresh after a
+ * reported. Held in memory only - it is rebuilt on the next refresh after a
  * cold start.
  */
 interface SnapshotSource {
@@ -134,7 +134,7 @@ function logFailure(message: string, error: unknown): void {
 
 /**
  * Publishes the host side of the snapshot. Safe to call on every Hosts
- * refresh — redundant payloads are dropped.
+ * refresh - redundant payloads are dropped.
  */
 export async function publishHostSnapshot(
   input: HostSnapshotInput,
@@ -205,7 +205,7 @@ export async function republishWithPreferences(): Promise<void> {
 }
 
 /**
- * Drops all data from the widgets — sign-out, server change, or the user
+ * Drops all data from the widgets - sign-out, server change, or the user
  * disabling widgets. Widgets fall back to their "sign in" state.
  */
 export async function publishSignedOutSnapshot(): Promise<void> {

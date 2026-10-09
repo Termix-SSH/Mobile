@@ -5,7 +5,7 @@
  * Guards the home-screen widget payload contract.
  *
  * The snapshot the app publishes is decoded by three independent
- * implementations — TypeScript, Swift and Kotlin. Nothing in the compiler
+ * implementations - TypeScript, Swift and Kotlin. Nothing in the compiler
  * chain catches a field renamed on one side only; the widget would just quietly
  * render blanks on one platform. This script fails loudly instead.
  *

@@ -8,7 +8,7 @@ import type { ConnectionLogEntry } from "@/types";
 export type SessionFrameStatus = "loading" | "ready" | "error" | "empty";
 
 /**
- * SessionFrame — the standard chrome shared by every session type (file
+ * SessionFrame - the standard chrome shared by every session type (file
  * manager, docker, stats, tunnel). Renders an optional header (title/subtitle +
  * trailing actions), a connection-log panel, and centralized loading / error /
  * empty states so each session type doesn't reinvent them.
@@ -92,7 +92,7 @@ export function SessionFrame({
         <View className="border-b border-border">{toolbar}</View>
       ) : null}
 
-      {/* Connection log overlay — covers the frame while connecting/errored */}
+      {/* Connection log overlay - covers the frame while connecting/errored */}
       {logEntries !== undefined && onLogClear !== undefined ? (
         <ConnectionLog
           entries={logEntries}

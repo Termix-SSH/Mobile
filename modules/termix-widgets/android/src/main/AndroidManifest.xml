@@ -2,7 +2,7 @@
   <application>
     <!--
       Home-screen widgets. Declared in the module's library manifest so the app
-      picks them up through normal manifest merging — no config-plugin edits to
+      picks them up through normal manifest merging - no config-plugin edits to
       the generated AndroidManifest are required on Android.
     -->
     <receiver

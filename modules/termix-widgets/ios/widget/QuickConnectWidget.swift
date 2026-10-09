@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 
 /**
- Quick Connect — a launcher for your hosts.
+ Quick Connect - a launcher for your hosts.
 
  Small shows the single most relevant host (pinned first, then online), medium a
  2×2 grid, large a 2×4 grid with a summary strip. Every tile deep-links straight

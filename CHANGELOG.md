@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.1
+
+### Fixed
+
+- Plainer wording in sign-in, password reset, API key and two-factor messages
+- Empty values in Host Metrics and settings show as a plain dash
+- Removed unused API calls to routes Termix no longer serves
+
 ## 1.6.0
 
 The app now follows which Termix plugins are turned on, and RDP asks for credentials when a host has none saved.

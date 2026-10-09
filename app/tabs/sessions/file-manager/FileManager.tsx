@@ -662,7 +662,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
           return "asc";
         });
         // Only advance field when flipping from desc back to asc
-        // We do this by reading sortOrder directly (stale closure is fine here —
+        // We do this by reading sortOrder directly (stale closure is fine here -
         // we just need the value at the moment of the press)
         if (sortOrder === "desc") {
           const idx = SORT_FIELDS.indexOf(prevField);
@@ -978,7 +978,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
             )}
           </ScrollView>
 
-          {/* Bottom action bar — selection or clipboard */}
+          {/* Bottom action bar - selection or clipboard */}
           {(selectionMode || clipboard.files.length > 0) && (
             <View className="absolute bottom-0 left-0 right-0 border-t border-border bg-card">
               <View

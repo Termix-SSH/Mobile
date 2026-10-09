@@ -207,9 +207,9 @@ function ConnectionRow({
 }
 
 /**
- * ConnectionsPanel — the central connections surface. Shows tabs open on this
+ * ConnectionsPanel - the central connections surface. Shows tabs open on this
  * device (Open) plus tabs/sessions that exist server-side but aren't open here
- * (Background — e.g. opened on desktop, or backgrounded). Reviving a background
+ * (Background - e.g. opened on desktop, or backgrounded). Reviving a background
  * tab reconnects to its live backend session when one exists, enabling
  * cross-device tab switching.
  */
@@ -379,9 +379,7 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
                 tabType={r.tabType}
                 name={host?.name ?? r.label}
                 subLabel={
-                  live?.isConnected
-                    ? "Live — tap to reconnect"
-                    : "Tap to reopen"
+                  live?.isConnected ? "Live, tap to reconnect" : "Tap to reopen"
                 }
                 reconnectHint
                 onSwitch={() => reviveBackground(r)}

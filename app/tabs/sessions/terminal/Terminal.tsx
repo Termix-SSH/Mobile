@@ -1267,7 +1267,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             terminalColsRef.current = message.data.cols;
             terminalRowsRef.current = message.data.rows;
             // Re-apply the RN-measured viewport height now that the terminal
-            // exists — onLayout may have fired before the HTML finished loading.
+            // exists - onLayout may have fired before the HTML finished loading.
             if (viewportHeightRef.current) {
               webViewRef.current?.injectJavaScript(
                 `window.setTerminalViewportHeight && window.setTerminalViewportHeight(${viewportHeightRef.current}); true;`,

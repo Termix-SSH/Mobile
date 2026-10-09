@@ -171,7 +171,7 @@ export function AuthDialogs({
             className={`text-xs ${totpExpiringSoon ? "text-destructive" : "text-muted-foreground"}`}
           >
             {totpExpiringSoon
-              ? `Code expires in ${totpCountdown}s — get a fresh code`
+              ? `Code expires in ${totpCountdown}s, get a fresh code`
               : `${totpCountdown}s remaining`}
           </Text>
         </View>

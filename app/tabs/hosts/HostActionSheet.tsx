@@ -138,7 +138,7 @@ export function HostActionSheet({
     label: string;
   }[];
 
-  // Separate protocol actions (RDP / VNC / Telnet), each with its own icon —
+  // Separate protocol actions (RDP / VNC / Telnet), each with its own icon -
   // matches the web rather than lumping them into one "Remote Desktop" row.
   const protocolActions = [
     host.enableRdp && has("rdp")
@@ -234,7 +234,7 @@ export function HostActionSheet({
           />
         ))}
 
-        {/* Management actions (no pin — matches the web). Rows sit flush with
+        {/* Management actions (no pin - matches the web). Rows sit flush with
             the connection group; each row's own bottom border separates them. */}
         {host.macAddress && has("wakeOnLan") ? (
           <SheetRow

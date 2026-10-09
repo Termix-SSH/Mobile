@@ -73,8 +73,8 @@ import {
 
 const SORT_OPTIONS: { id: SortKey; label: string }[] = [
   { id: "default", label: "Default" },
-  { id: "name-asc", label: "Name (A–Z)" },
-  { id: "name-desc", label: "Name (Z–A)" },
+  { id: "name-asc", label: "Name (A-Z)" },
+  { id: "name-desc", label: "Name (Z-A)" },
   { id: "ip-asc", label: "IP (ascending)" },
   { id: "ip-desc", label: "IP (descending)" },
   { id: "status-online", label: "Online first" },

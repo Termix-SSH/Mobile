@@ -9,7 +9,7 @@ import expo.modules.kotlin.modules.ModuleDefinition
  *
  * The app writes one JSON snapshot into shared preferences; the widget
  * providers read it back in the launcher's process. Keeping the transport to a
- * single string keeps the two sides decoupled — the contract lives in
+ * single string keeps the two sides decoupled - the contract lives in
  * `app/widgets/types.ts`.
  */
 class TermixWidgetsModule : Module() {

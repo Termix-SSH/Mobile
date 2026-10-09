@@ -1,5 +1,5 @@
 /**
- * Widget preferences — persisted in AsyncStorage and shared between the
+ * Widget preferences - persisted in AsyncStorage and shared between the
  * Settings screen (which edits them) and the Hosts screen (which publishes
  * snapshots shaped by them).
  *

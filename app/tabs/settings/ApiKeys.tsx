@@ -35,7 +35,7 @@ function formatDate(iso: string | null): string {
   }
 }
 
-// Defensive ID extraction — handles backends that return `id` instead of `userId`
+// Defensive ID extraction - handles backends that return `id` instead of `userId`
 function getUserId(u: UserInfo): string {
   return u.userId || (u as any).id || "";
 }
@@ -350,7 +350,7 @@ export default function ApiKeys() {
         </View>
       </Dialog>
 
-      {/* Secret reveal — shown once */}
+      {/* Secret reveal - shown once */}
       <Dialog
         visible={revealDialog}
         onClose={() => {
@@ -358,7 +358,7 @@ export default function ApiKeys() {
           setNewKeySecret("");
         }}
         icon={<Key size={20} color={color("accent-brand")} />}
-        title="Key created — copy it now"
+        title="Key created. Copy it now"
         description="This token won't be shown again."
         footer={
           <View className="flex-row gap-2">

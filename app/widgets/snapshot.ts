@@ -1,5 +1,5 @@
 /**
- * Snapshot builder — pure, dependency-free, and therefore trivially testable.
+ * Snapshot builder - pure, dependency-free, and therefore trivially testable.
  *
  * Converts the state the Hosts screen already holds (hosts, per-host status,
  * per-host metrics) into the payload the native widgets render. No IO happens
@@ -51,7 +51,7 @@ const STATUS_RANK: Record<WidgetHostStatus, number> = {
   offline: 2,
 };
 
-/** Clamps a metric to an integer 0–100, or null when it isn't usable. */
+/** Clamps a metric to an integer 0-100, or null when it isn't usable. */
 function normalizePercent(value: number | null | undefined): number | null {
   if (typeof value !== "number" || !Number.isFinite(value)) return null;
   return Math.max(0, Math.min(100, Math.round(value)));
@@ -116,7 +116,7 @@ export function snippetPreview(content: string | undefined): string {
 /**
  * Same ordering the backend uses (`sortSnippets` in the server's snippets
  * route): unfiled snippets first, then folder name, then the user's manual
- * order — so the widget matches the list inside the app.
+ * order - so the widget matches the list inside the app.
  */
 function compareSnippets(a: Snippet, b: Snippet): number {
   const aFolder = a.folder || "";
@@ -189,7 +189,7 @@ function summarize(entries: WidgetHostEntry[]): WidgetSummary {
   );
 }
 
-/** An intentionally blank snapshot — used when signed out or widgets are off. */
+/** An intentionally blank snapshot - used when signed out or widgets are off. */
 export function buildSignedOutSnapshot(
   accent: string,
   now = Date.now(),
@@ -230,7 +230,7 @@ export function buildWidgetSnapshot(input: BuildSnapshotInput): WidgetSnapshot {
   const safeHosts = Array.isArray(hosts) ? hosts : [];
 
   // The summary counts every host the user has, even those the preferences
-  // filter out of the list — "3 of 12 online" should stay truthful.
+  // filter out of the list - "3 of 12 online" should stay truthful.
   const allEntries = safeHosts
     .filter((host) => host && typeof host.id === "number")
     .map((host) =>

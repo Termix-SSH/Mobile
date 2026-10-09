@@ -233,7 +233,7 @@ private class HostCollectionFactory(
   /**
    * Draws a usage meter as monospaced blocks with colour spans.
    *
-   * Every alternative needs an API-gated call — `setProgressTintList` is API 31+
+   * Every alternative needs an API-gated call - `setProgressTintList` is API 31+
    * and reflective width/tint setters are only honoured for methods annotated
    * `@RemotableViewMethod`. Coloured spans on a plain TextView work on every
    * supported version and match the terminal aesthetic.

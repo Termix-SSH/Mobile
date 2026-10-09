@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /*
- * Termix Mobile theme tokens — ported 1:1 from the web app
+ * Termix Mobile theme tokens - ported 1:1 from the web app
  * (../Termix/Termix/src/ui/index.css). Colors are stored as
  * space-separated RGB triplets so Tailwind's <alpha-value> works
  * (e.g. bg-accent-brand/10, border-border/60).

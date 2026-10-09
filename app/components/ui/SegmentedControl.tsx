@@ -2,7 +2,7 @@ import { Pressable, View } from "react-native";
 import { Text } from "./Text";
 
 /**
- * SegmentedControl — a row of equal-width options where the selected one is
+ * SegmentedControl - a row of equal-width options where the selected one is
  * highlighted with the accent (matches the web font-size / theme pickers).
  */
 export function SegmentedControl<T extends string>({

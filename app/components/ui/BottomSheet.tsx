@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text } from "./Text";
 
 /**
- * BottomSheet — slide-up themed panel. Used for host action sheets, file ops,
+ * BottomSheet - slide-up themed panel. Used for host action sheets, file ops,
  * pickers, and menus. Square top corners, themed surface, scrim backdrop.
  */
 export function BottomSheet({

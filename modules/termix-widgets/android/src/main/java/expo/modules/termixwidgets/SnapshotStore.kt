@@ -8,7 +8,7 @@ import android.content.SharedPreferences
  *
  * SharedPreferences is the Android counterpart of the iOS App Group container:
  * both processes belong to the same app, so a plain private preferences file is
- * all that is needed — and unlike a content provider it needs no exported
+ * all that is needed - and unlike a content provider it needs no exported
  * surface.
  */
 object SnapshotStore {

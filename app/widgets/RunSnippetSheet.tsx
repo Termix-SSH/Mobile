@@ -22,7 +22,7 @@ interface RunSnippetSheetProps {
  * Target picker for a snippet launched from the home screen.
  *
  * A snippet has no host of its own, so a widget tap can't know where to run.
- * Rather than guessing, this asks — which doubles as the confirmation step that
+ * Rather than guessing, this asks - which doubles as the confirmation step that
  * a home-screen tap otherwise lacks: running a shell command on a server should
  * never happen by accident. The last target is remembered and offered first, so
  * the common case is two taps.
@@ -84,7 +84,7 @@ export function RunSnippetSheet({ snippet, onClose }: RunSnippetSheetProps) {
         if (result?.success === false) {
           toast.error(result.error || `${snippet.name} failed on ${host.name}`);
         } else {
-          // Show the first line of output when there is any — a bare "ran it"
+          // Show the first line of output when there is any - a bare "ran it"
           // leaves the user guessing whether anything happened.
           const preview = (result?.output ?? "").trim().split("\n")[0];
           toast.success(

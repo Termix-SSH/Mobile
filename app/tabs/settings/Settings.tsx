@@ -80,7 +80,7 @@ export default function Settings() {
     setAccentDraft(accent);
   }, [accent]);
 
-  const [username, setUsername] = useState("—");
+  const [username, setUsername] = useState("-");
   const [isAdmin, setIsAdmin] = useState(false);
   const [totpEnabled, setTotpEnabled] = useState(false);
   const [version, setVersion] = useState("");
@@ -126,21 +126,21 @@ export default function Settings() {
   // Re-auth gate shown before disabling app lock.
   const [reauth, setReauth] = useState<null | "disable">(null);
 
-  // Re-read on auth changes and whenever the auth flow closes — the user may
+  // Re-read on auth changes and whenever the auth flow closes - the user may
   // have just changed the active server inside it (which leaves isAuthenticated
   // unchanged, so we can't rely on that alone).
   useEffect(() => {
     if (authFlowVisible) return;
     setServerUrl(getCurrentServerUrl() ?? "");
     if (!isAuthenticated) {
-      setUsername("—");
+      setUsername("-");
       setIsAdmin(false);
       setTotpEnabled(false);
       return;
     }
     getUserInfo()
       .then((u) => {
-        setUsername(u.username ?? "—");
+        setUsername(u.username ?? "-");
         setIsAdmin(!!u.is_admin);
         setTotpEnabled(!!u.totp_enabled);
       })
@@ -156,7 +156,7 @@ export default function Settings() {
     try {
       await logoutUser();
     } catch {
-      // best-effort — server-side logout may fail if token already expired
+      // best-effort - server-side logout may fail if token already expired
     }
     await clearSession();
     clearAllSessions();
@@ -174,7 +174,7 @@ export default function Settings() {
     try {
       await logoutUser();
     } catch {
-      // best-effort — session may already be gone
+      // best-effort - session may already be gone
     }
     await clearSession();
     // Same reason as sign-out: the old server's hosts must not linger on the
@@ -190,7 +190,7 @@ export default function Settings() {
       setPinStep("enter");
       setPinDialog(true);
     } else {
-      // Require re-authentication before disabling — the switch stays on
+      // Require re-authentication before disabling - the switch stays on
       // (it's controlled by appLock.enabled) until the gate succeeds.
       setReauth("disable");
     }
@@ -463,7 +463,7 @@ export default function Settings() {
           </AccordionSection>
         ) : null}
 
-        {/* Appearance — headline feature */}
+        {/* Appearance - headline feature */}
         <AccordionSection
           label="Appearance"
           icon={<Palette size={14} color={color("muted-foreground")} />}

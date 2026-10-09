@@ -265,7 +265,7 @@ function StatsTab({
     return (
       <View className="flex-1 items-center justify-center px-8">
         <Text className="text-center text-sm text-muted-foreground">
-          Container is not running — no live stats.
+          Container is not running, no live stats.
         </Text>
       </View>
     );

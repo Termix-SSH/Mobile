@@ -92,7 +92,7 @@ export function RemoteDesktop({
   const themeMuted = color("muted-foreground") ?? "rgb(164,164,164)";
   const themeAccent = color("accent-brand") ?? "#f59145";
 
-  // True available size measured from onLayout — avoids using full window
+  // True available size measured from onLayout - avoids using full window
   // height which includes areas already consumed by the tab bar and insets.
   const [availableSize, setAvailableSize] = useState<{
     w: number;
@@ -134,7 +134,7 @@ export function RemoteDesktop({
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 
-  // Track keyboard visibility — use the raw keyboard height minus the bottom
+  // Track keyboard visibility - use the raw keyboard height minus the bottom
   // margin that Sessions.tsx already applies (tab bar + safe area insets).
   // We get the container's page position at show-time to compute exact overlap.
   useEffect(() => {
@@ -1152,7 +1152,7 @@ export function RemoteDesktop({
               </Text>
             </TouchableOpacity>
 
-            {/* F1–F12 (shown inline when toggled) */}
+            {/* F1-F12 (shown inline when toggled) */}
             {showFunctionKeys &&
               FKEYS.map((ks, i) => (
                 <TouchableOpacity
@@ -1177,7 +1177,7 @@ export function RemoteDesktop({
         </View>
       )}
 
-      {/* ── Settings sheet (mouse mode + zoom only — compact) ── */}
+      {/* ── Settings sheet (mouse mode + zoom only - compact) ── */}
       <BottomSheet
         visible={showSettingsSheet}
         onClose={() => setShowSettings(false)}
@@ -1210,7 +1210,7 @@ export function RemoteDesktop({
         {/* Zoom */}
         <View style={styles.zoomRow}>
           <Text style={styles.zoomLabel}>
-            Zoom: {zoomLevel.toFixed(1)}× — pinch anywhere to zoom
+            Zoom: {zoomLevel.toFixed(1)}×. Pinch anywhere to zoom
           </Text>
           <Button variant="outline" size="sm" onPress={resetZoom}>
             Reset

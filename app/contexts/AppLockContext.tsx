@@ -12,7 +12,7 @@ import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 
 /**
- * App Lock — optional biometric / PIN gate when the app is opened or returns
+ * App Lock - optional biometric / PIN gate when the app is opened or returns
  * from background. Addresses Support issues #496 / #338 (account security on
  * mobile). The PIN is stored in the OS secure store; the enabled flag in
  * AsyncStorage.
@@ -29,7 +29,7 @@ interface AppLockContextValue {
   /** Enable app lock with a numeric PIN (biometrics used when available). */
   enable: (pin: string) => Promise<void>;
   /**
-   * Tear down app lock. Performs no verification — callers MUST authenticate
+   * Tear down app lock. Performs no verification - callers MUST authenticate
    * the user (via `verifyPin` / `authenticateBiometrics`) first.
    */
   disable: () => Promise<void>;
@@ -37,7 +37,7 @@ interface AppLockContextValue {
   verifyPin: (pin: string) => Promise<boolean>;
   /**
    * Prompt for biometrics (no device-passcode fallback). Does NOT change lock
-   * state — used for re-authentication in Settings.
+   * state - used for re-authentication in Settings.
    */
   authenticateBiometrics: () => Promise<boolean>;
   /** Attempt unlock via biometrics; unlocks on success. Returns success. */
@@ -65,7 +65,7 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
       const on = isEnabled === "true";
       setEnabled(on);
       // Only treat biometrics as available when the device has a sensor AND a
-      // biometric is actually enrolled — otherwise the fingerprint button would
+      // biometric is actually enrolled - otherwise the fingerprint button would
       // appear but do nothing.
       setHasBiometrics(!!hw && !!enrolled);
       if (on) setLocked(true); // lock on cold start
@@ -103,7 +103,7 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // Prompt biometrics without changing lock state. Device-passcode fallback is
-  // disabled so iOS never shows the phone passcode prompt — the in-app PIN is
+  // disabled so iOS never shows the phone passcode prompt - the in-app PIN is
   // the only fallback.
   const authenticateBiometrics = useCallback(async () => {
     try {

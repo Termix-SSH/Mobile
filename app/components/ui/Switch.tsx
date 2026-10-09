@@ -5,7 +5,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 /**
- * FakeSwitch — pill toggle matching the web design (bg-accent-brand when on,
+ * FakeSwitch - pill toggle matching the web design (bg-accent-brand when on,
  * bg-muted when off). One of the few intentionally rounded elements.
  */
 export function FakeSwitch({

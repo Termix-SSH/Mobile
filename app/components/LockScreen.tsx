@@ -10,7 +10,7 @@ interface LockScreenProps {
   subtitle?: string;
   /**
    * Verify-mode overrides. When provided, the keypad calls these instead of the
-   * context's unlock methods and does NOT change global lock state — used for
+   * context's unlock methods and does NOT change global lock state - used for
    * re-authentication (e.g. disabling app lock in Settings).
    */
   onVerifyPin?: (pin: string) => Promise<boolean>;
@@ -24,7 +24,7 @@ interface LockScreenProps {
 /**
  * Full-screen 4-digit PIN gate. Used both as the app-lock overlay (default
  * mode) and as a re-auth screen in Settings (verify mode via props). Biometrics
- * are opt-in: the user taps the fingerprint button — they are never prompted
+ * are opt-in: the user taps the fingerprint button - they are never prompted
  * automatically, and the OS device passcode is never offered as a fallback.
  */
 export function LockScreen({
