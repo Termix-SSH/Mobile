@@ -32,7 +32,7 @@
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/elements": "^2.6.3",
     "@react-navigation/native": "^7.1.8",
-    "axios": "^1.12.2",
+    "axios": "^1.20.0",
     "expo": "54.0.13",
     "expo-build-properties": "^1.0.9",
     "expo-clipboard": "^8.0.8",
