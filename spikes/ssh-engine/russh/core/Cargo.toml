@@ -1,0 +1,31 @@
+[package]
+name = "termix_ssh_core"
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+publish = false
+
+[lib]
+crate-type = ["lib", "staticlib", "cdylib"]
+
+[dependencies]
+russh = { version = "0.64.1", default-features = false, features = ["ring", "flate2", "rsa", "des"] }
+russh-sftp = "3.0.1"
+tokio = { version = "1.54", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "fs"] }
+uniffi = { version = "0.32.2", features = ["tokio"] }
+thiserror = "2"
+hex = "0.4"
+log = "0.4"
+async-trait = "0.1"
+
+[dev-dependencies]
+sha2 = "0.10"
+hmac = "0.12"
+sha1 = "0.10"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
