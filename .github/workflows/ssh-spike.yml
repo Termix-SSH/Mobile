@@ -2,12 +2,10 @@ name: SSH engine spike
 
 on:
   workflow_dispatch:
-  push:
-    branches: [spike/ssh-engine]
-    paths:
-      - "spikes/ssh-engine/**"
-      - "modules/termix-ssh-*/**"
-      - ".github/workflows/ssh-spike.yml"
+    inputs:
+      jobs:
+        description: Jobs to run (host, android, ios, size)
+        default: host,android,ios,size
 
 concurrency:
   group: ssh-spike-${{ github.ref }}
@@ -23,6 +21,7 @@ defaults:
 jobs:
   host:
     name: Host (Rust, C, JVM)
+    if: contains(inputs.jobs, 'host')
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
@@ -50,6 +49,7 @@ jobs:
       - name: Licenses
         if: always()
         run: |
+          sudo chown -R "$(id -u):$(id -g)" results server/out || true
           mkdir -p results/sizes
           docker run --rm -v "$PWD:/w" -w /w/russh/core termix-ssh-dev sh -c \
             'cargo metadata --format-version 1 --filter-platform aarch64-linux-android' > /tmp/meta.json
@@ -70,6 +70,7 @@ jobs:
 
   android:
     name: Android emulator
+    if: contains(inputs.jobs, 'android')
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
@@ -150,6 +151,7 @@ jobs:
 
   ios:
     name: iOS simulator
+    if: contains(inputs.jobs, 'ios')
     runs-on: macos-15-intel
     timeout-minutes: 150
     steps:
@@ -193,11 +195,14 @@ jobs:
           sh scripts/ios-prepare.sh
           dev=$(xcrun simctl list devices available -j | python3 -c "import json,sys; d=json.load(sys.stdin)['devices']; print(next(x['udid'] for k,v in d.items() if 'iOS' in k for x in v if x['name'].startswith('iPhone')))")
           cd harness/ios
-          set -o pipefail
-          TEST_RUNNER_SSH_TEST_HOST=127.0.0.1 xcodebuild test -scheme TermixSshHarness-Package -destination "id=$dev" \
-            2>&1 | tee ../../results/ios-xcodebuild.txt | grep -E "TXRESULT|error:|Test Case|\*\* TEST" || true
+          xcodebuild -list
+          scheme=$(xcodebuild -list -json | python3 -c "import json,sys; s=json.load(sys.stdin)['workspace']['schemes']; print(next((x for x in s if x.endswith('-Package')), s[0]))")
+          echo "scheme $scheme"
+          TEST_RUNNER_SSH_TEST_HOST=127.0.0.1 xcodebuild test -scheme "$scheme" -destination "id=$dev" \
+            > ../../results/ios-xcodebuild.txt 2>&1 || true
+          grep -E "TXRESULT|error:|Test Case|\*\* TEST" ../../results/ios-xcodebuild.txt | cut -c1-300 || true
           grep -o '{.*' ../../results/ios-xcodebuild.txt | grep '"scenario"' > ../../results/ios.jsonl || true
-          ! grep -q "TEST FAILED" ../../results/ios-xcodebuild.txt
+          grep -q "TEST SUCCEEDED" ../../results/ios-xcodebuild.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -207,6 +212,7 @@ jobs:
   size:
     name: App size ${{ matrix.platform }} ${{ matrix.variant }}
     needs: [android, ios]
+    if: contains(inputs.jobs, 'size')
     strategy:
       fail-fast: false
       matrix:

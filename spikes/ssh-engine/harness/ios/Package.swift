@@ -7,6 +7,8 @@ let package = Package(
     platforms: [.iOS(.v15), .macOS(.v13)],
     products: [
         .library(name: "SshApi", targets: ["SshApi"]),
+        .library(name: "RusshEngine", targets: ["RusshEngine"]),
+        .library(name: "Libssh2Engine", targets: ["Libssh2Engine"]),
     ],
     targets: [
         .target(name: "SshApi"),

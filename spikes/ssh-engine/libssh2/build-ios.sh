@@ -44,12 +44,25 @@ build device iphoneos arm64 ios64-xcrun
 build sim-arm64 iphonesimulator arm64 iossimulator-arm64-xcrun
 build sim-x86_64 iphonesimulator x86_64 iossimulator-x86_64-xcrun
 
-hdr=$work/headers
-rm -rf "$hdr" "$out/TermixSsh2.xcframework" && mkdir -p "$hdr"
-cp "$here/core/termix_ssh2.h" "$hdr/"
-printf 'module TermixSsh2C {\n    header "termix_ssh2.h"\n    export *\n}\n' > "$hdr/module.modulemap"
+# Static frameworks, since CocoaPods refuses an xcframework of bare static libraries here.
 lipo -create "$work/libtermix_ssh2-sim-arm64.a" "$work/libtermix_ssh2-sim-x86_64.a" -output "$work/libtermix_ssh2-sim.a"
-xcodebuild -create-xcframework -library "$work/libtermix_ssh2-device.a" -headers "$hdr" \
-  -library "$work/libtermix_ssh2-sim.a" -headers "$hdr" -output "$out/TermixSsh2.xcframework" >/dev/null
+rm -rf "$out/TermixSsh2.xcframework"
+args=""
+for slice in device sim; do
+  fw=$work/fw-$slice/TermixSsh2C.framework
+  rm -rf "$fw" && mkdir -p "$fw/Headers" "$fw/Modules"
+  cp "$work/libtermix_ssh2-$slice.a" "$fw/TermixSsh2C"
+  cp "$here/core/termix_ssh2.h" "$fw/Headers/"
+  printf 'framework module TermixSsh2C {
+    header "termix_ssh2.h"
+    export *
+}
+' > "$fw/Modules/module.modulemap"
+  printf '<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0"><dict><key>CFBundleIdentifier</key><string>termix.ssh2</string><key>CFBundleName</key><string>TermixSsh2C</string><key>CFBundlePackageType</key><string>FMWK</string><key>CFBundleExecutable</key><string>TermixSsh2C</string></dict></plist>
+' > "$fw/Info.plist"
+  args="$args -framework $fw"
+done
+xcodebuild -create-xcframework $args -output "$out/TermixSsh2.xcframework" >/dev/null
 echo "device lib $(wc -c < "$work/libtermix_ssh2-device.a") bytes"
 echo "libssh2 ios build took $(( $(date +%s) - start ))s"
