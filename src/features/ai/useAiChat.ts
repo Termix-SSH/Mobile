@@ -56,6 +56,7 @@ interface ChatState {
   messages: AiMessage[];
   run: RunState | null;
   proposals: AiProposal[];
+  lockedProposals: number[];
   lastUserMessage: string | null;
   error: string | null;
 }
@@ -71,6 +72,7 @@ function emptyState(): ChatState {
     messages: [],
     run: null,
     proposals: [],
+    lockedProposals: [],
     lastUserMessage: null,
     error: null,
   };
@@ -276,6 +278,7 @@ export function useAiChat() {
       conversationId: null,
       messages: [],
       proposals: [],
+      lockedProposals: [],
       run: null,
       lastUserMessage: null,
       error: null,
@@ -421,6 +424,13 @@ export function useAiChat() {
                 return {
                   ...previous,
                   run,
+                  lockedProposals: previous.lockedProposals.filter(
+                    (id) =>
+                      !run.proposals.some(
+                        (proposal) =>
+                          proposal.id === id && proposal.status !== "pending",
+                      ),
+                  ),
                   conversationId: run.conversationId ?? previous.conversationId,
                 };
               });
@@ -515,6 +525,9 @@ export function useAiChat() {
           return {
             ...previous,
             proposals: previous.proposals.map(revise),
+            lockedProposals: previous.lockedProposals.filter(
+              (item) => item !== id,
+            ),
             run: previous.run
               ? {
                   ...previous.run,
@@ -530,26 +543,33 @@ export function useAiChat() {
         const conversationId = current.current.conversationId;
         if (action !== "apply" || !isCurrent() || conversationId === null)
           return;
+        const uncertain = !(
+          error instanceof AiApiError && typeof error.status === "number"
+        );
         try {
           const detail = await client.api.ai.getConversation(conversationId);
           if (!isCurrent() || detail.conversation.id !== conversationId) return;
           update((previous) => {
-            const proposals = mergeProposals(
-              previous.proposals,
-              previous.run?.proposals ?? [],
-              detail.proposals,
+            const refreshed = detail.proposals.find(
+              (proposal) => proposal.id === id,
             );
-            const byId = new Map(
-              proposals.map((proposal) => [proposal.id, proposal]),
-            );
+            const locked =
+              refreshed && refreshed.status !== "pending"
+                ? previous.lockedProposals.filter((item) => item !== id)
+                : uncertain
+                  ? [...new Set([...previous.lockedProposals, id])]
+                  : previous.lockedProposals;
             return {
               ...previous,
-              proposals,
+              proposals: refreshed
+                ? mergeProposals(previous.proposals, [refreshed])
+                : previous.proposals,
+              lockedProposals: locked,
               run: previous.run
                 ? {
                     ...previous.run,
-                    proposals: previous.run.proposals.map(
-                      (proposal) => byId.get(proposal.id) ?? proposal,
+                    proposals: previous.run.proposals.map((proposal) =>
+                      proposal.id === id && refreshed ? refreshed : proposal,
                     ),
                   }
                 : null,
@@ -557,6 +577,12 @@ export function useAiChat() {
           });
         } catch {
           // Keep the original apply error when refreshing also fails.
+          if (isCurrent() && uncertain) {
+            update((previous) => ({
+              ...previous,
+              lockedProposals: [...new Set([...previous.lockedProposals, id])],
+            }));
+          }
         }
       }
     },

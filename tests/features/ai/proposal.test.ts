@@ -24,11 +24,24 @@ test("reveals invisible and bidi characters while preserving tabs and newlines",
     ...Array.from({ length: 5 }, (_, index) => 0x200b + index),
     ...Array.from({ length: 5 }, (_, index) => 0x202a + index),
     ...Array.from({ length: 10 }, (_, index) => 0x2060 + index),
+    ...Array.from({ length: 33 }, (_, index) => 0x007f + index),
+    0x00ad,
+    0x061c,
+    0x115f,
+    0x1160,
+    0x180e,
+    ...Array.from({ length: 6 }, (_, index) => 0x206a + index),
+    0x3164,
+    ...Array.from({ length: 16 }, (_, index) => 0xfe00 + index),
+    0xffa0,
+    ...Array.from({ length: 3 }, (_, index) => 0xfff9 + index),
+    ...Array.from({ length: 128 }, (_, index) => 0xe0000 + index),
     0xfeff,
   ];
   for (const code of codes) {
-    expect(revealInvisible(`a${String.fromCharCode(code)}b`)).toBe(
-      `a\\u${code.toString(16).toUpperCase().padStart(4, "0")}b`,
+    const hex = code.toString(16).toUpperCase();
+    expect(revealInvisible(`a${String.fromCodePoint(code)}b`)).toBe(
+      code > 0xffff ? `a\\u{${hex}}b` : `a\\u${hex.padStart(4, "0")}b`,
     );
   }
   expect(revealInvisible("  printf 'hello'\n\t🙂  ")).toBe(

@@ -67,6 +67,7 @@ function makeChat(): ReturnType<typeof useAiChat> {
     messages: [],
     run: null,
     proposals: [],
+    lockedProposals: [],
     lastUserMessage: null,
     error: null,
     refreshAccess: jest.fn(async () => {}),

@@ -15,9 +15,12 @@ export interface ProposalDescription {
 /** Make hidden formatting and control characters visible in untrusted text. */
 export function revealInvisible(text: string): string {
   return text.replace(
-    /[\u0000-\u0008\u000B-\u001F\u200B-\u200F\u202A-\u202E\u2060-\u2069\uFEFF]/g,
-    (character) =>
-      `\\u${character.charCodeAt(0).toString(16).toUpperCase().padStart(4, "0")}`,
+    /[\u0000-\u0008\u000B-\u001F\u007F-\u009F\u00AD\u061C\u115F\u1160\u180E\u200B-\u200F\u202A-\u202E\u2060-\u206F\u3164\uFE00-\uFE0F\uFEFF\uFFA0\uFFF9-\uFFFB\u{E0000}-\u{E007F}]/gu,
+    (character) => {
+      const code = character.codePointAt(0)!;
+      const hex = code.toString(16).toUpperCase();
+      return code > 0xffff ? `\\u{${hex}}` : `\\u${hex.padStart(4, "0")}`;
+    },
   );
 }
 

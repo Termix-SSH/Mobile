@@ -35,9 +35,15 @@ export function ProposalCard({
   const hosts = revealInvisible(detail.hosts.join(", "));
   const pending = proposal.status === "pending";
   const hasCommand = detail.command !== undefined;
-  const content = revealInvisible(detail.command ?? detail.payload ?? "");
+  const emptyCommand = hasCommand && !detail.command?.trim();
+  const content = emptyCommand
+    ? "(empty command)"
+    : revealInvisible(detail.command ?? detail.payload ?? "");
   const applyDisabled =
-    busy || detail.invalid || (hasCommand && detail.hosts.length === 0);
+    busy ||
+    detail.invalid ||
+    emptyCommand ||
+    (hasCommand && detail.hosts.length === 0);
 
   const apply = async () => {
     if (applyDisabled || !pending) return;

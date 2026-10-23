@@ -196,6 +196,31 @@ test("command text reveals bidi characters and wraps in the card and confirmatio
   expect(description.props.style).toEqual({ maxHeight: 240 });
 });
 
+test.each(["", "   ", "\n\t "])(
+  "an empty command %j is labelled and cannot be applied",
+  async (command) => {
+    const onApply = jest.fn();
+    const result = await render(
+      <ProposalCard
+        proposal={{
+          ...proposal,
+          payload: JSON.stringify({ command, hostId: 7 }),
+        }}
+        hostName={hostName}
+        onApply={onApply}
+        onReject={jest.fn()}
+      />,
+    );
+    expect(result.getByText("(empty command)")).toBeTruthy();
+    const apply = result.getByRole("button", { name: "Apply" });
+    expect(apply).toBeDisabled();
+    await fireEvent.press(apply);
+    expect(mockConfirm).not.toHaveBeenCalled();
+    expect(onApply).not.toHaveBeenCalled();
+    expect(result.getByRole("button", { name: "Reject" })).not.toBeDisabled();
+  },
+);
+
 test("a command without a valid host ID disables Apply", async () => {
   const onApply = jest.fn();
   const result = await render(

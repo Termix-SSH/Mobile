@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { Button, EmptyState, Input } from "@/ui";
+import { Button, EmptyState, Input, Text } from "@/ui";
 import type { useAiChat } from "../useAiChat";
 import { MessageBubble } from "./MessageBubble";
 import { ModelPicker } from "./ModelPicker";
@@ -76,14 +76,24 @@ export function ChatView({ chat, hostName }: ChatViewProps) {
           />
         ) : null}
         {chat.proposals.map((proposal) => (
-          <ProposalCard
-            key={proposal.id}
-            proposal={proposal}
-            hostName={hostName}
-            busy={busyProposals.includes(proposal.id)}
-            onApply={(id) => void changeProposal(id, "apply")}
-            onReject={(id) => void changeProposal(id, "reject")}
-          />
+          <View key={proposal.id}>
+            <ProposalCard
+              proposal={proposal}
+              hostName={hostName}
+              busy={
+                busyProposals.includes(proposal.id) ||
+                chat.lockedProposals.includes(proposal.id)
+              }
+              onApply={(id) => void changeProposal(id, "apply")}
+              onReject={(id) => void changeProposal(id, "reject")}
+            />
+            {chat.lockedProposals.includes(proposal.id) ? (
+              <Text className="mt-2 text-xs text-muted-foreground">
+                Waiting for the server result. Reopen the conversation to
+                refresh.
+              </Text>
+            ) : null}
+          </View>
         ))}
       </ScrollView>
       <View className="flex-row items-end gap-2 border-t border-border p-3">

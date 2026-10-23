@@ -612,6 +612,72 @@ test.each(["failed", "applied"] as const)(
   },
 );
 
+test("a failed apply refetch does not revert another proposal's result", async () => {
+  const { result } = await mountReady();
+  const other = { ...proposal, id: 11 };
+  api.getConversation.mockResolvedValue({
+    conversation,
+    messages: [],
+    proposals: [proposal, other],
+  });
+  await act(async () => result.current.openConversation(8));
+  api.streamChat.mockImplementation(async (_input, emit) => {
+    emit({ type: "proposal", proposal });
+    emit({ type: "proposal", proposal: other });
+    emit({ type: "done" });
+  });
+  await act(async () => result.current.send("Read uptime"));
+  await act(async () => result.current.applyProposal(11));
+  api.applyProposal.mockRejectedValue(new AiApiError("Failed", 500));
+  const refreshed: AiProposal = { ...proposal, status: "failed" };
+  api.getConversation.mockResolvedValue({
+    conversation,
+    messages: [],
+    proposals: [refreshed, other],
+  });
+  await act(async () => result.current.applyProposal(10));
+  expect(result.current.proposals.find(({ id }) => id === 10)).toEqual(
+    refreshed,
+  );
+  expect(result.current.proposals.find(({ id }) => id === 11)?.status).toBe(
+    "applied",
+  );
+  expect(
+    result.current.run?.proposals.find(({ id }) => id === 11)?.status,
+  ).toBe("applied");
+  expect(result.current.lockedProposals).toEqual([]);
+});
+
+test.each([new Error("Network error"), new AiApiError("Timed out")])(
+  "an apply error without an HTTP status locks a still-pending proposal: %s",
+  async (error) => {
+    const { result } = await mountReady();
+    await act(async () => result.current.openConversation(8));
+    api.applyProposal.mockRejectedValue(error);
+    await act(async () => result.current.applyProposal(10));
+    expect(result.current.proposals[0].status).toBe("pending");
+    expect(result.current.lockedProposals).toEqual([10]);
+    api.getConversation.mockRejectedValueOnce(new Error("Refresh failed"));
+    await act(async () => result.current.applyProposal(10));
+    expect(result.current.lockedProposals).toEqual([10]);
+    api.getConversation.mockResolvedValueOnce({
+      conversation,
+      messages: [],
+      proposals: [{ ...proposal, status: "applied" }],
+    });
+    await act(async () => result.current.applyProposal(10));
+    expect(result.current.lockedProposals).toEqual([]);
+    await act(async () => result.current.applyProposal(10));
+    expect(result.current.lockedProposals).toEqual([10]);
+    await act(async () => result.current.openConversation(8));
+    expect(result.current.lockedProposals).toEqual([]);
+    await act(async () => result.current.applyProposal(10));
+    expect(result.current.lockedProposals).toEqual([10]);
+    await act(async () => result.current.newConversation());
+    expect(result.current.lockedProposals).toEqual([]);
+  },
+);
+
 test("proposal results from a previous conversation generation are ignored", async () => {
   const { result } = await mountReady();
   await act(async () => result.current.openConversation(8));
