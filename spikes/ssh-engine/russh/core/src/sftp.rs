@@ -11,7 +11,14 @@ const PROGRESS_EVERY: u64 = 4 * 1024 * 1024;
 
 #[derive(uniffi::Object)]
 pub struct Sftp {
-    inner: SftpSession,
+    inner: Arc<SftpSession>,
+}
+
+// Transfers run as one task on the runtime, so the foreign side polls once instead of per chunk.
+async fn on_runtime<T: Send + 'static>(
+    f: impl std::future::Future<Output = Result<T, SshError>> + Send + 'static,
+) -> Result<T, SshError> {
+    tokio::spawn(f).await.map_err(|e| SshError::Io { msg: e.to_string() })?
 }
 
 #[uniffi::export(async_runtime = "tokio")]
@@ -26,7 +33,7 @@ impl Session {
             ..Default::default()
         };
         let inner = SftpSession::new_with_config(channel.into_stream(), cfg).await?;
-        Ok(Arc::new(Sftp { inner }))
+        Ok(Arc::new(Sftp { inner: Arc::new(inner) }))
     }
 }
 
@@ -69,23 +76,27 @@ impl Sftp {
         local: String,
         progress: Option<Arc<dyn ProgressCallback>>,
     ) -> Result<TransferResult, SshError> {
-        let start = Instant::now();
-        let total = self.inner.metadata(remote.clone()).await?.size.unwrap_or(0);
-        let mut src = self.inner.open(remote).await?;
-        let mut dst = tokio::fs::File::create(local).await?;
-        let mut buf = vec![0u8; CHUNK];
-        let (mut done, mut last) = (0u64, 0u64);
-        loop {
-            let n = src.read(&mut buf).await?;
-            if n == 0 {
-                break;
+        let inner = self.inner.clone();
+        on_runtime(async move {
+            let start = Instant::now();
+            let total = inner.metadata(remote.clone()).await?.size.unwrap_or(0);
+            let mut src = inner.open(remote).await?;
+            let mut dst = tokio::fs::File::create(local).await?;
+            let mut buf = vec![0u8; CHUNK];
+            let (mut done, mut last) = (0u64, 0u64);
+            loop {
+                let n = src.read(&mut buf).await?;
+                if n == 0 {
+                    break;
+                }
+                dst.write_all(&buf[..n]).await?;
+                done += n as u64;
+                report(&progress, done, total, &mut last);
             }
-            dst.write_all(&buf[..n]).await?;
-            done += n as u64;
-            report(&progress, done, total, &mut last);
-        }
-        dst.flush().await?;
-        Ok(TransferResult { bytes: done, millis: start.elapsed().as_millis() as u64 })
+            dst.flush().await?;
+            Ok(TransferResult { bytes: done, millis: start.elapsed().as_millis() as u64 })
+        })
+        .await
     }
 
     pub async fn upload(
@@ -94,23 +105,27 @@ impl Sftp {
         remote: String,
         progress: Option<Arc<dyn ProgressCallback>>,
     ) -> Result<TransferResult, SshError> {
-        let start = Instant::now();
-        let mut src = tokio::fs::File::open(local).await?;
-        let total = src.metadata().await?.len();
-        let mut dst = self.inner.create(remote).await?;
-        let mut buf = vec![0u8; CHUNK];
-        let (mut done, mut last) = (0u64, 0u64);
-        loop {
-            let n = src.read(&mut buf).await?;
-            if n == 0 {
-                break;
+        let inner = self.inner.clone();
+        on_runtime(async move {
+            let start = Instant::now();
+            let mut src = tokio::fs::File::open(local).await?;
+            let total = src.metadata().await?.len();
+            let mut dst = inner.create(remote).await?;
+            let mut buf = vec![0u8; CHUNK];
+            let (mut done, mut last) = (0u64, 0u64);
+            loop {
+                let n = src.read(&mut buf).await?;
+                if n == 0 {
+                    break;
+                }
+                dst.write_all(&buf[..n]).await?;
+                done += n as u64;
+                report(&progress, done, total, &mut last);
             }
-            dst.write_all(&buf[..n]).await?;
-            done += n as u64;
-            report(&progress, done, total, &mut last);
-        }
-        dst.shutdown().await?;
-        Ok(TransferResult { bytes: done, millis: start.elapsed().as_millis() as u64 })
+            dst.shutdown().await?;
+            Ok(TransferResult { bytes: done, millis: start.elapsed().as_millis() as u64 })
+        })
+        .await
     }
 
     pub async fn remove(&self, path: String) -> Result<(), SshError> {
@@ -118,7 +133,7 @@ impl Sftp {
         Ok(())
     }
 
-    pub async fn close(&self) -> Result<(), SshError> {
+    pub async fn shutdown(&self) -> Result<(), SshError> {
         self.inner.close().await?;
         Ok(())
     }

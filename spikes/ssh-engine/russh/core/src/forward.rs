@@ -20,7 +20,7 @@ impl Forward {
         self.port
     }
 
-    pub fn close(&self) {
+    pub fn stop(&self) {
         self.task.abort();
     }
 }

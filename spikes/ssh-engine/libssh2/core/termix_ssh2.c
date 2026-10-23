@@ -310,8 +310,8 @@ static void sha256_b64(const unsigned char *data, size_t len, char *out, size_t 
     unsigned char md[32];
     unsigned int mdlen = 0;
     EVP_Digest(data, len, md, &mdlen, EVP_sha256(), NULL);
-    unsigned char b64[64];
-    int n = EVP_EncodeBlock(b64, md, 32);
+    char b64[48];
+    int n = EVP_EncodeBlock((unsigned char *)b64, md, 32);
     while (n > 0 && b64[n - 1] == '=') n--;
     b64[n] = 0;
     snprintf(out, outlen, "SHA256:%s", b64);
@@ -682,12 +682,12 @@ static tx_session *start_session(int sock, const tx_config *cfg, const tx_callba
     s->sock = sock;
     s->cb = *cb;
     s->cfg = *cfg;
-    s->strings[0] = s->cfg.host = dup_or_null(cfg->host);
-    s->strings[1] = s->cfg.username = dup_or_null(cfg->username);
-    s->strings[2] = s->cfg.password = dup_or_null(cfg->password);
-    s->strings[3] = s->cfg.private_key = dup_or_null(cfg->private_key);
-    s->strings[4] = s->cfg.passphrase = dup_or_null(cfg->passphrase);
-    s->strings[5] = s->cfg.certificate = dup_or_null(cfg->certificate);
+    s->cfg.host = s->strings[0] = dup_or_null(cfg->host);
+    s->cfg.username = s->strings[1] = dup_or_null(cfg->username);
+    s->cfg.password = s->strings[2] = dup_or_null(cfg->password);
+    s->cfg.private_key = s->strings[3] = dup_or_null(cfg->private_key);
+    s->cfg.passphrase = s->strings[4] = dup_or_null(cfg->passphrase);
+    s->cfg.certificate = s->strings[5] = dup_or_null(cfg->certificate);
     s->parent_bridge_id = -1;
     pthread_mutex_init(&s->mu, NULL);
     pthread_cond_init(&s->cv, NULL);
@@ -1022,7 +1022,8 @@ struct shell_state {
     char *out;
     size_t out_len, out_off;
     int resize_cols, resize_rows, close_requested;
-    int refs, dead; /* shared with the tx_shell handle, guarded by s->mu */
+    int refs; /* atomic, shared with the tx_shell handle */
+    int dead; /* guarded by s->mu */
 };
 
 static void shell_free_state(shell_state *h) {
@@ -1040,9 +1041,8 @@ static void shell_destroy(tx_session *s, tx_task *t) {
     h->ch = NULL;
     pthread_mutex_lock(&s->mu);
     h->dead = 1;
-    int last = --h->refs == 0;
     pthread_mutex_unlock(&s->mu);
-    if (last) shell_free_state(h);
+    if (__atomic_sub_fetch(&h->refs, 1, __ATOMIC_SEQ_CST) == 0) shell_free_state(h);
 }
 
 static int shell_step(tx_session *s, tx_task *t) {
@@ -1163,12 +1163,7 @@ tx_shell *tx_shell_open(tx_session *s, const char *term, int cols, int rows, con
     if (err) *err = c.err;
     shell_state *h = c.result;
     if (rc) {
-        if (h) {
-            pthread_mutex_lock(&s->mu);
-            int last = --h->refs == 0;
-            pthread_mutex_unlock(&s->mu);
-            if (last) shell_free_state(h);
-        }
+        if (h && __atomic_sub_fetch(&h->refs, 1, __ATOMIC_SEQ_CST) == 0) shell_free_state(h);
         return NULL;
     }
     tx_shell *sh = calloc(1, sizeof *sh);
@@ -1208,11 +1203,9 @@ void tx_shell_close(tx_shell *sh) {
     wake_loop(sh->s);
 }
 
+/* Safe after the session is freed: it only drops this handle's reference. */
 void tx_shell_free(tx_shell *sh) {
-    pthread_mutex_lock(&sh->s->mu);
-    int last = --sh->h->refs == 0;
-    pthread_mutex_unlock(&sh->s->mu);
-    if (last) shell_free_state(sh->h);
+    if (__atomic_sub_fetch(&sh->h->refs, 1, __ATOMIC_SEQ_CST) == 0) shell_free_state(sh->h);
     free(sh);
 }
 

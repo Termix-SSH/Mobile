@@ -201,7 +201,7 @@ async fn forward_local_and_socks() {
     let mut buf = [0u8; 5];
     tcp.read_exact(&mut buf).await.unwrap();
     assert_eq!(&buf, b"ping\n");
-    fwd.close();
+    fwd.stop();
 
     let socks = s.clone().forward_dynamic("127.0.0.1".into(), 0).await.unwrap();
     let mut tcp = tokio::net::TcpStream::connect(("127.0.0.1", socks.port())).await.unwrap();

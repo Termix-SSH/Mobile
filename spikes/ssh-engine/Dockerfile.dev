@@ -1,4 +1,4 @@
-# Linux build and test image for the libssh2 slice (host tests and JNI for the JVM).
+# Linux image for the spike: libssh2 C build, Rust build, Gradle host tests.
 FROM debian:trixie-slim
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     build-essential cmake curl ca-certificates libssl-dev pkg-config openjdk-21-jdk-headless python3 docker-cli oathtool \
@@ -9,3 +9,7 @@ RUN curl -sSL https://libssh2.org/download/libssh2-$LIBSSH2.tar.gz | tar xz -C /
       -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DENABLE_ZLIB_COMPRESSION=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
       -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/libssh2 \
  && cmake --build /opt/libssh2-build -j && cmake --install /opt/libssh2-build
+ENV RUSTUP_HOME=/opt/rustup CARGO_HOME=/opt/cargo PATH=/opt/cargo/bin:/opt/gradle-8.13/bin:$PATH
+RUN curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.99.1 \
+ && apt-get update && apt-get install -y --no-install-recommends unzip && rm -rf /var/lib/apt/lists/* \
+ && curl -sSL -o /tmp/g.zip https://services.gradle.org/distributions/gradle-8.13-bin.zip && unzip -q /tmp/g.zip -d /opt && rm /tmp/g.zip

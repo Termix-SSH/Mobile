@@ -1,0 +1,5 @@
+build/
+.gradle/
+.kotlin/
+local.properties
+app/src/androidTest/assets/

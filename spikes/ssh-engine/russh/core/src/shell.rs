@@ -64,7 +64,7 @@ impl Shell {
         Ok(())
     }
 
-    pub async fn close(&self) -> Result<(), SshError> {
+    pub async fn end(&self) -> Result<(), SshError> {
         self.writer.eof().await.ok();
         self.writer.close().await?;
         Ok(())

@@ -41,6 +41,7 @@ PubkeyAuthentication yes
 AllowTcpForwarding yes
 PermitTunnel no
 MaxStartups 200
+PerSourcePenalties no
 MaxSessions 50
 ClientAliveInterval 0
 Subsystem sftp internal-sftp
