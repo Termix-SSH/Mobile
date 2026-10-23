@@ -1,0 +1,324 @@
+[
+  {
+    "id": "kex:mlkem768x25519-sha256",
+    "category": "kex",
+    "name": "mlkem768x25519-sha256",
+    "legacy": false,
+    "port": 2301,
+    "sshd": {
+      "KexAlgorithms": "mlkem768x25519-sha256"
+    }
+  },
+  {
+    "id": "kex:sntrup761x25519-sha512",
+    "category": "kex",
+    "name": "sntrup761x25519-sha512",
+    "legacy": false,
+    "port": 2302,
+    "sshd": {
+      "KexAlgorithms": "sntrup761x25519-sha512"
+    }
+  },
+  {
+    "id": "kex:curve25519-sha256",
+    "category": "kex",
+    "name": "curve25519-sha256",
+    "legacy": false,
+    "port": 2303,
+    "sshd": {
+      "KexAlgorithms": "curve25519-sha256"
+    }
+  },
+  {
+    "id": "kex:ecdh-sha2-nistp256",
+    "category": "kex",
+    "name": "ecdh-sha2-nistp256",
+    "legacy": false,
+    "port": 2304,
+    "sshd": {
+      "KexAlgorithms": "ecdh-sha2-nistp256"
+    }
+  },
+  {
+    "id": "kex:ecdh-sha2-nistp384",
+    "category": "kex",
+    "name": "ecdh-sha2-nistp384",
+    "legacy": false,
+    "port": 2305,
+    "sshd": {
+      "KexAlgorithms": "ecdh-sha2-nistp384"
+    }
+  },
+  {
+    "id": "kex:ecdh-sha2-nistp521",
+    "category": "kex",
+    "name": "ecdh-sha2-nistp521",
+    "legacy": false,
+    "port": 2306,
+    "sshd": {
+      "KexAlgorithms": "ecdh-sha2-nistp521"
+    }
+  },
+  {
+    "id": "kex:diffie-hellman-group-exchange-sha256",
+    "category": "kex",
+    "name": "diffie-hellman-group-exchange-sha256",
+    "legacy": false,
+    "port": 2307,
+    "sshd": {
+      "KexAlgorithms": "diffie-hellman-group-exchange-sha256"
+    }
+  },
+  {
+    "id": "kex:diffie-hellman-group16-sha512",
+    "category": "kex",
+    "name": "diffie-hellman-group16-sha512",
+    "legacy": false,
+    "port": 2308,
+    "sshd": {
+      "KexAlgorithms": "diffie-hellman-group16-sha512"
+    }
+  },
+  {
+    "id": "kex:diffie-hellman-group18-sha512",
+    "category": "kex",
+    "name": "diffie-hellman-group18-sha512",
+    "legacy": false,
+    "port": 2309,
+    "sshd": {
+      "KexAlgorithms": "diffie-hellman-group18-sha512"
+    }
+  },
+  {
+    "id": "kex:diffie-hellman-group14-sha256",
+    "category": "kex",
+    "name": "diffie-hellman-group14-sha256",
+    "legacy": false,
+    "port": 2310,
+    "sshd": {
+      "KexAlgorithms": "diffie-hellman-group14-sha256"
+    }
+  },
+  {
+    "id": "kex:diffie-hellman-group14-sha1",
+    "category": "kex",
+    "name": "diffie-hellman-group14-sha1",
+    "legacy": true,
+    "port": 2311,
+    "sshd": {
+      "KexAlgorithms": "diffie-hellman-group14-sha1"
+    }
+  },
+  {
+    "id": "kex:diffie-hellman-group-exchange-sha1",
+    "category": "kex",
+    "name": "diffie-hellman-group-exchange-sha1",
+    "legacy": true,
+    "port": 2312,
+    "sshd": {
+      "KexAlgorithms": "diffie-hellman-group-exchange-sha1"
+    }
+  },
+  {
+    "id": "kex:diffie-hellman-group1-sha1",
+    "category": "kex",
+    "name": "diffie-hellman-group1-sha1",
+    "legacy": true,
+    "port": 2313,
+    "sshd": {
+      "KexAlgorithms": "diffie-hellman-group1-sha1"
+    }
+  },
+  {
+    "id": "cipher:chacha20-poly1305@openssh.com",
+    "category": "cipher",
+    "name": "chacha20-poly1305@openssh.com",
+    "legacy": false,
+    "port": 2314,
+    "sshd": {
+      "Ciphers": "chacha20-poly1305@openssh.com",
+      "MACs": "hmac-sha2-256,hmac-sha2-512,hmac-sha1"
+    }
+  },
+  {
+    "id": "cipher:aes128-gcm@openssh.com",
+    "category": "cipher",
+    "name": "aes128-gcm@openssh.com",
+    "legacy": false,
+    "port": 2315,
+    "sshd": {
+      "Ciphers": "aes128-gcm@openssh.com",
+      "MACs": "hmac-sha2-256,hmac-sha2-512,hmac-sha1"
+    }
+  },
+  {
+    "id": "cipher:aes256-gcm@openssh.com",
+    "category": "cipher",
+    "name": "aes256-gcm@openssh.com",
+    "legacy": false,
+    "port": 2316,
+    "sshd": {
+      "Ciphers": "aes256-gcm@openssh.com",
+      "MACs": "hmac-sha2-256,hmac-sha2-512,hmac-sha1"
+    }
+  },
+  {
+    "id": "cipher:aes128-ctr",
+    "category": "cipher",
+    "name": "aes128-ctr",
+    "legacy": false,
+    "port": 2317,
+    "sshd": {
+      "Ciphers": "aes128-ctr",
+      "MACs": "hmac-sha2-256,hmac-sha2-512,hmac-sha1"
+    }
+  },
+  {
+    "id": "cipher:aes256-ctr",
+    "category": "cipher",
+    "name": "aes256-ctr",
+    "legacy": false,
+    "port": 2318,
+    "sshd": {
+      "Ciphers": "aes256-ctr",
+      "MACs": "hmac-sha2-256,hmac-sha2-512,hmac-sha1"
+    }
+  },
+  {
+    "id": "cipher:aes256-cbc",
+    "category": "cipher",
+    "name": "aes256-cbc",
+    "legacy": false,
+    "port": 2319,
+    "sshd": {
+      "Ciphers": "aes256-cbc",
+      "MACs": "hmac-sha2-256,hmac-sha2-512,hmac-sha1"
+    }
+  },
+  {
+    "id": "cipher:3des-cbc",
+    "category": "cipher",
+    "name": "3des-cbc",
+    "legacy": true,
+    "port": 2320,
+    "sshd": {
+      "Ciphers": "3des-cbc",
+      "MACs": "hmac-sha2-256,hmac-sha2-512,hmac-sha1"
+    }
+  },
+  {
+    "id": "mac:hmac-sha2-256-etm@openssh.com",
+    "category": "mac",
+    "name": "hmac-sha2-256-etm@openssh.com",
+    "legacy": false,
+    "port": 2321,
+    "sshd": {
+      "MACs": "hmac-sha2-256-etm@openssh.com",
+      "Ciphers": "aes128-ctr,aes256-ctr"
+    }
+  },
+  {
+    "id": "mac:hmac-sha2-512-etm@openssh.com",
+    "category": "mac",
+    "name": "hmac-sha2-512-etm@openssh.com",
+    "legacy": false,
+    "port": 2322,
+    "sshd": {
+      "MACs": "hmac-sha2-512-etm@openssh.com",
+      "Ciphers": "aes128-ctr,aes256-ctr"
+    }
+  },
+  {
+    "id": "mac:hmac-sha2-256",
+    "category": "mac",
+    "name": "hmac-sha2-256",
+    "legacy": false,
+    "port": 2323,
+    "sshd": {
+      "MACs": "hmac-sha2-256",
+      "Ciphers": "aes128-ctr,aes256-ctr"
+    }
+  },
+  {
+    "id": "mac:hmac-sha2-512",
+    "category": "mac",
+    "name": "hmac-sha2-512",
+    "legacy": false,
+    "port": 2324,
+    "sshd": {
+      "MACs": "hmac-sha2-512",
+      "Ciphers": "aes128-ctr,aes256-ctr"
+    }
+  },
+  {
+    "id": "mac:hmac-sha1",
+    "category": "mac",
+    "name": "hmac-sha1",
+    "legacy": true,
+    "port": 2325,
+    "sshd": {
+      "MACs": "hmac-sha1",
+      "Ciphers": "aes128-ctr,aes256-ctr"
+    }
+  },
+  {
+    "id": "hostkey:ssh-ed25519",
+    "category": "hostkey",
+    "name": "ssh-ed25519",
+    "legacy": false,
+    "port": 2326,
+    "sshd": {
+      "HostKeyAlgorithms": "ssh-ed25519"
+    }
+  },
+  {
+    "id": "hostkey:ecdsa-sha2-nistp256",
+    "category": "hostkey",
+    "name": "ecdsa-sha2-nistp256",
+    "legacy": false,
+    "port": 2327,
+    "sshd": {
+      "HostKeyAlgorithms": "ecdsa-sha2-nistp256"
+    }
+  },
+  {
+    "id": "hostkey:rsa-sha2-256",
+    "category": "hostkey",
+    "name": "rsa-sha2-256",
+    "legacy": false,
+    "port": 2328,
+    "sshd": {
+      "HostKeyAlgorithms": "rsa-sha2-256"
+    }
+  },
+  {
+    "id": "hostkey:rsa-sha2-512",
+    "category": "hostkey",
+    "name": "rsa-sha2-512",
+    "legacy": false,
+    "port": 2329,
+    "sshd": {
+      "HostKeyAlgorithms": "rsa-sha2-512"
+    }
+  },
+  {
+    "id": "hostkey:ssh-ed25519-cert-v01@openssh.com",
+    "category": "hostkey",
+    "name": "ssh-ed25519-cert-v01@openssh.com",
+    "legacy": false,
+    "port": 2330,
+    "sshd": {
+      "HostKeyAlgorithms": "ssh-ed25519-cert-v01@openssh.com"
+    }
+  },
+  {
+    "id": "hostkey:ssh-rsa",
+    "category": "hostkey",
+    "name": "ssh-rsa",
+    "legacy": true,
+    "port": 2331,
+    "sshd": {
+      "HostKeyAlgorithms": "ssh-rsa"
+    }
+  }
+]

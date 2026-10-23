@@ -1,0 +1,25 @@
+# Test servers for the SSH engine spike. Keys land in ./out (gitignored).
+name: termix-ssh-test
+services:
+  target:
+    build: .
+    environment: { ROLE: target, BIG_MB: "${BIG_MB:-500}" }
+    volumes: ["./out:/out"]
+    ports: ["2222:22", "7000:7000", "8080:8080"]
+    networks: [ssh]
+  jump:
+    build: .
+    environment: { ROLE: jump }
+    volumes: ["./out:/out"]
+    ports: ["2223:22"]
+    depends_on: [target]
+    networks: [ssh]
+  algos:
+    build: .
+    environment: { ROLE: algos }
+    volumes: ["./out:/out"]
+    ports: ["2301-2340:2301-2340"]
+    depends_on: [target]
+    networks: [ssh]
+networks:
+  ssh: {}
