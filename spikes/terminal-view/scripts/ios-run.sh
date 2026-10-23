@@ -18,7 +18,7 @@ run() {
   xcrun simctl terminate booted $BUNDLE 2>/dev/null || true
   started=$(date '+%Y-%m-%d %H:%M:%S')
   url="termix-mobile://dev/terminal-lab?engine=$engine&scenario=$scenario&seconds=$SECONDS_PER_RUN&rate=$rate&auto=1"
-  xcrun simctl openurl booted "$url"
+  SIMCTL_CHILD_TERMIX_LAB_URL="$url" xcrun simctl launch booted $BUNDLE > /dev/null
   waited=0
   limit=$((SECONDS_PER_RUN + 40))
   line=""

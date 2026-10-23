@@ -16,6 +16,7 @@ export interface MemorySample {
 
 interface FrameMonitorNative {
   log(line: string): void;
+  launchUrl(): string | null;
   refreshRate(): number;
   start(): Promise<void>;
   stop(): Promise<FrameCapture>;

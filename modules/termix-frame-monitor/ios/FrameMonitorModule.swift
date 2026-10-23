@@ -24,6 +24,12 @@ public class FrameMonitorModule: Module {
       NSLog("%@", line)
     }
 
+    // CI starts the app with SIMCTL_CHILD_TERMIX_LAB_URL, since opening a
+    // custom scheme URL on the simulator asks for confirmation first.
+    Function("launchUrl") { () -> String? in
+      ProcessInfo.processInfo.environment["TERMIX_LAB_URL"]
+    }
+
     Function("refreshRate") { () -> Double in
       Double(UIScreen.main.maximumFramesPerSecond)
     }

@@ -25,6 +25,7 @@ import UpdateRequired from "@/screens/authentication/UpdateRequired";
 import { WidgetDeepLinkHost } from "@/widgets";
 import { registerBuiltInFeatures } from "@/features";
 import { AccountSwitcher } from "@/screens/accounts/AccountSwitcher";
+import { LabLaunch } from "@/screens/dev/terminal-lab/LabLaunch";
 
 registerBuiltInFeatures();
 
@@ -81,6 +82,7 @@ function RootLayoutContent() {
           sheet. Mounted here so it is active for the whole session, including
           cold starts from a widget. */}
       <WidgetDeepLinkHost />
+      <LabLaunch />
       <AccountSwitcher />
       <AppLockGate />
       {authFlowVisible ? (

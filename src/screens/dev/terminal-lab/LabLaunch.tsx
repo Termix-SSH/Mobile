@@ -1,0 +1,27 @@
+import { useEffect } from "react";
+import { router } from "expo-router";
+
+import { FrameMonitor } from "@/modules/termix-frame-monitor";
+import { labEnabled } from "./enabled";
+
+/** Turns a lab deep link into the route path, or null if it is not one. */
+export function labRouteFromUrl(url: string | null | undefined): string | null {
+  if (!url) return null;
+  const m = /^[a-z][a-z0-9+.-]*:\/\/dev\/terminal-lab(\?.*)?$/i.exec(url);
+  return m ? `/dev/terminal-lab${m[1] ?? ""}` : null;
+}
+
+/**
+ * Opens the lab when CI started the app with a lab URL in its environment
+ * (the iOS simulator asks before opening custom scheme links).
+ */
+export function LabLaunch() {
+  useEffect(() => {
+    if (!labEnabled() || !FrameMonitor) return;
+    const route = labRouteFromUrl(FrameMonitor.launchUrl());
+    if (!route) return;
+    const timer = setTimeout(() => router.replace(route as never), 500);
+    return () => clearTimeout(timer);
+  }, []);
+  return null;
+}

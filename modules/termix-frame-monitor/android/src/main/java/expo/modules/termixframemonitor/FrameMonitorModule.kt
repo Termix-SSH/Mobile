@@ -48,6 +48,9 @@ class FrameMonitorModule : Module() {
     // Release builds keep this, unlike console.log on iOS. CI greps for it.
     Function("log") { line: String -> android.util.Log.i("TermixLab", line) }
 
+    // Android CI opens the lab with an intent, so there is nothing to read here.
+    Function("launchUrl") { null as String? }
+
     Function("refreshRate") {
       @Suppress("DEPRECATION")
       appContext.currentActivity?.windowManager?.defaultDisplay?.refreshRate?.toDouble() ?: 60.0
