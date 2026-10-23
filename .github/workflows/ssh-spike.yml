@@ -169,6 +169,13 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: aarch64-apple-ios,aarch64-apple-ios-sim,x86_64-apple-ios
+      - uses: actions/cache@v4
+        with:
+          path: |
+            spikes/ssh-engine/libssh2/build/ios-work/prefix
+            spikes/ssh-engine/russh/core/target
+          key: ios-native-${{ hashFiles('spikes/ssh-engine/libssh2/build-ios.sh', 'spikes/ssh-engine/russh/core/Cargo.lock') }}
+          restore-keys: ios-native-
       - name: Build libssh2 slice
         run: |
           s=$(date +%s); libssh2/build-ios.sh
@@ -202,6 +209,9 @@ jobs:
             > ../../results/ios-xcodebuild.txt 2>&1 || true
           grep -E "TXRESULT|error:|Test Case|\*\* TEST" ../../results/ios-xcodebuild.txt | cut -c1-300 || true
           grep -o '{.*' ../../results/ios-xcodebuild.txt | grep '"scenario"' > ../../results/ios.jsonl || true
+          mkdir -p ../../results/crashes
+          cp ~/Library/Logs/DiagnosticReports/*.ips ../../results/crashes/ 2>/dev/null || true
+          for f in ../../results/crashes/*.ips; do [ -f "$f" ] && head -c 6000 "$f"; done
           grep -q "TEST SUCCEEDED" ../../results/ios-xcodebuild.txt
       - uses: actions/upload-artifact@v4
         if: always()
