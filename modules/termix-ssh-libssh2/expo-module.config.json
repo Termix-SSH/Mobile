@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android"],
+  "ios": {
+    "modules": ["TermixSshLibssh2Module"]
+  },
+  "android": {
+    "modules": ["expo.modules.termixsshlibssh2.TermixSshLibssh2Module"]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "termix-ssh-libssh2",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "private": true
+}

@@ -1,0 +1,303 @@
+name: SSH engine spike
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [spike/ssh-engine]
+    paths:
+      - "spikes/ssh-engine/**"
+      - "modules/termix-ssh-*/**"
+      - ".github/workflows/ssh-spike.yml"
+
+concurrency:
+  group: ssh-spike-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BIG_MB: "500"
+
+defaults:
+  run:
+    working-directory: spikes/ssh-engine
+
+jobs:
+  host:
+    name: Host (Rust, C, JVM)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start test servers
+        run: |
+          docker compose -f server/compose.yml up -d --build
+          until docker compose -f server/compose.yml exec -T target test -f /data/big.sha256; do sleep 2; done
+      - name: Build dev image
+        run: docker build -t termix-ssh-dev -f Dockerfile.dev libssh2
+      - name: Rust scenarios
+        run: |
+          docker run --rm --network host -v "$PWD:/w" -v /var/run/docker.sock:/var/run/docker.sock -w /w/russh/core \
+            -e SSH_TEST_DOCKER=1 -e SSH_TEST_KEYS=/w/server/out -e SSH_RESULTS_DIR=/w/results/rust \
+            -e CARGO_TARGET_DIR=/tmp/rt termix-ssh-dev cargo test --release -- --nocapture
+      - name: C smoke test
+        run: |
+          docker run --rm --network termix-ssh-test_ssh -v "$PWD:/w" -v "$PWD/server/out:/out" \
+            -v /var/run/docker.sock:/var/run/docker.sock -w /w/libssh2 -e SSH_TEST_DOCKER=1 termix-ssh-dev \
+            sh -c './build-host.sh && ./build/host/smoke target'
+      - name: JVM scenarios
+        run: |
+          docker run --rm --network host -v "$PWD:/w" -w /w -e SSH_TEST_HOST=127.0.0.1 -e SSH_TEST_KEYS=/w/server/out \
+            -e SSH_RESULTS_DIR=/w/results/jvm termix-ssh-dev sh scripts/host-test.sh
+      - name: Licenses
+        if: always()
+        run: |
+          mkdir -p results/sizes
+          docker run --rm -v "$PWD:/w" -w /w/russh/core termix-ssh-dev sh -c \
+            'cargo metadata --format-version 1 --filter-platform aarch64-linux-android' > /tmp/meta.json
+          python3 - <<'PY'
+          import json, collections
+          m = json.load(open("/tmp/meta.json"))
+          ids = {n["id"] for n in m["resolve"]["nodes"]}
+          lic = collections.Counter(p.get("license") or "unknown" for p in m["packages"] if p["id"] in ids)
+          out = {"russh crates": len(ids), "russh licenses": "; ".join(f"{k} x{v}" for k, v in lic.most_common())}
+          out["libssh2 licenses"] = "libssh2 BSD-3-Clause; OpenSSL 3 Apache-2.0"
+          json.dump(out, open("results/sizes/sizes-licenses.json", "w"), indent=1)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-host
+          path: spikes/ssh-engine/results
+
+  android:
+    name: Android emulator
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable KVM
+        working-directory: .
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.13"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android,i686-linux-android
+      - name: Tools
+        run: |
+          cargo install cargo-ndk --version 4.1.2 --locked
+          echo y | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.1.12297006" > /dev/null
+          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.1.12297006" >> "$GITHUB_ENV"
+      - name: Build libssh2 slice
+        run: |
+          s=$(date +%s); libssh2/build-android.sh
+          echo "LIBSSH2_ANDROID_S=$(( $(date +%s) - s ))" >> "$GITHUB_ENV"
+      - name: Build russh slice
+        run: |
+          s=$(date +%s); russh/build-android.sh
+          echo "RUSSH_ANDROID_S=$(( $(date +%s) - s ))" >> "$GITHUB_ENV"
+      - name: Bindings
+        run: russh/gen-bindings.sh
+      - name: Record sizes
+        run: |
+          mkdir -p results/sizes
+          python3 - <<'PY'
+          import json, os, glob
+          out = {"android build seconds libssh2 (clean, incl. OpenSSL)": os.environ["LIBSSH2_ANDROID_S"],
+                 "android build seconds russh (clean)": os.environ["RUSSH_ANDROID_S"]}
+          for so in sorted(glob.glob("build/android/jniLibs/*/*.so")):
+              abi, name = so.split("/")[-2:]
+              out[f"android {name} {abi} bytes"] = os.path.getsize(so)
+          json.dump(out, open("results/sizes/sizes-android-libs.json", "w"), indent=1)
+          PY
+      - name: Start test servers
+        run: |
+          docker compose -f server/compose.yml up -d --build
+          until docker compose -f server/compose.yml exec -T target test -f /data/big.sha256; do sleep 2; done
+      - name: Build harness APKs
+        run: |
+          sh scripts/android-assets.sh
+          cd harness/android && gradle --console=plain -PwithAndroid=true :app:assembleDebug :app:assembleDebugAndroidTest
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-android
+          path: |
+            spikes/ssh-engine/build/android/jniLibs
+            spikes/ssh-engine/russh/generated/kotlin
+      - name: Run on emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          disk-size: 8G
+          ram-size: 4096M
+          emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect
+          disable-animations: true
+          working-directory: spikes/ssh-engine
+          script: RESULTS_DIR=results/android sh scripts/android-run.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-android
+          path: spikes/ssh-engine/results
+
+  ios:
+    name: iOS simulator
+    runs-on: macos-15-intel
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docker through colima
+        run: |
+          brew install colima docker docker-compose
+          mkdir -p ~/.docker/cli-plugins
+          ln -sfn "$(brew --prefix)/opt/docker-compose/bin/docker-compose" ~/.docker/cli-plugins/docker-compose
+          colima start --cpu 3 --memory 6 --disk 40
+      - name: Start test servers
+        run: |
+          docker compose -f server/compose.yml up -d --build
+          until docker compose -f server/compose.yml exec -T target test -f /data/big.sha256; do sleep 2; done
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios,aarch64-apple-ios-sim,x86_64-apple-ios
+      - name: Build libssh2 slice
+        run: |
+          s=$(date +%s); libssh2/build-ios.sh
+          echo "LIBSSH2_IOS_S=$(( $(date +%s) - s ))" >> "$GITHUB_ENV"
+      - name: Build russh slice
+        run: |
+          s=$(date +%s); russh/build-ios.sh
+          echo "RUSSH_IOS_S=$(( $(date +%s) - s ))" >> "$GITHUB_ENV"
+      - name: Record sizes
+        run: |
+          mkdir -p results/sizes
+          python3 - <<'PY'
+          import json, os
+          out = {"ios build seconds libssh2 (clean, incl. OpenSSL)": os.environ["LIBSSH2_IOS_S"],
+                 "ios build seconds russh (clean)": os.environ["RUSSH_IOS_S"]}
+          json.dump(out, open("results/sizes/sizes-ios-libs.json", "w"), indent=1)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-ios
+          path: spikes/ssh-engine/build/ios
+      - name: Run on simulator
+        run: |
+          sh scripts/ios-prepare.sh
+          dev=$(xcrun simctl list devices available -j | python3 -c "import json,sys; d=json.load(sys.stdin)['devices']; print(next(x['udid'] for k,v in d.items() if 'iOS' in k for x in v if x['name'].startswith('iPhone')))")
+          cd harness/ios
+          set -o pipefail
+          TEST_RUNNER_SSH_TEST_HOST=127.0.0.1 xcodebuild test -scheme TermixSshHarness-Package -destination "id=$dev" \
+            2>&1 | tee ../../results/ios-xcodebuild.txt | grep -E "TXRESULT|error:|Test Case|\*\* TEST" || true
+          grep -o '{.*' ../../results/ios-xcodebuild.txt | grep '"scenario"' > ../../results/ios.jsonl || true
+          ! grep -q "TEST FAILED" ../../results/ios-xcodebuild.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-ios
+          path: spikes/ssh-engine/results
+
+  size:
+    name: App size ${{ matrix.platform }} ${{ matrix.variant }}
+    needs: [android, ios]
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [android, ios]
+        variant: [baseline, libssh2, russh]
+    runs-on: ${{ matrix.platform == 'ios' && 'blacksmith-6vcpu-macos-latest' || 'blacksmith-8vcpu-ubuntu-2404' }}
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - uses: actions/setup-java@v4
+        if: matrix.platform == 'android'
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: actions/download-artifact@v4
+        if: matrix.platform == 'android'
+        with:
+          name: native-android
+          path: spikes/ssh-engine
+      - uses: actions/download-artifact@v4
+        if: matrix.platform == 'ios'
+        with:
+          name: native-ios
+          path: spikes/ssh-engine/build/ios
+      - run: npm ci
+      - name: Prepare
+        run: sh spikes/ssh-engine/scripts/expo-prepare.sh ${{ matrix.variant }} ${{ matrix.platform }}
+      - name: Build Android release
+        if: matrix.platform == 'android'
+        run: |
+          npx expo prebuild --platform android --no-install --clean
+          cd android && ./gradlew --console=plain :app:assembleRelease
+      - name: Build iOS release
+        if: matrix.platform == 'ios'
+        run: |
+          npx expo prebuild --platform ios --clean
+          cd ios
+          xcodebuild -workspace Termix.xcworkspace -scheme Termix -configuration Release -destination 'generic/platform=iOS' \
+            -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build | tail -5
+      - name: Measure
+        run: |
+          mkdir -p spikes/ssh-engine/results/sizes
+          python3 - <<'PY'
+          import json, os, glob, subprocess, zipfile
+          p, v = "${{ matrix.platform }}", "${{ matrix.variant }}"
+          out = {}
+          if p == "android":
+              apk = glob.glob("android/app/build/outputs/apk/release/*.apk")[0]
+              out[f"android apk {v} bytes"] = os.path.getsize(apk)
+              z = zipfile.ZipFile(apk)
+              for abi in ["arm64-v8a", "armeabi-v7a"]:
+                  total = sum(i.compress_size for i in z.infolist() if i.filename.startswith(f"lib/{abi}/"))
+                  out[f"android apk {v} lib/{abi} compressed bytes"] = total
+              dex = sum(i.compress_size for i in z.infolist() if i.filename.endswith(".dex"))
+              out[f"android apk {v} dex compressed bytes"] = dex
+          else:
+              app = glob.glob("dd/Build/Products/Release-iphoneos/Termix.app")[0]
+              total = int(subprocess.check_output(["du", "-sk", app]).split()[0]) * 1024
+              out[f"ios app {v} bytes"] = total
+              out[f"ios app {v} main binary bytes"] = os.path.getsize(os.path.join(app, "Termix"))
+          json.dump(out, open(f"spikes/ssh-engine/results/sizes/sizes-{p}-{v}.json", "w"), indent=1)
+          print(out)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: results-size-${{ matrix.platform }}-${{ matrix.variant }}
+          path: spikes/ssh-engine/results
+
+  report:
+    name: Report
+    needs: [host, android, ios, size]
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: results-*
+          path: spikes/ssh-engine/all
+      - name: Summary
+        run: |
+          python3 scripts/report.py all > report.md
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: report
+          path: spikes/ssh-engine/report.md

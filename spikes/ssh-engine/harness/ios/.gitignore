@@ -1,0 +1,4 @@
+.build/
+.swiftpm/
+Sources/RusshEngine/Generated/
+Tests/ScenarioTests/Resources/

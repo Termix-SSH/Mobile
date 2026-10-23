@@ -1,0 +1,27 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.termixsshrussh'
+version = '0.0.0'
+
+android {
+  namespace "expo.modules.termixsshrussh"
+  defaultConfig {
+    versionCode 1
+    versionName '0.0.0'
+  }
+  // spikes/ssh-engine/scripts/expo-prepare.sh fills vendor/ and jniLibs/
+  sourceSets {
+    main {
+      java.srcDirs += ['src/main/vendor']
+      jniLibs.srcDirs += ['src/main/jniLibs']
+    }
+  }
+}
+
+dependencies {
+  implementation 'net.java.dev.jna:jna:5.17.0@aar'
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
+}

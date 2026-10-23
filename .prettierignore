@@ -8,3 +8,15 @@ assets/xterm/*.html
 assets/guacamole/guacamole-common.js.html
 
 drizzle
+
+# SSH engine spike build output
+spikes/ssh-engine/**/target
+spikes/ssh-engine/**/build
+spikes/ssh-engine/**/generated
+spikes/ssh-engine/**/.gradle
+spikes/ssh-engine/**/.build
+spikes/ssh-engine/server/out
+spikes/ssh-engine/results*
+spikes/ssh-engine/all
+spikes/ssh-engine/harness/android/app/src/androidTest/assets
+spikes/ssh-engine/harness/ios/Tests/ScenarioTests/Resources
