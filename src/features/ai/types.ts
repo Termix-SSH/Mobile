@@ -1,3 +1,6 @@
+/** SSE frames stay untrusted until the run reducer validates their fields. */
+export type AiStreamEvent = unknown;
+
 export interface AiStatus {
   globallyEnabled: boolean;
   enabled: boolean;

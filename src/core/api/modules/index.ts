@@ -1,4 +1,5 @@
 import type { AccountClient } from "../AccountClient";
+import { createAiApi } from "./ai";
 import { createTailscaleApi } from "./tailscale";
 import { createHostsApi } from "./hosts";
 import { createRemoteDesktopApi } from "./remoteDesktop";
@@ -23,6 +24,7 @@ import { createApiKeysApi } from "./apiKeys";
 
 export function createModules(c: AccountClient) {
   return {
+    ai: createAiApi(c),
     tailscale: createTailscaleApi(c),
     hosts: createHostsApi(c),
     remoteDesktop: createRemoteDesktopApi(c),
