@@ -1,0 +1,265 @@
+name: Terminal view spike
+
+on:
+  workflow_dispatch:
+    inputs:
+      jobs:
+        description: Jobs to run (host, swift, android, ios, size)
+        default: host,swift,android,ios,size
+      repeats:
+        description: Runs per engine and scenario
+        default: "2"
+
+concurrency:
+  group: terminal-spike-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GHOSTTY_COMMIT: b0947378349eff70f7030dda0e6d022fae1e6fbd
+  ZIG_VERSION: 0.15.2
+  EXPO_PUBLIC_TERMINAL_LAB: "1"
+
+jobs:
+  host:
+    name: Host parser benches (ghostty, xterm)
+    if: contains(inputs.jobs, 'host')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - name: Fixtures
+        run: node spikes/terminal-view/bench/gen-fixtures.mts fixtures
+      - name: xterm bench
+        run: |
+          mkdir -p /tmp/xb results
+          cp spikes/terminal-view/bench/xterm-bench.mjs /tmp/xb/
+          (cd /tmp/xb && npm init -y > /dev/null && npm i --silent xterm-headless@5.3.0)
+          node /tmp/xb/xterm-bench.mjs fixtures | tee results/host-xterm.txt
+      - uses: actions/checkout@v4
+        with:
+          repository: ghostty-org/ghostty
+          ref: ${{ env.GHOSTTY_COMMIT }}
+          path: ghostty
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: ${{ env.ZIG_VERSION }}
+      - name: Build libghostty-vt for the host
+        working-directory: ghostty
+        run: zig build -Demit-lib-vt -Dsimd=false -Doptimize=ReleaseFast --prefix out
+      - name: ghostty mouse encoder check and bench
+        run: |
+          B=spikes/terminal-view/bench/ghostty
+          cc -O2 $B/mouse_test.c -Ighostty/out/include ghostty/out/lib/libghostty-vt.a -lm -o /tmp/mouse_test
+          /tmp/mouse_test | tee results/host-ghostty-mouse.txt
+          cc -O2 $B/bench.c -Ighostty/out/include ghostty/out/lib/libghostty-vt.a -lm -o /tmp/ghostty_bench
+          /tmp/ghostty_bench fixtures/*.bin | tee results/host-ghostty.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-host
+          path: results
+
+  swift:
+    name: Host parser bench (SwiftTerm)
+    if: contains(inputs.jobs, 'swift')
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - name: Fixtures
+        run: node spikes/terminal-view/bench/gen-fixtures.mts fixtures
+      - name: SwiftTerm bench
+        run: |
+          mkdir -p results
+          swift run -c release --package-path spikes/terminal-view/bench/swiftterm Bench \
+            "$PWD"/fixtures/*.bin | tee results/host-swiftterm.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-swift
+          path: results
+
+  android:
+    name: Android emulator
+    if: contains(inputs.jobs, 'android')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - run: npm ci
+      - name: Fixtures
+        run: node spikes/terminal-view/bench/gen-fixtures.mts "$PWD/fixtures"
+      - name: Prebuild
+        run: npx expo prebuild --platform android --no-install --clean
+      - name: Termux tests and parser bench
+        working-directory: android
+        env:
+          TERMINAL_BENCH_FIXTURES: ${{ github.workspace }}/fixtures
+          TERMINAL_BENCH_OUT: ${{ github.workspace }}/results/host-termux.txt
+        run: |
+          mkdir -p ../results
+          ./gradlew --console=plain :termix-terminal-native:testReleaseUnitTest
+      - name: Build release APK (x86_64)
+        working-directory: android
+        run: ./gradlew --console=plain :app:assembleRelease -PreactNativeArchitectures=x86_64
+      - name: Run on emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        env:
+          REPEATS: ${{ inputs.repeats }}
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          disk-size: 8G
+          ram-size: 4096M
+          emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect
+          disable-animations: true
+          script: sh spikes/terminal-view/scripts/android-run.sh android/app/build/outputs/apk/release/app-release.apk results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-android
+          path: |
+            results
+            android/termix-terminal-native/build/reports/tests
+
+  ios:
+    name: iOS simulator
+    if: contains(inputs.jobs, 'ios')
+    runs-on: macos-15
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+      - name: Prebuild
+        run: npx expo prebuild --platform ios --clean
+      - name: Build for the simulator
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild -workspace Termix.xcworkspace -scheme Termix -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO build | tail -30
+      - name: Boot a simulator
+        run: |
+          dev=$(xcrun simctl list devices available -j | python3 -c "import json,sys; d=json.load(sys.stdin)['devices']; print(next(x['udid'] for k,v in d.items() if 'iOS' in k for x in v if x['name'].startswith('iPhone')))")
+          xcrun simctl boot "$dev"
+          xcrun simctl bootstatus "$dev" -b
+      - name: Run on simulator
+        env:
+          REPEATS: ${{ inputs.repeats }}
+        run: sh spikes/terminal-view/scripts/ios-run.sh dd/Build/Products/Release-iphonesimulator/Termix.app results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-ios
+          path: results
+
+  size:
+    name: App size ${{ matrix.platform }} ${{ matrix.variant }}
+    if: contains(inputs.jobs, 'size')
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [android, ios]
+        variant: [baseline, ghostty, native]
+    runs-on: ${{ matrix.platform == 'ios' && 'blacksmith-6vcpu-macos-latest' || 'blacksmith-8vcpu-ubuntu-2404' }}
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        if: matrix.platform == 'ios'
+        with:
+          xcode-version: latest-stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - uses: actions/setup-java@v4
+        if: matrix.platform == 'android'
+        with:
+          distribution: temurin
+          java-version: "17"
+      - run: npm ci
+      - run: node spikes/terminal-view/scripts/size-variant.mjs ${{ matrix.variant }}
+      - name: Build Android release (arm64)
+        if: matrix.platform == 'android'
+        run: |
+          npx expo prebuild --platform android --no-install --clean
+          cd android && ./gradlew --console=plain :app:assembleRelease -PreactNativeArchitectures=arm64-v8a
+      - name: Build iOS release
+        if: matrix.platform == 'ios'
+        run: |
+          npx expo prebuild --platform ios --clean
+          cd ios
+          xcodebuild -workspace Termix.xcworkspace -scheme Termix -configuration Release -destination 'generic/platform=iOS' \
+            -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build | tail -5
+      - name: Measure
+        run: |
+          mkdir -p results
+          p=${{ matrix.platform }} v=${{ matrix.variant }}
+          if [ "$p" = android ]; then
+            f=$(ls android/app/build/outputs/apk/release/*.apk | head -1)
+            bytes=$(stat -c %s "$f")
+          else
+            bytes=$(( $(du -sk dd/Build/Products/Release-iphoneos/Termix.app | cut -f1) * 1024 ))
+          fi
+          mb=$(python3 -c "print(round($bytes/1048576, 2))")
+          echo "TXSIZE {\"platform\":\"$p\",\"variant\":\"$v\",\"mb\":$mb}" | tee results/size-$p-$v.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: results-size-${{ matrix.platform }}-${{ matrix.variant }}
+          path: results
+
+  report:
+    name: Report
+    needs: [host, swift, android, ios, size]
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: results-*
+          path: all
+      - name: Summary
+        run: |
+          mkdir -p flat
+          find all -name '*.txt' -exec cp --backup=numbered {} flat/ \;
+          node spikes/terminal-view/report.mjs flat > report.md
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: report
+          path: report.md
