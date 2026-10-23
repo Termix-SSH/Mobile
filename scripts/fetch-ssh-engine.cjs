@@ -148,7 +148,14 @@ async function fetchEngine(which = "all") {
   for (const n of names) await fetchTarget(n, lock);
 }
 
-module.exports = { fetchEngine, sourceHash, readLock, TARGETS };
+module.exports = {
+  fetchEngine,
+  sourceHash,
+  readLock,
+  TARGETS,
+  download,
+  sha256File,
+};
 
 if (require.main === module) {
   const arg = process.argv[2] ?? "all";

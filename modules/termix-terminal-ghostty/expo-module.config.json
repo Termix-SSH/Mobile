@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["TermixGhosttyModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.termixterminalghostty.TermixGhosttyModule"]
+  }
+}

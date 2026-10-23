@@ -1,0 +1,7 @@
+Native code here started as expo-libghostty 0.8.1 by ArcBox, Inc. (MIT, see LICENSE),
+https://github.com/arcboxlabs/expo-libghostty at f53920f2bc6945706cff21abf21fd55dd333dc87.
+ios/vendor holds its vendored copies of libghostty-spm and MSDisplayLink (MIT, licenses inside).
+
+Termix changes: module and package renamed, the built in accessory bar left out, CaskaydiaCove
+font from the app, touch to mouse reporting through the libghostty-vt mouse encoder, paste,
+copy, scroll, focus and render stats calls, binaries fetched at prebuild from ghostty.lock.json.

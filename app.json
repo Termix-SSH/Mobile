@@ -77,6 +77,7 @@
       "./plugins/withPodDeploymentTarget.js",
       "./plugins/withNotificationIcon.js",
       "./plugins/withTermixSsh.js",
+      "./plugins/withTermixTerminals.js",
       [
         "expo-font",
         {
