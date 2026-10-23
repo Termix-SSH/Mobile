@@ -5,7 +5,7 @@ import { Card } from "@/ui/Card";
 import { useConfirm } from "@/ui/Confirm";
 import { Text } from "@/ui/Text";
 import type { AiProposal } from "../types";
-import { describeProposal } from "./proposal";
+import { describeProposal, revealInvisible } from "./proposal";
 
 export interface ProposalCardProps {
   proposal: AiProposal;
@@ -32,17 +32,25 @@ export function ProposalCard({
 }: ProposalCardProps) {
   const confirm = useConfirm();
   const detail = describeProposal(proposal, hostName);
-  const hosts = detail.hosts.join(", ");
+  const hosts = revealInvisible(detail.hosts.join(", "));
   const pending = proposal.status === "pending";
+  const hasCommand = detail.command !== undefined;
+  const content = revealInvisible(detail.command ?? detail.payload ?? "");
+  const applyDisabled =
+    busy || detail.invalid || (hasCommand && detail.hosts.length === 0);
 
   const apply = async () => {
-    if (busy || detail.invalid || !pending) return;
+    if (applyDisabled || !pending) return;
     const confirmed = await confirm({
-      title: `Run this on ${hosts || "the target hosts"}?`,
+      title: hasCommand
+        ? `Run this command on ${hosts}?`
+        : `Apply ${revealInvisible(detail.title)}?`,
       description: (
-        <Text selectable className="text-xs text-muted-foreground">
-          {detail.command ?? detail.summary}
-        </Text>
+        <ScrollView testID="proposal-confirm-scroll" style={{ maxHeight: 240 }}>
+          <Text selectable className="text-xs text-muted-foreground">
+            {content}
+          </Text>
+        </ScrollView>
       ),
       confirmLabel: "Apply",
       destructive: detail.destructive,
@@ -54,35 +62,33 @@ export function ProposalCard({
     <Card className="gap-3 p-3">
       <View className="flex-row flex-wrap items-center justify-between gap-2">
         <Text weight="bold" className="text-sm">
-          {detail.title}
+          {revealInvisible(detail.title)}
         </Text>
         <Badge variant={STATUS_VARIANT[proposal.status]}>
           {proposal.status[0].toUpperCase() + proposal.status.slice(1)}
         </Badge>
       </View>
-      {detail.summary ? <Text selectable>{detail.summary}</Text> : null}
+      {detail.summary ? (
+        <Text selectable>{revealInvisible(detail.summary)}</Text>
+      ) : null}
       <Text selectable className="text-xs text-muted-foreground">
         {hosts ? `Hosts: ${hosts}` : "Target hosts not specified"}
       </Text>
-      {detail.command !== undefined ? (
-        <ScrollView
-          horizontal
-          className="max-w-full border border-border bg-muted"
-          contentContainerStyle={{ padding: 8 }}
-        >
+      {content ? (
+        <View className="max-w-full border border-border bg-muted p-2">
           <Text selectable className="text-xs">
-            {detail.command}
+            {content}
           </Text>
-        </ScrollView>
+        </View>
       ) : null}
       {detail.explanation ? (
         <Text selectable className="text-xs text-muted-foreground">
-          {detail.explanation}
+          {revealInvisible(detail.explanation)}
         </Text>
       ) : null}
       {detail.reason ? (
         <Text selectable className="text-xs text-muted-foreground">
-          {detail.reason}
+          {revealInvisible(detail.reason)}
         </Text>
       ) : null}
       {detail.invalid ? (
@@ -95,7 +101,7 @@ export function ProposalCard({
           <Button
             className="flex-1"
             variant={detail.destructive ? "destructive" : "default"}
-            disabled={busy || detail.invalid}
+            disabled={applyDisabled}
             onPress={() => void apply()}
           >
             Apply
@@ -111,7 +117,7 @@ export function ProposalCard({
         </View>
       ) : proposal.resultSummary ? (
         <Text selectable className="text-xs text-muted-foreground">
-          {proposal.resultSummary}
+          {revealInvisible(proposal.resultSummary)}
         </Text>
       ) : null}
     </Card>

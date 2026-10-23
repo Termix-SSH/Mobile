@@ -85,12 +85,8 @@ export function createAiApi(
         },
       );
     } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        error.response?.status === 403 &&
-        serverMessage(error.response.data)
-      ) {
-        return { state: "disabled-globally" };
+      if (axios.isAxiosError(error) && error.response?.status === 403) {
+        return getAccess();
       }
       throw apiError(error);
     }
@@ -100,12 +96,14 @@ export function createAiApi(
   async function request(
     method: "get" | "delete" | "post",
     path: string,
+    timeout?: number,
   ): Promise<unknown> {
     try {
       const response = await c.http.auth.request({
         method,
         url: `${basePath}${path}`,
         baseURL: c.rootBase(),
+        ...(timeout !== undefined ? { timeout } : {}),
       });
       return response.data;
     } catch (error) {
@@ -144,6 +142,7 @@ export function createAiApi(
     const data = await request(
       "post",
       `/proposals/${encodeURIComponent(id)}/apply`,
+      120000,
     );
     if (
       typeof data !== "object" ||

@@ -4,11 +4,21 @@ export interface ProposalDescription {
   title: string;
   summary: string;
   command?: string;
+  payload?: string;
   hosts: string[];
   explanation?: string;
   reason?: string;
   destructive: boolean;
   invalid: boolean;
+}
+
+/** Make hidden formatting and control characters visible in untrusted text. */
+export function revealInvisible(text: string): string {
+  return text.replace(
+    /[\u0000-\u0008\u000B-\u001F\u200B-\u200F\u202A-\u202E\u2060-\u2069\uFEFF]/g,
+    (character) =>
+      `\\u${character.charCodeAt(0).toString(16).toUpperCase().padStart(4, "0")}`,
+  );
 }
 
 /** Describe untrusted payloads without ever rewriting the stored command. */
@@ -45,6 +55,7 @@ export function describeProposal(
   }
   const data = payload as Record<string, unknown>;
   if (typeof data.command === "string") description.command = data.command;
+  else description.payload = JSON.stringify(payload, null, 2);
   if (typeof data.explanation === "string") {
     description.explanation = data.explanation;
   }

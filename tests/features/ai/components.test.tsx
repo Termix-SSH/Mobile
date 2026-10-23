@@ -66,11 +66,19 @@ test("Apply waits for confirmation and passes only the proposal ID", async () =>
   await fireEvent.press(result.getByRole("button", { name: "Apply" }));
   expect(mockConfirm).toHaveBeenCalledWith(
     expect.objectContaining({
-      title: "Run this on Production?",
+      title: "Run this command on Production?",
       confirmLabel: "Apply",
       destructive: false,
       description: expect.objectContaining({
-        props: expect.objectContaining({ selectable: true, children: command }),
+        props: expect.objectContaining({
+          style: { maxHeight: 240 },
+          children: expect.objectContaining({
+            props: expect.objectContaining({
+              selectable: true,
+              children: command,
+            }),
+          }),
+        }),
       }),
     }),
   );
@@ -114,10 +122,103 @@ test("deletions use destructive confirmation and include all target hosts", asyn
   await fireEvent.press(result.getByText("Apply"));
   expect(mockConfirm).toHaveBeenCalledWith(
     expect.objectContaining({
-      title: "Run this on Production, Host #8?",
+      title: "Run this command on Production, Host #8?",
       destructive: true,
     }),
   );
+});
+
+test("create_host shows the complete payload in the card and Apply confirmation", async () => {
+  const payload = {
+    name: "New server",
+    ip: "10.0.0.8",
+    port: 2222,
+    username: "root",
+    tags: ["prod", "eu"],
+    options: { enabled: false, note: null },
+  };
+  const json = JSON.stringify(payload, null, 2);
+  const result = await render(
+    <ProposalCard
+      proposal={{
+        ...proposal,
+        kind: "create_host",
+        payload: JSON.stringify(payload),
+      }}
+      hostName={hostName}
+      onApply={jest.fn()}
+      onReject={jest.fn()}
+    />,
+  );
+  expect(
+    result.getByText(json, { normalizer: (text) => text }).props.selectable,
+  ).toBe(true);
+  await fireEvent.press(result.getByRole("button", { name: "Apply" }));
+  const options = mockConfirm.mock.calls[0][0];
+  expect(options.title).toBe("Apply Create host?");
+  const confirmation = await render(<>{options.description}</>);
+  expect(
+    confirmation.getByText(json, { normalizer: (text) => text }).props
+      .selectable,
+  ).toBe(true);
+  expect(
+    confirmation.getByTestId("proposal-confirm-scroll").props.style,
+  ).toEqual({
+    maxHeight: 240,
+  });
+});
+
+test("command text reveals bidi characters and wraps in the card and confirmation", async () => {
+  const escaped = "echo safe\\u202Ehidden\\u200B";
+  const result = await render(
+    <ProposalCard
+      proposal={{
+        ...proposal,
+        payload: JSON.stringify({
+          hostId: 7,
+          command: "echo safe\u202Ehidden\u200B",
+        }),
+      }}
+      hostName={hostName}
+      onApply={jest.fn()}
+      onReject={jest.fn()}
+    />,
+  );
+  expect(result.getByText(escaped)).toBeTruthy();
+  expect(JSON.stringify(result.toJSON())).not.toContain('"horizontal":true');
+  await fireEvent.press(result.getByRole("button", { name: "Apply" }));
+  const confirmation = await render(
+    <>{mockConfirm.mock.calls[0][0].description}</>,
+  );
+  expect(confirmation.getByText(escaped)).toBeTruthy();
+  const description = confirmation.getByTestId("proposal-confirm-scroll");
+  expect(description.props.horizontal).not.toBe(true);
+  expect(description.props.style).toEqual({ maxHeight: 240 });
+});
+
+test("a command without a valid host ID disables Apply", async () => {
+  const onApply = jest.fn();
+  const result = await render(
+    <ProposalCard
+      proposal={{
+        ...proposal,
+        payload: JSON.stringify({
+          command,
+          hostId: 0,
+          hostIds: [-1, "7", 1.5, null],
+        }),
+      }}
+      hostName={hostName}
+      onApply={onApply}
+      onReject={jest.fn()}
+    />,
+  );
+  const apply = result.getByRole("button", { name: "Apply" });
+  expect(apply).toBeDisabled();
+  await fireEvent.press(apply);
+  expect(mockConfirm).not.toHaveBeenCalled();
+  expect(onApply).not.toHaveBeenCalled();
+  expect(result.getByRole("button", { name: "Reject" })).not.toBeDisabled();
 });
 
 test.each(["applied", "failed", "rejected", "expired"] as const)(

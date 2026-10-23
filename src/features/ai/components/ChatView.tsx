@@ -21,10 +21,9 @@ export function ChatView({ chat, hostName }: ChatViewProps) {
     (provider) => provider.enabled && provider.id === chat.selectedProviderId,
   );
   const scrollToEnd = () => scroll.current?.scrollToEnd({ animated: false });
-  const send = () => {
+  const send = async () => {
     if (!text.trim() || streaming || !hasProvider) return;
-    void chat.send(text);
-    setText("");
+    if (await chat.send(text)) setText("");
   };
   const changeProposal = async (id: number, action: "apply" | "reject") => {
     if (busyProposals.includes(id)) return;

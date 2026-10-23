@@ -77,7 +77,7 @@ function makeChat(): ReturnType<typeof useAiChat> {
     openConversation: jest.fn(async () => {}),
     newConversation: jest.fn(),
     deleteConversation: jest.fn(async () => {}),
-    send: jest.fn(async () => {}),
+    send: jest.fn(async () => true),
     cancel: jest.fn(),
     canResend: false,
     resend: jest.fn(async () => {}),
@@ -175,6 +175,19 @@ test("New chat resets the conversation and Send passes text and clears the input
   expect(result.getByLabelText("Message").props.value).toBe("");
   await fireEvent.press(result.getByRole("button", { name: "Send" }));
   expect(chat.send).toHaveBeenCalledTimes(1);
+});
+
+test("ChatView keeps the input when send declines the message", async () => {
+  jest.mocked(chat.send).mockResolvedValue(false);
+  const result = await render(<AiAssistant />);
+  await fireEvent.press(result.getByRole("button", { name: "New chat" }));
+  await fireEvent.changeText(
+    result.getByLabelText("Message"),
+    "Keep this draft",
+  );
+  await fireEvent.press(result.getByRole("button", { name: "Send" }));
+  expect(chat.send).toHaveBeenCalledWith("Keep this draft");
+  expect(result.getByLabelText("Message").props.value).toBe("Keep this draft");
 });
 
 test("streaming replaces Send with Stop and calls cancel", async () => {

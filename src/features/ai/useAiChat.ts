@@ -84,7 +84,13 @@ const errorMessage = (error: unknown) =>
 export function useAiChat() {
   const { account, client } = useFeatureContext();
   const scope = useMemo(
-    () => ({ active: false, view: 0, accessRequest: 0, listRequest: 0 }),
+    () => ({
+      active: false,
+      view: 0,
+      conversationGeneration: 0,
+      accessRequest: 0,
+      listRequest: 0,
+    }),
     // A client can be reused when switching accounts.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [account.id, client],
@@ -157,6 +163,7 @@ export function useAiChat() {
     return () => {
       scope.active = false;
       scope.view += 1;
+      scope.conversationGeneration += 1;
       stream.current?.abort();
       stream.current = null;
     };
@@ -263,6 +270,7 @@ export function useAiChat() {
     if (!scope.active) return;
     stopStream("cancelled");
     scope.view += 1;
+    scope.conversationGeneration += 1;
     update((previous) => ({
       ...previous,
       conversationId: null,
@@ -303,10 +311,13 @@ export function useAiChat() {
             messages: buildHistory(detail.messages),
             proposals: mergeProposals(detail.proposals),
             selectedProviderId: provider?.id ?? previous.selectedProviderId,
-            selectedModel:
-              detail.conversation.model ??
-              provider?.defaultModel ??
-              previous.selectedModel,
+            selectedModel: provider
+              ? (detail.conversation.model ?? provider.defaultModel)
+              : (previous.providers.find(
+                  (candidate) =>
+                    candidate.enabled &&
+                    candidate.id === previous.selectedProviderId,
+                )?.defaultModel ?? null),
           };
         });
       } catch (error) {
@@ -339,11 +350,12 @@ export function useAiChat() {
   );
 
   const startSend = useCallback(
-    async (text: string, retry = false) => {
-      if (!client || !scope.active || stream.current || !text.trim()) return;
+    async (text: string, retry = false): Promise<boolean> => {
+      if (!client || !scope.active || stream.current || !text.trim())
+        return false;
       const previous = current.current;
       if (previous.access === "loading" || previous.access.state !== "ready")
-        return;
+        return false;
       const provider = previous.providers.find(
         (provider) =>
           provider.enabled && provider.id === previous.selectedProviderId,
@@ -353,7 +365,7 @@ export function useAiChat() {
           ...previous,
           error: "Select an enabled AI provider",
         }));
-        return;
+        return false;
       }
       // A pending detail must not overwrite an optimistic message or this run.
       const view = ++scope.view;
@@ -389,56 +401,73 @@ export function useAiChat() {
           error: null,
         };
       });
-      try {
-        await client.api.ai.streamChat(
-          {
-            ...(previous.conversationId !== null
-              ? { conversationId: String(previous.conversationId) }
-              : {}),
-            providerId: String(provider.id),
-            ...(previous.selectedModel
-              ? { model: previous.selectedModel }
-              : {}),
-            message: text,
-          },
-          (event) => {
-            if (!isCurrent()) return;
-            update((previous) => {
-              const run = applyEvent(previous.run ?? initialRun(), event);
-              return {
-                ...previous,
-                run,
-                conversationId: run.conversationId ?? previous.conversationId,
-              };
-            });
-          },
-          controller.signal,
-        );
-        if (!isCurrent()) return;
-        stream.current = null;
-        update((previous) => ({
-          ...previous,
-          run: previous.run ? finishRun(previous.run, "done") : null,
-        }));
-        await refreshConversations();
-      } catch (error) {
-        if (!isCurrent()) return;
-        stream.current = null;
-        const aborted = error instanceof Error && error.name === "AbortError";
-        update((previous) => ({
-          ...previous,
-          run: previous.run
-            ? finishRun(
-                {
-                  ...previous.run,
-                  error: aborted ? previous.run.error : errorMessage(error),
-                },
-                aborted ? "cancelled" : "error",
-              )
-            : null,
-        }));
-        if (!aborted) await reportError(error);
-      }
+      void (async () => {
+        try {
+          await client.api.ai.streamChat(
+            {
+              ...(previous.conversationId !== null
+                ? { conversationId: String(previous.conversationId) }
+                : {}),
+              providerId: String(provider.id),
+              ...(previous.selectedModel
+                ? { model: previous.selectedModel }
+                : {}),
+              message: text,
+            },
+            (event) => {
+              if (!isCurrent()) return;
+              update((previous) => {
+                const run = applyEvent(previous.run ?? initialRun(), event);
+                return {
+                  ...previous,
+                  run,
+                  conversationId: run.conversationId ?? previous.conversationId,
+                };
+              });
+              if (current.current.run?.finished) {
+                stream.current = null;
+                controller.abort();
+                void refreshConversations();
+              }
+            },
+            controller.signal,
+          );
+          if (!isCurrent()) return;
+          stream.current = null;
+          update((previous) => ({
+            ...previous,
+            run:
+              previous.run && !previous.run.finished
+                ? finishRun(
+                    {
+                      ...previous.run,
+                      error: "Connection closed before the reply finished",
+                    },
+                    "error",
+                  )
+                : previous.run,
+          }));
+          await refreshConversations();
+        } catch (error) {
+          if (!isCurrent()) return;
+          stream.current = null;
+          const aborted = error instanceof Error && error.name === "AbortError";
+          update((previous) => ({
+            ...previous,
+            run: previous.run
+              ? finishRun(
+                  {
+                    ...previous.run,
+                    error: aborted ? previous.run.error : errorMessage(error),
+                  },
+                  aborted ? "cancelled" : "error",
+                )
+              : null,
+          }));
+          if (!aborted) await reportError(error);
+        }
+      })();
+      return true;
     },
     [client, scope, update, refreshConversations, reportError],
   );
@@ -459,14 +488,16 @@ export function useAiChat() {
   const changeProposal = useCallback(
     async (id: number, action: "apply" | "reject") => {
       if (!client || !scope.active) return;
-      const view = scope.view;
+      const generation = scope.conversationGeneration;
+      const isCurrent = () =>
+        scope.active && scope.conversationGeneration === generation;
       update((previous) => ({ ...previous, error: null }));
       try {
         const result =
           action === "apply"
             ? await client.api.ai.applyProposal(id)
             : await client.api.ai.rejectProposal(id);
-        if (!scope.active || scope.view !== view) return;
+        if (!isCurrent()) return;
         update((previous) => {
           const revise = (proposal: AiProposal): AiProposal =>
             proposal.id !== id
@@ -494,7 +525,39 @@ export function useAiChat() {
           };
         });
       } catch (error) {
-        if (scope.view === view) await reportError(error);
+        if (!isCurrent()) return;
+        await reportError(error);
+        const conversationId = current.current.conversationId;
+        if (action !== "apply" || !isCurrent() || conversationId === null)
+          return;
+        try {
+          const detail = await client.api.ai.getConversation(conversationId);
+          if (!isCurrent() || detail.conversation.id !== conversationId) return;
+          update((previous) => {
+            const proposals = mergeProposals(
+              previous.proposals,
+              previous.run?.proposals ?? [],
+              detail.proposals,
+            );
+            const byId = new Map(
+              proposals.map((proposal) => [proposal.id, proposal]),
+            );
+            return {
+              ...previous,
+              proposals,
+              run: previous.run
+                ? {
+                    ...previous.run,
+                    proposals: previous.run.proposals.map(
+                      (proposal) => byId.get(proposal.id) ?? proposal,
+                    ),
+                  }
+                : null,
+            };
+          });
+        } catch {
+          // Keep the original apply error when refreshing also fails.
+        }
       }
     },
     [client, scope, update, reportError],

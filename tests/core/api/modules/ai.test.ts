@@ -148,14 +148,22 @@ test.each([true, false])(
   },
 );
 
-test("opt-in forbidden with a message means globally disabled", async () => {
-  const seen = fakeServer(() => ({
-    status: 403,
-    data: { error: "AI disabled" },
-  }));
+test.each([
+  [{ ...status, globallyEnabled: false }, "disabled-globally"],
+  [{ ...status, enabled: false }, "needs-opt-in"],
+  [status, "ready"],
+])("opt-in 403 refreshes access from status %j", async (data, state) => {
+  const seen = fakeServer((request) =>
+    request.method === "PUT"
+      ? { status: 403, data: { error: "Denied" } }
+      : { data },
+  );
   const c = await pluginClient();
-  expect(await c.api.ai.optIn(true)).toEqual({ state: "disabled-globally" });
-  expect(seen).toHaveLength(1);
+  expect(await c.api.ai.optIn(true)).toMatchObject({ state });
+  expect(seen).toMatchObject([
+    { method: "PUT", url: `${root}/plugin-api/ai/opt-in` },
+    { method: "GET", url: `${root}/plugin-api/ai/status` },
+  ]);
 });
 
 test("providers and conversations use the existing parsers", async () => {
@@ -198,11 +206,19 @@ test("apply and reject proposals use their action URLs", async () => {
     data: { success: true, summary: "Applied", extra: "ignored" },
   }));
   const c = await pluginClient();
+  const request = jest.spyOn(c.http.auth, "request");
   expect(await c.api.ai.applyProposal(7)).toEqual({
     success: true,
     summary: "Applied",
   });
+  expect(request).toHaveBeenCalledWith(
+    expect.objectContaining({
+      url: "/plugin-api/ai/proposals/7/apply",
+      timeout: 120000,
+    }),
+  );
   await c.api.ai.rejectProposal("8/a");
+  expect(request.mock.calls[1][0]).not.toHaveProperty("timeout");
   expect(seen).toMatchObject([
     { method: "POST", url: `${root}/plugin-api/ai/proposals/7/apply` },
     { method: "POST", url: `${root}/plugin-api/ai/proposals/8%2Fa/reject` },

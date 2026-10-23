@@ -201,7 +201,7 @@ test("opt-in enables access and then loads providers", async () => {
 test("send appends a user, remembers the conversation, streams a reply and refreshes the list", async () => {
   const { result } = await mountReady();
   const stream = pendingStream();
-  let sending!: Promise<void>;
+  let sending!: Promise<boolean>;
   await act(async () => {
     sending = result.current.send("Hello");
   });
@@ -239,10 +239,67 @@ test("send appends a user, remembers the conversation, streams a reply and refre
   expect(api.streamChat.mock.calls[1][0].conversationId).toBe("8");
 });
 
+test.each(["done", "error"] as const)(
+  "%s releases the stream before the response body ends and allows an immediate send",
+  async (type) => {
+    const { result } = await mountReady();
+    const body = deferred<void>();
+    let emit!: Parameters<AiApi["streamChat"]>[1];
+    let signal!: AbortSignal;
+    api.streamChat.mockImplementationOnce((_input, onEvent, abortSignal) => {
+      emit = onEvent;
+      signal = abortSignal;
+      return body.promise;
+    });
+    const second = pendingStream();
+    await act(async () => {
+      expect(await result.current.send("First")).toBe(true);
+      expect(await result.current.send("Too soon")).toBe(false);
+      emit({ type: "token", text: "First reply" });
+      emit(type === "done" ? { type } : { type, message: "Provider failed" });
+    });
+    expect(signal.aborted).toBe(true);
+    expect(result.current.run).toMatchObject({
+      finished: true,
+      finishReason: type,
+      error: type === "error" ? "Provider failed" : null,
+    });
+    expect(api.listConversations).toHaveBeenCalledTimes(2);
+    await act(async () => {
+      expect(await result.current.send("Second")).toBe(true);
+    });
+    expect(api.streamChat).toHaveBeenCalledTimes(2);
+    await act(async () => {
+      emit({ type: "token", text: "Late old token" });
+      if (type === "done") body.resolve();
+      else
+        body.reject(
+          Object.assign(new Error("Aborted"), { name: "AbortError" }),
+        );
+    });
+    expect(result.current.run).toMatchObject({
+      text: "",
+      finished: false,
+      error: null,
+    });
+    expect(second.signal().aborted).toBe(false);
+    await act(async () => {
+      second.emit({ type: "token", text: "Second reply" });
+      second.emit({ type: "done" });
+    });
+    expect(result.current.run).toMatchObject({
+      text: "Second reply",
+      finishReason: "done",
+      error: null,
+    });
+    expect(result.current.canResend).toBe(false);
+  },
+);
+
 test("cancel retains partial output and ignores late frames", async () => {
   const { result } = await mountReady();
   const stream = pendingStream();
-  let sending!: Promise<void>;
+  let sending!: Promise<boolean>;
   await act(async () => {
     sending = result.current.send("Hello");
     stream.emit({ type: "token", text: "Partial" });
@@ -269,7 +326,7 @@ test("cancel retains partial output and ignores late frames", async () => {
 test("only background interrupts, and resend uses the same conversation without duplicating the user", async () => {
   const { result } = await mountReady();
   const first = pendingStream();
-  let sending!: Promise<void>;
+  let sending!: Promise<boolean>;
   await act(async () => {
     sending = result.current.send("Hello");
     first.emit({ type: "conversation", conversationId: 8 });
@@ -306,8 +363,10 @@ test("only background interrupts, and resend uses the same conversation without 
   });
   expect(result.current.run).toMatchObject({
     text: "Complete",
-    finishReason: "done",
+    finishReason: "error",
+    error: "Connection closed before the reply finished",
   });
+  expect(result.current.canResend).toBe(true);
 });
 
 test.each([401, 403, 500])(
@@ -337,7 +396,7 @@ test.each(["account", "client"])(
     const { result, rerender } = await mountReady();
     await act(async () => result.current.openConversation(8));
     const stream = pendingStream();
-    let sending!: Promise<void>;
+    let sending!: Promise<boolean>;
     await act(async () => {
       sending = result.current.send("Hello");
       stream.emit({ type: "token", text: "Old account" });
@@ -394,6 +453,29 @@ test("opening details filters history, new conversation clears it, and deletion 
   await act(async () => result.current.newConversation());
   expect(result.current.messages).toEqual([]);
 });
+
+test.each([
+  [2, "saved-model"],
+  [1, "model-a"],
+  [99, "model-a"],
+  [null, "model-a"],
+])(
+  "opening a conversation with provider %s selects model %s",
+  async (providerId, expectedModel) => {
+    const { result } = await mountReady();
+    await act(async () =>
+      result.current.setSelectedModel("custom-current-model"),
+    );
+    api.getConversation.mockResolvedValue({
+      conversation: { ...conversation, providerId, model: "saved-model" },
+      messages: [],
+      proposals: [],
+    });
+    await act(async () => result.current.openConversation(8));
+    expect(result.current.selectedProviderId).toBe(2);
+    expect(result.current.selectedModel).toBe(expectedModel);
+  },
+);
 
 test("non-chat conversations are ignored in lists and details", async () => {
   api.listConversations.mockResolvedValue([
@@ -455,6 +537,99 @@ test("apply and reject update stored and streamed proposals using only the ID", 
   expect(result.current.proposals[0].status).toBe("rejected");
 });
 
+test.each(["apply", "reject"] as const)(
+  "%s results survive sending a message and update proposals by ID",
+  async (action) => {
+    const { result } = await mountReady();
+    const other = { ...proposal, id: 11 };
+    api.getConversation.mockResolvedValue({
+      conversation,
+      messages: [],
+      proposals: [other, proposal],
+    });
+    await act(async () => result.current.openConversation(8));
+    const application = deferred<Awaited<ReturnType<AiApi["applyProposal"]>>>();
+    const rejection = deferred<void>();
+    api.applyProposal.mockReturnValue(application.promise);
+    api.rejectProposal.mockReturnValue(rejection.promise);
+    let changing!: Promise<void>;
+    const stream = pendingStream();
+    await act(async () => {
+      changing =
+        action === "apply"
+          ? result.current.applyProposal(10)
+          : result.current.rejectProposal(10);
+      expect(await result.current.send("Another message")).toBe(true);
+      stream.emit({ type: "proposal", proposal });
+      stream.emit({ type: "proposal", proposal: other });
+    });
+    await act(async () => {
+      application.resolve({ success: true, summary: "Applied" });
+      rejection.resolve();
+      await changing;
+    });
+    const expectedStatus = action === "apply" ? "applied" : "rejected";
+    expect(result.current.proposals.find(({ id }) => id === 10)?.status).toBe(
+      expectedStatus,
+    );
+    expect(result.current.proposals.find(({ id }) => id === 11)?.status).toBe(
+      "pending",
+    );
+    expect(
+      result.current.run?.proposals.find(({ id }) => id === 10)?.status,
+    ).toBe(expectedStatus);
+    await act(async () => result.current.cancel());
+  },
+);
+
+test.each(["failed", "applied"] as const)(
+  "a thrown apply error refreshes the server's %s status in stored and streamed proposals",
+  async (status) => {
+    const { result } = await mountReady();
+    await act(async () => result.current.openConversation(8));
+    api.streamChat.mockImplementation(async (_input, emit) => {
+      emit({ type: "proposal", proposal });
+      emit({ type: "done" });
+    });
+    await act(async () => result.current.send("Read uptime"));
+    api.applyProposal.mockRejectedValue(new Error("Connection lost"));
+    const serverProposal = {
+      ...proposal,
+      status,
+      resultSummary: "Server outcome",
+    };
+    api.getConversation.mockResolvedValue({
+      conversation,
+      messages: [],
+      proposals: [serverProposal],
+    });
+    await act(async () => result.current.applyProposal(10));
+    expect(api.getConversation).toHaveBeenCalledTimes(2);
+    expect(api.getConversation).toHaveBeenLastCalledWith(8);
+    expect(result.current.proposals).toEqual([serverProposal]);
+    expect(result.current.run?.proposals).toEqual([serverProposal]);
+    expect(result.current.error).toBe("Connection lost");
+  },
+);
+
+test("proposal results from a previous conversation generation are ignored", async () => {
+  const { result } = await mountReady();
+  await act(async () => result.current.openConversation(8));
+  const pending = deferred<Awaited<ReturnType<AiApi["applyProposal"]>>>();
+  api.applyProposal.mockReturnValue(pending.promise);
+  let applying!: Promise<void>;
+  await act(async () => {
+    applying = result.current.applyProposal(10);
+    result.current.newConversation();
+    await result.current.openConversation(8);
+  });
+  await act(async () => {
+    pending.resolve({ success: true, summary: "Old result" });
+    await applying;
+  });
+  expect(result.current.proposals).toEqual([proposal]);
+});
+
 test("unsuccessful applications and request errors are surfaced", async () => {
   const { result } = await mountReady();
   await act(async () => result.current.openConversation(8));
@@ -477,7 +652,7 @@ test("unsuccessful applications and request errors are surfaced", async () => {
 test("unmount aborts the stream and removes the AppState listener", async () => {
   const { result, unmount } = await mountReady();
   const stream = pendingStream();
-  let sending!: Promise<void>;
+  let sending!: Promise<boolean>;
   await act(async () => {
     sending = result.current.send("Hello");
   });

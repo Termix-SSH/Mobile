@@ -1,4 +1,7 @@
-import { describeProposal } from "@/features/ai/components/proposal";
+import {
+  describeProposal,
+  revealInvisible,
+} from "@/features/ai/components/proposal";
 import type { AiProposal } from "@/features/ai/types";
 
 const proposal: AiProposal = {
@@ -12,6 +15,43 @@ const proposal: AiProposal = {
   createdAt: "",
 };
 const hostName = (id: number) => (id === 7 ? "Production" : undefined);
+
+test("reveals invisible and bidi characters while preserving tabs and newlines", () => {
+  const codes = [
+    ...Array.from({ length: 32 }, (_, index) => index).filter(
+      (code) => code !== 9 && code !== 10,
+    ),
+    ...Array.from({ length: 5 }, (_, index) => 0x200b + index),
+    ...Array.from({ length: 5 }, (_, index) => 0x202a + index),
+    ...Array.from({ length: 10 }, (_, index) => 0x2060 + index),
+    0xfeff,
+  ];
+  for (const code of codes) {
+    expect(revealInvisible(`a${String.fromCharCode(code)}b`)).toBe(
+      `a\\u${code.toString(16).toUpperCase().padStart(4, "0")}b`,
+    );
+  }
+  expect(revealInvisible("  printf 'hello'\n\t🙂  ")).toBe(
+    "  printf 'hello'\n\t🙂  ",
+  );
+});
+
+test("non-command proposals preserve every payload key and value as pretty JSON", () => {
+  const payload = {
+    name: "Production",
+    ip: "10.0.0.7",
+    port: 2222,
+    enabled: false,
+    tags: ["prod", null],
+    options: { username: "root" },
+  };
+  expect(
+    describeProposal(
+      { ...proposal, kind: "create_host", payload: JSON.stringify(payload) },
+      hostName,
+    ).payload,
+  ).toBe(JSON.stringify(payload, null, 2));
+});
 
 test("preserves the command exactly, resolves a host and reads explanations", () => {
   const command = '  printf "**literal**"\n\tuname -a  \n';
