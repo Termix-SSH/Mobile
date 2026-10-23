@@ -22,6 +22,31 @@ test("built in features register without clashes", () => {
   expect(new Set(ids).size).toBe(ids.length);
 });
 
+test("AI settings are native and require the plugin API", () => {
+  const r = registry();
+  const ai = BUILT_IN_FEATURES.find((feature) => feature.id === "ai");
+  expect(ai).toMatchObject({
+    title: "AI Assistant",
+    source: "native",
+    requires: { plugin: "ai", pluginApiOnly: true },
+  });
+  expect(r.settingsLinks(legacyServer).some((link) => link.id === "ai")).toBe(
+    false,
+  );
+  const links = r.settingsLinks({
+    ...legacyServer,
+    client: { supports: () => true } as any,
+  });
+  expect(links.find((link) => link.id === "ai")).toMatchObject({
+    label: "AI Assistant",
+    order: 15,
+    href: "/tabs/settings/AiAssistant",
+  });
+  expect(links.map((link) => link.order)).toEqual(
+    links.map((link) => link.order).sort((a, b) => a - b),
+  );
+});
+
 test("every session type is owned by exactly one feature", () => {
   const types = BUILT_IN_FEATURES.flatMap((f) =>
     (f.sessionTabs ?? []).map((t) => t.type),

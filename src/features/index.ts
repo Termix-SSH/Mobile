@@ -1,4 +1,5 @@
 import { features, type FeatureRegistry } from "@/core/features";
+import { aiFeature } from "./ai/register";
 import { credentialToolsFeature } from "./credential-tools/register";
 import { dockerFeature } from "./docker/register";
 import { fileManagerFeature } from "./file-manager/register";
@@ -17,6 +18,7 @@ import { tunnelsFeature } from "./tunnels/register";
 import { wakeOnLanFeature } from "./wake-on-lan/register";
 
 export const BUILT_IN_FEATURES = [
+  aiFeature,
   terminalFeature,
   fileManagerFeature,
   dockerFeature,

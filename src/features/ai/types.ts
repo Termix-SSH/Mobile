@@ -40,6 +40,7 @@ export interface AiProvider {
 
 export interface AiConversation {
   id: number;
+  mode?: string;
   title: string | null;
   providerId: number | null;
   model: string | null;
@@ -63,7 +64,7 @@ export interface AiProposal {
   kind: string;
   summary: string | null;
   payload: string;
-  status: "pending" | "applied" | "rejected" | "expired";
+  status: "pending" | "applied" | "failed" | "rejected" | "expired";
   resultSummary: string | null;
   createdAt: string;
 }
@@ -204,6 +205,7 @@ function parseConversation(data: unknown): AiConversation | null {
   if (!isRecord(data) || !isId(data.id)) return null;
   return {
     id: data.id,
+    ...(typeof data.mode === "string" ? { mode: data.mode } : {}),
     title: nullableString(data.title),
     providerId: isId(data.providerId) ? data.providerId : null,
     model: nullableString(data.model),
@@ -251,7 +253,13 @@ export function parseProposal(data: unknown): AiProposal | null {
     typeof data.kind !== "string" ||
     !data.kind.trim() ||
     typeof data.payload !== "string" ||
-    !isOneOf(data.status, ["pending", "applied", "rejected", "expired"])
+    !isOneOf(data.status, [
+      "pending",
+      "applied",
+      "failed",
+      "rejected",
+      "expired",
+    ])
   ) {
     return null;
   }

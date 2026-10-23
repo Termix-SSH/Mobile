@@ -251,7 +251,7 @@ test("detail parses all message roles and proposal statuses without extra fields
     ...message,
     role,
   }));
-  const proposals = ["pending", "applied", "rejected", "expired"].map(
+  const proposals = ["pending", "applied", "failed", "rejected", "expired"].map(
     (status) => ({ ...proposal, status }),
   );
   expect(
@@ -262,6 +262,19 @@ test("detail parses all message roles and proposal statuses without extra fields
       apiKey: "secret",
     }),
   ).toEqual({ conversation, messages, proposals });
+});
+
+test("conversation parsers preserve a known mode", () => {
+  expect(
+    parseConversations({ conversations: [{ ...conversation, mode: "agent" }] }),
+  ).toEqual([{ ...conversation, mode: "agent" }]);
+  expect(
+    parseConversationDetail({
+      conversation: { ...conversation, mode: "chat" },
+      messages: [],
+      proposals: [],
+    })?.conversation.mode,
+  ).toBe("chat");
 });
 
 test("detail skips malformed messages and proposals and normalizes metadata", () => {
