@@ -7,8 +7,7 @@ import {
   Platform,
 } from "react-native";
 import { useState, useCallback, useRef, useMemo, useEffect } from "react";
-import { useFocusEffect } from "@react-navigation/native";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   RefreshCw,

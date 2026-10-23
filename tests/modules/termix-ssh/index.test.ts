@@ -34,6 +34,7 @@ const mockNative = {
 
 let mockAvailable = true;
 jest.mock("expo-modules-core", () => ({
+  ...jest.requireActual("expo-modules-core"),
   requireOptionalNativeModule: () => (mockAvailable ? mockNative : null),
 }));
 

@@ -121,6 +121,10 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: npm
+      - uses: maxim-lobanov/setup-xcode@v1
+        if: matrix.platform == 'ios'
+        with:
+          xcode-version: latest-stable
       - uses: actions/setup-java@v4
         if: matrix.platform == 'android'
         with:

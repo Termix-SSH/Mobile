@@ -1,6 +1,6 @@
 import { act, fireEvent, render } from "@testing-library/react-native";
 import { Keyboard, Platform, type KeyboardEvent } from "react-native";
-import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import type { BottomTabBarProps } from "expo-router/tabs";
 import { CustomTabBar } from "@/components/CustomTabBar";
 import { useFeatureAvailable } from "@/core/features/hooks";
 

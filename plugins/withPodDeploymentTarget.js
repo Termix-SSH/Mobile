@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 // Newer Xcode rejects pods (including resource bundles) below its minimum target.
-const MIN_TARGET = "15.1";
+const MIN_TARGET = "16.4";
 const MARKER = "# termix-pod-deployment-target";
 
 const SNIPPET = `    ${MARKER}

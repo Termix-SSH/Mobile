@@ -682,7 +682,7 @@ export function RemoteDesktop({
       StyleSheet.create({
         // Outer wrapper: absolute-fills the parent session area.
         container: {
-          ...StyleSheet.absoluteFillObject,
+          ...StyleSheet.absoluteFill,
           backgroundColor: "#000",
         },
         // WebView fills everything except the key strip at the bottom.
@@ -696,7 +696,7 @@ export function RemoteDesktop({
         },
         // Connecting/error overlay: fills the full area (strip not visible yet).
         overlay: {
-          ...StyleSheet.absoluteFillObject,
+          ...StyleSheet.absoluteFill,
           alignItems: "center",
           justifyContent: "center",
           paddingHorizontal: 24,

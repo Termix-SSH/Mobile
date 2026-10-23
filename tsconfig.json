@@ -6,7 +6,8 @@
       "@/modules/*": ["./modules/*"],
       "@/assets/*": ["./assets/*"],
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["jest", "node"]
   },
   "include": [
     "**/*.ts",

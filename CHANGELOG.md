@@ -25,11 +25,13 @@
 - Popups are now sheets that slide up from the bottom, and confirmations use them instead of system alerts
 - The host, credential, file and key editors open in place with a back button instead of as popups
 - The iOS app icon, including the dark and tinted versions, now uses the same logo as Termix on the web and desktop
+- Needs iOS 16.4 or newer
 
 ### Fixed
 
 - The Android app icon is no longer cut off and now uses the same logo and color as Termix on the web and desktop
 - The splash screen uses the same logo and color as the app icon
+- Uploading a large file in the file manager no longer fails
 
 ## 1.6.0
 

@@ -9,7 +9,6 @@
     "githubUrl": "https://github.com/Termix-SSH/Mobile",
     "backgroundColor": "#141513",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "appleTeamId": "2CPC5YZYFN",
       "supportsTablet": true,
@@ -26,7 +25,6 @@
       }
     },
     "android": {
-      "edgeToEdgeEnabled": true,
       "package": "com.karmaa.termix",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
@@ -68,7 +66,7 @@
             "gradle": "8.13.1"
           },
           "ios": {
-            "deploymentTarget": "15.1"
+            "deploymentTarget": "16.4"
           }
         }
       ],

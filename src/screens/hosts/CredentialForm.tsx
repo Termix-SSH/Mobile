@@ -18,6 +18,7 @@ import { useCapability } from "@/core/features";
 import { toast } from "@/utils/toast";
 import { api } from "@/core/accounts";
 import { useRepositories } from "@/core/data/hooks";
+import { readLocalText } from "@/utils/localFile";
 
 type TabId = "general" | "auth";
 type GeneratingKey = "ed25519" | "ecdsa" | "rsa" | null;
@@ -124,7 +125,7 @@ export default function CredentialForm({
         copyToCacheDirectory: true,
       });
       if (result.canceled || !result.assets?.[0]) return;
-      const text = await fetch(result.assets[0].uri).then((r) => r.text());
+      const text = await readLocalText(result.assets[0].uri);
       set("key", text.trim());
       setKeyExistsOnServer(false);
       toast.success(`Loaded ${result.assets[0].name}`);
@@ -139,7 +140,7 @@ export default function CredentialForm({
         copyToCacheDirectory: true,
       });
       if (result.canceled || !result.assets?.[0]) return;
-      const text = await fetch(result.assets[0].uri).then((r) => r.text());
+      const text = await readLocalText(result.assets[0].uri);
       set("certPublicKey", text.trim());
       toast.success(`Loaded ${result.assets[0].name}`);
     } catch {

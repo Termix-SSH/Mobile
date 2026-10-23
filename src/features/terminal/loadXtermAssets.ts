@@ -1,5 +1,6 @@
 import { Asset } from "expo-asset";
 import * as FileSystem from "expo-file-system/legacy";
+import { readLocalText } from "@/utils/localFile";
 
 type XtermAssets = {
   xtermJs: string;
@@ -13,8 +14,7 @@ let cachedNerdFontBase64: string | null = null;
 
 async function readAsset(asset: Asset): Promise<string> {
   const uri = asset.localUri ?? asset.uri;
-  const response = await fetch(uri);
-  return response.text();
+  return readLocalText(uri);
 }
 
 export async function loadXtermAssets(

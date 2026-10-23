@@ -19,6 +19,7 @@ import { toast } from "@/utils/toast";
 import { TailscaleDevicePicker } from "@/features/tailscale/TailscaleDevices";
 import { tailnetAddress } from "@/features/tailscale/tailscale";
 import { useRepositories } from "@/core/data/hooks";
+import { readLocalText } from "@/utils/localFile";
 
 type AuthType = "password" | "key" | "credential" | "none" | "tailscale";
 // Feature tabs (tunnels, rdp, ...) come from registered host switches.
@@ -300,7 +301,7 @@ export default function HostForm({
       });
       if (result.canceled || !result.assets?.[0]) return;
       const asset = result.assets[0];
-      const text = await fetch(asset.uri).then((r) => r.text());
+      const text = await readLocalText(asset.uri);
       set("key", text);
       toast.success(`Loaded ${asset.name}`);
     } catch {

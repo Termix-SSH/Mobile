@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Keyboard, Platform, Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import type { BottomTabBarProps } from "expo-router/tabs";
 import {
   Server,
   SquareTerminal,

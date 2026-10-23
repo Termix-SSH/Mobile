@@ -33,6 +33,11 @@ if (!process.env.TEST_LOGS) {
   }
 }
 
+// Worklets needs its native runtime, which Jest doesn't have.
+jest.mock("react-native-worklets", () =>
+  require("react-native-worklets/src/mock"),
+);
+
 // Native views that have no JS fallback under Jest.
 jest.mock("react-native-webview", () => {
   const { View } = require("react-native");

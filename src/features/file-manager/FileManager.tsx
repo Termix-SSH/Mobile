@@ -75,6 +75,7 @@ import {
   sortFiles,
 } from "./utils/fileUtils";
 import { useSessionClient } from "@/core/accounts/session";
+import { readLocalBase64 } from "@/utils/localFile";
 
 interface FileManagerProps {
   host: SSHHost;
@@ -499,9 +500,7 @@ export const FileManager = forwardRef<FileManagerHandle, FileManagerProps>(
         if (result.canceled || !result.assets?.[0]) return;
         const asset = result.assets[0];
         setBusy(true);
-        const response = await fetch(asset.uri);
-        const buffer = await response.arrayBuffer();
-        const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+        const base64 = await readLocalBase64(asset.uri);
         await client.api.files.uploadSSHFile(
           conn.sessionId.current,
           currentPath,

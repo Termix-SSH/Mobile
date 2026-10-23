@@ -1,4 +1,5 @@
 import { Asset } from "expo-asset";
+import { readLocalText } from "@/utils/localFile";
 
 let cached: string | null = null;
 
@@ -14,7 +15,6 @@ export async function loadGuacamoleAssets(): Promise<string> {
     require("../../../assets/guacamole/guacamole-common.js.html"),
   ]);
   const uri = asset.localUri ?? asset.uri;
-  const response = await fetch(uri);
-  cached = await response.text();
+  cached = await readLocalText(uri);
   return cached;
 }
