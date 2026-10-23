@@ -9,6 +9,14 @@ on:
       repeats:
         description: Runs per engine and scenario
         default: "2"
+  push:
+    branches: [spike/terminal-view]
+    paths:
+      - "spikes/terminal-view/**"
+      - "modules/termix-terminal-*/**"
+      - "modules/termix-frame-monitor/**"
+      - "src/screens/dev/terminal-lab/**"
+      - ".github/workflows/terminal-spike.yml"
 
 concurrency:
   group: terminal-spike-${{ github.ref }}
@@ -22,7 +30,7 @@ env:
 jobs:
   host:
     name: Host parser benches (ghostty, xterm)
-    if: contains(inputs.jobs, 'host')
+    if: contains(inputs.jobs || 'host,swift,android,ios,size', 'host')
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
@@ -64,7 +72,7 @@ jobs:
 
   swift:
     name: Host parser bench (SwiftTerm)
-    if: contains(inputs.jobs, 'swift')
+    if: contains(inputs.jobs || 'host,swift,android,ios,size', 'swift')
     runs-on: macos-15
     timeout-minutes: 40
     steps:
@@ -90,7 +98,7 @@ jobs:
 
   android:
     name: Android emulator
-    if: contains(inputs.jobs, 'android')
+    if: contains(inputs.jobs || 'host,swift,android,ios,size', 'android')
     runs-on: ubuntu-24.04
     timeout-minutes: 150
     steps:
@@ -126,7 +134,7 @@ jobs:
       - name: Run on emulator
         uses: reactivecircus/android-emulator-runner@v2
         env:
-          REPEATS: ${{ inputs.repeats }}
+          REPEATS: ${{ inputs.repeats || '2' }}
         with:
           api-level: 34
           arch: x86_64
@@ -146,7 +154,7 @@ jobs:
 
   ios:
     name: iOS simulator
-    if: contains(inputs.jobs, 'ios')
+    if: contains(inputs.jobs || 'host,swift,android,ios,size', 'ios')
     runs-on: macos-15
     timeout-minutes: 150
     steps:
@@ -175,7 +183,7 @@ jobs:
           xcrun simctl bootstatus "$dev" -b
       - name: Run on simulator
         env:
-          REPEATS: ${{ inputs.repeats }}
+          REPEATS: ${{ inputs.repeats || '2' }}
         run: sh spikes/terminal-view/scripts/ios-run.sh dd/Build/Products/Release-iphonesimulator/Termix.app results
       - uses: actions/upload-artifact@v4
         if: always()
@@ -185,7 +193,7 @@ jobs:
 
   size:
     name: App size ${{ matrix.platform }} ${{ matrix.variant }}
-    if: contains(inputs.jobs, 'size')
+    if: contains(inputs.jobs || 'host,swift,android,ios,size', 'size')
     strategy:
       fail-fast: false
       matrix:
