@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { router } from "expo-router";
+import { useEffect, useRef } from "react";
+import { router, useRootNavigationState } from "expo-router";
 
 import { FrameMonitor } from "@/modules/termix-frame-monitor";
 import { labEnabled } from "./enabled";
@@ -16,12 +16,14 @@ export function labRouteFromUrl(url: string | null | undefined): string | null {
  * (the iOS simulator asks before opening custom scheme links).
  */
 export function LabLaunch() {
+  const nav = useRootNavigationState();
+  const done = useRef(false);
   useEffect(() => {
-    if (!labEnabled() || !FrameMonitor) return;
+    if (done.current || !nav?.key || !labEnabled() || !FrameMonitor) return;
     const route = labRouteFromUrl(FrameMonitor.launchUrl());
     if (!route) return;
-    const timer = setTimeout(() => router.replace(route as never), 500);
-    return () => clearTimeout(timer);
-  }, []);
+    done.current = true;
+    router.replace(route as never);
+  }, [nav?.key]);
   return null;
 }
