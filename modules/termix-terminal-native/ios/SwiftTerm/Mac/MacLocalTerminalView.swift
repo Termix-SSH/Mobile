@@ -1,0 +1,521 @@
+//
+//  MacLocalTerminalView.swift
+//
+//
+//  Created by Miguel de Icaza on 3/6/20.
+//
+
+#if !SWIFTTERM_EMBEDDED
+#if os(macOS)
+import Foundation
+import AppKit
+
+private struct WeakLocalProcessInputReference {
+    weak var value: LocalProcess?
+}
+
+/// Delegate for the ``LocalProcessTerminalView`` class that is used to
+/// notify the user of process-related changes.
+@MainActor
+public protocol LocalProcessTerminalViewDelegate: AnyObject {
+    /**
+     * This method is invoked to notify that the terminal has been resized to the specified number of columns and rows
+     * the user interface code might try to adjut the containing scroll view, or if it is a toplevel window, the window itself
+     * - Parameter source: the sending instance
+     * - Parameter newCols: the new number of columns that should be shown
+     * - Parameter newRow: the new number of rows that should be shown
+     */
+    func sizeChanged(source: LocalProcessTerminalView, newCols: Int, newRows: Int)
+
+    /**
+     * This method is invoked when the title of the terminal window should be updated to the provided title
+     * - Parameter source: the sending instance
+     * - Parameter title: the desired title
+     */
+    func setTerminalTitle(source: LocalProcessTerminalView, title: String)
+
+    /**
+     * Invoked when the OSC command 7 for "current directory has changed" command is sent
+     * - Parameter source: the sending instance
+     * - Parameter directory: the new working directory
+     */
+    func hostCurrentDirectoryUpdate (source: TerminalView, directory: String?)
+
+    /**
+     * This method is invoked when the child process started by `startProcess` has terminated.
+     * Use a serial `dispatchQueue` so data and termination callbacks stay ordered.
+     * - Parameter source: the local process that terminated
+     * - Parameter exitCode: the normalized exit status from 0 through 255, or nil when the process ended because of a signal or the wait failed
+     */
+    func processTerminated (source: TerminalView, exitCode: Int32?)
+
+    /// Reports a launch failure, separate from child exit.
+    func processFailedToStart(source: TerminalView, error: LocalProcessError)
+
+    /// Receives the current OSC 7501 records on the main actor.
+    func programStatusChanged(source: TerminalView, records: [TerminalProgramStatus])
+
+    // MARK: Kitty clipboard protocol, OSC 5522
+    //
+    // ``LocalProcessTerminalView`` is its own ``TerminalViewDelegate``, so the
+    // host cannot answer these ``TerminalViewDelegate`` hooks directly. The
+    // view forwards them here. The defaults deny every service, which makes
+    // DEC private mode 5522 report as unrecognized. See
+    // <doc:KittyClipboardProtocol>.
+
+    /// Returns the Kitty clipboard services that this host explicitly supports.
+    func kittyClipboardCapabilities(source: TerminalView) -> KittyClipboardCapabilities
+
+    /// Returns available MIME types for an OSC 5522 read or a paste event.
+    /// Return `nil` to use the platform pasteboard.
+    func kittyClipboardAvailableMimeTypes(
+        source: TerminalView,
+        location: KittyClipboardLocation
+    ) -> [String]?
+
+    /// Reads one MIME representation for an OSC 5522 read or a paste event.
+    /// Return `nil` to use the platform pasteboard.
+    func kittyClipboardRead(
+        source: TerminalView,
+        location: KittyClipboardLocation,
+        mimeType: String
+    ) -> KittyClipboardReadResult?
+
+    /// Publishes every OSC 5522 representation and alias as one atomic update.
+    /// Return ``KittyClipboardWriteResult/unsupported`` to use the platform pasteboard.
+    func kittyClipboardWrite(
+        source: TerminalView,
+        location: KittyClipboardLocation,
+        content: KittyClipboardWriteContent
+    ) -> KittyClipboardWriteResult
+
+    /// Requests user permission for an OSC 5522 operation.
+    func kittyClipboardRequestPermission(
+        source: TerminalView,
+        request: KittyClipboardPermissionRequest
+    ) -> KittyClipboardPermissionResult
+}
+
+public extension LocalProcessTerminalViewDelegate {
+    func programStatusChanged(source: TerminalView, records: [TerminalProgramStatus]) {}
+    func processFailedToStart(source: TerminalView, error: LocalProcessError) {}
+
+    func kittyClipboardCapabilities(source: TerminalView) -> KittyClipboardCapabilities {
+        []
+    }
+
+    func kittyClipboardAvailableMimeTypes(
+        source: TerminalView,
+        location: KittyClipboardLocation
+    ) -> [String]? {
+        nil
+    }
+
+    func kittyClipboardRead(
+        source: TerminalView,
+        location: KittyClipboardLocation,
+        mimeType: String
+    ) -> KittyClipboardReadResult? {
+        nil
+    }
+
+    func kittyClipboardWrite(
+        source: TerminalView,
+        location: KittyClipboardLocation,
+        content: KittyClipboardWriteContent
+    ) -> KittyClipboardWriteResult {
+        .unsupported
+    }
+
+    func kittyClipboardRequestPermission(
+        source: TerminalView,
+        request: KittyClipboardPermissionRequest
+    ) -> KittyClipboardPermissionResult {
+        .deny
+    }
+}
+
+private final class LocalProcessTerminalViewProcessAdapter:
+    LocalProcessDelegate, LocalProcessBorrowedDataDelegate, Sendable
+{
+    private let renderOwner: TerminalRenderOwner
+    private let frameSignal: FrameDriverSignal
+    private let diagnosticsState: Locked<TerminalView.Diagnostics>
+    private let outputHandler: LockedVoidCallback
+    private let windowSize = Locked(winsize())
+    private let inputProcess = Locked(WeakLocalProcessInputReference())
+    private let failureHandler: @MainActor @Sendable (LocalProcessError) -> Void
+    private let terminationHandler: @MainActor @Sendable (Int32?) -> Void
+
+    init(renderOwner: TerminalRenderOwner,
+         frameSignal: FrameDriverSignal,
+         diagnosticsState: Locked<TerminalView.Diagnostics>,
+         outputHandler: LockedVoidCallback,
+         failureHandler: @escaping @MainActor @Sendable (LocalProcessError) -> Void,
+         terminationHandler: @escaping @MainActor @Sendable (Int32?) -> Void) {
+        self.renderOwner = renderOwner
+        self.frameSignal = frameSignal
+        self.diagnosticsState = diagnosticsState
+        self.outputHandler = outputHandler
+        self.failureHandler = failureHandler
+        self.terminationHandler = terminationHandler
+    }
+
+    func updateWindowSize(_ value: winsize) {
+        windowSize.withLock { $0 = value }
+    }
+
+    func attachInputProcess(_ process: LocalProcess) {
+        inputProcess.withLock { $0.value = process }
+    }
+
+    func sendInput(_ bytes: [UInt8]) {
+        inputProcess.withLock { reference in
+            reference.value?.send(data: bytes[...])
+        }
+    }
+
+    func processFailedToStart(_ source: LocalProcess, error: LocalProcessError) {
+        let handler = failureHandler
+        Task { @MainActor in handler(error) }
+    }
+
+    func processTerminated(_ source: LocalProcess, exitCode: Int32?) {
+        let handler = terminationHandler
+        Task { @MainActor in
+            handler(exitCode)
+        }
+    }
+
+    func dataReceived(slice: ArraySlice<UInt8>) {
+        frameSignal.markDirty()
+        let parse = Profiling.begin(.ioParse, "bytes=%d", slice.count)
+        _ = renderOwner.feed(bytes: slice)
+        parse.end()
+        diagnosticsState.withLock { diagnostics in
+            diagnostics.bytesFed += slice.count
+            diagnostics.batches += 1
+        }
+        outputHandler.call()
+        frameSignal.markDirty()
+    }
+
+    func dataReceivedBorrowed(_ bytes: Span<UInt8>) {
+        frameSignal.markDirty()
+        let parse = Profiling.begin(.ioParse, "bytes=%d", bytes.count)
+        _ = renderOwner.feed(borrowedBytes: bytes)
+        parse.end()
+        diagnosticsState.withLock { diagnostics in
+            diagnostics.bytesFed += bytes.count
+            diagnostics.batches += 1
+        }
+        outputHandler.call()
+        frameSignal.markDirty()
+    }
+
+    func getWindowSize() -> winsize {
+        windowSize.withLock { $0 }
+    }
+}
+
+/**
+ * `LocalProcessTerminalView` is an AppKit NSView that can be used to host a local process
+ * the process is launched inside a pseudo-terminal.
+ *
+ * Call the `startProcess` to launch the underlying process inside a pseudo terminal.
+ *
+ * Generally, for the `LocalProcessTerminalView` to be useful, you will want to disable the sandbox
+ * for your application, otherwise the underlying shell will not have access to much - not the majority of
+ * commands, not assorted places on the file systems and so on.   For this, you need to disable for your
+ * target in "Signing and Capabilities" the sandbox entirely.
+ *
+ * Note: instances of `LocalProcessTerminalView` will set the `TerminalView`'s `delegate`
+ * property and capture and consume the messages.   The messages that are most likely needed for
+ * consumer applications are reposted to the `LocalProcessTerminalViewDelegate` in
+ * `processDelegate`.   If you override the `delegate` directly, you might inadvertently break
+ * the internal working of `LocalProcessTerminalView`.   If you must change the `delegate`
+ * make sure that you proxy the values in your implementation to the values set after initializing this instance.
+ *
+ * If you want additional control over the delegate methods implemented in this class, you can
+ * subclass this and override the methods
+ *
+ * Terminal parsing for this view runs on the background LocalProcess IO thread. TerminalViewDelegate
+ * callbacks produced by parsing are marshalled back to the main thread by TerminalView.
+ */
+open class LocalProcessTerminalView: TerminalView, TerminalViewDelegate {
+    
+    public internal(set) var process: LocalProcess!
+    private var processAdapter: LocalProcessTerminalViewProcessAdapter!
+    nonisolated private let processOutputHandler = LockedVoidCallback()
+
+    public override init (frame: CGRect)
+    {
+        super.init (frame: frame)
+        setup ()
+    }
+
+    /// Creates a local process terminal view with explicit startup options for the underlying `Terminal`
+    public override init (frame: CGRect, font: NSFont? = nil, options: TerminalOptions)
+    {
+        super.init (frame: frame, font: font, options: options)
+        setup ()
+    }
+
+    public required init? (coder: NSCoder)
+    {
+        super.init (coder: coder)
+        setup ()
+    }
+
+    func setup ()
+    {
+        terminalDelegate = self
+        let adapter = LocalProcessTerminalViewProcessAdapter(
+            renderOwner: renderOwner,
+            frameSignal: frameSignal,
+            diagnosticsState: diagnosticsState,
+            outputHandler: processOutputHandler,
+            failureHandler: { [weak self] error in
+                guard let self, let process = self.process else { return }
+                self.processFailedToStart(process, error: error)
+            },
+            terminationHandler: { [weak self] exitCode in
+                guard let self, let process = self.process else { return }
+                self.processTerminated(process, exitCode: exitCode)
+            })
+        processAdapter = adapter
+        // Direct delivery keeps process output on the IO parse thread. The
+        // explicit main queue preserves UI lifecycle delivery.
+        process = LocalProcess(
+            delegate: adapter,
+            dispatchQueue: .main,
+            directDelivery: true)
+        adapter.attachInputProcess(process)
+        inputSender.replaceDelivery { [adapter] bytes in
+            adapter.sendInput(bytes)
+        }
+        adapter.updateWindowSize(getWindowSize())
+    }
+
+    /// Installs a notification that runs on the process parse thread after an
+    /// output batch is applied. The handler receives no mutable terminal state
+    /// and must return quickly.
+    public func setProcessOutputHandler(_ handler: (@Sendable () -> Void)?) {
+        processOutputHandler.replace(with: handler)
+    }
+    
+    /**
+     * The `processDelegate` is used to deliver messages and information relevant to
+     * the process and the host: window size, title, the current directory, process
+     * termination, and the Kitty clipboard services that the host serves.
+     */
+    public weak var processDelegate: LocalProcessTerminalViewDelegate? {
+        didSet {
+            // The clipboard capability set is cached, so a new host must be
+            // consulted again or mode 5522 keeps the previous answer.
+            refreshKittyClipboardCapabilities()
+        }
+    }
+
+    open override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        if window != nil {
+            syncProcessWindowSizeIfNeeded()
+        }
+    }
+
+    open override func viewDidChangeBackingProperties() {
+        super.viewDidChangeBackingProperties()
+        if window != nil {
+            syncProcessWindowSizeIfNeeded()
+        }
+    }
+
+    /// A backing scale change can alter the pixel size without changing the
+    /// terminal's rows or columns. Keep the PTY size current in that case too.
+    private func syncProcessWindowSizeIfNeeded() {
+        guard let processAdapter, let process else { return }
+        var size = getWindowSize()
+        let previous = processAdapter.getWindowSize()
+        guard size.ws_row != previous.ws_row || size.ws_col != previous.ws_col ||
+              size.ws_xpixel != previous.ws_xpixel || size.ws_ypixel != previous.ws_ypixel else {
+            return
+        }
+        processAdapter.updateWindowSize(size)
+        _ = process.updateWindowSize(&size)
+    }
+
+    /**
+     * This method is invoked to notify the client of the new columsn and rows that have been set by the UI
+     */
+    public func sizeChanged(source: TerminalView, newCols: Int, newRows: Int) {
+        syncProcessWindowSizeIfNeeded()
+        
+        processDelegate?.sizeChanged (source: self, newCols: newCols, newRows: newRows)
+    }
+    
+    public func clipboardCopy(source: TerminalView, content: Data) {
+        if let str = String (bytes: content, encoding: .utf8) {
+            let pasteBoard = NSPasteboard.general
+            pasteBoard.clearContents()
+            pasteBoard.writeObjects([str as NSString])
+        }
+    }
+    
+    public func clipboardRead(source: TerminalView) -> Data? {
+        guard let str = NSPasteboard.general.string(forType: .string) else {
+            return nil
+        }
+        return str.data(using: .utf8)
+    }
+    
+    /**
+     * Invoke this method to notify the processDelegate of the new title for the terminal window
+     */
+    public func setTerminalTitle(source: TerminalView, title: String) {
+        processDelegate?.setTerminalTitle (source: self, title: title)
+    }
+
+    public func hostCurrentDirectoryUpdate(source: TerminalView, directory: String?) {
+        processDelegate?.hostCurrentDirectoryUpdate(source: source, directory: directory)
+    }
+
+    // MARK: Kitty clipboard protocol, forwarded to the processDelegate
+    //
+    // These are `open` so a subclass can also answer them directly.
+
+    open func kittyClipboardCapabilities(source: TerminalView) -> KittyClipboardCapabilities {
+        processDelegate?.kittyClipboardCapabilities(source: source) ?? []
+    }
+
+    open func kittyClipboardAvailableMimeTypes(
+        source: TerminalView,
+        location: KittyClipboardLocation
+    ) -> [String]? {
+        processDelegate?.kittyClipboardAvailableMimeTypes(source: source, location: location)
+    }
+
+    open func kittyClipboardRead(
+        source: TerminalView,
+        location: KittyClipboardLocation,
+        mimeType: String
+    ) -> KittyClipboardReadResult? {
+        processDelegate?.kittyClipboardRead(source: source, location: location, mimeType: mimeType)
+    }
+
+    open func kittyClipboardWrite(
+        source: TerminalView,
+        location: KittyClipboardLocation,
+        content: KittyClipboardWriteContent
+    ) -> KittyClipboardWriteResult {
+        processDelegate?.kittyClipboardWrite(source: source, location: location, content: content)
+            ?? .unsupported
+    }
+
+    open func kittyClipboardRequestPermission(
+        source: TerminalView,
+        request: KittyClipboardPermissionRequest
+    ) -> KittyClipboardPermissionResult {
+        processDelegate?.kittyClipboardRequestPermission(source: source, request: request) ?? .deny
+    }
+
+    /**
+     * Invoked when the user activates a link, override to handle the link yourself
+     */
+    open func requestOpenLink (source: TerminalView, link: String, params: [String:String])
+    {
+        openLink (link)
+    }
+
+    /**
+     * This method is invoked when input from the user needs to be sent to the client
+     * Implementation of the TerminalViewDelegate method
+     */
+    open func send(source: TerminalView, data: ArraySlice<UInt8>)
+    {
+        process.send (data: data)
+    }
+    
+    /**
+     * Use this method to toggle the logging of data coming from the host, or pass nil to stop
+     */
+    public func setHostLogging (directory: String?)
+    {
+        process.setHostLogging (directory: directory)
+    }
+    
+    /// Implementation of the TerminalViewDelegate method
+    open func scrolled(source: TerminalView, position: Double) {
+        // noting
+    }
+
+    open func rangeChanged(source: TerminalView, startY: Int, endY: Int) {
+        //
+    }
+    
+    /**
+     * Launches a child process inside a pseudo-terminal.
+     * - Parameter executable: The executable to launch inside the pseudo terminal, defaults to /bin/bash
+     * - Parameter args: an array of strings that is passed as the arguments to the underlying process
+     * - Parameter environment: an array of environment variables to pass to the child process, if this is null, this picks a good set of defaults from `Terminal.getEnvironmentVariables`.
+     * - Parameter execName: If provided, this is used as the Unix argv[0] parameter, otherwise, the executable is used as the args [0], this is used when the intent is to set a different process name than the file that backs it.
+     * - Parameter currentDirectory: If provided, the process will be launched with this as the current working directory.
+     */
+    public func startProcess(executable: String = "/bin/bash", args: [String] = [], environment: [String]? = nil, execName: String? = nil, currentDirectory: String? = nil)
+    {
+        // A nil environment keeps the LocalProcess default (TERM=xterm-256color);
+        // hosts that want options.termName in the child's environment pass
+        // Terminal.getEnvironmentVariables(termName:) explicitly
+        processAdapter.updateWindowSize(getWindowSize())
+        process.startProcess(executable: executable, args: args, environment: environment, execName: execName, currentDirectory: currentDirectory)
+    }
+
+    /**
+     Terminate the process.
+     */
+    public func terminate() {
+        process.terminate()
+    }
+
+    /**
+     * Implements the LocalProcessDelegate method.
+     */
+    open func processFailedToStart(_ source: LocalProcess, error: LocalProcessError) {
+        feed(text: "\r\nProcess launch failed: \(error)\r\n")
+        processDelegate?.processFailedToStart(source: self, error: error)
+    }
+
+    open func processTerminated(_ source: LocalProcess, exitCode: Int32?) {
+        programStatusProcessExited()
+        processDelegate?.processTerminated(source: self, exitCode: exitCode)
+    }
+
+    open func programStatusChanged(source: TerminalView, records: [TerminalProgramStatus]) {
+        processDelegate?.programStatusChanged(source: source, records: records)
+    }
+    
+    /**
+     * Implements the LocalProcessDelegate.dataReceived method
+     */
+    open func dataReceived(slice: ArraySlice<UInt8>) {
+        feed (byteArray: slice)
+    }
+    
+    /**
+     * Implements the LocalProcessDelegate.getWindowSize method
+     */
+    open func getWindowSize () -> winsize
+    {
+        let scale = window?.backingScaleFactor ?? NSScreen.main?.backingScaleFactor ?? 1
+        let dimensions = terminalDimensions
+        let pxW = Int((cellDimension?.width ?? 0) * CGFloat(dimensions.cols) * scale)
+        let pxH = Int((cellDimension?.height ?? 0) * CGFloat(dimensions.rows) * scale)
+        return winsize(ws_row: UInt16(dimensions.rows),
+                       ws_col: UInt16(dimensions.cols),
+                       ws_xpixel: UInt16(pxW), ws_ypixel: UInt16(pxH))
+    }
+}
+
+#endif
+
+#endif // !SWIFTTERM_EMBEDDED

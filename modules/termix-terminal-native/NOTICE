@@ -7,5 +7,5 @@ final, R imports point at this module.
 
 ios/SwiftTerm holds SwiftTerm v1.99.1 by Miguel de Icaza (MIT, see ios/SwiftTerm/LICENSE),
 https://github.com/migueldeicaza/SwiftTerm at 2f573f73af5e768d90847dce20c97fa9535d7164,
-without the Mac front end, docs and Shaders.metal. ios/SwiftTerm/Generated stands in for its
+without the docs and Shaders.metal. ios/SwiftTerm/Generated stands in for its
 SwiftPM build plugin.

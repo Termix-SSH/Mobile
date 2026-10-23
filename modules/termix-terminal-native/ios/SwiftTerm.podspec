@@ -1,5 +1,5 @@
 # SwiftTerm v1.99.1 (MIT, see SwiftTerm/LICENSE), vendored because it ships SwiftPM only.
-# The Mac front end, docs and the Metal shader file are left out (the renderer
+# The docs and the Metal shader file are left out (the renderer
 # compiles its shaders from source). SwiftTerm/Generated stands in for the build plugin.
 Pod::Spec.new do |s|
   s.name    = 'SwiftTerm'
