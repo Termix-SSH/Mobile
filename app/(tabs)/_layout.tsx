@@ -16,6 +16,7 @@ export default function TabLayout() {
     >
       <Tabs.Screen name="hosts" options={{ title: "Hosts" }} />
       <Tabs.Screen name="sessions" options={{ title: "Sessions" }} />
+      <Tabs.Screen name="ai" options={{ title: "AI" }} />
       <Tabs.Screen name="settings" options={{ title: "Settings" }} />
     </Tabs>
   );

@@ -11,7 +11,11 @@ import { ConversationList } from "@/features/ai/components/ConversationList";
 import { useAiChat } from "@/features/ai/useAiChat";
 import { Button, Text } from "@/ui";
 
-export default function AiAssistant() {
+export default function AiAssistant({
+  mode = "stack",
+}: {
+  mode?: "stack" | "tab";
+} = {}) {
   const color = useThemeColor();
   const router = useRouter();
   const { account, client } = useFeatureContext();
@@ -68,16 +72,18 @@ export default function AiAssistant() {
             : "AI Assistant"
         }
         headerLeft={
-          <Pressable
-            onPress={back}
-            hitSlop={8}
-            accessibilityRole="button"
-            accessibilityLabel={
-              ready && view === "chat" ? "Back to conversations" : "Back"
-            }
-          >
-            <ArrowLeft size={20} color={color("foreground")} />
-          </Pressable>
+          mode === "tab" && !(ready && view === "chat") ? undefined : (
+            <Pressable
+              onPress={back}
+              hitSlop={8}
+              accessibilityRole="button"
+              accessibilityLabel={
+                ready && view === "chat" ? "Back to conversations" : "Back"
+              }
+            >
+              <ArrowLeft size={20} color={color("foreground")} />
+            </Pressable>
+          )
         }
         headerRight={
           ready && view === "list" ? (

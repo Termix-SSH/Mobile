@@ -140,6 +140,33 @@ test("opting in enables the assistant", async () => {
   expect(chat.optIn).toHaveBeenCalledTimes(1);
 });
 
+test("tab mode lists conversations without a Back button and returns from chat", async () => {
+  const result = await render(<AiAssistant mode="tab" />);
+  expect(result.getByText("AI Assistant")).toBeTruthy();
+  expect(result.getByText("Server health")).toBeTruthy();
+  expect(result.queryByRole("button", { name: "Back" })).toBeNull();
+  await fireEvent.press(result.getByText("Server health"));
+  await fireEvent.press(
+    result.getByRole("button", { name: "Back to conversations" }),
+  );
+  expect(result.getByText("Server health")).toBeTruthy();
+  expect(result.queryByRole("button", { name: "Back" })).toBeNull();
+  expect(mockBack).not.toHaveBeenCalled();
+});
+
+test("tab mode preserves the opt-in AccessState without a Back button", async () => {
+  chat.access = { state: "needs-opt-in", allowReadOnlyCommands: true };
+  const result = await render(<AiAssistant mode="tab" />);
+  expect(
+    result.getByText("Enable the AI assistant for your account"),
+  ).toBeTruthy();
+  expect(result.queryByRole("button", { name: "Back" })).toBeNull();
+  await fireEvent.press(
+    result.getByRole("button", { name: "Enable AI assistant" }),
+  );
+  expect(chat.optIn).toHaveBeenCalledTimes(1);
+});
+
 test("an access error can be retried", async () => {
   chat.access = { state: "error", message: "Try later" };
   const result = await render(<AiAssistant />);

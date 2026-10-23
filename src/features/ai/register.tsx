@@ -12,7 +12,7 @@ export const aiFeature: FeatureDef = {
       label: "AI Assistant",
       icon: Sparkles,
       order: 15,
-      href: "/tabs/settings/AiAssistant",
+      href: "/(tabs)/ai",
     },
   ],
 };

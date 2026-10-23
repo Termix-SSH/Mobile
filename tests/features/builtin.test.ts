@@ -40,7 +40,7 @@ test("AI settings are native and require the plugin API", () => {
   expect(links.find((link) => link.id === "ai")).toMatchObject({
     label: "AI Assistant",
     order: 15,
-    href: "/tabs/settings/AiAssistant",
+    href: "/(tabs)/ai",
   });
   expect(links.map((link) => link.order)).toEqual(
     links.map((link) => link.order).sort((a, b) => a - b),
