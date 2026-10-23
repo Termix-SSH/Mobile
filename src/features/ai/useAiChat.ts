@@ -498,6 +498,19 @@ export function useAiChat() {
   const changeProposal = useCallback(
     async (id: number, action: "apply" | "reject") => {
       if (!client || !scope.active) return;
+      if (action === "apply") {
+        const latest = current.current;
+        const proposal = mergeProposals(
+          latest.proposals,
+          latest.run?.proposals ?? [],
+        ).find((proposal) => proposal.id === id);
+        if (
+          proposal?.status !== "pending" ||
+          latest.lockedProposals.includes(id)
+        ) {
+          return;
+        }
+      }
       const generation = scope.conversationGeneration;
       const isCurrent = () =>
         scope.active && scope.conversationGeneration === generation;

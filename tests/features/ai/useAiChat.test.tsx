@@ -537,6 +537,47 @@ test("apply and reject update stored and streamed proposals using only the ID", 
   expect(result.current.proposals[0].status).toBe("rejected");
 });
 
+test.each(["applied", "failed", "rejected", "expired"] as const)(
+  "applying a %s proposal does not call the API",
+  async (status) => {
+    const { result } = await mountReady();
+    const apply = result.current.applyProposal;
+    api.getConversation.mockResolvedValue({
+      conversation,
+      messages: [],
+      proposals: [{ ...proposal, status }],
+    });
+    await act(async () => result.current.openConversation(8));
+
+    await act(async () => apply(10));
+
+    expect(api.applyProposal).not.toHaveBeenCalled();
+    expect(result.current.proposals[0].status).toBe(status);
+  },
+);
+
+test("applying a missing proposal does not call the API", async () => {
+  const { result } = await mountReady();
+  await act(async () => result.current.applyProposal(10));
+  expect(api.applyProposal).not.toHaveBeenCalled();
+});
+
+test("applying rechecks the latest streamed status", async () => {
+  const { result } = await mountReady();
+  await act(async () => result.current.openConversation(8));
+  const apply = result.current.applyProposal;
+  api.streamChat.mockImplementation(async (_input, emit) => {
+    emit({ type: "proposal", proposal: { ...proposal, status: "applied" } });
+    emit({ type: "done" });
+  });
+  await act(async () => result.current.send("Read uptime"));
+
+  await act(async () => apply(10));
+
+  expect(api.applyProposal).not.toHaveBeenCalled();
+  expect(result.current.proposals[0].status).toBe("applied");
+});
+
 test.each(["apply", "reject"] as const)(
   "%s results survive sending a message and update proposals by ID",
   async (action) => {
@@ -608,6 +649,7 @@ test.each(["failed", "applied"] as const)(
     expect(api.getConversation).toHaveBeenLastCalledWith(8);
     expect(result.current.proposals).toEqual([serverProposal]);
     expect(result.current.run?.proposals).toEqual([serverProposal]);
+    expect(result.current.lockedProposals).toEqual([]);
     expect(result.current.error).toBe("Connection lost");
   },
 );
@@ -653,25 +695,23 @@ test.each([new Error("Network error"), new AiApiError("Timed out")])(
   async (error) => {
     const { result } = await mountReady();
     await act(async () => result.current.openConversation(8));
+    const apply = result.current.applyProposal;
     api.applyProposal.mockRejectedValue(error);
-    await act(async () => result.current.applyProposal(10));
+    await act(async () => apply(10));
     expect(result.current.proposals[0].status).toBe("pending");
     expect(result.current.lockedProposals).toEqual([10]);
-    api.getConversation.mockRejectedValueOnce(new Error("Refresh failed"));
-    await act(async () => result.current.applyProposal(10));
-    expect(result.current.lockedProposals).toEqual([10]);
-    api.getConversation.mockResolvedValueOnce({
-      conversation,
-      messages: [],
-      proposals: [{ ...proposal, status: "applied" }],
-    });
-    await act(async () => result.current.applyProposal(10));
-    expect(result.current.lockedProposals).toEqual([]);
-    await act(async () => result.current.applyProposal(10));
+    expect(api.applyProposal).toHaveBeenCalledTimes(1);
+    expect(api.getConversation).toHaveBeenCalledTimes(2);
+
+    await act(async () => apply(10));
+
+    expect(api.applyProposal).toHaveBeenCalledTimes(1);
+    expect(api.getConversation).toHaveBeenCalledTimes(2);
     expect(result.current.lockedProposals).toEqual([10]);
     await act(async () => result.current.openConversation(8));
     expect(result.current.lockedProposals).toEqual([]);
     await act(async () => result.current.applyProposal(10));
+    expect(api.applyProposal).toHaveBeenCalledTimes(2);
     expect(result.current.lockedProposals).toEqual([10]);
     await act(async () => result.current.newConversation());
     expect(result.current.lockedProposals).toEqual([]);

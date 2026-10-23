@@ -72,12 +72,14 @@ test("Apply waits for confirmation and passes only the proposal ID", async () =>
       description: expect.objectContaining({
         props: expect.objectContaining({
           style: { maxHeight: 240 },
-          children: expect.objectContaining({
-            props: expect.objectContaining({
-              selectable: true,
-              children: command,
+          children: expect.arrayContaining([
+            expect.objectContaining({
+              props: expect.objectContaining({
+                selectable: true,
+                children: command,
+              }),
             }),
-          }),
+          ]),
         }),
       }),
     }),
@@ -196,6 +198,51 @@ test("command text reveals bidi characters and wraps in the card and confirmatio
   expect(description.props.style).toEqual({ maxHeight: 240 });
 });
 
+test("command proposals reveal extra payload fields in the card and confirmation", async () => {
+  const remaining = {
+    runAs: "root\u202E",
+    cwd: "/tmp/\u200B",
+    env: { MODE: "prod" },
+    timeout: 30,
+  };
+  const json = JSON.stringify(remaining, null, 2)
+    .replace("\u202E", "\\u202E")
+    .replace("\u200B", "\\u200B");
+  const result = await render(
+    <ProposalCard
+      proposal={{
+        ...proposal,
+        payload: JSON.stringify({
+          ...JSON.parse(proposal.payload),
+          hostIds: [7, 8],
+          ...remaining,
+        }),
+      }}
+      hostName={hostName}
+      onApply={jest.fn()}
+      onReject={jest.fn()}
+    />,
+  );
+  expect(
+    result.getByText(json, { normalizer: (text) => text }).props.selectable,
+  ).toBe(true);
+  expect(
+    result.getByText(command, { normalizer: (text) => text }),
+  ).toBeTruthy();
+
+  await fireEvent.press(result.getByRole("button", { name: "Apply" }));
+  const confirmation = await render(
+    <>{mockConfirm.mock.calls[0][0].description}</>,
+  );
+  expect(
+    confirmation.getByText(json, { normalizer: (text) => text }).props
+      .selectable,
+  ).toBe(true);
+  expect(
+    confirmation.getByText(command, { normalizer: (text) => text }),
+  ).toBeTruthy();
+});
+
 test.each(["", "   ", "\n\t "])(
   "an empty command %j is labelled and cannot be applied",
   async (command) => {
@@ -245,6 +292,38 @@ test("a command without a valid host ID disables Apply", async () => {
   expect(onApply).not.toHaveBeenCalled();
   expect(result.getByRole("button", { name: "Reject" })).not.toBeDisabled();
 });
+
+test.each([
+  { hostId: 7, hostIds: ["all"] },
+  { hostId: 0, hostIds: [7] },
+  { hostId: 1.5, hostIds: [7] },
+])(
+  "invalid host IDs disable Apply even with a valid target: %j",
+  async (hosts) => {
+    const onApply = jest.fn();
+    const result = await render(
+      <ProposalCard
+        proposal={{
+          ...proposal,
+          payload: JSON.stringify({ command, ...hosts }),
+        }}
+        hostName={hostName}
+        onApply={onApply}
+        onReject={jest.fn()}
+      />,
+    );
+    expect(result.getByRole("alert")).toHaveTextContent(
+      "Invalid proposal payload",
+    );
+    expect(result.getByText("Hosts: Production")).toBeTruthy();
+    const apply = result.getByRole("button", { name: "Apply" });
+    expect(apply).toBeDisabled();
+    await fireEvent.press(apply);
+    expect(mockConfirm).not.toHaveBeenCalled();
+    expect(onApply).not.toHaveBeenCalled();
+    expect(result.getByRole("button", { name: "Reject" })).not.toBeDisabled();
+  },
+);
 
 test.each(["applied", "failed", "rejected", "expired"] as const)(
   "%s proposals show their result and have no action buttons",

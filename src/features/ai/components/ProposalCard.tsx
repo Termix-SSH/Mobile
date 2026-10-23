@@ -39,6 +39,8 @@ export function ProposalCard({
   const content = emptyCommand
     ? "(empty command)"
     : revealInvisible(detail.command ?? detail.payload ?? "");
+  const extraPayload =
+    hasCommand && detail.payload ? revealInvisible(detail.payload) : undefined;
   const applyDisabled =
     busy ||
     detail.invalid ||
@@ -56,6 +58,11 @@ export function ProposalCard({
           <Text selectable className="text-xs text-muted-foreground">
             {content}
           </Text>
+          {extraPayload ? (
+            <Text selectable className="text-xs text-muted-foreground">
+              {extraPayload}
+            </Text>
+          ) : null}
         </ScrollView>
       ),
       confirmLabel: "Apply",
@@ -84,6 +91,13 @@ export function ProposalCard({
         <View className="max-w-full border border-border bg-muted p-2">
           <Text selectable className="text-xs">
             {content}
+          </Text>
+        </View>
+      ) : null}
+      {extraPayload ? (
+        <View className="max-w-full border border-border bg-muted p-2">
+          <Text selectable className="text-xs">
+            {extraPayload}
           </Text>
         </View>
       ) : null}

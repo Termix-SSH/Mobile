@@ -177,6 +177,34 @@ test("cancelling link confirmation never opens a native URL", async () => {
   expect(mockOpenURL).not.toHaveBeenCalled();
 });
 
+test.each([
+  ["\u202E", "\\u202E"],
+  ["\u200B", "\\u200B"],
+])(
+  "link confirmation reveals invisible character %j",
+  async (character, escaped) => {
+    const href = `https://example.com/safe${character}hidden`;
+    mockConfirm.mockResolvedValueOnce(true);
+    const result = await render(
+      <Markdown source={`[Documentation](${href})`} />,
+    );
+
+    await fireEvent.press(result.getByRole("link"));
+
+    expect(mockConfirm).toHaveBeenCalledWith(
+      expect.objectContaining({
+        title: "Open link?",
+        description: expect.objectContaining({
+          props: expect.objectContaining({
+            children: `https://example.com/safe${escaped}hidden`,
+          }),
+        }),
+      }),
+    );
+    expect(mockOpenURL).toHaveBeenCalledWith(href);
+  },
+);
+
 test("unsafe destinations never become interactive links", async () => {
   const result = await render(
     <Markdown

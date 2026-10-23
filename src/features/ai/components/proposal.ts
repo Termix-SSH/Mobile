@@ -57,21 +57,41 @@ export function describeProposal(
     return { ...description, invalid: true };
   }
   const data = payload as Record<string, unknown>;
-  if (typeof data.command === "string") description.command = data.command;
-  else description.payload = JSON.stringify(payload, null, 2);
+  if (typeof data.command === "string") {
+    description.command = data.command;
+    const remaining = Object.fromEntries(
+      Object.entries(data).filter(
+        ([key, value]) =>
+          !["command", "hostId", "hostIds"].includes(key) &&
+          !(
+            (key === "explanation" || key === "reason") &&
+            typeof value === "string"
+          ),
+      ),
+    );
+    if (Object.keys(remaining).length) {
+      description.payload = JSON.stringify(remaining, null, 2);
+    }
+  } else description.payload = JSON.stringify(payload, null, 2);
   if (typeof data.explanation === "string") {
     description.explanation = data.explanation;
   }
   if (typeof data.reason === "string") description.reason = data.reason;
 
+  const isValidId = (id: unknown): id is number =>
+    typeof id === "number" && Number.isSafeInteger(id) && id > 0;
+  if (
+    (data.hostId != null && !isValidId(data.hostId)) ||
+    (data.hostIds != null &&
+      (!Array.isArray(data.hostIds) || !data.hostIds.every(isValidId)))
+  ) {
+    description.invalid = true;
+  }
   const ids = [
     data.hostId,
     ...(Array.isArray(data.hostIds) ? data.hostIds : []),
   ];
-  const validIds = ids.filter(
-    (id): id is number =>
-      typeof id === "number" && Number.isSafeInteger(id) && id > 0,
-  );
+  const validIds = ids.filter(isValidId);
   description.hosts = [...new Set(validIds)].map(
     (id) => hostName(id) || `Host #${id}`,
   );

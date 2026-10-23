@@ -3,6 +3,7 @@ import { Linking, ScrollView, View } from "react-native";
 import { Text, type TextWeight } from "@/ui/Text";
 import { useConfirm } from "@/ui/Confirm";
 import { toast } from "@/utils/toast";
+import { revealInvisible } from "./components/proposal";
 import { parseMarkdown, safeLinkHref, type InlineNode } from "./markdown";
 
 export interface MarkdownProps {
@@ -36,7 +37,7 @@ export function Markdown({ source, muted = false }: MarkdownProps) {
         title: "Open link?",
         description: (
           <Text selectable className="text-xs text-muted-foreground">
-            {href}
+            {revealInvisible(href)}
           </Text>
         ),
         confirmLabel: "Open",
