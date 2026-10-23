@@ -81,7 +81,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: "26"
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
@@ -164,7 +164,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: "26"
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
@@ -175,10 +175,10 @@ jobs:
       - name: Build for the simulator
         working-directory: ios
         run: |
-          set -o pipefail
           xcodebuild -workspace Termix.xcworkspace -scheme Termix -configuration Release \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
-            -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO build | tail -30
+            -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO build > ../xcodebuild.log 2>&1 \
+            || { grep -E "error:|BUILD FAILED" ../xcodebuild.log | sort -u | head -60; exit 1; }
       - name: Boot a simulator
         run: |
           dev=$(xcrun simctl list devices available -j | python3 -c "import json,sys; d=json.load(sys.stdin)['devices']; print(next(x['udid'] for k,v in d.items() if 'iOS' in k for x in v if x['name'].startswith('iPhone')))")
@@ -209,7 +209,7 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         if: matrix.platform == 'ios'
         with:
-          xcode-version: latest-stable
+          xcode-version: "26"
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
@@ -232,7 +232,8 @@ jobs:
           npx expo prebuild --platform ios --clean
           cd ios
           xcodebuild -workspace Termix.xcworkspace -scheme Termix -configuration Release -destination 'generic/platform=iOS' \
-            -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build | tail -5
+            -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build > ../xcodebuild.log 2>&1 \
+            || { grep -E "error:|BUILD FAILED" ../xcodebuild.log | sort -u | head -60; exit 1; }
       - name: Measure
         run: |
           mkdir -p results
