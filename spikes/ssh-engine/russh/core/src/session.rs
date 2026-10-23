@@ -260,6 +260,7 @@ pub async fn connect(
         .map_err(|_| SshError::Connect { msg: "timed out".into() })?
         .map_err(|e| SshError::Connect { msg: e.to_string() })?;
     tcp.set_nodelay(true).ok();
+    crate::no_sigpipe(&tcp);
     tokio::time::timeout(timeout * 4, handshake(tcp, config, callbacks))
         .await
         .map_err(|_| SshError::Connect { msg: "login timed out".into() })?

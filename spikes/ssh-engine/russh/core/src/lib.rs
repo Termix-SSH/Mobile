@@ -165,6 +165,16 @@ pub trait ProgressCallback: Send + Sync {
     fn on_progress(&self, done: u64, total: u64);
 }
 
+/// iOS kills the app on SIGPIPE when a peer closes a socket we write to, so every socket opts out.
+pub(crate) fn no_sigpipe(tcp: &tokio::net::TcpStream) {
+    #[cfg(any(target_os = "ios", target_os = "macos"))]
+    {
+        socket2::SockRef::from(tcp).set_nosigpipe(true).ok();
+    }
+    #[cfg(not(any(target_os = "ios", target_os = "macos")))]
+    let _ = tcp;
+}
+
 /// Engine name and version, for logs.
 #[uniffi::export]
 pub fn engine_version() -> String {

@@ -120,6 +120,7 @@ impl Session {
         let port = listener.local_addr()?.port();
         let task = tokio::spawn(async move {
             while let Ok((tcp, _)) = listener.accept().await {
+                crate::no_sigpipe(&tcp);
                 let s = self.clone();
                 let host = remote_host.clone();
                 tokio::spawn(async move {
@@ -140,6 +141,7 @@ impl Session {
         let port = listener.local_addr()?.port();
         let task = tokio::spawn(async move {
             while let Ok((tcp, _)) = listener.accept().await {
+                crate::no_sigpipe(&tcp);
                 let s = self.clone();
                 tokio::spawn(async move {
                     socks5(&s, tcp).await.ok();

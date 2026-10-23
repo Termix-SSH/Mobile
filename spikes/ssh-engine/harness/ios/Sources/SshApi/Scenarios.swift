@@ -173,6 +173,8 @@ public final class FreezableRelay: @unchecked Sendable {
             while true {
                 let c = accept(srv, nil, nil)
                 if c < 0 { break }
+                var one: Int32 = 1
+                setsockopt(c, SOL_SOCKET, SO_NOSIGPIPE, &one, socklen_t(MemoryLayout<Int32>.size))
                 let up = tcpConnect(target, targetPort)
                 guard let self else { return }
                 self.lock.lock(); self.fds += [c, up]; self.lock.unlock()
