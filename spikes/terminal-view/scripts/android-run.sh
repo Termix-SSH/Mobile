@@ -19,7 +19,7 @@ run() {
   adb shell am force-stop $PKG
   adb logcat -c
   url="termix-mobile://dev/terminal-lab?engine=$engine&scenario=$scenario&seconds=$SECONDS_PER_RUN&rate=$rate&auto=1"
-  adb shell am start -W -a android.intent.action.VIEW -d "'$url'" $PKG > /dev/null
+  adb shell am start -W -n $PKG/.MainActivity -a android.intent.action.VIEW -d "'$url'" > /dev/null
   # Settle time in the lab, the run, and a margin.
   waited=0
   limit=$((SECONDS_PER_RUN + 30))
