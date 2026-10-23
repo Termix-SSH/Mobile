@@ -1,0 +1,11 @@
+android/src/main/java/com/termux holds terminal-emulator and terminal-view from
+https://github.com/termux/termux-app at v0.118.3 (5b657c6adf4304e5198951ce815fe0205dcac29c).
+Termux states these two libraries are Apache License 2.0 (from Android-Terminal-Emulator),
+while the rest of termux-app is GPLv3. Termix changes: TerminalSession is fed from a byte
+stream instead of a local process (JNI.java and termux.c removed), TerminalView is no longer
+final, R imports point at this module.
+
+ios/SwiftTerm holds SwiftTerm v1.99.1 by Miguel de Icaza (MIT, see ios/SwiftTerm/LICENSE),
+https://github.com/migueldeicaza/SwiftTerm at 2f573f73af5e768d90847dce20c97fa9535d7164,
+without the Mac front end, docs and Shaders.metal. ios/SwiftTerm/Generated stands in for its
+SwiftPM build plugin.

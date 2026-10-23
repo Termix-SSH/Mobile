@@ -1,7 +1,7 @@
 // swift-tools-version:6.2
 // Parser throughput for SwiftTerm at the tag the iOS module vendors.
 //
-//   swift run -c release Bench <fixtures dir>/*.bin
+//   swift run -c release --package-path . Bench <fixtures dir>/*.bin
 import PackageDescription
 
 let package = Package(

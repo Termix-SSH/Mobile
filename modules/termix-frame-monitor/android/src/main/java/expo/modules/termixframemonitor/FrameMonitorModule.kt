@@ -8,7 +8,7 @@ import android.os.HandlerThread
 import android.view.Choreographer
 import android.view.FrameMetrics
 import android.view.Window
-import expo.modules.kotlin.Queues
+import expo.modules.kotlin.functions.Queues
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
