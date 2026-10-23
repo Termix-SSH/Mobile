@@ -158,17 +158,17 @@ public final class FreezableRelay: @unchecked Sendable {
     }
 
     public init(target: String, port targetPort: Int) {
-        server = socket(AF_INET, SOCK_STREAM, 0)
+        let srv = socket(AF_INET, SOCK_STREAM, 0)
         var addr = sockaddr_in()
         addr.sin_family = sa_family_t(AF_INET)
         addr.sin_addr.s_addr = inet_addr("127.0.0.1")
         addr.sin_port = 0
-        withUnsafePointer(to: &addr) { $0.withMemoryRebound(to: sockaddr.self, capacity: 1) { _ = bind(server, $0, socklen_t(MemoryLayout<sockaddr_in>.size)) } }
-        listen(server, 8)
+        withUnsafePointer(to: &addr) { $0.withMemoryRebound(to: sockaddr.self, capacity: 1) { _ = bind(srv, $0, socklen_t(MemoryLayout<sockaddr_in>.size)) } }
+        listen(srv, 8)
         var len = socklen_t(MemoryLayout<sockaddr_in>.size)
-        withUnsafeMutablePointer(to: &addr) { $0.withMemoryRebound(to: sockaddr.self, capacity: 1) { _ = getsockname(server, $0, &len) } }
+        withUnsafeMutablePointer(to: &addr) { $0.withMemoryRebound(to: sockaddr.self, capacity: 1) { _ = getsockname(srv, $0, &len) } }
+        server = srv
         port = Int(UInt16(bigEndian: addr.sin_port))
-        let srv = server
         Thread.detachNewThread { [weak self] in
             while true {
                 let c = accept(srv, nil, nil)
