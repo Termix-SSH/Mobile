@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["FrameMonitorModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.termixframemonitor.FrameMonitorModule"]
+  }
+}
