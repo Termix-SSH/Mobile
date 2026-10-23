@@ -52,8 +52,8 @@ const conversation: AiConversation = {
   title: "Server health",
   providerId: 2,
   model: "model-a",
-  createdAt: "2026-10-22",
-  updatedAt: "2026-10-23",
+  createdAt: "2025-03-03T12:00:00.000Z",
+  updatedAt: "2025-03-04T12:00:00.000Z",
 };
 
 function makeChat(): ReturnType<typeof useAiChat> {
@@ -167,6 +167,17 @@ test("tab mode preserves the opt-in AccessState without a Back button", async ()
   expect(chat.optIn).toHaveBeenCalledTimes(1);
 });
 
+test("a recently updated conversation shows a relative time", async () => {
+  chat.conversations = [
+    {
+      ...conversation,
+      updatedAt: new Date(Date.now() - 5 * 60_000).toISOString(),
+    },
+  ];
+  const result = await render(<AiAssistant />);
+  expect(result.getByText("5m ago")).toBeTruthy();
+});
+
 test("an access error can be retried", async () => {
   chat.access = { state: "error", message: "Try later" };
   const result = await render(<AiAssistant />);
@@ -179,7 +190,12 @@ test("ready lists conversations and opens the selected chat", async () => {
   const result = await render(<AiAssistant />);
   expect(result.getByText("Server health")).toBeTruthy();
   expect(result.getByText("New conversation")).toBeTruthy();
-  expect(result.getAllByText(conversation.updatedAt)).toHaveLength(2);
+  const shownDate = new Date(conversation.updatedAt).toLocaleDateString(
+    "en-US",
+    { month: "short", day: "numeric", year: "numeric" },
+  );
+  expect(result.getAllByText(shownDate)).toHaveLength(2);
+  expect(result.queryByText(conversation.updatedAt)).toBeNull();
   await fireEvent.press(result.getByText("Server health"));
   expect(chat.openConversation).toHaveBeenCalledWith(8);
   expect(result.getByLabelText("Message")).toBeTruthy();

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FlatList, Linking, Pressable, View } from "react-native";
 import { MessageSquare, Trash2 } from "lucide-react-native";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { formatDate } from "@/features/file-manager/utils/fileUtils";
 import { EmptyState, ListRow, Text, useConfirm } from "@/ui";
 import { toast } from "@/utils/toast";
 import type { AiConversation } from "../types";
@@ -76,7 +77,7 @@ export function ConversationList({
         renderItem={({ item, index }) => (
           <ListRow
             title={item.title || "New conversation"}
-            meta={item.updatedAt}
+            meta={formatDate(item.updatedAt)}
             index={index}
             icon={<MessageSquare size={14} color={color("muted-foreground")} />}
             onPress={() => onOpen(item.id)}
