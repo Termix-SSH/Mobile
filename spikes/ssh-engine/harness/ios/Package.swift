@@ -19,7 +19,7 @@ let package = Package(
         .testTarget(
             name: "ScenarioTests",
             dependencies: ["SshApi", "RusshEngine", "Libssh2Engine"],
-            resources: [.copy("Resources")]
+            resources: [.copy("Fixtures")]
         ),
     ]
 )

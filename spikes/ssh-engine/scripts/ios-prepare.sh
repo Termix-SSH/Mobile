@@ -4,6 +4,6 @@ set -eu
 h=harness/ios
 mkdir -p "$h/Sources/RusshEngine/Generated"
 cp build/ios/swift/termix_ssh_core.swift "$h/Sources/RusshEngine/Generated/"
-rm -rf "$h/Tests/ScenarioTests/Resources" && mkdir -p "$h/Tests/ScenarioTests/Resources/keys"
-cp server/out/* "$h/Tests/ScenarioTests/Resources/keys/"
-cp server/algos.json "$h/Tests/ScenarioTests/Resources/"
+rm -rf "$h/Tests/ScenarioTests/Fixtures" && mkdir -p "$h/Tests/ScenarioTests/Fixtures/keys"
+cp server/out/* "$h/Tests/ScenarioTests/Fixtures/keys/"
+cp server/algos.json "$h/Tests/ScenarioTests/Fixtures/"

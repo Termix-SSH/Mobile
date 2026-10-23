@@ -19,4 +19,4 @@ spikes/ssh-engine/server/out
 spikes/ssh-engine/results*
 spikes/ssh-engine/all
 spikes/ssh-engine/harness/android/app/src/androidTest/assets
-spikes/ssh-engine/harness/ios/Tests/ScenarioTests/Resources
+spikes/ssh-engine/harness/ios/Tests/ScenarioTests/Fixtures

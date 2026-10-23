@@ -5,7 +5,7 @@ import SshApi
 import XCTest
 
 final class ScenarioTests: XCTestCase {
-    private let res = Bundle.module.resourceURL!.appendingPathComponent("Resources")
+    private let res = Bundle.module.resourceURL!.appendingPathComponent("Fixtures")
     private var env: TestEnv {
         let res = self.res
         let host = ProcessInfo.processInfo.environment["SSH_TEST_HOST"] ?? "127.0.0.1"
