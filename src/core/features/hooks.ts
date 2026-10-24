@@ -1,7 +1,7 @@
 import { useMemo, useSyncExternalStore } from "react";
 import { accounts, useAccounts, useClient } from "@/core/accounts";
 import { useSessionAccountId } from "@/core/accounts/session";
-import { features } from "./registry";
+import { features, isFeatureAvailable } from "./registry";
 import type { Capability, FeatureContext } from "./types";
 
 function useRegistryVersion(): number {
@@ -28,6 +28,15 @@ function useContextFor(accountId: string): FeatureContext {
 /** Features as seen by the active account. Re-renders when either changes. */
 export function useFeatureContext(): FeatureContext {
   return useContextFor(useAccounts().active.id);
+}
+
+/** Whether a registered feature is available to the active account. */
+export function useFeatureAvailable(id: string): boolean {
+  const ctx = useFeatureContext();
+  return useMemo(() => {
+    const feature = features.all().find((def) => def.id === id);
+    return !!feature && isFeatureAvailable(feature, ctx);
+  }, [id, ctx]);
 }
 
 /** Features as seen by the account of the surrounding session. */
