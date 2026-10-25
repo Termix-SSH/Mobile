@@ -70,8 +70,9 @@ export function useContextMenu(items: ContextMenuItem[]) {
     },
   };
 
+  // Only mounted while open, so a long list doesn't hold a Modal per row.
   const menu =
-    items.length > 0 ? (
+    items.length > 0 && at ? (
       <ContextMenu at={at} items={items} onClose={close} />
     ) : null;
   return { triggerProps, menu };

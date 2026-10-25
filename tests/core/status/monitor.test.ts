@@ -120,3 +120,15 @@ test("refresh makes every host due again", async () => {
   await m.tick();
   expect(probe).toHaveBeenCalledTimes(2);
 });
+
+test("many changes in one tick send one update", async () => {
+  const probe = jest.fn(async () => true);
+  const m = new LocalStatusMonitor(probe, () => 0);
+  const changed = jest.fn();
+  m.subscribe(changed);
+  m.setHosts(Array.from({ length: 50 }, (_, i) => host(i + 1)));
+  await m.tick();
+  expect(Object.keys(m.snapshot())).toHaveLength(50);
+  // One right away, then the rest together when the tick ends.
+  expect(changed).toHaveBeenCalledTimes(2);
+});

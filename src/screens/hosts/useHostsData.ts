@@ -8,6 +8,7 @@ import type { HostMetrics } from "@/screens/hosts/navigation/Host";
 import type { HostStatus } from "@/screens/hosts/navigation/hostTree";
 import type { ServerStatus, Snippet, SSHHost } from "@/types";
 import { publishHostSnapshot } from "@/widgets";
+import { mapSettled } from "@/utils/limit";
 import { toast } from "@/utils/toast";
 
 export interface ServerAlert {
@@ -69,11 +70,10 @@ export function useHostsData() {
         );
         return;
       }
-      const results = await Promise.allSettled(
-        online.map((h) =>
-          activeClient()!.api.metrics.getServerMetricsById(
-            synced ? h.serverId! : h.id,
-          ),
+      // A few at a time, so hundreds of online hosts don't flood the server.
+      const results = await mapSettled(online, 6, (h) =>
+        activeClient()!.api.metrics.getServerMetricsById(
+          synced ? h.serverId! : h.id,
         ),
       );
       setMetrics((previous) => {
@@ -208,12 +208,13 @@ export function useHostsData() {
     // Phone checks fill in for hosts the server does not report on, so the
     // widgets work with no server at all.
     const statuses: Record<number, ServerStatus> = { ...serverStatuses };
+    const checked = new Date().toISOString();
     for (const host of hosts) {
       const phone = phoneStatuses[host.id];
       if (!statuses[host.id] && phone) {
         statuses[host.id] = {
           status: phone,
-          lastChecked: new Date().toISOString(),
+          lastChecked: checked,
         };
       }
     }

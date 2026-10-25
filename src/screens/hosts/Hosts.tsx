@@ -79,6 +79,7 @@ import {
   useConfirm,
 } from "@/ui";
 import { isSshHost } from "@/utils/hosts";
+import { useDebouncedValue, useStableCallback } from "@/utils/hooks";
 import { toast } from "@/utils/toast";
 
 const SORT_OPTIONS: { id: SortKey; label: string }[] = [
@@ -113,6 +114,10 @@ const FILTER_GROUPS: {
   },
   { group: "features", title: "Features", options: [] },
 ];
+
+const NO_SELECTION = new Set<number>();
+const refusedDrop = () =>
+  toast.error("Hosts can only move inside their own folder");
 
 const STORAGE_SORT = "hostSortKey";
 const STORAGE_FILTER = "hostFilterState";
@@ -199,7 +204,8 @@ export default function Hosts() {
     () => buildHostTree(hosts, data.folderColors),
     [hosts, data.folderColors],
   );
-  const q = searchQuery.trim().toLowerCase();
+  // Waits for typing to stop, so a big list is filtered once per word.
+  const q = useDebouncedValue(searchQuery, 150).trim().toLowerCase();
 
   const filterGroups = useMemo(
     () =>
@@ -382,14 +388,14 @@ export default function Hosts() {
 
   // Single host actions
 
-  const tapHost = (host: SSHHost) => {
+  const tapHost = useStableCallback((host: SSHHost) => {
     if (selecting) {
       toggleSelected(host);
       return;
     }
     if (reorder) return;
     void openHost(host).then((opened) => !opened && setSheetHost(host));
-  };
+  });
 
   const togglePin = async (host: SSHHost) => {
     try {
@@ -744,12 +750,10 @@ export default function Hosts() {
           onHostPress={tapHost}
           onHostLongPress={setSheetHost}
           selecting={selecting}
-          selected={selected ?? new Set()}
+          selected={selected ?? NO_SELECTION}
           reorder={reorder}
           onReorder={saveOrder}
-          onRefusedDrop={() =>
-            toast.error("Hosts can only move inside their own folder")
-          }
+          onRefusedDrop={refusedDrop}
           refreshControl={
             <RefreshControl
               refreshing={data.refreshing}

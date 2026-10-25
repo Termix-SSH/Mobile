@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { View, Pressable } from "react-native";
 import { Pin, Cpu, MemoryStick, GripVertical } from "lucide-react-native";
 import { SSHHost } from "@/types";
@@ -10,7 +11,7 @@ import {
   useContextMenu,
 } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
-import { useHostBadges } from "@/core/features";
+import type { HostBadgeDef } from "@/core/features";
 import { isSshActive } from "@/utils/hosts";
 import type { HostStatus } from "@/screens/hosts/navigation/hostTree";
 
@@ -36,6 +37,8 @@ interface HostProps {
   /** Reorder is on: the grip starts a drag. */
   onDrag?: () => void;
   dragging?: boolean;
+  /** Feature badges, read once by the list. */
+  badges: HostBadgeDef[];
 }
 
 /** Compact protocol/feature tag (e.g. RDP, VNC, DKR) shown beside a host. */
@@ -83,7 +86,7 @@ function MetricBar({
   );
 }
 
-export default function Host({
+function Host({
   host,
   status,
   metrics,
@@ -96,11 +99,11 @@ export default function Host({
   selected = false,
   onDrag,
   dragging = false,
+  badges,
 }: HostProps) {
   const color = useThemeColor();
   const accent = color("accent-brand") ?? "#f59145";
   const online = status === "online";
-  const badges = useHostBadges();
   const rightClick = useContextMenu(
     selecting
       ? []
@@ -271,3 +274,6 @@ export default function Host({
     </Pressable>
   );
 }
+
+// Rows re-render only when their own host, status or metrics change.
+export default memo(Host);

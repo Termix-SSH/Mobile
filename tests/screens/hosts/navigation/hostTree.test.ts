@@ -3,6 +3,8 @@ import {
   applyFilters,
   buildHostTree,
   flattenTree,
+  folderCountMap,
+  folderCounts,
   reorderInFolder,
   sortHostTree,
 } from "@/screens/hosts/navigation/hostTree";
@@ -125,4 +127,34 @@ describe("manual order and drag", () => {
     // Dropped where it was.
     expect(move(4, 4)).toBeNull();
   });
+});
+
+test("the folder count map matches counting each folder on its own", () => {
+  const list = [
+    host(1, { folder: "a" }),
+    host(2, { folder: "a / b" }),
+    host(3, { folder: "a / b" }),
+    host(4, { folder: "c" }),
+  ];
+  const tree = buildHostTree(list);
+  const status = (id: number): "online" | "offline" =>
+    id % 2 ? "online" : "offline";
+  const map = folderCountMap(tree as any, status);
+  expect(map.get("a")).toEqual({ total: 3, online: 2 });
+  expect(map.get("a / b")).toEqual({ total: 2, online: 1 });
+  expect(map.get("c")).toEqual(folderCounts(tree[1] as any, status));
+});
+
+test("flattening keeps depth and order for nested open folders", () => {
+  const tree = buildHostTree([
+    host(1, { folder: "a / b" }),
+    host(2, { folder: "a" }),
+  ]);
+  const rows = flattenTree(tree, new Set(["a", "a / b"]));
+  expect(rows.map((r) => [r.key, r.depth])).toEqual([
+    ["f:a", 0],
+    ["f:a / b", 1],
+    ["h:1", 2],
+    ["h:2", 1],
+  ]);
 });

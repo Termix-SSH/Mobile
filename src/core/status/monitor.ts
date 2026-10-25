@@ -10,6 +10,7 @@ export const DEFAULT_INTERVAL_SECS = 30;
 export const MIN_INTERVAL_SECS = 5;
 export const MAX_PARALLEL = 8;
 const PROBE_TIMEOUT_MS = 4000;
+const EMIT_GAP_MS = 500;
 
 type ProbeHost = Pick<
   SSHHost,
@@ -59,6 +60,8 @@ export type Probe = (
 export class LocalStatusMonitor {
   private entries = new Map<number, Entry>();
   private listeners = new Set<() => void>();
+  private pending = false;
+  private lastEmit = -Infinity;
 
   constructor(
     private probe: Probe,
@@ -122,6 +125,7 @@ export class LocalStatusMonitor {
     await Promise.all(
       Array.from({ length: Math.min(MAX_PARALLEL, due.length) }, worker),
     );
+    if (this.pending) this.emit();
   }
 
   /** Makes every host due now, for pull to refresh or coming back to the app. */
@@ -153,10 +157,18 @@ export class LocalStatusMonitor {
         entry.nextAt = this.now() + 2000;
       }
     }
-    if (entry.status !== before) this.emit();
+    if (entry.status !== before) this.changed();
+  }
+
+  // A tick over many hosts sends one update per EMIT_GAP_MS, not one per host.
+  private changed() {
+    this.pending = true;
+    if (this.now() - this.lastEmit >= EMIT_GAP_MS) this.emit();
   }
 
   private emit() {
+    this.pending = false;
+    this.lastEmit = this.now();
     this.listeners.forEach((l) => l());
   }
 }

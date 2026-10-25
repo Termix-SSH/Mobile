@@ -4,6 +4,9 @@ export type HostStatus = "online" | "offline" | "unknown";
 export type GetHostStatus = (hostId: number) => HostStatus;
 
 export const NO_FOLDER = "No Folder";
+// One collator for every compare; localeCompare builds one per call on Hermes.
+const ORDER = new Intl.Collator();
+const compareText = (a: string, b: string) => ORDER.compare(a, b);
 const FOLDER_SEP = " / ";
 
 export type SortKey =
@@ -132,6 +135,35 @@ export function folderCounts(
   return { total, online };
 }
 
+export type FolderCounts = Map<string, { total: number; online: number }>;
+
+/** Counts for every folder under the given ones, in one pass. */
+export function folderCountMap(
+  folders: Extract<HostTreeNode, { kind: "folder" }>[],
+  getStatus: GetHostStatus,
+): FolderCounts {
+  const out: FolderCounts = new Map();
+  const visit = (node: Extract<HostTreeNode, { kind: "folder" }>) => {
+    let total = 0;
+    let online = 0;
+    for (const child of node.children) {
+      if (isFolder(child)) {
+        const c = visit(child);
+        total += c.total;
+        online += c.online;
+      } else {
+        total++;
+        if (getStatus(child.host.id) === "online") online++;
+      }
+    }
+    const counts = { total, online };
+    out.set(node.path, counts);
+    return counts;
+  };
+  folders.forEach(visit);
+  return out;
+}
+
 function hostMatchesQuery(host: SSHHost, query: string): boolean {
   return (
     host.name.toLowerCase().includes(query) ||
@@ -244,7 +276,7 @@ export function sortHostTree(
     if (aFolder && bFolder) {
       if (a.name === NO_FOLDER) return 1;
       if (b.name === NO_FOLDER) return -1;
-      return a.name.localeCompare(b.name);
+      return compareText(a.name, b.name);
     }
     const ha = (a as Extract<HostTreeNode, { kind: "host" }>).host;
     const hb = (b as Extract<HostTreeNode, { kind: "host" }>).host;
@@ -252,13 +284,13 @@ export function sortHostTree(
       case "default":
         return byManualOrder(ha, hb);
       case "name-asc":
-        return ha.name.localeCompare(hb.name);
+        return compareText(ha.name, hb.name);
       case "name-desc":
-        return hb.name.localeCompare(ha.name);
+        return compareText(hb.name, ha.name);
       case "ip-asc":
-        return ha.ip.localeCompare(hb.ip);
+        return compareText(ha.ip, hb.ip);
       case "ip-desc":
-        return hb.ip.localeCompare(ha.ip);
+        return compareText(hb.ip, ha.ip);
       case "status-online":
         return (
           (getStatus(hb.id) === "online" ? 1 : 0) -
@@ -289,7 +321,7 @@ export function byManualOrder(a: SSHHost, b: SSHHost): number {
   if (oa !== null && ob !== null && oa !== ob) return oa - ob;
   if (oa !== null && ob === null) return -1;
   if (oa === null && ob !== null) return 1;
-  return (a.name || a.ip).localeCompare(b.name || b.ip);
+  return compareText(a.name || a.ip, b.name || b.ip);
 }
 
 /** One line of the host list: a folder header or a host. */
@@ -316,17 +348,14 @@ export function flattenTree(
   expanded: Set<string>,
   depth = 0,
   parentPath = "",
+  rows: HostListRow[] = [],
 ): HostListRow[] {
-  const rows: HostListRow[] = [];
   for (const node of nodes) {
     if (isFolder(node)) {
       const open = expanded.has(node.path);
       rows.push({ kind: "folder", key: `f:${node.path}`, depth, open, node });
-      if (open) {
-        rows.push(
-          ...flattenTree(node.children, expanded, depth + 1, node.path),
-        );
-      }
+      if (open)
+        flattenTree(node.children, expanded, depth + 1, node.path, rows);
     } else {
       rows.push({
         kind: "host",

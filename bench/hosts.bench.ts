@@ -7,7 +7,7 @@ import {
   DEFAULT_FILTERS,
   filterTreeByQuery,
   flattenTree,
-  folderCounts,
+  folderCountMap,
   sortHostTree,
   type GetHostStatus,
 } from "@/screens/hosts/navigation/hostTree";
@@ -24,7 +24,7 @@ const getStatus: GetHostStatus = (id) =>
   (statuses.get(id) as "online" | "offline") ?? "unknown";
 
 // What the Hosts screen does after one status change: filter, sort, flatten,
-// then every visible folder row counts its hosts.
+// then the folder counts the rows show.
 function statusFlip(query: string) {
   const tree = buildHostTree(hosts);
   let nodes = applyFilters(tree, DEFAULT_FILTERS, getStatus);
@@ -33,8 +33,10 @@ function statusFlip(query: string) {
   const expanded = new Set(collectFolderPaths(tree));
   collectMatchingFolderPaths(tree, query).forEach((p) => expanded.add(p));
   const rows = flattenTree(nodes, expanded);
-  for (const row of rows)
-    if (row.kind === "folder") folderCounts(row.node, getStatus);
+  folderCountMap(
+    rows.flatMap((r) => (r.kind === "folder" && r.depth === 0 ? [r.node] : [])),
+    getStatus,
+  );
   return rows;
 }
 
