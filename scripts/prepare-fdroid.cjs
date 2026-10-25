@@ -15,4 +15,23 @@ for (const name of DROPPED_PACKAGES) {
     force: true,
   });
 }
+// Prebuilt Android artifacts that Expo packages carry. The build uses the sources.
+const modules = path.join(root, "node_modules");
+let removed = 0;
+for (const entry of fs.readdirSync(modules)) {
+  const dirs = entry.startsWith("@")
+    ? fs.readdirSync(path.join(modules, entry)).map((n) => path.join(entry, n))
+    : [entry];
+  for (const dir of dirs) {
+    if (!dir.startsWith("expo") && !dir.startsWith("@expo")) continue;
+    for (const sub of ["local-maven-repo", "prebuilds"]) {
+      const target = path.join(modules, dir, sub);
+      if (fs.existsSync(target)) {
+        fs.rmSync(target, { recursive: true, force: true });
+        removed++;
+      }
+    }
+  }
+}
+console.log(`prepare-fdroid: removed ${removed} prebuilt folders`);
 console.log(`prepare-fdroid: removed ${DROPPED_PACKAGES.join(", ")}`);

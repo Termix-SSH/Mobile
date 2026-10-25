@@ -61,6 +61,7 @@ test("package.json loses the packages F-Droid cannot take", () => {
     },
   });
   expect(out.dependencies).toEqual({ expo: "1" });
+  expect(out.expo.autolinking.buildFromSource).toEqual([".*"]);
 });
 
 test("a dependency report with Play Services or ML Kit is flagged", () => {

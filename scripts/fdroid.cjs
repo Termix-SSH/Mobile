@@ -56,9 +56,18 @@ function applyFdroid(config) {
   };
 }
 
-/** package.json without the packages F-Droid cannot take. */
+/**
+ * package.json without the packages F-Droid cannot take. Expo ships most modules as
+ * prebuilt Maven artifacts that ignore our gradle properties and are binaries, so every
+ * module is built from source instead.
+ */
 function stripPackageJson(pkg) {
   const next = JSON.parse(JSON.stringify(pkg));
+  next.expo = next.expo ?? {};
+  next.expo.autolinking = {
+    ...next.expo.autolinking,
+    buildFromSource: [".*"],
+  };
   for (const name of DROPPED_PACKAGES) {
     delete next.dependencies?.[name];
     delete next.devDependencies?.[name];
