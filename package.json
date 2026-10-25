@@ -25,7 +25,8 @@
     "build:editor": "node scripts/build-editor.mjs",
     "build:plugin-host": "node scripts/build-plugin-host.mjs",
     "store-art": "node scripts/generate-store-art.mjs",
-    "check:fdroid": "node scripts/check-fdroid.cjs"
+    "check:fdroid": "node scripts/check-fdroid.cjs",
+    "bench": "jest -c jest.bench.config.js --runInBand"
   },
   "dependencies": {
     "@expo-google-fonts/jetbrains-mono": "^0.4.1",
