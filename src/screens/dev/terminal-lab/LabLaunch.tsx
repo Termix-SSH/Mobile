@@ -7,8 +7,10 @@ import { labEnabled } from "./enabled";
 /** Turns a lab deep link into the route path, or null if it is not one. */
 export function labRouteFromUrl(url: string | null | undefined): string | null {
   if (!url) return null;
-  const m = /^[a-z][a-z0-9+.-]*:\/\/dev\/terminal-lab(\?.*)?$/i.exec(url);
-  return m ? `/dev/terminal-lab${m[1] ?? ""}` : null;
+  const m = /^[a-z][a-z0-9+.-]*:\/\/dev\/(terminal-lab|list-lab)(\?.*)?$/i.exec(
+    url,
+  );
+  return m ? `/dev/${m[1]}${m[2] ?? ""}` : null;
 }
 
 /**
