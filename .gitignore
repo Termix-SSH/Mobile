@@ -3,6 +3,7 @@ node_modules/
 .expo/
 dist/
 web-build/
+/build/
 expo-env.d.ts
 
 .kotlin/

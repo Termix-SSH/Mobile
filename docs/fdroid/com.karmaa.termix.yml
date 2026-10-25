@@ -40,11 +40,6 @@ Builds:
     ndk: 27.1.12297006
     prebuild: |
       export TERMIX_FDROID=1
-      npm ci
-      node scripts/prepare-fdroid.cjs
-      node scripts/check-fdroid.cjs
-    build: |
-      export TERMIX_FDROID=1
       curl -sSLo /tmp/rustup-init https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init
       echo "5be191e8c70a5007074254cb74d78dbfdd25cd5a61c27de7b8e5410122ec24f4  /tmp/rustup-init" | sha256sum -c -
       chmod +x /tmp/rustup-init
@@ -52,7 +47,14 @@ Builds:
       . "$HOME/.cargo/env"
       rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
       cargo install cargo-ndk --version 4.1.2 --locked
-      sh scripts/build-native-fdroid.sh
+      npm ci
+      node scripts/prepare-fdroid.cjs
+      node scripts/check-fdroid.cjs
+      sh scripts/build-native-fdroid.sh fetch
+    build: |
+      export TERMIX_FDROID=1
+      . "$HOME/.cargo/env"
+      sh scripts/build-native-fdroid.sh build
       npx expo prebuild --platform android --no-install
       cd android
       ./gradlew assembleRelease

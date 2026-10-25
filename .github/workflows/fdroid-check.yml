@@ -5,6 +5,17 @@ on:
   push:
     tags:
       - "v*"
+    branches:
+      - "dev-*"
+    paths:
+      - ".github/workflows/fdroid-check.yml"
+      - "app.config.js"
+      - "plugins/withFdroid.js"
+      - "scripts/*fdroid*"
+      - "scripts/native-hashes.sh"
+      - "modules/termix-ssh/rust/**"
+      - "modules/termix-ssh/scripts/build-android.sh"
+      - "modules/termix-terminal/ghostty.lock.json"
 
 jobs:
   build:
@@ -44,7 +55,17 @@ jobs:
       - run: npm ci
       - run: node scripts/prepare-fdroid.cjs
       - run: node scripts/check-fdroid.cjs
-      - run: sh scripts/build-native-fdroid.sh
+      - run: sh scripts/build-native-fdroid.sh fetch
+
+      - name: Build the native libraries twice and compare
+        run: |
+          sh scripts/build-native-fdroid.sh build
+          sh scripts/native-hashes.sh > hashes-1.txt
+          sh scripts/build-native-fdroid.sh build
+          sh scripts/native-hashes.sh > hashes-2.txt
+          cat hashes-1.txt
+          diff hashes-1.txt hashes-2.txt
+
       - run: npx expo prebuild --platform android --no-install
 
       - name: Build the unsigned release APK

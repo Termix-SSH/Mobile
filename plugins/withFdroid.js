@@ -19,6 +19,10 @@ const withFdroid = (config) => {
     const key = "expo.camera.barcode-scanner-enabled";
     c.modResults = c.modResults.filter((p) => p.key !== key);
     c.modResults.push({ type: "property", key, value: "false" });
+    // Crunching PNGs differs between builds, so F-Droid asks for it off
+    const png = "android.enablePngCrunchInReleaseBuilds";
+    c.modResults = c.modResults.filter((p) => p.key !== png);
+    c.modResults.push({ type: "property", key: png, value: "false" });
     return c;
   });
   config = withAppBuildGradle(config, (c) => {
