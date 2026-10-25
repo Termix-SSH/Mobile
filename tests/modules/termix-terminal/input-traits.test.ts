@@ -44,6 +44,19 @@ describe("terminal keyboard on Android", () => {
   });
 });
 
+describe("copy on Android", () => {
+  it("gives the keyboard back after Copy (#101)", () => {
+    const copy = body(kotlin, /private fun copySelection\(\)/);
+    expect(copy).toMatch(/clearSelection\(\)/);
+    expect(copy).toMatch(/requestFocus\(\)/);
+  });
+
+  it("ends the selection when the copy menu item is tapped", () => {
+    const menu = body(kotlin, /override fun onActionItemClicked\(/);
+    expect(menu).toMatch(/copySelection\(\)/);
+  });
+});
+
 describe("terminal keyboard on iOS", () => {
   it("turns off capitals and autocorrect (#93)", () => {
     expect(
