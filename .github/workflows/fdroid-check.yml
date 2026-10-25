@@ -76,6 +76,8 @@ jobs:
         working-directory: android
         run: |
           ./gradlew :app:dependencies --configuration releaseRuntimeClasspath > ../deps.txt
+          ./gradlew :app:dependencyInsight --configuration releaseRuntimeClasspath             --dependency com.google.android.gms:play-services-code-scanner | head -40 || true
+          ./gradlew :app:dependencyInsight --configuration releaseRuntimeClasspath             --dependency com.google.mlkit:barcode-scanning | head -40 || true
           cd ..
           node scripts/check-fdroid.cjs deps.txt
 
