@@ -33,6 +33,7 @@ import { features, useRegistryVersion } from "@/core/features";
 import { MissingTab } from "@/screens/sessions/MissingTab";
 import { sessionHandles } from "@/core/sessions/handles";
 import { sessionStatus } from "@/core/sessions/status";
+import { isAppLocked, onAppUnlocked } from "@/core/lock";
 import { ConnectionsPanel } from "@/screens/sessions/ConnectionsPanel";
 import { Screen } from "@/components/Screen";
 import { Text } from "@/ui";
@@ -185,6 +186,8 @@ export default function Sessions() {
 
   /** Shows or hides the keyboard on the active terminal. */
   const keyboard = useCallback((action: "focus" | "blur" | "clear") => {
+    // Never focus under the lock pad, or the keyboard covers it (#100).
+    if (action === "focus" && isAppLocked()) return;
     if (HIDDEN_INPUT) {
       callImeInput(hiddenInputRef, action);
       return;
@@ -194,6 +197,21 @@ export default function Sessions() {
     if (action === "focus") target?.focus();
     else if (action === "blur") target?.blur();
   }, []);
+
+  // Give the keyboard back once the lock pad is gone.
+  useEffect(
+    () =>
+      onAppUnlocked(() => {
+        if (
+          activeIsTerminal &&
+          !isCustomKeyboardVisible &&
+          !keyboardIntentionallyHiddenRef.current
+        ) {
+          setTimeout(() => keyboard("focus"), 100);
+        }
+      }),
+    [activeIsTerminal, isCustomKeyboardVisible, keyboard],
+  );
 
   const dispatchCommittedText = useCallback(
     (text: string) => {

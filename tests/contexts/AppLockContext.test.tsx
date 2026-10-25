@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from "@testing-library/react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as LocalAuthentication from "expo-local-authentication";
 import { AppLockProvider, useAppLock } from "@/contexts/AppLockContext";
-import { onAppLocked } from "@/core/lock";
+import { isAppLocked, onAppLocked, onAppUnlocked } from "@/core/lock";
 import { resetStorage } from "../helpers/http";
 
 jest.mock("expo-local-authentication", () => ({
@@ -54,6 +54,21 @@ describe("AppLockProvider", () => {
     expect(result.current.locked).toBe(true);
     expect(hook).toHaveBeenCalled();
     expect(Keyboard.dismiss).toHaveBeenCalled();
+    off();
+  });
+
+  it("marks the app locked and runs unlock hooks once on unlock", async () => {
+    const unlock = jest.fn();
+    const off = onAppUnlocked(unlock);
+    const { result } = await setup();
+    expect(isAppLocked()).toBe(true);
+    expect(unlock).not.toHaveBeenCalled();
+    await act(async () => {
+      await result.current.unlockWithBiometrics();
+    });
+    expect(result.current.locked).toBe(false);
+    expect(isAppLocked()).toBe(false);
+    expect(unlock).toHaveBeenCalledTimes(1);
     off();
   });
 

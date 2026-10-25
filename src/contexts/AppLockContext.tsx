@@ -22,6 +22,8 @@ import {
   pinFailed,
   pinWaitLeft,
   runLockHooks,
+  runUnlockHooks,
+  setAppLocked,
   shouldCover,
   type LockAppState,
   type PinLimit,
@@ -136,6 +138,16 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
     runLockHooks();
     Keyboard.dismiss();
   }, [state.enabled, state.locked, state.resumes]);
+
+  const isLocked = state.enabled && state.locked;
+  const wasLocked = useRef(false);
+  useEffect(() => {
+    setAppLocked(isLocked);
+    if (wasLocked.current && !isLocked) runUnlockHooks();
+    wasLocked.current = isLocked;
+  }, [isLocked]);
+
+  useEffect(() => () => setAppLocked(false), []);
 
   // Tick while a PIN wait is running so the pad can show it.
   useEffect(() => {
