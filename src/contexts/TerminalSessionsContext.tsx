@@ -5,6 +5,7 @@ import React, {
   ReactNode,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
 } from "react";
 import { SSHHost } from "@/types";
@@ -751,35 +752,64 @@ export const TerminalSessionsProvider: React.FC<
     }
   }, [isAuthenticated, activeAccountId, refreshBackgroundTabs]);
 
+  // Every terminal and the tab bar read this; keep it stable between renders.
+  const value = useMemo(
+    () => ({
+      sessions,
+      activeSessionId,
+      backgroundTabRecords,
+      refreshBackgroundTabs,
+      addSession,
+      removeSession,
+      renameSession,
+      setShellTitle,
+      moveSession,
+      duplicateSession,
+      setActiveSession,
+      clearAllSessions,
+      closeAllSessions,
+      setResumeData,
+      setBackendSessionId,
+      setSessionTransport,
+      forgetBackgroundTab,
+      navigateToSessions,
+      isCustomKeyboardVisible,
+      toggleCustomKeyboard,
+      lastKeyboardHeight,
+      setLastKeyboardHeight,
+      keyboardIntentionallyHiddenRef,
+      setKeyboardIntentionallyHidden,
+    }),
+    [
+      sessions,
+      activeSessionId,
+      backgroundTabRecords,
+      refreshBackgroundTabs,
+      addSession,
+      removeSession,
+      renameSession,
+      setShellTitle,
+      moveSession,
+      duplicateSession,
+      setActiveSession,
+      clearAllSessions,
+      closeAllSessions,
+      setResumeData,
+      setBackendSessionId,
+      setSessionTransport,
+      forgetBackgroundTab,
+      navigateToSessions,
+      isCustomKeyboardVisible,
+      toggleCustomKeyboard,
+      lastKeyboardHeight,
+      setLastKeyboardHeight,
+      keyboardIntentionallyHiddenRef,
+      setKeyboardIntentionallyHidden,
+    ],
+  );
+
   return (
-    <TerminalSessionsContext.Provider
-      value={{
-        sessions,
-        activeSessionId,
-        backgroundTabRecords,
-        refreshBackgroundTabs,
-        addSession,
-        removeSession,
-        renameSession,
-        setShellTitle,
-        moveSession,
-        duplicateSession,
-        setActiveSession,
-        clearAllSessions,
-        closeAllSessions,
-        setResumeData,
-        setBackendSessionId,
-        setSessionTransport,
-        forgetBackgroundTab,
-        navigateToSessions,
-        isCustomKeyboardVisible,
-        toggleCustomKeyboard,
-        lastKeyboardHeight,
-        setLastKeyboardHeight,
-        keyboardIntentionallyHiddenRef,
-        setKeyboardIntentionallyHidden,
-      }}
-    >
+    <TerminalSessionsContext.Provider value={value}>
       {children}
     </TerminalSessionsContext.Provider>
   );

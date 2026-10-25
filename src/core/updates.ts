@@ -11,6 +11,7 @@ export async function getLatestGitHubRelease(): Promise<AppRelease | null> {
   try {
     const response = await axios.get(
       "https://api.github.com/repos/Termix-SSH/Mobile/releases/latest",
+      { timeout: 5000 },
     );
     const release = response.data;
     const tagName = release.tag_name;

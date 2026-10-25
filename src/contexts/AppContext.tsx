@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useRef,
   useCallback,
+  useMemo,
 } from "react";
 import { AppState, AppStateStatus } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -248,27 +249,40 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         sync.start();
         void updateBackgroundSync();
 
-        setShowUpdateScreen(await checkShouldShowUpdateScreen());
+        // Network checks run after the first screen shows.
+        void checkShouldShowUpdateScreen().then(setShowUpdateScreen);
 
         const current = accounts.active();
         const client = accounts.activeClient();
         if (isServerAccount(current) && client) {
-          setAuthenticatedState(await validateSession(current, client));
-          // A configured but signed out server lands on the empty state shell;
-          // the user opens the auth flow themselves.
+          // Trust the saved session until the server answers. A configured
+          // but signed out server lands on the empty state shell; the user
+          // opens the auth flow themselves.
+          setAuthenticatedState(
+            client.isAuthenticated() && current.status !== "signed_out",
+          );
+          void validateSession(current, client)
+            .then(setAuthenticatedState)
+            .catch(() => {})
+            // After the check, so its request never races the token swap.
+            .finally(() => void upgradeLogins());
+        } else {
+          void upgradeLogins();
         }
         // A brand new install gets the welcome screen, once.
+        const [done, hasLocalData, lockFlag] = await Promise.all([
+          onboardingDone(),
+          thisDeviceHasData(),
+          AsyncStorage.getItem(APP_LOCK_ENABLED_KEY),
+        ]);
         const state = {
-          done: await onboardingDone(),
+          done,
           hasServers: accounts.list().length > 1,
-          hasLocalData: await thisDeviceHasData(),
-          appLockOn:
-            (await AsyncStorage.getItem(APP_LOCK_ENABLED_KEY)) === "true",
+          hasLocalData,
+          appLockOn: lockFlag === "true",
         };
         if (shouldWelcome(state)) setWelcomeVisible(true);
         else if (alreadySetUp(state)) void markOnboardingDone();
-        // After the check above, so its request never races the token swap.
-        void upgradeLogins();
       } catch {
         setAuthenticatedState(false);
       } finally {
@@ -405,34 +419,57 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     }
   }, []);
 
-  const selectedServer: Server | null = isServerAccount(active)
-    ? { name: accountLabel(active), ip: active.serverUrl }
-    : null;
-
-  return (
-    <AppContext.Provider
-      value={{
-        selectedServer,
-        isAuthenticated,
-        setAuthenticated,
-        showUpdateScreen,
-        setShowUpdateScreen,
-        isLoading,
-        setIsLoading,
-        hasServerConfigured: isServerAccount(active),
-        finishSignIn,
-        accountSwitcherVisible,
-        openAccountSwitcher,
-        closeAccountSwitcher,
-        welcomeVisible,
-        finishWelcome,
-        authFlowVisible,
-        authFlowInitialStep,
-        openAuthFlow,
-        closeAuthFlow,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+  const serverName = isServerAccount(active) ? accountLabel(active) : null;
+  const serverUrl = isServerAccount(active) ? active.serverUrl : null;
+  const selectedServer = useMemo<Server | null>(
+    () =>
+      serverName !== null && serverUrl !== null
+        ? { name: serverName, ip: serverUrl }
+        : null,
+    [serverName, serverUrl],
   );
+
+  // Every screen reads this; a new object each render re-rendered all of them.
+  const value = useMemo(
+    () => ({
+      selectedServer,
+      isAuthenticated,
+      setAuthenticated,
+      showUpdateScreen,
+      setShowUpdateScreen,
+      isLoading,
+      setIsLoading,
+      hasServerConfigured: isServerAccount(active),
+      finishSignIn,
+      accountSwitcherVisible,
+      openAccountSwitcher,
+      closeAccountSwitcher,
+      welcomeVisible,
+      finishWelcome,
+      authFlowVisible,
+      authFlowInitialStep,
+      openAuthFlow,
+      closeAuthFlow,
+    }),
+    [
+      selectedServer,
+      isAuthenticated,
+      setAuthenticated,
+      showUpdateScreen,
+      isLoading,
+      active,
+      finishSignIn,
+      accountSwitcherVisible,
+      openAccountSwitcher,
+      closeAccountSwitcher,
+      welcomeVisible,
+      finishWelcome,
+      authFlowVisible,
+      authFlowInitialStep,
+      openAuthFlow,
+      closeAuthFlow,
+    ],
+  );
+
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

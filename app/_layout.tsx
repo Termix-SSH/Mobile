@@ -33,6 +33,7 @@ import { ConfirmProvider } from "@/ui/Confirm";
 import { SudoPromptHost } from "@/screens/exec/SudoPromptHost";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 import { FONT_MAP, MONO_FONT, MONO_FONT_BOLD } from "@/constants/fonts";
 import "../global.css";
 import UpdateRequired from "@/screens/authentication/UpdateRequired";
@@ -47,10 +48,17 @@ import { ShortcutSheet } from "@/screens/shortcuts/ShortcutSheet";
 import { useAppShortcuts } from "@/core/shortcuts/useAppShortcuts";
 import { CommandPalette } from "@/screens/palette/CommandPalette";
 import { LabLaunch } from "@/screens/dev/terminal-lab/LabLaunch";
+import { markStartup } from "@/core/perf/marks";
 // Defines the background sync task, which must exist when the app loads.
 import "@/core/sync/background";
 
 registerBuiltInFeatures();
+markStartup("bundle");
+
+// The native splash stays up until the first screen is ready, instead of a
+// blank view and then a spinner.
+SplashScreen.preventAutoHideAsync().catch(() => {});
+const SPLASH_MAX_MS = 3000;
 
 function RootLayoutContent() {
   const {
@@ -65,6 +73,12 @@ function RootLayoutContent() {
   usePluginFrameFeatures();
   useAppShortcuts();
   useWidgetSync();
+
+  useEffect(() => {
+    if (isLoading) return;
+    markStartup("ready");
+    SplashScreen.hideAsync().catch(() => {});
+  }, [isLoading]);
 
   if (isLoading) {
     return (
@@ -151,10 +165,21 @@ function ThemedStatusBar() {
 }
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts(FONT_MAP);
+  const [loaded, fontError] = useFonts(FONT_MAP);
+  // A font that fails to load falls back to the system font.
+  const fontsLoaded = loaded || !!fontError;
   useEffect(() => {
     loadUiPrefs().catch(() => {});
+    // A slow start shows the loading screen, which has a Cancel button.
+    const timer = setTimeout(
+      () => SplashScreen.hideAsync().catch(() => {}),
+      SPLASH_MAX_MS,
+    );
+    return () => clearTimeout(timer);
   }, []);
+  useEffect(() => {
+    if (fontsLoaded) markStartup("fonts");
+  }, [fontsLoaded]);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
