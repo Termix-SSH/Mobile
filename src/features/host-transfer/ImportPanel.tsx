@@ -13,6 +13,7 @@ import {
   runImport,
   type ImportSource,
 } from "./read";
+import { canScanQr } from "@/core/distribution";
 import { ScanSheet } from "./ScanSheet";
 
 /**
@@ -82,9 +83,11 @@ export function ImportPanel({
         >
           Paste
         </Button>
-        <Button variant="muted" onPress={() => setScanning(true)}>
-          Scan a code
-        </Button>
+        {canScanQr ? (
+          <Button variant="muted" onPress={() => setScanning(true)}>
+            Scan a code
+          </Button>
+        ) : null}
       </View>
       {source ? (
         <View className="gap-2 border border-border bg-muted/30 p-3">
@@ -138,14 +141,16 @@ export function ImportPanel({
           ) : null}
         </View>
       ) : null}
-      <ScanSheet
-        visible={scanning}
-        onClose={() => setScanning(false)}
-        onScanned={(text) => {
-          setScanning(false);
-          read(text);
-        }}
-      />
+      {canScanQr ? (
+        <ScanSheet
+          visible={scanning}
+          onClose={() => setScanning(false)}
+          onScanned={(text) => {
+            setScanning(false);
+            read(text);
+          }}
+        />
+      ) : null}
     </View>
   );
 }
