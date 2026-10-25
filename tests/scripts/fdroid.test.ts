@@ -23,6 +23,11 @@ test("the F-Droid config drops download and dev plugins and adds its own", () =>
   expect(names).not.toContain("./plugins/withTermixTerminal.js");
   expect(names).toContain("./plugins/withFdroid.js");
   expect(names).toContain("expo-router");
+  const camera = out.plugins.find(
+    (p: unknown) => Array.isArray(p) && p[0] === "expo-camera",
+  );
+  expect(camera[1].barcodeScannerEnabled).toBe(false);
+  expect(camera[1].cameraPermission).toBe("Scan a host QR code.");
   expect(out.android.versionCode).toBe(20000);
   expect(out.extra.distribution).toBe("fdroid");
   expect(out.extra.router).toEqual(base.extra.router);

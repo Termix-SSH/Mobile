@@ -36,9 +36,17 @@ function pluginName(entry) {
 
 /** Returns the Expo config for the F-Droid variant. Does not change the input. */
 function applyFdroid(config) {
-  const plugins = (config.plugins ?? []).filter(
-    (p) => !DROPPED_PLUGINS.includes(pluginName(p)),
-  );
+  // expo-camera's own option leaves out ML Kit and the Play Services scanner
+  const plugins = (config.plugins ?? [])
+    .filter((p) => !DROPPED_PLUGINS.includes(pluginName(p)))
+    .map((p) =>
+      pluginName(p) === "expo-camera"
+        ? [
+            "expo-camera",
+            { ...(Array.isArray(p) ? p[1] : {}), barcodeScannerEnabled: false },
+          ]
+        : p,
+    );
   plugins.push("./plugins/withFdroid.js");
   return {
     ...config,

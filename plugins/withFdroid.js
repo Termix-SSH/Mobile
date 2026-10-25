@@ -12,13 +12,10 @@ function unsignRelease(gradle) {
   );
 }
 
-// F-Droid variant: no ML Kit QR decoder (it needs Play Services), no JitPack and an
+// F-Droid variant: no JitPack and an
 // unsigned release APK, because F-Droid signs it.
 const withFdroid = (config) => {
   config = withGradleProperties(config, (c) => {
-    const key = "expo.camera.barcode-scanner-enabled";
-    c.modResults = c.modResults.filter((p) => p.key !== key);
-    c.modResults.push({ type: "property", key, value: "false" });
     // Crunching PNGs differs between builds, so F-Droid asks for it off
     const png = "android.enablePngCrunchInReleaseBuilds";
     c.modResults = c.modResults.filter((p) => p.key !== png);
