@@ -111,13 +111,24 @@ export function localRepositories(
       .get()?.syncId ||
     `id:${host.id}`;
 
+  let hostList: Promise<SSHHost[]> | null = null;
+
   return {
     source: "local",
     hosts: {
       subscribe: watch(hosts),
-      async list() {
-        const rows = (await db()).select().from(hosts).all();
-        return rows.map(hostFromRow);
+      list() {
+        // The widget, Home and Hosts all reload on the same change; they
+        // share one read. Only a read still running is shared, so none is stale.
+        if (!hostList) {
+          hostList = (async () => {
+            const rows = (await db()).select().from(hosts).all();
+            return rows.map(hostFromRow);
+          })().finally(() => {
+            hostList = null;
+          });
+        }
+        return hostList.then((list) => list.slice());
       },
       async get(id) {
         const row = (await db())

@@ -615,3 +615,14 @@ test("a host's color and icon round trip and stay when an edit leaves them out",
   });
   expect(cleared).toMatchObject({ color: null, icon: null });
 });
+
+test("lists asked at the same time share one read, and a later list sees new hosts", async () => {
+  const { repos } = setup();
+  await repos.hosts.create(fullHost);
+  const [a, b] = await Promise.all([repos.hosts.list(), repos.hosts.list()]);
+  expect(a).toHaveLength(1);
+  expect(a).not.toBe(b);
+  expect(a[0]).toBe(b[0]);
+  await repos.hosts.create({ ...fullHost, name: "second" });
+  expect(await repos.hosts.list()).toHaveLength(2);
+});
