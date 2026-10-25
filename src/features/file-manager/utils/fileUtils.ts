@@ -132,12 +132,25 @@ export function formatDate(
     if (diffDays < 7) return `${diffDays}d ago`;
   }
 
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: date.getFullYear() !== now.getFullYear() ? "numeric" : undefined,
-  });
+  return date.getFullYear() !== now.getFullYear()
+    ? DATE_WITH_YEAR.format(date)
+    : DATE_SHORT.format(date);
 }
+
+// Made once: building a formatter per row is what made long lists slow.
+const DATE_SHORT = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+});
+const DATE_WITH_YEAR = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+const NAME_ORDER = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: "base",
+});
 
 /** A full date and time for the properties view. */
 export function formatDateTime(seconds: number | null | undefined): string {
@@ -163,22 +176,23 @@ export function sortEntries<
     targetType?: string | null;
   },
 >(files: T[], sortBy: SortBy = "name", order: "asc" | "desc" = "asc"): T[] {
-  const isDir = (f: T) =>
-    f.type === "directory" ||
-    (f.type === "link" && f.targetType === "directory");
-  return [...files].sort((a, b) => {
-    if (isDir(a) !== isDir(b)) return isDir(a) ? -1 : 1;
+  const items = files.map((file) => ({
+    file,
+    dir:
+      file.type === "directory" ||
+      (file.type === "link" && file.targetType === "directory"),
+  }));
+  const sign = order === "asc" ? 1 : -1;
+  items.sort((a, b) => {
+    if (a.dir !== b.dir) return a.dir ? -1 : 1;
     let compare = 0;
-    if (sortBy === "size") compare = (a.size || 0) - (b.size || 0);
-    else if (sortBy === "modified") compare = (a.mtime ?? 0) - (b.mtime ?? 0);
-    if (compare === 0) {
-      compare = a.name.localeCompare(b.name, undefined, {
-        numeric: true,
-        sensitivity: "base",
-      });
-    }
-    return order === "asc" ? compare : -compare;
+    if (sortBy === "size") compare = (a.file.size || 0) - (b.file.size || 0);
+    else if (sortBy === "modified")
+      compare = (a.file.mtime ?? 0) - (b.file.mtime ?? 0);
+    if (compare === 0) compare = NAME_ORDER.compare(a.file.name, b.file.name);
+    return sign * compare;
   });
+  return items.map((item) => item.file);
 }
 
 /** Octal like 755, and the ls style string like rwxr-xr-x. */

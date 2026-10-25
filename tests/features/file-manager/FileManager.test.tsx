@@ -1,4 +1,10 @@
-import { act, fireEvent, render, screen } from "@testing-library/react-native";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react-native";
 import { ConfirmProvider } from "@/ui";
 import { FileManager } from "@/features/file-manager/FileManager";
 import type {
@@ -117,7 +123,8 @@ test("hidden files follow the setting and search filters by name", async () => {
     screen.getByPlaceholderText("Filter by name"),
     "app",
   );
-  expect(screen.queryByText(".env")).toBeNull();
+  // The search waits for typing to stop.
+  await waitFor(() => expect(screen.queryByText(".env")).toBeNull());
   expect(screen.getByText("app.ts")).toBeTruthy();
 });
 

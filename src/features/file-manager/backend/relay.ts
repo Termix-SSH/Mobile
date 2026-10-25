@@ -1,7 +1,8 @@
 import type { AccountClient } from "@/core/api/AccountClient";
 import { AppError } from "@/core/errors";
 import { openReader, openWriter } from "./local-io";
-import { joinRemote, remoteName, remoteParent } from "./paths";
+import { mapLimit } from "@/utils/limit";
+import { joinRemote, LINK_LOOKUPS, remoteName, remoteParent } from "./paths";
 import { TrashUnavailableError } from "./sftp";
 import type { FileBackend, FileEntry, FileType } from "./types";
 
@@ -11,6 +12,18 @@ export const UPLOAD_CHUNK = 4 * 1024 * 1024;
 /** `rwxr-xr-x` (with or without the type letter) as permission bits. */
 export function parseModeString(text: unknown): number | null {
   if (typeof text !== "string") return null;
+  // A folder has only a few distinct modes, so each is parsed once.
+  const cached = MODES.get(text);
+  if (cached !== undefined) return cached;
+  const mode = readMode(text);
+  if (MODES.size > 256) MODES.clear();
+  MODES.set(text, mode);
+  return mode;
+}
+
+const MODES = new Map<string, number | null>();
+
+function readMode(text: string): number | null {
   if (/^[0-7]{3,4}$/.test(text)) return parseInt(text, 8);
   const perms = text.length === 10 ? text.slice(1) : text;
   if (!/^[rwxsStT-]{9}$/.test(perms)) return null;
@@ -93,7 +106,11 @@ export function createRelayBackend(
 
     async list(path) {
       const result = await list(path);
-      await Promise.all(result.files.map(linkType));
+      await mapLimit(
+        result.files.filter((f) => f.type === "link"),
+        LINK_LOOKUPS,
+        linkType,
+      );
       return result;
     },
 

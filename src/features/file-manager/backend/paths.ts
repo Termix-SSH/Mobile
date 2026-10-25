@@ -1,3 +1,6 @@
+/** Link targets looked up at once while listing a folder. */
+export const LINK_LOOKUPS = 6;
+
 /** Joins remote path parts with single slashes. */
 export function joinRemote(dir: string, name: string): string {
   if (!dir || dir === "/") return `/${name.replace(/^\/+/, "")}`;

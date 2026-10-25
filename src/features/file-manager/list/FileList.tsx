@@ -1,13 +1,21 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import {
   FlatList,
   RefreshControl,
+  type ListRenderItem,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from "react-native";
 import { useUiColors } from "@/contexts/ThemeContext";
 import type { FileEntry } from "../backend/types";
 import { FileRow, ROW_HEIGHT } from "./FileRow";
+
+const keyOf = (f: FileEntry) => f.path;
+const itemLayout = (_: unknown, index: number) => ({
+  length: ROW_HEIGHT,
+  offset: ROW_HEIGHT * index,
+  index,
+});
 
 /**
  * A virtualized list with fixed row heights. The scroll spot is kept per
@@ -55,19 +63,34 @@ export function FileList({
     offsets.current.set(pathRef.current, e.nativeEvent.contentOffset.y);
   }, []);
 
-  const rowColors = { muted: colors.textMuted, brand: colors.brand };
+  const rowColors = useMemo(
+    () => ({ muted: colors.textMuted, brand: colors.brand }),
+    [colors.textMuted, colors.brand],
+  );
+
+  const renderItem = useCallback<ListRenderItem<FileEntry>>(
+    ({ item, index }) => (
+      <FileRow
+        file={item}
+        index={index}
+        selecting={selecting}
+        selected={selected.has(item.path)}
+        colors={rowColors}
+        onPress={onPress}
+        onLongPress={onLongPress}
+        onMenu={onMenu}
+      />
+    ),
+    [selecting, selected, rowColors, onPress, onLongPress, onMenu],
+  );
 
   return (
     <FlatList
       ref={list}
       data={files}
-      keyExtractor={(f) => f.path}
+      keyExtractor={keyOf}
       extraData={`${selecting}:${selected.size}:${colors.brand}`}
-      getItemLayout={(_, index) => ({
-        length: ROW_HEIGHT,
-        offset: ROW_HEIGHT * index,
-        index,
-      })}
+      getItemLayout={itemLayout}
       initialNumToRender={20}
       maxToRenderPerBatch={30}
       windowSize={11}
@@ -84,18 +107,7 @@ export function FileList({
           tintColor={colors.textMuted}
         />
       }
-      renderItem={({ item, index }) => (
-        <FileRow
-          file={item}
-          index={index}
-          selecting={selecting}
-          selected={selected.has(item.path)}
-          colors={rowColors}
-          onPress={onPress}
-          onLongPress={onLongPress}
-          onMenu={onMenu}
-        />
-      )}
+      renderItem={renderItem}
     />
   );
 }

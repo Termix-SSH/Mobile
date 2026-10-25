@@ -4,7 +4,14 @@ import {
   type SshError,
   type SshFileEntry,
 } from "@/modules/termix-ssh";
-import { copyName, joinRemote, remoteName, shellQuote } from "./paths";
+import { mapLimit } from "@/utils/limit";
+import {
+  copyName,
+  joinRemote,
+  LINK_LOOKUPS,
+  remoteName,
+  shellQuote,
+} from "./paths";
 import {
   deleteTrashItem,
   emptyTrash,
@@ -181,17 +188,17 @@ export function createSftpBackend(
         .filter((e) => e.name !== "." && e.name !== "..")
         .map((e) => toEntry(resolved, e));
       // A link's target decides whether it opens as a folder.
-      await Promise.all(
-        files
-          .filter((f) => f.type === "link")
-          .map(async (f) => {
-            try {
-              const target = await run((s) => s.sftp.stat(f.path));
-              f.targetType = target.isDir ? "directory" : "file";
-            } catch {
-              f.targetType = null;
-            }
-          }),
+      await mapLimit(
+        files.filter((f) => f.type === "link"),
+        LINK_LOOKUPS,
+        async (f) => {
+          try {
+            const target = await run((s) => s.sftp.stat(f.path));
+            f.targetType = target.isDir ? "directory" : "file";
+          } catch {
+            f.targetType = null;
+          }
+        },
       );
       await fillNames(files);
       return { path: resolved, files };

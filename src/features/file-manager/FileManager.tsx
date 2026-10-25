@@ -88,6 +88,7 @@ import { TransferManager, type TransferInput } from "./transfers/manager";
 import { summarize, type Transfer } from "./transfers/queue";
 import { TransfersPanel, useTransfers } from "./transfers/TransfersPanel";
 import { isTextFile, modeText, sortEntries } from "./utils/fileUtils";
+import { useDebouncedValue, useStableCallback } from "@/utils/hooks";
 
 export interface FileManagerHandle {
   /** The folder on screen. */
@@ -186,6 +187,8 @@ export const FileManager = forwardRef<
   const [loading, setLoading] = useState(false);
   const [listError, setListError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
+  // Each keystroke would sort a big folder again.
+  const searchText = useDebouncedValue(query, 150);
   const [searching, setSearching] = useState(false);
   const [selecting, setSelecting] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -298,11 +301,17 @@ export const FileManager = forwardRef<
   const shown = useMemo(
     () =>
       sortEntries(
-        visibleFiles(files, query, settings.showHidden),
+        visibleFiles(files, searchText, settings.showHidden),
         settings.sortBy,
         settings.sortOrder,
       ),
-    [files, query, settings.showHidden, settings.sortBy, settings.sortOrder],
+    [
+      files,
+      searchText,
+      settings.showHidden,
+      settings.sortBy,
+      settings.sortOrder,
+    ],
   );
 
   const run = async (label: string, fn: () => Promise<unknown>) => {
@@ -587,6 +596,18 @@ export const FileManager = forwardRef<
     setSelecting(false);
     setSelected(new Set());
   };
+
+  // Stable, so the memoized rows only re-render when their own file changes.
+  const onRefreshList = useStableCallback(() => void load(pathRef.current));
+  const onPressRow = useStableCallback((f: FileEntry) => void open(f));
+  const onLongPressRow = useStableCallback((f: FileEntry) => {
+    if (compact) {
+      setMenu(f);
+      return;
+    }
+    setSelecting(true);
+    toggle(f);
+  });
 
   useImperativeHandle(ref, () => ({
     currentPath: () => pathRef.current,
@@ -875,16 +896,9 @@ export const FileManager = forwardRef<
         selected={selected}
         selecting={selecting}
         refreshing={loading && !!files.length}
-        onRefresh={() => void load(path)}
-        onPress={(f) => void open(f)}
-        onLongPress={(f) => {
-          if (compact) {
-            setMenu(f);
-            return;
-          }
-          setSelecting(true);
-          toggle(f);
-        }}
+        onRefresh={onRefreshList}
+        onPress={onPressRow}
+        onLongPress={onLongPressRow}
         onMenu={setMenu}
         empty={
           loading ? (

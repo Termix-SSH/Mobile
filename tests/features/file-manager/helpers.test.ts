@@ -105,6 +105,23 @@ describe("file utils", () => {
     expect(formatDate(null, now)).toBe("");
   });
 
+  test("older dates show the day, and the year when it is another year", () => {
+    const now = new Date("2026-10-24T12:00:00Z");
+    expect(formatDate("2026-03-04T12:00:00Z", now)).toBe("Mar 4");
+    expect(formatDate("2025-03-04T12:00:00Z", now)).toBe("Mar 4, 2025");
+  });
+
+  test("sorting ignores case and keeps the input as it was", () => {
+    const files = [entry({ name: "B.txt" }), entry({ name: "a.txt" })];
+    const before = files.map((f) => f.name);
+    expect(sortEntries(files).map((f) => f.name)).toEqual(["a.txt", "B.txt"]);
+    expect(sortEntries(files, "name", "desc").map((f) => f.name)).toEqual([
+      "B.txt",
+      "a.txt",
+    ]);
+    expect(files.map((f) => f.name)).toEqual(before);
+  });
+
   test("mode text gives octal and rwx", () => {
     expect(modeText(0o755)).toEqual({ octal: "755", symbolic: "rwxr-xr-x" });
     expect(modeText(0o4644).octal).toBe("4644");
