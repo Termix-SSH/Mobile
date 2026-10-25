@@ -1,12 +1,16 @@
 // Hermes has btoa/atob but no TextDecoder, so these are done by hand.
 
-// Small slices: Hermes runs out of stack spreading 32K arguments.
+// Small slices: Hermes runs out of stack on 32K arguments. apply is much
+// faster than a spread here.
 const CHUNK = 0x1000;
 
 export function toBase64(bytes: Uint8Array): string {
   let binary = "";
   for (let i = 0; i < bytes.length; i += CHUNK) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + CHUNK));
+    binary += String.fromCharCode.apply(
+      null,
+      bytes.subarray(i, i + CHUNK) as unknown as number[],
+    );
   }
   return btoa(binary);
 }

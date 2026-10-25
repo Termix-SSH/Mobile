@@ -320,6 +320,26 @@ describe("termix-ssh channels", () => {
     expect(onData).toHaveBeenCalledTimes(1);
   });
 
+  it("two shells share one native listener and each gets only its data", async () => {
+    const { ssh, s } = await session();
+    const a = jest.fn();
+    const b = jest.fn();
+    const before = mockListeners.get("onShellData")?.size ?? 0;
+    const one = await s.openShell({ cols: 80, rows: 24 }, { onData: a });
+    const two = await s.openShell({ cols: 80, rows: 24 }, { onData: b });
+    expect(mockListeners.get("onShellData")!.size).toBe(before + 1);
+    const idTwo = mockNative.openShell.mock.calls.at(-1)![1];
+    emit("onShellData", {
+      shellId: idTwo,
+      data: ssh.toBase64(new Uint8Array([7])),
+    });
+    expect(a).not.toHaveBeenCalled();
+    expect(b).toHaveBeenCalledTimes(1);
+    one.release();
+    two.release();
+    expect(mockListeners.get("onShellData")!.size).toBe(before);
+  });
+
   it("passes the pipe id and reports when piped output starts", async () => {
     const { s } = await session();
     const onActive = jest.fn();

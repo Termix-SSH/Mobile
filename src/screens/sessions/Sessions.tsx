@@ -132,7 +132,6 @@ export default function Sessions() {
   const [terminalBackgroundColors, setTerminalBackgroundColors] = useState<
     Record<string, string>
   >({});
-  const isSelectingRef = useRef(false);
 
   const maxKeyboardHeight = getMaxKeyboardHeight(height, isLandscape, isIPad);
   const effectiveKeyboardHeight = isLandscape
@@ -515,21 +514,6 @@ export default function Sessions() {
     setHardwareKeyboardEnabled(HIDDEN_INPUT);
     return () => setHardwareKeyboardEnabled(false);
   }, []);
-
-  useEffect(() => {
-    if (!HIDDEN_INPUT || !activeSessionId || !activeIsTerminal) return;
-
-    // Keyboard stays put while selecting. Hiding it resized the terminal and
-    // made the text jump under the finger.
-    const checkSelectionState = () => {
-      const activeRef = tabRefs.current[activeSessionId];
-      if (!activeRef?.current) return;
-      isSelectingRef.current = activeRef.current.isSelecting();
-    };
-
-    const interval = setInterval(checkSelectionState, 50);
-    return () => clearInterval(interval);
-  }, [activeSessionId, activeSession?.type]);
 
   useEffect(() => {
     const activeRef = activeSessionId ? tabRefs.current[activeSessionId] : null;
@@ -1209,8 +1193,7 @@ export default function Sessions() {
                   !isCustomKeyboardVisible &&
                   activeIsTerminal &&
                   !isDialogOpen &&
-                  !isCurrentlySelecting &&
-                  !isSelectingRef.current
+                  !isCurrentlySelecting
                 ) {
                   requestAnimationFrame(() => {
                     const stillNotSelecting =

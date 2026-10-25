@@ -110,6 +110,53 @@ function on<K extends keyof NativeEvents>(
   return native().addListener(event, listener as (p: never) => void);
 }
 
+type Route = {
+  sub: { remove(): void };
+  byId: Map<string, Set<(payload: never) => void>>;
+};
+const routes = new Map<string, Route>();
+
+/**
+ * One native listener per event, handed to the shell or command it names.
+ * With a listener per shell, every chunk ran through every open shell.
+ */
+function onId<K extends keyof NativeEvents>(
+  event: K,
+  key: keyof NativeEvents[K],
+  id: string,
+  listener: (payload: NativeEvents[K]) => void,
+): { remove(): void } {
+  let route = routes.get(event);
+  if (!route) {
+    const byId: Route["byId"] = new Map();
+    const sub = on(event, (e) => {
+      const set = byId.get(String(e[key]));
+      set?.forEach((l) => (l as (p: NativeEvents[K]) => void)(e));
+    });
+    route = { sub, byId };
+    routes.set(event, route);
+  }
+  const current = route;
+  let set = current.byId.get(id);
+  if (!set) {
+    set = new Set();
+    current.byId.set(id, set);
+  }
+  const entry = listener as (payload: never) => void;
+  set.add(entry);
+  return {
+    remove() {
+      const ids = current.byId.get(id);
+      if (!ids?.delete(entry)) return;
+      if (ids.size === 0) current.byId.delete(id);
+      if (current.byId.size === 0 && routes.get(event) === current) {
+        current.sub.remove();
+        routes.delete(event);
+      }
+    },
+  };
+}
+
 let counter = 0;
 function newId(prefix: string): string {
   counter += 1;
@@ -194,14 +241,11 @@ export class SshShell {
     handlers: ShellHandlers,
   ) {
     this.subs.push(
-      on("onShellData", (e) => {
-        if (e.shellId === id) handlers.onData(fromBase64(e.data));
-      }),
-      on("onShellActive", (e) => {
-        if (e.shellId === id) handlers.onActive?.();
-      }),
-      on("onShellExit", (e) => {
-        if (e.shellId !== id) return;
+      onId("onShellData", "shellId", id, (e) =>
+        handlers.onData(fromBase64(e.data)),
+      ),
+      onId("onShellActive", "shellId", id, () => handlers.onActive?.()),
+      onId("onShellExit", "shellId", id, (e) => {
         this.release();
         handlers.onExit?.(e.exitCode, e.exitSignal ?? null);
       }),
@@ -252,14 +296,12 @@ export class SshExec {
     handlers: ExecHandlers,
   ) {
     this.subs.push(
-      on("onExecData", (e) => {
-        if (e.execId !== id) return;
+      onId("onExecData", "execId", id, (e) => {
         const bytes = fromBase64(e.data);
         if (e.stream === "stderr") handlers.onStderr?.(bytes);
         else handlers.onStdout(bytes);
       }),
-      on("onExecExit", (e) => {
-        if (e.execId !== id) return;
+      onId("onExecExit", "execId", id, (e) => {
         this.release();
         handlers.onExit?.(e.exitCode, e.exitSignal ?? null);
       }),

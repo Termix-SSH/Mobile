@@ -4,7 +4,26 @@ const ALPHABET =
 const LOOKUP = new Uint8Array(128);
 for (let i = 0; i < ALPHABET.length; i++) LOOKUP[ALPHABET.charCodeAt(i)] = i;
 
+// Hermes has native btoa and atob, much faster than the loops below.
+const hasNative = typeof btoa === "function" && typeof atob === "function";
+// Small slices: Hermes runs out of stack spreading 32K arguments.
+const SLICE = 0x1000;
+
 export function toBase64(bytes: Uint8Array): string {
+  if (hasNative) {
+    let binary = "";
+    for (let i = 0; i < bytes.length; i += SLICE) {
+      binary += String.fromCharCode.apply(
+        null,
+        bytes.subarray(i, i + SLICE) as unknown as number[],
+      );
+    }
+    return btoa(binary);
+  }
+  return toBase64Slow(bytes);
+}
+
+function toBase64Slow(bytes: Uint8Array): string {
   let out = "";
   let i = 0;
   for (; i + 2 < bytes.length; i += 3) {
@@ -31,6 +50,20 @@ export function toBase64(bytes: Uint8Array): string {
 }
 
 export function fromBase64(text: string): Uint8Array {
+  if (hasNative) {
+    try {
+      const binary = atob(text);
+      const out = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) out[i] = binary.charCodeAt(i);
+      return out;
+    } catch {
+      // Not strict base64; the loop below skips stray characters.
+    }
+  }
+  return fromBase64Slow(text);
+}
+
+function fromBase64Slow(text: string): Uint8Array {
   const clean = text.replace(/[^A-Za-z0-9+/]/g, "");
   const out = new Uint8Array(Math.floor((clean.length * 3) / 4));
   let o = 0;

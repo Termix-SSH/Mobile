@@ -132,3 +132,9 @@ test("shared hosts and hosts with no password are never offered a fill", () => {
   ).toBe(false);
   expect(hostCanFill({} as SSHHost)).toBe(false);
 });
+
+test("a prompt at the end of a big colored chunk is still seen", () => {
+  const { w, offers } = watcher();
+  w.feed("\x1b[32mlog line\x1b[0m\r\n".repeat(500) + "Password: ");
+  expect(offers).toHaveLength(1);
+});

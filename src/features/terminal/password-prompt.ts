@@ -80,7 +80,10 @@ export class PromptWatcher {
 
   /** A chunk of output. Prompts can arrive split, so a rolling buffer is matched. */
   feed(output: string): void {
-    this.buffer = (this.buffer + stripAnsi(output)).slice(-BUFFER);
+    // Only the end can hold a prompt, so a big chunk is cut before the regex.
+    const tail =
+      output.length > BUFFER * 4 ? output.slice(-BUFFER * 4) : output;
+    this.buffer = (this.buffer + stripAnsi(tail)).slice(-BUFFER);
     this.check();
   }
 
