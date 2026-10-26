@@ -100,6 +100,8 @@ import {
   type XtermTerminalApi,
 } from "./xterm/XtermTerminalView";
 import { XTERM_FALLBACK } from "./fallback";
+import { trace } from "@/core/log/trace";
+import { startNativeTrace } from "./native-trace";
 
 interface TerminalProps {
   host: SSHHost;
@@ -579,6 +581,23 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       });
     connRef.current = conn;
 
+    const tag = `${tabInstanceId?.slice(0, 8) ?? "tab"}/c${conn.traceId}`;
+    const tagRef = useRef(tag);
+    tagRef.current = tag;
+    useEffect(() => {
+      startNativeTrace();
+      trace("term", "mounted", {
+        tab: tag,
+        pipe: pipeId,
+        restored: !!restored,
+      });
+      return () => trace("term", "unmounted", { tab: tag });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    useEffect(() => {
+      trace("term", isVisible ? "shown" : "hidden", { tab: tag });
+    }, [isVisible, tag]);
+
     const onStatusRef = useRef(onStatus);
     onStatusRef.current = onStatus;
     useEffect(() => {
@@ -652,18 +671,38 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       sizeRef.current = null;
       setEverHadData(false);
       connectedBefore.current = false;
+      trace("term", "new connection, fresh view", { tab: tagRef.current });
       setViewKey((k) => k + 1);
     }, [conn]);
+    useEffect(() => {
+      trace("term", "view state", {
+        tab: tag,
+        status: state.status,
+        hasData: hasReceivedData,
+        showView,
+        viewKey,
+      });
+    }, [tag, state.status, hasReceivedData, showView, viewKey]);
 
     // A restored tab that isn't shown waits, so a launch doesn't open them all at once.
     // Drop the keyboard so it never covers a prompt like the host key check.
     const prompting = state.status === "prompt";
     useEffect(() => {
-      if (prompting && isVisible) nativeRef.current?.blur();
+      if (prompting && isVisible) {
+        trace("term", "blur for a prompt", { tab: tagRef.current });
+        nativeRef.current?.blur();
+      }
     }, [prompting, isVisible]);
 
     const deferConnect = useRef(!!restored && !isVisible);
     const handleResize = useCallback((cols: number, rows: number) => {
+      trace("term", "view size", {
+        tab: tagRef.current,
+        cols,
+        rows,
+        deferred: deferConnect.current,
+        connectedOnce: connectedOnce.current,
+      });
       sizeRef.current = { cols, rows };
       if (!connectedOnce.current) {
         if (deferConnect.current) return;
@@ -775,8 +814,20 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     const keyTarget = useMemo<TerminalKeyTarget>(
       () => ({
-        focus: () => nativeRef.current?.focus(),
-        blur: () => nativeRef.current?.blur(),
+        focus: () => {
+          trace("term", "focus", {
+            tab: tagRef.current,
+            hasView: !!nativeRef.current,
+          });
+          nativeRef.current?.focus();
+        },
+        blur: () => {
+          trace("term", "blur", {
+            tab: tagRef.current,
+            hasView: !!nativeRef.current,
+          });
+          nativeRef.current?.blur();
+        },
         sendKey: (name, shift) =>
           nativeRef.current?.sendKey(name as never, shift),
         typeText: (text) => nativeRef.current?.typeText(text),
@@ -821,8 +872,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     const background = settings.colors.background;
 
+    // Every wrapper around the native terminal stays a real view. If Fabric flattens one
+    // (a plain view turning opacity back to 1), the terminal is moved to another parent:
+    // iOS drops its keyboard and the view can come back blank.
     return (
       <View
+        collapsable={false}
         style={{
           flex: isVisible ? 1 : 0,
           width: "100%",
@@ -836,6 +891,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         }}
       >
         <View
+          collapsable={false}
           style={{
             flex: 1,
             opacity: isVisible ? 1 : 0,
@@ -844,6 +900,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           }}
         >
           <View
+            collapsable={false}
             style={{ flex: 1, backgroundColor: background }}
             pointerEvents={isDialogOpen ? "none" : "auto"}
           >
@@ -869,7 +926,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 }}
               />
             ) : (
-              <View style={{ flex: 1, opacity: showView ? 1 : 0 }}>
+              <View
+                collapsable={false}
+                style={{ flex: 1, opacity: showView ? 1 : 0 }}
+              >
                 <TerminalView
                   key={`native-${hostConfig.id}-${viewKey}`}
                   ref={nativeRef}

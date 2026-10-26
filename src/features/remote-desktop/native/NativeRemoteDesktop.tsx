@@ -490,6 +490,7 @@ export function NativeRemoteDesktop({
 
   return (
     <View
+      collapsable={false}
       testID="native-remote-desktop"
       pointerEvents={isVisible ? "auto" : "none"}
       style={[
