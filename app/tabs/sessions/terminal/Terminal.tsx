@@ -1118,17 +1118,68 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       var scrollStartX = 0;
       var scrollStartY = 0;
       var pendingLines = 0;
+      // Fling: finger velocity in lines/ms, sampled over the last moves.
+      var velocity = 0;
+      var lastMoveTime = 0;
+      var flingFrame = null;
+      function stopFling() {
+        if (flingFrame !== null) cancelAnimationFrame(flingFrame);
+        flingFrame = null;
+      }
       function resetScroll() {
         scrollTouchY = null;
         pendingLines = 0;
+        velocity = 0;
       }
       var lineH = terminal._core._renderService.dimensions.css.cell.height || ${baseFontSize * 1.2};
+
+      // Send lines of wheel input at the gesture's start position, like a
+      // resting mouse pointer. Without clientX/clientY xterm encodes it at
+      // cell 1;1, so TUIs with several panes (herdr, tmux) scrolled the
+      // top-left one instead of the touched one. With mouse tracking on,
+      // xterm sends one report per wheel event regardless of deltaY, so
+      // dispatch one event per line there.
+      function sendWheelLines(lines) {
+        var perEvent = terminal.modes.mouseTrackingMode !== 'none';
+        var count = perEvent ? Math.abs(lines) : 1;
+        var delta = perEvent ? Math.sign(lines) : lines;
+        try {
+          withStdin(function() {
+            for (var i = 0; i < count; i++) {
+              terminal.element.dispatchEvent(new WheelEvent('wheel', {
+                deltaY: delta,
+                deltaMode: WheelEvent.DOM_DELTA_LINE,
+                clientX: scrollStartX,
+                clientY: scrollStartY,
+                cancelable: true
+              }));
+            }
+          });
+        } catch(e2) {
+          console.warn('[Terminal] touch scroll failed', e2);
+        }
+      }
+
+      function addLines(amount) {
+        pendingLines += amount;
+        var whole = Math.trunc(pendingLines);
+        if (whole !== 0) {
+          pendingLines -= whole;
+          wheelSentThisGesture = true;
+          sendWheelLines(whole);
+        }
+      }
+
       terminalElement.addEventListener('touchstart', function(e) {
+        // Any new touch stops a running fling.
+        stopFling();
         if (e.touches.length === 1) {
           scrollTouchY = e.touches[0].clientY;
           scrollStartX = e.touches[0].clientX;
           scrollStartY = scrollTouchY;
           pendingLines = 0;
+          velocity = 0;
+          lastMoveTime = performance.now();
         } else {
           // A second finger ends the scroll gesture; do not resume it with a
           // jump when one finger lifts.
@@ -1145,34 +1196,41 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         // Claim the gesture so WKWebView / Android WebView do not scroll the
         // whole page when the terminal content cannot scroll further.
         try { e.preventDefault(); } catch(e3) {}
+        var now = performance.now();
         var dy = scrollTouchY - e.touches[0].clientY;
         scrollTouchY = e.touches[0].clientY;
-        pendingLines += dy / lineH;
-        var whole = Math.trunc(pendingLines);
-        if (whole !== 0) {
-          pendingLines -= whole;
-          wheelSentThisGesture = true;
-          try {
-            withStdin(function() {
-              // Report the wheel where the gesture started, like a resting
-              // mouse pointer. Without clientX/clientY xterm encodes it at
-              // cell 1;1, so TUIs with several panes (herdr, tmux) scrolled
-              // the top-left one instead of the touched one.
-              terminal.element.dispatchEvent(new WheelEvent('wheel', {
-                deltaY: whole,
-                deltaMode: WheelEvent.DOM_DELTA_LINE,
-                clientX: scrollStartX,
-                clientY: scrollStartY,
-                cancelable: true
-              }));
-            });
-          } catch(e2) {
-            console.warn('[Terminal] touch scroll failed', e2);
-          }
-        }
+        var dt = Math.max(1, now - lastMoveTime);
+        lastMoveTime = now;
+        // Smooth the velocity so one jittery sample does not dominate.
+        velocity = 0.8 * (dy / lineH / dt) + 0.2 * velocity;
+        addLines(dy / lineH);
       }, { passive: false, capture: true });
-      terminalElement.addEventListener('touchend', resetScroll, { passive: true, capture: true });
-      terminalElement.addEventListener('touchcancel', resetScroll, { passive: true, capture: true });
+      terminalElement.addEventListener('touchend', function() {
+        var v = velocity;
+        var released = scrollTouchY !== null &&
+          performance.now() - lastMoveTime < 80;
+        resetScroll();
+        // Keep scrolling with decaying speed after a quick swipe.
+        if (!released || Math.abs(v) < 0.005) return;
+        var last = performance.now();
+        function step(now) {
+          var dt = Math.min(64, now - last);
+          last = now;
+          addLines(v * dt);
+          v *= Math.pow(0.996, dt);
+          if (Math.abs(v) < 0.002) {
+            flingFrame = null;
+            pendingLines = 0;
+            return;
+          }
+          flingFrame = requestAnimationFrame(step);
+        }
+        flingFrame = requestAnimationFrame(step);
+      }, { passive: true, capture: true });
+      terminalElement.addEventListener('touchcancel', function() {
+        stopFling();
+        resetScroll();
+      }, { passive: true, capture: true });
     })();
 
     terminal.clear();
