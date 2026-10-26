@@ -84,9 +84,6 @@ const HIDDEN_INPUT = XTERM_FALLBACK;
 
 // The key row keeps its own sticky modifiers now; typed text gets none.
 const NO_MODIFIERS = { ctrl: false, alt: false, shift: false };
-// Far enough right that a hidden tab is never on screen, whatever the window size.
-const OFFSCREEN = 100000;
-
 // Stands in until a new tab's ref exists
 const NO_TERMINAL: React.RefObject<TerminalHandle | null> = { current: null };
 
@@ -835,12 +832,9 @@ export default function Sessions() {
             const paneStyle = (id: string) => {
               const shown = id === activeSessionId || id === partnerId;
               if (!partnerId || !shown) {
-                // A hidden tab moves off screen instead of going transparent. iOS does not
-                // keep what a fully transparent terminal drew, so it came back blank or gray.
-                return [
-                  StyleSheet.absoluteFill,
-                  { transform: [{ translateX: shown ? 0 : OFFSCREEN }] },
-                ];
+                // A hidden tab goes transparent and its terminal pauses drawing until shown.
+                // Moved off screen instead, the terminal stopped drawing for good.
+                return [StyleSheet.absoluteFill, { opacity: shown ? 1 : 0 }];
               }
               const order = sessions.findIndex((s) => s.id === id);
               const other = sessions.findIndex(
@@ -878,8 +872,7 @@ export default function Sessions() {
                       // A tab never gets moved to another parent when it shows or hides.
                       collapsable={false}
                       style={paneStyle(session.id)}
-                      // Hidden tabs sit off screen, so they never get touches. Turning
-                      // touches off made iOS drop the keyboard on every tab switch.
+                      pointerEvents={shown ? "auto" : "none"}
                       onTouchStart={
                         session.id === partnerId
                           ? () => handleTabPress(session.id)
