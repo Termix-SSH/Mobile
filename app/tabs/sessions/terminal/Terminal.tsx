@@ -497,14 +497,29 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     terminal.open(document.getElementById('terminal'));
 
-    // Bridge xterm-originated wheel input back to the pty. Stdin remains
-    // disabled outside the synchronous wheel dispatch below, so keyboard text
-    // continues to use only the React Native input path.
-    terminal.onData(function(data) {
+    // Bridge xterm-originated wheel and click reports back to the pty. Stdin
+    // remains disabled outside the synchronous dispatches below, so keyboard
+    // text continues to use only the React Native input path. SGR reports
+    // arrive via onData, the default (X10) mouse encoding via onBinary.
+    function forwardTerminalInput(data) {
       if (window.ReactNativeWebView) {
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'input', data: data }));
       }
-    });
+    }
+    terminal.onData(forwardTerminalInput);
+    terminal.onBinary(forwardTerminalInput);
+
+    // Run fn with stdin enabled so xterm emits the reports it generates, then
+    // restore the previous value.
+    function withStdin(fn) {
+      const previous = terminal.options.disableStdin;
+      terminal.options.disableStdin = false;
+      try {
+        fn();
+      } finally {
+        terminal.options.disableStdin = previous;
+      }
+    }
 
     fitAddon.fit();
     terminal.write('\x1b[?25h');
@@ -643,6 +658,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     let touchStartY = 0;
     let touchStartTime = 0;
     let hasMoved = false;
+    let multiTouchSeen = false;
+    // Set by the touch-scroll handler once a wheel step was sent, so a gesture
+    // that scrolled is never also reported as a click.
+    let wheelSentThisGesture = false;
     let wordStart = null;
     let wordEnd = null;
     let selStart = null;
@@ -874,8 +893,11 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       if (!e.touches || e.touches.length !== 1) {
         if (longPressTimeout) clearTimeout(longPressTimeout);
         longPressTimeout = null;
+        multiTouchSeen = true;
         return;
       }
+      multiTouchSeen = false;
+      wheelSentThisGesture = false;
       touchStartTime = Date.now();
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
@@ -933,10 +955,49 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         try { e.preventDefault(); } catch(e2) {}
         const isTap = !hasMoved && Date.now() - touchStartTime < 400;
         if (isTap) endSelection();
+        return;
+      }
+      // Forward a plain tap as a left click to TUIs that enabled mouse
+      // tracking (herdr, tmux, htop, ...). Feed xterm's mouse service
+      // directly instead of dispatching DOM mouse events, which would focus
+      // xterm and leak a focus-out report through the focus guard above.
+      // Uses xterm internals (xterm 5.x bundled in assets/xterm).
+      const isPlainTap = !hasMoved && !multiTouchSeen && !wheelSentThisGesture &&
+        (!e.touches || e.touches.length === 0) &&
+        Date.now() - touchStartTime < 400;
+      if (isPlainTap && terminal.modes.mouseTrackingMode !== 'none') {
+        try { e.preventDefault(); } catch(e2) {}
+        sendTapClick(touchStartX, touchStartY);
       }
     }, { passive: false });
 
+    function sendTapClick(clientX, clientY) {
+      try {
+        const core = terminal._core;
+        const screen = core.screenElement;
+        // Ignore taps in the padding around the grid instead of clamping them
+        // onto the edge row (tmux status line, herdr footer).
+        const rect = screen.getBoundingClientRect();
+        if (clientX < rect.left || clientX >= rect.right ||
+            clientY < rect.top || clientY >= rect.bottom) {
+          return;
+        }
+        const pos = core._mouseService.getMouseReportCoords({ clientX: clientX, clientY: clientY }, screen);
+        if (!pos) return;
+        const base = { col: pos.col, row: pos.row, x: pos.x, y: pos.y,
+          button: 0, ctrl: false, alt: false, shift: false };
+        // triggerMouseEvent mutates its argument, so pass fresh objects.
+        withStdin(function() {
+          core.coreMouseService.triggerMouseEvent(Object.assign({}, base, { action: 1 }));
+          core.coreMouseService.triggerMouseEvent(Object.assign({}, base, { action: 0 }));
+        });
+      } catch(err) {
+        console.warn('[Terminal] tap-to-click failed', err);
+      }
+    }
+
     terminalElement.addEventListener('touchcancel', () => {
+      multiTouchSeen = true;
       if (longPressTimeout) {
         clearTimeout(longPressTimeout);
         longPressTimeout = null;
@@ -1054,10 +1115,25 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     // alt buffer is already at its top).
     (function() {
       var scrollTouchY = null;
+      var scrollStartX = 0;
+      var scrollStartY = 0;
       var pendingLines = 0;
+      function resetScroll() {
+        scrollTouchY = null;
+        pendingLines = 0;
+      }
       var lineH = terminal._core._renderService.dimensions.css.cell.height || ${baseFontSize * 1.2};
       terminalElement.addEventListener('touchstart', function(e) {
-        if (e.touches.length === 1) scrollTouchY = e.touches[0].clientY;
+        if (e.touches.length === 1) {
+          scrollTouchY = e.touches[0].clientY;
+          scrollStartX = e.touches[0].clientX;
+          scrollStartY = scrollTouchY;
+          pendingLines = 0;
+        } else {
+          // A second finger ends the scroll gesture; do not resume it with a
+          // jump when one finger lifts.
+          resetScroll();
+        }
       }, { passive: true, capture: true });
       terminalElement.addEventListener('touchmove', function(e) {
         if (scrollTouchY === null || e.touches.length !== 1) return;
@@ -1075,24 +1151,28 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         var whole = Math.trunc(pendingLines);
         if (whole !== 0) {
           pendingLines -= whole;
+          wheelSentThisGesture = true;
           try {
-            terminal.options.disableStdin = false;
-            try {
+            withStdin(function() {
+              // Report the wheel where the gesture started, like a resting
+              // mouse pointer. Without clientX/clientY xterm encodes it at
+              // cell 1;1, so TUIs with several panes (herdr, tmux) scrolled
+              // the top-left one instead of the touched one.
               terminal.element.dispatchEvent(new WheelEvent('wheel', {
                 deltaY: whole,
                 deltaMode: WheelEvent.DOM_DELTA_LINE,
+                clientX: scrollStartX,
+                clientY: scrollStartY,
                 cancelable: true
               }));
-            } finally {
-              terminal.options.disableStdin = true;
-            }
-          } catch(e2) {}
+            });
+          } catch(e2) {
+            console.warn('[Terminal] touch scroll failed', e2);
+          }
         }
       }, { passive: false, capture: true });
-      terminalElement.addEventListener('touchend', function() {
-        scrollTouchY = null;
-        pendingLines = 0;
-      }, { passive: true, capture: true });
+      terminalElement.addEventListener('touchend', resetScroll, { passive: true, capture: true });
+      terminalElement.addEventListener('touchcancel', resetScroll, { passive: true, capture: true });
     })();
 
     terminal.clear();
@@ -1306,7 +1386,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
             break;
 
           case "input":
-            // Wheel/mouse input synthesized inside the WebView (xterm onData),
+            // Wheel/click reports synthesized inside the WebView (xterm onData/onBinary),
             // forwarded to the pty so TUI apps can scroll their context.
             wsManagerRef.current?.sendInput(message.data);
             break;
