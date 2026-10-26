@@ -76,7 +76,7 @@ test("rows describe themselves by kind", () => {
       kind: "auth",
       value: { authType: "credential", credentialId: 3 },
     }),
-  ).toBe("Login 3");
+  ).toBe("Credential 3");
   expect(
     describeRow(
       { kind: "auth", value: { authType: "credential", credentialId: 3 } },
@@ -84,7 +84,7 @@ test("rows describe themselves by kind", () => {
     ),
   ).toBe("deploy key");
   expect(describeRow({ kind: "auth", value: { authType: "none" } })).toBe(
-    "No login",
+    "None",
   );
   expect(describeRow({ kind: "auth", value: undefined })).toBe("Not set");
   expect(describeRow({ kind: "env", value: [{ key: "A", value: "1" }] })).toBe(

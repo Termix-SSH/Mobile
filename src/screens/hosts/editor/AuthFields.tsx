@@ -42,7 +42,7 @@ export function AuthFields({
         label="Username"
         hint={
           form.authType === "credential" && credentialUser && !form.username
-            ? `From the login: ${credentialUser}`
+            ? `From the credential: ${credentialUser}`
             : undefined
         }
       >
@@ -68,7 +68,7 @@ export function AuthFields({
           options={[
             { id: "password", label: "Password" },
             { id: "key", label: "Key" },
-            { id: "credential", label: "Saved login" },
+            { id: "credential", label: "Credential" },
             { id: "none", label: "None" },
             ...(tailscaleAvailable || form.authType === "tailscale"
               ? [{ id: "tailscale" as const, label: "Tailscale" }]
@@ -133,10 +133,10 @@ export function AuthFields({
       ) : null}
 
       {form.authType === "credential" ? (
-        <Field label="Saved login">
+        <Field label="Credential">
           {credentials.length === 0 ? (
             <Text className="py-2 text-meta text-muted-foreground">
-              No saved logins yet. Tap the key icon in Hosts to add one.
+              No credentials yet. Tap the key icon in Hosts to add one.
             </Text>
           ) : (
             <View className="border-t border-border/40">
@@ -150,7 +150,7 @@ export function AuthFields({
                     .join(" | ")}
                   selected={form.credentialId === c.id}
                   onPress={() => set({ credentialId: c.id })}
-                  accessibilityLabel={`Use login ${c.name}`}
+                  accessibilityLabel={`Use credential ${c.name}`}
                 />
               ))}
             </View>

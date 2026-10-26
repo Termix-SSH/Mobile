@@ -224,11 +224,11 @@ export default function HostDefaults() {
       <Sheet
         visible={!!authOpen}
         onClose={() => setAuthOpen(null)}
-        title="Login"
+        title="Authentication"
         scroll
       >
         <SheetRow
-          label="No login"
+          label="None"
           selected={false}
           onPress={() => {
             const row = authOpen!;

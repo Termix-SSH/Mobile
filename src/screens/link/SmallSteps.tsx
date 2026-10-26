@@ -182,7 +182,9 @@ export function MergeStep({
   onChoose: (merge: boolean) => void;
 }) {
   const color = useThemeColor();
-  const what = counts ? describeCounts(counts) : "hosts, logins or snippets";
+  const what = counts
+    ? describeCounts(counts)
+    : "hosts, credentials or snippets";
   return (
     <View className="w-full max-w-md border border-border bg-card">
       <View className="gap-1 p-5 pb-3">

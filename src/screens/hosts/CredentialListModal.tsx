@@ -59,7 +59,7 @@ export default function CredentialListModal({
     try {
       setCredentials(await repos.credentials.list());
     } catch (e: any) {
-      toast.error(e?.message || "Could not load logins");
+      toast.error(e?.message || "Could not load credentials");
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -107,7 +107,7 @@ export default function CredentialListModal({
       toast.success(`Deleted "${deleteTarget.name}"`);
       setDeleteTarget(null);
     } catch (e: any) {
-      toast.error(e?.message || "Could not delete the login");
+      toast.error(e?.message || "Could not delete the credential");
     } finally {
       setDeleting(false);
     }
@@ -118,7 +118,7 @@ export default function CredentialListModal({
       <InlineView
         open={visible}
         onClose={onClose}
-        title="Logins"
+        title="Credentials"
         scroll={false}
         bare
         actions={
@@ -135,7 +135,7 @@ export default function CredentialListModal({
         {/* Search bar */}
         <View className="border-b border-border px-3 py-2.5">
           <Input
-            placeholder="Search logins"
+            placeholder="Search credentials"
             value={searchQuery}
             onChangeText={setSearchQuery}
             autoCapitalize="none"
@@ -161,7 +161,7 @@ export default function CredentialListModal({
           <View className="flex-1 items-center justify-center gap-3">
             <ActivityIndicator color={color("accent-brand")} />
             <Text className="text-sm text-muted-foreground">
-              Loading logins...
+              Loading credentials...
             </Text>
           </View>
         ) : (
@@ -180,13 +180,13 @@ export default function CredentialListModal({
                 icon={KeyRound}
                 title={
                   searchQuery.trim()
-                    ? "No logins match your search"
-                    : "No logins yet"
+                    ? "No credentials match your search"
+                    : "No credentials yet"
                 }
                 action={
                   !searchQuery.trim() ? (
                     <Button variant="default" size="sm" onPress={openCreate}>
-                      Add login
+                      Add credential
                     </Button>
                   ) : undefined
                 }
@@ -240,7 +240,7 @@ export default function CredentialListModal({
         tone="destructive"
         visible={deleteTarget !== null}
         onClose={() => setDeleteTarget(null)}
-        title="Delete login"
+        title="Delete credential"
         description={`"${deleteTarget?.name}" will be permanently deleted. Hosts using it will lose their saved credentials.`}
         icon={<Trash2 size={16} color={color("destructive")} />}
         footer={

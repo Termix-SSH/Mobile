@@ -194,7 +194,7 @@ async function ensureCredentials(
       aliases.set(wantedCredential.alias.toLowerCase(), made.id);
       aliases.set(wantedCredential.name.toLowerCase(), made.id);
     } catch (error) {
-      errors.push(`Login ${wantedCredential.name}: ${message(error)}`);
+      errors.push(`Credential ${wantedCredential.name}: ${message(error)}`);
     }
   }
   return aliases;
@@ -252,7 +252,7 @@ export async function importHosts(
           else {
             result.failed++;
             result.errors.push(
-              `${label}: login ${row.credentialAlias ?? ""} was not found`,
+              `${label}: credential ${row.credentialAlias ?? ""} was not found`,
             );
             continue;
           }

@@ -143,7 +143,7 @@ test("a security key second factor points to the browser", async () => {
 test("the merge summary counts what this phone has", async () => {
   expect(
     describeCounts({ hosts: 12, logins: 1, snippets: 0, folders: 2 }),
-  ).toBe("12 hosts, 1 login and 2 folders");
+  ).toBe("12 hosts, 1 credential and 2 folders");
   expect(describeCounts({ hosts: 0, logins: 0, snippets: 0, folders: 0 })).toBe(
     "nothing yet",
   );

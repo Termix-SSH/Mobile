@@ -199,7 +199,7 @@ test("save problems are said plainly", () => {
   ).toBeNull();
   expect(
     formError({ ...form, ip: "h", authType: "credential" }, toggles),
-  ).toMatch(/saved login/);
+  ).toMatch(/Pick a credential/);
 });
 
 test("jump hosts can't loop back to the host", () => {

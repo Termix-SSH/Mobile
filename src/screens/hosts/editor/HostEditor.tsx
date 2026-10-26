@@ -311,7 +311,7 @@ export default function HostEditor({
       const cred = form.credentialId
         ? await repos.credentials.get(form.credentialId).catch(() => null)
         : null;
-      if (!cred) return "Pick a saved login first.";
+      if (!cred) return "Pick a credential first.";
       authType = cred.key ? "key" : "password";
       password = cred.password ?? "";
       key = cred.key ?? "";

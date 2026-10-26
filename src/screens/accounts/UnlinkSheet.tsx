@@ -8,7 +8,7 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
 
 /**
- * Unlink a server: keep a copy of your own hosts, logins and snippets on
+ * Unlink a server: keep a copy of your own hosts, credentials and snippets on
  * This device, or delete everything this phone has for it.
  */
 export function UnlinkSheet({
@@ -61,7 +61,7 @@ export function UnlinkSheet({
         <SheetRow
           icon={<Copy size={18} color={color("foreground")} />}
           label="Keep a copy on This device"
-          description="Your own hosts, logins and snippets move to This device. Hosts shared with you are not kept."
+          description="Your own hosts, credentials and snippets move to This device. Hosts shared with you are not kept."
           onPress={() => void run(true)}
           disabled={busy}
         />

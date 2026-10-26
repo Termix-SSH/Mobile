@@ -15,8 +15,8 @@ export const SYNC_KINDS: SyncKind[] = [
   },
   {
     id: "logins",
-    label: "Logins",
-    description: "Saved passwords and keys, and logins shared with you",
+    label: "Credentials",
+    description: "Saved passwords and keys, and credentials shared with you",
     types: ["sshCredentials", "sharedCredentials"],
   },
   {

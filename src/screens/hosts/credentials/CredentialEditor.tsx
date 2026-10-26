@@ -142,7 +142,7 @@ export default function CredentialEditor({
       const ok = await confirm({
         title: "Replace the key?",
         description:
-          "The new key takes the place of the current one. Hosts that only trust the old key will stop accepting this login.",
+          "The new key takes the place of the current one. Hosts that only trust the old key will stop accepting this credential.",
         confirmLabel: "Replace",
         destructive: true,
       });
@@ -198,7 +198,7 @@ export default function CredentialEditor({
     JSON.stringify(form) === start.current ||
     (await confirm({
       title: "Leave without saving?",
-      description: "Your changes to this login will be lost.",
+      description: "Your changes to this credential will be lost.",
       confirmLabel: "Leave",
       destructive: true,
     }));
@@ -214,14 +214,14 @@ export default function CredentialEditor({
     try {
       if (isEdit && credential) {
         await repos.credentials.update(credential.id, payload);
-        toast.success("Login saved");
+        toast.success("Credential saved");
       } else {
         await repos.credentials.create(payload);
-        toast.success("Login added");
+        toast.success("Credential added");
       }
       onSaved();
     } catch (e: any) {
-      toast.error(e?.message || "Could not save the login");
+      toast.error(e?.message || "Could not save the credential");
     } finally {
       setSaving(false);
     }
@@ -254,7 +254,7 @@ export default function CredentialEditor({
       open={visible}
       onClose={onClose}
       onBeforeClose={onBeforeClose}
-      title={isEdit ? "Edit login" : "New login"}
+      title={isEdit ? "Edit credential" : "New credential"}
       subtitle={isEdit ? credential?.name : undefined}
       scroll={false}
       bare
@@ -279,7 +279,7 @@ export default function CredentialEditor({
         keyboardDismissMode="interactive"
       >
         <View className="gap-3">
-          <Label className="text-muted-foreground">Login</Label>
+          <Label className="text-muted-foreground">Credential</Label>
           <Field label="Name">
             <Input
               value={form.name}
@@ -504,7 +504,7 @@ export default function CredentialEditor({
               <Input
                 value={form.description}
                 onChangeText={(description) => set({ description })}
-                placeholder="What this login is for"
+                placeholder="What this credential is for"
               />
             </Field>
             <Field label="Folder">

@@ -16,9 +16,9 @@ export function PrivacyNoteControl() {
   return (
     <View className="py-3">
       <Text className="text-meta text-muted-foreground">
-        Hosts, logins and snippets are kept in an encrypted file on this phone.
-        Usage statistics are off unless you turn them on below. A linked server
-        only gets what you let it sync.
+        Hosts, credentials and snippets are kept in an encrypted file on this
+        phone. Usage statistics are off unless you turn them on below. A linked
+        server only gets what you let it sync.
       </Text>
     </View>
   );

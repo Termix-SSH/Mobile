@@ -40,8 +40,8 @@ export function ColorIconField({
   onChange: (patch: { color?: string | null; icon?: string | null }) => void;
 }) {
   const color = useThemeColor();
-  const muted = color("muted-foreground") ?? "#9ca3af";
-  const tint = value ?? color("foreground") ?? "#e5e7eb";
+  const muted = color("muted-foreground");
+  const tint = value ?? color("foreground");
   return (
     <View className="gap-3">
       <Field label="Color">

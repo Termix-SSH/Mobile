@@ -51,7 +51,7 @@ export function credentialError(
   isEdit: boolean,
   hasSavedKey: boolean,
 ): string | null {
-  if (!form.name.trim()) return "Give this login a name";
+  if (!form.name.trim()) return "Give this credential a name";
   if (form.authType === "key" && !form.key.trim() && !(isEdit && hasSavedKey)) {
     return "Add a private key, or make a new one";
   }

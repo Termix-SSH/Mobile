@@ -41,7 +41,7 @@ export function AccountSwitcher() {
   const { accounts: list, active } = useAccounts();
   const { accountSwitcherVisible, closeAccountSwitcher, openAuthFlow } =
     useAppContext();
-  const iconColor = color("foreground") ?? "#fafafa";
+  const iconColor = color("foreground");
 
   const switchTo = async (account: Account) => {
     closeAccountSwitcher();
@@ -110,7 +110,8 @@ export function AccountSwitcher() {
         />
         <View className="px-4 py-3">
           <Text className="text-[11px] text-muted-foreground">
-            Each server keeps its own hosts, logins and settings on this phone.
+            Each server keeps its own hosts, credentials and settings on this
+            phone.
           </Text>
         </View>
       </Sheet>

@@ -34,8 +34,8 @@ const LABELS: Record<string, { label: string; hint?: string; kind: RowKind }> =
     username: { label: "Username", kind: "text" },
     sshPort: { label: "SSH port", kind: "number" },
     auth: {
-      label: "Login",
-      hint: "A saved login for new hosts",
+      label: "Authentication",
+      hint: "A saved credential for new hosts",
       kind: "auth",
     },
     forceKeyboardInteractive: {
@@ -166,9 +166,11 @@ export function describeRow(
     const auth = normalizeAuthDefault(row.value);
     if (!auth) return "Not set";
     if (auth.authType === "credential" && auth.credentialId !== null) {
-      return loginName?.(auth.credentialId) ?? `Login ${auth.credentialId}`;
+      return (
+        loginName?.(auth.credentialId) ?? `Credential ${auth.credentialId}`
+      );
     }
-    return auth.authType === "none" ? "No login" : auth.authType;
+    return auth.authType === "none" ? "None" : auth.authType;
   }
   if (row.kind === "env") {
     const list = normalizeEnvironment(row.value);

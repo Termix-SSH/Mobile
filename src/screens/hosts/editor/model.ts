@@ -182,7 +182,7 @@ export function formError(
       if (!form.username.trim()) return "Enter the SSH username";
     }
     if (form.authType === "credential" && !form.credentialId) {
-      return "Pick a saved login";
+      return "Pick a credential";
     }
   }
   return null;

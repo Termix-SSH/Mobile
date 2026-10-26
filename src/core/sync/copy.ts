@@ -182,11 +182,11 @@ export function ownDataCounts(db: LocalDb): OwnDataCounts {
   };
 }
 
-/** "12 hosts, 3 logins and 5 snippets", leaving out what is zero. */
+/** "12 hosts, 3 credentials and 5 snippets", leaving out what is zero. */
 export function describeCounts(counts: OwnDataCounts): string {
   const parts = [
     [counts.hosts, "host"],
-    [counts.logins, "login"],
+    [counts.logins, "credential"],
     [counts.snippets, "snippet"],
     [counts.folders, "folder"],
   ]
