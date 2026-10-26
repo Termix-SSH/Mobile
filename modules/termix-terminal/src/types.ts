@@ -103,6 +103,8 @@ export interface TerminalViewProps {
   onModifiers?: (state: { ctrl: StickyState; alt: StickyState }) => void;
   /** Report the line at the prompt when output settles, through `onPromptLine`. */
   watchPrompt?: boolean;
+  /** False while the tab is hidden behind another. iOS stops drawing it and redraws when shown. */
+  surfaceVisible?: boolean;
   /** The prompt line changed, while `watchPrompt` is on. */
   onPromptLine?: (line: string) => void;
   /** Hits of the current search, and which one shows (-1 for none). */

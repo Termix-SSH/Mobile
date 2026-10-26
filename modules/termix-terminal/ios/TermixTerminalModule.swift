@@ -63,6 +63,10 @@ public class TermixTerminalModule: Module {
         view.promptWatch = on ?? false
       }
 
+      Prop("surfaceVisible") { (view: TermixTerminalView, visible: Bool?) in
+        view.setSurfaceVisible(visible ?? true)
+      }
+
       Prop("theme") { (view: TermixTerminalView, theme: TerminalThemeRecord?) in
         view.update { config in
           config.theme = theme.map {

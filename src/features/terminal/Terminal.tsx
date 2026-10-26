@@ -890,6 +890,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                   onFontSize={handleFontSize}
                   showScrollButton={isVisible && isConnected && !isDialogOpen}
                   watchPrompt={isConnected && (fillOn || historyOn)}
+                  visible={isVisible}
                   onPromptLine={(line) => watcherRef.current?.line(line)}
                   onSearch={setSearchResult}
                   onTitle={useShellTitle ? onTitle : undefined}

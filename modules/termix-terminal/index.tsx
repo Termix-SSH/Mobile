@@ -71,6 +71,8 @@ interface NativeProps {
   onFontSize?: (e: Ev<{ size: number }>) => void;
   onModifiers?: (e: Ev<{ ctrl: StickyState; alt: StickyState }>) => void;
   watchPrompt?: boolean;
+  /** False while the tab is hidden, so the surface stops drawing and redraws when shown. */
+  surfaceVisible?: boolean;
   onPromptLine?: (e: Ev<{ line: string }>) => void;
   onSearch?: (e: Ev<{ total: number; index: number }>) => void;
   onMenu?: (e: Ev<object>) => void;
@@ -184,6 +186,7 @@ export const TerminalView = forwardRef<TerminalViewHandle, TerminalViewProps>(
         optionAsMeta={props.optionAsMeta}
         accentColor={props.accentColor}
         watchPrompt={props.watchPrompt ?? false}
+        surfaceVisible={props.surfaceVisible ?? true}
         onPromptLine={(e) => props.onPromptLine?.(e.nativeEvent.line)}
         onMenu={() => props.onMenu?.()}
         onShortcut={(e) => props.onShortcut?.(e.nativeEvent.id)}

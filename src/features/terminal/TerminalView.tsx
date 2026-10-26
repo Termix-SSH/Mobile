@@ -67,6 +67,8 @@ interface Props {
   showScrollButton?: boolean;
   /** Report the prompt line for password fill and history. */
   watchPrompt?: boolean;
+  /** False while the tab is hidden, so it redraws when shown again. */
+  visible?: boolean;
   onPromptLine?: (line: string) => void;
   onSearch?: (result: TerminalSearchResult) => void;
   onTitle?: (title: string) => void;
@@ -86,6 +88,7 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
       onFontSize,
       showScrollButton = true,
       watchPrompt,
+      visible = true,
       onPromptLine,
       onSearch,
       onTitle,
@@ -201,6 +204,7 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
           onFontSize={handleFontSize}
           onModifiers={onModifiers}
           watchPrompt={watchPrompt}
+          surfaceVisible={visible}
           onPromptLine={onPromptLine}
           onSearch={onSearch}
           onTitle={onTitle}

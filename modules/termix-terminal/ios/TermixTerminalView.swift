@@ -288,6 +288,12 @@ class TermixTerminalView: ExpoView {
   private var promptWork: DispatchWorkItem?
   private var lastPromptLine = ""
 
+  /// Hidden tabs stay mounted behind opacity 0. The surface stops drawing while hidden and
+  /// draws a fresh frame when shown, or it comes back empty.
+  func setSurfaceVisible(_ visible: Bool) {
+    terminalView.setSurfaceVisible(visible)
+  }
+
   required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
     clipsToBounds = true
