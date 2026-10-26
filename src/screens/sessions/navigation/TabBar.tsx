@@ -30,6 +30,8 @@ interface TabBarProps {
   isCustomKeyboardVisible: boolean;
   /** Shows or hides the keyboard on the active terminal. */
   onKeyboard: (action: "focus" | "blur") => void;
+  /** The system keyboard is on screen, however it got there. */
+  keyboardUp: boolean;
   onHideKeyboard?: () => void;
   onShowKeyboard?: () => void;
   keyboardIntentionallyHiddenRef: React.MutableRefObject<boolean>;
@@ -49,6 +51,7 @@ export default function TabBar({
   onToggleKeyboard,
   isCustomKeyboardVisible,
   onKeyboard,
+  keyboardUp,
   onHideKeyboard,
   onShowKeyboard,
   keyboardIntentionallyHiddenRef,
@@ -71,7 +74,7 @@ export default function TabBar({
   );
 
   const handleToggleSystemKeyboard = () => {
-    if (keyboardIntentionallyHiddenRef.current) {
+    if (!keyboardUp) {
       onShowKeyboard?.();
       setTimeout(() => {
         onKeyboard("focus");
@@ -142,15 +145,11 @@ export default function TabBar({
 
         {hasInput && !isCustomKeyboardVisible ? (
           <BarButton
-            label={
-              keyboardIntentionallyHiddenRef.current
-                ? "Show keyboard"
-                : "Hide keyboard"
-            }
+            label={!keyboardUp ? "Show keyboard" : "Hide keyboard"}
             size={buttonSize}
             onPress={handleToggleSystemKeyboard}
           >
-            {keyboardIntentionallyHiddenRef.current ? (
+            {!keyboardUp ? (
               <ChevronUp size={iconSize} color={ui.text} />
             ) : (
               <ChevronDown size={iconSize} color={ui.text} />

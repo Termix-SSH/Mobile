@@ -288,6 +288,9 @@ export default function Sessions() {
     };
   }, [activeSession?.type]);
 
+  // The bars sit on the real keyboard. Opened by a tap on the terminal, it still lifts them.
+  const systemKeyboardUp = isKeyboardVisible && currentKeyboardHeight > 0;
+
   const getTabBarBottomPosition = () => {
     if (!activeIsTerminal) {
       return insets.bottom;
@@ -297,15 +300,9 @@ export default function Sessions() {
       return CUSTOM_KEYBOARD_TAB_HEIGHT + customKeyboardHeight;
     }
 
-    if (keyboardIntentionallyHiddenRef.current) {
-      return KEYBOARD_BAR_HEIGHT_EXTENDED;
-    }
-
-    if (isKeyboardVisible && currentKeyboardHeight > 0) {
-      return KEYBOARD_BAR_HEIGHT + currentKeyboardHeight;
-    }
-
-    return KEYBOARD_BAR_HEIGHT;
+    return systemKeyboardUp
+      ? KEYBOARD_BAR_HEIGHT + currentKeyboardHeight
+      : KEYBOARD_BAR_HEIGHT_EXTENDED;
   };
 
   // No active tab lays out like a terminal, as before.
@@ -322,18 +319,21 @@ export default function Sessions() {
       );
     }
 
-    if (keyboardIntentionallyHiddenRef.current) {
-      return SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT_EXTENDED;
-    }
-
-    if (isKeyboardVisible && currentKeyboardHeight > 0) {
-      return (
-        SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT + currentKeyboardHeight
-      );
-    }
-
-    return SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT;
+    return systemKeyboardUp
+      ? SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT + currentKeyboardHeight
+      : SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT_EXTENDED;
   };
+
+  // A keyboard that came up, from a tap on the terminal too, ends a hide from the tab bar.
+  useEffect(() => {
+    if (systemKeyboardUp && keyboardIntentionallyHiddenRef.current) {
+      setKeyboardIntentionallyHidden(false);
+    }
+  }, [
+    systemKeyboardUp,
+    keyboardIntentionallyHiddenRef,
+    setKeyboardIntentionallyHidden,
+  ]);
 
   useEffect(() => {
     const next: Record<string, React.RefObject<any>> = {};
@@ -430,9 +430,7 @@ export default function Sessions() {
     [stageWidth],
   );
 
-  // The keyboard moves to the new terminal directly, so it never drops and comes back.
-  // When the new tab has no terminal ready, the old one lets go, or a hidden
-  // terminal keeps it.
+  // The keyboard moves to the new terminal right away, so it never drops and comes back.
   const prevActiveRef = useRef<string | null>(activeSessionId);
   useEffect(() => {
     const prev = prevActiveRef.current;
@@ -446,8 +444,10 @@ export default function Sessions() {
       !isCustomKeyboardVisible &&
       !keyboardIntentionallyHiddenRef.current &&
       !isAppLocked();
+    // The old one lets go first so iOS ends its input session, then the new one takes the
+    // keyboard in the same batch, before it has time to hide.
+    tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
     if (keepKeyboard) next.focus();
-    else tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSessionId]);
 
@@ -950,16 +950,12 @@ export default function Sessions() {
             <View
               style={{
                 position: "absolute",
-                bottom: keyboardIntentionallyHiddenRef.current
-                  ? 0
-                  : isKeyboardVisible && currentKeyboardHeight > 0
-                    ? currentKeyboardHeight
-                    : 0,
+                bottom: systemKeyboardUp ? currentKeyboardHeight : 0,
                 left: 0,
                 right: 0,
-                height: keyboardIntentionallyHiddenRef.current
-                  ? KEYBOARD_BAR_HEIGHT_EXTENDED
-                  : KEYBOARD_BAR_HEIGHT,
+                height: systemKeyboardUp
+                  ? KEYBOARD_BAR_HEIGHT
+                  : KEYBOARD_BAR_HEIGHT_EXTENDED,
                 zIndex: 1003,
                 overflow: "visible",
                 justifyContent: "center",
@@ -975,9 +971,7 @@ export default function Sessions() {
                   }
                   host={activeSession?.host}
                   isVisible={true}
-                  isKeyboardIntentionallyHidden={
-                    keyboardIntentionallyHiddenRef.current
-                  }
+                  isKeyboardIntentionallyHidden={!systemKeyboardUp}
                   bottomInset={KEYBOARD_BAR_BOTTOM_INSET}
                   onCommand={handleKeyCommand}
                 />
@@ -1021,6 +1015,7 @@ export default function Sessions() {
             onToggleKeyboard={handleToggleKeyboard}
             isCustomKeyboardVisible={isCustomKeyboardVisible}
             onKeyboard={keyboard}
+            keyboardUp={systemKeyboardUp}
             onHideKeyboard={() => setKeyboardIntentionallyHidden(true)}
             onShowKeyboard={() => setKeyboardIntentionallyHidden(false)}
             keyboardIntentionallyHiddenRef={keyboardIntentionallyHiddenRef}
