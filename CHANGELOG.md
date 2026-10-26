@@ -66,6 +66,8 @@
 - Test connection in the host and login editors logs in from the phone without saving
 - The host and login editors ask before you leave with unsaved changes
 - Servers behind a reverse proxy: extra headers, Cloudflare service tokens, basic auth, client certificates and the proxy's own sign in page
+- Pin a server's certificate key: read it from the server or paste it. A pinned server with a self-signed certificate works, and any other key is refused
+- RDP from the phone asks you to trust a computer's certificate the first time and warns when it changes, before the password is sent
 - When a server signs you out, the Hosts screen says why and offers the quickest fix
 - A new native terminal that is faster, scrolls smoothly and stays responsive when a program prints a lot
 - Select text with handles and a magnifier, then copy, paste or select all
@@ -144,7 +146,7 @@
 - Search settings from the top of Settings or the search button
 - Choose text size and row density
 - App Lock can lock right away or after 15 seconds, 1 minute or 5 minutes, and you can change the PIN
-- Hide Termix in the app switcher
+- Hide Termix in the app switcher, with or without App Lock
 - App Lock waits 30 seconds after 5 wrong PINs
 - Copy or share the latest app logs from Settings, About and logs
 - Clear your recent hosts
@@ -154,6 +156,9 @@
 - App wide keyboard shortcuts on iPad (Cmd K, Cmd /, Cmd Opt 1 to 4, Cmd ,) and on Android (Ctrl Shift K, /, N, comma and Ctrl Alt 1 to 4) with a shortcut sheet in Settings, Keyboard
 - Hover highlights and right click menus for mouse and trackpad
 - Home screen widgets work with no server, show hosts and snippets from this device and follow the app theme
+- Screen readers name every button, read toasts and errors aloud, and stay inside sheets and the App Lock screen
+- Large system text sizes are followed, up to twice the normal size
+- Reduce motion turns off slide animations and the reconnecting pulse
 - Share anonymous usage statistics to help improve the app: off until you answer the first-run question, with a switch, a preview of the next report and an id reset in Settings
 
 ### Changed
@@ -165,10 +170,15 @@
 - The default host order is the order you set, then name
 - Docker and host metrics only go through the server when the host connects through it, and the cards and screens stop asking the host while the app is in the background
 - The file list scrolls smoothly in folders with thousands of files and remembers where you were in each folder
+- Big folders sort much faster, and searching files or hosts waits until you stop typing
+- The host list stays smooth with thousands of hosts while their status updates
+- The app opens without waiting for the update check or the server
+- Server terminals use less of the phone's time per line of output
+- Text, warnings and errors are readable in every theme and with any accent color
 - Your server sign in is now kept in the phone's secure storage
 - You stay signed in to a linked server and the app renews the session on its own, so you are not asked for your second factor again
 - Secrets in the phone's secure storage stay on this device and are left out of iCloud and phone backups
-- Android system backups no longer include app data
+- Android backups and phone to phone transfers no longer include app data
 - Theme colors now match Termix on the web and desktop exactly
 - The terminal, keyboard bar and tab bar follow the chosen theme instead of always being dark
 - The theme picker shows the same swatches as Termix
@@ -192,6 +202,9 @@
 
 ### Fixed
 
+- Android no longer trusts any certificate from a server on the local network in sign in and remote desktop pages. Pin the server's key instead
+- The sign in page only takes a session from your server's own pages
+- App logs no longer hold server addresses, host addresses or tokens
 - The keyboard no longer stays open over the App Lock PIN pad when you come back to the app (#100)
 - Face ID asks for you when you return to a locked app
 - Face ID prompts no longer lock the app again
