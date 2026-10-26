@@ -341,6 +341,19 @@ class TermixTerminalView: ExpoView {
     accessibilityTraits = [.allowsDirectInteraction]
   }
 
+  /// Navigators take whole screens out of the window and put them back, like a tab bar
+  /// switch. A surface that comes back that way stops drawing, so pause and resume it.
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    guard window != nil, surfaceReady else { return }
+    DispatchQueue.main.async { [weak self] in
+      guard let self, window != nil else { return }
+      terminalView.setSurfaceVisible(false)
+      terminalView.setSurfaceVisible(surfaceShown)
+      terminalView.fitToSize()
+    }
+  }
+
   override func layoutSubviews() {
     super.layoutSubviews()
     terminalView.frame = bounds

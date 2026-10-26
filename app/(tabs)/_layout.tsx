@@ -23,9 +23,6 @@ export default function TabLayout() {
     <BottomBarShown.Provider value={!isWide && !hideTabBar}>
       <SideBarShown.Provider value={isWide && !hideTabBar}>
         <Tabs
-          // Keep every tab in the window. Detached while you were on another tab, a
-          // running terminal stopped drawing when it came back.
-          detachInactiveScreens={false}
           tabBar={
             hideTabBar
               ? () => null
