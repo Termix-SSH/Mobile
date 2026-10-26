@@ -47,7 +47,7 @@ export function HostPicker({
       title={title}
       description="Pick a host"
     >
-      <View className="px-4 pb-2">
+      <View className="px-4 pb-2 pt-3">
         <Input
           placeholder="Search hosts"
           value={query}

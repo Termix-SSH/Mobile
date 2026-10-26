@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { Pressable, RefreshControl, ScrollView, View } from "react-native";
+import { RefreshControl, ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ArrowLeft, Blocks, TriangleAlert } from "lucide-react-native";
+import { Blocks, TriangleAlert } from "lucide-react-native";
 import {
   accountLabel,
   accounts as accountStore,
@@ -34,6 +33,7 @@ import {
 import { toast } from "@/utils/toast";
 import type { ListRowTone } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { Screen } from "@/components/Screen";
 
 const SECTIONS: { id: SupportSection; label: string; tone: ListRowTone }[] = [
   { id: "phone", label: "Works on this phone", tone: "brand" },
@@ -189,7 +189,6 @@ function Detail({
 /** What each plugin does on this phone, and what the linked server runs. */
 export default function Plugins() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const color = useThemeColor();
   const { accounts, active } = useAccounts();
   const [accountId, setAccountId] = useState(active.id);
@@ -244,20 +243,7 @@ export default function Plugins() {
   const opened = rows.find((row) => row.id === openId) ?? null;
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-      <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable
-          onPress={() => router.back()}
-          hitSlop={8}
-          accessibilityLabel="Back"
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-        <Text weight="bold" className="flex-1 text-base text-foreground">
-          Plugins
-        </Text>
-      </View>
-
+    <Screen title="Plugins" onBack={() => router.back()}>
       {accounts.length > 1 ? (
         <Tabs
           fill={false}
@@ -283,10 +269,15 @@ export default function Plugins() {
       )}
 
       <ScrollView
-        contentContainerStyle={{ padding: 16, paddingBottom: 40 }}
+        contentContainerStyle={{ padding: 12, paddingBottom: 40 }}
         refreshControl={
           local ? undefined : (
-            <RefreshControl refreshing={refreshing} onRefresh={refresh} />
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={refresh}
+              tintColor={color("accent-brand")}
+              colors={[color("accent-brand")]}
+            />
           )
         }
       >
@@ -338,6 +329,6 @@ export default function Plugins() {
           <Detail row={opened} local={local} onOpen={openAction(opened)} />
         ) : null}
       </InlineView>
-    </View>
+    </Screen>
   );
 }

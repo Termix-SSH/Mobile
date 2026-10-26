@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
+import { ScreenHeader } from "@/components/Screen";
 import { ActivityIndicator, Pressable, ScrollView, View } from "react-native";
-import { ArrowLeft, Layers } from "lucide-react-native";
+import { Layers } from "lucide-react-native";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { MONO_FONT } from "@/constants/fonts";
 import { usePoll } from "@/core/exec";
@@ -73,7 +74,7 @@ export function StacksView({ backend }: { backend: DockerBackend }) {
   }
   return (
     <ScrollView
-      contentContainerStyle={{ padding: 12, gap: 8, paddingBottom: 120 }}
+      contentContainerStyle={{ padding: 12, gap: 8, paddingBottom: 24 }}
     >
       {stacks.map((s) => (
         <Pressable
@@ -131,24 +132,7 @@ function StackScreen({
 
   return (
     <View className="flex-1">
-      <View className="flex-row items-center gap-2.5 border-b border-border px-3 py-2.5">
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={onBack}
-          hitSlop={8}
-          className="p-1"
-        >
-          <ArrowLeft size={18} color={color("foreground")} />
-        </Pressable>
-        <Text
-          weight="bold"
-          className="flex-1 text-sm text-foreground"
-          numberOfLines={1}
-        >
-          {stack.name}
-        </Text>
-      </View>
+      <ScreenHeader title={stack.name} onBack={onBack} />
       {error ? (
         <EmptyState
           icon={Layers}
@@ -161,7 +145,7 @@ function StackScreen({
         </View>
       ) : (
         <ScrollView
-          contentContainerStyle={{ padding: 12, gap: 8, paddingBottom: 120 }}
+          contentContainerStyle={{ padding: 12, gap: 8, paddingBottom: 24 }}
         >
           <Text className="text-[10px] uppercase tracking-[1px] text-muted-foreground">
             Services

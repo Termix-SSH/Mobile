@@ -73,7 +73,7 @@ export default function Welcome({
 }) {
   const insets = useSafeAreaInsets();
   const color = useThemeColor();
-  const accent = color("accent-brand") ?? "#f59145";
+  const accent = color("accent-brand");
   const fg = color("foreground");
   const [view, setView] = useState<"choose" | "import">("choose");
   const [imported, setImported] = useState(false);
@@ -94,7 +94,7 @@ export default function Welcome({
             accessibilityLabel="Back"
             className="h-11 w-11 items-center justify-center active:bg-muted"
           >
-            <ArrowLeft size={18} color={fg} />
+            <ArrowLeft size={20} color={fg} />
           </Pressable>
           <Text weight="bold" className="text-sm text-foreground">
             Import
@@ -122,7 +122,7 @@ export default function Welcome({
             <Label>Backup</Label>
             <Text className="text-sm leading-5 text-muted-foreground">
               A backup this app made, locked with a passphrase. It brings back
-              hosts, logins and snippets.
+              hosts, credentials and snippets.
             </Text>
             <Button variant="muted" onPress={() => void restore.start()}>
               Restore a backup
@@ -170,13 +170,13 @@ export default function Welcome({
           primary
           icon={<Smartphone size={20} color={accent} />}
           title="Use without a server"
-          body="Hosts, logins and snippets are kept encrypted on this phone. You can link a server any time later."
+          body="Hosts, credentials and snippets are kept encrypted on this phone. You can link a server any time later."
           onPress={() => onDone("standalone")}
         />
         <Choice
           icon={<Server size={20} color={fg} />}
           title="Link a Termix server"
-          body="Sync your hosts, logins, snippets and settings with your server and use its plugins."
+          body="Sync your hosts, credentials, snippets and settings with your server and use its plugins."
           onPress={() => onDone("link")}
         />
         <Choice

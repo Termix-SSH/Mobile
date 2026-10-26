@@ -66,7 +66,7 @@ export function HostActionSheet({
   const { navigateToSessions } = useTerminalSessions();
   const { ctx, actions } = useHostActions();
   const color = useThemeColor();
-  const iconColor = color("foreground") ?? "#fafafa";
+  const iconColor = color("foreground");
   const accountId = ctx.account.id;
   const [origin, setOrigin] = useState<ConnectionOrigin | null>(null);
   const [blocked, setBlocked] = useState<
@@ -141,15 +141,15 @@ export function HostActionSheet({
 
   const dotColor =
     status === "online"
-      ? "#22c55e"
+      ? color("success")
       : status === "offline"
-        ? "#ef4444"
-        : "#9ca3af";
+        ? color("destructive")
+        : color("muted-foreground");
 
   return (
     <Sheet visible={visible} onClose={onClose}>
       {/* Header */}
-      <View className="flex-row items-center gap-2.5 border-b border-border px-4 pb-3 pt-1">
+      <View className="flex-row items-center gap-2.5 border-b border-border px-4 pb-3 pt-2">
         <View
           style={{ backgroundColor: dotColor }}
           className="h-2.5 w-2.5 rounded-full"
@@ -157,7 +157,7 @@ export function HostActionSheet({
         <View className="min-w-0 flex-1">
           <Text
             weight="bold"
-            className="text-base text-foreground"
+            className="text-sm text-foreground"
             numberOfLines={1}
           >
             {host.name}
@@ -173,12 +173,12 @@ export function HostActionSheet({
         (metrics.cpu != null || metrics.ram != null) ? (
           <View className="shrink-0 items-end">
             {metrics.cpu != null ? (
-              <Text className="text-[10px] text-muted-foreground">
+              <Text className="text-2xs text-muted-foreground">
                 CPU {Math.round(metrics.cpu)}%
               </Text>
             ) : null}
             {metrics.ram != null ? (
-              <Text className="text-[10px] text-muted-foreground">
+              <Text className="text-2xs text-muted-foreground">
                 RAM {Math.round(metrics.ram)}%
               </Text>
             ) : null}

@@ -86,7 +86,7 @@ export function RemoteDesktop({
   const themeBg = color("background") ?? "rgb(12,13,11)";
   const themeFg = color("foreground") ?? "rgb(250,250,250)";
   const themeMuted = color("muted-foreground") ?? "rgb(164,164,164)";
-  const themeAccent = color("accent-brand") ?? "#f59145";
+  const themeAccent = color("accent-brand");
 
   // True available size measured from onLayout - avoids using full window
   // height which includes areas already consumed by the tab bar and insets.

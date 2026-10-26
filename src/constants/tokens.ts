@@ -19,6 +19,8 @@ export const HEIGHTS = {
   controlXs: 28,
   controlSm: 32,
   control: 36,
+  /** Text fields (Input default size). */
+  field: 40,
   controlLg: 44,
   /** Smallest comfortable touch target. */
   touch: 44,

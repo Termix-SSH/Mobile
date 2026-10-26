@@ -1,10 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { Pressable, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { ArrowLeft } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
-import { useThemeColor } from "@/contexts/ThemeContext";
 import { useRepositories } from "@/core/data/hooks";
 import { encodeHostShare } from "@/core/hosts/transfer/share";
 import type { SSHHost } from "@/types";
@@ -14,7 +12,6 @@ import { QrCode } from "./QrCode";
 
 export default function HostShare() {
   const router = useRouter();
-  const color = useThemeColor();
   const repos = useRepositories();
   const { id } = useLocalSearchParams<{ id?: string }>();
   const [host, setHost] = useState<SSHHost | null | undefined>(undefined);
@@ -41,16 +38,7 @@ export default function HostShare() {
     <Screen
       title="Share host"
       subtitle={host?.name || host?.ip}
-      headerLeft={
-        <Pressable
-          onPress={() => router.back()}
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-      }
+      onBack={() => router.back()}
     >
       {host === null ? (
         <EmptyState title="That host no longer exists" />

@@ -329,7 +329,7 @@ export default function LinkFlow() {
               accessibilityLabel="Back"
               className="h-11 flex-row items-center gap-1.5 px-2 active:bg-muted"
             >
-              <ArrowLeft size={18} color={color("foreground")} />
+              <ArrowLeft size={20} color={color("foreground")} />
             </Pressable>
           ) : (
             <View className="w-11" />
@@ -384,9 +384,9 @@ export default function LinkFlow() {
                   Link your Termix server
                 </Text>
                 <Text className="text-sm leading-5 text-muted-foreground">
-                  Your hosts, logins, snippets and settings sync with it, and
-                  you get its plugins. Everything keeps working on this phone
-                  when the server is away.
+                  Your hosts, credentials, snippets and settings sync with it,
+                  and you get its plugins. Everything keeps working on this
+                  phone when the server is away.
                 </Text>
               </View>
               <AddressStep

@@ -752,7 +752,7 @@ export const FileManager = forwardRef<
       },
       {
         key: "delete",
-        icon: <Trash2 size={16} color="#ef4444" />,
+        icon: <Trash2 size={16} color={colors.destructive} />,
         label: b.trash ? "Move to trash" : "Delete",
         destructive: true,
         onPress: () => void removeEntries([entry]),
@@ -803,7 +803,7 @@ export const FileManager = forwardRef<
           void removeEntries(entries);
         }}
       >
-        <Trash2 size={17} color="#ef4444" />
+        <Trash2 size={17} color={colors.destructive} />
       </ToolButton>
     </View>
   ) : searching ? (

@@ -63,7 +63,7 @@ export default function UpdateRequired() {
   return (
     <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
       <View className="flex-row items-center gap-2.5 border-b border-border px-5 py-4">
-        <AlertTriangle size={20} color="#eab308" />
+        <AlertTriangle size={20} color={color("warning")} />
         <Text weight="bold" className="text-lg text-foreground">
           Update Available
         </Text>

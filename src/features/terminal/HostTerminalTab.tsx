@@ -132,6 +132,7 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
   ];
 
   const keepalive = options.keepaliveInterval;
+  const keepaliveCount = options.keepaliveCountMax;
 
   return (
     <View className="gap-5">
@@ -164,7 +165,8 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
         <SettingRow label="Scrollback lines" last>
           <Input
             size="sm"
-            className="w-24 text-right"
+            containerClassName="w-24"
+            className="text-right"
             keyboardType="number-pad"
             placeholder="App"
             value={config.scrollback ? String(config.scrollback) : ""}
@@ -233,18 +235,40 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
         <SettingRow
           label="Keepalive"
           description="Seconds between pings, 0 turns it off"
-          last
         >
           <Input
             size="sm"
-            className="w-24 text-right"
+            containerClassName="w-24"
+            className="text-right"
             keyboardType="number-pad"
-            placeholder="30"
+            placeholder="Default"
+            accessibilityLabel="Keepalive seconds"
             value={keepalive == null ? "" : String(keepalive)}
             onChangeText={(t) => {
               const n = parseInt(t, 10);
               setOptions({
                 keepaliveInterval: Number.isFinite(n) ? n : undefined,
+              });
+            }}
+          />
+        </SettingRow>
+        <SettingRow
+          label="Missed pings"
+          description="Drop the connection after this many go unanswered"
+          last
+        >
+          <Input
+            size="sm"
+            containerClassName="w-24"
+            className="text-right"
+            keyboardType="number-pad"
+            placeholder="Default"
+            accessibilityLabel="Missed pings before drop"
+            value={keepaliveCount == null ? "" : String(keepaliveCount)}
+            onChangeText={(t) => {
+              const n = parseInt(t, 10);
+              setOptions({
+                keepaliveCountMax: Number.isFinite(n) && n > 0 ? n : undefined,
               });
             }}
           />
@@ -321,6 +345,7 @@ export function writeHostTerminal(value: HostFormValues, payload: SSHHostData) {
     value: e.value,
   }));
   if (options.keepaliveInterval === undefined) delete options.keepaliveInterval;
+  if (options.keepaliveCountMax === undefined) delete options.keepaliveCountMax;
   payload.sshOptions = options;
 }
 

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Platform, Pressable, ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   AlignLeft,
-  ArrowLeft,
   Bell,
   History,
   Link,
@@ -30,15 +28,17 @@ import {
   Button,
   FakeSwitch,
   Input,
+  SettingRow,
   Sheet,
   SheetBody,
-  SettingRow,
   Text,
+  Section as UiSection,
 } from "@/ui";
 import { useTheme, useThemeColor } from "@/contexts/ThemeContext";
 import type { TerminalConfig } from "@/types";
 import { TerminalPreview } from "./terminal/TerminalPreview";
 import { CustomThemeSheet } from "./terminal/CustomThemeSheet";
+import { Screen } from "@/components/Screen";
 
 const FONT_SIZES = [12, 14, 16, 18, 20, 24];
 const LINE_HEIGHTS = [
@@ -68,18 +68,13 @@ function Section({
 }) {
   const color = useThemeColor();
   return (
-    <View className="border border-border bg-card">
-      <View className="flex-row items-center gap-2 border-b border-border px-3 py-3">
-        <Icon size={14} color={color("muted-foreground")} />
-        <Text
-          weight="bold"
-          className="text-[11px] uppercase tracking-[2px] text-foreground"
-        >
-          {title}
-        </Text>
-      </View>
-      <View className="px-3 pb-3 pt-2">{children}</View>
-    </View>
+    <UiSection
+      title={title}
+      icon={<Icon size={12} color={color("muted-foreground")} />}
+      bodyClassName="px-3 pb-3 pt-2"
+    >
+      {children}
+    </UiSection>
   );
 }
 
@@ -119,8 +114,6 @@ function Choices<T extends string | number>({
 
 export default function TerminalCustomization() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
-  const color = useThemeColor();
   const { resolvedTheme } = useTheme();
   const { config, updateConfig, updateFontSize, resetToDefault } =
     useTerminalCustomization();
@@ -164,25 +157,10 @@ export default function TerminalCustomization() {
   };
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-      <View className="flex-row items-center gap-3 border-b border-border px-4 pb-3 pt-3">
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={() => router.back()}
-          hitSlop={8}
-          className="shrink-0"
-        >
-          <ArrowLeft size={18} color={color("foreground")} />
-        </Pressable>
-        <Text weight="bold" className="flex-1 text-xl text-foreground">
-          Terminal
-        </Text>
-      </View>
-
+    <Screen title="Terminal" onBack={() => router.back()}>
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}
+        contentContainerStyle={{ padding: 12, gap: 16, paddingBottom: 40 }}
       >
         <TerminalPreview
           colors={colors}
@@ -505,6 +483,6 @@ export default function TerminalCustomization() {
           </>
         }
       />
-    </View>
+    </Screen>
   );
 }

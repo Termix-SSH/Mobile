@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import { ChevronRight, Wrench } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
@@ -13,20 +13,14 @@ import {
   type ToolDef,
 } from "@/core/features";
 import { AccountButton, SearchButton } from "@/screens/shell/AppHeader";
-import { EmptyState, ListRow, Text } from "@/ui";
+import { EmptyState, ListRow, Text, Section as UiSection } from "@/ui";
 import { HostPicker } from "./HostPicker";
 
 function Section({ title, children }: { title: string; children: any }) {
   return (
-    <View className="gap-1.5">
-      <Text
-        weight="medium"
-        className="px-1 text-[11px] uppercase tracking-wider text-muted-foreground"
-      >
-        {title}
-      </Text>
-      <View className="border border-border">{children}</View>
-    </View>
+    <UiSection title={title} bodyClassName="">
+      {children}
+    </UiSection>
   );
 }
 

@@ -42,7 +42,7 @@ export default function Settings() {
     <Screen title="Settings">
       <ScrollView
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}
+        contentContainerStyle={{ padding: 12, gap: 16, paddingBottom: 40 }}
       >
         <Input
           value={query}

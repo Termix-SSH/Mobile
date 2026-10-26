@@ -118,7 +118,8 @@ describe("buildSettingsGroups", () => {
     const groups = buildSettingsGroups(env(), []);
     const orders = groups.map((g) => g.section.order);
     expect([...orders].sort((a, b) => a - b)).toEqual(orders);
-    expect(groups.find((g) => g.section.id === "notifications")).toBeDefined();
+    const terminal = groups.find((g) => g.section.id === "terminal");
+    expect(terminal?.items.map((i) => i.id)).toContain("background-sessions");
   });
 });
 

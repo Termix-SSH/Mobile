@@ -61,8 +61,8 @@ export function BrowserStep({
   onSecondFactor: (step: SecondFactorStep) => void;
 }) {
   const color = useThemeColor();
-  const bg = color("background") ?? "#0c0d0b";
-  const accent = color("accent-brand") ?? "#f59145";
+  const bg = color("background");
+  const accent = color("accent-brand");
   const webViewRef = useRef<WebView>(null);
   const [source, setSource] = useState<{ uri: string } | null>(null);
   const [url, setUrl] = useState("");
@@ -318,7 +318,7 @@ export function BrowserStep({
           accessibilityLabel="Back"
           className="h-11 flex-row items-center gap-1.5 px-2 active:bg-muted"
         >
-          <ArrowLeft size={18} color={color("foreground")} />
+          <ArrowLeft size={20} color={color("foreground")} />
           <Text weight="medium" className="text-sm text-foreground">
             Sign in
           </Text>

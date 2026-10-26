@@ -20,6 +20,8 @@ export {
   type ContextMenuItem,
 } from "./ContextMenu";
 export { InlineView } from "./InlineView";
+export { Section, SectionLabel } from "./Section";
+export { BottomBarShown, useBottomInset } from "./bottom-inset";
 export { ListRow, ListRowAction } from "./ListRow";
 export type { ListRowTone } from "./ListRow";
 export { Tabs } from "./Tabs";

@@ -3,7 +3,7 @@ import { View, ScrollView, Pressable, RefreshControl } from "react-native";
 import { Plug, SquareTerminal, ExternalLink, X } from "lucide-react-native";
 import { features, useFeatureContext } from "@/core/features";
 import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
-import { Text, useConfirm } from "@/ui";
+import { Text, useConfirm, EmptyState } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { SSHHost } from "@/types";
 import { accounts, api } from "@/core/accounts";
@@ -78,8 +78,9 @@ function ConnectionRow({
 }) {
   const color = useThemeColor();
   const { icon: TabIcon, label } = describeTab(tabType);
-  const iconColor =
-    (isActive ? color("accent-brand") : color("muted-foreground")) ?? "#a4a4a4";
+  const iconColor = isActive
+    ? color("accent-brand")
+    : color("muted-foreground");
 
   return (
     <Pressable
@@ -100,8 +101,8 @@ function ConnectionRow({
           <View
             style={{
               backgroundColor: isLive
-                ? "#22c55e"
-                : (color("muted-foreground", 0.3) ?? "#555"),
+                ? color("success")
+                : color("muted-foreground", 0.3),
             }}
             className="h-1.5 w-1.5 rounded-full"
           />
@@ -249,21 +250,12 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
 
   if (!hasAny) {
     return (
-      <View className="flex-1 items-center justify-center gap-3 px-8">
-        <View className="h-12 w-12 items-center justify-center rounded-full bg-muted/40">
-          <Plug size={22} color={color("muted-foreground", 0.5)} />
-        </View>
-        <Text
-          weight="medium"
-          className="text-center text-sm text-muted-foreground"
-        >
-          No active connections
-        </Text>
-        <Text className="text-center text-xs text-muted-foreground">
-          Connect to a host to start a session. Tabs you open on other devices
-          will appear here too.
-        </Text>
-      </View>
+      <EmptyState
+        className="flex-1"
+        icon={Plug}
+        title="No active connections"
+        hint="Connect to a host to start a session. Tabs you open on other devices show here too."
+      />
     );
   }
 

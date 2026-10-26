@@ -104,7 +104,7 @@ export const terminalFeature: FeatureDef = {
   hostEditorSections: [
     {
       id: "terminal",
-      label: "Terminal",
+      label: "Terminal and keepalive",
       group: "ssh",
       order: 10,
       toggle: "enableTerminal",

@@ -1,12 +1,7 @@
 import { useCallback, useState } from "react";
+import { ScreenHeader } from "@/components/Screen";
 import { ActivityIndicator, Pressable, ScrollView, View } from "react-native";
-import {
-  ArrowLeft,
-  Play,
-  RotateCcw,
-  ScrollText,
-  Square,
-} from "lucide-react-native";
+import { Play, RotateCcw, ScrollText, Square } from "lucide-react-native";
 import { MONO_FONT } from "@/constants/fonts";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { usePoll } from "@/core/exec";
@@ -104,29 +99,17 @@ export function UnitDetailView({
   const active = detail?.props.ActiveState ?? "";
   return (
     <View className="flex-1 bg-background">
-      <View className="flex-row items-center gap-2.5 border-b border-border px-3 py-3">
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={onBack}
-          hitSlop={8}
-          className="p-1"
-        >
-          <ArrowLeft size={18} color={color("foreground")} />
-        </Pressable>
-        <Text
-          weight="bold"
-          className="min-w-0 flex-1 text-base text-foreground"
-          numberOfLines={1}
-        >
-          {name}
-        </Text>
-        {active ? (
-          <Badge variant={stateTone(active)}>
-            {active === "active" ? detail?.props.SubState || active : active}
-          </Badge>
-        ) : null}
-      </View>
+      <ScreenHeader
+        title={name}
+        onBack={onBack}
+        headerRight={
+          active ? (
+            <Badge variant={stateTone(active)}>
+              {active === "active" ? detail?.props.SubState || active : active}
+            </Badge>
+          ) : undefined
+        }
+      />
 
       <View className="flex-row flex-wrap gap-1.5 border-b border-border px-3 py-2">
         {!readOnly ? (
@@ -166,7 +149,7 @@ export function UnitDetailView({
         </View>
       ) : (
         <ScrollView
-          contentContainerStyle={{ padding: 12, gap: 8, paddingBottom: 120 }}
+          contentContainerStyle={{ padding: 12, gap: 8, paddingBottom: 24 }}
         >
           {SHOWN_PROPS.map(([key, label]) => {
             const value = propValue(key, detail.props[key]);

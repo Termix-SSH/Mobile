@@ -3,9 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { useRouter } from "expo-router";
-import { ArrowLeft } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
-import { useThemeColor } from "@/contexts/ThemeContext";
 import { useRepositories } from "@/core/data/hooks";
 import { buildExport, withJumpHosts } from "@/core/hosts/transfer/termix-json";
 import type { SSHHost } from "@/types";
@@ -14,10 +12,11 @@ import {
   Button,
   Checkbox,
   FakeSwitch,
-  Sheet,
   SettingRow,
+  Sheet,
   Text,
   useConfirm,
+  Section as UiSection,
 } from "@/ui";
 import { ImportPanel } from "./ImportPanel";
 
@@ -29,23 +28,14 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <View className="border border-border bg-card">
-      <View className="border-b border-border px-3 py-3">
-        <Text
-          weight="bold"
-          className="text-[11px] uppercase tracking-[2px] text-foreground"
-        >
-          {title}
-        </Text>
-      </View>
-      <View className="gap-2 px-3 py-3">{children}</View>
-    </View>
+    <UiSection title={title} bodyClassName="gap-2 px-3 py-3">
+      {children}
+    </UiSection>
   );
 }
 
 export default function HostTransfer() {
   const router = useRouter();
-  const color = useThemeColor();
   const repos = useRepositories();
   const confirm = useConfirm();
   const [hosts, setHosts] = useState<SSHHost[]>([]);
@@ -119,16 +109,7 @@ export default function HostTransfer() {
     <Screen
       title="Import and export"
       subtitle="Move hosts in and out"
-      headerLeft={
-        <Pressable
-          onPress={() => router.back()}
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-      }
+      onBack={() => router.back()}
     >
       <ScrollView contentContainerStyle={{ padding: 12, gap: 12 }}>
         <Section title="Import">
@@ -161,7 +142,7 @@ export default function HostTransfer() {
           ) : null}
           <SettingRow
             label="Include passwords and keys"
-            description="Off makes a file safe to share. Hosts that use a saved login point at it by name"
+            description="Off makes a file safe to share. Hosts that use a saved credential point at it by name"
             last
           >
             <FakeSwitch

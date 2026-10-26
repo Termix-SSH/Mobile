@@ -170,12 +170,13 @@ export function useUiColors(): UiColors {
 export function useThemeColor() {
   const { resolvedTheme, accentTriplet } = useTheme();
   return useCallback(
-    (token: string, alpha = 1) => {
+    (token: string, alpha = 1): string => {
       const triplet =
         token === "accent-brand"
           ? accentTriplet
           : THEME_VARS[resolvedTheme][token];
-      if (!triplet) return undefined;
+      // Every theme has the full token set; a typo shows as nothing.
+      if (!triplet) return "transparent";
       return alpha >= 1
         ? `rgb(${triplet.split(" ").join(",")})`
         : `rgba(${triplet.split(" ").join(",")},${alpha})`;

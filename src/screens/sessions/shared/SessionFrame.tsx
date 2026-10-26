@@ -1,6 +1,7 @@
 import { View, ActivityIndicator, ScrollView } from "react-native";
 import { AlertCircle, RotateCcw } from "lucide-react-native";
 import { Text, Button } from "@/ui";
+import { ScreenHeader } from "@/components/Screen";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { ConnectionLog } from "./useConnectionLog";
 import { ConnectionError } from "./ConnectionError";
@@ -67,31 +68,13 @@ export function SessionFrame({
 
   return (
     <View className="flex-1 bg-background">
-      {(title || headerActions) && (
-        <View className="flex-row items-center gap-2 border-b border-border px-4 py-3">
-          <View className="min-w-0 flex-1">
-            {title ? (
-              <Text
-                weight="bold"
-                className="text-base text-foreground"
-                numberOfLines={1}
-              >
-                {title}
-              </Text>
-            ) : null}
-            {subtitle ? (
-              <Text className="text-xs text-muted-foreground" numberOfLines={1}>
-                {subtitle}
-              </Text>
-            ) : null}
-          </View>
-          {headerActions ? (
-            <View className="flex-row items-center gap-1.5">
-              {headerActions}
-            </View>
-          ) : null}
-        </View>
-      )}
+      {title || headerActions ? (
+        <ScreenHeader
+          title={title}
+          subtitle={subtitle}
+          headerRight={headerActions}
+        />
+      ) : null}
 
       {toolbar ? (
         <View className="border-b border-border">{toolbar}</View>

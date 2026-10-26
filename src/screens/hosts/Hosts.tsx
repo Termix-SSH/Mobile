@@ -653,7 +653,7 @@ export default function Hosts() {
       }
     >
       {reorder ? (
-        <View className="flex-row items-center gap-2 border-b border-border bg-card px-4 py-2">
+        <View className="flex-row items-center gap-2 border-b border-border bg-card px-3 py-2">
           <GripVertical size={15} color={muted} />
           <Text className="flex-1 text-xs text-muted-foreground">
             Drag a host by its grip to move it inside its folder.
@@ -663,7 +663,7 @@ export default function Hosts() {
           </Button>
         </View>
       ) : (
-        <View className="gap-2 px-4 pb-2 pt-3">
+        <View className="gap-2 px-3 pb-2 pt-3">
           <View className="flex-row items-center gap-1.5">
             <Input
               containerClassName="flex-1"
@@ -687,7 +687,7 @@ export default function Hosts() {
             />
             <Button
               variant="muted"
-              size="icon"
+              size="icon-field"
               accessibilityLabel="Filter hosts"
               onPress={() => setSheet("filter")}
               icon={
@@ -699,7 +699,7 @@ export default function Hosts() {
             />
             <Button
               variant="muted"
-              size="icon"
+              size="icon-field"
               accessibilityLabel="Sort hosts"
               onPress={() => setSheet("sort")}
               icon={
@@ -759,7 +759,7 @@ export default function Hosts() {
               refreshing={data.refreshing}
               onRefresh={data.refresh}
               tintColor={color("accent-brand")}
-              colors={[color("accent-brand") ?? "#f59145"]}
+              colors={[color("accent-brand")]}
             />
           }
           header={listHeader}
@@ -824,7 +824,7 @@ export default function Hosts() {
         />
         <SheetRow
           icon={<KeyRound size={18} color={color("foreground")} />}
-          label="Logins"
+          label="Credentials"
           description="Saved passwords and keys"
           onPress={() => {
             setSheet(null);
@@ -898,7 +898,7 @@ export default function Hosts() {
             : []),
         ].map((grp) => (
           <View key={grp.group}>
-            <View className="px-4 pb-1 pt-3">
+            <View className="px-3 pb-1 pt-3">
               <Text
                 weight="bold"
                 className="text-[10px] uppercase tracking-[2px] text-muted-foreground"
@@ -914,7 +914,7 @@ export default function Hosts() {
                 <Pressable
                   key={opt.value}
                   onPress={() => toggleFilter(grp.group, opt.value)}
-                  className="flex-row items-center gap-3 border-b border-border/60 px-4 py-3 active:bg-muted/40"
+                  className="flex-row items-center gap-3 border-b border-border/60 px-3 py-3 active:bg-muted/40"
                 >
                   <Checkbox
                     checked={checked}

@@ -405,7 +405,7 @@ export function DockerView({
               flexGrow: 1,
               padding: 12,
               gap: 8,
-              paddingBottom: 120,
+              paddingBottom: 24,
             }}
             refreshControl={
               <RefreshControl
@@ -446,7 +446,7 @@ function buildActions(
 ): (ContextAction | null)[] {
   if (!c) return [];
   const running = isRunning(c);
-  const fg = color("foreground") ?? "#fafafa";
+  const fg = color("foreground");
   return [
     running
       ? null
@@ -516,7 +516,7 @@ function ContainerRow({
         <View
           style={{
             backgroundColor: running
-              ? "#22c55e"
+              ? color("success")
               : color("muted-foreground", 0.4),
           }}
           className="h-2.5 w-2.5 rounded-full"

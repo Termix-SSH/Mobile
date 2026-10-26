@@ -245,7 +245,7 @@ export function ServicesView({
       ) : (
         <ScrollView
           className="flex-1"
-          contentContainerStyle={{ padding: 12, gap: 6, paddingBottom: 120 }}
+          contentContainerStyle={{ padding: 12, gap: 6, paddingBottom: 24 }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

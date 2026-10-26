@@ -123,8 +123,8 @@ export function AccountsControl() {
         </Button>
       </View>
       <Text className="pt-2 text-meta text-muted-foreground">
-        Each server keeps its own copy of your hosts, logins and settings on
-        this phone.
+        Each server keeps its own copy of your hosts, credentials and settings
+        on this phone.
       </Text>
     </View>
   );

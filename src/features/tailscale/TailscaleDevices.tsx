@@ -1,8 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import {
   ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
   ScrollView,
   useWindowDimensions,
@@ -249,88 +247,71 @@ export function TailscaleDevices({
   }, [visible]);
 
   return (
-    <Sheet visible={visible} onClose={onClose} onDismiss={onDismiss}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      onDismiss={onDismiss}
+      title="Tailscale devices"
+      description="Add a host that connects with Tailscale SSH."
+      icon={<Radar size={15} color={color("accent-brand")} />}
+    >
+      <ScrollView
+        style={{ maxHeight: Math.max(80, height * 0.7 - 80) }}
+        contentContainerStyle={{ padding: 16, gap: 12 }}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
-        <View className="flex-row items-center gap-2.5 border-b border-border px-4 pb-3 pt-1">
-          <View className="h-8 w-8 shrink-0 items-center justify-center border border-border bg-muted">
-            <Radar size={15} color={color("accent-brand")} />
-          </View>
-          <View className="min-w-0 flex-1">
-            <Text weight="bold" className="text-base text-foreground">
-              Tailscale devices
-            </Text>
-            <Text className="text-xs text-muted-foreground">
-              Add a host that connects with Tailscale SSH.
-            </Text>
-          </View>
-          <Button
-            variant="ghost"
-            size="icon"
-            accessibilityLabel="Close Tailscale devices"
-            onPress={onClose}
-            icon={<X size={18} color={color("muted-foreground")} />}
-          />
-        </View>
-        <ScrollView
-          style={{ maxHeight: Math.max(80, height * 0.7 - 80) }}
-          contentContainerStyle={{ padding: 16, gap: 12 }}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          {available ? (
-            <DeviceSearch
-              query={query}
-              setQuery={setQuery}
-              loading={status === "loading"}
-              refresh={refresh}
-            />
-          ) : null}
-          <DeviceResults
-            devices={devices}
-            status={available ? status : "unavailable"}
+        {available ? (
+          <DeviceSearch
             query={query}
-            renderDevice={(device) => {
-              const username = usernames[device.id] ?? "root";
-              return (
-                <View
-                  key={device.id}
-                  className="gap-3 border border-border bg-card p-3"
-                >
-                  <DeviceDetails device={device} />
-                  <View className="gap-1.5">
-                    <Label>Username</Label>
-                    <Input
-                      value={username}
-                      onChangeText={(value) =>
-                        setUsernames((current) => ({
-                          ...current,
-                          [device.id]: value,
-                        }))
-                      }
-                      accessibilityLabel={`SSH username for ${device.hostname || device.name}`}
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      placeholder="root"
-                    />
-                  </View>
-                  <Button
-                    variant="default"
-                    size="sm"
-                    disabled={!tailnetAddress(device)}
-                    onPress={() =>
-                      onAddHost(tailscaleHostDraft(device, username))
-                    }
-                  >
-                    Add host
-                  </Button>
-                </View>
-              );
-            }}
+            setQuery={setQuery}
+            loading={status === "loading"}
+            refresh={refresh}
           />
-        </ScrollView>
-      </KeyboardAvoidingView>
+        ) : null}
+        <DeviceResults
+          devices={devices}
+          status={available ? status : "unavailable"}
+          query={query}
+          renderDevice={(device) => {
+            const username = usernames[device.id] ?? "root";
+            return (
+              <View
+                key={device.id}
+                className="gap-3 border border-border bg-card p-3"
+              >
+                <DeviceDetails device={device} />
+                <View className="gap-1.5">
+                  <Label>Username</Label>
+                  <Input
+                    value={username}
+                    onChangeText={(value) =>
+                      setUsernames((current) => ({
+                        ...current,
+                        [device.id]: value,
+                      }))
+                    }
+                    accessibilityLabel={`SSH username for ${device.hostname || device.name}`}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    placeholder="root"
+                  />
+                </View>
+                <Button
+                  variant="default"
+                  size="sm"
+                  disabled={!tailnetAddress(device)}
+                  onPress={() =>
+                    onAddHost(tailscaleHostDraft(device, username))
+                  }
+                >
+                  Add host
+                </Button>
+              </View>
+            );
+          }}
+        />
+      </ScrollView>
     </Sheet>
   );
 }

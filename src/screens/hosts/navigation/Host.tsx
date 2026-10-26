@@ -65,7 +65,7 @@ function MetricBar({
   mid: number;
 }) {
   const color = useThemeColor();
-  const accent = color("accent-brand") ?? "#f59145";
+  const accent = color("accent-brand");
   const barColor = value > high ? "#f87171" : value > mid ? "#facc15" : accent;
   return (
     <View className="flex-row items-center gap-1">
@@ -102,7 +102,7 @@ function Host({
   badges,
 }: HostProps) {
   const color = useThemeColor();
-  const accent = color("accent-brand") ?? "#f59145";
+  const accent = color("accent-brand");
   const online = status === "online";
   const rightClick = useContextMenu(
     selecting
@@ -185,9 +185,7 @@ function Host({
               name={host.icon}
               size={12}
               color={
-                isLookColor(host.color)
-                  ? host.color
-                  : (color("muted-foreground") ?? "#9ca3af")
+                isLookColor(host.color) ? host.color : color("muted-foreground")
               }
             />
           ) : null}

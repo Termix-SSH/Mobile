@@ -189,21 +189,21 @@ function statusInfo(
     case "CONNECTED":
       return {
         label: "Connected",
-        color: "#22c55e",
+        color: color("success"),
         icon: CheckCircle,
         badge: "success",
       };
     case "CONNECTING":
       return {
         label: "Connecting",
-        color: color("accent-brand") ?? "#f59145",
+        color: color("accent-brand"),
         icon: RotateCcw,
         badge: "accent",
       };
     case "DISCONNECTING":
       return {
         label: "Disconnecting",
-        color: "#f59e0b",
+        color: color("warning"),
         icon: RotateCcw,
         badge: "muted",
       };
@@ -211,14 +211,14 @@ function statusInfo(
     case "FAILED":
       return {
         label: "Error",
-        color: color("destructive") ?? "#ef4444",
+        color: color("destructive"),
         icon: AlertCircle,
         badge: "destructive",
       };
     case "RETRYING":
       return {
         label: `Retrying (${status?.retryCount || 0}/${status?.maxRetries || 0})`,
-        color: "#f59e0b",
+        color: color("warning"),
         icon: RotateCcw,
         badge: "muted",
       };
@@ -234,7 +234,7 @@ function statusInfo(
     default:
       return {
         label: "Disconnected",
-        color: color("muted-foreground") ?? "#888",
+        color: color("muted-foreground"),
         icon: Circle,
         badge: "muted",
       };

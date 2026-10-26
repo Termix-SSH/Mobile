@@ -12,6 +12,7 @@
   --accent-brand: 245 145 69;
   --accent-text: 159 94 45;
   --warning-text: 140 107 3;
+  --success-text: 18 130 59;
   --destructive-text: 231 0 11;
 
   --background: 255 255 255;
@@ -47,6 +48,7 @@
   --sidebar-border: 229 229 229;
   --sidebar-ring: 161 161 161;
   --warning: 234 179 5;
+  --success: 22 163 74;
   --terminal-bg: 255 255 255;
   --surface-dim: 237 237 237;
 }
@@ -54,6 +56,7 @@
 .dark {
   --accent-text: 245 145 69;
   --warning-text: 243 202 62;
+  --success-text: 34 197 94;
   --destructive-text: 255 100 103;
   --background: 12 13 11;
   --foreground: 250 250 250;
@@ -89,5 +92,6 @@
   --sidebar-border: 41 42 40;
   --sidebar-ring: 115 115 115;
   --warning: 243 202 62;
+  --success: 34 197 94;
   --terminal-bg: 12 13 11;
 }

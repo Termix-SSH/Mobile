@@ -14,6 +14,7 @@ import { ArrowLeft } from "lucide-react-native";
 import { Text } from "./Text";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { HEIGHTS } from "@/constants/tokens";
+import { useBottomInset } from "./bottom-inset";
 
 /**
  * What used to be a full screen modal: a view that covers the screen it was
@@ -52,6 +53,7 @@ export function InlineView({
   children: React.ReactNode;
 }) {
   const insets = useSafeAreaInsets();
+  const bottomInset = useBottomInset();
   const color = useThemeColor();
 
   const requestClose = useCallback(async () => {
@@ -99,7 +101,7 @@ export function InlineView({
             accessibilityLabel="Back"
             className="h-11 w-11 items-center justify-center active:bg-muted"
           >
-            <ArrowLeft size={18} color={color("foreground")} />
+            <ArrowLeft size={20} color={color("foreground")} />
           </Pressable>
           {icon ? <View className="shrink-0">{icon}</View> : null}
           <View className="min-w-0 flex-1 py-2">
@@ -108,7 +110,7 @@ export function InlineView({
                 weight="bold"
                 numberOfLines={1}
                 accessibilityRole="header"
-                className="text-sm text-foreground"
+                className="text-title text-foreground"
               >
                 {title}
               </Text>
@@ -135,7 +137,7 @@ export function InlineView({
             className="flex-1"
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={{
-              paddingBottom: footer ? 0 : insets.bottom,
+              paddingBottom: footer ? 0 : bottomInset,
             }}
           >
             {body}
@@ -146,7 +148,7 @@ export function InlineView({
         {footer ? (
           <View
             className="border-t border-border px-3 pt-3"
-            style={{ paddingBottom: Math.max(insets.bottom, 12) }}
+            style={{ paddingBottom: Math.max(bottomInset, 12) }}
           >
             {footer}
           </View>

@@ -1,15 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { View, ScrollView, Pressable, RefreshControl } from "react-native";
 import { useRouter } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {
-  ArrowLeft,
-  Plus,
-  Copy,
-  Trash2,
-  Key,
-  KeyRound,
-} from "lucide-react-native";
+import { Plus, Copy, Trash2, Key, KeyRound } from "lucide-react-native";
 import * as Clipboard from "expo-clipboard";
 import { UserInfo } from "@/types";
 import {
@@ -26,6 +18,7 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
 import { apiOf, useActiveClient } from "@/core/accounts";
 import type { ApiKey } from "@/core/api/types";
+import { Screen } from "@/components/Screen";
 
 function formatDate(iso: string | null): string {
   if (!iso) return "Never";
@@ -48,7 +41,6 @@ function getUserId(u: UserInfo): string {
 export default function ApiKeys() {
   const client = useActiveClient();
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const confirm = useConfirm();
   const color = useThemeColor();
 
@@ -176,37 +168,28 @@ export default function ApiKeys() {
   };
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-      {/* Header */}
-      <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={() => router.back()}
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-        <Text weight="bold" className="flex-1 text-base text-foreground">
-          API Keys
-        </Text>
+    <Screen
+      title="API keys"
+      onBack={() => router.back()}
+      headerRight={
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="New API key"
           onPress={openCreate}
           hitSlop={8}
+          className="h-9 w-9 items-center justify-center"
         >
           <Plus size={20} color={color("accent-brand")} />
         </Pressable>
-      </View>
-
+      }
+    >
       {loading ? (
         <View className="flex-1 items-center justify-center">
           <Text className="text-sm text-muted-foreground">Loading…</Text>
         </View>
       ) : (
         <ScrollView
-          contentContainerStyle={{ padding: 16, gap: 10, paddingBottom: 40 }}
+          contentContainerStyle={{ padding: 12, gap: 10, paddingBottom: 40 }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -411,6 +394,6 @@ export default function ApiKeys() {
           </View>
         </SheetBody>
       </Sheet>
-    </View>
+    </Screen>
   );
 }

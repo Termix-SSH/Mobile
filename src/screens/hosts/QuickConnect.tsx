@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
+import { View, ScrollView } from "react-native";
 import { Zap } from "lucide-react-native";
 import { SSHHost } from "@/types";
 import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
@@ -9,7 +9,6 @@ import {
   Button,
   Label,
   Tabs,
-  Text,
   SettingRow,
   FakeSwitch,
 } from "@/ui";
@@ -133,119 +132,106 @@ export function QuickConnect({
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      title="Quick connect"
+      description="Connect to a host without saving it."
+      icon={<Zap size={15} color={color("accent-brand")} />}
+    >
+      <ScrollView
+        contentContainerStyle={{ padding: 16, gap: 12 }}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
-        <View className="flex-row items-center gap-2.5 border-b border-border px-4 pb-3 pt-1">
-          <View className="h-8 w-8 shrink-0 items-center justify-center border border-border bg-muted">
-            <Zap size={15} color={color("accent-brand")} />
+        <View className="flex-row gap-2.5">
+          <View className="flex-[3] gap-1.5">
+            <Label>Host / IP</Label>
+            <Input
+              value={ip}
+              onChangeText={changeAddress}
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="user@192.168.1.10:22"
+            />
           </View>
-          <View className="min-w-0 flex-1">
-            <Text weight="bold" className="text-base text-foreground">
-              Quick Connect
-            </Text>
-            <Text className="text-xs text-muted-foreground">
-              Connect to a host without saving it.
-            </Text>
+          <View className="flex-1 gap-1.5">
+            <Label>Port</Label>
+            <Input
+              value={port}
+              onChangeText={(v) => setPort(v.replace(/\D/g, ""))}
+              keyboardType="number-pad"
+            />
           </View>
         </View>
 
-        <ScrollView
-          contentContainerStyle={{ padding: 16, gap: 12 }}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <View className="flex-row gap-2.5">
-            <View className="flex-[3] gap-1.5">
-              <Label>Host / IP</Label>
-              <Input
-                value={ip}
-                onChangeText={changeAddress}
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholder="user@192.168.1.10:22"
-              />
-            </View>
-            <View className="flex-1 gap-1.5">
-              <Label>Port</Label>
-              <Input
-                value={port}
-                onChangeText={(v) => setPort(v.replace(/\D/g, ""))}
-                keyboardType="number-pad"
-              />
-            </View>
-          </View>
+        <View className="gap-1.5">
+          <Label>Username</Label>
+          <Input
+            value={username}
+            onChangeText={setUsername}
+            autoCapitalize="none"
+            autoCorrect={false}
+            placeholder="root"
+          />
+        </View>
 
+        <Tabs<AuthType>
+          value={authType}
+          onChange={setAuthType}
+          options={[
+            { id: "password", label: "Password" },
+            { id: "key", label: "Key" },
+          ]}
+        />
+
+        {authType === "password" ? (
           <View className="gap-1.5">
-            <Label>Username</Label>
+            <Label>Password</Label>
             <Input
-              value={username}
-              onChangeText={setUsername}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              autoCapitalize="none"
+            />
+          </View>
+        ) : (
+          <View className="gap-1.5">
+            <Label>Private Key</Label>
+            <Input
+              value={key}
+              onChangeText={setKey}
+              multiline
               autoCapitalize="none"
               autoCorrect={false}
-              placeholder="root"
+              placeholder="-----BEGIN OPENSSH PRIVATE KEY-----"
+              style={{ minHeight: 120 }}
             />
           </View>
+        )}
 
-          <Tabs<AuthType>
-            value={authType}
-            onChange={setAuthType}
-            options={[
-              { id: "password", label: "Password" },
-              { id: "key", label: "Key" },
-            ]}
+        <SettingRow
+          label="Save to my hosts"
+          description="Keep this host after connecting"
+          last
+        >
+          <FakeSwitch
+            checked={save}
+            onChange={setSave}
+            accessibilityLabel="Save to my hosts"
           />
+        </SettingRow>
 
-          {authType === "password" ? (
-            <View className="gap-1.5">
-              <Label>Password</Label>
-              <Input
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                autoCapitalize="none"
-              />
-            </View>
-          ) : (
-            <View className="gap-1.5">
-              <Label>Private Key</Label>
-              <Input
-                value={key}
-                onChangeText={setKey}
-                multiline
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholder="-----BEGIN OPENSSH PRIVATE KEY-----"
-                style={{ minHeight: 120 }}
-              />
-            </View>
-          )}
-
-          <SettingRow
-            label="Save to my hosts"
-            description="Keep this host after connecting"
-            last
-          >
-            <FakeSwitch
-              checked={save}
-              onChange={setSave}
-              accessibilityLabel="Save to my hosts"
-            />
-          </SettingRow>
-
-          {/* Actions */}
-          <View className="flex-row justify-end gap-2 pt-1">
-            <Button variant="ghost" size="sm" onPress={onClose}>
-              Cancel
-            </Button>
-            <Button variant="default" size="sm" onPress={connect}>
-              Connect
-            </Button>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        {/* Actions */}
+        <View className="flex-row justify-end gap-2 pt-1">
+          <Button variant="ghost" size="sm" onPress={onClose}>
+            Cancel
+          </Button>
+          <Button variant="default" size="sm" onPress={connect}>
+            Connect
+          </Button>
+        </View>
+      </ScrollView>
     </Sheet>
   );
 }

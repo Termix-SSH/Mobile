@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { View, ScrollView, Pressable, RefreshControl } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import {
-  ArrowLeft,
   ChevronRight,
   Copy,
   FolderOpen,
@@ -364,7 +363,7 @@ export default function Snippets() {
   const renderSnippet = (snippet: Snippet, index: number, list: Snippet[]) => (
     <View
       key={snippet.id}
-      className="flex-row items-center gap-2 border-b border-border px-4 py-3 hover:bg-muted/20"
+      className="flex-row items-center gap-2 border-b border-border px-3 py-3 hover:bg-muted/20"
       onPointerDown={(e) => {
         const n = e.nativeEvent;
         if (isSecondaryClick(n)) {
@@ -457,7 +456,7 @@ export default function Snippets() {
       <View key={folderKey ?? "__unfoldered__"}>
         <Pressable
           onPress={() => toggleFolder(folderKey)}
-          className="flex-row items-center gap-2 border-b border-border bg-muted/20 px-4 py-2.5 active:bg-muted/40"
+          className="flex-row items-center gap-2 border-b border-border bg-muted/20 px-3 py-2.5 active:bg-muted/40"
         >
           <FolderOpen
             size={13}
@@ -507,7 +506,7 @@ export default function Snippets() {
         </Pressable>
         {!collapsed &&
           (items.length === 0 ? (
-            <View className="border-b border-border px-4 py-3">
+            <View className="border-b border-border px-3 py-3">
               <Text className="text-xs italic text-muted-foreground">
                 No snippets in this folder
               </Text>
@@ -522,16 +521,7 @@ export default function Snippets() {
   return (
     <Screen
       title="Snippets"
-      headerLeft={
-        <Pressable
-          onPress={() => router.back()}
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-      }
+      onBack={() => router.back()}
       headerRight={
         <View className="flex-row gap-2">
           <Button
@@ -574,10 +564,15 @@ export default function Snippets() {
       ) : (
         <ScrollView
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor={color("accent-brand")}
+              colors={[color("accent-brand")]}
+            />
           }
         >
-          <View className="border-b border-border px-4">
+          <View className="border-b border-border px-3">
             <SettingRow
               label="Ask before running"
               description="Confirm before a snippet runs in the terminal"

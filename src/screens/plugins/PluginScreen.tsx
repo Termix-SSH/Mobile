@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BackHandler, Dimensions, Pressable, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ArrowLeft, Blocks, RotateCw } from "lucide-react-native";
+import { Blocks, RotateCw } from "lucide-react-native";
 import { useAccounts, useClient } from "@/core/accounts";
 import { features } from "@/core/features";
 import type { FrameViewTarget, ShellCall } from "@/core/plugins/frame-protocol";
@@ -17,6 +17,7 @@ import {
 } from "@/features/plugin-webview/PluginWebView";
 import { handleShellCall } from "@/features/plugin-webview/shell";
 import { EmptyState, Text } from "@/ui";
+import { Screen } from "@/components/Screen";
 
 function device(): "phone" | "tablet" {
   const { width, height } = Dimensions.get("window");
@@ -96,56 +97,59 @@ export default function PluginScreen() {
     [client, plugin, navigateToSessions, close],
   );
 
-  const foreground = color("foreground");
   const muted = color("muted-foreground");
 
   return (
-    <View
-      className="flex-1 bg-background"
-      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
-    >
-      <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable onPress={close} hitSlop={8} accessibilityLabel="Back">
-          <ArrowLeft size={20} color={foreground} />
-        </Pressable>
-        <PluginIcon
-          name={shown?.icon ?? plugin?.icon}
-          size={18}
-          color={muted}
-        />
-        <Text
-          weight="bold"
-          className="flex-1 text-base text-foreground"
-          numberOfLines={1}
-        >
-          {plugin && shown ? viewLabel(plugin, shown) : (plugin?.name ?? "")}
-        </Text>
-        {plugin ? (
+    <Screen
+      onBack={close}
+      titleNode={
+        <View className="flex-row items-center gap-2">
+          <PluginIcon
+            name={shown?.icon ?? plugin?.icon}
+            size={16}
+            color={muted}
+          />
+          <Text
+            weight="bold"
+            className="min-w-0 flex-1 text-title text-foreground"
+            numberOfLines={1}
+          >
+            {plugin && shown ? viewLabel(plugin, shown) : (plugin?.name ?? "")}
+          </Text>
+        </View>
+      }
+      headerRight={
+        plugin ? (
           <Pressable
             onPress={() => web.current?.reload()}
             hitSlop={8}
+            accessibilityRole="button"
             accessibilityLabel="Reload"
+            className="h-9 w-9 items-center justify-center"
           >
             <RotateCw size={18} color={muted} />
           </Pressable>
-        ) : null}
+        ) : undefined
+      }
+    >
+      <View className="flex-1" style={{ paddingBottom: insets.bottom }}>
+        {client && plugin && view ? (
+          <PluginWebView
+            ref={web}
+            client={client}
+            plugin={plugin}
+            view={view}
+            onShell={onShell}
+          />
+        ) : (
+          <EmptyState
+            className="flex-1"
+            icon={Blocks}
+            title={missing.title}
+            hint={missing.hint}
+          />
+        )}
       </View>
-      {client && plugin && view ? (
-        <PluginWebView
-          ref={web}
-          client={client}
-          plugin={plugin}
-          view={view}
-          onShell={onShell}
-        />
-      ) : (
-        <EmptyState
-          className="flex-1"
-          icon={Blocks}
-          title={missing.title}
-          hint={missing.hint}
-        />
-      )}
-    </View>
+    </Screen>
   );
 }

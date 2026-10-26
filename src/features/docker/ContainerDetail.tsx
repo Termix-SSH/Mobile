@@ -1,14 +1,8 @@
 import { useCallback, useState } from "react";
+import { ScreenHeader } from "@/components/Screen";
 import { View, ScrollView, Pressable, ActivityIndicator } from "react-native";
 import * as Clipboard from "expo-clipboard";
-import {
-  ArrowLeft,
-  Copy,
-  Play,
-  Square,
-  RotateCcw,
-  Trash2,
-} from "lucide-react-native";
+import { Copy, Play, Square, RotateCcw, Trash2 } from "lucide-react-native";
 import { DockerContainer, DockerContainerAction } from "@/types";
 import { Text, Badge, Tabs } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
@@ -53,33 +47,16 @@ export function ContainerDetail({
 
   return (
     <View className="flex-1 bg-background">
-      {/* Header */}
-      <View className="flex-row items-center gap-2.5 border-b border-border px-3 py-3">
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={onBack}
-          hitSlop={8}
-          className="p-1"
-        >
-          <ArrowLeft size={18} color={color("foreground")} />
-        </Pressable>
-        <View className="min-w-0 flex-1">
-          <Text
-            weight="bold"
-            className="text-base text-foreground"
-            numberOfLines={1}
-          >
-            {cleanName(container.name)}
-          </Text>
-          <Text className="text-xs text-muted-foreground" numberOfLines={1}>
-            {container.image}
-          </Text>
-        </View>
-        <Badge variant={running ? "success" : "muted"}>
-          {running ? "running" : container.state || "stopped"}
-        </Badge>
-      </View>
+      <ScreenHeader
+        title={cleanName(container.name)}
+        subtitle={container.image}
+        onBack={onBack}
+        headerRight={
+          <Badge variant={running ? "success" : "muted"}>
+            {running ? "running" : container.state || "stopped"}
+          </Badge>
+        }
+      />
 
       {/* Quick actions */}
       <View className="flex-row gap-1.5 border-b border-border px-3 py-2">

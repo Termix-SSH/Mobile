@@ -152,13 +152,13 @@ export function ConnectionLog({
   const levelColor = (level: ConnectionLogLevel): string => {
     switch (level) {
       case "error":
-        return color("destructive") ?? "#ef4444";
+        return color("destructive");
       case "warning":
-        return "#f59e0b";
+        return color("warning");
       case "success":
-        return "#22c55e";
+        return color("success");
       default:
-        return color("muted-foreground") ?? "#888";
+        return color("muted-foreground");
     }
   };
 

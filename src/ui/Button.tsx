@@ -1,3 +1,4 @@
+import { cloneElement, isValidElement } from "react";
 import {
   Pressable,
   type PressableProps,
@@ -19,7 +20,7 @@ export type ButtonVariant =
   | "destructive"
   | "link";
 
-export type ButtonSize = "xs" | "sm" | "default" | "lg" | "icon";
+export type ButtonSize = "xs" | "sm" | "default" | "lg" | "icon" | "icon-field";
 
 interface BaseButtonProps extends Omit<PressableProps, "children"> {
   variant?: ButtonVariant;
@@ -33,8 +34,8 @@ interface BaseButtonProps extends Omit<PressableProps, "children"> {
 // An icon button has no text, so a screen reader needs its label.
 type ButtonProps = BaseButtonProps &
   (
-    | { size: "icon"; accessibilityLabel: string }
-    | { size?: Exclude<ButtonSize, "icon"> }
+    | { size: "icon" | "icon-field"; accessibilityLabel: string }
+    | { size?: Exclude<ButtonSize, "icon" | "icon-field"> }
   );
 
 // A minimum height, so large system text grows the button instead of clipping.
@@ -44,6 +45,8 @@ const SIZES: Record<ButtonSize, { box: string; height: number }> = {
   default: { box: "min-h-9 px-3", height: HEIGHTS.control },
   lg: { box: "min-h-11 px-4", height: HEIGHTS.controlLg },
   icon: { box: "h-9 w-9", height: HEIGHTS.control },
+  // Beside an Input, which is a step taller.
+  "icon-field": { box: "h-10 w-10", height: HEIGHTS.field },
 };
 
 export const BUTTON_CONTAINER: Record<ButtonVariant, string> = {
@@ -101,6 +104,11 @@ export function Button({
   const color = useThemeColor();
   const isDisabled = disabled || loading;
   const { box, height } = SIZES[size];
+  // Icons with no color of their own follow the button text, never black.
+  const iconNode =
+    isValidElement<{ color?: string }>(icon) && icon.props.color == null
+      ? cloneElement(icon, { color: color(SPINNER_TOKEN[variant]) })
+      : icon;
 
   return (
     <Pressable
@@ -115,7 +123,7 @@ export function Button({
         <ActivityIndicator size="small" color={color(SPINNER_TOKEN[variant])} />
       ) : (
         <>
-          {icon ? <View className="shrink-0">{icon}</View> : null}
+          {iconNode ? <View className="shrink-0">{iconNode}</View> : null}
           {typeof children === "string" ? (
             <Text
               weight="medium"

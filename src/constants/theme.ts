@@ -57,6 +57,7 @@ const LIGHT: ThemeVars = {
   "sidebar-border": "229 229 229",
   "sidebar-ring": "161 161 161",
   warning: "234 179 5",
+  success: "22 163 74",
   "terminal-bg": "255 255 255",
   "surface-dim": "237 237 237",
 };
@@ -96,6 +97,7 @@ const DARK: ThemeVars = {
   "sidebar-border": "41 42 40",
   "sidebar-ring": "115 115 115",
   warning: "243 202 62",
+  success: "34 197 94",
   "terminal-bg": "12 13 11",
 };
 
@@ -134,6 +136,7 @@ const DRACULA: ThemeVars = {
   "sidebar-border": "63 67 83",
   "sidebar-ring": "139 233 253",
   warning: "241 250 140",
+  success: "80 250 123",
   "terminal-bg": "40 42 54",
 };
 
@@ -172,6 +175,7 @@ const CATPPUCCIN: ThemeVars = {
   "sidebar-border": "58 60 78",
   "sidebar-ring": "137 180 250",
   warning: "249 226 175",
+  success: "166 227 161",
   "terminal-bg": "30 30 46",
 };
 
@@ -210,6 +214,7 @@ const NORD: ThemeVars = {
   "sidebar-border": "70 77 91",
   "sidebar-ring": "136 192 208",
   warning: "235 203 139",
+  success: "163 190 140",
   "terminal-bg": "46 52 64",
 };
 
@@ -248,6 +253,7 @@ const SOLARIZED: ThemeVars = {
   "sidebar-border": "32 70 79",
   "sidebar-ring": "38 139 210",
   warning: "181 137 0",
+  success: "133 153 0",
   "terminal-bg": "0 43 54",
 };
 
@@ -286,6 +292,7 @@ const TOKYO_NIGHT: ThemeVars = {
   "sidebar-border": "49 51 68",
   "sidebar-ring": "122 162 247",
   warning: "224 175 104",
+  success: "158 206 106",
   "terminal-bg": "26 27 38",
 };
 
@@ -324,6 +331,7 @@ const ONE_DARK: ThemeVars = {
   "sidebar-border": "61 65 75",
   "sidebar-ring": "97 175 239",
   warning: "229 192 123",
+  success: "152 195 121",
   "terminal-bg": "40 44 52",
 };
 
@@ -362,6 +370,7 @@ const GRUVBOX: ThemeVars = {
   "sidebar-border": "68 65 61",
   "sidebar-ring": "250 189 47",
   warning: "250 189 47",
+  success: "184 187 38",
   "terminal-bg": "40 40 40",
 };
 
@@ -513,19 +522,23 @@ export const STORAGE_KEYS = {
 } as const;
 
 /**
- * Text versions of the accent, warning and destructive colors, darkened or
+ * Text versions of the accent, warning, destructive and success colors, darkened or
  * lightened until they read at 4.5:1 on the theme background. The theme
  * tokens stay as Classic Themes has them; only text uses these.
  */
 export function textTokens(
   themeVars: ThemeVars,
   accentTriplet: string,
-): Record<"accent-text" | "warning-text" | "destructive-text", string> {
+): Record<
+  "accent-text" | "warning-text" | "destructive-text" | "success-text",
+  string
+> {
   const bg = themeVars.background;
   return {
     "accent-text": readableOn(accentTriplet, bg),
     "warning-text": readableOn(themeVars.warning, bg),
     "destructive-text": readableOn(themeVars.destructive, bg),
+    "success-text": readableOn(themeVars.success, bg),
   };
 }
 
@@ -540,6 +553,9 @@ export interface UiColors {
   textMuted: string;
   textFaint: string;
   brand: string;
+  success: string;
+  warning: string;
+  destructive: string;
   terminal: string;
 }
 
@@ -565,6 +581,9 @@ export function uiColorsFor(
     brand: tripletToHex(
       hexToRgbTriplet(accent) ?? hexToRgbTriplet(DEFAULT_ACCENT)!,
     ),
+    success: hex("success"),
+    warning: hex("warning"),
+    destructive: hex("destructive"),
     terminal: hex("terminal-bg"),
   };
 }

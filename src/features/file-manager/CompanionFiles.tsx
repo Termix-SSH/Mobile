@@ -119,7 +119,7 @@ export function CompanionFiles({
     })),
     (history.frequent.length > 0 || history.recent.length > 0) && {
       key: "clear",
-      icon: <History size={16} color="#ef4444" />,
+      icon: <History size={16} color={colors.destructive} />,
       label: "Clear history",
       destructive: true,
       onPress: () => void clearPaths(hostKey),

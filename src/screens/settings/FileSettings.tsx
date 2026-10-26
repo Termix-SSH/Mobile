@@ -1,14 +1,12 @@
-import { Pressable, ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { useRouter } from "expo-router";
-import { ArrowLeft } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
-import { useThemeColor } from "@/contexts/ThemeContext";
 import {
   updateFileSettings,
   useFileSettings,
   type FileSettings as Settings,
 } from "@/features/file-manager/settings";
-import { ChoiceRow, FakeSwitch, SettingRow, Text } from "@/ui";
+import { ChoiceRow, FakeSwitch, SettingRow, Section as UiSection } from "@/ui";
 
 function Section({
   title,
@@ -17,19 +15,7 @@ function Section({
   title: string;
   children: React.ReactNode;
 }) {
-  return (
-    <View className="border border-border bg-card">
-      <View className="border-b border-border px-3 py-3">
-        <Text
-          weight="bold"
-          className="text-[11px] uppercase tracking-[2px] text-foreground"
-        >
-          {title}
-        </Text>
-      </View>
-      <View className="px-3">{children}</View>
-    </View>
-  );
+  return <UiSection title={title}>{children}</UiSection>;
 }
 
 const num = (values: number[], unit = "") =>
@@ -37,7 +23,6 @@ const num = (values: number[], unit = "") =>
 
 export default function FileSettings() {
   const router = useRouter();
-  const color = useThemeColor();
   const s = useFileSettings();
   const set = (patch: Partial<Settings>) => void updateFileSettings(patch);
   const toggle = (
@@ -59,16 +44,7 @@ export default function FileSettings() {
     <Screen
       title="Files"
       subtitle="File manager on this phone"
-      headerLeft={
-        <Pressable
-          onPress={() => router.back()}
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-      }
+      onBack={() => router.back()}
     >
       <ScrollView contentContainerStyle={{ padding: 12, gap: 12 }}>
         <Section title="Browsing">

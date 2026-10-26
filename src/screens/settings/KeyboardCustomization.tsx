@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
-import { ArrowLeft } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
 import { ChoiceRow, FakeSwitch, Label, SettingRow, Tabs, Text } from "@/ui";
 import { shortcutSections, shortcutSheet } from "@/core/shortcuts";
-import { useThemeColor } from "@/contexts/ThemeContext";
 import { KeyLayoutEditor } from "@/features/terminal/keys/KeyLayoutEditor";
 import {
   useKeyPrefs,
@@ -29,7 +27,6 @@ const INTERVALS = [50, 75, 100, 150].map((v) => ({
 /** The key rows every terminal uses, unless a host has its own. */
 export default function KeyboardCustomization() {
   const router = useRouter();
-  const color = useThemeColor();
   const { layout, setLayout, resetLayout, settings, updateSettings } =
     useKeyPrefs();
   const [tab, setTab] = useState<"layout" | "settings">("layout");
@@ -38,16 +35,7 @@ export default function KeyboardCustomization() {
     <Screen
       title="Keyboard"
       subtitle="Key rows above the keyboard"
-      headerLeft={
-        <Pressable
-          onPress={() => router.back()}
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-      }
+      onBack={() => router.back()}
     >
       <Tabs
         options={[
@@ -60,7 +48,8 @@ export default function KeyboardCustomization() {
       {tab === "layout" ? (
         <View className="flex-1">
           <Text className="border-b border-border px-3 py-2 text-meta text-muted-foreground">
-            A host can have its own rows: long press its tab in a session.
+            A host can have its own rows: tap its open tab in a session and pick
+            Key rows for this host.
           </Text>
           <KeyLayoutEditor
             layout={layout}
@@ -69,7 +58,7 @@ export default function KeyboardCustomization() {
           />
         </View>
       ) : (
-        <ScrollView contentContainerStyle={{ paddingHorizontal: 16 }}>
+        <ScrollView contentContainerStyle={{ paddingHorizontal: 12 }}>
           <ChoiceRow
             label="Key size"
             value={settings.keySize}

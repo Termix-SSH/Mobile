@@ -33,7 +33,7 @@ import {
 } from "@/screens/sessions/navigation/TabStatusMark";
 import { AccountButton, SearchButton } from "@/screens/shell/AppHeader";
 import type { SSHHost } from "@/types";
-import { Button, EmptyState, ListRow, Text } from "@/ui";
+import { Button, EmptyState, ListRow, SectionLabel, Text } from "@/ui";
 import { isSshHost } from "@/utils/hosts";
 import { ServerReachBanner } from "./ServerReachBanner";
 
@@ -51,14 +51,7 @@ export function pinnedHosts(hosts: SSHHost[]): SSHHost[] {
 }
 
 function SectionTitle({ children }: { children: string }) {
-  return (
-    <Text
-      weight="medium"
-      className="mb-1.5 px-1 text-[11px] uppercase tracking-wider text-muted-foreground"
-    >
-      {children}
-    </Text>
-  );
+  return <SectionLabel>{children}</SectionLabel>;
 }
 
 /** Open sessions, quick connect, pinned hosts with live cards, recent hosts. */
@@ -79,7 +72,7 @@ export default function Home() {
     .filter((h) => !h.pin)
     .slice(0, RECENT_SHOWN);
   const quick = useQuickActions();
-  const muted = color("muted-foreground") ?? "#888";
+  const muted = color("muted-foreground");
 
   // Cards only poll while Home is the screen in front.
   useFocusEffect(
@@ -225,7 +218,7 @@ function OpenSessions() {
   const { sessions, activeSessionId, setActiveSession } = useTerminalSessions();
   const statuses = useSessionStatuses();
   if (sessions.length === 0) return null;
-  const muted = color("muted-foreground") ?? "#888";
+  const muted = color("muted-foreground");
 
   return (
     <View>

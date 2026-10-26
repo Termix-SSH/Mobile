@@ -88,7 +88,7 @@ export function TestConnection({
           accessibilityLiveRegion="polite"
         >
           {ok ? (
-            <CheckCircle2 size={16} color="#22c55e" />
+            <CheckCircle2 size={16} color={color("success")} />
           ) : (
             <XCircle size={16} color={color("destructive")} />
           )}

@@ -1,33 +1,19 @@
 import { useState, useEffect } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  View,
-  ScrollView,
-  Image,
-  Pressable,
-} from "react-native";
+import { View, ScrollView, Image, Pressable } from "react-native";
 import { useRouter } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {
-  ArrowLeft,
-  ShieldCheck,
-  ShieldOff,
-  Copy,
-  KeyRound,
-} from "lucide-react-native";
+import { ShieldCheck, ShieldOff, Copy, KeyRound } from "lucide-react-native";
 import * as Clipboard from "expo-clipboard";
 import { Text, Button, Input, Sheet, SheetBody } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
 import { apiOf, useActiveClient } from "@/core/accounts";
+import { Screen } from "@/components/Screen";
 
 type TotpPhase = "idle" | "setup" | "backup";
 
 export default function TwoFactorAuth() {
   const client = useActiveClient();
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const color = useThemeColor();
 
   const [totpEnabled, setTotpEnabled] = useState(false);
@@ -124,28 +110,13 @@ export default function TwoFactorAuth() {
   };
 
   return (
-    <KeyboardAvoidingView
-      className="flex-1 bg-background"
-      style={{ paddingTop: insets.top }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    <Screen
+      title="Two-factor authentication"
+      onBack={() => router.back()}
+      keyboardAvoiding
     >
-      {/* Header */}
-      <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={() => router.back()}
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-        <Text weight="bold" className="text-base text-foreground">
-          Two-Factor Authentication
-        </Text>
-      </View>
-
       <ScrollView
-        contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}
+        contentContainerStyle={{ padding: 12, gap: 16, paddingBottom: 40 }}
       >
         {loading ? (
           <Text className="text-sm text-muted-foreground">Loading…</Text>
@@ -339,6 +310,6 @@ export default function TwoFactorAuth() {
           />
         </SheetBody>
       </Sheet>
-    </KeyboardAvoidingView>
+    </Screen>
   );
 }

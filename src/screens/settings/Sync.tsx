@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Pressable, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ArrowLeft, RefreshCw } from "lucide-react-native";
+import { RefreshCw } from "lucide-react-native";
 import {
   accountLabel,
   accounts,
@@ -26,12 +25,20 @@ import {
 } from "@/core/sync";
 import { useAppContext } from "@/contexts/AppContext";
 import { useThemeColor } from "@/contexts/ThemeContext";
-import { Badge, Button, FakeSwitch, SettingRow, Text } from "@/ui";
+import {
+  Badge,
+  Button,
+  FakeSwitch,
+  SectionLabel,
+  SettingRow,
+  Text,
+} from "@/ui";
 import { toast } from "@/utils/toast";
 import { ProxySettings } from "@/screens/accounts/ProxySettings";
 import { SavedLoginRow } from "@/screens/accounts/SavedLoginRow";
 import { UnlinkSheet } from "@/screens/accounts/UnlinkSheet";
 import { useSyncFix } from "@/screens/accounts/useSyncFix";
+import { Screen } from "@/components/Screen";
 
 function since(iso: string | null): string {
   if (!iso) return "Not yet";
@@ -53,21 +60,15 @@ const STATE_TEXT = {
 
 function Section({ title, hint }: { title: string; hint?: string }) {
   return (
-    <View className="mb-2 mt-6">
-      <Text weight="medium" className="text-sm text-foreground">
-        {title}
-      </Text>
-      {hint ? (
-        <Text className="mt-0.5 text-[11px] text-muted-foreground">{hint}</Text>
-      ) : null}
-    </View>
+    <SectionLabel hint={hint} className="mb-2 mt-6">
+      {title}
+    </SectionLabel>
   );
 }
 
 /** Sync status and settings of a linked server: the one in the link, else the active one. */
 export default function SyncSettings() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const color = useThemeColor();
   const params = useLocalSearchParams<{ account?: string }>();
   const { accounts: list, active } = useAccounts();
@@ -107,21 +108,7 @@ export default function SyncSettings() {
   };
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-      <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={() => router.back()}
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-        <Text weight="bold" className="flex-1 text-base text-foreground">
-          Sync
-        </Text>
-      </View>
-
+    <Screen title="Sync" onBack={() => router.back()}>
       {!server ? (
         <View className="flex-1 items-center justify-center p-6">
           <Text className="text-center text-sm text-muted-foreground">
@@ -130,11 +117,11 @@ export default function SyncSettings() {
           </Text>
         </View>
       ) : (
-        <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 48 }}>
+        <ScrollView contentContainerStyle={{ padding: 12, paddingBottom: 48 }}>
           <Text className="mb-3 text-[11px] text-muted-foreground">
-            {accountLabel(server)} keeps hosts, logins, snippets and settings in
-            step with this phone. A copy stays on this phone, so it works
-            offline too.
+            {accountLabel(server)} keeps hosts, credentials, snippets and
+            settings in step with this phone. A copy stays on this phone, so it
+            works offline too.
           </Text>
 
           {synced ? (
@@ -293,7 +280,7 @@ export default function SyncSettings() {
             title="Proxy"
             hint="Only needed when a reverse proxy sits in front of the server."
           />
-          {client ? (
+          {client?.isLoaded() ? (
             <ProxySettings
               key={client.accountId}
               client={client}
@@ -315,6 +302,6 @@ export default function SyncSettings() {
         onClose={() => setUnlinkOpen(false)}
         onDone={() => router.back()}
       />
-    </View>
+    </Screen>
   );
 }

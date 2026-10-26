@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, FlatList, Pressable, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useIncomingShare } from "expo-sharing";
-import { ArrowLeft, File as FileIcon, Server } from "lucide-react-native";
+import { File as FileIcon, Server } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { useAccounts } from "@/core/accounts";
@@ -108,16 +108,7 @@ export default function ShareTarget() {
     <Screen
       title={host ? `Send to ${host.name}` : "Send to a host"}
       subtitle={subtitle}
-      headerLeft={
-        <Pressable
-          onPress={back}
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={colors.text} />
-        </Pressable>
-      }
+      onBack={back}
     >
       {!files ? (
         <View className="flex-1 items-center justify-center gap-3">

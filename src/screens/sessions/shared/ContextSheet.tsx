@@ -1,5 +1,4 @@
-import { View } from "react-native";
-import { Sheet, SheetRow, Text } from "@/ui";
+import { Sheet, SheetRow } from "@/ui";
 
 export interface ContextAction {
   key: string;
@@ -32,23 +31,12 @@ export function ContextSheet({
   const items = actions.filter(Boolean) as ContextAction[];
 
   return (
-    <Sheet visible={visible} onClose={onClose}>
-      {title ? (
-        <View className="border-b border-border px-4 pb-3 pt-1">
-          <Text
-            weight="bold"
-            className="text-base text-foreground"
-            numberOfLines={1}
-          >
-            {title}
-          </Text>
-          {subtitle ? (
-            <Text className="text-xs text-muted-foreground" numberOfLines={1}>
-              {subtitle}
-            </Text>
-          ) : null}
-        </View>
-      ) : null}
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      title={title}
+      description={subtitle}
+    >
       {items.map((a) => (
         <SheetRow
           key={a.key}

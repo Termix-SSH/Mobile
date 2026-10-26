@@ -1,9 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { View, ScrollView, Pressable, RefreshControl } from "react-native";
 import { useRouter } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
-  ArrowLeft,
   Monitor,
   Smartphone,
   Globe,
@@ -14,6 +12,7 @@ import { Text, Button, Sheet, useConfirm } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
 import { apiOf, useActiveClient } from "@/core/accounts";
+import { Screen } from "@/components/Screen";
 
 interface Session {
   id: string;
@@ -55,7 +54,6 @@ function formatDate(iso: string): string {
 export default function ActiveSessions() {
   const client = useActiveClient();
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const confirm = useConfirm();
   const color = useThemeColor();
 
@@ -109,38 +107,30 @@ export default function ActiveSessions() {
   };
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-      <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={() => router.back()}
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-        <Text weight="bold" className="flex-1 text-base text-foreground">
-          Active Sessions
-        </Text>
-        {sessions.length > 0 ? (
+    <Screen
+      title="Active sessions"
+      onBack={() => router.back()}
+      headerRight={
+        sessions.length > 0 ? (
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Sign out all other sessions"
             onPress={() => setRevokeAllDialog(true)}
             hitSlop={8}
+            className="h-9 w-9 items-center justify-center"
           >
             <LogOut size={18} color={color("destructive")} />
           </Pressable>
-        ) : null}
-      </View>
-
+        ) : null
+      }
+    >
       {loading ? (
         <View className="flex-1 items-center justify-center">
           <Text className="text-sm text-muted-foreground">Loading…</Text>
         </View>
       ) : (
         <ScrollView
-          contentContainerStyle={{ padding: 16, gap: 10, paddingBottom: 40 }}
+          contentContainerStyle={{ padding: 12, gap: 10, paddingBottom: 40 }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -164,10 +154,7 @@ export default function ActiveSessions() {
                 className="flex-row items-start gap-3 border border-border bg-card p-3"
               >
                 <View className="mt-0.5">
-                  {deviceIcon(
-                    session.deviceType,
-                    color("muted-foreground") ?? "#aaa",
-                  )}
+                  {deviceIcon(session.deviceType, color("muted-foreground"))}
                 </View>
                 <View className="flex-1 gap-0.5">
                   <Text
@@ -235,6 +222,6 @@ export default function ActiveSessions() {
           </View>
         }
       />
-    </View>
+    </Screen>
   );
 }

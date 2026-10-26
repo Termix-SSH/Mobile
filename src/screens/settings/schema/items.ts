@@ -1,4 +1,5 @@
 import {
+  BatteryCharging,
   Bell,
   Blocks,
   Database,
@@ -247,12 +248,12 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   // Notifications
   {
     id: "background-sessions",
-    section: "notifications",
+    section: "terminal",
     label: "Background sessions",
-    description: "Keep sessions running when you leave the app",
+    description: "What happens to open sessions when you leave the app",
     keywords: ["battery", "notification", "android", "ios", "low power"],
-    order: 10,
-    icon: Bell,
+    order: 20,
+    icon: BatteryCharging,
     Control: BackgroundSessionsControl,
   },
   {
@@ -272,7 +273,7 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
     id: "privacy-note",
     section: "privacy",
     label: "What stays on this phone",
-    description: "Hosts, logins and snippets are stored encrypted here",
+    description: "Hosts, credentials and snippets are stored encrypted here",
     keywords: ["data", "encrypted", "tracking", "analytics", "usage"],
     order: 10,
     icon: Lock,

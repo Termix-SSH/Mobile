@@ -15,6 +15,7 @@ module.exports = {
         // Text safe versions, see textTokens in src/constants/theme.ts.
         "accent-text": withAlpha("--accent-text"),
         "warning-text": withAlpha("--warning-text"),
+        "success-text": withAlpha("--success-text"),
         "destructive-text": withAlpha("--destructive-text"),
         background: withAlpha("--background"),
         foreground: withAlpha("--foreground"),
@@ -44,6 +45,7 @@ module.exports = {
         },
         destructive: withAlpha("--destructive"),
         warning: withAlpha("--warning"),
+        success: withAlpha("--success"),
         "terminal-bg": withAlpha("--terminal-bg"),
         overlay: "rgb(0 0 0 / 0.5)",
         border: withAlpha("--border"),

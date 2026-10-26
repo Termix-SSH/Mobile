@@ -30,7 +30,7 @@ export const SETTINGS_SECTIONS: SettingsSectionDef[] = [
   {
     id: "terminal",
     title: "Terminal",
-    description: "Font, colors and cursor",
+    description: "Font, colors and background sessions",
     icon: SquareTerminal,
     order: 30,
   },
@@ -51,7 +51,7 @@ export const SETTINGS_SECTIONS: SettingsSectionDef[] = [
   {
     id: "notifications",
     title: "Notifications",
-    description: "Sessions in the background and alerts",
+    description: "Alerts from your server",
     icon: Bell,
     order: 60,
   },

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Pressable, ScrollView, Share, View } from "react-native";
+import { ScrollView, Share, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Clipboard from "expo-clipboard";
-import { ArrowLeft } from "lucide-react-native";
 import { Button, ChoiceRow, Input, Label, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import type { SessionMenuContext } from "@/core/features/types";
@@ -12,6 +11,7 @@ import {
 } from "@/core/api/modules/sessionSharing";
 import { serverHostId } from "@/core/sync/host-ids";
 import { showToast } from "@/utils/toast";
+import { Screen } from "@/components/Screen";
 
 const PERMISSIONS: { value: SharePermission; label: string }[] = [
   { value: "read-only", label: "Can watch" },
@@ -74,21 +74,14 @@ export function ShareSessionView({
   };
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-      <View className="min-h-12 flex-row items-center gap-3 border-b border-border px-3">
-        <Pressable
-          onPress={onClose}
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-        <Text weight="bold" className="text-title text-foreground">
-          Share session
-        </Text>
-      </View>
-      <ScrollView contentContainerStyle={{ padding: 16, gap: 16 }}>
+    <Screen title="Share session" onBack={onClose}>
+      <ScrollView
+        contentContainerStyle={{
+          padding: 12,
+          gap: 16,
+          paddingBottom: insets.bottom + 24,
+        }}
+      >
         <Text className="text-xs text-muted-foreground">
           Anyone with the link can open this terminal while it runs. You can
           revoke links in Termix.
@@ -144,6 +137,6 @@ export function ShareSessionView({
           </Button>
         )}
       </ScrollView>
-    </View>
+    </Screen>
   );
 }

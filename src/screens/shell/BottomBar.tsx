@@ -51,8 +51,8 @@ export function BottomBar({ state, navigation }: BottomTabBarProps) {
   const color = useThemeColor();
   const { sessions } = useTerminalSessions();
   const statuses = useSessionStatuses();
-  const accent = color("accent-brand") ?? "#f59145";
-  const muted = color("muted-foreground") ?? "#a4a4a4";
+  const accent = color("accent-brand");
+  const muted = color("muted-foreground");
   const iconSize = isLandscape ? 18 : 20;
   const mark = sessionsMark(
     sessions.map((s) => s.id),
@@ -102,16 +102,16 @@ export function BottomBar({ state, navigation }: BottomTabBarProps) {
                   style={{
                     backgroundColor:
                       mark === "failed"
-                        ? (color("destructive") ?? "#ef4444")
+                        ? color("destructive")
                         : mark
-                          ? (color("warning") ?? "#facc15")
+                          ? color("warning")
                           : accent,
                   }}
                 >
                   <Text
                     weight="bold"
                     className="text-[9px]"
-                    style={{ color: color("background") ?? "#000" }}
+                    style={{ color: color("background") }}
                   >
                     {count}
                   </Text>

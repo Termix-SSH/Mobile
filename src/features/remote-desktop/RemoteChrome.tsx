@@ -64,7 +64,7 @@ export function useRemoteColors() {
     border: color("border") ?? "rgb(50,50,50)",
     fg: color("foreground") ?? "rgb(250,250,250)",
     muted: color("muted-foreground") ?? "rgb(164,164,164)",
-    accent: color("accent-brand") ?? "#f59145",
+    accent: color("accent-brand"),
   };
 }
 

@@ -113,7 +113,7 @@ export function JournalView({
     p <= 3
       ? color("destructive")
       : p === 4
-        ? "#f59e0b"
+        ? color("warning")
         : color("muted-foreground");
 
   return (
@@ -161,7 +161,7 @@ export function JournalView({
       ) : (
         <ScrollView
           ref={scrollRef}
-          contentContainerStyle={{ padding: 12, gap: 2, paddingBottom: 120 }}
+          contentContainerStyle={{ padding: 12, gap: 2, paddingBottom: 24 }}
           onContentSizeChange={() =>
             following && scrollRef.current?.scrollToEnd({ animated: false })
           }

@@ -1,18 +1,16 @@
 import { shareTempFile } from "@/utils/share-file";
 import { useCallback, useEffect, useState } from "react";
-import { Pressable, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { File } from "expo-file-system";
-import { ArrowLeft } from "lucide-react-native";
 import { accountLabel, useActiveAccount } from "@/core/accounts";
 import { useLocalStoreState, useRepositories } from "@/core/data/hooks";
 import { BACKUP_EXTENSION, SCHEMA_VERSION, localStores } from "@/core/db";
 import { toUserMessage } from "@/core/errors";
 import { Button, PromptSheet, SettingRow, Text, useConfirm } from "@/ui";
-import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
 import { useRestoreBackup } from "./RestoreBackup";
+import { Screen } from "@/components/Screen";
 
 type Step = { kind: "export" } | { kind: "export-again"; passphrase: string };
 
@@ -25,9 +23,7 @@ function formatSize(bytes: number | null): string {
 
 export default function LocalData() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const confirm = useConfirm();
-  const color = useThemeColor();
   const account = useActiveAccount();
   const repos = useRepositories();
   const { available } = useLocalStoreState();
@@ -92,7 +88,7 @@ export default function LocalData() {
   const deleteAll = async () => {
     const ok = await confirm({
       title: "Delete local data?",
-      description: `Hosts, logins, snippets and history saved on this phone for ${accountLabel(account)} are deleted. This can't be undone. Make a backup first if you want to keep them.`,
+      description: `Hosts, credentials, snippets and history saved on this phone for ${accountLabel(account)} are deleted. This can't be undone. Make a backup first if you want to keep them.`,
       confirmLabel: "Delete",
     });
     if (!ok) return;
@@ -106,21 +102,7 @@ export default function LocalData() {
   };
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-      <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={() => router.back()}
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-        <Text weight="bold" className="flex-1 text-base text-foreground">
-          Local data
-        </Text>
-      </View>
-
+    <Screen title="Local data" onBack={() => router.back()}>
       {!available ? (
         <View className="flex-1 items-center justify-center p-6">
           <Text className="text-center text-sm text-muted-foreground">
@@ -128,7 +110,7 @@ export default function LocalData() {
           </Text>
         </View>
       ) : (
-        <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
+        <ScrollView contentContainerStyle={{ padding: 12, paddingBottom: 40 }}>
           <Text className="mb-3 text-[11px] text-muted-foreground">
             Saved on this phone for {accountLabel(account)}. The file is
             encrypted with a key that never leaves this phone.
@@ -140,7 +122,7 @@ export default function LocalData() {
                 {counts.hosts}
               </Text>
             </SettingRow>
-            <SettingRow label="Logins">
+            <SettingRow label="Credentials">
               <Text className="text-sm text-muted-foreground">
                 {counts.logins}
               </Text>
@@ -216,6 +198,6 @@ export default function LocalData() {
         onCancel={() => setStep(null)}
       />
       {restore.sheet}
-    </View>
+    </Screen>
   );
 }

@@ -105,10 +105,10 @@ export function BackgroundSessionsSection({
           ) : null}
         </>
       ) : (
-        <Text className="text-[11px] text-muted-foreground">
-          iOS pauses apps soon after you leave them, so open sessions pause too.
-          When you come back, Termix reconnects and goes back into tmux or
-          screen when the host has it.
+        <Text className="text-meta text-muted-foreground">
+          {os === "android"
+            ? "This build can't keep sessions running in the background. They reconnect when you come back."
+            : "iOS stops apps soon after you leave them, so sessions can't run in the background. They reconnect when you come back, and tmux or screen picks up where you were."}
         </Text>
       )}
       {state.lowPower ? (

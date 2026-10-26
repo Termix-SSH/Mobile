@@ -41,7 +41,7 @@ test("iOS says plainly that sessions pause, with no switch", async () => {
     <BackgroundSessionsSection open onToggle={() => {}} os="ios" />,
   );
   expect(
-    view.getByText(/iOS pauses apps soon after you leave them/),
+    view.getByText(/iOS stops apps soon after you leave them/),
   ).toBeTruthy();
   expect(view.queryByText("Keep sessions running")).toBeNull();
   expect(view.getByText(/Low Power Mode is on/)).toBeTruthy();

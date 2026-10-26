@@ -1,9 +1,7 @@
-import { Pressable, ScrollView, Share, View } from "react-native";
+import { ScrollView, Share, View } from "react-native";
 import { useRouter } from "expo-router";
 import * as Clipboard from "expo-clipboard";
-import { ArrowLeft } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
-import { useThemeColor } from "@/contexts/ThemeContext";
 import { clearLogs, formatLogs, useLogs } from "@/core/log/buffer";
 import { Button, EmptyState, Text } from "@/ui";
 import { toast } from "@/utils/toast";
@@ -17,23 +15,13 @@ const LEVEL_COLOR: Record<string, string> = {
 /** The latest log lines from this run of the app, for bug reports. */
 export default function Logs() {
   const router = useRouter();
-  const color = useThemeColor();
   const lines = useLogs();
 
   return (
     <Screen
       title="Logs"
       subtitle="Latest lines from this run. Server addresses, passwords and tokens are hidden."
-      headerLeft={
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={() => router.back()}
-          hitSlop={8}
-        >
-          <ArrowLeft size={20} color={color("foreground")} />
-        </Pressable>
-      }
+      onBack={() => router.back()}
     >
       <View className="flex-row gap-2 border-b border-border px-3 py-2">
         <Button

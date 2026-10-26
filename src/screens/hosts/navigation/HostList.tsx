@@ -36,8 +36,8 @@ const FolderRow = memo(function FolderRow({
   onToggle: (path: string) => void;
 }) {
   const color = useThemeColor();
-  const muted = color("muted-foreground") ?? "#9ca3af";
-  const accent = color("accent-brand") ?? "#f59145";
+  const muted = color("muted-foreground");
+  const accent = color("accent-brand");
   const { node, open } = row;
   return (
     <Pressable

@@ -336,7 +336,7 @@ export const TunnelManager = forwardRef<
           flexGrow: 1,
           padding: 12,
           gap: 10,
-          paddingBottom: 120,
+          paddingBottom: 24,
         }}
         refreshControl={
           <RefreshControl
