@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { Linking } from "react-native";
-import { router, useRootNavigationState } from "expo-router";
+import { useRootNavigationState } from "expo-router";
 import { useAppContext } from "@/contexts/AppContext";
 import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
 import { accounts, accountLabel, isServerAccount } from "@/core/accounts";
@@ -12,6 +12,7 @@ import {
   type OpenLink,
 } from "@/core/links/open-link";
 import { toast } from "@/utils/toast";
+import { openTab } from "@/screens/shell/navigate";
 
 /**
  * Handles `termix-mobile://open` links: picks the account for the link's
@@ -53,7 +54,7 @@ export function OpenLinkHost() {
         return;
       }
       if (link.hostId === null) {
-        router.push("/(tabs)/hosts");
+        openTab("/(tabs)/hosts");
         return;
       }
       try {
@@ -64,7 +65,7 @@ export function OpenLinkHost() {
             "That host isn't here",
             `No host with id ${link.hostId} on ${accountLabel(account)}.`,
           );
-          router.push("/(tabs)/hosts");
+          openTab("/(tabs)/hosts");
           return;
         }
         if (link.type) navigateToSessions(host, link.type);

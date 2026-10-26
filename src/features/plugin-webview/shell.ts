@@ -7,6 +7,7 @@ import type { FramePlugin } from "@/core/plugins/webview";
 import { features } from "@/core/features";
 import type { SSHHost } from "@/types";
 import { toast } from "@/utils/toast";
+import { openTab as openAppTab } from "@/screens/shell/navigate";
 
 export interface FrameShellDeps {
   client: AccountClient;
@@ -121,7 +122,7 @@ export function handleShellCall(
       deps.close();
       break;
     case "openHostEditor":
-      router.push("/(tabs)/hosts");
+      openAppTab("/(tabs)/hosts");
       break;
     case "renameTab":
       // Phone tabs keep their own names.

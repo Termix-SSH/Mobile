@@ -1,4 +1,9 @@
-import { displayTitle, moveTab, neighborTab } from "@/contexts/session-tabs";
+import {
+  displayTitle,
+  moveTab,
+  neighborTab,
+  pickActiveTab,
+} from "@/contexts/session-tabs";
 
 const tabs = [{ id: "a" }, { id: "b" }, { id: "c" }];
 
@@ -23,4 +28,14 @@ test("swipes go to the next or previous tab and wrap around", () => {
   expect(neighborTab(tabs, "a", -1)?.id).toBe("c");
   expect(neighborTab(tabs, "c", 1)?.id).toBe("a");
   expect(neighborTab([{ id: "a" }], "a", 1)).toBeNull();
+});
+
+test("an open tab is always active, even when the active id went stale", () => {
+  expect(pickActiveTab(tabs, "b")).toBe("b");
+  expect(pickActiveTab(tabs, "gone")).toBe("c");
+  expect(pickActiveTab(tabs, null)).toBe("c");
+  expect(
+    pickActiveTab([{ id: "a", isActive: true }, { id: "b" }], "gone"),
+  ).toBe("a");
+  expect(pickActiveTab([], "a")).toBeNull();
 });

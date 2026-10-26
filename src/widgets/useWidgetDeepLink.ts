@@ -27,6 +27,7 @@ import { toast } from "@/utils/toast";
 import type { Snippet } from "@/types";
 import { WIDGET_LINK_PREFIX } from "./types";
 import { useRepositories } from "@/core/data/hooks";
+import { openTab } from "@/screens/shell/navigate";
 
 /** Session types a widget link is allowed to open. */
 const ALLOWED_SESSION_TYPES: SessionType[] = [
@@ -168,7 +169,7 @@ export function useWidgetDeepLink(): {
       }
 
       if (link.action === "open" || link.hostId === undefined) {
-        router.push("/(tabs)/hosts");
+        openTab("/(tabs)/hosts");
         return;
       }
 
@@ -178,7 +179,7 @@ export function useWidgetDeepLink(): {
 
         if (!host) {
           toast.error("That host no longer exists.");
-          router.push("/(tabs)/hosts");
+          openTab("/(tabs)/hosts");
           return;
         }
 
@@ -190,7 +191,7 @@ export function useWidgetDeepLink(): {
           errorMessage: error instanceof Error ? error.message : String(error),
         });
         toast.error("Could not open that host.");
-        router.push("/(tabs)/hosts");
+        openTab("/(tabs)/hosts");
       }
     },
     [navigateToSessions, runSnippetLink],

@@ -35,6 +35,7 @@ import { useOpenHost } from "@/screens/hosts/useOpenHost";
 import type { Snippet } from "@/types";
 import { toast } from "@/utils/toast";
 import type { PaletteItem } from "./search";
+import { openTab } from "@/screens/shell/navigate";
 
 /**
  * Everything the palette can find: hosts, snippets, actions and settings.
@@ -69,7 +70,8 @@ export function usePaletteItems({
   return useMemo(() => {
     const go = (href: string) => () => {
       close();
-      router.push(href as never);
+      if (href.startsWith("/(tabs)")) openTab(href);
+      else router.push(href as never);
     };
     const recentIds = new Set(recent.slice(0, 5).map((h) => h.id));
     const active = sessions.find((s) => s.id === activeSessionId);
@@ -89,7 +91,7 @@ export function usePaletteItems({
       run: () => {
         close();
         void openHost(host).then((opened) => {
-          if (!opened) router.navigate("/(tabs)/hosts" as never);
+          if (!opened) openTab("/(tabs)/hosts");
         });
       },
     }));
@@ -131,7 +133,7 @@ export function usePaletteItems({
       suggested: true,
       run: () => {
         close();
-        router.navigate("/(tabs)/hosts?action=new" as never);
+        openTab("/(tabs)/hosts?action=new");
       },
     });
     if (canQuickConnect) {
@@ -144,7 +146,7 @@ export function usePaletteItems({
         suggested: true,
         run: () => {
           close();
-          router.navigate("/(tabs)/hosts?action=quick" as never);
+          openTab("/(tabs)/hosts?action=quick");
         },
       });
     }

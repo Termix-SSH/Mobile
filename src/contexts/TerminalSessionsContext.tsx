@@ -9,7 +9,6 @@ import React, {
   useRef,
 } from "react";
 import { SSHHost } from "@/types";
-import { router } from "expo-router";
 import { useAppContext } from "@/contexts/AppContext";
 import { toast } from "@/utils/toast";
 import { accounts, clientFor, useActiveAccount } from "@/core/accounts";
@@ -38,7 +37,9 @@ import {
   toSavedTab,
   type SavedTab,
 } from "@/core/sessions";
-import { displayTitle, moveTab } from "./session-tabs";
+import { displayTitle, moveTab, pickActiveTab } from "./session-tabs";
+import { callerOf, tabTag, trace } from "@/core/log/trace";
+import { openTab } from "@/screens/shell/navigate";
 
 /** Session tab type. The registry knows which feature owns each one. */
 export type SessionType = string;
@@ -227,8 +228,16 @@ export const TerminalSessionsProvider: React.FC<
       const instanceId = opts?.instanceId ?? uuid();
       const accountId = opts?.accountId ?? accounts.active().id;
       const client = clientFor(accountId);
-      const sessionId = `${host.id}-${type}-${Date.now()}`;
+      // Two opens in the same millisecond must not share an id.
+      const sessionId = `${host.id}-${type}-${Date.now()}-${uuid().slice(0, 8)}`;
       if (!opts?.restoredSessionId) trackTabOpened(type);
+      trace("tabs", "add", {
+        tab: tabTag(sessionId),
+        host: host.id,
+        type,
+        restoredSession: !!opts?.restoredSessionId,
+        linked: tabTag(opts?.linkedSessionId),
+      });
 
       setSessions((prev) => {
         const existingSessions = prev.filter((session) =>
@@ -301,7 +310,13 @@ export const TerminalSessionsProvider: React.FC<
     // always see the latest state regardless of how quickly sessions are removed.
     setSessions((prev) => {
       const sessionToRemove = prev.find((session) => session.id === sessionId);
-      if (!sessionToRemove) return prev;
+      if (!sessionToRemove) {
+        trace("tabs", "remove of a tab that is not open", {
+          tab: tabTag(sessionId),
+          open: prev.map((t) => tabTag(t.id)),
+        });
+        return prev;
+      }
 
       // Forget the server-side record for this tab.
       if (sessionToRemove.listed) {
@@ -352,6 +367,11 @@ export const TerminalSessionsProvider: React.FC<
       // new active session. Using setActiveSessionId inside a setSessions updater
       // is safe: React batches these in the same flush.
       const removedWasActive = !updatedSessions.some((s) => s.isActive);
+      trace("tabs", "remove", {
+        tab: tabTag(sessionId),
+        wasActive: removedWasActive,
+        left: updatedSessions.map((t) => tabTag(t.id)),
+      });
       if (removedWasActive) {
         if (updatedSessions.length > 0) {
           const newActive = updatedSessions[updatedSessions.length - 1];
@@ -433,6 +453,11 @@ export const TerminalSessionsProvider: React.FC<
     (sessionId: string) => {
       setSessions((prev) => {
         const newSession = prev.find((s) => s.id === sessionId);
+        trace("tabs", "activate", {
+          tab: tabTag(sessionId),
+          found: !!newSession,
+          open: prev.map((t) => tabTag(t.id)),
+        });
 
         if (
           !features.sessionHas(newSession?.type, "terminal-input") &&
@@ -540,6 +565,7 @@ export const TerminalSessionsProvider: React.FC<
           if (!opts?.quiet) toast.error(check.blocked.reason);
           return check.blocked;
         }
+        trace("nav", "open host", { host: host.id, type });
         void recordRecent(accountId, host);
         // Server features act on the server's host, by the server's id.
         const sessionHost =
@@ -550,7 +576,7 @@ export const TerminalSessionsProvider: React.FC<
           remoteProtocol: opts?.remoteProtocol,
         });
       }
-      router.push("/(tabs)/sessions");
+      openTab("/(tabs)/sessions");
       return null;
     },
     [addSession],
@@ -561,6 +587,11 @@ export const TerminalSessionsProvider: React.FC<
   }, []);
 
   const setKeyboardIntentionallyHidden = useCallback((hidden: boolean) => {
+    if (keyboardIntentionallyHiddenRef.current !== hidden) {
+      trace("keyboard", hidden ? "user hid keyboard" : "keyboard allowed", {
+        from: callerOf(),
+      });
+    }
     keyboardIntentionallyHiddenRef.current = hidden;
     forceUpdate({});
   }, []);
@@ -574,6 +605,7 @@ export const TerminalSessionsProvider: React.FC<
   }, []);
 
   const closeAllSessions = useCallback(() => {
+    trace("tabs", "close all");
     setSessions((prev) => {
       for (const s of prev) {
         if (s.listed) {
@@ -623,6 +655,30 @@ export const TerminalSessionsProvider: React.FC<
     };
   }, [closeAllSessions]);
 
+  // There is always exactly one active tab while any are open, whatever path
+  // added or removed them, so no tab is ever drawn with nothing selected.
+  useEffect(() => {
+    const id = pickActiveTab(sessions, activeSessionId);
+    trace("tabs", "state", {
+      active: tabTag(activeSessionId),
+      flagged: sessions.filter((t) => t.isActive).map((t) => tabTag(t.id)),
+      open: sessions.map((t) => tabTag(t.id)),
+    });
+    if (id === activeSessionId) return;
+    trace("tabs", "active tab was stale, fixing", {
+      from: tabTag(activeSessionId),
+      to: tabTag(id),
+    });
+    setActiveSessionId(id);
+    if (id) {
+      setSessions((prev) =>
+        prev.some((s) => s.isActive !== (s.id === id))
+          ? prev.map((s) => ({ ...s, isActive: s.id === id }))
+          : prev,
+      );
+    }
+  }, [sessions, activeSessionId]);
+
   useEffect(() => {
     sessionStatus.retain(sessions.map((s) => s.id));
     void noteSessions(sessions.length).catch(() => {});
@@ -658,6 +714,11 @@ export const TerminalSessionsProvider: React.FC<
           : `${result.missing.length} tabs were not reopened because their hosts are gone`,
       );
     }
+    trace("tabs", "restore", {
+      restored: result.restored.map((r) => tabTag(r.saved.id)),
+      later: result.later.length,
+      missing: result.missing.length,
+    });
     if (!result.restored.length) return;
     setSessions((prev) => {
       const open = new Set(prev.map((s) => s.instanceId));
@@ -739,6 +800,9 @@ export const TerminalSessionsProvider: React.FC<
     // Only a real sign out closes tabs. Switching accounts keeps them open.
     const client = clientFor(activeAccountId);
     if (client && !client.isAuthenticated()) {
+      trace("tabs", "signed out, closing this account's tabs", {
+        account: activeAccountId,
+      });
       setSessions((prev) => {
         const kept = prev.filter((s) => s.accountId !== activeAccountId);
         if (kept.length === prev.length) return prev;

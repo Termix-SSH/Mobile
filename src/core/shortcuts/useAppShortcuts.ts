@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Platform } from "react-native";
-import { useRouter } from "expo-router";
 import {
   addAppShortcutListener,
   setAppShortcuts,
@@ -12,6 +11,7 @@ import {
   SHORTCUT_ROUTES,
   type AppShortcutId,
 } from "./index";
+import { openTab } from "@/screens/shell/navigate";
 
 /** Runs an app shortcut. Returns false for ids it does not know. */
 export function runShortcut(
@@ -30,13 +30,12 @@ export function runShortcut(
 
 /** Hooks the hardware keyboard shortcuts up to the app. Mount once at the root. */
 export function useAppShortcuts() {
-  const router = useRouter();
   useEffect(() => {
     if (Platform.OS !== "ios" && Platform.OS !== "android") return;
     setAppShortcuts(nativeShortcuts());
     const sub = addAppShortcutListener((id) => {
-      runShortcut(id, (href) => router.navigate(href as never));
+      runShortcut(id, openTab);
     });
     return () => sub?.remove();
-  }, [router]);
+  }, []);
 }

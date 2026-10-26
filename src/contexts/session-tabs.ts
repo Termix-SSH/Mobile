@@ -42,3 +42,13 @@ export function tabNumber(id: string): number | null {
   const match = /^tab([1-9])$/.exec(id);
   return match ? Number(match[1]) : null;
 }
+
+/** The tab that should be active: the current one when it is still open, else the flagged or last one. */
+export function pickActiveTab<T extends { id: string; isActive?: boolean }>(
+  tabs: T[],
+  activeId: string | null,
+): string | null {
+  if (!tabs.length) return null;
+  if (activeId && tabs.some((t) => t.id === activeId)) return activeId;
+  return (tabs.find((t) => t.isActive) ?? tabs[tabs.length - 1]).id;
+}

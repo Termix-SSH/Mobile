@@ -5,7 +5,14 @@ import type { FramePlugin } from "@/core/plugins/webview";
 import { handleShellCall } from "@/features/plugin-webview/shell";
 import { toast } from "@/utils/toast";
 
-jest.mock("expo-router", () => ({ router: { push: jest.fn() } }));
+jest.mock("expo-router", () => ({
+  router: {
+    push: jest.fn(),
+    navigate: jest.fn(),
+    dismissTo: jest.fn(),
+    canDismiss: jest.fn(() => true),
+  },
+}));
 jest.mock("@/utils/toast", () => ({
   toast: { error: jest.fn(), info: jest.fn(), success: jest.fn() },
 }));
@@ -115,7 +122,8 @@ test("singleton tabs, close and the host editor", () => {
   });
   handleShellCall(d, "closeTab", []);
   expect(d.close).toHaveBeenCalled();
+  // From the plugin's own screen it goes back to the tabs, never stacks new ones.
   handleShellCall(d, "openHostEditor", [{}]);
-  expect(router.push).toHaveBeenCalledWith("/(tabs)/hosts");
+  expect(router.dismissTo).toHaveBeenCalledWith("/(tabs)/hosts");
   handleShellCall(d, "renameTab", ["x"]);
 });
