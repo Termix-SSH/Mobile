@@ -8,6 +8,11 @@ import UIKit
 final class TermixGhosttyView: UITerminalView {
   weak var owner: TermixTerminalView?
   private var lastTouchPoint: CGPoint?
+  var traceTag = "view"
+
+  deinit {
+    NativeTrace.log("[\(traceTag)] ghostty view freed")
+  }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     lastTouchPoint = touches.first?.location(in: self)
@@ -344,6 +349,7 @@ class TermixTerminalView: ExpoView {
 
     NativeTrace.start()
     reader.tag = traceTag
+    terminalView.traceTag = traceTag
     NativeTrace.log("[\(traceTag)] view created")
   }
 
@@ -690,6 +696,14 @@ class TermixTerminalView: ExpoView {
     NativeTrace.log("[\(traceTag)] view freed")
     if let reader { reader.pipe.detachSink(reader) }
     if let pipeId { TermixPipes.release(pipeId) }
+    // Free the surface and its controller now. Left to whenever the inner view goes, it was
+    // torn down after the next terminal started, and that one drew nothing.
+    let inner = terminalView
+    MainActor.assumeIsolated {
+      inner.controller = nil
+      inner.removeFromSuperview()
+    }
+    NativeTrace.log("[\(traceTag)] surface freed with the view")
   }
 }
 
