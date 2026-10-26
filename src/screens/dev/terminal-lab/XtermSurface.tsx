@@ -11,6 +11,7 @@ import {
 } from "react";
 import { View } from "react-native";
 import { WebView, type WebViewMessageEvent } from "react-native-webview";
+import { LOCAL_PAGE_ORIGINS, stayOnLocalPage } from "@/utils/webview";
 import * as Clipboard from "expo-clipboard";
 
 import { loadXtermAssets } from "@/features/terminal/loadXtermAssets";
@@ -219,7 +220,8 @@ export const XtermSurface = forwardRef<
       ref={web}
       style={[props.style, { backgroundColor: props.theme.background }]}
       source={{ html }}
-      originWhitelist={["*"]}
+      originWhitelist={LOCAL_PAGE_ORIGINS}
+      onShouldStartLoadWithRequest={stayOnLocalPage}
       onMessage={onMessage}
       keyboardDisplayRequiresUserAction={false}
       hideKeyboardAccessoryView

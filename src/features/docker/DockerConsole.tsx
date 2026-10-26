@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { WebView } from "react-native-webview";
+import { LOCAL_PAGE_ORIGINS, stayOnLocalPage } from "@/utils/webview";
 import { RotateCcw } from "lucide-react-native";
 import { Text } from "@/ui";
 import { useTheme, useThemeColor } from "@/contexts/ThemeContext";
@@ -162,7 +163,8 @@ export function DockerConsole({
           ref={webViewRef}
           source={{ html: consoleHtml ?? "" }}
           onMessage={onWebViewMessage}
-          originWhitelist={["*"]}
+          originWhitelist={LOCAL_PAGE_ORIGINS}
+          onShouldStartLoadWithRequest={stayOnLocalPage}
           javaScriptEnabled
           domStorageEnabled
           keyboardDisplayRequiresUserAction={false}

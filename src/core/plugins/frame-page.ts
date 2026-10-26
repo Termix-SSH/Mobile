@@ -1,3 +1,4 @@
+import { inlineJson } from "@/utils/webview";
 import type { ThemeVars } from "@/constants/theme";
 import type { FrameBoot, FrameTheme } from "./frame-protocol";
 
@@ -21,21 +22,6 @@ export function framePolicy(origin: string): string {
     "base-uri 'none'",
     "form-action 'none'",
   ].join("; ");
-}
-
-// "<" could close the script tag, and U+2028 and U+2029 end a line in older
-// engines.
-const BACKSLASH = String.fromCharCode(92);
-const ESCAPED = [0x3c, 0x2028, 0x2029];
-
-/** JSON that is safe inside a script tag. */
-function inlineJson(value: unknown): string {
-  let json = JSON.stringify(value);
-  for (const code of ESCAPED) {
-    const hex = code.toString(16).padStart(4, "0");
-    json = json.split(String.fromCharCode(code)).join(`${BACKSLASH}u${hex}`);
-  }
-  return json;
 }
 
 function escapeAttr(value: string): string {

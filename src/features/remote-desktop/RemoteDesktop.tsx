@@ -21,6 +21,11 @@ import {
 } from "react-native";
 import { WebView } from "react-native-webview";
 import {
+  inlineJson,
+  LOCAL_PAGE_ORIGINS,
+  stayOnLocalPage,
+} from "@/utils/webview";
+import {
   resolveRemoteDesktopSize,
   type RemoteDesktopSize,
 } from "./remoteDesktopSize";
@@ -349,7 +354,7 @@ export function RemoteDesktop({
   <div id="display"></div>
   <script>
     (function () {
-      const wsUrl = ${JSON.stringify(webSocketUrl)};
+      const wsUrl = ${inlineJson(webSocketUrl)};
       const displayContainer = document.getElementById('display');
       const post = (p) => window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify(p));
 
@@ -850,6 +855,8 @@ ${VIEWPORT_SCRIPT}
           key={`rdp-${host.id}-${webViewKey}`}
           ref={webViewRef}
           source={{ html: htmlContent }}
+          originWhitelist={LOCAL_PAGE_ORIGINS}
+          onShouldStartLoadWithRequest={stayOnLocalPage}
           style={[styles.webView, { bottom: KEY_STRIP_HEIGHT + kbOverlap }]}
           javaScriptEnabled
           domStorageEnabled

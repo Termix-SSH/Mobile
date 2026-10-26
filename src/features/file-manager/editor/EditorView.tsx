@@ -8,6 +8,7 @@ import {
 import { ActivityIndicator, View } from "react-native";
 import { Asset } from "expo-asset";
 import { WebView, type WebViewMessageEvent } from "react-native-webview";
+import { LOCAL_PAGE_ORIGINS, stayOnLocalPage } from "@/utils/webview";
 import { useTheme, useUiColors } from "@/contexts/ThemeContext";
 import { readLocalText } from "@/utils/localFile";
 import { languageFor } from "./language";
@@ -143,7 +144,7 @@ export const EditorView = forwardRef<
   return (
     <WebView
       ref={web}
-      originWhitelist={["*"]}
+      originWhitelist={LOCAL_PAGE_ORIGINS}
       source={{ html: page(script, colors.background) }}
       onMessage={onMessage}
       javaScriptEnabled
@@ -155,9 +156,7 @@ export const EditorView = forwardRef<
       setSupportMultipleWindows={false}
       hideKeyboardAccessoryView
       keyboardDisplayRequiresUserAction={false}
-      onShouldStartLoadWithRequest={(req) =>
-        req.url === "about:blank" || req.url.startsWith("data:")
-      }
+      onShouldStartLoadWithRequest={stayOnLocalPage}
       style={{ flex: 1, backgroundColor: colors.background }}
     />
   );

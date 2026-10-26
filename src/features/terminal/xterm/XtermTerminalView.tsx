@@ -14,6 +14,7 @@ import {
   type LayoutChangeEvent,
 } from "react-native";
 import { WebView } from "react-native-webview";
+import { LOCAL_PAGE_ORIGINS, stayOnLocalPage } from "@/utils/webview";
 import { ChevronDown } from "lucide-react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
@@ -1033,6 +1034,8 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
         <WebView
           ref={webViewRef}
           source={{ html: htmlContent }}
+          originWhitelist={LOCAL_PAGE_ORIGINS}
+          onShouldStartLoadWithRequest={stayOnLocalPage}
           style={{
             flex: 1,
             width: "100%",
