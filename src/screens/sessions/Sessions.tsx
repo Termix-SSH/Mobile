@@ -125,7 +125,9 @@ export default function Sessions() {
   const { keyboardHeight, isKeyboardVisible } = useKeyboard();
   const hiddenInputRef = useRef<TerminalImeInputHandle | null>(null);
   // Tab handles by session id. Tabs with "terminal-input" hand out a TerminalHandle.
+  // Tool tabs hand out other handles, so call terminal methods with ?.().
   const tabRefs = useRef<Record<string, React.RefObject<any>>>({});
+  const refFor = (id: string) => (tabRefs.current[id] ??= React.createRef());
   const [customKeyboardInitialTab, setCustomKeyboardInitialTab] =
     useState<string>("keyboard");
   const compositionActiveRef = useRef(false);
@@ -333,7 +335,7 @@ export default function Sessions() {
   useEffect(() => {
     const next: Record<string, React.RefObject<any>> = {};
     for (const s of sessions) {
-      next[s.id] = tabRefs.current[s.id] ?? React.createRef();
+      next[s.id] = refFor(s.id);
     }
     tabRefs.current = next;
     const offs = sessions.map((s) =>
@@ -425,26 +427,38 @@ export default function Sessions() {
     [stageWidth],
   );
 
+  // The old tab lets go of the keyboard, or a hidden terminal keeps it.
+  const prevActiveRef = useRef<string | null>(activeSessionId);
+  useEffect(() => {
+    const prev = prevActiveRef.current;
+    prevActiveRef.current = activeSessionId;
+    if (HIDDEN_INPUT || !prev || prev === activeSessionId) return;
+    tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
+  }, [activeSessionId]);
+
+  // The one place that gives the keyboard to the active terminal.
   useFocusEffect(
     React.useCallback(() => {
       if (
-        sessions.length > 0 &&
-        activeIsTerminal &&
-        !isCustomKeyboardVisible &&
-        !keyboardIntentionallyHiddenRef.current
+        sessions.length === 0 ||
+        !activeIsTerminal ||
+        isCustomKeyboardVisible ||
+        keyboardIntentionallyHiddenRef.current
       ) {
-        const timeoutId = setTimeout(() => {
-          keyboard("focus");
-        }, 500);
-        return () => clearTimeout(timeoutId);
+        return;
       }
-
-      return () => {};
+      const timeoutId = setTimeout(() => {
+        keyboard("focus");
+        getActiveTerminalRef()?.current?.fit?.();
+      }, 250);
+      return () => clearTimeout(timeoutId);
     }, [
       sessions.length,
-      activeSession?.type,
+      activeSessionId,
+      activeIsTerminal,
       isCustomKeyboardVisible,
-      keyboardIntentionallyHiddenRef,
+      keyboard,
+      getActiveTerminalRef,
     ]),
   );
 
@@ -500,7 +514,7 @@ export default function Sessions() {
       const activeRef = activeSessionId
         ? tabRefs.current[activeSessionId]
         : null;
-      activeRef?.current?.fit();
+      activeRef?.current?.fit?.();
     }, 300);
     return () => clearTimeout(timer);
   }, [activeSessionId, win.width, win.height]);
@@ -520,7 +534,7 @@ export default function Sessions() {
     const activeRef = activeSessionId ? tabRefs.current[activeSessionId] : null;
     if (activeRef && activeRef.current) {
       setTimeout(() => {
-        activeRef.current?.fit();
+        activeRef.current?.fit?.();
       }, 100);
     }
   }, [
@@ -546,31 +560,6 @@ export default function Sessions() {
     return () => sub?.remove();
   }, [dispatchSpecialKey]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      if (
-        sessions.length > 0 &&
-        activeIsTerminal &&
-        !isCustomKeyboardVisible &&
-        !keyboardIntentionallyHiddenRef.current
-      ) {
-        setTimeout(() => {
-          keyboard("focus");
-          const activeRef = activeSessionId
-            ? tabRefs.current[activeSessionId]
-            : null;
-          activeRef?.current?.fit();
-        }, 0);
-      }
-    }, [
-      sessions.length,
-      activeSessionId,
-      activeSession?.type,
-      isCustomKeyboardVisible,
-      keyboardIntentionallyHiddenRef,
-    ]),
-  );
-
   const handleTabPress = (sessionId: string) => {
     const session = sessions.find((s) => s.id === sessionId);
     setKeyboardIntentionallyHidden(false);
@@ -579,6 +568,8 @@ export default function Sessions() {
       partnerAfterActivate(activeSessionId, prev, sessionId),
     );
     setActiveSession(sessionId);
+    // A new tab gets focus from the focus effect; this covers a tap on the open one.
+    if (sessionId !== activeSessionId) return;
     setTimeout(() => {
       if (
         features.sessionHas(session?.type, "terminal-input") &&
@@ -652,9 +643,9 @@ export default function Sessions() {
           ? tabRefs.current[activeSessionId]
           : null;
         if (activeRef?.current) {
-          activeRef.current.fit();
+          activeRef.current?.fit?.();
           setTimeout(() => {
-            activeRef.current?.scrollToBottom();
+            activeRef.current?.scrollToBottom?.();
           }, 50);
         }
       }, 300);
@@ -669,9 +660,9 @@ export default function Sessions() {
           ? tabRefs.current[activeSessionId]
           : null;
         if (activeRef?.current) {
-          activeRef.current.fit();
+          activeRef.current?.fit?.();
           setTimeout(() => {
-            activeRef.current?.scrollToBottom();
+            activeRef.current?.scrollToBottom?.();
           }, 50);
         }
       }, 300);
@@ -695,8 +686,8 @@ export default function Sessions() {
             ? tabRefs.current[activeSessionId]
             : null;
           if (activeRef?.current) {
-            activeRef.current.fit();
-            setTimeout(() => activeRef.current?.scrollToBottom(), 50);
+            activeRef.current?.fit?.();
+            setTimeout(() => activeRef.current?.scrollToBottom?.(), 50);
           }
         }, 300);
       }
@@ -744,7 +735,7 @@ export default function Sessions() {
     }
     return (
       <Tab
-        ref={tabRefs.current[session.id]}
+        ref={refFor(session.id)}
         session={session}
         isVisible={session.id === activeSessionId || session.id === partnerId}
         onClose={() => handleTabClose(session.id)}

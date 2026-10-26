@@ -134,9 +134,8 @@ interface TerminalProps {
 
 export type TerminalHandle = TerminalInputHandle;
 
-// Clears the screen and scrollback before a server replays a session.
-const CLEAR_FOR_REPLAY = "\x1b[2J\x1b[3J\x1b[H";
-
+// Native pipes outlive a JS reload, so ids carry a per runtime prefix.
+const PIPE_RUN = Math.random().toString(36).slice(2, 8);
 let pipeSeq = 0;
 
 const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
@@ -522,7 +521,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     );
 
     // One pipe for the tab's life: reconnects and new views attach to it again.
-    const [pipeId] = useState(() => `term-${++pipeSeq}`);
+    const [pipeId] = useState(() => `term-${PIPE_RUN}-${++pipeSeq}`);
 
     const { conn, state, log, pending, pendingHeld, switchTo, switchOrigin } =
       useHostConnection(host, hostConfig, {
@@ -541,14 +540,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         onConnected: ({ fromBackground, isReattach }) => {
           const firstTime = !connectedBefore.current;
           connectedBefore.current = true;
+          // RelayShell clears before the server replays a reattached screen.
           if (XTERM_FALLBACK) {
             xtermRef.current?.notifyConnected(fromBackground, isReattach);
-          } else if (
-            transportRef.current === "relay" &&
-            (fromBackground || isReattach)
-          ) {
-            // The server sends the session's screen again.
-            nativeRef.current?.write(CLEAR_FOR_REPLAY);
           }
           if (!firstTime) return;
           if (client) {
@@ -662,6 +656,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     }, [conn]);
 
     // A restored tab that isn't shown waits, so a launch doesn't open them all at once.
+    // Drop the keyboard so it never covers a prompt like the host key check.
+    const prompting = state.status === "prompt";
+    useEffect(() => {
+      if (prompting && isVisible) nativeRef.current?.blur();
+    }, [prompting, isVisible]);
+
     const deferConnect = useRef(!!restored && !isVisible);
     const handleResize = useCallback((cols: number, rows: number) => {
       sizeRef.current = { cols, rows };
@@ -1034,6 +1034,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         <ConnectionPrompts
           conn={conn}
           state={state}
+          visible={isVisible}
           hostInfo={{
             name: hostConfig.name,
             ip: hostConfig.ip,

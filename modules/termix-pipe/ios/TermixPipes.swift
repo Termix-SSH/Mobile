@@ -26,6 +26,7 @@ public final class BytePipe: @unchecked Sendable {
   private weak var sink: PipeSink?
   private var paused = false
   private var count = 0
+  private var holds = 0
 
   public init(high: Int = BytePipe.highWater, low: Int = BytePipe.lowWater) {
     self.high = high
@@ -130,10 +131,23 @@ public final class BytePipe: @unchecked Sendable {
     resume?.resume()
   }
 
+  /// Keeps the pipe alive while a shell still writes to it, before its producer is set.
+  public func hold() {
+    lock.lock()
+    holds += 1
+    lock.unlock()
+  }
+
+  public func unhold() {
+    lock.lock()
+    if holds > 0 { holds -= 1 }
+    lock.unlock()
+  }
+
   var isUnused: Bool {
     lock.lock()
     defer { lock.unlock() }
-    return producer == nil && sink == nil && count == 0
+    return holds == 0 && producer == nil && sink == nil && count == 0
   }
 }
 

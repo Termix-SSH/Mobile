@@ -291,7 +291,7 @@ class TermixSshModule : Module() {
 
     // With a pipe the bytes go straight to the terminal view; JS only hears that output started.
     private fun shellSink(shellId: String, pipeId: String?, producer: () -> PipeProducer?) = object : ShellCallbacks {
-        private val pipe = pipeId?.let { TermixPipes.get(it) }
+        private val pipe = pipeId?.let { TermixPipes.get(it) }?.also { it.hold() }
         private var announced = false
 
         override fun onData(data: ByteArray) {
@@ -311,6 +311,7 @@ class TermixSshModule : Module() {
             telnets.remove(shellId)?.value?.destroy()
             if (pipe != null && pipeId != null) {
                 producer()?.let { pipe.detachProducer(it) }
+                pipe.unhold()
                 TermixPipes.release(pipeId)
             }
             sendEvent("onShellExit", mapOf("shellId" to shellId, "exitCode" to exitCode?.toInt(), "exitSignal" to exitSignal))

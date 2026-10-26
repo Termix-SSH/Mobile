@@ -911,6 +911,8 @@ internal class GhosttyTerminalView(context: Context) : View(context) {
   fun hideKeyboard() {
     context.getSystemService(InputMethodManager::class.java)
       ?.hideSoftInputFromWindow(windowToken, 0)
+    // A hidden tab that keeps focus gets the keyboard back when a dialog closes.
+    clearFocus()
   }
 
   // ── Mouse ──

@@ -264,6 +264,7 @@ private final class ShellSink: ShellCallbacks, @unchecked Sendable {
     self.module = module
     self.pipeId = pipeId
     self.pipe = pipeId.map { TermixPipes.get($0) }
+    self.pipe?.hold()
   }
   func onData(data: Data) {
     guard let pipe else {
@@ -282,6 +283,7 @@ private final class ShellSink: ShellCallbacks, @unchecked Sendable {
     let producer = module?.producers.remove(shellId)
     if let pipe, let pipeId {
       if let producer { pipe.detachProducer(producer) }
+      pipe.unhold()
       TermixPipes.release(pipeId)
     }
     module?.sendEvent("onShellExit", [

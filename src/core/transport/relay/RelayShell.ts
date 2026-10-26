@@ -26,6 +26,9 @@ export interface RelayShellConfig extends ShellOptions {
 const SIGN_IN_TITLES = BROWSER_SIGN_IN_TITLES;
 const SIGN_IN_IDS = Object.keys(SIGN_IN_TITLES);
 
+// Clears the screen and scrollback before a server replays a session.
+const CLEAR_FOR_REPLAY = "\x1b[2J\x1b[3J\x1b[H";
+
 const PING_MS = 25000;
 const LOW_POWER_PING_MS = 60000;
 
@@ -54,6 +57,7 @@ export class RelayShell implements ShellChannel {
   private wsProtocols: string[] = [];
   private serverSessionId: string | null = null;
   private pendingReattach = false;
+  private replayed = false;
   private awaitingAuthCredentials = false;
   // The last error the server sent, so a close after it says why.
   private lastServerError: string | null = null;
@@ -501,6 +505,9 @@ export class RelayShell implements ShellChannel {
 
       if (this.serverSessionId) {
         this.pendingReattach = true;
+        this.replayed = false;
+        // The server replays the screen before "connected", so clear first.
+        this.config.onData(CLEAR_FOR_REPLAY);
         ws.send(
           JSON.stringify({
             type: "attachSession",
@@ -554,6 +561,7 @@ export class RelayShell implements ShellChannel {
         ) {
           this.config.onBrowserCheckCompleted?.();
         } else if (msg.type === "data") {
+          if (this.pendingReattach) this.replayed = true;
           this.config.onData(msg.data as string);
           this.config.onStateChange("dataReceived", {
             hostName: this.config.hostConfig.name,
@@ -675,6 +683,13 @@ export class RelayShell implements ShellChannel {
             fromBackground: false,
             isReattach,
           });
+          // The replay came before "connected", so count it as shown data.
+          if (isReattach && this.replayed) {
+            this.replayed = false;
+            this.config.onStateChange("dataReceived", {
+              hostName: this.config.hostConfig.name,
+            });
+          }
           if (!isReattach) this.config.onPostConnectionSetup();
         } else if (msg.type === "disconnected") {
           this.setServerSessionId(null);

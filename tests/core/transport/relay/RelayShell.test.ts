@@ -56,6 +56,7 @@ function manager(client = fakeClient(), callbacks: Record<string, any> = {}) {
     client,
     hostConfig: { id: 1, name: "host" } as any,
     onStateChange: () => {},
+    onData: () => {},
     onConnectionFailed: (message: string) => errors.push(message),
     ...callbacks,
   } as any);
@@ -165,6 +166,28 @@ test("a resume attaches to the server session it had, with the auth subprotocol"
     { hostName: "host", fromBackground: false, isReattach: true },
   ]);
   expect(setup).not.toHaveBeenCalled();
+  m.destroy();
+});
+
+test("a reattach clears before the replay and counts the replay as data", async () => {
+  const states: string[] = [];
+  const data: string[] = [];
+  const { m } = manager(fakeClient(), {
+    initialSessionId: "s1",
+    resume: true,
+    onData: (d: string) => data.push(d),
+    onStateChange: (state: string) => states.push(state),
+  });
+  await m.connect(80, 24);
+  const socket = FakeSocket.all[0];
+  socket.readyState = FakeSocket.OPEN;
+  (socket as any).onopen?.();
+  // The server sends the saved screen before it says connected.
+  socket.onmessage?.({ data: JSON.stringify({ type: "data", data: "$ ls" }) });
+  socket.onmessage?.({ data: JSON.stringify({ type: "connected" }) });
+  expect(data[0]).toContain("[2J");
+  expect(data.at(-1)).toBe("$ ls");
+  expect(states.slice(-2)).toEqual(["connected", "dataReceived"]);
   m.destroy();
 });
 

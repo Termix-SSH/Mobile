@@ -13,12 +13,15 @@ export function ConnectionPrompts({
   conn,
   state,
   hostInfo,
+  visible = true,
 }: {
   conn: HostConnection;
   state: ConnectionStatus;
   hostInfo: { name?: string; ip: string; port: number; username: string };
+  /** A hidden tab keeps its prompt until it is shown. */
+  visible?: boolean;
 }) {
-  const prompt = state.status === "prompt" ? state.prompt : null;
+  const prompt = visible && state.status === "prompt" ? state.prompt : null;
   const cancel = () => conn.cancel();
 
   return (

@@ -22,6 +22,7 @@ class BytePipe(val high: Int = HIGH_WATER, val low: Int = LOW_WATER) {
   private var producer: PipeProducer? = null
   private var sink: PipeSink? = null
   private var paused = false
+  private var holds = 0
 
   var queued = 0
     private set
@@ -120,8 +121,17 @@ class BytePipe(val high: Int = HIGH_WATER, val low: Int = LOW_WATER) {
     resume?.resume()
   }
 
+  /** Keeps the pipe alive while a shell still writes to it, before its producer is set. */
+  fun hold() {
+    synchronized(lock) { holds++ }
+  }
+
+  fun unhold() {
+    synchronized(lock) { if (holds > 0) holds-- }
+  }
+
   internal val isEmpty: Boolean
-    get() = synchronized(lock) { producer == null && sink == null && queued == 0 }
+    get() = synchronized(lock) { holds == 0 && producer == null && sink == null && queued == 0 }
 
   companion object {
     const val HIGH_WATER = 1 shl 20

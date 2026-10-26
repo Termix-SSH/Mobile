@@ -382,10 +382,11 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
 
     window.notifyConnected = function(fromBackground, isReattach) {
       connectionEpoch += 1;
-      terminal.clear();
+      // A reattach already got its replay, so keep it on screen.
       if (isReattach) {
-        terminal.write('\\x1b[2J\\x1b[H\\x1b[?25h');
+        terminal.write('\\x1b[?25h');
       } else {
+        terminal.clear();
         terminal.reset();
         terminal.write('\\x1b[2J\\x1b[H\\x1b[?25h');
       }
