@@ -298,6 +298,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     const sendInput = useCallback(
       (data: string) => {
+        trace("term", "input", {
+          tab: tabInstanceId?.slice(0, 8),
+          bytes: data.length,
+          connected: !!connRef.current,
+          state: connRef.current?.state.status,
+        });
         tracker.track(data);
         connRef.current?.sendInput(data);
       },
@@ -665,6 +671,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     const deferConnect = useRef(!!restored && !isVisible);
     const handleResize = useCallback((cols: number, rows: number) => {
+      trace("term", "size", { tab: tabInstanceId?.slice(0, 8), cols, rows });
       sizeRef.current = { cols, rows };
       if (!connectedOnce.current) {
         if (deferConnect.current) return;

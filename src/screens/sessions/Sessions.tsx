@@ -332,7 +332,7 @@ export default function Sessions() {
   // A keyboard that came up, from a tap on the terminal too, ends a hide from the tab bar.
   useEffect(() => {
     trace("kb", "bars", {
-      code: "634cb76+trace",
+      code: "f3dc530+size",
       up: systemKeyboardUp,
       visible: isKeyboardVisible,
       height: Math.round(currentKeyboardHeight),
@@ -855,7 +855,13 @@ export default function Sessions() {
             const tabs = (
               <View
                 style={{ flex: 1 }}
-                onLayout={(e) => setStageWidth(e.nativeEvent.layout.width)}
+                onLayout={(e) => {
+                  trace("kb", "stage", {
+                    width: Math.round(e.nativeEvent.layout.width),
+                    height: Math.round(e.nativeEvent.layout.height),
+                  });
+                  setStageWidth(e.nativeEvent.layout.width);
+                }}
               >
                 {sessions.map((session) => {
                   const shown =
