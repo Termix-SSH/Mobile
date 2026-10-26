@@ -470,6 +470,12 @@ export default function Sessions() {
     });
     if (keepKeyboard) next.focus();
     else tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
+    // A tab resized while hidden can come back scrolled above its live screen.
+    const shown = activeSessionId ? tabRefs.current[activeSessionId] : null;
+    setTimeout(() => {
+      shown?.current?.scrollToBottom?.();
+      shown?.current?.fit?.();
+    }, 120);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSessionId]);
 

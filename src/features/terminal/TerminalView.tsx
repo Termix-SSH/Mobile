@@ -201,7 +201,10 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
           accentColor={ui.brand}
           onInput={handleInput}
           onResize={onResize}
-          onScrollState={setAtBottom}
+          onScrollState={(atBottom) => {
+            trace("term", "scroll", { pipe: pipeId, atBottom });
+            setAtBottom(atBottom);
+          }}
           onLink={handleLink}
           onCopy={handleCopy}
           onClipboardRequest={handleClipboard}
