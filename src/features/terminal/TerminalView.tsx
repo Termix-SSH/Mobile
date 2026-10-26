@@ -46,6 +46,8 @@ export interface TerminalViewApi {
   selectAll(): void;
   focus(): void;
   blur(): void;
+  /** Sizes the grid to the view again and draws. */
+  refit(): void;
   sendKey(name: TerminalKeyName, shift?: boolean): void;
   typeText(text: string): void;
   toggleModifier(name: "ctrl" | "alt"): void;
@@ -118,6 +120,7 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
         selectAll: () => native.current?.selectAll(),
         focus: () => native.current?.focus(),
         blur: () => native.current?.blur(),
+        refit: () => native.current?.refit(),
         sendKey: (name, shift) => native.current?.sendKey(name, shift),
         typeText: (text) => native.current?.typeText(text),
         toggleModifier: (name) => native.current?.toggleModifier(name),

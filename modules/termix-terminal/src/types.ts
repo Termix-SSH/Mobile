@@ -129,6 +129,8 @@ export interface TerminalViewHandle {
   /** Shows the keyboard. */
   focus(): void;
   blur(): void;
+  /** Sizes the grid to the view again and draws. */
+  refit(): void;
   /** Tap arms Ctrl or Alt for the next key, a quick double tap locks it. */
   toggleModifier(name: "ctrl" | "alt"): void;
   /** A key from the app's key row, with the sticky modifiers. */

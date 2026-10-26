@@ -52,6 +52,8 @@ class TermixTerminalModule : Module() {
         view.write(data)
       }
 
+      // iOS only: the Android view sizes itself on every layout.
+      AsyncFunction("refit") { _: TermixTerminalView -> }
       AsyncFunction("paste") { view: TermixTerminalView, text: String -> view.paste(text) }
       AsyncFunction("scrollToBottom") { view: TermixTerminalView -> view.scrollToBottom() }
       AsyncFunction("copySelection") { view: TermixTerminalView -> view.copySelection() }

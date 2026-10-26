@@ -153,6 +153,8 @@ export const XtermSurface = forwardRef<
     copySelection: () => run("window.lab.copy()"),
     focus: () => run("window.lab.focus()"),
     blur: () => run("window.lab.blur()"),
+    // xterm fits itself on resize.
+    refit: () => {},
     // The xterm baseline only takes raw input, so key row calls are not compared.
     selectAll: () => {},
     toggleModifier: () => {},

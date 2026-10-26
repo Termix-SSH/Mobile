@@ -37,6 +37,7 @@ interface NativeHandle {
   selectAll(): Promise<void>;
   focus(): Promise<unknown>;
   blur(): Promise<void>;
+  refit(): Promise<void>;
   toggleModifier(name: string): Promise<void>;
   sendKey(name: string, shift: boolean): Promise<void>;
   typeText(text: string): Promise<void>;
@@ -157,6 +158,7 @@ export const TerminalView = forwardRef<TerminalViewHandle, TerminalViewProps>(
             }),
           ),
         blur: () => call((n) => n.blur()),
+        refit: () => call((n) => n.refit()),
         toggleModifier: (name) => call((n) => n.toggleModifier(name)),
         sendKey: (name, shift = false) => call((n) => n.sendKey(name, shift)),
         typeText: (text) => call((n) => n.typeText(text)),

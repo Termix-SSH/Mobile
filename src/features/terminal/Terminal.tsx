@@ -809,6 +809,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         fit: () => {
           // The native view follows its own size.
           if (XTERM_FALLBACK) xtermRef.current?.fit();
+          else nativeRef.current?.refit();
         },
         isDialogOpen: () => isDialogOpen,
         notifyBackgrounded: () => connRef.current?.notifyBackgrounded(),

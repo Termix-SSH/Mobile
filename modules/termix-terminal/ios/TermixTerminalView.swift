@@ -544,6 +544,11 @@ class TermixTerminalView: ExpoView {
     ]
   }
 
+  /// Sizes the grid to the view again and draws, after the keyboard or a tab switch moved it.
+  func refit() {
+    terminalView.fitToSize()
+  }
+
   func blurTerminal() {
     _ = terminalView.resignFirstResponder()
   }

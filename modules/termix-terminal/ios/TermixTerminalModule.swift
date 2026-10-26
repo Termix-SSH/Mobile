@@ -131,6 +131,10 @@ public class TermixTerminalModule: Module {
         view.blurTerminal()
       }.runOnQueue(.main)
 
+      AsyncFunction("refit") { (view: TermixTerminalView) in
+        view.refit()
+      }.runOnQueue(.main)
+
       AsyncFunction("toggleModifier") { (view: TermixTerminalView, name: String) in
         view.toggleModifier(name)
       }.runOnQueue(.main)

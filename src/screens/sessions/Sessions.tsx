@@ -868,7 +868,8 @@ export default function Sessions() {
                       // A tab never gets moved to another parent when it shows or hides.
                       collapsable={false}
                       style={paneStyle(session.id)}
-                      pointerEvents={shown ? "auto" : "none"}
+                      // Hidden tabs sit off screen, so they never get touches. Turning
+                      // touches off made iOS drop the keyboard on every tab switch.
                       onTouchStart={
                         session.id === partnerId
                           ? () => handleTabPress(session.id)
