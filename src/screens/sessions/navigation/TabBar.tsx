@@ -28,7 +28,6 @@ import { getTabBarHeight, getButtonSize } from "@/utils/responsive";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { features } from "@/core/features";
 import { displayTitle } from "@/contexts/session-tabs";
-import { tabTag, trace } from "@/core/log/trace";
 import { useSessionStatuses } from "@/core/sessions/status";
 import { statusLabel, TabStatusMark } from "./TabStatusMark";
 import DraggableFlatList, {
@@ -84,16 +83,6 @@ export default function TabBar({
 
   const tabBarHeight = getTabBarHeight(isLandscape, isShort);
   const buttonSize = getButtonSize(isLandscape, 44, isShort);
-
-  const tabIds = sessions.map((s) => tabTag(s.id)).join(",");
-  React.useEffect(() => {
-    trace("tabbar", "drawn", {
-      active: tabTag(activeSessionId),
-      tabs: tabIds,
-      activeShown: sessions.some((s) => s.id === activeSessionId),
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSessionId, tabIds]);
 
   const needsBottomPadding = !features.sessionHas(
     activeSessionType,

@@ -8,11 +8,6 @@ import UIKit
 final class TermixGhosttyView: UITerminalView {
   weak var owner: TermixTerminalView?
   private var lastTouchPoint: CGPoint?
-  var traceTag = "view"
-
-  deinit {
-    NativeTrace.log("[\(traceTag)] ghostty view freed")
-  }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     lastTouchPoint = touches.first?.location(in: self)
@@ -169,7 +164,6 @@ private final class PipeReader: PipeSink, @unchecked Sendable {
   weak var session: InMemoryTerminalSession?
   var pipe: BytePipe
   var onOutput: (() -> Void)?
-  var tag = "view"
   private(set) var bytes: Double = 0
 
   init(pipe: BytePipe) {
@@ -201,12 +195,7 @@ private final class PipeReader: PipeSink, @unchecked Sendable {
       let stop = backlogged
       lock.unlock()
       if stop { break }
-      guard let session else {
-        NativeTrace.log("[\(tag)] pipe has bytes but the session is gone")
-        break
-      }
-      guard let chunk = pipe.read(max: 64 * 1024) else { break }
-      if bytes == 0 { NativeTrace.log("[\(tag)] first bytes from pipe: \(chunk.count)") }
+      guard let session, let chunk = pipe.read(max: 64 * 1024) else { break }
       bytes += Double(chunk.count)
       session.receive(chunk)
       onOutput?()
@@ -223,12 +212,6 @@ private final class PipeReader: PipeSink, @unchecked Sendable {
 // and terminal replies go out through onInput. Each view has its own controller, so theme and
 // font are per view.
 class TermixTerminalView: ExpoView {
-  nonisolated(unsafe) private static var traceSeq = 0
-  private let traceTag: String = {
-    TermixTerminalView.traceSeq += 1
-    return "v\(TermixTerminalView.traceSeq)"
-  }()
-  private var lastHealth = Date.distantPast
   private let terminalView = TermixGhosttyView(frame: .zero)
   private var session: InMemoryTerminalSession!
   private var controller: TerminalController!
@@ -346,16 +329,6 @@ class TermixTerminalView: ExpoView {
     isAccessibilityElement = true
     accessibilityLabel = "Terminal"
     accessibilityTraits = [.allowsDirectInteraction]
-
-    NativeTrace.start()
-    reader.tag = traceTag
-    terminalView.traceTag = traceTag
-    NativeTrace.log("[\(traceTag)] view created")
-  }
-
-  override func didMoveToWindow() {
-    super.didMoveToWindow()
-    NativeTrace.log("[\(traceTag)] window \(window != nil ? "attached" : "detached") \(healthText())")
   }
 
   override func layoutSubviews() {
@@ -364,41 +337,15 @@ class TermixTerminalView: ExpoView {
     flashView.frame = bounds
     if !surfaceReady, bounds.width > 0 {
       surfaceReady = true
-      // Props from the mount wait for the next main turn. When layout comes first the surface
-      // was born with default settings, and changing them on the live surface left it blank.
-      if configScheduled {
-        NativeTrace.log("[\(traceTag)] settings applied before the surface")
-        applyConfig()
-      }
+      // Props from the mount wait for the next main turn; the surface starts with them.
+      if configScheduled { applyConfig() }
       terminalView.configuration = TerminalSurfaceOptions(backend: .inMemory(session), fontSize: currentFontSize)
-      NativeTrace.log("[\(traceTag)] surface options set \(healthText())")
-      DispatchQueue.main.async { [weak self] in
-        guard let self else { return }
-        NativeTrace.log("[\(traceTag)] after surface options \(healthText())")
-      }
     }
-  }
-
-  /// What decides whether the terminal can be seen, for the trace log.
-  private func healthText() -> String {
-    var hidden = false
-    var alpha: CGFloat = 1
-    var node: UIView? = self
-    while let view = node {
-      if view.isHidden { hidden = true }
-      alpha *= view.alpha
-      node = view.superview
-    }
-    let size = "\(Int(bounds.width))x\(Int(bounds.height))"
-    let surface = terminalView.surface != nil ? "yes" : "no"
-    return "size=\(size) surface=\(surface) window=\(window != nil) hidden=\(hidden) alpha=\(alpha) "
-      + "pipe=\(pipeId ?? "local") bytes=\(Int(reader.bytes)) first=\(terminalView.isFirstResponder)"
   }
 
   // MARK: - Props
 
   func setPipe(_ id: String?) {
-    NativeTrace.log("[\(traceTag)] pipe \(pipeId ?? "none") -> \(id ?? "none")")
     guard id != pipeId else { return }
     reader.pipe.detachSink(reader)
     if let pipeId { TermixPipes.release(pipeId) }
@@ -472,7 +419,6 @@ class TermixTerminalView: ExpoView {
 
   private func applyConfig() {
     configScheduled = false
-    NativeTrace.log("[\(traceTag)] apply settings, live surface=\(terminalView.surface != nil)")
     let base = baseConfiguration().rendered
     if base != appliedBase {
       appliedBase = base
@@ -492,7 +438,6 @@ class TermixTerminalView: ExpoView {
   // MARK: - Calls from JS
 
   func write(_ data: Data) {
-    if reader.bytes == 0 { NativeTrace.log("[\(traceTag)] write from JS: \(data.count) bytes") }
     reader.pipe.push(data)
   }
 
@@ -635,10 +580,6 @@ class TermixTerminalView: ExpoView {
   // MARK: - Output
 
   private func outputArrived() {
-    if Date().timeIntervalSince(lastHealth) > 1 {
-      lastHealth = Date()
-      NativeTrace.log("[\(traceTag)] output \(healthText())")
-    }
     if promptWatch {
       promptWork?.cancel()
       let work = DispatchWorkItem { [weak self] in self?.reportPromptLine() }
@@ -693,7 +634,6 @@ class TermixTerminalView: ExpoView {
 
   // Unanswered clipboard requests deny themselves when they go away.
   deinit {
-    NativeTrace.log("[\(traceTag)] view freed")
     if let reader { reader.pipe.detachSink(reader) }
     if let pipeId { TermixPipes.release(pipeId) }
     // Free the surface and its controller now. Left to whenever the inner view goes, it was
@@ -703,7 +643,6 @@ class TermixTerminalView: ExpoView {
       inner.controller = nil
       inner.removeFromSuperview()
     }
-    NativeTrace.log("[\(traceTag)] surface freed with the view")
   }
 }
 

@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { Tabs, usePathname } from "expo-router";
-import { trace } from "@/core/log/trace";
 import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
 import { BottomBar, TABS } from "@/screens/shell/BottomBar";
 import { shellLayout } from "@/screens/shell/layout";
@@ -20,10 +18,6 @@ export default function TabLayout() {
     layout.fullScreenSessions &&
     pathname === "/sessions" &&
     sessions.length > 0;
-
-  useEffect(() => {
-    trace("nav", "route", { pathname, hideTabBar, tabs: sessions.length });
-  }, [pathname, hideTabBar, sessions.length]);
 
   return (
     <BottomBarShown.Provider value={!isWide && !hideTabBar}>

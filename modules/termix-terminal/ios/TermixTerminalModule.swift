@@ -6,11 +6,6 @@ public class TermixTerminalModule: Module {
 
     Constant("engineLoaded") { true }
 
-    // Native trace lines since the last call, for Settings, Logs.
-    Function("takeDebugLines") { () -> [String] in
-      NativeTrace.take()
-    }
-
     View(TermixTerminalView.self) {
       Events(
         "onInput", "onResize", "onBell", "onTitleChange", "onScrollState", "onLink", "onCopy",

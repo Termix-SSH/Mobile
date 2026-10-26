@@ -40,7 +40,6 @@ import {
   useSideInsets,
 } from "@/ui/bottom-inset";
 import { reduceMotionOn } from "@/ui/motion";
-import { callerOf, tabTag, trace } from "@/core/log/trace";
 import TabBar from "@/screens/sessions/navigation/TabBar";
 import { SessionMenu } from "@/screens/sessions/SessionMenu";
 import { keyBarHeight } from "@/features/terminal/keys/compact";
@@ -82,10 +81,6 @@ import { XTERM_FALLBACK } from "@/features/terminal/fallback";
 // The native terminal reads the keyboard itself; the hidden input is for the xterm fallback.
 const HIDDEN_INPUT = XTERM_FALLBACK;
 
-// More than one live Sessions screen means a second tab shell got stacked.
-let liveScreens = 0;
-let screenSeq = 0;
-
 // The key row keeps its own sticky modifiers now; typed text gets none.
 const NO_MODIFIERS = { ctrl: false, alt: false, shift: false };
 // Stands in until a new tab's ref exists
@@ -123,22 +118,6 @@ export default function Sessions() {
     keyboardIntentionallyHiddenRef,
     setKeyboardIntentionallyHidden,
   } = useTerminalSessions();
-
-  const [screenId] = useState(() => ++screenSeq);
-  useEffect(() => {
-    liveScreens++;
-    trace("sessions", "screen mounted", {
-      screen: screenId,
-      live: liveScreens,
-    });
-    return () => {
-      liveScreens--;
-      trace("sessions", "screen unmounted", {
-        screen: screenId,
-        live: liveScreens,
-      });
-    };
-  }, [screenId]);
 
   const [showConnectionsPanel, setShowConnectionsPanel] = useState(false);
   const [menuFor, setMenuFor] = useState<string | null>(null);
@@ -212,25 +191,14 @@ export default function Sessions() {
 
   /** Shows or hides the keyboard on the active terminal. */
   const keyboard = useCallback((action: "focus" | "blur" | "clear") => {
-    const caller = callerOf();
     // Never focus under the lock pad, or the keyboard covers it (#100).
-    if (action === "focus" && isAppLocked()) {
-      trace("keyboard", "focus skipped, app locked", { caller });
-      return;
-    }
+    if (action === "focus" && isAppLocked()) return;
     if (HIDDEN_INPUT) {
       callImeInput(hiddenInputRef, action);
       return;
     }
     const id = activeIdRef.current;
     const target = id ? tabRefs.current[id]?.current?.keyTarget?.() : null;
-    trace("keyboard", action, {
-      screen: screenId,
-      tab: tabTag(id),
-      hasHandle: !!(id && tabRefs.current[id]?.current),
-      hasTarget: !!target,
-      caller,
-    });
     if (action === "focus") target?.focus();
     else if (action === "blur") target?.blur();
   }, []);
@@ -305,24 +273,6 @@ export default function Sessions() {
     compositionActiveRef.current = false;
     lastSpecialKeyRef.current = null;
   }, [activeSessionId, activeIsTerminal, isCustomKeyboardVisible, keyboard]);
-
-  useEffect(() => {
-    trace("keyboard", "system keyboard", {
-      visible: isKeyboardVisible,
-      height: Math.round(keyboardHeight),
-    });
-  }, [isKeyboardVisible, keyboardHeight]);
-
-  useEffect(() => {
-    trace("sessions", "active tab", {
-      screen: screenId,
-      active: tabTag(activeSessionId),
-      type: activeSession?.type ?? null,
-      terminal: activeIsTerminal,
-      open: sessions.map((t) => tabTag(t.id)),
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSessionId, sessions.length]);
 
   useEffect(() => {
     const show = Keyboard.addListener("keyboardDidShow", () => {
@@ -492,14 +442,6 @@ export default function Sessions() {
   // The one place that gives the keyboard to the active terminal.
   useFocusEffect(
     React.useCallback(() => {
-      trace("sessions", "screen focused", {
-        screen: screenId,
-        tabs: sessions.length,
-        active: tabTag(activeSessionId),
-        terminal: activeIsTerminal,
-        keysPanel: isCustomKeyboardVisible,
-        userHidKeyboard: keyboardIntentionallyHiddenRef.current,
-      });
       if (
         sessions.length === 0 ||
         !activeIsTerminal ||
@@ -512,12 +454,7 @@ export default function Sessions() {
         keyboard("focus");
         getActiveTerminalRef()?.current?.fit?.();
       }, 250);
-      return () => {
-        trace("sessions", "screen blurred or deps changed", {
-          screen: screenId,
-        });
-        clearTimeout(timeoutId);
-      };
+      return () => clearTimeout(timeoutId);
     }, [
       sessions.length,
       activeSessionId,
@@ -531,7 +468,6 @@ export default function Sessions() {
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       // Connections hear about the app state from the session lifecycle.
-      trace("sessions", "app state", { state: nextAppState });
       if (nextAppState === "active") {
         if (
           sessions.length > 0 &&
@@ -629,11 +565,6 @@ export default function Sessions() {
 
   const handleTabPress = (sessionId: string) => {
     const session = sessions.find((s) => s.id === sessionId);
-    trace("sessions", "tab pressed", {
-      tab: tabTag(sessionId),
-      active: tabTag(activeSessionId),
-      found: !!session,
-    });
     setKeyboardIntentionallyHidden(false);
 
     setSplitWith((prev) =>
@@ -674,11 +605,6 @@ export default function Sessions() {
   };
 
   const handleTabClose = (sessionId: string) => {
-    trace("sessions", "tab close", {
-      tab: tabTag(sessionId),
-      active: tabTag(activeSessionId),
-      caller: callerOf(),
-    });
     removeSession(sessionId);
     setTimeout(() => {
       if (activeIsTerminal && !isCustomKeyboardVisible && sessions.length > 1) {

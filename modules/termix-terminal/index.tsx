@@ -85,27 +85,9 @@ const MODULE = "TermixTerminal";
  * False in Expo Go, on web, in builds without the module and on 32 bit
  * Android phones, which libghostty-vt is not built for.
  */
-const nativeModule = requireOptionalNativeModule<{
-  engineLoaded?: boolean;
-  takeDebugLines?: () => string[];
-}>(MODULE);
-
-export const isTerminalEngineAvailable = nativeModule?.engineLoaded === true;
-
-/** Whether this build has the native trace, for the trace log itself. */
-export function nativeDebugInfo(): Record<string, unknown> {
-  return {
-    module: !!nativeModule,
-    engineLoaded: nativeModule?.engineLoaded ?? null,
-    takeDebugLines: typeof nativeModule?.takeDebugLines,
-    keys: nativeModule ? Object.keys(nativeModule).slice(0, 20) : [],
-  };
-}
-
-/** Native trace lines since the last call. Empty on builds without them; errors are thrown. */
-export function takeNativeDebugLines(): string[] {
-  return nativeModule?.takeDebugLines?.() ?? [];
-}
+export const isTerminalEngineAvailable =
+  requireOptionalNativeModule<{ engineLoaded?: boolean }>(MODULE)
+    ?.engineLoaded === true;
 
 const NativeView: ComponentType<NativeProps> | null = isTerminalEngineAvailable
   ? requireNativeView(MODULE)
