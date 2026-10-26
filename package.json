@@ -13,6 +13,7 @@
     "format:check": "prettier --check .",
     "type-check": "tsc --noEmit",
     "test": "jest",
+    "test:coverage": "jest --coverage --testTimeout=20000",
     "verify": "npm run type-check && npm run lint && npm run format:check && npm run check:fdroid && npm test",
     "icons": "node scripts/generate-icons.mjs",
     "widget-themes": "node scripts/generate-widget-themes.cjs",

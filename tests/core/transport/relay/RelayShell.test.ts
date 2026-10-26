@@ -526,3 +526,46 @@ test("a warpgate round with a url still goes to the warpgate prompt", async () =
   expect(onWarpgateAuthRequired).toHaveBeenCalledWith("https://w", "k");
   m.destroy();
 });
+
+test("every control message goes out with its own type while open", async () => {
+  const { m } = manager();
+  await m.connect(80, 24);
+  const socket = FakeSocket.all[0];
+  // Nothing is sent before the socket opens.
+  m.sendInput("early");
+  openAndConnect(socket);
+  const before = socket.sent.length;
+  m.sendInput("ls\r");
+  m.attachTmux("main");
+  m.sendResize(120, 40);
+  m.sendTotpResponse("123456", false);
+  m.sendTotpResponse("hunter2", true);
+  m.sendHostKeyResponse("accept");
+  expect(socket.sent.slice(before)).toEqual([
+    { type: "input", data: "ls\r" },
+    { type: "tmux_attach", data: { sessionName: "main" } },
+    { type: "resize", data: { cols: 120, rows: 40 } },
+    { type: "totp_response", data: { code: "123456" } },
+    { type: "password_response", data: { code: "hunter2" } },
+    { type: "host_key_verification_response", data: { action: "accept" } },
+  ]);
+  expect(socket.sent.some((s) => s.data === "early")).toBe(false);
+  m.destroy();
+  expect(socket.sent.at(-1)).toEqual({ type: "disconnect" });
+});
+
+test("new credentials go over the open socket, or open a new one", async () => {
+  const { m } = manager();
+  await m.connect(80, 24);
+  const socket = FakeSocket.all[0];
+  openAndConnect(socket);
+  m.sendReconnectWithCredentials({ password: "pw" }, 100, 30);
+  expect(socket.sent.at(-1)).toMatchObject({
+    type: "reconnect_with_credentials",
+    data: { password: "pw", cols: 100, hostConfig: { authType: "password" } },
+  });
+  socket.readyState = FakeSocket.CLOSED;
+  m.sendReconnectWithCredentials({ sshKey: "KEY" }, 100, 30);
+  expect(FakeSocket.all).toHaveLength(2);
+  m.destroy();
+});
