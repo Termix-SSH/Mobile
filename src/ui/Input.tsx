@@ -1,4 +1,10 @@
-import { forwardRef, useState } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { useFieldLabel } from "./Field";
 import { MAX_FONT_SCALE } from "./Text";
 import { Platform, TextInput, type TextInputProps, View } from "react-native";
@@ -49,10 +55,20 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
     onFocus,
     onBlur,
     editable,
+    autoFocus,
     ...props
   },
   ref,
 ) {
+  const inner = useRef<TextInput>(null);
+  useImperativeHandle(ref, () => inner.current as TextInput);
+  // Android: a field in a sheet that focuses at mount gets the keyboard
+  // before the dialog can take input, so wait for the sheet to slide up.
+  useEffect(() => {
+    if (!autoFocus || Platform.OS !== "android") return;
+    const timer = setTimeout(() => inner.current?.focus(), 280);
+    return () => clearTimeout(timer);
+  }, [autoFocus]);
   const [focused, setFocused] = useState(false);
   const fieldLabel = useFieldLabel();
   const placeholderColor = useThemeColor()("muted-foreground", 0.7);
@@ -71,7 +87,8 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
     >
       {leading ? <View className="shrink-0">{leading}</View> : null}
       <TextInput
-        ref={ref}
+        ref={inner}
+        autoFocus={autoFocus && Platform.OS !== "android"}
         multiline={multiline}
         editable={editable}
         onFocus={(e) => {

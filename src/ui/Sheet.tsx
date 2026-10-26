@@ -1,5 +1,6 @@
-import { Fragment, isValidElement } from "react";
+import { Fragment, isValidElement, useEffect, useState } from "react";
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -12,6 +13,28 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { X } from "lucide-react-native";
 import { Text } from "./Text";
 import { useThemeColor } from "@/contexts/ThemeContext";
+
+/**
+ * Keyboard height on Android. Edge to edge dialogs don't resize, and a
+ * KeyboardAvoidingView misses a keyboard that was already up at mount.
+ */
+function useAndroidKeyboard(active: boolean): number {
+  const [height, setHeight] = useState(0);
+  useEffect(() => {
+    if (!active || Platform.OS !== "android") return;
+    if (Keyboard.isVisible()) setHeight(Keyboard.metrics()?.height ?? 0);
+    const show = Keyboard.addListener("keyboardDidShow", (e) =>
+      setHeight(e.endCoordinates.height),
+    );
+    const hide = Keyboard.addListener("keyboardDidHide", () => setHeight(0));
+    return () => {
+      show.remove();
+      hide.remove();
+      setHeight(0);
+    };
+  }, [active]);
+  return height;
+}
 
 /**
  * Sheet - square panel that slides up from the bottom. Used for menus,
@@ -47,6 +70,7 @@ export function Sheet({
   const insets = useSafeAreaInsets();
   const color = useThemeColor();
   const close = dismissable ? onClose : () => {};
+  const androidKeyboard = useAndroidKeyboard(visible);
 
   return (
     <Modal
@@ -59,7 +83,8 @@ export function Sheet({
       navigationBarTranslucent
     >
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        enabled={Platform.OS === "ios"}
         style={{ flex: 1 }}
       >
         <Pressable
@@ -74,7 +99,10 @@ export function Sheet({
           accessibilityViewIsModal
           onAccessibilityEscape={close}
           className={`border-t bg-popover ${tone === "destructive" ? "border-destructive/40" : "border-border"}`}
-          style={{ paddingBottom: insets.bottom, maxHeight: "85%" }}
+          style={{
+            paddingBottom: Math.max(insets.bottom, androidKeyboard),
+            maxHeight: "85%",
+          }}
         >
           <View className="items-center pb-1 pt-2">
             <View className="h-1 w-9 bg-muted-foreground/30" />

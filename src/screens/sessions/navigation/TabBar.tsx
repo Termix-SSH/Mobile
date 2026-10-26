@@ -108,258 +108,217 @@ export default function TabBar({
     return null;
   }
 
+  const hasInput = features.sessionHas(activeSessionType, "terminal-input");
+  const iconSize = isLandscape ? 16 : 18;
+
   return (
-    <View style={{ position: "relative" }}>
+    <View
+      style={{
+        backgroundColor: ui.background,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: ui.border,
+        height: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
+        paddingBottom: needsBottomPadding ? insets.bottom : 0,
+      }}
+      focusable={false}
+    >
       <View
         style={{
-          backgroundColor: ui.background,
-          borderTopWidth: StyleSheet.hairlineWidth,
-          borderTopColor: ui.border,
-          borderBottomWidth: 0,
-          height: tabBarHeight + (needsBottomPadding ? insets.bottom : 0),
-          paddingBottom: needsBottomPadding ? insets.bottom : 0,
-          justifyContent: features.sessionHas(
-            activeSessionType,
-            "terminal-input",
-          )
-            ? "center"
-            : "flex-start",
+          flexDirection: "row",
+          alignItems: "center",
+          height: tabBarHeight,
+          paddingHorizontal: 6,
+          gap: isLandscape ? 4 : 6,
         }}
-        focusable={false}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            height: tabBarHeight,
-            paddingHorizontal: 8,
-            marginTop: 4,
-          }}
+        <BarButton
+          label="Connections"
+          size={buttonSize}
+          onPress={() => onShowConnections?.()}
         >
-          {/* Connections panel button */}
-          <View
-            style={{ position: "relative", marginRight: isLandscape ? 6 : 8 }}
-          >
-            <TouchableOpacity
-              accessibilityRole="button"
-              accessibilityLabel="Connections"
-              onPress={onShowConnections}
-              focusable={false}
-              className="items-center justify-center"
-              activeOpacity={0.7}
-              style={{
-                width: buttonSize,
-                height: buttonSize,
-                borderWidth: StyleSheet.hairlineWidth,
-                borderColor: ui.border,
-                backgroundColor: ui.muted,
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.1,
-                shadowRadius: 4,
-                elevation: 2,
-              }}
-            >
-              <Layers size={isLandscape ? 16 : 18} color={ui.text} />
-            </TouchableOpacity>
-          </View>
+          <Layers size={iconSize} color={ui.text} />
+        </BarButton>
+        <BarButton
+          label="Back to hosts"
+          size={buttonSize}
+          onPress={() => router.navigate("/hosts" as any)}
+        >
+          <ArrowLeft size={iconSize} color={ui.text} />
+        </BarButton>
 
-          {/* Back to hosts button */}
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityLabel="Back to hosts"
-            onPress={() => router.navigate("/hosts" as any)}
-            focusable={false}
-            className="items-center justify-center"
-            activeOpacity={0.7}
-            style={{
-              width: buttonSize,
-              height: buttonSize,
-              borderWidth: StyleSheet.hairlineWidth,
-              borderColor: ui.border,
-              backgroundColor: ui.muted,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.1,
-              shadowRadius: 4,
-              elevation: 2,
-              marginRight: isLandscape ? 6 : 8,
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <DraggableFlatList
+            horizontal
+            data={sessions}
+            keyExtractor={(session) => session.id}
+            keyboardShouldPersistTaps="always"
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ gap: 4, alignItems: "center" }}
+            activationDistance={8}
+            onDragEnd={({ data, from, to }) => {
+              if (from !== to) onTabMove?.(data[to].id, to);
             }}
-          >
-            <ArrowLeft size={isLandscape ? 18 : 20} color={ui.text} />
-          </TouchableOpacity>
-
-          <View style={{ flex: 1, justifyContent: "center" }}>
-            <DraggableFlatList
-              horizontal
-              data={sessions}
-              keyExtractor={(session) => session.id}
-              keyboardShouldPersistTaps="always"
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: 6, alignItems: "center" }}
-              activationDistance={8}
-              onDragEnd={({ data, from, to }) => {
-                if (from !== to) onTabMove?.(data[to].id, to);
-              }}
-              renderItem={({ item: session, drag, isActive: dragging }) => {
-                const isActive = session.id === activeSessionId;
-                const SessionIcon = getSessionIcon(session.type);
-                const iconColor = isActive ? ui.brand : ui.textMuted;
-                const title = displayTitle(session);
-                const status = statuses[session.id]?.state;
-                const statusText = statusLabel(status);
-                return (
-                  <ScaleDecorator>
+            renderItem={({ item: session, drag, isActive: dragging }) => {
+              const isActive = session.id === activeSessionId;
+              const SessionIcon = getSessionIcon(session.type);
+              const title = displayTitle(session);
+              const status = statuses[session.id]?.state;
+              const statusText = statusLabel(status);
+              return (
+                <ScaleDecorator>
+                  <TouchableOpacity
+                    onPress={() =>
+                      isActive && onTabMenu
+                        ? onTabMenu(session.id)
+                        : onTabPress(session.id)
+                    }
+                    onLongPress={drag}
+                    delayLongPress={250}
+                    disabled={dragging}
+                    focusable={false}
+                    accessibilityRole="tab"
+                    accessibilityState={{ selected: isActive }}
+                    accessibilityLabel={
+                      statusText ? `${title}, ${statusText}` : title
+                    }
+                    accessibilityHint={
+                      isActive
+                        ? "Tap for tab options, hold to move"
+                        : "Hold to move"
+                    }
+                    className="flex-row items-center"
+                    activeOpacity={0.7}
+                    style={{
+                      backgroundColor:
+                        isActive || dragging ? ui.card : "transparent",
+                      // The open tab gets a brand line, like core's tab bar.
+                      borderBottomWidth: 2,
+                      borderBottomColor: isActive ? ui.brand : "transparent",
+                      minWidth: isLandscape ? 88 : 104,
+                      maxWidth: 200,
+                      height: buttonSize,
+                    }}
+                  >
+                    <View
+                      className="flex-1 flex-row items-center gap-1.5 pl-2.5"
+                      style={{ height: buttonSize }}
+                      onPointerDown={(e) => {
+                        if (isSecondaryClick(e.nativeEvent)) {
+                          onTabMenu?.(session.id);
+                        }
+                      }}
+                    >
+                      <SessionIcon
+                        size={isLandscape ? 12 : 13}
+                        color={isActive ? ui.brand : ui.textMuted}
+                        strokeWidth={2}
+                      />
+                      <Text
+                        className="flex-1 text-xs font-medium"
+                        style={{ color: isActive ? ui.text : ui.textMuted }}
+                        numberOfLines={1}
+                      >
+                        {title}
+                      </Text>
+                      <TabStatusMark state={status} />
+                    </View>
                     <TouchableOpacity
-                      onPress={() =>
-                        isActive && onTabMenu
-                          ? onTabMenu(session.id)
-                          : onTabPress(session.id)
-                      }
-                      onLongPress={drag}
-                      delayLongPress={250}
-                      disabled={dragging}
+                      onPress={(e) => {
+                        e.stopPropagation();
+                        onTabClose(session.id);
+                      }}
                       focusable={false}
-                      accessibilityRole="tab"
-                      accessibilityState={{ selected: isActive }}
-                      accessibilityLabel={
-                        statusText ? `${title}, ${statusText}` : title
-                      }
-                      accessibilityHint={
-                        isActive
-                          ? "Tap for tab options, hold to move"
-                          : "Hold to move"
-                      }
-                      className="flex-row items-center"
+                      accessibilityRole="button"
+                      accessibilityLabel={`Close ${title}`}
+                      className="items-center justify-center"
+                      activeOpacity={0.6}
                       style={{
-                        borderWidth: StyleSheet.hairlineWidth,
-                        borderColor:
-                          isActive || dragging ? ui.brand : ui.border,
-                        backgroundColor: dragging ? ui.muted : ui.card,
-                        minWidth: isLandscape ? 90 : 110,
-                        maxWidth: 220,
+                        width: isLandscape ? 28 : 32,
                         height: buttonSize,
                       }}
                     >
-                      <View
-                        className="flex-1 flex-row items-center gap-1.5 px-2"
-                        style={{ height: buttonSize }}
-                        onPointerDown={(e) => {
-                          if (isSecondaryClick(e.nativeEvent)) {
-                            onTabMenu?.(session.id);
-                          }
-                        }}
-                      >
-                        <SessionIcon
-                          size={isLandscape ? 12 : 13}
-                          color={iconColor}
-                          strokeWidth={2}
-                        />
-                        <Text
-                          className="flex-1 text-sm font-medium"
-                          style={{ color: iconColor }}
-                          numberOfLines={1}
-                        >
-                          {title}
-                        </Text>
-                        <TabStatusMark state={status} />
-                      </View>
-                      <TouchableOpacity
-                        onPress={(e) => {
-                          e.stopPropagation();
-                          onTabClose(session.id);
-                        }}
-                        focusable={false}
-                        accessibilityRole="button"
-                        accessibilityLabel={`Close ${title}`}
-                        className="items-center justify-center"
-                        activeOpacity={0.7}
-                        style={{
-                          width: isLandscape ? 28 : 32,
-                          height: buttonSize,
-                          borderLeftWidth: StyleSheet.hairlineWidth,
-                          borderLeftColor: isActive ? ui.brand : ui.border,
-                        }}
-                      >
-                        <X
-                          size={isLandscape ? 13 : 14}
-                          color={isActive ? ui.text : ui.textFaint}
-                          strokeWidth={2.5}
-                        />
-                      </TouchableOpacity>
+                      <X
+                        size={isLandscape ? 13 : 14}
+                        color={isActive ? ui.textMuted : ui.textFaint}
+                        strokeWidth={2.5}
+                      />
                     </TouchableOpacity>
-                  </ScaleDecorator>
-                );
-              }}
-            />
-          </View>
-
-          {features.sessionHas(activeSessionType, "terminal-input") &&
-            !isCustomKeyboardVisible && (
-              <TouchableOpacity
-                accessibilityRole="button"
-                accessibilityLabel={
-                  keyboardIntentionallyHiddenRef.current
-                    ? "Show keyboard"
-                    : "Hide keyboard"
-                }
-                onPress={handleToggleSystemKeyboard}
-                focusable={false}
-                className="items-center justify-center"
-                activeOpacity={0.7}
-                style={{
-                  width: buttonSize,
-                  height: buttonSize,
-                  borderWidth: StyleSheet.hairlineWidth,
-                  borderColor: ui.border,
-                  backgroundColor: ui.muted,
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.1,
-                  shadowRadius: 4,
-                  elevation: 2,
-                  marginLeft: isLandscape ? 6 : 8,
-                }}
-              >
-                {keyboardIntentionallyHiddenRef.current ? (
-                  <ChevronUp size={isLandscape ? 18 : 20} color={ui.text} />
-                ) : (
-                  <ChevronDown size={isLandscape ? 18 : 20} color={ui.text} />
-                )}
-              </TouchableOpacity>
-            )}
-
-          {features.sessionHas(activeSessionType, "terminal-input") && (
-            <TouchableOpacity
-              accessibilityRole="button"
-              accessibilityLabel={
-                isCustomKeyboardVisible ? "Hide keys panel" : "Show keys panel"
-              }
-              onPress={() => onToggleKeyboard?.()}
-              focusable={false}
-              className="items-center justify-center"
-              activeOpacity={0.7}
-              style={{
-                width: buttonSize,
-                height: buttonSize,
-                borderWidth: StyleSheet.hairlineWidth,
-                borderColor: isCustomKeyboardVisible ? ui.brand : ui.border,
-                backgroundColor: isCustomKeyboardVisible
-                  ? `${ui.brand}18`
-                  : ui.muted,
-                elevation: 2,
-                marginLeft: isLandscape ? 6 : 8,
-              }}
-            >
-              {isCustomKeyboardVisible ? (
-                <Minus size={isLandscape ? 18 : 20} color={ui.brand} />
-              ) : (
-                <Plus size={isLandscape ? 18 : 20} color={ui.text} />
-              )}
-            </TouchableOpacity>
-          )}
+                  </TouchableOpacity>
+                </ScaleDecorator>
+              );
+            }}
+          />
         </View>
+
+        {hasInput && !isCustomKeyboardVisible ? (
+          <BarButton
+            label={
+              keyboardIntentionallyHiddenRef.current
+                ? "Show keyboard"
+                : "Hide keyboard"
+            }
+            size={buttonSize}
+            onPress={handleToggleSystemKeyboard}
+          >
+            {keyboardIntentionallyHiddenRef.current ? (
+              <ChevronUp size={iconSize} color={ui.text} />
+            ) : (
+              <ChevronDown size={iconSize} color={ui.text} />
+            )}
+          </BarButton>
+        ) : null}
+
+        {hasInput ? (
+          <BarButton
+            label={
+              isCustomKeyboardVisible ? "Hide keys panel" : "Show keys panel"
+            }
+            size={buttonSize}
+            active={isCustomKeyboardVisible}
+            onPress={() => onToggleKeyboard?.()}
+          >
+            {isCustomKeyboardVisible ? (
+              <Minus size={iconSize} color={ui.brand} />
+            ) : (
+              <Plus size={iconSize} color={ui.text} />
+            )}
+          </BarButton>
+        ) : null}
       </View>
     </View>
+  );
+}
+
+/** A square bar button, flat like the app's muted Button. */
+function BarButton({
+  label,
+  size,
+  active = false,
+  onPress,
+  children,
+}: {
+  label: string;
+  size: number;
+  active?: boolean;
+  onPress: () => void;
+  children: React.ReactNode;
+}) {
+  const ui = useUiColors();
+  return (
+    <TouchableOpacity
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      onPress={onPress}
+      focusable={false}
+      className="items-center justify-center"
+      activeOpacity={0.6}
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: active ? `${ui.brand}26` : ui.muted,
+      }}
+    >
+      {children}
+    </TouchableOpacity>
   );
 }

@@ -111,12 +111,12 @@ export default function KeyButton({
     }
   };
 
+  // Flat keys; an on modifier gets a brand tint instead of a border.
   const bgColor = isActive
     ? isModifier
-      ? `${ui.brand}26`
+      ? `${ui.brand}2e`
       : ui.active
     : ui.muted;
-  const borderColor = isActive ? ui.brand : ui.border;
 
   return (
     <TouchableOpacity
@@ -124,8 +124,6 @@ export default function KeyButton({
       style={{
         ...style,
         backgroundColor: bgColor,
-        borderWidth: 1,
-        borderColor,
         borderRadius: 0,
       }}
       onPressIn={handlePressIn}

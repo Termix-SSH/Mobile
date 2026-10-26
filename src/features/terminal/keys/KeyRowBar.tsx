@@ -54,13 +54,14 @@ export default function KeyRowBar({
   return (
     <View
       style={{
+        flex: 1,
         backgroundColor: ui.background,
         paddingBottom: isKeyboardIntentionallyHidden ? bottomInset : 0,
-        marginTop: 2,
         borderTopWidth: StyleSheet.hairlineWidth,
         borderTopColor: ui.border,
         flexDirection: "row",
-        alignItems: "center",
+        alignItems: "stretch",
+        overflow: "hidden",
       }}
     >
       {multi ? (
@@ -70,10 +71,10 @@ export default function KeyRowBar({
           accessibilityRole="button"
           accessibilityLabel={`Key row ${row.label}`}
           accessibilityHint="Tap for the next row, hold to pick one"
+          className="active:bg-muted"
           style={{
-            alignSelf: "stretch",
-            minWidth: 44,
-            paddingHorizontal: 6,
+            width: 48,
+            gap: 2,
             alignItems: "center",
             justifyContent: "center",
             borderRightWidth: StyleSheet.hairlineWidth,
@@ -82,21 +83,25 @@ export default function KeyRowBar({
         >
           <ChevronsUpDown size={12} color={ui.textMuted} />
           <Text
-            className="text-[9px] uppercase text-muted-foreground"
+            className="text-2xs uppercase text-muted-foreground"
             numberOfLines={1}
           >
             {row.label}
           </Text>
         </Pressable>
       ) : null}
+      {/* Only sideways: a fixed height and no vertical bounce. */}
       <ScrollView
         horizontal
+        style={{ flex: 1 }}
         showsHorizontalScrollIndicator={false}
+        alwaysBounceVertical={false}
+        directionalLockEnabled
+        overScrollMode="never"
         contentContainerStyle={{
-          paddingHorizontal: 8,
-          paddingVertical: isShort ? 3 : isLandscape ? 6 : 8,
+          paddingHorizontal: 6,
           alignItems: "center",
-          gap: isLandscape ? 4 : 6,
+          gap: isLandscape ? 3 : 4,
         }}
         keyboardShouldPersistTaps="handled"
       >
@@ -106,7 +111,7 @@ export default function KeyRowBar({
               <View
                 style={{
                   width: StyleSheet.hairlineWidth,
-                  height: 26,
+                  height: 18,
                   backgroundColor: ui.border,
                   marginHorizontal: 4,
                 }}
