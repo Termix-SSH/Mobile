@@ -851,8 +851,8 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           collapsable={false}
           style={{
             flex: 1,
-            // Sessions moves hidden tabs off screen; a transparent terminal loses what it drew.
-            zIndex: isVisible ? 1 : -1,
+            // Sessions moves hidden tabs off screen. No opacity or zIndex change here: a
+            // transparent terminal loses what it drew, and a zIndex change re-inserts it.
             backgroundColor: background,
           }}
         >

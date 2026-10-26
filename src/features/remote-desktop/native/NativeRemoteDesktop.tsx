@@ -495,7 +495,8 @@ export function NativeRemoteDesktop({
       pointerEvents={isVisible ? "auto" : "none"}
       style={[
         styles.container,
-        { opacity: isVisible ? 1 : 0, zIndex: isVisible ? 1 : -1 },
+        // Sessions moves hidden tabs off screen; a zIndex change would re-insert this view.
+        { opacity: isVisible ? 1 : 0 },
       ]}
       onLayout={onContainerLayout}
     >

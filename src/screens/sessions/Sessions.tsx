@@ -824,6 +824,8 @@ export default function Sessions() {
           {(() => {
             const leftWidth = Math.round(stageWidth * splitRatio);
             // Each tab keeps its own wrapper, so starting or ending a split never remounts it.
+            // Never change a tab's zIndex: Fabric reorders native views for it, which pulls
+            // the terminals out of the window, drops the keyboard and breaks their size.
             const paneStyle = (id: string) => {
               const shown = id === activeSessionId || id === partnerId;
               if (!partnerId || !shown) {
@@ -831,10 +833,7 @@ export default function Sessions() {
                 // keep what a fully transparent terminal drew, so it came back blank or gray.
                 return [
                   StyleSheet.absoluteFill,
-                  {
-                    zIndex: shown ? 1 : 0,
-                    transform: [{ translateX: shown ? 0 : OFFSCREEN }],
-                  },
+                  { transform: [{ translateX: shown ? 0 : OFFSCREEN }] },
                 ];
               }
               const order = sessions.findIndex((s) => s.id === id);
@@ -848,7 +847,6 @@ export default function Sessions() {
                   position: "absolute" as const,
                   top: 0,
                   bottom: 0,
-                  zIndex: 1,
                   left: left ? 0 : leftWidth + 3,
                   width: left ? leftWidth - 3 : stageWidth - leftWidth - 3,
                 },
