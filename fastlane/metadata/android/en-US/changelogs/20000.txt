@@ -1,3 +1,3 @@
 Termix 2.0.0 works with no server. Keep hosts on This device, or link one or more Termix servers to sync them.
 
-New: Home and Tools tabs, search, split view on tablets, Docker, metrics and services on the phone, tunnels on the phone, Wake-on-LAN, encrypted local data and backups.
+New: a faster native terminal, Home and Tools tabs, search, split view on tablets, files, tunnels, Docker, metrics, services, RDP and VNC straight from the phone, server plugins inside the app, encrypted local data and backups.

@@ -2,6 +2,8 @@
 
 ## 2.0.0
 
+Termix Mobile now works with no server. Hosts, logins and snippets stay encrypted on the phone, and the terminal, files, tunnels, Docker, metrics, services and remote desktop connect straight from it. Link one or more Termix servers to sync with them and use their plugins.
+
 ### Added
 
 - Home shows your open sessions, quick connect, the hosts you opened last and your pinned hosts with live cards for metrics, Docker and failed services
@@ -204,6 +206,7 @@
 
 - Android no longer trusts any certificate from a server on the local network in sign in and remote desktop pages. Pin the server's key instead
 - The sign in page only takes a session from your server's own pages
+- Docker console and remote desktop pages can no longer load other sites
 - App logs no longer hold server addresses, host addresses or tokens
 - The keyboard no longer stays open over the App Lock PIN pad when you come back to the app (#100)
 - Face ID asks for you when you return to a locked app
@@ -222,7 +225,6 @@
 - Japanese, Chinese and Korean keyboards and voice typing now work in the terminal
 - Space, "=" and other symbols type right on every keyboard
 - Hardware keyboards on Android and iPad send arrows, Tab, Esc, F keys and Ctrl combos to the terminal
-
 - The Android app icon is no longer cut off and now uses the same logo and color as Termix on the web and desktop
 - The splash screen uses the same logo and color as the app icon
 - Uploading a large file in the file manager no longer fails
