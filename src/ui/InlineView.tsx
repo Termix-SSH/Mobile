@@ -8,7 +8,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import Animated, { SlideInRight } from "react-native-reanimated";
+import Animated, { ReduceMotion, SlideInRight } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ArrowLeft } from "lucide-react-native";
 import { Text } from "./Text";
@@ -74,7 +74,9 @@ export function InlineView({
 
   return (
     <Animated.View
-      entering={SlideInRight.duration(220)}
+      entering={SlideInRight.duration(220).reduceMotion(ReduceMotion.System)}
+      accessibilityViewIsModal
+      onAccessibilityEscape={() => void requestClose()}
       style={[
         StyleSheet.absoluteFill,
         { zIndex: 50, paddingTop: safeTop ? insets.top : 0 },
@@ -105,6 +107,7 @@ export function InlineView({
               <Text
                 weight="bold"
                 numberOfLines={1}
+                accessibilityRole="header"
                 className="text-sm text-foreground"
               >
                 {title}

@@ -30,6 +30,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { Toaster } from "@/ui/Toast";
 import { ConfirmProvider } from "@/ui/Confirm";
+import { useReduceMotion } from "@/ui/motion";
 import { SudoPromptHost } from "@/screens/exec/SudoPromptHost";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
@@ -70,6 +71,13 @@ function RootLayoutContent() {
     setIsLoading,
   } = useAppContext();
   const accent = useThemeColor()("accent-brand");
+  const lock = useAppLock();
+  const still = useReduceMotion();
+  // While a full screen layer is up, screen readers must not reach what is under it.
+  const covered =
+    welcomeVisible ||
+    authFlowVisible ||
+    (lock.enabled && (lock.locked || lock.covered));
   usePluginFrameFeatures();
   useAppShortcuts();
   useWidgetSync();
@@ -112,10 +120,21 @@ function RootLayoutContent() {
   // is layered on top as a dismissible full-screen overlay.
   return (
     <View className="flex-1 bg-background">
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+      <View
+        className="flex-1"
+        accessibilityElementsHidden={covered}
+        importantForAccessibility={covered ? "no-hide-descendants" : "auto"}
+      >
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: still ? "none" : undefined,
+          }}
+        >
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </View>
       {/* Home-screen widget taps: session navigation and the snippet run
           sheet. Mounted here so it is active for the whole session, including
           cold starts from a widget. */}
@@ -129,12 +148,18 @@ function RootLayoutContent() {
       <AppLockGate />
       <AnalyticsHost hold={welcomeVisible || authFlowVisible} />
       {welcomeVisible ? (
-        <View className="absolute inset-0 bg-background">
+        <View
+          className="absolute inset-0 bg-background"
+          accessibilityViewIsModal
+        >
           <Welcome onDone={finishWelcome} />
         </View>
       ) : null}
       {authFlowVisible ? (
-        <View className="absolute inset-0 bg-background">
+        <View
+          className="absolute inset-0 bg-background"
+          accessibilityViewIsModal
+        >
           <LinkFlow />
         </View>
       ) : null}
@@ -155,7 +180,13 @@ function AppLockGate() {
   }, [secure]);
   if (!enabled) return null;
   if (locked) return <LockScreen />;
-  if (covered) return <View className="absolute inset-0 z-50 bg-background" />;
+  if (covered)
+    return (
+      <View
+        className="absolute inset-0 z-50 bg-background"
+        accessibilityViewIsModal
+      />
+    );
   return null;
 }
 

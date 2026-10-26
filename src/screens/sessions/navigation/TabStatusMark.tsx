@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { useReduceMotion } from "@/ui/motion";
 import type { SessionState } from "@/core/sessions/status";
 
 const LABELS: Partial<Record<SessionState, string>> = {
@@ -22,9 +23,10 @@ export function TabStatusMark({ state }: { state: SessionState | undefined }) {
   const color = useThemeColor();
   const pulse = useRef(new Animated.Value(1)).current;
   const reconnecting = state === "reconnecting";
+  const still = useReduceMotion();
 
   useEffect(() => {
-    if (!reconnecting) {
+    if (!reconnecting || still) {
       pulse.setValue(1);
       return;
     }
@@ -44,7 +46,7 @@ export function TabStatusMark({ state }: { state: SessionState | undefined }) {
     );
     loop.start();
     return () => loop.stop();
-  }, [reconnecting, pulse]);
+  }, [reconnecting, pulse, still]);
 
   if (!statusLabel(state)) return null;
   const fill =

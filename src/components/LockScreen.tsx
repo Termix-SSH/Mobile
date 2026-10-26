@@ -94,10 +94,14 @@ export function LockScreen({
   };
 
   return (
-    <View className="absolute inset-0 z-50 items-center justify-center bg-background px-8">
+    <View
+      className="absolute inset-0 z-50 items-center justify-center bg-background px-8"
+      accessibilityViewIsModal
+    >
       {onCancel ? (
         <Pressable
           onPress={onCancel}
+          accessibilityRole="button"
           className="absolute left-5 top-14 flex-row items-center"
           hitSlop={12}
         >
@@ -109,10 +113,17 @@ export function LockScreen({
       <View className="mb-5 h-14 w-14 items-center justify-center border border-accent-brand/40 bg-accent-brand/10">
         <Lock size={26} color={color("accent-brand")} />
       </View>
-      <Text weight="bold" className="text-lg text-foreground">
+      <Text
+        weight="bold"
+        accessibilityRole="header"
+        className="text-lg text-foreground"
+      >
         {title}
       </Text>
-      <Text className="mb-6 mt-1 text-xs text-muted-foreground">
+      <Text
+        className="mb-6 mt-1 text-xs text-muted-foreground"
+        accessibilityLiveRegion="polite"
+      >
         {waiting
           ? `Too many tries. Wait ${Math.ceil(pinWaitMs / 1000)} seconds`
           : subtitle}

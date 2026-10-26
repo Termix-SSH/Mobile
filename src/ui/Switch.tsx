@@ -5,6 +5,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Check } from "lucide-react-native";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { useReduceMotion } from "./motion";
 
 /** Square toggle like core's switch: accent track when on, muted when off. */
 export function FakeSwitch({
@@ -18,9 +19,14 @@ export function FakeSwitch({
   disabled?: boolean;
   accessibilityLabel?: string;
 }) {
+  const still = useReduceMotion();
   const thumbStyle = useAnimatedStyle(() => ({
     transform: [
-      { translateX: withTiming(checked ? 16 : 0, { duration: 110 }) },
+      {
+        translateX: withTiming(checked ? 16 : 0, {
+          duration: still ? 0 : 110,
+        }),
+      },
     ],
   }));
 

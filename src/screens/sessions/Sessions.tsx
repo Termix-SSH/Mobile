@@ -37,6 +37,7 @@ import { isAppLocked, onAppUnlocked } from "@/core/lock";
 import { ConnectionsPanel } from "@/screens/sessions/ConnectionsPanel";
 import { Screen } from "@/components/Screen";
 import { Text } from "@/ui";
+import { reduceMotionOn } from "@/ui/motion";
 import TabBar from "@/screens/sessions/navigation/TabBar";
 import { SessionMenu } from "@/screens/sessions/SessionMenu";
 import { keyBarHeight } from "@/features/terminal/keys/compact";
@@ -635,7 +636,9 @@ export default function Sessions() {
   };
 
   const handleToggleKeyboard = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    if (!reduceMotionOn()) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    }
 
     if (isCustomKeyboardVisible) {
       setCustomKeyboardInitialTab("keyboard");
@@ -679,7 +682,9 @@ export default function Sessions() {
     (tab: string) => {
       setCustomKeyboardInitialTab(tab);
       if (!isCustomKeyboardVisible) {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        if (!reduceMotionOn()) {
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        }
         toggleCustomKeyboard();
         setKeyboardIntentionallyHidden(false);
         requestAnimationFrame(() => {
@@ -932,6 +937,8 @@ export default function Sessions() {
                     </Text>
                   </View>
                   <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel="Close connections"
                     onPress={closeConnectionsPanel}
                     hitSlop={10}
                     style={{

@@ -7,7 +7,7 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import Animated, { SlideInDown } from "react-native-reanimated";
+import Animated, { ReduceMotion, SlideInDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { X } from "lucide-react-native";
 import { Text } from "./Text";
@@ -65,10 +65,14 @@ export function Sheet({
         <Pressable
           className="flex-1 bg-overlay"
           onPress={close}
-          accessibilityLabel="Close"
+          // The X button closes too; the backdrop is skipped by screen readers.
+          accessible={false}
+          importantForAccessibility="no"
         />
         <Animated.View
-          entering={SlideInDown.duration(220)}
+          entering={SlideInDown.duration(220).reduceMotion(ReduceMotion.System)}
+          accessibilityViewIsModal
+          onAccessibilityEscape={close}
           className={`border-t bg-popover ${tone === "destructive" ? "border-destructive/40" : "border-border"}`}
           style={{ paddingBottom: insets.bottom, maxHeight: "85%" }}
         >
@@ -79,7 +83,11 @@ export function Sheet({
             <View className="flex-row items-start gap-2.5 px-4 pb-3 pt-2">
               {icon ? <View className="mt-0.5 shrink-0">{icon}</View> : null}
               <View className="min-w-0 flex-1 gap-1">
-                <Text weight="bold" className="text-sm text-foreground">
+                <Text
+                  weight="bold"
+                  accessibilityRole="header"
+                  className="text-sm text-foreground"
+                >
                   {title}
                 </Text>
                 {typeof description === "string" ? (
