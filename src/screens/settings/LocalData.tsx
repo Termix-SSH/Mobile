@@ -1,9 +1,9 @@
+import { shareTempFile } from "@/utils/share-file";
 import { useCallback, useEffect, useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import * as Sharing from "expo-sharing";
-import { File, Paths } from "expo-file-system";
+import { File } from "expo-file-system";
 import { ArrowLeft } from "lucide-react-native";
 import { accountLabel, useActiveAccount } from "@/core/accounts";
 import { useLocalStoreState, useRepositories } from "@/core/data/hooks";
@@ -71,17 +71,11 @@ export default function LocalData() {
     try {
       const content = await localStores.exportBackup(account.id, passphrase);
       const day = new Date().toISOString().slice(0, 10);
-      const file = new File(Paths.cache, `termix-${day}.${BACKUP_EXTENSION}`);
-      file.create({ overwrite: true });
-      file.write(content);
       setStep(null);
-      await Sharing.shareAsync(file.uri, {
+      await shareTempFile(`termix-${day}.${BACKUP_EXTENSION}`, content, {
         mimeType: "application/json",
         dialogTitle: "Save your Termix backup",
       });
-      try {
-        file.delete();
-      } catch {}
     } catch (error) {
       toast.error(toUserMessage(error, "Could not make the backup"));
     } finally {

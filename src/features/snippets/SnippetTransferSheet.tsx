@@ -1,9 +1,8 @@
+import { shareTempFile } from "@/utils/share-file";
 import { useState } from "react";
 import { View } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as DocumentPicker from "expo-document-picker";
-import { File, Paths } from "expo-file-system";
-import * as Sharing from "expo-sharing";
 import { useRepositories } from "@/core/data/hooks";
 import { readLocalText } from "@/utils/localFile";
 import { toast } from "@/utils/toast";
@@ -47,16 +46,10 @@ export function SnippetTransferSheet({
       const text = await exportText();
       if (!text) return;
       const day = new Date().toISOString().slice(0, 10);
-      const file = new File(Paths.cache, `termix-snippets-${day}.json`);
-      file.create({ overwrite: true });
-      file.write(text);
-      await Sharing.shareAsync(file.uri, {
+      await shareTempFile(`termix-snippets-${day}.json`, text, {
         mimeType: "application/json",
         dialogTitle: "Save your snippets",
       });
-      try {
-        file.delete();
-      } catch {}
     } catch (e: any) {
       toast.error(e?.message || "Could not make the file");
     } finally {

@@ -1,8 +1,7 @@
+import { shareTempFile } from "@/utils/share-file";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
 import * as Clipboard from "expo-clipboard";
-import { File, Paths } from "expo-file-system";
-import * as Sharing from "expo-sharing";
 import { useRouter } from "expo-router";
 import { ArrowLeft } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
@@ -97,16 +96,10 @@ export default function HostTransfer() {
       const content = await makeExport();
       if (!content) return;
       const day = new Date().toISOString().slice(0, 10);
-      const file = new File(Paths.cache, `termix-hosts-${day}.json`);
-      file.create({ overwrite: true });
-      file.write(content);
-      await Sharing.shareAsync(file.uri, {
+      await shareTempFile(`termix-hosts-${day}.json`, content, {
         mimeType: "application/json",
         dialogTitle: "Save your Termix hosts",
       });
-      try {
-        file.delete();
-      } catch {}
     } catch (e: any) {
       toast.error(e?.message || "Could not make the file");
     } finally {
