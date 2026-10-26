@@ -4,7 +4,7 @@
 
 <h1>Termix Mobile</h1>
 
-<p>Manage your Termix servers from your phone or tablet</p>
+<p>SSH client for phones and tablets, with or without a Termix server</p>
 
 <p>
   <img src="https://img.shields.io/github/stars/Termix-SSH/Mobile?style=flat&label=Stars&color=F39044&labelColor=1a1a1a" />
@@ -24,7 +24,7 @@
 
 ## Overview
 
-Termix Mobile is an SSH client for phones and tablets that works on its own: keep hosts on This device and connect straight from the phone. Link a [Termix](https://github.com/Termix-SSH/Termix) server to sync your hosts, logins and snippets with it, see the [install docs](https://docs.termix.site/install).
+Termix Mobile is an SSH client for phones and tablets that works on its own: keep hosts on This device and connect straight from the phone. Link a [Termix](https://github.com/Termix-SSH/Termix) server to sync your hosts, logins and snippets with it. See the [mobile app docs](https://docs.termix.site/install/apps/mobile).
 
 The terminal, file manager, tunnels, Docker, metrics and services all work straight from the phone. With a server they can also go through its plugins.
 
@@ -42,7 +42,8 @@ Try Termix at [demo.termix.site](https://demo.termix.site/). Any username and pa
 - SSH tunnels: create, start and stop tunnels, set up per host in the host editor.
 - Docker: containers, logs, stats, start, stop, restart, a shell in a container and compose stacks, from the phone or through your server.
 - Services: systemd and OpenRC services with start, stop and restart, and the journal with live follow. Asks for the sudo password when a change needs root.
-- Remote desktop: RDP, VNC and Telnet.
+- Remote desktop: RDP, VNC and Telnet straight from the phone, or through your server.
+- Server plugins: plugins with no phone version, like Homepage, Alerts and Proxmox, open inside the app with the same screens as the web app. Settings, Plugins shows how each one shows in the app.
 - Home screen widgets on iOS and Android: open a host, run a snippet or check metrics without opening the app.
 - Hosts: folders with drag to reorder, select many at once, saved credentials and keys, host defaults, import and export (Termix files and SSH config), QR sharing, Quick Connect and Wake-on-LAN.
 - Accounts: link more than one Termix server and switch between them. Open tabs keep running.
@@ -51,12 +52,14 @@ Try Termix at [demo.termix.site](https://demo.termix.site/). Any username and pa
 - Local data: hosts, logins and snippets on This device are saved on the phone in an encrypted database. Export a backup locked with a passphrase, or delete it in Settings.
 - Settings: terminal look, keyboard, API keys, active sessions, two-factor, password and account deletion.
 - App lock: Face ID, Touch ID or fingerprint, with a PIN as backup.
+- Tablets and keyboards: a sidebar and split view on wide screens, resizable windows on iPad and Android, and app wide shortcuts for hardware keyboards.
+- Usage statistics: an anonymous daily report, off until you answer the question on first start. See [what is sent](https://docs.termix.site/install/apps/usage-statistics).
 
 <br />
 
 ## Installation
 
-Termix Mobile is available for [Android](https://docs.termix.site/install/apps/android) and [iOS](https://docs.termix.site/install/apps/ios).
+Termix Mobile is available for [Android](https://docs.termix.site/install/apps/android) and [iOS](https://docs.termix.site/install/apps/ios). To link a server, see [linking a server](https://docs.termix.site/install/apps/mobile-linking).
 
 <br />
 
