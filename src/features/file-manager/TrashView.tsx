@@ -170,6 +170,8 @@ export function TrashView({
                   </Text>
                 </View>
                 <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={`Restore ${item.name}`}
                   onPress={() => restore(item)}
                   disabled={busyId === item.id}
                   hitSlop={6}
@@ -178,6 +180,8 @@ export function TrashView({
                   <RotateCcw size={15} color={color("foreground")} />
                 </Pressable>
                 <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={`Delete ${item.name} for good`}
                   onPress={() => purge(item)}
                   disabled={busyId === item.id}
                   hitSlop={6}

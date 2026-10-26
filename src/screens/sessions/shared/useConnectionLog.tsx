@@ -222,7 +222,12 @@ export function ConnectionLog({
             Connection Log ({entries.length})
           </Text>
           {entries.length > 0 && (
-            <Pressable onPress={copyAll} hitSlop={8}>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Copy log"
+              onPress={copyAll}
+              hitSlop={8}
+            >
               <Copy size={13} color={color("muted-foreground")} />
             </Pressable>
           )}

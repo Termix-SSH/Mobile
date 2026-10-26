@@ -337,8 +337,11 @@ function HostSection({
           return (
             <Pressable
               key={card.id}
+              accessibilityRole="button"
+              accessibilityHint={`Opens ${card.title}`}
               onPress={() => void navigateToSessions(host, card.tabType)}
             >
+              {/* a11y-reads-children: each card draws its own text */}
               <Card host={host} accountId={accountId} active={active} />
             </Pressable>
           );

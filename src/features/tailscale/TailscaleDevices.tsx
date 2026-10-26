@@ -211,6 +211,7 @@ export function TailscaleDevicePicker({
               onPress={() => onSelect(device)}
               className={`flex-row items-center gap-2 border p-3 ${selected ? "border-accent-brand/40 bg-accent-brand/10" : "border-border bg-card"} ${!ip ? "opacity-50" : ""}`}
             >
+              {/* a11y-reads-children: the details hold the device name */}
               <DeviceDetails device={device} />
               {selected ? (
                 <Check size={16} color={color("accent-brand")} />

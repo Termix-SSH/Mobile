@@ -143,7 +143,12 @@ export default function CredentialListModal({
             leading={<Search size={15} color={color("muted-foreground")} />}
             trailing={
               searchQuery ? (
-                <Pressable onPress={() => setSearchQuery("")} hitSlop={8}>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Clear search"
+                  onPress={() => setSearchQuery("")}
+                  hitSlop={8}
+                >
                   <X size={15} color={color("muted-foreground")} />
                 </Pressable>
               ) : undefined

@@ -167,6 +167,8 @@ export default function TerminalCustomization() {
     <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
       <View className="flex-row items-center gap-3 border-b border-border px-4 pb-3 pt-3">
         <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Back"
           onPress={() => router.back()}
           hitSlop={8}
           className="shrink-0"

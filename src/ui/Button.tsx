@@ -21,9 +21,8 @@ export type ButtonVariant =
 
 export type ButtonSize = "xs" | "sm" | "default" | "lg" | "icon";
 
-interface ButtonProps extends Omit<PressableProps, "children"> {
+interface BaseButtonProps extends Omit<PressableProps, "children"> {
   variant?: ButtonVariant;
-  size?: ButtonSize;
   loading?: boolean;
   className?: string;
   textClassName?: string;
@@ -31,11 +30,19 @@ interface ButtonProps extends Omit<PressableProps, "children"> {
   icon?: React.ReactNode;
 }
 
+// An icon button has no text, so a screen reader needs its label.
+type ButtonProps = BaseButtonProps &
+  (
+    | { size: "icon"; accessibilityLabel: string }
+    | { size?: Exclude<ButtonSize, "icon"> }
+  );
+
+// A minimum height, so large system text grows the button instead of clipping.
 const SIZES: Record<ButtonSize, { box: string; height: number }> = {
-  xs: { box: "h-7 px-2", height: HEIGHTS.controlXs },
-  sm: { box: "h-8 px-2.5", height: HEIGHTS.controlSm },
-  default: { box: "h-9 px-3", height: HEIGHTS.control },
-  lg: { box: "h-11 px-4", height: HEIGHTS.controlLg },
+  xs: { box: "min-h-7 px-2", height: HEIGHTS.controlXs },
+  sm: { box: "min-h-8 px-2.5", height: HEIGHTS.controlSm },
+  default: { box: "min-h-9 px-3", height: HEIGHTS.control },
+  lg: { box: "min-h-11 px-4", height: HEIGHTS.controlLg },
   icon: { box: "h-9 w-9", height: HEIGHTS.control },
 };
 

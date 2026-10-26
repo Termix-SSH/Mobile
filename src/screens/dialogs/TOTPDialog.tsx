@@ -103,6 +103,7 @@ export function TOTPDialog({
             <Button
               variant="ghost"
               size="icon"
+              accessibilityLabel="Paste code"
               onPress={handlePaste}
               className="h-8 w-8"
             >

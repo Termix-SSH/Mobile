@@ -105,7 +105,13 @@ export function UnitDetailView({
   return (
     <View className="flex-1 bg-background">
       <View className="flex-row items-center gap-2.5 border-b border-border px-3 py-3">
-        <Pressable onPress={onBack} hitSlop={8} className="p-1">
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+          onPress={onBack}
+          hitSlop={8}
+          className="p-1"
+        >
           <ArrowLeft size={18} color={color("foreground")} />
         </Pressable>
         <Text

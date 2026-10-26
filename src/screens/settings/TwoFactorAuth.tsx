@@ -131,7 +131,12 @@ export default function TwoFactorAuth() {
     >
       {/* Header */}
       <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable onPress={() => router.back()} hitSlop={8}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+          onPress={() => router.back()}
+          hitSlop={8}
+        >
           <ArrowLeft size={20} color={color("foreground")} />
         </Pressable>
         <Text weight="bold" className="text-base text-foreground">

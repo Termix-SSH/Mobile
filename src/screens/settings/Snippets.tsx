@@ -393,6 +393,8 @@ export default function Snippets() {
         </Text>
       </Pressable>
       <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Move up"
         onPress={() => moveSnippet(list, index, -1)}
         disabled={index === 0}
         hitSlop={8}
@@ -402,6 +404,8 @@ export default function Snippets() {
         <ChevronUp size={14} color={color("muted-foreground")} />
       </Pressable>
       <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Move down"
         onPress={() => moveSnippet(list, index, 1)}
         disabled={index === list.length - 1}
         hitSlop={8}
@@ -422,6 +426,8 @@ export default function Snippets() {
         </Pressable>
       ) : null}
       <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`Copy ${snippet.name}`}
         onPress={() => handleCopy(snippet)}
         hitSlop={8}
         className="p-1 active:opacity-60"
@@ -429,6 +435,8 @@ export default function Snippets() {
         <Copy size={14} color={color("muted-foreground")} />
       </Pressable>
       <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`Delete ${snippet.name}`}
         onPress={() => setDeleteTarget(snippet)}
         hitSlop={8}
         className="p-1 active:opacity-60"
@@ -466,6 +474,8 @@ export default function Snippets() {
           {folderKey !== null && (
             <>
               <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Rename folder"
                 onPress={() => {
                   setRenameFolderTarget(folderKey);
                   setRenameFolderName(folderKey);
@@ -476,6 +486,8 @@ export default function Snippets() {
                 <Pencil size={12} color={color("muted-foreground")} />
               </Pressable>
               <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Delete folder"
                 onPress={() => {
                   const f = folders.find((x) => x.name === folderKey);
                   if (f) setDeleteFolderTarget(f);

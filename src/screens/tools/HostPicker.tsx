@@ -57,7 +57,12 @@ export function HostPicker({
           leading={<Search size={15} color={color("muted-foreground")} />}
           trailing={
             query ? (
-              <Pressable onPress={() => setQuery("")} hitSlop={8}>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Clear search"
+                onPress={() => setQuery("")}
+                hitSlop={8}
+              >
                 <X size={15} color={color("muted-foreground")} />
               </Pressable>
             ) : undefined

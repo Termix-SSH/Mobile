@@ -109,7 +109,12 @@ export default function SyncSettings() {
   return (
     <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
       <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable onPress={() => router.back()} hitSlop={8}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+          onPress={() => router.back()}
+          hitSlop={8}
+        >
           <ArrowLeft size={20} color={color("foreground")} />
         </Pressable>
         <Text weight="bold" className="flex-1 text-base text-foreground">

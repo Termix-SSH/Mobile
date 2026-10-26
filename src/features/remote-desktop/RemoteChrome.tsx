@@ -184,8 +184,13 @@ export function RemoteKeyStrip({
     setMods(NO_MODIFIERS);
   };
   const toggle = (k: keyof Modifiers) => setMods((m) => ({ ...m, [k]: !m[k] }));
-  const icon = (Icon: typeof ChevronLeft, k: number) => (
-    <TouchableOpacity style={styles.iconKey} onPress={() => press(k)}>
+  const icon = (Icon: typeof ChevronLeft, k: number, label: string) => (
+    <TouchableOpacity
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      style={styles.iconKey}
+      onPress={() => press(k)}
+    >
       <Icon size={14} color={c.fg} />
     </TouchableOpacity>
   );
@@ -228,7 +233,12 @@ export function RemoteKeyStrip({
             <Text style={[styles.keyText, { color: "#fff" }]}>Done</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={styles.iconKey} onPress={onKeyboard}>
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel="Keyboard"
+            style={styles.iconKey}
+            onPress={onKeyboard}
+          >
             <KeyboardIcon size={15} color={c.muted} />
           </TouchableOpacity>
         )}
@@ -236,10 +246,10 @@ export function RemoteKeyStrip({
         <StripKey label="Esc" onPress={() => press(0xff1b)} />
         <StripKey label="Tab" onPress={() => press(0xff09)} />
         <StripDivider />
-        {icon(ChevronLeft, 0xff51)}
-        {icon(ChevronUp, 0xff52)}
-        {icon(ChevronDown, 0xff54)}
-        {icon(ChevronRight, 0xff53)}
+        {icon(ChevronLeft, 0xff51, "Left arrow")}
+        {icon(ChevronUp, 0xff52, "Up arrow")}
+        {icon(ChevronDown, 0xff54, "Down arrow")}
+        {icon(ChevronRight, 0xff53, "Right arrow")}
         <StripDivider />
         {[
           { label: "Home", k: 0xff50 },
@@ -266,7 +276,12 @@ export function RemoteKeyStrip({
             <StripKey key={ks} label={`F${i + 1}`} onPress={() => press(ks)} />
           ))}
         <StripDivider />
-        <TouchableOpacity style={styles.iconKey} onPress={onSettings}>
+        <TouchableOpacity
+          accessibilityRole="button"
+          accessibilityLabel="Settings"
+          style={styles.iconKey}
+          onPress={onSettings}
+        >
           <Settings2 size={15} color={c.muted} />
         </TouchableOpacity>
       </ScrollView>

@@ -141,6 +141,8 @@ export default function TabBar({
             style={{ position: "relative", marginRight: isLandscape ? 6 : 8 }}
           >
             <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityLabel="Connections"
               onPress={onShowConnections}
               focusable={false}
               className="items-center justify-center"
@@ -164,6 +166,8 @@ export default function TabBar({
 
           {/* Back to hosts button */}
           <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel="Back to hosts"
             onPress={() => router.navigate("/hosts" as any)}
             focusable={false}
             className="items-center justify-center"
@@ -293,6 +297,12 @@ export default function TabBar({
           {features.sessionHas(activeSessionType, "terminal-input") &&
             !isCustomKeyboardVisible && (
               <TouchableOpacity
+                accessibilityRole="button"
+                accessibilityLabel={
+                  keyboardIntentionallyHiddenRef.current
+                    ? "Show keyboard"
+                    : "Hide keyboard"
+                }
                 onPress={handleToggleSystemKeyboard}
                 focusable={false}
                 className="items-center justify-center"
@@ -321,6 +331,10 @@ export default function TabBar({
 
           {features.sessionHas(activeSessionType, "terminal-input") && (
             <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityLabel={
+                isCustomKeyboardVisible ? "Hide keys panel" : "Show keys panel"
+              }
               onPress={() => onToggleKeyboard?.()}
               focusable={false}
               className="items-center justify-center"

@@ -179,13 +179,23 @@ export default function ApiKeys() {
     <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
       {/* Header */}
       <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable onPress={() => router.back()} hitSlop={8}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+          onPress={() => router.back()}
+          hitSlop={8}
+        >
           <ArrowLeft size={20} color={color("foreground")} />
         </Pressable>
         <Text weight="bold" className="flex-1 text-base text-foreground">
           API Keys
         </Text>
-        <Pressable onPress={openCreate} hitSlop={8}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="New API key"
+          onPress={openCreate}
+          hitSlop={8}
+        >
           <Plus size={20} color={color("accent-brand")} />
         </Pressable>
       </View>
@@ -249,6 +259,8 @@ export default function ApiKeys() {
                   ) : null}
                 </View>
                 <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={`Delete ${k.name}`}
                   onPress={() => handleDelete(k.id, k.name)}
                   hitSlop={8}
                   className="mt-0.5"

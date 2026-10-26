@@ -111,14 +111,24 @@ export default function ActiveSessions() {
   return (
     <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
       <View className="flex-row items-center gap-3 border-b border-border px-4 py-3">
-        <Pressable onPress={() => router.back()} hitSlop={8}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+          onPress={() => router.back()}
+          hitSlop={8}
+        >
           <ArrowLeft size={20} color={color("foreground")} />
         </Pressable>
         <Text weight="bold" className="flex-1 text-base text-foreground">
           Active Sessions
         </Text>
         {sessions.length > 0 ? (
-          <Pressable onPress={() => setRevokeAllDialog(true)} hitSlop={8}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Sign out all other sessions"
+            onPress={() => setRevokeAllDialog(true)}
+            hitSlop={8}
+          >
             <LogOut size={18} color={color("destructive")} />
           </Pressable>
         ) : null}
@@ -177,6 +187,8 @@ export default function ActiveSessions() {
                   </Text>
                 </View>
                 <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Revoke session"
                   onPress={async () => {
                     const ok = await confirm({
                       title: "Revoke session?",

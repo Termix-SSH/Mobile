@@ -25,7 +25,12 @@ export default function Logs() {
       title="Logs"
       subtitle="Latest lines from this run. Secrets are hidden."
       headerLeft={
-        <Pressable onPress={() => router.back()} hitSlop={8}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+          onPress={() => router.back()}
+          hitSlop={8}
+        >
           <ArrowLeft size={20} color={color("foreground")} />
         </Pressable>
       }

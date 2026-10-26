@@ -104,6 +104,7 @@ export function WarpgateDialog({
               <Button
                 variant={copied ? "default" : "ghost"}
                 size="icon"
+                accessibilityLabel={copied ? "Copied" : "Copy"}
                 onPress={handleCopy}
                 className="h-8 w-8"
               >

@@ -344,6 +344,8 @@ export function DockerView({
         }
         headerActions={
           <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Refresh"
             onPress={refresh}
             disabled={refreshing}
             hitSlop={8}
@@ -540,6 +542,8 @@ function ContainerRow({
           </Badge>
         )}
         <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="More actions"
           onPress={onMenu}
           hitSlop={8}
           disabled={busy}

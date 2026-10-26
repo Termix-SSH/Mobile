@@ -128,6 +128,8 @@ function ConnectionRow({
           <ExternalLink size={13} color={color("muted-foreground")} />
         ) : null}
         <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Close"
           onPress={(e) => {
             e.stopPropagation();
             onClose();
