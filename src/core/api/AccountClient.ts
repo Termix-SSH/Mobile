@@ -139,6 +139,7 @@ export class AccountClient implements HttpOwner {
   private pins: string[] = [];
   private cookies: NetCookie[] = [];
   private loaded: Promise<void> | null = null;
+  private ready = false;
   private listeners = new Set<() => void>();
   private authLostListeners = new Set<() => void>();
 
@@ -199,8 +200,15 @@ export class AccountClient implements HttpOwner {
           : null,
       );
       this.buildHttp();
+      this.ready = true;
+      this.emit();
     })();
     return this.loaded;
+  }
+
+  /** True once load() read the saved session and proxy settings. */
+  isLoaded(): boolean {
+    return this.ready;
   }
 
   // Session
@@ -238,11 +246,52 @@ export class AccountClient implements HttpOwner {
     return () => this.authLostListeners.delete(listener);
   }
 
-  notifyAuthLost(): void {
+  /**
+   * Ends the session after a 401, unless it still works. A jwt cookie that a
+   * WebView or another route left in the shared jar beats the Bearer token,
+   * so that cookie goes first and the server is asked once more.
+   */
+  notifyAuthLost(): Promise<void> {
+    this.authCheck ??= this.endSessionIfDead().finally(() => {
+      this.authCheck = null;
+    });
+    return this.authCheck;
+  }
+
+  private authCheck: Promise<void> | null = null;
+
+  /** Waits for a running 401 check, if any. */
+  authChecked(): Promise<void> {
+    return this.authCheck ?? Promise.resolve();
+  }
+
+  private async endSessionIfDead(): Promise<void> {
+    const token = this.sessionToken;
+    if (token && (await this.sessionWorks())) return;
+    // Linking for sync may have swapped the token while this ran.
+    if (this.sessionToken !== token) return;
     // Drop the dead token too, otherwise it keeps getting sent on every
     // request and socket connect until the next cold start.
-    void this.clearToken();
+    await this.clearToken();
     this.authLostListeners.forEach((listener) => listener());
+  }
+
+  private async sessionWorks(): Promise<boolean> {
+    await clearCookie(this.rootBase(), "jwt").catch(() => {});
+    const http = this.rawAxios({
+      timeout: 10000,
+      headers: this.sessionHeaders(),
+      validateStatus: () => true,
+    });
+    try {
+      let res = await http.get(`${this.rootBase()}/users/me`);
+      // Old servers keep it under the ssh base.
+      if (res.status === 404)
+        res = await http.get(`${this.sshBase()}/users/me`);
+      return res.status >= 200 && res.status < 300;
+    } catch {
+      return false;
+    }
   }
 
   // Proxy and TLS

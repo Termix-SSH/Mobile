@@ -372,13 +372,26 @@ export class SyncManager {
       operation: "sync_pass",
       errorCode: sync.kind,
     });
+    const lostClient = isSessionEnded(reason)
+      ? accounts.client(accountId)
+      : null;
+    // A stray jwt cookie can cause the 401; the client checks before it ends.
+    if (lostClient) {
+      await lostClient.notifyAuthLost();
+      if (lostClient.token()) {
+        slot.backoff = slot.backoff
+          ? Math.min(slot.backoff * 2, BACKOFF_MAX_MS)
+          : BACKOFF_START_MS;
+        this.schedule(accountId, slot.backoff);
+        return;
+      }
+    }
     if (isSessionEnded(reason)) {
       // The session is gone for good. Stop here instead of retrying.
       await accounts.update(accountId, {
         status: "signed_out",
         lastError: reason,
       });
-      accounts.client(accountId)?.notifyAuthLost();
       this.setStatus(accountId, {
         ...this.get(accountId),
         state: "signed_out",

@@ -166,7 +166,6 @@ async function validateSession(
   client: AccountClient,
 ): Promise<boolean> {
   if (!client.isAuthenticated()) return false;
-  const token = client.token();
   try {
     const me = await client.api.auth.getUserInfo();
     if (!me?.username) return false;
@@ -188,10 +187,13 @@ async function validateSession(
       });
       return true;
     }
-    // Linking for sync may have swapped the token while this ran.
-    if (getErrorStatus(e) === 401 && client.token() !== token) return true;
     if (getErrorStatus(e) === 401) {
-      await client.clearToken();
+      // The client checks once more (a stray cookie can cause the 401) and
+      // drops the token only when the session is really gone.
+      await client.notifyAuthLost();
+      const now = client.token();
+      // Still good, or swapped by linking for sync while this ran.
+      if (now) return true;
       await accounts.update(account.id, { status: "signed_out" });
       return false;
     }

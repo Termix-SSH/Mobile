@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import type { AccountClient } from "@/core/api/AccountClient";
 import type { ApiModules } from "@/core/api/modules";
 import { AppError } from "@/core/errors";
@@ -64,6 +64,10 @@ export function useClient(accountId: string | null): AccountClient | null {
     version,
     version,
   );
+  // Only the active account loads on start; others load when a screen asks.
+  useEffect(() => {
+    void client?.load();
+  }, [client]);
   return client;
 }
 

@@ -58,8 +58,27 @@ test("a 401 on a critical endpoint signs the account out", async () => {
   const lost = jest.fn();
   c.onAuthLost(lost);
   await expect(c.api.auth.getUserInfo()).rejects.toBeInstanceOf(ApiError);
+  await c.authChecked();
   expect(lost).toHaveBeenCalledTimes(1);
   expect(c.token()).toBeNull();
+});
+
+test("a 401 caused by a stray jwt cookie keeps the session", async () => {
+  let calls = 0;
+  // The first request carries the stale cookie; the check after it works.
+  fakeServer(() =>
+    calls++ === 0
+      ? { status: 401, data: { error: "expired" } }
+      : { data: { userId: "u1" } },
+  );
+  const c = client();
+  await c.setToken("good");
+  const lost = jest.fn();
+  c.onAuthLost(lost);
+  await expect(c.api.auth.getUserInfo()).rejects.toBeInstanceOf(ApiError);
+  await c.authChecked();
+  expect(lost).not.toHaveBeenCalled();
+  expect(c.token()).toBe("good");
 });
 
 test("detects a 2.9 server and rewrites old paths to plugin routes", async () => {
@@ -359,6 +378,7 @@ test("a 401 for a token that was swapped meanwhile keeps the new session", async
 
   // The same failure with the current token does end it.
   await c.api.auth.getUserInfo().catch(() => null);
+  await c.authChecked();
   expect(lost).toHaveBeenCalledTimes(1);
   expect(c.token()).toBeNull();
 });
