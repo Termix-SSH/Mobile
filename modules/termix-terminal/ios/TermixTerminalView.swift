@@ -20,12 +20,57 @@ final class TermixGhosttyView: UITerminalView {
     super.toggleSoftwareKeyboard()
   }
 
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    takeOverLongPress()
+  }
+
+  // Long press selects the word under the finger right away, like a text view.
+  // The library's press only opens a menu with a Select item.
+  private var longPressTaken = false
+  private func takeOverLongPress() {
+    guard !longPressTaken,
+      let press = gestureRecognizers?.first(where: { $0 is UILongPressGestureRecognizer })
+    else { return }
+    longPressTaken = true
+    press.removeTarget(nil, action: nil)
+    press.addTarget(self, action: #selector(selectOnLongPress(_:)))
+    (press as? UILongPressGestureRecognizer)?.minimumPressDuration = 0.45
+  }
+
+  @objc private func selectOnLongPress(_ gesture: UILongPressGestureRecognizer) {
+    guard gesture.state == .began else { return }
+    let point = gesture.location(in: self)
+    let select = NSSelectorFromString("handleSelectionTap:")
+    if responds(to: select) {
+      perform(select, with: SyntheticTap(point: point, taps: 2))
+    }
+    if hasTouchSelection { return }
+    // No text under the finger: the menu with Paste and Select All.
+    let menu = NSSelectorFromString("handleLongPressForSelection:")
+    if responds(to: menu) {
+      perform(menu, with: SyntheticPress(point: point))
+    }
+  }
+
+  private var hasTouchSelection: Bool {
+    subviews.contains { String(describing: type(of: $0)).hasSuffix("TouchSelectionOverlay") }
+  }
+
   override func touchMenuItems(for context: TerminalTouchMenuContext) -> [UIMenuElement] {
     var items = super.touchMenuItems(for: context)
     if let owner, let url = owner.link(at: context.sourcePoint) {
       items.insert(UIAction(title: "Open link") { [weak owner] _ in owner?.emitLink(url) }, at: 0)
     }
     // The app's own menu for the session: find, tmux, key rows, share.
+    if let owner {
+      items.append(UIAction(title: "More") { [weak owner] _ in owner?.emitMenu() })
+    }
+    return items
+  }
+
+  override func touchSelectionMenuItems(for context: TerminalTouchSelectionMenuContext) -> [UIMenuElement] {
+    var items = super.touchSelectionMenuItems(for: context)
     if let owner {
       items.append(UIAction(title: "More") { [weak owner] _ in owner?.emitMenu() })
     }
@@ -80,6 +125,35 @@ final class TermixGhosttyView: UITerminalView {
   }
 }
 
+/// A finished tap at a point, handed to the library's tap handler.
+private final class SyntheticTap: UITapGestureRecognizer {
+  private let point: CGPoint
+  init(point: CGPoint, taps: Int) {
+    self.point = point
+    super.init(target: nil, action: nil)
+    numberOfTapsRequired = taps
+  }
+  override var state: UIGestureRecognizer.State {
+    get { .ended }
+    set {}
+  }
+  override func location(in _: UIView?) -> CGPoint { point }
+}
+
+/// A long press that just began, handed to the library's menu handler.
+private final class SyntheticPress: UILongPressGestureRecognizer {
+  private let point: CGPoint
+  init(point: CGPoint) {
+    self.point = point
+    super.init(target: nil, action: nil)
+  }
+  override var state: UIGestureRecognizer.State {
+    get { .began }
+    set {}
+  }
+  override func location(in _: UIView?) -> CGPoint { point }
+}
+
 /// Feeds a session from a pipe on its own queue and stops while the parser is behind, so the
 /// pipe fills and pauses its producer.
 private final class PipeReader: PipeSink, @unchecked Sendable {
@@ -90,6 +164,7 @@ private final class PipeReader: PipeSink, @unchecked Sendable {
   weak var session: InMemoryTerminalSession?
   var pipe: BytePipe
   var onOutput: (() -> Void)?
+  var tag = "view"
   private(set) var bytes: Double = 0
 
   init(pipe: BytePipe) {
@@ -121,7 +196,12 @@ private final class PipeReader: PipeSink, @unchecked Sendable {
       let stop = backlogged
       lock.unlock()
       if stop { break }
-      guard let session, let chunk = pipe.read(max: 64 * 1024) else { break }
+      guard let session else {
+        NativeTrace.log("[\(tag)] pipe has bytes but the session is gone")
+        break
+      }
+      guard let chunk = pipe.read(max: 64 * 1024) else { break }
+      if bytes == 0 { NativeTrace.log("[\(tag)] first bytes from pipe: \(chunk.count)") }
       bytes += Double(chunk.count)
       session.receive(chunk)
       onOutput?()
@@ -138,6 +218,12 @@ private final class PipeReader: PipeSink, @unchecked Sendable {
 // and terminal replies go out through onInput. Each view has its own controller, so theme and
 // font are per view.
 class TermixTerminalView: ExpoView {
+  nonisolated(unsafe) private static var traceSeq = 0
+  private let traceTag: String = {
+    TermixTerminalView.traceSeq += 1
+    return "v\(TermixTerminalView.traceSeq)"
+  }()
+  private var lastHealth = Date.distantPast
   private let terminalView = TermixGhosttyView(frame: .zero)
   private var session: InMemoryTerminalSession!
   private var controller: TerminalController!
@@ -255,6 +341,15 @@ class TermixTerminalView: ExpoView {
     isAccessibilityElement = true
     accessibilityLabel = "Terminal"
     accessibilityTraits = [.allowsDirectInteraction]
+
+    NativeTrace.start()
+    reader.tag = traceTag
+    NativeTrace.log("[\(traceTag)] view created")
+  }
+
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    NativeTrace.log("[\(traceTag)] window \(window != nil ? "attached" : "detached") \(healthText())")
   }
 
   override func layoutSubviews() {
@@ -264,12 +359,34 @@ class TermixTerminalView: ExpoView {
     if !surfaceReady, bounds.width > 0 {
       surfaceReady = true
       terminalView.configuration = TerminalSurfaceOptions(backend: .inMemory(session), fontSize: currentFontSize)
+      NativeTrace.log("[\(traceTag)] surface options set \(healthText())")
+      DispatchQueue.main.async { [weak self] in
+        guard let self else { return }
+        NativeTrace.log("[\(traceTag)] after surface options \(healthText())")
+      }
     }
+  }
+
+  /// What decides whether the terminal can be seen, for the trace log.
+  private func healthText() -> String {
+    var hidden = false
+    var alpha: CGFloat = 1
+    var node: UIView? = self
+    while let view = node {
+      if view.isHidden { hidden = true }
+      alpha *= view.alpha
+      node = view.superview
+    }
+    let size = "\(Int(bounds.width))x\(Int(bounds.height))"
+    let surface = terminalView.surface != nil ? "yes" : "no"
+    return "size=\(size) surface=\(surface) window=\(window != nil) hidden=\(hidden) alpha=\(alpha) "
+      + "pipe=\(pipeId ?? "local") bytes=\(Int(reader.bytes)) first=\(terminalView.isFirstResponder)"
   }
 
   // MARK: - Props
 
   func setPipe(_ id: String?) {
+    NativeTrace.log("[\(traceTag)] pipe \(pipeId ?? "none") -> \(id ?? "none")")
     guard id != pipeId else { return }
     reader.pipe.detachSink(reader)
     if let pipeId { TermixPipes.release(pipeId) }
@@ -359,6 +476,7 @@ class TermixTerminalView: ExpoView {
   // MARK: - Calls from JS
 
   func write(_ data: Data) {
+    if reader.bytes == 0 { NativeTrace.log("[\(traceTag)] write from JS: \(data.count) bytes") }
     reader.pipe.push(data)
   }
 
@@ -501,6 +619,10 @@ class TermixTerminalView: ExpoView {
   // MARK: - Output
 
   private func outputArrived() {
+    if Date().timeIntervalSince(lastHealth) > 1 {
+      lastHealth = Date()
+      NativeTrace.log("[\(traceTag)] output \(healthText())")
+    }
     if promptWatch {
       promptWork?.cancel()
       let work = DispatchWorkItem { [weak self] in self?.reportPromptLine() }
@@ -555,6 +677,7 @@ class TermixTerminalView: ExpoView {
 
   // Unanswered clipboard requests deny themselves when they go away.
   deinit {
+    NativeTrace.log("[\(traceTag)] view freed")
     if let reader { reader.pipe.detachSink(reader) }
     if let pipeId { TermixPipes.release(pipeId) }
   }

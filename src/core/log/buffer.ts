@@ -6,7 +6,7 @@ export interface LogLine {
   text: string;
 }
 
-export const LOG_LIMIT = 300;
+export const LOG_LIMIT = 3000;
 const MAX_LINE = 1000;
 
 let lines: LogLine[] = [];

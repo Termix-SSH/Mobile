@@ -1,4 +1,5 @@
 import { recordConnect } from "@/core/analytics/usage";
+import { trace } from "@/core/log/trace";
 import type { ConnectionLogEntry, ConnectionLogPayload } from "@/types";
 import {
   fromRelayMessage,
@@ -22,6 +23,8 @@ import type {
   Transport,
   TransportKind,
 } from "./types";
+
+let connSeq = 0;
 
 /** Something the connection waits on the user for. */
 export type ConnectionPrompt =
@@ -253,9 +256,19 @@ export class HostConnection {
   private pendingInput = "";
   private pendingTrimmed = false;
 
+  /** Numbers each connection in the trace log. */
+  readonly traceId = ++connSeq;
+
   constructor(private readonly options: HostConnectionOptions) {
     this.sessionId = options.initialSessionId ?? null;
     this.resuming = !!options.restored;
+    trace("conn", "created", {
+      conn: this.traceId,
+      host: options.host.id,
+      pipe: options.pipeId ?? null,
+      restored: !!options.restored,
+      attachTo: !!options.initialSessionId,
+    });
   }
 
   // Store
@@ -281,6 +294,15 @@ export class HostConnection {
     const prev = this.snapshot.state;
     const state = reduceConnection(prev, event);
     if (state === prev) return;
+    trace("conn", `${prev.status} -> ${state.status}`, {
+      conn: this.traceId,
+      event: event.type,
+      ...(state.status === "connected" ? { hasData: state.hasData } : {}),
+      ...(state.status === "failed"
+        ? { stage: state.failure.stage, message: state.failure.message }
+        : {}),
+      destroyed: this.destroyed,
+    });
     this.set({ ...this.snapshot, state });
     this.countResult(prev, state);
   }
@@ -315,6 +337,14 @@ export class HostConnection {
 
   /** Called when the terminal knows its size. Starts the first try. */
   async connect(cols: number, rows: number): Promise<void> {
+    trace("conn", "connect called", {
+      conn: this.traceId,
+      cols,
+      rows,
+      state: this.state.status,
+      hasChannel: !!this.channel,
+      destroyed: this.destroyed,
+    });
     this.cols = cols;
     this.rows = rows;
     if (this.channel) {
@@ -923,6 +953,11 @@ export class HostConnection {
   }
 
   destroy() {
+    trace("conn", "destroy", {
+      conn: this.traceId,
+      state: this.state.status,
+      already: this.destroyed,
+    });
     if (this.destroyed) return;
     this.destroyed = true;
     this.clearReconnect();
