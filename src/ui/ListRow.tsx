@@ -72,8 +72,19 @@ export function ListRow({
       onPress={onPress}
       onLongPress={onLongPress}
       disabled={!onPress && !onLongPress}
-      accessibilityRole={onPress ? "button" : undefined}
+      accessibilityRole={onPress || onLongPress ? "button" : undefined}
       accessibilityState={{ selected: !!selected }}
+      // A screen reader has no long press, so it gets a named action.
+      accessibilityActions={
+        onLongPress ? [{ name: "longpress", label: "More actions" }] : undefined
+      }
+      onAccessibilityAction={
+        onLongPress
+          ? (e) => {
+              if (e.nativeEvent.actionName === "longpress") onLongPress();
+            }
+          : undefined
+      }
       className={`${compact ? "min-h-9" : "min-h-11"} flex-row items-stretch border-b border-border/40 hover:bg-muted/30 active:bg-muted/50 ${bg} ${dimmed ? "opacity-60" : ""} ${className ?? ""}`}
     >
       <View

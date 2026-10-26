@@ -172,3 +172,16 @@ describe("editor languages", () => {
     expect(languageFor("README")).toBe("");
   });
 });
+
+describe("file row height", () => {
+  const { fileRowHeight, ROW_HEIGHT } = jest.requireActual(
+    "@/features/file-manager/list/FileRow",
+  );
+  test("grows with large text and stops at the cap", () => {
+    expect(fileRowHeight(1)).toBe(ROW_HEIGHT);
+    expect(fileRowHeight(0.8)).toBe(ROW_HEIGHT);
+    expect(fileRowHeight(1.5)).toBe(73);
+    expect(fileRowHeight(5)).toBe(fileRowHeight(2));
+    expect(fileRowHeight(1, 1.15)).toBeGreaterThan(ROW_HEIGHT);
+  });
+});

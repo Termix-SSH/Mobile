@@ -21,6 +21,12 @@ const FONT_PADDING = Platform.select({
   android: { includeFontPadding: false },
 });
 
+/**
+ * System text size is capped here, since the app's own text size setting
+ * scales on top of it and rows would stop fitting the screen.
+ */
+export const MAX_FONT_SCALE = 2;
+
 const FONT_BY_WEIGHT: Record<TextWeight, string> = {
   regular: MONO_FONT,
   medium: MONO_FONT_MEDIUM,
@@ -42,6 +48,7 @@ export function Text({
   const scaled = scaledTextStyle(className, textScale(textSize));
   return (
     <RNText
+      maxFontSizeMultiplier={MAX_FONT_SCALE}
       className={`text-foreground ${className ?? ""}`}
       style={[
         { fontFamily: FONT_BY_WEIGHT[weight] },

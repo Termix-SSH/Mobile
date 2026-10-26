@@ -137,6 +137,12 @@ function Host({
       onPress={() => onPress(host)}
       onLongPress={onLongPress ? () => onLongPress(host) : undefined}
       accessibilityRole="button"
+      accessibilityActions={
+        onLongPress ? [{ name: "longpress", label: "More actions" }] : undefined
+      }
+      onAccessibilityAction={(e) => {
+        if (e.nativeEvent.actionName === "longpress") onLongPress?.(host);
+      }}
       accessibilityLabel={`${host.name}, ${status}`}
       accessibilityHint={
         selecting ? undefined : "Opens the terminal. Hold for more."

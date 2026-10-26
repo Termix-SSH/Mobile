@@ -10,6 +10,7 @@ import {
   Square,
 } from "lucide-react-native";
 import { Text } from "@/ui";
+import { MAX_FONT_SCALE } from "@/ui/Text";
 import type { FileEntry } from "../backend/types";
 import {
   formatDate,
@@ -18,8 +19,18 @@ import {
   modeText,
 } from "../utils/fileUtils";
 
-/** Every row is this tall, so the list can jump straight to any row. */
+/** Every row is this tall at normal text size, so the list can jump to any row. */
 export const ROW_HEIGHT = 56;
+// The two text lines take this much of a row; the rest is padding.
+const TEXT_PART = 34;
+
+/** The row height for the system text size and the app's own, so big text fits. */
+export function fileRowHeight(fontScale: number, appScale = 1): number {
+  const scale = Math.max(1, Math.min(fontScale, MAX_FONT_SCALE)) * appScale;
+  return Math.max(ROW_HEIGHT, Math.round(ROW_HEIGHT + TEXT_PART * (scale - 1)));
+}
+
+const LONG_PRESS_ACTIONS = [{ name: "longpress", label: "More actions" }];
 
 export const isFolderLike = (f: FileEntry) =>
   f.type === "directory" || (f.type === "link" && f.targetType === "directory");
@@ -41,6 +52,7 @@ export const FileRow = memo(function FileRow({
   selecting,
   selected,
   colors,
+  height = ROW_HEIGHT,
   onPress,
   onLongPress,
   onMenu,
@@ -50,6 +62,7 @@ export const FileRow = memo(function FileRow({
   selecting: boolean;
   selected: boolean;
   colors: { muted: string; brand: string };
+  height?: number;
   onPress: (file: FileEntry) => void;
   onLongPress: (file: FileEntry) => void;
   onMenu: (file: FileEntry) => void;
@@ -78,9 +91,13 @@ export const FileRow = memo(function FileRow({
       onPress={() => onPress(file)}
       onLongPress={() => onLongPress(file)}
       accessibilityRole="button"
+      accessibilityActions={LONG_PRESS_ACTIONS}
+      onAccessibilityAction={(e) => {
+        if (e.nativeEvent.actionName === "longpress") onLongPress(file);
+      }}
       accessibilityLabel={file.name}
       accessibilityState={{ selected }}
-      style={{ height: ROW_HEIGHT }}
+      style={{ height }}
       className={`flex-row items-center border-b border-border/40 active:bg-muted/50 ${zebra}`}
     >
       <View className={`h-full w-[3px] ${selected ? "bg-accent-brand" : ""}`} />

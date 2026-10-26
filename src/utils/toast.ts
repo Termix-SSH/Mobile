@@ -1,3 +1,4 @@
+import { AccessibilityInfo } from "react-native";
 import { toast as sonnerToast } from "sonner-native";
 
 export type ToastIntent = "success" | "error" | "warning" | "info";
@@ -26,16 +27,34 @@ export function toastStyle(intent: ToastIntent, description?: string) {
   };
 }
 
+// The toast library draws but never speaks, so screen readers are told here.
+function announce(m: string, description?: string) {
+  AccessibilityInfo.announceForAccessibility(
+    description ? `${m}. ${description}` : m,
+  );
+}
+
 export const toast = {
-  success: (m: string, description?: string) =>
-    sonnerToast.success(m, toastStyle("success", description)),
-  error: (m: string, description?: string) =>
-    sonnerToast.error(m, toastStyle("error", description)),
-  warning: (m: string, description?: string) =>
-    sonnerToast.warning(m, toastStyle("warning", description)),
-  info: (m: string, description?: string) =>
-    sonnerToast.info(m, toastStyle("info", description)),
-  message: (m: string, description?: string) => sonnerToast(m, { description }),
+  success: (m: string, description?: string) => {
+    announce(m, description);
+    return sonnerToast.success(m, toastStyle("success", description));
+  },
+  error: (m: string, description?: string) => {
+    announce(m, description);
+    return sonnerToast.error(m, toastStyle("error", description));
+  },
+  warning: (m: string, description?: string) => {
+    announce(m, description);
+    return sonnerToast.warning(m, toastStyle("warning", description));
+  },
+  info: (m: string, description?: string) => {
+    announce(m, description);
+    return sonnerToast.info(m, toastStyle("info", description));
+  },
+  message: (m: string, description?: string) => {
+    announce(m, description);
+    return sonnerToast(m, { description });
+  },
 };
 
 // Back-compat alias for existing call sites that import showToast.

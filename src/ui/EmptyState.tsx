@@ -22,10 +22,19 @@ export function EmptyState({
     <View
       className={`items-center justify-center gap-2 px-6 py-10 ${className ?? ""}`}
     >
-      {Icon ? <Icon size={22} color={color("muted-foreground", 0.4)} /> : null}
-      <Text className="text-center text-xs text-muted-foreground">{title}</Text>
+      {Icon ? (
+        <View accessibilityElementsHidden importantForAccessibility="no">
+          <Icon size={22} color={color("muted-foreground", 0.4)} />
+        </View>
+      ) : null}
+      <Text
+        accessibilityRole="header"
+        className="text-center text-xs text-muted-foreground"
+      >
+        {title}
+      </Text>
       {hint ? (
-        <Text className="text-center text-meta text-muted-foreground/70">
+        <Text className="text-center text-meta text-muted-foreground">
           {hint}
         </Text>
       ) : null}

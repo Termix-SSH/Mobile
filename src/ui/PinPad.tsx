@@ -61,7 +61,12 @@ export function PinPad({
           <Pressable
             onPress={onBiometric}
             disabled={!onBiometric}
+            accessibilityRole="button"
             accessibilityLabel="Use biometrics"
+            accessibilityElementsHidden={!onBiometric}
+            importantForAccessibility={
+              onBiometric ? "auto" : "no-hide-descendants"
+            }
             className="h-16 w-16 items-center justify-center"
           >
             {onBiometric ? (
@@ -71,6 +76,7 @@ export function PinPad({
           <Key label="0" onPress={() => press("0")} />
           <Pressable
             onPress={() => onChange(value.slice(0, -1))}
+            accessibilityRole="button"
             accessibilityLabel="Delete"
             className="h-16 w-16 items-center justify-center border border-border active:bg-muted/40"
           >
@@ -86,6 +92,8 @@ function Key({ label, onPress }: { label: string; onPress: () => void }) {
   return (
     <Pressable
       onPress={onPress}
+      accessibilityRole="keyboardkey"
+      accessibilityLabel={label}
       className="h-16 w-16 items-center justify-center border border-border bg-card active:bg-muted/40"
     >
       <Text weight="medium" className="text-xl text-foreground">

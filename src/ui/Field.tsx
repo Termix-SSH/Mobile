@@ -1,6 +1,14 @@
+import { createContext, useContext } from "react";
 import { View } from "react-native";
 import { Label } from "./Card";
 import { Text } from "./Text";
+
+const FieldLabel = createContext<string | null>(null);
+
+/** The label of the Field around a control, for its screen reader name. */
+export function useFieldLabel(): string | null {
+  return useContext(FieldLabel);
+}
 
 /** A form field: small label, the control, then an optional hint or error. */
 export function Field({
@@ -19,9 +27,14 @@ export function Field({
   return (
     <View className={`gap-1.5 ${className ?? ""}`}>
       <Label>{label}</Label>
-      {children}
+      <FieldLabel.Provider value={label}>{children}</FieldLabel.Provider>
       {error ? (
-        <Text className="text-meta text-destructive">{error}</Text>
+        <Text
+          className="text-meta text-destructive"
+          accessibilityLiveRegion="polite"
+        >
+          {error}
+        </Text>
       ) : hint ? (
         <Text className="text-meta text-muted-foreground">{hint}</Text>
       ) : null}

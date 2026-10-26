@@ -35,6 +35,8 @@ export function AccordionSection({
       className={`overflow-hidden border border-border bg-card ${containerClassName ?? ""}`}
     >
       <Pressable
+        accessibilityRole="button"
+        accessibilityState={{ expanded: open }}
         onPress={() => {
           if (isControlled) onToggle?.();
           else setInternalOpen((o) => !o);

@@ -1,4 +1,6 @@
 import { forwardRef, useState } from "react";
+import { useFieldLabel } from "./Field";
+import { MAX_FONT_SCALE } from "./Text";
 import { Platform, TextInput, type TextInputProps, View } from "react-native";
 import { MONO_FONT } from "@/constants/fonts";
 import { useThemeColor } from "@/contexts/ThemeContext";
@@ -31,8 +33,8 @@ const SIZES: Record<
   InputSize,
   { box: string; fontSize: number; line: number }
 > = {
-  sm: { box: "h-8", fontSize: 12, line: 16 },
-  default: { box: "h-10", fontSize: 13, line: 17 },
+  sm: { box: "min-h-8", fontSize: 12, line: 16 },
+  default: { box: "min-h-10", fontSize: 13, line: 17 },
 };
 
 export const Input = forwardRef<TextInput, InputProps>(function Input(
@@ -52,6 +54,7 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
   ref,
 ) {
   const [focused, setFocused] = useState(false);
+  const fieldLabel = useFieldLabel();
   const placeholderColor = useThemeColor()("muted-foreground", 0.7);
   const { box, fontSize, line } = SIZES[size];
 
@@ -80,6 +83,8 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
           onBlur?.(e);
         }}
         placeholderTextColor={placeholderColor}
+        accessibilityLabel={fieldLabel ?? undefined}
+        maxFontSizeMultiplier={MAX_FONT_SCALE}
         className={`flex-1 text-foreground ${className ?? ""}`}
         style={[
           BASE_TEXT_STYLE,

@@ -5,17 +5,14 @@ import {
   type ListRenderItem,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
+  useWindowDimensions,
 } from "react-native";
 import { useUiColors } from "@/contexts/ThemeContext";
 import type { FileEntry } from "../backend/types";
-import { FileRow, ROW_HEIGHT } from "./FileRow";
+import { textScale, useUiPrefs } from "@/core/ui-prefs";
+import { FileRow, fileRowHeight } from "./FileRow";
 
 const keyOf = (f: FileEntry) => f.path;
-const itemLayout = (_: unknown, index: number) => ({
-  length: ROW_HEIGHT,
-  offset: ROW_HEIGHT * index,
-  index,
-});
 
 /**
  * A virtualized list with fixed row heights. The scroll spot is kept per
@@ -45,6 +42,17 @@ export function FileList({
   empty?: React.ReactElement | null;
 }) {
   const colors = useUiColors();
+  const { fontScale } = useWindowDimensions();
+  const { textSize } = useUiPrefs();
+  const height = fileRowHeight(fontScale, textScale(textSize));
+  const itemLayout = useCallback(
+    (_: unknown, index: number) => ({
+      length: height,
+      offset: height * index,
+      index,
+    }),
+    [height],
+  );
   const list = useRef<FlatList<FileEntry>>(null);
   const offsets = useRef(new Map<string, number>());
   const pathRef = useRef(path);
@@ -76,12 +84,13 @@ export function FileList({
         selecting={selecting}
         selected={selected.has(item.path)}
         colors={rowColors}
+        height={height}
         onPress={onPress}
         onLongPress={onLongPress}
         onMenu={onMenu}
       />
     ),
-    [selecting, selected, rowColors, onPress, onLongPress, onMenu],
+    [selecting, selected, rowColors, height, onPress, onLongPress, onMenu],
   );
 
   return (
