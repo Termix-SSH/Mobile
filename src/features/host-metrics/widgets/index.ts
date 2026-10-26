@@ -8,4 +8,6 @@ export { ProcessesWidget } from "./ProcessesWidget";
 export { PortsWidget } from "./PortsWidget";
 export { FirewallWidget } from "./FirewallWidget";
 export { LoginStatsWidget } from "./LoginStatsWidget";
+export { TemperatureWidget } from "./TemperatureWidget";
+export { GpuWidget } from "./GpuWidget";
 export { WidgetCard, Meter, Sparkline } from "./WidgetCard";

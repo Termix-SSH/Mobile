@@ -130,6 +130,24 @@ export function createMetricsApi(c: AccountClient) {
   }
 
   /**
+   * The cheap 1s /proc sample (Host Metrics 1.1+). Throws with
+   * `code: "LIVE_DISABLED"` when the admin turned it off.
+   */
+  async function getLiveSample(id: number): Promise<unknown> {
+    if (!c.isPluginApi() || !c.isPluginEnabled("host-metrics")) return null;
+    try {
+      const response = await c.http.stats.get(
+        `/plugin-api/host-metrics/host-metrics/managers/live/${id}`,
+        { timeout: 10000 },
+      );
+      return response.data ?? null;
+    } catch (error: any) {
+      const code = error?.response?.data?.code;
+      throw Object.assign(new Error("Live sample failed"), { code });
+    }
+  }
+
+  /**
    * Start metrics collection for a host. Returns a viewerSessionId that must be
    * passed to heartbeat/stop/unregister calls. May return requiresTOTP for 2FA hosts.
    */
@@ -295,6 +313,7 @@ export function createMetricsApi(c: AccountClient) {
     getAllServerStatuses,
     getServerStatusById,
     getServerMetricsById,
+    getLiveSample,
     startMetricsPolling,
     stopMetricsPolling,
     submitMetricsTOTP,

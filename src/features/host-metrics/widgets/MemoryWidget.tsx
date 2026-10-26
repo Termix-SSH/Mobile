@@ -2,7 +2,10 @@ import { MemoryStick } from "lucide-react-native";
 import { ServerMetrics } from "@/types";
 import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
-import { WidgetCard, Meter } from "./WidgetCard";
+import { WidgetCard, Meter, Stats } from "./WidgetCard";
+
+const gib = (n: number | null | undefined) =>
+  n == null ? null : `${Number(n).toFixed(1)} GiB`;
 
 export function MemoryWidget({
   metrics,
@@ -26,12 +29,14 @@ export function MemoryWidget({
       }
     >
       <Meter percent={percent} history={history} />
-      {mem?.usedGiB != null && mem?.totalGiB != null ? (
-        <Text className="mt-1.5 text-[10px] text-muted-foreground">
-          {Number(mem.usedGiB).toFixed(1)} / {Number(mem.totalGiB).toFixed(1)}{" "}
-          GiB
-        </Text>
-      ) : null}
+      <Stats
+        items={[
+          { label: "Used", value: gib(mem?.usedGiB) },
+          { label: "Total", value: gib(mem?.totalGiB) },
+          { label: "Cached", value: gib(mem?.cachedGiB) },
+          { label: "Free", value: gib(mem?.freeGiB) },
+        ]}
+      />
     </WidgetCard>
   );
 }

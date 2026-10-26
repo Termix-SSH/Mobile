@@ -29,6 +29,8 @@ import {
   PortsWidget,
   FirewallWidget,
   LoginStatsWidget,
+  TemperatureWidget,
+  GpuWidget,
 } from "./widgets";
 import { useClient } from "@/core/accounts";
 import { useSessionAccountId } from "@/core/accounts/session";
@@ -38,6 +40,13 @@ import type { MetricPoint } from "@/core/data/types";
 import { useExecTarget, usePoll, type ExecRunner } from "@/core/exec";
 import { createLocalMetrics } from "./backend/local";
 import { HistoryCard, type HistoryRange } from "./HistoryCard";
+import {
+  LIVE_MAX_ERRORS,
+  LIVE_POLL_MS,
+  LIVE_RETRY_MS,
+  mergeLive,
+  type LiveSample,
+} from "./live";
 
 interface ServerStatsProps {
   host: SSHHost;
@@ -293,8 +302,10 @@ function useRelayMetrics(
     { intervalMs: 3000, enabled: status !== "error" },
   );
 
+  const live = useLiveSample(client, hostId, status === "ready");
+
   return {
-    metrics,
+    metrics: mergeLive(metrics, live),
     status,
     error,
     refresh: fetchMetrics,
@@ -310,6 +321,51 @@ function useRelayMetrics(
       return rows.map((r) => ({ ...r, rx: null, tx: null }));
     },
   };
+}
+
+/**
+ * Polls the server's 1s live sample while metrics show, for per core CPU,
+ * memory split, network rates and the live process list. Never overlaps.
+ */
+function useLiveSample(
+  client: AccountClient | null,
+  hostId: number,
+  active: boolean,
+): LiveSample | null {
+  const [live, setLive] = useState<LiveSample | null>(null);
+  useEffect(() => {
+    if (!client || !active) return;
+    let stopped = false;
+    let errors = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const tick = async () => {
+      let delay = LIVE_POLL_MS;
+      try {
+        const sample = (await client.api.metrics.getLiveSample(
+          hostId,
+        )) as LiveSample | null;
+        if (stopped) return;
+        if (!sample) return; // An older server: no live route.
+        errors = 0;
+        setLive(sample);
+        delay = Math.max(LIVE_POLL_MS, (sample.minIntervalS ?? 0) * 1000);
+      } catch (e) {
+        if (stopped) return;
+        setLive(null);
+        const code = (e as { code?: string })?.code;
+        if (code === "LIVE_DISABLED" || ++errors >= LIVE_MAX_ERRORS) {
+          delay = LIVE_RETRY_MS;
+        }
+      }
+      timer = setTimeout(() => void tick(), delay);
+    };
+    void tick();
+    return () => {
+      stopped = true;
+      if (timer) clearTimeout(timer);
+    };
+  }, [client, hostId, active]);
+  return live;
 }
 
 function MetricsView({
@@ -380,7 +436,7 @@ function MetricsView({
           flexGrow: 1,
           padding: 12,
           gap: 10,
-          paddingBottom: 120,
+          paddingBottom: 24,
         }}
         refreshControl={
           <RefreshControl
@@ -420,6 +476,10 @@ function MetricsView({
             {has("disk") ? (
               <DiskWidget metrics={metrics} history={h.disk} />
             ) : null}
+            {has("temperature") ? (
+              <TemperatureWidget metrics={metrics} />
+            ) : null}
+            {has("gpu") ? <GpuWidget metrics={metrics} /> : null}
             <HistoryCard load={feed.history} />
             {has("network") ? <NetworkWidget metrics={metrics} /> : null}
             {has("uptime") ? <UptimeWidget metrics={metrics} /> : null}

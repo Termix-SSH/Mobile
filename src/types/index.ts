@@ -884,12 +884,31 @@ export interface CpuMetrics {
   percent: number | null;
   cores: number | null;
   load: [number, number, number] | null;
+  /** Per core percent, from the 1s live sample. */
+  perCore?: (number | null)[];
+  coreIds?: string[];
+  /** Percent of CPU time by kind since the last live sample. */
+  mix?: { user: number; system: number; iowait: number; steal: number };
 }
 
 export interface MemoryMetrics {
   percent: number | null;
   usedGiB: number | null;
   totalGiB: number | null;
+  /** Buffers plus page cache, from the live sample. */
+  cachedGiB?: number;
+  freeGiB?: number;
+}
+
+export interface DiskFilesystem {
+  filesystem: string;
+  type: string;
+  mount: string;
+  percent: number | null;
+  usedHuman: string | null;
+  totalHuman: string | null;
+  availableHuman: string | null;
+  label?: string;
 }
 
 export interface DiskMetrics {
@@ -897,6 +916,8 @@ export interface DiskMetrics {
   usedHuman: string | null;
   totalHuman: string | null;
   availableHuman?: string | null;
+  mount?: string | null;
+  filesystems?: DiskFilesystem[];
 }
 
 export interface NetworkInterface {
@@ -907,6 +928,9 @@ export interface NetworkInterface {
   tx?: string | null;
   rxBytes?: string | null;
   txBytes?: string | null;
+  /** Bytes per second, from the live sample. */
+  rxRateBps?: number | null;
+  txRateBps?: number | null;
 }
 
 export interface NetworkMetrics {
@@ -924,6 +948,8 @@ export interface ProcessInfo {
   mem: number;
   command: string;
   user?: string;
+  state?: string;
+  ppid?: string;
 }
 
 export interface ProcessesMetrics {
@@ -936,13 +962,47 @@ export interface SystemMetrics {
   hostname: string | null;
   kernel: string | null;
   os: string | null;
+  arch?: string | null;
 }
 
+/** One login as the server's login_stats collector sends it. */
 export interface LoginEvent {
   user: string;
-  from?: string;
+  ip?: string;
   time?: string;
-  type?: string;
+  status?: "success" | "failed";
+}
+
+export interface TemperatureMetrics {
+  source?: "sysfs" | "sensors" | "none";
+  highestCelsius?: number | null;
+  sensors?: { label: string; celsius: number }[];
+}
+
+export interface GpuDevice {
+  index: number;
+  uuid: string;
+  name: string;
+  driverVersion: string | null;
+  utilizationPercent: number | null;
+  memoryUsedMiB: number | null;
+  memoryTotalMiB: number | null;
+  memoryPercent: number | null;
+  temperatureCelsius: number | null;
+  powerDrawWatts: number | null;
+  powerLimitWatts: number | null;
+  fanPercent: number | null;
+}
+
+export interface GpuMetrics {
+  source: "nvidia-smi" | "amdgpu" | "none";
+  gpus: GpuDevice[];
+  processes: {
+    gpuIndex: number | null;
+    pid: number;
+    name: string;
+    memoryUsedMiB: number | null;
+  }[];
 }
 
 export interface LoginStatsMetrics {
@@ -968,6 +1028,8 @@ export interface ServerMetrics {
   ports?: PortsMetrics;
   firewall?: FirewallMetrics;
   loginStats?: LoginStatsMetrics;
+  temperature?: TemperatureMetrics;
+  gpu?: GpuMetrics;
   lastChecked: string;
 }
 
@@ -1007,7 +1069,7 @@ export interface FirewallChain {
 }
 
 export interface FirewallMetrics {
-  type: "iptables" | "nftables" | "none";
+  type: "iptables" | "nftables" | "ufw" | "none";
   status: "active" | "inactive" | "unknown";
   chains: FirewallChain[];
 }

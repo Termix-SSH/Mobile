@@ -68,7 +68,7 @@ export function HistoryCard({
 
   useEffect(() => setPoints(null), [range]);
 
-  const stroke = color("accent-brand") ?? "#888";
+  const stroke = color("accent-brand");
   return (
     <WidgetCard
       icon={<History size={14} color={color("muted-foreground")} />}

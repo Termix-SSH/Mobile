@@ -24,11 +24,11 @@ export function FirewallWidget({ metrics }: { metrics: ServerMetrics }) {
     >
       <View className="gap-0.5">
         {fw?.type && fw.type !== "none" ? (
-          <Text className="text-[11px] text-muted-foreground">
+          <Text className="text-meta text-muted-foreground">
             {fw.type} | {ruleCount} rules
           </Text>
         ) : (
-          <Text className="text-[11px] text-muted-foreground">
+          <Text className="text-meta text-muted-foreground">
             No firewall detected
           </Text>
         )}

@@ -13,7 +13,9 @@ export type WidgetType =
   | "system"
   | "login_stats"
   | "ports"
-  | "firewall";
+  | "firewall"
+  | "temperature"
+  | "gpu";
 
 export interface StatsConfig {
   enabledWidgets: WidgetType[];
@@ -34,6 +36,8 @@ export const ALL_WIDGETS: WidgetType[] = [
   "ports",
   "login_stats",
   "firewall",
+  "temperature",
+  "gpu",
 ];
 
 export const DEFAULT_STATS_CONFIG: StatsConfig = {

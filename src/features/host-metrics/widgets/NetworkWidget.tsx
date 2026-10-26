@@ -5,6 +5,18 @@ import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { WidgetCard } from "./WidgetCard";
 
+/** Bytes per second as a short rate, like 1.2 MB/s. */
+export function formatRate(bps: number): string {
+  const units = ["B/s", "KB/s", "MB/s", "GB/s"];
+  let n = bps;
+  let u = 0;
+  while (n >= 1000 && u < units.length - 1) {
+    n /= 1000;
+    u++;
+  }
+  return `${n >= 100 || u === 0 ? n.toFixed(0) : n.toFixed(1)} ${units[u]}`;
+}
+
 export function NetworkWidget({ metrics }: { metrics: ServerMetrics }) {
   const color = useThemeColor();
   const interfaces = metrics.network?.interfaces ?? [];
@@ -15,39 +27,49 @@ export function NetworkWidget({ metrics }: { metrics: ServerMetrics }) {
       title="Network"
     >
       {interfaces.length === 0 ? (
-        <Text className="text-[11px] text-muted-foreground">No interfaces</Text>
+        <Text className="text-meta text-muted-foreground">No interfaces</Text>
       ) : (
         <View className="gap-2">
           {interfaces.map((iface) => {
             const up = (iface.state || "").toUpperCase() === "UP";
+            const live = iface.rxRateBps != null || iface.txRateBps != null;
+            const rx = live
+              ? formatRate(iface.rxRateBps ?? 0)
+              : (iface.rx ?? iface.rxBytes);
+            const tx = live
+              ? formatRate(iface.txRateBps ?? 0)
+              : (iface.tx ?? iface.txBytes);
             return (
               <View key={iface.name} className="flex-row items-center gap-2">
                 <View
-                  style={{ backgroundColor: up ? "#22c55e" : "#ef4444" }}
+                  style={{
+                    backgroundColor: up
+                      ? color("success")
+                      : color("destructive"),
+                  }}
                   className="h-2 w-2 rounded-full"
+                  accessibilityLabel={up ? "Up" : "Down"}
                 />
                 <View className="min-w-0 flex-1">
                   <Text
                     weight="medium"
-                    className="text-[12px] text-foreground"
+                    className="text-xs text-foreground"
                     numberOfLines={1}
                   >
                     {iface.name}
-                    {iface.ip ? (
-                      <Text className="text-[11px] text-muted-foreground">
-                        {"  "}
-                        {iface.ip}
-                      </Text>
-                    ) : null}
                   </Text>
+                  {iface.ip ? (
+                    <Text
+                      className="text-meta text-muted-foreground"
+                      numberOfLines={1}
+                    >
+                      {iface.ip}
+                    </Text>
+                  ) : null}
                 </View>
-                {iface.rx != null ||
-                iface.tx != null ||
-                iface.rxBytes != null ||
-                iface.txBytes != null ? (
-                  <Text className="text-[10px] text-muted-foreground">
-                    ↓ {iface.rx ?? iface.rxBytes ?? "-"} ↑{" "}
-                    {iface.tx ?? iface.txBytes ?? "-"}
+                {rx != null || tx != null ? (
+                  <Text className="text-meta text-muted-foreground">
+                    ↓ {rx ?? "-"} | ↑ {tx ?? "-"}
                   </Text>
                 ) : null}
               </View>

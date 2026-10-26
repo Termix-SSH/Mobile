@@ -21,7 +21,7 @@ export function PortsWidget({ metrics }: { metrics: ServerMetrics }) {
       }
     >
       {ports.length === 0 ? (
-        <Text className="text-[11px] text-muted-foreground">
+        <Text className="text-meta text-muted-foreground">
           No listening ports
         </Text>
       ) : (
@@ -32,13 +32,13 @@ export function PortsWidget({ metrics }: { metrics: ServerMetrics }) {
               className="flex-row gap-2"
             >
               <Text
-                className="w-16 text-[10px] text-foreground"
+                className="w-16 text-2xs text-foreground"
                 style={{ fontFamily: MONO_FONT }}
               >
                 {p.protocol}/{p.localPort}
               </Text>
               <Text
-                className="flex-1 text-[10px] text-muted-foreground"
+                className="flex-1 text-2xs text-muted-foreground"
                 numberOfLines={1}
                 style={{ fontFamily: MONO_FONT }}
               >

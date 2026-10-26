@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { Text } from "@/ui";
-import { useThemeColor } from "@/contexts/ThemeContext";
+import { useUiColors } from "@/contexts/ThemeContext";
 
 /** Shared card chrome for every stats widget: icon + title + optional trailing. */
 export function WidgetCard({
@@ -28,33 +28,61 @@ export function WidgetCard({
   );
 }
 
+/** Brand under 70%, warning to 90%, destructive above, like the web cards. */
+export function useLevelColor(): (percent: number) => string {
+  const ui = useUiColors();
+  return (pct) =>
+    pct >= 90 ? ui.destructive : pct >= 70 ? ui.warning : ui.brand;
+}
+
 /** A labeled usage bar (CPU / memory / disk). */
 export function Meter({
   percent,
   history,
+  thin = false,
 }: {
   percent: number;
   history?: number[];
+  thin?: boolean;
 }) {
-  const color = useThemeColor();
+  const level = useLevelColor();
   const pct = Math.max(0, Math.min(100, percent));
-  const barColor =
-    pct >= 90
-      ? (color("destructive") ?? "#ef4444")
-      : pct >= 70
-        ? "#f59e0b"
-        : (color("accent-brand") ?? "#f59145");
+  const barColor = level(pct);
   return (
     <View className="gap-1.5">
       {history && history.length > 1 ? (
-        <Sparkline data={history} stroke={barColor} />
+        <Sparkline data={history} stroke={barColor} max={100} />
       ) : null}
-      <View className="h-2 overflow-hidden bg-muted">
+      <View className={`${thin ? "h-1" : "h-2"} overflow-hidden bg-muted`}>
         <View
           style={{ width: `${pct}%`, backgroundColor: barColor }}
           className="h-full"
         />
       </View>
+    </View>
+  );
+}
+
+/** Small label and value pairs under a meter. */
+export function Stats({
+  items,
+}: {
+  items: { label: string; value: string | null | undefined }[];
+}) {
+  const shown = items.filter((i) => i.value != null && i.value !== "");
+  if (!shown.length) return null;
+  return (
+    <View className="mt-2 flex-row flex-wrap gap-x-4 gap-y-1">
+      {shown.map((i) => (
+        <View key={i.label}>
+          <Text className="text-2xs uppercase text-muted-foreground">
+            {i.label}
+          </Text>
+          <Text weight="medium" className="text-xs text-foreground">
+            {i.value}
+          </Text>
+        </View>
+      ))}
     </View>
   );
 }

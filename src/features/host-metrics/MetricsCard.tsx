@@ -93,7 +93,7 @@ export function MetricsCard({ host, accountId, active }: DashboardCardProps) {
           {cpuHour.length > 1 ? (
             <Sparkline
               data={cpuHour.slice(-60)}
-              stroke={color("accent-brand") ?? "#888"}
+              stroke={color("accent-brand")}
               max={100}
               height={20}
             />
