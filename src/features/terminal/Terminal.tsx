@@ -850,7 +850,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           collapsable={false}
           style={{
             flex: 1,
-            opacity: isVisible ? 1 : 0,
+            // Sessions moves hidden tabs off screen; a transparent terminal loses what it drew.
             zIndex: isVisible ? 1 : -1,
             backgroundColor: background,
           }}

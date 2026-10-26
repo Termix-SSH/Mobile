@@ -288,11 +288,12 @@ class TermixTerminalView: ExpoView {
   private var promptWork: DispatchWorkItem?
   private var lastPromptLine = ""
 
-  /// Hidden tabs stay mounted behind opacity 0. The surface stops drawing while hidden and
-  /// draws a fresh frame when shown, or it comes back empty.
+  /// Hidden tabs sit off screen, fully opaque, and keep drawing. Pausing the renderer and
+  /// resuming it left some gray. A tab that comes back draws a fresh frame.
   func setSurfaceVisible(_ visible: Bool) {
+    let wasShown = surfaceShown
     surfaceShown = visible
-    terminalView.setSurfaceVisible(visible)
+    if visible, !wasShown { terminalView.fitToSize() }
   }
   private var surfaceShown = true
 
