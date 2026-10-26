@@ -1,3 +1,27 @@
+import { sameOrigin } from "@/utils/origin";
+
+/**
+ * A message from the sign in web view: the session token, "empty" when the
+ * page signed in but sent none, or null when it is not a handoff. Only the
+ * server's own pages may hand over a session; any other page reached in
+ * there (a sign in provider, a link) is ignored.
+ */
+export function readHandoff(
+  data: string,
+  pageUrl: string | undefined,
+  serverUrl: string,
+): { token: string } | "empty" | null {
+  if (!sameOrigin(pageUrl, serverUrl)) return null;
+  try {
+    const msg = JSON.parse(data);
+    if (msg?.type !== "AUTH_SUCCESS") return null;
+    if (!msg.token || String(msg.token).length < 20) return "empty";
+    return { token: String(msg.token) };
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Runs in the sign in web view. The web app keeps its session in an HttpOnly
  * cookie, so this asks /users/me/token for it after a callback page loads and

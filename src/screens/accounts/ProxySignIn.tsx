@@ -6,6 +6,7 @@ import { isNetAvailable, readWebCookies } from "@/modules/termix-net";
 import { InlineView, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
+import { sameOrigin } from "@/utils/origin";
 
 // Asks the page's own origin whether Termix answers yet. Once the proxy lets
 // us through, a Termix route returns JSON instead of its login page.
@@ -61,8 +62,10 @@ export function ProxySignIn({
     if (open) handled.current = false;
   }, [open]);
 
-  const onMessage = async (message: string) => {
+  const onMessage = async (message: string, pageUrl?: string) => {
     if (message !== "PROXY_OK" || handled.current || !client) return;
+    // The answer must come from the server itself, not a page on the way.
+    if (!sameOrigin(pageUrl, client.rootBase())) return;
     handled.current = true;
     setSaving(true);
     try {
@@ -104,7 +107,9 @@ export function ProxySignIn({
           <WebView
             source={{ uri: client.rootBase() }}
             injectedJavaScript={PROBE}
-            onMessage={(event) => void onMessage(event.nativeEvent.data)}
+            onMessage={(event) =>
+              void onMessage(event.nativeEvent.data, event.nativeEvent.url)
+            }
             javaScriptEnabled
             domStorageEnabled
             sharedCookiesEnabled

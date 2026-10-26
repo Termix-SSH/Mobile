@@ -32,7 +32,7 @@ import {
 } from "@/core/accounts/link/login";
 import type { SignInOption } from "@/core/accounts/link/methods";
 import { ProxySignIn } from "@/screens/accounts/ProxySignIn";
-import { TOKEN_HANDOFF_SCRIPT } from "./webview-handoff";
+import { readHandoff, TOKEN_HANDOFF_SCRIPT } from "./webview-handoff";
 
 /** How this step signs in. */
 export type BrowserMode =
@@ -279,21 +279,22 @@ export function BrowserStep({
     return false;
   };
 
-  const onMessage = (event: { nativeEvent: { data: string } }) => {
+  const onMessage = (event: {
+    nativeEvent: { data: string; url?: string };
+  }) => {
     if (started.current) return;
-    try {
-      const data = JSON.parse(event.nativeEvent.data);
-      if (data?.type !== "AUTH_SUCCESS") return;
-      if (!data.token || String(data.token).length < 20) {
-        toast.error(
-          "Sign in failed",
-          "The web page signed in but sent no session. Update the server and try again.",
-        );
-        return;
-      }
-      void finish(String(data.token));
-    } catch {
-      // Not ours.
+    const result = readHandoff(
+      event.nativeEvent.data,
+      event.nativeEvent.url,
+      client.serverUrl,
+    );
+    if (result === "empty") {
+      toast.error(
+        "Sign in failed",
+        "The web page signed in but sent no session. Update the server and try again.",
+      );
+    } else if (result) {
+      void finish(result.token);
     }
   };
 
@@ -398,7 +399,7 @@ export function BrowserStep({
           sharedCookiesEnabled={false}
           thirdPartyCookiesEnabled
           {...(Platform.OS === "android" && {
-            mixedContentMode: "always" as const,
+            mixedContentMode: "compatibility" as const,
             allowFileAccess: false,
           })}
           {...(Platform.OS === "ios" && {
