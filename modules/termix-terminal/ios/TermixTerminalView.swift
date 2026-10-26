@@ -288,11 +288,12 @@ class TermixTerminalView: ExpoView {
   private var promptWork: DispatchWorkItem?
   private var lastPromptLine = ""
 
-  /// Hidden tabs stay mounted behind opacity 0. The surface stops drawing while hidden and
-  /// draws a fresh frame when shown, or it comes back empty.
+  /// Hidden tabs stay mounted behind opacity 0 and keep drawing; pausing the renderer left
+  /// some blank when shown again. A tab that comes back draws a fresh frame.
   func setSurfaceVisible(_ visible: Bool) {
+    let wasShown = surfaceShown
     surfaceShown = visible
-    terminalView.setSurfaceVisible(visible)
+    if visible, !wasShown { terminalView.fitToSize() }
   }
   private var surfaceShown = true
 
@@ -494,17 +495,31 @@ class TermixTerminalView: ExpoView {
   /// Takes the keyboard. A tab that was just shown can refuse on the first try, so a refusal
   /// tries once more on the next main turn. Reports what it saw, for the trace log.
   func focusTerminal(done: @escaping ([String: Any]) -> Void) {
-    let first = terminalView.acquireProgrammaticFocus()
-    let before = focusState()
-    if first {
-      done(["ok": true, "retried": false, "state": before])
+    focusWhenReady(waited: 0, done: done)
+  }
+
+  /// A tab being shown gets its focus call before its new props land. Focus taken while the
+  /// tab is still hidden or under a view with touches off starts an input session that never
+  /// gets keys, so wait a frame at a time until it is really shown.
+  private func focusWhenReady(waited: Int, done: @escaping ([String: Any]) -> Void) {
+    let ready = surfaceShown && !touchBlocked && window != nil
+    if !ready, waited < 20 {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.016) { [weak self] in
+        self?.focusWhenReady(waited: waited + 1, done: done)
+      }
       return
     }
-    DispatchQueue.main.async { [weak self] in
-      guard let self else { return }
-      let second = terminalView.acquireProgrammaticFocus()
-      done(["ok": second, "retried": true, "before": before, "state": focusState()])
+    let ok = terminalView.acquireProgrammaticFocus()
+    done(["ok": ok, "waitedFrames": waited, "ready": ready, "state": focusState()])
+  }
+
+  private var touchBlocked: Bool {
+    var node: UIView? = terminalView
+    while let view = node {
+      if !view.isUserInteractionEnabled { return true }
+      node = view.superview
     }
+    return false
   }
 
   private func focusState() -> [String: Any] {

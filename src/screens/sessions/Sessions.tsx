@@ -455,8 +455,8 @@ export default function Sessions() {
       !isCustomKeyboardVisible &&
       !keyboardIntentionallyHiddenRef.current &&
       !isAppLocked();
-    // The old one lets go first so iOS ends its input session, then the new one takes the
-    // keyboard in the same batch, before it has time to hide.
+    // The new terminal takes the keyboard once it is really shown (it waits for that), and
+    // iOS moves it over without hiding it. Otherwise the old one lets go.
     trace("kb", "tab switch", {
       from: tabTag(prev),
       to: tabTag(activeSessionId),
@@ -465,8 +465,8 @@ export default function Sessions() {
       userHid: keyboardIntentionallyHiddenRef.current,
       keysPanel: isCustomKeyboardVisible,
     });
-    tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
     if (keepKeyboard) next.focus();
+    else tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSessionId]);
 
