@@ -140,7 +140,10 @@ describe("lock machine", () => {
     const away = run(front, { type: "delay", ms: 60_000 }, app("inactive", 1));
     expect(shouldCover(away, true)).toBe(true);
     expect(shouldCover(away, false)).toBe(false);
-    expect(shouldCover(initialLockState("inactive"), true)).toBe(false);
+    // With App Lock off, hide still covers the app switcher picture.
+    expect(shouldCover(initialLockState("inactive"), true)).toBe(true);
+    expect(shouldCover(initialLockState("inactive"), false)).toBe(false);
+    expect(shouldCover(initialLockState("active"), true)).toBe(false);
     const prompt = run(front, { type: "bioStart" }, app("inactive", 1));
     expect(shouldCover(prompt, true)).toBe(false);
   });

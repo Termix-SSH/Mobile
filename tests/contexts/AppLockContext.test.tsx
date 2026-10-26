@@ -47,6 +47,16 @@ async function setup(enabled = true) {
 const send = (s: string) => act(() => listener?.(s));
 
 describe("AppLockProvider", () => {
+  it("hides the app switcher picture with App Lock off", async () => {
+    const { result } = await setup(false);
+    await act(() => result.current.setHideInSwitcher(true));
+    await send("inactive");
+    expect(result.current.covered).toBe(true);
+    expect(result.current.locked).toBe(false);
+    await send("active");
+    expect(result.current.covered).toBe(false);
+  });
+
   it("starts locked when enabled and runs the lock hooks", async () => {
     const hook = jest.fn();
     const off = onAppLocked(hook);

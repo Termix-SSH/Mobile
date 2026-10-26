@@ -74,10 +74,7 @@ function RootLayoutContent() {
   const lock = useAppLock();
   const still = useReduceMotion();
   // While a full screen layer is up, screen readers must not reach what is under it.
-  const covered =
-    welcomeVisible ||
-    authFlowVisible ||
-    (lock.enabled && (lock.locked || lock.covered));
+  const covered = welcomeVisible || authFlowVisible || lock.covered;
   usePluginFrameFeatures();
   useAppShortcuts();
   useWidgetSync();
@@ -170,7 +167,8 @@ function RootLayoutContent() {
 function AppLockGate() {
   const { enabled, locked, covered, hideInSwitcher } = useAppLock();
   // Android hides the recents thumbnail with the secure flag; iOS uses the cover below.
-  const secure = enabled && hideInSwitcher && Platform.OS === "android";
+  // Both work with App Lock off.
+  const secure = hideInSwitcher && Platform.OS === "android";
   useEffect(() => {
     if (!secure) return;
     preventScreenCaptureAsync("termix-lock").catch(() => {});
@@ -178,8 +176,7 @@ function AppLockGate() {
       allowScreenCaptureAsync("termix-lock").catch(() => {});
     };
   }, [secure]);
-  if (!enabled) return null;
-  if (locked) return <LockScreen />;
+  if (enabled && locked) return <LockScreen />;
   if (covered)
     return (
       <View

@@ -101,10 +101,12 @@ function appChange(s: LockState, next: LockAppState, now: number): LockState {
   };
 }
 
-/** Whether the screen should be covered: locked, or the system may snapshot it. */
+/**
+ * Whether the screen should be covered: locked, or the system may snapshot
+ * it. Hiding in the app switcher works with App Lock off too.
+ */
 export function shouldCover(s: LockState, hideInSwitcher: boolean): boolean {
-  if (!s.enabled) return false;
-  if (s.locked) return true;
+  if (s.enabled && s.locked) return true;
   return hideInSwitcher && s.app !== "active" && !s.authenticating;
 }
 
