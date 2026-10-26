@@ -35,7 +35,8 @@ export const expoDriver: DbDriver | null = {
       intermediates: true,
       idempotent: true,
     });
-    // Files from before 2.0 builds moved them; a failed move keeps them where they were.
+    // Older builds kept the files in Documents. A failed move leaves them
+    // there, and this run opens them from there.
     const result = await moveDatabase(
       name,
       String(defaultDatabaseDirectory),
