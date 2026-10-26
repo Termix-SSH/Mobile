@@ -4,6 +4,8 @@ import {
   isNetAvailable,
   NativeSocket,
   nativeStream,
+  peekServerKey,
+  setServerPins,
   tcpProbe,
   udpSend,
 } from "@/modules/termix-net";
@@ -86,4 +88,24 @@ test("tcpProbe and udpSend call the module", async () => {
   expect(await tcpProbe("h", 22)).toBe(false);
   await udpSend("10.0.0.255", 9, "AA==");
   expect(net.udpSend).toHaveBeenCalledWith("10.0.0.255", 9, "AA==");
+});
+
+test("pins go to the native store and a server key can be read", async () => {
+  const net = fakeNet();
+  const pin = "P".repeat(43) + "=";
+  await setServerPins("t.example", [pin]);
+  expect(net.pins.get("t.example")).toEqual([pin]);
+  await setServerPins("t.example", []);
+  expect(net.pins.has("t.example")).toBe(false);
+  await expect(peekServerKey("t.example", 443)).resolves.toMatchObject({
+    pin: net.serverKey,
+  });
+});
+
+test("without the module, pins do nothing and reading a key says why", async () => {
+  clearFakeNet();
+  await expect(setServerPins("t.example", ["x"])).resolves.toBeUndefined();
+  expect(() => peekServerKey("t.example", 443)).toThrow(
+    "This build can't use client certificates.",
+  );
 });

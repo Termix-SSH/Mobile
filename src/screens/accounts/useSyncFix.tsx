@@ -30,6 +30,7 @@ export function useSyncFix(
           return;
         case "proxy_password":
         case "pick_cert":
+        case "check_pin":
           if (pathname !== SYNC_SETTINGS) router.push(SYNC_SETTINGS as never);
           else toast.info("Change it under Proxy below");
           return;

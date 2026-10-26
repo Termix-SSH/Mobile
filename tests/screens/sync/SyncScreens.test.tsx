@@ -3,6 +3,7 @@ import { accounts } from "@/core/accounts";
 import { localStores } from "@/core/db/stores";
 import { SyncBanner } from "@/screens/hosts/SyncBanner";
 import SyncSettings from "@/screens/settings/Sync";
+import { ConfirmProvider } from "@/ui";
 import { resetStorage } from "../../helpers/http";
 import { testDriver } from "../../helpers/db";
 
@@ -65,7 +66,11 @@ test("the banner stays away when sync is fine or only offline", async () => {
 
 test("the sync screen lists what syncs and offers unlink with keep", async () => {
   await linkedAccount({ lastSyncAt: new Date().toISOString() });
-  await render(<SyncSettings />);
+  await render(
+    <ConfirmProvider>
+      <SyncSettings />
+    </ConfirmProvider>,
+  );
   expect(screen.getByText("What syncs")).toBeTruthy();
   expect(screen.getByText("Hosts and folders")).toBeTruthy();
   expect(screen.getByText("Snippets")).toBeTruthy();
@@ -76,7 +81,11 @@ test("the sync screen lists what syncs and offers unlink with keep", async () =>
 
 test("a server that can't sync says how to turn it on", async () => {
   await linkedAccount({ options: { sync: false } });
-  await render(<SyncSettings />);
+  await render(
+    <ConfirmProvider>
+      <SyncSettings />
+    </ConfirmProvider>,
+  );
   expect(
     screen.getByText("This server reads live and keeps no copy on the phone."),
   ).toBeTruthy();

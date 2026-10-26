@@ -31,6 +31,16 @@ export interface NetResponse {
   url: string;
 }
 
+/** What a server's certificate says, read before it is trusted. */
+export interface ServerKey {
+  /** base64 sha256 of the public key (SPKI), the value a pin holds. */
+  pin: string;
+  subject: string | null;
+  issuer: string | null;
+  notAfter: number | null;
+  selfSigned: boolean | null;
+}
+
 export interface CertInfo {
   subject: string | null;
   /** Milliseconds since 1970, when the platform can read it. */
@@ -68,6 +78,8 @@ export interface TermixNetNative {
   ): Promise<CertInfo>;
   removeClientCert(accountId: string): Promise<void>;
   hasClientCert(accountId: string): Promise<boolean>;
+  setServerPins?(host: string, pins: string[]): Promise<void>;
+  peekServerKey?(host: string, port: number): Promise<ServerKey>;
   readWebCookies(url: string): Promise<NetCookie[]>;
   readJarCookies?(url: string): Promise<NetCookie[]>;
   setCookies(url: string, cookies: NetCookie[]): Promise<void>;
@@ -138,6 +150,21 @@ export async function removeClientCert(accountId: string): Promise<void> {
 
 export async function hasClientCert(accountId: string): Promise<boolean> {
   return (await native?.hasClientCert(accountId).catch(() => false)) ?? false;
+}
+
+/** Pins a server's keys for every request and web view to that host. Empty unpins. */
+export async function setServerPins(
+  host: string,
+  pins: string[],
+): Promise<void> {
+  await native?.setServerPins?.(host, pins);
+}
+
+/** Reads the key a server shows, without trusting it, so the user can pin it. */
+export function peekServerKey(host: string, port: number): Promise<ServerKey> {
+  const net = need();
+  if (!net.peekServerKey) throw new Error("This build can't read server keys.");
+  return net.peekServerKey(host, port);
 }
 
 export async function readWebCookies(url: string): Promise<NetCookie[]> {

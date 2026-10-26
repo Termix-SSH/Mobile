@@ -14,6 +14,8 @@ export type SyncErrorKind =
   | "basic_auth"
   | "client_cert"
   | "tls"
+  /** The server shows another key than the one pinned for it. */
+  | "pin_mismatch"
   | "offline"
   | "server"
   /** The server's sync protocol is newer than this app. */

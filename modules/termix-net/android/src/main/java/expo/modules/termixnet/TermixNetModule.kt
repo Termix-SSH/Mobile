@@ -45,6 +45,21 @@ class TermixNetModule : Module() {
 
     AsyncFunction("hasClientCert") { accountId: String -> ClientCerts.has(accountId) }
 
+    AsyncFunction("setServerPins") { host: String, pins: List<String> ->
+      ServerPins.set(context, host, pins)
+      // Pooled connections were checked without the new pins.
+      OkHttpClientProvider.getOkHttpClient().connectionPool.evictAll()
+    }
+
+    // Reads the key a server shows, without trusting it, so the user can pin it.
+    AsyncFunction("peekServerKey") { host: String, port: Int ->
+      try {
+        ServerKeys.peek(host, port)
+      } catch (e: Exception) {
+        throw CodedException("PEEK_FAILED", e.message ?: "Could not reach the server", e)
+      }
+    }
+
     AsyncFunction("tcpProbe") { host: String, port: Int, timeoutMs: Int ->
       try {
         Socket().use { it.connect(InetSocketAddress(host, port), maxOf(timeoutMs, 100)) }

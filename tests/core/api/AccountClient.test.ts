@@ -362,3 +362,31 @@ test("a 401 for a token that was swapped meanwhile keeps the new session", async
   expect(lost).toHaveBeenCalledTimes(1);
   expect(c.token()).toBeNull();
 });
+
+test("pins go to the native store by host, are kept, and come back on load", async () => {
+  const net = fakeNet({ nativeRequests: true });
+  const pin = "K".repeat(43) + "=";
+  const c = client();
+  expect(c.usesNativeNetwork()).toBe(false);
+  await c.setCertPins([pin]);
+  expect(net.pins.get("termix.example")).toEqual([pin]);
+  // On iOS a pinned server's requests go through the module, which checks it.
+  expect(c.usesNativeNetwork()).toBe(true);
+  net.pins.clear();
+  const again = client();
+  await again.load();
+  expect(again.certPins()).toEqual([pin]);
+  expect(net.pins.get("termix.example")).toEqual([pin]);
+  await again.setCertPins([]);
+  expect(net.pins.size).toBe(0);
+  expect(client().certPins()).toEqual([]);
+});
+
+test("wipe unpins the server", async () => {
+  const net = fakeNet();
+  const c = client();
+  await c.setCertPins(["K".repeat(43) + "="]);
+  await c.wipe();
+  expect(net.pins.size).toBe(0);
+  expect(c.certPins()).toEqual([]);
+});

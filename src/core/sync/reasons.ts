@@ -12,6 +12,7 @@ export type SyncFix =
   | "proxy_sign_in"
   | "proxy_password"
   | "pick_cert"
+  | "check_pin"
   | "update"
   | "retry";
 
@@ -69,6 +70,13 @@ const TEXT: Record<SyncReason, ReasonText> = {
     message: "The server's certificate is not trusted by this phone.",
     fix: "retry",
     fixLabel: "Try again",
+  },
+  pin_mismatch: {
+    title: "Server key changed",
+    message:
+      "The server shows another key than the one pinned for it. If you changed its certificate, pin the new key.",
+    fix: "check_pin",
+    fixLabel: "Check the pin",
   },
   offline: {
     title: "Offline",

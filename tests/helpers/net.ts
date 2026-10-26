@@ -9,6 +9,10 @@ type Listener = (event: any) => void;
 
 export interface FakeNet extends TermixNetNative {
   certs: Map<string, string>;
+  /** Pins per host, as the native store keeps them. */
+  pins: Map<string, string[]>;
+  /** The key a peek at any server reads. */
+  serverKey: string;
   cookies: Map<string, NetCookie[]>;
   webCookies: NetCookie[];
   /** What the app's own request jar holds. */
@@ -25,6 +29,21 @@ export function fakeNet(options: { nativeRequests?: boolean } = {}): FakeNet {
   const net: FakeNet = {
     nativeRequests: options.nativeRequests ?? false,
     certs: new Map(),
+    pins: new Map(),
+    serverKey: "S".repeat(43) + "=",
+    async setServerPins(host, pins) {
+      if (pins.length) net.pins.set(host, pins);
+      else net.pins.delete(host);
+    },
+    async peekServerKey() {
+      return {
+        pin: net.serverKey,
+        subject: "CN=termix",
+        issuer: "CN=termix",
+        notAfter: null,
+        selfSigned: true,
+      };
+    },
     cookies: new Map(),
     webCookies: [],
     jarCookies: [],

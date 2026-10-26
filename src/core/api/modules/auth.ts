@@ -163,7 +163,7 @@ export function createAuthApi(c: AccountClient) {
     } catch (error) {
       if (isLocalNetworkHttpsUrl(url) && isNativeNetworkFailure(error)) {
         throw new ApiError(
-          "The app could not trust HTTPS for this local IP. Use a DNS name with a valid certificate, a certificate for this IP, or HTTP on a trusted local/VPN network.",
+          "The app could not trust HTTPS for this local IP. Pin the server's key under Proxy and client certificate, use a certificate the phone trusts, or HTTP on a trusted local or VPN network.",
           0,
           "LOCAL_IP_HTTPS_CERTIFICATE_ERROR",
         );

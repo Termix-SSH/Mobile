@@ -13,6 +13,7 @@ import { Button, Input, PromptSheet, SettingRow, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { readLocalBase64 } from "@/utils/localFile";
 import { toast } from "@/utils/toast";
+import { CertPinSettings } from "./CertPinSettings";
 import { ProxySignIn } from "./ProxySignIn";
 
 const CF_ID = "CF-Access-Client-Id";
@@ -21,7 +22,7 @@ const CF_SECRET = "CF-Access-Client-Secret";
 /**
  * How this phone gets through a reverse proxy in front of a server: extra
  * headers (a Cloudflare service token is two of them), basic auth, a client
- * certificate, or the proxy's own sign in page.
+ * certificate, a pinned server key, or the proxy's own sign in page.
  */
 export function ProxySettings({
   client,
@@ -222,6 +223,8 @@ export function ProxySettings({
       >
         {cert ? "Replace certificate" : "Pick a .p12 or .pfx file"}
       </Button>
+
+      <CertPinSettings client={client} onSaved={onSaved} />
 
       <Text weight="medium" className="mb-1 text-sm text-foreground">
         Proxy sign in

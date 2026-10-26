@@ -21,6 +21,7 @@ import {
 import { resetStorage } from "../../helpers/http";
 import { testDriver } from "../../helpers/db";
 import { FakeSyncServer } from "../../helpers/syncServer";
+import { clearFakeNet, fakeNet } from "../../helpers/net";
 
 const streams: {
   url: string;
@@ -337,4 +338,16 @@ test("a live server is still checked every few minutes for other devices' pushes
   const before = pulls();
   await jest.advanceTimersByTimeAsync(5 * 60_000 + 100);
   expect(pulls()).toBeGreaterThan(before);
+});
+
+test("a failed pass to a server whose key no longer matches its pin says so", async () => {
+  jest.useFakeTimers();
+  const net = fakeNet();
+  await accounts.client(account.id)!.setCertPins(["K".repeat(43) + "="]);
+  net.serverKey = "Z".repeat(43) + "=";
+  (server as any).handle = () => new Error("Network Error");
+  manager.start();
+  await jest.advanceTimersByTimeAsync(10);
+  expect(find()).toMatchObject({ status: "error", lastError: "pin_mismatch" });
+  clearFakeNet();
 });

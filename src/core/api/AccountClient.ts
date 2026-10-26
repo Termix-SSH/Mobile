@@ -12,6 +12,7 @@ import {
   needsNativeRequests,
   readJarCookies,
   removeClientCert,
+  setServerPins,
   setCookies,
   type NetCookie,
 } from "@/modules/termix-net";
@@ -101,6 +102,7 @@ const DATA_KEYS = [
   "hostOrigins",
   "savedLoginOn",
   "savedLoginAsked",
+  "certPins",
 ];
 
 /**
@@ -134,6 +136,7 @@ export class AccountClient implements HttpOwner {
   private customHeaders: ProxyHeader[] = [];
   private basic: BasicAuth | null = null;
   private cert: ClientCert | null = null;
+  private pins: string[] = [];
   private cookies: NetCookie[] = [];
   private loaded: Promise<void> | null = null;
   private listeners = new Set<() => void>();
@@ -160,6 +163,7 @@ export class AccountClient implements HttpOwner {
         generation,
         plugins,
         oldPlugins,
+        pins,
       ] = await Promise.all([
         secrets.get("session"),
         secrets.getJson<ProxyHeader[]>("customHeaders"),
@@ -170,6 +174,7 @@ export class AccountClient implements HttpOwner {
         data.getJson<unknown>("serverPlugins"),
         // Builds before 2.0 kept only the plugins that were on.
         data.getJson<unknown>("enabledPlugins"),
+        data.getJson<string[]>("certPins"),
       ]);
       this.sessionToken = token;
       this.customHeaders = Array.isArray(headers) ? headers : [];
@@ -177,6 +182,11 @@ export class AccountClient implements HttpOwner {
       // Older builds saved the certificate file itself here; it never worked.
       this.cert = cert && !("pfx" in cert) ? cert : null;
       this.cookies = Array.isArray(cookies) ? cookies : [];
+      this.pins = Array.isArray(pins) ? pins : [];
+      // The native store keeps pins too; put them back in case it lost them.
+      if (this.pins.length) {
+        await setServerPins(this.pinHost(), this.pins).catch(() => {});
+      }
       // Session cookies are gone after a restart, so put them back, but never
       // over a newer value the proxy set meanwhile.
       await this.syncCookieJar().catch(() => {});
@@ -329,6 +339,27 @@ export class AccountClient implements HttpOwner {
     this.emit();
   }
 
+  /** Pinned public keys of this server, base64 sha256. Empty when not pinned. */
+  certPins(): string[] {
+    return [...this.pins];
+  }
+
+  /**
+   * Trusts this server only by these keys, for API calls, sockets and web
+   * views. A self-signed server works once pinned. Empty turns pinning off.
+   */
+  async setCertPins(pins: string[]): Promise<void> {
+    await setServerPins(this.pinHost(), pins);
+    this.pins = [...pins];
+    if (pins.length) await this.storage.data.setJson("certPins", this.pins);
+    else await this.storage.data.remove("certPins").catch(() => {});
+    this.emit();
+  }
+
+  private pinHost(): string {
+    return new URL(this.rootBase()).hostname;
+  }
+
   /** Cookies from a proxy sign in (Cloudflare Access, Authelia, ...). */
   proxyCookies(): NetCookie[] {
     return [...this.cookies];
@@ -368,9 +399,12 @@ export class AccountClient implements HttpOwner {
     return hasExpiredCookie(this.cookies, now);
   }
 
-  /** True when requests must go through the module to send the certificate. */
+  /**
+   * True when requests must go through the module: to send the client
+   * certificate, or for the pin to be checked (iOS).
+   */
   usesNativeNetwork(): boolean {
-    return !!this.cert && needsNativeRequests();
+    return (!!this.cert || this.pins.length > 0) && needsNativeRequests();
   }
 
   adapter(): AxiosAdapter | undefined {
@@ -395,6 +429,9 @@ export class AccountClient implements HttpOwner {
   async wipe(): Promise<void> {
     this.sessionToken = null;
     await removeClientCert(this.accountId);
+    if (this.pins.length)
+      await setServerPins(this.pinHost(), []).catch(() => {});
+    this.pins = [];
     await clearCookie(this.rootBase(), "jwt");
     await this.storage.wipe({ data: DATA_KEYS, secrets: SECRET_KEYS });
   }

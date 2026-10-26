@@ -231,10 +231,11 @@ final class NetSession: NSObject, URLSessionDataDelegate, URLSessionWebSocketDel
     }
   }
 
-  // Client certificates
+  // Client certificates and pinned server keys
 
   func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge,
                   completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+    if ServerPins.answer(challenge, completionHandler) { return }
     if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodClientCertificate,
       let credential = ClientIdentity.credential(host: challenge.protectionSpace.host) {
       completionHandler(.useCredential, credential)

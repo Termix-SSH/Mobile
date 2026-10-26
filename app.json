@@ -84,7 +84,7 @@
       "./plugins/withIOSNetworkSecurity.js",
       "./plugins/withNetworkSecurityConfig.js",
       "./plugins/withNoBackup.js",
-      "./plugins/withAndroidLocalNetworkSsl.js",
+      "./plugins/withWebViewPins.js",
       "./plugins/withTermixWidgets.js",
       "./plugins/withLargeScreen.js",
       "./plugins/withPodDeploymentTarget.js",

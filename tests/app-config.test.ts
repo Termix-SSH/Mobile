@@ -60,3 +60,61 @@ describe("no backups or device transfer", () => {
     });
   });
 });
+
+describe("web view pins", () => {
+  const plugin = require("../plugins/withWebViewPins.js");
+  const OLD_ANDROID = [
+    "import java.net.InetAddress;",
+    "import java.net.URI;",
+    "public class RNCWebViewClient {",
+    "    private static boolean isTermixLocalNetworkHost(String url) {",
+    "        return true;",
+    "    }",
+    "",
+    "    @Override",
+    "    public void onReceivedSslError(final WebView webView, final SslErrorHandler handler, final SslError error) {",
+    "        String failingUrl = error.getUrl();",
+    "",
+    "        if (isTermixLocalNetworkHost(failingUrl)) {",
+    "            handler.proceed();",
+    "            return;",
+    "        }",
+    "",
+    "        // Cancel request after obtaining top-level URL.",
+    "        handler.cancel();",
+    "    }",
+    "}",
+  ].join("\n");
+
+  test("the old LAN bypass is no longer used", () => {
+    expect(config.plugins).toContain("./plugins/withWebViewPins.js");
+    expect(config.plugins).not.toContain(
+      "./plugins/withAndroidLocalNetworkSsl.js",
+    );
+  });
+
+  test("Android proceeds only for a pinned key, and the old bypass is gone", () => {
+    const out = plugin.patchAndroid(OLD_ANDROID);
+    expect(out).not.toContain("isTermixLocalNetworkHost");
+    expect(out).toContain('"matchesWebCertificate"');
+    expect(out.indexOf("matchesWebCertificate")).toBeLessThan(
+      out.indexOf("handler.cancel()"),
+    );
+    expect(plugin.patchAndroid(out)).toBe(out);
+  });
+
+  test("iOS answers pinned hosts by key, and refuses a changed key", () => {
+    const objc = [
+      "{",
+      "  if ([[challenge protectionSpace] authenticationMethod] == NSURLAuthenticationMethodClientCertificate) {",
+      "  }",
+      "}",
+    ].join("\n");
+    const out = plugin.patchIos(objc);
+    expect(out).toContain('NSSelectorFromString(@"pinState:host:")');
+    expect(out).toContain(
+      "NSURLSessionAuthChallengeCancelAuthenticationChallenge",
+    );
+    expect(plugin.patchIos(out)).toBe(out);
+  });
+});

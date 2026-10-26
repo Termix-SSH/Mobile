@@ -7,6 +7,8 @@ import { createLogger } from "@/core/log/logger";
 import { SyncEngine, type PassSummary } from "./engine";
 import { EDITABLE_TABLES } from "./entities";
 import { classifyRemoteError, needsUser, SyncError } from "./errors";
+import { pinMismatch } from "@/core/api/pins";
+import { peekServerKey } from "@/modules/termix-net";
 import { openEventStream } from "./events";
 import { fillServerIds } from "./host-ids";
 import { mergeThisDevice } from "./link";
@@ -352,8 +354,19 @@ export class SyncManager {
     slot: Slot,
     error: unknown,
   ): Promise<void> {
-    const sync =
-      error instanceof SyncError ? error : classifyRemoteError(error);
+    let sync = error instanceof SyncError ? error : classifyRemoteError(error);
+    // A refused pin looks like any failed connection, so ask the server.
+    const client = accounts.client(accountId);
+    if (
+      (sync.kind === "offline" || sync.kind === "tls") &&
+      client &&
+      (await pinMismatch(client.rootBase(), client.certPins(), peekServerKey))
+    ) {
+      sync = new SyncError(
+        "pin_mismatch",
+        "The server shows another key than the pinned one.",
+      );
+    }
     const reason = reasonOf(sync);
     log.warn("Sync pass failed", {
       operation: "sync_pass",

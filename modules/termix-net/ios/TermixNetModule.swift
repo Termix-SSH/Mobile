@@ -59,6 +59,14 @@ public class TermixNetModule: Module {
       ClientIdentity.has(accountId: accountId)
     }
 
+    AsyncFunction("setServerPins") { (host: String, pins: [String]) in
+      ServerPins.set(host: host, pins: pins)
+    }
+
+    AsyncFunction("peekServerKey") { (host: String, port: Int) -> [String: Any] in
+      try await ServerPins.peek(host: host, port: port)
+    }
+
     AsyncFunction("request") { (request: NetRequest, promise: Promise) in
       self.net.request(url: request.url, method: request.method, headers: request.headers, body: request.bodyData,
                        timeoutMs: request.timeoutMs) { result in
