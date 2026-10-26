@@ -1,21 +1,12 @@
-import React, { useEffect, useRef } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Keyboard,
-  StyleSheet,
-  type FlatList,
-} from "react-native";
+import React from "react";
+import { View, TouchableOpacity, Keyboard, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
-  X,
   ArrowLeft,
   Plus,
   Minus,
   ChevronDown,
   ChevronUp,
-  SquareTerminal,
   Layers,
 } from "lucide-react-native";
 import {
@@ -23,21 +14,11 @@ import {
   TerminalSession,
 } from "@/contexts/TerminalSessionsContext";
 import { useRouter } from "expo-router";
-import { isSecondaryClick } from "@/ui/ContextMenu";
 import { useWindowInfo } from "@/utils/window-class";
 import { getTabBarHeight, getButtonSize } from "@/utils/responsive";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { features } from "@/core/features";
-import { displayTitle } from "@/contexts/session-tabs";
-import { useSessionStatuses } from "@/core/sessions/status";
-import { statusLabel, TabStatusMark } from "./TabStatusMark";
-import DraggableFlatList, {
-  ScaleDecorator,
-} from "react-native-draggable-flatlist";
-
-function getSessionIcon(type: SessionType) {
-  return features.sessionTab(type)?.icon ?? SquareTerminal;
-}
+import { TabStrip } from "./TabStrip";
 
 interface TabBarProps {
   sessions: TerminalSession[];
@@ -77,41 +58,12 @@ export default function TabBar({
   onTabMove,
 }: TabBarProps) {
   const ui = useUiColors();
-  const statuses = useSessionStatuses();
   const router = useRouter();
   const { isLandscape, isShort } = useWindowInfo();
   const insets = useSafeAreaInsets();
 
   const tabBarHeight = getTabBarHeight(isLandscape, isShort);
   const buttonSize = getButtonSize(isLandscape, 44, isShort);
-
-  // The list is rebuilt when a tab opens or closes. Its cells keep their own measured
-  // positions, and a new cell could land on top of an old one of the same width.
-  // Sorted, so moving a tab does not rebuild it mid drag.
-  const tabsKey = sessions
-    .map((s) => s.id)
-    .sort()
-    .join("|");
-  const listRef = useRef<Pick<
-    FlatList<TerminalSession>,
-    "scrollToIndex" | "scrollToEnd"
-  > | null>(null);
-  const activeIndex = sessions.findIndex((s) => s.id === activeSessionId);
-  useEffect(() => {
-    if (activeIndex < 0) return;
-    const timer = setTimeout(() => {
-      try {
-        listRef.current?.scrollToIndex({
-          index: activeIndex,
-          viewPosition: 0.5,
-          animated: false,
-        });
-      } catch {
-        listRef.current?.scrollToEnd({ animated: false });
-      }
-    }, 50);
-    return () => clearTimeout(timer);
-  }, [tabsKey, activeIndex]);
 
   const needsBottomPadding = !features.sessionHas(
     activeSessionType,
@@ -176,115 +128,15 @@ export default function TabBar({
         </BarButton>
 
         <View style={{ flex: 1, justifyContent: "center" }}>
-          <DraggableFlatList
-            key={tabsKey}
-            ref={listRef as never}
-            horizontal
-            data={sessions}
-            keyExtractor={(session) => session.id}
-            // Rows are memoized; the active tab and status live outside the data.
-            extraData={[activeSessionId, statuses, isLandscape, isShort]}
-            keyboardShouldPersistTaps="always"
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ alignItems: "center" }}
-            onScrollToIndexFailed={() =>
-              listRef.current?.scrollToEnd({ animated: false })
-            }
-            activationDistance={8}
-            onDragEnd={({ data, from, to }) => {
-              if (from !== to) onTabMove?.(data[to].id, to);
-            }}
-            renderItem={({ item: session, drag, isActive: dragging }) => {
-              const isActive = session.id === activeSessionId;
-              const SessionIcon = getSessionIcon(session.type);
-              const title = displayTitle(session);
-              const status = statuses[session.id]?.state;
-              const statusText = statusLabel(status);
-              return (
-                <ScaleDecorator>
-                  <View style={{ marginRight: 4 }}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        isActive && onTabMenu
-                          ? onTabMenu(session.id)
-                          : onTabPress(session.id)
-                      }
-                      onLongPress={drag}
-                      delayLongPress={250}
-                      disabled={dragging}
-                      focusable={false}
-                      accessibilityRole="tab"
-                      accessibilityState={{ selected: isActive }}
-                      accessibilityLabel={
-                        statusText ? `${title}, ${statusText}` : title
-                      }
-                      accessibilityHint={
-                        isActive
-                          ? "Tap for tab options, hold to move"
-                          : "Hold to move"
-                      }
-                      className="flex-row items-center"
-                      activeOpacity={0.7}
-                      style={{
-                        backgroundColor:
-                          isActive || dragging ? ui.card : "transparent",
-                        // The open tab gets a brand line, like core's tab bar.
-                        borderBottomWidth: 2,
-                        borderBottomColor: isActive ? ui.brand : "transparent",
-                        minWidth: isLandscape ? 88 : 104,
-                        maxWidth: 200,
-                        height: buttonSize,
-                      }}
-                    >
-                      <View
-                        className="flex-1 flex-row items-center gap-1.5 pl-2.5"
-                        style={{ height: buttonSize }}
-                        onPointerDown={(e) => {
-                          if (isSecondaryClick(e.nativeEvent)) {
-                            onTabMenu?.(session.id);
-                          }
-                        }}
-                      >
-                        <SessionIcon
-                          size={isLandscape ? 12 : 13}
-                          color={isActive ? ui.brand : ui.textMuted}
-                          strokeWidth={2}
-                        />
-                        <Text
-                          className="flex-1 text-xs font-medium"
-                          style={{ color: isActive ? ui.text : ui.textMuted }}
-                          numberOfLines={1}
-                        >
-                          {title}
-                        </Text>
-                        <TabStatusMark state={status} />
-                      </View>
-                      <TouchableOpacity
-                        onPress={(e) => {
-                          e.stopPropagation();
-                          onTabClose(session.id);
-                        }}
-                        focusable={false}
-                        accessibilityRole="button"
-                        accessibilityLabel={`Close ${title}`}
-                        className="items-center justify-center"
-                        activeOpacity={0.6}
-                        style={{
-                          width: isLandscape ? 28 : 32,
-                          height: buttonSize,
-                        }}
-                      >
-                        <X
-                          size={isLandscape ? 13 : 14}
-                          color={isActive ? ui.textMuted : ui.textFaint}
-                          strokeWidth={2.5}
-                        />
-                      </TouchableOpacity>
-                    </TouchableOpacity>
-                  </View>
-                </ScaleDecorator>
-              );
-            }}
+          <TabStrip
+            sessions={sessions}
+            activeSessionId={activeSessionId}
+            compact={isLandscape}
+            height={buttonSize}
+            onTabPress={onTabPress}
+            onTabClose={onTabClose}
+            onTabMenu={onTabMenu}
+            onTabMove={onTabMove}
           />
         </View>
 
