@@ -38,6 +38,7 @@ import {
   type SavedTab,
 } from "@/core/sessions";
 import { displayTitle, moveTab, pickActiveTab } from "./session-tabs";
+import { trace } from "@/core/log/trace";
 import { openTab } from "@/screens/shell/navigate";
 
 /** Session tab type. The registry knows which feature owns each one. */
@@ -562,6 +563,9 @@ export const TerminalSessionsProvider: React.FC<
   }, []);
 
   const setKeyboardIntentionallyHidden = useCallback((hidden: boolean) => {
+    if (keyboardIntentionallyHiddenRef.current !== hidden) {
+      trace("kb", hidden ? "user hid keyboard" : "keyboard allowed");
+    }
     keyboardIntentionallyHiddenRef.current = hidden;
     forceUpdate({});
   }, []);

@@ -100,6 +100,7 @@ import {
   type XtermTerminalApi,
 } from "./xterm/XtermTerminalView";
 import { XTERM_FALLBACK } from "./fallback";
+import { trace } from "@/core/log/trace";
 
 interface TerminalProps {
   host: SSHHost;
@@ -775,8 +776,14 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     const keyTarget = useMemo<TerminalKeyTarget>(
       () => ({
-        focus: () => nativeRef.current?.focus(),
-        blur: () => nativeRef.current?.blur(),
+        focus: () => {
+          trace("kb", "terminal focus", { tab: tabInstanceId?.slice(0, 8) });
+          nativeRef.current?.focus();
+        },
+        blur: () => {
+          trace("kb", "terminal blur", { tab: tabInstanceId?.slice(0, 8) });
+          nativeRef.current?.blur();
+        },
         sendKey: (name, shift) =>
           nativeRef.current?.sendKey(name as never, shift),
         typeText: (text) => nativeRef.current?.typeText(text),

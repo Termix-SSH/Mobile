@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Keyboard, Platform, Dimensions } from "react-native";
+import { trace } from "@/core/log/trace";
 
 interface KeyboardContextType {
   keyboardHeight: number;
@@ -51,6 +52,12 @@ export const KeyboardProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const keyboardShowListener = Keyboard.addListener(showEvent, (e) => {
       const newHeight = visibleKeyboardHeight(e.endCoordinates);
+      trace("kb", `event ${showEvent}`, {
+        screenY: Math.round(e.endCoordinates.screenY),
+        width: Math.round(e.endCoordinates.width),
+        height: Math.round(e.endCoordinates.height),
+        visible: Math.round(newHeight),
+      });
       if (newHeight > 0) {
         setKeyboardHeight(newHeight);
         setIsKeyboardVisible(true);
@@ -62,6 +69,7 @@ export const KeyboardProvider: React.FC<{ children: React.ReactNode }> = ({
     });
 
     const keyboardHideListener = Keyboard.addListener(hideEvent, () => {
+      trace("kb", `event ${hideEvent}`);
       setIsKeyboardVisible(false);
       setKeyboardHeight(0);
     });
