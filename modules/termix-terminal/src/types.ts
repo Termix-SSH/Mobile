@@ -105,6 +105,8 @@ export interface TerminalViewProps {
   watchPrompt?: boolean;
   /** False while the tab is hidden behind another. iOS stops drawing it and redraws when shown. */
   surfaceVisible?: boolean;
+  /** What a focus call found: whether it got the keyboard, and why not. iOS only. */
+  onFocusResult?: (result: Record<string, unknown>) => void;
   /** The prompt line changed, while `watchPrompt` is on. */
   onPromptLine?: (line: string) => void;
   /** Hits of the current search, and which one shows (-1 for none). */

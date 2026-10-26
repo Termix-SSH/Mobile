@@ -123,8 +123,8 @@ public class TermixTerminalModule: Module {
         view.clearSearch()
       }.runOnQueue(.main)
 
-      AsyncFunction("focus") { (view: TermixTerminalView) in
-        view.focusTerminal()
+      AsyncFunction("focus") { (view: TermixTerminalView, promise: Promise) in
+        view.focusTerminal { promise.resolve($0) }
       }.runOnQueue(.main)
 
       AsyncFunction("blur") { (view: TermixTerminalView) in

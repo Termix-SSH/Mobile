@@ -35,7 +35,7 @@ interface NativeHandle {
   scrollToBottom(): Promise<void>;
   copySelection(): Promise<void>;
   selectAll(): Promise<void>;
-  focus(): Promise<void>;
+  focus(): Promise<unknown>;
   blur(): Promise<void>;
   toggleModifier(name: string): Promise<void>;
   sendKey(name: string, shift: boolean): Promise<void>;
@@ -134,6 +134,8 @@ export const TerminalView = forwardRef<TerminalViewHandle, TerminalViewProps>(
   function TerminalView(props, ref) {
     const native = useRef<NativeHandle>(null);
     const queue = useMemo(createCallQueue, []);
+    const onFocusResult = useRef(props.onFocusResult);
+    onFocusResult.current = props.onFocusResult;
 
     useImperativeHandle(ref, () => {
       const call = (fn: (n: NativeHandle) => Promise<unknown>) =>
@@ -146,7 +148,14 @@ export const TerminalView = forwardRef<TerminalViewHandle, TerminalViewProps>(
         scrollToBottom: () => call((n) => n.scrollToBottom()),
         copySelection: () => call((n) => n.copySelection()),
         selectAll: () => call((n) => n.selectAll()),
-        focus: () => call((n) => n.focus()),
+        focus: () =>
+          call((n) =>
+            n.focus().then((result) => {
+              if (result && typeof result === "object") {
+                onFocusResult.current?.(result as Record<string, unknown>);
+              }
+            }),
+          ),
         blur: () => call((n) => n.blur()),
         toggleModifier: (name) => call((n) => n.toggleModifier(name)),
         sendKey: (name, shift = false) => call((n) => n.sendKey(name, shift)),

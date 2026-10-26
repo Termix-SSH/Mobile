@@ -291,8 +291,10 @@ class TermixTerminalView: ExpoView {
   /// Hidden tabs stay mounted behind opacity 0. The surface stops drawing while hidden and
   /// draws a fresh frame when shown, or it comes back empty.
   func setSurfaceVisible(_ visible: Bool) {
+    surfaceShown = visible
     terminalView.setSurfaceVisible(visible)
   }
+  private var surfaceShown = true
 
   required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
@@ -489,8 +491,42 @@ class TermixTerminalView: ExpoView {
     onSearch(["total": searchTotal, "index": searchSelected])
   }
 
-  func focusTerminal() {
-    _ = terminalView.acquireProgrammaticFocus()
+  /// Takes the keyboard. A tab that was just shown can refuse on the first try, so a refusal
+  /// tries once more on the next main turn. Reports what it saw, for the trace log.
+  func focusTerminal(done: @escaping ([String: Any]) -> Void) {
+    let first = terminalView.acquireProgrammaticFocus()
+    let before = focusState()
+    if first {
+      done(["ok": true, "retried": false, "state": before])
+      return
+    }
+    DispatchQueue.main.async { [weak self] in
+      guard let self else { return }
+      let second = terminalView.acquireProgrammaticFocus()
+      done(["ok": second, "retried": true, "before": before, "state": focusState()])
+    }
+  }
+
+  private func focusState() -> [String: Any] {
+    var touchBlocked = false
+    var hidden = false
+    var alpha: CGFloat = 1
+    var node: UIView? = terminalView
+    while let view = node {
+      if !view.isUserInteractionEnabled { touchBlocked = true }
+      if view.isHidden { hidden = true }
+      alpha *= view.alpha
+      node = view.superview
+    }
+    return [
+      "first": terminalView.isFirstResponder,
+      "window": window != nil,
+      "touchBlocked": touchBlocked,
+      "hidden": hidden,
+      "alpha": Double(alpha),
+      "shown": surfaceShown,
+      "surface": terminalView.surface != nil,
+    ]
   }
 
   func blurTerminal() {
