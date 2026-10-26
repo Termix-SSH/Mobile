@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { systemLogger } from "@/core/log/logger";
 import { TerminalConfig } from "@/types";
 import { MOBILE_DEFAULT_TERMINAL_CONFIG } from "@/constants/terminal-config";
 
@@ -51,7 +52,7 @@ export const TerminalCustomizationProvider: React.FC<{
           });
         }
       } catch (error) {
-        console.error("Failed to load terminal configuration:", error);
+        systemLogger.error("Failed to load terminal configuration", error);
       } finally {
         setIsLoading(false);
       }
@@ -65,7 +66,7 @@ export const TerminalCustomizationProvider: React.FC<{
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newConfig));
       setConfig(newConfig);
     } catch (error) {
-      console.error("Failed to save terminal configuration:", error);
+      systemLogger.error("Failed to save terminal configuration", error);
     }
   }, []);
 

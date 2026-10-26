@@ -38,6 +38,30 @@ export function redact<T>(value: T, depth = 0): T {
   return out as T;
 }
 
+const URL_IN_TEXT =
+  /\b(https?|wss?):\/\/[^\s/?#"'<>]+([^\s?#"'<>]*)(?:[?#][^\s"'<>]*)?/gi;
+const IPV4 = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
+const JWT = /\beyJ[\w-]{8,}\.[\w-]{8,}\.[\w-]{8,}/g;
+const BEARER = /\b(Bearer|Basic)\s+[\w\-.~+/=]{8,}/gi;
+const SECRET_PAIR =
+  /\b(password|passwd|pass|token|secret|jwt|key)(["']?\s*[:=]\s*["']?)[^\s"',&;]+/gi;
+
+/**
+ * Hides what a log line must not carry: server and host addresses, query
+ * strings, tokens and passwords. Paths stay, since they say what failed.
+ */
+export function redactText(text: string): string {
+  return text
+    .replace(
+      URL_IN_TEXT,
+      (_m, scheme: string, rest: string) => `${scheme}://<server>${rest}`,
+    )
+    .replace(IPV4, "<ip>")
+    .replace(JWT, "[hidden]")
+    .replace(BEARER, "$1 [hidden]")
+    .replace(SECRET_PAIR, "$1$2[hidden]");
+}
+
 /** Keeps request errors short and never prints request headers. */
 export function describeError(error: unknown): unknown {
   if (error && typeof error === "object" && "isAxiosError" in error) {
@@ -59,12 +83,12 @@ export function describeError(error: unknown): unknown {
 /** One line of text for an error, for the log buffer. */
 function errorText(error: unknown): string {
   const e = describeError(error);
-  if (e instanceof Error) return `${e.name}: ${e.message}`;
-  if (typeof e === "string") return e;
+  if (e instanceof Error) return redactText(`${e.name}: ${e.message}`);
+  if (typeof e === "string") return redactText(e);
   try {
-    return JSON.stringify(e) ?? String(e);
+    return redactText(JSON.stringify(e) ?? String(e));
   } catch {
-    return String(e);
+    return redactText(String(e));
   }
 }
 
@@ -147,7 +171,7 @@ class FrontendLogger {
 
     const formattedMessage = this.formatMessage(
       level,
-      message,
+      redactText(message),
       redact(context),
     );
 
@@ -169,7 +193,7 @@ class FrontendLogger {
       case "error":
         console.error(formattedMessage);
         if (error) {
-          console.error("Error details:", describeError(error));
+          console.error("Error details:", errorText(error));
         }
         break;
       case "success":
@@ -372,31 +396,9 @@ class FrontendLogger {
     });
   }
 
-  requestSummary(
-    method: string,
-    url: string,
-    status: number,
-    responseTime: number,
-    context?: LogContext,
-  ): void {
-    const cleanUrl = this.sanitizeUrl(url);
-    const shortUrl = this.getShortUrl(cleanUrl);
-    const statusIcon = this.getStatusIcon(status);
-    const performanceIcon = this.getPerformanceIcon(responseTime);
-
-    console.log(
-      `%c📊 ${method} ${shortUrl} ${statusIcon} ${status} ${performanceIcon} ${responseTime}ms`,
-      "color: #666; font-style: italic; font-size: 0.9em;",
-      context,
-    );
-  }
-
   private getShortUrl(url: string): string {
     try {
-      const urlObj = new URL(url);
-      const path = urlObj.pathname;
-      const query = urlObj.search;
-      return `${urlObj.hostname}${path}${query}`;
+      return new URL(url).pathname;
     } catch {
       return url.length > 50 ? url.substring(0, 47) + "..." : url;
     }
@@ -418,19 +420,9 @@ class FrontendLogger {
     return "🐌";
   }
 
+  // The server and the query never go in the log; the path says what it was.
   private sanitizeUrl(url: string): string {
-    try {
-      const urlObj = new URL(url);
-      if (
-        urlObj.searchParams.has("password") ||
-        urlObj.searchParams.has("token")
-      ) {
-        urlObj.search = "";
-      }
-      return urlObj.toString();
-    } catch {
-      return url;
-    }
+    return redactText(url);
   }
 }
 

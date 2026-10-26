@@ -23,7 +23,7 @@ export default function Logs() {
   return (
     <Screen
       title="Logs"
-      subtitle="Latest lines from this run. Secrets are hidden."
+      subtitle="Latest lines from this run. Server addresses, passwords and tokens are hidden."
       headerLeft={
         <Pressable
           accessibilityRole="button"

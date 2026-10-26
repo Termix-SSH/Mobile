@@ -128,6 +128,7 @@
     "@types/pngjs": "^6.0.5",
     "@types/react": "~19.2.4",
     "@types/semver": "^7.8.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "better-sqlite3": "^13.0.3",
     "drizzle-kit": "^0.31.11",
     "esbuild": "^0.25.12",
