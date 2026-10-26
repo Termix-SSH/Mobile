@@ -358,6 +358,12 @@ class TermixTerminalView: ExpoView {
     flashView.frame = bounds
     if !surfaceReady, bounds.width > 0 {
       surfaceReady = true
+      // Props from the mount wait for the next main turn. When layout comes first the surface
+      // was born with default settings, and changing them on the live surface left it blank.
+      if configScheduled {
+        NativeTrace.log("[\(traceTag)] settings applied before the surface")
+        applyConfig()
+      }
       terminalView.configuration = TerminalSurfaceOptions(backend: .inMemory(session), fontSize: currentFontSize)
       NativeTrace.log("[\(traceTag)] surface options set \(healthText())")
       DispatchQueue.main.async { [weak self] in
@@ -411,8 +417,10 @@ class TermixTerminalView: ExpoView {
     configScheduled = true
     // Props land one by one on mount; apply them once.
     DispatchQueue.main.async { [weak self] in
-      self?.configScheduled = false
-      self?.applyConfig()
+      // Already applied when the surface was made.
+      guard let self, configScheduled else { return }
+      configScheduled = false
+      applyConfig()
     }
   }
 
@@ -457,6 +465,8 @@ class TermixTerminalView: ExpoView {
   }
 
   private func applyConfig() {
+    configScheduled = false
+    NativeTrace.log("[\(traceTag)] apply settings, live surface=\(terminalView.surface != nil)")
     let base = baseConfiguration().rendered
     if base != appliedBase {
       appliedBase = base
