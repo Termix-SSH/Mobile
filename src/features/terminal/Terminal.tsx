@@ -15,6 +15,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import Constants from "expo-constants";
+import { useIsFocused } from "expo-router";
 import { showToast } from "@/utils/toast";
 import { useTerminalCustomization } from "@/contexts/TerminalCustomizationContext";
 import { MOBILE_DEFAULT_TERMINAL_CONFIG } from "@/constants/terminal-config";
@@ -647,6 +648,16 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       );
     }, [hostConfig.name, hostConfig.ip, hostConfig.username]);
 
+    // A terminal made while Sessions sat behind another tab drew nothing once the
+    // navigator moved Sessions to the front. Its native view waits until Sessions is shown.
+    const screenFocused = useIsFocused();
+    const [viewReady, setViewReady] = useState(screenFocused);
+    useEffect(() => {
+      if (!screenFocused || viewReady) return;
+      const timer = setTimeout(() => setViewReady(true), 60);
+      return () => clearTimeout(timer);
+    }, [screenFocused, viewReady]);
+
     // A new connection gets a fresh terminal view.
     const [viewKey, setViewKey] = useState(0);
     const firstConn = useRef(true);
@@ -893,24 +904,26 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 collapsable={false}
                 style={{ flex: 1, opacity: showView ? 1 : 0 }}
               >
-                <TerminalView
-                  key={`native-${hostConfig.id}-${viewKey}`}
-                  ref={nativeRef}
-                  settings={settings}
-                  pipeId={pipeId}
-                  onInput={sendInput}
-                  onResize={handleResize}
-                  onModifiers={handleModifiers}
-                  onFontSize={handleFontSize}
-                  showScrollButton={isVisible && isConnected && !isDialogOpen}
-                  watchPrompt={isConnected && (fillOn || historyOn)}
-                  visible={isVisible}
-                  onPromptLine={(line) => watcherRef.current?.line(line)}
-                  onSearch={setSearchResult}
-                  onTitle={useShellTitle ? onTitle : undefined}
-                  onMenu={onMenu}
-                  onShortcut={handleShortcut}
-                />
+                {viewReady ? (
+                  <TerminalView
+                    key={`native-${hostConfig.id}-${viewKey}`}
+                    ref={nativeRef}
+                    settings={settings}
+                    pipeId={pipeId}
+                    onInput={sendInput}
+                    onResize={handleResize}
+                    onModifiers={handleModifiers}
+                    onFontSize={handleFontSize}
+                    showScrollButton={isVisible && isConnected && !isDialogOpen}
+                    watchPrompt={isConnected && (fillOn || historyOn)}
+                    visible={isVisible}
+                    onPromptLine={(line) => watcherRef.current?.line(line)}
+                    onSearch={setSearchResult}
+                    onTitle={useShellTitle ? onTitle : undefined}
+                    onMenu={onMenu}
+                    onShortcut={handleShortcut}
+                  />
+                ) : null}
                 {searchOpen && isVisible ? (
                   <SearchBar
                     result={searchResult}
