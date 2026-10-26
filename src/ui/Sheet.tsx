@@ -6,6 +6,7 @@ import {
   Platform,
   Pressable,
   ScrollView,
+  useWindowDimensions,
   View,
 } from "react-native";
 import Animated, { ReduceMotion, SlideInDown } from "react-native-reanimated";
@@ -13,6 +14,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { X } from "lucide-react-native";
 import { Text } from "./Text";
 import { useThemeColor } from "@/contexts/ThemeContext";
+
+/** Sheets stop growing wider than this, so a sideways phone or tablet keeps them readable. */
+const SHEET_MAX_WIDTH = 640;
 
 /**
  * Keyboard height on Android. Edge to edge dialogs don't resize, and a
@@ -68,8 +72,14 @@ export function Sheet({
   dismissable?: boolean;
 }) {
   const insets = useSafeAreaInsets();
+  const { width, height } = useWindowDimensions();
   const color = useThemeColor();
   const close = dismissable ? onClose : () => {};
+  // A full width sheet keeps its rows clear of a notch held sideways.
+  const fullWidth =
+    width <= SHEET_MAX_WIDTH + 2 * Math.max(insets.left, insets.right);
+  // On a short window any sheet can run past its cap, so it always scrolls.
+  const scrolls = scroll || height < 500;
   const androidKeyboard = useAndroidKeyboard(visible);
 
   return (
@@ -98,10 +108,15 @@ export function Sheet({
           entering={SlideInDown.duration(220).reduceMotion(ReduceMotion.System)}
           accessibilityViewIsModal
           onAccessibilityEscape={close}
-          className={`border-t bg-popover ${tone === "destructive" ? "border-destructive/40" : "border-border"}`}
+          className={`border-t bg-popover ${fullWidth ? "" : "border-x"} ${tone === "destructive" ? "border-destructive/40" : "border-border"}`}
           style={{
             paddingBottom: Math.max(insets.bottom, androidKeyboard),
+            paddingLeft: fullWidth ? insets.left : 0,
+            paddingRight: fullWidth ? insets.right : 0,
             maxHeight: "85%",
+            width: "100%",
+            maxWidth: SHEET_MAX_WIDTH,
+            alignSelf: "center",
           }}
         >
           <View className="items-center pb-1 pt-2">
@@ -140,7 +155,7 @@ export function Sheet({
             </View>
           ) : null}
           {children ? (
-            scroll ? (
+            scrolls ? (
               <ScrollView
                 keyboardShouldPersistTaps="handled"
                 className={title ? "border-t border-border" : ""}

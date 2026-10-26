@@ -12,7 +12,6 @@ import {
   BackHandler,
   AppState,
   LayoutAnimation,
-  Pressable,
   PanResponder,
   StyleSheet,
 } from "react-native";
@@ -23,7 +22,6 @@ import {
   type TerminalSession,
   useTerminalSessions,
 } from "@/contexts/TerminalSessionsContext";
-import { X } from "lucide-react-native";
 import { accounts } from "@/core/accounts";
 import { SessionAccountProvider } from "@/core/accounts/session";
 import { LOCAL_ACCOUNT_ID } from "@/core/accounts/types";
@@ -36,8 +34,13 @@ import { sessionStatus } from "@/core/sessions/status";
 import { isAppLocked, onAppUnlocked } from "@/core/lock";
 import { ConnectionsPanel } from "@/screens/sessions/ConnectionsPanel";
 import { Screen } from "@/components/Screen";
-import { Text } from "@/ui";
+import {
+  BottomBarShown,
+  SafeAreaPadded,
+  useSideInsets,
+} from "@/ui/bottom-inset";
 import { reduceMotionOn } from "@/ui/motion";
+import { callerOf, tabTag, trace } from "@/core/log/trace";
 import TabBar from "@/screens/sessions/navigation/TabBar";
 import { SessionMenu } from "@/screens/sessions/SessionMenu";
 import { keyBarHeight } from "@/features/terminal/keys/compact";
@@ -79,6 +82,10 @@ import { XTERM_FALLBACK } from "@/features/terminal/fallback";
 // The native terminal reads the keyboard itself; the hidden input is for the xterm fallback.
 const HIDDEN_INPUT = XTERM_FALLBACK;
 
+// More than one live Sessions screen means a second tab shell got stacked.
+let liveScreens = 0;
+let screenSeq = 0;
+
 // The key row keeps its own sticky modifiers now; typed text gets none.
 const NO_MODIFIERS = { ctrl: false, alt: false, shift: false };
 // Stands in until a new tab's ref exists
@@ -87,6 +94,7 @@ const NO_TERMINAL: React.RefObject<TerminalHandle | null> = { current: null };
 export default function Sessions() {
   const ui = useUiColors();
   const insets = useSafeAreaInsets();
+  const side = useSideInsets();
   // Tabs swap to a note when their plugin is turned off, and back.
   useRegistryVersion();
   const router = useRouter();
@@ -116,6 +124,22 @@ export default function Sessions() {
     setKeyboardIntentionallyHidden,
   } = useTerminalSessions();
 
+  const [screenId] = useState(() => ++screenSeq);
+  useEffect(() => {
+    liveScreens++;
+    trace("sessions", "screen mounted", {
+      screen: screenId,
+      live: liveScreens,
+    });
+    return () => {
+      liveScreens--;
+      trace("sessions", "screen unmounted", {
+        screen: screenId,
+        live: liveScreens,
+      });
+    };
+  }, [screenId]);
+
   const [showConnectionsPanel, setShowConnectionsPanel] = useState(false);
   const [menuFor, setMenuFor] = useState<string | null>(null);
   const [featureView, setFeatureView] = useState<{
@@ -136,20 +160,20 @@ export default function Sessions() {
     Record<string, string>
   >({});
 
+  // The keys panel stands in for the keyboard, capped so a sideways phone keeps some terminal.
   const maxKeyboardHeight = getMaxKeyboardHeight(height, isLandscape, isIPad);
   const effectiveKeyboardHeight = isLandscape
     ? Math.min(lastKeyboardHeight, maxKeyboardHeight)
     : lastKeyboardHeight;
-  const currentKeyboardHeight = isLandscape
-    ? Math.min(keyboardHeight, maxKeyboardHeight)
-    : keyboardHeight;
+  // The system keyboard covers what it covers, so the bars must sit on its real top.
+  const currentKeyboardHeight = keyboardHeight;
 
   const customKeyboardHeight = Math.max(
-    200,
+    win.isShort ? 140 : 200,
     Math.min(effectiveKeyboardHeight, 500),
   );
 
-  const SESSION_TAB_BAR_HEIGHT = getTabBarHeight(isLandscape) + 2;
+  const SESSION_TAB_BAR_HEIGHT = getTabBarHeight(isLandscape, win.isShort) + 2;
   const CUSTOM_KEYBOARD_TAB_HEIGHT = 36;
 
   const KEYBOARD_BAR_HEIGHT = keyBarHeight(isLandscape, win.isShort);
@@ -188,14 +212,25 @@ export default function Sessions() {
 
   /** Shows or hides the keyboard on the active terminal. */
   const keyboard = useCallback((action: "focus" | "blur" | "clear") => {
+    const caller = callerOf();
     // Never focus under the lock pad, or the keyboard covers it (#100).
-    if (action === "focus" && isAppLocked()) return;
+    if (action === "focus" && isAppLocked()) {
+      trace("keyboard", "focus skipped, app locked", { caller });
+      return;
+    }
     if (HIDDEN_INPUT) {
       callImeInput(hiddenInputRef, action);
       return;
     }
     const id = activeIdRef.current;
     const target = id ? tabRefs.current[id]?.current?.keyTarget?.() : null;
+    trace("keyboard", action, {
+      screen: screenId,
+      tab: tabTag(id),
+      hasHandle: !!(id && tabRefs.current[id]?.current),
+      hasTarget: !!target,
+      caller,
+    });
     if (action === "focus") target?.focus();
     else if (action === "blur") target?.blur();
   }, []);
@@ -270,6 +305,24 @@ export default function Sessions() {
     compositionActiveRef.current = false;
     lastSpecialKeyRef.current = null;
   }, [activeSessionId, activeIsTerminal, isCustomKeyboardVisible, keyboard]);
+
+  useEffect(() => {
+    trace("keyboard", "system keyboard", {
+      visible: isKeyboardVisible,
+      height: Math.round(keyboardHeight),
+    });
+  }, [isKeyboardVisible, keyboardHeight]);
+
+  useEffect(() => {
+    trace("sessions", "active tab", {
+      screen: screenId,
+      active: tabTag(activeSessionId),
+      type: activeSession?.type ?? null,
+      terminal: activeIsTerminal,
+      open: sessions.map((t) => tabTag(t.id)),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSessionId, sessions.length]);
 
   useEffect(() => {
     const show = Keyboard.addListener("keyboardDidShow", () => {
@@ -439,6 +492,14 @@ export default function Sessions() {
   // The one place that gives the keyboard to the active terminal.
   useFocusEffect(
     React.useCallback(() => {
+      trace("sessions", "screen focused", {
+        screen: screenId,
+        tabs: sessions.length,
+        active: tabTag(activeSessionId),
+        terminal: activeIsTerminal,
+        keysPanel: isCustomKeyboardVisible,
+        userHidKeyboard: keyboardIntentionallyHiddenRef.current,
+      });
       if (
         sessions.length === 0 ||
         !activeIsTerminal ||
@@ -451,7 +512,12 @@ export default function Sessions() {
         keyboard("focus");
         getActiveTerminalRef()?.current?.fit?.();
       }, 250);
-      return () => clearTimeout(timeoutId);
+      return () => {
+        trace("sessions", "screen blurred or deps changed", {
+          screen: screenId,
+        });
+        clearTimeout(timeoutId);
+      };
     }, [
       sessions.length,
       activeSessionId,
@@ -465,6 +531,7 @@ export default function Sessions() {
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       // Connections hear about the app state from the session lifecycle.
+      trace("sessions", "app state", { state: nextAppState });
       if (nextAppState === "active") {
         if (
           sessions.length > 0 &&
@@ -562,6 +629,11 @@ export default function Sessions() {
 
   const handleTabPress = (sessionId: string) => {
     const session = sessions.find((s) => s.id === sessionId);
+    trace("sessions", "tab pressed", {
+      tab: tabTag(sessionId),
+      active: tabTag(activeSessionId),
+      found: !!session,
+    });
     setKeyboardIntentionallyHidden(false);
 
     setSplitWith((prev) =>
@@ -602,6 +674,11 @@ export default function Sessions() {
   };
 
   const handleTabClose = (sessionId: string) => {
+    trace("sessions", "tab close", {
+      tab: tabTag(sessionId),
+      active: tabTag(activeSessionId),
+      caller: callerOf(),
+    });
     removeSession(sessionId);
     setTimeout(() => {
       if (activeIsTerminal && !isCustomKeyboardVisible && sessions.length > 1) {
@@ -759,16 +836,23 @@ export default function Sessions() {
     );
   };
 
+  const stageColor = activeIsTerminal ? activeTerminalBgColor : ui.background;
+
   return (
-    <View className="flex-1 flex-row">
+    <View
+      className="flex-1 flex-row"
+      style={{
+        paddingLeft: side.left,
+        paddingRight: side.right,
+        backgroundColor: stageColor,
+      }}
+    >
       {showHostsPane ? <HostsPane /> : null}
       <View
         className="flex-1"
         style={{
           paddingTop: insets.top,
-          backgroundColor: activeIsTerminal
-            ? activeTerminalBgColor
-            : ui.background,
+          backgroundColor: stageColor,
         }}
       >
         <View
@@ -783,7 +867,11 @@ export default function Sessions() {
             const paneStyle = (id: string) => {
               const shown = id === activeSessionId || id === partnerId;
               if (!partnerId || !shown) {
-                return [StyleSheet.absoluteFill, { zIndex: shown ? 1 : 0 }];
+                // A hidden tab never shows through, even with nothing active.
+                return [
+                  StyleSheet.absoluteFill,
+                  { zIndex: shown ? 1 : 0, opacity: shown ? 1 : 0 },
+                ];
               }
               const order = sessions.findIndex((s) => s.id === id);
               const other = sessions.findIndex(
@@ -813,6 +901,8 @@ export default function Sessions() {
                   return (
                     <View
                       key={session.id}
+                      // A tab never gets moved to another parent when it shows or hides.
+                      collapsable={false}
                       style={paneStyle(session.id)}
                       pointerEvents={shown ? "auto" : "none"}
                       onTouchStart={
@@ -822,7 +912,11 @@ export default function Sessions() {
                       }
                     >
                       <SessionAccountProvider accountId={session.accountId}>
-                        {renderSession(session)}
+                        <SafeAreaPadded.Provider value>
+                          <BottomBarShown.Provider value>
+                            {renderSession(session)}
+                          </BottomBarShown.Provider>
+                        </SafeAreaPadded.Provider>
                       </SessionAccountProvider>
                     </View>
                   );
@@ -856,31 +950,35 @@ export default function Sessions() {
               ? companionsOf(activeSession).find((c) => c.id === companionId)
               : null;
             if (!activeSession || !def) return tabs;
-            const side = def.layout?.().side ?? "right";
+            const paneSide = def.layout?.().side ?? "right";
             const pane = (
               <SessionAccountProvider
                 key={`companion-${activeSession.id}`}
                 accountId={activeSession.accountId}
               >
-                <CompanionPane
-                  def={def}
-                  side={side}
-                  screenWidth={win.width}
-                  props={{
-                    session: activeSession,
-                    getHandle: () => sessionHandles.get(activeSession.id),
-                    isVisible: true,
-                    layout: "side",
-                    close: () => toggleCompanion(activeSession, def.id),
-                  }}
-                />
+                <SafeAreaPadded.Provider value>
+                  <BottomBarShown.Provider value>
+                    <CompanionPane
+                      def={def}
+                      side={paneSide}
+                      screenWidth={win.width}
+                      props={{
+                        session: activeSession,
+                        getHandle: () => sessionHandles.get(activeSession.id),
+                        isVisible: true,
+                        layout: "side",
+                        close: () => toggleCompanion(activeSession, def.id),
+                      }}
+                    />
+                  </BottomBarShown.Provider>
+                </SafeAreaPadded.Provider>
               </SessionAccountProvider>
             );
             return (
               <View style={{ flex: 1, flexDirection: "row" }}>
-                {side === "left" ? pane : null}
+                {paneSide === "left" ? pane : null}
                 <View style={{ flex: 1 }}>{tabs}</View>
-                {side === "right" ? pane : null}
+                {paneSide === "right" ? pane : null}
               </View>
             );
           })()}
@@ -894,61 +992,17 @@ export default function Sessions() {
 
         {/* Connections panel: full screen when no sessions, overlay when sessions exist */}
         {(sessions.length === 0 || showConnectionsPanel) && (
-          <View
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 1010,
-            }}
-          >
+          <StageOverlay zIndex={1010}>
             {sessions.length === 0 ? (
               <Screen title="Connections">
                 <ConnectionsPanel />
               </Screen>
             ) : (
-              <View style={{ flex: 1, backgroundColor: ui.background }}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    paddingTop: insets.top + 8,
-                    paddingBottom: 8,
-                    paddingHorizontal: 16,
-                    borderBottomWidth: 1,
-                    borderBottomColor: ui.border,
-                    backgroundColor: ui.background,
-                  }}
-                >
-                  <View style={{ flex: 1 }}>
-                    <Text weight="bold" className="text-base text-foreground">
-                      Connections
-                    </Text>
-                  </View>
-                  <Pressable
-                    accessibilityRole="button"
-                    accessibilityLabel="Close connections"
-                    onPress={closeConnectionsPanel}
-                    hitSlop={10}
-                    style={{
-                      width: 32,
-                      height: 32,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      borderWidth: 1,
-                      borderColor: ui.border,
-                      backgroundColor: ui.muted,
-                    }}
-                  >
-                    <X size={15} color={ui.text} />
-                  </Pressable>
-                </View>
+              <Screen title="Connections" onBack={closeConnectionsPanel}>
                 <ConnectionsPanel onClose={closeConnectionsPanel} />
-              </View>
+              </Screen>
             )}
-          </View>
+          </StageOverlay>
         )}
 
         {sessions.length > 0 &&
@@ -961,7 +1015,7 @@ export default function Sessions() {
                 bottom: keyboardIntentionallyHiddenRef.current
                   ? 0
                   : isKeyboardVisible && currentKeyboardHeight > 0
-                    ? currentKeyboardHeight + (isLandscape && !isIPad ? 4 : 0)
+                    ? currentKeyboardHeight
                     : 0,
                 left: 0,
                 right: 0,
@@ -1124,17 +1178,7 @@ export default function Sessions() {
         />
 
         {featureView?.item.view ? (
-          <View
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 1020,
-              backgroundColor: ui.background,
-            }}
-          >
+          <StageOverlay zIndex={1020}>
             <SessionAccountProvider
               accountId={featureView.ctx.session.accountId}
             >
@@ -1143,7 +1187,7 @@ export default function Sessions() {
                 onClose={() => setFeatureView(null)}
               />
             </SessionAccountProvider>
-          </View>
+          </StageOverlay>
         ) : null}
 
         {HIDDEN_INPUT &&
@@ -1205,6 +1249,28 @@ export default function Sessions() {
             />
           )}
       </View>
+    </View>
+  );
+}
+
+/** A full view over the session stage. The stage already keeps clear of the notch. */
+function StageOverlay({
+  zIndex,
+  children,
+}: {
+  zIndex: number;
+  children: React.ReactNode;
+}) {
+  const ui = useUiColors();
+  const insets = useSafeAreaInsets();
+  return (
+    <View
+      style={[
+        StyleSheet.absoluteFill,
+        { zIndex, paddingTop: insets.top, backgroundColor: ui.background },
+      ]}
+    >
+      <SafeAreaPadded.Provider value>{children}</SafeAreaPadded.Provider>
     </View>
   );
 }

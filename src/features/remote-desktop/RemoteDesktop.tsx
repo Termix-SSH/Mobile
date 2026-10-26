@@ -32,6 +32,8 @@ import {
 import { VIEWPORT_SCRIPT } from "./viewport";
 import { loadGuacamoleAssets } from "./loadGuacamoleAssets";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { getTabBarHeight } from "@/utils/responsive";
+import { useWindowInfo } from "@/utils/window-class";
 import { RotateCcw } from "lucide-react-native";
 import type { SSHHost } from "@/types";
 import { useThemeColor } from "@/contexts/ThemeContext";
@@ -82,6 +84,7 @@ export function RemoteDesktop({
   const client = useSessionClient();
   const color = useThemeColor();
   const { bottom: safeBottom } = useSafeAreaInsets();
+  const win = useWindowInfo();
 
   const themeBg = color("background") ?? "rgb(12,13,11)";
   const themeFg = color("foreground") ?? "rgb(250,250,250)";
@@ -745,7 +748,8 @@ ${VIEWPORT_SCRIPT}
   // The keyboard height event is from the screen bottom. Our container's bottom
   // already sits SESSION_TAB_BAR_HEIGHT + safeBottom above the screen bottom
   // (applied by Sessions.tsx). The actual overlap on our container is:
-  const SESSION_TAB_BAR_HEIGHT = 62; // getTabBarHeight(portrait) + 2
+  const SESSION_TAB_BAR_HEIGHT =
+    getTabBarHeight(win.isLandscape, win.isShort) + 2;
   const kbOverlap = Math.max(
     0,
     keyboardHeight - SESSION_TAB_BAR_HEIGHT - safeBottom,
@@ -828,6 +832,7 @@ ${VIEWPORT_SCRIPT}
 
   return (
     <View
+      collapsable={false}
       ref={containerRef}
       pointerEvents={isVisible ? "auto" : "none"}
       style={[

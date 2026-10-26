@@ -23,11 +23,12 @@ import {
 } from "@/contexts/TerminalSessionsContext";
 import { useRouter } from "expo-router";
 import { isSecondaryClick } from "@/ui/ContextMenu";
-import { useOrientation } from "@/utils/orientation";
+import { useWindowInfo } from "@/utils/window-class";
 import { getTabBarHeight, getButtonSize } from "@/utils/responsive";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { features } from "@/core/features";
 import { displayTitle } from "@/contexts/session-tabs";
+import { tabTag, trace } from "@/core/log/trace";
 import { useSessionStatuses } from "@/core/sessions/status";
 import { statusLabel, TabStatusMark } from "./TabStatusMark";
 import DraggableFlatList, {
@@ -78,11 +79,21 @@ export default function TabBar({
   const ui = useUiColors();
   const statuses = useSessionStatuses();
   const router = useRouter();
-  const { isLandscape } = useOrientation();
+  const { isLandscape, isShort } = useWindowInfo();
   const insets = useSafeAreaInsets();
 
-  const tabBarHeight = getTabBarHeight(isLandscape);
-  const buttonSize = getButtonSize(isLandscape);
+  const tabBarHeight = getTabBarHeight(isLandscape, isShort);
+  const buttonSize = getButtonSize(isLandscape, 44, isShort);
+
+  const tabIds = sessions.map((s) => tabTag(s.id)).join(",");
+  React.useEffect(() => {
+    trace("tabbar", "drawn", {
+      active: tabTag(activeSessionId),
+      tabs: tabIds,
+      activeShown: sessions.some((s) => s.id === activeSessionId),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSessionId, tabIds]);
 
   const needsBottomPadding = !features.sessionHas(
     activeSessionType,
@@ -151,6 +162,8 @@ export default function TabBar({
             horizontal
             data={sessions}
             keyExtractor={(session) => session.id}
+            // Rows are memoized; the active tab and status live outside the data.
+            extraData={[activeSessionId, statuses, isLandscape, isShort]}
             keyboardShouldPersistTaps="always"
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ gap: 4, alignItems: "center" }}

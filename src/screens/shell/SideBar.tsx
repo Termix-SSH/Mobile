@@ -6,12 +6,16 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
 import { useSessionStatuses } from "@/core/sessions/status";
 import { sessionsMark, TABS } from "@/screens/shell/BottomBar";
+import { useWindowInfo } from "@/utils/window-class";
 
 export const SIDEBAR_WIDTH = 84;
+/** The rail on a phone held sideways, where height is short. */
+const SHORT_SIDEBAR_WIDTH = 64;
 
 /** Navigation rail for tablets and wide windows. Same tabs as the bottom bar. */
 export function SideBar({ state, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
+  const { isShort } = useWindowInfo();
   const color = useThemeColor();
   const { sessions } = useTerminalSessions();
   const statuses = useSessionStatuses();
@@ -26,9 +30,10 @@ export function SideBar({ state, navigation }: BottomTabBarProps) {
     <View
       className="items-stretch border-r border-border bg-sidebar"
       style={{
-        width: SIDEBAR_WIDTH,
-        paddingTop: insets.top + 8,
-        paddingBottom: insets.bottom + 8,
+        // The notch side inset comes on top of the rail, not out of it.
+        width: (isShort ? SHORT_SIDEBAR_WIDTH : SIDEBAR_WIDTH) + insets.left,
+        paddingTop: insets.top + (isShort ? 4 : 8),
+        paddingBottom: insets.bottom + (isShort ? 4 : 8),
         paddingLeft: insets.left,
       }}
     >
@@ -59,14 +64,14 @@ export function SideBar({ state, navigation }: BottomTabBarProps) {
             accessibilityLabel={
               count ? `${tab.label}, ${count} open` : tab.label
             }
-            className="items-center justify-center gap-1 py-3 hover:bg-muted/30"
+            className={`items-center justify-center gap-1 hover:bg-muted/30 ${isShort ? "flex-1" : "py-3"}`}
             style={{
               borderLeftWidth: 2,
               borderLeftColor: focused ? accent : "transparent",
             }}
           >
             <View>
-              {tab.icon({ color: tint, size: 22 })}
+              {tab.icon({ color: tint, size: isShort ? 20 : 22 })}
               {count > 0 ? (
                 <View
                   className="absolute -right-3 -top-1.5 min-w-4 items-center px-1"
@@ -91,7 +96,8 @@ export function SideBar({ state, navigation }: BottomTabBarProps) {
             </View>
             <Text
               weight={focused ? "medium" : "regular"}
-              className="text-[11px]"
+              numberOfLines={1}
+              className={isShort ? "text-[10px]" : "text-[11px]"}
               style={{ color: tint }}
             >
               {tab.label}

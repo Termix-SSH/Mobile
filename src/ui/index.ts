@@ -21,7 +21,14 @@ export {
 } from "./ContextMenu";
 export { InlineView } from "./InlineView";
 export { Section, SectionLabel } from "./Section";
-export { BottomBarShown, useBottomInset } from "./bottom-inset";
+export {
+  BottomBarShown,
+  SideBarShown,
+  SafeAreaPadded,
+  useBottomInset,
+  useSideInsets,
+  useTopInset,
+} from "./bottom-inset";
 export { ListRow, ListRowAction } from "./ListRow";
 export type { ListRowTone } from "./ListRow";
 export { Tabs } from "./Tabs";

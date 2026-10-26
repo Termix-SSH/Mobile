@@ -63,7 +63,7 @@ export function DestinationPicker({
       bare
       scroll={false}
       footer={
-        <View className="flex-row gap-2 p-3">
+        <View className="flex-row gap-2">
           <Button variant="muted" className="flex-1" onPress={onClose}>
             Cancel
           </Button>

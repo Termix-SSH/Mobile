@@ -102,7 +102,7 @@ Termix Mobile now works with no server. Hosts, logins and snippets stay encrypte
 - Hold a tab to drag it to a new place, and swipe in from the left or right edge to go to the next tab
 - Tabs show the title the program sets when the host turns that on
 - Share a link to a terminal that runs through the server, when the server has the Session Sharing plugin
-- Double tap a word in the terminal to select it, and scroll the history with two fingers, also while a program uses the mouse
+- Long press or double tap a word in the terminal to select it, and scroll the history with two fingers, also while a program uses the mouse
 - More in the terminal's long press menu opens the tab's menu
 - Hardware keyboard shortcuts for a new tab, closing a tab, the next or previous tab, tabs 1 to 9, find and font size. The list is in Settings, Keyboard
 - Search the command history, and long press a command to run, copy or delete it
@@ -152,7 +152,7 @@ Termix Mobile now works with no server. Hosts, logins and snippets stay encrypte
 - App Lock waits 30 seconds after 5 wrong PINs
 - Copy or share the latest app logs from Settings, About and logs
 - Clear your recent hosts
-- A sidebar instead of the bottom bar on tablets and wide windows, with the host list beside open sessions on large screens
+- A sidebar instead of the bottom bar on tablets and wide windows, with the host list beside open sessions on large screens. A phone held sideways gets a slim rail and full screen sessions
 - The app follows window size changes on iPad (resizable windows) and on Android tablets, foldables and desktop mode without dropping sessions
 - A compact key row when the window is short, like a phone held sideways
 - App wide keyboard shortcuts on iPad (Cmd K, Cmd /, Cmd Opt 1 to 4, Cmd ,) and on Android (Ctrl Shift K, /, N, comma and Ctrl Alt 1 to 4) with a shortcut sheet in Settings, Keyboard

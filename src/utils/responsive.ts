@@ -33,13 +33,17 @@ export function getMaxKeyboardHeight(
   return screenHeight * cap;
 }
 
-export function getTabBarHeight(isLandscape: boolean): number {
+/** The session tab bar. A short window, like a phone held sideways, gets a slim one. */
+export function getTabBarHeight(isLandscape: boolean, isShort = false): number {
+  if (isShort) return 42;
   return isLandscape ? 50 : 60;
 }
 
 export function getButtonSize(
   isLandscape: boolean,
   portraitSize: number = 44,
+  isShort = false,
 ): number {
+  if (isShort) return 34;
   return isLandscape ? portraitSize * 0.82 : portraitSize;
 }

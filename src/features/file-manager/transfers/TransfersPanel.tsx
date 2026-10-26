@@ -167,7 +167,7 @@ export function TransfersPanel({
       scroll={false}
       footer={
         list.length ? (
-          <View className="flex-row gap-2 p-3">
+          <View className="flex-row gap-2">
             <Button
               variant="muted"
               className="flex-1"

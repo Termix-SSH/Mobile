@@ -1,7 +1,7 @@
 import { KeyboardAvoidingView, Platform, Pressable, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ArrowLeft } from "lucide-react-native";
 import { Text } from "@/ui";
+import { useSideInsets, useTopInset } from "@/ui/bottom-inset";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { HEIGHTS, ICON_SIZES } from "@/constants/tokens";
 
@@ -111,11 +111,19 @@ export function Screen({
   /** Inline views drawn over the whole screen, header included. */
   overlay?: React.ReactNode;
 }) {
-  const insets = useSafeAreaInsets();
+  const topInset = useTopInset();
+  const side = useSideInsets();
   const body = <View className="flex-1">{children}</View>;
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
+    <View
+      className="flex-1 bg-background"
+      style={{
+        paddingTop: topInset,
+        paddingLeft: side.left,
+        paddingRight: side.right,
+      }}
+    >
       {(title || titleNode) && !scrollableHeader ? (
         <ScreenHeader
           title={title}

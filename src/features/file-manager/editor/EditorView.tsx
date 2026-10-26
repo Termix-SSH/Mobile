@@ -34,7 +34,7 @@ const page = (script: string, background: string) => `<!doctype html>
 <html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'">
-<style>html,body,#editor{margin:0;height:100%;background:${background}}</style>
+<style>html,body,#editor{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:${background}}</style>
 </head><body><div id="editor"></div><script>${script.replace(/<\/script/gi, "<\\/script")}</script></body></html>`;
 
 export interface EditorHandle {
@@ -156,6 +156,12 @@ export const EditorView = forwardRef<
       setSupportMultipleWindows={false}
       hideKeyboardAccessoryView
       keyboardDisplayRequiresUserAction={false}
+      // CodeMirror scrolls itself. The page must not pan or bounce around it.
+      scrollEnabled={false}
+      bounces={false}
+      overScrollMode="never"
+      contentInsetAdjustmentBehavior="never"
+      automaticallyAdjustContentInsets={false}
       onShouldStartLoadWithRequest={stayOnLocalPage}
       style={{ flex: 1, backgroundColor: colors.background }}
     />

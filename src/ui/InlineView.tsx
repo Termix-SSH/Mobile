@@ -9,12 +9,11 @@ import {
   View,
 } from "react-native";
 import Animated, { ReduceMotion, SlideInRight } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ArrowLeft } from "lucide-react-native";
 import { Text } from "./Text";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { HEIGHTS } from "@/constants/tokens";
-import { useBottomInset } from "./bottom-inset";
+import { useBottomInset, useSideInsets, useTopInset } from "./bottom-inset";
 
 /**
  * What used to be a full screen modal: a view that covers the screen it was
@@ -31,7 +30,7 @@ export function InlineView({
   onBeforeClose,
   scroll = true,
   bare = false,
-  safeTop = true,
+  safeTop,
   children,
 }: {
   open: boolean;
@@ -48,11 +47,12 @@ export function InlineView({
   scroll?: boolean;
   /** Draw children edge to edge, for views with their own layout. */
   bare?: boolean;
-  /** Pad for the status bar. Off when the parent already does. */
+  /** Pad for the status bar. By default only when the parent does not. */
   safeTop?: boolean;
   children: React.ReactNode;
 }) {
-  const insets = useSafeAreaInsets();
+  const topInset = useTopInset();
+  const side = useSideInsets();
   const bottomInset = useBottomInset();
   const color = useThemeColor();
 
@@ -81,7 +81,12 @@ export function InlineView({
       onAccessibilityEscape={() => void requestClose()}
       style={[
         StyleSheet.absoluteFill,
-        { zIndex: 50, paddingTop: safeTop ? insets.top : 0 },
+        {
+          zIndex: 50,
+          paddingTop: (safeTop ?? true) ? topInset : 0,
+          paddingLeft: side.left,
+          paddingRight: side.right,
+        },
       ]}
       className="bg-background"
     >
