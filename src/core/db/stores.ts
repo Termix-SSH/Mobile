@@ -124,6 +124,10 @@ export class LocalStores {
       if (locked() || this.driver !== driver) {
         throw new AppError("Unlock Termix first.", "APP_LOCKED");
       }
+      await driver.prepare?.(LocalStores.fileName(accountId)).catch(() => {});
+      if (locked() || this.driver !== driver) {
+        throw new AppError("Unlock Termix first.", "APP_LOCKED");
+      }
       const db = driver.open(LocalStores.fileName(accountId), key);
       try {
         migrate(db.raw);

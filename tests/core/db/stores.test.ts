@@ -126,3 +126,26 @@ test("native change events reach the right account", async () => {
 test("file names only use safe characters", () => {
   expect(LocalStores.fileName("a/b..c")).toBe("termix-a_b__c.db");
 });
+
+test("a driver's prepare step runs before the file opens", async () => {
+  const driver = testDriver();
+  const order: string[] = [];
+  const open = driver.open.bind(driver);
+  const withPrepare = {
+    ...driver,
+    prepare: async (name: string) => {
+      order.push(`prepare ${name}`);
+    },
+    open: (name: string, key: string) => {
+      order.push(`open ${name}`);
+      return open(name, key);
+    },
+  };
+  const stores = new LocalStores(withPrepare);
+  stores.unlock();
+  await stores.get("local");
+  expect(order).toEqual([
+    `prepare ${LocalStores.fileName("local")}`,
+    `open ${LocalStores.fileName("local")}`,
+  ]);
+});

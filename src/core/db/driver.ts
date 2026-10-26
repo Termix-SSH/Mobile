@@ -27,6 +27,8 @@ export interface OpenedDb {
 export interface DbDriver {
   open(name: string, keyHex: string): OpenedDb;
   remove(name: string): void;
+  /** Runs before the first open of a file, for one time moves. */
+  prepare?(name: string): Promise<void>;
   /** Calls back with the SQL table name after any write to the file. */
   onChange?(listener: (name: string, table: string) => void): () => void;
 }

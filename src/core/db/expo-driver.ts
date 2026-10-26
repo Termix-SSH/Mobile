@@ -1,17 +1,55 @@
 import { drizzle } from "drizzle-orm/expo-sqlite";
+import { Platform } from "react-native";
+import { Directory, File } from "expo-file-system";
 import {
   addDatabaseChangeListener,
+  defaultDatabaseDirectory,
   deleteDatabaseSync,
   openDatabaseSync,
 } from "expo-sqlite";
 import { AppError } from "@/core/errors";
 import type { DbDriver, SqlValue } from "./driver";
+import { libraryDatabaseDirectory, moveDatabase } from "./location";
 import * as schema from "./schema";
+
+// iOS keeps the files out of Documents, which the Files app shows.
+const DIRECTORY: string | undefined =
+  Platform.OS === "ios"
+    ? libraryDatabaseDirectory(String(defaultDatabaseDirectory))
+    : undefined;
+
+// Files whose move failed stay in the old folder for this run.
+const fallback = new Set<string>();
+
+const fileOps = {
+  exists: (path: string) => new File(`file://${path}`).exists,
+  move: (from: string, to: string) =>
+    new File(`file://${from}`).move(new File(`file://${to}`)),
+};
 
 /** expo-sqlite built with SQLCipher (app.json `useSQLCipher`). */
 export const expoDriver: DbDriver | null = {
+  async prepare(name) {
+    if (!DIRECTORY) return;
+    new Directory(`file://${DIRECTORY}`).create({
+      intermediates: true,
+      idempotent: true,
+    });
+    // Files from before 2.0 builds moved them; a failed move keeps them where they were.
+    const result = await moveDatabase(
+      name,
+      String(defaultDatabaseDirectory),
+      DIRECTORY,
+      fileOps,
+    );
+    if (result === "kept") fallback.add(name);
+  },
   open(name, keyHex) {
-    const sqlite = openDatabaseSync(name, { enableChangeListener: true });
+    const sqlite = openDatabaseSync(
+      name,
+      { enableChangeListener: true },
+      fallback.has(name) ? undefined : DIRECTORY,
+    );
     try {
       // Raw key form, so SQLCipher skips its own key derivation.
       sqlite.execSync(`PRAGMA key = "x'${keyHex}'"`);
@@ -47,7 +85,14 @@ export const expoDriver: DbDriver | null = {
     };
   },
   remove(name) {
-    deleteDatabaseSync(name);
+    for (const dir of [DIRECTORY, undefined]) {
+      try {
+        deleteDatabaseSync(name, dir);
+      } catch {
+        // Not in that folder.
+      }
+    }
+    fallback.delete(name);
   },
   onChange(listener) {
     const sub = addDatabaseChangeListener((event) =>
