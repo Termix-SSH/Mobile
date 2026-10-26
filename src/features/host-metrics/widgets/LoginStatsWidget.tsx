@@ -65,14 +65,14 @@ export function LoginStatsWidget({ metrics }: { metrics: ServerMetrics }) {
 
           {failed.length > 0 ? (
             <View className="gap-1">
-              <Text className="text-[9px] uppercase tracking-wide text-destructive">
+              <Text className="text-[9px] uppercase tracking-wide text-destructive-text">
                 Failed
               </Text>
               {failed.map((e, i) => (
                 <View key={i} className="flex-row gap-2">
                   <Text
                     weight="medium"
-                    className="w-20 text-[10px] text-destructive"
+                    className="w-20 text-[10px] text-destructive-text"
                     numberOfLines={1}
                     style={{ fontFamily: MONO_FONT }}
                   >

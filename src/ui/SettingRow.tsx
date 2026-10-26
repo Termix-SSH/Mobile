@@ -33,7 +33,7 @@ export function SettingRow({
             <View className="border border-accent-brand/30 bg-accent-brand/15 px-1 py-px">
               <Text
                 weight="bold"
-                className="text-[8px] uppercase tracking-wider text-accent-brand"
+                className="text-[8px] uppercase tracking-wider text-accent-text"
               >
                 {badge}
               </Text>

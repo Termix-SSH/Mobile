@@ -7,18 +7,21 @@ export type BadgeVariant =
 const VARIANTS: Record<BadgeVariant, { box: string; text: string }> = {
   accent: {
     box: "bg-accent-brand/10 border-accent-brand/40",
-    text: "text-accent-brand",
+    text: "text-accent-text",
   },
   muted: { box: "bg-muted border-border", text: "text-muted-foreground" },
   destructive: {
     box: "bg-destructive/10 border-destructive/40",
-    text: "text-destructive",
+    text: "text-destructive-text",
   },
   success: {
     box: "bg-green-500/10 border-green-500/40",
     text: "text-green-500",
   },
-  warning: { box: "bg-warning/10 border-warning/40", text: "text-warning" },
+  warning: {
+    box: "bg-warning/10 border-warning/40",
+    text: "text-warning-text",
+  },
 };
 
 export function Badge({

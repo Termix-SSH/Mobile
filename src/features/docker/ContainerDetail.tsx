@@ -169,7 +169,7 @@ function ActionChip({
     >
       {icon}
       <Text
-        className={`text-[11px] ${accent ? "text-accent-brand" : destructive ? "text-destructive" : "text-muted-foreground"}`}
+        className={`text-[11px] ${accent ? "text-accent-text" : destructive ? "text-destructive-text" : "text-muted-foreground"}`}
       >
         {label}
       </Text>
@@ -282,7 +282,9 @@ function StatsTab({
   if (error) {
     return (
       <View className="flex-1 items-center justify-center px-8">
-        <Text className="text-center text-sm text-destructive">{error}</Text>
+        <Text className="text-center text-sm text-destructive-text">
+          {error}
+        </Text>
       </View>
     );
   }

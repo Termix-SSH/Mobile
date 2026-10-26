@@ -77,7 +77,7 @@ export default function TunnelCard({
               Port Mapping
             </Text>
             {tunnel.mode || tunnel.tunnelType ? (
-              <Text className="text-[9px] font-medium uppercase tracking-[1px] text-accent-brand">
+              <Text className="text-[9px] font-medium uppercase tracking-[1px] text-accent-text">
                 {(tunnel.mode || tunnel.tunnelType)!.toUpperCase()}
               </Text>
             ) : null}
@@ -99,7 +99,7 @@ export default function TunnelCard({
       {(statusValue === "ERROR" || statusValue === "FAILED") &&
       status?.reason ? (
         <View className="border border-destructive/30 bg-destructive/10 px-2.5 py-2">
-          <Text className="text-[11px] text-destructive" numberOfLines={3}>
+          <Text className="text-[11px] text-destructive-text" numberOfLines={3}>
             {status.reason}
           </Text>
         </View>
@@ -165,7 +165,7 @@ function ActionButton({
         <>
           {icon}
           <Text
-            className={`text-xs ${accent ? "text-accent-brand" : "text-foreground"}`}
+            className={`text-xs ${accent ? "text-accent-text" : "text-foreground"}`}
           >
             {label}
           </Text>

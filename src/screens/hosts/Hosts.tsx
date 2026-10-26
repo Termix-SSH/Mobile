@@ -901,7 +901,7 @@ export default function Hosts() {
             <View className="px-4 pb-1 pt-3">
               <Text
                 weight="bold"
-                className="text-[10px] uppercase tracking-[2px] text-muted-foreground/60"
+                className="text-[10px] uppercase tracking-[2px] text-muted-foreground"
               >
                 {grp.title}
               </Text>

@@ -144,7 +144,9 @@ export function JournalView({
         </Text>
       ) : null}
       {error ? (
-        <Text className="px-3 pt-2 text-[11px] text-destructive">{error}</Text>
+        <Text className="px-3 pt-2 text-[11px] text-destructive-text">
+          {error}
+        </Text>
       ) : null}
       {entries === null ? (
         <View className="flex-1 items-center justify-center">

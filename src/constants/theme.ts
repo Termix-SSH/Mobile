@@ -6,6 +6,8 @@
  * (border, input, sidebar-border) are mixed onto the theme background.
  */
 
+import { blend, readableOn } from "./contrast";
+
 export type ThemeId =
   | "system"
   | "light"
@@ -510,6 +512,23 @@ export const STORAGE_KEYS = {
   accent: "termix-accent",
 } as const;
 
+/**
+ * Text versions of the accent, warning and destructive colors, darkened or
+ * lightened until they read at 4.5:1 on the theme background. The theme
+ * tokens stay as Classic Themes has them; only text uses these.
+ */
+export function textTokens(
+  themeVars: ThemeVars,
+  accentTriplet: string,
+): Record<"accent-text" | "warning-text" | "destructive-text", string> {
+  const bg = themeVars.background;
+  return {
+    "accent-text": readableOn(accentTriplet, bg),
+    "warning-text": readableOn(themeVars.warning, bg),
+    "destructive-text": readableOn(themeVars.destructive, bg),
+  };
+}
+
 export interface UiColors {
   background: string;
   surface: string;
@@ -539,7 +558,10 @@ export function uiColorsFor(
     border: hex("border"),
     text: hex("foreground"),
     textMuted: hex("muted-foreground"),
-    textFaint: hex("muted-foreground") + "b3",
+    // Faded, but never under 4.5:1.
+    textFaint: tripletToHex(
+      readableOn(blend(v["muted-foreground"], v.background, 0.7), v.background),
+    ),
     brand: tripletToHex(
       hexToRgbTriplet(accent) ?? hexToRgbTriplet(DEFAULT_ACCENT)!,
     ),

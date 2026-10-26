@@ -71,7 +71,7 @@ export function SSHAuthDialog({
       : "bg-yellow-500/10 border-yellow-500/40";
   const bannerText =
     reason === "auth_failed" || reason === "timeout"
-      ? "text-destructive"
+      ? "text-destructive-text"
       : "text-yellow-400";
 
   return (

@@ -84,7 +84,9 @@ export function DestinationPicker({
         </View>
       ) : error ? (
         <View className="flex-1 items-center justify-center p-6">
-          <Text className="text-center text-sm text-destructive">{error}</Text>
+          <Text className="text-center text-sm text-destructive-text">
+            {error}
+          </Text>
         </View>
       ) : (
         <FileList

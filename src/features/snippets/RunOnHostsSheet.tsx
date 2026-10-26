@@ -143,7 +143,7 @@ export function RunOnHostsSheet({
                   >
                     <Text
                       weight="medium"
-                      className={`text-row ${r.ok ? "text-foreground" : "text-destructive"}`}
+                      className={`text-row ${r.ok ? "text-foreground" : "text-destructive-text"}`}
                     >
                       {r.host.name || r.host.ip}
                       {r.via
@@ -156,7 +156,7 @@ export function RunOnHostsSheet({
                       </Text>
                     ) : null}
                     {r.error ? (
-                      <Text className="text-meta text-destructive">
+                      <Text className="text-meta text-destructive-text">
                         {preview(r.error)}
                       </Text>
                     ) : null}

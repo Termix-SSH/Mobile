@@ -12,6 +12,10 @@ module.exports = {
     extend: {
       colors: {
         "accent-brand": withAlpha("--accent-brand"),
+        // Text safe versions, see textTokens in src/constants/theme.ts.
+        "accent-text": withAlpha("--accent-text"),
+        "warning-text": withAlpha("--warning-text"),
+        "destructive-text": withAlpha("--destructive-text"),
         background: withAlpha("--background"),
         foreground: withAlpha("--foreground"),
         card: {

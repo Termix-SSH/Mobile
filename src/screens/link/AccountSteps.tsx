@@ -34,7 +34,7 @@ export function TextLink({
       className="min-h-11 justify-center px-1"
     >
       <Text
-        className={`text-xs ${tone === "brand" ? "text-accent-brand" : "text-muted-foreground"}`}
+        className={`text-xs ${tone === "brand" ? "text-accent-text" : "text-muted-foreground"}`}
       >
         {label}
       </Text>

@@ -109,7 +109,7 @@ function Value({ label, value }: { label: string; value: number | null }) {
     value === null
       ? "text-muted-foreground"
       : value >= 90
-        ? "text-destructive"
+        ? "text-destructive-text"
         : "text-foreground";
   return (
     <View>

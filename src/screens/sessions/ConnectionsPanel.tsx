@@ -107,7 +107,7 @@ function ConnectionRow({
           />
           <Text
             weight="medium"
-            className={`flex-1 text-xs ${isActive ? "text-accent-brand" : "text-foreground"}`}
+            className={`flex-1 text-xs ${isActive ? "text-accent-text" : "text-foreground"}`}
             numberOfLines={1}
           >
             {name}
@@ -117,7 +117,7 @@ function ConnectionRow({
           </View>
         </View>
         <Text
-          className="mt-0.5 pl-3 text-[10px] text-muted-foreground/70"
+          className="mt-0.5 pl-3 text-[10px] text-muted-foreground"
           numberOfLines={1}
         >
           {subLabel}
@@ -259,7 +259,7 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
         >
           No active connections
         </Text>
-        <Text className="text-center text-xs text-muted-foreground/60">
+        <Text className="text-center text-xs text-muted-foreground">
           Connect to a host to start a session. Tabs you open on other devices
           will appear here too.
         </Text>
@@ -295,7 +295,7 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
                   accessibilityRole="button"
                   className="px-1 active:opacity-70"
                 >
-                  <Text className="text-[11px] text-destructive">
+                  <Text className="text-[11px] text-destructive-text">
                     Close all
                   </Text>
                 </Pressable>
@@ -339,7 +339,7 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
         <View className={sessions.length > 0 ? "mt-2" : ""}>
           <SectionHeader label="Background" count={backgroundTabs.length} />
           <View className="border-b border-border/40 px-4 py-1.5">
-            <Text className="text-[10px] text-muted-foreground/60">
+            <Text className="text-[10px] text-muted-foreground">
               Sessions from other devices or backgrounded tabs. Tap to revive.
             </Text>
           </View>

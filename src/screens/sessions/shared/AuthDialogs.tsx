@@ -164,7 +164,7 @@ export function AuthDialogs({
               }
             />
             <Text
-              className={`text-xs ${totpExpiringSoon ? "text-destructive" : "text-muted-foreground"}`}
+              className={`text-xs ${totpExpiringSoon ? "text-destructive-text" : "text-muted-foreground"}`}
             >
               {totpExpiringSoon
                 ? `Code expires in ${totpCountdown}s, get a fresh code`
@@ -172,7 +172,7 @@ export function AuthDialogs({
             </Text>
           </View>
           {errorMessage ? (
-            <Text className="mt-2 text-xs text-destructive">
+            <Text className="mt-2 text-xs text-destructive-text">
               {errorMessage}
             </Text>
           ) : null}
@@ -221,7 +221,7 @@ export function AuthDialogs({
             />
           </View>
           {errorMessage ? (
-            <Text className="mt-2 text-xs text-destructive">
+            <Text className="mt-2 text-xs text-destructive-text">
               {errorMessage}
             </Text>
           ) : null}
@@ -295,7 +295,7 @@ export function AuthDialogs({
             </View>
           )}
           {errorMessage ? (
-            <Text className="mt-2 text-xs text-destructive">
+            <Text className="mt-2 text-xs text-destructive-text">
               {errorMessage}
             </Text>
           ) : null}

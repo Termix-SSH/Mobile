@@ -45,7 +45,7 @@ interface HostProps {
 function FeatureChip({ label }: { label: string }) {
   return (
     <View className="border border-border/50 bg-muted/30 px-1 py-px">
-      <Text className="text-[9px] uppercase tracking-wider text-muted-foreground/70">
+      <Text className="text-[9px] uppercase tracking-wider text-muted-foreground">
         {label}
       </Text>
     </View>
@@ -79,7 +79,7 @@ function MetricBar({
           className="h-full rounded-full"
         />
       </View>
-      <Text className="text-[9px] text-muted-foreground/50">
+      <Text className="text-[9px] text-muted-foreground">
         {Math.round(value)}%
       </Text>
     </View>
@@ -206,7 +206,7 @@ function Host({
 
         {/* Address */}
         <Text
-          className="pl-3 text-[11px] text-muted-foreground/60"
+          className="pl-3 text-[11px] text-muted-foreground"
           numberOfLines={1}
         >
           {host.username ? `${host.username}@` : ""}
@@ -250,7 +250,7 @@ function Host({
                 className="border border-border/50 bg-muted/30 px-1 py-px"
               >
                 <Text
-                  className="text-[9px] lowercase text-muted-foreground/70"
+                  className="text-[9px] lowercase text-muted-foreground"
                   numberOfLines={1}
                 >
                   {tag}
@@ -258,7 +258,7 @@ function Host({
               </View>
             ))}
             {host.tags.length > 4 ? (
-              <Text className="text-[9px] text-muted-foreground/40">
+              <Text className="text-[9px] text-muted-foreground">
                 +{host.tags.length - 4}
               </Text>
             ) : null}

@@ -123,7 +123,7 @@ export default function ShareTarget() {
         <View className="flex-1 items-center justify-center gap-3">
           <ActivityIndicator color={colors.brand} />
           {share.error ? (
-            <Text className="text-sm text-destructive">
+            <Text className="text-sm text-destructive-text">
               {toUserMessage(share.error)}
             </Text>
           ) : null}

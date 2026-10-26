@@ -70,11 +70,11 @@ const FolderRow = memo(function FolderRow({
       </Text>
       <Text className="text-[10px]">
         {online > 0 ? (
-          <Text className="text-[10px] text-accent-brand" weight="bold">
+          <Text className="text-[10px] text-accent-text" weight="bold">
             {online}
           </Text>
         ) : null}
-        <Text className="text-[10px] text-muted-foreground/40">/{total}</Text>
+        <Text className="text-[10px] text-muted-foreground">/{total}</Text>
       </Text>
     </Pressable>
   );

@@ -403,7 +403,7 @@ function MetricsView({
                 className="flex-row items-center gap-1.5 border border-accent-brand/40 bg-accent-brand/10 px-2.5 py-1.5 active:opacity-80"
               >
                 <Zap size={12} color={color("accent-brand")} />
-                <Text className="text-[11px] text-accent-brand">{qa.name}</Text>
+                <Text className="text-[11px] text-accent-text">{qa.name}</Text>
               </Pressable>
             ))}
           </View>

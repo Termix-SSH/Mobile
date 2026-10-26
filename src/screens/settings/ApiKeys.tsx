@@ -332,7 +332,7 @@ export default function ApiKeys() {
                         } ${selected ? "bg-accent-brand/10" : "active:bg-muted/40"}`}
                       >
                         <Text
-                          className={`text-sm ${selected ? "text-accent-brand" : "text-foreground"}`}
+                          className={`text-sm ${selected ? "text-accent-text" : "text-foreground"}`}
                         >
                           {u.username}
                         </Text>

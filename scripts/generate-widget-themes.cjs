@@ -12,17 +12,27 @@ const drawables = path.join(
   "modules/termix-widgets/android/src/main/res/drawable",
 );
 
-function loadThemes() {
-  const source = fs.readFileSync(
-    path.join(root, "src/constants/theme.ts"),
-    "utf8",
-  );
+// Transpiles a TypeScript file and the local files it imports.
+function loadTs(file) {
+  const source = fs.readFileSync(file, "utf8");
   const { outputText } = ts.transpileModule(source, {
     compilerOptions: { module: ts.ModuleKind.CommonJS },
   });
+  const local = (id) =>
+    id.startsWith(".")
+      ? loadTs(path.resolve(path.dirname(file), `${id}.ts`))
+      : require(id);
   const mod = { exports: {} };
-  new Function("module", "exports", outputText)(mod, mod.exports);
+  new Function("module", "exports", "require", outputText)(
+    mod,
+    mod.exports,
+    local,
+  );
   return mod.exports;
+}
+
+function loadThemes() {
+  return loadTs(path.join(root, "src/constants/theme.ts"));
 }
 
 function hex(triplet) {

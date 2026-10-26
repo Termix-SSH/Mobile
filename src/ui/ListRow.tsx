@@ -103,7 +103,7 @@ export function ListRow({
             <Text
               weight="bold"
               numberOfLines={1}
-              className={`shrink text-row ${destructive ? "text-destructive" : "text-foreground"}`}
+              className={`shrink text-row ${destructive ? "text-destructive-text" : "text-foreground"}`}
             >
               {title}
             </Text>
@@ -114,10 +114,7 @@ export function ListRow({
         </View>
         {meta ? (
           typeof meta === "string" ? (
-            <Text
-              numberOfLines={1}
-              className="text-meta text-muted-foreground/80"
-            >
+            <Text numberOfLines={1} className="text-meta text-muted-foreground">
               {meta}
             </Text>
           ) : (

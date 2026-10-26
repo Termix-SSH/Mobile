@@ -43,7 +43,7 @@ export function SettingsLinkRow({
       <View className="min-w-0 flex-1">
         <Text
           weight="medium"
-          className={`text-row ${destructive ? "text-destructive" : "text-foreground"}`}
+          className={`text-row ${destructive ? "text-destructive-text" : "text-foreground"}`}
         >
           {label}
         </Text>

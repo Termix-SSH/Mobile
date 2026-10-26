@@ -189,7 +189,7 @@ export function DockerConsole({
             </>
           ) : (
             <>
-              <Text className="px-8 text-center text-sm text-destructive">
+              <Text className="px-8 text-center text-sm text-destructive-text">
                 {errorMessage || "Console disconnected"}
               </Text>
               <Pressable

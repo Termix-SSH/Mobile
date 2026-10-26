@@ -887,7 +887,7 @@ export const FileManager = forwardRef<
       ) : null}
       {listError ? (
         <View className="border-b border-border px-3 py-2">
-          <Text className="text-xs text-destructive">{listError}</Text>
+          <Text className="text-xs text-destructive-text">{listError}</Text>
         </View>
       ) : null}
       <FileList

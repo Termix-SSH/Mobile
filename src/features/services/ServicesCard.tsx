@@ -58,7 +58,7 @@ export function ServicesCard({ host, accountId, active }: DashboardCardProps) {
             No systemd or OpenRC
           </Text>
         ) : status.failed > 0 ? (
-          <Text weight="bold" className="text-sm text-destructive">
+          <Text weight="bold" className="text-sm text-destructive-text">
             {status.failed} failed
           </Text>
         ) : (

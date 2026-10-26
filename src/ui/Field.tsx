@@ -30,7 +30,7 @@ export function Field({
       <FieldLabel.Provider value={label}>{children}</FieldLabel.Provider>
       {error ? (
         <Text
-          className="text-meta text-destructive"
+          className="text-meta text-destructive-text"
           accessibilityLiveRegion="polite"
         >
           {error}

@@ -183,7 +183,7 @@ export function SheetRow({
       <View className="min-w-0 flex-1">
         <Text
           weight="medium"
-          className={`text-row ${destructive ? "text-destructive" : selected ? "text-accent-brand" : "text-foreground"}`}
+          className={`text-row ${destructive ? "text-destructive-text" : selected ? "text-accent-text" : "text-foreground"}`}
         >
           {label}
         </Text>

@@ -95,7 +95,7 @@ export function ImportPanel({
             {describeSource(source)}
           </Text>
           {source.kind !== "link" && source.file.errors.length > 0 ? (
-            <Text className="text-meta text-warning">
+            <Text className="text-meta text-warning-text">
               {source.file.errors.length} could not be read
             </Text>
           ) : null}

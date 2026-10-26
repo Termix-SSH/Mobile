@@ -88,13 +88,13 @@ export default function UpdateRequired() {
             <View className="gap-2">
               <View className="flex-row justify-between">
                 <Text className="text-xs text-muted-foreground">Installed</Text>
-                <Text className="text-xs text-destructive">
+                <Text className="text-xs text-destructive-text">
                   v{currentMobileAppVersion}
                 </Text>
               </View>
               <View className="flex-row justify-between">
                 <Text className="text-xs text-muted-foreground">Latest</Text>
-                <Text className="text-xs text-accent-brand">
+                <Text className="text-xs text-accent-text">
                   v{latestRelease?.version || "Unknown"}
                 </Text>
               </View>

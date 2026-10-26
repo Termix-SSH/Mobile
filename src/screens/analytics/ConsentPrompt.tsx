@@ -54,7 +54,7 @@ export function AnalyticsHost({ hold }: { hold: boolean }) {
           names.
         </Text>
         <Text
-          className="mt-2 text-meta text-accent-brand"
+          className="mt-2 text-meta text-accent-text"
           onPress={() => void Linking.openURL(USAGE_DOCS_URL)}
         >
           See exactly what is sent

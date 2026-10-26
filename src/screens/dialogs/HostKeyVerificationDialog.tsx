@@ -122,7 +122,7 @@ export function HostKeyVerificationDialog({
           className={`border px-3 py-2.5 ${isChanged ? "border-destructive/40 bg-destructive/10" : "border-accent-brand/30 bg-accent-brand/5"}`}
         >
           <Text
-            className={`text-xs ${isChanged ? "text-destructive" : "text-accent-brand"}`}
+            className={`text-xs ${isChanged ? "text-destructive-text" : "text-accent-text"}`}
           >
             {isChanged
               ? "The host's SSH key has changed since your last connection. This could mean someone is intercepting the connection."

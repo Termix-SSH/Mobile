@@ -134,7 +134,7 @@ export function ContextMenu({
               style={{ height: ITEM_HEIGHT }}
             >
               <Text
-                className={`text-sm ${item.destructive ? "text-destructive" : "text-foreground"}`}
+                className={`text-sm ${item.destructive ? "text-destructive-text" : "text-foreground"}`}
                 numberOfLines={1}
               >
                 {item.label}

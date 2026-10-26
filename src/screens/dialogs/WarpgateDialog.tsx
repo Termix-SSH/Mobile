@@ -64,7 +64,7 @@ export function WarpgateDialog({
             onPress={handleOpenBrowser}
             icon={<ExternalLink size={13} color={color("accent-brand")} />}
             className="flex-1 border-accent-brand/40"
-            textClassName="text-accent-brand"
+            textClassName="text-accent-text"
           >
             Open Browser
           </Button>
@@ -82,7 +82,7 @@ export function WarpgateDialog({
           </Text>
           <View className="items-center border border-accent-brand/30 bg-accent-brand/5 px-4 py-3">
             <Text
-              className="text-2xl text-accent-brand"
+              className="text-2xl text-accent-text"
               weight="bold"
               style={{ letterSpacing: 4, fontFamily: "monospace" }}
             >

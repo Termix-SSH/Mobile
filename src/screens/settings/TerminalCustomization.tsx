@@ -106,7 +106,7 @@ function Choices<T extends string | number>({
           >
             <Text
               weight="medium"
-              className={`text-row ${active ? "text-accent-brand" : "text-foreground"}`}
+              className={`text-row ${active ? "text-accent-text" : "text-foreground"}`}
             >
               {option.label}
             </Text>
@@ -265,7 +265,7 @@ export default function TerminalCustomization() {
                 <View className="min-w-0 flex-1">
                   <Text
                     weight="medium"
-                    className={`text-sm ${active ? "text-accent-brand" : "text-foreground"}`}
+                    className={`text-sm ${active ? "text-accent-text" : "text-foreground"}`}
                   >
                     {option.label}
                   </Text>
@@ -283,7 +283,7 @@ export default function TerminalCustomization() {
                   <View className="shrink-0 border border-accent-brand/40 bg-accent-brand/10 px-1.5 py-0.5">
                     <Text
                       weight="bold"
-                      className="text-[8px] uppercase tracking-wider text-accent-brand"
+                      className="text-[8px] uppercase tracking-wider text-accent-text"
                     >
                       Active
                     </Text>

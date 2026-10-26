@@ -127,7 +127,7 @@ export const FileRow = memo(function FileRow({
             </Text>
           ) : null}
         </Text>
-        <Text numberOfLines={1} className="text-meta text-muted-foreground/80">
+        <Text numberOfLines={1} className="text-meta text-muted-foreground">
           {rowMeta(file)}
         </Text>
       </View>

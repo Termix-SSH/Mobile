@@ -105,7 +105,7 @@ export function PermissionsDialog({
                     >
                       <Text
                         weight="bold"
-                        className={`text-xs uppercase ${active ? "text-accent-brand" : "text-muted-foreground"}`}
+                        className={`text-xs uppercase ${active ? "text-accent-text" : "text-muted-foreground"}`}
                       >
                         {bit}
                       </Text>

@@ -288,7 +288,7 @@ export function SignInStep({
 
       {nothing ? (
         <StepCard>
-          <Text className="text-xs leading-5 text-destructive">
+          <Text className="text-xs leading-5 text-destructive-text">
             This server has no sign in turned on that the app can use. Ask
             whoever runs it, or try the browser sign in above.
           </Text>

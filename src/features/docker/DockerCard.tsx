@@ -91,7 +91,7 @@ function Count({
     <View>
       <Text
         weight="bold"
-        className={`text-lg ${warn ? "text-destructive" : "text-foreground"}`}
+        className={`text-lg ${warn ? "text-destructive-text" : "text-foreground"}`}
       >
         {value}
       </Text>

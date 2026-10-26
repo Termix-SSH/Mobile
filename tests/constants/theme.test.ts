@@ -11,6 +11,7 @@ import {
   resolveTheme,
   tripletToHex,
   uiColorsFor,
+  textTokens,
 } from "@/constants/theme";
 
 const vars = THEME_VARS as Record<string, Record<string, string>>;
@@ -97,7 +98,8 @@ test("uiColorsFor maps tokens to hex colors", () => {
   expect(ui.background).toBe("#0c0d0b");
   expect(ui.terminal).toBe("#0c0d0b");
   expect(ui.brand).toBe("#ffffff");
-  expect(ui.textFaint).toHaveLength(9);
+  // Faded text is a solid color that still reads at 4.5:1.
+  expect(ui.textFaint).toMatch(/^#[0-9a-f]{6}$/);
   expect(uiColorsFor("light", "nope").brand).toBe("#f59145");
 });
 
@@ -112,6 +114,12 @@ test("global.css baselines match the light and dark themes", () => {
   const root = block(":root");
   expect(root["accent-brand"]).toBe("245 145 69");
   delete root["accent-brand"];
-  expect(root).toEqual({ ...vars.light });
-  expect(block(".dark")).toEqual({ ...vars.dark });
+  expect(root).toEqual({
+    ...vars.light,
+    ...textTokens(vars.light, "245 145 69"),
+  });
+  expect(block(".dark")).toEqual({
+    ...vars.dark,
+    ...textTokens(vars.dark, "245 145 69"),
+  });
 });

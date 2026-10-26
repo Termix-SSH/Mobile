@@ -20,7 +20,7 @@ export function ShortcutSheet() {
         <View key={section.title} className="pb-3">
           <Text
             weight="bold"
-            className="px-4 pb-1 pt-3 text-[10px] uppercase tracking-[2px] text-muted-foreground/60"
+            className="px-4 pb-1 pt-3 text-[10px] uppercase tracking-[2px] text-muted-foreground"
           >
             {section.title}
           </Text>

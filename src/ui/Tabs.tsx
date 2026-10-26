@@ -34,7 +34,7 @@ export function Tabs<T extends string>({
         <Text
           weight={active ? "medium" : "regular"}
           numberOfLines={1}
-          className={`${size === "sm" ? "text-meta" : "text-xs"} ${active ? "text-accent-brand" : "text-muted-foreground"}`}
+          className={`${size === "sm" ? "text-meta" : "text-xs"} ${active ? "text-accent-text" : "text-muted-foreground"}`}
         >
           {opt.label}
         </Text>

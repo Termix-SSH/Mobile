@@ -279,7 +279,7 @@ export default function CredentialEditor({
         keyboardDismissMode="interactive"
       >
         <View className="gap-3">
-          <Label className="text-muted-foreground/70">Login</Label>
+          <Label className="text-muted-foreground">Login</Label>
           <Field label="Name">
             <Input
               value={form.name}
@@ -324,7 +324,7 @@ export default function CredentialEditor({
 
         {form.authType === "key" ? (
           <View className="gap-3">
-            <Label className="text-muted-foreground/70">Key</Label>
+            <Label className="text-muted-foreground">Key</Label>
             <Tabs<KeySource>
               value={source}
               onChange={setSource}
@@ -442,7 +442,7 @@ export default function CredentialEditor({
                   style={{ minHeight: 60, fontSize: 11 }}
                 />
                 {cert.kind === "invalid" ? (
-                  <Text className="text-meta text-destructive">
+                  <Text className="text-meta text-destructive-text">
                     This does not look like an OpenSSH certificate.
                   </Text>
                 ) : null}
@@ -457,7 +457,10 @@ export default function CredentialEditor({
                       </Text>
                     ))}
                     {cert.problems.map((line) => (
-                      <Text key={line} className="text-meta text-destructive">
+                      <Text
+                        key={line}
+                        className="text-meta text-destructive-text"
+                      >
                         {line}
                       </Text>
                     ))}
@@ -469,7 +472,7 @@ export default function CredentialEditor({
         ) : null}
 
         <View className="gap-3">
-          <Label className="text-muted-foreground/70">Test</Label>
+          <Label className="text-muted-foreground">Test</Label>
           <Field label="Host to test on">
             <Input
               value={testAddress}

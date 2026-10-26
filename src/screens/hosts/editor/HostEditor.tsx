@@ -65,7 +65,7 @@ function Band({
 }) {
   return (
     <View className="gap-3">
-      <Label className="text-muted-foreground/70">{title}</Label>
+      <Label className="text-muted-foreground">{title}</Label>
       {children}
     </View>
   );
@@ -540,9 +540,7 @@ export default function HostEditor({
             <TestConnection getTarget={testTarget} note={originNote} />
             {featureToggles.length > 0 ? (
               <View>
-                <Label className="mb-1 text-muted-foreground/70">
-                  Features
-                </Label>
+                <Label className="mb-1 text-muted-foreground">Features</Label>
                 {featureToggles.map((t, i) => (
                   <SettingRow
                     key={t.key}

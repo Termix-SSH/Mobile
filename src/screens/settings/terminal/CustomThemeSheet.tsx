@@ -105,7 +105,7 @@ export function CustomThemeSheet({
       <SheetBody>
         <TerminalPreview colors={preview} fontFamily={fontFamily} />
         {error ? (
-          <Text className="mt-2 text-meta text-destructive">{error}</Text>
+          <Text className="mt-2 text-meta text-destructive-text">{error}</Text>
         ) : null}
         <View className="mt-3 gap-2">
           {FIELDS.map((field) => (

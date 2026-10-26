@@ -16,6 +16,7 @@ import {
   hexToRgbTriplet,
   resolveTheme,
   STORAGE_KEYS,
+  textTokens,
   THEME_IS_DARK,
   THEME_VARS,
   THEMES,
@@ -104,7 +105,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const themeStyle = useMemo(() => {
     const tokens = THEME_VARS[resolvedTheme];
     const cssVars: Record<string, string> = { "--accent-brand": accentTriplet };
-    for (const [name, value] of Object.entries(tokens)) {
+    const all = { ...tokens, ...textTokens(tokens, accentTriplet) };
+    for (const [name, value] of Object.entries(all)) {
       cssVars[`--${name}`] = value;
     }
     return vars(cssVars);

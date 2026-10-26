@@ -159,7 +159,7 @@ export function UnitDetailView({
       </View>
 
       {error && !detail ? (
-        <Text className="p-4 text-sm text-destructive">{error}</Text>
+        <Text className="p-4 text-sm text-destructive-text">{error}</Text>
       ) : !detail ? (
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator color={color("accent-brand")} />

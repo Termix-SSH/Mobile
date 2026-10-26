@@ -9,9 +9,9 @@ import { Button, EmptyState, Text } from "@/ui";
 import { toast } from "@/utils/toast";
 
 const LEVEL_COLOR: Record<string, string> = {
-  error: "text-destructive",
-  warn: "text-warning",
-  success: "text-accent-brand",
+  error: "text-destructive-text",
+  warn: "text-warning-text",
+  success: "text-accent-text",
 };
 
 /** The latest log lines from this run of the app, for bug reports. */

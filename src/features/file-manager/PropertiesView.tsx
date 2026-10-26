@@ -149,7 +149,7 @@ export function PropertiesView({
           <Row label="Opened" value={formatDateTime(info.atime)} />
         ) : null}
         {error ? (
-          <Text className="pt-3 text-xs text-destructive">{error}</Text>
+          <Text className="pt-3 text-xs text-destructive-text">{error}</Text>
         ) : null}
       </View>
     </InlineView>

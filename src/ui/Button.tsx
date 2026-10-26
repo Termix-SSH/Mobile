@@ -67,13 +67,13 @@ export const BUTTON_PRESSED: Record<ButtonVariant, string> = {
 };
 
 export const BUTTON_TEXT: Record<ButtonVariant, string> = {
-  default: "text-accent-brand",
-  outline: "text-accent-brand",
-  secondary: "text-accent-brand",
+  default: "text-accent-text",
+  outline: "text-accent-text",
+  secondary: "text-accent-text",
   muted: "text-muted-foreground",
   ghost: "text-foreground",
-  destructive: "text-destructive",
-  link: "text-accent-brand underline",
+  destructive: "text-destructive-text",
+  link: "text-accent-text underline",
 };
 
 const SPINNER_TOKEN: Record<ButtonVariant, string> = {

@@ -45,7 +45,7 @@ export function ThemeControl() {
                 ))}
               </View>
               <Text
-                className={`text-meta ${active ? "text-accent-brand" : "text-muted-foreground"}`}
+                className={`text-meta ${active ? "text-accent-text" : "text-muted-foreground"}`}
               >
                 {THEME_LABELS[id]}
               </Text>
