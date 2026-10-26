@@ -892,6 +892,7 @@ mod tests {
             height: 0,
             scale: 0,
             security: String::new(),
+            server_cert: None,
         };
         let display = crate::display::open_display(config, None, cb.clone()).await.unwrap();
         tokio::time::sleep(std::time::Duration::from_millis(200)).await;

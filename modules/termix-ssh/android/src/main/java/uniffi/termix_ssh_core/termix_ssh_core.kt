@@ -7746,6 +7746,12 @@ data class DisplayConfig (
      * RDP security like the plugin's setting: any, nla, tls. Empty means any.
      */
     var `security`: kotlin.String
+    , 
+    /**
+     * RDP only: the certificate fingerprint the user trusted for this host.
+     * Any other certificate stops the login before the password is sent.
+     */
+    var `serverCert`: kotlin.String?
     
 ){
     
@@ -7771,6 +7777,7 @@ public object FfiConverterTypeDisplayConfig: FfiConverterRustBuffer<DisplayConfi
             FfiConverterUInt.read(buf),
             FfiConverterUInt.read(buf),
             FfiConverterString.read(buf),
+            FfiConverterOptionalString.read(buf),
         )
     }
 
@@ -7783,7 +7790,8 @@ public object FfiConverterTypeDisplayConfig: FfiConverterRustBuffer<DisplayConfi
             FfiConverterUInt.allocationSize(value.`width`) +
             FfiConverterUInt.allocationSize(value.`height`) +
             FfiConverterUInt.allocationSize(value.`scale`) +
-            FfiConverterString.allocationSize(value.`security`)
+            FfiConverterString.allocationSize(value.`security`) +
+            FfiConverterOptionalString.allocationSize(value.`serverCert`)
     )
 
     override fun write(value: DisplayConfig, buf: ByteBuffer) {
@@ -7796,6 +7804,7 @@ public object FfiConverterTypeDisplayConfig: FfiConverterRustBuffer<DisplayConfi
             FfiConverterUInt.write(value.`height`, buf)
             FfiConverterUInt.write(value.`scale`, buf)
             FfiConverterString.write(value.`security`, buf)
+            FfiConverterOptionalString.write(value.`serverCert`, buf)
     }
 }
 

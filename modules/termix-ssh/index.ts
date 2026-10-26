@@ -64,6 +64,19 @@ export class SshError extends Error {
   }
 }
 
+/**
+ * The RDP server showed a certificate the user hasn't trusted: a first
+ * connect ("new") or another one than before ("changed"). Null for other errors.
+ */
+export function rdpCertProblem(
+  err: unknown,
+): { kind: "new" | "changed"; fingerprint: string } | null {
+  const message = (err as { message?: string } | undefined)?.message ?? "";
+  const m = /RDP_CERT_(NEW|CHANGED) ([0-9A-F:]+)/.exec(message);
+  if (!m) return null;
+  return { kind: m[1] === "NEW" ? "new" : "changed", fingerprint: m[2] };
+}
+
 /** Native errors arrive with codes like `SSH_AUTH`; turn them into SshError. */
 export function toSshError(err: unknown): SshError {
   if (err instanceof SshError) return err;

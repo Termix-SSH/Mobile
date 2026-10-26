@@ -4315,6 +4315,11 @@ public struct DisplayConfig: Equatable, Hashable {
      * RDP security like the plugin's setting: any, nla, tls. Empty means any.
      */
     public var security: String
+    /**
+     * RDP only: the certificate fingerprint the user trusted for this host.
+     * Any other certificate stops the login before the password is sent.
+     */
+    public var serverCert: String?
 
     // Default memberwise initializers are never public by default, so we
     // declare one manually.
@@ -4330,7 +4335,11 @@ public struct DisplayConfig: Equatable, Hashable {
          */scale: UInt32, 
         /**
          * RDP security like the plugin's setting: any, nla, tls. Empty means any.
-         */security: String) {
+         */security: String, 
+        /**
+         * RDP only: the certificate fingerprint the user trusted for this host.
+         * Any other certificate stops the login before the password is sent.
+         */serverCert: String?) {
         self.dial = dial
         self.`protocol` = `protocol`
         self.username = username
@@ -4340,6 +4349,7 @@ public struct DisplayConfig: Equatable, Hashable {
         self.height = height
         self.scale = scale
         self.security = security
+        self.serverCert = serverCert
     }
 
     
@@ -4366,7 +4376,8 @@ public struct FfiConverterTypeDisplayConfig: FfiConverterRustBuffer {
                 width: FfiConverterUInt32.read(from: &buf), 
                 height: FfiConverterUInt32.read(from: &buf), 
                 scale: FfiConverterUInt32.read(from: &buf), 
-                security: FfiConverterString.read(from: &buf)
+                security: FfiConverterString.read(from: &buf), 
+                serverCert: FfiConverterOptionString.read(from: &buf)
         )
     }
 
@@ -4380,6 +4391,7 @@ public struct FfiConverterTypeDisplayConfig: FfiConverterRustBuffer {
         FfiConverterUInt32.write(value.height, into: &buf)
         FfiConverterUInt32.write(value.scale, into: &buf)
         FfiConverterString.write(value.security, into: &buf)
+        FfiConverterOptionString.write(value.serverCert, into: &buf)
     }
 }
 

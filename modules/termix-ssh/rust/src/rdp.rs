@@ -1,7 +1,7 @@
 //! RDP on IronRDP, at the same revision as the remote desktop plugin's engine. TLS is rustls on
 //! ring and NLA is NTLM; Kerberos and RD Gateway are not on the phone yet.
 
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 
 use ironrdp::connector::connection_activation::ConnectionActivationState;
 use ironrdp::connector::{self, ClientConnector, ConnectorErrorKind, ConnectorResult, Credentials, ServerName};
@@ -120,14 +120,29 @@ async fn connect(conn: Conn, config: &DisplayConfig) -> Result<(connector::Conne
     let mut framed = MovableTokioFramed::new(conn);
     let should_upgrade = ironrdp_tokio::connect_begin(&mut framed, &mut connector).await.map_err(login_error)?;
     let (stream, leftover) = framed.into_inner();
-    // The prototype accepts any certificate, like the plugin's ignore-cert default.
-    let (tls, cert) = ironrdp_tls::upgrade_with_certificate_validation(
-        stream,
-        &config.dial.host,
-        ironrdp_tls::CertificateValidation::DangerouslyAcceptInvalidCertificate,
-    )
-    .await
-    .map_err(|e| SshError::Connect { msg: format!("RDP TLS: {e}") })?;
+    // A certificate the phone can't verify (most RDP servers sign their own)
+    // is taken only when it is the one the user trusted, like an SSH host key.
+    let refused: Arc<Mutex<Option<String>>> = Arc::new(Mutex::new(None));
+    let expected = config.server_cert.clone();
+    let seen = refused.clone();
+    let callback: ironrdp_tls::CertificateValidationCallback = Arc::new(move |der: &[u8], _: &str, _: &str| {
+        let fingerprint = cert_fingerprint(der);
+        if expected.as_deref() == Some(fingerprint.as_str()) {
+            return true;
+        }
+        *seen.lock().unwrap_or_else(|e| e.into_inner()) = Some(fingerprint);
+        false
+    });
+    let upgraded = ironrdp_tls::upgrade_with_certificate_validation_callback(stream, &config.dial.host, callback).await;
+    let (tls, cert) = match upgraded {
+        Ok(done) => done,
+        Err(e) => {
+            if let Some(fingerprint) = refused.lock().unwrap_or_else(|e| e.into_inner()).take() {
+                return Err(cert_error(config.server_cert.is_some(), &fingerprint));
+            }
+            return Err(SshError::Connect { msg: format!("RDP TLS: {e}") });
+        }
+    };
     let upgraded = ironrdp_tokio::mark_as_upgraded(should_upgrade, &mut connector);
     let key = ironrdp_tls::extract_tls_server_public_key(&cert)
         .ok_or_else(|| SshError::Connect { msg: "RDP: no public key in the server certificate".into() })?
@@ -467,6 +482,18 @@ fn unicode_events(ch: u32, down: bool) -> Vec<FastPathInputEvent> {
     c.encode_utf16(&mut units).iter().map(|&u| FastPathInputEvent::UnicodeKeyboardEvent(flags, u)).collect()
 }
 
+/// SHA-256 of the certificate, as openssl prints it: AB:CD:...
+fn cert_fingerprint(der: &[u8]) -> String {
+    use sha2::{Digest, Sha256};
+    Sha256::digest(der).iter().map(|b| format!("{b:02X}")).collect::<Vec<_>>().join(":")
+}
+
+/// The app reads these: RDP_CERT_NEW asks to trust, RDP_CERT_CHANGED warns.
+fn cert_error(had_one: bool, fingerprint: &str) -> SshError {
+    let kind = if had_one { "RDP_CERT_CHANGED" } else { "RDP_CERT_NEW" };
+    SshError::Connect { msg: format!("{kind} {fingerprint}") }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -484,7 +511,20 @@ mod tests {
             height: 9000,
             scale: 200,
             security: security.into(),
+            server_cert: None,
         }
+    }
+
+    #[test]
+    fn fingerprints_like_openssl_and_names_the_case() {
+        // sha256("abc")
+        assert_eq!(
+            cert_fingerprint(b"abc"),
+            "BA:78:16:BF:8F:01:CF:EA:41:41:40:DE:5D:AE:22:23:B0:03:61:A3:96:17:7A:9C:B4:10:FF:61:F2:00:15:AD"
+        );
+        let new = cert_error(false, "AA:BB").to_string();
+        assert!(new.contains("RDP_CERT_NEW AA:BB"), "{new}");
+        assert!(cert_error(true, "AA:BB").to_string().contains("RDP_CERT_CHANGED AA:BB"));
     }
 
     #[test]

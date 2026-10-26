@@ -1,6 +1,7 @@
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import { NativeRemoteDesktop } from "@/features/remote-desktop/native/NativeRemoteDesktop";
 import { SshError } from "@/modules/termix-ssh";
+import { ConfirmProvider } from "@/ui";
 
 jest.mock("@/contexts/ThemeContext", () => ({
   useThemeColor: () => () => "#000000",
@@ -14,9 +15,16 @@ jest.mock("react-native-safe-area-context", () => ({
 const mockCredential = jest.fn(
   async (..._args: any[]): Promise<any> => null as unknown,
 );
+const mockPrefs = new Map<string, string>();
 jest.mock("@/core/data/hooks", () => ({
   useSessionRepositories: () => ({
     credentials: { get: (id: number) => mockCredential(id) },
+    hostPrefs: {
+      get: async (_host: unknown, key: string) => mockPrefs.get(key) ?? null,
+      set: async (_host: unknown, key: string, value: string) => {
+        mockPrefs.set(key, value);
+      },
+    },
   }),
 }));
 
@@ -40,25 +48,27 @@ async function setup(host: Record<string, unknown>, open: jest.Mock) {
   const onStatus = jest.fn();
   const onUseServer = jest.fn();
   await render(
-    <NativeRemoteDesktop
-      host={
-        {
-          id: 7,
-          name: "PC",
-          ip: "pc.lan",
-          port: 22,
-          username: "u",
-          authType: "password",
-          ...host,
-        } as never
-      }
-      protocol="rdp"
-      transport={transport as never}
-      isVisible
-      title="PC"
-      onStatus={onStatus}
-      onUseServer={onUseServer}
-    />,
+    <ConfirmProvider>
+      <NativeRemoteDesktop
+        host={
+          {
+            id: 7,
+            name: "PC",
+            ip: "pc.lan",
+            port: 22,
+            username: "u",
+            authType: "password",
+            ...host,
+          } as never
+        }
+        protocol="rdp"
+        transport={transport as never}
+        isVisible
+        title="PC"
+        onStatus={onStatus}
+        onUseServer={onUseServer}
+      />
+    </ConfirmProvider>,
   );
   await fireEvent(screen.getByTestId("native-remote-desktop"), "layout", {
     nativeEvent: { layout: { width: 400, height: 744 } },
@@ -66,7 +76,10 @@ async function setup(host: Record<string, unknown>, open: jest.Mock) {
   return { onStatus, onUseServer };
 }
 
-beforeEach(() => mockCredential.mockClear());
+beforeEach(() => {
+  mockCredential.mockClear();
+  mockPrefs.clear();
+});
 
 test("connects from the phone with the host's login and the view's size", async () => {
   const display = fakeDisplay();
@@ -147,4 +160,43 @@ test("uses the linked login when the host points to one", async () => {
     username: "cred",
     password: "x",
   });
+});
+
+test("a new RDP certificate is asked about before any login is sent, then trusted", async () => {
+  const display = fakeDisplay();
+  const fp = "AB:CD:EF";
+  const open = jest
+    .fn(async (..._args: any[]): Promise<any> => ({
+      display,
+      close: jest.fn(),
+    }))
+    .mockRejectedValueOnce(
+      new SshError("connect", `Could not connect: RDP_CERT_NEW ${fp}`),
+    );
+  await setup({ rdpPassword: "pw", rdpUser: "me" }, open);
+  await flush();
+  expect(open.mock.calls[0][1].serverCert).toBeNull();
+  expect(screen.getByText("Trust this computer?")).toBeTruthy();
+  await fireEvent.press(screen.getByText("Trust and connect"));
+  await flush();
+  expect(mockPrefs.get("rdpCert")).toBe(fp);
+  expect(open).toHaveBeenCalledTimes(2);
+  expect(open.mock.calls[1][1].serverCert).toBe(fp);
+});
+
+test("a changed certificate that is not trusted stops with a message", async () => {
+  mockPrefs.set("rdpCert", "OLD");
+  const open = jest.fn(async (..._args: any[]): Promise<any> => {
+    throw new SshError("connect", "RDP_CERT_CHANGED 11:22");
+  });
+  await setup({ rdpPassword: "pw", rdpUser: "me" }, open);
+  await flush();
+  expect(open.mock.calls[0][1].serverCert).toBe("OLD");
+  expect(screen.getByText("Certificate changed")).toBeTruthy();
+  await fireEvent.press(screen.getByText("Cancel"));
+  await flush();
+  expect(
+    screen.getByText("The computer's certificate was not trusted."),
+  ).toBeTruthy();
+  expect(mockPrefs.get("rdpCert")).toBe("OLD");
 });

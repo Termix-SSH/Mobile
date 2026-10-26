@@ -741,3 +741,20 @@ describe("termix-ssh telnet and displays", () => {
     expect(load().displayProtocols()).toEqual([]);
   });
 });
+
+describe("rdp certificate errors", () => {
+  test("new and changed certificates are read from the engine's message", async () => {
+    const ssh = require("@/modules/termix-ssh");
+    expect(
+      ssh.rdpCertProblem(new Error("Could not connect: RDP_CERT_NEW AA:0B")),
+    ).toEqual({
+      kind: "new",
+      fingerprint: "AA:0B",
+    });
+    expect(ssh.rdpCertProblem({ message: "RDP_CERT_CHANGED FF:00" })).toEqual({
+      kind: "changed",
+      fingerprint: "FF:00",
+    });
+    expect(ssh.rdpCertProblem(new Error("RDP TLS: reset"))).toBeNull();
+  });
+});

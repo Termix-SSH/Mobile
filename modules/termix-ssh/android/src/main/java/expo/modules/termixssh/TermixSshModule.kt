@@ -130,6 +130,7 @@ private fun parseDisplay(c: Map<String, Any?>) = DisplayConfig(
     height = c.int("height", 720).toUInt(),
     scale = c.int("scale", 0).toUInt(),
     security = c.str("security") ?: "",
+    serverCert = c.str("serverCert"),
 )
 
 private fun parseConfig(c: Map<String, Any?>) = ConnectConfig(

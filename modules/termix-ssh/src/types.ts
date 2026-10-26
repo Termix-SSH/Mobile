@@ -62,6 +62,11 @@ export interface DisplayConfig extends SshDialConfig {
   scale?: number;
   /** RDP: any, nla or tls, like the plugin's setting. */
   security?: string;
+  /**
+   * RDP: the certificate fingerprint the user trusted. Any other certificate
+   * the phone can't verify stops before the password is sent.
+   */
+  serverCert?: string | null;
 }
 
 export interface SshHostKey {

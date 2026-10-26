@@ -75,7 +75,8 @@ private func parseDisplay(_ c: [String: Any]) throws -> DisplayConfig {
     width: UInt32(num(c["width"], 1280)),
     height: UInt32(num(c["height"], 720)),
     scale: UInt32(num(c["scale"], 0)),
-    security: c["security"] as? String ?? "")
+    security: c["security"] as? String ?? "",
+    serverCert: c["serverCert"] as? String)
 }
 
 private func parseConfig(_ c: [String: Any]) throws -> ConnectConfig {

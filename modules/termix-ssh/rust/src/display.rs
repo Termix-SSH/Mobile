@@ -30,6 +30,9 @@ pub struct DisplayConfig {
     pub scale: u32,
     /// RDP security like the plugin's setting: any, nla, tls. Empty means any.
     pub security: String,
+    /// RDP only: the certificate fingerprint the user trusted for this host.
+    /// Any other certificate stops the login before the password is sent.
+    pub server_cert: Option<String>,
 }
 
 impl std::fmt::Debug for DisplayConfig {

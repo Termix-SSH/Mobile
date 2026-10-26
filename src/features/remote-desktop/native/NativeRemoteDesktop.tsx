@@ -26,9 +26,13 @@ import type { SessionTabStatus } from "@/core/features/types";
 import { sessionLifecycle } from "@/core/sessions/lifecycle";
 import { fromError, type LocalDisplay, type Transport } from "@/core/transport";
 import { TermixDisplayView } from "@/modules/termix-display";
-import { SshError, type DisplayProtocol } from "@/modules/termix-ssh";
+import {
+  rdpCertProblem,
+  SshError,
+  type DisplayProtocol,
+} from "@/modules/termix-ssh";
 import type { SSHHost } from "@/types";
-import { Button } from "@/ui";
+import { Button, useConfirm } from "@/ui";
 import { toTerminalHostConfig } from "@/utils/hosts";
 import type { RdpCredentials } from "../rdp-login";
 import {
@@ -53,9 +57,11 @@ import {
 } from "./gestures";
 import { keysymFor } from "./keys";
 import {
+  certPrompt,
   displayCredentialId,
   displayLogin,
   displayTarget,
+  RDP_CERT_PREF,
   type DisplayLogin,
 } from "./target";
 
@@ -94,6 +100,7 @@ export function NativeRemoteDesktop({
   onUseServer?: () => void;
 }) {
   const repos = useSessionRepositories();
+  const confirm = useConfirm();
   const c = useRemoteColors();
   const { bottom: safeBottom } = useSafeAreaInsets();
   const label = protocol.toUpperCase();
@@ -190,7 +197,11 @@ export function NativeRemoteDesktop({
       if (credentials) typed.current = credentials;
       setPhase("connecting");
       let login: DisplayLogin | RdpCredentials;
+      let serverCert: string | null = null;
       try {
+        if (protocol === "rdp") {
+          serverCert = await repos.hostPrefs.get(host, RDP_CERT_PREF);
+        }
         const credId = displayCredentialId(host, protocol);
         const credential = credId ? await repos.credentials.get(credId) : null;
         const saved = displayLogin(host, protocol, credential);
@@ -219,7 +230,7 @@ export function NativeRemoteDesktop({
       try {
         const opened = await transport.openDisplay!(
           toTerminalHostConfig(host),
-          target,
+          { ...target, serverCert },
           {
             onResize: (fw, fh) => {
               if (current()) setFrame({ w: fw, h: fh });
@@ -268,6 +279,21 @@ export function NativeRemoteDesktop({
       } catch (err) {
         if (!current()) return;
         setReconnecting(false);
+        // Nothing was sent to a server whose certificate isn't trusted yet.
+        const cert = rdpCertProblem(err);
+        if (cert) {
+          const trust = await confirm(certPrompt(host.name || host.ip, cert));
+          if (!current()) return;
+          if (trust) {
+            await repos.hostPrefs.set(host, RDP_CERT_PREF, cert.fingerprint);
+            // Typed credentials are kept in typed.current, so they apply again.
+            void reconnectRef.current();
+            return;
+          }
+          setError("The computer's certificate was not trusted.");
+          setPhase("failed");
+          return;
+        }
         // The phone does the login, so a refused one can be typed again right here.
         if (err instanceof SshError && err.kind === "auth") {
           typed.current = null;

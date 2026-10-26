@@ -1,4 +1,5 @@
 // What the phone needs to open a host's VNC or RDP itself: port, login and size.
+import type { ConfirmOptions } from "@/ui/Confirm";
 import type { DisplayTarget } from "@/core/transport";
 import type { DisplayProtocol } from "@/modules/termix-ssh";
 import type { Credential, SSHHost } from "@/types";
@@ -101,3 +102,27 @@ export function displayTarget(
     connectTimeoutSecs: 15,
   };
 }
+
+/** The question when an RDP server shows a certificate the user hasn't trusted. */
+export function certPrompt(
+  hostName: string,
+  problem: { kind: "new" | "changed"; fingerprint: string },
+): ConfirmOptions {
+  if (problem.kind === "new") {
+    return {
+      title: "Trust this computer?",
+      description: `The phone can't check ${hostName}'s certificate. Make sure this fingerprint matches the one on the computer before you go on.\n\n${problem.fingerprint}`,
+      confirmLabel: "Trust and connect",
+      destructive: false,
+    };
+  }
+  return {
+    title: "Certificate changed",
+    description: `${hostName} shows another certificate than last time. That happens after the computer makes a new one, or when someone is listening in between.\n\nNew fingerprint:\n${problem.fingerprint}`,
+    confirmLabel: "Trust the new one",
+    destructive: true,
+  };
+}
+
+/** The host pref that keeps the RDP certificate fingerprint the user trusted. */
+export const RDP_CERT_PREF = "rdpCert";

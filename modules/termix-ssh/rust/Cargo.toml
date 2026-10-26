@@ -1,6 +1,6 @@
 [package]
 name = "termix_ssh_core"
-version = "0.4.1"
+version = "0.4.2"
 edition = "2024"
 license = "Apache-2.0"
 publish = false
@@ -28,6 +28,7 @@ socket2 = { version = "0.6", features = ["all"] }
 tokio-util = "0.7.20"
 zeroize = "1.9"
 rand = "0.10"
+sha2 = "0.10"
 des = { version = "0.8", optional = true }
 aes = { version = "0.8", optional = true }
 md-5 = { version = "0.10", optional = true }
@@ -40,7 +41,6 @@ ironrdp-tokio = { git = "https://github.com/Devolutions/IronRDP", rev = "62246b3
 ironrdp-tls = { git = "https://github.com/Devolutions/IronRDP", rev = "62246b364a0282bab85087f658a81fe4207b6b31", optional = true, features = ["rustls-ring"] }
 
 [dev-dependencies]
-sha2 = "0.10"
 hmac = "0.12"
 sha1 = "0.10"
 
