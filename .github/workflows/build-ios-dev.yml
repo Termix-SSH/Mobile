@@ -111,13 +111,15 @@ jobs:
           cp build-artifacts/termix-ios-development.ipa "$WORK/termix.ipa"
           cp assets/images/icon.png "$WORK/icon.png"
 
-          # Each build gets its own URLs, so Pages caching never hands out the last IPA.
+          # Each build gets its own folder, so Pages caching never hands out the last IPA.
+          # iOS will not install from a manifest URL with a query string.
           BUILD="${GITHUB_SHA:0:7}"
 
           BASE="$BASE" BUNDLE_ID="$BUNDLE_ID" VERSION="$VERSION" APP_NAME="$APP_NAME" OUT_DIR="$WORK" BUILD="$BUILD" \
             node -e '
               const fs = require("fs");
               const { BASE, BUNDLE_ID, VERSION, APP_NAME, OUT_DIR, BUILD } = process.env;
+              const DIR = BASE + "/" + BUILD;
               const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
               const plist = `<?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -132,19 +134,19 @@ jobs:
                     <key>kind</key>
                     <string>software-package</string>
                     <key>url</key>
-                    <string>${esc(BASE)}/termix.ipa?v=${esc(BUILD)}</string>
+                    <string>${esc(DIR)}/termix.ipa</string>
                   </dict>
                   <dict>
                     <key>kind</key>
                     <string>display-image</string>
                     <key>url</key>
-                    <string>${esc(BASE)}/icon.png</string>
+                    <string>${esc(DIR)}/icon.png</string>
                   </dict>
                   <dict>
                     <key>kind</key>
                     <string>full-size-image</string>
                     <key>url</key>
-                    <string>${esc(BASE)}/icon.png</string>
+                    <string>${esc(DIR)}/icon.png</string>
                   </dict>
                 </array>
                 <key>metadata</key>
@@ -163,7 +165,7 @@ jobs:
           </dict>
           </plist>
           `;
-              const href = "itms-services://?action=download-manifest&amp;url=" + esc(BASE) + "/manifest.plist?v=" + esc(BUILD);
+              const href = "itms-services://?action=download-manifest&amp;url=" + esc(DIR) + "/manifest.plist";
               const html = `<!doctype html>
           <html>
           <head>
@@ -197,8 +199,9 @@ jobs:
           git rm -rf . > /dev/null 2>&1 || true
           rm -rf ./* .gitignore 2>/dev/null || true
 
-          mkdir -p ios-dev
-          cp "$WORK/termix.ipa" "$WORK/manifest.plist" "$WORK/icon.png" "$WORK/index.html" ios-dev/
+          mkdir -p "ios-dev/$BUILD"
+          cp "$WORK/termix.ipa" "$WORK/manifest.plist" "$WORK/icon.png" "ios-dev/$BUILD/"
+          cp "$WORK/index.html" ios-dev/
           touch .nojekyll
 
           git add -A
