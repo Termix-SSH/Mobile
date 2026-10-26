@@ -430,13 +430,25 @@ export default function Sessions() {
     [stageWidth],
   );
 
-  // The old tab lets go of the keyboard, or a hidden terminal keeps it.
+  // The keyboard moves to the new terminal directly, so it never drops and comes back.
+  // When the new tab has no terminal ready, the old one lets go, or a hidden
+  // terminal keeps it.
   const prevActiveRef = useRef<string | null>(activeSessionId);
   useEffect(() => {
     const prev = prevActiveRef.current;
     prevActiveRef.current = activeSessionId;
     if (HIDDEN_INPUT || !prev || prev === activeSessionId) return;
-    tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
+    const next = activeSessionId
+      ? tabRefs.current[activeSessionId]?.current?.keyTarget?.()
+      : null;
+    const keepKeyboard =
+      !!next &&
+      !isCustomKeyboardVisible &&
+      !keyboardIntentionallyHiddenRef.current &&
+      !isAppLocked();
+    if (keepKeyboard) next.focus();
+    else tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSessionId]);
 
   // The one place that gives the keyboard to the active terminal.
