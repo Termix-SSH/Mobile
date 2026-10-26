@@ -83,6 +83,7 @@
       ],
       "./plugins/withIOSNetworkSecurity.js",
       "./plugins/withNetworkSecurityConfig.js",
+      "./plugins/withNoBackup.js",
       "./plugins/withAndroidLocalNetworkSsl.js",
       "./plugins/withTermixWidgets.js",
       "./plugins/withLargeScreen.js",
@@ -161,7 +162,7 @@
         }
       ],
       "expo-dev-client",
-      "expo-secure-store",
+      ["expo-secure-store", { "configureAndroidBackup": false }],
       "expo-web-browser",
       [
         "expo-sqlite",
