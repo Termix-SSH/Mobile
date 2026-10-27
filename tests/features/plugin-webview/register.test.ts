@@ -49,6 +49,25 @@ test("host views become tabs and host actions, the rest Home actions", () => {
   const action = def.hostActions![0];
   expect(action.group).toBe("manage");
   expect(action.isAvailable({} as never, serverCtx)).toBe(true);
+
+  const gated = frameFeature(
+    plugin({
+      views: [
+        {
+          view: "proxmox-stats",
+          host: true,
+          gate: { setting: "enableProxmoxStats" },
+        },
+      ],
+    }),
+  ).hostActions![0];
+  expect(gated.isAvailable({} as never, serverCtx)).toBe(false);
+  expect(
+    gated.isAvailable(
+      { pluginSettings: { proxmox: { enableProxmoxStats: true } } } as never,
+      serverCtx,
+    ),
+  ).toBe(true);
   const openSession = jest.fn();
   action.run({} as never, { ...serverCtx, openSession, close: jest.fn() });
   expect(openSession).toHaveBeenCalledWith("plugin:proxmox:proxmox-stats");

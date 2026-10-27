@@ -12,11 +12,20 @@
  */
 export type CatalogKind = "app" | "server" | "webview" | "look" | "none";
 
+/** A host view shows only on hosts with this plugin host setting on. */
+export interface HostGate {
+  setting: string;
+  /** Also needs SSH on for the host. */
+  ssh?: boolean;
+}
+
 export interface CatalogEntry {
   id: string;
   name: string;
   /** Only used when no app feature covers the plugin. */
   kind: CatalogKind;
+  /** Host views by id, matching the `when` the plugin gives them on desktop. */
+  hostGates?: Record<string, HostGate>;
 }
 
 export const OFFICIAL_PLUGINS: CatalogEntry[] = [
@@ -24,12 +33,22 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "ai", name: "AI Assistant", kind: "none" },
   { id: "alerts", name: "Alerts", kind: "webview" },
   { id: "audit-tools", name: "Audit Tools", kind: "webview" },
-  { id: "automations", name: "Automations", kind: "webview" },
+  {
+    id: "automations",
+    name: "Automations",
+    kind: "webview",
+    hostGates: { host_maintenance: { setting: "enableMaintenance" } },
+  },
   { id: "classic-layout", name: "Classic Layout", kind: "look" },
   { id: "classic-themes", name: "Classic Themes", kind: "look" },
   { id: "cloud-providers", name: "Cloud Providers", kind: "webview" },
   { id: "credential-tools", name: "Credential Tools", kind: "none" },
-  { id: "databases", name: "Databases", kind: "webview" },
+  {
+    id: "databases",
+    name: "Databases",
+    kind: "webview",
+    hostGates: { databases: { setting: "enableDatabases", ssh: true } },
+  },
   { id: "docker", name: "Docker", kind: "none" },
   { id: "file-manager", name: "File Manager", kind: "none" },
   { id: "fleets", name: "Fleets", kind: "webview" },
@@ -38,15 +57,35 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "host-status", name: "Host Status", kind: "app" },
   { id: "hosts-config", name: "Hosts Config", kind: "server" },
   { id: "import-export", name: "Import and Export", kind: "none" },
-  { id: "kubernetes", name: "Kubernetes", kind: "webview" },
+  {
+    id: "kubernetes",
+    name: "Kubernetes",
+    kind: "webview",
+    hostGates: { kubernetes: { setting: "enableKubernetes", ssh: true } },
+  },
   { id: "ldap", name: "LDAP", kind: "server" },
   { id: "login-security", name: "Login Security", kind: "server" },
   { id: "network-topology", name: "Network Topology", kind: "webview" },
   { id: "opkssh", name: "OPKSSH", kind: "server" },
-  { id: "proxmox", name: "Proxmox", kind: "webview" },
+  {
+    id: "proxmox",
+    name: "Proxmox",
+    kind: "webview",
+    hostGates: { "proxmox-stats": { setting: "enableProxmoxStats" } },
+  },
   { id: "remote-desktop", name: "Remote Desktop", kind: "none" },
-  { id: "reverse-proxy", name: "Reverse Proxy", kind: "webview" },
-  { id: "samba", name: "Samba Shares", kind: "webview" },
+  {
+    id: "reverse-proxy",
+    name: "Reverse Proxy",
+    kind: "webview",
+    hostGates: { "reverse-proxy": { setting: "enableReverseProxy" } },
+  },
+  {
+    id: "samba",
+    name: "Samba Shares",
+    kind: "webview",
+    hostGates: { samba: { setting: "enableSamba", ssh: true } },
+  },
   { id: "secret-sources", name: "Secret Sources", kind: "server" },
   { id: "serial", name: "Serial", kind: "none" },
   { id: "service-manager", name: "Services", kind: "none" },

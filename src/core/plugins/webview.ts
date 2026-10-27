@@ -3,7 +3,8 @@ import type {
   ServerPlugin,
 } from "@/core/api/compat/server-features";
 import type { FeatureRegistry } from "@/core/features/registry";
-import { catalogEntry } from "./catalog";
+import type { SSHHost } from "@/types";
+import { catalogEntry, type HostGate } from "./catalog";
 import { apiFit, type ApiFit } from "./compat";
 
 /** One plugin view the app can open in a web view. */
@@ -15,6 +16,8 @@ export interface FrameView {
   icon?: string;
   /** Opens from a host (the tab lists `host-context-menu`). */
   host: boolean;
+  /** The host setting that must be on for the view to show on a host. */
+  gate?: HostGate;
 }
 
 export interface FramePlugin {
@@ -88,7 +91,10 @@ export function framePlugin(
   } else if (catalogEntry(plugin.id)?.kind !== "webview") {
     return null;
   }
-  const views = viewsOf(plugin.frame, mobile?.views);
+  const gates = catalogEntry(plugin.id)?.hostGates;
+  const views = viewsOf(plugin.frame, mobile?.views).map((view) =>
+    gates?.[view.view] ? { ...view, gate: gates[view.view] } : view,
+  );
   if (!views.length) return null;
   return {
     id: plugin.id,
@@ -111,6 +117,17 @@ export function framePlugins(
     .map((plugin) => framePlugin(plugin, registry, device))
     .filter((p): p is FramePlugin => !!p)
     .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/** Whether a host view should show for this host. */
+export function hostAllows(
+  pluginId: string,
+  view: FrameView,
+  host: Pick<SSHHost, "enableSsh" | "pluginSettings">,
+): boolean {
+  if (!view.gate) return true;
+  if (view.gate.ssh && host.enableSsh === false) return false;
+  return host.pluginSettings?.[pluginId]?.[view.gate.setting] === true;
 }
 
 /** A label for a view when its strings have not loaded: "proxmox-stats" is "Proxmox stats". */

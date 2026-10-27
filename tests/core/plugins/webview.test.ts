@@ -4,6 +4,7 @@ import type { FeatureDef } from "@/core/features/types";
 import {
   framePlugin,
   framePlugins,
+  hostAllows,
   translate,
   viewLabel,
 } from "@/core/plugins/webview";
@@ -67,8 +68,38 @@ test("a tab opened from the host menu is a host view", () => {
       titleKey: "nav.proxmoxStats",
       icon: "HardDrive",
       host: true,
+      gate: { setting: "enableProxmoxStats" },
     },
   ]);
+});
+
+test("a gated host view shows only where its host setting is on", () => {
+  const stats = {
+    view: "proxmox-stats",
+    host: true,
+    gate: { setting: "enableProxmoxStats" },
+  };
+  expect(
+    hostAllows("proxmox", stats, {
+      pluginSettings: { proxmox: { enableProxmoxStats: true } },
+    }),
+  ).toBe(true);
+  expect(hostAllows("proxmox", stats, {})).toBe(false);
+  expect(
+    hostAllows("proxmox", stats, {
+      pluginSettings: { proxmox: { enableProxmox: true } },
+    }),
+  ).toBe(false);
+
+  const samba = {
+    view: "samba",
+    host: true,
+    gate: { setting: "enableSamba", ssh: true },
+  };
+  const on = { pluginSettings: { samba: { enableSamba: true } } };
+  expect(hostAllows("samba", samba, on)).toBe(true);
+  expect(hostAllows("samba", samba, { ...on, enableSsh: false })).toBe(false);
+  expect(hostAllows("samba", { view: "x", host: true }, {})).toBe(true);
 });
 
 test("the app's own screens, off plugins and plugins with no frontend stay out", () => {

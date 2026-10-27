@@ -24,7 +24,7 @@ export function PluginSessionTab({
   const web = useRef<PluginWebViewHandle>(null);
   const [target, setTarget] = useState<FrameViewTarget>({
     view,
-    hostId: String(session.host.id),
+    hostId: String(session.host.serverId ?? session.host.id),
   });
 
   useEffect(() => {

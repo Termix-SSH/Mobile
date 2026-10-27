@@ -7,6 +7,7 @@ import { features, type FeatureRegistry } from "@/core/features";
 import type { FeatureDef, SessionTabProps } from "@/core/features/types";
 import {
   framePlugins,
+  hostAllows,
   viewLabel,
   type FramePlugin,
   type FrameView,
@@ -58,7 +59,8 @@ export function frameFeature(plugin: FramePlugin): FeatureDef {
       icon: pluginIcon(view.icon ?? plugin.icon),
       group: "manage" as const,
       order: 200 + index,
-      isAvailable: (_host, ctx) => ctx.account.kind === "server",
+      isAvailable: (host, ctx) =>
+        ctx.account.kind === "server" && hostAllows(plugin.id, view, host),
       run: (_host, ctx) => ctx.openSession(frameTabType(plugin.id, view.view)),
     })),
     quickActions: screens.map((view, index) => ({
