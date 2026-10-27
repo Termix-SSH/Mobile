@@ -94,6 +94,9 @@ export default function SyncSettings() {
     setBusy(true);
     try {
       await sync.syncNow(account.id);
+      if (sync.get(account.id).state === "off") {
+        toast.error("Sign in to this server again to sync");
+      }
     } finally {
       setBusy(false);
     }
@@ -273,7 +276,7 @@ export default function SyncSettings() {
           ) : null}
 
           {client ? (
-            <SavedLoginRow key={client.accountId} client={client} />
+            <SavedLoginRow key={`login-${client.accountId}`} client={client} />
           ) : null}
 
           <Section
@@ -282,7 +285,7 @@ export default function SyncSettings() {
           />
           {client?.isLoaded() ? (
             <ProxySettings
-              key={client.accountId}
+              key={`proxy-${client.accountId}`}
               client={client}
               onSaved={() => void sync.syncNow(account.id)}
             />

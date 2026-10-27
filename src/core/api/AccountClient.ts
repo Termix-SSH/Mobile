@@ -133,6 +133,8 @@ export class AccountClient implements HttpOwner {
   readonly api: ApiModules;
 
   private sessionToken: string | null = null;
+  /** Goes up on every setToken, so load() never overwrites a newer one. */
+  private tokenVersion = 0;
   private customHeaders: ProxyHeader[] = [];
   private basic: BasicAuth | null = null;
   private cert: ClientCert | null = null;
@@ -154,6 +156,7 @@ export class AccountClient implements HttpOwner {
   /** Reads the saved session and caches. Safe to call more than once. */
   load(): Promise<void> {
     this.loaded ??= (async () => {
+      const tokenVersion = this.tokenVersion;
       const { data, secrets } = this.storage;
       const [
         token,
@@ -177,7 +180,7 @@ export class AccountClient implements HttpOwner {
         data.getJson<unknown>("enabledPlugins"),
         data.getJson<string[]>("certPins"),
       ]);
-      this.sessionToken = token;
+      if (this.tokenVersion === tokenVersion) this.sessionToken = token;
       this.customHeaders = Array.isArray(headers) ? headers : [];
       this.basic = basic;
       // Older builds saved the certificate file itself here; it never worked.
@@ -223,6 +226,7 @@ export class AccountClient implements HttpOwner {
 
   async setToken(token: string | null): Promise<void> {
     const changed = (token || null) !== this.sessionToken;
+    this.tokenVersion++;
     this.sessionToken = token || null;
     // A login response leaves its token as a jwt cookie in the shared jar. The
     // server reads that cookie before the Bearer header, so once the login

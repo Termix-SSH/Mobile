@@ -1,5 +1,6 @@
 import { AppState, type AppStateStatus } from "react-native";
 import { accounts } from "@/core/accounts";
+import type { AccountClient } from "@/core/api/AccountClient";
 import { isServerAccount, type ServerAccount } from "@/core/accounts/types";
 import { changes } from "@/core/db/changes";
 import { localStores, type LocalStores } from "@/core/db/stores";
@@ -87,6 +88,11 @@ export class SyncManager {
   private foreground = AppState.currentState !== "background";
   private stopAccounts: (() => void) | null = null;
   private stopAppState: { remove(): void } | null = null;
+  /** Clients of synced servers, so a session that loads or changes counts. */
+  private watched = new Map<
+    string,
+    { client: AccountClient; stop: () => void }
+  >();
 
   constructor(private readonly stores: LocalStores = localStores) {}
 
@@ -106,6 +112,8 @@ export class SyncManager {
     this.stopAccounts = null;
     this.stopAppState = null;
     for (const id of [...this.slots.keys()]) this.drop(id);
+    for (const { stop } of this.watched.values()) stop();
+    this.watched.clear();
   }
 
   subscribe = (listener: () => void) => {
@@ -120,9 +128,15 @@ export class SyncManager {
   }
 
   /** Runs a pass now (or right after the one running). */
-  syncNow(accountId: string): Promise<void> {
-    const slot = this.slot(accountId);
-    if (!slot) return Promise.resolve();
+  async syncNow(accountId: string): Promise<void> {
+    let slot = this.slot(accountId);
+    if (!slot) {
+      // Its saved session may not be read yet.
+      await accounts.client(accountId)?.load();
+      this.reconcile();
+      slot = this.slot(accountId);
+    }
+    if (!slot) return;
     const done = new Promise<void>((resolve) => slot.waiting.push(resolve));
     this.schedule(accountId, 0);
     return done;
@@ -178,6 +192,7 @@ export class SyncManager {
   // Accounts
 
   private reconcile(): void {
+    this.watchClients();
     const wanted = new Map<string, ServerAccount>();
     for (const account of accounts.list()) {
       if (isServerAccount(account) && syncs(account))
@@ -211,6 +226,44 @@ export class SyncManager {
       }
     }
     this.restream();
+  }
+
+  /**
+   * Only the active server's client is loaded at start, and a sign in changes
+   * the client, not the account list. Watch both so no server is missed.
+   */
+  private watchClients(): void {
+    const ids = new Set<string>();
+    for (const account of accounts.list()) {
+      if (!isServerAccount(account) || account.options.sync !== true) continue;
+      const client = accounts.client(account.id);
+      if (!client) continue;
+      ids.add(account.id);
+      if (this.watched.get(account.id)?.client === client) continue;
+      this.watched.get(account.id)?.stop();
+      this.watched.set(account.id, {
+        client,
+        stop: client.subscribe(() => this.onClientChange(account.id)),
+      });
+      if (!client.isLoaded()) {
+        void client.load().then(
+          () => this.reconcile(),
+          () => {},
+        );
+      }
+    }
+    for (const [id, entry] of this.watched) {
+      if (ids.has(id)) continue;
+      entry.stop();
+      this.watched.delete(id);
+    }
+  }
+
+  private onClientChange(accountId: string): void {
+    const account = accounts.find(accountId);
+    if (!isServerAccount(account)) return;
+    // Only a change in whether it can sync matters here.
+    if (syncs(account) !== this.slots.has(accountId)) this.reconcile();
   }
 
   private makeSlot(account: ServerAccount): Slot {

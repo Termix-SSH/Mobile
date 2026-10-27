@@ -84,6 +84,18 @@ test("a linked account syncs on start and opens a live stream", async () => {
   expect(streams[0].url).toBe("https://termix.example/sync/v2/events");
 });
 
+test("a session that arrives after start still syncs", async () => {
+  const client = accounts.client(account.id)!;
+  await client.setToken(null);
+  manager.start();
+  expect(manager.get(account.id).state).not.toBe("idle");
+  // A sign in changes the client only, not the account list.
+  await client.setToken(server.token);
+  await manager.syncNow(account.id);
+  expect(manager.get(account.id).state).toBe("idle");
+  expect(find().lastSyncAt).not.toBeNull();
+});
+
 test("a change event pulls, and a local edit pushes", async () => {
   manager.start();
   await manager.syncNow(account.id);
