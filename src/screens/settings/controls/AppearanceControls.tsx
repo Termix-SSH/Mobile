@@ -72,15 +72,15 @@ export function AccentControl() {
     <View className="gap-2 py-3">
       <Label>Accent color</Label>
       <View className="flex-row flex-wrap gap-2">
-        {ACCENT_PRESET_COLORS.map((ac) => {
-          const active = accent.toLowerCase() === ac.value.toLowerCase();
+        {ACCENT_PRESET_COLORS.map(({ value }) => {
+          const active = accent.toLowerCase() === value.toLowerCase();
           return (
             <Pressable
-              key={ac.value}
-              onPress={() => setAccent(ac.value)}
+              key={value}
+              onPress={() => setAccent(value)}
               accessibilityRole="button"
-              accessibilityLabel={ac.value}
-              style={{ backgroundColor: ac.value }}
+              accessibilityLabel={value}
+              style={{ backgroundColor: value }}
               className={`h-8 w-8 border-2 ${active ? "border-foreground" : "border-transparent"}`}
             />
           );
