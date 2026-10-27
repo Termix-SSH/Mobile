@@ -14,6 +14,7 @@ import {
   LayoutAnimation,
   PanResponder,
   StyleSheet,
+  TextInput,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect, useRouter } from "expo-router";
@@ -340,6 +341,34 @@ export default function Sessions() {
   }, [
     systemKeyboardUp,
     keyboardIntentionallyHiddenRef,
+    setKeyboardIntentionallyHidden,
+  ]);
+
+  // A tap on the terminal brings the keyboard up, so the keys panel closes.
+  // A search field inside the panel keeps it open.
+  const prevKeyboardUpRef = useRef(systemKeyboardUp);
+  useEffect(() => {
+    const cameUp = systemKeyboardUp && !prevKeyboardUpRef.current;
+    prevKeyboardUpRef.current = systemKeyboardUp;
+    if (!cameUp || !isCustomKeyboardVisible || !activeIsTerminal) return;
+    if (TextInput.State.currentlyFocusedInput()) return;
+    if (!reduceMotionOn()) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    }
+    setCustomKeyboardInitialTab("keyboard");
+    toggleCustomKeyboard();
+    setKeyboardIntentionallyHidden(false);
+    setTimeout(() => {
+      const ref = activeSessionId ? tabRefs.current[activeSessionId] : null;
+      ref?.current?.fit?.();
+      setTimeout(() => ref?.current?.scrollToBottom?.(), 50);
+    }, 300);
+  }, [
+    systemKeyboardUp,
+    isCustomKeyboardVisible,
+    activeIsTerminal,
+    activeSessionId,
+    toggleCustomKeyboard,
     setKeyboardIntentionallyHidden,
   ]);
 
