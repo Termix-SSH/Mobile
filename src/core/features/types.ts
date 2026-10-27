@@ -162,6 +162,8 @@ export interface SessionKeyPanelProps {
   hostId?: number;
   host?: SSHHost;
   onCommand?: (id: string) => void;
+  /** Height of the panel's tab strip, the key row's height so the tab bar never moves. */
+  barHeight?: number;
 }
 
 // Hosts

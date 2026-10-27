@@ -156,9 +156,10 @@ export default function Sessions() {
   );
 
   const SESSION_TAB_BAR_HEIGHT = getTabBarHeight(isLandscape, win.isShort) + 2;
-  const CUSTOM_KEYBOARD_TAB_HEIGHT = 36;
 
   const KEYBOARD_BAR_HEIGHT = keyBarHeight(isLandscape, win.isShort);
+  // Same as the key row, so the tab bar stays put when the panel swaps with the keyboard.
+  const CUSTOM_KEYBOARD_TAB_HEIGHT = KEYBOARD_BAR_HEIGHT;
   // When the system keyboard is dismissed the keyboard bar reserves the
   // home-indicator safe area below its keys. The TabBar floats directly on top
   // of the bar, so it must be lifted by the keys' height PLUS that same
@@ -1072,6 +1073,7 @@ export default function Sessions() {
                   }
                   isVisible={isCustomKeyboardVisible}
                   keyboardHeight={customKeyboardHeight}
+                  barHeight={CUSTOM_KEYBOARD_TAB_HEIGHT}
                   isKeyboardIntentionallyHidden={
                     keyboardIntentionallyHiddenRef.current
                   }

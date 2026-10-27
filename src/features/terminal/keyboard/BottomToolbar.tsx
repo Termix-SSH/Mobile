@@ -19,6 +19,7 @@ interface BottomToolbarProps {
   hostId?: number;
   host?: SSHHost;
   onCommand?: (id: string) => void;
+  barHeight?: number;
 }
 
 export default function BottomToolbar({
@@ -30,6 +31,7 @@ export default function BottomToolbar({
   hostId,
   host,
   onCommand,
+  barHeight = 36,
 }: BottomToolbarProps) {
   const ui = useUiColors();
   const [mode, setMode] = useState<ToolbarMode>(initialTab);
@@ -42,7 +44,8 @@ export default function BottomToolbar({
 
   if (!isVisible) return null;
 
-  const safeKeyboardHeight = Math.max(200, Math.min(keyboardHeight, 500));
+  // The screen already sized it to match the system keyboard.
+  const safeKeyboardHeight = keyboardHeight;
 
   const tabs: { id: ToolbarMode; label: string }[] = [
     { id: "keyboard", label: "KEYBOARD" },
@@ -51,13 +54,11 @@ export default function BottomToolbar({
   const ExtraTab = extraTabs.find((t) => t.id === mode)?.component;
   const activeMode = tabs.some((tab) => tab.id === mode) ? mode : "keyboard";
 
-  const TAB_BAR_HEIGHT = 36;
-
   return (
     <View
       style={{
+        height: barHeight + safeKeyboardHeight,
         backgroundColor: ui.background,
-        marginTop: 2,
         borderTopWidth: StyleSheet.hairlineWidth,
         borderTopColor: ui.border,
       }}
@@ -66,7 +67,7 @@ export default function BottomToolbar({
       <View
         style={{
           flexDirection: "row",
-          height: TAB_BAR_HEIGHT,
+          flex: 1,
           backgroundColor: ui.background,
         }}
       >
