@@ -301,6 +301,23 @@ export default function Sessions() {
   const keysPanelRef = useRef(isCustomKeyboardVisible);
   keysPanelRef.current = isCustomKeyboardVisible;
 
+  // Closing the keys panel brings the keyboard up a moment later. Hold the bars
+  // where they are until it arrives, so they don't drop to the bottom and back.
+  const [keyboardComing, setKeyboardComing] = useState(false);
+  useEffect(() => {
+    if (!keyboardComing) return;
+    if (systemKeyboardUp) {
+      setKeyboardComing(false);
+      return;
+    }
+    const timer = setTimeout(() => setKeyboardComing(false), 800);
+    return () => clearTimeout(timer);
+  }, [keyboardComing, systemKeyboardUp]);
+  const barsOnKeyboard = systemKeyboardUp || keyboardComing;
+  const barsKeyboardHeight = systemKeyboardUp
+    ? currentKeyboardHeight
+    : customKeyboardHeight;
+
   const getTabBarBottomPosition = () => {
     if (!activeIsTerminal) {
       return insets.bottom;
@@ -310,8 +327,8 @@ export default function Sessions() {
       return CUSTOM_KEYBOARD_TAB_HEIGHT + customKeyboardHeight;
     }
 
-    return systemKeyboardUp
-      ? KEYBOARD_BAR_HEIGHT + currentKeyboardHeight
+    return barsOnKeyboard
+      ? KEYBOARD_BAR_HEIGHT + barsKeyboardHeight
       : KEYBOARD_BAR_HEIGHT_EXTENDED;
   };
 
@@ -329,8 +346,8 @@ export default function Sessions() {
       );
     }
 
-    return systemKeyboardUp
-      ? SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT + currentKeyboardHeight
+    return barsOnKeyboard
+      ? SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT + barsKeyboardHeight
       : SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT_EXTENDED;
   };
 
@@ -667,6 +684,7 @@ export default function Sessions() {
 
     if (isCustomKeyboardVisible) {
       setCustomKeyboardInitialTab("keyboard");
+      setKeyboardComing(true);
       toggleCustomKeyboard();
       setKeyboardIntentionallyHidden(false);
       setTimeout(() => {
@@ -966,10 +984,10 @@ export default function Sessions() {
             <View
               style={{
                 position: "absolute",
-                bottom: systemKeyboardUp ? currentKeyboardHeight : 0,
+                bottom: barsOnKeyboard ? barsKeyboardHeight : 0,
                 left: 0,
                 right: 0,
-                height: systemKeyboardUp
+                height: barsOnKeyboard
                   ? KEYBOARD_BAR_HEIGHT
                   : KEYBOARD_BAR_HEIGHT_EXTENDED,
                 zIndex: 1003,
@@ -987,7 +1005,7 @@ export default function Sessions() {
                   }
                   host={activeSession?.host}
                   isVisible={true}
-                  isKeyboardIntentionallyHidden={!systemKeyboardUp}
+                  isKeyboardIntentionallyHidden={!barsOnKeyboard}
                   bottomInset={KEYBOARD_BAR_BOTTOM_INSET}
                   onCommand={handleKeyCommand}
                 />
