@@ -271,6 +271,7 @@ class TermixTerminalView: ExpoView {
   let onSearch = EventDispatcher()
   let onMenu = EventDispatcher()
   let onShortcut = EventDispatcher()
+  let onTrace = EventDispatcher()
   /** Set by the app when it handles shortcuts, so the keys reach the shell otherwise. */
   var reportsShortcuts = true
   private var searchTotal = 0
@@ -295,7 +296,11 @@ class TermixTerminalView: ExpoView {
   func setSurfaceVisible(_ visible: Bool) {
     let wasShown = surfaceShown
     surfaceShown = visible
-    if visible, !wasShown { redrawFrames(3) }
+    guard visible, !wasShown else { return }
+    redrawFrames(3)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+      self?.emitTrace("shown")
+    }
   }
   private var surfaceShown = true
 
@@ -305,6 +310,27 @@ class TermixTerminalView: ExpoView {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.016) { [weak self] in
       self?.redrawFrames(count - 1)
     }
+  }
+
+  /// Where the view and its drawn layer really are, for the trace log.
+  private func emitTrace(_ name: String) {
+    let rect = { (r: CGRect) in [Int(r.minX), Int(r.minY), Int(r.width), Int(r.height)] }
+    let layers = (terminalView.layer.sublayers ?? [])
+      .filter { !($0.delegate is UIView) }
+      .map { rect($0.frame) }
+    let grid = terminalView.surface?.size()
+    onTrace([
+      "name": name,
+      "bounds": rect(bounds),
+      "inWindow": window.map { rect(convert(bounds, to: $0)) } ?? [],
+      "ghostty": rect(terminalView.frame),
+      "layers": layers,
+      "cols": Int(grid?.columns ?? 0),
+      "rows": Int(grid?.rows ?? 0),
+      "pixelHeight": Int(grid?.heightPixels ?? 0),
+      "first": terminalView.isFirstResponder,
+      "shown": surfaceShown,
+    ])
   }
 
   required init(appContext: AppContext? = nil) {
@@ -361,6 +387,9 @@ class TermixTerminalView: ExpoView {
       terminalView.setSurfaceVisible(false)
       terminalView.setSurfaceVisible(true)
       redrawFrames(3)
+    }
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+      self?.emitTrace("reattached")
     }
   }
 
@@ -533,9 +562,22 @@ class TermixTerminalView: ExpoView {
       }
       return
     }
+    // Let the old terminal go in the same turn. A bare handoff while the keyboard stayed up
+    // left the new one first responder but getting no keys.
+    var handedOff = false
+    if let other = Self.focusedView, other !== self, other.terminalView.isFirstResponder {
+      _ = other.terminalView.resignFirstResponder()
+      handedOff = true
+    }
     let ok = terminalView.acquireProgrammaticFocus()
-    done(["ok": ok, "waitedFrames": waited, "ready": ready, "state": focusState()])
+    if ok { Self.focusedView = self }
+    done([
+      "ok": ok, "waitedFrames": waited, "ready": ready, "handedOff": handedOff,
+      "state": focusState(),
+    ])
   }
+
+  private static weak var focusedView: TermixTerminalView?
 
   /// In a window and inside its bounds. Hidden tabs sit far off to the side.
   private var isOnScreen: Bool {

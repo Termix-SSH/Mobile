@@ -212,6 +212,12 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
           onModifiers={onModifiers}
           watchPrompt={watchPrompt}
           surfaceVisible={visible}
+          onTrace={(data) =>
+            trace("kb", `native ${String(data.name)}`, {
+              pipe: pipeId,
+              ...data,
+            })
+          }
           onFocusResult={(result) =>
             trace("kb", "native focus", { pipe: pipeId, ...result })
           }
