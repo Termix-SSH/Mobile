@@ -653,6 +653,22 @@ export default function Sessions() {
   };
 
   const handleTabClose = (sessionId: string) => {
+    // Closing the focused terminal would drop the keyboard before the next tab takes it.
+    // Switch first like a tab press, so the keyboard moves over, then remove it.
+    const rest = sessions.filter((s) => s.id !== sessionId);
+    const next = rest[rest.length - 1];
+    if (
+      !HIDDEN_INPUT &&
+      sessionId === activeSessionId &&
+      keyboardUpRef.current &&
+      !isCustomKeyboardVisible &&
+      next &&
+      features.sessionHas(next.type, "terminal-input")
+    ) {
+      handleTabPress(next.id);
+      setTimeout(() => removeSession(sessionId), 250);
+      return;
+    }
     removeSession(sessionId);
     setTimeout(() => {
       if (activeIsTerminal && !isCustomKeyboardVisible && sessions.length > 1) {
