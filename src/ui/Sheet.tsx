@@ -95,10 +95,12 @@ export function Sheet({
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         enabled={Platform.OS === "ios"}
-        style={{ flex: 1 }}
+        style={{ flex: 1, justifyContent: "flex-end" }}
       >
+        {/* Fills the whole window, so a sheet stopped short of the bottom
+            never leaves a gap without the dim. */}
         <Pressable
-          className="flex-1 bg-overlay"
+          className="absolute inset-0 bg-overlay"
           onPress={close}
           // The X button closes too; the backdrop is skipped by screen readers.
           accessible={false}

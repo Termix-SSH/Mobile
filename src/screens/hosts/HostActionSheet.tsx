@@ -187,8 +187,8 @@ export function HostActionSheet({
       </View>
 
       {picksOrigin && origin ? (
-        <View className="gap-2 border-b border-border px-4 py-3">
-          <Text className="text-xs uppercase tracking-[1px] text-muted-foreground">
+        <View>
+          <Text className="px-4 pb-1 pt-3 text-xs uppercase tracking-[1px] text-muted-foreground">
             Connect from
           </Text>
           <Tabs<ConnectionOrigin>
@@ -197,7 +197,7 @@ export function HostActionSheet({
             onChange={changeOrigin}
           />
           {originNote ? (
-            <Text className="text-meta text-muted-foreground">
+            <Text className="border-b border-border px-4 py-2 text-meta text-muted-foreground">
               {originNote}
             </Text>
           ) : null}
