@@ -472,10 +472,10 @@ class TermixTerminalView: ExpoView {
       terminalView.frame = bounds
     }
     guard surfaceReady else { return }
+    // Never turn the surface off and on to force a frame: once it was, its new frames
+    // stopped reaching the screen.
     DispatchQueue.main.async { [weak self] in
       guard let self, window != nil else { return }
-      terminalView.setSurfaceVisible(false)
-      terminalView.setSurfaceVisible(true)
       redrawFrames(3)
     }
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
