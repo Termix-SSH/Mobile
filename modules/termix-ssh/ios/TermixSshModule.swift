@@ -6,12 +6,10 @@ import TermixPipe
 // How long a login waits for the user to answer a host key or prompt.
 private let promptTimeoutNs: UInt64 = 5 * 60 * 1_000_000_000
 
-struct SshCodedException: CodedError {
-  let code: String
-  let description: String
+// Has to subclass Exception: Expo turns any other error into UnexpectedException and drops the code.
+final class SshCodedException: Exception, @unchecked Sendable {
   init(_ code: String, _ description: String) {
-    self.code = code
-    self.description = description
+    super.init(name: "SshCodedException", description: description, code: code)
   }
 }
 
