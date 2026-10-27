@@ -303,6 +303,7 @@ class TermixTerminalView: ExpoView {
     }
   }
   private var surfaceShown = true
+  private var lastGrid = (cols: 0, rows: 0)
 
   private func redrawFrames(_ count: Int) {
     terminalView.fitToSize()
@@ -318,16 +319,14 @@ class TermixTerminalView: ExpoView {
     let layers = (terminalView.layer.sublayers ?? [])
       .filter { !($0.delegate is UIView) }
       .map { rect($0.frame) }
-    let grid = terminalView.surface?.size()
     onTrace([
       "name": name,
       "bounds": rect(bounds),
       "inWindow": window.map { rect(convert(bounds, to: $0)) } ?? [],
       "ghostty": rect(terminalView.frame),
       "layers": layers,
-      "cols": Int(grid?.columns ?? 0),
-      "rows": Int(grid?.rows ?? 0),
-      "pixelHeight": Int(grid?.heightPixels ?? 0),
+      "cols": lastGrid.cols,
+      "rows": lastGrid.rows,
       "first": terminalView.isFirstResponder,
       "shown": surfaceShown,
     ])
@@ -342,7 +341,10 @@ class TermixTerminalView: ExpoView {
         DispatchQueue.main.async { self?.onInput(["data": data.base64EncodedString()]) }
       },
       resize: { [weak self] viewport in
-        DispatchQueue.main.async { self?.onResize(["cols": viewport.columns, "rows": viewport.rows]) }
+        DispatchQueue.main.async {
+          self?.lastGrid = (Int(viewport.columns), Int(viewport.rows))
+          self?.onResize(["cols": viewport.columns, "rows": viewport.rows])
+        }
       }
     )
     let reader = PipeReader(pipe: localPipe)
