@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
-  ArrowLeft,
   ChevronRight,
   Download,
   Server,
   Smartphone,
 } from "lucide-react-native";
 import { Button, Label, Text } from "@/ui";
+import { ScreenHeader } from "@/components/Screen";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { LOCAL_ACCOUNT_ID } from "@/core/accounts/types";
 import { ImportPanel } from "@/features/host-transfer/ImportPanel";
@@ -87,19 +87,7 @@ export default function Welcome({
   if (view === "import") {
     return (
       <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-        <View className="flex-row items-center border-b border-border px-1.5">
-          <Pressable
-            onPress={() => setView("choose")}
-            accessibilityRole="button"
-            accessibilityLabel="Back"
-            className="h-11 w-11 items-center justify-center active:bg-muted"
-          >
-            <ArrowLeft size={20} color={fg} />
-          </Pressable>
-          <Text weight="bold" className="text-sm text-foreground">
-            Import
-          </Text>
-        </View>
+        <ScreenHeader title="Import" onBack={() => setView("choose")} />
         <ScrollView
           contentContainerStyle={{
             padding: 16,

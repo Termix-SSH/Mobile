@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 import Constants from "expo-constants";
 import { Text, Button, Label } from "@/ui";
+import { ScreenHeader } from "@/components/Screen";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { getLatestGitHubRelease } from "@/core/updates";
 
@@ -62,12 +63,10 @@ export default function UpdateRequired() {
 
   return (
     <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-      <View className="flex-row items-center gap-2.5 border-b border-border px-5 py-4">
-        <AlertTriangle size={20} color={color("warning")} />
-        <Text weight="bold" className="text-lg text-foreground">
-          Update Available
-        </Text>
-      </View>
+      <ScreenHeader
+        title="Update Available"
+        headerLeft={<AlertTriangle size={20} color={color("warning")} />}
+      />
 
       <View className="flex-1 px-5 py-6">
         <View className="border border-border bg-card p-5">

@@ -8,8 +8,9 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ArrowLeft, Server, X } from "lucide-react-native";
+import { Server, X } from "lucide-react-native";
 import { InlineView, Text } from "@/ui";
+import { ScreenHeader } from "@/components/Screen";
 import { useConfirm } from "@/ui/Confirm";
 import {
   biometricName,
@@ -317,47 +318,25 @@ export default function LinkFlow() {
         // Edge to edge Android no longer resizes for the keyboard.
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <View
-          className="flex-row items-center border-b border-border px-1.5"
-          style={{ paddingTop: insets.top }}
-        >
-          {canGoBack ? (
-            <Pressable
-              onPress={back}
-              hitSlop={6}
-              accessibilityRole="button"
-              accessibilityLabel="Back"
-              className="h-11 flex-row items-center gap-1.5 px-2 active:bg-muted"
-            >
-              <ArrowLeft size={20} color={color("foreground")} />
-            </Pressable>
-          ) : (
-            <View className="w-11" />
-          )}
-          <View className="min-w-0 flex-1 py-2">
-            <Text weight="bold" className="text-sm text-foreground">
-              {TITLES[step]}
-            </Text>
-            {host && step !== "address" ? (
-              <Text
-                className="text-meta text-muted-foreground"
-                numberOfLines={1}
-              >
-                {host}
-              </Text>
-            ) : null}
-          </View>
-          {step !== "merge" ? (
-            <Pressable
-              onPress={() => void close()}
-              hitSlop={6}
-              accessibilityRole="button"
-              accessibilityLabel="Close"
-              className="h-11 w-11 items-center justify-center active:bg-muted"
-            >
-              <X size={20} color={color("muted-foreground")} />
-            </Pressable>
-          ) : null}
+        <View style={{ paddingTop: insets.top }}>
+          <ScreenHeader
+            title={TITLES[step]}
+            subtitle={host && step !== "address" ? host : undefined}
+            onBack={canGoBack ? back : undefined}
+            headerRight={
+              step !== "merge" ? (
+                <Pressable
+                  onPress={() => void close()}
+                  hitSlop={6}
+                  accessibilityRole="button"
+                  accessibilityLabel="Close"
+                  className="h-9 w-9 items-center justify-center active:bg-muted"
+                >
+                  <X size={20} color={color("muted-foreground")} />
+                </Pressable>
+              ) : null
+            }
+          />
         </View>
 
         <ScrollView
