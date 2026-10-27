@@ -1,7 +1,6 @@
 import { Fragment, isValidElement, useEffect, useState } from "react";
 import {
   Keyboard,
-  KeyboardAvoidingView,
   Modal,
   Platform,
   Pressable,
@@ -19,18 +18,31 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 const SHEET_MAX_WIDTH = 640;
 
 /**
- * Keyboard height on Android. Edge to edge dialogs don't resize, and a
- * KeyboardAvoidingView misses a keyboard that was already up at mount.
+ * Keyboard height while the sheet is open. The sheet pads its own bottom by
+ * it, so its background runs behind the keyboard down to the screen edge
+ * (the iOS keyboard has rounded corners, and lifting the whole sheet showed
+ * the screen behind them). Android edge to edge dialogs don't resize either.
  */
-function useAndroidKeyboard(active: boolean): number {
+function useKeyboardHeight(active: boolean): number {
   const [height, setHeight] = useState(0);
   useEffect(() => {
-    if (!active || Platform.OS !== "android") return;
+    if (!active) return;
     if (Keyboard.isVisible()) setHeight(Keyboard.metrics()?.height ?? 0);
-    const show = Keyboard.addListener("keyboardDidShow", (e) =>
-      setHeight(e.endCoordinates.height),
+    const ios = Platform.OS === "ios";
+    const show = Keyboard.addListener(
+      ios ? "keyboardWillShow" : "keyboardDidShow",
+      (e) => {
+        if (ios) Keyboard.scheduleLayoutAnimation(e);
+        setHeight(e.endCoordinates.height);
+      },
     );
-    const hide = Keyboard.addListener("keyboardDidHide", () => setHeight(0));
+    const hide = Keyboard.addListener(
+      ios ? "keyboardWillHide" : "keyboardDidHide",
+      (e) => {
+        if (ios) Keyboard.scheduleLayoutAnimation(e);
+        setHeight(0);
+      },
+    );
     return () => {
       show.remove();
       hide.remove();
@@ -80,7 +92,7 @@ export function Sheet({
     width <= SHEET_MAX_WIDTH + 2 * Math.max(insets.left, insets.right);
   // On a short window any sheet can run past its cap, so it always scrolls.
   const scrolls = scroll || height < 500;
-  const androidKeyboard = useAndroidKeyboard(visible);
+  const keyboard = useKeyboardHeight(visible);
 
   return (
     <Modal
@@ -92,11 +104,7 @@ export function Sheet({
       statusBarTranslucent
       navigationBarTranslucent
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        enabled={Platform.OS === "ios"}
-        style={{ flex: 1, justifyContent: "flex-end" }}
-      >
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
         {/* Fills the whole window, so a sheet stopped short of the bottom
             never leaves a gap without the dim. */}
         <Pressable
@@ -112,10 +120,11 @@ export function Sheet({
           onAccessibilityEscape={close}
           className={`border-t bg-popover ${fullWidth ? "" : "border-x"} ${tone === "destructive" ? "border-destructive/40" : "border-border"}`}
           style={{
-            paddingBottom: Math.max(insets.bottom, androidKeyboard),
+            paddingBottom: Math.max(insets.bottom, keyboard),
             paddingLeft: fullWidth ? insets.left : 0,
             paddingRight: fullWidth ? insets.right : 0,
-            maxHeight: "85%",
+            // 85% of the space above the keyboard, plus the part behind it.
+            maxHeight: keyboard ? (height - keyboard) * 0.85 + keyboard : "85%",
             width: "100%",
             maxWidth: SHEET_MAX_WIDTH,
             alignSelf: "center",
@@ -178,7 +187,7 @@ export function Sheet({
             </View>
           ) : null}
         </Animated.View>
-      </KeyboardAvoidingView>
+      </View>
     </Modal>
   );
 }
