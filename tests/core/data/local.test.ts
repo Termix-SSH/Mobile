@@ -626,3 +626,105 @@ test("lists asked at the same time share one read, and a later list sees new hos
   await repos.hosts.create({ ...fullHost, name: "second" });
   expect(await repos.hosts.list()).toHaveLength(2);
 });
+
+describe("sub-hosts", () => {
+  const base: SSHHostData = {
+    ip: "10.0.0.9",
+    port: 22,
+    username: "root",
+    authType: "password",
+    password: "x",
+  };
+
+  test("a host saves under a parent host and leaves its folder", async () => {
+    const { repos } = setup();
+    const parent = await repos.hosts.create({
+      ...base,
+      name: "p",
+      folder: "Lab",
+    });
+    const child = await repos.hosts.create({
+      ...base,
+      name: "c",
+      folder: "Lab",
+      parentHostId: parent.id,
+    });
+    expect(child).toMatchObject({ parentHostId: parent.id, folder: "" });
+
+    // An edit that leaves the parent out keeps it.
+    const kept = await repos.hosts.update(child.id, { ...base, name: "c2" });
+    expect(kept.parentHostId).toBe(parent.id);
+
+    // A folder replaces the parent, like the server.
+    const moved = await repos.hosts.update(child.id, {
+      ...base,
+      folder: "Web",
+    });
+    expect(moved).toMatchObject({ parentHostId: null, folder: "Web" });
+  });
+
+  test("self, loop, missing and shared parents are refused", async () => {
+    const { repos, stores } = setup();
+    const a = await repos.hosts.create({ ...base, name: "a" });
+    const b = await repos.hosts.create({
+      ...base,
+      name: "b",
+      parentHostId: a.id,
+    });
+    await expect(
+      repos.hosts.update(a.id, { ...base, parentHostId: a.id }),
+    ).rejects.toThrow("own parent");
+    await expect(
+      repos.hosts.update(a.id, { ...base, parentHostId: b.id }),
+    ).rejects.toThrow("own sub-hosts");
+    await expect(
+      repos.hosts.create({ ...base, parentHostId: 999 }),
+    ).rejects.toThrow("Parent host not found");
+
+    const { db } = await stores.get("local");
+    const shared = db
+      .insert(hostsTable)
+      .values({
+        syncId: "shared-1",
+        ip: "10.0.0.2",
+        port: 22,
+        username: "u",
+        authType: "password",
+        sharedSource: JSON.stringify({ owner: "x", permissionLevel: "view" }),
+      })
+      .returning()
+      .get();
+    await expect(
+      repos.hosts.bulkUpdate([a.id], { parentHostId: shared.id }),
+    ).rejects.toThrow("Parent host not found");
+  });
+
+  test("bulk moves go under a host or back to a folder", async () => {
+    const { repos } = setup();
+    const p = await repos.hosts.create({ ...base, name: "p" });
+    const a = await repos.hosts.create({ ...base, name: "a", folder: "Lab" });
+    const b = await repos.hosts.create({ ...base, name: "b" });
+    await repos.hosts.bulkUpdate([a.id, b.id], { parentHostId: p.id });
+    expect(await repos.hosts.get(a.id)).toMatchObject({
+      parentHostId: p.id,
+      folder: "",
+    });
+    await repos.hosts.bulkUpdate([a.id], { folder: "Web" });
+    expect(await repos.hosts.get(a.id)).toMatchObject({
+      parentHostId: null,
+      folder: "Web",
+    });
+  });
+
+  test("deleting a parent leaves its sub-hosts at the top", async () => {
+    const { repos } = setup();
+    const p = await repos.hosts.create({ ...base, name: "p" });
+    const c = await repos.hosts.create({
+      ...base,
+      name: "c",
+      parentHostId: p.id,
+    });
+    await repos.hosts.remove(p.id);
+    expect((await repos.hosts.get(c.id))?.parentHostId).toBeNull();
+  });
+});

@@ -44,10 +44,12 @@ import { TestConnection } from "@/screens/hosts/TestConnection";
 import { AuthFields } from "./AuthFields";
 import { ColorIconField } from "./ColorIconField";
 import { JumpHostsField } from "./JumpHostsField";
+import { ParentHostField } from "./ParentHostField";
 import { TagsField } from "./TagsField";
 import {
   applyFormDefaults,
   EMPTY_FORM,
+  folderUnder,
   formError,
   formFromHost,
   payloadFromForm,
@@ -99,6 +101,8 @@ export default function HostEditor({
   >({});
   const [credentials, setCredentials] = useState<Credential[]>([]);
   const [allHosts, setAllHosts] = useState<SSHHost[]>([]);
+  // Shows the parent host picker in place of the folder.
+  const [underHost, setUnderHost] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(false);
   const [connectFrom, setConnectFrom] = useState<ConnectionOrigin>("auto");
@@ -147,6 +151,7 @@ export default function HostEditor({
         );
       }
       setForm(next);
+      setUnderHost(next.parentHostId != null);
       setSectionValues(values);
       startForm.current = JSON.stringify(next);
       startValues.current = JSON.stringify(values);
@@ -178,12 +183,19 @@ export default function HostEditor({
     } else {
       const start = fill(draft ? { ...draft } : null);
       if (repos.hostDefaults) {
-        repos.hostDefaults
-          .index()
-          .then((index) => {
+        Promise.all([
+          repos.hostDefaults.index(),
+          start.parentHostId != null ? repos.hosts.list() : [],
+        ])
+          .then(([index, list]) => {
             if (cancelled) return;
             defaultsIndex.current = index;
-            const found = formDefaults(index, start.folder);
+            const found = formDefaults(
+              index,
+              start.parentHostId != null
+                ? folderUnder(list, start.parentHostId)
+                : start.folder,
+            );
             setFilled(found);
             setForm((f) => {
               const next = applyFormDefaults(f, found, {});
@@ -201,15 +213,29 @@ export default function HostEditor({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, host, draft, repos, account.id]);
 
-  // A new host follows the defaults of the folder it is going into.
-  const changeFolder = (folder: string) => {
+  // A new host follows the defaults of the folder it is going into. A
+  // sub-host follows its parent's folder.
+  const changePlace = (
+    patch: Partial<Pick<HostEditorForm, "folder" | "parentHostId">>,
+  ) => {
     if (isEdit || !defaultsIndex.current) {
-      set({ folder });
+      set(patch);
       return;
     }
-    const found = formDefaults(defaultsIndex.current, folder);
-    setForm((f) => applyFormDefaults({ ...f, folder }, found, filled));
+    const next = { ...form, ...patch };
+    const found = formDefaults(
+      defaultsIndex.current,
+      next.parentHostId != null
+        ? folderUnder(allHosts, next.parentHostId)
+        : next.folder,
+    );
+    setForm((f) => applyFormDefaults({ ...f, ...patch }, found, filled));
     setFilled(found);
+  };
+  const changeFolder = (folder: string) => changePlace({ folder });
+  const switchPlace = () => {
+    if (underHost) changePlace({ parentHostId: null });
+    setUnderHost(!underHost);
   };
 
   // A Tailscale device fills the address, and the name unless one was typed.
@@ -442,13 +468,30 @@ export default function HostEditor({
               them.
             </Text>
           ) : null}
-          <Field label="Folder">
-            <Input
-              value={form.folder}
-              onChangeText={changeFolder}
-              placeholder="Production"
+          {underHost ? (
+            <ParentHostField
+              value={form.parentHostId}
+              onChange={(parentHostId) => changePlace({ parentHostId })}
+              selfId={host?.id}
+              hosts={otherHosts}
             />
-          </Field>
+          ) : (
+            <Field label="Folder">
+              <Input
+                value={form.folder}
+                onChangeText={changeFolder}
+                placeholder="Production"
+              />
+            </Field>
+          )}
+          <Button
+            variant="link"
+            size="xs"
+            className="-mt-2 self-start"
+            onPress={switchPlace}
+          >
+            {underHost ? "Use a folder instead" : "Put it under a host instead"}
+          </Button>
           <TagsField tags={form.tags} onChange={(tags) => set({ tags })} />
           <SettingRow label="Pin to top" last>
             <FakeSwitch checked={form.pin} onChange={(pin) => set({ pin })} />

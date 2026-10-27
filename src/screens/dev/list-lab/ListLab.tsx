@@ -68,6 +68,7 @@ function HostsScene() {
       getHostStatus={getHostStatus}
       getHostMetrics={getHostMetrics}
       onToggleFolder={noop}
+      onToggleHost={noop}
       onHostPress={noop}
       onHostLongPress={noop}
       selecting={false}

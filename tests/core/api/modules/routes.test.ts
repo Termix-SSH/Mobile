@@ -90,3 +90,29 @@ test("every module is built for the client", async () => {
     for (const fn of Object.values(mod)) expect(typeof fn).toBe("function");
   }
 });
+
+test("host saves send the parent host only when the form sets it", async () => {
+  const base = {
+    ip: "10.0.0.1",
+    port: 22,
+    username: "root",
+    authType: "password" as const,
+  };
+  const seen = fakeServer(() => ({ data: { id: 4 } }));
+  const c = await clientFor("legacy");
+  await c.api.hosts.updateSSHHost(4, { ...base, parentHostId: 2 });
+  await c.api.hosts.updateSSHHost(4, { ...base });
+  expect(seen[0].data).toMatchObject({ parentHostId: 2 });
+  expect(seen[1].data).not.toHaveProperty("parentHostId");
+});
+
+test("a host list reads the parent host as a number", async () => {
+  fakeServer(() => ({
+    data: [
+      { id: 1, parentHostId: null },
+      { id: 2, parentHostId: "1" },
+    ],
+  }));
+  const list = await (await clientFor("legacy")).api.hosts.getSSHHosts();
+  expect(list.map((h) => h.parentHostId)).toEqual([null, 1]);
+});

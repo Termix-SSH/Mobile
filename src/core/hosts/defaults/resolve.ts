@@ -44,6 +44,31 @@ export function folderChainPaths(path: string | null | undefined): string[] {
   );
 }
 
+export interface HostPlacement {
+  folder: string | null;
+  parentHostId: number | null;
+}
+
+/**
+ * The folder whose defaults a host follows. A sub-host has no folder of its
+ * own, so it takes the nearest ancestor's, like core.
+ */
+export function effectiveFolderPath(
+  own: HostPlacement,
+  placement: Map<number, HostPlacement>,
+): string | null {
+  const seen = new Set<number>();
+  let current: HostPlacement | undefined = own;
+  while (current) {
+    if (current.folder) return current.folder;
+    const parent = current.parentHostId;
+    if (parent === null || seen.has(parent)) return null;
+    seen.add(parent);
+    current = placement.get(parent);
+  }
+  return null;
+}
+
 export function levelsForHost(
   index: DefaultsIndex,
   folderPath: string | null | undefined,

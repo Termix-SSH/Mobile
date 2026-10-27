@@ -1,6 +1,12 @@
 import { memo } from "react";
 import { View, Pressable } from "react-native";
-import { Pin, Cpu, MemoryStick, GripVertical } from "lucide-react-native";
+import {
+  ChevronRight,
+  Cpu,
+  GripVertical,
+  MemoryStick,
+  Pin,
+} from "lucide-react-native";
 import { SSHHost } from "@/types";
 import {
   Checkbox,
@@ -42,6 +48,11 @@ interface HostProps {
   dragging?: boolean;
   /** Feature badges, read once by the list. */
   badges: HostBadgeDef[];
+  /** How many sub-hosts sit right under it. */
+  subHosts?: number;
+  /** Its sub-hosts show. */
+  open?: boolean;
+  onToggleSubHosts?: (hostId: number) => void;
 }
 
 /** Compact protocol/feature tag (e.g. RDP, VNC, DKR) shown beside a host. */
@@ -104,6 +115,9 @@ function Host({
   onDrag,
   dragging = false,
   badges,
+  subHosts = 0,
+  open = false,
+  onToggleSubHosts,
 }: HostProps) {
   const color = useThemeColor();
   const accent = color("accent-brand");
@@ -276,6 +290,21 @@ function Host({
         ) : null}
       </View>
 
+      {subHosts > 0 && onToggleSubHosts ? (
+        <Pressable
+          onPress={() => onToggleSubHosts(host.id)}
+          accessibilityRole="button"
+          accessibilityLabel={`${open ? "Hide" : "Show"} ${subHosts} ${subHosts === 1 ? "sub-host" : "sub-hosts"} of ${host.name}`}
+          accessibilityState={{ expanded: open }}
+          hitSlop={6}
+          className="flex-row items-center gap-1 px-3 active:bg-muted/40"
+        >
+          <Text className="text-[10px] text-muted-foreground">{subHosts}</Text>
+          <View style={{ transform: [{ rotate: open ? "90deg" : "0deg" }] }}>
+            <ChevronRight size={14} color={color("muted-foreground")} />
+          </View>
+        </Pressable>
+      ) : null}
       {onDrag ? (
         <Pressable
           onPressIn={onDrag}

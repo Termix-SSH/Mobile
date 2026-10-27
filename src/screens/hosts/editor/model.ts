@@ -12,6 +12,8 @@ export interface HostEditorForm {
   ip: string;
   port: string;
   folder: string;
+  /** Set when the host sits under another host instead of a folder. */
+  parentHostId: number | null;
   tags: string[];
   pin: boolean;
   notes: string;
@@ -36,6 +38,7 @@ export const EMPTY_FORM: HostEditorForm = {
   ip: "",
   port: "22",
   folder: "",
+  parentHostId: null,
   tags: [],
   pin: false,
   notes: "",
@@ -85,7 +88,8 @@ export function formFromHost(
     name: source.name ?? "",
     ip: source.ip ?? "",
     port: String(source.port || source.sshPort || 22),
-    folder: source.folder ?? "",
+    folder: source.parentHostId ? "" : (source.folder ?? ""),
+    parentHostId: source.parentHostId ?? null,
     tags: [...(source.tags ?? [])],
     pin: !!source.pin,
     notes: source.notes ?? "",
@@ -209,6 +213,47 @@ export function canJumpThrough(
   return walk(candidate);
 }
 
+/**
+ * Hosts the given ones can go under: not shared, not one of them and not one
+ * of their own sub-hosts, like core's parent check.
+ */
+export function parentChoices(hosts: SSHHost[], moving: number[]): SSHHost[] {
+  const children = new Map<number, number[]>();
+  for (const host of hosts) {
+    if (host.parentHostId == null) continue;
+    const list = children.get(host.parentHostId) ?? [];
+    list.push(host.id);
+    children.set(host.parentHostId, list);
+  }
+  const blocked = new Set<number>();
+  const stack = [...moving];
+  while (stack.length > 0) {
+    const id = stack.pop()!;
+    if (blocked.has(id)) continue;
+    blocked.add(id);
+    stack.push(...(children.get(id) ?? []));
+  }
+  return hosts.filter((host) => !host.shared && !blocked.has(host.id));
+}
+
+/** The folder whose defaults a host under `parentHostId` follows. */
+export function folderUnder(
+  hosts: SSHHost[],
+  parentHostId: number | null,
+): string {
+  const byId = new Map(hosts.map((host) => [host.id, host]));
+  const seen = new Set<number>();
+  let current = parentHostId;
+  while (current != null && !seen.has(current)) {
+    seen.add(current);
+    const host = byId.get(current);
+    if (!host) return "";
+    if (host.folder && !host.parentHostId) return host.folder;
+    current = host.parentHostId ?? null;
+  }
+  return "";
+}
+
 export interface PayloadInputs {
   form: HostEditorForm;
   host: SSHHost | null;
@@ -238,7 +283,8 @@ export function payloadFromForm({
     ip: form.ip.trim(),
     port: parseInt(form.port, 10) || 22,
     username: form.username.trim(),
-    folder: form.folder.trim(),
+    folder: form.parentHostId ? "" : form.folder.trim(),
+    parentHostId: form.parentHostId,
     tags: form.tags,
     pin: form.pin,
     notes: form.notes,

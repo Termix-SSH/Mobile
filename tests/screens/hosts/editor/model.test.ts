@@ -5,8 +5,10 @@ import type {
 import {
   applyFormDefaults,
   canJumpThrough,
+  folderUnder,
   formError,
   formFromHost,
+  parentChoices,
   payloadFromForm,
   sortSections,
   visibleSections,
@@ -221,4 +223,42 @@ test("tags split on commas and spaces without repeats", () => {
 test("moving a jump host stays inside the list", () => {
   expect(moveItem([1, 2, 3], 0, 1)).toEqual([2, 1, 3]);
   expect(moveItem([1, 2, 3], 0, -1)).toEqual([1, 2, 3]);
+});
+
+describe("parent hosts", () => {
+  const h = (id: number, extra: Partial<SSHHost> = {}) =>
+    ({ id, name: `h${id}`, ip: "1.1.1.1", folder: "", ...extra }) as SSHHost;
+  const list = [
+    h(1, { folder: "Prod" }),
+    h(2, { parentHostId: 1 }),
+    h(3, { parentHostId: 2 }),
+    h(4),
+    h(5, { shared: { owner: "x", permissionLevel: "view" } }),
+  ];
+
+  test("a host can't go under itself, its sub-hosts or a shared host", () => {
+    expect(parentChoices(list, [2]).map((x) => x.id)).toEqual([1, 4]);
+    expect(parentChoices(list, []).map((x) => x.id)).toEqual([1, 2, 3, 4]);
+  });
+
+  test("a sub-host follows its nearest folder", () => {
+    expect(folderUnder(list, 3)).toBe("Prod");
+    expect(folderUnder(list, 4)).toBe("");
+    expect(folderUnder(list, null)).toBe("");
+  });
+
+  test("the form keeps the parent and drops the folder", () => {
+    const form = formFromHost(h(9, { parentHostId: 1, folder: "Old" }), []);
+    expect(form).toMatchObject({ parentHostId: 1, folder: "" });
+    const payload = payloadFromForm({
+      form: { ...form, folder: "Typed" },
+      host: null,
+      toggles: [],
+      sections: [],
+      sectionValues: {},
+      filledDefaults: {},
+      savedSudo: "",
+    } as any);
+    expect(payload).toMatchObject({ parentHostId: 1, folder: "" });
+  });
 });

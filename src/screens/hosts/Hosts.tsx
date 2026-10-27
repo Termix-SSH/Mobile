@@ -19,6 +19,7 @@ import {
   GripVertical,
   KeyRound,
   ListChecks,
+  ListTree,
   MoreVertical,
   Pin,
   PinOff,
@@ -46,6 +47,7 @@ import { TailscaleDevices } from "@/features/tailscale/TailscaleDevices";
 import CredentialListModal from "@/screens/hosts/CredentialListModal";
 import { HostActionSheet } from "@/screens/hosts/HostActionSheet";
 import HostEditor from "@/screens/hosts/editor/HostEditor";
+import { ParentHostSheet } from "@/screens/hosts/editor/ParentHostField";
 import { QuickConnect } from "@/screens/hosts/QuickConnect";
 import { SyncBanner } from "@/screens/hosts/SyncBanner";
 import { ServerReachBanner } from "@/screens/home/ServerReachBanner";
@@ -131,6 +133,7 @@ const refusedDrop = () =>
 const STORAGE_SORT = "hostSortKey";
 const STORAGE_FILTER = "hostFilterState";
 const STORAGE_EXPANDED = "hostExpandedFolders";
+const STORAGE_COLLAPSED_HOSTS = "hostCollapsedSubHosts";
 
 /** Most terminals one bulk open starts, so a big selection can't flood the phone. */
 export const BULK_OPEN_LIMIT = 8;
@@ -154,6 +157,8 @@ export default function Hosts() {
   const [sortKey, setSortKey] = useState<SortKey>("default");
   const [filterState, setFilterState] = useState<FilterState>(DEFAULT_FILTERS);
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set());
+  // Hosts whose sub-hosts are hidden. Sub-hosts show by default.
+  const [collapsedHosts, setCollapsedHosts] = useState<Set<number>>(new Set());
   const [prefsLoaded, setPrefsLoaded] = useState(false);
   const [sheet, setSheet] = useState<
     "sort" | "filter" | "more" | "customize" | null
@@ -168,6 +173,7 @@ export default function Hosts() {
   const [credentialListOpen, setCredentialListOpen] = useState(false);
   const [selected, setSelected] = useState<Set<number> | null>(null);
   const [moving, setMoving] = useState(false);
+  const [nesting, setNesting] = useState(false);
   const [reorder, setReorder] = useState(false);
 
   const pendingTailscaleFormRef = useRef(false);
@@ -193,11 +199,16 @@ export default function Hosts() {
   useEffect(() => {
     (async () => {
       try {
-        const [savedSort, savedFilter, savedExpanded] = await Promise.all([
-          AsyncStorage.getItem(STORAGE_SORT),
-          AsyncStorage.getItem(STORAGE_FILTER),
-          AsyncStorage.getItem(STORAGE_EXPANDED),
-        ]);
+        const [savedSort, savedFilter, savedExpanded, savedCollapsed] =
+          await Promise.all([
+            AsyncStorage.getItem(STORAGE_SORT),
+            AsyncStorage.getItem(STORAGE_FILTER),
+            AsyncStorage.getItem(STORAGE_EXPANDED),
+            AsyncStorage.getItem(STORAGE_COLLAPSED_HOSTS),
+          ]);
+        if (savedCollapsed) {
+          setCollapsedHosts(new Set(JSON.parse(savedCollapsed) as number[]));
+        }
         if (savedSort) setSortKey(savedSort as SortKey);
         if (savedFilter) setFilterState(JSON.parse(savedFilter) as FilterState);
         if (savedExpanded) {
@@ -265,10 +276,29 @@ export default function Hosts() {
     return next;
   }, [q, expandedPaths, tree]);
 
+  // A search shows every matching sub-host.
   const rows = useMemo(
-    () => flattenTree(visibleTree, effectiveExpanded),
-    [visibleTree, effectiveExpanded],
+    () =>
+      flattenTree(
+        visibleTree,
+        effectiveExpanded,
+        q ? NO_SELECTION : collapsedHosts,
+      ),
+    [visibleTree, effectiveExpanded, q, collapsedHosts],
   );
+
+  const toggleHost = useCallback((hostId: number) => {
+    setCollapsedHosts((prev) => {
+      const next = new Set(prev);
+      if (next.has(hostId)) next.delete(hostId);
+      else next.add(hostId);
+      AsyncStorage.setItem(
+        STORAGE_COLLAPSED_HOSTS,
+        JSON.stringify([...next]),
+      ).catch(() => {});
+      return next;
+    });
+  }, []);
 
   const toggleFolder = useCallback((path: string) => {
     setExpandedPaths((prev) => {
@@ -368,6 +398,15 @@ export default function Hosts() {
     );
   };
 
+  const bulkNest = (parentHostId: number) => {
+    setNesting(false);
+    const parent = hosts.find((h) => h.id === parentHostId);
+    void onOwn(
+      (ids) => repos.hosts.bulkUpdate(ids, { parentHostId }),
+      `Moved under ${parent?.name ?? "the host"}`,
+    );
+  };
+
   const bulkDelete = async () => {
     const own = selectedHosts.filter((h) => !h.shared);
     if (own.length === 0) {
@@ -434,6 +473,7 @@ export default function Hosts() {
         port: host.port,
         username: host.username,
         folder: host.folder,
+        parentHostId: host.shared ? null : (host.parentHostId ?? null),
         tags: host.tags ?? [],
         pin: false,
         authType: host.authType,
@@ -474,6 +514,12 @@ export default function Hosts() {
     } catch (e: any) {
       toast.error(e?.message || "Failed to clone host");
     }
+  };
+
+  const openAddSubHost = (parent: SSHHost) => {
+    setFormHost(null);
+    setFormDraft({ parentHostId: parent.id });
+    setFormOpen(true);
   };
 
   const openEdit = (host: SSHHost) => {
@@ -759,6 +805,7 @@ export default function Hosts() {
           getHostStatus={getHostStatus}
           getHostMetrics={getHostMetrics}
           onToggleFolder={toggleFolder}
+          onToggleHost={toggleHost}
           onHostPress={tapHost}
           onHostLongPress={setSheetHost}
           selecting={selecting}
@@ -785,6 +832,7 @@ export default function Hosts() {
           onPin={() => bulkPin(true)}
           onUnpin={() => bulkPin(false)}
           onMove={() => setMoving(true)}
+          onNest={() => setNesting(true)}
           onOpen={bulkOpen}
           onDelete={bulkDelete}
           onCancel={() => setSelected(null)}
@@ -802,6 +850,16 @@ export default function Hosts() {
         onDelete={handleDelete}
         onTogglePin={togglePin}
         onSelect={(host) => setSelected(new Set([host.id]))}
+        onAddSubHost={openAddSubHost}
+      />
+
+      <ParentHostSheet
+        visible={nesting}
+        title="Move under a host"
+        hosts={hosts}
+        moving={selectedHosts.filter((h) => !h.shared).map((h) => h.id)}
+        onPick={bulkNest}
+        onClose={() => setNesting(false)}
       />
 
       <PromptSheet
@@ -1000,6 +1058,7 @@ function SelectionBar({
   onPin,
   onUnpin,
   onMove,
+  onNest,
   onOpen,
   onDelete,
   onCancel,
@@ -1008,6 +1067,7 @@ function SelectionBar({
   onPin: () => void;
   onUnpin: () => void;
   onMove: () => void;
+  onNest: () => void;
   onOpen: () => void;
   onDelete: () => void;
   onCancel: () => void;
@@ -1049,6 +1109,7 @@ function SelectionBar({
       {action("Pin", <Pin size={18} color={fg} />, onPin)}
       {action("Unpin", <PinOff size={18} color={fg} />, onUnpin)}
       {action("Move to folder", <FolderInput size={18} color={fg} />, onMove)}
+      {action("Move under a host", <ListTree size={18} color={fg} />, onNest)}
       {action(
         "Delete",
         <Trash2 size={18} color={color("destructive")} />,

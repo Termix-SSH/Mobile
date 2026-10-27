@@ -10,7 +10,12 @@ import {
   type HostRow,
 } from "@/core/db/schema";
 import { planHostDefaults, storedOverrides } from "./apply";
-import { emptyIndex, type DefaultsIndex } from "./resolve";
+import {
+  effectiveFolderPath,
+  emptyIndex,
+  type DefaultsIndex,
+  type HostPlacement,
+} from "./resolve";
 import { joinKey, toObject, type DefaultsLevel } from "./values";
 
 export type DefaultsTarget =
@@ -109,6 +114,18 @@ export function unsetDefault(
   d.delete(hostDefaults).where(eq(hostDefaults.syncId, syncId)).run();
 }
 
+/** Where each host sits, for the folder a sub-host follows. */
+export function placementOf(
+  rows: Pick<HostRow, "id" | "folder" | "parentHostId">[],
+): Map<number, HostPlacement> {
+  return new Map(
+    rows.map((row) => [
+      row.id,
+      { folder: row.folder || null, parentHostId: row.parentHostId ?? null },
+    ]),
+  );
+}
+
 /** Drops every default a folder has, when the folder goes away. */
 export function clearFolderDefaults(d: LocalDb, folderSyncId: string): void {
   d.delete(hostDefaults)
@@ -133,11 +150,14 @@ function parseSettings(raw: string | null) {
 export function materializeHosts(d: LocalDb): number {
   const index = loadDefaultsIndex(d);
   let changed = 0;
-  for (const row of d.select().from(hosts).all()) {
+  const rows = d.select().from(hosts).all();
+  const placement = placementOf(rows);
+  for (const row of rows) {
     if (row.sharedSource) continue;
     const plan = planHostDefaults({
       columns: row as unknown as Record<string, unknown>,
       index,
+      folder: effectiveFolderPath(placement.get(row.id)!, placement),
       hostId: row.id,
       overrides: storedOverrides(row.defaultOverrides),
       pluginSettings: parseSettings(row.pluginSettings),

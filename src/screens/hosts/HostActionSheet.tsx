@@ -9,6 +9,7 @@ import {
   Pin,
   PinOff,
   ListChecks,
+  ListTree,
 } from "lucide-react-native";
 import { SSHHost } from "@/types";
 import type { HostMetrics } from "@/screens/hosts/navigation/Host";
@@ -49,6 +50,7 @@ export function HostActionSheet({
   onDelete,
   onTogglePin,
   onSelect,
+  onAddSubHost,
 }: {
   host: SSHHost | null;
   status: "online" | "offline" | "unknown";
@@ -62,6 +64,8 @@ export function HostActionSheet({
   onTogglePin?: (host: SSHHost) => void;
   /** Shows Select, which starts multi select with this host. */
   onSelect?: (host: SSHHost) => void;
+  /** Shows Add sub-host, a new host nested under this one. */
+  onAddSubHost?: (host: SSHHost) => void;
 }) {
   const { navigateToSessions } = useTerminalSessions();
   const { ctx, actions } = useHostActions();
@@ -281,6 +285,16 @@ export function HostActionSheet({
           label="Copy Address"
           onPress={copyAddress}
         />
+        {onAddSubHost && !host.shared ? (
+          <SheetRow
+            icon={<ListTree size={18} color={iconColor} />}
+            label="Add Sub-host"
+            onPress={() => {
+              onAddSubHost(host);
+              onClose();
+            }}
+          />
+        ) : null}
         <SheetRow
           icon={<CopyPlus size={18} color={iconColor} />}
           label="Clone Host"

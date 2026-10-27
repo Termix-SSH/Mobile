@@ -12,6 +12,7 @@ Termix Mobile now works with no server. Hosts, logins and snippets stay encrypte
 - Home and Hosts say when your server can't be reached, and the hosts on the phone keep working
 - Drag hosts to reorder them inside a folder, in the same order as Termix on the web
 - Select many hosts to pin, unpin, move to a folder, open or delete them at once
+- Sub-hosts show nested under their parent host, like on the web. Open or close them from the parent's row, pick a parent in the host editor, add a sub-host from a host's menu or move many hosts under one at once. Sub-hosts follow their parent's folder defaults
 - Active host filters show under the filter box, and a tap removes one
 - Split view on tablets: put two tabs side by side from the tab menu and drag the divider to resize
 - Close all tabs from the tab menu or the connections list
@@ -217,6 +218,7 @@ Termix Mobile now works with no server. Hosts, logins and snippets stay encrypte
 - Signing in through the browser keeps your SSO login. Signing out of one server no longer makes the next sign in forget it, and Android uses the system browser after a sign out too, so passkeys work there
 - A sign in link from an older try can no longer finish a sign in, and each link works once
 - Servers behind Cloudflare Access work after you sign in: when Access wants a sign in, the app opens it instead of saying it can't reach Termix (#81)
+- Saving a sub-host from the app no longer takes it out from under its parent host
 - Terminal settings saved on a host in Termix 2.9 and newer are now used on the phone
 - A host with tmux turned on in Termix no longer hangs when the host has more than one tmux session
 - A host's environment variables and startup snippet from Termix 2.9 and newer now apply in the terminal

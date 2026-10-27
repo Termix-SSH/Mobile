@@ -100,3 +100,29 @@ test("the admin snapshot shows in the index", async () => {
     .run();
   expect((await defaults.index()).admin.get("core.sshPort")).toBe(2300);
 });
+
+test("a sub-host follows its parent's folder defaults", async () => {
+  const { stores, repos, defaults } = setup();
+  const { db } = await stores.get("local");
+  db.insert(foldersTable).values({ syncId: "fold-1", name: "Prod" }).run();
+  await defaults.set({ level: "folder", folder: "Prod" }, "core.username", "p");
+  const parent = await repos.hosts.create({ ...draft, folder: "Prod" });
+  const child = await repos.hosts.create({
+    ...draft,
+    parentHostId: parent.id,
+  });
+  const grandchild = await repos.hosts.create({
+    ...draft,
+    parentHostId: child.id,
+  });
+  expect(child.username).toBe("p");
+  expect(grandchild.username).toBe("p");
+
+  await defaults.set({ level: "folder", folder: "Prod" }, "core.username", "q");
+  expect((await repos.hosts.get(grandchild.id))?.username).toBe("q");
+
+  // Out from under the parent, it stops following Prod.
+  const loose = await repos.hosts.create({ ...draft });
+  await repos.hosts.bulkUpdate([loose.id], { parentHostId: parent.id });
+  expect((await repos.hosts.get(loose.id))?.username).toBe("q");
+});

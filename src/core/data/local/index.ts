@@ -33,9 +33,11 @@ import {
   storedOverrides,
 } from "@/core/hosts/defaults/apply";
 import { leftOutKeys } from "@/core/hosts/defaults/draft";
+import { effectiveFolderPath } from "@/core/hosts/defaults/resolve";
 import {
   loadDefaultsIndex,
   materializeHosts,
+  placementOf,
   setDefault,
   unsetDefault,
 } from "@/core/hosts/defaults/store";
@@ -62,6 +64,65 @@ const notFound = (what: string) =>
   new AppError(`That ${what} no longer exists.`, "NOT_FOUND");
 
 /** Shared copies come from the server and only their owner can change them. */
+/**
+ * Refuses a parent host that is missing, shared, the host itself or one of
+ * its own sub-hosts, like core's host-parent-validation.
+ */
+function checkParent(d: LocalDb, hostId: number | null, parentHostId: number) {
+  const links = d
+    .select({
+      id: hosts.id,
+      parentHostId: hosts.parentHostId,
+      sharedSource: hosts.sharedSource,
+    })
+    .from(hosts)
+    .all();
+  const byId = new Map(links.map((link) => [link.id, link]));
+  const parent = byId.get(parentHostId);
+  if (hostId !== null && parentHostId === hostId) {
+    throw new AppError("A host cannot be its own parent", "VALIDATION_ERROR");
+  }
+  if (!parent || parent.sharedSource) {
+    throw new AppError("Parent host not found", "VALIDATION_ERROR");
+  }
+  const seen = new Set<number>();
+  let current: number | null = parentHostId;
+  while (current !== null && !seen.has(current)) {
+    if (current === hostId) {
+      throw new AppError(
+        "A host can't go under one of its own sub-hosts",
+        "VALIDATION_ERROR",
+      );
+    }
+    seen.add(current);
+    current = byId.get(current)?.parentHostId ?? null;
+  }
+}
+
+/** The folder whose defaults a host with this placement follows. */
+function defaultsFolder(
+  d: LocalDb,
+  hostId: number | null,
+  row: { folder?: string | null; parentHostId?: number | null },
+): string | null {
+  if (!row.parentHostId) return row.folder || null;
+  const placement = placementOf(
+    d
+      .select({
+        id: hosts.id,
+        folder: hosts.folder,
+        parentHostId: hosts.parentHostId,
+      })
+      .from(hosts)
+      .all(),
+  );
+  if (hostId !== null) placement.delete(hostId);
+  return effectiveFolderPath(
+    { folder: row.folder || null, parentHostId: row.parentHostId },
+    placement,
+  );
+}
+
 function refuseShared(row: { sharedSource: string | null }, what: string) {
   if (row.sharedSource) {
     throw new AppError(
@@ -141,9 +202,11 @@ export function localRepositories(
       async create(draft) {
         const d = await db();
         const base = hostToRow(draft, null);
+        if (base.parentHostId) checkParent(d, null, base.parentHostId);
         const plan = planHostDefaults({
           columns: base,
           index: loadDefaultsIndex(d),
+          folder: defaultsFolder(d, null, base),
           leftOut: leftOutKeys(draft),
           pluginSettings: parseJson(base.pluginSettings, {}),
           fillPlugins: true,
@@ -167,9 +230,13 @@ export function localRepositories(
         if (!current) throw notFound("host");
         refuseShared(current, "host");
         const next = hostToRow(draft, current);
+        if (next.parentHostId && next.parentHostId !== current.parentHostId) {
+          checkParent(d, id, next.parentHostId);
+        }
         const plan = planHostDefaults({
           columns: next,
           index: loadDefaultsIndex(d),
+          folder: defaultsFolder(d, id, next),
           hostId: id,
           overrides: overridesAfterEdit(
             storedOverrides(current.defaultOverrides),
@@ -221,11 +288,20 @@ export function localRepositories(
           set.parentHostId = null;
         }
         if (ids.length === 0) return;
-        (await db())
-          .update(hosts)
+        const d = await db();
+        if (updates.parentHostId != null) {
+          for (const id of ids) checkParent(d, id, updates.parentHostId);
+          set.parentHostId = updates.parentHostId;
+          set.folder = null;
+        } else if (updates.parentHostId === null) {
+          set.parentHostId = null;
+        }
+        d.update(hosts)
           .set(set)
           .where(and(inArray(hosts.id, ids), isNull(hosts.sharedSource)))
           .run();
+        // A new place can mean other folder defaults, like core's recompute.
+        if ("parentHostId" in set) materializeHosts(d);
         touched(hosts);
       },
     },

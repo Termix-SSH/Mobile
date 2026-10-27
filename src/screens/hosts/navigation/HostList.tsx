@@ -85,14 +85,15 @@ const FolderRow = memo(function FolderRow({
 const keyOf = (row: HostListRow) => row.key;
 
 /**
- * The host tree as one list. Folders open and close in place; in reorder
- * mode the grip drags a host inside its folder.
+ * The host tree as one list. Folders and hosts with sub-hosts open and close
+ * in place; in reorder mode the grip drags a host inside its folder.
  */
 export function HostList({
   rows,
   getHostStatus,
   getHostMetrics,
   onToggleFolder,
+  onToggleHost,
   onHostPress,
   onHostLongPress,
   selecting,
@@ -108,6 +109,8 @@ export function HostList({
   getHostStatus: GetHostStatus;
   getHostMetrics: (id: number) => HostMetrics | undefined;
   onToggleFolder: (path: string) => void;
+  /** Shows or hides a host's sub-hosts. */
+  onToggleHost: (hostId: number) => void;
   onHostPress: (host: SSHHost) => void;
   onHostLongPress: (host: SSHHost) => void;
   selecting: boolean;
@@ -165,6 +168,9 @@ export function HostList({
           onDrag={reorder ? drag : undefined}
           dragging={isActive}
           badges={badges}
+          subHosts={item.subHosts}
+          open={item.open}
+          onToggleSubHosts={onToggleHost}
         />
       );
     },
@@ -177,6 +183,7 @@ export function HostList({
       onHostLongPress,
       onHostPress,
       onToggleFolder,
+      onToggleHost,
       prefs,
       reorder,
       selected,

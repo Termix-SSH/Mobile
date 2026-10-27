@@ -44,6 +44,8 @@ export interface PlanInput {
   pluginSettings?: PluginSettings;
   /** Fill plugin keys the host has no value for. */
   fillPlugins?: boolean;
+  /** The folder whose defaults apply, when it is not the host's own (sub-hosts). */
+  folder?: string | null;
 }
 
 const CORE_INFO = coreKeyInfo();
@@ -80,7 +82,10 @@ export function pluginKeysIn(levels: HostLevels): KeyInfo[] {
 
 export function planHostDefaults(input: PlanInput): DefaultsPlan {
   const hostId = input.hostId ?? null;
-  const folder = (input.columns.folder as string | null | undefined) ?? null;
+  const folder =
+    input.folder !== undefined
+      ? input.folder
+      : ((input.columns.folder as string | null | undefined) ?? null);
   const levels = levelsForHost(input.index, folder);
   const columns: Columns = { ...input.columns };
   const leftOut = input.leftOut ?? new Set<string>();

@@ -29,6 +29,8 @@ export interface HostBulkUpdate {
   pin?: boolean;
   /** Empty puts them in no folder. */
   folder?: string;
+  /** Puts them under this host, or null takes them out from under one. */
+  parentHostId?: number | null;
 }
 
 export interface HostRepository extends Repository<SSHHost, SSHHostData> {

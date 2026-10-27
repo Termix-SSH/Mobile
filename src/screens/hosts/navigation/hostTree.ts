@@ -44,6 +44,8 @@ const CORE_MATCHERS: HostMatchers = {
     (!host.enableRdp && !host.enableVnc && !host.enableTelnet),
 };
 
+type HostNode = Extract<HostTreeNode, { kind: "host" }>;
+
 export function isFolder(
   node: HostTreeNode,
 ): node is Extract<HostTreeNode, { kind: "folder" }> {
@@ -56,9 +58,11 @@ export function filtersActive(filters: FilterState): boolean {
 
 /**
  * Build a recursive folder tree from a flat host list. Folder paths use " / "
- * as the nesting delimiter (matches the web app's buildHostTree). Hosts without
- * a folder are collected under a root-level "No Folder" bucket. Folder metadata
- * (color) is matched by leaf folder name from `folderColors`.
+ * as the nesting delimiter (matches the web app's buildHostTree). Sub-hosts
+ * nest under their parent host by parentHostId; a missing or looping parent
+ * falls back to the host's folder. Hosts without a folder are collected under
+ * a root-level "No Folder" bucket. Folder metadata (color) is matched by leaf
+ * folder name from `folderColors`.
  */
 export function buildHostTree(
   hosts: SSHHost[],
@@ -99,20 +103,61 @@ export function buildHostTree(
     return node;
   };
 
+  const nodes = new Map<number, HostNode>(
+    hosts.map((host) => [host.id, { kind: "host", host }]),
+  );
+  // True when `ancestorId` is `id` or sits above it.
+  const isUnder = (id: number, ancestorId: number) => {
+    const seen = new Set<number>();
+    let current: number | null | undefined = id;
+    while (current != null && !seen.has(current)) {
+      if (current === ancestorId) return true;
+      seen.add(current);
+      current = nodes.get(current)?.host.parentHostId;
+    }
+    return false;
+  };
+  const nested = new Set<number>();
+  for (const host of hosts) {
+    const parentId = host.parentHostId;
+    if (parentId == null) continue;
+    const parent = nodes.get(parentId);
+    if (!parent || isUnder(parentId, host.id)) continue;
+    (parent.children ??= []).push(nodes.get(host.id)!);
+    nested.add(host.id);
+  }
+
   // Ensure empty (host-less) folders from metadata still appear is intentionally
   // skipped - the list only shows folders that contain hosts, like the web.
   for (const host of hosts) {
+    if (nested.has(host.id)) continue;
+    const node = nodes.get(host.id)!;
     const path = (host.folder ?? "").trim();
     if (path) {
-      getOrCreateFolder(path).children.push({ kind: "host", host });
+      getOrCreateFolder(path).children.push(node);
     } else {
       // Group folderless hosts under a single root-level "No Folder" bucket.
-      const folder = getOrCreateFolder(NO_FOLDER);
-      folder.children.push({ kind: "host", host });
+      getOrCreateFolder(NO_FOLDER).children.push(node);
     }
   }
 
   return root;
+}
+
+/** A host and every sub-host under it, with how many are online. */
+function countHost(
+  node: HostNode,
+  getStatus: GetHostStatus,
+): { total: number; online: number } {
+  let total = 1;
+  let online = getStatus(node.host.id) === "online" ? 1 : 0;
+  for (const child of node.children ?? []) {
+    if (isFolder(child)) continue;
+    const c = countHost(child, getStatus);
+    total += c.total;
+    online += c.online;
+  }
+  return { total, online };
 }
 
 /** Recursively count total and online hosts under a folder node. */
@@ -123,14 +168,11 @@ export function folderCounts(
   let total = 0;
   let online = 0;
   for (const child of node.children) {
-    if (isFolder(child)) {
-      const c = folderCounts(child, getStatus);
-      total += c.total;
-      online += c.online;
-    } else {
-      total++;
-      if (getStatus(child.host.id) === "online") online++;
-    }
+    const c = isFolder(child)
+      ? folderCounts(child, getStatus)
+      : countHost(child, getStatus);
+    total += c.total;
+    online += c.online;
   }
   return { total, online };
 }
@@ -147,14 +189,9 @@ export function folderCountMap(
     let total = 0;
     let online = 0;
     for (const child of node.children) {
-      if (isFolder(child)) {
-        const c = visit(child);
-        total += c.total;
-        online += c.online;
-      } else {
-        total++;
-        if (getStatus(child.host.id) === "online") online++;
-      }
+      const c = isFolder(child) ? visit(child) : countHost(child, getStatus);
+      total += c.total;
+      online += c.online;
     }
     const counts = { total, online };
     out.set(node.path, counts);
@@ -173,19 +210,32 @@ function hostMatchesQuery(host: SSHHost, query: string): boolean {
   );
 }
 
-/** True if any host under this folder matches the search query. */
-export function folderHasMatch(
-  node: Extract<HostTreeNode, { kind: "folder" }>,
-  query: string,
-): boolean {
-  for (const child of node.children) {
-    if (isFolder(child)) {
-      if (folderHasMatch(child, query)) return true;
-    } else if (hostMatchesQuery(child.host, query)) {
-      return true;
+/** True if any host under this folder or host matches the search query. */
+export function folderHasMatch(node: HostTreeNode, query: string): boolean {
+  if (!isFolder(node) && hostMatchesQuery(node.host, query)) return true;
+  return (node.children ?? []).some((child) => folderHasMatch(child, query));
+}
+
+/**
+ * Keeps hosts that pass, plus hosts with a sub-host that passes so it keeps
+ * its place. Folders with nothing left are dropped.
+ */
+function pruneTree(
+  nodes: HostTreeNode[],
+  keep: (host: SSHHost) => boolean,
+): HostTreeNode[] {
+  const out: HostTreeNode[] = [];
+  for (const node of nodes) {
+    if (isFolder(node)) {
+      const children = pruneTree(node.children, keep);
+      if (children.length > 0) out.push({ ...node, children });
+      continue;
     }
+    const children = node.children ? pruneTree(node.children, keep) : [];
+    if (!keep(node.host) && children.length === 0) continue;
+    out.push({ ...node, children: children.length > 0 ? children : undefined });
   }
-  return false;
+  return out;
 }
 
 /**
@@ -197,16 +247,7 @@ export function filterTreeByQuery(
   query: string,
 ): HostTreeNode[] {
   if (!query) return nodes;
-  const out: HostTreeNode[] = [];
-  for (const node of nodes) {
-    if (isFolder(node)) {
-      const children = filterTreeByQuery(node.children, query);
-      if (children.length > 0) out.push({ ...node, children });
-    } else if (hostMatchesQuery(node.host, query)) {
-      out.push(node);
-    }
-  }
-  return out;
+  return pruneTree(nodes, (host) => hostMatchesQuery(host, query));
 }
 
 function hostPassesFilters(
@@ -242,21 +283,9 @@ export function applyFilters(
   matchers: HostMatchers = {},
 ): HostTreeNode[] {
   if (!filtersActive(filters)) return nodes;
-  const out: HostTreeNode[] = [];
-  for (const node of nodes) {
-    if (isFolder(node)) {
-      const children = applyFilters(
-        node.children,
-        filters,
-        getStatus,
-        matchers,
-      );
-      if (children.length > 0) out.push({ ...node, children });
-    } else if (hostPassesFilters(node.host, filters, getStatus, matchers)) {
-      out.push(node);
-    }
-  }
-  return out;
+  return pruneTree(nodes, (host) =>
+    hostPassesFilters(host, filters, getStatus, matchers),
+  );
 }
 
 /**
@@ -308,7 +337,7 @@ export function sortHostTree(
     }
   });
   return sorted.map((node) =>
-    isFolder(node)
+    node.children
       ? { ...node, children: sortHostTree(node.children, key, getStatus) }
       : node,
   );
@@ -338,14 +367,32 @@ export type HostListRow =
       key: string;
       depth: number;
       host: SSHHost;
-      /** Path of the folder it sits in. */
+      /**
+       * The group it sorts in: its folder's path, plus each parent host's id
+       * for sub-hosts.
+       */
       folderPath: string;
+      /** How many sub-hosts sit right under it. */
+      subHosts: number;
+      /** Its sub-hosts show. */
+      open: boolean;
     };
 
-/** The tree as list rows, children only under open folders. */
+// Joins a group to a parent host's id; no folder name holds it.
+const SUB_GROUP = String.fromCharCode(0);
+
+/** The group the sub-hosts of a host in `folderPath` sort in. */
+export const subGroupOf = (folderPath: string, hostId: number) =>
+  `${folderPath}${SUB_GROUP}${hostId}`;
+
+/**
+ * The tree as list rows, children only under open folders. Sub-hosts show
+ * unless their parent's id is in `collapsed`.
+ */
 export function flattenTree(
   nodes: HostTreeNode[],
   expanded: Set<string>,
+  collapsed: Set<number> = new Set(),
   depth = 0,
   parentPath = "",
   rows: HostListRow[] = [],
@@ -355,16 +402,36 @@ export function flattenTree(
       const open = expanded.has(node.path);
       rows.push({ kind: "folder", key: `f:${node.path}`, depth, open, node });
       if (open)
-        flattenTree(node.children, expanded, depth + 1, node.path, rows);
-    } else {
-      rows.push({
-        kind: "host",
-        key: `h:${node.host.id}`,
-        depth,
-        host: node.host,
-        folderPath: parentPath,
-      });
+        flattenTree(
+          node.children,
+          expanded,
+          collapsed,
+          depth + 1,
+          node.path,
+          rows,
+        );
+      continue;
     }
+    const subHosts = node.children?.length ?? 0;
+    const open = subHosts > 0 && !collapsed.has(node.host.id);
+    rows.push({
+      kind: "host",
+      key: `h:${node.host.id}`,
+      depth,
+      host: node.host,
+      folderPath: parentPath,
+      subHosts,
+      open,
+    });
+    if (open)
+      flattenTree(
+        node.children!,
+        expanded,
+        collapsed,
+        depth + 1,
+        subGroupOf(parentPath, node.host.id),
+        rows,
+      );
   }
   return rows;
 }
@@ -380,16 +447,23 @@ export function reorderInFolder(
 ): { id: number; sortOrder: number }[] | null {
   const moved = before.find((r) => r.key === movedKey);
   if (!moved || moved.kind !== "host") return null;
+  const group = moved.folderPath;
   const inFolder = (r: HostListRow) =>
-    r.kind === "host" && r.folderPath === moved.folderPath;
-  const oldIdx = before.flatMap((r, i) => (inFolder(r) ? [i] : []));
-  const newIdx = after.flatMap((r, i) => (inFolder(r) ? [i] : []));
-  const start = newIdx[0];
-  const contiguous = newIdx[newIdx.length - 1] - start + 1 === newIdx.length;
+    r.kind === "host" && r.folderPath === group;
+  // Sub-hosts of the group's hosts sit between them.
+  const inBlock = (r: HostListRow) =>
+    r.kind === "host" &&
+    (r.folderPath === group || r.folderPath.startsWith(group + SUB_GROUP));
+  const oldBlock = before.flatMap((r, i) => (inBlock(r) ? [i] : []));
+  const newBlock = after.flatMap((r, i) => (inBlock(r) ? [i] : []));
+  const start = newBlock[0];
+  const contiguous =
+    newBlock[newBlock.length - 1] - start + 1 === newBlock.length;
   // The folder's hosts must stay one block right where they were.
-  const sameSpot = after[start - 1]?.key === before[oldIdx[0] - 1]?.key;
+  const sameSpot = after[start - 1]?.key === before[oldBlock[0] - 1]?.key;
   if (!contiguous || !sameSpot) return null;
-  const order = newIdx.map((i) => after[i]);
+  const oldIdx = before.flatMap((r, i) => (inFolder(r) ? [i] : []));
+  const order = after.filter(inFolder);
   if (order.every((r, i) => r.key === before[oldIdx[i]].key)) return null;
   return order.map((r, sortOrder) => ({
     id: (r as Extract<HostListRow, { kind: "host" }>).host.id,

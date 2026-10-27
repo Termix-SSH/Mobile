@@ -77,6 +77,7 @@ export function hostFromRow(row: HostRow): SSHHost {
     port: row.port,
     username: row.username,
     folder: row.folder ?? "",
+    parentHostId: row.parentHostId ?? null,
     tags: splitTags(row.tags),
     pin: row.pin,
     sortOrder: row.sortOrder ?? null,
@@ -190,13 +191,22 @@ export function hostToRow(
     data.enableVnc ||
     data.enableTelnet;
   const port = Number(data.port) || 22;
+  // A host sits in a folder or under a parent host, never both. A new
+  // folder replaces the parent, like the server.
+  const parentHostId =
+    data.parentHostId !== undefined
+      ? data.parentHostId
+      : data.folder?.trim()
+        ? null
+        : (current?.parentHostId ?? null);
   return {
     connectionType: current?.connectionType ?? "ssh",
     name: data.name || "",
     ip: data.ip,
     port,
     username: data.username ?? "",
-    folder: data.folder || "",
+    folder: parentHostId ? null : data.folder || "",
+    parentHostId,
     tags: joinTags(data.tags),
     pin: Boolean(data.pin),
     authType: auth,

@@ -33,6 +33,8 @@ export interface SSHHost {
   port: number;
   username: string;
   folder: string;
+  /** Set on sub-hosts: the host this one sits under, in place of a folder. */
+  parentHostId?: number | null;
   tags: string[];
   pin: boolean;
   /** Manual place in its folder; unset sorts by name. */
@@ -128,6 +130,8 @@ export interface SSHHostData {
   port: number;
   username: string;
   folder?: string;
+  /** Undefined keeps the saved one, null takes it out from under a host. */
+  parentHostId?: number | null;
   tags?: string[];
   pin?: boolean;
   authType: AuthType;
@@ -195,7 +199,12 @@ export interface SSHFolder {
  * is used as a stable key for expansion state.
  */
 export type HostTreeNode =
-  | { kind: "host"; host: SSHHost }
+  | {
+      kind: "host";
+      host: SSHHost;
+      /** Sub-hosts nested under this host, by parentHostId. */
+      children?: HostTreeNode[];
+    }
   | {
       kind: "folder";
       name: string;

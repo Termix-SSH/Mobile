@@ -2,6 +2,7 @@ import {
   DEFAULT_FILTERS,
   applyFilters,
   buildHostTree,
+  filterTreeByQuery,
   flattenTree,
   folderCountMap,
   folderCounts,
@@ -157,4 +158,94 @@ test("flattening keeps depth and order for nested open folders", () => {
     ["h:1", 2],
     ["h:2", 1],
   ]);
+});
+
+describe("sub-hosts", () => {
+  const unknown = () => "unknown" as const;
+  const list = [
+    host(1, { name: "a", folder: "Lab", sortOrder: 0 }),
+    host(2, { name: "b", folder: "Lab", sortOrder: 1 }),
+    host(3, { name: "c", parentHostId: 1, sortOrder: 0 }),
+    host(4, { name: "d", parentHostId: 1, sortOrder: 1 }),
+    host(5, { name: "e", parentHostId: 3 }),
+  ];
+  const tree = sortHostTree(buildHostTree(list), "default", unknown);
+  const open = new Set(["Lab"]);
+
+  test("nest under their parent instead of No Folder", () => {
+    const rows = flattenTree(tree, open);
+    expect(rows.map((r) => [r.key, r.depth])).toEqual([
+      ["f:Lab", 0],
+      ["h:1", 1],
+      ["h:3", 2],
+      ["h:5", 3],
+      ["h:4", 2],
+      ["h:2", 1],
+    ]);
+    const parent: any = rows[1];
+    expect(parent).toMatchObject({ subHosts: 2, open: true });
+  });
+
+  test("a collapsed host hides its sub-hosts", () => {
+    const rows = flattenTree(tree, open, new Set([1]));
+    expect(rows.map((r) => r.key)).toEqual(["f:Lab", "h:1", "h:2"]);
+    expect(rows[1]).toMatchObject({ subHosts: 2, open: false });
+  });
+
+  test("a missing or looping parent falls back to the folder", () => {
+    const rows = flattenTree(
+      sortHostTree(
+        buildHostTree([
+          host(1, { parentHostId: 99 }),
+          host(2, { parentHostId: 3 }),
+          host(3, { parentHostId: 2, folder: "Lab" }),
+        ]),
+        "default",
+        unknown,
+      ),
+      new Set(["Lab", "No Folder"]),
+    );
+    expect(rows.map((r) => r.key)).toEqual([
+      "f:Lab",
+      "h:3",
+      "f:No Folder",
+      "h:1",
+      "h:2",
+    ]);
+  });
+
+  test("folder counts include sub-hosts", () => {
+    const status = (id: number) => (id === 5 ? "online" : "offline") as any;
+    expect(folderCounts(tree[0] as any, status)).toEqual({
+      total: 5,
+      online: 1,
+    });
+  });
+
+  test("search keeps the parents of a matching sub-host", () => {
+    const rows = flattenTree(filterTreeByQuery(tree, "e"), open);
+    expect(rows.map((r) => r.key)).toEqual(["f:Lab", "h:1", "h:3", "h:5"]);
+  });
+
+  test("sub-hosts reorder among themselves, and parents past them", () => {
+    const before = flattenTree(tree, open);
+    const move = (from: number, to: number) => {
+      const after = [...before];
+      const [row] = after.splice(from, 1);
+      after.splice(to, 0, row);
+      return reorderInFolder(before, after, row.key);
+    };
+    // d above c, under the same parent.
+    expect(move(4, 2)).toEqual([
+      { id: 4, sortOrder: 0 },
+      { id: 3, sortOrder: 1 },
+    ]);
+    // b above a, past a's sub-hosts.
+    expect(move(5, 1)).toEqual([
+      { id: 2, sortOrder: 0 },
+      { id: 1, sortOrder: 1 },
+    ]);
+    // A sub-host can't leave its parent by dragging.
+    expect(move(4, 5)).toBeNull();
+  });
 });

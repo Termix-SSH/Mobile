@@ -6,6 +6,7 @@ import {
   flattenPluginSettings,
 } from "../compat/api-compat";
 import type { SSHHost, SSHHostData } from "@/types/index";
+import type { HostBulkUpdate } from "@/core/data/types";
 
 export function createHostsApi(c: AccountClient) {
   function normalizeJumpHosts(value: unknown): { hostId: number }[] {
@@ -40,8 +41,10 @@ export function createHostsApi(c: AccountClient) {
         sshOptions = undefined;
       }
     }
+    const parent = Number((host as { parentHostId?: unknown }).parentHostId);
     return {
       ...flat,
+      parentHostId: Number.isInteger(parent) && parent > 0 ? parent : null,
       sshOptions:
         sshOptions && typeof sshOptions === "object"
           ? (sshOptions as Record<string, unknown>)
@@ -200,6 +203,10 @@ export function createHostsApi(c: AccountClient) {
         port: parseInt(hostData.port.toString()) || 22,
         username: hostData.username,
         folder: hostData.folder || "",
+        // Sent only when set: the server clears the parent when folder comes alone.
+        ...(hostData.parentHostId !== undefined
+          ? { parentHostId: hostData.parentHostId }
+          : {}),
         tags: hostData.tags || [],
         pin: Boolean(hostData.pin),
         authType: hostData.authType,
@@ -309,6 +316,10 @@ export function createHostsApi(c: AccountClient) {
         port: parseInt(hostData.port.toString()) || 22,
         username: hostData.username,
         folder: hostData.folder || "",
+        // Sent only when set: the server clears the parent when folder comes alone.
+        ...(hostData.parentHostId !== undefined
+          ? { parentHostId: hostData.parentHostId }
+          : {}),
         tags: hostData.tags || [],
         pin: Boolean(hostData.pin),
         authType: hostData.authType,
@@ -401,7 +412,7 @@ export function createHostsApi(c: AccountClient) {
 
   async function bulkUpdateHosts(
     hostIds: number[],
-    updates: { pin?: boolean; folder?: string },
+    updates: HostBulkUpdate,
   ): Promise<void> {
     try {
       await c.http.host.patch("/bulk-update", { hostIds, updates });
