@@ -12,6 +12,8 @@ import DraggableFlatList, {
 import { ChevronRight, Folder as FolderIcon } from "lucide-react-native";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { useHostBadges } from "@/core/features";
+import { useHostListPrefs } from "@/core/host-list-prefs";
+import { useUiPrefs } from "@/core/ui-prefs";
 import type { SSHHost } from "@/types";
 import { Text } from "@/ui";
 import Host, { type HostMetrics } from "./Host";
@@ -118,6 +120,8 @@ export function HostList({
   empty?: React.ReactElement;
 }) {
   const badges = useHostBadges();
+  const prefs = useHostListPrefs();
+  const compact = useUiPrefs().density === "compact";
   // Counted once per change, not once per folder row per render.
   const counts = useMemo(
     () =>
@@ -151,6 +155,8 @@ export function HostList({
           depth={item.depth}
           status={getHostStatus(item.host.id)}
           metrics={getHostMetrics(item.host.id)}
+          prefs={prefs}
+          compact={compact}
           striped={striped}
           onPress={onHostPress}
           onLongPress={selecting || reorder ? undefined : onHostLongPress}
@@ -164,12 +170,14 @@ export function HostList({
     },
     [
       badges,
+      compact,
       counts,
       getHostMetrics,
       getHostStatus,
       onHostLongPress,
       onHostPress,
       onToggleFolder,
+      prefs,
       reorder,
       selected,
       selecting,

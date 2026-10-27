@@ -27,6 +27,7 @@ import {
   RefreshCw,
   Search,
   Server,
+  SlidersHorizontal,
   SquareTerminal,
   Trash2,
   X,
@@ -63,6 +64,11 @@ import {
   type FilterState,
   type SortKey,
 } from "@/screens/hosts/navigation/hostTree";
+import {
+  HOST_LIST_FIELDS,
+  setHostListPrefs,
+  useHostListPrefs,
+} from "@/core/host-list-prefs";
 import { useHostsData } from "@/screens/hosts/useHostsData";
 import { useOpenHost } from "@/screens/hosts/useOpenHost";
 import { AccountButton, SearchButton } from "@/screens/shell/AppHeader";
@@ -71,10 +77,13 @@ import {
   Button,
   Checkbox,
   EmptyState,
+  FakeSwitch,
   Input,
   PromptSheet,
   Sheet,
+  SheetBody,
   SheetRow,
+  SettingRow,
   Text,
   useConfirm,
 } from "@/ui";
@@ -146,7 +155,10 @@ export default function Hosts() {
   const [filterState, setFilterState] = useState<FilterState>(DEFAULT_FILTERS);
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set());
   const [prefsLoaded, setPrefsLoaded] = useState(false);
-  const [sheet, setSheet] = useState<"sort" | "filter" | "more" | null>(null);
+  const [sheet, setSheet] = useState<
+    "sort" | "filter" | "more" | "customize" | null
+  >(null);
+  const listPrefs = useHostListPrefs();
   const [sheetHost, setSheetHost] = useState<SSHHost | null>(null);
   const [formHost, setFormHost] = useState<SSHHost | null>(null);
   const [formDraft, setFormDraft] = useState<Partial<SSHHost>>();
@@ -823,6 +835,12 @@ export default function Hosts() {
           onPress={startReorder}
         />
         <SheetRow
+          icon={<SlidersHorizontal size={18} color={color("foreground")} />}
+          label="Customize list"
+          description="Choose what each host row shows"
+          onPress={() => setSheet("customize")}
+        />
+        <SheetRow
           icon={<KeyRound size={18} color={color("foreground")} />}
           label="Credentials"
           description="Saved passwords and keys"
@@ -850,6 +868,34 @@ export default function Hosts() {
             data.refresh();
           }}
         />
+      </Sheet>
+
+      <Sheet
+        visible={sheet === "customize"}
+        onClose={() => setSheet(null)}
+        title="Customize list"
+        scroll
+      >
+        <SheetBody className="gap-0">
+          {HOST_LIST_FIELDS.map((f, i) => (
+            <SettingRow
+              key={f.key}
+              label={f.label}
+              description={f.description}
+              last={i === HOST_LIST_FIELDS.length - 1}
+            >
+              <FakeSwitch
+                checked={listPrefs[f.key]}
+                disabled={f.dependsOnAddress && !listPrefs.showAddress}
+                accessibilityLabel={f.label}
+                onChange={(v) => void setHostListPrefs({ [f.key]: v })}
+              />
+            </SettingRow>
+          ))}
+          <Text className="pt-3 text-meta text-muted-foreground">
+            Row density follows Settings, Appearance.
+          </Text>
+        </SheetBody>
       </Sheet>
 
       <Sheet

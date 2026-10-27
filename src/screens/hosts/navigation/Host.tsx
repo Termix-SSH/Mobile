@@ -12,6 +12,7 @@ import {
 } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import type { HostBadgeDef } from "@/core/features";
+import type { HostListPrefs } from "@/core/host-list-prefs";
 import { isSshActive } from "@/utils/hosts";
 import type { HostStatus } from "@/screens/hosts/navigation/hostTree";
 
@@ -24,7 +25,9 @@ interface HostProps {
   host: SSHHost;
   status: HostStatus;
   metrics?: HostMetrics;
-  showTags?: boolean;
+  /** What the row shows, from the host list preferences. */
+  prefs: HostListPrefs;
+  compact?: boolean;
   /** Even rows get a subtle striped background (matches the web density). */
   striped?: boolean;
   /** Folder depth, for the indent. */
@@ -90,7 +93,8 @@ function Host({
   host,
   status,
   metrics,
-  showTags = true,
+  prefs,
+  compact = false,
   striped = false,
   depth = 0,
   onPress,
@@ -123,13 +127,26 @@ function Host({
 
   const sshActive = isSshActive(host);
   const protocols: string[] = [];
-  if (sshActive) protocols.push("SSH");
-  for (const badge of badges) {
-    if (badge.show(host, sshActive)) protocols.push(badge.label);
+  if (prefs.showBadges) {
+    if (sshActive) protocols.push("SSH");
+    for (const badge of badges) {
+      if (badge.show(host, sshActive)) protocols.push(badge.label);
+    }
   }
 
-  const showCpu = online && metrics?.cpu != null && metrics.cpu > 0;
-  const showRam = online && metrics?.ram != null && metrics.ram > 0;
+  const showCpu =
+    prefs.showMetrics && online && metrics?.cpu != null && metrics.cpu > 0;
+  const showRam =
+    prefs.showMetrics && online && metrics?.ram != null && metrics.ram > 0;
+  const stripe = prefs.statusColors
+    ? online
+      ? color("success")
+      : status === "offline"
+        ? color("destructive")
+        : "transparent"
+    : online
+      ? accent
+      : "transparent";
 
   return (
     <Pressable
@@ -158,10 +175,7 @@ function Host({
       }`}
     >
       {/* Status stripe */}
-      <View
-        style={{ backgroundColor: online ? accent : "transparent" }}
-        className="w-[3px] shrink-0"
-      />
+      <View style={{ backgroundColor: stripe }} className="w-[3px] shrink-0" />
 
       {selecting ? (
         <View className="justify-center pl-2.5">
@@ -169,18 +183,13 @@ function Host({
         </View>
       ) : null}
 
-      <View className="min-w-0 flex-1 gap-1 px-2.5 py-2.5">
+      <View
+        className={`min-w-0 flex-1 px-2.5 ${compact ? "gap-0.5 py-1.5" : "gap-1 py-2.5"}`}
+      >
         {/* Name row */}
         <View className="flex-row items-center gap-1.5">
-          <View
-            style={{
-              backgroundColor: online
-                ? accent
-                : color("muted-foreground", 0.25),
-            }}
-            className="h-1.5 w-1.5 shrink-0 rounded-full"
-          />
-          {lookIcon(host.icon) || isLookColor(host.color) ? (
+          {prefs.showIcon &&
+          (lookIcon(host.icon) || isLookColor(host.color)) ? (
             <LookIcon
               name={host.icon}
               size={12}
@@ -196,25 +205,28 @@ function Host({
           >
             {host.name}
           </Text>
-          {host.pin ? <Pin size={11} color={accent} fill={accent} /> : null}
+          {prefs.showPinIcon && host.pin ? (
+            <Pin size={11} color={accent} fill={accent} />
+          ) : null}
+          {prefs.showSharedBadge && host.shared ? (
+            <FeatureChip label="Shared" />
+          ) : null}
           {protocols.map((p) => (
             <FeatureChip key={p} label={p} />
           ))}
         </View>
 
-        {/* Address */}
-        <Text
-          className="pl-3 text-[11px] text-muted-foreground"
-          numberOfLines={1}
-        >
-          {host.username ? `${host.username}@` : ""}
-          {host.ip}
-          {host.port ? `:${host.port}` : ""}
-        </Text>
+        {prefs.showAddress ? (
+          <Text className="text-[11px] text-muted-foreground" numberOfLines={1}>
+            {prefs.showUsername && host.username ? `${host.username}@` : ""}
+            {host.ip}
+            {prefs.showPort && host.port ? `:${host.port}` : ""}
+          </Text>
+        ) : null}
 
         {/* Live metrics */}
         {showCpu || showRam ? (
-          <View className="mt-0.5 flex-row items-center gap-3 pl-3">
+          <View className="mt-0.5 flex-row items-center gap-3">
             {showCpu ? (
               <MetricBar
                 icon={<Cpu size={10} color={color("muted-foreground", 0.4)} />}
@@ -240,8 +252,8 @@ function Host({
         ) : null}
 
         {/* Tags */}
-        {showTags && host.tags && host.tags.length > 0 ? (
-          <View className="mt-0.5 flex-row flex-wrap items-center gap-1 pl-3">
+        {prefs.showTags && host.tags && host.tags.length > 0 ? (
+          <View className="mt-0.5 flex-row flex-wrap items-center gap-1">
             {host.tags.slice(0, 4).map((tag, i) => (
               <View
                 key={`${tag}-${i}`}

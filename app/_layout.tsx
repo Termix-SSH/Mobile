@@ -39,6 +39,7 @@ import { FONT_MAP, MONO_FONT, MONO_FONT_BOLD } from "@/constants/fonts";
 import "../global.css";
 import UpdateRequired from "@/screens/authentication/UpdateRequired";
 import { WidgetDeepLinkHost, useWidgetSync } from "@/widgets";
+import { loadHostListPrefs } from "@/core/host-list-prefs";
 import { loadUiPrefs } from "@/core/ui-prefs";
 import { registerBuiltInFeatures } from "@/features";
 import { usePluginFrameFeatures } from "@/features/plugin-webview/register";
@@ -198,6 +199,7 @@ export default function RootLayout() {
   const fontsLoaded = loaded || !!fontError;
   useEffect(() => {
     loadUiPrefs().catch(() => {});
+    loadHostListPrefs().catch(() => {});
     // A slow start shows the loading screen, which has a Cancel button.
     const timer = setTimeout(
       () => SplashScreen.hideAsync().catch(() => {}),
