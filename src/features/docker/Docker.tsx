@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   View,
   ScrollView,
@@ -41,6 +41,7 @@ import { ContainerDetail } from "./ContainerDetail";
 import { StacksView } from "./StacksView";
 import { createLocalDockerBackend } from "./backend/local";
 import { createRelayDockerBackend } from "./backend/relay";
+import { hostStacksOn } from "./backend/stacks-setting";
 import type { DockerBackend, DockerCheck } from "./backend/types";
 
 interface DockerProps {
@@ -94,6 +95,7 @@ function LocalDocker({ host, runner }: { host: SSHHost; runner: ExecRunner }) {
       createLocalDockerBackend(runner, {
         prefer: preferredRuntime(host),
         sudo,
+        stacks: hostStacksOn(host),
       }),
     [runner, host, sudo],
   );
@@ -210,6 +212,22 @@ export function DockerView({
   const [selected, setSelected] = useState<DockerContainer | null>(null);
   const [menuFor, setMenuFor] = useState<DockerContainer | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [stacksOn, setStacksOn] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    backend.stacksEnabled().then(
+      (on) => {
+        if (cancelled) return;
+        setStacksOn(on);
+        if (!on) setSection("containers");
+      },
+      () => {},
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [backend]);
 
   const load = useCallback(
     async (signal?: AbortSignal) => {
@@ -360,27 +378,32 @@ export function DockerView({
         }
         toolbar={
           loaded && !unavailable && !checkError ? (
-            <View className="gap-2.5 px-3 py-2.5">
-              <Tabs<Section>
-                value={section}
-                onChange={setSection}
-                options={[
-                  { id: "containers", label: "Containers" },
-                  { id: "stacks", label: "Stacks" },
-                ]}
-              />
+            // The last strip's border sits on the frame's own bottom border.
+            <View style={{ marginBottom: -1 }}>
+              {stacksOn ? (
+                <Tabs<Section>
+                  value={section}
+                  onChange={setSection}
+                  options={[
+                    { id: "containers", label: "Containers" },
+                    { id: "stacks", label: "Stacks" },
+                  ]}
+                />
+              ) : null}
               {section === "containers" ? (
                 <>
-                  <Input
-                    value={query}
-                    onChangeText={setQuery}
-                    placeholder="Search containers..."
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    leading={
-                      <Search size={15} color={color("muted-foreground")} />
-                    }
-                  />
+                  <View className="px-3 py-2.5">
+                    <Input
+                      value={query}
+                      onChangeText={setQuery}
+                      placeholder="Search containers..."
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      leading={
+                        <Search size={15} color={color("muted-foreground")} />
+                      }
+                    />
+                  </View>
                   <Tabs<StatusFilter>
                     value={statusFilter}
                     onChange={setStatusFilter}
@@ -396,7 +419,7 @@ export function DockerView({
           ) : undefined
         }
       >
-        {section === "stacks" ? (
+        {section === "stacks" && stacksOn ? (
           <StacksView backend={backend} />
         ) : (
           <ScrollView

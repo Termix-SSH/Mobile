@@ -195,6 +195,16 @@ export function createDockerApi(c: AccountClient) {
     }
   }
 
+  /** The admin switch for stack management. Off when the server can't say. */
+  async function getDockerStacksEnabled(): Promise<boolean> {
+    try {
+      const response = await dockerApi().get(`/docker/stacks-status`);
+      return response.data?.enabled === true;
+    } catch {
+      return false;
+    }
+  }
+
   /** Compose stacks on the session's host. 403 when stacks are off on the server. */
   async function getDockerStacks(sessionId: string): Promise<{
     root: string;
@@ -233,6 +243,7 @@ export function createDockerApi(c: AccountClient) {
   }
 
   return {
+    getDockerStacksEnabled,
     getDockerStacks,
     getDockerStack,
     getDockerSummary,

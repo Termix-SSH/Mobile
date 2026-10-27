@@ -47,6 +47,8 @@ export interface DockerBackend {
   action(id: string, action: DockerContainerAction): Promise<void>;
   stats(id: string, signal?: AbortSignal): Promise<DockerContainerStats>;
   logs(id: string, tail: number, signal?: AbortSignal): Promise<string>;
+  /** Stacks show only when the host turns them on (and the server admin, over the relay). */
+  stacksEnabled(): Promise<boolean>;
   stacks(signal?: AbortSignal): Promise<StackSummary[]>;
   stack(stack: StackSummary): Promise<StackDetail>;
   console(): DockerConsoleTarget;

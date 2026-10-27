@@ -3,6 +3,8 @@ import { loadXtermAssets } from "@/features/terminal/loadXtermAssets";
 import {
   View,
   ActivityIndicator,
+  Keyboard,
+  Platform,
   Pressable,
   useWindowDimensions,
 } from "react-native";
@@ -153,10 +155,21 @@ export function DockerConsole({
 
   const reconnect = () => setWebViewKey((k) => k + 1);
 
+  const { ref: boxRef, measure, overlap } = useKeyboardOverlap();
+
   if (!isVisible || (XTERM_FALLBACK && !consoleHtml)) return null;
 
   return (
-    <View className="flex-1 bg-black">
+    <View
+      ref={boxRef}
+      onLayout={measure}
+      className="flex-1"
+      style={{
+        paddingBottom: overlap,
+        // Match the terminal so the strip behind the keyboard blends in.
+        backgroundColor: XTERM_FALLBACK ? "#000" : settings.colors.background,
+      }}
+    >
       {XTERM_FALLBACK ? (
         <WebView
           key={webViewKey}
@@ -207,6 +220,52 @@ export function DockerConsole({
       ) : null}
     </View>
   );
+}
+
+/** How much of this view the keyboard covers, so the terminal can shrink above it. */
+function useKeyboardOverlap() {
+  const ref = useRef<View>(null);
+  const bottomRef = useRef(0);
+  const topRef = useRef<number | null>(null);
+  const [overlap, setOverlap] = useState(0);
+
+  const update = useCallback(() => {
+    const top = topRef.current;
+    setOverlap(top === null ? 0 : Math.max(0, bottomRef.current - top));
+  }, []);
+
+  const measure = useCallback(() => {
+    ref.current?.measureInWindow((_x, y, _w, h) => {
+      bottomRef.current = y + h;
+      update();
+    });
+  }, [update]);
+
+  useEffect(() => {
+    const ios = Platform.OS === "ios";
+    const show = Keyboard.addListener(
+      ios ? "keyboardWillChangeFrame" : "keyboardDidShow",
+      (e) => {
+        topRef.current =
+          e.endCoordinates.height > 0 ? e.endCoordinates.screenY : null;
+        // Android may resize the window for the keyboard, so measure again.
+        measure();
+      },
+    );
+    const hide = Keyboard.addListener(
+      ios ? "keyboardWillHide" : "keyboardDidHide",
+      () => {
+        topRef.current = null;
+        update();
+      },
+    );
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, [measure, update]);
+
+  return { ref, measure, overlap };
 }
 
 const buildConsoleHtml = (assets: {

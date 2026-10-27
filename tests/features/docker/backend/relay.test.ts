@@ -7,6 +7,7 @@ function client() {
     dockerContainerAction: jest.fn(async () => {}),
     getDockerContainerStats: jest.fn(async () => ({ cpu: "1%" })),
     getDockerContainerLogs: jest.fn(async () => "log"),
+    getDockerStacksEnabled: jest.fn(async () => true),
     getDockerStacks: jest.fn(async () => ({
       root: "/opt/stacks",
       stacks: [{ name: "web" }],
@@ -42,4 +43,17 @@ test("every call uses the current docker session", async () => {
   });
   expect(backend.console()).toEqual({ kind: "relay", host });
   expect(backend.via).toBe("relay");
+});
+
+test("stacks need the host switch and the admin switch", async () => {
+  const { c, docker } = client();
+  const off = createRelayDockerBackend(c, () => "s", { id: 1 } as any);
+  expect(await off.stacksEnabled()).toBe(false);
+  expect(docker.getDockerStacksEnabled).not.toHaveBeenCalled();
+
+  const host = { id: 1, pluginSettings: { docker: { enableStacks: true } } };
+  const on = createRelayDockerBackend(c, () => "s", host as any);
+  expect(await on.stacksEnabled()).toBe(true);
+  docker.getDockerStacksEnabled.mockResolvedValueOnce(false);
+  expect(await on.stacksEnabled()).toBe(false);
 });

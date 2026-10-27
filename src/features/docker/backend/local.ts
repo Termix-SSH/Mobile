@@ -63,11 +63,11 @@ export function parseDetect(output: string): DockerCheck {
 
 /**
  * Docker over the phone's own SSH. `sudo` runs every command as root, for
- * users outside the docker group.
+ * users outside the docker group. `stacks` is the host's stacks switch.
  */
 export function createLocalDockerBackend(
   runner: ExecRunner,
-  options: { prefer?: ContainerRuntime; sudo?: boolean } = {},
+  options: { prefer?: ContainerRuntime; sudo?: boolean; stacks?: boolean } = {},
 ): DockerBackend & { counts(signal?: AbortSignal): Promise<ContainerCounts> } {
   let runtime: ContainerRuntime = options.prefer ?? "docker";
   const sudo = options.sudo ?? false;
@@ -112,6 +112,10 @@ export function createLocalDockerBackend(
 
     async logs(id, tail, signal) {
       return cli(dockerArgs.logs(id, { tail }), { signal });
+    },
+
+    async stacksEnabled() {
+      return options.stacks === true;
     },
 
     async stacks(signal) {

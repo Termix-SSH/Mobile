@@ -138,3 +138,11 @@ test("the console line checks the id and can use sudo", () => {
   );
   expect(() => execLine("docker", "$(id)", false)).toThrow();
 });
+
+test("stacks follow the host switch", async () => {
+  const { runner } = fakeRunner(() => "");
+  expect(await createLocalDockerBackend(runner).stacksEnabled()).toBe(false);
+  expect(
+    await createLocalDockerBackend(runner, { stacks: true }).stacksEnabled(),
+  ).toBe(true);
+});

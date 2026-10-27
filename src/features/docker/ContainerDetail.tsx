@@ -89,18 +89,15 @@ export function ContainerDetail({
         />
       </View>
 
-      {/* Tab strip */}
-      <View className="border-b border-border px-3 py-2">
-        <Tabs<DetailTab>
-          value={tab}
-          onChange={setTab}
-          options={[
-            { id: "logs", label: "Logs" },
-            { id: "stats", label: "Stats" },
-            { id: "console", label: "Console" },
-          ]}
-        />
-      </View>
+      <Tabs<DetailTab>
+        value={tab}
+        onChange={setTab}
+        options={[
+          { id: "logs", label: "Logs" },
+          { id: "stats", label: "Stats" },
+          { id: "console", label: "Console" },
+        ]}
+      />
 
       {/* Tab content */}
       <View className="flex-1">
