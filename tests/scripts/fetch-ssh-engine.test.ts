@@ -45,4 +45,15 @@ describe("fetch-ssh-engine", () => {
       "termix-ssh-ios.tar.gz",
     ]);
   });
+
+  // The release tag comes from package.json, so it must follow Cargo.toml.
+  it("package.json version matches the Rust crate", () => {
+    const moduleDir = path.join(__dirname, "../../modules/termix-ssh");
+    const cargo = fs.readFileSync(
+      path.join(moduleDir, "rust/Cargo.toml"),
+      "utf8",
+    );
+    const crate = /^version\s*=\s*"([^"]+)"/m.exec(cargo)?.[1];
+    expect(require(path.join(moduleDir, "package.json")).version).toBe(crate);
+  });
 });
