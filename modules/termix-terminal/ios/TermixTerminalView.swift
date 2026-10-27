@@ -435,6 +435,16 @@ class TermixTerminalView: ExpoView {
     NotificationCenter.default.addObserver(
       self, selector: #selector(keyboardShown),
       name: UIResponder.keyboardDidShowNotification, object: nil)
+    TermixStderr.start()
+    useForEngineLog()
+  }
+
+  /// Trace only: the newest view carries ghostty's own log lines to JS.
+  private func useForEngineLog() {
+    TermixStderr.sink = { [weak self] lines in
+      self?.onTrace(["name": "ghosttyLog", "pipe": self?.pipeId ?? "", "lines": lines])
+    }
+    TermixStderr.flush()
   }
 
   /// Navigators take whole screens out of the window and put them back (app tab switches,
