@@ -25,6 +25,12 @@ final class TermixGhosttyView: UITerminalView {
     takeOverLongPress()
   }
 
+  // Trace only: shows whether typed keys reach this view.
+  override func insertText(_ text: String) {
+    owner?.noteKey()
+    super.insertText(text)
+  }
+
   // Long press selects the word under the finger right away, like a text view.
   // The library's press only opens a menu with a Select item.
   private var longPressTaken = false
@@ -297,6 +303,7 @@ class TermixTerminalView: ExpoView {
     let wasShown = surfaceShown
     surfaceShown = visible
     guard visible, !wasShown else { return }
+    keyTraced = false
     redrawFrames(3)
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
       self?.emitTrace("shown")
@@ -329,7 +336,39 @@ class TermixTerminalView: ExpoView {
       "rows": lastGrid.rows,
       "first": terminalView.isFirstResponder,
       "shown": surfaceShown,
+      "chain": ancestorChain(),
     ])
+  }
+
+  /// Every view up to the window: type, frame, scroll offset and transform shift.
+  private func ancestorChain() -> [String] {
+    var out: [String] = []
+    var node: UIView? = terminalView
+    while let view = node, out.count < 16 {
+      let f = view.frame
+      out.append(
+        "\(type(of: view)) f=\(Int(f.minX)),\(Int(f.minY)),\(Int(f.width))x\(Int(f.height))"
+          + " o=\(Int(view.bounds.minX)),\(Int(view.bounds.minY))"
+          + " t=\(Int(view.transform.tx)),\(Int(view.transform.ty))"
+          + (view.isHidden ? " hidden" : "") + (view.alpha < 1 ? " a=\(view.alpha)" : ""))
+      node = view.superview
+    }
+    return out
+  }
+
+  private var keyTraced = false
+  fileprivate func noteKey() {
+    guard !keyTraced else { return }
+    keyTraced = true
+    emitTrace("key")
+  }
+
+  @objc private func keyboardShown() {
+    guard surfaceShown else { return }
+    keyTraced = false
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+      self?.emitTrace("keyboard")
+    }
   }
 
   required init(appContext: AppContext? = nil) {
@@ -376,6 +415,10 @@ class TermixTerminalView: ExpoView {
     isAccessibilityElement = true
     accessibilityLabel = "Terminal"
     accessibilityTraits = [.allowsDirectInteraction]
+
+    NotificationCenter.default.addObserver(
+      self, selector: #selector(keyboardShown),
+      name: UIResponder.keyboardDidShowNotification, object: nil)
   }
 
   /// Navigators take whole screens out of the window and put them back (app tab switches,
