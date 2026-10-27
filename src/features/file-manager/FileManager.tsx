@@ -817,7 +817,8 @@ export const FileManager = forwardRef<
         placeholderTextColor={colors.textFaint}
         autoCapitalize="none"
         autoCorrect={false}
-        className="h-10 flex-1 px-1 text-sm text-foreground"
+        className="h-10 flex-1 px-1 text-foreground"
+        style={{ fontSize: 14 }}
       />
       <ToolButton
         label="Close search"

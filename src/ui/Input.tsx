@@ -24,8 +24,9 @@ interface InputProps extends TextInputProps {
 }
 
 // Android adds font ascent/descent padding inside text inputs, which pushes the
-// text off centre. Turning it off and pinning a line height keeps the text on
-// the vertical centre of the box on both platforms.
+// text off centre. Turning it off and pinning a line height keeps it centred.
+// iOS centres single line text itself, and a line height there makes each JS
+// update replace the typed text, so it drops a few pixels and the cursor jumps.
 const BASE_TEXT_STYLE = {
   fontFamily: MONO_FONT,
   paddingTop: 0,
@@ -105,7 +106,9 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
         className={`flex-1 text-foreground ${className ?? ""}`}
         style={[
           BASE_TEXT_STYLE,
-          { fontSize, lineHeight: line },
+          multiline || Platform.OS === "android"
+            ? { fontSize, lineHeight: line }
+            : { fontSize },
           multiline
             ? { textAlignVertical: "top", minHeight: line + 6 }
             : { textAlignVertical: "center" },
