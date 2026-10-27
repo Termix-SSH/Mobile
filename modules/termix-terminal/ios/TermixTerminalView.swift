@@ -318,6 +318,7 @@ class TermixTerminalView: ExpoView {
   }
   private var surfaceShown = true
   private var lastGrid = (cols: 0, rows: 0)
+  fileprivate var surfacesBuilt = 0
 
   private func redrawFrames(_ count: Int) {
     terminalView.fitToSize()
@@ -345,6 +346,8 @@ class TermixTerminalView: ExpoView {
       "shown": surfaceShown,
       "chain": ancestorChain(),
       "render": terminalView.debugRenderState,
+      "surfacesBuilt": surfacesBuilt,
+      "dead": session.readViewportText()?.contains("non-functional") ?? false,
       "output": session.debugOutputState,
       "pipeQueued": reader.pipe.queued,
       "readerBytes": Int(reader.bytes),
@@ -875,8 +878,22 @@ extension TermixTerminalView:
   TerminalSurfaceClipboardConfirmationDelegate,
   TerminalSurfaceHoverLinkDelegate,
   TerminalSurfaceOpenURLDelegate,
-  TerminalSurfaceSearchDelegate
+  TerminalSurfaceSearchDelegate,
+  TerminalSurfaceLifecycleDelegate
 {
+  // Trace only: every surface this view builds or drops.
+  func terminalDidAttachSurface(_: TerminalSurface) {
+    surfacesBuilt += 1
+    let count = surfacesBuilt
+    DispatchQueue.main.async { [weak self] in
+      self?.emitTrace("surfaceAttach#\(count)")
+    }
+  }
+
+  func terminalDidDetachSurface() {
+    emitTrace("surfaceDetach")
+  }
+
   func terminalDidStartSearch(needle _: String?) {}
 
   func terminalDidEndSearch() {
