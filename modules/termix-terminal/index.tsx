@@ -72,7 +72,7 @@ interface NativeProps {
   onFontSize?: (e: Ev<{ size: number }>) => void;
   onModifiers?: (e: Ev<{ ctrl: StickyState; alt: StickyState }>) => void;
   watchPrompt?: boolean;
-  /** False while the tab is hidden, so the surface stops drawing and redraws when shown. */
+  /** False while the tab is hidden. iOS redraws it when shown and focus waits for it. */
   surfaceVisible?: boolean;
   onPromptLine?: (e: Ev<{ line: string }>) => void;
   onSearch?: (e: Ev<{ total: number; index: number }>) => void;

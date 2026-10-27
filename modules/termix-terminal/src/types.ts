@@ -103,7 +103,7 @@ export interface TerminalViewProps {
   onModifiers?: (state: { ctrl: StickyState; alt: StickyState }) => void;
   /** Report the line at the prompt when output settles, through `onPromptLine`. */
   watchPrompt?: boolean;
-  /** False while the tab is hidden behind another. iOS stops drawing it and redraws when shown. */
+  /** False while the tab is hidden. iOS redraws it when shown and waits for this before taking focus. */
   surfaceVisible?: boolean;
   /** What a focus call found: whether it got the keyboard, and why not. iOS only. */
   onFocusResult?: (result: Record<string, unknown>) => void;

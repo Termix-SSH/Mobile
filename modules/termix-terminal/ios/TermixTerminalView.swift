@@ -288,21 +288,24 @@ class TermixTerminalView: ExpoView {
   private var promptWork: DispatchWorkItem?
   private var lastPromptLine = ""
 
-  /// Hidden tabs stay mounted off screen. The surface stops drawing while hidden and draws a
-  /// fresh frame when shown. The tab's move back on screen can land just after this prop,
-  /// so it draws again on the next main turn.
+  /// Hidden tabs sit off screen and keep drawing. A paused surface that got resized (the
+  /// keyboard came up) kept its old frame when shown, with the prompt under the keyboard.
+  /// Showing a tab draws a few fresh frames, since its move back on screen can land a
+  /// moment after this prop.
   func setSurfaceVisible(_ visible: Bool) {
     let wasShown = surfaceShown
     surfaceShown = visible
-    terminalView.setSurfaceVisible(visible)
-    guard visible, !wasShown else { return }
-    terminalView.fitToSize()
-    DispatchQueue.main.async { [weak self] in
-      guard let self, surfaceShown else { return }
-      terminalView.fitToSize()
-    }
+    if visible, !wasShown { redrawFrames(3) }
   }
   private var surfaceShown = true
+
+  private func redrawFrames(_ count: Int) {
+    terminalView.fitToSize()
+    guard count > 1 else { return }
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.016) { [weak self] in
+      self?.redrawFrames(count - 1)
+    }
+  }
 
   required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
@@ -356,8 +359,8 @@ class TermixTerminalView: ExpoView {
     DispatchQueue.main.async { [weak self] in
       guard let self, window != nil else { return }
       terminalView.setSurfaceVisible(false)
-      terminalView.setSurfaceVisible(surfaceShown)
-      terminalView.fitToSize()
+      terminalView.setSurfaceVisible(true)
+      redrawFrames(3)
     }
   }
 
