@@ -21,7 +21,6 @@ import {
 import { fromBase64 } from "@/modules/termix-ssh/src/base64";
 import { utf8Decode } from "@/core/db/bytes";
 import { useUiColors } from "@/contexts/ThemeContext";
-import { trace } from "@/core/log/trace";
 import { useConfirm } from "@/ui/Confirm";
 import { showToast } from "@/utils/toast";
 import type { TerminalSettings } from "./settings";
@@ -201,10 +200,7 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
           accentColor={ui.brand}
           onInput={handleInput}
           onResize={onResize}
-          onScrollState={(atBottom) => {
-            trace("term", "scroll", { pipe: pipeId, atBottom });
-            setAtBottom(atBottom);
-          }}
+          onScrollState={setAtBottom}
           onLink={handleLink}
           onCopy={handleCopy}
           onClipboardRequest={handleClipboard}
@@ -212,15 +208,6 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
           onModifiers={onModifiers}
           watchPrompt={watchPrompt}
           surfaceVisible={visible}
-          onTrace={(data) =>
-            trace("kb", `native ${String(data.name)}`, {
-              pipe: pipeId,
-              ...data,
-            })
-          }
-          onFocusResult={(result) =>
-            trace("kb", "native focus", { pipe: pipeId, ...result })
-          }
           onPromptLine={onPromptLine}
           onSearch={onSearch}
           onTitle={onTitle}

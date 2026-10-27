@@ -35,7 +35,7 @@ interface NativeHandle {
   scrollToBottom(): Promise<void>;
   copySelection(): Promise<void>;
   selectAll(): Promise<void>;
-  focus(): Promise<unknown>;
+  focus(): Promise<void>;
   blur(): Promise<void>;
   refit(): Promise<void>;
   toggleModifier(name: string): Promise<void>;
@@ -78,7 +78,6 @@ interface NativeProps {
   onSearch?: (e: Ev<{ total: number; index: number }>) => void;
   onMenu?: (e: Ev<object>) => void;
   onShortcut?: (e: Ev<{ id: string }>) => void;
-  onTrace?: (e: Ev<Record<string, unknown>>) => void;
   style?: StyleProp<ViewStyle>;
   ref?: Ref<NativeHandle>;
 }
@@ -136,8 +135,6 @@ export const TerminalView = forwardRef<TerminalViewHandle, TerminalViewProps>(
   function TerminalView(props, ref) {
     const native = useRef<NativeHandle>(null);
     const queue = useMemo(createCallQueue, []);
-    const onFocusResult = useRef(props.onFocusResult);
-    onFocusResult.current = props.onFocusResult;
 
     useImperativeHandle(ref, () => {
       const call = (fn: (n: NativeHandle) => Promise<unknown>) =>
@@ -150,14 +147,7 @@ export const TerminalView = forwardRef<TerminalViewHandle, TerminalViewProps>(
         scrollToBottom: () => call((n) => n.scrollToBottom()),
         copySelection: () => call((n) => n.copySelection()),
         selectAll: () => call((n) => n.selectAll()),
-        focus: () =>
-          call((n) =>
-            n.focus().then((result) => {
-              if (result && typeof result === "object") {
-                onFocusResult.current?.(result as Record<string, unknown>);
-              }
-            }),
-          ),
+        focus: () => call((n) => n.focus()),
         blur: () => call((n) => n.blur()),
         refit: () => call((n) => n.refit()),
         toggleModifier: (name) => call((n) => n.toggleModifier(name)),
@@ -202,7 +192,6 @@ export const TerminalView = forwardRef<TerminalViewHandle, TerminalViewProps>(
         onPromptLine={(e) => props.onPromptLine?.(e.nativeEvent.line)}
         onMenu={() => props.onMenu?.()}
         onShortcut={(e) => props.onShortcut?.(e.nativeEvent.id)}
-        onTrace={(e) => props.onTrace?.(e.nativeEvent)}
         onSearch={(e) =>
           props.onSearch?.({
             total: e.nativeEvent.total,

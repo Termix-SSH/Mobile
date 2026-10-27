@@ -538,23 +538,7 @@ final class TerminalSurfaceCoordinator {
         controller?.tick()
         surface?.refresh()
         surface?.draw()
-        renderCount &+= 1
         onPostRender?()
-    }
-
-    /// Termix trace: draws done so far and every gate a draw passes.
-    private(set) var renderCount = 0
-    var debugState: [String: Any] {
-        [
-            "renders": renderCount,
-            "surface": surface != nil,
-            "attached": isAttached(),
-            "display": isDisplayVisible,
-            "window": isWindowVisible,
-            "active": isApplicationActive,
-            "pending": pendingImmediateTick,
-            "link": displayLink.map { $0.isPaused ? "paused" : ($0.isTicking ? "ticking" : "unbound") } ?? "none",
-        ]
     }
 
     // MARK: - Focus

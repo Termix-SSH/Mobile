@@ -40,7 +40,6 @@ import {
   useSideInsets,
 } from "@/ui/bottom-inset";
 import { reduceMotionOn } from "@/ui/motion";
-import { tabTag, trace } from "@/core/log/trace";
 import TabBar from "@/screens/sessions/navigation/TabBar";
 import { SessionMenu } from "@/screens/sessions/SessionMenu";
 import { keyBarHeight } from "@/features/terminal/keys/compact";
@@ -202,7 +201,6 @@ export default function Sessions() {
     }
     const id = activeIdRef.current;
     const target = id ? tabRefs.current[id]?.current?.keyTarget?.() : null;
-    trace("kb", `keyboard(${action})`, { tab: tabTag(id), target: !!target });
     if (action === "focus") target?.focus();
     else if (action === "blur") target?.blur();
   }, []);
@@ -336,15 +334,6 @@ export default function Sessions() {
 
   // A keyboard that came up, from a tap on the terminal too, ends a hide from the tab bar.
   useEffect(() => {
-    trace("kb", "bars", {
-      code: "tabs-offscreen-v11",
-      up: systemKeyboardUp,
-      visible: isKeyboardVisible,
-      height: Math.round(currentKeyboardHeight),
-      userHid: keyboardIntentionallyHiddenRef.current,
-      active: tabTag(activeSessionId),
-      terminal: activeIsTerminal,
-    });
     if (systemKeyboardUp && keyboardIntentionallyHiddenRef.current) {
       setKeyboardIntentionallyHidden(false);
     }
@@ -462,14 +451,6 @@ export default function Sessions() {
     const keyboardUp = keyboardUpRef.current;
     const keepKeyboard =
       !!next && keyboardUp && !isCustomKeyboardVisible && !isAppLocked();
-    trace("kb", "tab switch", {
-      from: tabTag(prev),
-      to: tabTag(activeSessionId),
-      nextReady: !!next,
-      keyboardUp,
-      keepKeyboard,
-      keysPanel: isCustomKeyboardVisible,
-    });
     if (keepKeyboard) next.focus();
     else if (keyboardUp)
       tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
@@ -839,13 +820,7 @@ export default function Sessions() {
             const tabs = (
               <View
                 style={{ flex: 1 }}
-                onLayout={(e) => {
-                  trace("kb", "stage", {
-                    width: Math.round(e.nativeEvent.layout.width),
-                    height: Math.round(e.nativeEvent.layout.height),
-                  });
-                  setStageWidth(e.nativeEvent.layout.width);
-                }}
+                onLayout={(e) => setStageWidth(e.nativeEvent.layout.width)}
               >
                 {sessions.map((session) => {
                   return (

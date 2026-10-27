@@ -25,12 +25,6 @@ final class TermixGhosttyView: UITerminalView {
     takeOverLongPress()
   }
 
-  // Trace only: shows whether typed keys reach this view.
-  override func insertText(_ text: String) {
-    owner?.noteKey()
-    super.insertText(text)
-  }
-
   // Long press selects the word under the finger right away, like a text view.
   // The library's press only opens a menu with a Select item.
   private var longPressTaken = false
@@ -180,12 +174,6 @@ private final class PipeReader: PipeSink, @unchecked Sendable {
     schedule()
   }
 
-  var debugState: String {
-    lock.lock()
-    defer { lock.unlock() }
-    return "queued=\(queued) backlogged=\(backlogged) session=\(session != nil)"
-  }
-
   func setBacklogged(_ value: Bool) {
     lock.lock()
     backlogged = value
@@ -243,7 +231,6 @@ class TermixTerminalView: ExpoView {
   private var nextClipboardId = 1
   private var announced: [String] = []
   private var announceWork: DispatchWorkItem?
-  private var renderSoon: DispatchWorkItem?
   private var lastBell = Date.distantPast
   private var atBottom = true
 
@@ -284,7 +271,6 @@ class TermixTerminalView: ExpoView {
   let onSearch = EventDispatcher()
   let onMenu = EventDispatcher()
   let onShortcut = EventDispatcher()
-  let onTrace = EventDispatcher()
   /** Set by the app when it handles shortcuts, so the keys reach the shell otherwise. */
   var reportsShortcuts = true
   private var searchTotal = 0
@@ -302,93 +288,13 @@ class TermixTerminalView: ExpoView {
   private var promptWork: DispatchWorkItem?
   private var lastPromptLine = ""
 
-  /// Hidden tabs sit off screen and keep drawing. A paused surface that got resized (the
-  /// keyboard came up) kept its old frame when shown, with the prompt under the keyboard.
-  /// Showing a tab draws a few fresh frames, since its move back on screen can land a
-  /// moment after this prop.
+  /// Hidden tabs sit off screen and keep drawing. Focus waits for a tab to be shown.
   func setSurfaceVisible(_ visible: Bool) {
     let wasShown = surfaceShown
     surfaceShown = visible
-    guard visible, !wasShown else { return }
-    keyTraced = false
-    redrawFrames(3)
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-      self?.emitTrace("shown")
-    }
+    if visible, !wasShown { terminalView.fitToSize() }
   }
   private var surfaceShown = true
-  private var lastGrid = (cols: 0, rows: 0)
-  fileprivate var surfacesBuilt = 0
-
-  private func redrawFrames(_ count: Int) {
-    terminalView.fitToSize()
-    guard count > 1 else { return }
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.016) { [weak self] in
-      self?.redrawFrames(count - 1)
-    }
-  }
-
-  /// Where the view and its drawn layer really are, for the trace log.
-  private func emitTrace(_ name: String) {
-    let rect = { (r: CGRect) in [Int(r.minX), Int(r.minY), Int(r.width), Int(r.height)] }
-    let layers = (terminalView.layer.sublayers ?? [])
-      .filter { !($0.delegate is UIView) }
-      .map { rect($0.frame) }
-    onTrace([
-      "name": name,
-      "bounds": rect(bounds),
-      "inWindow": window.map { rect(convert(bounds, to: $0)) } ?? [],
-      "ghostty": rect(terminalView.frame),
-      "layers": layers,
-      "cols": lastGrid.cols,
-      "rows": lastGrid.rows,
-      "first": terminalView.isFirstResponder,
-      "shown": surfaceShown,
-      "chain": ancestorChain(),
-      "render": terminalView.debugRenderState,
-      "surfacesBuilt": surfacesBuilt,
-      "dead": session.readViewportText()?.contains("non-functional") ?? false,
-      "output": session.debugOutputState,
-      "pipeQueued": reader.pipe.queued,
-      "readerBytes": Int(reader.bytes),
-      "readerState": reader.debugState,
-    ])
-  }
-
-  /// Every view up to the window: type, frame, scroll offset and transform shift.
-  private func ancestorChain() -> [String] {
-    var out: [String] = []
-    var node: UIView? = terminalView
-    while let view = node, out.count < 16 {
-      let f = view.frame
-      out.append(
-        "\(type(of: view)) f=\(Int(f.minX)),\(Int(f.minY)),\(Int(f.width))x\(Int(f.height))"
-          + " o=\(Int(view.bounds.minX)),\(Int(view.bounds.minY))"
-          + " t=\(Int(view.transform.tx)),\(Int(view.transform.ty))"
-          + (view.isHidden ? " hidden" : "") + (view.alpha < 1 ? " a=\(view.alpha)" : ""))
-      node = view.superview
-    }
-    return out
-  }
-
-  private var keyTraced = false
-  fileprivate func noteKey() {
-    guard !keyTraced else { return }
-    keyTraced = true
-    emitTrace("key")
-    // The echo should have drawn by now; the draw count says whether it did.
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
-      self?.emitTrace("afterKey")
-    }
-  }
-
-  @objc private func keyboardShown() {
-    guard surfaceShown else { return }
-    keyTraced = false
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-      self?.emitTrace("keyboard")
-    }
-  }
 
   required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
@@ -399,10 +305,7 @@ class TermixTerminalView: ExpoView {
         DispatchQueue.main.async { self?.onInput(["data": data.base64EncodedString()]) }
       },
       resize: { [weak self] viewport in
-        DispatchQueue.main.async {
-          self?.lastGrid = (Int(viewport.columns), Int(viewport.rows))
-          self?.onResize(["cols": viewport.columns, "rows": viewport.rows])
-        }
+        DispatchQueue.main.async { self?.onResize(["cols": viewport.columns, "rows": viewport.rows]) }
       }
     )
     let reader = PipeReader(pipe: localPipe)
@@ -434,66 +337,6 @@ class TermixTerminalView: ExpoView {
     isAccessibilityElement = true
     accessibilityLabel = "Terminal"
     accessibilityTraits = [.allowsDirectInteraction]
-
-    NotificationCenter.default.addObserver(
-      self, selector: #selector(keyboardShown),
-      name: UIResponder.keyboardDidShowNotification, object: nil)
-    TermixStderr.start()
-    useForEngineLog()
-  }
-
-  /// Trace only: the newest view carries ghostty's own log lines to JS.
-  private func useForEngineLog() {
-    TermixStderr.sink = { [weak self] lines in
-      self?.onTrace(["name": "ghosttyLog", "pipe": self?.pipeId ?? "", "lines": lines])
-    }
-    TermixStderr.flush()
-  }
-
-  /// Navigators take whole screens out of the window and put them back (app tab switches,
-  /// pushed screens). A ghostty view that left the window kept drawing frames that never
-  /// reached the screen again. So the inner view never leaves: while this view is out of
-  /// the window it waits in an off screen spot of the same window, then comes back.
-  override func willMove(toWindow newWindow: UIWindow?) {
-    super.willMove(toWindow: newWindow)
-    guard newWindow == nil, let window, terminalView.superview === self else { return }
-    // The keyboard must not follow the terminal to the other screen.
-    if terminalView.isFirstResponder { _ = terminalView.resignFirstResponder() }
-    let size = terminalView.bounds.size
-    Self.parkingSpot(in: window).addSubview(terminalView)
-    terminalView.frame = CGRect(origin: .zero, size: size)
-  }
-
-  private static weak var parking: UIView?
-
-  private static func parkingSpot(in window: UIWindow) -> UIView {
-    if let spot = parking, spot.window === window { return spot }
-    let spot = UIView(frame: CGRect(x: -100_000, y: 0, width: 1, height: 1))
-    spot.isUserInteractionEnabled = false
-    spot.isAccessibilityElement = false
-    spot.accessibilityElementsHidden = true
-    window.insertSubview(spot, at: 0)
-    parking = spot
-    return spot
-  }
-
-  override func didMoveToWindow() {
-    super.didMoveToWindow()
-    guard window != nil else { return }
-    if terminalView.superview !== self {
-      insertSubview(terminalView, at: 0)
-      terminalView.frame = bounds
-    }
-    guard surfaceReady else { return }
-    // Never turn the surface off and on to force a frame: once it was, its new frames
-    // stopped reaching the screen.
-    DispatchQueue.main.async { [weak self] in
-      guard let self, window != nil else { return }
-      redrawFrames(3)
-    }
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-      self?.emitTrace("reattached")
-    }
   }
 
   override func layoutSubviews() {
@@ -653,55 +496,26 @@ class TermixTerminalView: ExpoView {
     onSearch(["total": searchTotal, "index": searchSelected])
   }
 
-  /// Takes the keyboard. A tab that was just shown can refuse on the first try, so a refusal
-  /// tries once more on the next main turn. Reports what it saw, for the trace log.
-  func focusTerminal(done: @escaping ([String: Any]) -> Void) {
-    focusWhenReady(waited: 0, done: done)
+  /// Takes the keyboard. A tab being shown gets this call before its props and position
+  /// land, so wait a frame at a time until it is really on screen.
+  func focusTerminal() {
+    focusWhenReady(waited: 0)
   }
 
-  /// A tab being shown gets its focus call before its new props and position land. Focus
-  /// taken while the tab is still hidden or off screen starts an input session that never
-  /// gets keys, so wait a frame at a time until it is really shown.
-  private func focusWhenReady(waited: Int, done: @escaping ([String: Any]) -> Void) {
-    let ready = surfaceShown && isOnScreen
-    if !ready, waited < 20 {
+  private func focusWhenReady(waited: Int) {
+    if !(surfaceShown && isOnScreen), waited < 20 {
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.016) { [weak self] in
-        self?.focusWhenReady(waited: waited + 1, done: done)
+        self?.focusWhenReady(waited: waited + 1)
       }
       return
     }
-    let ok = terminalView.acquireProgrammaticFocus()
-    done(["ok": ok, "waitedFrames": waited, "ready": ready, "state": focusState()])
+    _ = terminalView.acquireProgrammaticFocus()
   }
 
   /// In a window and inside its bounds. Hidden tabs sit far off to the side.
   private var isOnScreen: Bool {
     guard let window else { return false }
-    let frame = convert(bounds, to: window)
-    return frame.intersects(window.bounds)
-  }
-
-  private func focusState() -> [String: Any] {
-    var touchBlocked = false
-    var hidden = false
-    var alpha: CGFloat = 1
-    var node: UIView? = terminalView
-    while let view = node {
-      if !view.isUserInteractionEnabled { touchBlocked = true }
-      if view.isHidden { hidden = true }
-      alpha *= view.alpha
-      node = view.superview
-    }
-    return [
-      "first": terminalView.isFirstResponder,
-      "window": window != nil,
-      "onScreen": isOnScreen,
-      "touchBlocked": touchBlocked,
-      "hidden": hidden,
-      "alpha": Double(alpha),
-      "shown": surfaceShown,
-      "surface": terminalView.surface != nil,
-    ]
+    return convert(bounds, to: window).intersects(window.bounds)
   }
 
   /// Sizes the grid to the view again and draws, after the keyboard or a tab switch moved it.
@@ -802,13 +616,6 @@ class TermixTerminalView: ExpoView {
   // MARK: - Output
 
   private func outputArrived() {
-    // After the screen came back to the window, output stopped drawing: the engine's
-    // wakeups did not get through. Ticking here drains its mailbox and draws.
-    terminalView.requestRender()
-    renderSoon?.cancel()
-    let render = DispatchWorkItem { [weak self] in self?.terminalView.requestRender() }
-    renderSoon = render
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: render)
     if promptWatch {
       promptWork?.cancel()
       let work = DispatchWorkItem { [weak self] in self?.reportPromptLine() }
@@ -883,22 +690,8 @@ extension TermixTerminalView:
   TerminalSurfaceClipboardConfirmationDelegate,
   TerminalSurfaceHoverLinkDelegate,
   TerminalSurfaceOpenURLDelegate,
-  TerminalSurfaceSearchDelegate,
-  TerminalSurfaceLifecycleDelegate
+  TerminalSurfaceSearchDelegate
 {
-  // Trace only: every surface this view builds or drops.
-  func terminalDidAttachSurface(_: TerminalSurface) {
-    surfacesBuilt += 1
-    let count = surfacesBuilt
-    DispatchQueue.main.async { [weak self] in
-      self?.emitTrace("surfaceAttach#\(count)")
-    }
-  }
-
-  func terminalDidDetachSurface() {
-    emitTrace("surfaceDetach")
-  }
-
   func terminalDidStartSearch(needle _: String?) {}
 
   func terminalDidEndSearch() {

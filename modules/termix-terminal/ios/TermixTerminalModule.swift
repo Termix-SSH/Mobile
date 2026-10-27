@@ -10,7 +10,7 @@ public class TermixTerminalModule: Module {
       Events(
         "onInput", "onResize", "onBell", "onTitleChange", "onScrollState", "onLink", "onCopy",
         "onClipboardRequest", "onFontSize", "onModifiers", "onPromptLine",
-        "onSearch", "onMenu", "onShortcut", "onTrace"
+        "onSearch", "onMenu", "onShortcut"
       )
 
       Prop("pipeId") { (view: TermixTerminalView, id: String?) in
@@ -123,8 +123,8 @@ public class TermixTerminalModule: Module {
         view.clearSearch()
       }.runOnQueue(.main)
 
-      AsyncFunction("focus") { (view: TermixTerminalView, promise: Promise) in
-        view.focusTerminal { promise.resolve($0) }
+      AsyncFunction("focus") { (view: TermixTerminalView) in
+        view.focusTerminal()
       }.runOnQueue(.main)
 
       AsyncFunction("blur") { (view: TermixTerminalView) in

@@ -100,7 +100,6 @@ import {
   type XtermTerminalApi,
 } from "./xterm/XtermTerminalView";
 import { XTERM_FALLBACK } from "./fallback";
-import { trace } from "@/core/log/trace";
 
 interface TerminalProps {
   host: SSHHost;
@@ -298,12 +297,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     const sendInput = useCallback(
       (data: string) => {
-        trace("term", "input", {
-          tab: tabInstanceId?.slice(0, 8),
-          bytes: data.length,
-          connected: !!connRef.current,
-          state: connRef.current?.state.status,
-        });
         tracker.track(data);
         connRef.current?.sendInput(data);
       },
@@ -680,7 +673,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       [],
     );
     const handleResize = useCallback((cols: number, rows: number) => {
-      trace("term", "size", { tab: tabInstanceId?.slice(0, 8), cols, rows });
       sizeRef.current = { cols, rows };
       if (connectedOnce.current) {
         connRef.current?.resize(cols, rows);
@@ -798,11 +790,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     const keyTarget = useMemo<TerminalKeyTarget>(
       () => ({
         focus: () => {
-          trace("kb", "terminal focus", { tab: tabInstanceId?.slice(0, 8) });
           nativeRef.current?.focus();
         },
         blur: () => {
-          trace("kb", "terminal blur", { tab: tabInstanceId?.slice(0, 8) });
           nativeRef.current?.blur();
         },
         sendKey: (name, shift) =>
