@@ -173,6 +173,12 @@
             core.surface
         }
 
+        /// Ticks the app and draws on the next frame, without waiting for a
+        /// wakeup from the engine.
+        public func requestRender() {
+            core.requestImmediateTick()
+        }
+
         /// Termix trace: the render gates and draw count.
         public var debugRenderState: [String: Any] {
             core.debugState

@@ -180,6 +180,12 @@ private final class PipeReader: PipeSink, @unchecked Sendable {
     schedule()
   }
 
+  var debugState: String {
+    lock.lock()
+    defer { lock.unlock() }
+    return "queued=\(queued) backlogged=\(backlogged) session=\(session != nil)"
+  }
+
   func setBacklogged(_ value: Bool) {
     lock.lock()
     backlogged = value
@@ -237,6 +243,7 @@ class TermixTerminalView: ExpoView {
   private var nextClipboardId = 1
   private var announced: [String] = []
   private var announceWork: DispatchWorkItem?
+  private var renderSoon: DispatchWorkItem?
   private var lastBell = Date.distantPast
   private var atBottom = true
 
@@ -338,6 +345,10 @@ class TermixTerminalView: ExpoView {
       "shown": surfaceShown,
       "chain": ancestorChain(),
       "render": terminalView.debugRenderState,
+      "output": session.debugOutputState,
+      "pipeQueued": reader.pipe.queued,
+      "readerBytes": Int(reader.bytes),
+      "readerState": reader.debugState,
     ])
   }
 
@@ -757,6 +768,13 @@ class TermixTerminalView: ExpoView {
   // MARK: - Output
 
   private func outputArrived() {
+    // After the screen came back to the window, output stopped drawing: the engine's
+    // wakeups did not get through. Ticking here drains its mailbox and draws.
+    terminalView.requestRender()
+    renderSoon?.cancel()
+    let render = DispatchWorkItem { [weak self] in self?.terminalView.requestRender() }
+    renderSoon = render
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: render)
     if promptWatch {
       promptWork?.cancel()
       let work = DispatchWorkItem { [weak self] in self?.reportPromptLine() }

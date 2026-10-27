@@ -129,6 +129,18 @@ final class InMemoryTerminalSurfaceAccess: @unchecked Sendable {
         backlogChange?()
     }
 
+    /// Termix trace: whether output is waiting, in flight or stuck.
+    var debugState: [String: Any] {
+        condition.lock()
+        defer { condition.unlock() }
+        return [
+            "pendingBytes": operations.writeByteCount,
+            "inFlight": activeOperations,
+            "drainScheduled": isDrainScheduled,
+            "surface": surface != nil,
+        ]
+    }
+
     /// Bytes received and not yet handed to a surface.
     var pendingByteCount: Int {
         condition.lock()

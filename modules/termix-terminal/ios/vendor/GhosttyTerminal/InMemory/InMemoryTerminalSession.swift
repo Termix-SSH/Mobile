@@ -191,6 +191,11 @@ public final class InMemoryTerminalSession: @unchecked Sendable {
         surfaceAccess.pendingByteCount
     }
 
+    /// Termix trace: the output queue's state.
+    public var debugOutputState: [String: Any] {
+        surfaceAccess.debugState
+    }
+
     /// Calls `handler(true)` once unparsed output reaches `highWater` bytes
     /// and `handler(false)` once it falls back to `lowWater` or below — the
     /// moments for a host to pause and resume its transport. The handler runs
