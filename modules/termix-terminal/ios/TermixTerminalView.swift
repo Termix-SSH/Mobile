@@ -438,11 +438,40 @@ class TermixTerminalView: ExpoView {
   }
 
   /// Navigators take whole screens out of the window and put them back (app tab switches,
-  /// pushed screens). The surface is kept; turning it off and back on makes it draw a whole
-  /// new frame once it is back.
+  /// pushed screens). A ghostty view that left the window kept drawing frames that never
+  /// reached the screen again. So the inner view never leaves: while this view is out of
+  /// the window it waits in an off screen spot of the same window, then comes back.
+  override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+    guard newWindow == nil, let window, terminalView.superview === self else { return }
+    // The keyboard must not follow the terminal to the other screen.
+    if terminalView.isFirstResponder { _ = terminalView.resignFirstResponder() }
+    let size = terminalView.bounds.size
+    Self.parkingSpot(in: window).addSubview(terminalView)
+    terminalView.frame = CGRect(origin: .zero, size: size)
+  }
+
+  private static weak var parking: UIView?
+
+  private static func parkingSpot(in window: UIWindow) -> UIView {
+    if let spot = parking, spot.window === window { return spot }
+    let spot = UIView(frame: CGRect(x: -100_000, y: 0, width: 1, height: 1))
+    spot.isUserInteractionEnabled = false
+    spot.isAccessibilityElement = false
+    spot.accessibilityElementsHidden = true
+    window.insertSubview(spot, at: 0)
+    parking = spot
+    return spot
+  }
+
   override func didMoveToWindow() {
     super.didMoveToWindow()
-    guard window != nil, surfaceReady else { return }
+    guard window != nil else { return }
+    if terminalView.superview !== self {
+      insertSubview(terminalView, at: 0)
+      terminalView.frame = bounds
+    }
+    guard surfaceReady else { return }
     DispatchQueue.main.async { [weak self] in
       guard let self, window != nil else { return }
       terminalView.setSurfaceVisible(false)
@@ -623,22 +652,9 @@ class TermixTerminalView: ExpoView {
       }
       return
     }
-    // Let the old terminal go in the same turn. A bare handoff while the keyboard stayed up
-    // left the new one first responder but getting no keys.
-    var handedOff = false
-    if let other = Self.focusedView, other !== self, other.terminalView.isFirstResponder {
-      _ = other.terminalView.resignFirstResponder()
-      handedOff = true
-    }
     let ok = terminalView.acquireProgrammaticFocus()
-    if ok { Self.focusedView = self }
-    done([
-      "ok": ok, "waitedFrames": waited, "ready": ready, "handedOff": handedOff,
-      "state": focusState(),
-    ])
+    done(["ok": ok, "waitedFrames": waited, "ready": ready, "state": focusState()])
   }
-
-  private static weak var focusedView: TermixTerminalView?
 
   /// In a window and inside its bounds. Hidden tabs sit far off to the side.
   private var isOnScreen: Bool {
