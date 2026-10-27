@@ -337,7 +337,7 @@ export default function Sessions() {
   // A keyboard that came up, from a tap on the terminal too, ends a hide from the tab bar.
   useEffect(() => {
     trace("kb", "bars", {
-      code: "tabs-offscreen-v4",
+      code: "tabs-offscreen-v5",
       up: systemKeyboardUp,
       visible: isKeyboardVisible,
       height: Math.round(currentKeyboardHeight),

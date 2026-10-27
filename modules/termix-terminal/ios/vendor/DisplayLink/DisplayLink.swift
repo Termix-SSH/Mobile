@@ -42,6 +42,11 @@ public final class DisplayLink {
 
     /// The display link this one receives frames from, nil while not ticking.
     private(set) var subscription: SharedDisplayLink?
+
+    /// Whether this link is subscribed to a display right now.
+    public var isTicking: Bool {
+        subscription != nil
+    }
     /// Creation order, which decides the order links on one system link are called in.
     let order: UInt64
     private var anchor: WindowAnchor?

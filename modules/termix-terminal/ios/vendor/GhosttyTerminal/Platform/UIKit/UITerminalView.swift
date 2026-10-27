@@ -173,6 +173,11 @@
             core.surface
         }
 
+        /// Termix trace: the render gates and draw count.
+        public var debugRenderState: [String: Any] {
+            core.debugState
+        }
+
         open var hasText: Bool {
             true
         }

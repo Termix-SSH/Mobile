@@ -337,6 +337,7 @@ class TermixTerminalView: ExpoView {
       "first": terminalView.isFirstResponder,
       "shown": surfaceShown,
       "chain": ancestorChain(),
+      "render": terminalView.debugRenderState,
     ])
   }
 
@@ -361,6 +362,10 @@ class TermixTerminalView: ExpoView {
     guard !keyTraced else { return }
     keyTraced = true
     emitTrace("key")
+    // The echo should have drawn by now; the draw count says whether it did.
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
+      self?.emitTrace("afterKey")
+    }
   }
 
   @objc private func keyboardShown() {
