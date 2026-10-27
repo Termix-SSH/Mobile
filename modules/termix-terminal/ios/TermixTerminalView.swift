@@ -419,7 +419,7 @@ class TermixTerminalView: ExpoView {
     controller = TerminalController(configuration: baseConfiguration(), theme: TerminalTheme())
     appliedBase = baseConfiguration().rendered
     terminalView.owner = self
-    terminalView.controller = controller
+    // The controller is set in layoutSubviews, after the in-memory configuration.
     terminalView.inputAccessoryItems = []
     terminalView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     terminalView.delegate = self
@@ -504,7 +504,12 @@ class TermixTerminalView: ExpoView {
       surfaceReady = true
       // Props from the mount wait for the next main turn; the surface starts with them.
       if configScheduled { applyConfig() }
+      // Configuration first, then the controller, so exactly one surface is built. With the
+      // controller set early, the view built a default surface on entering the window and
+      // swapped it right away. That one could not start a shell, and its layer stayed in the
+      // view, showing its error or a frozen picture over the real terminal.
       terminalView.configuration = TerminalSurfaceOptions(backend: .inMemory(session), fontSize: currentFontSize)
+      terminalView.controller = controller
     }
   }
 
