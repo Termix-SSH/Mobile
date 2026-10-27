@@ -1,7 +1,7 @@
 //! RDP on IronRDP, at the same revision as the remote desktop plugin's engine. TLS is rustls on
 //! ring and NLA is NTLM; Kerberos and RD Gateway are not on the phone yet.
 
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 
 use ironrdp::connector::connection_activation::ConnectionActivationState;
 use ironrdp::connector::{self, ClientConnector, ConnectorErrorKind, ConnectorResult, Credentials, ServerName};
@@ -120,29 +120,27 @@ async fn connect(conn: Conn, config: &DisplayConfig) -> Result<(connector::Conne
     let mut framed = MovableTokioFramed::new(conn);
     let should_upgrade = ironrdp_tokio::connect_begin(&mut framed, &mut connector).await.map_err(login_error)?;
     let (stream, leftover) = framed.into_inner();
-    // A certificate the phone can't verify (most RDP servers sign their own)
-    // is taken only when it is the one the user trusted, like an SSH host key.
-    let refused: Arc<Mutex<Option<String>>> = Arc::new(Mutex::new(None));
-    let expected = config.server_cert.clone();
-    let seen = refused.clone();
-    let callback: ironrdp_tls::CertificateValidationCallback = Arc::new(move |der: &[u8], _: &str, _: &str| {
-        let fingerprint = cert_fingerprint(der);
-        if expected.as_deref() == Some(fingerprint.as_str()) {
-            return true;
-        }
-        *seen.lock().unwrap_or_else(|e| e.into_inner()) = Some(fingerprint);
-        false
-    });
-    let upgraded = ironrdp_tls::upgrade_with_certificate_validation_callback(stream, &config.dial.host, callback).await;
-    let (tls, cert) = match upgraded {
-        Ok(done) => done,
-        Err(e) => {
-            if let Some(fingerprint) = refused.lock().unwrap_or_else(|e| e.into_inner()).take() {
-                return Err(cert_error(config.server_cert.is_some(), &fingerprint));
-            }
-            return Err(SshError::Connect { msg: format!("RDP TLS: {e}") });
-        }
-    };
+    // The certificate is pinned like an SSH host key: only the one the user
+    // trusted goes on. Phones have no root store rustls can load, and most RDP
+    // servers sign their own anyway. The password is only sent in
+    // connect_finalize, after this check.
+    let (tls, cert) = ironrdp_tls::upgrade_with_certificate_validation(
+        stream,
+        &config.dial.host,
+        ironrdp_tls::CertificateValidation::DangerouslyAcceptInvalidCertificate,
+    )
+    .await
+    .map_err(|e| SshError::Connect { msg: format!("RDP TLS: {e}") })?;
+    let fingerprint = tls
+        .get_ref()
+        .1
+        .peer_certificates()
+        .and_then(|certs| certs.first())
+        .map(|der| cert_fingerprint(der))
+        .ok_or_else(|| SshError::Connect { msg: "RDP: the server sent no certificate".into() })?;
+    if config.server_cert.as_deref() != Some(fingerprint.as_str()) {
+        return Err(cert_error(config.server_cert.is_some(), &fingerprint));
+    }
     let upgraded = ironrdp_tokio::mark_as_upgraded(should_upgrade, &mut connector);
     let key = ironrdp_tls::extract_tls_server_public_key(&cert)
         .ok_or_else(|| SshError::Connect { msg: "RDP: no public key in the server certificate".into() })?
