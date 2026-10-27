@@ -15,7 +15,6 @@ import {
   useWindowDimensions,
 } from "react-native";
 import Constants from "expo-constants";
-import { useIsFocused } from "expo-router";
 import { showToast } from "@/utils/toast";
 import { useTerminalCustomization } from "@/contexts/TerminalCustomizationContext";
 import { MOBILE_DEFAULT_TERMINAL_CONFIG } from "@/constants/terminal-config";
@@ -648,16 +647,6 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       );
     }, [hostConfig.name, hostConfig.ip, hostConfig.username]);
 
-    // A terminal made while Sessions sat behind another tab drew nothing once the
-    // navigator moved Sessions to the front. Its native view waits until Sessions is shown.
-    const screenFocused = useIsFocused();
-    const [viewReady, setViewReady] = useState(screenFocused);
-    useEffect(() => {
-      if (!screenFocused || viewReady) return;
-      const timer = setTimeout(() => setViewReady(true), 60);
-      return () => clearTimeout(timer);
-    }, [screenFocused, viewReady]);
-
     // A new connection gets a fresh terminal view.
     const [viewKey, setViewKey] = useState(0);
     const firstConn = useRef(true);
@@ -681,16 +670,30 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
     }, [prompting, isVisible]);
 
     const deferConnect = useRef(!!restored && !isVisible);
+    // A new surface reports a placeholder size first, then its real one a frame later.
+    // The first connect waits for that, so the shell never starts at the wrong size.
+    const connectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    useEffect(
+      () => () => {
+        if (connectTimer.current) clearTimeout(connectTimer.current);
+      },
+      [],
+    );
     const handleResize = useCallback((cols: number, rows: number) => {
       trace("term", "size", { tab: tabInstanceId?.slice(0, 8), cols, rows });
       sizeRef.current = { cols, rows };
-      if (!connectedOnce.current) {
-        if (deferConnect.current) return;
-        connectedOnce.current = true;
-        connRef.current?.connect(cols, rows);
-      } else {
+      if (connectedOnce.current) {
         connRef.current?.resize(cols, rows);
+        return;
       }
+      if (deferConnect.current || connectTimer.current) return;
+      connectTimer.current = setTimeout(() => {
+        connectTimer.current = null;
+        const size = sizeRef.current;
+        if (!size || connectedOnce.current || deferConnect.current) return;
+        connectedOnce.current = true;
+        connRef.current?.connect(size.cols, size.rows);
+      }, 50);
     }, []);
     useEffect(() => {
       if (!isVisible || !deferConnect.current) return;
@@ -849,29 +852,16 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
 
     // Every wrapper around the native terminal stays a real view. If Fabric flattens one
     // (a plain view turning opacity back to 1), the terminal is moved to another parent:
-    // iOS drops its keyboard and the view can come back blank.
+    // iOS drops its keyboard and the view can come back blank. Sessions places and hides
+    // the tab, so nothing here changes with isVisible.
     return (
       <View
         collapsable={false}
-        style={{
-          flex: isVisible ? 1 : 0,
-          width: "100%",
-          height: "100%",
-          position: isVisible ? "relative" : "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: background,
-        }}
+        style={{ flex: 1, backgroundColor: background }}
       >
         <View
           collapsable={false}
-          style={{
-            flex: 1,
-            // No zIndex change here: Fabric re-inserts the view for it. Sessions hides the tab.
-            backgroundColor: background,
-          }}
+          style={{ flex: 1, backgroundColor: background }}
         >
           <View
             collapsable={false}
@@ -904,26 +894,24 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
                 collapsable={false}
                 style={{ flex: 1, opacity: showView ? 1 : 0 }}
               >
-                {viewReady ? (
-                  <TerminalView
-                    key={`native-${hostConfig.id}-${viewKey}`}
-                    ref={nativeRef}
-                    settings={settings}
-                    pipeId={pipeId}
-                    onInput={sendInput}
-                    onResize={handleResize}
-                    onModifiers={handleModifiers}
-                    onFontSize={handleFontSize}
-                    showScrollButton={isVisible && isConnected && !isDialogOpen}
-                    watchPrompt={isConnected && (fillOn || historyOn)}
-                    visible={isVisible}
-                    onPromptLine={(line) => watcherRef.current?.line(line)}
-                    onSearch={setSearchResult}
-                    onTitle={useShellTitle ? onTitle : undefined}
-                    onMenu={onMenu}
-                    onShortcut={handleShortcut}
-                  />
-                ) : null}
+                <TerminalView
+                  key={`native-${hostConfig.id}-${viewKey}`}
+                  ref={nativeRef}
+                  settings={settings}
+                  pipeId={pipeId}
+                  onInput={sendInput}
+                  onResize={handleResize}
+                  onModifiers={handleModifiers}
+                  onFontSize={handleFontSize}
+                  showScrollButton={isVisible && isConnected && !isDialogOpen}
+                  watchPrompt={isConnected && (fillOn || historyOn)}
+                  visible={isVisible}
+                  onPromptLine={(line) => watcherRef.current?.line(line)}
+                  onSearch={setSearchResult}
+                  onTitle={useShellTitle ? onTitle : undefined}
+                  onMenu={onMenu}
+                  onShortcut={handleShortcut}
+                />
                 {searchOpen && isVisible ? (
                   <SearchBar
                     result={searchResult}

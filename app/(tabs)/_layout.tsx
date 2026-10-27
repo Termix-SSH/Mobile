@@ -23,9 +23,8 @@ export default function TabLayout() {
     <BottomBarShown.Provider value={!isWide && !hideTabBar}>
       <SideBarShown.Provider value={isWide && !hideTabBar}>
         <Tabs
-          // Keep every tab in the window. A running terminal detached while you were on
-          // another tab stopped drawing when it came back.
-          detachInactiveScreens={false}
+          // Keep the default detach. With it off, inactive tabs get display none and
+          // Fabric deletes their native views, so terminals came back empty.
           tabBar={
             hideTabBar
               ? () => null

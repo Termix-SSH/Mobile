@@ -288,13 +288,19 @@ class TermixTerminalView: ExpoView {
   private var promptWork: DispatchWorkItem?
   private var lastPromptLine = ""
 
-  /// Hidden tabs stay mounted behind opacity 0. The surface stops drawing while hidden and
-  /// draws a fresh frame when shown, or it comes back empty.
+  /// Hidden tabs stay mounted off screen. The surface stops drawing while hidden and draws a
+  /// fresh frame when shown. The tab's move back on screen can land just after this prop,
+  /// so it draws again on the next main turn.
   func setSurfaceVisible(_ visible: Bool) {
     let wasShown = surfaceShown
     surfaceShown = visible
     terminalView.setSurfaceVisible(visible)
-    if visible, !wasShown { terminalView.fitToSize() }
+    guard visible, !wasShown else { return }
+    terminalView.fitToSize()
+    DispatchQueue.main.async { [weak self] in
+      guard let self, surfaceShown else { return }
+      terminalView.fitToSize()
+    }
   }
   private var surfaceShown = true
 
@@ -341,8 +347,9 @@ class TermixTerminalView: ExpoView {
     accessibilityTraits = [.allowsDirectInteraction]
   }
 
-  /// Navigators take whole screens out of the window and put them back, like a tab bar
-  /// switch. A surface that comes back that way stops drawing, so pause and resume it.
+  /// Navigators take whole screens out of the window and put them back (app tab switches,
+  /// pushed screens). The surface is kept; turning it off and back on makes it draw a whole
+  /// new frame once it is back.
   override func didMoveToWindow() {
     super.didMoveToWindow()
     guard window != nil, surfaceReady else { return }
@@ -512,11 +519,11 @@ class TermixTerminalView: ExpoView {
     focusWhenReady(waited: 0, done: done)
   }
 
-  /// A tab being shown gets its focus call before its new props land. Focus taken while the
-  /// tab is still hidden or under a view with touches off starts an input session that never
+  /// A tab being shown gets its focus call before its new props and position land. Focus
+  /// taken while the tab is still hidden or off screen starts an input session that never
   /// gets keys, so wait a frame at a time until it is really shown.
   private func focusWhenReady(waited: Int, done: @escaping ([String: Any]) -> Void) {
-    let ready = surfaceShown && !touchBlocked && window != nil
+    let ready = surfaceShown && isOnScreen
     if !ready, waited < 20 {
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.016) { [weak self] in
         self?.focusWhenReady(waited: waited + 1, done: done)
@@ -527,13 +534,11 @@ class TermixTerminalView: ExpoView {
     done(["ok": ok, "waitedFrames": waited, "ready": ready, "state": focusState()])
   }
 
-  private var touchBlocked: Bool {
-    var node: UIView? = terminalView
-    while let view = node {
-      if !view.isUserInteractionEnabled { return true }
-      node = view.superview
-    }
-    return false
+  /// In a window and inside its bounds. Hidden tabs sit far off to the side.
+  private var isOnScreen: Bool {
+    guard let window else { return false }
+    let frame = convert(bounds, to: window)
+    return frame.intersects(window.bounds)
   }
 
   private func focusState() -> [String: Any] {
@@ -550,6 +555,7 @@ class TermixTerminalView: ExpoView {
     return [
       "first": terminalView.isFirstResponder,
       "window": window != nil,
+      "onScreen": isOnScreen,
       "touchBlocked": touchBlocked,
       "hidden": hidden,
       "alpha": Double(alpha),

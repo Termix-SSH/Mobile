@@ -84,6 +84,8 @@ const HIDDEN_INPUT = XTERM_FALLBACK;
 
 // The key row keeps its own sticky modifiers now; typed text gets none.
 const NO_MODIFIERS = { ctrl: false, alt: false, shift: false };
+// Far enough right that a hidden tab is never on screen, whatever the window size.
+const OFFSCREEN = 100000;
 // Stands in until a new tab's ref exists
 const NO_TERMINAL: React.RefObject<TerminalHandle | null> = { current: null };
 
@@ -267,9 +269,8 @@ export default function Sessions() {
   const [isRdpKeyboardOpen, setIsRdpKeyboardOpen] = useState(false);
 
   useEffect(() => {
-    // Only the terminal session renders the hidden input, so skip the native
-    // call when switching to any other session type.
-    if (activeIsTerminal && !isCustomKeyboardVisible) {
+    // Only the xterm fallback has a hidden input to clear.
+    if (HIDDEN_INPUT && activeIsTerminal && !isCustomKeyboardVisible) {
       keyboard("clear");
     }
     compositionActiveRef.current = false;
@@ -292,6 +293,13 @@ export default function Sessions() {
 
   // The bars sit on the real keyboard. Opened by a tap on the terminal, it still lifts them.
   const systemKeyboardUp = isKeyboardVisible && currentKeyboardHeight > 0;
+  // Read by effects that run right after a tab switch, before the keyboard moves.
+  const keyboardUpRef = useRef(systemKeyboardUp);
+  keyboardUpRef.current = systemKeyboardUp;
+  const activeIsTerminalRef = useRef(activeIsTerminal);
+  activeIsTerminalRef.current = activeIsTerminal;
+  const keysPanelRef = useRef(isCustomKeyboardVisible);
+  keysPanelRef.current = isCustomKeyboardVisible;
 
   const getTabBarBottomPosition = () => {
     if (!activeIsTerminal) {
@@ -329,7 +337,7 @@ export default function Sessions() {
   // A keyboard that came up, from a tap on the terminal too, ends a hide from the tab bar.
   useEffect(() => {
     trace("kb", "bars", {
-      code: "f3dc530+size",
+      code: "tabs-offscreen-v1",
       up: systemKeyboardUp,
       visible: isKeyboardVisible,
       height: Math.round(currentKeyboardHeight),
@@ -441,65 +449,52 @@ export default function Sessions() {
     [stageWidth],
   );
 
-  // The keyboard moves to the new terminal right away, so it never drops and comes back.
+  // A tab switch keeps the keyboard as it was. Up: the new terminal takes it (it waits until
+  // it is on screen) and iOS moves it over without hiding it, which also lets go of the old
+  // one. Down: nothing is focused, so it stays down.
   const prevActiveRef = useRef<string | null>(activeSessionId);
   useEffect(() => {
     const prev = prevActiveRef.current;
     prevActiveRef.current = activeSessionId;
     if (HIDDEN_INPUT || !prev || prev === activeSessionId) return;
-    const next = activeSessionId
-      ? tabRefs.current[activeSessionId]?.current?.keyTarget?.()
-      : null;
+    const shown = activeSessionId ? tabRefs.current[activeSessionId] : null;
+    const next = shown?.current?.keyTarget?.() ?? null;
+    const keyboardUp = keyboardUpRef.current;
     const keepKeyboard =
-      !!next &&
-      !isCustomKeyboardVisible &&
-      !keyboardIntentionallyHiddenRef.current &&
-      !isAppLocked();
-    // The new terminal takes the keyboard once it is really shown (it waits for that), and
-    // iOS moves it over without hiding it. Otherwise the old one lets go.
+      !!next && keyboardUp && !isCustomKeyboardVisible && !isAppLocked();
     trace("kb", "tab switch", {
       from: tabTag(prev),
       to: tabTag(activeSessionId),
       nextReady: !!next,
+      keyboardUp,
       keepKeyboard,
-      userHid: keyboardIntentionallyHiddenRef.current,
       keysPanel: isCustomKeyboardVisible,
     });
     if (keepKeyboard) next.focus();
-    else tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
+    else if (keyboardUp)
+      tabRefs.current[prev]?.current?.keyTarget?.()?.blur?.();
     // A tab resized while hidden can come back scrolled above its live screen.
-    const shown = activeSessionId ? tabRefs.current[activeSessionId] : null;
-    setTimeout(() => {
-      shown?.current?.scrollToBottom?.();
-      shown?.current?.fit?.();
-    }, 120);
+    const timer = setTimeout(() => shown?.current?.scrollToBottom?.(), 120);
+    return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSessionId]);
 
-  // The one place that gives the keyboard to the active terminal.
+  // Coming back to Sessions: leaving it took the keyboard away, so give it back.
+  const hasSessions = sessions.length > 0;
   useFocusEffect(
     React.useCallback(() => {
-      if (
-        sessions.length === 0 ||
-        !activeIsTerminal ||
-        isCustomKeyboardVisible ||
-        keyboardIntentionallyHiddenRef.current
-      ) {
-        return;
-      }
+      if (!hasSessions) return;
       const timeoutId = setTimeout(() => {
-        keyboard("focus");
-        getActiveTerminalRef()?.current?.fit?.();
+        if (
+          activeIsTerminalRef.current &&
+          !keysPanelRef.current &&
+          !keyboardIntentionallyHiddenRef.current
+        ) {
+          keyboard("focus");
+        }
       }, 250);
       return () => clearTimeout(timeoutId);
-    }, [
-      sessions.length,
-      activeSessionId,
-      activeIsTerminal,
-      isCustomKeyboardVisible,
-      keyboard,
-      getActiveTerminalRef,
-    ]),
+    }, [hasSessions, keyboard, keyboardIntentionallyHiddenRef]),
   );
 
   useEffect(() => {
@@ -550,16 +545,6 @@ export default function Sessions() {
   }, [sessions.length, isKeyboardVisible, showConnectionsPanel]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const activeRef = activeSessionId
-        ? tabRefs.current[activeSessionId]
-        : null;
-      activeRef?.current?.fit?.();
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [activeSessionId, win.width, win.height]);
-
-  useEffect(() => {
     if (keyboardHeight > 0) {
       setLastKeyboardHeight(keyboardHeight);
     }
@@ -570,13 +555,11 @@ export default function Sessions() {
     return () => setHardwareKeyboardEnabled(false);
   }, []);
 
+  // The native terminal follows its own size; this is a safety net, and the xterm fallback needs it.
   useEffect(() => {
     const activeRef = activeSessionId ? tabRefs.current[activeSessionId] : null;
-    if (activeRef && activeRef.current) {
-      setTimeout(() => {
-        activeRef.current?.fit?.();
-      }, 100);
-    }
+    const timer = setTimeout(() => activeRef?.current?.fit?.(), 100);
+    return () => clearTimeout(timer);
   }, [
     keyboardHeight,
     activeSessionId,
@@ -827,14 +810,15 @@ export default function Sessions() {
           {(() => {
             const leftWidth = Math.round(stageWidth * splitRatio);
             // Each tab keeps its own wrapper, so starting or ending a split never remounts it.
-            // Never change a tab's zIndex: Fabric reorders native views for it, which pulls
-            // the terminals out of the window, drops the keyboard and breaks their size.
+            // Hidden tabs only move off screen. A zIndex change re-inserts the native views,
+            // and pointerEvents none on the tab that has the keyboard makes iOS drop it.
             const paneStyle = (id: string) => {
               const shown = id === activeSessionId || id === partnerId;
               if (!partnerId || !shown) {
-                // A hidden tab goes transparent and its terminal pauses drawing until shown.
-                // Moved off screen instead, the terminal stopped drawing for good.
-                return [StyleSheet.absoluteFill, { opacity: shown ? 1 : 0 }];
+                return [
+                  StyleSheet.absoluteFill,
+                  { transform: [{ translateX: shown ? 0 : OFFSCREEN }] },
+                ];
               }
               const order = sessions.findIndex((s) => s.id === id);
               const other = sessions.findIndex(
@@ -864,15 +848,12 @@ export default function Sessions() {
                 }}
               >
                 {sessions.map((session) => {
-                  const shown =
-                    session.id === activeSessionId || session.id === partnerId;
                   return (
                     <View
                       key={session.id}
                       // A tab never gets moved to another parent when it shows or hides.
                       collapsable={false}
                       style={paneStyle(session.id)}
-                      pointerEvents={shown ? "auto" : "none"}
                       onTouchStart={
                         session.id === partnerId
                           ? () => handleTabPress(session.id)
