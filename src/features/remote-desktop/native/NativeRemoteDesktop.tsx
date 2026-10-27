@@ -347,9 +347,11 @@ export function NativeRemoteDesktop({
     [],
   );
 
-  // RDP follows rotation. The keyboard only shrinks the view, which refits.
+  // RDP follows rotation. VNC asks too, after the server sent its size, since
+  // the engine drops a resize before that. The keyboard only shrinks the view.
   useEffect(() => {
-    if (phase !== "connected" || protocol !== "rdp" || !container.w) return;
+    if (phase !== "connected" || !container.w) return;
+    if (protocol === "vnc" && !frame.w) return;
     const target = displayTarget(
       host,
       protocol,
@@ -358,7 +360,10 @@ export function NativeRemoteDesktop({
       Math.max(1, container.h - KEY_STRIP_HEIGHT),
       PixelRatio.get(),
     );
-    const key = `${target.width}x${target.height}`;
+    const size = `${target.width}x${target.height}`;
+    if (protocol === "vnc" && size === `${frame.w}x${frame.h}`) return;
+    // A VNC server that refused keeps its size, so only try again when it changes.
+    const key = protocol === "vnc" ? `${size}@${frame.w}x${frame.h}` : size;
     if (key === lastSize.current) return;
     const timer = setTimeout(() => {
       lastSize.current = key;
@@ -369,7 +374,7 @@ export function NativeRemoteDesktop({
       );
     }, RESIZE_DEBOUNCE_MS);
     return () => clearTimeout(timer);
-  }, [phase, protocol, container, host]);
+  }, [phase, protocol, container, host, frame]);
 
   const onStatusRef = useRef(onStatus);
   useEffect(() => {

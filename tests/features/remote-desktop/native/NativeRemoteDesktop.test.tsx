@@ -43,7 +43,11 @@ function fakeDisplay() {
   };
 }
 
-async function setup(host: Record<string, unknown>, open: jest.Mock) {
+async function setup(
+  host: Record<string, unknown>,
+  open: jest.Mock,
+  protocol: "rdp" | "vnc" = "rdp",
+) {
   const transport = { kind: "local", provides: ["tcp"], openDisplay: open };
   const onStatus = jest.fn();
   const onUseServer = jest.fn();
@@ -61,7 +65,7 @@ async function setup(host: Record<string, unknown>, open: jest.Mock) {
             ...host,
           } as never
         }
-        protocol="rdp"
+        protocol={protocol}
         transport={transport as never}
         isVisible
         title="PC"
@@ -199,4 +203,22 @@ test("a changed certificate that is not trusted stops with a message", async () 
     screen.getByText("The computer's certificate was not trusted."),
   ).toBeTruthy();
   expect(mockPrefs.get("rdpCert")).toBe("OLD");
+});
+
+test("vnc asks the server for the view's size once it sent its own", async () => {
+  const display = fakeDisplay();
+  let callbacks: { onResize: (w: number, h: number) => void } | undefined;
+  const open = jest.fn(async (...args: any[]): Promise<any> => {
+    callbacks = args[2];
+    return { display, close: jest.fn() };
+  });
+  await setup({ vncPassword: "pw" }, open, "vnc");
+  await flush();
+  expect(display.resize).not.toHaveBeenCalled();
+  await act(async () => callbacks!.onResize(1920, 1080));
+  await act(() => new Promise((r) => setTimeout(r, 450)));
+  expect(display.resize).toHaveBeenCalledTimes(1);
+  const [w, h] = display.resize.mock.calls[0];
+  expect(w).toBe(400);
+  expect(h).toBeLessThan(744);
 });
