@@ -11,7 +11,7 @@ import { HOSTILE, registerTabs } from "./helpers";
 
 let undo: () => void;
 beforeAll(() => {
-  undo = registerTabs("terminal", "files");
+  undo = registerTabs("terminal", "files", "remoteDesktop");
 });
 afterAll(() => undo());
 
@@ -88,6 +88,12 @@ describe("heartbeatEvent", () => {
       features: { terminal: 1, "Prod DB 01": 3, "a/b": 1, "x:y": 1 },
     });
     expect(e.properties.feature_use).toEqual({ terminal: "1" });
+  });
+
+  it("counts camel case tab types like remoteDesktop", () => {
+    const e = heartbeatEvent({ ...base, features: { remoteDesktop: 2 } });
+    expect(e.properties.feature_use).toEqual({ remoteDesktop: "2-5" });
+    expect(isAllowedEvent(e)).toBe(true);
   });
 });
 

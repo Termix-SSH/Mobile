@@ -53,7 +53,7 @@ export const CRASH_CLASSES = [
 ] as const;
 export type CrashClass = (typeof CRASH_CLASSES)[number];
 
-export const FEATURE_KEY = /^[a-z][a-z0-9-]{0,31}$/;
+export const FEATURE_KEY = /^[a-z][a-zA-Z0-9-]{0,31}$/;
 export const MAX_FEATURES = 40;
 
 /** Only tab types of built in features may be a key, never a plugin or free text. */
