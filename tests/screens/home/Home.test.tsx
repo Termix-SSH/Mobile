@@ -3,8 +3,7 @@ import { Text } from "react-native";
 import Home, { pinnedHosts } from "@/screens/home/Home";
 import { unreachable } from "@/screens/home/ServerReachBanner";
 
-const mockPush = jest.fn();
-const mockRouterNavigate = jest.fn();
+const mockOpenTab = jest.fn();
 const mockNavigate = jest.fn(async () => null);
 const mockOpenHost = jest.fn(async () => true);
 const mockSetActive = jest.fn();
@@ -18,11 +17,13 @@ const mockCard = jest.fn((props: any) => (
 ));
 
 jest.mock("expo-router", () => ({
-  useRouter: () => ({ push: mockPush, navigate: mockRouterNavigate }),
   useFocusEffect: (fn: () => void) => {
     const { useEffect } = jest.requireActual("react");
     useEffect(fn, [fn]);
   },
+}));
+jest.mock("@/screens/shell/navigate", () => ({
+  openTab: (href: string) => mockOpenTab(href),
 }));
 jest.mock("@/components/Screen", () => ({
   Screen: ({ children }: any) => children,
@@ -129,7 +130,7 @@ test("nothing pinned shows how to pin, with a way to the hosts", async () => {
   await render(<Home />);
   expect(screen.getByText("Pin a host to see it here")).toBeTruthy();
   await fireEvent.press(screen.getByText("Go to hosts"));
-  expect(mockPush).toHaveBeenCalledWith("/(tabs)/hosts");
+  expect(mockOpenTab).toHaveBeenCalledWith("/(tabs)/hosts");
 });
 
 test("no hosts at all guides to the first one", async () => {
@@ -137,7 +138,7 @@ test("no hosts at all guides to the first one", async () => {
   await render(<Home />);
   expect(screen.getByText("Add your first host")).toBeTruthy();
   await fireEvent.press(screen.getByText("Add host"));
-  expect(mockRouterNavigate).toHaveBeenCalledWith("/(tabs)/hosts?action=new");
+  expect(mockOpenTab).toHaveBeenCalledWith("/(tabs)/hosts?action=new");
   expect(screen.getByText("Link a server")).toBeTruthy();
 });
 
@@ -175,7 +176,7 @@ test("open sessions show with their state and switch on tap", async () => {
   expect(screen.getByText("Reconnecting")).toBeTruthy();
   await fireEvent.press(screen.getByText("Reconnecting"));
   expect(mockSetActive).toHaveBeenCalledWith("t1");
-  expect(mockRouterNavigate).toHaveBeenCalledWith("/(tabs)/sessions");
+  expect(mockOpenTab).toHaveBeenCalledWith("/(tabs)/sessions");
 });
 
 test("quick connect shows when a feature offers it", async () => {

@@ -19,6 +19,7 @@ import {
 import { handleShellCall } from "@/features/plugin-webview/shell";
 import { EmptyState, Text } from "@/ui";
 import { Screen } from "@/components/Screen";
+import { openTab } from "@/screens/shell/navigate";
 
 function device(): "phone" | "tablet" {
   const { width, height } = currentWindowSize();
@@ -63,7 +64,7 @@ export default function PluginScreen() {
 
   const close = useCallback(() => {
     if (router.canGoBack()) router.back();
-    else router.replace("/(tabs)/home");
+    else openTab("/(tabs)/home");
   }, [router]);
 
   useEffect(() => {

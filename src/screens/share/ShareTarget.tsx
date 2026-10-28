@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, FlatList, Pressable, View } from "react-native";
-import { useRouter } from "expo-router";
 import { useIncomingShare } from "expo-sharing";
 import { File as FileIcon, Server } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
@@ -20,6 +19,7 @@ import type { SSHHost } from "@/types";
 import { Button, EmptyState, ListRow, Text, useConfirm } from "@/ui";
 import { isSshHost } from "@/utils/hosts";
 import { toast } from "@/utils/toast";
+import { openTab } from "@/screens/shell/navigate";
 import { toSharedFiles, type SharedFile } from "./incoming";
 
 function HostPicker({ onPick }: { onPick: (host: SSHHost) => void }) {
@@ -52,7 +52,6 @@ function HostPicker({ onPick }: { onPick: (host: SSHHost) => void }) {
 
 /** Where files other apps share with Termix land: pick a host and a folder, then upload. */
 export default function ShareTarget() {
-  const router = useRouter();
   const colors = useUiColors();
   const { accounts, active } = useAccounts();
   const share = useIncomingShare();
@@ -92,7 +91,7 @@ export default function ShareTarget() {
       return;
     }
     share.clearSharedPayloads();
-    router.replace("/(tabs)/hosts");
+    openTab("/(tabs)/hosts");
   };
 
   const back = () => {

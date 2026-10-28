@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect } from "expo-router";
 import {
   ChevronRight,
   Clock,
@@ -35,6 +35,7 @@ import { AccountButton, SearchButton } from "@/screens/shell/AppHeader";
 import type { SSHHost } from "@/types";
 import { Button, EmptyState, ListRow, SectionLabel, Text } from "@/ui";
 import { isSshHost } from "@/utils/hosts";
+import { openTab } from "@/screens/shell/navigate";
 import { ServerReachBanner } from "./ServerReachBanner";
 
 const RECENT_SHOWN = 5;
@@ -59,7 +60,6 @@ export default function Home() {
   const repos = useRepositories();
   const { active: account } = useAccounts();
   const { openAuthFlow } = useAppContext();
-  const router = useRouter();
   const color = useThemeColor();
   const openHost = useOpenHost();
   const [focused, setFocused] = useState(true);
@@ -82,7 +82,7 @@ export default function Home() {
     }, []),
   );
 
-  const toHosts = () => router.push("/(tabs)/hosts");
+  const toHosts = () => openTab("/(tabs)/hosts");
   const tap = (host: SSHHost) =>
     void openHost(host).then((opened) => !opened && setSheetHost(host));
   const noHosts = !hosts.loading && hosts.data.length === 0;
@@ -122,9 +122,7 @@ export default function Home() {
               <View className="items-center gap-2">
                 <Button
                   size="sm"
-                  onPress={() =>
-                    router.navigate("/(tabs)/hosts?action=new" as never)
-                  }
+                  onPress={() => openTab("/(tabs)/hosts?action=new")}
                   icon={<Plus size={15} color={color("accent-brand")} />}
                 >
                   Add host
@@ -214,7 +212,6 @@ export default function Home() {
 /** Cards for the tabs that are open, to jump back in. */
 function OpenSessions() {
   const color = useThemeColor();
-  const router = useRouter();
   const { sessions, activeSessionId, setActiveSession } = useTerminalSessions();
   const statuses = useSessionStatuses();
   if (sessions.length === 0) return null;
@@ -244,7 +241,7 @@ function OpenSessions() {
               trailing={<TabStatusMark state={state} />}
               onPress={() => {
                 setActiveSession(session.id);
-                router.navigate("/(tabs)/sessions" as never);
+                openTab("/(tabs)/sessions");
               }}
             />
           );
