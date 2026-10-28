@@ -125,6 +125,9 @@ export function Heading({
   );
 }
 
+/** One flat dark body, with a slightly lighter rim so it shows on dark slides. */
+const BODY = "#141517";
+const EDGE = "#26272b";
 const BEZEL = { phone: 0.032, tablet: 0.022 };
 const RADIUS = { phone: 0.1, tablet: 0.04 };
 
@@ -269,7 +272,7 @@ export function Device({
         width: edge * 2.6,
         height: height * length,
         borderRadius: edge * 2,
-        background: "#2b2c31",
+        background: EDGE,
       }}
     />
   );
@@ -281,11 +284,9 @@ export function Device({
         height,
         padding: bezel,
         borderRadius: radius,
-        background:
-          "linear-gradient(160deg, #34353a 0%, #121315 45%, #0b0b0c 100%)",
+        background: BODY,
         boxShadow: [
-          `0 0 0 ${edge}px #3d3e44`,
-          `inset 0 0 0 ${edge}px rgba(255,255,255,0.06)`,
+          `0 0 0 ${edge}px ${EDGE}`,
           `0 ${width * 0.05}px ${width * 0.14}px rgba(0,0,0,${dark ? 0.55 : 0.28})`,
         ].join(", "),
         flexShrink: 0,
