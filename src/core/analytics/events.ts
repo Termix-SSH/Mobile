@@ -126,10 +126,15 @@ export function connectResultEvent(
 
 /** Only the error class name is used. The message and stack are never read. */
 export function crashClassOf(error: unknown): CrashClass {
-  const name = error instanceof Error ? error.constructor?.name : "";
-  return (CRASH_CLASSES as readonly string[]).includes(name)
-    ? (name as CrashClass)
-    : "Error";
+  if (!(error instanceof Error)) return "Error";
+  // Release builds minify class names, so our own errors are found by name.
+  const known = CRASH_CLASSES as readonly string[];
+  for (const name of [error.constructor?.name, error.name]) {
+    if (name && name !== "Error" && known.includes(name)) {
+      return name as CrashClass;
+    }
+  }
+  return "Error";
 }
 
 export function crashEvent(error: unknown, fatal: boolean): AnalyticsEvent {

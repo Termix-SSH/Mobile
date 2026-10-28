@@ -125,6 +125,13 @@ describe("crash events", () => {
     expect(crashClassOf(new AppError("x"))).toBe("AppError");
   });
 
+  it("reads the name when the class name was minified", () => {
+    class a extends Error {
+      name = "ApiError";
+    }
+    expect(crashClassOf(new a("x"))).toBe("ApiError");
+  });
+
   it("falls back to Error for unknown classes and non errors", () => {
     expect(crashClassOf(new HostError(HOSTILE[0]))).toBe("Error");
     expect(crashClassOf(HOSTILE[1])).toBe("Error");
