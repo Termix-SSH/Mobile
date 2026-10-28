@@ -341,7 +341,8 @@ export const TunnelManager = forwardRef<
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
-            tintColor={color("accent-brand")}
+            tintColor={color("muted-foreground")}
+            colors={[color("muted-foreground")]}
             onRefresh={async () => {
               setRefreshing(true);
               await Promise.all([load(), fetchStatuses(), fetchHosts()]);

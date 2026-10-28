@@ -139,7 +139,8 @@ export default function ActiveSessions() {
                 await load();
                 setRefreshing(false);
               }}
-              tintColor={color("accent-brand")}
+              tintColor={color("muted-foreground")}
+              colors={[color("muted-foreground")]}
             />
           }
         >

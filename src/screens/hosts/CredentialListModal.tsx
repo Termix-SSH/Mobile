@@ -170,7 +170,8 @@ export default function CredentialListModal({
               <RefreshControl
                 refreshing={refreshing}
                 onRefresh={() => load(true)}
-                tintColor={color("accent-brand")}
+                tintColor={color("muted-foreground")}
+                colors={[color("muted-foreground")]}
               />
             }
             keyboardShouldPersistTaps="handled"

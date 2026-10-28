@@ -275,8 +275,8 @@ export default function Plugins() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={refresh}
-              tintColor={color("accent-brand")}
-              colors={[color("accent-brand")]}
+              tintColor={color("muted-foreground")}
+              colors={[color("muted-foreground")]}
             />
           )
         }

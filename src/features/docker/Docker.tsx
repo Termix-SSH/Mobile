@@ -433,7 +433,8 @@ export function DockerView({
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
-                tintColor={color("accent-brand")}
+                tintColor={color("muted-foreground")}
+                colors={[color("muted-foreground")]}
                 onRefresh={refresh}
               />
             }

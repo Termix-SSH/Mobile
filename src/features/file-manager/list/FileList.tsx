@@ -114,6 +114,7 @@ export function FileList({
           refreshing={refreshing}
           onRefresh={onRefresh}
           tintColor={colors.textMuted}
+          colors={[colors.textMuted]}
         />
       }
       renderItem={renderItem}

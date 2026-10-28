@@ -567,8 +567,8 @@ export default function Snippets() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              tintColor={color("accent-brand")}
-              colors={[color("accent-brand")]}
+              tintColor={color("muted-foreground")}
+              colors={[color("muted-foreground")]}
             />
           }
         >

@@ -817,8 +817,8 @@ export default function Hosts() {
             <RefreshControl
               refreshing={data.refreshing}
               onRefresh={data.refresh}
-              tintColor={color("accent-brand")}
-              colors={[color("accent-brand")]}
+              tintColor={color("muted-foreground")}
+              colors={[color("muted-foreground")]}
             />
           }
           header={listHeader}
