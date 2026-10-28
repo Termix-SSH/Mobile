@@ -21,7 +21,7 @@ Your data stays on your devices and your server. Hosts, logins and snippets on t
 
 Usage statistics
 
-The app can send a short anonymous report once a day. It is off until you answer the question the app asks on first start, and you can change your answer in Settings. It never sends host names, addresses, commands, output or credentials. Details are at https://docs.termix.site/install/apps/usage-statistics
+The app can send a short anonymous report once a day. It is off until you answer the question the app asks on first start, and you can change your answer in Settings. It never sends host names, addresses, commands, output or credentials. Details are at https://docs.termix.site/privacy#mobile-app
 
 This version
 
