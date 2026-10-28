@@ -87,9 +87,6 @@ export class SyncRemote {
     } catch (error) {
       const sync = classifyRemoteError(error);
       // Termix answers 404 here when its sync plugin is off.
-      if (sync.kind === "no_sync" && sync.serverMessage === undefined) {
-        throw new SyncError("not_termix", "This is not a Termix server.");
-      }
       throw sync;
     }
     if (!info || info.termix !== true || typeof info.protocol !== "number") {

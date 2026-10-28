@@ -110,7 +110,7 @@ export function classifyRemoteError(error: unknown): SyncError {
     });
   }
   if (status === 404) {
-    return new SyncError("no_sync", "Sync is not turned on for this server.", {
+    return new SyncError("no_sync", "The Sync plugin is off on this server.", {
       status,
       serverMessage,
     });

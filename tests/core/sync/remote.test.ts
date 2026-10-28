@@ -117,7 +117,7 @@ test("a newer protocol or a server without sync is said so", async () => {
     headers: { "content-type": "text/html; charset=utf-8" },
   }));
   await expect(remote().remote.info()).rejects.toMatchObject({
-    kind: "not_termix",
+    kind: "no_sync",
   });
 });
 

@@ -104,7 +104,8 @@ const TEXT: Record<SyncReason, ReasonText> = {
   },
   no_sync: {
     title: "Sync is off",
-    message: "Sync is not turned on for this server.",
+    message:
+      "The Sync plugin is off on this server. Ask an admin to turn it on in Plugins.",
     fix: null,
     fixLabel: null,
   },

@@ -39,7 +39,7 @@ export async function setKindEnabled(
   records.setState({
     knownTypes: state.knownTypes.filter((t) => !kind.types.includes(t)),
   });
-  void sync.syncNow(accountId);
+  sync.syncNow(accountId).catch(() => {});
 }
 
 /**
@@ -65,7 +65,7 @@ export async function resolveConflict(
       records.removeConflict(conflictId);
     });
     adapter.tables.forEach((t) => changes.emit(accountId, t));
-    void sync.syncNow(accountId);
+    sync.syncNow(accountId).catch(() => {});
   } else {
     records.removeConflict(conflictId);
   }

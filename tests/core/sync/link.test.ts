@@ -82,7 +82,7 @@ test("a server without sync stays on live reads", async () => {
     headers: { "content-type": "text/html" },
   }));
   const outcome = await linkAccount(account.id);
-  expect(outcome).toMatchObject({ synced: false, reason: "not_termix" });
+  expect(outcome).toMatchObject({ synced: false, reason: "no_sync" });
   expect(find(account.id).options.sync).toBe(false);
   expect(accounts.client(account.id)!.token()).toBe(server.loginToken);
 });
