@@ -234,7 +234,8 @@ export default function RootLayout() {
                             <RootLayoutContent />
                           </ConfirmProvider>
                           <SudoPromptHost />
-                          <Toaster />
+                          {/* Store shots never show toasts. */}
+                          {SHOWCASE ? null : <Toaster />}
                         </KeyPrefsProvider>
                       </KeyboardProvider>
                     </TerminalCustomizationProvider>
