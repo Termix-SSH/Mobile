@@ -40,6 +40,12 @@
       "ios": {
         "ascAppId": "6752672071"
       }
+    },
+    "beta": {
+      "extends": "production",
+      "android": {
+        "track": "beta"
+      }
     }
   }
 }

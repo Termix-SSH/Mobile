@@ -21,6 +21,14 @@ on:
           - file
           - release
           - submit
+      channel:
+        type: choice
+        description: Beta goes to TestFlight and the Play beta track, and the GitHub release is a pre-release
+        default: "stable"
+        required: true
+        options:
+          - stable
+          - beta
 jobs:
   release:
     name: Create the GitHub release
@@ -47,7 +55,9 @@ jobs:
             gh release edit "$TAG" --repo ${{ github.repository }}               --title "v$VERSION" --notes-file RELEASE_BODY.md
           else
             echo "Creating draft release $TAG"
-            gh release create "$TAG" --repo ${{ github.repository }}               --draft --title "v$VERSION" --target "${{ github.sha }}"               --notes-file RELEASE_BODY.md
+            PRERELEASE=""
+            if [ "${{ github.event.inputs.channel }}" = "beta" ]; then PRERELEASE="--prerelease"; fi
+            gh release create "$TAG" --repo ${{ github.repository }}               --draft $PRERELEASE --title "v$VERSION" --target "${{ github.sha }}"               --notes-file RELEASE_BODY.md
           fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
@@ -55,7 +65,7 @@ jobs:
     name: build-${{ matrix.platform }}
     needs: [release]
     if: ${{ !cancelled() && (needs.release.result == 'success' || needs.release.result == 'skipped') }}
-    runs-on: ${{ matrix.platform == 'apple' && 'blacksmith-6vcpu-macos-latest' || 'blacksmith-8vcpu-ubuntu-2404' }}
+    runs-on: ${{ matrix.platform == 'apple' && 'blacksmith-6vcpu-macos-27' || 'blacksmith-8vcpu-ubuntu-2404' }}
     strategy:
       fail-fast: false
       matrix:
@@ -69,6 +79,31 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
+
+      # The iPhone Duo fold APIs need the iOS 27.1 SDK. Older Xcode still builds, letterboxed.
+      - name: Setup Xcode 27.1
+        id: xcode
+        if: ${{ matrix.platform == 'apple' }}
+        continue-on-error: true
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "27.1"
+
+      - name: Setup newest Xcode
+        if: ${{ matrix.platform == 'apple' && steps.xcode.outcome == 'failure' }}
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      # EAS checks the signing identity with find-identity -v, which needs Apple's
+      # intermediate certificates. The macOS 27 image doesn't ship them.
+      - name: Install Apple signing intermediates
+        if: ${{ matrix.platform == 'apple' }}
+        run: |
+          for cert in AppleWWDRCAG3 AppleWWDRCAG4 AppleWWDRCAG5 AppleWWDRCAG6 DeveloperIDG2CA; do
+            curl -fsSL -o "$RUNNER_TEMP/$cert.cer" "https://www.apple.com/certificateauthority/$cert.cer"
+            sudo security add-certificates -k /Library/Keychains/System.keychain "$RUNNER_TEMP/$cert.cer" || true
+          done
 
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
@@ -132,7 +167,7 @@ jobs:
 
               if [ -n "$APK_FILE" ]; then
                 echo "Found APK in /tmp: $APK_FILE"
-                cp "$APK_FILE" "build-artifacts/termix_android_universal_${VERSION}.apk"
+                cp "$APK_FILE" "build-artifacts/termix_android.apk"
               else
                 echo "ERROR: APK not found after build"
                 ls -la . | grep -E '\.apk|build-'
@@ -148,7 +183,7 @@ jobs:
                 AAB_FILE=$(find /tmp -type f -name "app-release.aab" 2>/dev/null | grep "eas-build-local-nodejs" | head -1)
                 if [ -n "$AAB_FILE" ]; then
                   echo "Found AAB in /tmp: $AAB_FILE"
-                  cp "$AAB_FILE" "build-artifacts/termix_android_${VERSION}.aab"
+                  cp "$AAB_FILE" "build-artifacts/termix_android.aab"
                 fi
               fi
             fi
@@ -223,7 +258,8 @@ jobs:
           if [ -n "$BUILD_FILE" ] && [ -f "$BUILD_FILE" ]; then
             echo "Submitting file: $BUILD_FILE"
             EAS_PLATFORM=${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
-            eas submit -p $EAS_PLATFORM --profile production --path "$BUILD_FILE"
+            SUBMIT_PROFILE=${{ github.event.inputs.channel == 'beta' && 'beta' || 'production' }}
+            eas submit -p $EAS_PLATFORM --profile $SUBMIT_PROFILE --path "$BUILD_FILE" --non-interactive
           else
             echo "No build file found to submit"
             exit 1
@@ -278,5 +314,9 @@ jobs:
           GH_TOKEN: ${{ secrets.TERMIX_PAT }}
           TAG: ${{ needs.release.outputs.tag }}
         run: |
-          gh release edit "$TAG" --repo ${{ github.repository }} --draft=false --latest
+          if [ "${{ github.event.inputs.channel }}" = "beta" ]; then
+            gh release edit "$TAG" --repo ${{ github.repository }} --draft=false --prerelease --latest=false
+          else
+            gh release edit "$TAG" --repo ${{ github.repository }} --draft=false --prerelease=false --latest
+          fi
           echo "Published https://github.com/${{ github.repository }}/releases/tag/$TAG"
