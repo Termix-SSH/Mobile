@@ -47,6 +47,15 @@ jobs:
         with:
           xcode-version: latest-stable
 
+      # EAS checks the signing identity with find-identity -v, which needs Apple's
+      # intermediate certificates. The macOS 27 image doesn't ship them.
+      - name: Install Apple signing intermediates
+        run: |
+          for cert in AppleWWDRCAG3 AppleWWDRCAG4 AppleWWDRCAG5 AppleWWDRCAG6 DeveloperIDG2CA; do
+            curl -fsSL -o "$RUNNER_TEMP/$cert.cer" "https://www.apple.com/certificateauthority/$cert.cer"
+            sudo security add-certificates -k /Library/Keychains/System.keychain "$RUNNER_TEMP/$cert.cer" || true
+          done
+
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
         with:
