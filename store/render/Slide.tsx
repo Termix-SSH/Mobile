@@ -125,18 +125,17 @@ export function Heading({
   );
 }
 
-/** One flat dark body, with a slightly lighter rim so it shows on dark slides. */
-const BODY = "#141517";
-const EDGE = "#26272b";
-const BEZEL = { phone: 0.032, tablet: 0.022 };
-const RADIUS = { phone: 0.1, tablet: 0.04 };
+/** Black glass bezel inside a thin rim in the app's border color. */
+const BEZEL = { phone: 0.022, tablet: 0.016 };
+const RIM = { phone: 0.008, tablet: 0.006 };
+const RADIUS = { phone: 0.12, tablet: 0.045 };
 
 /**
  * Source pixels added above and below a cropped screenshot, so the app does
  * not run into the rounded screen corners.
  */
 function margin(shot: Shot) {
-  return shot.crop.top || shot.crop.bottom ? Math.round(shot.width * 0.035) : 0;
+  return shot.crop.top || shot.crop.bottom ? Math.round(shot.width * 0.065) : 0;
 }
 
 function screenHeight(shot: Shot) {
@@ -174,8 +173,8 @@ function Strip({
 
 /** Device height for a device `width` px wide. */
 function deviceHeight(shot: Shot, kind: DeviceKind, width: number) {
-  const bezel = width * BEZEL[kind];
-  return ((width - bezel * 2) * screenHeight(shot)) / shot.width + bezel * 2;
+  const frame = width * (BEZEL[kind] + RIM[kind]);
+  return ((width - frame * 2) * screenHeight(shot)) / shot.width + frame * 2;
 }
 
 /** The widest device that fits in the box. */
@@ -240,92 +239,124 @@ function band(i: number, n: number, w: number, h: number) {
   return `polygon(0 ${y(i, skew)}px, ${w}px ${y(i, -skew)}px, ${w}px ${y(i + 1, -skew)}px, 0 ${y(i + 1, skew)}px)`;
 }
 
+/** Side buttons as [side, top, length], fractions of the device height or width. */
+const BUTTONS: Record<
+  DeviceKind,
+  ["left" | "right" | "top", number, number][]
+> = {
+  phone: [
+    ["left", 0.18, 0.04],
+    ["left", 0.25, 0.075],
+    ["left", 0.345, 0.075],
+    ["right", 0.27, 0.11],
+  ],
+  tablet: [
+    ["top", 0.08, 0.06],
+    ["right", 0.1, 0.07],
+    ["right", 0.19, 0.07],
+  ],
+};
+
 /**
- * Screenshots inside a plain dark device body. More than one splits the
- * screen into slanted bands, one per shot.
+ * Screenshots inside a device: a thin rim, a black bezel and side buttons.
+ * More than one shot splits the screen into slanted bands.
  */
 export function Device({
   shots,
   kind,
   width,
-  dark,
+  rim,
 }: {
   shots: Shot[];
   kind: DeviceKind;
   width: number;
-  dark: boolean;
+  rim: string;
 }) {
   const shot = shots[0];
+  const rimW = width * RIM[kind];
   const bezel = width * BEZEL[kind];
+  const frame = rimW + bezel;
   const height = deviceHeight(shot, kind, width);
-  const screenH = height - bezel * 2;
+  const screenW = width - frame * 2;
+  const screenH = height - frame * 2;
   const radius = Math.min(width, height) * RADIUS[kind];
-  const screenW = width - bezel * 2;
   const scale = screenW / shot.width;
-  const edge = Math.max(2, width * 0.004);
-  const button = (side: "left" | "right", top: number, length: number) => (
-    <div
-      style={{
-        position: "absolute",
-        [side]: -edge * 2.2,
-        top: height * top,
-        width: edge * 2.6,
-        height: height * length,
-        borderRadius: edge * 2,
-        background: EDGE,
-      }}
-    />
-  );
+  const depth = rimW * 0.9;
   return (
-    <div
-      style={{
-        position: "relative",
-        width,
-        height,
-        padding: bezel,
-        borderRadius: radius,
-        background: BODY,
-        boxShadow: [
-          `0 0 0 ${edge}px ${EDGE}`,
-          `0 ${width * 0.05}px ${width * 0.14}px rgba(0,0,0,${dark ? 0.55 : 0.28})`,
-        ].join(", "),
-        flexShrink: 0,
-      }}
-    >
-      {kind === "phone" ? (
-        <>
-          {button("left", 0.17, 0.045)}
-          {button("left", 0.24, 0.08)}
-          {button("left", 0.335, 0.08)}
-          {button("right", 0.26, 0.12)}
-        </>
-      ) : null}
+    <div style={{ position: "relative", width, height, flexShrink: 0 }}>
+      {BUTTONS[kind].map(([side, at, length], i) => {
+        const along = side === "top" ? width : height;
+        const vertical = side !== "top";
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              background: rim,
+              borderRadius: depth,
+              ...(vertical
+                ? {
+                    [side]: -depth,
+                    top: along * at,
+                    width: depth * 2,
+                    height: along * length,
+                  }
+                : {
+                    top: -depth,
+                    right: along * at,
+                    height: depth * 2,
+                    width: along * length,
+                  }),
+            }}
+          />
+        );
+      })}
       <div
         style={{
-          position: "relative",
-          width: screenW,
-          height: screenH,
-          borderRadius: radius - bezel,
-          overflow: "hidden",
-          background: "#000",
+          position: "absolute",
+          inset: 0,
+          borderRadius: radius,
+          background: rim,
+          padding: rimW,
         }}
       >
-        {shots.length === 1 ? (
-          <Screen shot={shot} width={screenW} scale={scale} />
-        ) : (
-          shots.map((one, i) => (
-            <div
-              key={one.src}
-              style={{
-                position: "absolute",
-                inset: 0,
-                clipPath: band(i, shots.length, screenW, screenH),
-              }}
-            >
-              <Screen shot={one} width={screenW} scale={scale} />
-            </div>
-          ))
-        )}
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: radius - rimW,
+            background: "#000",
+            padding: bezel,
+          }}
+        >
+          <div
+            style={{
+              position: "relative",
+              width: screenW,
+              height: screenH,
+              borderRadius: radius - frame,
+              overflow: "hidden",
+              background: "#000",
+            }}
+          >
+            {shots.length === 1 ? (
+              <Screen shot={shot} width={screenW} scale={scale} />
+            ) : (
+              shots.map((one, i) => (
+                <div
+                  key={one.src}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    clipPath: band(i, shots.length, screenW, screenH),
+                  }}
+                >
+                  <Screen shot={one} width={screenW} scale={scale} />
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -370,17 +401,16 @@ export function Slide(props: SlideProps) {
 
   const deviceW = fitWidth(shots[0], kind, boxW, boxH);
   const devices = (
-    <Device shots={shots} kind={kind} width={deviceW} dark={colors.dark} />
+    <Device
+      shots={shots}
+      kind={kind}
+      width={deviceW}
+      rim={colors.dark ? colors.border : "#1c1c1e"}
+    />
   );
 
   return (
     <AbsoluteFill style={{ background: colors.background, overflow: "hidden" }}>
-      {/* Soft accent light behind the device. */}
-      <AbsoluteFill
-        style={{
-          background: `radial-gradient(ellipse ${width * 0.75}px ${height * 0.5}px at 50% ${landscape ? 70 : 64}%, ${colors.accent}${colors.dark ? "2e" : "24"} 0%, transparent 70%)`,
-        }}
-      />
       <div
         style={{
           position: "absolute",
