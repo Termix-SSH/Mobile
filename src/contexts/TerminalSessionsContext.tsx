@@ -39,6 +39,7 @@ import {
 } from "@/core/sessions";
 import { displayTitle, moveTab, pickActiveTab } from "./session-tabs";
 import { openTab } from "@/screens/shell/navigate";
+import { SHOWCASE } from "@/showcase/enabled";
 
 /** Session tab type. The registry knows which feature owns each one. */
 export type SessionType = string;
@@ -715,7 +716,8 @@ export const TerminalSessionsProvider: React.FC<
   }, []);
 
   useEffect(() => {
-    if (!storeAvailable) {
+    // Showcase scenarios reseed hosts, so old tabs would point at gone ones.
+    if (!storeAvailable || SHOWCASE) {
       restoreStage.current = "done";
       return;
     }
