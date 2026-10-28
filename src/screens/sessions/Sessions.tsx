@@ -45,7 +45,7 @@ import TabBar from "@/screens/sessions/navigation/TabBar";
 import { SessionMenu } from "@/screens/sessions/SessionMenu";
 import { keyBarHeight } from "@/features/terminal/keys/compact";
 import { shellLayout } from "@/screens/shell/layout";
-import { HostsPane } from "@/screens/sessions/HostsPane";
+import { HostsPane, useHostsPaneHidden } from "@/screens/sessions/HostsPane";
 import { CompanionPane } from "@/screens/sessions/CompanionPane";
 import { TabSwipeEdge } from "@/screens/sessions/TabSwipeEdge";
 import {
@@ -783,7 +783,9 @@ export default function Sessions() {
     [openPanel],
   );
 
-  const showHostsPane = shellLayout(win, sessions.length).hostsPane;
+  const hostsPaneFits = shellLayout(win, sessions.length).hostsPane;
+  const [hostsPaneHidden, setHostsPaneHidden] = useHostsPaneHidden();
+  const showHostsPane = hostsPaneFits && !hostsPaneHidden;
 
   const activeTerminalBgColor =
     activeIsTerminal && activeSessionId
@@ -1081,6 +1083,14 @@ export default function Sessions() {
             )}
             onTabMenu={setMenuFor}
             onTabMove={moveSession}
+            hostsPane={
+              hostsPaneFits
+                ? {
+                    shown: showHostsPane,
+                    toggle: () => setHostsPaneHidden(showHostsPane),
+                  }
+                : undefined
+            }
           />
         </View>
 

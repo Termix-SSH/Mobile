@@ -8,6 +8,8 @@ import {
   ChevronDown,
   ChevronUp,
   Layers,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from "lucide-react-native";
 import {
   SessionType,
@@ -41,6 +43,8 @@ interface TabBarProps {
   /** Tapping the active tab opens its menu. */
   onTabMenu?: (sessionId: string) => void;
   onTabMove?: (sessionId: string, toIndex: number) => void;
+  /** Set when the window fits the host list beside sessions. */
+  hostsPane?: { shown: boolean; toggle: () => void };
 }
 
 export default function TabBar({
@@ -59,6 +63,7 @@ export default function TabBar({
   onShowConnections,
   onTabMenu,
   onTabMove,
+  hostsPane,
 }: TabBarProps) {
   const ui = useUiColors();
   const router = useRouter();
@@ -122,13 +127,27 @@ export default function TabBar({
         >
           <Layers size={iconSize} color={ui.text} />
         </BarButton>
-        <BarButton
-          label="Back to hosts"
-          size={buttonSize}
-          onPress={() => router.navigate("/hosts" as any)}
-        >
-          <ArrowLeft size={iconSize} color={ui.text} />
-        </BarButton>
+        {hostsPane ? (
+          <BarButton
+            label={hostsPane.shown ? "Hide host list" : "Show host list"}
+            size={buttonSize}
+            onPress={hostsPane.toggle}
+          >
+            {hostsPane.shown ? (
+              <PanelLeftClose size={iconSize} color={ui.text} />
+            ) : (
+              <PanelLeftOpen size={iconSize} color={ui.text} />
+            )}
+          </BarButton>
+        ) : (
+          <BarButton
+            label="Back to hosts"
+            size={buttonSize}
+            onPress={() => router.navigate("/hosts" as any)}
+          >
+            <ArrowLeft size={iconSize} color={ui.text} />
+          </BarButton>
+        )}
 
         <View style={{ flex: 1, justifyContent: "center" }}>
           <TabStrip
