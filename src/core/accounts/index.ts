@@ -66,7 +66,7 @@ export function useClient(accountId: string | null): AccountClient | null {
   );
   // Only the active account loads on start; others load when a screen asks.
   useEffect(() => {
-    void client?.load();
+    client?.load().catch(() => {});
   }, [client]);
   return client;
 }

@@ -205,7 +205,11 @@ export class AccountClient implements HttpOwner {
       this.buildHttp();
       this.ready = true;
       this.emit();
-    })();
+    })().catch((error: unknown) => {
+      // Let the next call try again instead of keeping the failure.
+      this.loaded = null;
+      throw error;
+    });
     return this.loaded;
   }
 

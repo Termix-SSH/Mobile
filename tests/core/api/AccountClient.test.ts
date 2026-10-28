@@ -51,6 +51,23 @@ test("the token survives a restart through secure storage", async () => {
   expect(second.isAuthenticated()).toBe(true);
 });
 
+test("a failed load is tried again on the next call", async () => {
+  const first = client();
+  await first.setToken("kept");
+  const c = client();
+  const storage = accountStorage("a1");
+  const read = jest
+    .spyOn(storage.secrets, "get")
+    .mockRejectedValueOnce(new Error("locked"));
+  // The client holds its own storage, so break the one it reads.
+  (c as unknown as { storage: typeof storage }).storage = storage;
+  await expect(c.load()).rejects.toThrow("locked");
+  await c.load();
+  expect(c.token()).toBe("kept");
+  expect(c.isLoaded()).toBe(true);
+  read.mockRestore();
+});
+
 test("a 401 on a critical endpoint signs the account out", async () => {
   fakeServer(() => ({ status: 401, data: { error: "expired" } }));
   const c = client();
