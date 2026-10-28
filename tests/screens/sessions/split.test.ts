@@ -2,6 +2,7 @@ import {
   canSplit,
   clampRatio,
   partnerAfterActivate,
+  splitEdges,
   splitPartner,
 } from "@/screens/sessions/split";
 
@@ -29,4 +30,25 @@ test("the divider stays between 30 and 70 percent", () => {
   expect(clampRatio(0.1)).toBe(0.3);
   expect(clampRatio(0.5)).toBe(0.5);
   expect(clampRatio(0.95)).toBe(0.7);
+});
+
+test("the split follows the dragged ratio with no fold", () => {
+  expect(splitEdges(800, 0.5, null)).toEqual({
+    start: 397,
+    end: 403,
+    onFold: false,
+  });
+});
+
+test("a fold across the stage holds the divider", () => {
+  expect(splitEdges(867, 0.3, { start: 380, end: 404 })).toEqual({
+    start: 380,
+    end: 404,
+    onFold: true,
+  });
+});
+
+test("a fold too close to an edge leaves the divider to the ratio", () => {
+  expect(splitEdges(500, 0.5, { start: -100, end: -76 }).onFold).toBe(false);
+  expect(splitEdges(500, 0.5, { start: 300, end: 324 }).onFold).toBe(false);
 });

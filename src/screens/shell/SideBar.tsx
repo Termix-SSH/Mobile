@@ -7,8 +7,9 @@ import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
 import { useSessionStatuses } from "@/core/sessions/status";
 import { sessionsMark, TABS } from "@/screens/shell/BottomBar";
 import { useWindowInfo } from "@/utils/window-class";
+import { SIDEBAR_WIDTH } from "@/screens/shell/layout";
 
-export const SIDEBAR_WIDTH = 84;
+export { SIDEBAR_WIDTH };
 /** The rail on a phone held sideways, where height is short. */
 const SHORT_SIDEBAR_WIDTH = 64;
 

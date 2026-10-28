@@ -51,6 +51,7 @@ import { TabSwipeEdge } from "@/screens/sessions/TabSwipeEdge";
 import {
   clampRatio,
   partnerAfterActivate,
+  splitEdges,
   splitPartner,
 } from "@/screens/sessions/split";
 import { neighborTab, tabNumber } from "@/contexts/session-tabs";
@@ -121,6 +122,21 @@ export default function Sessions() {
     keyboardIntentionallyHiddenRef,
     setKeyboardIntentionallyHidden,
   } = useTerminalSessions();
+  const layout = shellLayout(win, sessions.length);
+  const fold = win.fold;
+
+  // Where this screen sits in the window, to line things up with a fold.
+  const rootRef = useRef<View>(null);
+  const [rootFrame, setRootFrame] = useState<{
+    y: number;
+    height: number;
+  } | null>(null);
+  const measureRoot = () =>
+    rootRef.current?.measureInWindow((_x, y, _w, h) =>
+      setRootFrame((prev) =>
+        prev && prev.y === y && prev.height === h ? prev : { y, height: h },
+      ),
+    );
 
   const [showConnectionsPanel, setShowConnectionsPanel] = useState(false);
   const [menuFor, setMenuFor] = useState<string | null>(null);
@@ -150,16 +166,24 @@ export default function Sessions() {
   // The system keyboard covers what it covers, so the bars must sit on its real top.
   const currentKeyboardHeight = keyboardHeight;
 
-  const customKeyboardHeight = Math.max(
-    win.isShort ? 140 : 200,
-    Math.min(effectiveKeyboardHeight, 500),
-  );
-
   const SESSION_TAB_BAR_HEIGHT = getTabBarHeight(isLandscape, win.isShort) + 2;
 
   const KEYBOARD_BAR_HEIGHT = keyBarHeight(isLandscape, win.isShort);
   // Same as the key row, so the tab bar stays put when the panel swaps with the keyboard.
   const CUSTOM_KEYBOARD_TAB_HEIGHT = KEYBOARD_BAR_HEIGHT;
+
+  // Folded like a laptop: distances from the bottom of this screen to each side of the crease.
+  const laptopFold =
+    layout.laptop && fold && rootFrame
+      ? {
+          above: rootFrame.y + rootFrame.height - fold.start,
+          below: rootFrame.y + rootFrame.height - fold.end,
+        }
+      : null;
+
+  const customKeyboardHeight = laptopFold
+    ? Math.max(140, laptopFold.below - CUSTOM_KEYBOARD_TAB_HEIGHT)
+    : Math.max(win.isShort ? 140 : 200, Math.min(effectiveKeyboardHeight, 500));
   // When the system keyboard is dismissed the keyboard bar reserves the
   // home-indicator safe area below its keys. The TabBar floats directly on top
   // of the bar, so it must be lifted by the keys' height PLUS that same
@@ -318,11 +342,10 @@ export default function Sessions() {
     ? currentKeyboardHeight
     : customKeyboardHeight;
 
-  const getTabBarBottomPosition = () => {
-    if (!activeIsTerminal) {
-      return insets.bottom;
-    }
+  // Laptop fold: the terminal and its tabs stay on the top half, keys go on the bottom half.
+  const laptop = activeIsTerminal ? laptopFold : null;
 
+  const tabBarOnKeys = () => {
     if (isCustomKeyboardVisible) {
       return CUSTOM_KEYBOARD_TAB_HEIGHT + customKeyboardHeight;
     }
@@ -332,23 +355,21 @@ export default function Sessions() {
       : KEYBOARD_BAR_HEIGHT_EXTENDED;
   };
 
+  const getTabBarBottomPosition = () => {
+    if (!activeIsTerminal) {
+      return insets.bottom;
+    }
+    return Math.max(tabBarOnKeys(), laptop?.above ?? 0);
+  };
+
   // No active tab lays out like a terminal, as before.
   const getBottomMargin = (sessionType?: SessionType) => {
     if (sessionType && !features.sessionHas(sessionType, "terminal-input")) {
       return SESSION_TAB_BAR_HEIGHT + insets.bottom;
     }
-
-    if (isCustomKeyboardVisible) {
-      return (
-        SESSION_TAB_BAR_HEIGHT +
-        CUSTOM_KEYBOARD_TAB_HEIGHT +
-        customKeyboardHeight
-      );
-    }
-
-    return barsOnKeyboard
-      ? SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT + barsKeyboardHeight
-      : SESSION_TAB_BAR_HEIGHT + KEYBOARD_BAR_HEIGHT_EXTENDED;
+    return (
+      SESSION_TAB_BAR_HEIGHT + Math.max(tabBarOnKeys(), laptop?.above ?? 0)
+    );
   };
 
   // A keyboard that came up, from a tap on the terminal too, ends a hide from the tab bar.
@@ -457,6 +478,12 @@ export default function Sessions() {
   const [splitWith, setSplitWith] = useState<string | null>(null);
   const [splitRatio, setSplitRatio] = useState(0.5);
   const [stageWidth, setStageWidth] = useState(0);
+  const stageRef = useRef<View>(null);
+  const [stageX, setStageX] = useState<number | null>(null);
+  const measureStage = () =>
+    stageRef.current?.measureInWindow((x) =>
+      setStageX((prev) => (prev === x ? prev : x)),
+    );
   const splitOk = win.canSplit;
   const partnerId = splitOk
     ? splitPartner(
@@ -737,6 +764,28 @@ export default function Sessions() {
     }
   };
 
+  // Folding like a laptop puts the keys panel on the bottom half. Opening flat again
+  // closes it, unless it was already up before the fold.
+  const openedForLaptop = useRef(false);
+  const laptopNow = !!laptopFold;
+  useEffect(() => {
+    if (laptopNow) {
+      if (
+        activeIsTerminal &&
+        !isCustomKeyboardVisible &&
+        !systemKeyboardUp &&
+        !isAppLocked()
+      ) {
+        openedForLaptop.current = true;
+        handleToggleKeyboard();
+      }
+    } else if (openedForLaptop.current) {
+      openedForLaptop.current = false;
+      if (isCustomKeyboardVisible) toggleCustomKeyboard();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [laptopNow]);
+
   const openPanel = useCallback(
     (tab: string) => {
       setCustomKeyboardInitialTab(tab);
@@ -783,7 +832,7 @@ export default function Sessions() {
     [openPanel],
   );
 
-  const hostsPaneFits = shellLayout(win, sessions.length).hostsPane;
+  const hostsPaneFits = layout.hostsPane;
   const [hostsPaneHidden, setHostsPaneHidden] = useHostsPaneHidden();
   const showHostsPane = hostsPaneFits && !hostsPaneHidden;
 
@@ -833,6 +882,8 @@ export default function Sessions() {
 
   return (
     <View
+      ref={rootRef}
+      onLayout={measureRoot}
       className="flex-1 flex-row"
       style={{
         paddingLeft: side.left,
@@ -840,7 +891,16 @@ export default function Sessions() {
         backgroundColor: stageColor,
       }}
     >
-      {showHostsPane ? <HostsPane /> : null}
+      {showHostsPane ? (
+        <HostsPane edge={layout.foldSplit ? fold?.start : undefined} />
+      ) : null}
+      {showHostsPane && layout.foldSplit && fold ? (
+        // Kept clear over the crease.
+        <View
+          className="bg-background"
+          style={{ width: fold.end - fold.start }}
+        />
+      ) : null}
       <View
         className="flex-1"
         style={{
@@ -855,7 +915,15 @@ export default function Sessions() {
           }}
         >
           {(() => {
-            const leftWidth = Math.round(stageWidth * splitRatio);
+            // A crease across the stage holds the divider, so each tab keeps its own half.
+            const splitAt = splitEdges(
+              stageWidth,
+              splitRatio,
+              fold?.axis === "vertical" && stageX !== null
+                ? { start: fold.start - stageX, end: fold.end - stageX }
+                : null,
+            );
+            const onFold = splitAt.onFold;
             // Each tab keeps its own wrapper, so starting or ending a split never remounts it.
             // Hidden tabs only move off screen. A zIndex change re-inserts the native views,
             // and pointerEvents none on the tab that has the keyboard makes iOS drop it.
@@ -878,15 +946,19 @@ export default function Sessions() {
                   position: "absolute" as const,
                   top: 0,
                   bottom: 0,
-                  left: left ? 0 : leftWidth + 3,
-                  width: left ? leftWidth - 3 : stageWidth - leftWidth - 3,
+                  left: left ? 0 : splitAt.end,
+                  width: left ? splitAt.start : stageWidth - splitAt.end,
                 },
               ];
             };
             const tabs = (
               <View
+                ref={stageRef}
                 style={{ flex: 1 }}
-                onLayout={(e) => setStageWidth(e.nativeEvent.layout.width)}
+                onLayout={(e) => {
+                  setStageWidth(e.nativeEvent.layout.width);
+                  measureStage();
+                }}
               >
                 {sessions.map((session) => {
                   return (
@@ -911,7 +983,20 @@ export default function Sessions() {
                     </View>
                   );
                 })}
-                {partnerId ? (
+                {partnerId && onFold ? (
+                  <View
+                    className="bg-background"
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      bottom: 0,
+                      left: splitAt.start,
+                      width: splitAt.end - splitAt.start,
+                      zIndex: 2,
+                    }}
+                  />
+                ) : null}
+                {partnerId && !onFold ? (
                   <View
                     {...dividerPan.panHandlers}
                     accessibilityRole="adjustable"
@@ -922,7 +1007,7 @@ export default function Sessions() {
                       position: "absolute",
                       top: 0,
                       bottom: 0,
-                      left: leftWidth - 3,
+                      left: splitAt.start,
                       width: 6,
                       zIndex: 2,
                     }}

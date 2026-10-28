@@ -5,6 +5,8 @@ import {
   useWindowDimensions,
   type LayoutChangeEvent,
 } from "react-native";
+import type { FoldRegion } from "@/modules/termix-fold";
+import { foldFrom, useFoldRegions, type Fold } from "@/utils/fold";
 
 export type WindowClass = "compact" | "medium" | "expanded";
 
@@ -26,6 +28,8 @@ export type WindowInfo = {
   canSplit: boolean;
   /** Short window, like a phone in landscape. */
   isShort: boolean;
+  /** Where a foldable screen bends, if it splits this window. */
+  fold: Fold | null;
 };
 
 export function windowClassFor(width: number): WindowClass {
@@ -34,7 +38,11 @@ export function windowClassFor(width: number): WindowClass {
   return "compact";
 }
 
-export function windowInfo(width: number, height: number): WindowInfo {
+export function windowInfo(
+  width: number,
+  height: number,
+  folds: FoldRegion[] = [],
+): WindowInfo {
   const windowClass = windowClassFor(width);
   const isLandscape = width > height;
   return {
@@ -46,6 +54,7 @@ export function windowInfo(width: number, height: number): WindowInfo {
     isWide: windowClass !== "compact",
     canSplit: Math.min(width, height) >= SPLIT_MIN_SIDE,
     isShort: height < 500,
+    fold: foldFrom(folds, width, height),
   };
 }
 
@@ -85,6 +94,7 @@ export function currentWindowSize(): Size {
 export function useWindowInfo(): WindowInfo {
   const dims = useWindowDimensions();
   const root = useContext(RootSize);
+  const folds = useFoldRegions();
   const { width, height } = root ?? dims;
-  return windowInfo(width, height);
+  return windowInfo(width, height, folds);
 }

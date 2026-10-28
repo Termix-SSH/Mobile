@@ -20,7 +20,8 @@
       },
       "ios": {
         "buildConfiguration": "Release",
-        "enterpriseProvisioning": "adhoc"
+        "enterpriseProvisioning": "adhoc",
+        "image": "latest"
       }
     },
     "production": {
@@ -29,7 +30,8 @@
         "buildType": "app-bundle"
       },
       "ios": {
-        "buildConfiguration": "Release"
+        "buildConfiguration": "Release",
+        "image": "latest"
       }
     }
   },

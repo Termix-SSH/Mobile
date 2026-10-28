@@ -31,3 +31,26 @@ export function partnerAfterActivate(
 export function clampRatio(ratio: number): number {
   return Math.min(MAX_RATIO, Math.max(MIN_RATIO, ratio));
 }
+
+/** Narrowest tab worth putting on one side of a fold. */
+export const SPLIT_MIN_PANE = 240;
+
+/**
+ * Where the left tab ends and the right one starts. A fold across the stage
+ * (in stage coordinates) wins over the dragged ratio, so no tab sits on the crease.
+ */
+export function splitEdges(
+  stageWidth: number,
+  ratio: number,
+  fold: { start: number; end: number } | null,
+): { start: number; end: number; onFold: boolean } {
+  if (
+    fold &&
+    fold.start >= SPLIT_MIN_PANE &&
+    stageWidth - fold.end >= SPLIT_MIN_PANE
+  ) {
+    return { start: fold.start, end: fold.end, onFold: true };
+  }
+  const left = Math.round(stageWidth * ratio);
+  return { start: left - 3, end: left + 3, onFold: false };
+}

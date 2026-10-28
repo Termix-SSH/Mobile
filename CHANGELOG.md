@@ -15,6 +15,8 @@ Termix Mobile now works with no server. Hosts, logins and snippets stay encrypte
 - Sub-hosts show nested under their parent host, like on the web. Open or close them from the parent's row, pick a parent in the host editor, add a sub-host from a host's menu or move many hosts under one at once. Sub-hosts follow their parent's folder defaults
 - Active host filters show under the filter box, and a tap removes one
 - Split view on tablets: put two tabs side by side from the tab menu and drag the divider to resize
+- Foldables like the iPhone Duo and Galaxy Z Fold: the host list sits on the left half and the terminal on the right, clear of the crease, and split view puts one tab on each half
+- Fold the phone like a laptop and the terminal moves to the top half with the keys on the bottom half
 - Close all tabs from the tab menu or the connections list
 - The Sessions tab shows how many tabs are open and when one needs attention
 - Docker on the phone with no server: containers, logs, stats, start, stop, restart, remove and a shell in a container, with sudo when your user can't reach Docker
