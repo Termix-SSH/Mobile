@@ -38,7 +38,12 @@ import {
 } from "../devices";
 import type { TourResult } from "../capture/types";
 import type { PreviewProps } from "./Preview";
-import type { DeviceKind, Shot, SlideProps } from "./Slide";
+import {
+  headingHeight,
+  type DeviceKind,
+  type Shot,
+  type SlideProps,
+} from "./Slide";
 
 const STORE = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PUBLIC = join(STORE, "public");
@@ -162,12 +167,17 @@ for (const device of outputs) {
     })
     .slice(0, MAX_SLIDES[device.store]);
 
+  const sizeOf = (first: Shot) =>
+    device.size ?? { width: even(first.width), height: even(first.height) };
+  // Same heading space on every slide, so the device never moves.
+  const headingSpace = Math.max(
+    ...slides.map(({ slide, shots }, i) =>
+      headingHeight({ ...sizeOf(shots[0]!), ...slide, logo: i === 0 }),
+    ),
+  );
+
   for (const [i, { slide, shots }] of slides.entries()) {
-    const first = shots[0]!;
-    const size = device.size ?? {
-      width: even(first.width),
-      height: even(first.height),
-    };
+    const size = sizeOf(shots[0]!);
     const inputProps: SlideProps = {
       ...size,
       title: slide.title,
@@ -177,6 +187,7 @@ for (const device of outputs) {
       theme: values.theme!,
       accent,
       logo: i === 0,
+      headingSpace,
     };
     const composition = await selectComposition({
       serveUrl,

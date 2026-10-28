@@ -24,6 +24,11 @@ export type SlideProps = {
   accent: string;
   /** The first slide carries the logo. */
   logo: boolean;
+  /**
+   * Height kept for the heading on every slide of a set, so the device sits
+   * in the same spot on each one.
+   */
+  headingSpace?: number;
 };
 
 export function Logo({ size, colors }: { size: number; colors: Palette }) {
@@ -377,25 +382,41 @@ export function wrapLines(text: string, width: number, size: number): number {
   return lines;
 }
 
-export function Slide(props: SlideProps) {
-  const { width, height, shots, kind } = props;
-  const colors = palette(props.theme, props.accent);
+type HeadingInput = Pick<
+  SlideProps,
+  "width" | "height" | "title" | "subtitle" | "logo"
+>;
+
+function headingLayout({ width, height }: { width: number; height: number }) {
   const landscape = width > height;
   const short = Math.min(width, height);
   const pad = short * 0.07;
   const size = short * (landscape ? 0.052 : 0.07);
   const textW = Math.min(width - pad * 2, landscape ? width * 0.7 : width);
+  return { short, pad, size, textW };
+}
 
-  const headingH =
-    (props.logo ? size * 1.2 : 0) +
-    wrapLines(props.title, textW, size) * size * 1.12 +
-    (props.subtitle
-      ? size * 0.32 +
-        wrapLines(props.subtitle, textW, size * 0.46) * size * 0.62
-      : 0);
+/** Height the heading takes on a slide. */
+export function headingHeight(p: HeadingInput) {
+  const { size, textW } = headingLayout(p);
+  return (
+    (p.logo ? size * 1.2 : 0) +
+    wrapLines(p.title, textW, size) * size * 1.12 +
+    (p.subtitle
+      ? size * 0.32 + wrapLines(p.subtitle, textW, size * 0.46) * size * 0.62
+      : 0)
+  );
+}
+
+export function Slide(props: SlideProps) {
+  const { width, height, shots, kind } = props;
+  const colors = palette(props.theme, props.accent);
+  const { short, pad, size, textW } = headingLayout(props);
+  const headingH = headingHeight(props);
+  const space = Math.max(headingH, props.headingSpace ?? 0);
   const top = pad * 1.1;
   const gap = short * 0.06;
-  const boxTop = top + headingH + gap;
+  const boxTop = top + space + gap;
   const boxW = width - pad * 2;
   const boxH = height - boxTop - pad * 0.9;
 
@@ -414,7 +435,7 @@ export function Slide(props: SlideProps) {
       <div
         style={{
           position: "absolute",
-          top,
+          top: top + (space - headingH) / 2,
           left: (width - textW) / 2,
           width: textW,
           display: "flex",
