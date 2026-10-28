@@ -227,7 +227,7 @@ function statusInfo(
         label: status?.nextRetryIn
           ? `Waiting ${Math.ceil(status.nextRetryIn / 1000)}s`
           : "Waiting",
-        color: "#8b5cf6",
+        color: color("muted-foreground"),
         icon: Clock,
         badge: "muted",
       };

@@ -44,11 +44,17 @@ export function Toaster() {
           fontSize: 11,
           color: color("muted-foreground"),
         },
+        // Same look as the default Button.
         actionButtonStyle: {
-          backgroundColor: accent,
+          backgroundColor: color("accent-brand", 0.15),
+          borderWidth: 1,
+          borderColor: color("accent-brand", 0.4),
           borderRadius: 0,
         },
-        actionButtonTextStyle: { fontFamily: MONO_FONT_MEDIUM, color: "#fff" },
+        actionButtonTextStyle: {
+          fontFamily: MONO_FONT_MEDIUM,
+          color: color("foreground"),
+        },
         closeButtonStyle: { borderRadius: 0 },
       }}
       icons={{
