@@ -153,7 +153,7 @@ Termix Mobile now works with no server. Hosts, logins and snippets stay encrypte
 - App Lock waits 30 seconds after 5 wrong PINs
 - Copy or share the latest app logs from Settings, About and logs
 - Clear your recent hosts
-- A sidebar instead of the bottom bar on tablets and wide windows, with the host list beside open sessions on large screens. A phone held sideways gets a slim rail and full screen sessions
+- A sidebar instead of the bottom bar on tablets and wide windows, with the host list beside open sessions on large screens. A button in the tab bar hides or shows it. A phone held sideways gets a slim rail and full screen sessions
 - The app follows window size changes on iPad (resizable windows) and on Android tablets, foldables and desktop mode without dropping sessions
 - A compact key row when the window is short, like a phone held sideways
 - App wide keyboard shortcuts on iPad (Cmd K, Cmd /, Cmd Opt 1 to 4, Cmd ,) and on Android (Ctrl Shift K, /, N, comma and Ctrl Alt 1 to 4) with a shortcut sheet in Settings, Keyboard
