@@ -59,22 +59,22 @@ This writes a new migration to `drizzle/` and `src/core/db/migrations.ts`. Never
 
 ## Store screenshots and previews
 
-The Store Media workflow makes the App Store and Google Play screenshots and the App Store previews. It builds the app with `EXPO_PUBLIC_SHOWCASE=1`, which fills This device with sample hosts and fakes every connection, so no server is needed. It captures each screen on iPhone, iPad, iPhone Duo, an Android phone and an Android tablet, frames them in the app's theme with a short caption, and uploads a `store-media` artifact. Turn on the upload switches to send them to App Store Connect (the version open for edits) and Google Play.
+The Store Media workflow makes the App Store and Google Play screenshots and the App Store previews. It builds the app with `EXPO_PUBLIC_SHOWCASE=1`, which fills This device with sample hosts and fakes every connection, so no server is needed. Android emulators capture each screen on a phone and a tablet, and those same shots are used for both stores. The iOS build takes about an hour, so it only runs when you ask for iPhone Duo shots or preview videos. Each shot is cropped below the status bar and above the home bar, put in a device frame with a caption in the app's theme, and uploaded as a `store-media` artifact. Turn on the upload switches to send them to App Store Connect (the version open for edits) and Google Play.
 
 The tooling lives in `store/`, a separate npm package:
 
 ```sh
 cd store
 npm ci
-npm run capture -- --platform ios --app path/to/Termix.app   # needs a Mac
+npm run capture -- --platform ios --device iphone-duo --app path/to/Termix.app   # needs a Mac
 npm run capture -- --platform android --device android-phone --app app-release.apk
 npm run render                                               # out/raw to out/final
 npm run render -- --write-metadata                           # also fills fastlane/metadata/android
 npm run upload -- --platform ios --dry-run
 ```
 
-- Devices and sizes: `store/devices.ts`
-- Slide order and text: `store/captions.ts`
+- What is captured and what is made from it: `store/devices.ts`
+- Slide order and text: `store/captions.ts` (words between stars show in the accent color)
 - App side: scenarios in `src/showcase/scenarios.ts`, sample data in `src/showcase/seed.ts`
 
 A new scenario needs an entry in `SCENARIOS`, a capture in `CAPTURES` and a slide in `SLIDES`.

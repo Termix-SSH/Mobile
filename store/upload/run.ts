@@ -11,7 +11,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
-import { devicesFor, type Platform } from "../devices";
+import { outputsFor, type Platform } from "../devices";
 import { uploadAndroid } from "./android";
 import { uploadIos } from "./ios";
 
@@ -54,7 +54,7 @@ if (platform !== "android") {
       locale: values.locale!,
       dryRun,
     },
-    devicesFor("ios", only),
+    outputsFor("ios", only),
     finalDir,
   );
 }
@@ -70,7 +70,7 @@ if (platform !== "ios") {
       language: values.locale!,
       dryRun,
     },
-    devicesFor("android", only),
+    outputsFor("android", only),
     finalDir,
   );
 }

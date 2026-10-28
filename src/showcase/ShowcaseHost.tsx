@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
+import { PixelRatio } from "react-native";
 import { useRootNavigationState } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAppContext } from "@/contexts/AppContext";
 import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -45,8 +47,9 @@ export function ShowcaseHost() {
   const app = useAppContext();
   const theme = useTheme();
   const tabs = useTerminalSessions();
-  const latest = useRef({ app, theme, tabs });
-  latest.current = { app, theme, tabs };
+  const insets = useSafeAreaInsets();
+  const latest = useRef({ app, theme, tabs, insets });
+  latest.current = { app, theme, tabs, insets };
   const started = useRef(false);
 
   useEffect(() => {
@@ -108,7 +111,10 @@ export function ShowcaseHost() {
       }
       await scenario.setup(ctl);
       await wait(SETTLE_MS);
-      log(`READY ${scenario.id}`);
+      // Pixel insets let the capture crop off the status bar and home bar.
+      const { top, bottom } = latest.current.insets;
+      const px = (n: number) => Math.round(n * PixelRatio.get());
+      log(`READY ${scenario.id} insets=${px(top)},${px(bottom)}`);
     };
     run().catch((e) => log(`FAILED ${e instanceof Error ? e.message : e}`));
   }, [nav?.key, app.isLoading]);

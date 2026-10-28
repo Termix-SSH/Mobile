@@ -10,6 +10,7 @@ const sampleSlide: SlideProps = {
   title: "Your servers, in your pocket",
   subtitle: "Every host in one list, with live status",
   shots: [],
+  kind: "phone",
   theme: "dark",
   accent: "#f59145",
   logo: true,

@@ -4,7 +4,8 @@
  *   npm run render
  *   npm run render -- --device iphone --theme dark --write-metadata
  *
- * Reads out/raw/<device>, writes out/final/<platform>/<device>.
+ * Reads out/raw/<source>, writes out/final/<store>/<output>. One source can
+ * feed both stores (see devices.ts).
  * --write-metadata also copies the Android shots into fastlane/metadata.
  */
 import { spawnSync } from "node:child_process";
@@ -28,10 +29,16 @@ import {
   selectComposition,
 } from "@remotion/renderer";
 import { PREVIEW_CAPTIONS, SLIDES } from "../captions";
-import { DEVICES, MAX_SLIDES, type Device, type Size } from "../devices";
+import {
+  MAX_SLIDES,
+  OUTPUTS,
+  SOURCES,
+  type Size,
+  type Source,
+} from "../devices";
 import type { TourResult } from "../capture/types";
 import type { PreviewProps } from "./Preview";
-import type { Shot, SlideProps } from "./Slide";
+import type { DeviceKind, Shot, SlideProps } from "./Slide";
 
 const STORE = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PUBLIC = join(STORE, "public");
@@ -95,10 +102,10 @@ function music(): boolean {
   return res.status === 0;
 }
 
-function prepare(device: Device): boolean {
-  const from = join(raw, device.id);
+function prepare(source: Source): boolean {
+  const from = join(raw, source.id);
   if (!existsSync(from)) return false;
-  const to = join(PUBLIC, "raw", device.id);
+  const to = join(PUBLIC, "raw", source.id);
   rmSync(to, { recursive: true, force: true });
   mkdirSync(to, { recursive: true });
   cpSync(from, to, { recursive: true });
@@ -110,10 +117,13 @@ cpSync(
   join(STORE, "..", "assets", "brand", "logo.svg"),
   join(PUBLIC, "brand", "logo.svg"),
 );
-const devices = DEVICES.filter(
-  (d) => (!only?.length || only.includes(d.id)) && prepare(d),
+const ready = new Set(SOURCES.filter(prepare).map((s) => s.id));
+const outputs = OUTPUTS.filter(
+  (o) =>
+    (!only?.length || only.includes(o.id)) &&
+    (ready.has(o.stills) || (o.preview && ready.has(o.preview.from))),
 );
-if (!devices.length) {
+if (!outputs.length) {
   console.error(`No captures found in ${raw}`);
   process.exit(1);
 }
@@ -125,30 +135,36 @@ const serveUrl = await bundle({
 });
 const withMusic = music();
 
-for (const device of devices) {
-  const dir = join(out, device.platform, device.id);
+for (const device of outputs) {
+  const source = SOURCES.find((s) => s.id === device.stills)!;
+  const kind: DeviceKind = source.wide ? "tablet" : "phone";
+  const dir = join(out, device.store, device.id);
   rmSync(dir, { recursive: true, force: true });
   mkdirSync(dir, { recursive: true });
   console.log(`\n${device.label}`);
 
   const shotFor = (id: string): Shot | null => {
-    const file = join(PUBLIC, "raw", device.id, `${id}.png`);
+    const file = join(PUBLIC, "raw", source.id, `${id}.png`);
     if (!existsSync(file)) return null;
-    return { src: `raw/${device.id}/${id}.png`, ...pngSize(file) };
+    const cropFile = join(PUBLIC, "raw", source.id, `${id}.json`);
+    const crop = existsSync(cropFile)
+      ? (JSON.parse(readFileSync(cropFile, "utf8")) as Shot["crop"])
+      : { top: 0, bottom: 0 };
+    return { src: `raw/${source.id}/${id}.png`, ...pngSize(file), crop };
   };
 
-  const slides = SLIDES.filter((s) => device.wide || !s.wideOnly)
+  const slides = SLIDES.filter((s) => source.wide || !s.wideOnly)
     .map((s) => ({ slide: s, shots: s.shots.map(shotFor) }))
     .filter(({ slide, shots }) => {
       const ok = shots.every(Boolean);
       if (!ok) console.warn(`  skipped ${slide.id}: missing capture`);
       return ok;
     })
-    .slice(0, MAX_SLIDES[device.platform]);
+    .slice(0, MAX_SLIDES[device.store]);
 
   for (const [i, { slide, shots }] of slides.entries()) {
     const first = shots[0]!;
-    const size = device.still ?? {
+    const size = device.size ?? {
       width: even(first.width),
       height: even(first.height),
     };
@@ -157,6 +173,7 @@ for (const device of devices) {
       title: slide.title,
       subtitle: slide.subtitle,
       shots: shots as Shot[],
+      kind,
       theme: values.theme!,
       accent,
       logo: i === 0,
@@ -177,24 +194,18 @@ for (const device of devices) {
     console.log(`  ${name}`);
   }
 
-  const tourFile = join(PUBLIC, "raw", device.id, "tour.mp4");
-  const tourJson = join(PUBLIC, "raw", device.id, "tour.json");
-  if (
-    device.preview !== undefined &&
-    existsSync(tourFile) &&
-    existsSync(tourJson)
-  ) {
+  const from = device.preview?.from ?? "";
+  const tourFile = join(PUBLIC, "raw", from, "tour.mp4");
+  const tourJson = join(PUBLIC, "raw", from, "tour.json");
+  if (device.preview && existsSync(tourFile) && existsSync(tourJson)) {
     const tour = JSON.parse(readFileSync(tourJson, "utf8")) as TourResult;
     const video = videoSize(tourFile);
-    const size = device.preview ?? {
-      width: even(video.width / 2),
-      height: even(video.height / 2),
-    };
+    const size = device.preview.size;
     // App Store previews run 15 to 30 seconds.
     const duration = Math.min(30, Math.max(15, tour.duration + 0.8));
     const inputProps: PreviewProps = {
       ...size,
-      video: `raw/${device.id}/tour.mp4`,
+      video: `raw/${from}/tour.mp4`,
       videoWidth: video.width,
       videoHeight: video.height,
       startOffset: Math.max(0, tour.startOffset),

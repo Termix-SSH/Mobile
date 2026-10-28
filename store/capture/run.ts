@@ -11,7 +11,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
-import { capturesFor, devicesFor, type Platform } from "../devices";
+import { capturesFor, sourcesFor, type Platform } from "../devices";
 import { androidTarget } from "./android";
 import { iosTarget } from "./ios";
 import type { CaptureTarget } from "./types";
@@ -36,10 +36,14 @@ if (!values.app) {
 }
 const app = resolve(values.app);
 const platform = values.platform as Platform | "both";
-const devices = devicesFor(platform, values.device?.split(",").filter(Boolean));
 const only = values.only?.split(",").filter(Boolean);
 const wantStills = values.media !== "video";
 const wantVideo = values.media !== "screenshots";
+// Skip devices with nothing to make, so their simulators never boot.
+const sources = sourcesFor(
+  platform,
+  values.device?.split(",").filter(Boolean),
+).filter((s) => (wantStills && s.stills) || (wantVideo && s.video));
 const attempts = Math.max(1, Number(values.attempts) || 1);
 
 async function retry(label: string, fn: () => Promise<void>) {
@@ -63,7 +67,7 @@ function warn(message: string) {
 
 let failed = 0;
 let done = 0;
-for (const device of devices) {
+for (const device of sources) {
   console.log(`\n${device.label}`);
   const dir = join(values.out!, device.id);
   mkdirSync(dir, { recursive: true });
@@ -79,19 +83,23 @@ for (const device of devices) {
     continue;
   }
   try {
-    if (wantStills) {
+    if (wantStills && device.stills) {
       for (const capture of capturesFor(device)) {
         if (only && !only.includes(capture.id)) continue;
         const file = join(dir, `${capture.id}.png`);
         try {
-          await retry(capture.id, () =>
-            target.still(
+          await retry(capture.id, async () => {
+            const crop = await target.still(
               capture,
               capture.theme ?? values.theme!,
               values.accent!,
               file,
-            ),
-          );
+            );
+            writeFileSync(
+              join(dir, `${capture.id}.json`),
+              JSON.stringify(crop),
+            );
+          });
           console.log(`  ${capture.id}.png`);
           done++;
         } catch {
@@ -100,7 +108,7 @@ for (const device of devices) {
         }
       }
     }
-    if (wantVideo) {
+    if (wantVideo && device.video) {
       try {
         let result;
         await retry("tour", async () => {

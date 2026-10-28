@@ -72,7 +72,7 @@ export function Preview(props: PreviewProps) {
         <Heading
           title={caption?.title ?? ""}
           subtitle=""
-          unit={unit * 0.9}
+          size={unit * 3.2}
           colors={colors}
           logo={false}
         />

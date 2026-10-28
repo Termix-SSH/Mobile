@@ -1,7 +1,7 @@
 import { spawn } from "node:child_process";
-import type { Device } from "../devices";
+import type { Source } from "../devices";
 import { LogWatch, run, showcaseUrl, sleep } from "./proc";
-import type { CaptureTarget, TourResult } from "./types";
+import { cropFrom, type CaptureTarget, type TourResult } from "./types";
 
 const BUNDLE_ID = "com.karmaa.termix";
 
@@ -51,7 +51,15 @@ function deviceType(match: RegExp): DeviceType {
 }
 
 /** Creates (or reuses) and boots the simulator for a device. */
-function boot(device: Device): string {
+function boot(device: Source): string {
+  // A connected hardware keyboard keeps the on screen one hidden.
+  run("defaults", [
+    "write",
+    "com.apple.iphonesimulator",
+    "ConnectHardwareKeyboard",
+    "-bool",
+    "true",
+  ]);
   const type = deviceType(device.match as RegExp);
   const runtime = newestRuntime();
   const name = `termix-store-${device.id}`;
@@ -93,7 +101,7 @@ function boot(device: Device): string {
   return udid;
 }
 
-export function iosTarget(device: Device, app: string): CaptureTarget {
+export function iosTarget(device: Source, app: string): CaptureTarget {
   const udid = boot(device);
   simctl("install", udid, app);
   const log = new LogWatch("xcrun", [
@@ -130,11 +138,12 @@ export function iosTarget(device: Device, app: string): CaptureTarget {
     async still(capture, theme, accent, file) {
       log.clear();
       launch(showcaseUrl(capture.scenario, { theme, accent }));
-      await log.wait(
-        new RegExp(`SHOWCASE_READY ${capture.scenario}\\b`),
+      const ready = await log.wait(
+        new RegExp(`SHOWCASE_READY ${capture.scenario}\\b.*`),
         90_000,
       );
       simctl("io", udid, "screenshot", "--type=png", file);
+      return cropFrom(ready);
     },
 
     async tour(theme, accent, file): Promise<TourResult> {

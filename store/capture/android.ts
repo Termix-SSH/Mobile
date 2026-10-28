@@ -1,8 +1,8 @@
 import { spawnSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
-import type { Device } from "../devices";
+import type { Source } from "../devices";
 import { LogWatch, run, showcaseUrl, sleep } from "./proc";
-import type { CaptureTarget, TourResult } from "./types";
+import { cropFrom, type CaptureTarget, type TourResult } from "./types";
 
 const PACKAGE = "com.karmaa.termix";
 const ACTIVITY = `${PACKAGE}/.MainActivity`;
@@ -13,7 +13,7 @@ const REMOTE_VIDEO = "/sdcard/termix-tour.mp4";
  * device). `serial` picks it when more than one is up.
  */
 export function androidTarget(
-  device: Device,
+  device: Source,
   apk: string,
   serial = process.env.ANDROID_SERIAL,
 ): CaptureTarget {
@@ -42,6 +42,12 @@ export function androidTarget(
   );
   demo("-e", "command", "network", "-e", "wifi", "show", "-e", "level", "4");
   demo("-e", "command", "notifications", "-e", "visible", "false");
+
+  // The terminal takes focus when it opens. With no input method on, no
+  // keyboard covers it.
+  for (const ime of shell("ime", "list", "-s").split("\n")) {
+    if (ime.trim()) shell("ime", "disable", ime.trim());
+  }
 
   adb("logcat", "-c");
   const log = new LogWatch("adb", [
@@ -72,8 +78,8 @@ export function androidTarget(
     async still(capture, theme, accent, file) {
       log.clear();
       launch(showcaseUrl(capture.scenario, { theme, accent }));
-      await log.wait(
-        new RegExp(`SHOWCASE_READY ${capture.scenario}\\b`),
+      const ready = await log.wait(
+        new RegExp(`SHOWCASE_READY ${capture.scenario}\\b.*`),
         120_000,
       );
       const png = spawnSync("adb", [...base, "exec-out", "screencap", "-p"], {
@@ -81,6 +87,7 @@ export function androidTarget(
       });
       if (png.status !== 0) throw new Error("screencap failed");
       writeFileSync(file, png.stdout);
+      return cropFrom(ready);
     },
 
     async tour(theme, accent, file): Promise<TourResult> {

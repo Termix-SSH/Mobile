@@ -6,14 +6,20 @@ export interface Shot {
   src: string;
   width: number;
   height: number;
+  /** Pixels cut off the top and bottom (status bar and home bar). */
+  crop: { top: number; bottom: number };
 }
+
+export type DeviceKind = "phone" | "tablet";
 
 export type SlideProps = {
   width: number;
   height: number;
+  /** Words between stars show in the accent color. */
   title: string;
   subtitle: string;
   shots: Shot[];
+  kind: DeviceKind;
   theme: string;
   accent: string;
   /** The first slide carries the logo. */
@@ -22,7 +28,7 @@ export type SlideProps = {
 
 export function Logo({ size, colors }: { size: number; colors: Palette }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: size * 0.32 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: size * 0.3 }}>
       <Img
         src={staticFile("brand/logo.svg")}
         style={{ width: size, height: size }}
@@ -31,9 +37,9 @@ export function Logo({ size, colors }: { size: number; colors: Palette }) {
         style={{
           fontFamily,
           fontWeight: 800,
-          fontSize: size * 0.62,
+          fontSize: size * 0.6,
           color: colors.foreground,
-          letterSpacing: -1,
+          letterSpacing: -size * 0.02,
         }}
       >
         Termix
@@ -42,105 +48,282 @@ export function Logo({ size, colors }: { size: number; colors: Palette }) {
   );
 }
 
-/** Title block: accent bar, headline, gray line under it. */
+/** "Your servers, in your *pocket*" with the starred words in the accent. */
+function Accented({ text, accent }: { text: string; accent: string }) {
+  return (
+    <>
+      {text.split(/(\*[^*]+\*)/).map((part, i) =>
+        part.startsWith("*") ? (
+          <span key={i} style={{ color: accent }}>
+            {part.slice(1, -1)}
+          </span>
+        ) : (
+          <span key={i}>{part}</span>
+        ),
+      )}
+    </>
+  );
+}
+
+/** Headline and gray line under it. `size` is the headline font size. */
 export function Heading({
   title,
   subtitle,
-  unit,
+  size,
   colors,
   logo,
-  align = "center",
 }: {
   title: string;
   subtitle: string;
-  unit: number;
+  size: number;
   colors: Palette;
   logo: boolean;
-  align?: "center" | "left";
 }) {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        alignItems: align === "center" ? "center" : "flex-start",
-        textAlign: align,
-        gap: unit * 0.9,
+        alignItems: "center",
+        textAlign: "center",
+        gap: size * 0.32,
       }}
     >
       {logo ? (
-        <div style={{ marginBottom: unit * 0.8 }}>
-          <Logo size={unit * 3.4} colors={colors} />
+        <div style={{ marginBottom: size * 0.25 }}>
+          <Logo size={size * 0.95} colors={colors} />
         </div>
       ) : null}
       <div
         style={{
-          width: unit * 3.2,
-          height: unit * 0.45,
-          background: colors.accent,
-        }}
-      />
-      <div
-        style={{
           fontFamily,
-          fontWeight: 700,
-          fontSize: unit * 3.6,
-          lineHeight: 1.15,
-          letterSpacing: -unit * 0.06,
+          fontWeight: 800,
+          fontSize: size,
+          lineHeight: 1.12,
+          letterSpacing: -size * 0.035,
           color: colors.foreground,
         }}
       >
-        {title}
+        <Accented text={title} accent={colors.accent} />
       </div>
-      <div
-        style={{
-          fontFamily,
-          fontWeight: 400,
-          fontSize: unit * 1.9,
-          lineHeight: 1.35,
-          color: colors.muted,
-        }}
-      >
-        {subtitle}
-      </div>
+      {subtitle ? (
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 400,
+            fontSize: size * 0.46,
+            lineHeight: 1.35,
+            color: colors.muted,
+          }}
+        >
+          {subtitle}
+        </div>
+      ) : null}
     </div>
   );
 }
 
-/** A screenshot in a thin frame, scaled to fit the box. */
-export function Framed({
+const BEZEL = { phone: 0.032, tablet: 0.022 };
+const RADIUS = { phone: 0.1, tablet: 0.04 };
+
+/**
+ * Source pixels added above and below a cropped screenshot, so the app does
+ * not run into the rounded screen corners.
+ */
+function margin(shot: Shot) {
+  return shot.crop.top || shot.crop.bottom ? Math.round(shot.width * 0.035) : 0;
+}
+
+function screenHeight(shot: Shot) {
+  return shot.height - shot.crop.top - shot.crop.bottom + margin(shot) * 2;
+}
+
+/** One row of the screenshot stretched to fill a margin strip. */
+function Strip({
   shot,
-  maxWidth,
-  maxHeight,
-  colors,
-  border,
+  row,
+  width,
+  height,
+  scale,
 }: {
   shot: Shot;
-  maxWidth: number;
-  maxHeight: number;
-  colors: Palette;
-  border: number;
+  row: number;
+  width: number;
+  height: number;
+  scale: number;
 }) {
-  const scale = Math.min(maxWidth / shot.width, maxHeight / shot.height);
-  const w = Math.round(shot.width * scale);
-  const h = Math.round(shot.height * scale);
+  const stretch = height / scale;
   return (
     <div
       style={{
-        width: w,
-        height: h,
-        border: `${border}px solid ${colors.dark ? "rgba(255,255,255,0.16)" : colors.border}`,
-        boxShadow: colors.dark
-          ? "0 24px 80px rgba(0,0,0,0.55)"
-          : "0 24px 80px rgba(0,0,0,0.12)",
-        overflow: "hidden",
+        width,
+        height,
+        backgroundImage: `url(${staticFile(shot.src)})`,
+        backgroundSize: `${width}px ${shot.height * scale * stretch}px`,
+        backgroundPosition: `0 ${-(row + 0.5) * scale * stretch + height / 2}px`,
+        backgroundRepeat: "no-repeat",
+      }}
+    />
+  );
+}
+
+/** Device height for a device `width` px wide. */
+function deviceHeight(shot: Shot, kind: DeviceKind, width: number) {
+  const bezel = width * BEZEL[kind];
+  return ((width - bezel * 2) * screenHeight(shot)) / shot.width + bezel * 2;
+}
+
+/** The widest device that fits in the box. */
+function fitWidth(shot: Shot, kind: DeviceKind, maxW: number, maxH: number) {
+  return Math.min(maxW, maxH / (deviceHeight(shot, kind, 1000) / 1000));
+}
+
+/** One screenshot filling the screen, with its margin strips. */
+function Screen({
+  shot,
+  width,
+  scale,
+}: {
+  shot: Shot;
+  width: number;
+  scale: number;
+}) {
+  const m = margin(shot);
+  return (
+    <>
+      <Img
+        src={staticFile(shot.src)}
+        style={{
+          position: "absolute",
+          left: 0,
+          top: (m - shot.crop.top) * scale,
+          width,
+          height: shot.height * scale,
+        }}
+      />
+      {m ? (
+        <>
+          <div style={{ position: "absolute", top: 0, left: 0 }}>
+            <Strip
+              shot={shot}
+              row={shot.crop.top + 1}
+              width={width}
+              height={m * scale}
+              scale={scale}
+            />
+          </div>
+          <div style={{ position: "absolute", bottom: 0, left: 0 }}>
+            <Strip
+              shot={shot}
+              row={shot.height - shot.crop.bottom - 2}
+              width={width}
+              height={m * scale}
+              scale={scale}
+            />
+          </div>
+        </>
+      ) : null}
+    </>
+  );
+}
+
+/** Slanted band i of n down a w x h screen, top to bottom. */
+function band(i: number, n: number, w: number, h: number) {
+  const skew = Math.min(w, h) * 0.08;
+  const y = (k: number, d: number) =>
+    k <= 0 ? 0 : k >= n ? h : (k / n) * h + d;
+  return `polygon(0 ${y(i, skew)}px, ${w}px ${y(i, -skew)}px, ${w}px ${y(i + 1, -skew)}px, 0 ${y(i + 1, skew)}px)`;
+}
+
+/**
+ * Screenshots inside a plain dark device body. More than one splits the
+ * screen into slanted bands, one per shot.
+ */
+export function Device({
+  shots,
+  kind,
+  width,
+  dark,
+}: {
+  shots: Shot[];
+  kind: DeviceKind;
+  width: number;
+  dark: boolean;
+}) {
+  const shot = shots[0];
+  const bezel = width * BEZEL[kind];
+  const height = deviceHeight(shot, kind, width);
+  const screenH = height - bezel * 2;
+  const radius = Math.min(width, height) * RADIUS[kind];
+  const screenW = width - bezel * 2;
+  const scale = screenW / shot.width;
+  const edge = Math.max(2, width * 0.004);
+  const button = (side: "left" | "right", top: number, length: number) => (
+    <div
+      style={{
+        position: "absolute",
+        [side]: -edge * 2.2,
+        top: height * top,
+        width: edge * 2.6,
+        height: height * length,
+        borderRadius: edge * 2,
+        background: "#2b2c31",
+      }}
+    />
+  );
+  return (
+    <div
+      style={{
+        position: "relative",
+        width,
+        height,
+        padding: bezel,
+        borderRadius: radius,
+        background:
+          "linear-gradient(160deg, #34353a 0%, #121315 45%, #0b0b0c 100%)",
+        boxShadow: [
+          `0 0 0 ${edge}px #3d3e44`,
+          `inset 0 0 0 ${edge}px rgba(255,255,255,0.06)`,
+          `0 ${width * 0.05}px ${width * 0.14}px rgba(0,0,0,${dark ? 0.55 : 0.28})`,
+        ].join(", "),
         flexShrink: 0,
       }}
     >
-      <Img
-        src={staticFile(shot.src)}
-        style={{ width: "100%", height: "100%" }}
-      />
+      {kind === "phone" ? (
+        <>
+          {button("left", 0.17, 0.045)}
+          {button("left", 0.24, 0.08)}
+          {button("left", 0.335, 0.08)}
+          {button("right", 0.26, 0.12)}
+        </>
+      ) : null}
+      <div
+        style={{
+          position: "relative",
+          width: screenW,
+          height: screenH,
+          borderRadius: radius - bezel,
+          overflow: "hidden",
+          background: "#000",
+        }}
+      >
+        {shots.length === 1 ? (
+          <Screen shot={shot} width={screenW} scale={scale} />
+        ) : (
+          shots.map((one, i) => (
+            <div
+              key={one.src}
+              style={{
+                position: "absolute",
+                inset: 0,
+                clipPath: band(i, shots.length, screenW, screenH),
+              }}
+            >
+              <Screen shot={one} width={screenW} scale={scale} />
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
@@ -150,7 +333,7 @@ export function wrapLines(text: string, width: number, size: number): number {
   const perLine = Math.max(1, Math.floor(width / (size * 0.6)));
   let lines = 1;
   let used = 0;
-  for (const word of text.split(" ")) {
+  for (const word of text.replace(/\*/g, "").split(" ")) {
     const need = used ? used + 1 + word.length : word.length;
     if (need > perLine && used) {
       lines++;
@@ -161,124 +344,71 @@ export function wrapLines(text: string, width: number, size: number): number {
 }
 
 export function Slide(props: SlideProps) {
-  const { width, height, shots } = props;
+  const { width, height, shots, kind } = props;
   const colors = palette(props.theme, props.accent);
   const landscape = width > height;
-  // One unit is about 2.1% of the short side; everything scales with it.
-  const unit = Math.min(width, height) * 0.021;
-  const pad = Math.min(width, height) * 0.07;
-  const border = Math.max(2, Math.round(unit * 0.12));
-  const heading = (
-    <Heading
-      title={props.title}
-      subtitle={props.subtitle}
-      unit={unit}
-      colors={colors}
-      logo={props.logo}
-      align={landscape ? "left" : "center"}
-    />
+  const short = Math.min(width, height);
+  const pad = short * 0.07;
+  const size = short * (landscape ? 0.052 : 0.07);
+  const textW = Math.min(width - pad * 2, landscape ? width * 0.7 : width);
+
+  const headingH =
+    (props.logo ? size * 1.2 : 0) +
+    wrapLines(props.title, textW, size) * size * 1.12 +
+    (props.subtitle
+      ? size * 0.32 +
+        wrapLines(props.subtitle, textW, size * 0.46) * size * 0.62
+      : 0);
+  const top = pad * 1.1;
+  const gap = short * 0.06;
+  const boxTop = top + headingH + gap;
+  const boxW = width - pad * 2;
+  const boxH = height - boxTop - pad * 0.9;
+
+  const deviceW = fitWidth(shots[0], kind, boxW, boxH);
+  const devices = (
+    <Device shots={shots} kind={kind} width={deviceW} dark={colors.dark} />
   );
 
-  const shotsRow = (boxW: number, boxH: number) => {
-    if (shots.length === 1) {
-      return (
-        <Framed
-          shot={shots[0]}
-          maxWidth={boxW}
-          maxHeight={boxH}
-          colors={colors}
-          border={border}
-        />
-      );
-    }
-    // Several shots fan out: the middle one in front, the others behind it.
-    const middle = Math.floor(shots.length / 2);
-    const each = Math.min(
-      boxW * 0.58,
-      boxH * 0.92 * (shots[0].width / shots[0].height),
-    );
-    const step = (boxW - each) / Math.max(1, shots.length - 1);
-    return (
-      <div style={{ position: "relative", width: boxW, height: boxH }}>
-        {shots.map((shot, i) => {
-          const side = i !== middle;
-          return (
-            <div
-              key={shot.src}
-              style={{
-                position: "absolute",
-                left: step * i,
-                top: 0,
-                bottom: 0,
-                display: "flex",
-                alignItems: "center",
-                zIndex: side ? 1 : 2,
-                transform: side ? "scale(0.9)" : undefined,
-              }}
-            >
-              <Framed
-                shot={shot}
-                maxWidth={each}
-                maxHeight={boxH}
-                colors={colors}
-                border={border}
-              />
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  if (landscape) {
-    const textW = width * 0.34;
-    return (
+  return (
+    <AbsoluteFill style={{ background: colors.background, overflow: "hidden" }}>
+      {/* Soft accent light behind the device. */}
       <AbsoluteFill
         style={{
-          background: colors.background,
-          flexDirection: "row",
-          alignItems: "center",
-          padding: pad,
-          gap: pad,
+          background: `radial-gradient(ellipse ${width * 0.75}px ${height * 0.5}px at 50% ${landscape ? 70 : 64}%, ${colors.accent}${colors.dark ? "2e" : "24"} 0%, transparent 70%)`,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top,
+          left: (width - textW) / 2,
+          width: textW,
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <div style={{ width: textW, flexShrink: 0 }}>{heading}</div>
-        {shotsRow(width - textW - pad * 3, height - pad * 2)}
-      </AbsoluteFill>
-    );
-  }
-
-  const textW = width - pad * 2;
-  const headingH =
-    (props.logo ? unit * 4.2 : 0) +
-    unit * 0.45 +
-    unit * 0.9 * 2 +
-    wrapLines(props.title, textW, unit * 3.6) * unit * 3.6 * 1.15 +
-    wrapLines(props.subtitle, textW, unit * 1.9) * unit * 1.9 * 1.35 +
-    unit * 2;
-  return (
-    <AbsoluteFill
-      style={{
-        background: colors.background,
-        alignItems: "center",
-        padding: pad,
-        paddingTop: pad * 1.15,
-      }}
-    >
-      <div
-        style={{ height: headingH, display: "flex", alignItems: "flex-start" }}
-      >
-        {heading}
+        <Heading
+          title={props.title}
+          subtitle={props.subtitle}
+          size={size}
+          colors={colors}
+          logo={props.logo}
+        />
       </div>
       <div
         style={{
-          flex: 1,
+          position: "absolute",
+          top: boxTop,
+          left: pad,
+          width: boxW,
+          height: boxH,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        {shotsRow(width - pad * 2, height - headingH - pad * 2.6)}
+        {devices}
       </div>
     </AbsoluteFill>
   );

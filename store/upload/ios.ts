@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { basename, join } from "node:path";
-import type { Device } from "../devices";
+import type { Output } from "../devices";
 import { jwt } from "./jwt";
 
 const API = "https://api.appstoreconnect.apple.com/v1";
@@ -237,7 +237,7 @@ async function replaceSet(
 
 export async function uploadIos(
   cfg: AscConfig,
-  devices: Device[],
+  devices: Output[],
   finalDir: string,
 ) {
   const call = client(cfg);

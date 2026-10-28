@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, join } from "node:path";
-import type { Device } from "../devices";
+import type { Output } from "../devices";
 import { jwt } from "./jwt";
 
 const API = "https://androidpublisher.googleapis.com/androidpublisher/v3";
@@ -39,7 +39,7 @@ async function token(cfg: PlayConfig): Promise<string> {
 /** Replaces the Play listing images for each device in one edit. */
 export async function uploadAndroid(
   cfg: PlayConfig,
-  devices: Device[],
+  devices: Output[],
   finalDir: string,
 ) {
   const work = devices
