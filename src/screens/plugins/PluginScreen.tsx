@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { BackHandler, Dimensions, Pressable, View } from "react-native";
+import { BackHandler, Pressable, View } from "react-native";
+import { currentWindowSize } from "@/utils/window-class";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Blocks, RotateCw } from "lucide-react-native";
@@ -20,7 +21,7 @@ import { EmptyState, Text } from "@/ui";
 import { Screen } from "@/components/Screen";
 
 function device(): "phone" | "tablet" {
-  const { width, height } = Dimensions.get("window");
+  const { width, height } = currentWindowSize();
   return Math.min(width, height) >= 600 ? "tablet" : "phone";
 }
 

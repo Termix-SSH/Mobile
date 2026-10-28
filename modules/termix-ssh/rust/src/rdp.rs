@@ -21,7 +21,10 @@ use ironrdp_tokio::{single_sequence_step_read, FramedWrite, MovableTokioFramed, 
 use tokio::io::{AsyncRead, AsyncWrite};
 use tokio::sync::mpsc;
 
-use crate::display::{Damage, DisplayCallbacks, DisplayConfig, Input};
+use std::time::{Duration, Instant};
+
+use crate::display::{crop, Damage, DisplayCallbacks, DisplayConfig, Input};
+use crate::rdp_screen::{has_content, Cursor, FirstPaint, Shape};
 use crate::remote::Conn;
 use crate::SshError;
 
@@ -81,12 +84,13 @@ fn connector_config(config: &DisplayConfig) -> connector::Config {
         client_dir: "C:\\Windows\\System32\\mstscax.dll".to_owned(),
         platform: MajorPlatformType::UNSPECIFIED,
         compression_type: None,
-        enable_server_pointer: false,
+        // We draw the cursor ourselves (rdp_screen), from the shapes the server sends.
+        enable_server_pointer: true,
         autologon,
         enable_audio_playback: false,
         enable_audio_capture: false,
         request_data: None,
-        pointer_software_rendering: true,
+        pointer_software_rendering: false,
         multitransport_flags: None,
         support_dyn_vc_gfx_protocol: false,
         performance_flags: PerformanceFlags::DISABLE_WALLPAPER
@@ -176,11 +180,10 @@ pub(crate) async fn start(
         rt.block_on(async move {
             match connect(conn, &config).await {
                 Ok((result, framed)) => {
-                    let session = Active::new(result, framed);
+                    let session = Active::new(result, framed, config.scale);
                     cb.on_resize(session.image.width() as u32, session.image.height() as u32);
-                    if done.send(Ok(())).is_ok() {
-                        session.run(input, cb).await;
-                    }
+                    // Resolves once the desktop is drawn, so the app shows it ready, not black.
+                    session.run(input, cb, done).await;
                 }
                 Err(e) => {
                     done.send(Err(e)).ok();
@@ -198,10 +201,14 @@ struct Active {
     factory: connector::connection_activation::ConnectionActivationFactory,
     buttons: u8,
     last: (u16, u16),
+    cursor: Cursor,
+    paint: FirstPaint,
 }
 
+type Ready = tokio::sync::oneshot::Sender<Result<(), SshError>>;
+
 impl Active {
-    fn new(result: connector::ConnectionResult, framed: Framed) -> Self {
+    fn new(result: connector::ConnectionResult, framed: Framed, scale: u32) -> Self {
         let image = DecodedImage::new(PixelFormat::RgbA32, result.desktop_size.width, result.desktop_size.height);
         let stage = ActiveStageBuilder {
             static_channels: result.static_channels,
@@ -214,7 +221,29 @@ impl Active {
             pointer_software_rendering: result.pointer_software_rendering,
         }
         .build();
-        Self { framed, stage, image, factory: result.activation_factory, buttons: 0, last: (0, 0) }
+        let (w, h) = (result.desktop_size.width, result.desktop_size.height);
+        // The arrow follows the desktop scale; the app's trackpad cursor starts in the middle too.
+        let cursor = Cursor::new(((scale + 50) / 100).max(1), w as u32 / 2, h as u32 / 2);
+        Self {
+            framed,
+            stage,
+            image,
+            factory: result.activation_factory,
+            buttons: 0,
+            last: (0, 0),
+            cursor,
+            paint: FirstPaint::new(Instant::now()),
+        }
+    }
+
+    /// Sends the changed pixels with the cursor blended in.
+    fn flush(&self, damage: &mut Damage, cb: &Arc<dyn DisplayCallbacks>) {
+        let (fw, fh) = (self.image.width() as u32, self.image.height() as u32);
+        if let Some((x, y, w, h)) = damage.take(fw, fh) {
+            let mut px = crop(self.image.data(), fw, x, y, w, h);
+            self.cursor.draw(&mut px, x, y, w, h);
+            cb.on_frame(x, y, w, h, px);
+        }
     }
 }
 
@@ -224,8 +253,10 @@ enum Flow {
 }
 
 impl Active {
-    async fn run(mut self, mut input: mpsc::UnboundedReceiver<Input>, cb: Arc<dyn DisplayCallbacks>) {
+    async fn run(mut self, mut input: mpsc::UnboundedReceiver<Input>, cb: Arc<dyn DisplayCallbacks>, done: Ready) {
+        let mut ready = Some(done);
         let reason = loop {
+            let waiting = ready.is_some();
             let flow = tokio::select! {
                 pdu = self.framed.read_pdu() => match pdu {
                     Ok((action, payload)) => self.on_pdu(action, payload.to_vec(), &cb).await,
@@ -238,12 +269,29 @@ impl Active {
                     }
                     Some(msg) => self.on_input(msg, &cb).await,
                 },
+                // Checks the first paint while the server is quiet.
+                _ = tokio::time::sleep(Duration::from_millis(100)), if waiting => Flow::Go,
             };
             if let Flow::Stop(reason) = flow {
                 break reason;
             }
+            if waiting
+                && self.paint.ready(Instant::now())
+                && let Some(done) = ready.take()
+                && done.send(Ok(())).is_err()
+            {
+                // Nobody is waiting for this session any more.
+                self.close().await;
+                return;
+            }
         };
-        cb.on_closed(reason);
+        match ready {
+            Some(done) => {
+                let msg = reason.unwrap_or_else(|| "RDP stopped while connecting".into());
+                done.send(Err(SshError::Connect { msg })).ok();
+            }
+            None => cb.on_closed(reason),
+        }
     }
 
     // Owned buffers here: borrowed slices across these awaits trip the compiler's Send check.
@@ -257,6 +305,7 @@ impl Active {
             Err(e) => return Flow::Stop(Some(format!("RDP: {e}"))),
         };
         let mut damage = Damage::default();
+        let mut drawn = Damage::default();
         for out in outputs {
             match out {
                 ActiveStageOutput::ResponseFrame(frame) => {
@@ -268,20 +317,44 @@ impl Active {
                     let w = (r.right.saturating_sub(r.left) + 1) as u32;
                     let h = (r.bottom.saturating_sub(r.top) + 1) as u32;
                     damage.add(r.left as u32, r.top as u32, w, h);
+                    drawn.add(r.left as u32, r.top as u32, w, h);
+                }
+                ActiveStageOutput::PointerBitmap(p) => {
+                    if let Some(shape) = Shape::from_pointer(&p) {
+                        self.cursor.set_shape(shape, &mut damage);
+                    }
+                }
+                ActiveStageOutput::PointerDefault => {
+                    let scale = self.cursor.scale();
+                    self.cursor.set_shape(Shape::arrow(scale), &mut damage);
+                }
+                ActiveStageOutput::PointerHidden => self.cursor.set_visible(false, &mut damage),
+                ActiveStageOutput::PointerPosition { x, y } => {
+                    self.cursor.move_to(x as u32, y as u32, &mut damage);
                 }
                 ActiveStageOutput::DeactivateAll => {
                     if let Err(e) = self.reactivate(cb).await {
                         return Flow::Stop(Some(e));
                     }
                     damage = Damage::default();
+                    drawn = Damage::default();
                 }
                 ActiveStageOutput::Terminate(reason) => return Flow::Stop(Some(reason.description().to_string())),
                 _ => {}
             }
         }
-        let (w, h) = (self.image.width() as u32, self.image.height() as u32);
-        damage.flush(&**cb, self.image.data(), w, h);
+        self.note_paint(drawn);
+        self.flush(&mut damage, cb);
         Flow::Go
+    }
+
+    /// Tells the first paint check what the server just drew.
+    fn note_paint(&mut self, mut drawn: Damage) {
+        let (fw, fh) = (self.image.width() as u32, self.image.height() as u32);
+        let Some((x, y, w, h)) = drawn.take(fw, fh) else { return };
+        let content =
+            !self.paint.waiting_for_content() || has_content(self.image.data(), fw, x, y, w, h);
+        self.paint.drew(Instant::now(), w as u64 * h as u64, fw as u64 * fh as u64, content);
     }
 
     /// The server's Deactivate All, sent after a resize: run the activation again on the same socket.
@@ -325,7 +398,12 @@ impl Active {
 
     async fn on_input(&mut self, input: Input, cb: &Arc<dyn DisplayCallbacks>) -> Flow {
         let events = match input {
-            Input::Pointer { x, y, buttons } => self.pointer(x, y, buttons),
+            Input::Pointer { x, y, buttons } => {
+                let mut damage = Damage::default();
+                self.cursor.move_to(x, y, &mut damage);
+                self.flush(&mut damage, cb);
+                self.pointer(x, y, buttons)
+            }
             Input::KeySym { sym, down } => key_events(sym, down),
             Input::Unicode { ch, down } => unicode_events(ch, down),
             Input::Resize { width, height, scale } => {
@@ -342,7 +420,7 @@ impl Active {
                 let (w, h) = (self.image.width() as u32, self.image.height() as u32);
                 let mut all = Damage::default();
                 all.add(0, 0, w, h);
-                all.flush(&**cb, self.image.data(), w, h);
+                self.flush(&mut all, cb);
                 return Flow::Go;
             }
             // The clipboard channel is a follow up after the prototype.

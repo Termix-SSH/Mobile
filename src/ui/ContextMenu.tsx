@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
-import { Modal, Pressable, View, useWindowDimensions } from "react-native";
+import { Modal, Pressable, View } from "react-native";
+import { useWindowInfo } from "@/utils/window-class";
 import { Text } from "./Text";
 import { useUiColors } from "@/contexts/ThemeContext";
 
@@ -88,7 +89,7 @@ export function ContextMenu({
   onClose: () => void;
 }) {
   const ui = useUiColors();
-  const win = useWindowDimensions();
+  const win = useWindowInfo();
   const pos = at
     ? menuPosition(
         at,

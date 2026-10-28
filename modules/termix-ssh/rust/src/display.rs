@@ -186,15 +186,20 @@ impl Damage {
         self.x2 <= self.x1 || self.y2 <= self.y1
     }
 
-    /// Sends the area's pixels from an RGBA buffer `width` pixels wide, then clears it.
-    pub(crate) fn flush(&mut self, cb: &dyn DisplayCallbacks, rgba: &[u8], width: u32, height: u32) {
+    /// The area clipped to the frame as (x, y, w, h), then clears it.
+    pub(crate) fn take(&mut self, width: u32, height: u32) -> Option<(u32, u32, u32, u32)> {
+        let (x1, y1) = (self.x1, self.y1);
         let x2 = self.x2.min(width);
         let y2 = self.y2.min(height);
-        if self.x1 < x2 && self.y1 < y2 {
-            let (w, h) = (x2 - self.x1, y2 - self.y1);
-            cb.on_frame(self.x1, self.y1, w, h, crop(rgba, width, self.x1, self.y1, w, h));
-        }
         *self = Damage::default();
+        (x1 < x2 && y1 < y2).then(|| (x1, y1, x2 - x1, y2 - y1))
+    }
+
+    /// Sends the area's pixels from an RGBA buffer `width` pixels wide, then clears it.
+    pub(crate) fn flush(&mut self, cb: &dyn DisplayCallbacks, rgba: &[u8], width: u32, height: u32) {
+        if let Some((x, y, w, h)) = self.take(width, height) {
+            cb.on_frame(x, y, w, h, crop(rgba, width, x, y, w, h));
+        }
     }
 }
 

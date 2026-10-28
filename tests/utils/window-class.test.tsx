@@ -1,4 +1,9 @@
+import { fireEvent, render, screen } from "@testing-library/react-native";
+import { Text } from "react-native";
 import {
+  WindowSizeRoot,
+  currentWindowSize,
+  useWindowInfo,
   windowClassFor,
   windowInfo,
   MEDIUM_MIN_WIDTH,
@@ -42,5 +47,26 @@ describe("windowInfo", () => {
   it("follows a foldable unfolding", () => {
     expect(windowInfo(360, 800).isWide).toBe(false);
     expect(windowInfo(840, 900).windowClass).toBe("expanded");
+  });
+});
+
+describe("WindowSizeRoot", () => {
+  function Probe() {
+    const w = useWindowInfo();
+    return <Text testID="probe">{`${w.width}x${w.height}`}</Text>;
+  }
+
+  it("uses the measured root size over a stale window size", async () => {
+    await render(
+      <WindowSizeRoot>
+        <Probe />
+      </WindowSizeRoot>,
+    );
+    // The event bubbles up to the root view's handler.
+    await fireEvent(screen.getByTestId("probe"), "layout", {
+      nativeEvent: { layout: { x: 0, y: 0, width: 852, height: 393 } },
+    });
+    expect(screen.getByTestId("probe")).toHaveTextContent("852x393");
+    expect(currentWindowSize()).toEqual({ width: 852, height: 393 });
   });
 });

@@ -9,6 +9,8 @@ mod keys;
 mod proxy;
 #[cfg(feature = "rdp")]
 mod rdp;
+#[cfg(feature = "rdp")]
+mod rdp_screen;
 mod remote;
 mod session;
 mod sftp;

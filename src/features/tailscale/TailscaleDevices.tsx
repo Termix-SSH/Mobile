@@ -1,11 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
-import {
-  ActivityIndicator,
-  Pressable,
-  ScrollView,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { ActivityIndicator, Pressable, ScrollView, View } from "react-native";
+import { useWindowInfo } from "@/utils/window-class";
 import { Check, Radar, RefreshCw, Search, X } from "lucide-react-native";
 import { useCapability } from "@/core/features";
 import { useThemeColor } from "@/contexts/ThemeContext";
@@ -234,7 +229,7 @@ export function TailscaleDevices({
   onAddHost: (draft: Partial<SSHHost>) => void;
 }) {
   const color = useThemeColor();
-  const { height } = useWindowDimensions();
+  const { height } = useWindowInfo();
   const available = useCapability("hosts.discovery");
   const [query, setQuery] = useState("");
   const [usernames, setUsernames] = useState<Record<string, string>>({});

@@ -5,9 +5,9 @@ import {
   Platform,
   Pressable,
   ScrollView,
-  useWindowDimensions,
   View,
 } from "react-native";
+import { useWindowInfo } from "@/utils/window-class";
 import Animated, { ReduceMotion, SlideInDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { X } from "lucide-react-native";
@@ -84,7 +84,7 @@ export function Sheet({
   dismissable?: boolean;
 }) {
   const insets = useSafeAreaInsets();
-  const { width, height } = useWindowDimensions();
+  const { width, height } = useWindowInfo();
   const color = useThemeColor();
   const close = dismissable ? onClose : () => {};
   // A full width sheet keeps its rows clear of a notch held sideways.

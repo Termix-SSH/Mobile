@@ -33,6 +33,7 @@ import { ConfirmProvider } from "@/ui/Confirm";
 import { useReduceMotion } from "@/ui/motion";
 import { SudoPromptHost } from "@/screens/exec/SudoPromptHost";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { WindowSizeRoot } from "@/utils/window-class";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { FONT_MAP, MONO_FONT, MONO_FONT_BOLD } from "@/constants/fonts";
@@ -213,32 +214,34 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <ThemeProvider>
-          <ThemedStatusBar />
-          {!fontsLoaded ? (
-            <View className="flex-1 bg-background" />
-          ) : (
-            <AppLockProvider>
-              <AppProvider>
-                <TerminalSessionsProvider>
-                  <TerminalCustomizationProvider>
-                    <KeyboardProvider>
-                      <KeyPrefsProvider>
-                        <ConfirmProvider>
-                          <RootLayoutContent />
-                        </ConfirmProvider>
-                        <SudoPromptHost />
-                        <Toaster />
-                      </KeyPrefsProvider>
-                    </KeyboardProvider>
-                  </TerminalCustomizationProvider>
-                </TerminalSessionsProvider>
-              </AppProvider>
-            </AppLockProvider>
-          )}
-        </ThemeProvider>
-      </SafeAreaProvider>
+      <WindowSizeRoot>
+        <SafeAreaProvider>
+          <ThemeProvider>
+            <ThemedStatusBar />
+            {!fontsLoaded ? (
+              <View className="flex-1 bg-background" />
+            ) : (
+              <AppLockProvider>
+                <AppProvider>
+                  <TerminalSessionsProvider>
+                    <TerminalCustomizationProvider>
+                      <KeyboardProvider>
+                        <KeyPrefsProvider>
+                          <ConfirmProvider>
+                            <RootLayoutContent />
+                          </ConfirmProvider>
+                          <SudoPromptHost />
+                          <Toaster />
+                        </KeyPrefsProvider>
+                      </KeyboardProvider>
+                    </TerminalCustomizationProvider>
+                  </TerminalSessionsProvider>
+                </AppProvider>
+              </AppLockProvider>
+            )}
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </WindowSizeRoot>
     </GestureHandlerRootView>
   );
 }

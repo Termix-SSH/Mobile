@@ -647,7 +647,15 @@ export function NativeRemoteDesktop({
         mouseMode={mouseMode}
         onMouseMode={(m) => {
           setMouseMode(m);
-          gestures.current?.setMode(m);
+          const g = gestures.current;
+          if (!g) return;
+          g.setMode(m);
+          // Puts the remote cursor where the trackpad one starts.
+          display()?.pointer(
+            Math.round(g.cursor.x),
+            Math.round(g.cursor.y),
+            g.held,
+          );
         }}
         zoom={view?.zoom ?? 1}
         onResetZoom={() => setZoomPan({ zoom: 1, panX: 0, panY: 0 })}

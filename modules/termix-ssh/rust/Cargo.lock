@@ -3315,7 +3315,7 @@ dependencies = [
 
 [[package]]
 name = "termix_ssh_core"
-version = "0.4.3"
+version = "0.4.4"
 dependencies = [
  "aes 0.8.4",
  "async-trait",
