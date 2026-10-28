@@ -6,8 +6,7 @@ import { loadConsent } from "@/core/analytics/consent";
 import { installCrashReporting } from "@/core/analytics/crash";
 import { Button, Sheet, SheetBody, Text } from "@/ui";
 
-export const USAGE_DOCS_URL =
-  "https://docs.termix.site/install/apps/usage-statistics";
+export const USAGE_DOCS_URL = "https://docs.termix.site/privacy#mobile-app";
 
 /**
  * Loads the saved answer, sends the daily report and asks the first-run

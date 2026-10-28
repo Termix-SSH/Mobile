@@ -24,7 +24,7 @@
 
 ## Overview
 
-Termix Mobile is an SSH client for phones and tablets that works on its own: keep hosts on This device and connect straight from the phone. Link a [Termix](https://github.com/Termix-SSH/Termix) server to sync your hosts, logins and snippets with it. See the [mobile app docs](https://docs.termix.site/install/apps/mobile).
+Termix Mobile is an SSH client for phones and tablets that works on its own: keep hosts on This device and connect straight from the phone. Link a [Termix](https://github.com/Termix-SSH/Termix) server to sync your hosts, logins and snippets with it. See the [mobile app docs](https://docs.termix.site/mobile).
 
 The terminal, file manager, tunnels, Docker, metrics and services all work straight from the phone. With a server they can also go through its plugins.
 
@@ -53,13 +53,13 @@ Try Termix at [demo.termix.site](https://demo.termix.site/). Any username and pa
 - Settings: terminal look, keyboard, API keys, active sessions, two-factor, password and account deletion.
 - App lock: Face ID, Touch ID or fingerprint, with a PIN as backup.
 - Tablets and keyboards: a sidebar and split view on wide screens, resizable windows on iPad and Android, and app wide shortcuts for hardware keyboards.
-- Usage statistics: an anonymous daily report, off until you answer the question on first start. See [what is sent](https://docs.termix.site/install/apps/usage-statistics).
+- Usage statistics: an anonymous daily report, off until you answer the question on first start. See [what is sent](https://docs.termix.site/privacy#mobile-app).
 
 <br />
 
 ## Installation
 
-Termix Mobile is available for [Android](https://docs.termix.site/install/apps/android) and [iOS](https://docs.termix.site/install/apps/ios). To link a server, see [linking a server](https://docs.termix.site/install/apps/mobile-linking).
+Termix Mobile is available for [Android](https://docs.termix.site/install/apps/android) and [iOS](https://docs.termix.site/install/apps/ios). To link a server, see [linking a server](https://docs.termix.site/mobile/linking).
 
 <br />
 
