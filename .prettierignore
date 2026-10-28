@@ -21,3 +21,5 @@ modules/termix-ssh/android/src/main/jniLibs
 
 # Vendored upstream sources
 modules/termix-terminal/ios/vendor/
+store/out
+store/public

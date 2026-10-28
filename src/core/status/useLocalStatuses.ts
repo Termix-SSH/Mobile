@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { isLanAvailable, tcpProbe } from "@/modules/termix-net";
 import { sessionLifecycle } from "@/core/sessions";
+import { SHOWCASE } from "@/showcase/enabled";
+import { OFFLINE_IP } from "@/showcase/seed";
 import type { SSHHost } from "@/types";
 import { LocalStatusMonitor, type LocalStatus } from "./monitor";
 
@@ -14,9 +16,15 @@ export function useLocalStatuses(
   hosts: SSHHost[],
   enabled: boolean,
 ): Record<number, LocalStatus> {
-  const monitor = useMemo(() => new LocalStatusMonitor(tcpProbe), []);
+  const monitor = useMemo(
+    () =>
+      new LocalStatusMonitor(
+        SHOWCASE ? async (address) => address !== OFFLINE_IP : tcpProbe,
+      ),
+    [],
+  );
   const [statuses, setStatuses] = useState<Record<number, LocalStatus>>({});
-  const active = enabled && isLanAvailable();
+  const active = enabled && (SHOWCASE || isLanAvailable());
 
   useEffect(() => {
     if (!active) {

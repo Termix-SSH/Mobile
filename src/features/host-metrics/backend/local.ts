@@ -16,6 +16,8 @@ import {
 import type { ExecRunner } from "@/core/exec";
 import type { MetricPoint } from "@/core/data/types";
 import type { ServerMetrics } from "@/types";
+import { showcaseMetrics } from "@/showcase/backends";
+import { SHOWCASE } from "@/showcase/enabled";
 
 const DF = "@@TERMIX_DF@@";
 const DFH = "@@TERMIX_DFH@@";
@@ -159,6 +161,7 @@ export function createLocalMetrics(
     wait?: (ms: number) => Promise<void>;
   } = {},
 ) {
+  if (SHOWCASE) return showcaseMetrics(runner.hostId);
   let prev: LivePrev | undefined;
   let system: SystemInfo | null = null;
   const wait =

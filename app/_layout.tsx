@@ -52,6 +52,8 @@ import { useAppShortcuts } from "@/core/shortcuts/useAppShortcuts";
 import { CommandPalette } from "@/screens/palette/CommandPalette";
 import { LabLaunch } from "@/screens/dev/terminal-lab/LabLaunch";
 import { markStartup } from "@/core/perf/marks";
+import { SHOWCASE } from "@/showcase/enabled";
+import { ShowcaseHost } from "@/showcase/ShowcaseHost";
 // Defines the background sync task, which must exist when the app loads.
 import "@/core/sync/background";
 
@@ -140,6 +142,7 @@ function RootLayoutContent() {
       <WidgetDeepLinkHost />
       <OpenLinkHost />
       <LabLaunch />
+      {SHOWCASE ? <ShowcaseHost /> : null}
       <CommandPalette />
       <ShortcutSheet />
       <AccountSwitcher />

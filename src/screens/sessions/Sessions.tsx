@@ -79,6 +79,8 @@ import {
 } from "@/features/terminal/keyboard/terminalInputMapping";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { XTERM_FALLBACK } from "@/features/terminal/fallback";
+import { SHOWCASE } from "@/showcase/enabled";
+import { onShowcaseSplit } from "@/showcase/split";
 
 // The native terminal reads the keyboard itself; the hidden input is for the xterm fallback.
 const HIDDEN_INPUT = XTERM_FALLBACK;
@@ -477,6 +479,7 @@ export default function Sessions() {
   // Two tabs side by side on large screens. Kept in memory only.
   const [splitWith, setSplitWith] = useState<string | null>(null);
   const [splitRatio, setSplitRatio] = useState(0.5);
+  useEffect(() => (SHOWCASE ? onShowcaseSplit(setSplitWith) : undefined), []);
   const [stageWidth, setStageWidth] = useState(0);
   const stageRef = useRef<View>(null);
   const [stageX, setStageX] = useState<number | null>(null);

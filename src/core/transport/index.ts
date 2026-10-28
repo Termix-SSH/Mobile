@@ -3,6 +3,8 @@ import type { Account } from "@/core/accounts/types";
 import type { AccountClient } from "@/core/api/AccountClient";
 import { repositoriesFor } from "@/core/data/repositories";
 import { isSshEngineAvailable } from "@/modules/termix-ssh";
+import { SHOWCASE } from "@/showcase/enabled";
+import { showcaseTransport } from "@/showcase/transport";
 import { createLocalTransport, localTransport, NO_SERVER_COPY } from "./local";
 import {
   planConnection,
@@ -40,6 +42,7 @@ function relayFor(client: AccountClient): Transport {
 }
 
 function localFor(account: Account): Transport {
+  if (SHOWCASE) return showcaseTransport;
   if (account.kind === "local") return localTransport;
   let local = serverLocals.get(account.id);
   if (!local) {

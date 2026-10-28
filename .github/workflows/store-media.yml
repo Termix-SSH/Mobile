@@ -1,0 +1,270 @@
+name: Store Media
+
+# Store screenshots and App Previews from a showcase build (EXPO_PUBLIC_SHOWCASE=1):
+# fake hosts, no network. Captures on simulators and emulators, frames them in
+# store/render and uploads a zip artifact. The upload switches send them to
+# App Store Connect and Google Play.
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Platforms
+        type: choice
+        default: both
+        options: [both, ios, android]
+      media:
+        description: What to make
+        type: choice
+        default: both
+        options: [both, screenshots, video]
+      theme:
+        description: App theme for the shots
+        type: choice
+        default: dark
+        options:
+          [
+            dark,
+            light,
+            dracula,
+            catppuccin,
+            nord,
+            solarized,
+            tokyo-night,
+            one-dark,
+            gruvbox,
+          ]
+      accent:
+        description: Accent color (hex, no #)
+        type: string
+        default: f59145
+      upload_ios:
+        description: Upload to App Store Connect (the version open for edits)
+        type: boolean
+        default: false
+      upload_android:
+        description: Upload to the Google Play listing
+        type: boolean
+        default: false
+
+concurrency:
+  group: store-media-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ios:
+    name: Capture iOS
+    if: inputs.platform != 'android'
+    runs-on: blacksmith-6vcpu-macos-27
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      # The iPhone Duo simulator and its fold info need Xcode 27.1.
+      - name: Setup Xcode 27.1
+        id: xcode
+        continue-on-error: true
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "27.1"
+      - name: Setup newest Xcode
+        if: steps.xcode.outcome == 'failure'
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - name: Warn about the Duo
+        if: steps.xcode.outcome == 'failure'
+        run: echo "::warning::Xcode 27.1 is not on this runner, so the iPhone Duo shots will be skipped or letterboxed"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            store/package-lock.json
+      - run: npm ci
+      - run: npm ci
+        working-directory: store
+
+      - name: Prebuild
+        run: npx expo prebuild --platform ios --clean
+
+      - name: Build the showcase app for the simulator
+        working-directory: ios
+        env:
+          EXPO_PUBLIC_SHOWCASE: "1"
+        run: |
+          xcodebuild -workspace Termix.xcworkspace -scheme Termix -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO build > ../xcodebuild.log 2>&1 \
+            || { grep -E "error:|BUILD FAILED" ../xcodebuild.log | sort -u | head -80; exit 1; }
+
+      - name: Simulators on hand
+        run: xcrun simctl list devicetypes | grep -E "iPhone|iPad"
+
+      - name: Capture
+        working-directory: store
+        run: |
+          npm run capture -- --platform ios \
+            --app ../dd/Build/Products/Release-iphonesimulator/Termix.app \
+            --media "${{ inputs.media }}" --theme "${{ inputs.theme }}" --accent "${{ inputs.accent }}"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: store-raw-ios
+          path: store/out/raw
+          if-no-files-found: ignore
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: xcodebuild-log
+          path: xcodebuild.log
+          if-no-files-found: ignore
+
+  android:
+    name: Capture Android
+    if: inputs.platform != 'ios' && inputs.media != 'video'
+    runs-on: blacksmith-8vcpu-ubuntu-2404
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            store/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - run: npm ci
+      - run: npm ci
+        working-directory: store
+
+      - name: Prebuild
+        run: npx expo prebuild --platform android --no-install --clean
+
+      - name: Build the showcase APK (x86_64)
+        working-directory: android
+        env:
+          EXPO_PUBLIC_SHOWCASE: "1"
+        run: ./gradlew --console=plain :app:assembleRelease -PreactNativeArchitectures=x86_64
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Capture on a phone
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_7
+          avd-name: termix_phone
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: cd store && npm run capture -- --platform android --device android-phone --app ../android/app/build/outputs/apk/release/app-release.apk --media screenshots --theme "${{ inputs.theme }}" --accent "${{ inputs.accent }}"
+
+      - name: Capture on a tablet
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_tablet
+          avd-name: termix_tablet
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: cd store && npm run capture -- --platform android --device android-tablet --app ../android/app/build/outputs/apk/release/app-release.apk --media screenshots --theme "${{ inputs.theme }}" --accent "${{ inputs.accent }}"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: store-raw-android
+          path: store/out/raw
+          if-no-files-found: ignore
+          retention-days: 7
+
+  render:
+    name: Render
+    needs: [ios, android]
+    if: ${{ !cancelled() && (needs.ios.result == 'success' || needs.android.result == 'success') }}
+    runs-on: blacksmith-8vcpu-ubuntu-2404
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+          cache-dependency-path: store/package-lock.json
+      - name: Install ffmpeg and Chrome libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libnss3 libdbus-1-3 libatk1.0-0 libgbm-dev libasound2t64 \
+            libxrandr2 libxkbcommon-dev libxfixes3 libxcomposite1 libxdamage1 libatk-bridge2.0-0 \
+            libpango-1.0-0 libcairo2 libcups2
+      - run: npm ci
+        working-directory: store
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: store-raw-*
+          path: store/out/raw
+          merge-multiple: true
+      - name: Render
+        working-directory: store
+        run: npm run render -- --theme "${{ inputs.theme }}" --accent "${{ inputs.accent }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: store-media
+          path: store/out/final
+          retention-days: 30
+
+  upload:
+    name: Upload to the stores
+    needs: render
+    if: ${{ !cancelled() && needs.render.result == 'success' && (inputs.upload_ios || inputs.upload_android) }}
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+          cache-dependency-path: store/package-lock.json
+      - run: npm ci
+        working-directory: store
+      - uses: actions/download-artifact@v4
+        with:
+          name: store-media
+          path: store/out/final
+      - name: App Store Connect
+        if: inputs.upload_ios
+        working-directory: store
+        env:
+          ASC_KEY_ID: ${{ secrets.EXPO_ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.EXPO_ASC_ISSUER_ID }}
+          ASC_KEY_P8: ${{ secrets.EXPO_ASC_API_KEY_P8 }}
+          # The iPhone Duo's App Store types, once App Store Connect lists them.
+          STORE_DUO_SCREENSHOT_TYPE: ${{ vars.STORE_DUO_SCREENSHOT_TYPE }}
+          STORE_DUO_PREVIEW_TYPE: ${{ vars.STORE_DUO_PREVIEW_TYPE }}
+        run: npm run upload -- --platform ios
+      - name: Google Play
+        if: inputs.upload_android
+        working-directory: store
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON" ]; then
+            echo "::error::Add the GOOGLE_PLAY_SERVICE_ACCOUNT_JSON secret first"
+            exit 1
+          fi
+          npm run upload -- --platform android

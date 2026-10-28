@@ -4,6 +4,8 @@ import {
   type SshError,
   type SshFileEntry,
 } from "@/modules/termix-ssh";
+import { showcaseFiles } from "@/showcase/backends";
+import { SHOWCASE } from "@/showcase/enabled";
 import { mapLimit } from "@/utils/limit";
 import {
   copyName,
@@ -88,6 +90,7 @@ const reopenable = (error: unknown) => {
 export function createSftpBackend(
   open: () => Promise<HostSession>,
 ): FileBackend {
+  if (SHOWCASE) return showcaseFiles();
   let current: Promise<HostSession> | null = null;
   const users = new Map<number, string>();
   const groups = new Map<number, string>();

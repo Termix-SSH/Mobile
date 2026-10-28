@@ -48,8 +48,10 @@ class FrameMonitorModule : Module() {
     // Release builds keep this, unlike console.log on iOS. CI greps for it.
     Function("log") { line: String -> android.util.Log.i("TermixLab", line) }
 
-    // Android CI opens the lab with an intent, so there is nothing to read here.
-    Function("launchUrl") { null as String? }
+    // CI passes the URL as an intent extra: am start --es TERMIX_LAB_URL <url>.
+    Function("launchUrl") {
+      appContext.currentActivity?.intent?.getStringExtra("TERMIX_LAB_URL")
+    }
 
     Function("refreshRate") {
       @Suppress("DEPRECATION")

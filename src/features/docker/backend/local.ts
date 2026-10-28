@@ -18,6 +18,8 @@ import {
 } from "@termix-ssh/plugin-sdk/host-scripts";
 import type { ExecRunner, RunOptions } from "@/core/exec";
 import type { DockerContainer } from "@/types";
+import { showcaseDocker } from "@/showcase/backends";
+import { SHOWCASE } from "@/showcase/enabled";
 import type { DockerBackend, DockerCheck } from "./types";
 
 const MAX_COMPOSE_BYTES = 1024 * 1024;
@@ -69,6 +71,7 @@ export function createLocalDockerBackend(
   runner: ExecRunner,
   options: { prefer?: ContainerRuntime; sudo?: boolean; stacks?: boolean } = {},
 ): DockerBackend & { counts(signal?: AbortSignal): Promise<ContainerCounts> } {
+  if (SHOWCASE) return showcaseDocker(runner);
   let runtime: ContainerRuntime = options.prefer ?? "docker";
   const sudo = options.sudo ?? false;
   const opts = (o: RunOptions = {}): RunOptions => ({
