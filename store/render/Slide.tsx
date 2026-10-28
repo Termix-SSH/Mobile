@@ -102,6 +102,7 @@ export function Heading({
           lineHeight: 1.12,
           letterSpacing: -size * 0.035,
           color: colors.foreground,
+          textWrap: "balance",
         }}
       >
         <Accented text={title} accent={colors.accent} />
@@ -114,6 +115,7 @@ export function Heading({
             fontSize: size * 0.46,
             lineHeight: 1.35,
             color: colors.muted,
+            textWrap: "balance",
           }}
         >
           {subtitle}

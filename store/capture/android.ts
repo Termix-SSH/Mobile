@@ -43,12 +43,6 @@ export function androidTarget(
   demo("-e", "command", "network", "-e", "wifi", "show", "-e", "level", "4");
   demo("-e", "command", "notifications", "-e", "visible", "false");
 
-  // The terminal takes focus when it opens. With no input method on, no
-  // keyboard covers it.
-  for (const ime of shell("ime", "list", "-s").split("\n")) {
-    if (ime.trim()) shell("ime", "disable", ime.trim());
-  }
-
   adb("logcat", "-c");
   const log = new LogWatch("adb", [
     ...base,

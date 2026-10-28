@@ -223,6 +223,8 @@ export default function Sessions() {
   const keyboard = useCallback((action: "focus" | "blur" | "clear") => {
     // Never focus under the lock pad, or the keyboard covers it (#100).
     if (action === "focus" && isAppLocked()) return;
+    // Store shots show the terminal, not the keyboard.
+    if (action === "focus" && SHOWCASE) return;
     if (HIDDEN_INPUT) {
       callImeInput(hiddenInputRef, action);
       return;
