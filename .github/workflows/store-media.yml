@@ -162,7 +162,10 @@ jobs:
         working-directory: android
         env:
           EXPO_PUBLIC_SHOWCASE: "1"
-        run: ./gradlew --console=plain :app:assembleRelease -PreactNativeArchitectures=x86_64
+        # The default 2 GB heap runs out while merging dex files.
+        run: >-
+          ./gradlew --console=plain :app:assembleRelease -PreactNativeArchitectures=x86_64
+          "-Dorg.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=1g"
 
       - name: Enable KVM
         run: |
