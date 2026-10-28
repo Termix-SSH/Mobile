@@ -18,7 +18,7 @@ permissions:
 jobs:
   build:
     name: eas build --local (development, ios)
-    runs-on: blacksmith-6vcpu-macos-latest
+    runs-on: blacksmith-6vcpu-macos-27
     steps:
       - name: Setup repo
         uses: actions/checkout@v4

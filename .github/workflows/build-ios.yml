@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-ios:
-    runs-on: blacksmith-6vcpu-macos-latest
+    runs-on: blacksmith-6vcpu-macos-27
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
