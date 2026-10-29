@@ -111,6 +111,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
           expo-version: latest
           eas-version: latest
+          packager: npm
 
       - name: Install dependencies
         run: npm ci
