@@ -1,5 +1,6 @@
 /**
- * App Store header and search artwork from the raw captures.
+ * App Store header and search artwork and the Google Play feature graphic
+ * from the raw captures.
  *
  *   npm run banners
  *
@@ -34,6 +35,8 @@ const SUBTITLE = "SSH, files, Docker and remote desktop. No server needed.";
 const SIZES = [
   { id: "header", width: 3840, height: 1646 },
   { id: "search", width: 3840, height: 2560 },
+  // Google Play feature graphic.
+  { id: "feature", width: 1024, height: 500 },
 ];
 
 function shot(source: string, id: string): Shot {
