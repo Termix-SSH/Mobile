@@ -26,6 +26,8 @@ export function androidTarget(
   console.log(`  ${device.label} (${serial ?? "default emulator"})`);
   adb("wait-for-device");
   adb("install", "-r", "-g", apk);
+  // A busy emulator can pop "Pixel Launcher isn't responding" over the app.
+  shell("settings", "put", "global", "hide_error_dialogs", "1");
   shell("settings", "put", "global", "sysui_demo_allowed", "1");
   demo("-e", "command", "enter");
   demo("-e", "command", "clock", "-e", "hhmm", "0941");
@@ -76,6 +78,18 @@ export function androidTarget(
         new RegExp(`SHOWCASE_READY ${capture.scenario}\\b.*`),
         120_000,
       );
+      // Retried by the caller if a system dialog is in front of the app.
+      const focus = shell("dumpsys", "window", "displays");
+      const current = /mCurrentFocus=.*/.exec(focus)?.[0];
+      if (current && !current.includes(PACKAGE)) {
+        shell(
+          "am",
+          "broadcast",
+          "-a",
+          "android.intent.action.CLOSE_SYSTEM_DIALOGS",
+        );
+        throw new Error(`Not in front: ${current}`);
+      }
       const png = spawnSync("adb", [...base, "exec-out", "screencap", "-p"], {
         maxBuffer: 64 << 20,
       });
