@@ -238,6 +238,15 @@ jobs:
 
           echo "artifact_count=$ARTIFACT_COUNT" >> $GITHUB_OUTPUT
 
+      - name: Upload Android AAB
+        if: ${{ github.event.inputs.action == 'submit' && matrix.platform == 'android' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: termix_android_aab
+          path: build-artifacts/termix_android.aab
+          retention-days: 30
+          if-no-files-found: warn
+
       - name: Submit to App Store
         if: ${{ github.event.inputs.action == 'submit' }}
         run: |
