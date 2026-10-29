@@ -80,6 +80,8 @@ export const SCENARIOS: Scenario[] = [
 ];
 
 /** The App Preview: about 25 seconds through the main screens. */
+// Each caption mark comes after its screen opens, so the caption never shows
+// over the screen before it.
 export async function tour(ctl: ShowcaseControl): Promise<void> {
   openTab("/(tabs)/hosts");
   ctl.mark("hosts");
@@ -95,16 +97,16 @@ export async function tour(ctl: ShowcaseControl): Promise<void> {
   await shell?.type("docker ps");
   await ctl.wait(2200);
 
-  ctl.mark("files");
   await ctl.open(ctl.host(DOCKER_HOST), FILES);
+  ctl.mark("files");
   await ctl.wait(4000);
 
-  ctl.mark("metrics");
   await ctl.open(ctl.host(SECOND_HOST), "stats");
+  ctl.mark("metrics");
   await ctl.wait(4500);
 
-  ctl.mark("docker");
   await ctl.open(ctl.host(DOCKER_HOST), "docker");
+  ctl.mark("docker");
   await ctl.wait(4000);
 }
 
