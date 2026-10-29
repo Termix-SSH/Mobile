@@ -1,4 +1,4 @@
-import { AbsoluteFill, Img, staticFile } from "remotion";
+import { AbsoluteFill, Img, OffthreadVideo, staticFile } from "remotion";
 import { fontFamily, palette, type Palette } from "./theme";
 
 export interface Shot {
@@ -8,6 +8,8 @@ export interface Shot {
   height: number;
   /** Pixels cut off the top and bottom (status bar and home bar). */
   crop: { top: number; bottom: number; left?: number; right?: number };
+  /** A recording instead of a still: frame to start from, and the color for margin strips. */
+  video?: { startFrom: number; fill: string };
 }
 
 export type DeviceKind = "phone" | "tablet";
@@ -170,6 +172,9 @@ function Strip({
   height: number;
   scale: number;
 }) {
+  if (shot.video) {
+    return <div style={{ width, height, background: shot.video.fill }} />;
+  }
   const stretch = height / scale;
   return (
     <div
@@ -186,7 +191,7 @@ function Strip({
 }
 
 /** Device height for a device `width` px wide. */
-function deviceHeight(shot: Shot, kind: DeviceKind, width: number) {
+export function deviceHeight(shot: Shot, kind: DeviceKind, width: number) {
   const frame = width * (BEZEL[kind] + RIM[kind]);
   return (
     ((width - frame * 2) * screenHeight(shot, kind)) / visibleWidth(shot) +
@@ -214,16 +219,31 @@ function Screen({
   const m = margin(shot, kind);
   return (
     <>
-      <Img
-        src={staticFile(shot.src)}
-        style={{
-          position: "absolute",
-          left: -(shot.crop.left ?? 0) * scale,
-          top: (m - shot.crop.top) * scale,
-          width: shot.width * scale,
-          height: shot.height * scale,
-        }}
-      />
+      {shot.video ? (
+        <OffthreadVideo
+          src={staticFile(shot.src)}
+          startFrom={shot.video.startFrom}
+          muted
+          style={{
+            position: "absolute",
+            left: -(shot.crop.left ?? 0) * scale,
+            top: (m - shot.crop.top) * scale,
+            width: shot.width * scale,
+            height: shot.height * scale,
+          }}
+        />
+      ) : (
+        <Img
+          src={staticFile(shot.src)}
+          style={{
+            position: "absolute",
+            left: -(shot.crop.left ?? 0) * scale,
+            top: (m - shot.crop.top) * scale,
+            width: shot.width * scale,
+            height: shot.height * scale,
+          }}
+        />
+      )}
       {m ? (
         <>
           <div style={{ position: "absolute", top: 0, left: 0 }}>

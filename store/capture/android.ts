@@ -112,7 +112,7 @@ export function androidTarget(
       await sleep(1500);
       const recordedAt = Date.now();
       launch(showcaseUrl("tour", { theme, accent, video: true }));
-      const start = await log.wait(/SHOWCASE_START (\d+)/, 120_000);
+      const start = await log.wait(/SHOWCASE_START (\d+).*/, 120_000);
       const startedAt = Date.now();
       const done = await log.wait(/SHOWCASE_DONE (\d+)/, 150_000);
       await sleep(800);
@@ -127,6 +127,7 @@ export function androidTarget(
       const startMs = Number(start[1]);
       return {
         startOffset: (startedAt - recordedAt) / 1000,
+        crop: cropFrom(start),
         duration: (Number(done[1]) - startMs) / 1000,
         marks: log.matches(/SHOWCASE_MARK (\S+) (\d+)/).map((m) => ({
           name: m[1],

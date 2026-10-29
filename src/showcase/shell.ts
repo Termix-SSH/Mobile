@@ -14,6 +14,22 @@ export function latestShell(): ShowcaseShell | null {
   return last;
 }
 
+/**
+ * Waits for the newest shell to connect. The terminal view can take a few
+ * seconds to start on a simulator, and typing before that is lost.
+ */
+export async function waitForShell(
+  timeoutMs = 15000,
+): Promise<ShowcaseShell | null> {
+  const until = Date.now() + timeoutMs;
+  while (Date.now() < until) {
+    const shell = latestShell();
+    if (shell?.connected) return shell;
+    await wait(100);
+  }
+  return latestShell();
+}
+
 /** What a new shell runs first, so a still shot has something on screen. */
 let firstCommand: string | null = "fastfetch";
 
@@ -30,6 +46,7 @@ const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 export class ShowcaseShell implements ShellChannel {
   private line = "";
   private destroyed = false;
+  connected = false;
   private readonly user: string;
   private readonly host: string;
 
@@ -62,6 +79,7 @@ export class ShowcaseShell implements ShellChannel {
       out += firstCommand + "\r\n" + this.output(firstCommand) + this.prompt;
     }
     this.emit(out);
+    this.connected = true;
     this.options.onStateChange("dataReceived", { hostName: this.host });
   }
 

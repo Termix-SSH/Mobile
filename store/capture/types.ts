@@ -7,6 +7,8 @@ export interface TourResult {
   duration: number;
   /** Seconds after the tour start each caption begins. */
   marks: { name: string; t: number }[];
+  /** Status bar and home bar in the recording. */
+  crop?: Crop;
 }
 
 /** Pixels the app pads for the status bar and home bar. */

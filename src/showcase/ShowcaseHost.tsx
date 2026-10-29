@@ -58,6 +58,13 @@ export function ShowcaseHost() {
     if (!launch) return;
     started.current = true;
 
+    // Pixel insets let the capture crop off the status bar and home bar.
+    // An unfolded iPhone Duo has its status bar on the side.
+    const insets = () => {
+      const { top, bottom, left, right } = latest.current.insets;
+      const px = (n: number) => Math.round(n * PixelRatio.get());
+      return `insets=${[top, bottom, left, right].map(px).join(",")}`;
+    };
     const run = async () => {
       const t0 = Date.now();
       await setConsent("off");
@@ -99,7 +106,7 @@ export function ShowcaseHost() {
       };
 
       if (launch.video) {
-        log(`START ${Date.now() - t0}`);
+        log(`START ${Date.now() - t0} ${insets()}`);
         await tour(ctl);
         log(`DONE ${Date.now() - t0}`);
         return;
@@ -111,13 +118,7 @@ export function ShowcaseHost() {
       }
       await scenario.setup(ctl);
       await wait(SETTLE_MS);
-      // Pixel insets let the capture crop off the status bar and home bar.
-      // An unfolded iPhone Duo has its status bar on the side.
-      const { top, bottom, left, right } = latest.current.insets;
-      const px = (n: number) => Math.round(n * PixelRatio.get());
-      log(
-        `READY ${scenario.id} insets=${[top, bottom, left, right].map(px).join(",")}`,
-      );
+      log(`READY ${scenario.id} ${insets()}`);
     };
     run().catch((e) => log(`FAILED ${e instanceof Error ? e.message : e}`));
   }, [nav?.key, app.isLoading]);

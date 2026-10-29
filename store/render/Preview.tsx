@@ -2,12 +2,17 @@ import {
   AbsoluteFill,
   Audio,
   interpolate,
-  OffthreadVideo,
   staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { Heading } from "./Slide";
+import {
+  Device,
+  deviceHeight,
+  Heading,
+  type DeviceKind,
+  type Shot,
+} from "./Slide";
 import { palette } from "./theme";
 
 export type PreviewProps = {
@@ -17,6 +22,9 @@ export type PreviewProps = {
   video: string;
   videoWidth: number;
   videoHeight: number;
+  /** Status bar and home bar in the recording, cut off like the stills. */
+  crop: Shot["crop"];
+  kind: DeviceKind;
   /** Seconds into the recording where the tour starts. */
   startOffset: number;
   duration: number;
@@ -29,8 +37,8 @@ export type PreviewProps = {
 const FADE = 0.35;
 
 /**
- * The App Preview: the recorded tour in the same frame as the screenshots,
- * with a caption that changes at each mark.
+ * The App Preview: the recorded tour in the same device frame as the
+ * screenshots, with a caption that changes at each mark.
  */
 export function Preview(props: PreviewProps) {
   const frame = useCurrentFrame();
@@ -50,7 +58,18 @@ export function Preview(props: PreviewProps) {
   const headH = unit * 9;
   const boxW = props.width - pad * 2;
   const boxH = props.height - headH - pad * 2;
-  const scale = Math.min(boxW / props.videoWidth, boxH / props.videoHeight);
+  const shot: Shot = {
+    src: props.video,
+    width: props.videoWidth,
+    height: props.videoHeight,
+    crop: props.crop,
+    video: {
+      startFrom: Math.round(props.startOffset * fps),
+      fill: colors.background,
+    },
+  };
+  const perPx = deviceHeight(shot, props.kind, 1000) / 1000;
+  const deviceW = Math.min(boxW, boxH / perPx);
   const end = durationInFrames / fps;
 
   return (
@@ -77,21 +96,12 @@ export function Preview(props: PreviewProps) {
           logo={false}
         />
       </div>
-      <div
-        style={{
-          width: Math.round(props.videoWidth * scale),
-          height: Math.round(props.videoHeight * scale),
-          border: `2px solid ${colors.dark ? "rgba(255,255,255,0.16)" : colors.border}`,
-          overflow: "hidden",
-        }}
-      >
-        <OffthreadVideo
-          src={staticFile(props.video)}
-          startFrom={Math.round(props.startOffset * fps)}
-          muted
-          style={{ width: "100%", height: "100%" }}
-        />
-      </div>
+      <Device
+        shots={[shot]}
+        kind={props.kind}
+        width={deviceW}
+        rim={colors.dark ? colors.border : "#1c1c1e"}
+      />
       {props.music ? (
         <Audio
           src={staticFile("audio/music.mp3")}

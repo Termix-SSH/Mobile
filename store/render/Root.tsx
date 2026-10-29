@@ -22,6 +22,8 @@ const samplePreview: PreviewProps = {
   video: "raw/iphone/tour.mp4",
   videoWidth: 1320,
   videoHeight: 2868,
+  crop: { top: 186, bottom: 102 },
+  kind: "phone",
   startOffset: 0,
   duration: 25,
   captions: [],

@@ -219,6 +219,8 @@ for (const device of outputs) {
       video: `raw/${from}/tour.mp4`,
       videoWidth: video.width,
       videoHeight: video.height,
+      crop: tour.crop ?? { top: 0, bottom: 0 },
+      kind: SOURCES.find((s) => s.id === from)?.wide ? "tablet" : "phone",
       startOffset: Math.max(0, tour.startOffset),
       duration,
       captions: tour.marks

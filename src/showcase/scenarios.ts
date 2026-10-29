@@ -3,7 +3,7 @@ import type { SessionType } from "@/contexts/TerminalSessionsContext";
 import { openTab } from "@/screens/shell/navigate";
 import type { SSHHost } from "@/types";
 import { DOCKER_HOST, MAIN_HOST, SECOND_HOST } from "./seed";
-import { latestShell, setFirstCommand } from "./shell";
+import { setFirstCommand, waitForShell } from "./shell";
 import { requestSplit } from "./split";
 
 /** What a scenario can do with the app. */
@@ -88,8 +88,8 @@ export async function tour(ctl: ShowcaseControl): Promise<void> {
   setFirstCommand(null);
   ctl.mark("terminal");
   await terminal(ctl);
+  const shell = await waitForShell();
   await ctl.wait(1200);
-  const shell = latestShell();
   await shell?.type("fastfetch");
   await ctl.wait(1800);
   await shell?.type("docker ps");
