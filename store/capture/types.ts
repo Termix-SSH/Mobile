@@ -13,14 +13,19 @@ export interface TourResult {
 export interface Crop {
   top: number;
   bottom: number;
+  /** Side insets, as on an unfolded iPhone Duo. Older captures leave them out. */
+  left?: number;
+  right?: number;
 }
 
-/** Reads the insets the app adds to its ready line. */
+/** Reads the insets the app adds to its ready line: top,bottom[,left,right]. */
 export function cropFrom(line: RegExpMatchArray): Crop {
-  const m = line[0].match(/insets=(\d+),(\d+)/);
-  return m
-    ? { top: Number(m[1]), bottom: Number(m[2]) }
-    : { top: 0, bottom: 0 };
+  const m = line[0].match(/insets=([\d,]+)/);
+  const [top = 0, bottom = 0, left = 0, right = 0] = (m?.[1] ?? "")
+    .split(",")
+    .filter(Boolean)
+    .map(Number);
+  return { top, bottom, left, right };
 }
 
 /** A booted simulator or emulator with the showcase build on it. */

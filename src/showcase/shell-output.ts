@@ -21,43 +21,45 @@ export function prompt(user: string, host: string, cwd = "~"): string {
   return `${bgreen(`${user}@${host}`)}:${blue(cwd)}$ `;
 }
 
+// The motd and fastfetch fill a still shot's terminal, so they stay under
+// 30 columns for the half screen terminal on an unfolded iPhone Duo.
 export function motd(host: string): string {
   return lines(
-    dim("Linux " + host + " 6.12.0-amd64 x86_64"),
+    dim("Linux " + host + " 6.12.0"),
     "",
-    `  ${bold("System load")}  0.42   ${bold("Users")}   1`,
-    `  ${bold("Memory")}       38%    ${bold("Disk")}    61%`,
-    `  ${bold("Updates")}      ${green("0 pending")}`,
+    `  ${bold("Load")}     0.42  ${bold("Users")} 1`,
+    `  ${bold("Memory")}   38%   ${bold("Disk")}  61%`,
+    `  ${bold("Updates")}  ${green("0 pending")}`,
     "",
-    dim("Last login: Tue Oct 27 09:12 from 10.20.0.5"),
+    dim("Last login: Oct 27 09:12"),
   );
 }
 
 function fastfetch(user: string, host: string): string {
   const logo = [
-    orange("  ┌──────┐ "),
-    orange("  │ >_   │ "),
-    orange("  │      │ "),
-    orange("  └──┬───┘ "),
-    orange("   ──┴──   "),
-    "           ",
-    "           ",
-    "           ",
+    orange("┌──────┐ "),
+    orange("│ >_   │ "),
+    orange("│      │ "),
+    orange("└──┬───┘ "),
+    orange(" ──┴──   "),
+    "         ",
+    "         ",
+    "         ",
   ];
   const info = [
     `${bold(cyan(user))}@${bold(cyan(host))}`,
-    dim("──────────────────"),
+    dim("────────────────"),
     `${cyan("OS")}      Debian 13`,
     `${cyan("Kernel")}  6.12.0`,
-    `${cyan("Uptime")}  41 days, 3 hours`,
-    `${cyan("CPU")}     Ryzen 7 (16)`,
-    `${cyan("Memory")}  12.1 / 31.3 GiB`,
-    `${cyan("Disk")}    286 / 468 GiB`,
+    `${cyan("Uptime")}  41 days`,
+    `${cyan("CPU")}     Ryzen 7`,
+    `${cyan("Memory")}  12/31 GiB`,
+    `${cyan("Disk")}    286/468 GiB`,
   ];
   const palette =
-    "           " +
+    "         " +
     ["40", "41", "42", "43", "44", "45", "46", "47"]
-      .map((b) => `${CSI}${b}m   `)
+      .map((b) => `${CSI}${b}m  `)
       .join("") +
     reset;
   return lines(...logo.map((l, i) => l + info[i]), "", palette);

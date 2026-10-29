@@ -1,6 +1,6 @@
 import type { ShellOptions } from "@/core/transport/types";
 import { latestShell, setFirstCommand, ShowcaseShell } from "@/showcase/shell";
-import { runCommand } from "@/showcase/shell-output";
+import { motd, runCommand } from "@/showcase/shell-output";
 
 const strip = (s: string) => s.replace(/\x1b\[[0-9;]*[mJH]/g, "");
 
@@ -66,5 +66,13 @@ test("canned output fits a phone", () => {
     for (const line of strip(out).split("\r\n")) {
       expect(Array.from(line).length).toBeLessThanOrEqual(44);
     }
+  }
+});
+
+test("motd and fastfetch fit the iPhone Duo's half screen terminal", () => {
+  const out =
+    motd("web-01") + (runCommand("fastfetch", "admin", "web-01") ?? "");
+  for (const line of strip(out).split("\r\n")) {
+    expect(Array.from(line).length).toBeLessThanOrEqual(30);
   }
 });

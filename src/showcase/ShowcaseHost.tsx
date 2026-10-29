@@ -112,9 +112,12 @@ export function ShowcaseHost() {
       await scenario.setup(ctl);
       await wait(SETTLE_MS);
       // Pixel insets let the capture crop off the status bar and home bar.
-      const { top, bottom } = latest.current.insets;
+      // An unfolded iPhone Duo has its status bar on the side.
+      const { top, bottom, left, right } = latest.current.insets;
       const px = (n: number) => Math.round(n * PixelRatio.get());
-      log(`READY ${scenario.id} insets=${px(top)},${px(bottom)}`);
+      log(
+        `READY ${scenario.id} insets=${[top, bottom, left, right].map(px).join(",")}`,
+      );
     };
     run().catch((e) => log(`FAILED ${e instanceof Error ? e.message : e}`));
   }, [nav?.key, app.isLoading]);

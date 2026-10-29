@@ -7,7 +7,7 @@ export interface Shot {
   width: number;
   height: number;
   /** Pixels cut off the top and bottom (status bar and home bar). */
-  crop: { top: number; bottom: number };
+  crop: { top: number; bottom: number; left?: number; right?: number };
 }
 
 export type DeviceKind = "phone" | "tablet";
@@ -151,6 +151,11 @@ function screenHeight(shot: Shot, kind: DeviceKind) {
   );
 }
 
+/** Width of the screenshot left after the side insets are cut off. */
+function visibleWidth(shot: Shot) {
+  return shot.width - (shot.crop.left ?? 0) - (shot.crop.right ?? 0);
+}
+
 /** One row of the screenshot stretched to fill a margin strip. */
 function Strip({
   shot,
@@ -172,8 +177,8 @@ function Strip({
         width,
         height,
         backgroundImage: `url(${staticFile(shot.src)})`,
-        backgroundSize: `${width}px ${shot.height * scale * stretch}px`,
-        backgroundPosition: `0 ${-(row + 0.5) * scale * stretch + height / 2}px`,
+        backgroundSize: `${shot.width * scale}px ${shot.height * scale * stretch}px`,
+        backgroundPosition: `${-(shot.crop.left ?? 0) * scale}px ${-(row + 0.5) * scale * stretch + height / 2}px`,
         backgroundRepeat: "no-repeat",
       }}
     />
@@ -184,7 +189,8 @@ function Strip({
 function deviceHeight(shot: Shot, kind: DeviceKind, width: number) {
   const frame = width * (BEZEL[kind] + RIM[kind]);
   return (
-    ((width - frame * 2) * screenHeight(shot, kind)) / shot.width + frame * 2
+    ((width - frame * 2) * screenHeight(shot, kind)) / visibleWidth(shot) +
+    frame * 2
   );
 }
 
@@ -212,9 +218,9 @@ function Screen({
         src={staticFile(shot.src)}
         style={{
           position: "absolute",
-          left: 0,
+          left: -(shot.crop.left ?? 0) * scale,
           top: (m - shot.crop.top) * scale,
-          width,
+          width: shot.width * scale,
           height: shot.height * scale,
         }}
       />
@@ -293,7 +299,7 @@ export function Device({
   const screenW = width - frame * 2;
   const screenH = height - frame * 2;
   const radius = Math.min(width, height) * RADIUS[kind];
-  const scale = screenW / shot.width;
+  const scale = screenW / visibleWidth(shot);
   const depth = rimW * 0.9;
   return (
     <div style={{ position: "relative", width, height, flexShrink: 0 }}>
