@@ -48,7 +48,6 @@ Termix Mobile now works with no server. Hosts, logins and snippets stay encrypte
 - Look and theme colors now match Termix on the web and desktop, including the terminal and app icon
 - Popups are sheets, and editors open in place with a back button
 - The host editor is one page with sections instead of tabs
-- Credentials are called logins
 - Server sign in is kept in secure storage, renewed on its own, and left out of backups
 - A failed or dropped connection stays open, says what went wrong and retries with backoff
 - The keyboard editor now edits rows and groups, and your 1.x keys move over
