@@ -128,8 +128,7 @@ export const OUTPUTS: Output[] = [
     store: "ios",
     label: "iPhone Duo",
     stills: "iphone-duo",
-    // Kept at the simulator's own size until App Store Connect lists one.
-    size: null,
+    size: { width: 2853, height: 2007 },
   },
   {
     id: "phone",
