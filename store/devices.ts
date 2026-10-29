@@ -30,6 +30,8 @@ export interface Source {
   wide: boolean;
   stills: boolean;
   video: boolean;
+  /** Unfold it flat before capturing (the simulator boots folded). */
+  foldable?: boolean;
 }
 
 export const SOURCES: Source[] = [
@@ -59,6 +61,7 @@ export const SOURCES: Source[] = [
     wide: true,
     stills: true,
     video: false,
+    foldable: true,
   },
   {
     id: "iphone",

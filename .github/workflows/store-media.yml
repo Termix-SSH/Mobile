@@ -77,6 +77,10 @@ jobs:
             DEVELOPMENT_TEAM= PROVISIONING_PROFILE_SPECIFIER= build > ../xcodebuild.log 2>&1 \
             || { grep -E "error:|BUILD FAILED" ../xcodebuild.log | sort -u | head -80; exit 1; }
 
+      # Unfolds the iPhone Duo simulator, which boots folded on its cover screen.
+      - name: Install hinge
+        run: brew install artemnovichkov/tap/hinge
+
       - name: Simulators on hand
         run: xcrun simctl list devicetypes | grep -E "iPhone|iPad"
 

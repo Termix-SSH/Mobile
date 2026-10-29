@@ -130,6 +130,11 @@ function boot(device: Source): string {
     "--batteryLevel",
     "100",
   );
+  if (device.foldable) {
+    // simctl can't fold a simulator; hinge (brew) drives the hinge like Device Hub.
+    run("hinge", ["-d", udid, "open"]);
+    run("sleep", ["3"]);
+  }
   return udid;
 }
 
