@@ -7,6 +7,10 @@
  */
 export type Platform = "ios" | "android";
 
+/** Every shot uses the default dark theme and orange accent. */
+export const THEME = "dark";
+export const ACCENT = "#f59145";
+
 export interface Size {
   width: number;
   height: number;
@@ -95,10 +99,6 @@ export interface Output {
   size: Size | null;
   /** Source whose recording becomes the App Preview. */
   preview?: { from: string; size: Size };
-  /** App Store Connect display types. Missing ones are skipped on upload. */
-  asc?: { screenshot?: string; preview?: string };
-  /** Google Play image type. */
-  play?: "phoneScreenshots" | "sevenInchScreenshots" | "tenInchScreenshots";
   /** F-Droid folder under fastlane/metadata/android/en-US/images. */
   fdroid?: "phoneScreenshots" | "sevenInchScreenshots" | "tenInchScreenshots";
 }
@@ -111,8 +111,6 @@ export const OUTPUTS: Output[] = [
     stills: "android-phone",
     size: { width: 1320, height: 2868 },
     preview: { from: "iphone", size: { width: 886, height: 1920 } },
-    // App Store Connect files 6.9" shots under the 6.7" type.
-    asc: { screenshot: "APP_IPHONE_67", preview: "IPHONE_67" },
   },
   {
     id: "ipad",
@@ -121,7 +119,6 @@ export const OUTPUTS: Output[] = [
     stills: "android-tablet",
     size: { width: 2752, height: 2064 },
     preview: { from: "ipad", size: { width: 1200, height: 1600 } },
-    asc: { screenshot: "APP_IPAD_PRO_3GEN_129", preview: "IPAD_PRO_3GEN_129" },
   },
   {
     id: "iphone-duo",
@@ -130,9 +127,6 @@ export const OUTPUTS: Output[] = [
     stills: "iphone-duo",
     // Kept at the simulator's own size until App Store Connect lists one.
     size: null,
-    asc: {
-      screenshot: process.env.STORE_DUO_SCREENSHOT_TYPE || undefined,
-    },
   },
   {
     id: "phone",
@@ -140,7 +134,6 @@ export const OUTPUTS: Output[] = [
     label: "Play phone",
     stills: "android-phone",
     size: { width: 1080, height: 1920 },
-    play: "phoneScreenshots",
     fdroid: "phoneScreenshots",
   },
   {
@@ -149,7 +142,6 @@ export const OUTPUTS: Output[] = [
     label: "Play tablet",
     stills: "android-tablet",
     size: { width: 2560, height: 1600 },
-    play: "tenInchScreenshots",
     fdroid: "tenInchScreenshots",
   },
 ];

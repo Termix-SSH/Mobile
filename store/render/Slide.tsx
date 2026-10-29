@@ -136,15 +136,19 @@ const RIM = { phone: 0.008, tablet: 0.006 };
 const RADIUS = { phone: 0.12, tablet: 0.045 };
 
 /**
- * Source pixels added above and below a cropped screenshot, so the app does
- * not run into the rounded screen corners.
+ * Source pixels added above and below a cropped phone screenshot, so the app
+ * does not run into the round screen corners. Tablet corners are small enough
+ * to skip it, and stretching a busy edge row there smears the app.
  */
-function margin(shot: Shot) {
-  return shot.crop.top || shot.crop.bottom ? Math.round(shot.width * 0.065) : 0;
+function margin(shot: Shot, kind: DeviceKind) {
+  if (kind !== "phone" || !(shot.crop.top || shot.crop.bottom)) return 0;
+  return Math.round(shot.width * 0.065);
 }
 
-function screenHeight(shot: Shot) {
-  return shot.height - shot.crop.top - shot.crop.bottom + margin(shot) * 2;
+function screenHeight(shot: Shot, kind: DeviceKind) {
+  return (
+    shot.height - shot.crop.top - shot.crop.bottom + margin(shot, kind) * 2
+  );
 }
 
 /** One row of the screenshot stretched to fill a margin strip. */
@@ -179,7 +183,9 @@ function Strip({
 /** Device height for a device `width` px wide. */
 function deviceHeight(shot: Shot, kind: DeviceKind, width: number) {
   const frame = width * (BEZEL[kind] + RIM[kind]);
-  return ((width - frame * 2) * screenHeight(shot)) / shot.width + frame * 2;
+  return (
+    ((width - frame * 2) * screenHeight(shot, kind)) / shot.width + frame * 2
+  );
 }
 
 /** The widest device that fits in the box. */
@@ -190,14 +196,16 @@ function fitWidth(shot: Shot, kind: DeviceKind, maxW: number, maxH: number) {
 /** One screenshot filling the screen, with its margin strips. */
 function Screen({
   shot,
+  kind,
   width,
   scale,
 }: {
   shot: Shot;
+  kind: DeviceKind;
   width: number;
   scale: number;
 }) {
-  const m = margin(shot);
+  const m = margin(shot, kind);
   return (
     <>
       <Img
@@ -345,7 +353,7 @@ export function Device({
             }}
           >
             {shots.length === 1 ? (
-              <Screen shot={shot} width={screenW} scale={scale} />
+              <Screen shot={shot} kind={kind} width={screenW} scale={scale} />
             ) : (
               shots.map((one, i) => (
                 <div
@@ -356,7 +364,12 @@ export function Device({
                     clipPath: band(i, shots.length, screenW, screenH),
                   }}
                 >
-                  <Screen shot={one} width={screenW} scale={scale} />
+                  <Screen
+                    shot={one}
+                    kind={kind}
+                    width={screenW}
+                    scale={scale}
+                  />
                 </div>
               ))
             )}
@@ -414,13 +427,16 @@ export function Slide(props: SlideProps) {
   const { short, pad, size, textW } = headingLayout(props);
   const headingH = headingHeight(props);
   const space = Math.max(headingH, props.headingSpace ?? 0);
-  const top = pad * 1.1;
   const gap = short * 0.06;
-  const boxTop = top + space + gap;
   const boxW = width - pad * 2;
-  const boxH = height - boxTop - pad * 0.9;
-
+  const boxH = height - pad * 2 - space - gap;
   const deviceW = fitWidth(shots[0], kind, boxW, boxH);
+  // Heading and device are centered as one block, so a device held back by
+  // the width leaves no hole above it.
+  const deviceH = deviceHeight(shots[0], kind, deviceW);
+  const blockH = space + gap + deviceH;
+  const top = (height - blockH) / 2;
+  const boxTop = top + space + gap;
   const devices = (
     <Device
       shots={shots}
@@ -456,7 +472,7 @@ export function Slide(props: SlideProps) {
           top: boxTop,
           left: pad,
           width: boxW,
-          height: boxH,
+          height: deviceH,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

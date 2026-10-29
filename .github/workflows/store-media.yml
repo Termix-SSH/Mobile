@@ -1,50 +1,18 @@
 name: Store Media
 
 # Store screenshots and App Previews from a showcase build (EXPO_PUBLIC_SHOWCASE=1):
-# fake hosts, no network. Android emulators capture the phone and tablet shots
-# for both stores. The iOS simulator build is slow (about an hour), so it only
-# runs for the iPhone Duo shots or the App Store preview videos. store/render
-# frames everything and the upload switches send it to the stores.
+# fake hosts, no network, dark theme. Android emulators capture the phone and
+# tablet shots for both stores, the iOS simulator captures the iPhone Duo shots
+# and the preview videos. store/render frames everything into the store-media
+# artifact; upload it to the stores by hand.
 on:
   workflow_dispatch:
     inputs:
       media:
-        description: What to make (video needs the iOS build)
+        description: What to make (video adds the iPhone and iPad previews)
         type: choice
         default: screenshots
         options: [screenshots, both, video]
-      duo:
-        description: iPhone Duo shots (needs the iOS build)
-        type: boolean
-        default: false
-      theme:
-        description: App theme for the shots
-        type: choice
-        default: dark
-        options:
-          [
-            dark,
-            light,
-            dracula,
-            catppuccin,
-            nord,
-            solarized,
-            tokyo-night,
-            one-dark,
-            gruvbox,
-          ]
-      accent:
-        description: Accent color (hex, no #)
-        type: string
-        default: f59145
-      upload_ios:
-        description: Upload to App Store Connect (the version open for edits)
-        type: boolean
-        default: false
-      upload_android:
-        description: Upload to the Google Play listing
-        type: boolean
-        default: false
 
 concurrency:
   group: store-media-${{ github.ref }}
@@ -53,7 +21,6 @@ concurrency:
 jobs:
   ios:
     name: Capture iOS
-    if: inputs.duo || inputs.media != 'screenshots'
     runs-on: blacksmith-6vcpu-macos-27
     timeout-minutes: 150
     steps:
@@ -73,7 +40,7 @@ jobs:
           xcode-version: latest-stable
       - name: Warn about the Duo
         if: steps.xcode.outcome == 'failure'
-        run: echo "::warning::Xcode 27.1 is not on this runner, so the iPhone Duo shots will be skipped or letterboxed"
+        run: echo "::warning::Xcode 27.1 is not on this runner, so the iPhone Duo shots may be letterboxed"
 
       - uses: actions/setup-node@v4
         with:
@@ -105,19 +72,15 @@ jobs:
       - name: Capture
         working-directory: store
         env:
-          DUO: ${{ inputs.duo }}
           MEDIA: ${{ inputs.media }}
         run: |
-          devices=""
-          media="$MEDIA"
-          if [ "$DUO" = "true" ]; then
-            devices="iphone-duo"
-            [ "$MEDIA" = "video" ] && media=both
+          devices="iphone-duo"
+          media=screenshots
+          if [ "$MEDIA" != "screenshots" ]; then
+            devices="$devices,iphone,ipad"
+            media=both
           fi
-          [ "$MEDIA" != "screenshots" ] && devices="$devices,iphone,ipad"
-          npm run capture -- --platform ios --device "$devices" \
-            --app ../dd/Build/Products/Release-iphonesimulator/Termix.app \
-            --media "$media" --theme "${{ inputs.theme }}" --accent "${{ inputs.accent }}"
+          npm run capture -- --platform ios --device "$devices"             --app ../dd/Build/Products/Release-iphonesimulator/Termix.app --media "$media"
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -183,7 +146,7 @@ jobs:
           avd-name: termix_phone
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
-          script: cd store && npm run capture -- --platform android --device android-phone --app ../android/app/build/outputs/apk/release/app-release.apk --media screenshots --theme "${{ inputs.theme }}" --accent "${{ inputs.accent }}"
+          script: cd store && npm run capture -- --platform android --device android-phone --app ../android/app/build/outputs/apk/release/app-release.apk --media screenshots
 
       - name: Capture on a tablet
         uses: reactivecircus/android-emulator-runner@v2
@@ -195,7 +158,7 @@ jobs:
           avd-name: termix_tablet
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
-          script: cd store && npm run capture -- --platform android --device android-tablet --app ../android/app/build/outputs/apk/release/app-release.apk --media screenshots --theme "${{ inputs.theme }}" --accent "${{ inputs.accent }}"
+          script: cd store && npm run capture -- --platform android --device android-tablet --app ../android/app/build/outputs/apk/release/app-release.apk --media screenshots
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -233,50 +196,10 @@ jobs:
           merge-multiple: true
       - name: Render
         working-directory: store
-        run: npm run render -- --theme "${{ inputs.theme }}" --accent "${{ inputs.accent }}"
+        run: npm run render
       - uses: actions/upload-artifact@v4
         with:
           name: store-media
           path: store/out/final
           retention-days: 30
 
-  upload:
-    name: Upload to the stores
-    needs: render
-    if: ${{ !cancelled() && needs.render.result == 'success' && (inputs.upload_ios || inputs.upload_android) }}
-    runs-on: blacksmith-2vcpu-ubuntu-2404
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: ".nvmrc"
-          cache: npm
-          cache-dependency-path: store/package-lock.json
-      - run: npm ci
-        working-directory: store
-      - uses: actions/download-artifact@v4
-        with:
-          name: store-media
-          path: store/out/final
-      - name: App Store Connect
-        if: inputs.upload_ios
-        working-directory: store
-        env:
-          ASC_KEY_ID: ${{ secrets.EXPO_ASC_KEY_ID }}
-          ASC_ISSUER_ID: ${{ secrets.EXPO_ASC_ISSUER_ID }}
-          ASC_KEY_P8: ${{ secrets.EXPO_ASC_API_KEY_P8 }}
-          # The iPhone Duo screenshot type, once App Store Connect lists it.
-          STORE_DUO_SCREENSHOT_TYPE: ${{ vars.STORE_DUO_SCREENSHOT_TYPE }}
-        run: npm run upload -- --platform ios
-      - name: Google Play
-        if: inputs.upload_android
-        working-directory: store
-        env:
-          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
-        run: |
-          if [ -z "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON" ]; then
-            echo "::error::Add the GOOGLE_PLAY_SERVICE_ACCOUNT_JSON secret first"
-            exit 1
-          fi
-          npm run upload -- --platform android

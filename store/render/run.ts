@@ -2,7 +2,7 @@
  * Frames the raw captures into store screenshots and App Previews.
  *
  *   npm run render
- *   npm run render -- --device iphone --theme dark --write-metadata
+ *   npm run render -- --device iphone --write-metadata
  *
  * Reads out/raw/<source>, writes out/final/<store>/<output>. One source can
  * feed both stores (see devices.ts).
@@ -30,7 +30,9 @@ import {
 } from "@remotion/renderer";
 import { PREVIEW_CAPTIONS, SLIDES } from "../captions";
 import {
+  ACCENT,
   MAX_SLIDES,
+  THEME,
   OUTPUTS,
   SOURCES,
   type Size,
@@ -53,8 +55,6 @@ const { values } = parseArgs({
     raw: { type: "string", default: "out/raw" },
     out: { type: "string", default: "out/final" },
     device: { type: "string" },
-    theme: { type: "string", default: "dark" },
-    accent: { type: "string", default: "f59145" },
     "no-music": { type: "boolean", default: false },
     "write-metadata": { type: "boolean", default: false },
   },
@@ -62,7 +62,6 @@ const { values } = parseArgs({
 
 const raw = resolve(STORE, values.raw!);
 const out = resolve(STORE, values.out!);
-const accent = `#${values.accent!.replace(/^#/, "")}`;
 const only = values.device?.split(",").filter(Boolean);
 
 /** Width and height from a PNG header. */
@@ -184,8 +183,8 @@ for (const device of outputs) {
       subtitle: slide.subtitle,
       shots: shots as Shot[],
       kind,
-      theme: values.theme!,
-      accent,
+      theme: THEME,
+      accent: ACCENT,
       logo: i === 0,
       headingSpace,
     };
@@ -224,8 +223,8 @@ for (const device of outputs) {
       captions: tour.marks
         .filter((m) => PREVIEW_CAPTIONS[m.name])
         .map((m) => ({ t: Math.max(0, m.t), title: PREVIEW_CAPTIONS[m.name] })),
-      theme: values.theme!,
-      accent,
+      theme: THEME,
+      accent: ACCENT,
       music: withMusic,
     };
     const composition = await selectComposition({

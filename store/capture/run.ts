@@ -5,13 +5,18 @@
  *   npm run capture -- --platform ios --app path/to/Termix.app
  *   npm run capture -- --platform android --app app.apk --device android-phone
  *
- * Flags: --device a,b  --media screenshots|video|both  --theme dark
- *        --accent f59145  --only hosts,terminal
+ * Flags: --device a,b  --media screenshots|video|both  --only hosts,terminal
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
-import { capturesFor, sourcesFor, type Platform } from "../devices";
+import {
+  ACCENT,
+  THEME,
+  capturesFor,
+  sourcesFor,
+  type Platform,
+} from "../devices";
 import { androidTarget } from "./android";
 import { iosTarget } from "./ios";
 import type { CaptureTarget } from "./types";
@@ -22,8 +27,6 @@ const { values } = parseArgs({
     app: { type: "string" },
     device: { type: "string" },
     media: { type: "string", default: "both" },
-    theme: { type: "string", default: "dark" },
-    accent: { type: "string", default: "f59145" },
     only: { type: "string" },
     out: { type: "string", default: "out/raw" },
     attempts: { type: "string", default: "2" },
@@ -91,8 +94,8 @@ for (const device of sources) {
           await retry(capture.id, async () => {
             const crop = await target.still(
               capture,
-              capture.theme ?? values.theme!,
-              values.accent!,
+              capture.theme ?? THEME,
+              ACCENT.slice(1),
               file,
             );
             writeFileSync(
@@ -113,8 +116,8 @@ for (const device of sources) {
         let result;
         await retry("tour", async () => {
           result = await target.tour(
-            values.theme!,
-            values.accent!,
+            THEME,
+            ACCENT.slice(1),
             join(dir, "tour.mp4"),
           );
         });

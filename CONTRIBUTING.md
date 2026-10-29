@@ -59,7 +59,7 @@ This writes a new migration to `drizzle/` and `src/core/db/migrations.ts`. Never
 
 ## Store screenshots and previews
 
-The Store Media workflow makes the App Store and Google Play screenshots and the App Store previews. It builds the app with `EXPO_PUBLIC_SHOWCASE=1`, which fills This device with sample hosts and fakes every connection, so no server is needed. Android emulators capture each screen on a phone and a tablet, and those same shots are used for both stores. The iOS build takes about an hour, so it only runs when you ask for iPhone Duo shots or preview videos. Each shot is cropped below the status bar and above the home bar, put in a device frame with a caption in the app's theme, and uploaded as a `store-media` artifact. Turn on the upload switches to send them to App Store Connect (the version open for edits) and Google Play.
+The Store Media workflow makes the App Store and Google Play screenshots and the App Store previews. It builds the app with `EXPO_PUBLIC_SHOWCASE=1`, which fills This device with sample hosts and fakes every connection, so no server is needed. Android emulators capture each screen on a phone and a tablet, and those same shots are used for both stores. The iOS simulator captures the iPhone Duo shots and, when asked, the preview videos (that build takes about an hour). Each shot is cropped below the status bar and above the home bar, put in a device frame with a caption in the dark theme, and saved as a `store-media` artifact. Upload them to App Store Connect and Google Play by hand.
 
 The tooling lives in `store/`, a separate npm package:
 
@@ -70,7 +70,6 @@ npm run capture -- --platform ios --device iphone-duo --app path/to/Termix.app  
 npm run capture -- --platform android --device android-phone --app app-release.apk
 npm run render                                               # out/raw to out/final
 npm run render -- --write-metadata                           # also fills fastlane/metadata/android
-npm run upload -- --platform ios --dry-run
 ```
 
 - What is captured and what is made from it: `store/devices.ts`

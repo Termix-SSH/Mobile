@@ -12,5 +12,5 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["node"]
   },
-  "include": ["*.ts", "capture", "render", "upload"]
+  "include": ["*.ts", "capture", "render"]
 }

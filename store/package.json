@@ -6,7 +6,6 @@
   "scripts": {
     "capture": "tsx capture/run.ts",
     "render": "tsx render/run.ts",
-    "upload": "tsx upload/run.ts",
     "studio": "remotion studio render/index.ts",
     "audio": "node scripts/make-audio.mjs",
     "typecheck": "tsc --noEmit"
