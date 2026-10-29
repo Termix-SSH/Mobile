@@ -212,8 +212,9 @@ for (const device of outputs) {
     const tour = JSON.parse(readFileSync(tourJson, "utf8")) as TourResult;
     const video = videoSize(tourFile);
     const size = device.preview.size;
-    // App Store previews run 15 to 30 seconds.
-    const duration = Math.min(30, Math.max(15, tour.duration + 0.8));
+    // App Store previews run 15 to 30 seconds. Encoding can add a few
+    // milliseconds, so stay a bit under 30.
+    const duration = Math.min(29.5, Math.max(15, tour.duration + 0.8));
     const inputProps: PreviewProps = {
       ...size,
       video: `raw/${from}/tour.mp4`,
