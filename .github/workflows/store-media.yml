@@ -38,6 +38,14 @@ jobs:
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
+      # The runner can have Xcode 27.1 with only the iOS 27.0 simulator, which
+      # can't run the iPhone Duo.
+      - name: Install the matching iOS simulator
+        if: steps.xcode.outcome == 'success'
+        run: |
+          xcrun simctl list runtimes
+          xcrun simctl list runtimes | grep -q "iOS 27\.1" || xcodebuild -downloadPlatform iOS
+          xcrun simctl list runtimes
       - name: Warn about the Duo
         if: steps.xcode.outcome == 'failure'
         run: echo "::warning::Xcode 27.1 is not on this runner, so the iPhone Duo shots may be letterboxed"

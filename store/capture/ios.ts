@@ -16,21 +16,28 @@ interface Runtime {
   isAvailable: boolean;
   platform?: string;
   name: string;
+  supportedDeviceTypes?: { identifier: string }[];
 }
 
 const simctl = (...args: string[]) => run("xcrun", ["simctl", ...args], true);
 
-function newestRuntime(): Runtime {
+/** Newest installed iOS runtime that can run the device type. */
+function newestRuntime(type: DeviceType): Runtime {
   const { runtimes } = JSON.parse(simctl("list", "runtimes", "-j")) as {
     runtimes: Runtime[];
   };
   const ios = runtimes
     .filter((r) => r.isAvailable && /^iOS/.test(r.name))
+    .filter(
+      (r) =>
+        !r.supportedDeviceTypes ||
+        r.supportedDeviceTypes.some((d) => d.identifier === type.identifier),
+    )
     .sort((a, b) =>
       a.version.localeCompare(b.version, undefined, { numeric: true }),
     );
   const last = ios.at(-1);
-  if (!last) throw new Error("No iOS simulator runtime is installed");
+  if (!last) throw new Error(`No installed iOS runtime runs the ${type.name}`);
   return last;
 }
 
@@ -61,7 +68,7 @@ function boot(device: Source): string {
     "true",
   ]);
   const type = deviceType(device.match as RegExp);
-  const runtime = newestRuntime();
+  const runtime = newestRuntime(type);
   const name = `termix-store-${device.id}`;
   const { devices } = JSON.parse(simctl("list", "devices", "-j")) as {
     devices: Record<string, { name: string; udid: string; state: string }[]>;
