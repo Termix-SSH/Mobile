@@ -68,10 +68,13 @@ jobs:
         working-directory: ios
         env:
           EXPO_PUBLIC_SHOWCASE: "1"
+        # Ad hoc signed, not unsigned: an unsigned app has no entitlements, so
+        # the simulator keychain refuses SecureStore and the app can't start.
         run: |
           xcodebuild -workspace Termix.xcworkspace -scheme Termix -configuration Release \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
-            -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO build > ../xcodebuild.log 2>&1 \
+            -derivedDataPath ../dd CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM= PROVISIONING_PROFILE_SPECIFIER= build > ../xcodebuild.log 2>&1 \
             || { grep -E "error:|BUILD FAILED" ../xcodebuild.log | sort -u | head -80; exit 1; }
 
       - name: Simulators on hand
