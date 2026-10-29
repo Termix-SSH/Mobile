@@ -56,7 +56,7 @@ export function Logo({ size, colors }: { size: number; colors: Palette }) {
 }
 
 /** "Your servers, in your *pocket*" with the starred words in the accent. */
-function Accented({ text, accent }: { text: string; accent: string }) {
+export function Accented({ text, accent }: { text: string; accent: string }) {
   return (
     <>
       {text.split(/(\*[^*]+\*)/).map((part, i) =>
