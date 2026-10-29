@@ -132,12 +132,13 @@ if (!outputs.length) {
   process.exit(1);
 }
 
+// Before bundling: the bundle copies public/ as it is then.
+const withMusic = music();
 console.log("Bundling...");
 const serveUrl = await bundle({
   entryPoint: join(STORE, "render", "index.ts"),
   publicDir: PUBLIC,
 });
-const withMusic = music();
 
 for (const device of outputs) {
   const source = SOURCES.find((s) => s.id === device.stills)!;
