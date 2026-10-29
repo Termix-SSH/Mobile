@@ -41,3 +41,9 @@ test("the recipe uses the same version name and code", () => {
   expect(yml).toContain(`versionName: ${version}`);
   expect(yml).toContain(`versionCode: ${versionCode(version)}`);
 });
+
+// F-Droid's update bot reads this from app.json at each tag
+test("app.json has the version code for the version", () => {
+  const { android } = require("../../app.json").expo;
+  expect(android.versionCode).toBe(versionCode(version));
+});

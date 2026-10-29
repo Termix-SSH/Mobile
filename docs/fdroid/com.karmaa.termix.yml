@@ -65,5 +65,6 @@ Builds:
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags ^v\d+\.\d+\.\d+$
+UpdateCheckData: app.json|"versionCode":\s*(\d+)|app.json|"version":\s*"([\d.]+)"
 CurrentVersion: 2.0.0
 CurrentVersionCode: 20000

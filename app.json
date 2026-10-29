@@ -29,6 +29,7 @@
     },
     "android": {
       "package": "com.karmaa.termix",
+      "versionCode": 20000,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "monochromeImage": "./assets/images/adaptive-monochrome.png",
