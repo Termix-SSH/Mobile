@@ -202,4 +202,3 @@ jobs:
           name: store-media
           path: store/out/final
           retention-days: 30
-
