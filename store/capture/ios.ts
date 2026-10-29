@@ -57,6 +57,31 @@ function deviceType(match: RegExp): DeviceType {
   return last;
 }
 
+/**
+ * A foldable like the iPhone Duo has an inner and an outer screen, and simctl
+ * won't pick one. Its error lists them, so take the biggest (the inner one).
+ */
+function screenshot(udid: string, file: string) {
+  try {
+    simctl("io", udid, "screenshot", "--type=png", file);
+  } catch (err) {
+    const text = String(err);
+    const displays = [...text.matchAll(/--display=(\S+).*?(\d+)x(\d+)/g)];
+    if (!displays.length) throw err;
+    const [biggest] = displays.sort(
+      (a, b) => Number(b[2]) * Number(b[3]) - Number(a[2]) * Number(a[3]),
+    );
+    simctl(
+      "io",
+      udid,
+      "screenshot",
+      "--type=png",
+      `--display=${biggest[1]}`,
+      file,
+    );
+  }
+}
+
 /** Creates (or reuses) and boots the simulator for a device. */
 function boot(device: Source): string {
   // A connected hardware keyboard keeps the on screen one hidden.
@@ -149,7 +174,7 @@ export function iosTarget(device: Source, app: string): CaptureTarget {
         new RegExp(`SHOWCASE_READY ${capture.scenario}\\b.*`),
         90_000,
       );
-      simctl("io", udid, "screenshot", "--type=png", file);
+      screenshot(udid, file);
       return cropFrom(ready);
     },
 
