@@ -73,7 +73,10 @@
         {
           "android": {
             "usesCleartextTraffic": true,
-            "gradle": "8.13.1"
+            "gradle": "8.13.1",
+            "enableMinifyInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true,
+            "extraProguardRules": "-keep class com.sun.jna.** { *; }\n-keep class * implements com.sun.jna.** { *; }\n-dontwarn java.awt.**\n-keep class uniffi.** { *; }\n-keep class expo.modules.termixterminal.GhosttyVt { native <methods>; }"
           },
           "ios": {
             "deploymentTarget": "16.4",
