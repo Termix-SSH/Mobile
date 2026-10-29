@@ -91,6 +91,7 @@
       "./plugins/withWebViewPins.js",
       "./plugins/withTermixWidgets.js",
       "./plugins/withLargeScreen.js",
+      "./plugins/withGradleMemory.js",
       "./plugins/withPodDeploymentTarget.js",
       "./plugins/withNotificationIcon.js",
       "./plugins/withTermixSsh.js",
