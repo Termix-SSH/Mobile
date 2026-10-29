@@ -78,6 +78,7 @@ Termix Mobile now works with no server. Hosts, logins and snippets stay encrypte
 - Terminals no longer look open but stop responding after the app was away
 - Remote desktop reconnects after switching apps (#104)
 - RDP keeps its text size on rotation and resolution when the keyboard opens, and asks again after a wrong password
+- In the fallback terminal, a tap is a click in programs that use the mouse (tmux, htop), and swipes scroll the pane under your finger
 
 ## 1.6.0
 
