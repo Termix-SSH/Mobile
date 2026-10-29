@@ -1,6 +1,6 @@
 /**
- * App Store header and search artwork and the Google Play feature graphic
- * from the raw captures.
+ * App Store header and search artwork, the Google Play feature graphic and
+ * the YouTube Shorts thumbnail from the raw captures.
  *
  *   npm run banners
  *
@@ -14,7 +14,6 @@ import {
   openSync,
   readFileSync,
   readSync,
-  rmSync,
 } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -22,7 +21,7 @@ import { bundle } from "@remotion/bundler";
 import { renderStill, selectComposition } from "@remotion/renderer";
 import { ACCENT, THEME } from "../devices";
 import type { BannerProps } from "./Banner";
-import type { Shot } from "./Slide";
+import type { Shot, SlideProps } from "./Slide";
 
 const STORE = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PUBLIC = join(STORE, "public");
@@ -78,7 +77,6 @@ const serveUrl = await bundle({
   publicDir: PUBLIC,
 });
 
-rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 for (const size of SIZES) {
   const inputProps: BannerProps = {
@@ -105,3 +103,29 @@ for (const size of SIZES) {
   });
   console.log(`  ${name}`);
 }
+
+// Shorts are vertical, so the thumbnail is a store slide at 1080 x 1920.
+const thumb: SlideProps = {
+  width: 1080,
+  height: 1920,
+  title: "Your servers, in your *pocket*",
+  subtitle: "SSH, files, Docker and remote desktop",
+  shots: [shot("android-phone", "home")],
+  kind: "phone",
+  theme: THEME,
+  accent: ACCENT,
+  logo: true,
+};
+const slide = await selectComposition({
+  serveUrl,
+  id: "Slide",
+  inputProps: thumb as unknown as Record<string, unknown>,
+});
+await renderStill({
+  composition: slide,
+  serveUrl,
+  output: join(OUT, "youtube-short-1080x1920.png"),
+  inputProps: thumb as unknown as Record<string, unknown>,
+  imageFormat: "png",
+});
+console.log("  youtube-short-1080x1920.png");
