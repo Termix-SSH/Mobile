@@ -1,6 +1,6 @@
 Categories:
-  - Connectivity
   - Development
+  - Remote Access
 License: Apache-2.0
 AuthorName: Termix
 WebSite: https://termix.site
@@ -14,13 +14,6 @@ AutoName: Termix
 RepoType: git
 Repo: https://github.com/Termix-SSH/Mobile.git
 
-# Usage statistics (PostHog) are in the app but off until the person says yes on first run,
-# and the F-Droid build never talks to PostHog before that. Add Tracking here only if the
-# reviewers ask for it.
-# AntiFeatures:
-#   NonFreeNet:
-#     en-US: Optional usage statistics go to PostHog, a hosted service. Off until you opt in.
-
 Builds:
   - versionName: 2.0.0
     versionCode: 20000
@@ -30,45 +23,45 @@ Builds:
       - apt-get update
       - apt-get install -y curl git unzip xz-utils build-essential cmake ninja-build
       - curl -sSLo /tmp/node.tar.xz https://nodejs.org/dist/v24.22.1/node-v24.22.1-linux-x64.tar.xz
-      - echo "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6  /tmp/node.tar.xz" | sha256sum -c -
+      - echo "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6  /tmp/node.tar.xz"
+        | sha256sum -c -
       - tar -xJf /tmp/node.tar.xz -C /opt
       - ln -sf /opt/node-v24.22.1-linux-x64/bin/* /usr/local/bin/
       - curl -sSLo /tmp/zig.tar.xz https://ziglang.org/download/0.15.2/zig-x86_64-linux-0.15.2.tar.xz
-      - echo "02aa270f183da276e5b5920b1dac44a63f1a49e55050ebde3aecc9eb82f93239  /tmp/zig.tar.xz" | sha256sum -c -
+      - echo "02aa270f183da276e5b5920b1dac44a63f1a49e55050ebde3aecc9eb82f93239  /tmp/zig.tar.xz"
+        | sha256sum -c -
       - tar -xJf /tmp/zig.tar.xz -C /opt
       - ln -sf /opt/zig-x86_64-linux-0.15.2/zig /usr/local/bin/zig
-    ndk: 27.1.12297006
-    prebuild: |
-      export TERMIX_FDROID=1
-      curl -sSLo /tmp/rustup-init https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init
-      echo "5be191e8c70a5007074254cb74d78dbfdd25cd5a61c27de7b8e5410122ec24f4  /tmp/rustup-init" | sha256sum -c -
-      chmod +x /tmp/rustup-init
-      /tmp/rustup-init -y --default-toolchain 1.99.1
-      . "$HOME/.cargo/env"
-      rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
-      cargo install cargo-ndk --version 4.1.2 --locked
-      npm ci
-      node scripts/prepare-fdroid.cjs
-      node scripts/check-fdroid.cjs
-      sh scripts/build-native-fdroid.sh fetch
-    build: |
-      export TERMIX_FDROID=1
-      . "$HOME/.cargo/env"
-      sh scripts/build-native-fdroid.sh build
-      npx expo prebuild --platform android --no-install
-      cd android
-      ./gradlew assembleRelease
     output: android/app/build/outputs/apk/release/app-release-unsigned.apk
+    prebuild:
+      - export TERMIX_FDROID=1
+      - curl -sSLo /tmp/rustup-init https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init
+      - echo "5be191e8c70a5007074254cb74d78dbfdd25cd5a61c27de7b8e5410122ec24f4  /tmp/rustup-init"
+        | sha256sum -c -
+      - chmod +x /tmp/rustup-init
+      - /tmp/rustup-init -y --default-toolchain 1.99.1
+      - . "$HOME/.cargo/env"
+      - rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android
+        i686-linux-android
+      - cargo install cargo-ndk --version 4.1.2 --locked
+      - npm ci
+      - node scripts/prepare-fdroid.cjs
+      - node scripts/check-fdroid.cjs
+      - sh scripts/build-native-fdroid.sh fetch
     scanignore:
       - node_modules/*/android/build.gradle
       - node_modules/react-native/ReactAndroid/hermes-engine/build.gradle.kts
       - node_modules/hermes-compiler
     scandelete:
       - modules/termix-ssh/rust/target
-
-# Reproducible build, once two builds match with diffoscope:
-# Binaries: https://github.com/Termix-SSH/Mobile/releases/download/v%v/termix_fdroid.apk
-# AllowedAPKSigningKeys: <sha256 of the release key>
+    build:
+      - export TERMIX_FDROID=1
+      - . "$HOME/.cargo/env"
+      - sh scripts/build-native-fdroid.sh build
+      - npx expo prebuild --platform android --no-install
+      - cd android
+      - ./gradlew assembleRelease
+    ndk: 27.1.12297006
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags ^v\d+\.\d+\.\d+$
