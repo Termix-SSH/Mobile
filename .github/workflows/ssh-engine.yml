@@ -17,10 +17,6 @@ on:
         description: Publish the engine as a GitHub release (termix-ssh-v<version>)
         type: boolean
         default: false
-      app:
-        description: Also build the app with the engine linked in
-        type: boolean
-        default: false
 
 concurrency:
   group: ssh-engine-${{ github.ref }}
@@ -101,57 +97,6 @@ jobs:
         with:
           name: engine-ios
           path: modules/termix-ssh/dist/termix-ssh-ios.tar.gz
-
-  app:
-    name: App build ${{ matrix.platform }}
-    if: inputs.app
-    needs: [android, ios]
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [android, ios]
-    runs-on: ${{ matrix.platform == 'ios' && 'blacksmith-6vcpu-macos-latest' || 'blacksmith-8vcpu-ubuntu-2404' }}
-    timeout-minutes: 90
-    defaults:
-      run:
-        working-directory: .
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: ".nvmrc"
-          cache: npm
-      - uses: maxim-lobanov/setup-xcode@v1
-        if: matrix.platform == 'ios'
-        with:
-          xcode-version: latest-stable
-      - uses: actions/setup-java@v4
-        if: matrix.platform == 'android'
-        with:
-          distribution: temurin
-          java-version: "17"
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: engine-*
-          merge-multiple: true
-          path: engine
-      - run: npm ci
-      - name: Build Android
-        if: matrix.platform == 'android'
-        env:
-          TERMIX_SSH_ENGINE_DIR: ${{ github.workspace }}/engine
-        run: |
-          npx expo prebuild --platform android --no-install --clean
-          cd android && ./gradlew --console=plain :app:assembleDebug
-      - name: Build iOS
-        if: matrix.platform == 'ios'
-        env:
-          TERMIX_SSH_ENGINE_DIR: ${{ github.workspace }}/engine
-        run: |
-          npx expo prebuild --platform ios --clean
-          cd ios
-          xcodebuild -workspace Termix.xcworkspace -scheme Termix -configuration Debug -sdk iphonesimulator \
-            -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build | tail -20
 
   publish:
     name: Publish release

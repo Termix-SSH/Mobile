@@ -37,7 +37,6 @@ export const CONNECT_RESULTS = [
   "session",
   "cancelled",
 ] as const;
-export type ConnectResultClass = (typeof CONNECT_RESULTS)[number];
 
 export const CRASH_CLASSES = [
   "Error",

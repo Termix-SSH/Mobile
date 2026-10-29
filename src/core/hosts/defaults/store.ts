@@ -1,6 +1,6 @@
 // Reads and writes the defaults levels in an account's local database, and
 // rewrites the hosts that follow a default when it changes.
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import type { LocalDb } from "@/core/db/driver";
 import {
   adminDefaults,
@@ -124,18 +124,6 @@ export function placementOf(
       { folder: row.folder || null, parentHostId: row.parentHostId ?? null },
     ]),
   );
-}
-
-/** Drops every default a folder has, when the folder goes away. */
-export function clearFolderDefaults(d: LocalDb, folderSyncId: string): void {
-  d.delete(hostDefaults)
-    .where(
-      and(
-        eq(hostDefaults.level, "folder"),
-        eq(hostDefaults.folderSyncId, folderSyncId),
-      ),
-    )
-    .run();
 }
 
 function parseSettings(raw: string | null) {

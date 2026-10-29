@@ -110,8 +110,3 @@ export function parseServerPlugins(list: unknown): ServerPlugin[] | null {
       return out;
     });
 }
-
-/** Keeps only the plugins that are turned on and running. */
-export function activePlugins(list: unknown): ServerPlugin[] | null {
-  return parseServerPlugins(list)?.filter((p) => p.active) ?? null;
-}

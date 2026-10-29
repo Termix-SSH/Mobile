@@ -8,7 +8,10 @@ import {
   nativeTheme,
   type TerminalViewHandle,
 } from "@/modules/termix-terminal";
-import { surfaceTheme } from "@/screens/dev/terminal-lab/surface";
+import { TERMINAL_THEMES } from "@/constants/terminal-themes";
+import { nativeTheme as terminalTheme } from "@/features/terminal/settings";
+
+const theme = terminalTheme(TERMINAL_THEMES.termix.colors);
 
 test("queued calls run once the view is ready, in order", () => {
   const q = createCallQueue();
@@ -25,19 +28,15 @@ test("queued calls run once the view is ready, in order", () => {
 });
 
 test("theme maps to the native record", () => {
-  const theme = surfaceTheme();
   expect(nativeTheme(theme)).toEqual({
     background: "#0c0d0b",
     foreground: "#f7f7f7",
     cursorColor: "#f7f7f7",
+    cursorAccent: "#0c0d0b",
     selectionBackground: "#3a3a3d",
     palette: theme.palette,
   });
   expect(theme.palette).toHaveLength(16);
-});
-
-test("unknown theme falls back to the default", () => {
-  expect(surfaceTheme("nope").background).toBe(surfaceTheme().background);
 });
 
 test("without the native module it renders nothing and reports no stats", async () => {
@@ -47,7 +46,7 @@ test("without the native module it renders nothing and reports no stats", async 
     <TerminalView
       ref={ref}
       fontSize={14}
-      theme={surfaceTheme()}
+      theme={theme}
       onInput={() => {}}
       onResize={() => {}}
     />,

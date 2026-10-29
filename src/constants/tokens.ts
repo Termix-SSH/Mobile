@@ -35,15 +35,6 @@ export const TYPE = {
   title: 17,
 } as const;
 
-/** Width of the colored stripe on list rows. */
-export const STRIPE_WIDTH = 3;
-
-/** Containers are square. Only dots, avatars and spinners are round. */
-export const RADIUS = {
-  none: 0,
-  full: 9999,
-} as const;
-
 export const ICON_SIZES = {
   sm: 14,
   md: 16,

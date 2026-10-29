@@ -5,7 +5,7 @@ import {
   utf8Decode,
   utf8Encode,
 } from "@/modules/termix-ssh/src/base64";
-import type { AuthType, SSHHost, SSHHostData } from "@/types";
+import type { SSHHost } from "@/types";
 import { isValidPort } from "./termix-json";
 
 export const SHARE_PREFIX = "termix://host?d=";
@@ -139,22 +139,4 @@ export function decodeHostShare(input: string): SharedHost | null {
   } catch {
     return null;
   }
-}
-
-/** A new host form payload for a shared host. */
-export function sharedToDraft(shared: SharedHost): SSHHostData {
-  return {
-    name: shared.name,
-    ip: shared.ip,
-    port: shared.port,
-    username: shared.username,
-    folder: shared.folder ?? "",
-    tags: shared.tags ?? [],
-    authType: shared.authType as AuthType,
-    password: shared.authType === "password" ? shared.password : undefined,
-    notes: shared.notes ?? "",
-    enableTerminal: true,
-    enableFileManager: true,
-    enableSsh: true,
-  };
 }

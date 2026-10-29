@@ -1,4 +1,4 @@
-# Test servers for the SSH engine spike. Keys land in ./out (gitignored).
+# Test servers for the SSH engine tests. Keys land in ./out (gitignored).
 name: termix-ssh-test
 services:
   target:

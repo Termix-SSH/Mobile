@@ -17,7 +17,7 @@ export function startupMarks(): Partial<Record<StartupMark, number>> {
   return { ...marks };
 }
 
-/** "bundle 410 ms | fonts 520 ms | ready 830 ms", for the log and the lab. */
+/** "bundle 410 ms | fonts 520 ms | ready 830 ms", for the log. */
 export function describeStartup(): string {
   return (["bundle", "fonts", "ready"] as const)
     .filter((name) => marks[name] !== undefined)

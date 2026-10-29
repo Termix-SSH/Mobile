@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AppError, isAppError, toUserMessage } from "@/core/errors";
+import { AppError, toUserMessage } from "@/core/errors";
 import {
   ApiError,
   extractConnectionLogs,
@@ -29,7 +29,7 @@ const hooks = () => ({
 
 test("API errors are app errors with a code and status", () => {
   const e = new ApiError("Nope", 404, "NOT_FOUND");
-  expect(isAppError(e)).toBe(true);
+  expect(e).toBeInstanceOf(AppError);
   expect([e.code, e.status, toUserMessage(e)]).toEqual([
     "NOT_FOUND",
     404,

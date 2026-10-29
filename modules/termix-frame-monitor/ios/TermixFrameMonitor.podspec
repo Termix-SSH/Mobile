@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name           = 'TermixFrameMonitor'
   s.version        = '0.1.0'
-  s.summary        = 'Frame timing and memory for the Termix terminal lab'
+  s.summary        = 'Log lines and launch URL for the Termix showcase build'
   s.author         = 'Termix'
   s.homepage       = 'https://github.com/Termix-SSH/Mobile'
   s.license        = { :type => 'MIT' }

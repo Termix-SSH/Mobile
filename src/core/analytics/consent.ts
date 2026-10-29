@@ -66,10 +66,6 @@ function subscribe(l: () => void) {
   };
 }
 
-export function subscribeConsent(l: () => void): () => void {
-  return subscribe(l);
-}
-
 export function useConsent(): { consent: Consent; loaded: boolean } {
   const consent = useSyncExternalStore(subscribe, getConsent, getConsent);
   const isLoaded = useSyncExternalStore(

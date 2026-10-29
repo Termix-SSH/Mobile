@@ -29,10 +29,6 @@ export class AppError extends Error {
   }
 }
 
-export function isAppError(error: unknown): error is AppError {
-  return error instanceof AppError;
-}
-
 /** Text that is safe to show in a toast. */
 export function toUserMessage(
   error: unknown,

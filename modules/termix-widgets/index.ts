@@ -32,9 +32,6 @@ const NativeModule =
  */
 export const isWidgetSupported: boolean = NativeModule?.isSupported ?? false;
 
-/** Shared container identifier (App Group / SharedPreferences name), or "". */
-export const widgetContainerId: string = NativeModule?.containerId ?? "";
-
 /**
  * Publishes a snapshot and refreshes every placed widget.
  * Resolves to true when the payload reached the native side.

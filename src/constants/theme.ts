@@ -489,17 +489,6 @@ export const ACCENT_PRESET_COLORS = [
 
 export const DEFAULT_ACCENT = "#f59145";
 
-export const FOLDER_COLORS = [
-  "#ef4444",
-  "#f97316",
-  "#eab308",
-  "#22c55e",
-  "#3b82f6",
-  "#a855f7",
-  "#ec4899",
-  "#6b7280",
-];
-
 /** "#f59145" -> "245 145 69" (RGB triplet for vars()). Returns null if invalid. */
 export function hexToRgbTriplet(hex: string): string | null {
   let h = hex.trim().replace("#", "");

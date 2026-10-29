@@ -744,7 +744,7 @@ internal class GhosttyTerminalView(context: Context) : View(context) {
     onModifiers?.invoke(ctrl.activation.name.lowercase(), alt.activation.name.lowercase())
   }
 
-  /** The KeyboardBar's Ctrl or Alt: tap arms it for the next key, a quick double tap locks it. */
+  /** The key row's Ctrl or Alt: tap arms it for the next key, a quick double tap locks it. */
   fun toggleModifier(name: String) {
     when (name) {
       "ctrl" -> ctrl.tap()

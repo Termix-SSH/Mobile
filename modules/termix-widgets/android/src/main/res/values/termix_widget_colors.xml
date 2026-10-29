@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Widget palette. Mirrors app/constants/designTokens.ts and the iOS widget
+  Widget palette. Mirrors src/constants/theme.ts and the iOS widget
   theme so a Termix widget looks identical on both platforms. The accent is not
   listed here: it travels in the snapshot and is applied at runtime.
 -->

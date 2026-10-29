@@ -1,8 +1,5 @@
 import { AccountClient } from "@/core/api/AccountClient";
-import {
-  activePlugins,
-  parseServerPlugins,
-} from "@/core/api/compat/server-features";
+import { parseServerPlugins } from "@/core/api/compat/server-features";
 import { accountStorage } from "@/core/storage/kv";
 import { resetStorage } from "../../../helpers/http";
 
@@ -24,18 +21,18 @@ async function client(
 }
 
 test("only enabled and running plugins count", () => {
-  const plugins = activePlugins([
+  const plugins = parseServerPlugins([
     { id: "ssh-terminal", enabled: true, state: "active" },
     { id: "docker", enabled: false, state: "disabled" },
     { id: "tunnels", enabled: true, state: "failed" },
     { id: "snippets" },
     { name: "no id" },
-  ])!;
+  ])!.filter((p) => p.active);
   expect(plugins.map((p) => p.id)).toEqual(["ssh-terminal", "snippets"]);
 });
 
 test("cached lists survive a JSON round trip", () => {
-  const plugins = activePlugins([
+  const plugins = parseServerPlugins([
     {
       id: "remote-desktop",
       enabled: true,
@@ -43,7 +40,7 @@ test("cached lists survive a JSON round trip", () => {
       contributes: { protocols: [{ id: "rdp" }] },
     },
   ]);
-  expect(activePlugins(JSON.parse(JSON.stringify(plugins)))).toEqual([
+  expect(parseServerPlugins(JSON.parse(JSON.stringify(plugins)))).toEqual([
     {
       id: "remote-desktop",
       active: true,
@@ -52,7 +49,7 @@ test("cached lists survive a JSON round trip", () => {
       protocols: ["rdp"],
     },
   ]);
-  expect(activePlugins("nope")).toBeNull();
+  expect(parseServerPlugins("nope")).toBeNull();
 });
 
 test("the full list keeps plugins that are off, with name and mobile info", () => {

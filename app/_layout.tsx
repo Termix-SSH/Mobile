@@ -50,7 +50,6 @@ import { OpenLinkHost } from "@/screens/links/OpenLinkHost";
 import { ShortcutSheet } from "@/screens/shortcuts/ShortcutSheet";
 import { useAppShortcuts } from "@/core/shortcuts/useAppShortcuts";
 import { CommandPalette } from "@/screens/palette/CommandPalette";
-import { LabLaunch } from "@/screens/dev/terminal-lab/LabLaunch";
 import { markStartup } from "@/core/perf/marks";
 import { SHOWCASE } from "@/showcase/enabled";
 import { ShowcaseHost } from "@/showcase/ShowcaseHost";
@@ -141,7 +140,6 @@ function RootLayoutContent() {
           cold starts from a widget. */}
       <WidgetDeepLinkHost />
       <OpenLinkHost />
-      <LabLaunch />
       {SHOWCASE ? <ShowcaseHost /> : null}
       <CommandPalette />
       <ShortcutSheet />

@@ -634,12 +634,6 @@ export const PUSHABLE_TYPES = Object.values(ADAPTERS)
   .filter((a) => !a.readOnly)
   .map((a) => a.type);
 
-/** Every local table sync writes, for change notices. */
-export const SYNCED_TABLES = [
-  ...new Set(Object.values(ADAPTERS).flatMap((a) => a.tables)),
-  getTableName(syncEntities),
-];
-
 /** The user's own tables, that a local edit can change. */
 export const EDITABLE_TABLES = [
   ...new Set(

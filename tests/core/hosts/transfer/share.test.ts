@@ -3,7 +3,6 @@ import {
   decodeHostShare,
   encodeHostShare,
   sharedFromHost,
-  sharedToDraft,
 } from "@/core/hosts/transfer/share";
 import { buildExport } from "@/core/hosts/transfer/termix-json";
 import type { SSHHost } from "@/types";
@@ -84,18 +83,4 @@ test("other text is not a host", () => {
   expect(decodeHostShare("{bad")).toBeNull();
   const noHost = SHARE_PREFIX + "e30";
   expect(decodeHostShare(noHost)).toBeNull();
-});
-
-test("a shared host fills a new host form payload", () => {
-  const shared = decodeHostShare(encodeHostShare(host, { password: true }))!;
-  expect(sharedToDraft(shared)).toMatchObject({
-    name: "Küche",
-    ip: "10.0.0.1",
-    port: 2222,
-    authType: "password",
-    password: "secret",
-    folder: "Home",
-  });
-  const keyed = sharedToDraft({ ...shared, authType: "key", password: "x" });
-  expect(keyed.password).toBeUndefined();
 });

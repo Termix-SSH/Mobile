@@ -80,6 +80,4 @@ checks their sha256 and unpacks them to `ios/vendor/Frameworks` and `android/ven
 
 Jest tests for the JS wrapper are in `tests/modules/termix-terminal`. Kotlin unit tests (IME,
 links, screen reader text) are in `android/src/test` and run in the Native check workflow, which
-also builds both platforms. The terminal lab (`app/dev/terminal-lab`, dev builds only) runs the
-view against echo, flood, alt screen and SSH streams with a frame time and memory readout. The
-engine choice and its measurements are on the `spike/terminal-view` branch.
+also builds both platforms.

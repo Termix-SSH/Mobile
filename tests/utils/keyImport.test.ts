@@ -4,7 +4,6 @@ import {
   importPrivateKey,
   keyStatus,
   keyStatusText,
-  publicKeyOf,
 } from "@/utils/keyImport";
 
 const mockEngine = {
@@ -91,19 +90,15 @@ test("a locked key is kept and flagged", () => {
   expect(importPrivateKey("KEY").locked).toBe(false);
 });
 
-test("without the engine the text is kept and public keys come from the server", () => {
+test("without the engine the key text is kept as is", () => {
   mockEngine.available = false;
   expect(importPrivateKey(" KEY ")).toEqual({
     key: "KEY",
     converted: false,
     locked: false,
   });
-  expect(publicKeyOf("KEY")).toBeNull();
   expect(mockEngine.inspectKey).not.toHaveBeenCalled();
-
   mockEngine.available = true;
-  mockEngine.inspectKey.mockReturnValue({ publicOpenssh: "ssh-ed25519 C" });
-  expect(publicKeyOf("KEY", "pp")).toBe("ssh-ed25519 C");
 });
 
 test("key status says what is wrong with a key or its passphrase", () => {

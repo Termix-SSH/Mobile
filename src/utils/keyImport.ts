@@ -46,12 +46,6 @@ export function importPrivateKey(
   }
 }
 
-/** The public key line for a private key, read on the phone. Null when it can't be read here. */
-export function publicKeyOf(text: string, passphrase?: string): string | null {
-  if (!isSshEngineAvailable) return null;
-  return inspectKey(text.trim(), passphrase).publicOpenssh;
-}
-
 /** One line for the toast after loading a key file. */
 export function importMessage(name: string, imported: ImportedKey): string {
   if (imported.converted)

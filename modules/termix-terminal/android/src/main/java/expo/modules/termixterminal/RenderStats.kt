@@ -1,6 +1,6 @@
 package expo.modules.termixterminal
 
-/** Render cost per frame for the terminal lab readout. Frames on the main thread, bytes on the parse thread. */
+/** Render cost per frame, read by getStats. Frames on the main thread, bytes on the parse thread. */
 internal class RenderStats {
   private val samples = LongArray(600)
   private var count = 0

@@ -37,7 +37,7 @@ export const REPEATING_KEY_IDS = new Set([
 
 /**
  * Check whether a key ID should auto-repeat on long-press.
- * Used in both CustomKeyboard (main grid) and KeyboardBar (top bar).
+ * Used by the key rows and the keys panel.
  */
 export const isRepeatingKey = (id: string): boolean =>
   REPEATING_KEY_IDS.has(id);

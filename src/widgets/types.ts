@@ -154,13 +154,3 @@ export function buildWidgetLink(
 export function buildWidgetSnippetLink(snippetId: number): string {
   return `${WIDGET_LINK_PREFIX}/snippet?snippetId=${snippetId}`;
 }
-
-/** Deep link that just brings the app to the hosts list. */
-export function buildWidgetOpenLink(): string {
-  return `${WIDGET_LINK_PREFIX}/open`;
-}
-
-/** Deep link that opens the snippets list without copying anything. */
-export function buildWidgetSnippetsListLink(): string {
-  return `${WIDGET_LINK_PREFIX}/snippets`;
-}
