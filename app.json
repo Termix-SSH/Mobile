@@ -34,7 +34,8 @@
         "monochromeImage": "./assets/images/adaptive-monochrome.png",
         "backgroundColor": "#141513"
       },
-      "allowBackup": false
+      "allowBackup": false,
+      "blockedPermissions": ["android.permission.READ_MEDIA_IMAGES"]
     },
     "web": {
       "output": "static",
