@@ -575,6 +575,25 @@ ${VIEWPORT_SCRIPT}
         }
       }, { passive: false });
 
+      // ── Hardware pointer (iPad trackpad, Bluetooth mouse) ────────────────
+      // A trackpad or mouse reaches the web view as mouse events, not touch
+      // events, so none of the handlers above see it. Guacamole.Mouse maps
+      // mousemove/mousedown/mouseup and the wheel to mouse states, and drops
+      // the synthetic mouse events Safari fires after a touch, so the finger
+      // gestures above and this layer do not double-fire.
+      const hardwareMouse = new Guacamole.Mouse(displayContainer);
+      hardwareMouse.onEach(['mousedown', 'mousemove', 'mouseup'], (e) => {
+        const st = e.state;
+        sendMouseAt(st.x, st.y, st.left, st.right, st.up, st.down);
+        // Keep the virtual trackpad cursor where the real pointer left it so
+        // a finger tap afterwards lands at the same spot.
+        if (currentMode === 'trackpad') {
+          const r = toRemote(st.x, st.y);
+          mouseRX = Math.max(0, Math.min(remoteW, r.x));
+          mouseRY = Math.max(0, Math.min(remoteH, r.y));
+        }
+      });
+
       // ── termixRemote API ─────────────────────────────────────────────────
       window.termixRemote = {
         sendKeysym: (k) => { client.sendKeyEvent(1, k); client.sendKeyEvent(0, k); },
