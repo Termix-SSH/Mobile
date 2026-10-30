@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  type KeyboardEvent,
   type KeyboardMetrics,
 } from "react-native";
 import { useWindowInfo } from "@/utils/window-class";
@@ -20,6 +21,7 @@ import { visibleKeyboardHeight } from "@/contexts/KeyboardContext";
 
 /** Sheets stop growing wider than this, so a sideways phone or tablet keeps them readable. */
 const SHEET_MAX_WIDTH = 640;
+const SLIDE_MS = 220;
 
 /**
  * Keyboard height while the sheet is open. The sheet pads its own bottom by
@@ -36,18 +38,26 @@ function useKeyboardHeight(active: boolean): number {
       ios ? visibleKeyboardHeight(frame) : frame.height;
     const metrics = Keyboard.isVisible() ? Keyboard.metrics() : undefined;
     if (metrics) setHeight(cover(metrics));
+    // A layout animation during the slide in (an autofocused input opens the
+    // keyboard right away) can leave the panel stuck below the screen.
+    const openedAt = Date.now();
+    const animate = (e: KeyboardEvent) => {
+      if (ios && Date.now() - openedAt > SLIDE_MS + 100) {
+        Keyboard.scheduleLayoutAnimation(e);
+      }
+    };
     // A frame change also covers a split keyboard and a fold or turn while it is up.
     const show = Keyboard.addListener(
       ios ? "keyboardWillChangeFrame" : "keyboardDidShow",
       (e) => {
-        if (ios) Keyboard.scheduleLayoutAnimation(e);
+        animate(e);
         setHeight(cover(e.endCoordinates));
       },
     );
     const hide = Keyboard.addListener(
       ios ? "keyboardWillHide" : "keyboardDidHide",
       (e) => {
-        if (ios) Keyboard.scheduleLayoutAnimation(e);
+        animate(e);
         setHeight(0);
       },
     );
@@ -120,7 +130,7 @@ export function Sheet({
   const entering =
     Platform.OS === "android"
       ? undefined
-      : SlideInDown.duration(220).reduceMotion(ReduceMotion.System);
+      : SlideInDown.duration(SLIDE_MS).reduceMotion(ReduceMotion.System);
 
   const layer = (
     <View style={{ flex: 1, justifyContent: "flex-end" }}>
