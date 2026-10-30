@@ -18,10 +18,12 @@ import { X } from "lucide-react-native";
 import { Text } from "./Text";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { visibleKeyboardHeight } from "@/contexts/KeyboardContext";
+import { systemLogger } from "@/core/log/logger";
 
 /** Sheets stop growing wider than this, so a sideways phone or tablet keeps them readable. */
 const SHEET_MAX_WIDTH = 640;
 const SLIDE_MS = 220;
+const r = (n: number) => Math.round(n);
 
 /**
  * Keyboard height while the sheet is open. The sheet pads its own bottom by
@@ -51,7 +53,12 @@ function useKeyboardHeight(active: boolean): number {
       ios ? "keyboardWillChangeFrame" : "keyboardDidShow",
       (e) => {
         animate(e);
-        setHeight(cover(e.endCoordinates));
+        const f = e.endCoordinates;
+        systemLogger.info(
+          `Sheet keyboard frame y ${r(f.screenY)} size ${r(f.width)}x${r(f.height)}, covers ${r(cover(f))}`,
+          { operation: "sheet_layout" },
+        );
+        setHeight(cover(f));
       },
     );
     const hide = Keyboard.addListener(
@@ -132,8 +139,23 @@ export function Sheet({
       ? undefined
       : SlideInDown.duration(SLIDE_MS).reduceMotion(ReduceMotion.System);
 
+  // On iOS a Modal can start with the size from before a fold or turn, so the
+  // layer takes the measured window size instead of the Modal's.
   const layer = (
-    <View style={{ flex: 1, justifyContent: "flex-end" }}>
+    <View
+      style={
+        inline
+          ? { flex: 1, justifyContent: "flex-end" }
+          : { width, height, justifyContent: "flex-end" }
+      }
+      onLayout={(e) => {
+        const l = e.nativeEvent.layout;
+        systemLogger.info(
+          `Sheet "${title ?? ""}" layer ${r(l.width)}x${r(l.height)}, window ${r(width)}x${r(height)}, keyboard ${r(keyboard)}`,
+          { operation: "sheet_layout" },
+        );
+      }}
+    >
       {/* Fills the whole window, so a sheet stopped short of the bottom
             never leaves a gap without the dim. */}
       <Pressable
@@ -144,6 +166,13 @@ export function Sheet({
         importantForAccessibility="no"
       />
       <Animated.View
+        onLayout={(e) => {
+          const l = e.nativeEvent.layout;
+          systemLogger.info(
+            `Sheet "${title ?? ""}" panel at ${r(l.x)},${r(l.y)} size ${r(l.width)}x${r(l.height)}`,
+            { operation: "sheet_layout" },
+          );
+        }}
         entering={entering}
         accessibilityViewIsModal
         onAccessibilityEscape={close}
