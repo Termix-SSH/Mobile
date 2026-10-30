@@ -34,7 +34,7 @@ Termix Mobile now works with no server. Hosts, logins and snippets stay encrypte
 - Server plugins with no phone version open inside the app, and Settings, Plugins shows what works where
 - Rebuilt Settings with search, text size and row density
 - App Lock delays, PIN change and hiding the app in the app switcher
-- Split view on tablets, foldable support, a sidebar on wide windows and resizable windows
+- Split view on tablets with draggable dividers, foldable support, a sidebar on wide windows and resizable windows
 - Keyboard shortcuts for iPad and Android, hover and right click for mouse and trackpad
 - Home screen widgets with no server, a themed Android icon and copyable app logs
 - Better screen reader support, large text and reduce motion
