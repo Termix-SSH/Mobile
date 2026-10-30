@@ -5,6 +5,12 @@ import { useTheme, useThemeColor } from "@/contexts/ThemeContext";
 import { MONO_FONT, MONO_FONT_MEDIUM } from "@/constants/fonts";
 import { setToastPalette } from "@/utils/toast";
 import { THEME_VARS, tripletToHex } from "@/constants/theme";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useWindowInfo } from "@/utils/window-class";
+import { SIDEBAR_WIDTH, shellLayout } from "@/screens/shell/layout";
+
+/** Toasts stop growing wider than this on tablets and opened foldables. */
+const TOAST_MAX_WIDTH = 480;
 
 /** App toaster styled like core's sonner: square card, accent for success. */
 export function Toaster() {
@@ -13,6 +19,20 @@ export function Toaster() {
   const accent = tripletToHex(accentTriplet);
   const destructive = tripletToHex(THEME_VARS[resolvedTheme].destructive);
   const warning = tripletToHex(THEME_VARS[resolvedTheme].warning);
+  const insets = useSafeAreaInsets();
+  const win = useWindowInfo();
+  // Clear of the side rail, and on the right half when a fold splits the screen.
+  const rail = shellLayout(win, 0).nav === "side" ? SIDEBAR_WIDTH : 0;
+  const fold = win.fold?.axis === "vertical" ? win.fold.end : 0;
+  const left = Math.max(insets.left + rail, fold);
+  const right = insets.right;
+  // The list centers each toast, so a margin of the difference centers it between the edges.
+  const shift = left - right;
+  const container = {
+    width: Math.min(TOAST_MAX_WIDTH, Math.max(0, win.width - left - right)),
+    marginLeft: Math.max(0, shift),
+    marginRight: Math.max(0, -shift),
+  };
 
   useEffect(() => {
     setToastPalette({
@@ -28,6 +48,7 @@ export function Toaster() {
       theme={isDark ? "dark" : "light"}
       position="top-center"
       toastOptions={{
+        toastContainerStyle: container,
         style: {
           backgroundColor: color("card"),
           borderWidth: 1,
