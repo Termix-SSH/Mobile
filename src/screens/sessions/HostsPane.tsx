@@ -2,10 +2,21 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Hosts from "@/screens/hosts/Hosts";
-import { HOSTS_PANE_MIN_WIDTH } from "@/screens/shell/layout";
+import {
+  HOSTS_PANE_MIN_WIDTH,
+  SESSION_MIN_WIDTH,
+} from "@/screens/shell/layout";
 
 export const HOSTS_PANE_WIDTH = 340;
 export const HOSTS_PANE_HIDDEN_KEY = "sessions.hostsPaneHidden";
+export const HOSTS_PANE_WIDTH_KEY = "sessions.hostsPaneWidth";
+export const SPLIT_RATIO_KEY = "sessions.splitRatio";
+
+/** A dragged pane width, kept between the narrowest list and the narrowest terminal. */
+export function clampHostsPaneWidth(width: number, available: number): number {
+  const max = Math.max(HOSTS_PANE_MIN_WIDTH, available - SESSION_MIN_WIDTH);
+  return Math.round(Math.min(max, Math.max(HOSTS_PANE_MIN_WIDTH, width)));
+}
 
 /** Pane width that ends at a window position, like the left edge of a fold. */
 export function hostsPaneWidth(left: number | null, edge?: number): number {
@@ -15,21 +26,32 @@ export function hostsPaneWidth(left: number | null, edge?: number): number {
 
 /**
  * The host list beside the terminal on wide windows. With an edge it fills
- * up to that window position, so on a foldable it ends at the crease.
+ * up to that window position, so on a foldable it ends at the crease. A
+ * dragged width wins over both.
  */
-export function HostsPane({ edge }: { edge?: number }) {
+export function HostsPane({
+  edge,
+  width,
+  onLeft,
+}: {
+  edge?: number;
+  width?: number | null;
+  /** Window position of the pane's left side, for drags that snap to a fold. */
+  onLeft?: (left: number) => void;
+}) {
   const ref = useRef<View>(null);
   const [left, setLeft] = useState<number | null>(null);
   const measure = () =>
-    ref.current?.measureInWindow((x) =>
-      setLeft((prev) => (prev === x ? prev : x)),
-    );
+    ref.current?.measureInWindow((x) => {
+      setLeft((prev) => (prev === x ? prev : x));
+      onLeft?.(x);
+    });
   return (
     <View
       ref={ref}
       onLayout={measure}
       className="border-r border-border bg-background"
-      style={{ width: hostsPaneWidth(left, edge) }}
+      style={{ width: width ?? hostsPaneWidth(left, edge) }}
     >
       <Hosts />
     </View>
@@ -60,4 +82,38 @@ export function useHostsPaneHidden(): [boolean, (hidden: boolean) => void] {
   }, []);
 
   return [hidden, set];
+}
+
+/** A number kept across launches, or null when none was saved. */
+export function useStoredNumber(
+  key: string,
+): [number | null, (value: number | null) => void] {
+  const [value, setValue] = useState<number | null>(null);
+
+  useEffect(() => {
+    let live = true;
+    setValue(null);
+    AsyncStorage.getItem(key)
+      .then((v) => {
+        const n = v == null ? NaN : Number(v);
+        if (live && Number.isFinite(n)) setValue(n);
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [key]);
+
+  const set = useCallback(
+    (next: number | null) => {
+      setValue(next);
+      (next == null
+        ? AsyncStorage.removeItem(key)
+        : AsyncStorage.setItem(key, String(next))
+      ).catch(() => {});
+    },
+    [key],
+  );
+
+  return [value, set];
 }

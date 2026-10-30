@@ -35,16 +35,31 @@ export function clampRatio(ratio: number): number {
 /** Narrowest tab worth putting on one side of a fold. */
 export const SPLIT_MIN_PANE = 240;
 
+/** A divider let go this close to a fold goes back onto it. */
+export const FOLD_SNAP = 32;
+
+/** Whether a window position is close enough to the fold to snap onto it. */
+export function nearFold(
+  x: number,
+  fold: { start: number; end: number } | null | undefined,
+): boolean {
+  if (!fold) return false;
+  return Math.abs(x - (fold.start + fold.end) / 2) <= FOLD_SNAP;
+}
+
 /**
  * Where the left tab ends and the right one starts. A fold across the stage
- * (in stage coordinates) wins over the dragged ratio, so no tab sits on the crease.
+ * (in stage coordinates) holds the divider until it is dragged off, so no tab
+ * sits on the crease by default.
  */
 export function splitEdges(
   stageWidth: number,
   ratio: number,
   fold: { start: number; end: number } | null,
+  onFoldWanted = true,
 ): { start: number; end: number; onFold: boolean } {
   if (
+    onFoldWanted &&
     fold &&
     fold.start >= SPLIT_MIN_PANE &&
     stageWidth - fold.end >= SPLIT_MIN_PANE

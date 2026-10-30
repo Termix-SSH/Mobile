@@ -4,7 +4,7 @@ export const SIDEBAR_WIDTH = 84;
 /** Narrowest host list that still reads well. */
 export const HOSTS_PANE_MIN_WIDTH = 220;
 /** Narrowest terminal worth putting beside the host list. */
-const SESSION_MIN_WIDTH = 300;
+export const SESSION_MIN_WIDTH = 300;
 /** Each half of a phone folded like a laptop must be at least this tall. */
 const LAPTOP_MIN_HALF = 220;
 

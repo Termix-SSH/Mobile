@@ -4,6 +4,8 @@ import {
   partnerAfterActivate,
   splitEdges,
   splitPartner,
+  nearFold,
+  FOLD_SNAP,
 } from "@/screens/sessions/split";
 
 test("only large screens split", () => {
@@ -51,4 +53,20 @@ test("a fold across the stage holds the divider", () => {
 test("a fold too close to an edge leaves the divider to the ratio", () => {
   expect(splitEdges(500, 0.5, { start: -100, end: -76 }).onFold).toBe(false);
   expect(splitEdges(500, 0.5, { start: 300, end: 324 }).onFold).toBe(false);
+});
+
+test("a divider dragged off the fold leaves it to the ratio", () => {
+  expect(splitEdges(867, 0.3, { start: 380, end: 404 }, false)).toEqual({
+    start: 257,
+    end: 263,
+    onFold: false,
+  });
+});
+
+test("a divider let go near the fold snaps back onto it", () => {
+  const fold = { start: 380, end: 404 };
+  expect(nearFold(392, fold)).toBe(true);
+  expect(nearFold(392 + FOLD_SNAP, fold)).toBe(true);
+  expect(nearFold(392 + FOLD_SNAP + 1, fold)).toBe(false);
+  expect(nearFold(392, null)).toBe(false);
 });

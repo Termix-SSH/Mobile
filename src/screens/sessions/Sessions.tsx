@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   View,
   Keyboard,
@@ -12,7 +6,6 @@ import {
   BackHandler,
   AppState,
   LayoutAnimation,
-  PanResponder,
   StyleSheet,
   TextInput,
 } from "react-native";
@@ -45,15 +38,25 @@ import TabBar from "@/screens/sessions/navigation/TabBar";
 import { SessionMenu } from "@/screens/sessions/SessionMenu";
 import { keyBarHeight } from "@/features/terminal/keys/compact";
 import { shellLayout } from "@/screens/shell/layout";
-import { HostsPane, useHostsPaneHidden } from "@/screens/sessions/HostsPane";
+import {
+  HOSTS_PANE_WIDTH_KEY,
+  HostsPane,
+  SPLIT_RATIO_KEY,
+  clampHostsPaneWidth,
+  hostsPaneWidth,
+  useHostsPaneHidden,
+  useStoredNumber,
+} from "@/screens/sessions/HostsPane";
 import { CompanionPane } from "@/screens/sessions/CompanionPane";
 import { TabSwipeEdge } from "@/screens/sessions/TabSwipeEdge";
 import {
   clampRatio,
+  nearFold,
   partnerAfterActivate,
   splitEdges,
   splitPartner,
 } from "@/screens/sessions/split";
+import { SplitDivider } from "@/screens/sessions/SplitDivider";
 import { neighborTab, tabNumber } from "@/contexts/session-tabs";
 import type {
   SessionMenuContext,
@@ -480,7 +483,11 @@ export default function Sessions() {
 
   // Two tabs side by side on large screens. Kept in memory only.
   const [splitWith, setSplitWith] = useState<string | null>(null);
-  const [splitRatio, setSplitRatio] = useState(0.5);
+  // A saved ratio means the divider was dragged; with none it sits on a fold if there is one.
+  const [savedRatio, setSavedRatio] = useStoredNumber(SPLIT_RATIO_KEY);
+  const [dragRatio, setDragRatio] = useState<number | null>(null);
+  const splitRatio = dragRatio ?? clampRatio(savedRatio ?? 0.5);
+  const splitOnFoldWanted = dragRatio == null && savedRatio == null;
   useEffect(() => (SHOWCASE ? onShowcaseSplit(setSplitWith) : undefined), []);
   const [stageWidth, setStageWidth] = useState(0);
   const stageRef = useRef<View>(null);
@@ -498,24 +505,6 @@ export default function Sessions() {
       )
     : null;
   const ratioBase = useRef(splitRatio);
-  const ratioNow = useRef(splitRatio);
-  ratioNow.current = splitRatio;
-  const dividerPan = useMemo(
-    () =>
-      PanResponder.create({
-        onStartShouldSetPanResponder: () => true,
-        onMoveShouldSetPanResponder: () => true,
-        onPanResponderGrant: () => {
-          ratioBase.current = ratioNow.current;
-        },
-        onPanResponderMove: (_, g) => {
-          if (stageWidth > 0) {
-            setSplitRatio(clampRatio(ratioBase.current + g.dx / stageWidth));
-          }
-        },
-      }),
-    [stageWidth],
-  );
 
   // A tab switch keeps the keyboard as it was. Up: the new terminal takes it (it waits until
   // it is on screen) and iOS moves it over without hiding it, which also lets go of the old
@@ -840,6 +829,21 @@ export default function Sessions() {
   const hostsPaneFits = layout.hostsPane;
   const [hostsPaneHidden, setHostsPaneHidden] = useHostsPaneHidden();
   const showHostsPane = hostsPaneFits && !hostsPaneHidden;
+  // A dragged host list width, per window class. None follows the fold or the default.
+  const [savedPaneWidth, setSavedPaneWidth] = useStoredNumber(
+    `${HOSTS_PANE_WIDTH_KEY}.${win.windowClass}`,
+  );
+  const [dragPaneWidth, setDragPaneWidth] = useState<number | null>(null);
+  const paneLeft = useRef(0);
+  const paneBase = useRef(0);
+  const paneSpace = win.width - side.left - side.right;
+  const paneFoldEdge = layout.foldSplit ? fold?.start : undefined;
+  const paneWidth =
+    dragPaneWidth ??
+    (savedPaneWidth == null
+      ? null
+      : clampHostsPaneWidth(savedPaneWidth, paneSpace));
+  const paneOnFold = !!(layout.foldSplit && fold && paneWidth == null);
 
   const activeTerminalBgColor =
     activeIsTerminal && activeSessionId
@@ -897,13 +901,36 @@ export default function Sessions() {
       }}
     >
       {showHostsPane ? (
-        <HostsPane edge={layout.foldSplit ? fold?.start : undefined} />
+        <HostsPane
+          edge={paneFoldEdge}
+          width={paneWidth}
+          onLeft={(x) => {
+            paneLeft.current = x;
+          }}
+        />
       ) : null}
-      {showHostsPane && layout.foldSplit && fold ? (
-        // Kept clear over the crease.
-        <View
-          className="bg-background"
-          style={{ width: fold.end - fold.start }}
+      {showHostsPane ? (
+        // On a fold it fills the crease, so nothing sits on it until dragged off.
+        <SplitDivider
+          label="Resize host list"
+          crease={paneOnFold}
+          width={paneOnFold && fold ? fold.end - fold.start : undefined}
+          onStart={() => {
+            paneBase.current =
+              paneWidth ?? hostsPaneWidth(paneLeft.current, paneFoldEdge);
+          }}
+          onMove={(dx) =>
+            setDragPaneWidth(
+              clampHostsPaneWidth(paneBase.current + dx, paneSpace),
+            )
+          }
+          onEnd={(dx) => {
+            const next = clampHostsPaneWidth(paneBase.current + dx, paneSpace);
+            setDragPaneWidth(null);
+            const foldNear =
+              layout.foldSplit && nearFold(paneLeft.current + next, fold);
+            setSavedPaneWidth(foldNear ? null : next);
+          }}
         />
       ) : null}
       <View
@@ -921,12 +948,15 @@ export default function Sessions() {
         >
           {(() => {
             // A crease across the stage holds the divider, so each tab keeps its own half.
+            const stageFold =
+              fold?.axis === "vertical" && stageX !== null
+                ? { start: fold.start - stageX, end: fold.end - stageX }
+                : null;
             const splitAt = splitEdges(
               stageWidth,
               splitRatio,
-              fold?.axis === "vertical" && stageX !== null
-                ? { start: fold.start - stageX, end: fold.end - stageX }
-                : null,
+              stageFold,
+              splitOnFoldWanted,
             );
             const onFold = splitAt.onFold;
             // Each tab keeps its own wrapper, so starting or ending a split never remounts it.
@@ -988,37 +1018,39 @@ export default function Sessions() {
                     </View>
                   );
                 })}
-                {partnerId && onFold ? (
-                  <View
-                    className="bg-background"
+                {partnerId ? (
+                  <SplitDivider
+                    label="Resize split view"
+                    crease={onFold}
+                    width={splitAt.end - splitAt.start}
                     style={{
                       position: "absolute",
                       top: 0,
                       bottom: 0,
                       left: splitAt.start,
-                      width: splitAt.end - splitAt.start,
-                      zIndex: 2,
+                    }}
+                    onStart={() => {
+                      ratioBase.current =
+                        (splitAt.start + splitAt.end) / 2 / (stageWidth || 1);
+                    }}
+                    onMove={(dx) => {
+                      if (stageWidth > 0) {
+                        setDragRatio(
+                          clampRatio(ratioBase.current + dx / stageWidth),
+                        );
+                      }
+                    }}
+                    onEnd={(dx) => {
+                      setDragRatio(null);
+                      if (stageWidth <= 0) return;
+                      const next = clampRatio(
+                        ratioBase.current + dx / stageWidth,
+                      );
+                      const foldNear =
+                        stageFold && nearFold(next * stageWidth, stageFold);
+                      setSavedRatio(foldNear ? null : next);
                     }}
                   />
-                ) : null}
-                {partnerId && !onFold ? (
-                  <View
-                    {...dividerPan.panHandlers}
-                    accessibilityRole="adjustable"
-                    accessibilityLabel="Resize split view"
-                    hitSlop={{ left: 8, right: 8 }}
-                    className="items-center justify-center bg-border active:bg-accent-brand"
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      bottom: 0,
-                      left: splitAt.start,
-                      width: 6,
-                      zIndex: 2,
-                    }}
-                  >
-                    <View className="h-8 w-0.5 bg-muted-foreground/50" />
-                  </View>
                 ) : null}
               </View>
             );
