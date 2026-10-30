@@ -6,6 +6,7 @@ import {
   Pressable,
   ScrollView,
   View,
+  type KeyboardMetrics,
 } from "react-native";
 import { useWindowInfo } from "@/utils/window-class";
 import Animated, { ReduceMotion, SlideInDown } from "react-native-reanimated";
@@ -13,6 +14,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { X } from "lucide-react-native";
 import { Text } from "./Text";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { visibleKeyboardHeight } from "@/contexts/KeyboardContext";
 
 /** Sheets stop growing wider than this, so a sideways phone or tablet keeps them readable. */
 const SHEET_MAX_WIDTH = 640;
@@ -27,13 +29,17 @@ function useKeyboardHeight(active: boolean): number {
   const [height, setHeight] = useState(0);
   useEffect(() => {
     if (!active) return;
-    if (Keyboard.isVisible()) setHeight(Keyboard.metrics()?.height ?? 0);
     const ios = Platform.OS === "ios";
+    const cover = (frame: KeyboardMetrics) =>
+      ios ? visibleKeyboardHeight(frame) : frame.height;
+    const metrics = Keyboard.isVisible() ? Keyboard.metrics() : undefined;
+    if (metrics) setHeight(cover(metrics));
+    // A frame change also covers a split keyboard and a fold or turn while it is up.
     const show = Keyboard.addListener(
-      ios ? "keyboardWillShow" : "keyboardDidShow",
+      ios ? "keyboardWillChangeFrame" : "keyboardDidShow",
       (e) => {
         if (ios) Keyboard.scheduleLayoutAnimation(e);
-        setHeight(e.endCoordinates.height);
+        setHeight(cover(e.endCoordinates));
       },
     );
     const hide = Keyboard.addListener(

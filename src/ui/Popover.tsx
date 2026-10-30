@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Modal, Pressable, View } from "react-native";
 import { useUiColors } from "@/contexts/ThemeContext";
+import { useWindowInfo } from "@/utils/window-class";
 
 export interface PopoverAnchor {
   /** Window coordinates, from measureInWindow. */
@@ -26,6 +28,12 @@ export function Popover({
   children: React.ReactNode;
 }) {
   const ui = useUiColors();
+  const win = useWindowInfo();
+  const [panelWidth, setPanelWidth] = useState(0);
+  // Keeps a panel near the right edge inside the window.
+  const left = anchor
+    ? Math.max(4, Math.min(anchor.x - 4, win.width - panelWidth - 4))
+    : 0;
   return (
     <Modal
       visible={anchor !== null}
@@ -41,9 +49,10 @@ export function Popover({
       >
         {anchor ? (
           <View
+            onLayout={(e) => setPanelWidth(e.nativeEvent.layout.width)}
             style={{
               position: "absolute",
-              left: Math.max(4, anchor.x - 4),
+              left,
               top: Math.max(4, anchor.y - height - 8),
               flexDirection: "row",
               borderWidth: 1,

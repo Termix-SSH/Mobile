@@ -36,4 +36,20 @@ describe("on iOS", () => {
       visibleKeyboardHeight({ screenY: 393, width: 852, height: 209 }),
     ).toBe(0);
   });
+
+  test("an opened foldable works while the screen size is still the folded one", () => {
+    jest
+      .spyOn(Dimensions, "get")
+      .mockImplementation((dim) =>
+        dim === "screen"
+          ? { width: 466, height: 678, scale: 3, fontScale: 1 }
+          : { width: 951, height: 669, scale: 3, fontScale: 1 },
+      );
+    expect(
+      visibleKeyboardHeight({ screenY: 369, width: 951, height: 300 }),
+    ).toBe(300);
+    expect(
+      visibleKeyboardHeight({ screenY: 669, width: 951, height: 300 }),
+    ).toBe(0);
+  });
 });

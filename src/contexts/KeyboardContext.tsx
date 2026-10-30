@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Keyboard, Platform, Dimensions } from "react-native";
+import { currentWindowSize } from "@/utils/window-class";
 
 interface KeyboardContextType {
   keyboardHeight: number;
@@ -20,13 +21,22 @@ export function visibleKeyboardHeight(frame: {
   height: number;
 }): number {
   const screen = Dimensions.get("screen");
-  const long = Math.max(screen.width, screen.height);
-  const short = Math.min(screen.width, screen.height);
   if (Platform.OS === "android") {
     return Math.max(0, screen.height - frame.screenY);
   }
+  // Dimensions keeps the folded size after a foldable opens, so the measured
+  // root size comes first.
+  const measured = currentWindowSize();
+  const sides = [measured.width, measured.height, screen.width, screen.height];
+  // A docked keyboard ends at the bottom of the screen.
+  const bottom = frame.screenY + frame.height;
+  if (frame.height > 0 && sides.some((side) => Math.abs(bottom - side) <= 1)) {
+    return frame.height;
+  }
+  const long = Math.max(measured.width, measured.height);
+  const short = Math.min(measured.width, measured.height);
   // The keyboard spans the screen's width, which tells the orientation even while
-  // Dimensions still has the old one during a turn.
+  // the size is still the old one during a turn.
   const screenHeight = frame.width >= long - 1 ? short : long;
   return Math.max(0, Math.min(frame.height, screenHeight - frame.screenY));
 }

@@ -71,6 +71,19 @@ final class WindowFitView: UIView {
     }
     root.setNeedsLayout()
     root.layoutIfNeeded()
+    // Popups (React Native modals) are presented controllers and kept the old size too.
+    var presented = window.rootViewController?.presentedViewController
+    while let controller = presented {
+      if controller.modalPresentationStyle == .overFullScreen
+        || controller.modalPresentationStyle == .fullScreen,
+        let view = controller.view, view.frame != window.bounds
+      {
+        view.frame = window.bounds
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+      }
+      presented = controller.presentedViewController
+    }
     // React Native's Dimensions listens for this. Same payload its own root view sends.
     NotificationCenter.default.post(
       name: Notification.Name("RCTUserInterfaceStyleDidChangeNotification"),
