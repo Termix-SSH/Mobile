@@ -76,6 +76,22 @@ describe("AnalyticsHost", () => {
     expect((await readUsage()).features).toEqual({});
   });
 
+  it("closes once answered", async () => {
+    await render(<AnalyticsHost hold={false} />);
+    const no = await screen.findByText("No thanks");
+    await act(async () => {
+      fireEvent.press(no);
+    });
+    expect(screen.queryByText("Share anonymous usage statistics?")).toBeNull();
+  });
+
+  it("keeps an answer given while the saved one is still loading", async () => {
+    const loading = loadConsent();
+    await setConsent("on");
+    await loading;
+    expect(getConsent()).toBe("on");
+  });
+
   it("does not ask again once answered", async () => {
     await setConsent("off");
     await render(<AnalyticsHost hold={false} />);

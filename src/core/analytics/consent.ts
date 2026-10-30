@@ -26,7 +26,10 @@ export function consentLoaded(): boolean {
 
 export async function loadConsent(): Promise<Consent> {
   const saved = await plainStore.get(CONSENT_KEY);
-  current = saved === "on" || saved === "off" ? saved : "unanswered";
+  // An answer given while this read was out wins over the older saved value.
+  if (current === "unanswered") {
+    current = saved === "on" || saved === "off" ? saved : "unanswered";
+  }
   loaded = true;
   emit();
   return current;

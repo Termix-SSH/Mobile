@@ -34,6 +34,7 @@ export function AnalyticsHost({ hold }: { hold: boolean }) {
       visible={loaded && consent === "unanswered" && !hold}
       onClose={() => {}}
       dismissable={false}
+      inline
       title="Share anonymous usage statistics?"
       description="Termix would send a short report once a day. You can change this any time in Settings."
       footer={
