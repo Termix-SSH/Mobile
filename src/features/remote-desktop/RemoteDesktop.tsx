@@ -337,6 +337,11 @@ export function RemoteDesktop({
       overflow: hidden;
       background: #000;
       touch-action: none;
+      /* A held trackpad click must not select or drag the page on iPadOS. */
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-user-drag: none;
     }
     #display {
       position: absolute;
@@ -574,6 +579,28 @@ ${VIEWPORT_SCRIPT}
           }
         }
       }, { passive: false });
+
+      // ── Hardware pointer (iPad trackpad, Bluetooth mouse) ────────────────
+      // A trackpad or mouse reaches the web view as mouse events, not touch
+      // events, so none of the handlers above see it. Guacamole.Mouse maps
+      // mousemove/mousedown/mouseup and the wheel to mouse states, and drops
+      // the synthetic mouse events Safari fires after a touch, so the finger
+      // gestures above and this layer do not double-fire.
+      const hardwareMouse = new Guacamole.Mouse(displayContainer);
+      hardwareMouse.onEach(['mousedown', 'mousemove', 'mouseup'], (e) => {
+        // Only legacy handlers cancel the DOM event, so do it here, or a held
+        // click starts a text selection or drag in the web view.
+        e.preventDefault();
+        const st = e.state;
+        sendMouseAt(st.x, st.y, st.left, st.right, st.up, st.down);
+        // Keep the virtual trackpad cursor where the real pointer left it so
+        // a finger tap afterwards lands at the same spot.
+        if (currentMode === 'trackpad') {
+          const r = toRemote(st.x, st.y);
+          mouseRX = Math.max(0, Math.min(remoteW, r.x));
+          mouseRY = Math.max(0, Math.min(remoteH, r.y));
+        }
+      });
 
       // ── termixRemote API ─────────────────────────────────────────────────
       window.termixRemote = {
@@ -880,7 +907,8 @@ ${VIEWPORT_SCRIPT}
             setConnectionState("failed");
             setErrorMessage(`HTTP ${e.nativeEvent.statusCode}`);
           }}
-          scrollEnabled={false}
+          // Leave the scroll view on: iPadOS only turns trackpad scrolling into
+          // wheel events while it is. The page can't scroll, and bounces is off.
           overScrollMode="never"
           bounces={false}
           showsHorizontalScrollIndicator={false}
