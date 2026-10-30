@@ -504,6 +504,8 @@ export interface Snippet {
   isNote?: boolean;
   /** Hosts the web app runs it on, as the server's JSON list. Kept as is. */
   hostFilter?: string | null;
+  /** Someone else's snippet shared with this user. Read only. */
+  isShared?: boolean;
   createdAt: string;
   updatedAt: string;
 }

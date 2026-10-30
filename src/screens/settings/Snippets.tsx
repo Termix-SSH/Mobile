@@ -45,6 +45,7 @@ import {
   serializeHostFilter,
 } from "@/features/snippets/targets";
 import { isSshActive } from "@/utils/hosts";
+import { groupSnippets } from "@/features/snippets/group";
 import type { SSHHost } from "@/types";
 
 type SnippetFormData = {
@@ -75,6 +76,7 @@ export default function Snippets() {
   const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [folders, setFolders] = useState<SnippetFolder[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [collapsedFolders, setCollapsedFolders] = useState<Set<string | null>>(
     new Set(),
@@ -117,9 +119,10 @@ export default function Snippets() {
   const load = useCallback(async () => {
     try {
       const [s, f] = await Promise.all([
-        repos.snippets.list().catch(() => []),
+        repos.snippets.list(),
         repos.snippetFolders.list().catch(() => []),
       ]);
+      setLoadFailed(false);
       const ordered = Array.isArray(s)
         ? s.sort((a: Snippet, b: Snippet) => (a.order ?? 0) - (b.order ?? 0))
         : [];
@@ -128,6 +131,7 @@ export default function Snippets() {
       // Mirror the list onto the home-screen Snippets widget.
       void publishSnippetSnapshot(ordered);
     } catch {
+      setLoadFailed(true);
       toast.error("Failed to load snippets");
     }
   }, [repos]);
@@ -171,9 +175,6 @@ export default function Snippets() {
 
   const isFolderCollapsed = (key: string | null) =>
     collapsedFolders.has(key ?? "__unfoldered__");
-
-  const snippetsInFolder = (folderName: string | null) =>
-    snippets.filter((s) => s.folder === folderName);
 
   const handleCopy = async (snippet: Snippet) => {
     await Clipboard.setStringAsync(snippet.content);
@@ -303,7 +304,20 @@ export default function Snippets() {
     }
   };
 
-  const unfoldered = snippetsInFolder(null);
+  // Saved folders show even when empty, so a new folder can be filled.
+  const filled = groupSnippets(snippets, folders);
+  const unfoldered = filled.find((g) => g.key === "")?.items ?? [];
+  const groups = [
+    ...filled.filter((g) => g.key !== ""),
+    ...folders
+      .filter((f) => !filled.some((g) => g.key === f.name))
+      .map((f) => ({
+        key: f.name,
+        label: f.name,
+        color: f.color ?? undefined,
+        items: [] as Snippet[],
+      })),
+  ].sort((a, b) => a.key.localeCompare(b.key));
 
   const submitFolderRename = async () => {
     const oldName = renameFolderTarget;
@@ -374,7 +388,7 @@ export default function Snippets() {
       <FileText size={14} color={color("muted-foreground")} />
       <Pressable
         onPress={() => handleCopy(snippet)}
-        onLongPress={() => openEdit(snippet)}
+        onLongPress={snippet.isShared ? undefined : () => openEdit(snippet)}
         className="flex-1 active:opacity-60"
       >
         <Text
@@ -391,28 +405,32 @@ export default function Snippets() {
           {snippet.description || snippet.content}
         </Text>
       </Pressable>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel="Move up"
-        onPress={() => moveSnippet(list, index, -1)}
-        disabled={index === 0}
-        hitSlop={8}
-        className="p-1 active:opacity-60"
-        style={{ opacity: index === 0 ? 0.3 : 1 }}
-      >
-        <ChevronUp size={14} color={color("muted-foreground")} />
-      </Pressable>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel="Move down"
-        onPress={() => moveSnippet(list, index, 1)}
-        disabled={index === list.length - 1}
-        hitSlop={8}
-        className="p-1 active:opacity-60"
-        style={{ opacity: index === list.length - 1 ? 0.3 : 1 }}
-      >
-        <ChevronDown size={14} color={color("muted-foreground")} />
-      </Pressable>
+      {snippet.isShared ? null : (
+        <>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Move up"
+            onPress={() => moveSnippet(list, index, -1)}
+            disabled={index === 0}
+            hitSlop={8}
+            className="p-1 active:opacity-60"
+            style={{ opacity: index === 0 ? 0.3 : 1 }}
+          >
+            <ChevronUp size={14} color={color("muted-foreground")} />
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Move down"
+            onPress={() => moveSnippet(list, index, 1)}
+            disabled={index === list.length - 1}
+            hitSlop={8}
+            className="p-1 active:opacity-60"
+            style={{ opacity: index === list.length - 1 ? 0.3 : 1 }}
+          >
+            <ChevronDown size={14} color={color("muted-foreground")} />
+          </Pressable>
+        </>
+      )}
       {!snippet.isNote && hostList.length > 0 ? (
         <Pressable
           onPress={() => setRunTarget(snippet)}
@@ -433,15 +451,17 @@ export default function Snippets() {
       >
         <Copy size={14} color={color("muted-foreground")} />
       </Pressable>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`Delete ${snippet.name}`}
-        onPress={() => setDeleteTarget(snippet)}
-        hitSlop={8}
-        className="p-1 active:opacity-60"
-      >
-        <Trash2 size={14} color={color("destructive")} />
-      </Pressable>
+      {snippet.isShared ? null : (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`Delete ${snippet.name}`}
+          onPress={() => setDeleteTarget(snippet)}
+          hitSlop={8}
+          className="p-1 active:opacity-60"
+        >
+          <Trash2 size={14} color={color("destructive")} />
+        </Pressable>
+      )}
     </View>
   );
 
@@ -548,6 +568,19 @@ export default function Snippets() {
         <View className="flex-1 items-center justify-center">
           <Text className="text-sm text-muted-foreground">Loading…</Text>
         </View>
+      ) : loadFailed && snippets.length === 0 ? (
+        <View className="flex-1 justify-center">
+          <EmptyState
+            icon={FileText}
+            title="Could not load snippets"
+            hint="Check the connection to your server and try again."
+            action={
+              <Button variant="default" size="lg" onPress={onRefresh}>
+                Try again
+              </Button>
+            }
+          />
+        </View>
       ) : snippets.length === 0 && folders.length === 0 ? (
         <View className="flex-1 justify-center">
           <EmptyState
@@ -588,12 +621,12 @@ export default function Snippets() {
           </View>
           {unfoldered.length > 0 &&
             renderFolderSection("Uncategorized", null, unfoldered)}
-          {folders.map((folder) =>
+          {groups.map((group) =>
             renderFolderSection(
-              folder.name,
-              folder.name,
-              snippetsInFolder(folder.name),
-              folder.color ?? undefined,
+              group.label,
+              group.key,
+              group.items,
+              group.color,
             ),
           )}
         </ScrollView>
@@ -725,11 +758,15 @@ export default function Snippets() {
                   label: "Copy",
                   onPress: () => handleCopy(menu.snippet),
                 },
-                {
-                  id: "edit",
-                  label: "Edit",
-                  onPress: () => openEdit(menu.snippet),
-                },
+                ...(menu.snippet.isShared
+                  ? []
+                  : [
+                      {
+                        id: "edit",
+                        label: "Edit",
+                        onPress: () => openEdit(menu.snippet),
+                      },
+                    ]),
                 ...(!menu.snippet.isNote && hostList.length > 0
                   ? [
                       {
@@ -739,12 +776,16 @@ export default function Snippets() {
                       },
                     ]
                   : []),
-                {
-                  id: "delete",
-                  label: "Delete",
-                  destructive: true,
-                  onPress: () => setDeleteTarget(menu.snippet),
-                },
+                ...(menu.snippet.isShared
+                  ? []
+                  : [
+                      {
+                        id: "delete",
+                        label: "Delete",
+                        destructive: true,
+                        onPress: () => setDeleteTarget(menu.snippet),
+                      },
+                    ]),
               ]
             : []
         }

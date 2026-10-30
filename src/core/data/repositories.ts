@@ -6,6 +6,7 @@ import { AppError } from "@/core/errors";
 import { localRepositories } from "./local";
 import { serverRepositories } from "./server";
 import { withServerHistory } from "./history-sync";
+import { withSharedSnippets } from "./shared-snippets";
 import type { DataRepositories, Repository } from "./types";
 
 export * from "./types";
@@ -109,6 +110,10 @@ export function repositoriesFor(
       const id = account.id;
       repos = {
         ...repos,
+        snippets: withSharedSnippets(
+          repos.snippets,
+          () => latestClient.get(id) ?? null,
+        ),
         commandHistory: withServerHistory(
           repos.commandHistory,
           () => latestClient.get(id) ?? null,
