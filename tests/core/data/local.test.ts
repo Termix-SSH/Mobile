@@ -415,6 +415,33 @@ test("host keys save like the server and count changes", async () => {
   ).rejects.toMatchObject({ code: "NOT_FOUND" });
 });
 
+test("a host's origin becomes its own value, so a server takes it on push", async () => {
+  const { repos, stores } = setup();
+  const host = await repos.hosts.create(fullHost);
+  const { db } = await stores.get("local");
+  db.update(hostsTable)
+    .set({
+      defaultOverrides: JSON.stringify({
+        core: [],
+        "ssh-terminal": ["enableTerminal"],
+      }),
+    })
+    .run();
+
+  await repos.origins.set(host.id, "server");
+  const overrides = () =>
+    JSON.parse(db.select().from(hostsTable).get()!.defaultOverrides!);
+  expect(overrides()["ssh-terminal"]).toEqual([
+    "connectFrom",
+    "enableTerminal",
+  ]);
+  await repos.origins.set(host.id, "device");
+  expect(overrides()["ssh-terminal"]).toEqual([
+    "connectFrom",
+    "enableTerminal",
+  ]);
+});
+
 test("a host's origin saves in its ssh-terminal settings and survives an edit", async () => {
   const { repos, stores } = setup();
   const host = await repos.hosts.create(fullHost);

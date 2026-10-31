@@ -828,8 +828,22 @@ export function localRepositories(
           ...(settings["ssh-terminal"] ?? {}),
           connectFrom: origin,
         };
+        // A server only takes keys a host sets itself, the rest follow defaults.
+        const overrides = storedOverrides(row.defaultOverrides);
+        const own = overrides?.["ssh-terminal"];
         d.update(hosts)
-          .set({ pluginSettings: JSON.stringify(settings), updatedAt: now() })
+          .set({
+            pluginSettings: JSON.stringify(settings),
+            ...(overrides && own && !own.includes("connectFrom")
+              ? {
+                  defaultOverrides: JSON.stringify({
+                    ...overrides,
+                    "ssh-terminal": [...own, "connectFrom"].sort(),
+                  }),
+                }
+              : {}),
+            updatedAt: now(),
+          })
           .where(eq(hosts.id, hostId))
           .run();
         touched(hosts);
