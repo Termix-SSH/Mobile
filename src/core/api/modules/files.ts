@@ -131,6 +131,7 @@ export function createFilesApi(c: AccountClient) {
     sessionId: string,
     config: {
       hostId?: number;
+      syncId?: string;
       ip: string;
       port: number;
       username: string;

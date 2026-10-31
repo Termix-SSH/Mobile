@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useSessionClient } from "@/core/accounts/session";
+import { isSynced } from "@/core/sync";
 import type { ConnectFailure } from "@/core/transport";
 import { AuthDialogs, useSessionConnect } from "@/screens/sessions/shared";
 import type {
@@ -40,33 +41,40 @@ export function RelayConnector({
         h: SSHHost,
         userId: string | undefined,
         overrides: SessionAuthOverrides,
-      ) =>
-        files.connectSSH(sid, {
+      ) => {
+        // A synced copy holds phone ids and secrets. Sending them would stop the
+        // server loading its own jump hosts, proxy and login for this host.
+        const synced = isSynced(client.accountId);
+        return files.connectSSH(sid, {
           hostId: h.id,
+          syncId: synced ? (h.syncId ?? undefined) : undefined,
           ip: h.ip,
           port: h.port,
           username: h.username,
           password:
             overrides.userProvidedPassword ??
-            (h.authType === "password" ? h.password : undefined),
+            (!synced && h.authType === "password" ? h.password : undefined),
           sshKey:
             overrides.userProvidedSshKey ??
-            (h.authType === "key" ? h.key : undefined),
-          keyPassword: overrides.userProvidedKeyPassword ?? h.keyPassword,
+            (!synced && h.authType === "key" ? h.key : undefined),
+          keyPassword:
+            overrides.userProvidedKeyPassword ??
+            (synced ? undefined : h.keyPassword),
           authType: h.authType,
-          credentialId: h.credentialId,
+          credentialId: synced ? undefined : h.credentialId,
           userId,
           forceKeyboardInteractive: h.forceKeyboardInteractive,
           overrideCredentialUsername: h.overrideCredentialUsername,
-          jumpHosts: h.jumpHosts,
-        }),
+          jumpHosts: synced ? undefined : h.jumpHosts,
+        });
+      },
       submitTotp: (sid: string, code: string) => files.verifySSHTOTP(sid, code),
       submitWarpgate: (sid: string, url: string, key?: string) =>
         files.verifySSHWarpgate(sid, url, key),
       keepAlive: (sid: string) => files.keepSSHAlive(sid),
       disconnect: (sid: string) => files.disconnectSSH(sid),
     }),
-    [files],
+    [files, client],
   );
 
   const ready = useRef(onReady);
