@@ -12,7 +12,12 @@ import {
   type KeyboardMetrics,
 } from "react-native";
 import { useWindowInfo } from "@/utils/window-class";
-import Animated, { ReduceMotion, SlideInDown } from "react-native-reanimated";
+import Animated, {
+  ReduceMotion,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { X } from "lucide-react-native";
 import { Text } from "./Text";
@@ -132,12 +137,21 @@ export function Sheet({
     });
     return () => sub.remove();
   }, [inline, visible, close]);
-  // Android draws a Modal in its own dialog window, where a layout animation can
-  // leave the panel's touch area apart from where it shows.
-  const entering =
-    Platform.OS === "android"
-      ? undefined
-      : SlideInDown.duration(SLIDE_MS).reduceMotion(ReduceMotion.System);
+  // Slides with a transform, not an entering animation: those animate the frame
+  // and end at the spot from before the keyboard padding, behind the keyboard.
+  // Android skips it, a dialog window can leave the touch area apart from the panel.
+  const slide = useSharedValue(0);
+  useEffect(() => {
+    if (!visible || Platform.OS === "android") return;
+    slide.value = 1;
+    slide.value = withTiming(0, {
+      duration: SLIDE_MS,
+      reduceMotion: ReduceMotion.System,
+    });
+  }, [visible, slide]);
+  const slideStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: slide.value * height }],
+  }));
 
   // On iOS a Modal can start with the size from before a fold or turn, so the
   // layer takes the measured window size instead of the Modal's.
@@ -173,20 +187,22 @@ export function Sheet({
             { operation: "sheet_layout" },
           );
         }}
-        entering={entering}
         accessibilityViewIsModal
         onAccessibilityEscape={close}
         className={`border-t bg-popover ${fullWidth ? "" : "border-x"} ${tone === "destructive" ? "border-destructive/40" : "border-border"}`}
-        style={{
-          paddingBottom: Math.max(insets.bottom, keyboard),
-          paddingLeft: fullWidth ? insets.left : 0,
-          paddingRight: fullWidth ? insets.right : 0,
-          // 85% of the space above the keyboard, plus the part behind it.
-          maxHeight: keyboard ? (height - keyboard) * 0.85 + keyboard : "85%",
-          width: "100%",
-          maxWidth: SHEET_MAX_WIDTH,
-          alignSelf: "center",
-        }}
+        style={[
+          slideStyle,
+          {
+            paddingBottom: Math.max(insets.bottom, keyboard),
+            paddingLeft: fullWidth ? insets.left : 0,
+            paddingRight: fullWidth ? insets.right : 0,
+            // 85% of the space above the keyboard, plus the part behind it.
+            maxHeight: keyboard ? (height - keyboard) * 0.85 + keyboard : "85%",
+            width: "100%",
+            maxWidth: SHEET_MAX_WIDTH,
+            alignSelf: "center",
+          },
+        ]}
       >
         <View className="items-center pb-1 pt-2">
           <View className="h-1 w-9 bg-muted-foreground/30" />
