@@ -225,7 +225,9 @@ class TermixTerminalView: ExpoView {
   private var appliedBase: String?
   private var appliedTheme: TerminalTheme?
   private var surfaceReady = false
+  // In iOS points. Ghostty assumes 96 dpi off macOS, so its sizes draw 4/3 too big.
   private var currentFontSize: Float?
+  private let ghosttyPointScale: Float = 0.75
 
   private var clipboardRequests: [Int: TerminalClipboardConfirmationRequest] = [:]
   private var nextClipboardId = 1
@@ -351,7 +353,7 @@ class TermixTerminalView: ExpoView {
       // controller set early, the view built a default surface on entering the window and
       // swapped it right away. That one could not start a shell, and its layer stayed in the
       // view, showing its error or a frozen picture over the real terminal.
-      terminalView.configuration = TerminalSurfaceOptions(backend: .inMemory(session), fontSize: currentFontSize)
+      terminalView.configuration = TerminalSurfaceOptions(backend: .inMemory(session), fontSize: currentFontSize.map(ghosttyFontSize))
       terminalView.controller = controller
     }
   }
@@ -367,11 +369,15 @@ class TermixTerminalView: ExpoView {
     reader.pipe.setSink(reader)
   }
 
+  private func ghosttyFontSize(_ points: Float) -> Float {
+    points * ghosttyPointScale
+  }
+
   func setFontSize(_ size: Float?) {
     guard let size, size != currentFontSize else { return }
     currentFontSize = size
     // set_font_size keeps the grid; a new surface option would rebuild it.
-    if surfaceReady { _ = terminalView.performBindingAction("set_font_size:\(size)") }
+    if surfaceReady { _ = terminalView.performBindingAction("set_font_size:\(ghosttyFontSize(size))") }
   }
 
   func update(_ change: (inout ViewConfig) -> Void) {
@@ -411,7 +417,7 @@ class TermixTerminalView: ExpoView {
     if config.letterSpacing > 0 {
       c = c.custom("adjust-cell-width", "\(Int(config.letterSpacing.rounded()))")
     }
-    if let size = currentFontSize { c = c.fontSize(size) }
+    if let size = currentFontSize { c = c.fontSize(ghosttyFontSize(size)) }
     return c
   }
 
@@ -726,8 +732,9 @@ extension TermixTerminalView:
   }
 
   func terminalDidChangeFontSize(_ fontSize: Float) {
-    currentFontSize = fontSize
-    onFontSize(["size": fontSize])
+    let points = fontSize / ghosttyPointScale
+    currentFontSize = points
+    onFontSize(["size": points])
   }
 
   func terminalDidRequestClipboardConfirmation(_ request: TerminalClipboardConfirmationRequest) {
