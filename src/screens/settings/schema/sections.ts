@@ -1,0 +1,86 @@
+import {
+  Bell,
+  Blocks,
+  Database,
+  EyeOff,
+  Info,
+  Keyboard,
+  Palette,
+  Shield,
+  SquareTerminal,
+  Users,
+} from "lucide-react-native";
+import type { SettingsSectionDef } from "./types";
+
+export const SETTINGS_SECTIONS: SettingsSectionDef[] = [
+  {
+    id: "accounts",
+    title: "Accounts and sync",
+    description: "This device, linked servers and what syncs",
+    icon: Users,
+    order: 10,
+  },
+  {
+    id: "appearance",
+    title: "Appearance",
+    description: "Theme, accent, text size and density",
+    icon: Palette,
+    order: 20,
+  },
+  {
+    id: "terminal",
+    title: "Terminal",
+    description: "Font, colors and background sessions",
+    icon: SquareTerminal,
+    order: 30,
+  },
+  {
+    id: "keyboard",
+    title: "Keyboard",
+    description: "Key rows and shortcuts",
+    icon: Keyboard,
+    order: 40,
+  },
+  {
+    id: "security",
+    title: "Security",
+    description: "App Lock, Face ID and PIN",
+    icon: Shield,
+    order: 50,
+  },
+  {
+    id: "notifications",
+    title: "Notifications",
+    description: "Alerts from your server",
+    icon: Bell,
+    order: 60,
+  },
+  {
+    id: "privacy",
+    title: "Privacy and usage statistics",
+    description: "What stays on this phone",
+    icon: EyeOff,
+    order: 70,
+  },
+  {
+    id: "plugins",
+    title: "Plugins",
+    description: "What the server adds to the app",
+    icon: Blocks,
+    order: 80,
+  },
+  {
+    id: "backup",
+    title: "Backup and data",
+    description: "Back up, restore, import and export",
+    icon: Database,
+    order: 90,
+  },
+  {
+    id: "about",
+    title: "About and logs",
+    description: "Version and logs for bug reports",
+    icon: Info,
+    order: 100,
+  },
+];

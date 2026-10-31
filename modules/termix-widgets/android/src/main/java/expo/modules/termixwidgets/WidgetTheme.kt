@@ -1,5 +1,6 @@
 package expo.modules.termixwidgets
 
+import android.content.Context
 import android.graphics.Color
 import android.text.format.DateUtils
 
@@ -7,9 +8,19 @@ import android.text.format.DateUtils
  * Colour + formatting helpers shared by both providers.
  *
  * Mirrors the iOS widget palette (`ios/widget/WidgetTheme.swift`) which in turn
- * mirrors `app/constants/designTokens.ts`, so a Termix widget looks the same on
+ * mirrors `src/constants/theme.ts`, so a Termix widget looks the same on
  * either platform.
  */
+/** What a widget draws with: text colors plus the background and card drawables. */
+data class Chrome(
+  val textPrimary: Int,
+  val textSecondary: Int,
+  val textTertiary: Int,
+  val track: Int,
+  val background: Int,
+  val card: Int
+)
+
 object WidgetTheme {
   const val TEXT_PRIMARY = 0xFFFAFAFA.toInt()
   const val TEXT_SECONDARY = 0xFFA4A4A4.toInt()
@@ -23,6 +34,50 @@ object WidgetTheme {
   const val WARN = 0xFFF5C542.toInt()
 
   const val FALLBACK_ACCENT = 0xFFF59145.toInt()
+
+  /**
+   * Colors and drawables for the app theme in the snapshot. A theme with no
+   * drawable in this build (a newer app) or no theme at all keeps the dark look.
+   */
+  fun chrome(context: Context, palette: WidgetPalette?): Chrome {
+    val default = Chrome(
+      textPrimary = TEXT_PRIMARY,
+      textSecondary = TEXT_SECONDARY,
+      textTertiary = TEXT_TERTIARY,
+      track = TRACK,
+      background = R.drawable.termix_widget_background,
+      card = R.drawable.termix_widget_card
+    )
+    if (palette == null) return default
+
+    val name = palette.id.replace('-', '_')
+    val background = drawableId(context, "termix_widget_background_$name")
+    val card = drawableId(context, "termix_widget_card_$name")
+    if (background == 0 || card == 0) return default
+
+    return Chrome(
+      textPrimary = parseHex(palette.text, TEXT_PRIMARY),
+      textSecondary = parseHex(palette.textSecondary, TEXT_SECONDARY),
+      textTertiary = parseHex(palette.textTertiary, TEXT_TERTIARY),
+      track = parseHex(palette.border, TRACK),
+      background = background,
+      card = card
+    )
+  }
+
+  private fun drawableId(context: Context, name: String): Int =
+    context.resources.getIdentifier(name, "drawable", context.packageName)
+
+  /** Parses `#rrggbb` or the CSS style `#rrggbbaa` (the snapshot's text colors). */
+  fun parseHex(hex: String?, fallback: Int): Int {
+    val value = hex?.trim()?.removePrefix("#") ?: return fallback
+    val argb = when (value.length) {
+      6 -> "FF$value"
+      8 -> value.substring(6) + value.substring(0, 6)
+      else -> return fallback
+    }
+    return runCatching { Color.parseColor("#$argb") }.getOrDefault(fallback)
+  }
 
   /** Parses `#rrggbb`, falling back to the brand accent for anything invalid. */
   fun parseAccent(hex: String?): Int {

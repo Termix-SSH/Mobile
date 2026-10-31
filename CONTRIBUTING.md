@@ -25,7 +25,66 @@ Termix Mobile is the iOS and Android app for [Termix](https://github.com/Termix-
 npm run start
 ```
 
-This starts the Expo development server. Open it in Expo Go or a development build, and sign in to a Termix server. If you do not have one, see the [install docs](https://docs.termix.site/install).
+This starts the Expo development server. Open it in a development build, and sign in to a Termix server. If you do not have one, see the [install docs](https://docs.termix.site/install). Expo Go does not work, because the local database needs SQLCipher, which only a development build has.
+
+## Theme and icons
+
+Theme colors in `src/constants/theme.ts` are copied from the [Classic Themes](https://github.com/Termix-SSH/Plugin-Classic-Themes) plugin. Change them there first, then here. `npm test` checks the set is complete.
+
+Every app icon, splash and status bar icon is built from `assets/brand/logo.svg`. After changing the logo or `scripts/icon-spec.cjs`, run:
+
+```sh
+npm run icons
+npm test
+```
+
+## Local database
+
+Each account has its own SQLite file, encrypted with SQLCipher. The tables are in `src/core/db/schema.ts` and mirror the server's sync rows. After changing the schema, run:
+
+```sh
+npm run db:generate
+npm test
+```
+
+This writes a new migration to `drizzle/` and `src/core/db/migrations.ts`. Never edit a migration that has shipped. `npm test` fails when the two disagree.
+
+## Project layout
+
+- `app/` holds routes only. Each route file imports a screen from `src/`.
+- `src/core/` is the shared base: accounts, the API client per server, transports, the feature registry, the local database and repositories, storage and logging.
+- `src/features/` holds one folder per feature. Each has a `register.tsx` that adds its tabs, host actions and settings to the registry. Screens read the registry and never check a feature by name.
+- `src/screens/`, `src/ui/`, `src/contexts/` hold the app screens, UI parts and providers.
+- `tests/` mirrors `src/` and runs with Jest.
+
+## Store screenshots and previews
+
+The Store Media workflow makes the App Store and Google Play screenshots and the App Store previews. It builds the app with `EXPO_PUBLIC_SHOWCASE=1`, which fills This device with sample hosts and fakes every connection, so no server is needed. Android emulators capture each screen on a phone and a tablet, and those same shots are used for both stores. The iOS simulator captures the iPhone Duo shots and, when asked, the preview videos (that build takes about an hour). Each shot is cropped below the status bar and above the home bar, put in a device frame with a caption in the dark theme, and saved as a `store-media` artifact. Upload them to App Store Connect and Google Play by hand.
+
+The tooling lives in `store/`, a separate npm package:
+
+```sh
+cd store
+npm ci
+npm run capture -- --platform ios --device iphone-duo --app path/to/Termix.app   # needs a Mac
+npm run capture -- --platform android --device android-phone --app app-release.apk
+npm run render                                               # out/raw to out/final
+npm run render -- --write-metadata                           # also fills fastlane/metadata/android
+```
+
+- What is captured and what is made from it: `store/devices.ts`
+- Slide order and text: `store/captions.ts` (words between stars show in the accent color)
+- App side: scenarios in `src/showcase/scenarios.ts`, sample data in `src/showcase/seed.ts`
+
+A new scenario needs an entry in `SCENARIOS`, a capture in `CAPTURES` and a slide in `SLIDES`.
+
+## Checks
+
+```sh
+npm run verify
+```
+
+This runs the type check, lint, format check and tests. `npm test` runs only the tests.
 
 ## Making a change
 

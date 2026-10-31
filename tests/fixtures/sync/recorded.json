@@ -1,0 +1,1949 @@
+{
+  "recordedAt": "2026-10-23",
+  "server": "26.10.5",
+  "protocol": 1,
+  "exchanges": [
+    {
+      "name": "info",
+      "request": {
+        "method": "GET",
+        "path": "/sync/v2/info?clientType=mobile",
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "termix": true,
+          "name": "Termix",
+          "version": "26.10.5",
+          "protocol": 1,
+          "clientTypes": ["desktop", "mobile", "web", "cli", "master"]
+        }
+      }
+    },
+    {
+      "name": "login-desktop",
+      "request": {
+        "method": "POST",
+        "path": "/users/login",
+        "body": {
+          "username": "fixture",
+          "password": "fixture-pass-1",
+          "rememberMe": true
+        }
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "success": true,
+          "is_admin": true,
+          "username": "fixture",
+          "userId": "<user-id>",
+          "is_external": false,
+          "totp_enabled": false,
+          "token": "<login-token-desktop>"
+        }
+      }
+    },
+    {
+      "name": "link-desktop",
+      "request": {
+        "method": "POST",
+        "path": "/sync/v2/link",
+        "body": {
+          "deviceName": "Fixture desktop",
+          "clientType": "desktop",
+          "deviceId": "fixture-desktop-1"
+        }
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "token": "<device-token-desktop>",
+          "user": {
+            "id": "<user-id>",
+            "username": "fixture"
+          },
+          "server": {
+            "version": "26.10.5"
+          }
+        }
+      }
+    },
+    {
+      "name": "login-phone",
+      "request": {
+        "method": "POST",
+        "path": "/users/login",
+        "body": {
+          "username": "fixture",
+          "password": "fixture-pass-1",
+          "rememberMe": true
+        }
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "success": true,
+          "is_admin": true,
+          "username": "fixture",
+          "userId": "<user-id>",
+          "is_external": false,
+          "totp_enabled": false,
+          "token": "<login-token-phone>"
+        }
+      }
+    },
+    {
+      "name": "link-phone",
+      "request": {
+        "method": "POST",
+        "path": "/sync/v2/link",
+        "body": {
+          "deviceName": "Fixture phone",
+          "clientType": "mobile",
+          "deviceId": "fixture-phone-1"
+        }
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "token": "<device-token-phone>",
+          "user": {
+            "id": "<user-id>",
+            "username": "fixture"
+          },
+          "server": {
+            "version": "26.10.5"
+          }
+        }
+      }
+    },
+    {
+      "name": "push-desktop-create",
+      "request": {
+        "method": "POST",
+        "path": "/sync/v2/push",
+        "body": {
+          "ops": [
+            {
+              "entityType": "sshCredentials",
+              "syncId": "11111111-1111-4111-8111-111111111111",
+              "baseRevision": 0,
+              "op": "upsert",
+              "row": {
+                "name": "Deploy key",
+                "authType": "password",
+                "username": "deploy",
+                "password": "deploy-pass",
+                "pin": false
+              }
+            },
+            {
+              "entityType": "sshFolders",
+              "syncId": "22222222-2222-4222-8222-222222222222",
+              "baseRevision": 0,
+              "op": "upsert",
+              "row": {
+                "name": "Prod",
+                "color": "#e11d48",
+                "icon": "server"
+              }
+            },
+            {
+              "entityType": "hosts",
+              "syncId": "33333333-3333-4333-8333-333333333333",
+              "baseRevision": 0,
+              "op": "upsert",
+              "row": {
+                "connectionType": "ssh",
+                "name": "bastion",
+                "ip": "10.0.0.2",
+                "port": 22,
+                "username": "root",
+                "folder": "Prod",
+                "tags": "web,prod",
+                "pin": false,
+                "authType": "password",
+                "password": "host-pass",
+                "forceKeyboardInteractive": "false",
+                "jumpHosts": "[]",
+                "enableSsh": true,
+                "sshPort": 22,
+                "statusCheckEnabled": true,
+                "pluginSettings": {},
+                "protocolAuth": {}
+              }
+            },
+            {
+              "entityType": "hosts",
+              "syncId": "44444444-4444-4444-8444-444444444444",
+              "baseRevision": 0,
+              "op": "upsert",
+              "row": {
+                "connectionType": "ssh",
+                "name": "web-1",
+                "ip": "10.0.0.5",
+                "port": 22,
+                "username": "root",
+                "folder": "Prod",
+                "tags": "web,prod",
+                "pin": false,
+                "authType": "credential",
+                "password": null,
+                "forceKeyboardInteractive": "false",
+                "jumpHosts": "[{\"hostId\":\"33333333-3333-4333-8333-333333333333\"}]",
+                "enableSsh": true,
+                "sshPort": 22,
+                "statusCheckEnabled": true,
+                "pluginSettings": {},
+                "protocolAuth": {},
+                "credentialSyncId": "11111111-1111-4111-8111-111111111111",
+                "notes": "Main web box"
+              }
+            },
+            {
+              "entityType": "snippetFolders",
+              "syncId": "55555555-5555-4555-8555-555555555555",
+              "baseRevision": 0,
+              "op": "upsert",
+              "row": {
+                "name": "Ops",
+                "color": null,
+                "icon": null
+              }
+            },
+            {
+              "entityType": "snippets",
+              "syncId": "66666666-6666-4666-8666-666666666666",
+              "baseRevision": 0,
+              "op": "upsert",
+              "row": {
+                "name": "uptime",
+                "content": "uptime",
+                "description": "How long it has been up",
+                "folder": "Ops",
+                "order": 0,
+                "isNote": false
+              }
+            }
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "results": [
+            {
+              "syncId": "11111111-1111-4111-8111-111111111111",
+              "entityType": "sshCredentials",
+              "status": "ok",
+              "revision": 1
+            },
+            {
+              "syncId": "22222222-2222-4222-8222-222222222222",
+              "entityType": "sshFolders",
+              "status": "ok",
+              "revision": 1
+            },
+            {
+              "syncId": "33333333-3333-4333-8333-333333333333",
+              "entityType": "hosts",
+              "status": "ok",
+              "revision": 1
+            },
+            {
+              "syncId": "44444444-4444-4444-8444-444444444444",
+              "entityType": "hosts",
+              "status": "ok",
+              "revision": 1
+            },
+            {
+              "syncId": "55555555-5555-4555-8555-555555555555",
+              "entityType": "snippetFolders",
+              "status": "ok",
+              "revision": 1
+            },
+            {
+              "syncId": "66666666-6666-4666-8666-666666666666",
+              "entityType": "snippets",
+              "status": "ok",
+              "revision": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "changes-0",
+      "request": {
+        "method": "GET",
+        "path": "/sync/v2/changes?cursor=0&limit=4",
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "changes": [
+            {
+              "seq": 1,
+              "entityType": "accountProfile",
+              "syncId": "accountProfile:singleton",
+              "revision": 1,
+              "deleted": false,
+              "row": {
+                "syncId": "accountProfile:singleton",
+                "remoteUserId": "<user-id>",
+                "username": "fixture",
+                "isAdmin": true,
+                "roles": ["admin"],
+                "permissions": ["*"]
+              }
+            },
+            {
+              "seq": 2,
+              "entityType": "hostDefaultsAdmin",
+              "syncId": "hostDefaultsAdmin:singleton",
+              "revision": 1,
+              "deleted": false,
+              "row": {
+                "syncId": "hostDefaultsAdmin:singleton",
+                "values": {}
+              }
+            },
+            {
+              "seq": 3,
+              "entityType": "sshCredentials",
+              "syncId": "11111111-1111-4111-8111-111111111111",
+              "revision": 1,
+              "deleted": false,
+              "row": {
+                "name": "Deploy key",
+                "description": null,
+                "folder": null,
+                "tags": null,
+                "pin": false,
+                "sortOrder": null,
+                "authType": "password",
+                "username": "deploy",
+                "password": "deploy-pass",
+                "key": null,
+                "privateKey": null,
+                "publicKey": null,
+                "keyPassword": null,
+                "keyType": null,
+                "detectedKeyType": null,
+                "certPublicKey": null,
+                "syncId": "11111111-1111-4111-8111-111111111111",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.011Z"
+              }
+            },
+            {
+              "seq": 4,
+              "entityType": "sshFolders",
+              "syncId": "22222222-2222-4222-8222-222222222222",
+              "revision": 1,
+              "deleted": false,
+              "row": {
+                "name": "Prod",
+                "color": "#e11d48",
+                "icon": "server",
+                "sortOrder": null,
+                "syncId": "22222222-2222-4222-8222-222222222222",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.013Z",
+                "credentialSyncId": null
+              }
+            }
+          ],
+          "nextCursor": 4,
+          "hasMore": true,
+          "entityTypes": [
+            {
+              "type": "accountProfile",
+              "owner": "core",
+              "order": 5,
+              "readOnly": true
+            },
+            {
+              "type": "hostDefaultsAdmin",
+              "owner": "core",
+              "order": 7,
+              "readOnly": true
+            },
+            {
+              "type": "sshCredentials",
+              "owner": "core",
+              "order": 10,
+              "readOnly": false
+            },
+            {
+              "type": "sharedCredentials",
+              "owner": "core",
+              "order": 15,
+              "readOnly": true
+            },
+            {
+              "type": "sshFolders",
+              "owner": "core",
+              "order": 30,
+              "readOnly": false
+            },
+            {
+              "type": "snippetFolders",
+              "owner": "snippets",
+              "order": 40,
+              "readOnly": false
+            },
+            {
+              "type": "hosts",
+              "owner": "core",
+              "order": 50,
+              "readOnly": false
+            },
+            {
+              "type": "sharedHosts",
+              "owner": "core",
+              "order": 55,
+              "readOnly": true
+            },
+            {
+              "type": "hostDefaults",
+              "owner": "core",
+              "order": 60,
+              "readOnly": false
+            },
+            {
+              "type": "snippets",
+              "owner": "snippets",
+              "order": 60,
+              "readOnly": false
+            },
+            {
+              "type": "userPreferences",
+              "owner": "core",
+              "order": 90,
+              "readOnly": false
+            },
+            {
+              "type": "pluginUserSettings",
+              "owner": "core",
+              "order": 95,
+              "readOnly": false
+            },
+            {
+              "type": "workspaces",
+              "owner": "workspaces",
+              "order": 200,
+              "readOnly": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "changes-1",
+      "request": {
+        "method": "GET",
+        "path": "/sync/v2/changes?cursor=4&limit=4",
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "changes": [
+            {
+              "seq": 5,
+              "entityType": "snippetFolders",
+              "syncId": "55555555-5555-4555-8555-555555555555",
+              "revision": 1,
+              "deleted": false,
+              "row": {
+                "name": "Ops",
+                "color": null,
+                "icon": null,
+                "syncId": "55555555-5555-4555-8555-555555555555",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.014Z"
+              }
+            },
+            {
+              "seq": 6,
+              "entityType": "hosts",
+              "syncId": "33333333-3333-4333-8333-333333333333",
+              "revision": 1,
+              "deleted": false,
+              "row": {
+                "connectionType": "ssh",
+                "name": "bastion",
+                "ip": "10.0.0.2",
+                "port": 22,
+                "username": "root",
+                "folder": "Prod",
+                "tags": "web,prod",
+                "pin": false,
+                "sortOrder": null,
+                "authType": "password",
+                "shareSshAuth": false,
+                "forceKeyboardInteractive": "false",
+                "password": "host-pass",
+                "key": null,
+                "keyPassword": null,
+                "keyType": null,
+                "sudoPassword": null,
+                "overrideCredentialUsername": null,
+                "jumpHosts": "[]",
+                "statusCheckEnabled": true,
+                "statusCheckInterval": null,
+                "sshOptions": null,
+                "notes": null,
+                "enableSsh": true,
+                "sshPort": 22,
+                "useSocks5": null,
+                "socks5Host": null,
+                "socks5Port": null,
+                "socks5Username": null,
+                "socks5Password": null,
+                "socks5ProxyChain": null,
+                "portKnockSequence": null,
+                "hostKeyFingerprint": null,
+                "hostKeyType": null,
+                "hostKeyAlgorithm": "sha256",
+                "hostKeyFirstSeen": null,
+                "hostKeyChangedCount": 0,
+                "syncId": "33333333-3333-4333-8333-333333333333",
+                "defaultOverrides": "{\"core\":[\"auth\",\"username\"],\"docker\":[],\"file-manager\":[],\"host-metrics\":[],\"remote-desktop\":[],\"snippets\":[],\"ssh-terminal\":[],\"tunnels\":[]}",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.022Z",
+                "credentialSyncId": null,
+                "parentHostSyncId": null,
+                "pluginSettings": {
+                  "docker": {
+                    "enableDocker": false,
+                    "containerRuntime": "docker",
+                    "showPanel": true,
+                    "enableStacks": false,
+                    "stacksRoot": "/opt/stacks"
+                  },
+                  "file-manager": {
+                    "enableFileManager": true,
+                    "showPanel": true
+                  },
+                  "host-metrics": {
+                    "metricsEnabled": true,
+                    "showPanel": true
+                  },
+                  "remote-desktop": {
+                    "enableRdp": false,
+                    "enableVnc": false,
+                    "enableArd": false,
+                    "enableTelnet": false,
+                    "rdpPort": 3389,
+                    "vncPort": 5900,
+                    "ardPort": 5900,
+                    "telnetPort": 23,
+                    "rdpSecurity": "",
+                    "rdpIgnoreCert": false,
+                    "guacamoleConfig": {},
+                    "enableToolbar": true,
+                    "toolbarPosition": "top",
+                    "toolbarLabels": "labeled",
+                    "colorDepth": "inherit",
+                    "resizeMethod": "inherit",
+                    "forceLossless": "inherit",
+                    "enableWallpaper": "inherit",
+                    "enableFontSmoothing": "inherit",
+                    "enableDesktopComposition": "inherit",
+                    "disableAudio": "inherit",
+                    "enablePrinting": "inherit",
+                    "enableDrive": "inherit",
+                    "disableCopy": "inherit",
+                    "disablePaste": "inherit"
+                  },
+                  "snippets": {
+                    "startupSnippetId": null,
+                    "quickActions": [],
+                    "showPanel": true
+                  },
+                  "ssh-terminal": {
+                    "enableTerminal": true,
+                    "enableTerminalToolbar": true,
+                    "terminalToolbarPosition": "bottom",
+                    "terminalToolbarLabels": "labeled",
+                    "terminalToolbarShowStatus": true,
+                    "enableTerminalPanels": true,
+                    "terminalPanelSide": "right",
+                    "enableCommandHistory": true,
+                    "cloudflareTunnelEnabled": false,
+                    "cloudflareTunnelHostname": "",
+                    "cloudflareTunnelPort": 443,
+                    "cloudflareTunnelClientId": "",
+                    "theme": "termix",
+                    "cursorBlink": true,
+                    "cursorStyle": "bar",
+                    "fontSize": 14,
+                    "fontFamily": "Caskaydia Cove Nerd Font Mono",
+                    "scrollback": 10000,
+                    "letterSpacing": 0,
+                    "lineHeight": 1,
+                    "bellStyle": "none",
+                    "minimumContrastRatio": 1,
+                    "backgroundImage": "",
+                    "backgroundImageOpacity": 0.15,
+                    "rightClickSelectsWord": false,
+                    "wheelZoom": true,
+                    "macOptionIsMeta": false,
+                    "fastScrollModifier": "alt",
+                    "fastScrollSensitivity": 5,
+                    "backspaceMode": "normal",
+                    "autoMosh": false,
+                    "moshCommand": "",
+                    "autoTmux": false,
+                    "useSSHTitle": false,
+                    "syntaxHighlighting": true,
+                    "linkClickBehavior": "confirm",
+                    "localEcho": "auto",
+                    "passwordPromptAutoFill": true,
+                    "sudoPasswordAutoFill": false,
+                    "autoReconnect": false,
+                    "keepOpenOnExit": false
+                  },
+                  "sync": {},
+                  "tunnels": {
+                    "enableTunnel": false,
+                    "showPanel": true
+                  }
+                },
+                "protocolAuth": {}
+              }
+            },
+            {
+              "seq": 7,
+              "entityType": "hosts",
+              "syncId": "44444444-4444-4444-8444-444444444444",
+              "revision": 1,
+              "deleted": false,
+              "row": {
+                "connectionType": "ssh",
+                "name": "web-1",
+                "ip": "10.0.0.5",
+                "port": 22,
+                "username": "root",
+                "folder": "Prod",
+                "tags": "web,prod",
+                "pin": false,
+                "sortOrder": null,
+                "authType": "credential",
+                "shareSshAuth": false,
+                "forceKeyboardInteractive": "false",
+                "password": null,
+                "key": null,
+                "keyPassword": null,
+                "keyType": null,
+                "sudoPassword": null,
+                "overrideCredentialUsername": null,
+                "jumpHosts": "[{\"hostId\":\"33333333-3333-4333-8333-333333333333\"}]",
+                "statusCheckEnabled": true,
+                "statusCheckInterval": null,
+                "sshOptions": null,
+                "notes": "Main web box",
+                "enableSsh": true,
+                "sshPort": 22,
+                "useSocks5": null,
+                "socks5Host": null,
+                "socks5Port": null,
+                "socks5Username": null,
+                "socks5Password": null,
+                "socks5ProxyChain": null,
+                "portKnockSequence": null,
+                "hostKeyFingerprint": null,
+                "hostKeyType": null,
+                "hostKeyAlgorithm": "sha256",
+                "hostKeyFirstSeen": null,
+                "hostKeyChangedCount": 0,
+                "syncId": "44444444-4444-4444-8444-444444444444",
+                "defaultOverrides": "{\"core\":[\"auth\",\"jumpHosts\",\"username\"],\"docker\":[],\"file-manager\":[],\"host-metrics\":[],\"remote-desktop\":[],\"snippets\":[],\"ssh-terminal\":[],\"tunnels\":[]}",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.033Z",
+                "credentialSyncId": "11111111-1111-4111-8111-111111111111",
+                "parentHostSyncId": null,
+                "pluginSettings": {
+                  "docker": {
+                    "enableDocker": false,
+                    "containerRuntime": "docker",
+                    "showPanel": true,
+                    "enableStacks": false,
+                    "stacksRoot": "/opt/stacks"
+                  },
+                  "file-manager": {
+                    "enableFileManager": true,
+                    "showPanel": true
+                  },
+                  "host-metrics": {
+                    "metricsEnabled": true,
+                    "showPanel": true
+                  },
+                  "remote-desktop": {
+                    "enableRdp": false,
+                    "enableVnc": false,
+                    "enableArd": false,
+                    "enableTelnet": false,
+                    "rdpPort": 3389,
+                    "vncPort": 5900,
+                    "ardPort": 5900,
+                    "telnetPort": 23,
+                    "rdpSecurity": "",
+                    "rdpIgnoreCert": false,
+                    "guacamoleConfig": {},
+                    "enableToolbar": true,
+                    "toolbarPosition": "top",
+                    "toolbarLabels": "labeled",
+                    "colorDepth": "inherit",
+                    "resizeMethod": "inherit",
+                    "forceLossless": "inherit",
+                    "enableWallpaper": "inherit",
+                    "enableFontSmoothing": "inherit",
+                    "enableDesktopComposition": "inherit",
+                    "disableAudio": "inherit",
+                    "enablePrinting": "inherit",
+                    "enableDrive": "inherit",
+                    "disableCopy": "inherit",
+                    "disablePaste": "inherit"
+                  },
+                  "snippets": {
+                    "startupSnippetId": null,
+                    "quickActions": [],
+                    "showPanel": true
+                  },
+                  "ssh-terminal": {
+                    "enableTerminal": true,
+                    "enableTerminalToolbar": true,
+                    "terminalToolbarPosition": "bottom",
+                    "terminalToolbarLabels": "labeled",
+                    "terminalToolbarShowStatus": true,
+                    "enableTerminalPanels": true,
+                    "terminalPanelSide": "right",
+                    "enableCommandHistory": true,
+                    "cloudflareTunnelEnabled": false,
+                    "cloudflareTunnelHostname": "",
+                    "cloudflareTunnelPort": 443,
+                    "cloudflareTunnelClientId": "",
+                    "theme": "termix",
+                    "cursorBlink": true,
+                    "cursorStyle": "bar",
+                    "fontSize": 14,
+                    "fontFamily": "Caskaydia Cove Nerd Font Mono",
+                    "scrollback": 10000,
+                    "letterSpacing": 0,
+                    "lineHeight": 1,
+                    "bellStyle": "none",
+                    "minimumContrastRatio": 1,
+                    "backgroundImage": "",
+                    "backgroundImageOpacity": 0.15,
+                    "rightClickSelectsWord": false,
+                    "wheelZoom": true,
+                    "macOptionIsMeta": false,
+                    "fastScrollModifier": "alt",
+                    "fastScrollSensitivity": 5,
+                    "backspaceMode": "normal",
+                    "autoMosh": false,
+                    "moshCommand": "",
+                    "autoTmux": false,
+                    "useSSHTitle": false,
+                    "syntaxHighlighting": true,
+                    "linkClickBehavior": "confirm",
+                    "localEcho": "auto",
+                    "passwordPromptAutoFill": true,
+                    "sudoPasswordAutoFill": false,
+                    "autoReconnect": false,
+                    "keepOpenOnExit": false
+                  },
+                  "sync": {},
+                  "tunnels": {
+                    "enableTunnel": false,
+                    "showPanel": true
+                  }
+                },
+                "protocolAuth": {}
+              }
+            },
+            {
+              "seq": 8,
+              "entityType": "snippets",
+              "syncId": "66666666-6666-4666-8666-666666666666",
+              "revision": 1,
+              "deleted": false,
+              "row": {
+                "name": "uptime",
+                "content": "uptime",
+                "description": "How long it has been up",
+                "folder": "Ops",
+                "order": 0,
+                "syncId": "66666666-6666-4666-8666-666666666666",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.040Z",
+                "hostFilter": null,
+                "isNote": false
+              }
+            }
+          ],
+          "nextCursor": 8,
+          "hasMore": false,
+          "entityTypes": [
+            {
+              "type": "accountProfile",
+              "owner": "core",
+              "order": 5,
+              "readOnly": true
+            },
+            {
+              "type": "hostDefaultsAdmin",
+              "owner": "core",
+              "order": 7,
+              "readOnly": true
+            },
+            {
+              "type": "sshCredentials",
+              "owner": "core",
+              "order": 10,
+              "readOnly": false
+            },
+            {
+              "type": "sharedCredentials",
+              "owner": "core",
+              "order": 15,
+              "readOnly": true
+            },
+            {
+              "type": "sshFolders",
+              "owner": "core",
+              "order": 30,
+              "readOnly": false
+            },
+            {
+              "type": "snippetFolders",
+              "owner": "snippets",
+              "order": 40,
+              "readOnly": false
+            },
+            {
+              "type": "hosts",
+              "owner": "core",
+              "order": 50,
+              "readOnly": false
+            },
+            {
+              "type": "sharedHosts",
+              "owner": "core",
+              "order": 55,
+              "readOnly": true
+            },
+            {
+              "type": "hostDefaults",
+              "owner": "core",
+              "order": 60,
+              "readOnly": false
+            },
+            {
+              "type": "snippets",
+              "owner": "snippets",
+              "order": 60,
+              "readOnly": false
+            },
+            {
+              "type": "userPreferences",
+              "owner": "core",
+              "order": 90,
+              "readOnly": false
+            },
+            {
+              "type": "pluginUserSettings",
+              "owner": "core",
+              "order": 95,
+              "readOnly": false
+            },
+            {
+              "type": "workspaces",
+              "owner": "workspaces",
+              "order": 200,
+              "readOnly": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "push-desktop-edit",
+      "request": {
+        "method": "POST",
+        "path": "/sync/v2/push",
+        "body": {
+          "ops": [
+            {
+              "entityType": "hosts",
+              "syncId": "44444444-4444-4444-8444-444444444444",
+              "baseRevision": 1,
+              "op": "upsert",
+              "row": {
+                "connectionType": "ssh",
+                "name": "web-1",
+                "ip": "10.0.0.5",
+                "port": 22,
+                "username": "root",
+                "folder": "Prod",
+                "tags": "web,prod",
+                "pin": false,
+                "sortOrder": null,
+                "authType": "credential",
+                "shareSshAuth": false,
+                "forceKeyboardInteractive": "false",
+                "password": null,
+                "key": null,
+                "keyPassword": null,
+                "keyType": null,
+                "sudoPassword": null,
+                "overrideCredentialUsername": null,
+                "jumpHosts": "[{\"hostId\":\"33333333-3333-4333-8333-333333333333\"}]",
+                "statusCheckEnabled": true,
+                "statusCheckInterval": null,
+                "sshOptions": null,
+                "notes": "Edited on the desktop",
+                "enableSsh": true,
+                "sshPort": 22,
+                "useSocks5": null,
+                "socks5Host": null,
+                "socks5Port": null,
+                "socks5Username": null,
+                "socks5Password": null,
+                "socks5ProxyChain": null,
+                "portKnockSequence": null,
+                "hostKeyFingerprint": null,
+                "hostKeyType": null,
+                "hostKeyAlgorithm": "sha256",
+                "hostKeyFirstSeen": null,
+                "hostKeyChangedCount": 0,
+                "syncId": "44444444-4444-4444-8444-444444444444",
+                "defaultOverrides": "{\"core\":[\"auth\",\"jumpHosts\",\"username\"],\"docker\":[],\"file-manager\":[],\"host-metrics\":[],\"remote-desktop\":[],\"snippets\":[],\"ssh-terminal\":[],\"tunnels\":[]}",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.033Z",
+                "credentialSyncId": "11111111-1111-4111-8111-111111111111",
+                "parentHostSyncId": null,
+                "pluginSettings": {
+                  "docker": {
+                    "enableDocker": false,
+                    "containerRuntime": "docker",
+                    "showPanel": true,
+                    "enableStacks": false,
+                    "stacksRoot": "/opt/stacks"
+                  },
+                  "file-manager": {
+                    "enableFileManager": true,
+                    "showPanel": true
+                  },
+                  "host-metrics": {
+                    "metricsEnabled": true,
+                    "showPanel": true
+                  },
+                  "remote-desktop": {
+                    "enableRdp": false,
+                    "enableVnc": false,
+                    "enableArd": false,
+                    "enableTelnet": false,
+                    "rdpPort": 3389,
+                    "vncPort": 5900,
+                    "ardPort": 5900,
+                    "telnetPort": 23,
+                    "rdpSecurity": "",
+                    "rdpIgnoreCert": false,
+                    "guacamoleConfig": {},
+                    "enableToolbar": true,
+                    "toolbarPosition": "top",
+                    "toolbarLabels": "labeled",
+                    "colorDepth": "inherit",
+                    "resizeMethod": "inherit",
+                    "forceLossless": "inherit",
+                    "enableWallpaper": "inherit",
+                    "enableFontSmoothing": "inherit",
+                    "enableDesktopComposition": "inherit",
+                    "disableAudio": "inherit",
+                    "enablePrinting": "inherit",
+                    "enableDrive": "inherit",
+                    "disableCopy": "inherit",
+                    "disablePaste": "inherit"
+                  },
+                  "snippets": {
+                    "startupSnippetId": null,
+                    "quickActions": [],
+                    "showPanel": true
+                  },
+                  "ssh-terminal": {
+                    "enableTerminal": true,
+                    "enableTerminalToolbar": true,
+                    "terminalToolbarPosition": "bottom",
+                    "terminalToolbarLabels": "labeled",
+                    "terminalToolbarShowStatus": true,
+                    "enableTerminalPanels": true,
+                    "terminalPanelSide": "right",
+                    "enableCommandHistory": true,
+                    "cloudflareTunnelEnabled": false,
+                    "cloudflareTunnelHostname": "",
+                    "cloudflareTunnelPort": 443,
+                    "cloudflareTunnelClientId": "",
+                    "theme": "termix",
+                    "cursorBlink": true,
+                    "cursorStyle": "bar",
+                    "fontSize": 14,
+                    "fontFamily": "Caskaydia Cove Nerd Font Mono",
+                    "scrollback": 10000,
+                    "letterSpacing": 0,
+                    "lineHeight": 1,
+                    "bellStyle": "none",
+                    "minimumContrastRatio": 1,
+                    "backgroundImage": "",
+                    "backgroundImageOpacity": 0.15,
+                    "rightClickSelectsWord": false,
+                    "wheelZoom": true,
+                    "macOptionIsMeta": false,
+                    "fastScrollModifier": "alt",
+                    "fastScrollSensitivity": 5,
+                    "backspaceMode": "normal",
+                    "autoMosh": false,
+                    "moshCommand": "",
+                    "autoTmux": false,
+                    "useSSHTitle": false,
+                    "syntaxHighlighting": true,
+                    "linkClickBehavior": "confirm",
+                    "localEcho": "auto",
+                    "passwordPromptAutoFill": true,
+                    "sudoPasswordAutoFill": false,
+                    "autoReconnect": false,
+                    "keepOpenOnExit": false
+                  },
+                  "sync": {},
+                  "tunnels": {
+                    "enableTunnel": false,
+                    "showPanel": true
+                  }
+                },
+                "protocolAuth": {}
+              }
+            }
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "results": [
+            {
+              "syncId": "44444444-4444-4444-8444-444444444444",
+              "entityType": "hosts",
+              "status": "ok",
+              "revision": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "push-phone-mixed",
+      "request": {
+        "method": "POST",
+        "path": "/sync/v2/push",
+        "body": {
+          "ops": [
+            {
+              "entityType": "hosts",
+              "syncId": "44444444-4444-4444-8444-444444444444",
+              "baseRevision": 1,
+              "op": "upsert",
+              "row": {
+                "connectionType": "ssh",
+                "name": "web-1",
+                "ip": "10.0.0.5",
+                "port": 22,
+                "username": "root",
+                "folder": "Prod",
+                "tags": "web,prod",
+                "pin": false,
+                "sortOrder": null,
+                "authType": "credential",
+                "shareSshAuth": false,
+                "forceKeyboardInteractive": "false",
+                "password": null,
+                "key": null,
+                "keyPassword": null,
+                "keyType": null,
+                "sudoPassword": null,
+                "overrideCredentialUsername": null,
+                "jumpHosts": "[{\"hostId\":\"33333333-3333-4333-8333-333333333333\"}]",
+                "statusCheckEnabled": true,
+                "statusCheckInterval": null,
+                "sshOptions": null,
+                "notes": "Edited on the phone",
+                "enableSsh": true,
+                "sshPort": 22,
+                "useSocks5": null,
+                "socks5Host": null,
+                "socks5Port": null,
+                "socks5Username": null,
+                "socks5Password": null,
+                "socks5ProxyChain": null,
+                "portKnockSequence": null,
+                "hostKeyFingerprint": null,
+                "hostKeyType": null,
+                "hostKeyAlgorithm": "sha256",
+                "hostKeyFirstSeen": null,
+                "hostKeyChangedCount": 0,
+                "syncId": "44444444-4444-4444-8444-444444444444",
+                "defaultOverrides": "{\"core\":[\"auth\",\"jumpHosts\",\"username\"],\"docker\":[],\"file-manager\":[],\"host-metrics\":[],\"remote-desktop\":[],\"snippets\":[],\"ssh-terminal\":[],\"tunnels\":[]}",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.033Z",
+                "credentialSyncId": "11111111-1111-4111-8111-111111111111",
+                "parentHostSyncId": null,
+                "pluginSettings": {
+                  "docker": {
+                    "enableDocker": false,
+                    "containerRuntime": "docker",
+                    "showPanel": true,
+                    "enableStacks": false,
+                    "stacksRoot": "/opt/stacks"
+                  },
+                  "file-manager": {
+                    "enableFileManager": true,
+                    "showPanel": true
+                  },
+                  "host-metrics": {
+                    "metricsEnabled": true,
+                    "showPanel": true
+                  },
+                  "remote-desktop": {
+                    "enableRdp": false,
+                    "enableVnc": false,
+                    "enableArd": false,
+                    "enableTelnet": false,
+                    "rdpPort": 3389,
+                    "vncPort": 5900,
+                    "ardPort": 5900,
+                    "telnetPort": 23,
+                    "rdpSecurity": "",
+                    "rdpIgnoreCert": false,
+                    "guacamoleConfig": {},
+                    "enableToolbar": true,
+                    "toolbarPosition": "top",
+                    "toolbarLabels": "labeled",
+                    "colorDepth": "inherit",
+                    "resizeMethod": "inherit",
+                    "forceLossless": "inherit",
+                    "enableWallpaper": "inherit",
+                    "enableFontSmoothing": "inherit",
+                    "enableDesktopComposition": "inherit",
+                    "disableAudio": "inherit",
+                    "enablePrinting": "inherit",
+                    "enableDrive": "inherit",
+                    "disableCopy": "inherit",
+                    "disablePaste": "inherit"
+                  },
+                  "snippets": {
+                    "startupSnippetId": null,
+                    "quickActions": [],
+                    "showPanel": true
+                  },
+                  "ssh-terminal": {
+                    "enableTerminal": true,
+                    "enableTerminalToolbar": true,
+                    "terminalToolbarPosition": "bottom",
+                    "terminalToolbarLabels": "labeled",
+                    "terminalToolbarShowStatus": true,
+                    "enableTerminalPanels": true,
+                    "terminalPanelSide": "right",
+                    "enableCommandHistory": true,
+                    "cloudflareTunnelEnabled": false,
+                    "cloudflareTunnelHostname": "",
+                    "cloudflareTunnelPort": 443,
+                    "cloudflareTunnelClientId": "",
+                    "theme": "termix",
+                    "cursorBlink": true,
+                    "cursorStyle": "bar",
+                    "fontSize": 14,
+                    "fontFamily": "Caskaydia Cove Nerd Font Mono",
+                    "scrollback": 10000,
+                    "letterSpacing": 0,
+                    "lineHeight": 1,
+                    "bellStyle": "none",
+                    "minimumContrastRatio": 1,
+                    "backgroundImage": "",
+                    "backgroundImageOpacity": 0.15,
+                    "rightClickSelectsWord": false,
+                    "wheelZoom": true,
+                    "macOptionIsMeta": false,
+                    "fastScrollModifier": "alt",
+                    "fastScrollSensitivity": 5,
+                    "backspaceMode": "normal",
+                    "autoMosh": false,
+                    "moshCommand": "",
+                    "autoTmux": false,
+                    "useSSHTitle": false,
+                    "syntaxHighlighting": true,
+                    "linkClickBehavior": "confirm",
+                    "localEcho": "auto",
+                    "passwordPromptAutoFill": true,
+                    "sudoPasswordAutoFill": false,
+                    "autoReconnect": false,
+                    "keepOpenOnExit": false
+                  },
+                  "sync": {},
+                  "tunnels": {
+                    "enableTunnel": false,
+                    "showPanel": true
+                  }
+                },
+                "protocolAuth": {}
+              }
+            },
+            {
+              "entityType": "accountProfile",
+              "syncId": "accountProfile:singleton",
+              "baseRevision": 1,
+              "op": "upsert",
+              "row": {
+                "username": "nope"
+              }
+            },
+            {
+              "entityType": "madeUpType",
+              "syncId": "x1",
+              "baseRevision": 0,
+              "op": "upsert",
+              "row": {
+                "a": 1
+              }
+            },
+            {
+              "entityType": "snippets",
+              "syncId": "66666666-6666-4666-8666-666666666666",
+              "baseRevision": 1,
+              "op": "delete"
+            }
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "results": [
+            {
+              "syncId": "44444444-4444-4444-8444-444444444444",
+              "entityType": "hosts",
+              "status": "conflict",
+              "revision": 2,
+              "deleted": false,
+              "row": {
+                "connectionType": "ssh",
+                "name": "web-1",
+                "ip": "10.0.0.5",
+                "port": 22,
+                "username": "root",
+                "folder": "Prod",
+                "tags": "web,prod",
+                "pin": false,
+                "sortOrder": null,
+                "authType": "credential",
+                "shareSshAuth": false,
+                "forceKeyboardInteractive": "false",
+                "password": null,
+                "key": null,
+                "keyPassword": null,
+                "keyType": null,
+                "sudoPassword": null,
+                "overrideCredentialUsername": null,
+                "jumpHosts": "[{\"hostId\":\"33333333-3333-4333-8333-333333333333\"}]",
+                "statusCheckEnabled": true,
+                "statusCheckInterval": null,
+                "sshOptions": null,
+                "notes": "Edited on the desktop",
+                "enableSsh": true,
+                "sshPort": 22,
+                "useSocks5": null,
+                "socks5Host": null,
+                "socks5Port": null,
+                "socks5Username": null,
+                "socks5Password": null,
+                "socks5ProxyChain": null,
+                "portKnockSequence": null,
+                "hostKeyFingerprint": null,
+                "hostKeyType": null,
+                "hostKeyAlgorithm": "sha256",
+                "hostKeyFirstSeen": null,
+                "hostKeyChangedCount": 0,
+                "syncId": "44444444-4444-4444-8444-444444444444",
+                "defaultOverrides": "{\"core\":[\"auth\",\"jumpHosts\",\"username\"],\"docker\":[],\"file-manager\":[],\"host-metrics\":[],\"remote-desktop\":[],\"snippets\":[],\"ssh-terminal\":[],\"tunnels\":[]}",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.064Z",
+                "credentialSyncId": "11111111-1111-4111-8111-111111111111",
+                "parentHostSyncId": null,
+                "pluginSettings": {
+                  "docker": {
+                    "enableDocker": false,
+                    "containerRuntime": "docker",
+                    "showPanel": true,
+                    "enableStacks": false,
+                    "stacksRoot": "/opt/stacks"
+                  },
+                  "file-manager": {
+                    "enableFileManager": true,
+                    "showPanel": true
+                  },
+                  "host-metrics": {
+                    "metricsEnabled": true,
+                    "showPanel": true
+                  },
+                  "remote-desktop": {
+                    "enableRdp": false,
+                    "enableVnc": false,
+                    "enableArd": false,
+                    "enableTelnet": false,
+                    "rdpPort": 3389,
+                    "vncPort": 5900,
+                    "ardPort": 5900,
+                    "telnetPort": 23,
+                    "rdpSecurity": "",
+                    "rdpIgnoreCert": false,
+                    "guacamoleConfig": {},
+                    "enableToolbar": true,
+                    "toolbarPosition": "top",
+                    "toolbarLabels": "labeled",
+                    "colorDepth": "inherit",
+                    "resizeMethod": "inherit",
+                    "forceLossless": "inherit",
+                    "enableWallpaper": "inherit",
+                    "enableFontSmoothing": "inherit",
+                    "enableDesktopComposition": "inherit",
+                    "disableAudio": "inherit",
+                    "enablePrinting": "inherit",
+                    "enableDrive": "inherit",
+                    "disableCopy": "inherit",
+                    "disablePaste": "inherit"
+                  },
+                  "snippets": {
+                    "startupSnippetId": null,
+                    "quickActions": [],
+                    "showPanel": true
+                  },
+                  "ssh-terminal": {
+                    "enableTerminal": true,
+                    "enableTerminalToolbar": true,
+                    "terminalToolbarPosition": "bottom",
+                    "terminalToolbarLabels": "labeled",
+                    "terminalToolbarShowStatus": true,
+                    "enableTerminalPanels": true,
+                    "terminalPanelSide": "right",
+                    "enableCommandHistory": true,
+                    "cloudflareTunnelEnabled": false,
+                    "cloudflareTunnelHostname": "",
+                    "cloudflareTunnelPort": 443,
+                    "cloudflareTunnelClientId": "",
+                    "theme": "termix",
+                    "cursorBlink": true,
+                    "cursorStyle": "bar",
+                    "fontSize": 14,
+                    "fontFamily": "Caskaydia Cove Nerd Font Mono",
+                    "scrollback": 10000,
+                    "letterSpacing": 0,
+                    "lineHeight": 1,
+                    "bellStyle": "none",
+                    "minimumContrastRatio": 1,
+                    "backgroundImage": "",
+                    "backgroundImageOpacity": 0.15,
+                    "rightClickSelectsWord": false,
+                    "wheelZoom": true,
+                    "macOptionIsMeta": false,
+                    "fastScrollModifier": "alt",
+                    "fastScrollSensitivity": 5,
+                    "backspaceMode": "normal",
+                    "autoMosh": false,
+                    "moshCommand": "",
+                    "autoTmux": false,
+                    "useSSHTitle": false,
+                    "syntaxHighlighting": true,
+                    "linkClickBehavior": "confirm",
+                    "localEcho": "auto",
+                    "passwordPromptAutoFill": true,
+                    "sudoPasswordAutoFill": false,
+                    "autoReconnect": false,
+                    "keepOpenOnExit": false
+                  },
+                  "sync": {},
+                  "tunnels": {
+                    "enableTunnel": false,
+                    "showPanel": true
+                  }
+                },
+                "protocolAuth": {}
+              }
+            },
+            {
+              "syncId": "accountProfile:singleton",
+              "entityType": "accountProfile",
+              "status": "rejected",
+              "reason": "read_only"
+            },
+            {
+              "syncId": "x1",
+              "entityType": "madeUpType",
+              "status": "rejected",
+              "reason": "unknown_type"
+            },
+            {
+              "syncId": "66666666-6666-4666-8666-666666666666",
+              "entityType": "snippets",
+              "status": "ok",
+              "revision": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "changes-after",
+      "request": {
+        "method": "GET",
+        "path": "/sync/v2/changes?cursor=8",
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "changes": [
+            {
+              "seq": 9,
+              "entityType": "hosts",
+              "syncId": "44444444-4444-4444-8444-444444444444",
+              "revision": 2,
+              "deleted": false,
+              "row": {
+                "connectionType": "ssh",
+                "name": "web-1",
+                "ip": "10.0.0.5",
+                "port": 22,
+                "username": "root",
+                "folder": "Prod",
+                "tags": "web,prod",
+                "pin": false,
+                "sortOrder": null,
+                "authType": "credential",
+                "shareSshAuth": false,
+                "forceKeyboardInteractive": "false",
+                "password": null,
+                "key": null,
+                "keyPassword": null,
+                "keyType": null,
+                "sudoPassword": null,
+                "overrideCredentialUsername": null,
+                "jumpHosts": "[{\"hostId\":\"33333333-3333-4333-8333-333333333333\"}]",
+                "statusCheckEnabled": true,
+                "statusCheckInterval": null,
+                "sshOptions": null,
+                "notes": "Edited on the desktop",
+                "enableSsh": true,
+                "sshPort": 22,
+                "useSocks5": null,
+                "socks5Host": null,
+                "socks5Port": null,
+                "socks5Username": null,
+                "socks5Password": null,
+                "socks5ProxyChain": null,
+                "portKnockSequence": null,
+                "hostKeyFingerprint": null,
+                "hostKeyType": null,
+                "hostKeyAlgorithm": "sha256",
+                "hostKeyFirstSeen": null,
+                "hostKeyChangedCount": 0,
+                "syncId": "44444444-4444-4444-8444-444444444444",
+                "defaultOverrides": "{\"core\":[\"auth\",\"jumpHosts\",\"username\"],\"docker\":[],\"file-manager\":[],\"host-metrics\":[],\"remote-desktop\":[],\"snippets\":[],\"ssh-terminal\":[],\"tunnels\":[]}",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.064Z",
+                "credentialSyncId": "11111111-1111-4111-8111-111111111111",
+                "parentHostSyncId": null,
+                "pluginSettings": {
+                  "docker": {
+                    "enableDocker": false,
+                    "containerRuntime": "docker",
+                    "showPanel": true,
+                    "enableStacks": false,
+                    "stacksRoot": "/opt/stacks"
+                  },
+                  "file-manager": {
+                    "enableFileManager": true,
+                    "showPanel": true
+                  },
+                  "host-metrics": {
+                    "metricsEnabled": true,
+                    "showPanel": true
+                  },
+                  "remote-desktop": {
+                    "enableRdp": false,
+                    "enableVnc": false,
+                    "enableArd": false,
+                    "enableTelnet": false,
+                    "rdpPort": 3389,
+                    "vncPort": 5900,
+                    "ardPort": 5900,
+                    "telnetPort": 23,
+                    "rdpSecurity": "",
+                    "rdpIgnoreCert": false,
+                    "guacamoleConfig": {},
+                    "enableToolbar": true,
+                    "toolbarPosition": "top",
+                    "toolbarLabels": "labeled",
+                    "colorDepth": "inherit",
+                    "resizeMethod": "inherit",
+                    "forceLossless": "inherit",
+                    "enableWallpaper": "inherit",
+                    "enableFontSmoothing": "inherit",
+                    "enableDesktopComposition": "inherit",
+                    "disableAudio": "inherit",
+                    "enablePrinting": "inherit",
+                    "enableDrive": "inherit",
+                    "disableCopy": "inherit",
+                    "disablePaste": "inherit"
+                  },
+                  "snippets": {
+                    "startupSnippetId": null,
+                    "quickActions": [],
+                    "showPanel": true
+                  },
+                  "ssh-terminal": {
+                    "enableTerminal": true,
+                    "enableTerminalToolbar": true,
+                    "terminalToolbarPosition": "bottom",
+                    "terminalToolbarLabels": "labeled",
+                    "terminalToolbarShowStatus": true,
+                    "enableTerminalPanels": true,
+                    "terminalPanelSide": "right",
+                    "enableCommandHistory": true,
+                    "cloudflareTunnelEnabled": false,
+                    "cloudflareTunnelHostname": "",
+                    "cloudflareTunnelPort": 443,
+                    "cloudflareTunnelClientId": "",
+                    "theme": "termix",
+                    "cursorBlink": true,
+                    "cursorStyle": "bar",
+                    "fontSize": 14,
+                    "fontFamily": "Caskaydia Cove Nerd Font Mono",
+                    "scrollback": 10000,
+                    "letterSpacing": 0,
+                    "lineHeight": 1,
+                    "bellStyle": "none",
+                    "minimumContrastRatio": 1,
+                    "backgroundImage": "",
+                    "backgroundImageOpacity": 0.15,
+                    "rightClickSelectsWord": false,
+                    "wheelZoom": true,
+                    "macOptionIsMeta": false,
+                    "fastScrollModifier": "alt",
+                    "fastScrollSensitivity": 5,
+                    "backspaceMode": "normal",
+                    "autoMosh": false,
+                    "moshCommand": "",
+                    "autoTmux": false,
+                    "useSSHTitle": false,
+                    "syntaxHighlighting": true,
+                    "linkClickBehavior": "confirm",
+                    "localEcho": "auto",
+                    "passwordPromptAutoFill": true,
+                    "sudoPasswordAutoFill": false,
+                    "autoReconnect": false,
+                    "keepOpenOnExit": false
+                  },
+                  "sync": {},
+                  "tunnels": {
+                    "enableTunnel": false,
+                    "showPanel": true
+                  }
+                },
+                "protocolAuth": {}
+              }
+            },
+            {
+              "seq": 10,
+              "entityType": "snippets",
+              "syncId": "66666666-6666-4666-8666-666666666666",
+              "revision": 2,
+              "deleted": true,
+              "row": null
+            }
+          ],
+          "nextCursor": 10,
+          "hasMore": false,
+          "entityTypes": [
+            {
+              "type": "accountProfile",
+              "owner": "core",
+              "order": 5,
+              "readOnly": true
+            },
+            {
+              "type": "hostDefaultsAdmin",
+              "owner": "core",
+              "order": 7,
+              "readOnly": true
+            },
+            {
+              "type": "sshCredentials",
+              "owner": "core",
+              "order": 10,
+              "readOnly": false
+            },
+            {
+              "type": "sharedCredentials",
+              "owner": "core",
+              "order": 15,
+              "readOnly": true
+            },
+            {
+              "type": "sshFolders",
+              "owner": "core",
+              "order": 30,
+              "readOnly": false
+            },
+            {
+              "type": "snippetFolders",
+              "owner": "snippets",
+              "order": 40,
+              "readOnly": false
+            },
+            {
+              "type": "hosts",
+              "owner": "core",
+              "order": 50,
+              "readOnly": false
+            },
+            {
+              "type": "sharedHosts",
+              "owner": "core",
+              "order": 55,
+              "readOnly": true
+            },
+            {
+              "type": "hostDefaults",
+              "owner": "core",
+              "order": 60,
+              "readOnly": false
+            },
+            {
+              "type": "snippets",
+              "owner": "snippets",
+              "order": 60,
+              "readOnly": false
+            },
+            {
+              "type": "userPreferences",
+              "owner": "core",
+              "order": 90,
+              "readOnly": false
+            },
+            {
+              "type": "pluginUserSettings",
+              "owner": "core",
+              "order": 95,
+              "readOnly": false
+            },
+            {
+              "type": "workspaces",
+              "owner": "workspaces",
+              "order": 200,
+              "readOnly": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "changes-backfill",
+      "request": {
+        "method": "GET",
+        "path": "/sync/v2/changes?cursor=0&types=snippets,snippetFolders",
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "changes": [
+            {
+              "seq": 5,
+              "entityType": "snippetFolders",
+              "syncId": "55555555-5555-4555-8555-555555555555",
+              "revision": 1,
+              "deleted": false,
+              "row": {
+                "name": "Ops",
+                "color": null,
+                "icon": null,
+                "syncId": "55555555-5555-4555-8555-555555555555",
+                "createdAt": "2026-10-23 21:19:55",
+                "updatedAt": "2026-10-23T21:19:55.014Z"
+              }
+            },
+            {
+              "seq": 10,
+              "entityType": "snippets",
+              "syncId": "66666666-6666-4666-8666-666666666666",
+              "revision": 2,
+              "deleted": true,
+              "row": null
+            }
+          ],
+          "nextCursor": 10,
+          "hasMore": false,
+          "entityTypes": [
+            {
+              "type": "accountProfile",
+              "owner": "core",
+              "order": 5,
+              "readOnly": true
+            },
+            {
+              "type": "hostDefaultsAdmin",
+              "owner": "core",
+              "order": 7,
+              "readOnly": true
+            },
+            {
+              "type": "sshCredentials",
+              "owner": "core",
+              "order": 10,
+              "readOnly": false
+            },
+            {
+              "type": "sharedCredentials",
+              "owner": "core",
+              "order": 15,
+              "readOnly": true
+            },
+            {
+              "type": "sshFolders",
+              "owner": "core",
+              "order": 30,
+              "readOnly": false
+            },
+            {
+              "type": "snippetFolders",
+              "owner": "snippets",
+              "order": 40,
+              "readOnly": false
+            },
+            {
+              "type": "hosts",
+              "owner": "core",
+              "order": 50,
+              "readOnly": false
+            },
+            {
+              "type": "sharedHosts",
+              "owner": "core",
+              "order": 55,
+              "readOnly": true
+            },
+            {
+              "type": "hostDefaults",
+              "owner": "core",
+              "order": 60,
+              "readOnly": false
+            },
+            {
+              "type": "snippets",
+              "owner": "snippets",
+              "order": 60,
+              "readOnly": false
+            },
+            {
+              "type": "userPreferences",
+              "owner": "core",
+              "order": 90,
+              "readOnly": false
+            },
+            {
+              "type": "pluginUserSettings",
+              "owner": "core",
+              "order": 95,
+              "readOnly": false
+            },
+            {
+              "type": "workspaces",
+              "owner": "workspaces",
+              "order": 200,
+              "readOnly": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "host-id",
+      "request": {
+        "method": "GET",
+        "path": "/sync/v2/hosts/44444444-4444-4444-8444-444444444444",
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "id": 2,
+          "name": "web-1"
+        }
+      }
+    },
+    {
+      "name": "host-id-missing",
+      "request": {
+        "method": "GET",
+        "path": "/sync/v2/hosts/not-a-host",
+        "body": null
+      },
+      "response": {
+        "status": 404,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "error": "Not found"
+        }
+      }
+    },
+    {
+      "name": "refresh",
+      "request": {
+        "method": "POST",
+        "path": "/sync/v2/session/refresh",
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "token": null
+        }
+      }
+    },
+    {
+      "name": "bad-cursor",
+      "request": {
+        "method": "GET",
+        "path": "/sync/v2/changes?cursor=-1",
+        "body": null
+      },
+      "response": {
+        "status": 400,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "error": "Invalid cursor or limit"
+        }
+      }
+    },
+    {
+      "name": "push-desktop-during-events",
+      "request": {
+        "method": "POST",
+        "path": "/sync/v2/push",
+        "body": {
+          "ops": [
+            {
+              "entityType": "snippetFolders",
+              "syncId": "77777777-7777-4777-8777-777777777777",
+              "baseRevision": 0,
+              "op": "upsert",
+              "row": {
+                "name": "Pushed while listening"
+              }
+            }
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "results": [
+            {
+              "syncId": "77777777-7777-4777-8777-777777777777",
+              "entityType": "snippetFolders",
+              "status": "ok",
+              "revision": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "events-after-push",
+      "request": {
+        "method": "GET",
+        "path": "/sync/v2/events",
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "text/event-stream",
+        "body": "event: ready\ndata: {}\n\n"
+      }
+    },
+    {
+      "name": "unlink-phone",
+      "request": {
+        "method": "POST",
+        "path": "/sync/v2/unlink",
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "success": true
+        }
+      }
+    },
+    {
+      "name": "changes-after-unlink",
+      "request": {
+        "method": "GET",
+        "path": "/sync/v2/changes?cursor=0",
+        "body": null
+      },
+      "response": {
+        "status": 401,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "error": "Invalid token"
+        }
+      }
+    },
+    {
+      "name": "unlink-desktop",
+      "request": {
+        "method": "POST",
+        "path": "/sync/v2/unlink",
+        "body": null
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "body": {
+          "success": true
+        }
+      }
+    }
+  ]
+}

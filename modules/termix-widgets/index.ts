@@ -1,7 +1,7 @@
 /**
  * TermixWidgets - thin bridge to the native home-screen widget hosts.
  *
- * The app hands the native side one JSON string (see app/widgets/types.ts for
+ * The app hands the native side one JSON string (see src/widgets/types.ts for
  * the contract); the native side persists it in shared storage (App Group on
  * iOS, SharedPreferences on Android) and asks the widget host to redraw.
  *
@@ -31,9 +31,6 @@ const NativeModule =
  * have zero widgets placed on their home screen, which we can't detect.
  */
 export const isWidgetSupported: boolean = NativeModule?.isSupported ?? false;
-
-/** Shared container identifier (App Group / SharedPreferences name), or "". */
-export const widgetContainerId: string = NativeModule?.containerId ?? "";
 
 /**
  * Publishes a snapshot and refreshes every placed widget.

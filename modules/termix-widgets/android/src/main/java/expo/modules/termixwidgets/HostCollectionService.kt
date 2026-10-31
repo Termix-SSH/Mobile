@@ -105,8 +105,13 @@ private class HostCollectionFactory(
 
   // Android's default loading view is a bright bar that looks broken on a dark
   // widget, so supply our own.
-  override fun getLoadingView(): RemoteViews =
-    RemoteViews(context.packageName, R.layout.termix_widget_item_loading)
+  override fun getLoadingView(): RemoteViews {
+    val chrome = WidgetTheme.chrome(context, snapshot.theme)
+    val views = RemoteViews(context.packageName, R.layout.termix_widget_item_loading)
+    views.setInt(R.id.termix_item_loading_root, "setBackgroundResource", chrome.card)
+    views.setTextColor(R.id.termix_item_loading_text, chrome.textTertiary)
+    return views
+  }
 
   override fun getViewAt(position: Int): RemoteViews {
     val accent = WidgetTheme.parseAccent(snapshot.accent)
@@ -137,6 +142,10 @@ private class HostCollectionFactory(
     views.setTextViewText(R.id.termix_item_name, host.name)
     views.setInt(R.id.termix_item_dot, "setColorFilter", WidgetTheme.statusColor(host.status))
     views.setContentDescription(R.id.termix_item_root, describe(host))
+    val chrome = WidgetTheme.chrome(context, snapshot.theme)
+    views.setInt(R.id.termix_item_root, "setBackgroundResource", chrome.card)
+    views.setTextColor(R.id.termix_item_name, chrome.textPrimary)
+    views.setTextColor(R.id.termix_item_subtitle, chrome.textTertiary)
 
     val subtitle = host.subtitle.ifEmpty { host.folder }
     views.setTextViewText(R.id.termix_item_subtitle, subtitle)
@@ -161,6 +170,10 @@ private class HostCollectionFactory(
     val views = RemoteViews(context.packageName, R.layout.termix_widget_item_snippet)
 
     views.setTextColor(R.id.termix_item_caret, accent)
+    val chrome = WidgetTheme.chrome(context, snapshot.theme)
+    views.setInt(R.id.termix_item_root, "setBackgroundResource", chrome.card)
+    views.setTextColor(R.id.termix_item_name, chrome.textPrimary)
+    views.setTextColor(R.id.termix_item_preview, chrome.textTertiary)
     views.setTextViewText(R.id.termix_item_name, snippet.name)
     views.setTextViewText(R.id.termix_item_preview, snippet.preview)
     views.setViewVisibility(
@@ -182,6 +195,13 @@ private class HostCollectionFactory(
     views.setTextViewText(R.id.termix_item_name, host.name)
     views.setInt(R.id.termix_item_dot, "setColorFilter", WidgetTheme.statusColor(host.status))
     views.setContentDescription(R.id.termix_item_root, describe(host))
+    val chrome = WidgetTheme.chrome(context, snapshot.theme)
+    views.setInt(R.id.termix_item_root, "setBackgroundResource", chrome.card)
+    views.setTextColor(R.id.termix_item_name, chrome.textPrimary)
+    views.setTextColor(R.id.termix_item_subtitle, chrome.textTertiary)
+    views.setTextColor(R.id.termix_item_offline, chrome.textTertiary)
+    views.setTextColor(R.id.termix_item_cpu_label, chrome.textTertiary)
+    views.setTextColor(R.id.termix_item_mem_label, chrome.textTertiary)
     views.setTextViewText(R.id.termix_item_subtitle, host.subtitle)
     views.setViewVisibility(
       R.id.termix_item_subtitle,
@@ -203,6 +223,7 @@ private class HostCollectionFactory(
     if (hasMetrics) {
       bindMetric(
         views,
+        chrome = chrome,
         percent = host.cpu,
         accent = accent,
         valueId = R.id.termix_item_cpu_value,
@@ -210,6 +231,7 @@ private class HostCollectionFactory(
       )
       bindMetric(
         views,
+        chrome = chrome,
         percent = host.mem,
         accent = accent,
         valueId = R.id.termix_item_mem_value,
@@ -240,6 +262,7 @@ private class HostCollectionFactory(
    */
   private fun bindMetric(
     views: RemoteViews,
+    chrome: Chrome,
     percent: Int?,
     accent: Int,
     valueId: Int,
@@ -248,13 +271,13 @@ private class HostCollectionFactory(
     views.setTextViewText(valueId, percent?.let { "$it%" } ?: "--")
     views.setTextColor(
       valueId,
-      if (percent == null) WidgetTheme.TEXT_TERTIARY else WidgetTheme.TEXT_SECONDARY
+      if (percent == null) chrome.textTertiary else chrome.textSecondary
     )
-    views.setTextViewText(barId, meter(percent, accent))
+    views.setTextViewText(barId, meter(percent, accent, chrome.track))
   }
 
   /** Builds "███░░░░░░░" with the filled run tinted by load. */
-  private fun meter(percent: Int?, accent: Int): CharSequence {
+  private fun meter(percent: Int?, accent: Int, track: Int): CharSequence {
     // A non-zero reading always lights at least one cell, so "1%" never looks
     // identical to "no data".
     val filled = when {
@@ -280,7 +303,7 @@ private class HostCollectionFactory(
     }
     if (filled < meterCells) {
       text.setSpan(
-        ForegroundColorSpan(WidgetTheme.TRACK),
+        ForegroundColorSpan(track),
         filled,
         meterCells,
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE

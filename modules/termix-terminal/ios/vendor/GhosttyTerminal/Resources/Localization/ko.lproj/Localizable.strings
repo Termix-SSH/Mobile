@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Copy</key>
+	<string>복사</string>
+	<key>Paste</key>
+	<string>붙여넣기</string>
+	<key>Select</key>
+	<string>선택</string>
+	<key>Select All</key>
+	<string>모두 선택</string>
+</dict>
+</plist>

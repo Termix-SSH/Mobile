@@ -1,0 +1,41 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.termixterminal'
+version = '0.1.0'
+
+android {
+  namespace "expo.modules.termixterminal"
+  defaultConfig {
+    versionCode 1
+    versionName "0.1.0"
+    // libghostty-vt is only built for these ABIs.
+    ndk {
+      abiFilters "arm64-v8a", "x86_64"
+    }
+    externalNativeBuild {
+      cmake {
+        arguments "-DANDROID_STL=c++_static"
+      }
+    }
+  }
+  externalNativeBuild {
+    cmake {
+      path "CMakeLists.txt"
+    }
+  }
+  sourceSets {
+    main {
+      // Symbols Nerd Font Mono, the fallback for private use glyphs.
+      assets.srcDirs += "vendor/fonts"
+    }
+  }
+}
+
+dependencies {
+  implementation "com.facebook.react:react-android"
+  implementation project(':termix-pipe')
+  testImplementation 'junit:junit:4.13.2'
+}

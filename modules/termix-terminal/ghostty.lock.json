@@ -1,0 +1,23 @@
+{
+  "libghostty-spm": {
+    "repo": "https://github.com/Lakr233/libghostty-spm.git",
+    "tag": "2.2.2026101502",
+    "ghostty": "1e9e14af5df14211892f5fc15fd21a49c7d94868",
+    "xcframework": {
+      "url": "https://github.com/Lakr233/libghostty-spm/releases/download/upstream.1e9e14af5df1-3/GhosttyKit.xcframework.zip",
+      "sha256": "0bf7e5e13f8e42ffca040a6cef7e985fc30bcaa81ff513bd2a93eb097398c6d8"
+    }
+  },
+  "DisplayLink": {
+    "repo": "https://github.com/Lakr233/DisplayLink.git",
+    "tag": "3.0.1"
+  },
+  "libghostty-vt": {
+    "repo": "https://github.com/ghostty-org/ghostty.git",
+    "commit": "b0947378349eff70f7030dda0e6d022fae1e6fbd",
+    "android": {
+      "url": "https://github.com/arcboxlabs/expo-libghostty/releases/download/storage.libghostty-vt.b0947378349e.r3/libghostty-vt-android-b0947378349e-r3.tar.gz",
+      "sha256": "b38f032f3f5e42cd3686ba6a10ecbb0669382de8df74ddd44be30e362c637d96"
+    }
+  }
+}

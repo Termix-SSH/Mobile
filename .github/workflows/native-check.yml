@@ -1,0 +1,83 @@
+name: Native check
+
+# Compiles the native modules and runs their Kotlin unit tests. Nothing is signed, installed or uploaded.
+on:
+  push:
+    branches: [main, "dev-*"]
+    paths:
+      - "modules/**"
+      - "plugins/**"
+      - "app.json"
+      - ".github/workflows/native-check.yml"
+  workflow_dispatch:
+    inputs:
+      platforms:
+        description: Platforms to build
+        type: choice
+        default: both
+        options: [both, android, ios]
+
+concurrency:
+  group: native-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    name: Android
+    if: inputs.platforms != 'ios'
+    runs-on: blacksmith-8vcpu-ubuntu-2404
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - run: npm ci
+      - name: Prebuild
+        run: npx expo prebuild --platform android --no-install --clean
+      - name: Kotlin unit tests
+        working-directory: android
+        run: ./gradlew --console=plain :termix-pipe:testDebugUnitTest :termix-terminal:testDebugUnitTest :termix-display:testDebugUnitTest
+      - name: Build debug APK (x86_64)
+        working-directory: android
+        run: ./gradlew --console=plain :app:assembleDebug -PreactNativeArchitectures=x86_64
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: android-test-reports
+          path: android/**/build/reports/tests
+
+  ios:
+    name: iOS
+    if: inputs.platforms != 'android'
+    runs-on: blacksmith-6vcpu-macos-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "26"
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+      - name: Prebuild
+        run: npx expo prebuild --platform ios --clean
+      - name: Build for the simulator
+        working-directory: ios
+        run: |
+          xcodebuild -workspace Termix.xcworkspace -scheme Termix -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO build > ../xcodebuild.log 2>&1 \
+            || { grep -E "error:|BUILD FAILED" ../xcodebuild.log | sort -u | head -80; exit 1; }
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: xcodebuild-log
+          path: xcodebuild.log

@@ -53,6 +53,7 @@ enum SharedStore {
       guard snapshot.version == WidgetSnapshot.supportedVersion else {
         return .signedOut(accent: snapshot.accent)
       }
+      Theme.apply(snapshot.theme)
       return snapshot
     } catch {
       return .signedOut()

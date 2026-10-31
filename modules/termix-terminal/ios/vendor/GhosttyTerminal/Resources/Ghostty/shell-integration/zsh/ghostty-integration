@@ -1,0 +1,100 @@
+# Ghostty zsh shell integration.
+#
+# Copyright (c) 2026 @Lakr233
+# SPDX-License-Identifier: MIT
+#
+# Written from scratch for libghostty-spm. Not derived from Ghostty's or
+# Kitty's zsh integration (both GPLv3).
+#
+# What the terminal gets from this file, per prompt:
+#
+#   OSC 133 A / B / C / D   prompt start, input start, output start,
+#                           command end with its exit code (semantic prompts:
+#                           jump-to-prompt, prompt-aware selection)
+#   OSC 7                   the working directory, as a file:// URL
+#   OSC 2                   the title — the directory at a prompt, the
+#                           command while it runs (feature `title`)
+#   DECSCUSR                a bar cursor while editing, the default shape
+#                           while a command runs (feature `cursor`)
+#
+# Features come from GHOSTTY_SHELL_FEATURES, a comma-separated list the
+# terminal exports (`cursor`, `cursor:blink`, `cursor:steady`, `title`, …).
+# Anything else in the list is ignored; sudo, ssh-* and path need a ghostty
+# binary or change the user's environment, and this integration does neither.
+#
+# Loaded by the .zshenv next to it after the user's .zshrc, or sourced by
+# hand from a .zshrc — both work; it only attaches hooks.
+
+[[ -o interactive ]] || return 0
+(( ${+_ghostty_integration_loaded} )) && return 0
+typeset -g _ghostty_integration_loaded=1
+
+builtin autoload -Uz add-zsh-hook
+
+typeset -g _ghostty_prompt_end=$'%{\e]133;B\a%}'
+typeset -g _ghostty_command_ran=0
+
+_ghostty_feature() {
+    [[ ",${GHOSTTY_SHELL_FEATURES-}," == *",$1,"* ]]
+}
+
+# Percent-encodes $PWD byte by byte for the OSC 7 URL.
+_ghostty_encoded_pwd() {
+    builtin setopt localoptions nomultibyte
+    local out= byte
+    for byte in ${(s::)PWD}; do
+        case "$byte" in
+            [A-Za-z0-9/_.~-]) out+="$byte" ;;
+            *) out+="$(builtin printf '%%%02X' "'$byte")" ;;
+        esac
+    done
+    builtin print -rn -- "$out"
+}
+
+_ghostty_precmd() {
+    local exit_code=$?
+
+    if (( _ghostty_command_ran )); then
+        builtin print -n -- $'\e]133;D;'"$exit_code"$'\a'
+        _ghostty_command_ran=0
+    fi
+
+    # Prompt start goes out directly, so it lands however PS1 is built.
+    builtin print -n -- $'\e]133;A\a'
+    builtin print -n -- $'\e]7;file://'"${HOST-}$(_ghostty_encoded_pwd)"$'\a'
+
+    if _ghostty_feature title; then
+        builtin print -rn -- $'\e]2;'"${(%):-%~}"$'\a'
+    fi
+
+    if _ghostty_feature cursor:steady; then
+        builtin print -n -- $'\e[6 q'
+    elif _ghostty_feature cursor || _ghostty_feature cursor:blink; then
+        builtin print -n -- $'\e[5 q'
+    fi
+
+    # Input start rides on the end of PS1; re-append whenever a prompt
+    # framework rebuilt PS1 without it.
+    if [[ "$PS1" != *"$_ghostty_prompt_end" ]]; then
+        PS1="$PS1$_ghostty_prompt_end"
+    fi
+}
+
+_ghostty_preexec() {
+    _ghostty_command_ran=1
+
+    if _ghostty_feature cursor || _ghostty_feature cursor:blink || _ghostty_feature cursor:steady; then
+        builtin print -n -- $'\e[0 q'
+    fi
+
+    if _ghostty_feature title; then
+        # The first line of the command, control characters stripped.
+        local command="${1%%$'\n'*}"
+        builtin print -rn -- $'\e]2;'"${command//[[:cntrl:]]/}"$'\a'
+    fi
+
+    builtin print -n -- $'\e]133;C\a'
+}
+
+add-zsh-hook precmd _ghostty_precmd
+add-zsh-hook preexec _ghostty_preexec

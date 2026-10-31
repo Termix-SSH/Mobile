@@ -1,0 +1,56 @@
+import { Sheet, SheetRow } from "@/ui";
+
+export interface ContextAction {
+  key: string;
+  icon: React.ReactNode;
+  label: string;
+  destructive?: boolean;
+  disabled?: boolean;
+  onPress: () => void;
+}
+
+/**
+ * ContextSheet - a long-press action menu built on BottomSheet + SheetRow.
+ * Replaces the old absolutely-positioned context menus that could render
+ * off-screen. Pass a title (e.g. the file name) and a flat list of actions;
+ * tapping a row fires its handler and closes the sheet.
+ */
+export function ContextSheet({
+  visible,
+  onClose,
+  title,
+  subtitle,
+  actions,
+}: {
+  visible: boolean;
+  onClose: () => void;
+  title?: string;
+  subtitle?: string;
+  actions: (ContextAction | null | false)[];
+}) {
+  const items = actions.filter(Boolean) as ContextAction[];
+
+  return (
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      title={title}
+      description={subtitle}
+    >
+      {items.map((a) => (
+        <SheetRow
+          key={a.key}
+          icon={a.icon}
+          label={a.label}
+          destructive={a.destructive}
+          onPress={() => {
+            if (a.disabled) return;
+            onClose();
+            // Defer so the sheet's close animation isn't janked by the action.
+            requestAnimationFrame(a.onPress);
+          }}
+        />
+      ))}
+    </Sheet>
+  );
+}

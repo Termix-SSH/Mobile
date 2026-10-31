@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["TermixDisplayModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.termixdisplay.TermixDisplayModule"]
+  }
+}

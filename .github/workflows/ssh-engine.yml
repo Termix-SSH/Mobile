@@ -1,0 +1,129 @@
+name: SSH engine
+
+on:
+  push:
+    branches: [main, "dev-*"]
+    paths:
+      - "modules/termix-ssh/**"
+      - "scripts/fetch-ssh-engine.cjs"
+      - ".github/workflows/ssh-engine.yml"
+  pull_request:
+    paths:
+      - "modules/termix-ssh/**"
+      - "scripts/fetch-ssh-engine.cjs"
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the engine as a GitHub release (termix-ssh-v<version>)
+        type: boolean
+        default: false
+
+concurrency:
+  group: ssh-engine-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: modules/termix-ssh
+
+jobs:
+  test:
+    name: Rust scenarios
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      BIG_MB: "200"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            modules/termix-ssh/rust
+            modules/termix-ssh/bindgen
+      - name: Start test servers
+        run: |
+          docker compose -f test-server/compose.yml up -d --build
+          until docker compose -f test-server/compose.yml exec -T target test -f /data/big.sha256; do sleep 2; done
+          sudo chmod -R a+r test-server/out
+      - name: Scenarios
+        working-directory: modules/termix-ssh/rust
+        run: SSH_TEST_DOCKER=1 cargo test --release -- --nocapture
+      - name: Bindings are current
+        run: |
+          sh scripts/gen-bindings.sh
+          git diff --exit-code -- android/src/main/java/uniffi ios/Generated \
+            || (echo "Run modules/termix-ssh/scripts/gen-bindings.sh and commit the result." && exit 1)
+
+  android:
+    name: Build Android
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android,i686-linux-android
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: modules/termix-ssh/rust
+      - name: Tools
+        run: |
+          cargo install cargo-ndk --version 4.1.2 --locked
+          echo y | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.1.12297006" > /dev/null
+          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.1.12297006" >> "$GITHUB_ENV"
+      - run: sh scripts/build-android.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: engine-android
+          path: modules/termix-ssh/dist/termix-ssh-android.tar.gz
+
+  ios:
+    name: Build iOS
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios,aarch64-apple-ios-sim,x86_64-apple-ios
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            modules/termix-ssh/rust
+            modules/termix-ssh/bindgen
+      - run: sh scripts/build-ios.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: engine-ios
+          path: modules/termix-ssh/dist/termix-ssh-ios.tar.gz
+
+  publish:
+    name: Publish release
+    if: inputs.publish
+    needs: [test, android, ios]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: engine-*
+          merge-multiple: true
+          path: modules/termix-ssh/dist
+      - name: Lock file
+        run: node scripts/write-lock.cjs dist
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(node -p "require('./dist/engine.lock.json').tag")
+          gh release delete "$tag" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "$tag" --prerelease --target "$GITHUB_SHA" --title "SSH engine $tag" \
+            --notes "Prebuilt russh engine for modules/termix-ssh. Not an app release." \
+            dist/termix-ssh-android.tar.gz dist/termix-ssh-ios.tar.gz dist/engine.lock.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: engine-lock
+          path: modules/termix-ssh/dist/engine.lock.json

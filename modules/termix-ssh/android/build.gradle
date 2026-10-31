@@ -1,0 +1,30 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.termixssh'
+version = '0.1.0'
+
+android {
+  namespace "expo.modules.termixssh"
+
+  defaultConfig {
+    versionCode 1
+    versionName '0.1.0'
+  }
+
+  // The engine .so files come from scripts/fetch-ssh-engine.cjs (see the module README).
+  sourceSets {
+    main {
+      jniLibs.srcDirs += ['src/main/jniLibs']
+    }
+  }
+}
+
+dependencies {
+  implementation project(':termix-pipe')
+  implementation project(':termix-display')
+  implementation 'net.java.dev.jna:jna:5.17.0@aar'
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
+}

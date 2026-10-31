@@ -20,7 +20,8 @@
       },
       "ios": {
         "buildConfiguration": "Release",
-        "enterpriseProvisioning": "adhoc"
+        "enterpriseProvisioning": "adhoc",
+        "image": "latest"
       }
     },
     "production": {
@@ -29,7 +30,8 @@
         "buildType": "app-bundle"
       },
       "ios": {
-        "buildConfiguration": "Release"
+        "buildConfiguration": "Release",
+        "image": "latest"
       }
     }
   },
@@ -37,6 +39,12 @@
     "production": {
       "ios": {
         "ascAppId": "6752672071"
+      }
+    },
+    "beta": {
+      "extends": "production",
+      "android": {
+        "track": "beta"
       }
     }
   }

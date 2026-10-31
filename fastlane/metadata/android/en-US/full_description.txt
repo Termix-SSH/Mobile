@@ -1,0 +1,30 @@
+Termix is an SSH client for phones and tablets that works on its own. Keep your hosts on this device and connect straight from the phone, with no server and no account.
+
+You can also link one or more Termix servers. A server syncs your hosts, logins, snippets and settings, and adds features that need a server. Each linked server keeps its own encrypted copy on the phone, so its hosts work offline too.
+
+Features
+
+* SSH terminal with tabs, key rows, snippets, history, find, tmux and screen attach, and hardware keyboard shortcuts
+* File manager over SFTP with resume, an editor with syntax highlighting and a files panel beside the terminal
+* Docker containers, logs, stats and compose stacks
+* Host metrics for CPU, memory, disk, network and processes
+* systemd and OpenRC services with the journal
+* SSH tunnels: local, remote and dynamic
+* Remote desktop: RDP, VNC and Telnet
+* Wake-on-LAN and host status
+* Hosts in folders, import and export, and encrypted local backups
+* App lock with fingerprint and a PIN as backup
+* Home screen widgets
+* Split view on tablets
+
+Your data stays on your devices and your server. Hosts, logins and snippets on this device are saved in an encrypted database.
+
+Usage statistics
+
+The app can send a short anonymous report once a day. It is off until you answer the question the app asks on first start, and you can change your answer in Settings. It never sends host names, addresses, commands, output or credentials. Details are at https://docs.termix.site/privacy#mobile-app
+
+This version
+
+The F-Droid build has no Play Services. Scanning a QR code with the camera is not in this build. You can import hosts from a file or paste a link instead.
+
+Termix is free and open source under the Apache 2.0 license. Source code: https://github.com/Termix-SSH/Mobile

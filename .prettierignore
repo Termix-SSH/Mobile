@@ -6,3 +6,20 @@ package-lock.json
 
 assets/xterm/*.html
 assets/guacamole/guacamole-common.js.html
+assets/editor/*.html
+assets/plugin-host/*.html
+
+drizzle
+
+# SSH engine build output
+modules/termix-ssh/rust/target
+modules/termix-ssh/bindgen/target
+modules/termix-ssh/dist
+modules/termix-ssh/test-server/out
+modules/termix-ssh/ios/TermixSshCore.xcframework
+modules/termix-ssh/android/src/main/jniLibs
+
+# Vendored upstream sources
+modules/termix-terminal/ios/vendor/
+store/out
+store/public

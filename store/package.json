@@ -1,0 +1,32 @@
+{
+  "name": "termix-mobile-store",
+  "private": true,
+  "description": "Store screenshots and App Previews for Termix Mobile.",
+  "type": "module",
+  "scripts": {
+    "capture": "tsx capture/run.ts",
+    "render": "tsx render/run.ts",
+    "banners": "tsx render/banners.ts",
+    "studio": "remotion studio render/index.ts",
+    "audio": "node scripts/make-audio.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "@remotion/bundler": "^4.0.535",
+    "@remotion/cli": "^4.0.535",
+    "@remotion/google-fonts": "^4.0.535",
+    "@remotion/renderer": "^4.0.535",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.535"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.3.0",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.2"
+  }
+}

@@ -1,0 +1,4 @@
+android/src/main/jniLibs/
+ios/TermixSshCore.xcframework/
+test-server/out/
+dist/

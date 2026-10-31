@@ -2,18 +2,20 @@
   "expo": {
     "name": "Termix",
     "slug": "termix",
-    "version": "1.6.0",
+    "version": "2.0.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "termix-mobile",
     "githubUrl": "https://github.com/Termix-SSH/Mobile",
-    "backgroundColor": "#0c0d0b",
+    "backgroundColor": "#141513",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "appleTeamId": "2CPC5YZYFN",
       "supportsTablet": true,
       "bundleIdentifier": "com.karmaa.termix",
+      "entitlements": {
+        "com.apple.developer.networking.multicast": true
+      },
       "icon": {
         "dark": "./assets/images/ios-dark.png",
         "light": "./assets/images/icon.png",
@@ -22,16 +24,22 @@
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
         "ITSAppUsesNonExemptEncryption": false,
-        "NSFaceIDUsageDescription": "Use Face ID to unlock Termix."
+        "NSFaceIDUsageDescription": "Use Face ID to unlock Termix.",
+        "NSLocalNetworkUsageDescription": "Check if your hosts are online and wake them on your network.",
+        "UIFileSharingEnabled": true,
+        "LSSupportsOpeningDocumentsInPlace": true
       }
     },
     "android": {
-      "edgeToEdgeEnabled": true,
       "package": "com.karmaa.termix",
+      "versionCode": 20000,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#0c0d0b"
-      }
+        "monochromeImage": "./assets/images/adaptive-monochrome.png",
+        "backgroundColor": "#141513"
+      },
+      "allowBackup": false,
+      "blockedPermissions": ["android.permission.READ_MEDIA_IMAGES"]
     },
     "web": {
       "output": "static",
@@ -39,6 +47,13 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Scan a host QR code.",
+          "recordAudioAndroid": false
+        }
+      ],
       "./plugins/withOidcCallbackIntentFilter.js",
       [
         "expo-local-authentication",
@@ -49,12 +64,12 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#0c0d0b",
+          "backgroundColor": "#141513",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "dark": {
             "image": "./assets/images/splash-icon.png",
-            "backgroundColor": "#0c0d0b"
+            "backgroundColor": "#141513"
           }
         }
       ],
@@ -63,21 +78,131 @@
         {
           "android": {
             "usesCleartextTraffic": true,
-            "gradle": "8.13.1"
+            "gradle": "8.13.1",
+            "enableMinifyInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true,
+            "extraProguardRules": "-keep class com.sun.jna.** { *; }\n-keep class * implements com.sun.jna.** { *; }\n-dontwarn java.awt.**\n-keep class uniffi.** { *; }\n-keep class expo.modules.termixterminal.GhosttyVt { native <methods>; }"
           },
           "ios": {
-            "deploymentTarget": "15.1"
+            "deploymentTarget": "16.4",
+            "enableSceneSupport": true
           }
         }
       ],
       "./plugins/withIOSNetworkSecurity.js",
       "./plugins/withNetworkSecurityConfig.js",
-      "./plugins/withAndroidLocalNetworkSsl.js",
+      "./plugins/withNoBackup.js",
+      "./plugins/withWebViewPins.js",
       "./plugins/withTermixWidgets.js",
+      "./plugins/withLargeScreen.js",
+      "./plugins/withGradleMemory.js",
       "./plugins/withPodDeploymentTarget.js",
+      "./plugins/withNotificationIcon.js",
+      "./plugins/withTermixSsh.js",
+      "./plugins/withTermixTerminal.js",
+      [
+        "expo-font",
+        {
+          "ios": {
+            "fonts": [
+              "./assets/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf",
+              "./assets/fonts/CaskaydiaCoveNerdFontMono-Bold.ttf",
+              "./assets/fonts/CaskaydiaCoveNerdFontMono-Italic.ttf",
+              "./assets/fonts/CaskaydiaCoveNerdFontMono-BoldItalic.ttf",
+              "./assets/fonts/JetBrainsMonoNerdFontMono-Regular.ttf",
+              "./assets/fonts/JetBrainsMonoNerdFontMono-Bold.ttf",
+              "./assets/fonts/FiraCodeNerdFontMono-Regular.ttf",
+              "./assets/fonts/FiraCodeNerdFontMono-Bold.ttf"
+            ]
+          },
+          "android": {
+            "fonts": [
+              {
+                "fontFamily": "CaskaydiaCove NFM",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf",
+                    "weight": 400
+                  },
+                  {
+                    "path": "./assets/fonts/CaskaydiaCoveNerdFontMono-Bold.ttf",
+                    "weight": 700
+                  },
+                  {
+                    "path": "./assets/fonts/CaskaydiaCoveNerdFontMono-Italic.ttf",
+                    "weight": 400,
+                    "style": "italic"
+                  },
+                  {
+                    "path": "./assets/fonts/CaskaydiaCoveNerdFontMono-BoldItalic.ttf",
+                    "weight": 700,
+                    "style": "italic"
+                  }
+                ]
+              },
+              {
+                "fontFamily": "JetBrainsMono NFM",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/JetBrainsMonoNerdFontMono-Regular.ttf",
+                    "weight": 400
+                  },
+                  {
+                    "path": "./assets/fonts/JetBrainsMonoNerdFontMono-Bold.ttf",
+                    "weight": 700
+                  }
+                ]
+              },
+              {
+                "fontFamily": "FiraCode Nerd Font Mono",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/FiraCodeNerdFontMono-Regular.ttf",
+                    "weight": 400
+                  },
+                  {
+                    "path": "./assets/fonts/FiraCodeNerdFontMono-Bold.ttf",
+                    "weight": 700
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
       "expo-dev-client",
-      "expo-secure-store",
-      "expo-web-browser"
+      ["expo-secure-store", { "configureAndroidBackup": false }],
+      "expo-web-browser",
+      [
+        "expo-sqlite",
+        {
+          "useSQLCipher": true
+        }
+      ],
+      "expo-background-task",
+      "expo-video",
+      [
+        "expo-sharing",
+        {
+          "ios": {
+            "enabled": true,
+            "extensionBundleIdentifier": "com.karmaa.termix.ShareExtension",
+            "appGroupId": "group.com.karmaa.termix",
+            "activationRule": {
+              "supportsText": true,
+              "supportsFileWithMaxCount": 20,
+              "supportsImageWithMaxCount": 20,
+              "supportsMovieWithMaxCount": 20
+            }
+          },
+          "android": {
+            "enabled": true,
+            "singleShareMimeTypes": ["*/*"],
+            "multipleShareMimeTypes": ["*/*"]
+          }
+        }
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,

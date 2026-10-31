@@ -4,23 +4,34 @@ import WidgetKit
 /**
  Visual language for the widgets.
 
- Mirrors the app's dark session surfaces (`app/constants/designTokens.ts`):
+ Mirrors the app's dark session surfaces (`src/constants/theme.ts`):
  square corners, hairline borders, monospaced type, one accent color. The
  accent is not hardcoded - it travels in the snapshot so the widget follows the
  accent the user picked in Settings.
  */
 enum Theme {
-  // Static surface palette (the terminal chrome is dark in every app theme).
-  static let background = Color(hex: "#0c0d0b")
-  static let surface = Color(hex: "#141513")
-  static let card = Color(hex: "#181917")
-  static let cardRaised = Color(hex: "#1f201d")
-  static let border = Color(hex: "#2a2a2a")
-  static let borderStrong = Color(hex: "#3a3a3a")
+  /// The app theme from the last snapshot read. Until one arrives the widgets
+  /// keep the dark terminal look.
+  private static var palette: WidgetPalette?
 
-  static let textPrimary = Color(hex: "#fafafa")
-  static let textSecondary = Color(hex: "#a4a4a4")
-  static let textTertiary = Color(hex: "#737373")
+  static func apply(_ next: WidgetPalette?) {
+    palette = next
+  }
+
+  private static func tone(_ hex: String?, _ fallback: String) -> Color {
+    Color(hex: hex ?? fallback, fallback: Color(hex: fallback))
+  }
+
+  static var background: Color { tone(palette?.background, "#0c0d0b") }
+  static var surface: Color { tone(palette?.surface, "#141513") }
+  static var card: Color { tone(palette?.card, "#181917") }
+  static var cardRaised: Color { tone(palette?.raised, "#1f201d") }
+  static var border: Color { tone(palette?.border, "#2a2a2a") }
+  static var borderStrong: Color { tone(palette?.border, "#3a3a3a") }
+
+  static var textPrimary: Color { tone(palette?.text, "#fafafa") }
+  static var textSecondary: Color { tone(palette?.textSecondary, "#a4a4a4") }
+  static var textTertiary: Color { tone(palette?.textTertiary, "#737373") }
 
   static let online = Color(hex: "#4ade80")
   static let offline = Color(hex: "#ff6467")

@@ -1,0 +1,17 @@
+{
+  "source": "Recorded 2026-10-25 from Termix dev-26.10.6 respondWithRedirectLogin and redirectWithLoginError, and Plugin-SSO main with its fake IdP (tests/backend/helpers.ts installIdp)",
+  "flow": "3f2a9c1e0b7d4e5f8a6b2c1d0e9f8a7b",
+  "appCallbackUrl": "termix-mobile://oidc-callback/3f2a9c1e0b7d4e5f8a6b2c1d0e9f8a7b",
+  "sso": {
+    "providerRedirectHost": "idp.example",
+    "state": true,
+    "pkce": "S256",
+    "returnTo": "termix-mobile://oidc-callback/3f2a9c1e0b7d4e5f8a6b2c1d0e9f8a7b",
+    "otherSchemeStatus": 400
+  },
+  "redirects": {
+    "success": "termix-mobile://oidc-callback/3f2a9c1e0b7d4e5f8a6b2c1d0e9f8a7b?success=true&token=jwt-1",
+    "secondFactor": "termix-mobile://oidc-callback/3f2a9c1e0b7d4e5f8a6b2c1d0e9f8a7b?second_factor=1&second_factors=totp&temp_token=pending-1",
+    "error": "termix-mobile://oidc-callback/3f2a9c1e0b7d4e5f8a6b2c1d0e9f8a7b?error=user_not_found"
+  }
+}

@@ -5,6 +5,7 @@
   widget.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/termix_item_loading_root"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical"
@@ -15,6 +16,7 @@
   android:background="@drawable/termix_widget_card">
 
   <TextView
+    android:id="@+id/termix_item_loading_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/termix_widget_loading"

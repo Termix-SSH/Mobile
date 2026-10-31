@@ -13,7 +13,7 @@ const withIOSNetworkSecurity = (config) => {
       NSAllowsArbitraryLoads: true,
     };
 
-    config.modResults.NSLocalNetworkUsageDescription =
+    config.modResults.NSLocalNetworkUsageDescription ??=
       "Termix needs to connect to servers to load hosts and initiate SSH connections";
 
     config.modResults.NSBonjourServices = ["_ssh._tcp", "_sftp-ssh._tcp"];

@@ -1,0 +1,1 @@
+Self-hosted, plugin-based server management.

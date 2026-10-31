@@ -3,8 +3,11 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": ["./*"]
-    }
+      "@/modules/*": ["./modules/*"],
+      "@/assets/*": ["./assets/*"],
+      "@/*": ["./src/*"]
+    },
+    "types": ["jest", "node"]
   },
   "include": [
     "**/*.ts",
@@ -12,5 +15,6 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-  ]
+  ],
+  "exclude": ["node_modules", "store"]
 }

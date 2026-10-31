@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["TermixSessionServiceModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.termixsessionservice.TermixSessionServiceModule"]
+  }
+}

@@ -1,0 +1,299 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AppState } from "react-native";
+import { SSHHost, SessionAuthOverrides } from "@/types";
+import { getCurrentUserId } from "@/utils/user";
+import { useActiveAccount, useClient } from "@/core/accounts";
+import { useSessionAccountId } from "@/core/accounts/session";
+import { useConnectionLog } from "./useConnectionLog";
+import { extractConnectionLogs } from "@/core/api/errors";
+import { fromRelayMessage, type ConnectFailure } from "@/core/transport";
+import { signInFirstMessage } from "@/core/transport/local/auth-support";
+
+export type SessionConnectState =
+  "idle" | "connecting" | "connected" | "totp" | "warpgate" | "auth" | "error";
+
+/**
+ * The transport-specific calls a session type provides. File manager passes the
+ * `connectSSH`/`verifySSHTOTP`/`keepSSHAlive`/`disconnectSSH` family; docker
+ * passes its `dockerConnect`/`dockerConnectTOTP`/... family. This lets one
+ * connect state machine drive every session-based REST type.
+ */
+export interface SessionConnectTransport {
+  /** sessionId prefix, e.g. "fm" or "docker". */
+  prefix: string;
+  connect: (
+    sessionId: string,
+    host: SSHHost,
+    userId: string | undefined,
+    overrides: SessionAuthOverrides,
+  ) => Promise<any>;
+  submitTotp: (sessionId: string, code: string) => Promise<any>;
+  submitWarpgate?: (
+    sessionId: string,
+    url: string,
+    securityKey?: string,
+  ) => Promise<any>;
+  keepAlive?: (sessionId: string) => Promise<unknown>;
+  disconnect?: (sessionId: string) => Promise<unknown>;
+}
+
+/**
+ * Drives the shared connect handshake for session-based REST connection types
+ * (file manager, docker). Owns: session id generation, the connect call, the
+ * TOTP / Warpgate / interactive-auth branches, keepalive, and a connection log.
+ * Mirrors the web's connect flow so mobile reaches auth-method parity.
+ *
+ * UI renders <AuthDialogs> wired to the returned `auth*` props; on success the
+ * caller's `onConnected(sessionId)` runs (load the directory, list containers…).
+ */
+export function useSessionConnect(
+  host: SSHHost | null,
+  transport: SessionConnectTransport,
+  onConnected: (sessionId: string) => void | Promise<void>,
+  options?: { keepAliveMs?: number; autoConnect?: boolean },
+) {
+  // The tab's own server, so a second linked server gets its own user.
+  const sessionAccount = useSessionAccountId();
+  const activeAccount = useActiveAccount().id;
+  const client = useClient(sessionAccount ?? activeAccount);
+  const log = useConnectionLog();
+  const [state, setState] = useState<SessionConnectState>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  // What failed and what to try, for the shared error panel.
+  const failure: ConnectFailure | null = errorMessage
+    ? { ...fromRelayMessage(errorMessage), origin: "relay" }
+    : null;
+  const [browserSignIn, setBrowserSignIn] = useState<{
+    url: string;
+    securityKey: string;
+  } | null>(null);
+  const sessionIdRef = useRef<string>("");
+  const keepAliveRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const overridesRef = useRef<SessionAuthOverrides>({});
+  const onConnectedRef = useRef(onConnected);
+  onConnectedRef.current = onConnected;
+
+  const keepAliveMs = options?.keepAliveMs ?? 30000;
+
+  const stopKeepAlive = useCallback(() => {
+    if (keepAliveRef.current) {
+      clearInterval(keepAliveRef.current);
+      keepAliveRef.current = null;
+    }
+  }, []);
+
+  const startKeepAlive = useCallback(() => {
+    if (!transport.keepAlive) return;
+    stopKeepAlive();
+    keepAliveRef.current = setInterval(() => {
+      if (sessionIdRef.current && AppState.currentState === "active") {
+        transport.keepAlive?.(sessionIdRef.current).catch((error: any) => {
+          stopKeepAlive();
+          const message = error?.message || "Connection lost";
+          setErrorMessage(message);
+          setState("error");
+          log.append({ level: "error", message });
+        });
+      }
+    }, keepAliveMs);
+  }, [transport, keepAliveMs, stopKeepAlive, log]);
+
+  const markConnected = useCallback(async () => {
+    setState("connected");
+    log.append({ level: "success", message: "Connected" });
+    startKeepAlive();
+    await onConnectedRef.current(sessionIdRef.current);
+  }, [log, startKeepAlive]);
+
+  const runConnect = useCallback(
+    async (overrides: SessionAuthOverrides) => {
+      if (!host) return;
+      setState("connecting");
+      setErrorMessage("");
+      overridesRef.current = overrides;
+      try {
+        const userId = (await getCurrentUserId(client)) || undefined;
+        const sessionId =
+          sessionIdRef.current ||
+          `${transport.prefix}-${host.id}-${Date.now()}`;
+        sessionIdRef.current = sessionId;
+
+        log.append({ level: "info", message: `Connecting to ${host.name}…` });
+        const result = await transport.connect(
+          sessionId,
+          host,
+          userId,
+          overrides,
+        );
+        log.ingest(extractConnectionLogs(result));
+
+        // Servers have used both spellings over time, accept all of them.
+        if (
+          result?.requires_totp ||
+          result?.requiresTOTP ||
+          result?.totpRequired
+        ) {
+          setState("totp");
+          return;
+        }
+        if (
+          result?.requires_browser_sign_in ||
+          result?.requires_warpgate ||
+          result?.requiresWarpgate ||
+          result?.warpgateRequired
+        ) {
+          setBrowserSignIn({
+            url: result?.url || result?.warpgateUrl || "",
+            securityKey: result?.code || result?.securityKey || "",
+          });
+          setState("warpgate");
+          return;
+        }
+        const signIn = signInFirstMessage(result?.requiresAuthInteraction);
+        if (signIn) {
+          setErrorMessage(signIn);
+          log.append({ level: "error", message: signIn });
+          setState("error");
+          return;
+        }
+        if (
+          result?.requiresAuth ||
+          result?.authRequired ||
+          result?.requiresAuthInteraction ||
+          result?.status === "auth_required" ||
+          result?.status === "passphrase_required" ||
+          result?.code === "AUTH_REQUIRED"
+        ) {
+          setState("auth");
+          return;
+        }
+        await markConnected();
+      } catch (error: any) {
+        log.ingest(extractConnectionLogs(error));
+        const signIn = signInFirstMessage(
+          error?.response?.data?.requiresAuthInteraction,
+        );
+        const msg = signIn || error?.message || "Failed to connect";
+        setErrorMessage(msg);
+        log.append({ level: "error", message: msg });
+        // Surface auth dialog rather than a dead error when the host needs creds.
+        if (signIn) {
+          setState("error");
+        } else if (
+          error?.status === 401 ||
+          error?.code === "AUTH_REQUIRED" ||
+          error?.response?.data?.requiresAuthInteraction
+        ) {
+          setState("auth");
+        } else {
+          setState("error");
+        }
+      }
+    },
+    [host, transport, log, markConnected, client],
+  );
+
+  const connect = useCallback(() => {
+    sessionIdRef.current = "";
+    log.clear();
+    return runConnect({});
+  }, [runConnect, log]);
+
+  const retry = useCallback(() => connect(), [connect]);
+
+  const submitTotp = useCallback(
+    async (code: string) => {
+      setState("connecting");
+      try {
+        const result = await transport.submitTotp(sessionIdRef.current, code);
+        log.ingest(extractConnectionLogs(result));
+        await markConnected();
+      } catch (error: any) {
+        const msg = error?.message || "Invalid code";
+        log.append({ level: "error", message: msg });
+        setErrorMessage(msg);
+        setState("totp");
+        throw error;
+      }
+    },
+    [transport, log, markConnected],
+  );
+
+  const submitWarpgate = useCallback(
+    async (url: string, securityKey?: string) => {
+      if (!transport.submitWarpgate) return;
+      setState("connecting");
+      try {
+        const result = await transport.submitWarpgate(
+          sessionIdRef.current,
+          url,
+          securityKey,
+        );
+        log.ingest(extractConnectionLogs(result));
+        await markConnected();
+      } catch (error: any) {
+        const msg = error?.message || "Warpgate authentication failed";
+        log.append({ level: "error", message: msg });
+        setErrorMessage(msg);
+        setState("warpgate");
+        throw error;
+      }
+    },
+    [transport, log, markConnected],
+  );
+
+  const submitAuth = useCallback(
+    (overrides: SessionAuthOverrides) => runConnect(overrides),
+    [runConnect],
+  );
+
+  const cancelAuth = useCallback(() => {
+    setState("error");
+    setErrorMessage("Authentication cancelled");
+  }, []);
+
+  const disconnect = useCallback(() => {
+    stopKeepAlive();
+    if (sessionIdRef.current) {
+      transport.disconnect?.(sessionIdRef.current).catch(() => {});
+    }
+    sessionIdRef.current = "";
+    setState("idle");
+  }, [transport, stopKeepAlive]);
+
+  useEffect(() => {
+    if (options?.autoConnect && host && state === "idle") {
+      connect();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [host?.id, options?.autoConnect]);
+
+  useEffect(
+    () => () => {
+      stopKeepAlive();
+      if (sessionIdRef.current) {
+        transport.disconnect?.(sessionIdRef.current).catch(() => {});
+        sessionIdRef.current = "";
+      }
+    },
+    [transport, stopKeepAlive],
+  );
+
+  return {
+    state,
+    errorMessage,
+    failure,
+    sessionId: sessionIdRef,
+    logEntries: log.entries,
+    logClear: log.clear,
+    connect,
+    retry,
+    disconnect,
+    // Auth dialog wiring
+    submitTotp,
+    submitWarpgate,
+    submitAuth,
+    cancelAuth,
+    browserSignIn,
+  };
+}

@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.description    = 'Writes the widget snapshot into the shared App Group container and reloads WidgetKit timelines.'
   s.author         = 'Termix'
   s.homepage       = 'https://github.com/Termix-SSH/Mobile'
-  s.platforms      = { :ios => '15.1' }
+  s.platforms      = { :ios => '16.4' }
   s.source         = { git: 'https://github.com/Termix-SSH/Mobile' }
   s.license        = { :type => 'MIT' }
   s.static_framework = true

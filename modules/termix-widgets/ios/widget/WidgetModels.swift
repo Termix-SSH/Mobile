@@ -3,7 +3,7 @@ import Foundation
 /**
  Decoders for the snapshot the app publishes.
 
- The shape is defined once in `app/widgets/types.ts`; this file mirrors it.
+ The shape is defined once in `src/widgets/types.ts`; this file mirrors it.
  Every field is decoded defensively: a widget must render *something* even if a
  future app version adds fields or a payload arrives half-written.
  */
@@ -11,7 +11,7 @@ import Foundation
 /**
  Which tab a host tile opens.
 
- Mirrors the session types `app/widgets/useWidgetDeepLink.ts` accepts. Anything
+ Mirrors the session types `src/widgets/useWidgetDeepLink.ts` accepts. Anything
  outside this set is rejected by the parser and falls back to a terminal, so the
  two lists must stay in step.
  */
@@ -141,6 +141,20 @@ struct HostSummary: Codable, Hashable {
   static let zero = HostSummary(total: 0, online: 0, offline: 0, unknown: 0)
 }
 
+/// App theme colors as `#rrggbb`, so the widgets match the theme the user picked.
+struct WidgetPalette: Codable, Hashable {
+  let id: String
+  let isDark: Bool
+  let background: String
+  let surface: String
+  let card: String
+  let raised: String
+  let border: String
+  let text: String
+  let textSecondary: String
+  let textTertiary: String
+}
+
 struct WidgetSnapshot: Codable, Hashable {
   /// Payload version understood by this build. Newer payloads are ignored.
   static let supportedVersion = 1
@@ -156,9 +170,10 @@ struct WidgetSnapshot: Codable, Hashable {
   let summary: HostSummary
   let hosts: [HostEntry]
   let snippets: [SnippetEntry]
+  let theme: WidgetPalette?
 
   private enum CodingKeys: String, CodingKey {
-    case version, updatedAt, state, accent, server, summary, hosts, snippets
+    case version, updatedAt, state, accent, server, summary, hosts, snippets, theme
   }
 
   init(
@@ -169,7 +184,8 @@ struct WidgetSnapshot: Codable, Hashable {
     server: String,
     summary: HostSummary,
     hosts: [HostEntry],
-    snippets: [SnippetEntry]
+    snippets: [SnippetEntry],
+    theme: WidgetPalette? = nil
   ) {
     self.version = version
     self.updatedAt = updatedAt
@@ -179,6 +195,7 @@ struct WidgetSnapshot: Codable, Hashable {
     self.summary = summary
     self.hosts = hosts
     self.snippets = snippets
+    self.theme = theme
   }
 
   /// Tolerant decoding: a missing collection is empty rather than fatal, so a
@@ -193,6 +210,7 @@ struct WidgetSnapshot: Codable, Hashable {
     summary = try container.decodeIfPresent(HostSummary.self, forKey: .summary) ?? .zero
     hosts = try container.decodeIfPresent([HostEntry].self, forKey: .hosts) ?? []
     snippets = try container.decodeIfPresent([SnippetEntry].self, forKey: .snippets) ?? []
+    theme = try container.decodeIfPresent(WidgetPalette.self, forKey: .theme)
   }
 
   var updatedDate: Date {
@@ -218,7 +236,8 @@ struct WidgetSnapshot: Codable, Hashable {
       server: server,
       summary: summary,
       hosts: reordered,
-      snippets: snippets
+      snippets: snippets,
+      theme: theme
     )
   }
 

@@ -18,7 +18,7 @@ permissions:
 jobs:
   build:
     name: eas build --local (development, ios)
-    runs-on: blacksmith-6vcpu-macos-latest
+    runs-on: blacksmith-6vcpu-macos-27
     steps:
       - name: Setup repo
         uses: actions/checkout@v4
@@ -28,6 +28,33 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
+
+      # The iPhone Duo fold APIs need the iOS 27.1 SDK. Older Xcode still builds, letterboxed.
+      - name: Setup Xcode 27.1
+        id: xcode
+        continue-on-error: true
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "27.1"
+
+      - name: Setup Xcode (fallback)
+        if: steps.xcode.outcome == 'failure'
+        run: echo "::warning::Xcode 27.1 is not on this runner, so this build has no iPhone Duo fold support"
+
+      - name: Setup newest Xcode
+        if: steps.xcode.outcome == 'failure'
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      # EAS checks the signing identity with find-identity -v, which needs Apple's
+      # intermediate certificates. The macOS 27 image doesn't ship them.
+      - name: Install Apple signing intermediates
+        run: |
+          for cert in AppleWWDRCAG3 AppleWWDRCAG4 AppleWWDRCAG5 AppleWWDRCAG6 DeveloperIDG2CA; do
+            curl -fsSL -o "$RUNNER_TEMP/$cert.cer" "https://www.apple.com/certificateauthority/$cert.cer"
+            sudo security add-certificates -k /Library/Keychains/System.keychain "$RUNNER_TEMP/$cert.cer" || true
+          done
 
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
@@ -106,10 +133,15 @@ jobs:
           cp build-artifacts/termix-ios-development.ipa "$WORK/termix.ipa"
           cp assets/images/icon.png "$WORK/icon.png"
 
-          BASE="$BASE" BUNDLE_ID="$BUNDLE_ID" VERSION="$VERSION" APP_NAME="$APP_NAME" OUT_DIR="$WORK" \
+          # Each build gets its own folder, so Pages caching never hands out the last IPA.
+          # iOS will not install from a manifest URL with a query string.
+          BUILD="${GITHUB_SHA:0:7}"
+
+          BASE="$BASE" BUNDLE_ID="$BUNDLE_ID" VERSION="$VERSION" APP_NAME="$APP_NAME" OUT_DIR="$WORK" BUILD="$BUILD" \
             node -e '
               const fs = require("fs");
-              const { BASE, BUNDLE_ID, VERSION, APP_NAME, OUT_DIR } = process.env;
+              const { BASE, BUNDLE_ID, VERSION, APP_NAME, OUT_DIR, BUILD } = process.env;
+              const DIR = BASE + "/" + BUILD;
               const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
               const plist = `<?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -124,19 +156,19 @@ jobs:
                     <key>kind</key>
                     <string>software-package</string>
                     <key>url</key>
-                    <string>${esc(BASE)}/termix.ipa</string>
+                    <string>${esc(DIR)}/termix.ipa</string>
                   </dict>
                   <dict>
                     <key>kind</key>
                     <string>display-image</string>
                     <key>url</key>
-                    <string>${esc(BASE)}/icon.png</string>
+                    <string>${esc(DIR)}/icon.png</string>
                   </dict>
                   <dict>
                     <key>kind</key>
                     <string>full-size-image</string>
                     <key>url</key>
-                    <string>${esc(BASE)}/icon.png</string>
+                    <string>${esc(DIR)}/icon.png</string>
                   </dict>
                 </array>
                 <key>metadata</key>
@@ -155,7 +187,7 @@ jobs:
           </dict>
           </plist>
           `;
-              const href = "itms-services://?action=download-manifest&amp;url=" + esc(BASE) + "/manifest.plist";
+              const href = "itms-services://?action=download-manifest&amp;url=" + esc(DIR) + "/manifest.plist";
               const html = `<!doctype html>
           <html>
           <head>
@@ -163,12 +195,14 @@ jobs:
           <meta name="viewport" content="width=device-width,initial-scale=1">
           <title>${esc(APP_NAME)}</title>
           <style>
-          body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#18181b;font-family:-apple-system,system-ui,sans-serif}
+          body{margin:0;height:100vh;display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;background:#18181b;font-family:-apple-system,system-ui,sans-serif}
           a{background:#fff;color:#18181b;text-decoration:none;font-size:20px;font-weight:600;padding:18px 48px;border-radius:12px}
+          p{margin:0;color:#a1a1aa;font-size:14px}
           </style>
           </head>
           <body>
           <a href="${href}">Install</a>
+          <p>Build ${esc(BUILD)}</p>
           </body>
           </html>
           `;
@@ -187,8 +221,9 @@ jobs:
           git rm -rf . > /dev/null 2>&1 || true
           rm -rf ./* .gitignore 2>/dev/null || true
 
-          mkdir -p ios-dev
-          cp "$WORK/termix.ipa" "$WORK/manifest.plist" "$WORK/icon.png" "$WORK/index.html" ios-dev/
+          mkdir -p "ios-dev/$BUILD"
+          cp "$WORK/termix.ipa" "$WORK/manifest.plist" "$WORK/icon.png" "ios-dev/$BUILD/"
+          cp "$WORK/index.html" ios-dev/
           touch .nojekyll
 
           git add -A

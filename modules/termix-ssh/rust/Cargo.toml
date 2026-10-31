@@ -1,0 +1,51 @@
+[package]
+name = "termix_ssh_core"
+version = "0.4.4"
+edition = "2024"
+license = "Apache-2.0"
+publish = false
+
+[lib]
+crate-type = ["lib", "staticlib", "cdylib"]
+
+[features]
+default = ["telnet", "vnc", "rdp"]
+# Each remote protocol can be left out to keep the binary small.
+telnet = []
+vnc = ["dep:des", "dep:aes", "dep:md-5", "dep:num-bigint", "dep:flate2"]
+rdp = ["dep:ironrdp", "dep:ironrdp-core", "dep:ironrdp-tokio", "dep:ironrdp-tls"]
+
+[dependencies]
+russh = { version = "0.64.1", default-features = false, features = ["ring", "flate2", "rsa", "des"] }
+russh-sftp = "3.0.1"
+tokio = { version = "1.54", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "fs"] }
+uniffi = { version = "0.32.2", features = ["tokio"] }
+thiserror = "2"
+hex = "0.4"
+log = "0.4"
+async-trait = "0.1"
+socket2 = { version = "0.6", features = ["all"] }
+tokio-util = "0.7.20"
+zeroize = "1.9"
+rand = "0.10"
+sha2 = "0.10"
+des = { version = "0.8", optional = true }
+aes = { version = "0.8", optional = true }
+md-5 = { version = "0.10", optional = true }
+num-bigint = { version = "0.4", optional = true }
+flate2 = { version = "1", optional = true }
+# Same IronRDP revision as the remote desktop plugin's engine.
+ironrdp = { git = "https://github.com/Devolutions/IronRDP", rev = "62246b364a0282bab85087f658a81fe4207b6b31", optional = true, features = ["connector", "session", "graphics", "dvc", "svc", "displaycontrol", "pdu"] }
+ironrdp-core = { git = "https://github.com/Devolutions/IronRDP", rev = "62246b364a0282bab85087f658a81fe4207b6b31", optional = true, features = ["alloc"] }
+ironrdp-tokio = { git = "https://github.com/Devolutions/IronRDP", rev = "62246b364a0282bab85087f658a81fe4207b6b31", optional = true }
+ironrdp-tls = { git = "https://github.com/Devolutions/IronRDP", rev = "62246b364a0282bab85087f658a81fe4207b6b31", optional = true, features = ["rustls-ring"] }
+
+[dev-dependencies]
+hmac = "0.12"
+sha1 = "0.10"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true

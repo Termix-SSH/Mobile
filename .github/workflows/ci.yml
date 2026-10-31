@@ -28,27 +28,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify RDP credential prompts
-        run: npm run verify:rdp-login
-
-      - name: Verify server feature gating
-        run: npm run verify:server-features
-
-      - name: Verify 2.9 API compatibility
-        run: npm run verify:api-compat
-
-      - name: Verify app link intent filters
-        run: npm run verify:oidc-callback-intent-filter
-
-      - name: Verify widget contract
-        run: npm run verify:widget-contract
-
-      - name: Verify Android network security config
-        run: npm run verify:android-network-security
-
-      - name: Verify remote desktop resolution
-        run: node scripts/verify-remote-resolution.cjs
-
       - name: Check formatting
         run: npm run format:check
 
@@ -58,14 +37,8 @@ jobs:
       - name: Type-check
         run: npx tsc --noEmit --pretty false
 
-      - name: Verify remote desktop viewport
-        run: node scripts/verify-remote-viewport.cjs
-
-      - name: Verify terminal WebSocket authentication
-        run: npm run verify:terminal-websocket-auth
-
-      - name: Test the release notes builder
-        run: node scripts/generate-release-body.test.cjs
+      - name: Test
+        run: npm test -- --ci
 
       - name: Validate Expo config
         run: npx expo config --type public --json > /tmp/expo-config.json

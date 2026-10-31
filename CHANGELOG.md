@@ -1,5 +1,85 @@
 # Changelog
 
+## 2.0.0
+
+Termix Mobile now works with no server. Hosts, logins and snippets stay encrypted on the phone, and the terminal, files, tunnels, Docker, metrics, services and remote desktop connect straight from it. Link one or more Termix servers to sync with them and use their plugins.
+
+### Added
+
+- Use the app with no server: an encrypted local database, backups locked with a passphrase, and SSH, Telnet, RDP and VNC straight from the phone
+- Link more than one Termix server, switch between them, and sync hosts, logins, snippets and settings both ways, also offline and in the background
+- Pick per host whether it connects from the phone, through the server or automatically
+- Home with open sessions, quick connect, recent and pinned hosts, and live cards for metrics, Docker and services
+- A Tools tab and a search palette for hosts, snippets, actions and settings
+- Hosts: drag to reorder, select many at once, sub-hosts, filters, colors and icons, jump host order, host defaults
+- New native terminal: faster, smooth scrolling, text selection, links, mouse support, OSC 52 and OSC 8
+- Terminal themes, fonts with ligatures, cursor, bell, scrollback and pinch to zoom, set globally or per host
+- Key rows in groups (Main, Nav, Symbols, Ctrl, tmux), long press keys, sticky Shift and custom keys per host
+- Find in the terminal, tmux attach and windows, password and sudo fill at prompts, command history search
+- Tab menu to rename, move, split, share and view the connection log, plus drag and swipe between tabs
+- Sessions keep running in the background on Android, tabs come back after the app is closed, and reconnects keep what you typed
+- File manager over SFTP with no server: transfers with pause and resume, share to a host, code editor, previews and a panel beside the terminal
+- Docker, host metrics with history, and systemd or OpenRC services with the journal, on the phone or through the server
+- Tunnels on the phone: local, remote and dynamic forwards with auto start (#86)
+- Run snippets on many hosts, snippet variables, notes, folders and import or export
+- Wake-on-LAN, host status, Tailscale devices and Tailscale SSH checks with no server
+- OPKSSH, Step CA and Vault sign in through a linked server
+- Make Ed25519 and ECDSA keys, check keys and certificates as you type, and convert PuTTY keys
+- Import hosts from a Termix file or SSH config, export them, and share a host by QR code
+- Open a host from a `termix-mobile://open` link, for ntfy or Home Assistant (#87)
+- Sign in with every login the server lists, including SSO, TOTP and passkeys (passkeys need Termix 26.10.6) (#83)
+- Face ID or fingerprint for a server's password, and password manager autofill (#91)
+- Servers behind a reverse proxy: extra headers, Cloudflare tokens, basic auth, client certificates and proxy sign in pages
+- Pin a server's certificate key, and trust prompts for RDP certificates
+- Server plugins with no phone version open inside the app, and Settings, Plugins shows what works where
+- Rebuilt Settings with search, text size and row density
+- App Lock delays, PIN change and hiding the app in the app switcher
+- Split view on tablets with draggable dividers, foldable support, a sidebar on wide windows and resizable windows
+- Keyboard shortcuts for iPad and Android, hover and right click for mouse and trackpad
+- Home screen widgets with no server, a themed Android icon and copyable app logs
+- Better screen reader support, large text and reduce motion
+- Opt in anonymous usage statistics
+
+### Changed
+
+- The app opens on Home, tap a host to open its terminal and hold it for everything else
+- Bottom bar is Home, Hosts, Sessions, Tools and Settings
+- Faster with big folders and thousands of hosts, and the app opens without waiting for the server
+- Look and theme colors now match Termix on the web and desktop, including the terminal and app icon
+- Popups are sheets, and editors open in place with a back button
+- The host editor is one page with sections instead of tabs
+- Server sign in is kept in secure storage, renewed on its own, and left out of backups
+- A failed or dropped connection stays open, says what went wrong and retries with backoff
+- The keyboard editor now edits rows and groups, and your 1.x keys move over
+- Commands that look like secrets are no longer saved to history
+- Needs iOS 16.4 or newer
+
+### Removed
+
+- Keyboard presets and the compact and hint options
+
+### Fixed
+
+- Android no longer trusts any local network certificate in sign in and remote desktop pages
+- Sign in, Docker console and remote desktop pages can no longer load other sites
+- App logs no longer hold addresses or tokens
+- App Lock and Face ID prompts behave when you return to the app (#100)
+- Proxy sign ins are kept after a restart and no longer sign you out of Termix (#103)
+- Client certificates (mTLS) are sent on every request, socket and relay (#84)
+- SSO stays signed in after signing out of a server, and old sign in links can't be reused
+- Servers behind Cloudflare Access work after you sign in (#81)
+- Saving a sub-host keeps it under its parent
+- Terminal settings, environment variables, startup snippets and tmux from Termix 2.9 and newer now apply
+- The first letter typed is no longer a capital (#93)
+- Copying text no longer freezes the terminal on Android (#101)
+- CJK keyboards, voice typing, symbols and hardware keyboards work in the terminal
+- The Android icon is no longer cut off
+- Large file uploads no longer fail
+- Terminals no longer look open but stop responding after the app was away
+- Remote desktop reconnects after switching apps (#104)
+- RDP keeps its text size on rotation and resolution when the keyboard opens, and asks again after a wrong password
+- In the fallback terminal, a tap is a click in programs that use the mouse (tmux, htop), and swipes scroll the pane under your finger
+
 ## 1.6.0
 
 The app now follows which Termix plugins are turned on, and RDP asks for credentials when a host has none saved.

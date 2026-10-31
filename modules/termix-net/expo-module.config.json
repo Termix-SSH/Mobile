@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["TermixNetModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.termixnet.TermixNetModule"]
+  }
+}

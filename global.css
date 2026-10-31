@@ -3,19 +3,17 @@
 @tailwind utilities;
 
 /*
- * Termix Mobile theme tokens - ported 1:1 from the web app
- * (../Termix/Termix/src/ui/index.css). Colors are stored as
- * space-separated RGB triplets so Tailwind's <alpha-value> works
- * (e.g. bg-accent-brand/10, border-border/60).
- *
- * The base :root (light) and .dark blocks below give NativeWind a
- * static baseline for the `dark:` variant. Full multi-theme + custom
- * accent switching happens at runtime via vars() in ThemeContext, which
- * applies the matching THEME_VARS map (see app/constants/theme.ts).
+ * Static light and dark baseline for NativeWind. ThemeContext swaps in the
+ * active theme and accent at runtime from app/constants/theme.ts, and
+ * scripts/theme.test.cjs checks these two blocks match it.
  */
 
 :root {
-  --accent-brand: 245 145 69; /* #f59145 */
+  --accent-brand: 245 145 69;
+  --accent-text: 159 94 45;
+  --warning-text: 140 107 3;
+  --success-text: 18 130 59;
+  --destructive-text: 231 0 11;
 
   --background: 255 255 255;
   --foreground: 17 18 16;
@@ -28,20 +26,19 @@
   --secondary: 245 245 245;
   --secondary-foreground: 24 25 23;
   --muted: 245 245 245;
-  --muted-foreground: 115 115 115;
+  --muted-foreground: 82 82 82;
   --accent: 245 245 245;
   --accent-foreground: 24 25 23;
   --destructive: 231 0 11;
   --border: 229 229 229;
   --input: 229 229 229;
   --ring: 161 161 161;
-  --surface: 245 245 245;
-  --surface-dim: 235 235 235;
   --chart-1: 212 212 212;
   --chart-2: 115 115 115;
   --chart-3: 82 82 82;
   --chart-4: 64 64 64;
   --chart-5: 38 38 38;
+  --surface: 245 245 245;
   --sidebar: 250 250 250;
   --sidebar-foreground: 17 18 16;
   --sidebar-primary: 24 25 23;
@@ -50,9 +47,17 @@
   --sidebar-accent-foreground: 24 25 23;
   --sidebar-border: 229 229 229;
   --sidebar-ring: 161 161 161;
+  --warning: 234 179 5;
+  --success: 22 163 74;
+  --terminal-bg: 255 255 255;
+  --surface-dim: 237 237 237;
 }
 
 .dark {
+  --accent-text: 245 145 69;
+  --warning-text: 243 202 62;
+  --success-text: 34 197 94;
+  --destructive-text: 255 100 103;
   --background: 12 13 11;
   --foreground: 250 250 250;
   --card: 24 25 23;
@@ -63,16 +68,16 @@
   --primary-foreground: 24 25 23;
   --secondary: 38 38 38;
   --secondary-foreground: 250 250 250;
+  --surface: 18 19 17;
+  --surface-dim: 14 15 13;
   --muted: 35 35 35;
   --muted-foreground: 164 164 164;
   --accent: 35 35 35;
   --accent-foreground: 250 250 250;
   --destructive: 255 100 103;
-  --border: 50 50 50;
-  --input: 56 56 56;
+  --border: 41 42 40;
+  --input: 48 49 48;
   --ring: 115 115 115;
-  --surface: 18 19 17;
-  --surface-dim: 14 15 13;
   --chart-1: 212 212 212;
   --chart-2: 115 115 115;
   --chart-3: 82 82 82;
@@ -84,6 +89,9 @@
   --sidebar-primary-foreground: 250 250 250;
   --sidebar-accent: 35 35 35;
   --sidebar-accent-foreground: 250 250 250;
-  --sidebar-border: 50 50 50;
+  --sidebar-border: 41 42 40;
   --sidebar-ring: 115 115 115;
+  --warning: 243 202 62;
+  --success: 34 197 94;
+  --terminal-bg: 12 13 11;
 }

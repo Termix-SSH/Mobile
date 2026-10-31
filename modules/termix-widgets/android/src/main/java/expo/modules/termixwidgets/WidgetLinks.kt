@@ -10,7 +10,7 @@ import android.os.Build
  * Deep links out of the widgets.
  *
  * Everything lands on the app's launch activity with an ACTION_VIEW intent; the
- * JS side (`app/widgets/useWidgetDeepLink.ts`) decides what the URL means.
+ * JS side (`src/widgets/useWidgetDeepLink.ts`) decides what the URL means.
  */
 object WidgetLinks {
   private fun launchIntent(context: Context): Intent {

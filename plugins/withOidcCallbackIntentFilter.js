@@ -5,7 +5,7 @@ const CALLBACK_SCHEMES = new Set(["termix-mobile", "exp+termix"]);
 // Hosts the app scheme is allowed to open. Expo generates a single host-less
 // data tag per scheme, which would claim every termix-mobile:// URL; we pin it
 // to the hosts we actually route so nothing else can steer the app.
-const ALLOWED_HOSTS = ["oidc-callback", "widget"];
+const ALLOWED_HOSTS = ["oidc-callback", "widget", "open"];
 
 function restrictOidcCallbackIntentFilters(manifest) {
   const applications = manifest.manifest.application ?? [];

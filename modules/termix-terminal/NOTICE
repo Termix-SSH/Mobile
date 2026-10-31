@@ -1,0 +1,9 @@
+Native code here started as expo-libghostty 0.8.1 by ArcBox, Inc. (MIT, see LICENSE),
+https://github.com/arcboxlabs/expo-libghostty at f53920f2bc6945706cff21abf21fd55dd333dc87.
+ios/vendor holds copies of libghostty-spm 2.2.2026101502 and DisplayLink 3.0.1
+(MIT, licenses inside), newer than the ones expo-libghostty vendored. libghostty itself is MIT (https://github.com/ghostty-org/ghostty).
+
+Termix changes: module and package renamed, the built in accessory bar left out, the
+CaskaydiaCove font from the app, touch to mouse reporting through the libghostty-vt mouse
+encoder, paste, copy, scroll, focus and render stats calls, a 32 bit Android guard, and
+binaries fetched at prebuild from ghostty.lock.json.

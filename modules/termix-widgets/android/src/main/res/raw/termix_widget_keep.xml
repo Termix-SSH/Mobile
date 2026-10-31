@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The theme drawables are looked up by name at runtime. -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+  tools:keep="@drawable/termix_widget_background_*,@drawable/termix_widget_card_*" />

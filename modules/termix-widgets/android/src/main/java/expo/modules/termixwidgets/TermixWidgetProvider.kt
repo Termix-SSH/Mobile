@@ -69,6 +69,7 @@ abstract class TermixWidgetProvider : AppWidgetProvider() {
     renderHeader(views, snapshot, accent)
     renderFooter(views, snapshot)
     renderEmptyState(views, snapshot, accent)
+    applyTheme(views, WidgetTheme.chrome(context, snapshot.theme))
     views.setOnClickPendingIntent(
       R.id.termix_widget_empty,
       WidgetLinks.openApp(context, appWidgetId, headerUri)
@@ -81,6 +82,16 @@ abstract class TermixWidgetProvider : AppWidgetProvider() {
     )
 
     appWidgetManager.updateAppWidget(appWidgetId, views)
+  }
+
+  /** Swaps the background and text colors for the app theme. */
+  private fun applyTheme(views: RemoteViews, chrome: Chrome) {
+    views.setInt(R.id.termix_widget_root, "setBackgroundResource", chrome.background)
+    views.setTextColor(R.id.termix_widget_wordmark, chrome.textPrimary)
+    views.setTextColor(R.id.termix_widget_summary, chrome.textSecondary)
+    views.setTextColor(R.id.termix_widget_age, chrome.textTertiary)
+    views.setTextColor(R.id.termix_widget_empty_title, chrome.textPrimary)
+    views.setTextColor(R.id.termix_widget_empty_message, chrome.textTertiary)
   }
 
   private fun renderHeader(views: RemoteViews, snapshot: WidgetSnapshot, accent: Int) {
