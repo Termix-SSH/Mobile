@@ -7,6 +7,8 @@ import { useKeyboardTabs } from "@/core/features";
 import { useUiColors } from "@/contexts/ThemeContext";
 import type { SSHHost } from "@/types";
 
+const TAB_STRIP_HEIGHT = 36;
+
 // "keyboard" is built in; the rest are tabs features add.
 type ToolbarMode = string;
 
@@ -44,8 +46,10 @@ export default function BottomToolbar({
 
   if (!isVisible) return null;
 
-  // The screen already sized it to match the system keyboard.
-  const safeKeyboardHeight = keyboardHeight;
+  // Total height matches the key row plus the system keyboard, so the tab bar
+  // stays put. The tab strip stays short and the panel gets the rest.
+  const stripHeight = Math.min(barHeight, TAB_STRIP_HEIGHT);
+  const safeKeyboardHeight = keyboardHeight + barHeight - stripHeight;
 
   const tabs: { id: ToolbarMode; label: string }[] = [
     { id: "keyboard", label: "KEYBOARD" },
@@ -57,7 +61,7 @@ export default function BottomToolbar({
   return (
     <View
       style={{
-        height: barHeight + safeKeyboardHeight,
+        height: barHeight + keyboardHeight,
         backgroundColor: ui.background,
         borderTopWidth: StyleSheet.hairlineWidth,
         borderTopColor: ui.border,
@@ -67,7 +71,7 @@ export default function BottomToolbar({
       <View
         style={{
           flexDirection: "row",
-          flex: 1,
+          height: stripHeight,
           backgroundColor: ui.background,
         }}
       >
