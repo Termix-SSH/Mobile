@@ -204,7 +204,7 @@ export interface Transport {
    */
   openSession?(
     host: TerminalHostConfig,
-    options?: { signal?: AbortSignal },
+    options?: { signal?: AbortSignal; connectTimeoutSecs?: number },
   ): Promise<HostSession>;
   /**
    * A VNC or RDP session the phone opens itself, through the host's jump

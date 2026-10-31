@@ -14,7 +14,16 @@ jest.mock("@/core/accounts/session", () => ({
   useSessionAccountId: () => "s",
 }));
 
-beforeEach(() => mockCheckOpen.mockReset());
+const mockSaveOrigin = jest.fn(async () => {});
+jest.mock("@/core/transport", () => ({
+  ...jest.requireActual("@/core/transport"),
+  saveOrigin: (...args: unknown[]) => (mockSaveOrigin as any)(...args),
+}));
+
+beforeEach(() => {
+  mockCheckOpen.mockReset();
+  mockSaveOrigin.mockClear();
+});
 
 const host = {
   id: 1,
@@ -58,7 +67,63 @@ test("connects over the phone's SFTP when the plan says so", async () => {
   expect(result.current.state.phase).toBe("ready");
   expect(open).toHaveBeenCalledWith(
     expect.objectContaining({ ip: "10.0.0.2" }),
+    { connectTimeoutSecs: undefined },
   );
+});
+
+test("the phone gives up sooner when the server is next", async () => {
+  const open = jest.fn(async () => {
+    throw new SshError("timeout", "Timed out");
+  });
+  mockCheckOpen.mockResolvedValue({ attempts: [local(open), relay] });
+  await renderHook(() => useFileBackend(host, "filemanager", true));
+  await settle();
+  expect(open).toHaveBeenCalledWith(expect.anything(), {
+    connectTimeoutSecs: 8,
+  });
+});
+
+test("a failure on the phone offers the server and saves the switch", async () => {
+  const open = jest.fn(async () => {
+    throw new SshError("auth", "Permission denied");
+  });
+  mockCheckOpen.mockImplementation(async (...args: unknown[]) =>
+    args[4] === "server"
+      ? { attempts: [relay] }
+      : { attempts: [local(open), relay] },
+  );
+  const { result } = await renderHook(() =>
+    useFileBackend(host, "filemanager", true),
+  );
+  await settle();
+  expect(result.current.state).toMatchObject({
+    phase: "failed",
+    fix: "server",
+  });
+
+  await act(async () => {
+    result.current.switchOrigin("server");
+  });
+  await settle();
+  expect(mockSaveOrigin).toHaveBeenCalledWith("s", 1, "server");
+  expect(result.current.state).toMatchObject({ phase: "relay" });
+});
+
+test("no server to fall back on means no switch is offered", async () => {
+  const open = jest.fn(async () => {
+    throw new SshError("connect", "Connection refused");
+  });
+  mockCheckOpen.mockImplementation(async (...args: unknown[]) =>
+    args[4] === "server"
+      ? { attempts: [], blocked: { reason: "No server" } }
+      : { attempts: [local(open)] },
+  );
+  const { result } = await renderHook(() =>
+    useFileBackend(host, "filemanager", true),
+  );
+  await settle();
+  expect(result.current.state).toMatchObject({ phase: "failed" });
+  expect((result.current.state as { fix?: string }).fix).toBeUndefined();
 });
 
 test("an unreachable host falls through to the server, with the server's host", async () => {

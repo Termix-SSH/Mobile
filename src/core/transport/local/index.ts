@@ -53,6 +53,7 @@ export function createLocalTransport(
         askHostKey: null,
         askKbd: async (req, login) => autoAnswer(req.prompts, login.password),
         signal: options.signal,
+        connectTimeoutSecs: options.connectTimeoutSecs,
       });
       const { target } = chain;
       return {

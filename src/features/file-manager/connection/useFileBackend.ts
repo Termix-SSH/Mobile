@@ -4,12 +4,14 @@ import { checkOpen } from "@/core/features/open-check";
 import { asServerHost, isSynced } from "@/core/sync";
 import {
   fromError,
+  saveOrigin,
   type ConnectFailure,
   type ConnectionOrigin,
   type Transport,
 } from "@/core/transport";
 import type { SSHHost } from "@/types";
 import { toTerminalHostConfig } from "@/utils/hosts";
+import { toast } from "@/utils/toast";
 import { createSftpBackend } from "../backend/sftp";
 import type { FileBackend } from "../backend/types";
 
@@ -22,6 +24,9 @@ export type FileConnection =
 
 /** Failures where the next way to connect might still work. */
 const FALL_THROUGH = new Set(["network", "proxy", "unavailable"]);
+
+/** Same as the terminal: a try with another way to go gives up sooner. */
+const FALLBACK_TIMEOUT_SECS = 8;
 
 /**
  * Connects a files tab the way its host connects: the phone's SFTP first when
@@ -90,7 +95,9 @@ export function useFileBackend(
         if (!transport.openSession) {
           throw new Error("This way can't open files");
         }
-        return transport.openSession(toTerminalHostConfig(host));
+        return transport.openSession(toTerminalHostConfig(host), {
+          connectTimeoutSecs: hasNext ? FALLBACK_TIMEOUT_SECS : undefined,
+        });
       });
       try {
         await backend.home();
@@ -108,6 +115,15 @@ export function useFileBackend(
         if (!hasNext || !FALL_THROUGH.has(last.stage)) break;
       }
     }
+    // The phone can reach the wrong machine at a private address, so a refused
+    // login is worth trying through the server too.
+    const viaServer =
+      last && last.stage !== "cancelled"
+        ? await checkOpen(accountId, host, true, type, "server").catch(
+            () => null,
+          )
+        : null;
+    if (!live()) return;
     setState({
       phase: "failed",
       failure: last ?? {
@@ -115,6 +131,9 @@ export function useFileBackend(
         message: "Can't connect.",
         hint: "",
       },
+      fix: viaServer?.attempts.some((t) => t.kind === "relay")
+        ? "server"
+        : undefined,
     });
   }, [accountId, host.id, type, override]);
 
@@ -144,10 +163,24 @@ export function useFileBackend(
     setState({ phase: "failed", failure: { ...failure, origin: "relay" } });
   }, []);
 
+  /** Saves the origin on the host and connects that way. */
+  const switchOrigin = useCallback(
+    (next: ConnectionOrigin) => {
+      setOverride(next);
+      saveOrigin(accountId, hostRef.current.id, next).catch((err) =>
+        toast.error(
+          "Could not save how this host connects",
+          err instanceof Error ? err.message : undefined,
+        ),
+      );
+    },
+    [accountId],
+  );
+
   return {
     state,
     retry: connect,
-    switchOrigin: setOverride,
+    switchOrigin,
     relayReady,
     relayFailed,
   };

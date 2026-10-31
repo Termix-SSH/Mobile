@@ -24,6 +24,9 @@ export type ExecTarget =
 /** Failures where the next way to connect might still work. */
 const FALL_THROUGH = new Set(["network", "proxy", "unavailable"]);
 
+/** Same as the terminal: a try with another way to go gives up sooner. */
+const FALLBACK_TIMEOUT_SECS = 8;
+
 export function execKey(accountId: string | null, hostId: number): string {
   return `${accountId ?? "device"}:${hostId}`;
 }
@@ -72,7 +75,9 @@ export async function resolveExecTarget(input: {
       open: () => {
         if (!transport.openSession)
           throw new Error("This way can't run commands");
-        return transport.openSession(toTerminalHostConfig(host));
+        return transport.openSession(toTerminalHostConfig(host), {
+          connectTimeoutSecs: hasNext ? FALLBACK_TIMEOUT_SECS : undefined,
+        });
       },
       savedSudoPassword: async () =>
         (await input.repos?.hosts.get(host.id))?.sudoPassword ??
