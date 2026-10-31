@@ -13,6 +13,9 @@
       "appleTeamId": "2CPC5YZYFN",
       "supportsTablet": true,
       "bundleIdentifier": "com.karmaa.termix",
+      "entitlements": {
+        "com.apple.developer.networking.multicast": true
+      },
       "icon": {
         "dark": "./assets/images/ios-dark.png",
         "light": "./assets/images/icon.png",
