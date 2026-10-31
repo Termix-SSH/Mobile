@@ -1,3 +1,4 @@
+import { isAxiosError } from "axios";
 import type { AccountClient } from "../AccountClient";
 import type { UptimeInfo, RecentActivityItem } from "@/types/index";
 
@@ -39,6 +40,8 @@ export function createHomepageApi(c: AccountClient) {
       });
       return response.data;
     } catch (error) {
+      // Expected on servers without the Homepage plugin.
+      if (isAxiosError(error) && error.response?.status === 404) throw error;
       c.fail(error, "log activity");
       throw error;
     }

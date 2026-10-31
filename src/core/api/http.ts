@@ -268,6 +268,9 @@ export function createHttp(
       ) {
         // 404 on metrics means data isn't ready yet - suppress as debug noise.
         logger.debug(`Metrics not yet available: ${method} ${url}`, context);
+      } else if (status === 404 && url.includes("/activity/log")) {
+        // Servers without the Homepage plugin keep no activity feed.
+        logger.debug(`Activity not recorded: ${method} ${url}`, context);
       } else {
         logger.requestError(
           method,
