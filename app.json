@@ -27,7 +27,8 @@
         "NSFaceIDUsageDescription": "Use Face ID to unlock Termix.",
         "NSLocalNetworkUsageDescription": "Check if your hosts are online and wake them on your network.",
         "UIFileSharingEnabled": true,
-        "LSSupportsOpeningDocumentsInPlace": true
+        "LSSupportsOpeningDocumentsInPlace": true,
+        "UIApplicationSupportsIndirectInputEvents": true
       }
     },
     "android": {
