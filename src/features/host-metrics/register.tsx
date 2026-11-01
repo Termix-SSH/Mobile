@@ -1,12 +1,18 @@
 import { forwardRef } from "react";
 import { Activity, Server } from "lucide-react-native";
-import type { FeatureDef, SessionTabProps } from "@/core/features/types";
+import type {
+  FeatureDef,
+  HostEditorSectionDef,
+  HostFormTabProps,
+  SessionTabProps,
+} from "@/core/features/types";
 import {
   DEFAULT_STATS_CONFIG,
   type StatsConfig,
 } from "@/constants/stats-config";
 import type { SSHHost } from "@/types";
 import { isSshHost } from "@/utils/hosts";
+import { FakeSwitch, SettingRow } from "@/ui";
 import { MetricsCard } from "./MetricsCard";
 import { ServerStats, type ServerStatsHandle } from "./ServerStats";
 
@@ -47,6 +53,40 @@ MetricsTab.displayName = "MetricsTab";
 
 const metricsOn = (host: SSHHost) => isSshHost(host) && metricsAllowed(host);
 
+function MetricsSettings({ value, onChange }: HostFormTabProps) {
+  return (
+    <SettingRow
+      label="Enable metrics"
+      description="CPU, memory, disk and network over SSH"
+      last
+    >
+      <FakeSwitch
+        accessibilityLabel="Enable metrics"
+        checked={value.metricsEnabled !== false}
+        onChange={(metricsEnabled) => onChange({ metricsEnabled })}
+      />
+    </SettingRow>
+  );
+}
+
+const metricsHostSection: HostEditorSectionDef = {
+  id: "host-metrics",
+  label: "Host Metrics",
+  icon: Activity,
+  group: "ssh",
+  order: 40,
+  editor: {
+    read: (host) => ({
+      ...(host ? statsConfig(host) : DEFAULT_STATS_CONFIG),
+      metricsEnabled: !host || metricsAllowed(host),
+    }),
+    write: (value, payload) => {
+      payload.statsConfig = JSON.stringify(value);
+    },
+    component: MetricsSettings,
+  },
+};
+
 export const hostMetricsFeature: FeatureDef = {
   id: "host-metrics",
   plugins: ["host-metrics"],
@@ -54,6 +94,8 @@ export const hostMetricsFeature: FeatureDef = {
   source: "native",
   // Sampled over the phone's SSH, or read from the server's plugin.
   availableOn: ["local", "server"],
+  hostEditorSections: ({ account }) =>
+    account.kind === "local" ? [metricsHostSection] : [],
   sessionTabs: [
     {
       type: "stats",
