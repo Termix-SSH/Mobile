@@ -1,11 +1,13 @@
 const {
   PROGUARD_RULES,
   applyFdroid,
+  fdroidBuild,
   findBlocked,
   stripPackageJson,
   versionCode,
 } = require("../../scripts/fdroid.cjs");
 const appConfig = require("../../app.config.js");
+const { gradleProperties } = require("../../plugins/withFdroid.js");
 const base = require("../../app.json").expo;
 
 test("version codes come from major, minor and patch", () => {
@@ -85,4 +87,26 @@ test("a dependency report with Play Services or ML Kit is flagged", () => {
   ].join("\n");
   expect(findBlocked(report)).toHaveLength(2);
   expect(findBlocked("+--- androidx.core:core-ktx:1.13.1")).toEqual([]);
+});
+
+test("an F-Droid version code picks one ABI", () => {
+  expect(fdroidBuild("2.0.0")).toEqual({ versionCode: 20000, abi: null });
+  expect(fdroidBuild("2.0.0", "200002")).toEqual({
+    versionCode: 200002,
+    abi: "arm64-v8a",
+  });
+  expect(fdroidBuild("2.1.3", "201034").abi).toBe("x86_64");
+  expect(() => fdroidBuild("2.0.0", "200005")).toThrow();
+  expect(() => fdroidBuild("2.0.0", "200101")).toThrow();
+});
+
+test("the F-Droid config passes the ABI to its plugin", () => {
+  const out = applyFdroid(base, "200001");
+  expect(out.android.versionCode).toBe(200001);
+  expect(out.plugins).toContainEqual([
+    "./plugins/withFdroid.js",
+    { abi: "armeabi-v7a" },
+  ]);
+  expect(gradleProperties("x86").reactNativeArchitectures).toBe("x86");
+  expect(gradleProperties()).not.toHaveProperty("reactNativeArchitectures");
 });

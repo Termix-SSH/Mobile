@@ -24,6 +24,8 @@ jobs:
     timeout-minutes: 90
     env:
       TERMIX_FDROID: "1"
+      # Same as the F-Droid arm64-v8a APK
+      TERMIX_FDROID_VERCODE: "200002"
     steps:
       - uses: actions/checkout@v4
 

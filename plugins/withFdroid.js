@@ -30,11 +30,18 @@ function setProperties(list, values) {
   return out;
 }
 
+/** Gradle properties for one build. An abi limits the APK to that ABI. */
+function gradleProperties(abi) {
+  return abi
+    ? { ...GRADLE_PROPERTIES, reactNativeArchitectures: abi }
+    : GRADLE_PROPERTIES;
+}
+
 // F-Droid variant: no JitPack and an
 // unsigned release APK, because F-Droid signs it.
-const withFdroid = (config) => {
+const withFdroid = (config, { abi } = {}) => {
   config = withGradleProperties(config, (c) => {
-    c.modResults = setProperties(c.modResults, GRADLE_PROPERTIES);
+    c.modResults = setProperties(c.modResults, gradleProperties(abi));
     return c;
   });
   config = withAppBuildGradle(config, (c) => {
@@ -54,3 +61,4 @@ module.exports = withFdroid;
 module.exports.unsignRelease = unsignRelease;
 module.exports.setProperties = setProperties;
 module.exports.GRADLE_PROPERTIES = GRADLE_PROPERTIES;
+module.exports.gradleProperties = gradleProperties;
