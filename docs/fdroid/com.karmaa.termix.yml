@@ -55,16 +55,17 @@ Builds:
       - node_modules/@*/*/android/build.gradle
       - node_modules/expo-modules-core/android/ExpoModulesCorePlugin.gradle
       - node_modules/react-native/ReactAndroid/publish.gradle
-      - node_modules/react-native/ReactAndroid/hermes-engine/build.gradle.kts
       - node_modules/hermes-compiler
       - node_modules/expo/template.tgz
+      - build/ghostty/pkg/freetype/res/FiraCode-Regular.ttf
+      - build/ghostty/src/font/res/Inconsolata-Regular.ttf
+      - build/ghostty/src/font/res/NotoColorEmoji.ttf
+      - build/ghostty/src/font/res/NotoEmoji-Regular.ttf
     scandelete:
-      - modules/termix-ssh/rust/target
       - modules/termix-terminal/ios
       - node_modules/esbuild/bin
       - node_modules/@esbuild
       - node_modules/tsx/node_modules
-      - node_modules/@esbuild-kit/core-utils/node_modules
       - node_modules/@termix-ssh/plugin-sdk/node_modules/esbuild
       - node_modules/@termix-ssh/plugin-sdk/node_modules/@esbuild
       - node_modules/fb-dotslash/bin
@@ -126,16 +127,17 @@ Builds:
       - node_modules/@*/*/android/build.gradle
       - node_modules/expo-modules-core/android/ExpoModulesCorePlugin.gradle
       - node_modules/react-native/ReactAndroid/publish.gradle
-      - node_modules/react-native/ReactAndroid/hermes-engine/build.gradle.kts
       - node_modules/hermes-compiler
       - node_modules/expo/template.tgz
+      - build/ghostty/pkg/freetype/res/FiraCode-Regular.ttf
+      - build/ghostty/src/font/res/Inconsolata-Regular.ttf
+      - build/ghostty/src/font/res/NotoColorEmoji.ttf
+      - build/ghostty/src/font/res/NotoEmoji-Regular.ttf
     scandelete:
-      - modules/termix-ssh/rust/target
       - modules/termix-terminal/ios
       - node_modules/esbuild/bin
       - node_modules/@esbuild
       - node_modules/tsx/node_modules
-      - node_modules/@esbuild-kit/core-utils/node_modules
       - node_modules/@termix-ssh/plugin-sdk/node_modules/esbuild
       - node_modules/@termix-ssh/plugin-sdk/node_modules/@esbuild
       - node_modules/fb-dotslash/bin
@@ -197,16 +199,17 @@ Builds:
       - node_modules/@*/*/android/build.gradle
       - node_modules/expo-modules-core/android/ExpoModulesCorePlugin.gradle
       - node_modules/react-native/ReactAndroid/publish.gradle
-      - node_modules/react-native/ReactAndroid/hermes-engine/build.gradle.kts
       - node_modules/hermes-compiler
       - node_modules/expo/template.tgz
+      - build/ghostty/pkg/freetype/res/FiraCode-Regular.ttf
+      - build/ghostty/src/font/res/Inconsolata-Regular.ttf
+      - build/ghostty/src/font/res/NotoColorEmoji.ttf
+      - build/ghostty/src/font/res/NotoEmoji-Regular.ttf
     scandelete:
-      - modules/termix-ssh/rust/target
       - modules/termix-terminal/ios
       - node_modules/esbuild/bin
       - node_modules/@esbuild
       - node_modules/tsx/node_modules
-      - node_modules/@esbuild-kit/core-utils/node_modules
       - node_modules/@termix-ssh/plugin-sdk/node_modules/esbuild
       - node_modules/@termix-ssh/plugin-sdk/node_modules/@esbuild
       - node_modules/fb-dotslash/bin
@@ -268,16 +271,17 @@ Builds:
       - node_modules/@*/*/android/build.gradle
       - node_modules/expo-modules-core/android/ExpoModulesCorePlugin.gradle
       - node_modules/react-native/ReactAndroid/publish.gradle
-      - node_modules/react-native/ReactAndroid/hermes-engine/build.gradle.kts
       - node_modules/hermes-compiler
       - node_modules/expo/template.tgz
+      - build/ghostty/pkg/freetype/res/FiraCode-Regular.ttf
+      - build/ghostty/src/font/res/Inconsolata-Regular.ttf
+      - build/ghostty/src/font/res/NotoColorEmoji.ttf
+      - build/ghostty/src/font/res/NotoEmoji-Regular.ttf
     scandelete:
-      - modules/termix-ssh/rust/target
       - modules/termix-terminal/ios
       - node_modules/esbuild/bin
       - node_modules/@esbuild
       - node_modules/tsx/node_modules
-      - node_modules/@esbuild-kit/core-utils/node_modules
       - node_modules/@termix-ssh/plugin-sdk/node_modules/esbuild
       - node_modules/@termix-ssh/plugin-sdk/node_modules/@esbuild
       - node_modules/fb-dotslash/bin
