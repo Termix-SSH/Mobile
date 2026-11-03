@@ -1,4 +1,5 @@
 const {
+  PROGUARD_RULES,
   applyFdroid,
   findBlocked,
   stripPackageJson,
@@ -31,6 +32,17 @@ test("the F-Droid config drops download and dev plugins and adds its own", () =>
   expect(out.android.versionCode).toBe(20000);
   expect(out.extra.distribution).toBe("fdroid");
   expect(out.extra.router).toEqual(base.extra.router);
+});
+
+test("the F-Droid config lets R8 skip the missing ML Kit classes", () => {
+  const props = (config: { plugins: unknown[] }) =>
+    config.plugins.find(
+      (p: unknown) => Array.isArray(p) && p[0] === "expo-build-properties",
+    ) as [string, { android: { extraProguardRules: string } }];
+  const rules = props(applyFdroid(base))[1].android.extraProguardRules;
+  for (const rule of PROGUARD_RULES) expect(rules).toContain(rule);
+  expect(rules).toContain("-keep class uniffi.** { *; }");
+  expect(props(base)[1].android.extraProguardRules).not.toContain("mlkit");
 });
 
 test("applyFdroid leaves the input alone", () => {

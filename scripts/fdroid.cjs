@@ -34,19 +34,42 @@ function pluginName(entry) {
   return Array.isArray(entry) ? entry[0] : entry;
 }
 
+// expo-camera still references ML Kit and the Play Services scanner as compile only
+// classes, so R8 must not fail on them. The app never opens the scanner here.
+const PROGUARD_RULES = [
+  "-dontwarn com.google.mlkit.**",
+  "-dontwarn com.google.android.gms.**",
+];
+
+function withProguardRules(entry) {
+  const options = entry[1] ?? {};
+  const android = options.android ?? {};
+  const rules = [android.extraProguardRules, ...PROGUARD_RULES]
+    .filter(Boolean)
+    .join("\n");
+  return [
+    entry[0],
+    { ...options, android: { ...android, extraProguardRules: rules } },
+  ];
+}
+
 /** Returns the Expo config for the F-Droid variant. Does not change the input. */
 function applyFdroid(config) {
   // expo-camera's own option leaves out ML Kit and the Play Services scanner
   const plugins = (config.plugins ?? [])
     .filter((p) => !DROPPED_PLUGINS.includes(pluginName(p)))
-    .map((p) =>
-      pluginName(p) === "expo-camera"
-        ? [
-            "expo-camera",
-            { ...(Array.isArray(p) ? p[1] : {}), barcodeScannerEnabled: false },
-          ]
-        : p,
-    );
+    .map((p) => {
+      if (pluginName(p) === "expo-camera") {
+        return [
+          "expo-camera",
+          { ...(Array.isArray(p) ? p[1] : {}), barcodeScannerEnabled: false },
+        ];
+      }
+      if (pluginName(p) === "expo-build-properties") {
+        return withProguardRules(Array.isArray(p) ? p : [p]);
+      }
+      return p;
+    });
   plugins.push("./plugins/withFdroid.js");
   return {
     ...config,
@@ -86,6 +109,7 @@ module.exports = {
   BLOCKED_DEPENDENCIES,
   DROPPED_PACKAGES,
   DROPPED_PLUGINS,
+  PROGUARD_RULES,
   applyFdroid,
   findBlocked,
   stripPackageJson,
