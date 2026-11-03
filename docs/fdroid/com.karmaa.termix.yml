@@ -36,7 +36,8 @@ Builds:
     prebuild:
       - export TERMIX_FDROID=1
       - export TERMIX_FDROID_VERCODE=$$VERCODE$$
-      - curl -sSLo /tmp/rustup-init https://static.rust-lang.org/rustup/archive/1.29.3/x86_64-unknown-linux-gnu/rustup-init
+      - RUSTUP=https://static.rust-lang.org/rustup/archive/1.29.3/x86_64-unknown-linux-gnu
+      - curl -sSLo /tmp/rustup-init $RUSTUP/rustup-init
       - echo "b1c8cb14e30889e7e2999e6b69e62d9e9b9ffc0f4df8180564d306d9680e6c55  /tmp/rustup-init"
         | sha256sum -c -
       - chmod +x /tmp/rustup-init
@@ -51,10 +52,30 @@ Builds:
       - sh scripts/build-native-fdroid.sh fetch
     scanignore:
       - node_modules/*/android/build.gradle
+      - node_modules/@*/*/android/build.gradle
+      - node_modules/expo-modules-core/android/ExpoModulesCorePlugin.gradle
+      - node_modules/react-native/ReactAndroid/publish.gradle
       - node_modules/react-native/ReactAndroid/hermes-engine/build.gradle.kts
       - node_modules/hermes-compiler
+      - node_modules/expo/template.tgz
     scandelete:
       - modules/termix-ssh/rust/target
+      - modules/termix-terminal/ios
+      - node_modules/esbuild/bin
+      - node_modules/@esbuild
+      - node_modules/tsx/node_modules
+      - node_modules/@esbuild-kit/core-utils/node_modules
+      - node_modules/@termix-ssh/plugin-sdk/node_modules/esbuild
+      - node_modules/@termix-ssh/plugin-sdk/node_modules/@esbuild
+      - node_modules/fb-dotslash/bin
+      - node_modules/zxing-wasm/dist
+      - node_modules/expo-sqlite/android/libsql
+      - node_modules/expo-sqlite/android/vec
+      - node_modules/expo-sqlite/ios
+      - node_modules/expo-sqlite/web/wa-sqlite
+      - node_modules/@expo/expo-modules-macros-plugin/apple
+      - node_modules/react-native/React/I18n
+      - node_modules/unimodules-app-loader/local-maven-repo
     build:
       - export TERMIX_FDROID=1
       - export TERMIX_FDROID_VERCODE=$$VERCODE$$
@@ -86,7 +107,8 @@ Builds:
     prebuild:
       - export TERMIX_FDROID=1
       - export TERMIX_FDROID_VERCODE=$$VERCODE$$
-      - curl -sSLo /tmp/rustup-init https://static.rust-lang.org/rustup/archive/1.29.3/x86_64-unknown-linux-gnu/rustup-init
+      - RUSTUP=https://static.rust-lang.org/rustup/archive/1.29.3/x86_64-unknown-linux-gnu
+      - curl -sSLo /tmp/rustup-init $RUSTUP/rustup-init
       - echo "b1c8cb14e30889e7e2999e6b69e62d9e9b9ffc0f4df8180564d306d9680e6c55  /tmp/rustup-init"
         | sha256sum -c -
       - chmod +x /tmp/rustup-init
@@ -101,10 +123,30 @@ Builds:
       - sh scripts/build-native-fdroid.sh fetch
     scanignore:
       - node_modules/*/android/build.gradle
+      - node_modules/@*/*/android/build.gradle
+      - node_modules/expo-modules-core/android/ExpoModulesCorePlugin.gradle
+      - node_modules/react-native/ReactAndroid/publish.gradle
       - node_modules/react-native/ReactAndroid/hermes-engine/build.gradle.kts
       - node_modules/hermes-compiler
+      - node_modules/expo/template.tgz
     scandelete:
       - modules/termix-ssh/rust/target
+      - modules/termix-terminal/ios
+      - node_modules/esbuild/bin
+      - node_modules/@esbuild
+      - node_modules/tsx/node_modules
+      - node_modules/@esbuild-kit/core-utils/node_modules
+      - node_modules/@termix-ssh/plugin-sdk/node_modules/esbuild
+      - node_modules/@termix-ssh/plugin-sdk/node_modules/@esbuild
+      - node_modules/fb-dotslash/bin
+      - node_modules/zxing-wasm/dist
+      - node_modules/expo-sqlite/android/libsql
+      - node_modules/expo-sqlite/android/vec
+      - node_modules/expo-sqlite/ios
+      - node_modules/expo-sqlite/web/wa-sqlite
+      - node_modules/@expo/expo-modules-macros-plugin/apple
+      - node_modules/react-native/React/I18n
+      - node_modules/unimodules-app-loader/local-maven-repo
     build:
       - export TERMIX_FDROID=1
       - export TERMIX_FDROID_VERCODE=$$VERCODE$$
@@ -136,7 +178,8 @@ Builds:
     prebuild:
       - export TERMIX_FDROID=1
       - export TERMIX_FDROID_VERCODE=$$VERCODE$$
-      - curl -sSLo /tmp/rustup-init https://static.rust-lang.org/rustup/archive/1.29.3/x86_64-unknown-linux-gnu/rustup-init
+      - RUSTUP=https://static.rust-lang.org/rustup/archive/1.29.3/x86_64-unknown-linux-gnu
+      - curl -sSLo /tmp/rustup-init $RUSTUP/rustup-init
       - echo "b1c8cb14e30889e7e2999e6b69e62d9e9b9ffc0f4df8180564d306d9680e6c55  /tmp/rustup-init"
         | sha256sum -c -
       - chmod +x /tmp/rustup-init
@@ -151,10 +194,30 @@ Builds:
       - sh scripts/build-native-fdroid.sh fetch
     scanignore:
       - node_modules/*/android/build.gradle
+      - node_modules/@*/*/android/build.gradle
+      - node_modules/expo-modules-core/android/ExpoModulesCorePlugin.gradle
+      - node_modules/react-native/ReactAndroid/publish.gradle
       - node_modules/react-native/ReactAndroid/hermes-engine/build.gradle.kts
       - node_modules/hermes-compiler
+      - node_modules/expo/template.tgz
     scandelete:
       - modules/termix-ssh/rust/target
+      - modules/termix-terminal/ios
+      - node_modules/esbuild/bin
+      - node_modules/@esbuild
+      - node_modules/tsx/node_modules
+      - node_modules/@esbuild-kit/core-utils/node_modules
+      - node_modules/@termix-ssh/plugin-sdk/node_modules/esbuild
+      - node_modules/@termix-ssh/plugin-sdk/node_modules/@esbuild
+      - node_modules/fb-dotslash/bin
+      - node_modules/zxing-wasm/dist
+      - node_modules/expo-sqlite/android/libsql
+      - node_modules/expo-sqlite/android/vec
+      - node_modules/expo-sqlite/ios
+      - node_modules/expo-sqlite/web/wa-sqlite
+      - node_modules/@expo/expo-modules-macros-plugin/apple
+      - node_modules/react-native/React/I18n
+      - node_modules/unimodules-app-loader/local-maven-repo
     build:
       - export TERMIX_FDROID=1
       - export TERMIX_FDROID_VERCODE=$$VERCODE$$
@@ -186,7 +249,8 @@ Builds:
     prebuild:
       - export TERMIX_FDROID=1
       - export TERMIX_FDROID_VERCODE=$$VERCODE$$
-      - curl -sSLo /tmp/rustup-init https://static.rust-lang.org/rustup/archive/1.29.3/x86_64-unknown-linux-gnu/rustup-init
+      - RUSTUP=https://static.rust-lang.org/rustup/archive/1.29.3/x86_64-unknown-linux-gnu
+      - curl -sSLo /tmp/rustup-init $RUSTUP/rustup-init
       - echo "b1c8cb14e30889e7e2999e6b69e62d9e9b9ffc0f4df8180564d306d9680e6c55  /tmp/rustup-init"
         | sha256sum -c -
       - chmod +x /tmp/rustup-init
@@ -201,10 +265,30 @@ Builds:
       - sh scripts/build-native-fdroid.sh fetch
     scanignore:
       - node_modules/*/android/build.gradle
+      - node_modules/@*/*/android/build.gradle
+      - node_modules/expo-modules-core/android/ExpoModulesCorePlugin.gradle
+      - node_modules/react-native/ReactAndroid/publish.gradle
       - node_modules/react-native/ReactAndroid/hermes-engine/build.gradle.kts
       - node_modules/hermes-compiler
+      - node_modules/expo/template.tgz
     scandelete:
       - modules/termix-ssh/rust/target
+      - modules/termix-terminal/ios
+      - node_modules/esbuild/bin
+      - node_modules/@esbuild
+      - node_modules/tsx/node_modules
+      - node_modules/@esbuild-kit/core-utils/node_modules
+      - node_modules/@termix-ssh/plugin-sdk/node_modules/esbuild
+      - node_modules/@termix-ssh/plugin-sdk/node_modules/@esbuild
+      - node_modules/fb-dotslash/bin
+      - node_modules/zxing-wasm/dist
+      - node_modules/expo-sqlite/android/libsql
+      - node_modules/expo-sqlite/android/vec
+      - node_modules/expo-sqlite/ios
+      - node_modules/expo-sqlite/web/wa-sqlite
+      - node_modules/@expo/expo-modules-macros-plugin/apple
+      - node_modules/react-native/React/I18n
+      - node_modules/unimodules-app-loader/local-maven-repo
     build:
       - export TERMIX_FDROID=1
       - export TERMIX_FDROID_VERCODE=$$VERCODE$$
