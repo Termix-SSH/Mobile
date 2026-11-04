@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { PanResponder, View, type ViewStyle } from "react-native";
+import { useFoldTweenWidth } from "@/utils/fold-tween";
 
 /** Width of the handle off a fold. */
 export const DIVIDER_WIDTH = 6;
@@ -17,6 +18,7 @@ export function SplitDivider({
   width,
   crease = false,
   locked = false,
+  glideKey,
   onStart,
   onMove,
   onEnd,
@@ -28,11 +30,17 @@ export function SplitDivider({
   crease?: boolean;
   /** Can't be dragged, like on a half folded screen. Shows a line down its middle. */
   locked?: boolean;
+  /**
+   * The width glides when this changes, like the screen bending or going flat.
+   * The glide runs in here, so only the handle re-renders each frame.
+   */
+  glideKey?: unknown;
   onStart: () => void;
   onMove: (dx: number) => void;
   onEnd: (dx: number) => void;
 }) {
   const [dragging, setDragging] = useState(false);
+  const shownWidth = useFoldTweenWidth(width ?? DIVIDER_WIDTH, glideKey);
   const handlers = useRef({ onStart, onMove, onEnd });
   handlers.current = { onStart, onMove, onEnd };
   const pan = useMemo(
@@ -70,7 +78,7 @@ export function SplitDivider({
     return (
       <View
         className="items-center bg-background"
-        style={[{ width: width ?? DIVIDER_WIDTH, zIndex: 2 }, style]}
+        style={[{ width: shownWidth, zIndex: 2 }, style]}
         accessibilityElementsHidden
         importantForAccessibility="no-hide-descendants"
       >
@@ -90,7 +98,7 @@ export function SplitDivider({
       }
       hitSlop={crease ? undefined : { left: 10, right: 10 }}
       className={`items-center justify-center ${dragging ? "bg-accent-brand/40" : crease ? "bg-background" : "bg-border"}`}
-      style={[{ width: width ?? DIVIDER_WIDTH, zIndex: 2 }, style]}
+      style={[{ width: shownWidth, zIndex: 2 }, style]}
     >
       <View
         className={`h-10 w-1 ${dragging ? "bg-accent-brand" : "bg-muted-foreground/50"}`}

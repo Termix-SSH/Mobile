@@ -1,5 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
-import { SplitDivider } from "@/screens/sessions/SplitDivider";
+import { DIVIDER_WIDTH, SplitDivider } from "@/screens/sessions/SplitDivider";
+import { FOLD_TWEEN_MS } from "@/utils/fold-tween";
 
 const touch = {
   touchHistory: {
@@ -51,4 +52,31 @@ test("bending mid drag doesn't leave the handle showing a drag once flat again",
   expect(screen.getByLabelText("Resize").props.className).not.toContain(
     "bg-accent-brand",
   );
+});
+
+test("the handle glides off the crease when the screen goes flat", async () => {
+  jest.useFakeTimers();
+  try {
+    const props = handlers();
+    const width = () =>
+      [screen.getByLabelText("Resize").props.style]
+        .flat(Infinity)
+        .reduce((w, s) => s?.width ?? w, undefined);
+    const view = await render(
+      <SplitDivider label="Resize" width={18} glideKey="flat" {...props} />,
+    );
+    expect(width()).toBe(18);
+    await view.rerender(
+      <SplitDivider label="Resize" glideKey="dragged" {...props} />,
+    );
+    // It starts on the crease rather than jumping to the thin bar.
+    expect(width()).toBe(18);
+    await act(async () => jest.advanceTimersByTime(48));
+    expect(width()).toBeLessThan(18);
+    expect(width()).toBeGreaterThan(DIVIDER_WIDTH);
+    await act(async () => jest.advanceTimersByTime(FOLD_TWEEN_MS));
+    expect(width()).toBe(DIVIDER_WIDTH);
+  } finally {
+    jest.useRealTimers();
+  }
 });
