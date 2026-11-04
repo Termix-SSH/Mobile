@@ -65,6 +65,8 @@ export function SplitDivider({
     onEnd(dx);
   };
   if (locked) {
+    // Locking mid drag drops the handle the finger was on, so its release never comes.
+    if (dragging) setDragging(false);
     return (
       <View
         className="items-center bg-background"

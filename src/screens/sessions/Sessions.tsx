@@ -843,6 +843,8 @@ export default function Sessions() {
   // Half folded, the list ends at the crease and the divider fills it, whatever width was
   // dragged while flat, so neither pane runs across the bend. Flat again, that width returns.
   const paneOnBentFold = !!(layout.foldSplit && fold?.active);
+  // Bending mid drag locks the divider before the finger lifts, so that drag never ends.
+  if (paneOnBentFold && dragPaneWidth !== null) setDragPaneWidth(null);
   const paneWidth = chosenHostsPaneWidth({
     bentFold: paneOnBentFold,
     dragged: dragPaneWidth,
