@@ -112,17 +112,34 @@ export function foldHalves(
   ];
 }
 
+/** Space a sheet needs above the keyboard before it moves to the top of a laptop fold. */
+export const PANEL_MIN_ABOVE_KEYBOARD = 160;
+
 /**
  * Where a sheet or alert sits. While bent it takes the right side of a book
  * fold or the bottom of a laptop fold, like Apple's own alerts, so it never
- * lies across the crease. Flat, it gets the whole window.
+ * lies across the crease. When the keyboard leaves too little of the bottom,
+ * it moves to the top instead. Flat, it gets the whole window.
  */
 export function panelArea(
   fold: Fold | null,
   width: number,
   height: number,
+  keyboard = 0,
 ): Area {
-  return foldHalves(fold, width, height)?.[1] ?? { x: 0, y: 0, width, height };
+  const halves = foldHalves(fold, width, height);
+  if (!halves) return { x: 0, y: 0, width, height };
+  const [before, after] = halves;
+  const crowded =
+    fold?.axis === "horizontal" &&
+    keyboard > 0 &&
+    after.height - keyboard < PANEL_MIN_ABOVE_KEYBOARD;
+  return crowded ? before : after;
+}
+
+/** How much of an area, in window points, the keyboard covers from the bottom. */
+export function keyboardOver(area: Area, height: number, keyboard: number) {
+  return Math.max(0, keyboard - (height - (area.y + area.height)));
 }
 
 /** The side of a bent fold a point is on, for menus that open where they were asked for. */

@@ -12,7 +12,7 @@ import {
   type KeyboardMetrics,
 } from "react-native";
 import { useWindowInfo } from "@/utils/window-class";
-import { panelArea } from "@/utils/fold";
+import { keyboardOver, panelArea } from "@/utils/fold";
 import Animated, {
   ReduceMotion,
   useAnimatedStyle,
@@ -118,17 +118,20 @@ export function Sheet({
   const { width, height } = win;
   const color = useThemeColor();
   const close = dismissable ? onClose : () => {};
+  const keyboard = useKeyboardHeight(visible);
   // On a bent fold the sheet keeps to one side, so it never lies on the crease.
-  const area = panelArea(win.fold, width, height);
+  const area = panelArea(win.fold, width, height, keyboard);
   // Only the edges the sheet reaches have insets to keep clear of.
   const padLeft = area.x <= 0 ? insets.left : 0;
   const padRight = area.x + area.width >= width ? insets.right : 0;
+  const padBottom = area.y + area.height >= height ? insets.bottom : 0;
+  // Above a laptop fold the keyboard may not reach the sheet at all.
+  const keyboardIn = keyboardOver(area, height, keyboard);
   // A full width sheet keeps its rows clear of a notch held sideways.
   const fullWidth =
     area.width <= SHEET_MAX_WIDTH + 2 * Math.max(padLeft, padRight);
   // On a short window any sheet can run past its cap, so it always scrolls.
   const scrolls = scroll || height < 500;
-  const keyboard = useKeyboardHeight(visible);
   useEffect(() => {
     if (!inline || !visible) return;
     const sub = BackHandler.addEventListener("hardwareBackPress", () => {
@@ -190,12 +193,12 @@ export function Sheet({
           style={[
             slideStyle,
             {
-              paddingBottom: Math.max(insets.bottom, keyboard),
+              paddingBottom: Math.max(padBottom, keyboardIn),
               paddingLeft: fullWidth ? padLeft : 0,
               paddingRight: fullWidth ? padRight : 0,
               // 85% of the space above the keyboard, plus the part behind it.
-              maxHeight: keyboard
-                ? (area.height - keyboard) * 0.85 + keyboard
+              maxHeight: keyboardIn
+                ? (area.height - keyboardIn) * 0.85 + keyboardIn
                 : "85%",
               width: "100%",
               maxWidth: SHEET_MAX_WIDTH,

@@ -5,6 +5,7 @@ import {
   areaAt,
   foldFrom,
   foldHalves,
+  keyboardOver,
   panelArea,
   useFoldRegions,
   type Fold,
@@ -139,6 +140,25 @@ describe("fold areas", () => {
       width: 951,
       height: 669,
     });
+  });
+
+  it("moves a sheet above a laptop fold when the keyboard fills the bottom", () => {
+    const bottom = 951 - 343.5;
+    // A short keyboard leaves room, so the sheet stays below the crease.
+    expect(panelArea(laptop, 669, 951, 300).y).toBe(343.5);
+    // One that leaves too little sends it to the top half, clear of the keyboard.
+    const top = panelArea(laptop, 669, 951, bottom - 50);
+    expect(top).toEqual({ x: 0, y: 0, width: 669, height: 325.5 });
+    expect(keyboardOver(top, 951, bottom - 50)).toBe(0);
+    // A book fold keeps the right side whatever the keyboard does.
+    expect(panelArea(book, 951, 669, 400).x).toBe(484.5);
+  });
+
+  it("measures how much of an area the keyboard covers", () => {
+    const whole = { x: 0, y: 0, width: 669, height: 951 };
+    expect(keyboardOver(whole, 951, 300)).toBe(300);
+    expect(keyboardOver({ ...whole, height: 325.5 }, 951, 700)).toBe(74.5);
+    expect(keyboardOver(whole, 951, 0)).toBe(0);
   });
 
   it("keeps a menu on the side it was opened from", () => {
