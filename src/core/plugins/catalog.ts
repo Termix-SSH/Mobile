@@ -109,7 +109,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "tmux-monitor", name: "Tmux Monitor", kind: "server" },
   { id: "totp", name: "TOTP", kind: "none" },
   { id: "tunnels", name: "Tunnels", kind: "none" },
-  { id: "vault", name: "HashiCorp Vault", kind: "server" },
+  { id: "vault", name: "SSH Certificate Signer", kind: "server" },
   { id: "wake-on-lan", name: "Wake-on-LAN", kind: "none" },
   { id: "warpgate", name: "Warpgate", kind: "server" },
   { id: "web-endpoint", name: "Web Endpoint", kind: "none" },
