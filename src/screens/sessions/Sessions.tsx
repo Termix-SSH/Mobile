@@ -59,6 +59,7 @@ import {
 } from "@/screens/sessions/split";
 import { SplitDivider } from "@/screens/sessions/SplitDivider";
 import {
+  keyRowUnderCrease,
   laptopKeysHeight,
   sessionBarPlacement,
 } from "@/screens/sessions/laptop";
@@ -361,11 +362,17 @@ export default function Sessions() {
   // Laptop fold: the terminal gets the top half, keys go on the bottom half, and the
   // tab bar joins them there when it fits.
   const laptop = activeIsTerminal ? laptopFold : null;
+  // The system keyboard there claims the crease, so the key row takes the gap under it.
+  const keyRowBottom =
+    systemKeyboardUp && !isCustomKeyboardVisible
+      ? keyRowUnderCrease(currentKeyboardHeight, KEYBOARD_BAR_HEIGHT, laptop)
+      : null;
 
   const tabBarOnKeys = () => {
     if (isCustomKeyboardVisible) {
       return CUSTOM_KEYBOARD_TAB_HEIGHT + customKeyboardHeight;
     }
+    if (keyRowBottom !== null) return keyRowBottom + KEYBOARD_BAR_HEIGHT;
 
     return barsOnKeyboard
       ? KEYBOARD_BAR_HEIGHT + barsKeyboardHeight
@@ -1145,7 +1152,8 @@ export default function Sessions() {
             <View
               style={{
                 position: "absolute",
-                bottom: barsOnKeyboard ? barsKeyboardHeight : 0,
+                bottom:
+                  keyRowBottom ?? (barsOnKeyboard ? barsKeyboardHeight : 0),
                 left: 0,
                 right: 0,
                 height: barsOnKeyboard

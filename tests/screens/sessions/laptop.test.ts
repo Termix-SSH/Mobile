@@ -1,5 +1,6 @@
 import {
   LAPTOP_KEYS_MIN,
+  keyRowUnderCrease,
   laptopKeysHeight,
   sessionBarPlacement,
 } from "@/screens/sessions/laptop";
@@ -45,6 +46,33 @@ describe("sessionBarPlacement", () => {
     expect(sessionBarPlacement(300, tabBar, null)).toEqual({
       bottom: 300,
       margin: 344,
+    });
+  });
+});
+
+describe("keyRowUnderCrease", () => {
+  const keyRow = 52;
+
+  it("puts the key row right under the crease when the keyboard claims it", () => {
+    // What iPhone Duo reports: a keyboard reaching above the crease.
+    const bottom = keyRowUnderCrease(495, keyRow, duo);
+    expect(bottom).toBe(duo.below - keyRow);
+    // The row's top meets the bottom edge of the crease.
+    expect(bottom! + keyRow).toBe(duo.below);
+  });
+
+  it("leaves the key row on a keyboard that stays below the crease", () => {
+    expect(keyRowUnderCrease(300, keyRow, duo)).toBeNull();
+  });
+
+  it("does nothing off a laptop fold", () => {
+    expect(keyRowUnderCrease(495, keyRow, null)).toBeNull();
+  });
+
+  it("leaves the tab bar above the crease once the key row takes the gap", () => {
+    expect(sessionBarPlacement(duo.below, tabBar, duo)).toEqual({
+      bottom: duo.above,
+      margin: duo.above + tabBar,
     });
   });
 });

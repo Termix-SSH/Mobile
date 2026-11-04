@@ -40,3 +40,18 @@ export function sessionBarPlacement(
   const bottom = Math.max(keysTop, laptop?.above ?? 0);
   return { bottom, margin: bottom + tabBar };
 }
+
+/**
+ * Where the key row sits on a laptop fold while the system keyboard is up, from
+ * the bottom of the screen, or null to leave it on the keyboard. iPhone Duo
+ * reports the keyboard from just above the crease, though its keys start lower,
+ * so the row goes in that gap under the crease instead of on the top half.
+ */
+export function keyRowUnderCrease(
+  keyboard: number,
+  keyRow: number,
+  laptop: LaptopFold | null,
+): number | null {
+  if (!laptop || keyboard <= laptop.below) return null;
+  return laptop.below - keyRow;
+}
