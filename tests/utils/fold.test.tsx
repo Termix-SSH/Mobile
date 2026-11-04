@@ -1,6 +1,7 @@
 import { act, renderHook } from "@testing-library/react-native";
 import {
   FOLD_GUTTER,
+  FOLD_SETTLE_MS,
   areaAt,
   foldFrom,
   foldHalves,
@@ -78,14 +79,26 @@ describe("foldFrom", () => {
   });
 });
 
-test("useFoldRegions follows the native module", async () => {
-  const { result, unmount } = await renderHook(() => useFoldRegions());
-  expect(result.current).toEqual([]);
-  const folds = [{ x: 475, y: 0, width: 0, height: 669, active: false }];
-  await act(async () => mockEmit?.({ folds }));
-  expect(result.current).toEqual(folds);
-  await unmount();
-  expect(mockRemove).toHaveBeenCalled();
+test("useFoldRegions follows the native module once the fold holds still", async () => {
+  jest.useFakeTimers();
+  try {
+    const { result, unmount } = await renderHook(() => useFoldRegions());
+    expect(result.current).toEqual([]);
+    const flat = [{ x: 475, y: 0, width: 0, height: 669, active: false }];
+    const bent = [{ x: 466, y: 0, width: 18, height: 669, active: true }];
+    // Opening past the threshold flickers between bent and flat.
+    await act(async () => mockEmit?.({ folds: flat }));
+    await act(async () => mockEmit?.({ folds: bent }));
+    await act(async () => mockEmit?.({ folds: flat }));
+    await act(async () => jest.advanceTimersByTime(FOLD_SETTLE_MS - 1));
+    expect(result.current).toEqual([]);
+    await act(async () => jest.advanceTimersByTime(1));
+    expect(result.current).toEqual(flat);
+    await unmount();
+    expect(mockRemove).toHaveBeenCalled();
+  } finally {
+    jest.useRealTimers();
+  }
 });
 
 // iPhone Duo inner screen, 951 x 669, bent with an 18 point crease.

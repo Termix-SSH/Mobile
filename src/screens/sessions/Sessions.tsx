@@ -42,6 +42,7 @@ import {
   HOSTS_PANE_WIDTH_KEY,
   HostsPane,
   SPLIT_RATIO_KEY,
+  chosenHostsPaneWidth,
   clampHostsPaneWidth,
   hostsPaneWidth,
   useHostsPaneHidden,
@@ -56,7 +57,8 @@ import {
   splitEdges,
   splitPartner,
 } from "@/screens/sessions/split";
-import { SplitDivider } from "@/screens/sessions/SplitDivider";
+import { DIVIDER_WIDTH, SplitDivider } from "@/screens/sessions/SplitDivider";
+import { useFoldTweenWidth } from "@/utils/fold-tween";
 import { neighborTab, tabNumber } from "@/contexts/session-tabs";
 import type {
   SessionMenuContext,
@@ -838,12 +840,21 @@ export default function Sessions() {
   const paneBase = useRef(0);
   const paneSpace = win.width - side.left - side.right;
   const paneFoldEdge = layout.foldSplit ? fold?.start : undefined;
-  const paneWidth =
-    dragPaneWidth ??
-    (savedPaneWidth == null
-      ? null
-      : clampHostsPaneWidth(savedPaneWidth, paneSpace));
+  // Half folded, the list ends at the crease and the divider fills it, whatever width was
+  // dragged while flat, so neither pane runs across the bend. Flat again, that width returns.
+  const paneOnBentFold = !!(layout.foldSplit && fold?.active);
+  const paneWidth = chosenHostsPaneWidth({
+    bentFold: paneOnBentFold,
+    dragged: dragPaneWidth,
+    saved: savedPaneWidth,
+    available: paneSpace,
+  });
   const paneOnFold = !!(layout.foldSplit && fold && paneWidth == null);
+  // The divider glides with the list between the crease and a dragged width.
+  const dividerWidth = useFoldTweenWidth(
+    paneOnFold && fold ? fold.end - fold.start : DIVIDER_WIDTH,
+    paneOnBentFold,
+  );
 
   const activeTerminalBgColor =
     activeIsTerminal && activeSessionId
@@ -904,6 +915,7 @@ export default function Sessions() {
         <HostsPane
           edge={paneFoldEdge}
           width={paneWidth}
+          tweenKey={paneOnBentFold}
           onLeft={(x) => {
             paneLeft.current = x;
           }}
@@ -911,27 +923,34 @@ export default function Sessions() {
       ) : null}
       {showHostsPane ? (
         // On a fold it fills the crease, so nothing sits on it until dragged off.
-        <SplitDivider
-          label="Resize host list"
-          crease={paneOnFold}
-          width={paneOnFold && fold ? fold.end - fold.start : undefined}
-          onStart={() => {
-            paneBase.current =
-              paneWidth ?? hostsPaneWidth(paneLeft.current, paneFoldEdge);
-          }}
-          onMove={(dx) =>
-            setDragPaneWidth(
-              clampHostsPaneWidth(paneBase.current + dx, paneSpace),
-            )
-          }
-          onEnd={(dx) => {
-            const next = clampHostsPaneWidth(paneBase.current + dx, paneSpace);
-            setDragPaneWidth(null);
-            const foldNear =
-              layout.foldSplit && nearFold(paneLeft.current + next, fold);
-            setSavedPaneWidth(foldNear ? null : next);
-          }}
-        />
+        // Half folded it stays there.
+        <View style={{ width: dividerWidth, zIndex: 2 }}>
+          <SplitDivider
+            label="Resize host list"
+            crease={paneOnFold}
+            locked={paneOnBentFold}
+            style={{ width: "100%", flex: 1 }}
+            onStart={() => {
+              paneBase.current =
+                paneWidth ?? hostsPaneWidth(paneLeft.current, paneFoldEdge);
+            }}
+            onMove={(dx) =>
+              setDragPaneWidth(
+                clampHostsPaneWidth(paneBase.current + dx, paneSpace),
+              )
+            }
+            onEnd={(dx) => {
+              const next = clampHostsPaneWidth(
+                paneBase.current + dx,
+                paneSpace,
+              );
+              setDragPaneWidth(null);
+              const foldNear =
+                layout.foldSplit && nearFold(paneLeft.current + next, fold);
+              setSavedPaneWidth(foldNear ? null : next);
+            }}
+          />
+        </View>
       ) : null}
       <View
         className="flex-1"

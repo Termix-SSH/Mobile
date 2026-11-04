@@ -44,16 +44,28 @@ export function foldFrom(
   return null;
 }
 
+/**
+ * How long the fold has to hold still before layouts follow it. As the hinge
+ * passes the point where it counts as bent, it can report bent, flat and bent
+ * again within a moment, and each report would start panes moving.
+ */
+export const FOLD_SETTLE_MS = 150;
+
 let current: FoldRegion[] | null = null;
 const listeners = new Set<() => void>();
 let native: { remove(): void } | null = null;
+let settle: ReturnType<typeof setTimeout> | null = null;
 
 function subscribe(listener: () => void) {
   listeners.add(listener);
   if (!native) {
     native = addFoldListener((folds) => {
-      current = folds;
-      listeners.forEach((l) => l());
+      if (settle) clearTimeout(settle);
+      settle = setTimeout(() => {
+        settle = null;
+        current = folds;
+        listeners.forEach((l) => l());
+      }, FOLD_SETTLE_MS);
     });
   }
   return () => {
@@ -62,6 +74,8 @@ function subscribe(listener: () => void) {
       native.remove();
       native = null;
       current = null;
+      if (settle) clearTimeout(settle);
+      settle = null;
     }
   };
 }

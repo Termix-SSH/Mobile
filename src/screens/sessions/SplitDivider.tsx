@@ -1,6 +1,9 @@
 import { useMemo, useRef, useState } from "react";
 import { PanResponder, View, type ViewStyle } from "react-native";
 
+/** Width of the handle off a fold. */
+export const DIVIDER_WIDTH = 6;
+
 /** Step for the screen reader increment and decrement actions. */
 const A11Y_STEP = 40;
 
@@ -13,6 +16,7 @@ export function SplitDivider({
   style,
   width,
   crease = false,
+  locked = false,
   onStart,
   onMove,
   onEnd,
@@ -22,6 +26,8 @@ export function SplitDivider({
   /** Width of the handle. A crease passes its own width. */
   width?: number;
   crease?: boolean;
+  /** Can't be dragged, like on a half folded screen. Shows a line down its middle. */
+  locked?: boolean;
   onStart: () => void;
   onMove: (dx: number) => void;
   onEnd: (dx: number) => void;
@@ -58,6 +64,18 @@ export function SplitDivider({
     onMove(dx);
     onEnd(dx);
   };
+  if (locked) {
+    return (
+      <View
+        className="items-center bg-background"
+        style={[{ width: width ?? DIVIDER_WIDTH, zIndex: 2 }, style]}
+        accessibilityElementsHidden
+        importantForAccessibility="no-hide-descendants"
+      >
+        <View testID="split-divider-line" className="w-px flex-1 bg-border" />
+      </View>
+    );
+  }
   return (
     <View
       {...pan.panHandlers}
@@ -70,7 +88,7 @@ export function SplitDivider({
       }
       hitSlop={crease ? undefined : { left: 10, right: 10 }}
       className={`items-center justify-center ${dragging ? "bg-accent-brand/40" : crease ? "bg-background" : "bg-border"}`}
-      style={[{ width: width ?? 6, zIndex: 2 }, style]}
+      style={[{ width: width ?? DIVIDER_WIDTH, zIndex: 2 }, style]}
     >
       <View
         className={`h-10 w-1 ${dragging ? "bg-accent-brand" : "bg-muted-foreground/50"}`}

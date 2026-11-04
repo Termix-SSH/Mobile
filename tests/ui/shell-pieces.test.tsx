@@ -2,10 +2,17 @@ import { render, renderHook, screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
 import { Button } from "@/ui/Button";
-import { BottomBarShown, useBottomInset } from "@/ui/bottom-inset";
+import {
+  BottomBarShown,
+  SideInsetsPadded,
+  useBottomInset,
+  useSideInsets,
+  useTopInset,
+} from "@/ui/bottom-inset";
 
 jest.mock("react-native-safe-area-context", () => ({
-  useSafeAreaInsets: () => ({ top: 20, bottom: 34, left: 0, right: 0 }),
+  // A right inset like the iPhone Duo status rail.
+  useSafeAreaInsets: () => ({ top: 20, bottom: 34, left: 0, right: 86 }),
 }));
 jest.mock("@/contexts/ThemeContext", () => ({
   useThemeColor: () => (token: string) => `token:${token}`,
@@ -20,6 +27,18 @@ test("views above the bottom bar leave the bottom inset to it", async () => {
     ),
   });
   expect(inTabs.result.current).toBe(0);
+});
+
+test("a pane its parent already pads skips the side insets but keeps the top", async () => {
+  const alone = await renderHook(() => useSideInsets());
+  expect(alone.result.current).toEqual({ left: 0, right: 86 });
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
+    <SideInsetsPadded.Provider value>{children}</SideInsetsPadded.Provider>
+  );
+  const inPane = await renderHook(() => useSideInsets(), { wrapper });
+  expect(inPane.result.current).toEqual({ left: 0, right: 0 });
+  const top = await renderHook(() => useTopInset(), { wrapper });
+  expect(top.result.current).toBe(20);
 });
 
 function Icon({ color }: { color?: string }) {
