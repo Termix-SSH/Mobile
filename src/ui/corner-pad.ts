@@ -11,7 +11,7 @@ import { useWindowInfo } from "@/utils/window-class";
  * screen has round corners where its outer screen is square, so titles and
  * buttons that sit right in a corner get clipped there.
  */
-export const CORNER_PAD = 10;
+export const CORNER_PAD = 20;
 
 /** How far down the window a header can start and still reach into a corner. */
 const CORNER_ZONE = 80;
