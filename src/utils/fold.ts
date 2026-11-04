@@ -45,9 +45,10 @@ export function foldFrom(
 }
 
 /**
- * How long the fold has to hold still before layouts follow it. As the hinge
- * passes the point where it counts as bent, it can report bent, flat and bent
- * again within a moment, and each report would start panes moving.
+ * How long the fold has to hold still after bending or going flat before
+ * layouts follow it. As the hinge passes the point where it counts as bent, it
+ * can report bent, flat and bent again within a moment, and each report would
+ * start panes moving.
  */
 export const FOLD_SETTLE_MS = 150;
 
@@ -71,6 +72,11 @@ export function sameRegions(a: FoldRegion[], b: FoldRegion[]): boolean {
   );
 }
 
+/** Same folds, each bent or flat as before, wherever they now are. */
+function sameBends(a: FoldRegion[], b: FoldRegion[]): boolean {
+  return a.length === b.length && a.every((r, i) => r.active === b[i].active);
+}
+
 function apply(folds: FoldRegion[]) {
   current = folds;
   listeners.forEach((l) => l());
@@ -81,6 +87,13 @@ function subscribe(listener: () => void) {
   if (!native) {
     native = addFoldListener((folds) => {
       if (settle) clearTimeout(settle);
+      settle = null;
+      // A turn moves the fold as the window changes size, so the frame follows at once.
+      // Only bending or going flat waits for the hinge to hold still.
+      if (current !== null && sameBends(current, folds)) {
+        apply(folds);
+        return;
+      }
       settle = setTimeout(() => {
         settle = null;
         apply(folds);

@@ -105,6 +105,23 @@ test("useFoldRegions follows the native module once the fold holds still", async
   }
 });
 
+test("a turn moves the fold at once, since the window resizes at once", async () => {
+  jest.useFakeTimers();
+  try {
+    const { result, unmount } = await renderHook(() => useFoldRegions());
+    const wide = [{ x: 475, y: 0, width: 0, height: 669, active: false }];
+    const tall = [{ x: 0, y: 475, width: 669, height: 0, active: false }];
+    await act(async () => mockEmit?.({ folds: wide }));
+    await act(async () => jest.advanceTimersByTime(FOLD_SETTLE_MS));
+    expect(result.current).toEqual(wide);
+    await act(async () => mockEmit?.({ folds: tall }));
+    expect(result.current).toEqual(tall);
+    await unmount();
+  } finally {
+    jest.useRealTimers();
+  }
+});
+
 test("a fold reported before anything listened still shows", async () => {
   const flat = [{ x: 475, y: 0, width: 0, height: 669, active: false }];
   // The first read is the render, the next one comes as it subscribes.
