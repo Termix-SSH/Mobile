@@ -31,8 +31,16 @@ const OUT = join(STORE, "art");
 const TITLE = "Your servers, in your *pocket*";
 const SUBTITLE = "SSH, files, Docker and remote desktop. No server needed.";
 
-const SIZES = [
-  { id: "header", width: 3840, height: 1646 },
+const SIZES: (Pick<BannerProps, "width" | "height" | "safe"> & {
+  id: string;
+})[] = [
+  // An iPhone shows only about the middle 64 percent, under the status bar.
+  {
+    id: "header",
+    width: 3840,
+    height: 1646,
+    safe: { width: 0.6, top: 0.1, bottom: 0.02 },
+  },
   { id: "search", width: 3840, height: 2560 },
   // Google Play feature graphic.
   { id: "feature", width: 1024, height: 500 },
@@ -79,8 +87,9 @@ const serveUrl = await bundle({
 
 mkdirSync(OUT, { recursive: true });
 for (const size of SIZES) {
+  const { id, ...dims } = size;
   const inputProps: BannerProps = {
-    ...size,
+    ...dims,
     title: TITLE,
     subtitle: SUBTITLE,
     tablet,
@@ -93,7 +102,7 @@ for (const size of SIZES) {
     id: "Banner",
     inputProps: inputProps as unknown as Record<string, unknown>,
   });
-  const name = `${size.id}-${size.width}x${size.height}.png`;
+  const name = `${id}-${size.width}x${size.height}.png`;
   await renderStill({
     composition,
     serveUrl,

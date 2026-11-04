@@ -55,9 +55,13 @@ export function Preview(props: PreviewProps) {
   const left = (next?.t ?? Infinity) - t;
   const opacity = Math.min(1, shown / FADE, left / FADE);
 
+  // The App Store shows every item in the first one's orientation, so the
+  // iPad preview is landscape like its stills: caption left, device right.
+  const wide = props.width > props.height;
   const headH = unit * 9;
-  const boxW = props.width - pad * 2;
-  const boxH = props.height - headH - pad * 2;
+  const headW = wide ? (props.width - pad * 2) * 0.4 : undefined;
+  const boxW = wide ? props.width - pad * 3 - headW! : props.width - pad * 2;
+  const boxH = wide ? props.height - pad * 2 : props.height - headH - pad * 2;
   const shot: Shot = {
     src: props.video,
     width: props.videoWidth,
@@ -76,22 +80,27 @@ export function Preview(props: PreviewProps) {
     <AbsoluteFill
       style={{
         background: colors.background,
+        flexDirection: wide ? "row" : "column",
         alignItems: "center",
+        justifyContent: wide ? "center" : undefined,
+        gap: wide ? pad : 0,
         padding: pad,
       }}
     >
       <div
         style={{
-          height: headH,
+          height: wide ? undefined : headH,
+          width: headW,
           display: "flex",
           alignItems: "center",
+          justifyContent: "center",
           opacity: Math.max(0, opacity),
         }}
       >
         <Heading
           title={caption?.title ?? ""}
           subtitle=""
-          size={unit * 3.2}
+          size={unit * (wide ? 2.6 : 3.2)}
           colors={colors}
           logo={false}
         />

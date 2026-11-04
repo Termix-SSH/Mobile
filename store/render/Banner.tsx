@@ -12,6 +12,11 @@ export type BannerProps = {
   phone: Shot;
   theme: string;
   accent: string;
+  /**
+   * Part of the art that is always shown, centered. Phones crop the App Store
+   * header to its middle, so everything has to fit in there.
+   */
+  safe?: { width: number; top: number; bottom: number };
 };
 
 /**
@@ -19,11 +24,15 @@ export type BannerProps = {
  * on the left, taller ones put it on top.
  */
 export function Banner(props: BannerProps) {
-  const { width, height, tablet, phone } = props;
+  const { tablet, phone, safe } = props;
   const colors = palette(props.theme, props.accent);
+  const width = props.width * (safe?.width ?? 1);
+  const height = props.height * (1 - (safe?.top ?? 0) - (safe?.bottom ?? 0));
+  const offX = (props.width - width) / 2;
+  const offY = props.height * (safe?.top ?? 0);
   const stacked = width / height < 2;
-  const pad = height * (stacked ? 0.08 : 0.1);
-  const size = Math.min(width * 0.034, height * 0.075);
+  const pad = height * (safe ? 0.05 : stacked ? 0.08 : 0.1);
+  const size = Math.min(width * (safe ? 0.048 : 0.034), height * 0.075);
   const textW = stacked ? width - pad * 2 : width * 0.36;
   const textH = stacked ? size * 3.6 : height;
 
@@ -53,8 +62,8 @@ export function Banner(props: BannerProps) {
       <div
         style={{
           position: "absolute",
-          left: stacked ? pad : pad * 1.4,
-          top: stacked ? pad : 0,
+          left: offX + (stacked ? pad : pad * 1.4),
+          top: offY + (stacked ? pad : 0),
           height: textH,
           width: textW,
           display: "flex",
@@ -97,8 +106,8 @@ export function Banner(props: BannerProps) {
       <div
         style={{
           position: "absolute",
-          left: groupL + overlap,
-          top: tabletTop,
+          left: offX + groupL + overlap,
+          top: offY + tabletTop,
         }}
       >
         <Device shots={[tablet]} kind="tablet" width={tabletW} rim={rim} />
@@ -106,8 +115,8 @@ export function Banner(props: BannerProps) {
       <div
         style={{
           position: "absolute",
-          left: groupL,
-          top: phoneTop,
+          left: offX + groupL,
+          top: offY + phoneTop,
           filter: `drop-shadow(0 0 ${phoneW * 0.08}px rgba(0, 0, 0, 0.7))`,
         }}
       >
