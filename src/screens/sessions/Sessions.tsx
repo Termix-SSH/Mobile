@@ -58,6 +58,10 @@ import {
   splitPartner,
 } from "@/screens/sessions/split";
 import { SplitDivider } from "@/screens/sessions/SplitDivider";
+import {
+  laptopKeysHeight,
+  sessionBarPlacement,
+} from "@/screens/sessions/laptop";
 import { neighborTab, tabNumber } from "@/contexts/session-tabs";
 import type {
   SessionMenuContext,
@@ -188,7 +192,11 @@ export default function Sessions() {
       : null;
 
   const customKeyboardHeight = laptopFold
-    ? Math.max(140, laptopFold.below - CUSTOM_KEYBOARD_TAB_HEIGHT)
+    ? laptopKeysHeight(
+        laptopFold,
+        CUSTOM_KEYBOARD_TAB_HEIGHT,
+        SESSION_TAB_BAR_HEIGHT,
+      )
     : Math.max(win.isShort ? 140 : 200, Math.min(effectiveKeyboardHeight, 500));
   // When the system keyboard is dismissed the keyboard bar reserves the
   // home-indicator safe area below its keys. The TabBar floats directly on top
@@ -350,7 +358,8 @@ export default function Sessions() {
     ? currentKeyboardHeight
     : customKeyboardHeight;
 
-  // Laptop fold: the terminal and its tabs stay on the top half, keys go on the bottom half.
+  // Laptop fold: the terminal gets the top half, keys go on the bottom half, and the
+  // tab bar joins them there when it fits.
   const laptop = activeIsTerminal ? laptopFold : null;
 
   const tabBarOnKeys = () => {
@@ -367,7 +376,8 @@ export default function Sessions() {
     if (!activeIsTerminal) {
       return insets.bottom;
     }
-    return Math.max(tabBarOnKeys(), laptop?.above ?? 0);
+    return sessionBarPlacement(tabBarOnKeys(), SESSION_TAB_BAR_HEIGHT, laptop)
+      .bottom;
   };
 
   // No active tab lays out like a terminal, as before.
@@ -375,9 +385,8 @@ export default function Sessions() {
     if (sessionType && !features.sessionHas(sessionType, "terminal-input")) {
       return SESSION_TAB_BAR_HEIGHT + insets.bottom;
     }
-    return (
-      SESSION_TAB_BAR_HEIGHT + Math.max(tabBarOnKeys(), laptop?.above ?? 0)
-    );
+    return sessionBarPlacement(tabBarOnKeys(), SESSION_TAB_BAR_HEIGHT, laptop)
+      .margin;
   };
 
   // A keyboard that came up, from a tap on the terminal too, ends a hide from the tab bar.
