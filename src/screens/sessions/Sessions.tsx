@@ -1107,7 +1107,7 @@ export default function Sessions() {
           <StageOverlay zIndex={1010}>
             {sessions.length === 0 ? (
               <Screen title="Connections">
-                <ConnectionsPanel />
+                <ConnectionsPanel besideHosts={showHostsPane} />
               </Screen>
             ) : (
               <Screen title="Connections" onBack={closeConnectionsPanel}>

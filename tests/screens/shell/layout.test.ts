@@ -51,9 +51,14 @@ test("a book fold puts the host list on the left half, flat or bent", () => {
     expect(l.hostsPane).toBe(true);
     expect(l.laptop).toBe(false);
   }
-  expect(shellLayout(windowInfo(951, 669, book(true)), 0).hostsPane).toBe(
-    false,
-  );
+});
+
+test("a book fold keeps the host list with nothing open", () => {
+  for (const active of [false, true]) {
+    expect(shellLayout(windowInfo(951, 669, book(active)), 0).hostsPane).toBe(
+      true,
+    );
+  }
 });
 
 test("a narrow book fold like a Galaxy Fold still splits", () => {

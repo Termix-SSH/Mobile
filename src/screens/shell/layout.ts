@@ -33,9 +33,9 @@ export function shellLayout(
   return {
     nav,
     // A phone held sideways is wide but too short for a second pane.
+    // On a fold the list stays even with nothing open, so the left half is never empty.
     hostsPane:
-      open > 0 &&
-      (foldSplit || (win.windowClass === "expanded" && win.canSplit)),
+      foldSplit || (open > 0 && win.windowClass === "expanded" && win.canSplit),
     // Phones give open sessions the whole window, sideways too.
     fullScreenSessions: !win.canSplit,
     foldSplit,

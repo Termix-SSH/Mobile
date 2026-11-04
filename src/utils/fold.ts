@@ -75,3 +75,51 @@ function snapshot(): FoldRegion[] {
 export function useFoldRegions(): FoldRegion[] {
   return useSyncExternalStore(subscribe, snapshot, snapshot);
 }
+
+/** A part of the window, in window points. */
+export type Area = { x: number; y: number; width: number; height: number };
+
+/** The two sides of a bent fold, before it and after it. Null while the screen is flat. */
+export function foldHalves(
+  fold: Fold | null,
+  width: number,
+  height: number,
+): [Area, Area] | null {
+  if (!fold?.active) return null;
+  if (fold.axis === "vertical") {
+    return [
+      { x: 0, y: 0, width: fold.start, height },
+      { x: fold.end, y: 0, width: width - fold.end, height },
+    ];
+  }
+  return [
+    { x: 0, y: 0, width, height: fold.start },
+    { x: 0, y: fold.end, width, height: height - fold.end },
+  ];
+}
+
+/**
+ * Where a sheet or alert sits. While bent it takes the right side of a book
+ * fold or the bottom of a laptop fold, like Apple's own alerts, so it never
+ * lies across the crease. Flat, it gets the whole window.
+ */
+export function panelArea(
+  fold: Fold | null,
+  width: number,
+  height: number,
+): Area {
+  return foldHalves(fold, width, height)?.[1] ?? { x: 0, y: 0, width, height };
+}
+
+/** The side of a bent fold a point is on, for menus that open where they were asked for. */
+export function areaAt(
+  fold: Fold | null,
+  point: { x: number; y: number },
+  width: number,
+  height: number,
+): Area {
+  const halves = foldHalves(fold, width, height);
+  if (!halves || !fold) return { x: 0, y: 0, width, height };
+  const along = fold.axis === "vertical" ? point.x : point.y;
+  return along < (fold.start + fold.end) / 2 ? halves[0] : halves[1];
+}
