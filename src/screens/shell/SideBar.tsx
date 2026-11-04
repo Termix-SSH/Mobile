@@ -7,7 +7,7 @@ import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
 import { useSessionStatuses } from "@/core/sessions/status";
 import { sessionsMark, TABS } from "@/screens/shell/BottomBar";
 import { useWindowInfo } from "@/utils/window-class";
-import { SIDEBAR_WIDTH } from "@/screens/shell/layout";
+import { SIDEBAR_WIDTH, shellLayout } from "@/screens/shell/layout";
 
 export { SIDEBAR_WIDTH };
 /** The rail on a phone held sideways, where height is short. */
@@ -29,7 +29,8 @@ export function SideBar({
   inBar?: boolean;
 }) {
   const insets = useSafeAreaInsets();
-  const { isShort } = useWindowInfo();
+  const win = useWindowInfo();
+  const { isShort, fold } = win;
   const color = useThemeColor();
   const { sessions } = useTerminalSessions();
   const statuses = useSessionStatuses();
@@ -41,6 +42,11 @@ export function SideBar({
   );
 
   const edgeInset = side === "left" ? insets.left : insets.right;
+  // Bent like a laptop, the tabs stay on the top half with the screens they switch,
+  // clear of the keys below the crease.
+  const belowCrease =
+    shellLayout(win, 0).laptop && fold ? win.height - fold.start : 0;
+  const bottom = Math.max(insets.bottom, belowCrease);
   // Items mark the selected tab on the screen edge side.
   const markSide = side === "left" ? "borderLeft" : "borderRight";
   return (
@@ -52,14 +58,14 @@ export function SideBar({
               // The column is the safe area, so the rail fills it and adds nothing.
               width: edgeInset,
               paddingTop: insets.top,
-              paddingBottom: insets.bottom + 8,
+              paddingBottom: bottom + 8,
             }
           : {
               // The notch side inset comes on top of the rail, not out of it.
               width:
                 (isShort ? SHORT_SIDEBAR_WIDTH : SIDEBAR_WIDTH) + edgeInset,
               paddingTop: insets.top + (isShort ? 4 : 8),
-              paddingBottom: insets.bottom + (isShort ? 4 : 8),
+              paddingBottom: bottom + (isShort ? 4 : 8),
               [side === "left" ? "paddingLeft" : "paddingRight"]: edgeInset,
             }
       }
