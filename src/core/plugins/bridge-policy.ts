@@ -34,6 +34,13 @@ const RULES: Rule[] = [
   { methods: READ, path: () => /^\/host\/(folders|policy)$/ },
   { methods: READ, path: () => /^\/host\/status(\/\d+|\/settings)?$/ },
   { methods: READ, path: () => /^\/credentials$/ },
+  // Actions go through the server's own checks. Deciding approvals stays out.
+  {
+    methods: READ,
+    path: () =>
+      /^\/operations\/(catalog|runs|events|timeline|signals|resources)(\/|$)/,
+  },
+  { methods: ["POST"], path: () => /^\/operations\/[a-z0-9.-]+\/run$/ },
   { methods: ["POST"], path: () => /^\/users\/ws-ticket$/ },
   { methods: ["POST"], path: () => /^\/dashboard\/activity\/log$/ },
 ];

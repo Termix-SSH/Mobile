@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0
+
+### Added
+
+- Actions on a host: every action the server's plugins offer for that host, such as restarting a container or service, with a form, a dry run and the result. New plugins show up with no app update
+- Approvals and Run history under Tools, when the server has Operations Center
+- WireGuard opens in the app
+
 ## 2.0.0
 
 Termix Mobile now works with no server. Hosts, logins and snippets stay encrypted on the phone, and the terminal, files, tunnels, Docker, metrics, services and remote desktop connect straight from it. Link one or more Termix servers to sync with them and use their plugins.

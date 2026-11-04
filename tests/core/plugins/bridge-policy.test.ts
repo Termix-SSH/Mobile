@@ -147,3 +147,12 @@ test("the page can't set login, proxy or identity headers", () => {
     }),
   ).toEqual({ Accept: "application/json", "content-type": "text/plain" });
 });
+
+test("actions can be read and run, but never approved", () => {
+  expect(ok("GET", "/operations/catalog")).toBe(true);
+  expect(ok("GET", "/operations/resources/docker.container")).toBe(true);
+  expect(ok("POST", "/operations/docker.restart-container/run")).toBe(true);
+  expect(ok("POST", "/operations/approvals/abc")).toBe(false);
+  expect(ok("GET", "/operations/approvals")).toBe(false);
+  expect(ok("POST", "/operations/runs/abc/cancel")).toBe(false);
+});

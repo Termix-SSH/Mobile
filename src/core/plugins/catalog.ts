@@ -72,6 +72,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "ldap", name: "LDAP", kind: "server" },
   { id: "login-security", name: "Login Security", kind: "server" },
   { id: "network-topology", name: "Network Topology", kind: "webview" },
+  { id: "operations-center", name: "Operations Center", kind: "none" },
   { id: "opkssh", name: "OPKSSH", kind: "server" },
   {
     id: "proxmox",
@@ -114,6 +115,12 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "warpgate", name: "Warpgate", kind: "server" },
   { id: "web-endpoint", name: "Web Endpoint", kind: "none" },
   { id: "webauthn", name: "Passkeys", kind: "server" },
+  {
+    id: "wireguard",
+    name: "WireGuard",
+    kind: "webview",
+    hostGates: { wireguard: { setting: "enableWireguard", ssh: true } },
+  },
   { id: "workspaces", name: "Workspaces", kind: "webview" },
 ];
 

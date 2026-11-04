@@ -5,6 +5,7 @@ import { fileManagerFeature } from "./file-manager/register";
 import { hostDefaultsFeature } from "./host-defaults/register";
 import { hostTransferFeature } from "./host-transfer/register";
 import { hostMetricsFeature } from "./host-metrics/register";
+import { operationsFeature } from "./operations/register";
 import { pluginHostFieldsFeature } from "./plugin-host-fields/register";
 import {
   rdpFeature,
@@ -33,6 +34,7 @@ export const BUILT_IN_FEATURES = [
   vncFeature,
   telnetFeature,
   wakeOnLanFeature,
+  operationsFeature,
   snippetsFeature,
   hostDefaultsFeature,
   hostTransferFeature,
