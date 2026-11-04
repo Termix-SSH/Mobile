@@ -6,6 +6,10 @@ import UIKit
 public class FoldModule: Module {
   private var last: [[String: Any]] = []
   private var lastBar: [String: Any] = [:]
+  /// Copies for JS. Its functions run on the JS thread while main updates the values above.
+  private let lock = NSLock()
+  private var sharedFolds: [[String: Any]] = []
+  private var sharedBar: [String: Any] = [:]
   private var watcher: FoldWatchView?
   private var timer: Timer?
 
@@ -15,11 +19,11 @@ public class FoldModule: Module {
     Events("onFoldChange", "onVerticalBarChange")
 
     Function("getFolds") { () -> [[String: Any]] in
-      self.last
+      self.lock.withLock { self.sharedFolds }
     }
 
     Function("getVerticalBar") { () -> [String: Any] in
-      self.lastBar
+      self.lock.withLock { self.sharedBar }
     }
 
     OnCreate {
@@ -91,6 +95,7 @@ public class FoldModule: Module {
     let bar = FoldModule.verticalBar(in: view)
     if !NSDictionary(dictionary: bar).isEqual(to: lastBar) {
       lastBar = bar
+      lock.withLock { sharedBar = bar }
       sendEvent("onVerticalBarChange", bar)
     }
     let folds = FoldModule.folds(in: view)
@@ -107,6 +112,7 @@ public class FoldModule: Module {
   private func publish(_ folds: [[String: Any]]) {
     guard !FoldModule.same(folds, last) else { return }
     last = folds
+    lock.withLock { sharedFolds = folds }
     sendEvent("onFoldChange", ["folds": folds])
   }
 
