@@ -4,8 +4,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 /** True inside tab screens that sit above the bottom bar. */
 export const BottomBarShown = createContext(false);
 
-/** True inside tab screens that sit beside the side rail. */
-export const SideBarShown = createContext(false);
+/**
+ * The side of the rail, inside tab screens that sit beside it. The rail pads
+ * that side's safe area itself, like a notch or the iPhone Duo bar column.
+ */
+export const SideBarShown = createContext<"left" | "right" | null>(null);
 
 /** True inside views already below the status bar and clear of the notch, like session tabs. */
 export const SafeAreaPadded = createContext(false);
@@ -30,8 +33,8 @@ export function useSideInsets(): { left: number; right: number } {
   const padded = areaPadded || sidesPadded;
   const rail = useContext(SideBarShown);
   return {
-    left: padded || rail ? 0 : insets.left,
-    right: padded ? 0 : insets.right,
+    left: padded || rail === "left" ? 0 : insets.left,
+    right: padded || rail === "right" ? 0 : insets.right,
   };
 }
 

@@ -5,16 +5,21 @@ import UIKit
 // Inactive folds are listed too, so layouts can stay put while the phone opens and closes.
 public class FoldModule: Module {
   private var last: [[String: Any]] = []
+  private var lastBar: [String: Any] = [:]
   private var watcher: FoldWatchView?
   private var timer: Timer?
 
   public func definition() -> ModuleDefinition {
     Name("TermixFold")
 
-    Events("onFoldChange")
+    Events("onFoldChange", "onVerticalBarChange")
 
     Function("getFolds") { () -> [[String: Any]] in
       self.last
+    }
+
+    Function("getVerticalBar") { () -> [String: Any] in
+      self.lastBar
     }
 
     OnCreate {
@@ -83,6 +88,11 @@ public class FoldModule: Module {
 
   func refresh() {
     guard let view = watcher, view.window != nil else { return }
+    let bar = FoldModule.verticalBar(in: view)
+    if !NSDictionary(dictionary: bar).isEqual(to: lastBar) {
+      lastBar = bar
+      sendEvent("onVerticalBarChange", bar)
+    }
     let folds = FoldModule.folds(in: view)
     // A fold opening may not lay anything out, so until UIKit is seen tracking the
     // regions, foldables also check twice a second.
@@ -98,6 +108,36 @@ public class FoldModule: Module {
     guard !FoldModule.same(folds, last) else { return }
     last = folds
     sendEvent("onFoldChange", ["folds": folds])
+  }
+
+  /// The side where the system stacks the status bar and app bars on iPhone Duo, and where
+  /// the status bar sits in that column, in window points. "none" off a Duo, or when the
+  /// system keeps bars horizontal there.
+  static func verticalBar(in view: UIView) -> [String: Any] {
+    var edge = "none"
+    #if TERMIX_DUO_SDK
+    if #available(iOS 27.1, *) {
+      switch view.traitCollection.verticalBarEdge {
+      case .leading: edge = "leading"
+      case .trailing: edge = "trailing"
+      default: edge = "none"
+      }
+    }
+    #endif
+    let status = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+    let s = view.window.map { $0.convert(status, from: $0.screen.coordinateSpace) } ?? status
+    let insets = view.safeAreaInsets
+    return [
+      "edge": edge,
+      "statusX": Double(s.origin.x),
+      "statusY": Double(s.origin.y),
+      "statusWidth": Double(s.size.width),
+      "statusHeight": Double(s.size.height),
+      "insetLeft": Double(insets.left),
+      "insetRight": Double(insets.right),
+      "insetTop": Double(insets.top),
+      "insetBottom": Double(insets.bottom),
+    ]
   }
 
   /// Folds in the view's own points. The watcher fills the window from its origin, so

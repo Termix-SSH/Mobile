@@ -13,8 +13,21 @@ export { SIDEBAR_WIDTH };
 /** The rail on a phone held sideways, where height is short. */
 const SHORT_SIDEBAR_WIDTH = 64;
 
-/** Navigation rail for tablets and wide windows. Same tabs as the bottom bar. */
-export function SideBar({ state, navigation }: BottomTabBarProps) {
+/**
+ * Navigation rail for tablets and wide windows. Same tabs as the bottom bar.
+ * On iPhone Duo it sits in the column the system keeps for its bars, under the
+ * status bar, with the tabs at the bottom like Apple's own vertical tab bars.
+ */
+export function SideBar({
+  state,
+  navigation,
+  side = "left",
+  inBar = false,
+}: BottomTabBarProps & {
+  side?: "left" | "right";
+  /** Inside the system's bar column, which is as wide as that side's safe area. */
+  inBar?: boolean;
+}) {
   const insets = useSafeAreaInsets();
   const { isShort } = useWindowInfo();
   const color = useThemeColor();
@@ -27,16 +40,29 @@ export function SideBar({ state, navigation }: BottomTabBarProps) {
     statuses,
   );
 
+  const edgeInset = side === "left" ? insets.left : insets.right;
+  // Items mark the selected tab on the screen edge side.
+  const markSide = side === "left" ? "borderLeft" : "borderRight";
   return (
     <View
-      className="items-stretch border-r border-border bg-sidebar"
-      style={{
-        // The notch side inset comes on top of the rail, not out of it.
-        width: (isShort ? SHORT_SIDEBAR_WIDTH : SIDEBAR_WIDTH) + insets.left,
-        paddingTop: insets.top + (isShort ? 4 : 8),
-        paddingBottom: insets.bottom + (isShort ? 4 : 8),
-        paddingLeft: insets.left,
-      }}
+      className={`items-stretch border-border bg-sidebar ${side === "left" ? "border-r" : "border-l"} ${inBar ? "justify-end" : ""}`}
+      style={
+        inBar
+          ? {
+              // The column is the safe area, so the rail fills it and adds nothing.
+              width: edgeInset,
+              paddingTop: insets.top,
+              paddingBottom: insets.bottom + 8,
+            }
+          : {
+              // The notch side inset comes on top of the rail, not out of it.
+              width:
+                (isShort ? SHORT_SIDEBAR_WIDTH : SIDEBAR_WIDTH) + edgeInset,
+              paddingTop: insets.top + (isShort ? 4 : 8),
+              paddingBottom: insets.bottom + (isShort ? 4 : 8),
+              [side === "left" ? "paddingLeft" : "paddingRight"]: edgeInset,
+            }
+      }
     >
       {state.routes.map((route, index) => {
         const tab = TABS.find((t) => t.name === route.name);
@@ -67,8 +93,8 @@ export function SideBar({ state, navigation }: BottomTabBarProps) {
             }
             className={`items-center justify-center gap-1 hover:bg-muted/30 ${isShort ? "flex-1" : "py-3"}`}
             style={{
-              borderLeftWidth: 2,
-              borderLeftColor: focused ? accent : "transparent",
+              [`${markSide}Width`]: 2,
+              [`${markSide}Color`]: focused ? accent : "transparent",
             }}
           >
             <View>
