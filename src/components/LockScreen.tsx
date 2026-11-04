@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AppState, Keyboard, View, Pressable } from "react-native";
 import { Lock, ChevronLeft } from "lucide-react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAppLock } from "@/contexts/AppLockContext";
 import { PinPad, PIN_LENGTH, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
@@ -43,6 +44,7 @@ export function LockScreen({
     pinWaitMs,
   } = useAppLock();
   const color = useThemeColor();
+  const insets = useSafeAreaInsets();
   const [pin, setPin] = useState("");
   const [error, setError] = useState(false);
 
@@ -95,14 +97,19 @@ export function LockScreen({
 
   return (
     <View
-      className="absolute inset-0 z-50 items-center justify-center bg-background px-8"
+      className="absolute inset-0 z-50 items-center justify-center bg-background"
+      style={{
+        paddingLeft: insets.left + 32,
+        paddingRight: insets.right + 32,
+      }}
       accessibilityViewIsModal
     >
       {onCancel ? (
         <Pressable
           onPress={onCancel}
           accessibilityRole="button"
-          className="absolute left-5 top-14 flex-row items-center"
+          className="absolute top-14 flex-row items-center"
+          style={{ left: insets.left + 20 }}
           hitSlop={12}
         >
           <ChevronLeft size={20} color={color("muted-foreground")} />
