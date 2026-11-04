@@ -66,6 +66,11 @@ test("a narrow book fold like a Galaxy Fold still splits", () => {
   const l = shellLayout(windowInfo(673, 841, folds), 2);
   expect(l.nav).toBe("side");
   expect(l.hostsPane).toBe(true);
+  // Android foldables keep the list with nothing open too, flat or half open.
+  for (const active of [false, true]) {
+    const bent = [{ ...folds[0], active }];
+    expect(shellLayout(windowInfo(673, 841, bent), 0).hostsPane).toBe(true);
+  }
 });
 
 test("a fold too far to one side keeps the normal layout", () => {
