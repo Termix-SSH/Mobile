@@ -56,6 +56,26 @@ const listeners = new Set<() => void>();
 let native: { remove(): void } | null = null;
 let settle: ReturnType<typeof setTimeout> | null = null;
 
+/** Same folds in the same places, bent or flat alike. */
+export function sameRegions(a: FoldRegion[], b: FoldRegion[]): boolean {
+  return (
+    a.length === b.length &&
+    a.every(
+      (r, i) =>
+        r.x === b[i].x &&
+        r.y === b[i].y &&
+        r.width === b[i].width &&
+        r.height === b[i].height &&
+        r.active === b[i].active,
+    )
+  );
+}
+
+function apply(folds: FoldRegion[]) {
+  current = folds;
+  listeners.forEach((l) => l());
+}
+
 function subscribe(listener: () => void) {
   listeners.add(listener);
   if (!native) {
@@ -63,10 +83,15 @@ function subscribe(listener: () => void) {
       if (settle) clearTimeout(settle);
       settle = setTimeout(() => {
         settle = null;
-        current = folds;
-        listeners.forEach((l) => l());
+        apply(folds);
       }, FOLD_SETTLE_MS);
     });
+    // A change sent before the first listener existed was dropped, so catch up.
+    // React checks the snapshot again right after subscribing.
+    if (current !== null) {
+      const now = getFolds();
+      if (!sameRegions(current, now)) current = now;
+    }
   }
   return () => {
     listeners.delete(listener);

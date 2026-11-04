@@ -50,6 +50,9 @@ function subscribe(listener: () => void) {
       current = next;
       listeners.forEach((l) => l());
     });
+    // A change sent before the first listener existed was dropped, so catch up.
+    // React checks the snapshot again right after subscribing.
+    if (current !== undefined) current = barColumnSide(getVerticalBar());
   }
   return () => {
     listeners.delete(listener);

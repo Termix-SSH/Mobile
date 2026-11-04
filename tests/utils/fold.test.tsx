@@ -13,11 +13,14 @@ import {
 
 let mockEmit: ((e: { folds: unknown[] }) => void) | null = null;
 const mockRemove = jest.fn();
+// What the native side reports on each read, last one repeating.
+let mockReads: unknown[][] = [[]];
 
 jest.mock("expo-modules-core", () => ({
   ...jest.requireActual("expo-modules-core"),
   requireOptionalNativeModule: () => ({
-    getFolds: () => [],
+    getFolds: () =>
+      mockReads.length > 1 ? mockReads.shift() : (mockReads[0] ?? []),
     addListener: (_: string, cb: (e: { folds: unknown[] }) => void) => {
       mockEmit = cb;
       return { remove: mockRemove };
@@ -99,6 +102,19 @@ test("useFoldRegions follows the native module once the fold holds still", async
     expect(mockRemove).toHaveBeenCalled();
   } finally {
     jest.useRealTimers();
+  }
+});
+
+test("a fold reported before anything listened still shows", async () => {
+  const flat = [{ x: 475, y: 0, width: 0, height: 669, active: false }];
+  // The first read is the render, the next one comes as it subscribes.
+  mockReads = [[], flat];
+  try {
+    const { result, unmount } = await renderHook(() => useFoldRegions());
+    expect(result.current).toEqual(flat);
+    await unmount();
+  } finally {
+    mockReads = [[]];
   }
 });
 
