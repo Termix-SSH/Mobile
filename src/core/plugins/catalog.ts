@@ -51,6 +51,12 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   },
   { id: "docker", name: "Docker", kind: "none" },
   { id: "file-manager", name: "File Manager", kind: "none" },
+  {
+    id: "firewall",
+    name: "Firewall",
+    kind: "webview",
+    hostGates: { firewall: { setting: "enableFirewall", ssh: true } },
+  },
   { id: "fleets", name: "Fleets", kind: "webview" },
   { id: "homepage", name: "Homepage", kind: "webview" },
   { id: "host-metrics", name: "Host Metrics", kind: "none" },
