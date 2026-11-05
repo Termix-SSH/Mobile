@@ -39,10 +39,23 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
     kind: "webview",
     hostGates: { host_maintenance: { setting: "enableMaintenance" } },
   },
+  { id: "backups", name: "Backups", kind: "webview" },
+  {
+    id: "certificates",
+    name: "Certificates",
+    kind: "webview",
+    hostGates: { certificates: { setting: "enableCertificates", ssh: true } },
+  },
   { id: "classic-layout", name: "Classic Layout", kind: "look" },
   { id: "classic-themes", name: "Classic Themes", kind: "look" },
   { id: "cloud-providers", name: "Cloud Providers", kind: "webview" },
   { id: "credential-tools", name: "Credential Tools", kind: "none" },
+  {
+    id: "cron",
+    name: "Cron",
+    kind: "webview",
+    hostGates: { cron: { setting: "enableCron", ssh: true } },
+  },
   {
     id: "databases",
     name: "Databases",
@@ -74,6 +87,20 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "network-topology", name: "Network Topology", kind: "webview" },
   { id: "operations-center", name: "Operations Center", kind: "none" },
   { id: "opkssh", name: "OPKSSH", kind: "server" },
+  {
+    id: "package-manager",
+    name: "Packages",
+    kind: "webview",
+    hostGates: { "package-manager": { setting: "enablePackages", ssh: true } },
+  },
+  {
+    id: "process-manager",
+    name: "Process Manager",
+    kind: "webview",
+    hostGates: {
+      "process-manager": { setting: "enableProcesses", ssh: true },
+    },
+  },
   {
     id: "proxmox",
     name: "Proxmox",
@@ -110,10 +137,23 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "tmux-monitor", name: "Tmux Monitor", kind: "server" },
   { id: "totp", name: "TOTP", kind: "none" },
   { id: "tunnels", name: "Tunnels", kind: "none" },
+  { id: "uptime", name: "Uptime", kind: "webview" },
+  {
+    id: "user-manager",
+    name: "Users",
+    kind: "webview",
+    hostGates: { "user-manager": { setting: "enableUsers", ssh: true } },
+  },
   { id: "vault", name: "SSH Certificate Signer", kind: "server" },
   { id: "wake-on-lan", name: "Wake-on-LAN", kind: "none" },
   { id: "warpgate", name: "Warpgate", kind: "server" },
   { id: "web-endpoint", name: "Web Endpoint", kind: "none" },
+  {
+    id: "web-servers",
+    name: "Web Servers",
+    kind: "webview",
+    hostGates: { "web-servers": { setting: "enableWebServers", ssh: true } },
+  },
   { id: "webauthn", name: "Passkeys", kind: "server" },
   {
     id: "wireguard",
