@@ -84,6 +84,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
     hostGates: { kubernetes: { setting: "enableKubernetes", ssh: true } },
   },
   { id: "ldap", name: "LDAP", kind: "server" },
+  { id: "log-search", name: "Log Search", kind: "webview" },
   { id: "login-security", name: "Login Security", kind: "server" },
   { id: "network-topology", name: "Network Topology", kind: "webview" },
   { id: "operations-center", name: "Operations Center", kind: "none" },
