@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { Modal, Pressable, View } from "react-native";
 import { useWindowInfo } from "@/utils/window-class";
+import { areaAt } from "@/utils/fold";
 import { Text } from "./Text";
 import { useUiColors } from "@/contexts/ThemeContext";
 
@@ -31,20 +32,25 @@ export function isSecondaryClick(e: PointerLike): boolean {
   return e.button === 2 || (e.buttons !== undefined && (e.buttons & 2) !== 0);
 }
 
-/** Keeps the menu inside the window, flipping up or left near an edge. */
+/**
+ * Keeps the menu inside an area, flipping up or left near an edge. The area is
+ * the window, or one side of a bent fold so the menu never lies on the crease.
+ */
 export function menuPosition(
   at: { x: number; y: number },
   size: { width: number; height: number },
-  win: { width: number; height: number },
+  area: { x?: number; y?: number; width: number; height: number },
 ): { left: number; top: number } {
+  const x0 = area.x ?? 0;
+  const y0 = area.y ?? 0;
   const left =
-    at.x + size.width + MARGIN > win.width
-      ? Math.max(MARGIN, at.x - size.width)
-      : at.x;
+    at.x + size.width + MARGIN > x0 + area.width
+      ? Math.max(x0 + MARGIN, at.x - size.width)
+      : Math.max(x0, at.x);
   const top =
-    at.y + size.height + MARGIN > win.height
-      ? Math.max(MARGIN, at.y - size.height)
-      : at.y;
+    at.y + size.height + MARGIN > y0 + area.height
+      ? Math.max(y0 + MARGIN, at.y - size.height)
+      : Math.max(y0, at.y);
   return { left, top };
 }
 
@@ -94,7 +100,7 @@ export function ContextMenu({
     ? menuPosition(
         at,
         { width: MENU_WIDTH, height: menuHeight(items.length) },
-        win,
+        areaAt(win.fold, at, win.width, win.height),
       )
     : { left: 0, top: 0 };
 

@@ -42,6 +42,7 @@ import {
   HOSTS_PANE_WIDTH_KEY,
   HostsPane,
   SPLIT_RATIO_KEY,
+  chosenHostsPaneWidth,
   clampHostsPaneWidth,
   hostsPaneWidth,
   useHostsPaneHidden,
@@ -57,6 +58,11 @@ import {
   splitPartner,
 } from "@/screens/sessions/split";
 import { SplitDivider } from "@/screens/sessions/SplitDivider";
+import {
+  keyRowUnderCrease,
+  laptopKeysHeight,
+  sessionBarPlacement,
+} from "@/screens/sessions/laptop";
 import { neighborTab, tabNumber } from "@/contexts/session-tabs";
 import type {
   SessionMenuContext,
@@ -187,7 +193,11 @@ export default function Sessions() {
       : null;
 
   const customKeyboardHeight = laptopFold
-    ? Math.max(140, laptopFold.below - CUSTOM_KEYBOARD_TAB_HEIGHT)
+    ? laptopKeysHeight(
+        laptopFold,
+        CUSTOM_KEYBOARD_TAB_HEIGHT,
+        SESSION_TAB_BAR_HEIGHT,
+      )
     : Math.max(win.isShort ? 140 : 200, Math.min(effectiveKeyboardHeight, 500));
   // When the system keyboard is dismissed the keyboard bar reserves the
   // home-indicator safe area below its keys. The TabBar floats directly on top
@@ -349,13 +359,20 @@ export default function Sessions() {
     ? currentKeyboardHeight
     : customKeyboardHeight;
 
-  // Laptop fold: the terminal and its tabs stay on the top half, keys go on the bottom half.
+  // Laptop fold: the terminal gets the top half, keys go on the bottom half, and the
+  // tab bar joins them there when it fits.
   const laptop = activeIsTerminal ? laptopFold : null;
+  // The system keyboard there claims the crease, so the key row takes the gap under it.
+  const keyRowBottom =
+    systemKeyboardUp && !isCustomKeyboardVisible
+      ? keyRowUnderCrease(currentKeyboardHeight, KEYBOARD_BAR_HEIGHT, laptop)
+      : null;
 
   const tabBarOnKeys = () => {
     if (isCustomKeyboardVisible) {
       return CUSTOM_KEYBOARD_TAB_HEIGHT + customKeyboardHeight;
     }
+    if (keyRowBottom !== null) return keyRowBottom + KEYBOARD_BAR_HEIGHT;
 
     return barsOnKeyboard
       ? KEYBOARD_BAR_HEIGHT + barsKeyboardHeight
@@ -366,7 +383,8 @@ export default function Sessions() {
     if (!activeIsTerminal) {
       return insets.bottom;
     }
-    return Math.max(tabBarOnKeys(), laptop?.above ?? 0);
+    return sessionBarPlacement(tabBarOnKeys(), SESSION_TAB_BAR_HEIGHT, laptop)
+      .bottom;
   };
 
   // No active tab lays out like a terminal, as before.
@@ -374,9 +392,8 @@ export default function Sessions() {
     if (sessionType && !features.sessionHas(sessionType, "terminal-input")) {
       return SESSION_TAB_BAR_HEIGHT + insets.bottom;
     }
-    return (
-      SESSION_TAB_BAR_HEIGHT + Math.max(tabBarOnKeys(), laptop?.above ?? 0)
-    );
+    return sessionBarPlacement(tabBarOnKeys(), SESSION_TAB_BAR_HEIGHT, laptop)
+      .margin;
   };
 
   // A keyboard that came up, from a tap on the terminal too, ends a hide from the tab bar.
@@ -838,11 +855,17 @@ export default function Sessions() {
   const paneBase = useRef(0);
   const paneSpace = win.width - side.left - side.right;
   const paneFoldEdge = layout.foldSplit ? fold?.start : undefined;
-  const paneWidth =
-    dragPaneWidth ??
-    (savedPaneWidth == null
-      ? null
-      : clampHostsPaneWidth(savedPaneWidth, paneSpace));
+  // Half folded, the list ends at the crease and the divider fills it, whatever width was
+  // dragged while flat, so neither pane runs across the bend. Flat again, that width returns.
+  const paneOnBentFold = !!(layout.foldSplit && fold?.active);
+  // Bending mid drag locks the divider before the finger lifts, so that drag never ends.
+  if (paneOnBentFold && dragPaneWidth !== null) setDragPaneWidth(null);
+  const paneWidth = chosenHostsPaneWidth({
+    bentFold: paneOnBentFold,
+    dragged: dragPaneWidth,
+    saved: savedPaneWidth,
+    available: paneSpace,
+  });
   const paneOnFold = !!(layout.foldSplit && fold && paneWidth == null);
 
   const activeTerminalBgColor =
@@ -904,6 +927,7 @@ export default function Sessions() {
         <HostsPane
           edge={paneFoldEdge}
           width={paneWidth}
+          tweenKey={paneOnBentFold}
           onLeft={(x) => {
             paneLeft.current = x;
           }}
@@ -911,10 +935,14 @@ export default function Sessions() {
       ) : null}
       {showHostsPane ? (
         // On a fold it fills the crease, so nothing sits on it until dragged off.
+        // Half folded it stays there. It glides with the list between the crease and a
+        // dragged width.
         <SplitDivider
           label="Resize host list"
           crease={paneOnFold}
+          locked={paneOnBentFold}
           width={paneOnFold && fold ? fold.end - fold.start : undefined}
+          glideKey={paneOnBentFold}
           onStart={() => {
             paneBase.current =
               paneWidth ?? hostsPaneWidth(paneLeft.current, paneFoldEdge);
@@ -1107,7 +1135,7 @@ export default function Sessions() {
           <StageOverlay zIndex={1010}>
             {sessions.length === 0 ? (
               <Screen title="Connections">
-                <ConnectionsPanel />
+                <ConnectionsPanel besideHosts={showHostsPane} />
               </Screen>
             ) : (
               <Screen title="Connections" onBack={closeConnectionsPanel}>
@@ -1124,7 +1152,8 @@ export default function Sessions() {
             <View
               style={{
                 position: "absolute",
-                bottom: barsOnKeyboard ? barsKeyboardHeight : 0,
+                bottom:
+                  keyRowBottom ?? (barsOnKeyboard ? barsKeyboardHeight : 0),
                 left: 0,
                 right: 0,
                 height: barsOnKeyboard

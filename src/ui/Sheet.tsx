@@ -12,6 +12,7 @@ import {
   type KeyboardMetrics,
 } from "react-native";
 import { useWindowInfo } from "@/utils/window-class";
+import { keyboardOver, panelArea } from "@/utils/fold";
 import Animated, {
   ReduceMotion,
   useAnimatedStyle,
@@ -113,15 +114,24 @@ export function Sheet({
   inline?: boolean;
 }) {
   const insets = useSafeAreaInsets();
-  const { width, height } = useWindowInfo();
+  const win = useWindowInfo();
+  const { width, height } = win;
   const color = useThemeColor();
   const close = dismissable ? onClose : () => {};
+  const keyboard = useKeyboardHeight(visible);
+  // On a bent fold the sheet keeps to one side, so it never lies on the crease.
+  const area = panelArea(win.fold, width, height, keyboard);
+  // Only the edges the sheet reaches have insets to keep clear of.
+  const padLeft = area.x <= 0 ? insets.left : 0;
+  const padRight = area.x + area.width >= width ? insets.right : 0;
+  const padBottom = area.y + area.height >= height ? insets.bottom : 0;
+  // Above a laptop fold the keyboard may not reach the sheet at all.
+  const keyboardIn = keyboardOver(area, height, keyboard);
   // A full width sheet keeps its rows clear of a notch held sideways.
   const fullWidth =
-    width <= SHEET_MAX_WIDTH + 2 * Math.max(insets.left, insets.right);
+    area.width <= SHEET_MAX_WIDTH + 2 * Math.max(padLeft, padRight);
   // On a short window any sheet can run past its cap, so it always scrolls.
   const scrolls = scroll || height < 500;
-  const keyboard = useKeyboardHeight(visible);
   useEffect(() => {
     if (!inline || !visible) return;
     const sub = BackHandler.addEventListener("hardwareBackPress", () => {
@@ -165,81 +175,95 @@ export function Sheet({
         accessible={false}
         importantForAccessibility="no"
       />
-      <Animated.View
-        accessibilityViewIsModal
-        onAccessibilityEscape={close}
-        className={`border-t bg-popover ${fullWidth ? "" : "border-x"} ${tone === "destructive" ? "border-destructive/40" : "border-border"}`}
-        style={[
-          slideStyle,
-          {
-            paddingBottom: Math.max(insets.bottom, keyboard),
-            paddingLeft: fullWidth ? insets.left : 0,
-            paddingRight: fullWidth ? insets.right : 0,
-            // 85% of the space above the keyboard, plus the part behind it.
-            maxHeight: keyboard ? (height - keyboard) * 0.85 + keyboard : "85%",
-            width: "100%",
-            maxWidth: SHEET_MAX_WIDTH,
-            alignSelf: "center",
-          },
-        ]}
+      <View
+        pointerEvents="box-none"
+        style={{
+          position: "absolute",
+          left: area.x,
+          top: area.y,
+          width: area.width,
+          height: area.height,
+          justifyContent: "flex-end",
+        }}
       >
-        <View className="items-center pb-1 pt-2">
-          <View className="h-1 w-9 bg-muted-foreground/30" />
-        </View>
-        {title ? (
-          <View className="flex-row items-start gap-2.5 px-4 pb-3 pt-2">
-            {icon ? <View className="mt-0.5 shrink-0">{icon}</View> : null}
-            <View className="min-w-0 flex-1 gap-1">
-              <Text
-                weight="bold"
-                accessibilityRole="header"
-                className="text-sm text-foreground"
-              >
-                {title}
-              </Text>
-              {typeof description === "string" ? (
-                <Text className="text-xs leading-snug text-muted-foreground">
-                  {description}
+        <Animated.View
+          accessibilityViewIsModal
+          onAccessibilityEscape={close}
+          className={`border-t bg-popover ${fullWidth ? "" : "border-x"} ${tone === "destructive" ? "border-destructive/40" : "border-border"}`}
+          style={[
+            slideStyle,
+            {
+              paddingBottom: Math.max(padBottom, keyboardIn),
+              paddingLeft: fullWidth ? padLeft : 0,
+              paddingRight: fullWidth ? padRight : 0,
+              // 85% of the space above the keyboard, plus the part behind it.
+              maxHeight: keyboardIn
+                ? (area.height - keyboardIn) * 0.85 + keyboardIn
+                : "85%",
+              width: "100%",
+              maxWidth: SHEET_MAX_WIDTH,
+              alignSelf: "center",
+            },
+          ]}
+        >
+          <View className="items-center pb-1 pt-2">
+            <View className="h-1 w-9 bg-muted-foreground/30" />
+          </View>
+          {title ? (
+            <View className="flex-row items-start gap-2.5 px-4 pb-3 pt-2">
+              {icon ? <View className="mt-0.5 shrink-0">{icon}</View> : null}
+              <View className="min-w-0 flex-1 gap-1">
+                <Text
+                  weight="bold"
+                  accessibilityRole="header"
+                  className="text-sm text-foreground"
+                >
+                  {title}
                 </Text>
-              ) : (
-                (description ?? null)
-              )}
+                {typeof description === "string" ? (
+                  <Text className="text-xs leading-snug text-muted-foreground">
+                    {description}
+                  </Text>
+                ) : (
+                  (description ?? null)
+                )}
+              </View>
+              {dismissable ? (
+                <Pressable
+                  onPress={onClose}
+                  hitSlop={12}
+                  accessibilityRole="button"
+                  accessibilityLabel="Close"
+                  className="mt-0.5 shrink-0"
+                >
+                  <X size={16} color={color("muted-foreground")} />
+                </Pressable>
+              ) : null}
             </View>
-            {dismissable ? (
-              <Pressable
-                onPress={onClose}
-                hitSlop={12}
-                accessibilityRole="button"
-                accessibilityLabel="Close"
-                className="mt-0.5 shrink-0"
+          ) : null}
+          {children ? (
+            scrolls ? (
+              <ScrollView
+                keyboardShouldPersistTaps="handled"
+                className={title ? "border-t border-border" : ""}
               >
-                <X size={16} color={color("muted-foreground")} />
-              </Pressable>
-            ) : null}
-          </View>
-        ) : null}
-        {children ? (
-          scrolls ? (
-            <ScrollView
-              keyboardShouldPersistTaps="handled"
-              className={title ? "border-t border-border" : ""}
+                {children}
+              </ScrollView>
+            ) : (
+              <View className={title ? "border-t border-border" : ""}>
+                {children}
+              </View>
+            )
+          ) : null}
+          {footer ? (
+            <View
+              className={`border-t border-border px-4 py-3 ${isValidElement(footer) && footer.type === Fragment ? "flex-row justify-end gap-2" : ""}`}
             >
-              {children}
-            </ScrollView>
-          ) : (
-            <View className={title ? "border-t border-border" : ""}>
-              {children}
+              {footer}
             </View>
-          )
-        ) : null}
-        {footer ? (
-          <View
-            className={`border-t border-border px-4 py-3 ${isValidElement(footer) && footer.type === Fragment ? "flex-row justify-end gap-2" : ""}`}
-          >
-            {footer}
-          </View>
-        ) : null}
-      </Animated.View>
+          ) : null}
+        </Animated.View>
+      </View>
     </View>
   );
 

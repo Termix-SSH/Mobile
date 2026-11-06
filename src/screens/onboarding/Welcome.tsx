@@ -86,7 +86,14 @@ export default function Welcome({
 
   if (view === "import") {
     return (
-      <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
+      <View
+        className="flex-1 bg-background"
+        style={{
+          paddingTop: insets.top,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
+      >
         <ScreenHeader title="Import" onBack={() => setView("choose")} />
         <ScrollView
           contentContainerStyle={{
@@ -134,6 +141,8 @@ export default function Welcome({
         padding: 20,
         paddingTop: insets.top + 24,
         paddingBottom: insets.bottom + 24,
+        paddingLeft: insets.left + 20,
+        paddingRight: insets.right + 20,
         gap: 24,
       }}
     >
