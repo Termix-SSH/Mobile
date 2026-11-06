@@ -76,6 +76,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "host-status", name: "Host Status", kind: "app" },
   { id: "hosts-config", name: "Hosts Config", kind: "server" },
   { id: "import-export", name: "Import and Export", kind: "none" },
+  { id: "ip-kvm", name: "IP-KVM", kind: "webview" },
   {
     id: "kubernetes",
     name: "Kubernetes",
