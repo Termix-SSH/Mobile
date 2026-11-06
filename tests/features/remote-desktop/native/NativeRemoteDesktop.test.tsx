@@ -1,6 +1,7 @@
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import { NativeRemoteDesktop } from "@/features/remote-desktop/native/NativeRemoteDesktop";
 import { SshError } from "@/modules/termix-ssh";
+import { View } from "react-native";
 import { ConfirmProvider } from "@/ui";
 
 jest.mock("@/contexts/ThemeContext", () => ({
@@ -11,6 +12,11 @@ jest.mock("@/contexts/ThemeContext", () => ({
 jest.mock("react-native-safe-area-context", () => ({
   ...jest.requireActual("react-native-safe-area-context"),
   useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
+}));
+// A plain view in place of the native display, so the test can reach its props.
+const mockDisplayView = (props: object) => <View testID="display" {...props} />;
+jest.mock("@/modules/termix-display", () => ({
+  TermixDisplayView: (props: object) => mockDisplayView(props),
 }));
 const mockCredential = jest.fn(
   async (..._args: any[]): Promise<any> => null as unknown,
@@ -221,4 +227,36 @@ test("vnc asks the server for the view's size once it sent its own", async () =>
   const [w, h] = display.resize.mock.calls[0];
   expect(w).toBe(400);
   expect(h).toBeLessThan(744);
+});
+
+test("a trackpad or mouse on the display drives the remote pointer", async () => {
+  const display = fakeDisplay();
+  let callbacks: { onResize: (w: number, h: number) => void } | undefined;
+  const open = jest.fn(async (...args: any[]): Promise<any> => {
+    callbacks = args[2];
+    return { display, close: jest.fn() };
+  });
+  await setup({ rdpUser: "admin", rdpPassword: "pw" }, open);
+  await flush();
+  await act(async () => callbacks!.onResize(2000, 1000));
+  const view = screen.getByTestId("display");
+  // The area around the display: 1000x500 shows the 2000x1000 desktop at half size.
+  let area = view.parent;
+  while (area && !area.props.onLayout) area = area.parent;
+  await fireEvent(area!, "layout", {
+    nativeEvent: { layout: { width: 1000, height: 500 } },
+  });
+  // Touches go to the display itself, next to its pointer recognizers.
+  expect(view.props.onStartShouldSetResponder).toEqual(expect.any(Function));
+
+  await fireEvent(view, "pointer", {
+    nativeEvent: { kind: "hover", x: 100, y: 50, buttons: 0, dy: 0 },
+  });
+  await fireEvent(view, "pointer", {
+    nativeEvent: { kind: "down", x: 100, y: 50, buttons: 4, dy: 0 },
+  });
+  expect(display.pointer.mock.calls).toEqual([
+    [200, 100, 0],
+    [200, 100, 4],
+  ]);
 });

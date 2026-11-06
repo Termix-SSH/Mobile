@@ -6,7 +6,7 @@ public class TermixDisplayModule: Module {
     Constant("ready") { true }
 
     View(TermixDisplayView.self) {
-      Events("onKey")
+      Events("onKey", "onPointer")
       Prop("frameId") { (view: TermixDisplayView, id: String?) in view.setFrameId(id) }
       Prop("placement") { (view: TermixDisplayView, p: [Double]?) in
         let v = p ?? [1, 0, 0]
