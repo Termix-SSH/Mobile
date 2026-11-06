@@ -336,6 +336,8 @@ export interface TerminalKeyTarget {
 
 /** What a `terminal-input` tab exposes through its ref. */
 export interface TerminalInputHandle {
+  /** Encode a named-key sequence using the terminal's current cursor mode. */
+  sendKeySequence?: (data: string) => void;
   sendInput: (data: string) => void;
   fit: () => void;
   isDialogOpen: () => boolean;

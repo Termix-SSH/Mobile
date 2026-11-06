@@ -107,3 +107,15 @@ test("control codes and sequences", () => {
   expect(keySequence("F5")).toBe("\x1b[15~");
   expect(keySequence("Nope")).toBeNull();
 });
+
+test("fallback named keys use its encoder, raw and tmux bytes bypass it", () => {
+  const x = sink(false);
+  const encode = jest.fn();
+  x.s.sendKeySequence = encode;
+  runKeyAction({ type: "key", name: "ArrowRight" }, x.s, state());
+  runKeyAction({ type: "key", name: "ArrowLeft" }, x.s, state({ alt: true }));
+  runKeyAction({ type: "raw", data: "\x1b[C" }, x.s, state());
+  runKeyAction({ type: "tmux", key: "ArrowRight" }, x.s, state());
+  expect(encode.mock.calls).toEqual([["\x1b[C"], ["\x1b\x1b[D"]]);
+  expect(x.sent).toEqual(["\x1b[C", "\x02\x1b[C"]);
+});

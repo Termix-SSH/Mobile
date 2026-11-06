@@ -292,7 +292,8 @@ export default function Sessions() {
       }
 
       lastSpecialKeyRef.current = makeTerminalSpecialKeyRecord(event, now);
-      activeRef.current.sendInput(translatedKey);
+      const handle = activeRef.current;
+      (handle.sendKeySequence ?? handle.sendInput)(translatedKey);
     },
     [getActiveTerminalRef],
   );
