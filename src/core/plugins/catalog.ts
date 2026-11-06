@@ -123,6 +123,14 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
     hostGates: { samba: { setting: "enableSamba", ssh: true } },
   },
   { id: "secret-sources", name: "Secret Sources", kind: "server" },
+  {
+    id: "security-center",
+    name: "Security Center",
+    kind: "webview",
+    hostGates: {
+      "security-center": { setting: "enableSecurity", ssh: true },
+    },
+  },
   { id: "serial", name: "Serial", kind: "none" },
   { id: "service-manager", name: "Services", kind: "none" },
   { id: "session-recording", name: "Session Recording", kind: "webview" },
