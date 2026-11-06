@@ -7,6 +7,7 @@
 - Actions on a host: every action the server's plugins offer for that host, such as restarting a container or service, with a form, a dry run and the result. New plugins show up with no app update
 - Approvals and Run history under Tools, when the server has Operations Center
 - WireGuard opens in the app
+- Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
 
 ## 2.0.0
 
