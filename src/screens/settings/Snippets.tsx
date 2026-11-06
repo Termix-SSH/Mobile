@@ -183,6 +183,7 @@ export default function Snippets() {
 
   const openCreate = () => {
     setEditingSnippet(null);
+    setFolderPickerOpen(false);
     setForm({
       name: "",
       content: "",
@@ -197,6 +198,7 @@ export default function Snippets() {
 
   const openEdit = (snippet: Snippet) => {
     setEditingSnippet(snippet);
+    setFolderPickerOpen(false);
     setForm({
       name: snippet.name,
       content: snippet.content,
@@ -230,7 +232,7 @@ export default function Snippets() {
         name: form.name.trim(),
         content: form.content.trim(),
         description: form.description.trim() || undefined,
-        folder: form.folder.trim() || undefined,
+        folder: form.folder.trim(),
         isNote: form.isNote,
         hostFilter: serializeHostFilter([
           ...unknownTargets,
@@ -694,7 +696,10 @@ export default function Snippets() {
             <View className="gap-1">
               <Label>Folder (optional)</Label>
               <Pressable
-                onPress={() => setFolderPickerOpen(true)}
+                accessibilityRole="button"
+                accessibilityLabel="Select folder"
+                accessibilityState={{ expanded: folderPickerOpen }}
+                onPress={() => setFolderPickerOpen((open) => !open)}
                 className="h-10 flex-row items-center gap-2 border border-input bg-card px-2.5 active:opacity-70"
               >
                 <FolderOpen size={14} color={color("muted-foreground")} />
@@ -705,6 +710,46 @@ export default function Snippets() {
                 </Text>
                 <ChevronRight size={14} color={color("muted-foreground")} />
               </Pressable>
+              {folderPickerOpen ? (
+                <View className="border border-border">
+                  <Pressable
+                    onPress={() => {
+                      setForm((f) => ({ ...f, folder: "" }));
+                      setFolderPickerOpen(false);
+                    }}
+                    className="flex-row items-center gap-3 border-b border-border px-4 py-3 active:bg-muted/30"
+                  >
+                    <FolderOpen size={14} color={color("muted-foreground")} />
+                    <Text className="flex-1 text-sm text-foreground">
+                      No folder
+                    </Text>
+                    {!form.folder && (
+                      <Check size={14} color={color("primary")} />
+                    )}
+                  </Pressable>
+                  {folders.map((folder) => (
+                    <Pressable
+                      key={folder.id}
+                      onPress={() => {
+                        setForm((f) => ({ ...f, folder: folder.name }));
+                        setFolderPickerOpen(false);
+                      }}
+                      className="flex-row items-center gap-3 border-b border-border px-4 py-3 active:bg-muted/30"
+                    >
+                      <FolderOpen
+                        size={14}
+                        color={folder.color ?? color("muted-foreground")}
+                      />
+                      <Text className="flex-1 text-sm text-foreground">
+                        {folder.name}
+                      </Text>
+                      {form.folder === folder.name && (
+                        <Check size={14} color={color("primary")} />
+                      )}
+                    </Pressable>
+                  ))}
+                </View>
+              ) : null}
             </View>
             {!form.isNote ? (
               <View className="gap-1">
@@ -794,51 +839,6 @@ export default function Snippets() {
         visible={transferOpen}
         onClose={() => setTransferOpen(false)}
       />
-
-      {/* Folder picker */}
-      <Sheet
-        scroll
-        visible={folderPickerOpen}
-        onClose={() => setFolderPickerOpen(false)}
-        title="Select Folder"
-      >
-        <SheetBody>
-          <View className="-mx-4 -mb-4">
-            <Pressable
-              onPress={() => {
-                setForm((f) => ({ ...f, folder: "" }));
-                setFolderPickerOpen(false);
-              }}
-              className="flex-row items-center gap-3 border-b border-border px-4 py-3 active:bg-muted/30"
-            >
-              <FolderOpen size={14} color={color("muted-foreground")} />
-              <Text className="flex-1 text-sm text-foreground">No folder</Text>
-              {!form.folder && <Check size={14} color={color("primary")} />}
-            </Pressable>
-            {folders.map((folder) => (
-              <Pressable
-                key={folder.id}
-                onPress={() => {
-                  setForm((f) => ({ ...f, folder: folder.name }));
-                  setFolderPickerOpen(false);
-                }}
-                className="flex-row items-center gap-3 border-b border-border px-4 py-3 active:bg-muted/30"
-              >
-                <FolderOpen
-                  size={14}
-                  color={folder.color ?? color("muted-foreground")}
-                />
-                <Text className="flex-1 text-sm text-foreground">
-                  {folder.name}
-                </Text>
-                {form.folder === folder.name && (
-                  <Check size={14} color={color("primary")} />
-                )}
-              </Pressable>
-            ))}
-          </View>
-        </SheetBody>
-      </Sheet>
 
       {/* Delete snippet confirm */}
       <Sheet
