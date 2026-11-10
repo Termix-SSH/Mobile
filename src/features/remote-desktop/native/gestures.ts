@@ -190,6 +190,8 @@ export class DisplayGestures {
     const dx = m.x - this.last.x;
     const dy = m.y - this.last.y;
     this.last = m;
+    // Many tiny moves add up: past TAP_MOVE_PX from the start it is no tap.
+    if (dist(m, pinch.mid) > TAP_MOVE_PX) this.moved = true;
     if (!fitsInView(this.view)) {
       if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) this.moved = true;
       this.scrollAcc = 0;

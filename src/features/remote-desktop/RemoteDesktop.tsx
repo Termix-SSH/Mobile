@@ -430,6 +430,8 @@ ${VIEWPORT_SCRIPT}
       // ── Single touch state ───────────────────────────────────────────────
       let tpX = 0, tpY = 0, tpTime = 0, tpMoved = false;
       let tfTimer = null;
+      // A second finger went down during this gesture: no single-finger tap.
+      let multiTouch = false;
       const TAP_MS = 350;
       const TAP_MOVE_PX = 8;
 
@@ -447,6 +449,8 @@ ${VIEWPORT_SCRIPT}
 
       displayContainer.addEventListener('touchstart', (e) => {
         e.preventDefault();
+
+        if (e.touches.length >= 2) multiTouch = true;
 
         if (e.touches.length === 2) {
           isPinching = false;
@@ -467,6 +471,7 @@ ${VIEWPORT_SCRIPT}
         }
 
         if (e.touches.length === 1) {
+          multiTouch = false;
           tpX = e.touches[0].clientX;
           tpY = e.touches[0].clientY;
           tpTime = Date.now();
@@ -558,7 +563,7 @@ ${VIEWPORT_SCRIPT}
 
         if (currentMode === 'touch') {
           // Tap (no movement, quick) = click
-          if (!tpMoved && dur < TAP_MS && e.changedTouches.length === 1 && e.touches.length === 0) {
+          if (!multiTouch && !tpMoved && dur < TAP_MS && e.changedTouches.length === 1 && e.touches.length === 0) {
             const tx = e.changedTouches[0].clientX, ty = e.changedTouches[0].clientY;
             sendMouseAt(tx, ty, true, false, false, false);
             setTimeout(() => sendMouseAt(tx, ty, false, false, false, false), 60);
@@ -566,7 +571,7 @@ ${VIEWPORT_SCRIPT}
         } else {
           // Trackpad
           if (e.touches.length === 0) {
-            if (!tpMoved && dur < TAP_MS && e.changedTouches.length === 1) {
+            if (!multiTouch && !tpMoved && dur < TAP_MS && e.changedTouches.length === 1) {
               sendMouseCursor(true, false);
               setTimeout(() => sendMouseCursor(false, false), 60);
             }
@@ -577,6 +582,7 @@ ${VIEWPORT_SCRIPT}
             }
           }
         }
+        if (e.touches.length === 0) multiTouch = false;
       }, { passive: false });
 
       // ── Hardware pointer (iPad trackpad, Bluetooth mouse) ────────────────

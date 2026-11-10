@@ -155,3 +155,17 @@ test("the page pinches past fit and pans with two fingers when it overflows", ()
     /\b(const|let|var)\s+(MIN_ZOOM|MAX_ZOOM|fitsInView|panBy)\b/,
   );
 });
+
+test("the page does not tap after a two finger gesture", () => {
+  const start = source.indexOf("addEventListener('touchend'");
+  const end = source.indexOf("// ── Hardware pointer", start);
+  expect(start).toBeGreaterThan(-1);
+  expect(end).toBeGreaterThan(start);
+  const touchEnd = source.slice(start, end);
+
+  expect(source).toMatch(/\blet multiTouch = false;/);
+  expect(source).toContain("if (e.touches.length >= 2) multiTouch = true;");
+  // Both the touch and the trackpad single-finger taps check it.
+  expect(touchEnd.match(/!multiTouch && !tpMoved/g)).toHaveLength(2);
+  expect(touchEnd).toContain("if (e.touches.length === 0) multiTouch = false;");
+});

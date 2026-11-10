@@ -227,6 +227,42 @@ describe("two fingers", () => {
     expect(g.end(0, 100)).toEqual([]);
   });
 
+  test("many tiny two finger moves add up to a pan, not a tap", () => {
+    const g = new DisplayGestures(view());
+    g.setView(view({ zoom: 2, panX: 500, panY: 250 }));
+    const a = { x: 400, y: 250 };
+    const b = { x: 600, y: 250 };
+    g.begin([a], 0);
+    g.begin([a, b], 0);
+    const out: GestureAction[] = [];
+    for (let i = 1; i <= 30; i++) {
+      out.push(
+        ...g.move([
+          { x: 400 + i * 0.4, y: 250 },
+          { x: 600 + i * 0.4, y: 250 },
+        ]),
+      );
+    }
+    expect(out).toHaveLength(30);
+    expect(out.every((act) => act.kind === "view")).toBe(true);
+    // 12 points in all: no right click on release.
+    expect(g.end(0, 100)).toEqual([]);
+  });
+
+  test("a stationary quick two finger tap is still a right click", () => {
+    const g = new DisplayGestures(view());
+    g.setView(view({ zoom: 2, panX: 500, panY: 250 }));
+    const a = { x: 400, y: 250 };
+    const b = { x: 600, y: 250 };
+    g.begin([a], 0);
+    g.begin([a, b], 0);
+    g.move([
+      { x: 400.3, y: 250 },
+      { x: 600.3, y: 250 },
+    ]);
+    expect(pointers(g.end(0, 100)).map((p) => p[2])).toEqual([RIGHT, 0]);
+  });
+
   test("a two finger drag scrolls again after zooming out", () => {
     const g = new DisplayGestures(view());
     g.setView(view({ zoom: 2, panX: 500, panY: 250 }));
