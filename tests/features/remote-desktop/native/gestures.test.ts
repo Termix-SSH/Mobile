@@ -8,7 +8,11 @@ import {
   WHEEL_UP,
   type GestureAction,
 } from "@/features/remote-desktop/native/gestures";
-import type { Viewport } from "@/features/remote-desktop/viewport";
+import {
+  MAX_ZOOM,
+  MIN_ZOOM,
+  type Viewport,
+} from "@/features/remote-desktop/viewport";
 
 // A 1000x500 view showing a 2000x1000 desktop: half size, so view (x, y) is remote (2x, 2y).
 const view = (over: Partial<Viewport> = {}): Viewport => ({
@@ -156,7 +160,7 @@ describe("two fingers", () => {
     expect(g.end(0, 100)).toEqual([]);
   });
 
-  test("a pinch zooms around the fingers and never below fit", () => {
+  test("a pinch zooms around the fingers within the zoom limits", () => {
     const g = new DisplayGestures(view());
     const a = { x: 400, y: 250 };
     const b = { x: 600, y: 250 };
@@ -177,9 +181,85 @@ describe("two fingers", () => {
       { x: 490, y: 250 },
       { x: 510, y: 250 },
     ]);
+    // 200 apart to 20 apart is 0.1, clamped at MIN_ZOOM.
     expect(shrink.at(-1)?.kind === "view" && shrink.at(-1)).toMatchObject({
-      view: { zoom: 1 },
+      view: { zoom: MIN_ZOOM, panX: 0, panY: 0 },
     });
+    // 200 apart to 2000 apart is 10, clamped at MAX_ZOOM.
+    const grow = g.move([
+      { x: -500, y: 250 },
+      { x: 1500, y: 250 },
+    ]);
+    expect(grow.at(-1)?.kind === "view" && grow.at(-1)).toMatchObject({
+      view: { zoom: MAX_ZOOM },
+    });
+    expect(g.end(0, 100)).toEqual([]);
+  });
+
+  test("a two finger drag pans the view when zoomed in", () => {
+    // Zoom 4 is scale 2: 500x250 remote pixels visible, pan up to 1500x750.
+    const g = new DisplayGestures(view());
+    g.setView(view({ zoom: 4, panX: 500, panY: 250 }));
+    const a = { x: 400, y: 250 };
+    const b = { x: 600, y: 250 };
+    g.begin([a], 0);
+    g.begin([a, b], 0);
+    const out = g.move([
+      { x: 300, y: 200 },
+      { x: 500, y: 200 },
+    ]);
+    expect(pointers(out)).toEqual([]);
+    // The content follows the fingers: (-100, -50) points is (+50, +25) remote.
+    expect(out).toEqual([
+      { kind: "view", view: view({ zoom: 4, panX: 550, panY: 275 }) },
+    ]);
+    expect(g.view).toEqual(view({ zoom: 4, panX: 550, panY: 275 }));
+    // Clamped at the edges.
+    const edge = g.move([
+      { x: 2300, y: -1800 },
+      { x: 2500, y: -1800 },
+    ]);
+    expect(pointers(edge)).toEqual([]);
+    expect(edge).toEqual([
+      { kind: "view", view: view({ zoom: 4, panX: 0, panY: 750 }) },
+    ]);
+    // A pan is not a tap.
+    expect(g.end(0, 100)).toEqual([]);
+  });
+
+  test("a two finger drag scrolls again after zooming out", () => {
+    const g = new DisplayGestures(view());
+    g.setView(view({ zoom: 2, panX: 500, panY: 250 }));
+    const a = { x: 400, y: 250 };
+    const b = { x: 600, y: 250 };
+    g.begin([a], 0);
+    g.begin([a, b], 0);
+    const shrink = g.move([
+      { x: 460, y: 250 },
+      { x: 540, y: 250 },
+    ]);
+    // 200 apart to 80 apart takes zoom 2 to 0.8: the desktop fits again.
+    const zoomed = shrink.at(-1);
+    expect(zoomed?.kind).toBe("view");
+    if (zoomed?.kind === "view") {
+      expect(zoomed.view.zoom).toBeCloseTo(0.8);
+      expect(zoomed.view.panX).toBe(0);
+      expect(zoomed.view.panY).toBe(0);
+    }
+    expect(g.end(0, 100)).toEqual([]);
+
+    g.begin([a], 1000);
+    g.begin([a, b], 1000);
+    expect(
+      pointers(
+        g.move([
+          { x: 400, y: 295 },
+          { x: 600, y: 295 },
+        ]),
+      ).map((p) => p[2]),
+    ).toEqual([WHEEL_UP, 0]);
+    expect(g.view.zoom).toBeCloseTo(0.8);
+    expect(g.end(0, 1100)).toEqual([]);
   });
 });
 

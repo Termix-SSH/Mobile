@@ -28,8 +28,10 @@ class TermixDisplayView(context: Context, appContext: AppContext) : ExpoView(con
     override fun onDraw(canvas: Canvas) {
       canvas.drawColor(0xff000000.toInt())
       val bmp = bitmap ?: return
-      matrix.setScale(scale, scale)
-      matrix.postTranslate(-offsetX * scale, -offsetY * scale)
+      // The canvas is in physical pixels, the placement scale in points (dp).
+      val pxScale = scale * resources.displayMetrics.density
+      matrix.setScale(pxScale, pxScale)
+      matrix.postTranslate(-offsetX * pxScale, -offsetY * pxScale)
       canvas.drawBitmap(bmp, matrix, paint)
     }
   }
@@ -52,6 +54,10 @@ class TermixDisplayView(context: Context, appContext: AppContext) : ExpoView(con
     pull()
   }
 
+  /**
+   * [scale] is in points (dp) per remote pixel, as React Native lays out; [offsetX] and
+   * [offsetY] are the top left corner in remote pixels. onDraw converts to physical pixels.
+   */
   fun setPlacement(scale: Float, offsetX: Float, offsetY: Float) {
     this.scale = scale
     this.offsetX = offsetX

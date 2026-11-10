@@ -1,8 +1,12 @@
 // Touch to mouse for a remote desktop. Pure, so it can be
 // tested without a phone; the tab feeds it touches and sends what it returns.
+// Two fingers pinch to zoom, and drag to scroll the remote wheel while the
+// whole desktop fits or to pan the view while zoomed in.
 import {
   clampPan,
   fitScale,
+  fitsInView,
+  panBy,
   toRemote,
   zoomAround,
   type Viewport,
@@ -160,6 +164,11 @@ export class DisplayGestures {
     return [this.at(this.cursor, this.dragging ? LEFT : 0)];
   }
 
+  /**
+   * A pinch (sticky once the finger distance changes by PINCH_PX) zooms
+   * around the fingers. Otherwise a drag pans the view when zoomed in, or
+   * scrolls the wheel when the whole desktop fits, decided per move.
+   */
   private twoFingers(touches: Point[]): GestureAction[] {
     const pinch = this.pinch!;
     const m = mid(touches[0], touches[1]);
@@ -167,6 +176,7 @@ export class DisplayGestures {
     if (this.pinching || Math.abs(d - pinch.d) > PINCH_PX) {
       this.pinching = true;
       this.moved = true;
+      this.last = m;
       this.view = zoomAround(
         pinch.view,
         pinch.view.zoom * (d / pinch.d),
@@ -177,8 +187,15 @@ export class DisplayGestures {
       );
       return [{ kind: "view", view: this.view }];
     }
+    const dx = m.x - this.last.x;
     const dy = m.y - this.last.y;
     this.last = m;
+    if (!fitsInView(this.view)) {
+      if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) this.moved = true;
+      this.scrollAcc = 0;
+      this.view = panBy(this.view, dx, dy);
+      return [{ kind: "view", view: this.view }];
+    }
     if (Math.abs(dy) > 0.5) this.moved = true;
     this.scrollAcc += dy;
     if (Math.abs(this.scrollAcc) < SCROLL_PX) return [];

@@ -489,7 +489,7 @@ ${VIEWPORT_SCRIPT}
             isScrolling = false;
             if (tfTimer) { clearTimeout(tfTimer); tfTimer = null; }
 
-            const newZoom = Math.max(1, Math.min(8, pinchZoom0 * (d / pinchDist0)));
+            const newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, pinchZoom0 * (d / pinchDist0)));
             const fixedRX = pinchPanX0 + pinchMidX0 / (fitScale() * pinchZoom0);
             const fixedRY = pinchPanY0 + pinchMidY0 / (fitScale() * pinchZoom0);
             panX = fixedRX - midX / (fitScale() * newZoom);
@@ -499,7 +499,7 @@ ${VIEWPORT_SCRIPT}
             applyTransform();
             post({ type: 'zoomChange', zoom: Math.round(zoom * 10) / 10 });
           } else {
-            // ── Two-finger drag: scroll (touch mode) or pan (zoomed) ──────
+            // ── Two-finger drag: pan when the desktop overflows, else scroll ──
             isScrolling = true;
             if (tfTimer) { clearTimeout(tfTimer); tfTimer = null; }
             const dragDX = midX - twoFingerLastX;
@@ -507,11 +507,10 @@ ${VIEWPORT_SCRIPT}
             twoFingerLastX = midX;
             twoFingerLastY = midY;
 
-            if (zoom > 1 && currentMode === 'touch') {
-              // Pan viewport when zoomed
-              panX -= dragDX / (fitScale() * zoom);
-              panY -= dragDY / (fitScale() * zoom);
-              clampPan();
+            if (!fitsInView()) {
+              // Pan the viewport in both pointer modes
+              scrollAccum = 0;
+              panBy(dragDX, dragDY);
               applyTransform();
             } else {
               // Scroll wheel: accumulate drag and fire one tick per SCROLL_PX
