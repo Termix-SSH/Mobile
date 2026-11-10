@@ -150,6 +150,10 @@ test("the page pinches past fit and pans with two fingers when it overflows", ()
   expect(touchMove).toContain("if (!fitsInView())");
   expect(touchMove).toContain("panBy(dragDX, dragDY)");
   expect(touchMove).not.toContain("zoom > 1");
+  // Entering a pinch rebases the anchor on the current pan and midpoint.
+  expect(touchMove).toMatch(
+    /if \(!isPinching\) \{[^}]*pinchPanX0 = panX;[^}]*pinchPanY0 = panY;[^}]*pinchMidX0 = midX;[^}]*pinchMidY0 = midY;[^}]*\}\s*isPinching = true;/,
+  );
   // These come from VIEWPORT_SCRIPT; redeclaring a const would throw.
   expect(source).not.toMatch(
     /\b(const|let|var)\s+(MIN_ZOOM|MAX_ZOOM|fitsInView|panBy)\b/,

@@ -63,6 +63,8 @@ export class DisplayGestures {
   private lastTapAt = -Infinity;
   private pinch: { d: number; view: Viewport; mid: Point } | null = null;
   private pinching = false;
+  /** Two finger midpoint at gesture start, for the tap movement check. */
+  private twoStart: Point = { x: 0, y: 0 };
   private scrollAcc = 0;
   private maxFingers = 0;
 
@@ -136,6 +138,7 @@ export class DisplayGestures {
       };
       this.pinching = false;
       this.scrollAcc = 0;
+      this.twoStart = this.pinch.mid;
       this.last = this.pinch.mid;
     }
     return [];
@@ -174,6 +177,12 @@ export class DisplayGestures {
     const m = mid(touches[0], touches[1]);
     const d = dist(touches[0], touches[1]);
     if (this.pinching || Math.abs(d - pinch.d) > PINCH_PX) {
+      if (!this.pinching) {
+        // Zoom around what is under the fingers now: a pan before the pinch
+        // may have hit an edge. The distance baseline stays.
+        pinch.view = this.view;
+        pinch.mid = m;
+      }
       this.pinching = true;
       this.moved = true;
       this.last = m;
@@ -191,7 +200,7 @@ export class DisplayGestures {
     const dy = m.y - this.last.y;
     this.last = m;
     // Many tiny moves add up: past TAP_MOVE_PX from the start it is no tap.
-    if (dist(m, pinch.mid) > TAP_MOVE_PX) this.moved = true;
+    if (dist(m, this.twoStart) > TAP_MOVE_PX) this.moved = true;
     if (!fitsInView(this.view)) {
       if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) this.moved = true;
       this.scrollAcc = 0;

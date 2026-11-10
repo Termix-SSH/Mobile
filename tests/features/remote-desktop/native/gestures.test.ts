@@ -11,6 +11,7 @@ import {
 import {
   MAX_ZOOM,
   MIN_ZOOM,
+  toRemote,
   type Viewport,
 } from "@/features/remote-desktop/viewport";
 
@@ -224,6 +225,40 @@ describe("two fingers", () => {
       { kind: "view", view: view({ zoom: 4, panX: 0, panY: 750 }) },
     ]);
     // A pan is not a tap.
+    expect(g.end(0, 100)).toEqual([]);
+  });
+
+  test("a pinch after a pan against the edge does not jump", () => {
+    // Zoom 2 is scale 1: view points are remote pixels, pan up to 1000x500.
+    const g = new DisplayGestures(view());
+    g.setView(view({ zoom: 2, panX: 100, panY: 250 }));
+    const a = { x: 400, y: 250 };
+    const b = { x: 600, y: 250 };
+    g.begin([a], 0);
+    g.begin([a, b], 0);
+    // Midpoint 500 to 700 hits the left edge (panX 0), then back to 600.
+    g.move([
+      { x: 600, y: 250 },
+      { x: 800, y: 250 },
+    ]);
+    expect(g.view.panX).toBe(0);
+    g.move([
+      { x: 500, y: 250 },
+      { x: 700, y: 250 },
+    ]);
+    expect(g.view.panX).toBe(100);
+    const anchor = toRemote(g.view, 600, 250);
+    // 200 apart to 220 apart around the same midpoint pinches to zoom 2.2.
+    const out = g.move([
+      { x: 490, y: 250 },
+      { x: 710, y: 250 },
+    ]);
+    expect(out.at(-1)?.kind).toBe("view");
+    expect(g.view.zoom).toBeCloseTo(2.2);
+    const under = toRemote(g.view, 600, 250);
+    expect(under.x).toBeCloseTo(anchor.x);
+    expect(under.y).toBeCloseTo(anchor.y);
+    expect(g.view.panX).toBeCloseTo(154.545, 2);
     expect(g.end(0, 100)).toEqual([]);
   });
 

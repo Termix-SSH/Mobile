@@ -490,6 +490,14 @@ ${VIEWPORT_SCRIPT}
 
           if (distDelta > 8 || isPinching) {
             // ── Pinch to zoom ─────────────────────────────────────────────
+            if (!isPinching) {
+              // Zoom around what is under the fingers now: a pan before the
+              // pinch may have hit an edge. The distance baseline stays.
+              pinchPanX0 = panX;
+              pinchPanY0 = panY;
+              pinchMidX0 = midX;
+              pinchMidY0 = midY;
+            }
             isPinching = true;
             isScrolling = false;
             if (tfTimer) { clearTimeout(tfTimer); tfTimer = null; }
