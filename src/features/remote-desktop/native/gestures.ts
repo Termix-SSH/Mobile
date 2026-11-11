@@ -67,6 +67,8 @@ export class DisplayGestures {
   private twoStart: Point = { x: 0, y: 0 };
   private scrollAcc = 0;
   private maxFingers = 0;
+  /** From the first finger down until the gesture is finished. */
+  private active = false;
 
   constructor(
     public view: Viewport,
@@ -115,7 +117,13 @@ export class DisplayGestures {
     return [this.at(p, button), this.at(p, 0)];
   }
 
+  /** A new responder gesture starts clean, even if the last one lost its end. */
+  grant(touches: Point[], t: number): GestureAction[] {
+    return [...this.cancel(), ...this.begin(touches, t)];
+  }
+
   begin(touches: Point[], t: number): GestureAction[] {
+    this.active = true;
     this.fingers = touches.length;
     this.maxFingers = Math.max(this.maxFingers, touches.length);
     if (touches.length === 1 && this.maxFingers === 1) {
@@ -220,25 +228,57 @@ export class DisplayGestures {
   end(remaining: number, t: number): GestureAction[] {
     this.fingers = remaining;
     if (remaining > 0) return [];
-    const fingers = this.maxFingers;
+    const out = this.finish(t);
+    this.reset();
+    return out;
+  }
+
+  /**
+   * The responder let go. After two fingers React Native can skip the last
+   * finger's end, so this finishes the gesture; nothing after end(0) did.
+   */
+  release(t: number): GestureAction[] {
+    return this.active ? this.end(0, t) : [];
+  }
+
+  /** The responder was taken away: no click, but a held drag button goes up. */
+  cancel(): GestureAction[] {
+    const out =
+      this.active && this.maxFingers === 1 && this.moved && !this.ignored
+        ? this.dragUp()
+        : [];
+    this.reset();
+    return out;
+  }
+
+  private reset() {
+    this.active = false;
+    this.fingers = 0;
     this.maxFingers = 0;
+    this.moved = false;
+    this.dragging = false;
     this.pinch = null;
+    this.pinching = false;
+  }
+
+  /** The button-up that ends a one finger drag, if it held the button. */
+  private dragUp(): GestureAction[] {
+    if (this.mode === "touch") return [this.at(this.remote(this.last), 0)];
+    return this.dragging ? [this.at(this.cursor, 0)] : [];
+  }
+
+  private finish(t: number): GestureAction[] {
+    const fingers = this.maxFingers;
     const quick = t - this.startAt < TAP_MS;
     if (fingers === 1) {
       if (this.ignored) return [];
-      if (this.moved) {
-        const wasDragging = this.dragging;
-        this.dragging = false;
-        if (this.mode === "touch") return [this.at(this.remote(this.last), 0)];
-        return wasDragging ? [this.at(this.cursor, 0)] : [];
-      }
+      if (this.moved) return this.dragUp();
       const at = this.target(this.start);
       if (this.mode === "touch" && t - this.startAt >= LONG_PRESS_MS) {
         return this.click(at, RIGHT);
       }
       if (!quick) return [];
       this.lastTapAt = t;
-      this.dragging = false;
       return this.click(at, LEFT);
     }
     if (this.moved || !quick) return [];

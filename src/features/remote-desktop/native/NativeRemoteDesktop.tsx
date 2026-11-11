@@ -540,11 +540,12 @@ export function NativeRemoteDesktop({
           />
         ) : null}
         <View
+          testID="native-remote-desktop-touch"
           style={StyleSheet.absoluteFill}
           onStartShouldSetResponder={() => connected}
           onMoveShouldSetResponder={() => connected}
           onResponderGrant={(e) =>
-            apply(gestures.current?.begin(points(e), Date.now()) ?? [])
+            apply(gestures.current?.grant(points(e), Date.now()) ?? [])
           }
           onResponderStart={(e) =>
             apply(gestures.current?.begin(points(e), Date.now()) ?? [])
@@ -558,6 +559,11 @@ export function NativeRemoteDesktop({
                 [],
             )
           }
+          // The last finger's end can be missing after two fingers: these finish.
+          onResponderRelease={() =>
+            apply(gestures.current?.release(Date.now()) ?? [])
+          }
+          onResponderTerminate={() => apply(gestures.current?.cancel() ?? [])}
         />
       </View>
 

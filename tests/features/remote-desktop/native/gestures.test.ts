@@ -334,6 +334,139 @@ describe("two fingers", () => {
   });
 });
 
+describe("responder lifecycle", () => {
+  const a = { x: 400, y: 250 };
+  const b = { x: 600, y: 250 };
+
+  // What React Native sends for a pinch: the last finger's end never comes,
+  // only one end with a finger left, then the release.
+  function pinchWithoutLastEnd(g: DisplayGestures, grant: boolean) {
+    if (grant) g.grant([a], 0);
+    else g.begin([a], 0);
+    g.begin([a], 0);
+    g.begin([a, b], 10);
+    g.move([
+      { x: 300, y: 250 },
+      { x: 700, y: 250 },
+    ]);
+    expect(g.view.zoom).toBe(2);
+    expect(g.end(1, 100)).toEqual([]);
+  }
+
+  const clickAt = (g: DisplayGestures, x: number, y: number) => {
+    const r = toRemote(g.view, x, y);
+    return [
+      [Math.round(r.x), Math.round(r.y), LEFT],
+      [Math.round(r.x), Math.round(r.y), 0],
+    ];
+  };
+
+  test("the first tap after a pinch whose last end was missing clicks", () => {
+    const g = new DisplayGestures(view());
+    pinchWithoutLastEnd(g, true);
+    expect(g.release(100)).toEqual([]);
+    const p = { x: 100, y: 50 };
+    g.grant([p], 1000);
+    g.begin([p], 1000);
+    expect(pointers(g.end(0, 1050))).toEqual(clickAt(g, 100, 50));
+    expect(g.release(1050)).toEqual([]);
+  });
+
+  test("the release alone finishes the pinch", () => {
+    const g = new DisplayGestures(view());
+    pinchWithoutLastEnd(g, false);
+    expect(g.release(100)).toEqual([]);
+    expect(pointers(tap(g, { x: 100, y: 50 }, 1000))).toEqual(
+      clickAt(g, 100, 50),
+    );
+  });
+
+  test("a new grant starts clean even without a release", () => {
+    const g = new DisplayGestures(view());
+    pinchWithoutLastEnd(g, true);
+    const p = { x: 100, y: 50 };
+    expect(g.grant([p], 1000)).toEqual([]);
+    expect(pointers(g.end(0, 1050))).toEqual(clickAt(g, 100, 50));
+  });
+
+  test("a release after the last end changes nothing", () => {
+    const g = new DisplayGestures(view());
+    expect(pointers(tap(g, { x: 100, y: 50 }))).toEqual([
+      [200, 100, LEFT],
+      [200, 100, 0],
+    ]);
+    expect(g.release(60)).toEqual([]);
+    expect(pointers(tap(g, { x: 100, y: 50 }, 1000))).toEqual([
+      [200, 100, LEFT],
+      [200, 100, 0],
+    ]);
+    expect(g.release(1060)).toEqual([]);
+  });
+
+  test("a trackpad tap then drag still holds the left button", () => {
+    const g = new DisplayGestures(view(), "trackpad");
+    g.grant([{ x: 500, y: 250 }], 0);
+    expect(pointers(g.end(0, 50)).map((p) => p[2])).toEqual([LEFT, 0]);
+    expect(g.release(50)).toEqual([]);
+    g.grant([{ x: 500, y: 250 }], 150);
+    const drag = pointers(g.move([{ x: 520, y: 250 }]));
+    expect(drag[0][2]).toBe(LEFT);
+    expect(pointers(g.end(0, 400))).toEqual([[drag[0][0], drag[0][1], 0]]);
+    expect(g.release(400)).toEqual([]);
+  });
+
+  test("a drag lets go of the button once with end and release", () => {
+    const g = new DisplayGestures(view());
+    g.grant([{ x: 100, y: 100 }], 0);
+    g.begin([{ x: 100, y: 100 }], 0);
+    expect(pointers(g.move([{ x: 150, y: 100 }]))).toEqual([
+      [200, 200, LEFT],
+      [300, 200, LEFT],
+    ]);
+    expect(pointers(g.end(0, 500))).toEqual([[300, 200, 0]]);
+    expect(g.release(500)).toEqual([]);
+  });
+
+  test("a drag whose end is missing lets go on release", () => {
+    const g = new DisplayGestures(view());
+    g.grant([{ x: 100, y: 100 }], 0);
+    g.move([{ x: 150, y: 100 }]);
+    expect(pointers(g.release(500))).toEqual([[300, 200, 0]]);
+    expect(g.release(500)).toEqual([]);
+  });
+
+  test("a cancel during a drag lets go of the button without a click", () => {
+    const g = new DisplayGestures(view());
+    g.grant([{ x: 100, y: 100 }], 0);
+    g.move([{ x: 150, y: 100 }]);
+    expect(pointers(g.cancel())).toEqual([[300, 200, 0]]);
+    expect(g.release(500)).toEqual([]);
+    expect(g.cancel()).toEqual([]);
+    expect(pointers(tap(g, { x: 100, y: 50 }, 1000))).toEqual([
+      [200, 100, LEFT],
+      [200, 100, 0],
+    ]);
+  });
+
+  test("a cancel during a trackpad drag lets go of the button", () => {
+    const g = new DisplayGestures(view(), "trackpad");
+    tap(g, { x: 500, y: 250 }, 0);
+    g.grant([{ x: 500, y: 250 }], 150);
+    const drag = pointers(g.move([{ x: 520, y: 250 }]));
+    expect(pointers(g.cancel())).toEqual([[drag[0][0], drag[0][1], 0]]);
+  });
+
+  test("a cancel of a tap or of two fingers sends nothing", () => {
+    const g = new DisplayGestures(view());
+    g.grant([{ x: 100, y: 50 }], 0);
+    expect(g.cancel()).toEqual([]);
+    g.grant([a], 100);
+    g.begin([a, b], 110);
+    expect(g.cancel()).toEqual([]);
+    expect(g.release(150)).toEqual([]);
+  });
+});
+
 test("a smaller view keeps the cursor inside the desktop", () => {
   const g = new DisplayGestures(view(), "trackpad");
   g.cursor = { x: 1999, y: 999 };
