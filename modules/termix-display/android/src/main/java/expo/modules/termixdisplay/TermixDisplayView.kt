@@ -21,7 +21,8 @@ class TermixDisplayView(context: Context, appContext: AppContext) : ExpoView(con
   private var scale = 1f
   private var offsetX = 0f
   private var offsetY = 0f
-  private val matrix = Matrix()
+  // Not `matrix`: inside the View below that name is View.getMatrix(), a throwaway copy.
+  private val drawMatrix = Matrix()
   private val paint = Paint(Paint.FILTER_BITMAP_FLAG)
 
   private val canvasView = object : View(context) {
@@ -30,9 +31,9 @@ class TermixDisplayView(context: Context, appContext: AppContext) : ExpoView(con
       val bmp = bitmap ?: return
       // The canvas is in physical pixels, the placement scale in points (dp).
       val pxScale = scale * resources.displayMetrics.density
-      matrix.setScale(pxScale, pxScale)
-      matrix.postTranslate(-offsetX * pxScale, -offsetY * pxScale)
-      canvas.drawBitmap(bmp, matrix, paint)
+      drawMatrix.setScale(pxScale, pxScale)
+      drawMatrix.postTranslate(-offsetX * pxScale, -offsetY * pxScale)
+      canvas.drawBitmap(bmp, drawMatrix, paint)
     }
   }
 
