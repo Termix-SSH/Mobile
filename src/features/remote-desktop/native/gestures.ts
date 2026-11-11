@@ -69,6 +69,12 @@ export class DisplayGestures {
   private maxFingers = 0;
   /** From the first finger down until the gesture is finished. */
   private active = false;
+  /**
+   * Where the gesture's own drag button (LEFT) was last sent down, in remote
+   * pixels, while it is held; null when it is up. Independent of the finger
+   * count, so a second finger or the end can always let go of it.
+   */
+  private down: Point | null = null;
 
   constructor(
     public view: Viewport,
@@ -138,6 +144,9 @@ export class DisplayGestures {
         this.mode === "trackpad" && t - this.lastTapAt < DOUBLE_TAP_MS;
       return [];
     }
+    // More fingers: let go of a drag button first, the rest is a normal
+    // multi-finger gesture.
+    const out = touches.length > 1 ? this.letGo() : [];
     if (touches.length === 2) {
       this.pinch = {
         d: dist(touches[0], touches[1]),
@@ -149,11 +158,18 @@ export class DisplayGestures {
       this.twoStart = this.pinch.mid;
       this.last = this.pinch.mid;
     }
-    return [];
+    return out;
   }
 
   move(touches: Point[]): GestureAction[] {
-    if (touches.length >= 2 && this.pinch) return this.twoFingers(touches);
+    // A second finger whose start never came still lets go of a drag button,
+    // and makes this a multi-finger gesture so the drag does not resume.
+    this.maxFingers = Math.max(this.maxFingers, touches.length);
+    const up = touches.length > 1 ? this.letGo() : [];
+    if (touches.length >= 2 && this.pinch) {
+      return [...up, ...this.twoFingers(touches)];
+    }
+    if (up.length) return up;
     if (touches.length !== 1 || this.maxFingers > 1 || this.ignored) return [];
     const [p] = touches;
     if (!this.moved && dist(p, this.start) <= TAP_MOVE_PX) return [];
@@ -164,6 +180,7 @@ export class DisplayGestures {
       // Drag holds the left button from where the finger went down.
       const out = first ? [this.at(this.remote(this.start), LEFT)] : [];
       this.last = p;
+      this.down = r;
       return [...out, this.at(r, LEFT)];
     }
     const scale = fitScale(this.view) * this.view.zoom;
@@ -172,6 +189,7 @@ export class DisplayGestures {
       y: this.cursor.y + ((p.y - this.last.y) * TRACKPAD_SPEED) / scale,
     });
     this.last = p;
+    if (this.dragging) this.down = this.cursor;
     return [this.at(this.cursor, this.dragging ? LEFT : 0)];
   }
 
@@ -228,7 +246,7 @@ export class DisplayGestures {
   end(remaining: number, t: number): GestureAction[] {
     this.fingers = remaining;
     if (remaining > 0) return [];
-    const out = this.finish(t);
+    const out = [...this.letGo(), ...this.finish(t)];
     this.reset();
     return out;
   }
@@ -243,10 +261,7 @@ export class DisplayGestures {
 
   /** The responder was taken away: no click, but a held drag button goes up. */
   cancel(): GestureAction[] {
-    const out =
-      this.active && this.maxFingers === 1 && this.moved && !this.ignored
-        ? this.dragUp()
-        : [];
+    const out = this.letGo();
     this.reset();
     return out;
   }
@@ -259,20 +274,24 @@ export class DisplayGestures {
     this.dragging = false;
     this.pinch = null;
     this.pinching = false;
+    this.down = null;
   }
 
-  /** The button-up that ends a one finger drag, if it held the button. */
-  private dragUp(): GestureAction[] {
-    if (this.mode === "touch") return [this.at(this.remote(this.last), 0)];
-    return this.dragging ? [this.at(this.cursor, 0)] : [];
+  /** The button-up for the gesture's own drag button, once, if it is held. */
+  private letGo(): GestureAction[] {
+    const at = this.down;
+    if (!at) return [];
+    this.down = null;
+    this.dragging = false;
+    return [this.at(at, 0)];
   }
 
   private finish(t: number): GestureAction[] {
     const fingers = this.maxFingers;
     const quick = t - this.startAt < TAP_MS;
     if (fingers === 1) {
-      if (this.ignored) return [];
-      if (this.moved) return this.dragUp();
+      // A drag already let go of its button in end().
+      if (this.ignored || this.moved) return [];
       const at = this.target(this.start);
       if (this.mode === "touch" && t - this.startAt >= LONG_PRESS_MS) {
         return this.click(at, RIGHT);

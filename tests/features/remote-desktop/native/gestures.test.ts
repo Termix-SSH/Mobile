@@ -467,6 +467,114 @@ describe("responder lifecycle", () => {
   });
 });
 
+describe("a second finger during a drag", () => {
+  // Zoom 4 is scale 2: the desktop does not fit, two fingers pan.
+  const zoomed = () => {
+    const g = new DisplayGestures(view());
+    g.setView(view({ zoom: 4, panX: 500, panY: 250 }));
+    return g;
+  };
+
+  /** One finger drags (LEFT down), a second lands and the two pan. */
+  function dragThenPan(g: DisplayGestures) {
+    const out: GestureAction[] = [];
+    out.push(...g.grant([{ x: 400, y: 250 }], 0));
+    out.push(...g.begin([{ x: 400, y: 250 }], 0));
+    out.push(...g.move([{ x: 450, y: 250 }]));
+    const r = toRemote(g.view, 450, 250);
+    const second = g.begin(
+      [
+        { x: 450, y: 250 },
+        { x: 650, y: 250 },
+      ],
+      100,
+    );
+    // The button goes up right away, where the drag left it.
+    expect(pointers(second)).toEqual([
+      [Math.round(r.x), Math.round(r.y), g.held],
+    ]);
+    out.push(...second);
+    const pan = g.move([
+      { x: 350, y: 200 },
+      { x: 550, y: 200 },
+    ]);
+    expect(pan.length).toBeGreaterThan(0);
+    expect(pan.every((a) => a.kind === "view")).toBe(true);
+    out.push(...pan);
+    return out;
+  }
+
+  function expectLetGo(out: GestureAction[], held = 0) {
+    const p = pointers(out);
+    const down = p.findIndex((q) => (q[2] & LEFT) !== 0);
+    const up = p.findIndex((q, i) => i > down && (q[2] & LEFT) === 0);
+    expect(down).toBeGreaterThanOrEqual(0);
+    expect(up).toBeGreaterThan(down);
+    // Exactly one button-up, and it is the last pointer event.
+    expect(p.filter((q) => (q[2] & LEFT) === 0)).toHaveLength(1);
+    expect(p.at(-1)?.[2]).toBe(held);
+  }
+
+  test("a touch drag lets go when the second finger lands, then pans", () => {
+    const g = zoomed();
+    const out = dragThenPan(g);
+    expect(g.end(1, 300)).toEqual([]);
+    expect(g.release(300)).toEqual([]);
+    expectLetGo(out);
+    expect(g.view.panX).toBe(550);
+  });
+
+  test("a cancel after the pan sends no second button-up", () => {
+    const g = zoomed();
+    const out = dragThenPan(g);
+    out.push(...g.cancel());
+    out.push(...g.release(300));
+    expectLetGo(out);
+  });
+
+  test("a trackpad tap then drag lets go when a second finger lands", () => {
+    const g = new DisplayGestures(view(), "trackpad");
+    tap(g, { x: 500, y: 250 }, 0);
+    const out: GestureAction[] = [];
+    out.push(...g.grant([{ x: 500, y: 250 }], 150));
+    const drag = g.move([{ x: 520, y: 250 }]);
+    expect(pointers(drag)[0][2]).toBe(LEFT);
+    out.push(...drag);
+    const second = g.begin(
+      [
+        { x: 520, y: 250 },
+        { x: 620, y: 250 },
+      ],
+      200,
+    );
+    expect(pointers(second)).toEqual([
+      [Math.round(g.cursor.x), Math.round(g.cursor.y), 0],
+    ]);
+    out.push(...second);
+    out.push(
+      ...g.move([
+        { x: 522, y: 252 },
+        { x: 622, y: 252 },
+      ]),
+    );
+    out.push(...g.end(1, 400));
+    out.push(...g.release(400));
+    expectLetGo(out);
+  });
+
+  test("held bar buttons stay held when the drag button goes up", () => {
+    const g = zoomed();
+    g.held = RIGHT;
+    const out = dragThenPan(g);
+    out.push(...g.end(1, 300));
+    out.push(...g.release(300));
+    const p = pointers(out);
+    expect(p[0][2]).toBe(LEFT | RIGHT);
+    expectLetGo(out, RIGHT);
+    expect(p.at(-1)?.[2]).toBe(RIGHT);
+  });
+});
+
 test("a smaller view keeps the cursor inside the desktop", () => {
   const g = new DisplayGestures(view(), "trackpad");
   g.cursor = { x: 1999, y: 999 };
