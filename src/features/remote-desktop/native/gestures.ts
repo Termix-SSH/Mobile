@@ -2,6 +2,9 @@
 // tested without a phone; the tab feeds it touches and sends what it returns.
 // Two fingers pinch to zoom, and drag to scroll the remote wheel while the
 // whole desktop fits or to pan the view while zoomed in.
+// React Native on Android can finish a gesture (end(0) or release) while a
+// finger is still down. That leftover finger sends nothing, no press, drag or
+// click, until a fresh touch-down starts a new gesture.
 import {
   clampPan,
   fitScale,
@@ -67,7 +70,10 @@ export class DisplayGestures {
   private twoStart: Point = { x: 0, y: 0 };
   private scrollAcc = 0;
   private maxFingers = 0;
-  /** From the first finger down until the gesture is finished. */
+  /**
+   * From the first finger down until the gesture is finished. Moves outside
+   * it come from a finger left over from a finished gesture and are ignored.
+   */
   private active = false;
   /**
    * Where the gesture's own drag button (LEFT) was last sent down, in remote
@@ -123,9 +129,19 @@ export class DisplayGestures {
     return [this.at(p, button), this.at(p, 0)];
   }
 
-  /** A new responder gesture starts clean, even if the last one lost its end. */
-  grant(touches: Point[], t: number): GestureAction[] {
-    return [...this.cancel(), ...this.begin(touches, t)];
+  /**
+   * A new responder gesture starts clean, even if the last one lost its end.
+   * `fresh` is false when a move claimed the responder, not a touch-down: the
+   * finger was already down, left over from a finished gesture, so like an
+   * edge touch it clicks and drags nothing until all fingers are up.
+   */
+  grant(touches: Point[], t: number, fresh = true): GestureAction[] {
+    const out = [...this.cancel(), ...this.begin(touches, t)];
+    if (!fresh) {
+      this.ignored = true;
+      this.dragging = false;
+    }
+    return out;
   }
 
   begin(touches: Point[], t: number): GestureAction[] {
@@ -162,6 +178,10 @@ export class DisplayGestures {
   }
 
   move(touches: Point[]): GestureAction[] {
+    // The gesture already finished with a finger still down: that finger
+    // waits for a fresh touch-down (begin or grant) instead of dragging from
+    // the old start.
+    if (!this.active) return [];
     // A second finger whose start never came still lets go of a drag button,
     // and makes this a multi-finger gesture so the drag does not resume.
     this.maxFingers = Math.max(this.maxFingers, touches.length);
@@ -272,6 +292,7 @@ export class DisplayGestures {
     this.maxFingers = 0;
     this.moved = false;
     this.dragging = false;
+    this.ignored = false;
     this.pinch = null;
     this.pinching = false;
     this.down = null;

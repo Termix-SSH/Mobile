@@ -273,3 +273,53 @@ test("the first tap after a two finger gesture clicks", async () => {
     now.mockRestore();
   }
 });
+
+test("a finger that takes the touch by moving does not drag, a touch-down still taps", async () => {
+  const display = fakeDisplay();
+  let callbacks: { onResize: (w: number, h: number) => void } | undefined;
+  const open = jest.fn(async (...args: any[]): Promise<any> => {
+    callbacks = args[2];
+    return { display, close: jest.fn() };
+  });
+  await setup({ rdpUser: "a", rdpPassword: "b" }, open);
+  await flush();
+  const touch = screen.getByTestId("native-remote-desktop-touch");
+  // A 400x700 area showing an 800x1400 desktop: view (x, y) is remote (2x, 2y).
+  await fireEvent(touch.parent!, "layout", {
+    nativeEvent: { layout: { width: 400, height: 700 } },
+  });
+  await act(async () => callbacks!.onResize(800, 1400));
+
+  const at = (...pts: [number, number][]) => ({
+    nativeEvent: {
+      touches: pts.map(([x, y]) => ({ locationX: x, locationY: y })),
+    },
+  });
+  const now = jest.spyOn(Date, "now");
+  try {
+    // A finger left down after a release moves and takes the responder back.
+    now.mockReturnValue(1000);
+    await fireEvent(touch, "moveShouldSetResponder", at([150, 300]));
+    await fireEvent(touch, "responderGrant", at([150, 300]));
+    await fireEvent(touch, "responderMove", at([150, 320]));
+    await fireEvent(touch, "responderMove", at([150, 340]));
+    now.mockReturnValue(1100);
+    await fireEvent(touch, "responderEnd", at());
+    await fireEvent(touch, "responderRelease", at());
+    expect(display.pointer).not.toHaveBeenCalled();
+
+    now.mockReturnValue(2000);
+    await fireEvent(touch, "startShouldSetResponder", at([100, 150]));
+    await fireEvent(touch, "responderGrant", at([100, 150]));
+    await fireEvent(touch, "responderStart", at([100, 150]));
+    now.mockReturnValue(2050);
+    await fireEvent(touch, "responderEnd", at());
+    await fireEvent(touch, "responderRelease", at());
+    expect(display.pointer.mock.calls).toEqual([
+      [200, 300, LEFT],
+      [200, 300, 0],
+    ]);
+  } finally {
+    now.mockRestore();
+  }
+});

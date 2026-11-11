@@ -467,6 +467,107 @@ describe("responder lifecycle", () => {
   });
 });
 
+describe("a finger left down after a pinch", () => {
+  const a = { x: 400, y: 250 };
+  const b = { x: 600, y: 250 };
+
+  /** Two fingers pinch to zoom 2; `b` ends up at (700, 250). */
+  function pinched(g: DisplayGestures) {
+    g.grant([a], 0);
+    g.begin([a], 0);
+    g.begin([a, b], 10);
+    g.move([
+      { x: 300, y: 250 },
+      { x: 700, y: 250 },
+    ]);
+    expect(g.view.zoom).toBe(2);
+  }
+
+  /** The remaining finger moves 40 points right in a few steps. */
+  function slide(g: DisplayGestures) {
+    const out: GestureAction[] = [];
+    for (let i = 1; i <= 4; i++) {
+      out.push(...g.move([{ x: 700 + i * 10, y: 250 }]));
+    }
+    return out;
+  }
+
+  const remote = (g: DisplayGestures, x: number, y: number) => {
+    const r = toRemote(g.view, x, y);
+    return [Math.round(r.x), Math.round(r.y)];
+  };
+
+  const tapClicks = (g: DisplayGestures, t: number) => {
+    const p = { x: 100, y: 50 };
+    g.grant([p], t);
+    g.begin([p], t);
+    const [x, y] = remote(g, p.x, p.y);
+    expect(pointers(g.end(0, t + 50))).toEqual([
+      [x, y, LEFT],
+      [x, y, 0],
+    ]);
+    expect(g.release(t + 50)).toEqual([]);
+  };
+
+  test("sends nothing when one finger lifts and the other moves", () => {
+    const g = new DisplayGestures(view());
+    pinched(g);
+    const out: GestureAction[] = [];
+    out.push(...g.end(1, 100));
+    out.push(...slide(g));
+    out.push(...g.end(0, 400));
+    out.push(...g.release(400));
+    expect(pointers(out)).toEqual([]);
+  });
+
+  test("sends nothing when the end says no finger is left too early", () => {
+    const g = new DisplayGestures(view());
+    pinched(g);
+    const out: GestureAction[] = [];
+    // React Native reports the first finger's end with no touches left.
+    out.push(...g.end(0, 100));
+    out.push(...slide(g));
+    out.push(...g.end(0, 400));
+    out.push(...g.release(400));
+    expect(pointers(out)).toEqual([]);
+    tapClicks(g, 1000);
+  });
+
+  test("sends nothing when the finger takes the responder back by moving", () => {
+    const g = new DisplayGestures(view());
+    pinched(g);
+    const out: GestureAction[] = [];
+    out.push(...g.end(1, 100));
+    out.push(...g.release(100));
+    // The leftover finger's move claims the responder again.
+    out.push(...g.grant([{ x: 700, y: 250 }], 200, false));
+    out.push(...slide(g));
+    out.push(...g.end(0, 400));
+    out.push(...g.release(400));
+    // Lifted without moving: no click either.
+    out.push(...g.grant([{ x: 700, y: 250 }], 500, false));
+    out.push(...g.end(0, 550));
+    out.push(...g.release(550));
+    expect(pointers(out)).toEqual([]);
+    tapClicks(g, 1000);
+  });
+
+  test("a fresh one finger drag after the pinch still drags", () => {
+    const g = new DisplayGestures(view());
+    pinched(g);
+    g.end(1, 100);
+    g.release(100);
+    g.grant([{ x: 100, y: 100 }], 1000);
+    g.begin([{ x: 100, y: 100 }], 1000);
+    expect(pointers(g.move([{ x: 150, y: 100 }]))).toEqual([
+      [...remote(g, 100, 100), LEFT],
+      [...remote(g, 150, 100), LEFT],
+    ]);
+    expect(pointers(g.end(0, 1500))).toEqual([[...remote(g, 150, 100), 0]]);
+    expect(g.release(1500)).toEqual([]);
+  });
+});
+
 describe("a second finger during a drag", () => {
   // Zoom 4 is scale 2: the desktop does not fit, two fingers pan.
   const zoomed = () => {
