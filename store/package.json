@@ -15,8 +15,8 @@
     "node": ">=22.12.0"
   },
   "dependencies": {
-    "@remotion/bundler": "^4.0.535",
-    "@remotion/cli": "^4.0.535",
+    "@remotion/bundler": "^4.0.543",
+    "@remotion/cli": "^4.0.543",
     "@remotion/google-fonts": "^4.0.535",
     "@remotion/renderer": "^4.0.535",
     "react": "^19.3.1",
