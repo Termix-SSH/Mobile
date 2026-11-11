@@ -22,9 +22,9 @@ import { parseTarget, targetName } from "@/core/hosts/target";
 type AuthType = "password" | "key";
 
 /**
- * Quick Connect - open an ad-hoc SSH terminal without saving the host
- * (Support issue #448). Builds a transient SSHHost (negative id) and starts a
- * terminal session directly.
+ * Quick Connect - open an ad-hoc SSH terminal without saving the host.
+ * Builds a transient SSHHost (negative id) and starts a terminal session
+ * directly.
  */
 export function QuickConnect({
   visible,
