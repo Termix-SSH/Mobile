@@ -83,6 +83,8 @@ jobs:
     # Drafts, uploads and publishes this repo's GitHub release.
     permissions:
       contents: write
+      id-token: write
+      attestations: write
     strategy:
       fail-fast: false
       matrix:
@@ -311,6 +313,12 @@ jobs:
           path: build-artifacts/termix_ios.ipa
           retention-days: 30
           if-no-files-found: error
+
+      - name: Attest build provenance
+        if: ${{ github.event.inputs.action == 'release' }}
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: build-artifacts/termix_${{ matrix.platform == 'android' && 'android.apk' || 'ios.ipa' }}
 
       - name: Upload to GitHub Release
         if: ${{ github.event.inputs.action == 'release' }}
