@@ -141,7 +141,7 @@
     "pngjs": "^7.0.0",
     "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.7.3",
-    "react-i18next": "^17.1.8",
+    "react-i18next": "^18.0.1",
     "sonner": "^2.0.8",
     "typescript": "~6.0.3",
     "undici": "^6.21.3"
