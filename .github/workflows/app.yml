@@ -34,6 +34,9 @@ jobs:
     name: Create the GitHub release
     if: ${{ github.event.inputs.action == 'release' }}
     runs-on: blacksmith-2vcpu-ubuntu-2404
+    # Drafts, uploads and publishes this repo's GitHub release.
+    permissions:
+      contents: write
     outputs:
       tag: ${{ steps.create.outputs.tag }}
     steps:
@@ -66,6 +69,9 @@ jobs:
     needs: [release]
     if: ${{ !cancelled() && (needs.release.result == 'success' || needs.release.result == 'skipped') }}
     runs-on: ${{ matrix.platform == 'apple' && 'blacksmith-6vcpu-macos-27' || 'blacksmith-8vcpu-ubuntu-2404' }}
+    # Drafts, uploads and publishes this repo's GitHub release.
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
@@ -318,6 +324,9 @@ jobs:
     needs: [release, build]
     if: ${{ github.event.inputs.action == 'release' }}
     runs-on: blacksmith-2vcpu-ubuntu-2404
+    # Drafts, uploads and publishes this repo's GitHub release.
+    permissions:
+      contents: write
     steps:
       - name: Publish the release
         env:
