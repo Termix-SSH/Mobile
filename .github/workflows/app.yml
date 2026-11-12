@@ -44,7 +44,7 @@ jobs:
       tag: ${{ steps.create.outputs.tag }}
     steps:
       - name: Setup repo
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -90,13 +90,13 @@ jobs:
       EAS_PLATFORM: ${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
     steps:
       - name: Setup repo
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       # No caches in a job that builds release apps.
       - name: Setup Node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
 
@@ -126,7 +126,7 @@ jobs:
           done
 
       - name: Setup Expo and EAS
-        uses: expo/expo-github-action@c7b66a9c327a43a8fa7c0158e7f30d6040d2481e # 8.2.1
+        uses: expo/expo-github-action@9da89d3617bb88139671bad31b09c65714c2ee06 # 9.0.1
         with:
           token: ${{ secrets.EXPO_TOKEN }}
           eas-version: 27.7.2
@@ -257,7 +257,7 @@ jobs:
 
       - name: Upload Android AAB
         if: ${{ github.event.inputs.action == 'submit' && matrix.platform == 'android' }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: termix_android_aab
           path: build-artifacts/termix_android.aab
@@ -292,7 +292,7 @@ jobs:
 
       - name: Upload Android APK
         if: ${{ github.event.inputs.action == 'file' && matrix.platform == 'android' }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: termix_android
           path: build-artifacts/termix_android.apk
@@ -301,7 +301,7 @@ jobs:
 
       - name: Upload iOS IPA
         if: ${{ github.event.inputs.action == 'file' && matrix.platform == 'apple' }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: termix_ios_universal
           path: build-artifacts/termix_ios.ipa
