@@ -60,7 +60,11 @@ jobs:
           cat RELEASE_BODY.md
 
           if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo "Release $TAG exists, updating its notes"
+            if [ "$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json isDraft -q .isDraft)" != "true" ]; then
+              echo "$TAG is already published and a release can't change. Bump the version and run again."
+              exit 1
+            fi
+            echo "Draft $TAG exists, updating its notes"
             gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --title "v$VERSION" --notes-file RELEASE_BODY.md
           else
             echo "Creating draft release $TAG"
@@ -342,7 +346,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.release.outputs.tag }}
           CHANNEL: ${{ inputs.channel }}
+          PLATFORM_INPUT: ${{ inputs.platform }}
         run: |
+          # Files can't change after this, so check both builds are on the draft.
+          ASSETS=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets -q '.assets[].name')
+          case "$PLATFORM_INPUT" in
+            android) EXPECTED="termix_android.apk" ;;
+            apple) EXPECTED="termix_ios.ipa" ;;
+            *) EXPECTED="termix_android.apk termix_ios.ipa" ;;
+          esac
+          for NAME in $EXPECTED; do
+            if ! printf '%s\n' "$ASSETS" | grep -qx "$NAME"; then
+              echo "The draft is missing $NAME. Not publishing."
+              exit 1
+            fi
+          done
           if [ "$CHANNEL" = "beta" ]; then
             gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --prerelease --latest=false
           else
