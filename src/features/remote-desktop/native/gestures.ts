@@ -1,8 +1,15 @@
 // Touch to mouse for a remote desktop. Pure, so it can be
 // tested without a phone; the tab feeds it touches and sends what it returns.
+// Two fingers pinch to zoom, and drag to scroll the remote wheel while the
+// whole desktop fits or to pan the view while zoomed in.
+// React Native on Android can finish a gesture (end(0) or release) while a
+// finger is still down. That leftover finger sends nothing, no press, drag or
+// click, until a fresh touch-down starts a new gesture.
 import {
   clampPan,
   fitScale,
+  fitsInView,
+  panBy,
   toRemote,
   zoomAround,
   type Viewport,
@@ -59,8 +66,21 @@ export class DisplayGestures {
   private lastTapAt = -Infinity;
   private pinch: { d: number; view: Viewport; mid: Point } | null = null;
   private pinching = false;
+  /** Two finger midpoint at gesture start, for the tap movement check. */
+  private twoStart: Point = { x: 0, y: 0 };
   private scrollAcc = 0;
   private maxFingers = 0;
+  /**
+   * From the first finger down until the gesture is finished. Moves outside
+   * it come from a finger left over from a finished gesture and are ignored.
+   */
+  private active = false;
+  /**
+   * Where the gesture's own drag button (LEFT) was last sent down, in remote
+   * pixels, while it is held; null when it is up. Independent of the finger
+   * count, so a second finger or the end can always let go of it.
+   */
+  private down: Point | null = null;
 
   constructor(
     public view: Viewport,
@@ -109,7 +129,23 @@ export class DisplayGestures {
     return [this.at(p, button), this.at(p, 0)];
   }
 
+  /**
+   * A new responder gesture starts clean, even if the last one lost its end.
+   * `fresh` is false when a move claimed the responder, not a touch-down: the
+   * finger was already down, left over from a finished gesture, so like an
+   * edge touch it clicks and drags nothing until all fingers are up.
+   */
+  grant(touches: Point[], t: number, fresh = true): GestureAction[] {
+    const out = [...this.cancel(), ...this.begin(touches, t)];
+    if (!fresh) {
+      this.ignored = true;
+      this.dragging = false;
+    }
+    return out;
+  }
+
   begin(touches: Point[], t: number): GestureAction[] {
+    this.active = true;
     this.fingers = touches.length;
     this.maxFingers = Math.max(this.maxFingers, touches.length);
     if (touches.length === 1 && this.maxFingers === 1) {
@@ -124,6 +160,9 @@ export class DisplayGestures {
         this.mode === "trackpad" && t - this.lastTapAt < DOUBLE_TAP_MS;
       return [];
     }
+    // More fingers: let go of a drag button first, the rest is a normal
+    // multi-finger gesture.
+    const out = touches.length > 1 ? this.letGo() : [];
     if (touches.length === 2) {
       this.pinch = {
         d: dist(touches[0], touches[1]),
@@ -132,13 +171,25 @@ export class DisplayGestures {
       };
       this.pinching = false;
       this.scrollAcc = 0;
+      this.twoStart = this.pinch.mid;
       this.last = this.pinch.mid;
     }
-    return [];
+    return out;
   }
 
   move(touches: Point[]): GestureAction[] {
-    if (touches.length >= 2 && this.pinch) return this.twoFingers(touches);
+    // The gesture already finished with a finger still down: that finger
+    // waits for a fresh touch-down (begin or grant) instead of dragging from
+    // the old start.
+    if (!this.active) return [];
+    // A second finger whose start never came still lets go of a drag button,
+    // and makes this a multi-finger gesture so the drag does not resume.
+    this.maxFingers = Math.max(this.maxFingers, touches.length);
+    const up = touches.length > 1 ? this.letGo() : [];
+    if (touches.length >= 2 && this.pinch) {
+      return [...up, ...this.twoFingers(touches)];
+    }
+    if (up.length) return up;
     if (touches.length !== 1 || this.maxFingers > 1 || this.ignored) return [];
     const [p] = touches;
     if (!this.moved && dist(p, this.start) <= TAP_MOVE_PX) return [];
@@ -149,6 +200,7 @@ export class DisplayGestures {
       // Drag holds the left button from where the finger went down.
       const out = first ? [this.at(this.remote(this.start), LEFT)] : [];
       this.last = p;
+      this.down = r;
       return [...out, this.at(r, LEFT)];
     }
     const scale = fitScale(this.view) * this.view.zoom;
@@ -157,16 +209,29 @@ export class DisplayGestures {
       y: this.cursor.y + ((p.y - this.last.y) * TRACKPAD_SPEED) / scale,
     });
     this.last = p;
+    if (this.dragging) this.down = this.cursor;
     return [this.at(this.cursor, this.dragging ? LEFT : 0)];
   }
 
+  /**
+   * A pinch (sticky once the finger distance changes by PINCH_PX) zooms
+   * around the fingers. Otherwise a drag pans the view when zoomed in, or
+   * scrolls the wheel when the whole desktop fits, decided per move.
+   */
   private twoFingers(touches: Point[]): GestureAction[] {
     const pinch = this.pinch!;
     const m = mid(touches[0], touches[1]);
     const d = dist(touches[0], touches[1]);
     if (this.pinching || Math.abs(d - pinch.d) > PINCH_PX) {
+      if (!this.pinching) {
+        // Zoom around what is under the fingers now: a pan before the pinch
+        // may have hit an edge. The distance baseline stays.
+        pinch.view = this.view;
+        pinch.mid = m;
+      }
       this.pinching = true;
       this.moved = true;
+      this.last = m;
       this.view = zoomAround(
         pinch.view,
         pinch.view.zoom * (d / pinch.d),
@@ -177,8 +242,17 @@ export class DisplayGestures {
       );
       return [{ kind: "view", view: this.view }];
     }
+    const dx = m.x - this.last.x;
     const dy = m.y - this.last.y;
     this.last = m;
+    // Many tiny moves add up: past TAP_MOVE_PX from the start it is no tap.
+    if (dist(m, this.twoStart) > TAP_MOVE_PX) this.moved = true;
+    if (!fitsInView(this.view)) {
+      if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) this.moved = true;
+      this.scrollAcc = 0;
+      this.view = panBy(this.view, dx, dy);
+      return [{ kind: "view", view: this.view }];
+    }
     if (Math.abs(dy) > 0.5) this.moved = true;
     this.scrollAcc += dy;
     if (Math.abs(this.scrollAcc) < SCROLL_PX) return [];
@@ -192,25 +266,59 @@ export class DisplayGestures {
   end(remaining: number, t: number): GestureAction[] {
     this.fingers = remaining;
     if (remaining > 0) return [];
-    const fingers = this.maxFingers;
+    const out = [...this.letGo(), ...this.finish(t)];
+    this.reset();
+    return out;
+  }
+
+  /**
+   * The responder let go. After two fingers React Native can skip the last
+   * finger's end, so this finishes the gesture; nothing after end(0) did.
+   */
+  release(t: number): GestureAction[] {
+    return this.active ? this.end(0, t) : [];
+  }
+
+  /** The responder was taken away: no click, but a held drag button goes up. */
+  cancel(): GestureAction[] {
+    const out = this.letGo();
+    this.reset();
+    return out;
+  }
+
+  private reset() {
+    this.active = false;
+    this.fingers = 0;
     this.maxFingers = 0;
+    this.moved = false;
+    this.dragging = false;
+    this.ignored = false;
     this.pinch = null;
+    this.pinching = false;
+    this.down = null;
+  }
+
+  /** The button-up for the gesture's own drag button, once, if it is held. */
+  private letGo(): GestureAction[] {
+    const at = this.down;
+    if (!at) return [];
+    this.down = null;
+    this.dragging = false;
+    return [this.at(at, 0)];
+  }
+
+  private finish(t: number): GestureAction[] {
+    const fingers = this.maxFingers;
     const quick = t - this.startAt < TAP_MS;
     if (fingers === 1) {
-      if (this.ignored) return [];
-      if (this.moved) {
-        const wasDragging = this.dragging;
-        this.dragging = false;
-        if (this.mode === "touch") return [this.at(this.remote(this.last), 0)];
-        return wasDragging ? [this.at(this.cursor, 0)] : [];
-      }
+      // A drag already let go of its button in end().
+      if (this.ignored || this.moved) return [];
       const at = this.target(this.start);
       if (this.mode === "touch" && t - this.startAt >= LONG_PRESS_MS) {
         return this.click(at, RIGHT);
       }
       if (!quick) return [];
       this.lastTapAt = t;
-      this.dragging = false;
       return this.click(at, LEFT);
     }
     if (this.moved || !quick) return [];

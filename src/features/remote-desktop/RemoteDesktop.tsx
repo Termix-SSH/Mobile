@@ -430,6 +430,8 @@ ${VIEWPORT_SCRIPT}
       // ── Single touch state ───────────────────────────────────────────────
       let tpX = 0, tpY = 0, tpTime = 0, tpMoved = false;
       let tfTimer = null;
+      // A second finger went down during this gesture: no single-finger tap.
+      let multiTouch = false;
       const TAP_MS = 350;
       const TAP_MOVE_PX = 8;
 
@@ -447,6 +449,8 @@ ${VIEWPORT_SCRIPT}
 
       displayContainer.addEventListener('touchstart', (e) => {
         e.preventDefault();
+
+        if (e.touches.length >= 2) multiTouch = true;
 
         if (e.touches.length === 2) {
           isPinching = false;
@@ -467,6 +471,7 @@ ${VIEWPORT_SCRIPT}
         }
 
         if (e.touches.length === 1) {
+          multiTouch = false;
           tpX = e.touches[0].clientX;
           tpY = e.touches[0].clientY;
           tpTime = Date.now();
@@ -485,11 +490,19 @@ ${VIEWPORT_SCRIPT}
 
           if (distDelta > 8 || isPinching) {
             // ── Pinch to zoom ─────────────────────────────────────────────
+            if (!isPinching) {
+              // Zoom around what is under the fingers now: a pan before the
+              // pinch may have hit an edge. The distance baseline stays.
+              pinchPanX0 = panX;
+              pinchPanY0 = panY;
+              pinchMidX0 = midX;
+              pinchMidY0 = midY;
+            }
             isPinching = true;
             isScrolling = false;
             if (tfTimer) { clearTimeout(tfTimer); tfTimer = null; }
 
-            const newZoom = Math.max(1, Math.min(8, pinchZoom0 * (d / pinchDist0)));
+            const newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, pinchZoom0 * (d / pinchDist0)));
             const fixedRX = pinchPanX0 + pinchMidX0 / (fitScale() * pinchZoom0);
             const fixedRY = pinchPanY0 + pinchMidY0 / (fitScale() * pinchZoom0);
             panX = fixedRX - midX / (fitScale() * newZoom);
@@ -499,7 +512,7 @@ ${VIEWPORT_SCRIPT}
             applyTransform();
             post({ type: 'zoomChange', zoom: Math.round(zoom * 10) / 10 });
           } else {
-            // ── Two-finger drag: scroll (touch mode) or pan (zoomed) ──────
+            // ── Two-finger drag: pan when the desktop overflows, else scroll ──
             isScrolling = true;
             if (tfTimer) { clearTimeout(tfTimer); tfTimer = null; }
             const dragDX = midX - twoFingerLastX;
@@ -507,11 +520,10 @@ ${VIEWPORT_SCRIPT}
             twoFingerLastX = midX;
             twoFingerLastY = midY;
 
-            if (zoom > 1 && currentMode === 'touch') {
-              // Pan viewport when zoomed
-              panX -= dragDX / (fitScale() * zoom);
-              panY -= dragDY / (fitScale() * zoom);
-              clampPan();
+            if (!fitsInView()) {
+              // Pan the viewport in both pointer modes
+              scrollAccum = 0;
+              panBy(dragDX, dragDY);
               applyTransform();
             } else {
               // Scroll wheel: accumulate drag and fire one tick per SCROLL_PX
@@ -559,7 +571,7 @@ ${VIEWPORT_SCRIPT}
 
         if (currentMode === 'touch') {
           // Tap (no movement, quick) = click
-          if (!tpMoved && dur < TAP_MS && e.changedTouches.length === 1 && e.touches.length === 0) {
+          if (!multiTouch && !tpMoved && dur < TAP_MS && e.changedTouches.length === 1 && e.touches.length === 0) {
             const tx = e.changedTouches[0].clientX, ty = e.changedTouches[0].clientY;
             sendMouseAt(tx, ty, true, false, false, false);
             setTimeout(() => sendMouseAt(tx, ty, false, false, false, false), 60);
@@ -567,7 +579,7 @@ ${VIEWPORT_SCRIPT}
         } else {
           // Trackpad
           if (e.touches.length === 0) {
-            if (!tpMoved && dur < TAP_MS && e.changedTouches.length === 1) {
+            if (!multiTouch && !tpMoved && dur < TAP_MS && e.changedTouches.length === 1) {
               sendMouseCursor(true, false);
               setTimeout(() => sendMouseCursor(false, false), 60);
             }
@@ -578,6 +590,7 @@ ${VIEWPORT_SCRIPT}
             }
           }
         }
+        if (e.touches.length === 0) multiTouch = false;
       }, { passive: false });
 
       // ── Hardware pointer (iPad trackpad, Bluetooth mouse) ────────────────
