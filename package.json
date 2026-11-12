@@ -129,7 +129,7 @@
     "better-sqlite3": "^13.0.3",
     "drizzle-kit": "^0.31.11",
     "esbuild": "^0.25.12",
-    "eslint": "^9.25.0",
+    "eslint": "^10.14.0",
     "eslint-config-expo": "~57.0.2",
     "eslint-plugin-unused-imports": "^4.4.1",
     "globals": "^14.0.0",
