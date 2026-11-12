@@ -43,7 +43,7 @@ jobs:
       - name: Create or update the draft release from CHANGELOG.md
         id: create
         env:
-          GH_TOKEN: ${{ secrets.TERMIX_PAT }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           VERSION=$(node -p "require('./app.json').expo.version")
           TAG="v$VERSION"
@@ -296,7 +296,7 @@ jobs:
       - name: Upload to GitHub Release
         if: ${{ github.event.inputs.action == 'release' }}
         env:
-          GH_TOKEN: ${{ secrets.TERMIX_PAT }}
+          GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.release.outputs.tag }}
         run: |
           if [ "${{ matrix.platform }}" = "android" ]; then
@@ -321,7 +321,7 @@ jobs:
     steps:
       - name: Publish the release
         env:
-          GH_TOKEN: ${{ secrets.TERMIX_PAT }}
+          GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.release.outputs.tag }}
         run: |
           if [ "${{ github.event.inputs.channel }}" = "beta" ]; then
