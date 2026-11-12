@@ -17,33 +17,41 @@ on:
       - "modules/termix-ssh/scripts/build-android.sh"
       - "modules/termix-terminal/ghostty.lock.json"
 
+permissions: {}
+
 jobs:
   build:
     name: F-Droid build
     runs-on: blacksmith-8vcpu-ubuntu-2404
+    permissions:
+      contents: read
     timeout-minutes: 90
     env:
       TERMIX_FDROID: "1"
       # Same as the F-Droid arm64-v8a APK
       TERMIX_FDROID_VERCODE: "200002"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      # Runs on release tags, so no caches.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
-          cache: npm
+          package-manager-cache: false
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4.9.1
         with:
           distribution: temurin
           java-version: "17"
 
-      - uses: mlugg/setup-zig@v2
+      - uses: mlugg/setup-zig@d1434d08867e3ee9daa34448df10607b98908d29 # v2.2.1
         with:
           version: 0.15.2
+          use-cache: false
 
-      - uses: dtolnay/rust-toolchain@master
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # v1
         with:
           toolchain: "1.99.1"
           targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android,i686-linux-android
@@ -83,7 +91,7 @@ jobs:
           cd ..
           node scripts/check-fdroid.cjs deps.txt
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: termix-fdroid-unsigned
           path: android/app/build/outputs/apk/release/*.apk
