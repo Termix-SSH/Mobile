@@ -28,8 +28,6 @@ jobs:
     timeout-minutes: 90
     env:
       TERMIX_FDROID: "1"
-      # Same as the F-Droid arm64-v8a APK
-      TERMIX_FDROID_VERCODE: "200002"
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
@@ -55,6 +53,10 @@ jobs:
         with:
           toolchain: "1.99.1"
           targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android,i686-linux-android
+
+      # Same as the F-Droid arm64-v8a APK of this version
+      - name: Version code
+        run: echo "TERMIX_FDROID_VERCODE=$(node -p "require('./app.json').expo.android.versionCode * 10 + 2")" >> "$GITHUB_ENV"
 
       - name: Tools
         run: |
