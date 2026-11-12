@@ -143,10 +143,24 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           tag=$(node -p "require('./dist/engine.lock.json').tag")
-          gh release delete "$tag" --yes --cleanup-tag 2>/dev/null || true
-          gh release create "$tag" --prerelease --target "$GITHUB_SHA" --title "SSH engine $tag" \
+          # Releases are immutable: a published version is never replaced.
+          state=$(gh release view "$tag" --json isDraft --jq .isDraft 2>/dev/null || echo none)
+          if [ "$state" = "false" ]; then
+            echo "::error::$tag is already published. Bump the engine version."
+            exit 1
+          fi
+          if [ "$state" = "true" ]; then
+            gh release delete "$tag" --yes
+          fi
+          gh release create "$tag" --draft --prerelease --target "$GITHUB_SHA" --title "SSH engine $tag" \
             --notes "Prebuilt russh engine for modules/termix-ssh. Not an app release." \
             dist/termix-ssh-android.tar.gz dist/termix-ssh-ios.tar.gz dist/engine.lock.json
+          count=$(gh release view "$tag" --json assets --jq '.assets | length')
+          if [ "$count" != "3" ]; then
+            echo "::error::$tag has $count files, expected 3"
+            exit 1
+          fi
+          gh release edit "$tag" --draft=false
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: engine-lock
