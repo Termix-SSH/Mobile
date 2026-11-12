@@ -151,8 +151,28 @@ test("the page can't set login, proxy or identity headers", () => {
 test("actions can be read and run, but never approved", () => {
   expect(ok("GET", "/operations/catalog")).toBe(true);
   expect(ok("GET", "/operations/resources/docker.container")).toBe(true);
-  expect(ok("POST", "/operations/docker.restart-container/run")).toBe(true);
+  expect(ok("POST", "/operations/docker.restart-container/run", "docker")).toBe(
+    true,
+  );
   expect(ok("POST", "/operations/approvals/abc")).toBe(false);
   expect(ok("GET", "/operations/approvals")).toBe(false);
   expect(ok("POST", "/operations/runs/abc/cancel")).toBe(false);
+});
+
+test("a plugin runs only its own actions", () => {
+  expect(ok("POST", "/operations/alerts.mute/run")).toBe(true);
+  expect(ok("POST", "/operations/docker.restart-container/run")).toBe(false);
+  expect(ok("POST", "/operations/alertsx.mute/run")).toBe(false);
+  expect(ok("POST", "/operations/alerts/run")).toBe(false);
+  expect(ok("POST", "/operations/alerts-docker.restart/run")).toBe(false);
+  expect(ok("POST", "/operations/ALERTS.mute/run")).toBe(false);
+});
+
+test("a plugin reads only its own assets", () => {
+  expect(ok("GET", "/plugin-assets/alerts/icon.svg")).toBe(true);
+  expect(ok("GET", "/plugin-assets/docker/frontend.js")).toBe(false);
+  expect(ok("GET", "/plugin-assets/alerts-x/frontend.js")).toBe(false);
+  expect(ok("GET", "/plugin-assets/alerts")).toBe(false);
+  expect(ok("GET", "/plugin-assets/alerts/%2e%2e/docker/x.js")).toBe(false);
+  expect(ok("GET", "/plugin-assets/Alerts/x.js")).toBe(false);
 });

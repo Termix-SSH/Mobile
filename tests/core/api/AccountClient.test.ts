@@ -1,4 +1,5 @@
-import { AccountClient } from "@/core/api/AccountClient";
+import { Platform } from "react-native";
+import { AccountClient, resetPinRegistry } from "@/core/api/AccountClient";
 import { ApiError } from "@/core/api/errors";
 import { leftServer } from "@/core/api/http";
 import { accountStorage } from "@/core/storage/kv";
@@ -6,7 +7,10 @@ import { fakeServer, resetStorage } from "../../helpers/http";
 import { clearFakeNet, fakeNet } from "../../helpers/net";
 
 beforeEach(resetStorage);
-afterEach(clearFakeNet);
+afterEach(() => {
+  clearFakeNet();
+  resetPinRegistry();
+});
 
 function client(id = "a1", serverUrl = "https://termix.example/") {
   return new AccountClient({
@@ -426,4 +430,72 @@ test("wipe unpins the server", async () => {
   await c.wipe();
   expect(net.pins.size).toBe(0);
   expect(c.certPins()).toEqual([]);
+});
+
+describe("pins and certificates fail closed", () => {
+  const pin = "K".repeat(43) + "=";
+  const other = "L".repeat(43) + "=";
+
+  test("a pinned account refuses to talk when the module is missing", async () => {
+    fakeNet({ nativeRequests: true });
+    const c = client();
+    await c.setCertPins([pin]);
+    clearFakeNet();
+    expect(() => c.usesNativeNetwork()).toThrow(
+      expect.objectContaining({ code: "NET_UNAVAILABLE" }),
+    );
+    await expect(c.fetch("https://termix.example/users/me")).rejects.toThrow();
+    await expect(
+      c.rawAxios().get("https://termix.example/health"),
+    ).rejects.toThrow("pinned key");
+    expect(() => c.openSocket("wss://termix.example/x")).toThrow();
+  });
+
+  test("an account with a client certificate refuses without the module", async () => {
+    fakeNet({ nativeRequests: true });
+    const c = client();
+    await c.setClientCert({ base64: "AAAA", passphrase: "pw", name: null });
+    clearFakeNet();
+    expect(() => c.usesNativeNetwork()).toThrow();
+  });
+
+  test("a load fails when the pins can't be put back in the native store", async () => {
+    const net = fakeNet({ nativeRequests: true });
+    await client().setCertPins([pin]);
+    net.setServerPins = async () => {
+      throw new Error("keychain gone");
+    };
+    resetPinRegistry();
+    await expect(client().load()).rejects.toThrow("keychain gone");
+  });
+
+  test("removing one account keeps the pins of another on the same host", async () => {
+    const net = fakeNet({ nativeRequests: true });
+    const a = client("a1");
+    const b = client("b1");
+    await a.setCertPins([pin]);
+    await b.setCertPins([other]);
+    expect(new Set(net.pins.get("termix.example"))).toEqual(
+      new Set([pin, other]),
+    );
+    await a.wipe();
+    expect(net.pins.get("termix.example")).toEqual([other]);
+    await b.setCertPins([]);
+    expect(net.pins.has("termix.example")).toBe(false);
+  });
+
+  test("on Android the module's OkHttp factory checks pins for plain requests", async () => {
+    jest.replaceProperty(Platform, "OS", "android");
+    fakeNet({ nativeRequests: false });
+    const c = client();
+    await c.setCertPins([pin]);
+    expect(c.usesNativeNetwork()).toBe(false);
+    clearFakeNet();
+    expect(() => c.usesNativeNetwork()).toThrow();
+  });
+
+  test("an unpinned account with no certificate never needs the module", () => {
+    clearFakeNet();
+    expect(client().usesNativeNetwork()).toBe(false);
+  });
 });

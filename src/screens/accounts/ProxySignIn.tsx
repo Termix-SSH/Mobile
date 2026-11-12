@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { WebView } from "react-native-webview";
+import {
+  PIN_REFUSED_TEXT,
+  usePinnedServerCheck,
+} from "@/core/api/pin-preflight";
 import type { AccountClient } from "@/core/api/AccountClient";
 import { isNetAvailable, readWebCookies } from "@/modules/termix-net";
 import { InlineView, Text } from "@/ui";
@@ -55,6 +59,7 @@ export function ProxySignIn({
 }) {
   const color = useThemeColor();
   const [saving, setSaving] = useState(false);
+  const pinCheck = usePinnedServerCheck(client, open);
   const handled = useRef(false);
 
   // Each open is a new sign in, also after one that went through.
@@ -101,6 +106,16 @@ export function ProxySignIn({
               "This build of the app can't keep a proxy sign in. Use a service token in the proxy headers instead."
             }
           </Text>
+        </View>
+      ) : client && pinCheck !== "ok" ? (
+        <View className="flex-1 items-center justify-center p-6">
+          {pinCheck === "checking" ? (
+            <ActivityIndicator color={color("accent-brand")} />
+          ) : (
+            <Text className="text-center text-sm text-muted-foreground">
+              {PIN_REFUSED_TEXT}
+            </Text>
+          )}
         </View>
       ) : client ? (
         <View className="flex-1">

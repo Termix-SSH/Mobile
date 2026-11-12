@@ -13,6 +13,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 import { localStores } from "@/core/db/stores";
+import {
+  dropDeviceKey,
+  getPlainDbKey,
+  isDeviceKeySealed,
+  removePlainDeviceKey,
+  restorePlainDeviceKey,
+  setDeviceKeyState,
+  unlockedDeviceKey,
+} from "@/core/db/keys";
+import { keyVault } from "@/core/lock/vault-store";
 import { DEVICE_ONLY } from "@/core/storage/kv";
 import {
   DEFAULT_LOCK_DELAY_MS,
@@ -31,15 +41,20 @@ import {
 
 /**
  * App Lock - optional biometric / PIN gate when the app is opened or returns
- * from background. The PIN is stored in the OS secure store; the flags in
- * AsyncStorage. The when-to-lock rules live in `core/lock/machine`.
+ * from background. While it is on, this device's database key is sealed by
+ * the PIN and by a biometric Keychain/Keystore item (core/lock/key-vault), so
+ * unlocking is what gives the app its data. The flags are in AsyncStorage;
+ * the when-to-lock rules live in `core/lock/machine`.
  */
 
 export const APP_LOCK_ENABLED_KEY = "appLockEnabled";
 export const APP_LOCK_DELAY_KEY = "appLockDelayMs";
 export const APP_LOCK_HIDE_KEY = "appLockHideInSwitcher";
 const ENABLED_KEY = APP_LOCK_ENABLED_KEY;
-const PIN_KEY = "appLockPin"; // SecureStore
+// Builds before the key vault kept the PIN itself here. Moved on the first
+// PIN unlock, then removed.
+const LEGACY_PIN_KEY = "appLockPin";
+const UNLOCK_PROMPT = "Unlock Termix";
 
 interface AppLockContextValue {
   enabled: boolean;
@@ -95,7 +110,9 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     (async () => {
-      const [isEnabled, delay, hide, hw, enrolled] = await Promise.all([
+      const [sealed, isEnabled, delay, hide, hw, enrolled] = await Promise.all([
+        // Fails closed: a store that can't be read counts as sealed.
+        keyVault.active().catch(() => true),
         AsyncStorage.getItem(ENABLED_KEY),
         AsyncStorage.getItem(APP_LOCK_DELAY_KEY),
         AsyncStorage.getItem(APP_LOCK_HIDE_KEY),
@@ -112,7 +129,10 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
       // biometric is actually enrolled - otherwise the fingerprint button would
       // appear but do nothing.
       setHasBiometrics(!!hw && !!enrolled);
-      dispatch({ type: "start", enabled: isEnabled === "true" });
+      setDeviceKeyState(sealed, null);
+      if (sealed) setLimit(await keyVault.loadFails());
+      // A sealed key means locked, whatever the flag says.
+      dispatch({ type: "start", enabled: sealed || isEnabled === "true" });
       setReady(true);
     })();
   }, []);
@@ -120,8 +140,10 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
   // Local data keys are only read while the app is unlocked.
   useEffect(() => {
     if (!ready) return;
-    if (state.locked) localStores.lock();
-    else localStores.unlock();
+    if (state.locked) {
+      localStores.lock();
+      dropDeviceKey();
+    } else localStores.unlock();
   }, [ready, state.locked]);
 
   useEffect(() => {
@@ -171,16 +193,43 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
     setHide(on);
   }, []);
 
+  const hasBiometricsRef = useRef(hasBiometrics);
+  useEffect(() => {
+    hasBiometricsRef.current = hasBiometrics;
+  }, [hasBiometrics]);
+  // Set when the biometric copy did not open (cancelled, or the enrolled
+  // biometrics changed), so the next PIN unlock seals it again.
+  const bioNeedsSeal = useRef(false);
+
   const enable = useCallback(async (pin: string) => {
-    await SecureStore.setItemAsync(PIN_KEY, pin, DEVICE_ONLY);
+    // Seal the key the device data opens with, check it opens again, and
+    // only then drop the plain copy.
+    const key = unlockedDeviceKey() ?? (await getPlainDbKey("local"));
+    await keyVault.seal(pin, key, hasBiometricsRef.current);
+    setDeviceKeyState(true, key);
+    await removePlainDeviceKey();
+    await SecureStore.deleteItemAsync(LEGACY_PIN_KEY, DEVICE_ONLY).catch(
+      () => {},
+    );
     await AsyncStorage.setItem(ENABLED_KEY, "true");
     setLimit(NO_PIN_LIMIT);
     dispatch({ type: "enable" });
   }, []);
 
   const disable = useCallback(async () => {
-    await SecureStore.deleteItemAsync(PIN_KEY, DEVICE_ONLY).catch(() => {});
+    if (isDeviceKeySealed()) {
+      const key = unlockedDeviceKey();
+      // Only reachable unlocked; without the key the data would be lost.
+      if (!key) throw new Error("Unlock Termix first.");
+      await restorePlainDeviceKey(key);
+      await keyVault.clear();
+      setDeviceKeyState(false, null);
+    }
+    await SecureStore.deleteItemAsync(LEGACY_PIN_KEY, DEVICE_ONLY).catch(
+      () => {},
+    );
     await AsyncStorage.setItem(ENABLED_KEY, "false");
+    setLimit(NO_PIN_LIMIT);
     dispatch({ type: "disable" });
   }, []);
 
@@ -208,6 +257,22 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const unlockWithBiometrics = useCallback(async () => {
+    if (isDeviceKeySealed()) {
+      // The system prompt opens the Keychain/Keystore item itself.
+      dispatch({ type: "bioStart" });
+      try {
+        const key = await keyVault.openBiometric(UNLOCK_PROMPT);
+        setDeviceKeyState(true, key);
+        dispatch({ type: "unlock" });
+        return true;
+      } catch {
+        // Cancelled, or the enrolled biometrics changed: the PIN still works.
+        bioNeedsSeal.current = true;
+        return false;
+      } finally {
+        dispatch({ type: "bioEnd" });
+      }
+    }
     const ok = await authenticateBiometrics();
     if (ok) dispatch({ type: "unlock" });
     return ok;
@@ -216,33 +281,81 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
   const limitRef = useRef(limit);
   limitRef.current = limit;
 
-  const verifyPin = useCallback(async (pin: string) => {
-    if (pinWaitLeft(limitRef.current, Date.now()) > 0) return false;
-    const stored = await SecureStore.getItemAsync(PIN_KEY, DEVICE_ONLY).catch(
-      () => null,
-    );
-    const ok = !!stored && stored === pin;
-    if (ok) setLimit(NO_PIN_LIMIT);
-    else setLimit((l) => pinFailed(l, Date.now()));
-    return ok;
+  const recordTry = useCallback(async (ok: boolean) => {
+    const next = ok ? NO_PIN_LIMIT : pinFailed(limitRef.current, Date.now());
+    limitRef.current = next;
+    setLimit(next);
+    if (isDeviceKeySealed()) await keyVault.saveFails(next).catch(() => {});
   }, []);
+
+  /** The device key for this PIN ("" before the vault), or null when wrong. */
+  const openWithPin = useCallback(
+    async (pin: string): Promise<string | null> => {
+      if (pinWaitLeft(limitRef.current, Date.now()) > 0) return null;
+      if (isDeviceKeySealed()) {
+        try {
+          const key = await keyVault.openPin(pin);
+          await recordTry(true);
+          return key;
+        } catch {
+          await recordTry(false);
+          return null;
+        }
+      }
+      const stored = await SecureStore.getItemAsync(
+        LEGACY_PIN_KEY,
+        DEVICE_ONLY,
+      ).catch(() => null);
+      const ok = !!stored && stored === pin;
+      await recordTry(ok);
+      return ok ? "" : null;
+    },
+    [recordTry],
+  );
+
+  const verifyPin = useCallback(
+    async (pin: string) => (await openWithPin(pin)) !== null,
+    [openWithPin],
+  );
 
   const unlockWithPin = useCallback(
     async (pin: string) => {
-      const ok = await verifyPin(pin);
-      if (ok) dispatch({ type: "unlock" });
-      return ok;
+      const opened = await openWithPin(pin);
+      if (opened === null) return false;
+      if (isDeviceKeySealed()) {
+        setDeviceKeyState(true, opened);
+        if (bioNeedsSeal.current && hasBiometricsRef.current) {
+          bioNeedsSeal.current = false;
+          void keyVault.sealBiometric(opened);
+        }
+      } else {
+        // First unlock after the update: seal the key and drop the old PIN.
+        const key = await getPlainDbKey("local");
+        await keyVault.seal(pin, key, hasBiometricsRef.current);
+        setDeviceKeyState(true, key);
+        await removePlainDeviceKey();
+        await SecureStore.deleteItemAsync(LEGACY_PIN_KEY, DEVICE_ONLY).catch(
+          () => {},
+        );
+      }
+      dispatch({ type: "unlock" });
+      return true;
     },
-    [verifyPin],
+    [openWithPin],
   );
 
   const changePin = useCallback(
     async (oldPin: string, newPin: string) => {
-      if (!(await verifyPin(oldPin))) return false;
-      await SecureStore.setItemAsync(PIN_KEY, newPin, DEVICE_ONLY);
+      const opened = await openWithPin(oldPin);
+      if (opened === null) return false;
+      if (isDeviceKeySealed()) {
+        await keyVault.changePin(opened, newPin);
+      } else {
+        await SecureStore.setItemAsync(LEGACY_PIN_KEY, newPin, DEVICE_ONLY);
+      }
       return true;
     },
-    [verifyPin],
+    [openWithPin],
   );
 
   const value = useMemo<AppLockContextValue>(

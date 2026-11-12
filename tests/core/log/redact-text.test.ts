@@ -1,4 +1,4 @@
-import { apiLogger, redactText } from "@/core/log/logger";
+import { apiLogger, redact, redactText } from "@/core/log/logger";
 import { clearLogs, formatLogs, getLogs } from "@/core/log/buffer";
 
 test("server addresses and queries leave the line, paths stay", () => {
@@ -46,4 +46,48 @@ test("the shareable log never holds the server or a token", () => {
   expect(text).not.toContain("t1");
   expect(text).not.toContain("10.1.2.3");
   expect(text).toContain("/users/me");
+});
+
+test.each([
+  ["passphrase=hunter2", "hunter2"],
+  ["passphrase: hunter2", "hunter2"],
+  ["api_key=abc123def", "abc123def"],
+  ["apiKey: abc123def", "abc123def"],
+  ["x-api-key=abc123def", "abc123def"],
+  ["client_secret=s3cr3tvalue", "s3cr3tvalue"],
+  ["private_key=keydata", "keydata"],
+  ['{"refreshToken":"rt-value"}', "rt-value"],
+  ["used tmx_1b4119d57a72a8c790e3e3 to sign in", "tmx_1b4119d57a72a8c790e3e3"],
+])("hides the secret in %s", (line, secret) => {
+  expect(redactText(line)).not.toContain(secret);
+});
+
+test("hides a private key block, even a cut off one", () => {
+  const key = [
+    "-----BEGIN OPENSSH PRIVATE KEY-----",
+    "b3BlbnNzaC1rZXktdjEAAAAABG5vbmU",
+    "-----END OPENSSH PRIVATE KEY-----",
+  ].join("\n");
+  expect(redactText(`bad key ${key} done`)).toBe("bad key [hidden key] done");
+  expect(redactText("-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEA")).toBe(
+    "[hidden key]",
+  );
+});
+
+test("masks fields named like secrets in a log context", () => {
+  expect(
+    redact({
+      passphrase: "a",
+      apiKey: "b",
+      clientCredential: "c",
+      privatePem: "d",
+      host: "kept",
+    }),
+  ).toEqual({
+    passphrase: "[hidden]",
+    apiKey: "[hidden]",
+    clientCredential: "[hidden]",
+    privatePem: "[hidden]",
+    host: "kept",
+  });
 });

@@ -185,3 +185,15 @@ describe("payloads hold no forbidden fields", () => {
     }
   });
 });
+
+describe("crash reports", () => {
+  it("never carry the message, the stack or a secret in the class name", () => {
+    const error = new Error("password=hunter2 tmx_0123456789abcdef0123");
+    error.name = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.c2lnbmF0dXJlc2ln";
+    const sent = JSON.stringify(crashEvent(error, true));
+    expect(sent).not.toContain("hunter2");
+    expect(sent).not.toContain("tmx_");
+    expect(sent).not.toContain("eyJ");
+    expect(sent).not.toContain(error.stack ?? "no stack");
+  });
+});

@@ -10,9 +10,19 @@
 - The Android and iOS files on each release carry signed build provenance you can check with `gh attestation verify`
 - Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
 
+### Changed
+
+- With App Lock on, the key to this phone's data is locked by your PIN and biometrics, so the data opens only after you unlock
+- Wrong PIN tries are counted across restarts of the app
+- Plugin pages reach only their own files and actions on the server
+
 ### Fixed
 
 - The SSH engine is built with library releases that have security fixes
+- A pinned server is never reached without its pin check, also in builds or cases where the pin could not be set
+- Removing an account no longer turns off the pins of another account on the same server
+- Android sign in pages now check a pinned server's key even when its certificate is otherwise trusted
+- App logs hide more kinds of secrets, such as passphrases, API keys and private keys
 
 ## 2.0.0
 

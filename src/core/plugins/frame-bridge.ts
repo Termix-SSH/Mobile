@@ -149,8 +149,16 @@ export class FrameBridge {
     };
     const bytes = bodyBytes(message.body ?? { kind: "none" });
 
+    // A pin or certificate this build can't use refuses the request.
+    let native: boolean;
+    try {
+      native = client.usesNativeNetwork();
+    } catch {
+      this.refuse(id, 502, "This build can't reach this server safely.");
+      return;
+    }
     // iOS with a client certificate: only the module can present it.
-    if (client.usesNativeNetwork()) {
+    if (native) {
       const wantsStream =
         message.method.toUpperCase() === "GET" &&
         /text\/event-stream/i.test(headers.accept ?? headers.Accept ?? "");
@@ -166,9 +174,7 @@ export class FrameBridge {
       let body: BodyInit | undefined;
       if (bytes) {
         // The certificate path sends text only, like the app's own requests.
-        body = client.usesNativeNetwork()
-          ? utf8Decode(bytes)
-          : (bytes as unknown as BodyInit);
+        body = native ? utf8Decode(bytes) : (bytes as unknown as BodyInit);
       }
       const response = await client.fetch(message.url, {
         method: message.method,

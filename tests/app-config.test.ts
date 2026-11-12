@@ -83,6 +83,12 @@ describe("web view pins", () => {
     "        // Cancel request after obtaining top-level URL.",
     "        handler.cancel();",
     "    }",
+    "",
+    "    @Override",
+    "    public void onPageFinished(WebView webView, String url) {",
+    "        super.onPageFinished(webView, url);",
+    "        emitFinishEvent(webView, url);",
+    "    }",
     "}",
   ].join("\n");
 
@@ -101,6 +107,26 @@ describe("web view pins", () => {
       out.indexOf("handler.cancel()"),
     );
     expect(plugin.patchAndroid(out)).toBe(out);
+  });
+
+  test("Android checks a pinned host's page key when it shows and when it is done", () => {
+    const out = plugin.patchAndroid(OLD_ANDROID);
+    expect(out.match(/"webPageAllowed"/g)).toHaveLength(2);
+    expect(out).toContain("public void onPageCommitVisible(");
+    // The check runs before the page is reported as loaded.
+    expect(
+      out.indexOf('"webPageAllowed"', out.indexOf("void onPageFinished")),
+    ).toBeLessThan(out.indexOf("emitFinishEvent"));
+    expect(out).toContain('webView.loadUrl("about:blank")');
+    expect(plugin.patchAndroid(out)).toBe(out);
+  });
+
+  test("Android refuses to build when the page anchors move", () => {
+    const moved = OLD_ANDROID.replace(
+      "        super.onPageFinished(webView, url);\n",
+      "",
+    );
+    expect(() => plugin.patchAndroid(moved)).toThrow(/missing anchor/);
   });
 
   test("iOS answers pinned hosts by key, and refuses a changed key", () => {

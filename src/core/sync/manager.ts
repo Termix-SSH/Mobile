@@ -523,10 +523,17 @@ export class SyncManager {
     const client = accounts.client(accountId);
     if (!client) return;
     const request = new SyncRemote(client).eventsRequest();
+    let native: boolean;
+    try {
+      native = client.usesNativeNetwork();
+    } catch {
+      // No safe way to reach this server in this build: no live stream.
+      return;
+    }
     slot.closeStream = openEventStream({
       url: request.url,
       headers: request.headers,
-      native: client.usesNativeNetwork(),
+      native,
       onOpen: () =>
         this.setStatus(accountId, { ...this.get(accountId), live: true }),
       onEvent: (event) => {

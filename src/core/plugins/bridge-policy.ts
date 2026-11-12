@@ -1,7 +1,7 @@
 /**
  * What a plugin web view may reach on its server. The page has no network of
- * its own, so this list is the whole of it: the plugin's own routes and
- * assets, its settings, and the core reads the SDK's hooks and UI kit make.
+ * its own, so this list is the whole of it: the plugin's own routes, assets,
+ * settings and operations, and the core reads the SDK's hooks and UI kit make.
  * Everything else answers 403 in the app and never reaches the server.
  */
 
@@ -18,7 +18,7 @@ const READ: Method[] = ["GET", "HEAD"];
 
 const RULES: Rule[] = [
   { methods: "any", path: (id) => new RegExp(`^/plugin-api/${esc(id)}(/|$)`) },
-  { methods: READ, path: () => /^\/plugin-assets\// },
+  { methods: READ, path: (id) => new RegExp(`^/plugin-assets/${esc(id)}/`) },
   {
     methods: ["GET", "PUT"],
     path: (id) =>
@@ -40,7 +40,10 @@ const RULES: Rule[] = [
     path: () =>
       /^\/operations\/(catalog|runs|events|timeline|signals|resources)(\/|$)/,
   },
-  { methods: ["POST"], path: () => /^\/operations\/[a-z0-9.-]+\/run$/ },
+  {
+    methods: ["POST"],
+    path: (id) => new RegExp(`^/operations/${esc(id)}\\.[a-z0-9.-]+/run$`),
+  },
   { methods: ["POST"], path: () => /^\/users\/ws-ticket$/ },
   { methods: ["POST"], path: () => /^\/dashboard\/activity\/log$/ },
 ];
