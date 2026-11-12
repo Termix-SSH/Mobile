@@ -10,6 +10,10 @@
 - The Android and iOS files on each release carry signed build provenance you can check with `gh attestation verify`
 - Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
 
+### Fixed
+
+- The SSH engine is built with library releases that have security fixes
+
 ## 2.0.0
 
 Termix Mobile now works with no server. Hosts, logins and snippets stay encrypted on the phone, and the terminal, files, tunnels, Docker, metrics, services and remote desktop connect straight from it. Link one or more Termix servers to sync with them and use their plugins.
