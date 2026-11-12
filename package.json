@@ -167,6 +167,9 @@
   "overrides": {
     "@termix-ssh/plugin-sdk": {
       "react-dom": "$react-dom"
-    }
+    },
+    "glob@12": "^14.0.4",
+    "glob@13": "^14.0.4",
+    "minimatch@10": "^11.0.5"
   }
 }

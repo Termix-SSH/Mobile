@@ -134,7 +134,7 @@ jobs:
           packager: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Validate EAS configuration
         run: |

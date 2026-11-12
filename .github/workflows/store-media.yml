@@ -63,8 +63,8 @@ jobs:
           cache-dependency-path: |
             package-lock.json
             store/package-lock.json
-      - run: npm ci
-      - run: npm ci
+      - run: npm ci --ignore-scripts
+      - run: npm ci --ignore-scripts
         working-directory: store
 
       - name: Prebuild
@@ -139,8 +139,8 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
-      - run: npm ci
-      - run: npm ci
+      - run: npm ci --ignore-scripts
+      - run: npm ci --ignore-scripts
         working-directory: store
 
       - name: Prebuild
@@ -216,7 +216,7 @@ jobs:
           sudo apt-get install -y ffmpeg libnss3 libdbus-1-3 libatk1.0-0 libgbm-dev libasound2t64 \
             libxrandr2 libxkbcommon-dev libxfixes3 libxcomposite1 libxdamage1 libatk-bridge2.0-0 \
             libpango-1.0-0 libcairo2 libcups2
-      - run: npm ci
+      - run: npm ci --ignore-scripts
         working-directory: store
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:

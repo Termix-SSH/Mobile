@@ -68,7 +68,7 @@ jobs:
           packager: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Check Expo auth
         run: eas whoami

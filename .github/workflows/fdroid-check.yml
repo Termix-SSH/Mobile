@@ -64,7 +64,7 @@ jobs:
           echo y | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.1.12297006" > /dev/null
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.1.12297006" >> "$GITHUB_ENV"
 
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - run: node scripts/prepare-fdroid.cjs
       - run: node scripts/check-fdroid.cjs
       - run: sh scripts/build-native-fdroid.sh fetch

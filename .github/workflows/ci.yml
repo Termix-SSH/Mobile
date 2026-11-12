@@ -31,8 +31,16 @@ jobs:
           node-version-file: ".nvmrc"
           cache: npm
 
+      - name: Lockfile lint
+        uses: Termix-SSH/Termix-Registry/.github/actions/supply-chain@main
+        with:
+          osv: "false"
+          aliases: >-
+            @jest/react-is-18:react-is
+            @jest/react-is-19:react-is
+
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Check formatting
         run: npm run format:check

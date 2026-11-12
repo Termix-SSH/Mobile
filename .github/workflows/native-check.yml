@@ -43,7 +43,7 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Prebuild
         run: npx expo prebuild --platform android --no-install --clean
       - name: Kotlin unit tests
@@ -76,7 +76,7 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Prebuild
         run: npx expo prebuild --platform ios --clean
       - name: Build for the simulator
