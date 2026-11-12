@@ -35,7 +35,7 @@
     "@noble/ciphers": "^2.4.0",
     "@noble/curves": "^2.4.0",
     "@noble/hashes": "^2.4.0",
-    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-native-async-storage/async-storage": "^3.1.1",
     "axios": "^1.12.2",
     "drizzle-orm": "^0.45.4",
     "expo": "57.0.31",
