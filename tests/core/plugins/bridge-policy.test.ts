@@ -176,3 +176,25 @@ test("a plugin reads only its own assets", () => {
   expect(ok("GET", "/plugin-assets/alerts/%2e%2e/docker/x.js")).toBe(false);
   expect(ok("GET", "/plugin-assets/Alerts/x.js")).toBe(false);
 });
+
+test("a plugin shows and revokes only the user's own keys", () => {
+  for (const [method, path] of [
+    ["GET", "/users/sessions"],
+    ["GET", "/users/api-keys/mine"],
+    ["DELETE", "/users/api-keys/mine/abc_DEF-1"],
+    ["POST", "/users/api-keys/mine/revoke-all"],
+    ["GET", "/users/admin-holds"],
+    ["GET", "/users/admin-holds/settings"],
+  ]) {
+    expect(ok(method, path, "login-security")).toBe(true);
+  }
+  for (const [method, path] of [
+    ["GET", "/users/api-keys"],
+    ["DELETE", "/users/sessions/abc"],
+    ["POST", "/users/sessions/revoke-everyone"],
+    ["POST", "/users/admin-holds/abc/cancel"],
+    ["PUT", "/users/admin-holds/settings"],
+  ]) {
+    expect(ok(method, path, "login-security")).toBe(false);
+  }
+});

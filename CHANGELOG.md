@@ -8,6 +8,7 @@
 - Approvals and Run history under Tools, when the server has Operations Center
 - WireGuard opens in the app
 - The Android and iOS files on each release carry signed build provenance you can check with `gh attestation verify`
+- Plugin pages in the app can show your own sessions and API keys and revoke your keys
 - Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
 
 ### Changed
