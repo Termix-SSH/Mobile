@@ -2,7 +2,7 @@ import { shellLayout } from "@/screens/shell/layout";
 import { windowInfo } from "@/utils/window-class";
 
 test("phones keep the bottom bar and no host list pane", () => {
-  expect(shellLayout(windowInfo(390, 844), 2)).toEqual({
+  expect(shellLayout(windowInfo(390, 844), 2)).toMatchObject({
     nav: "bottom",
     hostsPane: false,
     fullScreenSessions: true,
@@ -12,7 +12,7 @@ test("phones keep the bottom bar and no host list pane", () => {
 });
 
 test("a phone held sideways gets the rail but no pane", () => {
-  expect(shellLayout(windowInfo(852, 393), 2)).toEqual({
+  expect(shellLayout(windowInfo(852, 393), 2)).toMatchObject({
     nav: "side",
     hostsPane: false,
     fullScreenSessions: true,
@@ -22,7 +22,7 @@ test("a phone held sideways gets the rail but no pane", () => {
 });
 
 test("a medium window gets the sidebar but no pane", () => {
-  expect(shellLayout(windowInfo(744, 1133), 2)).toEqual({
+  expect(shellLayout(windowInfo(744, 1133), 2)).toMatchObject({
     nav: "side",
     hostsPane: false,
     fullScreenSessions: false,
@@ -51,9 +51,14 @@ test("a book fold puts the host list on the left half, flat or bent", () => {
     expect(l.hostsPane).toBe(true);
     expect(l.laptop).toBe(false);
   }
-  expect(shellLayout(windowInfo(951, 669, book(true)), 0).hostsPane).toBe(
-    false,
-  );
+});
+
+test("a book fold keeps the host list with nothing open", () => {
+  for (const active of [false, true]) {
+    expect(shellLayout(windowInfo(951, 669, book(active)), 0).hostsPane).toBe(
+      true,
+    );
+  }
 });
 
 test("a narrow book fold like a Galaxy Fold still splits", () => {
@@ -61,6 +66,11 @@ test("a narrow book fold like a Galaxy Fold still splits", () => {
   const l = shellLayout(windowInfo(673, 841, folds), 2);
   expect(l.nav).toBe("side");
   expect(l.hostsPane).toBe(true);
+  // Android foldables keep the list with nothing open too, flat or half open.
+  for (const active of [false, true]) {
+    const bent = [{ ...folds[0], active }];
+    expect(shellLayout(windowInfo(673, 841, bent), 0).hostsPane).toBe(true);
+  }
 });
 
 test("a fold too far to one side keeps the normal layout", () => {
@@ -78,4 +88,31 @@ test("laptop mode only while bent with the crease across", () => {
   expect(shellLayout(windowInfo(669, 951, laptop(true)), 1).hostsPane).toBe(
     false,
   );
+});
+
+// iPhone Duo outer display: compact, with the system bar column on the right.
+test("a Duo bar column takes the tabs instead of the bottom bar", () => {
+  const outer = shellLayout(windowInfo(466, 678, [], "right"), 1);
+  expect(outer).toMatchObject({
+    nav: "side",
+    railSide: "right",
+    railInBar: true,
+    fullScreenSessions: true,
+    tabsInSessions: true,
+  });
+  const phone = shellLayout(windowInfo(390, 844), 1);
+  expect(phone).toMatchObject({
+    nav: "bottom",
+    railSide: "left",
+    railInBar: false,
+    tabsInSessions: false,
+  });
+});
+
+test("with the rail in a right bar column the host list still fits left of the fold", () => {
+  const folds = [{ x: 455.5, y: 0, width: 40, height: 669, active: true }];
+  const l = shellLayout(windowInfo(951, 669, folds, "right"), 1);
+  expect(l.railSide).toBe("right");
+  expect(l.foldSplit).toBe(true);
+  expect(l.hostsPane).toBe(true);
 });

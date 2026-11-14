@@ -5,16 +5,25 @@ import UIKit
 // Inactive folds are listed too, so layouts can stay put while the phone opens and closes.
 public class FoldModule: Module {
   private var last: [[String: Any]] = []
+  private var lastBar: [String: Any] = [:]
+  /// Copies for JS. Its functions run on the JS thread while main updates the values above.
+  private let lock = NSLock()
+  private var sharedFolds: [[String: Any]] = []
+  private var sharedBar: [String: Any] = [:]
   private var watcher: FoldWatchView?
   private var timer: Timer?
 
   public func definition() -> ModuleDefinition {
     Name("TermixFold")
 
-    Events("onFoldChange")
+    Events("onFoldChange", "onVerticalBarChange")
 
     Function("getFolds") { () -> [[String: Any]] in
-      self.last
+      self.lock.withLock { self.sharedFolds }
+    }
+
+    Function("getVerticalBar") { () -> [String: Any] in
+      self.lock.withLock { self.sharedBar }
     }
 
     OnCreate {
@@ -51,6 +60,10 @@ public class FoldModule: Module {
     return nil
   }
 
+  /// UIKit runs updateConstraints again when the regions read there change. Until it has
+  /// done that once, a timer stands in, since not every iOS build is known to track them.
+  private var tracked = false
+
   private func attach() {
     guard let window = appWindow() else {
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in self?.attach() }
@@ -60,29 +73,85 @@ public class FoldModule: Module {
     watcher?.removeFromSuperview()
     let view = FoldWatchView(frame: window.bounds)
     view.onLayout = { [weak self] in self?.refresh() }
+    view.onRegions = { [weak self] folds in self?.regionsRead(folds) }
     window.insertSubview(view, at: 0)
     watcher = view
     refresh()
   }
 
+  /// Regions read by the watcher in updateConstraints. A change seen here means UIKit tracks
+  /// them, so the timer can stop.
+  private func regionsRead(_ folds: [[String: Any]]) {
+    if !FoldModule.same(folds, last) && !last.isEmpty {
+      tracked = true
+      timer?.invalidate()
+      timer = nil
+    }
+    publish(folds)
+  }
+
   func refresh() {
-    guard let window = watcher?.window else { return }
-    let folds = FoldModule.folds(in: window)
-    // A fold opening may not lay anything out, so foldables also check twice a second.
-    if !folds.isEmpty && timer == nil {
+    guard let view = watcher, view.window != nil else { return }
+    let bar = FoldModule.verticalBar(in: view)
+    if !NSDictionary(dictionary: bar).isEqual(to: lastBar) {
+      lastBar = bar
+      lock.withLock { sharedBar = bar }
+      sendEvent("onVerticalBarChange", bar)
+    }
+    let folds = FoldModule.folds(in: view)
+    // A fold opening may not lay anything out, so until UIKit is seen tracking the
+    // regions, foldables also check twice a second.
+    if !tracked && !folds.isEmpty && timer == nil {
       timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
         self?.refresh()
       }
     }
+    publish(folds)
+  }
+
+  private func publish(_ folds: [[String: Any]]) {
     guard !FoldModule.same(folds, last) else { return }
     last = folds
+    lock.withLock { sharedFolds = folds }
     sendEvent("onFoldChange", ["folds": folds])
   }
 
-  static func folds(in window: UIWindow) -> [[String: Any]] {
+  /// The side where the system stacks the status bar and app bars on iPhone Duo, and where
+  /// the status bar sits in that column, in window points. "none" off a Duo, or when the
+  /// system keeps bars horizontal there.
+  static func verticalBar(in view: UIView) -> [String: Any] {
+    var edge = "none"
     #if TERMIX_DUO_SDK
     if #available(iOS 27.1, *) {
-      let regions = window.reservedRegions(kind: .division, options: .includeInactive)
+      switch view.traitCollection.verticalBarEdge {
+      case .leading: edge = "leading"
+      case .trailing: edge = "trailing"
+      default: edge = "none"
+      }
+    }
+    #endif
+    let status = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+    let s = view.window.map { $0.convert(status, from: $0.screen.coordinateSpace) } ?? status
+    let insets = view.safeAreaInsets
+    return [
+      "edge": edge,
+      "statusX": Double(s.origin.x),
+      "statusY": Double(s.origin.y),
+      "statusWidth": Double(s.size.width),
+      "statusHeight": Double(s.size.height),
+      "insetLeft": Double(insets.left),
+      "insetRight": Double(insets.right),
+      "insetTop": Double(insets.top),
+      "insetBottom": Double(insets.bottom),
+    ]
+  }
+
+  /// Folds in the view's own points. The watcher fills the window from its origin, so
+  /// these are window points too.
+  static func folds(in view: UIView) -> [[String: Any]] {
+    #if TERMIX_DUO_SDK
+    if #available(iOS 27.1, *) {
+      let regions = view.reservedRegions(kind: .division, options: .includeInactive)
       return regions.map { region in
         let f = region.frame
         return [
@@ -113,6 +182,10 @@ public class FoldModule: Module {
 /// Invisible view that follows the window and asks for a fold check on each layout.
 final class FoldWatchView: UIView {
   var onLayout: (() -> Void)?
+  /// The folds read in updateConstraints, so UIKit calls it again when they change.
+  var onRegions: (([[String: Any]]) -> Void)?
+
+  override class var requiresConstraintBasedLayout: Bool { true }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -125,6 +198,16 @@ final class FoldWatchView: UIView {
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  override func updateConstraints() {
+    onRegions?(FoldModule.folds(in: self))
+    super.updateConstraints()
+  }
+
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    setNeedsUpdateConstraints()
   }
 
   override func layoutSubviews() {
