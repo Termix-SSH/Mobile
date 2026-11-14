@@ -26,6 +26,18 @@ export type GestureAction =
   | { kind: "pointer"; x: number; y: number; buttons: number }
   | { kind: "view"; view: Viewport };
 
+/**
+ * A trackpad or mouse, at view points. `buttons` uses the bits above; `dy` is the scroll
+ * distance, positive when the content is pulled down.
+ */
+export interface HardwarePointer {
+  kind: "hover" | "down" | "move" | "up" | "scroll";
+  x: number;
+  y: number;
+  buttons: number;
+  dy: number;
+}
+
 export const TAP_MS = 300;
 export const LONG_PRESS_MS = 500;
 export const TAP_MOVE_PX = 8;
@@ -61,6 +73,11 @@ export class DisplayGestures {
   private pinching = false;
   private scrollAcc = 0;
   private maxFingers = 0;
+  /** A trackpad or mouse button is down. */
+  private pressing = false;
+  /** The touches came from a trackpad click, which `pointer` already handles. */
+  private fromPointer = false;
+  private wheelAcc = 0;
 
   constructor(
     public view: Viewport,
@@ -114,6 +131,8 @@ export class DisplayGestures {
     this.maxFingers = Math.max(this.maxFingers, touches.length);
     if (touches.length === 1 && this.maxFingers === 1) {
       const [p] = touches;
+      // The press may be reported before or after its touch.
+      this.fromPointer = this.pressing;
       this.ignored = p.x < EDGE_PX || p.x > this.view.viewW - EDGE_PX;
       this.start = p;
       this.last = p;
@@ -138,6 +157,7 @@ export class DisplayGestures {
   }
 
   move(touches: Point[]): GestureAction[] {
+    if (this.fromPointer) return [];
     if (touches.length >= 2 && this.pinch) return this.twoFingers(touches);
     if (touches.length !== 1 || this.maxFingers > 1 || this.ignored) return [];
     const [p] = touches;
@@ -195,6 +215,10 @@ export class DisplayGestures {
     const fingers = this.maxFingers;
     this.maxFingers = 0;
     this.pinch = null;
+    if (this.fromPointer) {
+      this.fromPointer = false;
+      return [];
+    }
     const quick = t - this.startAt < TAP_MS;
     if (fingers === 1) {
       if (this.ignored) return [];
@@ -217,5 +241,50 @@ export class DisplayGestures {
     if (fingers === 2) return this.click(this.target(this.last), RIGHT);
     if (fingers === 3) return this.click(this.target(this.last), MIDDLE);
     return [];
+  }
+
+  /**
+   * A trackpad or mouse. It points straight at the remote spot in either mode; the trackpad
+   * cursor follows it, so a finger tap afterwards lands where it was left.
+   */
+  pointer(e: HardwarePointer): GestureAction[] {
+    // A hover while a button is down would release it mid drag.
+    if (e.kind === "hover" && this.pressing) return [];
+    const at = this.remote(e);
+    this.cursor = at;
+    switch (e.kind) {
+      case "scroll": {
+        // A turn starts from zero, so the first tick goes the new way.
+        if (this.wheelAcc * e.dy < 0) this.wheelAcc = 0;
+        this.wheelAcc += e.dy;
+        const ticks = Math.trunc(this.wheelAcc / SCROLL_PX);
+        if (!ticks) return [];
+        this.wheelAcc -= ticks * SCROLL_PX;
+        const wheel = ticks > 0 ? WHEEL_UP : WHEEL_DOWN;
+        const out: GestureAction[] = [];
+        for (let i = 0; i < Math.abs(ticks); i++) {
+          out.push(...this.click(at, wheel));
+        }
+        return out;
+      }
+      case "down":
+        this.pressing = true;
+        this.fromPointer = true;
+        return [this.at(at, e.buttons)];
+      case "move":
+        return [this.at(at, e.buttons)];
+      case "up":
+        this.pressing = false;
+        return [this.at(at, 0)];
+      case "hover":
+        return [this.at(at, 0)];
+    }
+  }
+
+  /** Forgets a press whose release never came, so finger touches work again. */
+  releasePointer() {
+    this.pressing = false;
+    this.fromPointer = false;
+    this.wheelAcc = 0;
   }
 }

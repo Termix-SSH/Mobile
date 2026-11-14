@@ -8,6 +8,8 @@ rectangle into a frame by id, and the view shows it, so pixels never cross the J
   without JS.
 - `TermixDisplayView` (JS): `frameId`, `scale`, `offsetX`, `offsetY` place the desktop; zoom and pan
   math lives in `src/features/remote-desktop/viewport.ts`. `onKey` reports hardware keys.
+  `onPointer` (iOS) reports a trackpad or mouse: hover, presses with their buttons, and scroll.
+  Finger touches reach JS through React's responder props on the same view.
 
 The remote desktop tab draws the phone's own VNC and RDP sessions with it
 (`src/features/remote-desktop/native/NativeRemoteDesktop.tsx`). Kotlin tests are in `android/src/test`.

@@ -22,11 +22,24 @@ export interface DisplayKeyEvent {
   down: boolean;
 }
 
+/**
+ * A trackpad or mouse on the view (iOS), at view points. `buttons`: 1 left, 2 middle, 4 right.
+ * `dy` is the scroll distance in points, positive when the content is pulled down.
+ */
+export interface DisplayPointerEvent {
+  kind: "hover" | "down" | "move" | "up" | "scroll";
+  x: number;
+  y: number;
+  buttons: number;
+  dy: number;
+}
+
 export interface TermixDisplayViewProps extends ViewProps {
   frameId: string;
   /** Scale, then the top left corner in remote pixels. */
   placement: [number, number, number];
   onKey?: (event: { nativeEvent: DisplayKeyEvent }) => void;
+  onPointer?: (event: { nativeEvent: DisplayPointerEvent }) => void;
 }
 
 export interface TermixDisplayHandle {
