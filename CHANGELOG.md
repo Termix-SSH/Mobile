@@ -10,6 +10,7 @@
 - The Android and iOS files on each release carry signed build provenance you can check with `gh attestation verify`
 - Plugin pages in the app can show your own sessions and API keys, revoke your keys, and show waiting approvals and your own second factors
 - Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
+- Plugin pages in the app show other plugins' parts again, like Homepage widgets from Docker or Proxmox. Each part runs in its own web view over the page
 
 ### Changed
 
