@@ -6,11 +6,26 @@ public protocol FrameListener: AnyObject {
   func frameChanged()
 }
 
-/// A remote desktop's RGBA pixels. The engine writes rectangles, the view turns it into an image.
+/// A changed area in frame pixels.
+public struct Dirty: Equatable {
+  public var x, y, width, height: Int
+
+  func union(_ other: Dirty) -> Dirty {
+    let x1 = min(x, other.x)
+    let y1 = min(y, other.y)
+    return Dirty(
+      x: x1, y: y1, width: max(x + width, other.x + other.width) - x1,
+      height: max(y + height, other.y + other.height) - y1)
+  }
+}
+
+/// A remote desktop's RGBA pixels. The engine writes rectangles, the view copies out the changed area.
+/// The pixels are never shared with an image, so a write never copies the whole frame.
 public final class FrameBuffer: @unchecked Sendable {
   private let lock = NSLock()
   private weak var listener: FrameListener?
   private var pixels = Data()
+  private var dirty: Dirty?
   public private(set) var width = 0
   public private(set) var height = 0
 
@@ -19,6 +34,7 @@ public final class FrameBuffer: @unchecked Sendable {
     width = max(0, w)
     height = max(0, h)
     pixels = Data(count: width * height * 4)
+    dirty = Dirty(x: 0, y: 0, width: width, height: height)
     let notify = listener
     lock.unlock()
     notify?.frameChanged()
@@ -43,21 +59,28 @@ public final class FrameBuffer: @unchecked Sendable {
         }
       }
     }
+    let area = Dirty(x: x, y: y, width: x2 - x, height: y2 - y)
+    dirty = dirty?.union(area) ?? area
     let notify = listener
     lock.unlock()
     notify?.frameChanged()
   }
 
-  /// A snapshot of the whole frame. The view only asks once per screen refresh.
-  public func image() -> CGImage? {
+  /// Takes the changed area and runs `draw` with the pixels locked, so they can't change mid copy.
+  /// `draw` gets the area, the frame's RGBA bytes and its size.
+  public func takeDirty<T>(_ draw: (Dirty, UnsafeRawBufferPointer, Int, Int) -> T) -> T? {
     lock.lock()
     defer { lock.unlock() }
-    guard width > 0, height > 0, let provider = CGDataProvider(data: pixels as CFData) else { return nil }
-    return CGImage(
-      width: width, height: height, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: width * 4,
-      space: CGColorSpaceCreateDeviceRGB(),
-      bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipLast.rawValue),
-      provider: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
+    guard let area = dirty, width > 0, height > 0 else { return nil }
+    dirty = nil
+    return pixels.withUnsafeBytes { draw(area, $0, width, height) }
+  }
+
+  /// Marks everything as changed, for a view that just attached.
+  public func markAll() {
+    lock.lock()
+    dirty = Dirty(x: 0, y: 0, width: width, height: height)
+    lock.unlock()
   }
 
   public func setListener(_ value: FrameListener?) {
