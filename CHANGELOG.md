@@ -16,7 +16,8 @@
 - With App Lock on, the key to this phone's data is locked by your PIN and biometrics, so the data opens only after you unlock
 - Wrong PIN tries are counted across restarts of the app
 - Plugin pages reach only their own files and actions on the server
-- Plugin pages run plugins made for the newest plugin API (2.5)
+- Plugin pages run plugins made for the newest plugin API (2.6)
+- CPU and RAM on host rows are drawn the same way as on the web dashboard, with their labels
 
 ### Fixed
 

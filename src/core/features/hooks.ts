@@ -65,6 +65,11 @@ export function useHostBadges() {
   return useMemo(() => features.hostBadges(ctx), [ctx]);
 }
 
+export function useHostRowData() {
+  const ctx = useFeatureContext();
+  return useMemo(() => features.hostRowData(ctx), [ctx]);
+}
+
 export function useHostFilters() {
   const ctx = useFeatureContext();
   return useMemo(() => features.hostFilters(ctx), [ctx]);

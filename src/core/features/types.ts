@@ -1,3 +1,4 @@
+import type { DataResult } from "@/core/data-values/data-value";
 import type { ComponentType, Ref, RefObject } from "react";
 import type { Account } from "@/core/accounts/types";
 import type { AccountClient } from "@/core/api/AccountClient";
@@ -246,6 +247,17 @@ export interface HostEditorSectionDef {
   editor: HostFormEditor;
 }
 
+/** Live numbers on a host row, the phone's side of the web's dashboard.hostRow data slot. */
+export interface HostRowDataDef {
+  id: string;
+  order: number;
+  /** Plain values for the row, or null. `metrics` is what the list already polls. */
+  value: (
+    host: SSHHost,
+    metrics: { cpu: number | null; ram: number | null } | undefined,
+  ) => DataResult;
+}
+
 /** A short tag on host rows, like DKR. */
 export interface HostBadgeDef {
   label: string;
@@ -464,6 +476,7 @@ export interface FeatureDef {
   hostEditorSections?:
     HostEditorSectionDef[] | ((ctx: FeatureContext) => HostEditorSectionDef[]);
   hostBadges?: HostBadgeDef[];
+  hostRowData?: HostRowDataDef[];
   hostFilters?: HostFilterDef[];
   settingsLinks?: SettingsLinkDef[];
   quickActions?: QuickActionDef[];

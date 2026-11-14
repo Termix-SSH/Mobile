@@ -300,7 +300,8 @@ test("a kind switched off and on again is pulled in full", async () => {
     .map((s) => s.name)
     .sort();
   expect(names).toEqual(["added while off", "uptime"]);
-});
+  // Three full passes on a real database: about 2 s alone, more on a busy run.
+}, 15_000);
 
 test("Keep mine puts the phone's version back and sends it", async () => {
   manager.start();
