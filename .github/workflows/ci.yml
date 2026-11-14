@@ -54,5 +54,18 @@ jobs:
       - name: Test
         run: npm test -- --ci
 
+      # The plugin view policy shares its core list with the web shell.
+      - name: Frame policy matches core
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="$(gh api --paginate repos/Termix-SSH/Termix/branches --jq '.[].name' \
+            | grep -E '^dev-[0-9]+\.[0-9]+\.[0-9]+$' | sort -t- -k2 -V | tail -n 1)"
+          echo "core branch: $branch"
+          gh api -H "Accept: application/vnd.github.raw" \
+            "repos/Termix-SSH/Termix/contents/src/ui/plugin-host/frames/frame-core-rules.json?ref=$branch" \
+            > "$RUNNER_TEMP/core-rules.json"
+          node scripts/sync-frame-policy.cjs --check "$RUNNER_TEMP/core-rules.json"
+
       - name: Validate Expo config
         run: npx expo config --type public --json > /tmp/expo-config.json

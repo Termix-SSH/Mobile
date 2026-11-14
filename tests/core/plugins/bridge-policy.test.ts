@@ -1,4 +1,7 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import {
+  CORE_RULES,
   checkRequest,
   checkSocket,
   pageHeaders,
@@ -148,14 +151,13 @@ test("the page can't set login, proxy or identity headers", () => {
   ).toEqual({ Accept: "application/json", "content-type": "text/plain" });
 });
 
-test("actions can be read and run, but never approved", () => {
+test("actions can be read and run, but never decided here", () => {
   expect(ok("GET", "/operations/catalog")).toBe(true);
   expect(ok("GET", "/operations/resources/docker.container")).toBe(true);
   expect(ok("POST", "/operations/docker.restart-container/run", "docker")).toBe(
     true,
   );
   expect(ok("POST", "/operations/approvals/abc")).toBe(false);
-  expect(ok("GET", "/operations/approvals")).toBe(false);
   expect(ok("POST", "/operations/runs/abc/cancel")).toBe(false);
 });
 
@@ -197,4 +199,43 @@ test("a plugin shows and revokes only the user's own keys", () => {
   ]) {
     expect(ok(method, path, "login-security")).toBe(false);
   }
+});
+
+test("every shared core rule is in the policy", () => {
+  // Each rule's own path with the plugin id filled in must pass.
+  const sample: Record<string, string> = {
+    "^/plugins/{id}/settings/(admin|user|host/\d+)$":
+      "/plugins/alerts/settings/host/3",
+  };
+  for (const rule of CORE_RULES) {
+    const pattern = new RegExp(rule.path.split("{id}").join("alerts"));
+    expect(pattern).toBeInstanceOf(RegExp);
+    const path = sample[rule.path];
+    if (path) {
+      for (const method of rule.methods) {
+        expect([method, path, ok(method, path)]).toEqual([method, path, true]);
+      }
+    }
+  }
+  expect(CORE_RULES.length).toBeGreaterThan(10);
+});
+
+test("the rule copy matches its source format", () => {
+  const file = JSON.parse(
+    readFileSync(
+      join(__dirname, "../../../src/core/plugins/frame-core-rules.json"),
+      "utf8",
+    ),
+  ) as { rules: unknown[] };
+  expect(file.rules).toEqual(CORE_RULES);
+});
+
+test("waiting approvals can be read, never decided", () => {
+  expect(ok("GET", "/operations/approvals")).toBe(true);
+  expect(ok("POST", "/operations/approvals/abc")).toBe(false);
+});
+
+test("host settings only take a numeric host id", () => {
+  expect(ok("GET", "/plugins/alerts/settings/host/12")).toBe(true);
+  expect(ok("GET", "/plugins/alerts/settings/host/abc")).toBe(false);
 });

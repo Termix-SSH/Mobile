@@ -197,8 +197,8 @@ test("plugins that are on but not running, and API mismatches, say so", () => {
     registry: registry(docker),
     local: false,
     plugins: [
-      plugin("docker", { engine: { api: "^2.0" } }),
-      plugin("alerts", { engine: { api: "^1.99" }, version: "3.0.0" }),
+      plugin("docker", { engine: { api: "^3.0" } }),
+      plugin("alerts", { engine: { api: "^2.99" }, version: "3.0.0" }),
       plugin("homepage", { engine: { api: "^0.9" } }),
       plugin("sso", { engine: { api: "^9.0" } }),
       plugin("kubernetes", { active: false, enabled: true, state: "failed" }),
@@ -212,7 +212,7 @@ test("plugins that are on but not running, and API mismatches, say so", () => {
   expect(row(rows, "alerts")).toMatchObject({
     fit: "update-app",
     version: "3.0.0",
-    engineApi: "^1.99",
+    engineApi: "^2.99",
   });
   expect(row(rows, "homepage")).toMatchObject({
     fit: "update-plugin",

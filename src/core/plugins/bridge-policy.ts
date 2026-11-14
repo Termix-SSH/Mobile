@@ -5,6 +5,8 @@
  * Everything else answers 403 in the app and never reaches the server.
  */
 
+import RULE_FILE from "./frame-core-rules.json";
+
 type Method = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 interface Rule {
@@ -16,41 +18,28 @@ const esc = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const READ: Method[] = ["GET", "HEAD"];
 
+export interface CoreRuleEntry {
+  methods: string[];
+  path: string;
+  why?: string;
+}
+
+/**
+ * Core requests shared with the web shell's frame policy. A copy of core's
+ * frame-core-rules.json: refresh it with `npm run sync:frame-policy`; CI
+ * fails when it differs from core's newest dev branch.
+ */
+export const CORE_RULES: CoreRuleEntry[] = RULE_FILE.rules;
+
 const RULES: Rule[] = [
+  // The web shell gives a frame these by other means.
   { methods: "any", path: (id) => new RegExp(`^/plugin-api/${esc(id)}(/|$)`) },
   { methods: READ, path: (id) => new RegExp(`^/plugin-assets/${esc(id)}/`) },
-  {
-    methods: ["GET", "PUT"],
-    path: (id) =>
-      new RegExp(`^/plugins/${esc(id)}/settings/(admin|user|host/[^/]+)$`),
-  },
-  { methods: READ, path: () => /^\/plugins$/ },
-  { methods: READ, path: () => /^\/users\/me$/ },
-  // Your own sessions and keys. Revoking other people's stays out.
-  { methods: READ, path: () => /^\/users\/(sessions|api-keys\/mine)$/ },
-  { methods: ["DELETE"], path: () => /^\/users\/api-keys\/mine\/[\w-]+$/ },
-  { methods: ["POST"], path: () => /^\/users\/api-keys\/mine\/revoke-all$/ },
-  { methods: READ, path: () => /^\/users\/admin-holds(\/settings)?$/ },
-  { methods: READ, path: () => /^\/rbac\/permissions\/me$/ },
-  { methods: READ, path: () => /^\/user-preferences$/ },
-  { methods: READ, path: () => /^\/(health|version)$/ },
-  { methods: READ, path: () => /^\/dashboard\/(uptime|activity\/recent)$/ },
-  { methods: READ, path: () => /^\/host\/db\/host(\/\d+)?$/ },
-  { methods: READ, path: () => /^\/host\/(folders|policy)$/ },
-  { methods: READ, path: () => /^\/host\/status(\/\d+|\/settings)?$/ },
-  { methods: READ, path: () => /^\/credentials$/ },
-  // Actions go through the server's own checks. Deciding approvals stays out.
-  {
-    methods: READ,
-    path: () =>
-      /^\/operations\/(catalog|runs|events|timeline|signals|resources)(\/|$)/,
-  },
-  {
-    methods: ["POST"],
-    path: (id) => new RegExp(`^/operations/${esc(id)}\\.[a-z0-9.-]+/run$`),
-  },
   { methods: ["POST"], path: () => /^\/users\/ws-ticket$/ },
-  { methods: ["POST"], path: () => /^\/dashboard\/activity\/log$/ },
+  ...CORE_RULES.map((entry): Rule => ({
+    methods: entry.methods as Method[],
+    path: (id) => new RegExp(entry.path.split("{id}").join(esc(id))),
+  })),
 ];
 
 export type PolicyResult =

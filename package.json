@@ -27,7 +27,8 @@
     "build:plugin-host": "node scripts/build-plugin-host.mjs",
     "store-art": "node scripts/generate-store-art.mjs",
     "check:fdroid": "node scripts/check-fdroid.cjs",
-    "bench": "jest -c jest.bench.config.js --runInBand"
+    "bench": "jest -c jest.bench.config.js --runInBand",
+    "sync:frame-policy": "node scripts/sync-frame-policy.cjs"
   },
   "dependencies": {
     "@expo-google-fonts/jetbrains-mono": "^0.4.1",
@@ -118,7 +119,7 @@
     "@lezer/highlight": "^1.2.5",
     "@react-native/jest-preset": "^0.86.3",
     "@resvg/resvg-js": "^2.6.2",
-    "@termix-ssh/plugin-sdk": "^1.0.21",
+    "@termix-ssh/plugin-sdk": "^2.5.0",
     "@testing-library/react-native": "^14.1.0",
     "@types/better-sqlite3": "^9.6.0",
     "@types/jest": "29.5.14",

@@ -8,7 +8,7 @@
 - Approvals and Run history under Tools, when the server has Operations Center
 - WireGuard opens in the app
 - The Android and iOS files on each release carry signed build provenance you can check with `gh attestation verify`
-- Plugin pages in the app can show your own sessions and API keys and revoke your keys
+- Plugin pages in the app can show your own sessions and API keys, revoke your keys, and show waiting approvals and your own second factors
 - Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
 
 ### Changed
@@ -16,6 +16,7 @@
 - With App Lock on, the key to this phone's data is locked by your PIN and biometrics, so the data opens only after you unlock
 - Wrong PIN tries are counted across restarts of the app
 - Plugin pages reach only their own files and actions on the server
+- Plugin pages run plugins made for the newest plugin API (2.5)
 
 ### Fixed
 

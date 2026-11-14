@@ -3,6 +3,7 @@ import { accounts } from "@/core/accounts";
 import { registerBuiltInFeatures } from "@/features";
 import Plugins from "@/screens/settings/Plugins";
 import { fakeServer, resetStorage } from "../../helpers/http";
+import { PLUGIN_HOST_API } from "@/core/plugins/host-api";
 
 jest.mock("@/contexts/ThemeContext", () => ({
   useThemeColor: () => () => "#000000",
@@ -34,7 +35,7 @@ const PLUGINS = [
     version: "1.1.0",
     enabled: true,
     state: "active",
-    engine: { api: "^1.11" },
+    engine: { api: "^2.0" },
   },
   { id: "docker", name: "Docker", enabled: false, state: "disabled" },
   {
@@ -43,7 +44,7 @@ const PLUGINS = [
     version: "2.0.0",
     enabled: true,
     state: "active",
-    engine: { api: "^1.99" },
+    engine: { api: "^2.99" },
   },
   {
     id: "kubernetes",
@@ -95,8 +96,8 @@ test("a linked server lists its plugins with state, how they show and API checks
 
   await fireEvent.press(screen.getByText("Alerts"));
   expect(screen.getByText("Update the app")).toBeTruthy();
-  expect(screen.getByText("^1.99")).toBeTruthy();
-  expect(screen.getByText("1.13.0")).toBeTruthy();
+  expect(screen.getByText("^2.99")).toBeTruthy();
+  expect(screen.getByText(PLUGIN_HOST_API)).toBeTruthy();
   expect(screen.queryByText("Open")).toBeNull();
 });
 
