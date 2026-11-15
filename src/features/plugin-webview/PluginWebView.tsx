@@ -411,7 +411,12 @@ export const PluginWebView = forwardRef<
     }
 
     return (
-      <View className="flex-1 bg-background">
+      <View
+        className="flex-1 bg-background"
+        // A real touch on the view, which the page can't fake: a few core
+        // requests (revoking API keys) only go through right after one.
+        onTouchStart={() => bridge.current?.noteTouch()}
+      >
         {html ? (
           <WebView
             key={attempt}

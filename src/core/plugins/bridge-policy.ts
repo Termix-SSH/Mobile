@@ -12,6 +12,7 @@ type Method = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE";
 interface Rule {
   methods: Method[] | "any";
   path: (pluginId: string) => RegExp;
+  userAction?: boolean;
 }
 
 const esc = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -22,6 +23,8 @@ export interface CoreRuleEntry {
   methods: string[];
   path: string;
   why?: string;
+  /** The web shell allows these only right after a click in the frame. */
+  userAction?: boolean;
 }
 
 /**
@@ -39,6 +42,7 @@ const RULES: Rule[] = [
   ...CORE_RULES.map((entry): Rule => ({
     methods: entry.methods as Method[],
     path: (id) => new RegExp(entry.path.split("{id}").join(esc(id))),
+    userAction: entry.userAction === true,
   })),
 ];
 
@@ -72,11 +76,16 @@ function pathOn(root: string, url: string, schemes: string[]): string | null {
   return path;
 }
 
+/**
+ * `touched`: the person touched the web view in the last few seconds, which
+ * the page itself can't fake. Rules marked userAction need it.
+ */
 export function checkRequest(
   pluginId: string,
   root: string,
   method: string,
   url: string,
+  touched = false,
 ): PolicyResult {
   const secure = root.startsWith("https:");
   const path = pathOn(root, url, [secure ? "https:" : "http:"]);
@@ -85,7 +94,8 @@ export function checkRequest(
   const allowed = RULES.some(
     (rule) =>
       (rule.methods === "any" || rule.methods.includes(verb)) &&
-      rule.path(pluginId).test(path),
+      rule.path(pluginId).test(path) &&
+      (!rule.userAction || touched),
   );
   return allowed
     ? { ok: true, path }

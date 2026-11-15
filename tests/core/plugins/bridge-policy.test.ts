@@ -183,8 +183,6 @@ test("a plugin shows and revokes only the user's own keys", () => {
   for (const [method, path] of [
     ["GET", "/users/sessions"],
     ["GET", "/users/api-keys/mine"],
-    ["DELETE", "/users/api-keys/mine/abc_DEF-1"],
-    ["POST", "/users/api-keys/mine/revoke-all"],
     ["GET", "/users/admin-holds"],
     ["GET", "/users/admin-holds/settings"],
   ]) {
@@ -238,4 +236,20 @@ test("waiting approvals can be read, never decided", () => {
 test("host settings only take a numeric host id", () => {
   expect(ok("GET", "/plugins/alerts/settings/host/12")).toBe(true);
   expect(ok("GET", "/plugins/alerts/settings/host/abc")).toBe(false);
+});
+
+test("key revokes go through only right after a touch", () => {
+  const touched = (method: string, path: string) =>
+    checkRequest("login-security", root, method, `${root}${path}`, true).ok;
+  expect(ok("POST", "/users/api-keys/mine/revoke-all", "login-security")).toBe(
+    false,
+  );
+  expect(ok("DELETE", "/users/api-keys/mine/abc", "login-security")).toBe(
+    false,
+  );
+  expect(touched("POST", "/users/api-keys/mine/revoke-all")).toBe(true);
+  expect(touched("DELETE", "/users/api-keys/mine/abc")).toBe(true);
+  expect(ok("GET", "/users/api-keys/mine")).toBe(true);
+  expect(ok("GET", "/plugins/alerts/image")).toBe(true);
+  expect(ok("GET", "/plugins/vault/image")).toBe(false);
 });

@@ -24,6 +24,8 @@ export interface FrameBridgeOptions {
 }
 
 const CHUNK = 64 * 1024;
+/** How long a touch counts for requests that need one. */
+const TOUCH_MS = 5_000;
 
 function bodyBytes(body: FrameBody): Uint8Array | null {
   if (body.kind === "text") return utf8Encode(body.value);
@@ -112,6 +114,13 @@ export class FrameBridge {
     this.sockets.clear();
   }
 
+  private touchedAt = 0;
+
+  /** The person touched the web view; called by the native view around it. */
+  noteTouch() {
+    this.touchedAt = Date.now();
+  }
+
   private send(message: AppMessage) {
     if (!this.disposed) this.options.send(message);
   }
@@ -136,6 +145,7 @@ export class FrameBridge {
       client.rootBase(),
       message.method,
       message.url,
+      Date.now() - this.touchedAt < TOUCH_MS,
     );
     if (!check.ok) {
       log?.("warn", `Blocked ${check.reason}`);
