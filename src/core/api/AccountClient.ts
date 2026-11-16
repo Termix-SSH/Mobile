@@ -7,6 +7,7 @@ import {
 import {
   clearCookie,
   importClientCert,
+  isNetAvailable,
   nativeRequest,
   NativeSocket,
   needsNativeRequests,
@@ -45,6 +46,8 @@ import {
 } from "@/core/api/proxy-cookies";
 import { toBase64, utf8Encode } from "@/core/db/bytes";
 import { systemLogger } from "@/core/log/logger";
+import { AppError } from "@/core/errors";
+import { Platform } from "react-native";
 import type { AccountStorage } from "@/core/storage/kv";
 
 export interface ProxyHeader {
@@ -110,6 +113,37 @@ const DATA_KEYS = [
  * session token, proxy headers, client certificate, which API generation the
  * server speaks and which plugins it runs. There is one per linked account.
  */
+/**
+ * Pins of every account, by host. The native store keeps one list per host,
+ * so it always gets the union: removing one account never unpins another
+ * account on the same server.
+ */
+const pinsByAccount = new Map<string, { host: string; pins: string[] }>();
+
+async function pushPins(host: string): Promise<void> {
+  const union = new Set<string>();
+  for (const entry of pinsByAccount.values()) {
+    if (entry.host === host) entry.pins.forEach((pin) => union.add(pin));
+  }
+  await setServerPins(host, [...union]);
+}
+
+/** Test seam. */
+export function resetPinRegistry(): void {
+  pinsByAccount.clear();
+}
+
+/**
+ * Whether this build can check pins and present a client certificate: iOS
+ * through the module's own requests, Android through the OkHttp factory the
+ * module installs. Anywhere else a pin can't be checked at all.
+ */
+function canEnforceNetwork(): boolean {
+  if (Platform.OS === "ios") return needsNativeRequests();
+  if (Platform.OS === "android") return isNetAvailable();
+  return false;
+}
+
 export class AccountClient implements HttpOwner {
   readonly accountId: string;
   readonly serverUrl: string;
@@ -188,8 +222,13 @@ export class AccountClient implements HttpOwner {
       this.cookies = Array.isArray(cookies) ? cookies : [];
       this.pins = Array.isArray(pins) ? pins : [];
       // The native store keeps pins too; put them back in case it lost them.
+      // A failure here fails the load: the account must not run unpinned.
       if (this.pins.length) {
-        await setServerPins(this.pinHost(), this.pins).catch(() => {});
+        pinsByAccount.set(this.accountId, {
+          host: this.pinHost(),
+          pins: this.pins,
+        });
+        await pushPins(this.pinHost());
       }
       // Session cookies are gone after a restart, so put them back, but never
       // over a newer value the proxy set meanwhile.
@@ -406,7 +445,18 @@ export class AccountClient implements HttpOwner {
    * views. A self-signed server works once pinned. Empty turns pinning off.
    */
   async setCertPins(pins: string[]): Promise<void> {
-    await setServerPins(this.pinHost(), pins);
+    const host = this.pinHost();
+    const before = pinsByAccount.get(this.accountId);
+    if (pins.length)
+      pinsByAccount.set(this.accountId, { host, pins: [...pins] });
+    else pinsByAccount.delete(this.accountId);
+    try {
+      await pushPins(host);
+    } catch (error) {
+      if (before) pinsByAccount.set(this.accountId, before);
+      else pinsByAccount.delete(this.accountId);
+      throw error;
+    }
     this.pins = [...pins];
     if (pins.length) await this.storage.data.setJson("certPins", this.pins);
     else await this.storage.data.remove("certPins").catch(() => {});
@@ -461,11 +511,24 @@ export class AccountClient implements HttpOwner {
    * certificate, or for the pin to be checked (iOS).
    */
   usesNativeNetwork(): boolean {
-    return (!!this.cert || this.pins.length > 0) && needsNativeRequests();
+    if (!this.cert && this.pins.length === 0) return false;
+    // Never fall back to a plain request that skips the pin or the cert.
+    if (!canEnforceNetwork()) {
+      throw new AppError(
+        "This build can't check this server's pinned key or send its certificate.",
+        "NET_UNAVAILABLE",
+      );
+    }
+    return needsNativeRequests();
   }
 
   adapter(): AxiosAdapter | undefined {
-    return this.usesNativeNetwork() ? nativeAdapter : undefined;
+    try {
+      return this.usesNativeNetwork() ? nativeAdapter : undefined;
+    } catch (error) {
+      // Every request through this instance fails instead of going out plain.
+      return () => Promise.reject(error);
+    }
   }
 
   /** A WebSocket to this server, with the certificate and proxy headers. */
@@ -486,8 +549,9 @@ export class AccountClient implements HttpOwner {
   async wipe(): Promise<void> {
     this.sessionToken = null;
     await removeClientCert(this.accountId);
-    if (this.pins.length)
-      await setServerPins(this.pinHost(), []).catch(() => {});
+    if (pinsByAccount.delete(this.accountId)) {
+      await pushPins(this.pinHost()).catch(() => {});
+    }
     this.pins = [];
     await clearCookie(this.rootBase(), "jwt");
     await this.storage.wipe({ data: DATA_KEYS, secrets: SECRET_KEYS });

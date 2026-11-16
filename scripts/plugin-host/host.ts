@@ -11,15 +11,17 @@ import * as Sonner from "sonner";
 import * as SdkFrontend from "@termix-ssh/plugin-sdk/frontend";
 import * as SdkUi from "@termix-ssh/plugin-sdk/ui";
 // SDK 1.0.22 adds these; the build points at a core checkout until it is on npm.
-/* eslint-disable import/no-unresolved */
+
 import {
   startPluginFrame,
   type PluginFrame,
 } from "@termix-ssh/plugin-sdk/frame-host";
 import coreCss from "@termix-ssh/plugin-sdk/frame-host.css";
-/* eslint-enable import/no-unresolved */
+
 import {
   PAGE_RECEIVER,
+  PART_VIEW,
+  PROBE_VIEW,
   type AppMessage,
   type FrameBoot,
   type PageMessage,
@@ -66,8 +68,33 @@ async function boot() {
 
   let frame: PluginFrame | null = null;
   let backlog: AppMessage[] = [];
+  // Calls for other plugins' parts wait for the app's reply.
+  const waiting = new Map<
+    string,
+    { resolve: (value: unknown) => void; reject: (error: Error) => void }
+  >();
+  let nextCall = 1;
+  const foreign = data.foreign
+    ? {
+        call: (method: string, args: unknown[]) =>
+          new Promise<unknown>((resolve, reject) => {
+            const id = `c${nextCall++}`;
+            waiting.set(id, { resolve, reject });
+            post({ t: "foreign.call", id, method, args: plain(args) });
+          }),
+        emit: (name: string, value: unknown) =>
+          post({ t: "foreign.emit", name, data: plain(value) }),
+      }
+    : undefined;
   const handle = (message: AppMessage) => {
     if (net.receive(message)) return;
+    if (message.t === "foreign.reply") {
+      const entry = waiting.get(message.id);
+      waiting.delete(message.id);
+      if (message.ok) entry?.resolve(message.value);
+      else entry?.reject(new Error("Refused"));
+      return;
+    }
     if (!frame) {
       backlog.push(message);
       return;
@@ -81,6 +108,11 @@ async function boot() {
       void frame.reload();
     } else if (message.t === "back") {
       post({ t: "back.result", handled: goBack() });
+    } else if (message.t === "foreign.event") {
+      frame.foreignEvent(message.name, message.data);
+    } else if (message.t === "foreign.describe") {
+      const { items } = frame.describeParts(message.kind, message.id);
+      post({ t: "foreign.parts", reqId: message.reqId, items: plain(items) });
     }
   };
   win[PAGE_RECEIVER] = handle;
@@ -129,6 +161,8 @@ async function boot() {
       view: data.view,
       theme: data.theme,
       locales: data.locales,
+      foreign,
+      onPartSize: (size) => post({ t: "part.size", ...size }),
       shell: {
         openTab: shell("openTab"),
         openSingletonTab: shell("openSingletonTab"),
@@ -144,7 +178,8 @@ async function boot() {
   }
 
   const views = frame.views();
-  if (![...views.tabs, ...views.panels].includes(data.view.view)) {
+  const special = data.view.view === PROBE_VIEW || data.view.view === PART_VIEW;
+  if (!special && ![...views.tabs, ...views.panels].includes(data.view.view)) {
     post({
       t: "failed",
       reason: "view",
@@ -154,9 +189,9 @@ async function boot() {
   }
   post({ t: "loaded", ...views });
 
-  const waiting = backlog;
+  const queued = backlog;
   backlog = [];
-  waiting.forEach(handle);
+  queued.forEach(handle);
 
   const current = frame;
   watchGestures({
@@ -164,6 +199,15 @@ async function boot() {
     onLink: (url) => post({ t: "link", url }),
     origin: location.origin,
   });
+}
+
+/** Plain JSON for a message: functions and other things that can't cross drop out. */
+function plain<T>(value: T): T {
+  try {
+    return JSON.parse(JSON.stringify(value ?? null)) as T;
+  } catch {
+    return null as T;
+  }
 }
 
 /** Closes an open dialog or menu, else goes back in the page's own history. */

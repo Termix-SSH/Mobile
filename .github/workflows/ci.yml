@@ -10,23 +10,37 @@ on:
       - main
       - "dev-*"
 
+permissions: {}
+
 jobs:
   check:
     name: checks
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
           cache: npm
 
+      - name: Lockfile lint
+        uses: Termix-SSH/Termix-Registry/.github/actions/supply-chain@main
+        with:
+          osv: "false"
+          aliases: >-
+            @jest/react-is-18:react-is
+            @jest/react-is-19:react-is
+
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Check formatting
         run: npm run format:check
@@ -39,6 +53,19 @@ jobs:
 
       - name: Test
         run: npm test -- --ci
+
+      # The plugin view policy shares its core list with the web shell.
+      - name: Frame policy matches core
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="$(gh api --paginate repos/Termix-SSH/Termix/branches --jq '.[].name' \
+            | grep -E '^dev-[0-9]+\.[0-9]+\.[0-9]+$' | sort -t- -k2 -V | tail -n 1)"
+          echo "core branch: $branch"
+          gh api -H "Accept: application/vnd.github.raw" \
+            "repos/Termix-SSH/Termix/contents/src/ui/plugin-host/frames/frame-core-rules.json?ref=$branch" \
+            > "$RUNNER_TEMP/core-rules.json"
+          node scripts/sync-frame-policy.cjs --check "$RUNNER_TEMP/core-rules.json"
 
       - name: Validate Expo config
         run: npx expo config --type public --json > /tmp/expo-config.json
