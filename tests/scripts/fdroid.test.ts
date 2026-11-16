@@ -1,10 +1,13 @@
 const {
+  PROGUARD_RULES,
   applyFdroid,
+  fdroidBuild,
   findBlocked,
   stripPackageJson,
   versionCode,
 } = require("../../scripts/fdroid.cjs");
 const appConfig = require("../../app.config.js");
+const { gradleProperties } = require("../../plugins/withFdroid.js");
 const base = require("../../app.json").expo;
 
 test("version codes come from major, minor and patch", () => {
@@ -28,9 +31,20 @@ test("the F-Droid config drops download and dev plugins and adds its own", () =>
   );
   expect(camera[1].barcodeScannerEnabled).toBe(false);
   expect(camera[1].cameraPermission).toBe("Scan a host QR code.");
-  expect(out.android.versionCode).toBe(20000);
+  expect(out.android.versionCode).toBe(versionCode(base.version));
   expect(out.extra.distribution).toBe("fdroid");
   expect(out.extra.router).toEqual(base.extra.router);
+});
+
+test("the F-Droid config lets R8 skip the missing ML Kit classes", () => {
+  const props = (config: { plugins: unknown[] }) =>
+    config.plugins.find(
+      (p: unknown) => Array.isArray(p) && p[0] === "expo-build-properties",
+    ) as [string, { android: { extraProguardRules: string } }];
+  const rules = props(applyFdroid(base))[1].android.extraProguardRules;
+  for (const rule of PROGUARD_RULES) expect(rules).toContain(rule);
+  expect(rules).toContain("-keep class uniffi.** { *; }");
+  expect(props(base)[1].android.extraProguardRules).not.toContain("mlkit");
 });
 
 test("applyFdroid leaves the input alone", () => {
@@ -73,4 +87,27 @@ test("a dependency report with Play Services or ML Kit is flagged", () => {
   ].join("\n");
   expect(findBlocked(report)).toHaveLength(2);
   expect(findBlocked("+--- androidx.core:core-ktx:1.13.1")).toEqual([]);
+});
+
+test("an F-Droid version code picks one ABI", () => {
+  expect(fdroidBuild("2.0.0")).toEqual({ versionCode: 20000, abi: null });
+  expect(fdroidBuild("2.0.0", "200002")).toEqual({
+    versionCode: 200002,
+    abi: "arm64-v8a",
+  });
+  expect(fdroidBuild("2.1.3", "201034").abi).toBe("x86_64");
+  expect(() => fdroidBuild("2.0.0", "200005")).toThrow();
+  expect(() => fdroidBuild("2.0.0", "200101")).toThrow();
+});
+
+test("the F-Droid config passes the ABI to its plugin", () => {
+  const code = versionCode(base.version) * 10 + 1;
+  const out = applyFdroid(base, String(code));
+  expect(out.android.versionCode).toBe(code);
+  expect(out.plugins).toContainEqual([
+    "./plugins/withFdroid.js",
+    { abi: "armeabi-v7a" },
+  ]);
+  expect(gradleProperties("x86").reactNativeArchitectures).toBe("x86");
+  expect(gradleProperties()).not.toHaveProperty("reactNativeArchitectures");
 });

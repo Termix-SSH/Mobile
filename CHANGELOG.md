@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.1.0
+
+### Added
+
+- Actions on a host: every action the server's plugins offer for that host, such as restarting a container or service, with a form, a dry run and the result. New plugins show up with no app update
+- Approvals and Run history under Tools, when the server has Operations Center
+- WireGuard opens in the app
+- The Android and iOS files on each release carry signed build provenance you can check with `gh attestation verify`
+- Plugin pages in the app can show your own sessions and API keys, revoke your keys right after you tap the page, and show waiting approvals and your own second factors
+- Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
+- Plugin pages in the app show other plugins' parts again, like Homepage widgets from Docker or Proxmox. Each part runs in its own web view over the page
+
+### Changed
+
+- With App Lock on, the key to this phone's data is locked by your PIN and biometrics, so the data opens only after you unlock
+- Wrong PIN tries are counted across restarts of the app
+- Plugin pages reach only their own files and actions on the server
+- Plugin pages run plugins made for the newest plugin API (2.6)
+- CPU and RAM on host rows are drawn the same way as on the web dashboard, with their labels
+
+### Fixed
+
+- The SSH engine is built with library releases that have security fixes
+- A pinned server is never reached without its pin check, also in builds or cases where the pin could not be set
+- Removing an account no longer turns off the pins of another account on the same server
+- Android sign in pages now check a pinned server's key even when its certificate is otherwise trusted
+- App logs hide more kinds of secrets, such as passphrases, API keys and private keys
+
 ## 2.0.0
 
 Termix Mobile now works with no server. Hosts, logins and snippets stay encrypted on the phone, and the terminal, files, tunnels, Docker, metrics, services and remote desktop connect straight from it. Link one or more Termix servers to sync with them and use their plugins.

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Termix",
     "slug": "termix",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "termix-mobile",
@@ -32,7 +32,7 @@
     },
     "android": {
       "package": "com.karmaa.termix",
-      "versionCode": 20000,
+      "versionCode": 20100,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "monochromeImage": "./assets/images/adaptive-monochrome.png",
@@ -171,7 +171,12 @@
         }
       ],
       "expo-dev-client",
-      ["expo-secure-store", { "configureAndroidBackup": false }],
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": false
+        }
+      ],
       "expo-web-browser",
       [
         "expo-sqlite",

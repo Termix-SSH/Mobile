@@ -34,23 +34,67 @@ function pluginName(entry) {
   return Array.isArray(entry) ? entry[0] : entry;
 }
 
+// expo-camera still references ML Kit and the Play Services scanner as compile only
+// classes, so R8 must not fail on them. The app never opens the scanner here.
+const PROGUARD_RULES = [
+  "-dontwarn com.google.mlkit.**",
+  "-dontwarn com.google.android.gms.**",
+];
+
+function withProguardRules(entry) {
+  const options = entry[1] ?? {};
+  const android = options.android ?? {};
+  const rules = [android.extraProguardRules, ...PROGUARD_RULES]
+    .filter(Boolean)
+    .join("\n");
+  return [
+    entry[0],
+    { ...options, android: { ...android, extraProguardRules: rules } },
+  ];
+}
+
+// F-Droid builds one APK per ABI. Its version code is the app's times ten plus
+// the ABI's digit, and the recipe passes it in TERMIX_FDROID_VERCODE.
+const ABIS = { 1: "armeabi-v7a", 2: "arm64-v8a", 3: "x86", 4: "x86_64" };
+
+/** Version code and ABI for one F-Droid APK, or the universal APK with no code given. */
+function fdroidBuild(version, vercode) {
+  const base = versionCode(version);
+  if (!vercode) return { versionCode: base, abi: null };
+  const code = Number(vercode);
+  const abi = ABIS[code % 10];
+  if (!abi || Math.floor(code / 10) !== base) {
+    throw new Error(`version code ${vercode} does not match ${version}`);
+  }
+  return { versionCode: code, abi };
+}
+
 /** Returns the Expo config for the F-Droid variant. Does not change the input. */
-function applyFdroid(config) {
+function applyFdroid(config, vercode = process.env.TERMIX_FDROID_VERCODE) {
+  const build = fdroidBuild(config.version, vercode);
   // expo-camera's own option leaves out ML Kit and the Play Services scanner
   const plugins = (config.plugins ?? [])
     .filter((p) => !DROPPED_PLUGINS.includes(pluginName(p)))
-    .map((p) =>
-      pluginName(p) === "expo-camera"
-        ? [
-            "expo-camera",
-            { ...(Array.isArray(p) ? p[1] : {}), barcodeScannerEnabled: false },
-          ]
-        : p,
-    );
-  plugins.push("./plugins/withFdroid.js");
+    .map((p) => {
+      if (pluginName(p) === "expo-camera") {
+        return [
+          "expo-camera",
+          { ...(Array.isArray(p) ? p[1] : {}), barcodeScannerEnabled: false },
+        ];
+      }
+      if (pluginName(p) === "expo-build-properties") {
+        return withProguardRules(Array.isArray(p) ? p : [p]);
+      }
+      return p;
+    });
+  plugins.push(
+    build.abi
+      ? ["./plugins/withFdroid.js", { abi: build.abi }]
+      : "./plugins/withFdroid.js",
+  );
   return {
     ...config,
-    android: { ...config.android, versionCode: versionCode(config.version) },
+    android: { ...config.android, versionCode: build.versionCode },
     plugins,
     extra: { ...config.extra, distribution: "fdroid" },
   };
@@ -86,7 +130,10 @@ module.exports = {
   BLOCKED_DEPENDENCIES,
   DROPPED_PACKAGES,
   DROPPED_PLUGINS,
+  ABIS,
+  PROGUARD_RULES,
   applyFdroid,
+  fdroidBuild,
   findBlocked,
   stripPackageJson,
   versionCode,

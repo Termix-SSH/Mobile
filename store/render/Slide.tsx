@@ -79,12 +79,15 @@ export function Heading({
   size,
   colors,
   logo,
+  logoHidden,
 }: {
   title: string;
   subtitle: string;
   size: number;
   colors: Palette;
   logo: boolean;
+  /** Keeps the logo's space so titles line up with the first slide. */
+  logoHidden?: boolean;
 }) {
   return (
     <div
@@ -96,8 +99,13 @@ export function Heading({
         gap: size * 0.32,
       }}
     >
-      {logo ? (
-        <div style={{ marginBottom: size * 0.25 }}>
+      {logo || logoHidden ? (
+        <div
+          style={{
+            marginBottom: size * 0.25,
+            visibility: logo ? "visible" : "hidden",
+          }}
+        >
           <Logo size={size * 0.95} colors={colors} />
         </div>
       ) : null}
@@ -451,7 +459,10 @@ export function Slide(props: SlideProps) {
   const { width, height, shots, kind } = props;
   const colors = palette(props.theme, props.accent);
   const { short, pad, size, textW } = headingLayout(props);
-  const headingH = headingHeight(props);
+  // In a set (headingSpace given) every slide keeps the logo's space and
+  // starts at the top, so all titles sit on the same line.
+  const inSet = props.headingSpace != null;
+  const headingH = headingHeight({ ...props, logo: props.logo || inSet });
   const space = Math.max(headingH, props.headingSpace ?? 0);
   const gap = short * 0.06;
   const boxW = width - pad * 2;
@@ -477,7 +488,7 @@ export function Slide(props: SlideProps) {
       <div
         style={{
           position: "absolute",
-          top: top + (space - headingH) / 2,
+          top: inSet ? top : top + (space - headingH) / 2,
           left: (width - textW) / 2,
           width: textW,
           display: "flex",
@@ -490,6 +501,7 @@ export function Slide(props: SlideProps) {
           size={size}
           colors={colors}
           logo={props.logo}
+          logoHidden={inSet}
         />
       </div>
       <div

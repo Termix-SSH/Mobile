@@ -171,8 +171,8 @@ for (const device of outputs) {
     device.size ?? { width: even(first.width), height: even(first.height) };
   // Same heading space on every slide, so the device never moves.
   const headingSpace = Math.max(
-    ...slides.map(({ slide, shots }, i) =>
-      headingHeight({ ...sizeOf(shots[0]!), ...slide, logo: i === 0 }),
+    ...slides.map(({ slide, shots }) =>
+      headingHeight({ ...sizeOf(shots[0]!), ...slide, logo: true }),
     ),
   );
 
@@ -265,7 +265,7 @@ for (const device of outputs) {
     mkdirSync(meta, { recursive: true });
     slides.forEach(({ slide }, i) => {
       const name = `${String(i + 1).padStart(2, "0")}-${slide.id}.png`;
-      cpSync(join(dir, name), join(meta, `${i + 1}.png`));
+      cpSync(join(dir, name), join(meta, name));
     });
     console.log(`  copied to fastlane/metadata (${device.fdroid})`);
   }

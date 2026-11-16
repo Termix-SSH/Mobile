@@ -11,6 +11,7 @@ import {
   type StatsConfig,
 } from "@/constants/stats-config";
 import type { SSHHost } from "@/types";
+import type { DataResult } from "@/core/data-values/data-value";
 import { isSshHost } from "@/utils/hosts";
 import { FakeSwitch, SettingRow } from "@/ui";
 import { MetricsCard } from "./MetricsCard";
@@ -87,6 +88,21 @@ const metricsHostSection: HostEditorSectionDef = {
   },
 };
 
+/** CPU and RAM bars for a host row, as the web's dashboard row gets them. */
+export function hostRowMetrics(
+  host: SSHHost,
+  metrics: { cpu: number | null; ram: number | null } | undefined,
+): DataResult {
+  if (!metrics || !metricsOn(host)) return null;
+  const share = (percent: number | null) =>
+    percent != null && percent > 0 ? Math.min(100, percent) / 100 : null;
+  const items = [
+    { label: "CPU", value: share(metrics.cpu) },
+    { label: "RAM", value: share(metrics.ram) },
+  ].filter((item) => item.value !== null);
+  return items.length > 0 ? { shape: "bars", items } : null;
+}
+
 export const hostMetricsFeature: FeatureDef = {
   id: "host-metrics",
   plugins: ["host-metrics"],
@@ -122,6 +138,7 @@ export const hostMetricsFeature: FeatureDef = {
       component: MetricsCard,
     },
   ],
+  hostRowData: [{ id: "host-metrics.row", order: 10, value: hostRowMetrics }],
   hostActions: [
     {
       id: "host-metrics.open",

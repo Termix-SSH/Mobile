@@ -116,12 +116,21 @@ export const OUTPUTS: Output[] = [
     preview: { from: "iphone", size: { width: 886, height: 1920 } },
   },
   {
+    // Product page tests ask for this size and won't scale down the 6.9" set.
+    id: "iphone-medium",
+    store: "ios",
+    label: 'iPhone 6.3"',
+    stills: "android-phone",
+    size: { width: 1206, height: 2622 },
+  },
+  {
     id: "ipad",
     store: "ios",
     label: 'iPad 13"',
     stills: "android-tablet",
     size: { width: 2752, height: 2064 },
-    preview: { from: "ipad", size: { width: 1200, height: 1600 } },
+    // Landscape like the stills, or the App Store turns the stills sideways.
+    preview: { from: "ipad", size: { width: 1600, height: 1200 } },
   },
   {
     id: "iphone-duo",
@@ -138,12 +147,21 @@ export const OUTPUTS: Output[] = [
     size: { width: 1080, height: 1920 },
     fdroid: "phoneScreenshots",
   },
+  // Play wants 16:9 tablet shots.
   {
-    id: "tablet",
+    id: "tablet-7",
     store: "android",
-    label: "Play tablet",
+    label: 'Play 7" tablet',
     stills: "android-tablet",
-    size: { width: 2560, height: 1600 },
+    size: { width: 1920, height: 1080 },
+    fdroid: "sevenInchScreenshots",
+  },
+  {
+    id: "tablet-10",
+    store: "android",
+    label: 'Play 10" tablet',
+    stills: "android-tablet",
+    size: { width: 2560, height: 1440 },
     fdroid: "tenInchScreenshots",
   },
 ];
