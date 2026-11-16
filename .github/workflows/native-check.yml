@@ -21,23 +21,29 @@ concurrency:
   group: native-check-${{ github.ref }}
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   android:
     name: Android
     if: inputs.platforms != 'ios'
     runs-on: blacksmith-8vcpu-ubuntu-2404
+    permissions:
+      contents: read
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
           cache: npm
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: temurin
           java-version: "17"
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Prebuild
         run: npx expo prebuild --platform android --no-install --clean
       - name: Kotlin unit tests
@@ -46,7 +52,7 @@ jobs:
       - name: Build debug APK (x86_64)
         working-directory: android
         run: ./gradlew --console=plain :app:assembleDebug -PreactNativeArchitectures=x86_64
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: failure()
         with:
           name: android-test-reports
@@ -56,17 +62,21 @@ jobs:
     name: iOS
     if: inputs.platforms != 'android'
     runs-on: blacksmith-6vcpu-macos-latest
+    permissions:
+      contents: read
     timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v4
-      - uses: maxim-lobanov/setup-xcode@v1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
         with:
           xcode-version: "26"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Prebuild
         run: npx expo prebuild --platform ios --clean
       - name: Build for the simulator
@@ -76,7 +86,7 @@ jobs:
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath ../dd CODE_SIGNING_ALLOWED=NO build > ../xcodebuild.log 2>&1 \
             || { grep -E "error:|BUILD FAILED" ../xcodebuild.log | sort -u | head -80; exit 1; }
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: failure()
         with:
           name: xcodebuild-log

@@ -170,3 +170,97 @@ describe("AppLockProvider", () => {
     expect(result.current.covered).toBe(false);
   });
 });
+
+describe("App Lock seals the device key", () => {
+  const SecureStore = require("expo-secure-store");
+  const keys = require("@/core/db/keys");
+  const plainKey = () => SecureStore.getItemAsync("db.key.local");
+
+  beforeEach(() => keys.setDeviceKeyState(false, null));
+
+  async function lockNow(result: { current: ReturnType<typeof useAppLock> }) {
+    await act(() => result.current.setDelayMs(0));
+    await send("background");
+    await send("active");
+    expect(result.current.locked).toBe(true);
+  }
+
+  it("removes the plain key and gives it back only after unlocking", async () => {
+    const before = await keys.getPlainDbKey("local");
+    const { result } = await setup(false);
+    await act(() => result.current.enable("1234"));
+    expect(await plainKey()).toBeNull();
+    expect(await keys.getDbKey("local")).toBe(before);
+
+    await lockNow(result);
+    await expect(keys.getDbKey("local")).rejects.toMatchObject({
+      code: "APP_LOCKED",
+    });
+    await act(async () => {
+      await result.current.unlockWithPin("1234");
+    });
+    expect(await keys.getDbKey("local")).toBe(before);
+  }, 30000);
+
+  it("stays locked when the lock flag is turned off by hand", async () => {
+    const first = await setup(false);
+    await act(() => first.result.current.enable("1234"));
+    first.unmount();
+    keys.setDeviceKeyState(false, null);
+    await AsyncStorage.setItem("appLockEnabled", "false");
+    const hook = await renderHook(() => useAppLock(), {
+      wrapper: AppLockProvider,
+    });
+    await waitFor(() => expect(hook.result.current.enabled).toBe(true));
+    expect(hook.result.current.locked).toBe(true);
+    await expect(keys.getDbKey("local")).rejects.toMatchObject({
+      code: "APP_LOCKED",
+    });
+  }, 30000);
+
+  it("saves the wait after wrong PINs, so a restart keeps it", async () => {
+    const { keyVault } = require("@/core/lock/vault-store");
+    const { result } = await setup(false);
+    await act(() => result.current.enable("1234"));
+    await lockNow(result);
+    for (let i = 0; i < 5; i++) {
+      await act(async () => {
+        await result.current.unlockWithPin("0000");
+      });
+    }
+    expect(result.current.pinWaitMs).toBeGreaterThan(0);
+    const saved = await keyVault.loadFails();
+    expect(saved.until).toBeGreaterThan(Date.now());
+    let ok = true;
+    await act(async () => {
+      ok = await result.current.unlockWithPin("1234");
+    });
+    expect(ok).toBe(false);
+  }, 60000);
+
+  it("puts the plain key back when App Lock is turned off", async () => {
+    const before = await keys.getPlainDbKey("local");
+    const { result } = await setup(false);
+    await act(() => result.current.enable("1234"));
+    await act(() => result.current.disable());
+    expect(await plainKey()).toBe(before);
+    expect(keys.isDeviceKeySealed()).toBe(false);
+    expect(await keys.getDbKey("local")).toBe(before);
+  }, 30000);
+
+  it("moves an older PIN to the vault on the first unlock", async () => {
+    const before = await keys.getPlainDbKey("local");
+    await SecureStore.setItemAsync("appLockPin", "1234");
+    const { result } = await setup(true);
+    expect(result.current.locked).toBe(true);
+    let ok = false;
+    await act(async () => {
+      ok = await result.current.unlockWithPin("1234");
+    });
+    expect(ok).toBe(true);
+    expect(await SecureStore.getItemAsync("appLockPin")).toBeNull();
+    expect(await plainKey()).toBeNull();
+    expect(keys.isDeviceKeySealed()).toBe(true);
+    expect(await keys.getDbKey("local")).toBe(before);
+  }, 30000);
+});

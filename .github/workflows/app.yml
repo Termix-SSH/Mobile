@@ -29,35 +29,49 @@ on:
         options:
           - stable
           - beta
+
+permissions: {}
+
 jobs:
   release:
     name: Create the GitHub release
     if: ${{ github.event.inputs.action == 'release' }}
     runs-on: blacksmith-2vcpu-ubuntu-2404
+    # Drafts, uploads and publishes this repo's GitHub release.
+    permissions:
+      contents: write
     outputs:
       tag: ${{ steps.create.outputs.tag }}
     steps:
       - name: Setup repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Create or update the draft release from CHANGELOG.md
         id: create
         env:
-          GH_TOKEN: ${{ secrets.TERMIX_PAT }}
+          GH_TOKEN: ${{ github.token }}
+          CHANNEL: ${{ inputs.channel }}
         run: |
           VERSION=$(node -p "require('./app.json').expo.version")
           TAG="v$VERSION"
           node scripts/generate-release-body.cjs --version "$VERSION" > RELEASE_BODY.md
           cat RELEASE_BODY.md
 
-          if gh release view "$TAG" --repo ${{ github.repository }} >/dev/null 2>&1; then
-            echo "Release $TAG exists, updating its notes"
-            gh release edit "$TAG" --repo ${{ github.repository }}               --title "v$VERSION" --notes-file RELEASE_BODY.md
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            if [ "$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json isDraft -q .isDraft)" != "true" ]; then
+              echo "$TAG is already published and a release can't change. Bump the version and run again."
+              exit 1
+            fi
+            echo "Draft $TAG exists, updating its notes"
+            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --title "v$VERSION" --notes-file RELEASE_BODY.md
           else
             echo "Creating draft release $TAG"
-            PRERELEASE=""
-            if [ "${{ github.event.inputs.channel }}" = "beta" ]; then PRERELEASE="--prerelease"; fi
-            gh release create "$TAG" --repo ${{ github.repository }}               --draft $PRERELEASE --title "v$VERSION" --target "${{ github.sha }}"               --notes-file RELEASE_BODY.md
+            PRERELEASE=()
+            if [ "$CHANNEL" = "beta" ]; then PRERELEASE=(--prerelease); fi
+            gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --draft "${PRERELEASE[@]}" \
+              --title "v$VERSION" --target "$GITHUB_SHA" --notes-file RELEASE_BODY.md
           fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
@@ -66,32 +80,46 @@ jobs:
     needs: [release]
     if: ${{ !cancelled() && (needs.release.result == 'success' || needs.release.result == 'skipped') }}
     runs-on: ${{ matrix.platform == 'apple' && 'blacksmith-6vcpu-macos-27' || 'blacksmith-8vcpu-ubuntu-2404' }}
+    # Holds the Expo and App Store keys, only for main and dev branches.
+    environment: build
+    # Drafts, uploads and publishes this repo's GitHub release.
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
     strategy:
       fail-fast: false
       matrix:
         platform: ${{ github.event.inputs.platform == 'both' && fromJSON('["apple", "android"]') || fromJSON(format('["{0}"]', github.event.inputs.platform)) }}
+    env:
+      ACTION: ${{ inputs.action }}
+      CHANNEL: ${{ inputs.channel }}
+      PLATFORM: ${{ matrix.platform }}
+      EAS_PLATFORM: ${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
     steps:
       - name: Setup repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
+      # No caches in a job that builds release apps.
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
-          cache: "npm"
 
       # The iPhone Duo fold APIs need the iOS 27.1 SDK. Older Xcode still builds, letterboxed.
       - name: Setup Xcode 27.1
         id: xcode
         if: ${{ matrix.platform == 'apple' }}
         continue-on-error: true
-        uses: maxim-lobanov/setup-xcode@v1
+        uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
         with:
           xcode-version: "27.1"
 
       - name: Setup newest Xcode
         if: ${{ matrix.platform == 'apple' && steps.xcode.outcome == 'failure' }}
-        uses: maxim-lobanov/setup-xcode@v1
+        uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
         with:
           xcode-version: latest-stable
 
@@ -106,41 +134,38 @@ jobs:
           done
 
       - name: Setup Expo and EAS
-        uses: expo/expo-github-action@v8
+        uses: expo/expo-github-action@9da89d3617bb88139671bad31b09c65714c2ee06 # 9.0.1
         with:
           token: ${{ secrets.EXPO_TOKEN }}
-          expo-version: latest
-          eas-version: latest
+          eas-version: 27.7.2
+          eas-cache: false
           packager: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Validate EAS configuration
         run: |
           echo "EAS configuration:"
           cat eas.json
           echo "Validating configuration..."
-          EAS_PLATFORM=${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
-          eas build:configure --platform $EAS_PLATFORM
+          eas build:configure --platform "$EAS_PLATFORM"
 
       - name: Build app
         run: |
-          if [ "${{ github.event.inputs.action }}" = "submit" ]; then
+          if [ "$ACTION" = "submit" ]; then
             PROFILE="production"
           else
             PROFILE="preview"
           fi
 
-          echo "Building for platform: ${{ matrix.platform }}"
+          echo "Building for platform: $PLATFORM"
           echo "Using profile: $PROFILE"
 
           mkdir -p build-artifacts
 
           VERSION=$(node -p "require('./app.json').expo.version")
           echo "App version: $VERSION"
-
-          EAS_PLATFORM=${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
 
           if [ -n "$ASC_API_KEY" ]; then
             printf '%s\n' "$ASC_API_KEY" > "$EXPO_ASC_API_KEY_PATH"
@@ -151,10 +176,10 @@ jobs:
 
           eas build --local \
             --non-interactive \
-            --platform=$EAS_PLATFORM \
-            --profile=$PROFILE
+            --platform="$EAS_PLATFORM" \
+            --profile="$PROFILE"
 
-          if [ "${{ matrix.platform }}" = "android" ]; then
+          if [ "$PLATFORM" = "android" ]; then
             echo "Searching for Android build artifacts..."
 
             APK_FILE=$(find . -maxdepth 1 -type f -name "build-*.apk" 2>/dev/null | head -1)
@@ -171,7 +196,7 @@ jobs:
                 cp "$APK_FILE" "build-artifacts/termix_android.apk"
               else
                 echo "ERROR: APK not found after build"
-                ls -la . | grep -E '\.apk|build-'
+                find . -maxdepth 1 \( -name '*.apk' -o -name 'build-*' \)
               fi
             fi
 
@@ -188,7 +213,7 @@ jobs:
                 fi
               fi
             fi
-          elif [ "${{ matrix.platform }}" = "apple" ]; then
+          elif [ "$PLATFORM" = "apple" ]; then
             echo "Searching for iOS build artifacts..."
 
             IPA_FILE=$(find . -maxdepth 1 -type f -name "build-*.ipa" 2>/dev/null | head -1)
@@ -205,7 +230,7 @@ jobs:
                 cp "$IPA_FILE" "build-artifacts/termix_ios.ipa"
               else
                 echo "ERROR: IPA not found after build"
-                ls -la . | grep -E '\.ipa|build-'
+                find . -maxdepth 1 \( -name '*.ipa' -o -name 'build-*' \)
               fi
             fi
           fi
@@ -227,7 +252,7 @@ jobs:
             echo "Contents of build-artifacts/:"
             ls -lh build-artifacts/ 2>/dev/null || echo "Directory exists but is empty"
 
-            ARTIFACT_COUNT=$(ls -1 build-artifacts/ 2>/dev/null | wc -l)
+            ARTIFACT_COUNT=$(find build-artifacts -mindepth 1 -maxdepth 1 | wc -l)
             echo ""
             echo "Total artifacts: $ARTIFACT_COUNT"
           else
@@ -236,11 +261,11 @@ jobs:
             ARTIFACT_COUNT=0
           fi
 
-          echo "artifact_count=$ARTIFACT_COUNT" >> $GITHUB_OUTPUT
+          echo "artifact_count=$ARTIFACT_COUNT" >> "$GITHUB_OUTPUT"
 
       - name: Upload Android AAB
         if: ${{ github.event.inputs.action == 'submit' && matrix.platform == 'android' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: termix_android_aab
           path: build-artifacts/termix_android.aab
@@ -249,10 +274,10 @@ jobs:
 
       - name: Submit to App Store
         if: ${{ github.event.inputs.action == 'submit' }}
+        env:
+          SUBMIT_PROFILE: ${{ inputs.channel == 'beta' && 'beta' || 'production' }}
         run: |
-          VERSION=$(node -p "require('./app.json').expo.version")
-
-          if [ "${{ matrix.platform }}" = "android" ]; then
+          if [ "$PLATFORM" = "android" ]; then
             BUILD_FILE="build-artifacts/termix_android.aab"
             if [ -f "$BUILD_FILE" ]; then
               echo "Using AAB for Play Store submission: $BUILD_FILE"
@@ -267,9 +292,7 @@ jobs:
 
           if [ -n "$BUILD_FILE" ] && [ -f "$BUILD_FILE" ]; then
             echo "Submitting file: $BUILD_FILE"
-            EAS_PLATFORM=${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
-            SUBMIT_PROFILE=${{ github.event.inputs.channel == 'beta' && 'beta' || 'production' }}
-            eas submit -p $EAS_PLATFORM --profile $SUBMIT_PROFILE --path "$BUILD_FILE" --non-interactive
+            eas submit -p "$EAS_PLATFORM" --profile "$SUBMIT_PROFILE" --path "$BUILD_FILE" --non-interactive
           else
             echo "No build file found to submit"
             exit 1
@@ -277,7 +300,7 @@ jobs:
 
       - name: Upload Android APK
         if: ${{ github.event.inputs.action == 'file' && matrix.platform == 'android' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: termix_android
           path: build-artifacts/termix_android.apk
@@ -286,20 +309,26 @@ jobs:
 
       - name: Upload iOS IPA
         if: ${{ github.event.inputs.action == 'file' && matrix.platform == 'apple' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: termix_ios_universal
           path: build-artifacts/termix_ios.ipa
           retention-days: 30
           if-no-files-found: error
 
+      - name: Attest build provenance
+        if: ${{ github.event.inputs.action == 'release' }}
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: build-artifacts/termix_${{ matrix.platform == 'android' && 'android.apk' || 'ios.ipa' }}
+
       - name: Upload to GitHub Release
         if: ${{ github.event.inputs.action == 'release' }}
         env:
-          GH_TOKEN: ${{ secrets.TERMIX_PAT }}
+          GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.release.outputs.tag }}
         run: |
-          if [ "${{ matrix.platform }}" = "android" ]; then
+          if [ "$PLATFORM" = "android" ]; then
             FILE="build-artifacts/termix_android.apk"
           else
             FILE="build-artifacts/termix_ios.ipa"
@@ -311,22 +340,40 @@ jobs:
           fi
 
           echo "Uploading $FILE to $TAG"
-          gh release upload "$TAG" "$FILE" --repo ${{ github.repository }} --clobber
+          gh release upload "$TAG" "$FILE" --repo "$GITHUB_REPOSITORY" --clobber
 
   publish:
     name: Publish the GitHub release
     needs: [release, build]
     if: ${{ github.event.inputs.action == 'release' }}
     runs-on: blacksmith-2vcpu-ubuntu-2404
+    # Drafts, uploads and publishes this repo's GitHub release.
+    permissions:
+      contents: write
     steps:
       - name: Publish the release
         env:
-          GH_TOKEN: ${{ secrets.TERMIX_PAT }}
+          GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.release.outputs.tag }}
+          CHANNEL: ${{ inputs.channel }}
+          PLATFORM_INPUT: ${{ inputs.platform }}
         run: |
-          if [ "${{ github.event.inputs.channel }}" = "beta" ]; then
-            gh release edit "$TAG" --repo ${{ github.repository }} --draft=false --prerelease --latest=false
+          # Files can't change after this, so check both builds are on the draft.
+          ASSETS=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets -q '.assets[].name')
+          case "$PLATFORM_INPUT" in
+            android) EXPECTED="termix_android.apk" ;;
+            apple) EXPECTED="termix_ios.ipa" ;;
+            *) EXPECTED="termix_android.apk termix_ios.ipa" ;;
+          esac
+          for NAME in $EXPECTED; do
+            if ! printf '%s\n' "$ASSETS" | grep -qx "$NAME"; then
+              echo "The draft is missing $NAME. Not publishing."
+              exit 1
+            fi
+          done
+          if [ "$CHANNEL" = "beta" ]; then
+            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --prerelease --latest=false
           else
-            gh release edit "$TAG" --repo ${{ github.repository }} --draft=false --prerelease=false --latest
+            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --prerelease=false --latest
           fi
-          echo "Published https://github.com/${{ github.repository }}/releases/tag/$TAG"
+          echo "Published https://github.com/$GITHUB_REPOSITORY/releases/tag/$TAG"

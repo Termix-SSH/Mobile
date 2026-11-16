@@ -1,48 +1,49 @@
 /**
  * What a plugin web view may reach on its server. The page has no network of
- * its own, so this list is the whole of it: the plugin's own routes and
- * assets, its settings, and the core reads the SDK's hooks and UI kit make.
+ * its own, so this list is the whole of it: the plugin's own routes, assets,
+ * settings and operations, and the core reads the SDK's hooks and UI kit make.
  * Everything else answers 403 in the app and never reaches the server.
  */
+
+import RULE_FILE from "./frame-core-rules.json";
 
 type Method = "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 interface Rule {
   methods: Method[] | "any";
   path: (pluginId: string) => RegExp;
+  userAction?: boolean;
 }
 
 const esc = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const READ: Method[] = ["GET", "HEAD"];
 
+export interface CoreRuleEntry {
+  methods: string[];
+  path: string;
+  why?: string;
+  /** The web shell allows these only right after a click in the frame. */
+  userAction?: boolean;
+}
+
+/**
+ * Core requests shared with the web shell's frame policy. A copy of core's
+ * frame-core-rules.json: refresh it with `npm run sync:frame-policy`; CI
+ * fails when it differs from core's newest dev branch.
+ */
+export const CORE_RULES: CoreRuleEntry[] = RULE_FILE.rules;
+
 const RULES: Rule[] = [
+  // The web shell gives a frame these by other means.
   { methods: "any", path: (id) => new RegExp(`^/plugin-api/${esc(id)}(/|$)`) },
-  { methods: READ, path: () => /^\/plugin-assets\// },
-  {
-    methods: ["GET", "PUT"],
-    path: (id) =>
-      new RegExp(`^/plugins/${esc(id)}/settings/(admin|user|host/[^/]+)$`),
-  },
-  { methods: READ, path: () => /^\/plugins$/ },
-  { methods: READ, path: () => /^\/users\/me$/ },
-  { methods: READ, path: () => /^\/rbac\/permissions\/me$/ },
-  { methods: READ, path: () => /^\/user-preferences$/ },
-  { methods: READ, path: () => /^\/(health|version)$/ },
-  { methods: READ, path: () => /^\/dashboard\/(uptime|activity\/recent)$/ },
-  { methods: READ, path: () => /^\/host\/db\/host(\/\d+)?$/ },
-  { methods: READ, path: () => /^\/host\/(folders|policy)$/ },
-  { methods: READ, path: () => /^\/host\/status(\/\d+|\/settings)?$/ },
-  { methods: READ, path: () => /^\/credentials$/ },
-  // Actions go through the server's own checks. Deciding approvals stays out.
-  {
-    methods: READ,
-    path: () =>
-      /^\/operations\/(catalog|runs|events|timeline|signals|resources)(\/|$)/,
-  },
-  { methods: ["POST"], path: () => /^\/operations\/[a-z0-9.-]+\/run$/ },
+  { methods: READ, path: (id) => new RegExp(`^/plugin-assets/${esc(id)}/`) },
   { methods: ["POST"], path: () => /^\/users\/ws-ticket$/ },
-  { methods: ["POST"], path: () => /^\/dashboard\/activity\/log$/ },
+  ...CORE_RULES.map((entry): Rule => ({
+    methods: entry.methods as Method[],
+    path: (id) => new RegExp(entry.path.split("{id}").join(esc(id))),
+    userAction: entry.userAction === true,
+  })),
 ];
 
 export type PolicyResult =
@@ -75,11 +76,16 @@ function pathOn(root: string, url: string, schemes: string[]): string | null {
   return path;
 }
 
+/**
+ * `touched`: the person touched the web view in the last few seconds, which
+ * the page itself can't fake. Rules marked userAction need it.
+ */
 export function checkRequest(
   pluginId: string,
   root: string,
   method: string,
   url: string,
+  touched = false,
 ): PolicyResult {
   const secure = root.startsWith("https:");
   const path = pathOn(root, url, [secure ? "https:" : "http:"]);
@@ -88,7 +94,8 @@ export function checkRequest(
   const allowed = RULES.some(
     (rule) =>
       (rule.methods === "any" || rule.methods.includes(verb)) &&
-      rule.path(pluginId).test(path),
+      rule.path(pluginId).test(path) &&
+      (!rule.userAction || touched),
   );
   return allowed
     ? { ok: true, path }

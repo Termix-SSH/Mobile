@@ -17,36 +17,46 @@ on:
       - "modules/termix-ssh/scripts/build-android.sh"
       - "modules/termix-terminal/ghostty.lock.json"
 
+permissions: {}
+
 jobs:
   build:
     name: F-Droid build
     runs-on: blacksmith-8vcpu-ubuntu-2404
+    permissions:
+      contents: read
     timeout-minutes: 90
     env:
       TERMIX_FDROID: "1"
-      # Same as the F-Droid arm64-v8a APK
-      TERMIX_FDROID_VERCODE: "200002"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      # Runs on release tags, so no caches.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
-          cache: npm
+          package-manager-cache: false
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: temurin
           java-version: "17"
 
-      - uses: mlugg/setup-zig@v2
+      - uses: mlugg/setup-zig@d1434d08867e3ee9daa34448df10607b98908d29 # v2.2.1
         with:
           version: 0.15.2
+          use-cache: false
 
-      - uses: dtolnay/rust-toolchain@master
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # v1
         with:
           toolchain: "1.99.1"
           targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android,i686-linux-android
+
+      # Same as the F-Droid arm64-v8a APK of this version
+      - name: Version code
+        run: echo "TERMIX_FDROID_VERCODE=$(node -p "require('./app.json').expo.android.versionCode * 10 + 2")" >> "$GITHUB_ENV"
 
       - name: Tools
         run: |
@@ -54,7 +64,7 @@ jobs:
           echo y | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.1.12297006" > /dev/null
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.1.12297006" >> "$GITHUB_ENV"
 
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - run: node scripts/prepare-fdroid.cjs
       - run: node scripts/check-fdroid.cjs
       - run: sh scripts/build-native-fdroid.sh fetch
@@ -83,7 +93,7 @@ jobs:
           cd ..
           node scripts/check-fdroid.cjs deps.txt
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: termix-fdroid-unsigned
           path: android/app/build/outputs/apk/release/*.apk

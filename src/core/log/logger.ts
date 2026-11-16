@@ -22,7 +22,8 @@ export interface LogContext {
   [key: string]: any;
 }
 
-const SECRET_KEY = /pass|token|secret|authorization|cookie|jwt|pfx|key$/i;
+const SECRET_KEY =
+  /pass|token|secret|authorization|cookie|jwt|pfx|key$|credential|private/i;
 
 /** Copies a log context with anything that looks like a secret masked. */
 export function redact<T>(value: T, depth = 0): T {
@@ -43,8 +44,12 @@ const URL_IN_TEXT =
 const IPV4 = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
 const JWT = /\beyJ[\w-]{8,}\.[\w-]{8,}\.[\w-]{8,}/g;
 const BEARER = /\b(Bearer|Basic)\s+[\w\-.~+/=]{8,}/gi;
+// Also names that only end in a secret word: api_key, apiKey, client_secret.
 const SECRET_PAIR =
-  /\b(password|passwd|pass|token|secret|jwt|key)(["']?\s*[:=]\s*["']?)[^\s"',&;]+/gi;
+  /\b([\w-]*?(?:password|passwd|passphrase|pass|token|secret|jwt|key))(["']?\s*[:=]\s*["']?)[^\s"',&;]+/gi;
+const API_KEY = /\btmx_[0-9a-z]{16,}\b/gi;
+const PEM =
+  /-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----[\s\S]*?(?:-----END [A-Z0-9 ]*PRIVATE KEY-----|$)/g;
 
 /**
  * Hides what a log line must not carry: server and host addresses, query
@@ -52,6 +57,8 @@ const SECRET_PAIR =
  */
 export function redactText(text: string): string {
   return text
+    .replace(PEM, "[hidden key]")
+    .replace(API_KEY, "[hidden]")
     .replace(
       URL_IN_TEXT,
       (_m, scheme: string, rest: string) => `${scheme}://<server>${rest}`,

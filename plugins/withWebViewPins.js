@@ -30,6 +30,32 @@ const ANDROID_PATCH = `        // ${ANDROID_MARKER} lets a self-signed server th
 
 `;
 
+// A trusted but wrong certificate never reaches onReceivedSslError, so a
+// pinned host's page is checked once it starts and again when it is done.
+const ANDROID_PAGE_MARKER = "Termix: a pinned host must show its key";
+const ANDROID_PAGE_CHECK = `        // ${ANDROID_PAGE_MARKER}.
+        try {
+            Object termixOk = Class.forName("expo.modules.termixnet.ServerPins")
+                .getMethod("webPageAllowed", android.content.Context.class, String.class, android.net.http.SslCertificate.class)
+                .invoke(null, webView.getContext(), url, webView.getCertificate());
+            if (Boolean.FALSE.equals(termixOk)) {
+                webView.stopLoading();
+                mLastLoadFailed = true;
+                webView.loadUrl("about:blank");
+                return;
+            }
+        } catch (Exception ignored) {
+        }
+`;
+const ANDROID_FINISHED_ANCHOR = "        super.onPageFinished(webView, url);\n";
+const ANDROID_COMMIT_METHOD = `    @Override
+    public void onPageCommitVisible(WebView webView, String url) {
+        super.onPageCommitVisible(webView, url);
+${ANDROID_PAGE_CHECK}    }
+
+`;
+const ANDROID_COMMIT_ANCHOR = "    @Override\n    public void onPageFinished(";
+
 const IOS_MARKER = "Termix: a pinned server key";
 const IOS_ANCHOR =
   "  if ([[challenge protectionSpace] authenticationMethod] == NSURLAuthenticationMethodClientCertificate) {";
@@ -80,13 +106,30 @@ function insertOnce(contents, marker, patch, anchor, file) {
 }
 
 function patchAndroid(java) {
-  return insertOnce(
+  let out = insertOnce(
     removeLanBypass(java),
     ANDROID_MARKER,
     ANDROID_PATCH,
     ANDROID_ANCHOR,
     "RNCWebViewClient.java",
   );
+  if (!out.includes(ANDROID_PAGE_MARKER)) {
+    if (
+      !out.includes(ANDROID_FINISHED_ANCHOR) ||
+      !out.includes(ANDROID_COMMIT_ANCHOR)
+    ) {
+      throw new Error("Unable to patch RNCWebViewClient.java: missing anchor");
+    }
+    out = out.replace(
+      ANDROID_FINISHED_ANCHOR,
+      `${ANDROID_FINISHED_ANCHOR}${ANDROID_PAGE_CHECK}`,
+    );
+    out = out.replace(
+      ANDROID_COMMIT_ANCHOR,
+      `${ANDROID_COMMIT_METHOD}${ANDROID_COMMIT_ANCHOR}`,
+    );
+  }
+  return out;
 }
 
 function patchIos(objc) {

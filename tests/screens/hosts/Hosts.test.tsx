@@ -67,6 +67,7 @@ jest.mock("@/core/features", () => ({
   useHostFilters: () => [],
   useSettingsLinks: () => [],
   useHostBadges: () => [],
+  useHostRowData: () => [],
 }));
 jest.mock("@/screens/hosts/useOpenHost", () => ({
   useOpenHost: () => mockOpenHost,

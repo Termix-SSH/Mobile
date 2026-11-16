@@ -62,6 +62,27 @@ object ServerPins {
     return matches(context, host, x509Of(certificate))
   }
 
+  /**
+   * For a page the web view loaded: false when the host is pinned and the
+   * page did not come over TLS with the pinned key. The web view only asks
+   * about pins on a certificate error, so a trusted but wrong certificate is
+   * caught here.
+   */
+  @JvmStatic
+  fun webPageAllowed(context: Context, url: String?, certificate: SslCertificate?): Boolean {
+    val uri = try {
+      URI(url)
+    } catch (_: Exception) {
+      return true
+    }
+    if (get(context, uri.host).isEmpty()) return true
+    if (!"https".equals(uri.scheme, ignoreCase = true)) return false
+    // No certificate on an https page means the app loaded it from a string
+    // with this base URL (the plugin page); nothing came off the network.
+    val cert = x509Of(certificate) ?: return true
+    return matches(context, uri.host, cert)
+  }
+
   private fun x509Of(certificate: SslCertificate?): X509Certificate? {
     if (certificate == null) return null
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) return certificate.x509Certificate

@@ -47,7 +47,7 @@ describe("settings schema", () => {
   it("points every href at a real route file", () => {
     for (const item of SETTINGS_ITEMS) {
       if (!item.href) continue;
-      const rel = item.href.replace(/^\//, "").replace(/^\(tabs\)/, "(tabs)");
+      const rel = item.href.replace(/^\//, "");
       const direct = path.join(__dirname, "../../../../app", `${rel}.tsx`);
       const dynamic = path.join(
         __dirname,
