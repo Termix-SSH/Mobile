@@ -27,6 +27,7 @@
 - Removing an account no longer turns off the pins of another account on the same server
 - Android sign in pages now check a pinned server's key even when its certificate is otherwise trusted
 - App logs hide more kinds of secrets, such as passphrases, API keys and private keys
+- Saving a host on this phone no longer turns off its Host Metrics
 
 ## 2.0.0
 
