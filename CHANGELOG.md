@@ -11,6 +11,8 @@
 - Plugin pages in the app can show your own sessions and API keys, revoke your keys right after you tap the page, and show waiting approvals and your own second factors
 - Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
 - Plugin pages in the app show other plugins' parts again, like Homepage widgets from Docker or Proxmox. Each part runs in its own web view over the page
+- A trackpad or mouse works in remote desktops the phone opens itself on iPad: hover, clicks with the right button and scrolling
+- iPhone Duo: the app lays out around the fold, uses the side bar column for tabs and keeps clear of the inner screen's corners
 
 ### Changed
 
@@ -19,6 +21,7 @@
 - Plugin pages reach only their own files and actions on the server
 - Plugin pages run plugins made for the newest plugin API (2.6)
 - CPU and RAM on host rows are drawn the same way as on the web dashboard, with their labels
+- Remote desktops zoom out below fit, and two fingers pan a zoomed in desktop
 
 ### Fixed
 
@@ -28,6 +31,10 @@
 - Android sign in pages now check a pinned server's key even when its certificate is otherwise trusted
 - App logs hide more kinds of secrets, such as passphrases, API keys and private keys
 - Saving a host on this phone no longer turns off its Host Metrics
+- Snippet folders can be picked when creating or editing a snippet on iOS, and No folder clears the folder
+- Arrow keys work in pagers like less -S in the fallback terminal
+- Android remote desktops draw at the right size and follow zoom and pan
+- The first tap after a two finger gesture in a remote desktop clicks again
 - A new API key now shows its token once after you create it
 - Connecting from the phone uses the host's username when it has one, and the linked credential's only when it doesn't, like the server
 
