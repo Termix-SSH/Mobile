@@ -1,6 +1,8 @@
 import { localRepositories, HISTORY_LIMIT } from "@/core/data/local";
 import { hosts as hostsTable } from "@/core/db/schema";
 import type { SSHHost, SSHHostData } from "@/types";
+import { metricsAllowed } from "@/features/host-metrics/register";
+import { formFromHost, payloadFromForm } from "@/screens/hosts/editor/model";
 import { resetStorage } from "../../helpers/http";
 import { testStores } from "../../helpers/db";
 
@@ -109,6 +111,60 @@ test("a host keeps every field across save and load", async () => {
     metricsInterval: 30,
   });
 });
+
+test.each([
+  ["unset", undefined, true],
+  ["enabled", true, true],
+  ["disabled", false, false],
+] as const)(
+  "metrics %s survive repeated host editor saves",
+  async (_name, metricsEnabled, expected) => {
+    const { repos } = setup();
+    let host = await repos.hosts.create({
+      name: "metrics",
+      ip: "192.0.2.1",
+      port: 22,
+      username: "deploy",
+      authType: "password",
+      enableSsh: true,
+      statsConfig:
+        metricsEnabled === undefined
+          ? undefined
+          : JSON.stringify({
+              metricsEnabled,
+              enabledWidgets: ["cpu", "memory"],
+              metricsInterval: 15,
+            }),
+    });
+    for (let i = 0; i < 3; i++) {
+      expect(metricsAllowed(host)).toBe(expected);
+      expect(JSON.parse(host.statsConfig!).metricsEnabled).toBe(expected);
+      host = await repos.hosts.update(
+        host.id,
+        payloadFromForm({
+          form: formFromHost(host, []),
+          host,
+          toggles: [],
+          sections: [],
+          sectionValues: {},
+          filledDefaults: {},
+          savedSudo: "",
+        }),
+      );
+    }
+    const loaded = (await repos.hosts.get(host.id))!;
+    expect(metricsAllowed(loaded)).toBe(expected);
+    expect(loaded.pluginSettings?.["host-metrics"]?.metricsEnabled).toBe(
+      expected,
+    );
+    if (metricsEnabled !== undefined) {
+      expect(JSON.parse(loaded.statsConfig!)).toMatchObject({
+        enabledWidgets: ["cpu", "memory"],
+        metricsInterval: 15,
+      });
+    }
+  },
+);
 
 test("rows use the server's wire shape", async () => {
   const { repos, stores } = setup();
