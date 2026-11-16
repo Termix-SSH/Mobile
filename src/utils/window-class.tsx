@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import type { FoldRegion } from "@/modules/termix-fold";
 import { foldFrom, useFoldRegions, type Fold } from "@/utils/fold";
+import { useVerticalBarSide, type VerticalBarSide } from "@/utils/vertical-bar";
 
 export type WindowClass = "compact" | "medium" | "expanded";
 
@@ -30,6 +31,11 @@ export type WindowInfo = {
   isShort: boolean;
   /** Where a foldable screen bends, if it splits this window. */
   fold: Fold | null;
+  /**
+   * The side where iPhone Duo stacks the status bar and app bars down a column,
+   * which the safe area keeps for them. Null where bars stay horizontal.
+   */
+  verticalBar: VerticalBarSide | null;
 };
 
 export function windowClassFor(width: number): WindowClass {
@@ -42,6 +48,7 @@ export function windowInfo(
   width: number,
   height: number,
   folds: FoldRegion[] = [],
+  verticalBar: VerticalBarSide | null = null,
 ): WindowInfo {
   const windowClass = windowClassFor(width);
   const isLandscape = width > height;
@@ -55,6 +62,7 @@ export function windowInfo(
     canSplit: Math.min(width, height) >= SPLIT_MIN_SIDE,
     isShort: height < 500,
     fold: foldFrom(folds, width, height),
+    verticalBar,
   };
 }
 
@@ -95,6 +103,7 @@ export function useWindowInfo(): WindowInfo {
   const dims = useWindowDimensions();
   const root = useContext(RootSize);
   const folds = useFoldRegions();
+  const verticalBar = useVerticalBarSide();
   const { width, height } = root ?? dims;
-  return windowInfo(width, height, folds);
+  return windowInfo(width, height, folds, verticalBar);
 }

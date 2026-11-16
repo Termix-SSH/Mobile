@@ -2,6 +2,7 @@ import { KeyboardAvoidingView, Platform, Pressable, View } from "react-native";
 import { ArrowLeft } from "lucide-react-native";
 import { Text } from "@/ui";
 import { useSideInsets, useTopInset } from "@/ui/bottom-inset";
+import { useCornerPad } from "@/ui/corner-pad";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { HEIGHTS, ICON_SIZES } from "@/constants/tokens";
 
@@ -44,9 +45,18 @@ export function ScreenHeader({
   headerRight?: React.ReactNode;
 }) {
   const left = onBack ? <BackButton onPress={onBack} /> : headerLeft;
+  const { onLayout: onCornerLayout, pad: cornerPad } = useCornerPad();
   return (
     <View
-      style={{ minHeight: HEIGHTS.header }}
+      onLayout={onCornerLayout}
+      style={[
+        { minHeight: HEIGHTS.header },
+        // The same spacing as the classes, plus room for a rounded screen corner.
+        cornerPad.left
+          ? { paddingLeft: (left ? 6 : 12) + cornerPad.left }
+          : null,
+        cornerPad.right ? { paddingRight: 12 + cornerPad.right } : null,
+      ]}
       className={`flex-row items-center justify-between border-b border-border py-2 ${left ? "pl-1.5 pr-3" : "px-3"}`}
     >
       {left ? <View className="mr-2 shrink-0">{left}</View> : null}

@@ -3,6 +3,7 @@ import { act, renderHook, waitFor } from "@testing-library/react-native";
 import {
   HOSTS_PANE_HIDDEN_KEY,
   HOSTS_PANE_WIDTH,
+  chosenHostsPaneWidth,
   clampHostsPaneWidth,
   hostsPaneWidth,
   useHostsPaneHidden,
@@ -52,4 +53,19 @@ test("a stored width survives a restart and can be cleared", async () => {
   await waitFor(() => expect(next.result.current[0]).toBe(420));
   await act(async () => next.result.current[1](null));
   expect(await AsyncStorage.getItem("test.width")).toBeNull();
+});
+
+test("half folded the list ends at the crease, whatever width was dragged", () => {
+  const base = { dragged: null, saved: 400, available: 867 };
+  expect(chosenHostsPaneWidth({ ...base, bentFold: false })).toBe(400);
+  expect(chosenHostsPaneWidth({ ...base, bentFold: true })).toBeNull();
+  expect(
+    chosenHostsPaneWidth({ ...base, dragged: 300, bentFold: true }),
+  ).toBeNull();
+  expect(chosenHostsPaneWidth({ ...base, dragged: 300, bentFold: false })).toBe(
+    300,
+  );
+  expect(
+    chosenHostsPaneWidth({ ...base, saved: null, bentFold: false }),
+  ).toBeNull();
 });
