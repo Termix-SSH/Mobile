@@ -118,7 +118,7 @@
     "@lezer/highlight": "^1.2.5",
     "@react-native/jest-preset": "^0.86.3",
     "@resvg/resvg-js": "^2.6.2",
-    "@termix-ssh/plugin-sdk": "^1.0.21",
+    "@termix-ssh/plugin-sdk": "^2.2.1",
     "@testing-library/react-native": "^14.1.0",
     "@types/better-sqlite3": "^9.6.0",
     "@types/jest": "29.5.14",
