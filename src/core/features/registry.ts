@@ -186,6 +186,10 @@ export class FeatureRegistry {
     return this.collect(ctx, (d) => d.hostBadges).sort(byOrder);
   }
 
+  hostRowData(ctx: FeatureContext) {
+    return this.collect(ctx, (d) => d.hostRowData).sort(byOrder);
+  }
+
   hostFilters(ctx: FeatureContext) {
     return this.collect(ctx, (d) => d.hostFilters).sort(byOrder);
   }

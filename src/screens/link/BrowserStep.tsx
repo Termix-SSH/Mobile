@@ -12,6 +12,7 @@ import { WebView, type WebViewNavigation } from "react-native-webview";
 import { Button, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
+import { PIN_REFUSED_TEXT, pinnedServerOk } from "@/core/api/pin-preflight";
 import {
   consumeOidcCallback,
   isOidcCallbackHandled,
@@ -216,7 +217,12 @@ export function BrowserStep({
   useEffect(() => {
     if (inited.current) return;
     inited.current = true;
-    const showWebView = (uri: string) => {
+    const showWebView = async (uri: string) => {
+      // A pinned server must show its pinned key before a page opens.
+      if (!(await pinnedServerOk(client))) {
+        toast.error("Could not open the sign in page", PIN_REFUSED_TEXT);
+        return;
+      }
       usedWebView.current = true;
       setSource({ uri });
       setUrl(uri);
@@ -240,7 +246,7 @@ export function BrowserStep({
       flowId.current = plain ? null : flow;
 
       if (mode.kind === "proxy") {
-        showWebView(client.serverUrl);
+        await showWebView(client.serverUrl);
         return;
       }
       let target: string;
@@ -253,7 +259,7 @@ export function BrowserStep({
         // The web app's own login still covers it.
         await startFlow(true);
         flowId.current = null;
-        showWebView(client.serverUrl);
+        await showWebView(client.serverUrl);
         return;
       }
       // Always the system browser, also after a sign out: it keeps the SSO

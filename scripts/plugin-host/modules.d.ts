@@ -33,6 +33,12 @@ declare module "@termix-ssh/plugin-sdk/frame-host" {
     setTheme: (theme: FrameTheme) => void;
     reload: () => Promise<void>;
     dispose: () => Promise<void>;
+    /** SDK 2.7.0: other plugins' parts. */
+    foreignEvent: (name: string, data: unknown) => boolean;
+    describeParts: (
+      kind: "slot" | "extension" | "component",
+      id: string,
+    ) => { items: Record<string, unknown>[]; strings: Record<string, string> };
   }
   export function startPluginFrame(options: {
     root: HTMLElement;
@@ -47,5 +53,10 @@ declare module "@termix-ssh/plugin-sdk/frame-host" {
       translated?: Record<string, unknown>;
     };
     guest?: boolean;
+    foreign?: {
+      call: (method: string, args: unknown[]) => Promise<unknown>;
+      emit: (name: string, data: unknown) => void;
+    };
+    onPartSize?: (size: { width: number; height: number }) => void;
   }): Promise<PluginFrame>;
 }

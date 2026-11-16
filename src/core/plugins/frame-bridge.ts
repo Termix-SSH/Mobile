@@ -24,6 +24,8 @@ export interface FrameBridgeOptions {
 }
 
 const CHUNK = 64 * 1024;
+/** How long a touch counts for requests that need one. */
+const TOUCH_MS = 5_000;
 
 function bodyBytes(body: FrameBody): Uint8Array | null {
   if (body.kind === "text") return utf8Encode(body.value);
@@ -112,6 +114,13 @@ export class FrameBridge {
     this.sockets.clear();
   }
 
+  private touchedAt = 0;
+
+  /** The person touched the web view; called by the native view around it. */
+  noteTouch() {
+    this.touchedAt = Date.now();
+  }
+
   private send(message: AppMessage) {
     if (!this.disposed) this.options.send(message);
   }
@@ -136,6 +145,7 @@ export class FrameBridge {
       client.rootBase(),
       message.method,
       message.url,
+      Date.now() - this.touchedAt < TOUCH_MS,
     );
     if (!check.ok) {
       log?.("warn", `Blocked ${check.reason}`);
@@ -149,8 +159,16 @@ export class FrameBridge {
     };
     const bytes = bodyBytes(message.body ?? { kind: "none" });
 
+    // A pin or certificate this build can't use refuses the request.
+    let native: boolean;
+    try {
+      native = client.usesNativeNetwork();
+    } catch {
+      this.refuse(id, 502, "This build can't reach this server safely.");
+      return;
+    }
     // iOS with a client certificate: only the module can present it.
-    if (client.usesNativeNetwork()) {
+    if (native) {
       const wantsStream =
         message.method.toUpperCase() === "GET" &&
         /text\/event-stream/i.test(headers.accept ?? headers.Accept ?? "");
@@ -166,9 +184,7 @@ export class FrameBridge {
       let body: BodyInit | undefined;
       if (bytes) {
         // The certificate path sends text only, like the app's own requests.
-        body = client.usesNativeNetwork()
-          ? utf8Decode(bytes)
-          : (bytes as unknown as BodyInit);
+        body = native ? utf8Decode(bytes) : (bytes as unknown as BodyInit);
       }
       const response = await client.fetch(message.url, {
         method: message.method,
