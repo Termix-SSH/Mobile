@@ -52,6 +52,20 @@ updates:
       - dependency-name: "tailwindcss"
         update-types:
           - "version-update:semver-major"
+      # Plugin frames share these with core, so majors follow core.
+      - dependency-name: "i18next"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "react-i18next"
+        update-types:
+          - "version-update:semver-major"
+      # typescript-eslint and eslint-plugin-react are not ready for these yet.
+      - dependency-name: "typescript"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "eslint"
+        update-types:
+          - "version-update:semver-major"
     commit-message:
       prefix: chore
 

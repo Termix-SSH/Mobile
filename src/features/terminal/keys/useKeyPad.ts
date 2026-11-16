@@ -85,6 +85,7 @@ export function useKeyPad(
       const sink: KeySink = {
         target: t,
         send: (data) => terminalRef.current?.sendInput(data),
+        sendKeySequence: terminalRef.current?.sendKeySequence,
         command: (id) => {
           if (id === "paste") void paste();
           else optionsRef.current.onCommand?.(id);

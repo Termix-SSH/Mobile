@@ -51,7 +51,11 @@ export default function UpdateRequired() {
     return (
       <View
         className="flex-1 items-center justify-center bg-background"
-        style={{ paddingTop: insets.top }}
+        style={{
+          paddingTop: insets.top,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
       >
         <ActivityIndicator size="large" color={color("accent-brand")} />
         <Text className="mt-4 text-sm text-muted-foreground">
@@ -62,7 +66,14 @@ export default function UpdateRequired() {
   }
 
   return (
-    <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
+    <View
+      className="flex-1 bg-background"
+      style={{
+        paddingTop: insets.top,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
+      }}
+    >
       <ScreenHeader
         title="Update Available"
         headerLeft={<AlertTriangle size={20} color={color("warning")} />}

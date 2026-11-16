@@ -7,6 +7,7 @@ import {
   WHEEL_DOWN,
   WHEEL_UP,
   type GestureAction,
+  type HardwarePointer,
 } from "@/features/remote-desktop/native/gestures";
 import type { Viewport } from "@/features/remote-desktop/viewport";
 
@@ -180,6 +181,143 @@ describe("two fingers", () => {
     expect(shrink.at(-1)?.kind === "view" && shrink.at(-1)).toMatchObject({
       view: { zoom: 1 },
     });
+  });
+});
+
+describe("trackpad or mouse", () => {
+  const hw = (
+    kind: HardwarePointer["kind"],
+    x: number,
+    y: number,
+    buttons = 0,
+    dy = 0,
+  ): HardwarePointer => ({ kind, x, y, buttons, dy });
+
+  test("hover moves the remote pointer to the same spot, in either mode", () => {
+    for (const mode of ["touch", "trackpad"] as const) {
+      const g = new DisplayGestures(view(), mode);
+      expect(pointers(g.pointer(hw("hover", 100, 50)))).toEqual([
+        [200, 100, 0],
+      ]);
+    }
+  });
+
+  test("hover follows zoom and pan", () => {
+    const g = new DisplayGestures(view({ zoom: 2, panX: 500, panY: 250 }));
+    expect(pointers(g.pointer(hw("hover", 100, 50)))).toEqual([[600, 300, 0]]);
+  });
+
+  test("press, drag and release keep the buttons the pointer reports", () => {
+    const g = new DisplayGestures(view());
+    expect(pointers(g.pointer(hw("down", 10, 20, LEFT)))).toEqual([
+      [20, 40, LEFT],
+    ]);
+    expect(pointers(g.pointer(hw("move", 50, 60, LEFT)))).toEqual([
+      [100, 120, LEFT],
+    ]);
+    expect(pointers(g.pointer(hw("up", 50, 60)))).toEqual([[100, 120, 0]]);
+  });
+
+  test("a secondary click is the right button, without waiting for a long press", () => {
+    const g = new DisplayGestures(view());
+    expect(pointers(g.pointer(hw("down", 10, 10, RIGHT)))).toEqual([
+      [20, 20, RIGHT],
+    ]);
+    expect(pointers(g.pointer(hw("up", 10, 10)))).toEqual([[20, 20, 0]]);
+  });
+
+  test("the touches a click also makes are dropped, whichever arrives first", () => {
+    // Press reported before the touch.
+    const g = new DisplayGestures(view());
+    g.pointer(hw("down", 100, 50, LEFT));
+    g.begin([{ x: 100, y: 50 }], 0);
+    expect(g.move([{ x: 300, y: 50 }])).toEqual([]);
+    g.pointer(hw("up", 300, 50));
+    expect(g.end(0, 900)).toEqual([]);
+
+    // Touch reported before the press, held long enough to be a long press.
+    g.begin([{ x: 100, y: 50 }], 1000);
+    g.pointer(hw("down", 100, 50, LEFT));
+    expect(g.end(0, 1000 + LONG_PRESS_MS)).toEqual([]);
+    g.pointer(hw("up", 100, 50));
+
+    // A finger afterwards works as before.
+    expect(pointers(tap(g, { x: 100, y: 50 }, 3000))).toEqual([
+      [200, 100, LEFT],
+      [200, 100, 0],
+    ]);
+  });
+
+  test("in trackpad mode a finger tap clicks where the pointer was left", () => {
+    const g = new DisplayGestures(view(), "trackpad");
+    g.pointer(hw("hover", 100, 100));
+    expect(pointers(tap(g, { x: 600, y: 300 }))).toEqual([
+      [200, 200, LEFT],
+      [200, 200, 0],
+    ]);
+  });
+
+  test("scroll sends one wheel click per 40 points and keeps the rest", () => {
+    const g = new DisplayGestures(view());
+    expect(g.pointer(hw("scroll", 100, 50, 0, 30))).toEqual([]);
+    expect(pointers(g.pointer(hw("scroll", 100, 50, 0, 20)))).toEqual([
+      [200, 100, WHEEL_UP],
+      [200, 100, 0],
+    ]);
+    // 10 left over, plus 90 more: two clicks.
+    expect(
+      pointers(g.pointer(hw("scroll", 100, 50, 0, 90))).map((p) => p[2]),
+    ).toEqual([WHEEL_UP, 0, WHEEL_UP, 0]);
+    expect(
+      pointers(g.pointer(hw("scroll", 100, 50, 0, -60))).map((p) => p[2]),
+    ).toEqual([WHEEL_DOWN, 0]);
+  });
+
+  test("hovers between scroll steps keep the count", () => {
+    // iPadOS reports the pointer hovering while it scrolls.
+    const g = new DisplayGestures(view());
+    const out: GestureAction[] = [];
+    for (let i = 0; i < 4; i++) {
+      out.push(...g.pointer(hw("hover", 100, 50)));
+      out.push(...g.pointer(hw("scroll", 100, 50, 0, 15)));
+    }
+    expect(pointers(out).filter((p) => p[2] === WHEEL_UP)).toHaveLength(1);
+  });
+
+  test("held bar buttons ride along", () => {
+    const g = new DisplayGestures(view());
+    g.held = RIGHT;
+    expect(pointers(g.pointer(hw("hover", 10, 10)))).toEqual([[20, 20, RIGHT]]);
+  });
+
+  test("a hover during a press doesn't release the button", () => {
+    const g = new DisplayGestures(view());
+    g.pointer(hw("down", 10, 10, LEFT));
+    expect(g.pointer(hw("hover", 20, 20))).toEqual([]);
+    expect(pointers(g.pointer(hw("move", 30, 30, LEFT)))).toEqual([
+      [60, 60, LEFT],
+    ]);
+  });
+
+  test("turning the scroll around starts the count again", () => {
+    const g = new DisplayGestures(view());
+    expect(g.pointer(hw("scroll", 100, 50, 0, 35))).toEqual([]);
+    // Without the reset, 35 - 10 would still be on its way up.
+    expect(g.pointer(hw("scroll", 100, 50, 0, -10))).toEqual([]);
+    expect(
+      pointers(g.pointer(hw("scroll", 100, 50, 0, -30))).map((p) => p[2]),
+    ).toEqual([WHEEL_DOWN, 0]);
+  });
+
+  test("a press whose release never came stops blocking fingers once released", () => {
+    const g = new DisplayGestures(view());
+    g.pointer(hw("down", 10, 10, LEFT));
+    expect(tap(g, { x: 100, y: 50 })).toEqual([]);
+    g.releasePointer();
+    expect(pointers(tap(g, { x: 100, y: 50 }, 1000))).toEqual([
+      [200, 100, LEFT],
+      [200, 100, 0],
+    ]);
   });
 });
 

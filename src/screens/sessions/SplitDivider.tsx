@@ -1,5 +1,9 @@
 import { useMemo, useRef, useState } from "react";
 import { PanResponder, View, type ViewStyle } from "react-native";
+import { useFoldTweenWidth } from "@/utils/fold-tween";
+
+/** Width of the handle off a fold. */
+export const DIVIDER_WIDTH = 6;
 
 /** Step for the screen reader increment and decrement actions. */
 const A11Y_STEP = 40;
@@ -13,6 +17,8 @@ export function SplitDivider({
   style,
   width,
   crease = false,
+  locked = false,
+  glideKey,
   onStart,
   onMove,
   onEnd,
@@ -22,11 +28,19 @@ export function SplitDivider({
   /** Width of the handle. A crease passes its own width. */
   width?: number;
   crease?: boolean;
+  /** Can't be dragged, like on a half folded screen. Shows a line down its middle. */
+  locked?: boolean;
+  /**
+   * The width glides when this changes, like the screen bending or going flat.
+   * The glide runs in here, so only the handle re-renders each frame.
+   */
+  glideKey?: unknown;
   onStart: () => void;
   onMove: (dx: number) => void;
   onEnd: (dx: number) => void;
 }) {
   const [dragging, setDragging] = useState(false);
+  const shownWidth = useFoldTweenWidth(width ?? DIVIDER_WIDTH, glideKey);
   const handlers = useRef({ onStart, onMove, onEnd });
   handlers.current = { onStart, onMove, onEnd };
   const pan = useMemo(
@@ -58,6 +72,20 @@ export function SplitDivider({
     onMove(dx);
     onEnd(dx);
   };
+  if (locked) {
+    // Locking mid drag drops the handle the finger was on, so its release never comes.
+    if (dragging) setDragging(false);
+    return (
+      <View
+        className="items-center bg-background"
+        style={[{ width: shownWidth, zIndex: 2 }, style]}
+        accessibilityElementsHidden
+        importantForAccessibility="no-hide-descendants"
+      >
+        <View testID="split-divider-line" className="w-px flex-1 bg-border" />
+      </View>
+    );
+  }
   return (
     <View
       {...pan.panHandlers}
@@ -70,7 +98,7 @@ export function SplitDivider({
       }
       hitSlop={crease ? undefined : { left: 10, right: 10 }}
       className={`items-center justify-center ${dragging ? "bg-accent-brand/40" : crease ? "bg-background" : "bg-border"}`}
-      style={[{ width: width ?? 6, zIndex: 2 }, style]}
+      style={[{ width: shownWidth, zIndex: 2 }, style]}
     >
       <View
         className={`h-10 w-1 ${dragging ? "bg-accent-brand" : "bg-muted-foreground/50"}`}

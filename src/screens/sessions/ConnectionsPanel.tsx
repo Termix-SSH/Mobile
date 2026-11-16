@@ -152,7 +152,14 @@ function ConnectionRow({
  * tab reconnects to its live backend session when one exists, enabling
  * cross-device tab switching.
  */
-export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
+export function ConnectionsPanel({
+  onClose,
+  besideHosts,
+}: {
+  onClose?: () => void;
+  /** The host list is on screen next to this panel. */
+  besideHosts?: boolean;
+}) {
   const color = useThemeColor();
   // Re-render when plugins turn on or off.
   useFeatureContext();
@@ -254,7 +261,11 @@ export function ConnectionsPanel({ onClose }: { onClose?: () => void }) {
         className="flex-1"
         icon={Plug}
         title="No active connections"
-        hint="Connect to a host to start a session. Tabs you open on other devices show here too."
+        hint={
+          besideHosts
+            ? "Pick a host from the list to start a session. Tabs you open on other devices show here too."
+            : "Connect to a host to start a session. Tabs you open on other devices show here too."
+        }
       />
     );
   }
