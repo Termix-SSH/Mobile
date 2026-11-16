@@ -7,6 +7,8 @@ export interface KeySink {
   target: TerminalKeyTarget | null;
   /** Bytes straight to the host. */
   send: (data: string) => void;
+  /** Named-key sequences encoded using the fallback terminal's live modes. */
+  sendKeySequence?: (data: string) => void;
   /** App actions like paste. */
   command: (id: string) => void;
 }
@@ -111,7 +113,8 @@ export function runKeyAction(
         return { consumed: true };
       }
       const seq = keySequence(action.name, state.shift);
-      if (seq) sink.send(state.alt ? `\x1b${seq}` : seq);
+      if (seq)
+        (sink.sendKeySequence ?? sink.send)(state.alt ? `\x1b${seq}` : seq);
       return { consumed: true };
     }
     case "text":

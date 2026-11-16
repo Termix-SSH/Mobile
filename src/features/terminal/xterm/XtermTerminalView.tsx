@@ -22,6 +22,7 @@ import { showToast } from "@/utils/toast";
 import { useUiColors } from "@/contexts/ThemeContext";
 import type { TerminalConfig } from "@/types";
 import type { TerminalThemeColors } from "@/constants/terminal-themes";
+import { cursorKeysScript } from "./cursorKeys";
 import { loadXtermAssets } from "../loadXtermAssets";
 
 // The xterm fonts for the family names the native view uses.
@@ -36,6 +37,7 @@ const XTERM_FONTS: Record<string, string> = {
 };
 
 export interface XtermTerminalApi {
+  sendKeySequence(data: string): void;
   write(text: string): void;
   notifyConnected(fromBackground: boolean, isReattach: boolean): void;
   fit(): void;
@@ -300,6 +302,7 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'input', data: data }));
       }
     }
+    ${cursorKeysScript}
     terminal.onData(forwardTerminalInput);
     terminal.onBinary(forwardTerminalInput);
 
@@ -1075,6 +1078,8 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
     useImperativeHandle(
       ref,
       () => ({
+        sendKeySequence: (data) =>
+          inject(`window.sendTerminalKeySequence(${JSON.stringify(data)})`),
         write: (data) => {
           pendingDataRef.current.push(data);
           if (!dataFlushTimerRef.current) {
