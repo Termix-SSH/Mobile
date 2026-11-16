@@ -71,7 +71,7 @@
     "expo-video": "~57.0.5",
     "expo-web-browser": "~57.0.3",
     "guacamole-common-js": "^1.5.0",
-    "lucide-react-native": "^0.544.0",
+    "lucide-react-native": "^1.72.0",
     "nativewind": "^4.2.1",
     "posthog-react-native": "^4.83.0",
     "react": "19.2.3",
