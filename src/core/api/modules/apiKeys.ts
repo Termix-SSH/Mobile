@@ -16,14 +16,15 @@ export function createApiKeysApi(c: AccountClient) {
     name: string,
     userId: string,
     expiresAt?: string,
-  ): Promise<{ apiKey: ApiKey & { key: string; token: string } }> {
+  ): Promise<ApiKey & { token?: string; key?: string }> {
     try {
       const response = await c.http.auth.post("/users/api-keys", {
         name,
         userId,
         expiresAt: expiresAt ?? null,
       });
-      return response.data;
+      // Servers send the new key flat; very old ones wrapped it in apiKey.
+      return response.data?.apiKey ?? response.data;
     } catch (error) {
       c.fail(error, "create API key");
     }

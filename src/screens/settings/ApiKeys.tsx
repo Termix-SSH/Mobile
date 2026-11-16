@@ -56,8 +56,7 @@ export default function ApiKeys() {
   const [expiresAt, setExpiresAt] = useState("");
   const [createBusy, setCreateBusy] = useState(false);
 
-  // Secret reveal
-  const [revealDialog, setRevealDialog] = useState(false);
+  // Shown once in the same sheet, since swapping sheets can drop the second.
   const [newKeySecret, setNewKeySecret] = useState("");
 
   const load = useCallback(async () => {
@@ -92,6 +91,7 @@ export default function ApiKeys() {
   const closeCreate = () => {
     setCreateDialog(false);
     setCreateBusy(false);
+    setNewKeySecret("");
   };
 
   // Accepts "YYYY/MM/DD" or "YYYY-MM-DD" with partial tolerance
@@ -133,16 +133,10 @@ export default function ApiKeys() {
         keyUserId,
         buildExpiresAt(),
       );
-      closeCreate();
       load();
-      const newKey = res?.apiKey as any;
-      if (newKey) {
-        const secret = newKey.token ?? newKey.key ?? "";
-        if (secret) {
-          setNewKeySecret(secret);
-          setRevealDialog(true);
-        }
-      }
+      const secret = res?.token ?? res?.key ?? "";
+      if (secret) setNewKeySecret(secret);
+      else closeCreate();
     } catch (e: any) {
       toast.error(
         e?.response?.data?.error ?? e?.message ?? "Failed to create API key",
@@ -260,139 +254,127 @@ export default function ApiKeys() {
       {/* Create dialog */}
       <Sheet
         scroll
-        visible={createDialog}
+        visible={createDialog || !!newKeySecret}
         onClose={closeCreate}
         icon={<Key size={20} color={color("accent-brand")} />}
-        title="New API Key"
+        title={newKeySecret ? "Key created. Copy it now" : "New API Key"}
+        description={
+          newKeySecret ? "This token won't be shown again." : undefined
+        }
         footer={
-          <View className="flex-row gap-2">
-            <Button variant="muted" className="flex-1" onPress={closeCreate}>
-              Cancel
-            </Button>
-            <Button
-              variant="default"
-              className="flex-1"
-              onPress={handleCreate}
-              loading={createBusy}
-              disabled={!keyName.trim() || !keyUserId}
-            >
-              Create
-            </Button>
-          </View>
+          newKeySecret ? (
+            <View className="flex-row gap-2">
+              <Button
+                variant="muted"
+                className="flex-1"
+                onPress={async () => {
+                  await Clipboard.setStringAsync(newKeySecret);
+                  toast.success("API key copied");
+                }}
+                icon={<Copy size={14} color={color("foreground")} />}
+              >
+                Copy
+              </Button>
+              <Button
+                variant="default"
+                className="flex-1"
+                onPress={closeCreate}
+              >
+                Done
+              </Button>
+            </View>
+          ) : (
+            <View className="flex-row gap-2">
+              <Button variant="muted" className="flex-1" onPress={closeCreate}>
+                Cancel
+              </Button>
+              <Button
+                variant="default"
+                className="flex-1"
+                onPress={handleCreate}
+                loading={createBusy}
+                disabled={!keyName.trim() || !keyUserId}
+              >
+                Create
+              </Button>
+            </View>
+          )
         }
       >
         <SheetBody>
-          <View className="gap-4">
-            {/* Name */}
-            <View className="gap-1.5">
-              <Label>Name *</Label>
-              <Input
-                value={keyName}
-                onChangeText={setKeyName}
-                placeholder="e.g. CI Pipeline"
-                autoCapitalize="none"
-                autoFocus
-              />
-            </View>
-
-            {/* User */}
-            <View className="gap-1.5">
-              <Label>User *</Label>
-              {users.length === 0 ? (
-                <Text className="text-xs text-muted-foreground">
-                  No users available.
-                </Text>
-              ) : (
-                <View className="overflow-hidden border border-border bg-card">
-                  {users.map((u, i) => {
-                    const uid = getUserId(u);
-                    const selected = keyUserId === uid;
-                    return (
-                      <Pressable
-                        key={uid || u.username}
-                        onPress={() => setKeyUserId(uid)}
-                        className={`flex-row items-center justify-between px-3 py-2.5 ${
-                          i > 0 ? "border-t border-border/50" : ""
-                        } ${selected ? "bg-accent-brand/10" : "active:bg-muted/40"}`}
-                      >
-                        <Text
-                          className={`text-sm ${selected ? "text-accent-text" : "text-foreground"}`}
-                        >
-                          {u.username}
-                        </Text>
-                        {u.is_admin ? (
-                          <Text className="text-[10px] text-muted-foreground">
-                            admin
-                          </Text>
-                        ) : null}
-                      </Pressable>
-                    );
-                  })}
-                </View>
-              )}
-            </View>
-
-            {/* Expires At */}
-            <View className="gap-1.5">
-              <Label>Expires At (optional)</Label>
-              <Input
-                value={expiresAt}
-                onChangeText={handleExpiresChange}
-                placeholder="YYYY/MM/DD"
-                keyboardType="number-pad"
-                maxLength={10}
-              />
-              <Text className="text-[11px] text-muted-foreground">
-                Year / Month / Day
+          {newKeySecret ? (
+            <View className="border border-border bg-muted/30 p-3">
+              <Text className="font-mono text-xs text-foreground" selectable>
+                {newKeySecret}
               </Text>
             </View>
-          </View>
-        </SheetBody>
-      </Sheet>
+          ) : (
+            <View className="gap-4">
+              {/* Name */}
+              <View className="gap-1.5">
+                <Label>Name *</Label>
+                <Input
+                  value={keyName}
+                  onChangeText={setKeyName}
+                  placeholder="e.g. CI Pipeline"
+                  autoCapitalize="none"
+                  autoFocus
+                />
+              </View>
 
-      {/* Secret reveal - shown once */}
-      <Sheet
-        scroll
-        visible={revealDialog}
-        onClose={() => {
-          setRevealDialog(false);
-          setNewKeySecret("");
-        }}
-        icon={<Key size={20} color={color("accent-brand")} />}
-        title="Key created. Copy it now"
-        description="This token won't be shown again."
-        footer={
-          <View className="flex-row gap-2">
-            <Button
-              variant="muted"
-              className="flex-1"
-              onPress={async () => {
-                await Clipboard.setStringAsync(newKeySecret);
-                toast.success("API key copied");
-              }}
-              icon={<Copy size={14} color={color("foreground")} />}
-            >
-              Copy
-            </Button>
-            <Button
-              variant="default"
-              className="flex-1"
-              onPress={() => {
-                setRevealDialog(false);
-                setNewKeySecret("");
-              }}
-            >
-              Done
-            </Button>
-          </View>
-        }
-      >
-        <SheetBody>
-          <View className="border border-border bg-muted/30 p-3">
-            <Text className="font-mono text-xs text-foreground" selectable>
-              {newKeySecret}
-            </Text>
-          </View>
+              {/* User */}
+              <View className="gap-1.5">
+                <Label>User *</Label>
+                {users.length === 0 ? (
+                  <Text className="text-xs text-muted-foreground">
+                    No users available.
+                  </Text>
+                ) : (
+                  <View className="overflow-hidden border border-border bg-card">
+                    {users.map((u, i) => {
+                      const uid = getUserId(u);
+                      const selected = keyUserId === uid;
+                      return (
+                        <Pressable
+                          key={uid || u.username}
+                          onPress={() => setKeyUserId(uid)}
+                          className={`flex-row items-center justify-between px-3 py-2.5 ${
+                            i > 0 ? "border-t border-border/50" : ""
+                          } ${selected ? "bg-accent-brand/10" : "active:bg-muted/40"}`}
+                        >
+                          <Text
+                            className={`text-sm ${selected ? "text-accent-text" : "text-foreground"}`}
+                          >
+                            {u.username}
+                          </Text>
+                          {u.is_admin ? (
+                            <Text className="text-[10px] text-muted-foreground">
+                              admin
+                            </Text>
+                          ) : null}
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                )}
+              </View>
+
+              {/* Expires At */}
+              <View className="gap-1.5">
+                <Label>Expires At (optional)</Label>
+                <Input
+                  value={expiresAt}
+                  onChangeText={handleExpiresChange}
+                  placeholder="YYYY/MM/DD"
+                  keyboardType="number-pad"
+                  maxLength={10}
+                />
+                <Text className="text-[11px] text-muted-foreground">
+                  Year / Month / Day
+                </Text>
+              </View>
+            </View>
+          )}
         </SheetBody>
       </Sheet>
     </Screen>
