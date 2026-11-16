@@ -47,7 +47,14 @@ export type PageMessage =
   | { t: "shell"; call: ShellCall; args: unknown[] }
   | { t: "link"; url: string }
   | { t: "back.result"; handled: boolean }
-  | { t: "log"; level: "info" | "warn" | "error"; message: string };
+  | { t: "log"; level: "info" | "warn" | "error"; message: string }
+  /** Other plugins' parts: the same calls a framed plugin makes. */
+  | { t: "foreign.call"; id: string; method: string; args: unknown[] }
+  | { t: "foreign.emit"; name: string; data: unknown }
+  /** A probe's answer: its own parts for a slot, point or component id. */
+  | { t: "foreign.parts"; reqId: string; items: unknown[] }
+  /** The size a part view needs. */
+  | { t: "part.size"; width: number; height: number };
 
 /** What the app sends the page. */
 export type AppMessage =
@@ -66,7 +73,15 @@ export type AppMessage =
   | { t: "theme"; theme: FrameTheme; css: string }
   | { t: "view"; view: FrameViewTarget }
   | { t: "reload" }
-  | { t: "back" };
+  | { t: "back" }
+  | { t: "foreign.reply"; id: string; ok: boolean; value?: unknown }
+  | { t: "foreign.event"; name: string; data: unknown }
+  | {
+      t: "foreign.describe";
+      reqId: string;
+      kind: "slot" | "extension" | "component";
+      id: string;
+    };
 
 /** Everything the page needs at start, put into the HTML by the app. */
 export interface FrameBoot {
@@ -84,7 +99,13 @@ export interface FrameBoot {
   themeCss: string;
   /** The server's path prefix, like "/termix", or "". */
   basePath: string;
+  /** Other plugins' parts go through the app. */
+  foreign?: boolean;
 }
+
+/** View ids for a page that only lists its parts, or draws one. */
+export const PROBE_VIEW = "__probe";
+export const PART_VIEW = "__part";
 
 /** Sent through injectJavaScript; the page defines this function. */
 export const PAGE_RECEIVER = "__termixFrame";

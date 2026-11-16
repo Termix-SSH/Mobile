@@ -31,7 +31,7 @@ test("the F-Droid config drops download and dev plugins and adds its own", () =>
   );
   expect(camera[1].barcodeScannerEnabled).toBe(false);
   expect(camera[1].cameraPermission).toBe("Scan a host QR code.");
-  expect(out.android.versionCode).toBe(20000);
+  expect(out.android.versionCode).toBe(versionCode(base.version));
   expect(out.extra.distribution).toBe("fdroid");
   expect(out.extra.router).toEqual(base.extra.router);
 });
@@ -101,8 +101,9 @@ test("an F-Droid version code picks one ABI", () => {
 });
 
 test("the F-Droid config passes the ABI to its plugin", () => {
-  const out = applyFdroid(base, "200001");
-  expect(out.android.versionCode).toBe(200001);
+  const code = versionCode(base.version) * 10 + 1;
+  const out = applyFdroid(base, String(code));
+  expect(out.android.versionCode).toBe(code);
   expect(out.plugins).toContainEqual([
     "./plugins/withFdroid.js",
     { abi: "armeabi-v7a" },

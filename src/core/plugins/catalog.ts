@@ -130,6 +130,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
     kind: "webview",
     hostGates: { samba: { setting: "enableSamba", ssh: true } },
   },
+  { id: "scim", name: "SCIM Provisioning", kind: "server" },
   { id: "secret-sources", name: "Secret Sources", kind: "server" },
   {
     id: "security-center",
