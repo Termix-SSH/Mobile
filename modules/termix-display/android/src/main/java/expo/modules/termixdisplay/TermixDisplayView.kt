@@ -11,7 +11,7 @@ import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.viewevent.EventDispatcher
 import expo.modules.kotlin.views.ExpoView
 
-/** Draws a frame scaled and panned. Touch goes to the React view on top; hardware keys come here. */
+/** Draws a frame scaled and panned. Touch goes to React's responders on this view; keys come here. */
 class TermixDisplayView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
   private val onKey by EventDispatcher<Map<String, Any>>()
 

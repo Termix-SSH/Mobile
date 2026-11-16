@@ -180,6 +180,9 @@ export function NativeRemoteDesktop({
     } else gestures.current.setView(view);
   }, [view, mouseMode, held]);
 
+  // A new or closed display can't finish a press the old one started.
+  useEffect(() => gestures.current?.releasePointer(), [frameId]);
+
   const closeSession = () => {
     session.current?.close();
     session.current = null;
@@ -537,28 +540,34 @@ export function NativeRemoteDesktop({
               const sym = keysymFor(e.nativeEvent);
               if (sym != null) display()?.keySym(sym, e.nativeEvent.down);
             }}
+            onPointer={(e) => {
+              // Always track the press, so a release after a drop still clears it.
+              const actions = gestures.current?.pointer(e.nativeEvent) ?? [];
+              if (connected) apply(actions);
+            }}
+            // Touches go to the display itself, so its trackpad and mouse
+            // recognizers see the same hits.
+            onStartShouldSetResponder={() => connected}
+            onMoveShouldSetResponder={() => connected}
+            onResponderGrant={(e) =>
+              apply(gestures.current?.begin(points(e), Date.now()) ?? [])
+            }
+            onResponderStart={(e) =>
+              apply(gestures.current?.begin(points(e), Date.now()) ?? [])
+            }
+            onResponderMove={(e) =>
+              apply(gestures.current?.move(points(e)) ?? [])
+            }
+            onResponderEnd={(e) =>
+              apply(
+                gestures.current?.end(
+                  e.nativeEvent.touches.length,
+                  Date.now(),
+                ) ?? [],
+              )
+            }
           />
         ) : null}
-        <View
-          style={StyleSheet.absoluteFill}
-          onStartShouldSetResponder={() => connected}
-          onMoveShouldSetResponder={() => connected}
-          onResponderGrant={(e) =>
-            apply(gestures.current?.begin(points(e), Date.now()) ?? [])
-          }
-          onResponderStart={(e) =>
-            apply(gestures.current?.begin(points(e), Date.now()) ?? [])
-          }
-          onResponderMove={(e) =>
-            apply(gestures.current?.move(points(e)) ?? [])
-          }
-          onResponderEnd={(e) =>
-            apply(
-              gestures.current?.end(e.nativeEvent.touches.length, Date.now()) ??
-                [],
-            )
-          }
-        />
       </View>
 
       {(phase === "connecting" || reconnecting) && (
