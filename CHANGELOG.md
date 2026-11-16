@@ -28,6 +28,7 @@
 - Android sign in pages now check a pinned server's key even when its certificate is otherwise trusted
 - App logs hide more kinds of secrets, such as passphrases, API keys and private keys
 - A new API key now shows its token once after you create it
+- Connecting from the phone uses the host's username when it has one, and the linked credential's only when it doesn't, like the server
 
 ## 2.0.0
 
