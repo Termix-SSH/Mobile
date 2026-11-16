@@ -80,6 +80,8 @@ jobs:
     needs: [release]
     if: ${{ !cancelled() && (needs.release.result == 'success' || needs.release.result == 'skipped') }}
     runs-on: ${{ matrix.platform == 'apple' && 'blacksmith-6vcpu-macos-27' || 'blacksmith-8vcpu-ubuntu-2404' }}
+    # Holds the Expo and App Store keys, only for main and dev branches.
+    environment: build
     # Drafts, uploads and publishes this repo's GitHub release.
     permissions:
       contents: write
