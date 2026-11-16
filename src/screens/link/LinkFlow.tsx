@@ -293,7 +293,12 @@ export default function LinkFlow() {
     return (
       <View
         className="flex-1 bg-background"
-        style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+        style={{
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
       >
         <BrowserStep
           client={client}
@@ -312,7 +317,11 @@ export default function LinkFlow() {
   const canGoBack =
     step !== "address" && step !== "merge" && step !== "checking";
   return (
-    <View className="flex-1 bg-background">
+    // Drawn over the whole app, so it keeps clear of side insets itself, like the Duo status rail.
+    <View
+      className="flex-1 bg-background"
+      style={{ paddingLeft: insets.left, paddingRight: insets.right }}
+    >
       <KeyboardAvoidingView
         className="flex-1"
         // Edge to edge Android no longer resizes for the keyboard.

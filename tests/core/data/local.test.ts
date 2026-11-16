@@ -755,3 +755,18 @@ describe("sub-hosts", () => {
     expect((await repos.hosts.get(c.id))?.parentHostId).toBeNull();
   });
 });
+
+test("an explicit empty snippet folder clears the assignment on create and update", async () => {
+  const { repos } = setup();
+  const snippet = await repos.snippets.create({
+    name: "Status",
+    content: "uptime",
+    folder: "",
+  });
+  expect(snippet.folder).toBeNull();
+  await repos.snippets.update(snippet.id, { folder: "ops" });
+  await repos.snippets.update(snippet.id, { folder: undefined });
+  expect((await repos.snippets.get(snippet.id))?.folder).toBe("ops");
+  await repos.snippets.update(snippet.id, { folder: "" });
+  expect((await repos.snippets.get(snippet.id))?.folder).toBeNull();
+});
