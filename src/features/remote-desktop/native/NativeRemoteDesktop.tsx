@@ -123,6 +123,8 @@ export function NativeRemoteDesktop({
 
   const session = useRef<LocalDisplay | null>(null);
   const gestures = useRef<DisplayGestures | null>(null);
+  /** False when a move, not a touch-down, claimed the touch responder. */
+  const freshGrant = useRef(true);
   const inputRef = useRef<TextInput>(null);
   const viewRef = useRef<{ focus(): void } | null>(null);
   const containerRef = useRef(container);
@@ -547,10 +549,26 @@ export function NativeRemoteDesktop({
             }}
             // Touches go to the display itself, so its trackpad and mouse
             // recognizers see the same hits.
-            onStartShouldSetResponder={() => connected}
-            onMoveShouldSetResponder={() => connected}
+            // React Native passes an event when it negotiates the responder;
+            // a bare call only asks whether we would take it (tests do that).
+            onStartShouldSetResponder={(e?: GestureResponderEvent) => {
+              if (e) freshGrant.current = true;
+              return connected;
+            }}
+            // A finger left down after a release can take the responder back
+            // by moving: that grant must not start a click or drag.
+            onMoveShouldSetResponder={(e?: GestureResponderEvent) => {
+              if (e) freshGrant.current = false;
+              return connected;
+            }}
             onResponderGrant={(e) =>
-              apply(gestures.current?.begin(points(e), Date.now()) ?? [])
+              apply(
+                gestures.current?.grant(
+                  points(e),
+                  Date.now(),
+                  freshGrant.current,
+                ) ?? [],
+              )
             }
             onResponderStart={(e) =>
               apply(gestures.current?.begin(points(e), Date.now()) ?? [])
@@ -566,6 +584,11 @@ export function NativeRemoteDesktop({
                 ) ?? [],
               )
             }
+            // The last finger's end can be missing after two fingers: these finish.
+            onResponderRelease={() =>
+              apply(gestures.current?.release(Date.now()) ?? [])
+            }
+            onResponderTerminate={() => apply(gestures.current?.cancel() ?? [])}
           />
         ) : null}
       </View>
