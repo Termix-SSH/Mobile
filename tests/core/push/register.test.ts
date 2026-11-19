@@ -156,6 +156,23 @@ describe("push registration", () => {
     expect((await getPushPref("acc1")).enabled).toBe(false);
   });
 
+  it("runs syncs for one server one at a time", async () => {
+    const client = addServer("acc1");
+    await setPushPref("acc1", { enabled: true });
+    let open = 0;
+    let most = 0;
+    const put = client.api.alerts.putDevice;
+    client.api.alerts.putDevice = async (id, body) => {
+      open++;
+      most = Math.max(most, open);
+      await new Promise((r) => setTimeout(r, 5));
+      open--;
+      return put(id, body);
+    };
+    await Promise.all([1, 2, 3, 4].map(() => syncPushAccount("acc1")));
+    expect(most).toBe(1);
+  });
+
   it("does nothing in a build without notifications", async () => {
     setNotificationsModule(null);
     addServer("acc1");

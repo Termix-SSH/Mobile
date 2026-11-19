@@ -63,8 +63,25 @@ async function alertsClient(accountId: string): Promise<AccountClient | null> {
   return client.api.alerts.available() ? client : null;
 }
 
-/** Brings one server in line with this phone's setting for it. */
-export async function syncPushAccount(accountId: string): Promise<PushState> {
+const syncing = new Map<string, Promise<PushState>>();
+
+/**
+ * Brings one server in line with this phone's setting for it. Calls for the
+ * same server wait for each other, so the server sees one at a time.
+ */
+export function syncPushAccount(accountId: string): Promise<PushState> {
+  const before = syncing.get(accountId) ?? Promise.resolve("off" as PushState);
+  const next = before
+    .catch(() => "error" as PushState)
+    .then(() => syncOnce(accountId));
+  syncing.set(accountId, next);
+  void next.finally(() => {
+    if (syncing.get(accountId) === next) syncing.delete(accountId);
+  });
+  return next;
+}
+
+async function syncOnce(accountId: string): Promise<PushState> {
   const pref = await getPushPref(accountId);
   const mode = pushMode();
   if (mode === "none") return "unavailable";
