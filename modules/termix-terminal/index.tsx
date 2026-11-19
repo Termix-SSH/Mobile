@@ -55,6 +55,7 @@ interface NativeProps {
   fontFamily?: string;
   lineHeight?: number;
   letterSpacing?: number;
+  ligatures?: boolean;
   theme: Record<string, unknown>;
   cursor?: TerminalCursor;
   scrollback?: number;
@@ -182,6 +183,7 @@ export const TerminalView = forwardRef<TerminalViewHandle, TerminalViewProps>(
         fontFamily={props.fontFamily}
         lineHeight={props.lineHeight}
         letterSpacing={props.letterSpacing}
+        ligatures={props.ligatures}
         theme={nativeTheme(props.theme)}
         cursor={props.cursor}
         scrollback={props.scrollback}

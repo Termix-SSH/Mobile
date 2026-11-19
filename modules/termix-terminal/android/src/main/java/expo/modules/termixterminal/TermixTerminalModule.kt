@@ -25,6 +25,7 @@ class TermixTerminalModule : Module() {
       Prop("fontFamily") { view: TermixTerminalView, family: String? -> view.setFontFamily(family) }
       Prop("lineHeight") { view: TermixTerminalView, value: Float? -> view.setLineHeight(value ?: 1f) }
       Prop("letterSpacing") { view: TermixTerminalView, value: Float? -> view.setLetterSpacing(value ?: 0f) }
+      Prop("ligatures") { view: TermixTerminalView, on: Boolean? -> view.setLigatures(on ?: true) }
       Prop("cursor") { view: TermixTerminalView, cursor: CursorRecord? ->
         view.setCursor(cursor?.style, cursor?.blink ?: true)
       }

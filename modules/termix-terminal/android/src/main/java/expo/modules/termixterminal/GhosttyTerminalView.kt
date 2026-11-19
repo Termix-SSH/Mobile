@@ -119,6 +119,7 @@ internal class GhosttyTerminalView(context: Context) : View(context) {
   private var fontSizeDp = FONT_SIZE_DP
   private var lineHeight = 1f
   private var letterSpacingDp = 0f
+  private var ligatures = true
   private var regularFace = appFont(Typeface.NORMAL)
   private val textPaint = newTextPaint(regularFace)
   private val boldPaint = newTextPaint(appFont(Typeface.BOLD))
@@ -424,7 +425,7 @@ internal class GhosttyTerminalView(context: Context) : View(context) {
   private fun newTextPaint(typeface: Typeface) = Paint(Paint.ANTI_ALIAS_FLAG).apply {
     this.typeface = typeface
     textSize = fontSizeDp * resources.displayMetrics.density
-    fontFeatureSettings = LIGATURES
+    fontFeatureSettings = if (ligatures) LIGATURES else NO_LIGATURES
   }
 
   private fun textPaints() = arrayOf(textPaint, boldPaint, italicPaint, boldItalicPaint, preeditPaint, symbolsPaint)
@@ -472,6 +473,14 @@ internal class GhosttyTerminalView(context: Context) : View(context) {
     val next = dp.coerceIn(0f, 8f)
     if (next == letterSpacingDp) return
     letterSpacingDp = next
+    relayout()
+  }
+
+  fun setLigatures(on: Boolean) {
+    if (on == ligatures) return
+    ligatures = on
+    val features = if (on) LIGATURES else NO_LIGATURES
+    for (paint in textPaints()) paint?.fontFeatureSettings = features
     relayout()
   }
 
@@ -1905,6 +1914,7 @@ internal class GhosttyTerminalView(context: Context) : View(context) {
     const val DEFAULT_FONT = "CaskaydiaCove NFM"
     const val SYSTEM_FONT = "monospace"
     const val LIGATURES = "'liga' on, 'calt' on"
+    const val NO_LIGATURES = "'liga' off, 'calt' off"
     const val IME_CONTEXT = 256
 
     const val PARSE_SLICE = 64 * 1024

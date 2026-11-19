@@ -61,6 +61,8 @@ class TermixTerminalView(context: Context, appContext: AppContext) :
 
   fun setLetterSpacing(value: Float) = terminal.setLetterSpacing(value)
 
+  fun setLigatures(on: Boolean) = terminal.setLigatures(on)
+
   fun setCursor(style: String?, blink: Boolean) = terminal.setCursor(style, blink)
 
   fun setScrollback(lines: Int) = terminal.setScrollback(lines)

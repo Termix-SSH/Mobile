@@ -266,6 +266,7 @@ class TermixTerminalView: ExpoView {
     var cursorBlink = true
     var lineHeight: Double = 1
     var letterSpacing: Double = 0
+    var ligatures = true
     var scrollback = 10_000
     var optionAsMeta = false
     var bellStyle = "none"
@@ -442,6 +443,9 @@ class TermixTerminalView: ExpoView {
     }
     if config.letterSpacing > 0 {
       c = c.custom("adjust-cell-width", "\(Int(config.letterSpacing.rounded()))")
+    }
+    if !config.ligatures {
+      c = c.custom("font-feature", "-calt").custom("font-feature", "-liga")
     }
     if let size = currentFontSize { c = c.fontSize(ghosttyFontSize(size)) }
     return c

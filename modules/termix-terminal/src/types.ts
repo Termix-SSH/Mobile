@@ -75,6 +75,8 @@ export interface TerminalViewProps {
   lineHeight?: number;
   /** Extra points between cells. */
   letterSpacing?: number;
+  /** Join character runs like -> into one glyph. On by default. */
+  ligatures?: boolean;
   theme: TerminalTheme;
   cursor?: TerminalCursor;
   /** Lines kept above the screen. Read once, before the first output. */
