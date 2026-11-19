@@ -4,17 +4,23 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   ChevronRight,
   Download,
+  Languages,
   Server,
   Smartphone,
 } from "lucide-react-native";
-import { Button, Label, Text } from "@/ui";
+import { Button, Label, Sheet, SheetRow, Text } from "@/ui";
 import { ScreenHeader } from "@/components/Screen";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { LOCAL_ACCOUNT_ID } from "@/core/accounts/types";
 import { ImportPanel } from "@/features/host-transfer/ImportPanel";
 import { useRestoreBackup } from "@/screens/settings/RestoreBackup";
 import { deviceWord } from "@/utils/device-word";
-import { t } from "@/i18n";
+import { savedLanguage, t } from "@/i18n";
+import {
+  currentLanguageLabel,
+  languageOptions,
+  switchLanguage,
+} from "@/i18n/options";
 
 export type WelcomeChoice = "standalone" | "link" | "import";
 
@@ -79,6 +85,7 @@ export default function Welcome({
   const fg = color("foreground");
   const [view, setView] = useState<"choose" | "import">("choose");
   const [imported, setImported] = useState(false);
+  const [picking, setPicking] = useState(false);
   const restore = useRestoreBackup({
     accountId: LOCAL_ACCOUNT_ID,
     accountName: t("onboarding.welcome.thisDevice"),
@@ -189,6 +196,39 @@ export default function Welcome({
           onPress={() => setView("import")}
         />
       </View>
+
+      <Pressable
+        onPress={() => setPicking(true)}
+        accessibilityRole="button"
+        accessibilityLabel={`${t("settings.language.label")}: ${currentLanguageLabel()}`}
+        className="min-h-11 flex-row items-center justify-center gap-2 self-center px-3 active:opacity-70"
+      >
+        <Languages size={16} color={color("muted-foreground")} />
+        <Text className="text-sm text-muted-foreground">
+          {currentLanguageLabel()}
+        </Text>
+        <ChevronRight size={14} color={color("muted-foreground")} />
+      </Pressable>
+
+      <Sheet
+        visible={picking}
+        onClose={() => setPicking(false)}
+        title={t("settings.language.label")}
+        scroll
+      >
+        {languageOptions().map((o) => (
+          <SheetRow
+            key={o.value}
+            label={o.label}
+            description={o.description}
+            selected={o.value === savedLanguage()}
+            onPress={() => {
+              setPicking(false);
+              switchLanguage(o.value);
+            }}
+          />
+        ))}
+      </Sheet>
     </ScrollView>
   );
 }

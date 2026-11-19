@@ -25,7 +25,7 @@
 - Connect from shows for Telnet, VNC and RDP hosts too, not only SSH. On Automatic, Telnet moves to the server when the phone can't reach the host
 - Double tap sends Tab in the terminal, a setting under Terminal | Links and keys. Long press still selects text
 - Ligatures switch under Terminal | Font, to draw runs like -> and != as separate characters
-- The app comes in 41 languages. It follows the device language, or pick one under Settings | Appearance | Language
+- The app comes in 41 languages. It follows the device language, or pick one on the first screen or under Settings | Appearance | Language
 - Share a server host with people and roles from its menu: pick the level and when it ends, then change or remove access later
 
 ### Changed

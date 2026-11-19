@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { reloadAppAsync } from "expo";
 import { Pressable, View } from "react-native";
 import { useTheme } from "@/contexts/ThemeContext";
 import {
@@ -10,7 +9,8 @@ import {
 } from "@/constants/theme";
 import { DENSITIES, TEXT_SIZES, setUiPrefs, useUiPrefs } from "@/core/ui-prefs";
 import { ChoiceRow, Input, Label, Text } from "@/ui";
-import { LANGUAGES, saveLanguage, savedLanguage, t } from "@/i18n";
+import { savedLanguage, t } from "@/i18n";
+import { languageOptions, switchLanguage } from "@/i18n/options";
 
 export function ThemeControl() {
   const { theme, setTheme } = useTheme();
@@ -150,28 +150,16 @@ export function DensityControl() {
 
 export function LanguageControl() {
   const [choice, setChoice] = useState(savedLanguage);
-  const options = [
-    { value: "system", label: t("settings.language.system") },
-    { value: "en", label: "English" },
-    ...LANGUAGES.map((l) => ({
-      value: l.code,
-      label: l.label,
-      description: l.name,
-    })),
-  ];
   return (
     <View>
       <ChoiceRow
         label={t("settings.language.label")}
         description={t("settings.language.description")}
         value={choice}
-        options={options}
+        options={languageOptions()}
         onChange={(v) => {
-          if (v === choice) return;
           setChoice(v);
-          saveLanguage(v);
-          // Text is read once at start, so the app reloads to switch.
-          void reloadAppAsync();
+          switchLanguage(v);
         }}
         last
       />
