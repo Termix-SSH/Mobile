@@ -18,10 +18,15 @@
 - A trackpad or mouse works in remote desktops the phone opens itself on iPad: hover, clicks with the right button and scrolling
 - Power widget for one machine from the Power tab: it shows the name and status, and a tap wakes it or shuts it down without opening the app (iOS 17 and Android)
 - iPhone Duo: the app lays out around the fold, uses the side bar column for tabs and keeps clear of the inner screen's corners
+- Home is a dashboard of cards you can reorder and hide: tap the pencil, drag cards, turn them on or off. Pull down to refresh
+- Server card on Home with version, update notice, uptime, database health, hosts online and offline, and logins
+- Homepage widgets show on Home as native cards: service grids with up and down dots, links, bookmarks, search, clocks, countdowns, calendars, notes, banners, pings, hosts, RSS, weather, custom APIs and pictures. Other widgets open the full Homepage
+- Home cards for notifications, recent activity, approvals you can answer in place, snippets to run on hosts, Wake on LAN and tunnels
 
 ### Changed
 
 - Server notifications no longer show as cards above the host list
+- Home on tablets lays its cards out in two columns, and pinned and recent hosts show whether they are online
 - With App Lock on, the key to this phone's data is locked by your PIN and biometrics, so the data opens only after you unlock
 - Wrong PIN tries are counted across restarts of the app
 - Plugin pages reach only their own files and actions on the server
