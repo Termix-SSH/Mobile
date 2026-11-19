@@ -20,6 +20,9 @@ interface TermixWidgetsNativeModule {
   setSnapshot(json: string): Promise<void>;
   clearSnapshot(): Promise<void>;
   reloadWidgets(): Promise<void>;
+  setPowerSnapshot?(json: string): Promise<void>;
+  setPowerAccess?(accountId: string, json: string | null): Promise<void>;
+  clearPower?(): Promise<void>;
 }
 
 const NativeModule =
@@ -53,5 +56,32 @@ export async function clearWidgetSnapshot(): Promise<boolean> {
 export async function reloadWidgets(): Promise<boolean> {
   if (!NativeModule) return false;
   await NativeModule.reloadWidgets();
+  return true;
+}
+
+/**
+ * Publishes the Power widget's device list. Saved access of servers with no
+ * device left in it is dropped on the native side.
+ */
+export async function setPowerSnapshotJson(json: string): Promise<boolean> {
+  if (!NativeModule?.setPowerSnapshot) return false;
+  await NativeModule.setPowerSnapshot(json);
+  return true;
+}
+
+/** Saves (or with null removes) how the Power widget reaches one server. */
+export async function setPowerAccessJson(
+  accountId: string,
+  json: string | null,
+): Promise<boolean> {
+  if (!NativeModule?.setPowerAccess) return false;
+  await NativeModule.setPowerAccess(accountId, json);
+  return true;
+}
+
+/** Removes every Power widget device and saved access. */
+export async function clearPowerWidget(): Promise<boolean> {
+  if (!NativeModule?.clearPower) return false;
+  await NativeModule.clearPower();
   return true;
 }

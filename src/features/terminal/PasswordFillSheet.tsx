@@ -1,6 +1,7 @@
 import { KeyRound } from "lucide-react-native";
 import { Sheet, SheetRow } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { deviceWord } from "@/utils/device-word";
 
 export type FillChoice = "once" | "always" | "no";
 
@@ -30,7 +31,7 @@ export function PasswordFillSheet({
       <SheetRow label="Fill password" onPress={() => onChoose("once")} />
       <SheetRow
         label="Always fill on this host"
-        description="Asks no more on this phone. Turn it off in the host's Terminal tab."
+        description={`Asks no more on this ${deviceWord}. Turn it off in the host's Terminal tab.`}
         onPress={() => onChoose("always")}
       />
       <SheetRow label="Not now" onPress={() => onChoose("no")} />

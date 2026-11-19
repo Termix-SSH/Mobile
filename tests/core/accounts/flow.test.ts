@@ -1,5 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { endFlow, startFlow, takeFlow } from "@/core/accounts/link/flow";
+import { createHash } from "node:crypto";
+import {
+  challengeFor,
+  currentChallenge,
+  endFlow,
+  startFlow,
+  takeFlow,
+  takeFlowEntry,
+} from "@/core/accounts/link/flow";
 import { callbackUrlFor, parseCallback } from "@/core/accounts/link/login";
 import recorded from "../../fixtures/oidc/callbacks.json";
 
@@ -66,4 +74,17 @@ test("links that only start like the callback are not ours", () => {
     token: "b",
     flow: null,
   });
+});
+
+test("each flow keeps a verifier whose hash is the page's challenge", async () => {
+  const id = await startFlow();
+  const challenge = await currentChallenge();
+  expect(challenge).toMatch(/^[A-Za-z0-9_-]{43}$/);
+  const taken = await takeFlowEntry(id);
+  expect(taken?.verifier).toMatch(/^[A-Za-z0-9_-]{43}$/);
+  expect(
+    createHash("sha256").update(taken!.verifier!).digest("base64url"),
+  ).toBe(challenge);
+  expect(await challengeFor(taken!.verifier!)).toBe(challenge);
+  expect(await takeFlowEntry(id)).toBeNull();
 });

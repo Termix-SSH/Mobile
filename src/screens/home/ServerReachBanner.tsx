@@ -11,6 +11,7 @@ import {
 import { sync, useAccountSync, type AccountSync } from "@/core/sync";
 import { Button, Text } from "@/ui";
 import { toast } from "@/utils/toast";
+import { deviceWord } from "@/utils/device-word";
 
 /** Whether to say the active server can't be reached. */
 export function unreachable(account: Account, status: AccountSync): boolean {
@@ -62,8 +63,8 @@ export function ServerReachBanner() {
         </Text>
         <Text className="mt-0.5 text-xs text-muted-foreground">
           {synced
-            ? "You can keep working with the copy on this phone. Changes go up when it is back."
-            : "Hosts set to connect from this phone still work."}
+            ? `You can keep working with the copy on this ${deviceWord}. Changes go up when it is back.`
+            : `Hosts set to connect from this ${deviceWord} still work.`}
         </Text>
       </View>
       <Button size="sm" variant="muted" loading={trying} onPress={retry}>

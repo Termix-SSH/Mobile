@@ -12,6 +12,7 @@ import {
 import { KeyInput } from "@/screens/hosts/keys/KeyInput";
 import type { AuthType, Credential } from "@/types";
 import type { HostEditorForm } from "./model";
+import { deviceWord } from "@/utils/device-word";
 
 type Patch = Partial<HostEditorForm>;
 
@@ -102,8 +103,8 @@ export function AuthFields({
           ) : (
             <Text className="text-meta text-muted-foreground">
               Tailscale is not on for{" "}
-              {account.kind === "local" ? "this phone" : "this server"}. This
-              host keeps its Tailscale sign in.
+              {account.kind === "local" ? `this ${deviceWord}` : "this server"}.
+              This host keeps its Tailscale sign in.
             </Text>
           )}
         </View>

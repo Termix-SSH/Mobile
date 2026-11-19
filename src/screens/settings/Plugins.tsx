@@ -34,9 +34,10 @@ import { toast } from "@/utils/toast";
 import type { ListRowTone } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { Screen } from "@/components/Screen";
+import { deviceWord } from "@/utils/device-word";
 
 const SECTIONS: { id: SupportSection; label: string; tone: ListRowTone }[] = [
-  { id: "phone", label: "Works on this phone", tone: "brand" },
+  { id: "phone", label: `Works on this ${deviceWord}`, tone: "brand" },
   { id: "server", label: "Needs the server", tone: "muted" },
   { id: "absent", label: "Not in the app", tone: "none" },
 ];
@@ -286,7 +287,7 @@ export default function Plugins() {
             ? "This device works with no server. Link a server to add what needs one."
             : showing === "server"
               ? `Plugins on ${accountLabel(account)} and how each one shows in the app. Pull down to check again.`
-              : `What runs on this phone and what goes through ${accountLabel(account)}.`}
+              : `What runs on this ${deviceWord} and what goes through ${accountLabel(account)}.`}
         </Text>
         {showing === "server" ? (
           listed.length === 0 ? (

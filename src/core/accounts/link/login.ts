@@ -179,8 +179,30 @@ export async function redirectStartUrl(
 export function browserSignInUrl(
   client: AccountClient,
   flow: string | null = null,
+  challenge: string | null = null,
 ): string {
-  return `${client.rootBase()}/?return_to=${encodeURIComponent(callbackUrlFor(flow))}`;
+  const url = `${client.rootBase()}/?return_to=${encodeURIComponent(callbackUrlFor(flow))}`;
+  return challenge ? `${url}&app_challenge=${challenge}` : url;
+}
+
+/** Trades the one-time code a browser sign in sent back for the session. */
+export async function redeemAppCode(
+  client: AccountClient,
+  code: string,
+  verifier: string,
+): Promise<string> {
+  const { status, data } = await postJson(
+    client,
+    "/users/auth/app-handoff/redeem",
+    { code, verifier },
+  );
+  if (status !== 200 || typeof data.token !== "string" || !data.token) {
+    throw new AppError(
+      "The sign in ran out or was already used. Sign in again.",
+      "AUTH_FAILED",
+    );
+  }
+  return data.token;
 }
 
 /** Answers a second factor with a code, like TOTP or a backup code. */
@@ -212,6 +234,7 @@ export async function verifySecondFactor(
 
 export type CallbackResult = (
   | { kind: "token"; token: string }
+  | { kind: "code"; code: string }
   | { kind: "secondFactor"; step: SecondFactorStep }
   | { kind: "error"; message: string }
 ) & {
@@ -262,12 +285,13 @@ function readCallback(url: string): CallbackResult | null {
     };
   }
   if (params.token) return { kind: "token", token: params.token };
+  if (params.code) return { kind: "code", code: params.code };
   return { kind: "error", message: "The server did not send a token." };
 }
 
 const CALLBACK_ERRORS: Record<string, string> = {
   no_token:
-    "The page signed you in but sent no session back. Update the server to Termix 26.10.6 or newer.",
+    "The page signed you in but sent no session back. Update the server to Termix 26.11.3 or newer.",
   user_not_allowed: "This account isn't allowed to sign in here.",
   user_not_found: "No Termix account matches that sign in.",
 };

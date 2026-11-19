@@ -1,10 +1,24 @@
 import { Pressable, View } from "react-native";
-import { ChevronDown, Search, Server, Smartphone } from "lucide-react-native";
+import { router } from "expo-router";
+import {
+  Bell,
+  ChevronDown,
+  Search,
+  Server,
+  Smartphone,
+} from "lucide-react-native";
 import { useAppContext } from "@/contexts/AppContext";
 import { useThemeColor } from "@/contexts/ThemeContext";
-import { accountLabel, useActiveAccount, type Account } from "@/core/accounts";
+import {
+  accountLabel,
+  useActiveAccount,
+  useActiveClient,
+  type Account,
+} from "@/core/accounts";
+import { useUnreadAlerts } from "@/screens/notifications/unread";
 import { palette } from "@/screens/palette/store";
 import { Button, Text } from "@/ui";
+import { deviceWord } from "@/utils/device-word";
 
 const STATUS: Record<string, string> = {
   idle: "Signed in",
@@ -19,7 +33,7 @@ export function accountLine(account: Account): string {
   if (account.kind === "local") return "Works without a server";
   return [
     STATUS[account.status],
-    account.options.sync === true ? "Copy on this phone" : null,
+    account.options.sync === true ? `Copy on this ${deviceWord}` : null,
   ]
     .filter(Boolean)
     .join(" | ");
@@ -70,5 +84,36 @@ export function SearchButton() {
       onPress={palette.open}
       icon={<Search size={18} color={color("muted-foreground")} />}
     />
+  );
+}
+
+/** Opens the notifications inbox, with the unread count on it. */
+export function NotificationsButton() {
+  const color = useThemeColor();
+  const client = useActiveClient();
+  const unread = useUnreadAlerts();
+  if (!client || !client.api.alerts.available()) return null;
+  return (
+    <View>
+      <Button
+        variant="ghost"
+        size="icon"
+        accessibilityLabel={
+          unread > 0 ? `Notifications, ${unread} unread` : "Notifications"
+        }
+        onPress={() => router.push("/tabs/settings/Notifications" as never)}
+        icon={<Bell size={18} color={color("muted-foreground")} />}
+      />
+      {unread > 0 ? (
+        <View
+          pointerEvents="none"
+          className="absolute right-0.5 top-0.5 min-w-4 items-center bg-accent-brand px-1"
+        >
+          <Text weight="bold" className="text-2xs text-background">
+            {unread > 99 ? "99+" : String(unread)}
+          </Text>
+        </View>
+      ) : null}
+    </View>
   );
 }

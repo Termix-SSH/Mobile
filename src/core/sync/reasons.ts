@@ -1,4 +1,5 @@
 import type { SyncError, SyncErrorKind } from "./errors";
+import { deviceWord } from "@/utils/device-word";
 
 /**
  * Why a linked server stopped syncing, saved as the account's lastError so
@@ -36,14 +37,13 @@ export function isSessionEnded(reason: string | null | undefined): boolean {
 const TEXT: Record<SyncReason, ReasonText> = {
   expired: {
     title: "Signed out",
-    message: "This phone's sign in to the server ran out.",
+    message: `This ${deviceWord}'s sign in to the server ran out.`,
     fix: "sign_in",
     fixLabel: "Sign in again",
   },
   revoked: {
     title: "Signed out",
-    message:
-      "The server ended this phone's session. It may have been signed out from another device.",
+    message: `The server ended this ${deviceWord}'s session. It may have been signed out from another device.`,
     fix: "sign_in",
     fixLabel: "Sign in again",
   },
@@ -61,13 +61,13 @@ const TEXT: Record<SyncReason, ReasonText> = {
   },
   client_cert: {
     title: "Certificate refused",
-    message: "The server did not accept this phone's certificate.",
+    message: `The server did not accept this ${deviceWord}'s certificate.`,
     fix: "pick_cert",
     fixLabel: "Pick a certificate",
   },
   tls: {
     title: "Untrusted server",
-    message: "The server's certificate is not trusted by this phone.",
+    message: `The server's certificate is not trusted by this ${deviceWord}.`,
     fix: "retry",
     fixLabel: "Try again",
   },

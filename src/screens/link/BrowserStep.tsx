@@ -21,19 +21,25 @@ import {
 import { readWebCookies } from "@/modules/termix-net";
 import type { AccountClient } from "@/core/api/AccountClient";
 import { consumeFreshWebSession } from "@/core/api/webSession";
-import { startFlow, takeFlow } from "@/core/accounts/link/flow";
+import {
+  currentChallenge,
+  startFlow,
+  takeFlowEntry,
+} from "@/core/accounts/link/flow";
 import {
   APP_CALLBACK_URL,
   browserCanceled,
   browserSignInUrl,
   callbackUrlFor,
   parseCallback,
+  redeemAppCode,
   redirectStartUrl,
   type SecondFactorStep,
 } from "@/core/accounts/link/login";
 import type { SignInOption } from "@/core/accounts/link/methods";
 import { ProxySignIn } from "@/screens/accounts/ProxySignIn";
 import { readHandoff, TOKEN_HANDOFF_SCRIPT } from "./webview-handoff";
+import { deviceWord } from "@/utils/device-word";
 
 /** How this step signs in. */
 export type BrowserMode =
@@ -146,7 +152,8 @@ export function BrowserStep({
       if (isOidcCallbackHandled(link)) return;
       markOidcCallbackHandled(link);
       // Only the sign in open now, and only once.
-      if (!(await takeFlow(result.flow ?? null))) {
+      const taken = await takeFlowEntry(result.flow ?? null);
+      if (!taken) {
         toast.error(
           "Sign in failed",
           "That sign in link is from an older try. Sign in again.",
@@ -161,9 +168,27 @@ export function BrowserStep({
         onSecondFactor(result.step);
         return;
       }
+      if (result.kind === "code") {
+        if (!taken.verifier) {
+          toast.error("Sign in failed", "Sign in again.");
+          return;
+        }
+        let token: string;
+        try {
+          token = await redeemAppCode(client, result.code, taken.verifier);
+        } catch (e) {
+          toast.error(
+            "Sign in failed",
+            e instanceof Error ? e.message : undefined,
+          );
+          return;
+        }
+        await finish(token);
+        return;
+      }
       await finish(result.token);
     },
-    [finish, onSecondFactor],
+    [client, finish, onSecondFactor],
   );
 
   const openBrowser = useCallback(
@@ -253,7 +278,7 @@ export function BrowserStep({
       try {
         target =
           mode.kind === "browser"
-            ? browserSignInUrl(client, flowId.current)
+            ? browserSignInUrl(client, flowId.current, await currentChallenge())
             : await redirectStartUrl(client, mode.option, flowId.current);
       } catch {
         // The web app's own login still covers it.
@@ -309,7 +334,7 @@ export function BrowserStep({
     if (/SSL|certificate|ERR_CERT/i.test(text)) {
       toast.error(
         "Certificate problem",
-        `The phone can't check this server's certificate. Install its root CA on the phone. ${text}`,
+        `The ${deviceWord} can't check this server's certificate. Install its root CA on the ${deviceWord}. ${text}`,
       );
     }
   };

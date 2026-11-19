@@ -5,6 +5,7 @@ import { maybeSendReport } from "@/core/analytics/report";
 import { loadConsent } from "@/core/analytics/consent";
 import { installCrashReporting } from "@/core/analytics/crash";
 import { Button, Sheet, SheetBody, Text } from "@/ui";
+import { deviceWord } from "@/utils/device-word";
 
 export const USAGE_DOCS_URL = "https://docs.termix.site/privacy#mobile-app";
 
@@ -48,10 +49,10 @@ export function AnalyticsHost({ hold }: { hold: boolean }) {
     >
       <SheetBody>
         <Text className="text-meta leading-4 text-muted-foreground">
-          The report has the app version, phone type, rough counts of hosts and
-          sessions, which features you use, and whether connecting worked. It
-          never has hostnames, usernames, addresses, paths, commands or server
-          names.
+          The report has the app version, {deviceWord} type, rough counts of
+          hosts and sessions, which features you use, and whether connecting
+          worked. It never has hostnames, usernames, addresses, paths, commands
+          or server names.
         </Text>
         <Text
           className="mt-2 text-meta text-accent-text"

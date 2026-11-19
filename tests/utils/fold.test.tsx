@@ -1,13 +1,26 @@
 import { act, renderHook } from "@testing-library/react-native";
-import { FOLD_GUTTER, foldFrom, useFoldRegions } from "@/utils/fold";
+import {
+  FOLD_GUTTER,
+  FOLD_SETTLE_MS,
+  areaAt,
+  foldFrom,
+  foldHalves,
+  keyboardOver,
+  panelArea,
+  useFoldRegions,
+  type Fold,
+} from "@/utils/fold";
 
 let mockEmit: ((e: { folds: unknown[] }) => void) | null = null;
 const mockRemove = jest.fn();
+// What the native side reports on each read, last one repeating.
+let mockReads: unknown[][] = [[]];
 
 jest.mock("expo-modules-core", () => ({
   ...jest.requireActual("expo-modules-core"),
   requireOptionalNativeModule: () => ({
-    getFolds: () => [],
+    getFolds: () =>
+      mockReads.length > 1 ? mockReads.shift() : (mockReads[0] ?? []),
     addListener: (_: string, cb: (e: { folds: unknown[] }) => void) => {
       mockEmit = cb;
       return { remove: mockRemove };
@@ -70,12 +83,122 @@ describe("foldFrom", () => {
   });
 });
 
-test("useFoldRegions follows the native module", async () => {
-  const { result, unmount } = await renderHook(() => useFoldRegions());
-  expect(result.current).toEqual([]);
-  const folds = [{ x: 475, y: 0, width: 0, height: 669, active: false }];
-  await act(async () => mockEmit?.({ folds }));
-  expect(result.current).toEqual(folds);
-  await unmount();
-  expect(mockRemove).toHaveBeenCalled();
+test("useFoldRegions follows the native module once the fold holds still", async () => {
+  jest.useFakeTimers();
+  try {
+    const { result, unmount } = await renderHook(() => useFoldRegions());
+    expect(result.current).toEqual([]);
+    const flat = [{ x: 475, y: 0, width: 0, height: 669, active: false }];
+    const bent = [{ x: 466, y: 0, width: 18, height: 669, active: true }];
+    // Opening past the threshold flickers between bent and flat.
+    await act(async () => mockEmit?.({ folds: flat }));
+    await act(async () => mockEmit?.({ folds: bent }));
+    await act(async () => mockEmit?.({ folds: flat }));
+    await act(async () => jest.advanceTimersByTime(FOLD_SETTLE_MS - 1));
+    expect(result.current).toEqual([]);
+    await act(async () => jest.advanceTimersByTime(1));
+    expect(result.current).toEqual(flat);
+    await unmount();
+    expect(mockRemove).toHaveBeenCalled();
+  } finally {
+    jest.useRealTimers();
+  }
+});
+
+test("a turn moves the fold at once, since the window resizes at once", async () => {
+  jest.useFakeTimers();
+  try {
+    const { result, unmount } = await renderHook(() => useFoldRegions());
+    const wide = [{ x: 475, y: 0, width: 0, height: 669, active: false }];
+    const tall = [{ x: 0, y: 475, width: 669, height: 0, active: false }];
+    await act(async () => mockEmit?.({ folds: wide }));
+    await act(async () => jest.advanceTimersByTime(FOLD_SETTLE_MS));
+    expect(result.current).toEqual(wide);
+    await act(async () => mockEmit?.({ folds: tall }));
+    expect(result.current).toEqual(tall);
+    await unmount();
+  } finally {
+    jest.useRealTimers();
+  }
+});
+
+test("a fold reported before anything listened still shows", async () => {
+  const flat = [{ x: 475, y: 0, width: 0, height: 669, active: false }];
+  // The first read is the render, the next one comes as it subscribes.
+  mockReads = [[], flat];
+  try {
+    const { result, unmount } = await renderHook(() => useFoldRegions());
+    expect(result.current).toEqual(flat);
+    await unmount();
+  } finally {
+    mockReads = [[]];
+  }
+});
+
+// iPhone Duo inner screen, 951 x 669, bent with an 18 point crease.
+const book: Fold = { axis: "vertical", start: 466.5, end: 484.5, active: true };
+const laptop: Fold = {
+  axis: "horizontal",
+  start: 325.5,
+  end: 343.5,
+  active: true,
+};
+
+describe("fold areas", () => {
+  it("splits only while bent", () => {
+    expect(foldHalves({ ...book, active: false }, 951, 669)).toBeNull();
+    expect(foldHalves(null, 951, 669)).toBeNull();
+    expect(foldHalves(book, 951, 669)).toEqual([
+      { x: 0, y: 0, width: 466.5, height: 669 },
+      { x: 484.5, y: 0, width: 466.5, height: 669 },
+    ]);
+  });
+
+  it("puts sheets on the right of a book and the bottom of a laptop", () => {
+    expect(panelArea(book, 951, 669)).toEqual({
+      x: 484.5,
+      y: 0,
+      width: 466.5,
+      height: 669,
+    });
+    expect(panelArea(laptop, 669, 951)).toEqual({
+      x: 0,
+      y: 343.5,
+      width: 669,
+      height: 951 - 343.5,
+    });
+    expect(panelArea({ ...book, active: false }, 951, 669)).toEqual({
+      x: 0,
+      y: 0,
+      width: 951,
+      height: 669,
+    });
+  });
+
+  it("moves a sheet above a laptop fold when the keyboard fills the bottom", () => {
+    const bottom = 951 - 343.5;
+    // A short keyboard leaves room, so the sheet stays below the crease.
+    expect(panelArea(laptop, 669, 951, 300).y).toBe(343.5);
+    // One that leaves too little sends it to the top half, clear of the keyboard.
+    const top = panelArea(laptop, 669, 951, bottom - 50);
+    expect(top).toEqual({ x: 0, y: 0, width: 669, height: 325.5 });
+    expect(keyboardOver(top, 951, bottom - 50)).toBe(0);
+    // A book fold keeps the right side whatever the keyboard does.
+    expect(panelArea(book, 951, 669, 400).x).toBe(484.5);
+  });
+
+  it("measures how much of an area the keyboard covers", () => {
+    const whole = { x: 0, y: 0, width: 669, height: 951 };
+    expect(keyboardOver(whole, 951, 300)).toBe(300);
+    expect(keyboardOver({ ...whole, height: 325.5 }, 951, 700)).toBe(74.5);
+    expect(keyboardOver(whole, 951, 0)).toBe(0);
+  });
+
+  it("keeps a menu on the side it was opened from", () => {
+    expect(areaAt(book, { x: 100, y: 50 }, 951, 669).x).toBe(0);
+    expect(areaAt(book, { x: 700, y: 50 }, 951, 669).x).toBe(484.5);
+    // In the crease it takes the nearer side.
+    expect(areaAt(book, { x: 470, y: 50 }, 951, 669).x).toBe(0);
+    expect(areaAt(book, { x: 480, y: 50 }, 951, 669).x).toBe(484.5);
+  });
 });

@@ -29,6 +29,7 @@ import {
 } from "@/core/tunnels";
 import TunnelCard from "./TunnelCard";
 import { Gateways } from "./Gateways";
+import { deviceWord } from "@/utils/device-word";
 
 export type TunnelManagerHandle = {
   refresh: () => void;
@@ -151,7 +152,9 @@ export const TunnelManager = forwardRef<
         tunnel,
         open: async () => {
           if (!local.openSession) {
-            throw new Error("This build can't open tunnels on the phone.");
+            throw new Error(
+              `This build can't open tunnels on the ${deviceWord}.`,
+            );
           }
           return local.openSession(toTerminalHostConfig(savedHost));
         },
@@ -322,7 +325,7 @@ export const TunnelManager = forwardRef<
   return (
     <SessionFrame
       title={hostConfig.name}
-      subtitle={`Tunnels | ${tunnels.length} | ${onPhone ? "This phone" : "Server"}`}
+      subtitle={`Tunnels | ${tunnels.length} | ${onPhone ? `This ${deviceWord}` : "Server"}`}
       status={frameStatus}
       loadingLabel="Loading tunnels…"
       errorMessage={error}
@@ -361,15 +364,15 @@ export const TunnelManager = forwardRef<
               onChange={chooseRunOn}
               options={[
                 { id: "server", label: "Server" },
-                { id: "phone", label: "This phone" },
+                { id: "phone", label: `This ${deviceWord}` },
               ]}
             />
           </View>
         ) : null}
         {onPhone ? (
           <Text className="text-[11px] text-muted-foreground">
-            Tunnels on this phone stop when the app is closed. On iOS they also
-            stop soon after the app goes to the background.
+            Tunnels on this {deviceWord} stop when the app is closed. On iOS
+            they also stop soon after the app goes to the background.
           </Text>
         ) : null}
         {tunnels.map((tunnel, idx) => {

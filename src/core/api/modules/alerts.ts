@@ -1,53 +1,133 @@
 import type { AccountClient } from "../AccountClient";
 
+export interface AlertItem {
+  id: string;
+  title: string;
+  message: string;
+  severity: string;
+  source?: string;
+  createdAt?: string;
+  read: boolean;
+}
+
+export interface AlertPage {
+  items: AlertItem[];
+  unread: number;
+}
+
 export function createAlertsApi(c: AccountClient) {
-  async function getUserAlerts(): Promise<{ alerts: any[] }> {
+  const inbox = () => c.apiGeneration === "plugin";
+
+  /** False when the server has no alerts for this user. */
+  function available(): boolean {
+    return !inbox() || c.isPluginEnabled("alerts");
+  }
+
+  async function list(
+    opts: { unread?: boolean; before?: string; limit?: number } = {},
+  ): Promise<AlertPage> {
+    if (!available()) return { items: [], unread: 0 };
     try {
-      if (c.apiGeneration === "plugin") {
-        if (!c.isPluginEnabled("alerts")) return { alerts: [] };
+      if (inbox()) {
         const response = await c.http.auth.get("/plugin-api/alerts/items", {
-          params: { unread: true, limit: 20 },
+          params: {
+            unread: opts.unread ? true : undefined,
+            before: opts.before,
+            limit: opts.limit ?? 50,
+          },
         });
         const items = Array.isArray(response.data?.items)
           ? response.data.items
           : [];
         return {
-          alerts: items.map((item: any) => ({
+          items: items.map((item: any) => ({
             id: String(item.id),
             title: item.title,
             message: item.body ?? "",
-            type: item.severity,
+            severity: item.severity ?? "info",
+            source: item.source,
             createdAt: item.createdAt,
+            read: !!item.readAt,
           })),
+          unread: Number(response.data?.unread) || 0,
         };
       }
       const response = await c.http.auth.get(`/alerts`);
-      return response.data;
+      const alerts = Array.isArray(response.data?.alerts)
+        ? response.data.alerts
+        : [];
+      return {
+        items: alerts.map((a: any) => ({
+          id: String(a.id),
+          title: a.title,
+          message: a.message ?? "",
+          severity: a.type ?? "info",
+          createdAt: a.createdAt,
+          read: false,
+        })),
+        unread: alerts.length,
+      };
     } catch (error) {
-      c.fail(error, "fetch user alerts");
+      c.fail(error, "fetch alerts");
     }
   }
 
-  async function dismissAlert(alertId: string): Promise<any> {
+  async function unreadCount(): Promise<number> {
+    if (!available()) return 0;
+    if (!inbox()) return (await list()).unread;
     try {
-      if (c.apiGeneration === "plugin") {
-        // 2.9 keeps alerts in an inbox; dismissing here marks it read.
-        const response = await c.http.auth.post(
-          "/plugin-api/alerts/items/read",
-          {
-            ids: [Number(alertId)],
-          },
-        );
-        return response.data;
-      }
-      const response = await c.http.auth.post("/alerts/dismiss", { alertId });
-      return response.data;
+      const response = await c.http.auth.get("/plugin-api/alerts/unread");
+      return Number(response.data?.count) || 0;
     } catch (error) {
-      c.fail(error, "dismiss alert");
+      c.fail(error, "count alerts");
     }
   }
 
-  return { getUserAlerts, dismissAlert };
+  /** Marks alerts read. Older servers only know dismiss, which hides them. */
+  async function markRead(ids: string[] | "all"): Promise<void> {
+    try {
+      if (inbox()) {
+        await c.http.auth.post(
+          "/plugin-api/alerts/items/read",
+          ids === "all" ? { all: true } : { ids: ids.map(Number) },
+        );
+        return;
+      }
+      const list_ = ids === "all" ? (await list()).items.map((a) => a.id) : ids;
+      for (const alertId of list_) {
+        await c.http.auth.post("/alerts/dismiss", { alertId });
+      }
+    } catch (error) {
+      c.fail(error, "mark alerts read");
+    }
+  }
+
+  /** Deletes one alert. Older servers dismiss it instead. */
+  async function remove(id: string): Promise<void> {
+    if (!inbox()) return markRead([id]);
+    try {
+      await c.http.auth.delete(`/plugin-api/alerts/items/${Number(id)}`);
+    } catch (error) {
+      c.fail(error, "delete alert");
+    }
+  }
+
+  /** Clears alerts, or only the read ones. */
+  async function clear(readOnly: boolean): Promise<void> {
+    if (!inbox()) return markRead("all");
+    try {
+      await c.http.auth.delete("/plugin-api/alerts/items", {
+        params: readOnly ? { read: true } : undefined,
+      });
+    } catch (error) {
+      c.fail(error, "clear alerts");
+    }
+  }
+
+  /** True when delete and clear really remove alerts. */
+  const canDelete = () => inbox();
+
+  return { available, list, unreadCount, markRead, remove, clear, canDelete };
 }
 
 export type AlertsApi = ReturnType<typeof createAlertsApi>;

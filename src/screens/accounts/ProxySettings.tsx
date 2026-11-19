@@ -15,6 +15,7 @@ import { readLocalBase64 } from "@/utils/localFile";
 import { toast } from "@/utils/toast";
 import { CertPinSettings } from "./CertPinSettings";
 import { ProxySignIn } from "./ProxySignIn";
+import { deviceWord } from "@/utils/device-word";
 
 const CF_ID = "CF-Access-Client-Id";
 const CF_SECRET = "CF-Access-Client-Secret";
@@ -194,9 +195,7 @@ export function ProxySettings({
         Client certificate
       </Text>
       <Text className="mb-2 text-[11px] text-muted-foreground">
-        {
-          "For servers that ask for one (mTLS). The key is kept in the phone's secure storage and can't be read back out."
-        }
+        {`For servers that ask for one (mTLS). The key is kept in the ${deviceWord}'s secure storage and can't be read back out.`}
       </Text>
       {cert ? (
         <View className="mb-2 border border-border bg-card px-3">
@@ -232,7 +231,7 @@ export function ProxySettings({
       <Text className="mb-2 text-[11px] text-muted-foreground">
         For Cloudflare Access, Authelia, Authentik and other proxies with their
         own sign in page.
-        {cookies.length ? " This phone is signed in to the proxy." : ""}
+        {cookies.length ? ` This ${deviceWord} is signed in to the proxy.` : ""}
       </Text>
       <View className="flex-row gap-2">
         <Button

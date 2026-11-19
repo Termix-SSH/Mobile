@@ -33,10 +33,11 @@ import {
   type ConnectionOrigin,
 } from "@/core/transport";
 import { isSshHost } from "@/utils/hosts";
+import { deviceWord } from "@/utils/device-word";
 
 const FIX_LABEL: Record<Exclude<ConnectionOrigin, "auto">, string> = {
   server: "Connect through the server",
-  device: "Connect from this phone",
+  device: `Connect from this ${deviceWord}`,
 };
 
 export function HostActionSheet({

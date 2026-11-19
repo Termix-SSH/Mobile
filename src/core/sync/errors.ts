@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { AppError } from "@/core/errors";
 import { isHtmlPayload } from "@/core/api/http";
+import { deviceWord } from "@/utils/device-word";
 
 /**
  * Why talking to a linked server failed, in the same terms as the desktop's
@@ -77,7 +78,7 @@ export function classifyRemoteError(error: unknown): SyncError {
     if (CLIENT_CERT_FAILURE.test(text)) {
       return new SyncError(
         "client_cert",
-        "The server did not accept this phone's certificate.",
+        `The server did not accept this ${deviceWord}'s certificate.`,
       );
     }
     if (TLS_FAILURE.test(text) && error.code !== "ECONNABORTED") {

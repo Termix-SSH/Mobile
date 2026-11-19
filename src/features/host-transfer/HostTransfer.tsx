@@ -19,6 +19,7 @@ import {
   Section as UiSection,
 } from "@/ui";
 import { ImportPanel } from "./ImportPanel";
+import { deviceWord } from "@/utils/device-word";
 
 function Section({
   title,
@@ -115,7 +116,7 @@ export default function HostTransfer() {
         <Section title="Import">
           <Text className="text-meta text-muted-foreground">
             A Termix host file, an SSH config file, or a host link or QR code
-            from another phone.
+            from another {deviceWord}.
           </Text>
           <ImportPanel />
         </Section>

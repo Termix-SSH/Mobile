@@ -1,5 +1,6 @@
 import semver from "semver";
 import { PLUGIN_HOST_API } from "./host-api";
+import { deviceWord } from "@/utils/device-word";
 
 /**
  * Whether the app can show a plugin, from its `engine.api` range:
@@ -41,7 +42,7 @@ export function fitMessage(
   if (fit === "update-app") {
     return {
       title: "Update the app",
-      hint: `${name} on your server needs a newer version of Termix on this phone.`,
+      hint: `${name} on your server needs a newer version of Termix on this ${deviceWord}.`,
     };
   }
   if (fit === "update-plugin") {

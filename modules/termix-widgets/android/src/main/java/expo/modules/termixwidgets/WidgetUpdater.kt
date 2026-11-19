@@ -24,6 +24,8 @@ object WidgetUpdater {
       SnippetsWidgetProvider::class.java,
       R.id.termix_widget_snippet_list
     )
+    // Theme and accent changes.
+    PowerWidgetProvider.renderAll(appContext)
   }
 
   private fun <T : TermixWidgetProvider> updateProvider(

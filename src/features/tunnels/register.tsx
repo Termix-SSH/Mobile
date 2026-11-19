@@ -4,6 +4,7 @@ import type { FeatureDef, SessionTabProps } from "@/core/features/types";
 import { isSshHost } from "@/utils/hosts";
 import { TunnelManager, type TunnelManagerHandle } from "./TunnelManager";
 import { hostTunnelsEditor } from "./HostTunnelsSection";
+import { TunnelsCard } from "./TunnelsCard";
 
 const TunnelsTab = forwardRef<TunnelManagerHandle, SessionTabProps>(
   ({ session, isVisible, onClose }, ref) => (
@@ -59,6 +60,15 @@ export const tunnelsFeature: FeatureDef = {
       order: 40,
       isAvailable: tunnelsOn,
       run: (_host, ctx) => ctx.openSession("tunnel"),
+    },
+  ],
+  homeCards: [
+    {
+      id: "tunnels",
+      title: "Tunnels",
+      icon: Network,
+      order: 88,
+      component: TunnelsCard,
     },
   ],
   tools: [

@@ -1,4 +1,5 @@
 import type { Transport, TransportCapability } from "./types";
+import { deviceWord } from "@/utils/device-word";
 
 /**
  * Where a host's connections start. Saved per host as the ssh-terminal host
@@ -10,13 +11,13 @@ export const ORIGINS: ConnectionOrigin[] = ["auto", "device", "server"];
 
 export const ORIGIN_LABELS: Record<ConnectionOrigin, string> = {
   auto: "Automatic",
-  device: "This phone",
+  device: `This ${deviceWord}`,
   server: "Termix server",
 };
 
 export const ORIGIN_HELP: Record<ConnectionOrigin, string> = {
-  auto: "Uses this phone when it can reach the host, otherwise the server.",
-  device: "This phone opens SSH itself.",
+  auto: `Uses this ${deviceWord} when it can reach the host, otherwise the server.`,
+  device: `This ${deviceWord} opens SSH itself.`,
   server: "The Termix server opens SSH for you.",
 };
 
@@ -70,7 +71,7 @@ export function planConnection(
   const localOk = isSsh && usable(local);
   const localReason = isSsh
     ? local.unavailableReason
-    : "The phone only connects to SSH and Telnet hosts.";
+    : `The ${deviceWord} only connects to SSH and Telnet hosts.`;
 
   // This device has nothing to relay through.
   if (inputs.accountKind === "local" || !relay) {
@@ -137,7 +138,7 @@ const NEED_WORDS: Record<TransportCapability, string> = {
   forward: "an SSH connection",
   server: "a Termix server",
   guacd: "a Termix server",
-  tcp: "a connection from the phone",
+  tcp: `a connection from the ${deviceWord}`,
 };
 
 /**
@@ -186,7 +187,7 @@ export function checkNeeds(
   const how =
     fix === "server"
       ? "Connect this host through the server"
-      : "Connect this host from the phone";
+      : `Connect this host from the ${deviceWord}`;
   // The server could do it but has it turned off.
   if (
     relayOff &&

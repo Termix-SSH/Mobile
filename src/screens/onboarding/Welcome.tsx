@@ -13,6 +13,7 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { LOCAL_ACCOUNT_ID } from "@/core/accounts/types";
 import { ImportPanel } from "@/features/host-transfer/ImportPanel";
 import { useRestoreBackup } from "@/screens/settings/RestoreBackup";
+import { deviceWord } from "@/utils/device-word";
 
 export type WelcomeChoice = "standalone" | "link" | "import";
 
@@ -86,7 +87,14 @@ export default function Welcome({
 
   if (view === "import") {
     return (
-      <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
+      <View
+        className="flex-1 bg-background"
+        style={{
+          paddingTop: insets.top,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
+      >
         <ScreenHeader title="Import" onBack={() => setView("choose")} />
         <ScrollView
           contentContainerStyle={{
@@ -100,7 +108,7 @@ export default function Welcome({
             <Label>Hosts</Label>
             <Text className="text-sm leading-5 text-muted-foreground">
               A Termix host file, your ~/.ssh/config, or a host link or QR code
-              from another phone. They are saved on this phone.
+              from another {deviceWord}. They are saved on this {deviceWord}.
             </Text>
             <ImportPanel
               onImported={(r) => r.created > 0 && setImported(true)}
@@ -134,6 +142,8 @@ export default function Welcome({
         padding: 20,
         paddingTop: insets.top + 24,
         paddingBottom: insets.bottom + 24,
+        paddingLeft: insets.left + 20,
+        paddingRight: insets.right + 20,
         gap: 24,
       }}
     >
@@ -148,8 +158,8 @@ export default function Welcome({
           TERMIX
         </Text>
         <Text className="text-sm leading-5 text-muted-foreground">
-          SSH, files and remote desktops from your phone. How do you want to
-          start?
+          SSH, files and remote desktops from your {deviceWord}. How do you want
+          to start?
         </Text>
       </View>
 
@@ -158,7 +168,7 @@ export default function Welcome({
           primary
           icon={<Smartphone size={20} color={accent} />}
           title="Use without a server"
-          body="Hosts, credentials and snippets are kept encrypted on this phone. You can link a server any time later."
+          body={`Hosts, credentials and snippets are kept encrypted on this ${deviceWord}. You can link a server any time later.`}
           onPress={() => onDone("standalone")}
         />
         <Choice

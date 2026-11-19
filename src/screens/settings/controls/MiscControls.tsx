@@ -7,6 +7,7 @@ import { getLatestGitHubRelease, isNewerVersion } from "@/core/updates";
 import { Button, SettingRow, Text } from "@/ui";
 import { toast } from "@/utils/toast";
 import { BackgroundSessionsSection } from "../BackgroundSessionsSection";
+import { deviceWord } from "@/utils/device-word";
 
 export function BackgroundSessionsControl() {
   return <BackgroundSessionsSection />;
@@ -17,8 +18,8 @@ export function PrivacyNoteControl() {
     <View className="py-3">
       <Text className="text-meta text-muted-foreground">
         Hosts, credentials and snippets are kept in an encrypted file on this
-        phone. Usage statistics are off unless you turn them on below. A linked
-        server only gets what you let it sync.
+        {deviceWord}. Usage statistics are off unless you turn them on below. A
+        linked server only gets what you let it sync.
       </Text>
     </View>
   );

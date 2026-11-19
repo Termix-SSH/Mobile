@@ -47,6 +47,7 @@ import {
   mergeLive,
   type LiveSample,
 } from "./live";
+import { deviceWord } from "@/utils/device-word";
 
 interface ServerStatsProps {
   host: SSHHost;
@@ -183,7 +184,7 @@ function LocalStats({
       host={host}
       feed={feed}
       widgets={config.enabledWidgets.filter((w) => LOCAL_WIDGETS.includes(w))}
-      subtitle="Host Metrics | this phone"
+      subtitle={`Host Metrics | this ${deviceWord}`}
     />
   );
 }

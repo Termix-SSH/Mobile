@@ -4,6 +4,7 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import type { ExecTarget } from "@/core/exec";
 import type { FeatureIcon } from "@/core/features/types";
 import { Text } from "@/ui";
+import { deviceWord } from "@/utils/device-word";
 
 /** The box every Home card draws in: title, then its body or why it can't. */
 export function CardFrame({
@@ -40,7 +41,9 @@ export function CardFrame({
           {title}
         </Text>
         {target.phase === "local" ? (
-          <Text className="text-[10px] text-muted-foreground">this phone</Text>
+          <Text className="text-[10px] text-muted-foreground">
+            this {deviceWord}
+          </Text>
         ) : null}
       </View>
       {reason ? (

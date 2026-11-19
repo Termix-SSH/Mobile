@@ -31,6 +31,7 @@ import {
 } from "@/ui";
 import { toast } from "@/utils/toast";
 import { useServerUser } from "../useServerUser";
+import { deviceWord } from "@/utils/device-word";
 
 const STATE_TEXT = {
   idle: "Synced",
@@ -124,7 +125,7 @@ export function AccountsControl() {
       </View>
       <Text className="pt-2 text-meta text-muted-foreground">
         Each server keeps its own copy of your hosts, credentials and settings
-        on this phone.
+        on this {deviceWord}.
       </Text>
     </View>
   );

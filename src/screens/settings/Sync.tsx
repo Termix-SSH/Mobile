@@ -39,6 +39,7 @@ import { SavedLoginRow } from "@/screens/accounts/SavedLoginRow";
 import { UnlinkSheet } from "@/screens/accounts/UnlinkSheet";
 import { useSyncFix } from "@/screens/accounts/useSyncFix";
 import { Screen } from "@/components/Screen";
+import { deviceWord } from "@/utils/device-word";
 
 function since(iso: string | null): string {
   if (!iso) return "Not yet";
@@ -123,8 +124,8 @@ export default function SyncSettings() {
         <ScrollView contentContainerStyle={{ padding: 12, paddingBottom: 48 }}>
           <Text className="mb-3 text-[11px] text-muted-foreground">
             {accountLabel(server)} keeps hosts, credentials, snippets and
-            settings in step with this phone. A copy stays on this phone, so it
-            works offline too.
+            settings in step with this {deviceWord}. A copy stays on this{" "}
+            {deviceWord}, so it works offline too.
           </Text>
 
           {synced ? (
@@ -162,12 +163,10 @@ export default function SyncSettings() {
           ) : (
             <View className="border border-border bg-card p-3">
               <Text className="text-sm text-foreground">
-                This server reads live and keeps no copy on the phone.
+                This server reads live and keeps no copy on the {deviceWord}.
               </Text>
               <Text className="mt-1 text-[11px] text-muted-foreground">
-                {
-                  "Turn on the Sync plugin in the server's Plugins page, then sign in again here to keep a copy on this phone."
-                }
+                {`Turn on the Sync plugin in the server's Plugins page, then sign in again here to keep a copy on this ${deviceWord}.`}
               </Text>
             </View>
           )}
@@ -176,7 +175,7 @@ export default function SyncSettings() {
             <>
               <Section
                 title="What syncs"
-                hint="Turned off, that data stays on this phone only."
+                hint={`Turned off, that data stays on this ${deviceWord} only.`}
               />
               <View className="border border-border bg-card px-3">
                 {SYNC_KINDS.map((kind, index) => (
@@ -247,7 +246,7 @@ export default function SyncSettings() {
                 <>
                   <Section
                     title="Not saved on the server"
-                    hint="The server refused these changes. They stay on this phone."
+                    hint={`The server refused these changes. They stay on this ${deviceWord}.`}
                   />
                   <View className="border border-border bg-card px-3">
                     {rejected.map((record, index) => (

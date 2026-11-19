@@ -125,7 +125,8 @@ export function resolveLogin(
     key = cred.key || undefined;
     keyPassword = cred.keyPassword || undefined;
     certificate = cred.certPublicKey || undefined;
-    if (!src.overrideCredentialUsername && cred.username) {
+    // Like the server: the host's username wins, the credential's fills in.
+    if (!src.overrideCredentialUsername && !username && cred.username) {
       username = cred.username;
     }
   }

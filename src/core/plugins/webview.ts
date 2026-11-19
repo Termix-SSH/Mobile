@@ -80,10 +80,12 @@ export function framePlugin(
   device: "phone" | "tablet",
 ): FramePlugin | null {
   if (!plugin.active || !plugin.frame) return null;
-  // The app's own screens win.
-  if (registry.forPlugin(plugin.id).some((def) => def.source !== "webview")) {
-    return null;
-  }
+  // The app's own screens win over the views they replace.
+  const natives = registry
+    .forPlugin(plugin.id)
+    .filter((def) => def.source !== "webview");
+  if (natives.some((def) => !def.replacesViews)) return null;
+  const replaced = new Set(natives.flatMap((def) => def.replacesViews ?? []));
   const mobile = plugin.mobile;
   if (mobile) {
     if (mobile.mode !== "webview") return null;
@@ -92,9 +94,11 @@ export function framePlugin(
     return null;
   }
   const gates = catalogEntry(plugin.id)?.hostGates;
-  const views = viewsOf(plugin.frame, mobile?.views).map((view) =>
-    gates?.[view.view] ? { ...view, gate: gates[view.view] } : view,
-  );
+  const views = viewsOf(plugin.frame, mobile?.views)
+    .filter((view) => !replaced.has(view.view))
+    .map((view) =>
+      gates?.[view.view] ? { ...view, gate: gates[view.view] } : view,
+    );
   if (!views.length) return null;
   return {
     id: plugin.id,

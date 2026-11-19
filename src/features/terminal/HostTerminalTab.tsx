@@ -13,6 +13,7 @@ import type {
 import type { Snippet, SSHHost, SSHHostData, TerminalConfig } from "@/types";
 import { BELL_STYLES, CURSOR_STYLES, TERMINAL_FONTS } from "./settings";
 import { PASSWORD_FILL_PREF } from "./password-fill";
+import { deviceWord } from "@/utils/device-word";
 
 type Config = Partial<TerminalConfig>;
 type EnvVar = { key: string; value: string };
@@ -214,7 +215,7 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
         {host ? (
           <SettingRow
             label="Fill without asking"
-            description="On this phone only, once you picked Always fill"
+            description={`On this ${deviceWord} only, once you picked Always fill`}
             last
           >
             <FakeSwitch

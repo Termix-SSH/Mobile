@@ -12,16 +12,19 @@ export default function TabLayout() {
   const win = useWindowInfo();
   const layout = shellLayout(win, 0);
   const isWide = layout.nav === "side";
+  const { railSide, railInBar } = layout;
 
-  // Phones hide the bar on a full screen session. Tablets keep the sidebar.
+  // Phones hide the bar on a full screen session. Tablets keep the sidebar, and
+  // so does a Duo, whose bar column stays the system's either way.
   const hideTabBar =
     layout.fullScreenSessions &&
+    !layout.tabsInSessions &&
     pathname === "/sessions" &&
     sessions.length > 0;
 
   return (
     <BottomBarShown.Provider value={!isWide && !hideTabBar}>
-      <SideBarShown.Provider value={isWide && !hideTabBar}>
+      <SideBarShown.Provider value={isWide && !hideTabBar ? railSide : null}>
         <Tabs
           // Keep the default detach. With it off, inactive tabs get display none and
           // Fabric deletes their native views, so terminals came back empty.
@@ -29,12 +32,14 @@ export default function TabLayout() {
             hideTabBar
               ? () => null
               : isWide
-                ? (props) => <SideBar {...props} />
+                ? (props) => (
+                    <SideBar {...props} side={railSide} inBar={railInBar} />
+                  )
                 : (props) => <BottomBar {...props} />
           }
           screenOptions={{
             headerShown: false,
-            tabBarPosition: isWide ? "left" : "bottom",
+            tabBarPosition: isWide ? railSide : "bottom",
           }}
         >
           {TABS.map((tab) => (

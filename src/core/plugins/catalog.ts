@@ -1,7 +1,8 @@
 /**
  * Every official plugin, so the app can say what it does with one even when
  * no server is linked. Plugins with app screens are matched through the
- * features' `plugins` lists instead; `kind` covers the rest.
+ * features' `plugins` lists instead; `kind` covers the rest, and the views a
+ * native feature leaves to the server (its `replacesViews`).
  *
  * - `app`: the app does it itself, outside any feature (host status dots).
  * - `server`: it works on the server and the app uses the result (sign in,
@@ -30,7 +31,12 @@ export interface CatalogEntry {
 
 export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "acme-ssl", name: "ACME Certificates", kind: "webview" },
-  { id: "ai", name: "AI Assistant", kind: "none" },
+  {
+    id: "ai",
+    name: "AI Assistant",
+    kind: "webview",
+    hostGates: { "ai-agents": { setting: "enableAiAssistant", ssh: true } },
+  },
   { id: "alerts", name: "Alerts", kind: "webview" },
   { id: "ansible", name: "Ansible", kind: "webview" },
   { id: "audit-tools", name: "Audit Tools", kind: "webview" },
@@ -88,7 +94,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   },
   { id: "ldap", name: "LDAP", kind: "server" },
   { id: "log-search", name: "Log Search", kind: "webview" },
-  { id: "login-security", name: "Login Security", kind: "server" },
+  { id: "login-security", name: "Login Security", kind: "webview" },
   { id: "network-devices", name: "Network Devices", kind: "webview" },
   { id: "network-topology", name: "Network Topology", kind: "webview" },
   { id: "notes", name: "Notes", kind: "webview" },
@@ -167,7 +173,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   },
   { id: "vault", name: "SSH Certificate Signer", kind: "server" },
   { id: "virtual-machines", name: "Virtual Machines", kind: "webview" },
-  { id: "wake-on-lan", name: "Wake-on-LAN", kind: "none" },
+  { id: "wake-on-lan", name: "Wake-on-LAN", kind: "webview" },
   { id: "warpgate", name: "Warpgate", kind: "server" },
   { id: "web-endpoint", name: "Web Endpoint", kind: "none" },
   {

@@ -20,6 +20,7 @@ import {
 import { describeCounts, type OwnDataCounts } from "@/core/sync";
 import { toast } from "@/utils/toast";
 import { StepCard, TextLink, errorText } from "./AccountSteps";
+import { deviceWord } from "@/utils/device-word";
 
 export function AddressStep({
   address,
@@ -79,7 +80,7 @@ export function AddressStep({
         <ShieldAlert size={15} color={muted} style={{ marginTop: 1 }} />
         <Text className="flex-1 text-[11px] leading-4 text-muted-foreground">
           A server with a self signed certificate needs its root CA installed on
-          this phone first. Plain http works on your own network.
+          this {deviceWord} first. Plain http works on your own network.
         </Text>
       </View>
     </View>
@@ -189,10 +190,10 @@ export function MergeStep({
     <View className="w-full max-w-md border border-border bg-card">
       <View className="gap-1 p-5 pb-3">
         <Text weight="medium" className="text-base text-foreground">
-          Bring this phone&apos;s hosts along?
+          Bring this {deviceWord}&apos;s hosts along?
         </Text>
         <Text className="text-xs leading-5 text-muted-foreground">
-          {`This phone has ${what}. They stay on This device either way.`}
+          {`This ${deviceWord} has ${what}. They stay on This device either way.`}
         </Text>
       </View>
       <SheetRow

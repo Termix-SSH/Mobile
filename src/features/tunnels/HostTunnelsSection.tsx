@@ -19,6 +19,7 @@ import type {
   HostFormValues,
 } from "@/core/features/types";
 import type { SSHHost, SSHHostData, TunnelConnection } from "@/types";
+import { deviceWord } from "@/utils/device-word";
 
 type Mode = "local" | "remote" | "dynamic";
 
@@ -106,7 +107,7 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
           </Field>
           <Field
             label="Target host"
-            hint="On this host, for tunnels the phone runs"
+            hint={`On this host, for tunnels the ${deviceWord} runs`}
           >
             <Input
               value={tunnel.targetHost ?? ""}

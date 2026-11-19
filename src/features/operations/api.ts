@@ -59,6 +59,7 @@ export interface Run {
   createdAt: string;
   input: unknown;
   origin?: { kind: string; via?: string };
+  undoAvailable?: boolean;
 }
 
 export interface Approval {
@@ -119,6 +120,36 @@ export async function listRuns(client: AccountClient): Promise<Run[]> {
     { params: { limit: 50 } },
   );
   return data.runs;
+}
+
+/** What a person can still do with a run: stop it, undo it, or nothing. */
+export function runControl(run: Run): "cancel" | "undo" | null {
+  if (run.status === "running" || run.status === "pending_approval")
+    return "cancel";
+  if (run.status === "success" && run.undoAvailable && !run.dryRun)
+    return "undo";
+  return null;
+}
+
+export async function cancelRun(
+  client: AccountClient,
+  id: string,
+): Promise<boolean> {
+  const { data } = await client.http.auth.post<{ cancelled: boolean }>(
+    `/operations/runs/${encodeURIComponent(id)}/cancel`,
+  );
+  return data.cancelled;
+}
+
+export async function undoRun(
+  client: AccountClient,
+  id: string,
+): Promise<Outcome> {
+  const { data } = await client.http.auth.post<Outcome>(
+    `/operations/runs/${encodeURIComponent(id)}/undo`,
+    { confirmed: true },
+  );
+  return data;
 }
 
 export async function listApprovals(

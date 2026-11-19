@@ -40,5 +40,19 @@ class TermixWidgetsModule : Module() {
     AsyncFunction("reloadWidgets") {
       WidgetUpdater.updateAll(context)
     }
+
+    AsyncFunction("setPowerSnapshot") { json: String ->
+      PowerStore.writeSnapshot(context, json)
+      PowerWidgetProvider.renderAll(context)
+    }
+
+    AsyncFunction("setPowerAccess") { accountId: String, json: String? ->
+      PowerStore.setAccess(context, accountId, json)
+    }
+
+    AsyncFunction("clearPower") {
+      PowerStore.clear(context)
+      PowerWidgetProvider.renderAll(context)
+    }
   }
 }

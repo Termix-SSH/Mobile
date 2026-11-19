@@ -89,7 +89,7 @@ test("a linked login fills secrets, certificate and username", () => {
   const l = resolveLogin(p, typed);
   expect(l.authType).toBe("key");
   expect(l.config).toMatchObject({
-    username: "deploy",
+    username: "root",
     privateKey: "KEY",
     passphrase: "kp",
     password: "also",
@@ -101,6 +101,12 @@ test("a linked login fills secrets, certificate and username", () => {
     typed,
   );
   expect(kept.config.username).toBe("root");
+
+  const fallback = resolveLogin(
+    { ...p, host: { ...p.host, username: "" } },
+    typed,
+  );
+  expect(fallback.config.username).toBe("deploy");
 });
 
 test("a password login never sends a key", () => {

@@ -8,6 +8,7 @@ import { features } from "@/core/features";
 import type { SSHHost } from "@/types";
 import { toast } from "@/utils/toast";
 import { openTab as openAppTab } from "@/screens/shell/navigate";
+import { deviceWord } from "@/utils/device-word";
 
 export interface FrameShellDeps {
   client: AccountClient;
@@ -76,7 +77,7 @@ export function handleShellCall(
     if (own) {
       if (own.host) {
         if (!host) {
-          toast.error("That host is not on this phone yet.");
+          toast.error(`That host is not on this ${deviceWord} yet.`);
           return;
         }
         await deps.navigateToSessions(host, frameTabType(plugin.id, own.view));

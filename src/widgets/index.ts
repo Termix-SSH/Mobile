@@ -32,7 +32,8 @@ export {
   saveWidgetPreferences,
   subscribeToWidgetPreferences,
 } from "./preferences";
-export { useWidgetSync } from "./useWidgetSync";
+export { useWidgetSync, usePowerWidgetSync } from "./useWidgetSync";
+export { publishPowerWidget, resetPowerWidget } from "./power";
 export { useWidgetDeepLink, parseWidgetLink } from "./useWidgetDeepLink";
 export { WidgetDeepLinkHost } from "./WidgetDeepLinkHost";
 export { RunSnippetSheet } from "./RunSnippetSheet";

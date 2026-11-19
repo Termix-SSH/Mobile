@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
 import { ChevronRight, Wrench } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
@@ -12,7 +12,11 @@ import {
   type FeatureIcon,
   type ToolDef,
 } from "@/core/features";
-import { AccountButton, SearchButton } from "@/screens/shell/AppHeader";
+import {
+  AccountButton,
+  NotificationsButton,
+  SearchButton,
+} from "@/screens/shell/AppHeader";
 import { EmptyState, ListRow, Text, Section as UiSection } from "@/ui";
 import { HostPicker } from "./HostPicker";
 
@@ -81,7 +85,15 @@ export default function Tools() {
     onHost.length === 0 && screens.length === 0 && quick.actions.length === 0;
 
   return (
-    <Screen titleNode={<AccountButton />} headerRight={<SearchButton />}>
+    <Screen
+      titleNode={<AccountButton />}
+      headerRight={
+        <View className="flex-row items-center gap-1">
+          <NotificationsButton />
+          <SearchButton />
+        </View>
+      }
+    >
       {empty ? (
         <EmptyState icon={Wrench} title="No tools here yet" />
       ) : (

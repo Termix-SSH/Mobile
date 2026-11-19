@@ -35,6 +35,7 @@ import {
 } from "./snapshot";
 import { loadWidgetPreferences } from "./preferences";
 import { widgetPalette } from "./palette";
+import { resetPowerWidget } from "./power";
 import type { WidgetPalette, WidgetSnapshot } from "./types";
 
 /**
@@ -237,6 +238,7 @@ export async function publishSignedOutSnapshot(): Promise<void> {
     try {
       source = EMPTY_SOURCE;
       sourcePopulated = false;
+      await resetPowerWidget();
       const accent = await resolveAccent();
       await write(
         buildSignedOutSnapshot(accent, Date.now(), await resolvePalette()),
@@ -256,6 +258,7 @@ export async function resetWidgets(): Promise<void> {
       source = EMPTY_SOURCE;
       sourcePopulated = false;
       await clearWidgetSnapshot();
+      await resetPowerWidget();
       lastPublished = null;
       lastPublishedAt = 0;
     } catch (error) {

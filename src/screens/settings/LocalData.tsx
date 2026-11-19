@@ -11,6 +11,7 @@ import { Button, PromptSheet, SettingRow, Text, useConfirm } from "@/ui";
 import { toast } from "@/utils/toast";
 import { useRestoreBackup } from "./RestoreBackup";
 import { Screen } from "@/components/Screen";
+import { deviceWord } from "@/utils/device-word";
 
 type Step = { kind: "export" } | { kind: "export-again"; passphrase: string };
 
@@ -88,7 +89,7 @@ export default function LocalData() {
   const deleteAll = async () => {
     const ok = await confirm({
       title: "Delete local data?",
-      description: `Hosts, credentials, snippets and history saved on this phone for ${accountLabel(account)} are deleted. This can't be undone. Make a backup first if you want to keep them.`,
+      description: `Hosts, credentials, snippets and history saved on this ${deviceWord} for ${accountLabel(account)} are deleted. This can't be undone. Make a backup first if you want to keep them.`,
       confirmLabel: "Delete",
     });
     if (!ok) return;
@@ -106,14 +107,14 @@ export default function LocalData() {
       {!available ? (
         <View className="flex-1 items-center justify-center p-6">
           <Text className="text-center text-sm text-muted-foreground">
-            Local data is only saved in the phone app.
+            Local data is only saved in the {deviceWord} app.
           </Text>
         </View>
       ) : (
         <ScrollView contentContainerStyle={{ padding: 12, paddingBottom: 40 }}>
           <Text className="mb-3 text-[11px] text-muted-foreground">
-            Saved on this phone for {accountLabel(account)}. The file is
-            encrypted with a key that never leaves this phone.
+            Saved on this {deviceWord} for {accountLabel(account)}. The file is
+            encrypted with a key that never leaves this {deviceWord}.
           </Text>
 
           <View className="border border-border bg-card px-3">
@@ -164,8 +165,8 @@ export default function LocalData() {
             Delete
           </Text>
           <Text className="mb-3 text-[11px] text-muted-foreground">
-            Removes everything this account saved on this phone. A linked server
-            keeps its own copy.
+            Removes everything this account saved on this {deviceWord}. A linked
+            server keeps its own copy.
           </Text>
           <Button variant="destructive" onPress={deleteAll}>
             Delete local data

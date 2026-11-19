@@ -9,6 +9,7 @@ import type { SSHHost } from "@/types";
 import { toast } from "@/utils/toast";
 import { Button, EmptyState, Text } from "@/ui";
 import { QrCode } from "./QrCode";
+import { deviceWord } from "@/utils/device-word";
 
 export default function HostShare() {
   const router = useRouter();
@@ -48,8 +49,9 @@ export default function HostShare() {
         >
           <QrCode value={qr} size={260} />
           <Text className="text-center text-meta text-muted-foreground">
-            Scan this in Termix on another phone, under Import and export. The
-            code has the address, port and user. It has no password or key.
+            Scan this in Termix on another {deviceWord}, under Import and
+            export. The code has the address, port and user. It has no password
+            or key.
           </Text>
           <View className="flex-row flex-wrap justify-center gap-2">
             <Button variant="muted" size="sm" onPress={() => void copy(false)}>

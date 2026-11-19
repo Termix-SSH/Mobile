@@ -38,3 +38,23 @@ test("the menu never leaves the window on a tiny screen", () => {
   expect(pos.left).toBeGreaterThanOrEqual(8);
   expect(pos.top).toBeGreaterThanOrEqual(8);
 });
+
+test("the menu stays on its side of a bent fold", () => {
+  const size = { width: MENU_WIDTH, height: menuHeight(3) };
+  // Left half of a book fold ends at 466.5, so a menu near it flips left.
+  const left = menuPosition({ x: 400, y: 100 }, size, {
+    x: 0,
+    y: 0,
+    width: 466.5,
+    height: 669,
+  });
+  expect(left.left + MENU_WIDTH).toBeLessThanOrEqual(466.5);
+  // A point in the crease opens on the right half, not across it.
+  const right = menuPosition({ x: 480, y: 100 }, size, {
+    x: 484.5,
+    y: 0,
+    width: 466.5,
+    height: 669,
+  });
+  expect(right.left).toBe(484.5);
+});

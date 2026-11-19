@@ -1,6 +1,7 @@
 import { FileText } from "lucide-react-native";
 import type { FeatureDef } from "@/core/features/types";
 import SnippetsBar from "./SnippetsBar";
+import { SnippetsCard } from "./SnippetsCard";
 
 export const snippetsFeature: FeatureDef = {
   id: "snippets",
@@ -12,6 +13,15 @@ export const snippetsFeature: FeatureDef = {
   availableOn: ["local", "server"],
   keyboardTabs: [
     { id: "snippets", label: "SNIPPETS", order: 10, component: SnippetsBar },
+  ],
+  homeCards: [
+    {
+      id: "snippets",
+      title: "Snippets",
+      icon: FileText,
+      order: 70,
+      component: SnippetsCard,
+    },
   ],
   tools: [
     {

@@ -1,4 +1,5 @@
 import { recordConnect } from "@/core/analytics/usage";
+import { sshLogger } from "@/core/log/logger";
 import type { ConnectionLogEntry, ConnectionLogPayload } from "@/types";
 import {
   fromRelayMessage,
@@ -22,6 +23,7 @@ import type {
   Transport,
   TransportKind,
 } from "./types";
+import { deviceWord } from "@/utils/device-word";
 
 /** Something the connection waits on the user for. */
 export type ConnectionPrompt =
@@ -297,6 +299,11 @@ export class HostConnection {
   }
 
   log(payload: ConnectionLogPayload) {
+    // Also in Settings > Logs, so a shared app log shows the connection.
+    const line = `[${payload.stage ?? "connection"}] ${payload.message}`;
+    if (payload.level === "error") sshLogger.error(line);
+    else if (payload.level === "warning") sshLogger.warn(line);
+    else sshLogger.info(line);
     const entry: ConnectionLogEntry = {
       ...payload,
       id: `log_${++logSeq}`,
@@ -349,6 +356,9 @@ export class HostConnection {
     }
     if (run !== this.run || this.destroyed) return;
     this.attempts = planned.attempts;
+    sshLogger.info(
+      `Connection plan: ${this.attempts.map((t) => t.kind).join(", ") || "none"}`,
+    );
     if (!this.attempts.length) {
       const blocked = planned.blocked ?? { reason: "Can't connect." };
       this.failWith(unavailable(blocked.reason), blocked.fix);
@@ -369,7 +379,7 @@ export class HostConnection {
         stage: "connection",
         message:
           transport.kind === "local"
-            ? `Connecting to ${name} from this phone`
+            ? `Connecting to ${name} from this ${deviceWord}`
             : `Connecting to ${name} through the server`,
       });
     }
@@ -546,8 +556,8 @@ export class HostConnection {
         stage: "connection",
         message:
           next.kind === "relay"
-            ? "Could not reach the host from this phone, trying through the server"
-            : "Could not connect through the server, trying from this phone",
+            ? `Could not reach the host from this ${deviceWord}, trying through the server`
+            : `Could not connect through the server, trying from this ${deviceWord}`,
       });
       this.dropChannel();
       this.open(this.attempt + 1);

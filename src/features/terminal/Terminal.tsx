@@ -817,6 +817,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       ref,
       () => ({
         sendInput,
+        sendKeySequence: XTERM_FALLBACK
+          ? (data: string) => xtermRef.current?.sendKeySequence(data)
+          : undefined,
         fit: () => {
           // The native view follows its own size.
           if (XTERM_FALLBACK) xtermRef.current?.fit();

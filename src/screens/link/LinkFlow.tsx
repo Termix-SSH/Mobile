@@ -45,6 +45,7 @@ import { ResetStep, SignupStep } from "./AccountSteps";
 import { BrowserStep, type BrowserMode } from "./BrowserStep";
 import { SignInStep } from "./SignInStep";
 import { AddressStep, MergeStep, SecondFactorStep } from "./SmallSteps";
+import { deviceWord } from "@/utils/device-word";
 
 type Step =
   | "address"
@@ -200,7 +201,7 @@ export default function LinkFlow() {
       const name = await biometricName();
       const yes = await confirm({
         title: `Use ${name} to sign in next time?`,
-        description: `If this server signs you out, sign in again with ${name} instead of typing your password. The password stays on this phone.`,
+        description: `If this server signs you out, sign in again with ${name} instead of typing your password. The password stays on this ${deviceWord}.`,
         confirmLabel: `Use ${name}`,
         cancelLabel: "Not now",
         destructive: false,
@@ -293,7 +294,12 @@ export default function LinkFlow() {
     return (
       <View
         className="flex-1 bg-background"
-        style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+        style={{
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
       >
         <BrowserStep
           client={client}
@@ -312,7 +318,11 @@ export default function LinkFlow() {
   const canGoBack =
     step !== "address" && step !== "merge" && step !== "checking";
   return (
-    <View className="flex-1 bg-background">
+    // Drawn over the whole app, so it keeps clear of side insets itself, like the Duo status rail.
+    <View
+      className="flex-1 bg-background"
+      style={{ paddingLeft: insets.left, paddingRight: insets.right }}
+    >
       <KeyboardAvoidingView
         className="flex-1"
         // Edge to edge Android no longer resizes for the keyboard.
@@ -365,7 +375,7 @@ export default function LinkFlow() {
                 <Text className="text-sm leading-5 text-muted-foreground">
                   Your hosts, credentials, snippets and settings sync with it,
                   and you get its plugins. Everything keeps working on this
-                  phone when the server is away.
+                  {deviceWord} when the server is away.
                 </Text>
               </View>
               <AddressStep

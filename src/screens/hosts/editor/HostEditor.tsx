@@ -57,6 +57,7 @@ import {
   visibleSections,
   type HostEditorForm,
 } from "./model";
+import { deviceWord } from "@/utils/device-word";
 
 function Band({
   title,
@@ -395,7 +396,7 @@ export default function HostEditor({
 
   const originNote =
     picksOrigin && connectFrom === "server"
-      ? "The test runs from this phone. This host connects through the server, so it can still work when the phone can't reach it."
+      ? `The test runs from this ${deviceWord}. This host connects through the server, so it can still work when the ${deviceWord} can't reach it.`
       : undefined;
 
   return (

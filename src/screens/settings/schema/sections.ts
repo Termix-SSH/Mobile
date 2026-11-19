@@ -11,6 +11,7 @@ import {
   Users,
 } from "lucide-react-native";
 import type { SettingsSectionDef } from "./types";
+import { deviceWord } from "@/utils/device-word";
 
 export const SETTINGS_SECTIONS: SettingsSectionDef[] = [
   {
@@ -58,7 +59,7 @@ export const SETTINGS_SECTIONS: SettingsSectionDef[] = [
   {
     id: "privacy",
     title: "Privacy and usage statistics",
-    description: "What stays on this phone",
+    description: `What stays on this ${deviceWord}`,
     icon: EyeOff,
     order: 70,
   },

@@ -117,6 +117,36 @@ test("the app's own screens, off plugins and plugins with no frontend stay out",
   expect(framePlugin(plugin("classic-layout"), registry, "phone")).toBeNull();
 });
 
+test("a native feature hides only the views it replaces", () => {
+  const registry = new FeatureRegistry();
+  registry.register({ ...native("wake-on-lan"), replacesViews: [] });
+  const wol = plugin("wake-on-lan", {
+    frame: {
+      css: true,
+      assetVersion: "v1",
+      locales: ["en"],
+      contributes: {
+        tabs: [
+          { id: "power", icon: "Power", openFrom: ["rail", "palette"] },
+          { id: "power-host", openFrom: ["host-context-menu"] },
+        ],
+      },
+    },
+  });
+  expect(framePlugin(wol, registry, "phone")?.views.map((v) => v.view)).toEqual(
+    ["power", "power-host"],
+  );
+
+  registry.register({
+    ...native("wake-on-lan"),
+    id: "wol-host",
+    replacesViews: ["power-host"],
+  });
+  expect(framePlugin(wol, registry, "phone")?.views.map((v) => v.view)).toEqual(
+    ["power"],
+  );
+});
+
 test("community plugins need mode webview, and its options apply", () => {
   const registry = new FeatureRegistry();
   expect(framePlugin(plugin("hello-world"), registry, "phone")).toBeNull();

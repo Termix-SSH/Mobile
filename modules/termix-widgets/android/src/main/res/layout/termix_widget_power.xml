@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Power widget: one machine, its status and a tap to wake or shut down. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/termix_power_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:background="@drawable/termix_widget_background"
+  android:padding="@dimen/termix_widget_padding">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <TextView
+      android:id="@+id/termix_power_accent"
+      android:layout_width="3dp"
+      android:layout_height="11dp"
+      android:layout_marginEnd="6dp"
+      android:background="#F59145"
+      android:importantForAccessibility="no" />
+
+    <TextView
+      android:id="@+id/termix_power_wordmark"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="@string/termix_widget_power_wordmark"
+      android:textColor="@color/termix_widget_text_primary"
+      android:textSize="9sp"
+      android:textStyle="bold"
+      android:letterSpacing="0.14"
+      android:fontFamily="monospace" />
+
+    <ImageView
+      android:id="@+id/termix_power_icon"
+      android:layout_width="18dp"
+      android:layout_height="18dp"
+      android:src="@drawable/termix_widget_power_icon"
+      android:importantForAccessibility="no" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/termix_power_body"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:gravity="bottom">
+
+    <TextView
+      android:id="@+id/termix_power_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:maxLines="2"
+      android:ellipsize="end"
+      android:textColor="@color/termix_widget_text_primary"
+      android:textSize="15sp"
+      android:textStyle="bold"
+      android:fontFamily="monospace" />
+
+    <TextView
+      android:id="@+id/termix_power_address"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:maxLines="1"
+      android:ellipsize="end"
+      android:textColor="@color/termix_widget_text_tertiary"
+      android:textSize="10sp"
+      android:fontFamily="monospace" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:orientation="horizontal"
+      android:gravity="center_vertical">
+
+      <ImageView
+        android:id="@+id/termix_power_dot"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/termix_widget_dot"
+        android:importantForAccessibility="no" />
+
+      <TextView
+        android:id="@+id/termix_power_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.09"
+        android:fontFamily="monospace" />
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/termix_power_hint"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="6dp"
+      android:maxLines="2"
+      android:ellipsize="end"
+      android:textColor="@color/termix_widget_text_secondary"
+      android:textSize="9sp"
+      android:fontFamily="monospace" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/termix_power_empty"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    android:visibility="gone">
+
+    <TextView
+      android:id="@+id/termix_power_empty_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/termix_widget_power_empty_title"
+      android:textColor="@color/termix_widget_text_primary"
+      android:textSize="13sp"
+      android:textStyle="bold"
+      android:fontFamily="monospace" />
+
+    <TextView
+      android:id="@+id/termix_power_empty_message"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:text="@string/termix_widget_power_empty_message"
+      android:textColor="@color/termix_widget_text_tertiary"
+      android:textSize="9sp"
+      android:fontFamily="monospace" />
+  </LinearLayout>
+</LinearLayout>

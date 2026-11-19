@@ -6,27 +6,53 @@
 
 - Actions on a host: every action the server's plugins offer for that host, such as restarting a container or service, with a form, a dry run and the result. New plugins show up with no app update
 - Approvals and Run history under Tools, when the server has Operations Center
+- Cancel a run that is still going or waiting, and undo a finished one, from Run history
+- Notifications have their own screen behind a bell on Home, Hosts and Tools, with an unread count, mark read, mark all read and delete
 - WireGuard opens in the app
+- The Wake-on-LAN Power page opens in the app, so you can wake machines that are not hosts
+- AI Assistant and the Login Security pages (sessions and keys, connect check, admin waits) open in the app
 - The Android and iOS files on each release carry signed build provenance you can check with `gh attestation verify`
 - Plugin pages in the app can show your own sessions and API keys, revoke your keys right after you tap the page, and show waiting approvals and your own second factors
 - Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
 - Plugin pages in the app show other plugins' parts again, like Homepage widgets from Docker or Proxmox. Each part runs in its own web view over the page
+- A trackpad or mouse works in remote desktops the phone opens itself on iPad: hover, clicks with the right button and scrolling
+- Power widget for one machine from the Power tab: it shows the name and status, and a tap wakes it or shuts it down without opening the app (iOS 17 and Android)
+- iPhone Duo: the app lays out around the fold, uses the side bar column for tabs and keeps clear of the inner screen's corners
+- Home is a dashboard of cards you can reorder and hide: tap the pencil, drag cards, turn them on or off. Pull down to refresh
+- Server card on Home with version, update notice, uptime, database health, hosts online and offline, and logins
+- Homepage widgets show on Home as native cards: service grids with up and down dots, links, bookmarks, search, clocks, countdowns, calendars, notes, banners, pings, hosts, RSS, weather, custom APIs and pictures. Other widgets open the full Homepage
+- Home cards for notifications, recent activity, approvals you can answer in place, snippets to run on hosts, Wake on LAN and tunnels
 
 ### Changed
 
+- Server notifications no longer show as cards above the host list
+- Home on tablets lays its cards out in two columns, and pinned and recent hosts show whether they are online
 - With App Lock on, the key to this phone's data is locked by your PIN and biometrics, so the data opens only after you unlock
 - Wrong PIN tries are counted across restarts of the app
 - Plugin pages reach only their own files and actions on the server
-- Plugin pages run plugins made for the newest plugin API (2.6)
+- Plugin pages run plugins made for the newest plugin API (2.9)
 - CPU and RAM on host rows are drawn the same way as on the web dashboard, with their labels
+- Remote desktops zoom out below fit, and two fingers pan a zoomed in desktop
+- On an iPad or Android tablet the app says tablet instead of phone
+- Settings > Logs shows which way a terminal connected and why its socket closed
 
 ### Fixed
 
+- Homepage no longer goes black a moment after it opens on a phone
+- Signing in through the browser with a passkey, security key or other method no longer comes back with "sent no session back" (needs Termix 26.11.3 or newer)
+- Going back to the Hosts tab no longer reloads the whole list; it refreshes in the background
 - The SSH engine is built with library releases that have security fixes
 - A pinned server is never reached without its pin check, also in builds or cases where the pin could not be set
 - Removing an account no longer turns off the pins of another account on the same server
 - Android sign in pages now check a pinned server's key even when its certificate is otherwise trusted
 - App logs hide more kinds of secrets, such as passphrases, API keys and private keys
+- Saving a host on this phone no longer turns off its Host Metrics
+- Snippet folders can be picked when creating or editing a snippet on iOS, and No folder clears the folder
+- Arrow keys work in pagers like less -S in the fallback terminal
+- Android remote desktops draw at the right size and follow zoom and pan
+- The first tap after a two finger gesture in a remote desktop clicks again
+- A new API key now shows its token once after you create it
+- Connecting from the phone uses the host's username when it has one, and the linked credential's only when it doesn't, like the server
 
 ## 2.0.0
 

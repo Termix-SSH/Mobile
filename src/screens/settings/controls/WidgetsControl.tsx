@@ -5,6 +5,7 @@ import { FakeSwitch, SettingRow } from "@/ui";
 import {
   DEFAULT_WIDGET_PREFERENCES,
   loadWidgetPreferences,
+  publishPowerWidget,
   publishSignedOutSnapshot,
   republishWithPreferences,
   saveWidgetPreferences,
@@ -28,15 +29,17 @@ export function WidgetsControl() {
     const next = await saveWidgetPreferences(patch);
     setPrefs(next);
     // Show the change on the home screen right away.
-    if (next.enabled) await republishWithPreferences();
-    else await publishSignedOutSnapshot();
+    if (next.enabled) {
+      await republishWithPreferences();
+      await publishPowerWidget();
+    } else await publishSignedOutSnapshot();
   };
 
   return (
     <View>
       <SettingRow
         label="Home screen widgets"
-        description="Show your hosts and snippets on the home screen"
+        description="Show your hosts, snippets and power buttons on the home screen"
         last={!prefs.enabled}
       >
         <FakeSwitch

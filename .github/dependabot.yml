@@ -35,14 +35,22 @@ updates:
         update-types:
           - "version-update:semver-major"
           - "version-update:semver-minor"
+      # react-native ships a renderer for one exact React version.
       - dependency-name: "react"
-        update-types:
-          - "version-update:semver-major"
-          - "version-update:semver-minor"
       - dependency-name: "react-dom"
+      - dependency-name: "jest-expo"
         update-types:
           - "version-update:semver-major"
-          - "version-update:semver-minor"
+      - dependency-name: "eslint-config-expo"
+        update-types:
+          - "version-update:semver-major"
+      # jest-expo is built on a fixed Jest major.
+      - dependency-name: "jest"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "@types/jest"
+        update-types:
+          - "version-update:semver-major"
       # Native modules must match the Expo SDK, so they also move with
       # npx expo install --fix.
       - dependency-name: "react-native-*"
