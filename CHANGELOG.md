@@ -9,6 +9,7 @@
 - Notifications have their own screen behind a bell on Home, Hosts and Tools, with an unread count, mark read, mark all read and delete
 - WireGuard opens in the app
 - The Wake-on-LAN Power page opens in the app, so you can wake machines that are not hosts
+- AI Assistant and the Login Security pages (sessions and keys, connect check, admin waits) open in the app
 - The Android and iOS files on each release carry signed build provenance you can check with `gh attestation verify`
 - Plugin pages in the app can show your own sessions and API keys, revoke your keys right after you tap the page, and show waiting approvals and your own second factors
 - Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app

@@ -31,7 +31,12 @@ export interface CatalogEntry {
 
 export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "acme-ssl", name: "ACME Certificates", kind: "webview" },
-  { id: "ai", name: "AI Assistant", kind: "none" },
+  {
+    id: "ai",
+    name: "AI Assistant",
+    kind: "webview",
+    hostGates: { "ai-agents": { setting: "enableAiAssistant", ssh: true } },
+  },
   { id: "alerts", name: "Alerts", kind: "webview" },
   { id: "ansible", name: "Ansible", kind: "webview" },
   { id: "audit-tools", name: "Audit Tools", kind: "webview" },
@@ -89,7 +94,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   },
   { id: "ldap", name: "LDAP", kind: "server" },
   { id: "log-search", name: "Log Search", kind: "webview" },
-  { id: "login-security", name: "Login Security", kind: "server" },
+  { id: "login-security", name: "Login Security", kind: "webview" },
   { id: "network-devices", name: "Network Devices", kind: "webview" },
   { id: "network-topology", name: "Network Topology", kind: "webview" },
   { id: "notes", name: "Notes", kind: "webview" },
