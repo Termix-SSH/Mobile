@@ -29,6 +29,7 @@
 ### Fixed
 
 - Homepage no longer goes black a moment after it opens on a phone
+- Going back to the Hosts tab no longer reloads the whole list; it refreshes in the background
 - The SSH engine is built with library releases that have security fixes
 - A pinned server is never reached without its pin check, also in builds or cases where the pin could not be set
 - Removing an account no longer turns off the pins of another account on the same server

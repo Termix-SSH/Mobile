@@ -163,9 +163,12 @@ export function useHostsData() {
     return () => stops.forEach((stop) => stop());
   }, [repos, fetchData]);
 
+  // Only the first visit shows the spinner; coming back refreshes quietly.
+  const loadedRef = useRef(false);
   useFocusEffect(
     useCallback(() => {
-      fetchData();
+      void fetchData(loadedRef.current ? "quiet" : false);
+      loadedRef.current = true;
     }, [fetchData]),
   );
 
