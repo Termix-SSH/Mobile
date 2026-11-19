@@ -59,6 +59,7 @@
 - The first tap after a two finger gesture in a remote desktop clicks again
 - A new API key now shows its token once after you create it
 - Connecting from the phone uses the host's username when it has one, and the linked credential's only when it doesn't, like the server
+- Connections lists each tab by the title its tab shows, so tabs on the same host can be told apart
 
 ## 2.0.0
 
