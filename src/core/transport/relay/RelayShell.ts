@@ -1,4 +1,5 @@
 import type { AccountClient } from "@/core/api/AccountClient";
+import { sshLogger } from "@/core/log/logger";
 import { fromRelayMessage } from "../errors";
 import { BROWSER_SIGN_IN_TITLES } from "../local/auth-support";
 import type {
@@ -7,6 +8,11 @@ import type {
   ShellOptions,
   TerminalHostConfig,
 } from "../types";
+
+/** Socket URL without the query, which can carry the token on old servers. */
+function socketPath(url: string): string {
+  return url.split("?")[0];
+}
 
 const TAKEN_OVER = "This session was opened on another device";
 
@@ -479,6 +485,7 @@ export class RelayShell implements ShellChannel {
 
     this.config.onStateChange("connecting", { retryCount: 0 });
 
+    sshLogger.info(`Opening terminal socket ${socketPath(this.wsUrl)}`);
     const ws = this.config.client.openSocket(
       this.wsUrl,
       this.wsProtocols,
@@ -754,6 +761,9 @@ export class RelayShell implements ShellChannel {
     };
 
     ws.onclose = (event: CloseEvent) => {
+      sshLogger.info(
+        `Terminal socket closed (${event.code}${event.reason ? `, ${event.reason}` : ""})`,
+      );
       if (this.connectionTimeout) {
         clearTimeout(this.connectionTimeout);
         this.connectionTimeout = null;
@@ -790,7 +800,9 @@ export class RelayShell implements ShellChannel {
       );
     };
 
-    ws.onerror = () => {
+    ws.onerror = (event: Event) => {
+      const message = (event as Event & { message?: string }).message;
+      sshLogger.warn(`Terminal socket error${message ? `: ${message}` : ""}`);
       if (this.connectionTimeout) {
         clearTimeout(this.connectionTimeout);
         this.connectionTimeout = null;

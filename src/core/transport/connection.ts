@@ -1,4 +1,5 @@
 import { recordConnect } from "@/core/analytics/usage";
+import { sshLogger } from "@/core/log/logger";
 import type { ConnectionLogEntry, ConnectionLogPayload } from "@/types";
 import {
   fromRelayMessage,
@@ -297,6 +298,11 @@ export class HostConnection {
   }
 
   log(payload: ConnectionLogPayload) {
+    // Also in Settings > Logs, so a shared app log shows the connection.
+    const line = `[${payload.stage ?? "connection"}] ${payload.message}`;
+    if (payload.level === "error") sshLogger.error(line);
+    else if (payload.level === "warning") sshLogger.warn(line);
+    else sshLogger.info(line);
     const entry: ConnectionLogEntry = {
       ...payload,
       id: `log_${++logSeq}`,
@@ -349,6 +355,9 @@ export class HostConnection {
     }
     if (run !== this.run || this.destroyed) return;
     this.attempts = planned.attempts;
+    sshLogger.info(
+      `Connection plan: ${this.attempts.map((t) => t.kind).join(", ") || "none"}`,
+    );
     if (!this.attempts.length) {
       const blocked = planned.blocked ?? { reason: "Can't connect." };
       this.failWith(unavailable(blocked.reason), blocked.fix);

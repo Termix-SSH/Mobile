@@ -33,6 +33,7 @@
 - Plugin pages run plugins made for the newest plugin API (2.9)
 - CPU and RAM on host rows are drawn the same way as on the web dashboard, with their labels
 - Remote desktops zoom out below fit, and two fingers pan a zoomed in desktop
+- Settings > Logs shows which way a terminal connected and why its socket closed
 
 ### Fixed
 
