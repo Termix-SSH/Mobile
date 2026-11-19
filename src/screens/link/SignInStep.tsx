@@ -265,7 +265,7 @@ export function SignInStep({
           </Button>
           <Text className="text-center text-[10px] text-muted-foreground">
             Opens your server&apos;s sign in page in the browser. Face ID,
-            fingerprint, NFC and USB keys all work there. Needs Termix 26.10.6
+            fingerprint, NFC and USB keys all work there. Needs Termix 26.11.3
             or newer.
           </Text>
         </View>

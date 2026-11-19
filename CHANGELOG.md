@@ -39,6 +39,7 @@
 ### Fixed
 
 - Homepage no longer goes black a moment after it opens on a phone
+- Signing in through the browser with a passkey, security key or other method no longer comes back with "sent no session back" (needs Termix 26.11.3 or newer)
 - Going back to the Hosts tab no longer reloads the whole list; it refreshes in the background
 - The SSH engine is built with library releases that have security fixes
 - A pinned server is never reached without its pin check, also in builds or cases where the pin could not be set
