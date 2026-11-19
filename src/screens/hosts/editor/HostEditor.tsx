@@ -266,6 +266,8 @@ export default function HostEditor({
     shown.filter((s) => s.group === group);
   const protocolToggles = toggles.filter((t) => t.group === "protocol");
   const featureToggles = toggles.filter((t) => t.group === "feature");
+  const anyProtocol =
+    form.enableSsh || protocolToggles.some((t) => !!form.toggles[t.key]);
 
   const dirty = () =>
     JSON.stringify(form) !== startForm.current ||
@@ -311,11 +313,7 @@ export default function HostEditor({
         isEdit && host
           ? await repos.hosts.update(host.id, payload)
           : await repos.hosts.create(payload);
-      if (
-        picksOrigin &&
-        form.enableSsh &&
-        connectFrom !== savedOrigin.current
-      ) {
+      if (picksOrigin && anyProtocol && connectFrom !== savedOrigin.current) {
         await saveOrigin(account.id, saved.id, connectFrom).catch((e) =>
           toast.error("Could not save how this host connects", e?.message),
         );
@@ -546,6 +544,24 @@ export default function HostEditor({
               </SettingRow>
             ))}
           </View>
+          {picksOrigin && anyProtocol ? (
+            <Field
+              label="Connect from"
+              hint={
+                planConnection(connectFrom, originInputs(account.id, true))
+                  .blocked?.reason ?? ORIGIN_HELP[connectFrom]
+              }
+            >
+              <Tabs<ConnectionOrigin>
+                value={connectFrom}
+                onChange={setConnectFrom}
+                options={ORIGINS.map((id) => ({
+                  id,
+                  label: ORIGIN_LABELS[id],
+                }))}
+              />
+            </Field>
+          ) : null}
         </Band>
 
         {form.enableSsh ? (
@@ -563,24 +579,6 @@ export default function HostEditor({
               selfId={host?.id}
               hosts={otherHosts}
             />
-            {picksOrigin ? (
-              <Field
-                label="Connect from"
-                hint={
-                  planConnection(connectFrom, originInputs(account.id, true))
-                    .blocked?.reason ?? ORIGIN_HELP[connectFrom]
-                }
-              >
-                <Tabs<ConnectionOrigin>
-                  value={connectFrom}
-                  onChange={setConnectFrom}
-                  options={ORIGINS.map((id) => ({
-                    id,
-                    label: ORIGIN_LABELS[id],
-                  }))}
-                />
-              </Field>
-            ) : null}
             <TestConnection getTarget={testTarget} note={originNote} />
             {featureToggles.length > 0 ? (
               <View>

@@ -14,6 +14,7 @@ import {
   originInputs,
   planConnection,
   saveOrigin,
+  telnetServerFallback,
   type ConnectionOrigin,
   type ConnectionStatus,
   type RelayTmuxSession,
@@ -63,6 +64,8 @@ export function useHostConnection(
     restored?: boolean;
     /** Telnet only goes through the phone, so other ways drop out. */
     protocol?: ShellProtocol;
+    /** Telnet only: opens the host in the server's view instead. */
+    onUseServer?: () => void;
   },
 ) {
   const accountId = useSessionAccountId();
@@ -73,6 +76,8 @@ export function useHostConnection(
     handlers.current = opts;
   });
   const originRef = useRef(opts.origin);
+  // The origin the last plan used, after the host's saved one is read.
+  const plannedRef = useRef<ConnectionOrigin | undefined>(undefined);
 
   const conn = useMemo(
     () =>
@@ -86,6 +91,7 @@ export function useHostConnection(
             opts.type,
             originRef.current,
           );
+          plannedRef.current = check.plan.origin;
           return opts.protocol === "telnet" ? deviceDialOnly(check) : check;
         },
         protocol: opts.protocol,
@@ -121,11 +127,29 @@ export function useHostConnection(
   );
   const state: ConnectionStatus = snapshot.state;
 
+  // Telnet through the server opens in another view, not this one.
+  const telnetFallback = useMemo(() => {
+    if (state.status !== "failed" || protocol !== "telnet") return null;
+    if (!handlers.current.onUseServer) return null;
+    const first = planConnection("server", originInputs(accountId, false))
+      .attempts[0];
+    return telnetServerFallback({
+      origin: plannedRef.current,
+      failedFrom: state.failure.origin,
+      switchable: SWITCHABLE.has(state.failure.stage),
+      serverOk: first?.kind === "relay",
+    });
+  }, [state, accountId, protocol]);
+
+  useEffect(() => {
+    if (telnetFallback === "move") handlers.current.onUseServer?.();
+  }, [telnetFallback]);
+
   /** Another origin worth offering after a failure. */
   const switchTo = useMemo((): ConnectionOrigin | undefined => {
     if (state.status !== "failed") return undefined;
+    if (telnetFallback) return "server";
     if (state.fix) return state.fix;
-    // Telnet through the server opens in another view, not this one.
     if (protocol === "telnet") return undefined;
     if (!SWITCHABLE.has(state.failure.stage)) return undefined;
     const inputs = originInputs(accountId, isSsh);
@@ -134,7 +158,7 @@ export function useHostConnection(
       const first = planConnection(o, inputs).attempts[0];
       return first && first.kind !== failed;
     });
-  }, [state, accountId, isSsh, protocol]);
+  }, [state, accountId, isSsh, protocol, telnetFallback]);
 
   /** Saves the origin on the host and connects that way. */
   const switchOrigin = useCallback(
@@ -146,9 +170,13 @@ export function useHostConnection(
           err instanceof Error ? err.message : undefined,
         ),
       );
+      if (origin === "server" && telnetFallback) {
+        handlers.current.onUseServer?.();
+        return;
+      }
       void conn.retry();
     },
-    [accountId, host.id, conn],
+    [accountId, host.id, conn, telnetFallback],
   );
 
   return {

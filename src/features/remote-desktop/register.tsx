@@ -3,7 +3,7 @@ import {
   Monitor,
   MousePointerClick,
 } from "lucide-react-native";
-import { forwardRef, useMemo } from "react";
+import { forwardRef, useMemo, useState } from "react";
 import { checkOpen } from "@/core/features/open-check";
 import type {
   FeatureDef,
@@ -101,22 +101,35 @@ function RemoteDesktopTab({
   }
 }
 
-/** Telnet the phone opens itself, in the native terminal. */
-const TelnetTab = forwardRef<TerminalHandle, SessionTabProps>(
-  (
-    {
-      session,
-      isVisible,
-      onClose,
-      onTransportResolved,
-      onBackgroundColorChange,
-      onTitle,
-      onMenu,
-      onShortcut,
-      onStatus,
-    },
-    ref,
-  ) => (
+/**
+ * Telnet the phone opens itself, in the native terminal. When the phone can't
+ * reach the host, it moves to the server's view.
+ */
+const TelnetTab = forwardRef<TerminalHandle, SessionTabProps>((props, ref) => {
+  const {
+    session,
+    isVisible,
+    onClose,
+    onTransportResolved,
+    onBackgroundColorChange,
+    onTitle,
+    onMenu,
+    onShortcut,
+    onStatus,
+  } = props;
+  const [viaServer, setViaServer] = useState(false);
+  const serverSession = useMemo(
+    () => ({
+      ...session,
+      remoteProtocol: "telnet",
+      origin: "server" as const,
+    }),
+    [session],
+  );
+  if (viaServer) {
+    return <RemoteDesktopTab {...props} session={serverSession} />;
+  }
+  return (
     <Terminal
       ref={ref}
       host={session.host}
@@ -124,6 +137,7 @@ const TelnetTab = forwardRef<TerminalHandle, SessionTabProps>(
       type={session.type}
       origin={session.origin}
       protocol="telnet"
+      onUseServer={() => setViaServer(true)}
       onTransportResolved={onTransportResolved}
       isVisible={isVisible}
       title={session.title}
@@ -136,8 +150,8 @@ const TelnetTab = forwardRef<TerminalHandle, SessionTabProps>(
       restored={session.restored}
       onStatus={onStatus}
     />
-  ),
-);
+  );
+});
 TelnetTab.displayName = "TelnetTab";
 
 /**

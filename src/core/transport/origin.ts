@@ -17,8 +17,8 @@ export const ORIGIN_LABELS: Record<ConnectionOrigin, string> = {
 
 export const ORIGIN_HELP: Record<ConnectionOrigin, string> = {
   auto: `Uses this ${deviceWord} when it can reach the host, otherwise the server.`,
-  device: `This ${deviceWord} opens SSH itself.`,
-  server: "The Termix server opens SSH for you.",
+  device: `This ${deviceWord} connects to the host itself.`,
+  server: "The Termix server connects to the host for you.",
 };
 
 export function isOrigin(value: unknown): value is ConnectionOrigin {
@@ -209,4 +209,22 @@ export function checkNeeds(
     ? `${title} needs ${what}. ${how} to use it.`
     : `${title} needs ${what}, which this host can't use right now.`;
   return { attempts, blocked: { reason, fix } };
+}
+
+/**
+ * What a Telnet tab on the phone does after it fails, when the server could
+ * open the host in its own view: "move" goes there now, "offer" shows a button.
+ */
+export function telnetServerFallback(input: {
+  /** The origin the tab was planned with. */
+  origin?: ConnectionOrigin;
+  failedFrom?: string;
+  /** The failure is one where another way can help. */
+  switchable: boolean;
+  serverOk: boolean;
+}): "move" | "offer" | null {
+  if (!input.serverOk) return null;
+  if (input.origin === "server") return "move";
+  if (input.failedFrom !== "local" || !input.switchable) return null;
+  return input.origin === "auto" ? "move" : "offer";
 }

@@ -110,6 +110,8 @@ interface TerminalProps {
   origin?: ConnectionOrigin;
   /** Telnet instead of SSH. */
   protocol?: ShellProtocol;
+  /** Telnet only: opens the host in the server's view instead. */
+  onUseServer?: () => void;
   isVisible: boolean;
   title?: string;
   onClose?: () => void;
@@ -146,6 +148,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       type,
       origin,
       protocol,
+      onUseServer,
       isVisible,
       onClose,
       onBackgroundColorChange,
@@ -528,6 +531,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         type,
         origin,
         protocol,
+        onUseServer,
         tabInstanceId,
         initialSessionId,
         restored,
