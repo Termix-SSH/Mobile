@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { History, ShieldCheck, Zap } from "lucide-react-native";
 import type { FeatureDef } from "@/core/features/types";
+import { ApprovalsCard } from "./ApprovalsCard";
 
 /**
  * Actions plugins declare on the server: one list per host, plus approvals
@@ -29,6 +30,15 @@ export const operationsFeature: FeatureDef = {
           params: { id: String(host.id) },
         });
       },
+    },
+  ],
+  homeCards: [
+    {
+      id: "operations.approvals",
+      title: "Waiting for approval",
+      icon: ShieldCheck,
+      order: 35,
+      component: ApprovalsCard,
     },
   ],
   tools: [
