@@ -6,6 +6,7 @@
 
 - Actions on a host: every action the server's plugins offer for that host, such as restarting a container or service, with a form, a dry run and the result. New plugins show up with no app update
 - Approvals and Run history under Tools, when the server has Operations Center
+- Cancel a run that is still going or waiting, and undo a finished one, from Run history
 - Notifications have their own screen behind a bell on Home, Hosts and Tools, with an unread count, mark read, mark all read and delete
 - WireGuard opens in the app
 - The Wake-on-LAN Power page opens in the app, so you can wake machines that are not hosts
