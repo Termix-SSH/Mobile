@@ -45,6 +45,7 @@ import { ResetStep, SignupStep } from "./AccountSteps";
 import { BrowserStep, type BrowserMode } from "./BrowserStep";
 import { SignInStep } from "./SignInStep";
 import { AddressStep, MergeStep, SecondFactorStep } from "./SmallSteps";
+import { deviceWord } from "@/utils/device-word";
 
 type Step =
   | "address"
@@ -200,7 +201,7 @@ export default function LinkFlow() {
       const name = await biometricName();
       const yes = await confirm({
         title: `Use ${name} to sign in next time?`,
-        description: `If this server signs you out, sign in again with ${name} instead of typing your password. The password stays on this phone.`,
+        description: `If this server signs you out, sign in again with ${name} instead of typing your password. The password stays on this ${deviceWord}.`,
         confirmLabel: `Use ${name}`,
         cancelLabel: "Not now",
         destructive: false,
@@ -374,7 +375,7 @@ export default function LinkFlow() {
                 <Text className="text-sm leading-5 text-muted-foreground">
                   Your hosts, credentials, snippets and settings sync with it,
                   and you get its plugins. Everything keeps working on this
-                  phone when the server is away.
+                  {deviceWord} when the server is away.
                 </Text>
               </View>
               <AddressStep

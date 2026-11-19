@@ -7,6 +7,7 @@ import { utf8Decode } from "@/modules/termix-ssh";
 import type { Snippet, SSHHost } from "@/types";
 import { toTerminalHostConfig } from "@/utils/hosts";
 import { hostContext, resolveSnippet } from "./run";
+import { deviceWord } from "@/utils/device-word";
 
 export interface HostRunResult {
   host: SSHHost;
@@ -141,7 +142,8 @@ export function accountBackend(accountId: string | null): RunBackend {
     },
     async phone(host, command) {
       const transport = phoneTransports.get(host.id);
-      if (!transport?.openSession) throw new Error("This phone can't run it");
+      if (!transport?.openSession)
+        throw new Error(`This ${deviceWord} can't run it`);
       const session = await transport.openSession(toTerminalHostConfig(host));
       try {
         const res = await session.exec(command, { timeoutSecs: 60 });

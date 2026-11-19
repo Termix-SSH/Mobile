@@ -89,6 +89,7 @@ import { summarize, type Transfer } from "./transfers/queue";
 import { TransfersPanel, useTransfers } from "./transfers/TransfersPanel";
 import { isTextFile, modeText, sortEntries } from "./utils/fileUtils";
 import { useDebouncedValue, useStableCallback } from "@/utils/hooks";
+import { deviceWord } from "@/utils/device-word";
 
 export interface FileManagerHandle {
   /** The folder on screen. */
@@ -430,7 +431,7 @@ export const FileManager = forwardRef<
       ask &&
       !(await confirm({
         title: "Open a large file?",
-        description: `${entry.name} is big for a phone editor. It may be slow.`,
+        description: `${entry.name} is big for a ${deviceWord} editor. It may be slow.`,
         confirmLabel: "Open",
         destructive: false,
       }))
@@ -637,7 +638,7 @@ export const FileManager = forwardRef<
           {conn.state.phase === "relay"
             ? "Connecting through the server..."
             : conn.state.phase === "connecting" && conn.state.via === "local"
-              ? "Connecting from this phone..."
+              ? `Connecting from this ${deviceWord}...`
               : "Connecting..."}
         </Text>
         {conn.state.phase === "relay" ? (

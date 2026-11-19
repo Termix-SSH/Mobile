@@ -8,6 +8,7 @@ import type {
   UserCount,
   OIDCAuthorize,
 } from "@/types/index";
+import { deviceWord } from "@/utils/device-word";
 
 export function createAuthApi(c: AccountClient) {
   async function registerUser(
@@ -163,7 +164,7 @@ export function createAuthApi(c: AccountClient) {
     } catch (error) {
       if (isLocalNetworkHttpsUrl(url) && isNativeNetworkFailure(error)) {
         throw new ApiError(
-          "The app could not trust HTTPS for this local IP. Pin the server's key under Proxy and client certificate, use a certificate the phone trusts, or HTTP on a trusted local or VPN network.",
+          `The app could not trust HTTPS for this local IP. Pin the server's key under Proxy and client certificate, use a certificate the ${deviceWord} trusts, or HTTP on a trusted local or VPN network.`,
           0,
           "LOCAL_IP_HTTPS_CERTIFICATE_ERROR",
         );

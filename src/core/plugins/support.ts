@@ -3,6 +3,7 @@ import type { FeatureRegistry } from "@/core/features/registry";
 import type { FeatureDef } from "@/core/features/types";
 import { OFFICIAL_PLUGINS, catalogEntry } from "./catalog";
 import { apiFit, type ApiFit } from "./compat";
+import { deviceWord, DeviceWord } from "@/utils/device-word";
 
 /**
  * - `native`: the app has its own screens.
@@ -135,9 +136,10 @@ export function describeSupport(
   }
   const reach = serverWord(server);
   if (onDevice) {
-    if (server === "none") return "Works on this phone";
-    if (server === "on" || server === "unknown") return "Phone and server";
-    return `Phone only | ${reach}`;
+    if (server === "none") return `Works on this ${deviceWord}`;
+    if (server === "on" || server === "unknown")
+      return `${DeviceWord} and server`;
+    return `${DeviceWord} only | ${reach}`;
   }
   if (server === "none") return "Link a server to use it";
   if (reach) return reach.charAt(0).toUpperCase() + reach.slice(1);

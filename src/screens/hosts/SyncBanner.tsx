@@ -6,6 +6,7 @@ import { useAppContext } from "@/contexts/AppContext";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { useSyncFix } from "@/screens/accounts/useSyncFix";
 import { Button, Text } from "@/ui";
+import { deviceWord } from "@/utils/device-word";
 
 /** Reasons that need the user; offline and server hiccups retry on their own. */
 const SHOWN = new Set([
@@ -59,7 +60,7 @@ export function SyncBanner() {
             {text.title}
           </Text>
           <Text className="mt-0.5 text-xs text-muted-foreground">
-            {text.message} Your hosts stay on this phone meanwhile.
+            {text.message} Your hosts stay on this {deviceWord} meanwhile.
           </Text>
         </View>
       </View>

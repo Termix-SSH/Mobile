@@ -5,6 +5,7 @@ import { localStores } from "@/core/db";
 import { toUserMessage } from "@/core/errors";
 import { PromptSheet, useConfirm } from "@/ui";
 import { toast } from "@/utils/toast";
+import { deviceWord } from "@/utils/device-word";
 
 /**
  * Picks a passphrase locked backup and restores it into one account's data.
@@ -41,7 +42,7 @@ export function useRestoreBackup({
         !askFirst ||
         (await confirm({
           title: "Replace local data?",
-          description: `Everything saved on this phone for ${accountName} is replaced with the backup.`,
+          description: `Everything saved on this ${deviceWord} for ${accountName} is replaced with the backup.`,
           confirmLabel: "Continue",
         }));
       if (ok) setContent(text);

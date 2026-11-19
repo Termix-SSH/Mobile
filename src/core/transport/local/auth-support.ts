@@ -3,6 +3,7 @@
  * server plugin. Local mode reads this to say what is missing.
  */
 import { AppError } from "@/core/errors";
+import { deviceWord } from "@/utils/device-word";
 
 export const DEVICE_AUTH_TYPES = [
   "password",
@@ -37,7 +38,7 @@ const SERVER_AUTH: Record<string, ServerAuth> = {
   agent: {
     plugin: "ssh-terminal",
     title: "SSH agent",
-    why: "the phone has no SSH agent",
+    why: `the ${deviceWord} has no SSH agent`,
   },
 };
 

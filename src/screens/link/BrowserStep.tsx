@@ -34,6 +34,7 @@ import {
 import type { SignInOption } from "@/core/accounts/link/methods";
 import { ProxySignIn } from "@/screens/accounts/ProxySignIn";
 import { readHandoff, TOKEN_HANDOFF_SCRIPT } from "./webview-handoff";
+import { deviceWord } from "@/utils/device-word";
 
 /** How this step signs in. */
 export type BrowserMode =
@@ -309,7 +310,7 @@ export function BrowserStep({
     if (/SSL|certificate|ERR_CERT/i.test(text)) {
       toast.error(
         "Certificate problem",
-        `The phone can't check this server's certificate. Install its root CA on the phone. ${text}`,
+        `The ${deviceWord} can't check this server's certificate. Install its root CA on the ${deviceWord}. ${text}`,
       );
     }
   };

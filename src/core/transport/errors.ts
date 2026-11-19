@@ -1,6 +1,7 @@
 import { AppError } from "@/core/errors";
 import { SshError, type SshErrorKind } from "@/modules/termix-ssh";
 import type { TransportKind } from "./types";
+import { deviceWord } from "@/utils/device-word";
 
 /** Which step of connecting went wrong. */
 export type FailureStage =
@@ -75,8 +76,7 @@ export function isTailnetAddress(address: string): boolean {
   return TAILNET_V4.test(a) || TAILNET_NAME.test(a) || TAILNET_V6.test(a);
 }
 
-export const TAILSCALE_HINT =
-  "This is a Tailscale address. Check that Tailscale is connected on this phone.";
+export const TAILSCALE_HINT = `This is a Tailscale address. Check that Tailscale is connected on this ${deviceWord}.`;
 
 const SSH_STAGE: Record<SshErrorKind, FailureStage> = {
   connect: "network",

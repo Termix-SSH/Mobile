@@ -14,6 +14,7 @@ import {
 import { toUserMessage } from "@/core/errors";
 import { toast } from "@/utils/toast";
 import { UnlinkSheet } from "./UnlinkSheet";
+import { deviceWord } from "@/utils/device-word";
 
 const STATUS: Record<string, string> = {
   idle: "Signed in",
@@ -111,7 +112,7 @@ export function AccountSwitcher() {
         <View className="px-4 py-3">
           <Text className="text-[11px] text-muted-foreground">
             Each server keeps its own hosts, credentials and settings on this
-            phone.
+            {deviceWord}.
           </Text>
         </View>
       </Sheet>

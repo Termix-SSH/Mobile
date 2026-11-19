@@ -39,6 +39,7 @@ import type { TerminalConfig } from "@/types";
 import { TerminalPreview } from "./terminal/TerminalPreview";
 import { CustomThemeSheet } from "./terminal/CustomThemeSheet";
 import { Screen } from "@/components/Screen";
+import { deviceWord } from "@/utils/device-word";
 
 const FONT_SIZES = [12, 14, 16, 18, 20, 24];
 const LINE_HEIGHTS = [
@@ -274,7 +275,8 @@ export default function TerminalCustomization() {
 
         <Section icon={AlignLeft} title="Size and spacing">
           <Text className="mb-2 text-meta text-muted-foreground">
-            Pinch the terminal to change the size too. Large text in your phone
+            Pinch the terminal to change the size too. Large text in your{" "}
+            {deviceWord}
             settings makes it bigger.
           </Text>
           <Choices

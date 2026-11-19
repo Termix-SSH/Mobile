@@ -43,6 +43,7 @@ import { createLocalDockerBackend } from "./backend/local";
 import { createRelayDockerBackend } from "./backend/relay";
 import { hostStacksOn } from "./backend/stacks-setting";
 import type { DockerBackend, DockerCheck } from "./backend/types";
+import { deviceWord } from "@/utils/device-word";
 
 interface DockerProps {
   host: SSHHost;
@@ -336,7 +337,9 @@ export function DockerView({
     <>
       <SessionFrame
         title={host.name}
-        subtitle={backend.via === "local" ? "Docker | this phone" : "Docker"}
+        subtitle={
+          backend.via === "local" ? `Docker | this ${deviceWord}` : "Docker"
+        }
         status={frameStatus}
         loadingLabel="Looking for Docker..."
         errorMessage={checkError}

@@ -23,6 +23,7 @@ import type {
   Transport,
   TransportKind,
 } from "./types";
+import { deviceWord } from "@/utils/device-word";
 
 /** Something the connection waits on the user for. */
 export type ConnectionPrompt =
@@ -378,7 +379,7 @@ export class HostConnection {
         stage: "connection",
         message:
           transport.kind === "local"
-            ? `Connecting to ${name} from this phone`
+            ? `Connecting to ${name} from this ${deviceWord}`
             : `Connecting to ${name} through the server`,
       });
     }
@@ -555,8 +556,8 @@ export class HostConnection {
         stage: "connection",
         message:
           next.kind === "relay"
-            ? "Could not reach the host from this phone, trying through the server"
-            : "Could not connect through the server, trying from this phone",
+            ? `Could not reach the host from this ${deviceWord}, trying through the server`
+            : `Could not connect through the server, trying from this ${deviceWord}`,
       });
       this.dropChannel();
       this.open(this.attempt + 1);

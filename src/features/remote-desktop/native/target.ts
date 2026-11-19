@@ -5,6 +5,7 @@ import type { DisplayProtocol } from "@/modules/termix-ssh";
 import type { Credential, SSHHost } from "@/types";
 import { rdpLogin, type RdpCredentials } from "../rdp-login";
 import { resolveRemoteDesktopSize } from "../remoteDesktopSize";
+import { deviceWord } from "@/utils/device-word";
 
 export const DISPLAY_PORTS: Record<DisplayProtocol, number> = {
   rdp: 3389,
@@ -111,7 +112,7 @@ export function certPrompt(
   if (problem.kind === "new") {
     return {
       title: "Trust this computer?",
-      description: `The phone can't check ${hostName}'s certificate. Make sure this fingerprint matches the one on the computer before you go on.\n\n${problem.fingerprint}`,
+      description: `The ${deviceWord} can't check ${hostName}'s certificate. Make sure this fingerprint matches the one on the computer before you go on.\n\n${problem.fingerprint}`,
       confirmLabel: "Trust and connect",
       destructive: false,
     };

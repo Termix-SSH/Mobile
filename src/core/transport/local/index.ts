@@ -9,12 +9,12 @@ import { autoAnswer } from "./kbd";
 import { LocalShell } from "./LocalShell";
 import { LocalTelnetShell } from "./LocalTelnetShell";
 import { proxiesOf } from "./resolve";
+import { deviceWord } from "@/utils/device-word";
 
 export const NO_ENGINE =
   "This build has no SSH engine. Use the app from the store, or link a Termix server to connect.";
-export const NO_DEVICE_STORE = "The hosts on this phone are not open yet.";
-export const NO_SERVER_COPY =
-  "This server's hosts are not on this phone. Turn on the Sync plugin on the server to connect from the phone.";
+export const NO_DEVICE_STORE = `The hosts on this ${deviceWord} are not open yet.`;
+export const NO_SERVER_COPY = `This server's hosts are not on this ${deviceWord}. Turn on the Sync plugin on the server to connect from the ${deviceWord}.`;
 
 const deviceRepo = (): HostConnectRepository | undefined =>
   repositoriesFor({ id: LOCAL_ACCOUNT_ID, kind: "local" }, null).connect;

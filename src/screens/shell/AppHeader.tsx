@@ -18,6 +18,7 @@ import {
 import { useUnreadAlerts } from "@/screens/notifications/unread";
 import { palette } from "@/screens/palette/store";
 import { Button, Text } from "@/ui";
+import { deviceWord } from "@/utils/device-word";
 
 const STATUS: Record<string, string> = {
   idle: "Signed in",
@@ -32,7 +33,7 @@ export function accountLine(account: Account): string {
   if (account.kind === "local") return "Works without a server";
   return [
     STATUS[account.status],
-    account.options.sync === true ? "Copy on this phone" : null,
+    account.options.sync === true ? `Copy on this ${deviceWord}` : null,
   ]
     .filter(Boolean)
     .join(" | ");

@@ -7,6 +7,7 @@ import {
   type FileSettings as Settings,
 } from "@/features/file-manager/settings";
 import { ChoiceRow, FakeSwitch, SettingRow, Section as UiSection } from "@/ui";
+import { deviceWord } from "@/utils/device-word";
 
 function Section({
   title,
@@ -43,7 +44,7 @@ export default function FileSettings() {
   return (
     <Screen
       title="Files"
-      subtitle="File manager on this phone"
+      subtitle={`File manager on this ${deviceWord}`}
       onBack={() => router.back()}
     >
       <ScrollView contentContainerStyle={{ padding: 12, gap: 12 }}>

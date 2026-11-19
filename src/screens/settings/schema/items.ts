@@ -43,6 +43,7 @@ import {
 } from "../controls/AnalyticsControls";
 import { WidgetsControl } from "../controls/WidgetsControl";
 import type { SettingsItemDef } from "./types";
+import { deviceWord } from "@/utils/device-word";
 
 /**
  * Settings that belong to the app itself. Features add their own through
@@ -272,7 +273,7 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "privacy-note",
     section: "privacy",
-    label: "What stays on this phone",
+    label: `What stays on this ${deviceWord}`,
     description: "Hosts, credentials and snippets are stored encrypted here",
     keywords: ["data", "encrypted", "tracking", "analytics", "usage"],
     order: 10,
@@ -348,7 +349,7 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
     id: "local-data",
     section: "backup",
     label: "Local data",
-    description: "Backup, restore and delete what is saved on this phone",
+    description: `Backup, restore and delete what is saved on this ${deviceWord}`,
     keywords: ["export", "import", "backup", "restore", "wipe", "reset"],
     order: 10,
     icon: Database,

@@ -6,6 +6,7 @@ import { sync, unlinkAccount } from "@/core/sync";
 import { Sheet, SheetRow } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
+import { deviceWord } from "@/utils/device-word";
 
 /**
  * Unlink a server: keep a copy of your own hosts, credentials and snippets on
@@ -54,7 +55,7 @@ export function UnlinkSheet({
       onClose={onClose}
       dismissable={!busy}
       title={`Unlink ${account ? accountLabel(account) : "server"}?`}
-      description="This phone signs out of the server. Nothing is deleted on the server."
+      description={`This ${deviceWord} signs out of the server. Nothing is deleted on the server.`}
       icon={<Unlink size={18} color={color("foreground")} />}
     >
       {synced ? (
@@ -68,8 +69,8 @@ export function UnlinkSheet({
       ) : null}
       <SheetRow
         icon={<Trash2 size={18} color={color("destructive")} />}
-        label="Delete from this phone"
-        description="Everything this phone has for the server is removed."
+        label={`Delete from this ${deviceWord}`}
+        description={`Everything this ${deviceWord} has for the server is removed.`}
         destructive
         onPress={() => void run(false)}
         disabled={busy}

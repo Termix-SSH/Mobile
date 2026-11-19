@@ -42,6 +42,7 @@ import {
   parseTestAddress,
   type CredentialForm,
 } from "./model";
+import { deviceWord } from "@/utils/device-word";
 
 type KeySource = "load" | "generate";
 type GenType = PhoneKeyType | "rsa2048" | "rsa4096";
@@ -354,8 +355,8 @@ export default function CredentialEditor({
                   label="Type"
                   hint={
                     serverKeyTools
-                      ? "Ed25519 and ECDSA are made on this phone, RSA on your server."
-                      : "Made on this phone. Ed25519 works almost everywhere."
+                      ? `Ed25519 and ECDSA are made on this ${deviceWord}, RSA on your server.`
+                      : `Made on this ${deviceWord}. Ed25519 works almost everywhere.`
                   }
                 >
                   <Tabs<GenType>
@@ -367,7 +368,7 @@ export default function CredentialEditor({
                 </Field>
                 <Field
                   label="Passphrase"
-                  hint="Optional. Locks the new key on this phone and on disk."
+                  hint={`Optional. Locks the new key on this ${deviceWord} and on disk.`}
                 >
                   <Input
                     value={form.keyPassword}

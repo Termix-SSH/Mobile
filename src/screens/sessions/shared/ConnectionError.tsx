@@ -8,14 +8,15 @@ import {
   type ConnectFailure,
   type ConnectionOrigin,
 } from "@/core/transport";
+import { deviceWord } from "@/utils/device-word";
 
 const SWITCH_LABEL: Record<Exclude<ConnectionOrigin, "auto">, string> = {
   server: "Connect through the server",
-  device: "Connect from this phone",
+  device: `Connect from this ${deviceWord}`,
 };
 
 const VIA: Record<string, string> = {
-  local: "Tried from this phone",
+  local: `Tried from this ${deviceWord}`,
   relay: "Tried through the server",
 };
 

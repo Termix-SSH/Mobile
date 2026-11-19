@@ -9,6 +9,7 @@ import {
 } from "@/core/transport";
 import { accounts } from "@/core/accounts";
 import { features } from "./registry";
+import { deviceWord } from "@/utils/device-word";
 
 export interface OpenCheck extends NeedsResult {
   plan: ConnectionPlan;
@@ -56,7 +57,7 @@ export function deviceDialOnly(check: OpenCheck): OpenCheck {
     ...check,
     attempts,
     blocked: {
-      reason: "Telnet in the terminal needs a connection from the phone.",
+      reason: `Telnet in the terminal needs a connection from the ${deviceWord}.`,
       fix: "device",
     },
   };

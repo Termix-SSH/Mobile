@@ -17,6 +17,7 @@ import type {
 } from "./backend/types";
 import { JournalView } from "./JournalView";
 import { UnitDetailView } from "./UnitDetailView";
+import { deviceWord } from "@/utils/device-word";
 
 type Section = "services" | "journal";
 type Filter = "all" | "running" | "failed";
@@ -170,7 +171,7 @@ export function ServicesView({
             ? "empty"
             : "ready";
 
-  const where = backend.via === "local" ? " | this phone" : "";
+  const where = backend.via === "local" ? ` | this ${deviceWord}` : "";
   const subtitle = status
     ? `${status.init === "none" ? "Services" : `${status.init} ${status.version}`.trim()}${failed ? ` | ${failed} failed` : ""}${where}`
     : `Services${where}`;
