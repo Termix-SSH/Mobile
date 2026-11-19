@@ -10,7 +10,6 @@ import {
 import { useLocalSearchParams, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-  AlertTriangle,
   ArrowUpDown,
   Check,
   Download,
@@ -73,7 +72,11 @@ import {
 } from "@/core/host-list-prefs";
 import { useHostsData } from "@/screens/hosts/useHostsData";
 import { useOpenHost } from "@/screens/hosts/useOpenHost";
-import { AccountButton, SearchButton } from "@/screens/shell/AppHeader";
+import {
+  AccountButton,
+  NotificationsButton,
+  SearchButton,
+} from "@/screens/shell/AppHeader";
 import type { SSHHost } from "@/types";
 import {
   Button,
@@ -632,34 +635,6 @@ export default function Hosts() {
     <View className="gap-2 pb-2">
       <ServerReachBanner />
       <SyncBanner />
-      {data.alerts.map((alert) => (
-        <View
-          key={alert.id}
-          className="flex-row items-start gap-2 border border-border bg-card p-3"
-        >
-          <AlertTriangle
-            size={15}
-            color={color("accent-brand")}
-            style={{ marginTop: 1 }}
-          />
-          <View className="flex-1">
-            <Text weight="medium" className="text-sm text-foreground">
-              {alert.title}
-            </Text>
-            <Text className="mt-0.5 text-xs text-muted-foreground">
-              {alert.message}
-            </Text>
-          </View>
-          <Pressable
-            onPress={() => data.dismissAlert(alert.id)}
-            hitSlop={8}
-            accessibilityLabel="Dismiss"
-            className="p-0.5 active:bg-muted/40"
-          >
-            <X size={14} color={muted} />
-          </Pressable>
-        </View>
-      ))}
     </View>
   );
 
@@ -683,6 +658,7 @@ export default function Hosts() {
       }
       headerRight={
         <View className="flex-row items-center gap-1">
+          <NotificationsButton />
           <SearchButton />
           {canQuickConnect ? (
             <Button

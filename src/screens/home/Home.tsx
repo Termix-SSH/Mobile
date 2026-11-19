@@ -31,7 +31,11 @@ import {
   statusLabel,
   TabStatusMark,
 } from "@/screens/sessions/navigation/TabStatusMark";
-import { AccountButton, SearchButton } from "@/screens/shell/AppHeader";
+import {
+  AccountButton,
+  NotificationsButton,
+  SearchButton,
+} from "@/screens/shell/AppHeader";
 import type { SSHHost } from "@/types";
 import { Button, EmptyState, ListRow, SectionLabel, Text } from "@/ui";
 import { isSshHost } from "@/utils/hosts";
@@ -88,7 +92,15 @@ export default function Home() {
   const noHosts = !hosts.loading && hosts.data.length === 0;
 
   return (
-    <Screen titleNode={<AccountButton />} headerRight={<SearchButton />}>
+    <Screen
+      titleNode={<AccountButton />}
+      headerRight={
+        <View className="flex-row items-center gap-1">
+          <NotificationsButton />
+          <SearchButton />
+        </View>
+      }
+    >
       <ScrollView
         contentContainerStyle={{ padding: 12, gap: 16, paddingBottom: 48 }}
       >

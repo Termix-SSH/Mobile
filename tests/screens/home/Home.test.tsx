@@ -31,6 +31,7 @@ jest.mock("@/components/Screen", () => ({
 jest.mock("@/screens/shell/AppHeader", () => ({
   AccountButton: () => null,
   SearchButton: () => null,
+  NotificationsButton: () => null,
 }));
 jest.mock("@/screens/home/ServerReachBanner", () => ({
   ...jest.requireActual("@/screens/home/ServerReachBanner"),

@@ -6,6 +6,7 @@
 
 - Actions on a host: every action the server's plugins offer for that host, such as restarting a container or service, with a form, a dry run and the result. New plugins show up with no app update
 - Approvals and Run history under Tools, when the server has Operations Center
+- Notifications have their own screen behind a bell on Home, Hosts and Tools, with an unread count, mark read, mark all read and delete
 - WireGuard opens in the app
 - The Android and iOS files on each release carry signed build provenance you can check with `gh attestation verify`
 - Plugin pages in the app can show your own sessions and API keys, revoke your keys right after you tap the page, and show waiting approvals and your own second factors
@@ -16,6 +17,7 @@
 
 ### Changed
 
+- Server notifications no longer show as cards above the host list
 - With App Lock on, the key to this phone's data is locked by your PIN and biometrics, so the data opens only after you unlock
 - Wrong PIN tries are counted across restarts of the app
 - Plugin pages reach only their own files and actions on the server

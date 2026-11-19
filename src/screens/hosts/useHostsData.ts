@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFocusEffect } from "expo-router";
-import { accounts, activeClient, api } from "@/core/accounts";
+import { accounts, activeClient } from "@/core/accounts";
 import { useRepositories } from "@/core/data/hooks";
 import { useLocalStatuses } from "@/core/status";
 import { hostStatusesByLocalId, isSynced } from "@/core/sync";
@@ -11,14 +11,8 @@ import { publishHostSnapshot } from "@/widgets";
 import { mapSettled } from "@/utils/limit";
 import { toast } from "@/utils/toast";
 
-export interface ServerAlert {
-  id: string;
-  title: string;
-  message: string;
-}
-
 /**
- * Hosts with their folders, statuses, metrics and server notices for the
+ * Hosts with their folders, statuses and metrics for the
  * Hosts screen. Follows the store and keeps the home screen widgets current.
  */
 export function useHostsData() {
@@ -29,7 +23,6 @@ export function useHostsData() {
   >({});
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [alerts, setAlerts] = useState<ServerAlert[]>([]);
   const [serverStatuses, setServerStatuses] = useState<
     Record<number, ServerStatus>
   >({});
@@ -170,35 +163,10 @@ export function useHostsData() {
     return () => stops.forEach((stop) => stop());
   }, [repos, fetchData]);
 
-  // Server notices (maintenance, warnings) shown until dismissed.
-  const loadAlerts = useCallback(async () => {
-    const client = activeClient();
-    if (!client) {
-      setAlerts([]);
-      return;
-    }
-    try {
-      const res = await client.api.alerts.getUserAlerts();
-      setAlerts(Array.isArray(res?.alerts) ? res.alerts : []);
-    } catch {
-      setAlerts([]);
-    }
-  }, []);
-
-  const dismissAlert = useCallback(async (id: string) => {
-    setAlerts((prev) => prev.filter((a) => a.id !== id));
-    try {
-      await api().alerts.dismissAlert(id);
-    } catch {
-      // Comes back on the next fetch if this fails.
-    }
-  }, []);
-
   useFocusEffect(
     useCallback(() => {
       fetchData();
-      loadAlerts();
-    }, [fetchData, loadAlerts]),
+    }, [fetchData]),
   );
 
   // Keep the home screen widgets in step with this list. The publisher
@@ -240,8 +208,6 @@ export function useHostsData() {
     folderColors,
     loading,
     refreshing,
-    alerts,
-    dismissAlert,
     metrics,
     getHostStatus,
     refresh,
