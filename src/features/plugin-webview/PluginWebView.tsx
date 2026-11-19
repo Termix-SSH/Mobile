@@ -35,6 +35,7 @@ import { readLocalText } from "@/utils/localFile";
 import { PluginIcon } from "./PluginIcon";
 import { useForeignParts, type PartWebView } from "./ForeignParts";
 import type { ForeignKind } from "@/core/plugins/foreign";
+import { t } from "@/i18n";
 
 let hostScript: Promise<string> | null = null;
 
@@ -157,9 +158,10 @@ export const PluginWebView = forwardRef<
           });
           setState({
             kind: "error",
-            title: `Can't load ${plugin.name}`,
-            message:
-              "The server did not send the plugin. Check that it is on and try again.",
+            title: t("pluginWebview.pluginWebView.canTLoad", {
+              name: plugin.name,
+            }),
+            message: t("pluginWebview.pluginWebView.theServerDidNotSend"),
           });
         });
       return () => {
@@ -220,9 +222,9 @@ export const PluginWebView = forwardRef<
       async (url: string) => {
         if (!/^https?:/i.test(url)) return;
         const ok = await confirm({
-          title: "Open this link?",
+          title: t("pluginWebview.pluginWebView.openThisLink"),
           description: url,
-          confirmLabel: "Open",
+          confirmLabel: t("pluginWebview.pluginWebView.open"),
           destructive: false,
         });
         if (ok) void Linking.openURL(url);
@@ -263,16 +265,21 @@ export const PluginWebView = forwardRef<
             reason === "link"
               ? {
                   kind: "error",
-                  title: "Needs a newer version of the app",
-                  message: `${plugin.name} uses parts of Termix this app does not have yet.`,
+                  title: t("pluginWebview.pluginWebView.needsANewerVersionOf"),
+                  message: t(
+                    "pluginWebview.pluginWebView.usesPartsOfTermixThis",
+                    { name: plugin.name },
+                  ),
                 }
               : {
                   kind: "error",
-                  title: `${plugin.name} did not start`,
+                  title: t("pluginWebview.pluginWebView.didNotStart", {
+                    name: plugin.name,
+                  }),
                   message:
                     reason === "view"
-                      ? "This screen is not in the plugin version on the server."
-                      : "The plugin hit an error while starting.",
+                      ? t("pluginWebview.pluginWebView.thisScreenIsNotIn")
+                      : t("pluginWebview.pluginWebView.thePluginHitAnError"),
                 },
           );
         },
@@ -383,11 +390,13 @@ export const PluginWebView = forwardRef<
         <EmptyState
           className="flex-1"
           icon={CloudOff}
-          title="You're offline"
-          hint={`${plugin.name} runs on your server, so it needs a connection. It opens again when you're back online.`}
+          title={t("pluginWebview.pluginWebView.youReOffline")}
+          hint={t("pluginWebview.pluginWebView.runsOnYourServerSo", {
+            name: plugin.name,
+          })}
           action={
             <Button size="sm" onPress={() => setAttempt((n) => n + 1)}>
-              Try again
+              {t("pluginWebview.pluginWebView.tryAgain")}
             </Button>
           }
         />
@@ -403,7 +412,7 @@ export const PluginWebView = forwardRef<
           hint={state.message}
           action={
             <Button size="sm" onPress={() => setAttempt((n) => n + 1)}>
-              Try again
+              {t("pluginWebview.pluginWebView.tryAgain")}
             </Button>
           }
         />

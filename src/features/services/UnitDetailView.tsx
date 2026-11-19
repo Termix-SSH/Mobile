@@ -13,20 +13,25 @@ import type {
   UnitDetail,
 } from "./backend/types";
 import { errorText, stateTone } from "./Services";
+import { t } from "@/i18n";
 
 const SHOWN_PROPS: [string, string][] = [
   ["Description", "Description"],
-  ["UnitFileState", "Starts at boot"],
-  ["MainPID", "Main PID"],
+  ["UnitFileState", t("services.unitDetailView.startsAtBoot")],
+  ["MainPID", t("services.unitDetailView.mainPid")],
   ["MemoryCurrent", "Memory"],
-  ["ActiveEnterTimestamp", "Active since"],
+  ["ActiveEnterTimestamp", t("services.unitDetailView.activeSince")],
   ["NRestarts", "Restarts"],
-  ["FragmentPath", "Unit file"],
+  ["FragmentPath", t("services.unitDetailView.unitFile")],
 ];
 
 /** systemd prints bytes; "[not set]" and huge sentinels mean nothing. */
 export function propValue(key: string, raw: string | undefined): string | null {
-  if (!raw || raw === "[not set]" || (raw === "0" && key === "MainPID"))
+  if (
+    !raw ||
+    raw === t("services.unitDetailView.notSet") ||
+    (raw === "0" && key === "MainPID")
+  )
     return null;
   if (key === "MemoryCurrent") {
     const n = Number(raw);
@@ -64,7 +69,9 @@ export function UnitDetailView({
         setError("");
       } catch (e) {
         if (!signal?.aborted)
-          setError(errorText(e, "Could not read the service"));
+          setError(
+            errorText(e, t("services.unitDetailView.couldNotReadTheService")),
+          );
       }
     },
     [backend, name],
@@ -77,19 +84,25 @@ export function UnitDetailView({
         title: `${action === "stop" ? "Stop" : "Restart"} ${name}?`,
         description:
           action === "stop"
-            ? "It stays stopped until it is started again or the host boots."
-            : "It stops for a moment and starts again.",
-        confirmLabel: action === "stop" ? "Stop" : "Restart",
+            ? t("services.unitDetailView.itStaysStoppedUntilIt")
+            : t("services.unitDetailView.itStopsForAMoment"),
+        confirmLabel:
+          action === "stop"
+            ? t("services.unitDetailView.stop")
+            : t("services.unitDetailView.restart"),
       });
       if (!ok) return;
     }
     setBusy(action);
     try {
       const state = await backend.action(name, action);
-      toast.success(`${name} is ${state}`);
+      toast.success(t("services.unitDetailView.is", { name, state }));
       await load();
     } catch (e) {
-      const message = errorText(e, `Could not ${action} ${name}`);
+      const message = errorText(
+        e,
+        t("services.unitDetailView.couldNot", { action, name }),
+      );
       if (message !== "Cancelled") toast.error(message);
     } finally {
       setBusy(null);
@@ -116,19 +129,19 @@ export function UnitDetailView({
           <>
             <Chip
               icon={<Play size={13} color={color("accent-brand")} />}
-              label="Start"
+              label={t("services.unitDetailView.start")}
               busy={busy === "start"}
               onPress={() => void run("start")}
             />
             <Chip
               icon={<Square size={13} color={color("foreground")} />}
-              label="Stop"
+              label={t("services.unitDetailView.stop")}
               busy={busy === "stop"}
               onPress={() => void run("stop")}
             />
             <Chip
               icon={<RotateCcw size={13} color={color("foreground")} />}
-              label="Restart"
+              label={t("services.unitDetailView.restart")}
               busy={busy === "restart"}
               onPress={() => void run("restart")}
             />
@@ -136,7 +149,7 @@ export function UnitDetailView({
         ) : null}
         <Chip
           icon={<ScrollText size={13} color={color("foreground")} />}
-          label="Journal"
+          label={t("services.unitDetailView.journal")}
           onPress={() => onJournal(name)}
         />
       </View>

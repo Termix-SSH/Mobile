@@ -8,6 +8,7 @@ import {
 import { View } from "react-native";
 import { Sheet } from "./Sheet";
 import { Button } from "./Button";
+import { t } from "@/i18n";
 
 export interface ConfirmOptions {
   title: string;
@@ -60,14 +61,17 @@ export function ConfirmProvider({ children }: { children: React.ReactNode }) {
               className="flex-1"
               onPress={() => settle(false)}
             >
-              {pending?.cancelLabel ?? "Cancel"}
+              {pending?.cancelLabel ?? t("ui.confirm.cancel")}
             </Button>
             <Button
               variant={destructive ? "destructive" : "default"}
               className="flex-1"
               onPress={() => settle(true)}
             >
-              {pending?.confirmLabel ?? (destructive ? "Delete" : "Confirm")}
+              {pending?.confirmLabel ??
+                (destructive
+                  ? t("ui.confirm.delete")
+                  : t("ui.confirm.confirm"))}
             </Button>
           </View>
         }

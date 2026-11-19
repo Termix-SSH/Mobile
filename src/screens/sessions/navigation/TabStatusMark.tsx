@@ -3,11 +3,12 @@ import { Animated } from "react-native";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { useReduceMotion } from "@/ui/motion";
 import type { SessionState } from "@/core/sessions/status";
+import { t } from "@/i18n";
 
 const LABELS: Partial<Record<SessionState, string>> = {
-  reconnecting: "Reconnecting",
-  offline: "Waiting for network",
-  failed: "Connection failed",
+  reconnecting: t("sessions.navigation.tabStatusMark.reconnecting"),
+  offline: t("sessions.navigation.tabStatusMark.waitingForNetwork"),
+  failed: t("sessions.navigation.tabStatusMark.connectionFailed"),
 };
 
 /** What a tab's status adds to its accessibility label. */

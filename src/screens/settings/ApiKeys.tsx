@@ -19,6 +19,7 @@ import { toast } from "@/utils/toast";
 import { apiOf, useActiveClient } from "@/core/accounts";
 import type { ApiKey } from "@/core/api/types";
 import { Screen } from "@/components/Screen";
+import { t } from "@/i18n";
 
 function formatDate(iso: string | null): string {
   if (!iso) return "Never";
@@ -72,7 +73,7 @@ export default function ApiKeys() {
         setKeyUserId((prev) => (prev ? prev : getUserId(userList[0])));
       }
     } catch {
-      toast.error("Failed to load API keys");
+      toast.error(t("settings.apiKeys.failedToLoadApiKeys"));
     }
   }, [client]);
 
@@ -139,7 +140,9 @@ export default function ApiKeys() {
       else closeCreate();
     } catch (e: any) {
       toast.error(
-        e?.response?.data?.error ?? e?.message ?? "Failed to create API key",
+        e?.response?.data?.error ??
+          e?.message ??
+          t("settings.apiKeys.failedToCreateApiKey"),
       );
     } finally {
       setCreateBusy(false);
@@ -148,27 +151,27 @@ export default function ApiKeys() {
 
   const handleDelete = async (keyId: string, name: string) => {
     const ok = await confirm({
-      title: "Delete API key?",
-      description: `"${name}" will stop working right away.`,
+      title: t("settings.apiKeys.deleteApiKey"),
+      description: t("settings.apiKeys.willStopWorkingRightAway", { name }),
     });
     if (!ok) return;
     try {
       await apiOf(client).apiKeys.deleteApiKey(keyId);
       setKeys((prev) => prev.filter((k) => k.id !== keyId));
-      toast.success("API key deleted");
+      toast.success(t("settings.apiKeys.apiKeyDeleted"));
     } catch {
-      toast.error("Failed to delete API key");
+      toast.error(t("settings.apiKeys.failedToDeleteApiKey"));
     }
   };
 
   return (
     <Screen
-      title="API keys"
+      title={t("settings.apiKeys.apiKeys")}
       onBack={() => router.back()}
       headerRight={
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="New API key"
+          accessibilityLabel={t("settings.apiKeys.newApiKey")}
           onPress={openCreate}
           hitSlop={8}
           className="h-9 w-9 items-center justify-center"
@@ -179,7 +182,9 @@ export default function ApiKeys() {
     >
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-sm text-muted-foreground">Loading…</Text>
+          <Text className="text-sm text-muted-foreground">
+            {t("settings.apiKeys.loading")}
+          </Text>
         </View>
       ) : (
         <ScrollView
@@ -198,12 +203,14 @@ export default function ApiKeys() {
           }
         >
           <Text className="text-xs text-muted-foreground">
-            API keys allow programmatic access to Termix. The secret is only
-            shown once so store it safely.
+            {t("settings.apiKeys.apiKeysAllowProgrammaticAccess")}
           </Text>
 
           {keys.length === 0 ? (
-            <EmptyState icon={KeyRound} title="No API keys yet" />
+            <EmptyState
+              icon={KeyRound}
+              title={t("settings.apiKeys.noApiKeysYet")}
+            />
           ) : (
             keys.map((k) => (
               <View
@@ -225,20 +232,28 @@ export default function ApiKeys() {
                     </Text>
                   ) : null}
                   <Text className="text-[11px] text-muted-foreground">
-                    Created {formatDate(k.createdAt)}
+                    {t("settings.apiKeys.created", {
+                      createdAt: formatDate(k.createdAt),
+                    })}
                   </Text>
                   <Text className="text-[11px] text-muted-foreground">
-                    Last used {formatDate(k.lastUsedAt)}
+                    {t("settings.apiKeys.lastUsed", {
+                      lastUsedAt: formatDate(k.lastUsedAt),
+                    })}
                   </Text>
                   {k.expiresAt ? (
                     <Text className="text-[11px] text-muted-foreground">
-                      Expires {formatDate(k.expiresAt)}
+                      {t("settings.apiKeys.expires", {
+                        expiresAt: formatDate(k.expiresAt),
+                      })}
                     </Text>
                   ) : null}
                 </View>
                 <Pressable
                   accessibilityRole="button"
-                  accessibilityLabel={`Delete ${k.name}`}
+                  accessibilityLabel={t("settings.apiKeys.delete", {
+                    name: k.name,
+                  })}
                   onPress={() => handleDelete(k.id, k.name)}
                   hitSlop={8}
                   className="mt-0.5"
@@ -257,9 +272,13 @@ export default function ApiKeys() {
         visible={createDialog || !!newKeySecret}
         onClose={closeCreate}
         icon={<Key size={20} color={color("accent-brand")} />}
-        title={newKeySecret ? "Key created. Copy it now" : "New API Key"}
+        title={
+          newKeySecret
+            ? t("settings.apiKeys.keyCreatedCopyItNow")
+            : t("settings.apiKeys.newApiKey2")
+        }
         description={
-          newKeySecret ? "This token won't be shown again." : undefined
+          newKeySecret ? t("settings.apiKeys.thisTokenWonTBe") : undefined
         }
         footer={
           newKeySecret ? (
@@ -269,24 +288,24 @@ export default function ApiKeys() {
                 className="flex-1"
                 onPress={async () => {
                   await Clipboard.setStringAsync(newKeySecret);
-                  toast.success("API key copied");
+                  toast.success(t("settings.apiKeys.apiKeyCopied"));
                 }}
                 icon={<Copy size={14} color={color("foreground")} />}
               >
-                Copy
+                {t("settings.apiKeys.copy")}
               </Button>
               <Button
                 variant="default"
                 className="flex-1"
                 onPress={closeCreate}
               >
-                Done
+                {t("settings.apiKeys.done")}
               </Button>
             </View>
           ) : (
             <View className="flex-row gap-2">
               <Button variant="muted" className="flex-1" onPress={closeCreate}>
-                Cancel
+                {t("settings.apiKeys.cancel")}
               </Button>
               <Button
                 variant="default"
@@ -295,7 +314,7 @@ export default function ApiKeys() {
                 loading={createBusy}
                 disabled={!keyName.trim() || !keyUserId}
               >
-                Create
+                {t("settings.apiKeys.create")}
               </Button>
             </View>
           )
@@ -312,11 +331,11 @@ export default function ApiKeys() {
             <View className="gap-4">
               {/* Name */}
               <View className="gap-1.5">
-                <Label>Name *</Label>
+                <Label>{t("settings.apiKeys.name")}</Label>
                 <Input
                   value={keyName}
                   onChangeText={setKeyName}
-                  placeholder="e.g. CI Pipeline"
+                  placeholder={t("settings.apiKeys.eGCiPipeline")}
                   autoCapitalize="none"
                   autoFocus
                 />
@@ -324,10 +343,10 @@ export default function ApiKeys() {
 
               {/* User */}
               <View className="gap-1.5">
-                <Label>User *</Label>
+                <Label>{t("settings.apiKeys.user")}</Label>
                 {users.length === 0 ? (
                   <Text className="text-xs text-muted-foreground">
-                    No users available.
+                    {t("settings.apiKeys.noUsersAvailable")}
                   </Text>
                 ) : (
                   <View className="overflow-hidden border border-border bg-card">
@@ -361,16 +380,16 @@ export default function ApiKeys() {
 
               {/* Expires At */}
               <View className="gap-1.5">
-                <Label>Expires At (optional)</Label>
+                <Label>{t("settings.apiKeys.expiresAtOptional")}</Label>
                 <Input
                   value={expiresAt}
                   onChangeText={handleExpiresChange}
-                  placeholder="YYYY/MM/DD"
+                  placeholder={t("settings.apiKeys.yyyyMmDd")}
                   keyboardType="number-pad"
                   maxLength={10}
                 />
                 <Text className="text-[11px] text-muted-foreground">
-                  Year / Month / Day
+                  {t("settings.apiKeys.yearMonthDay")}
                 </Text>
               </View>
             </View>

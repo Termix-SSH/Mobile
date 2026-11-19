@@ -1,5 +1,6 @@
 import type { SyncError, SyncErrorKind } from "./errors";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /**
  * Why a linked server stopped syncing, saved as the account's lastError so
@@ -36,95 +37,92 @@ export function isSessionEnded(reason: string | null | undefined): boolean {
 
 const TEXT: Record<SyncReason, ReasonText> = {
   expired: {
-    title: "Signed out",
-    message: `This ${deviceWord}'s sign in to the server ran out.`,
+    title: t("sync.reasons.signedOut"),
+    message: t("sync.reasons.thisSSignInTo", { deviceWord }),
     fix: "sign_in",
-    fixLabel: "Sign in again",
+    fixLabel: t("sync.reasons.signInAgain"),
   },
   revoked: {
-    title: "Signed out",
-    message: `The server ended this ${deviceWord}'s session. It may have been signed out from another device.`,
+    title: t("sync.reasons.signedOut"),
+    message: t("sync.reasons.theServerEndedThisS", { deviceWord }),
     fix: "sign_in",
-    fixLabel: "Sign in again",
+    fixLabel: t("sync.reasons.signInAgain"),
   },
   proxy_login: {
-    title: "Proxy sign in needed",
-    message: "The proxy in front of this server wants you to sign in again.",
+    title: t("sync.reasons.proxySignInNeeded"),
+    message: t("sync.reasons.theProxyInFrontOf"),
     fix: "proxy_sign_in",
-    fixLabel: "Sign in to the proxy",
+    fixLabel: t("sync.reasons.signInToTheProxy"),
   },
   basic_auth: {
-    title: "Proxy password needed",
-    message: "The proxy in front of this server asked for its password.",
+    title: t("sync.reasons.proxyPasswordNeeded"),
+    message: t("sync.reasons.theProxyInFrontOf2"),
     fix: "proxy_password",
-    fixLabel: "Enter the password",
+    fixLabel: t("sync.reasons.enterThePassword"),
   },
   client_cert: {
-    title: "Certificate refused",
-    message: `The server did not accept this ${deviceWord}'s certificate.`,
+    title: t("sync.reasons.certificateRefused"),
+    message: t("sync.reasons.theServerDidNotAccept", { deviceWord }),
     fix: "pick_cert",
-    fixLabel: "Pick a certificate",
+    fixLabel: t("sync.reasons.pickACertificate"),
   },
   tls: {
-    title: "Untrusted server",
-    message: `The server's certificate is not trusted by this ${deviceWord}.`,
+    title: t("sync.reasons.untrustedServer"),
+    message: t("sync.reasons.theServerSCertificateIs", { deviceWord }),
     fix: "retry",
-    fixLabel: "Try again",
+    fixLabel: t("sync.reasons.tryAgain"),
   },
   pin_mismatch: {
-    title: "Server key changed",
-    message:
-      "The server shows another key than the one pinned for it. If you changed its certificate, pin the new key.",
+    title: t("sync.reasons.serverKeyChanged"),
+    message: t("sync.reasons.theServerShowsAnotherKey"),
     fix: "check_pin",
-    fixLabel: "Check the pin",
+    fixLabel: t("sync.reasons.checkThePin"),
   },
   offline: {
-    title: "Offline",
-    message: "Can't reach the server. Sync will try again soon.",
+    title: t("sync.reasons.offline"),
+    message: t("sync.reasons.canTReachTheServer"),
     fix: "retry",
-    fixLabel: "Try again",
+    fixLabel: t("sync.reasons.tryAgain"),
   },
   server: {
-    title: "Server problem",
-    message: "The server had a problem. Sync will try again soon.",
+    title: t("sync.reasons.serverProblem"),
+    message: t("sync.reasons.theServerHadAProblem"),
     fix: "retry",
-    fixLabel: "Try again",
+    fixLabel: t("sync.reasons.tryAgain"),
   },
   version_mismatch: {
-    title: "Update needed",
-    message: "This server uses a newer sync version. Update the app.",
+    title: t("sync.reasons.updateNeeded"),
+    message: t("sync.reasons.thisServerUsesANewer"),
     fix: "update",
-    fixLabel: "Check for updates",
+    fixLabel: t("sync.reasons.checkForUpdates"),
   },
   not_termix: {
-    title: "Not a Termix server",
-    message: "The address does not answer like a Termix server.",
+    title: t("sync.reasons.notATermixServer"),
+    message: t("sync.reasons.theAddressDoesNotAnswer"),
     fix: null,
     fixLabel: null,
   },
   no_sync: {
-    title: "Sync is off",
-    message:
-      "The Sync plugin is off on this server. Ask an admin to turn it on in Plugins.",
+    title: t("sync.reasons.syncIsOff"),
+    message: t("sync.reasons.theSyncPluginIsOff"),
     fix: null,
     fixLabel: null,
   },
   different_account: {
-    title: "Different user",
-    message:
-      "You signed in as a different user than this server account belongs to.",
+    title: t("sync.reasons.differentUser"),
+    message: t("sync.reasons.youSignedInAsA"),
     fix: "sign_in",
-    fixLabel: "Sign in again",
+    fixLabel: t("sync.reasons.signInAgain"),
   },
 };
 
 export function describeReason(reason: string | null | undefined): ReasonText {
   return (
     TEXT[(reason ?? "") as SyncReason] ?? {
-      title: "Sync stopped",
-      message: reason || "Something went wrong.",
+      title: t("sync.reasons.syncStopped"),
+      message: reason || t("sync.reasons.somethingWentWrong"),
       fix: "retry",
-      fixLabel: "Try again",
+      fixLabel: t("sync.reasons.tryAgain"),
     }
   );
 }

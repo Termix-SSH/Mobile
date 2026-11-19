@@ -16,6 +16,7 @@ import { isSshHost } from "@/utils/hosts";
 import { FakeSwitch, SettingRow } from "@/ui";
 import { MetricsCard } from "./MetricsCard";
 import { ServerStats, type ServerStatsHandle } from "./ServerStats";
+import { t } from "@/i18n";
 
 function statsConfig(host: SSHHost): StatsConfig {
   try {
@@ -57,12 +58,12 @@ const metricsOn = (host: SSHHost) => isSshHost(host) && metricsAllowed(host);
 function MetricsSettings({ value, onChange }: HostFormTabProps) {
   return (
     <SettingRow
-      label="Enable metrics"
-      description="CPU, memory, disk and network over SSH"
+      label={t("hostMetrics.register.enableMetrics")}
+      description={t("hostMetrics.register.cpuMemoryDiskAndNetwork")}
       last
     >
       <FakeSwitch
-        accessibilityLabel="Enable metrics"
+        accessibilityLabel={t("hostMetrics.register.enableMetrics")}
         checked={value.metricsEnabled !== false}
         onChange={(metricsEnabled) => onChange({ metricsEnabled })}
       />
@@ -72,7 +73,7 @@ function MetricsSettings({ value, onChange }: HostFormTabProps) {
 
 const metricsHostSection: HostEditorSectionDef = {
   id: "host-metrics",
-  label: "Host Metrics",
+  label: t("hostMetrics.register.hostMetrics"),
   icon: Activity,
   group: "ssh",
   order: 40,
@@ -97,8 +98,8 @@ export function hostRowMetrics(
   const share = (percent: number | null) =>
     percent != null && percent > 0 ? Math.min(100, percent) / 100 : null;
   const items = [
-    { label: "CPU", value: share(metrics.cpu) },
-    { label: "RAM", value: share(metrics.ram) },
+    { label: t("hostMetrics.register.cpu"), value: share(metrics.cpu) },
+    { label: t("hostMetrics.register.ram"), value: share(metrics.ram) },
   ].filter((item) => item.value !== null);
   return items.length > 0 ? { shape: "bars", items } : null;
 }
@@ -106,7 +107,7 @@ export function hostRowMetrics(
 export const hostMetricsFeature: FeatureDef = {
   id: "host-metrics",
   plugins: ["host-metrics"],
-  title: "Host Metrics",
+  title: t("hostMetrics.register.hostMetrics"),
   source: "native",
   // Sampled over the phone's SSH, or read from the server's plugin.
   availableOn: ["local", "server"],
@@ -131,7 +132,7 @@ export const hostMetricsFeature: FeatureDef = {
   dashboardCards: [
     {
       id: "host-metrics",
-      title: "Metrics",
+      title: t("hostMetrics.register.metrics"),
       order: 10,
       tabType: "stats",
       isAvailable: metricsOn,
@@ -142,7 +143,7 @@ export const hostMetricsFeature: FeatureDef = {
   hostActions: [
     {
       id: "host-metrics.open",
-      label: "Host Metrics",
+      label: t("hostMetrics.register.hostMetrics"),
       icon: Server,
       group: "connect",
       order: 50,
@@ -153,8 +154,8 @@ export const hostMetricsFeature: FeatureDef = {
   tools: [
     {
       id: "host-metrics",
-      label: "Host Metrics",
-      description: "CPU, memory, disk and network",
+      label: t("hostMetrics.register.hostMetrics"),
+      description: t("hostMetrics.register.cpuMemoryDiskAndNetwork2"),
       icon: Server,
       order: 50,
       tabType: "stats",

@@ -34,10 +34,11 @@ import {
 } from "@/core/transport";
 import { isSshHost } from "@/utils/hosts";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 const FIX_LABEL: Record<Exclude<ConnectionOrigin, "auto">, string> = {
-  server: "Connect through the server",
-  device: `Connect from this ${deviceWord}`,
+  server: t("hosts.hostActionSheet.connectThroughTheServer"),
+  device: t("hosts.hostActionSheet.connectFromThis", { deviceWord }),
 };
 
 export function HostActionSheet({
@@ -101,7 +102,7 @@ export function HostActionSheet({
       await saveOrigin(accountId, host.id, next);
     } catch (err) {
       toast.error(
-        "Could not save how this host connects",
+        t("hosts.hostActionSheet.couldNotSaveHowThis"),
         err instanceof Error ? err.message : undefined,
       );
     }
@@ -140,7 +141,7 @@ export function HostActionSheet({
     await Clipboard.setStringAsync(
       `${host.username ? `${host.username}@` : ""}${host.ip}`,
     );
-    toast.success("Address copied");
+    toast.success(t("hosts.hostActionSheet.addressCopied"));
     onClose();
   };
 
@@ -179,12 +180,16 @@ export function HostActionSheet({
           <View className="shrink-0 items-end">
             {metrics.cpu != null ? (
               <Text className="text-2xs text-muted-foreground">
-                CPU {Math.round(metrics.cpu)}%
+                {t("hosts.hostActionSheet.cpu", {
+                  value: Math.round(metrics.cpu),
+                })}
               </Text>
             ) : null}
             {metrics.ram != null ? (
               <Text className="text-2xs text-muted-foreground">
-                RAM {Math.round(metrics.ram)}%
+                {t("hosts.hostActionSheet.ram", {
+                  value: Math.round(metrics.ram),
+                })}
               </Text>
             ) : null}
           </View>
@@ -194,7 +199,7 @@ export function HostActionSheet({
       {picksOrigin && origin ? (
         <View>
           <Text className="px-4 pb-1 pt-3 text-xs uppercase tracking-[1px] text-muted-foreground">
-            Connect from
+            {t("hosts.hostActionSheet.connectFrom")}
           </Text>
           <Tabs<ConnectionOrigin>
             options={ORIGINS.map((id) => ({ id, label: ORIGIN_LABELS[id] }))}
@@ -228,7 +233,7 @@ export function HostActionSheet({
               </Button>
             ) : null}
             <Button size="sm" variant="muted" onPress={() => setBlocked(null)}>
-              Dismiss
+              {t("hosts.hostActionSheet.dismiss")}
             </Button>
           </View>
         </View>
@@ -256,7 +261,11 @@ export function HostActionSheet({
                 <Pin size={18} color={iconColor} />
               )
             }
-            label={host.pin ? "Unpin" : "Pin to Home"}
+            label={
+              host.pin
+                ? t("hosts.hostActionSheet.unpin")
+                : t("hosts.hostActionSheet.pinToHome")
+            }
             onPress={() => {
               onTogglePin(host);
               onClose();
@@ -266,7 +275,7 @@ export function HostActionSheet({
         {onSelect ? (
           <SheetRow
             icon={<ListChecks size={18} color={iconColor} />}
-            label="Select"
+            label={t("hosts.hostActionSheet.select")}
             onPress={() => {
               onSelect(host);
               onClose();
@@ -275,7 +284,7 @@ export function HostActionSheet({
         ) : null}
         <SheetRow
           icon={<Pencil size={18} color={iconColor} />}
-          label="Edit Host"
+          label={t("hosts.hostActionSheet.editHost")}
           onPress={() => {
             onEdit(host);
             onClose();
@@ -283,13 +292,13 @@ export function HostActionSheet({
         />
         <SheetRow
           icon={<Copy size={18} color={iconColor} />}
-          label="Copy Address"
+          label={t("hosts.hostActionSheet.copyAddress")}
           onPress={copyAddress}
         />
         {onAddSubHost && !host.shared ? (
           <SheetRow
             icon={<ListTree size={18} color={iconColor} />}
-            label="Add Sub-host"
+            label={t("hosts.hostActionSheet.addSubHost")}
             onPress={() => {
               onAddSubHost(host);
               onClose();
@@ -298,7 +307,7 @@ export function HostActionSheet({
         ) : null}
         <SheetRow
           icon={<CopyPlus size={18} color={iconColor} />}
-          label="Clone Host"
+          label={t("hosts.hostActionSheet.cloneHost")}
           onPress={() => {
             onClone(host);
             onClose();
@@ -306,7 +315,7 @@ export function HostActionSheet({
         />
         <SheetRow
           icon={<Trash2 size={18} color={color("destructive")} />}
-          label="Delete Host"
+          label={t("hosts.hostActionSheet.deleteHost")}
           destructive
           onPress={() => {
             onDelete(host);

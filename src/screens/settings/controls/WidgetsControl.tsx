@@ -11,6 +11,7 @@ import {
   saveWidgetPreferences,
   type WidgetPreferences,
 } from "@/widgets";
+import { t } from "@/i18n";
 
 /** Home screen widget switches. No-ops on builds without widget support. */
 export function WidgetsControl() {
@@ -38,8 +39,10 @@ export function WidgetsControl() {
   return (
     <View>
       <SettingRow
-        label="Home screen widgets"
-        description="Show your hosts, snippets and power buttons on the home screen"
+        label={t("settings.controls.widgetsControl.homeScreenWidgets")}
+        description={t(
+          "settings.controls.widgetsControl.showYourHostsSnippetsAnd",
+        )}
         last={!prefs.enabled}
       >
         <FakeSwitch
@@ -50,8 +53,10 @@ export function WidgetsControl() {
       {prefs.enabled ? (
         <>
           <SettingRow
-            label="Show addresses"
-            description="Show user@host under each server name"
+            label={t("settings.controls.widgetsControl.showAddresses")}
+            description={t(
+              "settings.controls.widgetsControl.showUserHostUnderEach",
+            )}
           >
             <FakeSwitch
               checked={prefs.showAddresses}
@@ -59,8 +64,10 @@ export function WidgetsControl() {
             />
           </SettingRow>
           <SettingRow
-            label="Include offline hosts"
-            description="Off shows only servers that are online"
+            label={t("settings.controls.widgetsControl.includeOfflineHosts")}
+            description={t(
+              "settings.controls.widgetsControl.offShowsOnlyServersThat",
+            )}
           >
             <FakeSwitch
               checked={prefs.includeOffline}
@@ -68,8 +75,10 @@ export function WidgetsControl() {
             />
           </SettingRow>
           <SettingRow
-            label="Pinned hosts only"
-            description="Show only the hosts you pinned"
+            label={t("settings.controls.widgetsControl.pinnedHostsOnly")}
+            description={t(
+              "settings.controls.widgetsControl.showOnlyTheHostsYou",
+            )}
             last={!hasSnippetWidget}
           >
             <FakeSwitch
@@ -79,8 +88,10 @@ export function WidgetsControl() {
           </SettingRow>
           {hasSnippetWidget ? (
             <SettingRow
-              label="Snippets widget"
-              description="Show saved commands on the home screen"
+              label={t("settings.controls.widgetsControl.snippetsWidget")}
+              description={t(
+                "settings.controls.widgetsControl.showSavedCommandsOnThe",
+              )}
               last={!prefs.includeSnippets}
             >
               <FakeSwitch
@@ -91,8 +102,10 @@ export function WidgetsControl() {
           ) : null}
           {prefs.includeSnippets && hasSnippetWidget ? (
             <SettingRow
-              label="Show command preview"
-              description="Show the first line of each command"
+              label={t("settings.controls.widgetsControl.showCommandPreview")}
+              description={t(
+                "settings.controls.widgetsControl.showTheFirstLineOf",
+              )}
               last
             >
               <FakeSwitch

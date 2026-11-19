@@ -24,6 +24,7 @@ import {
 } from "@/core/transport";
 import type { SSHHost } from "@/types";
 import { toast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 export interface HostConnectionHandlers {
   onData: (data: string) => void;
@@ -166,7 +167,7 @@ export function useHostConnection(
       originRef.current = origin;
       saveOrigin(accountId, host.id, origin).catch((err) =>
         toast.error(
-          "Could not save how this host connects",
+          t("sessions.shared.useHostConnection.couldNotSaveHowThis"),
           err instanceof Error ? err.message : undefined,
         ),
       );

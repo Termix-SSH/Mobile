@@ -7,6 +7,7 @@ import { Sheet, SheetRow } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /**
  * Unlink a server: keep a copy of your own hosts, credentials and snippets on
@@ -37,13 +38,17 @@ export function UnlinkSheet({
       });
       toast.success(
         keep && result.copied
-          ? `Unlinked. ${result.copied} items were kept on This device.`
-          : "Unlinked",
+          ? t("accounts.unlinkSheet.unlinkedItemsWereKeptOn", {
+              copied: result.copied,
+            })
+          : t("accounts.unlinkSheet.unlinked"),
       );
       onClose();
       onDone?.();
     } catch (error) {
-      toast.error(toUserMessage(error, "Could not unlink the server"));
+      toast.error(
+        toUserMessage(error, t("accounts.unlinkSheet.couldNotUnlinkTheServer")),
+      );
     } finally {
       setBusy(false);
     }
@@ -54,23 +59,27 @@ export function UnlinkSheet({
       visible={visible && !!account}
       onClose={onClose}
       dismissable={!busy}
-      title={`Unlink ${account ? accountLabel(account) : "server"}?`}
-      description={`This ${deviceWord} signs out of the server. Nothing is deleted on the server.`}
+      title={t("accounts.unlinkSheet.unlink", {
+        value: account ? accountLabel(account) : "server",
+      })}
+      description={t("accounts.unlinkSheet.thisSignsOutOfThe", { deviceWord })}
       icon={<Unlink size={18} color={color("foreground")} />}
     >
       {synced ? (
         <SheetRow
           icon={<Copy size={18} color={color("foreground")} />}
-          label="Keep a copy on This device"
-          description="Your own hosts, credentials and snippets move to This device. Hosts shared with you are not kept."
+          label={t("accounts.unlinkSheet.keepACopyOnThis")}
+          description={t("accounts.unlinkSheet.yourOwnHostsCredentialsAnd")}
           onPress={() => void run(true)}
           disabled={busy}
         />
       ) : null}
       <SheetRow
         icon={<Trash2 size={18} color={color("destructive")} />}
-        label={`Delete from this ${deviceWord}`}
-        description={`Everything this ${deviceWord} has for the server is removed.`}
+        label={t("accounts.unlinkSheet.deleteFromThis", { deviceWord })}
+        description={t("accounts.unlinkSheet.everythingThisHasForThe", {
+          deviceWord,
+        })}
         destructive
         onPress={() => void run(false)}
         disabled={busy}

@@ -11,6 +11,7 @@ import { InlineView, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
 import { sameOrigin } from "@/utils/origin";
+import { t } from "@/i18n";
 
 // Asks the page's own origin whether Termix answers yet. Once the proxy lets
 // us through, a Termix route returns JSON instead of its login page.
@@ -76,12 +77,12 @@ export function ProxySignIn({
     try {
       const cookies = await readWebCookies(client.rootBase());
       await client.setProxyCookies(cookies);
-      toast.success("Signed in to the proxy");
+      toast.success(t("accounts.proxySignIn.signedInToTheProxy"));
       onDone?.();
       onClose();
     } catch {
       handled.current = false;
-      toast.error("Could not save the proxy sign in");
+      toast.error(t("accounts.proxySignIn.couldNotSaveTheProxy"));
     } finally {
       setSaving(false);
     }
@@ -94,7 +95,7 @@ export function ProxySignIn({
         handled.current = false;
         onClose();
       }}
-      title="Sign in to the proxy"
+      title={t("accounts.proxySignIn.signInToTheProxy")}
       subtitle={client?.rootBase().replace(/^https?:\/\//, "")}
       scroll={false}
       bare
@@ -102,9 +103,7 @@ export function ProxySignIn({
       {!isNetAvailable() ? (
         <View className="flex-1 items-center justify-center p-6">
           <Text className="text-center text-sm text-muted-foreground">
-            {
-              "This build of the app can't keep a proxy sign in. Use a service token in the proxy headers instead."
-            }
+            {t("accounts.proxySignIn.thisBuildOfTheApp")}
           </Text>
         </View>
       ) : client && pinCheck !== "ok" ? (

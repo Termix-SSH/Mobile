@@ -5,6 +5,7 @@ import type { HomeCardProps } from "@/core/features/types";
 import { ListRow, Text } from "@/ui";
 import { Dot, HomeCard } from "../HomeCard";
 import { useHomeData } from "../HomeData";
+import { t } from "@/i18n";
 
 const SHOWN = 5;
 
@@ -17,7 +18,7 @@ export function RecentCard({ accountId }: HomeCardProps) {
   if (recent.length === 0) return null;
 
   return (
-    <HomeCard title="Recent" icon={Clock}>
+    <HomeCard title={t("home.cards.recentCard.recent")} icon={Clock}>
       <View>
         {recent.map((host, index) => (
           <ListRow

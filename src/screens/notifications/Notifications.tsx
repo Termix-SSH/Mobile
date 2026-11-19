@@ -21,6 +21,7 @@ import {
   Tabs,
   type ListRowTone,
 } from "@/ui";
+import { t } from "@/i18n";
 
 const TONE: Record<string, ListRowTone> = {
   critical: "destructive",
@@ -53,7 +54,7 @@ export default function Notifications() {
       setUnread(page.unread);
       setError("");
     } catch (e: any) {
-      setError(e?.message || "Could not load notifications");
+      setError(e?.message || t("notifications.couldNotLoadNotifications"));
       setItems([]);
     }
   }, [client, view]);
@@ -85,32 +86,35 @@ export default function Notifications() {
     );
     void run(
       () => client!.api.alerts.markRead([item.id]),
-      "Could not mark read",
+      t("notifications.couldNotMarkRead"),
     );
   };
 
   const remove = (item: AlertItem) => {
     setItems((prev) => (prev ?? []).filter((a) => a.id !== item.id));
-    void run(() => client!.api.alerts.remove(item.id), "Could not delete");
+    void run(
+      () => client!.api.alerts.remove(item.id),
+      t("notifications.couldNotDelete"),
+    );
   };
 
   const hasUnread = (items ?? []).some((a) => !a.read);
 
   return (
     <Screen
-      title="Notifications"
+      title={t("notifications.notifications")}
       onBack={() => router.back()}
       headerRight={
         <View className="flex-row items-center gap-1">
           <Button
             variant="ghost"
             size="icon"
-            accessibilityLabel="Mark all read"
+            accessibilityLabel={t("notifications.markAllRead")}
             disabled={busy || !hasUnread}
             onPress={() =>
               void run(
                 () => client!.api.alerts.markRead("all"),
-                "Could not mark read",
+                t("notifications.couldNotMarkRead"),
               )
             }
             icon={<CheckCheck size={18} color={muted} />}
@@ -119,12 +123,12 @@ export default function Notifications() {
             <Button
               variant="ghost"
               size="icon"
-              accessibilityLabel="Clear read notifications"
+              accessibilityLabel={t("notifications.clearReadNotifications")}
               disabled={busy}
               onPress={() =>
                 void run(
                   () => client!.api.alerts.clear(true),
-                  "Could not clear",
+                  t("notifications.couldNotClear"),
                 )
               }
               icon={<Trash2 size={18} color={muted} />}
@@ -143,8 +147,8 @@ export default function Notifications() {
               setView(next);
             }}
             options={[
-              { id: "unread", label: "Unread" },
-              { id: "all", label: "All" },
+              { id: "unread", label: t("notifications.unread2") },
+              { id: "all", label: t("notifications.all") },
             ]}
           />
         </View>
@@ -173,7 +177,9 @@ export default function Notifications() {
             <EmptyState
               icon={Bell}
               title={
-                view === "unread" ? "No unread notifications" : "Nothing here"
+                view === "unread"
+                  ? t("notifications.noUnreadNotifications")
+                  : t("notifications.nothingHere")
               }
             />
           ) : (
@@ -196,7 +202,7 @@ export default function Notifications() {
                   <View className="flex-row items-center">
                     {!item.read ? (
                       <ListRowAction
-                        label="Mark read"
+                        label={t("notifications.markRead")}
                         onPress={() => markRead(item)}
                       >
                         <Check size={15} color={muted} />
@@ -204,7 +210,7 @@ export default function Notifications() {
                     ) : null}
                     {canDelete ? (
                       <ListRowAction
-                        label="Delete"
+                        label={t("notifications.delete")}
                         tone="destructive"
                         onPress={() => remove(item)}
                       >

@@ -18,6 +18,7 @@ import type {
   ConnectionLogLevel,
   ConnectionLogPayload,
 } from "@/types";
+import { t } from "@/i18n";
 
 let logSeq = 0;
 
@@ -167,7 +168,7 @@ export function ConnectionLog({
       .map((e) => `[${e.level.toUpperCase()}] ${e.message}`)
       .join("\n");
     await Clipboard.setStringAsync(text);
-    toast.success("Logs copied");
+    toast.success(t("sessions.shared.useConnectionLog.logsCopied"));
   };
 
   const showBackground = expanded || hasConnectionError;
@@ -219,12 +220,14 @@ export function ConnectionLog({
             weight="medium"
             className="flex-1 text-xs uppercase tracking-[1px] text-muted-foreground"
           >
-            Connection Log ({entries.length})
+            {t("sessions.shared.useConnectionLog.connectionLog", {
+              count: entries.length,
+            })}
           </Text>
           {entries.length > 0 && (
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Copy log"
+              accessibilityLabel={t("sessions.shared.useConnectionLog.copyLog")}
               onPress={copyAll}
               hitSlop={8}
             >
@@ -242,7 +245,9 @@ export function ConnectionLog({
           >
             {entries.length === 0 ? (
               <Text className="py-4 text-center text-xs text-muted-foreground">
-                {isConnecting ? "Waiting for connection…" : "No log entries"}
+                {isConnecting
+                  ? t("sessions.shared.useConnectionLog.waitingForConnection")
+                  : t("sessions.shared.useConnectionLog.noLogEntries")}
               </Text>
             ) : (
               entries.map((e) => (

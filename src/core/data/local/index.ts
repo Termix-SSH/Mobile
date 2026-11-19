@@ -52,6 +52,7 @@ import {
   snippetFolderFromRow,
   snippetFromRow,
 } from "./mappers";
+import { t as tr } from "@/i18n";
 
 export const HISTORY_LIMIT = 500;
 export const ACTIVITY_LIMIT = 100;
@@ -61,7 +62,7 @@ const METRIC_STEP_MS = 60_000;
 const METRIC_KEEP_MS = 7 * 24 * 60 * 60_000;
 
 const notFound = (what: string) =>
-  new AppError(`That ${what} no longer exists.`, "NOT_FOUND");
+  new AppError(tr("data.local.thatNoLongerExists", { what }), "NOT_FOUND");
 
 /** Shared copies come from the server and only their owner can change them. */
 /**
@@ -80,19 +81,16 @@ function checkParent(d: LocalDb, hostId: number | null, parentHostId: number) {
   const byId = new Map(links.map((link) => [link.id, link]));
   const parent = byId.get(parentHostId);
   if (hostId !== null && parentHostId === hostId) {
-    throw new AppError("A host cannot be its own parent", "VALIDATION_ERROR");
+    throw new AppError(tr("data.local.aHostCannotBeIts"), "VALIDATION_ERROR");
   }
   if (!parent || parent.sharedSource) {
-    throw new AppError("Parent host not found", "VALIDATION_ERROR");
+    throw new AppError(tr("data.local.parentHostNotFound"), "VALIDATION_ERROR");
   }
   const seen = new Set<number>();
   let current: number | null = parentHostId;
   while (current !== null && !seen.has(current)) {
     if (current === hostId) {
-      throw new AppError(
-        "A host can't go under one of its own sub-hosts",
-        "VALIDATION_ERROR",
-      );
+      throw new AppError(tr("data.local.aHostCanTGo"), "VALIDATION_ERROR");
     }
     seen.add(current);
     current = byId.get(current)?.parentHostId ?? null;
@@ -126,7 +124,7 @@ function defaultsFolder(
 function refuseShared(row: { sharedSource: string | null }, what: string) {
   if (row.sharedSource) {
     throw new AppError(
-      `This ${what} is shared with you. Only its owner can change it.`,
+      tr("data.local.thisIsSharedWithYou", { what }),
       "ACCESS_DENIED",
     );
   }
@@ -342,7 +340,10 @@ export function localRepositories(
       },
       async create(draft) {
         if (!draft.name?.trim()) {
-          throw new AppError("Name is required", "VALIDATION_ERROR");
+          throw new AppError(
+            tr("data.local.nameIsRequired"),
+            "VALIDATION_ERROR",
+          );
         }
         const row = (await db())
           .insert(credentials)
@@ -405,7 +406,7 @@ export function localRepositories(
       async create(draft) {
         if (!draft.name?.trim() || !draft.content) {
           throw new AppError(
-            "Name and command are required",
+            tr("data.local.nameAndCommandAreRequired"),
             "VALIDATION_ERROR",
           );
         }
@@ -497,7 +498,11 @@ export function localRepositories(
       },
       async create(folder) {
         const name = folder.name.trim();
-        if (!name) throw new AppError("Name is required", "VALIDATION_ERROR");
+        if (!name)
+          throw new AppError(
+            tr("data.local.nameIsRequired"),
+            "VALIDATION_ERROR",
+          );
         const d = await db();
         const exists = d
           .select()
@@ -505,7 +510,7 @@ export function localRepositories(
           .where(eq(snippetFolders.name, name))
           .get();
         if (exists) {
-          throw new AppError("A folder with that name exists", "CONFLICT");
+          throw new AppError(tr("data.local.aFolderWithThatName"), "CONFLICT");
         }
         d.insert(snippetFolders)
           .values({
@@ -519,7 +524,11 @@ export function localRepositories(
       },
       async rename(oldName, newName) {
         const name = newName.trim();
-        if (!name) throw new AppError("Name is required", "VALIDATION_ERROR");
+        if (!name)
+          throw new AppError(
+            tr("data.local.nameIsRequired"),
+            "VALIDATION_ERROR",
+          );
         const d = await db();
         d.transaction((tx) => {
           tx.update(snippetFolders)

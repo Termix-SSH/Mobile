@@ -13,6 +13,7 @@ import {
 import { deviceId, deviceName } from "./device";
 import { SyncError } from "./errors";
 import { SyncRemote } from "./remote";
+import { t } from "@/i18n";
 
 export interface LinkOutcome {
   /** False when the server can't sync; the account then reads it live. */
@@ -29,7 +30,7 @@ const LIVE_FALLBACK = new Set(["not_termix", "no_sync", "version_mismatch"]);
 function requireAccount(accountId: string): ServerAccount {
   const account = accounts.find(accountId);
   if (!isServerAccount(account)) {
-    throw new AppError("No such server account", "NOT_FOUND");
+    throw new AppError(t("sync.link.noSuchServerAccount"), "NOT_FOUND");
   }
   return account;
 }
@@ -44,7 +45,7 @@ export async function linkAccount(accountId: string): Promise<LinkOutcome> {
   const client = accounts.client(accountId);
   const loginToken = client?.token();
   if (!client || !loginToken) {
-    throw new AppError("Sign in first.", "AUTH_REQUIRED");
+    throw new AppError(t("sync.link.signInFirst"), "AUTH_REQUIRED");
   }
   const remote = new SyncRemote(client);
 
@@ -80,7 +81,9 @@ export async function linkAccount(accountId: string): Promise<LinkOutcome> {
     });
     throw new SyncError(
       "different_account",
-      `This server account belongs to ${account.username ?? "another user"}. Sign in as them, or add the server again for this user.`,
+      t("sync.link.thisServerAccountBelongsTo", {
+        value: account.username ?? "another user",
+      }),
     );
   }
 

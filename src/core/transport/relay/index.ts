@@ -2,6 +2,7 @@ import type { AccountClient } from "@/core/api/AccountClient";
 import { serverHostConfig } from "@/core/sync/host-ids";
 import type { Transport } from "../types";
 import { RelayShell } from "./RelayShell";
+import { t } from "@/i18n";
 
 /** Connects through a linked Termix server, which opens SSH for us. */
 export function createRelayTransport(client: AccountClient): Transport {
@@ -15,7 +16,7 @@ export function createRelayTransport(client: AccountClient): Transport {
     get unavailableReason() {
       return client.isAuthenticated()
         ? undefined
-        : "You are signed out of this server. Sign in to connect through it.";
+        : t("transport.relay.youAreSignedOutOf");
     },
     openShell: (options) =>
       new RelayShell({

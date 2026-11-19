@@ -4,6 +4,7 @@ import { ChevronRight } from "lucide-react-native";
 import { Text } from "@/ui";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { crumbs } from "../backend/paths";
+import { t } from "@/i18n";
 
 /** The path as tappable parts, scrolled to the end. */
 export function Breadcrumbs({
@@ -40,7 +41,9 @@ export function Breadcrumbs({
             key={part.path}
             onPress={() => !last && onNavigate(part.path)}
             accessibilityRole="button"
-            accessibilityLabel={`Go to ${part.path}`}
+            accessibilityLabel={t("fileManager.list.breadcrumbs.goTo", {
+              path: part.path,
+            })}
             className="h-9 flex-row items-center active:bg-muted"
           >
             {i > 1 ? <ChevronRight size={12} color={colors.textFaint} /> : null}

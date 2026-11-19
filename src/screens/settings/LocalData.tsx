@@ -12,6 +12,7 @@ import { toast } from "@/utils/toast";
 import { useRestoreBackup } from "./RestoreBackup";
 import { Screen } from "@/components/Screen";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 type Step = { kind: "export" } | { kind: "export-again"; passphrase: string };
 
@@ -71,10 +72,12 @@ export default function LocalData() {
       setStep(null);
       await shareTempFile(`termix-${day}.${BACKUP_EXTENSION}`, content, {
         mimeType: "application/json",
-        dialogTitle: "Save your Termix backup",
+        dialogTitle: t("settings.localData.saveYourTermixBackup"),
       });
     } catch (error) {
-      toast.error(toUserMessage(error, "Could not make the backup"));
+      toast.error(
+        toUserMessage(error, t("settings.localData.couldNotMakeTheBackup")),
+      );
     } finally {
       setBusy(false);
     }
@@ -88,57 +91,67 @@ export default function LocalData() {
 
   const deleteAll = async () => {
     const ok = await confirm({
-      title: "Delete local data?",
-      description: `Hosts, credentials, snippets and history saved on this ${deviceWord} for ${accountLabel(account)} are deleted. This can't be undone. Make a backup first if you want to keep them.`,
-      confirmLabel: "Delete",
+      title: t("settings.localData.deleteLocalData"),
+      description: t("settings.localData.hostsCredentialsSnippetsAndHistory", {
+        deviceWord,
+        account: accountLabel(account),
+      }),
+      confirmLabel: t("settings.localData.delete"),
     });
     if (!ok) return;
     try {
       await localStores.wipe(account.id);
-      toast.success("Local data deleted");
+      toast.success(t("settings.localData.localDataDeleted"));
       void load();
     } catch (error) {
-      toast.error(toUserMessage(error, "Could not delete local data"));
+      toast.error(
+        toUserMessage(error, t("settings.localData.couldNotDeleteLocalData")),
+      );
     }
   };
 
   return (
-    <Screen title="Local data" onBack={() => router.back()}>
+    <Screen
+      title={t("settings.localData.localData")}
+      onBack={() => router.back()}
+    >
       {!available ? (
         <View className="flex-1 items-center justify-center p-6">
           <Text className="text-center text-sm text-muted-foreground">
-            Local data is only saved in the {deviceWord} app.
+            {t("settings.localData.localDataIsOnlySaved", { deviceWord })}
           </Text>
         </View>
       ) : (
         <ScrollView contentContainerStyle={{ padding: 12, paddingBottom: 40 }}>
           <Text className="mb-3 text-[11px] text-muted-foreground">
-            Saved on this {deviceWord} for {accountLabel(account)}. The file is
-            encrypted with a key that never leaves this {deviceWord}.
+            {t("settings.localData.savedOnThisForThe", {
+              deviceWord,
+              account: accountLabel(account),
+            })}
           </Text>
 
           <View className="border border-border bg-card px-3">
-            <SettingRow label="Hosts">
+            <SettingRow label={t("settings.localData.hosts")}>
               <Text className="text-sm text-muted-foreground">
                 {counts.hosts}
               </Text>
             </SettingRow>
-            <SettingRow label="Credentials">
+            <SettingRow label={t("settings.localData.credentials")}>
               <Text className="text-sm text-muted-foreground">
                 {counts.logins}
               </Text>
             </SettingRow>
-            <SettingRow label="Snippets">
+            <SettingRow label={t("settings.localData.snippets")}>
               <Text className="text-sm text-muted-foreground">
                 {counts.snippets}
               </Text>
             </SettingRow>
-            <SettingRow label="Size">
+            <SettingRow label={t("settings.localData.size")}>
               <Text className="text-sm text-muted-foreground">
                 {formatSize(size)}
               </Text>
             </SettingRow>
-            <SettingRow label="Data version" last>
+            <SettingRow label={t("settings.localData.dataVersion")} last>
               <Text className="text-sm text-muted-foreground">
                 {SCHEMA_VERSION}
               </Text>
@@ -146,40 +159,40 @@ export default function LocalData() {
           </View>
 
           <Text weight="medium" className="mb-1 mt-6 text-sm text-foreground">
-            Backup
+            {t("settings.localData.backup")}
           </Text>
           <Text className="mb-3 text-[11px] text-muted-foreground">
-            A backup file holds your passwords and keys, locked with a
-            passphrase you choose. Nobody can open it without that passphrase.
+            {t("settings.localData.aBackupFileHoldsYour")}
           </Text>
           <View className="gap-2">
             <Button onPress={() => setStep({ kind: "export" })}>
-              Export backup
+              {t("settings.localData.exportBackup")}
             </Button>
             <Button variant="muted" onPress={() => void restore.start()}>
-              Import backup
+              {t("settings.localData.importBackup")}
             </Button>
           </View>
 
           <Text weight="medium" className="mb-1 mt-6 text-sm text-foreground">
-            Delete
+            {t("settings.localData.delete")}
           </Text>
           <Text className="mb-3 text-[11px] text-muted-foreground">
-            Removes everything this account saved on this {deviceWord}. A linked
-            server keeps its own copy.
+            {t("settings.localData.removesEverythingThisAccountSaved", {
+              deviceWord,
+            })}
           </Text>
           <Button variant="destructive" onPress={deleteAll}>
-            Delete local data
+            {t("settings.localData.deleteLocalData2")}
           </Button>
         </ScrollView>
       )}
 
       <PromptSheet
         visible={step?.kind === "export"}
-        title="Backup passphrase"
-        description="At least 8 characters. You need it to restore the backup."
-        placeholder="Passphrase"
-        confirmLabel="Next"
+        title={t("settings.localData.backupPassphrase")}
+        description={t("settings.localData.atLeast8CharactersYou")}
+        placeholder={t("settings.localData.passphrase")}
+        confirmLabel={t("settings.localData.next")}
         secureTextEntry
         validate={(value) => value.length >= 8}
         onSubmit={(passphrase) => setStep({ kind: "export-again", passphrase })}
@@ -187,9 +200,9 @@ export default function LocalData() {
       />
       <PromptSheet
         visible={step?.kind === "export-again"}
-        title="Type it again"
-        placeholder="Passphrase"
-        confirmLabel="Export"
+        title={t("settings.localData.typeItAgain")}
+        placeholder={t("settings.localData.passphrase")}
+        confirmLabel={t("settings.localData.export")}
         secureTextEntry
         loading={busy}
         validate={(value) =>

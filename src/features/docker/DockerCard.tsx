@@ -8,9 +8,12 @@ import type { DashboardCardProps } from "@/core/features/types";
 import { CardFrame } from "@/screens/home/CardFrame";
 import { Text } from "@/ui";
 import { createLocalDockerBackend } from "./backend/local";
+import { t } from "@/i18n";
 
 const errorText = (e: unknown) =>
-  e instanceof Error && e.message ? e.message : "Docker did not answer";
+  e instanceof Error && e.message
+    ? e.message
+    : t("docker.dockerCard.dockerDidNotAnswer");
 
 /** Running, stopped and unhealthy containers on a pinned host. */
 export function DockerCard({ host, accountId, active }: DashboardCardProps) {
@@ -57,7 +60,7 @@ export function DockerCard({ host, accountId, active }: DashboardCardProps) {
 
   return (
     <CardFrame
-      title="Docker"
+      title={t("docker.dockerCard.docker")}
       icon={Container}
       target={target}
       error={error}
@@ -72,7 +75,9 @@ export function DockerCard({ host, accountId, active }: DashboardCardProps) {
           ) : null}
         </View>
       ) : (
-        <Text className="text-[11px] text-muted-foreground">No containers</Text>
+        <Text className="text-[11px] text-muted-foreground">
+          {t("docker.dockerCard.noContainers")}
+        </Text>
       )}
     </CardFrame>
   );

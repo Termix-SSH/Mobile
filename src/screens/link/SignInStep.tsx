@@ -19,6 +19,7 @@ import {
 } from "@/core/accounts/saved-login";
 import { toast } from "@/utils/toast";
 import { PasswordInput, StepCard, TextLink, errorText } from "./AccountSteps";
+import { t } from "@/i18n";
 
 type FormOption = Extract<SignInOption, { kind: "password" | "form" }>;
 type RedirectOption = Extract<SignInOption, { kind: "redirect" }>;
@@ -106,11 +107,11 @@ export function SignInStep({
         await clearSavedLogin(client);
         setSaved(null);
         toast.error(
-          "The saved login no longer works",
-          "Sign in with your password.",
+          t("link.signInStep.theSavedLoginNoLonger"),
+          t("link.signInStep.signInWithYourPassword"),
         );
       } else {
-        toast.error(errorText(e, "Sign in failed"));
+        toast.error(errorText(e, t("link.signInStep.signInFailed")));
       }
     } finally {
       setBusy(false);
@@ -129,7 +130,7 @@ export function SignInStep({
   const submit = async () => {
     if (!form) return;
     if (!username.trim() || !password) {
-      toast.error("Enter your username and password");
+      toast.error(t("link.signInStep.enterYourUsernameAndPassword"));
       return;
     }
     setBusy(true);
@@ -147,13 +148,13 @@ export function SignInStep({
     } catch (e: any) {
       if (e?.code === "PROXY_AUTH_GATE") {
         toast.error(
-          "This server is behind a login proxy",
-          "Opening its sign in page.",
+          t("link.signInStep.thisServerIsBehindA"),
+          t("link.signInStep.openingItsSignInPage"),
         );
         onBrowser();
         return;
       }
-      toast.error(errorText(e, "Sign in failed"));
+      toast.error(errorText(e, t("link.signInStep.signInFailed")));
     } finally {
       setBusy(false);
     }
@@ -169,25 +170,28 @@ export function SignInStep({
           onPress={() => void signInSaved()}
           icon={<Fingerprint size={16} color={color("primary-foreground")} />}
         >
-          {`Sign in with ${saved}`}
+          {t("link.signInStep.signInWith", { saved })}
         </Button>
       ) : null}
       {form ? (
         <StepCard>
           {forms.length > 1 ? (
-            <Field label="Sign in with">
+            <Field label={t("link.signInStep.signInWith2")}>
               <Tabs<string>
                 value={formKey(form)}
                 onChange={setFormId}
                 fill={false}
                 options={forms.map((f) => ({
                   id: formKey(f),
-                  label: f.kind === "password" ? "Password" : f.label,
+                  label:
+                    f.kind === "password"
+                      ? t("link.signInStep.password")
+                      : f.label,
                 }))}
               />
             </Field>
           ) : null}
-          <Field label="Username">
+          <Field label={t("link.signInStep.username")}>
             <Input
               value={username}
               onChangeText={setUsername}
@@ -200,7 +204,7 @@ export function SignInStep({
               editable={!busy}
             />
           </Field>
-          <Field label="Password">
+          <Field label={t("link.signInStep.password")}>
             <PasswordInput
               value={password}
               onChangeText={setPassword}
@@ -209,17 +213,20 @@ export function SignInStep({
             />
           </Field>
           <Button size="lg" loading={busy} onPress={submit}>
-            Sign in
+            {t("link.signInStep.signIn")}
           </Button>
           <View className="flex-row justify-between">
             {form.kind === "password" ? (
-              <TextLink label="Forgot password?" onPress={onReset} />
+              <TextLink
+                label={t("link.signInStep.forgotPassword")}
+                onPress={onReset}
+              />
             ) : (
               <View />
             )}
             {signIn.registrationAllowed ? (
               <TextLink
-                label="Make an account"
+                label={t("link.signInStep.makeAnAccount")}
                 tone="brand"
                 onPress={onSignup}
               />
@@ -234,7 +241,7 @@ export function SignInStep({
             <View className="flex-row items-center gap-3">
               <View className="h-px flex-1 bg-border" />
               <Text className="text-[10px] tracking-[2px] text-muted-foreground">
-                OR
+                {t("link.signInStep.or")}
               </Text>
               <View className="h-px flex-1 bg-border" />
             </View>
@@ -247,7 +254,7 @@ export function SignInStep({
               onPress={() => onRedirect(r)}
               icon={<Globe size={16} color={color("foreground")} />}
             >
-              {`Continue with ${r.label}`}
+              {t("link.signInStep.continueWith", { label: r.label })}
             </Button>
           ))}
         </View>
@@ -261,12 +268,10 @@ export function SignInStep({
             onPress={onBrowser}
             icon={<Fingerprint size={16} color={color("foreground")} />}
           >
-            Sign in with a passkey or security key
+            {t("link.signInStep.signInWithAPasskey")}
           </Button>
           <Text className="text-center text-[10px] text-muted-foreground">
-            Opens your server&apos;s sign in page in the browser. Face ID,
-            fingerprint, NFC and USB keys all work there. Needs Termix 26.11.3
-            or newer.
+            {t("link.signInStep.opensYourServerAposS")}
           </Text>
         </View>
       ) : browser ? (
@@ -277,11 +282,10 @@ export function SignInStep({
             onPress={onBrowser}
             icon={<Globe size={16} color={color("foreground")} />}
           >
-            Sign in in the browser
+            {t("link.signInStep.signInInTheBrowser")}
           </Button>
           <Text className="text-center text-[10px] text-muted-foreground">
-            Opens your server&apos;s sign in page, for anything the app
-            can&apos;t do here. Needs Termix 26.10.6 or newer.
+            {t("link.signInStep.opensYourServerAposS2")}
           </Text>
         </View>
       ) : null}
@@ -289,8 +293,7 @@ export function SignInStep({
       {nothing ? (
         <StepCard>
           <Text className="text-xs leading-5 text-destructive-text">
-            This server has no sign in turned on that the app can use. Ask
-            whoever runs it, or try the browser sign in above.
+            {t("link.signInStep.thisServerHasNoSign")}
           </Text>
         </StepCard>
       ) : null}

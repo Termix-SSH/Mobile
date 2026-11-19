@@ -4,6 +4,7 @@ import { Copy, ScrollText } from "lucide-react-native";
 import { Button, Sheet, SheetBody, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 /** The whole connection log of a tab, with Copy for bug reports. */
 export function ConnectionLogSheet({
@@ -18,14 +19,14 @@ export function ConnectionLogSheet({
   const copy = async () => {
     if (!text) return;
     await Clipboard.setStringAsync(text);
-    toast.success("Connection log copied");
+    toast.success(t("terminal.connectionLogSheet.connectionLogCopied"));
   };
   return (
     <Sheet
       visible={text !== null}
       onClose={onClose}
-      title="Connection log"
-      description="Copy it into a bug report. Addresses and usernames are left out."
+      title={t("terminal.connectionLogSheet.connectionLog")}
+      description={t("terminal.connectionLogSheet.copyItIntoABug")}
       icon={<ScrollText size={16} color={color("accent-brand")} />}
       footer={
         <Button
@@ -33,7 +34,7 @@ export function ConnectionLogSheet({
           icon={<Copy size={14} color={color("accent-brand")} />}
           onPress={copy}
         >
-          Copy
+          {t("terminal.connectionLogSheet.copy")}
         </Button>
       }
     >

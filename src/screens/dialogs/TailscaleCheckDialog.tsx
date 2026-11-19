@@ -5,6 +5,7 @@ import { Shield, Copy, ExternalLink } from "lucide-react-native";
 import { Sheet, SheetBody, Button, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { showToast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 interface TailscaleCheckDialogProps {
   visible: boolean;
@@ -26,16 +27,16 @@ export function TailscaleCheckDialog({
   const handleCopy = useCallback(async () => {
     try {
       await Clipboard.setStringAsync(url);
-      showToast.success("URL copied");
+      showToast.success(t("dialogs.tailscaleCheckDialog.urlCopied"));
     } catch {
-      showToast.error("Failed to copy");
+      showToast.error(t("dialogs.tailscaleCheckDialog.failedToCopy"));
     }
   }, [url]);
 
   const handleOpenBrowser = useCallback(() => {
     if (url) {
       Linking.openURL(url).catch(() =>
-        showToast.error("Could not open browser"),
+        showToast.error(t("dialogs.tailscaleCheckDialog.couldNotOpenBrowser")),
       );
     }
   }, [url]);
@@ -46,15 +47,15 @@ export function TailscaleCheckDialog({
       visible={visible}
       onClose={onCancel}
       icon={<Shield size={18} color={color("accent-brand")} />}
-      title={title || "Tailscale SSH check"}
+      title={title || t("dialogs.tailscaleCheckDialog.tailscaleSshCheck")}
       description={
         message ||
-        "Complete the Tailscale SSH check in your browser to continue."
+        t("dialogs.tailscaleCheckDialog.completeTheTailscaleSshCheck")
       }
       footer={
         <View className="flex-1 flex-row flex-wrap gap-2">
           <Button variant="muted" onPress={onCancel} className="flex-1">
-            Cancel
+            {t("dialogs.tailscaleCheckDialog.cancel")}
           </Button>
           <Button
             variant="muted"
@@ -63,7 +64,7 @@ export function TailscaleCheckDialog({
             icon={<Copy size={13} color={color("accent-brand")} />}
             className="flex-1"
           >
-            Copy URL
+            {t("dialogs.tailscaleCheckDialog.copyUrl")}
           </Button>
           <Button
             variant="default"
@@ -72,7 +73,7 @@ export function TailscaleCheckDialog({
             icon={<ExternalLink size={13} color={color("accent-foreground")} />}
             className="flex-1"
           >
-            Open Browser
+            {t("dialogs.tailscaleCheckDialog.openBrowser")}
           </Button>
         </View>
       }

@@ -16,6 +16,7 @@ import { features } from "@/core/features";
 import { useSessionStatuses } from "@/core/sessions/status";
 import { isSecondaryClick } from "@/ui/ContextMenu";
 import { statusLabel, TabStatusMark } from "./TabStatusMark";
+import { t } from "@/i18n";
 
 const GAP = 4;
 const HOLD_MS = 250;
@@ -205,7 +206,9 @@ function Tab({
           accessibilityState={{ selected: active }}
           accessibilityLabel={statusText ? `${title}, ${statusText}` : title}
           accessibilityHint={
-            active ? "Tap for tab options, hold to move" : "Hold to move"
+            active
+              ? t("sessions.navigation.tabStrip.tapForTabOptionsHold")
+              : t("sessions.navigation.tabStrip.holdToMove")
           }
           activeOpacity={0.7}
           style={{
@@ -254,7 +257,9 @@ function Tab({
             }}
             focusable={false}
             accessibilityRole="button"
-            accessibilityLabel={`Close ${title}`}
+            accessibilityLabel={t("sessions.navigation.tabStrip.close", {
+              title,
+            })}
             activeOpacity={0.6}
             style={{
               width: compact ? 28 : 32,

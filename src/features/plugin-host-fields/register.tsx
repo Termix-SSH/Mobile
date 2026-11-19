@@ -24,6 +24,7 @@ import {
   readPluginFields,
   type PluginFieldsPlan,
 } from "./fields";
+import { t } from "@/i18n";
 
 const BEFORE = "__before";
 
@@ -65,7 +66,9 @@ function sectionComponent(plan: PluginFieldsPlan, accountId: string) {
           <SettingRow
             label={
               text(plan.settings.enableLabelKey) ??
-              `Turn on ${plan.plugin.name ?? plan.plugin.id}`
+              t("pluginHostFields.register.turnOn", {
+                value: plan.plugin.name ?? plan.plugin.id,
+              })
             }
             description={text(plan.settings.enableDescriptionKey)}
             last={!on || shown.length === 0}
@@ -139,7 +142,7 @@ function sectionComponent(plan: PluginFieldsPlan, accountId: string) {
           : null}
         {on && plan.webOnly ? (
           <Text className="text-meta text-muted-foreground">
-            More settings for this are in the Termix web app.
+            {t("pluginHostFields.register.moreSettingsForThisAre")}
           </Text>
         ) : null}
       </View>
@@ -208,7 +211,7 @@ export function pluginHostFieldsFeature(
 ): FeatureDef {
   return {
     id: "plugin-host-fields",
-    title: "Plugin host settings",
+    title: t("pluginHostFields.register.pluginHostSettings"),
     source: "native",
     availableOn: ["server"],
     hostEditorSections: (ctx: FeatureContext) => {

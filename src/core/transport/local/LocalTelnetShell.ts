@@ -11,6 +11,7 @@ import { closeAll, openJumps } from "./chain";
 import { autoAnswer } from "./kbd";
 import { Utf8Stream } from "./LocalShell";
 import { proxiesOf } from "./resolve";
+import { t } from "@/i18n";
 
 export const TELNET_PORT = 23;
 
@@ -139,7 +140,7 @@ export class LocalTelnetShell implements ShellChannel {
     if (exitCode === null) {
       this.options.onDropped?.({
         kind: "network",
-        reason: "The connection was cut",
+        reason: t("transport.local.localTelnetShell.theConnectionWasCut"),
       });
       return;
     }

@@ -4,6 +4,7 @@ import { serverHostId } from "@/core/sync";
 import { originOf } from "@/core/transport";
 import { wakeFromDevice } from "@/core/wol";
 import type { SSHHost } from "@/types";
+import { t } from "@/i18n";
 
 /** Where the packet starts: the phone on This device, else the host's origin. */
 export async function wakeRoute(
@@ -19,7 +20,7 @@ export async function wakeRoute(
 
 async function wakeViaServer(host: SSHHost, ctx: FeatureContext) {
   const client = ctx.client;
-  if (!client) throw new Error("No server");
+  if (!client) throw new Error(t("wakeOnLan.wake.noServer"));
   await client.api.wakeOnLan.wakeHost(
     await serverHostId(client.accountId, host),
   );
@@ -43,13 +44,13 @@ export async function sendWake(
         await wakeFromDevice(host);
       }
     }
-    toast.success(`Wake-on-LAN sent to ${host.name}`);
+    toast.success(t("wakeOnLan.wake.wakeOnLanSentTo", { name: host.name }));
     return true;
   } catch (e) {
     toast.error(
       e instanceof Error && e.message
         ? e.message
-        : "Failed to send Wake-on-LAN packet",
+        : t("wakeOnLan.wake.failedToSendWakeOn"),
     );
     return false;
   }

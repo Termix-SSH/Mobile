@@ -18,6 +18,7 @@ import type {
 import { JournalView } from "./JournalView";
 import { UnitDetailView } from "./UnitDetailView";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 type Section = "services" | "journal";
 type Filter = "all" | "running" | "failed";
@@ -105,7 +106,8 @@ export function ServicesView({
         setUnits(await backend.units("service", signal));
         setError("");
       } catch (e) {
-        if (!signal?.aborted) setError(errorText(e, "Could not read services"));
+        if (!signal?.aborted)
+          setError(errorText(e, t("services.couldNotReadServices")));
       }
     },
     [backend, status],
@@ -123,7 +125,7 @@ export function ServicesView({
       setStatus(s);
       if (s.init !== "none") setUnits(await backend.units("service"));
     } catch (e) {
-      setError(errorText(e, "Could not read services"));
+      setError(errorText(e, t("services.couldNotReadServices")));
     } finally {
       setRefreshing(false);
     }
@@ -171,25 +173,28 @@ export function ServicesView({
             ? "empty"
             : "ready";
 
-  const where = backend.via === "local" ? ` | this ${deviceWord}` : "";
+  const where =
+    backend.via === "local"
+      ? ` | ${t("common.thisDeviceLower", { deviceWord })}`
+      : "";
   const subtitle = status
-    ? `${status.init === "none" ? "Services" : `${status.init} ${status.version}`.trim()}${failed ? ` | ${failed} failed` : ""}${where}`
-    : `Services${where}`;
+    ? `${status.init === "none" ? t("services.title") : `${status.init} ${status.version}`.trim()}${failed ? ` | ${t("services.failedCount", { count: failed })}` : ""}${where}`
+    : t("services.services2", { where });
 
   return (
     <SessionFrame
       title={host.name}
       subtitle={subtitle}
       status={frame}
-      loadingLabel="Reading services..."
+      loadingLabel={t("services.readingServices")}
       errorMessage={error}
       onRetry={error ? () => void refresh() : undefined}
       emptyMessage={
         noInit
-          ? "This host has no systemd or OpenRC."
+          ? t("services.thisHostHasNoSystemd")
           : units?.length
-            ? "No services match"
-            : "No services found"
+            ? t("services.noServicesMatch")
+            : t("services.noServicesFound")
       }
       emptyIcon={<Cog size={32} color={color("muted-foreground")} />}
       toolbar={
@@ -202,8 +207,8 @@ export function ServicesView({
                 setSection(s);
               }}
               options={[
-                { id: "services", label: "Services" },
-                { id: "journal", label: "Journal" },
+                { id: "services", label: t("services.services") },
+                { id: "journal", label: t("services.journal") },
               ]}
             />
             {section === "services" ? (
@@ -211,7 +216,7 @@ export function ServicesView({
                 <Input
                   value={query}
                   onChangeText={setQuery}
-                  placeholder="Search services..."
+                  placeholder={t("services.searchServices")}
                   autoCapitalize="none"
                   autoCorrect={false}
                   leading={
@@ -222,11 +227,13 @@ export function ServicesView({
                   value={filter}
                   onChange={setFilter}
                   options={[
-                    { id: "all", label: "All" },
-                    { id: "running", label: "Running" },
+                    { id: "all", label: t("services.all") },
+                    { id: "running", label: t("services.running") },
                     {
                       id: "failed",
-                      label: failed ? `Failed (${failed})` : "Failed",
+                      label: failed
+                        ? t("services.failed", { failed })
+                        : t("services.failed2"),
                     },
                   ]}
                 />

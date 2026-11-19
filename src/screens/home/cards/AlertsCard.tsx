@@ -10,6 +10,7 @@ import { setUnread } from "@/screens/notifications/unread";
 import { ListRow, type ListRowTone, Text } from "@/ui";
 import { ago } from "@/utils/ago";
 import { HomeCard } from "../HomeCard";
+import { t } from "@/i18n";
 
 const SHOWN = 5;
 const POLL_MS = 60_000;
@@ -51,10 +52,10 @@ export function AlertsCard({ accountId, active, refreshKey }: HomeCardProps) {
 
   return (
     <HomeCard
-      title="Notifications"
+      title={t("home.cards.alertsCard.notifications")}
       icon={Bell}
       meta={`${page?.unread ?? unread.length} unread`}
-      action="See all"
+      action={t("home.cards.alertsCard.seeAll")}
       onAction={openInbox}
     >
       <View>

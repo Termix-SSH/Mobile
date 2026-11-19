@@ -31,6 +31,7 @@ import {
   type Action,
   type Outcome,
 } from "./api";
+import { t } from "@/i18n";
 
 type Values = Record<string, unknown>;
 
@@ -91,8 +92,8 @@ function ActionForm({
     if (!dryRun && action.risk === "destructive") {
       const ok = await confirm({
         title: action.title,
-        description: "This can't be undone. Run it?",
-        confirmLabel: "Run",
+        description: t("operations.hostActions.thisCanTBeUndone"),
+        confirmLabel: t("operations.hostActions.run"),
       });
       if (!ok) return;
     }
@@ -107,10 +108,12 @@ function ActionForm({
       });
       setOutcome(result);
       if (result.status === "pending_approval") {
-        toast.info("Sent for approval");
+        toast.info(t("operations.hostActions.sentForApproval"));
       }
     } catch (error) {
-      toast.error(errorText(error, "The action could not run"));
+      toast.error(
+        errorText(error, t("operations.hostActions.theActionCouldNotRun")),
+      );
     } finally {
       setBusy(false);
     }
@@ -132,7 +135,7 @@ function ActionForm({
       {action.scope === "resource" &&
         (targets.length > 0 ? (
           <ChoiceRow
-            label="Target"
+            label={t("operations.hostActions.target")}
             value={target}
             options={targets.map((row) => ({
               value: row.key,
@@ -142,8 +145,8 @@ function ActionForm({
           />
         ) : (
           <Field
-            label="Target"
-            hint="The item on the host, such as a container"
+            label={t("operations.hostActions.target")}
+            hint={t("operations.hostActions.theItemOnTheHost")}
           >
             <Input
               value={target}
@@ -202,17 +205,17 @@ function ActionForm({
           disabled={!ready || busy}
           onPress={() => void run(true)}
         >
-          Dry run
+          {t("operations.hostActions.dryRun")}
         </Button>
         <Button
           variant={action.risk === "destructive" ? "destructive" : "default"}
           disabled={!ready || busy}
           onPress={() => void run(false)}
         >
-          Run
+          {t("operations.hostActions.run")}
         </Button>
         <Button variant="ghost" onPress={onDone}>
-          Back
+          {t("operations.hostActions.back")}
         </Button>
       </View>
       {outcome ? (
@@ -255,7 +258,7 @@ export default function HostActions() {
       setActions((await getCatalog(client)).actions);
       setError("");
     } catch (e) {
-      setError(errorText(e, "Could not load actions"));
+      setError(errorText(e, t("operations.hostActions.couldNotLoadActions")));
     }
   }, [client, host]);
 
@@ -273,7 +276,7 @@ export default function HostActions() {
 
   return (
     <Screen
-      title="Actions"
+      title={t("operations.hostActions.actions")}
       subtitle={host?.name || host?.ip}
       onBack={() => (picked ? setPicked(null) : router.back())}
     >
@@ -288,8 +291,8 @@ export default function HostActions() {
           <EmptyState title={error} />
         ) : actions && usable.length === 0 ? (
           <EmptyState
-            title="No actions for this host"
-            hint="Turn on a plugin like Docker or Services for this host on the server."
+            title={t("operations.hostActions.noActionsForThisHost")}
+            hint={t("operations.hostActions.turnOnAPluginLike")}
           />
         ) : (
           usable.map((action, index) => (
@@ -306,7 +309,9 @@ export default function HostActions() {
                       action.risk === "destructive" ? "destructive" : "muted"
                     }
                   >
-                    {action.risk === "destructive" ? "Destructive" : "Changes"}
+                    {action.risk === "destructive"
+                      ? t("operations.hostActions.destructive")
+                      : t("operations.hostActions.changes")}
                   </Badge>
                 )
               }

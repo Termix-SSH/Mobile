@@ -14,6 +14,7 @@ import {
   str,
   type WidgetProps,
 } from "./shared";
+import { t } from "@/i18n";
 
 export function RssFeedWidget(props: WidgetProps) {
   const { item, client } = props;
@@ -36,10 +37,12 @@ export function RssFeedWidget(props: WidgetProps) {
     enabled: props.active && !!feed,
     restartKey: props.refreshKey,
   });
-  if (!feed) return <Empty>No feed set.</Empty>;
-  if (failed && !items) return <Empty>Could not load the feed.</Empty>;
+  if (!feed) return <Empty>{t("homepage.widgets.feeds.noFeedSet")}</Empty>;
+  if (failed && !items)
+    return <Empty>{t("homepage.widgets.feeds.couldNotLoadTheFeed")}</Empty>;
   if (!items) return null;
-  if (items.length === 0) return <Empty>The feed is empty.</Empty>;
+  if (items.length === 0)
+    return <Empty>{t("homepage.widgets.feeds.theFeedIsEmpty")}</Empty>;
   const describe = bool(item.config.showDescription, false);
   return (
     <View>
@@ -94,7 +97,7 @@ export function WeatherWidget({ item, active, refreshKey }: WidgetProps) {
           `https://wttr.in/${encodeURIComponent(location)}?format=j1`,
           { signal },
         );
-        if (!res.ok) throw new Error("bad response");
+        if (!res.ok) throw new Error(t("homepage.widgets.feeds.badResponse"));
         setData((await res.json()) as Wttr);
         setFailed(false);
       } catch {
@@ -108,8 +111,10 @@ export function WeatherWidget({ item, active, refreshKey }: WidgetProps) {
     enabled: active && !!location,
     restartKey: refreshKey,
   });
-  if (!location) return <Empty>No location set.</Empty>;
-  if (failed && !data) return <Empty>Could not load the weather.</Empty>;
+  if (!location)
+    return <Empty>{t("homepage.widgets.feeds.noLocationSet")}</Empty>;
+  if (failed && !data)
+    return <Empty>{t("homepage.widgets.feeds.couldNotLoadTheWeather")}</Empty>;
   const now = data?.current_condition?.[0];
   if (!now) return null;
   const temp = fahrenheit ? now.temp_F : now.temp_C;
@@ -198,9 +203,9 @@ export function CustomApiWidget({
     enabled: active && !!url,
     restartKey: refreshKey,
   });
-  if (!url) return <Empty>No URL set.</Empty>;
+  if (!url) return <Empty>{t("homepage.widgets.feeds.noUrlSet")}</Empty>;
   if (failed && data === undefined)
-    return <Empty>Could not load the data.</Empty>;
+    return <Empty>{t("homepage.widgets.feeds.couldNotLoadTheData")}</Empty>;
   if (data === undefined) return null;
 
   const mode = str(item.config.displayMode, "value");
@@ -242,7 +247,7 @@ export function CustomApiWidget({
 
 export function ImageWidget({ item }: WidgetProps) {
   const src = safeUrl(str(item.config.imageUrl));
-  if (!src) return <Empty>No picture set.</Empty>;
+  if (!src) return <Empty>{t("homepage.widgets.feeds.noPictureSet")}</Empty>;
   const link = str(item.config.linkUrl);
   const fit = str(item.config.fit, "cover");
   const image = (

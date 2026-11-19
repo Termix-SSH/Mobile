@@ -5,6 +5,7 @@ import { Screen } from "@/components/Screen";
 import { clearLogs, formatLogs, useLogs } from "@/core/log/buffer";
 import { Button, EmptyState, Text } from "@/ui";
 import { toast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 const LEVEL_COLOR: Record<string, string> = {
   error: "text-destructive-text",
@@ -19,8 +20,8 @@ export default function Logs() {
 
   return (
     <Screen
-      title="Logs"
-      subtitle="Latest lines from this run. Server addresses, passwords and tokens are hidden."
+      title={t("settings.logs.logs")}
+      subtitle={t("settings.logs.latestLinesFromThisRun")}
       onBack={() => router.back()}
     >
       <View className="flex-row gap-2 border-b border-border px-3 py-2">
@@ -30,10 +31,10 @@ export default function Logs() {
           disabled={!lines.length}
           onPress={async () => {
             await Clipboard.setStringAsync(formatLogs(lines));
-            toast.success("Logs copied");
+            toast.success(t("settings.logs.logsCopied"));
           }}
         >
-          Copy
+          {t("settings.logs.copy")}
         </Button>
         <Button
           variant="muted"
@@ -41,7 +42,7 @@ export default function Logs() {
           disabled={!lines.length}
           onPress={() => void Share.share({ message: formatLogs(lines) })}
         >
-          Share
+          {t("settings.logs.share")}
         </Button>
         <Button
           variant="ghost"
@@ -49,7 +50,7 @@ export default function Logs() {
           disabled={!lines.length}
           onPress={clearLogs}
         >
-          Clear
+          {t("settings.logs.clear")}
         </Button>
       </View>
       {lines.length ? (
@@ -65,7 +66,10 @@ export default function Logs() {
           ))}
         </ScrollView>
       ) : (
-        <EmptyState title="No logs yet" hint="Nothing has been logged." />
+        <EmptyState
+          title={t("settings.logs.noLogsYet")}
+          hint={t("settings.logs.nothingHasBeenLogged")}
+        />
       )}
     </Screen>
   );

@@ -90,6 +90,7 @@ import { useUiColors } from "@/contexts/ThemeContext";
 import { XTERM_FALLBACK } from "@/features/terminal/fallback";
 import { SHOWCASE } from "@/showcase/enabled";
 import { onShowcaseSplit } from "@/showcase/split";
+import { t } from "@/i18n";
 
 // The native terminal reads the keyboard itself; the hidden input is for the xterm fallback.
 const HIDDEN_INPUT = XTERM_FALLBACK;
@@ -939,7 +940,7 @@ export default function Sessions() {
         // Half folded it stays there. It glides with the list between the crease and a
         // dragged width.
         <SplitDivider
-          label="Resize host list"
+          label={t("sessions.resizeHostList")}
           crease={paneOnFold}
           locked={paneOnBentFold}
           width={paneOnFold && fold ? fold.end - fold.start : undefined}
@@ -1049,7 +1050,7 @@ export default function Sessions() {
                 })}
                 {partnerId ? (
                   <SplitDivider
-                    label="Resize split view"
+                    label={t("sessions.resizeSplitView")}
                     crease={onFold}
                     width={splitAt.end - splitAt.start}
                     style={{
@@ -1135,11 +1136,14 @@ export default function Sessions() {
         {(sessions.length === 0 || showConnectionsPanel) && (
           <StageOverlay zIndex={1010}>
             {sessions.length === 0 ? (
-              <Screen title="Connections">
+              <Screen title={t("sessions.connections")}>
                 <ConnectionsPanel besideHosts={showHostsPane} />
               </Screen>
             ) : (
-              <Screen title="Connections" onBack={closeConnectionsPanel}>
+              <Screen
+                title={t("sessions.connections")}
+                onBack={closeConnectionsPanel}
+              >
                 <ConnectionsPanel onClose={closeConnectionsPanel} />
               </Screen>
             )}

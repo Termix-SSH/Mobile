@@ -10,6 +10,7 @@ import { toast } from "@/utils/toast";
 import { Button, EmptyState, Text } from "@/ui";
 import { QrCode } from "./QrCode";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 export default function HostShare() {
   const router = useRouter();
@@ -32,34 +33,38 @@ export default function HostShare() {
   const copy = async (password: boolean) => {
     if (!host) return;
     await Clipboard.setStringAsync(encodeHostShare(host, { password }));
-    toast.success(password ? "Copied with the password" : "Copied the link");
+    toast.success(
+      password
+        ? t("hostTransfer.hostShare.copiedWithThePassword")
+        : t("hostTransfer.hostShare.copiedTheLink"),
+    );
   };
 
   return (
     <Screen
-      title="Share host"
+      title={t("hostTransfer.hostShare.shareHost")}
       subtitle={host?.name || host?.ip}
       onBack={() => router.back()}
     >
       {host === null ? (
-        <EmptyState title="That host no longer exists" />
+        <EmptyState
+          title={t("hostTransfer.hostShare.thatHostNoLongerExists")}
+        />
       ) : host ? (
         <ScrollView
           contentContainerStyle={{ padding: 12, gap: 12, alignItems: "center" }}
         >
           <QrCode value={qr} size={260} />
           <Text className="text-center text-meta text-muted-foreground">
-            Scan this in Termix on another {deviceWord}, under Import and
-            export. The code has the address, port and user. It has no password
-            or key.
+            {t("hostTransfer.hostShare.scanThisInTermixOn", { deviceWord })}
           </Text>
           <View className="flex-row flex-wrap justify-center gap-2">
             <Button variant="muted" size="sm" onPress={() => void copy(false)}>
-              Copy link
+              {t("hostTransfer.hostShare.copyLink")}
             </Button>
             {host.authType === "password" && host.password ? (
               <Button variant="muted" size="sm" onPress={() => void copy(true)}>
-                Copy link with password
+                {t("hostTransfer.hostShare.copyLinkWithPassword")}
               </Button>
             ) : null}
           </View>

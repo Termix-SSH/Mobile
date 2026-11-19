@@ -1,6 +1,7 @@
 import { xchacha20poly1305 } from "@noble/ciphers/chacha.js";
 import { scryptAsync } from "@noble/hashes/scrypt.js";
 import { fromBase64, toBase64, utf8Decode, utf8Encode } from "@/core/db/bytes";
+import { t } from "@/i18n";
 
 /**
  * With App Lock on, this device's database key is not kept in the clear at
@@ -60,7 +61,11 @@ export function createKeyVault(
   async function pepper(create: boolean): Promise<Uint8Array> {
     const saved = await store.get(VAULT_PEPPER);
     if (saved) return fromBase64(saved);
-    if (!create) throw new VaultError("The device secret is gone", "BAD_VAULT");
+    if (!create)
+      throw new VaultError(
+        t("lock.keyVault.theDeviceSecretIsGone"),
+        "BAD_VAULT",
+      );
     const fresh = crypto.random(32);
     await store.set(VAULT_PEPPER, toBase64(fresh));
     return fresh;
@@ -92,12 +97,15 @@ export function createKeyVault(
 
   async function openPin(pin: string): Promise<string> {
     const raw = await store.get(VAULT_PIN);
-    if (!raw) throw new VaultError("No sealed key", "NO_VAULT");
+    if (!raw) throw new VaultError(t("lock.keyVault.noSealedKey"), "NO_VAULT");
     let sealed: SealedPin;
     try {
       sealed = JSON.parse(raw);
     } catch {
-      throw new VaultError("The sealed key is damaged", "BAD_VAULT");
+      throw new VaultError(
+        t("lock.keyVault.theSealedKeyIsDamaged"),
+        "BAD_VAULT",
+      );
     }
     const secret = await pepper(false);
     const key = await pinKey(pin, fromBase64(sealed.salt), secret);
@@ -107,7 +115,7 @@ export function createKeyVault(
       );
       return utf8Decode(plain);
     } catch {
-      throw new VaultError("Wrong PIN", "WRONG_PIN");
+      throw new VaultError(t("lock.keyVault.wrongPin"), "WRONG_PIN");
     }
   }
 
@@ -121,7 +129,10 @@ export function createKeyVault(
     async seal(pin: string, dbKey: string, biometric: boolean): Promise<void> {
       await sealPin(pin, dbKey);
       if ((await openPin(pin)) !== dbKey) {
-        throw new VaultError("The sealed key did not open", "BAD_VAULT");
+        throw new VaultError(
+          t("lock.keyVault.theSealedKeyDidNot"),
+          "BAD_VAULT",
+        );
       }
       if (biometric) await this.sealBiometric(dbKey);
       await store.remove(VAULT_FAILS).catch(() => {});
@@ -150,7 +161,7 @@ export function createKeyVault(
       }
       if (!key) {
         throw new VaultError(
-          "Biometrics can't open the key",
+          t("lock.keyVault.biometricsCanTOpenThe"),
           "BIO_UNAVAILABLE",
         );
       }
@@ -160,7 +171,10 @@ export function createKeyVault(
     async changePin(dbKey: string, newPin: string): Promise<void> {
       await sealPin(newPin, dbKey);
       if ((await openPin(newPin)) !== dbKey) {
-        throw new VaultError("The sealed key did not open", "BAD_VAULT");
+        throw new VaultError(
+          t("lock.keyVault.theSealedKeyDidNot"),
+          "BAD_VAULT",
+        );
       }
     },
 

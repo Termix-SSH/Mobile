@@ -2,6 +2,7 @@ import React, { createContext, useContext, type ReactNode } from "react";
 import type { AccountClient } from "@/core/api/AccountClient";
 import { AppError } from "@/core/errors";
 import { useClient } from "./index";
+import { t } from "@/i18n";
 
 // Sessions keep running after an account switch, so anything inside a session
 // talks to the account that opened it, not the active one.
@@ -29,7 +30,10 @@ export function useSessionAccountId(): string | null {
 export function useSessionClient(): AccountClient {
   const client = useClient(useSessionAccountId());
   if (!client) {
-    throw new AppError("This session has no server", "NO_SERVER");
+    throw new AppError(
+      t("accounts.session.thisSessionHasNoServer"),
+      "NO_SERVER",
+    );
   }
   return client;
 }

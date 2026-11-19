@@ -6,6 +6,7 @@ import type { Credential, SSHHost } from "@/types";
 import { rdpLogin, type RdpCredentials } from "../rdp-login";
 import { resolveRemoteDesktopSize } from "../remoteDesktopSize";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 export const DISPLAY_PORTS: Record<DisplayProtocol, number> = {
   rdp: 3389,
@@ -111,16 +112,23 @@ export function certPrompt(
 ): ConfirmOptions {
   if (problem.kind === "new") {
     return {
-      title: "Trust this computer?",
-      description: `The ${deviceWord} can't check ${hostName}'s certificate. Make sure this fingerprint matches the one on the computer before you go on.\n\n${problem.fingerprint}`,
-      confirmLabel: "Trust and connect",
+      title: t("remoteDesktop.native.target.trustThisComputer"),
+      description: t("remoteDesktop.native.target.theCanTCheckS", {
+        deviceWord,
+        hostName,
+        fingerprint: problem.fingerprint,
+      }),
+      confirmLabel: t("remoteDesktop.native.target.trustAndConnect"),
       destructive: false,
     };
   }
   return {
-    title: "Certificate changed",
-    description: `${hostName} shows another certificate than last time. That happens after the computer makes a new one, or when someone is listening in between.\n\nNew fingerprint:\n${problem.fingerprint}`,
-    confirmLabel: "Trust the new one",
+    title: t("remoteDesktop.native.target.certificateChanged"),
+    description: t(
+      "remoteDesktop.native.target.showsAnotherCertificateThanLast",
+      { hostName, fingerprint: problem.fingerprint },
+    ),
+    confirmLabel: t("remoteDesktop.native.target.trustTheNewOne"),
     destructive: true,
   };
 }

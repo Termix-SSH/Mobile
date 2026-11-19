@@ -13,6 +13,7 @@ import { toUserMessage } from "@/core/errors";
 import { toast } from "@/utils/toast";
 import { EditorView, type EditorHandle } from "./editor/EditorView";
 import { updateFileSettings, useFileSettings } from "./settings";
+import { t } from "@/i18n";
 
 function HeaderButton({
   label,
@@ -72,9 +73,11 @@ export function FileViewer({
       await onSave(current);
       editor.current.markSaved();
       setDirty(false);
-      toast.success(`Saved ${name}`);
+      toast.success(t("fileManager.fileViewer.saved", { name }));
     } catch (error) {
-      toast.error(toUserMessage(error, "Could not save the file"));
+      toast.error(
+        toUserMessage(error, t("fileManager.fileViewer.couldNotSaveTheFile")),
+      );
     } finally {
       setSaving(false);
     }
@@ -83,9 +86,9 @@ export function FileViewer({
   const beforeClose = async () => {
     if (!dirty) return true;
     return confirm({
-      title: "Discard changes?",
-      description: `${name} has changes that are not saved.`,
-      confirmLabel: "Discard",
+      title: t("fileManager.fileViewer.discardChanges"),
+      description: t("fileManager.fileViewer.hasChangesThatAreNot", { name }),
+      confirmLabel: t("fileManager.fileViewer.discard"),
       destructive: true,
     });
   };
@@ -97,31 +100,37 @@ export function FileViewer({
       onClose={onClose}
       onBeforeClose={beforeClose}
       title={`${dirty ? "* " : ""}${name}`}
-      subtitle={readOnly ? `${path} | read only` : path}
+      subtitle={
+        readOnly ? t("fileManager.fileViewer.readOnly", { path }) : path
+      }
       bare
       scroll={false}
       actions={
         <>
           <HeaderButton
-            label="Find"
+            label={t("fileManager.fileViewer.find")}
             onPress={() => editor.current?.openSearch()}
           >
             <Search size={17} color={colors.text} />
           </HeaderButton>
           <HeaderButton
-            label="Smaller text"
+            label={t("fileManager.fileViewer.smallerText")}
             onPress={() => updateFileSettings({ editorFontSize: size - 1 })}
           >
             <AArrowDown size={17} color={colors.text} />
           </HeaderButton>
           <HeaderButton
-            label="Bigger text"
+            label={t("fileManager.fileViewer.biggerText")}
             onPress={() => updateFileSettings({ editorFontSize: size + 1 })}
           >
             <AArrowUp size={17} color={colors.text} />
           </HeaderButton>
           <HeaderButton
-            label={settings.editorWrap ? "Turn off line wrap" : "Wrap lines"}
+            label={
+              settings.editorWrap
+                ? t("fileManager.fileViewer.turnOffLineWrap")
+                : t("fileManager.fileViewer.wrapLines")
+            }
             onPress={() =>
               updateFileSettings({ editorWrap: !settings.editorWrap })
             }
@@ -133,7 +142,7 @@ export function FileViewer({
           </HeaderButton>
           {!readOnly ? (
             <HeaderButton
-              label="Save"
+              label={t("fileManager.fileViewer.save")}
               onPress={() => void save()}
               disabled={!dirty || saving}
             >

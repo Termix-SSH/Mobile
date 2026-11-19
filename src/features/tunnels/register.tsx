@@ -5,6 +5,7 @@ import { isSshHost } from "@/utils/hosts";
 import { TunnelManager, type TunnelManagerHandle } from "./TunnelManager";
 import { hostTunnelsEditor } from "./HostTunnelsSection";
 import { TunnelsCard } from "./TunnelsCard";
+import { t } from "@/i18n";
 
 const TunnelsTab = forwardRef<TunnelManagerHandle, SessionTabProps>(
   ({ session, isVisible, onClose }, ref) => (
@@ -35,7 +36,7 @@ const tunnelsOn = (host: Parameters<typeof isSshHost>[0]) =>
 export const tunnelsFeature: FeatureDef = {
   id: "tunnels",
   plugins: ["tunnels"],
-  title: "Tunnels",
+  title: t("tunnels.register.tunnels"),
   source: "native",
   availableOn: ["local", "server"],
   sessionTabs: [
@@ -54,7 +55,7 @@ export const tunnelsFeature: FeatureDef = {
   hostActions: [
     {
       id: "tunnels.open",
-      label: "Tunnels",
+      label: t("tunnels.register.tunnels"),
       icon: Network,
       group: "connect",
       order: 40,
@@ -65,7 +66,7 @@ export const tunnelsFeature: FeatureDef = {
   homeCards: [
     {
       id: "tunnels",
-      title: "Tunnels",
+      title: t("tunnels.register.tunnels"),
       icon: Network,
       order: 88,
       component: TunnelsCard,
@@ -74,8 +75,8 @@ export const tunnelsFeature: FeatureDef = {
   tools: [
     {
       id: "tunnels",
-      label: "Tunnels",
-      description: "Start and stop saved tunnels",
+      label: t("tunnels.register.tunnels"),
+      description: t("tunnels.register.startAndStopSavedTunnels"),
       icon: Network,
       order: 60,
       tabType: "tunnel",
@@ -85,7 +86,7 @@ export const tunnelsFeature: FeatureDef = {
   hostToggles: [
     {
       key: "enableTunnel",
-      label: "Tunnels",
+      label: t("tunnels.register.tunnels"),
       group: "feature",
       order: 30,
     },
@@ -93,7 +94,7 @@ export const tunnelsFeature: FeatureDef = {
   hostEditorSections: [
     {
       id: "tunnels",
-      label: "Tunnels",
+      label: t("tunnels.register.tunnels"),
       group: "ssh",
       order: 20,
       toggle: "enableTunnel",
@@ -102,7 +103,7 @@ export const tunnelsFeature: FeatureDef = {
   ],
   hostBadges: [
     {
-      label: "TUNNEL",
+      label: t("tunnels.register.tunnel"),
       order: 40,
       show: (host, ssh) => ssh && !!host.enableTunnel,
     },
@@ -111,7 +112,7 @@ export const tunnelsFeature: FeatureDef = {
     {
       group: "features",
       value: "tunnel",
-      label: "Tunnel",
+      label: t("tunnels.register.tunnel2"),
       order: 30,
       matches: (host) => !!host.enableTunnel,
     },

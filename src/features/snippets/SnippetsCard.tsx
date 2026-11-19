@@ -8,6 +8,7 @@ import { HomeCard } from "@/screens/home/HomeCard";
 import type { Snippet } from "@/types";
 import { Text } from "@/ui";
 import { RunOnHostsSheet } from "./RunOnHostsSheet";
+import { t } from "@/i18n";
 
 const SHOWN = 6;
 
@@ -32,7 +33,7 @@ export function SnippetsCard() {
 
   return (
     <HomeCard
-      title="Snippets"
+      title={t("snippets.snippetsCard.snippets")}
       icon={FileText}
       action="All"
       onAction={() => router.push("/tabs/settings/Snippets" as never)}
@@ -43,7 +44,9 @@ export function SnippetsCard() {
             key={snippet.id}
             onPress={() => setRunning(snippet)}
             accessibilityRole="button"
-            accessibilityLabel={`Run ${snippet.name}`}
+            accessibilityLabel={t("snippets.snippetsCard.run", {
+              name: snippet.name,
+            })}
             className={`w-1/2 flex-row items-center gap-2 border-border px-3 py-2.5 active:bg-muted/40 ${index % 2 === 0 ? "border-r" : ""} ${index >= 2 ? "border-t" : ""}`}
           >
             <Play size={13} color={color("accent-brand")} />

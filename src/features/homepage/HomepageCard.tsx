@@ -8,6 +8,7 @@ import { HomeCard } from "@/screens/home/HomeCard";
 import { ListRow, Text } from "@/ui";
 import { cachedItems, type HomepageItem } from "./api";
 import { widgetType } from "./widgets";
+import { t } from "@/i18n";
 
 export const PLUGIN_ID = "homepage";
 /** The instance key of the plugin's own service links. */
@@ -16,7 +17,7 @@ export const LINKS_INSTANCE = "links";
 const LINKS_ITEM: HomepageItem = {
   id: -1,
   typeId: "service_links",
-  title: "Service links",
+  title: t("homepage.homepageCard.serviceLinks"),
   config: {},
 };
 
@@ -76,10 +77,10 @@ export function HomepageCard({
         />
       ) : (
         <ListRow
-          title="Open in Homepage"
+          title={t("homepage.homepageCard.openInHomepage")}
           meta={
             <Text className="text-meta text-muted-foreground">
-              This widget only shows on the full page.
+              {t("homepage.homepageCard.thisWidgetOnlyShowsOn")}
             </Text>
           }
           icon={<ExternalLink size={16} color={color("muted-foreground")} />}

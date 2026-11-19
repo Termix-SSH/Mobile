@@ -2,6 +2,7 @@ import { router } from "expo-router";
 import { History, ShieldCheck, Zap } from "lucide-react-native";
 import type { FeatureDef } from "@/core/features/types";
 import { ApprovalsCard } from "./ApprovalsCard";
+import { t } from "@/i18n";
 
 /**
  * Actions plugins declare on the server: one list per host, plus approvals
@@ -11,14 +12,14 @@ import { ApprovalsCard } from "./ApprovalsCard";
 export const operationsFeature: FeatureDef = {
   id: "operations",
   plugins: ["operations-center"],
-  title: "Actions",
+  title: t("operations.register.actions"),
   source: "native",
   requires: { plugin: "operations-center", pluginApiOnly: true },
   availableOn: ["server"],
   hostActions: [
     {
       id: "operations.host-actions",
-      label: "Actions",
+      label: t("operations.register.actions"),
       icon: Zap,
       group: "manage",
       order: 5,
@@ -35,7 +36,7 @@ export const operationsFeature: FeatureDef = {
   homeCards: [
     {
       id: "operations.approvals",
-      title: "Waiting for approval",
+      title: t("operations.register.waitingForApproval"),
       icon: ShieldCheck,
       order: 35,
       component: ApprovalsCard,
@@ -44,16 +45,16 @@ export const operationsFeature: FeatureDef = {
   tools: [
     {
       id: "operations.approvals",
-      label: "Approvals",
-      description: "Actions waiting for a person to say yes",
+      label: t("operations.register.approvals"),
+      description: t("operations.register.actionsWaitingForAPerson"),
       icon: ShieldCheck,
       order: 70,
       href: "/tabs/settings/Approvals",
     },
     {
       id: "operations.history",
-      label: "Run history",
-      description: "Every action anyone ran, from any device",
+      label: t("operations.register.runHistory"),
+      description: t("operations.register.everyActionAnyoneRanFrom"),
       icon: History,
       order: 71,
       href: "/tabs/settings/RunHistory",

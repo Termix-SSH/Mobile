@@ -1,4 +1,5 @@
 import type { AccountClient } from "@/core/api/AccountClient";
+import { t } from "@/i18n";
 
 /** One input of an action, as the server's catalog describes it. */
 export interface ActionField {
@@ -194,13 +195,13 @@ export function errorText(error: unknown, fallback: string): string {
 
 /** Plain words for a run or approval state. */
 export const STATE_LABELS: Record<string, string> = {
-  success: "Done",
-  failed: "Failed",
-  running: "Running",
-  pending_approval: "Needs approval",
-  needs_interaction: "Needs sign in",
-  interrupted: "Interrupted",
-  rejected: "Rejected",
-  cancelled: "Cancelled",
-  expired: "Expired",
+  success: t("operations.api.done"),
+  failed: t("operations.api.failed"),
+  running: t("operations.api.running"),
+  pending_approval: t("operations.api.needsApproval"),
+  needs_interaction: t("operations.api.needsSignIn"),
+  interrupted: t("operations.api.interrupted"),
+  rejected: t("operations.api.rejected"),
+  cancelled: t("operations.api.cancelled"),
+  expired: t("operations.api.expired"),
 };

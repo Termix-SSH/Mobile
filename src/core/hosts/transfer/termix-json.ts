@@ -1,6 +1,7 @@
 // The Termix host file: what Plugin-Import-Export reads and writes, so a file
 // from the web app imports here and the other way round.
 import type { Credential, SSHHost } from "@/types";
+import { t } from "@/i18n";
 
 export const KNOWN_AUTH_TYPES = [
   "password",
@@ -129,15 +130,22 @@ export function normalizeRow(
   const isSsh = connectionType === "ssh";
   const ip = text(raw.ip);
   if (!ip || !isValidPort(raw.port)) {
-    return `${label}: Missing required fields (ip, port)`;
+    return t("hosts.transfer.termixJson.missingRequiredFieldsIpPort", {
+      label,
+    });
   }
   const authType = isSsh ? (text(raw.authType) ?? "password") : "password";
   if (isSsh && !KNOWN_AUTH_TYPES.includes(authType)) {
-    return `${label}: Invalid authType. Must be one of ${KNOWN_AUTH_TYPES.join(", ")}`;
+    return t("hosts.transfer.termixJson.invalidAuthtypeMustBeOne", {
+      label,
+      value: KNOWN_AUTH_TYPES.join(", "),
+    });
   }
   const username = text(raw.username);
   if (isSsh && username === undefined && authType !== "credential") {
-    return `${label}: Username required for SSH connections`;
+    return t("hosts.transfer.termixJson.usernameRequiredForSshConnections", {
+      label,
+    });
   }
   const password = rawText(raw.password);
   const key = rawText(raw.key);
@@ -145,7 +153,10 @@ export function normalizeRow(
   // A share file has no secrets, so a missing password or key is fine here.
   // The host asks for it when it connects.
   if (isSsh && authType === "credential" && !alias && !password && !key) {
-    return `${label}: credentialAlias required for credential authentication`;
+    return t(
+      "hosts.transfer.termixJson.credentialaliasRequiredForCredentialAuthentication",
+      { label },
+    );
   }
   const exportId = Number(raw.exportId ?? raw.id);
   return {
@@ -209,7 +220,7 @@ export function parseImportFile(source: string): ImportFile {
   try {
     data = JSON.parse(source);
   } catch {
-    throw new Error("That is not a valid JSON file");
+    throw new Error(t("hosts.transfer.termixJson.thatIsNotAValid"));
   }
   const list = Array.isArray(data)
     ? data
@@ -217,7 +228,7 @@ export function parseImportFile(source: string): ImportFile {
       ? data.hosts
       : null;
   if (!list || list.length === 0) {
-    throw new Error("Hosts array is required and must not be empty");
+    throw new Error(t("hosts.transfer.termixJson.hostsArrayIsRequiredAnd"));
   }
   const credentials =
     isObject(data) && Array.isArray(data.credentials)
@@ -237,7 +248,10 @@ export function parseImportFile(source: string): ImportFile {
     if (row.exportId !== undefined) {
       if (seen.has(row.exportId)) {
         errors.push(
-          `Host ${i + 1}: duplicate exported host id ${row.exportId}`,
+          t("hosts.transfer.termixJson.hostDuplicateExportedHostId", {
+            value: i + 1,
+            exportId: row.exportId,
+          }),
         );
         return;
       }
@@ -271,7 +285,7 @@ export function orderByJumps(rows: ImportRow[]): {
     if (failed.has(row)) return false;
     const label = row.name || row.ip;
     if (visiting.has(row)) {
-      errors.push(`${label}: jump host cycle`);
+      errors.push(t("hosts.transfer.termixJson.jumpHostCycle", { label }));
       failed.add(row);
       return false;
     }
@@ -280,7 +294,9 @@ export function orderByJumps(rows: ImportRow[]): {
     for (const id of row.jumpHosts) {
       const dependency = byId.get(id);
       if (!dependency) {
-        errors.push(`${label}: jump host ${id} is not in the file`);
+        errors.push(
+          t("hosts.transfer.termixJson.jumpHostIsNotIn", { label, id }),
+        );
         ok = false;
       } else if (!visit(dependency)) ok = false;
     }

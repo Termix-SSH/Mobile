@@ -1,3 +1,5 @@
+import { t } from "@/i18n";
+
 export type LockAppState = "active" | "inactive" | "background";
 
 export interface LockState {
@@ -26,10 +28,10 @@ export type LockEvent =
   | { type: "bioEnd" };
 
 export const LOCK_DELAYS = [
-  { id: "now", label: "Right away", ms: 0 },
-  { id: "15s", label: "After 15 seconds", ms: 15_000 },
-  { id: "1m", label: "After 1 minute", ms: 60_000 },
-  { id: "5m", label: "After 5 minutes", ms: 300_000 },
+  { id: "now", label: t("lock.machine.rightAway"), ms: 0 },
+  { id: "15s", label: t("lock.machine.after15Seconds"), ms: 15_000 },
+  { id: "1m", label: t("lock.machine.after1Minute"), ms: 60_000 },
+  { id: "5m", label: t("lock.machine.after5Minutes"), ms: 300_000 },
 ] as const;
 
 export const DEFAULT_LOCK_DELAY_MS = 15_000;

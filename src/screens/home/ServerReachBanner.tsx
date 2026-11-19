@@ -12,6 +12,7 @@ import { sync, useAccountSync, type AccountSync } from "@/core/sync";
 import { Button, Text } from "@/ui";
 import { toast } from "@/utils/toast";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /** Whether to say the active server can't be reached. */
 export function unreachable(account: Account, status: AccountSync): boolean {
@@ -40,11 +41,11 @@ export function ServerReachBanner() {
     try {
       const client = accounts.activeClient();
       const me = await client?.api.auth.getUserInfo();
-      if (!me?.username) throw new Error("no answer");
+      if (!me?.username) throw new Error(t("home.serverReachBanner.noAnswer"));
       await accounts.update(account.id, { status: "idle" });
       if (synced) await sync.syncNow(account.id);
     } catch {
-      toast.error("Still can't reach the server");
+      toast.error(t("home.serverReachBanner.stillCanTReachThe"));
     } finally {
       setTrying(false);
     }
@@ -59,16 +60,18 @@ export function ServerReachBanner() {
       />
       <View className="flex-1">
         <Text weight="medium" className="text-sm text-foreground">
-          {`Can't reach ${accountLabel(account)}`}
+          {t("home.serverReachBanner.canTReach", {
+            account: accountLabel(account),
+          })}
         </Text>
         <Text className="mt-0.5 text-xs text-muted-foreground">
           {synced
-            ? `You can keep working with the copy on this ${deviceWord}. Changes go up when it is back.`
-            : `Hosts set to connect from this ${deviceWord} still work.`}
+            ? t("home.serverReachBanner.youCanKeepWorkingWith", { deviceWord })
+            : t("home.serverReachBanner.hostsSetToConnectFrom", { deviceWord })}
         </Text>
       </View>
       <Button size="sm" variant="muted" loading={trying} onPress={retry}>
-        Try again
+        {t("home.serverReachBanner.tryAgain")}
       </Button>
     </View>
   );

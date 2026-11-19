@@ -12,6 +12,7 @@ import {
   type NetRequest,
   type NetResponse,
 } from "@/modules/termix-net";
+import { t } from "@/i18n";
 
 function bodyOf(data: unknown): Pick<NetRequest, "body" | "bodyBase64"> {
   if (data == null) return { body: null };
@@ -125,7 +126,8 @@ export function nativeStreamResponse(
         onEnd(error) {
           ended = true;
           if (error) failure = new Error(error);
-          if (!answered) reject(failure ?? new Error("No answer"));
+          if (!answered)
+            reject(failure ?? new Error(t("api.nativeAdapter.noAnswer")));
           notify();
         },
       },

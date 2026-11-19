@@ -6,6 +6,7 @@ import type { AccountClient } from "@/core/api/AccountClient";
 import type { ExecRunner } from "@/core/exec";
 import { Utf8Stream } from "@/core/transport/local/LocalShell";
 import type { SSHHost } from "@/types";
+import { t } from "@/i18n";
 
 export interface ConsoleEvents {
   onOutput(text: string): void;
@@ -29,7 +30,8 @@ export function execLine(
   id: string,
   sudo: boolean,
 ): string {
-  if (!isContainerId(id)) throw new Error("That is not a valid container id");
+  if (!isContainerId(id))
+    throw new Error(t("docker.consoleLink.thatIsNotAValid"));
   const run = sudo
     ? `sudo ${runtime} exec -it ${id} ${SHELL}`
     : containerCommand(runtime, `exec -it ${id} ${SHELL}`);
@@ -67,7 +69,9 @@ export function openLocalConsole(
       events.onConnected();
     })
     .catch((e) =>
-      events.onError(e instanceof Error ? e.message : "Console failed"),
+      events.onError(
+        e instanceof Error ? e.message : t("docker.consoleLink.consoleFailed"),
+      ),
     );
   return {
     input: (text) => void shell?.write(text).catch(() => {}),
@@ -96,7 +100,7 @@ export function openRelayConsole(
     const token = await client.token();
     if (closed) return;
     if (!token) {
-      events.onError("Not authenticated");
+      events.onError(t("docker.consoleLink.notAuthenticated"));
       return;
     }
     ws = client.openSocket(client.dockerConsoleWebSocketUrl(token), [
@@ -129,13 +133,13 @@ export function openRelayConsole(
           send({ type: "resize", data: size() });
         } else if (msg.type === "error") {
           failed = true;
-          events.onError(msg.message || "Console error");
+          events.onError(msg.message || t("docker.consoleLink.consoleError"));
         } else if (msg.type === "disconnected") events.onClosed();
       } catch {}
     };
     ws.onerror = () => {
       failed = true;
-      events.onError("Connection failed");
+      events.onError(t("docker.consoleLink.connectionFailed"));
     };
     ws.onclose = () => {
       if (!failed && !closed) events.onClosed();

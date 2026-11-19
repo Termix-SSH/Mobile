@@ -12,6 +12,7 @@ import { Button, EmptyState, Text } from "@/ui";
 import { isSshHost } from "@/utils/hosts";
 import { Dot, HomeCard } from "../HomeCard";
 import { useHomeData } from "../HomeData";
+import { t } from "@/i18n";
 
 /** Pinned hosts in name order, SSH first since only they have cards. */
 export function pinnedHosts(hosts: SSHHost[]): SSHHost[] {
@@ -39,8 +40,8 @@ export function PinnedCard({ accountId, active }: HomeCardProps) {
     return (
       <EmptyState
         icon={Server}
-        title="Add your first host"
-        hint="Hosts you open show up here, and pinned hosts show live cards."
+        title={t("home.cards.pinnedCard.addYourFirstHost")}
+        hint={t("home.cards.pinnedCard.hostsYouOpenShowUp")}
         action={
           <View className="items-center gap-2">
             <Button
@@ -48,7 +49,7 @@ export function PinnedCard({ accountId, active }: HomeCardProps) {
               onPress={() => openTab("/(tabs)/hosts?action=new")}
               icon={<Plus size={15} color={color("accent-brand")} />}
             >
-              Add host
+              {t("home.cards.pinnedCard.addHost")}
             </Button>
             {local ? (
               <Button
@@ -56,7 +57,7 @@ export function PinnedCard({ accountId, active }: HomeCardProps) {
                 variant="ghost"
                 onPress={() => openAuthFlow("server")}
               >
-                Link a server
+                {t("home.cards.pinnedCard.linkAServer")}
               </Button>
             ) : null}
           </View>
@@ -69,11 +70,11 @@ export function PinnedCard({ accountId, active }: HomeCardProps) {
     return (
       <EmptyState
         icon={Pin}
-        title="Pin a host to see it here"
-        hint="Pinned hosts show their metrics, Docker and services at a glance. Hold a host to pin it."
+        title={t("home.cards.pinnedCard.pinAHostToSee")}
+        hint={t("home.cards.pinnedCard.pinnedHostsShowTheirMetrics")}
         action={
           <Button size="sm" onPress={() => openTab("/(tabs)/hosts")}>
-            Go to hosts
+            {t("home.cards.pinnedCard.goToHosts")}
           </Button>
         }
       />
@@ -81,7 +82,12 @@ export function PinnedCard({ accountId, active }: HomeCardProps) {
   }
 
   return (
-    <HomeCard title="Pinned" icon={Pin} meta={String(pinned.length)} padded>
+    <HomeCard
+      title={t("home.cards.pinnedCard.pinned")}
+      icon={Pin}
+      meta={String(pinned.length)}
+      padded
+    >
       <View className="gap-4">
         {pinned.map((host) => (
           <HostSection
@@ -125,7 +131,7 @@ function HostSection({
         onPress={onOpen}
         onLongPress={onMore}
         accessibilityRole="button"
-        accessibilityHint="Opens the terminal. Hold for more."
+        accessibilityHint={t("home.cards.pinnedCard.opensTheTerminalHoldFor")}
         className="flex-row items-center gap-2 active:opacity-70"
       >
         <Dot state={state} />
@@ -146,7 +152,7 @@ function HostSection({
       </Pressable>
       {cards.length === 0 ? (
         <Text className="text-[11px] text-muted-foreground">
-          Turn on Docker or Services for this host, or tap it to connect.
+          {t("home.cards.pinnedCard.turnOnDockerOrServices")}
         </Text>
       ) : (
         cards.map((card) => {
@@ -155,7 +161,9 @@ function HostSection({
             <Pressable
               key={card.id}
               accessibilityRole="button"
-              accessibilityHint={`Opens ${card.title}`}
+              accessibilityHint={t("home.cards.pinnedCard.opens", {
+                title: card.title,
+              })}
               onPress={() => void navigateToSessions(host, card.tabType)}
             >
               {/* a11y-reads-children: each card draws its own text */}

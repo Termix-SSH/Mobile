@@ -3,6 +3,7 @@ import type { FeatureDef, SessionTabProps } from "@/core/features/types";
 import { isSshHost } from "@/utils/hosts";
 import { Services } from "./Services";
 import { ServicesCard } from "./ServicesCard";
+import { t } from "@/i18n";
 
 const servicesOn = (host: Parameters<typeof isSshHost>[0]) =>
   isSshHost(host) && !!host.enableServices;
@@ -14,7 +15,7 @@ function ServicesTab({ session, isVisible }: SessionTabProps) {
 export const servicesFeature: FeatureDef = {
   id: "service-manager",
   plugins: ["service-manager"],
-  title: "Services",
+  title: t("services.register.services"),
   source: "native",
   // Over the phone's SSH, or the server's Service Manager when that is the way in.
   availableOn: ["local", "server"],
@@ -34,7 +35,7 @@ export const servicesFeature: FeatureDef = {
   hostActions: [
     {
       id: "services.open",
-      label: "Services",
+      label: t("services.register.services"),
       icon: Cog,
       group: "connect",
       order: 35,
@@ -45,8 +46,8 @@ export const servicesFeature: FeatureDef = {
   tools: [
     {
       id: "services",
-      label: "Services",
-      description: "Start, stop and read logs",
+      label: t("services.register.services"),
+      description: t("services.register.startStopAndReadLogs"),
       icon: Cog,
       order: 40,
       tabType: "services",
@@ -56,7 +57,7 @@ export const servicesFeature: FeatureDef = {
   dashboardCards: [
     {
       id: "service-manager",
-      title: "Services",
+      title: t("services.register.services"),
       order: 30,
       tabType: "services",
       isAvailable: (host) => isSshHost(host) && !!host.enableServices,
@@ -64,16 +65,25 @@ export const servicesFeature: FeatureDef = {
     },
   ],
   hostToggles: [
-    { key: "enableServices", label: "Services", group: "feature", order: 45 },
+    {
+      key: "enableServices",
+      label: t("services.register.services"),
+      group: "feature",
+      order: 45,
+    },
   ],
   hostBadges: [
-    { label: "SVC", order: 55, show: (host) => !!host.enableServices },
+    {
+      label: "SVC",
+      order: 55,
+      show: (host) => !!host.enableServices,
+    },
   ],
   hostFilters: [
     {
       group: "features",
       value: "services",
-      label: "Services",
+      label: t("services.register.services"),
       order: 45,
       matches: (host) => !!host.enableServices,
     },

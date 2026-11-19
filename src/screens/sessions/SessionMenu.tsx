@@ -19,6 +19,7 @@ import type {
 } from "@/core/features/types";
 import { displayTitle } from "@/contexts/session-tabs";
 import type { TerminalSession } from "@/contexts/TerminalSessionsContext";
+import { t } from "@/i18n";
 
 /**
  * A tab's menu: rename, another tab on the host, move, close, and whatever
@@ -108,12 +109,12 @@ export function SessionMenu({
       >
         <SheetRow
           icon={icon(Pencil)}
-          label="Rename"
+          label={t("sessions.sessionMenu.rename")}
           onPress={() => setRenaming(true)}
         />
         <SheetRow
           icon={icon(CopyPlus)}
-          label="New tab on this host"
+          label={t("sessions.sessionMenu.newTabOnThisHost")}
           onPress={pick(onDuplicate)}
         />
         {companions.map((c) => (
@@ -122,10 +123,10 @@ export function SessionMenu({
             icon={icon(c.icon as typeof Pencil)}
             label={
               companionAsTab
-                ? `${c.title} here`
+                ? t("sessions.sessionMenu.here", { title: c.title })
                 : companionOpen === c.id
-                  ? `Hide ${c.title} panel`
-                  : `Show ${c.title} panel`
+                  ? t("sessions.sessionMenu.hidePanel", { title: c.title })
+                  : t("sessions.sessionMenu.showPanel", { title: c.title })
             }
             onPress={pick(() => onCompanion?.(c.id))}
           />
@@ -133,13 +134,13 @@ export function SessionMenu({
         {splitOn ? (
           <SheetRow
             icon={icon(Columns2)}
-            label="End split view"
+            label={t("sessions.sessionMenu.endSplitView")}
             onPress={pick(() => onSplit?.(null))}
           />
         ) : splitTargets.length > 0 && onSplit ? (
           <SheetRow
             icon={icon(Columns2)}
-            label="Split view with..."
+            label={t("sessions.sessionMenu.splitViewWith")}
             onPress={() => setPicking(true)}
           />
         ) : null}
@@ -158,33 +159,33 @@ export function SessionMenu({
         {index > 0 ? (
           <SheetRow
             icon={icon(ArrowLeft)}
-            label="Move left"
+            label={t("sessions.sessionMenu.moveLeft")}
             onPress={pick(() => onMove(index - 1))}
           />
         ) : null}
         {index < count - 1 ? (
           <SheetRow
             icon={icon(ArrowRight)}
-            label="Move right"
+            label={t("sessions.sessionMenu.moveRight")}
             onPress={pick(() => onMove(index + 1))}
           />
         ) : null}
         <SheetRow
           icon={<X size={16} color={color("destructive")} />}
-          label="Close tab"
+          label={t("sessions.sessionMenu.closeTab")}
           destructive
           onPress={pick(onCloseTab)}
         />
         {onCloseAll && count > 1 ? (
           <SheetRow
             icon={<XSquare size={16} color={color("destructive")} />}
-            label="Close all tabs"
+            label={t("sessions.sessionMenu.closeAllTabs")}
             destructive
             onPress={pick(async () => {
               const ok = await confirm({
-                title: `Close all ${count} tabs?`,
-                description: "Every session ends.",
-                confirmLabel: "Close all",
+                title: t("sessions.sessionMenu.closeAllTabs2", { count }),
+                description: t("sessions.sessionMenu.everySessionEnds"),
+                confirmLabel: t("sessions.sessionMenu.closeAll"),
               });
               if (ok) onCloseAll();
             })}
@@ -194,7 +195,7 @@ export function SessionMenu({
       <Sheet
         visible={picking}
         onClose={() => setPicking(false)}
-        title="Split view with"
+        title={t("sessions.sessionMenu.splitViewWith2")}
         scroll
       >
         {splitTargets.map((target) => (
@@ -211,8 +212,8 @@ export function SessionMenu({
       </Sheet>
       <PromptSheet
         visible={renaming}
-        title="Rename tab"
-        description="Leave it empty to use the host's name."
+        title={t("sessions.sessionMenu.renameTab")}
+        description={t("sessions.sessionMenu.leaveItEmptyToUse")}
         defaultValue={session?.customTitle ?? ""}
         placeholder={session?.title}
         validate={() => true}

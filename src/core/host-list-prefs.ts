@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { plainStore } from "@/core/storage/kv";
+import { t } from "@/i18n";
 
 /** What a host row shows. Same idea as the web sidebar's row details. */
 export interface HostListPrefs {
@@ -25,47 +26,55 @@ export const HOST_LIST_FIELDS: {
 }[] = [
   {
     key: "showAddress",
-    label: "Address",
-    description: "The IP or host name under the name",
+    label: t("core.hostListPrefs.address"),
+    description: t("core.hostListPrefs.theIpOrHostName"),
   },
   {
     key: "showUsername",
-    label: "Username",
-    description: "The user before the address",
+    label: t("core.hostListPrefs.username"),
+    description: t("core.hostListPrefs.theUserBeforeTheAddress"),
     dependsOnAddress: true,
   },
   {
     key: "showPort",
-    label: "Port",
-    description: "The port after the address",
+    label: t("core.hostListPrefs.port"),
+    description: t("core.hostListPrefs.thePortAfterTheAddress"),
     dependsOnAddress: true,
   },
   {
     key: "showIcon",
-    label: "Host icon",
-    description: "The icon set on the host",
+    label: t("core.hostListPrefs.hostIcon"),
+    description: t("core.hostListPrefs.theIconSetOnThe"),
   },
-  { key: "showPinIcon", label: "Pin icon", description: "Marks pinned hosts" },
+  {
+    key: "showPinIcon",
+    label: t("core.hostListPrefs.pinIcon"),
+    description: t("core.hostListPrefs.marksPinnedHosts"),
+  },
   {
     key: "showSharedBadge",
-    label: "Shared badge",
-    description: "Marks hosts shared with you",
+    label: t("core.hostListPrefs.sharedBadge"),
+    description: t("core.hostListPrefs.marksHostsSharedWithYou"),
   },
   {
     key: "showBadges",
-    label: "Protocol badges",
-    description: "SSH, RDP, Docker and other chips",
+    label: t("core.hostListPrefs.protocolBadges"),
+    description: t("core.hostListPrefs.sshRdpDockerAndOther"),
   },
-  { key: "showTags", label: "Tags", description: "The host's tags" },
+  {
+    key: "showTags",
+    label: t("core.hostListPrefs.tags"),
+    description: t("core.hostListPrefs.theHostSTags"),
+  },
   {
     key: "showMetrics",
-    label: "CPU and RAM",
-    description: "Live usage bars on online hosts",
+    label: t("core.hostListPrefs.cpuAndRam"),
+    description: t("core.hostListPrefs.liveUsageBarsOnOnline"),
   },
   {
     key: "statusColors",
-    label: "Status colors",
-    description: "Green bar when online, red when offline",
+    label: t("core.hostListPrefs.statusColors"),
+    description: t("core.hostListPrefs.greenBarWhenOnlineRed"),
   },
 ];
 

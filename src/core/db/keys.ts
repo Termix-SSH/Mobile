@@ -2,6 +2,7 @@ import * as Crypto from "expo-crypto";
 import * as SecureStore from "expo-secure-store";
 import { AppError } from "@/core/errors";
 import { secureOptionsFor } from "@/core/storage/kv";
+import { t } from "@/i18n";
 
 export const keyName = (accountId: string) =>
   `db.key.${accountId.replace(/[^A-Za-z0-9._-]/g, "_")}`;
@@ -47,7 +48,8 @@ export function unlockedDeviceKey(): string | null {
  */
 export async function getDbKey(accountId: string): Promise<string> {
   if (accountId === DEVICE && deviceSealed) {
-    if (!deviceKey) throw new AppError("Unlock Termix first.", "APP_LOCKED");
+    if (!deviceKey)
+      throw new AppError(t("db.keys.unlockTermixFirst"), "APP_LOCKED");
     return deviceKey;
   }
   return getPlainDbKey(accountId);
@@ -67,7 +69,7 @@ export async function getPlainDbKey(accountId: string): Promise<string> {
 /** Puts this device's key back in the clear, when App Lock turns off. */
 export async function restorePlainDeviceKey(key: string): Promise<void> {
   if (!/^[0-9a-f]{64}$/.test(key)) {
-    throw new AppError("That is not a database key.", "BAD_KEY");
+    throw new AppError(t("db.keys.thatIsNotADatabase"), "BAD_KEY");
   }
   await SecureStore.setItemAsync(
     keyName(DEVICE),
@@ -79,7 +81,7 @@ export async function restorePlainDeviceKey(key: string): Promise<void> {
     secureOptionsFor(DEVICE),
   );
   if (back !== key) {
-    throw new AppError("Could not save the database key.", "BAD_KEY");
+    throw new AppError(t("db.keys.couldNotSaveTheDatabase"), "BAD_KEY");
   }
 }
 

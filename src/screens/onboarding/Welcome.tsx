@@ -14,6 +14,7 @@ import { LOCAL_ACCOUNT_ID } from "@/core/accounts/types";
 import { ImportPanel } from "@/features/host-transfer/ImportPanel";
 import { useRestoreBackup } from "@/screens/settings/RestoreBackup";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 export type WelcomeChoice = "standalone" | "link" | "import";
 
@@ -80,7 +81,7 @@ export default function Welcome({
   const [imported, setImported] = useState(false);
   const restore = useRestoreBackup({
     accountId: LOCAL_ACCOUNT_ID,
-    accountName: "This device",
+    accountName: t("onboarding.welcome.thisDevice"),
     askFirst: false,
     onDone: () => setImported(true),
   });
@@ -95,7 +96,10 @@ export default function Welcome({
           paddingRight: insets.right,
         }}
       >
-        <ScreenHeader title="Import" onBack={() => setView("choose")} />
+        <ScreenHeader
+          title={t("onboarding.welcome.import")}
+          onBack={() => setView("choose")}
+        />
         <ScrollView
           contentContainerStyle={{
             padding: 16,
@@ -105,27 +109,27 @@ export default function Welcome({
           keyboardShouldPersistTaps="handled"
         >
           <View className="gap-2">
-            <Label>Hosts</Label>
+            <Label>{t("onboarding.welcome.hosts")}</Label>
             <Text className="text-sm leading-5 text-muted-foreground">
-              A Termix host file, your ~/.ssh/config, or a host link or QR code
-              from another {deviceWord}. They are saved on this {deviceWord}.
+              {t("onboarding.welcome.aTermixHostFileYour", { deviceWord })}
             </Text>
             <ImportPanel
               onImported={(r) => r.created > 0 && setImported(true)}
             />
           </View>
           <View className="gap-2">
-            <Label>Backup</Label>
+            <Label>{t("onboarding.welcome.backup")}</Label>
             <Text className="text-sm leading-5 text-muted-foreground">
-              A backup this app made, locked with a passphrase. It brings back
-              hosts, credentials and snippets.
+              {t("onboarding.welcome.aBackupThisAppMade")}
             </Text>
             <Button variant="muted" onPress={() => void restore.start()}>
-              Restore a backup
+              {t("onboarding.welcome.restoreABackup")}
             </Button>
           </View>
           <Button size="lg" onPress={() => onDone("import")}>
-            {imported ? "Done" : "Skip for now"}
+            {imported
+              ? t("onboarding.welcome.done")
+              : t("onboarding.welcome.skipForNow")}
           </Button>
         </ScrollView>
         {restore.sheet}
@@ -155,11 +159,10 @@ export default function Welcome({
           weight="bold"
           className="mt-2 text-3xl tracking-[3px] text-foreground"
         >
-          TERMIX
+          {"TERMIX"}
         </Text>
         <Text className="text-sm leading-5 text-muted-foreground">
-          SSH, files and remote desktops from your {deviceWord}. How do you want
-          to start?
+          {t("onboarding.welcome.sshFilesAndRemoteDesktops", { deviceWord })}
         </Text>
       </View>
 
@@ -167,20 +170,22 @@ export default function Welcome({
         <Choice
           primary
           icon={<Smartphone size={20} color={accent} />}
-          title="Use without a server"
-          body={`Hosts, credentials and snippets are kept encrypted on this ${deviceWord}. You can link a server any time later.`}
+          title={t("onboarding.welcome.useWithoutAServer")}
+          body={t("onboarding.welcome.hostsCredentialsAndSnippetsAre", {
+            deviceWord,
+          })}
           onPress={() => onDone("standalone")}
         />
         <Choice
           icon={<Server size={20} color={fg} />}
-          title="Link a Termix server"
-          body="Sync your hosts, credentials, snippets and settings with your server and use its plugins."
+          title={t("onboarding.welcome.linkATermixServer")}
+          body={t("onboarding.welcome.syncYourHostsCredentialsSnippets")}
           onPress={() => onDone("link")}
         />
         <Choice
           icon={<Download size={20} color={fg} />}
-          title="Import"
-          body="Bring hosts from a Termix file, an SSH config, a QR code or a backup."
+          title={t("onboarding.welcome.import")}
+          body={t("onboarding.welcome.bringHostsFromATermix")}
           onPress={() => setView("import")}
         />
       </View>

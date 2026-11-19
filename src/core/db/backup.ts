@@ -7,6 +7,7 @@ import { fromBase64, toBase64, utf8Decode, utf8Encode } from "./bytes";
 import type { RawDb, SqlValue } from "./driver";
 import { SCHEMA_VERSION } from "./migrate";
 import { allTables } from "./schema";
+import { t as tr } from "@/i18n";
 
 export const BACKUP_FORMAT = "termix-backup";
 export const BACKUP_EXTENSION = "termixbackup";
@@ -88,7 +89,7 @@ export async function createBackup(
 ): Promise<string> {
   if (passphrase.length < 8) {
     throw new AppError(
-      "Use a passphrase with at least 8 characters.",
+      tr("db.backup.useAPassphraseWithAt"),
       "VALIDATION_ERROR",
     );
   }
@@ -119,7 +120,7 @@ export async function openBackup(
   try {
     file = JSON.parse(content);
   } catch {
-    throw new AppError("This is not a Termix backup file.", "BACKUP_INVALID");
+    throw new AppError(tr("db.backup.thisIsNotATermix"), "BACKUP_INVALID");
   }
   if (
     file?.format !== BACKUP_FORMAT ||
@@ -127,17 +128,14 @@ export async function openBackup(
     file.cipher !== "xchacha20poly1305" ||
     file.kdf?.name !== "scrypt"
   ) {
-    throw new AppError("This is not a Termix backup file.", "BACKUP_INVALID");
+    throw new AppError(tr("db.backup.thisIsNotATermix"), "BACKUP_INVALID");
   }
   if (file.schemaVersion > SCHEMA_VERSION) {
-    throw new AppError(
-      "This backup is from a newer version of Termix. Update the app first.",
-      "DB_TOO_NEW",
-    );
+    throw new AppError(tr("db.backup.thisBackupIsFromA"), "DB_TOO_NEW");
   }
   const { N, r, p } = file.kdf;
   if (![N, r, p].every(Number.isInteger) || N > 2 ** 20 || r > 16 || p > 4) {
-    throw new AppError("This is not a Termix backup file.", "BACKUP_INVALID");
+    throw new AppError(tr("db.backup.thisIsNotATermix"), "BACKUP_INVALID");
   }
   const key = await deriveKey(passphrase, fromBase64(file.kdf.salt), {
     N,
@@ -151,7 +149,7 @@ export async function openBackup(
     );
   } catch {
     throw new AppError(
-      "Wrong passphrase, or the file is damaged.",
+      tr("db.backup.wrongPassphraseOrTheFile"),
       "BACKUP_WRONG_PASSPHRASE",
     );
   }

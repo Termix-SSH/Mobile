@@ -13,19 +13,36 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
 import { useSessionStatuses, type SessionState } from "@/core/sessions/status";
 import { useOrientation } from "@/utils/orientation";
+import { t as tr } from "@/i18n";
 
 type Icon = (props: { color: string; size: number }) => React.ReactNode;
 
 export const TABS: { name: string; label: string; icon: Icon }[] = [
-  { name: "home", label: "Home", icon: (p) => <House {...p} /> },
-  { name: "hosts", label: "Hosts", icon: (p) => <Server {...p} /> },
+  {
+    name: "home",
+    label: tr("shell.bottomBar.home"),
+    icon: (p) => <House {...p} />,
+  },
+  {
+    name: "hosts",
+    label: tr("shell.bottomBar.hosts"),
+    icon: (p) => <Server {...p} />,
+  },
   {
     name: "sessions",
-    label: "Sessions",
+    label: tr("shell.bottomBar.sessions"),
     icon: (p) => <SquareTerminal {...p} />,
   },
-  { name: "tools", label: "Tools", icon: (p) => <Wrench {...p} /> },
-  { name: "settings", label: "Settings", icon: (p) => <Settings {...p} /> },
+  {
+    name: "tools",
+    label: tr("shell.bottomBar.tools"),
+    icon: (p) => <Wrench {...p} />,
+  },
+  {
+    name: "settings",
+    label: tr("shell.bottomBar.settings"),
+    icon: (p) => <Settings {...p} />,
+  },
 ];
 
 const TROUBLE: SessionState[] = ["reconnecting", "offline", "failed"];
@@ -89,7 +106,9 @@ export function BottomBar({ state, navigation }: BottomTabBarProps) {
             accessibilityRole="tab"
             accessibilityState={{ selected: focused }}
             accessibilityLabel={
-              count ? `${tab.label}, ${count} open` : tab.label
+              count
+                ? tr("shell.bottomBar.open", { label: tab.label, count })
+                : tab.label
             }
             className="flex-1 items-center justify-center gap-0.5"
             style={{ minHeight: isLandscape ? 48 : 56, paddingVertical: 6 }}

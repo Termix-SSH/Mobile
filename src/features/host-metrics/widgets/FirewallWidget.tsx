@@ -4,6 +4,7 @@ import { ServerMetrics } from "@/types";
 import { Text, Badge } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { WidgetCard } from "./WidgetCard";
+import { t } from "@/i18n";
 
 export function FirewallWidget({ metrics }: { metrics: ServerMetrics }) {
   const color = useThemeColor();
@@ -15,7 +16,7 @@ export function FirewallWidget({ metrics }: { metrics: ServerMetrics }) {
   return (
     <WidgetCard
       icon={<Shield size={15} color={color("accent-brand")} />}
-      title="Firewall"
+      title={t("hostMetrics.widgets.firewallWidget.firewall")}
       trailing={
         <Badge variant={status === "active" ? "success" : "muted"}>
           {status}
@@ -25,11 +26,14 @@ export function FirewallWidget({ metrics }: { metrics: ServerMetrics }) {
       <View className="gap-0.5">
         {fw?.type && fw.type !== "none" ? (
           <Text className="text-meta text-muted-foreground">
-            {fw.type} | {ruleCount} rules
+            {t("hostMetrics.widgets.firewallWidget.rules", {
+              type: fw.type,
+              ruleCount,
+            })}
           </Text>
         ) : (
           <Text className="text-meta text-muted-foreground">
-            No firewall detected
+            {t("hostMetrics.widgets.firewallWidget.noFirewallDetected")}
           </Text>
         )}
       </View>

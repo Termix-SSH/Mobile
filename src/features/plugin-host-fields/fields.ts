@@ -6,6 +6,7 @@ import {
 } from "@/core/plugins/host-settings";
 import type { HostFormValues } from "@/core/features/types";
 import type { SSHHost } from "@/types";
+import { t } from "@/i18n";
 
 export interface PluginFieldsPlan {
   plugin: ServerPlugin;
@@ -129,11 +130,20 @@ export function pluginFieldError(
     const raw = values[field.key];
     if (raw === "" || raw === undefined || raw === null) continue;
     const n = Number(raw);
-    if (!Number.isFinite(n)) return `${label(field)} must be a number`;
+    if (!Number.isFinite(n))
+      return t("pluginHostFields.fields.mustBeANumber", {
+        field: label(field),
+      });
     if (field.min !== undefined && n < field.min)
-      return `${label(field)} must be at least ${field.min}`;
+      return t("pluginHostFields.fields.mustBeAtLeast", {
+        field: label(field),
+        min: field.min,
+      });
     if (field.max !== undefined && n > field.max)
-      return `${label(field)} must be at most ${field.max}`;
+      return t("pluginHostFields.fields.mustBeAtMost", {
+        field: label(field),
+        max: field.max,
+      });
   }
   return null;
 }

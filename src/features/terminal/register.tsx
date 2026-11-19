@@ -15,6 +15,7 @@ import { hostTerminalEditor } from "./HostTerminalTab";
 import { HostKeyRowsView } from "./keys/HostKeyRowsView";
 import KeyRowBar from "./keys/KeyRowBar";
 import BottomToolbar from "./keyboard/BottomToolbar";
+import { t } from "@/i18n";
 
 const TerminalTab = forwardRef<TerminalHandle, SessionTabProps>(
   (
@@ -62,7 +63,7 @@ TerminalTab.displayName = "TerminalTab";
 export const terminalFeature: FeatureDef = {
   id: "terminal",
   plugins: ["ssh-terminal"],
-  title: "Terminal",
+  title: t("terminal.register.terminal"),
   source: "native",
   requires: { plugin: "ssh-terminal" },
   // This device opens SSH itself through modules/termix-ssh.
@@ -84,7 +85,7 @@ export const terminalFeature: FeatureDef = {
   hostActions: [
     {
       id: "terminal.open",
-      label: "Terminal",
+      label: t("terminal.register.terminal"),
       icon: TerminalIcon,
       group: "connect",
       order: 10,
@@ -95,7 +96,7 @@ export const terminalFeature: FeatureDef = {
   hostToggles: [
     {
       key: "enableTerminal",
-      label: "Terminal",
+      label: t("terminal.register.terminal"),
       group: "feature",
       order: 10,
       defaultOn: true,
@@ -104,7 +105,7 @@ export const terminalFeature: FeatureDef = {
   hostEditorSections: [
     {
       id: "terminal",
-      label: "Terminal and keepalive",
+      label: t("terminal.register.terminalAndKeepalive"),
       group: "ssh",
       order: 10,
       toggle: "enableTerminal",
@@ -122,18 +123,23 @@ export const terminalFeature: FeatureDef = {
     {
       group: "features",
       value: "terminal",
-      label: "Terminal",
+      label: t("terminal.register.terminal"),
       order: 10,
       matches: (host) => host.enableTerminal !== false,
     },
   ],
   keyboardTabs: [
-    { id: "history", label: "HISTORY", order: 20, component: HistoryBar },
+    {
+      id: "history",
+      label: t("terminal.register.history"),
+      order: 20,
+      component: HistoryBar,
+    },
   ],
   sessionMenuItems: [
     {
       id: "terminal.find",
-      label: "Find",
+      label: t("terminal.register.find"),
       icon: Search,
       order: 10,
       // Find needs the native terminal.
@@ -143,7 +149,7 @@ export const terminalFeature: FeatureDef = {
     },
     {
       id: "terminal.tmuxWindows",
-      label: "tmux windows",
+      label: t("terminal.register.tmuxWindows"),
       icon: Layers,
       order: 20,
       isAvailable: ({ session }) => session.type === "terminal",
@@ -151,7 +157,7 @@ export const terminalFeature: FeatureDef = {
     },
     {
       id: "terminal.connectionLog",
-      label: "Connection log",
+      label: t("terminal.register.connectionLog"),
       icon: ScrollText,
       order: 25,
       isAvailable: ({ session }) => session.type === "terminal",
@@ -159,7 +165,7 @@ export const terminalFeature: FeatureDef = {
     },
     {
       id: "terminal.keyRows",
-      label: "Key rows for this host",
+      label: t("terminal.register.keyRowsForThisHost"),
       icon: Keyboard,
       order: 30,
       isAvailable: ({ session }) => session.type === "terminal",

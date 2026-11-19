@@ -10,6 +10,7 @@ import { CardFrame } from "@/screens/home/CardFrame";
 import { Text } from "@/ui";
 import { createLocalMetrics } from "./backend/local";
 import { Sparkline } from "./widgets/WidgetCard";
+import { t } from "@/i18n";
 
 interface Reading {
   cpu: number | null;
@@ -18,7 +19,9 @@ interface Reading {
 }
 
 const errorText = (e: unknown) =>
-  e instanceof Error && e.message ? e.message : "Could not read metrics";
+  e instanceof Error && e.message
+    ? e.message
+    : t("hostMetrics.metricsCard.couldNotReadMetrics");
 
 /** CPU, memory and disk of a pinned host, with the last hour of CPU. */
 export function MetricsCard({ host, accountId, active }: DashboardCardProps) {
@@ -58,9 +61,7 @@ export function MetricsCard({ host, accountId, active }: DashboardCardProps) {
           const all = await client.api.metrics.getMetricsSummary();
           const mine = all.find((s) => s.hostId === target.host.id);
           if (!mine)
-            throw new Error(
-              "No recent sample. Open the host's metrics to start one.",
-            );
+            throw new Error(t("hostMetrics.metricsCard.noRecentSampleOpenThe"));
           setReading(mine);
         } else return;
         setError("");
@@ -77,7 +78,7 @@ export function MetricsCard({ host, accountId, active }: DashboardCardProps) {
 
   return (
     <CardFrame
-      title="Metrics"
+      title={t("hostMetrics.metricsCard.metrics")}
       icon={Activity}
       target={target}
       error={error}
@@ -86,9 +87,18 @@ export function MetricsCard({ host, accountId, active }: DashboardCardProps) {
       {reading ? (
         <View className="gap-2">
           <View className="flex-row gap-4">
-            <Value label="CPU" value={reading.cpu} />
-            <Value label="Memory" value={reading.memory} />
-            <Value label="Disk" value={reading.disk} />
+            <Value
+              label={t("hostMetrics.metricsCard.cpu")}
+              value={reading.cpu}
+            />
+            <Value
+              label={t("hostMetrics.metricsCard.memory")}
+              value={reading.memory}
+            />
+            <Value
+              label={t("hostMetrics.metricsCard.disk")}
+              value={reading.disk}
+            />
           </View>
           {cpuHour.length > 1 ? (
             <Sparkline

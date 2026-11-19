@@ -8,6 +8,7 @@ import type { Snippet, SSHHost } from "@/types";
 import { toTerminalHostConfig } from "@/utils/hosts";
 import { hostContext, resolveSnippet } from "./run";
 import { deviceWord } from "@/utils/device-word";
+import { t as tr } from "@/i18n";
 
 export interface HostRunResult {
   host: SSHHost;
@@ -60,7 +61,7 @@ export async function runOnHost(
       host,
       ok: false,
       output: "",
-      error: "No way to reach this host from here",
+      error: tr("snippets.runHosts.noWayToReachThis"),
     };
   }
   let last = "";
@@ -76,7 +77,10 @@ export async function runOnHost(
           ok: !failed,
           output: res.stdout,
           error:
-            res.stderr || (failed ? `Exited with ${res.exitCode}` : undefined),
+            res.stderr ||
+            (failed
+              ? tr("snippets.runHosts.exitedWith", { exitCode: res.exitCode })
+              : undefined),
         };
       }
       const res = await backend.server(host, snippet, inputValues);
@@ -143,7 +147,7 @@ export function accountBackend(accountId: string | null): RunBackend {
     async phone(host, command) {
       const transport = phoneTransports.get(host.id);
       if (!transport?.openSession)
-        throw new Error(`This ${deviceWord} can't run it`);
+        throw new Error(tr("snippets.runHosts.thisCanTRunIt", { deviceWord }));
       const session = await transport.openSession(toTerminalHostConfig(host));
       try {
         const res = await session.exec(command, { timeoutSecs: 60 });
@@ -158,7 +162,7 @@ export function accountBackend(accountId: string | null): RunBackend {
     },
     async server(host, snippet, inputValues) {
       const client = accounts.client(id);
-      if (!client) throw new Error("No server is linked");
+      if (!client) throw new Error(tr("snippets.runHosts.noServerIsLinked"));
       return client.api.snippets.executeSnippet(
         await serverSnippetId(id, snippet),
         await serverHostId(id, host),

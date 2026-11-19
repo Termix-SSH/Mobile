@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { PanResponder, View } from "react-native";
 import type { CompanionDef, CompanionProps } from "@/core/features/types";
+import { t } from "@/i18n";
 
 export const MIN_COMPANION = 280;
 
@@ -50,7 +51,9 @@ export function CompanionPane({
     <View
       {...pan.panHandlers}
       accessibilityRole="adjustable"
-      accessibilityLabel={`Resize the ${def.title} panel`}
+      accessibilityLabel={t("sessions.companionPane.resizeThePanel", {
+        title: def.title,
+      })}
       hitSlop={{ left: 8, right: 8 }}
       className="w-1.5 items-center justify-center bg-border active:bg-accent-brand"
     >

@@ -21,6 +21,7 @@ import type { DockerContainer } from "@/types";
 import { showcaseDocker } from "@/showcase/backends";
 import { SHOWCASE } from "@/showcase/enabled";
 import type { DockerBackend, DockerCheck } from "./types";
+import { t } from "@/i18n";
 
 const MAX_COMPOSE_BYTES = 1024 * 1024;
 
@@ -46,7 +47,7 @@ export function parseDetect(output: string): DockerCheck {
     return {
       available: false,
       code: "NOT_INSTALLED",
-      error: "Docker is not installed on this host.",
+      error: t("docker.backend.local.dockerIsNotInstalledOn"),
     };
   }
   const runtime = keys.runtime;
@@ -59,7 +60,7 @@ export function parseDetect(output: string): DockerCheck {
     version,
     runtime,
     code: classifyRuntimeError(error),
-    error: error || "Docker did not answer",
+    error: error || t("docker.backend.local.dockerDidNotAnswer"),
   };
 }
 
@@ -129,7 +130,7 @@ export function createLocalDockerBackend(
 
     async stack(stack) {
       if (!STACK_NAME_RE.test(stack.name)) {
-        throw new Error("That is not a valid stack name");
+        throw new Error(t("docker.backend.local.thatIsNotAValid"));
       }
       const ps = await cli(`compose -p ${stack.name} ps -a --format json`, {
         allowFail: true,

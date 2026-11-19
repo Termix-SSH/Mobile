@@ -12,6 +12,7 @@ import {
   normalizeEnvironment,
   type DefaultSource,
 } from "@/core/hosts/defaults/values";
+import { t } from "@/i18n";
 
 export type RowKind =
   "text" | "number" | "switch" | "auth" | "env" | "readonly";
@@ -31,49 +32,61 @@ export interface KeyRow {
 
 const LABELS: Record<string, { label: string; hint?: string; kind: RowKind }> =
   {
-    username: { label: "Username", kind: "text" },
-    sshPort: { label: "SSH port", kind: "number" },
+    username: { label: t("hostDefaults.model.username"), kind: "text" },
+    sshPort: { label: t("hostDefaults.model.sshPort"), kind: "number" },
     auth: {
-      label: "Authentication",
-      hint: "A saved credential for new hosts",
+      label: t("hostDefaults.model.authentication"),
+      hint: t("hostDefaults.model.aSavedCredentialForNew"),
       kind: "auth",
     },
     forceKeyboardInteractive: {
-      label: "Force keyboard interactive",
+      label: t("hostDefaults.model.forceKeyboardInteractive"),
       kind: "switch",
     },
     keepaliveInterval: {
-      label: "Keepalive interval",
-      hint: "Seconds, 0 turns it off",
+      label: t("hostDefaults.model.keepaliveInterval"),
+      hint: t("hostDefaults.model.seconds0TurnsItOff"),
       kind: "number",
     },
-    keepaliveCountMax: { label: "Keepalive tries", kind: "number" },
-    allowLegacyAlgorithms: { label: "Allow old algorithms", kind: "switch" },
-    agentForwarding: { label: "Agent forwarding", kind: "switch" },
+    keepaliveCountMax: {
+      label: t("hostDefaults.model.keepaliveTries"),
+      kind: "number",
+    },
+    allowLegacyAlgorithms: {
+      label: t("hostDefaults.model.allowOldAlgorithms"),
+      kind: "switch",
+    },
+    agentForwarding: {
+      label: t("hostDefaults.model.agentForwarding"),
+      kind: "switch",
+    },
     environmentVariables: {
-      label: "Environment variables",
-      hint: "One NAME=value per line",
+      label: t("hostDefaults.model.environmentVariables"),
+      hint: t("hostDefaults.model.oneNameValuePerLine"),
       kind: "env",
     },
-    statusCheckEnabled: { label: "Check if the host is up", kind: "switch" },
+    statusCheckEnabled: {
+      label: t("hostDefaults.model.checkIfTheHostIs"),
+      kind: "switch",
+    },
     statusCheckInterval: {
-      label: "Check interval",
-      hint: "Seconds, empty uses the server's",
+      label: t("hostDefaults.model.checkInterval"),
+      hint: t("hostDefaults.model.secondsEmptyUsesTheServer"),
       kind: "number",
     },
     socks5: {
-      label: "SOCKS5 proxy",
-      hint: "Set in the web app",
+      label: t("hostDefaults.model.socks5Proxy"),
+      hint: t("hostDefaults.model.setInTheWebApp"),
       kind: "readonly",
     },
     jumpHosts: {
-      label: "Jump hosts",
-      hint: "Set in the web app",
+      label: t("hostDefaults.model.jumpHosts"),
+      hint: t("hostDefaults.model.setInTheWebApp"),
       kind: "readonly",
     },
     portKnockSequence: {
-      label: "Port knocking",
-      hint: "Set in the web app",
+      label: t("hostDefaults.model.portKnocking"),
+      hint: t("hostDefaults.model.setInTheWebApp"),
       kind: "readonly",
     },
   };
@@ -149,7 +162,8 @@ export function pluginRows(
 }
 
 export function formatValue(value: unknown): string {
-  if (value === undefined || value === null || value === "") return "Not set";
+  if (value === undefined || value === null || value === "")
+    return t("hostDefaults.model.notSet");
   if (typeof value === "boolean") return value ? "On" : "Off";
   if (typeof value === "number" || typeof value === "string") {
     return String(value);
@@ -164,7 +178,7 @@ export function describeRow(
 ): string {
   if (row.kind === "auth") {
     const auth = normalizeAuthDefault(row.value);
-    if (!auth) return "Not set";
+    if (!auth) return t("hostDefaults.model.notSet");
     if (auth.authType === "credential" && auth.credentialId !== null) {
       return (
         loginName?.(auth.credentialId) ?? `Credential ${auth.credentialId}`
@@ -174,11 +188,11 @@ export function describeRow(
   }
   if (row.kind === "env") {
     const list = normalizeEnvironment(row.value);
-    return list.length ? `${list.length} set` : "Not set";
+    return list.length ? `${list.length} set` : t("hostDefaults.model.notSet");
   }
   if (row.kind === "readonly") {
     return Array.isArray(row.value) && row.value.length === 0
-      ? "Not set"
+      ? t("hostDefaults.model.notSet")
       : row.value && typeof row.value === "object"
         ? "Set"
         : formatValue(row.value);
@@ -191,13 +205,13 @@ export function sourceLabel(source: DefaultSource | null): string {
   if (!source) return "";
   switch (source.level) {
     case "admin":
-      return "From the server";
+      return t("hostDefaults.model.fromTheServer");
     case "user":
-      return "From your defaults";
+      return t("hostDefaults.model.fromYourDefaults");
     case "folder":
       return `From ${source.folderName ?? "a folder"}`;
     default:
-      return "Built in";
+      return t("hostDefaults.model.builtIn");
   }
 }
 

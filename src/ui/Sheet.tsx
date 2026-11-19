@@ -24,6 +24,7 @@ import { X } from "lucide-react-native";
 import { Text } from "./Text";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { visibleKeyboardHeight } from "@/contexts/KeyboardContext";
+import { t } from "@/i18n";
 
 /** Sheets stop growing wider than this, so a sideways phone or tablet keeps them readable. */
 const SHEET_MAX_WIDTH = 640;
@@ -233,7 +234,7 @@ export function Sheet({
                   onPress={onClose}
                   hitSlop={12}
                   accessibilityRole="button"
-                  accessibilityLabel="Close"
+                  accessibilityLabel={t("ui.sheet.close")}
                   className="mt-0.5 shrink-0"
                 >
                   <X size={16} color={color("muted-foreground")} />

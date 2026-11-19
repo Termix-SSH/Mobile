@@ -77,3 +77,15 @@ jest.mock("expo-crypto", () => {
     },
   };
 });
+
+// The language setting's own store; tests run in English.
+jest.mock("expo-sqlite/kv-store", () => {
+  const values = new Map<string, string>();
+  return {
+    __esModule: true,
+    default: {
+      getItemSync: (key: string) => values.get(key) ?? null,
+      setItemSync: (key: string, value: string) => void values.set(key, value),
+    },
+  };
+});

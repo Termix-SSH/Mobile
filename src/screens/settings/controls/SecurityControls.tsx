@@ -6,6 +6,7 @@ import { ChoiceRow, FakeSwitch, SettingRow, SettingsLinkRow } from "@/ui";
 import { KeyRound } from "lucide-react-native";
 import { toast } from "@/utils/toast";
 import { PinSheet } from "./PinSheet";
+import { t } from "@/i18n";
 
 type Flow =
   | null
@@ -19,8 +20,11 @@ type Flow =
     };
 
 const ENABLE_TEXT = {
-  new: ["Set a PIN", "Choose a 4 digit PIN."],
-  confirm: ["Confirm PIN", "Enter the same PIN again."],
+  new: ["Set a PIN", t("settings.controls.securityControls.chooseA4DigitPin")],
+  confirm: [
+    t("settings.controls.securityControls.confirmPin"),
+    t("settings.controls.securityControls.enterTheSamePinAgain"),
+  ],
 } as const;
 
 export function AppLockControl() {
@@ -48,13 +52,15 @@ export function AppLockControl() {
             return true;
           }
           if (pin !== flow.first) {
-            toast.error("The PINs do not match");
+            toast.error(
+              t("settings.controls.securityControls.thePinsDoNotMatch"),
+            );
             setFlow({ kind: "enable", step: "new", first: "" });
             return true;
           }
           await lock.enable(pin);
           close();
-          toast.success("App Lock is on");
+          toast.success(t("settings.controls.securityControls.appLockIsOn"));
           return true;
         }}
       />
@@ -63,8 +69,10 @@ export function AppLockControl() {
     sheet = (
       <PinSheet
         visible
-        title="Turn off App Lock"
-        description="Enter your PIN to confirm."
+        title={t("settings.controls.securityControls.turnOffAppLock")}
+        description={t(
+          "settings.controls.securityControls.enterYourPinToConfirm",
+        )}
         waitMs={lock.pinWaitMs}
         onClose={close}
         onBiometric={
@@ -73,7 +81,9 @@ export function AppLockControl() {
                 if (await lock.authenticateBiometrics()) {
                   await lock.disable();
                   close();
-                  toast.success("App Lock is off");
+                  toast.success(
+                    t("settings.controls.securityControls.appLockIsOff"),
+                  );
                 }
               }
             : undefined
@@ -82,7 +92,7 @@ export function AppLockControl() {
           if (!(await lock.verifyPin(pin))) return false;
           await lock.disable();
           close();
-          toast.success("App Lock is off");
+          toast.success(t("settings.controls.securityControls.appLockIsOff"));
           return true;
         }}
       />
@@ -92,18 +102,18 @@ export function AppLockControl() {
   return (
     <>
       <SettingRow
-        label="App Lock"
+        label={t("settings.controls.securityControls.appLock")}
         description={
           lock.hasBiometrics
-            ? "Ask for Face ID, Touch ID or a PIN to open the app"
-            : "Ask for a PIN to open the app"
+            ? t("settings.controls.securityControls.askForFaceIdTouch")
+            : t("settings.controls.securityControls.askForAPinTo")
         }
         last
       >
         <FakeSwitch
           checked={lock.enabled}
           onChange={onToggle}
-          accessibilityLabel="App Lock"
+          accessibilityLabel={t("settings.controls.securityControls.appLock")}
         />
       </SettingRow>
       {sheet}
@@ -120,9 +130,18 @@ export function ChangePinControl() {
   let sheet = null;
   if (flow?.kind === "change") {
     const text = {
-      old: ["Current PIN", "Enter your current PIN."],
-      new: ["New PIN", "Choose a new 4 digit PIN."],
-      confirm: ["Confirm new PIN", "Enter the new PIN again."],
+      old: [
+        t("settings.controls.securityControls.currentPin"),
+        t("settings.controls.securityControls.enterYourCurrentPin"),
+      ],
+      new: [
+        t("settings.controls.securityControls.newPin"),
+        t("settings.controls.securityControls.chooseANew4Digit"),
+      ],
+      confirm: [
+        t("settings.controls.securityControls.confirmNewPin"),
+        t("settings.controls.securityControls.enterTheNewPinAgain"),
+      ],
     }[flow.step];
     sheet = (
       <PinSheet
@@ -142,14 +161,20 @@ export function ChangePinControl() {
             return true;
           }
           if (pin !== flow.first) {
-            toast.error("The PINs do not match");
+            toast.error(
+              t("settings.controls.securityControls.thePinsDoNotMatch"),
+            );
             setFlow({ ...flow, step: "new", first: "" });
             return true;
           }
           const ok = await lock.changePin(flow.old, pin);
           close();
-          if (ok) toast.success("PIN changed");
-          else toast.error("Could not change the PIN");
+          if (ok)
+            toast.success(t("settings.controls.securityControls.pinChanged"));
+          else
+            toast.error(
+              t("settings.controls.securityControls.couldNotChangeThePin"),
+            );
           return true;
         }}
       />
@@ -159,7 +184,7 @@ export function ChangePinControl() {
   return (
     <>
       <SettingsLinkRow
-        label="Change PIN"
+        label={t("settings.controls.securityControls.changePin")}
         icon={KeyRound}
         onPress={() =>
           setFlow({ kind: "change", step: "old", old: "", first: "" })
@@ -177,8 +202,8 @@ export function LockDelayControl() {
   return (
     <View>
       <ChoiceRow
-        label="Lock after"
-        description="How long the app can be out of sight before it locks"
+        label={t("settings.controls.securityControls.lockAfter")}
+        description={t("settings.controls.securityControls.howLongTheAppCan")}
         value={String(lock.delayMs)}
         options={LOCK_DELAYS.map((d) => ({
           value: String(d.ms),
@@ -195,14 +220,16 @@ export function HideSwitcherControl() {
   const lock = useAppLock();
   return (
     <SettingRow
-      label="Hide in app switcher"
-      description="Show a blank screen in the list of recent apps"
+      label={t("settings.controls.securityControls.hideInAppSwitcher")}
+      description={t("settings.controls.securityControls.showABlankScreenIn")}
       last
     >
       <FakeSwitch
         checked={lock.hideInSwitcher}
         onChange={(on) => void lock.setHideInSwitcher(on)}
-        accessibilityLabel="Hide in app switcher"
+        accessibilityLabel={t(
+          "settings.controls.securityControls.hideInAppSwitcher",
+        )}
       />
     </SettingRow>
   );

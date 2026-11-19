@@ -6,6 +6,7 @@ import { usePoll } from "@/core/exec";
 import { Text } from "@/ui";
 import { toast } from "@/utils/toast";
 import { ping, type HomepageItem, type PingResult } from "../api";
+import { t } from "@/i18n";
 
 export interface WidgetProps {
   item: HomepageItem;
@@ -46,7 +47,9 @@ export function safeUrl(raw: string): string | null {
 export function openUrl(raw: string): void {
   const url = safeUrl(raw);
   if (!url) return;
-  Linking.openURL(url).catch(() => toast.error("Could not open the link"));
+  Linking.openURL(url).catch(() =>
+    toast.error(t("homepage.widgets.shared.couldNotOpenTheLink")),
+  );
 }
 
 /** A service picture, or its first letter when there is none. */

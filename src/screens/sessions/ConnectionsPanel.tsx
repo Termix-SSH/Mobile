@@ -8,6 +8,7 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { SSHHost } from "@/types";
 import { accounts, api } from "@/core/accounts";
 import type { ActiveSessionInfo, OpenTabRecord } from "@/core/api/types";
+import { t } from "@/i18n";
 
 /**
  * Icon and label for a tab, from a local session type or an open-tabs record
@@ -130,7 +131,7 @@ function ConnectionRow({
         ) : null}
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Close"
+          accessibilityLabel={t("sessions.connectionsPanel.close")}
           onPress={(e) => {
             e.stopPropagation();
             onClose();
@@ -179,9 +180,11 @@ export function ConnectionsPanel({
 
   const closeAll = async () => {
     const ok = await confirm({
-      title: `Close all ${sessions.length} tabs?`,
-      description: "Every session ends.",
-      confirmLabel: "Close all",
+      title: t("sessions.connectionsPanel.closeAllTabs", {
+        count: sessions.length,
+      }),
+      description: t("sessions.connectionsPanel.everySessionEnds"),
+      confirmLabel: t("sessions.connectionsPanel.closeAll"),
     });
     if (!ok) return;
     closeAllSessions();
@@ -260,11 +263,11 @@ export function ConnectionsPanel({
       <EmptyState
         className="flex-1"
         icon={Plug}
-        title="No active connections"
+        title={t("sessions.connectionsPanel.noActiveConnections")}
         hint={
           besideHosts
-            ? "Pick a host from the list to start a session. Tabs you open on other devices show here too."
-            : "Connect to a host to start a session. Tabs you open on other devices show here too."
+            ? t("sessions.connectionsPanel.pickAHostFromThe")
+            : t("sessions.connectionsPanel.connectToAHostTo")
         }
       />
     );
@@ -289,7 +292,7 @@ export function ConnectionsPanel({
       {sessions.length > 0 ? (
         <View>
           <SectionHeader
-            label="Open"
+            label={t("sessions.connectionsPanel.open")}
             count={sessions.length}
             action={
               sessions.length > 1 ? (
@@ -300,7 +303,7 @@ export function ConnectionsPanel({
                   className="px-1 active:opacity-70"
                 >
                   <Text className="text-[11px] text-destructive-text">
-                    Close all
+                    {t("sessions.connectionsPanel.closeAll")}
                   </Text>
                 </Pressable>
               ) : undefined
@@ -341,10 +344,13 @@ export function ConnectionsPanel({
 
       {backgroundTabs.length > 0 ? (
         <View className={sessions.length > 0 ? "mt-2" : ""}>
-          <SectionHeader label="Background" count={backgroundTabs.length} />
+          <SectionHeader
+            label={t("sessions.connectionsPanel.background")}
+            count={backgroundTabs.length}
+          />
           <View className="border-b border-border/40 px-4 py-1.5">
             <Text className="text-[10px] text-muted-foreground">
-              Sessions from other devices or backgrounded tabs. Tap to revive.
+              {t("sessions.connectionsPanel.sessionsFromOtherDevicesOr")}
             </Text>
           </View>
           {backgroundTabs.map((r) => {
@@ -357,7 +363,9 @@ export function ConnectionsPanel({
                 tabType={r.tabType}
                 name={host?.name ?? r.label}
                 subLabel={
-                  live?.isConnected ? "Live, tap to reconnect" : "Tap to reopen"
+                  live?.isConnected
+                    ? t("sessions.connectionsPanel.liveTapToReconnect")
+                    : t("sessions.connectionsPanel.tapToReopen")
                 }
                 reconnectHint
                 onSwitch={() => reviveBackground(r)}

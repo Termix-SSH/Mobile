@@ -16,18 +16,23 @@ import {
   useConfirm,
 } from "@/ui";
 import { toast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 export function UsageStatsControl() {
   const { consent } = useConsent();
   return (
     <SettingRow
-      label="Share anonymous usage statistics"
-      description="A short report once a day. No hosts, names or addresses"
+      label={t(
+        "settings.controls.analyticsControls.shareAnonymousUsageStatistics",
+      )}
+      description={t("settings.controls.analyticsControls.aShortReportOnceA")}
     >
       <FakeSwitch
         checked={consent === "on"}
         onChange={(on) => void answerConsent(on)}
-        accessibilityLabel="Share anonymous usage statistics"
+        accessibilityLabel={t(
+          "settings.controls.analyticsControls.shareAnonymousUsageStatistics",
+        )}
       />
     </SettingRow>
   );
@@ -39,8 +44,10 @@ export function UsagePreviewControl() {
   return (
     <>
       <SettingRow
-        label="Next report"
-        description="See exactly what would be sent"
+        label={t("settings.controls.analyticsControls.nextReport")}
+        description={t(
+          "settings.controls.analyticsControls.seeExactlyWhatWouldBe",
+        )}
       >
         <Button
           variant="muted"
@@ -51,20 +58,24 @@ export function UsagePreviewControl() {
             try {
               setText(JSON.stringify(await buildReport(), null, 2));
             } catch {
-              toast.error("Could not build the report");
+              toast.error(
+                t("settings.controls.analyticsControls.couldNotBuildTheReport"),
+              );
             } finally {
               setBusy(false);
             }
           }}
         >
-          Preview
+          {t("settings.controls.analyticsControls.preview")}
         </Button>
       </SettingRow>
       <Sheet
         visible={text !== null}
         onClose={() => setText(null)}
-        title="Next report"
-        description="This is exactly what would be sent right now."
+        title={t("settings.controls.analyticsControls.nextReport")}
+        description={t(
+          "settings.controls.analyticsControls.thisIsExactlyWhatWould",
+        )}
         scroll
       >
         <SheetBody>
@@ -83,8 +94,10 @@ export function UsageResetIdControl() {
   const confirm = useConfirm();
   return (
     <SettingRow
-      label="Reset install id"
-      description="Future reports will look like a new install"
+      label={t("settings.controls.analyticsControls.resetInstallId")}
+      description={t(
+        "settings.controls.analyticsControls.futureReportsWillLookLike",
+      )}
       last
     >
       <Button
@@ -92,17 +105,21 @@ export function UsageResetIdControl() {
         size="sm"
         onPress={async () => {
           const ok = await confirm({
-            title: "Reset the install id?",
-            description: "Future reports will look like a new install.",
-            confirmLabel: "Reset",
+            title: t("settings.controls.analyticsControls.resetTheInstallId"),
+            description: t(
+              "settings.controls.analyticsControls.futureReportsWillLookLike2",
+            ),
+            confirmLabel: t("settings.controls.analyticsControls.reset"),
             destructive: false,
           });
           if (!ok) return;
           await resetAnalyticsId();
-          toast.success("Install id reset");
+          toast.success(
+            t("settings.controls.analyticsControls.installIdReset"),
+          );
         }}
       >
-        Reset
+        {t("settings.controls.analyticsControls.reset")}
       </Button>
     </SettingRow>
   );

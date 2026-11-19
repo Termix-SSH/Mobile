@@ -11,6 +11,7 @@ import { ApiError } from "../errors";
 import { nativeStreamResponse, toFetchResponse } from "../native-adapter";
 import { toBase64 } from "@/core/db/bytes";
 import { nativeRequest } from "@/modules/termix-net";
+import { t } from "@/i18n";
 
 export function createFilesApi(c: AccountClient) {
   async function getFileManagerRecent(
@@ -264,7 +265,7 @@ export function createFilesApi(c: AccountClient) {
       return response.data;
     } catch (error: any) {
       if (error?.response?.status === 404) {
-        const customError: any = new Error("File not found");
+        const customError: any = new Error(t("api.modules.files.fileNotFound"));
         customError.response = error.response;
         customError.isFileNotFound = error.response.data?.fileNotFound || true;
         throw customError;
@@ -296,7 +297,7 @@ export function createFilesApi(c: AccountClient) {
       ) {
         return response.data;
       } else {
-        throw new Error("File write operation did not return success status");
+        throw new Error(t("api.modules.files.fileWriteOperationDidNot"));
       }
     } catch (error) {
       c.fail(error, "write SSH file");
@@ -978,7 +979,7 @@ export function createFilesApi(c: AccountClient) {
     }
     const status = response.status;
     throw new ApiError(
-      data?.error ?? `Could not ${operation} (${status})`,
+      data?.error ?? t("api.modules.files.couldNot", { operation, status }),
       status,
       status === 416 ? "RANGE_NOT_SATISFIABLE" : undefined,
     );

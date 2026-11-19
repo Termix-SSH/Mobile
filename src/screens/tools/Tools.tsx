@@ -19,6 +19,7 @@ import {
 } from "@/screens/shell/AppHeader";
 import { EmptyState, ListRow, Text, Section as UiSection } from "@/ui";
 import { HostPicker } from "./HostPicker";
+import { t as tr } from "@/i18n";
 
 function Section({ title, children }: { title: string; children: any }) {
   return (
@@ -95,13 +96,13 @@ export default function Tools() {
       }
     >
       {empty ? (
-        <EmptyState icon={Wrench} title="No tools here yet" />
+        <EmptyState icon={Wrench} title={tr("tools.noToolsHereYet")} />
       ) : (
         <ScrollView
           contentContainerStyle={{ padding: 12, gap: 16, paddingBottom: 48 }}
         >
           {onHost.length ? (
-            <Section title="On a host">
+            <Section title={tr("tools.onAHost")}>
               {onHost.map((tool, i) => (
                 <Row
                   key={tool.id}
@@ -113,7 +114,7 @@ export default function Tools() {
             </Section>
           ) : null}
           {screens.length ? (
-            <Section title="Saved">
+            <Section title={tr("tools.saved")}>
               {screens.map((tool, i) => (
                 <Row
                   key={tool.id}
@@ -125,7 +126,7 @@ export default function Tools() {
             </Section>
           ) : null}
           {quick.actions.length ? (
-            <Section title="From your server">
+            <Section title={tr("tools.fromYourServer")}>
               {quick.actions.map((action, i) => (
                 <Row
                   key={action.id}

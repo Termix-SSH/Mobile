@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import { Text } from "@/ui";
 import { Empty, str, type WidgetProps } from "./shared";
+import { t } from "@/i18n";
 
 /** Markdown marks taken off, so notes read as plain text. */
 export function plainMarkdown(text: string): string {
@@ -21,7 +22,7 @@ export function plainMarkdown(text: string): string {
 
 export function NotesWidget({ item }: WidgetProps) {
   const content = str(item.config.content).trim();
-  if (!content) return <Empty>No notes yet.</Empty>;
+  if (!content) return <Empty>{t("homepage.widgets.text.noNotesYet")}</Empty>;
   const text =
     item.typeId === "markdown_notes" ? plainMarkdown(content) : content;
   return (
@@ -45,7 +46,7 @@ const ALIGN: Record<string, string> = {
 
 export function TextBannerWidget({ item }: WidgetProps) {
   const text = str(item.config.text).trim();
-  if (!text) return <Empty>No text yet.</Empty>;
+  if (!text) return <Empty>{t("homepage.widgets.text.noTextYet")}</Empty>;
   const weight = str(item.config.fontWeight, "semibold");
   return (
     <View className="px-3 py-3">

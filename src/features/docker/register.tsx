@@ -3,6 +3,7 @@ import type { FeatureDef, SessionTabProps } from "@/core/features/types";
 import { isSshHost } from "@/utils/hosts";
 import { Docker } from "./Docker";
 import { DockerCard } from "./DockerCard";
+import { t } from "@/i18n";
 
 function DockerTab({ session, isVisible }: SessionTabProps) {
   return <Docker host={session.host} isVisible={isVisible} />;
@@ -14,7 +15,7 @@ const dockerOn = (host: Parameters<typeof isSshHost>[0]) =>
 export const dockerFeature: FeatureDef = {
   id: "docker",
   plugins: ["docker"],
-  title: "Docker",
+  title: t("docker.register.docker"),
   source: "native",
   // Runs over the phone's SSH, or the server's Docker plugin when that is the way in.
   availableOn: ["local", "server"],
@@ -34,7 +35,7 @@ export const dockerFeature: FeatureDef = {
   hostActions: [
     {
       id: "docker.open",
-      label: "Docker",
+      label: t("docker.register.docker"),
       icon: Box,
       group: "connect",
       order: 30,
@@ -45,8 +46,8 @@ export const dockerFeature: FeatureDef = {
   tools: [
     {
       id: "docker",
-      label: "Docker",
-      description: "Containers, logs and stats",
+      label: t("docker.register.docker"),
+      description: t("docker.register.containersLogsAndStats"),
       icon: Box,
       order: 30,
       tabType: "docker",
@@ -56,7 +57,7 @@ export const dockerFeature: FeatureDef = {
   dashboardCards: [
     {
       id: "docker",
-      title: "Docker",
+      title: t("docker.register.docker"),
       order: 20,
       tabType: "docker",
       isAvailable: dockerOn,
@@ -64,16 +65,25 @@ export const dockerFeature: FeatureDef = {
     },
   ],
   hostToggles: [
-    { key: "enableDocker", label: "Docker", group: "feature", order: 40 },
+    {
+      key: "enableDocker",
+      label: t("docker.register.docker"),
+      group: "feature",
+      order: 40,
+    },
   ],
   hostBadges: [
-    { label: "DKR", order: 50, show: (host) => !!host.enableDocker },
+    {
+      label: "DKR",
+      order: 50,
+      show: (host) => !!host.enableDocker,
+    },
   ],
   hostFilters: [
     {
       group: "features",
       value: "docker",
-      label: "Docker",
+      label: t("docker.register.docker"),
       order: 40,
       matches: (host) => !!host.enableDocker,
     },

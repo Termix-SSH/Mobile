@@ -20,6 +20,7 @@ import type {
 } from "@/core/features/types";
 import type { SSHHost, SSHHostData, TunnelConnection } from "@/types";
 import { deviceWord } from "@/utils/device-word";
+import { t as tr } from "@/i18n";
 
 type Mode = "local" | "remote" | "dynamic";
 
@@ -66,8 +67,7 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
     <View className="gap-3">
       {tunnels.length === 0 ? (
         <Text className="text-meta text-muted-foreground">
-          No tunnels yet. Add one to forward a port from the endpoint host to
-          this host.
+          {tr("tunnels.hostTunnelsSection.noTunnelsYetAddOne")}
         </Text>
       ) : null}
 
@@ -75,20 +75,23 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
         <View key={idx} className="gap-2.5 border border-border p-3">
           <View className="flex-row items-center justify-between">
             <Text weight="bold" className="text-xs">
-              Tunnel {idx + 1}
+              {tr("tunnels.hostTunnelsSection.tunnel", { value: idx + 1 })}
             </Text>
             <Pressable
               onPress={() => setAll(tunnels.filter((_, i) => i !== idx))}
               hitSlop={8}
               accessibilityRole="button"
-              accessibilityLabel={`Remove tunnel ${idx + 1}`}
+              accessibilityLabel={tr(
+                "tunnels.hostTunnelsSection.removeTunnel",
+                { value: idx + 1 },
+              )}
               className="h-11 w-11 items-center justify-center border border-destructive/40 active:bg-destructive/10"
             >
               <Trash2 size={15} color={color("destructive")} />
             </Pressable>
           </View>
 
-          <Field label="Mode">
+          <Field label={tr("tunnels.hostTunnelsSection.mode")}>
             <Tabs<Mode>
               value={(tunnel.mode ?? tunnel.tunnelType ?? "local") as Mode}
               onChange={(v) =>
@@ -98,16 +101,24 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
                 })
               }
               options={[
-                { id: "local", label: "Local" },
-                { id: "remote", label: "Remote" },
-                { id: "dynamic", label: "Dynamic" },
+                { id: "local", label: tr("tunnels.hostTunnelsSection.local") },
+                {
+                  id: "remote",
+                  label: tr("tunnels.hostTunnelsSection.remote"),
+                },
+                {
+                  id: "dynamic",
+                  label: tr("tunnels.hostTunnelsSection.dynamic"),
+                },
               ]}
               fill={false}
             />
           </Field>
           <Field
-            label="Target host"
-            hint={`On this host, for tunnels the ${deviceWord} runs`}
+            label={tr("tunnels.hostTunnelsSection.targetHost")}
+            hint={tr("tunnels.hostTunnelsSection.onThisHostForTunnels", {
+              deviceWord,
+            })}
           >
             <Input
               value={tunnel.targetHost ?? ""}
@@ -117,7 +128,7 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
               autoCorrect={false}
             />
           </Field>
-          <Field label="Bind host">
+          <Field label={tr("tunnels.hostTunnelsSection.bindHost")}>
             <Input
               value={tunnel.bindHost ?? ""}
               onChangeText={(v) => patch(idx, { bindHost: v })}
@@ -126,7 +137,7 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
               autoCorrect={false}
             />
           </Field>
-          <Field label="Endpoint host">
+          <Field label={tr("tunnels.hostTunnelsSection.endpointHost")}>
             {options.length > 0 ? (
               <Tabs<string>
                 value={tunnel.endpointHost ?? ""}
@@ -136,12 +147,15 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
               />
             ) : (
               <Text className="text-meta text-muted-foreground">
-                Add another host first. Tunnels go through a saved host.
+                {tr("tunnels.hostTunnelsSection.addAnotherHostFirstTunnels")}
               </Text>
             )}
           </Field>
           <FieldRow>
-            <Field label="Source port" className="flex-1">
+            <Field
+              label={tr("tunnels.hostTunnelsSection.sourcePort")}
+              className="flex-1"
+            >
               <Input
                 value={String(tunnel.sourcePort ?? "")}
                 onChangeText={(v) => patch(idx, { sourcePort: port(v) })}
@@ -149,7 +163,10 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
                 placeholder="8080"
               />
             </Field>
-            <Field label="Endpoint port" className="flex-1">
+            <Field
+              label={tr("tunnels.hostTunnelsSection.endpointPort")}
+              className="flex-1"
+            >
               <Input
                 value={String(tunnel.endpointPort ?? "")}
                 onChangeText={(v) => patch(idx, { endpointPort: port(v) })}
@@ -159,7 +176,10 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
             </Field>
           </FieldRow>
           <FieldRow>
-            <Field label="Max retries" className="flex-1">
+            <Field
+              label={tr("tunnels.hostTunnelsSection.maxRetries")}
+              className="flex-1"
+            >
               <Input
                 value={String(tunnel.maxRetries ?? "")}
                 onChangeText={(v) => patch(idx, { maxRetries: port(v) })}
@@ -167,7 +187,10 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
                 placeholder="3"
               />
             </Field>
-            <Field label="Retry every (s)" className="flex-1">
+            <Field
+              label={tr("tunnels.hostTunnelsSection.retryEveryS")}
+              className="flex-1"
+            >
               <Input
                 value={String(tunnel.retryInterval ?? "")}
                 onChangeText={(v) => patch(idx, { retryInterval: port(v) })}
@@ -176,7 +199,10 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
               />
             </Field>
           </FieldRow>
-          <SettingRow label="Start on its own" last>
+          <SettingRow
+            label={tr("tunnels.hostTunnelsSection.startOnItsOwn")}
+            last
+          >
             <FakeSwitch
               checked={!!tunnel.autoStart}
               onChange={(v) => patch(idx, { autoStart: v })}
@@ -189,7 +215,7 @@ function HostTunnels({ value, onChange, context }: HostFormTabProps) {
         variant="muted"
         onPress={() => setAll([...tunnels, newTunnel(options[0]?.id ?? "")])}
       >
-        Add tunnel
+        {tr("tunnels.hostTunnelsSection.addTunnel")}
       </Button>
     </View>
   );
@@ -207,7 +233,11 @@ export const hostTunnelsEditor: HostFormEditor = {
         ((t.mode ?? "local") !== "dynamic" &&
           !(Number(t.endpointPort) > 0 && Number(t.endpointPort) <= 65535)),
     );
-    return bad === -1 ? null : `Tunnel ${bad + 1} needs ports from 1 to 65535`;
+    return bad === -1
+      ? null
+      : tr("tunnels.hostTunnelsSection.tunnelNeedsPortsFrom1", {
+          value: bad + 1,
+        });
   },
   component: HostTunnels,
 };

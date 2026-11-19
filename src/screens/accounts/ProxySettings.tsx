@@ -16,6 +16,7 @@ import { toast } from "@/utils/toast";
 import { CertPinSettings } from "./CertPinSettings";
 import { ProxySignIn } from "./ProxySignIn";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 const CF_ID = "CF-Access-Client-Id";
 const CF_SECRET = "CF-Access-Client-Secret";
@@ -69,10 +70,12 @@ export function ProxySettings({
           ? { username: basic.username.trim(), password: basic.password }
           : null,
       });
-      toast.success("Proxy settings saved");
+      toast.success(t("accounts.proxySettings.proxySettingsSaved"));
       onSaved?.();
     } catch (error) {
-      toast.error(toUserMessage(error, "Could not save the proxy settings"));
+      toast.error(
+        toUserMessage(error, t("accounts.proxySettings.couldNotSaveTheProxy")),
+      );
     } finally {
       setSaving(false);
     }
@@ -91,7 +94,7 @@ export function ProxySettings({
         name: asset.name ?? null,
       });
     } catch {
-      toast.error("Could not read that file");
+      toast.error(t("accounts.proxySettings.couldNotReadThatFile"));
     }
   };
 
@@ -100,14 +103,17 @@ export function ProxySettings({
     try {
       await client.setClientCert({ ...certFile, passphrase });
       setCertFile(null);
-      toast.success("Certificate saved");
+      toast.success(t("accounts.proxySettings.certificateSaved"));
       onSaved?.();
     } catch (error) {
       const code = (error as { code?: string })?.code;
       toast.error(
         code === "BAD_PASSPHRASE"
-          ? "The file or its passphrase is wrong"
-          : toUserMessage(error, "Could not save the certificate"),
+          ? t("accounts.proxySettings.theFileOrItsPassphrase")
+          : toUserMessage(
+              error,
+              t("accounts.proxySettings.couldNotSaveTheCertificate"),
+            ),
       );
     }
   };
@@ -115,16 +121,16 @@ export function ProxySettings({
   return (
     <View>
       <Text weight="medium" className="mb-1 text-sm text-foreground">
-        Headers
+        {t("accounts.proxySettings.headers")}
       </Text>
       <Text className="mb-2 text-[11px] text-muted-foreground">
-        Sent with every request to this server, like a Cloudflare service token.
+        {t("accounts.proxySettings.sentWithEveryRequestTo")}
       </Text>
       {headers.map((header, index) => (
         <View key={index} className="mb-2 flex-row items-center gap-2">
           <Input
             containerClassName="flex-1"
-            placeholder="Name"
+            placeholder={t("accounts.proxySettings.name")}
             autoCapitalize="none"
             autoCorrect={false}
             value={header.name}
@@ -132,7 +138,7 @@ export function ProxySettings({
           />
           <Input
             containerClassName="flex-1"
-            placeholder="Value"
+            placeholder={t("accounts.proxySettings.value")}
             autoCapitalize="none"
             autoCorrect={false}
             secureTextEntry={/secret|token|key|auth/i.test(header.name)}
@@ -141,7 +147,7 @@ export function ProxySettings({
           />
           <Pressable
             hitSlop={8}
-            accessibilityLabel="Remove header"
+            accessibilityLabel={t("accounts.proxySettings.removeHeader")}
             onPress={() =>
               setHeaders((list) => list.filter((_, i) => i !== index))
             }
@@ -159,48 +165,48 @@ export function ProxySettings({
             setHeaders((list) => [...list, { name: "", value: "" }])
           }
         >
-          Add header
+          {t("accounts.proxySettings.addHeader")}
         </Button>
         <Button variant="muted" size="sm" onPress={addCloudflare}>
-          Cloudflare service token
+          {t("accounts.proxySettings.cloudflareServiceToken")}
         </Button>
       </View>
 
       <Text weight="medium" className="mb-1 text-sm text-foreground">
-        Basic auth
+        {t("accounts.proxySettings.basicAuth")}
       </Text>
       <Text className="mb-2 text-[11px] text-muted-foreground">
-        For a proxy that asks for a user name and password.
+        {t("accounts.proxySettings.forAProxyThatAsks")}
       </Text>
       <View className="mb-2 gap-2">
         <Input
-          placeholder="User name"
+          placeholder={t("accounts.proxySettings.userName")}
           autoCapitalize="none"
           autoCorrect={false}
           value={basic.username}
           onChangeText={(username) => setBasic((b) => ({ ...b, username }))}
         />
         <Input
-          placeholder="Password"
+          placeholder={t("accounts.proxySettings.password")}
           secureTextEntry
           value={basic.password}
           onChangeText={(password) => setBasic((b) => ({ ...b, password }))}
         />
       </View>
       <Button onPress={save} loading={saving} className="mb-6">
-        Save headers and basic auth
+        {t("accounts.proxySettings.saveHeadersAndBasicAuth")}
       </Button>
 
       <Text weight="medium" className="mb-1 text-sm text-foreground">
-        Client certificate
+        {t("accounts.proxySettings.clientCertificate")}
       </Text>
       <Text className="mb-2 text-[11px] text-muted-foreground">
-        {`For servers that ask for one (mTLS). The key is kept in the ${deviceWord}'s secure storage and can't be read back out.`}
+        {t("accounts.proxySettings.forServersThatAskFor", { deviceWord })}
       </Text>
       {cert ? (
         <View className="mb-2 border border-border bg-card px-3">
           <SettingRow
-            label={cert.name ?? "Certificate"}
+            label={cert.name ?? t("accounts.proxySettings.certificate")}
             description={cert.subject ?? undefined}
             last
           >
@@ -209,7 +215,7 @@ export function ProxySettings({
               size="sm"
               onPress={() => void client.removeClientCert().then(onSaved)}
             >
-              Remove
+              {t("accounts.proxySettings.remove")}
             </Button>
           </SettingRow>
         </View>
@@ -220,18 +226,22 @@ export function ProxySettings({
         disabled={!isNetAvailable()}
         className="mb-6"
       >
-        {cert ? "Replace certificate" : "Pick a .p12 or .pfx file"}
+        {cert
+          ? t("accounts.proxySettings.replaceCertificate")
+          : t("accounts.proxySettings.pickAP12OrPfx")}
       </Button>
 
       <CertPinSettings client={client} onSaved={onSaved} />
 
       <Text weight="medium" className="mb-1 text-sm text-foreground">
-        Proxy sign in
+        {t("accounts.proxySettings.proxySignIn")}
       </Text>
       <Text className="mb-2 text-[11px] text-muted-foreground">
-        For Cloudflare Access, Authelia, Authentik and other proxies with their
-        own sign in page.
-        {cookies.length ? ` This ${deviceWord} is signed in to the proxy.` : ""}
+        {t("accounts.proxySettings.forCloudflareAccessAutheliaAuthentik", {
+          value: cookies.length
+            ? t("accounts.proxySettings.thisIsSignedInTo", { deviceWord })
+            : "",
+        })}
       </Text>
       <View className="flex-row gap-2">
         <Button
@@ -240,24 +250,24 @@ export function ProxySettings({
           disabled={!isNetAvailable()}
           className="flex-1"
         >
-          Sign in to the proxy
+          {t("accounts.proxySettings.signInToTheProxy")}
         </Button>
         {cookies.length ? (
           <Button
             variant="ghost"
             onPress={() => void client.setProxyCookies([]).then(onSaved)}
           >
-            Forget
+            {t("accounts.proxySettings.forget")}
           </Button>
         ) : null}
       </View>
 
       <PromptSheet
         visible={!!certFile}
-        title="Certificate passphrase"
-        description="The passphrase the file was saved with. Leave it empty if it has none."
-        placeholder="Passphrase"
-        confirmLabel="Save"
+        title={t("accounts.proxySettings.certificatePassphrase")}
+        description={t("accounts.proxySettings.thePassphraseTheFileWas")}
+        placeholder={t("accounts.proxySettings.passphrase")}
+        confirmLabel={t("accounts.proxySettings.save")}
         secureTextEntry
         validate={() => true}
         onSubmit={(passphrase) => void importCert(passphrase)}

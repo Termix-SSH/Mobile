@@ -49,6 +49,7 @@ import { systemLogger } from "@/core/log/logger";
 import { AppError } from "@/core/errors";
 import { Platform } from "react-native";
 import type { AccountStorage } from "@/core/storage/kv";
+import { t } from "@/i18n";
 
 export interface ProxyHeader {
   name: string;
@@ -515,7 +516,7 @@ export class AccountClient implements HttpOwner {
     // Never fall back to a plain request that skips the pin or the cert.
     if (!canEnforceNetwork()) {
       throw new AppError(
-        "This build can't check this server's pinned key or send its certificate.",
+        t("api.accountClient.thisBuildCanTCheck"),
         "NET_UNAVAILABLE",
       );
     }

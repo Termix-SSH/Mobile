@@ -8,6 +8,7 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
 import { apiOf, useActiveClient } from "@/core/accounts";
 import { Screen } from "@/components/Screen";
+import { t as tr } from "@/i18n";
 
 type TotpPhase = "idle" | "setup" | "backup";
 
@@ -48,7 +49,9 @@ export default function TwoFactorAuth() {
       setSecret(res.secret);
       setPhase("setup");
     } catch (e: any) {
-      toast.error(e?.message ?? "Failed to start 2FA setup");
+      toast.error(
+        e?.message ?? tr("settings.twoFactorAuth.failedToStart2faSetup"),
+      );
     } finally {
       setBusy(false);
     }
@@ -62,9 +65,13 @@ export default function TwoFactorAuth() {
       setBackupCodes(res.backup_codes ?? []);
       setTotpEnabled(true);
       setPhase("backup");
-      toast.success("Two-factor authentication enabled");
+      toast.success(
+        tr("settings.twoFactorAuth.twoFactorAuthenticationEnabled"),
+      );
     } catch (e: any) {
-      toast.error(e?.message ?? "Invalid code, try again");
+      toast.error(
+        e?.message ?? tr("settings.twoFactorAuth.invalidCodeTryAgain"),
+      );
     } finally {
       setBusy(false);
     }
@@ -77,9 +84,13 @@ export default function TwoFactorAuth() {
       setTotpEnabled(false);
       setDisableDialog(false);
       setDisablePassword("");
-      toast.success("Two-factor authentication disabled");
+      toast.success(
+        tr("settings.twoFactorAuth.twoFactorAuthenticationDisabled"),
+      );
     } catch (e: any) {
-      toast.error(e?.message ?? "Failed to disable 2FA");
+      toast.error(
+        e?.message ?? tr("settings.twoFactorAuth.failedToDisable2fa"),
+      );
     } finally {
       setDisableBusy(false);
     }
@@ -92,7 +103,9 @@ export default function TwoFactorAuth() {
       setBackupCodes(res.backup_codes ?? []);
       setPhase("backup");
     } catch (e: any) {
-      toast.error(e?.message ?? "Failed to fetch backup codes");
+      toast.error(
+        e?.message ?? tr("settings.twoFactorAuth.failedToFetchBackupCodes"),
+      );
     } finally {
       setBusy(false);
     }
@@ -101,17 +114,17 @@ export default function TwoFactorAuth() {
   const copySecret = async () => {
     if (!secret) return;
     await Clipboard.setStringAsync(secret);
-    toast.success("Secret copied");
+    toast.success(tr("settings.twoFactorAuth.secretCopied"));
   };
 
   const copyBackupCodes = async () => {
     await Clipboard.setStringAsync(backupCodes.join("\n"));
-    toast.success("Backup codes copied");
+    toast.success(tr("settings.twoFactorAuth.backupCodesCopied"));
   };
 
   return (
     <Screen
-      title="Two-factor authentication"
+      title={tr("settings.twoFactorAuth.twoFactorAuthentication")}
       onBack={() => router.back()}
       keyboardAvoiding
     >
@@ -119,13 +132,13 @@ export default function TwoFactorAuth() {
         contentContainerStyle={{ padding: 12, gap: 16, paddingBottom: 40 }}
       >
         {loading ? (
-          <Text className="text-sm text-muted-foreground">Loading…</Text>
+          <Text className="text-sm text-muted-foreground">
+            {tr("settings.twoFactorAuth.loading")}
+          </Text>
         ) : phase === "setup" ? (
           <View className="gap-4">
             <Text className="text-sm text-muted-foreground">
-              Scan this QR code with your authenticator app (Google
-              Authenticator, Authy, etc.), then enter the 6-digit code to
-              confirm.
+              {tr("settings.twoFactorAuth.scanThisQrCodeWith")}
             </Text>
             {qrCode ? (
               <View className="items-center">
@@ -166,10 +179,10 @@ export default function TwoFactorAuth() {
               loading={busy}
               disabled={verifyCode.trim().length < 6}
             >
-              Verify &amp; Enable
+              {tr("settings.twoFactorAuth.verifyAmpEnable")}
             </Button>
             <Button variant="ghost" onPress={() => setPhase("idle")}>
-              Cancel
+              {tr("settings.twoFactorAuth.cancel")}
             </Button>
           </View>
         ) : phase === "backup" ? (
@@ -177,12 +190,11 @@ export default function TwoFactorAuth() {
             <View className="flex-row items-center gap-2">
               <KeyRound size={18} color={color("accent-brand")} />
               <Text weight="bold" className="text-sm text-foreground">
-                Save your backup codes
+                {tr("settings.twoFactorAuth.saveYourBackupCodes")}
               </Text>
             </View>
             <Text className="text-xs text-muted-foreground">
-              Store these somewhere safe. Each code can only be used once if you
-              lose access to your authenticator.
+              {tr("settings.twoFactorAuth.storeTheseSomewhereSafeEach")}
             </Text>
             <View className="gap-1 border border-border bg-card p-4">
               {backupCodes.map((code) => (
@@ -196,10 +208,10 @@ export default function TwoFactorAuth() {
               onPress={copyBackupCodes}
               icon={<Copy size={15} color={color("foreground")} />}
             >
-              Copy all codes
+              {tr("settings.twoFactorAuth.copyAllCodes")}
             </Button>
             <Button variant="default" onPress={() => setPhase("idle")}>
-              Done
+              {tr("settings.twoFactorAuth.done")}
             </Button>
           </View>
         ) : (
@@ -212,12 +224,14 @@ export default function TwoFactorAuth() {
               )}
               <View className="flex-1">
                 <Text weight="medium" className="text-sm text-foreground">
-                  {totpEnabled ? "2FA is enabled" : "2FA is not enabled"}
+                  {totpEnabled
+                    ? tr("settings.twoFactorAuth.n2faIsEnabled")
+                    : tr("settings.twoFactorAuth.n2faIsNotEnabled")}
                 </Text>
                 <Text className="mt-0.5 text-xs text-muted-foreground">
                   {totpEnabled
-                    ? "Your account is protected with an authenticator app."
-                    : "Add an extra layer of security to your account."}
+                    ? tr("settings.twoFactorAuth.yourAccountIsProtectedWith")
+                    : tr("settings.twoFactorAuth.addAnExtraLayerOf")}
                 </Text>
               </View>
             </View>
@@ -232,7 +246,7 @@ export default function TwoFactorAuth() {
                     loading={busy}
                     icon={<KeyRound size={15} color={color("foreground")} />}
                   >
-                    View backup codes
+                    {tr("settings.twoFactorAuth.viewBackupCodes")}
                   </Button>
                 )}
                 <Button
@@ -240,7 +254,7 @@ export default function TwoFactorAuth() {
                   onPress={() => setDisableDialog(true)}
                   icon={<ShieldOff size={15} color={color("destructive")} />}
                 >
-                  Disable 2FA
+                  {tr("settings.twoFactorAuth.disable2fa")}
                 </Button>
               </View>
             ) : (
@@ -250,7 +264,7 @@ export default function TwoFactorAuth() {
                 loading={busy}
                 icon={<ShieldCheck size={15} color={color("background")} />}
               >
-                Enable 2FA
+                {tr("settings.twoFactorAuth.enable2fa")}
               </Button>
             )}
           </View>
@@ -265,11 +279,11 @@ export default function TwoFactorAuth() {
           setDisablePassword("");
         }}
         icon={<ShieldOff size={20} color={color("destructive")} />}
-        title="Disable Two-Factor Authentication"
+        title={tr("settings.twoFactorAuth.disableTwoFactorAuthentication")}
         description={
           (client?.isPluginApi() ?? false)
-            ? "Enter a code from your authenticator app to confirm. You can re-enable 2FA at any time."
-            : "Enter your password to confirm. You can re-enable 2FA at any time."
+            ? tr("settings.twoFactorAuth.enterACodeFromYour")
+            : tr("settings.twoFactorAuth.enterYourPasswordToConfirm")
         }
         footer={
           <View className="flex-row gap-2">
@@ -281,7 +295,7 @@ export default function TwoFactorAuth() {
                 setDisablePassword("");
               }}
             >
-              Cancel
+              {tr("settings.twoFactorAuth.cancel")}
             </Button>
             <Button
               variant="destructive"
@@ -289,7 +303,7 @@ export default function TwoFactorAuth() {
               onPress={handleDisable}
               loading={disableBusy}
             >
-              Disable
+              {tr("settings.twoFactorAuth.disable")}
             </Button>
           </View>
         }
@@ -299,7 +313,9 @@ export default function TwoFactorAuth() {
             value={disablePassword}
             onChangeText={setDisablePassword}
             placeholder={
-              (client?.isPluginApi() ?? false) ? "000000" : "Your password"
+              (client?.isPluginApi() ?? false)
+                ? "000000"
+                : tr("settings.twoFactorAuth.yourPassword")
             }
             secureTextEntry={!(client?.isPluginApi() ?? false)}
             keyboardType={

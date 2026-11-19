@@ -13,6 +13,7 @@ import {
 } from "@/core/links/open-link";
 import { toast } from "@/utils/toast";
 import { openTab } from "@/screens/shell/navigate";
+import { t } from "@/i18n";
 
 /**
  * Handles `termix-mobile://open` links: picks the account for the link's
@@ -36,8 +37,8 @@ export function OpenLinkHost() {
       const account = findLinkAccount(accounts.list(), link.server);
       if (!account) {
         toast.error(
-          "Link this server first",
-          `${link.server ?? ""} isn't linked in the app yet.`,
+          t("links.openLinkHost.linkThisServerFirst"),
+          t("links.openLinkHost.isnTLinkedInThe", { value: link.server ?? "" }),
         );
         openAuthFlow("server");
         return;
@@ -62,8 +63,11 @@ export function OpenLinkHost() {
         const host = findLinkHost(hosts, link.hostId, isServerAccount(account));
         if (!host) {
           toast.error(
-            "That host isn't here",
-            `No host with id ${link.hostId} on ${accountLabel(account)}.`,
+            t("links.openLinkHost.thatHostIsnTHere"),
+            t("links.openLinkHost.noHostWithIdOn", {
+              hostId: link.hostId,
+              account: accountLabel(account),
+            }),
           );
           openTab("/(tabs)/hosts");
           return;
@@ -71,7 +75,7 @@ export function OpenLinkHost() {
         if (link.type) navigateToSessions(host, link.type);
         else navigateToSessions(host);
       } catch {
-        toast.error("Could not open that host");
+        toast.error(t("links.openLinkHost.couldNotOpenThatHost"));
       }
     },
     [navigateToSessions, openAuthFlow],

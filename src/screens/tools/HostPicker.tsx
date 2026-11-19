@@ -4,6 +4,7 @@ import { Search, Server, X } from "lucide-react-native";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import type { SSHHost } from "@/types";
 import { EmptyState, Input, ListRow, Sheet, Text } from "@/ui";
+import { t } from "@/i18n";
 
 /** Hosts whose name, address, user, folder or tags hold the query. */
 export function matchHosts(hosts: SSHHost[], query: string): SSHHost[] {
@@ -45,11 +46,11 @@ export function HostPicker({
         onClose();
       }}
       title={title}
-      description="Pick a host"
+      description={t("tools.hostPicker.pickAHost")}
     >
       <View className="px-4 pb-2 pt-3">
         <Input
-          placeholder="Search hosts"
+          placeholder={t("tools.hostPicker.searchHosts")}
           value={query}
           onChangeText={setQuery}
           autoCapitalize="none"
@@ -59,7 +60,7 @@ export function HostPicker({
             query ? (
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Clear search"
+                accessibilityLabel={t("tools.hostPicker.clearSearch")}
                 onPress={() => setQuery("")}
                 hitSlop={8}
               >
@@ -76,12 +77,12 @@ export function HostPicker({
         {shown.length === 0 ? (
           <EmptyState
             icon={Server}
-            title={hosts.length ? "No hosts match" : "No hosts can use this"}
-            hint={
+            title={
               hosts.length
-                ? undefined
-                : "Turn it on for a host in the host editor."
+                ? t("tools.hostPicker.noHostsMatch")
+                : t("tools.hostPicker.noHostsCanUseThis")
             }
+            hint={hosts.length ? undefined : t("tools.hostPicker.turnItOnForA")}
           />
         ) : (
           shown.map((host, index) => (

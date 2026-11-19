@@ -47,6 +47,7 @@ import {
 import { isSshActive } from "@/utils/hosts";
 import { groupSnippets } from "@/features/snippets/group";
 import type { SSHHost } from "@/types";
+import { t } from "@/i18n";
 
 type SnippetFormData = {
   name: string;
@@ -132,7 +133,7 @@ export default function Snippets() {
       void publishSnippetSnapshot(ordered);
     } catch {
       setLoadFailed(true);
-      toast.error("Failed to load snippets");
+      toast.error(t("settings.snippets.failedToLoadSnippets"));
     }
   }, [repos]);
 
@@ -178,7 +179,7 @@ export default function Snippets() {
 
   const handleCopy = async (snippet: Snippet) => {
     await Clipboard.setStringAsync(snippet.content);
-    toast.success(`Copied: ${snippet.name}`);
+    toast.success(t("settings.snippets.copied", { name: snippet.name }));
   };
 
   const openCreate = () => {
@@ -219,11 +220,11 @@ export default function Snippets() {
 
   const handleSave = async () => {
     if (!form.name.trim()) {
-      toast.error("Name is required");
+      toast.error(t("settings.snippets.nameIsRequired"));
       return;
     }
     if (!form.content.trim()) {
-      toast.error("Content is required");
+      toast.error(t("settings.snippets.contentIsRequired"));
       return;
     }
     setSaving(true);
@@ -243,15 +244,15 @@ export default function Snippets() {
       };
       if (editingSnippet) {
         await repos.snippets.update(editingSnippet.id, payload);
-        toast.success("Snippet updated");
+        toast.success(t("settings.snippets.snippetUpdated"));
       } else {
         await repos.snippets.create(payload);
-        toast.success("Snippet created");
+        toast.success(t("settings.snippets.snippetCreated"));
       }
       await load();
       setEditDialog(false);
     } catch {
-      toast.error("Failed to save snippet");
+      toast.error(t("settings.snippets.failedToSaveSnippet"));
     } finally {
       setSaving(false);
     }
@@ -262,11 +263,11 @@ export default function Snippets() {
     setDeleting(true);
     try {
       await repos.snippets.remove(deleteTarget.id);
-      toast.success("Snippet deleted");
+      toast.success(t("settings.snippets.snippetDeleted"));
       setDeleteTarget(null);
       await load();
     } catch {
-      toast.error("Failed to delete snippet");
+      toast.error(t("settings.snippets.failedToDeleteSnippet"));
     } finally {
       setDeleting(false);
     }
@@ -274,18 +275,18 @@ export default function Snippets() {
 
   const handleCreateFolder = async () => {
     if (!folderName.trim()) {
-      toast.error("Folder name is required");
+      toast.error(t("settings.snippets.folderNameIsRequired"));
       return;
     }
     setCreatingFolder(true);
     try {
       await repos.snippetFolders.create({ name: folderName.trim() });
-      toast.success("Folder created");
+      toast.success(t("settings.snippets.folderCreated"));
       setFolderDialog(false);
       setFolderName("");
       await load();
     } catch {
-      toast.error("Failed to create folder");
+      toast.error(t("settings.snippets.failedToCreateFolder"));
     } finally {
       setCreatingFolder(false);
     }
@@ -296,11 +297,11 @@ export default function Snippets() {
     setDeletingFolder(true);
     try {
       await repos.snippetFolders.remove(deleteFolderTarget.name);
-      toast.success("Folder deleted");
+      toast.success(t("settings.snippets.folderDeleted"));
       setDeleteFolderTarget(null);
       await load();
     } catch {
-      toast.error("Failed to delete folder");
+      toast.error(t("settings.snippets.failedToDeleteFolder"));
     } finally {
       setDeletingFolder(false);
     }
@@ -334,9 +335,9 @@ export default function Snippets() {
       setRenameFolderTarget(null);
       setRenameFolderName("");
       await load();
-      toast.success("Folder renamed");
+      toast.success(t("settings.snippets.folderRenamed"));
     } catch (e: any) {
-      toast.error(e?.message || "Failed to rename folder");
+      toast.error(e?.message || t("settings.snippets.failedToRenameFolder"));
     } finally {
       setRenamingFolder(false);
     }
@@ -371,7 +372,7 @@ export default function Snippets() {
         })),
       );
     } catch {
-      toast.error("Failed to save order");
+      toast.error(t("settings.snippets.failedToSaveOrder"));
       load();
     }
   };
@@ -411,7 +412,7 @@ export default function Snippets() {
         <>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Move up"
+            accessibilityLabel={t("settings.snippets.moveUp")}
             onPress={() => moveSnippet(list, index, -1)}
             disabled={index === 0}
             hitSlop={8}
@@ -422,7 +423,7 @@ export default function Snippets() {
           </Pressable>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Move down"
+            accessibilityLabel={t("settings.snippets.moveDown")}
             onPress={() => moveSnippet(list, index, 1)}
             disabled={index === list.length - 1}
             hitSlop={8}
@@ -437,7 +438,9 @@ export default function Snippets() {
         <Pressable
           onPress={() => setRunTarget(snippet)}
           accessibilityRole="button"
-          accessibilityLabel={`Run ${snippet.name} on hosts`}
+          accessibilityLabel={t("settings.snippets.runOnHosts", {
+            name: snippet.name,
+          })}
           hitSlop={8}
           className="p-1 active:opacity-60"
         >
@@ -446,7 +449,7 @@ export default function Snippets() {
       ) : null}
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`Copy ${snippet.name}`}
+        accessibilityLabel={t("settings.snippets.copy", { name: snippet.name })}
         onPress={() => handleCopy(snippet)}
         hitSlop={8}
         className="p-1 active:opacity-60"
@@ -456,7 +459,9 @@ export default function Snippets() {
       {snippet.isShared ? null : (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={`Delete ${snippet.name}`}
+          accessibilityLabel={t("settings.snippets.delete", {
+            name: snippet.name,
+          })}
           onPress={() => setDeleteTarget(snippet)}
           hitSlop={8}
           className="p-1 active:opacity-60"
@@ -496,7 +501,7 @@ export default function Snippets() {
             <>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Rename folder"
+                accessibilityLabel={t("settings.snippets.renameFolder")}
                 onPress={() => {
                   setRenameFolderTarget(folderKey);
                   setRenameFolderName(folderKey);
@@ -508,7 +513,7 @@ export default function Snippets() {
               </Pressable>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Delete folder"
+                accessibilityLabel={t("settings.snippets.deleteFolder")}
                 onPress={() => {
                   const f = folders.find((x) => x.name === folderKey);
                   if (f) setDeleteFolderTarget(f);
@@ -530,7 +535,7 @@ export default function Snippets() {
           (items.length === 0 ? (
             <View className="border-b border-border px-3 py-3">
               <Text className="text-xs italic text-muted-foreground">
-                No snippets in this folder
+                {t("settings.snippets.noSnippetsInThisFolder")}
               </Text>
             </View>
           ) : (
@@ -542,14 +547,14 @@ export default function Snippets() {
 
   return (
     <Screen
-      title="Snippets"
+      title={t("settings.snippets.snippets")}
       onBack={() => router.back()}
       headerRight={
         <View className="flex-row gap-2">
           <Button
             variant="ghost"
             size="icon"
-            accessibilityLabel="Import and export"
+            accessibilityLabel={t("settings.snippets.importAndExport")}
             onPress={() => setTransferOpen(true)}
             icon={<ArrowDownUp size={18} color={color("muted-foreground")} />}
           />
@@ -558,27 +563,29 @@ export default function Snippets() {
             size="sm"
             onPress={() => setFolderDialog(true)}
           >
-            Folder
+            {t("settings.snippets.folder")}
           </Button>
           <Button variant="default" size="sm" onPress={openCreate}>
-            New
+            {t("settings.snippets.new")}
           </Button>
         </View>
       }
     >
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-sm text-muted-foreground">Loading…</Text>
+          <Text className="text-sm text-muted-foreground">
+            {t("settings.snippets.loading")}
+          </Text>
         </View>
       ) : loadFailed && snippets.length === 0 ? (
         <View className="flex-1 justify-center">
           <EmptyState
             icon={FileText}
-            title="Could not load snippets"
-            hint="Check the connection to your server and try again."
+            title={t("settings.snippets.couldNotLoadSnippets")}
+            hint={t("settings.snippets.checkTheConnectionToYour")}
             action={
               <Button variant="default" size="lg" onPress={onRefresh}>
-                Try again
+                {t("settings.snippets.tryAgain")}
               </Button>
             }
           />
@@ -587,11 +594,11 @@ export default function Snippets() {
         <View className="flex-1 justify-center">
           <EmptyState
             icon={FileText}
-            title="No snippets yet"
-            hint="Create your first snippet, or add snippets from the Termix web or desktop app."
+            title={t("settings.snippets.noSnippetsYet")}
+            hint={t("settings.snippets.createYourFirstSnippetOr")}
             action={
               <Button variant="default" size="lg" onPress={openCreate}>
-                Create snippet
+                {t("settings.snippets.createSnippet")}
               </Button>
             }
           />
@@ -609,8 +616,8 @@ export default function Snippets() {
         >
           <View className="border-b border-border px-3">
             <SettingRow
-              label="Ask before running"
-              description="Confirm before a snippet runs in the terminal"
+              label={t("settings.snippets.askBeforeRunning")}
+              description={t("settings.snippets.confirmBeforeASnippetRuns")}
               last
             >
               <FakeSwitch
@@ -639,7 +646,11 @@ export default function Snippets() {
         scroll
         visible={editDialog}
         onClose={() => setEditDialog(false)}
-        title={editingSnippet ? "Edit Snippet" : "New Snippet"}
+        title={
+          editingSnippet
+            ? t("settings.snippets.editSnippet")
+            : t("settings.snippets.newSnippet")
+        }
         footer={
           <View className="flex-row gap-2">
             <Button
@@ -647,7 +658,7 @@ export default function Snippets() {
               className="flex-1"
               onPress={() => setEditDialog(false)}
             >
-              Cancel
+              {t("settings.snippets.cancel")}
             </Button>
             <Button
               variant="default"
@@ -655,7 +666,9 @@ export default function Snippets() {
               loading={saving}
               onPress={handleSave}
             >
-              {editingSnippet ? "Save" : "Create"}
+              {editingSnippet
+                ? t("settings.snippets.save")
+                : t("settings.snippets.create")}
             </Button>
           </View>
         }
@@ -663,16 +676,16 @@ export default function Snippets() {
         <SheetBody>
           <View className="gap-3">
             <View className="gap-1">
-              <Label>Name</Label>
+              <Label>{t("settings.snippets.name")}</Label>
               <Input
                 value={form.name}
                 onChangeText={(v) => setForm((f) => ({ ...f, name: v }))}
-                placeholder="e.g. Update packages"
+                placeholder={t("settings.snippets.eGUpdatePackages")}
                 autoCapitalize="none"
               />
             </View>
             <View className="gap-1">
-              <Label>Content</Label>
+              <Label>{t("settings.snippets.content")}</Label>
               <Input
                 value={form.content}
                 onChangeText={(v) => setForm((f) => ({ ...f, content: v }))}
@@ -685,19 +698,19 @@ export default function Snippets() {
               />
             </View>
             <View className="gap-1">
-              <Label>Description (optional)</Label>
+              <Label>{t("settings.snippets.descriptionOptional")}</Label>
               <Input
                 value={form.description}
                 onChangeText={(v) => setForm((f) => ({ ...f, description: v }))}
-                placeholder="Short description"
+                placeholder={t("settings.snippets.shortDescription")}
                 autoCapitalize="sentences"
               />
             </View>
             <View className="gap-1">
-              <Label>Folder (optional)</Label>
+              <Label>{t("settings.snippets.folderOptional")}</Label>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Select folder"
+                accessibilityLabel={t("settings.snippets.selectFolder")}
                 accessibilityState={{ expanded: folderPickerOpen }}
                 onPress={() => setFolderPickerOpen((open) => !open)}
                 className="h-10 flex-row items-center gap-2 border border-input bg-card px-2.5 active:opacity-70"
@@ -706,7 +719,7 @@ export default function Snippets() {
                 <Text
                   className={`flex-1 text-sm ${form.folder ? "text-foreground" : "text-muted-foreground"}`}
                 >
-                  {form.folder || "No folder"}
+                  {form.folder || t("settings.snippets.noFolder")}
                 </Text>
                 <ChevronRight size={14} color={color("muted-foreground")} />
               </Pressable>
@@ -721,7 +734,7 @@ export default function Snippets() {
                   >
                     <FolderOpen size={14} color={color("muted-foreground")} />
                     <Text className="flex-1 text-sm text-foreground">
-                      No folder
+                      {t("settings.snippets.noFolder")}
                     </Text>
                     {!form.folder && (
                       <Check size={14} color={color("primary")} />
@@ -753,7 +766,7 @@ export default function Snippets() {
             </View>
             {!form.isNote ? (
               <View className="gap-1">
-                <Label>Target hosts (optional)</Label>
+                <Label>{t("settings.snippets.targetHostsOptional")}</Label>
                 <Pressable
                   onPress={() => setTargetsOpen(true)}
                   className="h-10 flex-row items-center gap-2 border border-input bg-card px-2.5 active:opacity-70"
@@ -762,16 +775,16 @@ export default function Snippets() {
                     className={`flex-1 text-sm ${targetIds.size ? "text-foreground" : "text-muted-foreground"}`}
                   >
                     {targetIds.size
-                      ? `${targetIds.size} ${targetIds.size === 1 ? "host" : "hosts"}`
-                      : "None"}
+                      ? t("common.hostCount", { count: targetIds.size })
+                      : t("settings.snippets.none")}
                   </Text>
                   <ChevronRight size={14} color={color("muted-foreground")} />
                 </Pressable>
               </View>
             ) : null}
             <SettingRow
-              label="Note"
-              description="Pasted into the terminal without running"
+              label={t("settings.snippets.note")}
+              description={t("settings.snippets.pastedIntoTheTerminalWithout")}
               last
             >
               <FakeSwitch
@@ -785,7 +798,7 @@ export default function Snippets() {
 
       <HostPicker
         visible={targetsOpen}
-        title="Target hosts"
+        title={t("settings.snippets.targetHosts")}
         hosts={hostList}
         selected={targetIds}
         onChange={setTargetIds}
@@ -800,7 +813,7 @@ export default function Snippets() {
             ? [
                 {
                   id: "copy",
-                  label: "Copy",
+                  label: t("settings.snippets.copy2"),
                   onPress: () => handleCopy(menu.snippet),
                 },
                 ...(menu.snippet.isShared
@@ -808,7 +821,7 @@ export default function Snippets() {
                   : [
                       {
                         id: "edit",
-                        label: "Edit",
+                        label: t("settings.snippets.edit"),
                         onPress: () => openEdit(menu.snippet),
                       },
                     ]),
@@ -816,7 +829,7 @@ export default function Snippets() {
                   ? [
                       {
                         id: "run",
-                        label: "Run on hosts",
+                        label: t("settings.snippets.runOnHosts2"),
                         onPress: () => setRunTarget(menu.snippet),
                       },
                     ]
@@ -826,7 +839,7 @@ export default function Snippets() {
                   : [
                       {
                         id: "delete",
-                        label: "Delete",
+                        label: t("settings.snippets.delete2"),
                         destructive: true,
                         onPress: () => setDeleteTarget(menu.snippet),
                       },
@@ -845,8 +858,10 @@ export default function Snippets() {
         scroll
         visible={!!deleteTarget}
         onClose={() => setDeleteTarget(null)}
-        title="Delete Snippet"
-        description={`Delete "${deleteTarget?.name}"? This cannot be undone.`}
+        title={t("settings.snippets.deleteSnippet")}
+        description={t("settings.snippets.deleteThisCannotBeUndone", {
+          name: deleteTarget?.name,
+        })}
         footer={
           <View className="flex-row gap-2">
             <Button
@@ -854,7 +869,7 @@ export default function Snippets() {
               className="flex-1"
               onPress={() => setDeleteTarget(null)}
             >
-              Cancel
+              {t("settings.snippets.cancel")}
             </Button>
             <Button
               variant="destructive"
@@ -862,7 +877,7 @@ export default function Snippets() {
               loading={deleting}
               onPress={handleDelete}
             >
-              Delete
+              {t("settings.snippets.delete2")}
             </Button>
           </View>
         }
@@ -873,7 +888,7 @@ export default function Snippets() {
         scroll
         visible={renameFolderTarget !== null}
         onClose={() => setRenameFolderTarget(null)}
-        title="Rename Folder"
+        title={t("settings.snippets.renameFolder2")}
         footer={
           <View className="flex-row gap-2">
             <Button
@@ -881,7 +896,7 @@ export default function Snippets() {
               className="flex-1"
               onPress={() => setRenameFolderTarget(null)}
             >
-              Cancel
+              {t("settings.snippets.cancel")}
             </Button>
             <Button
               variant="default"
@@ -889,18 +904,18 @@ export default function Snippets() {
               loading={renamingFolder}
               onPress={submitFolderRename}
             >
-              Rename
+              {t("settings.snippets.rename")}
             </Button>
           </View>
         }
       >
         <SheetBody>
           <View className="gap-1">
-            <Label>Folder name</Label>
+            <Label>{t("settings.snippets.folderName")}</Label>
             <Input
               value={renameFolderName}
               onChangeText={setRenameFolderName}
-              placeholder="e.g. System"
+              placeholder={t("settings.snippets.eGSystem")}
               autoCapitalize="words"
             />
           </View>
@@ -912,7 +927,7 @@ export default function Snippets() {
         scroll
         visible={folderDialog}
         onClose={() => setFolderDialog(false)}
-        title="New Folder"
+        title={t("settings.snippets.newFolder")}
         footer={
           <View className="flex-row gap-2">
             <Button
@@ -920,7 +935,7 @@ export default function Snippets() {
               className="flex-1"
               onPress={() => setFolderDialog(false)}
             >
-              Cancel
+              {t("settings.snippets.cancel")}
             </Button>
             <Button
               variant="default"
@@ -928,18 +943,18 @@ export default function Snippets() {
               loading={creatingFolder}
               onPress={handleCreateFolder}
             >
-              Create
+              {t("settings.snippets.create")}
             </Button>
           </View>
         }
       >
         <SheetBody>
           <View className="gap-1">
-            <Label>Folder name</Label>
+            <Label>{t("settings.snippets.folderName")}</Label>
             <Input
               value={folderName}
               onChangeText={setFolderName}
-              placeholder="e.g. System"
+              placeholder={t("settings.snippets.eGSystem")}
               autoCapitalize="words"
             />
           </View>
@@ -951,8 +966,10 @@ export default function Snippets() {
         scroll
         visible={!!deleteFolderTarget}
         onClose={() => setDeleteFolderTarget(null)}
-        title="Delete Folder"
-        description={`Delete "${deleteFolderTarget?.name}"? Snippets in this folder will become uncategorized.`}
+        title={t("settings.snippets.deleteFolder2")}
+        description={t("settings.snippets.deleteSnippetsInThisFolder", {
+          name: deleteFolderTarget?.name,
+        })}
         footer={
           <View className="flex-row gap-2">
             <Button
@@ -960,7 +977,7 @@ export default function Snippets() {
               className="flex-1"
               onPress={() => setDeleteFolderTarget(null)}
             >
-              Cancel
+              {t("settings.snippets.cancel")}
             </Button>
             <Button
               variant="destructive"
@@ -968,7 +985,7 @@ export default function Snippets() {
               loading={deletingFolder}
               onPress={handleDeleteFolder}
             >
-              Delete
+              {t("settings.snippets.delete2")}
             </Button>
           </View>
         }

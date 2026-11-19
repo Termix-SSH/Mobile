@@ -59,6 +59,7 @@ import { SHOWCASE } from "@/showcase/enabled";
 import { ShowcaseHost } from "@/showcase/ShowcaseHost";
 // Defines the background sync task, which must exist when the app loads.
 import "@/core/sync/background";
+import { t } from "@/i18n";
 
 registerBuiltInFeatures();
 markStartup("bundle");
@@ -101,7 +102,7 @@ function RootLayoutContent() {
           className="mt-4 text-base text-foreground"
           style={{ fontFamily: MONO_FONT }}
         >
-          Initializing…
+          {t("app.layout.initializing")}
         </Text>
         <TouchableOpacity
           onPress={() => setIsLoading(false)}
@@ -111,7 +112,7 @@ function RootLayoutContent() {
             className="text-foreground"
             style={{ fontFamily: MONO_FONT_BOLD }}
           >
-            Cancel
+            {t("app.layout.cancel")}
           </Text>
         </TouchableOpacity>
       </View>

@@ -45,6 +45,7 @@ import {
   type HomeSlot,
 } from "./layout";
 import { ServerReachBanner } from "./ServerReachBanner";
+import { t } from "@/i18n";
 
 export { pinnedHosts } from "./cards";
 
@@ -183,9 +184,9 @@ export default function Home() {
   };
   const resetLayout = async () => {
     const ok = await confirm({
-      title: "Reset Home?",
-      description: "Cards go back to the default order and shown cards.",
-      confirmLabel: "Reset",
+      title: t("home.resetHome"),
+      description: t("home.cardsGoBackToThe"),
+      confirmLabel: t("home.reset"),
     });
     if (!ok) return;
     await saveHomeLayout(account.id, null);
@@ -226,7 +227,9 @@ export default function Home() {
           <Pressable
             onPress={editing ? finishEditing : startEditing}
             accessibilityRole="button"
-            accessibilityLabel={editing ? "Done editing Home" : "Edit Home"}
+            accessibilityLabel={
+              editing ? t("home.doneEditingHome") : t("home.editHome")
+            }
             hitSlop={8}
             className="h-9 w-9 items-center justify-center active:opacity-60"
           >
@@ -313,7 +316,7 @@ function EditHome({
         >
           <Pressable
             onPressIn={drag}
-            accessibilityLabel={`Drag ${entry.title} to reorder`}
+            accessibilityLabel={t("home.dragToReorder", { title: entry.title })}
             className="h-12 w-10 items-center justify-center"
           >
             <GripVertical size={16} color={muted} />
@@ -332,7 +335,7 @@ function EditHome({
           <FakeSwitch
             checked={!item.hidden}
             onChange={toggle}
-            accessibilityLabel={`Show ${entry.title}`}
+            accessibilityLabel={t("home.show", { title: entry.title })}
           />
         </View>
       </ScaleDecorator>
@@ -342,8 +345,7 @@ function EditHome({
   return (
     <View className="flex-1">
       <Text className="px-4 py-3 text-[11px] text-muted-foreground">
-        Drag cards to reorder them. Turn a card off to hide it. Cards with
-        nothing to show stay hidden on their own.
+        {t("home.dragCardsToReorderThem")}
       </Text>
       <View className="flex-1 border-t border-border">
         <DraggableFlatList
@@ -359,11 +361,11 @@ function EditHome({
       <View className="flex-row gap-2 border-t border-border bg-background px-3 py-3">
         <View className="flex-1">
           <Button variant="ghost" onPress={onReset}>
-            Reset to default
+            {t("home.resetToDefault")}
           </Button>
         </View>
         <View className="flex-1">
-          <Button onPress={onDone}>Done</Button>
+          <Button onPress={onDone}>{t("home.done")}</Button>
         </View>
       </View>
     </View>

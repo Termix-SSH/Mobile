@@ -5,6 +5,7 @@ import { Shield, Copy, Check, ExternalLink } from "lucide-react-native";
 import { Sheet, SheetBody, Button, Text, Input } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { showToast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 interface WarpgateDialogProps {
   visible: boolean;
@@ -32,17 +33,17 @@ export function WarpgateDialog({
     try {
       await Clipboard.setStringAsync(url);
       setCopied(true);
-      showToast.success("URL copied");
+      showToast.success(t("dialogs.warpgateDialog.urlCopied"));
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      showToast.error("Failed to copy");
+      showToast.error(t("dialogs.warpgateDialog.failedToCopy"));
     }
   }, [url]);
 
   const handleOpenBrowser = useCallback(() => {
     if (url)
       Linking.openURL(url).catch(() =>
-        showToast.error("Could not open browser"),
+        showToast.error(t("dialogs.warpgateDialog.couldNotOpenBrowser")),
       );
   }, [url]);
 
@@ -52,12 +53,12 @@ export function WarpgateDialog({
       visible={visible}
       onClose={onCancel}
       icon={<Shield size={18} color={color("accent-brand")} />}
-      title="Warpgate Authentication"
-      description="Authenticate via the Warpgate portal, then tap Continue."
+      title={t("dialogs.warpgateDialog.warpgateAuthentication")}
+      description={t("dialogs.warpgateDialog.authenticateViaTheWarpgatePortal")}
       footer={
         <View className="flex-1 flex-row flex-wrap gap-2">
           <Button variant="muted" onPress={onCancel} className="flex-1">
-            Cancel
+            {t("dialogs.warpgateDialog.cancel")}
           </Button>
           <Button
             variant="muted"
@@ -66,10 +67,10 @@ export function WarpgateDialog({
             className="flex-1 border-accent-brand/40"
             textClassName="text-accent-text"
           >
-            Open Browser
+            {t("dialogs.warpgateDialog.openBrowser")}
           </Button>
           <Button variant="default" onPress={onContinue} className="flex-1">
-            Continue
+            {t("dialogs.warpgateDialog.continue")}
           </Button>
         </View>
       }
@@ -78,7 +79,7 @@ export function WarpgateDialog({
         {/* Security key - displayed prominently */}
         <View className="mb-4">
           <Text className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">
-            Security Key
+            {t("dialogs.warpgateDialog.securityKey")}
           </Text>
           <View className="items-center border border-accent-brand/30 bg-accent-brand/5 px-4 py-3">
             <Text
@@ -94,7 +95,7 @@ export function WarpgateDialog({
         {/* Auth URL */}
         <View>
           <Text className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">
-            Auth URL
+            {t("dialogs.warpgateDialog.authUrl")}
           </Text>
           <Input
             value={url}
@@ -104,7 +105,11 @@ export function WarpgateDialog({
               <Button
                 variant={copied ? "default" : "ghost"}
                 size="icon"
-                accessibilityLabel={copied ? "Copied" : "Copy"}
+                accessibilityLabel={
+                  copied
+                    ? t("dialogs.warpgateDialog.copied")
+                    : t("dialogs.warpgateDialog.copy")
+                }
                 onPress={handleCopy}
                 className="h-8 w-8"
               >

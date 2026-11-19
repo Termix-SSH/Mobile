@@ -43,6 +43,7 @@ import {
   type CredentialForm,
 } from "./model";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 type KeySource = "load" | "generate";
 type GenType = PhoneKeyType | "rsa2048" | "rsa4096";
@@ -132,8 +133,14 @@ export default function CredentialEditor({
     ...PHONE_KEY_TYPES,
     ...(serverKeyTools
       ? [
-          { id: "rsa2048" as const, label: "RSA 2048" },
-          { id: "rsa4096" as const, label: "RSA 4096" },
+          {
+            id: "rsa2048" as const,
+            label: t("hosts.credentials.credentialEditor.rsa2048"),
+          },
+          {
+            id: "rsa4096" as const,
+            label: t("hosts.credentials.credentialEditor.rsa4096"),
+          },
         ]
       : []),
   ];
@@ -141,10 +148,9 @@ export default function CredentialEditor({
   const generate = async () => {
     if (activeKey) {
       const ok = await confirm({
-        title: "Replace the key?",
-        description:
-          "The new key takes the place of the current one. Hosts that only trust the old key will stop accepting this credential.",
-        confirmLabel: "Replace",
+        title: t("hosts.credentials.credentialEditor.replaceTheKey"),
+        description: t("hosts.credentials.credentialEditor.theNewKeyTakesThe"),
+        confirmLabel: t("hosts.credentials.credentialEditor.replace"),
         destructive: true,
       });
       if (!ok) return;
@@ -160,7 +166,10 @@ export default function CredentialEditor({
           comment: form.name.trim() || "termix",
         });
       } else {
-        if (!client) throw new Error("RSA keys need a linked server.");
+        if (!client)
+          throw new Error(
+            t("hosts.credentials.credentialEditor.rsaKeysNeedALinked"),
+          );
         const result = await client.api.keys.generateKeyPair(
           "ssh-rsa",
           genType === "rsa4096" ? 4096 : 2048,
@@ -173,9 +182,11 @@ export default function CredentialEditor({
       }
       set({ key: next.privateKey, publicKey: next.publicKey });
       setSource("load");
-      toast.success("New key made. Copy the public key to your hosts.");
+      toast.success(t("hosts.credentials.credentialEditor.newKeyMadeCopyThe"));
     } catch (e: any) {
-      toast.error(e?.message ?? "Could not make a key");
+      toast.error(
+        e?.message ?? t("hosts.credentials.credentialEditor.couldNotMakeAKey"),
+      );
     } finally {
       setGenerating(false);
     }
@@ -191,16 +202,20 @@ export default function CredentialEditor({
         certPublicKey: (await readLocalText(result.assets[0].uri)).trim(),
       });
     } catch {
-      toast.error("Could not read that certificate file");
+      toast.error(
+        t("hosts.credentials.credentialEditor.couldNotReadThatCertificate"),
+      );
     }
   };
 
   const onBeforeClose = async () =>
     JSON.stringify(form) === start.current ||
     (await confirm({
-      title: "Leave without saving?",
-      description: "Your changes to this credential will be lost.",
-      confirmLabel: "Leave",
+      title: t("hosts.credentials.credentialEditor.leaveWithoutSaving"),
+      description: t(
+        "hosts.credentials.credentialEditor.yourChangesToThisCredential",
+      ),
+      confirmLabel: t("hosts.credentials.credentialEditor.leave"),
       destructive: true,
     }));
 
@@ -215,14 +230,17 @@ export default function CredentialEditor({
     try {
       if (isEdit && credential) {
         await repos.credentials.update(credential.id, payload);
-        toast.success("Credential saved");
+        toast.success(t("hosts.credentials.credentialEditor.credentialSaved"));
       } else {
         await repos.credentials.create(payload);
-        toast.success("Credential added");
+        toast.success(t("hosts.credentials.credentialEditor.credentialAdded"));
       }
       onSaved();
     } catch (e: any) {
-      toast.error(e?.message || "Could not save the credential");
+      toast.error(
+        e?.message ||
+          t("hosts.credentials.credentialEditor.couldNotSaveTheCredential"),
+      );
     } finally {
       setSaving(false);
     }
@@ -230,8 +248,9 @@ export default function CredentialEditor({
 
   const testTarget = async (): Promise<TestTarget | string> => {
     const where = parseTestAddress(testAddress);
-    if (!where) return "Enter a host to test on, like 10.0.0.5 or box:2222.";
-    if (!form.username.trim()) return "Enter the username first.";
+    if (!where) return t("hosts.credentials.credentialEditor.enterAHostToTest");
+    if (!form.username.trim())
+      return t("hosts.credentials.credentialEditor.enterTheUsernameFirst");
     return {
       hostId: testHostId,
       ip: where.ip,
@@ -255,7 +274,11 @@ export default function CredentialEditor({
       open={visible}
       onClose={onClose}
       onBeforeClose={onBeforeClose}
-      title={isEdit ? "Edit credential" : "New credential"}
+      title={
+        isEdit
+          ? t("hosts.credentials.credentialEditor.editCredential")
+          : t("hosts.credentials.credentialEditor.newCredential")
+      }
       subtitle={isEdit ? credential?.name : undefined}
       scroll={false}
       bare
@@ -266,10 +289,10 @@ export default function CredentialEditor({
             className="flex-1"
             onPress={async () => (await onBeforeClose()) && onClose()}
           >
-            Cancel
+            {t("hosts.credentials.credentialEditor.cancel")}
           </Button>
           <Button className="flex-1" loading={saving} onPress={handleSave}>
-            Save
+            {t("hosts.credentials.credentialEditor.save")}
           </Button>
         </View>
       }
@@ -280,15 +303,19 @@ export default function CredentialEditor({
         keyboardDismissMode="interactive"
       >
         <View className="gap-3">
-          <Label className="text-muted-foreground">Credential</Label>
-          <Field label="Name">
+          <Label className="text-muted-foreground">
+            {t("hosts.credentials.credentialEditor.credential")}
+          </Label>
+          <Field label={t("hosts.credentials.credentialEditor.name")}>
             <Input
               value={form.name}
               onChangeText={(name) => set({ name })}
-              placeholder="Production key"
+              placeholder={t(
+                "hosts.credentials.credentialEditor.productionKey",
+              )}
             />
           </Field>
-          <Field label="Username">
+          <Field label={t("hosts.credentials.credentialEditor.username")}>
             <Input
               value={form.username}
               onChangeText={(username) => set({ username })}
@@ -298,23 +325,33 @@ export default function CredentialEditor({
               textContentType="username"
             />
           </Field>
-          <Field label="Sign in with">
+          <Field label={t("hosts.credentials.credentialEditor.signInWith")}>
             <Tabs<"password" | "key">
               value={form.authType}
               onChange={(authType) => set({ authType })}
               options={[
-                { id: "password", label: "Password" },
-                { id: "key", label: "SSH key" },
+                {
+                  id: "password",
+                  label: t("hosts.credentials.credentialEditor.password"),
+                },
+                {
+                  id: "key",
+                  label: t("hosts.credentials.credentialEditor.sshKey"),
+                },
               ]}
             />
           </Field>
           {form.authType === "password" ? (
-            <Field label="Password">
+            <Field label={t("hosts.credentials.credentialEditor.password")}>
               <Input
                 value={form.password}
                 onChangeText={(password) => set({ password })}
                 secureTextEntry
-                placeholder={isEdit ? "Unchanged if blank" : "Password"}
+                placeholder={
+                  isEdit
+                    ? t("hosts.credentials.credentialEditor.unchangedIfBlank")
+                    : t("hosts.credentials.credentialEditor.password")
+                }
                 autoCapitalize="none"
                 autoCorrect={false}
                 textContentType="password"
@@ -325,20 +362,28 @@ export default function CredentialEditor({
 
         {form.authType === "key" ? (
           <View className="gap-3">
-            <Label className="text-muted-foreground">Key</Label>
+            <Label className="text-muted-foreground">
+              {t("hosts.credentials.credentialEditor.key")}
+            </Label>
             <Tabs<KeySource>
               value={source}
               onChange={setSource}
               options={[
-                { id: "load", label: "File or paste" },
-                { id: "generate", label: "Make a new key" },
+                {
+                  id: "load",
+                  label: t("hosts.credentials.credentialEditor.fileOrPaste"),
+                },
+                {
+                  id: "generate",
+                  label: t("hosts.credentials.credentialEditor.makeANewKey"),
+                },
               ]}
             />
             {source === "load" ? (
               <>
                 {isEdit && savedKey && !form.key ? (
                   <Text className="text-meta text-muted-foreground">
-                    A key is saved. Choose a file or paste to replace it.
+                    {t("hosts.credentials.credentialEditor.aKeyIsSavedChoose")}
                   </Text>
                 ) : null}
                 <KeyInput
@@ -352,11 +397,17 @@ export default function CredentialEditor({
             ) : (
               <View className="gap-3">
                 <Field
-                  label="Type"
+                  label={t("hosts.credentials.credentialEditor.type")}
                   hint={
                     serverKeyTools
-                      ? `Ed25519 and ECDSA are made on this ${deviceWord}, RSA on your server.`
-                      : `Made on this ${deviceWord}. Ed25519 works almost everywhere.`
+                      ? t(
+                          "hosts.credentials.credentialEditor.ed25519AndEcdsaAreMade",
+                          { deviceWord },
+                        )
+                      : t(
+                          "hosts.credentials.credentialEditor.madeOnThisEd25519Works",
+                          { deviceWord },
+                        )
                   }
                 >
                   <Tabs<GenType>
@@ -367,14 +418,19 @@ export default function CredentialEditor({
                   />
                 </Field>
                 <Field
-                  label="Passphrase"
-                  hint={`Optional. Locks the new key on this ${deviceWord} and on disk.`}
+                  label={t("hosts.credentials.credentialEditor.passphrase")}
+                  hint={t(
+                    "hosts.credentials.credentialEditor.optionalLocksTheNewKey",
+                    { deviceWord },
+                  )}
                 >
                   <Input
                     value={form.keyPassword}
                     onChangeText={(keyPassword) => set({ keyPassword })}
                     secureTextEntry
-                    placeholder="Passphrase"
+                    placeholder={t(
+                      "hosts.credentials.credentialEditor.passphrase",
+                    )}
                     autoCapitalize="none"
                     autoCorrect={false}
                   />
@@ -386,14 +442,14 @@ export default function CredentialEditor({
                     <KeyRound size={14} color={color("primary-foreground")} />
                   }
                 >
-                  Make key
+                  {t("hosts.credentials.credentialEditor.makeKey")}
                 </Button>
               </View>
             )}
 
             <Field
-              label="Public key"
-              hint="Add this line to ~/.ssh/authorized_keys on your hosts"
+              label={t("hosts.credentials.credentialEditor.publicKey")}
+              hint={t("hosts.credentials.credentialEditor.addThisLineToSsh")}
             >
               <Input
                 value={form.publicKey}
@@ -409,29 +465,34 @@ export default function CredentialEditor({
                 disabled={!form.publicKey}
                 onPress={() => {
                   Clipboard.setStringAsync(form.publicKey);
-                  toast.success("Public key copied");
+                  toast.success(
+                    t("hosts.credentials.credentialEditor.publicKeyCopied"),
+                  );
                 }}
                 icon={<Copy size={14} color={icon} />}
               >
-                Copy public key
+                {t("hosts.credentials.credentialEditor.copyPublicKey")}
               </Button>
             </Field>
 
             <AccordionSection
-              label="Certificate"
+              label={t("hosts.credentials.credentialEditor.certificate")}
               defaultOpen={!!form.certPublicKey}
             >
               <View className="gap-2.5 pt-3">
                 <Text className="text-meta text-muted-foreground">
-                  A certificate your CA signed for this key, for hosts that
-                  trust the CA.
+                  {t(
+                    "hosts.credentials.credentialEditor.aCertificateYourCaSigned",
+                  )}
                 </Text>
                 <Button
                   variant="muted"
                   onPress={pickCert}
                   icon={<Upload size={14} color={icon} />}
                 >
-                  Choose certificate file
+                  {t(
+                    "hosts.credentials.credentialEditor.chooseCertificateFile",
+                  )}
                 </Button>
                 <Input
                   value={form.certPublicKey}
@@ -444,7 +505,9 @@ export default function CredentialEditor({
                 />
                 {cert.kind === "invalid" ? (
                   <Text className="text-meta text-destructive-text">
-                    This does not look like an OpenSSH certificate.
+                    {t(
+                      "hosts.credentials.credentialEditor.thisDoesNotLookLike",
+                    )}
                   </Text>
                 ) : null}
                 {cert.kind === "ok" ? (
@@ -473,15 +536,17 @@ export default function CredentialEditor({
         ) : null}
 
         <View className="gap-3">
-          <Label className="text-muted-foreground">Test</Label>
-          <Field label="Host to test on">
+          <Label className="text-muted-foreground">
+            {t("hosts.credentials.credentialEditor.test")}
+          </Label>
+          <Field label={t("hosts.credentials.credentialEditor.hostToTestOn")}>
             <Input
               value={testAddress}
               onChangeText={(v) => {
                 setTestAddress(v);
                 setTestHostId(undefined);
               }}
-              placeholder="10.0.0.5 or box.lan:2222"
+              placeholder={t("hosts.credentials.credentialEditor.n10005Or")}
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="url"
@@ -493,26 +558,30 @@ export default function CredentialEditor({
               onPress={() => setPickHost(true)}
               icon={<Server size={14} color={icon} />}
             >
-              Pick a saved host
+              {t("hosts.credentials.credentialEditor.pickASavedHost")}
             </Button>
           ) : null}
           <TestConnection getTarget={testTarget} />
         </View>
 
-        <AccordionSection label="Details">
+        <AccordionSection
+          label={t("hosts.credentials.credentialEditor.details")}
+        >
           <View className="gap-3 pt-3">
-            <Field label="Description">
+            <Field label={t("hosts.credentials.credentialEditor.description")}>
               <Input
                 value={form.description}
                 onChangeText={(description) => set({ description })}
-                placeholder="What this credential is for"
+                placeholder={t(
+                  "hosts.credentials.credentialEditor.whatThisCredentialIsFor",
+                )}
               />
             </Field>
-            <Field label="Folder">
+            <Field label={t("hosts.credentials.credentialEditor.folder")}>
               <Input
                 value={form.folder}
                 onChangeText={(folder) => set({ folder })}
-                placeholder="Server keys"
+                placeholder={t("hosts.credentials.credentialEditor.serverKeys")}
               />
             </Field>
             <TagsField tags={form.tags} onChange={(tags) => set({ tags })} />
@@ -523,7 +592,7 @@ export default function CredentialEditor({
       <Sheet
         visible={pickHost}
         onClose={() => setPickHost(false)}
-        title="Test on a host"
+        title={t("hosts.credentials.credentialEditor.testOnAHost")}
         scroll
       >
         <SheetBody>

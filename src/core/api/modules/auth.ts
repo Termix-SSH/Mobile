@@ -9,6 +9,7 @@ import type {
   OIDCAuthorize,
 } from "@/types/index";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 export function createAuthApi(c: AccountClient) {
   async function registerUser(
@@ -164,7 +165,7 @@ export function createAuthApi(c: AccountClient) {
     } catch (error) {
       if (isLocalNetworkHttpsUrl(url) && isNativeNetworkFailure(error)) {
         throw new ApiError(
-          `The app could not trust HTTPS for this local IP. Pin the server's key under Proxy and client certificate, use a certificate the ${deviceWord} trusts, or HTTP on a trusted local or VPN network.`,
+          t("api.modules.auth.theAppCouldNotTrust", { deviceWord }),
           0,
           "LOCAL_IP_HTTPS_CERTIFICATE_ERROR",
         );
@@ -184,9 +185,7 @@ export function createAuthApi(c: AccountClient) {
       contentType.includes("text/html") ||
       /^\s*<(?:!doctype|html)/i.test(rawBody);
     if (looksHtml) {
-      const err: any = new Error(
-        "This server is behind a login proxy. Use the external sign-in option instead.",
-      );
+      const err: any = new Error(t("api.modules.auth.thisServerIsBehindA"));
       err.code = "PROXY_AUTH_GATE";
       err.response = { status: fetchResponse.status, data: {} };
       throw err;
@@ -199,7 +198,9 @@ export function createAuthApi(c: AccountClient) {
       } catch {
         errData = {};
       }
-      const err: any = new Error(errData?.error || "Login failed");
+      const err: any = new Error(
+        errData?.error || t("api.modules.auth.loginFailed"),
+      );
       err.response = { status: fetchResponse.status, data: errData };
       throw err;
     }

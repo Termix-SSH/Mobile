@@ -7,6 +7,7 @@ import { adapterFor } from "./entities";
 import { SYNC_KINDS } from "./kinds";
 import { sync } from "./manager";
 import { SyncBook } from "./store";
+import { t as tr } from "@/i18n";
 
 async function book(accountId: string, stores: LocalStores) {
   const { db } = await stores.openForSync(accountId);
@@ -26,7 +27,7 @@ export async function setKindEnabled(
   const account = accounts.find(accountId);
   const kind = SYNC_KINDS.find((k) => k.id === kindId);
   if (!isServerAccount(account) || !kind) {
-    throw new AppError("No such setting", "NOT_FOUND");
+    throw new AppError(tr("sync.settings.noSuchSetting"), "NOT_FOUND");
   }
   const disabled = new Set(account.disabledTypes);
   for (const type of kind.types) {
@@ -99,9 +100,9 @@ export function typeLabel(entityType: string): string {
     case "snippets":
       return "Snippet";
     case "snippetFolders":
-      return "Snippet folder";
+      return tr("sync.settings.snippetFolder");
     case "hostDefaults":
-      return "Host default";
+      return tr("sync.settings.hostDefault");
     case "userPreferences":
       return "Preferences";
     default:

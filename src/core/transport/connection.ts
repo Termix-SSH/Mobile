@@ -24,6 +24,7 @@ import type {
   TransportKind,
 } from "./types";
 import { deviceWord } from "@/utils/device-word";
+import { t as tr } from "@/i18n";
 
 /** Something the connection waits on the user for. */
 export type ConnectionPrompt =
@@ -360,7 +361,9 @@ export class HostConnection {
       `Connection plan: ${this.attempts.map((t) => t.kind).join(", ") || "none"}`,
     );
     if (!this.attempts.length) {
-      const blocked = planned.blocked ?? { reason: "Can't connect." };
+      const blocked = planned.blocked ?? {
+        reason: tr("transport.connection.canTConnect"),
+      };
       this.failWith(unavailable(blocked.reason), blocked.fix);
       return;
     }
@@ -379,8 +382,11 @@ export class HostConnection {
         stage: "connection",
         message:
           transport.kind === "local"
-            ? `Connecting to ${name} from this ${deviceWord}`
-            : `Connecting to ${name} through the server`,
+            ? tr("transport.connection.connectingToFromThis", {
+                name,
+                deviceWord,
+              })
+            : tr("transport.connection.connectingToThroughTheServer", { name }),
       });
     }
     this.options.onOriginResolved?.(transport.kind);
@@ -432,7 +438,7 @@ export class HostConnection {
               this.log({
                 level: "info",
                 stage: "connection",
-                message: `Reconnecting (try ${retry})`,
+                message: tr("transport.connection.reconnectingTry", { retry }),
               });
             }
             this.dispatch({ type: "connecting", retry });
@@ -477,7 +483,7 @@ export class HostConnection {
         this.log({
           level: "warning",
           stage: "connection",
-          message: "Disconnected",
+          message: tr("transport.connection.disconnected"),
         });
         this.dropChannel();
         this.clearReconnect();
@@ -509,10 +515,10 @@ export class HostConnection {
       level: "success",
       stage: "connection",
       message: !resumed
-        ? "Connected"
+        ? tr("transport.connection.connected")
         : isReattach
-          ? "Reconnected to the same session"
-          : "Reconnected with a new shell",
+          ? tr("transport.connection.reconnectedToTheSameSession")
+          : tr("transport.connection.reconnectedWithANewShell"),
     });
     this.dispatch({ type: "connected" });
     // Typed input only goes on its own to the shell it was typed for.
@@ -556,8 +562,10 @@ export class HostConnection {
         stage: "connection",
         message:
           next.kind === "relay"
-            ? `Could not reach the host from this ${deviceWord}, trying through the server`
-            : `Could not connect through the server, trying from this ${deviceWord}`,
+            ? tr("transport.connection.couldNotReachTheHost", { deviceWord })
+            : tr("transport.connection.couldNotConnectThroughThe", {
+                deviceWord,
+              }),
       });
       this.dropChannel();
       this.open(this.attempt + 1);
@@ -600,7 +608,9 @@ export class HostConnection {
     this.log({
       level: "warning",
       stage: "connection",
-      message: `Connection lost: ${drop.reason}`,
+      message: tr("transport.connection.connectionLost", {
+        reason: drop.reason,
+      }),
     });
     this.dropChannel();
     this.reconnectAttempt = 0;
@@ -617,7 +627,7 @@ export class HostConnection {
         this.log({
           level: "info",
           stage: "connection",
-          message: "Offline, waiting for the network",
+          message: tr("transport.connection.offlineWaitingForTheNetwork"),
         });
       }
       this.dispatch({ type: "offline", reason });
@@ -649,7 +659,9 @@ export class HostConnection {
     this.log({
       level: "info",
       stage: "connection",
-      message: `Next try in ${Math.round(delay / 1000)}s`,
+      message: tr("transport.connection.nextTryInS", {
+        value: Math.round(delay / 1000),
+      }),
     });
     this.reconnectTimer = setTimeout(() => {
       this.reconnectTimer = null;
@@ -677,7 +689,9 @@ export class HostConnection {
     this.log({
       level: "info",
       stage: "connection",
-      message: `Reconnecting (try ${this.reconnectAttempt})`,
+      message: tr("transport.connection.reconnectingTry2", {
+        reconnectAttempt: this.reconnectAttempt,
+      }),
     });
     this.open(this.attempt);
   }
@@ -715,7 +729,7 @@ export class HostConnection {
         if (ok || run !== this.run || this.destroyed) return;
         this.onDropped({
           kind: "network",
-          reason: "The host stopped answering",
+          reason: tr("transport.connection.theHostStoppedAnswering"),
         });
       },
       () => {},
@@ -728,7 +742,11 @@ export class HostConnection {
     if (!info.connected) {
       if (!this.online) return;
       this.online = false;
-      this.log({ level: "warning", stage: "network", message: "Network lost" });
+      this.log({
+        level: "warning",
+        stage: "network",
+        message: tr("transport.connection.networkLost"),
+      });
       if (this.waiting) {
         this.clearReconnect();
         this.dispatch({ type: "offline", reason: this.dropReason });
@@ -741,7 +759,10 @@ export class HostConnection {
       this.log({
         level: "info",
         stage: "network",
-        message: `Network: ${info.type}${info.vpn ? " with VPN" : ""}`,
+        message: tr("transport.connection.network", {
+          type: info.type,
+          value: info.vpn ? " with VPN" : "",
+        }),
       });
     }
     if (this.waiting) {
@@ -760,7 +781,9 @@ export class HostConnection {
     this.log({
       level: "info",
       stage: "power",
-      message: on ? "Low power mode on" : "Low power mode off",
+      message: on
+        ? tr("transport.connection.lowPowerModeOn")
+        : tr("transport.connection.lowPowerModeOff"),
     });
     this.channel?.setLowPower?.(on);
   }
@@ -793,7 +816,9 @@ export class HostConnection {
     this.log({
       level: "info",
       stage: "connection",
-      message: `Dropped ${this.pendingInput.length} typed characters`,
+      message: tr("transport.connection.droppedTypedCharacters", {
+        count: this.pendingInput.length,
+      }),
     });
     this.pendingInput = "";
     this.setPending(false);
@@ -829,8 +854,8 @@ export class HostConnection {
     }
     this.failWith({
       stage: "hostKey",
-      message: "You did not trust the host key.",
-      hint: "Check the key with whoever runs the host, then try again.",
+      message: tr("transport.connection.youDidNotTrustThe"),
+      hint: tr("transport.connection.checkTheKeyWithWhoever"),
       origin: originOf(this.state) ?? undefined,
     });
   }
@@ -851,8 +876,8 @@ export class HostConnection {
       return;
     this.failWith({
       stage: "cancelled",
-      message: "Login cancelled.",
-      hint: "Connect again when you are ready.",
+      message: tr("transport.connection.loginCancelled"),
+      hint: tr("transport.connection.connectAgainWhenYouAre"),
       origin: originOf(this.state) ?? undefined,
     });
   }
@@ -863,7 +888,9 @@ export class HostConnection {
   exec(command: string, timeoutSecs?: number): Promise<ShellExecResult> {
     const exec = this.channel?.exec?.bind(this.channel);
     if (!exec)
-      return Promise.reject(new Error("This connection can't run commands"));
+      return Promise.reject(
+        new Error(tr("transport.connection.thisConnectionCanTRun")),
+      );
     return exec(command, timeoutSecs);
   }
 
@@ -894,7 +921,7 @@ export class HostConnection {
         this.log({
           level: "warning",
           stage: "connection",
-          message: "Typed input is over 64 KB, the oldest part was dropped",
+          message: tr("transport.connection.typedInputIsOver64"),
         });
       }
       next = next.slice(next.length - MAX_PENDING);
@@ -915,12 +942,20 @@ export class HostConnection {
   }
 
   notifyBackgrounded() {
-    this.log({ level: "info", stage: "app", message: "App in the background" });
+    this.log({
+      level: "info",
+      stage: "app",
+      message: tr("transport.connection.appInTheBackground"),
+    });
     this.channel?.notifyBackgrounded();
   }
 
   notifyForegrounded() {
-    this.log({ level: "info", stage: "app", message: "App in the foreground" });
+    this.log({
+      level: "info",
+      stage: "app",
+      message: tr("transport.connection.appInTheForeground"),
+    });
     this.channel?.notifyForegrounded();
     if (this.waiting && this.online) {
       // Back in the app: try now, with every try left.

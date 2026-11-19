@@ -19,6 +19,7 @@ import {
   type PathHistory,
 } from "./path-history";
 import { updateFileSettings, useFileSettings } from "./settings";
+import { t } from "@/i18n";
 
 export const FILES_TAB_TYPE = "filemanager";
 
@@ -92,7 +93,7 @@ export function CompanionFiles({
     const handle = handleRef.current();
     const path = files.current?.currentPath();
     if (!handle || !path) {
-      toast.error("The terminal isn't open anymore");
+      toast.error(t("fileManager.companionFiles.theTerminalIsnTOpen"));
       return;
     }
     handle.sendInput(`cd ${shellQuote(path)}\r`);
@@ -120,7 +121,7 @@ export function CompanionFiles({
     (history.frequent.length > 0 || history.recent.length > 0) && {
       key: "clear",
       icon: <History size={16} color={colors.destructive} />,
-      label: "Clear history",
+      label: t("fileManager.companionFiles.clearHistory"),
       destructive: true,
       onPress: () => void clearPaths(hostKey),
     },
@@ -144,7 +145,9 @@ export function CompanionFiles({
           <>
             <Tool
               label={
-                follow ? "Stop following the terminal" : "Follow the terminal"
+                follow
+                  ? t("fileManager.companionFiles.stopFollowingTheTerminal")
+                  : t("fileManager.companionFiles.followTheTerminal")
               }
               onPress={() =>
                 void updateFileSettings({ companionFollowTerminal: !follow })
@@ -157,17 +160,23 @@ export function CompanionFiles({
               )}
             </Tool>
             <Tool
-              label="Go to the terminal's folder"
+              label={t("fileManager.companionFiles.goToTheTerminalS")}
               onPress={() =>
                 void sync().then((p) => p && files.current?.navigate(p))
               }
             >
               <Locate size={17} color={colors.text} />
             </Tool>
-            <Tool label="cd the terminal here" onPress={cdTerminal}>
+            <Tool
+              label={t("fileManager.companionFiles.cdTheTerminalHere")}
+              onPress={cdTerminal}
+            >
               <SquareTerminal size={17} color={colors.text} />
             </Tool>
-            <Tool label="Folder history" onPress={() => void openHistory()}>
+            <Tool
+              label={t("fileManager.companionFiles.folderHistory")}
+              onPress={() => void openHistory()}
+            >
               <History size={17} color={colors.text} />
             </Tool>
           </>
@@ -176,11 +185,11 @@ export function CompanionFiles({
       <ContextSheet
         visible={historyOpen}
         onClose={() => setHistoryOpen(false)}
-        title="Folder history"
+        title={t("fileManager.companionFiles.folderHistory")}
         subtitle={
           history.frequent.length || history.recent.length
-            ? "Most used first, then recent"
-            : "No folders yet"
+            ? t("fileManager.companionFiles.mostUsedFirstThenRecent")
+            : t("fileManager.companionFiles.noFoldersYet")
         }
         actions={historyActions}
       />

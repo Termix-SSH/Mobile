@@ -4,6 +4,7 @@ import type { ApiModules } from "@/core/api/modules";
 import { AppError } from "@/core/errors";
 import { AccountStore } from "./store";
 import type { Account } from "./types";
+import { t } from "@/i18n";
 
 export * from "./types";
 export { AccountStore, sameServerUrl } from "./store";
@@ -24,7 +25,7 @@ export function clientFor(accountId: string): AccountClient | null {
 export function requireActiveClient(): AccountClient {
   const client = accounts.activeClient();
   if (!client) {
-    throw new AppError("Link a Termix server to use this", "NO_SERVER");
+    throw new AppError(t("accounts.linkATermixServerTo"), "NO_SERVER");
   }
   return client;
 }
@@ -32,7 +33,7 @@ export function requireActiveClient(): AccountClient {
 /** API of a client from a hook, or an error when there is no server. */
 export function apiOf(client: AccountClient | null): ApiModules {
   if (!client) {
-    throw new AppError("Link a Termix server to use this", "NO_SERVER");
+    throw new AppError(t("accounts.linkATermixServerTo"), "NO_SERVER");
   }
   return client.api;
 }

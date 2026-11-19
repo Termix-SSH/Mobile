@@ -18,6 +18,7 @@ import {
   getFileIconColor,
   modeText,
 } from "../utils/fileUtils";
+import { t } from "@/i18n";
 
 /** Every row is this tall at normal text size, so the list can jump to any row. */
 export const ROW_HEIGHT = 56;
@@ -30,7 +31,9 @@ export function fileRowHeight(fontScale: number, appScale = 1): number {
   return Math.max(ROW_HEIGHT, Math.round(ROW_HEIGHT + TEXT_PART * (scale - 1)));
 }
 
-const LONG_PRESS_ACTIONS = [{ name: "longpress", label: "More actions" }];
+const LONG_PRESS_ACTIONS = [
+  { name: "longpress", label: t("fileManager.list.fileRow.moreActions") },
+];
 
 export const isFolderLike = (f: FileEntry) =>
   f.type === "directory" || (f.type === "link" && f.targetType === "directory");
@@ -136,7 +139,9 @@ export const FileRow = memo(function FileRow({
           onPress={() => onMenu(file)}
           hitSlop={6}
           accessibilityRole="button"
-          accessibilityLabel={`More for ${file.name}`}
+          accessibilityLabel={t("fileManager.list.fileRow.moreFor", {
+            name: file.name,
+          })}
           className="h-full w-11 items-center justify-center active:bg-muted"
         >
           <MoreVertical size={16} color={colors.muted} />

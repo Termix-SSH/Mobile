@@ -4,6 +4,7 @@
  */
 import { AppError } from "@/core/errors";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 export const DEVICE_AUTH_TYPES = [
   "password",
@@ -23,22 +24,22 @@ const SERVER_AUTH: Record<string, ServerAuth> = {
   opkssh: {
     plugin: "opkssh",
     title: "OPKSSH",
-    why: "the sign in and the certificate live on the server",
+    why: t("transport.local.authSupport.theSignInAndThe"),
   },
   vault: {
     plugin: "vault",
-    title: "Vault",
-    why: "the sign in and the certificate live on the server",
+    title: t("transport.local.authSupport.vault"),
+    why: t("transport.local.authSupport.theSignInAndThe"),
   },
   stepca: {
     plugin: "step-ca",
-    title: "Step CA",
-    why: "the sign in and the certificate live on the server",
+    title: t("transport.local.authSupport.stepCa"),
+    why: t("transport.local.authSupport.theSignInAndThe"),
   },
   agent: {
     plugin: "ssh-terminal",
-    title: "SSH agent",
-    why: `the ${deviceWord} has no SSH agent`,
+    title: t("transport.local.authSupport.sshAgent"),
+    why: t("transport.local.authSupport.theHasNoSshAgent", { deviceWord }),
   },
 };
 
@@ -61,13 +62,16 @@ export function hasSecretRef(...values: (string | undefined | null)[]) {
 export function needsServerMessage(authType: string): string {
   const info = SERVER_AUTH[authType];
   if (!info) {
-    return `This host signs in with "${authType}", which needs a Termix server. Link one to connect.`;
+    return t("transport.local.authSupport.thisHostSignsInWith", { authType });
   }
-  return `${info.title} needs a Termix server because ${info.why}. Link one and connect this host through it.`;
+  return t("transport.local.authSupport.needsATermixServerBecause", {
+    title: info.title,
+    why: info.why,
+  });
 }
 
 export function secretRefMessage(): string {
-  return "This host uses a 1Password reference, which needs a Termix server with Secret Sources. Link one and connect this host through it.";
+  return t("transport.local.authSupport.thisHostUsesA1password");
 }
 
 /** Throws when the phone cannot sign in with this type or these secrets. */
@@ -87,7 +91,7 @@ export function assertDeviceAuth(
 export const BROWSER_SIGN_IN_TITLES: Record<string, string> = {
   opkssh: "OPKSSH",
   vault: "Vault",
-  stepca: "Step CA",
+  stepca: t("transport.local.authSupport.stepCa"),
 };
 
 /**
@@ -98,6 +102,6 @@ export function signInFirstMessage(interaction: unknown): string | null {
   if (typeof interaction !== "string") return null;
   const title = BROWSER_SIGN_IN_TITLES[interaction];
   return title
-    ? `Sign in with ${title} first. Open a terminal to this host once, then try again.`
+    ? t("transport.local.authSupport.signInWithFirstOpen", { title })
     : null;
 }

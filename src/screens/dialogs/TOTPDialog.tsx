@@ -4,6 +4,7 @@ import * as Clipboard from "expo-clipboard";
 import { ShieldCheck, Clipboard as ClipboardIcon } from "lucide-react-native";
 import { Sheet, SheetBody, Input, Button } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { t as tr } from "@/i18n";
 
 interface TOTPDialogProps {
   visible: boolean;
@@ -52,10 +53,12 @@ export function TOTPDialog({
 
   const title =
     prompt ||
-    (isPasswordPrompt ? "Password Required" : "Two-Factor Authentication");
+    (isPasswordPrompt
+      ? tr("dialogs.tOTPDialog.passwordRequired")
+      : tr("dialogs.tOTPDialog.twoFactorAuthentication"));
   const description = isPasswordPrompt
-    ? "Enter your password to continue."
-    : "Enter the 6-digit code from your authenticator app.";
+    ? tr("dialogs.tOTPDialog.enterYourPasswordToContinue")
+    : tr("dialogs.tOTPDialog.enterThe6DigitCode");
 
   return (
     <Sheet
@@ -68,7 +71,7 @@ export function TOTPDialog({
       footer={
         <View className="flex-1 flex-row gap-2">
           <Button variant="muted" className="flex-1" onPress={onCancel}>
-            Cancel
+            {tr("dialogs.tOTPDialog.cancel")}
           </Button>
           <Button
             variant="default"
@@ -79,7 +82,9 @@ export function TOTPDialog({
               !code.trim() || (!isPasswordPrompt && code.trim().length < 6)
             }
           >
-            {isPasswordPrompt ? "Submit" : "Verify"}
+            {isPasswordPrompt
+              ? tr("dialogs.tOTPDialog.submit")
+              : tr("dialogs.tOTPDialog.verify")}
           </Button>
         </View>
       }
@@ -90,7 +95,9 @@ export function TOTPDialog({
           onChangeText={(t) =>
             setCode(isPasswordPrompt ? t : t.replace(/[^0-9]/g, "").slice(0, 6))
           }
-          placeholder={isPasswordPrompt ? "Password" : "000000"}
+          placeholder={
+            isPasswordPrompt ? tr("dialogs.tOTPDialog.password") : "000000"
+          }
           keyboardType={isPasswordPrompt ? "default" : "number-pad"}
           secureTextEntry={isPasswordPrompt}
           autoFocus
@@ -103,7 +110,7 @@ export function TOTPDialog({
             <Button
               variant="ghost"
               size="icon"
-              accessibilityLabel="Paste code"
+              accessibilityLabel={tr("dialogs.tOTPDialog.pasteCode")}
               onPress={handlePaste}
               className="h-8 w-8"
             >

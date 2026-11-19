@@ -23,6 +23,7 @@ import {
   RETENTION_DAYS,
 } from "./sftp-trash";
 import type { FileBackend, FileEntry, FileType } from "./types";
+import { t } from "@/i18n";
 
 const S_IFMT = 0o170000;
 const S_IFDIR = 0o040000;
@@ -131,7 +132,10 @@ export function createSftpBackend(
   async function execOk(command: string, timeoutSecs?: number) {
     const result = await exec(command, timeoutSecs);
     if (result.exitCode !== 0) {
-      throw new Error(result.stderr.trim() || `Command failed: ${command}`);
+      throw new Error(
+        result.stderr.trim() ||
+          t("fileManager.backend.sftp.commandFailed", { command }),
+      );
     }
     return result.stdout;
   }
@@ -233,7 +237,8 @@ export function createSftpBackend(
 
     async createFile(dir, name) {
       const path = joinRemote(dir, name);
-      if (await exists(path)) throw new Error(`${name} already exists`);
+      if (await exists(path))
+        throw new Error(t("fileManager.backend.sftp.alreadyExists", { name }));
       await run((s) => s.sftp.writeFile(path, new Uint8Array(0)));
     },
 
@@ -246,7 +251,11 @@ export function createSftpBackend(
       const target = joinRemote(toDir, remoteName(path));
       if (target === path) return;
       if (await exists(target)) {
-        throw new Error(`${remoteName(path)} already exists there`);
+        throw new Error(
+          t("fileManager.backend.sftp.alreadyExistsThere", {
+            path: remoteName(path),
+          }),
+        );
       }
       try {
         await run((s) => s.sftp.rename(path, target));
@@ -277,7 +286,10 @@ export function createSftpBackend(
           await run((s) => moveToTrash(s.sftp, entry.path));
         } catch (error) {
           throw new TrashUnavailableError(
-            `${entry.name} can't go to the trash: ${(error as Error).message}`,
+            t("fileManager.backend.sftp.canTGoToThe", {
+              name: entry.name,
+              message: (error as Error).message,
+            }),
           );
         }
       }

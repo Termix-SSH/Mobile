@@ -3,6 +3,7 @@ import { credentialToolsFeature } from "./credential-tools/register";
 import { dockerFeature } from "./docker/register";
 import { fileManagerFeature } from "./file-manager/register";
 import { homepageFeature } from "./homepage/register";
+import { hostAccessFeature } from "./host-access/register";
 import { hostDefaultsFeature } from "./host-defaults/register";
 import { hostTransferFeature } from "./host-transfer/register";
 import { hostMetricsFeature } from "./host-metrics/register";
@@ -44,6 +45,7 @@ export const BUILT_IN_FEATURES = [
   credentialToolsFeature,
   sessionSharingFeature,
   homepageFeature,
+  hostAccessFeature,
 ];
 
 let registered = false;

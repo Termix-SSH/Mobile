@@ -1,6 +1,7 @@
 import { Share2 } from "lucide-react-native";
 import type { FeatureDef, SessionMenuContext } from "@/core/features/types";
 import { ShareSessionView } from "./ShareSessionView";
+import { t } from "@/i18n";
 
 /** Only a session that runs on the server can be shared. */
 export function canShare(ctx: SessionMenuContext): boolean {
@@ -14,13 +15,13 @@ export function canShare(ctx: SessionMenuContext): boolean {
 export const sessionSharingFeature: FeatureDef = {
   id: "session-sharing",
   plugins: ["session-sharing"],
-  title: "Session sharing",
+  title: t("sessionSharing.register.sessionSharing"),
   source: "native",
   requires: { plugin: "session-sharing", pluginApiOnly: true },
   sessionMenuItems: [
     {
       id: "session-sharing.link",
-      label: "Share link",
+      label: t("sessionSharing.register.shareLink"),
       icon: Share2,
       order: 40,
       isAvailable: canShare,

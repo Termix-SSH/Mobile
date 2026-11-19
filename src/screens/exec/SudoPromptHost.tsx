@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { setSudoPrompter, type SudoRequest } from "@/core/exec";
 import { PromptSheet } from "@/ui";
+import { t } from "@/i18n";
 
 interface Pending extends SudoRequest {
   resolve: (password: string | null) => void;
@@ -32,11 +33,16 @@ export function SudoPromptHost() {
 
   const description = pending
     ? [
-        pending.retry ? "That password was wrong." : null,
+        pending.retry ? t("exec.sudoPromptHost.thatPasswordWasWrong") : null,
         pending.reason
-          ? `${pending.reason} on ${pending.hostName} needs root.`
-          : `${pending.hostName} needs root for this.`,
-        "It is kept until you close the app.",
+          ? t("exec.sudoPromptHost.onNeedsRoot", {
+              reason: pending.reason,
+              hostName: pending.hostName,
+            })
+          : t("exec.sudoPromptHost.needsRootForThis", {
+              hostName: pending.hostName,
+            }),
+        t("exec.sudoPromptHost.itIsKeptUntilYou"),
       ]
         .filter(Boolean)
         .join(" ")
@@ -45,10 +51,10 @@ export function SudoPromptHost() {
   return (
     <PromptSheet
       visible={pending !== null}
-      title="Sudo password"
+      title={t("exec.sudoPromptHost.sudoPassword")}
       description={description}
-      placeholder="Password"
-      confirmLabel="Run"
+      placeholder={t("exec.sudoPromptHost.password")}
+      confirmLabel={t("exec.sudoPromptHost.run")}
       secureTextEntry
       validate={(value) => value.length > 0 && !/[\r\n]/.test(value)}
       onSubmit={(value) => finish(value)}

@@ -13,6 +13,7 @@ import { KeyInput } from "@/screens/hosts/keys/KeyInput";
 import type { AuthType, Credential } from "@/types";
 import type { HostEditorForm } from "./model";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 type Patch = Partial<HostEditorForm>;
 
@@ -40,10 +41,10 @@ export function AuthFields({
   return (
     <View className="gap-3">
       <Field
-        label="Username"
+        label={t("hosts.editor.authFields.username")}
         hint={
           form.authType === "credential" && credentialUser && !form.username
-            ? `From the credential: ${credentialUser}`
+            ? t("hosts.editor.authFields.fromTheCredential", { credentialUser })
             : undefined
         }
       >
@@ -61,18 +62,26 @@ export function AuthFields({
         />
       </Field>
 
-      <Field label="Sign in with">
+      <Field label={t("hosts.editor.authFields.signInWith")}>
         <Tabs<AuthType>
           value={form.authType}
           onChange={(authType) => set({ authType })}
           fill={false}
           options={[
-            { id: "password", label: "Password" },
-            { id: "key", label: "Key" },
-            { id: "credential", label: "Credential" },
-            { id: "none", label: "None" },
+            { id: "password", label: t("hosts.editor.authFields.password") },
+            { id: "key", label: t("hosts.editor.authFields.key") },
+            {
+              id: "credential",
+              label: t("hosts.editor.authFields.credential"),
+            },
+            { id: "none", label: t("hosts.editor.authFields.none") },
             ...(tailscaleAvailable || form.authType === "tailscale"
-              ? [{ id: "tailscale" as const, label: "Tailscale" }]
+              ? [
+                  {
+                    id: "tailscale" as const,
+                    label: t("hosts.editor.authFields.tailscale"),
+                  },
+                ]
               : []),
             ...signInTabs,
           ]}
@@ -90,7 +99,7 @@ export function AuthFields({
       {form.authType === "tailscale" ? (
         <View className="gap-2">
           <Text className="text-meta text-muted-foreground">
-            Connects with Tailscale SSH. No password or key is kept.
+            {t("hosts.editor.authFields.connectsWithTailscaleSshNo")}
           </Text>
           {tailscaleAvailable ? (
             <TailscaleDevicePicker
@@ -102,21 +111,28 @@ export function AuthFields({
             />
           ) : (
             <Text className="text-meta text-muted-foreground">
-              Tailscale is not on for{" "}
-              {account.kind === "local" ? `this ${deviceWord}` : "this server"}.
-              This host keeps its Tailscale sign in.
+              {t("hosts.editor.authFields.tailscaleIsNotOnFor", {
+                value:
+                  account.kind === "local"
+                    ? t("common.thisDeviceLower", { deviceWord })
+                    : t("hosts.editor.authFields.thisServer"),
+              })}
             </Text>
           )}
         </View>
       ) : null}
 
       {form.authType === "password" ? (
-        <Field label="Password">
+        <Field label={t("hosts.editor.authFields.password")}>
           <Input
             value={form.password}
             onChangeText={(password) => set({ password })}
             secureTextEntry
-            placeholder={isEdit ? "Unchanged if blank" : "Password"}
+            placeholder={
+              isEdit
+                ? t("hosts.editor.authFields.unchangedIfBlank")
+                : t("hosts.editor.authFields.password")
+            }
             autoCapitalize="none"
             autoCorrect={false}
             textContentType="password"
@@ -134,10 +150,10 @@ export function AuthFields({
       ) : null}
 
       {form.authType === "credential" ? (
-        <Field label="Credential">
+        <Field label={t("hosts.editor.authFields.credential")}>
           {credentials.length === 0 ? (
             <Text className="py-2 text-meta text-muted-foreground">
-              No credentials yet. Tap the key icon in Hosts to add one.
+              {t("hosts.editor.authFields.noCredentialsYetTapThe")}
             </Text>
           ) : (
             <View className="border-t border-border/40">
@@ -151,7 +167,10 @@ export function AuthFields({
                     .join(" | ")}
                   selected={form.credentialId === c.id}
                   onPress={() => set({ credentialId: c.id })}
-                  accessibilityLabel={`Use credential ${c.name}`}
+                  accessibilityLabel={t(
+                    "hosts.editor.authFields.useCredential",
+                    { name: c.name },
+                  )}
                 />
               ))}
             </View>
@@ -160,14 +179,14 @@ export function AuthFields({
       ) : null}
 
       <Field
-        label="Sudo password"
-        hint="Typed into sudo prompts when the Terminal section turns that on"
+        label={t("hosts.editor.authFields.sudoPassword")}
+        hint={t("hosts.editor.authFields.typedIntoSudoPromptsWhen")}
       >
         <Input
           value={form.sudoPassword}
           onChangeText={(sudoPassword) => set({ sudoPassword })}
           secureTextEntry
-          placeholder="Not set"
+          placeholder={t("hosts.editor.authFields.notSet")}
           autoCapitalize="none"
           autoCorrect={false}
         />

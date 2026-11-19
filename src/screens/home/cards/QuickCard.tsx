@@ -6,6 +6,7 @@ import { useCapability, useQuickActions } from "@/core/features/hooks";
 import { QuickConnect } from "@/screens/hosts/QuickConnect";
 import { ListRow, Text } from "@/ui";
 import { HomeCard } from "../HomeCard";
+import { t } from "@/i18n";
 
 /** Quick connect, and screens from features and server plugins. */
 export function QuickCard() {
@@ -17,14 +18,14 @@ export function QuickCard() {
   if (!canQuickConnect && actions.length === 0) return null;
 
   return (
-    <HomeCard title="Quick access" icon={LayoutGrid}>
+    <HomeCard title={t("home.cards.quickCard.quickAccess")} icon={LayoutGrid}>
       {canQuickConnect ? (
         <ListRow
-          title="Quick connect"
+          title={t("home.cards.quickCard.quickConnect")}
           icon={<Zap size={16} color={muted} />}
           meta={
             <Text className="text-meta text-muted-foreground">
-              user@host:port, without saving
+              {t("home.cards.quickCard.userHostPortWithoutSaving")}
             </Text>
           }
           trailing={<ChevronRight size={16} color={muted} />}

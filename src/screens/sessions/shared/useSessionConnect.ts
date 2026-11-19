@@ -8,6 +8,7 @@ import { useConnectionLog } from "./useConnectionLog";
 import { extractConnectionLogs } from "@/core/api/errors";
 import { fromRelayMessage, type ConnectFailure } from "@/core/transport";
 import { signInFirstMessage } from "@/core/transport/local/auth-support";
+import { t } from "@/i18n";
 
 export type SessionConnectState =
   "idle" | "connecting" | "connected" | "totp" | "warpgate" | "auth" | "error";
@@ -89,7 +90,9 @@ export function useSessionConnect(
       if (sessionIdRef.current && AppState.currentState === "active") {
         transport.keepAlive?.(sessionIdRef.current).catch((error: any) => {
           stopKeepAlive();
-          const message = error?.message || "Connection lost";
+          const message =
+            error?.message ||
+            t("sessions.shared.useSessionConnect.connectionLost");
           setErrorMessage(message);
           setState("error");
           log.append({ level: "error", message });
@@ -100,7 +103,10 @@ export function useSessionConnect(
 
   const markConnected = useCallback(async () => {
     setState("connected");
-    log.append({ level: "success", message: "Connected" });
+    log.append({
+      level: "success",
+      message: t("sessions.shared.useSessionConnect.connected"),
+    });
     startKeepAlive();
     await onConnectedRef.current(sessionIdRef.current);
   }, [log, startKeepAlive]);
@@ -118,7 +124,12 @@ export function useSessionConnect(
           `${transport.prefix}-${host.id}-${Date.now()}`;
         sessionIdRef.current = sessionId;
 
-        log.append({ level: "info", message: `Connecting to ${host.name}…` });
+        log.append({
+          level: "info",
+          message: t("sessions.shared.useSessionConnect.connectingTo", {
+            name: host.name,
+          }),
+        });
         const result = await transport.connect(
           sessionId,
           host,
@@ -173,7 +184,10 @@ export function useSessionConnect(
         const signIn = signInFirstMessage(
           error?.response?.data?.requiresAuthInteraction,
         );
-        const msg = signIn || error?.message || "Failed to connect";
+        const msg =
+          signIn ||
+          error?.message ||
+          t("sessions.shared.useSessionConnect.failedToConnect");
         setErrorMessage(msg);
         log.append({ level: "error", message: msg });
         // Surface auth dialog rather than a dead error when the host needs creds.
@@ -209,7 +223,8 @@ export function useSessionConnect(
         log.ingest(extractConnectionLogs(result));
         await markConnected();
       } catch (error: any) {
-        const msg = error?.message || "Invalid code";
+        const msg =
+          error?.message || t("sessions.shared.useSessionConnect.invalidCode");
         log.append({ level: "error", message: msg });
         setErrorMessage(msg);
         setState("totp");
@@ -232,7 +247,9 @@ export function useSessionConnect(
         log.ingest(extractConnectionLogs(result));
         await markConnected();
       } catch (error: any) {
-        const msg = error?.message || "Warpgate authentication failed";
+        const msg =
+          error?.message ||
+          t("sessions.shared.useSessionConnect.warpgateAuthenticationFailed");
         log.append({ level: "error", message: msg });
         setErrorMessage(msg);
         setState("warpgate");
@@ -249,7 +266,9 @@ export function useSessionConnect(
 
   const cancelAuth = useCallback(() => {
     setState("error");
-    setErrorMessage("Authentication cancelled");
+    setErrorMessage(
+      t("sessions.shared.useSessionConnect.authenticationCancelled"),
+    );
   }, []);
 
   const disconnect = useCallback(() => {

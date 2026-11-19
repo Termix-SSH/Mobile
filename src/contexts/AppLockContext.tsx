@@ -38,6 +38,7 @@ import {
   type LockAppState,
   type PinLimit,
 } from "@/core/lock";
+import { t as tr } from "@/i18n";
 
 /**
  * App Lock - optional biometric / PIN gate when the app is opened or returns
@@ -54,7 +55,7 @@ const ENABLED_KEY = APP_LOCK_ENABLED_KEY;
 // Builds before the key vault kept the PIN itself here. Moved on the first
 // PIN unlock, then removed.
 const LEGACY_PIN_KEY = "appLockPin";
-const UNLOCK_PROMPT = "Unlock Termix";
+const UNLOCK_PROMPT = tr("contexts.appLockContext.unlockTermix");
 
 interface AppLockContextValue {
   enabled: boolean;
@@ -220,7 +221,8 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
     if (isDeviceKeySealed()) {
       const key = unlockedDeviceKey();
       // Only reachable unlocked; without the key the data would be lost.
-      if (!key) throw new Error("Unlock Termix first.");
+      if (!key)
+        throw new Error(tr("contexts.appLockContext.unlockTermixFirst"));
       await restorePlainDeviceKey(key);
       await keyVault.clear();
       setDeviceKeyState(false, null);
@@ -243,9 +245,9 @@ export function AppLockProvider({ children }: { children: React.ReactNode }) {
       dispatch({ type: "bioStart" });
       try {
         const res = await LocalAuthentication.authenticateAsync({
-          promptMessage: "Unlock Termix",
+          promptMessage: tr("contexts.appLockContext.unlockTermix"),
           disableDeviceFallback: true,
-          cancelLabel: "Use PIN",
+          cancelLabel: tr("contexts.appLockContext.usePin"),
         });
         return res.success;
       } finally {

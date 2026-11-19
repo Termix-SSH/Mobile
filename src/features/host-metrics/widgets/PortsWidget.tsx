@@ -5,6 +5,7 @@ import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { MONO_FONT } from "@/constants/fonts";
 import { WidgetCard } from "./WidgetCard";
+import { t } from "@/i18n";
 
 export function PortsWidget({ metrics }: { metrics: ServerMetrics }) {
   const color = useThemeColor();
@@ -13,7 +14,7 @@ export function PortsWidget({ metrics }: { metrics: ServerMetrics }) {
   return (
     <WidgetCard
       icon={<Plug size={15} color={color("accent-brand")} />}
-      title="Listening Ports"
+      title={t("hostMetrics.widgets.portsWidget.listeningPorts")}
       trailing={
         ports.length ? (
           <Text className="text-xs text-muted-foreground">{ports.length}</Text>
@@ -22,7 +23,7 @@ export function PortsWidget({ metrics }: { metrics: ServerMetrics }) {
     >
       {ports.length === 0 ? (
         <Text className="text-meta text-muted-foreground">
-          No listening ports
+          {t("hostMetrics.widgets.portsWidget.noListeningPorts")}
         </Text>
       ) : (
         <View className="gap-1">

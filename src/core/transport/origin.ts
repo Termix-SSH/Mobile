@@ -1,5 +1,6 @@
 import type { Transport, TransportCapability } from "./types";
 import { deviceWord } from "@/utils/device-word";
+import { t as tr } from "@/i18n";
 
 /**
  * Where a host's connections start. Saved per host as the ssh-terminal host
@@ -10,15 +11,15 @@ export type ConnectionOrigin = "auto" | "device" | "server";
 export const ORIGINS: ConnectionOrigin[] = ["auto", "device", "server"];
 
 export const ORIGIN_LABELS: Record<ConnectionOrigin, string> = {
-  auto: "Automatic",
-  device: `This ${deviceWord}`,
-  server: "Termix server",
+  auto: tr("transport.origin.automatic"),
+  device: tr("transport.origin.thisDevice", { deviceWord }),
+  server: tr("transport.origin.termixServer"),
 };
 
 export const ORIGIN_HELP: Record<ConnectionOrigin, string> = {
-  auto: `Uses this ${deviceWord} when it can reach the host, otherwise the server.`,
-  device: `This ${deviceWord} connects to the host itself.`,
-  server: "The Termix server connects to the host for you.",
+  auto: tr("transport.origin.usesThisWhenItCan", { deviceWord }),
+  device: tr("transport.origin.thisConnectsToTheHost", { deviceWord }),
+  server: tr("transport.origin.theTermixServerConnectsTo"),
 };
 
 export function isOrigin(value: unknown): value is ConnectionOrigin {
@@ -71,7 +72,7 @@ export function planConnection(
   const localOk = isSsh && usable(local);
   const localReason = isSsh
     ? local.unavailableReason
-    : `The ${deviceWord} only connects to SSH and Telnet hosts.`;
+    : tr("transport.origin.theOnlyConnectsToSsh", { deviceWord });
 
   // This device has nothing to relay through.
   if (inputs.accountKind === "local" || !relay) {
@@ -80,7 +81,9 @@ export function planConnection(
       : {
           origin: "device",
           attempts: [],
-          blocked: { reason: localReason ?? "Can't connect." },
+          blocked: {
+            reason: localReason ?? tr("transport.origin.canTConnect"),
+          },
         };
   }
 
@@ -93,7 +96,9 @@ export function planConnection(
             origin,
             attempts: [],
             blocked: {
-              reason: localReason ?? "Can't connect from the phone.",
+              reason:
+                localReason ??
+                tr("transport.origin.canTConnectFromThe", { deviceWord }),
               fix: relayOk ? "server" : undefined,
             },
           };
@@ -104,7 +109,9 @@ export function planConnection(
             origin,
             attempts: [],
             blocked: {
-              reason: relay.unavailableReason ?? "Can't reach the server.",
+              reason:
+                relay.unavailableReason ??
+                tr("transport.origin.canTReachTheServer"),
               fix: localOk ? "device" : undefined,
             },
           };
@@ -119,7 +126,9 @@ export function planConnection(
             attempts,
             blocked: {
               reason:
-                relay.unavailableReason ?? localReason ?? "Can't connect.",
+                relay.unavailableReason ??
+                localReason ??
+                tr("transport.origin.canTConnect"),
             },
           };
     }
@@ -132,13 +141,13 @@ export interface NeedsResult {
 }
 
 const NEED_WORDS: Record<TransportCapability, string> = {
-  shell: "an SSH connection",
-  exec: "an SSH connection",
-  sftp: "an SSH connection",
-  forward: "an SSH connection",
-  server: "a Termix server",
-  guacd: "a Termix server",
-  tcp: `a connection from the ${deviceWord}`,
+  shell: tr("transport.origin.anSshConnection"),
+  exec: tr("transport.origin.anSshConnection"),
+  sftp: tr("transport.origin.anSshConnection"),
+  forward: tr("transport.origin.anSshConnection"),
+  server: tr("transport.origin.aTermixServer"),
+  guacd: tr("transport.origin.aTermixServer"),
+  tcp: tr("transport.origin.aConnectionFromThe", { deviceWord }),
 };
 
 /**
@@ -186,8 +195,8 @@ export function checkNeeds(
   );
   const how =
     fix === "server"
-      ? "Connect this host through the server"
-      : `Connect this host from the ${deviceWord}`;
+      ? tr("transport.origin.connectThisHostThroughThe")
+      : tr("transport.origin.connectThisHostFromThe", { deviceWord });
   // The server could do it but has it turned off.
   if (
     relayOff &&
@@ -196,18 +205,20 @@ export function checkNeeds(
     )
   ) {
     const reason = fix
-      ? `${title} is off on this server. ${how} to use it.`
-      : `${title} is off on this server.`;
+      ? tr("transport.origin.isOffOnThisServer", { title, how })
+      : tr("transport.origin.isOffOnThisServer2", { title });
     return { attempts, blocked: { reason, fix } };
   }
   const first = groups[0];
   const missing = first.find(
     (n) => !plan.attempts.some((t) => t.provides.includes(n)),
   );
-  const what = NEED_WORDS[missing ?? first[0]] ?? "another way to connect";
+  const what =
+    NEED_WORDS[missing ?? first[0]] ??
+    tr("transport.origin.anotherWayToConnect");
   const reason = fix
-    ? `${title} needs ${what}. ${how} to use it.`
-    : `${title} needs ${what}, which this host can't use right now.`;
+    ? tr("transport.origin.needsToUseIt", { title, what, how })
+    : tr("transport.origin.needsWhichThisHostCan", { title, what });
   return { attempts, blocked: { reason, fix } };
 }
 

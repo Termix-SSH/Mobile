@@ -10,6 +10,7 @@ import type { ServerStatus, Snippet, SSHHost } from "@/types";
 import { publishHostSnapshot } from "@/widgets";
 import { mapSettled } from "@/utils/limit";
 import { toast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 /**
  * Hosts with their folders, statuses and metrics for the
@@ -142,7 +143,10 @@ export function useHostsData() {
           error?.response?.status === 401 ||
           error?.code === "APP_LOCKED" ||
           error?.message?.includes("Authentication required");
-        if (!isAuth) toast.error(error?.message || "Failed to load hosts.");
+        if (!isAuth)
+          toast.error(
+            error?.message || t("hosts.useHostsData.failedToLoadHosts"),
+          );
       } finally {
         setLoading(false);
         setRefreshing(false);

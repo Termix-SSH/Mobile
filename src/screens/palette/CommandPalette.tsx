@@ -10,6 +10,7 @@ import { EmptyState, InlineView, Input, ListRow, Text } from "@/ui";
 import { rankPalette, SECTION_TITLES } from "./search";
 import { palette, usePaletteOpen } from "./store";
 import { usePaletteItems } from "./usePaletteItems";
+import { t } from "@/i18n";
 
 /** Search hosts, snippets, actions and settings from any screen. */
 export function CommandPalette() {
@@ -35,7 +36,7 @@ function PaletteView() {
         title={
           <Input
             autoFocus
-            placeholder="Search hosts, snippets, actions"
+            placeholder={t("palette.commandPalette.searchHostsSnippetsActions")}
             value={query}
             onChangeText={setQuery}
             autoCapitalize="none"
@@ -48,7 +49,7 @@ function PaletteView() {
                 <Pressable
                   onPress={() => setQuery("")}
                   hitSlop={8}
-                  accessibilityLabel="Clear search"
+                  accessibilityLabel={t("palette.commandPalette.clearSearch")}
                 >
                   <X size={15} color={color("muted-foreground")} />
                 </Pressable>
@@ -60,11 +61,13 @@ function PaletteView() {
         {groups.length === 0 ? (
           <EmptyState
             icon={Search}
-            title={query ? "Nothing matches" : "Type to search"}
-            hint={
+            title={
               query
-                ? undefined
-                : "Find a host to connect, a snippet, a setting or an action."
+                ? t("palette.commandPalette.nothingMatches")
+                : t("palette.commandPalette.typeToSearch")
+            }
+            hint={
+              query ? undefined : t("palette.commandPalette.findAHostToConnect")
             }
           />
         ) : (
@@ -77,7 +80,9 @@ function PaletteView() {
                 >
                   {query
                     ? SECTION_TITLES[group.section]
-                    : `Suggested | ${SECTION_TITLES[group.section]}`}
+                    : t("palette.commandPalette.suggested", {
+                        value: SECTION_TITLES[group.section],
+                      })}
                 </Text>
                 <View className="border border-border">
                   {group.items.map((item, index) => {

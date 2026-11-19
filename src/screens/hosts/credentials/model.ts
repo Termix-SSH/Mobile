@@ -1,4 +1,5 @@
 import type { Credential, CredentialData } from "@/types";
+import { t } from "@/i18n";
 
 export interface CredentialForm {
   name: string;
@@ -51,9 +52,10 @@ export function credentialError(
   isEdit: boolean,
   hasSavedKey: boolean,
 ): string | null {
-  if (!form.name.trim()) return "Give this credential a name";
+  if (!form.name.trim())
+    return t("hosts.credentials.model.giveThisCredentialAName");
   if (form.authType === "key" && !form.key.trim() && !(isEdit && hasSavedKey)) {
-    return "Add a private key, or make a new one";
+    return t("hosts.credentials.model.addAPrivateKeyOr");
   }
   return null;
 }

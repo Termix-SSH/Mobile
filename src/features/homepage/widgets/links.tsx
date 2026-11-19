@@ -17,6 +17,7 @@ import {
   usePings,
   type WidgetProps,
 } from "./shared";
+import { t as tr } from "@/i18n";
 
 interface Tile {
   label: string;
@@ -49,7 +50,8 @@ export function TileGrid({
     tiles.map((t) => t.url),
     props,
   );
-  if (tiles.length === 0) return <Empty>No services yet.</Empty>;
+  if (tiles.length === 0)
+    return <Empty>{tr("homepage.widgets.links.noServicesYet")}</Empty>;
   // Phones fit four at most.
   const cols = Math.min(Math.max(columns, 2), 4);
   const width = `${100 / cols}%` as const;
@@ -107,7 +109,7 @@ export function ServiceLinkWidget(props: WidgetProps) {
   const { item } = props;
   const url = str(item.config.url);
   const pings = usePings(props.client, url ? [url] : [], props);
-  if (!url) return <Empty>No link set.</Empty>;
+  if (!url) return <Empty>{tr("homepage.widgets.links.noLinkSet")}</Empty>;
   const label = item.title || hostOf(url);
   return (
     <ListRow
@@ -138,7 +140,8 @@ function LinkRows({
   links: { label: string; url: string; description?: string }[];
 }) {
   const color = useThemeColor();
-  if (links.length === 0) return <Empty>No links yet.</Empty>;
+  if (links.length === 0)
+    return <Empty>{tr("homepage.widgets.links.noLinksYet")}</Empty>;
   return (
     <View>
       {links.map((link, index) => (
@@ -178,7 +181,8 @@ export function LinkTreeWidget({ item }: WidgetProps) {
   const sections = list<{ heading?: unknown; links?: unknown }>(
     item.config.sections,
   );
-  if (sections.length === 0) return <Empty>No links yet.</Empty>;
+  if (sections.length === 0)
+    return <Empty>{tr("homepage.widgets.links.noLinksYet")}</Empty>;
   return (
     <View>
       {sections.map((section, index) => (
@@ -263,11 +267,14 @@ export function SearchBarWidget({ item }: WidgetProps) {
   const engine = str(item.config.engine, "google");
   const template =
     engine === "custom" ? str(item.config.customUrl) : ENGINES[engine];
-  if (!template) return <Empty>No search engine set.</Empty>;
+  if (!template)
+    return <Empty>{tr("homepage.widgets.links.noSearchEngineSet")}</Empty>;
   return (
     <View className="px-3 py-2.5">
       <SearchBox
-        placeholder={str(item.config.placeholder) || "Search"}
+        placeholder={
+          str(item.config.placeholder) || tr("homepage.widgets.links.search")
+        }
         onSubmit={(q) =>
           openUrl(template.replace("{q}", encodeURIComponent(q)))
         }
@@ -281,7 +288,8 @@ export function SearchLinksWidget({ item }: WidgetProps) {
     item.config.shortcuts,
   ).filter((s) => typeof s.queryTemplate === "string");
   const [picked, setPicked] = useState(0);
-  if (shortcuts.length === 0) return <Empty>No shortcuts yet.</Empty>;
+  if (shortcuts.length === 0)
+    return <Empty>{tr("homepage.widgets.links.noShortcutsYet")}</Empty>;
   const current = shortcuts[Math.min(picked, shortcuts.length - 1)];
   return (
     <View className="gap-2 px-3 py-2.5">
@@ -301,7 +309,9 @@ export function SearchLinksWidget({ item }: WidgetProps) {
         ))}
       </View>
       <SearchBox
-        placeholder={`Search ${str(current.label)}`.trim()}
+        placeholder={tr("homepage.widgets.links.search2", {
+          label: str(current.label),
+        }).trim()}
         onSubmit={(q) =>
           openUrl(
             str(current.queryTemplate).replace("{q}", encodeURIComponent(q)),

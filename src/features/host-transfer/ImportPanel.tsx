@@ -15,6 +15,7 @@ import {
 } from "./read";
 import { canScanQr } from "@/core/distribution";
 import { ScanSheet } from "./ScanSheet";
+import { t } from "@/i18n";
 
 /**
  * Brings hosts in from a Termix file, an SSH config, or a host link or QR
@@ -38,7 +39,7 @@ export function ImportPanel({
       setResult(null);
     } catch (e: any) {
       setSource(null);
-      toast.error(e?.message || "Could not read that");
+      toast.error(e?.message || t("hostTransfer.importPanel.couldNotReadThat"));
     }
   };
 
@@ -51,7 +52,7 @@ export function ImportPanel({
       if (res.canceled || !res.assets?.[0]) return;
       read(await readLocalText(res.assets[0].uri));
     } catch {
-      toast.error("Could not read that file");
+      toast.error(t("hostTransfer.importPanel.couldNotReadThatFile"));
     }
   };
 
@@ -65,7 +66,7 @@ export function ImportPanel({
       if (res.created + res.updated > 0) toast.success(importSummary(res));
       onImported?.(res);
     } catch (e: any) {
-      toast.error(e?.message || "Import failed");
+      toast.error(e?.message || t("hostTransfer.importPanel.importFailed"));
     } finally {
       setBusy(false);
     }
@@ -75,17 +76,17 @@ export function ImportPanel({
     <View className="gap-2">
       <View className="flex-row flex-wrap gap-2">
         <Button variant="muted" onPress={() => void chooseFile()}>
-          Choose a file
+          {t("hostTransfer.importPanel.chooseAFile")}
         </Button>
         <Button
           variant="muted"
           onPress={async () => read(await Clipboard.getStringAsync())}
         >
-          Paste
+          {t("hostTransfer.importPanel.paste")}
         </Button>
         {canScanQr ? (
           <Button variant="muted" onPress={() => setScanning(true)}>
-            Scan a code
+            {t("hostTransfer.importPanel.scanACode")}
           </Button>
         ) : null}
       </View>
@@ -96,30 +97,34 @@ export function ImportPanel({
           </Text>
           {source.kind !== "link" && source.file.errors.length > 0 ? (
             <Text className="text-meta text-warning-text">
-              {source.file.errors.length} could not be read
+              {t("hostTransfer.importPanel.couldNotBeRead", {
+                count: source.file.errors.length,
+              })}
             </Text>
           ) : null}
           <SettingRow
-            label="Update hosts that exist"
-            description="Same address, port and user. Otherwise they are skipped"
+            label={t("hostTransfer.importPanel.updateHostsThatExist")}
+            description={t("hostTransfer.importPanel.sameAddressPortAndUser")}
             last
           >
             <FakeSwitch
               checked={overwrite}
               onChange={setOverwrite}
-              accessibilityLabel="Update hosts that exist"
+              accessibilityLabel={t(
+                "hostTransfer.importPanel.updateHostsThatExist",
+              )}
             />
           </SettingRow>
           <View className="flex-row justify-end gap-2">
             <Button variant="ghost" onPress={() => setSource(null)}>
-              Cancel
+              {t("hostTransfer.importPanel.cancel")}
             </Button>
             <Button
               disabled={busy}
               loading={busy}
               onPress={() => void doImport()}
             >
-              Import
+              {t("hostTransfer.importPanel.import")}
             </Button>
           </View>
         </View>
@@ -136,7 +141,9 @@ export function ImportPanel({
           ))}
           {result.errors.length > 8 ? (
             <Text className="text-meta text-muted-foreground">
-              and {result.errors.length - 8} more
+              {t("hostTransfer.importPanel.andMore", {
+                value: result.errors.length - 8,
+              })}
             </Text>
           ) : null}
         </View>

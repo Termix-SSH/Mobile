@@ -12,6 +12,7 @@ import type { DbDriver, OpenedDb } from "./driver";
 import { expoDriver } from "./expo-driver";
 import { deleteDbKey, getDbKey } from "./keys";
 import { migrate } from "./migrate";
+import { t } from "@/i18n";
 
 const log = createLogger("db");
 
@@ -96,7 +97,7 @@ export class LocalStores {
   openForSync(accountId: string): Promise<OpenedDb> {
     if (accountId === "local") {
       return Promise.reject(
-        new AppError("This device does not sync.", "NO_LOCAL_STORE"),
+        new AppError(t("db.stores.thisDeviceDoesNotSync"), "NO_LOCAL_STORE"),
       );
     }
     return this.open(accountId, false);
@@ -108,11 +109,14 @@ export class LocalStores {
   ): Promise<OpenedDb> {
     const driver = this.driver;
     if (!driver) {
-      throw new AppError("Local data is not available here.", "NO_LOCAL_STORE");
+      throw new AppError(
+        t("db.stores.localDataIsNotAvailable"),
+        "NO_LOCAL_STORE",
+      );
     }
     const locked = () => needsUnlock && !this.state.unlocked;
     if (locked()) {
-      throw new AppError("Unlock Termix first.", "APP_LOCKED");
+      throw new AppError(t("db.stores.unlockTermixFirst"), "APP_LOCKED");
     }
     const open = this.opened.get(accountId);
     if (open) return open;
@@ -122,11 +126,11 @@ export class LocalStores {
     const task = (async () => {
       const key = await getDbKey(accountId);
       if (locked() || this.driver !== driver) {
-        throw new AppError("Unlock Termix first.", "APP_LOCKED");
+        throw new AppError(t("db.stores.unlockTermixFirst"), "APP_LOCKED");
       }
       await driver.prepare?.(LocalStores.fileName(accountId)).catch(() => {});
       if (locked() || this.driver !== driver) {
-        throw new AppError("Unlock Termix first.", "APP_LOCKED");
+        throw new AppError(t("db.stores.unlockTermixFirst"), "APP_LOCKED");
       }
       const db = driver.open(LocalStores.fileName(accountId), key);
       try {

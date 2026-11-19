@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAppLock } from "@/contexts/AppLockContext";
 import { PinPad, PIN_LENGTH, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { t as tr } from "@/i18n";
 
 interface LockScreenProps {
   title?: string;
@@ -29,8 +30,8 @@ interface LockScreenProps {
  * keyboard is gone. The OS device passcode is never offered as a fallback.
  */
 export function LockScreen({
-  title = "Termix Locked",
-  subtitle = "Enter your PIN to continue",
+  title = tr("components.lockScreen.termixLocked"),
+  subtitle = tr("components.lockScreen.enterYourPinToContinue"),
   onVerifyPin,
   onBiometric,
   onSuccess,
@@ -113,7 +114,9 @@ export function LockScreen({
           hitSlop={12}
         >
           <ChevronLeft size={20} color={color("muted-foreground")} />
-          <Text className="text-sm text-muted-foreground">Cancel</Text>
+          <Text className="text-sm text-muted-foreground">
+            {tr("components.lockScreen.cancel")}
+          </Text>
         </Pressable>
       ) : null}
 
@@ -132,7 +135,9 @@ export function LockScreen({
         accessibilityLiveRegion="polite"
       >
         {waiting
-          ? `Too many tries. Wait ${Math.ceil(pinWaitMs / 1000)} seconds`
+          ? tr("components.lockScreen.tooManyTriesWaitSeconds", {
+              value: Math.ceil(pinWaitMs / 1000),
+            })
           : subtitle}
       </Text>
 

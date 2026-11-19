@@ -40,6 +40,7 @@ import {
 import { displayTitle, moveTab, pickActiveTab } from "./session-tabs";
 import { openTab } from "@/screens/shell/navigate";
 import { SHOWCASE } from "@/showcase/enabled";
+import { t as tr } from "@/i18n";
 
 /** Session tab type. The registry knows which feature owns each one. */
 export type SessionType = string;
@@ -532,7 +533,9 @@ export const TerminalSessionsProvider: React.FC<
         const remoteProtocol = opts?.remoteProtocol ?? host.connectionType;
         if (!features.canOpen(type, { remoteProtocol }, ctx)) {
           const blocked = {
-            reason: "This feature is turned off on the server.",
+            reason: tr(
+              "contexts.terminalSessionsContext.thisFeatureIsTurnedOff",
+            ),
           };
           if (!opts?.quiet) toast.error(blocked.reason);
           return blocked;
@@ -671,8 +674,10 @@ export const TerminalSessionsProvider: React.FC<
     if (result.missing.length) {
       toast.info(
         result.missing.length === 1
-          ? "A tab was not reopened because its host is gone"
-          : `${result.missing.length} tabs were not reopened because their hosts are gone`,
+          ? tr("contexts.terminalSessionsContext.aTabWasNotReopened")
+          : tr("contexts.terminalSessionsContext.tabsWereNotReopenedBecause", {
+              count: result.missing.length,
+            }),
       );
     }
     if (!result.restored.length) return;

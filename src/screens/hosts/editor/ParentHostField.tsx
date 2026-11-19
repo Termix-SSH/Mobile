@@ -5,6 +5,7 @@ import { Field, Input, Sheet, SheetBody, SheetRow, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import type { SSHHost } from "@/types";
 import { parentChoices } from "./model";
+import { t } from "@/i18n";
 
 const hostLabel = (host: SSHHost) =>
   host.name || `${host.username ? `${host.username}@` : ""}${host.ip}`;
@@ -15,7 +16,7 @@ export function ParentHostSheet({
   hosts,
   moving,
   selected,
-  title = "Parent host",
+  title = t("hosts.editor.parentHostField.parentHost"),
   onPick,
   onClose,
 }: {
@@ -48,21 +49,20 @@ export function ParentHostSheet({
       visible={visible}
       onClose={close}
       title={title}
-      description="The host shows nested under the one you pick"
+      description={t("hosts.editor.parentHostField.theHostShowsNestedUnder")}
       scroll
     >
       <SheetBody>
         <Input
           value={query}
           onChangeText={setQuery}
-          placeholder="Search hosts"
+          placeholder={t("hosts.editor.parentHostField.searchHosts")}
           autoCapitalize="none"
           autoCorrect={false}
         />
         {choices.length === 0 ? (
           <Text className="py-3 text-meta text-muted-foreground">
-            No hosts to pick. A host can{"'"}t go under itself, one of its own
-            sub-hosts or a shared host.
+            {t("hosts.editor.parentHostField.noHostsToPickA")}
           </Text>
         ) : (
           choices.map((h) => (
@@ -101,14 +101,14 @@ export function ParentHostField({
 
   return (
     <Field
-      label="Parent host"
-      hint="Sub-hosts follow the folder of their parent"
+      label={t("hosts.editor.parentHostField.parentHost")}
+      hint={t("hosts.editor.parentHostField.subHostsFollowTheFolder")}
     >
       <View className="min-h-11 flex-row items-center border border-border bg-card">
         <Pressable
           onPress={() => setPicking(true)}
           accessibilityRole="button"
-          accessibilityLabel="Pick parent host"
+          accessibilityLabel={t("hosts.editor.parentHostField.pickParentHost")}
           className="min-h-11 flex-1 flex-row items-center gap-2 px-3 active:bg-muted"
         >
           <Text
@@ -118,8 +118,8 @@ export function ParentHostField({
             {parent
               ? hostLabel(parent)
               : value != null
-                ? `Missing host #${value}`
-                : "Pick a host"}
+                ? t("hosts.editor.parentHostField.missingHost", { value })
+                : t("hosts.editor.parentHostField.pickAHost")}
           </Text>
           <ChevronDown size={15} color={color("muted-foreground")} />
         </Pressable>
@@ -127,7 +127,9 @@ export function ParentHostField({
           <Pressable
             onPress={() => onChange(null)}
             accessibilityRole="button"
-            accessibilityLabel="Clear parent host"
+            accessibilityLabel={t(
+              "hosts.editor.parentHostField.clearParentHost",
+            )}
             className="h-11 w-11 items-center justify-center active:bg-muted"
           >
             <X size={15} color={color("muted-foreground")} />

@@ -20,6 +20,7 @@ import { handleShellCall } from "@/features/plugin-webview/shell";
 import { EmptyState, Text } from "@/ui";
 import { Screen } from "@/components/Screen";
 import { openTab } from "@/screens/shell/navigate";
+import { t } from "@/i18n";
 
 function device(): "phone" | "tablet" {
   const { width, height } = currentWindowSize();
@@ -126,7 +127,7 @@ export default function PluginScreen() {
             onPress={() => web.current?.reload()}
             hitSlop={8}
             accessibilityRole="button"
-            accessibilityLabel="Reload"
+            accessibilityLabel={t("plugins.pluginScreen.reload")}
             className="h-9 w-9 items-center justify-center"
           >
             <RotateCw size={18} color={muted} />

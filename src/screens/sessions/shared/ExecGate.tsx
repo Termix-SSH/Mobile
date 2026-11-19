@@ -6,6 +6,7 @@ import type { SSHHost } from "@/types";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { Text } from "@/ui";
 import { ConnectionError } from "./ConnectionError";
+import { t } from "@/i18n";
 
 /**
  * Shows connecting and failure states for a feature that runs on the phone
@@ -43,7 +44,9 @@ export function ExecGate({
   return (
     <View className="flex-1 items-center justify-center gap-3 bg-background">
       <ActivityIndicator color={colors.brand} />
-      <Text className="text-sm text-muted-foreground">Connecting...</Text>
+      <Text className="text-sm text-muted-foreground">
+        {t("sessions.shared.execGate.connecting")}
+      </Text>
     </View>
   );
 }

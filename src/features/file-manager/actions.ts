@@ -1,4 +1,5 @@
 import type { FileBackend, FileEntry } from "./backend/types";
+import { t } from "@/i18n";
 
 /** Most files a folder download takes, so a slip on / doesn't queue a disk. */
 export const MAX_FOLDER_FILES = 5000;
@@ -37,7 +38,10 @@ export async function walkFolder(
         out.push({ entry, relative: next.relative });
         if (out.length > limit) {
           throw new Error(
-            `${folder.name} has more than ${limit} files. Download smaller folders.`,
+            t("fileManager.actions.hasMoreThanFilesDownload", {
+              name: folder.name,
+              limit,
+            }),
           );
         }
       }

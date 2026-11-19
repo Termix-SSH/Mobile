@@ -21,6 +21,7 @@ import { isSshHost } from "@/utils/hosts";
 import { toast } from "@/utils/toast";
 import { openTab } from "@/screens/shell/navigate";
 import { toSharedFiles, type SharedFile } from "./incoming";
+import { t } from "@/i18n";
 
 function HostPicker({ onPick }: { onPick: (host: SSHHost) => void }) {
   const colors = useUiColors();
@@ -35,7 +36,10 @@ function HostPicker({ onPick }: { onPick: (host: SSHHost) => void }) {
       data={ssh}
       keyExtractor={(h) => String(h.id)}
       ListEmptyComponent={
-        <EmptyState icon={Server} title="No SSH hosts here" />
+        <EmptyState
+          icon={Server}
+          title={t("share.shareTarget.noSshHostsHere")}
+        />
       }
       renderItem={({ item, index }) => (
         <ListRow
@@ -68,7 +72,9 @@ export default function ShareTarget() {
     toSharedFiles(share.resolvedSharedPayloads)
       .then(setFiles)
       .catch((e) => {
-        toast.error(toUserMessage(e, "Could not read what was shared"));
+        toast.error(
+          toUserMessage(e, t("share.shareTarget.couldNotReadWhatWas")),
+        );
         setFiles([]);
       });
   }, [share.isResolving, share.resolvedSharedPayloads, files]);
@@ -83,9 +89,11 @@ export default function ShareTarget() {
     if (
       running > 0 &&
       !(await confirm({
-        title: "Stop the uploads?",
-        description: `${running} ${running === 1 ? "upload is" : "uploads are"} still going. Leaving stops them.`,
-        confirmLabel: "Stop and leave",
+        title: t("share.shareTarget.stopTheUploads"),
+        description: t("share.shareTarget.uploadsStillGoing", {
+          count: running,
+        }),
+        confirmLabel: t("share.shareTarget.stopAndLeave"),
       }))
     ) {
       return;
@@ -100,12 +108,19 @@ export default function ShareTarget() {
   };
 
   const subtitle = files
-    ? `${files.length} ${files.length === 1 ? "file" : "files"} | ${formatFileSize(total)}`
-    : "Reading what was shared";
+    ? t("share.shareTarget.filesSize", {
+        count: files.length,
+        size: formatFileSize(total),
+      })
+    : t("share.shareTarget.readingWhatWasShared");
 
   return (
     <Screen
-      title={host ? `Send to ${host.name}` : "Send to a host"}
+      title={
+        host
+          ? t("share.shareTarget.sendTo", { name: host.name })
+          : t("share.shareTarget.sendToAHost")
+      }
       subtitle={subtitle}
       onBack={back}
     >
@@ -121,8 +136,12 @@ export default function ShareTarget() {
       ) : !files.length ? (
         <EmptyState
           icon={FileIcon}
-          title="Nothing to send"
-          action={<Button onPress={() => void leave()}>Close</Button>}
+          title={t("share.shareTarget.nothingToSend")}
+          action={
+            <Button onPress={() => void leave()}>
+              {t("share.shareTarget.close")}
+            </Button>
+          }
         />
       ) : (
         <SessionAccountProvider accountId={accountId}>
@@ -180,7 +199,9 @@ export default function ShareTarget() {
                   className="flex-1"
                   onPress={() => void leave()}
                 >
-                  {sent ? "Done" : "Cancel"}
+                  {sent
+                    ? t("share.shareTarget.done")
+                    : t("share.shareTarget.cancel")}
                 </Button>
                 <Button
                   className="flex-1"
@@ -192,7 +213,7 @@ export default function ShareTarget() {
                     setSent(true);
                   }}
                 >
-                  Upload here
+                  {t("share.shareTarget.uploadHere")}
                 </Button>
               </View>
             </View>

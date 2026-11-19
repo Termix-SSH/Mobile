@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import { Blocks } from "lucide-react-native";
 import { Button, EmptyState } from "@/ui";
+import { t } from "@/i18n";
 
 /**
  * Stands in for a tab whose feature is gone, like a server plugin an admin
@@ -20,11 +21,11 @@ export function MissingTab({
       <EmptyState
         className="flex-1"
         icon={Blocks}
-        title="This is turned off on the server"
-        hint={`${title} comes back here when an admin turns its plugin on again.`}
+        title={t("sessions.missingTab.thisIsTurnedOffOn")}
+        hint={t("sessions.missingTab.comesBackHereWhenAn", { title })}
         action={
           <Button size="sm" variant="muted" onPress={onClose}>
-            Close tab
+            {t("sessions.missingTab.closeTab")}
           </Button>
         }
       />

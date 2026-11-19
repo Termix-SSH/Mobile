@@ -8,6 +8,7 @@ import {
 } from "@/features/file-manager/settings";
 import { ChoiceRow, FakeSwitch, SettingRow, Section as UiSection } from "@/ui";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 function Section({
   title,
@@ -43,70 +44,75 @@ export default function FileSettings() {
 
   return (
     <Screen
-      title="Files"
-      subtitle={`File manager on this ${deviceWord}`}
+      title={t("settings.fileSettings.files")}
+      subtitle={t("settings.fileSettings.fileManagerOnThis", { deviceWord })}
       onBack={() => router.back()}
     >
       <ScrollView contentContainerStyle={{ padding: 12, gap: 12 }}>
-        <Section title="Browsing">
+        <Section title={t("settings.fileSettings.browsing")}>
           {toggle(
             "showHidden",
-            "Show hidden files",
-            "Files and folders that start with a dot",
+            t("settings.fileSettings.showHiddenFiles"),
+            t("settings.fileSettings.filesAndFoldersThatStart"),
           )}
           {toggle(
             "confirmBeforeTrash",
-            "Ask before moving to the trash",
-            "Deleting for good always asks",
+            t("settings.fileSettings.askBeforeMovingToThe"),
+            t("settings.fileSettings.deletingForGoodAlwaysAsks"),
           )}
           <ChoiceRow
-            label="Transfers at once"
-            description="Downloads and uploads that run together"
+            label={t("settings.fileSettings.transfersAtOnce")}
+            description={t("settings.fileSettings.downloadsAndUploadsThatRun")}
             value={String(s.transferConcurrency)}
             options={num([1, 2, 3, 4])}
             onChange={(v) => set({ transferConcurrency: Number(v) })}
             last
           />
         </Section>
-        <Section title="Editor">
+        <Section title={t("settings.fileSettings.editor")}>
           <ChoiceRow
-            label="Text size"
+            label={t("settings.fileSettings.textSize")}
             value={String(s.editorFontSize)}
             options={num([10, 11, 12, 13, 14, 16, 18, 20])}
             onChange={(v) => set({ editorFontSize: Number(v) })}
           />
-          {toggle("editorWrap", "Wrap long lines", undefined, true)}
+          {toggle(
+            "editorWrap",
+            t("settings.fileSettings.wrapLongLines"),
+            undefined,
+            true,
+          )}
         </Section>
-        <Section title="Files beside the terminal">
+        <Section title={t("settings.fileSettings.filesBesideTheTerminal")}>
           {toggle(
             "companionAutoOpen",
-            "Open with new terminals",
-            "On a tablet, show the files panel when a terminal opens",
+            t("settings.fileSettings.openWithNewTerminals"),
+            t("settings.fileSettings.onATabletShowThe"),
           )}
           <ChoiceRow
-            label="Side"
-            description="Where the panel sits on a tablet"
+            label={t("settings.fileSettings.side")}
+            description={t("settings.fileSettings.whereThePanelSitsOn")}
             value={s.companionSide}
             options={[
-              { value: "right", label: "Right" },
-              { value: "left", label: "Left" },
+              { value: "right", label: t("settings.fileSettings.right") },
+              { value: "left", label: t("settings.fileSettings.left") },
             ]}
             onChange={(v) => set({ companionSide: v })}
           />
           {toggle(
             "companionFollowTerminal",
-            "Follow the terminal",
-            "Open the folder the terminal is in as you cd",
+            t("settings.fileSettings.followTheTerminal"),
+            t("settings.fileSettings.openTheFolderTheTerminal"),
           )}
           <ChoiceRow
-            label="How often to check"
+            label={t("settings.fileSettings.howOftenToCheck")}
             value={String(s.companionSyncInterval)}
             options={num([1, 2, 3, 5, 10, 30], " s")}
             onChange={(v) => set({ companionSyncInterval: Number(v) })}
           />
           <ChoiceRow
-            label="Folder history"
-            description="Folders kept per host"
+            label={t("settings.fileSettings.folderHistory")}
+            description={t("settings.fileSettings.foldersKeptPerHost")}
             value={String(s.companionHistorySize)}
             options={num([5, 10, 20, 50, 100])}
             onChange={(v) => set({ companionHistorySize: Number(v) })}

@@ -16,6 +16,7 @@ import { Text, Badge } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { MONO_FONT } from "@/constants/fonts";
 import { toast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 /**
  * One configured tunnel: source:port → endpoint:port, live status badge, and
@@ -46,7 +47,7 @@ export default function TunnelCard({
 
   const copyLocal = async () => {
     await Clipboard.setStringAsync(`localhost:${tunnel.sourcePort}`);
-    toast.success("Local endpoint copied");
+    toast.success(t("tunnels.tunnelCard.localEndpointCopied"));
   };
 
   return (
@@ -60,7 +61,7 @@ export default function TunnelCard({
             className="text-sm text-foreground"
             numberOfLines={1}
           >
-            Tunnel | {tunnel.sourcePort}
+            {t("tunnels.tunnelCard.tunnel", { sourcePort: tunnel.sourcePort })}
           </Text>
         </View>
         <Badge variant={info.badge}>{info.label}</Badge>
@@ -74,7 +75,7 @@ export default function TunnelCard({
         <View className="min-w-0 flex-1">
           <View className="flex-row items-center gap-2">
             <Text className="text-[10px] uppercase tracking-[1px] text-muted-foreground">
-              Port Mapping
+              {t("tunnels.tunnelCard.portMapping")}
             </Text>
             {tunnel.mode || tunnel.tunnelType ? (
               <Text className="text-[9px] font-medium uppercase tracking-[1px] text-accent-text">
@@ -110,7 +111,7 @@ export default function TunnelCard({
         {canConnect ? (
           <ActionButton
             icon={<Play size={14} color={color("accent-brand")} />}
-            label="Connect"
+            label={t("tunnels.tunnelCard.connect")}
             accent
             loading={isLoading}
             onPress={() => onAction("connect")}
@@ -119,7 +120,7 @@ export default function TunnelCard({
         {canDisconnect ? (
           <ActionButton
             icon={<Square size={14} color={color("foreground")} />}
-            label="Disconnect"
+            label={t("tunnels.tunnelCard.disconnect")}
             loading={isLoading}
             onPress={() => onAction("disconnect")}
           />
@@ -127,7 +128,7 @@ export default function TunnelCard({
         {canCancel ? (
           <ActionButton
             icon={<X size={14} color={color("foreground")} />}
-            label="Cancel"
+            label={t("tunnels.tunnelCard.cancel")}
             loading={isLoading}
             onPress={() => onAction("cancel")}
           />
@@ -188,21 +189,21 @@ function statusInfo(
   switch (statusValue) {
     case "CONNECTED":
       return {
-        label: "Connected",
+        label: t("tunnels.tunnelCard.connected"),
         color: color("success"),
         icon: CheckCircle,
         badge: "success",
       };
     case "CONNECTING":
       return {
-        label: "Connecting",
+        label: t("tunnels.tunnelCard.connecting"),
         color: color("accent-brand"),
         icon: RotateCcw,
         badge: "accent",
       };
     case "DISCONNECTING":
       return {
-        label: "Disconnecting",
+        label: t("tunnels.tunnelCard.disconnecting"),
         color: color("warning"),
         icon: RotateCcw,
         badge: "muted",
@@ -210,14 +211,17 @@ function statusInfo(
     case "ERROR":
     case "FAILED":
       return {
-        label: "Error",
+        label: t("tunnels.tunnelCard.error"),
         color: color("destructive"),
         icon: AlertCircle,
         badge: "destructive",
       };
     case "RETRYING":
       return {
-        label: `Retrying (${status?.retryCount || 0}/${status?.maxRetries || 0})`,
+        label: t("tunnels.tunnelCard.retrying", {
+          value: status?.retryCount || 0,
+          value2: status?.maxRetries || 0,
+        }),
         color: color("warning"),
         icon: RotateCcw,
         badge: "muted",
@@ -225,15 +229,17 @@ function statusInfo(
     case "WAITING":
       return {
         label: status?.nextRetryIn
-          ? `Waiting ${Math.ceil(status.nextRetryIn / 1000)}s`
-          : "Waiting",
+          ? t("tunnels.tunnelCard.waitingS", {
+              value: Math.ceil(status.nextRetryIn / 1000),
+            })
+          : t("tunnels.tunnelCard.waiting"),
         color: color("muted-foreground"),
         icon: Clock,
         badge: "muted",
       };
     default:
       return {
-        label: "Disconnected",
+        label: t("tunnels.tunnelCard.disconnected"),
         color: color("muted-foreground"),
         icon: Circle,
         badge: "muted",

@@ -5,6 +5,7 @@ import type { ExecTarget } from "@/core/exec";
 import type { FeatureIcon } from "@/core/features/types";
 import { Text } from "@/ui";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /** The box every Home card draws in: title, then its body or why it can't. */
 export function CardFrame({
@@ -42,7 +43,7 @@ export function CardFrame({
         </Text>
         {target.phase === "local" ? (
           <Text className="text-[10px] text-muted-foreground">
-            this {deviceWord}
+            {t("home.cardFrame.this", { deviceWord })}
           </Text>
         ) : null}
       </View>

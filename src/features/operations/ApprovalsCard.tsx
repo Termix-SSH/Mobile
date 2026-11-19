@@ -9,6 +9,7 @@ import { HomeCard } from "@/screens/home/HomeCard";
 import { Button, Text } from "@/ui";
 import { toast } from "@/utils/toast";
 import { decide, errorText, listApprovals, type Approval } from "./api";
+import { t } from "@/i18n";
 
 const SHOWN = 3;
 const POLL_MS = 30_000;
@@ -45,9 +46,15 @@ export function ApprovalsCard({
     setBusy(item.id);
     try {
       const outcome = await decide(client, item.id, approve);
-      toast.success(approve ? (outcome.summary ?? "Approved") : "Rejected");
+      toast.success(
+        approve
+          ? (outcome.summary ?? t("operations.approvalsCard.approved"))
+          : t("operations.approvalsCard.rejected"),
+      );
     } catch (error) {
-      toast.error(errorText(error, "Could not decide"));
+      toast.error(
+        errorText(error, t("operations.approvalsCard.couldNotDecide")),
+      );
     } finally {
       setBusy(null);
       await load();
@@ -56,10 +63,10 @@ export function ApprovalsCard({
 
   return (
     <HomeCard
-      title="Waiting for approval"
+      title={t("operations.approvalsCard.waitingForApproval")}
       icon={ShieldCheck}
       meta={String(items.length)}
-      action="See all"
+      action={t("operations.approvalsCard.seeAll")}
       onAction={() => router.push("/tabs/settings/Approvals" as never)}
       padded
     >
@@ -83,7 +90,7 @@ export function ApprovalsCard({
                 disabled={busy === item.id}
                 onPress={() => void answer(item, true)}
               >
-                Approve
+                {t("operations.approvalsCard.approve")}
               </Button>
               <Button
                 size="sm"
@@ -91,7 +98,7 @@ export function ApprovalsCard({
                 disabled={busy === item.id}
                 onPress={() => void answer(item, false)}
               >
-                Reject
+                {t("operations.approvalsCard.reject")}
               </Button>
             </View>
           </View>

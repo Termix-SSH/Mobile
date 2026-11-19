@@ -19,6 +19,7 @@ import { showToast } from "@/utils/toast";
 import { groupSnippets } from "./group";
 import { snippetMode } from "./run";
 import { useSnippetRunner } from "./useSnippetRunner";
+import { t } from "@/i18n";
 
 /** Snippets inside the terminal's keyboard panel. Tap runs, long press for more. */
 export default function SnippetsBar({
@@ -64,7 +65,7 @@ export default function SnippetsBar({
           size="sm"
           value={query}
           onChangeText={setQuery}
-          placeholder="Search snippets"
+          placeholder={t("snippets.snippetsBar.searchSnippets")}
           autoCapitalize="none"
           autoCorrect={false}
           leading={<Search size={14} color={color("muted-foreground")} />}
@@ -115,7 +116,9 @@ export default function SnippetsBar({
                         onLongPress={() => setMenu(s)}
                         accessibilityRole="button"
                         accessibilityHint={
-                          s.isNote ? "Pastes the note" : "Runs the snippet"
+                          s.isNote
+                            ? t("snippets.snippetsBar.pastesTheNote")
+                            : t("snippets.snippetsBar.runsTheSnippet")
                         }
                         className="min-h-11 flex-row items-center gap-2.5 border-b border-border/40 py-2 pl-8 pr-3 active:bg-muted/50"
                       >
@@ -149,11 +152,13 @@ export default function SnippetsBar({
           {groups.length === 0 ? (
             <View className="items-center px-6 py-8">
               <Text weight="medium" className="text-sm text-muted-foreground">
-                {query ? "No snippets match" : "No snippets yet"}
+                {query
+                  ? t("snippets.snippetsBar.noSnippetsMatch")
+                  : t("snippets.snippetsBar.noSnippetsYet")}
               </Text>
               {!query ? (
                 <Text className="mt-1 text-center text-xs text-muted-foreground">
-                  Add snippets in Settings, Snippets
+                  {t("snippets.snippetsBar.addSnippetsInSettingsSnippets")}
                 </Text>
               ) : null}
             </View>
@@ -171,7 +176,7 @@ export default function SnippetsBar({
             {snippetMode(menu) === "run" ? (
               <SheetRow
                 icon={<Play size={16} color={color("foreground")} />}
-                label="Run"
+                label={t("snippets.snippetsBar.run")}
                 onPress={() => {
                   setMenu(null);
                   runner.start(menu, "run");
@@ -180,7 +185,7 @@ export default function SnippetsBar({
             ) : null}
             <SheetRow
               icon={<ClipboardPaste size={16} color={color("foreground")} />}
-              label="Insert without running"
+              label={t("snippets.snippetsBar.insertWithoutRunning")}
               onPress={() => {
                 setMenu(null);
                 runner.start(menu, "insert");
@@ -188,7 +193,7 @@ export default function SnippetsBar({
             />
             <SheetRow
               icon={<Copy size={16} color={color("foreground")} />}
-              label="Copy"
+              label={t("snippets.snippetsBar.copy")}
               onPress={() => {
                 setMenu(null);
                 void Clipboard.setStringAsync(menu.content).then(() =>

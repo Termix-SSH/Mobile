@@ -23,6 +23,7 @@ import {
   type GetHostStatus,
   type HostListRow,
 } from "./hostTree";
+import { t } from "@/i18n";
 
 const FolderRow = memo(function FolderRow({
   row,
@@ -45,7 +46,10 @@ const FolderRow = memo(function FolderRow({
     <Pressable
       onPress={() => onToggle(node.path)}
       accessibilityRole="button"
-      accessibilityLabel={`Folder ${node.name}, ${total} hosts`}
+      accessibilityLabel={t("hosts.navigation.hostList.folderHosts", {
+        name: node.name,
+        total,
+      })}
       accessibilityState={{ expanded: open }}
       style={{ marginLeft: row.depth * 14 }}
       className={`flex-row items-center gap-2 px-2 py-2 hover:bg-muted/30 active:bg-muted/40 ${

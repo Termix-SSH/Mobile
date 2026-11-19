@@ -30,6 +30,7 @@ import {
 import TunnelCard from "./TunnelCard";
 import { Gateways } from "./Gateways";
 import { deviceWord } from "@/utils/device-word";
+import { t as tr } from "@/i18n";
 
 export type TunnelManagerHandle = {
   refresh: () => void;
@@ -103,7 +104,9 @@ export const TunnelManager = forwardRef<
       setStatus("ready");
       setError("");
     } catch (e: any) {
-      setError(e?.message || "Failed to fetch tunnel statuses");
+      setError(
+        e?.message || tr("tunnels.tunnelManager.failedToFetchTunnelStatuses"),
+      );
       setStatus((s) => (s === "loading" ? "error" : s));
     }
   }, [client, onPhone]);
@@ -153,7 +156,7 @@ export const TunnelManager = forwardRef<
         open: async () => {
           if (!local.openSession) {
             throw new Error(
-              `This build can't open tunnels on the ${deviceWord}.`,
+              tr("tunnels.tunnelManager.thisBuildCanTOpen", { deviceWord }),
             );
           }
           return local.openSession(toTerminalHostConfig(savedHost));
@@ -189,7 +192,11 @@ export const TunnelManager = forwardRef<
       if (onPhone) {
         if (action === "connect") {
           startOnPhone(tunnel, idx);
-          toast.success(`Starting tunnel on port ${tunnel.sourcePort}`);
+          toast.success(
+            tr("tunnels.tunnelManager.startingTunnelOnPort", {
+              sourcePort: tunnel.sourcePort,
+            }),
+          );
         } else {
           tunnelRunner.stop(key);
         }
@@ -213,7 +220,11 @@ export const TunnelManager = forwardRef<
             retryInterval: tunnel.retryInterval * 1000,
             autoStart: tunnel.autoStart,
           });
-          toast.success(`Connecting tunnel on port ${tunnel.sourcePort}`);
+          toast.success(
+            tr("tunnels.tunnelManager.connectingTunnelOnPort", {
+              sourcePort: tunnel.sourcePort,
+            }),
+          );
         } else if (action === "connect") {
           const sourceHost = allHosts.find((h) => h.id === hostConfig.id);
           const endpointHost = allHosts.find(
@@ -221,9 +232,14 @@ export const TunnelManager = forwardRef<
               h.name === tunnel.endpointHost ||
               `${h.username}@${h.ip}` === tunnel.endpointHost,
           );
-          if (!sourceHost) throw new Error("Source host not found");
+          if (!sourceHost)
+            throw new Error(tr("tunnels.tunnelManager.sourceHostNotFound"));
           if (!endpointHost)
-            throw new Error(`Endpoint host not found: ${tunnel.endpointHost}`);
+            throw new Error(
+              tr("tunnels.tunnelManager.endpointHostNotFound", {
+                endpointHost: tunnel.endpointHost,
+              }),
+            );
 
           await client.api.tunnels.connectTunnel({
             name: key,
@@ -281,17 +297,31 @@ export const TunnelManager = forwardRef<
             autoStart: tunnel.autoStart,
             isPinned: sourceHost.pin,
           });
-          toast.success(`Connecting tunnel on port ${tunnel.sourcePort}`);
+          toast.success(
+            tr("tunnels.tunnelManager.connectingTunnelOnPort", {
+              sourcePort: tunnel.sourcePort,
+            }),
+          );
         } else if (action === "disconnect") {
           await client.api.tunnels.disconnectTunnel(key);
-          toast.success(`Disconnecting port ${tunnel.sourcePort}`);
+          toast.success(
+            tr("tunnels.tunnelManager.disconnectingPort", {
+              sourcePort: tunnel.sourcePort,
+            }),
+          );
         } else {
           await client.api.tunnels.cancelTunnel(key);
-          toast.success(`Cancelling port ${tunnel.sourcePort}`);
+          toast.success(
+            tr("tunnels.tunnelManager.cancellingPort", {
+              sourcePort: tunnel.sourcePort,
+            }),
+          );
         }
         await fetchStatuses();
       } catch (e: any) {
-        toast.error(e?.message || `Failed to ${action} tunnel`);
+        toast.error(
+          e?.message || tr("tunnels.tunnelManager.failedToTunnel", { action }),
+        );
       } finally {
         setLoadingKeys((prev) => {
           const next = new Set(prev);
@@ -325,11 +355,16 @@ export const TunnelManager = forwardRef<
   return (
     <SessionFrame
       title={hostConfig.name}
-      subtitle={`Tunnels | ${tunnels.length} | ${onPhone ? `This ${deviceWord}` : "Server"}`}
+      subtitle={tr("tunnels.tunnelManager.tunnels", {
+        count: tunnels.length,
+        value: onPhone
+          ? tr("transport.origin.thisDevice", { deviceWord })
+          : tr("tunnels.tunnelManager.server"),
+      })}
       status={frameStatus}
-      loadingLabel="Loading tunnels…"
+      loadingLabel={tr("tunnels.tunnelManager.loadingTunnels")}
       errorMessage={error}
-      emptyMessage="No SSH tunnels configured for this host. Add tunnels from the host form."
+      emptyMessage={tr("tunnels.tunnelManager.noSshTunnelsConfiguredFor")}
       emptyIcon={<Network size={32} color={color("muted-foreground")} />}
       onRetry={status === "error" ? fetchStatuses : undefined}
     >
@@ -357,22 +392,24 @@ export const TunnelManager = forwardRef<
         {client ? (
           <View className="gap-1.5">
             <Text className="text-[10px] uppercase tracking-[1px] text-muted-foreground">
-              Run on
+              {tr("tunnels.tunnelManager.runOn")}
             </Text>
             <Tabs<RunOn>
               value={runOn}
               onChange={chooseRunOn}
               options={[
-                { id: "server", label: "Server" },
-                { id: "phone", label: `This ${deviceWord}` },
+                { id: "server", label: tr("tunnels.tunnelManager.server") },
+                {
+                  id: "phone",
+                  label: tr("tunnels.tunnelManager.this", { deviceWord }),
+                },
               ]}
             />
           </View>
         ) : null}
         {onPhone ? (
           <Text className="text-[11px] text-muted-foreground">
-            Tunnels on this {deviceWord} stop when the app is closed. On iOS
-            they also stop soon after the app goes to the background.
+            {tr("tunnels.tunnelManager.tunnelsOnThisStopWhen", { deviceWord })}
           </Text>
         ) : null}
         {tunnels.map((tunnel, idx) => {

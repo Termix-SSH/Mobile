@@ -15,6 +15,7 @@ import { QuickCard } from "./QuickCard";
 import { RecentCard } from "./RecentCard";
 import { ServerCard } from "./ServerCard";
 import { SessionsCard } from "./SessionsCard";
+import { t } from "@/i18n";
 
 const linked = (ctx: FeatureContext) =>
   ctx.account.kind === "server" && !!ctx.client;
@@ -23,7 +24,7 @@ const linked = (ctx: FeatureContext) =>
 export const CORE_HOME_CARDS: HomeCardDef[] = [
   {
     id: "server",
-    title: "Server",
+    title: t("home.cards.server"),
     icon: Server,
     order: 10,
     isAvailable: linked,
@@ -31,21 +32,21 @@ export const CORE_HOME_CARDS: HomeCardDef[] = [
   },
   {
     id: "sessions",
-    title: "Open sessions",
+    title: t("home.cards.openSessions"),
     icon: SquareTerminal,
     order: 20,
     component: SessionsCard,
   },
   {
     id: "quick",
-    title: "Quick access",
+    title: t("home.cards.quickAccess"),
     icon: LayoutGrid,
     order: 30,
     component: QuickCard,
   },
   {
     id: "alerts",
-    title: "Notifications",
+    title: t("home.cards.notifications"),
     icon: Bell,
     order: 40,
     isAvailable: linked,
@@ -53,21 +54,21 @@ export const CORE_HOME_CARDS: HomeCardDef[] = [
   },
   {
     id: "pinned",
-    title: "Pinned hosts",
+    title: t("home.cards.pinnedHosts"),
     icon: Pin,
     order: 50,
     component: PinnedCard,
   },
   {
     id: "recent",
-    title: "Recent hosts",
+    title: t("home.cards.recentHosts"),
     icon: Clock,
     order: 80,
     component: RecentCard,
   },
   {
     id: "activity",
-    title: "Recent activity",
+    title: t("home.cards.recentActivity"),
     icon: Activity,
     order: 90,
     isAvailable: linked,

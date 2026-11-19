@@ -2,6 +2,7 @@ import { Pressable, View } from "react-native";
 import { Delete, Fingerprint } from "lucide-react-native";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { Text } from "./Text";
+import { t } from "@/i18n";
 
 export const PIN_LENGTH = 4;
 
@@ -62,7 +63,7 @@ export function PinPad({
             onPress={onBiometric}
             disabled={!onBiometric}
             accessibilityRole="button"
-            accessibilityLabel="Use biometrics"
+            accessibilityLabel={t("ui.pinPad.useBiometrics")}
             accessibilityElementsHidden={!onBiometric}
             importantForAccessibility={
               onBiometric ? "auto" : "no-hide-descendants"
@@ -77,7 +78,7 @@ export function PinPad({
           <Pressable
             onPress={() => onChange(value.slice(0, -1))}
             accessibilityRole="button"
-            accessibilityLabel="Delete"
+            accessibilityLabel={t("ui.pinPad.delete")}
             className="h-16 w-16 items-center justify-center border border-border active:bg-muted/40"
           >
             <Delete size={20} color={color("foreground")} />

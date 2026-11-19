@@ -377,6 +377,8 @@ export interface TerminalConfig {
   fontSize: number;
   fontFamily: string;
   letterSpacing: number;
+  /** App only. Join runs like -> into one glyph. */
+  ligatures?: boolean;
   lineHeight: number;
   theme: string;
 

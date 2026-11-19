@@ -14,6 +14,7 @@ import { useUiColors } from "@/contexts/ThemeContext";
 import { formatFileSize } from "../utils/fileUtils";
 import type { TransferManager } from "./manager";
 import { isActive, summarize, type Transfer } from "./queue";
+import { t as tr } from "@/i18n";
 
 export function useTransfers(manager: TransferManager | null): Transfer[] {
   return useSyncExternalStore(
@@ -28,12 +29,12 @@ const emptySnapshot = () => EMPTY;
 const noopSubscribe = () => () => {};
 
 const STATE_LABEL: Record<Transfer["state"], string> = {
-  queued: "Waiting",
+  queued: tr("fileManager.transfers.transfersPanel.waiting"),
   running: "",
-  paused: "Paused",
-  done: "Done",
-  failed: "Failed",
-  cancelled: "Cancelled",
+  paused: tr("fileManager.transfers.transfersPanel.paused"),
+  done: tr("fileManager.transfers.transfersPanel.done"),
+  failed: tr("fileManager.transfers.transfersPanel.failed"),
+  cancelled: tr("fileManager.transfers.transfersPanel.cancelled"),
 };
 
 function percent(t: Transfer) {
@@ -91,27 +92,42 @@ function Row({
           {t.name}
         </Text>
         {t.state === "running" || t.state === "queued" ? (
-          <IconButton label="Pause" onPress={() => manager.pause(t.id)}>
+          <IconButton
+            label={tr("fileManager.transfers.transfersPanel.pause")}
+            onPress={() => manager.pause(t.id)}
+          >
             <Pause size={14} color={colors.text} />
           </IconButton>
         ) : null}
         {t.state === "paused" ? (
-          <IconButton label="Resume" onPress={() => manager.resume(t.id)}>
+          <IconButton
+            label={tr("fileManager.transfers.transfersPanel.resume")}
+            onPress={() => manager.resume(t.id)}
+          >
             <Play size={14} color={colors.text} />
           </IconButton>
         ) : null}
         {t.state === "failed" || t.state === "cancelled" ? (
-          <IconButton label="Try again" onPress={() => manager.retry(t.id)}>
+          <IconButton
+            label={tr("fileManager.transfers.transfersPanel.tryAgain")}
+            onPress={() => manager.retry(t.id)}
+          >
             <RotateCcw size={14} color={colors.text} />
           </IconButton>
         ) : null}
         {t.state === "done" && t.kind === "download" && onOpen ? (
-          <IconButton label="Open" onPress={() => onOpen(t)}>
+          <IconButton
+            label={tr("fileManager.transfers.transfersPanel.open")}
+            onPress={() => onOpen(t)}
+          >
             <FolderOpen size={14} color={colors.text} />
           </IconButton>
         ) : null}
         {isActive(t) ? (
-          <IconButton label="Cancel" onPress={() => manager.cancel(t.id)}>
+          <IconButton
+            label={tr("fileManager.transfers.transfersPanel.cancel")}
+            onPress={() => manager.cancel(t.id)}
+          >
             <X size={14} color={colors.text} />
           </IconButton>
         ) : null}
@@ -157,10 +173,14 @@ export function TransfersPanel({
     <InlineView
       open={open}
       onClose={onClose}
-      title="Transfers"
+      title={tr("fileManager.transfers.transfersPanel.transfers")}
       subtitle={
         sum.active
-          ? `${sum.active} going | ${formatFileSize(sum.done)} of ${formatFileSize(sum.total)}`
+          ? tr("fileManager.transfers.transfersPanel.goingOf", {
+              active: sum.active,
+              done: formatFileSize(sum.done),
+              total: formatFileSize(sum.total),
+            })
           : undefined
       }
       bare
@@ -174,7 +194,7 @@ export function TransfersPanel({
               disabled={!hasFinished}
               onPress={() => manager.clear()}
             >
-              Clear finished
+              {tr("fileManager.transfers.transfersPanel.clearFinished")}
             </Button>
             <Button
               variant="destructive"
@@ -182,7 +202,7 @@ export function TransfersPanel({
               disabled={!sum.active}
               onPress={() => manager.cancelAll()}
             >
-              Cancel all
+              {tr("fileManager.transfers.transfersPanel.cancelAll")}
             </Button>
           </View>
         ) : undefined
@@ -194,7 +214,11 @@ export function TransfersPanel({
         renderItem={({ item }) => (
           <Row t={item} manager={manager} onOpen={onOpen} />
         )}
-        ListEmptyComponent={<EmptyState title="No transfers yet" />}
+        ListEmptyComponent={
+          <EmptyState
+            title={tr("fileManager.transfers.transfersPanel.noTransfersYet")}
+          />
+        }
         contentContainerStyle={list.length ? undefined : { flexGrow: 1 }}
       />
     </InlineView>

@@ -18,6 +18,7 @@ import {
   type SessionStatusEntry,
   type SessionStatusStore,
 } from "./status";
+import { t as tr } from "@/i18n";
 
 export const KEEP_IN_BACKGROUND_KEY = "sessions.keepInBackground";
 const NOTIFICATIONS_ASKED_KEY = "sessions.notificationsAsked";
@@ -28,13 +29,13 @@ export interface ServiceTab {
 }
 
 const STATE_TEXT: Record<SessionState, string> = {
-  idle: "Not connected",
-  connecting: "Connecting",
-  connected: "Connected",
-  reconnecting: "Reconnecting",
-  offline: "Waiting for network",
-  failed: "Failed",
-  closed: "Closed",
+  idle: tr("sessions.background.notConnected"),
+  connecting: tr("sessions.background.connecting"),
+  connected: tr("sessions.background.connected"),
+  reconnecting: tr("sessions.background.reconnecting"),
+  offline: tr("sessions.background.waitingForNetwork"),
+  failed: tr("sessions.background.failed"),
+  closed: tr("sessions.background.closed"),
 };
 
 /** What the notification shows, or null when no session is open. */
@@ -48,12 +49,12 @@ export function serviceContent(
     return !!s && isLive(s.state);
   });
   if (!live.length && !tunnels.length) return null;
-  const count = (n: number, one: string, many: string) =>
-    n === 1 ? `1 ${one}` : `${n} ${many}`;
   const parts = [
-    live.length ? count(live.length, "session open", "sessions open") : "",
+    live.length
+      ? tr("sessions.background.sessionsOpen", { count: live.length })
+      : "",
     tunnels.length
-      ? count(tunnels.length, "tunnel active", "tunnels active")
+      ? tr("sessions.background.tunnelsActive", { count: tunnels.length })
       : "",
   ].filter(Boolean);
   return {
@@ -62,7 +63,7 @@ export function serviceContent(
       ...live.map((t) => `${t.title} | ${STATE_TEXT[statuses[t.id].state]}`),
       ...tunnels,
     ],
-    actionLabel: "Disconnect all",
+    actionLabel: tr("sessions.background.disconnectAll"),
     channelName: "Sessions",
   };
 }
@@ -107,9 +108,8 @@ async function askNotifications(): Promise<void> {
   await PermissionsAndroid.request(
     PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
     {
-      title: "Show open sessions",
-      message:
-        "Termix shows a notification while sessions are open, so Android keeps them running in the background.",
+      title: tr("sessions.background.showOpenSessions"),
+      message: tr("sessions.background.termixShowsANotificationWhile"),
       buttonPositive: "OK",
     },
   ).catch(() => {});

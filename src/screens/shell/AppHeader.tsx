@@ -19,21 +19,24 @@ import { useUnreadAlerts } from "@/screens/notifications/unread";
 import { palette } from "@/screens/palette/store";
 import { Button, Text } from "@/ui";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 const STATUS: Record<string, string> = {
-  idle: "Signed in",
+  idle: t("shell.appHeader.signedIn"),
   syncing: "Syncing",
   offline: "Offline",
-  error: "Error",
-  signed_out: "Signed out",
+  error: t("shell.appHeader.error"),
+  signed_out: t("shell.appHeader.signedOut"),
 };
 
 /** One short line under the account name. */
 export function accountLine(account: Account): string {
-  if (account.kind === "local") return "Works without a server";
+  if (account.kind === "local") return t("shell.appHeader.worksWithoutAServer");
   return [
     STATUS[account.status],
-    account.options.sync === true ? `Copy on this ${deviceWord}` : null,
+    account.options.sync === true
+      ? t("shell.appHeader.copyOnThis", { deviceWord })
+      : null,
   ]
     .filter(Boolean)
     .join(" | ");
@@ -49,7 +52,9 @@ export function AccountButton() {
     <Pressable
       onPress={openAccountSwitcher}
       accessibilityRole="button"
-      accessibilityLabel={`Account ${accountLabel(account)}, switch`}
+      accessibilityLabel={t("shell.appHeader.accountSwitch", {
+        account: accountLabel(account),
+      })}
       className="flex-row items-center gap-2 active:opacity-70"
       hitSlop={6}
     >
@@ -80,7 +85,7 @@ export function SearchButton() {
     <Button
       variant="ghost"
       size="icon"
-      accessibilityLabel="Search"
+      accessibilityLabel={t("shell.appHeader.search")}
       onPress={palette.open}
       icon={<Search size={18} color={color("muted-foreground")} />}
     />
@@ -99,7 +104,9 @@ export function NotificationsButton() {
         variant="ghost"
         size="icon"
         accessibilityLabel={
-          unread > 0 ? `Notifications, ${unread} unread` : "Notifications"
+          unread > 0
+            ? t("shell.appHeader.notificationsUnread", { unread })
+            : t("shell.appHeader.notifications")
         }
         onPress={() => router.push("/tabs/settings/Notifications" as never)}
         icon={<Bell size={18} color={color("muted-foreground")} />}

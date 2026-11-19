@@ -1,6 +1,7 @@
 import type { AccountClient } from "@/core/api/AccountClient";
 import type { SSHHost } from "@/types";
 import type { JournalEntry, ServicesBackend } from "./types";
+import { t } from "@/i18n";
 
 /** The server's Service Manager plugin for `host` (the server's own copy). */
 export function createRelayServicesBackend(
@@ -40,7 +41,7 @@ export function createRelayServicesBackend(
       void (async () => {
         const token = await client.token();
         if (stopped) return;
-        if (!token) return end("Not signed in");
+        if (!token) return end(t("services.backend.relay.notSignedIn"));
         ws = client.openSocket(
           client.pluginWebSocketUrl("service-manager", "follow"),
           [`termix.jwt.${token}`],
@@ -70,11 +71,12 @@ export function createRelayServicesBackend(
               message?: string;
             };
             if (msg.type === "lines" && msg.data?.length) onEntries(msg.data);
-            else if (msg.type === "error") end(msg.message || "Follow failed");
+            else if (msg.type === "error")
+              end(msg.message || t("services.backend.relay.followFailed"));
             else if (msg.type === "ended") end();
           } catch {}
         };
-        ws.onerror = () => end("Connection failed");
+        ws.onerror = () => end(t("services.backend.relay.connectionFailed"));
         ws.onclose = () => end();
       })();
       return {

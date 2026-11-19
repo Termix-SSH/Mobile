@@ -15,6 +15,7 @@ import {
 import type { TerminalHostConfig } from "../types";
 import { checkHostKey, type AskHostKey } from "./host-keys";
 import { resolveLogin, tailscaleRetry, type ResolvedLogin } from "./resolve";
+import { t } from "@/i18n";
 
 export interface HopInfo {
   index: number;
@@ -125,7 +126,7 @@ export async function openJumps(
       const p = repo ? await repo.profile(id) : null;
       if (!p) {
         throw new AppError(
-          "A jump host of this host no longer exists.",
+          t("transport.local.chain.aJumpHostOfThis"),
           "JUMP_HOST_MISSING",
         );
       }

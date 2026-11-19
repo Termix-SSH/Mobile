@@ -17,6 +17,7 @@ import { DataValues } from "@/ui/DataValues";
 import type { HostListPrefs } from "@/core/host-list-prefs";
 import { isSshActive } from "@/utils/hosts";
 import type { HostStatus } from "@/screens/hosts/navigation/hostTree";
+import { t } from "@/i18n";
 
 export interface HostMetrics {
   cpu: number | null;
@@ -93,12 +94,16 @@ function Host({
     selecting
       ? []
       : [
-          { id: "open", label: "Open", onPress: () => onPress(host) },
+          {
+            id: "open",
+            label: t("hosts.navigation.host.open"),
+            onPress: () => onPress(host),
+          },
           ...(onLongPress
             ? [
                 {
                   id: "more",
-                  label: "More actions",
+                  label: t("hosts.navigation.host.moreActions"),
                   onPress: () => onLongPress(host),
                 },
               ]
@@ -137,14 +142,23 @@ function Host({
       onLongPress={onLongPress ? () => onLongPress(host) : undefined}
       accessibilityRole="button"
       accessibilityActions={
-        onLongPress ? [{ name: "longpress", label: "More actions" }] : undefined
+        onLongPress
+          ? [
+              {
+                name: "longpress",
+                label: t("hosts.navigation.host.moreActions"),
+              },
+            ]
+          : undefined
       }
       onAccessibilityAction={(e) => {
         if (e.nativeEvent.actionName === "longpress") onLongPress?.(host);
       }}
       accessibilityLabel={`${host.name}, ${status}`}
       accessibilityHint={
-        selecting ? undefined : "Opens the terminal. Hold for more."
+        selecting
+          ? undefined
+          : t("hosts.navigation.host.opensTheTerminalHoldFor")
       }
       accessibilityState={selecting ? { selected } : undefined}
       style={{ marginLeft: depth * 14 }}
@@ -191,7 +205,7 @@ function Host({
             <Pin size={11} color={accent} fill={accent} />
           ) : null}
           {prefs.showSharedBadge && host.shared ? (
-            <FeatureChip label="Shared" />
+            <FeatureChip label={t("hosts.navigation.host.shared")} />
           ) : null}
           {protocols.map((p) => (
             <FeatureChip key={p} label={p} />
@@ -242,7 +256,12 @@ function Host({
         <Pressable
           onPress={() => onToggleSubHosts(host.id)}
           accessibilityRole="button"
-          accessibilityLabel={`${open ? "Hide" : "Show"} ${subHosts} ${subHosts === 1 ? "sub-host" : "sub-hosts"} of ${host.name}`}
+          accessibilityLabel={t(
+            open
+              ? "hosts.navigation.host.hideSubHosts"
+              : "hosts.navigation.host.showSubHosts",
+            { count: subHosts, name: host.name },
+          )}
           accessibilityState={{ expanded: open }}
           hitSlop={6}
           className="flex-row items-center gap-1 px-3 active:bg-muted/40"
@@ -256,7 +275,9 @@ function Host({
       {onDrag ? (
         <Pressable
           onPressIn={onDrag}
-          accessibilityLabel={`Drag ${host.name}`}
+          accessibilityLabel={t("hosts.navigation.host.drag", {
+            name: host.name,
+          })}
           hitSlop={6}
           className="justify-center px-3"
         >

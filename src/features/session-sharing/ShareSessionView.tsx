@@ -12,18 +12,23 @@ import {
 import { serverHostId } from "@/core/sync/host-ids";
 import { showToast } from "@/utils/toast";
 import { Screen } from "@/components/Screen";
+import { t } from "@/i18n";
 
 const PERMISSIONS: { value: SharePermission; label: string }[] = [
-  { value: "read-only", label: "Can watch" },
-  { value: "read-write", label: "Can type" },
+  { value: "read-only", label: t("sessionSharing.shareSessionView.canWatch") },
+  { value: "read-write", label: t("sessionSharing.shareSessionView.canType") },
 ];
 
 export const EXPIRY: { value: string; label: string; hours?: number }[] = [
-  { value: "1", label: "1 hour", hours: 1 },
-  { value: "8", label: "8 hours", hours: 8 },
-  { value: "24", label: "1 day", hours: 24 },
-  { value: "168", label: "7 days", hours: 168 },
-  { value: "never", label: "Never" },
+  { value: "1", label: t("sessionSharing.shareSessionView.n1Hour"), hours: 1 },
+  { value: "8", label: t("sessionSharing.shareSessionView.n8Hours"), hours: 8 },
+  { value: "24", label: t("sessionSharing.shareSessionView.n1Day"), hours: 24 },
+  {
+    value: "168",
+    label: t("sessionSharing.shareSessionView.n7Days"),
+    hours: 168,
+  },
+  { value: "never", label: t("sessionSharing.shareSessionView.never") },
 ];
 
 /** Makes a share link to this live session, like the web app's Share button. */
@@ -62,11 +67,16 @@ export function ShareSessionView({
       const url = share.linkToken
         ? guestLink(await api.publicUrl(), share.linkToken)
         : null;
-      if (!url) throw new Error("The server gave no link");
+      if (!url)
+        throw new Error(
+          t("sessionSharing.shareSessionView.theServerGaveNoLink"),
+        );
       setLink(url);
     } catch (e: any) {
       showToast.error(
-        e?.response?.data?.error || e?.message || "Could not make a link",
+        e?.response?.data?.error ||
+          e?.message ||
+          t("sessionSharing.shareSessionView.couldNotMakeALink"),
       );
     } finally {
       setBusy(false);
@@ -74,7 +84,10 @@ export function ShareSessionView({
   };
 
   return (
-    <Screen title="Share session" onBack={onClose}>
+    <Screen
+      title={t("sessionSharing.shareSessionView.shareSession")}
+      onBack={onClose}
+    >
       <ScrollView
         contentContainerStyle={{
           padding: 12,
@@ -83,12 +96,11 @@ export function ShareSessionView({
         }}
       >
         <Text className="text-xs text-muted-foreground">
-          Anyone with the link can open this terminal while it runs. You can
-          revoke links in Termix.
+          {t("sessionSharing.shareSessionView.anyoneWithTheLinkCan")}
         </Text>
         <View className="border-y border-border">
           <ChoiceRow
-            label="People with the link"
+            label={t("sessionSharing.shareSessionView.peopleWithTheLink")}
             value={permission}
             options={PERMISSIONS}
             onChange={(v) => {
@@ -97,7 +109,7 @@ export function ShareSessionView({
             }}
           />
           <ChoiceRow
-            label="Expires after"
+            label={t("sessionSharing.shareSessionView.expiresAfter")}
             value={expiry}
             options={EXPIRY}
             onChange={(v) => {
@@ -109,7 +121,7 @@ export function ShareSessionView({
         </View>
         {link ? (
           <View className="gap-2">
-            <Label>Link</Label>
+            <Label>{t("sessionSharing.shareSessionView.link")}</Label>
             <Input value={link} editable={false} selectTextOnFocus />
             <View className="flex-row gap-2">
               <Button
@@ -117,23 +129,25 @@ export function ShareSessionView({
                 className="flex-1"
                 onPress={() =>
                   void Clipboard.setStringAsync(link).then(() =>
-                    showToast.success("Link copied"),
+                    showToast.success(
+                      t("sessionSharing.shareSessionView.linkCopied"),
+                    ),
                   )
                 }
               >
-                Copy
+                {t("sessionSharing.shareSessionView.copy")}
               </Button>
               <Button
                 className="flex-1"
                 onPress={() => void Share.share({ message: link })}
               >
-                Share
+                {t("sessionSharing.shareSessionView.share")}
               </Button>
             </View>
           </View>
         ) : (
           <Button loading={busy} onPress={create}>
-            Make link
+            {t("sessionSharing.shareSessionView.makeLink")}
           </Button>
         )}
       </ScrollView>

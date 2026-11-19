@@ -9,19 +9,20 @@ import {
   useKeyPrefs,
   type KeySize,
 } from "@/features/terminal/keys/KeyPrefsContext";
+import { t } from "@/i18n";
 
 const SIZES: { value: KeySize; label: string }[] = [
-  { value: "small", label: "Small" },
-  { value: "medium", label: "Medium" },
-  { value: "large", label: "Large" },
+  { value: "small", label: t("settings.keyboardCustomization.small") },
+  { value: "medium", label: t("settings.keyboardCustomization.medium") },
+  { value: "large", label: t("settings.keyboardCustomization.large") },
 ];
 const DELAYS = [150, 250, 400, 600].map((v) => ({
   value: String(v),
-  label: `${v} ms`,
+  label: t("settings.keyboardCustomization.ms", { v }),
 }));
 const INTERVALS = [50, 75, 100, 150].map((v) => ({
   value: String(v),
-  label: `${v} ms`,
+  label: t("settings.keyboardCustomization.ms", { v }),
 }));
 
 /** The key rows every terminal uses, unless a host has its own. */
@@ -33,14 +34,14 @@ export default function KeyboardCustomization() {
 
   return (
     <Screen
-      title="Keyboard"
-      subtitle="Key rows above the keyboard"
+      title={t("settings.keyboardCustomization.keyboard")}
+      subtitle={t("settings.keyboardCustomization.keyRowsAboveTheKeyboard")}
       onBack={() => router.back()}
     >
       <Tabs
         options={[
-          { id: "layout", label: "Rows" },
-          { id: "settings", label: "Keys" },
+          { id: "layout", label: t("settings.keyboardCustomization.rows") },
+          { id: "settings", label: t("settings.keyboardCustomization.keys") },
         ]}
         value={tab}
         onChange={setTab}
@@ -48,8 +49,7 @@ export default function KeyboardCustomization() {
       {tab === "layout" ? (
         <View className="flex-1">
           <Text className="border-b border-border px-3 py-2 text-meta text-muted-foreground">
-            A host can have its own rows: tap its open tab in a session and pick
-            Key rows for this host.
+            {t("settings.keyboardCustomization.aHostCanHaveIts")}
           </Text>
           <KeyLayoutEditor
             layout={layout}
@@ -60,12 +60,14 @@ export default function KeyboardCustomization() {
       ) : (
         <ScrollView contentContainerStyle={{ paddingHorizontal: 12 }}>
           <ChoiceRow
-            label="Key size"
+            label={t("settings.keyboardCustomization.keySize")}
             value={settings.keySize}
             options={SIZES}
             onChange={(keySize) => void updateSettings({ keySize })}
           />
-          <SettingRow label="Vibrate on key press">
+          <SettingRow
+            label={t("settings.keyboardCustomization.vibrateOnKeyPress")}
+          >
             <FakeSwitch
               checked={settings.hapticFeedback}
               onChange={(hapticFeedback) =>
@@ -74,8 +76,8 @@ export default function KeyboardCustomization() {
             />
           </SettingRow>
           <ChoiceRow
-            label="Repeat after"
-            description="How long to hold an arrow or Backspace"
+            label={t("settings.keyboardCustomization.repeatAfter")}
+            description={t("settings.keyboardCustomization.howLongToHoldAn")}
             value={String(settings.keyRepeatInitialDelay)}
             options={DELAYS}
             onChange={(v) =>
@@ -83,7 +85,7 @@ export default function KeyboardCustomization() {
             }
           />
           <ChoiceRow
-            label="Repeat every"
+            label={t("settings.keyboardCustomization.repeatEvery")}
             value={String(settings.keyRepeatInterval)}
             options={INTERVALS}
             onChange={(v) =>
@@ -92,10 +94,17 @@ export default function KeyboardCustomization() {
             last
           />
           <View className="mt-6 gap-1 pb-6">
-            <Label>Hardware keyboard</Label>
+            <Label>
+              {t("settings.keyboardCustomization.hardwareKeyboard")}
+            </Label>
             <Pressable onPress={shortcutSheet.open} accessibilityRole="button">
-              <SettingRow label="All shortcuts" last>
-                <Text className="text-meta text-muted-foreground">Show</Text>
+              <SettingRow
+                label={t("settings.keyboardCustomization.allShortcuts")}
+                last
+              >
+                <Text className="text-meta text-muted-foreground">
+                  {t("settings.keyboardCustomization.show")}
+                </Text>
               </SettingRow>
             </Pressable>
             {shortcutSections()

@@ -3,6 +3,7 @@ import { ServerMetrics } from "@/types";
 import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { WidgetCard, Meter, Stats } from "./WidgetCard";
+import { t } from "@/i18n";
 
 const gib = (n: number | null | undefined) =>
   n == null ? null : `${Number(n).toFixed(1)} GiB`;
@@ -21,7 +22,7 @@ export function MemoryWidget({
   return (
     <WidgetCard
       icon={<MemoryStick size={15} color={color("accent-brand")} />}
-      title="Memory"
+      title={t("hostMetrics.widgets.memoryWidget.memory")}
       trailing={
         <Text className="text-xs text-muted-foreground">
           {percent.toFixed(0)}%
@@ -31,10 +32,22 @@ export function MemoryWidget({
       <Meter percent={percent} history={history} />
       <Stats
         items={[
-          { label: "Used", value: gib(mem?.usedGiB) },
-          { label: "Total", value: gib(mem?.totalGiB) },
-          { label: "Cached", value: gib(mem?.cachedGiB) },
-          { label: "Free", value: gib(mem?.freeGiB) },
+          {
+            label: t("hostMetrics.widgets.memoryWidget.used"),
+            value: gib(mem?.usedGiB),
+          },
+          {
+            label: t("hostMetrics.widgets.memoryWidget.total"),
+            value: gib(mem?.totalGiB),
+          },
+          {
+            label: t("hostMetrics.widgets.memoryWidget.cached"),
+            value: gib(mem?.cachedGiB),
+          },
+          {
+            label: t("hostMetrics.widgets.memoryWidget.free"),
+            value: gib(mem?.freeGiB),
+          },
         ]}
       />
     </WidgetCard>

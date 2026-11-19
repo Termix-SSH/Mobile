@@ -3,6 +3,7 @@ import { Modal, Pressable, View } from "react-native";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { useWindowInfo } from "@/utils/window-class";
 import { areaAt } from "@/utils/fold";
+import { t } from "@/i18n";
 
 export interface PopoverAnchor {
   /** Window coordinates, from measureInWindow. */
@@ -52,7 +53,7 @@ export function Popover({
       <Pressable
         style={{ flex: 1 }}
         onPress={onClose}
-        accessibilityLabel="Close"
+        accessibilityLabel={t("ui.popover.close")}
       >
         {anchor ? (
           <View

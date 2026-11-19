@@ -21,6 +21,7 @@ import { getTabBarHeight, getButtonSize } from "@/utils/responsive";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { features } from "@/core/features";
 import { TabStrip } from "./TabStrip";
+import { t } from "@/i18n";
 
 interface TabBarProps {
   sessions: TerminalSession[];
@@ -121,7 +122,7 @@ export default function TabBar({
         }}
       >
         <BarButton
-          label="Connections"
+          label={t("sessions.navigation.tabBar.connections")}
           size={buttonSize}
           onPress={() => onShowConnections?.()}
         >
@@ -129,7 +130,11 @@ export default function TabBar({
         </BarButton>
         {hostsPane ? (
           <BarButton
-            label={hostsPane.shown ? "Hide host list" : "Show host list"}
+            label={
+              hostsPane.shown
+                ? t("sessions.navigation.tabBar.hideHostList")
+                : t("sessions.navigation.tabBar.showHostList")
+            }
             size={buttonSize}
             onPress={hostsPane.toggle}
           >
@@ -141,7 +146,7 @@ export default function TabBar({
           </BarButton>
         ) : (
           <BarButton
-            label="Back to hosts"
+            label={t("sessions.navigation.tabBar.backToHosts")}
             size={buttonSize}
             onPress={() => router.navigate("/hosts" as any)}
           >
@@ -164,7 +169,11 @@ export default function TabBar({
 
         {hasInput && !isCustomKeyboardVisible ? (
           <BarButton
-            label={!keyboardUp ? "Show keyboard" : "Hide keyboard"}
+            label={
+              !keyboardUp
+                ? t("sessions.navigation.tabBar.showKeyboard")
+                : t("sessions.navigation.tabBar.hideKeyboard")
+            }
             size={buttonSize}
             onPress={handleToggleSystemKeyboard}
           >
@@ -179,7 +188,9 @@ export default function TabBar({
         {hasInput ? (
           <BarButton
             label={
-              isCustomKeyboardVisible ? "Hide keys panel" : "Show keys panel"
+              isCustomKeyboardVisible
+                ? t("sessions.navigation.tabBar.hideKeysPanel")
+                : t("sessions.navigation.tabBar.showKeysPanel")
             }
             size={buttonSize}
             active={isCustomKeyboardVisible}

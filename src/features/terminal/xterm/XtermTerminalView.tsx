@@ -24,6 +24,7 @@ import type { TerminalConfig } from "@/types";
 import type { TerminalThemeColors } from "@/constants/terminal-themes";
 import { cursorKeysScript } from "./cursorKeys";
 import { loadXtermAssets } from "../loadXtermAssets";
+import { t as tr } from "@/i18n";
 
 // The xterm fonts for the family names the native view uses.
 const XTERM_FONTS: Record<string, string> = {
@@ -102,6 +103,7 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
         const { width, height } = Dimensions.get("window");
         const baseFontSize = fontSize || 16;
         const fontFamily = XTERM_FONTS[family] ?? XTERM_FONTS.monospace;
+        const liga = terminalConfig.ligatures === false ? 0 : 1;
         const nerdFontFace = assets.nerdFontBase64
           ? `@font-face {
       font-family: "Caskaydia Cove Nerd Font Mono";
@@ -173,7 +175,7 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
     }
 
     .xterm {
-      font-feature-settings: "liga" 1, "calt" 1;
+      font-feature-settings: "liga" ${liga}, "calt" ${liga};
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -181,11 +183,11 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
 
     .xterm .xterm-screen {
       font-family: ${fontFamily} !important;
-      font-variant-ligatures: contextual;
+      font-variant-ligatures: ${liga ? "contextual" : "none"};
     }
 
     .xterm .xterm-screen .xterm-char {
-      font-feature-settings: "liga" 1, "calt" 1;
+      font-feature-settings: "liga" ${liga}, "calt" ${liga};
     }
 
     .xterm .xterm-viewport::-webkit-scrollbar {
@@ -1147,7 +1149,7 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
         await Clipboard.setStringAsync(selectedText);
         showToast.success("Copied");
       } catch {
-        showToast.error("Could not copy");
+        showToast.error(tr("terminal.xterm.xtermTerminalView.couldNotCopy"));
       }
       clearSelection();
     };
@@ -1217,10 +1219,18 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
           androidLayerType="hardware"
           onMessage={handleMessage}
           onError={(e) =>
-            onFailure(`WebView error: ${e.nativeEvent.description}`)
+            onFailure(
+              tr("terminal.xterm.xtermTerminalView.webviewError", {
+                description: e.nativeEvent.description,
+              }),
+            )
           }
           onHttpError={(e) =>
-            onFailure(`WebView HTTP error: ${e.nativeEvent.statusCode}`)
+            onFailure(
+              tr("terminal.xterm.xtermTerminalView.webviewHttpError", {
+                statusCode: e.nativeEvent.statusCode,
+              }),
+            )
           }
           scrollEnabled={false}
           overScrollMode="never"
@@ -1247,9 +1257,18 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
             }}
           >
             {[
-              { label: "Copy", onPress: copySelection },
-              { label: "Select all", onPress: selectAll },
-              { label: "Cancel", onPress: clearSelection },
+              {
+                label: tr("terminal.xterm.xtermTerminalView.copy"),
+                onPress: copySelection,
+              },
+              {
+                label: tr("terminal.xterm.xtermTerminalView.selectAll"),
+                onPress: selectAll,
+              },
+              {
+                label: tr("terminal.xterm.xtermTerminalView.cancel"),
+                onPress: clearSelection,
+              },
             ].map((action) => (
               <TouchableOpacity
                 key={action.label}
@@ -1270,7 +1289,9 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
         {showScrollToBottomButton && hasData && (
           <TouchableOpacity
             accessibilityRole="button"
-            accessibilityLabel="Scroll to bottom"
+            accessibilityLabel={tr(
+              "terminal.xterm.xtermTerminalView.scrollToBottom",
+            )}
             onPress={() => {
               setShowScrollToBottomButton(false);
               inject("window.resetScroll && window.resetScroll()");

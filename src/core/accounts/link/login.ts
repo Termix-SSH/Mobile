@@ -5,6 +5,7 @@
 import type { AccountClient } from "@/core/api/AccountClient";
 import { AppError } from "@/core/errors";
 import type { SignInOption } from "./methods";
+import { t } from "@/i18n";
 
 /** The app's own address the server sends the browser back to. */
 export const APP_CALLBACK_URL = "termix-mobile://oidc-callback";
@@ -48,7 +49,7 @@ async function postJson(
   const text = await res.text();
   if (/^\s*<(?:!doctype|html)/i.test(text)) {
     throw new AppError(
-      "A login proxy answered instead of Termix. Sign in to the proxy first.",
+      t("accounts.link.login.aLoginProxyAnsweredInstead"),
       "PROXY_AUTH_GATE",
     );
   }
@@ -72,8 +73,8 @@ export async function finishLoginAnswer(
       typeof data.error === "string" && data.error
         ? data.error
         : status === 401
-          ? "Wrong username or password"
-          : `Sign in failed (HTTP ${status})`;
+          ? t("accounts.link.login.wrongUsernameOrPassword")
+          : t("accounts.link.login.signInFailedHttp", { status });
     throw new AppError(
       message,
       status === 429 ? "RATE_LIMITED" : "AUTH_FAILED",
@@ -82,7 +83,10 @@ export async function finishLoginAnswer(
   if (data.requires_totp || data.requires_second_factor) {
     const tempToken = String(data.temp_token ?? "");
     if (!tempToken)
-      throw new AppError("The server did not send a token.", "AUTH_FAILED");
+      throw new AppError(
+        t("accounts.link.login.theServerDidNotSend"),
+        "AUTH_FAILED",
+      );
     const factors = factorsOf(data.second_factors);
     return {
       kind: "secondFactor",
@@ -91,7 +95,10 @@ export async function finishLoginAnswer(
   }
   const token = typeof data.token === "string" ? data.token : "";
   if (!token)
-    throw new AppError("The server did not send a session.", "AUTH_FAILED");
+    throw new AppError(
+      t("accounts.link.login.theServerDidNotSend2"),
+      "AUTH_FAILED",
+    );
   await client.setToken(token);
   return { kind: "signedIn" };
 }
@@ -114,7 +121,10 @@ export async function signInWithPassword(
     };
   }
   if (!client.token()) {
-    throw new AppError("The server did not send a session.", "AUTH_FAILED");
+    throw new AppError(
+      t("accounts.link.login.theServerDidNotSend2"),
+      "AUTH_FAILED",
+    );
   }
   return { kind: "signedIn" };
 }
@@ -151,7 +161,10 @@ export async function redirectStartUrl(
   if (option.legacy) {
     const res = await client.api.auth.getOIDCAuthorizeUrl(APP_CALLBACK_URL);
     if (!res?.auth_url)
-      throw new AppError("The server sent no sign in address.", "AUTH_FAILED");
+      throw new AppError(
+        t("accounts.link.login.theServerSentNoSign"),
+        "AUTH_FAILED",
+      );
     return res.auth_url;
   }
   const params = new URLSearchParams({ appCallbackUrl: callbackUrlFor(flow) });
@@ -168,7 +181,7 @@ export async function redirectStartUrl(
     throw new AppError(
       typeof data.error === "string"
         ? data.error
-        : "The server sent no sign in address.",
+        : t("accounts.link.login.theServerSentNoSign"),
       "AUTH_FAILED",
     );
   }
@@ -197,10 +210,7 @@ export async function redeemAppCode(
     { code, verifier },
   );
   if (status !== 200 || typeof data.token !== "string" || !data.token) {
-    throw new AppError(
-      "The sign in ran out or was already used. Sign in again.",
-      "AUTH_FAILED",
-    );
+    throw new AppError(t("accounts.link.login.theSignInRanOut"), "AUTH_FAILED");
   }
   return data.token;
 }
@@ -226,7 +236,10 @@ export async function verifySecondFactor(
     // Servers before 2.9 only have the TOTP route.
     await client.api.totp.verifyTOTPLogin(step.tempToken, code.trim());
     if (!client.token())
-      throw new AppError("The server did not send a session.", "AUTH_FAILED");
+      throw new AppError(
+        t("accounts.link.login.theServerDidNotSend2"),
+        "AUTH_FAILED",
+      );
     return { kind: "signedIn" };
   }
   return finishLoginAnswer(client, status, data);
@@ -274,7 +287,10 @@ function readCallback(url: string): CallbackResult | null {
   }
   if (params.second_factor === "1") {
     if (!params.temp_token)
-      return { kind: "error", message: "The server did not send a token." };
+      return {
+        kind: "error",
+        message: t("accounts.link.login.theServerDidNotSend"),
+      };
     const factors = (params.second_factors ?? "").split(",").filter(Boolean);
     return {
       kind: "secondFactor",
@@ -286,14 +302,16 @@ function readCallback(url: string): CallbackResult | null {
   }
   if (params.token) return { kind: "token", token: params.token };
   if (params.code) return { kind: "code", code: params.code };
-  return { kind: "error", message: "The server did not send a token." };
+  return {
+    kind: "error",
+    message: t("accounts.link.login.theServerDidNotSend"),
+  };
 }
 
 const CALLBACK_ERRORS: Record<string, string> = {
-  no_token:
-    "The page signed you in but sent no session back. Update the server to Termix 26.11.3 or newer.",
-  user_not_allowed: "This account isn't allowed to sign in here.",
-  user_not_found: "No Termix account matches that sign in.",
+  no_token: t("accounts.link.login.thePageSignedYouIn"),
+  user_not_allowed: t("accounts.link.login.thisAccountIsnTAllowed"),
+  user_not_found: t("accounts.link.login.noTermixAccountMatchesThat"),
 };
 
 /** Plain words for an error code the server put on the callback. */

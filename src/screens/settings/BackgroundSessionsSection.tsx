@@ -12,6 +12,7 @@ import {
   openBatteryOptimizationSettings,
   openNotificationSettings,
 } from "@/modules/termix-session-service";
+import { t } from "@/i18n";
 
 interface Snapshot {
   enabled: boolean;
@@ -53,8 +54,10 @@ export function BackgroundSessionsSection({
       {android ? (
         <>
           <SettingRow
-            label="Keep sessions running"
-            description="Shows a notification while sessions are open, so Android keeps them going when you leave the app"
+            label={t("settings.backgroundSessionsSection.keepSessionsRunning")}
+            description={t(
+              "settings.backgroundSessionsSection.showsANotificationWhileSessions",
+            )}
             last
           >
             <FakeSwitch
@@ -66,12 +69,16 @@ export function BackgroundSessionsSection({
           </SettingRow>
           <View className="gap-2 border-t border-border/40 pt-3">
             <Text weight="medium" className="text-sm text-foreground">
-              Battery optimization
+              {t("settings.backgroundSessionsSection.batteryOptimization")}
             </Text>
             <Text className="text-[11px] text-muted-foreground">
               {state.battery
-                ? "Termix is not restricted, so sessions can stay open with the screen off."
-                : "Android may still stop sessions to save battery. Open the battery settings, find Termix and pick Not optimized or Unrestricted."}
+                ? t(
+                    "settings.backgroundSessionsSection.termixIsNotRestrictedSo",
+                  )
+                : t(
+                    "settings.backgroundSessionsSection.androidMayStillStopSessions",
+                  )}
             </Text>
             {!state.battery ? (
               <Button
@@ -80,18 +87,17 @@ export function BackgroundSessionsSection({
                 className="self-start"
                 onPress={() => openBatteryOptimizationSettings()}
               >
-                Open battery settings
+                {t("settings.backgroundSessionsSection.openBatterySettings")}
               </Button>
             ) : null}
           </View>
           {!state.notifications ? (
             <View className="gap-2 border-t border-border/40 pt-3">
               <Text weight="medium" className="text-sm text-foreground">
-                Notifications are off
+                {t("settings.backgroundSessionsSection.notificationsAreOff")}
               </Text>
               <Text className="text-[11px] text-muted-foreground">
-                Sessions still run, but the list of open sessions and the
-                Disconnect all button stay hidden.
+                {t("settings.backgroundSessionsSection.sessionsStillRunButThe")}
               </Text>
               <Button
                 size="sm"
@@ -99,7 +105,9 @@ export function BackgroundSessionsSection({
                 className="self-start"
                 onPress={() => openNotificationSettings()}
               >
-                Open notification settings
+                {t(
+                  "settings.backgroundSessionsSection.openNotificationSettings",
+                )}
               </Button>
             </View>
           ) : null}
@@ -107,15 +115,18 @@ export function BackgroundSessionsSection({
       ) : (
         <Text className="text-meta text-muted-foreground">
           {os === "android"
-            ? "This build can't keep sessions running in the background. They reconnect when you come back."
-            : "iOS stops apps soon after you leave them, so sessions can't run in the background. They reconnect when you come back, and tmux or screen picks up where you were."}
+            ? t("settings.backgroundSessionsSection.thisBuildCanTKeep")
+            : t("settings.backgroundSessionsSection.iosStopsAppsSoonAfter")}
         </Text>
       )}
       {state.lowPower ? (
         <Text className="text-[11px] text-muted-foreground">
-          {os === "ios" ? "Low Power Mode" : "Battery saver"} is on. Termix
-          checks connections less often and waits longer between reconnect
-          tries.
+          {t("settings.backgroundSessionsSection.isOnTermixChecksConnections", {
+            value:
+              os === "ios"
+                ? t("settings.backgroundSessionsSection.lowPowerMode")
+                : t("settings.backgroundSessionsSection.batterySaver"),
+          })}
         </Text>
       ) : null}
     </View>
@@ -124,7 +135,7 @@ export function BackgroundSessionsSection({
   if (!onToggle) return body;
   return (
     <AccordionSection
-      label="Background sessions"
+      label={t("settings.backgroundSessionsSection.backgroundSessions")}
       icon={<BatteryCharging size={14} color={color("muted-foreground")} />}
       open={!!open}
       onToggle={onToggle}

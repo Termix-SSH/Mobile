@@ -10,6 +10,7 @@ import { ListRow, Text } from "@/ui";
 import { ago } from "@/utils/ago";
 import { HomeCard } from "../HomeCard";
 import { useHomeData } from "../HomeData";
+import { t } from "@/i18n";
 
 const SHOWN = 6;
 const POLL_MS = 60_000;
@@ -42,7 +43,10 @@ export function ActivityCard({ accountId, active, refreshKey }: HomeCardProps) {
   const muted = color("muted-foreground");
 
   return (
-    <HomeCard title="Recent activity" icon={Activity}>
+    <HomeCard
+      title={t("home.cards.activityCard.recentActivity")}
+      icon={Activity}
+    >
       <View>
         {items.map((item, index) => {
           const host = hosts.find(
@@ -57,7 +61,9 @@ export function ActivityCard({ accountId, active, refreshKey }: HomeCardProps) {
               icon={<Icon size={16} color={muted} />}
               meta={
                 <Text className="text-meta text-muted-foreground">
-                  {item.type === "file_manager" ? "Files" : "Terminal"}
+                  {item.type === "file_manager"
+                    ? t("home.cards.activityCard.files")
+                    : t("home.cards.activityCard.terminal")}
                   {" | "}
                   {ago(item.timestamp)}
                 </Text>

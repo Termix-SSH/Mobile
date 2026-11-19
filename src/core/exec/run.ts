@@ -1,6 +1,7 @@
 import { utf8Decode } from "@termix-ssh/plugin-sdk/host-scripts";
 import type { SshSession } from "@/modules/termix-ssh";
 import { ExecError, type RunResult } from "./types";
+import { t } from "@/i18n";
 
 /** The part of an SSH session the exec code needs, so tests can fake it. */
 export type ExecSession = Pick<SshSession, "execStream">;
@@ -84,7 +85,7 @@ export function execOnce(
     }
     options.signal?.addEventListener("abort", onAbort);
     timer = setTimeout(
-      () => stop(new ExecError("timeout", "The host took too long to answer")),
+      () => stop(new ExecError("timeout", t("exec.run.theHostTookTooLong"))),
       options.timeoutMs ?? DEFAULT_TIMEOUT,
     );
 
@@ -112,7 +113,12 @@ export function execOnce(
         await exec.eof();
       })
       .catch((error) =>
-        stop(new ExecError("network", messageOf(error) || "Connection lost")),
+        stop(
+          new ExecError(
+            "network",
+            messageOf(error) || t("exec.run.connectionLost"),
+          ),
+        ),
       );
   });
 }

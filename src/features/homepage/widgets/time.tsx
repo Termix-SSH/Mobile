@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Text } from "@/ui";
 import { bool, Empty, str, type WidgetProps } from "./shared";
+import { t } from "@/i18n";
 
 /** The current time, ticking while the card is shown. */
 function useNow(active: boolean, everyMs: number): number {
@@ -75,7 +76,8 @@ export function remaining(target: number, now: number) {
 export function CountdownWidget({ item, active }: WidgetProps) {
   const now = useNow(active, 1000);
   const target = Date.parse(str(item.config.targetDate));
-  if (!Number.isFinite(target)) return <Empty>No date set.</Empty>;
+  if (!Number.isFinite(target))
+    return <Empty>{t("homepage.widgets.time.noDateSet")}</Empty>;
   const left = remaining(target, now);
   const showDays = bool(item.config.showDays, true);
   const showHours = bool(item.config.showHours, true);
@@ -93,7 +95,7 @@ export function CountdownWidget({ item, active }: WidgetProps) {
       ) : null}
       {left.done ? (
         <Text weight="bold" className="text-center text-xl text-foreground">
-          Time is up
+          {t("homepage.widgets.time.timeIsUp")}
         </Text>
       ) : (
         <View className="flex-row justify-center gap-4">

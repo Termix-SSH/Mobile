@@ -78,6 +78,10 @@ npm run render -- --write-metadata                           # also fills fastla
 
 A new scenario needs an entry in `SCENARIOS`, a capture in `CAPTURES` and a slide in `SLIDES`.
 
+## Translations
+
+All text in the app comes from `src/i18n/locales/en.json`. Other languages are translated automatically, and anyone can fix a translation or add a new language. See [src/i18n/locales/README.md](src/i18n/locales/README.md).
+
 ## Checks
 
 ```sh

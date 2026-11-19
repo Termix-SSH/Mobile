@@ -44,6 +44,7 @@ import {
 } from "./status";
 import { NotesWidget, TextBannerWidget } from "./text";
 import { CalendarWidget, ClockWidget, CountdownWidget } from "./time";
+import { t } from "@/i18n";
 
 interface WidgetType {
   label: string;
@@ -54,57 +55,127 @@ interface WidgetType {
 /** Widget types the app draws itself. The rest open in Homepage. */
 export const WIDGETS: Record<string, WidgetType> = {
   service_grid: {
-    label: "Services",
+    label: t("homepage.widgets.services"),
     icon: LayoutGrid,
     component: ServiceGridWidget,
   },
-  service_link: { label: "Service", icon: Globe, component: ServiceLinkWidget },
+  service_link: {
+    label: t("homepage.widgets.service"),
+    icon: Globe,
+    component: ServiceLinkWidget,
+  },
   dashboard_links: {
-    label: "Service links",
+    label: t("homepage.widgets.serviceLinks"),
     icon: Link,
     component: ServiceLinksWidget,
   },
   service_links: {
-    label: "Service links",
+    label: t("homepage.widgets.serviceLinks"),
     icon: Link,
     component: ServiceLinksWidget,
   },
   bookmark_list: {
-    label: "Bookmarks",
+    label: t("homepage.widgets.bookmarks"),
     icon: Bookmark,
     component: BookmarkListWidget,
   },
-  link_tree: { label: "Links", icon: ListTree, component: LinkTreeWidget },
-  search_links: { label: "Search", icon: Search, component: SearchLinksWidget },
-  search_bar: { label: "Search", icon: Search, component: SearchBarWidget },
-  clock: { label: "Clock", icon: Clock, component: ClockWidget },
-  countdown: { label: "Countdown", icon: Timer, component: CountdownWidget },
-  calendar: { label: "Calendar", icon: Calendar, component: CalendarWidget },
-  notes: { label: "Notes", icon: StickyNote, component: NotesWidget },
-  markdown_notes: { label: "Notes", icon: StickyNote, component: NotesWidget },
-  text_banner: { label: "Banner", icon: Type, component: TextBannerWidget },
-  ping_status: { label: "Ping", icon: Radar, component: PingStatusWidget },
-  host_status: { label: "Host", icon: Server, component: HostStatusWidget },
-  host_grid: { label: "Hosts", icon: Server, component: HostGridWidget },
+  link_tree: {
+    label: t("homepage.widgets.links2"),
+    icon: ListTree,
+    component: LinkTreeWidget,
+  },
+  search_links: {
+    label: t("homepage.widgets.search"),
+    icon: Search,
+    component: SearchLinksWidget,
+  },
+  search_bar: {
+    label: t("homepage.widgets.search"),
+    icon: Search,
+    component: SearchBarWidget,
+  },
+  clock: {
+    label: t("homepage.widgets.clock"),
+    icon: Clock,
+    component: ClockWidget,
+  },
+  countdown: {
+    label: t("homepage.widgets.countdown"),
+    icon: Timer,
+    component: CountdownWidget,
+  },
+  calendar: {
+    label: t("homepage.widgets.calendar"),
+    icon: Calendar,
+    component: CalendarWidget,
+  },
+  notes: {
+    label: t("homepage.widgets.notes"),
+    icon: StickyNote,
+    component: NotesWidget,
+  },
+  markdown_notes: {
+    label: t("homepage.widgets.notes"),
+    icon: StickyNote,
+    component: NotesWidget,
+  },
+  text_banner: {
+    label: t("homepage.widgets.banner"),
+    icon: Type,
+    component: TextBannerWidget,
+  },
+  ping_status: {
+    label: t("homepage.widgets.ping"),
+    icon: Radar,
+    component: PingStatusWidget,
+  },
+  host_status: {
+    label: t("homepage.widgets.host"),
+    icon: Server,
+    component: HostStatusWidget,
+  },
+  host_grid: {
+    label: t("homepage.widgets.hosts"),
+    icon: Server,
+    component: HostGridWidget,
+  },
   quick_connect: {
-    label: "Quick connect",
+    label: t("homepage.widgets.quickConnect"),
     icon: Zap,
     component: QuickConnectWidget,
   },
   ssh_quick_connect: {
-    label: "Quick connect",
+    label: t("homepage.widgets.quickConnect"),
     icon: Zap,
     component: QuickConnectWidget,
   },
-  rss_feed: { label: "Feed", icon: Rss, component: RssFeedWidget },
-  weather: { label: "Weather", icon: CloudSun, component: WeatherWidget },
-  custom_api: { label: "Custom API", icon: Code, component: CustomApiWidget },
-  image_widget: { label: "Picture", icon: ImageIcon, component: ImageWidget },
+  rss_feed: {
+    label: t("homepage.widgets.feed"),
+    icon: Rss,
+    component: RssFeedWidget,
+  },
+  weather: {
+    label: t("homepage.widgets.weather"),
+    icon: CloudSun,
+    component: WeatherWidget,
+  },
+  custom_api: {
+    label: t("homepage.widgets.customApi"),
+    icon: Code,
+    component: CustomApiWidget,
+  },
+  image_widget: {
+    label: t("homepage.widgets.picture"),
+    icon: ImageIcon,
+    component: ImageWidget,
+  },
 };
 
 /** Grid headings only; the phone lists cards without them. */
 export const SKIPPED_TYPES = new Set(["folder"]);
 
 export function widgetType(typeId: string): WidgetType {
-  return WIDGETS[typeId] ?? { label: "Widget", icon: LayoutGrid };
+  return (
+    WIDGETS[typeId] ?? { label: t("homepage.widgets.widget"), icon: LayoutGrid }
+  );
 }

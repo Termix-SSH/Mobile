@@ -5,6 +5,7 @@ import type {
   HostToggleDef,
 } from "@/core/features/types";
 import type { AuthType, JumpHostData, SSHHost, SSHHostData } from "@/types";
+import { t as tr } from "@/i18n";
 
 /** The parts of the host editor the screen owns. Sections keep their own values. */
 export interface HostEditorForm {
@@ -174,19 +175,22 @@ export function formError(
   form: HostEditorForm,
   toggles: HostToggleDef[],
 ): string | null {
-  if (!form.ip.trim()) return "Enter the host's address";
-  if (/\s/.test(form.ip.trim())) return "The address can't have spaces";
-  if (form.port && !PORT(form.port)) return "Port must be from 1 to 65535";
+  if (!form.ip.trim()) return tr("hosts.editor.model.enterTheHostSAddress");
+  if (/\s/.test(form.ip.trim()))
+    return tr("hosts.editor.model.theAddressCanTHave");
+  if (form.port && !PORT(form.port))
+    return tr("hosts.editor.model.portMustBeFrom1");
   const protocolOn =
     form.enableSsh ||
     toggles.some((t) => t.group === "protocol" && form.toggles[t.key]);
-  if (!protocolOn) return "Turn on at least one protocol";
+  if (!protocolOn) return tr("hosts.editor.model.turnOnAtLeastOne");
   if (form.enableSsh) {
     if (form.authType !== "none" && form.authType !== "credential") {
-      if (!form.username.trim()) return "Enter the SSH username";
+      if (!form.username.trim())
+        return tr("hosts.editor.model.enterTheSshUsername");
     }
     if (form.authType === "credential" && !form.credentialId) {
-      return "Pick a credential";
+      return tr("hosts.editor.model.pickACredential");
     }
   }
   return null;

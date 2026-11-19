@@ -12,6 +12,7 @@ import {
 import { openTab } from "@/screens/shell/navigate";
 import { ListRow, Text } from "@/ui";
 import { HomeCard } from "../HomeCard";
+import { t } from "@/i18n";
 
 /** The tabs that are open, to jump back in. */
 export function SessionsCard() {
@@ -23,7 +24,7 @@ export function SessionsCard() {
 
   return (
     <HomeCard
-      title="Open sessions"
+      title={t("home.cards.sessionsCard.openSessions")}
       icon={SquareTerminal}
       meta={String(sessions.length)}
       action="All"
@@ -44,7 +45,9 @@ export function SessionsCard() {
               meta={
                 <Text className="text-meta text-muted-foreground">
                   {statusLabel(state) ??
-                    (state === "connected" ? "Connected" : session.host.ip)}
+                    (state === "connected"
+                      ? t("home.cards.sessionsCard.connected")
+                      : session.host.ip)}
                 </Text>
               }
               trailing={<TabStatusMark state={state} />}

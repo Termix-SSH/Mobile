@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Lock } from "lucide-react-native";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { PinPad, PIN_LENGTH, Sheet, SheetBody, Text } from "@/ui";
+import { t } from "@/i18n";
 
 /**
  * Asks for a PIN on the number pad. `onSubmit` returns true when the PIN was
@@ -65,7 +66,11 @@ export function PinSheet({
       onClose={onClose}
       title={title}
       description={
-        waitMs > 0 ? `Wait ${Math.ceil(waitMs / 1000)} seconds` : description
+        waitMs > 0
+          ? t("settings.controls.pinSheet.waitSeconds", {
+              value: Math.ceil(waitMs / 1000),
+            })
+          : description
       }
       icon={<Lock size={15} color={color("accent-brand")} />}
     >
@@ -79,7 +84,7 @@ export function PinSheet({
             onBiometric={onBiometric}
           />
           <Text className="mt-4 text-meta text-muted-foreground">
-            {PIN_LENGTH} digits
+            {t("settings.controls.pinSheet.digits", { PIN_LENGTH })}
           </Text>
         </View>
       </SheetBody>

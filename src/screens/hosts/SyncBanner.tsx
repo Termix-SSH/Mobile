@@ -7,6 +7,7 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { useSyncFix } from "@/screens/accounts/useSyncFix";
 import { Button, Text } from "@/ui";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /** Reasons that need the user; offline and server hiccups retry on their own. */
 const SHOWN = new Set([
@@ -39,7 +40,7 @@ export function SyncBanner() {
       <View className="mt-2 flex-row items-center gap-2 border border-border bg-card p-3">
         <ActivityIndicator size="small" color={color("accent-brand")} />
         <Text className="flex-1 text-xs text-muted-foreground">
-          Getting your hosts from the server
+          {t("hosts.syncBanner.gettingYourHostsFromThe")}
         </Text>
       </View>
     );
@@ -60,7 +61,10 @@ export function SyncBanner() {
             {text.title}
           </Text>
           <Text className="mt-0.5 text-xs text-muted-foreground">
-            {text.message} Your hosts stay on this {deviceWord} meanwhile.
+            {t("hosts.syncBanner.yourHostsStayOnThis", {
+              message: text.message,
+              deviceWord,
+            })}
           </Text>
         </View>
       </View>

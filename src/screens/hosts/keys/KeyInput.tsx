@@ -13,6 +13,7 @@ import {
   keyStatusText,
 } from "@/utils/keyImport";
 import { toast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 /**
  * A private key from a file or pasted text, with its passphrase. Keys are
@@ -60,7 +61,7 @@ export function KeyInput({
       const asset = result.assets[0];
       take(await readLocalText(asset.uri), asset.name);
     } catch {
-      toast.error("Could not read that key file");
+      toast.error(t("hosts.keys.keyInput.couldNotReadThatKey"));
     } finally {
       setBusy(false);
     }
@@ -69,10 +70,10 @@ export function KeyInput({
   const paste = async () => {
     const text = await Clipboard.getStringAsync().catch(() => "");
     if (!text.trim()) {
-      toast.error("The clipboard is empty");
+      toast.error(t("hosts.keys.keyInput.theClipboardIsEmpty"));
       return;
     }
-    take(text, "the pasted key");
+    take(text, t("hosts.keys.keyInput.thePastedKey"));
   };
 
   // Typed or pasted by hand: convert once the user leaves the box.
@@ -87,7 +88,7 @@ export function KeyInput({
   return (
     <View className="gap-3">
       <Field
-        label="Private key"
+        label={t("hosts.keys.keyInput.privateKey")}
         error={bad && status.kind !== "needsPassphrase" ? statusText : null}
         hint={status.kind === "ok" ? statusText : undefined}
       >
@@ -99,7 +100,7 @@ export function KeyInput({
             onPress={pickFile}
             icon={<Upload size={14} color={icon} />}
           >
-            Choose file
+            {t("hosts.keys.keyInput.chooseFile")}
           </Button>
           <Button
             variant="muted"
@@ -107,7 +108,7 @@ export function KeyInput({
             onPress={paste}
             icon={<ClipboardPaste size={14} color={icon} />}
           >
-            Paste
+            {t("hosts.keys.keyInput.paste")}
           </Button>
         </View>
         <Input
@@ -117,8 +118,8 @@ export function KeyInput({
           multiline
           placeholder={
             isEdit
-              ? "Unchanged if blank"
-              : "-----BEGIN OPENSSH PRIVATE KEY-----"
+              ? t("hosts.keys.keyInput.unchangedIfBlank")
+              : t("hosts.keys.keyInput.beginOpensshPrivateKey")
           }
           autoCapitalize="none"
           autoCorrect={false}
@@ -127,19 +128,19 @@ export function KeyInput({
         />
       </Field>
       <Field
-        label="Passphrase"
+        label={t("hosts.keys.keyInput.passphrase")}
         error={
           status.kind === "needsPassphrase" || status.kind === "wrongPassphrase"
             ? statusText
             : null
         }
-        hint="Only if the key has one"
+        hint={t("hosts.keys.keyInput.onlyIfTheKeyHas")}
       >
         <Input
           value={passphrase}
           onChangeText={(keyPassword) => onChange({ keyPassword })}
           secureTextEntry
-          placeholder="Passphrase"
+          placeholder={t("hosts.keys.keyInput.passphrase")}
           autoCapitalize="none"
           autoCorrect={false}
           textContentType="password"
@@ -147,7 +148,7 @@ export function KeyInput({
       </Field>
       {status.kind === "unchecked" ? (
         <Text className="text-meta text-muted-foreground">
-          The key is checked when you connect.
+          {t("hosts.keys.keyInput.theKeyIsCheckedWhen")}
         </Text>
       ) : null}
     </View>

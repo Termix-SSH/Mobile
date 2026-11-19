@@ -13,6 +13,7 @@ import {
   usePings,
   type WidgetProps,
 } from "./shared";
+import { t } from "@/i18n";
 
 export function PingStatusWidget(props: WidgetProps) {
   const urls = list<{ label?: unknown; url?: unknown }>(
@@ -24,7 +25,8 @@ export function PingStatusWidget(props: WidgetProps) {
     props,
   );
   const latency = bool(props.item.config.showLatency, true);
-  if (urls.length === 0) return <Empty>No URLs yet.</Empty>;
+  if (urls.length === 0)
+    return <Empty>{t("homepage.widgets.status.noUrlsYet")}</Empty>;
   return (
     <View>
       {urls.map((u, index) => {
@@ -39,7 +41,9 @@ export function PingStatusWidget(props: WidgetProps) {
             trailing={
               latency && result ? (
                 <Text className="text-meta text-muted-foreground">
-                  {result.ok ? `${result.latencyMs} ms` : "Down"}
+                  {result.ok
+                    ? `${result.latencyMs} ms`
+                    : t("homepage.widgets.status.down")}
                 </Text>
               ) : undefined
             }
@@ -61,7 +65,8 @@ export function hostsFor(ids: unknown[], hosts: SSHHost[]): SSHHost[] {
 
 function HostRows({ hosts }: { hosts: SSHHost[] }) {
   const { statuses, openHost, showHostMenu } = useHomeData();
-  if (hosts.length === 0) return <Empty>No hosts picked.</Empty>;
+  if (hosts.length === 0)
+    return <Empty>{t("homepage.widgets.status.noHostsPicked")}</Empty>;
   return (
     <View>
       {hosts.map((host, index) => (
@@ -100,7 +105,8 @@ export function HostGridWidget({ item }: WidgetProps) {
   const ids = Array.isArray(item.config.hostIds) ? item.config.hostIds : [];
   const picked = hostsFor(ids, hosts);
   const showIp = bool(item.config.showIp, true);
-  if (picked.length === 0) return <Empty>No hosts picked.</Empty>;
+  if (picked.length === 0)
+    return <Empty>{t("homepage.widgets.status.noHostsPicked")}</Empty>;
   const cols = Math.min(Math.max(num(item.config.columns, 3), 2), 3);
   const width = `${100 / cols}%` as const;
   return (

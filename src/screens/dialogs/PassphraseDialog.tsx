@@ -3,6 +3,7 @@ import { View, Platform } from "react-native";
 import { KeyRound } from "lucide-react-native";
 import { Sheet, SheetBody, Input, Button, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { t } from "@/i18n";
 
 interface PassphraseDialogProps {
   visible: boolean;
@@ -53,12 +54,12 @@ export function PassphraseDialog({
       visible={visible}
       onClose={onCancel}
       icon={<KeyRound size={18} color={color("accent-brand")} />}
-      title="Passphrase Required"
-      description="Enter the passphrase for your SSH key."
+      title={t("dialogs.passphraseDialog.passphraseRequired")}
+      description={t("dialogs.passphraseDialog.enterThePassphraseForYour")}
       footer={
         <View className="flex-1 flex-row gap-2">
           <Button variant="muted" className="flex-1" onPress={onCancel}>
-            Cancel
+            {t("dialogs.passphraseDialog.cancel")}
           </Button>
           <Button
             variant="default"
@@ -67,7 +68,7 @@ export function PassphraseDialog({
             loading={busy}
             disabled={!passphrase.trim()}
           >
-            Connect
+            {t("dialogs.passphraseDialog.connect")}
           </Button>
         </View>
       }
@@ -84,7 +85,7 @@ export function PassphraseDialog({
         <Input
           value={passphrase}
           onChangeText={setPassphrase}
-          placeholder="Key passphrase"
+          placeholder={t("dialogs.passphraseDialog.keyPassphrase")}
           secureTextEntry
           autoCapitalize="none"
           autoCorrect={false}

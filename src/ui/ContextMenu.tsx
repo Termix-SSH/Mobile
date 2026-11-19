@@ -4,6 +4,7 @@ import { useWindowInfo } from "@/utils/window-class";
 import { areaAt } from "@/utils/fold";
 import { Text } from "./Text";
 import { useUiColors } from "@/contexts/ThemeContext";
+import { t } from "@/i18n";
 
 export type ContextMenuItem = {
   id: string;
@@ -115,7 +116,7 @@ export function ContextMenu({
       <Pressable
         style={{ flex: 1 }}
         onPress={onClose}
-        accessibilityLabel="Close menu"
+        accessibilityLabel={t("ui.contextMenu.closeMenu")}
       >
         <View
           accessibilityRole="menu"

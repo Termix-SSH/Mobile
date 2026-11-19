@@ -6,6 +6,7 @@ import { Button, Label, Sheet, SheetBody, Text } from "@/ui";
 import { MONO_FONT } from "@/constants/fonts";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import type { HostKeyData } from "@/core/transport/types";
+import { t } from "@/i18n";
 
 interface HostKeyVerificationDialogProps {
   visible: boolean;
@@ -68,7 +69,9 @@ function FingerprintRow({
               )
             }
           >
-            {copied ? "Copied" : "Copy"}
+            {copied
+              ? t("dialogs.hostKeyVerificationDialog.copied")
+              : t("dialogs.hostKeyVerificationDialog.copy")}
           </Button>
         </View>
       </View>
@@ -93,7 +96,11 @@ export function HostKeyVerificationDialog({
       onClose={onReject}
       scroll
       tone={isChanged ? "destructive" : "default"}
-      title={isChanged ? "Host key changed" : "Verify host key"}
+      title={
+        isChanged
+          ? t("dialogs.hostKeyVerificationDialog.hostKeyChanged")
+          : t("dialogs.hostKeyVerificationDialog.verifyHostKey")
+      }
       description={hostLabel}
       icon={
         isChanged ? (
@@ -105,14 +112,16 @@ export function HostKeyVerificationDialog({
       footer={
         <View className="flex-row gap-2">
           <Button variant="muted" className="flex-1" onPress={onReject}>
-            Cancel
+            {t("dialogs.hostKeyVerificationDialog.cancel")}
           </Button>
           <Button
             variant={isChanged ? "destructive" : "default"}
             className="flex-1"
             onPress={onAccept}
           >
-            {isChanged ? "Accept new key" : "Connect and trust"}
+            {isChanged
+              ? t("dialogs.hostKeyVerificationDialog.acceptNewKey")
+              : t("dialogs.hostKeyVerificationDialog.connectAndTrust")}
           </Button>
         </View>
       }
@@ -125,21 +134,21 @@ export function HostKeyVerificationDialog({
             className={`text-xs ${isChanged ? "text-destructive-text" : "text-accent-text"}`}
           >
             {isChanged
-              ? "The host's SSH key has changed since your last connection. This could mean someone is intercepting the connection."
-              : "You are connecting to this host for the first time. Check the fingerprint before you trust it."}
+              ? t("dialogs.hostKeyVerificationDialog.theHostSSshKey")
+              : t("dialogs.hostKeyVerificationDialog.youAreConnectingToThis")}
           </Text>
         </View>
 
         {data && isChanged && data.oldFingerprint ? (
           <>
             <FingerprintRow
-              label="Previous key"
+              label={t("dialogs.hostKeyVerificationDialog.previousKey")}
               algorithm={data.algorithm}
               fingerprint={data.oldFingerprint}
               keyType={data.oldKeyType ?? data.keyType}
             />
             <FingerprintRow
-              label="New fingerprint"
+              label={t("dialogs.hostKeyVerificationDialog.newFingerprint")}
               algorithm={data.algorithm}
               fingerprint={data.fingerprint}
               keyType={data.keyType}
@@ -147,7 +156,7 @@ export function HostKeyVerificationDialog({
           </>
         ) : data ? (
           <FingerprintRow
-            label="Host fingerprint"
+            label={t("dialogs.hostKeyVerificationDialog.hostFingerprint")}
             algorithm={data.algorithm}
             fingerprint={data.fingerprint}
             keyType={data.keyType}

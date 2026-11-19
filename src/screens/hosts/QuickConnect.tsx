@@ -18,6 +18,7 @@ import { toast } from "@/utils/toast";
 import { useRepositories } from "@/core/data/hooks";
 import { formDefaults } from "@/core/hosts/defaults/form";
 import { parseTarget, targetName } from "@/core/hosts/target";
+import { t } from "@/i18n";
 
 type AuthType = "password" | "key";
 
@@ -86,7 +87,7 @@ export function QuickConnect({
 
   const connect = () => {
     if (!ip.trim() || !username.trim()) {
-      toast.error("Host and username are required");
+      toast.error(t("hosts.quickConnect.hostAndUsernameAreRequired"));
       return;
     }
     const transient: SSHHost = {
@@ -123,8 +124,12 @@ export function QuickConnect({
           enableFileManager: true,
           enableSsh: true,
         })
-        .then(() => toast.success("Host saved"))
-        .catch((e) => toast.error(e?.message || "Could not save the host"));
+        .then(() => toast.success(t("hosts.quickConnect.hostSaved")))
+        .catch((e) =>
+          toast.error(
+            e?.message || t("hosts.quickConnect.couldNotSaveTheHost"),
+          ),
+        );
     }
     onClose();
     reset();
@@ -135,8 +140,8 @@ export function QuickConnect({
     <Sheet
       visible={visible}
       onClose={onClose}
-      title="Quick connect"
-      description="Connect to a host without saving it."
+      title={t("hosts.quickConnect.quickConnect")}
+      description={t("hosts.quickConnect.connectToAHostWithout")}
       icon={<Zap size={15} color={color("accent-brand")} />}
     >
       <ScrollView
@@ -146,7 +151,7 @@ export function QuickConnect({
       >
         <View className="flex-row gap-2.5">
           <View className="flex-[3] gap-1.5">
-            <Label>Host / IP</Label>
+            <Label>{t("hosts.quickConnect.hostIp")}</Label>
             <Input
               value={ip}
               onChangeText={changeAddress}
@@ -156,7 +161,7 @@ export function QuickConnect({
             />
           </View>
           <View className="flex-1 gap-1.5">
-            <Label>Port</Label>
+            <Label>{t("hosts.quickConnect.port")}</Label>
             <Input
               value={port}
               onChangeText={(v) => setPort(v.replace(/\D/g, ""))}
@@ -166,7 +171,7 @@ export function QuickConnect({
         </View>
 
         <View className="gap-1.5">
-          <Label>Username</Label>
+          <Label>{t("hosts.quickConnect.username")}</Label>
           <Input
             value={username}
             onChangeText={setUsername}
@@ -180,14 +185,14 @@ export function QuickConnect({
           value={authType}
           onChange={setAuthType}
           options={[
-            { id: "password", label: "Password" },
-            { id: "key", label: "Key" },
+            { id: "password", label: t("hosts.quickConnect.password") },
+            { id: "key", label: t("hosts.quickConnect.key") },
           ]}
         />
 
         {authType === "password" ? (
           <View className="gap-1.5">
-            <Label>Password</Label>
+            <Label>{t("hosts.quickConnect.password")}</Label>
             <Input
               value={password}
               onChangeText={setPassword}
@@ -197,7 +202,7 @@ export function QuickConnect({
           </View>
         ) : (
           <View className="gap-1.5">
-            <Label>Private Key</Label>
+            <Label>{t("hosts.quickConnect.privateKey")}</Label>
             <Input
               value={key}
               onChangeText={setKey}
@@ -211,24 +216,24 @@ export function QuickConnect({
         )}
 
         <SettingRow
-          label="Save to my hosts"
-          description="Keep this host after connecting"
+          label={t("hosts.quickConnect.saveToMyHosts")}
+          description={t("hosts.quickConnect.keepThisHostAfterConnecting")}
           last
         >
           <FakeSwitch
             checked={save}
             onChange={setSave}
-            accessibilityLabel="Save to my hosts"
+            accessibilityLabel={t("hosts.quickConnect.saveToMyHosts")}
           />
         </SettingRow>
 
         {/* Actions */}
         <View className="flex-row justify-end gap-2 pt-1">
           <Button variant="ghost" size="sm" onPress={onClose}>
-            Cancel
+            {t("hosts.quickConnect.cancel")}
           </Button>
           <Button variant="default" size="sm" onPress={connect}>
-            Connect
+            {t("hosts.quickConnect.connect")}
           </Button>
         </View>
       </ScrollView>

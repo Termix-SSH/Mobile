@@ -4,6 +4,7 @@ import { ServerMetrics } from "@/types";
 import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { WidgetCard } from "./WidgetCard";
+import { t } from "@/i18n";
 
 function Row({ label, value }: { label: string; value?: string | null }) {
   if (!value) return null;
@@ -27,14 +28,25 @@ export function SystemWidget({ metrics }: { metrics: ServerMetrics }) {
   return (
     <WidgetCard
       icon={<Server size={15} color={color("accent-brand")} />}
-      title="System"
+      title={t("hostMetrics.widgets.systemWidget.system")}
     >
-      <Row label="Hostname" value={sys?.hostname} />
-      <Row label="OS" value={sys?.os} />
-      <Row label="Kernel" value={sys?.kernel} />
-      <Row label="Arch" value={sys?.arch} />
+      <Row
+        label={t("hostMetrics.widgets.systemWidget.hostname")}
+        value={sys?.hostname}
+      />
+      <Row label={t("hostMetrics.widgets.systemWidget.os")} value={sys?.os} />
+      <Row
+        label={t("hostMetrics.widgets.systemWidget.kernel")}
+        value={sys?.kernel}
+      />
+      <Row
+        label={t("hostMetrics.widgets.systemWidget.arch")}
+        value={sys?.arch}
+      />
       {!sys?.hostname && !sys?.os && !sys?.kernel ? (
-        <Text className="text-meta text-muted-foreground">No system info</Text>
+        <Text className="text-meta text-muted-foreground">
+          {t("hostMetrics.widgets.systemWidget.noSystemInfo")}
+        </Text>
       ) : null}
     </WidgetCard>
   );

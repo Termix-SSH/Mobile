@@ -23,6 +23,7 @@ import { useRemoteRoute } from "./route";
 import { RemoteDesktop, type RemoteDesktopProtocol } from "./RemoteDesktop";
 import { REMOTE_DESKTOP_TAB, TELNET_TAB, telnetTabFor } from "./telnet";
 import { protocolSection } from "./host-sections";
+import { t } from "@/i18n";
 
 const PLUGIN = "remote-desktop";
 const PROTOCOLS: RemoteDesktopProtocol[] = ["rdp", "vnc", "telnet"];
@@ -161,7 +162,7 @@ TelnetTab.displayName = "TelnetTab";
 export const remoteDesktopFeature: FeatureDef = {
   id: "remote-desktop",
   plugins: ["remote-desktop"],
-  title: "Remote Desktop",
+  title: t("remoteDesktop.register.remoteDesktop"),
   source: "native",
   availableOn: ["local", "server"],
   sessionTabs: [
@@ -262,7 +263,7 @@ const PHONE_TOO: Partial<FeatureDef> = {
 export const rdpFeature = protocolFeature("rdp", {
   label: "RDP",
   badge: "RDP",
-  description: "Remote Desktop",
+  description: t("remoteDesktop.register.remoteDesktop"),
   icon: Monitor,
   order: 0,
   enabled: (host) => !!host.enableRdp,
@@ -283,7 +284,7 @@ export const vncFeature = protocolFeature("vnc", {
 // The phone dials Telnet itself, so it works with no server and on servers
 // without the remote desktop plugin. Through a server it uses that plugin.
 export const telnetFeature = protocolFeature("telnet", {
-  label: "Telnet",
+  label: t("remoteDesktop.register.telnet"),
   badge: "TEL",
   icon: MessagesSquare,
   order: 2,

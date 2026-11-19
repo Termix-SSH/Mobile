@@ -8,6 +8,7 @@ import {
   useKeyRepeat,
 } from "@/constants/keyboard-repeat-config";
 import { useUiColors } from "@/contexts/ThemeContext";
+import { t } from "@/i18n";
 
 interface KeyButtonProps {
   label: string;
@@ -135,7 +136,9 @@ export default function KeyButton({
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityState={isModifier ? { selected: isActive } : undefined}
-      accessibilityHint={isLocked ? "Locked" : undefined}
+      accessibilityHint={
+        isLocked ? t("terminal.keys.keyButton.locked") : undefined
+      }
     >
       <Text
         className={`text-center font-medium ${getTextSizeClass()}`}

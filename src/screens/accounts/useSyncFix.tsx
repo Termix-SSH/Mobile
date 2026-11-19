@@ -4,6 +4,7 @@ import { accounts } from "@/core/accounts";
 import { sync, type SyncFix } from "@/core/sync";
 import { toast } from "@/utils/toast";
 import { ProxySignIn } from "./ProxySignIn";
+import { t } from "@/i18n";
 
 const SYNC_SETTINGS = "/tabs/settings/Sync";
 
@@ -32,10 +33,10 @@ export function useSyncFix(
         case "pick_cert":
         case "check_pin":
           if (pathname !== SYNC_SETTINGS) router.push(SYNC_SETTINGS as never);
-          else toast.info("Change it under Proxy below");
+          else toast.info(t("accounts.useSyncFix.changeItUnderProxyBelow"));
           return;
         case "update":
-          toast.info("Update Termix Mobile from your app store");
+          toast.info(t("accounts.useSyncFix.updateTermixMobileFromYour"));
           return;
         case "retry":
           void sync.syncNow(accountId);

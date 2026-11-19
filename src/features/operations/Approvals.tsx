@@ -12,6 +12,7 @@ import {
   STATE_LABELS,
   type Approval,
 } from "./api";
+import { t } from "@/i18n";
 
 /**
  * Requests waiting for a person, with the exact input that would run.
@@ -29,7 +30,9 @@ export default function Approvals() {
     try {
       setItems(await listApprovals(client));
     } catch (error) {
-      toast.error(errorText(error, "Could not load approvals"));
+      toast.error(
+        errorText(error, t("operations.approvals.couldNotLoadApprovals")),
+      );
       setItems([]);
     }
   }, [client]);
@@ -45,11 +48,13 @@ export default function Approvals() {
       const outcome = await decide(client, item.id, approve);
       toast.success(
         approve
-          ? (outcome.summary ?? STATE_LABELS[outcome.status] ?? "Done")
-          : "Rejected",
+          ? (outcome.summary ??
+              STATE_LABELS[outcome.status] ??
+              t("operations.approvals.done"))
+          : t("operations.approvals.rejected"),
       );
     } catch (error) {
-      toast.error(errorText(error, "Could not decide"));
+      toast.error(errorText(error, t("operations.approvals.couldNotDecide")));
     } finally {
       setBusy(null);
       await load();
@@ -57,7 +62,10 @@ export default function Approvals() {
   };
 
   return (
-    <Screen title="Approvals" onBack={() => router.back()}>
+    <Screen
+      title={t("operations.approvals.approvals")}
+      onBack={() => router.back()}
+    >
       <ScrollView
         refreshControl={
           <RefreshControl
@@ -73,8 +81,8 @@ export default function Approvals() {
       >
         {items && items.length === 0 ? (
           <EmptyState
-            title="Nothing is waiting"
-            hint="Actions a rule holds for approval show up here."
+            title={t("operations.approvals.nothingIsWaiting")}
+            hint={t("operations.approvals.actionsARuleHoldsFor")}
           />
         ) : (
           (items ?? []).map((item) => (
@@ -94,7 +102,7 @@ export default function Approvals() {
                   disabled={busy === item.id}
                   onPress={() => void answer(item, true)}
                 >
-                  Approve and run
+                  {t("operations.approvals.approveAndRun")}
                 </Button>
                 <Button
                   size="sm"
@@ -102,7 +110,7 @@ export default function Approvals() {
                   disabled={busy === item.id}
                   onPress={() => void answer(item, false)}
                 >
-                  Reject
+                  {t("operations.approvals.reject")}
                 </Button>
               </View>
             </View>

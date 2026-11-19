@@ -12,6 +12,7 @@ import type {
   SessionMenuContext,
   SessionTabDef,
 } from "./types";
+import { t as tr } from "@/i18n";
 
 /** Whether the account's server (or This device) can use this requirement. */
 export function meets(
@@ -46,7 +47,9 @@ export class FeatureRegistry {
 
   register(def: FeatureDef): () => void {
     if (this.defs.has(def.id)) {
-      throw new Error(`Feature ${def.id} is already registered`);
+      throw new Error(
+        tr("features.registry.featureIsAlreadyRegistered", { id: def.id }),
+      );
     }
     this.defs.set(def.id, def);
     this.emit();

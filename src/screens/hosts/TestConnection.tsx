@@ -10,6 +10,7 @@ import {
   type TestResult,
   type TestTarget,
 } from "@/core/transport/test";
+import { t } from "@/i18n";
 
 /**
  * A Test connection button and its result. `getTarget` builds the login from
@@ -55,10 +56,10 @@ export function TestConnection({
           confirm({
             title:
               scenario === "changed"
-                ? "This host's key changed"
-                : "Trust this host?",
+                ? t("hosts.testConnection.thisHostSKeyChanged")
+                : t("hosts.testConnection.trustThisHost"),
             description: `${data.ip}:${data.port}\n${data.keyType} ${data.fingerprint}`,
-            confirmLabel: "Trust",
+            confirmLabel: t("hosts.testConnection.trust"),
             destructive: scenario === "changed",
           }),
       });
@@ -77,10 +78,14 @@ export function TestConnection({
         onPress={run}
         icon={<PlugZap size={14} color={color("foreground")} />}
       >
-        {running ? "Stop test" : "Test connection"}
+        {running
+          ? t("hosts.testConnection.stopTest")
+          : t("hosts.testConnection.testConnection")}
       </Button>
       {running ? (
-        <Text className="text-meta text-muted-foreground">Connecting...</Text>
+        <Text className="text-meta text-muted-foreground">
+          {t("hosts.testConnection.connecting")}
+        </Text>
       ) : null}
       {result ? (
         <View

@@ -11,6 +11,7 @@ import { useHomeData } from "@/screens/home/HomeData";
 import type { SSHHost, TunnelStatus } from "@/types";
 import { isSshHost } from "@/utils/hosts";
 import { ListRow, Text } from "@/ui";
+import { t } from "@/i18n";
 
 const SHOWN = 5;
 const POLL_MS = 30_000;
@@ -54,9 +55,13 @@ export function TunnelsCard({ accountId, active, refreshKey }: HomeCardProps) {
 
   return (
     <HomeCard
-      title="Tunnels"
+      title={t("tunnels.tunnelsCard.tunnels")}
       icon={Network}
-      meta={connected != null ? `${connected} running on server` : undefined}
+      meta={
+        connected != null
+          ? t("tunnels.tunnelsCard.runningOnServer", { connected })
+          : undefined
+      }
     >
       <View>
         {withTunnels.map((host, index) => {
@@ -69,7 +74,7 @@ export function TunnelsCard({ accountId, active, refreshKey }: HomeCardProps) {
               icon={<Dot state={statuses[host.id] ?? "unknown"} />}
               meta={
                 <Text className="text-meta text-muted-foreground">
-                  {count === 1 ? "1 tunnel" : `${count} tunnels`}
+                  {t("tunnels.tunnelsCard.tunnelCount", { count })}
                 </Text>
               }
               trailing={<ChevronRight size={16} color={muted} />}

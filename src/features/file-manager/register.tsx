@@ -8,6 +8,7 @@ import { CompanionFiles, FILES_TAB_TYPE } from "./CompanionFiles";
 import { FileManager, type FileManagerHandle } from "./FileManager";
 import { getFileSettings, updateFileSettings } from "./settings";
 import { filesHostSection } from "./host-section";
+import { t } from "@/i18n";
 
 const FilesTab = forwardRef<FileManagerHandle, SessionTabProps>(
   ({ session, isVisible, onClose }, ref) => {
@@ -45,7 +46,7 @@ const filesOn = (host: Parameters<typeof isSshHost>[0]) =>
 export const fileManagerFeature: FeatureDef = {
   id: "file-manager",
   plugins: ["file-manager"],
-  title: "File Manager",
+  title: t("fileManager.register.fileManager"),
   source: "native",
   availableOn: ["local", "server"],
   sessionTabs: [
@@ -66,7 +67,7 @@ export const fileManagerFeature: FeatureDef = {
   companions: [
     {
       id: "files",
-      title: "Files",
+      title: t("fileManager.register.files"),
       icon: FolderSearch,
       order: 10,
       forTabTypes: ["terminal"],
@@ -87,7 +88,7 @@ export const fileManagerFeature: FeatureDef = {
   hostActions: [
     {
       id: "file-manager.open",
-      label: "File Manager",
+      label: t("fileManager.register.fileManager"),
       icon: FolderSearch,
       group: "connect",
       order: 20,
@@ -98,8 +99,8 @@ export const fileManagerFeature: FeatureDef = {
   tools: [
     {
       id: "files",
-      label: "Files",
-      description: "Browse, edit and move files",
+      label: t("fileManager.register.files"),
+      description: t("fileManager.register.browseEditAndMoveFiles"),
       icon: FolderSearch,
       order: 10,
       tabType: FILES_TAB_TYPE,
@@ -109,7 +110,7 @@ export const fileManagerFeature: FeatureDef = {
   hostToggles: [
     {
       key: "enableFileManager",
-      label: "File Manager",
+      label: t("fileManager.register.fileManager"),
       group: "feature",
       order: 20,
       defaultOn: true,
@@ -118,7 +119,7 @@ export const fileManagerFeature: FeatureDef = {
   hostEditorSections: [filesHostSection],
   hostBadges: [
     {
-      label: "FILES",
+      label: t("fileManager.register.files2"),
       order: 30,
       show: (host, ssh) => ssh && !!host.enableFileManager,
     },
@@ -127,7 +128,7 @@ export const fileManagerFeature: FeatureDef = {
     {
       group: "features",
       value: "fileManager",
-      label: "File Manager",
+      label: t("fileManager.register.fileManager"),
       order: 20,
       matches: (host) => !!host.enableFileManager,
     },
@@ -135,12 +136,12 @@ export const fileManagerFeature: FeatureDef = {
   settingsLinks: [
     {
       id: "files",
-      label: "Files",
+      label: t("fileManager.register.files"),
       icon: Folder,
       order: 45,
       href: "/tabs/settings/FileSettings",
       section: "terminal",
-      description: "File manager and transfers",
+      description: t("fileManager.register.fileManagerAndTransfers"),
       keywords: ["sftp", "files", "transfer", "download"],
     },
   ],

@@ -15,22 +15,26 @@ import { toUserMessage } from "@/core/errors";
 import { toast } from "@/utils/toast";
 import { UnlinkSheet } from "./UnlinkSheet";
 import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 const STATUS: Record<string, string> = {
-  idle: "Signed in",
+  idle: t("accounts.accountSwitcher.signedIn"),
   syncing: "Syncing",
   offline: "Offline",
-  error: "Error",
-  signed_out: "Signed out",
+  error: t("accounts.accountSwitcher.error"),
+  signed_out: t("accounts.accountSwitcher.signedOut"),
 };
 
 function details(account: Account): string {
-  if (account.kind === "local") return "Works without a server";
+  if (account.kind === "local")
+    return t("accounts.accountSwitcher.worksWithoutAServer");
   const parts = [
     account.username,
     account.serverUrl.replace(/^https?:\/\//, ""),
     STATUS[account.status],
-    account.options.sync === true ? "Synced copy" : null,
+    account.options.sync === true
+      ? t("accounts.accountSwitcher.syncedCopy")
+      : null,
   ];
   return parts.filter(Boolean).join(" | ");
 }
@@ -50,7 +54,9 @@ export function AccountSwitcher() {
     try {
       await accounts.setActive(account.id);
     } catch (e) {
-      toast.error(toUserMessage(e, "Could not switch account"));
+      toast.error(
+        toUserMessage(e, t("accounts.accountSwitcher.couldNotSwitchAccount")),
+      );
     }
   };
 
@@ -74,8 +80,8 @@ export function AccountSwitcher() {
       <Sheet
         visible={accountSwitcherVisible}
         onClose={closeAccountSwitcher}
-        title="Accounts"
-        description="Open tabs keep running when you switch."
+        title={t("accounts.accountSwitcher.accounts")}
+        description={t("accounts.accountSwitcher.openTabsKeepRunningWhen")}
       >
         {list.map((account) => {
           const Icon = account.kind === "local" ? Smartphone : Server;
@@ -93,7 +99,9 @@ export function AccountSwitcher() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    accessibilityLabel={`Unlink ${accountLabel(account)}`}
+                    accessibilityLabel={t("accounts.accountSwitcher.unlink", {
+                      account: accountLabel(account),
+                    })}
                     onPress={() => unlink(account)}
                     icon={
                       <Unlink size={16} color={color("muted-foreground")} />
@@ -106,13 +114,14 @@ export function AccountSwitcher() {
         })}
         <SheetRow
           icon={<Plus size={18} color={iconColor} />}
-          label="Link a server"
+          label={t("accounts.accountSwitcher.linkAServer")}
           onPress={linkServer}
         />
         <View className="px-4 py-3">
           <Text className="text-[11px] text-muted-foreground">
-            Each server keeps its own hosts, credentials and settings on this
-            {deviceWord}.
+            {t("accounts.accountSwitcher.eachServerKeepsItsOwn", {
+              deviceWord,
+            })}
           </Text>
         </View>
       </Sheet>

@@ -3,6 +3,7 @@ import { Pressable, View } from "react-native";
 import { X } from "lucide-react-native";
 import { Field, Input, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { t as tr } from "@/i18n";
 
 /** Splits typed text on commas and spaces into new tags. */
 export function addTags(current: string[], typed: string): string[] {
@@ -29,7 +30,10 @@ export function TagsField({
     setDraft("");
   };
   return (
-    <Field label="Tags" hint="Type a tag and press enter">
+    <Field
+      label={tr("hosts.editor.tagsField.tags")}
+      hint={tr("hosts.editor.tagsField.typeATagAndPress")}
+    >
       {tags.length > 0 ? (
         <View className="flex-row flex-wrap gap-1.5">
           {tags.map((tag) => (
@@ -37,7 +41,9 @@ export function TagsField({
               key={tag}
               onPress={() => onChange(tags.filter((t) => t !== tag))}
               accessibilityRole="button"
-              accessibilityLabel={`Remove tag ${tag}`}
+              accessibilityLabel={tr("hosts.editor.tagsField.removeTag", {
+                tag,
+              })}
               className="min-h-9 flex-row items-center gap-1.5 border border-border bg-muted/30 px-2.5 active:bg-muted"
             >
               <Text className="text-xs text-foreground">{tag}</Text>
@@ -60,7 +66,7 @@ export function TagsField({
         onBlur={commit}
         submitBehavior="submit"
         returnKeyType="done"
-        placeholder="web, prod"
+        placeholder={tr("hosts.editor.tagsField.webProd")}
         autoCapitalize="none"
         autoCorrect={false}
       />

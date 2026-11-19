@@ -8,6 +8,7 @@ import { Text } from "@/ui";
 import { createLocalServicesBackend } from "./backend/local";
 import { createRelayServicesBackend } from "./backend/relay";
 import type { HostServices } from "./backend/types";
+import { t } from "@/i18n";
 
 /** Failed services on a pinned host. */
 export function ServicesCard({ host, accountId, active }: DashboardCardProps) {
@@ -35,7 +36,7 @@ export function ServicesCard({ host, accountId, active }: DashboardCardProps) {
           setError(
             e instanceof Error && e.message
               ? e.message
-              : "Could not read services",
+              : t("services.servicesCard.couldNotReadServices"),
           );
         }
       }
@@ -46,7 +47,7 @@ export function ServicesCard({ host, accountId, active }: DashboardCardProps) {
 
   return (
     <CardFrame
-      title="Services"
+      title={t("services.servicesCard.services")}
       icon={Cog}
       target={target}
       error={error}
@@ -55,14 +56,16 @@ export function ServicesCard({ host, accountId, active }: DashboardCardProps) {
       {status ? (
         status.init === "none" ? (
           <Text className="text-[11px] text-muted-foreground">
-            No systemd or OpenRC
+            {t("services.servicesCard.noSystemdOrOpenrc")}
           </Text>
         ) : status.failed > 0 ? (
           <Text weight="bold" className="text-sm text-destructive-text">
-            {status.failed} failed
+            {t("services.servicesCard.failed", { failed: status.failed })}
           </Text>
         ) : (
-          <Text className="text-sm text-foreground">All running</Text>
+          <Text className="text-sm text-foreground">
+            {t("services.servicesCard.allRunning")}
+          </Text>
         )
       ) : null}
     </CardFrame>

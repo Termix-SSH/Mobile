@@ -12,6 +12,7 @@ import type { SSHHost } from "@/types";
 import { isSshHost } from "@/utils/hosts";
 import type { RemoteDesktopProtocol } from "./RemoteDesktop";
 import { REMOTE_DESKTOP_TAB } from "./telnet";
+import { t as tr } from "@/i18n";
 
 export type RemoteRoute =
   | { via: "checking" }
@@ -49,9 +50,7 @@ export function pickRoute(
   if (local) return { via: "device", transport: local, serverToo: false };
   return {
     via: "blocked",
-    reason:
-      check.blocked?.reason ??
-      "This host can't open a remote desktop from here.",
+    reason: check.blocked?.reason ?? tr("remoteDesktop.route.thisHostCanTOpen"),
     fix: check.blocked?.fix,
   };
 }

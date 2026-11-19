@@ -172,4 +172,15 @@ describe("resolveTerminalSettings", () => {
       ).linkPolicy,
     ).toBe("confirm");
   });
+
+  test("ligatures are on unless the user turns them off, and a host can't change them", () => {
+    expect(resolveTerminalSettings({}, undefined, "dark").ligatures).toBe(true);
+    expect(
+      resolveTerminalSettings({ ligatures: false }, undefined, "dark")
+        .ligatures,
+    ).toBe(false);
+    expect(
+      resolveTerminalSettings({}, { ligatures: false }, "dark").ligatures,
+    ).toBe(true);
+  });
 });

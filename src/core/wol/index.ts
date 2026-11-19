@@ -4,6 +4,7 @@
  */
 import * as Network from "expo-network";
 import { isLanAvailable, udpSend } from "@/modules/termix-net";
+import { t } from "@/i18n";
 
 const PORT = 9;
 const LIMITED = "255.255.255.255";
@@ -66,9 +67,9 @@ export interface WakeHost {
 /** Sends the magic packet from the phone. Throws a WakeError with a plain message. */
 export async function wakeFromDevice(host: WakeHost): Promise<void> {
   const mac = parseMac(host.macAddress);
-  if (!mac) throw new WakeError("This host has no valid MAC address.");
+  if (!mac) throw new WakeError(t("wol.thisHostHasNoValid"));
   if (!isLanAvailable()) {
-    throw new WakeError("This build can't send Wake-on-LAN packets.");
+    throw new WakeError(t("wol.thisBuildCanTSend"));
   }
   const ip = await Network.getIpAddressAsync().catch(() => null);
   const targets = new Set<string>();
@@ -95,7 +96,7 @@ export async function wakeFromDevice(host: WakeHost): Promise<void> {
     throw new WakeError(
       last instanceof Error && last.message
         ? last.message
-        : "Could not send the packet. Check that Wi-Fi is on.",
+        : t("wol.couldNotSendThePacket"),
     );
   }
 }

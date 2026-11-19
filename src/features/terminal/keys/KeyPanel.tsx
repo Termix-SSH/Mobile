@@ -7,6 +7,7 @@ import { useKeyPrefs } from "./KeyPrefsContext";
 import { KeyView } from "./KeyView";
 import { useKeyLayout } from "./useKeyLayout";
 import { useKeyPad } from "./useKeyPad";
+import { t } from "@/i18n";
 
 /** Every row of the layout at once, in the keys panel. */
 export default function KeyPanel({
@@ -57,7 +58,7 @@ export default function KeyPanel({
         </View>
       ))}
       <Text className="pb-2 text-center text-[10px] text-muted-foreground">
-        Change keys in Settings, Keyboard
+        {t("terminal.keys.keyPanel.changeKeysInSettingsKeyboard")}
       </Text>
     </ScrollView>
   );

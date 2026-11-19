@@ -54,6 +54,7 @@ import {
   RemoteSettingsSheet,
   type MouseMode,
 } from "./RemoteChrome";
+import { t as tr } from "@/i18n";
 
 type ConnectionState =
   | "awaiting-credentials"
@@ -204,7 +205,7 @@ export function RemoteDesktop({
         setErrorMessage(
           error instanceof Error
             ? error.message
-            : "Failed to start remote session",
+            : tr("remoteDesktop.failedToStartRemoteSession"),
         );
       }
     },
@@ -281,22 +282,22 @@ export function RemoteDesktop({
           if (next === "prompt") {
             wasLive.current = false;
             setWebSocketUrl(null);
-            setErrorMessage("That login was refused. Try again.");
+            setErrorMessage(tr("remoteDesktop.thatLoginWasRefusedTry"));
             setConnectionState("awaiting-credentials");
             return;
           }
           setConnectionState("failed");
           setErrorMessage(
             next === "saved-login"
-              ? "The remote refused the saved login. Check the RDP login on this host."
-              : payload.message || "Remote session failed",
+              ? tr("remoteDesktop.theRemoteRefusedTheSaved")
+              : payload.message || tr("remoteDesktop.remoteSessionFailed"),
           );
         } else if (payload.type === "zoomChange") {
           setZoomLevel(payload.zoom);
         }
       } catch {
         setConnectionState("failed");
-        setErrorMessage("Remote session returned an invalid message");
+        setErrorMessage(tr("remoteDesktop.remoteSessionReturnedAnInvalid"));
       }
     },
     [handleLost, resolvedProtocol, login.prompt],
@@ -315,7 +316,7 @@ export function RemoteDesktop({
       .catch(() => {
         if (cancelled) return;
         setConnectionState("failed");
-        setErrorMessage("Failed to load the remote desktop client");
+        setErrorMessage(tr("remoteDesktop.failedToLoadTheRemote"));
       });
     return () => {
       cancelled = true;
@@ -727,7 +728,10 @@ ${VIEWPORT_SCRIPT}
     const report = onStatusRef.current;
     if (!report) return;
     if (autoReconnecting && connectionState !== "connected") {
-      report({ state: "reconnecting", reason: "The remote desktop dropped" });
+      report({
+        state: "reconnecting",
+        reason: tr("remoteDesktop.theRemoteDesktopDropped"),
+      });
       return;
     }
     switch (connectionState) {
@@ -886,8 +890,8 @@ ${VIEWPORT_SCRIPT}
         visible={isVisible && connectionState === "awaiting-credentials"}
         description={
           errorMessage
-            ? `${errorMessage} They will not be saved.`
-            : `Enter credentials for ${title}. They will not be saved.`
+            ? tr("remoteDesktop.theyWillNotBeSaved", { errorMessage })
+            : tr("remoteDesktop.enterCredentialsForTheyWill", { title })
         }
         initialUsername=""
         initialDomain={login.domain}
@@ -934,7 +938,9 @@ ${VIEWPORT_SCRIPT}
       {(connectionState === "connecting" || connectionState === "idle") && (
         <View style={styles.overlay}>
           <ActivityIndicator size="large" color={themeAccent} />
-          <Text style={styles.overlayTitle}>Connecting {protocolLabel}</Text>
+          <Text style={styles.overlayTitle}>
+            {tr("remoteDesktop.connecting")} {protocolLabel}
+          </Text>
           <Text style={styles.overlayText}>{title}</Text>
         </View>
       )}
@@ -944,8 +950,8 @@ ${VIEWPORT_SCRIPT}
         <View style={styles.overlay}>
           <Text style={styles.overlayTitle}>
             {connectionState === "failed"
-              ? "Connection Failed"
-              : "Disconnected"}
+              ? tr("remoteDesktop.connectionFailed")
+              : tr("remoteDesktop.disconnected")}
           </Text>
           {errorMessage ? (
             <Text style={styles.overlayText}>{errorMessage}</Text>
@@ -956,7 +962,7 @@ ${VIEWPORT_SCRIPT}
             className="mt-4"
             icon={<RotateCcw size={14} color={themeFg} />}
           >
-            Reconnect
+            {tr("remoteDesktop.reconnect")}
           </Button>
         </View>
       )}

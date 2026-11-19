@@ -1,5 +1,6 @@
 import type { AccountClient, SocketLike } from "@/core/api/AccountClient";
 import { toWebSocketBase } from "@/core/api/compat/api-compat";
+import { t as tr } from "@/i18n";
 
 /**
  * A web view can't send a client certificate on iOS, proxy headers anywhere,
@@ -130,7 +131,7 @@ export class SocketBridge {
         id,
         t: "close",
         code: 1008,
-        reason: "Blocked by the app",
+        reason: tr("remoteDesktop.tunnelBridge.blockedByTheApp"),
       });
       return;
     }

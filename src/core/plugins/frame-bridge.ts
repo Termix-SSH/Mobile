@@ -9,6 +9,7 @@ import type {
   PageMessage,
   ShellCall,
 } from "./frame-protocol";
+import { t } from "@/i18n";
 
 export interface FrameBridgeOptions {
   client: AccountClient;
@@ -149,7 +150,7 @@ export class FrameBridge {
     );
     if (!check.ok) {
       log?.("warn", `Blocked ${check.reason}`);
-      this.refuse(id, 403, "The app does not let plugins use this route.");
+      this.refuse(id, 403, t("plugins.frameBridge.theAppDoesNotLet"));
       return;
     }
     const headers: Record<string, string> = {
@@ -164,7 +165,7 @@ export class FrameBridge {
     try {
       native = client.usesNativeNetwork();
     } catch {
-      this.refuse(id, 502, "This build can't reach this server safely.");
+      this.refuse(id, 502, t("plugins.frameBridge.thisBuildCanTReach"));
       return;
     }
     // iOS with a client certificate: only the module can present it.
@@ -270,7 +271,7 @@ export class FrameBridge {
         t: "ws.close",
         id,
         code: 1008,
-        reason: "Blocked by the app",
+        reason: t("plugins.frameBridge.blockedByTheApp"),
       });
       return;
     }

@@ -1,12 +1,13 @@
 import type { FeatureIcon } from "@/core/features/types";
+import { t } from "@/i18n";
 
 export type PaletteSection = "hosts" | "snippets" | "actions" | "settings";
 
 export const SECTION_TITLES: Record<PaletteSection, string> = {
-  hosts: "Hosts",
-  snippets: "Snippets",
-  actions: "Actions",
-  settings: "Settings",
+  hosts: t("palette.search.hosts"),
+  snippets: t("palette.search.snippets"),
+  actions: t("palette.search.actions"),
+  settings: t("palette.search.settings"),
 };
 
 const ORDER: PaletteSection[] = ["hosts", "snippets", "actions", "settings"];

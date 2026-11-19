@@ -8,6 +8,7 @@ import {
   type Transfer,
   type TransferAction,
 } from "./queue";
+import { t as tr } from "@/i18n";
 
 export type TransferInput = Omit<Transfer, "id" | "state" | "done" | "started">;
 
@@ -158,7 +159,10 @@ export class TransferManager {
         this.dispatch({
           type: "fail",
           id,
-          error: toUserMessage(error, "Transfer failed"),
+          error: toUserMessage(
+            error,
+            tr("fileManager.transfers.manager.transferFailed"),
+          ),
         });
       }
     } finally {

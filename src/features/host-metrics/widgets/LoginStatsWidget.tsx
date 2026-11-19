@@ -5,6 +5,7 @@ import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { MONO_FONT } from "@/constants/fonts";
 import { WidgetCard, Stats } from "./WidgetCard";
+import { t } from "@/i18n";
 
 function LoginRows({
   title,
@@ -57,28 +58,41 @@ export function LoginStatsWidget({ metrics }: { metrics: ServerMetrics }) {
   return (
     <WidgetCard
       icon={<Users size={15} color={color("accent-brand")} />}
-      title="Login activity"
+      title={t("hostMetrics.widgets.loginStatsWidget.loginActivity")}
     >
       {recent.length === 0 && failed.length === 0 ? (
         <Text className="text-meta text-muted-foreground">
-          No login activity recorded
+          {t("hostMetrics.widgets.loginStatsWidget.noLoginActivityRecorded")}
         </Text>
       ) : (
         <View className="gap-2.5">
           <Stats
             items={[
-              { label: "Logins", value: String(total) },
-              { label: "Unique IPs", value: String(uniqueIPs) },
               {
-                label: "Failed",
+                label: t("hostMetrics.widgets.loginStatsWidget.logins"),
+                value: String(total),
+              },
+              {
+                label: t("hostMetrics.widgets.loginStatsWidget.uniqueIps"),
+                value: String(uniqueIPs),
+              },
+              {
+                label: t("hostMetrics.widgets.loginStatsWidget.failed"),
                 value: login?.failedLogins?.length
                   ? String(login.failedLogins.length)
                   : null,
               },
             ]}
           />
-          <LoginRows title="Recent" rows={recent} />
-          <LoginRows title="Failed" rows={failed} failed />
+          <LoginRows
+            title={t("hostMetrics.widgets.loginStatsWidget.recent")}
+            rows={recent}
+          />
+          <LoginRows
+            title={t("hostMetrics.widgets.loginStatsWidget.failed")}
+            rows={failed}
+            failed
+          />
         </View>
       )}
     </WidgetCard>

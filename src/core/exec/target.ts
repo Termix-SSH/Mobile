@@ -13,6 +13,7 @@ import type { SSHHost } from "@/types";
 import { toTerminalHostConfig } from "@/utils/hosts";
 import { createRunner } from "./runner";
 import type { ExecRunner } from "./types";
+import { t } from "@/i18n";
 
 export type ExecTarget =
   | { phase: "connecting" }
@@ -52,7 +53,7 @@ export async function resolveExecTarget(input: {
       phase: "failed",
       failure: {
         stage: "unavailable",
-        message: check.blocked?.reason ?? "Can't connect.",
+        message: check.blocked?.reason ?? t("exec.target.canTConnect"),
         hint: "",
       },
       fix: check.blocked?.fix,
@@ -74,7 +75,7 @@ export async function resolveExecTarget(input: {
       hostName: host.name || host.ip,
       open: () => {
         if (!transport.openSession)
-          throw new Error("This way can't run commands");
+          throw new Error(t("exec.target.thisWayCanTRun"));
         return transport.openSession(toTerminalHostConfig(host), {
           connectTimeoutSecs: hasNext ? FALLBACK_TIMEOUT_SECS : undefined,
         });
@@ -97,7 +98,7 @@ export async function resolveExecTarget(input: {
     phase: "failed",
     failure: last ?? {
       stage: "unavailable",
-      message: "Can't connect.",
+      message: t("exec.target.canTConnect"),
       hint: "",
     },
   };

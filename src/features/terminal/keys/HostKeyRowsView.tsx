@@ -4,6 +4,7 @@ import { Screen } from "@/components/Screen";
 import type { SessionMenuContext } from "@/core/features/types";
 import { KeyLayoutEditor } from "./KeyLayoutEditor";
 import { useKeyLayout } from "./useKeyLayout";
+import { t } from "@/i18n";
 
 /** Key rows for one host. Changing anything gives the host its own copy. */
 export function HostKeyRowsView({
@@ -17,11 +18,15 @@ export function HostKeyRowsView({
   const { layout, own, setHostLayout } = useKeyLayout(ctx.session.host);
   return (
     <Screen
-      title="Key rows"
+      title={t("terminal.keys.hostKeyRowsView.keyRows")}
       subtitle={
         own
-          ? `Only for ${ctx.session.host.name}`
-          : `Using the app's rows. Changes here are only for ${ctx.session.host.name}`
+          ? t("terminal.keys.hostKeyRowsView.onlyFor", {
+              name: ctx.session.host.name,
+            })
+          : t("terminal.keys.hostKeyRowsView.usingTheAppSRows", {
+              name: ctx.session.host.name,
+            })
       }
       onBack={onClose}
       keyboardAvoiding
@@ -31,7 +36,7 @@ export function HostKeyRowsView({
           layout={layout}
           onChange={(next) => void setHostLayout(next).catch(() => {})}
           onReset={() => void setHostLayout(null).catch(() => {})}
-          resetLabel="Use the app's rows"
+          resetLabel={t("terminal.keys.hostKeyRowsView.useTheAppSRows")}
         />
       </View>
     </Screen>

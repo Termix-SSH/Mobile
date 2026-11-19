@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { AccountClient } from "@/core/api/AccountClient";
+import { t } from "@/i18n";
 
 type PinClient = Pick<AccountClient, "certPins" | "rawAxios" | "rootBase">;
 
@@ -43,5 +44,4 @@ export function usePinnedServerCheck(
   return state;
 }
 
-export const PIN_REFUSED_TEXT =
-  "This server did not show the key it is pinned to, so the page was not opened.";
+export const PIN_REFUSED_TEXT = t("api.pinPreflight.thisServerDidNotShow");

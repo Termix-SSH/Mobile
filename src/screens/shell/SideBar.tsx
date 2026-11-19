@@ -8,6 +8,7 @@ import { useSessionStatuses } from "@/core/sessions/status";
 import { sessionsMark, TABS } from "@/screens/shell/BottomBar";
 import { useWindowInfo } from "@/utils/window-class";
 import { SIDEBAR_WIDTH, shellLayout } from "@/screens/shell/layout";
+import { t as tr } from "@/i18n";
 
 export { SIDEBAR_WIDTH };
 /** The rail on a phone held sideways, where height is short. */
@@ -95,7 +96,9 @@ export function SideBar({
             accessibilityRole="tab"
             accessibilityState={{ selected: focused }}
             accessibilityLabel={
-              count ? `${tab.label}, ${count} open` : tab.label
+              count
+                ? tr("shell.sideBar.open", { label: tab.label, count })
+                : tab.label
             }
             className={`items-center justify-center gap-1 hover:bg-muted/30 ${isShort ? "flex-1" : "py-3"}`}
             style={{

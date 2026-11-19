@@ -1,3 +1,5 @@
+import { t } from "@/i18n";
+
 /**
  * Key rows above the keyboard and in the keys panel. A layout is rows of
  * groups of keys; a key does one action. The global layout is the app's,
@@ -159,7 +161,11 @@ export const KEY_PALETTE: Record<string, KeyDef> = Object.fromEntries(
       ...SYMBOLS.map(([id, ch]) => text(id, ch)),
       text("space", "Space", " "),
       ...[..."cdzlaekuwrytnpbf"].map(ctrl),
-      { id: "clear", label: "Clear", action: { type: "ctrl", char: "l" } },
+      {
+        id: "clear",
+        label: t("terminal.keys.model.clear"),
+        action: { type: "ctrl", char: "l" },
+      },
       { id: "altF", label: "M-f", action: { type: "raw", data: "\x1bf" } },
       { id: "altB", label: "M-b", action: { type: "raw", data: "\x1bb" } },
       { id: "altD", label: "M-d", action: { type: "raw", data: "\x1bd" } },
@@ -168,21 +174,21 @@ export const KEY_PALETTE: Record<string, KeyDef> = Object.fromEntries(
       command("history", "Hist", "panel.history"),
       command("search", "Find", "search"),
       tmux("tmuxPrefix", "Prefix", ""),
-      tmux("tmuxSplitH", "Split ─", '"'),
-      tmux("tmuxSplitV", "Split │", "%"),
-      tmux("tmuxNew", "New win", "c"),
-      tmux("tmuxPrev", "Prev win", "p"),
-      tmux("tmuxNext", "Next win", "n"),
+      tmux("tmuxSplitH", t("terminal.keys.model.split"), '"'),
+      tmux("tmuxSplitV", t("terminal.keys.model.split2"), "%"),
+      tmux("tmuxNew", t("terminal.keys.model.newWin"), "c"),
+      tmux("tmuxPrev", t("terminal.keys.model.prevWin"), "p"),
+      tmux("tmuxNext", t("terminal.keys.model.nextWin"), "n"),
       command("tmuxWindows", "Windows", "tmux.windows"),
       tmux("tmuxRename", "Rename", ","),
-      tmux("tmuxPaneLeft", "Pane ←", "ArrowLeft", true),
-      tmux("tmuxPaneDown", "Pane ↓", "ArrowDown", true),
-      tmux("tmuxPaneUp", "Pane ↑", "ArrowUp", true),
-      tmux("tmuxPaneRight", "Pane →", "ArrowRight", true),
+      tmux("tmuxPaneLeft", t("terminal.keys.model.pane"), "ArrowLeft", true),
+      tmux("tmuxPaneDown", t("terminal.keys.model.pane2"), "ArrowDown", true),
+      tmux("tmuxPaneUp", t("terminal.keys.model.pane3"), "ArrowUp", true),
+      tmux("tmuxPaneRight", t("terminal.keys.model.pane4"), "ArrowRight", true),
       tmux("tmuxZoom", "Zoom", "z"),
-      tmux("tmuxCopy", "Copy mode", "["),
-      tmux("tmuxPasteBuffer", "Paste buf", "]"),
-      tmux("tmuxKillPane", "Kill pane", "x"),
+      tmux("tmuxCopy", t("terminal.keys.model.copyMode"), "["),
+      tmux("tmuxPasteBuffer", t("terminal.keys.model.pasteBuf"), "]"),
+      tmux("tmuxKillPane", t("terminal.keys.model.killPane"), "x"),
       tmux("tmuxDetach", "Detach", "d"),
     ] as KeyDef[]
   ).map((k) => [k.id, k]),
@@ -220,53 +226,53 @@ export function defaultLayout(): KeyLayout {
     rows: [
       {
         id: "main",
-        label: "Main",
+        label: t("terminal.keys.model.main"),
         groups: [
           {
             id: "mods",
-            label: "Keys",
+            label: t("terminal.keys.model.keys"),
             keys: keys("escape", "tab", "ctrl", "alt"),
           },
           {
             id: "arrows",
-            label: "Arrows",
+            label: t("terminal.keys.model.arrows"),
             keys: keys("arrowLeft", "arrowDown", "arrowUp", "arrowRight"),
           },
           {
             id: "symbols",
-            label: "Symbols",
+            label: t("terminal.keys.model.symbols"),
             keys: keys("pipe", "tilde", "slash", "minus", "dollar"),
           },
           {
             id: "actions",
-            label: "Actions",
+            label: t("terminal.keys.model.actions"),
             keys: keys("paste", "search", "snippets"),
           },
         ],
       },
       {
         id: "nav",
-        label: "Nav",
+        label: t("terminal.keys.model.nav"),
         groups: [
           {
             id: "move",
-            label: "Move",
+            label: t("terminal.keys.model.move"),
             keys: keys("home", "end", "pageUp", "pageDown", "insert", "delete"),
           },
           {
             id: "fn",
-            label: "Function",
+            label: t("terminal.keys.model.function"),
             keys: keys(...F_KEYS.map((f) => f.id)),
           },
         ],
       },
       {
         id: "symbols",
-        label: "Symbols",
+        label: t("terminal.keys.model.symbols"),
         groups: [
           {
             id: "brackets",
-            label: "Brackets",
+            label: t("terminal.keys.model.brackets"),
             keys: keys(
               "parenLeft",
               "parenRight",
@@ -280,7 +286,7 @@ export function defaultLayout(): KeyLayout {
           },
           {
             id: "punct",
-            label: "Punctuation",
+            label: t("terminal.keys.model.punctuation"),
             keys: keys(
               "backtick",
               "singleQuote",
@@ -301,11 +307,11 @@ export function defaultLayout(): KeyLayout {
       },
       {
         id: "ctrl",
-        label: "Ctrl",
+        label: t("terminal.keys.model.ctrl"),
         groups: [
           {
             id: "control",
-            label: "Control",
+            label: t("terminal.keys.model.control"),
             keys: keys(
               "ctrlC",
               "ctrlD",
@@ -327,7 +333,7 @@ export function defaultLayout(): KeyLayout {
         groups: [
           {
             id: "tmuxWindows",
-            label: "Windows",
+            label: t("terminal.keys.model.windows"),
             keys: keys(
               "tmuxPrefix",
               "tmuxNew",
@@ -339,7 +345,7 @@ export function defaultLayout(): KeyLayout {
           },
           {
             id: "tmuxPanes",
-            label: "Panes",
+            label: t("terminal.keys.model.panes"),
             keys: keys(
               "tmuxSplitH",
               "tmuxSplitV",
@@ -353,7 +359,7 @@ export function defaultLayout(): KeyLayout {
           },
           {
             id: "tmuxCopy",
-            label: "Copy",
+            label: t("terminal.keys.model.copy"),
             keys: keys("tmuxCopy", "tmuxPasteBuffer", "tmuxDetach"),
           },
         ],
@@ -487,8 +493,10 @@ export function migrateLegacy(value: unknown): KeyLayout | null {
   if (barKeys.length) {
     rows.push({
       id: "main",
-      label: "Main",
-      groups: [{ id: "bar", label: "Keys", keys: barKeys }],
+      label: t("terminal.keys.model.main"),
+      groups: [
+        { id: "bar", label: t("terminal.keys.model.keys"), keys: barKeys },
+      ],
     });
   }
   for (const row of Array.isArray(full.rows) ? full.rows : []) {

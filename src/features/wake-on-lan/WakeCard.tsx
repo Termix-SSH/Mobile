@@ -8,6 +8,7 @@ import { useHomeData } from "@/screens/home/HomeData";
 import type { SSHHost } from "@/types";
 import { ListRow, ListRowAction, Text } from "@/ui";
 import { sendWake } from "./wake";
+import { t } from "@/i18n";
 
 const SHOWN = 6;
 
@@ -43,7 +44,7 @@ export function WakeCard() {
   };
 
   return (
-    <HomeCard title="Wake on LAN" icon={Power}>
+    <HomeCard title={t("wakeOnLan.wakeCard.wakeOnLan")} icon={Power}>
       <View>
         {targets.map((host, index) => (
           <ListRow
@@ -58,7 +59,9 @@ export function WakeCard() {
             }
             actions={
               <ListRowAction
-                label={`Wake ${host.name || host.ip}`}
+                label={t("wakeOnLan.wakeCard.wake", {
+                  value: host.name || host.ip,
+                })}
                 tone="brand"
                 disabled={busy === host.id}
                 onPress={() => void wake(host)}

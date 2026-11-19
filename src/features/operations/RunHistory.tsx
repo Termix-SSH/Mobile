@@ -14,6 +14,7 @@ import {
   undoRun,
   type Run,
 } from "./api";
+import { t } from "@/i18n";
 
 const VARIANT: Record<string, "success" | "destructive" | "warning" | "muted"> =
   {
@@ -40,7 +41,7 @@ export default function RunHistory() {
       setRuns(await listRuns(client));
       setError("");
     } catch (e) {
-      setError(errorText(e, "Could not load history"));
+      setError(errorText(e, t("operations.runHistory.couldNotLoadHistory")));
     }
   }, [client]);
 
@@ -53,15 +54,15 @@ export default function RunHistory() {
     const ok = await confirm(
       kind === "cancel"
         ? {
-            title: "Cancel this run?",
+            title: t("operations.runHistory.cancelThisRun"),
             description: run.hostName ?? undefined,
-            confirmLabel: "Cancel run",
-            cancelLabel: "Keep",
+            confirmLabel: t("operations.runHistory.cancelRun"),
+            cancelLabel: t("operations.runHistory.keep"),
           }
         : {
-            title: "Undo this run?",
-            description: "This runs the action's undo with the same input.",
-            confirmLabel: "Undo",
+            title: t("operations.runHistory.undoThisRun"),
+            description: t("operations.runHistory.thisRunsTheActionS"),
+            confirmLabel: t("operations.runHistory.undo"),
           },
     );
     if (!ok) return;
@@ -69,17 +70,24 @@ export default function RunHistory() {
     try {
       if (kind === "cancel") {
         const cancelled = await cancelRun(client, run.id);
-        if (cancelled) toast.success("Cancelled");
-        else toast.error("It already finished");
+        if (cancelled) toast.success(t("operations.runHistory.cancelled"));
+        else toast.error(t("operations.runHistory.itAlreadyFinished"));
       } else {
         const outcome = await undoRun(client, run.id);
         toast.success(
-          outcome.summary ?? STATE_LABELS[outcome.status] ?? "Done",
+          outcome.summary ??
+            STATE_LABELS[outcome.status] ??
+            t("operations.runHistory.done"),
         );
       }
     } catch (e) {
       toast.error(
-        errorText(e, kind === "cancel" ? "Could not cancel" : "Could not undo"),
+        errorText(
+          e,
+          kind === "cancel"
+            ? t("operations.runHistory.couldNotCancel")
+            : t("operations.runHistory.couldNotUndo"),
+        ),
       );
     } finally {
       setBusy(null);
@@ -88,7 +96,10 @@ export default function RunHistory() {
   };
 
   return (
-    <Screen title="Run history" onBack={() => router.back()}>
+    <Screen
+      title={t("operations.runHistory.runHistory")}
+      onBack={() => router.back()}
+    >
       <ScrollView
         refreshControl={
           <RefreshControl
@@ -104,7 +115,7 @@ export default function RunHistory() {
         {error ? (
           <EmptyState title={error} />
         ) : runs && runs.length === 0 ? (
-          <EmptyState title="Nothing has run yet" />
+          <EmptyState title={t("operations.runHistory.nothingHasRunYet")} />
         ) : (
           (runs ?? []).map((run, index) => {
             const kind = runControl(run);
@@ -123,7 +134,7 @@ export default function RunHistory() {
                 badges={
                   <Badge variant={VARIANT[run.status] ?? "muted"}>
                     {run.dryRun
-                      ? "Dry run"
+                      ? t("operations.runHistory.dryRun")
                       : (STATE_LABELS[run.status] ?? run.status)}
                   </Badge>
                 }
@@ -135,7 +146,9 @@ export default function RunHistory() {
                       disabled={busy === run.id}
                       onPress={() => void control(run, kind)}
                     >
-                      {kind === "cancel" ? "Cancel" : "Undo"}
+                      {kind === "cancel"
+                        ? t("operations.runHistory.cancel")
+                        : t("operations.runHistory.undo")}
                     </Button>
                   ) : undefined
                 }

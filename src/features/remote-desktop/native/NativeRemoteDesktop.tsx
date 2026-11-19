@@ -64,6 +64,7 @@ import {
   RDP_CERT_PREF,
   type DisplayLogin,
 } from "./target";
+import { t as tr } from "@/i18n";
 
 // Matches the server view: the session area sits above the tab bar.
 const SESSION_TAB_BAR_HEIGHT = 62;
@@ -295,14 +296,22 @@ export function NativeRemoteDesktop({
             void reconnectRef.current();
             return;
           }
-          setError("The computer's certificate was not trusted.");
+          setError(
+            tr(
+              "remoteDesktop.native.nativeRemoteDesktop.theComputerSCertificateWas",
+            ),
+          );
           setPhase("failed");
           return;
         }
         // The phone does the login, so a refused one can be typed again right here.
         if (err instanceof SshError && err.kind === "auth") {
           typed.current = null;
-          setError("That login was refused. Try again.");
+          setError(
+            tr(
+              "remoteDesktop.native.nativeRemoteDesktop.thatLoginWasRefusedTry",
+            ),
+          );
           setPhase("awaiting-credentials");
           return;
         }
@@ -389,7 +398,12 @@ export function NativeRemoteDesktop({
     const report = onStatusRef.current;
     if (!report) return;
     if (reconnecting) {
-      report({ state: "reconnecting", reason: "The remote desktop dropped" });
+      report({
+        state: "reconnecting",
+        reason: tr(
+          "remoteDesktop.native.nativeRemoteDesktop.theRemoteDesktopDropped",
+        ),
+      });
       return;
     }
     switch (phase) {
@@ -512,12 +526,17 @@ export function NativeRemoteDesktop({
     >
       <RdpSignInSheet
         visible={isVisible && phase === "awaiting-credentials"}
-        title={`${label} sign-in`}
+        title={tr("remoteDesktop.native.nativeRemoteDesktop.signIn", { label })}
         showDomain={protocol === "rdp"}
         description={
           error
-            ? `${error} It will not be saved.`
-            : `Enter the login for ${title}. It will not be saved.`
+            ? tr("remoteDesktop.native.nativeRemoteDesktop.itWillNotBeSaved", {
+                error,
+              })
+            : tr(
+                "remoteDesktop.native.nativeRemoteDesktop.enterTheLoginForIt",
+                { title },
+              )
         }
         initialUsername={displayLogin(host, protocol, null).username ?? ""}
         initialDomain={displayLogin(host, protocol, null).domain ?? ""}
@@ -597,7 +616,13 @@ export function NativeRemoteDesktop({
         <View style={styles.overlay}>
           <ActivityIndicator size="large" color={c.accent} />
           <Text style={styles.title}>
-            {reconnecting ? `Reconnecting ${label}` : `Connecting ${label}`}
+            {reconnecting
+              ? tr("remoteDesktop.native.nativeRemoteDesktop.reconnecting", {
+                  label,
+                })
+              : tr("remoteDesktop.native.nativeRemoteDesktop.connecting", {
+                  label,
+                })}
           </Text>
           <Text style={styles.text}>{title}</Text>
         </View>
@@ -606,7 +631,9 @@ export function NativeRemoteDesktop({
       {(phase === "failed" || phase === "disconnected") && !reconnecting && (
         <View style={styles.overlay}>
           <Text style={styles.title}>
-            {phase === "failed" ? "Connection Failed" : "Disconnected"}
+            {phase === "failed"
+              ? tr("remoteDesktop.native.nativeRemoteDesktop.connectionFailed")
+              : tr("remoteDesktop.native.nativeRemoteDesktop.disconnected")}
           </Text>
           {error ? <Text style={styles.text}>{error}</Text> : null}
           <Button
@@ -615,11 +642,13 @@ export function NativeRemoteDesktop({
             className="mt-4"
             icon={<RotateCcw size={14} color={c.fg} />}
           >
-            Reconnect
+            {tr("remoteDesktop.native.nativeRemoteDesktop.reconnect")}
           </Button>
           {canUseServer && onUseServer ? (
             <Button variant="muted" onPress={onUseServer} className="mt-2">
-              Connect through the server
+              {tr(
+                "remoteDesktop.native.nativeRemoteDesktop.connectThroughTheServer",
+              )}
             </Button>
           ) : null}
         </View>
@@ -700,7 +729,7 @@ export function NativeRemoteDesktop({
               Clipboard.getStringAsync().then((t) => display()?.clipboard(t))
             }
           >
-            Paste to remote
+            {tr("remoteDesktop.native.nativeRemoteDesktop.pasteToRemote")}
           </Button>
           <Button
             variant="muted"
@@ -709,7 +738,7 @@ export function NativeRemoteDesktop({
               Clipboard.getStringAsync().then((t) => display()?.type(t))
             }
           >
-            Type clipboard
+            {tr("remoteDesktop.native.nativeRemoteDesktop.typeClipboard")}
           </Button>
           {remoteClip != null ? (
             <Button
@@ -717,7 +746,9 @@ export function NativeRemoteDesktop({
               size="sm"
               onPress={() => void Clipboard.setStringAsync(remoteClip)}
             >
-              Copy remote clipboard
+              {tr(
+                "remoteDesktop.native.nativeRemoteDesktop.copyRemoteClipboard",
+              )}
             </Button>
           ) : null}
         </View>

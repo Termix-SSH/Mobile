@@ -3,6 +3,7 @@ import { ServerOff } from "lucide-react-native";
 import { Button, EmptyState } from "@/ui";
 import { useAppContext } from "@/contexts/AppContext";
 import { useAccounts } from "@/core/accounts";
+import { t } from "@/i18n";
 
 /**
  * Shown inside a tab when there is no authenticated server connection. Prompts
@@ -10,8 +11,8 @@ import { useAccounts } from "@/core/accounts";
  * the disconnected state is consistent.
  */
 export function ConnectEmptyState({
-  title = "No server connected",
-  message = "Connect to a Termix server to manage your hosts, terminals, files and more.",
+  title = t("components.connectEmptyState.noServerConnected"),
+  message = t("components.connectEmptyState.connectToATermixServer"),
 }: {
   title?: string;
   message?: string;
@@ -35,7 +36,9 @@ export function ConnectEmptyState({
                 openAuthFlow(hasServerConfigured ? "login" : "server")
               }
             >
-              {hasServerConfigured ? "Sign in" : "Add server"}
+              {hasServerConfigured
+                ? t("components.connectEmptyState.signIn")
+                : t("components.connectEmptyState.addServer")}
             </Button>
             {accounts.length > 1 ? (
               <Button
@@ -43,7 +46,7 @@ export function ConnectEmptyState({
                 className="min-w-48"
                 onPress={openAccountSwitcher}
               >
-                Switch account
+                {t("components.connectEmptyState.switchAccount")}
               </Button>
             ) : null}
           </View>

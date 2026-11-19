@@ -1,3 +1,5 @@
+import { t } from "@/i18n";
+
 /**
  * Accounts mirror the desktop accounts in Plugin-Sync: "This device" works on
  * its own, and each linked server is its own account with its own data.
@@ -43,7 +45,7 @@ export function isServerAccount(
 
 /** Name shown in the switcher: the server name, else its host. */
 export function accountLabel(account: Account): string {
-  if (account.kind === "local") return "This device";
+  if (account.kind === "local") return t("accounts.types.thisDevice");
   if (account.serverName) return account.serverName;
   try {
     return new URL(account.serverUrl).host || account.serverUrl;

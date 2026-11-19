@@ -5,6 +5,7 @@ import { mapLimit } from "@/utils/limit";
 import { joinRemote, LINK_LOOKUPS, remoteName, remoteParent } from "./paths";
 import { TrashUnavailableError } from "./sftp";
 import type { FileBackend, FileEntry, FileType } from "./types";
+import { t } from "@/i18n";
 
 /** Slices sent per request; the server takes up to 64 MB. */
 export const UPLOAD_CHUNK = 4 * 1024 * 1024;
@@ -117,7 +118,10 @@ export function createRelayBackend(
     async stat(path) {
       const entry = await find(path);
       if (!entry)
-        throw new AppError(`${remoteName(path)} is gone`, "NOT_FOUND");
+        throw new AppError(
+          t("fileManager.backend.relay.isGone", { path: remoteName(path) }),
+          "NOT_FOUND",
+        );
       await linkType(entry);
       return entry;
     },
@@ -158,7 +162,7 @@ export function createRelayBackend(
         } catch (error) {
           if (!permanent && isTrashConflict(error)) {
             throw new TrashUnavailableError(
-              `${entry.name} can't go to the trash`,
+              t("fileManager.backend.relay.canTGoToThe", { name: entry.name }),
             );
           }
           throw error;
@@ -210,13 +214,19 @@ export function createRelayBackend(
       let done = start;
       try {
         const reader = res.body?.getReader();
-        if (!reader) throw new AppError("The server sent no file");
+        if (!reader)
+          throw new AppError(
+            t("fileManager.backend.relay.theServerSentNoFile"),
+          );
         for (;;) {
           const { value, done: end } = await reader.read();
           if (end) break;
           if (options.signal?.aborted) {
             await reader.cancel().catch(() => {});
-            throw new AppError("Cancelled", "CANCELLED");
+            throw new AppError(
+              t("fileManager.backend.relay.cancelled"),
+              "CANCELLED",
+            );
           }
           writer.write(value);
           done += value.length;
@@ -247,7 +257,10 @@ export function createRelayBackend(
         }
         while (offset < total) {
           if (options.signal?.aborted) {
-            throw new AppError("Cancelled", "CANCELLED");
+            throw new AppError(
+              t("fileManager.backend.relay.cancelled"),
+              "CANCELLED",
+            );
           }
           const bytes = reader.read(Math.min(UPLOAD_CHUNK, total - offset));
           const next = await files.uploadChunk(

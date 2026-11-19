@@ -39,10 +39,13 @@ import {
   type CustomKind,
 } from "./edit";
 import { KEY_PALETTE, paletteKey, type KeyDef, type KeyLayout } from "./model";
+import { t } from "@/i18n";
 
 const PREFIXES = ["b", "a", "s", "q", "x", "space"].map((v) => ({
   value: v,
-  label: `Ctrl+${v === "space" ? "Space" : v.toUpperCase()}`,
+  label: t("terminal.keys.keyLayoutEditor.ctrl", {
+    value: v === "space" ? "Space" : v.toUpperCase(),
+  }),
 }));
 
 function paletteSection(key: KeyDef): string {
@@ -110,7 +113,7 @@ function NameField({
       <Button
         size="icon-field"
         variant="muted"
-        accessibilityLabel="Cancel"
+        accessibilityLabel={t("terminal.keys.keyLayoutEditor.cancel")}
         onPress={onCancel}
         icon={<X size={16} color={color("muted-foreground")} />}
       />
@@ -126,7 +129,7 @@ export function KeyLayoutEditor({
   layout,
   onChange,
   onReset,
-  resetLabel = "Reset to default",
+  resetLabel = t("terminal.keys.keyLayoutEditor.resetToDefault"),
 }: {
   layout: KeyLayout;
   onChange: (layout: KeyLayout) => void;
@@ -157,8 +160,8 @@ export function KeyLayoutEditor({
 
   const remove = async (what: string, run: () => void) => {
     const ok = await confirm({
-      title: `Remove ${what}?`,
-      confirmLabel: "Remove",
+      title: t("terminal.keys.keyLayoutEditor.remove", { what }),
+      confirmLabel: t("terminal.keys.keyLayoutEditor.remove2"),
     });
     if (ok) run();
   };
@@ -167,7 +170,7 @@ export function KeyLayoutEditor({
     <Pressable
       onLongPress={drag}
       delayLongPress={150}
-      accessibilityLabel="Drag to reorder"
+      accessibilityLabel={t("terminal.keys.keyLayoutEditor.dragToReorder")}
       className="h-11 w-10 items-center justify-center"
     >
       <GripVertical size={16} color={color("muted-foreground")} />
@@ -221,8 +224,12 @@ export function KeyLayoutEditor({
     <View>
       {adding && level.kind !== "keys" ? (
         <NameField
-          placeholder={adding === "row" ? "Row name" : "Group name"}
-          confirmLabel="Add"
+          placeholder={
+            adding === "row"
+              ? t("terminal.keys.keyLayoutEditor.rowName")
+              : t("terminal.keys.keyLayoutEditor.groupName")
+          }
+          confirmLabel={t("terminal.keys.keyLayoutEditor.add")}
           onCancel={() => setAdding(null)}
           onSubmit={(value) => {
             onChange(
@@ -241,7 +248,7 @@ export function KeyLayoutEditor({
             icon={<Plus size={14} />}
             onPress={() => setPicking(true)}
           >
-            Add key
+            {t("terminal.keys.keyLayoutEditor.addKey")}
           </Button>
         ) : !adding ? (
           <Button
@@ -249,14 +256,16 @@ export function KeyLayoutEditor({
             icon={<Plus size={14} />}
             onPress={() => setAdding(addKind)}
           >
-            {level.kind === "rows" ? "Add row" : "Add group"}
+            {level.kind === "rows"
+              ? t("terminal.keys.keyLayoutEditor.addRow")
+              : t("terminal.keys.keyLayoutEditor.addGroup")}
           </Button>
         ) : null}
         {level.kind === "rows" ? (
           <>
             <View className="border-y border-border">
               <ChoiceRow
-                label="tmux prefix"
+                label={t("terminal.keys.keyLayoutEditor.tmuxPrefix")}
                 value={layout.tmuxPrefix === " " ? "space" : layout.tmuxPrefix}
                 options={PREFIXES}
                 onChange={(v) =>
@@ -291,8 +300,8 @@ export function KeyLayoutEditor({
     renaming?.kind === kind && renaming.id === id ? (
       <NameField
         initial={renaming.value}
-        placeholder="Name"
-        confirmLabel="Rename"
+        placeholder={t("terminal.keys.keyLayoutEditor.name")}
+        confirmLabel={t("terminal.keys.keyLayoutEditor.rename")}
         onCancel={() => setRenaming(null)}
         onSubmit={rename}
       />
@@ -315,18 +324,20 @@ export function KeyLayoutEditor({
           >
             <Text className="text-row text-foreground">{item.label}</Text>
             <Text className="text-meta text-muted-foreground">
-              {item.groups.reduce((n, g) => n + g.keys.length, 0)} keys
+              {t("terminal.keys.keyLayoutEditor.keys", {
+                value: item.groups.reduce((n, g) => n + g.keys.length, 0),
+              })}
             </Text>
           </Pressable>
           <IconButton
-            label="Rename"
+            label={t("terminal.keys.keyLayoutEditor.rename")}
             icon={<Pencil size={14} color={color("muted-foreground")} />}
             onPress={() =>
               setRenaming({ kind: "row", id: item.id, value: item.label })
             }
           />
           <IconButton
-            label="Remove"
+            label={t("terminal.keys.keyLayoutEditor.remove2")}
             icon={<Trash2 size={14} color={color("destructive")} />}
             onPress={() =>
               remove(`the ${item.label} row`, () =>
@@ -359,18 +370,19 @@ export function KeyLayoutEditor({
           >
             <Text className="text-row text-foreground">{item.label}</Text>
             <Text className="text-meta text-muted-foreground" numberOfLines={1}>
-              {item.keys.map((k) => k.label).join("  ") || "No keys"}
+              {item.keys.map((k) => k.label).join("  ") ||
+                t("terminal.keys.keyLayoutEditor.noKeys")}
             </Text>
           </Pressable>
           <IconButton
-            label="Rename"
+            label={t("terminal.keys.keyLayoutEditor.rename")}
             icon={<Pencil size={14} color={color("muted-foreground")} />}
             onPress={() =>
               setRenaming({ kind: "group", id: item.id, value: item.label })
             }
           />
           <IconButton
-            label="Remove"
+            label={t("terminal.keys.keyLayoutEditor.remove2")}
             icon={<Trash2 size={14} color={color("destructive")} />}
             onPress={() =>
               row &&
@@ -410,7 +422,9 @@ export function KeyLayoutEditor({
           </Text>
         </View>
         <IconButton
-          label={`Remove ${item.label}`}
+          label={t("terminal.keys.keyLayoutEditor.remove3", {
+            label: item.label,
+          })}
           icon={<Trash2 size={14} color={color("destructive")} />}
           onPress={() =>
             row &&
@@ -512,11 +526,16 @@ function KeyPicker({
   const custom = customKey(label, kind, value);
 
   return (
-    <Sheet visible={visible} onClose={onClose} title="Add key" scroll>
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      title={t("terminal.keys.keyLayoutEditor.addKey")}
+      scroll
+    >
       <Tabs
         options={[
-          { id: "keys", label: "Keys" },
-          { id: "custom", label: "Custom" },
+          { id: "keys", label: t("terminal.keys.keyLayoutEditor.keys2") },
+          { id: "custom", label: t("terminal.keys.keyLayoutEditor.custom") },
         ]}
         value={tab}
         onChange={setTab}
@@ -532,7 +551,10 @@ function KeyPicker({
                     key={key.id}
                     onPress={() => onPick(key)}
                     accessibilityRole="button"
-                    accessibilityLabel={`Add ${key.label}`}
+                    accessibilityLabel={t(
+                      "terminal.keys.keyLayoutEditor.add2",
+                      { label: key.label },
+                    )}
                     className="min-h-11 min-w-11 items-center justify-center border border-border bg-muted px-2 active:bg-accent-brand/20"
                   >
                     <Text className="text-xs text-foreground">{key.label}</Text>
@@ -546,28 +568,34 @@ function KeyPicker({
         <SheetBody>
           <Tabs<CustomKind>
             options={[
-              { id: "text", label: "Type text" },
-              { id: "command", label: "Run command" },
-              { id: "ctrl", label: "Ctrl key" },
+              {
+                id: "text",
+                label: t("terminal.keys.keyLayoutEditor.typeText"),
+              },
+              {
+                id: "command",
+                label: t("terminal.keys.keyLayoutEditor.runCommand"),
+              },
+              { id: "ctrl", label: t("terminal.keys.keyLayoutEditor.ctrlKey") },
             ]}
             value={kind}
             onChange={setKind}
           />
           <View className="gap-1.5">
-            <Label>Label</Label>
+            <Label>{t("terminal.keys.keyLayoutEditor.label")}</Label>
             <Input
               value={label}
               onChangeText={setLabel}
-              placeholder="Optional"
+              placeholder={t("terminal.keys.keyLayoutEditor.optional")}
             />
           </View>
           <View className="gap-1.5">
             <Label>
               {kind === "ctrl"
-                ? "Letter"
+                ? t("terminal.keys.keyLayoutEditor.letter")
                 : kind === "command"
-                  ? "Command"
-                  : "Text"}
+                  ? t("terminal.keys.keyLayoutEditor.command")
+                  : t("terminal.keys.keyLayoutEditor.text")}
             </Label>
             <Input
               value={value}
@@ -591,7 +619,7 @@ function KeyPicker({
             }}
             icon={<Plus size={14} />}
           >
-            Add key
+            {t("terminal.keys.keyLayoutEditor.addKey")}
           </Button>
         </SheetBody>
       )}

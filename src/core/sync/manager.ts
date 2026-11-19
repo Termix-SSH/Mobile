@@ -16,6 +16,7 @@ import { mergeThisDevice } from "./link";
 import { REFRESH_EVERY_MS } from "./protocol";
 import { isSessionEnded, reasonOf } from "./reasons";
 import { SyncRemote } from "./remote";
+import { t as tr } from "@/i18n";
 
 const log = createLogger("sync");
 
@@ -417,7 +418,7 @@ export class SyncManager {
     ) {
       sync = new SyncError(
         "pin_mismatch",
-        "The server shows another key than the pinned one.",
+        tr("sync.manager.theServerShowsAnotherKey"),
       );
     }
     const reason = reasonOf(sync);

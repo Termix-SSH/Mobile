@@ -14,6 +14,7 @@ import { useLiveList, useSessionRepositories } from "@/core/data/hooks";
 import type { KeyboardTabProps } from "@/core/features/types";
 import { showToast } from "@/utils/toast";
 import { filterHistory } from "./filter";
+import { t } from "@/i18n";
 
 /**
  * The active host's past commands. Tap types one in without running it, so
@@ -47,12 +48,12 @@ export default function HistoryBar({
   const clearAll = async () => {
     if (!host) return;
     const ok = await confirm({
-      title: "Clear history for this host?",
-      confirmLabel: "Clear",
+      title: t("terminal.history.historyBar.clearHistoryForThisHost"),
+      confirmLabel: t("terminal.history.historyBar.clear"),
     });
     if (!ok) return;
     await history.clear(host).catch(() => {});
-    showToast.success("History cleared");
+    showToast.success(t("terminal.history.historyBar.historyCleared"));
   };
 
   return (
@@ -63,14 +64,14 @@ export default function HistoryBar({
           containerClassName="flex-1"
           value={query}
           onChangeText={setQuery}
-          placeholder="Search history"
+          placeholder={t("terminal.history.historyBar.searchHistory")}
           autoCapitalize="none"
           autoCorrect={false}
           leading={<Search size={14} color={color("muted-foreground")} />}
         />
         {list.data.length > 0 ? (
           <Button variant="ghost" size="sm" onPress={clearAll}>
-            Clear
+            {t("terminal.history.historyBar.clear")}
           </Button>
         ) : null}
       </View>
@@ -86,7 +87,9 @@ export default function HistoryBar({
               onPress={() => type(command, false)}
               onLongPress={() => setMenu(command)}
               accessibilityRole="button"
-              accessibilityHint="Types the command without running it"
+              accessibilityHint={t(
+                "terminal.history.historyBar.typesTheCommandWithoutRunning",
+              )}
               className="min-h-11 justify-center border-b border-border/40 px-3 py-2 active:bg-muted/50"
             >
               <Text className="text-row text-foreground" numberOfLines={2}>
@@ -97,11 +100,13 @@ export default function HistoryBar({
           {shown.length === 0 ? (
             <View className="items-center px-6 py-8">
               <Text weight="medium" className="text-sm text-muted-foreground">
-                {query ? "No commands match" : "No history yet"}
+                {query
+                  ? t("terminal.history.historyBar.noCommandsMatch")
+                  : t("terminal.history.historyBar.noHistoryYet")}
               </Text>
               {!query ? (
                 <Text className="mt-1 text-center text-xs text-muted-foreground">
-                  Commands you run on this host show up here
+                  {t("terminal.history.historyBar.commandsYouRunOnThis")}
                 </Text>
               ) : null}
             </View>
@@ -118,7 +123,7 @@ export default function HistoryBar({
           <>
             <SheetRow
               icon={<Play size={16} color={color("foreground")} />}
-              label="Run"
+              label={t("terminal.history.historyBar.run")}
               onPress={() => {
                 setMenu(null);
                 type(menu, true);
@@ -126,7 +131,7 @@ export default function HistoryBar({
             />
             <SheetRow
               icon={<TextCursorInput size={16} color={color("foreground")} />}
-              label="Type without running"
+              label={t("terminal.history.historyBar.typeWithoutRunning")}
               onPress={() => {
                 setMenu(null);
                 type(menu, false);
@@ -134,7 +139,7 @@ export default function HistoryBar({
             />
             <SheetRow
               icon={<Copy size={16} color={color("foreground")} />}
-              label="Copy"
+              label={t("terminal.history.historyBar.copy")}
               onPress={() => {
                 setMenu(null);
                 void Clipboard.setStringAsync(menu).then(() =>
@@ -144,7 +149,7 @@ export default function HistoryBar({
             />
             <SheetRow
               icon={<Trash2 size={16} color={color("destructive")} />}
-              label="Delete"
+              label={t("terminal.history.historyBar.delete")}
               destructive
               onPress={() => {
                 setMenu(null);

@@ -14,6 +14,7 @@ import type { Snippet, SSHHost, SSHHostData, TerminalConfig } from "@/types";
 import { BELL_STYLES, CURSOR_STYLES, TERMINAL_FONTS } from "./settings";
 import { PASSWORD_FILL_PREF } from "./password-fill";
 import { deviceWord } from "@/utils/device-word";
+import { t as tr } from "@/i18n";
 
 type Config = Partial<TerminalConfig>;
 type EnvVar = { key: string; value: string };
@@ -21,7 +22,10 @@ type EnvVar = { key: string; value: string };
 const PHONE = "phone";
 const withPhone = <T extends string>(
   options: readonly { value: T; label: string }[],
-) => [{ value: PHONE, label: "App setting" }, ...options];
+) => [
+  { value: PHONE, label: tr("terminal.hostTerminalTab.appSetting") },
+  ...options,
+];
 
 const THEMES = withPhone(
   Object.entries(TERMINAL_THEMES)
@@ -32,8 +36,8 @@ const FONTS = withPhone(TERMINAL_FONTS);
 const CURSORS = withPhone(CURSOR_STYLES);
 const BELLS = withPhone(BELL_STYLES);
 const BACKSPACE = [
-  { value: "normal", label: "Delete (^?)" },
-  { value: "control-h", label: "Control H (^H)" },
+  { value: "normal", label: tr("terminal.hostTerminalTab.delete") },
+  { value: "control-h", label: tr("terminal.hostTerminalTab.controlHH") },
 ] as const;
 
 const SWITCHES: {
@@ -44,41 +48,41 @@ const SWITCHES: {
 }[] = [
   {
     key: "useSSHTitle",
-    label: "Tab title from the shell",
-    description: "Programs can set the tab title",
+    label: tr("terminal.hostTerminalTab.tabTitleFromTheShell"),
+    description: tr("terminal.hostTerminalTab.programsCanSetTheTab"),
     fallback: false,
   },
   {
     key: "autoTmux",
-    label: "Open tmux",
-    description: "Attach to a tmux session, or start one",
+    label: tr("terminal.hostTerminalTab.openTmux"),
+    description: tr("terminal.hostTerminalTab.attachToATmuxSession"),
     fallback: false,
   },
   {
     key: "autoReconnect",
-    label: "Reconnect on drop",
+    label: tr("terminal.hostTerminalTab.reconnectOnDrop"),
     fallback: false,
   },
   {
     key: "keepOpenOnExit",
-    label: "Keep tab open on exit",
-    description: "Press Enter to connect again",
+    label: tr("terminal.hostTerminalTab.keepTabOpenOnExit"),
+    description: tr("terminal.hostTerminalTab.pressEnterToConnectAgain"),
     fallback: false,
   },
   {
     key: "enableCommandHistory",
-    label: "Save command history",
+    label: tr("terminal.hostTerminalTab.saveCommandHistory"),
     fallback: true,
   },
   {
     key: "passwordPromptAutoFill",
-    label: "Offer to fill password prompts",
+    label: tr("terminal.hostTerminalTab.offerToFillPasswordPrompts"),
     fallback: true,
   },
   {
     key: "sudoPasswordAutoFill",
-    label: "Offer to fill sudo prompts",
-    description: "Uses the sudo password from the SSH tab",
+    label: tr("terminal.hostTerminalTab.offerToFillSudoPrompts"),
+    description: tr("terminal.hostTerminalTab.usesTheSudoPasswordFrom"),
     fallback: false,
   },
 ];
@@ -128,7 +132,7 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
     repos.source === "local" ? (s.syncId ?? String(s.id)) : String(s.id);
   const startup = config.startupSnippetId;
   const startupOptions = [
-    { value: "", label: "None" },
+    { value: "", label: tr("terminal.hostTerminalTab.none") },
     ...snippets.map((s) => ({ value: snippetKey(s), label: s.name })),
   ];
 
@@ -138,38 +142,38 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
   return (
     <View className="gap-5">
       <View className="gap-1">
-        <Heading>Look</Heading>
+        <Heading>{tr("terminal.hostTerminalTab.look")}</Heading>
         <ChoiceRow
-          label="Theme"
+          label={tr("terminal.hostTerminalTab.theme")}
           value={(config.theme as string) ?? PHONE}
           options={THEMES}
           onChange={pick("theme")}
         />
         <ChoiceRow
-          label="Font"
+          label={tr("terminal.hostTerminalTab.font")}
           value={(config.fontFamily as string) ?? PHONE}
           options={FONTS}
           onChange={pick("fontFamily")}
         />
         <ChoiceRow
-          label="Cursor"
+          label={tr("terminal.hostTerminalTab.cursor")}
           value={(config.cursorStyle as string) ?? PHONE}
           options={CURSORS}
           onChange={pick("cursorStyle")}
         />
         <ChoiceRow
-          label="Bell"
+          label={tr("terminal.hostTerminalTab.bell")}
           value={(config.bellStyle as string) ?? PHONE}
           options={BELLS}
           onChange={pick("bellStyle")}
         />
-        <SettingRow label="Scrollback lines" last>
+        <SettingRow label={tr("terminal.hostTerminalTab.scrollbackLines")} last>
           <Input
             size="sm"
             containerClassName="w-24"
             className="text-right"
             keyboardType="number-pad"
-            placeholder="App"
+            placeholder={tr("terminal.hostTerminalTab.app")}
             value={config.scrollback ? String(config.scrollback) : ""}
             onChangeText={(t) => {
               const n = parseInt(t, 10);
@@ -180,7 +184,7 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
       </View>
 
       <View className="gap-1">
-        <Heading>Behavior</Heading>
+        <Heading>{tr("terminal.hostTerminalTab.behavior")}</Heading>
         {SWITCHES.map((row) => (
           <SettingRow
             key={row.key}
@@ -194,14 +198,14 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
           </SettingRow>
         ))}
         <ChoiceRow
-          label="Backspace sends"
+          label={tr("terminal.hostTerminalTab.backspaceSends")}
           value={config.backspaceMode ?? "normal"}
           options={BACKSPACE}
           onChange={(v) => setConfig({ backspaceMode: v })}
         />
         <ChoiceRow
-          label="Startup snippet"
-          description="Runs once the shell is ready"
+          label={tr("terminal.hostTerminalTab.startupSnippet")}
+          description={tr("terminal.hostTerminalTab.runsOnceTheShellIs")}
           value={startup == null ? "" : String(startup)}
           options={startupOptions}
           onChange={(v) => {
@@ -214,8 +218,10 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
         />
         {host ? (
           <SettingRow
-            label="Fill without asking"
-            description={`On this ${deviceWord} only, once you picked Always fill`}
+            label={tr("terminal.hostTerminalTab.fillWithoutAsking")}
+            description={tr("terminal.hostTerminalTab.onThisOnlyOnceYou", {
+              deviceWord,
+            })}
             last
           >
             <FakeSwitch
@@ -232,18 +238,18 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
       </View>
 
       <View className="gap-1">
-        <Heading>Connection</Heading>
+        <Heading>{tr("terminal.hostTerminalTab.connection")}</Heading>
         <SettingRow
-          label="Keepalive"
-          description="Seconds between pings, 0 turns it off"
+          label={tr("terminal.hostTerminalTab.keepalive")}
+          description={tr("terminal.hostTerminalTab.secondsBetweenPings0Turns")}
         >
           <Input
             size="sm"
             containerClassName="w-24"
             className="text-right"
             keyboardType="number-pad"
-            placeholder="Default"
-            accessibilityLabel="Keepalive seconds"
+            placeholder={tr("terminal.hostTerminalTab.default")}
+            accessibilityLabel={tr("terminal.hostTerminalTab.keepaliveSeconds")}
             value={keepalive == null ? "" : String(keepalive)}
             onChangeText={(t) => {
               const n = parseInt(t, 10);
@@ -254,8 +260,10 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
           />
         </SettingRow>
         <SettingRow
-          label="Missed pings"
-          description="Drop the connection after this many go unanswered"
+          label={tr("terminal.hostTerminalTab.missedPings")}
+          description={tr(
+            "terminal.hostTerminalTab.dropTheConnectionAfterThis",
+          )}
           last
         >
           <Input
@@ -263,8 +271,10 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
             containerClassName="w-24"
             className="text-right"
             keyboardType="number-pad"
-            placeholder="Default"
-            accessibilityLabel="Missed pings before drop"
+            placeholder={tr("terminal.hostTerminalTab.default")}
+            accessibilityLabel={tr(
+              "terminal.hostTerminalTab.missedPingsBeforeDrop",
+            )}
             value={keepaliveCount == null ? "" : String(keepaliveCount)}
             onChangeText={(t) => {
               const n = parseInt(t, 10);
@@ -277,7 +287,7 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
       </View>
 
       <View className="gap-2">
-        <Heading>Environment</Heading>
+        <Heading>{tr("terminal.hostTerminalTab.environment")}</Heading>
         {env.map((item, i) => (
           <View key={i} className="flex-row items-center gap-2">
             <Input
@@ -305,7 +315,7 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
             <Pressable
               hitSlop={8}
               accessibilityRole="button"
-              accessibilityLabel="Remove variable"
+              accessibilityLabel={tr("terminal.hostTerminalTab.removeVariable")}
               onPress={() => setEnv(env.filter((_, j) => j !== i))}
               className="h-8 w-8 items-center justify-center"
             >
@@ -319,7 +329,9 @@ function TerminalTab({ host, value, onChange }: HostFormTabProps) {
           className="min-h-11 flex-row items-center gap-2 border border-dashed border-border px-3"
         >
           <Plus size={14} color={color("muted-foreground")} />
-          <Text className="text-row text-muted-foreground">Add variable</Text>
+          <Text className="text-row text-muted-foreground">
+            {tr("terminal.hostTerminalTab.addVariable")}
+          </Text>
         </Pressable>
       </View>
     </View>

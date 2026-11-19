@@ -30,6 +30,7 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
 import CredentialEditor from "@/screens/hosts/credentials/CredentialEditor";
 import { useRepositories } from "@/core/data/hooks";
+import { t as tr } from "@/i18n";
 
 export default function CredentialListModal({
   visible,
@@ -59,7 +60,9 @@ export default function CredentialListModal({
     try {
       setCredentials(await repos.credentials.list());
     } catch (e: any) {
-      toast.error(e?.message || "Could not load credentials");
+      toast.error(
+        e?.message || tr("hosts.credentialListModal.couldNotLoadCredentials"),
+      );
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -104,10 +107,15 @@ export default function CredentialListModal({
     setDeleting(true);
     try {
       await repos.credentials.remove(deleteTarget.id);
-      toast.success(`Deleted "${deleteTarget.name}"`);
+      toast.success(
+        tr("hosts.credentialListModal.deleted", { name: deleteTarget.name }),
+      );
       setDeleteTarget(null);
     } catch (e: any) {
-      toast.error(e?.message || "Could not delete the credential");
+      toast.error(
+        e?.message ||
+          tr("hosts.credentialListModal.couldNotDeleteTheCredential"),
+      );
     } finally {
       setDeleting(false);
     }
@@ -118,7 +126,7 @@ export default function CredentialListModal({
       <InlineView
         open={visible}
         onClose={onClose}
-        title="Credentials"
+        title={tr("hosts.credentialListModal.credentials")}
         scroll={false}
         bare
         actions={
@@ -128,14 +136,14 @@ export default function CredentialListModal({
             onPress={openCreate}
             icon={<Plus size={14} color={color("accent-brand")} />}
           >
-            Add
+            {tr("hosts.credentialListModal.add")}
           </Button>
         }
       >
         {/* Search bar */}
         <View className="border-b border-border px-3 py-2.5">
           <Input
-            placeholder="Search credentials"
+            placeholder={tr("hosts.credentialListModal.searchCredentials")}
             value={searchQuery}
             onChangeText={setSearchQuery}
             autoCapitalize="none"
@@ -145,7 +153,9 @@ export default function CredentialListModal({
               searchQuery ? (
                 <Pressable
                   accessibilityRole="button"
-                  accessibilityLabel="Clear search"
+                  accessibilityLabel={tr(
+                    "hosts.credentialListModal.clearSearch",
+                  )}
                   onPress={() => setSearchQuery("")}
                   hitSlop={8}
                 >
@@ -161,7 +171,7 @@ export default function CredentialListModal({
           <View className="flex-1 items-center justify-center gap-3">
             <ActivityIndicator color={color("accent-brand")} />
             <Text className="text-sm text-muted-foreground">
-              Loading credentials...
+              {tr("hosts.credentialListModal.loadingCredentials")}
             </Text>
           </View>
         ) : (
@@ -181,13 +191,15 @@ export default function CredentialListModal({
                 icon={KeyRound}
                 title={
                   searchQuery.trim()
-                    ? "No credentials match your search"
-                    : "No credentials yet"
+                    ? tr(
+                        "hosts.credentialListModal.noCredentialsMatchYourSearch",
+                      )
+                    : tr("hosts.credentialListModal.noCredentialsYet")
                 }
                 action={
                   !searchQuery.trim() ? (
                     <Button variant="default" size="sm" onPress={openCreate}>
-                      Add credential
+                      {tr("hosts.credentialListModal.addCredential")}
                     </Button>
                   ) : undefined
                 }
@@ -212,13 +224,15 @@ export default function CredentialListModal({
         onClose={() => setSheetCredential(null)}
         title={sheetCredential?.name}
         description={
-          (sheetCredential?.authType === "key" ? "SSH key" : "Password") +
+          (sheetCredential?.authType === "key"
+            ? tr("hosts.credentialListModal.sshKey")
+            : "Password") +
           (sheetCredential?.username ? ` | ${sheetCredential.username}` : "")
         }
       >
         <SheetRow
           icon={<Pencil size={18} color={color("foreground")} />}
-          label="Edit"
+          label={tr("hosts.credentialListModal.edit")}
           onPress={() => {
             const c = sheetCredential!;
             setSheetCredential(null);
@@ -227,7 +241,7 @@ export default function CredentialListModal({
         />
         <SheetRow
           icon={<Trash2 size={18} color={color("destructive")} />}
-          label="Delete"
+          label={tr("hosts.credentialListModal.delete")}
           destructive
           onPress={() => {
             setDeleteTarget(sheetCredential);
@@ -241,8 +255,11 @@ export default function CredentialListModal({
         tone="destructive"
         visible={deleteTarget !== null}
         onClose={() => setDeleteTarget(null)}
-        title="Delete credential"
-        description={`"${deleteTarget?.name}" will be permanently deleted. Hosts using it will lose their saved credentials.`}
+        title={tr("hosts.credentialListModal.deleteCredential")}
+        description={tr(
+          "hosts.credentialListModal.willBePermanentlyDeletedHosts",
+          { name: deleteTarget?.name },
+        )}
         icon={<Trash2 size={16} color={color("destructive")} />}
         footer={
           <>
@@ -251,7 +268,7 @@ export default function CredentialListModal({
               size="sm"
               onPress={() => setDeleteTarget(null)}
             >
-              Cancel
+              {tr("hosts.credentialListModal.cancel")}
             </Button>
             <Button
               variant="destructive"
@@ -259,7 +276,7 @@ export default function CredentialListModal({
               loading={deleting}
               onPress={handleDelete}
             >
-              Delete
+              {tr("hosts.credentialListModal.delete")}
             </Button>
           </>
         }
@@ -318,7 +335,7 @@ function CredentialRow({
       </View>
       {c.usageCount > 0 ? (
         <Text className="shrink-0 text-[10px] text-muted-foreground">
-          {c.usageCount} host{c.usageCount !== 1 ? "s" : ""}
+          {tr("hosts.credentialListModal.hostCount", { count: c.usageCount })}
         </Text>
       ) : null}
       <ChevronRight size={14} color={color("muted-foreground")} />

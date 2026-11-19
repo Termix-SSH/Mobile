@@ -7,6 +7,7 @@ import { usePoll } from "@/core/exec";
 import type { HomeCardProps } from "@/core/features/types";
 import { HomeCard, Stat } from "../HomeCard";
 import { useHomeData } from "../HomeData";
+import { t } from "@/i18n";
 
 interface Overview {
   version: string | null;
@@ -68,7 +69,9 @@ export function ServerCard({ accountId, active, refreshKey }: HomeCardProps) {
 
   return (
     <HomeCard
-      title={account ? accountLabel(account) : "Server"}
+      title={
+        account ? accountLabel(account) : t("home.cards.serverCard.server")
+      }
       icon={Server}
       meta={data?.update ? "Update available" : undefined}
       loading={!data}
@@ -76,10 +79,16 @@ export function ServerCard({ accountId, active, refreshKey }: HomeCardProps) {
     >
       <View className="gap-3">
         <View className="flex-row flex-wrap gap-3">
-          <Stat label="Version" value={data?.version ?? "-"} />
-          <Stat label="Uptime" value={data?.uptime ?? "-"} />
           <Stat
-            label="Database"
+            label={t("home.cards.serverCard.version")}
+            value={data?.version ?? "-"}
+          />
+          <Stat
+            label={t("home.cards.serverCard.uptime")}
+            value={data?.uptime ?? "-"}
+          />
+          <Stat
+            label={t("home.cards.serverCard.database")}
             value={
               data?.database === "healthy"
                 ? "Healthy"
@@ -97,21 +106,27 @@ export function ServerCard({ accountId, active, refreshKey }: HomeCardProps) {
           />
         </View>
         <View className="flex-row flex-wrap gap-3">
-          <Stat label="Hosts" value={String(hosts.length)} />
           <Stat
-            label="Online"
+            label={t("home.cards.serverCard.hosts")}
+            value={String(hosts.length)}
+          />
+          <Stat
+            label={t("home.cards.serverCard.online")}
             value={String(online)}
             tone={online > 0 ? "good" : undefined}
           />
           <Stat
-            label="Offline"
+            label={t("home.cards.serverCard.offline")}
             value={String(offline)}
             tone={offline > 0 ? "bad" : undefined}
           />
         </View>
         {data?.logins != null ? (
           <View className="flex-row flex-wrap gap-3">
-            <Stat label="Logins" value={String(data.logins)} />
+            <Stat
+              label={t("home.cards.serverCard.logins")}
+              value={String(data.logins)}
+            />
           </View>
         ) : null}
       </View>

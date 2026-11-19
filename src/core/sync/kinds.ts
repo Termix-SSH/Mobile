@@ -1,3 +1,5 @@
+import { t as tr } from "@/i18n";
+
 /** Groups of entity types the user can switch off in sync settings. */
 export interface SyncKind {
   id: string;
@@ -9,32 +11,32 @@ export interface SyncKind {
 export const SYNC_KINDS: SyncKind[] = [
   {
     id: "hosts",
-    label: "Hosts and folders",
-    description: "Your hosts, folders and hosts shared with you",
+    label: tr("sync.kinds.hostsAndFolders"),
+    description: tr("sync.kinds.yourHostsFoldersAndHosts"),
     types: ["hosts", "sshFolders", "sharedHosts"],
   },
   {
     id: "logins",
-    label: "Credentials",
-    description: "Saved passwords and keys, and credentials shared with you",
+    label: tr("sync.kinds.credentials"),
+    description: tr("sync.kinds.savedPasswordsAndKeysAnd"),
     types: ["sshCredentials", "sharedCredentials"],
   },
   {
     id: "snippets",
-    label: "Snippets",
-    description: "Snippets and their folders",
+    label: tr("sync.kinds.snippets"),
+    description: tr("sync.kinds.snippetsAndTheirFolders"),
     types: ["snippets", "snippetFolders"],
   },
   {
     id: "hostDefaults",
-    label: "Host defaults",
-    description: "Default settings for new hosts",
+    label: tr("sync.kinds.hostDefaults"),
+    description: tr("sync.kinds.defaultSettingsForNewHosts"),
     types: ["hostDefaults", "hostDefaultsAdmin"],
   },
   {
     id: "preferences",
-    label: "Preferences",
-    description: "Settings that follow you between devices",
+    label: tr("sync.kinds.preferences"),
+    description: tr("sync.kinds.settingsThatFollowYouBetween"),
     types: ["userPreferences"],
   },
 ];
