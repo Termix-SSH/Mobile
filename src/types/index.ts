@@ -404,6 +404,8 @@ export interface TerminalConfig {
   haptics: boolean;
   /** Phone only: Option on an iPad keyboard sends Alt instead of symbols. */
   optionAsMeta: boolean;
+  /** Phone only: a double tap on the terminal sends Tab. */
+  doubleTapTab?: boolean;
   /** Phone only: ask before a snippet runs. */
   confirmSnippetRun?: boolean;
   /** Phone only: show past commands that match the typed line. */

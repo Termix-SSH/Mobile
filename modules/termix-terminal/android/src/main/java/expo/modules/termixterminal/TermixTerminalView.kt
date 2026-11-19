@@ -69,6 +69,10 @@ class TermixTerminalView(context: Context, appContext: AppContext) :
 
   fun setAccentColor(color: String?) = terminal.setHandleColor(color)
 
+  fun setDoubleTapTab(on: Boolean) {
+    terminal.doubleTapTab = on
+  }
+
   fun setPromptWatch(on: Boolean) {
     terminal.promptWatch = on
   }

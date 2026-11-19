@@ -143,6 +143,7 @@ export interface TerminalSettings {
   scrollback: number;
   bell: TerminalBell;
   optionAsMeta: boolean;
+  doubleTapTab: boolean;
   linkPolicy: "confirm" | "direct";
 }
 
@@ -181,6 +182,7 @@ export function resolveTerminalSettings(
       haptics: user.haptics ?? true,
     },
     optionAsMeta: user.optionAsMeta ?? false,
+    doubleTapTab: user.doubleTapTab ?? false,
     linkPolicy: merged.linkClickBehavior === "direct" ? "direct" : "confirm",
   };
 }

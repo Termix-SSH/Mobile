@@ -34,6 +34,7 @@ class TermixTerminalModule : Module() {
       }
       Prop("accentColor") { view: TermixTerminalView, color: String? -> view.setAccentColor(color) }
       Prop("watchPrompt") { view: TermixTerminalView, on: Boolean? -> view.setPromptWatch(on == true) }
+      Prop("doubleTapTab") { view: TermixTerminalView, on: Boolean? -> view.setDoubleTapTab(on == true) }
       // iOS only: a hidden iOS surface stops drawing. Android draws on demand.
       Prop("surfaceVisible") { _: TermixTerminalView, _: Boolean? -> }
       // iOS only; Android reads Alt from the keyboard itself.

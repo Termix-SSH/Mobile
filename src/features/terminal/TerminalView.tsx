@@ -197,6 +197,7 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
           scrollback={settings.scrollback}
           bell={settings.bell}
           optionAsMeta={settings.optionAsMeta}
+          doubleTapTab={settings.doubleTapTab}
           accentColor={ui.brand}
           onInput={handleInput}
           onResize={onResize}

@@ -369,16 +369,24 @@ export default function TerminalCustomization() {
         </Section>
 
         <Section icon={Link} title="Links and keys">
-          <SettingRow
-            label="Ask before opening links"
-            last={Platform.OS !== "ios"}
-          >
+          <SettingRow label="Ask before opening links">
             <FakeSwitch
               checked={current.linkClickBehavior !== "direct"}
               onChange={(v) =>
                 save({ linkClickBehavior: v ? "confirm" : "direct" })
               }
               accessibilityLabel="Ask before opening links"
+            />
+          </SettingRow>
+          <SettingRow
+            label="Double tap sends Tab"
+            description="Long press still selects text"
+            last={Platform.OS !== "ios"}
+          >
+            <FakeSwitch
+              checked={current.doubleTapTab ?? false}
+              onChange={(v) => save({ doubleTapTab: v })}
+              accessibilityLabel="Double tap sends Tab"
             />
           </SettingRow>
           {Platform.OS === "ios" ? (

@@ -23,6 +23,30 @@ final class TermixGhosttyView: UITerminalView {
   override func didMoveToWindow() {
     super.didMoveToWindow()
     takeOverLongPress()
+    takeOverDoubleTap()
+  }
+
+  // The library's double tap selects a word. With the setting on it sends Tab.
+  private var doubleTapTaken = false
+  private func takeOverDoubleTap() {
+    guard !doubleTapTaken,
+      let tap = gestureRecognizers?.first(where: {
+        ($0 as? UITapGestureRecognizer)?.numberOfTapsRequired == 2
+      })
+    else { return }
+    doubleTapTaken = true
+    tap.removeTarget(nil, action: nil)
+    tap.addTarget(self, action: #selector(handleDoubleTap(_:)))
+  }
+
+  @objc private func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
+    guard gesture.state == .ended else { return }
+    if owner?.doubleTapTab == true {
+      owner?.sendKey("Tab", shift: false)
+      return
+    }
+    let select = NSSelectorFromString("handleSelectionTap:")
+    if responds(to: select) { perform(select, with: gesture) }
   }
 
   // Long press selects the word under the finger right away, like a text view.
@@ -275,6 +299,8 @@ class TermixTerminalView: ExpoView {
   let onShortcut = EventDispatcher()
   /** Set by the app when it handles shortcuts, so the keys reach the shell otherwise. */
   var reportsShortcuts = true
+  /// A double tap sends Tab instead of selecting a word.
+  var doubleTapTab = false
   private var searchTotal = 0
   private var searchSelected = -1
 

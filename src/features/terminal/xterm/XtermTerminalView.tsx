@@ -460,6 +460,10 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
     // Set by the touch-scroll handler once a wheel step was sent, so a gesture
     // that scrolled is never also reported as a click.
     let wheelSentThisGesture = false;
+    const doubleTapTab = ${terminalConfig.doubleTapTab ? "true" : "false"};
+    let lastTapTime = 0;
+    let lastTapX = 0;
+    let lastTapY = 0;
     let wordStart = null;
     let wordEnd = null;
     let selStart = null;
@@ -763,6 +767,19 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
       const isPlainTap = !hasMoved && !multiTouchSeen && !wheelSentThisGesture &&
         (!e.touches || e.touches.length === 0) &&
         Date.now() - touchStartTime < 400;
+      if (isPlainTap && doubleTapTab) {
+        const now = Date.now();
+        const isDouble = now - lastTapTime < 300 &&
+          Math.abs(touchStartX - lastTapX) < 30 && Math.abs(touchStartY - lastTapY) < 30;
+        lastTapTime = isDouble ? 0 : now;
+        lastTapX = touchStartX;
+        lastTapY = touchStartY;
+        if (isDouble) {
+          try { e.preventDefault(); } catch(e2) {}
+          forwardTerminalInput('\\t');
+          return;
+        }
+      }
       if (isPlainTap && terminal.modes.mouseTrackingMode !== 'none') {
         try { e.preventDefault(); } catch(e2) {}
         sendTapClick(touchStartX, touchStartY);

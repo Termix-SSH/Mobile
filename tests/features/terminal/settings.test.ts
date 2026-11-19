@@ -145,7 +145,15 @@ describe("resolveTerminalSettings", () => {
       bell: { style: "none", haptics: true },
       linkPolicy: "confirm",
       optionAsMeta: false,
+      doubleTapTab: false,
     });
+  });
+
+  test("double tap sends Tab only when turned on", () => {
+    expect(
+      resolveTerminalSettings({ doubleTapTab: true }, undefined, "dark")
+        .doubleTapTab,
+    ).toBe(true);
   });
 
   test("links open directly only when asked", () => {

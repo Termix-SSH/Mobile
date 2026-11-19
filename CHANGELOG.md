@@ -22,6 +22,8 @@
 - Server card on Home with version, update notice, uptime, database health, hosts online and offline, and logins
 - Homepage widgets show on Home as native cards: service grids with up and down dots, links, bookmarks, search, clocks, countdowns, calendars, notes, banners, pings, hosts, RSS, weather, custom APIs and pictures. Other widgets open the full Homepage
 - Home cards for notifications, recent activity, approvals you can answer in place, snippets to run on hosts, Wake on LAN and tunnels
+- Double tap sends Tab in the terminal, a setting under Terminal | Links and keys. Long press still selects text
+- Connect from shows for Telnet, VNC and RDP hosts too, not only SSH. On Automatic, Telnet moves to the server when the phone can't reach the host
 
 ### Changed
 

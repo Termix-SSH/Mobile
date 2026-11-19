@@ -63,6 +63,10 @@ public class TermixTerminalModule: Module {
         view.promptWatch = on ?? false
       }
 
+      Prop("doubleTapTab") { (view: TermixTerminalView, on: Bool?) in
+        view.doubleTapTab = on ?? false
+      }
+
       Prop("surfaceVisible") { (view: TermixTerminalView, visible: Bool?) in
         view.setSurfaceVisible(visible ?? true)
       }

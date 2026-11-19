@@ -25,4 +25,5 @@ export const MOBILE_DEFAULT_TERMINAL_CONFIG: Partial<TerminalConfig> = {
   linkClickBehavior: "confirm",
   haptics: true,
   optionAsMeta: false,
+  doubleTapTab: false,
 };

@@ -222,6 +222,7 @@ internal class GhosttyTerminalView(context: Context) : View(context) {
   private var bellSound = false
   private var bellVisual = false
   private var haptics = true
+  var doubleTapTab = false
   private var lastBellAt = 0L
   private var flashUntil = 0L
   private var tone: ToneGenerator? = null
@@ -291,8 +292,12 @@ internal class GhosttyTerminalView(context: Context) : View(context) {
         return true
       }
 
-      // A double tap selects the word, like a long press without the drag.
+      // A double tap selects the word, like a long press without the drag, or sends Tab.
       override fun onDoubleTap(e: MotionEvent): Boolean {
+        if (doubleTapTab) {
+          sendNamedKey("Tab", false)
+          return true
+        }
         if (handle == 0L || finished || mouseTracking) return false
         lastPressCol = colAt(e.x)
         lastPressRow = rowAt(e.y)
