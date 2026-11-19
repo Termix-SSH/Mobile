@@ -30,6 +30,8 @@ async function wakeViaServer(host: SSHHost, ctx: FeatureContext) {
 export const wakeOnLanFeature: FeatureDef = {
   id: "wake-on-lan",
   plugins: ["wake-on-lan"],
+  // The Power tab still opens from the server.
+  replacesViews: [],
   title: "Wake on LAN",
   source: "native",
   requires: { plugin: "wake-on-lan" },

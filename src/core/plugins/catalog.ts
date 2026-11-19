@@ -1,7 +1,8 @@
 /**
  * Every official plugin, so the app can say what it does with one even when
  * no server is linked. Plugins with app screens are matched through the
- * features' `plugins` lists instead; `kind` covers the rest.
+ * features' `plugins` lists instead; `kind` covers the rest, and the views a
+ * native feature leaves to the server (its `replacesViews`).
  *
  * - `app`: the app does it itself, outside any feature (host status dots).
  * - `server`: it works on the server and the app uses the result (sign in,
@@ -167,7 +168,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   },
   { id: "vault", name: "SSH Certificate Signer", kind: "server" },
   { id: "virtual-machines", name: "Virtual Machines", kind: "webview" },
-  { id: "wake-on-lan", name: "Wake-on-LAN", kind: "none" },
+  { id: "wake-on-lan", name: "Wake-on-LAN", kind: "webview" },
   { id: "warpgate", name: "Warpgate", kind: "server" },
   { id: "web-endpoint", name: "Web Endpoint", kind: "none" },
   {

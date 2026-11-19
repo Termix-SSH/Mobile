@@ -467,6 +467,11 @@ export interface FeatureDef {
    * plugin does in the app.
    */
   plugins?: string[];
+  /**
+   * Plugin views this native feature replaces. Unset means all of them; the
+   * rest still open as web views.
+   */
+  replacesViews?: string[];
   /** Needed on linked servers. Unset means always there. */
   requires?: FeatureRequirement;
   /** Which accounts can use it. Defaults to linked servers only. */
