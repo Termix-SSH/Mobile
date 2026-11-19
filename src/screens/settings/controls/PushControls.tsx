@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Linking, View } from "react-native";
-import { accountLabel, useAccounts } from "@/core/accounts";
+import { useAccounts } from "@/core/accounts";
 import { isServerAccount, type ServerAccount } from "@/core/accounts/types";
 import type { AlertSeverity } from "@/core/api/modules/alerts";
 import { pushMode } from "@/core/push/native";
@@ -15,6 +15,11 @@ import { Button, ChoiceRow, FakeSwitch, SettingRow, Text } from "@/ui";
 import { t } from "@/i18n";
 
 const SEVERITIES: AlertSeverity[] = ["info", "warning", "critical"];
+
+/** Servers often share the name Termix, so show where each one is. */
+export function serverAddress(account: ServerAccount): string {
+  return account.serverUrl.replace(/^https?:\/\//i, "").replace(/\/+$/, "");
+}
 
 function stateText(state: PushState | null): string | null {
   switch (state) {
@@ -82,7 +87,7 @@ function ServerPush({
   return (
     <View>
       <SettingRow
-        label={accountLabel(account)}
+        label={serverAddress(account)}
         description={
           pref.enabled ? t("push.settings.on") : t("push.settings.off")
         }
@@ -92,7 +97,7 @@ function ServerPush({
           checked={pref.enabled}
           disabled={busy}
           accessibilityLabel={t("push.settings.toggle", {
-            server: accountLabel(account),
+            server: serverAddress(account),
           })}
           onChange={(on) => void change({ enabled: on })}
         />
