@@ -6,7 +6,7 @@ Termix Mobile is translated into 41 languages. Anyone can help, and you don't ne
 
 - `en.json` holds the English text. It is the only file the app's code is written against.
 - `translated/` has one file per language, like `de_DE.json` for German.
-- When `en.json` changes, a workflow translates the new and changed strings into every language with the Termix LLM server, using the translator in [Termix-Registry](https://github.com/Termix-SSH/Termix-Registry/tree/main/translate).
+- When `en.json` changes on a dev branch, and again before every app build, a workflow translates the new and changed strings into every language with the Termix LLM server, using the translator in [Termix-Registry](https://github.com/Termix-SSH/Termix-Registry/tree/main/translate).
 - `translations-lock.json` tracks which English text each translation was made from. Don't edit it by hand.
 
 ## Fix a translation
