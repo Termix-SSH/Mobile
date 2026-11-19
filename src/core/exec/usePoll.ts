@@ -6,6 +6,8 @@ export interface PollOptions {
   intervalMs: number;
   /** False pauses it, for a hidden tab or screen. */
   enabled?: boolean;
+  /** A new value runs the task again now, like a pull to refresh. */
+  restartKey?: unknown;
 }
 
 /** Low power mode polls this many times slower. */
@@ -19,7 +21,7 @@ export const LOW_POWER_FACTOR = 3;
  */
 export function usePoll(
   task: (signal: AbortSignal) => void | Promise<void>,
-  { intervalMs, enabled = true }: PollOptions,
+  { intervalMs, enabled = true, restartKey }: PollOptions,
 ): void {
   const taskRef = useRef(task);
   taskRef.current = task;
@@ -73,5 +75,5 @@ export function usePoll(
       stop();
       sub.remove();
     };
-  }, [intervalMs, enabled]);
+  }, [intervalMs, enabled, restartKey]);
 }

@@ -456,6 +456,37 @@ export interface DashboardCardDef {
   component: ComponentType<DashboardCardProps>;
 }
 
+export interface HomeCardProps {
+  accountId: string;
+  /** False while Home is hidden; cards stop polling. */
+  active: boolean;
+  /** Goes up on pull to refresh. */
+  refreshKey: number;
+  /** Which one, for cards with instances. */
+  instance?: string;
+}
+
+export interface HomeCardInstance {
+  key: string;
+  title: string;
+  /** Overrides the card's `defaultOn` for this one. */
+  defaultOn?: boolean;
+}
+
+/** A card on the Home dashboard. */
+export interface HomeCardDef {
+  id: string;
+  title: string;
+  icon: FeatureIcon;
+  order: number;
+  /** On a fresh layout. Defaults to true. */
+  defaultOn?: boolean;
+  isAvailable?: (ctx: FeatureContext) => boolean;
+  /** One card per instance, like one per Homepage widget. */
+  instances?: (ctx: FeatureContext) => Promise<HomeCardInstance[]>;
+  component: ComponentType<HomeCardProps>;
+}
+
 export interface FeatureDef {
   id: string;
   title: string;
@@ -492,6 +523,7 @@ export interface FeatureDef {
   sessionMenuItems?: SessionMenuItemDef[];
   companions?: CompanionDef[];
   dashboardCards?: DashboardCardDef[];
+  homeCards?: HomeCardDef[];
   /**
    * Named things in the app's own vocabulary that this feature fills, for
    * small spots like a form field. See CAPABILITIES.

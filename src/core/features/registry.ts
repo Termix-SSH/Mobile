@@ -7,6 +7,7 @@ import type {
   FeatureContext,
   FeatureDef,
   FeatureRequirement,
+  HomeCardDef,
   SessionCapability,
   SessionMenuContext,
   SessionTabDef,
@@ -237,6 +238,13 @@ export class FeatureRegistry {
   dashboardCards(host: SSHHost, ctx: FeatureContext): DashboardCardDef[] {
     return this.collect(ctx, (d) => d.dashboardCards)
       .filter((c) => c.isAvailable(host))
+      .sort(byOrder);
+  }
+
+  /** Dashboard cards features add to Home. */
+  homeCards(ctx: FeatureContext): HomeCardDef[] {
+    return this.collect(ctx, (d) => d.homeCards)
+      .filter((c) => c.isAvailable?.(ctx) ?? true)
       .sort(byOrder);
   }
 

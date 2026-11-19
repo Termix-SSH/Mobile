@@ -86,6 +86,12 @@ export function useQuickActions() {
   return useMemo(() => ({ ctx, actions: features.quickActions(ctx) }), [ctx]);
 }
 
+/** Cards features add to the Home dashboard. */
+export function useHomeCards() {
+  const ctx = useFeatureContext();
+  return useMemo(() => ({ ctx, cards: features.homeCards(ctx) }), [ctx]);
+}
+
 /** Rows for the Tools tab. */
 export function useTools() {
   const ctx = useFeatureContext();
