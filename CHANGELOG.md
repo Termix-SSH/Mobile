@@ -33,6 +33,7 @@
 - Plugin pages run plugins made for the newest plugin API (2.9)
 - CPU and RAM on host rows are drawn the same way as on the web dashboard, with their labels
 - Remote desktops zoom out below fit, and two fingers pan a zoomed in desktop
+- Remote desktops the phone opens itself scroll faster: only the changed parts are redrawn on iOS and the connection asks for compression, thanks to loidolt
 - On an iPad or Android tablet the app says tablet instead of phone
 - Settings > Logs shows which way a terminal connected and why its socket closed
 

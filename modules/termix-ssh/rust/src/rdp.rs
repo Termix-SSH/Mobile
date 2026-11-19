@@ -12,7 +12,7 @@ use ironrdp::pdu::input::fast_path::{FastPathInputEvent, KeyboardFlags};
 use ironrdp::pdu::input::mouse::PointerFlags;
 use ironrdp::pdu::input::MousePdu;
 use ironrdp::pdu::rdp::capability_sets::MajorPlatformType;
-use ironrdp::pdu::rdp::client_info::{PerformanceFlags, TimezoneInfo};
+use ironrdp::pdu::rdp::client_info::{CompressionType, PerformanceFlags, TimezoneInfo};
 use ironrdp::session::image::DecodedImage;
 use ironrdp::session::{ActiveStage, ActiveStageBuilder, ActiveStageOutput};
 use ironrdp_core::WriteBuf;
@@ -83,7 +83,9 @@ fn connector_config(config: &DisplayConfig) -> connector::Config {
         client_name: "Termix".to_owned(),
         client_dir: "C:\\Windows\\System32\\mstscax.dll".to_owned(),
         platform: MajorPlatformType::UNSPECIFIED,
-        compression_type: None,
+        // Bulk compression: the server's bitmaps are mostly sent uncompressed without it, which
+        // makes a phone on a slow link fall behind while the desktop scrolls.
+        compression_type: Some(CompressionType::Rdp61),
         // We draw the cursor ourselves (rdp_screen), from the shapes the server sends.
         enable_server_pointer: true,
         autologon,
@@ -610,6 +612,7 @@ mod tests {
         assert_eq!((c.desktop_size.width, c.desktop_size.height), (200, 8192));
         assert_eq!(c.desktop_scale_factor, 200);
         assert_eq!(c.domain, None);
+        assert_eq!(c.compression_type, Some(CompressionType::Rdp61));
         assert_eq!(security("nla"), (false, true));
         assert_eq!(security("rdp"), (true, false));
         assert_eq!(connector_config(&DisplayConfig { scale: 50, ..config("") }).desktop_scale_factor, 0);
