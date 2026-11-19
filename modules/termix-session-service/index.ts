@@ -14,6 +14,15 @@ interface NativeSessionService {
     channelName: string,
   ): boolean;
   hide(): void;
+  showAlert?(
+    id: number,
+    title: string,
+    body: string,
+    url: string,
+    critical: boolean,
+    channelName: string,
+    criticalChannelName: string,
+  ): boolean;
   isRunning(): boolean;
   notificationsEnabled(): boolean;
   ignoresBatteryOptimizations(): boolean;
@@ -46,6 +55,32 @@ export function showSessionService(content: ServiceContent): boolean {
       content.lines,
       content.actionLabel,
       content.channelName,
+    );
+  } catch {
+    return false;
+  }
+}
+
+/** Android only: shows a server alert. False when it could not. */
+export function showAlertNotification(alert: {
+  id: number;
+  title: string;
+  body: string;
+  url: string;
+  critical: boolean;
+  channelName: string;
+  criticalChannelName: string;
+}): boolean {
+  if (!native?.showAlert) return false;
+  try {
+    return native.showAlert(
+      alert.id,
+      alert.title,
+      alert.body,
+      alert.url,
+      alert.critical,
+      alert.channelName,
+      alert.criticalChannelName,
     );
   } catch {
     return false;

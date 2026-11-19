@@ -57,7 +57,7 @@ test("app.config.js only changes the config with TERMIX_FDROID=1", () => {
   const saved = process.env.TERMIX_FDROID;
   try {
     delete process.env.TERMIX_FDROID;
-    expect(appConfig({ config: base })).toBe(base);
+    expect(appConfig({ config: base }).extra).toBe(base.extra);
     process.env.TERMIX_FDROID = "1";
     expect(appConfig({ config: base }).extra.distribution).toBe("fdroid");
   } finally {
@@ -66,11 +66,34 @@ test("app.config.js only changes the config with TERMIX_FDROID=1", () => {
   }
 });
 
+test("Firebase is added for push, and never in the F-Droid build", () => {
+  const saved = process.env.GOOGLE_SERVICES_JSON;
+  try {
+    process.env.GOOGLE_SERVICES_JSON = "/tmp/google-services.json";
+    expect(appConfig({ config: base }).android.googleServicesFile).toBe(
+      "/tmp/google-services.json",
+    );
+    const fdroid = applyFdroid({
+      ...base,
+      android: { ...base.android, googleServicesFile: "x.json" },
+    });
+    expect(fdroid.android.googleServicesFile).toBeUndefined();
+    const names = fdroid.plugins.map((p: unknown) =>
+      Array.isArray(p) ? p[0] : p,
+    );
+    expect(names).not.toContain("expo-notifications");
+  } finally {
+    if (saved === undefined) delete process.env.GOOGLE_SERVICES_JSON;
+    else process.env.GOOGLE_SERVICES_JSON = saved;
+  }
+});
+
 test("package.json loses the packages F-Droid cannot take", () => {
   const out = stripPackageJson({
     dependencies: {
       "expo-application": "1",
       "expo-dev-client": "1",
+      "expo-notifications": "1",
       expo: "1",
     },
   });

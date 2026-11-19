@@ -59,6 +59,9 @@ import { SHOWCASE } from "@/showcase/enabled";
 import { ShowcaseHost } from "@/showcase/ShowcaseHost";
 // Defines the background sync task, which must exist when the app loads.
 import "@/core/sync/background";
+// Same for the F-Droid alert check.
+import "@/core/push/poll";
+import { usePushNotifications } from "@/core/push/usePushNotifications";
 import { t } from "@/i18n";
 
 registerBuiltInFeatures();
@@ -87,6 +90,7 @@ function RootLayoutContent() {
   useAppShortcuts();
   useWidgetSync();
   usePowerWidgetSync();
+  usePushNotifications(!isLoading);
 
   useEffect(() => {
     if (isLoading) return;

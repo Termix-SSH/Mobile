@@ -13,6 +13,7 @@ import {
 import { deviceId, deviceName } from "./device";
 import { SyncError } from "./errors";
 import { SyncRemote } from "./remote";
+import { forgetPushAccount } from "@/core/push/register";
 import { t } from "@/i18n";
 
 export interface LinkOutcome {
@@ -162,6 +163,7 @@ export async function unlinkAccount(
     changes.emitAll("local");
   }
   options.stop?.(accountId);
+  await forgetPushAccount(accountId);
   if (client?.token()) {
     await new SyncRemote(client).unlink().catch(() => {});
   }

@@ -3371,7 +3371,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Version and updates",
         "logs": "Logs",
-        "latestLinesFromThisRun": "Latest lines from this run, for bug reports"
+        "latestLinesFromThisRun": "Latest lines from this run, for bug reports",
+        "pushNotifications": "Push notifications",
+        "pushNotificationsDescription": "Alerts from your servers on this phone"
       },
       "sections": {
         "accountsAndSync": "Accounts and sync",
@@ -3825,5 +3827,31 @@
     "shareCount_one": "Share with {{count}}",
     "shareCount_other": "Share with {{count}}",
     "removeAccess": "Remove access"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Server alerts",
+      "critical": "Critical server alerts"
+    },
+    "severity": {
+      "info": "Everything",
+      "warning": "Warnings and worse",
+      "critical": "Only critical"
+    },
+    "settings": {
+      "on": "Alerts show up on this phone",
+      "off": "Off",
+      "toggle": "Push notifications for {{server}}",
+      "minSeverity": "Send me",
+      "denied": "Notifications are turned off for Termix. Turn them on in the phone's settings.",
+      "openSettings": "Open settings",
+      "outdated": "This server needs Alerts 1.4.0 or newer for push notifications. Ask an admin to update the plugin.",
+      "unavailable": "Sign in to this server and turn on the Alerts plugin to get notifications.",
+      "error": "Could not reach the server. Termix tries again next time the app opens.",
+      "notInThisBuild": "This build can't show notifications.",
+      "noServers": "Link a server to get its alerts here.",
+      "pushHint": "Alerts are sent through Expo and Apple or Google, with their title and text. Pick which ones in the Alerts rules on the server.",
+      "pollHint": "This build has no Google services, so Termix checks for new alerts in the background, about every 15 minutes."
+    }
   }
 }

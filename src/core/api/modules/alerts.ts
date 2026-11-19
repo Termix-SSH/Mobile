@@ -127,7 +127,83 @@ export function createAlertsApi(c: AccountClient) {
   /** True when delete and clear really remove alerts. */
   const canDelete = () => inbox();
 
-  return { available, list, unreadCount, markRead, remove, clear, canDelete };
+  /**
+   * Links this phone for push notifications. "outdated" when the server's
+   * Alerts plugin is too old to know phones.
+   */
+  async function putDevice(
+    installId: string,
+    device: PushDeviceInput,
+  ): Promise<PushDevice | "outdated"> {
+    try {
+      const response = await c.http.auth.put(
+        `/plugin-api/alerts/devices/${encodeURIComponent(installId)}`,
+        device,
+      );
+      return response.data as PushDevice;
+    } catch (error) {
+      if (statusOf(error) === 404) return "outdated";
+      c.fail(error, "link this phone for notifications");
+    }
+  }
+
+  /** The phones linked on this server, or null when it can't say. */
+  async function devices(): Promise<PushDevice[] | null> {
+    try {
+      const response = await c.http.auth.get("/plugin-api/alerts/devices");
+      return Array.isArray(response.data) ? response.data : null;
+    } catch {
+      return null;
+    }
+  }
+
+  async function removeDevice(installId: string): Promise<void> {
+    try {
+      await c.http.auth.delete(
+        `/plugin-api/alerts/devices/${encodeURIComponent(installId)}`,
+      );
+    } catch (error) {
+      if (statusOf(error) === 404) return;
+      c.fail(error, "unlink this phone from notifications");
+    }
+  }
+
+  return {
+    available,
+    list,
+    unreadCount,
+    markRead,
+    remove,
+    clear,
+    canDelete,
+    putDevice,
+    devices,
+    removeDevice,
+  };
+}
+
+export type AlertSeverity = "info" | "warning" | "critical";
+
+export interface PushDeviceInput {
+  token: string;
+  platform: "ios" | "android";
+  name: string;
+  accountKey: string;
+  enabled: boolean;
+  minSeverity: AlertSeverity;
+}
+
+export interface PushDevice {
+  installId: string;
+  channelId: number;
+  name: string;
+  platform: "ios" | "android";
+  enabled: boolean;
+  minSeverity: string;
+}
+
+function statusOf(error: unknown): number | undefined {
+  return (error as { response?: { status?: number } })?.response?.status;
 }
 
 export type AlertsApi = ReturnType<typeof createAlertsApi>;

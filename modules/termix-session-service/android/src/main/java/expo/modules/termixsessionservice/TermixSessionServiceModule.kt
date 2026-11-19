@@ -45,6 +45,10 @@ class TermixSessionServiceModule : Module() {
       SessionService.running
     }
 
+    Function("showAlert") { id: Int, title: String, body: String, url: String, critical: Boolean, channelName: String, criticalChannelName: String ->
+      AlertNotifier.show(context, id, title, body, url, critical, channelName, criticalChannelName)
+    }
+
     Function("notificationsEnabled") {
       NotificationManagerCompat.from(context).areNotificationsEnabled()
     }

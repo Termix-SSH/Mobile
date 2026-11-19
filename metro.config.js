@@ -14,4 +14,13 @@ config.resolver.blockList = [
   storeDir,
 ];
 
+// The F-Droid build has no expo-notifications; it polls for alerts instead.
+if (process.env.TERMIX_FDROID === "1") {
+  const resolve = config.resolver.resolveRequest;
+  config.resolver.resolveRequest = (context, name, platform) =>
+    name === "expo-notifications"
+      ? { type: "empty" }
+      : (resolve ?? context.resolveRequest)(context, name, platform);
+}
+
 module.exports = withNativeWind(config, { input: "./global.css" });

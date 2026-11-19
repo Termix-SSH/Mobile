@@ -8,6 +8,7 @@
 - Approvals and Run history under Tools, when the server has Operations Center
 - Cancel a run that is still going or waiting, and undo a finished one, from Run history
 - Notifications have their own screen behind a bell on Home, Hosts and Tools, with an unread count, mark read, mark all read and delete
+- Push notifications for server alerts. Turn them on per server in Settings, Notifications and pick how bad an alert has to be. Tapping one opens that server's inbox. Needs Alerts 1.4.0 on the server. The F-Droid build checks for new alerts in the background instead
 - WireGuard opens in the app
 - The Wake-on-LAN Power page opens in the app, so you can wake machines that are not hosts
 - AI Assistant and the Login Security pages (sessions and keys, connect check, admin waits) open in the app

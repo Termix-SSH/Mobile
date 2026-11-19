@@ -43,6 +43,7 @@ import {
   UsageStatsControl,
 } from "../controls/AnalyticsControls";
 import { WidgetsControl } from "../controls/WidgetsControl";
+import { PushNotificationsControl } from "../controls/PushControls";
 import type { SettingsItemDef } from "./types";
 import { deviceWord } from "@/utils/device-word";
 import { t } from "@/i18n";
@@ -268,6 +269,16 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
     order: 20,
     icon: BatteryCharging,
     Control: BackgroundSessionsControl,
+  },
+  {
+    id: "push-notifications",
+    section: "notifications",
+    label: t("settings.schema.items.pushNotifications"),
+    description: t("settings.schema.items.pushNotificationsDescription"),
+    keywords: ["push", "alerts", "notifications", "phone"],
+    order: 10,
+    icon: Bell,
+    Control: PushNotificationsControl,
   },
   {
     id: "server-alerts",

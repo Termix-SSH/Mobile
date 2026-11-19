@@ -57,6 +57,12 @@
       ],
       "./plugins/withOidcCallbackIntentFilter.js",
       [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/notification/notification-icon-xxxhdpi.png"
+        }
+      ],
+      [
         "expo-local-authentication",
         {
           "faceIDPermission": "Use Face ID to unlock Termix."
