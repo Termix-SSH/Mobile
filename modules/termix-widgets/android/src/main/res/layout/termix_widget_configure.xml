@@ -8,6 +8,7 @@
   android:padding="20dp">
 
   <TextView
+    android:id="@+id/termix_configure_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/termix_widget_configure_title"
@@ -17,6 +18,7 @@
     android:fontFamily="monospace" />
 
   <TextView
+    android:id="@+id/termix_configure_message"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
@@ -99,6 +101,7 @@
     android:visibility="gone">
 
     <TextView
+      android:id="@+id/termix_configure_empty_text"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:gravity="center"

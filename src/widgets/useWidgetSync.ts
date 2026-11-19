@@ -1,8 +1,10 @@
 import { useEffect } from "react";
-import { activeClient } from "@/core/accounts";
+import { AppState } from "react-native";
+import { accounts, activeClient } from "@/core/accounts";
 import { useLocalStoreState, useRepositories } from "@/core/data/hooks";
 import type { Snippet, SSHHost } from "@/types";
 import { publishHostSnapshot } from "./publish";
+import { publishPowerWidget } from "./power";
 
 /**
  * Keeps the widgets filled from the local store, so they work with no server
@@ -45,4 +47,44 @@ export function useWidgetSync() {
       stops.forEach((stop) => stop());
     };
   }, [repos, storeState]);
+}
+
+/**
+ * Keeps the Power widget's devices and server access current: on start, when
+ * accounts or a session change, and each time the app comes to the front.
+ */
+export function usePowerWidgetSync() {
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const schedule = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        timer = null;
+        void publishPowerWidget();
+      }, 1500);
+    };
+    const clientStops = new Map<string, () => void>();
+    const watchClients = () => {
+      for (const account of accounts.list()) {
+        if (clientStops.has(account.id)) continue;
+        const client = accounts.client(account.id);
+        if (client) clientStops.set(account.id, client.subscribe(schedule));
+      }
+    };
+    watchClients();
+    schedule();
+    const stopAccounts = accounts.subscribe(() => {
+      watchClients();
+      schedule();
+    });
+    const appState = AppState.addEventListener("change", (state) => {
+      if (state === "active") schedule();
+    });
+    return () => {
+      if (timer) clearTimeout(timer);
+      stopAccounts();
+      appState.remove();
+      clientStops.forEach((stop) => stop());
+    };
+  }, []);
 }

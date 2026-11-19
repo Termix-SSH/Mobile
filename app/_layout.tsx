@@ -39,7 +39,11 @@ import * as SplashScreen from "expo-splash-screen";
 import { FONT_MAP, MONO_FONT, MONO_FONT_BOLD } from "@/constants/fonts";
 import "../global.css";
 import UpdateRequired from "@/screens/authentication/UpdateRequired";
-import { WidgetDeepLinkHost, useWidgetSync } from "@/widgets";
+import {
+  WidgetDeepLinkHost,
+  usePowerWidgetSync,
+  useWidgetSync,
+} from "@/widgets";
 import { loadHostListPrefs } from "@/core/host-list-prefs";
 import { loadUiPrefs } from "@/core/ui-prefs";
 import { registerBuiltInFeatures } from "@/features";
@@ -81,6 +85,7 @@ function RootLayoutContent() {
   usePluginFrameFeatures();
   useAppShortcuts();
   useWidgetSync();
+  usePowerWidgetSync();
 
   useEffect(() => {
     if (isLoading) return;

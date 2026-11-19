@@ -15,6 +15,7 @@
 - Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
 - Plugin pages in the app show other plugins' parts again, like Homepage widgets from Docker or Proxmox. Each part runs in its own web view over the page
 - A trackpad or mouse works in remote desktops the phone opens itself on iPad: hover, clicks with the right button and scrolling
+- Power widget for one machine from the Power tab: it shows the name and status, and a tap wakes it or shuts it down without opening the app (iOS 17 and Android)
 - iPhone Duo: the app lays out around the fold, uses the side bar column for tabs and keeps clear of the inner screen's corners
 
 ### Changed
