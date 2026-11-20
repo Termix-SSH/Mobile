@@ -3,6 +3,7 @@ import { View, ScrollView, Pressable, RefreshControl } from "react-native";
 import { Plug, SquareTerminal, ExternalLink, X } from "lucide-react-native";
 import { features, useFeatureContext } from "@/core/features";
 import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
+import { displayTitle } from "@/contexts/session-tabs";
 import { Text, useConfirm, EmptyState } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { SSHHost } from "@/types";
@@ -324,7 +325,7 @@ export function ConnectionsPanel({
                     .sessionTab(s.type)
                     ?.toServerTabType(s, accounts.client(s.accountId)) ?? s.type
                 }
-                name={s.host.name}
+                name={displayTitle(s)}
                 subLabel={
                   s.host.username
                     ? `${s.host.username}@${s.host.ip}`
@@ -361,7 +362,7 @@ export function ConnectionsPanel({
                 key={r.id}
                 isLive={live?.isConnected ?? false}
                 tabType={r.tabType}
-                name={host?.name ?? r.label}
+                name={r.label.trim() || host?.name || r.label}
                 subLabel={
                   live?.isConnected
                     ? t("sessions.connectionsPanel.liveTapToReconnect")
