@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Open tabs keep running when you switch.",
       "unlink": "Unlink {{account}}",
       "linkAServer": "Link a server",
-      "eachServerKeepsItsOwn": "Each server keeps its own hosts, credentials and settings on this{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Each server keeps its own hosts, credentials and settings on this {{deviceWord}}.",
       "signedIn": "Signed in",
       "signedOut": "Signed out",
       "syncedCopy": "Synced copy"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Reload"
+    },
+    "pluginSettings": {
+      "loading": "Loading settings",
+      "forEveryone": "For everyone on the server",
+      "justForYou": "Just for you",
+      "couldNotSave": "Could not save the setting",
+      "nothingYouCanChange": "There is nothing here you can change. An admin can change these settings.",
+      "notANumber": "That is not a number",
+      "atLeast": "It has to be {{min}} or more",
+      "atMost": "It has to be {{max}} or less"
     }
   },
   "sessions": {
@@ -2871,7 +2881,7 @@
       "signedIn": "Signed in",
       "close": "Close",
       "linkYourTermixServer": "Link your Termix server",
-      "yourHostsCredentialsSnippetsAnd": "Your hosts, credentials, snippets and settings sync with it, and you get its plugins. Everything keeps working on this{{deviceWord}} when the server is away.",
+      "yourHostsCredentialsSnippetsAnd": "Your hosts, credentials, snippets and settings sync with it, and you get its plugins. Everything keeps working on this {{deviceWord}} when the server is away.",
       "checking": "Checking {{host}}...",
       "proxyAndClientCertificate": "Proxy and client certificate",
       "couldNotReachThatServer": "Could not reach that server. Check the address, or set up the proxy or client certificate.",
@@ -3134,7 +3144,7 @@
         "howTallListRowsAnd": "How tall list rows and settings are"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Hosts, credentials and snippets are kept in an encrypted file on this{{deviceWord}}. Usage statistics are off unless you turn them on below. A linked server only gets what you let it sync.",
+        "hostsCredentialsAndSnippetsAre": "Hosts, credentials and snippets are kept in an encrypted file on this {{deviceWord}}. Usage statistics are off unless you turn them on below. A linked server only gets what you let it sync.",
         "recentHosts": "Recent hosts",
         "forgetTheHostsYouOpened": "Forget the hosts you opened lately on every account",
         "recentHostsCleared": "Recent hosts cleared",
