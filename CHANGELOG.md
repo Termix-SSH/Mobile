@@ -49,6 +49,7 @@
 - Hosts and other rows a server no longer has, like after it was restored or reset, now leave the phone too. Sync now checks the whole list, and the app does it on its own every few hours
 - Some sign in and sync text showed codes like &apos; instead of an apostrophe
 - Change password and Delete server account have space between them in Settings
+- The Suggest commands description in Terminal settings is no longer cut off
 - Homepage no longer goes black a moment after it opens on a phone
 - Signing in through the browser with a passkey, security key or other method no longer comes back with "sent no session back" (needs Termix 26.11.3 or newer)
 - Going back to the Hosts tab no longer reloads the whole list; it refreshes in the background

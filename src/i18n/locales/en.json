@@ -3575,7 +3575,7 @@
       "onAHardwareKeyboardOff": "On a hardware keyboard. Off types symbols like on a Mac.",
       "history": "History",
       "suggestCommands": "Suggest commands",
-      "showsPastCommandsThatStart": "Shows past commands that start with what you type",
+      "showsPastCommandsThatStart": "Past commands as you type",
       "resetToDefault": "Reset to default",
       "fontSize": "Font size",
       "aSizeFromTo": "A size from {{MIN_FONT_SIZE}} to {{MAX_FONT_SIZE}}.",
