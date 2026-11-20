@@ -4,9 +4,8 @@ import { useIncomingShare } from "expo-sharing";
 import { File as FileIcon, Server } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
 import { useUiColors } from "@/contexts/ThemeContext";
-import { useAccounts } from "@/core/accounts";
+import { useAccounts, accountLabel } from "@/core/accounts";
 import { SessionAccountProvider } from "@/core/accounts/session";
-import { accountLabel } from "@/core/accounts/types";
 import { useLiveList, useSessionRepositories } from "@/core/data/hooks";
 import { toUserMessage } from "@/core/errors";
 import {

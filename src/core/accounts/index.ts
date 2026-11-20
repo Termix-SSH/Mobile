@@ -3,7 +3,7 @@ import type { AccountClient } from "@/core/api/AccountClient";
 import type { ApiModules } from "@/core/api/modules";
 import { AppError } from "@/core/errors";
 import { AccountStore } from "./store";
-import type { Account } from "./types";
+import { accountLabelAmong, type Account } from "./types";
 import { t } from "@/i18n";
 
 export * from "./types";
@@ -12,6 +12,14 @@ export { hasUsableData } from "./usable";
 
 /** The app's account list. Clients come from here, never from a global. */
 export const accounts = new AccountStore();
+
+/** An account's name, told apart from other linked servers with the same name. */
+export function accountLabel(account: Account): string {
+  return accountLabelAmong(
+    account,
+    accounts.list().filter((a) => !("pending" in a && a.pending)),
+  );
+}
 
 export function activeClient(): AccountClient | null {
   return accounts.activeClient();
