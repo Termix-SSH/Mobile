@@ -144,6 +144,7 @@ const host = (over: object) =>
   }) as any;
 
 const openHost = jest.fn();
+const openHostAs = jest.fn();
 const showHostMenu = jest.fn();
 function withData(node: React.ReactNode, data: Partial<HomeData> = {}) {
   return (
@@ -153,6 +154,7 @@ function withData(node: React.ReactNode, data: Partial<HomeData> = {}) {
         hostsLoading: false,
         statuses: {},
         openHost,
+        openHostAs,
         showHostMenu,
         ...data,
       }}
@@ -266,11 +268,27 @@ test("the server card shows version, health and host counts", async () => {
   expect(screen.getByText("1")).toBeTruthy();
 });
 
-test("activity rows open the host they name", async () => {
+test("activity rows open the host they name, on the tab they name", async () => {
   const hosts = [host({ id: 3, serverId: 7 })];
   await render(withData(<ActivityCard {...props} />, { hosts }));
   await fireEvent.press(await screen.findByText("web"));
-  expect(openHost).toHaveBeenCalledWith(hosts[0]);
+  expect(openHostAs).toHaveBeenCalledWith(hosts[0], "terminal");
+});
+
+test("file activity opens the host's files, not a terminal", async () => {
+  mockClient.api.homepage.getRecentActivity.mockResolvedValueOnce([
+    {
+      id: 2,
+      type: "file_manager",
+      hostId: 7,
+      hostName: "web",
+      timestamp: new Date().toISOString(),
+    },
+  ]);
+  const hosts = [host({ id: 3, serverId: 7 })];
+  await render(withData(<ActivityCard {...props} />, { hosts }));
+  await fireEvent.press(await screen.findByText("web"));
+  expect(openHostAs).toHaveBeenCalledWith(hosts[0], "files");
 });
 
 test("no activity feed means no card", async () => {

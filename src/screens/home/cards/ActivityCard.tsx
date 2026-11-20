@@ -13,13 +13,16 @@ import { useHomeData } from "../HomeData";
 import { t } from "@/i18n";
 
 const SHOWN = 6;
+
+/** Activity types whose open-tabs name differs. */
+const TAB_TYPE: Record<string, string> = { file_manager: "files" };
 const POLL_MS = 60_000;
 
 /** What was opened lately on the server, from any device. */
 export function ActivityCard({ accountId, active, refreshKey }: HomeCardProps) {
   const client = useClient(accountId);
   const color = useThemeColor();
-  const { hosts, openHost } = useHomeData();
+  const { hosts, openHostAs } = useHomeData();
   const [items, setItems] = useState<RecentActivityItem[] | null>(null);
 
   const load = useCallback(async () => {
@@ -68,7 +71,11 @@ export function ActivityCard({ accountId, active, refreshKey }: HomeCardProps) {
                   {ago(item.timestamp)}
                 </Text>
               }
-              onPress={host ? () => openHost(host) : undefined}
+              onPress={
+                host
+                  ? () => openHostAs(host, TAB_TYPE[item.type] ?? item.type)
+                  : undefined
+              }
             />
           );
         })}

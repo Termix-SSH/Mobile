@@ -113,6 +113,7 @@ jest.mock("@/core/features/hooks", () => ({
 }));
 jest.mock("@/screens/hosts/useOpenHost", () => ({
   useOpenHost: () => async () => true,
+  useOpenHostAs: () => async () => true,
 }));
 jest.mock("@/screens/hosts/HostActionSheet", () => ({
   HostActionSheet: () => null,

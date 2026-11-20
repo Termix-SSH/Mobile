@@ -24,7 +24,7 @@ import type {
 } from "@/core/features/types";
 import { useHostStatuses } from "@/core/status";
 import { HostActionSheet } from "@/screens/hosts/HostActionSheet";
-import { useOpenHost } from "@/screens/hosts/useOpenHost";
+import { useOpenHost, useOpenHostAs } from "@/screens/hosts/useOpenHost";
 import {
   AccountButton,
   NotificationsButton,
@@ -121,6 +121,7 @@ export default function Home() {
   const color = useThemeColor();
   const confirm = useConfirm();
   const openHostRaw = useOpenHost();
+  const openHostAsRaw = useOpenHostAs();
   const { width, height } = useWindowDimensions();
   const twoColumns = windowInfo(width, height).canSplit;
   const [focused, setFocused] = useState(true);
@@ -158,15 +159,23 @@ export default function Home() {
       void openHostRaw(host).then((opened) => !opened && setSheetHost(host)),
     [openHostRaw],
   );
+  const openHostAs = useCallback(
+    (host: SSHHost, serverTabType: string) =>
+      void openHostAsRaw(host, serverTabType).then(
+        (opened) => !opened && openHost(host),
+      ),
+    [openHostAsRaw, openHost],
+  );
   const data: HomeData = useMemo(
     () => ({
       hosts: hosts.data,
       hostsLoading: hosts.loading,
       statuses,
       openHost,
+      openHostAs,
       showHostMenu: setSheetHost,
     }),
-    [hosts.data, hosts.loading, statuses, openHost],
+    [hosts.data, hosts.loading, statuses, openHost, openHostAs],
   );
 
   const toHosts = () => openTab("/(tabs)/hosts");

@@ -86,6 +86,7 @@ const withData = (node: React.ReactNode) => (
       hostsLoading: false,
       statuses,
       openHost: jest.fn(),
+      openHostAs: jest.fn(),
       showHostMenu: jest.fn(),
     }}
   >

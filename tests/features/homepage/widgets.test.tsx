@@ -252,6 +252,7 @@ test("host widgets find app hosts by their server id", async () => {
         hostsLoading: false,
         statuses: { 1: "online" },
         openHost,
+        openHostAs: jest.fn(),
         showHostMenu: jest.fn(),
       }}
     >
