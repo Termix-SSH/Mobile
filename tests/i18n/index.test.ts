@@ -110,3 +110,12 @@ test("every key the app uses is in en.json", () => {
   }
   expect(missing).toEqual([]);
 });
+
+test("English text has no HTML entities left over from JSX", () => {
+  const values = (obj: Record<string, unknown>): string[] =>
+    Object.values(obj).flatMap((v) =>
+      typeof v === "string" ? [v] : values(v as Record<string, unknown>),
+    );
+  const bad = values(en).filter((v) => /&(#\d+|[a-z]+);/i.test(v));
+  expect(bad).toEqual([]);
+});
