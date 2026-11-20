@@ -45,6 +45,7 @@
 
 ### Fixed
 
+- In split screen and pop up windows on foldables, text is no longer cut short and buttons work again
 - Homepage no longer goes black a moment after it opens on a phone
 - Signing in through the browser with a passkey, security key or other method no longer comes back with "sent no session back" (needs Termix 26.11.3 or newer)
 - Going back to the Hosts tab no longer reloads the whole list; it refreshes in the background

@@ -1,10 +1,10 @@
 const { withAndroidManifest, withInfoPlist } = require("@expo/config-plugins");
 
-const EXTRA_CONFIG_CHANGES = [
-  "smallestScreenSize",
-  "density",
-  "layoutDirection",
-];
+const EXTRA_CONFIG_CHANGES = ["smallestScreenSize", "layoutDirection"];
+
+// React Native keeps the old density when the activity handles the change, so
+// text gets cut off and taps land in the wrong place. Let Android restart it.
+const DROPPED_CONFIG_CHANGES = ["density"];
 
 const IPAD_ORIENTATIONS = [
   "UIInterfaceOrientationPortrait",
@@ -34,9 +34,11 @@ function optionalFeatures(manifest) {
   return manifest;
 }
 
-/** Adds config change flags without dropping the ones already there. */
+/** Adds config change flags, keeping the others except density. */
 function mergeConfigChanges(current) {
-  const parts = (current || "").split("|").filter(Boolean);
+  const parts = (current || "")
+    .split("|")
+    .filter((flag) => flag && !DROPPED_CONFIG_CHANGES.includes(flag));
   for (const flag of EXTRA_CONFIG_CHANGES) {
     if (!parts.includes(flag)) parts.push(flag);
   }

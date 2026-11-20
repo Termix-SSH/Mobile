@@ -9,12 +9,11 @@ test("the large screen plugin is registered", () => {
 });
 
 test("window change flags are added once and the old ones stay", () => {
-  const out = mergeConfigChanges("keyboard|orientation|screenSize|density");
+  const out = mergeConfigChanges("keyboard|orientation|screenSize");
   expect(out.split("|")).toEqual([
     "keyboard",
     "orientation",
     "screenSize",
-    "density",
     "smallestScreenSize",
     "layoutDirection",
   ]);
@@ -23,7 +22,13 @@ test("window change flags are added once and the old ones stay", () => {
 
 test("an empty value gets the flags", () => {
   expect(mergeConfigChanges(undefined)).toBe(
-    "smallestScreenSize|density|layoutDirection",
+    "smallestScreenSize|layoutDirection",
+  );
+});
+
+test("density changes restart the activity", () => {
+  expect(mergeConfigChanges("keyboard|density|screenSize")).toBe(
+    "keyboard|screenSize|smallestScreenSize|layoutDirection",
   );
 });
 
