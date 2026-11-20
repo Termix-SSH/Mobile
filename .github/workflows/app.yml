@@ -33,8 +33,79 @@ on:
 permissions: {}
 
 jobs:
+  # Translates new and changed text first, like core's release. On a dev branch
+  # the result is committed; every job below builds that commit and lays the
+  # translated files on top, so a build never ships untranslated text.
+  translate:
+    name: Translate
+    runs-on: ubuntu-24.04
+    environment: build
+    permissions:
+      contents: read
+    concurrency:
+      group: translate-${{ github.ref }}
+      cancel-in-progress: false
+    outputs:
+      sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - name: App token
+        id: app
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.CI_APP_CLIENT_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+          owner: Termix-SSH
+          repositories: Mobile
+          permission-contents: write
+
+      - name: Setup repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 1
+          token: ${{ steps.app.outputs.token }}
+          # The commit step pushes with it.
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Translate
+        uses: Termix-SSH/Termix-Registry/translate@main
+        with:
+          source: src/i18n/locales/en.json
+          out: src/i18n/locales/translated
+          languages: src/i18n/locales/languages.json
+          api-key: ${{ secrets.TERMIX_LLM_API_KEY }}
+
+      - name: Commit translations
+        id: commit
+        run: |
+          git add src/i18n/locales
+          if git diff --cached --quiet; then
+            echo "No translation changes."
+          elif [[ "$GITHUB_REF_NAME" == dev-* ]]; then
+            git config user.name "LukeGus"
+            git config user.email "bugattiguy527@gmail.com"
+            git commit -m "chore: update translations"
+            git push origin HEAD:"$GITHUB_REF_NAME"
+          else
+            echo "::warning::Translations changed on $GITHUB_REF_NAME. The build uses them, but they are not committed. Run Translate on the dev branch."
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Keep the translated files
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: locales
+          path: src/i18n/locales
+          retention-days: 1
+
   release:
     name: Create the GitHub release
+    needs: [translate]
     if: ${{ github.event.inputs.action == 'release' }}
     runs-on: blacksmith-2vcpu-ubuntu-2404
     # Drafts, uploads and publishes this repo's GitHub release.
@@ -44,8 +115,9 @@ jobs:
       tag: ${{ steps.create.outputs.tag }}
     steps:
       - name: Setup repo
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ needs.translate.outputs.sha }}
           persist-credentials: false
 
       - name: Create or update the draft release from CHANGELOG.md
@@ -53,6 +125,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           CHANNEL: ${{ inputs.channel }}
+          TARGET_SHA: ${{ needs.translate.outputs.sha }}
         run: |
           VERSION=$(node -p "require('./app.json').expo.version")
           TAG="v$VERSION"
@@ -60,27 +133,33 @@ jobs:
           cat RELEASE_BODY.md
 
           if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo "Release $TAG exists, updating its notes"
+            if [ "$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json isDraft -q .isDraft)" != "true" ]; then
+              echo "$TAG is already published and a release can't change. Bump the version and run again."
+              exit 1
+            fi
+            echo "Draft $TAG exists, updating its notes"
             gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --title "v$VERSION" --notes-file RELEASE_BODY.md
           else
             echo "Creating draft release $TAG"
             PRERELEASE=()
             if [ "$CHANNEL" = "beta" ]; then PRERELEASE=(--prerelease); fi
             gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --draft "${PRERELEASE[@]}" \
-              --title "v$VERSION" --target "$GITHUB_SHA" --notes-file RELEASE_BODY.md
+              --title "v$VERSION" --target "$TARGET_SHA" --notes-file RELEASE_BODY.md
           fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
   build:
     name: build-${{ matrix.platform }}
-    needs: [release]
-    if: ${{ !cancelled() && (needs.release.result == 'success' || needs.release.result == 'skipped') }}
+    needs: [translate, release]
+    if: ${{ !cancelled() && needs.translate.result == 'success' && (needs.release.result == 'success' || needs.release.result == 'skipped') }}
     runs-on: ${{ matrix.platform == 'apple' && 'blacksmith-6vcpu-macos-27' || 'blacksmith-8vcpu-ubuntu-2404' }}
     # Holds the Expo and App Store keys, only for main and dev branches.
     environment: build
     # Drafts, uploads and publishes this repo's GitHub release.
     permissions:
       contents: write
+      id-token: write
+      attestations: write
     strategy:
       fail-fast: false
       matrix:
@@ -92,13 +171,20 @@ jobs:
       EAS_PLATFORM: ${{ matrix.platform == 'apple' && 'ios' || matrix.platform }}
     steps:
       - name: Setup repo
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ needs.translate.outputs.sha }}
           persist-credentials: false
+
+      - name: Use the translated files
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: locales
+          path: src/i18n/locales
 
       # No caches in a job that builds release apps.
       - name: Setup Node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".nvmrc"
 
@@ -128,7 +214,7 @@ jobs:
           done
 
       - name: Setup Expo and EAS
-        uses: expo/expo-github-action@c7b66a9c327a43a8fa7c0158e7f30d6040d2481e # 8.2.1
+        uses: expo/expo-github-action@5273c2136bd09c2a341fe3340d3e767ce5a13015 # 9.0.2
         with:
           token: ${{ secrets.EXPO_TOKEN }}
           eas-version: 27.7.2
@@ -136,7 +222,7 @@ jobs:
           packager: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Validate EAS configuration
         run: |
@@ -259,7 +345,7 @@ jobs:
 
       - name: Upload Android AAB
         if: ${{ github.event.inputs.action == 'submit' && matrix.platform == 'android' }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: termix_android_aab
           path: build-artifacts/termix_android.aab
@@ -294,7 +380,7 @@ jobs:
 
       - name: Upload Android APK
         if: ${{ github.event.inputs.action == 'file' && matrix.platform == 'android' }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: termix_android
           path: build-artifacts/termix_android.apk
@@ -303,12 +389,18 @@ jobs:
 
       - name: Upload iOS IPA
         if: ${{ github.event.inputs.action == 'file' && matrix.platform == 'apple' }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: termix_ios_universal
           path: build-artifacts/termix_ios.ipa
           retention-days: 30
           if-no-files-found: error
+
+      - name: Attest build provenance
+        if: ${{ github.event.inputs.action == 'release' }}
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: build-artifacts/termix_${{ matrix.platform == 'android' && 'android.apk' || 'ios.ipa' }}
 
       - name: Upload to GitHub Release
         if: ${{ github.event.inputs.action == 'release' }}
@@ -344,7 +436,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.release.outputs.tag }}
           CHANNEL: ${{ inputs.channel }}
+          PLATFORM_INPUT: ${{ inputs.platform }}
         run: |
+          # Files can't change after this, so check both builds are on the draft.
+          ASSETS=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets -q '.assets[].name')
+          case "$PLATFORM_INPUT" in
+            android) EXPECTED="termix_android.apk" ;;
+            apple) EXPECTED="termix_ios.ipa" ;;
+            *) EXPECTED="termix_android.apk termix_ios.ipa" ;;
+          esac
+          for NAME in $EXPECTED; do
+            if ! printf '%s\n' "$ASSETS" | grep -qx "$NAME"; then
+              echo "The draft is missing $NAME. Not publishing."
+              exit 1
+            fi
+          done
           if [ "$CHANNEL" = "beta" ]; then
             gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --prerelease --latest=false
           else
