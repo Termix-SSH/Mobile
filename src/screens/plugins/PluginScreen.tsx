@@ -18,6 +18,7 @@ import {
 } from "@/features/plugin-webview/PluginWebView";
 import { handleShellCall } from "@/features/plugin-webview/shell";
 import { EmptyState, Text } from "@/ui";
+import { hasPluginSettings, PluginSettingsView } from "./PluginSettingsView";
 import { Screen } from "@/components/Screen";
 import { openTab } from "@/screens/shell/navigate";
 import { t } from "@/i18n";
@@ -117,7 +118,9 @@ export default function PluginScreen() {
             className="min-w-0 flex-1 text-title text-foreground"
             numberOfLines={1}
           >
-            {plugin && shown ? viewLabel(plugin, shown) : (plugin?.name ?? "")}
+            {plugin && shown
+              ? viewLabel(plugin, shown)
+              : (plugin?.name ?? entry?.name ?? "")}
           </Text>
         </View>
       }
@@ -136,7 +139,9 @@ export default function PluginScreen() {
       }
     >
       <View className="flex-1" style={{ paddingBottom: insets.bottom }}>
-        {client && plugin && view ? (
+        {client && !plugin && entry && hasPluginSettings(entry) ? (
+          <PluginSettingsView client={client} entry={entry} />
+        ) : client && plugin && view ? (
           <PluginWebView
             ref={web}
             client={client}

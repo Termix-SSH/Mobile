@@ -98,6 +98,12 @@ function parseField(raw: unknown): HostSettingField | null {
   return field;
 }
 
+/** Reads a manifest's settings.admin or settings.user field list. */
+export function parseSettingsFields(raw: unknown): HostSettingField[] {
+  if (!Array.isArray(raw)) return [];
+  return raw.map(parseField).filter((f): f is HostSettingField => !!f);
+}
+
 /** Reads a manifest's settings.host, or a copy the app cached. */
 export function parseHostSettings(
   raw: unknown,
