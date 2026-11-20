@@ -8,7 +8,7 @@ import {
   syncEntities,
 } from "@/core/db/schema";
 import { AccountClient } from "@/core/api/AccountClient";
-import { batches, SyncEngine } from "@/core/sync/engine";
+import { batches, FULL_CHECK_MS, SyncEngine } from "@/core/sync/engine";
 import { SyncRemote } from "@/core/sync/remote";
 import { SyncBook } from "@/core/sync/store";
 import { accountStorage } from "@/core/storage/kv";
@@ -24,7 +24,9 @@ const SNIPPET = "66666666-6666-4666-8666-666666666666";
 
 beforeEach(resetStorage);
 
-async function setup(options: { disabled?: string[]; seed?: boolean } = {}) {
+async function setup(
+  options: { disabled?: string[]; seed?: boolean; now?: () => Date } = {},
+) {
   const server = new FakeSyncServer({ seed: options.seed });
   const client = new AccountClient({
     accountId: "acct",
@@ -42,6 +44,7 @@ async function setup(options: { disabled?: string[]; seed?: boolean } = {}) {
     disabledTypes: () => disabled,
     emit: (tables) => emitted.push(...tables),
     onProfile: (row) => profiles.push(row),
+    now: options.now,
   });
   const { db } = await stores.openForSync("acct");
   return {
@@ -327,4 +330,72 @@ test("a signed out device stops with the server's reason", async () => {
     kind: "signed_out",
     serverMessage: "Invalid token",
   });
+});
+
+/** A server restored or reset: same rows, new feed from seq 1, no deletes. */
+function restartFeed(server: FakeSyncServer, drop: string[]) {
+  const kept = [...server.records.values()].filter(
+    (r) => !r.deleted && !drop.includes(r.syncId),
+  );
+  server.records.clear();
+  server.seq = 0;
+  for (const r of kept) server.put(r.entityType, r.syncId, r.row);
+}
+
+test("rows a reset server lost are dropped on a full check", async () => {
+  const { server, engine, db, book } = await setup();
+  await engine.pass();
+  const web = server.get("hosts", HOST)!.row!;
+  for (let i = 0; i < 30; i++) server.put("hosts", HOST, web);
+  await engine.pass();
+  restartFeed(server, [HOST]);
+  server.put("hosts", "new-host", { ...web, name: "fresh", jumpHosts: null });
+
+  // A plain pull reads from the old cursor and sees nothing.
+  await engine.pass();
+  expect(
+    db.select().from(hosts).where(eq(hosts.syncId, HOST)).get(),
+  ).toBeTruthy();
+
+  engine.requestFullCheck();
+  const summary = await engine.pass();
+  expect(summary.removed).toBe(1);
+  expect(
+    db.select().from(hosts).where(eq(hosts.syncId, HOST)).get(),
+  ).toBeUndefined();
+  expect(book.record("hosts", HOST)).toBeNull();
+  expect(
+    db.select().from(hosts).where(eq(hosts.syncId, "new-host")).get()!.name,
+  ).toBe("fresh");
+  expect(
+    db.select().from(hosts).where(eq(hosts.syncId, JUMP)).get(),
+  ).toBeTruthy();
+  expect(book.state().cursor).toBe(server.seq);
+  expect(server.pushes).toHaveLength(0);
+});
+
+test("a row edited here that the server lost is sent again, not dropped", async () => {
+  const { server, engine, db, book } = await setup();
+  await engine.pass();
+  restartFeed(server, [SNIPPET]);
+  db.update(snippets).set({ content: "uptime -p" }).run();
+  engine.requestFullCheck();
+  await engine.pass();
+  expect(db.select().from(snippets).all()).toHaveLength(1);
+  expect(book.record("snippets", SNIPPET)!.revision).toBe(0);
+  await engine.pass();
+  expect(server.get("snippets", SNIPPET)!.row!.content).toBe("uptime -p");
+});
+
+test("the full check also runs on its own every few hours", async () => {
+  let clock = Date.parse("2026-11-20T00:00:00Z");
+  const { server, engine, db } = await setup({ now: () => new Date(clock) });
+  await engine.pass();
+  restartFeed(server, [HOST]);
+  await engine.pass();
+  expect(
+    db.select().from(hosts).where(eq(hosts.syncId, HOST)).get(),
+  ).toBeTruthy();
+  clock += FULL_CHECK_MS;
+  expect((await engine.pass()).removed).toBe(1);
 });

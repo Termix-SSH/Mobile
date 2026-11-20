@@ -96,7 +96,7 @@ export default function SyncSettings() {
   const syncNow = async () => {
     setBusy(true);
     try {
-      await sync.syncNow(account.id);
+      await sync.syncNow(account.id, { full: true });
       if (sync.get(account.id).state === "off") {
         toast.error(t("settings.sync.signInToThisServer"));
       }
