@@ -59,6 +59,7 @@ export const fileManagerFeature: FeatureDef = {
       needsOneOf: [["sftp"], ["server"]],
       relayRequires: { plugin: "file-manager" },
       serverTabTypes: ["files", "sftp"],
+      activityType: () => "file_manager",
       toServerTabType: () => "files",
       capabilities: ["keyboard-cover"],
       component: FilesTab,

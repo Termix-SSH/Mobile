@@ -177,6 +177,7 @@ export const remoteDesktopFeature: FeatureDef = {
       relayRequires: { plugin: PLUGIN },
       serverTabTypes: PROTOCOLS,
       toServerTabType: (s) => asProtocol(s.remoteProtocol),
+      activityType: (s) => asProtocol(s.remoteProtocol),
       fromServerTabType: (tabType) => ({ remoteProtocol: tabType }),
       capabilities: ["own-keyboard"],
       component: RemoteDesktopTab,
@@ -316,6 +317,7 @@ export const telnetFeature = protocolFeature("telnet", {
         // Server tab records named telnet still reopen in the server's view.
         serverTabTypes: [],
         toServerTabType: () => "telnet",
+        activityType: () => "telnet",
         capabilities: ["terminal-input"],
         component: TelnetTab,
         inputChrome: { keyRow: KeyRowBar, keyPanel: BottomToolbar },

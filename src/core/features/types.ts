@@ -115,6 +115,11 @@ export interface SessionTabDef {
     session: Pick<SessionLike, "remoteProtocol">,
     client: AccountClient | null,
   ) => string;
+  /**
+   * Recent activity type to log when the user opens this tab, the same one
+   * the web plugin declares. None for tabs that log on their own.
+   */
+  activityType?: (session: Pick<SessionLike, "remoteProtocol">) => string;
   /** Options to reopen a server tab record of one of `serverTabTypes`. */
   fromServerTabType?: (tabType: string) => { remoteProtocol?: string };
   /** What the server needs for this tab, per session. */

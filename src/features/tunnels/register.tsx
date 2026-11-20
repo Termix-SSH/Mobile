@@ -48,6 +48,7 @@ export const tunnelsFeature: FeatureDef = {
       needsOneOf: [["forward"], ["server"]],
       relayRequires: { plugin: "tunnels" },
       serverTabTypes: ["tunnel"],
+      activityType: () => "tunnel",
       toServerTabType: () => "tunnel",
       component: TunnelsTab,
     },

@@ -878,7 +878,7 @@ export interface UptimeInfo {
 export interface RecentActivityItem {
   id: number;
   userId: string;
-  type: "terminal" | "file_manager";
+  type: string;
   hostId: number;
   hostName: string;
   timestamp: string;

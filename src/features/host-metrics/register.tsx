@@ -122,6 +122,7 @@ export const hostMetricsFeature: FeatureDef = {
       needsOneOf: [["exec"], ["server"]],
       relayRequires: { plugin: "host-metrics" },
       serverTabTypes: ["host-metrics", "stats"],
+      activityType: () => "server_stats",
       // 2.9+ web names this tab after its plugin.
       toServerTabType: (_s, client) =>
         client?.isPluginApi() ? "host-metrics" : "stats",

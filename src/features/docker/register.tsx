@@ -28,6 +28,7 @@ export const dockerFeature: FeatureDef = {
       needsOneOf: [["exec"], ["server"]],
       relayRequires: { plugin: "docker" },
       serverTabTypes: ["docker"],
+      activityType: () => "docker",
       toServerTabType: () => "docker",
       component: DockerTab,
     },

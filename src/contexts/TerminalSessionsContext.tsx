@@ -30,6 +30,7 @@ import { repositoriesFor } from "@/core/data/repositories";
 import {
   backgroundSessions,
   loadSavedTabs,
+  logTabOpened,
   restoreTabs,
   saveTabs,
   sessionLifecycle,
@@ -554,6 +555,7 @@ export const TerminalSessionsProvider: React.FC<
         addSession(sessionHost, type, {
           remoteProtocol: opts?.remoteProtocol,
         });
+        void logTabOpened(accountId, host, type, remoteProtocol);
       }
       openTab("/(tabs)/sessions");
       return null;
