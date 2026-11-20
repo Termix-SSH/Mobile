@@ -236,9 +236,11 @@ export function ChangePasswordControl() {
   };
   return (
     <>
-      <Button variant="muted" onPress={() => setOpen(true)}>
-        {t("settings.controls.accountControls.changePassword")}
-      </Button>
+      <View className="py-3">
+        <Button variant="muted" onPress={() => setOpen(true)}>
+          {t("settings.controls.accountControls.changePassword")}
+        </Button>
+      </View>
       <Sheet
         scroll
         visible={open}
@@ -317,9 +319,11 @@ export function DeleteAccountControl() {
   };
   return (
     <>
-      <Button variant="destructive" onPress={() => setOpen(true)}>
-        {t("settings.controls.accountControls.deleteServerAccount")}
-      </Button>
+      <View className="py-3">
+        <Button variant="destructive" onPress={() => setOpen(true)}>
+          {t("settings.controls.accountControls.deleteServerAccount")}
+        </Button>
+      </View>
       <Sheet
         scroll
         visible={open}
