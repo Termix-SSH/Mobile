@@ -33,6 +33,8 @@ export interface ChainHandlers {
     hop: HopInfo | null,
   ): Promise<string[] | null>;
   onBanner?(banner: string, login: ResolvedLogin): void;
+  /** The target's login, before it is tried. */
+  onLogin?(login: ResolvedLogin): void;
   signal?: AbortSignal;
   /** Overrides the connect timeout, except for Tailscale's browser check. */
   connectTimeoutSecs?: number;
@@ -168,6 +170,7 @@ export async function openChain(
     applyOverrides(resolveLogin(profile, host), overrides),
     h.connectTimeoutSecs,
   );
+  h.onLogin?.(login);
   const hops = await openJumps(repo, host, login.jumpHostIds, h);
   const opts = { signal: h.signal };
   try {

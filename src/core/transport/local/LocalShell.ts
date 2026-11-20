@@ -191,6 +191,18 @@ export class LocalShell implements ShellChannel {
           askHostKey: this.askHostKey,
           askKbd: this.askKbd,
           onBanner: this.onBanner,
+          onLogin: (login) =>
+            this.log(
+              "info",
+              t("transport.local.localShell.signingInAs", {
+                user: login.config.username || "?",
+                method: login.config.privateKey
+                  ? t("transport.local.localShell.methodKey")
+                  : login.config.password
+                    ? t("transport.local.localShell.methodPassword")
+                    : t("transport.local.localShell.methodNone"),
+              }),
+            ),
           signal: abort.signal,
           connectTimeoutSecs: this.options.connectTimeoutSecs,
         },

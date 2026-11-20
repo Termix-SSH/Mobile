@@ -55,6 +55,7 @@
 - The app no longer crashes on iOS when a page with several web views opens, like Homepage with widgets from other plugins
 - Server usage statistics in Settings opens its settings instead of saying the plugin is not made for the app. Any server plugin with settings but no page now shows them, server wide ones only to admins
 - Text that names this phone or tablet no longer runs the words together, like "on thisphone"
+- On Automatic, a host whose saved login is not on the phone now connects through the server instead of failing. The connection log says which login the phone tried
 - Homepage no longer goes black a moment after it opens on a phone
 - Signing in through the browser with a passkey, security key or other method no longer comes back with "sent no session back" (needs Termix 26.11.3 or newer)
 - Going back to the Hosts tab no longer reloads the whole list; it refreshes in the background

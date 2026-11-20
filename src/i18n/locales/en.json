@@ -748,14 +748,21 @@
         "authenticationFailed": "Authentication failed: {{message}}",
         "theHostKeyWasNot": "The host key was not trusted.",
         "loginCancelled": "Login cancelled.",
-        "notConnected": "Not connected"
+        "notConnected": "Not connected",
+        "signingInAs": "Signing in as {{user}} with {{method}}",
+        "methodKey": "a key",
+        "methodPassword": "a password",
+        "methodNone": "no saved login"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "The connection was cut"
       },
       "thisBuildHasNoSsh": "This build has no SSH engine. Use the app from the store, or link a Termix server to connect.",
       "theHostsOnThisAre": "The hosts on this {{deviceWord}} are not open yet.",
-      "thisServerSHostsAre": "This server's hosts are not on this {{deviceWord}}. Turn on the Sync plugin on the server to connect from the {{deviceWord}}."
+      "thisServerSHostsAre": "This server's hosts are not on this {{deviceWord}}. Turn on the Sync plugin on the server to connect from the {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "The saved login for this host is not on this {{deviceWord}}, so only the server can sign in"
+      }
     },
     "origin": {
       "canTConnect": "Can't connect.",

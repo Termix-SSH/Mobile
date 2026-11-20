@@ -10,7 +10,10 @@ import type {
   SshProxyHop,
 } from "@/modules/termix-ssh";
 import type { TerminalHostConfig } from "../types";
+import { AppError } from "@/core/errors";
 import { assertDeviceAuth } from "./auth-support";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /** One login: the engine config plus what the app keeps to answer prompts. */
 export interface ResolvedLogin {
@@ -131,6 +134,14 @@ export function resolveLogin(
     }
   }
   assertDeviceAuth(authType, password, key);
+  // The linked login did not come to this device (or came without its
+  // secret), so only the server can sign in. Trying would just offer nothing.
+  if (authType === "credential" && !key && !password) {
+    throw new AppError(
+      t("transport.local.resolve.theSavedLoginIsNot", { deviceWord }),
+      "AUTH_NEEDS_SERVER",
+    );
+  }
   // Like the server, a linked login decides the type by what it holds.
   if (authType === "credential") {
     authType = key ? "key" : password ? "password" : "none";

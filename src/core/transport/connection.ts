@@ -214,7 +214,8 @@ export interface NetworkInfo {
   changed: boolean;
 }
 
-const FALLBACK_STAGES = new Set(["network"]);
+// "unavailable" means the phone can't do it at all, never a refused login.
+const FALLBACK_STAGES = new Set(["network", "unavailable"]);
 const MAX_LOG = 500;
 const MAX_PENDING = 64 * 1024;
 const PROBE_MS = 3000;

@@ -215,3 +215,19 @@ test("port knocks keep valid ports with core's defaults", () => {
     { port: 7001, udp: true, delayMs: 50 },
   ]);
 });
+
+test("a linked login that is not on the phone leaves it to the server", () => {
+  const linked = {
+    ...profile().host,
+    authType: "credential",
+    credentialId: 9,
+    password: undefined,
+  } as any;
+  for (const credential of [null, { id: 9, username: "deploy" } as any]) {
+    const p = profile({ host: linked, credential });
+    expect(() => resolveLogin(p, typed)).toThrow(
+      expect.objectContaining({ code: "AUTH_NEEDS_SERVER" }),
+    );
+    expect(() => resolveLogin(p, typed)).toThrow(/only the server can sign in/);
+  }
+});
