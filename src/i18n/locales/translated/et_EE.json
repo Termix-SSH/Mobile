@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Avatud vahekaardid jätkavad tööd vahetamisel.",
       "unlink": "Lahuta {{account}}",
       "linkAServer": "Lingista server",
-      "eachServerKeepsItsOwn": "Iga server hoiab sellel {{deviceWord}} oma peremeinsid, usaldusandmeid ja seadeid.",
+      "eachServerKeepsItsOwn": "Iga server säilitab sellel {{deviceWord}} oma peremeasarvutid, sisselogimisandmed ja seaded.",
       "signedIn": "Sisselogitud",
       "signedOut": "Logitudud välja",
       "syncedCopy": "Sünkroonitud koopia"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Laadi uuesti"
+    },
+    "pluginSettings": {
+      "loading": "Seadete laadimine",
+      "forEveryone": "Kõigile serveris",
+      "justForYou": "Ainult sulle",
+      "couldNotSave": "Seadet ei õnnestunud salvestada",
+      "nothingYouCanChange": "Siin pole midagi, mida saaksid muuta. Need seaded saab muuta administraator.",
+      "notANumber": "See ei ole number",
+      "atLeast": "See peab olema vähemalt {{min}}",
+      "atMost": "See peab olema maksimaalselt {{max}}"
     }
   },
   "sessions": {
@@ -738,14 +748,21 @@
         "authenticationFailed": "Autentimine ebaõnnestus: {{message}}",
         "theHostKeyWasNot": "Hosti võtit ei usaldatud.",
         "loginCancelled": "Sisselogimine tühistati.",
-        "notConnected": "Ühendust pole"
+        "notConnected": "Ühendust pole",
+        "signingInAs": "Sisselogimine kasutajana {{user}} meetodiga {{method}}",
+        "methodKey": "võti",
+        "methodPassword": "parool",
+        "methodNone": "salvestamata sisselogimine"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Ühendus katkes"
       },
       "thisBuildHasNoSsh": "Selles versioonis puudub SSH mootor. Kasuta poodist saadavat rakendust või ühenda Termix server, et ühendust luua.",
       "theHostsOnThisAre": "Selle {{deviceWord}} hostid pole veel avatud.",
-      "thisServerSHostsAre": "Selle serveri hostid pole selles {{deviceWord}}. Lülita serveris sisse Sync plugin, et {{deviceWord}}ist ühendust luua."
+      "thisServerSHostsAre": "Selle serveri hostid pole selles {{deviceWord}}. Lülita serveris sisse Sync plugin, et {{deviceWord}}ist ühendust luua.",
+      "resolve": {
+        "theSavedLoginIsNot": "Selle peremeasarvuti salvestatud sisselogimisandmed ei ole sellel {{deviceWord}}, seega saab sisse logida ainult serveri kaudu"
+      }
     },
     "origin": {
       "canTConnect": "Ühendust ei saa luua.",
@@ -1311,7 +1328,7 @@
     "yourDefaultsOrOneFolder": "Sinu vaikimisi väärtused või ühe kausta omad",
     "myDefaults": "Minu vaikimisi väärtused",
     "theServerSets": " Server määrab {{adminCount}}.",
-    "aFolderWinsOverYour": "Kaust eelistatakse sinu vaikimisi väärtustele ja sinu vaikimisi väärtused eelistatakse serveri omadele. Peremees säilitab kõik väärtused, mille sa ise talle oled määranud.{{value}}",
+    "aFolderWinsOverYour": "Kaust eelistatakse sinu vaikeväärtustele ja sinu vaikeväärtused eelistatakse serveri omadele. Peremeasarvuti säilitab kõik väärtused, mille sa ise sellele määranud oled.{{value}}",
     "save": "Salvesta",
     "authentication": "Autentimine",
     "none": "Puudub",
@@ -2871,7 +2888,7 @@
       "signedIn": "Logitud sisse",
       "close": "Sulge",
       "linkYourTermixServer": "Seosta oma Termixi server",
-      "yourHostsCredentialsSnippetsAnd": "Sinu hostid, usaldusandmed, koodilõigud ja seaded sünkroonitakse sellega ning saad kasutada selle lisasid. Kõik töötab sellel {{deviceWord}}il ka siis, kui server pole saadaval.",
+      "yourHostsCredentialsSnippetsAnd": "Sinu peremeasarvutid, sisselogimisandmed, koodilõigud ja seaded sünkroonitakse sellega ning saad kasutada selle pistikprogramme. Kõik töötab sellel {{deviceWord}} ka siis, kui server pole saadaval.",
       "checking": "Kontrollin {{host}}...",
       "proxyAndClientCertificate": "Proksy ja kliendisertifikaat",
       "couldNotReachThatServer": "Selle serverini ei õnnestunud jõuda. Kontrolli aadressi või seadista proksy või kliendisertifikaat.",
@@ -2899,9 +2916,9 @@
       "or": "VÕI",
       "continueWith": "Jätka {{label}} abil",
       "signInWithAPasskey": "Logi sisse Passkey või turvavõtmega",
-      "opensYourServerAposS": "Avasi brauseris oma serveri sisselogimislehe. Seal toimivad Face ID, sõrmejäljelugeja, NFC ja USB-võtmed. Vajab Termixi versiooni 26.11.3 või uuemat.",
+      "opensYourServerAposS": "Avaserveri sisselogimislehe brauseris. Seal toimivad Face ID, sõrmejäljelugeja, NFC ja USB-võtmed. Vajalik Termix versioon 26.11.3 või uuem.",
       "signInInTheBrowser": "Logi sisse brauseris",
-      "opensYourServerAposS2": "Avasi serveri sisselogimislehe, et teha asju, mida rakendus siin ei suuda. Vajab Termixi versiooni 26.10.6 või uuemat.",
+      "opensYourServerAposS2": "Avaserveri sisselogimislehe, et teha asju, mida rakendus siin ei suuda. Vajalik Termix versioon 26.10.6 või uuem.",
       "thisServerHasNoSign": "Sellel serveril pole rakenduse jaoks sisselogimist lubatud. Küsi selle haldajalt abi või proovi ülalolevat brauseri sisselogimist.",
       "signInWithYourPassword": "Logi sisse oma parooliga.",
       "signInFailed": "Sisselogimine ebaõnnestus",
@@ -2921,7 +2938,7 @@
       "thisAccountAsksForA": "See konto küsib parooli järel turvavõtit. Logi sisse serveri lehel oma brauseris, et seda kasutada.",
       "useASecurityKeyIn": "Kasuta turvavõtit brauseris",
       "backToSignIn": "Tagasi sisselogimisele",
-      "bringThisAposSHosts": "Kas tuua kaasa selle {{deviceWord}} peremed?",
+      "bringThisAposSHosts": "Kas viia kaasa selle {{deviceWord}} peremeasarvutid?",
       "thisHasTheyStayOn": "Sellel {{deviceWord}} on {{what}}. Need jäävad igal juhul sellele seadmele.",
       "merge": "Ühenda",
       "copyThemToTooSo": "Kopeeri need ka {{serverName}}-ile, et need sünkrooniksid. Need, mis näevad välja nagu serveri peremees, jäetakse vahele.",
@@ -3105,6 +3122,7 @@
         "worksWithoutAServer": "Töötab ilma serverita",
         "signedOut": "Välja logitud",
         "readsLive": "Loeb otse",
+        "toReview": "{{count}} läbivaatamiseks",
         "synced": "Sünkroonitud",
         "syncing": "Sünkroonimine",
         "offline": "Võrguühenduseta"
@@ -3133,7 +3151,7 @@
         "howTallListRowsAnd": "Loendiread ja seaded on kõrgemad või madalamad"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Hostid, usaldusandmed ja koodilõigud salvestatakse krüpteeritud failina sellele {{deviceWord}}. Kasutusstatistika on välja lülitatud, kui sa seda allpool ei sisselülita. Ühendatud server saab ainult seda, mida sa talle sünkroonima lubad.",
+        "hostsCredentialsAndSnippetsAre": "Peremeasarvutid, sisselogimisandmed ja koodilõigud salvestatakse krüpteeritud failina sellele {{deviceWord}}. Kasutusstatistika on välja lülitatud, kui sa seda allpool sisse ei lülita. Ühendatud server saab ainult seda, mida sa talle sünkroonimiseks lubad.",
         "recentHosts": "Hiljutised hostid",
         "forgetTheHostsYouOpened": "Unusta kõik kontod viimasel ajal avatud hostid",
         "recentHostsCleared": "Hiljutised hostid kustutatud",
@@ -3370,7 +3388,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versioon ja uuendused",
         "logs": "Logid",
-        "latestLinesFromThisRun": "Viimased read selle käivitusest, veearuannete jaoks"
+        "latestLinesFromThisRun": "Viimased read selle käivitusest, veearuannete jaoks",
+        "pushNotifications": "Push-teavitused",
+        "pushNotificationsDescription": "Sinu serverite hoiatused sellel telefonil"
       },
       "sections": {
         "accountsAndSync": "Kontod ja sünkroonimine",
@@ -3572,7 +3592,7 @@
       "onAHardwareKeyboardOff": "Füüsilisel klaviatuuril. Väljas tähendab, et sümbolid trükitakse nagu Macis.",
       "history": "Ajalugu",
       "suggestCommands": "Käsude ettepanekud",
-      "showsPastCommandsThatStart": "Kuvab varasemaid käske, mis algavad sinu sisestusega",
+      "showsPastCommandsThatStart": "Varasemad käsud, kui sa trükid",
       "resetToDefault": "Taasta vaikeväärtused",
       "fontSize": "Fondi suurus",
       "aSizeFromTo": "Suurus vahemikus {{MIN_FONT_SIZE}} kuni {{MAX_FONT_SIZE}}.",
@@ -3595,7 +3615,7 @@
       "twoFactorAuthentication": "Kaheastmeline autentimine",
       "loading": "Laadimine…",
       "scanThisQrCodeWith": "Skaneeri see QR-kood oma autentimusrakendusega (Google Authenticator, Authy jne) ja sisesta kinnitamiseks 6-kohaline kood.",
-      "verifyAmpEnable": "Kinnita &amp; luba",
+      "verifyAmpEnable": "Kinnita ja lülita sisse",
       "cancel": "Tühista",
       "saveYourBackupCodes": "Salvesta oma varukoodid",
       "storeTheseSomewhereSafeEach": "Hoia need kuskil turvalises kohas. Iga koodi saab kasutada ainult üks kord, kui kaotad ligipääsu oma autentimusrakendusele.",
@@ -3824,5 +3844,31 @@
     "shareCount_one": "Jaga {{count}} inimesega",
     "shareCount_other": "Jaga {{count}} inimesega",
     "removeAccess": "Eemalda juurdepääs"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Serveri hoiatused",
+      "critical": "Kriitilised serveri hoiatused"
+    },
+    "severity": {
+      "info": "Kõik",
+      "warning": "Hoiatused ja tõsisemad",
+      "critical": "Ainult kriitilised"
+    },
+    "settings": {
+      "on": "Hoiatused kuvatakse sellel telefonil",
+      "off": "Väljas",
+      "toggle": "Push-teavitused serverist {{server}}",
+      "minSeverity": "Saada mulle",
+      "denied": "Termixi teavitused on välja lülitatud. Lülita need telefoni seadetes sisse.",
+      "openSettings": "Ava seaded",
+      "outdated": "Selle serveri push-teavituste jaoks on vaja Alerts 1.4.0 või uuemat. Palu administraatoril pistikprogramm uuendada.",
+      "unavailable": "Logi sellele serverile sisse ja lülita Alerts pistikprogramm sisse, et saada teavitusi.",
+      "error": "Serveriga ei õnnestunud ühendust võtta. Termix proovib uuesti järgmisel rakenduse avamisel.",
+      "notInThisBuild": "See versioon ei suuda teavitusi kuvada.",
+      "noServers": "Ühenda server, et saada selle hoiatused siia.",
+      "pushHint": "Hoiatused saadetakse Expo ja Apple'i või Google'i kaudu koos nende pealkirja ja tekstiga. Vali, millised neist serveri Alerts reeglites.",
+      "pollHint": "Selles versioonis pole Google'i teenuseid, seega kontrollib Termix uusi hoiatusi taustal umbes iga 15 minuti tagant."
+    }
   }
 }

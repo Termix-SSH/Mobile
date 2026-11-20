@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "A megnyitott lapok futtatva maradnak a váltás során.",
       "unlink": "{{account}} leválasztása",
       "linkAServer": "Szerver csatlakoztatása",
-      "eachServerKeepsItsOwn": "Minden szerver megőrzi a saját hostjait, hitelesítő adatait és beállításait ezen a(z) {{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Minden szerver a saját hosztjait, hitelesítő adatait és beállításait tárolja ezen a {{deviceWord}} eszközön.",
       "signedIn": "Bejelentkezve",
       "signedOut": "Kijelentkezve",
       "syncedCopy": "Szinkronizált másolat"
@@ -142,6 +142,7 @@
       "replaceCertificate": "Tanúsítvány cseréje",
       "pickAP12OrPfx": "Válasszon egy .p12 vagy .pfx fájlt",
       "proxySignIn": "Proxy bejelentkezés",
+      "thisIsSignedInTo": " Ez a {{deviceWord}} eszköz be van jelentkezve a proxyba.",
       "forCloudflareAccessAutheliaAuthentik": "Cloudflare Access, Authelia, Authentik és más, saját bejelentkezési oldallal rendelkező proxykhoz.{{value}}",
       "signInToTheProxy": "Bejelentkezés a proxyba",
       "forget": "Felejtsd el",
@@ -411,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Újratöltés"
+    },
+    "pluginSettings": {
+      "loading": "Beállítások betöltése",
+      "forEveryone": "Mindenki számára a szerveren",
+      "justForYou": "Csak neked",
+      "couldNotSave": "Nem sikerült menteni a beállítást",
+      "nothingYouCanChange": "Itt nincs, amit módosíthass. Egy rendszergazda változtathat ezeken a beállításokon.",
+      "notANumber": "Ez nem szám",
+      "atLeast": "Legalább {{min}}-nek kell lennie",
+      "atMost": "Legfeljebb {{max}} lehet"
     }
   },
   "sessions": {
@@ -737,14 +748,21 @@
         "authenticationFailed": "Hitelesítés sikertelen: {{message}}",
         "theHostKeyWasNot": "A host kulcsa nem lett megbízhatóként jelölve.",
         "loginCancelled": "Bejelentkezés megszakítva.",
-        "notConnected": "Nincs kapcsolat"
+        "notConnected": "Nincs kapcsolat",
+        "signingInAs": "Bejelentkezés {{user}} felhasználóként {{method}} módszerrel",
+        "methodKey": "kulccsal",
+        "methodPassword": "jelszóval",
+        "methodNone": "nincs mentett bejelentkezés"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "A kapcsolat megszakadt"
       },
       "thisBuildHasNoSsh": "Ez a verzió nem tartalmaz SSH motort. Használja az áruházban elérhető alkalmazást, vagy hozzon létre egy Termix szervert a csatlakozáshoz.",
       "theHostsOnThisAre": "A(z) {{deviceWord}} eszközön lévő hostok még nem nyitottak.",
-      "thisServerSHostsAre": "Ez a szerver hostjai nem találhatók ezen a(z) {{deviceWord}} eszközön. Kapcsolja be a Sync bővítményt a szerveren, hogy csatlakozhasson a(z) {{deviceWord}} eszközről."
+      "thisServerSHostsAre": "Ez a szerver hostjai nem találhatók ezen a(z) {{deviceWord}} eszközön. Kapcsolja be a Sync bővítményt a szerveren, hogy csatlakozhasson a(z) {{deviceWord}} eszközről.",
+      "resolve": {
+        "theSavedLoginIsNot": "Ennek a hosztnak a mentett bejelentkezési adatai nincsenek ezen a {{deviceWord}} eszközön, így csak a szerver tud bejelentkezni."
+      }
     },
     "origin": {
       "canTConnect": "Nem lehet csatlakozni.",
@@ -1310,7 +1328,7 @@
     "yourDefaultsOrOneFolder": "Saját alapértelmezések, vagy egy mappaé",
     "myDefaults": "Saját alapértelmezések",
     "theServerSets": " A szerver {{adminCount}} beállítást határoz meg.",
-    "aFolderWinsOverYour": "Egy mappa beállítása felülírja a saját alapértelmezéseket, a saját alapértelmezések pedig a szerverét. Egy gazdagép megtartja minden olyan értéket, amelyet Ön maga állított be rá.{{value}}",
+    "aFolderWinsOverYour": "Egy mappa felülírja az alapértelmezéseidet, az alapértelmezéseid pedig felülírják a szerverét. Egy hoszt megtartja minden olyan értéket, amit közvetlenül rá állítottál be.{{value}}",
     "save": "Mentés",
     "authentication": "Hitelesítés",
     "none": "Egyik sem",
@@ -2870,7 +2888,7 @@
       "signedIn": "Bejelentkezve",
       "close": "Bezárás",
       "linkYourTermixServer": "Termix szerver összekapcsolása",
-      "yourHostsCredentialsSnippetsAnd": "A gazdagépei, hitelesítő adatai, kódrészletei és beállításai szinkronizálódnak vele, és megkapja a bővítményeit. Minden továbbra is működik ezen a(z) {{deviceWord}}-n, amikor a szerver nem elérhető.",
+      "yourHostsCredentialsSnippetsAnd": "A hosztjaid, hitelesítő adataid, kódrészleteid és beállításaid szinkronizálódnak vele, és megkapod a bővítményeit is. Minden továbbra is működik ezen a {{deviceWord}} eszközön, amikor a szerver elérhetetlen.",
       "checking": "{{host}} ellenőrzése...",
       "proxyAndClientCertificate": "Proxy és kliens tanúsítvány",
       "couldNotReachThatServer": "Nem sikerült elérni a szervert. Ellenőrizze a címet, vagy állítsa be a proxyt vagy a kliens tanúsítványt.",
@@ -2898,7 +2916,7 @@
       "or": "VAGY",
       "continueWith": "Folytatás {{label}} használatával",
       "signInWithAPasskey": "Bejelentkezés passkey vagy biztonsági kulccsal",
-      "opensYourServerAposS": "Megnyitja a szerver bejelentkezési oldalát a böngészőben. Face ID, ujjlenyomat, NFC és USB kulcsok is működnek ott. Termix 26.11.3 vagy újabb verzió szükséges.",
+      "opensYourServerAposS": "Megnyitja a szerver bejelentkezési oldalát a böngészőben. Face ID, ujjlenyomat, NFC és USB-kulcsok is működnek ott. Termix 26.11.3 vagy újabb verzió szükséges.",
       "signInInTheBrowser": "Bejelentkezés a böngészőben",
       "opensYourServerAposS2": "Megnyitja a szerver bejelentkezési oldalát, mindenre, amit az alkalmazás itt nem tud kezelni. Termix 26.10.6 vagy újabb verzió szükséges.",
       "thisServerHasNoSign": "Ennek a szervernek nincs olyan bejelentkezési módja, amit az alkalmazás használhatna. Kérdezze meg a szerver üzemeltetőjét, vagy próbálja meg a fenti böngészős bejelentkezést.",
@@ -2917,10 +2935,10 @@
       "code": "Kód",
       "the6DigitCodeFrom": "A hitelesítő alkalmazásból származó 6 számjegyű kód, vagy egy biztonsági kód",
       "checkCode": "Kód ellenőrzése",
-      "thisAccountAsksForA": "Ez a fiók a jelszó után biztonsági kulcsot kér. A böngészőben a szerver oldalán jelentkezzen be, hogy használhassa.",
+      "thisAccountAsksForA": "Ez a fiók biztonsági kulcsot kér a jelszó után. Jelentkezz be a szerver oldalán a böngésződben, hogy használd.",
       "useASecurityKeyIn": "Biztonsági kulcs használata a böngészőben",
       "backToSignIn": "Vissza a bejelentkezéshez",
-      "bringThisAposSHosts": "Vigyük át ennek a(z) {{deviceWord}} eszköznek a hostjait is?",
+      "bringThisAposSHosts": "Vidd magaddal ennek a {{deviceWord}} eszköznek a hosztjait?",
       "thisHasTheyStayOn": "Ennek a(z) {{deviceWord}} eszköznek van {{what}}. Ezek mindenképpen ezen az eszközön maradnak.",
       "merge": "Összevonás",
       "copyThemToTooSo": "Másolja át őket a(z) {{serverName}} szerverre is, hogy szinkronizálódjanak. Azok, amelyek megegyeznek egy szerver hosttal, kihagyásra kerülnek.",
@@ -3133,7 +3151,7 @@
         "howTallListRowsAnd": "A listaelemek és beállítások magassága"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "A hostok, hitelesítési adatok és kódrészletek egy titkosított fájlban vannak tárolva ezen az{{deviceWord}}n. A használati statisztikák ki vannak kapcsolva, hacsak nem kapcsolja be őket lentebb. A csatolt szerver csak azt kapja meg, amit engedélyez a szinkronizálásra.",
+        "hostsCredentialsAndSnippetsAre": "A hosztok, hitelesítő adatok és kódrészletek egy titkosított fájlban vannak tárolva ezen a {{deviceWord}} eszközön. A használati statisztikák kikapcsolva vannak, hacsak lent nem kapcsolod be őket. Egy összekapcsolt szerver csak azt kapja meg, amit engedélyezel a szinkronizálásra.",
         "recentHosts": "Legutóbbi hostok",
         "forgetTheHostsYouOpened": "Felejtsd el a hostokat, amelyeket nemrég nyitott meg minden fiókon",
         "recentHostsCleared": "Legutóbbi hostok törölve",
@@ -3370,7 +3388,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Verzió és frissítések",
         "logs": "Naplók",
-        "latestLinesFromThisRun": "A legutóbbi sorok ebből a futtatásból, hibajelentésekhez"
+        "latestLinesFromThisRun": "A legutóbbi sorok ebből a futtatásból, hibajelentésekhez",
+        "pushNotifications": "Push értesítések",
+        "pushNotificationsDescription": "Értesítések a szervereidtől ezen a telefonon"
       },
       "sections": {
         "accountsAndSync": "Fiókok és szinkronizálás",
@@ -3572,7 +3592,7 @@
       "onAHardwareKeyboardOff": "Hardveres billentyűzeten. Kikapcsolva Mac-szerű szimbólumokat ír.",
       "history": "Előzmények",
       "suggestCommands": "Parancsok javasolása",
-      "showsPastCommandsThatStart": "Megjeleníti a korábbi parancsokat, amelyek a begépeltekkel kezdődnek",
+      "showsPastCommandsThatStart": "Korábbi parancsok megjelenítése gépelés közben",
       "resetToDefault": "Visszaállítás alapértelmezettre",
       "fontSize": "Betűméret",
       "aSizeFromTo": "Méret {{MIN_FONT_SIZE}} és {{MAX_FONT_SIZE}} között.",
@@ -3595,7 +3615,7 @@
       "twoFactorAuthentication": "Kétfaktoros hitelesítés",
       "loading": "Betöltés…",
       "scanThisQrCodeWith": "Olvasd be ezt a QR-kódot a hitelesítő alkalmazásoddal (Google Authenticator, Authy stb.), majd add meg a 6 jegyű kódot a megerősítéshez.",
-      "verifyAmpEnable": "Ellenőrzés &amp; Engedélyezés",
+      "verifyAmpEnable": "Ellenőrzés és engedélyezés",
       "cancel": "Mégse",
       "saveYourBackupCodes": "Mentsd el a biztonsági kódjaidat",
       "storeTheseSomewhereSafeEach": "Tárold őket biztonságos helyen. Minden kód csak egyszer használható, ha elveszíted a hozzáférést a hitelesítő alkalmazáshoz.",
@@ -3824,5 +3844,31 @@
     "shareCount_one": "Megosztás {{count}} felhasználóval",
     "shareCount_other": "Megosztás {{count}} felhasználóval",
     "removeAccess": "Hozzáférés eltávolítása"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Szerver értesítések",
+      "critical": "Kritikus szerver értesítések"
+    },
+    "severity": {
+      "info": "Minden",
+      "warning": "Figyelmeztetések és súlyosabbak",
+      "critical": "Csak kritikus"
+    },
+    "settings": {
+      "on": "Az értesítések megjelennek ezen a telefonon",
+      "off": "Ki",
+      "toggle": "Push értesítések a {{server}} szerverhez",
+      "minSeverity": "Küldj nekem",
+      "denied": "Az értesítések kikapcsolva vannak a Termix számára. Kapcsold be őket a telefon beállításaiban.",
+      "openSettings": "Beállítások megnyitása",
+      "outdated": "Ennek a szervernek az Alerts 1.4.0 vagy újabb verziója szükséges a push értesítésekhez. Kérj egy rendszergazdát, hogy frissítse a bővítményt.",
+      "unavailable": "Jelentkezz be erre a szerverre, és kapcsold be az Alerts bővítményt az értesítésekhez.",
+      "error": "Nem sikerült elérni a szervert. A Termix legközelebb újra megpróbálja, amikor az alkalmazás megnyílik.",
+      "notInThisBuild": "Ez a verzió nem tudja megjeleníteni az értesítéseket.",
+      "noServers": "Kapcsold össze egy szervert, hogy itt kapd meg az értesítéseit.",
+      "pushHint": "Az értesítéseket az Expo és az Apple vagy Google közvetíti, a címükkel és szövegükkel együtt. Válaszd ki, melyeket szeretnél a szerver Alerts szabályaiban.",
+      "pollHint": "Ez a verzió nem tartalmaz Google szolgáltatásokat, így a Termix háttérben ellenőrzi az új értesítéseket, kb. 15 percenként."
+    }
   }
 }

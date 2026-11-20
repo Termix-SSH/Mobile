@@ -86,7 +86,7 @@
       "openTabsKeepRunningWhen": "Öppna flikar fortsätter att köras när du byter.",
       "unlink": "Koppla bort {{account}}",
       "linkAServer": "Länka en server",
-      "eachServerKeepsItsOwn": "Varje server behåller sina egna värdar, inloggningsuppgifter och inställningar på den här {{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Varje server har sina egna värdar, inloggningsuppgifter och inställningar på denna {{deviceWord}}.",
       "signedIn": "Inloggad",
       "signedOut": "Utloggad",
       "syncedCopy": "Synkroniserad kopia"
@@ -141,6 +141,7 @@
       "replaceCertificate": "Ersätt certifikat",
       "pickAP12OrPfx": "Välj en .p12- eller .pfx-fil",
       "proxySignIn": "Proxyinloggning",
+      "thisIsSignedInTo": " Denna {{deviceWord}} är inloggad i proxyservern.",
       "forCloudflareAccessAutheliaAuthentik": "För Cloudflare Access, Authelia, Authentik och andra proxys med egen inloggningssida.{{value}}",
       "signInToTheProxy": "Logga in i proxyn",
       "forget": "Glöm",
@@ -410,6 +411,16 @@
     },
     "pluginScreen": {
       "reload": "Ladda om"
+    },
+    "pluginSettings": {
+      "loading": "Laddar inställningar",
+      "forEveryone": "För alla på servern",
+      "justForYou": "Endast för dig",
+      "couldNotSave": "Kunde inte spara inställningen",
+      "nothingYouCanChange": "Det finns inget här som du kan ändra. En administratör kan ändra dessa inställningar.",
+      "notANumber": "Det är inte ett nummer",
+      "atLeast": "Det måste vara {{min}} eller mer",
+      "atMost": "Det måste vara {{max}} eller mindre"
     }
   },
   "sessions": {
@@ -736,14 +747,21 @@
         "authenticationFailed": "Autentiseringen misslyckades: {{message}}",
         "theHostKeyWasNot": "Värdnyckeln var inte betrodd.",
         "loginCancelled": "Inloggningen avbröts.",
-        "notConnected": "Inte ansluten"
+        "notConnected": "Inte ansluten",
+        "signingInAs": "Loggar in som {{user}} med {{method}}",
+        "methodKey": "en nyckel",
+        "methodPassword": "ett lösenord",
+        "methodNone": "ingen sparad inloggning"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Anslutningen avbröts"
       },
       "thisBuildHasNoSsh": "Den här versionen har ingen SSH-motor. Använd appen från butiken, eller länka en Termix-server för att ansluta.",
       "theHostsOnThisAre": "Värdarna på denna {{deviceWord}} är inte öppna ännu.",
-      "thisServerSHostsAre": "Denna servers värdar finns inte på denna {{deviceWord}}. Aktivera Sync-tillägget på servern för att ansluta från {{deviceWord}}."
+      "thisServerSHostsAre": "Denna servers värdar finns inte på denna {{deviceWord}}. Aktivera Sync-tillägget på servern för att ansluta från {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Den sparade inloggningen för denna värd finns inte på denna {{deviceWord}}, så endast servern kan logga in"
+      }
     },
     "origin": {
       "canTConnect": "Kan inte ansluta.",
@@ -1309,7 +1327,7 @@
     "yourDefaultsOrOneFolder": "Dina standardvärden, eller en mapps",
     "myDefaults": "Mina standardvärden",
     "theServerSets": " Servern ställer in {{adminCount}}.",
-    "aFolderWinsOverYour": "En mapp har företräde framför dina standardvärden, och dina standardvärden har företräde framför serverns. En värd behåller alla värden du ställer in på den själv.{{value}}",
+    "aFolderWinsOverYour": "En mapp har företräde framför dina standardinställningar, och dina standardinställningar har företräde framför serverns. En värd behåller alla värden du har ställt in på den själv.{{value}}",
     "save": "Spara",
     "authentication": "Autentisering",
     "none": "Ingen",
@@ -2897,9 +2915,9 @@
       "or": "ELLER",
       "continueWith": "Fortsätt med {{label}}",
       "signInWithAPasskey": "Logga in med en passkey eller säkerhetsnyckel",
-      "opensYourServerAposS": "Öppnar din servers inloggningssida i webbläsaren. Face ID, fingeravtryck, NFC och USB-nycklar fungerar där. Kräver Termix 26.11.3 eller senare.",
+      "opensYourServerAposS": "Öppnar serverns inloggningssida i webbläsaren. Face ID, fingeravtryck, NFC och USB-nycklar fungerar där. Kräver Termix 26.11.3 eller senare.",
       "signInInTheBrowser": "Logga in i webbläsaren",
-      "opensYourServerAposS2": "Öppnar din servers inloggningssida, för allt som appen inte kan göra här. Kräver Termix 26.10.6 eller senare.",
+      "opensYourServerAposS2": "Öppnar serverns inloggningssida, för allt som appen inte kan göra här. Kräver Termix 26.10.6 eller senare.",
       "thisServerHasNoSign": "Denna server har ingen inloggning aktiverad som appen kan använda. Kontakta den som driver servern, eller prova inloggning via webbläsaren ovan.",
       "signInWithYourPassword": "Logga in med ditt lösenord.",
       "signInFailed": "Inloggningen misslyckades",
@@ -2916,7 +2934,7 @@
       "code": "Kod",
       "the6DigitCodeFrom": "Den 6-siffriga koden från din autentiseringsapp, eller en reservkod",
       "checkCode": "Kontrollera kod",
-      "thisAccountAsksForA": "Detta konto kräver en säkerhetsnyckel efter lösenordet. Logga in på serversidan i din webbläsare för att använda den.",
+      "thisAccountAsksForA": "Detta konto kräver en säkerhetsnyckel efter lösenordet. Logga in på serverns sida i din webbläsare för att använda den.",
       "useASecurityKeyIn": "Använd en säkerhetsnyckel i webbläsaren",
       "backToSignIn": "Tillbaka till inloggning",
       "bringThisAposSHosts": "Ta med denna {{deviceWord}}s värdar?",
@@ -3132,7 +3150,7 @@
         "howTallListRowsAnd": "Hur höga listrader och inställningar är"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Värdar, inloggningsuppgifter och kommandon sparas i en krypterad fil på denna{{deviceWord}}. Användarstatistik är avstängd om du inte aktiverar den nedan. En länkad server får bara det du låter den synkronisera.",
+        "hostsCredentialsAndSnippetsAre": "Värdar, inloggningsuppgifter och kommandon sparas i en krypterad fil på denna {{deviceWord}}. Användningsstatistik är avstängd om du inte aktiverar den nedan. En länkad server får endast det du låter den synkronisera.",
         "recentHosts": "Senaste värdarna",
         "forgetTheHostsYouOpened": "Glöm värdarna du öppnade nyligen på alla konton",
         "recentHostsCleared": "Senaste värdarna rensade",
@@ -3369,7 +3387,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Version och uppdateringar",
         "logs": "Loggar",
-        "latestLinesFromThisRun": "Senaste raderna från denna körning, för felrapporter"
+        "latestLinesFromThisRun": "Senaste raderna från denna körning, för felrapporter",
+        "pushNotifications": "Push-meddelanden",
+        "pushNotificationsDescription": "Varningar från dina servrar på denna telefon"
       },
       "sections": {
         "accountsAndSync": "Konton och synkronisering",
@@ -3571,7 +3591,7 @@
       "onAHardwareKeyboardOff": "På en hårdvarutangentbord. Avstängt skriver symboler som på en Mac.",
       "history": "Historik",
       "suggestCommands": "Föreslå kommandon",
-      "showsPastCommandsThatStart": "Visar tidigare kommandon som börjar med det du skriver",
+      "showsPastCommandsThatStart": "Tidigare kommandon medan du skriver",
       "resetToDefault": "Återställ till standard",
       "fontSize": "Teckenstorlek",
       "aSizeFromTo": "En storlek från {{MIN_FONT_SIZE}} till {{MAX_FONT_SIZE}}.",
@@ -3594,7 +3614,7 @@
       "twoFactorAuthentication": "Tvåfaktorsautentisering",
       "loading": "Laddar…",
       "scanThisQrCodeWith": "Skanna denna QR-kod med din autentiseringsapp (Google Authenticator, Authy, etc.) och ange sedan 6-siffriga koden för att bekräfta.",
-      "verifyAmpEnable": "Verifiera &amp; Aktivera",
+      "verifyAmpEnable": "Verifiera och aktivera",
       "cancel": "Avbryt",
       "saveYourBackupCodes": "Spara dina reservkoder",
       "storeTheseSomewhereSafeEach": "Förvara dessa på en säker plats. Varje kod kan bara användas en gång om du förlorar åtkomst till din autentiseringsapp.",
@@ -3823,5 +3843,31 @@
     "shareCount_one": "Dela med {{count}}",
     "shareCount_other": "Dela med {{count}}",
     "removeAccess": "Ta bort åtkomst"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Servervarningar",
+      "critical": "Kritiska servervarningar"
+    },
+    "severity": {
+      "info": "Allt",
+      "warning": "Varningar och värre",
+      "critical": "Endast kritiska"
+    },
+    "settings": {
+      "on": "Varningar visas på denna telefon",
+      "off": "Av",
+      "toggle": "Push-meddelanden för {{server}}",
+      "minSeverity": "Skicka mig",
+      "denied": "Aviseringar är avstängda för Termix. Aktivera dem i telefonens inställningar.",
+      "openSettings": "Öppna inställningar",
+      "outdated": "Denna server kräver Alerts 1.4.0 eller senare för push-meddelanden. Be en administratör att uppdatera tillägget.",
+      "unavailable": "Logga in på denna server och aktivera tillägget Alerts för att få aviseringar.",
+      "error": "Kunde inte nå servern. Termix försöker igen nästa gång appen öppnas.",
+      "notInThisBuild": "Den här versionen kan inte visa aviseringar.",
+      "noServers": "Länka en server för att få dess varningar här.",
+      "pushHint": "Varningar skickas via Expo och Apple eller Google, med deras titel och text. Välj vilka som ska skickas i Alerts-reglerna på servern.",
+      "pollHint": "Den här versionen har inga Google-tjänster, så Termix kontrollerar efter nya varningar i bakgrunden, ungefär var 15:e minut."
+    }
   }
 }

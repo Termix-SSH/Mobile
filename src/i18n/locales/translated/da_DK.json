@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Åbne faner kører videre, når du skifter.",
       "unlink": "Fjern link til {{account}}",
       "linkAServer": "Link en server",
-      "eachServerKeepsItsOwn": "Hver server gemmer sine egne værter, legitimationsoplysninger og indstillinger på denne{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Hver server gemmer sine egne værter, legitimationsoplysninger og indstillinger på denne {{deviceWord}}.",
       "signedIn": "Logget på",
       "signedOut": "Logget ud",
       "syncedCopy": "Synkroniseret kopi"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Genindlæs"
+    },
+    "pluginSettings": {
+      "loading": "Indlæser indstillinger",
+      "forEveryone": "For alle på serveren",
+      "justForYou": "Kun til dig",
+      "couldNotSave": "Kunne ikke gemme indstillingen",
+      "nothingYouCanChange": "Der er intet her, du kan ændre. En administrator kan ændre disse indstillinger.",
+      "notANumber": "Det er ikke et tal",
+      "atLeast": "Det skal være {{min}} eller mere",
+      "atMost": "Det skal være {{max}} eller mindre"
     }
   },
   "sessions": {
@@ -738,14 +748,21 @@
         "authenticationFailed": "Autentificering mislykkedes: {{message}}",
         "theHostKeyWasNot": "Værtens nøgle blev ikke betroet.",
         "loginCancelled": "Login afbrudt.",
-        "notConnected": "Ikke forbundet"
+        "notConnected": "Ikke forbundet",
+        "signingInAs": "Logger ind som {{user}} med {{method}}",
+        "methodKey": "en nøgle",
+        "methodPassword": "et adgangskode",
+        "methodNone": "ingen gemt login"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Forbindelsen blev afbrudt"
       },
       "thisBuildHasNoSsh": "Denne build har ingen SSH-motor. Brug appen fra butikken, eller link en Termix-server for at forbinde.",
       "theHostsOnThisAre": "Værterne på denne {{deviceWord}} er ikke åbne endnu.",
-      "thisServerSHostsAre": "Denne servers værter er ikke på denne {{deviceWord}}. Tænd Sync-pluginet på serveren for at forbinde fra {{deviceWord}}."
+      "thisServerSHostsAre": "Denne servers værter er ikke på denne {{deviceWord}}. Tænd Sync-pluginet på serveren for at forbinde fra {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Den gemte login for denne vært er ikke på denne {{deviceWord}}, så kun serveren kan logge ind"
+      }
     },
     "origin": {
       "canTConnect": "Kan ikke forbinde.",
@@ -1311,7 +1328,7 @@
     "yourDefaultsOrOneFolder": "Dine standardværdier eller en mappe",
     "myDefaults": "Mine standardværdier",
     "theServerSets": " Serveren indstiller {{adminCount}}.",
-    "aFolderWinsOverYour": "En mappe har forrang for dine standardværdier, og dine standardværdier har forrang for serverens. En vært beholder enhver værdi, du har indstillet på den selv.{{value}}",
+    "aFolderWinsOverYour": "En mappe har forrang for dine standardindstillinger, og dine standardindstillinger har forrang for serverens. En vært beholder enhver værdi, du har indstillet på den selv.{{value}}",
     "save": "Gem",
     "authentication": "Godkendelse",
     "none": "Ingen",
@@ -2871,7 +2888,7 @@
       "signedIn": "Logget ind",
       "close": "Luk",
       "linkYourTermixServer": "Link din Termix-server",
-      "yourHostsCredentialsSnippetsAnd": "Dine værter, loginoplysninger, snippets og indstillinger synkroniseres med den, og du får dens plugins. Alt fortsætter med at virke på denne {{deviceWord}}, når serveren er utilgængelig.",
+      "yourHostsCredentialsSnippetsAnd": "Dine værter, legitimationsoplysninger, uddrag og indstillinger synkroniseres med den, og du får dens plugins. Alt fortsætter med at fungere på denne {{deviceWord}}, når serveren er væk.",
       "checking": "Tjekker {{host}}...",
       "proxyAndClientCertificate": "Proxy og klientcertifikat",
       "couldNotReachThatServer": "Kunne ikke nå den server. Tjek adressen, eller opsæt proxyen eller klientcertifikatet.",
@@ -2899,7 +2916,7 @@
       "or": "ELLER",
       "continueWith": "Fortsæt med {{label}}",
       "signInWithAPasskey": "Log ind med en passkey eller sikkerhedsnøgle",
-      "opensYourServerAposS": "Åbner din servers login-side i browseren. Face ID, fingeraftryk, NFC og USB-nøgler fungerer der. Kræver Termix 26.11.3 eller nyere.",
+      "opensYourServerAposS": "Åbner din servers login-side i browseren. Face ID, fingeraftryk, NFC og USB-nøgler fungerer alle der. Kræver Termix 26.11.3 eller nyere.",
       "signInInTheBrowser": "Log ind i browseren",
       "opensYourServerAposS2": "Åbner din servers login-side, til alt hvad appen ikke kan gøre her. Kræver Termix 26.10.6 eller nyere.",
       "thisServerHasNoSign": "Denne server har ingen login aktiveret, som appen kan bruge. Spørg den, der driver den, eller prøv browser-login ovenfor.",
@@ -2921,7 +2938,7 @@
       "thisAccountAsksForA": "Denne konto beder om en sikkerhedsnøgle efter adgangskoden. Log ind på serverens side i din browser for at bruge den.",
       "useASecurityKeyIn": "Brug en sikkerhedsnøgle i browseren",
       "backToSignIn": "Tilbage til login",
-      "bringThisAposSHosts": "Medbring denne {{deviceWord}}'s værter?",
+      "bringThisAposSHosts": "Vil du tage denne {{deviceWord}}'s værter med?",
       "thisHasTheyStayOn": "Denne {{deviceWord}} har {{what}}. De forbliver på Denne enhed uanset hvad.",
       "merge": "Sammenflet",
       "copyThemToTooSo": "Kopier dem også til {{serverName}}, så de synkroniseres. De, der ser ens ud som en server-vært, springes over.",
@@ -3134,7 +3151,7 @@
         "howTallListRowsAnd": "Hvor høje rækker i lister og indstillinger er"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Værter, legitimationsoplysninger og snippets gemmes i en krypteret fil på denne{{deviceWord}}. Brugsstatistikker er slået fra, medmindre du slår dem til nedenfor. En linket server modtager kun det, du lader den synkronisere.",
+        "hostsCredentialsAndSnippetsAre": "Værter, legitimationsoplysninger og uddrag gemmes i en krypteret fil på denne {{deviceWord}}. Brugsstatistikker er slået fra, medmindre du slår dem til nedenfor. En linket server får kun det, du lader den synkronisere.",
         "recentHosts": "Seneste værter",
         "forgetTheHostsYouOpened": "Glem de værter, du har åbnet for nyligt på alle konti",
         "recentHostsCleared": "Seneste værter ryddet",
@@ -3371,7 +3388,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Version og opdateringer",
         "logs": "Logs",
-        "latestLinesFromThisRun": "Seneste linjer fra denne kørsel, til fejlrapporter"
+        "latestLinesFromThisRun": "Seneste linjer fra denne kørsel, til fejlrapporter",
+        "pushNotifications": "Push-notifikationer",
+        "pushNotificationsDescription": "Advarsler fra dine servere på denne telefon"
       },
       "sections": {
         "accountsAndSync": "Konti og synkronisering",
@@ -3573,7 +3592,7 @@
       "onAHardwareKeyboardOff": "På et hardwaretastatur. Slukket taster symboler som på en Mac.",
       "history": "Historik",
       "suggestCommands": "Foreslå kommandoer",
-      "showsPastCommandsThatStart": "Viser tidligere kommandoer, der starter med det, du skriver",
+      "showsPastCommandsThatStart": "Tidligere kommandoer, mens du skriver",
       "resetToDefault": "Nulstil til standard",
       "fontSize": "Skriftstørrelse",
       "aSizeFromTo": "En størrelse fra {{MIN_FONT_SIZE}} til {{MAX_FONT_SIZE}}.",
@@ -3596,7 +3615,7 @@
       "twoFactorAuthentication": "To-faktor-godkendelse",
       "loading": "Indlæser…",
       "scanThisQrCodeWith": "Scan denne QR-kode med din autentifikationsapp (Google Authenticator, Authy osv.), og indtast derefter den 6-cifrede kode for at bekræfte.",
-      "verifyAmpEnable": "Bekræft &amp; Aktiver",
+      "verifyAmpEnable": "Bekræft og aktiver",
       "cancel": "Annuller",
       "saveYourBackupCodes": "Gem dine backup-koder",
       "storeTheseSomewhereSafeEach": "Gem disse et sikkert sted. Hver kode kan kun bruges én gang, hvis du mister adgang til din autentifikationsapp.",
@@ -3825,5 +3844,31 @@
     "shareCount_one": "Del med {{count}}",
     "shareCount_other": "Del med {{count}}",
     "removeAccess": "Fjern adgang"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Serveradvarsler",
+      "critical": "Kritiske serveradvarsler"
+    },
+    "severity": {
+      "info": "Alt",
+      "warning": "Advarsler og værre",
+      "critical": "Kun kritiske"
+    },
+    "settings": {
+      "on": "Advarsler vises på denne telefon",
+      "off": "Fra",
+      "toggle": "Push-notifikationer for {{server}}",
+      "minSeverity": "Send mig",
+      "denied": "Notifikationer er slået fra for Termix. Slå dem til i telefonens indstillinger.",
+      "openSettings": "Åbn indstillinger",
+      "outdated": "Denne server har brug for Alerts 1.4.0 eller nyere til push-notifikationer. Bed en administrator om at opdatere pluginet.",
+      "unavailable": "Log ind på denne server og slå Alerts-pluginet til for at modtage notifikationer.",
+      "error": "Kunne ikke nå serveren. Termix prøver igen næste gang appen åbnes.",
+      "notInThisBuild": "Denne build kan ikke vise notifikationer.",
+      "noServers": "Link en server for at modtage dens advarsler her.",
+      "pushHint": "Advarsler sendes gennem Expo og Apple eller Google, med deres titel og tekst. Vælg hvilke i Alerts-reglerne på serveren.",
+      "pollHint": "Denne build har ingen Google-tjenester, så Termix tjekker for nye advarsler i baggrunden, cirka hver 15. minut."
+    }
   }
 }

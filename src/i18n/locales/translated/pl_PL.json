@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Odśwież"
+    },
+    "pluginSettings": {
+      "loading": "Ładowanie ustawień",
+      "forEveryone": "Dla wszystkich na serwerze",
+      "justForYou": "Tylko dla Ciebie",
+      "couldNotSave": "Nie udało się zapisać ustawienia",
+      "nothingYouCanChange": "Nie ma tutaj nic, co mógłbyś zmienić. Te ustawienia może modyfikować administrator.",
+      "notANumber": "To nie jest liczba",
+      "atLeast": "Musi wynosić co najmniej {{min}}",
+      "atMost": "Musi wynosić co najwyżej {{max}}"
     }
   },
   "sessions": {
@@ -750,14 +760,21 @@
         "authenticationFailed": "Uwierzytelnianie nie powiodło się: {{message}}",
         "theHostKeyWasNot": "Klucz hosta nie był zaufany.",
         "loginCancelled": "Logowanie anulowane.",
-        "notConnected": "Brak połączenia"
+        "notConnected": "Brak połączenia",
+        "signingInAs": "Logowanie jako {{user}} przy użyciu {{method}}",
+        "methodKey": "klucza",
+        "methodPassword": "hasła",
+        "methodNone": "brak zapisanego logowania"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Połączenie zostało zerwane"
       },
       "thisBuildHasNoSsh": "Ta wersja nie ma silnika SSH. Użyj aplikacji ze sklepu lub połącz serwer Termix, aby nawiązać połączenie.",
       "theHostsOnThisAre": "Hosty na tym {{deviceWord}} nie są jeszcze dostępne.",
-      "thisServerSHostsAre": "Hosty tego serwera nie są na tym {{deviceWord}}. Włącz wtyczkę Sync na serwerze, aby łączyć się z {{deviceWord}}."
+      "thisServerSHostsAre": "Hosty tego serwera nie są na tym {{deviceWord}}. Włącz wtyczkę Sync na serwerze, aby łączyć się z {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Zapisane dane logowania dla tego hosta nie znajdują się na tym {{deviceWord}}, więc tylko serwer może się zalogować"
+      }
     },
     "origin": {
       "canTConnect": "Nie można połączyć się.",
@@ -1327,7 +1344,7 @@
     "yourDefaultsOrOneFolder": "Twoje ustawienia domyślne lub ustawienia jednego folderu",
     "myDefaults": "Moje ustawienia domyślne",
     "theServerSets": " Serwer ustawia {{adminCount}}.",
-    "aFolderWinsOverYour": "Ustawienia folderu mają pierwszeństwo przed Twoimi ustawieniami domyślnymi, a Twoje ustawienia domyślne mają pierwszeństwo przed ustawieniami serwera. Host zachowuje każdą wartość, którą ustawisz bezpośrednio na nim.{{value}}",
+    "aFolderWinsOverYour": "Ustawienia folderu mają pierwszeństwo przed Twoimi domyślnymi, a Twoje domyślne przed ustawieniami serwera. Host zachowuje każdą wartość, którą ustawiłeś samodzielnie.{{value}}",
     "save": "Zapisz",
     "authentication": "Uwierzytelnianie",
     "none": "Brak",
@@ -2909,7 +2926,7 @@
       "signedIn": "Zalogowano",
       "close": "Zamknij",
       "linkYourTermixServer": "Połącz serwer Termix",
-      "yourHostsCredentialsSnippetsAnd": "Twoje hosty, dane logowania, fragmenty i ustawienia są synchronizowane z nim, a Ty otrzymujesz jego wtyczki. Wszystko działa na tym {{deviceWord}}, gdy serwer jest niedostępny.",
+      "yourHostsCredentialsSnippetsAnd": "Twoje hosty, dane logowania, fragmenty kodu i ustawienia są synchronizowane z serwerem, a Ty otrzymujesz jego wtyczki. Wszystko nadal działa na tym {{deviceWord}}, gdy serwer jest niedostępny.",
       "checking": "Sprawdzanie {{host}}...",
       "proxyAndClientCertificate": "Proxy i certyfikat klienta",
       "couldNotReachThatServer": "Nie udało się połączyć z tym serwerem. Sprawdź adres lub skonfiguruj proxy lub certyfikat klienta.",
@@ -2937,9 +2954,9 @@
       "or": "LUB",
       "continueWith": "Kontynuuj z {{label}}",
       "signInWithAPasskey": "Zaloguj się za pomocą klucza dostępu lub klucza bezpieczeństwa",
-      "opensYourServerAposS": "Otwiera stronę logowania Twojego serwera w przeglądarce. Tam działają Face ID, odcisk palca, NFC oraz klucze USB. Wymaga Termix 26.11.3 lub nowszego.",
+      "opensYourServerAposS": "Otwiera stronę logowania serwera w przeglądarce. Face ID, odcisk palca, NFC i klucze USB działają tam bez problemu. Wymaga Termix 26.11.3 lub nowszego.",
       "signInInTheBrowser": "Zaloguj się w przeglądarce",
-      "opensYourServerAposS2": "Otwiera stronę logowania Twojego serwera, dla przypadków, których aplikacja nie obsługuje tutaj. Wymaga Termix 26.10.6 lub nowszego.",
+      "opensYourServerAposS2": "Otwiera stronę logowania serwera dla przypadków, których aplikacja nie obsługuje lokalnie. Wymaga Termix 26.10.6 lub nowszego.",
       "thisServerHasNoSign": "Ten serwer nie ma włączonej metody logowania, której aplikacja mogłaby użyć. Zapytaj administratora serwera lub spróbuj logowania przez przeglądarkę powyżej.",
       "signInWithYourPassword": "Zaloguj się za pomocą hasła.",
       "signInFailed": "Logowanie nie powiodło się",
@@ -2956,7 +2973,7 @@
       "code": "Kod",
       "the6DigitCodeFrom": "6-cyfrowy kod z aplikacji uwierzytelniającej lub kod awaryjny",
       "checkCode": "Sprawdź kod",
-      "thisAccountAsksForA": "To konto wymaga klucza bezpieczeństwa po hasle. Zaloguj się na stronie serwera w przeglądarce, aby go użyć.",
+      "thisAccountAsksForA": "To konto wymaga klucza bezpieczeństwa po wpisaniu hasła. Zaloguj się na stronie serwera w przeglądarce, aby go użyć.",
       "useASecurityKeyIn": "Użyj klucza bezpieczeństwa w przeglądarce",
       "backToSignIn": "Wróć do logowania",
       "bringThisAposSHosts": "Przenieść hosty z tego {{deviceWord}}?",
@@ -3172,7 +3189,7 @@
         "howTallListRowsAnd": "Wysokość wierszy list i ustawień"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Hosty, dane logowania i fragmenty są przechowywane w zaszyfrowanym pliku na tym {{deviceWord}}. Statystyki użycia są wyłączone, chyba że włączysz je poniżej. Połączony serwer otrzymuje tylko to, co zezwolisz na synchronizację.",
+        "hostsCredentialsAndSnippetsAre": "Hosty, dane logowania i fragmenty kodu są przechowywane w zaszyfrowanym pliku na tym {{deviceWord}}. Statystyki użycia są wyłączone, chyba że włączysz je poniżej. Połączony serwer otrzymuje tylko te dane, które zezwolisz na synchronizację.",
         "recentHosts": "Ostatnie hosty",
         "forgetTheHostsYouOpened": "Zapomnij ostatnio otwierane hosty na każdym koncie",
         "recentHostsCleared": "Ostatnie hosty wyczyszczone",
@@ -3409,7 +3426,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Wersja i aktualizacje",
         "logs": "Dzienniki",
-        "latestLinesFromThisRun": "Najnowsze wiersze z tego uruchomienia, do zgłoszeń błędów"
+        "latestLinesFromThisRun": "Najnowsze wiersze z tego uruchomienia, do zgłoszeń błędów",
+        "pushNotifications": "Powiadomienia push",
+        "pushNotificationsDescription": "Alerty z Twoich serwerów na tym telefonie"
       },
       "sections": {
         "accountsAndSync": "Konta i synchronizacja",
@@ -3611,7 +3630,7 @@
       "onAHardwareKeyboardOff": "Na klawiaturze sprzętowej. Wyłączenie powoduje wpisywanie symboli jak na Macu.",
       "history": "Historia",
       "suggestCommands": "Sugestie poleceń",
-      "showsPastCommandsThatStart": "Pokazuje wcześniejsze polecenia zaczynające się od wpisywanego tekstu",
+      "showsPastCommandsThatStart": "Poprzednie polecenia podczas pisania",
       "resetToDefault": "Przywróć domyślne",
       "fontSize": "Rozmiar czcionki",
       "aSizeFromTo": "Rozmiar od {{MIN_FONT_SIZE}} do {{MAX_FONT_SIZE}}.",
@@ -3634,7 +3653,7 @@
       "twoFactorAuthentication": "Uwierzytelnianie dwuskładnikowe",
       "loading": "Ładowanie…",
       "scanThisQrCodeWith": "Zeskanuj ten kod QR za pomocą aplikacji uwierzytelniającej (Google Authenticator, Authy itp.), a następnie wprowadź 6-cyfrowy kod, aby potwierdzić.",
-      "verifyAmpEnable": "Zweryfikuj i włącz",
+      "verifyAmpEnable": "Weryfikacja i włączenie",
       "cancel": "Anuluj",
       "saveYourBackupCodes": "Zapisz kody awaryjne",
       "storeTheseSomewhereSafeEach": "Przechowuj je w bezpiecznym miejscu. Każdy kod można użyć tylko raz, jeśli utracisz dostęp do aplikacji uwierzytelniającej.",
@@ -3871,5 +3890,31 @@
     "shareCount_many": "Udostępnij z {{count}}",
     "shareCount_other": "Udostępnij z {{count}}",
     "removeAccess": "Usuń dostęp"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Alerty z serwera",
+      "critical": "Krytyczne alerty z serwera"
+    },
+    "severity": {
+      "info": "Wszystko",
+      "warning": "Ostrzeżenia i gorsze",
+      "critical": "Tylko krytyczne"
+    },
+    "settings": {
+      "on": "Alerty pojawiają się na tym telefonie",
+      "off": "Wyłączone",
+      "toggle": "Powiadomienia push dla {{server}}",
+      "minSeverity": "Wyślij mi",
+      "denied": "Powiadomienia są wyłączone dla Termix. Włącz je w ustawieniach telefonu.",
+      "openSettings": "Otwórz ustawienia",
+      "outdated": "Ten serwer wymaga wersji Alerts 1.4.0 lub nowszej, aby obsługiwać powiadomienia push. Poproś administratora o aktualizację wtyczki.",
+      "unavailable": "Zaloguj się na ten serwer i włącz wtyczkę Alerts, aby otrzymywać powiadomienia.",
+      "error": "Nie udało się połączyć z serwerem. Termix spróbuje ponownie przy następnym otwarciu aplikacji.",
+      "notInThisBuild": "Ta wersja nie może wyświetlać powiadomień.",
+      "noServers": "Połącz serwer, aby otrzymywać jego alerty tutaj.",
+      "pushHint": "Alerty są wysyłane przez Expo oraz Apple lub Google, wraz z ich tytułem i treścią. Wybierz, które z nich mają być wysyłane, w regułach Alerts na serwerze.",
+      "pollHint": "Ta wersja nie zawiera usług Google, więc Termix sprawdza nowe alerty w tle, co około 15 minut."
+    }
   }
 }

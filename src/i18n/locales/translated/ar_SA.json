@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "تستمر علامات التبويب المفتوحة في العمل عند التبديل.",
       "unlink": "فك ارتباط {{account}}",
       "linkAServer": "ربط خادم",
-      "eachServerKeepsItsOwn": "يحافظ كل خادم على مضيفيه، وبيانات الاعتماد، والإعدادات الخاصة به على هذا{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "تحتفظ كل خادم بقائمتها الخاصة من المضيفين، بيانات الاعتماد والإعدادات على هذا {{deviceWord}}.",
       "signedIn": "تم تسجيل الدخول",
       "signedOut": "تم تسجيل الخروج",
       "syncedCopy": "نسخة متزامنة"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "إعادة تحميل"
+    },
+    "pluginSettings": {
+      "loading": "جارٍ تحميل الإعدادات",
+      "forEveryone": "لجميع المستخدمين على الخادم",
+      "justForYou": "لك فقط",
+      "couldNotSave": "تعذر حفظ الإعداد",
+      "nothingYouCanChange": "لا يوجد هنا ما يمكنك تغييره. يمكن للمسؤول تغيير هذه الإعدادات.",
+      "notANumber": "هذا ليس رقماً",
+      "atLeast": "يجب أن يكون {{min}} أو أكثر",
+      "atMost": "يجب أن يكون {{max}} أو أقل"
     }
   },
   "sessions": {
@@ -762,14 +772,21 @@
         "authenticationFailed": "فشل المصادقة: {{message}}",
         "theHostKeyWasNot": "لم يتم الوثوق بمفتاح المضيف.",
         "loginCancelled": "تم إلغاء تسجيل الدخول.",
-        "notConnected": "غير متصل"
+        "notConnected": "غير متصل",
+        "signingInAs": "جارٍ تسجيل الدخول باسم {{user}} باستخدام {{method}}",
+        "methodKey": "مفتاح",
+        "methodPassword": "كلمة مرور",
+        "methodNone": "لا يوجد تسجيل دخول محفوظ"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "تم قطع الاتصال"
       },
       "thisBuildHasNoSsh": "هذا الإصدار لا يحتوي على محرك SSH. استخدم التطبيق من المتجر، أو اربط خادم Termix للاتصال.",
       "theHostsOnThisAre": "المضيفون على هذا {{deviceWord}} غير متاحين بعد.",
-      "thisServerSHostsAre": "مضيفو هذا الخادم غير موجودين على هذا {{deviceWord}}. فعّل إضافة المزامنة على الخادم للاتصال من {{deviceWord}}."
+      "thisServerSHostsAre": "مضيفو هذا الخادم غير موجودين على هذا {{deviceWord}}. فعّل إضافة المزامنة على الخادم للاتصال من {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "تسجيل الدخول المحفوظ لهذا المضيف غير موجود على هذا {{deviceWord}}، لذا لا يمكن تسجيل الدخول إلا عبر الخادم"
+      }
     },
     "origin": {
       "canTConnect": "لا يمكن الاتصال.",
@@ -1343,7 +1360,7 @@
     "yourDefaultsOrOneFolder": "إعداداتك الافتراضية، أو إعدادات مجلد واحد",
     "myDefaults": "إعداداتي الافتراضية",
     "theServerSets": " يحدد الخادم {{adminCount}}.",
-    "aFolderWinsOverYour": "تتفوق إعدادات المجلد على إعداداتك الافتراضية، وتتفوق إعداداتك الافتراضية على إعدادات الخادم. يحتفظ المضيف بأي قيمة قمت بتعيينها عليه بنفسك.{{value}}",
+    "aFolderWinsOverYour": "تتفوق المجلدات على إعداداتك الافتراضية، وتتفوق إعداداتك الافتراضية على إعدادات الخادم. يحتفظ المضيف بأي قيمة قمت بتعيينها عليه بنفسك.{{value}}",
     "save": "حفظ",
     "authentication": "المصادقة",
     "none": "لا شيء",
@@ -2947,7 +2964,7 @@
       "signedIn": "تم تسجيل الدخول",
       "close": "إغلاق",
       "linkYourTermixServer": "ربط خادم Termix الخاص بك",
-      "yourHostsCredentialsSnippetsAnd": "سيتم مزامنة مضيفيك، وبيانات الاعتماد، والمقتطفات، والإعدادات معه، وستحصل على إضافاته. سيستمر كل شيء في العمل على هذا {{deviceWord}} عندما يكون الخادم غير متصل.",
+      "yourHostsCredentialsSnippetsAnd": "يتزامن مضيفيك، بيانات الاعتماد، المقاطع والإعدادات معه،并获得 إضافاته. يستمر كل شيء في العمل على هذا {{deviceWord}} عندما يكون الخادم غير متصل.",
       "checking": "جارٍ التحقق من {{host}}...",
       "proxyAndClientCertificate": "الوكيل وشهادة العميل",
       "couldNotReachThatServer": "تعذر الوصول إلى ذلك الخادم. تحقق من العنوان، أو قم بإعداد الوكيل أو شهادة العميل.",
@@ -2975,7 +2992,7 @@
       "or": "أو",
       "continueWith": "متابعة باستخدام {{label}}",
       "signInWithAPasskey": "تسجيل الدخول باستخدام مفتاح مرور أو مفتاح أمان",
-      "opensYourServerAposS": "يفتح صفحة تسجيل الدخول الخاصة بخادمك في المتصفح. تعمل Face ID، وبصمة الإصبع، و NFC، ومفاتيح USB هناك. يتطلب Termix 26.11.3 أو أحدث.",
+      "opensYourServerAposS": "يفتح صفحة تسجيل الدخول الخاصة بخادمك في المتصفح. تعمل Face ID، وبصمة الإصبع، وNFC ومفاتيح USB هناك. يتطلب Termix 26.11.3 أو أحدث.",
       "signInInTheBrowser": "تسجيل الدخول في المتصفح",
       "opensYourServerAposS2": "يفتح صفحة تسجيل الدخول الخاصة بخادمك، لأي شيء لا يمكن للتطبيق القيام به هنا. يتطلب Termix 26.10.6 أو أحدث.",
       "thisServerHasNoSign": "هذا الخادم لا يحتوي على تسجيل دخول مفعّل يمكن للتطبيق استخدامه. اسأل من يديره، أو جرب تسجيل الدخول عبر المتصفح أعلاه.",
@@ -2994,10 +3011,10 @@
       "code": "الرمز",
       "the6DigitCodeFrom": "الرمز المكوّن من 6 أرقام من تطبيق المصادقة الخاص بك، أو رمز احتياطي",
       "checkCode": "تحقق من الرمز",
-      "thisAccountAsksForA": "يطلب هذا الحساب مفتاح أمان بعد كلمة المرور. سجّل الدخول على صفحة الخادم في متصفحك لاستخدامه.",
+      "thisAccountAsksForA": "يطلب هذا الحساب مفتاح أمان بعد كلمة المرور. سجّل الدخول عبر صفحة الخادم في متصفحك لاستخدامه.",
       "useASecurityKeyIn": "استخدام مفتاح أمان في المتصفح",
       "backToSignIn": "العودة إلى تسجيل الدخول",
-      "bringThisAposSHosts": "هل تريد إحضار مضيفي هذا {{deviceWord}} أيضًا؟",
+      "bringThisAposSHosts": "هل تريد جلب مضيفي هذا {{deviceWord}} معك؟",
       "thisHasTheyStayOn": "يحتوي هذا {{deviceWord}} على {{what}}. تظل على هذا الجهاز في كلتا الحالتين.",
       "merge": "دمج",
       "copyThemToTooSo": "انسخها إلى {{serverName}} أيضًا حتى تتم مزامنتها. يتم تخطي تلك التي تبدو مشابهة لمضيف الخادم.",
@@ -3210,7 +3227,7 @@
         "howTallListRowsAnd": "ارتفاع صفوف القوائم والإعدادات"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "يتم حفظ المضيفين، بيانات الاعتماد، والمقتطفات في ملف مشفر على هذا{{deviceWord}}. إحصائيات الاستخدام معطلة ما لم تقم بتفعيلها أدناه. الخادم المرتبط يحصل فقط على ما تسمح له بمزامنته.",
+        "hostsCredentialsAndSnippetsAre": "يتم الاحتفاظ بالمضيفين، بيانات الاعتماد والمقاطع في ملف مشفر على هذا {{deviceWord}}. إحصائيات الاستخدام معطلة ما لم تقم بتفعيلها أدناه. يحصل الخادم المرتبط فقط على ما تسمح له بمزامنته.",
         "recentHosts": "المضيفون الحديثون",
         "forgetTheHostsYouOpened": "نسيان المضيفين الذين فتحتهم مؤخراً في جميع الحسابات",
         "recentHostsCleared": "تم مسح المضيفين الحديثين",
@@ -3447,7 +3464,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "الإصدار والتحديثات",
         "logs": "السجلات",
-        "latestLinesFromThisRun": "أحدث الأسطر من هذه الجلسة، لتقارير الأخطاء"
+        "latestLinesFromThisRun": "أحدث الأسطر من هذه الجلسة، لتقارير الأخطاء",
+        "pushNotifications": "إشعارات الدفع",
+        "pushNotificationsDescription": "تنبيهات من خوادمك على هذا الهاتف"
       },
       "sections": {
         "accountsAndSync": "الحسابات والمزامنة",
@@ -3649,7 +3668,7 @@
       "onAHardwareKeyboardOff": "على لوحة المفاتيح المادية. عند الإيقاف، تُكتب الرموز كما في Mac.",
       "history": "السجل",
       "suggestCommands": "اقتراح الأوامر",
-      "showsPastCommandsThatStart": "يعرض الأوامر السابقة التي تبدأ بما تكتبه",
+      "showsPastCommandsThatStart": "الأوامر السابقة أثناء الكتابة",
       "resetToDefault": "إعادة تعيين إلى الافتراضي",
       "fontSize": "حجم الخط",
       "aSizeFromTo": "حجم من {{MIN_FONT_SIZE}} إلى {{MAX_FONT_SIZE}}.",
@@ -3672,7 +3691,7 @@
       "twoFactorAuthentication": "المصادقة الثنائية",
       "loading": "جارٍ التحميل…",
       "scanThisQrCodeWith": "امسح رمز QR هذا باستخدام تطبيق المصادقة الخاص بك (Google Authenticator، Authy، إلخ)، ثم أدخل الرمز المكوّن من 6 أرقام للتأكيد.",
-      "verifyAmpEnable": "التحقق &amp; التفعيل",
+      "verifyAmpEnable": "التحقق والتفعيل",
       "cancel": "إلغاء",
       "saveYourBackupCodes": "احفظ رموز النسخ الاحتياطي الخاصة بك",
       "storeTheseSomewhereSafeEach": "احفظ هذه في مكان آمن. يمكن استخدام كل رمز مرة واحدة فقط إذا فقدت الوصول إلى تطبيق المصادقة الخاص بك.",
@@ -3917,5 +3936,31 @@
     "shareCount_many": "مشاركة مع {{count}}",
     "shareCount_other": "مشاركة مع {{count}}",
     "removeAccess": "إزالة الوصول"
+  },
+  "push": {
+    "channels": {
+      "alerts": "تنبيهات الخادم",
+      "critical": "تنبيهات الخادم الحرجة"
+    },
+    "severity": {
+      "info": "الكل",
+      "warning": "تحذيرات وأشد",
+      "critical": "الحرجة فقط"
+    },
+    "settings": {
+      "on": "تظهر التنبيهات على هذا الهاتف",
+      "off": "معطّل",
+      "toggle": "إشعارات الدفع لـ {{server}}",
+      "minSeverity": "أرسل لي",
+      "denied": "الإشعارات معطلة لـ Termix. قم بتفعيلها في إعدادات الهاتف.",
+      "openSettings": "فتح الإعدادات",
+      "outdated": "يحتاج هذا الخادم إلى Alerts 1.4.0 أو أحدث للإشعارات الفورية. اطلب من مسؤول تحديث الإضافة.",
+      "unavailable": "سجّل الدخول إلى هذا الخادم وقم بتفعيل إضافة Alerts للحصول على الإشعارات.",
+      "error": "تعذر الوصول إلى الخادم. سيعيد Termix المحاولة في المرة التالية التي تفتح فيها التطبيق.",
+      "notInThisBuild": "لا يمكن لهذا الإصدار عرض الإشعارات.",
+      "noServers": "اربط بخادم للحصول على تنبيهاته هنا.",
+      "pushHint": "تُرسل التنبيهات عبر Expo وApple أو Google، مع عنوانها ونصها. اختر أي منها في قواعد التنبيهات على الخادم.",
+      "pollHint": "لا يحتوي هذا الإصدار على خدمات Google، لذا يتحقق Termix من التنبيهات الجديدة في الخلفية، كل 15 دقيقة تقريباً."
+    }
   }
 }

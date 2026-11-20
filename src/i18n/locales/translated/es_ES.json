@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Las pestañas abiertas siguen funcionando cuando cambias de cuenta.",
       "unlink": "Desvincular {{account}}",
       "linkAServer": "Vincular un servidor",
-      "eachServerKeepsItsOwn": "Cada servidor mantiene sus propios hosts, credenciales y configuraciones en este{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Cada servidor mantiene sus propios hosts, credenciales y configuraciones en este {{deviceWord}}.",
       "signedIn": "Sesión iniciada",
       "signedOut": "Cierre de sesión",
       "syncedCopy": "Copia sincronizada"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Recargar"
+    },
+    "pluginSettings": {
+      "loading": "Cargando configuraciones",
+      "forEveryone": "Para todos en el servidor",
+      "justForYou": "Solo para ti",
+      "couldNotSave": "No se pudo guardar la configuración",
+      "nothingYouCanChange": "No hay nada aquí que puedas cambiar. Un administrador puede modificar estas configuraciones.",
+      "notANumber": "Eso no es un número",
+      "atLeast": "Debe ser {{min}} o más",
+      "atMost": "Debe ser {{max}} o menos"
     }
   },
   "sessions": {
@@ -744,14 +754,21 @@
         "authenticationFailed": "Autenticación fallida: {{message}}",
         "theHostKeyWasNot": "La clave del host no fue confiable.",
         "loginCancelled": "Inicio de sesión cancelado.",
-        "notConnected": "No conectado"
+        "notConnected": "No conectado",
+        "signingInAs": "Iniciando sesión como {{user}} con {{method}}",
+        "methodKey": "una clave",
+        "methodPassword": "una contraseña",
+        "methodNone": "sin inicio de sesión guardado"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Se ha cortado la conexión"
       },
       "thisBuildHasNoSsh": "Esta compilación no tiene motor SSH. Usa la aplicación de la tienda o enlaza un servidor Termix para conectar.",
       "theHostsOnThisAre": "Los hosts de este {{deviceWord}} aún no están abiertos.",
-      "thisServerSHostsAre": "Los hosts de este servidor no están en este {{deviceWord}}. Activa el complemento Sync en el servidor para conectar desde el {{deviceWord}}."
+      "thisServerSHostsAre": "Los hosts de este servidor no están en este {{deviceWord}}. Activa el complemento Sync en el servidor para conectar desde el {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "El inicio de sesión guardado para este host no está en este {{deviceWord}}, por lo que solo el servidor puede iniciar sesión"
+      }
     },
     "origin": {
       "canTConnect": "No se puede conectar.",
@@ -1319,7 +1336,7 @@
     "yourDefaultsOrOneFolder": "Tus valores predeterminados o los de una carpeta",
     "myDefaults": "Mis valores predeterminados",
     "theServerSets": " El servidor establece {{adminCount}}.",
-    "aFolderWinsOverYour": "Una carpeta tiene prioridad sobre tus valores predeterminados, y tus valores predeterminados tienen prioridad sobre los del servidor. Un host conserva cualquier valor que hayas establecido en él directamente.{{value}}",
+    "aFolderWinsOverYour": "Una carpeta tiene prioridad sobre tus valores predeterminados, y tus valores predeterminados tienen prioridad sobre los del servidor. Un host conserva cualquier valor que hayas establecido directamente en él.{{value}}",
     "save": "Guardar",
     "authentication": "Autenticación",
     "none": "Ninguno",
@@ -2890,7 +2907,7 @@
       "signedIn": "Sesión iniciada",
       "close": "Cerrar",
       "linkYourTermixServer": "Vincular tu servidor Termix",
-      "yourHostsCredentialsSnippetsAnd": "Tus hosts, credenciales, fragmentos y ajustes se sincronizarán con él, y obtendrás sus complementos. Todo seguirá funcionando en este {{deviceWord}} cuando el servidor no esté disponible.",
+      "yourHostsCredentialsSnippetsAnd": "Tus hosts, credenciales, fragmentos y configuraciones se sincronizan con él, y obtienes sus complementos. Todo sigue funcionando en este {{deviceWord}} cuando el servidor no está disponible.",
       "checking": "Comprobando {{host}}...",
       "proxyAndClientCertificate": "Proxy y certificado de cliente",
       "couldNotReachThatServer": "No se ha podido conectar con ese servidor. Comprueba la dirección o configura el proxy o el certificado de cliente.",
@@ -2918,9 +2935,9 @@
       "or": "O",
       "continueWith": "Continuar con {{label}}",
       "signInWithAPasskey": "Iniciar sesión con una clave de acceso o una clave de seguridad",
-      "opensYourServerAposS": "Abre la página de inicio de sesión de tu servidor en el navegador. Face ID, huella digital, NFC y claves USB funcionan allí. Requiere Termix 26.11.3 o superior.",
+      "opensYourServerAposS": "Abre la página de inicio de sesión de tu servidor en el navegador. Face ID, huella digital, NFC y claves USB funcionan allí. Requiere Termix 26.11.3 o posterior.",
       "signInInTheBrowser": "Iniciar sesión en el navegador",
-      "opensYourServerAposS2": "Abre la página de inicio de sesión de tu servidor, para cualquier cosa que la aplicación no pueda hacer aquí. Requiere Termix 26.10.6 o superior.",
+      "opensYourServerAposS2": "Abre la página de inicio de sesión de tu servidor, para cualquier cosa que la aplicación no pueda hacer aquí. Requiere Termix 26.10.6 o posterior.",
       "thisServerHasNoSign": "Este servidor no tiene activado ningún método de inicio de sesión que la aplicación pueda usar. Pregunta a quien lo administra o prueba el inicio de sesión en el navegador de arriba.",
       "signInWithYourPassword": "Inicia sesión con tu contraseña.",
       "signInFailed": "Error al iniciar sesión",
@@ -3153,7 +3170,7 @@
         "howTallListRowsAnd": "Altura de las filas de listas y de los ajustes"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Los hosts, credenciales y fragmentos se guardan en un archivo cifrado en este{{deviceWord}}. Las estadísticas de uso están desactivadas a menos que las actives abajo. Un servidor vinculado solo recibe lo que le permitas sincronizar.",
+        "hostsCredentialsAndSnippetsAre": "Los hosts, credenciales y fragmentos se almacenan en un archivo cifrado en este {{deviceWord}}. Las estadísticas de uso están desactivadas a menos que las actives a continuación. Un servidor vinculado solo recibe lo que le permitas sincronizar.",
         "recentHosts": "Hosts recientes",
         "forgetTheHostsYouOpened": "Olvidar los hosts que abriste recientemente en todas las cuentas",
         "recentHostsCleared": "Hosts recientes borrados",
@@ -3390,7 +3407,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versión y actualizaciones",
         "logs": "Registros",
-        "latestLinesFromThisRun": "Últimas líneas de esta ejecución, para informes de errores"
+        "latestLinesFromThisRun": "Últimas líneas de esta ejecución, para informes de errores",
+        "pushNotifications": "Notificaciones push",
+        "pushNotificationsDescription": "Alertas de tus servidores en este teléfono"
       },
       "sections": {
         "accountsAndSync": "Cuentas y sincronización",
@@ -3592,7 +3611,7 @@
       "onAHardwareKeyboardOff": "En un teclado físico. Desactivado escribe símbolos como en un Mac.",
       "history": "Historial",
       "suggestCommands": "Sugerir comandos",
-      "showsPastCommandsThatStart": "Muestra comandos anteriores que empiezan por lo que escribes",
+      "showsPastCommandsThatStart": "Comandos anteriores mientras escribes",
       "resetToDefault": "Restablecer valores predeterminados",
       "fontSize": "Tamaño de fuente",
       "aSizeFromTo": "Un tamaño de {{MIN_FONT_SIZE}} a {{MAX_FONT_SIZE}}.",
@@ -3848,5 +3867,31 @@
     "shareCount_many": "Compartir con {{count}}",
     "shareCount_other": "Compartir con {{count}}",
     "removeAccess": "Eliminar acceso"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Alertas del servidor",
+      "critical": "Alertas críticas del servidor"
+    },
+    "severity": {
+      "info": "Todo",
+      "warning": "Advertencias y peores",
+      "critical": "Solo críticas"
+    },
+    "settings": {
+      "on": "Las alertas aparecen en este teléfono",
+      "off": "Desactivado",
+      "toggle": "Notificaciones push para {{server}}",
+      "minSeverity": "Envíame",
+      "denied": "Las notificaciones están desactivadas para Termix. Actívalas en la configuración del teléfono.",
+      "openSettings": "Abrir configuración",
+      "outdated": "Este servidor necesita Alerts 1.4.0 o posterior para las notificaciones push. Pide a un administrador que actualice el complemento.",
+      "unavailable": "Inicia sesión en este servidor y activa el complemento Alerts para recibir notificaciones.",
+      "error": "No se pudo conectar con el servidor. Termix lo intentará de nuevo la próxima vez que se abra la aplicación.",
+      "notInThisBuild": "Esta versión no puede mostrar notificaciones.",
+      "noServers": "Vincula un servidor para recibir sus alertas aquí.",
+      "pushHint": "Las alertas se envían a través de Expo y Apple o Google, con su título y texto. Elige cuáles en las reglas de Alerts del servidor.",
+      "pollHint": "Esta versión no tiene servicios de Google, por lo que Termix verifica nuevas alertas en segundo plano, aproximadamente cada 15 minutos."
+    }
   }
 }

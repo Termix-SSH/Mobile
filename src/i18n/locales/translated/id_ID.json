@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Muat ulang"
+    },
+    "pluginSettings": {
+      "loading": "Memuat pengaturan",
+      "forEveryone": "Untuk semua orang di server",
+      "justForYou": "Hanya untuk Anda",
+      "couldNotSave": "Tidak dapat menyimpan pengaturan",
+      "nothingYouCanChange": "Tidak ada yang bisa Anda ubah di sini. Admin dapat mengubah pengaturan ini.",
+      "notANumber": "Bukan angka",
+      "atLeast": "Harus {{min}} atau lebih",
+      "atMost": "Harus {{max}} atau kurang"
     }
   },
   "sessions": {
@@ -732,14 +742,21 @@
         "authenticationFailed": "Autentikasi gagal: {{message}}",
         "theHostKeyWasNot": "Kunci host tidak dipercaya.",
         "loginCancelled": "Login dibatalkan.",
-        "notConnected": "Tidak terhubung"
+        "notConnected": "Tidak terhubung",
+        "signingInAs": "Masuk sebagai {{user}} dengan {{method}}",
+        "methodKey": "kunci",
+        "methodPassword": "kata sandi",
+        "methodNone": "tidak ada login yang disimpan"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Koneksi terputus"
       },
       "thisBuildHasNoSsh": "Build ini tidak memiliki mesin SSH. Gunakan aplikasi dari toko, atau hubungkan server Termix untuk terhubung.",
       "theHostsOnThisAre": "Host di {{deviceWord}} ini belum terbuka.",
-      "thisServerSHostsAre": "Host server ini tidak ada di {{deviceWord}} ini. Aktifkan plugin Sync di server untuk terhubung dari {{deviceWord}}."
+      "thisServerSHostsAre": "Host server ini tidak ada di {{deviceWord}} ini. Aktifkan plugin Sync di server untuk terhubung dari {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Login yang disimpan untuk host ini tidak ada di {{deviceWord}} ini, jadi hanya server yang bisa masuk"
+      }
     },
     "origin": {
       "canTConnect": "Tidak dapat terhubung.",
@@ -1303,7 +1320,7 @@
     "yourDefaultsOrOneFolder": "Default Anda, atau satu folder",
     "myDefaults": "Default saya",
     "theServerSets": " Server mengatur {{adminCount}}.",
-    "aFolderWinsOverYour": "Folder mengalahkan default Anda, dan default Anda mengalahkan default server. Host tetap mempertahankan nilai yang Anda atur sendiri.{{value}}",
+    "aFolderWinsOverYour": "Folder mengalahkan default Anda, dan default Anda mengalahkan default server. Host tetap menggunakan nilai yang Anda atur sendiri.{{value}}",
     "save": "Simpan",
     "authentication": "Autentikasi",
     "none": "Tidak ada",
@@ -2852,7 +2869,7 @@
       "signedIn": "Sudah masuk",
       "close": "Tutup",
       "linkYourTermixServer": "Hubungkan server Termix Anda",
-      "yourHostsCredentialsSnippetsAnd": "Host, kredensial, cuplikan, dan pengaturan Anda akan disinkronkan dengannya, dan Anda akan mendapatkan plugin-nya. Semua tetap berfungsi di {{deviceWord}} ini saat server tidak tersedia.",
+      "yourHostsCredentialsSnippetsAnd": "Host, kredensial, cuplikan, dan pengaturan Anda disinkronkan dengannya, dan Anda mendapatkan pluginnya. Semua tetap berfungsi di {{deviceWord}} ini saat server tidak tersedia.",
       "checking": "Memeriksa {{host}}...",
       "proxyAndClientCertificate": "Proxy dan sertifikat klien",
       "couldNotReachThatServer": "Tidak dapat menjangkau server tersebut. Periksa alamat, atau atur proxy atau sertifikat klien.",
@@ -2882,7 +2899,7 @@
       "signInWithAPasskey": "Masuk dengan passkey atau kunci keamanan",
       "opensYourServerAposS": "Membuka halaman masuk server Anda di browser. Face ID, sidik jari, NFC, dan kunci USB semuanya berfungsi di sana. Memerlukan Termix 26.11.3 atau lebih baru.",
       "signInInTheBrowser": "Masuk di browser",
-      "opensYourServerAposS2": "Membuka halaman masuk server Anda, untuk hal-hal yang tidak dapat dilakukan aplikasi di sini. Memerlukan Termix 26.10.6 atau lebih baru.",
+      "opensYourServerAposS2": "Membuka halaman masuk server Anda, untuk hal-hal yang tidak bisa dilakukan aplikasi di sini. Memerlukan Termix 26.10.6 atau lebih baru.",
       "thisServerHasNoSign": "Server ini tidak memiliki fitur masuk yang dapat digunakan oleh aplikasi. Tanyakan kepada pengelola server, atau coba masuk melalui browser di atas.",
       "signInWithYourPassword": "Masuk dengan kata sandi Anda.",
       "signInFailed": "Gagal masuk",
@@ -2899,7 +2916,7 @@
       "code": "Kode",
       "the6DigitCodeFrom": "Kode 6 digit dari aplikasi autentikator Anda, atau kode cadangan",
       "checkCode": "Periksa kode",
-      "thisAccountAsksForA": "Akun ini meminta kunci keamanan setelah kata sandi. Masuk melalui halaman server di browser Anda untuk menggunakannya.",
+      "thisAccountAsksForA": "Akun ini meminta kunci keamanan setelah kata sandi. Masuk di halaman server di browser Anda untuk menggunakannya.",
       "useASecurityKeyIn": "Gunakan kunci keamanan di browser",
       "backToSignIn": "Kembali ke masuk",
       "bringThisAposSHosts": "Bawa host dari {{deviceWord}} ini juga?",
@@ -3115,7 +3132,7 @@
         "howTallListRowsAnd": "Seberapa tinggi baris daftar dan pengaturan"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Host, kredensial, dan cuplikan disimpan dalam file terenkripsi di {{deviceWord}} ini. Statistik penggunaan dimatikan kecuali Anda mengaktifkannya di bawah ini. Server yang terhubung hanya menerima apa yang Anda izinkan untuk disinkronkan.",
+        "hostsCredentialsAndSnippetsAre": "Host, kredensial, dan cuplikan disimpan dalam file terenkripsi di {{deviceWord}} ini. Statistik penggunaan dimatikan kecuali Anda mengaktifkannya di bawah. Server yang terhubung hanya mendapatkan apa yang Anda izinkan untuk disinkronkan.",
         "recentHosts": "Host terbaru",
         "forgetTheHostsYouOpened": "Lupakan host yang baru saja Anda buka di setiap akun",
         "recentHostsCleared": "Host terbaru dihapus",
@@ -3352,7 +3369,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versi dan pembaruan",
         "logs": "Log",
-        "latestLinesFromThisRun": "Baris terbaru dari sesi ini, untuk laporan bug"
+        "latestLinesFromThisRun": "Baris terbaru dari sesi ini, untuk laporan bug",
+        "pushNotifications": "Notifikasi push",
+        "pushNotificationsDescription": "Peringatan dari server Anda di ponsel ini"
       },
       "sections": {
         "accountsAndSync": "Akun dan sinkronisasi",
@@ -3554,7 +3573,7 @@
       "onAHardwareKeyboardOff": "Pada keyboard fisik. Nonaktif mengetik simbol seperti di Mac.",
       "history": "Riwayat",
       "suggestCommands": "Sarankan perintah",
-      "showsPastCommandsThatStart": "Menampilkan perintah sebelumnya yang dimulai dengan apa yang Anda ketik",
+      "showsPastCommandsThatStart": "Perintah sebelumnya saat Anda mengetik",
       "resetToDefault": "Atur ulang ke default",
       "fontSize": "Ukuran font",
       "aSizeFromTo": "Ukuran dari {{MIN_FONT_SIZE}} hingga {{MAX_FONT_SIZE}}.",
@@ -3577,7 +3596,7 @@
       "twoFactorAuthentication": "Autentikasi dua faktor",
       "loading": "Memuat…",
       "scanThisQrCodeWith": "Pindai kode QR ini dengan aplikasi autentikator Anda (Google Authenticator, Authy, dll.), lalu masukkan kode 6 digit untuk konfirmasi.",
-      "verifyAmpEnable": "Verifikasi &amp; Aktifkan",
+      "verifyAmpEnable": "Verifikasi dan aktifkan",
       "cancel": "Batal",
       "saveYourBackupCodes": "Simpan kode cadangan Anda",
       "storeTheseSomewhereSafeEach": "Simpan kode ini di tempat yang aman. Setiap kode hanya dapat digunakan sekali jika Anda kehilangan akses ke autentikator Anda.",
@@ -3802,5 +3821,31 @@
     "pickSomeone": "Pilih siapa yang akan dibagikan",
     "shareCount_other": "Bagikan dengan {{count}}",
     "removeAccess": "Hapus akses"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Peringatan server",
+      "critical": "Peringatan server kritis"
+    },
+    "severity": {
+      "info": "Semua",
+      "warning": "Peringatan dan yang lebih parah",
+      "critical": "Hanya kritis"
+    },
+    "settings": {
+      "on": "Peringatan muncul di ponsel ini",
+      "off": "Mati",
+      "toggle": "Notifikasi push untuk {{server}}",
+      "minSeverity": "Kirimkan saya",
+      "denied": "Notifikasi dimatikan untuk Termix. Aktifkan di pengaturan ponsel.",
+      "openSettings": "Buka pengaturan",
+      "outdated": "Server ini memerlukan Alerts 1.4.0 atau lebih baru untuk notifikasi push. Minta admin untuk memperbarui plugin.",
+      "unavailable": "Masuk ke server ini dan aktifkan plugin Alerts untuk mendapatkan notifikasi.",
+      "error": "Tidak dapat menghubungi server. Termix akan mencoba lagi saat aplikasi dibuka berikutnya.",
+      "notInThisBuild": "Build ini tidak dapat menampilkan notifikasi.",
+      "noServers": "Hubungkan server untuk mendapatkan peringatannya di sini.",
+      "pushHint": "Peringatan dikirim melalui Expo dan Apple atau Google, dengan judul dan teksnya. Pilih mana yang akan dikirim di aturan Alerts di server.",
+      "pollHint": "Build ini tidak memiliki layanan Google, jadi Termix memeriksa peringatan baru di latar belakang, sekitar setiap 15 menit."
+    }
   }
 }

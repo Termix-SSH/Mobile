@@ -41,7 +41,8 @@
     },
     "terminalSessionsContext": {
       "thisFeatureIsTurnedOff": "Denne funksjonen er slått av på serveren.",
-      "aTabWasNotReopened": "En fane ble ikke gjenåpnet fordi verten er borte"
+      "aTabWasNotReopened": "En fane ble ikke gjenåpnet fordi verten er borte",
+      "tabsWereNotReopenedBecause": "Fikk ikke åpnet {{count}} faner fordi vertene deres er borte"
     }
   },
   "accounts": {
@@ -86,7 +87,7 @@
       "openTabsKeepRunningWhen": "Åpne faner fortsetter å kjøre når du bytter.",
       "unlink": "Fjern kobling til {{account}}",
       "linkAServer": "Koble til en server",
-      "eachServerKeepsItsOwn": "Hver server lagrer sine egne verter, legitimasjon og innstillinger på denne{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Hver server lagrer sine egne verts, legitimasjon og innstillinger på denne {{deviceWord}}.",
       "signedIn": "Logget inn",
       "signedOut": "Logget ut",
       "syncedCopy": "Synkronisert kopi"
@@ -411,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Last inn på nytt"
+    },
+    "pluginSettings": {
+      "loading": "Laster innstillinger",
+      "forEveryone": "For alle på serveren",
+      "justForYou": "Bare for deg",
+      "couldNotSave": "Kunne ikke lagre innstillingen",
+      "nothingYouCanChange": "Det er ingenting her du kan endre. En administrator kan endre disse innstillingene.",
+      "notANumber": "Dette er ikke et tall",
+      "atLeast": "Det må være {{min}} eller mer",
+      "atMost": "Det må være {{max}} eller mindre"
     }
   },
   "sessions": {
@@ -737,14 +748,21 @@
         "authenticationFailed": "Autentisering mislyktes: {{message}}",
         "theHostKeyWasNot": "Vertsnykkelen var ikke stolt på.",
         "loginCancelled": "Innlogging avbrutt.",
-        "notConnected": "Ikke tilkoblet"
+        "notConnected": "Ikke tilkoblet",
+        "signingInAs": "Logger inn som {{user}} med {{method}}",
+        "methodKey": "en nøkkel",
+        "methodPassword": "et passord",
+        "methodNone": "ingen lagret pålogging"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Tilkoblingen ble brutt"
       },
       "thisBuildHasNoSsh": "Denne byggingen har ingen SSH-motor. Bruk appen fra butikken, eller koble til en Termix-server for å koble til.",
       "theHostsOnThisAre": "Vertene på denne {{deviceWord}} er ikke åpne ennå.",
-      "thisServerSHostsAre": "Denne serverens vertene er ikke på denne {{deviceWord}}. Slå på Sync-pluginet på serveren for å koble til fra {{deviceWord}}."
+      "thisServerSHostsAre": "Denne serverens vertene er ikke på denne {{deviceWord}}. Slå på Sync-pluginet på serveren for å koble til fra {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Den lagrede påloggingen for denne verten er ikke på denne {{deviceWord}}, så bare serveren kan logge inn"
+      }
     },
     "origin": {
       "canTConnect": "Kan ikke koble til.",
@@ -1310,7 +1328,7 @@
     "yourDefaultsOrOneFolder": "Dine standardverdier, eller en mappe sin",
     "myDefaults": "Mine standardverdier",
     "theServerSets": " Serveren setter {{adminCount}}.",
-    "aFolderWinsOverYour": "En mappe har forrang foran dine standardverdier, og dine standardverdier har forrang foran serverens. En vertsmaskin beholder enhver verdi du har satt på den selv.{{value}}",
+    "aFolderWinsOverYour": "En mappe har forrang foran standardinnstillingene dine, og standardinnstillingene dine har forrang foran serverens. En vert beholder enhver verdi du har satt på den selv.{{value}}",
     "save": "Lagre",
     "authentication": "Autentisering",
     "none": "Ingen",
@@ -2870,7 +2888,7 @@
       "signedIn": "Logget inn",
       "close": "Lukk",
       "linkYourTermixServer": "Koble til Termix-serveren din",
-      "yourHostsCredentialsSnippetsAnd": "Vertene, legitimasjonen, kommandosnuttene og innstillingene dine synkroniseres med den, og du får tilgang til utvidelsene dens. Alt fungerer fortsatt på denne {{deviceWord}} når serveren er utilgjengelig.",
+      "yourHostsCredentialsSnippetsAnd": "Vertene, legitimasjonen, utdragene og innstillingene dine synkroniseres med den, og du får tilgang til dens plugins. Alt fungerer fortsatt på denne {{deviceWord}} når serveren er utilgjengelig.",
       "checking": "Sjekker {{host}}...",
       "proxyAndClientCertificate": "Proxy og klientsertifikat",
       "couldNotReachThatServer": "Kunne ikke nå den serveren. Sjekk adressen, eller sett opp proxyen eller klientsertifikatet.",
@@ -2898,9 +2916,9 @@
       "or": "ELLER",
       "continueWith": "Fortsett med {{label}}",
       "signInWithAPasskey": "Logg inn med en passnøkkel eller sikkerhetsnøkkel",
-      "opensYourServerAposS": "Åpner serverens innloggingside i nettleseren. Face ID, fingeravtrykk, NFC og USB-nøkler fungerer der. Krever Termix 26.11.3 eller nyere.",
+      "opensYourServerAposS": "Åpner serverens påloggingside i nettleseren. Face ID, fingeravtrykk, NFC og USB-nøkler fungerer der. Krever Termix 26.11.3 eller nyere.",
       "signInInTheBrowser": "Logg inn i nettleseren",
-      "opensYourServerAposS2": "Åpner serverens innloggingside, for alt som ikke kan gjøres i appen. Krever Termix 26.10.6 eller nyere.",
+      "opensYourServerAposS2": "Åpner serverens påloggingside, for alt som appen ikke kan gjøre her. Krever Termix 26.10.6 eller nyere.",
       "thisServerHasNoSign": "Denne serveren har ingen innlogging som appen kan bruke. Spør den som driver serveren, eller prøv innlogging i nettleseren over.",
       "signInWithYourPassword": "Logg inn med passordet ditt.",
       "signInFailed": "Innlogging mislyktes",
@@ -2917,10 +2935,10 @@
       "code": "Kode",
       "the6DigitCodeFrom": "Sifferkoden på 6 siffer fra autentiseringsappen din, eller en reservekode",
       "checkCode": "Sjekk kode",
-      "thisAccountAsksForA": "Denne kontoen ber om en sikkerhetsnøkkel etter passordet. Logg inn på serverens side i nettleseren for å bruke den.",
+      "thisAccountAsksForA": "Denne kontoen ber om en sikkerhetsnøkkel etter passordet. Logg inn på serverens side i nettleseren din for å bruke den.",
       "useASecurityKeyIn": "Bruk en sikkerhetsnøkkel i nettleseren",
       "backToSignIn": "Tilbake til innlogging",
-      "bringThisAposSHosts": "Ta med denne {{deviceWord}}ens vertsdata?",
+      "bringThisAposSHosts": "Ta med vertene fra denne {{deviceWord}}?",
       "thisHasTheyStayOn": "Denne {{deviceWord}}en har {{what}}. De blir værende på denne enheten uansett.",
       "merge": "Slå sammen",
       "copyThemToTooSo": "Kopier dem til {{serverName}} også, slik at de synkroniseres. De som ser ut som en serververt blir hoppet over.",
@@ -3104,6 +3122,7 @@
         "worksWithoutAServer": "Fungerer uten en server",
         "signedOut": "Logget ut",
         "readsLive": "Leser direkte",
+        "toReview": "{{count}} å gjennomgå",
         "synced": "Syncet",
         "syncing": "Synkroniserer",
         "offline": "Frakoblet"
@@ -3132,7 +3151,7 @@
         "howTallListRowsAnd": "Høyden på radene i lister og innstillinger"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Verter, legitimasjon og kommandofragmenter lagres i en kryptert fil på denne{{deviceWord}}. Bruksstatistikk er deaktivert med mindre du slår den på nedenfor. En koblet server mottar bare det du lar den synkronisere.",
+        "hostsCredentialsAndSnippetsAre": "Vertene, legitimasjonen og utdragene lagres i en kryptert fil på denne {{deviceWord}}. Bruksstatistikk er slått av med mindre du slår den på nedenfor. En koblet server får bare det du tillater den å synkronisere.",
         "recentHosts": "Nylige verter",
         "forgetTheHostsYouOpened": "Glem vertene du har åpnet nylig for alle kontoer",
         "recentHostsCleared": "Nylige verter slettet",
@@ -3369,7 +3388,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versjon og oppdateringer",
         "logs": "Logger",
-        "latestLinesFromThisRun": "Siste linjer fra denne kjøringen, for feilrapporter"
+        "latestLinesFromThisRun": "Siste linjer fra denne kjøringen, for feilrapporter",
+        "pushNotifications": "Push-varsler",
+        "pushNotificationsDescription": "Varsler fra serverene dine på denne telefonen"
       },
       "sections": {
         "accountsAndSync": "Kontoer og synkronisering",
@@ -3571,7 +3592,7 @@
       "onAHardwareKeyboardOff": "På et fysisk tastatur. Av skriver symboler som på en Mac.",
       "history": "Historikk",
       "suggestCommands": "Foreslå kommandoer",
-      "showsPastCommandsThatStart": "Viser tidligere kommandoer som starter med det du skriver",
+      "showsPastCommandsThatStart": "Tidligere kommandoer mens du skriver",
       "resetToDefault": "Tilbakestill til standard",
       "fontSize": "Skriftstørrelse",
       "aSizeFromTo": "En størrelse fra {{MIN_FONT_SIZE}} til {{MAX_FONT_SIZE}}.",
@@ -3594,7 +3615,7 @@
       "twoFactorAuthentication": "To-faktor-autentisering",
       "loading": "Laster inn…",
       "scanThisQrCodeWith": "Skann denne QR-koden med autentiseringsappen din (Google Authenticator, Authy osv.), og skriv inn den 6-sifrede koden for å bekrefte.",
-      "verifyAmpEnable": "Bekreft &amp; Aktiver",
+      "verifyAmpEnable": "Bekreft og aktiver",
       "cancel": "Avbryt",
       "saveYourBackupCodes": "Lagre sikkerhetskodene dine",
       "storeTheseSomewhereSafeEach": "Lagre disse et trygt sted. Hver kode kan bare brukes én gang hvis du mister tilgangen til autentiseringsappen din.",
@@ -3823,5 +3844,31 @@
     "shareCount_one": "Del med {{count}}",
     "shareCount_other": "Del med {{count}}",
     "removeAccess": "Fjern tilgang"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Servervarsler",
+      "critical": "Kritiske servervarsler"
+    },
+    "severity": {
+      "info": "Alt",
+      "warning": "Advarsler og verre",
+      "critical": "Bare kritiske"
+    },
+    "settings": {
+      "on": "Varsler vises på denne telefonen",
+      "off": "Av",
+      "toggle": "Push-varsler for {{server}}",
+      "minSeverity": "Send meg",
+      "denied": "Varsler er slått av for Termix. Slå dem på i telefonens innstillinger.",
+      "openSettings": "Åpne innstillinger",
+      "outdated": "Denne serveren trenger Alerts 1.4.0 eller nyere for push-varsler. Be en administrator om å oppdatere pluginen.",
+      "unavailable": "Logg inn på denne serveren og slå på Alerts-pluginen for å motta varsler.",
+      "error": "Kunne ikke nå serveren. Termix prøver igjen neste gang appen åpnes.",
+      "notInThisBuild": "Denne versjonen kan ikke vise varsler.",
+      "noServers": "Koble en server for å motta dens varsler her.",
+      "pushHint": "Varsler sendes gjennom Expo og Apple eller Google, med deres tittel og tekst. Velg hvilke som skal sendes i Alerts-reglene på serveren.",
+      "pollHint": "Denne versjonen har ingen Google-tjenester, så Termix sjekker etter nye varsler i bakgrunnen, omtrent hvert 15. minutt."
+    }
   }
 }

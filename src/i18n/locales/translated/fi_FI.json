@@ -41,7 +41,8 @@
     },
     "terminalSessionsContext": {
       "thisFeatureIsTurnedOff": "Tämä ominaisuus on poistettu käytöstä palvelimella.",
-      "aTabWasNotReopened": "Välilehteä ei avattu uudelleen, koska sen isäntä on kadonnut"
+      "aTabWasNotReopened": "Välilehteä ei avattu uudelleen, koska sen isäntä on kadonnut",
+      "tabsWereNotReopenedBecause": "Välilehtiä {{count}} ei avattu uudelleen, koska niiden palvelimet ovat kadonneet"
     }
   },
   "accounts": {
@@ -86,7 +87,7 @@
       "openTabsKeepRunningWhen": "Avoinna olevat välilehdet pysyvät käynnissä vaihdon aikana.",
       "unlink": "Irrota yhteys tililtä {{account}}",
       "linkAServer": "Linkitä palvelin",
-      "eachServerKeepsItsOwn": "Jokainen palvelin säilyttää omat isäntänsä, tunnistetietonsa ja asetuksensa tässä {{deviceWord}}ssa.",
+      "eachServerKeepsItsOwn": "Jokainen palvelin säilyttää omat isäntänsä, tunnistetietonsa ja asetuksensa tällä {{deviceWord}}:lla.",
       "signedIn": "Kirjautuneena sisään",
       "signedOut": "Kirjautunut ulos",
       "syncedCopy": "Synkronoitu kopio"
@@ -141,6 +142,7 @@
       "replaceCertificate": "Vaihda varmenne",
       "pickAP12OrPfx": "Valitse .p12- tai .pfx-tiedosto",
       "proxySignIn": "Välityspalvelimen kirjautuminen",
+      "thisIsSignedInTo": " Tämä {{deviceWord}} on kirjautunut välityspalvelimeen.",
       "forCloudflareAccessAutheliaAuthentik": "Cloudflare Accessille, Authelialle, Authentikille ja muille välityspalvelimille, joilla on oma kirjautumissivu.{{value}}",
       "signInToTheProxy": "Kirjaudu välityspalvelimeen",
       "forget": "Unohda",
@@ -410,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Päivitä"
+    },
+    "pluginSettings": {
+      "loading": "Asetusten lataaminen",
+      "forEveryone": "Kaikille palvelimella",
+      "justForYou": "Vain sinulle",
+      "couldNotSave": "Asetusta ei voitu tallentaa",
+      "nothingYouCanChange": "Täällä ei ole mitään, mitä voit muuttaa. Ylläpitäjä voi muuttaa näitä asetuksia.",
+      "notANumber": "Tuo ei ole numero",
+      "atLeast": "Sen on oltava vähintään {{min}}",
+      "atMost": "Sen on oltava enintään {{max}}"
     }
   },
   "sessions": {
@@ -736,14 +748,21 @@
         "authenticationFailed": "Todennus epäonnistui: {{message}}",
         "theHostKeyWasNot": "Isäntäavainta ei luotettu.",
         "loginCancelled": "Kirjautuminen peruutettu.",
-        "notConnected": "Ei yhdistetty"
+        "notConnected": "Ei yhdistetty",
+        "signingInAs": "Kirjaudutaan käyttäjänä {{user}} menetelmällä {{method}}",
+        "methodKey": "avain",
+        "methodPassword": "salasana",
+        "methodNone": "ei tallennettua kirjautumista"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Yhteys katkesi"
       },
       "thisBuildHasNoSsh": "Tässä rakennelmassa ei ole SSH-moottoria. Käytä kaupasta ladattua sovellusta tai linkitä Termix-palvelin yhdistääksesi.",
       "theHostsOnThisAre": "Tämän {{deviceWord}} isännät eivät ole vielä avoimia.",
-      "thisServerSHostsAre": "Tämän palvelimen isännät eivät ole tässä {{deviceWord}}. Ota palvelimella käyttöön Sync-lisäosa yhdistääksesi {{deviceWord}}:stä."
+      "thisServerSHostsAre": "Tämän palvelimen isännät eivät ole tässä {{deviceWord}}. Ota palvelimella käyttöön Sync-lisäosa yhdistääksesi {{deviceWord}}:stä.",
+      "resolve": {
+        "theSavedLoginIsNot": "Tämän isännän tallennettu kirjautuminen ei ole tällä {{deviceWord}}:lla, joten vain palvelin voi kirjautua sisään"
+      }
     },
     "origin": {
       "canTConnect": "Yhdistäminen ei onnistu.",
@@ -1309,7 +1328,7 @@
     "yourDefaultsOrOneFolder": "Omat oletusarvot tai yhden kansion",
     "myDefaults": "Omat oletusarvot",
     "theServerSets": " Palvelin asettaa {{adminCount}}.",
-    "aFolderWinsOverYour": "Kansio ohittaa omat oletusarvosi, ja omat oletusarvosi ohittavat palvelimen. Isäntä säilyttää kaikki sille itse asettamasi arvot.{{value}}",
+    "aFolderWinsOverYour": "Kansio päättelee oletusasetuksesi, ja oletusasetuksesi päättelevät palvelimen asetukset. Isäntä säilyttää kaikki arvot, jotka olet asettanut sille itse.{{value}}",
     "save": "Tallenna",
     "authentication": "Todennus",
     "none": "Ei mitään",
@@ -2869,7 +2888,7 @@
       "signedIn": "Kirjauduttu sisään",
       "close": "Sulje",
       "linkYourTermixServer": "Linkitä Termix-palvelimesi",
-      "yourHostsCredentialsSnippetsAnd": "Palvelimesi, tunnistetietosi, komentosnippetit ja asetukset synkronoituvat sen kanssa, ja saat sen lisäosat. Kaikki toimii edelleen tässä {{deviceWord}}:ssa, kun palvelin on poissa.",
+      "yourHostsCredentialsSnippetsAnd": "Isäntäsi, tunnistetietosi, koodinpätkät ja asetukset synkronoituvat sen kanssa, ja saat sen lisäosat. Kaikki toimii edelleen tällä {{deviceWord}}:lla, kun palvelin on poissa.",
       "checking": "Tarkistetaan {{host}}...",
       "proxyAndClientCertificate": "Välityspalvelin ja asiakasvarmenne",
       "couldNotReachThatServer": "Palvelimeen ei päästy yhteyteen. Tarkista osoite tai määritä välityspalvelin tai asiakasvarmenne.",
@@ -2897,9 +2916,9 @@
       "or": "TAI",
       "continueWith": "Jatka palvelulla {{label}}",
       "signInWithAPasskey": "Kirjaudu sisään passkeyllä tai turvallaiteavaimella",
-      "opensYourServerAposS": "Avaa palvelimesi kirjautumissivun selaimessa. Face ID, sormenjälki, NFC ja USB-avaimet toimivat siellä. Vaatii Termix-version 26.11.3 tai uudemman.",
+      "opensYourServerAposS": "Avaa palvelimesi kirjautumissivun selaimessa. Face ID, sormenjälki, NFC ja USB-avaimet toimivat siellä. Vaatii Termix 26.11.3 tai uudemman.",
       "signInInTheBrowser": "Kirjaudu sisään selaimessa",
-      "opensYourServerAposS2": "Avaa palvelimesi kirjautumissivun, jos sovellus ei pysty hoitamaan kaikkea täällä. Vaatii Termix-version 26.10.6 tai uudemman.",
+      "opensYourServerAposS2": "Avaa palvelimesi kirjautumissivun asioita varten, joita sovellus ei voi tehdä täällä. Vaatii Termix 26.10.6 tai uudemman.",
       "thisServerHasNoSign": "Tässä palvelimessa ei ole käytössä kirjautumistapaa, jota sovellus voi käyttää. Kysy palvelimen ylläpitäjältä tai kokeile yllä olevaa kirjautumista selaimessa.",
       "signInWithYourPassword": "Kirjaudu sisään salasanallasi.",
       "signInFailed": "Kirjautuminen epäonnistui",
@@ -2916,10 +2935,10 @@
       "code": "Koodi",
       "the6DigitCodeFrom": "6-numeroinen koodi todennussovelluksestasi tai varmuuskoodi",
       "checkCode": "Tarkista koodi",
-      "thisAccountAsksForA": "Tämä tili vaatii turvavälineen salasanan jälkeen. Kirjaudu sisään palvelimen sivulla selaimessasi käyttääksesi sitä.",
+      "thisAccountAsksForA": "Tämä tili pyytää turvaavaa avainta salasanan jälkeen. Kirjaudu sisään palvelimen sivulla selaimessasi käyttääksesi sitä.",
       "useASecurityKeyIn": "Käytä turvavälinettä selaimessa",
       "backToSignIn": "Takaisin kirjautumiseen",
-      "bringThisAposSHosts": "Haluatko tuoda tämän {{deviceWord}}in isäntien mukana?",
+      "bringThisAposSHosts": "Tuodaan tämän {{deviceWord}}:n isännät mukaan?",
       "thisHasTheyStayOn": "Tässä {{deviceWord}}issa on {{what}}. Ne pysyvät tässä laitteessa joka tapauksessa.",
       "merge": "Yhdistä",
       "copyThemToTooSo": "Kopioi ne myös palvelimelle {{serverName}}, jotta ne synkronoituvat. Isännät, jotka näyttävät samalta kuin palvelimen isäntä, ohitetaan.",
@@ -3132,7 +3151,7 @@
         "howTallListRowsAnd": "Kuinka korkeita listan rivit ja asetukset ovat"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Isännät, tunnistetiedot ja koodinpätkät tallennetaan salattuun tiedostoon tähän {{deviceWord}}. Käyttötilastot ovat pois päältä, ellei niitä ota käyttöön alla. Yhdistetty palvelin saa vain sen, mitä annat sen synkronoida.",
+        "hostsCredentialsAndSnippetsAre": "Isännät, tunnistetiedot ja koodinpätkät säilytetään salatussa tiedostossa tällä {{deviceWord}}:lla. Käyttötilastot ovat pois päältä, ellei niitä ota käyttöön alla. Linkitetty palvelin saa vain sen, mitä annat sen synkronoida.",
         "recentHosts": "Viimeisimmät isännät",
         "forgetTheHostsYouOpened": "Unohda isännät, joita avasit äskettäin kaikissa tileissä",
         "recentHostsCleared": "Viimeisimmät isännät tyhjennetty",
@@ -3369,7 +3388,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versio ja päivitykset",
         "logs": "Lokit",
-        "latestLinesFromThisRun": "Viimeisimmät rivit tästä ajosta, virheraportteja varten"
+        "latestLinesFromThisRun": "Viimeisimmät rivit tästä ajosta, virheraportteja varten",
+        "pushNotifications": "Push-ilmoitukset",
+        "pushNotificationsDescription": "Palvelimesi hälytykset tällä puhelimella"
       },
       "sections": {
         "accountsAndSync": "Tilit ja synkronointi",
@@ -3571,7 +3592,7 @@
       "onAHardwareKeyboardOff": "Fyysisellä näppäimistöllä. Poiskytkettynä symbolit kirjoitetaan kuten Macissä.",
       "history": "Historia",
       "suggestCommands": "Ehdota komentoja",
-      "showsPastCommandsThatStart": "Näyttää aiemmat komennot, jotka alkavat kirjoittamastasi tekstistä",
+      "showsPastCommandsThatStart": "Aiemmat komennot kirjoittaessasi",
       "resetToDefault": "Palauta oletusasetukset",
       "fontSize": "Fonttikoko",
       "aSizeFromTo": "Koko välillä {{MIN_FONT_SIZE}}–{{MAX_FONT_SIZE}}.",
@@ -3594,7 +3615,7 @@
       "twoFactorAuthentication": "Kaksivaiheinen todennus",
       "loading": "Ladataan…",
       "scanThisQrCodeWith": "Skannaa tämä QR-koodi todennussovelluksellasi (kuten Google Authenticator tai Authy) ja syötä 6-numeroinen koodi vahvistaaksesi.",
-      "verifyAmpEnable": "Vahvista &amp; ota käyttöön",
+      "verifyAmpEnable": "Vahvista ja ota käyttöön",
       "cancel": "Peruuta",
       "saveYourBackupCodes": "Tallenna varmuuskoodisi",
       "storeTheseSomewhereSafeEach": "Tallenna nämä johonkin turvalliseen paikkaan. Jokainen koodi voidaan käyttää vain kerran, jos menetät pääsyn todennussovellukseen.",
@@ -3823,5 +3844,31 @@
     "shareCount_one": "Jaa {{count}} kanssa",
     "shareCount_other": "Jaa {{count}} kanssa",
     "removeAccess": "Poista pääsy"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Palvelinhälytykset",
+      "critical": "Kriittiset palvelinhälytykset"
+    },
+    "severity": {
+      "info": "Kaikki",
+      "warning": "Varoitukset ja vakavammat",
+      "critical": "Vain kriittiset"
+    },
+    "settings": {
+      "on": "Hälytykset näkyvät tällä puhelimella",
+      "off": "Pois päältä",
+      "toggle": "Push-ilmoitukset palvelimelle {{server}}",
+      "minSeverity": "Lähetä minulle",
+      "denied": "Ilmoitukset on poistettu käytöstä Termixissä. Ota ne käyttöön puhelimen asetuksista.",
+      "openSettings": "Avaa asetukset",
+      "outdated": "Tämä palvelin tarvitsee Alerts 1.4.0 tai uudemman push-ilmoituksia varten. Pyydä ylläpitäjää päivittämään lisäosa.",
+      "unavailable": "Kirjaudu sisään tähän palvelimeen ja ota Alerts-lisäosa käyttöön saadaksesi ilmoituksia.",
+      "error": "Palvelimeen ei voitu yhdistää. Termix yrittää uudelleen, kun sovellus avataan seuraavan kerran.",
+      "notInThisBuild": "Tämä rakennus ei voi näyttää ilmoituksia.",
+      "noServers": "Linkitä palvelin saadaksesi sen hälytykset tänne.",
+      "pushHint": "Hälytykset lähetetään Expon ja Applen tai Googlen kautta niiden otsikolla ja tekstillä. Valitse, mitkä niistä näytetään palvelimen Alerts-säännöissä.",
+      "pollHint": "Tässä rakennuksessa ei ole Google-palveluita, joten Termix tarkistaa uudet hälytykset taustalla noin 15 minuutin välein."
+    }
   }
 }

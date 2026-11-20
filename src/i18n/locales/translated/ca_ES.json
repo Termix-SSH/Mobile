@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Les pestanyes obertes continuen funcionant quan canvies.",
       "unlink": "Desvincula {{account}}",
       "linkAServer": "Vincula un servidor",
-      "eachServerKeepsItsOwn": "Cada servidor manté els seus propis amfitrions, credencials i configuracions en aquest{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Cada servidor manté els seus propis amfitrions, credencials i configuracions en aquest {{deviceWord}}.",
       "signedIn": "Sessió iniciada",
       "signedOut": "Sessió tancada",
       "syncedCopy": "Còpia sincronitzada"
@@ -142,6 +142,7 @@
       "replaceCertificate": "Substitueix el certificat",
       "pickAP12OrPfx": "Tria un fitxer .p12 o .pfx",
       "proxySignIn": "Inicia sessió al proxy",
+      "thisIsSignedInTo": " Aquest {{deviceWord}} està connectat al proxy.",
       "forCloudflareAccessAutheliaAuthentik": "Per a Cloudflare Access, Authelia, Authentik i altres proxys amb la seva pròpia pàgina d'inici de sessió.{{value}}",
       "signInToTheProxy": "Inicia sessió al proxy",
       "forget": "Obliða",
@@ -411,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Torna a carregar"
+    },
+    "pluginSettings": {
+      "loading": "Carregant configuracions",
+      "forEveryone": "Per a tothom al servidor",
+      "justForYou": "Només per a tu",
+      "couldNotSave": "No s'ha pogut desar la configuració",
+      "nothingYouCanChange": "No hi ha res aquí que puguis canviar. Un administrador pot canviar aquestes configuracions.",
+      "notANumber": "Això no és un número",
+      "atLeast": "Ha de ser {{min}} o més",
+      "atMost": "Ha de ser {{max}} o menys"
     }
   },
   "sessions": {
@@ -743,14 +754,21 @@
         "authenticationFailed": "Autenticació fallida: {{message}}",
         "theHostKeyWasNot": "No s'ha confiat en la clau de l'amfitrió.",
         "loginCancelled": "Inici de sessió cancel·lat.",
-        "notConnected": "No connectat"
+        "notConnected": "No connectat",
+        "signingInAs": "Connectant-se com a {{user}} amb {{method}}",
+        "methodKey": "una clau",
+        "methodPassword": "una contrasenya",
+        "methodNone": "sense accés desat"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "La connexió s'ha tallat"
       },
       "thisBuildHasNoSsh": "Aquesta compilació no té motor SSH. Utilitza l'aplicació de la botiga o enllaça un servidor Termix per connectar-te.",
       "theHostsOnThisAre": "Els amfitrions d'aquest {{deviceWord}} encara no estan oberts.",
-      "thisServerSHostsAre": "Els amfitrions d'aquest servidor no es troben en aquest {{deviceWord}}. Activa el complement Sync al servidor per connectar-te des del {{deviceWord}}."
+      "thisServerSHostsAre": "Els amfitrions d'aquest servidor no es troben en aquest {{deviceWord}}. Activa el complement Sync al servidor per connectar-te des del {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "L'accés desat per a aquest amfitrió no està en aquest {{deviceWord}}, per tant només el servidor pot connectar-se"
+      }
     },
     "origin": {
       "canTConnect": "No es pot connectar.",
@@ -1318,7 +1336,7 @@
     "yourDefaultsOrOneFolder": "Els teus valors predeterminats o els d'una carpeta",
     "myDefaults": "Els meus valors predeterminats",
     "theServerSets": " El servidor estableix {{adminCount}}.",
-    "aFolderWinsOverYour": "Una carpeta té prioritat sobre els teus valors predeterminats, i els teus valors predeterminats tenen prioritat sobre els del servidor. Un amfitrió conserva qualsevol valor que hi hagis establert tu mateix.{{value}}",
+    "aFolderWinsOverYour": "Una carpeta té prioritat sobre les teves configuracions predeterminades, i les teves predeterminades tenen prioritat sobre les del servidor. Un amfitrió manté qualsevol valor que hi hagis definit directament.{{value}}",
     "save": "Desa",
     "authentication": "Autenticació",
     "none": "Cap",
@@ -2889,7 +2907,7 @@
       "signedIn": "Sessió iniciada",
       "close": "Tanca",
       "linkYourTermixServer": "Vincula el teu servidor Termix",
-      "yourHostsCredentialsSnippetsAnd": "Els vostres amfitrions, credencials, fragments i configuracions es sincronitzen amb ell, i obté els seus complements. Tot continua funcionant en aquest {{deviceWord}} quan el servidor no està disponible.",
+      "yourHostsCredentialsSnippetsAnd": "Els teus amfitrions, credencials, fragments i configuracions es sincronitzen amb ell, i obtens els seus complements. Tot continua funcionant en aquest {{deviceWord}} quan el servidor no està disponible.",
       "checking": "Comprovant {{host}}...",
       "proxyAndClientCertificate": "Proxy i certificat del client",
       "couldNotReachThatServer": "No s'ha pogut arribar a aquest servidor. Comproveu l'adreça o configureu el proxy o el certificat del client.",
@@ -2917,9 +2935,9 @@
       "or": "O",
       "continueWith": "Continua amb {{label}}",
       "signInWithAPasskey": "Inicia sessió amb una passkey o clau de seguretat",
-      "opensYourServerAposS": "Obre la pàgina d'inici de sessió del teu servidor al navegador. Face ID, empremta digital, NFC i claus USB funcionen allà. Cal Termix 26.11.3 o superior.",
+      "opensYourServerAposS": "Obre la pàgina d'inici de sessió del teu servidor al navegador. Face ID, empremta digital, NFC i claus USB funcionen allà. Requereix Termix 26.11.3 o superior.",
       "signInInTheBrowser": "Inicia sessió al navegador",
-      "opensYourServerAposS2": "Obre la pàgina d'inici de sessió del servidor, per a tot el que l'aplicació no pot fer aquí. Cal Termix 26.10.6 o superior.",
+      "opensYourServerAposS2": "Obre la pàgina d'inici de sessió del teu servidor, per a qualsevol cosa que l'aplicació no pugui fer aquí. Requereix Termix 26.10.6 o superior.",
       "thisServerHasNoSign": "Aquest servidor no té cap mètode d'inici de sessió activat que l'aplicació pugui utilitzar. Pregunta a qui el gestiona o prova l'inici de sessió al navegador que hi ha a dalt.",
       "signInWithYourPassword": "Inicia sessió amb la teva contrasenya.",
       "signInFailed": "Ha fallat l'inici de sessió",
@@ -2936,7 +2954,7 @@
       "code": "Codi",
       "the6DigitCodeFrom": "El codi de 6 xifres de la teva aplicació autenticadora o un codi de reserva",
       "checkCode": "Verifica el codi",
-      "thisAccountAsksForA": "Aquest compte demana una clau de seguretat després de la contrasenya. Inicia sessió a la pàgina del servidor al teu navegador per utilitzar-la.",
+      "thisAccountAsksForA": "Aquest compte demana una clau de seguretat després de la contrasenya. Connecta't a la pàgina del servidor al teu navegador per utilitzar-la.",
       "useASecurityKeyIn": "Utilitza una clau de seguretat al navegador",
       "backToSignIn": "Torna a l'inici de sessió",
       "bringThisAposSHosts": "Vols portar els amfitrions d'aquest {{deviceWord}}?",
@@ -3152,7 +3170,7 @@
         "howTallListRowsAnd": "Alçada de les files de les llistes i la configuració"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Els amfitrions, les credencials i els fragments es guarden en un fitxer xifrat en aquest{{deviceWord}}. Les estadístiques d'ús estan desactivades a menys que les activis a continuació. Un servidor enllaçat només rep el que li permetis sincronitzar.",
+        "hostsCredentialsAndSnippetsAre": "Els amfitrions, credencials i fragments es guarden en un fitxer xifrat en aquest {{deviceWord}}. Les estadístiques d'ús estan desactivades a menys que les activis a continuació. Un servidor vinculat només rep el que li permetis sincronitzar.",
         "recentHosts": "Amfitrions recents",
         "forgetTheHostsYouOpened": "Oblidar els amfitrions que has obert recentment a tots els comptes",
         "recentHostsCleared": "Amfitrions recents esborrats",
@@ -3389,7 +3407,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versió i actualitzacions",
         "logs": "Registres",
-        "latestLinesFromThisRun": "Últimes línies d'aquesta execució, per a informes d'errors"
+        "latestLinesFromThisRun": "Últimes línies d'aquesta execució, per a informes d'errors",
+        "pushNotifications": "Notificacions push",
+        "pushNotificationsDescription": "Alertes dels teus servidors en aquest telèfon"
       },
       "sections": {
         "accountsAndSync": "Comptes i sincronització",
@@ -3591,7 +3611,7 @@
       "onAHardwareKeyboardOff": "En un teclat físic. Desactivat escriu símbols com en un Mac.",
       "history": "Historial",
       "suggestCommands": "Suggerir comandes",
-      "showsPastCommandsThatStart": "Mostra comandes anteriors que comencen amb el que escriviu",
+      "showsPastCommandsThatStart": "Comandes anteriors mentre escrius",
       "resetToDefault": "Restableix als valors predeterminats",
       "fontSize": "Mida de la font",
       "aSizeFromTo": "Una mida de {{MIN_FONT_SIZE}} a {{MAX_FONT_SIZE}}.",
@@ -3614,7 +3634,7 @@
       "twoFactorAuthentication": "Autenticació de dos factors",
       "loading": "S'està carregant…",
       "scanThisQrCodeWith": "Escaneja aquest codi QR amb la teva aplicació d'autenticació (Google Authenticator, Authy, etc.) i, a continuació, introdueix el codi de 6 xifres per confirmar.",
-      "verifyAmpEnable": "Verifica i activa",
+      "verifyAmpEnable": "Verificar i activar",
       "cancel": "Cancel·la",
       "saveYourBackupCodes": "Desa els teus codis de còpia de seguretat",
       "storeTheseSomewhereSafeEach": "Emmagatzema-los en un lloc segur. Cada codi només es pot utilitzar una vegada si perds l'accés al teu autenticador.",
@@ -3847,5 +3867,31 @@
     "shareCount_many": "Comparteix amb {{count}}",
     "shareCount_other": "Comparteix amb {{count}}",
     "removeAccess": "Elimina l'accés"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Alertes del servidor",
+      "critical": "Alertes crítiques del servidor"
+    },
+    "severity": {
+      "info": "Tot",
+      "warning": "Advertències i pitjor",
+      "critical": "Només crítiques"
+    },
+    "settings": {
+      "on": "Les alertes apareixen en aquest telèfon",
+      "off": "Desactivat",
+      "toggle": "Notificacions push per a {{server}}",
+      "minSeverity": "Envia'm",
+      "denied": "Les notificacions estan desactivades per a Termix. Activa-les a la configuració del telèfon.",
+      "openSettings": "Obre configuració",
+      "outdated": "Aquest servidor necessita Alerts 1.4.0 o superior per a les notificacions push. Demana a un administrador que actualitzi el complement.",
+      "unavailable": "Connecta't a aquest servidor i activa el complement Alerts per rebre notificacions.",
+      "error": "No s'ha pogut contactar amb el servidor. Termix ho tornarà a provar la propera vegada que s'obri l'aplicació.",
+      "notInThisBuild": "Aquesta versió no pot mostrar notificacions.",
+      "noServers": "Vincula un servidor per rebre les seves alertes aquí.",
+      "pushHint": "Les alertes s'envien a través d'Expo i Apple o Google, amb el seu títol i text. Tria quines rebràs a les regles d'Alertes del servidor.",
+      "pollHint": "Aquesta versió no té serveis de Google, per tant Termix comprova noves alertes en segon pla, aproximadament cada 15 minuts."
+    }
   }
 }

@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "切換時，已開啟的分頁會繼續執行。",
       "unlink": "取消連結 {{account}}",
       "linkAServer": "連結伺服器",
-      "eachServerKeepsItsOwn": "每個伺服器會在此{{deviceWord}}上保留其專屬的主機、憑證與設定。",
+      "eachServerKeepsItsOwn": "每個伺服器都會在此 {{deviceWord}} 上保留其專屬的主機、憑證與設定。",
       "signedIn": "已登入",
       "signedOut": "已登出",
       "syncedCopy": "已同步的副本"
@@ -142,6 +142,7 @@
       "replaceCertificate": "替換憑證",
       "pickAP12OrPfx": "選擇 .p12 或 .pfx 檔案",
       "proxySignIn": "代理伺服器登入",
+      "thisIsSignedInTo": " 此 {{deviceWord}} 已登入代理伺服器。",
       "forCloudflareAccessAutheliaAuthentik": "適用於 Cloudflare Access、Authelia、Authentik 及其他擁有獨立登入頁面的代理伺服器。{{value}}",
       "signInToTheProxy": "登入代理伺服器",
       "forget": "遺忘",
@@ -411,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "重新載入"
+    },
+    "pluginSettings": {
+      "loading": "正在載入設定",
+      "forEveryone": "伺服器上的所有使用者",
+      "justForYou": "僅限您",
+      "couldNotSave": "無法儲存設定",
+      "nothingYouCanChange": "此處沒有您可以變更的項目。管理員可以變更這些設定。",
+      "notANumber": "這不是數字",
+      "atLeast": "必須為 {{min}} 或更大",
+      "atMost": "必須為 {{max}} 或更小"
     }
   },
   "sessions": {
@@ -726,18 +737,26 @@
       "localShell": {
         "theConnectionWasCut": "連線已中斷",
         "theShellChannelClosed": "Shell 通道已關閉",
+        "jumpHost": "跳板主機 {{value}}/{{total}} ({{ip}}): ",
         "invalidCodeTryAgain": "無效的代碼，請再試一次：",
         "authenticationFailed": "驗證失敗：{{message}}",
         "theHostKeyWasNot": "未信任主機金鑰。",
         "loginCancelled": "登入已取消。",
-        "notConnected": "未連線"
+        "notConnected": "未連線",
+        "signingInAs": "正以 {{user}} 身分使用 {{method}} 登入",
+        "methodKey": "金鑰",
+        "methodPassword": "密碼",
+        "methodNone": "無已儲存的登入資訊"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "連線已中斷"
       },
       "thisBuildHasNoSsh": "此版本沒有 SSH 引擎。請使用商店中的應用程式，或連結 Termix 伺服器以進行連線。",
       "theHostsOnThisAre": "此 {{deviceWord}} 上的主機尚未開啟。",
-      "thisServerSHostsAre": "此伺服器的主機不在此 {{deviceWord}} 上。請在伺服器上啟用同步外掛程式，以便從此 {{deviceWord}} 連線。"
+      "thisServerSHostsAre": "此伺服器的主機不在此 {{deviceWord}} 上。請在伺服器上啟用同步外掛程式，以便從此 {{deviceWord}} 連線。",
+      "resolve": {
+        "theSavedLoginIsNot": "此主機的已儲存登入資訊不在這個 {{deviceWord}} 上，因此只有伺服器可以登入"
+      }
     },
     "origin": {
       "canTConnect": "無法連線。",
@@ -1299,7 +1318,8 @@
     "level": "層級",
     "yourDefaultsOrOneFolder": "您的預設值，或某個資料夾的預設值",
     "myDefaults": "我的預設值",
-    "aFolderWinsOverYour": "資料夾的設定優先於您的預設值，而您的預設值優先於伺服器的設定。主機會保留您自行設定的任何值。{{value}}",
+    "theServerSets": " 伺服器設定了 {{adminCount}} 項。",
+    "aFolderWinsOverYour": "資料夾的設定會優先於您的預設值，而您的預設值會優先於伺服器的設定。主機會保留您自行設定的任何值。{{value}}",
     "save": "儲存",
     "authentication": "驗證",
     "none": "無",
@@ -2848,7 +2868,7 @@
       "signedIn": "已登入",
       "close": "關閉",
       "linkYourTermixServer": "連結您的 Termix 伺服器",
-      "yourHostsCredentialsSnippetsAnd": "您的主機、憑證、程式碼片段和設定會與之同步，並可使用其外掛程式。當伺服器離線時，此 {{deviceWord}} 上的所有功能仍會正常運作。",
+      "yourHostsCredentialsSnippetsAnd": "您的主機、憑證、程式碼片段與設定會與之同步，您也會獲得其外掛程式。當伺服器離線時，此 {{deviceWord}} 上的所有功能仍會正常運作。",
       "checking": "正在檢查 {{host}}...",
       "proxyAndClientCertificate": "代理伺服器與用戶端憑證",
       "couldNotReachThatServer": "無法連線至該伺服器。請檢查位址，或設定代理伺服器或用戶端憑證。",
@@ -2876,9 +2896,9 @@
       "or": "或",
       "continueWith": "使用 {{label}} 繼續",
       "signInWithAPasskey": "使用通行金鑰或安全金鑰登入",
-      "opensYourServerAposS": "在瀏覽器中開啟伺服器的登入頁面。Face ID、指紋、NFC 和 USB 金鑰均可使用。需要 Termix 26.11.3 或更新版本。",
+      "opensYourServerAposS": "在瀏覽器中開啟伺服器的登入頁面。Face ID、指紋、NFC 與 USB 金鑰皆可使用。需要 Termix 26.11.3 或更新版本。",
       "signInInTheBrowser": "在瀏覽器中登入",
-      "opensYourServerAposS2": "開啟伺服器的登入頁面，以處理此應用程式無法執行的操作。需要 Termix 26.10.6 或更新版本。",
+      "opensYourServerAposS2": "開啟伺服器的登入頁面，用於處理此應用程式無法在此處執行的操作。需要 Termix 26.10.6 或更新版本。",
       "thisServerHasNoSign": "此伺服器未啟用應用程式可用的登入功能。請洽詢管理員，或嘗試上方的瀏覽器登入。",
       "signInWithYourPassword": "使用密碼登入。",
       "signInFailed": "登入失敗",
@@ -2895,10 +2915,10 @@
       "code": "驗證碼",
       "the6DigitCodeFrom": "來自驗證器應用程式的 6 位數驗證碼，或備用碼",
       "checkCode": "檢查驗證碼",
-      "thisAccountAsksForA": "此帳號在輸入密碼後要求使用安全金鑰。請在瀏覽器的伺服器頁面上登入以使用。",
+      "thisAccountAsksForA": "此帳戶在輸入密碼後會要求使用安全金鑰。請在瀏覽器的伺服器頁面上登入以使用此功能。",
       "useASecurityKeyIn": "在瀏覽器中使用安全金鑰",
       "backToSignIn": "返回登入",
-      "bringThisAposSHosts": "要一併匯入此 {{deviceWord}} 的主機嗎？",
+      "bringThisAposSHosts": "要將此 {{deviceWord}} 的主機一併帶入嗎？",
       "thisHasTheyStayOn": "此 {{deviceWord}} 有 {{what}}。無論如何，它們都會保留在此裝置上。",
       "merge": "合併",
       "copyThemToTooSo": "也複製到 {{serverName}} 以進行同步。與伺服器主機相同者將被跳過。",
@@ -3111,7 +3131,7 @@
         "howTallListRowsAnd": "列表列與設定項目的高度"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "主機、憑證與程式碼片段會儲存在此{{deviceWord}}上的加密檔案中。使用統計資料預設關閉，除非您在下方開啟。連結的伺服器只會收到您允許同步的資料。",
+        "hostsCredentialsAndSnippetsAre": "主機、憑證與程式碼片段會儲存在此 {{deviceWord}} 上的加密檔案中。使用統計資料預設為關閉，除非您在下方開啟。已連結的伺服器只會取得您允許同步的資料。",
         "recentHosts": "最近使用的主機",
         "forgetTheHostsYouOpened": "清除所有帳號中最近開啟的主機",
         "recentHostsCleared": "已清除最近使用的主機",
@@ -3348,7 +3368,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "版本與更新",
         "logs": "記錄",
-        "latestLinesFromThisRun": "本次執行的最新記錄行，用於錯誤回報"
+        "latestLinesFromThisRun": "本次執行的最新記錄行，用於錯誤回報",
+        "pushNotifications": "推送通知",
+        "pushNotificationsDescription": "來自您伺服器的此手機警示"
       },
       "sections": {
         "accountsAndSync": "帳戶與同步",
@@ -3550,7 +3572,7 @@
       "onAHardwareKeyboardOff": "使用實體鍵盤時。關閉時會像 Mac 一樣輸入符號。",
       "history": "歷史記錄",
       "suggestCommands": "建議命令",
-      "showsPastCommandsThatStart": "顯示以您輸入內容開頭的過去命令",
+      "showsPastCommandsThatStart": "輸入時顯示過去的命令",
       "resetToDefault": "重設為預設值",
       "fontSize": "字型大小",
       "aSizeFromTo": "大小範圍從 {{MIN_FONT_SIZE}} 到 {{MAX_FONT_SIZE}}。",
@@ -3798,5 +3820,31 @@
     "pickSomeone": "選擇要共用的對象",
     "shareCount_other": "與 {{count}} 人共用",
     "removeAccess": "移除存取權限"
+  },
+  "push": {
+    "channels": {
+      "alerts": "伺服器警示",
+      "critical": "重要伺服器警示"
+    },
+    "severity": {
+      "info": "所有項目",
+      "warning": "警告及更嚴重的項目",
+      "critical": "僅限重要項目"
+    },
+    "settings": {
+      "on": "警示會顯示在此手機上",
+      "off": "關閉",
+      "toggle": "{{server}} 的推送通知",
+      "minSeverity": "傳送給我",
+      "denied": "Termix 的通知已關閉。請在手機設定中開啟。",
+      "openSettings": "開啟設定",
+      "outdated": "此伺服器需要 Alerts 1.4.0 或更新版本才能使用推送通知。請要求管理員更新外掛程式。",
+      "unavailable": "請登入此伺服器並開啟 Alerts 外掛程式以接收通知。",
+      "error": "無法連線至伺服器。Termix 會在下次開啟應用程式時重試。",
+      "notInThisBuild": "此版本無法顯示通知。",
+      "noServers": "連結伺服器以在此處接收其警示。",
+      "pushHint": "警示會透過 Expo 以及 Apple 或 Google 傳送，並包含其標題與文字。您可以在伺服器的 Alerts 規則中選擇要接收的項目。",
+      "pollHint": "此版本沒有 Google 服務，因此 Termix 會在背景檢查新的警示，大約每 15 分鐘一次。"
+    }
   }
 }

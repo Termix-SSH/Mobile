@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Atidaryti skirtukai veikia toliau, kai perjungiate.",
       "unlink": "Atsieti {{account}}",
       "linkAServer": "Susieti serverį",
-      "eachServerKeepsItsOwn": "Kiekvienas serveris šioje{{deviceWord}} saugo savo hostus, prisijungimo duomenis ir nustatymus.",
+      "eachServerKeepsItsOwn": "Kiekvienas serveris šiame {{deviceWord}} saugo savo serverius, prisijungimo duomenis ir nustatymus.",
       "signedIn": "Prisijungta",
       "signedOut": "Atsijungta",
       "syncedCopy": "Sinchronizuota kopija"
@@ -142,6 +142,7 @@
       "replaceCertificate": "Pakeisti sertifikatą",
       "pickAP12OrPfx": "Pasirinkite .p12 arba .pfx failą",
       "proxySignIn": "Tarpinio serverio prisijungimas",
+      "thisIsSignedInTo": " Šis {{deviceWord}} yra prisijungęs prie tarpinio serverio.",
       "forCloudflareAccessAutheliaAuthentik": "Cloudflare Access, Authelia, Authentik ir kitiems tarpiniams serveriams, turintiems savo prisijungimo puslapį.{{value}}",
       "signInToTheProxy": "Prisijungti prie tarpinio serverio",
       "forget": "Pamiršti",
@@ -411,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Perkrauti"
+    },
+    "pluginSettings": {
+      "loading": "Įkeliami nustatymai",
+      "forEveryone": "Visiems serverio vartotojams",
+      "justForYou": "Tik jums",
+      "couldNotSave": "Nepavyko išsaugoti nustatymo",
+      "nothingYouCanChange": "Čia nėra nieko, ką galėtumėte pakeisti. Šiuos nustatymus gali keisti administratorius.",
+      "notANumber": "Tai nėra skaičius",
+      "atLeast": "Jis turi būti {{min}} arba daugiau",
+      "atMost": "Jis turi būti {{max}} arba mažiau"
     }
   },
   "sessions": {
@@ -749,14 +760,21 @@
         "authenticationFailed": "Autentifikacija nepavyko: {{message}}",
         "theHostKeyWasNot": "Serverio raktas nebuvo pasitikėtas.",
         "loginCancelled": "Prisijungimas atšauktas.",
-        "notConnected": "Neprijungta"
+        "notConnected": "Neprijungta",
+        "signingInAs": "Prisijungiama kaip {{user}} naudojant {{method}}",
+        "methodKey": "raktas",
+        "methodPassword": "slaptažodis",
+        "methodNone": "nėra išsaugotų prisijungimo duomenų"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Ryšys buvo nutrauktas"
       },
       "thisBuildHasNoSsh": "Šioje versijoje nėra SSH variklio. Naudokite programėlę iš parduotuvės arba prisijunkite prie Termix serverio, kad galėtumėte jungtis.",
       "theHostsOnThisAre": "Šio {{deviceWord}} serveriai dar nėra atidaryti.",
-      "thisServerSHostsAre": "Šio serverio serveriai nėra šiame {{deviceWord}}. Įjunkite Sync priedą serveryje, kad galėtumėte jungtis iš {{deviceWord}}."
+      "thisServerSHostsAre": "Šio serverio serveriai nėra šiame {{deviceWord}}. Įjunkite Sync priedą serveryje, kad galėtumėte jungtis iš {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Išsaugoti šio serverio prisijungimo duomenys nėra šiame {{deviceWord}}, todėl prisijungti gali tik serveris"
+      }
     },
     "origin": {
       "canTConnect": "Nepavyko prisijungti.",
@@ -1326,7 +1344,7 @@
     "yourDefaultsOrOneFolder": "Jūsų numatytieji arba vieno aplanko",
     "myDefaults": "Mano numatytieji",
     "theServerSets": " Serveris nustato {{adminCount}}.",
-    "aFolderWinsOverYour": "Aplanko nustatymai turi prioritetą prieš jūsų numatytuosius, o jūsų numatytieji – prieš serverio. Serveris išlaiko bet kokią reikšmę, kurią nustatėte patys.{{value}}",
+    "aFolderWinsOverYour": "Aplankas turi prioritetą prieš jūsų numatytuosius nustatymus, o jūsų numatytieji – prieš serverio. Serveris išlaiko bet kokią reikšmę, kurią nustatėte patys.{{value}}",
     "save": "Išsaugoti",
     "authentication": "Autentifikacija",
     "none": "Nėra",
@@ -2908,7 +2926,7 @@
       "signedIn": "Prisijungta",
       "close": "Uždaryti",
       "linkYourTermixServer": "Susieti savo Termix serverį",
-      "yourHostsCredentialsSnippetsAnd": "Jūsų serveriai, prisijungimo duomenys, komandų fragmentai ir nustatymai sinchronizuojami su juo, o jūs gaunate jo priedus. Viskas veikia šiame {{deviceWord}}, kai serveris nepasiekiamas.",
+      "yourHostsCredentialsSnippetsAnd": "Jūsų serveriai, prisijungimo duomenys, komandų fragmentai ir nustatymai sinchronizuojami su juo, o jūs gaunate jo įskiepius. Viskas veikia šiame {{deviceWord}}, kai serveris nepasiekiamas.",
       "checking": "Tikrinama {{host}}...",
       "proxyAndClientCertificate": "Tarpinis serveris ir kliento sertifikatas",
       "couldNotReachThatServer": "Nepavyko pasiekti to serverio. Patikrinkite adresą arba sukonfigūruokite tarpinį serverį ar kliento sertifikatą.",
@@ -2936,9 +2954,9 @@
       "or": "ARBA",
       "continueWith": "Tęsti su {{label}}",
       "signInWithAPasskey": "Prisijungti naudojant prisijungimo raktą arba saugumo raktą",
-      "opensYourServerAposS": "Atidaro jūsų serverio prisijungimo puslapį naršyklėje. Veikia „Face ID“, pirštų atspaudai, „NFC“ ir „USB“ raktai. Reikalinga „Termix“ versija 26.11.3 arba naujesnė.",
+      "opensYourServerAposS": "Atidaro jūsų serverio prisijungimo puslapį naršyklėje. Ten veikia „Face ID“, pirštų atspaudai, NFC ir USB raktai. Reikalinga Termix 26.11.3 arba naujesnė versija.",
       "signInInTheBrowser": "Prisijungti naršyklėje",
-      "opensYourServerAposS2": "Atidaro jūsų serverio prisijungimo puslapį, skirtą veiksmams, kurių negalima atlikti programėlėje. Reikalinga „Termix“ versija 26.10.6 arba naujesnė.",
+      "opensYourServerAposS2": "Atidaro jūsų serverio prisijungimo puslapį, skirtam veiksmams, kurių programėlė negali atlikti čia. Reikalinga Termix 26.10.6 arba naujesnė versija.",
       "thisServerHasNoSign": "Šiame serveryje nėra įjungto prisijungimo būdo, kurį galėtų naudoti programėlė. Kreipkitės į serverio administratorių arba pabandykite prisijungti naršyklėje aukščiau.",
       "signInWithYourPassword": "Prisijunkite naudodami slaptažodį.",
       "signInFailed": "Prisijungimas nepavyko",
@@ -2958,7 +2976,7 @@
       "thisAccountAsksForA": "Ši paskyra po slaptažodžio reikalauja saugumo rakto. Norėdami jį naudoti, prisijunkite per serverio puslapį naršyklėje.",
       "useASecurityKeyIn": "Naudoti saugumo raktą naršyklėje",
       "backToSignIn": "Grįžti prie prisijungimo",
-      "bringThisAposSHosts": "Pernešti šio {{deviceWord}} kompiuterius?",
+      "bringThisAposSHosts": "Ar perkelti šio {{deviceWord}} serverius?",
       "thisHasTheyStayOn": "Šiame {{deviceWord}} yra {{what}}. Jie vis tiek lieka šiame įrenginyje.",
       "merge": "Sujungti",
       "copyThemToTooSo": "Nukopijuoti juos ir į {{serverName}}, kad būtų sinchronizuojama. Tie, kurie atrodo taip pat kaip serverio kompiuteriai, bus praleisti.",
@@ -3171,7 +3189,7 @@
         "howTallListRowsAnd": "Sąrašo eilučių ir nustatymų aukštis"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Serveriai, prisijungimo duomenys ir komandos saugomos šifruotame faile šiame{{deviceWord}}. Naudojimo statistika išjungta, nebent ją įjungsite žemiau. Susietas serveris gauna tik tai, ką leidžiate sinchronizuoti.",
+        "hostsCredentialsAndSnippetsAre": "Serveriai, prisijungimo duomenys ir komandų fragmentai saugomi šifruotame faile šiame {{deviceWord}}. Naudojimo statistika išjungta, nebent ją įjungsite žemiau. Susietas serveris gauna tik tai, ką leidžiate sinchronizuoti.",
         "recentHosts": "Neseniai naudoti serveriai",
         "forgetTheHostsYouOpened": "Pamiršti serverius, kuriuos neseniai atidarėte visuose paskyrose",
         "recentHostsCleared": "Neseniai naudoti serveriai išvalyti",
@@ -3408,7 +3426,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versija ir atnaujinimai",
         "logs": "Žurnalai",
-        "latestLinesFromThisRun": "Naujausios eilutės iš šio paleidimo, skirtos klaidų pranešimams"
+        "latestLinesFromThisRun": "Naujausios eilutės iš šio paleidimo, skirtos klaidų pranešimams",
+        "pushNotifications": "Stumiamieji pranešimai",
+        "pushNotificationsDescription": "Pranešimai iš jūsų serverių šiame telefone"
       },
       "sections": {
         "accountsAndSync": "Paskyros ir sinchronizavimas",
@@ -3610,7 +3630,7 @@
       "onAHardwareKeyboardOff": "Naudojant fizinę klaviatūrą. Išjungus simboliai rašomi kaip „Mac“.",
       "history": "Istorija",
       "suggestCommands": "Siūlyti komandas",
-      "showsPastCommandsThatStart": "Rodo ankstesnes komandas, kurios prasideda taip, kaip rašote",
+      "showsPastCommandsThatStart": "Anksčiau naudotos komandos rašant",
       "resetToDefault": "Atstatyti numatytuosius",
       "fontSize": "Šrifto dydis",
       "aSizeFromTo": "Dydis nuo {{MIN_FONT_SIZE}} iki {{MAX_FONT_SIZE}}.",
@@ -3633,7 +3653,7 @@
       "twoFactorAuthentication": "Dvejetainė autentifikacija",
       "loading": "Įkeliama…",
       "scanThisQrCodeWith": "Nuskenuokite šį QR kodą su autentifikatoriaus programėle („Google Authenticator“, „Authy“ ir kt.), tada įveskite 6 skaitmenų kodą patvirtinimui.",
-      "verifyAmpEnable": "Patvirtinti &amp; Įjungti",
+      "verifyAmpEnable": "Patvirtinti ir įjungti",
       "cancel": "Atšaukti",
       "saveYourBackupCodes": "Išsaugokite savo atsarginius kodus",
       "storeTheseSomewhereSafeEach": "Saugokite juos saugioje vietoje. Kiekvienas kodas gali būti naudojamas tik vieną kartą, jei prarasite prieigą prie autentifikatoriaus.",
@@ -3870,5 +3890,31 @@
     "shareCount_many": "Bendrinti su {{count}}",
     "shareCount_other": "Bendrinti su {{count}}",
     "removeAccess": "Pašalinti prieigą"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Serverio įspėjimai",
+      "critical": "Kritiniai serverio įspėjimai"
+    },
+    "severity": {
+      "info": "Viskas",
+      "warning": "Įspėjimai ir rimtesni",
+      "critical": "Tik kritiniai"
+    },
+    "settings": {
+      "on": "Įspėjimai rodomi šiame telefone",
+      "off": "Išjungta",
+      "toggle": "Stumiamieji pranešimai iš {{server}}",
+      "minSeverity": "Siųskite man",
+      "denied": "Termix pranešimai išjungti. Įjunkite juos telefono nustatymuose.",
+      "openSettings": "Atidaryti nustatymus",
+      "outdated": "Šiam serveriui stumiamiesiems pranešimams reikia „Alerts“ 1.4.0 arba naujesnės versijos. Paprašykite administratoriaus atnaujinti įskiepį.",
+      "unavailable": "Prisijunkite prie šio serverio ir įjunkite „Alerts“ įskiepį, kad gautumėte pranešimus.",
+      "error": "Nepavyko pasiekti serverio. Termix bandys dar kartą kitą kartą atidarius programėlę.",
+      "notInThisBuild": "Ši versija negali rodyti pranešimų.",
+      "noServers": "Susiekite serverį, kad čia gautumėte jo įspėjimus.",
+      "pushHint": "Įspėjimai siunčiami per „Expo“ ir „Apple“ arba „Google“, su jų pavadinimu ir tekstu. Pasirinkite, kuriuos norite gauti, serverio „Alerts“ taisyklėse.",
+      "pollHint": "Šioje versijoje nėra „Google“ paslaugų, todėl Termix fone tikrina naujus įspėjimus maždaug kas 15 minučių."
+    }
   }
 }

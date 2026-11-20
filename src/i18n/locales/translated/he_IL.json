@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "לשוניות פתוחות ממשיכות לפעול בעת החלפה.",
       "unlink": "ניתוק קישור של {{account}}",
       "linkAServer": "קישור שרת",
-      "eachServerKeepsItsOwn": "כל שרת שומר את המארחים, האישורים וההגדרות שלו בנפרד ב-{{deviceWord}} זה.",
+      "eachServerKeepsItsOwn": "כל שרת שומר את המארחים, האישורים וההגדרות שלו בנפרד על ה-{{deviceWord}} הזה.",
       "signedIn": "מחובר",
       "signedOut": "התנתק",
       "syncedCopy": "עותק מסונכרן"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "טען מחדש"
+    },
+    "pluginSettings": {
+      "loading": "טוען הגדרות",
+      "forEveryone": "לכולם בשרת",
+      "justForYou": "רק עבורך",
+      "couldNotSave": "לא ניתן לשמור את ההגדרה",
+      "nothingYouCanChange": "אין כאן מה לשנות. מנהל מערכת יכול לשנות הגדרות אלו.",
+      "notANumber": "זה לא מספר",
+      "atLeast": "הערך חייב להיות {{min}} או יותר",
+      "atMost": "הערך חייב להיות {{max}} או פחות"
     }
   },
   "sessions": {
@@ -744,14 +754,21 @@
         "authenticationFailed": "אימות נכשל: {{message}}",
         "theHostKeyWasNot": "מפתח המארח לא סומך עליו.",
         "loginCancelled": "התחברות בוטלה.",
-        "notConnected": "לא מחובר"
+        "notConnected": "לא מחובר",
+        "signingInAs": "מתחבר כ-{{user}} עם {{method}}",
+        "methodKey": "מפתח",
+        "methodPassword": "סיסמה",
+        "methodNone": "ללא התחברות שמורה"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "החיבור נותק"
       },
       "thisBuildHasNoSsh": "לבנייה זו אין מנוע SSH. השתמש באפליקציה מהחנות, או חבר שרת Termix כדי להתחבר.",
       "theHostsOnThisAre": "המארחים ב-{{deviceWord}} זה עדיין לא פתוחים.",
-      "thisServerSHostsAre": "המארחים של שרת זה אינם ב-{{deviceWord}} זה. הפעל את תוסף ה-Sync בשרת כדי להתחבר מה-{{deviceWord}}."
+      "thisServerSHostsAre": "המארחים של שרת זה אינם ב-{{deviceWord}} זה. הפעל את תוסף ה-Sync בשרת כדי להתחבר מה-{{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "ההתחברות השמורה למארח זה אינה נמצאת על ה-{{deviceWord}} הזה, ולכן רק השרת יכול להתחבר"
+      }
     },
     "origin": {
       "canTConnect": "לא ניתן להתחבר.",
@@ -1319,7 +1336,7 @@
     "yourDefaultsOrOneFolder": "ברירות המחדל שלך, או של תיקיה אחת",
     "myDefaults": "ברירות המחדל שלי",
     "theServerSets": " השרת מגדיר {{adminCount}}.",
-    "aFolderWinsOverYour": "תיקיה עדיפה על ברירות המחדל שלך, וברירות המחדל שלך עדיפות על אלו של השרת. מארח שומר על כל ערך שגדירת עליו בעצמך.{{value}}",
+    "aFolderWinsOverYour": "תיקייה עדיפה על הגדרות ברירת המחדל שלך, והגדרות ברירת המחדל שלך עדיפות על אלו של השרת. מארח שומר כל ערך שהגדרת עליו בעצמך.{{value}}",
     "save": "שמירה",
     "authentication": "אימות",
     "none": "ללא",
@@ -2890,7 +2907,7 @@
       "signedIn": "מחובר",
       "close": "סגור",
       "linkYourTermixServer": "חבר את שרת Termix שלך",
-      "yourHostsCredentialsSnippetsAnd": "המארחים, אישורי הגישה, קטעי הקוד וההגדרות שלך יסונכרנו איתו, ותקבל את התוספים שלו. הכל ימשיך לעבוד על ה{{deviceWord}} הזה כשהשרת לא זמין.",
+      "yourHostsCredentialsSnippetsAnd": "המארחים, האישורים, הקטעים וההגדרות שלך מסונכרנים איתו, ואתה מקבל את התוספים שלו. הכל ממשיך לעבוד על ה-{{deviceWord}} הזה כשהשרת לא זמין.",
       "checking": "בודק את {{host}}...",
       "proxyAndClientCertificate": "פרוקסי ותעודת לקוח",
       "couldNotReachThatServer": "לא ניתן להגיע לשרת הזה. בדוק את הכתובת, או הגדר את הפרוקסי או את תעודת הלקוח.",
@@ -2937,10 +2954,10 @@
       "code": "קוד",
       "the6DigitCodeFrom": "הקוד בן 6 הספרות מאפליקציית האימות שלך, או קוד גיבוי",
       "checkCode": "בדוק קוד",
-      "thisAccountAsksForA": "חשבון זה מבקש מפתח אבטחה אחרי הסיסמה. התחבר בדף השרת בדפדפן שלך כדי להשתמש בו.",
+      "thisAccountAsksForA": "חשבון זה מבקש מפתח אבטחה לאחר הסיסמה. התחבר בדף השרת בדפדפן שלך כדי להשתמש בו.",
       "useASecurityKeyIn": "השתמש במפתח אבטחה בדפדפן",
       "backToSignIn": "חזרה להתחברות",
-      "bringThisAposSHosts": "להביא את המארחים של ה-{{deviceWord}} הזה?",
+      "bringThisAposSHosts": "להביא איתך את המארחים של ה-{{deviceWord}} הזה?",
       "thisHasTheyStayOn": "ל-{{deviceWord}} הזה יש {{what}}. הם נשארים על המכשיר הזה בכל מקרה.",
       "merge": "מזג",
       "copyThemToTooSo": "העתק אותם גם ל-{{serverName}}, כדי שיתעדכנו. אלה שנראים כמו מארח שרת ידולגו.",
@@ -3153,7 +3170,7 @@
         "howTallListRowsAnd": "כמה גבוהות שורות הרשימה וההגדרות"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "מארחים, אישורים וקטעי קוד נשמרים בקובץ מוצפן ב{{deviceWord}} הזה. סטטיסטיקות שימוש כבויות אלא אם תפעיל אותן למטה. שרת מקושר מקבל רק את מה שאתה מאפשר לו לסנכרן.",
+        "hostsCredentialsAndSnippetsAre": "מארחים, אישורים וקטעים נשמרים בקובץ מוצפן על ה-{{deviceWord}} הזה. סטטיסטיקות שימוש כבויות אלא אם תפעיל אותן למטה. שרת מקושר מקבל רק את מה שאתה מאפשר לסנכרן.",
         "recentHosts": "מארחים אחרונים",
         "forgetTheHostsYouOpened": "שכח את המארחים שפתחת לאחרונה בכל חשבון",
         "recentHostsCleared": "המארחים האחרונים נמחקו",
@@ -3390,7 +3407,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "גרסה ועדכונים",
         "logs": "יומנים",
-        "latestLinesFromThisRun": "שורות אחרונות מהרץ הזה, לדוחות באגים"
+        "latestLinesFromThisRun": "שורות אחרונות מהרץ הזה, לדוחות באגים",
+        "pushNotifications": "התראות דחיפה",
+        "pushNotificationsDescription": "התראות מהשרתים שלך על הטלפון הזה"
       },
       "sections": {
         "accountsAndSync": "חשבונות וסנכרון",
@@ -3592,7 +3611,7 @@
       "onAHardwareKeyboardOff": "על מקלדת חומרה. כבוי מקליד תווים כמו ב-Mac.",
       "history": "היסטוריה",
       "suggestCommands": "הצעת פקודות",
-      "showsPastCommandsThatStart": "מציג פקודות קודמות שמתחילות במה שאתה מקליד",
+      "showsPastCommandsThatStart": "פקודות קודמות בזמן הקלדה",
       "resetToDefault": "אפס לברירת מחדל",
       "fontSize": "גודל גופן",
       "aSizeFromTo": "גודל מ-{{MIN_FONT_SIZE}} עד {{MAX_FONT_SIZE}}.",
@@ -3615,7 +3634,7 @@
       "twoFactorAuthentication": "אימות דו-שלבי",
       "loading": "טוען…",
       "scanThisQrCodeWith": "סרוק את קוד ה-QR הזה עם אפליקציית האימות שלך (Google Authenticator, Authy וכו'), ואז הזן את הקוד ב-6 ספרות לאימות.",
-      "verifyAmpEnable": "אמת &amp; הפעל",
+      "verifyAmpEnable": "אימות והפעלה",
       "cancel": "ביטול",
       "saveYourBackupCodes": "שמור את קודי הגיבוי שלך",
       "storeTheseSomewhereSafeEach": "שמור אותם במקום בטוח. כל קוד ניתן לשימוש חד פעמי אם תאבד גישה לאפליקציית האימות שלך.",
@@ -3848,5 +3867,31 @@
     "shareCount_two": "שתף עם {{count}}",
     "shareCount_other": "שתף עם {{count}}",
     "removeAccess": "הסר גישה"
+  },
+  "push": {
+    "channels": {
+      "alerts": "התראות שרת",
+      "critical": "התראות שרת קריטיות"
+    },
+    "severity": {
+      "info": "הכל",
+      "warning": "אזהרות ומעלה",
+      "critical": "קריטי בלבד"
+    },
+    "settings": {
+      "on": "התראות מופיעות על הטלפון הזה",
+      "off": "כבוי",
+      "toggle": "התראות דחיפה עבור {{server}}",
+      "minSeverity": "שלח לי",
+      "denied": "ההתראות כבויות עבור Termix. הפעל אותן בהגדרות הטלפון.",
+      "openSettings": "פתח הגדרות",
+      "outdated": "שרת זה דורש Alerts 1.4.0 או חדש יותר להתראות דחיפה. בקש ממנהל מערכת לעדכן את התוסף.",
+      "unavailable": "התחבר לשרת זה והפעל את תוסף ה-Alerts כדי לקבל התראות.",
+      "error": "לא ניתן להגיע לשרת. Termix תנסה שוב בפעם הבאה שהאפליקציה תיפתח.",
+      "notInThisBuild": "גרסה זו לא יכולה להציג התראות.",
+      "noServers": "קשר שרת כדי לקבל את ההתראות שלו כאן.",
+      "pushHint": "התראות נשלחות דרך Expo ו-Apple או Google, עם הכותרת והטקסט שלהן. בחר אילו מהן בכללי ה-Alerts בשרת.",
+      "pollHint": "לגרסה זו אין שירותי Google, ולכן Termix בודקת התראות חדשות ברקע, בערך כל 15 דקות."
+    }
   }
 }

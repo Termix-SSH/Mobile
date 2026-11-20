@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Otevřené karty běží i po přepnutí.",
       "unlink": "Odpojit {{account}}",
       "linkAServer": "Připojit server",
-      "eachServerKeepsItsOwn": "Každý server si na tomto {{deviceWord}} uchovává vlastní hostitele, přihlašovací údaje a nastavení.",
+      "eachServerKeepsItsOwn": "Každý server si na tomto {{deviceWord}} udržuje vlastní hostitele, přihlašovací údaje a nastavení.",
       "signedIn": "Přihlášen",
       "signedOut": "Odhlášeno",
       "syncedCopy": "Synchronizovaná kopie"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Obnovit"
+    },
+    "pluginSettings": {
+      "loading": "Načítání nastavení",
+      "forEveryone": "Pro všechny na serveru",
+      "justForYou": "Pouze pro vás",
+      "couldNotSave": "Nepodařilo se uložit nastavení",
+      "nothingYouCanChange": "Zde nemůžete nic měnit. Tato nastavení může změnit správce.",
+      "notANumber": "Toto není číslo",
+      "atLeast": "Musí být {{min}} nebo více",
+      "atMost": "Musí být {{max}} nebo méně"
     }
   },
   "sessions": {
@@ -750,14 +760,21 @@
         "authenticationFailed": "Ověření selhalo: {{message}}",
         "theHostKeyWasNot": "Klíč hostitele nebyl důvěryhodný.",
         "loginCancelled": "Přihlášení zrušeno.",
-        "notConnected": "Nepřipojeno"
+        "notConnected": "Nepřipojeno",
+        "signingInAs": "Přihlašování jako {{user}} pomocí {{method}}",
+        "methodKey": "klíč",
+        "methodPassword": "heslo",
+        "methodNone": "žádné uložené přihlášení"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Připojení bylo přerušeno"
       },
       "thisBuildHasNoSsh": "Tato verze nemá SSH engine. Použijte aplikaci ze store nebo propojte server Termix pro připojení.",
       "theHostsOnThisAre": "Hostitelé na tomto {{deviceWord}} ještě nejsou otevřeni.",
-      "thisServerSHostsAre": "Hostitelé tohoto serveru nejsou na tomto {{deviceWord}}. Zapněte plugin Sync na serveru pro připojení z {{deviceWord}}."
+      "thisServerSHostsAre": "Hostitelé tohoto serveru nejsou na tomto {{deviceWord}}. Zapněte plugin Sync na serveru pro připojení z {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Uložené přihlášení pro tohoto hostitele není na tomto {{deviceWord}}, takže se může přihlásit pouze server."
+      }
     },
     "origin": {
       "canTConnect": "Nelze připojit.",
@@ -1327,7 +1344,7 @@
     "yourDefaultsOrOneFolder": "Vaše výchozí hodnoty nebo hodnoty složky",
     "myDefaults": "Moje výchozí hodnoty",
     "theServerSets": " Server nastavuje {{adminCount}}.",
-    "aFolderWinsOverYour": "Hodnoty složky mají přednost před vašimi výchozími hodnotami a vaše výchozí hodnoty mají přednost před hodnotami serveru. Host si zachovává jakoukoli hodnotu, kterou jste na něm nastavili sami.{{value}}",
+    "aFolderWinsOverYour": "Složka má přednost před vašimi výchozími hodnotami a vaše výchozí hodnoty mají přednost před těmi serveru. Hostitel si zachovává jakoukoli hodnotu, kterou jste na něm nastavili sami.{{value}}",
     "save": "Uložit",
     "authentication": "Ověřování",
     "none": "Žádné",
@@ -2909,7 +2926,7 @@
       "signedIn": "Přihlášení úspěšné",
       "close": "Zavřít",
       "linkYourTermixServer": "Propojit server Termix",
-      "yourHostsCredentialsSnippetsAnd": "Vaše hostitelé, přihlašovací údaje, úryvky a nastavení se s ním synchronizují a získáte jeho pluginy. Vše bude na tomto zařízení {{deviceWord}} fungovat i při nepřipojení serveru.",
+      "yourHostsCredentialsSnippetsAnd": "Vaši hostitelé, přihlašovací údaje, úryvky a nastavení se s ním synchronizují a získáte jeho pluginy. Všechno bude na tomto {{deviceWord}} fungovat i když je server nedostupný.",
       "checking": "Kontrola {{host}}...",
       "proxyAndClientCertificate": "Proxy a klientský certifikát",
       "couldNotReachThatServer": "Nelze se připojit k tomuto serveru. Zkontrolujte adresu nebo nastavte proxy nebo klientský certifikát.",
@@ -2937,9 +2954,9 @@
       "or": "NEBO",
       "continueWith": "Pokračovat pomocí {{label}}",
       "signInWithAPasskey": "Přihlásit se pomocí passkey nebo bezpečnostního klíče",
-      "opensYourServerAposS": "Otevře přihlašovací stránku vašeho serveru v prohlížeči. Tam funguje Face ID, otisk prstu, NFC a USB klíče. Vyžaduje Termix 26.11.3 nebo novější.",
+      "opensYourServerAposS": "Otevře stránku pro přihlášení na vašem serveru v prohlížeči. Face ID, otisk prstu, NFC a USB klíče tam fungují. Vyžaduje Termix 26.11.3 nebo novější.",
       "signInInTheBrowser": "Přihlásit se v prohlížeči",
-      "opensYourServerAposS2": "Otevře přihlašovací stránku vašeho serveru pro vše, co aplikace zde neumí. Vyžaduje Termix 26.10.6 nebo novější.",
+      "opensYourServerAposS2": "Otevře stránku pro přihlášení na vašem serveru pro vše, co aplikace nemůže udělat zde. Vyžaduje Termix 26.10.6 nebo novější.",
       "thisServerHasNoSign": "Tento server nemá zapnuté přihlašování, které by aplikace mohla použít. Zeptejte se správce serveru nebo zkuste přihlášení v prohlížeči výše.",
       "signInWithYourPassword": "Přihlaste se pomocí svého hesla.",
       "signInFailed": "Přihlášení selhalo",
@@ -3172,7 +3189,7 @@
         "howTallListRowsAnd": "Výška řádků seznamů a nastavení"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Hostitelé, přihlašovací údaje a úryvky jsou uloženy v šifrovaném souboru na tomto {{deviceWord}}. Statistiky používání jsou vypnuté, pokud je níže nezapnete. Propojený server získá pouze to, co mu dovolíte synchronizovat.",
+        "hostsCredentialsAndSnippetsAre": "Hostitelé, přihlašovací údaje a úryvky jsou uloženy v šifrovaném souboru na tomto {{deviceWord}}. Statistiky využití jsou vypnuty, pokud je níže nezapnete. Propojený server získá pouze to, co mu dovolíte synchronizovat.",
         "recentHosts": "Nedávné hostitele",
         "forgetTheHostsYouOpened": "Zapomenout hostitele, ke kterým jste se nedávno připojili, na všech účtech",
         "recentHostsCleared": "Nedávné hostitele vymazány",
@@ -3409,7 +3426,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Verze a aktualizace",
         "logs": "Protokoly",
-        "latestLinesFromThisRun": "Nejnovější řádky z tohoto spuštění, pro hlášení chyb"
+        "latestLinesFromThisRun": "Nejnovější řádky z tohoto spuštění, pro hlášení chyb",
+        "pushNotifications": "Push notifikace",
+        "pushNotificationsDescription": "Upozornění z vašich serverů na tomto telefonu"
       },
       "sections": {
         "accountsAndSync": "Účty a synchronizace",
@@ -3611,7 +3630,7 @@
       "onAHardwareKeyboardOff": "Na hardwarové klávesnici. Při vypnutí se píšou symboly jako na Macu.",
       "history": "Historie",
       "suggestCommands": "Navrhovat příkazy",
-      "showsPastCommandsThatStart": "Zobrazuje předchozí příkazy, které začínají tím, co píšete",
+      "showsPastCommandsThatStart": "Minulé příkazy při psaní",
       "resetToDefault": "Obnovit výchozí nastavení",
       "fontSize": "Velikost písma",
       "aSizeFromTo": "Velikost od {{MIN_FONT_SIZE}} do {{MAX_FONT_SIZE}}.",
@@ -3634,7 +3653,7 @@
       "twoFactorAuthentication": "Dvoufázové ověřování",
       "loading": "Načítání…",
       "scanThisQrCodeWith": "Naskenujte tento QR kód pomocí aplikace pro ověřování (Google Authenticator, Authy atd.) a poté zadejte 6místný kód pro potvrzení.",
-      "verifyAmpEnable": "Ověřit &amp; Povolit",
+      "verifyAmpEnable": "Ověřit a povolit",
       "cancel": "Zrušit",
       "saveYourBackupCodes": "Uložte si své záložní kódy",
       "storeTheseSomewhereSafeEach": "Uložte je na bezpečné místo. Každý kód lze použít pouze jednou, pokud ztratíte přístup ke svému ověřovacímu nástroji.",
@@ -3871,5 +3890,31 @@
     "shareCount_many": "Sdílet s {{count}}",
     "shareCount_other": "Sdílet s {{count}}",
     "removeAccess": "Odebrat přístup"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Upozornění ze serveru",
+      "critical": "Kritická upozornění ze serveru"
+    },
+    "severity": {
+      "info": "Všechno",
+      "warning": "Varování a horší",
+      "critical": "Pouze kritická"
+    },
+    "settings": {
+      "on": "Upozornění se zobrazují na tomto telefonu",
+      "off": "Vypnuto",
+      "toggle": "Push notifikace pro {{server}}",
+      "minSeverity": "Posílejte mi",
+      "denied": "Notifikace pro Termix jsou vypnuty. Zapněte je v nastavení telefonu.",
+      "openSettings": "Otevřít nastavení",
+      "outdated": "Tento server pro push notifikace potřebuje Alerts 1.4.0 nebo novější. Požádejte správce o aktualizaci pluginu.",
+      "unavailable": "Přihlaste se na tento server a zapněte plugin Alerts pro získávání notifikací.",
+      "error": "Nepodařilo se připojit k serveru. Termix to zkusí znovu při příštím otevření aplikace.",
+      "notInThisBuild": "Tato verze nemůže zobrazovat notifikace.",
+      "noServers": "Propojte server pro získávání jeho upozornění zde.",
+      "pushHint": "Upozornění jsou odesílána prostřednictvím Expo a Apple nebo Google, včetně jejich názvu a textu. Vyberte, která z nich chcete v pravidlech Alerts na serveru.",
+      "pollHint": "Tato verze nemá služby Google, takže Termix kontroluje nová upozornění na pozadí přibližně každých 15 minut."
+    }
   }
 }

@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Muat semula"
+    },
+    "pluginSettings": {
+      "loading": "Memuatkan tetapan",
+      "forEveryone": "Untuk semua orang pada pelayan",
+      "justForYou": "Hanya untuk anda",
+      "couldNotSave": "Tidak dapat menyimpan tetapan",
+      "nothingYouCanChange": "Tiada apa-apa di sini yang boleh anda ubah. Pentadbir boleh mengubah tetapan ini.",
+      "notANumber": "Bukan nombor",
+      "atLeast": "Ia mestilah {{min}} atau lebih",
+      "atMost": "Ia mestilah {{max}} atau kurang"
     }
   },
   "sessions": {
@@ -732,14 +742,21 @@
         "authenticationFailed": "Pengesahan gagal: {{message}}",
         "theHostKeyWasNot": "Kunci hos tidak dipercayai.",
         "loginCancelled": "Log masuk dibatalkan.",
-        "notConnected": "Tidak disambung"
+        "notConnected": "Tidak disambung",
+        "signingInAs": "Log masuk sebagai {{user}} dengan {{method}}",
+        "methodKey": "sebuah kunci",
+        "methodPassword": "sebuah kata laluan",
+        "methodNone": "tiada log masuk disimpan"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Sambungan terputus"
       },
       "thisBuildHasNoSsh": "Binaan ini tiada enjin SSH. Gunakan aplikasi dari kedai, atau pautkan pelayan Termix untuk menyambung.",
       "theHostsOnThisAre": "Hos pada {{deviceWord}} ini belum dibuka.",
-      "thisServerSHostsAre": "Hos pelayan ini tidak berada pada {{deviceWord}} ini. Hidupkan plugin Sync pada pelayan untuk menyambung dari {{deviceWord}}."
+      "thisServerSHostsAre": "Hos pelayan ini tidak berada pada {{deviceWord}} ini. Hidupkan plugin Sync pada pelayan untuk menyambung dari {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Log masuk yang disimpan untuk hos ini tidak berada pada {{deviceWord}} ini, jadi hanya pelayan boleh log masuk"
+      }
     },
     "origin": {
       "canTConnect": "Tidak dapat menyambung.",
@@ -1303,7 +1320,7 @@
     "yourDefaultsOrOneFolder": "Lalai anda, atau satu folder",
     "myDefaults": "Lalai saya",
     "theServerSets": " Pelayan menetapkan {{adminCount}}.",
-    "aFolderWinsOverYour": "Folder mengatasi lalai anda, dan lalai anda mengatasi lalai pelayan. Hos mengekalkan sebarang nilai yang anda tetapkan sendiri.{{value}}",
+    "aFolderWinsOverYour": "Sesuai folder mengatasi lalai anda, dan lalai anda mengatasi lalai pelayan. Hos mengekalkan sebarang nilai yang anda tetapkan sendiri padanya.{{value}}",
     "save": "Simpan",
     "authentication": "Pengesahan",
     "none": "Tiada",
@@ -2852,7 +2869,7 @@
       "signedIn": "Berjaya log masuk",
       "close": "Tutup",
       "linkYourTermixServer": "Pautkan pelayan Termix anda",
-      "yourHostsCredentialsSnippetsAnd": "Hos, kelayakan, petikan dan tetapan anda disegerakkan dengannya, dan anda mendapat pluginnya. Semua berfungsi pada {{deviceWord}} ini apabila pelayan tidak tersedia.",
+      "yourHostsCredentialsSnippetsAnd": "Hos, kelayakan, petikan dan tetapan anda diselaraskan dengannya, dan anda mendapat pluginnya. Semua berfungsi pada {{deviceWord}} ini apabila pelayan tidak tersedia.",
       "checking": "Sedang menyemak {{host}}...",
       "proxyAndClientCertificate": "Proksi dan sijil klien",
       "couldNotReachThatServer": "Tidak dapat menghubungi pelayan tersebut. Semak alamat, atau tetapkan proksi atau sijil klien.",
@@ -2882,7 +2899,7 @@
       "signInWithAPasskey": "Log masuk dengan passkey atau kunci keselamatan",
       "opensYourServerAposS": "Membuka halaman log masuk pelayan anda dalam pelayar web. Face ID, cap jari, NFC dan kunci USB semuanya berfungsi di sana. Memerlukan Termix 26.11.3 atau lebih baru.",
       "signInInTheBrowser": "Log masuk dalam pelayar web",
-      "opensYourServerAposS2": "Membuka halaman log masuk pelayan anda, untuk sebarang fungsi yang tidak dapat dilakukan oleh aplikasi ini. Memerlukan Termix 26.10.6 atau lebih baru.",
+      "opensYourServerAposS2": "Membuka halaman log masuk pelayan anda, untuk apa-apa yang aplikasi tidak boleh lakukan di sini. Memerlukan Termix 26.10.6 atau lebih baru.",
       "thisServerHasNoSign": "Pelayan ini tidak mempunyai log masuk yang diaktifkan untuk digunakan oleh aplikasi ini. Tanya pengendalinya, atau cuba log masuk melalui pelayar web di atas.",
       "signInWithYourPassword": "Log masuk dengan kata laluan anda.",
       "signInFailed": "Log masuk gagal",
@@ -2902,7 +2919,7 @@
       "thisAccountAsksForA": "Akaun ini meminta kunci keselamatan selepas kata laluan. Log masuk pada halaman pelayan dalam pelayar web anda untuk menggunakannya.",
       "useASecurityKeyIn": "Gunakan kunci keselamatan dalam pelayar web",
       "backToSignIn": "Kembali ke log masuk",
-      "bringThisAposSHosts": "Bawa bersama hos {{deviceWord}} ini?",
+      "bringThisAposSHosts": "Bawa hos {{deviceWord}} ini bersama?",
       "thisHasTheyStayOn": "{{deviceWord}} ini mempunyai {{what}}. Ia kekal pada peranti ini dalam kes mana-mana.",
       "merge": "Gabung",
       "copyThemToTooSo": "Salin juga ke {{serverName}}, supaya ia disegerakkan. Yang kelihatan sama dengan hos pelayan akan dilangkau.",
@@ -3115,7 +3132,7 @@
         "howTallListRowsAnd": "Betapa tinggi baris senarai dan tetapan"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Hos, kelayakan dan petikan disimpan dalam fail terenkripsi pada {{deviceWord}} ini. Statistik penggunaan dimatikan kecuali anda menghidupkannya di bawah. Pelayan yang disambungkan hanya mendapat apa yang anda benarkan disegerakkan.",
+        "hostsCredentialsAndSnippetsAre": "Hos, kelayakan dan petikan disimpan dalam fail terenkripsi pada {{deviceWord}} ini. Statistik penggunaan dimatikan kecuali anda menghidupkannya di bawah. Pelayan yang disambungkan hanya mendapat apa yang anda benarkan untuk diselaraskan.",
         "recentHosts": "Hos terkini",
         "forgetTheHostsYouOpened": "Lupakan hos yang anda buka baru-baru ini pada setiap akaun",
         "recentHostsCleared": "Hos terkini dibersihkan",
@@ -3352,7 +3369,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versi dan kemas kini",
         "logs": "Log",
-        "latestLinesFromThisRun": "Baris terkini daripada larian ini, untuk laporan pepijat"
+        "latestLinesFromThisRun": "Baris terkini daripada larian ini, untuk laporan pepijat",
+        "pushNotifications": "Pemberitahuan tolak",
+        "pushNotificationsDescription": "Amaran dari pelayan anda pada telefon ini"
       },
       "sections": {
         "accountsAndSync": "Akaun dan sinkronisasi",
@@ -3554,7 +3573,7 @@
       "onAHardwareKeyboardOff": "Pada papan kekunci perkakasan. Matikan untuk menaip simbol seperti pada Mac.",
       "history": "Sejarah",
       "suggestCommands": "Cadangkan arahan",
-      "showsPastCommandsThatStart": "Menunjukkan arahan lepas yang bermula dengan apa yang anda taip",
+      "showsPastCommandsThatStart": "Perintah lepas semasa anda menaip",
       "resetToDefault": "Set semula ke lalai",
       "fontSize": "Saiz fon",
       "aSizeFromTo": "Saiz dari {{MIN_FONT_SIZE}} hingga {{MAX_FONT_SIZE}}.",
@@ -3577,7 +3596,7 @@
       "twoFactorAuthentication": "Pengesahan dua faktor",
       "loading": "Memuatkan…",
       "scanThisQrCodeWith": "Imbas kod QR ini dengan aplikasi pengesah anda (Google Authenticator, Authy, dll.), kemudian masukkan kod 6 digit untuk mengesahkan.",
-      "verifyAmpEnable": "Sahkan &amp; Aktifkan",
+      "verifyAmpEnable": "Pengesahan dan pengaktifan",
       "cancel": "Batal",
       "saveYourBackupCodes": "Simpan kod sandaran anda",
       "storeTheseSomewhereSafeEach": "Simpan kod ini di tempat yang selamat. Setiap kod hanya boleh digunakan sekali jika anda kehilangan akses kepada pengesah anda.",
@@ -3802,5 +3821,31 @@
     "pickSomeone": "Pilih siapa untuk dikongsi",
     "shareCount_other": "Kongsi dengan {{count}}",
     "removeAccess": "Buang akses"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Amaran pelayan",
+      "critical": "Amaran pelayan kritikal"
+    },
+    "severity": {
+      "info": "Semua",
+      "warning": "Amaran dan lebih teruk",
+      "critical": "Hanya kritikal"
+    },
+    "settings": {
+      "on": "Amaran muncul pada telefon ini",
+      "off": "Mati",
+      "toggle": "Pemberitahuan tolak untuk {{server}}",
+      "minSeverity": "Hantar kepada saya",
+      "denied": "Pemberitahuan dimatikan untuk Termix. Hidupkan dalam tetapan telefon.",
+      "openSettings": "Buka tetapan",
+      "outdated": "Pelayan ini memerlukan Alerts 1.4.0 atau lebih baru untuk pemberitahuan tolak. Minta pentadbir untuk mengemas kini plugin.",
+      "unavailable": "Log masuk ke pelayan ini dan hidupkan plugin Alerts untuk mendapatkan pemberitahuan.",
+      "error": "Tidak dapat menghubungi pelayan. Termix akan cuba lagi apabila aplikasi dibuka.",
+      "notInThisBuild": "Binaan ini tidak dapat memaparkan pemberitahuan.",
+      "noServers": "Sambungkan pelayan untuk mendapatkan amaran di sini.",
+      "pushHint": "Amaran dihantar melalui Expo dan Apple atau Google, dengan tajuk dan teksnya. Pilih yang mana dalam peraturan Alerts pada pelayan.",
+      "pollHint": "Binaan ini tiada perkhidmatan Google, jadi Termix memeriksa amaran baharu di latar belakang, kira-kira setiap 15 minit."
+    }
   }
 }

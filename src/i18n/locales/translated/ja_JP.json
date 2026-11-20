@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "切り替えても開いているタブは実行され続けます。",
       "unlink": "{{account}} のリンクを解除",
       "linkAServer": "サーバーをリンク",
-      "eachServerKeepsItsOwn": "各サーバーは、この{{deviceWord}}で独自のホスト、認証情報、設定を保持します。",
+      "eachServerKeepsItsOwn": "この {{deviceWord}} には、各サーバーのホスト、認証情報、設定が個別に保存されます。",
       "signedIn": "サインイン済み",
       "signedOut": "サインアウト済み",
       "syncedCopy": "同期済みコピー"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "再読み込み"
+    },
+    "pluginSettings": {
+      "loading": "設定を読み込み中",
+      "forEveryone": "サーバー上の全員向け",
+      "justForYou": "あなたのみ向け",
+      "couldNotSave": "設定を保存できませんでした",
+      "nothingYouCanChange": "変更できる項目はありません。管理者がこれらの設定を変更できます。",
+      "notANumber": "数値ではありません",
+      "atLeast": "{{min}} 以上である必要があります",
+      "atMost": "{{max}} 以下である必要があります"
     }
   },
   "sessions": {
@@ -732,14 +742,21 @@
         "authenticationFailed": "認証に失敗しました: {{message}}",
         "theHostKeyWasNot": "ホストキーが信頼されていません。",
         "loginCancelled": "ログインがキャンセルされました。",
-        "notConnected": "接続されていません"
+        "notConnected": "接続されていません",
+        "signingInAs": "{{method}} を使用して {{user}} としてサインイン中",
+        "methodKey": "キー",
+        "methodPassword": "パスワード",
+        "methodNone": "保存されたログイン情報なし"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "接続が切断されました"
       },
       "thisBuildHasNoSsh": "このビルドには SSH エンジンが含まれていません。ストアのアプリを使用するか、接続するために Termix サーバーをリンクしてください。",
       "theHostsOnThisAre": "この {{deviceWord}} 上のホストはまだ開かれていません。",
-      "thisServerSHostsAre": "このサーバーのホストはこの {{deviceWord}} 上にありません。{{deviceWord}} から接続するには、サーバーで Sync プラグインを有効にしてください。"
+      "thisServerSHostsAre": "このサーバーのホストはこの {{deviceWord}} 上にありません。{{deviceWord}} から接続するには、サーバーで Sync プラグインを有効にしてください。",
+      "resolve": {
+        "theSavedLoginIsNot": "このホストの保存されたログイン情報は、この {{deviceWord}} には存在しないため、サーバーでのみサインインできます"
+      }
     },
     "origin": {
       "canTConnect": "接続できません。",
@@ -1302,7 +1319,7 @@
     "level": "レベル",
     "yourDefaultsOrOneFolder": "あなたのデフォルト、またはフォルダのデフォルト",
     "myDefaults": "私のデフォルト",
-    "aFolderWinsOverYour": "フォルダのデフォルトはあなたのデフォルトより優先され、あなたのデフォルトはサーバーのデフォルトより優先されます。ホストに直接設定した値は保持されます。{{value}}",
+    "aFolderWinsOverYour": "フォルダの設定はデフォルト設定より優先され、デフォルト設定はサーバーの設定より優先されます。ホストに直接設定した値は保持されます。{{value}}",
     "save": "保存",
     "authentication": "認証",
     "none": "なし",
@@ -2851,7 +2868,7 @@
       "signedIn": "サインインしました",
       "close": "閉じる",
       "linkYourTermixServer": "Termixサーバーをリンク",
-      "yourHostsCredentialsSnippetsAnd": "ホスト、認証情報、スニペット、設定が同期され、サーバーのプラグインも利用できます。サーバーがオフラインでも、この{{deviceWord}}ではすべて正常に動作し続けます。",
+      "yourHostsCredentialsSnippetsAnd": "ホスト、認証情報、スニペット、設定が同期され、サーバーのプラグインが利用可能になります。サーバーがオフラインの場合でも、この {{deviceWord}} ではすべてが動作し続けます。",
       "checking": "{{host}}を確認中...",
       "proxyAndClientCertificate": "プロキシとクライアント証明書",
       "couldNotReachThatServer": "そのサーバーに接続できませんでした。アドレスを確認するか、プロキシまたはクライアント証明書を設定してください。",
@@ -2879,9 +2896,9 @@
       "or": "または",
       "continueWith": "{{label}}で続行",
       "signInWithAPasskey": "パスキーまたはセキュリティキーでサインイン",
-      "opensYourServerAposS": "ブラウザでサーバーのサインインページを開きます。Face ID、指紋、NFC、USBキーがすべて利用可能です。Termix 26.11.3以降が必要です。",
+      "opensYourServerAposS": "ブラウザでサーバーのサインインページを開きます。Face ID、指紋認証、NFC、USB キーがすべて利用可能です。Termix 26.11.3 以降が必要です。",
       "signInInTheBrowser": "ブラウザでサインイン",
-      "opensYourServerAposS2": "アプリで処理できない操作のために、サーバーのサインインページを開きます。Termix 26.10.6以降が必要です。",
+      "opensYourServerAposS2": "アプリで処理できない操作のために、サーバーのサインインページを開きます。Termix 26.10.6 以降が必要です。",
       "thisServerHasNoSign": "このサーバーには、アプリで使用できるサインイン方法が有効になっていません。管理者に問い合わせてください。または、上記のブラウザでのサインインを試してください。",
       "signInWithYourPassword": "パスワードでサインインします。",
       "signInFailed": "サインインに失敗しました",
@@ -2898,10 +2915,10 @@
       "code": "コード",
       "the6DigitCodeFrom": "認証アプリの6桁のコード、またはバックアップコード",
       "checkCode": "コードを確認",
-      "thisAccountAsksForA": "このアカウントは、パスワード入力後にセキュリティキーを要求します。ブラウザでサーバーのページにサインインして使用してください。",
+      "thisAccountAsksForA": "このアカウントは、パスワード入力後にセキュリティキーを要求します。ブラウザのサーバーページでサインインして使用してください。",
       "useASecurityKeyIn": "ブラウザでセキュリティキーを使用",
       "backToSignIn": "サインインに戻る",
-      "bringThisAposSHosts": "この{{deviceWord}}のホストも一緒に持ってくる？",
+      "bringThisAposSHosts": "この {{deviceWord}} のホストも持ち運びますか？",
       "thisHasTheyStayOn": "この{{deviceWord}}には{{what}}があります。いずれにせよ、これらは「このデバイス」上に残ります。",
       "merge": "統合",
       "copyThemToTooSo": "同期のために{{serverName}}にもコピーします。サーバーのホストと似ているものはスキップされます。",
@@ -3114,7 +3131,7 @@
         "howTallListRowsAnd": "リスト行や設定項目の高さ"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "ホスト、認証情報、スニペットは、この{{deviceWord}}上の暗号化されたファイルに保存されます。使用統計は、以下で有効にしない限りオフになっています。リンクされたサーバーには、同期を許可したデータのみが送信されます。",
+        "hostsCredentialsAndSnippetsAre": "ホスト、認証情報、スニペットは、この {{deviceWord}} 上の暗号化されたファイルに保存されます。利用状況統計は、以下で有効にするまでオフになっています。リンクされたサーバーは、同期を許可した情報のみ取得します。",
         "recentHosts": "最近のホスト",
         "forgetTheHostsYouOpened": "すべてのアカウントで、最近開いたホストを忘れる",
         "recentHostsCleared": "最近のホストがクリアされました",
@@ -3351,7 +3368,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "バージョンとアップデート",
         "logs": "ログ",
-        "latestLinesFromThisRun": "バグ報告用の、今回の実行からの最新ログ"
+        "latestLinesFromThisRun": "バグ報告用の、今回の実行からの最新ログ",
+        "pushNotifications": "プッシュ通知",
+        "pushNotificationsDescription": "この電話機へのサーバーからのアラート"
       },
       "sections": {
         "accountsAndSync": "アカウントと同期",
@@ -3553,7 +3572,7 @@
       "onAHardwareKeyboardOff": "ハードウェアキーボードを使用時。オフにすると、Macのように記号が入力されます。",
       "history": "履歴",
       "suggestCommands": "コマンドの提案",
-      "showsPastCommandsThatStart": "入力した文字で始まる過去のコマンドを表示",
+      "showsPastCommandsThatStart": "入力中に過去のコマンドを表示",
       "resetToDefault": "デフォルトに戻す",
       "fontSize": "フォントサイズ",
       "aSizeFromTo": "{{MIN_FONT_SIZE}}から{{MAX_FONT_SIZE}}までのサイズ",
@@ -3801,5 +3820,31 @@
     "pickSomeone": "共有先を選択",
     "shareCount_other": "{{count}} 人と共有",
     "removeAccess": "アクセス権限を削除"
+  },
+  "push": {
+    "channels": {
+      "alerts": "サーバーアラート",
+      "critical": "重大なサーバーアラート"
+    },
+    "severity": {
+      "info": "すべて",
+      "warning": "警告以上",
+      "critical": "重大なアラートのみ"
+    },
+    "settings": {
+      "on": "アラートはこの電話機に表示されます",
+      "off": "オフ",
+      "toggle": "{{server}} のプッシュ通知",
+      "minSeverity": "送信するアラート",
+      "denied": "Termix の通知がオフになっています。電話機の設定でオンにしてください。",
+      "openSettings": "設定を開く",
+      "outdated": "このサーバーはプッシュ通知のために Alerts 1.4.0 以降が必要です。管理者にプラグインの更新を依頼してください。",
+      "unavailable": "通知を受け取るには、このサーバーにサインインして Alerts プラグインを有効にしてください。",
+      "error": "サーバーに接続できませんでした。アプリを次回開いた際に Termix が再試行します。",
+      "notInThisBuild": "このビルドは通知を表示できません。",
+      "noServers": "アラートを受け取るには、サーバーをリンクしてください。",
+      "pushHint": "アラートは、タイトルと本文を含めて Expo および Apple または Google を介して送信されます。サーバーの Alerts ルールで、どのアラートを送信するかを選択してください。",
+      "pollHint": "このビルドには Google サービスが含まれていないため、Termix は約 15 分ごとにバックグラウンドで新しいアラートをチェックします。"
+    }
   }
 }

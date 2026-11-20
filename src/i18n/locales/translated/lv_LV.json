@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Atvērtās cilnes turpina darboties, kad pārslēdzaties.",
       "unlink": "Atsaistīt {{account}}",
       "linkAServer": "Savienot serveri",
-      "eachServerKeepsItsOwn": "Katrs servers šajā {{deviceWord}} saglabā savus hostus, akreditācijas datus un iestatījumus.",
+      "eachServerKeepsItsOwn": "Katrs serveris šajā {{deviceWord}} saglabā savus hostus, pieteikšanās datus un iestatījumus.",
       "signedIn": "Pieteicies",
       "signedOut": "Izrakstīts",
       "syncedCopy": "Sinhronizēta kopija"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Pārlādēt"
+    },
+    "pluginSettings": {
+      "loading": "Iestatījumu ielāde",
+      "forEveryone": "Visiem serverī",
+      "justForYou": "Tikai jums",
+      "couldNotSave": "Neizdevās saglabāt iestatījumu",
+      "nothingYouCanChange": "Šeit nav nekas, ko jūs varētu mainīt. Šos iestatījumus var mainīt administrators.",
+      "notANumber": "Tas nav skaitlis",
+      "atLeast": "Tam ir jābūt vismaz {{min}}",
+      "atMost": "Tam ir jābūt ne vairāk kā {{max}}"
     }
   },
   "sessions": {
@@ -744,14 +754,21 @@
         "authenticationFailed": "Autentifikācija neizdevās: {{message}}",
         "theHostKeyWasNot": "Servera atslēga netika uzticēta.",
         "loginCancelled": "Pieteikšanās atcelta.",
-        "notConnected": "Nav savienots"
+        "notConnected": "Nav savienots",
+        "signingInAs": "Pieteikšanās kā {{user}} ar {{method}}",
+        "methodKey": "atslēga",
+        "methodPassword": "parole",
+        "methodNone": "nav saglabātu pieteikšanās datu"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Savienojums tika pārtraukts"
       },
       "thisBuildHasNoSsh": "Šajā versijā nav SSH dzinēja. Izmantojiet lietotni no veikala vai savienojiet Termix serveri, lai izveidotu savienojumu.",
       "theHostsOnThisAre": "Serveri šajā {{deviceWord}} vēl nav atvērti.",
-      "thisServerSHostsAre": "Šī servera hosti nav šajā {{deviceWord}}. Ieslēdziet Sync spraudni serverī, lai savienotos no {{deviceWord}}."
+      "thisServerSHostsAre": "Šī servera hosti nav šajā {{deviceWord}}. Ieslēdziet Sync spraudni serverī, lai savienotos no {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Šī hosta saglabātie pieteikšanās dati nav šajā {{deviceWord}}, tāpēc pieteikties var tikai serveris"
+      }
     },
     "origin": {
       "canTConnect": "Nevar izveidot savienojumu.",
@@ -1319,7 +1336,7 @@
     "yourDefaultsOrOneFolder": "Jūsu noklusējumi vai vienas mapes",
     "myDefaults": "Mani noklusējumi",
     "theServerSets": " Serveris iestata {{adminCount}}.",
-    "aFolderWinsOverYour": "Mapes iestatījumi pārspēj jūsu noklusējumus, un jūsu noklusējumi pārspēj servera. Mezgls saglabā jebkuru vērtību, ko esat iestatījis pats.{{value}}",
+    "aFolderWinsOverYour": "Mapes iestatījumi pārspēj jūsu noklusējuma vērtības, un jūsu noklusējuma vērtības pārspēj servera vērtības. Hosts saglabā jebkuru vērtību, ko esat iestatījis pats.{{value}}",
     "save": "Saglabāt",
     "authentication": "Autentifikācija",
     "none": "Nav",
@@ -2890,7 +2907,7 @@
       "signedIn": "Pieteicies",
       "close": "Aizvērt",
       "linkYourTermixServer": "Sasaistīt savu Termix serveri",
-      "yourHostsCredentialsSnippetsAnd": "Jūsu hosti, akreditācijas dati, fragmenti un iestatījumi sinhronizējas ar to, un jūs saņemat tā spraudņus. Viss turpina darboties šajā {{deviceWord}}, kad serveris nav pieejams.",
+      "yourHostsCredentialsSnippetsAnd": "Jūsu hosti, pieteikšanās dati, fragmenti un iestatījumi sinhronizējas ar to, un jūs saņemat tā spraudņus. Viss turpina darboties šajā {{deviceWord}}, kad serveris nav pieejams.",
       "checking": "Pārbauda {{host}}...",
       "proxyAndClientCertificate": "Starpniekserveris un klienta sertifikāts",
       "couldNotReachThatServer": "Neizdevās sasniegt šo serveri. Pārbaudiet adresi vai iestatiet starpniekserveri vai klienta sertifikātu.",
@@ -2918,9 +2935,9 @@
       "or": "VAI",
       "continueWith": "Turpināt ar {{label}}",
       "signInWithAPasskey": "Pieslēgties, izmantojot piekļuves atslēgu vai drošības atslēgu",
-      "opensYourServerAposS": "Atver jūsu servera pieslēgšanās lapu pārlūkprogrammā. Tur darbojas Face ID, pirkstu nospiedumi, NFC un USB atslēgas. Nepieciešama Termix versija 26.11.3 vai jaunāka.",
+      "opensYourServerAposS": "Atver servera pieteikšanās lapu pārlūkprogrammā. Tur darbojas Face ID, pirkstu nospiedumi, NFC un USB atslēgas. Nepieciešams Termix 26.11.3 vai jaunāka versija.",
       "signInInTheBrowser": "Pieslēgties pārlūkprogrammā",
-      "opensYourServerAposS2": "Atver jūsu servera pieslēgšanās lapu gadījumiem, kad lietotne to nevar izdarīt šeit. Nepieciešama Termix versija 26.10.6 vai jaunāka.",
+      "opensYourServerAposS2": "Atver servera pieteikšanās lapu lietotnēm, ko šeit nevar izpildīt. Nepieciešams Termix 26.10.6 vai jaunāka versija.",
       "thisServerHasNoSign": "Šim serverim nav iespējots pieslēgšanās veids, ko lietotne varētu izmantot. Jautājiet servera administratoram vai mēģiniet pieslēgties caur pārlūkprogrammu iepriekš.",
       "signInWithYourPassword": "Pieslēgties, izmantojot savu paroli.",
       "signInFailed": "Pieslēgšanās neizdevās",
@@ -2937,10 +2954,10 @@
       "code": "Kods",
       "the6DigitCodeFrom": "6 ciparu kods no jūsu autentifikatora lietotnes vai rezerves kods",
       "checkCode": "Pārbaudīt kodu",
-      "thisAccountAsksForA": "Šis konts pēc paroles prasa drošības atslēgu. Lai to izmantotu, pieslēdzieties servera lapā savā pārlūkprogrammā.",
+      "thisAccountAsksForA": "Šis konts pēc paroles pieprasa drošības atslēgu. Lai to izmantotu, pieteikties servera lapā savā pārlūkprogrammā.",
       "useASecurityKeyIn": "Izmantot drošības atslēgu pārlūkprogrammā",
       "backToSignIn": "Atpakaļ uz pieslēgšanos",
-      "bringThisAposSHosts": "Vai vēlaties līdzi ņemt šī {{deviceWord}} resorus?",
+      "bringThisAposSHosts": "Vai līdzi ņemt šī {{deviceWord}} hostus?",
       "thisHasTheyStayOn": "Šajā {{deviceWord}} ir {{what}}. Tie paliek šajā ierīcē jebkurā gadījumā.",
       "merge": "Apvienot",
       "copyThemToTooSo": "Kopējiet tos arī uz {{serverName}}, lai sinhronizētu. Tie, kas izskatās tāpat kā servera resursi, tiek izlaisti.",
@@ -3153,7 +3170,7 @@
         "howTallListRowsAnd": "Saraksta rindu un iestatījumu augstums"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Hosti, akreditācijas dati un fragmenti tiek glabāti šifrētā failā šajā {{deviceWord}}. Lietošanas statistika ir izslēgta, ja vien to nepieslēdzat zemāk. Savienotais serveris saņem tikai to, ko atļaujat sinhronizēt.",
+        "hostsCredentialsAndSnippetsAre": "Hosti, pieteikšanās dati un fragmenti tiek glabāti šifrētā failā šajā {{deviceWord}}. Lietošanas statistika ir izslēgta, ja vien to neieslēdzat zemāk. Saistītais serveris saņem tikai to, ko atļaujat sinhronizēt.",
         "recentHosts": "Nesenie hosti",
         "forgetTheHostsYouOpened": "Aizmirst nesen atvērtos hostus visos kontos",
         "recentHostsCleared": "Nesenie hosti notīrīti",
@@ -3390,7 +3407,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versija un atjauninājumi",
         "logs": "Žurnāli",
-        "latestLinesFromThisRun": "Jaunākās rindas no šīs darbības, kļūdu ziņojumiem"
+        "latestLinesFromThisRun": "Jaunākās rindas no šīs darbības, kļūdu ziņojumiem",
+        "pushNotifications": "Push paziņojumi",
+        "pushNotificationsDescription": "Brīdinājumi no jūsu serveriem šajā telefonā"
       },
       "sections": {
         "accountsAndSync": "Konti un sinhronizācija",
@@ -3592,7 +3611,7 @@
       "onAHardwareKeyboardOff": "Izmantojot aparatūras tastatūru. Izslēdzot, simboli tiek ievadīti tāpat kā Mac datorā.",
       "history": "Vēsture",
       "suggestCommands": "Ieteikt komandas",
-      "showsPastCommandsThatStart": "Rāda iepriekšējās komandas, kas sākas ar to, ko ierakstāt",
+      "showsPastCommandsThatStart": "Iepriekšējie komandas, rakstot",
       "resetToDefault": "Atiestatīt uz noklusējumu",
       "fontSize": "Fonta izmērs",
       "aSizeFromTo": "Izmērs no {{MIN_FONT_SIZE}} līdz {{MAX_FONT_SIZE}}.",
@@ -3615,7 +3634,7 @@
       "twoFactorAuthentication": "Divu faktoru autentifikācija",
       "loading": "Ielādē…",
       "scanThisQrCodeWith": "Skenējiet šo QR kodu ar savu autentifikatora lietotni (Google Authenticator, Authy utt.), pēc tam ievadiet 6 ciparu kodu, lai apstiprinātu.",
-      "verifyAmpEnable": "Apstiprināt &amp; Iespējot",
+      "verifyAmpEnable": "Verificēt un iespējot",
       "cancel": "Atcelt",
       "saveYourBackupCodes": "Saglabājiet savus rezerves kodus",
       "storeTheseSomewhereSafeEach": "Saglabājiet tos drošā vietā. Katru kodu var izmantot tikai vienu reizi, ja zaudējat piekļuvi savam autentifikatoram.",
@@ -3848,5 +3867,31 @@
     "shareCount_one": "Koplietot ar {{count}}",
     "shareCount_other": "Koplietot ar {{count}}",
     "removeAccess": "Noņemt piekļuvi"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Servera brīdinājumi",
+      "critical": "Kritiskie servera brīdinājumi"
+    },
+    "severity": {
+      "info": "Viss",
+      "warning": "Brīdinājumi un sliktāks",
+      "critical": "Tikai kritiskie"
+    },
+    "settings": {
+      "on": "Brīdinājumi parādās šajā telefonā",
+      "off": "Izslēgts",
+      "toggle": "Push paziņojumi priekš {{server}}",
+      "minSeverity": "Sūtīt man",
+      "denied": "Paziņojumi Termix ir izslēgti. Ieslēdziet tos telefona iestatījumos.",
+      "openSettings": "Atvērt iestatījumus",
+      "outdated": "Šim serverim ir nepieciešams Alerts 1.4.0 vai jaunāka versija push paziņojumiem. Lūdziet administratoru atjaunināt spraudni.",
+      "unavailable": "Piesakieties šajā serverī un ieslēdziet Alerts sprudni, lai saņemtu paziņojumus.",
+      "error": "Nevarēja sasniegt serveri. Termix mēģinās vēlreiz nākamreiz, kad lietotne tiks atvērta.",
+      "notInThisBuild": "Šī versija nevar parādīt paziņojumus.",
+      "noServers": "Sasaistiet serveri, lai saņemtu tā brīdinājumus šeit.",
+      "pushHint": "Brīdinājumi tiek nosūtīti caur Expo un Apple vai Google, ar to nosaukumu un tekstu. Izvēlieties, kuri no tiem, servera Alerts noteikumos.",
+      "pollHint": "Šajā versijā nav Google pakalpojumu, tāpēc Termix fonā pārbauda jaunus brīdinājumus aptuveni ik pēc 15 minūtēm."
+    }
   }
 }

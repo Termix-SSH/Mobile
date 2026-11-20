@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Le schede aperte continuano a funzionare durante il cambio.",
       "unlink": "Scollega {{account}}",
       "linkAServer": "Collega un server",
-      "eachServerKeepsItsOwn": "Ogni server mantiene i propri host, credenziali e impostazioni su questo{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Ogni server mantiene i propri host, credenziali e impostazioni su questo {{deviceWord}}.",
       "signedIn": "Accesso effettuato",
       "signedOut": "Disconnesso",
       "syncedCopy": "Copia sincronizzata"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Ricarica"
+    },
+    "pluginSettings": {
+      "loading": "Caricamento impostazioni",
+      "forEveryone": "Per tutti gli utenti del server",
+      "justForYou": "Solo per te",
+      "couldNotSave": "Impossibile salvare l'impostazione",
+      "nothingYouCanChange": "Non c'è nulla qui che tu possa modificare. Un amministratore può cambiare queste impostazioni.",
+      "notANumber": "Questo non è un numero",
+      "atLeast": "Deve essere {{min}} o più",
+      "atMost": "Deve essere {{max}} o meno"
     }
   },
   "sessions": {
@@ -744,14 +754,21 @@
         "authenticationFailed": "Autenticazione fallita: {{message}}",
         "theHostKeyWasNot": "La chiave dell'host non è stata fidata.",
         "loginCancelled": "Accesso annullato.",
-        "notConnected": "Non connesso"
+        "notConnected": "Non connesso",
+        "signingInAs": "Accesso come {{user}} con {{method}}",
+        "methodKey": "una chiave",
+        "methodPassword": "una password",
+        "methodNone": "nessun accesso salvato"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "La connessione è stata interrotta"
       },
       "thisBuildHasNoSsh": "Questa versione non ha un motore SSH. Usa l'app dallo store, o collega un server Termix per connetterti.",
       "theHostsOnThisAre": "Gli host su questo {{deviceWord}} non sono ancora aperti.",
-      "thisServerSHostsAre": "Gli host di questo server non sono su questo {{deviceWord}}. Attiva il plugin Sync sul server per connetterti dal {{deviceWord}}."
+      "thisServerSHostsAre": "Gli host di questo server non sono su questo {{deviceWord}}. Attiva il plugin Sync sul server per connetterti dal {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Le credenziali salvate per questo host non si trovano su questo {{deviceWord}}, quindi solo il server può effettuare l'accesso"
+      }
     },
     "origin": {
       "canTConnect": "Impossibile connettersi.",
@@ -1319,7 +1336,7 @@
     "yourDefaultsOrOneFolder": "I tuoi valori predefiniti, o quelli di una cartella",
     "myDefaults": "I miei valori predefiniti",
     "theServerSets": " Il server imposta {{adminCount}}.",
-    "aFolderWinsOverYour": "Una cartella ha la precedenza sui tuoi valori predefiniti, e i tuoi valori predefiniti hanno la precedenza su quelli del server. Un host mantiene qualsiasi valore che hai impostato direttamente su di esso.{{value}}",
+    "aFolderWinsOverYour": "Una cartella ha la precedenza sulle tue impostazioni predefinite, e le tue impostazioni predefinite hanno la precedenza su quelle del server. Un host mantiene qualsiasi valore che tu abbia impostato direttamente su di esso.{{value}}",
     "save": "Salva",
     "authentication": "Autenticazione",
     "none": "Nessuno",
@@ -2890,7 +2907,7 @@
       "signedIn": "Accesso effettuato",
       "close": "Chiudi",
       "linkYourTermixServer": "Collega il tuo server Termix",
-      "yourHostsCredentialsSnippetsAnd": "I tuoi host, credenziali, snippet e impostazioni verranno sincronizzati con esso e potrai utilizzare i suoi plugin. Tutto continuerà a funzionare su questo {{deviceWord}} anche quando il server non è disponibile.",
+      "yourHostsCredentialsSnippetsAnd": "I tuoi host, credenziali, snippet e impostazioni vengono sincronizzati con esso, e ottieni i suoi plugin. Tutto continua a funzionare su questo {{deviceWord}} quando il server non è disponibile.",
       "checking": "Verifica di {{host}} in corso...",
       "proxyAndClientCertificate": "Proxy e certificato client",
       "couldNotReachThatServer": "Impossibile raggiungere quel server. Controlla l'indirizzo o configura il proxy o il certificato client.",
@@ -2918,9 +2935,9 @@
       "or": "O",
       "continueWith": "Continua con {{label}}",
       "signInWithAPasskey": "Accedi con una passkey o una chiave di sicurezza",
-      "opensYourServerAposS": "Apre la pagina di accesso del server nel browser. Face ID, impronta digitale, NFC e chiavi USB funzionano lì. Richiede Termix 26.11.3 o superiore.",
+      "opensYourServerAposS": "Apre la pagina di accesso del tuo server nel browser. Face ID, impronta digitale, NFC e chiavi USB funzionano lì. Richiede Termix 26.11.3 o successivo.",
       "signInInTheBrowser": "Accedi nel browser",
-      "opensYourServerAposS2": "Apre la pagina di accesso del server, per tutto ciò che l'app non può fare qui. Richiede Termix 26.10.6 o superiore.",
+      "opensYourServerAposS2": "Apre la pagina di accesso del tuo server, per tutto ciò che l'app non può fare qui. Richiede Termix 26.10.6 o successivo.",
       "thisServerHasNoSign": "Questo server non ha un metodo di accesso abilitato che l'app possa utilizzare. Chiedi a chi lo gestisce o prova l'accesso tramite browser sopra.",
       "signInWithYourPassword": "Accedi con la tua password.",
       "signInFailed": "Accesso non riuscito",
@@ -2937,7 +2954,7 @@
       "code": "Codice",
       "the6DigitCodeFrom": "Il codice a 6 cifre dalla tua app di autenticazione o un codice di backup",
       "checkCode": "Verifica codice",
-      "thisAccountAsksForA": "Questo account richiede una chiave di sicurezza dopo la password. Accedi alla pagina del server nel browser per utilizzarla.",
+      "thisAccountAsksForA": "Questo account richiede una chiave di sicurezza dopo la password. Effettua l'accesso sulla pagina del server nel tuo browser per utilizzarla.",
       "useASecurityKeyIn": "Usa una chiave di sicurezza nel browser",
       "backToSignIn": "Torna all'accesso",
       "bringThisAposSHosts": "Portare con te gli host di questo {{deviceWord}}?",
@@ -3153,7 +3170,7 @@
         "howTallListRowsAnd": "Altezza delle righe delle liste e delle impostazioni"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Host, credenziali e snippet sono conservati in un file crittografato su questo{{deviceWord}}. Le statistiche di utilizzo sono disattivate a meno che non le attivi qui sotto. Un server collegato riceve solo ciò che gli consenti di sincronizzare.",
+        "hostsCredentialsAndSnippetsAre": "Host, credenziali e snippet sono conservati in un file crittografato su questo {{deviceWord}}. Le statistiche di utilizzo sono disattivate a meno che tu non le attivi qui sotto. Un server collegato riceve solo ciò che gli consenti di sincronizzare.",
         "recentHosts": "Host recenti",
         "forgetTheHostsYouOpened": "Dimentica gli host aperti di recente su ogni account",
         "recentHostsCleared": "Host recenti cancellati",
@@ -3390,7 +3407,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versione e aggiornamenti",
         "logs": "Log",
-        "latestLinesFromThisRun": "Ultime righe di questa esecuzione, per i report di bug"
+        "latestLinesFromThisRun": "Ultime righe di questa esecuzione, per i report di bug",
+        "pushNotifications": "Notifiche push",
+        "pushNotificationsDescription": "Avvisi dai tuoi server su questo telefono"
       },
       "sections": {
         "accountsAndSync": "Account e sincronizzazione",
@@ -3592,7 +3611,7 @@
       "onAHardwareKeyboardOff": "Su una tastiera fisica. Se disattivato, digita simboli come su un Mac.",
       "history": "Cronologia",
       "suggestCommands": "Suggerisci comandi",
-      "showsPastCommandsThatStart": "Mostra i comandi precedenti che iniziano con ciò che digiti",
+      "showsPastCommandsThatStart": "Comandi precedenti mentre digiti",
       "resetToDefault": "Ripristina predefiniti",
       "fontSize": "Dimensione del carattere",
       "aSizeFromTo": "Una dimensione da {{MIN_FONT_SIZE}} a {{MAX_FONT_SIZE}}.",
@@ -3615,7 +3634,7 @@
       "twoFactorAuthentication": "Autenticazione a due fattori",
       "loading": "Caricamento…",
       "scanThisQrCodeWith": "Scansiona questo codice QR con la tua app di autenticazione (Google Authenticator, Authy, ecc.), quindi inserisci il codice a 6 cifre per confermare.",
-      "verifyAmpEnable": "Verifica &amp; Abilita",
+      "verifyAmpEnable": "Verifica e attiva",
       "cancel": "Annulla",
       "saveYourBackupCodes": "Salva i tuoi codici di backup",
       "storeTheseSomewhereSafeEach": "Conservali in un luogo sicuro. Ogni codice può essere utilizzato una sola volta se perdi l'accesso alla tua app di autenticazione.",
@@ -3848,5 +3867,31 @@
     "shareCount_many": "Condividi con {{count}}",
     "shareCount_other": "Condividi con {{count}}",
     "removeAccess": "Rimuovi accesso"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Avvisi del server",
+      "critical": "Avvisi critici del server"
+    },
+    "severity": {
+      "info": "Tutto",
+      "warning": "Avvertenze e peggio",
+      "critical": "Solo critici"
+    },
+    "settings": {
+      "on": "Gli avvisi appaiono su questo telefono",
+      "off": "Disattivato",
+      "toggle": "Notifiche push per {{server}}",
+      "minSeverity": "Inviami",
+      "denied": "Le notifiche sono disattivate per Termix. Attivali nelle impostazioni del telefono.",
+      "openSettings": "Apri impostazioni",
+      "outdated": "Questo server richiede Alerts 1.4.0 o successivo per le notifiche push. Chiedi a un amministratore di aggiornare il plugin.",
+      "unavailable": "Effettua l'accesso a questo server e attiva il plugin Alerts per ricevere le notifiche.",
+      "error": "Impossibile raggiungere il server. Termix riproverà la prossima volta che l'app viene aperta.",
+      "notInThisBuild": "Questa versione non può mostrare le notifiche.",
+      "noServers": "Collega un server per ricevere i suoi avvisi qui.",
+      "pushHint": "Gli avvisi vengono inviati tramite Expo e Apple o Google, con il loro titolo e testo. Scegli quali nelle regole di Alerts sul server.",
+      "pollHint": "Questa versione non ha i servizi Google, quindi Termix controlla la presenza di nuovi avvisi in background, circa ogni 15 minuti."
+    }
   }
 }

@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Otvorené karty budú naďalej bežať pri prepínaní.",
       "unlink": "Odpojiť {{account}}",
       "linkAServer": "Prepojiť server",
-      "eachServerKeepsItsOwn": "Každý server si udrží vlastných hostiteľov, poverenia a nastavenia na tomto{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Každý server si na tomto {{deviceWord}} udržiava vlastné hosty, poverenia a nastavenia.",
       "signedIn": "Prihlásený",
       "signedOut": "Odhlásený",
       "syncedCopy": "Synchronizovaná kópia"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Obnoviť"
+    },
+    "pluginSettings": {
+      "loading": "Načítavajú sa nastavenia",
+      "forEveryone": "Pre všetkých na serveri",
+      "justForYou": "Len pre vás",
+      "couldNotSave": "Nepodarilo sa uložiť nastavenie",
+      "nothingYouCanChange": "Tu nie je nič, čo by ste mohli zmeniť. Tieto nastavenia môže zmeniť správca.",
+      "notANumber": "Toto nie je číslo",
+      "atLeast": "Musí byť {{min}} alebo viac",
+      "atMost": "Musí byť {{max}} alebo menej"
     }
   },
   "sessions": {
@@ -750,14 +760,21 @@
         "authenticationFailed": "Overenie zlyhalo: {{message}}",
         "theHostKeyWasNot": "Kľúč hostiteľa nebol dôveryhodný.",
         "loginCancelled": "Prihlásenie bolo zrušené.",
-        "notConnected": "Nie je pripojené"
+        "notConnected": "Nie je pripojené",
+        "signingInAs": "Prihlasujem sa ako {{user}} pomocou {{method}}",
+        "methodKey": "kľúč",
+        "methodPassword": "heslo",
+        "methodNone": "žiadne uložené prihlasovacie údaje"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Pripojenie bolo prerušené"
       },
       "thisBuildHasNoSsh": "Táto zostava nemá SSH engine. Použite aplikáciu zo obchodu alebo prepojte server Termix na pripojenie.",
       "theHostsOnThisAre": "Hostitelia na tomto {{deviceWord}} ešte nie sú otvorené.",
-      "thisServerSHostsAre": "Hostitelia tohto servera nie sú na tomto {{deviceWord}}. Zapnite plugin Sync na serveri na pripojenie z {{deviceWord}}."
+      "thisServerSHostsAre": "Hostitelia tohto servera nie sú na tomto {{deviceWord}}. Zapnite plugin Sync na serveri na pripojenie z {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Uložené prihlasovacie údaje pre tento host nie sú na tomto {{deviceWord}}, takže sa môže prihlásiť len server"
+      }
     },
     "origin": {
       "canTConnect": "Nedá sa pripojiť.",
@@ -2909,7 +2926,7 @@
       "signedIn": "Prihlásený",
       "close": "Zavrieť",
       "linkYourTermixServer": "Prepojiť váš Termix server",
-      "yourHostsCredentialsSnippetsAnd": "Vaše hosty, poverenia, útržky a nastavenia sa s ním synchronizujú a získate jeho pluginy. Všetko bude na tomto zariadení {{deviceWord}} fungovať aj vtedy, keď je server nedostupný.",
+      "yourHostsCredentialsSnippetsAnd": "Vaše hosty, poverenia, útržky a nastavenia sa s ním synchronizujú a získate jeho zásuvné moduly. Všetko bude na tomto {{deviceWord}} fungovať aj keď je server nedostupný.",
       "checking": "Kontrola {{host}}...",
       "proxyAndClientCertificate": "Proxy a klientsky certifikát",
       "couldNotReachThatServer": "Nepodarilo sa dosiahnuť tento server. Skontrolujte adresu alebo nastavte proxy alebo klientsky certifikát.",
@@ -2959,7 +2976,7 @@
       "thisAccountAsksForA": "Tento účet vyžaduje bezpečnostný kľúč po zadaní hesla. Pre jeho použitie sa prihláste na stránke servera vo vašom prehliadači.",
       "useASecurityKeyIn": "Použiť bezpečnostný kľúč v prehliadači",
       "backToSignIn": "Späť na prihlásenie",
-      "bringThisAposSHosts": "Preniesť aj hostov z tohto {{deviceWord}}?",
+      "bringThisAposSHosts": "Preniesť aj hosty z tohto {{deviceWord}}?",
       "thisHasTheyStayOn": "Tento {{deviceWord}} má {{what}}. Zostanú na tomto zariadení v každom prípade.",
       "merge": "Spojiť",
       "copyThemToTooSo": "Skopírovať ich aj na {{serverName}}, aby sa synchronizovali. Tieto, ktoré vyzerajú rovnako ako host servera, budú preskočené.",
@@ -3172,7 +3189,7 @@
         "howTallListRowsAnd": "Výška riadkov v zoznamoch a nastavení"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Hostiteľské servery, poverenia a úryvky sú uložené v šifrovanom súbore na tomto {{deviceWord}}. Štatistiky používania sú vypnuté, pokiaľ ich nižšie nezapnete. Prepojený server dostane len to, čo mu povolíte synchronizovať.",
+        "hostsCredentialsAndSnippetsAre": "Hosty, poverenia a útržky sú uložené v šifrovanom súbore na tomto {{deviceWord}}. Štatistiky používania sú vypnuté, pokiaľ ich nižšie nezapnete. Prepojený server dostane len to, čo mu povolíte synchronizovať.",
         "recentHosts": "Nedávne hostiteľské servery",
         "forgetTheHostsYouOpened": "Zabudnúť na hostiteľské servery, ktoré ste nedávno otvorili, na všetkých účtoch",
         "recentHostsCleared": "Nedávne hostiteľské servery boli vymazané",
@@ -3409,7 +3426,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Verzia a aktualizácie",
         "logs": "Protokoly",
-        "latestLinesFromThisRun": "Najnovšie riadky z tohto spustenia, pre hlásenia chýb"
+        "latestLinesFromThisRun": "Najnovšie riadky z tohto spustenia, pre hlásenia chýb",
+        "pushNotifications": "Push notifikácie",
+        "pushNotificationsDescription": "Upozornenia z vašich serverov na tomto telefóne"
       },
       "sections": {
         "accountsAndSync": "Účty a synchronizácia",
@@ -3611,7 +3630,7 @@
       "onAHardwareKeyboardOff": "Na hardvérovej klávesnici. Vypnuté píše symboly ako na Macu.",
       "history": "História",
       "suggestCommands": "Navrhovať príkazy",
-      "showsPastCommandsThatStart": "Zobrazuje minulé príkazy, ktoré začínajú tým, čo píšete",
+      "showsPastCommandsThatStart": "Minulé príkazy pri písaní",
       "resetToDefault": "Obnoviť predvolené",
       "fontSize": "Veľkosť písma",
       "aSizeFromTo": "Veľkosť od {{MIN_FONT_SIZE}} do {{MAX_FONT_SIZE}}.",
@@ -3634,7 +3653,7 @@
       "twoFactorAuthentication": "Dvojfaktorové overenie",
       "loading": "Načítava sa…",
       "scanThisQrCodeWith": "Naskenujte tento QR kód pomocou aplikácie na overovanie (Google Authenticator, Authy atď.) a potom zadajte 6-miestny kód na potvrdenie.",
-      "verifyAmpEnable": "Overiť &amp; povoliť",
+      "verifyAmpEnable": "Overiť a povoliť",
       "cancel": "Zrušiť",
       "saveYourBackupCodes": "Uložte si svoje záložné kódy",
       "storeTheseSomewhereSafeEach": "Uložte ich na bezpečné miesto. Každý kód sa dá použiť len raz, ak stratíte prístup k svojej overovacej aplikácii.",
@@ -3871,5 +3890,31 @@
     "shareCount_many": "Zdieľať s {{count}}",
     "shareCount_other": "Zdieľať s {{count}}",
     "removeAccess": "Odstrániť prístup"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Upozornenia zo servera",
+      "critical": "Kritické upozornenia zo servera"
+    },
+    "severity": {
+      "info": "Všetko",
+      "warning": "Varovania a horšie",
+      "critical": "Len kritické"
+    },
+    "settings": {
+      "on": "Upozornenia sa zobrazujú na tomto telefóne",
+      "off": "Vypnuté",
+      "toggle": "Push notifikácie pre {{server}}",
+      "minSeverity": "Poslať mi",
+      "denied": "Notifikácie pre Termix sú vypnuté. Zapnite ich v nastaveniach telefónu.",
+      "openSettings": "Otvoriť nastavenia",
+      "outdated": "Tento server potrebuje zásuvný modul Alerts vo verzii 1.4.0 alebo novšej pre push notifikácie. Požiadajte správcu, aby aktualizoval zásuvný modul.",
+      "unavailable": "Prihláste sa na tento server a zapnite zásuvný modul Alerts, aby ste dostávali notifikácie.",
+      "error": "Nepodarilo sa spojiť so serverom. Termix to skúsi znova pri ďalšom otvorení aplikácie.",
+      "notInThisBuild": "Táto zostava nedokáže zobrazovať notifikácie.",
+      "noServers": "Prepojte server, aby ste tu dostávali jeho upozornenia.",
+      "pushHint": "Upozornenia sa odosielajú cez Expo a Apple alebo Google, vrátane ich názvu a textu. Vyberte, ktoré z nich chcete dostávať, v pravidlách Alerts na serveri.",
+      "pollHint": "Táto zostava nemá služby Google, takže Termix kontroluje nové upozornenia na pozadí približne každých 15 minút."
+    }
   }
 }

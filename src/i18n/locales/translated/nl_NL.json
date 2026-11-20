@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Open tabbladen blijven actief bij het wisselen.",
       "unlink": "{{account}} ontkoppelen",
       "linkAServer": "Een server koppelen",
-      "eachServerKeepsItsOwn": "Elke server bewaart zijn eigen hosts, referenties en instellingen op dit{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Elke server bewaart zijn eigen hosts, referenties en instellingen op dit {{deviceWord}}.",
       "signedIn": "Aangemeld",
       "signedOut": "Uitgelogd",
       "syncedCopy": "Gesynchroniseerde kopie"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Herladen"
+    },
+    "pluginSettings": {
+      "loading": "Instellingen laden",
+      "forEveryone": "Voor iedereen op de server",
+      "justForYou": "Alleen voor jou",
+      "couldNotSave": "De instelling kon niet worden opgeslagen",
+      "nothingYouCanChange": "Er is hier niets dat je kunt wijzigen. Een beheerder kan deze instellingen aanpassen.",
+      "notANumber": "Dit is geen getal",
+      "atLeast": "Het moet {{min}} of meer zijn",
+      "atMost": "Het moet {{max}} of minder zijn"
     }
   },
   "sessions": {
@@ -738,14 +748,21 @@
         "authenticationFailed": "Authenticatie mislukt: {{message}}",
         "theHostKeyWasNot": "De hostkey was niet vertrouwd.",
         "loginCancelled": "Inloggen geannuleerd.",
-        "notConnected": "Niet verbonden"
+        "notConnected": "Niet verbonden",
+        "signingInAs": "Inloggen als {{user}} met {{method}}",
+        "methodKey": "een sleutel",
+        "methodPassword": "een wachtwoord",
+        "methodNone": "geen opgeslagen inloggegevens"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "De verbinding werd verbroken"
       },
       "thisBuildHasNoSsh": "Deze build heeft geen SSH-engine. Gebruik de app uit de store of koppel een Termix-server om te verbinden.",
       "theHostsOnThisAre": "De hosts op deze {{deviceWord}} zijn nog niet geopend.",
-      "thisServerSHostsAre": "De hosts van deze server staan niet op deze {{deviceWord}}. Schakel de Sync-plugin op de server in om vanaf de {{deviceWord}} te verbinden."
+      "thisServerSHostsAre": "De hosts van deze server staan niet op deze {{deviceWord}}. Schakel de Sync-plugin op de server in om vanaf de {{deviceWord}} te verbinden.",
+      "resolve": {
+        "theSavedLoginIsNot": "De opgeslagen inloggegevens voor deze host staan niet op dit {{deviceWord}}, dus alleen de server kan inloggen"
+      }
     },
     "origin": {
       "canTConnect": "Kan niet verbinden.",
@@ -1311,7 +1328,7 @@
     "yourDefaultsOrOneFolder": "Jouw instellingen, of die van één map",
     "myDefaults": "Mijn instellingen",
     "theServerSets": " De server stelt {{adminCount}} in.",
-    "aFolderWinsOverYour": "Een map heeft voorrang op jouw instellingen, en jouw instellingen hebben voorrang op die van de server. Een host behoudt elke waarde die je er zelf aan hebt toegekend.{{value}}",
+    "aFolderWinsOverYour": "Een map heeft voorrang op jouw standaardwaarden, en jouw standaardwaarden hebben voorrang op die van de server. Een host behoudt elke waarde die je er zelf aan hebt toegewezen.{{value}}",
     "save": "Opslaan",
     "authentication": "Authenticatie",
     "none": "Geen",
@@ -2871,7 +2888,7 @@
       "signedIn": "Ingelogd",
       "close": "Sluiten",
       "linkYourTermixServer": "Termix-server koppelen",
-      "yourHostsCredentialsSnippetsAnd": "Je hosts, inloggegevens, snippets en instellingen worden hiermee gesynchroniseerd en je krijgt de plugins. Alles werkt op deze {{deviceWord}} ook als de server niet bereikbaar is.",
+      "yourHostsCredentialsSnippetsAnd": "Jouw hosts, referenties, codefragmenten en instellingen worden hiermee gesynchroniseerd, en je krijgt de plugins van de server. Alles blijft werken op dit {{deviceWord}} als de server niet beschikbaar is.",
       "checking": "{{host}} controleren...",
       "proxyAndClientCertificate": "Proxy en cliëntcertificaat",
       "couldNotReachThatServer": "Kon die server niet bereiken. Controleer het adres of stel de proxy of cliëntcertificaat in.",
@@ -2918,10 +2935,10 @@
       "code": "Code",
       "the6DigitCodeFrom": "De 6-cijferige code uit je authenticator-app, of een back-upcode",
       "checkCode": "Code controleren",
-      "thisAccountAsksForA": "Dit account vraagt om een beveiligingssleutel na het wachtwoord. Log in op de serverpagina in je browser om deze te gebruiken.",
+      "thisAccountAsksForA": "Dit account vraagt om een beveiligingssleutel na het wachtwoord. Log in op de pagina van de server in je browser om deze te gebruiken.",
       "useASecurityKeyIn": "Beveiligingssleutel gebruiken in de browser",
       "backToSignIn": "Terug naar inloggen",
-      "bringThisAposSHosts": "Hosts van dit {{deviceWord}} meenemen?",
+      "bringThisAposSHosts": "De hosts van dit {{deviceWord}} meenemen?",
       "thisHasTheyStayOn": "Dit {{deviceWord}} heeft {{what}}. Deze blijven op dit apparaat, ongeacht je keuze.",
       "merge": "Samenvoegen",
       "copyThemToTooSo": "Kopieer ze ook naar {{serverName}}, zodat ze synchroniseren. Items die lijken op een serverhost worden overgeslagen.",
@@ -3134,7 +3151,7 @@
         "howTallListRowsAnd": "Hoe hoog lijstregels en instellingen zijn"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Hosts, referenties en snippets worden opgeslagen in een versleuteld bestand op deze{{deviceWord}}. Gebruiksstatistieken zijn uit, tenzij je ze hieronder inschakelt. Een gekoppelde server ontvangt alleen wat je synchroniseert.",
+        "hostsCredentialsAndSnippetsAre": "Hosts, referenties en codefragmenten worden bewaard in een versleuteld bestand op dit {{deviceWord}}. Gebruiksstatistieken zijn uitgeschreven tenzij je ze hieronder inschakelt. Een gekoppelde server ontvangt alleen wat je toestaat te synchroniseren.",
         "recentHosts": "Recente hosts",
         "forgetTheHostsYouOpened": "Vergeet de hosts die je recentelijk hebt geopend op elk account",
         "recentHostsCleared": "Recente hosts gewist",
@@ -3371,7 +3388,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versie en updates",
         "logs": "Logs",
-        "latestLinesFromThisRun": "Laatste regels van deze uitvoering, voor bugrapporten"
+        "latestLinesFromThisRun": "Laatste regels van deze uitvoering, voor bugrapporten",
+        "pushNotifications": "Pushmeldingen",
+        "pushNotificationsDescription": "Meldingen van je servers op deze telefoon"
       },
       "sections": {
         "accountsAndSync": "Accounts en synchronisatie",
@@ -3573,7 +3592,7 @@
       "onAHardwareKeyboardOff": "Op een hardwaretoetsenbord. Uit typt symbolen zoals op een Mac.",
       "history": "Geschiedenis",
       "suggestCommands": "Commando's voorstellen",
-      "showsPastCommandsThatStart": "Toont eerdere commando's die beginnen met wat je typt",
+      "showsPastCommandsThatStart": "Vorige opdrachten terwijl je typt",
       "resetToDefault": "Terug naar standaard",
       "fontSize": "Lettergrootte",
       "aSizeFromTo": "Een grootte van {{MIN_FONT_SIZE}} tot {{MAX_FONT_SIZE}}.",
@@ -3596,7 +3615,7 @@
       "twoFactorAuthentication": "Tweefactorauthenticatie",
       "loading": "Laden…",
       "scanThisQrCodeWith": "Scan deze QR-code met je authenticator-app (Google Authenticator, Authy, etc.) en voer vervolgens de 6-cijferige code in om te bevestigen.",
-      "verifyAmpEnable": "Verifiëren &amp; Inschakelen",
+      "verifyAmpEnable": "Verifiëren en inschakelen",
       "cancel": "Annuleren",
       "saveYourBackupCodes": "Bewaar je back-upcodes",
       "storeTheseSomewhereSafeEach": "Bewaar deze op een veilige plek. Elke code kan maar één keer worden gebruikt als je de toegang tot je authenticator verliest.",
@@ -3825,5 +3844,31 @@
     "shareCount_one": "Delen met {{count}}",
     "shareCount_other": "Delen met {{count}}",
     "removeAccess": "Toegang verwijderen"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Servermeldingen",
+      "critical": "Kritieke servermeldingen"
+    },
+    "severity": {
+      "info": "Alles",
+      "warning": "Waarschuwingen en erger",
+      "critical": "Alleen kritiek"
+    },
+    "settings": {
+      "on": "Meldingen verschijnen op deze telefoon",
+      "off": "Uit",
+      "toggle": "Pushmeldingen voor {{server}}",
+      "minSeverity": "Stuur mij",
+      "denied": "Meldingen zijn uitgeschakeld voor Termix. Schakel ze in via de instellingen van de telefoon.",
+      "openSettings": "Instellingen openen",
+      "outdated": "Deze server vereist Alerts 1.4.0 of nieuwer voor pushmeldingen. Vraag een beheerder om de plugin bij te werken.",
+      "unavailable": "Log in op deze server en schakel de Alerts-plugin in om meldingen te ontvangen.",
+      "error": "De server is niet bereikbaar. Termix probeert het opnieuw de volgende keer dat de app wordt geopend.",
+      "notInThisBuild": "Deze build kan geen meldingen weergeven.",
+      "noServers": "Koppel een server om de meldingen ervan hier te ontvangen.",
+      "pushHint": "Meldingen worden verzonden via Expo en Apple of Google, met hun titel en tekst. Kies welke in de Alerts-regels op de server.",
+      "pollHint": "Deze build heeft geen Google-services, dus Termix controleert op de achtergrond op nieuwe meldingen, ongeveer elke 15 minuten."
+    }
   }
 }

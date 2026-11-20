@@ -41,7 +41,8 @@
     },
     "terminalSessionsContext": {
       "thisFeatureIsTurnedOff": "Cette fonctionnalité est désactivée sur le serveur.",
-      "aTabWasNotReopened": "Un onglet n'a pas été rouvert car son hôte a disparu"
+      "aTabWasNotReopened": "Un onglet n'a pas été rouvert car son hôte a disparu",
+      "tabsWereNotReopenedBecause": "{{count}} onglet(s) n'ont pas été rouverts car leurs hôtes ont disparu"
     }
   },
   "accounts": {
@@ -86,7 +87,7 @@
       "openTabsKeepRunningWhen": "Les onglets ouverts restent actifs lors du changement de compte.",
       "unlink": "Dissocier {{account}}",
       "linkAServer": "Associer un serveur",
-      "eachServerKeepsItsOwn": "Chaque serveur conserve ses propres hôtes, identifiants et paramètres sur cet{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Chaque serveur conserve ses propres hôtes, identifiants et paramètres sur cet {{deviceWord}}.",
       "signedIn": "Connecté",
       "signedOut": "Déconnecté",
       "syncedCopy": "Copie synchronisée"
@@ -411,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Recharger"
+    },
+    "pluginSettings": {
+      "loading": "Chargement des paramètres",
+      "forEveryone": "Pour tous les utilisateurs du serveur",
+      "justForYou": "Uniquement pour vous",
+      "couldNotSave": "Impossible d'enregistrer le paramètre",
+      "nothingYouCanChange": "Il n'y a rien ici que vous puissiez modifier. Un administrateur peut changer ces paramètres.",
+      "notANumber": "Ce n'est pas un nombre",
+      "atLeast": "Il doit être de {{min}} ou plus",
+      "atMost": "Il doit être de {{max}} ou moins"
     }
   },
   "sessions": {
@@ -743,14 +754,21 @@
         "authenticationFailed": "Échec de l'authentification : {{message}}",
         "theHostKeyWasNot": "La clé de l'hôte n'a pas été approuvée.",
         "loginCancelled": "Connexion annulée.",
-        "notConnected": "Non connecté"
+        "notConnected": "Non connecté",
+        "signingInAs": "Connexion en tant que {{user}} avec {{method}}",
+        "methodKey": "une clé",
+        "methodPassword": "un mot de passe",
+        "methodNone": "aucune connexion enregistrée"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "La connexion a été interrompue"
       },
       "thisBuildHasNoSsh": "Cette version ne dispose pas de moteur SSH. Utilisez l'application du store ou liez un serveur Termix pour vous connecter.",
       "theHostsOnThisAre": "Les hôtes sur cet {{deviceWord}} ne sont pas encore ouverts.",
-      "thisServerSHostsAre": "Les hôtes de ce serveur ne sont pas sur cet {{deviceWord}}. Activez le plugin Sync sur le serveur pour vous connecter depuis cet {{deviceWord}}."
+      "thisServerSHostsAre": "Les hôtes de ce serveur ne sont pas sur cet {{deviceWord}}. Activez le plugin Sync sur le serveur pour vous connecter depuis cet {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "La connexion enregistrée pour cet hôte n'est pas sur cet {{deviceWord}}, seul le serveur peut donc se connecter"
+      }
     },
     "origin": {
       "canTConnect": "Connexion impossible.",
@@ -1318,7 +1336,7 @@
     "yourDefaultsOrOneFolder": "Vos paramètres par défaut, ou ceux d'un dossier",
     "myDefaults": "Mes paramètres par défaut",
     "theServerSets": " Le serveur définit {{adminCount}}.",
-    "aFolderWinsOverYour": "Un dossier a la priorité sur vos paramètres par défaut, et vos paramètres par défaut ont la priorité sur ceux du serveur. Un hôte conserve toute valeur que vous lui avez attribuée directement.{{value}}",
+    "aFolderWinsOverYour": "Un dossier prime sur vos paramètres par défaut, et vos paramètres par défaut priment sur ceux du serveur. Un hôte conserve toute valeur que vous lui avez attribuée directement.{{value}}",
     "save": "Enregistrer",
     "authentication": "Authentification",
     "none": "Aucun",
@@ -2889,7 +2907,7 @@
       "signedIn": "Connecté",
       "close": "Fermer",
       "linkYourTermixServer": "Associer votre serveur Termix",
-      "yourHostsCredentialsSnippetsAnd": "Vos hôtes, identifiants, extraits et paramètres sont synchronisés avec celui-ci, et vous bénéficiez de ses plugins. Tout continue de fonctionner sur ce {{deviceWord}} lorsque le serveur est indisponible.",
+      "yourHostsCredentialsSnippetsAnd": "Vos hôtes, identifiants, extraits et paramètres sont synchronisés avec celui-ci, et vous bénéficiez de ses plugins. Tout continue de fonctionner sur cet {{deviceWord}} lorsque le serveur est indisponible.",
       "checking": "Vérification de {{host}}...",
       "proxyAndClientCertificate": "Proxy et certificat client",
       "couldNotReachThatServer": "Impossible d'atteindre ce serveur. Vérifiez l'adresse, ou configurez le proxy ou le certificat client.",
@@ -2917,9 +2935,9 @@
       "or": "OU",
       "continueWith": "Continuer avec {{label}}",
       "signInWithAPasskey": "Se connecter avec une clé d'identification ou une clé de sécurité",
-      "opensYourServerAposS": "Ouvre la page de connexion de votre serveur dans le navigateur. Face ID, empreinte digitale, NFC et clés USB fonctionnent tous là-bas. Nécessite Termix 26.11.3 ou plus récent.",
+      "opensYourServerAposS": "Ouvre la page de connexion de votre serveur dans le navigateur. Face ID, empreinte digitale, NFC et clés USB fonctionnent tous là-bas. Nécessite Termix 26.11.3 ou une version ultérieure.",
       "signInInTheBrowser": "Se connecter dans le navigateur",
-      "opensYourServerAposS2": "Ouvre la page de connexion de votre serveur, pour tout ce que l'application ne peut pas faire ici. Nécessite Termix 26.10.6 ou plus récent.",
+      "opensYourServerAposS2": "Ouvre la page de connexion de votre serveur, pour tout ce que l'application ne peut pas faire ici. Nécessite Termix 26.10.6 ou une version ultérieure.",
       "thisServerHasNoSign": "Ce serveur n'a pas de méthode de connexion activée que l'application peut utiliser. Demandez à la personne qui le gère, ou essayez la connexion via le navigateur ci-dessus.",
       "signInWithYourPassword": "Connectez-vous avec votre mot de passe.",
       "signInFailed": "Échec de la connexion",
@@ -2939,7 +2957,7 @@
       "thisAccountAsksForA": "Ce compte demande une clé de sécurité après le mot de passe. Connectez-vous sur la page du serveur dans votre navigateur pour l'utiliser.",
       "useASecurityKeyIn": "Utiliser une clé de sécurité dans le navigateur",
       "backToSignIn": "Retour à la connexion",
-      "bringThisAposSHosts": "Apporter les hôtes de ce {{deviceWord}} ?",
+      "bringThisAposSHosts": "Apporter les hôtes de cet {{deviceWord}} ?",
       "thisHasTheyStayOn": "Ce {{deviceWord}} possède {{what}}. Ils restent sur cet appareil dans tous les cas.",
       "merge": "Fusionner",
       "copyThemToTooSo": "Copiez-les aussi sur {{serverName}}, pour qu'ils soient synchronisés. Ceux qui ressemblent à un hôte du serveur sont ignorés.",
@@ -3152,7 +3170,7 @@
         "howTallListRowsAnd": "Hauteur des lignes de liste et des paramètres"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Les hôtes, les identifiants et les extraits sont conservés dans un fichier chiffré sur cet{{deviceWord}}. Les statistiques d'utilisation sont désactivées sauf si vous les activez ci-dessous. Un serveur lié ne reçoit que ce que vous autorisez à synchroniser.",
+        "hostsCredentialsAndSnippetsAre": "Les hôtes, identifiants et extraits sont conservés dans un fichier chiffré sur cet {{deviceWord}}. Les statistiques d'utilisation sont désactivées sauf si vous les activez ci-dessous. Un serveur lié ne reçoit que ce que vous lui autorisez à synchroniser.",
         "recentHosts": "Hôtes récents",
         "forgetTheHostsYouOpened": "Oublier les hôtes ouverts récemment sur tous les comptes",
         "recentHostsCleared": "Hôtes récents effacés",
@@ -3389,7 +3407,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Version et mises à jour",
         "logs": "Journaux",
-        "latestLinesFromThisRun": "Dernières lignes de cette exécution, pour les rapports de bugs"
+        "latestLinesFromThisRun": "Dernières lignes de cette exécution, pour les rapports de bugs",
+        "pushNotifications": "Notifications push",
+        "pushNotificationsDescription": "Alertes de vos serveurs sur ce téléphone"
       },
       "sections": {
         "accountsAndSync": "Comptes et synchronisation",
@@ -3591,7 +3611,7 @@
       "onAHardwareKeyboardOff": "Sur un clavier physique. Désactivé, tape des symboles comme sur un Mac.",
       "history": "Historique",
       "suggestCommands": "Suggérer des commandes",
-      "showsPastCommandsThatStart": "Affiche les commandes passées qui commencent par ce que vous tapez",
+      "showsPastCommandsThatStart": "Commandes précédentes pendant la saisie",
       "resetToDefault": "Réinitialiser par défaut",
       "fontSize": "Taille de la police",
       "aSizeFromTo": "Une taille de {{MIN_FONT_SIZE}} à {{MAX_FONT_SIZE}}.",
@@ -3614,7 +3634,7 @@
       "twoFactorAuthentication": "Authentification à deux facteurs",
       "loading": "Chargement…",
       "scanThisQrCodeWith": "Scannez ce code QR avec votre application d'authentification (Google Authenticator, Authy, etc.), puis saisissez le code à 6 chiffres pour confirmer.",
-      "verifyAmpEnable": "Vérifier &amp; Activer",
+      "verifyAmpEnable": "Vérifier et activer",
       "cancel": "Annuler",
       "saveYourBackupCodes": "Enregistrez vos codes de secours",
       "storeTheseSomewhereSafeEach": "Conservez-les dans un endroit sûr. Chaque code ne peut être utilisé qu'une seule fois si vous perdez l'accès à votre application d'authentification.",
@@ -3847,5 +3867,31 @@
     "shareCount_many": "Partager avec {{count}} personnes",
     "shareCount_other": "Partager avec {{count}}",
     "removeAccess": "Supprimer l'accès"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Alertes serveur",
+      "critical": "Alertes serveur critiques"
+    },
+    "severity": {
+      "info": "Tout",
+      "warning": "Avertissements et plus grave",
+      "critical": "Uniquement les critiques"
+    },
+    "settings": {
+      "on": "Les alertes s'affichent sur ce téléphone",
+      "off": "Désactivé",
+      "toggle": "Notifications push pour {{server}}",
+      "minSeverity": "Envoyez-moi",
+      "denied": "Les notifications sont désactivées pour Termix. Activez-les dans les paramètres du téléphone.",
+      "openSettings": "Ouvrir les paramètres",
+      "outdated": "Ce serveur nécessite Alerts 1.4.0 ou une version ultérieure pour les notifications push. Demandez à un administrateur de mettre à jour le plugin.",
+      "unavailable": "Connectez-vous à ce serveur et activez le plugin Alerts pour recevoir des notifications.",
+      "error": "Impossible d'atteindre le serveur. Termix réessaiera la prochaine fois que l'application s'ouvrira.",
+      "notInThisBuild": "Cette version ne peut pas afficher de notifications.",
+      "noServers": "Liez un serveur pour recevoir ses alertes ici.",
+      "pushHint": "Les alertes sont envoyées via Expo et Apple ou Google, avec leur titre et leur texte. Choisissez lesquelles dans les règles d'Alertes sur le serveur.",
+      "pollHint": "Cette version ne dispose pas de services Google, donc Termix vérifie les nouvelles alertes en arrière-plan, environ toutes les 15 minutes."
+    }
   }
 }

@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Açık sekmeler değiştirdiğinizde çalışmaya devam eder.",
       "unlink": "{{account}} bağlantısını kaldır",
       "linkAServer": "Sunucu bağla",
-      "eachServerKeepsItsOwn": "Her sunucu kendi ana bilgisayarlarını, kimlik bilgilerini ve ayarlarını bu {{deviceWord}} üzerinde tutar.",
+      "eachServerKeepsItsOwn": "Her sunucu, bu {{deviceWord}} üzerinde kendi ana bilgisayarlarını, kimlik bilgilerini ve ayarlarını tutar.",
       "signedIn": "Giriş yapıldı",
       "signedOut": "Oturum kapatıldı",
       "syncedCopy": "Senkronize kopya"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Yenile"
+    },
+    "pluginSettings": {
+      "loading": "Ayarlar yükleniyor",
+      "forEveryone": "Sunucudaki herkes için",
+      "justForYou": "Sadece sizin için",
+      "couldNotSave": "Ayar kaydedilemedi",
+      "nothingYouCanChange": "Burada değiştirebileceğiniz bir şey yok. Bu ayarları bir yönetici değiştirebilir.",
+      "notANumber": "Bu bir sayı değil",
+      "atLeast": "{{min}} veya daha fazla olmalı",
+      "atMost": "{{max}} veya daha az olmalı"
     }
   },
   "sessions": {
@@ -738,14 +748,21 @@
         "authenticationFailed": "Kimlik doğrulama başarısız: {{message}}",
         "theHostKeyWasNot": "Ana bilgisayar anahtarına güvenilmedi.",
         "loginCancelled": "Oturum açma iptal edildi.",
-        "notConnected": "Bağlı değil"
+        "notConnected": "Bağlı değil",
+        "signingInAs": "{{user}} olarak {{method}} ile giriş yapılıyor",
+        "methodKey": "bir anahtar",
+        "methodPassword": "bir şifre",
+        "methodNone": "kayıtlı giriş yok"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Bağlantı kesildi"
       },
       "thisBuildHasNoSsh": "Bu derlemede SSH motoru yok. Mağazadaki uygulamayı kullanın veya bağlanmak için bir Termix sunucusu bağlayın.",
       "theHostsOnThisAre": "Bu {{deviceWord}}'daki ana bilgisayarlar henüz açık değil.",
-      "thisServerSHostsAre": "Bu sunucunun ana bilgisayarları bu {{deviceWord}}'da değil. {{deviceWord}}'dan bağlanmak için sunucuda Senkronizasyon eklentisini açın."
+      "thisServerSHostsAre": "Bu sunucunun ana bilgisayarları bu {{deviceWord}}'da değil. {{deviceWord}}'dan bağlanmak için sunucuda Senkronizasyon eklentisini açın.",
+      "resolve": {
+        "theSavedLoginIsNot": "Bu ana bilgisayar için kayıtlı giriş bu {{deviceWord}} üzerinde olmadığından, yalnızca sunucu giriş yapabilir"
+      }
     },
     "origin": {
       "canTConnect": "Bağlanılamıyor.",
@@ -1311,7 +1328,7 @@
     "yourDefaultsOrOneFolder": "Sizin varsayılanlarınız veya bir klasörün",
     "myDefaults": "Benim varsayılanlarım",
     "theServerSets": " Sunucu {{adminCount}} tane ayarlar.",
-    "aFolderWinsOverYour": "Bir klasör, sizin varsayılanlarınıza; sizin varsayılanlarınız da sunucunun varsayılanlarına üstün gelir. Bir sunucu, kendisine doğrudan ayarladığınız her değeri korur.{{value}}",
+    "aFolderWinsOverYour": "Bir klasör varsayılanlarınıza öncelik kazanır, varsayılanlarınız da sunucunun varsayılanlarına öncelik kazanır. Bir ana bilgisayar, üzerinde kendiniz belirlediğiniz her değeri korur.{{value}}",
     "save": "Kaydet",
     "authentication": "Kimlik Doğrulama",
     "none": "Yok",
@@ -2871,7 +2888,7 @@
       "signedIn": "Giriş yapıldı",
       "close": "Kapat",
       "linkYourTermixServer": "Termix sunucunuzu bağlayın",
-      "yourHostsCredentialsSnippetsAnd": "Sunucularınız, kimlik bilgileriniz, komut parçacıklarınız ve ayarlarınız senkronize edilir ve eklentilerinizi kullanabilirsiniz. Sunucu erişilemez olduğunda her şey bu {{deviceWord}}'de çalışmaya devam eder.",
+      "yourHostsCredentialsSnippetsAnd": "Ana bilgisayarlarınız, kimlik bilgileriniz, kod parçacıklarınız ve ayarlarınız bununla senkronize olur ve eklentilerini alırsınız. Sunucu yokken her şey bu {{deviceWord}} üzerinde çalışmaya devam eder.",
       "checking": "{{host}} kontrol ediliyor...",
       "proxyAndClientCertificate": "Proxy ve istemci sertifikası",
       "couldNotReachThatServer": "Bu sunucuya ulaşılamadı. Adresi kontrol edin veya proxy ve istemci sertifikasını yapılandırın.",
@@ -2899,9 +2916,9 @@
       "or": "VEYA",
       "continueWith": "{{label}} ile devam et",
       "signInWithAPasskey": "Geçit anahtarı veya güvenlik anahtarı ile oturum aç",
-      "opensYourServerAposS": "Tarayıcıda sunucunuzun oturum açma sayfasını açar. Face ID, parmak izi, NFC ve USB anahtarları burada çalışır. Termix 26.11.3 veya daha yeni bir sürüm gerektirir.",
+      "opensYourServerAposS": "Tarayıcıda sunucunuzun giriş sayfasını açar. Face ID, parmak izi, NFC ve USB anahtarları burada çalışır. Termix 26.11.3 veya daha yeni bir sürüm gerektirir.",
       "signInInTheBrowser": "Tarayıcıda oturum aç",
-      "opensYourServerAposS2": "Uygulamanın burada yapamadığı işlemler için sunucunuzun oturum açma sayfasını açar. Termix 26.10.6 veya daha yeni bir sürüm gerektirir.",
+      "opensYourServerAposS2": "Uygulamanın burada yapamadığı her şey için sunucunuzun giriş sayfasını açar. Termix 26.10.6 veya daha yeni bir sürüm gerektirir.",
       "thisServerHasNoSign": "Bu sunucuda uygulama tarafından kullanılabilen bir oturum açma yöntemi etkin değil. Sunucuyu yöneten kişiyle iletişime geçin veya yukarıdaki tarayıcı oturum açma seçeneğini deneyin.",
       "signInWithYourPassword": "Şifrenizle oturum açın.",
       "signInFailed": "Oturum açma başarısız oldu",
@@ -2918,10 +2935,10 @@
       "code": "Kod",
       "the6DigitCodeFrom": "Kimlik doğrulayıcı uygulamanızdan gelen 6 haneli kod veya yedek kod",
       "checkCode": "Kodu kontrol et",
-      "thisAccountAsksForA": "Bu hesap, şifreden sonra bir güvenlik anahtarı istiyor. Kullanmak için tarayıcınızda sunucunun sayfasında oturum açın.",
+      "thisAccountAsksForA": "Bu hesap, şifreden sonra bir güvenlik anahtarı ister. Kullanmak için tarayıcınızda sunucunun sayfasında giriş yapın.",
       "useASecurityKeyIn": "Tarayıcıda güvenlik anahtarı kullan",
       "backToSignIn": "Oturum açmaya dön",
-      "bringThisAposSHosts": "Bu {{deviceWord}}'ün ana bilgisayarlarını da taşıyayım mı?",
+      "bringThisAposSHosts": "Bu {{deviceWord}}'nun ana bilgisayarlarını da getirilsin mi?",
       "thisHasTheyStayOn": "Bu {{deviceWord}}'de {{what}} var. Her durumda bunlar bu cihazda kalır.",
       "merge": "Birleştir",
       "copyThemToTooSo": "Senkronize olmaları için {{serverName}}'e de kopyalayın. Sunucu ana bilgisayarına benzer olanlar atlanır.",
@@ -3134,7 +3151,7 @@
         "howTallListRowsAnd": "Liste satırlarının ve ayarların ne kadar yüksek olacağı"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Ana bilgisayarlar, kimlik bilgileri ve kod parçacıkları bu {{deviceWord}} üzerinde şifrelenmiş bir dosyada saklanır. Kullanım istatistikleri, aşağıda etkinleştirmedikçe kapalıdır. Bağlı bir sunucu yalnızca senkronize etmenize izin verdiğiniz verileri alır.",
+        "hostsCredentialsAndSnippetsAre": "Ana bilgisayarlar, kimlik bilgileri ve kod parçacıkları bu {{deviceWord}} üzerinde şifrelenmiş bir dosyada tutulur. Kullanım istatistikleri, aşağıda etkinleştirmedikçe kapalıdır. Bağlı bir sunucu yalnızca senkronize etmesine izin verdiğiniz şeyleri alır.",
         "recentHosts": "Son ana bilgisayarlar",
         "forgetTheHostsYouOpened": "Her hesapta yakın zamanda açtığınız ana bilgisayarları unut",
         "recentHostsCleared": "Son ana bilgisayarlar temizlendi",
@@ -3371,7 +3388,9 @@
         "termixMobile": "Termix Mobil",
         "versionAndUpdates": "Sürüm ve güncellemeler",
         "logs": "Günlükler",
-        "latestLinesFromThisRun": "Hata raporları için bu çalışmadan en son satırlar"
+        "latestLinesFromThisRun": "Hata raporları için bu çalışmadan en son satırlar",
+        "pushNotifications": "Anlık bildirimler",
+        "pushNotificationsDescription": "Bu telefonda sunucularınızdan gelen uyarılar"
       },
       "sections": {
         "accountsAndSync": "Hesaplar ve senkronizasyon",
@@ -3573,7 +3592,7 @@
       "onAHardwareKeyboardOff": "Donanım klavyesinde. Kapalıyken Mac'te olduğu gibi semboller yazar.",
       "history": "Geçmiş",
       "suggestCommands": "Komut öner",
-      "showsPastCommandsThatStart": "Yazdığınızla başlayan geçmiş komutları gösterir",
+      "showsPastCommandsThatStart": "Yazarken geçmiş komutlar",
       "resetToDefault": "Varsayılana sıfırla",
       "fontSize": "Yazı tipi boyutu",
       "aSizeFromTo": "{{MIN_FONT_SIZE}} ile {{MAX_FONT_SIZE}} arasında bir boyut.",
@@ -3596,7 +3615,7 @@
       "twoFactorAuthentication": "İki faktörlü kimlik doğrulama",
       "loading": "Yükleniyor…",
       "scanThisQrCodeWith": "Bu QR kodunu doğrulayıcı uygulamanızla (Google Authenticator, Authy vb.) tarayın, ardından onaylamak için 6 haneli kodu girin.",
-      "verifyAmpEnable": "Doğrula &amp; Etkinleştir",
+      "verifyAmpEnable": "Doğrula ve etkinleştir",
       "cancel": "İptal",
       "saveYourBackupCodes": "Yedek kodlarınızı kaydedin",
       "storeTheseSomewhereSafeEach": "Bunları güvenli bir yerde saklayın. Doğrulayıcınıza erişiminizi kaybederseniz her kod yalnızca bir kez kullanılabilir.",
@@ -3825,5 +3844,31 @@
     "shareCount_one": "{{count}} kişiyle paylaş",
     "shareCount_other": "{{count}} kişiyle paylaş",
     "removeAccess": "Erişimi kaldır"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Sunucu uyarıları",
+      "critical": "Kritik sunucu uyarıları"
+    },
+    "severity": {
+      "info": "Her şey",
+      "warning": "Uyarılar ve daha fazlası",
+      "critical": "Yalnızca kritik"
+    },
+    "settings": {
+      "on": "Uyarılar bu telefonda görünür",
+      "off": "Kapalı",
+      "toggle": "{{server}} için anlık bildirimler",
+      "minSeverity": "Bana şunları gönder",
+      "denied": "Termix için bildirimler kapalı. Telefonun ayarlarından açın.",
+      "openSettings": "Ayarları aç",
+      "outdated": "Bu sunucu, anlık bildirimler için Alerts 1.4.0 veya daha yeni bir sürüm gerektiriyor. Bir yöneticiden eklentiyi güncellemesini isteyin.",
+      "unavailable": "Bildirim almak için bu sunucuya giriş yapın ve Alerts eklentisini açın.",
+      "error": "Sunucuya ulaşılamadı. Termix, uygulama bir sonraki açılışta tekrar deneyecek.",
+      "notInThisBuild": "Bu derleme bildirimleri gösteremiyor.",
+      "noServers": "Uyarılarını burada almak için bir sunucu bağlayın.",
+      "pushHint": "Uyarılar, başlık ve metinleriyle birlikte Expo ve Apple veya Google üzerinden gönderilir. Sunucudaki Alerts kurallarında hangilerinin gönderileceğini seçin.",
+      "pollHint": "Bu derlemede Google hizmetleri yok, bu nedenle Termix arka planda yaklaşık her 15 dakikada bir yeni uyarıları kontrol eder."
+    }
   }
 }

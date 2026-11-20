@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Otvorene kartice nastavljaju raditi tijekom prebacivanja.",
       "unlink": "Odspoji {{account}}",
       "linkAServer": "Poveži poslužitelj",
-      "eachServerKeepsItsOwn": "Svaki poslužitelj čuva svoje domaćine, vjerodajnice i postavke na ovom {{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Svaki poslužitelj čuva svoje vlastite hostove, vjerodajnice i postavke na ovom {{deviceWord}}.",
       "signedIn": "Prijavljen",
       "signedOut": "Odjava",
       "syncedCopy": "Sinkronizirana kopija"
@@ -142,6 +142,7 @@
       "replaceCertificate": "Zamijeni certifikat",
       "pickAP12OrPfx": "Odaberi .p12 ili .pfx datoteku",
       "proxySignIn": "Prijava na proxy",
+      "thisIsSignedInTo": " Ovaj {{deviceWord}} je prijavljen u proxy.",
       "forCloudflareAccessAutheliaAuthentik": "Za Cloudflare Access, Authelia, Authentik i druge proxyje s vlastitom stranicom za prijavu.{{value}}",
       "signInToTheProxy": "Prijavi se na proxy",
       "forget": "Zaboravi",
@@ -411,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Osveži"
+    },
+    "pluginSettings": {
+      "loading": "Učitavanje postavki",
+      "forEveryone": "Za sve na poslužitelju",
+      "justForYou": "Samo za vas",
+      "couldNotSave": "Postavka se nije mogla spremiti",
+      "nothingYouCanChange": "Ovdje nema ništa što možete promijeniti. Administrator može promijeniti ove postavke.",
+      "notANumber": "To nije broj",
+      "atLeast": "Mora biti {{min}} ili više",
+      "atMost": "Mora biti {{max}} ili manje"
     }
   },
   "sessions": {
@@ -743,19 +754,27 @@
         "authenticationFailed": "Autentifikacija nije uspjela: {{message}}",
         "theHostKeyWasNot": "Ključ domaćina nije bio povjeren.",
         "loginCancelled": "Prijava otkazana.",
-        "notConnected": "Nije povezano"
+        "notConnected": "Nije povezano",
+        "signingInAs": "Prijava kao {{user}} s {{method}}",
+        "methodKey": "ključ",
+        "methodPassword": "lozinka",
+        "methodNone": "nema spremljene prijave"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Veza je prekinuta"
       },
       "thisBuildHasNoSsh": "Ova verzija nema SSH mehanizam. Koristite aplikaciju iz trgovine ili povežite Termix poslužitelj za povezivanje.",
       "theHostsOnThisAre": "Domaćini na ovom {{deviceWord}} još nisu otvoreni.",
-      "thisServerSHostsAre": "Domaćini ovog poslužitelja nisu na ovom {{deviceWord}}. Uključite Sync dodatak na poslužitelju za povezivanje s {{deviceWord}}."
+      "thisServerSHostsAre": "Domaćini ovog poslužitelja nisu na ovom {{deviceWord}}. Uključite Sync dodatak na poslužitelju za povezivanje s {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Spremljena prijava za ovaj host nije na ovom {{deviceWord}}, pa se samo poslužitelj može prijaviti"
+      }
     },
     "origin": {
       "canTConnect": "Nije moguće povezati se.",
       "canTConnectFromThe": "Nije moguće povezati se s ovog {{deviceWord}}.",
       "canTReachTheServer": "Nije moguće doseći poslužitelj.",
+      "theOnlyConnectsToSsh": "Ovaj {{deviceWord}} povezuje se samo s SSH i Telnet hostovima.",
       "connectThisHostThroughThe": "Poveži se na ovaj host putem poslužitelja",
       "connectThisHostFromThe": "Povežite se s ovim domaćinom s {{deviceWord}}",
       "termixServer": "Termix poslužitelj",
@@ -1317,7 +1336,7 @@
     "yourDefaultsOrOneFolder": "Vaše zadane vrijednosti ili vrijednosti jedne mape",
     "myDefaults": "Moje zadane vrijednosti",
     "theServerSets": " Poslužitelj postavlja {{adminCount}}.",
-    "aFolderWinsOverYour": "Postavke mape imaju prednost nad vašim zadanim vrijednostima, a vaše zadane vrijednosti imaju prednost nad onima poslužitelja. Host zadržava svaku vrijednost koju ste mu sami postavili.{{value}}",
+    "aFolderWinsOverYour": "Mapa ima prednost nad vašim zadanim postavkama, a vaše zadane postavke imaju prednost nad onima poslužitelja. Host zadržava svaku vrijednost koju ste sami postavili na njemu.{{value}}",
     "save": "Spremi",
     "authentication": "Autentifikacija",
     "none": "Ništa",
@@ -2888,7 +2907,7 @@
       "signedIn": "Prijavljeni",
       "close": "Zatvori",
       "linkYourTermixServer": "Povežite svoj Termix poslužitelj",
-      "yourHostsCredentialsSnippetsAnd": "Vaši domaćini, vjerodajnice, isječke i postavke sinkroniziraju se s njim, a dobivate njegove dodatke. Sve i dalje radi na ovom {{deviceWord}} kada je poslužitelj nedostupan.",
+      "yourHostsCredentialsSnippetsAnd": "Vaši hostovi, vjerodajnice, isječke i postavke sinkroniziraju se s njim, a vi dobivate njegove dodatke. Sve i dalje radi na ovom {{deviceWord}} kada poslužitelj nije dostupan.",
       "checking": "Provjeravam {{host}}...",
       "proxyAndClientCertificate": "Proxy i klijentski certifikat",
       "couldNotReachThatServer": "Nije moguće doseći taj poslužitelj. Provjerite adresu ili postavite proxy ili klijentski certifikat.",
@@ -2938,7 +2957,7 @@
       "thisAccountAsksForA": "Ovaj račun traži sigurnosni ključ nakon lozinke. Prijavite se na stranici poslužitelja u pregledniku da biste ga koristili.",
       "useASecurityKeyIn": "Koristi sigurnosni ključ u pregledniku",
       "backToSignIn": "Natrag na prijavu",
-      "bringThisAposSHosts": "Preuzeti hostove s ovog {{deviceWord}}?",
+      "bringThisAposSHosts": "Ponesete li hostove s ovog {{deviceWord}}?",
       "thisHasTheyStayOn": "Ovaj {{deviceWord}} ima {{what}}. Oni ostaju na ovom uređaju u svakom slučaju.",
       "merge": "Spoji",
       "copyThemToTooSo": "Kopiraj ih i na {{serverName}} kako bi se sinkronizirali. Oni koji izgledaju isto kao host na poslužitelju preskočit će se.",
@@ -3151,7 +3170,7 @@
         "howTallListRowsAnd": "Visina redaka u popisima i postavkama"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Hostovi, vjerodajnice i isječke čuvamo u šifriranoj datoteci na ovom {{deviceWord}}. Statistike korištenja su isključene osim ako ih ne uključite u nastavku. Povezani server prima samo ono što mu dopustite da sinkronizira.",
+        "hostsCredentialsAndSnippetsAre": "Hostovi, vjerodajnice i isječci čuvaju se u šifriranoj datoteci na ovom {{deviceWord}}. Statistika korištenja je isključena osim ako je ne uključite u nastavku. Povezani poslužitelj dobiva samo ono što mu dopustite da sinkronizira.",
         "recentHosts": "Nedavni hostovi",
         "forgetTheHostsYouOpened": "Zaboravi hostove koje si nedavno otvorio/la na svim računima",
         "recentHostsCleared": "Nedavni hostovi obrisani",
@@ -3388,7 +3407,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Verzija i ažuriranja",
         "logs": "Zapisnici",
-        "latestLinesFromThisRun": "Najnovije retke iz ove sesije, za prijavu grešaka"
+        "latestLinesFromThisRun": "Najnovije retke iz ove sesije, za prijavu grešaka",
+        "pushNotifications": "Push obavijesti",
+        "pushNotificationsDescription": "Upozorenja s vaših poslužitelja na ovom telefonu"
       },
       "sections": {
         "accountsAndSync": "Računi i sinkronizacija",
@@ -3590,7 +3611,7 @@
       "onAHardwareKeyboardOff": "Na fizičkoj tipkovnici. Isključeno tipka simbole kao na Macu.",
       "history": "Povijest",
       "suggestCommands": "Predloži naredbe",
-      "showsPastCommandsThatStart": "Prikazuje prošle naredbe koje počinju onim što upišete",
+      "showsPastCommandsThatStart": "Prošli zapovijedi dok tipkate",
       "resetToDefault": "Vrati na zadano",
       "fontSize": "Veličina fonta",
       "aSizeFromTo": "Veličina od {{MIN_FONT_SIZE}} do {{MAX_FONT_SIZE}}.",
@@ -3613,7 +3634,7 @@
       "twoFactorAuthentication": "Dvofaktorska autentifikacija",
       "loading": "Učitavanje…",
       "scanThisQrCodeWith": "Skenirajte ovaj QR kod pomoću aplikacije za autentifikaciju (Google Authenticator, Authy itd.), a zatim unesite 6-znamenkasti kod za potvrdu.",
-      "verifyAmpEnable": "Potvrdi &amp; Omogući",
+      "verifyAmpEnable": "Provjeri i omogući",
       "cancel": "Otkaži",
       "saveYourBackupCodes": "Spremite svoje rezervne kodove",
       "storeTheseSomewhereSafeEach": "Spremite ih na sigurno mjesto. Svaki kod se može koristiti samo jednom ako izgubite pristup svojoj aplikaciji za autentifikaciju.",
@@ -3846,5 +3867,31 @@
     "shareCount_few": "Dijeli s {{count}}",
     "shareCount_other": "Dijeli s {{count}}",
     "removeAccess": "Ukloni pristup"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Upozorenja poslužitelja",
+      "critical": "Kritična upozorenja poslužitelja"
+    },
+    "severity": {
+      "info": "Sve",
+      "warning": "Upozorenja i gore",
+      "critical": "Samo kritična"
+    },
+    "settings": {
+      "on": "Upozorenja se prikazuju na ovom telefonu",
+      "off": "Isključeno",
+      "toggle": "Push obavijesti za {{server}}",
+      "minSeverity": "Pošalji mi",
+      "denied": "Obavijesti su isključene za Termix. Uključite ih u postavkama telefona.",
+      "openSettings": "Otvori postavke",
+      "outdated": "Ovaj poslužitelj zahtijeva Alerts 1.4.0 ili noviji za push obavijesti. Zatražite od administratora da ažurira dodatak.",
+      "unavailable": "Prijavite se na ovaj poslužitelj i uključite dodatak Alerts da biste dobili obavijesti.",
+      "error": "Poslužitelj nije dostupan. Termix će pokušati ponovno sljedeći put kada se aplikacija otvori.",
+      "notInThisBuild": "Ova verzija ne može prikazivati obavijesti.",
+      "noServers": "Povežite poslužitelj da biste ovdje dobili njegova upozorenja.",
+      "pushHint": "Upozorenja se šalju putem Expoa te Applea ili Googlea, s njihovim naslovom i tekstom. Odaberite koja u pravilima za Alerts na poslužitelju.",
+      "pollHint": "Ova verzija nema Google usluge, pa Termix provjerava nova upozorenja u pozadini, otprilike svakih 15 minuta."
+    }
   }
 }

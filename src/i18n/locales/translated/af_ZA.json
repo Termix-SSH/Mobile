@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Oop oortjies bly loop wanneer jy wissel.",
       "unlink": "Ontkoppel {{account}}",
       "linkAServer": "Koppel 'n bediener",
-      "eachServerKeepsItsOwn": "Elke bediener hou sy eie gasheer, geloofsbriewe en instellings op hierdie{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Elke bediener hou sy eie gasheer, geloofsbriewe en instellings op hierdie {{deviceWord}}.",
       "signedIn": "Aangemeld",
       "signedOut": "Uitgelog",
       "syncedCopy": "Geskikde kopie"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Herlaai"
+    },
+    "pluginSettings": {
+      "loading": "Laai instellings",
+      "forEveryone": "Vir almal op die bediener",
+      "justForYou": "Net vir jou",
+      "couldNotSave": "Kon nie die instelling stoor nie",
+      "nothingYouCanChange": "Daar is niks hier wat jy kan verander nie. 'n Admin kan hierdie instellings verander.",
+      "notANumber": "Dit is nie 'n getal nie",
+      "atLeast": "Dit moet {{min}} of meer wees",
+      "atMost": "Dit moet {{max}} of minder wees"
     }
   },
   "sessions": {
@@ -738,14 +748,21 @@
         "authenticationFailed": "Verifikasie misluk: {{message}}",
         "theHostKeyWasNot": "Die gasheer sleutel is nie vertrou nie.",
         "loginCancelled": "Aanmeld gekanselleer.",
-        "notConnected": "Nie gekoppel nie"
+        "notConnected": "Nie gekoppel nie",
+        "signingInAs": "Teken in as {{user}} met {{method}}",
+        "methodKey": "'n sleutel",
+        "methodPassword": "'n wagwoord",
+        "methodNone": "geen gestoorde aanmelding nie"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Die verbinding is verbroken"
       },
       "thisBuildHasNoSsh": "Hierdie bou het geen SSH-enjin nie. Gebruik die program uit die winkel, of koppel 'n Termix-bedriener om te verbind.",
       "theHostsOnThisAre": "Die gasheers op hierdie {{deviceWord}} is nog nie oop nie.",
-      "thisServerSHostsAre": "Hierdie bediener se gasheers is nie op hierdie {{deviceWord}} nie. Skakel die Sinkroniseer-plug-in op die bediener aan om vanaf die {{deviceWord}} te verbind."
+      "thisServerSHostsAre": "Hierdie bediener se gasheers is nie op hierdie {{deviceWord}} nie. Skakel die Sinkroniseer-plug-in op die bediener aan om vanaf die {{deviceWord}} te verbind.",
+      "resolve": {
+        "theSavedLoginIsNot": "Die gestoorde aanmelding vir hierdie gasheer is nie op hierdie {{deviceWord}} nie, dus kan slegs die bediener aanmeld"
+      }
     },
     "origin": {
       "canTConnect": "Kan nie verbind nie.",
@@ -1311,7 +1328,7 @@
     "yourDefaultsOrOneFolder": "Jou verstekke, of een vouer se",
     "myDefaults": "My verstekke",
     "theServerSets": " Die bediener stel {{adminCount}}.",
-    "aFolderWinsOverYour": "N vouer wen oor jou verstekke, en jou verstekke wen oor die bediener s'n. 'n Gasheer behou enige waarde wat jy self daarop gestel het.{{value}}",
+    "aFolderWinsOverYour": "'n Map wen oor jou standaarde, en jou standaarde wen oor die bediener s'n. 'n Gasheer hou enige waarde wat jy self daarop stel.{{value}}",
     "save": "Stoor",
     "authentication": "Verifikasie",
     "none": "Geen",
@@ -2781,6 +2798,7 @@
     "transfer": {
       "import": {
         "hostBadPort": "Gasheerder \"{{name}}\": ongeldige poort",
+        "hostJumpIsNotIn": "Gasheer \"{{name}}\": sprong {{value}} is nie in die lêer nie, so dit is uitgesluit",
         "credential": "Aangifte {{name}}: {{error}}",
         "noValidHostEntriesFound": "Geen geldige Gasheerder-inskrywings gevind in die SSH-konfigurasiebêre nie",
         "credentialWasNotFound": "{{label}}: aangifte {{value}} is nie gevind nie"
@@ -2870,7 +2888,7 @@
       "signedIn": "Ingemeld",
       "close": "Maak toe",
       "linkYourTermixServer": "Koppel jou Termix-bedriener",
-      "yourHostsCredentialsSnippetsAnd": "Jou bedieners, geloofsbriewe, fragmente en instellings word daarmee gesinchroniseer, en jy kry sy plugins. Alles werk steeds op hierdie {{deviceWord}} wanneer die bediener afwesig is.",
+      "yourHostsCredentialsSnippetsAnd": "Jou gasheer, geloofsbriewe, fragmente en instellings sinkroniseer daarmee, en jy kry sy plugins. Alles gaan voort op hierdie {{deviceWord}} wanneer die bediener weg is.",
       "checking": "Kontroleer {{host}}...",
       "proxyAndClientCertificate": "Proxy en kliëntsertifikaat",
       "couldNotReachThatServer": "Kon nie daardie bediener bereik nie. Kontroleer die adres, of stel die proxy of kliëntsertifikaat op.",
@@ -2900,7 +2918,7 @@
       "signInWithAPasskey": "Teken aan met 'n passkey of sekuriteitsleutel",
       "opensYourServerAposS": "Maak jou bediener se aanmeldbladsy oop in die blaaier. Face ID, vingerafdruk, NFC en USB-sleutels werk almal daar. Vereis Termix 26.11.3 of nuwer.",
       "signInInTheBrowser": "Teken aan in die blaaier",
-      "opensYourServerAposS2": "Maak jou bediener se aanmeldbladsy oop, vir alles wat die app nie hier kan doen nie. Vereis Termix 26.10.6 of nuwer.",
+      "opensYourServerAposS2": "Maak jou bediener se aanmeldbladsy oop, vir alles wat die app hier nie kan doen nie. Vereis Termix 26.10.6 of nuwer.",
       "thisServerHasNoSign": "Hierdie bediener het geen aanmelding ingeskakel wat die app kan gebruik nie. Vra wie dit bestuur, of probeer die blaaier-aanmelding hierbo.",
       "signInWithYourPassword": "Teken aan met jou wagwoord.",
       "signInFailed": "Aanmelding het misluk",
@@ -2917,10 +2935,10 @@
       "code": "Kode",
       "the6DigitCodeFrom": "Die 6-syfer kode van jou autentikator-app, of 'n rugsteunkode",
       "checkCode": "Kontroleer kode",
-      "thisAccountAsksForA": "Hierdie rekening vra vir 'n sekuriteitsleutel na die wagwoord. Teken aan op die bediener se bladsy in jou blaaier om dit te gebruik.",
+      "thisAccountAsksForA": "Hierdie rekening vra vir 'n sekuriteitsleutel na die wagwoord. Meld aan op die bediener se bladsy in jou blaaier om dit te gebruik.",
       "useASecurityKeyIn": "Gebruik 'n sekuriteitsleutel in die blaaier",
       "backToSignIn": "Terug na aanmelding",
-      "bringThisAposSHosts": "Neem hierdie {{deviceWord}} se gasheerme saam?",
+      "bringThisAposSHosts": "Neem hierdie {{deviceWord}} se gasheer saam?",
       "thisHasTheyStayOn": "Hierdie {{deviceWord}} het {{what}}. Hulle bly op Hierdie toestel in enige geval.",
       "merge": "Voeg saam",
       "copyThemToTooSo": "Kopieer hulle ook na {{serverName}}, sodat hulle sinkroniseer. Dié wat dieselfde lyk as 'n bedienergasheer word oorgeslaan.",
@@ -3104,6 +3122,7 @@
         "worksWithoutAServer": "Werk sonder 'n bediener",
         "signedOut": "Uitgeteken",
         "readsLive": "Lees live",
+        "toReview": "{{count}} om te hersien",
         "synced": "Geskik",
         "syncing": "Sinkroniseer",
         "offline": "Vanlyn"
@@ -3132,7 +3151,7 @@
         "howTallListRowsAnd": "Hoe hoog lysrye en instellings is"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Gasheer, geloofsbriewe en fragmente word in 'n versleutelde lêer op hierdie {{deviceWord}} gehou. Gebruiksstatistieke is af tensy jy dit hieronder inskakel. 'n Gelinkte bediener kry net wat jy laat sinkroniseer.",
+        "hostsCredentialsAndSnippetsAre": "Gasheer, geloofsbriewe en fragmente word in 'n versleutelde lêer op hierdie {{deviceWord}} gehou. Gebruikstatistieke is af tensy jy dit hieronder aanskakel. 'n Gekoppelde bediener kry slegs wat jy laat sinkroniseer.",
         "recentHosts": "Onlangse gasheer",
         "forgetTheHostsYouOpened": "Vergeet die gasheer wat jy onlangs op elke rekening oopgemaak het",
         "recentHostsCleared": "Onlangse gasheer skoongemaak",
@@ -3369,7 +3388,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Weergawe en opdaterings",
         "logs": "Logboeke",
-        "latestLinesFromThisRun": "Nuutste reëls van hierdie loop, vir foutverslae"
+        "latestLinesFromThisRun": "Nuutste reëls van hierdie loop, vir foutverslae",
+        "pushNotifications": "Stootmeldings",
+        "pushNotificationsDescription": "Waarskuwings van jou bedieners op hierdie foon"
       },
       "sections": {
         "accountsAndSync": "Rekeninge en sinkronisering",
@@ -3571,7 +3592,7 @@
       "onAHardwareKeyboardOff": "Op 'n hardewaretoetsbord. Af tipes simbole soos op 'n Mac.",
       "history": "Geskenie",
       "suggestCommands": "Stel opdragte voor",
-      "showsPastCommandsThatStart": "Wys vorige opdragte wat begin met wat jy tipes",
+      "showsPastCommandsThatStart": "Vorige opdragte terwyl jy tik",
       "resetToDefault": "Stel terug na verstek",
       "fontSize": "Lettertipegrootte",
       "aSizeFromTo": "'n Grootte van {{MIN_FONT_SIZE}} tot {{MAX_FONT_SIZE}}.",
@@ -3594,7 +3615,7 @@
       "twoFactorAuthentication": "Twee-faktor-verifikasie",
       "loading": "Laai tans…",
       "scanThisQrCodeWith": "Skandeer hierdie QR-kode met jou verifikasie-app (Google Authenticator, Authy, ens.), en voer dan die 6-syfer kode in om te bevestig.",
-      "verifyAmpEnable": "Verifieer &amp; Aktiveer",
+      "verifyAmpEnable": "Verifieer en skakel aan",
       "cancel": "Kanselleer",
       "saveYourBackupCodes": "Stoor jou rugsteunkodes",
       "storeTheseSomewhereSafeEach": "Stoor hierdie kode ergens veilig. Elke kode kan slegs een keer gebruik word as jy toegang tot jou verifikasie-app verloor.",
@@ -3823,5 +3844,31 @@
     "shareCount_one": "Deel met {{count}}",
     "shareCount_other": "Deel met {{count}}",
     "removeAccess": "Verwyder toegang"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Bedienerwaarskuwings",
+      "critical": "Kritieke bedienerwaarskuwings"
+    },
+    "severity": {
+      "info": "Alles",
+      "warning": "Waarskuwings en erger",
+      "critical": "Slegs kritiek"
+    },
+    "settings": {
+      "on": "Waarskuwings verskyn op hierdie foon",
+      "off": "Af",
+      "toggle": "Stootmeldings vir {{server}}",
+      "minSeverity": "Stuur my",
+      "denied": "Meldings is vir Termix afgeskakel. Skakel dit aan in die foon se instellings.",
+      "openSettings": "Maak instellings oop",
+      "outdated": "Hierdie bediener benodig Waarskuwings 1.4.0 of nuwer vir stootmeldings. Vra 'n admin om die plugin op te dateer.",
+      "unavailable": "Meld aan by hierdie bediener en skakel die Waarskuwings-plugin aan om meldings te kry.",
+      "error": "Kon nie die bediener bereik nie. Termix probeer weer die volgende keer dat die app oopmaak.",
+      "notInThisBuild": "Hierdie bou kan nie meldings wys nie.",
+      "noServers": "Koppel 'n bediener om sy waarskuwings hier te kry.",
+      "pushHint": "Waarskuwings word deur Expo en Apple of Google gestuur, met hul titel en teks. Kies watter in die Waarskuwingsreëls op die bediener.",
+      "pollHint": "Hierdie bou het geen Google-dienste nie, so Termix kyk in die agtergrond na nuwe waarskuwings, ongeveer elke 15 minute."
+    }
   }
 }

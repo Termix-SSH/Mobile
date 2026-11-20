@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "forms",
       "unlink": "Deconectează {{account}}",
       "linkAServer": "forms",
-      "eachServerKeepsItsOwn": "Fiecare server își păstrează propriile gazde, date de autentificare și setări pe acest{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Fiecare server își păstrează propriile gazde, credentiale și setări pe acest {{deviceWord}}.",
       "signedIn": "forms",
       "signedOut": "Deconectat",
       "syncedCopy": "Copie sincronizată"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Reîncarcă"
+    },
+    "pluginSettings": {
+      "loading": "Se încarcă setările",
+      "forEveryone": "Pentru toți de pe server",
+      "justForYou": "Doar pentru tine",
+      "couldNotSave": "Nu s-a putut salva setarea",
+      "nothingYouCanChange": "Nu există aici nimic pe care să-l poți modifica. Un administrator poate modifica aceste setări.",
+      "notANumber": "Acesta nu este un număr",
+      "atLeast": "Trebuie să fie {{min}} sau mai mult",
+      "atMost": "Trebuie să fie {{max}} sau mai puțin"
     }
   },
   "sessions": {
@@ -744,14 +754,21 @@
         "authenticationFailed": "Autentificarea a eșuat: {{message}}",
         "theHostKeyWasNot": "Cheia gazdei nu a fost încredințată.",
         "loginCancelled": "Autentificarea a fost anulată.",
-        "notConnected": "Neconectat"
+        "notConnected": "Neconectat",
+        "signingInAs": "Autentificare ca {{user}} cu {{method}}",
+        "methodKey": "o cheie",
+        "methodPassword": "o parolă",
+        "methodNone": "fără date de autentificare salvate"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Conexiunea a fost întreruptă"
       },
       "thisBuildHasNoSsh": "Această versiune nu are motor SSH. Folosește aplicația din magazin sau asociază un server Termix pentru a te conecta.",
       "theHostsOnThisAre": "Gazdele de pe acest {{deviceWord}} nu sunt încă deschise.",
-      "thisServerSHostsAre": "Gazdele acestui server nu se află pe acest {{deviceWord}}. Activează pluginul Sync pe server pentru a te conecta de pe {{deviceWord}}."
+      "thisServerSHostsAre": "Gazdele acestui server nu se află pe acest {{deviceWord}}. Activează pluginul Sync pe server pentru a te conecta de pe {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Datele de autentificare salvate pentru această gazdă nu se află pe acest {{deviceWord}}, așa că doar serverul se poate autentifica"
+      }
     },
     "origin": {
       "canTConnect": "Nu se poate conecta.",
@@ -1319,7 +1336,7 @@
     "yourDefaultsOrOneFolder": "Setările tale implicite sau ale unui dosar",
     "myDefaults": "Setările mele implicite",
     "theServerSets": " Serverul setează {{adminCount}}.",
-    "aFolderWinsOverYour": "Un dosar are prioritate față de setările tale implicite, iar setările tale implicite au prioritate față de cele ale serverului. O gazdă păstrează orice valoare setată direct pe ea.{{value}}",
+    "aFolderWinsOverYour": "O folder are prioritate față de valorile tale implicite, iar valorile tale implicite au prioritate față de cele ale serverului. O gazdă păstrează orice valoare pe care o setezi direct pe ea.{{value}}",
     "save": "Salvează",
     "authentication": "Autentificare",
     "none": "Niciuna",
@@ -2890,7 +2907,7 @@
       "signedIn": "Autentificare reușită",
       "close": "Închide",
       "linkYourTermixServer": "Conectați-vă la serverul Termix",
-      "yourHostsCredentialsSnippetsAnd": "Gazdele, datele de autentificare, fragmentele și setările se sincronizează cu acesta, iar dvs. primiți plugin-urile sale. Totul continuă să funcționeze pe acest {{deviceWord}} când serverul este indisponibil.",
+      "yourHostsCredentialsSnippetsAnd": "Gazdele, credentialele, fragmentele și setările tale se sincronizează cu acesta, iar tu primești plugin-urile sale. Totul continuă să funcționeze pe acest {{deviceWord}} când serverul este indisponibil.",
       "checking": "Se verifică {{host}}...",
       "proxyAndClientCertificate": "Proxy și certificat client",
       "couldNotReachThatServer": "Nu s-a putut accesa acel server. Verificați adresa sau configurați proxy-ul sau certificatul client.",
@@ -2918,7 +2935,7 @@
       "or": "SAU",
       "continueWith": "Continuă cu {{label}}",
       "signInWithAPasskey": "Autentifică-te cu o cheie de acces sau o cheie de securitate",
-      "opensYourServerAposS": "Deschide pagina de autentificare a serverului tău în browser. Face ID, amprentă, NFC și chei USB funcționează acolo. Necesită Termix 26.11.3 sau o versiune mai nouă.",
+      "opensYourServerAposS": "Deschide pagina de autentificare a serverului în browser. Face ID, amprenta, NFC și cheile USB funcționează acolo. Necesită Termix 26.11.3 sau o versiune mai nouă.",
       "signInInTheBrowser": "Autentifică-te în browser",
       "opensYourServerAposS2": "Deschide pagina de autentificare a serverului, pentru orice nu poate fi făcut aici în aplicație. Necesită Termix 26.10.6 sau o versiune mai nouă.",
       "thisServerHasNoSign": "Acest server nu are activată nicio metodă de autentificare pe care aplicația o poate folosi. Întreabă administratorul serverului sau încearcă autentificarea prin browser de mai sus.",
@@ -2940,7 +2957,7 @@
       "thisAccountAsksForA": "Acest cont solicită o cheie de securitate după parolă. Autentifică-te pe pagina serverului în browser pentru a o folosi.",
       "useASecurityKeyIn": "Folosește o cheie de securitate în browser",
       "backToSignIn": "Înapoi la autentificare",
-      "bringThisAposSHosts": "Dorești să preiei și gazdele de pe acest {{deviceWord}}?",
+      "bringThisAposSHosts": "Să aducem și gazdele de pe acest {{deviceWord}}?",
       "thisHasTheyStayOn": "Acest {{deviceWord}} are {{what}}. Acestea rămân pe acest dispozitiv în orice caz.",
       "merge": "Combină",
       "copyThemToTooSo": "Copiază-le și pe {{serverName}}, pentru a le sincroniza. Cele care coincid cu o gazdă de pe server sunt ignorate.",
@@ -3153,7 +3170,7 @@
         "howTallListRowsAnd": "Cât de înalte sunt rândurile din liste și setările"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Serverele, acreditările și fragmentele sunt păstrate într-un fișier criptat pe acest{{deviceWord}}. Statisticile de utilizare sunt oprite, decât dacă le activezi mai jos. Un server conectat primește doar ceea ce îi permiți să sincronizeze.",
+        "hostsCredentialsAndSnippetsAre": "Gazdele, credentialele și fragmentele sunt păstrate într-un fișier criptat pe acest {{deviceWord}}. Statisticile de utilizare sunt oprite, decât dacă le activezi mai jos. Un server legat primește doar ceea ce îi permiți să sincronizeze.",
         "recentHosts": "Servere recente",
         "forgetTheHostsYouOpened": "Uită serverele la care te-ai conectat recent pe fiecare cont",
         "recentHostsCleared": "Serverele recente au fost șterse",
@@ -3390,7 +3407,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versiune și actualizări",
         "logs": "Jurnale",
-        "latestLinesFromThisRun": "Ultimele linii din această execuție, pentru rapoarte de erori"
+        "latestLinesFromThisRun": "Ultimele linii din această execuție, pentru rapoarte de erori",
+        "pushNotifications": "Notificări push",
+        "pushNotificationsDescription": "Alerte de la serverele tale pe acest telefon"
       },
       "sections": {
         "accountsAndSync": "Conturi și sincronizare",
@@ -3592,7 +3611,7 @@
       "onAHardwareKeyboardOff": "Pe o tastatură hardware. Dezactivat tastează simboluri ca pe un Mac.",
       "history": "Istoric",
       "suggestCommands": "Sugerează comenzi",
-      "showsPastCommandsThatStart": "Afișează comenzile anterioare care încep cu ceea ce tastezi",
+      "showsPastCommandsThatStart": "Comenzi anterioare pe măsură ce tastezi",
       "resetToDefault": "Resetează la valorile implicite",
       "fontSize": "Dimensiunea fontului",
       "aSizeFromTo": "O dimensiune de la {{MIN_FONT_SIZE}} la {{MAX_FONT_SIZE}}.",
@@ -3615,7 +3634,7 @@
       "twoFactorAuthentication": "Autentificare cu doi factori",
       "loading": "Se încarcă…",
       "scanThisQrCodeWith": "Scanează acest cod QR cu aplicația ta de autentificare (Google Authenticator, Authy etc.), apoi introdu codul de 6 cifre pentru confirmare.",
-      "verifyAmpEnable": "Verifică &amp; Activează",
+      "verifyAmpEnable": "Verifică și activează",
       "cancel": "Anulează",
       "saveYourBackupCodes": "Salvează-ți codurile de rezervă",
       "storeTheseSomewhereSafeEach": "Păstrează-le într-un loc sigur. Fiecare cod poate fi folosit o singură dată dacă pierzi accesul la aplicația de autentificare.",
@@ -3848,5 +3867,31 @@
     "shareCount_few": "Partajează cu {{count}} persoane",
     "shareCount_other": "Partajează cu {{count}} persoane",
     "removeAccess": "Elimină accesul"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Alerte de la server",
+      "critical": "Alerte critice de la server"
+    },
+    "severity": {
+      "info": "Totul",
+      "warning": "Avertismente și mai grave",
+      "critical": "Doar critice"
+    },
+    "settings": {
+      "on": "Alertele apar pe acest telefon",
+      "off": "Oprit",
+      "toggle": "Notificări push pentru {{server}}",
+      "minSeverity": "Trimite-mi",
+      "denied": "Notificările sunt oprite pentru Termix. Activează-le în setările telefonului.",
+      "openSettings": "Deschide setările",
+      "outdated": "Acest server necesită Alerts 1.4.0 sau o versiune mai nouă pentru notificările push. Cere unui administrator să actualizeze plugin-ul.",
+      "unavailable": "Autentifică-te pe acest server și activează plugin-ul Alerts pentru a primi notificări.",
+      "error": "Nu s-a putut contacta serverul. Termix va încerca din nou data viitoare când se deschide aplicația.",
+      "notInThisBuild": "Această versiune nu poate afișa notificări.",
+      "noServers": "Leagă un server pentru a-i primi alertele aici.",
+      "pushHint": "Alertele sunt trimise prin Expo și Apple sau Google, cu titlul și textul lor. Alege care dintre ele în regulile Alerts de pe server.",
+      "pollHint": "Această versiune nu are servicii Google, așa că Termix verifică alertele noi în fundal, la aproximativ 15 minute."
+    }
   }
 }

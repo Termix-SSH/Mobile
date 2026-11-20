@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "切换时，打开的标签页将继续运行。",
       "unlink": "取消链接 {{account}}",
       "linkAServer": "链接服务器",
-      "eachServerKeepsItsOwn": "每个服务器在此{{deviceWord}}上保留其自己的主机、凭据和设置。",
+      "eachServerKeepsItsOwn": "在此 {{deviceWord}} 上，每个服务器都保留其自己的主机、凭据和设置。",
       "signedIn": "已登录",
       "signedOut": "已退出登录",
       "syncedCopy": "同步副本"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "重新加载"
+    },
+    "pluginSettings": {
+      "loading": "正在加载设置",
+      "forEveryone": "对服务器上的所有人有效",
+      "justForYou": "仅对您有效",
+      "couldNotSave": "无法保存设置",
+      "nothingYouCanChange": "此处没有您可以更改的内容。管理员可以更改这些设置。",
+      "notANumber": "这不是一个数字",
+      "atLeast": "必须为 {{min}} 或更大",
+      "atMost": "必须为 {{max}} 或更小"
     }
   },
   "sessions": {
@@ -732,14 +742,21 @@
         "authenticationFailed": "身份验证失败：{{message}}",
         "theHostKeyWasNot": "未信任该主机密钥。",
         "loginCancelled": "登录已取消。",
-        "notConnected": "未连接"
+        "notConnected": "未连接",
+        "signingInAs": "正在使用 {{method}} 以 {{user}} 身份登录",
+        "methodKey": "密钥",
+        "methodPassword": "密码",
+        "methodNone": "无保存的登录信息"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "连接已中断"
       },
       "thisBuildHasNoSsh": "此版本没有 SSH 引擎。请使用应用商店中的应用，或关联 Termix 服务器以进行连接。",
       "theHostsOnThisAre": "此 {{deviceWord}} 上的主机尚未开放。",
-      "thisServerSHostsAre": "此服务器的主机不在本 {{deviceWord}} 上。请在服务器上启用 Sync 插件，以便从此 {{deviceWord}} 连接。"
+      "thisServerSHostsAre": "此服务器的主机不在本 {{deviceWord}} 上。请在服务器上启用 Sync 插件，以便从此 {{deviceWord}} 连接。",
+      "resolve": {
+        "theSavedLoginIsNot": "此主机的保存登录信息不在此 {{deviceWord}} 上，因此只有服务器可以登录"
+      }
     },
     "origin": {
       "canTConnect": "无法连接。",
@@ -1301,7 +1318,8 @@
     "level": "级别",
     "yourDefaultsOrOneFolder": "您的默认设置，或某个文件夹的设置",
     "myDefaults": "我的默认设置",
-    "aFolderWinsOverYour": "文件夹设置优先于您的默认设置，而您的默认设置优先于服务器设置。主机将保留您手动设置的任何值。{{value}}",
+    "theServerSets": " 服务器设置了 {{adminCount}} 项。",
+    "aFolderWinsOverYour": "文件夹的优先级高于您的默认值，而您的默认值优先级高于服务器的。主机保留您自行设置的任何值。{{value}}",
     "save": "保存",
     "authentication": "身份验证",
     "none": "无",
@@ -2850,7 +2868,7 @@
       "signedIn": "已登录",
       "close": "关闭",
       "linkYourTermixServer": "链接您的 Termix 服务器",
-      "yourHostsCredentialsSnippetsAnd": "您的主机、凭据、代码片段和设置将与服务器同步，并且您可以使用其插件。当服务器离线时，此 {{deviceWord}} 上的所有内容仍将继续工作。",
+      "yourHostsCredentialsSnippetsAnd": "您的主机、凭据、代码片段和设置将与它同步，并且您可以使用它的插件。当服务器离线时，此 {{deviceWord}} 上的所有内容仍将继续工作。",
       "checking": "正在检查 {{host}}...",
       "proxyAndClientCertificate": "代理和客户端证书",
       "couldNotReachThatServer": "无法连接到该服务器。请检查地址，或设置代理或客户端证书。",
@@ -2878,7 +2896,7 @@
       "or": "或",
       "continueWith": "使用 {{label}} 继续",
       "signInWithAPasskey": "使用 Passkey 或安全密钥登录",
-      "opensYourServerAposS": "在浏览器中打开服务器的登录页面。Face ID、指纹、NFC 和 USB 密钥均支持。需要 Termix 26.11.3 或更高版本。",
+      "opensYourServerAposS": "在浏览器中打开服务器的登录页面。Face ID、指纹、NFC 和 USB 密钥均可在此使用。需要 Termix 26.11.3 或更高版本。",
       "signInInTheBrowser": "在浏览器中登录",
       "opensYourServerAposS2": "打开服务器的登录页面，用于处理应用在此处无法完成的操作。需要 Termix 26.10.6 或更高版本。",
       "thisServerHasNoSign": "此服务器未启用应用可用的登录方式。请联系服务器管理员，或尝试上方的浏览器登录。",
@@ -2897,10 +2915,10 @@
       "code": "验证码",
       "the6DigitCodeFrom": "来自身份验证器应用的 6 位验证码，或备用验证码",
       "checkCode": "验证验证码",
-      "thisAccountAsksForA": "此账户在输入密码后要求使用安全密钥。请在浏览器中访问服务器页面以使用安全密钥登录。",
+      "thisAccountAsksForA": "此账户在输入密码后要求使用安全密钥。请在浏览器中访问服务器的页面进行登录以使用此功能。",
       "useASecurityKeyIn": "在浏览器中使用安全密钥",
       "backToSignIn": "返回登录",
-      "bringThisAposSHosts": "是否同步此 {{deviceWord}} 上的主机？",
+      "bringThisAposSHosts": "要带上此 {{deviceWord}} 的主机吗？",
       "thisHasTheyStayOn": "此 {{deviceWord}} 上有 {{what}}。无论如何，它们都会保留在此设备上。",
       "merge": "合并",
       "copyThemToTooSo": "将它们也复制到 {{serverName}} 以进行同步。与服务器主机相同的项目将被跳过。",
@@ -3113,7 +3131,7 @@
         "howTallListRowsAnd": "列表行和设置的高度"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "主机、凭据和代码片段保存在此{{deviceWord}}上的加密文件中。除非你在下方开启，否则不会收集使用统计。链接的服务器只会同步你允许的内容。",
+        "hostsCredentialsAndSnippetsAre": "主机、凭据和代码片段保存在此 {{deviceWord}} 上的加密文件中。除非您在下方开启，否则使用统计功能处于关闭状态。链接的服务器仅会同步您允许的内容。",
         "recentHosts": "最近使用的主机",
         "forgetTheHostsYouOpened": "清除所有账户中最近打开的主机",
         "recentHostsCleared": "最近使用的主机已清除",
@@ -3350,7 +3368,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "版本与更新",
         "logs": "日志",
-        "latestLinesFromThisRun": "本次运行的最新日志行，用于提交错误报告"
+        "latestLinesFromThisRun": "本次运行的最新日志行，用于提交错误报告",
+        "pushNotifications": "推送通知",
+        "pushNotificationsDescription": "此手机上来自您服务器的警报"
       },
       "sections": {
         "accountsAndSync": "账户与同步",
@@ -3552,7 +3572,7 @@
       "onAHardwareKeyboardOff": "在物理键盘上。关闭时，输入符号的方式类似 Mac。",
       "history": "历史记录",
       "suggestCommands": "命令建议",
-      "showsPastCommandsThatStart": "显示以你输入内容开头的历史命令",
+      "showsPastCommandsThatStart": "输入时显示历史命令",
       "resetToDefault": "恢复默认设置",
       "fontSize": "字体大小",
       "aSizeFromTo": "大小范围为 {{MIN_FONT_SIZE}} 到 {{MAX_FONT_SIZE}}。",
@@ -3800,5 +3820,31 @@
     "pickSomeone": "选择共享对象",
     "shareCount_other": "与 {{count}} 人共享",
     "removeAccess": "移除访问权限"
+  },
+  "push": {
+    "channels": {
+      "alerts": "服务器警报",
+      "critical": "关键服务器警报"
+    },
+    "severity": {
+      "info": "所有内容",
+      "warning": "警告及更严重级别",
+      "critical": "仅关键级别"
+    },
+    "settings": {
+      "on": "此手机上会显示警报",
+      "off": "已关闭",
+      "toggle": "{{server}} 的推送通知",
+      "minSeverity": "发送给我",
+      "denied": "Termix 的通知已关闭。请在手机设置中将其开启。",
+      "openSettings": "打开设置",
+      "outdated": "此服务器需要 Alerts 1.4.0 或更高版本才能使用推送通知。请要求管理员更新插件。",
+      "unavailable": "登录到此服务器并开启 Alerts 插件以接收通知。",
+      "error": "无法连接到服务器。Termix 将在下次打开应用时重试。",
+      "notInThisBuild": "此构建版本无法显示通知。",
+      "noServers": "链接服务器以在此处接收其警报。",
+      "pushHint": "警报通过 Expo 以及 Apple 或 Google 发送，包含其标题和正文。请在服务器上的 Alerts 规则中选择要接收的警报。",
+      "pollHint": "此构建版本没有 Google 服务，因此 Termix 会在后台检查新警报，大约每 15 分钟一次。"
+    }
   }
 }

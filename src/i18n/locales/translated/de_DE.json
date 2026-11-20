@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Offene Tabs bleiben beim Wechsel aktiv.",
       "unlink": "{{account}} trennen",
       "linkAServer": "Server verknüpfen",
-      "eachServerKeepsItsOwn": "Jeder Server speichert seine eigenen Hosts, Anmeldeinformationen und Einstellungen auf diesem{{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Jeder Server speichert seine eigenen Hosts, Anmeldeinformationen und Einstellungen auf diesem {{deviceWord}}.",
       "signedIn": "Angemeldet",
       "signedOut": "Abgemeldet",
       "syncedCopy": "Synchronisierte Kopie"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Neu laden"
+    },
+    "pluginSettings": {
+      "loading": "Einstellungen werden geladen",
+      "forEveryone": "Für alle auf dem Server",
+      "justForYou": "Nur für dich",
+      "couldNotSave": "Die Einstellung konnte nicht gespeichert werden",
+      "nothingYouCanChange": "Hier gibt es nichts, was du ändern kannst. Ein Administrator kann diese Einstellungen ändern.",
+      "notANumber": "Das ist keine Zahl",
+      "atLeast": "Es muss {{min}} oder mehr sein",
+      "atMost": "Es muss {{max}} oder weniger sein"
     }
   },
   "sessions": {
@@ -738,14 +748,21 @@
         "authenticationFailed": "Authentifizierung fehlgeschlagen: {{message}}",
         "theHostKeyWasNot": "Der Host-Schlüssel wurde nicht vertraut.",
         "loginCancelled": "Anmeldung abgebrochen.",
-        "notConnected": "Nicht verbunden"
+        "notConnected": "Nicht verbunden",
+        "signingInAs": "Anmeldung als {{user}} mit {{method}}",
+        "methodKey": "einem Schlüssel",
+        "methodPassword": "einem Passwort",
+        "methodNone": "keiner gespeicherten Anmeldung"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Die Verbindung wurde unterbrochen"
       },
       "thisBuildHasNoSsh": "Diese Version hat keinen SSH-Engine. Verwenden Sie die App aus dem Store oder verknüpfen Sie einen Termix-Server, um die Verbindung herzustellen.",
       "theHostsOnThisAre": "Die Hosts auf diesem {{deviceWord}} sind noch nicht geöffnet.",
-      "thisServerSHostsAre": "Die Hosts dieses Servers sind nicht auf diesem {{deviceWord}}. Aktivieren Sie das Sync-Plugin auf dem Server, um von diesem {{deviceWord}} aus zu verbinden."
+      "thisServerSHostsAre": "Die Hosts dieses Servers sind nicht auf diesem {{deviceWord}}. Aktivieren Sie das Sync-Plugin auf dem Server, um von diesem {{deviceWord}} aus zu verbinden.",
+      "resolve": {
+        "theSavedLoginIsNot": "Die gespeicherte Anmeldung für diesen Host ist nicht auf diesem {{deviceWord}}, daher kann sich nur der Server anmelden"
+      }
     },
     "origin": {
       "canTConnect": "Verbindung nicht möglich.",
@@ -1311,7 +1328,7 @@
     "yourDefaultsOrOneFolder": "Deine Standards oder die eines Ordners",
     "myDefaults": "Meine Standards",
     "theServerSets": " Der Server legt {{adminCount}} fest.",
-    "aFolderWinsOverYour": "Ein Ordner überschreibt deine Standards, und deine Standards überschreiben die des Servers. Ein Host behält jeden Wert, den du selbst festgelegt hast.{{value}}",
+    "aFolderWinsOverYour": "Ein Ordner überschreibt deine Standardeinstellungen, und deine Standardeinstellungen überschreiben die des Servers. Ein Host behält jeden Wert, den du selbst festgelegt hast.{{value}}",
     "save": "Speichern",
     "authentication": "Authentifizierung",
     "none": "Keine",
@@ -2871,7 +2888,7 @@
       "signedIn": "Angemeldet",
       "close": "Schließen",
       "linkYourTermixServer": "Termix-Server verknüpfen",
-      "yourHostsCredentialsSnippetsAnd": "Ihre Hosts, Anmeldedaten, Snippets und Einstellungen werden damit synchronisiert, und Sie erhalten deren Plugins. Alles funktioniert weiterhin auf diesem {{deviceWord}}, wenn der Server nicht erreichbar ist.",
+      "yourHostsCredentialsSnippetsAnd": "Deine Hosts, Anmeldeinformationen, Code-Schnipsel und Einstellungen werden damit synchronisiert, und du erhältst seine Plugins. Alles funktioniert weiterhin auf diesem {{deviceWord}}, wenn der Server nicht erreichbar ist.",
       "checking": "{{host}} wird überprüft...",
       "proxyAndClientCertificate": "Proxy und Client-Zertifikat",
       "couldNotReachThatServer": "Dieser Server konnte nicht erreicht werden. Überprüfen Sie die Adresse oder richten Sie den Proxy bzw. das Client-Zertifikat ein.",
@@ -2901,7 +2918,7 @@
       "signInWithAPasskey": "Mit Passkey oder Sicherheitsschlüssel anmelden",
       "opensYourServerAposS": "Öffnet die Anmeldeseite deines Servers im Browser. Face ID, Fingerabdruck, NFC und USB-Schlüssel funktionieren dort. Erfordert Termix 26.11.3 oder neuer.",
       "signInInTheBrowser": "Im Browser anmelden",
-      "opensYourServerAposS2": "Öffnet die Anmeldeseite deines Servers, für alles, was die App hier nicht leisten kann. Erfordert Termix 26.10.6 oder neuer.",
+      "opensYourServerAposS2": "Öffnet die Anmeldeseite deines Servers für alles, was die App hier nicht erledigen kann. Erfordert Termix 26.10.6 oder neuer.",
       "thisServerHasNoSign": "Dieser Server hat keine Anmeldung aktiviert, die die App nutzen kann. Frage den Administrator oder versuche die Anmeldung im Browser oben.",
       "signInWithYourPassword": "Mit deinem Passwort anmelden.",
       "signInFailed": "Anmeldung fehlgeschlagen",
@@ -2918,10 +2935,10 @@
       "code": "Code",
       "the6DigitCodeFrom": "Der 6-stellige Code aus deiner Authenticator-App oder ein Backup-Code",
       "checkCode": "Code prüfen",
-      "thisAccountAsksForA": "Dieses Konto verlangt nach dem Passwort einen Sicherheitsschlüssel. Melde dich auf der Serverseite in deinem Browser an, um ihn zu nutzen.",
+      "thisAccountAsksForA": "Dieses Konto verlangt nach dem Passwort einen Sicherheitsschlüssel. Melde dich auf der Serverseite in deinem Browser an, um ihn zu verwenden.",
       "useASecurityKeyIn": "Sicherheitsschlüssel im Browser nutzen",
       "backToSignIn": "Zurück zur Anmeldung",
-      "bringThisAposSHosts": "Hosts von diesem {{deviceWord}} mitnehmen?",
+      "bringThisAposSHosts": "Die Hosts dieses {{deviceWord}} mitnehmen?",
       "thisHasTheyStayOn": "Dieser {{deviceWord}} hat {{what}}. Sie bleiben auf jedem Fall auf diesem Gerät.",
       "merge": "Zusammenführen",
       "copyThemToTooSo": "Kopiere sie auch zu {{serverName}}, damit sie synchronisiert werden. Hosts, die einem Server-Host gleichen, werden übersprungen.",
@@ -3134,7 +3151,7 @@
         "howTallListRowsAnd": "Höhe der Listenzeilen und Einstellungen"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Hosts, Anmeldeinformationen und Snippets werden in einer verschlüsselten Datei auf diesem{{deviceWord}} gespeichert. Nutzungsstatistiken sind deaktiviert, es sei denn, du aktivierst sie unten. Ein verknüpfter Server erhält nur das, was du zur Synchronisierung freigibst.",
+        "hostsCredentialsAndSnippetsAre": "Hosts, Anmeldeinformationen und Code-Schnipsel werden in einer verschlüsselten Datei auf diesem {{deviceWord}} gespeichert. Nutzungsstatistiken sind deaktiviert, es sei denn, du aktivierst sie unten. Ein verknüpfter Server erhält nur das, was du zur Synchronisierung freigibst.",
         "recentHosts": "Zuletzt verwendete Hosts",
         "forgetTheHostsYouOpened": "Hosts, die du kürzlich auf allen Konten geöffnet hast, vergessen",
         "recentHostsCleared": "Zuletzt verwendete Hosts gelöscht",
@@ -3371,7 +3388,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Version und Updates",
         "logs": "Protokolle",
-        "latestLinesFromThisRun": "Neueste Zeilen dieser Ausführung, für Fehlerberichte"
+        "latestLinesFromThisRun": "Neueste Zeilen dieser Ausführung, für Fehlerberichte",
+        "pushNotifications": "Push-Benachrichtigungen",
+        "pushNotificationsDescription": "Warnungen von deinen Servern auf diesem Telefon"
       },
       "sections": {
         "accountsAndSync": "Konten und Synchronisierung",
@@ -3573,7 +3592,7 @@
       "onAHardwareKeyboardOff": "Auf einer Hardware-Tastatur. Deaktiviert tippt es Symbole wie auf einem Mac.",
       "history": "Verlauf",
       "suggestCommands": "Befehle vorschlagen",
-      "showsPastCommandsThatStart": "Zeigt frühere Befehle, die mit dem beginnen, was du eingibst",
+      "showsPastCommandsThatStart": "Frühere Befehle beim Tippen",
       "resetToDefault": "Auf Standard zurücksetzen",
       "fontSize": "Schriftgröße",
       "aSizeFromTo": "Eine Größe von {{MIN_FONT_SIZE}} bis {{MAX_FONT_SIZE}}.",
@@ -3596,7 +3615,7 @@
       "twoFactorAuthentication": "Zwei-Faktor-Authentifizierung",
       "loading": "Wird geladen…",
       "scanThisQrCodeWith": "Scanne diesen QR-Code mit deiner Authenticator-App (Google Authenticator, Authy usw.) und gib dann den 6-stelligen Code zur Bestätigung ein.",
-      "verifyAmpEnable": "Bestätigen &amp; Aktivieren",
+      "verifyAmpEnable": "Verifizieren und aktivieren",
       "cancel": "Abbrechen",
       "saveYourBackupCodes": "Speichere deine Backup-Codes",
       "storeTheseSomewhereSafeEach": "Bewahre diese an einem sicheren Ort auf. Jeder Code kann nur einmal verwendet werden, falls du den Zugriff auf deinen Authenticator verlierst.",
@@ -3825,5 +3844,31 @@
     "shareCount_one": "Mit {{count}} teilen",
     "shareCount_other": "Mit {{count}} teilen",
     "removeAccess": "Zugriff entfernen"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Serverwarnungen",
+      "critical": "Kritische Serverwarnungen"
+    },
+    "severity": {
+      "info": "Alles",
+      "warning": "Warnungen und schwerwiegendere",
+      "critical": "Nur kritische"
+    },
+    "settings": {
+      "on": "Warnungen werden auf diesem Telefon angezeigt",
+      "off": "Aus",
+      "toggle": "Push-Benachrichtigungen für {{server}}",
+      "minSeverity": "Sende mir",
+      "denied": "Benachrichtigungen sind für Termix deaktiviert. Aktiviere sie in den Telefoneinstellungen.",
+      "openSettings": "Einstellungen öffnen",
+      "outdated": "Dieser Server benötigt Alerts 1.4.0 oder neuer für Push-Benachrichtigungen. Bitte einen Administrator, das Plugin zu aktualisieren.",
+      "unavailable": "Melde dich bei diesem Server an und aktiviere das Alerts-Plugin, um Benachrichtigungen zu erhalten.",
+      "error": "Der Server konnte nicht erreicht werden. Termix versucht es beim nächsten Öffnen der App erneut.",
+      "notInThisBuild": "Diese Version kann keine Benachrichtigungen anzeigen.",
+      "noServers": "Verknüpfe einen Server, um dessen Warnungen hier zu erhalten.",
+      "pushHint": "Warnungen werden über Expo sowie Apple oder Google mit deren Titel und Text gesendet. Wähle aus, welche in den Alerts-Regeln auf dem Server gesendet werden sollen.",
+      "pollHint": "Diese Version hat keine Google-Dienste, daher prüft Termix im Hintergrund etwa alle 15 Minuten auf neue Warnungen."
+    }
   }
 }

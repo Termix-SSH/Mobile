@@ -87,7 +87,7 @@
       "openTabsKeepRunningWhen": "Odprti zavihki se nadaljujejo med preklopom.",
       "unlink": "Prekini povezavo z {{account}}",
       "linkAServer": "Poveži strežnik",
-      "eachServerKeepsItsOwn": "Vsak strežnik hrani svoje gostitelje, poverilnice in nastavitve na tej {{deviceWord}}.",
+      "eachServerKeepsItsOwn": "Vsak strežnik na tej napravi {{deviceWord}} hrani svoje gostitelje, poverilnice in nastavitve.",
       "signedIn": "Prijavljen",
       "signedOut": "Odjava",
       "syncedCopy": "Usklajen kopija"
@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Osveži"
+    },
+    "pluginSettings": {
+      "loading": "Nalaganje nastavitev",
+      "forEveryone": "Za vse na strežniku",
+      "justForYou": "Samo za vas",
+      "couldNotSave": "Nastavitve ni bilo mogoče shraniti",
+      "nothingYouCanChange": "Tukaj ni ničesar, kar bi lahko spremenili. Te nastavitve lahko spremeni skrbnik.",
+      "notANumber": "To ni številka",
+      "atLeast": "Vrednost mora biti vsaj {{min}}",
+      "atMost": "Vrednost ne sme preseči {{max}}"
     }
   },
   "sessions": {
@@ -750,14 +760,21 @@
         "authenticationFailed": "Preverjanje pristnosti ni uspelo: {{message}}",
         "theHostKeyWasNot": "Ključ gostitelja ni bil zaupanja vreden.",
         "loginCancelled": "Prijava je bila preklicana.",
-        "notConnected": "Ni povezave"
+        "notConnected": "Ni povezave",
+        "signingInAs": "Prijava kot {{user}} z {{method}}",
+        "methodKey": "ključ",
+        "methodPassword": "geslo",
+        "methodNone": "brez shranjene prijave"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Povezava je bila prekinjena"
       },
       "thisBuildHasNoSsh": "Ta različica nima SSH motorja. Uporabite aplikacijo iz trgovine ali povežite strežnik Termix za vzpostavitev povezave.",
       "theHostsOnThisAre": "Gostitelji na tem {{deviceWord}} še niso odprti.",
-      "thisServerSHostsAre": "Gostitelji tega strežnika niso na tem {{deviceWord}}. Vklopite vtičnik Sinhronizacija na strežniku za povezavo iz {{deviceWord}}."
+      "thisServerSHostsAre": "Gostitelji tega strežnika niso na tem {{deviceWord}}. Vklopite vtičnik Sinhronizacija na strežniku za povezavo iz {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Shranjena prijava za ta gostitelj ni na tej napravi {{deviceWord}}, zato se lahko prijavi le strežnik"
+      }
     },
     "origin": {
       "canTConnect": "Povezava ni mogoča.",
@@ -2155,6 +2172,7 @@
       "asksForAPassword": "{{hostName}} zahteva geslo.",
       "fillPassword": "Izpolni geslo",
       "alwaysFillOnThisHost": "Vedno izpolni na tem gostitelju",
+      "asksNoMoreOnThis": "Na tej napravi {{deviceWord}} se ne bo več vprašalo. Izklopite to v zavihku Terminal gostitelja.",
       "notNow": "Ne zdaj"
     },
     "register": {
@@ -2908,7 +2926,7 @@
       "signedIn": "Prijavljeni",
       "close": "Zapri",
       "linkYourTermixServer": "Povežite svoj strežnik Termix",
-      "yourHostsCredentialsSnippetsAnd": "Vaši gostitelji, poverilnice, odlomki in nastavitve se sinhronizirajo z njim, prejeli pa boste tudi njegove vtičnike. Vse bo delovalo na tem {{deviceWord}}, ko je strežnik nedosegljiv.",
+      "yourHostsCredentialsSnippetsAnd": "Vaši gostitelji, poverilnice, odlomki in nastavitve se sinhronizirajo z njim, vi pa dobite njegove vtičnike. Vse deluje na tej napravi {{deviceWord}}, tudi ko je strežnik nedosegljiv.",
       "checking": "Preverjanje {{host}} ...",
       "proxyAndClientCertificate": "Proxy in odjemplski certifikat",
       "couldNotReachThatServer": "Tega strežnika ni bilo mogoče doseči. Preverite naslov ali nastavite proxy ali odjemplski certifikat.",
@@ -2958,7 +2976,7 @@
       "thisAccountAsksForA": "Ta račun zahteva varnostni ključ po vnosu gesla. Za uporabo se prijavite na strani strežnika v brskalniku.",
       "useASecurityKeyIn": "Uporaba varnostnega ključa v brskalniku",
       "backToSignIn": "Nazaj na prijavo",
-      "bringThisAposSHosts": "Ali želite priložiti goste tega {{deviceWord}}?",
+      "bringThisAposSHosts": "Ali želite prineseti gostitelje te naprave {{deviceWord}}?",
       "thisHasTheyStayOn": "Ta {{deviceWord}} ima {{what}}. Ti ostanejo na tej napravi v vsakem primeru.",
       "merge": "Združi",
       "copyThemToTooSo": "Kopirajte jih tudi na {{serverName}}, da se sinhronizirajo. Tisti, ki so enaki gostu na strežniku, bodo preskočeni.",
@@ -3171,7 +3189,7 @@
         "howTallListRowsAnd": "Kako visoke so vrstice seznamov in nastavitve"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Gostitelji, poverilnice in odlomki so shranjeni v šifrirani datoteki na tem {{deviceWord}}. Statistika uporabe je izklopljena, razen če jo vklopite spodaj. Povezani strežnik prejme le tisto, kar mu dovolite sinhronizirati.",
+        "hostsCredentialsAndSnippetsAre": "Gostitelji, poverilnice in odlomki so shranjeni v šifrirani datoteki na tej napravi {{deviceWord}}. Statistika uporabe je izklopljena, razen če jo vklopite spodaj. Povezani strežnik prejme le tisto, kar mu dovolite sinhronizirati.",
         "recentHosts": "Nedavni gostitelji",
         "forgetTheHostsYouOpened": "Pozabi gostitelje, ki si jih nedavno odprl na vseh računih",
         "recentHostsCleared": "Nedavni gostitelji izbrisani",
@@ -3408,7 +3426,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Različica in posodobitve",
         "logs": "Dnevniki",
-        "latestLinesFromThisRun": "Najnovejše vrstice iz tega zagona, za poročila o napakah"
+        "latestLinesFromThisRun": "Najnovejše vrstice iz tega zagona, za poročila o napakah",
+        "pushNotifications": "Potisna obvestila",
+        "pushNotificationsDescription": "Opozorila z vaših strežnikov na tem telefonu"
       },
       "sections": {
         "accountsAndSync": "Računi in sinhronizacija",
@@ -3610,7 +3630,7 @@
       "onAHardwareKeyboardOff": "Na fizični tipkovnici. Ko je izklopljeno, tipke vtipkajo simbole, kot na Macu.",
       "history": "Zgodovina",
       "suggestCommands": "Predlagaj ukaze",
-      "showsPastCommandsThatStart": "Prikaže pretekle ukaze, ki se začnejo z vnešenim besedilom",
+      "showsPastCommandsThatStart": "Prejšnji ukazi med tipkanjem",
       "resetToDefault": "Ponastavi na privzeto",
       "fontSize": "Velikost pisave",
       "aSizeFromTo": "Velikost od {{MIN_FONT_SIZE}} do {{MAX_FONT_SIZE}}.",
@@ -3633,7 +3653,7 @@
       "twoFactorAuthentication": "Dvofaktorsko preverjanje",
       "loading": "Nalaganje …",
       "scanThisQrCodeWith": "Skenirajte to QR kodo s svojo aplikacijo za preverjanje (Google Authenticator, Authy itd.) in vnesite 6-mestno kodo za potrditev.",
-      "verifyAmpEnable": "Preveri &amp; omogoči",
+      "verifyAmpEnable": "Preveri in omogoči",
       "cancel": "Prekliči",
       "saveYourBackupCodes": "Shranite svoje rezervne kode",
       "storeTheseSomewhereSafeEach": "Shranite jih na varno mesto. Vsako kodo lahko uporabite le enkrat, če izgubite dostop do svoje aplikacije za preverjanje.",
@@ -3870,5 +3890,31 @@
     "shareCount_few": "Deli z {{count}}",
     "shareCount_other": "Deli z {{count}}",
     "removeAccess": "Odstrani dostop"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Opozorila strežnika",
+      "critical": "Kritična opozorila strežnika"
+    },
+    "severity": {
+      "info": "Vse",
+      "warning": "Opozorila in hujše",
+      "critical": "Samo kritična"
+    },
+    "settings": {
+      "on": "Opozorila se prikažejo na tem telefonu",
+      "off": "Izklopljeno",
+      "toggle": "Potisna obvestila za {{server}}",
+      "minSeverity": "Pošlji mi",
+      "denied": "Obvestila za Termix so izklopljena. Vklopite jih v nastavitvah telefona.",
+      "openSettings": "Odpri nastavitve",
+      "outdated": "Ta strežnik zahteva vtičnik Alerts 1.4.0 ali novejši za potisna obvestila. Prosite skrbnika, naj posodobi vtičnik.",
+      "unavailable": "Prijavite se na ta strežnik in vklopite vtičnik Alerts za prejemanje obvestil.",
+      "error": "Strežnika ni bilo mogoče doseči. Termix bo poskusil znova naslednjič, ko se aplikacija odpre.",
+      "notInThisBuild": "Ta zgradba ne more prikazovati obvestil.",
+      "noServers": "Povežite strežnik, da tukaj prejmete njegova opozorila.",
+      "pushHint": "Opozorila se pošljejo prek Expo ter Apple ali Google, z njihovim naslovom in besedilom. Izberite, katera, v pravilih opozoril na strežniku.",
+      "pollHint": "Ta zgradba nima storitev Google, zato Termix v ozadju preverja nova opozorila, približno vsakih 15 minut."
+    }
   }
 }

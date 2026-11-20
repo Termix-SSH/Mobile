@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Recarregar"
+    },
+    "pluginSettings": {
+      "loading": "A carregar definições",
+      "forEveryone": "Para todos no servidor",
+      "justForYou": "Apenas para si",
+      "couldNotSave": "Não foi possível guardar a definição",
+      "nothingYouCanChange": "Não há nada aqui que possa alterar. Um administrador pode alterar estas definições.",
+      "notANumber": "Isto não é um número",
+      "atLeast": "Tem de ser {{min}} ou mais",
+      "atMost": "Tem de ser {{max}} ou menos"
     }
   },
   "sessions": {
@@ -744,14 +754,21 @@
         "authenticationFailed": "Falha na autenticação: {{message}}",
         "theHostKeyWasNot": "A chave do host não foi confiável.",
         "loginCancelled": "Início de sessão cancelado.",
-        "notConnected": "Não conectado"
+        "notConnected": "Não conectado",
+        "signingInAs": "A iniciar sessão como {{user}} com {{method}}",
+        "methodKey": "uma chave",
+        "methodPassword": "uma palavra-passe",
+        "methodNone": "sem início de sessão guardado"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "A ligação foi cortada"
       },
       "thisBuildHasNoSsh": "Esta versão não tem motor SSH. Use a aplicação da loja ou ligue um servidor Termix para conectar.",
       "theHostsOnThisAre": "Os hosts neste {{deviceWord}} ainda não estão abertos.",
-      "thisServerSHostsAre": "Os hosts deste servidor não estão neste {{deviceWord}}. Ative o plugin Sync no servidor para conectar a partir do {{deviceWord}}."
+      "thisServerSHostsAre": "Os hosts deste servidor não estão neste {{deviceWord}}. Ative o plugin Sync no servidor para conectar a partir do {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "O início de sessão guardado para este host não está neste {{deviceWord}}, por isso apenas o servidor pode iniciar sessão"
+      }
     },
     "origin": {
       "canTConnect": "Não é possível conectar.",
@@ -1319,7 +1336,7 @@
     "yourDefaultsOrOneFolder": "Os seus padrões, ou os de uma pasta",
     "myDefaults": "Os meus padrões",
     "theServerSets": " O servidor define {{adminCount}}.",
-    "aFolderWinsOverYour": "Uma pasta tem prioridade sobre os seus padrões, e os seus padrões têm prioridade sobre os do servidor. Um host mantém qualquer valor que você defina diretamente nele.{{value}}",
+    "aFolderWinsOverYour": "Uma pasta tem prioridade sobre as suas definições predefinidas, e as suas definições predefinidas têm prioridade sobre as do servidor. Um host mantém qualquer valor que defina nele diretamente.{{value}}",
     "save": "Guardar",
     "authentication": "Autenticação",
     "none": "Nenhum",
@@ -2918,9 +2935,9 @@
       "or": "OU",
       "continueWith": "Continuar com {{label}}",
       "signInWithAPasskey": "Iniciar sessão com uma passkey ou chave de segurança",
-      "opensYourServerAposS": "Abre a página de início de sessão do seu servidor no navegador. Face ID, impressão digital, NFC e chaves USB funcionam aí. Requer Termix 26.11.3 ou superior.",
+      "opensYourServerAposS": "Abre a página de início de sessão do seu servidor no navegador. Face ID, impressão digital, NFC e chaves USB funcionam lá. Requer Termix 26.11.3 ou superior.",
       "signInInTheBrowser": "Iniciar sessão no navegador",
-      "opensYourServerAposS2": "Abre a página de início de sessão do seu servidor, para tudo o que a app não consegue fazer aqui. Requer Termix 26.10.6 ou superior.",
+      "opensYourServerAposS2": "Abre a página de início de sessão do seu servidor, para qualquer coisa que a aplicação não consiga fazer aqui. Requer Termix 26.10.6 ou superior.",
       "thisServerHasNoSign": "Este servidor não tem nenhum método de início de sessão ativado que a app possa usar. Pergunte a quem o gere ou tente o início de sessão no navegador acima.",
       "signInWithYourPassword": "Iniciar sessão com a sua palavra-passe.",
       "signInFailed": "Falha no início de sessão",
@@ -2937,10 +2954,10 @@
       "code": "Código",
       "the6DigitCodeFrom": "O código de 6 dígitos da sua app de autenticação ou um código de backup",
       "checkCode": "Verificar código",
-      "thisAccountAsksForA": "Esta conta pede uma chave de segurança após a palavra-passe. Inicie sessão na página do servidor no seu navegador para a usar.",
+      "thisAccountAsksForA": "Esta conta pede uma chave de segurança após a palavra-passe. Inicie sessão na página do servidor no seu navegador para a utilizar.",
       "useASecurityKeyIn": "Usar uma chave de segurança no navegador",
       "backToSignIn": "Voltar ao início de sessão",
-      "bringThisAposSHosts": "Trazer os hosts deste {{deviceWord}} também?",
+      "bringThisAposSHosts": "Trazer os hosts deste {{deviceWord}} consigo?",
       "thisHasTheyStayOn": "Este {{deviceWord}} tem {{what}}. Eles ficam neste dispositivo de qualquer forma.",
       "merge": "Unir",
       "copyThemToTooSo": "Copiá-los também para {{serverName}}, para sincronizar. Os que parecem iguais a um host do servidor são ignorados.",
@@ -3153,7 +3170,7 @@
         "howTallListRowsAnd": "Altura das linhas da lista e das definições"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Os hosts, credenciais e snippets são guardados num ficheiro encriptado neste{{deviceWord}}. As estatísticas de utilização estão desativadas a menos que as ative abaixo. Um servidor ligado só recebe o que permitir sincronizar.",
+        "hostsCredentialsAndSnippetsAre": "Os hosts, credenciais e snippets são mantidos num ficheiro encriptado neste {{deviceWord}}. As estatísticas de utilização estão desativadas a menos que as ative abaixo. Um servidor ligado só recebe o que permitir sincronizar.",
         "recentHosts": "Hosts recentes",
         "forgetTheHostsYouOpened": "Esquecer os hosts abertos recentemente em todas as contas",
         "recentHostsCleared": "Hosts recentes limpos",
@@ -3390,7 +3407,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Versão e atualizações",
         "logs": "Registos",
-        "latestLinesFromThisRun": "Últimas linhas desta execução, para relatórios de erros"
+        "latestLinesFromThisRun": "Últimas linhas desta execução, para relatórios de erros",
+        "pushNotifications": "Notificações push",
+        "pushNotificationsDescription": "Alertas dos seus servidores neste telemóvel"
       },
       "sections": {
         "accountsAndSync": "Contas e sincronização",
@@ -3592,7 +3611,7 @@
       "onAHardwareKeyboardOff": "Num teclado físico. Desativado digita símbolos como num Mac.",
       "history": "Histórico",
       "suggestCommands": "Sugerir comandos",
-      "showsPastCommandsThatStart": "Mostra comandos anteriores que começam com o que escreve",
+      "showsPastCommandsThatStart": "Comandos anteriores enquanto escreve",
       "resetToDefault": "Restaurar predefinições",
       "fontSize": "Tamanho da fonte",
       "aSizeFromTo": "Um tamanho de {{MIN_FONT_SIZE}} a {{MAX_FONT_SIZE}}.",
@@ -3615,7 +3634,7 @@
       "twoFactorAuthentication": "Autenticação de dois fatores",
       "loading": "A carregar…",
       "scanThisQrCodeWith": "Leia este código QR com a sua app de autenticação (Google Authenticator, Authy, etc.) e introduza o código de 6 dígitos para confirmar.",
-      "verifyAmpEnable": "Verificar &amp; Ativar",
+      "verifyAmpEnable": "Verificar e ativar",
       "cancel": "Cancelar",
       "saveYourBackupCodes": "Guarde os seus códigos de backup",
       "storeTheseSomewhereSafeEach": "Guarde estes num local seguro. Cada código só pode ser usado uma vez, caso perca acesso à sua app de autenticação.",
@@ -3848,5 +3867,31 @@
     "shareCount_many": "Partilhar com {{count}}",
     "shareCount_other": "Partilhar com {{count}}",
     "removeAccess": "Remover acesso"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Alertas do servidor",
+      "critical": "Alertas críticos do servidor"
+    },
+    "severity": {
+      "info": "Tudo",
+      "warning": "Avisos e piores",
+      "critical": "Apenas críticos"
+    },
+    "settings": {
+      "on": "Os alertas aparecem neste telemóvel",
+      "off": "Desativado",
+      "toggle": "Notificações push para {{server}}",
+      "minSeverity": "Enviar-me",
+      "denied": "As notificações estão desativadas para o Termix. Ative-as nas definições do telemóvel.",
+      "openSettings": "Abrir definições",
+      "outdated": "Este servidor precisa do Alerts 1.4.0 ou superior para notificações push. Peça a um administrador para atualizar o plugin.",
+      "unavailable": "Inicie sessão neste servidor e ative o plugin Alerts para receber notificações.",
+      "error": "Não foi possível contactar o servidor. O Termix tentará novamente da próxima vez que a aplicação for aberta.",
+      "notInThisBuild": "Esta compilação não pode mostrar notificações.",
+      "noServers": "Ligue um servidor para obter os seus alertas aqui.",
+      "pushHint": "Os alertas são enviados através do Expo e da Apple ou Google, com o respetivo título e texto. Escolha quais nas regras de Alertas no servidor.",
+      "pollHint": "Esta compilação não tem serviços Google, por isso o Termix verifica novos alertas em segundo plano, aproximadamente a cada 15 minutos."
+    }
   }
 }

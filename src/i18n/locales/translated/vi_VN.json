@@ -412,6 +412,16 @@
     },
     "pluginScreen": {
       "reload": "Tải lại"
+    },
+    "pluginSettings": {
+      "loading": "Đang tải cài đặt",
+      "forEveryone": "Dành cho mọi người trên máy chủ",
+      "justForYou": "Chỉ dành cho bạn",
+      "couldNotSave": "Không thể lưu cài đặt",
+      "nothingYouCanChange": "Không có gì ở đây để bạn thay đổi. Quản trị viên có thể thay đổi các cài đặt này.",
+      "notANumber": "Đó không phải là một số",
+      "atLeast": "Phải bằng {{min}} hoặc lớn hơn",
+      "atMost": "Phải bằng {{max}} hoặc nhỏ hơn"
     }
   },
   "sessions": {
@@ -732,14 +742,21 @@
         "authenticationFailed": "Xác thực thất bại: {{message}}",
         "theHostKeyWasNot": "Khóa máy chủ chưa được tin tưởng.",
         "loginCancelled": "Đăng nhập đã bị hủy.",
-        "notConnected": "Chưa kết nối"
+        "notConnected": "Chưa kết nối",
+        "signingInAs": "Đang đăng nhập với tư cách {{user}} bằng {{method}}",
+        "methodKey": "một khóa",
+        "methodPassword": "một mật khẩu",
+        "methodNone": "không có thông tin đăng nhập nào được lưu"
       },
       "localTelnetShell": {
         "theConnectionWasCut": "Kết nối bị ngắt"
       },
       "thisBuildHasNoSsh": "Phiên bản này không có công cụ SSH. Hãy dùng ứng dụng từ cửa hàng, hoặc liên kết máy chủ Termix để kết nối.",
       "theHostsOnThisAre": "Các máy chủ trên {{deviceWord}} này chưa được mở.",
-      "thisServerSHostsAre": "Các máy chủ của máy chủ này không có trên {{deviceWord}} này. Bật plugin Đồng bộ hóa trên máy chủ để kết nối từ {{deviceWord}}."
+      "thisServerSHostsAre": "Các máy chủ của máy chủ này không có trên {{deviceWord}} này. Bật plugin Đồng bộ hóa trên máy chủ để kết nối từ {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Thông tin đăng nhập đã lưu cho host này không có trên {{deviceWord}} này, vì vậy chỉ có máy chủ mới có thể đăng nhập"
+      }
     },
     "origin": {
       "canTConnect": "Không thể kết nối.",
@@ -1303,7 +1320,7 @@
     "yourDefaultsOrOneFolder": "Cài đặt mặc định của bạn, hoặc của một thư mục",
     "myDefaults": "Cài đặt mặc định của tôi",
     "theServerSets": " Máy chủ đặt {{adminCount}}.",
-    "aFolderWinsOverYour": "Cài đặt của thư mục ưu tiên hơn cài đặt mặc định của bạn, và cài đặt mặc định của bạn ưu tiên hơn cài đặt của máy chủ. Một máy chủ sẽ giữ nguyên bất kỳ giá trị nào bạn tự đặt cho nó.{{value}}",
+    "aFolderWinsOverYour": "Cài đặt của thư mục ưu tiên hơn cài đặt mặc định của bạn, và cài đặt mặc định của bạn ưu tiên hơn cài đặt của máy chủ. Host sẽ giữ bất kỳ giá trị nào bạn tự đặt cho nó.{{value}}",
     "save": "Lưu",
     "authentication": "Xác thực",
     "none": "Không có",
@@ -2852,7 +2869,7 @@
       "signedIn": "Đã đăng nhập",
       "close": "Đóng",
       "linkYourTermixServer": "Liên kết máy chủ Termix của bạn",
-      "yourHostsCredentialsSnippetsAnd": "Máy chủ, thông tin đăng nhập, đoạn lệnh và cài đặt của bạn sẽ đồng bộ với nó, và bạn sẽ nhận được các plugin của nó. Mọi thứ vẫn hoạt động trên {{deviceWord}} này khi máy chủ không có mặt.",
+      "yourHostsCredentialsSnippetsAnd": "Các host, thông tin đăng nhập, đoạn lệnh và cài đặt của bạn sẽ đồng bộ với nó, và bạn sẽ nhận được các plugin của nó. Mọi thứ vẫn hoạt động trên {{deviceWord}} này khi máy chủ không kết nối.",
       "checking": "Đang kiểm tra {{host}}...",
       "proxyAndClientCertificate": "Proxy và chứng chỉ máy khách",
       "couldNotReachThatServer": "Không thể kết nối đến máy chủ đó. Kiểm tra địa chỉ, hoặc thiết lập proxy hoặc chứng chỉ máy khách.",
@@ -2880,9 +2897,9 @@
       "or": "HOẶC",
       "continueWith": "Tiếp tục với {{label}}",
       "signInWithAPasskey": "Đăng nhập bằng passkey hoặc khóa bảo mật",
-      "opensYourServerAposS": "Mở trang đăng nhập của máy chủ trong trình duyệt. Face ID, vân tay, NFC và khóa USB đều hoạt động ở đó. Cần Termix 26.11.3 trở lên.",
+      "opensYourServerAposS": "Mở trang đăng nhập của máy chủ trong trình duyệt. Face ID, vân tay, NFC và khóa USB đều hoạt động ở đó. Cần Termix 26.11.3 hoặc mới hơn.",
       "signInInTheBrowser": "Đăng nhập trong trình duyệt",
-      "opensYourServerAposS2": "Mở trang đăng nhập của máy chủ, dành cho các trường hợp ứng dụng không thể xử lý. Cần Termix 26.10.6 trở lên.",
+      "opensYourServerAposS2": "Mở trang đăng nhập của máy chủ, cho những việc ứng dụng không thể thực hiện ở đây. Cần Termix 26.10.6 hoặc mới hơn.",
       "thisServerHasNoSign": "Máy chủ này chưa bật tính năng đăng nhập mà ứng dụng có thể sử dụng. Hãy hỏi người quản lý máy chủ hoặc thử đăng nhập qua trình duyệt ở trên.",
       "signInWithYourPassword": "Đăng nhập bằng mật khẩu của bạn.",
       "signInFailed": "Đăng nhập thất bại",
@@ -2899,10 +2916,10 @@
       "code": "Mã",
       "the6DigitCodeFrom": "Mã 6 chữ số từ ứng dụng xác thực hoặc mã dự phòng",
       "checkCode": "Kiểm tra mã",
-      "thisAccountAsksForA": "Tài khoản này yêu cầu khóa bảo mật sau khi nhập mật khẩu. Đăng nhập trên trang máy chủ trong trình duyệt để sử dụng.",
+      "thisAccountAsksForA": "Tài khoản này yêu cầu khóa bảo mật sau mật khẩu. Đăng nhập trên trang của máy chủ trong trình duyệt của bạn để sử dụng.",
       "useASecurityKeyIn": "Sử dụng khóa bảo mật trong trình duyệt",
       "backToSignIn": "Quay lại đăng nhập",
-      "bringThisAposSHosts": "Đồng bộ danh sách máy chủ từ {{deviceWord}} này?",
+      "bringThisAposSHosts": "Mang theo các host của {{deviceWord}} này?",
       "thisHasTheyStayOn": "{{deviceWord}} này có {{what}}. Chúng sẽ vẫn lưu trên thiết bị này trong mọi trường hợp.",
       "merge": "Gộp",
       "copyThemToTooSo": "Sao chép chúng sang {{serverName}} để đồng bộ. Các mục trùng với máy chủ trên server sẽ bị bỏ qua.",
@@ -3115,7 +3132,7 @@
         "howTallListRowsAnd": "Chiều cao của các hàng danh sách và mục cài đặt"
       },
       "miscControls": {
-        "hostsCredentialsAndSnippetsAre": "Host, thông tin đăng nhập và snippet được lưu trong một file mã hóa trên {{deviceWord}} này. Thống kê sử dụng tắt trừ khi bạn bật ở bên dưới. Máy chủ liên kết chỉ nhận những gì bạn cho phép đồng bộ.",
+        "hostsCredentialsAndSnippetsAre": "Các host, thông tin đăng nhập và đoạn lệnh được lưu trong một tệp mã hóa trên {{deviceWord}} này. Thống kê sử dụng bị tắt trừ khi bạn bật chúng ở bên dưới. Máy chủ liên kết chỉ nhận những gì bạn cho phép đồng bộ.",
         "recentHosts": "Host gần đây",
         "forgetTheHostsYouOpened": "Quên các host bạn đã mở gần đây trên mọi tài khoản",
         "recentHostsCleared": "Đã xóa host gần đây",
@@ -3352,7 +3369,9 @@
         "termixMobile": "Termix Mobile",
         "versionAndUpdates": "Phiên bản và cập nhật",
         "logs": "Nhật ký",
-        "latestLinesFromThisRun": "Các dòng mới nhất từ lần chạy này, dùng cho báo cáo lỗi"
+        "latestLinesFromThisRun": "Các dòng mới nhất từ lần chạy này, dùng cho báo cáo lỗi",
+        "pushNotifications": "Thông báo đẩy",
+        "pushNotificationsDescription": "Cảnh báo từ máy chủ của bạn trên điện thoại này"
       },
       "sections": {
         "accountsAndSync": "Tài khoản và đồng bộ",
@@ -3554,7 +3573,7 @@
       "onAHardwareKeyboardOff": "Trên bàn phím vật lý. Tắt sẽ gõ ký tự giống như trên Mac.",
       "history": "Lịch sử",
       "suggestCommands": "Gợi ý lệnh",
-      "showsPastCommandsThatStart": "Hiển thị các lệnh trước đó bắt đầu bằng những gì bạn gõ",
+      "showsPastCommandsThatStart": "Các lệnh trước đó khi bạn gõ",
       "resetToDefault": "Đặt lại về mặc định",
       "fontSize": "Cỡ chữ",
       "aSizeFromTo": "Cỡ từ {{MIN_FONT_SIZE}} đến {{MAX_FONT_SIZE}}.",
@@ -3577,7 +3596,7 @@
       "twoFactorAuthentication": "Xác thực hai yếu tố",
       "loading": "Đang tải…",
       "scanThisQrCodeWith": "Quét mã QR này bằng ứng dụng xác thực của bạn (Google Authenticator, Authy, v.v.), sau đó nhập mã 6 chữ số để xác nhận.",
-      "verifyAmpEnable": "Xác nhận &amp; Bật",
+      "verifyAmpEnable": "Xác minh và bật",
       "cancel": "Hủy",
       "saveYourBackupCodes": "Lưu mã dự phòng của bạn",
       "storeTheseSomewhereSafeEach": "Lưu trữ những mã này ở nơi an toàn. Mỗi mã chỉ có thể dùng một lần nếu bạn mất quyền truy cập vào ứng dụng xác thực.",
@@ -3802,5 +3821,31 @@
     "pickSomeone": "Chọn người để chia sẻ",
     "shareCount_other": "Chia sẻ với {{count}}",
     "removeAccess": "Xóa quyền truy cập"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Cảnh báo máy chủ",
+      "critical": "Cảnh báo máy chủ quan trọng"
+    },
+    "severity": {
+      "info": "Tất cả",
+      "warning": "Cảnh báo và nghiêm trọng hơn",
+      "critical": "Chỉ những cảnh báo quan trọng"
+    },
+    "settings": {
+      "on": "Cảnh báo hiển thị trên điện thoại này",
+      "off": "Tắt",
+      "toggle": "Thông báo đẩy cho {{server}}",
+      "minSeverity": "Gửi cho tôi",
+      "denied": "Thông báo đã bị tắt cho Termix. Hãy bật chúng trong cài đặt của điện thoại.",
+      "openSettings": "Mở cài đặt",
+      "outdated": "Máy chủ này cần Alerts 1.4.0 hoặc mới hơn để nhận thông báo đẩy. Hãy yêu cầu quản trị viên cập nhật plugin.",
+      "unavailable": "Đăng nhập vào máy chủ này và bật plugin Alerts để nhận thông báo.",
+      "error": "Không thể kết nối đến máy chủ. Termix sẽ thử lại lần sau khi ứng dụng mở.",
+      "notInThisBuild": "Phiên bản này không thể hiển thị thông báo.",
+      "noServers": "Liên kết một máy chủ để nhận cảnh báo của nó ở đây.",
+      "pushHint": "Cảnh báo được gửi qua Expo và Apple hoặc Google, với tiêu đề và nội dung của chúng. Chọn những cảnh báo nào trong quy tắc Alerts trên máy chủ.",
+      "pollHint": "Phiên bản này không có dịch vụ Google, vì vậy Termix kiểm tra các cảnh báo mới trong nền, khoảng mỗi 15 phút."
+    }
   }
 }
