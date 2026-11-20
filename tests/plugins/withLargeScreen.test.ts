@@ -32,7 +32,7 @@ test("density changes restart the activity", () => {
   );
 });
 
-test("the camera is optional, so devices without one still get the app", () => {
+test("implied hardware is optional, so devices without it still get the app", () => {
   const manifest = optionalFeatures({
     "uses-feature": [
       {
@@ -42,21 +42,31 @@ test("the camera is optional, so devices without one still get the app", () => {
         },
       },
       { $: { "android:name": "android.hardware.wifi" } },
+      { $: { "android:name": "android.hardware.touchscreen" } },
     ],
   });
   const features = manifest["uses-feature"].map(
     (f: { $: Record<string, string> }) => f.$,
   );
-  expect(features).toContainEqual({ "android:name": "android.hardware.wifi" });
+  expect(features).toContainEqual({
+    "android:name": "android.hardware.touchscreen",
+  });
   for (const name of [
     "android.hardware.camera",
     "android.hardware.camera.autofocus",
+    "android.hardware.wifi",
+    "android.hardware.screen.portrait",
+    "android.hardware.screen.landscape",
   ]) {
     const entries = features.filter(
       (f: Record<string, string>) => f["android:name"] === name,
     );
     expect(entries).toEqual([
-      { "android:name": name, "android:required": "false" },
+      {
+        "android:name": name,
+        "android:required": "false",
+        "tools:node": "replace",
+      },
     ]);
   }
 });

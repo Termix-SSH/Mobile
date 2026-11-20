@@ -13,22 +13,34 @@ const IPAD_ORIENTATIONS = [
   "UIInterfaceOrientationLandscapeRight",
 ];
 
-// The camera only scans QR codes. Asking for it without these makes Play
-// require a camera and hide the app from most Chromebooks, cars and tablets.
+// Permissions and libraries imply these, and Play then hides the app from
+// devices without them (Chromebooks, cars, tablets, XR). None are needed.
 const OPTIONAL_FEATURES = [
   "android.hardware.camera",
   "android.hardware.camera.autofocus",
+  "android.hardware.wifi",
+  "android.hardware.screen.portrait",
+  "android.hardware.screen.landscape",
 ];
 
-/** Marks the camera features as not required, replacing any earlier entries. */
+/** Marks implied hardware features as not required, replacing any earlier entries. */
 function optionalFeatures(manifest) {
   const others = (manifest["uses-feature"] || []).filter(
     (f) => !OPTIONAL_FEATURES.includes(f.$["android:name"]),
   );
+  // replace, so a library asking for the feature can't make it required again
+  manifest.$ = {
+    ...manifest.$,
+    "xmlns:tools": "http://schemas.android.com/tools",
+  };
   manifest["uses-feature"] = [
     ...others,
     ...OPTIONAL_FEATURES.map((name) => ({
-      $: { "android:name": name, "android:required": "false" },
+      $: {
+        "android:name": name,
+        "android:required": "false",
+        "tools:node": "replace",
+      },
     })),
   ];
   return manifest;

@@ -45,6 +45,7 @@
 
 ### Fixed
 
+- Google Play no longer hides the app from devices without Wi-Fi or a portrait screen, like Chromebooks and XR headsets
 - Sign in to proxy now shows the server's client certificate, so it loads behind mTLS instead of failing with ERR_BAD_SSL_CLIENT_AUTH_CERT
 - In split screen and pop up windows on foldables, text is no longer cut short and buttons work again
 - Hosts and other rows a server no longer has, like after it was restored or reset, now leave the phone too. Sync now checks the whole list, and the app does it on its own every few hours
