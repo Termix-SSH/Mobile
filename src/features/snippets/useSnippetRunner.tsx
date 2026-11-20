@@ -14,6 +14,7 @@ import {
   type SnippetMode,
 } from "./run";
 import type { SnippetInput } from "./variables";
+import { t as tr } from "@/i18n";
 
 interface Pending {
   snippet: Snippet;
@@ -43,15 +44,15 @@ export function useSnippetRunner(
     ) => {
       if (mode === "run" && confirmRun) {
         const ok = await confirm({
-          title: `Run ${snippet.name}?`,
-          confirmLabel: "Run",
+          title: tr("snippets.useSnippetRunner.run", { name: snippet.name }),
+          confirmLabel: tr("snippets.useSnippetRunner.run2"),
           destructive: false,
         });
         if (!ok) return;
       }
       const text = resolveSnippet(snippet, hostContext(host), inputValues);
       if (!sendToTerminal(getTerminal(), text, mode)) {
-        showToast.error("No terminal is open");
+        showToast.error(tr("snippets.useSnippetRunner.noTerminalIsOpen"));
       }
     },
     [confirm, confirmRun, getTerminal, host],
@@ -84,14 +85,16 @@ export function useSnippetRunner(
       visible={pending !== null}
       onClose={close}
       title={pending?.snippet.name}
-      description="Fill in the values for this snippet."
+      description={tr("snippets.useSnippetRunner.fillInTheValuesFor")}
       footer={
         <View className="flex-row gap-2">
           <Button variant="muted" className="flex-1" onPress={close}>
-            Cancel
+            {tr("snippets.useSnippetRunner.cancel")}
           </Button>
           <Button className="flex-1" onPress={submit}>
-            {pending?.mode === "insert" ? "Insert" : "Run"}
+            {pending?.mode === "insert"
+              ? tr("snippets.useSnippetRunner.insert")
+              : tr("snippets.useSnippetRunner.run2")}
           </Button>
         </View>
       }

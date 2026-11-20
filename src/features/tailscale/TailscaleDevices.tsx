@@ -13,6 +13,7 @@ import {
 } from "@/features/tailscale/tailscale";
 import type { SSHHost } from "@/types";
 import { api } from "@/core/accounts";
+import { t } from "@/i18n";
 
 type DeviceStatus =
   "loading" | "ready" | "noApiKey" | "forbidden" | "failed" | "unavailable";
@@ -76,25 +77,24 @@ function DeviceResults({
       <View className="items-center gap-2 py-6">
         <ActivityIndicator color={color("accent-brand")} />
         <Text className="text-xs text-muted-foreground">
-          Loading Tailscale devices…
+          {t("tailscale.tailscaleDevices.loadingTailscaleDevices")}
         </Text>
       </View>
     );
   }
   const messages: Partial<Record<DeviceStatus, string>> = {
-    noApiKey:
-      "No Tailscale API key is configured on this server. Ask an administrator to add one.",
-    forbidden: "You do not have permission to list Tailscale devices.",
-    failed: "Could not load Tailscale devices. Refresh to try again.",
-    unavailable: "Tailscale is unavailable on this server.",
+    noApiKey: t("tailscale.tailscaleDevices.noTailscaleApiKeyIs"),
+    forbidden: t("tailscale.tailscaleDevices.youDoNotHavePermission"),
+    failed: t("tailscale.tailscaleDevices.couldNotLoadTailscaleDevices"),
+    unavailable: t("tailscale.tailscaleDevices.tailscaleIsUnavailableOnThis"),
   };
   const filtered = filterTailscaleDevices(devices, query);
   const message =
     messages[status] ??
     (filtered.length === 0
       ? query.trim()
-        ? "No Tailscale devices match your search."
-        : "No Tailscale devices found."
+        ? t("tailscale.tailscaleDevices.noTailscaleDevicesMatchYour")
+        : t("tailscale.tailscaleDevices.noTailscaleDevicesFound")
       : null);
   if (message) {
     return (
@@ -124,15 +124,19 @@ function DeviceSearch({
         containerClassName="flex-1"
         value={query}
         onChangeText={setQuery}
-        placeholder="Search Tailscale devices…"
-        accessibilityLabel="Search Tailscale devices"
+        placeholder={t("tailscale.tailscaleDevices.searchTailscaleDevices")}
+        accessibilityLabel={t(
+          "tailscale.tailscaleDevices.searchTailscaleDevices2",
+        )}
         autoCapitalize="none"
         autoCorrect={false}
         leading={<Search size={15} color={color("muted-foreground")} />}
         trailing={
           query ? (
             <Pressable
-              accessibilityLabel="Clear device search"
+              accessibilityLabel={t(
+                "tailscale.tailscaleDevices.clearDeviceSearch",
+              )}
               onPress={() => setQuery("")}
               hitSlop={8}
             >
@@ -144,7 +148,9 @@ function DeviceSearch({
       <Button
         variant="muted"
         size="icon"
-        accessibilityLabel="Refresh Tailscale devices"
+        accessibilityLabel={t(
+          "tailscale.tailscaleDevices.refreshTailscaleDevices",
+        )}
         onPress={refresh}
         disabled={loading}
         icon={<RefreshCw size={16} color={color("muted-foreground")} />}
@@ -157,10 +163,14 @@ function DeviceDetails({ device }: { device: TailscaleDevice }) {
   return (
     <View className="min-w-0 flex-1 gap-0.5">
       <Text weight="medium" className="text-sm text-foreground">
-        {device.hostname || device.name || tailnetAddress(device) || "Device"}
+        {device.hostname ||
+          device.name ||
+          tailnetAddress(device) ||
+          t("tailscale.tailscaleDevices.device")}
       </Text>
       <Text selectable className="text-xs text-muted-foreground">
-        {tailnetAddress(device) || "No tailnet address"}
+        {tailnetAddress(device) ||
+          t("tailscale.tailscaleDevices.noTailnetAddress")}
       </Text>
       {device.os ? (
         <Text className="text-[11px] text-muted-foreground">{device.os}</Text>
@@ -181,7 +191,7 @@ export function TailscaleDevicePicker({
   const { devices, status, refresh } = useDevices(true);
   return (
     <View className="gap-2.5">
-      <Label>Tailscale device</Label>
+      <Label>{t("tailscale.tailscaleDevices.tailscaleDevice")}</Label>
       <DeviceSearch
         query={query}
         setQuery={setQuery}
@@ -246,8 +256,8 @@ export function TailscaleDevices({
       visible={visible}
       onClose={onClose}
       onDismiss={onDismiss}
-      title="Tailscale devices"
-      description="Add a host that connects with Tailscale SSH."
+      title={t("tailscale.tailscaleDevices.tailscaleDevices")}
+      description={t("tailscale.tailscaleDevices.addAHostThatConnects")}
       icon={<Radar size={15} color={color("accent-brand")} />}
     >
       <ScrollView
@@ -277,7 +287,7 @@ export function TailscaleDevices({
               >
                 <DeviceDetails device={device} />
                 <View className="gap-1.5">
-                  <Label>Username</Label>
+                  <Label>{t("tailscale.tailscaleDevices.username")}</Label>
                   <Input
                     value={username}
                     onChangeText={(value) =>
@@ -286,7 +296,10 @@ export function TailscaleDevices({
                         [device.id]: value,
                       }))
                     }
-                    accessibilityLabel={`SSH username for ${device.hostname || device.name}`}
+                    accessibilityLabel={t(
+                      "tailscale.tailscaleDevices.sshUsernameFor",
+                      { value: device.hostname || device.name },
+                    )}
                     autoCapitalize="none"
                     autoCorrect={false}
                     placeholder="root"
@@ -300,7 +313,7 @@ export function TailscaleDevices({
                     onAddHost(tailscaleHostDraft(device, username))
                   }
                 >
-                  Add host
+                  {t("tailscale.tailscaleDevices.addHost")}
                 </Button>
               </View>
             );

@@ -7,6 +7,8 @@ import { getLatestGitHubRelease, isNewerVersion } from "@/core/updates";
 import { Button, SettingRow, Text } from "@/ui";
 import { toast } from "@/utils/toast";
 import { BackgroundSessionsSection } from "../BackgroundSessionsSection";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 export function BackgroundSessionsControl() {
   return <BackgroundSessionsSection />;
@@ -16,9 +18,9 @@ export function PrivacyNoteControl() {
   return (
     <View className="py-3">
       <Text className="text-meta text-muted-foreground">
-        Hosts, credentials and snippets are kept in an encrypted file on this
-        phone. Usage statistics are off unless you turn them on below. A linked
-        server only gets what you let it sync.
+        {t("settings.controls.miscControls.hostsCredentialsAndSnippetsAre", {
+          deviceWord,
+        })}
       </Text>
     </View>
   );
@@ -29,8 +31,8 @@ export function ClearRecentControl() {
   const [busy, setBusy] = useState(false);
   return (
     <SettingRow
-      label="Recent hosts"
-      description="Forget the hosts you opened lately on every account"
+      label={t("settings.controls.miscControls.recentHosts")}
+      description={t("settings.controls.miscControls.forgetTheHostsYouOpened")}
       last
     >
       <Button
@@ -41,13 +43,15 @@ export function ClearRecentControl() {
           setBusy(true);
           try {
             await Promise.all(list.map((a) => clearRecent(a.id)));
-            toast.success("Recent hosts cleared");
+            toast.success(
+              t("settings.controls.miscControls.recentHostsCleared"),
+            );
           } finally {
             setBusy(false);
           }
         }}
       >
-        Clear
+        {t("settings.controls.miscControls.clear")}
       </Button>
     </SettingRow>
   );
@@ -60,29 +64,42 @@ export function VersionControl() {
     setState("busy");
     try {
       const latest = await getLatestGitHubRelease();
-      if (!latest) toast.error("Could not check for updates");
+      if (!latest)
+        toast.error(
+          t("settings.controls.miscControls.couldNotCheckForUpdates"),
+        );
       else if (isNewerVersion(latest.version, version)) {
-        toast.info(`Version ${latest.version} is out. Update from your store.`);
-      } else toast.success("You have the newest version");
+        toast.info(
+          t("settings.controls.miscControls.versionIsOutUpdateFrom", {
+            version: latest.version,
+          }),
+        );
+      } else
+        toast.success(
+          t("settings.controls.miscControls.youHaveTheNewestVersion"),
+        );
     } finally {
       setState("idle");
     }
   };
   return (
     <>
-      <SettingRow label="Termix Mobile" description={`${Platform.OS}`}>
+      <SettingRow
+        label={t("settings.controls.miscControls.termixMobile")}
+        description={`${Platform.OS}`}
+      >
         <Text className="text-row text-muted-foreground">
           {version ? `v${version}` : "-"}
         </Text>
       </SettingRow>
-      <SettingRow label="Updates" last>
+      <SettingRow label={t("settings.controls.miscControls.updates")} last>
         <Button
           variant="muted"
           size="sm"
           loading={state === "busy"}
           onPress={check}
         >
-          Check
+          {t("settings.controls.miscControls.check")}
         </Button>
       </SettingRow>
     </>

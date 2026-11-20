@@ -4,6 +4,7 @@ import { RefreshCw, WifiOff } from "lucide-react-native";
 import { Button, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import type { ConnectionStatus } from "@/core/transport";
+import { t } from "@/i18n";
 
 /** The banner's text, so it can be tested without rendering. */
 export function bannerText(
@@ -14,26 +15,36 @@ export function bannerText(
     case "reconnecting": {
       if (state.nextAt === null) {
         return {
-          title: `Reconnecting | try ${state.attempt}`,
+          title: t("terminal.connectionBanner.reconnectingTry", {
+            attempt: state.attempt,
+          }),
           detail: state.reason,
         };
       }
       const secs = Math.max(0, Math.ceil((state.nextAt - now) / 1000));
       return {
-        title: `Reconnecting in ${secs}s | try ${state.attempt}`,
+        title: t("terminal.connectionBanner.reconnectingInSTry", {
+          secs,
+          attempt: state.attempt,
+        }),
         detail: state.reason,
       };
     }
     case "offline":
-      return { title: "Offline, waiting for network", detail: state.reason };
+      return {
+        title: t("terminal.connectionBanner.offlineWaitingForNetwork"),
+        detail: state.reason,
+      };
     default:
       return null;
   }
 }
 
 export function pendingText(count: number, held: boolean): string {
-  const what = count === 1 ? "1 typed character" : `${count} typed characters`;
-  return held ? `Send ${what} to the new shell?` : `${what} waiting`;
+  const what = t("terminal.connectionBanner.typedChars", { count });
+  return held
+    ? t("terminal.connectionBanner.sendToTheNewShell", { what })
+    : t("terminal.connectionBanner.waiting", { what });
 }
 
 /**
@@ -95,7 +106,7 @@ export function ConnectionBanner({
             ) : null}
           </View>
           <Button size="xs" variant="outline" onPress={onReconnectNow}>
-            Reconnect now
+            {t("terminal.connectionBanner.reconnectNow")}
           </Button>
         </View>
       ) : null}
@@ -108,11 +119,11 @@ export function ConnectionBanner({
           </Text>
           {pendingHeld ? (
             <Button size="xs" variant="outline" onPress={onSend}>
-              Send
+              {t("terminal.connectionBanner.send")}
             </Button>
           ) : null}
           <Button size="xs" variant="muted" onPress={onDiscard}>
-            Discard
+            {t("terminal.connectionBanner.discard")}
           </Button>
         </View>
       ) : null}

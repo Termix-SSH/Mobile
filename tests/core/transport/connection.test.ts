@@ -208,6 +208,20 @@ describe("HostConnection", () => {
     expect(conn.state.status).toBe("connecting");
   });
 
+  test("falls back to the server when the phone can't sign in at all", async () => {
+    const local = fakeTransport("local");
+    const relay = fakeTransport("relay");
+    const { conn } = setup([local.transport, relay.transport]);
+    await conn.connect(80, 24);
+    local.last().options.onConnectionFailed("Box: no login here", {
+      stage: "unavailable",
+      message: "no login here",
+      hint: "h",
+    });
+    expect(relay.shells).toHaveLength(1);
+    expect(conn.state).toMatchObject({ status: "connecting", origin: "relay" });
+  });
+
   test("no fallback after a login was refused or the user was asked", async () => {
     const local = fakeTransport("local");
     const relay = fakeTransport("relay");

@@ -7,6 +7,7 @@ import {
   callbackErrorText,
   finishLoginAnswer,
   parseCallback,
+  redeemAppCode,
   redirectStartUrl,
   signInWithForm,
   typedFactor,
@@ -126,7 +127,7 @@ test("without passkeys on the server the browser option is a plain one", () => {
 });
 
 test("callback errors and a closed browser read in plain words", () => {
-  expect(callbackErrorText("no_token")).toMatch(/26.10.6/);
+  expect(callbackErrorText("no_token")).toMatch(/26.11.3/);
   expect(callbackErrorText("user_not_allowed")).toMatch(/isn't allowed/);
   expect(callbackErrorText("Some other text")).toBe("Some other text");
   expect(browserCanceled("cancel")).toBe(true);
@@ -250,6 +251,37 @@ test("redirect logins get their address, old servers use the old route", async (
   );
   expect(browserSignInUrl(client, "abc12345")).toBe(
     `https://t.example/?return_to=${encodeURIComponent(`${APP_CALLBACK_URL}/abc12345`)}`,
+  );
+});
+
+test("the login page gets the app's challenge and sends back a code", async () => {
+  const { client, seen } = fakeClient({
+    "/users/auth/app-handoff/redeem": json({ token: "jwt-9" }),
+  });
+  expect(browserSignInUrl(client, "abc12345", "c".repeat(43))).toBe(
+    `https://t.example/?return_to=${encodeURIComponent(`${APP_CALLBACK_URL}/abc12345`)}&app_challenge=${"c".repeat(43)}`,
+  );
+  expect(parseCallback(`${APP_CALLBACK_URL}/abc12345?code=xyz`)).toEqual({
+    kind: "code",
+    code: "xyz",
+    flow: "abc12345",
+  });
+  expect(await redeemAppCode(client, "xyz", "v".repeat(43))).toBe("jwt-9");
+  expect(JSON.parse(String(seen[0].init.body))).toEqual({
+    code: "xyz",
+    verifier: "v".repeat(43),
+  });
+});
+
+test("a used or expired code says to sign in again", async () => {
+  const { client } = fakeClient({
+    "/users/auth/app-handoff/redeem": json(
+      { error: "Invalid or expired code" },
+      400,
+    ),
+  });
+  await expect(redeemAppCode(client, "xyz", "v".repeat(43))).rejects.toThrow(
+    /Sign in again/,
   );
 });
 

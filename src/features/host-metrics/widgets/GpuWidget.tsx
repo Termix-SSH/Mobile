@@ -4,6 +4,7 @@ import { ServerMetrics } from "@/types";
 import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { WidgetCard, Meter, Stats } from "./WidgetCard";
+import { t } from "@/i18n";
 
 const num = (n: number | null, unit: string, digits = 0) =>
   n == null ? null : `${n.toFixed(digits)} ${unit}`;
@@ -16,7 +17,11 @@ export function GpuWidget({ metrics }: { metrics: ServerMetrics }) {
   return (
     <WidgetCard
       icon={<Gpu size={15} color={color("accent-brand")} />}
-      title={gpu.gpus.length > 1 ? `GPUs (${gpu.gpus.length})` : "GPU"}
+      title={
+        gpu.gpus.length > 1
+          ? t("hostMetrics.widgets.gpuWidget.gpus", { count: gpu.gpus.length })
+          : t("hostMetrics.widgets.gpuWidget.gpu")
+      }
     >
       <View className="gap-3">
         {gpu.gpus.map((g, i) => (
@@ -42,15 +47,18 @@ export function GpuWidget({ metrics }: { metrics: ServerMetrics }) {
             <Stats
               items={[
                 {
-                  label: "Memory",
+                  label: t("hostMetrics.widgets.gpuWidget.memory"),
                   value:
                     g.memoryUsedMiB != null && g.memoryTotalMiB != null
                       ? `${(g.memoryUsedMiB / 1024).toFixed(1)} / ${(g.memoryTotalMiB / 1024).toFixed(1)} GiB`
                       : null,
                 },
-                { label: "Temp", value: num(g.temperatureCelsius, "°C") },
                 {
-                  label: "Power",
+                  label: t("hostMetrics.widgets.gpuWidget.temp"),
+                  value: num(g.temperatureCelsius, "°C"),
+                },
+                {
+                  label: t("hostMetrics.widgets.gpuWidget.power"),
                   value:
                     g.powerDrawWatts == null
                       ? null
@@ -58,7 +66,10 @@ export function GpuWidget({ metrics }: { metrics: ServerMetrics }) {
                         ? `${g.powerDrawWatts.toFixed(0)} / ${g.powerLimitWatts.toFixed(0)} W`
                         : `${g.powerDrawWatts.toFixed(0)} W`,
                 },
-                { label: "Fan", value: num(g.fanPercent, "%") },
+                {
+                  label: t("hostMetrics.widgets.gpuWidget.fan"),
+                  value: num(g.fanPercent, "%"),
+                },
               ]}
             />
           </View>

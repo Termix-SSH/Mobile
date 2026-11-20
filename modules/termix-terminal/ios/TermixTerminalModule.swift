@@ -33,6 +33,10 @@ public class TermixTerminalModule: Module {
         view.update { $0.letterSpacing = value ?? 0 }
       }
 
+      Prop("ligatures") { (view: TermixTerminalView, on: Bool?) in
+        view.update { $0.ligatures = on ?? true }
+      }
+
       Prop("cursor") { (view: TermixTerminalView, cursor: CursorRecord?) in
         view.update {
           $0.cursorStyle = cursor?.style ?? "block"
@@ -61,6 +65,10 @@ public class TermixTerminalModule: Module {
 
       Prop("watchPrompt") { (view: TermixTerminalView, on: Bool?) in
         view.promptWatch = on ?? false
+      }
+
+      Prop("doubleTapTab") { (view: TermixTerminalView, on: Bool?) in
+        view.doubleTapTab = on ?? false
       }
 
       Prop("surfaceVisible") { (view: TermixTerminalView, visible: Bool?) in

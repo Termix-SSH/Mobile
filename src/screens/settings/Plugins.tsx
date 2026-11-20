@@ -34,11 +34,17 @@ import { toast } from "@/utils/toast";
 import type { ListRowTone } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { Screen } from "@/components/Screen";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 const SECTIONS: { id: SupportSection; label: string; tone: ListRowTone }[] = [
-  { id: "phone", label: "Works on this phone", tone: "brand" },
-  { id: "server", label: "Needs the server", tone: "muted" },
-  { id: "absent", label: "Not in the app", tone: "none" },
+  {
+    id: "phone",
+    label: t("settings.plugins.worksOnThis", { deviceWord }),
+    tone: "brand",
+  },
+  { id: "server", label: t("settings.plugins.needsTheServer"), tone: "muted" },
+  { id: "absent", label: t("settings.plugins.notInTheApp"), tone: "none" },
 ];
 
 type ListMode = "server" | "all";
@@ -46,9 +52,10 @@ type ListMode = "server" | "all";
 /** Something the user or an admin has to fix, shown before anything else. */
 function problem(row: SupportRow): string | null {
   if (row.needsNewerApp || row.fit === "update-app") {
-    return "Needs a newer version of the app";
+    return t("settings.plugins.needsANewerVersionOf");
   }
-  if (row.fit === "update-plugin") return "Update the plugin on the server";
+  if (row.fit === "update-plugin")
+    return t("settings.plugins.updateThePluginOnThe");
   if (row.server === "failed") return stateLabel(row);
   return null;
 }
@@ -165,23 +172,35 @@ function Detail({
         </View>
       ) : null}
       <View>
-        <Fact label="In the app" value={row.status} />
+        <Fact label={t("settings.plugins.inTheApp")} value={row.status} />
         {local ? null : (
-          <Fact label="On this server" value={stateLabel(row) || "Unknown"} />
+          <Fact
+            label={t("settings.plugins.onThisServer")}
+            value={stateLabel(row) || "Unknown"}
+          />
         )}
-        {row.version ? <Fact label="Version" value={row.version} /> : null}
+        {row.version ? (
+          <Fact label={t("settings.plugins.version")} value={row.version} />
+        ) : null}
         {talksToApp && !local ? (
           <>
             <Fact
-              label="Needs plugin API"
-              value={row.engineApi ?? "Not sent by this server"}
+              label={t("settings.plugins.needsPluginApi")}
+              value={row.engineApi ?? t("settings.plugins.notSentByThisServer")}
             />
-            <Fact label="This app has" value={PLUGIN_HOST_API} />
+            <Fact
+              label={t("settings.plugins.thisAppHas")}
+              value={PLUGIN_HOST_API}
+            />
           </>
         ) : null}
-        {row.note ? <Fact label="Note" value={row.note} /> : null}
+        {row.note ? (
+          <Fact label={t("settings.plugins.note")} value={row.note} />
+        ) : null}
       </View>
-      {onOpen ? <Button onPress={onOpen}>Open</Button> : null}
+      {onOpen ? (
+        <Button onPress={onOpen}>{t("settings.plugins.open")}</Button>
+      ) : null}
     </>
   );
 }
@@ -227,7 +246,7 @@ export default function Plugins() {
     const screen = plugin.views.find((v) => !v.host);
     return () => {
       if (!screen) {
-        toast.info(`Open ${plugin.name} from a host's menu.`);
+        toast.info(t("settings.plugins.openFromAHostS", { name: plugin.name }));
         return;
       }
       setOpenId(null);
@@ -243,7 +262,7 @@ export default function Plugins() {
   const opened = rows.find((row) => row.id === openId) ?? null;
 
   return (
-    <Screen title="Plugins" onBack={() => router.back()}>
+    <Screen title={t("settings.plugins.plugins")} onBack={() => router.back()}>
       {accounts.length > 1 ? (
         <Tabs
           fill={false}
@@ -260,8 +279,11 @@ export default function Plugins() {
         <Tabs
           size="sm"
           options={[
-            { id: "server" as const, label: "On this server" },
-            { id: "all" as const, label: "Everything" },
+            {
+              id: "server" as const,
+              label: t("settings.plugins.onThisServer"),
+            },
+            { id: "all" as const, label: t("settings.plugins.everything") },
           ]}
           value={view}
           onChange={setView}
@@ -283,27 +305,35 @@ export default function Plugins() {
       >
         <Text className="mb-4 text-[11px] text-muted-foreground">
           {local
-            ? "This device works with no server. Link a server to add what needs one."
+            ? t("settings.plugins.thisDeviceWorksWithNo")
             : showing === "server"
-              ? `Plugins on ${accountLabel(account)} and how each one shows in the app. Pull down to check again.`
-              : `What runs on this phone and what goes through ${accountLabel(account)}.`}
+              ? t("settings.plugins.pluginsOnAndHowEach", {
+                  account: accountLabel(account),
+                })
+              : t("settings.plugins.whatRunsOnThisAnd", {
+                  deviceWord,
+                  account: accountLabel(account),
+                })}
         </Text>
         {showing === "server" ? (
           listed.length === 0 ? (
             <EmptyState
               icon={Blocks}
-              title="No plugin list"
+              title={t("settings.plugins.noPluginList")}
               hint={
                 client?.isPluginApi()
-                  ? "The server did not send its plugins. Pull down to try again."
-                  : "Servers older than 2.9 have every feature built in."
+                  ? t("settings.plugins.theServerDidNotSend")
+                  : t("settings.plugins.serversOlderThan29")
               }
             />
           ) : (
             <ServerList rows={listed} onOpen={(row) => setOpenId(row.id)} />
           )
         ) : rows.length === 0 ? (
-          <EmptyState icon={Blocks} title="Nothing to show" />
+          <EmptyState
+            icon={Blocks}
+            title={t("settings.plugins.nothingToShow")}
+          />
         ) : (
           SECTIONS.map((section) => (
             <Section

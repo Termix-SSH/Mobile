@@ -3,6 +3,7 @@ import { View, Platform } from "react-native";
 import { Lock } from "lucide-react-native";
 import { Sheet, SheetBody, Input, Button, Text, Tabs } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { t } from "@/i18n";
 
 interface SSHAuthDialogProps {
   visible: boolean;
@@ -60,10 +61,10 @@ export function SSHAuthDialog({
 
   const reasonText =
     reason === "no_keyboard"
-      ? "Keyboard-interactive auth is not available. Enter credentials directly."
+      ? t("dialogs.sSHAuthDialog.keyboardInteractiveAuthIsNot")
       : reason === "auth_failed"
-        ? "Authentication failed. Please re-enter your credentials."
-        : "Connection timed out. Please try again with your credentials.";
+        ? t("dialogs.sSHAuthDialog.authenticationFailedPleaseReEnter")
+        : t("dialogs.sSHAuthDialog.connectionTimedOutPleaseTry");
 
   const bannerBg =
     reason === "auth_failed" || reason === "timeout"
@@ -80,12 +81,12 @@ export function SSHAuthDialog({
       visible={visible}
       onClose={onCancel}
       icon={<Lock size={18} color={color("accent-brand")} />}
-      title="SSH Authentication Required"
+      title={t("dialogs.sSHAuthDialog.sshAuthenticationRequired")}
       description={hostLabel}
       footer={
         <View className="flex-1 flex-row gap-2">
           <Button variant="muted" className="flex-1" onPress={onCancel}>
-            Cancel
+            {t("dialogs.sSHAuthDialog.cancel")}
           </Button>
           <Button
             variant="default"
@@ -93,7 +94,7 @@ export function SSHAuthDialog({
             onPress={handleSubmit}
             disabled={!isValid}
           >
-            Connect
+            {t("dialogs.sSHAuthDialog.connect")}
           </Button>
         </View>
       }
@@ -105,8 +106,8 @@ export function SSHAuthDialog({
 
         <Tabs<"password" | "key">
           options={[
-            { id: "password", label: "Password" },
-            { id: "key", label: "SSH Key" },
+            { id: "password", label: t("dialogs.sSHAuthDialog.password") },
+            { id: "key", label: t("dialogs.sSHAuthDialog.sshKey") },
           ]}
           value={authMethod}
           onChange={setAuthMethod}
@@ -117,7 +118,7 @@ export function SSHAuthDialog({
           <Input
             value={password}
             onChangeText={setPassword}
-            placeholder="Password"
+            placeholder={t("dialogs.sSHAuthDialog.password")}
             secureTextEntry
             autoCapitalize="none"
             autoCorrect={false}
@@ -130,9 +131,9 @@ export function SSHAuthDialog({
             <Input
               value={sshKey}
               onChangeText={setSshKey}
-              placeholder={
-                "-----BEGIN OPENSSH PRIVATE KEY-----\nPaste your private key here...\n-----END OPENSSH PRIVATE KEY-----"
-              }
+              placeholder={t(
+                "dialogs.sSHAuthDialog.beginOpensshPrivateKeyPaste",
+              )}
               multiline
               numberOfLines={5}
               autoCapitalize="none"
@@ -148,7 +149,7 @@ export function SSHAuthDialog({
             <Input
               value={keyPassword}
               onChangeText={setKeyPassword}
-              placeholder="Key passphrase (optional)"
+              placeholder={t("dialogs.sSHAuthDialog.keyPassphraseOptional")}
               secureTextEntry
               autoCapitalize="none"
               autoCorrect={false}

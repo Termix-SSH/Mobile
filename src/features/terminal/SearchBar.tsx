@@ -7,13 +7,14 @@ import type {
   TerminalSearchOptions,
   TerminalSearchResult,
 } from "@/modules/termix-terminal";
+import { t } from "@/i18n";
 
 // Only Android's search knows these; iOS uses ghostty's plain text search.
 const HAS_OPTIONS = Platform.OS === "android";
 
 export function searchLabel(result: TerminalSearchResult, query: string) {
   if (!query) return "";
-  if (result.total === 0) return "No results";
+  if (result.total === 0) return t("terminal.searchBar.noResults");
   return result.index >= 0
     ? `${result.index + 1} of ${result.total}`
     : `${result.total}`;
@@ -55,10 +56,10 @@ export function SearchBar({
         accessibilityState={{ checked: on }}
         accessibilityLabel={
           key === "caseSensitive"
-            ? "Match case"
+            ? t("terminal.searchBar.matchCase")
             : key === "wholeWord"
-              ? "Whole word"
-              : "Regular expression"
+              ? t("terminal.searchBar.wholeWord")
+              : t("terminal.searchBar.regularExpression")
         }
         style={{
           minWidth: 32,
@@ -124,7 +125,7 @@ export function SearchBar({
           autoFocus
           value={query}
           onChangeText={setQuery}
-          placeholder="Find"
+          placeholder={t("terminal.searchBar.find")}
           autoCapitalize="none"
           autoCorrect={false}
           returnKeyType="search"
@@ -142,7 +143,11 @@ export function SearchBar({
         {iconButton("Next", <ChevronDown size={18} color={ui.text} />, () =>
           onStep(true),
         )}
-        {iconButton("Close find", <X size={18} color={ui.text} />, onClose)}
+        {iconButton(
+          t("terminal.searchBar.closeFind"),
+          <X size={18} color={ui.text} />,
+          onClose,
+        )}
       </View>
       {HAS_OPTIONS ? (
         <View style={{ flexDirection: "row", gap: 6 }}>

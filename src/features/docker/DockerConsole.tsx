@@ -8,7 +8,7 @@ import {
   Pressable,
   useWindowDimensions,
 } from "react-native";
-import { WebView } from "react-native-webview";
+import { WebView, type WebViewHandle } from "@/ui/web-view";
 import { LOCAL_PAGE_ORIGINS, stayOnLocalPage } from "@/utils/webview";
 import { RotateCcw } from "lucide-react-native";
 import { Text } from "@/ui";
@@ -30,6 +30,7 @@ import {
   openRelayConsole,
   type ConsoleLink,
 } from "./consoleLink";
+import { t } from "@/i18n";
 
 /**
  * Interactive shell in a container on the native terminal view (xterm in a
@@ -48,7 +49,7 @@ export function DockerConsole({
   isVisible: boolean;
 }) {
   const color = useThemeColor();
-  const webViewRef = useRef<WebView>(null);
+  const webViewRef = useRef<WebViewHandle>(null);
   const terminalRef = useRef<TerminalViewApi>(null);
   const sizeRef = useRef({ cols: 80, rows: 24 });
   const { resolvedTheme } = useTheme();
@@ -93,7 +94,7 @@ export function DockerConsole({
       .catch(() => {
         if (!cancelled) {
           setStatus("error");
-          setErrorMessage("Failed to load the console");
+          setErrorMessage(t("docker.dockerConsole.failedToLoadTheConsole"));
         }
       });
     return () => {
@@ -126,7 +127,7 @@ export function DockerConsole({
             )
           : null;
     if (!link) {
-      events.onError("This session has no server");
+      events.onError(t("docker.dockerConsole.thisSessionHasNoServer"));
       return;
     }
     linkRef.current = link;
@@ -199,20 +200,24 @@ export function DockerConsole({
             <>
               <ActivityIndicator size="large" color={color("accent-brand")} />
               <Text className="text-sm text-muted-foreground">
-                Attaching to {container.name}...
+                {t("docker.dockerConsole.attachingTo", {
+                  name: container.name,
+                })}
               </Text>
             </>
           ) : (
             <>
               <Text className="px-8 text-center text-sm text-destructive-text">
-                {errorMessage || "Console disconnected"}
+                {errorMessage || t("docker.dockerConsole.consoleDisconnected")}
               </Text>
               <Pressable
                 onPress={reconnect}
                 className="flex-row items-center gap-1.5 border border-border px-3 py-2 active:bg-muted/40"
               >
                 <RotateCcw size={14} color={color("foreground")} />
-                <Text className="text-xs text-foreground">Reconnect</Text>
+                <Text className="text-xs text-foreground">
+                  {t("docker.dockerConsole.reconnect")}
+                </Text>
               </Pressable>
             </>
           )}

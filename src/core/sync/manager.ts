@@ -16,6 +16,7 @@ import { mergeThisDevice } from "./link";
 import { REFRESH_EVERY_MS } from "./protocol";
 import { isSessionEnded, reasonOf } from "./reasons";
 import { SyncRemote } from "./remote";
+import { t as tr } from "@/i18n";
 
 const log = createLogger("sync");
 
@@ -127,8 +128,14 @@ export class SyncManager {
     return this.status.get(accountId) ?? OFF;
   }
 
-  /** Runs a pass now (or right after the one running). */
-  async syncNow(accountId: string): Promise<void> {
+  /**
+   * Runs a pass now (or right after the one running). Full reads the whole
+   * feed, to drop rows the server no longer has.
+   */
+  async syncNow(
+    accountId: string,
+    options: { full?: boolean } = {},
+  ): Promise<void> {
     let slot = this.slot(accountId);
     if (!slot) {
       // Its saved session may not be read yet.
@@ -137,6 +144,7 @@ export class SyncManager {
       slot = this.slot(accountId);
     }
     if (!slot) return;
+    if (options.full) slot.engine.requestFullCheck();
     const done = new Promise<void>((resolve) => slot.waiting.push(resolve));
     this.schedule(accountId, 0);
     return done;
@@ -417,7 +425,7 @@ export class SyncManager {
     ) {
       sync = new SyncError(
         "pin_mismatch",
-        "The server shows another key than the pinned one.",
+        tr("sync.manager.theServerShowsAnotherKey"),
       );
     }
     const reason = reasonOf(sync);
@@ -523,10 +531,17 @@ export class SyncManager {
     const client = accounts.client(accountId);
     if (!client) return;
     const request = new SyncRemote(client).eventsRequest();
+    let native: boolean;
+    try {
+      native = client.usesNativeNetwork();
+    } catch {
+      // No safe way to reach this server in this build: no live stream.
+      return;
+    }
     slot.closeStream = openEventStream({
       url: request.url,
       headers: request.headers,
-      native: client.usesNativeNetwork(),
+      native,
       onOpen: () =>
         this.setStatus(accountId, { ...this.get(accountId), live: true }),
       onEvent: (event) => {

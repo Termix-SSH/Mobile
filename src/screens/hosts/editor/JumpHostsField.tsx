@@ -5,6 +5,7 @@ import { Button, Field, Input, Sheet, SheetBody, SheetRow, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import type { SSHHost } from "@/types";
 import { canJumpThrough } from "./model";
+import { t } from "@/i18n";
 
 export function moveItem<T>(list: T[], from: number, to: number): T[] {
   if (to < 0 || to >= list.length) return list;
@@ -15,7 +16,7 @@ export function moveItem<T>(list: T[], from: number, to: number): T[] {
 }
 
 function label(host: SSHHost | undefined, id: number) {
-  if (!host) return `Missing host #${id}`;
+  if (!host) return t("hosts.editor.jumpHostsField.missingHost", { id });
   return host.name || `${host.username}@${host.ip}`;
 }
 
@@ -50,11 +51,11 @@ export function JumpHostsField({
 
   return (
     <Field
-      label="Jump hosts"
+      label={t("hosts.editor.jumpHostsField.jumpHosts")}
       hint={
         value.length > 0
-          ? "Connects through these in order, then to this host"
-          : "Reach this host through other hosts first"
+          ? t("hosts.editor.jumpHostsField.connectsThroughTheseInOrder")
+          : t("hosts.editor.jumpHostsField.reachThisHostThroughOther")
       }
     >
       {value.map((id, index) => (
@@ -72,7 +73,7 @@ export function JumpHostsField({
             onPress={() => onChange(moveItem(value, index, index - 1))}
             disabled={index === 0}
             accessibilityRole="button"
-            accessibilityLabel="Move up"
+            accessibilityLabel={t("hosts.editor.jumpHostsField.moveUp")}
             className={`h-11 w-11 items-center justify-center ${index === 0 ? "opacity-30" : "active:bg-muted"}`}
           >
             <ArrowUp size={15} color={icon} />
@@ -81,7 +82,7 @@ export function JumpHostsField({
             onPress={() => onChange(moveItem(value, index, index + 1))}
             disabled={index === value.length - 1}
             accessibilityRole="button"
-            accessibilityLabel="Move down"
+            accessibilityLabel={t("hosts.editor.jumpHostsField.moveDown")}
             className={`h-11 w-11 items-center justify-center ${index === value.length - 1 ? "opacity-30" : "active:bg-muted"}`}
           >
             <ArrowDown size={15} color={icon} />
@@ -89,7 +90,7 @@ export function JumpHostsField({
           <Pressable
             onPress={() => onChange(value.filter((v) => v !== id))}
             accessibilityRole="button"
-            accessibilityLabel="Remove jump host"
+            accessibilityLabel={t("hosts.editor.jumpHostsField.removeJumpHost")}
             className="h-11 w-11 items-center justify-center active:bg-muted"
           >
             <X size={15} color={color("destructive")} />
@@ -101,7 +102,7 @@ export function JumpHostsField({
         onPress={() => setPicking(true)}
         icon={<Plus size={14} color={icon} />}
       >
-        Add jump host
+        {t("hosts.editor.jumpHostsField.addJumpHost")}
       </Button>
 
       <Sheet
@@ -110,22 +111,21 @@ export function JumpHostsField({
           setPicking(false);
           setQuery("");
         }}
-        title="Add jump host"
-        description="Pick a saved host to connect through"
+        title={t("hosts.editor.jumpHostsField.addJumpHost")}
+        description={t("hosts.editor.jumpHostsField.pickASavedHostTo")}
         scroll
       >
         <SheetBody>
           <Input
             value={query}
             onChangeText={setQuery}
-            placeholder="Search hosts"
+            placeholder={t("hosts.editor.jumpHostsField.searchHosts")}
             autoCapitalize="none"
             autoCorrect={false}
           />
           {choices.length === 0 ? (
             <Text className="py-3 text-meta text-muted-foreground">
-              No other hosts to pick. A host cannot jump through itself or a
-              host that already goes through it.
+              {t("hosts.editor.jumpHostsField.noOtherHostsToPick")}
             </Text>
           ) : (
             choices.map((h) => (

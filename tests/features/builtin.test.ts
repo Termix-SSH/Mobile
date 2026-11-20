@@ -65,7 +65,11 @@ test("host actions keep the old order", () => {
   const actions = registry().hostActions(legacyServer);
   const ids = (group: string) =>
     actions.filter((a) => a.group === group).map((a) => a.id);
-  expect(ids("manage")).toEqual(["wake-on-lan.wake", "share-host"]);
+  expect(ids("manage")).toEqual([
+    "wake-on-lan.wake",
+    "host-access",
+    "share-host",
+  ]);
   expect(ids("connect")).toEqual([
     "terminal.open",
     "file-manager.open",

@@ -65,6 +65,8 @@ const PROTOCOL_LOGINS = {
 
 export function hostFromRow(row: HostRow): SSHHost {
   const pluginSettings = parseJson<Json>(row.pluginSettings, {});
+  // Missing server plugins are off, but the phone can sample metrics itself.
+  pluginSettings["host-metrics"] ??= { metricsEnabled: true };
   const protocolAuth = parseJson<Json>(row.protocolAuth, {});
   const host: Json = {
     id: row.id,

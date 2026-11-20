@@ -6,6 +6,7 @@ import type {
   HostFormTabProps,
 } from "@/core/features/types";
 import type { SSHHost, SSHHostData } from "@/types";
+import { t } from "@/i18n";
 
 type Protocol = "rdp" | "vnc" | "telnet";
 
@@ -47,7 +48,7 @@ const SPEC: Record<
     domain: false,
   },
   telnet: {
-    label: "Telnet",
+    label: t("remoteDesktop.hostSections.telnet"),
     toggle: "enableTelnet",
     order: 30,
     port: 23,
@@ -114,18 +115,28 @@ function editorFor(protocol: Protocol): HostFormEditor {
           />
         </Field>
         <FieldRow>
-          <Field label="Password" className="flex-[2]">
+          <Field
+            label={t("remoteDesktop.hostSections.password")}
+            className="flex-[2]"
+          >
             <Input
               value={form.password}
               onChangeText={(password) => onChange({ password })}
               secureTextEntry
-              placeholder={context.isEdit ? "Unchanged if blank" : "Password"}
+              placeholder={
+                context.isEdit
+                  ? t("remoteDesktop.hostSections.unchangedIfBlank")
+                  : t("remoteDesktop.hostSections.password")
+              }
               autoCapitalize="none"
               autoCorrect={false}
               textContentType="password"
             />
           </Field>
-          <Field label="Port" className="flex-1">
+          <Field
+            label={t("remoteDesktop.hostSections.port")}
+            className="flex-1"
+          >
             <Input
               value={form.port}
               onChangeText={(v) => onChange({ port: digits(v) })}
@@ -135,7 +146,7 @@ function editorFor(protocol: Protocol): HostFormEditor {
           </Field>
         </FieldRow>
         {spec.domain ? (
-          <Field label="Domain">
+          <Field label={t("remoteDesktop.hostSections.domain")}>
             <Input
               value={form.domain}
               onChangeText={(domain) => onChange({ domain })}
@@ -147,7 +158,7 @@ function editorFor(protocol: Protocol): HostFormEditor {
         ) : null}
         {protocol !== "telnet" ? (
           <Text className="text-meta text-muted-foreground">
-            Display, sound and clipboard settings are in the Termix web app.
+            {t("remoteDesktop.hostSections.displaySoundAndClipboardSettings")}
           </Text>
         ) : null}
       </View>
@@ -161,7 +172,9 @@ function editorFor(protocol: Protocol): HostFormEditor {
       const port = Number((value as unknown as ProtocolForm).port || spec.port);
       return port > 0 && port <= 65535
         ? null
-        : `${spec.label} port must be from 1 to 65535`;
+        : t("remoteDesktop.hostSections.portMustBeFrom1", {
+            label: spec.label,
+          });
     },
     component: Section,
   };

@@ -6,6 +6,7 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { Button, EmptyState, Tabs, Text } from "@/ui";
 import type { Follow, JournalEntry, ServicesBackend } from "./backend/types";
 import { errorText } from "./Services";
+import { t } from "@/i18n";
 
 type Level = "all" | "warnings" | "errors";
 const PRIORITY: Record<Level, number | undefined> = {
@@ -55,7 +56,7 @@ export function JournalView({
         }),
       );
     } catch (e) {
-      setError(errorText(e, "Could not read the journal"));
+      setError(errorText(e, t("services.journalView.couldNotReadTheJournal")));
       setEntries([]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -103,8 +104,8 @@ export function JournalView({
     return (
       <EmptyState
         icon={ScrollText}
-        title="No journal"
-        hint="This host does not keep a systemd journal."
+        title={t("services.journalView.noJournal")}
+        hint={t("services.journalView.thisHostDoesNotKeep")}
       />
     );
   }
@@ -124,9 +125,9 @@ export function JournalView({
             value={level}
             onChange={setLevel}
             options={[
-              { id: "all", label: "All" },
-              { id: "warnings", label: "Warnings" },
-              { id: "errors", label: "Errors" },
+              { id: "all", label: t("services.journalView.all") },
+              { id: "warnings", label: t("services.journalView.warnings") },
+              { id: "errors", label: t("services.journalView.errors") },
             ]}
           />
         </View>
@@ -135,7 +136,9 @@ export function JournalView({
           variant={following ? "default" : "outline"}
           onPress={following ? stop : start}
         >
-          {following ? "Stop" : "Follow"}
+          {following
+            ? t("services.journalView.stop")
+            : t("services.journalView.follow")}
         </Button>
       </View>
       {unit ? (
@@ -155,8 +158,8 @@ export function JournalView({
       ) : entries.length === 0 && !error ? (
         <EmptyState
           icon={ScrollText}
-          title="Nothing logged"
-          hint="Try another level."
+          title={t("services.journalView.nothingLogged")}
+          hint={t("services.journalView.tryAnotherLevel")}
         />
       ) : (
         <ScrollView

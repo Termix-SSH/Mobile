@@ -1,3 +1,5 @@
+import { t } from "@/i18n";
+
 // Copied from Plugin-Snippets src/shared/variables.ts so snippets resolve the
 // same way on the phone. Keep the two in step.
 
@@ -24,7 +26,10 @@ export function extractSnippetInputs(content: string): SnippetInput[] {
     const digits = match[1] ?? match[3];
     const key = `INPUT_${digits}`;
     if (!seen.has(key)) {
-      seen.set(key, { key, label: match[2]?.trim() || `Input ${digits}` });
+      seen.set(key, {
+        key,
+        label: match[2]?.trim() || t("snippets.variables.input", { digits }),
+      });
     }
   }
   return Array.from(seen.values());

@@ -4,13 +4,19 @@
 // Config plugins that download prebuilt binaries or only help development.
 const DROPPED_PLUGINS = [
   "expo-dev-client",
+  "expo-notifications",
   "./plugins/withTermixSsh.js",
   "./plugins/withTermixTerminal.js",
 ];
 
 // Packages F-Droid cannot take: expo-application pulls the Google install
-// referrer library, expo-dev-client is a debug tool.
-const DROPPED_PACKAGES = ["expo-application", "expo-dev-client"];
+// referrer library, expo-dev-client is a debug tool, expo-notifications
+// pulls Firebase messaging.
+const DROPPED_PACKAGES = [
+  "expo-application",
+  "expo-dev-client",
+  "expo-notifications",
+];
 
 // Dependency groups that must never reach the F-Droid APK.
 const BLOCKED_DEPENDENCIES = [
@@ -92,9 +98,10 @@ function applyFdroid(config, vercode = process.env.TERMIX_FDROID_VERCODE) {
       ? ["./plugins/withFdroid.js", { abi: build.abi }]
       : "./plugins/withFdroid.js",
   );
+  const { googleServicesFile: _firebase, ...android } = config.android ?? {};
   return {
     ...config,
-    android: { ...config.android, versionCode: build.versionCode },
+    android: { ...android, versionCode: build.versionCode },
     plugins,
     extra: { ...config.extra, distribution: "fdroid" },
   };

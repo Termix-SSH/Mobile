@@ -1,0 +1,3874 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Log på",
+      "addServer": "Tilføj server",
+      "switchAccount": "Skift konto",
+      "noServerConnected": "Ingen server forbundet",
+      "connectToATermixServer": "Forbind til en Termix-server for at administrere dine værter, terminaler, filer og mere."
+    },
+    "lockScreen": {
+      "cancel": "Annuller",
+      "tooManyTriesWaitSeconds": "For mange forsøg. Vent {{value}} sekunder",
+      "termixLocked": "Termix er låst",
+      "enterYourPinToContinue": "Indtast din PIN-kode for at fortsætte"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Orange",
+      "blue": "Blå",
+      "green": "Grøn",
+      "purple": "Lilla",
+      "pink": "Lyserød",
+      "cyan": "Cyan",
+      "red": "Rød",
+      "yellow": "Gul",
+      "teal": "Teal",
+      "indigo": "Indigo",
+      "rose": "Rose",
+      "lime": "Lime",
+      "system": "System",
+      "light": "Lys",
+      "dark": "Mørk"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Brug PIN-kode",
+      "unlockTermix": "Lås Termix op",
+      "unlockTermixFirst": "Lås Termix op først."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Denne funktion er slået fra på serveren.",
+      "aTabWasNotReopened": "En fane blev ikke genåbnet, fordi dens vært er væk",
+      "tabsWereNotReopenedBecause": "Følgende faner blev ikke genåbnet, da deres værter er forsvundet: {{count}}"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Link en Termix-server for at bruge dette",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Indtast din servers adresse",
+        "theAddressCanTHave": "Adressen kan ikke indeholde mellemrum",
+        "useAnHttpOrHttps": "Brug en http:// eller https://-adresse",
+        "thatDoesnTLookLike": "Det ligner ikke en serveradresse",
+        "thePortMustBeFrom": "Porten skal være mellem 1 og 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "En login-proxy svarede i stedet for Termix. Log på proxyen først.",
+        "theServerDidNotSend": "Serveren sendte ikke et token.",
+        "theServerDidNotSend2": "Serveren sendte ikke en session.",
+        "theServerSentNoSign": "Serveren sendte ingen loginadresse.",
+        "theSignInRanOut": "Logintiden udløb, eller den blev allerede brugt. Log på igen.",
+        "wrongUsernameOrPassword": "Forkert brugernavn eller adgangskode",
+        "signInFailedHttp": "Login mislykkedes (HTTP {{status}})",
+        "thePageSignedYouIn": "Siden loggede dig på, men sendte ingen session tilbage. Opdater serveren til Termix 26.11.3 eller nyere.",
+        "thisAccountIsnTAllowed": "Denne konto har ikke tilladelse til at logge på her.",
+        "noTermixAccountMatchesThat": "Ingen Termix-konto matcher dette login."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Denne session har ingen server"
+    },
+    "store": {
+      "noSuchAccount": "Sådanne konto findes ikke",
+      "thisDeviceCanTBe": "Denne enhed kan ikke fjernes",
+      "switchToAnotherAccountFirst": "Skift til en anden konto først"
+    },
+    "types": {
+      "thisDevice": "Denne enhed"
+    },
+    "accountSwitcher": {
+      "error": "Fejl",
+      "worksWithoutAServer": "Fungerer uden en server",
+      "couldNotSwitchAccount": "Kunne ikke skifte konto",
+      "accounts": "Konti",
+      "openTabsKeepRunningWhen": "Åbne faner kører videre, når du skifter.",
+      "unlink": "Fjern link til {{account}}",
+      "linkAServer": "Link en server",
+      "eachServerKeepsItsOwn": "Hver server gemmer sine egne værter, legitimationsoplysninger og indstillinger på denne {{deviceWord}}.",
+      "signedIn": "Logget på",
+      "signedOut": "Logget ud",
+      "syncedCopy": "Synkroniseret kopi"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Kunne ikke gemme pin-koden",
+      "theServerSKeyMatches": "Serverens nøgle matcher pin-koden",
+      "theServerShowsAnotherKey": "Serveren viser en anden nøgle",
+      "pinThisKey": "Vil du fastgøre denne nøgle?",
+      "pinThisKey2": "Fastgør denne nøgle",
+      "keyPinned": "Nøgle fastgjort",
+      "couldNotReadTheServer": "Kunne ikke læse serverens nøgle",
+      "thatIsNotAPin": "Det er ikke en pin-kode",
+      "keysPinned": "Nøgler fastgjort",
+      "certificatePin": "Certifikat-pin",
+      "trustThisServerOnlyBy": "Stol kun på denne server baseret på dens nøgle. Brug det til et selvsigneret certifikat, eller for at afvise alle andre nøgler. Tilføj den nye nøgle, før du ændrer serverens certifikat.",
+      "removePin": "Fjern pin {{pin}}",
+      "remove": "Fjern",
+      "readTheKeyFromThe": "Læs nøglen fra serveren",
+      "orPasteAPin": "Eller indsæt en pin-kode",
+      "pin": "Pin",
+      "add": "Tilføj",
+      "issuedTo": "Udstedt til: {{subject}}",
+      "issuedBy": "Udstedt af: {{issuer}}",
+      "validUntil": "Gyldig indtil: {{value}}",
+      "checkThatThisKeyMatches": "Tjek, at denne nøgle matcher den på din server, før du fastgør den.",
+      "pasteTheBase64Sha256Of": "Indsæt base64-sha256 af serverens offentlige nøgle, som openssl udskriver den."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Proxy-indstillinger gemt",
+      "couldNotSaveTheProxy": "Kunne ikke gemme proxy-indstillingerne",
+      "couldNotReadThatFile": "Kunne ikke læse den fil",
+      "certificateSaved": "Certifikat gemt",
+      "theFileOrItsPassphrase": "Filen eller dens adgangskode er forkert",
+      "couldNotSaveTheCertificate": "Kunne ikke gemme certifikatet",
+      "headers": "Headers",
+      "sentWithEveryRequestTo": "Sendes med hver forespørgsel til denne server, f.eks. en Cloudflare service token.",
+      "name": "Navn",
+      "value": "Værdi",
+      "removeHeader": "Fjern header",
+      "addHeader": "Tilføj header",
+      "cloudflareServiceToken": "Cloudflare service token",
+      "basicAuth": "Basic auth",
+      "forAProxyThatAsks": "Til en proxy, der beder om brugernavn og adgangskode.",
+      "userName": "Brugernavn",
+      "password": "Adgangskode",
+      "saveHeadersAndBasicAuth": "Gem headers og basic auth",
+      "clientCertificate": "Klientcertifikat",
+      "forServersThatAskFor": "Til servere, der beder om et (mTLS). Nøglen gemmes i {{deviceWord}}'s sikre lager og kan ikke læses ud igen.",
+      "certificate": "Certifikat",
+      "remove": "Fjern",
+      "replaceCertificate": "Erstat certifikat",
+      "pickAP12OrPfx": "Vælg en .p12- eller .pfx-fil",
+      "proxySignIn": "Proxy-login",
+      "thisIsSignedInTo": " Denne {{deviceWord}} er logget ind på proxyen.",
+      "forCloudflareAccessAutheliaAuthentik": "Til Cloudflare Access, Authelia, Authentik og andre proxyer med deres egen login-side.{{value}}",
+      "signInToTheProxy": "Log ind på proxyen",
+      "forget": "Glem",
+      "certificatePassphrase": "Certifikat-adgangskode",
+      "thePassphraseTheFileWas": "Den adgangskode, filen blev gemt med. Lad den være tom, hvis der ikke er nogen.",
+      "passphrase": "Adgangskode",
+      "save": "Gem"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Logget ind på proxyen",
+      "couldNotSaveTheProxy": "Kunne ikke gemme proxy-login",
+      "signInToTheProxy": "Log ind på proxyen",
+      "thisBuildOfTheApp": "Denne version af appen kan ikke opretholde en proxy-login. Brug i stedet en service-token i proxy-headers."
+    },
+    "savedLoginRow": {
+      "signIn": "Log ind",
+      "signInWith": "Log ind med {{name}}",
+      "whenThisServerSignsYou": "Når denne server logger dig ud, kan du logge ind igen uden at taste din adgangskode."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Frakoblet. {{copied}} elementer blev beholdt på Denne enhed.",
+      "unlinked": "Frakoblet",
+      "couldNotUnlinkTheServer": "Kunne ikke frakoble serveren",
+      "unlink": "Frakoble {{value}}?",
+      "thisSignsOutOfThe": "Denne {{deviceWord}} logger ud af serveren. Der slettes intet på serveren.",
+      "keepACopyOnThis": "Behold en kopi på Denne enhed",
+      "yourOwnHostsCredentialsAnd": "Dine egne værter, legitimationsoplysninger og snippets flyttes til Denne enhed. Værter, der er delt med dig, beholdes ikke.",
+      "deleteFromThis": "Slet fra denne {{deviceWord}}",
+      "everythingThisHasForThe": "Alt, hvad denne {{deviceWord}} har for serveren, fjernes."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Ændr det under Proxy nedenfor",
+      "updateTermixMobileFromYour": "Opdater Termix Mobile fra din app-butik"
+    },
+    "savedLogin": {
+      "signInToTermix": "Log ind på Termix",
+      "faceUnlock": "ansigtsgenkendelse"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Denne version kan ikke tjekke serverens fastgjorte nøgle eller sende dens certifikat."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Denne server understøtter ikke denne funktion",
+      "theProxyWantsYouTo": "Proxyen beder dig om at logge ind",
+      "endpointNotAvailableOnThis": "Endepunktet er ikke tilgængeligt på denne server",
+      "unknownError": "Ukendt fejl"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Proxyen foran denne server beder dig om at logge ind igen.",
+      "authenticationRequiredPleaseLogIn": "Godkendelse påkrævet. Log venligst ind igen.",
+      "accessDeniedYouDoNot": "Adgang nægtet. Du har ikke tilladelse til at udføre denne handling.",
+      "thisFeatureIsTurnedOff": "Denne funktion er slået fra på serveren.",
+      "thisServerDoesNotSupport": "Denne server understøtter ikke denne funktion.",
+      "resourceNotFoundTheRequested": "Ressourcen blev ikke fundet. Det anmodede element kan være blevet slettet.",
+      "conflictTheResourceAlreadyExists": "Konflikt. Ressourcen findes allerede eller er i brug.",
+      "validationErrorPleaseCheckYour": "Valideringsfejl. Tjek venligst din input og prøv igen.",
+      "serverErrorOccurredPleaseTry": "Serverfejl opstod. Prøv venligst igen senere.",
+      "sslCertificateVerificationFailed": "SSL-certifikatverifikation mislykkedes.",
+      "networkErrorPleaseCheckYour": "Netværksfejl. Tjek venligst din forbindelse og prøv igen.",
+      "failedTo": "Kunne ikke {{operation}}",
+      "unknownError": "Ukendt fejl",
+      "unexpectedErrorDuring": "Uventet fejl under {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Appen kunne ikke stole på HTTPS for denne lokale IP. Fastgør serverens nøgle under Proxy og klientcertifikat, brug et certifikat, som {{deviceWord}} stoler på, eller HTTP på et betroet lokalt eller VPN-netværk.",
+        "thisServerIsBehindA": "Denne server er bag en login-proxy. Brug i stedet den eksterne login-mulighed.",
+        "loginFailed": "Login mislykkedes"
+      },
+      "files": {
+        "fileNotFound": "Filen blev ikke fundet",
+        "fileWriteOperationDidNot": "Filskriveoperationen returnerede ikke successtatus",
+        "couldNot": "Kunne ikke {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Vært gemt, men nogle indstillinger mislykkedes: {{value}}",
+        "unexpectedHostResponseFrom": "Uventet svar fra værten fra {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Live-prøve mislykkedes"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Intet svar"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Denne server viste ikke den nøgle, den er fastgjort til, så siden blev ikke åbnet."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Denne {{what}} findes ikke længere.",
+      "aHostCannotBeIts": "En vært kan ikke være sin egen forælder",
+      "parentHostNotFound": "Forældrevært blev ikke fundet",
+      "aHostCanTGo": "En vært kan ikke placeres under en af sine egne under-værter",
+      "thisIsSharedWithYou": "Denne {{what}} er delt med dig. Kun ejeren kan ændre den.",
+      "nameIsRequired": "Navn er påkrævet",
+      "nameAndCommandAreRequired": "Navn og kommando er påkrævet",
+      "aFolderWithThatName": "En mappe med det navn findes allerede"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Denne enhed kan ikke gemme {{what}} her."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Denne snippet er delt med dig og kan ikke ændres."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Brug en adgangsfrase med mindst 8 tegn.",
+      "thisIsNotATermix": "Dette er ikke en Termix-sikkerhedskopi.",
+      "thisBackupIsFromA": "Denne sikkerhedskopi er fra en nyere version af Termix. Opdater appen først.",
+      "wrongPassphraseOrTheFile": "Forkert adgangskode, eller filen er beskadiget."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Denne version kan ikke kryptere lokale data."
+    },
+    "keys": {
+      "unlockTermixFirst": "Lås Termix op først.",
+      "thatIsNotADatabase": "Det er ikke en database-nøgle.",
+      "couldNotSaveTheDatabase": "Kunne ikke gemme database-nøglen."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Disse data blev gemt af en nyere version af Termix. Opdater appen for at åbne dem."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Denne enhed synkroniserer ikke.",
+      "localDataIsNotAvailable": "Lokale data er ikke tilgængelige her.",
+      "unlockTermixFirst": "Lås Termix op først."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Kan ikke oprette forbindelse.",
+      "thisWayCanTRun": "Denne metode kan ikke køre kommandoer"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo-adgangskode",
+      "password": "Adgangskode",
+      "run": "Kør",
+      "thatPasswordWasWrong": "Den adgangskode var forkert.",
+      "onNeedsRoot": "{{reason}} på {{hostName}} kræver root-adgang.",
+      "needsRootForThis": "{{hostName}} kræver root-adgang til dette.",
+      "itIsKeptUntilYou": "Den gemmes, indtil du lukker appen."
+    },
+    "run": {
+      "theHostTookTooLong": "Værten svarede for langsomt",
+      "connectionLost": "Forbindelsen er tabt"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Dette kræver root-adgang. Log ind som root, indstil sudo uden adgangskode, eller gem en sudo-adgangskode for værten.",
+      "theSudoPasswordWasWrong": "Sudo-adgangskoden var forkert",
+      "commandFailed": "Kommandoen mislykkedes"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet i terminalen kræver en forbindelse fra {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Funktions-ID {{id}} er allerede registreret"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adresse",
+      "theIpOrHostName": "IP-adressen eller værtsnavnet under navnet",
+      "username": "Brugernavn",
+      "theUserBeforeTheAddress": "Brugeren før adressen",
+      "port": "Port",
+      "thePortAfterTheAddress": "Porten efter adressen",
+      "hostIcon": "Vært-ikon",
+      "theIconSetOnThe": "Ikonet sat på værten",
+      "pinIcon": "Fastgør ikon",
+      "marksPinnedHosts": "Markerer fastgjorte værter",
+      "sharedBadge": "Delt-badge",
+      "marksHostsSharedWithYou": "Markerer værter, der er delt med dig",
+      "protocolBadges": "Protokol-badges",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker og andre badges",
+      "tags": "Tags",
+      "theHostSTags": "Værtens tags",
+      "cpuAndRam": "CPU og RAM",
+      "liveUsageBarsOnOnline": "Live-forbrugsstolper på online-værter",
+      "statusColors": "Statusfarver",
+      "greenBarWhenOnlineRed": "Grøn stolpe når online, rød når offline"
+    },
+    "uiPrefs": {
+      "small": "Lille",
+      "default": "Standard",
+      "large": "Stor",
+      "comfortable": "Komfortabel",
+      "compact": "Kompakt"
+    },
+    "errors": {
+      "somethingWentWrong": "Noget gik galt"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "At låse en nøgle med en adgangskode kræver Termix-appen, ikke en web-forhåndsvisning."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Med det samme",
+      "after15Seconds": "Efter 15 sekunder",
+      "after1Minute": "Efter 1 minut",
+      "after5Minutes": "Efter 5 minutter"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Enhedsnøglen er væk",
+      "noSealedKey": "Ingen forseglet nøgle",
+      "theSealedKeyIsDamaged": "Den forseglede nøgle er beskadiget",
+      "wrongPin": "Forkert PIN",
+      "theSealedKeyDidNot": "Den forseglede nøgle kunne ikke åbnes",
+      "biometricsCanTOpenThe": "Biometri kan ikke åbne nøglen"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Opdater appen",
+      "onYourServerNeedsA": "{{name}} på din server kræver en nyere version af Termix på denne {{deviceWord}}.",
+      "updateThePlugin": "Opdater pluginnet",
+      "onYourServerIsToo": "{{name}} på din server er for gammel til denne app. Bed en administrator om at opdatere den i Plugins."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Blokeret af appen",
+      "theAppDoesNotLet": "Appen tillader ikke, at plugins bruger denne rute.",
+      "thisBuildCanTReach": "Denne version kan ikke nå denne server sikkert."
+    },
+    "support": {
+      "needsANewerVersionOf": "Kræver en nyere version af appen",
+      "updateThePluginOnThe": "Opdater pluginnet på serveren",
+      "theAppHasItsOwn": "Appen har sit eget udseende",
+      "notInTheAppYet": "Endnu ikke i appen",
+      "linkAServerToUse": "Link en server for at bruge den",
+      "opensInTheAppFrom": "Åbner i appen fra serveren",
+      "runsOnTheServer": "Kører på serveren",
+      "throughTheServer": "Gennem serveren",
+      "inTheApp": "I appen",
+      "webView": "Webvisning",
+      "onTheServer": "På serveren",
+      "appLook": "App-udseende",
+      "notInTheApp": "Ikke i appen",
+      "safeMode": "Sikker tilstand",
+      "notRunning": "Kører ikke",
+      "notInstalled": "Ikke installeret",
+      "notOnThisServer": "Ikke på denne server",
+      "thePluginIsNotInstalled": "Pluginnet er ikke installeret på denne server.",
+      "turnedOffOnTheServer": "Slukket på serveren",
+      "itOpensHereAgainWhen": "Den åbner her igen, når en administrator tænder den.",
+      "notRunningOnTheServer": "Kører ikke på serveren",
+      "theServerIsInSafe": "Serveren er i sikker tilstand, så kun look-plugins kører.",
+      "thePluginDidNotStart": "Pluginnet startede ikke. En administrator kan tjekke det i Plugins.",
+      "thisPluginIsNotAvailable": "Dette plugin er ikke tilgængeligt",
+      "itIsNotMadeFor": "Det er ikke lavet til appen.",
+      "offOnThisServer": "slukket på denne server",
+      "notRunningOnThisServer": "kører ikke på denne server",
+      "notOnThisServer2": "ikke på denne server",
+      "notInTheAppYet2": "Endnu ikke i appen | på denne server",
+      "worksOnThis": "Fungerer på denne {{deviceWord}}",
+      "andServer": "{{DeviceWord}} og server",
+      "deviceOnly": "Kun {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Genindlæs"
+    },
+    "pluginSettings": {
+      "loading": "Indlæser indstillinger",
+      "forEveryone": "For alle på serveren",
+      "justForYou": "Kun til dig",
+      "couldNotSave": "Kunne ikke gemme indstillingen",
+      "nothingYouCanChange": "Der er intet her, du kan ændre. En administrator kan ændre disse indstillinger.",
+      "notANumber": "Det er ikke et tal",
+      "atLeast": "Det skal være {{min}} eller mere",
+      "atMost": "Det skal være {{max}} eller mindre"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Afbryd alle",
+      "showOpenSessions": "Vis åbne sessioner",
+      "termixShowsANotificationWhile": "Termix viser en underretning, mens sessioner er åbne, så Android holder dem kørende i baggrunden.",
+      "sessionsOpen_one": "{{count}} session åben",
+      "sessionsOpen_other": "{{count}} sessioner åbne",
+      "tunnelsActive_one": "{{count}} tunnel aktiv",
+      "tunnelsActive_other": "{{count}} tunneler aktive",
+      "notConnected": "Ikke forbundet",
+      "waitingForNetwork": "Venter på netværk",
+      "connecting": "Forbinder",
+      "connected": "Forbundet",
+      "reconnecting": "Genforbinder",
+      "failed": "Mislykkedes",
+      "closed": "Lukket"
+    },
+    "companionPane": {
+      "resizeThePanel": "Ændr størrelsen på {{title}}-panelet"
+    },
+    "connectionsPanel": {
+      "close": "Luk",
+      "closeAllTabs": "Luk alle {{count}} faner?",
+      "everySessionEnds": "Alle sessioner afsluttes.",
+      "closeAll": "Luk alle",
+      "noActiveConnections": "Ingen aktive forbindelser",
+      "pickAHostFromThe": "Vælg en vært fra listen for at starte en session. Faner, du åbner på andre enheder, vises også her.",
+      "connectToAHostTo": "Forbind til en vært for at starte en session. Faner, du åbner på andre enheder, vises også her.",
+      "open": "Åbn",
+      "background": "Baggrund",
+      "sessionsFromOtherDevicesOr": "Sessions fra andre enheder eller faner i baggrunden. Tryk for at genoplive.",
+      "liveTapToReconnect": "Live, tryk for at genforbinde",
+      "tapToReopen": "Tryk for at genåbne"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Dette er slået fra på serveren",
+      "comesBackHereWhenAn": "{{title}} vender tilbage her, når en administrator slår pluginet til igen.",
+      "closeTab": "Luk fane"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Forbindelser",
+        "hideHostList": "Skjul værtsliste",
+        "showHostList": "Vis værtsliste",
+        "backToHosts": "Tilbage til værter",
+        "showKeyboard": "Vis tastatur",
+        "hideKeyboard": "Skjul tastatur",
+        "hideKeysPanel": "Skjul nøglepanel",
+        "showKeysPanel": "Vis nøglepanel"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Tryk for faneindstillinger, hold nede for at flytte",
+        "holdToMove": "Hold nede for at flytte",
+        "close": "Luk {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Venter på netværk",
+        "connectionFailed": "Forbindelsen mislykkedes",
+        "reconnecting": "Genopretter forbindelse"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Omdøb",
+      "newTabOnThisHost": "Ny fane på denne vært",
+      "here": "{{title}} her",
+      "hidePanel": "Skjul {{title}}-panel",
+      "showPanel": "Vis {{title}}-panel",
+      "endSplitView": "Afslut delt visning",
+      "splitViewWith": "Delt visning med...",
+      "moveLeft": "Flyt til venstre",
+      "moveRight": "Flyt til højre",
+      "closeTab": "Luk fane",
+      "closeAllTabs": "Luk alle faner",
+      "closeAllTabs2": "Luk alle {{count}} faner?",
+      "everySessionEnds": "Alle sessions afsluttes.",
+      "closeAll": "Luk alle",
+      "splitViewWith2": "Delt visning med",
+      "renameTab": "Omdøb fane",
+      "leaveItEmptyToUse": "Lad det være tomt for at bruge værtens navn."
+    },
+    "resizeHostList": "Ændr størrelse på værtsliste",
+    "resizeSplitView": "Ændr størrelse på delt visning",
+    "connections": "Forbindelser",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "To-faktor godkendelse",
+        "enterThe6DigitCode": "Indtast den 6-cifrede kode fra din autentificeringsapp.",
+        "cancel": "Annuller",
+        "verify": "Bekræft",
+        "codeExpiresInSGet": "Koden udløber om {{totpCountdown}} s, hent en ny kode",
+        "warpgateAuthentication": "Warpgate-godkendelse",
+        "confirmTheWarpgateAuthenticationUrl": "Bekræft Warpgate-godkendelses-URL og sikkerhedsnøgle.",
+        "authenticate": "Godkend",
+        "warpgateUrl": "Warpgate-URL",
+        "securityKeyOptional": "Sikkerhedsnøgle (valgfrit)",
+        "authenticationRequired": "Godkendelse påkrævet",
+        "thisHostNeedsCredentialsTo": "Denne vært kræver loginoplysninger for at forbinde.",
+        "connect": "Forbind",
+        "password": "Adgangskode",
+        "sshKey": "SSH-nøgle",
+        "pastePrivateKey": "Indsæt privat nøgle",
+        "keyPassphraseOptional": "Nøglen adgangskode (valgfrit)"
+      },
+      "connectionError": {
+        "tryAgain": "Prøv igen",
+        "close": "Luk",
+        "connectThroughTheServer": "Forbind via serveren",
+        "connectFromThis": "Forbind fra denne {{deviceWord}}",
+        "triedFromThis": "Prøvet fra denne {{deviceWord}}",
+        "triedThroughTheServer": "Prøvet via serveren"
+      },
+      "execGate": {
+        "connecting": "Forbinder..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Noget gik galt",
+        "retry": "Prøv igen",
+        "refresh": "Opdater",
+        "nothingToShow": "Intet at vise"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Logfiler kopieret",
+        "connectionLog": "Forbindelseslog ({{count}})",
+        "copyLog": "Kopiér log",
+        "waitingForConnection": "Venter på forbindelse…",
+        "noLogEntries": "Ingen logposter"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Kunne ikke gemme, hvordan denne host forbinder"
+      },
+      "useSessionConnect": {
+        "connected": "Forbundet",
+        "connectingTo": "Forbinder til {{name}}…",
+        "connectionLost": "Forbindelse tabt",
+        "failedToConnect": "Kunne ikke oprette forbindelse",
+        "invalidCode": "Ugyldig kode",
+        "warpgateAuthenticationFailed": "Warpgate-autentificering mislykkedes",
+        "authenticationCancelled": "Autentificering afbrudt"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Søgning og kommandoer",
+    "addHost": "Tilføj host",
+    "keyboardShortcuts": "Tastaturgenveje",
+    "home": "Hjem",
+    "hosts": "Hosts",
+    "sessions": "Sessioner",
+    "tools": "Værktøjer",
+    "settings": "Indstillinger",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Tastaturgenveje"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Hosts og mapper",
+      "yourHostsFoldersAndHosts": "Dine hosts, mapper og hosts, der er delt med dig",
+      "credentials": "Legitimationsoplysninger",
+      "savedPasswordsAndKeysAnd": "Gemte adgangskoder og nøgler samt legitimationsoplysninger, der er delt med dig",
+      "snippets": "Snippets",
+      "snippetsAndTheirFolders": "Snippets og deres mapper",
+      "hostDefaults": "Standardindstillinger for hosts",
+      "defaultSettingsForNewHosts": "Standardindstillinger for nye hosts",
+      "preferences": "Præferencer",
+      "settingsThatFollowYouBetween": "Indstillinger, der følger dig mellem enheder"
+    },
+    "link": {
+      "noSuchServerAccount": "Denne serverkonto findes ikke",
+      "signInFirst": "Log ind først.",
+      "thisServerAccountBelongsTo": "Denne serverkonto tilhører {{value}}. Log ind som denne bruger, eller tilføj serveren igen for denne bruger."
+    },
+    "reasons": {
+      "signedOut": "Logget ud",
+      "thisSSignInTo": "Denne {{deviceWord}}'s login til serveren er udløbet.",
+      "theServerEndedThisS": "Serveren afsluttede denne {{deviceWord}}'s session. Det kan skyldes, at der er logget ud fra en anden enhed.",
+      "proxySignInNeeded": "Proxy-login påkrævet",
+      "theProxyInFrontOf": "Proxyen foran denne server beder dig om at logge ind igen.",
+      "proxyPasswordNeeded": "Proxy-adgangskode påkrævet",
+      "theProxyInFrontOf2": "Proxyen foran denne server bad om sin adgangskode.",
+      "certificateRefused": "Certifikat afvist",
+      "theServerDidNotAccept": "Serveren accepterede ikke dette {{deviceWord}}'s certifikat.",
+      "untrustedServer": "Ikke betroet server",
+      "theServerSCertificateIs": "Serverens certifikat er ikke betroet af denne {{deviceWord}}.",
+      "serverKeyChanged": "Servernøgle ændret",
+      "theServerShowsAnotherKey": "Serveren viser en anden nøgle end den, der er fastgjort til den. Hvis du har ændret dens certifikat, skal du fastgøre den nye nøgle.",
+      "offline": "Offline",
+      "canTReachTheServer": "Kan ikke nå serveren. Synkronisering vil prøve igen snart.",
+      "serverProblem": "Serverproblem",
+      "theServerHadAProblem": "Serveren havde et problem. Synkronisering vil prøve igen snart.",
+      "updateNeeded": "Opdatering påkrævet",
+      "thisServerUsesANewer": "Denne server bruger en nyere synkroniseringsversion. Opdater appen.",
+      "notATermixServer": "Ikke en Termix-server",
+      "theAddressDoesNotAnswer": "Adressen svarer ikke som en Termix-server.",
+      "syncIsOff": "Synkronisering er slået fra",
+      "theSyncPluginIsOff": "Synkroniseringspluginet er slået fra på denne server. Bed en administrator om at slå det til i Plugins.",
+      "differentUser": "Anden bruger",
+      "youSignedInAsA": "Du er logget ind som en anden bruger end den, denne serverkonto tilhører.",
+      "syncStopped": "Synkronisering stoppet",
+      "somethingWentWrong": "Noget gik galt.",
+      "signInAgain": "Log ind igen",
+      "signInToTheProxy": "Log ind på proxyen",
+      "enterThePassword": "Indtast adgangskoden",
+      "tryAgain": "Prøv igen",
+      "checkThePin": "Tjek PIN-koden",
+      "checkForUpdates": "Tjek efter opdateringer",
+      "pickACertificate": "Vælg et certifikat"
+    },
+    "settings": {
+      "noSuchSetting": "Ingen sådan indstilling",
+      "snippetFolder": "Snippet-mappe",
+      "hostDefault": "Standard for vært"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Serveren accepterede ikke dette {{deviceWord}}'s certifikat.",
+      "theServerSCertificateIs": "Serverens certifikat er ikke betroet.",
+      "canTReachTheServer": "Kan ikke nå serveren.",
+      "signedOut": "Logget ud",
+      "theProxyAskedForIts": "Proxyen bad om sin adgangskode.",
+      "theProxyWantsYouTo": "Proxyen vil have dig til at logge ind.",
+      "theSyncPluginIsOff": "Synkroniseringspluginet er slået fra på denne server.",
+      "serverError": "Serverfejl {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Serveren viser en anden nøgle end den fastgjorte."
+    },
+    "remote": {
+      "thisIsNotATermix": "Dette er ikke en Termix-server.",
+      "theProxyWantsYouTo": "Proxyen vil have dig til at logge ind.",
+      "thisServerUsesANewer": "Denne server bruger en nyere synkroniseringsversion. Opdater appen."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} vært",
+      "hostCount_other": "{{count}} værter",
+      "credentialCount_one": "{{count}} legitimationsoplysning",
+      "credentialCount_other": "{{count}} legitimationsoplysninger",
+      "snippetCount_one": "{{count}} snippet",
+      "snippetCount_other": "{{count}} snippets",
+      "folderCount_one": "{{count}} mappe",
+      "folderCount_other": "{{count}} mapper",
+      "nothingYet": "intet endnu",
+      "listAnd": "{{list}} og {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Kan ikke oprette forbindelse.",
+      "connectingToFromThis": "Opretter forbindelse til {{name}} fra denne {{deviceWord}}",
+      "connectingToThroughTheServer": "Opretter forbindelse til {{name}} gennem serveren",
+      "reconnectingTry": "Genopretter forbindelse (forsøg {{retry}})",
+      "disconnected": "Frakoblet",
+      "connected": "Forbundet",
+      "reconnectedToTheSameSession": "Genforbundet til samme session",
+      "reconnectedWithANewShell": "Genforbundet med en ny shell",
+      "couldNotReachTheHost": "Kunne ikke nå værten fra denne {{deviceWord}}, prøver gennem serveren",
+      "couldNotConnectThroughThe": "Kunne ikke oprette forbindelse gennem serveren, prøver fra denne {{deviceWord}}",
+      "connectionLost": "Forbindelse tabt: {{reason}}",
+      "offlineWaitingForTheNetwork": "Offline, venter på netværket",
+      "nextTryInS": "Næste forsøg om {{value}}s",
+      "reconnectingTry2": "Genopretter forbindelse (forsøg {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Værten stoppede med at svare",
+      "networkLost": "Netværk tabt",
+      "network": "Netværk: {{type}}{{value}}",
+      "lowPowerModeOn": "Strømbesparende tilstand er aktiveret",
+      "lowPowerModeOff": "Strømbesparende tilstand er deaktiveret",
+      "droppedTypedCharacters": "Kastede {{count}} tastede tegn",
+      "youDidNotTrustThe": "Du stødte ikke på værtens nøgle.",
+      "checkTheKeyWithWhoever": "Tjek nøglen med den, der driver værten, og prøv igen.",
+      "loginCancelled": "Login afbrudt.",
+      "connectAgainWhenYouAre": "Forbind igen, når du er klar.",
+      "typedInputIsOver64": "Tastet input er over 64 KB, den ældste del blev kasseret",
+      "appInTheBackground": "App i baggrunden",
+      "appInTheForeground": "App i forgrunden",
+      "thisConnectionCanTRun": "Denne forbindelse kan ikke køre kommandoer"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Tjek adressen og porten, og at serveren kan nå værten.",
+      "checkTheAddressAndPort2": "Tjek adressen og porten, og at denne {{deviceWord}} kan nå værten.",
+      "checkTheProxySettingsOf": "Tjek proxy-indstillingerne for denne vært.",
+      "checkTheKeyWithWhoever": "Tjek nøglen med den, der driver værten, før du stoler på den.",
+      "checkTheUsernameAndLogin": "Tjek brugernavnet og login i værtredigeringen.",
+      "checkThatTheServerIs": "Tjek, at serveren er oppe, og at du stadig er logget ind.",
+      "tryAgainIfItKeeps": "Prøv igen. Hvis det fortsat afbrydes, tjek netværket.",
+      "connectAgainWhenYouAre": "Forbind igen, når du er klar.",
+      "pickAnotherWayToConnect": "Vælg en anden måde at forbinde denne vært på.",
+      "connectThisHostThroughA": "Forbind denne vært gennem en Termix-server.",
+      "pickTheJumpHostsAgain": "Vælg springværtene igen i værtredigeringen.",
+      "thisIsATailscaleAddress": "Dette er en Tailscale-adresse. Tjek, at Tailscale er forbundet på denne {{deviceWord}}.",
+      "theSavedKeyCanT": "Den gemte nøgle kan ikke læses. Indsæt den igen i værtredigeringen.",
+      "signInToThisServer": "Log ind på denne server igen.",
+      "openThisHostInThe": "Åbn denne vært i Termix webapp.",
+      "canTConnectThisWay": "Kan ikke forbinde på denne måde",
+      "couldNotReachTheHost": "Kunne ikke nå værten",
+      "theProxyDidNotLet": "Proxyen tillod ikke forbindelsen",
+      "theHostKeyWasNot": "Værtens nøgle blev ikke betroet",
+      "theLoginWasRefused": "Login blev afvist",
+      "theTermixServerDidNot": "Termix-serveren svarede ikke",
+      "theConnectionDropped": "Forbindelsen blev afbrudt",
+      "loginCancelled": "Login afbrudt"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH-agent",
+        "thisHostSignsInWith": "Denne vært logger ind med \"{{authType}}\", hvilket kræver en Termix-server. Link en for at forbinde.",
+        "thisHostUsesA1password": "Denne vært bruger en 1Password-reference, hvilket kræver en Termix-server med Secret Sources. Link en og forbind denne vært gennem den.",
+        "signInWithFirstOpen": "Log ind med {{title}} først. Åbn en terminal til denne vært én gang, og prøv derefter igen.",
+        "theSignInAndThe": "login og certifikatet befinder sig på serveren",
+        "theHasNoSshAgent": "{{deviceWord}} har ingen SSH-agent",
+        "needsATermixServerBecause": "{{title}} kræver en Termix-server, fordi {{why}}. Link en og forbind denne vært gennem den."
+      },
+      "chain": {
+        "aJumpHostOfThis": "En springvært for denne vært eksisterer ikke længere."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Forbindelsen blev afbrudt",
+        "theShellChannelClosed": "Shell-kanalen blev lukket",
+        "jumpHost": "Springvært {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Ugyldig kode, prøv igen:",
+        "authenticationFailed": "Autentificering mislykkedes: {{message}}",
+        "theHostKeyWasNot": "Værtens nøgle blev ikke betroet.",
+        "loginCancelled": "Login afbrudt.",
+        "notConnected": "Ikke forbundet",
+        "signingInAs": "Logger ind som {{user}} med {{method}}",
+        "methodKey": "en nøgle",
+        "methodPassword": "et adgangskode",
+        "methodNone": "ingen gemt login"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Forbindelsen blev afbrudt"
+      },
+      "thisBuildHasNoSsh": "Denne build har ingen SSH-motor. Brug appen fra butikken, eller link en Termix-server for at forbinde.",
+      "theHostsOnThisAre": "Værterne på denne {{deviceWord}} er ikke åbne endnu.",
+      "thisServerSHostsAre": "Denne servers værter er ikke på denne {{deviceWord}}. Tænd Sync-pluginet på serveren for at forbinde fra {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Den gemte login for denne vært er ikke på denne {{deviceWord}}, så kun serveren kan logge ind"
+      }
+    },
+    "origin": {
+      "canTConnect": "Kan ikke forbinde.",
+      "canTConnectFromThe": "Kan ikke forbinde fra denne {{deviceWord}}.",
+      "canTReachTheServer": "Kan ikke nå serveren.",
+      "theOnlyConnectsToSsh": "Denne {{deviceWord}} kan kun oprette forbindelse til SSH- og Telnet-værter.",
+      "connectThisHostThroughThe": "Opret forbindelse til denne vært gennem serveren",
+      "connectThisHostFromThe": "Opret forbindelse til denne vært fra {{deviceWord}}",
+      "termixServer": "Termix-server",
+      "usesThisWhenItCan": "Bruger denne {{deviceWord}}, når den kan nå værten, ellers serveren.",
+      "thisConnectsToTheHost": "Denne {{deviceWord}} opretter forbindelse til selve værten.",
+      "theTermixServerConnectsTo": "Termix-serveren opretter forbindelse til værten for dig.",
+      "anSshConnection": "en SSH-forbindelse",
+      "aTermixServer": "en Termix-server",
+      "aConnectionFromThe": "en forbindelse fra {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} er slået fra på denne server. {{how}} for at bruge det.",
+      "isOffOnThisServer2": "{{title}} er slået fra på denne server.",
+      "anotherWayToConnect": "en anden måde at oprette forbindelse på",
+      "needsToUseIt": "{{title}} kræver {{what}}. {{how}} for at bruge det.",
+      "needsWhichThisHostCan": "{{title}} kræver {{what}}, som denne vært ikke kan bruge lige nu.",
+      "thisDevice": "Denne {{deviceWord}}",
+      "automatic": "Automatisk"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Du er logget ud af denne server. Log ind for at oprette forbindelse gennem den.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux er ikke installeret på denne vært. Bruger den almindelige skal.",
+        "tapRetryToBringIt": "Tryk på Gentag for at hente den tilbage her.",
+        "thisSessionWasOpenedOn": "Denne session blev åbnet på en anden enhed",
+        "noServerUrlFoundLink": "Ingen server-URL fundet. Link serveren igen.",
+        "signedOutOfThisServer": "Logget ud af denne server. Log ind igen.",
+        "signInWithInYour": "Log ind med {{title}} i din browser. Dette lukker, når det er færdigt.",
+        "theSocketClosedWhileThe": "Sokket lukkede, mens appen var væk",
+        "noWebsocketUrlAvailableServer": "Ingen WebSocket-URL tilgængelig - serveren er ikke konfigureret",
+        "connectionTimeoutServerNotResponding": "Forbindelsestid udløbet - serveren svarer ikke",
+        "verificationCode": "Bekræftelseskode:",
+        "hostKeyVerificationRequiredBut": "Vært-nøgleverifikation kræves, men der er ikke registreret nogen håndterer",
+        "hostKeyChangedButNo": "Vært-nøglen er ændret, men der er ikke registreret nogen håndterer",
+        "thisHostNeedsASign": "Denne vært kræver en login, som kun webappen understøtter",
+        "invalidCodeTryAgain": "Ugyldig kode, prøv igen:",
+        "unknownError": "Ukendt fejl",
+        "connectionClosed": "Forbindelse lukket",
+        "connectionClosed2": "Forbindelse lukket ({{code}})",
+        "theServerClosedTheConnection": "Serveren lukkede forbindelsen",
+        "theSocketClosed": "Sokket lukkede ({{code}})",
+        "signIn": "{{title}} login",
+        "signInFailed": "{{title}} login mislykkedes",
+        "isNotSetUpOn": "{{title}} er ikke opsat på serveren",
+        "signInTimedOut": "{{title}} login udløb",
+        "authenticationFailed": "Autentificering mislykkedes: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Gem værten og opret forbindelse til den for at tjekke den.",
+      "loggedInAsOn": "Logget ind som {{username}} på {{host}}",
+      "theHostAskedForMore": "Værten bad om mere end et kodeord, f.eks. en kode. Gem værten og opret forbindelse for at fuldføre login."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Venter på netværk",
+      "couldNotOpenTheTunnel": "Kunne ikke åbne tunnelen",
+      "theConnectionDropped": "Forbindelsen faldt fra",
+      "iosStoppedThisTunnelWhile": "iOS stoppede denne tunnel, mens appen var i baggrunden. Start den igen for at åbne den.",
+      "connecting": "Opretter forbindelse",
+      "connected": "Forbundet",
+      "retrying": "Prøver igen",
+      "waiting": "Venter",
+      "failed": "Mislykkedes"
+    },
+    "gateways": {
+      "error": "Fejl",
+      "gateways": "Gateways",
+      "gatewaysCanOnlyBeChanged": "Gateways kan kun ændres i Termix på nettet.",
+      "noHandshake": "Ingen håndtryk",
+      "rulesMissing": "Regler mangler",
+      "up": "Oppe",
+      "pending": "Afventer",
+      "applying": "Anvendes",
+      "down": "Nede",
+      "unreachable": "Uopnåelig"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Ingen tunneler endnu. Tilføj en for at videresende en port fra slutpunkt-værten til denne vært.",
+      "tunnel": "Tunnel {{value}}",
+      "removeTunnel": "Fjern tunnel {{value}}",
+      "mode": "Tilstand",
+      "local": "Lokal",
+      "remote": "Fjern",
+      "dynamic": "Dynamisk",
+      "targetHost": "Mål-vært",
+      "onThisHostForTunnels": "På denne vært, for tunneler som {{deviceWord}} kører",
+      "bindHost": "Bindings-vært",
+      "endpointHost": "Slutpunkt-vært",
+      "addAnotherHostFirstTunnels": "Tilføj en anden vært først. Tunneler går gennem en gemt vært.",
+      "sourcePort": "Kildeport",
+      "endpointPort": "Slutpunktport",
+      "maxRetries": "Maks. gentagelser",
+      "retryEveryS": "Gentag hver (s)",
+      "startOnItsOwn": "Start selvstændigt",
+      "addTunnel": "Tilføj tunnel",
+      "tunnelNeedsPortsFrom1": "Tunnel {{value}} kræver porte fra 1 til 65535"
+    },
+    "register": {
+      "tunnels": "Tunneler",
+      "startAndStopSavedTunnels": "Start og stop gemte tunneler",
+      "tunnel": "TUNNEL",
+      "tunnel2": "Tunnel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Lokalt slutpunkt kopieret",
+      "tunnel": "Tunnel | {{sourcePort}}",
+      "portMapping": "Portkortlægning",
+      "connect": "Forbind",
+      "disconnect": "Afbryd forbindelse",
+      "cancel": "Annuller",
+      "connected": "Forbundet",
+      "connecting": "Forbinder",
+      "disconnecting": "Afbryder forbindelse",
+      "error": "Fejl",
+      "retrying": "Prøver igen ({{value}}/{{value2}})",
+      "waitingS": "Venter {{value}}s",
+      "waiting": "Venter",
+      "disconnected": "Frakoblet"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Starter tunnel på port {{sourcePort}}",
+      "connectingTunnelOnPort": "Forbinder tunnel på port {{sourcePort}}",
+      "disconnectingPort": "Afbryder port {{sourcePort}}",
+      "cancellingPort": "Annullerer port {{sourcePort}}",
+      "failedToTunnel": "Kunne ikke {{action}} tunnel",
+      "tunnels": "Tunneler | {{count}} | {{value}}",
+      "loadingTunnels": "Indlæser tunneler…",
+      "noSshTunnelsConfiguredFor": "Ingen SSH-tunneler konfigureret for denne vært. Tilføj tunneler fra vært-formularen.",
+      "runOn": "Kør på",
+      "server": "Server",
+      "this": "Denne {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tunneler på denne {{deviceWord}} stopper, når appen lukkes. På iOS stopper de også kort efter, at appen går i baggrunden.",
+      "failedToFetchTunnelStatuses": "Kunne ikke hente tunnelstatusser",
+      "thisBuildCanTOpen": "Denne build kan ikke åbne tunneler på {{deviceWord}}.",
+      "sourceHostNotFound": "Kilde-vært ikke fundet",
+      "endpointHostNotFound": "Slutpunkt-vært ikke fundet: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tunneler",
+      "tunnelCount_one": "{{count}} tunnel",
+      "tunnelCount_other": "{{count}} tunneler",
+      "runningOnServer": "{{connected}} kører på server"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Værktøjer til legitimationsoplysninger"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker er ikke installeret på denne vært.",
+        "dockerDidNotAnswer": "Docker svarede ikke",
+        "thatIsNotAValid": "Det er ikke et gyldigt staknavn"
+      }
+    },
+    "containerDetail": {
+      "stop": "Stop",
+      "start": "Start",
+      "restart": "Genstart",
+      "remove": "Fjern",
+      "logs": "Logfiler",
+      "stats": "Statistik",
+      "console": "Konsol",
+      "logsCopied": "Logfiler kopieret",
+      "copy": "Kopiér",
+      "containerIsNotRunningNo": "Beholderen kører ikke, ingen live-statistik.",
+      "cpu": "CPU",
+      "memory": "Hukommelse",
+      "networkIO": "Netværk I/O",
+      "blockIO": "Blokkering I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Kunne ikke indlæse logfiler",
+      "failedToLoadStats": "Kunne ikke indlæse statistik",
+      "noOutput": "(ingen output)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Forbinder til Docker...",
+    "remove": "Fjern {{name}}?",
+    "stop": "Stop {{name}}?",
+    "theContainerIsStoppedAnd": "Beholderen er stoppet og slettet. Dens volumener beholdes.",
+    "anythingRunningInItStops": "Alt, der kører i den, stoppes.",
+    "remove2": "Fjern",
+    "stop2": "Stop",
+    "dockerThis": "Docker | denne {{deviceWord}}",
+    "lookingForDocker": "Søger efter Docker...",
+    "dockerIsNotAvailableOn": "Docker er ikke tilgængelig på denne vært.",
+    "noContainersFound": "Ingen beholdere fundet",
+    "noContainersMatchYourFilters": "Ingen beholdere matcher dine filtre",
+    "useSudo": "Brug sudo",
+    "refresh": "Opdater",
+    "containers": "Beholdere",
+    "stacks": "Stakke",
+    "searchContainers": "Søg i beholdere...",
+    "all": "Alle",
+    "running": "Kører",
+    "stopped": "Stoppet",
+    "start": "Start",
+    "restart": "Genstart",
+    "pause": "Sæt på pause",
+    "unpause": "Fortsæt",
+    "moreActions": "Flere handlinger",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker svarede ikke",
+      "docker": "Docker",
+      "noContainers": "Ingen beholdere"
+    },
+    "dockerConsole": {
+      "attachingTo": "Forbinder til {{name}}...",
+      "consoleDisconnected": "Konsol afbrudt",
+      "reconnect": "Forbind igen",
+      "failedToLoadTheConsole": "Kunne ikke indlæse konsollen",
+      "thisSessionHasNoServer": "Denne session har ingen server"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Beholdere, logfiler og statistik"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stakke er deaktiveret på denne server.",
+      "couldNotLoadStacks": "Kunne ikke indlæse stakke",
+      "noStacks": "Ingen stacks",
+      "composeProjectsOnThisHost": "Compose-projekter på denne host vises her.",
+      "ofRunning": "{{running}} af {{total}} kører",
+      "couldNotLoadTheStack": "Kunne ikke indlæse stacken",
+      "services": "Services",
+      "nothingIsRunning": "Intet kører.",
+      "composeFile": "Compose-fil",
+      "partlyUp": "delvist oppe",
+      "notDeployed": "ikke udrullet",
+      "running": "kører",
+      "stopped": "stoppet",
+      "paused": "pauset"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Det er ikke et gyldigt container-id",
+      "consoleFailed": "Konsol fejlede",
+      "notAuthenticated": "Ikke autentificeret",
+      "consoleError": "Konsolfejl",
+      "connectionFailed": "Forbindelsen fejlede"
+    },
+    "dockerDidNotAnswer": "Docker svarede ikke",
+    "failedToLoadContainers": "Kunne ikke indlæse containere",
+    "failedTo": "Kunne ikke {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Serveren sendte ingen fil",
+        "cancelled": "Annulleret",
+        "isGone": "{{path}} er væk",
+        "canTGoToThe": "{{name}} kan ikke flyttes til papirkurven"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Ugyldigt papirkurv-objekt-id",
+        "invalidTrashMetadata": "Ugyldig papirkurv-metadata",
+        "thisPathCanTBe": "Denne sti kan ikke flyttes til papirkurven",
+        "aFileAlreadyExistsAt": "En fil findes allerede på den oprindelige sti"
+      },
+      "sftp": {
+        "commandFailed": "Kommando fejlede: {{command}}",
+        "alreadyExists": "{{name}} findes allerede",
+        "alreadyExistsThere": "{{path}} findes allerede der",
+        "canTGoToThe": "{{name}} kan ikke flyttes til papirkurven: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminalen er ikke længere åben",
+      "clearHistory": "Ryd historik",
+      "stopFollowingTheTerminal": "Stop med at følge terminalen",
+      "followTheTerminal": "Følg terminalen",
+      "goToTheTerminalS": "Gå til terminalens mappe",
+      "cdTheTerminalHere": "cd terminalen her",
+      "folderHistory": "Mappehistorik",
+      "mostUsedFirstThenRecent": "Mest brugte først, derefter seneste",
+      "noFoldersYet": "Ingen mapper endnu"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Kan ikke oprette forbindelse.",
+        "couldNotSaveHowThis": "Kunne ikke gemme, hvordan denne host forbinder",
+        "thisWayCanTOpen": "Denne metode kan ikke åbne filer"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Kunne ikke åbne denne mappe",
+      "cancel": "Annuller",
+      "noFoldersHere": "Ingen mapper her"
+    },
+    "couldNotOpenThisFolder": "Kunne ikke åbne denne mappe",
+    "couldNotSaveToThe": "Kunne ikke gemme i mappen",
+    "failed": "{{label}} fejlede",
+    "uploading": "Uploader {{name}}",
+    "uploadingFiles": "Uploader {{count}} filer",
+    "downloadingToFilesOnMy": "Downloader til Filer, På min iPhone, Termix",
+    "downloading": "Downloader {{name}}",
+    "downloadingFiles": "Downloader {{count}} filer",
+    "openALargeFile": "Åbn en stor fil?",
+    "isBigForAEditor": "{{name}} er stor til en {{deviceWord}}-editor. Den kan være langsom.",
+    "open": "Åbn",
+    "thisLooksLikeABinary": "Dette ligner en binær fil",
+    "openItInAnotherApp": "Vil du åbne den i en anden app i stedet?",
+    "openWith": "Åbn med",
+    "tooBigForTheEditor": "For stor til editoren",
+    "isOver10MbDownload": "{{name}} er over 10 MB. Vil du downloade det i stedet?",
+    "download": "Download",
+    "delete": "Slet {{what}}?",
+    "moveToTheTrash": "Flyt {{what}} til papirkurven?",
+    "thisCanTBeUndone": "Dette kan ikke fortrydes.",
+    "youCanRestoreItFrom": "Du kan gendanne det fra papirkurven.",
+    "delete2": "Slet",
+    "moveToTrash": "Flyt til papirkurv",
+    "deleteForGood": "Slet permanent?",
+    "deleteItForGoodInstead": "{{message}}. Vil du slette det permanent i stedet? Dette kan ikke fortrydes.",
+    "deleteFailed": "Sletning mislykkedes",
+    "connectingThroughTheServer": "Forbinder via serveren...",
+    "connectingFromThis": "Forbinder fra denne {{deviceWord}}...",
+    "connecting": "Forbinder...",
+    "edit": "Rediger",
+    "downloadFolder": "Download mappe",
+    "share": "Del",
+    "rename": "Omdøb",
+    "copyTo": "Kopier til",
+    "moveTo": "Flyt til",
+    "cut": "Klip",
+    "copy": "Kopier",
+    "permissions": "Tilladelser",
+    "properties": "Egenskaber",
+    "makeALinkHere": "Opret et link her",
+    "copyPath": "Kopier sti",
+    "pathCopied": "Sti kopieret",
+    "done": "Færdig",
+    "selectAll": "Vælg alle",
+    "filterByName": "Filtrer efter navn",
+    "closeSearch": "Luk søgning",
+    "search": "Søg",
+    "changeSort": "Skift sortering",
+    "paste": "Indsæt {{count}}",
+    "upload": "Upload",
+    "transfers2": "Overførsler",
+    "more": "Mere",
+    "nothingMatches": "Ingen resultater",
+    "emptyFolder": "Tom mappe",
+    "uploadFilesOrMakeA": "Upload filer eller opret en ny.",
+    "newFolder": "Ny mappe",
+    "newFile": "Ny fil",
+    "select": "Vælg",
+    "hideHiddenFiles": "Skjul skjulte filer",
+    "showHiddenFiles": "Vis skjulte filer",
+    "trash": "Papirkurv",
+    "folderProperties": "Mappeegenskaber",
+    "refresh": "Opdater",
+    "rename2": "Omdøb {{name}}",
+    "newLink": "Nyt link",
+    "aLinkInThatPoints": "Et link i {{path}} der peger på {{path2}}",
+    "name": "Navn",
+    "create": "Opret",
+    "copyHere": "Kopier her",
+    "moveHere": "Flyt her",
+    "fileViewer": {
+      "saved": "Gemte {{name}}",
+      "couldNotSaveTheFile": "Kunne ikke gemme filen",
+      "discardChanges": "Kassér ændringer?",
+      "hasChangesThatAreNot": "{{name}} har ændringer, der ikke er gemt.",
+      "discard": "Kassér",
+      "readOnly": "{{path}} | skrivebeskyttet",
+      "find": "Find",
+      "smallerText": "Mindre tekst",
+      "biggerText": "Større tekst",
+      "turnOffLineWrap": "Slå linjeskift fra",
+      "wrapLines": "Bræk linjer",
+      "save": "Gem"
+    },
+    "hostSection": {
+      "startIn": "Start i",
+      "theFolderTheFileManager": "Den mappe, filhåndtereren åbner først",
+      "files": "Filer"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Gå til {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Flere handlinger",
+        "moreFor": "Flere for {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Tilladelser",
+      "cancel": "Annullér",
+      "apply": "Anvend ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Kunne ikke åbne den",
+      "openWith": "Åbn med",
+      "share": "Del"
+    },
+    "propertiesView": {
+      "properties": "Egenskaber",
+      "path": "Sti",
+      "type": "Type",
+      "pointsTo": "Peger på",
+      "size": "Størrelse",
+      "countFolderSize": "Beregn mappestørrelse",
+      "permissions": "Tilladelser",
+      "change": "Ændr",
+      "owner": "Ejer",
+      "group": "Gruppe",
+      "modified": "Ændret",
+      "opened": "Åbnet",
+      "linkToA": "Link til en {{value}}",
+      "notShownForFolders": "Vises ikke for mapper",
+      "file": "Fil",
+      "folder": "Mappe",
+      "link": "Link"
+    },
+    "register": {
+      "fileManager": "Filhåndtering",
+      "files": "Filer",
+      "browseEditAndMoveFiles": "Gennemse, redigér og flyt filer",
+      "files2": "FILER",
+      "fileManagerAndTransfers": "Filhåndtering og overførsler"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Overførsel mislykkedes"
+      },
+      "transfersPanel": {
+        "pause": "Sæt på pause",
+        "resume": "Genoptag",
+        "tryAgain": "Prøv igen",
+        "open": "Åbn",
+        "cancel": "Annullér",
+        "transfers": "Overførsler",
+        "goingOf": "{{active}} igang | {{done}} af {{total}}",
+        "clearFinished": "Ryd færdige",
+        "cancelAll": "Annullér alle",
+        "noTransfersYet": "Ingen overførsler endnu",
+        "waiting": "Venter",
+        "paused": "På pause",
+        "done": "Færdig",
+        "failed": "Mislykket",
+        "cancelled": "Annulleret"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Kunne ikke indlæse papirkurv",
+      "restored": "Gendanede {{name}}",
+      "failedToRestore": "Kunne ikke gendanne",
+      "failedToDelete": "Kunne ikke slette",
+      "trashEmptied": "Papirkurven er tømt",
+      "failedToEmptyTrash": "Kunne ikke tømme papirkurven",
+      "trash": "Papirkurv",
+      "itemsAreRemovedAfterDays": "Elementer fjernes efter {{retentionDays}} dage",
+      "close": "Luk",
+      "emptyTrash": "Tøm papirkurv",
+      "trashIsEmpty": "Papirkurven er tom",
+      "restore": "Gendan {{name}}",
+      "deleteForGood": "Slet {{name}} permanent"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Netop nu"
+      }
+    },
+    "getting": "Henter {{name}}",
+    "itemCount_one": "{{count}} element",
+    "itemCount_other": "{{count}} elementer",
+    "copiedWhat": "Kopierede {{what}}",
+    "movedWhat": "Flyttede {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} har mere end {{limit}} filer. Download mindre mapper."
+    },
+    "downloadingToFilesOnMyIpad": "Downloader til Filer, På min iPad, Termix",
+    "size": "Størrelse",
+    "date": "Dato"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Servicelinks",
+      "openInHomepage": "Åbn i Homepage",
+      "thisWidgetOnlyShowsOn": "Denne widget vises kun på fuld side."
+    },
+    "register": {
+      "serviceLinks": "Servicelinks",
+      "homepage": "Hjemmeside"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Ingen feed indstillet.",
+        "couldNotLoadTheFeed": "Kunne ikke indlæse feedet.",
+        "theFeedIsEmpty": "Feedet er tomt.",
+        "noLocationSet": "Ingen placering indstillet.",
+        "couldNotLoadTheWeather": "Kunne ikke indlæse vejret.",
+        "noUrlSet": "Ingen URL indstillet.",
+        "couldNotLoadTheData": "Kunne ikke indlæse dataene.",
+        "noPictureSet": "Intet billede indstillet.",
+        "badResponse": "dårligt svar"
+      },
+      "services": "Tjenester",
+      "service": "Tjeneste",
+      "serviceLinks": "Servicelinks",
+      "bookmarks": "Bogmærker",
+      "links2": "Links",
+      "search": "Søg",
+      "clock": "Ur",
+      "countdown": "Tælling ned",
+      "calendar": "Kalender",
+      "notes": "Noter",
+      "banner": "Banner",
+      "ping": "Ping",
+      "host": "Vært",
+      "hosts": "Værter",
+      "quickConnect": "Hurtig forbindelse",
+      "feed": "Feed",
+      "weather": "Vejr",
+      "customApi": "Brugerdefineret API",
+      "picture": "Billede",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Ingen tjenester endnu.",
+        "noLinkSet": "Intet link indstillet.",
+        "noLinksYet": "Ingen links endnu.",
+        "noSearchEngineSet": "Ingen søgemaskine indstillet.",
+        "search": "Søg",
+        "noShortcutsYet": "Ingen genveje endnu.",
+        "search2": "Søg {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Kunne ikke åbne linket"
+      },
+      "status": {
+        "noUrlsYet": "Ingen URL'er endnu.",
+        "down": "Nede",
+        "noHostsPicked": "Ingen værter valgt."
+      },
+      "text": {
+        "noNotesYet": "Ingen noter endnu.",
+        "noTextYet": "Ingen tekst endnu."
+      },
+      "time": {
+        "noDateSet": "Ingen dato indstillet.",
+        "timeIsUp": "Tiden er udløbet"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Kunne ikke gemme standardværdien",
+    "couldNotResetTheDefault": "Kunne ikke nulstille standardværdien",
+    "back": "Tilbage",
+    "hostDefaults": "Standardværdier for værter",
+    "newHostsStartFromThese": "Nye værter starter med disse",
+    "managedOnTheServer": "Håndteres på serveren",
+    "defaultsForThisServerAre": "Standardværdier for denne server indstilles i webappen.",
+    "level": "Niveau",
+    "yourDefaultsOrOneFolder": "Dine standardværdier eller en mappe",
+    "myDefaults": "Mine standardværdier",
+    "theServerSets": " Serveren indstiller {{adminCount}}.",
+    "aFolderWinsOverYour": "En mappe har forrang for dine standardindstillinger, og dine standardindstillinger har forrang for serverens. En vært beholder enhver værdi, du har indstillet på den selv.{{value}}",
+    "save": "Gem",
+    "authentication": "Godkendelse",
+    "none": "Ingen",
+    "reset": "Nulstil",
+    "model": {
+      "username": "Brugernavn",
+      "sshPort": "SSH-port",
+      "authentication": "Godkendelse",
+      "aSavedCredentialForNew": "En gemt legitimationsoplysning til nye værter",
+      "forceKeyboardInteractive": "Tving tastaturinteraktiv",
+      "keepaliveInterval": "Keepalive-interval",
+      "seconds0TurnsItOff": "Sekunder, 0 slår det fra",
+      "keepaliveTries": "Keepalive-forsøg",
+      "allowOldAlgorithms": "Tillad gamle algoritmer",
+      "agentForwarding": "Agent-forwarding",
+      "environmentVariables": "Miljøvariabler",
+      "oneNameValuePerLine": "Én NAVN=værdi pr. linje",
+      "checkIfTheHostIs": "Tjek om værten er oppe",
+      "checkInterval": "Tjekinterval",
+      "secondsEmptyUsesTheServer": "Sekunder, tom bruger serverens",
+      "socks5Proxy": "SOCKS5-proxy",
+      "setInTheWebApp": "Indstillet i webappen",
+      "jumpHosts": "Jump hosts",
+      "portKnocking": "Port knocking",
+      "notSet": "Ikke indstillet",
+      "fromTheServer": "Fra serveren",
+      "fromYourDefaults": "Fra dine standardværdier",
+      "builtIn": "Indbygget"
+    },
+    "register": {
+      "hostDefaults": "Standardværdier for værter",
+      "portUserAndOptionsFor": "Port, bruger og indstillinger til nye værter"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Ingen data endnu",
+      "cpu": "CPU",
+      "memory": "Hukommelse",
+      "disk": "Disk",
+      "history": "Historik",
+      "loading": "Indlæser..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Kunne ikke læse metrikker",
+      "metrics": "Metrikker",
+      "cpu": "CPU",
+      "memory": "Hukommelse",
+      "disk": "Disk",
+      "noRecentSampleOpenThe": "Ingen nylige målinger. Åbn værtens metrikker for at starte en."
+    },
+    "register": {
+      "enableMetrics": "Aktivér metrikker",
+      "cpuMemoryDiskAndNetwork": "CPU, hukommelse, disk og netværk via SSH",
+      "hostMetrics": "Værtmetrikker",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrikker",
+      "cpuMemoryDiskAndNetwork2": "CPU, hukommelse, disk og netværk"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Værtmetrikker | denne {{deviceWord}}",
+      "hostMetrics": "Værtmetrikker",
+      "ran": "Kørte {{name}}",
+      "loadingMetrics": "Indlæser metrikker...",
+      "couldNotReadMetricsFrom": "Kunne ikke læse metrikker fra denne vært",
+      "failedToLoadMetrics": "Kunne ikke indlæse metrikker",
+      "thisSessionHasNoServer": "Denne session har ingen server",
+      "twoFactorRequiredForThis": "To-faktor godkendelse kræves for denne værts statistik.",
+      "failedToStartMetrics": "Kunne ikke starte metrikker",
+      "failedToRun": "Kunne ikke køre {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Pr. kerne: {{value}}",
+        "cores": "Kerner",
+        "load": "Belastning",
+        "user": "Bruger",
+        "system": "System",
+        "ioWait": "IO-venten",
+        "steal": "Stjålet"
+      },
+      "diskWidget": {
+        "disk": "Disk  {{mount}}",
+        "disk2": "Disk",
+        "used": "Brugt",
+        "total": "I alt",
+        "free": "Ledig"
+      },
+      "firewallWidget": {
+        "firewall": "Firewall",
+        "rules": "{{type}} | {{ruleCount}} regler",
+        "noFirewallDetected": "Ingen firewall registreret"
+      },
+      "gpuWidget": {
+        "gpus": "GPUs ({{count}})",
+        "gpu": "GPU",
+        "memory": "Hukommelse",
+        "temp": "Temp",
+        "power": "Strøm",
+        "fan": "Køler"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Loginaktivitet",
+        "noLoginActivityRecorded": "Ingen loginaktivitet registreret",
+        "logins": "Logins",
+        "uniqueIps": "Unikke IPs",
+        "failed": "Mislykkede",
+        "recent": "Nylige"
+      },
+      "memoryWidget": {
+        "memory": "Hukommelse",
+        "used": "Brugt",
+        "total": "I alt",
+        "cached": "Cachelagret",
+        "free": "Ledig"
+      },
+      "networkWidget": {
+        "network": "Netværk",
+        "noInterfaces": "Ingen grænseflader",
+        "up": "Op",
+        "down": "Ned"
+      },
+      "portsWidget": {
+        "listeningPorts": "Lytteporte",
+        "noListeningPorts": "Ingen lytteporte"
+      },
+      "processesWidget": {
+        "sortBy": "Sorter efter {{label}}",
+        "processes": "Processer",
+        "running": "{{value}} kører | {{total}}",
+        "noProcessData": "Ingen procesdata",
+        "cpu": "CPU %",
+        "mem": "MEM %",
+        "command": "KOMMANDO"
+      },
+      "systemWidget": {
+        "system": "System",
+        "hostname": "Værtsnavn",
+        "os": "OS",
+        "kernel": "Kerne",
+        "arch": "Arkitektur",
+        "noSystemInfo": "Ingen systeminfo"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatur"
+      },
+      "uptimeWidget": {
+        "uptime": "Oppetid"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Kopieret med adgangskode",
+      "copiedTheLink": "Linket er kopieret",
+      "shareHost": "Del vært",
+      "thatHostNoLongerExists": "Denne vært findes ikke længere",
+      "scanThisInTermixOn": "Scan dette i Termix på en anden {{deviceWord}} under Import og eksport. Koden indeholder adresse, port og bruger. Den indeholder ikke adgangskode eller nøgle.",
+      "copyLink": "Kopiér link",
+      "copyLinkWithPassword": "Kopiér link med adgangskode"
+    },
+    "includePasswordsAndKeys": "Inkluder adgangskoder og nøgler?",
+    "anyoneWhoGetsThisFile": "Alle, der får fat i denne fil, kan logge på disse værter. Gem den sikkert.",
+    "includeThem": "Inkluder dem",
+    "pickAtLeastOneHost": "Vælg mindst én vært",
+    "couldNotMakeTheFile": "Kunne ikke oprette filen",
+    "copiedToTheClipboard": "Kopieret til udklipsholderen",
+    "importAndExport": "Import og eksport",
+    "moveHostsInAndOut": "Flyt værter ind og ud",
+    "import": "Importér",
+    "aTermixHostFileAn": "En Termix-værtsfil, en SSH-konfigurationsfil eller et værtslink eller en QR-kode fra en anden {{deviceWord}}.",
+    "export": "Eksportér",
+    "allHosts": "Alle værter",
+    "picked": "{{size}} valgt",
+    "pickHosts": "Vælg værter",
+    "includePasswordsAndKeys2": "Inkluder adgangskoder og nøgler",
+    "offMakesAFileSafe": "Slukket gør filen sikker at dele. Værter, der bruger en gemt legitimationsoplysning, peger på den ved navn",
+    "shareAFile": "Del en fil",
+    "copy": "Kopiér",
+    "importPanel": {
+      "couldNotReadThat": "Kunne ikke læse det",
+      "couldNotReadThatFile": "Kunne ikke læse filen",
+      "importFailed": "Import mislykkedes",
+      "chooseAFile": "Vælg en fil",
+      "paste": "Indsæt",
+      "scanACode": "Scan en kode",
+      "couldNotBeRead": "{{count}} kunne ikke læses",
+      "updateHostsThatExist": "Opdater værter, der allerede findes",
+      "sameAddressPortAndUser": "Samme adresse, port og bruger. Ellers springes de over",
+      "cancel": "Annullér",
+      "import": "Importér",
+      "andMore": "og {{value}} mere"
+    },
+    "qrCode": {
+      "qrCode": "QR-kode"
+    },
+    "register": {
+      "importAndExport": "Import og eksport",
+      "moveHostsInOrOut": "Flyt værter ind eller ud med en fil eller QR-kode",
+      "shareHost": "Del vært"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Scan en værtkode",
+      "pointTheCameraAtA": "Ret kameraet mod en Termix-værts QR-kode.",
+      "termixNeedsTheCameraTo": "Termix har brug for kameraet til at scanne en kode. Der optages ikke noget.",
+      "allowTheCamera": "Tillad kameraet"
+    },
+    "read": {
+      "termixFile": "Termix-fil",
+      "sshConfig": "SSH-konfiguration",
+      "thereIsNothingToImport": "Der er intet at importere",
+      "thatIsNotATermix": "Det er ikke et Termix-værtslink",
+      "linkHost": "1 vært: {{name}}",
+      "sourceHosts_one": "{{what}} med {{count}} vært",
+      "sourceHosts_other": "{{what}} med {{count}} værter"
+    },
+    "saveYourTermixHosts": "Gem dine Termix-værter"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Færdig",
+      "rejected": "Afvist",
+      "approvals": "Godkendelser",
+      "nothingIsWaiting": "Intet venter",
+      "actionsARuleHoldsFor": "Handlinger, der kræver godkendelse ifølge en regel, vises her.",
+      "approveAndRun": "Godkend og kør",
+      "reject": "Afvis",
+      "couldNotLoadApprovals": "Kunne ikke indlæse godkendelser",
+      "couldNotDecide": "Kunne ikke træffe beslutning"
+    },
+    "approvalsCard": {
+      "approved": "Godkendt",
+      "rejected": "Afvist",
+      "waitingForApproval": "Venter på godkendelse",
+      "approve": "Godkend",
+      "reject": "Afvis",
+      "couldNotDecide": "Kunne ikke træffe beslutning",
+      "seeAll": "Se alle"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Dette kan ikke fortrydes. Vil du køre det?",
+      "run": "Kør",
+      "sentForApproval": "Sendt til godkendelse",
+      "target": "Mål",
+      "theItemOnTheHost": "Elementet på værten, f.eks. en container",
+      "dryRun": "Testkørsel",
+      "back": "Tilbage",
+      "actions": "Handlinger",
+      "noActionsForThisHost": "Ingen handlinger for denne vært",
+      "turnOnAPluginLike": "Aktivér et plugin som Docker eller Services for denne vært på serveren.",
+      "destructive": "Ødelæggende",
+      "changes": "Ændringer",
+      "theActionCouldNotRun": "Handlingen kunne ikke køres",
+      "couldNotLoadActions": "Kunne ikke indlæse handlinger"
+    },
+    "register": {
+      "actions": "Handlinger",
+      "waitingForApproval": "Venter på godkendelse",
+      "approvals": "Godkendelser",
+      "actionsWaitingForAPerson": "Handlinger, der venter på, at en person siger ja",
+      "runHistory": "Kørehistorik",
+      "everyActionAnyoneRanFrom": "Alle handlinger, som nogen har kørt fra enhver enhed"
+    },
+    "runHistory": {
+      "cancelThisRun": "Vil du afbryde denne kørsel?",
+      "cancelRun": "Afbryd kørsel",
+      "keep": "Behold",
+      "undoThisRun": "Vil du fortryde denne kørsel?",
+      "thisRunsTheActionS": "Dette kører handlingens fortrydelse med samme input.",
+      "undo": "Fortryd",
+      "cancelled": "Afbrydt",
+      "itAlreadyFinished": "Den er allerede færdig",
+      "done": "Færdig",
+      "runHistory": "Kørehistorik",
+      "nothingHasRunYet": "Intet er kørt endnu",
+      "dryRun": "Testkørsel",
+      "cancel": "Annuller",
+      "couldNotLoadHistory": "Kunne ikke indlæse historik",
+      "couldNotCancel": "Kunne ikke afbryde",
+      "couldNotUndo": "Kunne ikke fortryde"
+    },
+    "api": {
+      "needsApproval": "Kræver godkendelse",
+      "needsSignIn": "Kræver login",
+      "done": "Færdig",
+      "failed": "Mislykkedes",
+      "running": "Kører",
+      "interrupted": "Afbrudt",
+      "rejected": "Afvist",
+      "cancelled": "Annulleret",
+      "expired": "Udløbet"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Tænd for {{value}}",
+      "moreSettingsForThisAre": "Flere indstillinger for dette findes i Termix web-appen.",
+      "pluginHostSettings": "Plugin-værtsindstillinger"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} skal være et tal",
+      "mustBeAtLeast": "{{field}} skal være mindst {{min}}",
+      "mustBeAtMost": "{{field}} skal være højst {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Link en server for at bruge den",
+      "runsOnYourTermixServer": "{{name}} kører på din Termix-server."
+    },
+    "pluginWebView": {
+      "canTLoad": "Kan ikke indlæse {{name}}",
+      "theServerDidNotSend": "Serveren sendte ikke pluginnet. Tjek, at den er tændt, og prøv igen.",
+      "openThisLink": "Åbn dette link?",
+      "open": "Åbn",
+      "needsANewerVersionOf": "Kræver en nyere version af appen",
+      "usesPartsOfTermixThis": "{{name}} bruger dele af Termix, som denne app endnu ikke har.",
+      "didNotStart": "{{name}} startede ikke",
+      "thisScreenIsNotIn": "Denne skærm er ikke i plugin-versionen på serveren.",
+      "thePluginHitAnError": "Pluginnet stødte på en fejl under start.",
+      "youReOffline": "Du er offline",
+      "runsOnYourServerSo": "{{name}} kører på din server, så den har brug for en forbindelse. Den åbner igen, når du er online.",
+      "tryAgain": "Prøv igen"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Den vært er ikke på denne {{deviceWord}} endnu.",
+      "theAppCanTOpen": "Appen kan ikke åbne det herfra.",
+      "thatHostIsNotOn2": "Den vært er ikke på denne {{deviceWord}} endnu."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Adgangskode",
+      "unchangedIfBlank": "Uændret, hvis tomt",
+      "port": "Port",
+      "domain": "Domæne",
+      "displaySoundAndClipboardSettings": "Indstillinger for skærm, lyd og udklipsholder findes i Termix web-appen.",
+      "portMustBeFrom1": "{{label}} port skal være mellem 1 og 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Fjernskrivebordet faldt fra",
+        "signIn": "{{label}} login",
+        "itWillNotBeSaved": "{{error}} Det gemmes ikke.",
+        "enterTheLoginForIt": "Indtast login for {{title}}. Det gemmes ikke.",
+        "reconnecting": "Genopretter forbindelse til {{label}}",
+        "connecting": "Opretter forbindelse til {{label}}",
+        "connectionFailed": "Forbindelsen mislykkedes",
+        "disconnected": "Frakoblet",
+        "reconnect": "Genopret forbindelse",
+        "connectThroughTheServer": "Forbind via serveren",
+        "pasteToRemote": "Indsæt i fjern",
+        "typeClipboard": "Skriv udklipsholder",
+        "copyRemoteClipboard": "Kopiér fjernudklipsholder",
+        "theComputerSCertificateWas": "Computers certifikat var ikke betroet.",
+        "thatLoginWasRefusedTry": "Den login blev afvist. Prøv igen."
+      },
+      "target": {
+        "trustThisComputer": "Stol på denne computer?",
+        "theCanTCheckS": "{{deviceWord}} kan ikke tjekke {{hostName}}'s certifikat. Sørg for, at dette fingeraftryk matcher det på computeren, før du fortsætter.\n\n{{fingerprint}}",
+        "trustAndConnect": "Stol på og forbind",
+        "certificateChanged": "Certifikat ændret",
+        "showsAnotherCertificateThanLast": "{{hostName}} viser et andet certifikat end sidst. Det sker, når computeren laver et nyt, eller når nogen lytter imellem.\n\nNyt fingeraftryk:\n{{fingerprint}}",
+        "trustTheNewOne": "Stol på det nye"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Fjernskrivebord",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Færdig",
+      "keyboard": "Tastatur",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Indstillinger",
+      "remoteSettings": "Fjernindstillinger",
+      "mouseMode": "Musetilstand",
+      "touch": "Touch",
+      "trackpad": "Trackpad",
+      "tapWhereYouWantTo": "Tryk, hvor du vil klikke. Hold nede for højreklik, træk for at trække.",
+      "dragToMoveThePointer": "Træk for at flytte markøren. Tryk for at klikke, tryk med to fingre for højreklik, tryk og træk for at trække.",
+      "zoomXPinchAnywhereTo": "Zoom: {{value}}x. Klem sammen overalt for at zoome",
+      "reset": "Nulstil",
+      "cancel": "Annuller",
+      "connect": "Forbind",
+      "username": "Brugernavn",
+      "domainOptional": "Domæne (valgfrit)",
+      "domain": "Domæne",
+      "password": "Adgangskode",
+      "leftArrow": "Venstre pil",
+      "upArrow": "Opad pil",
+      "downArrow": "Nedad pil",
+      "rightArrow": "Højre pil",
+      "rdpSignIn": "RDP-login"
+    },
+    "theRemoteDesktopDropped": "Fjernskrivebordet blev afbrudt",
+    "theyWillNotBeSaved": "{{errorMessage}} De bliver ikke gemt.",
+    "enterCredentialsForTheyWill": "Indtast loginoplysninger for {{title}}. De bliver ikke gemt.",
+    "connecting": "Forbinder",
+    "connectionFailed": "Forbindelse mislykkedes",
+    "disconnected": "Frakoblet",
+    "reconnect": "Forbind igen",
+    "route": {
+      "thisHostCanTOpen": "Denne vært kan ikke åbne et fjernskrivebord herfra."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Blokeret af appen"
+    },
+    "failedToStartRemoteSession": "Kunne ikke starte fjernsession",
+    "thatLoginWasRefusedTry": "Logningen blev afvist. Prøv igen.",
+    "theRemoteRefusedTheSaved": "Fjersystemet afviste den gemte login. Tjek RDP-login på denne vært.",
+    "remoteSessionFailed": "Fjernsessionen mislykkedes",
+    "remoteSessionReturnedAnInvalid": "Fjernsessionen returnerede en ugyldig besked",
+    "failedToLoadTheRemote": "Kunne ikke indlæse fjernskrivebordsklienten"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Ingen logbog",
+      "thisHostDoesNotKeep": "Denne vært fører ikke en systemd-logbog.",
+      "all": "Alle",
+      "warnings": "Advarsler",
+      "errors": "Fejl",
+      "stop": "Stop",
+      "follow": "Følg",
+      "nothingLogged": "Intet logget",
+      "tryAnotherLevel": "Prøv et andet niveau.",
+      "couldNotReadTheJournal": "Kunne ikke læse logbogen"
+    },
+    "register": {
+      "services": "Tjenester",
+      "startStopAndReadLogs": "Start, stop og læs logs"
+    },
+    "readingServices": "Læser tjenester...",
+    "thisHostHasNoSystemd": "Denne vært har ikke systemd eller OpenRC.",
+    "noServicesMatch": "Ingen tjenester matcher",
+    "noServicesFound": "Ingen tjenester fundet",
+    "services": "Tjenester",
+    "journal": "Journal",
+    "searchServices": "Søg i tjenester...",
+    "all": "Alle",
+    "running": "Kører",
+    "failed": "Mislykket ({{failed}})",
+    "failed2": "Mislykket",
+    "servicesCard": {
+      "services": "Tjenester",
+      "noSystemdOrOpenrc": "Ingen systemd eller OpenRC",
+      "failed": "{{failed}} mislykket",
+      "allRunning": "Alle kører",
+      "couldNotReadServices": "Kunne ikke læse tjenester"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Den forbliver stoppet, indtil den startes igen eller værten genstartes.",
+      "itStopsForAMoment": "Den stopper kortvarigt og starter igen.",
+      "stop": "Stop",
+      "restart": "Genstart",
+      "is": "{{name}} er {{state}}",
+      "start": "Start",
+      "journal": "Journal",
+      "couldNotReadTheService": "Kunne ikke læse tjenesten",
+      "couldNot": "Kunne ikke {{action}} {{name}}",
+      "startsAtBoot": "Startes ved opstart",
+      "mainPid": "Hoved-PID",
+      "activeSince": "Aktiv siden",
+      "unitFile": "Enhedsfil",
+      "notSet": "[ikke indstillet]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Ikke logget ind",
+        "followFailed": "Følg mislykkedes",
+        "connectionFailed": "Forbindelse mislykkedes"
+      }
+    },
+    "couldNotReadServices": "Kunne ikke læse tjenester",
+    "services2": "Tjenester{{where}}",
+    "title": "Tjenester",
+    "failedCount": "{{count}} mislykket"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Sessionsdeling",
+      "shareLink": "Del link"
+    },
+    "shareSessionView": {
+      "canWatch": "Kan se med",
+      "canType": "Kan skrive",
+      "n1Hour": "1 time",
+      "n8Hours": "8 timer",
+      "n1Day": "1 dag",
+      "n7Days": "7 dage",
+      "never": "Aldrig",
+      "shareSession": "Del session",
+      "anyoneWithTheLinkCan": "Alle med linket kan åbne denne terminal, mens den kører. Du kan ophæve links i Termix.",
+      "peopleWithTheLink": "Personer med linket",
+      "expiresAfter": "Udløber efter",
+      "link": "Link",
+      "copy": "Kopiér",
+      "share": "Del",
+      "makeLink": "Opret link",
+      "theServerGaveNoLink": "Serveren returnerede intet link",
+      "couldNotMakeALink": "Kunne ikke oprette et link",
+      "linkCopied": "Link kopieret"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Ingen mappe"
+    },
+    "hostPicker": {
+      "selectNone": "Fravælg alle",
+      "selectAll": "Vælg alle",
+      "done": "Færdig"
+    },
+    "register": {
+      "snippets": "Snippets",
+      "snippets2": "SNIPPETS",
+      "savedCommandsToRunOn": "Gemte kommandoer, der kan køres på enhver host"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Der er ingen måde at nå denne host fra her",
+      "exitedWith": "Afsluttet med {{exitCode}}",
+      "thisCanTRunIt": "Denne {{deviceWord}} kan ikke køre det",
+      "noServerIsLinked": "Ingen server er linket"
+    },
+    "runOnHostsSheet": {
+      "run": "Kør",
+      "run2": "Kør \"{{name}}\"",
+      "runsOverSshOnEach": "Kører via SSH på hver host. Der åbnes ikke et terminalvindue.",
+      "close": "Luk",
+      "hosts": "Hosts",
+      "pickHosts": "Vælg hosts",
+      "workedFailed": "{{value}} lykkedes, {{failed}} mislykkedes",
+      "runOn2": "Kør på",
+      "runOn_one": "Kør {{name}} på {{count}} host?",
+      "runOn_other": "Kør {{name}} på {{count}} hosts?",
+      "hostsPicked_one": "{{count}} host valgt",
+      "hostsPicked_other": "{{count}} hosts valgt"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Søg i snippets",
+      "pastesTheNote": "Indsætter noten",
+      "runsTheSnippet": "Kører snippetet",
+      "noSnippetsMatch": "Ingen snippets matcher",
+      "noSnippetsYet": "Ingen snippets endnu",
+      "addSnippetsInSettingsSnippets": "Tilføj snippets i Indstillinger, Snippets",
+      "run": "Kør",
+      "insertWithoutRunning": "Indsæt uden at køre",
+      "copy": "Kopiér"
+    },
+    "snippetsCard": {
+      "snippets": "Snippets",
+      "run": "Kør {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Der er ingen snippets at eksportere",
+      "couldNotMakeTheFile": "Kunne ikke oprette filen",
+      "copiedToTheClipboard": "Kopieret til udklipsholderen",
+      "couldNotImport": "Kunne ikke importere",
+      "couldNotReadThatFile": "Kunne ikke læse den fil",
+      "importAndExport": "Importér og eksportér",
+      "theSameFileTheWeb": "Samme fil, som webappen bruger.",
+      "export": "Eksportér",
+      "shareAFile": "Del en fil",
+      "copy": "Kopiér",
+      "import": "Importér",
+      "updateSnippetsThatExist": "Opdater snippets, der allerede findes",
+      "sameNameInTheSame": "Samme navn i samme mappe. Ellers springes de over",
+      "chooseAFile": "Vælg en fil",
+      "paste": "Indsæt",
+      "saveYourSnippets": "Gem dine snippets"
+    },
+    "useSnippetRunner": {
+      "run": "Kør {{name}}?",
+      "run2": "Kør",
+      "fillInTheValuesFor": "Udfyld værdierne for dette snippet.",
+      "cancel": "Annullér",
+      "insert": "Indsæt",
+      "noTerminalIsOpen": "Ingen terminal er åben"
+    },
+    "variables": {
+      "input": "Input {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Det er ikke en gyldig JSON-fil",
+      "theFileNeedsASnippets": "Filen skal indeholde en liste over snippets eller mapper",
+      "snippetNameAndContentAre": "Snippet {{value}}: navn og indhold er påkrævet",
+      "folder": "Mappe {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Indlæser Tailscale-enheder…",
+      "searchTailscaleDevices": "Søg i Tailscale-enheder…",
+      "searchTailscaleDevices2": "Søg i Tailscale-enheder",
+      "clearDeviceSearch": "Ryd enhedssøgning",
+      "refreshTailscaleDevices": "Opdater Tailscale-enheder",
+      "device": "Enhed",
+      "noTailnetAddress": "Ingen tailnet-adresse",
+      "tailscaleDevice": "Tailscale-enhed",
+      "tailscaleDevices": "Tailscale-enheder",
+      "addAHostThatConnects": "Tilføj en vært, der forbinder med Tailscale SSH.",
+      "username": "Brugernavn",
+      "sshUsernameFor": "SSH-brugernavn til {{value}}",
+      "addHost": "Tilføj vært",
+      "noTailscaleDevicesMatchYour": "Ingen Tailscale-enheder matcher din søgning.",
+      "noTailscaleDevicesFound": "Ingen Tailscale-enheder fundet.",
+      "noTailscaleApiKeyIs": "Der er ikke konfigureret en Tailscale API-nøgle på denne server. Bed en administrator om at tilføje en.",
+      "youDoNotHavePermission": "Du har ikke tilladelse til at se en liste over Tailscale-enheder.",
+      "couldNotLoadTailscaleDevices": "Kunne ikke indlæse Tailscale-enheder. Opdater for at prøve igen.",
+      "tailscaleIsUnavailableOnThis": "Tailscale er ikke tilgængelig på denne server."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Genopretter forbindelse | forsøg {{attempt}}",
+      "reconnectingInSTry": "Genopretter forbindelse om {{secs}} s | forsøg {{attempt}}",
+      "offlineWaitingForNetwork": "Offline, venter på netværk",
+      "sendToTheNewShell": "Send {{what}} til den nye shell?",
+      "reconnectNow": "Genopret forbindelse nu",
+      "send": "Send",
+      "discard": "Kassér",
+      "typedChars_one": "{{count}} tastet tegn",
+      "typedChars_other": "{{count}} tastede tegn",
+      "waiting": "{{what}} venter"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Forbindelseslog kopieret",
+      "connectionLog": "Forbindelseslog",
+      "copyItIntoABug": "Kopiér den til en fejlrapport. Adresser og brugernavne er udeladt.",
+      "copy": "Kopiér"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Ryd historik for denne vært?",
+        "clear": "Ryd",
+        "searchHistory": "Søg i historik",
+        "typesTheCommandWithoutRunning": "Taster kommandoen uden at køre den",
+        "noCommandsMatch": "Ingen kommandoer matcher",
+        "noHistoryYet": "Ingen historik endnu",
+        "commandsYouRunOnThis": "Kommandoer, du kører på denne vært, vises her",
+        "run": "Kør",
+        "typeWithoutRunning": "Tast uden at køre",
+        "copy": "Kopiér",
+        "delete": "Slet",
+        "historyCleared": "Historik ryddet"
+      },
+      "suggestionStrip": {
+        "use": "Brug {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "App-indstilling",
+      "delete": "Slet (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Fanetitel fra shell",
+      "programsCanSetTheTab": "Programmer kan indstille fanetitlen",
+      "openTmux": "Åbn tmux",
+      "attachToATmuxSession": "Forbind til en tmux-session, eller start en",
+      "reconnectOnDrop": "Genopret forbindelse ved afbrydelse",
+      "keepTabOpenOnExit": "Behold fane åben ved afslutning",
+      "pressEnterToConnectAgain": "Tryk på Enter for at forbinde igen",
+      "saveCommandHistory": "Gem kommandohistorik",
+      "offerToFillPasswordPrompts": "Tilbyd at udfylde adgangskodeprompter",
+      "offerToFillSudoPrompts": "Tilbyd at udfylde sudo-prompter",
+      "usesTheSudoPasswordFrom": "Bruger sudo-adgangskoden fra SSH-fanen",
+      "none": "Ingen",
+      "look": "Udseende",
+      "theme": "Tema",
+      "font": "Skrifttype",
+      "cursor": "Markør",
+      "bell": "Lyd",
+      "scrollbackLines": "Rullelinjer",
+      "app": "App",
+      "behavior": "Adfærd",
+      "backspaceSends": "Backspace sender",
+      "startupSnippet": "Startsnip",
+      "runsOnceTheShellIs": "Kører, når shell er klar",
+      "fillWithoutAsking": "Udfyld uden at spørge",
+      "onThisOnlyOnceYou": "Kun på denne {{deviceWord}}, når du har valgt 'Udfyld altid'",
+      "connection": "Forbindelse",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Sekunder mellem pings, 0 slår det fra",
+      "default": "Standard",
+      "keepaliveSeconds": "Keepalive-sekunder",
+      "missedPings": "Ubesvarede pings",
+      "dropTheConnectionAfterThis": "Afslut forbindelsen, efter dette antal er ubesvarede",
+      "missedPingsBeforeDrop": "Ubesvarede pings før afslutning",
+      "environment": "Miljø",
+      "removeVariable": "Fjern variabel",
+      "addVariable": "Tilføj variabel"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "TASTATUR"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Række",
+        "keys": "Taster",
+        "sendsAKeyCode": "Sender en tastekode",
+        "stickyModifier": "Sticky-modifikator",
+        "appAction": "App-handling",
+        "tmuxPrefixThen": "tmux-præfiks, derefter {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Tastrækker",
+        "onlyFor": "Kun for {{name}}",
+        "usingTheAppSRows": "Bruger appens rækker. Ændringer her gælder kun for {{name}}",
+        "useTheAppSRows": "Brug appens rækker"
+      },
+      "keyButton": {
+        "locked": "Låst"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Annuller",
+        "remove": "Fjern {{what}}?",
+        "remove2": "Fjern",
+        "dragToReorder": "Træk for at omarrangere",
+        "rowName": "Rækkens navn",
+        "groupName": "Gruppens navn",
+        "add": "Tilføj",
+        "addKey": "Tilføj tast",
+        "addRow": "Tilføj række",
+        "addGroup": "Tilføj gruppe",
+        "tmuxPrefix": "tmux-præfiks",
+        "name": "Navn",
+        "rename": "Omdøb",
+        "keys": "{{value}} taster",
+        "noKeys": "Ingen taster",
+        "remove3": "Fjern {{label}}",
+        "keys2": "Taster",
+        "custom": "Brugerdefineret",
+        "add2": "Tilføj {{label}}",
+        "typeText": "Skriv tekst",
+        "runCommand": "Kør kommando",
+        "ctrlKey": "Ctrl-tast",
+        "label": "Etiket",
+        "optional": "Valgfrit",
+        "letter": "Bogstav",
+        "command": "Kommando",
+        "text": "Tekst",
+        "resetToDefault": "Nulstil til standard"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Ændr taster i Indstillinger, Tastatur"
+      },
+      "keyRowBar": {
+        "keyRow": "Tast række {{label}}",
+        "tapForTheNextRow": "Tryk for næste række, hold nede for at vælge en",
+        "keyRows": "Tast rækker"
+      },
+      "model": {
+        "clear": "Ryd",
+        "main": "Hoved",
+        "keys": "Taster",
+        "arrows": "Pile",
+        "symbols": "Symboler",
+        "actions": "Handlinger",
+        "nav": "Nav",
+        "move": "Flyt",
+        "function": "Funktion",
+        "brackets": "Parenteser",
+        "punctuation": "Tegnsætning",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Panes",
+        "copy": "Kopiér",
+        "split": "Opdel ─",
+        "split2": "Opdel │",
+        "newWin": "Nyt vindue",
+        "prevWin": "Forr. vindue",
+        "nextWin": "Næste vindue",
+        "pane": "Pane ←",
+        "pane2": "Pane ↓",
+        "pane3": "Pane ↑",
+        "pane4": "Pane →",
+        "copyMode": "Kopier tilstand",
+        "pasteBuf": "Indsæt buf",
+        "killPane": "Luk pane"
+      }
+    },
+    "output": {
+      "openLink": "Åbn link?",
+      "open": "Åbn",
+      "pasteLines": "Indsæt {{lines}} linjer?",
+      "pasteThisText": "Indsæt denne tekst?",
+      "theShellMayRunIt": "Skallen kan køre den med det samme.\n\n{{text}}",
+      "paste": "Indsæt",
+      "letTheProgramReadYour": "Lad programmet læse din udklipsholder?",
+      "itAskedForWhatYou": "Det bad om det, du sidst kopierede.",
+      "allow": "Tillad",
+      "letTheProgramCopyTo": "Lad programmet kopiere til din udklipsholder?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Udfyld det gemte adgangskode?",
+      "asksForTheSudoPassword": "{{hostName}} beder om sudo-adgangskoden.",
+      "asksForAPassword": "{{hostName}} beder om en adgangskode.",
+      "fillPassword": "Udfyld adgangskode",
+      "alwaysFillOnThisHost": "Udfyld altid på denne vært",
+      "asksNoMoreOnThis": "Spørger ikke mere på denne {{deviceWord}}. Slå det fra i værtsfanen Terminal.",
+      "notNow": "Ikke nu"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal og keepalive",
+      "history": "HISTORIK",
+      "find": "Find",
+      "tmuxWindows": "tmux-vinduer",
+      "connectionLog": "Forbindelseslog",
+      "keyRowsForThisHost": "Tast rækker for denne vært"
+    },
+    "searchBar": {
+      "noResults": "Ingen resultater",
+      "matchCase": "Respektér store/små bogstaver",
+      "wholeWord": "Hele ord",
+      "regularExpression": "Regulært udtryk",
+      "find": "Find",
+      "closeFind": "Luk søgning"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "System",
+      "block": "Blok",
+      "bar": "Streg",
+      "underline": "Understregning",
+      "off": "Fra",
+      "sound": "Lyd",
+      "flash": "Blink",
+      "both": "Begge"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Ny fane på denne vært",
+      "closeTab": "Luk fane",
+      "nextTab": "Næste fane",
+      "previousTab": "Forrige fane",
+      "goToTab": "Gå til fane",
+      "find": "Find",
+      "fontSize": "Skriftstørrelse",
+      "paste": "Indsæt",
+      "escape": "Escape",
+      "copyAndPaste": "Kopier og indsæt"
+    },
+    "reconnecting": "Genopretter forbindelse...",
+    "waitingForNetwork": "Venter på netværk...",
+    "waitingForYou": "Venter på dig...",
+    "connecting": "Opretter forbindelse...",
+    "terminalView": {
+      "scrollToBottom": "Rul til bunden",
+      "onlyWebLinksCanOpen": "Kun weblinks kan åbnes fra terminalen",
+      "couldNotOpenLink": "Kunne ikke åbne link",
+      "copiedFromTheTerminal": "Kopieret fra terminalen"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Åbn en tmux-session",
+        "newSession": "Ny session",
+        "plainShell": "Almindelig shell",
+        "tmuxWindows": "tmux-vinduer",
+        "newWindow": "Nyt vindue",
+        "windowCount_one": "{{count}} vindue",
+        "windowCount_other": "{{count}} vinduer",
+        "attached": "{{count}} tilsluttet",
+        "activeNow": "aktiv nu",
+        "activeMinAgo": "aktiv for {{count}} min siden",
+        "activeHoursAgo": "aktiv for {{count}} t siden",
+        "activeDaysAgo_one": "aktiv for {{count}} dag siden",
+        "activeDaysAgo_other": "aktiv for {{count}} dage siden"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopier",
+        "selectAll": "Vælg alt",
+        "cancel": "Annuller",
+        "scrollToBottom": "Rul til bunden",
+        "couldNotCopy": "Kunne ikke kopiere",
+        "webviewError": "WebView-fejl: {{description}}",
+        "webviewHttpError": "WebView HTTP-fejl: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Ingen gemt adgangskode til denne vært",
+    "backInTmuxSession": "Tilbage i tmux-sessionen {{tmuxName}}",
+    "backInScreenSession": "Tilbage i screen-sessionen {{name}}",
+    "theServerSessionEndedThis": "Server-sessionen er afsluttet. Dette er en ny shell.",
+    "termixWasClosedSoThe": "Termix blev lukket, så den gamle shell blev afsluttet. Dette er en ny shell.",
+    "theConnectionDroppedAndThe": "Forbindelsen faldt fra, og den gamle shell blev afsluttet. Dette er en ny shell.",
+    "disconnectedFrom": "Frakoblet {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "To-faktor godkendelse",
+      "codesFromAnAuthenticatorApp": "Koder fra en autentifikationsapp til din serverkonto"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC-adresse",
+      "neededToWakeThisHost": "Påkrævet for at vække denne host med Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Brug en MAC-adresse som 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN sendt til {{name}}",
+      "failedToSendWakeOn": "Kunne ikke sende Wake-on-LAN-pakke",
+      "noServer": "Ingen server"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Væk {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Del anonyme brugsstatistikker?",
+      "termixWouldSendAShort": "Termix vil sende en kort rapport en gang om dagen. Du kan ændre dette når som helst i Indstillinger.",
+      "noThanks": "Nej tak",
+      "share": "Del",
+      "theReportHasTheApp": "Rapporten indeholder app-version, {{deviceWord}}-type, omtrentlige antal hosts og sessioner, hvilke funktioner du bruger, og om forbindelsen lykkedes. Den indeholder aldrig hostnavne, brugernavne, adresser, stier, kommandoer eller servernavne.",
+      "seeExactlyWhatIsSent": "Se præcis hvad der sendes"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Indlæser versionsinformation…",
+      "updateAvailable": "Opdatering tilgængelig",
+      "newVersionAvailable": "Ny version tilgængelig",
+      "aNewerVersionOfThe": "En nyere version af mobilappen er tilgængelig. Nogle funktioner fungerer måske ikke korrekt, før du opdaterer.",
+      "versionInformation": "Versionsinformation",
+      "installed": "Installeret",
+      "latest": "Seneste",
+      "unknown": "Ukendt",
+      "tag": "Tag",
+      "continueAnyway": "Fortsæt alligevel"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Kopieret",
+      "copy": "Kopiér",
+      "hostKeyChanged": "Host-nøgle ændret",
+      "verifyHostKey": "Bekræft host-nøgle",
+      "cancel": "Annullér",
+      "acceptNewKey": "Acceptér ny nøgle",
+      "connectAndTrust": "Forbind og stoler på",
+      "theHostSSshKey": "Hostens SSH-nøgle er ændret siden din sidste forbindelse. Dette kan betyde, at nogen afskærer forbindelsen.",
+      "youAreConnectingToThis": "Du forbinder til denne host for første gang. Tjek fingeraftrykket, før du stoler på det.",
+      "previousKey": "Forrige nøgle",
+      "newFingerprint": "Nyt fingeraftryk",
+      "hostFingerprint": "Host-fingeraftryk"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Adgangskode påkrævet",
+      "enterThePassphraseForYour": "Indtast adgangskoden til din SSH-nøgle.",
+      "cancel": "Annullér",
+      "connect": "Forbind",
+      "keyPassphrase": "Nøglen adgangskode"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH-autentifikation påkrævet",
+      "cancel": "Annullér",
+      "connect": "Forbind",
+      "password": "Adgangskode",
+      "sshKey": "SSH-nøgle",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nIndsæt din private nøgle her...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Nøglen adgangskode (valgfrit)",
+      "keyboardInteractiveAuthIsNot": "Keyboard-interactive autentifikation er ikke tilgængelig. Indtast legitimationsoplysninger direkte.",
+      "authenticationFailedPleaseReEnter": "Autentifikation mislykkedes. Indtast venligst dine legitimationsoplysninger igen.",
+      "connectionTimedOutPleaseTry": "Forbindelsen udløb. Prøv venligst igen med dine legitimationsoplysninger."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH-tjek",
+      "completeTheTailscaleSshCheck": "Udfør Tailscale SSH-tjekket i din browser for at fortsætte.",
+      "cancel": "Annullér",
+      "copyUrl": "Kopiér URL",
+      "openBrowser": "Åbn browser",
+      "urlCopied": "URL kopieret",
+      "failedToCopy": "Kunne ikke kopiere",
+      "couldNotOpenBrowser": "Kunne ikke åbne browser"
+    },
+    "tOTPDialog": {
+      "cancel": "Annuller",
+      "submit": "Indsend",
+      "verify": "Bekræft",
+      "password": "Adgangskode",
+      "pasteCode": "Indsæt kode",
+      "passwordRequired": "Adgangskode påkrævet",
+      "twoFactorAuthentication": "To-faktor godkendelse",
+      "enterYourPasswordToContinue": "Indtast din adgangskode for at fortsætte.",
+      "enterThe6DigitCode": "Indtast den 6-cifrede kode fra din autentifikationsapp."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate-godkendelse",
+      "authenticateViaTheWarpgatePortal": "Godkend via Warpgate-portalen, og tryk derefter på Fortsæt.",
+      "cancel": "Annuller",
+      "openBrowser": "Åbn browser",
+      "continue": "Fortsæt",
+      "securityKey": "Sikkerhedsnøgle",
+      "authUrl": "Godkendelses-URL",
+      "copied": "Kopieret",
+      "copy": "Kopier",
+      "urlCopied": "URL kopieret",
+      "failedToCopy": "Kunne ikke kopiere",
+      "couldNotOpenBrowser": "Kunne ikke åbne browser"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "denne {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Seneste aktivitet",
+        "files": "Filer",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Notifikationer",
+        "seeAll": "Se alle"
+      },
+      "server": "Server",
+      "openSessions": "Åbne sessioner",
+      "quickAccess": "Hurtig adgang",
+      "notifications": "Notifikationer",
+      "pinnedHosts": "Fastgjorte værter",
+      "recentHosts": "Seneste værter",
+      "recentActivity": "Seneste aktivitet",
+      "pinnedCard": {
+        "addYourFirstHost": "Tilføj din første vært",
+        "hostsYouOpenShowUp": "Værter, du åbner, vises her, og fastgjorte værter viser live-kort.",
+        "addHost": "Tilføj vært",
+        "linkAServer": "Link en server",
+        "pinAHostToSee": "Fastgør en vært for at se den her",
+        "pinnedHostsShowTheirMetrics": "Fastgjorte værter viser deres metrikker, Docker og tjenester på et overblik. Hold en vært nede for at fastgøre den.",
+        "goToHosts": "Gå til værter",
+        "pinned": "Fastgjort",
+        "opensTheTerminalHoldFor": "Åbner terminalen. Hold nede for mere.",
+        "turnOnDockerOrServices": "Aktivér Docker eller Tjenester for denne vært, eller tryk på den for at oprette forbindelse.",
+        "opens": "Åbner {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Hurtig adgang",
+        "quickConnect": "Hurtig forbindelse",
+        "userHostPortWithoutSaving": "bruger@værter:port, uden at gemme"
+      },
+      "recentCard": {
+        "recent": "Seneste"
+      },
+      "serverCard": {
+        "server": "Server",
+        "version": "Version",
+        "uptime": "Oppetid",
+        "database": "Database",
+        "hosts": "Værter",
+        "online": "Online",
+        "offline": "Offline",
+        "logins": "Logins"
+      },
+      "sessionsCard": {
+        "openSessions": "Åbne sessioner",
+        "connected": "Forbundet"
+      }
+    },
+    "resetHome": "Nulstil startside?",
+    "cardsGoBackToThe": "Kort vender tilbage til standardrækkefølgen og de viste kort.",
+    "reset": "Nulstil",
+    "doneEditingHome": "Færdig med at redigere startside",
+    "editHome": "Rediger startside",
+    "dragToReorder": "Træk {{title}} for at ændre rækkefølge",
+    "show": "Vis {{title}}",
+    "dragCardsToReorderThem": "Træk i kortene for at ændre rækkefølge. Sluk et kort for at skjule det. Kort uden indhold forbliver skjulte.",
+    "resetToDefault": "Nulstil til standard",
+    "done": "Færdig",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Kan stadig ikke nå serveren",
+      "canTReach": "Kan ikke nå {{account}}",
+      "youCanKeepWorkingWith": "Du kan fortsætte med at arbejde med kopien på denne {{deviceWord}}. Ændringerne synkroniseres, når den er tilbage.",
+      "hostsSetToConnectFrom": "Værter, der er indstillet til at forbinde fra denne {{deviceWord}}, fungerer stadig.",
+      "tryAgain": "Prøv igen",
+      "noAnswer": "intet svar"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault-profil",
+      "none": "Ingen",
+      "signsInWithInYour": "Logger ind med {{title}} i din browser via din Termix-server. Forbind denne vært gennem serveren.",
+      "needsATermixServerLink": "{{title}} kræver en Termix-server. Link en for at bruge denne login.",
+      "isOffOnThisServer": "{{title}} er slået fra på denne server. Denne vært beholder sin login-indstilling."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Kunne ikke indlæse legitimationsoplysninger",
+      "deleted": "Slettede \"{{name}}\"",
+      "couldNotDeleteTheCredential": "Kunne ikke slette legitimationsoplysningerne",
+      "credentials": "Legitimationsoplysninger",
+      "add": "Tilføj",
+      "searchCredentials": "Søg i legitimationsoplysninger",
+      "clearSearch": "Ryd søgning",
+      "loadingCredentials": "Indlæser legitimationsoplysninger...",
+      "noCredentialsMatchYourSearch": "Ingen legitimationsoplysninger matcher din søgning",
+      "noCredentialsYet": "Ingen legitimationsoplysninger endnu",
+      "addCredential": "Tilføj legitimationsoplysninger",
+      "edit": "Rediger",
+      "delete": "Slet",
+      "deleteCredential": "Slet legitimationsoplysninger",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" bliver slettet permanent. Værter, der bruger den, mister deres gemte legitimationsoplysninger.",
+      "cancel": "Annuller",
+      "hostCount_one": "{{count}} vært",
+      "hostCount_other": "{{count}} værter",
+      "sshKey": "SSH-nøgle"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Erstat nøglen?",
+        "theNewKeyTakesThe": "Den nye nøgle erstatter den nuværende. Værter, der kun stoler på den gamle nøgle, vil stoppe med at acceptere denne legitimationsoplysning.",
+        "replace": "Erstat",
+        "newKeyMadeCopyThe": "Ny nøgle oprettet. Kopier den offentlige nøgle til dine værter.",
+        "couldNotMakeAKey": "Kunne ikke oprette en nøgle",
+        "couldNotReadThatCertificate": "Kunne ikke læse certifikatfilen",
+        "leaveWithoutSaving": "Forlad uden at gemme?",
+        "yourChangesToThisCredential": "Dine ændringer af denne legitimationsoplysning vil gå tabt.",
+        "leave": "Forlad",
+        "credentialSaved": "Legitimationsoplysninger gemt",
+        "credentialAdded": "Legitimationsoplysninger tilføjet",
+        "couldNotSaveTheCredential": "Kunne ikke gemme legitimationsoplysningerne",
+        "enterAHostToTest": "Indtast en vært at teste på, f.eks. 10.0.0.5 eller box:2222.",
+        "enterTheUsernameFirst": "Indtast brugernavnet først.",
+        "editCredential": "Rediger legitimationsoplysninger",
+        "newCredential": "Nye legitimationsoplysninger",
+        "cancel": "Annuller",
+        "save": "Gem",
+        "credential": "Legitimationsoplysning",
+        "name": "Navn",
+        "productionKey": "Produktionsnøgle",
+        "username": "Brugernavn",
+        "signInWith": "Log ind med",
+        "password": "Adgangskode",
+        "sshKey": "SSH-nøgle",
+        "unchangedIfBlank": "Uændret, hvis tomt",
+        "key": "Nøgle",
+        "fileOrPaste": "Fil eller indsæt",
+        "makeANewKey": "Opret en ny nøgle",
+        "aKeyIsSavedChoose": "En nøgle er gemt. Vælg en fil eller indsæt for at erstatte den.",
+        "type": "Type",
+        "ed25519AndEcdsaAreMade": "Ed25519 og ECDSA oprettes på denne {{deviceWord}}, RSA på din server.",
+        "madeOnThisEd25519Works": "Oprettet på denne {{deviceWord}}. Ed25519 fungerer næsten overalt.",
+        "passphrase": "Adgangssætning",
+        "optionalLocksTheNewKey": "Valgfrit. Låser den nye nøgle på denne {{deviceWord}} og på disken.",
+        "makeKey": "Opret nøgle",
+        "publicKey": "Offentlig nøgle",
+        "addThisLineToSsh": "Tilføj denne linje til ~/.ssh/authorized_keys på dine værter",
+        "publicKeyCopied": "Offentlig nøgle kopieret",
+        "copyPublicKey": "Kopiér offentlig nøgle",
+        "certificate": "Certifikat",
+        "aCertificateYourCaSigned": "Et certifikat, som din CA har underskrevet for denne nøgle, til værter, der stoler på CA'en.",
+        "chooseCertificateFile": "Vælg certifikatfil",
+        "thisDoesNotLookLike": "Dette ligner ikke et OpenSSH-certifikat.",
+        "test": "Test",
+        "hostToTestOn": "Vært at teste på",
+        "n10005Or": "10.0.0.5 eller box.lan:2222",
+        "pickASavedHost": "Vælg en gemt vært",
+        "details": "Detaljer",
+        "description": "Beskrivelse",
+        "whatThisCredentialIsFor": "Hvad denne legitimationsoplysning er til",
+        "folder": "Mappe",
+        "serverKeys": "Servernøgler",
+        "testOnAHost": "Test på en vært",
+        "rsaKeysNeedALinked": "RSA-nøgler kræver en linket server."
+      },
+      "model": {
+        "giveThisCredentialAName": "Giv denne legitimationsoplysning et navn",
+        "addAPrivateKeyOr": "Tilføj en privat nøgle, eller opret en ny"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Dette er et værtscertifikat, ikke et brugercertifikat.",
+        "thisCertificateIsNotValid": "Dette certifikat er ikke gyldigt endnu.",
+        "thisCertificateHasExpired": "Dette certifikat er udløbet.",
+        "itIsForAKey": "Det er til en {{keyType}}-nøgle, men denne nøgle er {{keyType2}}.",
+        "forAnyUser": "For enhver bruger",
+        "validFromNoEndDate": "Gyldig fra {{validAfter}}, ingen udløbsdato",
+        "signedBy": "Underskrevet af {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Brugernavn",
+        "fromTheCredential": "Fra legitimationsoplysningen: {{credentialUser}}",
+        "signInWith": "Log ind med",
+        "password": "Adgangskode",
+        "key": "Nøgle",
+        "credential": "Legitimationsoplysning",
+        "none": "Ingen",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Forbinder med Tailscale SSH. Ingen adgangskode eller nøgle gemmes.",
+        "tailscaleIsNotOnFor": "Tailscale er ikke aktiveret for {{value}}. Denne vært beholder sin Tailscale-login.",
+        "unchangedIfBlank": "Uændret, hvis tomt",
+        "noCredentialsYetTapThe": "Ingen legitimationsoplysninger endnu. Tryk på nøgleikonet i Værter for at tilføje en.",
+        "useCredential": "Brug legitimationsoplysning {{name}}",
+        "sudoPassword": "Sudo-adgangskode",
+        "typedIntoSudoPromptsWhen": "Indtastes i sudo-prompter, når Terminal-sektionen aktiverer det",
+        "notSet": "Ikke indstillet",
+        "thisServer": "denne server"
+      },
+      "colorIconField": {
+        "color": "Farve",
+        "noColor": "Ingen farve",
+        "color2": "Farve {{c}}",
+        "icon": "Ikon",
+        "noIcon": "Intet ikon",
+        "none": "Ingen",
+        "icon2": "Ikon {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Forlad uden at gemme?",
+        "yourChangesToThisHost": "Dine ændringer til denne vært vil gå tabet.",
+        "leave": "Forlad",
+        "couldNotSaveHowThis": "Kunne ikke gemme, hvordan denne vært forbinder",
+        "hostSaved": "Vært gemt",
+        "hostAdded": "Vært tilføjet",
+        "couldNotSaveTheHost": "Kunne ikke gemme værten",
+        "enterTheHostSAddress": "Indtast værtens adresse først.",
+        "turnOnSshToTest": "Aktivér SSH for at teste login.",
+        "pickACredentialFirst": "Vælg en legitimationsoplysning først.",
+        "editHost": "Redigér vært",
+        "newHost": "Ny vært",
+        "cancel": "Annullér",
+        "save": "Gem",
+        "host": "Vært",
+        "name": "Navn",
+        "myServer": "Min server",
+        "address": "Adresse",
+        "port": "Port",
+        "portAndUsernameComeFrom": "Port og brugernavn kommer fra dine standardindstillinger for værter, indtil du ændrer dem.",
+        "folder": "Mappe",
+        "production": "Produktion",
+        "useAFolderInstead": "Brug en mappe i stedet",
+        "putItUnderAHost": "Placer den under en vært i stedet",
+        "pinToTop": "Fastgør øverst",
+        "colorAndIcon": "Farve og ikon",
+        "notes": "Noter",
+        "anythingWorthRememberingAboutThis": "Noget, der er værd at huske om denne vært",
+        "protocols": "Protokoller",
+        "terminalFilesAndMore": "Terminal, filer og mere",
+        "connectFrom": "Forbind fra",
+        "features": "Funktioner",
+        "otherProtocols": "Andre protokoller",
+        "more": "Mere",
+        "theTestRunsFromThis": "Testen kører fra denne {{deviceWord}}. Denne vært forbinder gennem serveren, så den kan stadig fungere, når {{deviceWord}} ikke kan nå den."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Jump hosts",
+        "connectsThroughTheseInOrder": "Forbinder gennem disse i rækkefølge, derefter til denne vært",
+        "reachThisHostThroughOther": "Nå denne vært gennem andre værter først",
+        "moveUp": "Flyt op",
+        "moveDown": "Flyt ned",
+        "removeJumpHost": "Fjern jump host",
+        "addJumpHost": "Tilføj jump host",
+        "pickASavedHostTo": "Vælg en gemt vært at forbinde gennem",
+        "searchHosts": "Søg i værter",
+        "noOtherHostsToPick": "Ingen andre værter at vælge. En vært kan ikke hoppe gennem sig selv eller en vært, der allerede går gennem den.",
+        "missingHost": "Manglende vært #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Aktivér mindst én protokol",
+        "pickACredential": "Vælg en legitimationsoplysning",
+        "enterTheHostSAddress": "Indtast værtens adresse",
+        "theAddressCanTHave": "Adressen må ikke indeholde mellemrum",
+        "portMustBeFrom1": "Porten skal være mellem 1 og 65535",
+        "enterTheSshUsername": "Indtast SSH-brugernavn"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Værten vises indlejret under den, du vælger",
+        "searchHosts": "Søg i værter",
+        "noHostsToPickA": "Ingen værter at vælge. En vært kan ikke placeres under sig selv, en af sine egne under-værter eller en delt vært.",
+        "parentHost": "Overordnet vært",
+        "subHostsFollowTheFolder": "Under-værter følger mappen for deres overordnede vært",
+        "pickParentHost": "Vælg overordnet vært",
+        "missingHost": "Manglende vært #{{value}}",
+        "pickAHost": "Vælg en vært",
+        "clearParentHost": "Ryd overordnet vært"
+      },
+      "tagsField": {
+        "tags": "Tags",
+        "typeATagAndPress": "Skriv et tag og tryk Enter",
+        "removeTag": "Fjern tag {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Kunne ikke gemme, hvordan denne vært forbinder",
+      "addressCopied": "Adresse kopieret",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Forbind fra",
+      "dismiss": "Afvis",
+      "unpin": "Frigør",
+      "pinToHome": "Fastgør til Hjem",
+      "select": "Vælg",
+      "editHost": "Redigér vært",
+      "copyAddress": "Kopiér adresse",
+      "addSubHost": "Tilføj under-vært",
+      "cloneHost": "Klon vært",
+      "deleteHost": "Slet vært",
+      "connectThroughTheServer": "Forbind gennem serveren",
+      "connectFromThis": "Forbind fra denne {{deviceWord}}"
+    },
+    "defaultYourOrder": "Standard (din rækkefølge)",
+    "nameAZ": "Navn (A-Z)",
+    "nameZA": "Navn (Z-A)",
+    "ipAscending": "IP (stigende)",
+    "ipDescending": "IP (faldende)",
+    "onlineFirst": "Online først",
+    "offlineFirst": "Offline først",
+    "pinnedFirst": "Fastgjorte først",
+    "status": "Status",
+    "online": "Online",
+    "offline": "Offline",
+    "pinned": "Fastgjort",
+    "protocol": "Protokol",
+    "features": "Funktioner",
+    "hostsCanOnlyMoveInside": "Værter kan kun flyttes inden for deres egen mappe",
+    "couldNotUpdateTheHosts": "Kunne ikke opdatere værterne",
+    "sharedHostsCanTBe": "Delte værter kan ikke slettes her",
+    "delete2": "Slet",
+    "noneOfTheseHostsOpen": "Ingen af disse værter åbner en terminal",
+    "couldNotPinTheHost": "Kunne ikke fastgøre værten",
+    "deleted": "Slettede {{name}}",
+    "failedToDeleteHost": "Kunne ikke slette vært",
+    "cloned": "Klonede {{name}}",
+    "failedToCloneHost": "Kunne ikke klonen vært",
+    "reorderWorksWithTheDefault": "Omordning fungerer med standard sortering og uden søgning eller filter",
+    "couldNotSaveTheOrder": "Kunne ikke gemme rækkefølgen",
+    "noHostsYet": "Ingen værter endnu",
+    "addAHostToConnect": "Tilføj en host for at forbinde med ét tryk.",
+    "addHost": "Tilføj host",
+    "quickConnect2": "Hurtig forbindelse",
+    "linkAServer": "Link en server",
+    "noHostsMatch": "Ingen hosts matcher",
+    "clearSearchAndFilters": "Ryd søgning og filtre",
+    "more": "Mere",
+    "dragAHostByIts": "Træk i en hosts greb for at flytte den inden for mappen.",
+    "done": "Færdig",
+    "filterHosts": "Filtrer hosts",
+    "clearFilterText": "Ryd filtertekst",
+    "sortHosts": "Sorter hosts",
+    "removeFilter": "Fjern filter {{value}}",
+    "loadingHosts": "Indlæser hosts…",
+    "moveUnderAHost": "Flyt under en host",
+    "moveToFolder": "Flyt til mappe",
+    "leaveItEmptyToTake": "Lad det være tomt for at fjerne hosts fra mapper.",
+    "folderLikeProdWeb": "Mappe, f.eks. Prod / Web",
+    "move": "Flyt",
+    "hosts": "Hosts",
+    "selectHosts": "Vælg hosts",
+    "reorderHosts": "Omarranger hosts",
+    "customizeList": "Tilpas liste",
+    "chooseWhatEachHostRow": "Vælg, hvad hver host-række viser",
+    "credentials2": "Legitimationsoplysninger",
+    "savedPasswordsAndKeys": "Gemte adgangskoder og nøgler",
+    "tailscaleDevices": "Tailscale-enheder",
+    "refresh": "Opdater",
+    "rowDensityFollowsSettingsAppearance": "Rækketæthed følger Indstillinger, Udseende.",
+    "clearAllFilters": "Ryd alle filtre",
+    "tags": "Tags",
+    "stopSelecting": "Stop valg",
+    "selected": "{{count}} valgt",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Kunne ikke læse den nøglefil",
+        "theClipboardIsEmpty": "Udklipsholderen er tom",
+        "privateKey": "Privat nøgle",
+        "chooseFile": "Vælg fil",
+        "paste": "Indsæt",
+        "unchangedIfBlank": "Uændret, hvis tomt",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Adgangsfrase",
+        "onlyIfTheKeyHas": "Kun hvis nøglen har en",
+        "theKeyIsCheckedWhen": "Nøglen kontrolleres, når du forbinder.",
+        "thePastedKey": "den indsatte nøgle"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Åbn",
+        "moreActions": "Flere handlinger",
+        "opensTheTerminalHoldFor": "Åbner terminalen. Hold nede for mere.",
+        "shared": "Delt",
+        "drag": "Træk {{name}}",
+        "showSubHosts_one": "Vis {{count}} underhost af {{name}}",
+        "showSubHosts_other": "Vis {{count}} underhosts af {{name}}",
+        "hideSubHosts_one": "Skjul {{count}} underhost af {{name}}",
+        "hideSubHosts_other": "Skjul {{count}} underhosts af {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Mappe {{name}}, {{total}} hosts"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Host og brugernavn er påkrævet",
+      "hostSaved": "Host gemt",
+      "couldNotSaveTheHost": "Kunne ikke gemme hosten",
+      "quickConnect": "Hurtig forbindelse",
+      "connectToAHostWithout": "Forbind til en host uden at gemme den.",
+      "hostIp": "Host / IP",
+      "port": "Port",
+      "username": "Brugernavn",
+      "password": "Adgangskode",
+      "key": "Nøgle",
+      "privateKey": "Privat nøgle",
+      "saveToMyHosts": "Gem til mine værter",
+      "keepThisHostAfterConnecting": "Behold denne vært efter forbindelse",
+      "cancel": "Annuller",
+      "connect": "Forbind"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Henter dine værter fra serveren",
+      "yourHostsStayOnThis": "{{message}} Dine værter forbliver på denne {{deviceWord}} imens."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Dette værts nøgle er ændret",
+      "trustThisHost": "Stol på denne vært?",
+      "trust": "Stol på",
+      "stopTest": "Stop test",
+      "testConnection": "Test forbindelse",
+      "connecting": "Forbinder..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Kunne ikke indlæse værter."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} delt vært blev efterladt som den var.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} delte værter blev efterladt som de var.",
+    "deleteHosts_one": "Slet {{count}} vært?",
+    "deleteHosts_other": "Slet {{count}} værter?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Ingen mappe med navnet {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Vært \"{{name}}\": ugyldig port",
+        "hostJumpIsNotIn": "Vært \"{{name}}\": spring {{value}} er ikke i filen, så den blev udeladt",
+        "credential": "Legitimationsoplysning {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Ingen gyldige Host-indtastninger fundet i SSH-konfigurationsfilen",
+        "credentialWasNotFound": "{{label}}: Legitimationsoplysning {{value}} blev ikke fundet"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Vært {{value}}: duplikeret eksporteret vært-id {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Mangler påkrævede felter (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Ugyldig authType. Skal være en af {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Brugernavn påkrævet for SSH-forbindelser",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias påkrævet for legitimationsoplysningsautentificering",
+        "thatIsNotAValid": "Det er ikke en gyldig JSON-fil",
+        "hostsArrayIsRequiredAnd": "Vært-array er påkrævet og må ikke være tomt",
+        "jumpHostCycle": "{{label}}: spring vært-cyklus",
+        "jumpHostIsNotIn": "{{label}}: spring vært {{id}} er ikke i filen"
+      }
+    },
+    "movedTo": "Flyttet til {{value}}",
+    "movedOutOfFolders": "Flyttet ud af mapper",
+    "movedUnder": "Flyttet under {{value}}",
+    "openTerminals": "Åbn terminaler",
+    "theHost": "værten"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Skjul adgangskode",
+      "showPassword": "Vis adgangskode",
+      "enterAUsernameAndPassword": "Indtast et brugernavn og en adgangskode",
+      "useAtLeast6Characters": "Brug mindst 6 tegn til adgangskoden",
+      "thePasswordsDonTMatch": "Adgangskoderne matcher ikke",
+      "makeTheAdminAccount": "Opret administrator-kontoen",
+      "makeAnAccount": "Opret en konto",
+      "thisIsTheFirstAccount": "Dette er den første konto på serveren, så den administrerer serveren.",
+      "pickAUsernameAndPassword": "Vælg et brugernavn og en adgangskode til denne server.",
+      "username": "Brugernavn",
+      "password": "Adgangskode",
+      "passwordAgain": "Adgangskode igen",
+      "makeAccount": "Opret konto",
+      "back": "Tilbage",
+      "haveAnAccountSignIn": "Har du en konto? Log ind",
+      "resetCodeMadeItIs": "Nulstillingskode oprettet. Den er i serverens logs",
+      "enterYourUsername": "Indtast dit brugernavn",
+      "enterTheResetCode": "Indtast nulstillingskoden",
+      "passwordChangedSignInWith": "Adgangskode ændret. Log ind med den nu",
+      "resetPassword": "Nulstil adgangskode",
+      "enterYourUsernameTheServer": "Indtast dit brugernavn. Serveren skriver en nulstillingskode til sine logs.",
+      "sendResetCode": "Send nulstillingskode",
+      "enterThe6DigitCode": "Indtast den 6-cifrede kode fra serverloggen.",
+      "resetCode": "Nulstil kode",
+      "checkCode": "Tjek kode",
+      "newPassword": "Nyt adgangskode",
+      "saveNewPassword": "Gem ny adgangskode",
+      "backToSignIn": "Tilbage til login",
+      "couldNotMakeTheAccount": "Kunne ikke oprette kontoen",
+      "couldNotStartTheReset": "Kunne ikke starte nulstillingen",
+      "thatCodeDidnTWork": "Den kode virkede ikke",
+      "couldNotChangeThePassword": "Kunne ikke ændre adgangskoden"
+    },
+    "browserStep": {
+      "signInFailed": "Login mislykkedes",
+      "signInCanceled": "Login afbrudt",
+      "couldNotOpenTheSign": "Kunne ikke åbne login-browseren",
+      "couldNotOpenTheSign2": "Kunne ikke åbne login-siden",
+      "certificateProblem": "Certifikatproblem",
+      "back": "Tilbage",
+      "signIn": "Log ind",
+      "reload": "Genindlæs",
+      "finishSigningInInYour": "Afslut login i din browser",
+      "useAnySignInYour": "Brug enhver loginmetode, din server har, f.eks. en passkey eller sikkerhedsnøgle. Appen overtager, når du er logget ind.",
+      "theAppPicksUpOnce": "Appen overtager, når din loginudbyder er færdig.",
+      "signingIn": "Logger ind...",
+      "openBrowserAgain": "Åbn browseren igen",
+      "theServerTurnedTheSession": "Serveren afviste sessionen. Prøv igen.",
+      "signedInButTheApp": "Logget ind, men appen kan ikke nå Termix. En proxy blokerer muligvis.",
+      "thatSignInLinkIs": "Den loginlink er fra et tidligere forsøg. Log ind igen.",
+      "signInAgain": "Log ind igen.",
+      "openTheBrowserAgainWhen": "Åbn browseren igen, når du er klar.",
+      "theWebPageSignedIn": "Websiden loggede ind, men sendte ingen session. Opdater serveren og prøv igen.",
+      "theCanTCheckThis": "{{deviceWord}} kan ikke tjekke denne servers certifikat. Installer dens rod-CA på {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Brug {{name}} til login næste gang?",
+      "ifThisServerSignsYou": "Hvis denne server logger dig ud, log ind igen med {{name}} i stedet for at taste din adgangskode. Adgangskoden gemmes på denne {{deviceWord}}.",
+      "use": "Brug {{name}}",
+      "notNow": "Ikke nu",
+      "couldNotSaveTheLogin": "Kunne ikke gemme loginoplysningerne",
+      "thatSADifferentUser": "Det er en anden bruger",
+      "signedIn": "Logget ind",
+      "close": "Luk",
+      "linkYourTermixServer": "Link din Termix-server",
+      "yourHostsCredentialsSnippetsAnd": "Dine værter, legitimationsoplysninger, uddrag og indstillinger synkroniseres med den, og du får dens plugins. Alt fortsætter med at fungere på denne {{deviceWord}}, når serveren er væk.",
+      "checking": "Tjekker {{host}}...",
+      "proxyAndClientCertificate": "Proxy og klientcertifikat",
+      "couldNotReachThatServer": "Kunne ikke nå den server. Tjek adressen, eller opsæt proxyen eller klientcertifikatet.",
+      "couldNotReachThatServer2": "Kunne ikke nå den server",
+      "syncCouldNotStartYet": "Synkronisering kunne ikke starte endnu. Den prøver igen automatisk.",
+      "checkingTheServer": "Tjekker serveren",
+      "signIn": "Log ind",
+      "makeAnAccount": "Opret en konto",
+      "resetPassword": "Nulstil adgangskode",
+      "oneMoreStep": "Én sidste trin",
+      "almostDone": "Næsten færdig",
+      "linkAServer": "Link en server"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "De gemte loginoplysninger virker ikke længere",
+      "enterYourUsernameAndPassword": "Indtast dit brugernavn og adgangskode",
+      "thisServerIsBehindA": "Denne server er bag en login-proxy",
+      "signInWith": "Log ind med {{saved}}",
+      "signInWith2": "Log ind med",
+      "password": "Adgangskode",
+      "username": "Brugernavn",
+      "signIn": "Log ind",
+      "forgotPassword": "Glemt adgangskode?",
+      "makeAnAccount": "Opret en konto",
+      "or": "ELLER",
+      "continueWith": "Fortsæt med {{label}}",
+      "signInWithAPasskey": "Log ind med en passkey eller sikkerhedsnøgle",
+      "opensYourServerAposS": "Åbner din servers login-side i browseren. Face ID, fingeraftryk, NFC og USB-nøgler fungerer alle der. Kræver Termix 26.11.3 eller nyere.",
+      "signInInTheBrowser": "Log ind i browseren",
+      "opensYourServerAposS2": "Åbner din servers login-side, til alt hvad appen ikke kan gøre her. Kræver Termix 26.10.6 eller nyere.",
+      "thisServerHasNoSign": "Denne server har ingen login aktiveret, som appen kan bruge. Spørg den, der driver den, eller prøv browser-login ovenfor.",
+      "signInWithYourPassword": "Log ind med din adgangskode.",
+      "signInFailed": "Login mislykkedes",
+      "openingItsSignInPage": "Åbner dens login-side."
+    },
+    "smallSteps": {
+      "serverAddress": "Serveradresse",
+      "likeTermixExampleComOr": "F.eks. termix.example.com eller 192.168.1.20:30001",
+      "checking": "Tjekker...",
+      "continue": "Fortsæt",
+      "proxyAndClientCertificate": "Proxy og klientcertifikat",
+      "aServerWithASelf": "En server med et selvsigneret certifikat skal først have sin rod-CA installeret på denne {{deviceWord}}. Almindelig http virker på dit eget netværk.",
+      "enterTheCode": "Indtast koden",
+      "code": "Kode",
+      "the6DigitCodeFrom": "Den 6-cifrede kode fra din autentifikator-app, eller en backup-kode",
+      "checkCode": "Tjek kode",
+      "thisAccountAsksForA": "Denne konto beder om en sikkerhedsnøgle efter adgangskoden. Log ind på serverens side i din browser for at bruge den.",
+      "useASecurityKeyIn": "Brug en sikkerhedsnøgle i browseren",
+      "backToSignIn": "Tilbage til login",
+      "bringThisAposSHosts": "Vil du tage denne {{deviceWord}}'s værter med?",
+      "thisHasTheyStayOn": "Denne {{deviceWord}} har {{what}}. De forbliver på Denne enhed uanset hvad.",
+      "merge": "Sammenflet",
+      "copyThemToTooSo": "Kopier dem også til {{serverName}}, så de synkroniseres. De, der ser ens ud som en server-vært, springes over.",
+      "replace": "Erstat",
+      "useOnlyWhatIsOn": "Brug kun det, der er på {{serverName}} for denne konto. Intet kopieres.",
+      "thatCodeDidnTWork": "Den kode virkede ikke",
+      "hostsCredentialsOrSnippets": "værter, legitimationsoplysninger eller snippets"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Link denne server først",
+      "thatHostIsnTHere": "Denne vært er ikke her",
+      "couldNotOpenThatHost": "Kunne ikke åbne den vært",
+      "noHostWithIdOn": "Ingen vært med id {{hostId}} på {{account}}.",
+      "isnTLinkedInThe": "{{value}} er ikke linket i appen endnu."
+    }
+  },
+  "notifications": {
+    "notifications": "Notifikationer",
+    "markAllRead": "Marker alle som læst",
+    "clearReadNotifications": "Ryd læste notifikationer",
+    "unread2": "Ulæst",
+    "all": "Alle",
+    "noUnreadNotifications": "Ingen ulæste notifikationer",
+    "nothingHere": "Intet her",
+    "markRead": "Marker som læst",
+    "delete": "Slet",
+    "couldNotLoadNotifications": "Kunne ikke indlæse notifikationer",
+    "couldNotMarkRead": "Kunne ikke markere som læst",
+    "couldNotDelete": "Kunne ikke slette",
+    "couldNotClear": "Kunne ikke rydde"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Importer",
+      "hosts": "Værter",
+      "aTermixHostFileYour": "En Termix-værtsfil, din ~/.ssh/config, eller et vært-link eller QR-kode fra en anden {{deviceWord}}. De gemmes på denne {{deviceWord}}.",
+      "backup": "Backup",
+      "aBackupThisAppMade": "En backup, som denne app har lavet, låst med en adgangsfrase. Den gendanner værter, legitimationsoplysninger og snippets.",
+      "restoreABackup": "Gendan en backup",
+      "done": "Færdig",
+      "skipForNow": "Spring over for nu",
+      "sshFilesAndRemoteDesktops": "SSH, filer og fjernskriveborde fra din {{deviceWord}}. Hvordan vil du starte?",
+      "useWithoutAServer": "Brug uden en server",
+      "hostsCredentialsAndSnippetsAre": "Værter, legitimationsoplysninger og snippets gemmes krypteret på denne {{deviceWord}}. Du kan tilkoble en server senere.",
+      "linkATermixServer": "Tilkob en Termix-server",
+      "syncYourHostsCredentialsSnippets": "Synkroniser dine værter, legitimationsoplysninger, snippets og indstillinger med din server og brug dens plugins.",
+      "bringHostsFromATermix": "Importer værter fra en Termix-fil, en SSH-konfiguration, en QR-kode eller en backup.",
+      "thisDevice": "Denne enhed"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Søg efter værter, snippets, handlinger",
+      "clearSearch": "Ryd søgning",
+      "nothingMatches": "Intet matcher",
+      "typeToSearch": "Skriv for at søge",
+      "findAHostToConnect": "Find en vært at forbinde til, et snippet, en indstilling eller en handling.",
+      "suggested": "Foreslået | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Kør i {{title}}",
+      "copiedRunItFromThe": "Kopieret. Kør det fra terminalens snippets for at udfylde værdierne.",
+      "copiedOpenATerminalTo": "Kopieret. Åbn en terminal for at køre snippets.",
+      "addHost": "Tilføj vært",
+      "quickConnect": "Hurtig forbindelse",
+      "switchAccount": "Skift konto",
+      "linkAServer": "Tilkob en server",
+      "fromYourServer": "Fra din server",
+      "settings": "Indstillinger",
+      "accountsAppearanceSecurity": "Konti, udseende, sikkerhed"
+    },
+    "search": {
+      "hosts": "Værter",
+      "snippets": "Snippets",
+      "actions": "Handlinger",
+      "settings": "Indstillinger"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Kunne ikke indlæse sessioner",
+      "sessionRevoked": "Session ophævet",
+      "failedToRevokeSession": "Kunne ikke ophæve session",
+      "allSessionsRevoked": "Alle sessioner ophævet",
+      "failedToRevokeAllSessions": "Kunne ikke ophæve alle sessioner",
+      "activeSessions": "Aktive sessioner",
+      "signOutAllOtherSessions": "Log ud af alle andre sessioner",
+      "loading": "Indlæser…",
+      "noActiveSessionsFound": "Ingen aktive sessioner fundet.",
+      "unknownDevice": "Ukendt enhed",
+      "lastActive": "Sidst aktiv {{lastActiveAt}}",
+      "created": "Oprettet {{createdAt}}",
+      "revokeSession": "Ophæv session",
+      "revokeSession2": "Ophæv session?",
+      "thisWillSignOutThat": "Dette vil logge enheden ud.",
+      "revoke": "Ophæv",
+      "revokeAllSessions": "Ophæv alle sessioner?",
+      "thisWillSignOutEvery": "Dette vil logge alle enheder ud. Du forbliver logget ind på denne enhed.",
+      "cancel": "Annuller",
+      "revokeAll": "Ophæv alle"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Kunne ikke indlæse API-nøgler",
+      "failedToCreateApiKey": "Kunne ikke oprette API-nøgle",
+      "deleteApiKey": "Slet API-nøgle?",
+      "willStopWorkingRightAway": "\"{{name}}\" holder op med at virke med det samme.",
+      "apiKeyDeleted": "API-nøgle slettet",
+      "failedToDeleteApiKey": "Kunne ikke slette API-nøgle",
+      "apiKeys": "API-nøgler",
+      "newApiKey": "Ny API-nøgle",
+      "loading": "Indlæser…",
+      "apiKeysAllowProgrammaticAccess": "API-nøgler giver programmatisk adgang til Termix. Hemmeligheden vises kun én gang, så gem den sikkert.",
+      "noApiKeysYet": "Ingen API-nøgler endnu",
+      "created": "Oprettet {{createdAt}}",
+      "lastUsed": "Sidst brugt {{lastUsedAt}}",
+      "expires": "Udløber {{expiresAt}}",
+      "delete": "Slet {{name}}",
+      "keyCreatedCopyItNow": "Nøgle oprettet. Kopier den nu",
+      "newApiKey2": "Ny API-nøgle",
+      "thisTokenWonTBe": "Denne token vises ikke igen.",
+      "apiKeyCopied": "API-nøgle kopieret",
+      "copy": "Kopier",
+      "done": "Udført",
+      "cancel": "Annuller",
+      "create": "Opret",
+      "name": "Navn *",
+      "eGCiPipeline": "f.eks. CI Pipeline",
+      "user": "Bruger *",
+      "noUsersAvailable": "Ingen brugere tilgængelige.",
+      "expiresAtOptional": "Udløber (valgfrit)",
+      "yyyyMmDd": "ÅÅÅÅ/MM/DD",
+      "yearMonthDay": "År / Måned / Dag"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Hold sessioner kørende",
+      "showsANotificationWhileSessions": "Viser en underretning, mens sessioner er åbne, så Android holder dem kørende, når du forlader appen",
+      "batteryOptimization": "Batterioptimering",
+      "termixIsNotRestrictedSo": "Termix er ikke begrænset, så sessioner kan forblive åbne, når skærmen er slukket.",
+      "androidMayStillStopSessions": "Android kan stadig stoppe sessioner for at spare batteri. Åbn batteriindstillingerne, find Termix og vælg Ikke optimeret eller Ubegrænset.",
+      "openBatterySettings": "Åbn batteriindstillinger",
+      "notificationsAreOff": "Underretninger er slået fra",
+      "sessionsStillRunButThe": "Sessioner kører stadig, men listen over åbne sessioner og knappen Afbryd alle forbliver skjult.",
+      "openNotificationSettings": "Åbn underretningsindstillinger",
+      "thisBuildCanTKeep": "Denne version kan ikke holde sessioner kørende i baggrunden. De genoprettes, når du kommer tilbage.",
+      "lowPowerMode": "Strømbesparende tilstand",
+      "batterySaver": "Batterisparer",
+      "isOnTermixChecksConnections": "{{value}} er slået til. Termix tjekker forbindelser mindre ofte og venter længere mellem genoprettelsesforsøg.",
+      "backgroundSessions": "Baggrunds-sessioner",
+      "iosStopsAppsSoonAfter": "iOS stopper apps kort efter, at du forlader dem, så sessioner ikke kan køre i baggrunden. De genoprettes, når du kommer tilbage, og tmux eller screen fortsætter, hvor du slap."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Stopet",
+        "active": "Aktiv",
+        "linkAServer": "Link en server",
+        "eachServerKeepsItsOwn": "Hver server gemmer sin egen kopi af dine værter, legitimationsoplysninger og indstillinger på denne {{deviceWord}}.",
+        "signedInAs": "Logget ind som",
+        "role": "Rolle",
+        "administrator": "Administrator",
+        "user": "Bruger",
+        "serverVersion": "Serverversion",
+        "signOut": "Log ud",
+        "youAreSignedOutOf": "Du er logget ud af denne server.",
+        "signIn": "Log ind",
+        "passwordChanged": "Adgangskode ændret",
+        "couldNotChangeThePassword": "Kunne ikke ændre adgangskoden",
+        "changePassword": "Ændre adgangskode",
+        "enterYourCurrentPasswordThen": "Indtast din nuværende adgangskode, og vælg derefter en ny.",
+        "cancel": "Annuller",
+        "change": "Ændre",
+        "currentPassword": "Nuværende adgangskode",
+        "newPassword": "Ny adgangskode",
+        "accountDeleted": "Konto slettet",
+        "couldNotDeleteTheAccount": "Kunne ikke slette kontoen",
+        "deleteServerAccount": "Slet serverkonto",
+        "thisPermanentlyDeletesYourAccount": "Dette sletter permanent din konto på serveren og alle dens data. Det kan ikke fortrydes.",
+        "delete": "Slet",
+        "confirmYourPassword": "Bekræft din adgangskode",
+        "worksWithoutAServer": "Fungerer uden en server",
+        "signedOut": "Logget ud",
+        "readsLive": "Læser live",
+        "toReview": "{{count}} til gennemgang",
+        "synced": "Synkroniseret",
+        "syncing": "Synkroniserer",
+        "offline": "Offline"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Del anonyme brugsstatistikker",
+        "aShortReportOnceA": "En kort rapport en gang om dagen. Ingen værter, navne eller adresser",
+        "nextReport": "Næste rapport",
+        "seeExactlyWhatWouldBe": "Se præcis, hvad der ville blive sendt",
+        "couldNotBuildTheReport": "Kunne ikke oprette rapporten",
+        "preview": "Forhåndsvisning",
+        "thisIsExactlyWhatWould": "Dette er præcis, hvad der ville blive sendt lige nu.",
+        "resetInstallId": "Nulstil installations-id",
+        "futureReportsWillLookLike": "Fremtidige rapporter vil se ud som en ny installation",
+        "resetTheInstallId": "Nulstil installations-id?",
+        "futureReportsWillLookLike2": "Fremtidige rapporter vil se ud som en ny installation.",
+        "reset": "Nulstil",
+        "installIdReset": "Installations-id nulstillet"
+      },
+      "appearanceControls": {
+        "theme": "Tema",
+        "accentColor": "Accentfarve",
+        "textSize": "Tekststørrelse",
+        "sizeOfTextAcrossThe": "Størrelse af tekst i hele appen, ikke i terminalen",
+        "density": "Tæthed",
+        "howTallListRowsAnd": "Hvor høje rækker i lister og indstillinger er"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Værter, legitimationsoplysninger og uddrag gemmes i en krypteret fil på denne {{deviceWord}}. Brugsstatistikker er slået fra, medmindre du slår dem til nedenfor. En linket server får kun det, du lader den synkronisere.",
+        "recentHosts": "Seneste værter",
+        "forgetTheHostsYouOpened": "Glem de værter, du har åbnet for nyligt på alle konti",
+        "recentHostsCleared": "Seneste værter ryddet",
+        "clear": "Ryd",
+        "couldNotCheckForUpdates": "Kunne ikke tjekke for opdateringer",
+        "versionIsOutUpdateFrom": "Version {{version}} er udkommet. Opdater fra din butik.",
+        "youHaveTheNewestVersion": "Du har den nyeste version",
+        "termixMobile": "Termix Mobile",
+        "updates": "Opdateringer",
+        "check": "Tjek"
+      },
+      "pinSheet": {
+        "waitSeconds": "Vent {{value}} sekunder",
+        "digits": "{{PIN_LENGTH}} cifre"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN-koderne matcher ikke",
+        "appLockIsOn": "App-lås er slået til",
+        "turnOffAppLock": "Slå app-lås fra",
+        "enterYourPinToConfirm": "Indtast din PIN-kode for at bekræfte.",
+        "appLockIsOff": "App-lås er slået fra",
+        "appLock": "App-lås",
+        "askForFaceIdTouch": "Bed om Face ID, Touch ID eller en PIN-kode for at åbne appen",
+        "askForAPinTo": "Bed om en PIN-kode for at åbne appen",
+        "pinChanged": "PIN-kode ændret",
+        "couldNotChangeThePin": "Kunne ikke ændre PIN-koden",
+        "changePin": "Ændr PIN-kode",
+        "lockAfter": "Lås efter",
+        "howLongTheAppCan": "Hvor længe appen kan være ude af syne, før den låses",
+        "hideInAppSwitcher": "Skjul i app-skifter",
+        "showABlankScreenIn": "Vis en tom skærm i listen over seneste apps",
+        "chooseA4DigitPin": "Vælg en 4-cifret PIN-kode.",
+        "confirmPin": "Bekræft PIN-kode",
+        "enterTheSamePinAgain": "Indtast den samme PIN-kode igen.",
+        "currentPin": "Nuværende PIN-kode",
+        "enterYourCurrentPin": "Indtast din nuværende PIN-kode.",
+        "newPin": "Ny PIN-kode",
+        "chooseANew4Digit": "Vælg en ny 4-cifret PIN-kode.",
+        "confirmNewPin": "Bekræft ny PIN-kode",
+        "enterTheNewPinAgain": "Indtast den nye PIN-kode igen."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Hjemmeskærmswidgets",
+        "showYourHostsSnippetsAnd": "Vis dine værter, uddrag og strømknapper på hjemmeskærmen",
+        "showAddresses": "Vis adresser",
+        "showUserHostUnderEach": "Vis bruger@vært under hvert servernavn",
+        "includeOfflineHosts": "Inkluder offline-værter",
+        "offShowsOnlyServersThat": "Slukket viser kun servere, der er online",
+        "pinnedHostsOnly": "Kun fastgjorte værter",
+        "showOnlyTheHostsYou": "Vis kun de værter, du har fastgjort",
+        "snippetsWidget": "Uddrag-widget",
+        "showSavedCommandsOnThe": "Vis gemte kommandoer på hjemmeskærmen",
+        "showCommandPreview": "Vis kommandoforhåndsvisning",
+        "showTheFirstLineOf": "Vis den første linje af hver kommando"
+      }
+    },
+    "fileSettings": {
+      "files": "Filer",
+      "fileManagerOnThis": "Filhåndtering på denne {{deviceWord}}",
+      "browsing": "Gennemse",
+      "transfersAtOnce": "Overførsler ad gangen",
+      "downloadsAndUploadsThatRun": "Downloads og uploads, der kører samtidigt",
+      "editor": "Editor",
+      "textSize": "Tekststørrelse",
+      "filesBesideTheTerminal": "Filer ved siden af terminalen",
+      "side": "Side",
+      "whereThePanelSitsOn": "Hvor panelet sidder på en tablet",
+      "right": "Højre",
+      "left": "Venstre",
+      "howOftenToCheck": "Hvor ofte der skal tjekkes",
+      "folderHistory": "Mappehistorik",
+      "foldersKeptPerHost": "Mapper gemt pr. vært",
+      "showHiddenFiles": "Vis skjulte filer",
+      "filesAndFoldersThatStart": "Filer og mapper, der starter med et punktum",
+      "askBeforeMovingToThe": "Spørg før flytning til papirkurven",
+      "deletingForGoodAlwaysAsks": "Permanent sletning spørger altid",
+      "wrapLongLines": "Ombryd lange linjer",
+      "openWithNewTerminals": "Åbn med nye terminaler",
+      "onATabletShowThe": "Vis filpanelet, når en terminal åbnes på en tablet",
+      "followTheTerminal": "Følg terminalen",
+      "openTheFolderTheTerminal": "Åbn mappen, terminalen befinder sig i, mens du bruger cd"
+    },
+    "keyboardCustomization": {
+      "small": "Lille",
+      "medium": "Mellem",
+      "large": "Stor",
+      "ms": "{{v}} ms",
+      "keyboard": "Tastatur",
+      "keyRowsAboveTheKeyboard": "Tastaturrækker over tastaturet",
+      "rows": "Rækker",
+      "keys": "Taster",
+      "aHostCanHaveIts": "En vært kan have sine egne rækker: tryk på dens åbne fane i en session, og vælg Tastaturrækker for denne vært.",
+      "keySize": "Taststørrelse",
+      "vibrateOnKeyPress": "Vibrer ved tastetryk",
+      "repeatAfter": "Gentag efter",
+      "howLongToHoldAn": "Hvor længe en piltast eller Backspace skal holdes nede",
+      "repeatEvery": "Gentag hver",
+      "hardwareKeyboard": "Hardwaretastatur",
+      "allShortcuts": "Alle genveje",
+      "show": "Vis"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Kunne ikke oprette sikkerhedskopi",
+      "deleteLocalData": "Slet lokale data?",
+      "hostsCredentialsSnippetsAndHistory": "Værter, legitimationsoplysninger, uddrag og historik gemt på denne {{deviceWord}} for {{account}} slettes. Dette kan ikke fortrydes. Opret en sikkerhedskopi først, hvis du vil beholde dem.",
+      "delete": "Slet",
+      "localDataDeleted": "Lokale data slettet",
+      "couldNotDeleteLocalData": "Kunne ikke slette lokale data",
+      "localData": "Lokale data",
+      "localDataIsOnlySaved": "Lokale data gemmes kun i {{deviceWord}}-appen.",
+      "savedOnThisForThe": "Gemt på denne {{deviceWord}} for {{account}}. Filen er krypteret med en nøgle, der aldrig forlader denne {{deviceWord}}.",
+      "hosts": "Værter",
+      "credentials": "Logindetaljer",
+      "snippets": "Snippets",
+      "size": "Størrelse",
+      "dataVersion": "Dataversion",
+      "backup": "Backup",
+      "aBackupFileHoldsYour": "En backupfil indeholder dine adgangskoder og nøgler, låst med en adgangsfrase, du vælger. Ingen kan åbne den uden denne adgangsfrase.",
+      "exportBackup": "Eksporter backup",
+      "importBackup": "Importer backup",
+      "removesEverythingThisAccountSaved": "Fjerner alt, hvad denne konto har gemt på denne {{deviceWord}}. En linket server beholder sin egen kopi.",
+      "deleteLocalData2": "Slet lokale data",
+      "backupPassphrase": "Backup-adgangsfrase",
+      "atLeast8CharactersYou": "Mindst 8 tegn. Du skal bruge den til at gendanne backuppen.",
+      "passphrase": "Adgangsfrase",
+      "next": "Næste",
+      "typeItAgain": "Skriv den igen",
+      "export": "Eksporter",
+      "saveYourTermixBackup": "Gem din Termix-backup"
+    },
+    "logs": {
+      "logs": "Logs",
+      "latestLinesFromThisRun": "Seneste linjer fra denne kørsel. Serveradresser, adgangskoder og tokens er skjult.",
+      "logsCopied": "Logs kopieret",
+      "copy": "Kopiér",
+      "share": "Del",
+      "clear": "Ryd",
+      "noLogsYet": "Ingen logs endnu",
+      "nothingHasBeenLogged": "Intet er blevet logget."
+    },
+    "plugins": {
+      "worksOnThis": "Fungerer på denne {{deviceWord}}",
+      "needsTheServer": "Kræver serveren",
+      "notInTheApp": "Ikke i appen",
+      "needsANewerVersionOf": "Kræver en nyere version af appen",
+      "updateThePluginOnThe": "Opdater plugin på serveren",
+      "inTheApp": "I appen",
+      "onThisServer": "På denne server",
+      "version": "Version",
+      "needsPluginApi": "Kræver plugin-API",
+      "thisAppHas": "Denne app har",
+      "note": "Bemærk",
+      "open": "Åbn",
+      "openFromAHostS": "Åbn {{name}} fra en værts menu.",
+      "plugins": "Plugins",
+      "everything": "Alt",
+      "thisDeviceWorksWithNo": "Denne enhed fungerer uden server. Link en server for at tilføje funktioner, der kræver det.",
+      "pluginsOnAndHowEach": "Plugins på {{account}} og hvordan hver enkelt vises i appen. Træk ned for at tjekke igen.",
+      "whatRunsOnThisAnd": "Hvad der kører på denne {{deviceWord}} og hvad der går gennem {{account}}.",
+      "noPluginList": "Ingen pluginliste",
+      "theServerDidNotSend": "Serveren sendte ikke sine plugins. Træk ned for at prøve igen.",
+      "serversOlderThan29": "Servere ældre end 2.9 har alle funktioner indbygget.",
+      "nothingToShow": "Intet at vise",
+      "notSentByThisServer": "Ikke sendt af denne server"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Erstat lokale data?",
+      "everythingSavedOnThisFor": "Alt, hvad der er gemt på denne {{deviceWord}} for {{accountName}}, erstattes af backuppen.",
+      "continue": "Fortsæt",
+      "couldNotReadThatFile": "Kunne ikke læse filen",
+      "backupRestored": "Backup gendannet",
+      "couldNotRestoreTheBackup": "Kunne ikke gendanne backuppen",
+      "backupPassphrase": "Backup-adgangsfrase",
+      "thePassphraseUsedWhenThe": "Den adgangsfrase, der blev brugt, da backuppen blev lavet.",
+      "passphrase": "Adgangsfrase",
+      "restore": "Gendan"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Konti",
+        "thisDeviceAndLinkedServers": "Denne enhed og linkede servere med deres synkroniseringsstatus",
+        "syncAndProxy": "Synkronisering og proxy",
+        "whatSyncsConflictsProxyAnd": "Hvad der synkroniseres, konflikter, proxy og frakobling",
+        "serverAccount": "Serverkonto",
+        "whoIsSignedInOn": "Hvem der er logget ind på den aktive server",
+        "activeSessions": "Aktive sessioner",
+        "devicesSignedInToThe": "Enheder, der er logget ind på serveren",
+        "apiKeys": "API-nøgler",
+        "keysForScriptsAndTools": "Nøgler til scripts og værktøjer",
+        "changePassword": "Skift adgangskode",
+        "passwordOfYourServerAccount": "Adgangskode til din serverkonto",
+        "deleteServerAccount": "Slet serverkonto",
+        "removeYourAccountFromThe": "Fjern din konto fra serveren",
+        "theme": "Tema",
+        "darkLightDraculaNordAnd": "Mørkt, lyst, Dracula, Nord og mere",
+        "accentColor": "Accentfarve",
+        "textSize": "Tekststørrelse",
+        "sizeOfTextAcrossThe": "Størrelse af tekst i hele appen",
+        "density": "Tæthed",
+        "howTallListRowsAnd": "Hvor høje listerækker og indstillinger er",
+        "homeScreenWidgets": "Widgets på startsiden",
+        "hostsAndSnippetsOnThe": "Værter og snippets på startsiden",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Skrifttype, tema, markør, rullehistorik",
+        "keyboard": "Tastatur",
+        "layoutKeysPresets": "Layout, taster, forudindstillinger",
+        "appLock": "App-lås",
+        "askForFaceIdTouch": "Bed om Face ID, Touch ID eller en PIN-kode for at åbne appen",
+        "lockAfter": "Lås efter",
+        "howLongTheAppCan": "Hvor længe appen kan være usynlig, før den låses",
+        "hideInAppSwitcher": "Skjul i app-skifter",
+        "showABlankScreenIn": "Vis en tom skærm i listen over seneste apps",
+        "changePin": "Skift PIN-kode",
+        "backgroundSessions": "Baggrunds-sessioner",
+        "whatHappensToOpenSessions": "Hvad der sker med åbne sessioner, når du forlader appen",
+        "serverAlerts": "Serveradvarsler",
+        "alertsFromTheAlertsPlugin": "Advarsler fra Alerts-pluginet på din server",
+        "whatStaysOnThis": "Hvad der bliver på denne {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Værter, legitimationsoplysninger og snippets gemmes krypteret her",
+        "recentHosts": "Seneste værter",
+        "forgetTheHostsYouOpened": "Glem de værter, du har åbnet for nylig",
+        "shareAnonymousUsageStatistics": "Del anonyme brugsstatistikker",
+        "aShortReportOnceA": "En kort rapport en gang om dagen. Ingen værter, navne eller adresser",
+        "nextReport": "Næste rapport",
+        "seeExactlyWhatWouldBe": "Se præcis, hvad der ville blive sendt",
+        "resetInstallId": "Nulstil installations-id",
+        "futureReportsWillLookLike": "Fremtidige rapporter vil se ud som en ny installation",
+        "serverUsageStatistics": "Serverbrugsstatistikker",
+        "telemetrySettingsOnYourServer": "Telemetriindstillinger på din server",
+        "plugins": "Plugins",
+        "whatTheServerAddsAnd": "Hvad serveren tilføjer og hvor den kører",
+        "localData": "Lokale data",
+        "backupRestoreAndDeleteWhat": "Sikkerhedskopiér, gendan og slet det, der er gemt på denne {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Version og opdateringer",
+        "logs": "Logs",
+        "latestLinesFromThisRun": "Seneste linjer fra denne kørsel, til fejlrapporter",
+        "pushNotifications": "Push-notifikationer",
+        "pushNotificationsDescription": "Advarsler fra dine servere på denne telefon"
+      },
+      "sections": {
+        "accountsAndSync": "Konti og synkronisering",
+        "thisDeviceLinkedServersAnd": "Denne enhed, linkede servere og hvad der synkroniseres",
+        "appearance": "Udseende",
+        "themeAccentTextSizeAnd": "Sprog, tema, accentfarve, tekststørrelse og tæthed",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Skrifttype, farver og baggrundssessioner",
+        "keyboard": "Tastatur",
+        "keyRowsAndShortcuts": "Tastaturrækker og genveje",
+        "security": "Sikkerhed",
+        "appLockFaceIdAnd": "App-lås, Face ID og PIN-kode",
+        "notifications": "Notifikationer",
+        "alertsFromYourServer": "Advarsler fra din server",
+        "privacyAndUsageStatistics": "Privatliv og brugsstatistik",
+        "whatStaysOnThis": "Hvad der forbliver på denne {{deviceWord}}",
+        "plugins": "Plugins",
+        "whatTheServerAddsTo": "Hvad serveren tilføjer til appen",
+        "backupAndData": "Backup og data",
+        "backUpRestoreImportAnd": "Backup, gendannelse, import og eksport",
+        "aboutAndLogs": "Om og logfiler",
+        "versionAndLogsForBug": "Version og logfiler til fejlrapporter"
+      }
+    },
+    "settings": "Indstillinger",
+    "searchSettings": "Søg i indstillinger",
+    "noSettingsMatch": "Ingen indstillinger matcher.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Kunne ikke indlæse snippets",
+      "copied": "Kopieret: {{name}}",
+      "nameIsRequired": "Navn er påkrævet",
+      "contentIsRequired": "Indhold er påkrævet",
+      "snippetUpdated": "Snippet opdateret",
+      "snippetCreated": "Snippet oprettet",
+      "failedToSaveSnippet": "Kunne ikke gemme snippet",
+      "snippetDeleted": "Snippet slettet",
+      "failedToDeleteSnippet": "Kunne ikke slette snippet",
+      "folderNameIsRequired": "Mappenavn er påkrævet",
+      "folderCreated": "Mappe oprettet",
+      "failedToCreateFolder": "Kunne ikke oprette mappe",
+      "folderDeleted": "Mappe slettet",
+      "failedToDeleteFolder": "Kunne ikke slette mappe",
+      "folderRenamed": "Mappe omdøbt",
+      "failedToRenameFolder": "Kunne ikke omdøbe mappe",
+      "failedToSaveOrder": "Kunne ikke gemme rækkefølge",
+      "moveUp": "Flyt op",
+      "moveDown": "Flyt ned",
+      "runOnHosts": "Kør {{name}} på hosts",
+      "copy": "Kopiér {{name}}",
+      "delete": "Slet {{name}}",
+      "renameFolder": "Omdøb mappe",
+      "deleteFolder": "Slet mappe",
+      "noSnippetsInThisFolder": "Ingen snippets i denne mappe",
+      "snippets": "Snippets",
+      "importAndExport": "Import og eksport",
+      "folder": "Mappe",
+      "new": "Ny",
+      "loading": "Indlæser…",
+      "couldNotLoadSnippets": "Kunne ikke indlæse snippets",
+      "checkTheConnectionToYour": "Tjek forbindelsen til din server og prøv igen.",
+      "tryAgain": "Prøv igen",
+      "noSnippetsYet": "Ingen snippets endnu",
+      "createYourFirstSnippetOr": "Opret dit første snippet, eller tilføj snippets fra Termix web- eller desktop-appen.",
+      "createSnippet": "Opret snippet",
+      "askBeforeRunning": "Spørg før udførelse",
+      "confirmBeforeASnippetRuns": "Bekræft, før et snippet kører i terminalen",
+      "editSnippet": "Rediger snippet",
+      "newSnippet": "Nyt snippet",
+      "cancel": "Annuller",
+      "save": "Gem",
+      "create": "Opret",
+      "name": "Navn",
+      "eGUpdatePackages": "f.eks. Opdater pakker",
+      "content": "Indhold",
+      "descriptionOptional": "Beskrivelse (valgfrit)",
+      "shortDescription": "Kort beskrivelse",
+      "folderOptional": "Mappe (valgfrit)",
+      "selectFolder": "Vælg mappe",
+      "noFolder": "Ingen mappe",
+      "targetHostsOptional": "Mål-værter (valgfrit)",
+      "none": "Ingen",
+      "note": "Bemærk",
+      "pastedIntoTheTerminalWithout": "Indsættes i terminalen uden at blive kørt",
+      "targetHosts": "Mål-værter",
+      "copy2": "Kopier",
+      "edit": "Rediger",
+      "runOnHosts2": "Kør på værter",
+      "delete2": "Slet",
+      "deleteSnippet": "Slet snippet",
+      "deleteThisCannotBeUndone": "Slet \"{{name}}\"? Dette kan ikke fortrydes.",
+      "renameFolder2": "Omdøb mappe",
+      "rename": "Omdøb",
+      "folderName": "Mappenavn",
+      "eGSystem": "f.eks. System",
+      "newFolder": "Ny mappe",
+      "deleteFolder2": "Slet mappe",
+      "deleteSnippetsInThisFolder": "Slet \"{{name}}\"? Snippets i denne mappe bliver ukategoriseret."
+    },
+    "sync": {
+      "notYet": "Endnu ikke",
+      "justNow": "Lige nu",
+      "stopped": "Stoppet",
+      "signInToThisServer": "Log ind på denne server igen for at synkronisere",
+      "couldNotChangeThat": "Kunne ikke ændre det",
+      "sync": "Synkroniser",
+      "thisDeviceDoesNotSync": "Denne enhed synkroniserer ikke. Link en Termix-server for at holde dine værter på mere end én enhed.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} holder værter, legitimationsoplysninger, snippets og indstillinger opdateret i forhold til denne {{deviceWord}}. En kopi gemmes på denne {{deviceWord}}, så den også fungerer offline.",
+      "lastSynced": "Sidst synkroniseret {{value}}",
+      "live": "Live",
+      "syncNow": "Synkroniser nu",
+      "fix": "Ret",
+      "thisServerReadsLiveAnd": "Denne server læser live og gemmer ingen kopi på {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Slå Sync-pluginet til på serverens Plugins-side, og log derefter ind igen her for at gemme en kopi på denne {{deviceWord}}.",
+      "whatSyncs": "Hvad der synkroniseres",
+      "turnedOffThatDataStays": "Slukket, denne data gemmes kun på denne {{deviceWord}}.",
+      "conflicts": "Konflikter",
+      "changedHereAndOnThe": "Ændret her og på serveren på samme tid. Serverens version blev beholdt.",
+      "useServer": "Brug server",
+      "keepMine": "Behold min",
+      "notSavedOnTheServer": "Ikke gemt på serveren",
+      "theServerRefusedTheseChanges": "Serveren afviste disse ændringer. De forbliver på denne {{deviceWord}}.",
+      "tryAgain": "Prøv igen",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Kun nødvendigt, når en reverse proxy sidder foran serveren.",
+      "unlink": "Fjern link",
+      "unlinkThisServer": "Fjern link til denne server",
+      "minAgo": "{{value}} min siden",
+      "signedOut": "Logget ud",
+      "waitingToSync": "Venter på synkronisering",
+      "synced": "Synkroniseret",
+      "syncing": "Synkroniserer",
+      "offline": "Offline"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Baggrund",
+        "text": "Tekst",
+        "cursor": "Markør",
+        "textUnderCursor": "Tekst under markøren",
+        "selection": "Markering",
+        "black": "Sort",
+        "red": "Rød",
+        "green": "Grøn",
+        "yellow": "Gul",
+        "blue": "Blå",
+        "magenta": "Magenta",
+        "cyan": "Cyan",
+        "white": "Hvid",
+        "brightBlack": "Lys sort",
+        "brightRed": "Lys rød",
+        "brightGreen": "Lys grøn",
+        "brightYellow": "Lys gul",
+        "brightBlue": "Lys blå",
+        "brightMagenta": "Lys magenta",
+        "brightCyan": "Lys cyan",
+        "brightWhite": "Lys hvid",
+        "customTheme": "Brugerdefineret tema",
+        "colorsAsHexLike1e1e2e": "Farver som hex, f.eks. #1e1e2e.",
+        "cancel": "Annuller",
+        "save": "Gem",
+        "isNotAHexColor": "{{label}} er ikke en hex-farve"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompakt",
+      "default": "Standard",
+      "relaxed": "Afslappet",
+      "spacious": "Rummelig",
+      "none": "Ingen",
+      "couldNotSave": "Kunne ikke gemme",
+      "pickASizeFromTo": "Vælg en størrelse fra {{MIN_FONT_SIZE}} til {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Terminalindstillinger nulstillet",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "En vært kan indstille sit eget tema og sin egen markør i Termix, hvilket har forrang for disse.",
+      "theme": "Tema",
+      "custom": "Brugerdefineret",
+      "font": "Skrifttype",
+      "active": "Aktiv",
+      "sizeAndSpacing": "Størrelse og afstand",
+      "pinchTheTerminalToChange": "Du kan også ændre størrelsen ved at klemme terminalen. Stor tekst i dine {{deviceWord}}indstillinger gør den større.",
+      "custom2": "Brugerdefineret {{fontSize}}",
+      "lineHeight": "Linjehøjde",
+      "letterSpacing": "Bogstavafstand",
+      "ligatures": "Ligaturer",
+      "cursor": "Markør",
+      "blink": "Blink",
+      "bell": "Klokke",
+      "vibrate": "Vibration",
+      "onTheBellAndWhen": "Ved klokke og når du trykker længe for at markere",
+      "scrollback": "Rulningshistorik",
+      "linesKeptAboveTheScreen": "Linjer, der beholdes over skærmen. Gælder for nye terminaler.",
+      "linksAndKeys": "Links og nøgler",
+      "askBeforeOpeningLinks": "Spørg før åbning af links",
+      "doubleTapSendsTab": "Dobbelttryk sender Tab",
+      "longPressStillSelectsText": "Langt tryk vælger stadig tekst",
+      "optionSendsAlt": "Option sender Alt",
+      "onAHardwareKeyboardOff": "På et hardwaretastatur. Slukket taster symboler som på en Mac.",
+      "history": "Historik",
+      "suggestCommands": "Foreslå kommandoer",
+      "showsPastCommandsThatStart": "Tidligere kommandoer, mens du skriver",
+      "resetToDefault": "Nulstil til standard",
+      "fontSize": "Skriftstørrelse",
+      "aSizeFromTo": "En størrelse fra {{MIN_FONT_SIZE}} til {{MAX_FONT_SIZE}}.",
+      "cancel": "Annuller",
+      "apply": "Anvend",
+      "resetTerminalSettings": "Nulstil terminalindstillinger?",
+      "themeFontSizeCursorBell": "Tema, skrifttype, størrelse, markør, lydsignal og resten nulstilles til standardværdierne.",
+      "reset": "Nulstil",
+      "followsAppTheme": "Følg appens tema"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Kunne ikke starte 2FA-oprettelse",
+      "twoFactorAuthenticationEnabled": "To-faktor-godkendelse aktiveret",
+      "invalidCodeTryAgain": "Ugyldig kode, prøv igen",
+      "twoFactorAuthenticationDisabled": "To-faktor-godkendelse deaktiveret",
+      "failedToDisable2fa": "Kunne ikke deaktivere 2FA",
+      "failedToFetchBackupCodes": "Kunne ikke hente backup-koder",
+      "secretCopied": "Hemmelighed kopieret",
+      "backupCodesCopied": "Backup-koder kopieret",
+      "twoFactorAuthentication": "To-faktor-godkendelse",
+      "loading": "Indlæser…",
+      "scanThisQrCodeWith": "Scan denne QR-kode med din autentifikationsapp (Google Authenticator, Authy osv.), og indtast derefter den 6-cifrede kode for at bekræfte.",
+      "verifyAmpEnable": "Bekræft og aktiver",
+      "cancel": "Annuller",
+      "saveYourBackupCodes": "Gem dine backup-koder",
+      "storeTheseSomewhereSafeEach": "Gem disse et sikkert sted. Hver kode kan kun bruges én gang, hvis du mister adgang til din autentifikationsapp.",
+      "copyAllCodes": "Kopiér alle koder",
+      "done": "Udført",
+      "yourAccountIsProtectedWith": "Din konto er beskyttet af en autentifikationsapp.",
+      "addAnExtraLayerOf": "Tilføj et ekstra lag af sikkerhed til din konto.",
+      "viewBackupCodes": "Vis backup-koder",
+      "disable2fa": "Deaktiver 2FA",
+      "enable2fa": "Aktiver 2FA",
+      "disableTwoFactorAuthentication": "Deaktiver to-faktor-godkendelse",
+      "enterACodeFromYour": "Indtast en kode fra din autentifikationsapp for at bekræfte. Du kan altid genaktivere 2FA.",
+      "enterYourPasswordToConfirm": "Indtast din adgangskode for at bekræfte. Du kan altid genaktivere 2FA.",
+      "disable": "Deaktiver",
+      "yourPassword": "Din adgangskode",
+      "n2faIsEnabled": "2FA er aktiveret",
+      "n2faIsNotEnabled": "2FA er ikke aktiveret"
+    },
+    "language": {
+      "label": "Sprog",
+      "description": "Appen genindlæses for at skifte",
+      "system": "Samme som enheden"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Ingen SSH-værter her",
+      "couldNotReadWhatWas": "Kunne ikke læse det, der blev delt",
+      "stopTheUploads": "Stop uploadene?",
+      "stopAndLeave": "Stop og forlad",
+      "sendTo": "Send til {{name}}",
+      "sendToAHost": "Send til en vært",
+      "nothingToSend": "Intet at sende",
+      "close": "Luk",
+      "done": "Udført",
+      "cancel": "Annuller",
+      "uploadHere": "Upload her",
+      "uploadsStillGoing_one": "{{count}} upload kører stadig. Hvis du forlader siden, stoppes den.",
+      "uploadsStillGoing_other": "{{count}} uploads kører stadig. Hvis du forlader siden, stoppes de.",
+      "filesSize_one": "{{count}} fil | {{size}}",
+      "filesSize_other": "{{count}} filer | {{size}}",
+      "readingWhatWasShared": "Læser det, der blev delt"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Fejl",
+      "worksWithoutAServer": "Fungerer uden en server",
+      "accountSwitch": "Konto {{account}}, skift",
+      "search": "Søg",
+      "notificationsUnread": "Notifikationer, {{unread}} ulæste",
+      "notifications": "Notifikationer",
+      "signedIn": "Logget ind",
+      "signedOut": "Logget ud",
+      "copyOnThis": "Kopier til denne {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Hjem",
+      "hosts": "Værter",
+      "sessions": "Sessioner",
+      "tools": "Værktøjer",
+      "settings": "Indstillinger",
+      "open": "{{label}}, {{count}} åbne"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} åbne"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Vælg en vært",
+      "searchHosts": "Søg i værter",
+      "clearSearch": "Ryd søgning",
+      "noHostsMatch": "Ingen værter matcher",
+      "noHostsCanUseThis": "Ingen værter kan bruge dette",
+      "turnItOnForA": "Slå det til for en vært i værteneditoren."
+    },
+    "noToolsHereYet": "Ingen værktøjer her endnu",
+    "onAHost": "På en vært",
+    "saved": "Gemt",
+    "fromYourServer": "Fra din server"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Annuller",
+      "delete": "Slet",
+      "confirm": "Bekræft"
+    },
+    "contextMenu": {
+      "closeMenu": "Luk menu"
+    },
+    "inlineView": {
+      "back": "Tilbage"
+    },
+    "listRow": {
+      "moreActions": "Flere handlinger"
+    },
+    "pinPad": {
+      "useBiometrics": "Brug biometri",
+      "delete": "Slet"
+    },
+    "popover": {
+      "close": "Luk"
+    },
+    "promptSheet": {
+      "cancel": "Annuller"
+    },
+    "sheet": {
+      "close": "Luk"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Denne nøgle er låst. Indtast adgangskoden.",
+      "thatPassphraseDoesnTOpen": "Den adgangskode åbner ikke denne nøgle.",
+      "thisDoesnTLookLike": "Dette ligner ikke en privat nøgle.",
+      "loadedAndChangedItTo": "Indlæst {{name}} og ændret til OpenSSH-format",
+      "loadedItNeedsItsPassphrase": "Indlæst {{name}}. Den kræver adgangskode for at oprette forbindelse"
+    },
+    "ago": {
+      "justNow": "lige nu"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Kunne ikke indlæse dine værter.",
+      "failedOn": "{{name}} mislykkedes på {{name2}}",
+      "on": "{{name}} på {{name2}}: {{value}}",
+      "ranOn": "Kørte {{name}} på {{name2}}",
+      "runOn": "Kør \"{{name}}\" på",
+      "runSnippet": "Kør uddrag",
+      "loadingHosts": "Indlæser værter…",
+      "noHostsAvailable": "Ingen værter tilgængelige",
+      "addAHostInTermix": "Tilføj en vært i Termix for at køre uddrag fra din startskærm.",
+      "lastUsed": "Sidst brugt",
+      "failedToRunSnippet": "Kunne ikke køre uddrag"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Det uddrag findes ikke længere.",
+      "couldNotOpenThatSnippet": "Kunne ikke åbne det uddrag.",
+      "thatHostNoLongerExists": "Den vært findes ikke længere.",
+      "couldNotOpenThatHost": "Kunne ikke åbne den vært."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Hjem"
+      },
+      "hosts": {
+        "hosts": "Værter"
+      },
+      "sessions": {
+        "sessions": "Sessioner",
+        "connectToATermixServer": "Forbind til en Termix-server for at åbne terminaler, tunneler og filsessioner."
+      }
+    },
+    "layout": {
+      "initializing": "Initialiserer…",
+      "cancel": "Annuller"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Denne vært har ingen gyldig MAC-adresse.",
+    "thisBuildCanTSend": "Denne version kan ikke sende Wake-on-LAN-pakker.",
+    "couldNotSendThePacket": "Kunne ikke sende pakken. Tjek, at Wi-Fi er tændt."
+  },
+  "common": {
+    "hostCount_one": "{{count}} vært",
+    "hostCount_other": "{{count}} værter",
+    "device": {
+      "phone": "telefon",
+      "tablet": "tablet"
+    },
+    "thisDeviceLower": "denne {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Deling",
+    "action": "Del med andre",
+    "levels": {
+      "connect": "Forbind",
+      "view": "Se",
+      "edit": "Rediger",
+      "manage": "Administrer"
+    },
+    "levelHints": {
+      "connect": "Kun åbne sessioner. Værtens indstillinger forbliver skjulte",
+      "view": "Forbind, plus se værtens indstillinger. Hemmeligheder vises aldrig",
+      "edit": "Se, plus ændre indstillinger andre end login",
+      "manage": "Rediger, plus dele værten og ændre eller fjerne adgang"
+    },
+    "until": "indtil {{date}}",
+    "sharedBy": "af {{name}}",
+    "couldNotLoad": "Kunne ikke indlæse, hvem der har adgang",
+    "shared": "Vært delt",
+    "couldNotShare": "Kunne ikke dele værten",
+    "updated": "Adgang ændret",
+    "couldNotUpdate": "Kunne ikke ændre adgangen",
+    "removeTitle": "Fjern {{name}}?",
+    "removeHint": "De kan ikke længere bruge denne vært.",
+    "remove": "Fjern",
+    "removed": "Adgang fjernet",
+    "couldNotRemove": "Kunne ikke fjerne adgangen",
+    "whoHasAccess": "Hvem har adgang",
+    "loading": "Indlæser...",
+    "nobodyYet": "Kun du kan bruge denne vært.",
+    "changeAccessFor": "Ændre adgang for {{name}}",
+    "shareWith": "Del med",
+    "users": "Brugere",
+    "roles": "Rolle",
+    "searchUsers": "Søg efter brugere",
+    "searchRoles": "Søg efter roller",
+    "noUsers": "Ingen andre brugere at dele med.",
+    "noRoles": "Ingen roller at dele med.",
+    "options": "Adgang",
+    "level": "Niveau",
+    "expires": "Udløber",
+    "expiry": {
+      "never": "Aldrig",
+      "1h": "Om 1 time",
+      "1d": "Om 1 dag",
+      "7d": "Om 7 dage",
+      "30d": "Om 30 dage"
+    },
+    "pickSomeone": "Vælg, hvem du vil dele med",
+    "shareCount_one": "Del med {{count}}",
+    "shareCount_other": "Del med {{count}}",
+    "removeAccess": "Fjern adgang"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Serveradvarsler",
+      "critical": "Kritiske serveradvarsler"
+    },
+    "severity": {
+      "info": "Alt",
+      "warning": "Advarsler og værre",
+      "critical": "Kun kritiske"
+    },
+    "settings": {
+      "on": "Advarsler vises på denne telefon",
+      "off": "Fra",
+      "toggle": "Push-notifikationer for {{server}}",
+      "minSeverity": "Send mig",
+      "denied": "Notifikationer er slået fra for Termix. Slå dem til i telefonens indstillinger.",
+      "openSettings": "Åbn indstillinger",
+      "outdated": "Denne server har brug for Alerts 1.4.0 eller nyere til push-notifikationer. Bed en administrator om at opdatere pluginet.",
+      "unavailable": "Log ind på denne server og slå Alerts-pluginet til for at modtage notifikationer.",
+      "error": "Kunne ikke nå serveren. Termix prøver igen næste gang appen åbnes.",
+      "notInThisBuild": "Denne build kan ikke vise notifikationer.",
+      "noServers": "Link en server for at modtage dens advarsler her.",
+      "pushHint": "Advarsler sendes gennem Expo og Apple eller Google, med deres titel og tekst. Vælg hvilke i Alerts-reglerne på serveren.",
+      "pollHint": "Denne build har ingen Google-tjenester, så Termix tjekker for nye advarsler i baggrunden, cirka hver 15. minut."
+    }
+  }
+}

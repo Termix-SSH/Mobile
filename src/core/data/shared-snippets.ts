@@ -1,6 +1,7 @@
 import type { AccountClient } from "@/core/api/AccountClient";
 import type { Snippet } from "@/types";
 import type { SnippetRepository } from "./types";
+import { t } from "@/i18n";
 
 // How long the server's shared list counts as fresh.
 const FETCH_EVERY_MS = 60 * 1000;
@@ -38,7 +39,7 @@ export function withSharedSnippets(
   };
 
   const readOnly = async (): Promise<never> => {
-    throw new Error("This snippet is shared with you and can't be changed.");
+    throw new Error(t("data.sharedSnippets.thisSnippetIsSharedWith"));
   };
 
   return {

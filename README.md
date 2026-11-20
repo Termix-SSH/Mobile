@@ -54,20 +54,23 @@ Try Termix at [demo.termix.site](https://demo.termix.site/). Any username and pa
 
 - No server needed: hosts, logins and snippets are saved on the phone in an encrypted database. Export a backup locked with a passphrase, or delete it all in Settings.
 - Servers: link more than one Termix server and switch between them while open tabs keep running. Each server keeps its own encrypted copy on the phone, synced both ways and in the background, so its hosts work offline too. Needs the Sync plugin on the server. Each host can connect from the phone, through the server or pick on its own.
-- Terminal: a fast native terminal with smooth scrolling, selection, links and mouse support. Themes, fonts with ligatures and pinch to zoom, set globally or per host. Key rows in groups (Main, Nav, Symbols, Ctrl, tmux) with custom keys per host, find, tmux attach, password and sudo fill, history search and share links.
+- Terminal: a fast native terminal with smooth scrolling, selection, links and mouse support. Themes, fonts with ligatures you can turn off and pinch to zoom, set globally or per host. Key rows in groups (Main, Nav, Symbols, Ctrl, tmux) with custom keys per host, find, tmux attach, password and sudo fill, history search and share links.
 - Tabs: rename, drag, swipe and split them. Sessions keep running in the background on Android, tabs come back after the app is closed, and a dropped connection retries and keeps what you typed.
 - File manager: browse, edit and move files over SFTP from the phone or through your server. Transfers with pause and resume, share files in from other apps, a code editor, previews and a files panel beside the terminal.
-- Home: open sessions, quick connect, recent hosts and live cards for pinned hosts with metrics, Docker and services.
+- Home: a dashboard of cards you can reorder and hide, with open sessions, quick connect, recent and pinned hosts, server health, Homepage widgets as native cards, approvals, snippets, Wake-on-LAN and tunnels.
+- Notifications: push alerts from your servers, picked per server by how bad they are, and an inbox with unread counts. Needs the Alerts plugin on the server.
+- Actions: run any action a server's plugins offer for a host, like restarting a container or service, with a dry run, approvals and a run history you can cancel or undo from.
 - Tools: host metrics with history, Docker containers, logs and compose stacks, systemd and OpenRC services with the journal, tunnels (local, remote and dynamic) and snippets that run on many hosts at once.
 - Remote desktop: RDP, VNC and Telnet straight from the phone, or through your server.
-- Hosts: folders with drag to reorder, select many, colors and icons, jump hosts, host defaults, import and export (Termix files and SSH config), QR sharing, Wake-on-LAN, host status and Tailscale.
+- Hosts: folders with drag to reorder, select many, colors and icons, jump hosts, host defaults, import and export (Termix files and SSH config), QR sharing, sharing with people and roles on a server, Wake-on-LAN, host status and Tailscale.
 - Keys: make Ed25519 and ECDSA keys, check keys and certificates as you type and convert PuTTY keys. OPKSSH, Step CA and Vault work through a linked server.
 - Sign in: every login the server offers, including SSO, TOTP and passkeys, plus servers behind a reverse proxy (extra headers, Cloudflare tokens, basic auth, client certificates and proxy sign in pages).
 - Server plugins: plugins with no phone version, like Homepage, Alerts and Proxmox, open inside the app with the same screens as the web app.
 - Search: one palette for hosts, snippets, actions and settings.
 - Tablets and keyboards: a sidebar and split view on wide screens, foldable support, resizable windows, keyboard shortcuts and mouse or trackpad support.
-- Widgets: open a host, run a snippet or check metrics from the home screen on iOS and Android.
+- Widgets: open a host, run a snippet, check metrics or wake a machine from the home screen on iOS and Android.
 - App lock: Face ID, Touch ID or fingerprint with a PIN as backup, and the app hidden in the app switcher.
+- Languages: 41 languages, following the phone or picked in Settings. Anyone can fix a translation or add a language, see [translations](src/i18n/locales/README.md).
 - Usage statistics: an anonymous daily report, off until you answer the question on first start. See [what is sent](https://docs.termix.site/privacy#mobile-app).
 
 <br />

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Termix",
     "slug": "termix",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "termix-mobile",
@@ -27,12 +27,13 @@
         "NSFaceIDUsageDescription": "Use Face ID to unlock Termix.",
         "NSLocalNetworkUsageDescription": "Check if your hosts are online and wake them on your network.",
         "UIFileSharingEnabled": true,
-        "LSSupportsOpeningDocumentsInPlace": true
+        "LSSupportsOpeningDocumentsInPlace": true,
+        "UIApplicationSupportsIndirectInputEvents": true
       }
     },
     "android": {
       "package": "com.karmaa.termix",
-      "versionCode": 20000,
+      "versionCode": 20100,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "monochromeImage": "./assets/images/adaptive-monochrome.png",
@@ -55,6 +56,12 @@
         }
       ],
       "./plugins/withOidcCallbackIntentFilter.js",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/notification/notification-icon-xxxhdpi.png"
+        }
+      ],
       [
         "expo-local-authentication",
         {
@@ -171,7 +178,12 @@
         }
       ],
       "expo-dev-client",
-      ["expo-secure-store", { "configureAndroidBackup": false }],
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": false
+        }
+      ],
       "expo-web-browser",
       [
         "expo-sqlite",

@@ -4,12 +4,25 @@ import { useFeatureContext } from "@/core/features";
 import { serverAuthPlugin } from "@/core/transport/local/auth-support";
 import { ChoiceRow, Text } from "@/ui";
 import type { VaultProfile } from "@/core/api/modules/vault";
+import { t } from "@/i18n";
 
 /** Sign in types that run in the server's browser flow, in tab order. */
 export const BROWSER_SIGN_INS = [
-  { id: "opkssh", label: "OPKSSH", title: "OPKSSH" },
-  { id: "stepca", label: "Step CA", title: "Step CA" },
-  { id: "vault", label: "Vault", title: "Vault" },
+  {
+    id: "opkssh",
+    label: "OPKSSH",
+    title: "OPKSSH",
+  },
+  {
+    id: "stepca",
+    label: t("hosts.browserSignIn.stepCa"),
+    title: t("hosts.browserSignIn.stepCa"),
+  },
+  {
+    id: "vault",
+    label: t("hosts.browserSignIn.vault"),
+    title: t("hosts.browserSignIn.vault"),
+  },
 ] as const;
 
 export type BrowserSignInType = (typeof BROWSER_SIGN_INS)[number]["id"];
@@ -64,20 +77,20 @@ export function BrowserSignInFields({
   }, [authType, on, client]);
 
   const note = !client
-    ? `${info.title} needs a Termix server. Link one to use this sign in.`
+    ? t("hosts.browserSignIn.needsATermixServerLink", { title: info.title })
     : !on
-      ? `${info.title} is off on this server. This host keeps its sign in setting.`
-      : `Signs in with ${info.title} in your browser through your Termix server. Connect this host through the server.`;
+      ? t("hosts.browserSignIn.isOffOnThisServer", { title: info.title })
+      : t("hosts.browserSignIn.signsInWithInYour", { title: info.title });
 
   return (
     <View className="gap-2">
       <Text className="text-xs text-muted-foreground">{note}</Text>
       {authType === "vault" && on ? (
         <ChoiceRow<string>
-          label="Vault profile"
+          label={t("hosts.browserSignIn.vaultProfile")}
           value={vaultProfileId == null ? "" : String(vaultProfileId)}
           options={[
-            { value: "", label: "None" },
+            { value: "", label: t("hosts.browserSignIn.none") },
             ...profiles.map((p) => ({ value: String(p.id), label: p.name })),
           ]}
           onChange={(v) => onVaultProfile(v ? Number(v) : null)}

@@ -1,0 +1,3897 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Inicia sessió",
+      "addServer": "Afegeix un servidor",
+      "switchAccount": "Canvia de compte",
+      "noServerConnected": "Cap servidor connectat",
+      "connectToATermixServer": "Connecta't a un servidor Termix per gestionar els teus amfitrions, terminals, fitxers i molt més."
+    },
+    "lockScreen": {
+      "cancel": "Cancel·la",
+      "tooManyTriesWaitSeconds": "Massos intents. Espera {{value}} segons",
+      "termixLocked": "Termix bloquejat",
+      "enterYourPinToContinue": "Introdueix el teu PIN per continuar"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Taronja",
+      "blue": "Blau",
+      "green": "Verd",
+      "purple": "Porpra",
+      "pink": "Rosa",
+      "cyan": "Cian",
+      "red": "Vermell",
+      "yellow": "Groc",
+      "teal": "Blau verdós",
+      "indigo": "Indigo",
+      "rose": "Rosa",
+      "lime": "Verd llima",
+      "system": "Sistema",
+      "light": "Clar",
+      "dark": "Fosc"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Utilitza PIN",
+      "unlockTermix": "Desbloqueja Termix",
+      "unlockTermixFirst": "Desbloqueja Termix primer."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Aquesta funció està desactivada al servidor.",
+      "aTabWasNotReopened": "Una pestanya no s'ha tornat a obrir perquè el seu amfitrió ha desaparegut",
+      "tabsWereNotReopenedBecause": "{{count}} pestanyes no s'han tornat a obrir perquè els seus amfitrions han desaparegut"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Vincula un servidor Termix per utilitzar això",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Introdueix l'adreça del teu servidor",
+        "theAddressCanTHave": "L'adreça no pot contenir espais",
+        "useAnHttpOrHttps": "Utilitza una adreça http:// o https://",
+        "thatDoesnTLookLike": "Això no sembla una adreça de servidor",
+        "thePortMustBeFrom": "El port ha de ser entre 1 i 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Un proxy d'inici de sessió ha respost en lloc de Termix. Inicia sessió al proxy primer.",
+        "theServerDidNotSend": "El servidor no ha enviat un testimoni.",
+        "theServerDidNotSend2": "El servidor no ha enviat una sessió.",
+        "theServerSentNoSign": "El servidor no ha enviat cap adreça d'inici de sessió.",
+        "theSignInRanOut": "L'inici de sessió ha caducat o ja s'ha utilitzat. Torna a iniciar sessió.",
+        "wrongUsernameOrPassword": "Nom d'usuari o contrasenya incorrectes",
+        "signInFailedHttp": "L'inici de sessió ha fallat (HTTP {{status}})",
+        "thePageSignedYouIn": "La pàgina t'ha iniciat la sessió però no ha tornat cap sessió. Actualitza el servidor a Termix 26.11.3 o superior.",
+        "thisAccountIsnTAllowed": "Aquest compte no té permís per iniciar sessió aquí.",
+        "noTermixAccountMatchesThat": "Cap compte de Termix coincideix amb aquest inici de sessió."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Aquesta sessió no té cap servidor"
+    },
+    "store": {
+      "noSuchAccount": "Aquest compte no existeix",
+      "thisDeviceCanTBe": "Aquest dispositiu no es pot eliminar",
+      "switchToAnotherAccountFirst": "Canvia primer a un altre compte"
+    },
+    "types": {
+      "thisDevice": "Aquest dispositiu"
+    },
+    "accountSwitcher": {
+      "error": "Error",
+      "worksWithoutAServer": "Funciona sense servidor",
+      "couldNotSwitchAccount": "No s'ha pogut canviar de compte",
+      "accounts": "Comptes",
+      "openTabsKeepRunningWhen": "Les pestanyes obertes continuen funcionant quan canvies.",
+      "unlink": "Desvincula {{account}}",
+      "linkAServer": "Vincula un servidor",
+      "eachServerKeepsItsOwn": "Cada servidor manté els seus propis amfitrions, credencials i configuracions en aquest {{deviceWord}}.",
+      "signedIn": "Sessió iniciada",
+      "signedOut": "Sessió tancada",
+      "syncedCopy": "Còpia sincronitzada"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "No s'ha pogut desar el pin",
+      "theServerSKeyMatches": "La clau del servidor coincideix amb el pin",
+      "theServerShowsAnotherKey": "El servidor mostra una altra clau",
+      "pinThisKey": "Vols fixar aquesta clau?",
+      "pinThisKey2": "Fixa aquesta clau",
+      "keyPinned": "Clau fixada",
+      "couldNotReadTheServer": "No s'ha pogut llegir la clau del servidor",
+      "thatIsNotAPin": "Això no és un pin",
+      "keysPinned": "Claus fixades",
+      "certificatePin": "Pin de certificat",
+      "trustThisServerOnlyBy": "Confia en aquest servidor només per la seva clau. Utilitza-ho per a un certificat autofirmat o per rebutjar qualsevol altra clau. Afegeix la propera clau abans de canviar el certificat del servidor.",
+      "removePin": "Elimina el pin {{pin}}",
+      "remove": "Elimina",
+      "readTheKeyFromThe": "Llegeix la clau del servidor",
+      "orPasteAPin": "O enganxa un pin",
+      "pin": "Pin",
+      "add": "Afegeix",
+      "issuedTo": "Emitit a: {{subject}}",
+      "issuedBy": "Emitit per: {{issuer}}",
+      "validUntil": "Vàlid fins: {{value}}",
+      "checkThatThisKeyMatches": "Comprova que aquesta clau coincideix amb la del teu servidor abans de fixar-la.",
+      "pasteTheBase64Sha256Of": "Enganxa el sha256 en base64 de la clau pública del servidor, com l'imprimeix openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Configuració del proxy desada",
+      "couldNotSaveTheProxy": "No s'ha pogut desar la configuració del proxy",
+      "couldNotReadThatFile": "No s'ha pogut llegir aquest fitxer",
+      "certificateSaved": "Certificat desat",
+      "theFileOrItsPassphrase": "El fitxer o la seva frase de pas són incorrectes",
+      "couldNotSaveTheCertificate": "No s'ha pogut desar el certificat",
+      "headers": "Capçaleres",
+      "sentWithEveryRequestTo": "S'envia amb cada sol·licitud a aquest servidor, com un testimoni de servei de Cloudflare.",
+      "name": "Nom",
+      "value": "Valor",
+      "removeHeader": "Elimina la capçalera",
+      "addHeader": "Afegeix capçalera",
+      "cloudflareServiceToken": "Testimoni de servei de Cloudflare",
+      "basicAuth": "Autenticació bàsica",
+      "forAProxyThatAsks": "Per a un proxy que demana un nom d'usuari i una contrasenya.",
+      "userName": "Nom d'usuari",
+      "password": "Contrasenya",
+      "saveHeadersAndBasicAuth": "Desa les capçaleres i l'autenticació bàsica",
+      "clientCertificate": "Certificat del client",
+      "forServersThatAskFor": "Per a servidors que en demanen un (mTLS). La clau es manté a l'emmagatzematge segur del {{deviceWord}} i no es pot llegir de nou.",
+      "certificate": "Certificat",
+      "remove": "Elimina",
+      "replaceCertificate": "Substitueix el certificat",
+      "pickAP12OrPfx": "Tria un fitxer .p12 o .pfx",
+      "proxySignIn": "Inicia sessió al proxy",
+      "thisIsSignedInTo": " Aquest {{deviceWord}} està connectat al proxy.",
+      "forCloudflareAccessAutheliaAuthentik": "Per a Cloudflare Access, Authelia, Authentik i altres proxys amb la seva pròpia pàgina d'inici de sessió.{{value}}",
+      "signInToTheProxy": "Inicia sessió al proxy",
+      "forget": "Obliða",
+      "certificatePassphrase": "Frase de pas del certificat",
+      "thePassphraseTheFileWas": "La frase de pas amb què es va desar el fitxer. Deixa-ho buit si no en té cap.",
+      "passphrase": "Frase de pas",
+      "save": "Desa"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Sessió iniciada al proxy",
+      "couldNotSaveTheProxy": "No s'ha pogut desar l'inici de sessió del proxy",
+      "signInToTheProxy": "Inicia sessió al proxy",
+      "thisBuildOfTheApp": "Aquesta compilació de l'aplicació no pot mantenir una sessió iniciada a través del proxy. Utilitza un testimoni de servei als capçaleres del proxy en el seu lloc."
+    },
+    "savedLoginRow": {
+      "signIn": "Inicia la sessió",
+      "signInWith": "Inicia la sessió amb {{name}}",
+      "whenThisServerSignsYou": "Quan aquest servidor tanqui la teva sessió, torna a iniciar-la sense haver de tornar a escriure la contrasenya."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Desvinculat. S'han conservat {{copied}} elements a Aquest dispositiu.",
+      "unlinked": "Desvinculat",
+      "couldNotUnlinkTheServer": "No s'ha pogut desvincular el servidor",
+      "unlink": "Vols desvincular {{value}}?",
+      "thisSignsOutOfThe": "Aquest {{deviceWord}} tanca la sessió al servidor. No s'esborra res al servidor.",
+      "keepACopyOnThis": "Conserva una còpia a Aquest dispositiu",
+      "yourOwnHostsCredentialsAnd": "Els teus propis amfitrions, credencials i fragments es mouen a Aquest dispositiu. Els amfitrions compartits amb tu no es conserven.",
+      "deleteFromThis": "Suprimeix d'aquest {{deviceWord}}",
+      "everythingThisHasForThe": "Tot el que aquest {{deviceWord}} tingui per al servidor s'eliminarà."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Canvia-ho a la secció Proxy més avall",
+      "updateTermixMobileFromYour": "Actualitza Termix Mobile des de la teva botiga d'aplicacions"
+    },
+    "savedLogin": {
+      "signInToTermix": "Inicia la sessió a Termix",
+      "faceUnlock": "desbloqueig facial"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Aquesta compilació no pot verificar la clau fixada d'aquest servidor ni enviar el seu certificat."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Aquest servidor no admet aquesta funció",
+      "theProxyWantsYouTo": "El proxy et demana que iniciïs la sessió",
+      "endpointNotAvailableOnThis": "El punt d'accés no està disponible en aquest servidor",
+      "unknownError": "Error desconegut"
+    },
+    "errors": {
+      "theProxyInFrontOf": "El proxy davant d'aquest servidor et demana que tornis a iniciar la sessió.",
+      "authenticationRequiredPleaseLogIn": "Autenticació requerida. Si us plau, torna a iniciar la sessió.",
+      "accessDeniedYouDoNot": "Accés denegat. No tens permís per realitzar aquesta acció.",
+      "thisFeatureIsTurnedOff": "Aquesta funció està desactivada al servidor.",
+      "thisServerDoesNotSupport": "Aquest servidor no admet aquesta funció.",
+      "resourceNotFoundTheRequested": "Recurs no trobat. L'element sol·licitat pot haver estat eliminat.",
+      "conflictTheResourceAlreadyExists": "Conflicte. El recurs ja existeix o està en ús.",
+      "validationErrorPleaseCheckYour": "Error de validació. Si us plau, comprova la teva entrada i torna-ho a provar.",
+      "serverErrorOccurredPleaseTry": "S'ha produït un error al servidor. Si us plau, torna-ho a provar més tard.",
+      "sslCertificateVerificationFailed": "Ha fallat la verificació del certificat SSL.",
+      "networkErrorPleaseCheckYour": "Error de xarxa. Si us plau, comprova la teva connexió i torna-ho a provar.",
+      "failedTo": "Ha fallat {{operation}}",
+      "unknownError": "Error desconegut",
+      "unexpectedErrorDuring": "Error inesperat durant {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "L'aplicació no ha pogut confiar en HTTPS per a aquesta IP local. Fixa la clau del servidor a la secció Proxy i certificat del client, utilitza un certificat que el {{deviceWord}} confiï, o utilitza HTTP en una xarxa local o VPN de confiança.",
+        "thisServerIsBehindA": "Aquest servidor està darrere d'un proxy d'inici de sessió. Utilitza l'opció d'inici de sessió extern en el seu lloc.",
+        "loginFailed": "Ha fallat l'inici de sessió"
+      },
+      "files": {
+        "fileNotFound": "Fitxer no trobat",
+        "fileWriteOperationDidNot": "L'operació d'escriptura del fitxer no ha retornat l'estat d'èxit",
+        "couldNot": "No s'ha pogut {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Amfitrió desat, però algunes configuracions han fallat: {{value}}",
+        "unexpectedHostResponseFrom": "Resposta inesperada de l'amfitrió des de {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Ha fallat la mostra en directe"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Sense resposta"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Aquest servidor no ha mostrat la clau a la qual està fixat, per la qual cosa la pàgina no s'ha obert."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Aquest {{what}} ja no existeix.",
+      "aHostCannotBeIts": "Un amfitrió no pot ser el seu propi pare",
+      "parentHostNotFound": "Amfitrió pare no trobat",
+      "aHostCanTGo": "Un amfitrió no pot anar sota un dels seus propis subamfitrions",
+      "thisIsSharedWithYou": "Aquest {{what}} està compartit amb tu. Només el propietari el pot modificar.",
+      "nameIsRequired": "El nom és obligatori",
+      "nameAndCommandAreRequired": "El nom i l'ordre són obligatoris",
+      "aFolderWithThatName": "Ja existeix una carpeta amb aquest nom"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Aquest dispositiu no pot desar {{what}} aquí."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Aquest fragment està compartit amb tu i no es pot modificar."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Utilitza una frase de pas amb almenys 8 caràcters.",
+      "thisIsNotATermix": "Això no és un fitxer de còpia de seguretat de Termix.",
+      "thisBackupIsFromA": "Aquesta còpia de seguretat és d'una versió més recent de Termix. Actualitza primer l'aplicació.",
+      "wrongPassphraseOrTheFile": "La frase de pas és incorrecta o el fitxer està malmès."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Aquesta compilació no pot xifrar les dades locals."
+    },
+    "keys": {
+      "unlockTermixFirst": "Desbloqueja Termix primer.",
+      "thatIsNotADatabase": "Això no és una clau de base de dades.",
+      "couldNotSaveTheDatabase": "No s'ha pogut desar la clau de la base de dades."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Aquestes dades es van desar amb una versió més recent de Termix. Actualitza l'aplicació per obrir-les."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Aquest dispositiu no sincronitza.",
+      "localDataIsNotAvailable": "Les dades locals no estan disponibles aquí.",
+      "unlockTermixFirst": "Desbloqueja Termix primer."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "No es pot connectar.",
+      "thisWayCanTRun": "Aquesta manera no pot executar ordres"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Contrasenya de sudo",
+      "password": "Contrasenya",
+      "run": "Executa",
+      "thatPasswordWasWrong": "Aquesta contrasenya era incorrecta.",
+      "onNeedsRoot": "{{reason}} a {{hostName}} necessita root.",
+      "needsRootForThis": "{{hostName}} necessita root per a això.",
+      "itIsKeptUntilYou": "Es manté fins que tanquis l'aplicació."
+    },
+    "run": {
+      "theHostTookTooLong": "L'amfitrió ha trigat massa a respondre",
+      "connectionLost": "Connexió perduda"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Això necessita root. Inicia sessió com a root, configura sudo sense contrasenya o desa una contrasenya de sudo per a l'amfitrió.",
+      "theSudoPasswordWasWrong": "La contrasenya de sudo era incorrecta",
+      "commandFailed": "L'ordre ha fallat"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet al terminal necessita una connexió des del {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "La funció {{id}} ja està registrada"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adreça",
+      "theIpOrHostName": "L'IP o el nom d'amfitrió sota el nom",
+      "username": "Nom d'usuari",
+      "theUserBeforeTheAddress": "L'usuari abans de l'adreça",
+      "port": "Port",
+      "thePortAfterTheAddress": "El port després de l'adreça",
+      "hostIcon": "Icona de l'amfitrió",
+      "theIconSetOnThe": "La icona establerta a l'amfitrió",
+      "pinIcon": "Icona de fixar",
+      "marksPinnedHosts": "Marca els amfitrions fixats",
+      "sharedBadge": "Insignia compartida",
+      "marksHostsSharedWithYou": "Marca els amfitrions compartits amb tu",
+      "protocolBadges": "Insignies de protocol",
+      "sshRdpDockerAndOther": "Etiquetes SSH, RDP, Docker i altres",
+      "tags": "Etiquetes",
+      "theHostSTags": "Les etiquetes de l'amfitrió",
+      "cpuAndRam": "CPU i RAM",
+      "liveUsageBarsOnOnline": "Barres d'ús en directe en amfitrions en línia",
+      "statusColors": "Colors d'estat",
+      "greenBarWhenOnlineRed": "Barra verda quan està en línia, vermella quan està fora de línia"
+    },
+    "uiPrefs": {
+      "small": "Petita",
+      "default": "Per defecte",
+      "large": "Gran",
+      "comfortable": "Còmoda",
+      "compact": "Compacta"
+    },
+    "errors": {
+      "somethingWentWrong": "Alguna cosa ha anat malament"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Bloquejar una clau amb una frase de pas necessita l'aplicació Termix, no una vista prèvia web."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "De seguida",
+      "after15Seconds": "Després de 15 segons",
+      "after1Minute": "Després de 1 minut",
+      "after5Minutes": "Després de 5 minuts"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "El secret del dispositiu ha desaparegut",
+      "noSealedKey": "Cap clau segellada",
+      "theSealedKeyIsDamaged": "La clau segellada està malmesa",
+      "wrongPin": "PIN incorrecte",
+      "theSealedKeyDidNot": "La clau segellada no s'ha pogut obrir",
+      "biometricsCanTOpenThe": "Les dades biomètriques no poden obrir la clau"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Actualitza l'aplicació",
+      "onYourServerNeedsA": "{{name}} al teu servidor necessita una versió més recent de Termix en aquest {{deviceWord}}.",
+      "updateThePlugin": "Actualitza el complement",
+      "onYourServerIsToo": "{{name}} al teu servidor és massa antic per a aquesta aplicació. Demana a un administrador que l'actualitzi a Complements."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Bloquejat per l'aplicació",
+      "theAppDoesNotLet": "L'aplicació no permet que els complements utilitzin aquesta ruta.",
+      "thisBuildCanTReach": "Aquesta compilació no pot arribar a aquest servidor de manera segura."
+    },
+    "support": {
+      "needsANewerVersionOf": "Necessita una versió més recent de l'aplicació",
+      "updateThePluginOnThe": "Actualitza el complement al servidor",
+      "theAppHasItsOwn": "L'aplicació té el seu propi aspecte",
+      "notInTheAppYet": "Encara no està a l'aplicació",
+      "linkAServerToUse": "Vincula un servidor per utilitzar-lo",
+      "opensInTheAppFrom": "S'obre a l'aplicació des del servidor",
+      "runsOnTheServer": "S'executa al servidor",
+      "throughTheServer": "A través del servidor",
+      "inTheApp": "A l'aplicació",
+      "webView": "Vista web",
+      "onTheServer": "Al servidor",
+      "appLook": "Aspecte de l'aplicació",
+      "notInTheApp": "No està a l'aplicació",
+      "safeMode": "Mode segur",
+      "notRunning": "No s'està executant",
+      "notInstalled": "No instal·lat",
+      "notOnThisServer": "No està en aquest servidor",
+      "thePluginIsNotInstalled": "El complement no està instal·lat en aquest servidor.",
+      "turnedOffOnTheServer": "Desactivat al servidor",
+      "itOpensHereAgainWhen": "S'obrirà aquí de nou quan un administrador l'activi.",
+      "notRunningOnTheServer": "No s'està executant al servidor",
+      "theServerIsInSafe": "El servidor està en mode segur, per la qual cosa només s'executen els complements d'aspecte.",
+      "thePluginDidNotStart": "El complement no s'ha iniciat. Un administrador pot revisar-lo a Complements.",
+      "thisPluginIsNotAvailable": "Aquest complement no està disponible",
+      "itIsNotMadeFor": "No està fet per a l'aplicació.",
+      "offOnThisServer": "desactivat en aquest servidor",
+      "notRunningOnThisServer": "no s'està executant en aquest servidor",
+      "notOnThisServer2": "no està en aquest servidor",
+      "notInTheAppYet2": "Encara no està a l'aplicació | en aquest servidor",
+      "worksOnThis": "Funciona en aquest {{deviceWord}}",
+      "andServer": "{{DeviceWord}} i servidor",
+      "deviceOnly": "Només {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Torna a carregar"
+    },
+    "pluginSettings": {
+      "loading": "Carregant configuracions",
+      "forEveryone": "Per a tothom al servidor",
+      "justForYou": "Només per a tu",
+      "couldNotSave": "No s'ha pogut desar la configuració",
+      "nothingYouCanChange": "No hi ha res aquí que puguis canviar. Un administrador pot canviar aquestes configuracions.",
+      "notANumber": "Això no és un número",
+      "atLeast": "Ha de ser {{min}} o més",
+      "atMost": "Ha de ser {{max}} o menys"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Desconnecta-ho tot",
+      "showOpenSessions": "Mostra les sessions obertes",
+      "termixShowsANotificationWhile": "Termix mostra una notificació mentre les sessions estan obertes, perquè Android les mantingui en execució en segon pla.",
+      "sessionsOpen_one": "{{count}} sessió oberta",
+      "sessionsOpen_many": "{{count}} sessions obertes",
+      "sessionsOpen_other": "{{count}} sessions obertes",
+      "tunnelsActive_one": "{{count}} túnel actiu",
+      "tunnelsActive_many": "{{count}} túnels actius",
+      "tunnelsActive_other": "{{count}} túnels actius",
+      "notConnected": "No connectat",
+      "waitingForNetwork": "Esperant la xarxa",
+      "connecting": "Connectant",
+      "connected": "Connectat",
+      "reconnecting": "Reconnectant",
+      "failed": "Ha fallat",
+      "closed": "Tancat"
+    },
+    "companionPane": {
+      "resizeThePanel": "Redimensiona el panell {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Tanca",
+      "closeAllTabs": "Vols tancar les {{count}} pestanyes?",
+      "everySessionEnds": "Totes les sessions finalitzen.",
+      "closeAll": "Tanca-ho tot",
+      "noActiveConnections": "No hi ha connexions actives",
+      "pickAHostFromThe": "Tria un amfitrió de la llista per iniciar una sessió. Les pestanyes que obris en altres dispositius també es mostren aquí.",
+      "connectToAHostTo": "Connecta't a un amfitrió per iniciar una sessió. Les pestanyes que obris en altres dispositius també es mostren aquí.",
+      "open": "Obre",
+      "background": "Segon pla",
+      "sessionsFromOtherDevicesOr": "Sessions d'altres dispositius o pestanyes en segon pla. Toca per recuperar-les.",
+      "liveTapToReconnect": "En directe, toca per tornar a connectar",
+      "tapToReopen": "Toca per tornar a obrir"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Això està desactivat al servidor",
+      "comesBackHereWhenAn": "{{title}} tornarà aquí quan un administrador activi el complement de nou.",
+      "closeTab": "Tanca la pestanya"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Connexions",
+        "hideHostList": "Amaga la llista d'amfitrions",
+        "showHostList": "Mostra la llista d'amfitrions",
+        "backToHosts": "Torna als amfitrions",
+        "showKeyboard": "Mostra el teclat",
+        "hideKeyboard": "Amaga el teclat",
+        "hideKeysPanel": "Amaga el panell de claus",
+        "showKeysPanel": "Mostra el panell de claus"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Toca per a les opcions de la pestanya, mantén premut per moure",
+        "holdToMove": "Mantén premut per moure",
+        "close": "Tanca {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Esperant la xarxa",
+        "connectionFailed": "La connexió ha fallat",
+        "reconnecting": "Tornant a connectar"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Canvia el nom",
+      "newTabOnThisHost": "Pestanya nova en aquest amfitrió",
+      "here": "{{title}} aquí",
+      "hidePanel": "Amaga el panell de {{title}}",
+      "showPanel": "Mostra el panell de {{title}}",
+      "endSplitView": "Finalitza la vista dividida",
+      "splitViewWith": "Vista dividida amb...",
+      "moveLeft": "Mou a l'esquerra",
+      "moveRight": "Mou a la dreta",
+      "closeTab": "Tanca la pestanya",
+      "closeAllTabs": "Tanca totes les pestanyes",
+      "closeAllTabs2": "Vols tancar totes les {{count}} pestanyes?",
+      "everySessionEnds": "Totes les sessions s'acaben.",
+      "closeAll": "Tanca-ho tot",
+      "splitViewWith2": "Vista dividida amb",
+      "renameTab": "Canvia el nom de la pestanya",
+      "leaveItEmptyToUse": "Deixa-ho buit per utilitzar el nom de l'amfitrió."
+    },
+    "resizeHostList": "Redimensiona la llista d'amfitrions",
+    "resizeSplitView": "Redimensiona la vista dividida",
+    "connections": "Connexions",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Autenticació de dos factors",
+        "enterThe6DigitCode": "Introdueix el codi de 6 xifres de la teva aplicació d'autenticació.",
+        "cancel": "Cancel·la",
+        "verify": "Verifica",
+        "codeExpiresInSGet": "El codi caduca en {{totpCountdown}}s, obté un codi nou",
+        "warpgateAuthentication": "Autenticació de Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "Confirma l'URL d'autenticació de Warpgate i la clau de seguretat.",
+        "authenticate": "Autentica",
+        "warpgateUrl": "URL de Warpgate",
+        "securityKeyOptional": "Clau de seguretat (opcional)",
+        "authenticationRequired": "Cal autenticació",
+        "thisHostNeedsCredentialsTo": "Aquest amfitrió necessita credencials per connectar-se.",
+        "connect": "Connecta",
+        "password": "Contrasenya",
+        "sshKey": "Clau SSH",
+        "pastePrivateKey": "Enganxa la clau privada",
+        "keyPassphraseOptional": "Frase de pas de la clau (opcional)"
+      },
+      "connectionError": {
+        "tryAgain": "Torna-ho a provar",
+        "close": "Tanca",
+        "connectThroughTheServer": "Connecta a través del servidor",
+        "connectFromThis": "Connecta des d'aquest {{deviceWord}}",
+        "triedFromThis": "S'ha provat des d'aquest {{deviceWord}}",
+        "triedThroughTheServer": "S'ha provat a través del servidor"
+      },
+      "execGate": {
+        "connecting": "Connectant..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "S'ha produït un error",
+        "retry": "Torna-ho a provar",
+        "refresh": "Actualitza",
+        "nothingToShow": "No hi ha res per mostrar"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Registres copiats",
+        "connectionLog": "Registre de connexió ({{count}})",
+        "copyLog": "Copia el registre",
+        "waitingForConnection": "Esperant la connexió…",
+        "noLogEntries": "No hi ha entrades al registre"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "No s'ha pogut desar com es connecta aquest host"
+      },
+      "useSessionConnect": {
+        "connected": "Connectat",
+        "connectingTo": "Connectant amb {{name}}…",
+        "connectionLost": "Connexió perduda",
+        "failedToConnect": "No s'ha pogut connectar",
+        "invalidCode": "Codi no vàlid",
+        "warpgateAuthenticationFailed": "Ha fallat l'autenticació de Warpgate",
+        "authenticationCancelled": "Autenticació cancel·lada"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Cerca i ordres",
+    "addHost": "Afegeix un host",
+    "keyboardShortcuts": "Dreceres de teclat",
+    "home": "Inici",
+    "hosts": "Hosts",
+    "sessions": "Sessions",
+    "tools": "Eines",
+    "settings": "Configuració",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Dreceres de teclat"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Hosts i carpetes",
+      "yourHostsFoldersAndHosts": "Els teus hosts, carpetes i hosts compartits amb tu",
+      "credentials": "Credencials",
+      "savedPasswordsAndKeysAnd": "Contrasenyes i claus desades, i credencials compartides amb tu",
+      "snippets": "Fragments",
+      "snippetsAndTheirFolders": "Fragments i les seves carpetes",
+      "hostDefaults": "Valors predeterminats de l'host",
+      "defaultSettingsForNewHosts": "Configuració predeterminada per a nous hosts",
+      "preferences": "Preferències",
+      "settingsThatFollowYouBetween": "Configuració que et segueix entre dispositius"
+    },
+    "link": {
+      "noSuchServerAccount": "Aquest compte de servidor no existeix",
+      "signInFirst": "Inicia la sessió primer.",
+      "thisServerAccountBelongsTo": "Aquest compte de servidor pertany a {{value}}. Inicia la sessió com a aquest usuari o afegeix el servidor de nou per a aquest usuari."
+    },
+    "reasons": {
+      "signedOut": "Sessió tancada",
+      "thisSSignInTo": "Ha caducat l'inici de sessió d'aquest {{deviceWord}} al servidor.",
+      "theServerEndedThisS": "El servidor ha finalitzat la sessió d'aquest {{deviceWord}}. Potser s'ha tancat la sessió des d'un altre dispositiu.",
+      "proxySignInNeeded": "Cal iniciar la sessió al proxy",
+      "theProxyInFrontOf": "El proxy davant d'aquest servidor et demana que tornis a iniciar la sessió.",
+      "proxyPasswordNeeded": "Cal la contrasenya del proxy",
+      "theProxyInFrontOf2": "El proxy davant d'aquest servidor ha demanat la seva contrasenya.",
+      "certificateRefused": "Certificat rebutjat",
+      "theServerDidNotAccept": "El servidor no ha acceptat el certificat d'aquest {{deviceWord}}.",
+      "untrustedServer": "Servidor no fiable",
+      "theServerSCertificateIs": "El certificat del servidor no és de confiança per a aquest {{deviceWord}}.",
+      "serverKeyChanged": "La clau del servidor ha canviat",
+      "theServerShowsAnotherKey": "El servidor mostra una clau diferent de la fixada per a ell. Si heu canviat el certificat, fixeu la nova clau.",
+      "offline": "Desconnectat",
+      "canTReachTheServer": "No es pot connectar al servidor. La sincronització ho tornarà a provar aviat.",
+      "serverProblem": "Problema del servidor",
+      "theServerHadAProblem": "El servidor ha tingut un problema. La sincronització ho tornarà a provar aviat.",
+      "updateNeeded": "Cal actualitzar",
+      "thisServerUsesANewer": "Aquest servidor utilitza una versió de sincronització més recent. Actualitzeu l'aplicació.",
+      "notATermixServer": "No és un servidor Termix",
+      "theAddressDoesNotAnswer": "L'adreça no respon com un servidor Termix.",
+      "syncIsOff": "La sincronització està desactivada",
+      "theSyncPluginIsOff": "El complement de sincronització està desactivat en aquest servidor. Demaneu a un administrador que l'activi a Complements.",
+      "differentUser": "Usuari diferent",
+      "youSignedInAsA": "Heu iniciat sessió com a un usuari diferent del que pertany a aquest compte de servidor.",
+      "syncStopped": "Sincronització aturada",
+      "somethingWentWrong": "Alguna cosa ha anat malament.",
+      "signInAgain": "Inicieu sessió de nou",
+      "signInToTheProxy": "Inicieu sessió al proxy",
+      "enterThePassword": "Introduïu la contrasenya",
+      "tryAgain": "Torneu-ho a provar",
+      "checkThePin": "Comproveu el codi de fixació",
+      "checkForUpdates": "Comproveu si hi ha actualitzacions",
+      "pickACertificate": "Trieu un certificat"
+    },
+    "settings": {
+      "noSuchSetting": "Aquesta configuració no existeix",
+      "snippetFolder": "Carpeta de fragments",
+      "hostDefault": "Valor predeterminat de l'amfitrió"
+    },
+    "errors": {
+      "theServerDidNotAccept": "El servidor no ha acceptat el certificat d'aquest {{deviceWord}}.",
+      "theServerSCertificateIs": "El certificat del servidor no és de confiança.",
+      "canTReachTheServer": "No es pot connectar al servidor.",
+      "signedOut": "Sessió tancada",
+      "theProxyAskedForIts": "El proxy ha demanat la seva contrasenya.",
+      "theProxyWantsYouTo": "El proxy vol que inicieu sessió.",
+      "theSyncPluginIsOff": "El complement de sincronització està desactivat en aquest servidor.",
+      "serverError": "Error del servidor {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "El servidor mostra una clau diferent de la fixada."
+    },
+    "remote": {
+      "thisIsNotATermix": "Això no és un servidor Termix.",
+      "theProxyWantsYouTo": "El proxy vol que inicieu sessió.",
+      "thisServerUsesANewer": "Aquest servidor utilitza una versió de sincronització més recent. Actualitzeu l'aplicació."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} amfitrió",
+      "hostCount_many": "{{count}} amfitrions",
+      "hostCount_other": "{{count}} amfitrions",
+      "credentialCount_one": "{{count}} credencial",
+      "credentialCount_many": "{{count}} credencials",
+      "credentialCount_other": "{{count}} credencials",
+      "snippetCount_one": "{{count}} fragment",
+      "snippetCount_many": "{{count}} fragments",
+      "snippetCount_other": "{{count}} fragments",
+      "folderCount_one": "{{count}} carpeta",
+      "folderCount_many": "{{count}} carpetes",
+      "folderCount_other": "{{count}} carpetes",
+      "nothingYet": "res encara",
+      "listAnd": "{{list}} i {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "No es pot connectar.",
+      "connectingToFromThis": "Connectant a {{name}} des d'aquest {{deviceWord}}",
+      "connectingToThroughTheServer": "Connectant a {{name}} a través del servidor",
+      "reconnectingTry": "Tornant a connectar (intent {{retry}})",
+      "disconnected": "Desconnectat",
+      "connected": "Connectat",
+      "reconnectedToTheSameSession": "S'ha tornat a connectar a la mateixa sessió",
+      "reconnectedWithANewShell": "S'ha tornat a connectar amb un nou shell",
+      "couldNotReachTheHost": "No s'ha pogut arribar a l'amfitrió des d'aquest {{deviceWord}}, provant a través del servidor",
+      "couldNotConnectThroughThe": "No s'ha pogut connectar a través del servidor, provant des d'aquest {{deviceWord}}",
+      "connectionLost": "Connexió perduda: {{reason}}",
+      "offlineWaitingForTheNetwork": "Desconnectat, esperant la xarxa",
+      "nextTryInS": "Pròxim intent en {{value}}s",
+      "reconnectingTry2": "Tornant a connectar (intent {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "L'amfitrió ha deixat de respondre",
+      "networkLost": "Xarxa perduda",
+      "network": "Xarxa: {{type}}{{value}}",
+      "lowPowerModeOn": "Mode d'estalvi d'energia activat",
+      "lowPowerModeOff": "Mode d'estalvi d'energia desactivat",
+      "droppedTypedCharacters": "S'han descartat {{count}} caràcters escrits",
+      "youDidNotTrustThe": "No s'ha confiat en la clau de l'amfitrió.",
+      "checkTheKeyWithWhoever": "Comprova la clau amb qui administra l'amfitrió i torna-ho a provar.",
+      "loginCancelled": "Inici de sessió cancel·lat.",
+      "connectAgainWhenYouAre": "Connecta de nou quan estiguis preparat.",
+      "typedInputIsOver64": "L'entrada escrita supera els 64 KB; s'ha descartat la part més antiga",
+      "appInTheBackground": "Aplicació en segon pla",
+      "appInTheForeground": "Aplicació en primer pla",
+      "thisConnectionCanTRun": "Aquesta connexió no pot executar ordres"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Comprova l'adreça i el port, i que el servidor pugui arribar a l'amfitrió.",
+      "checkTheAddressAndPort2": "Comprova l'adreça i el port, i que aquest {{deviceWord}} pugui arribar a l'amfitrió.",
+      "checkTheProxySettingsOf": "Comprova la configuració del proxy d'aquest amfitrió.",
+      "checkTheKeyWithWhoever": "Comprova la clau amb qui administra l'amfitrió abans de confiar-hi.",
+      "checkTheUsernameAndLogin": "Comprova el nom d'usuari i l'inici de sessió a l'editor d'amfitrions.",
+      "checkThatTheServerIs": "Comprova que el servidor estigui en funcionament i que encara hagis iniciat la sessió.",
+      "tryAgainIfItKeeps": "Torna-ho a provar. Si continua caient, comprova la xarxa.",
+      "connectAgainWhenYouAre": "Connecta de nou quan estiguis preparat.",
+      "pickAnotherWayToConnect": "Tria una altra manera de connectar aquest amfitrió.",
+      "connectThisHostThroughA": "Connecta aquest amfitrió a través d'un servidor Termix.",
+      "pickTheJumpHostsAgain": "Tria de nou els amfitrions de salt a l'editor d'amfitrions.",
+      "thisIsATailscaleAddress": "Aquesta és una adreça de Tailscale. Comprova que Tailscale estigui connectat en aquest {{deviceWord}}.",
+      "theSavedKeyCanT": "No es pot llegir la clau desada. Enganxa-la de nou a l'editor d'amfitrions.",
+      "signInToThisServer": "Inicia la sessió en aquest servidor de nou.",
+      "openThisHostInThe": "Obre aquest amfitrió a l'aplicació web de Termix.",
+      "canTConnectThisWay": "No es pot connectar d'aquesta manera",
+      "couldNotReachTheHost": "No s'ha pogut arribar a l'amfitrió",
+      "theProxyDidNotLet": "El proxy no ha permès la connexió",
+      "theHostKeyWasNot": "No s'ha confiat en la clau de l'amfitrió",
+      "theLoginWasRefused": "S'ha rebutjat l'inici de sessió",
+      "theTermixServerDidNot": "El servidor Termix no ha respost",
+      "theConnectionDropped": "La connexió s'ha tallat",
+      "loginCancelled": "Inici de sessió cancel·lat"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "Agent SSH",
+        "thisHostSignsInWith": "Aquest amfitrió inicia la sessió amb «{{authType}}», que necessita un servidor Termix. Enllaça'n un per connectar-te.",
+        "thisHostUsesA1password": "Aquest amfitrió utilitza una referència de 1Password, que necessita un servidor Termix amb Secret Sources. Enllaça'n un i connecta aquest amfitrió a través d'ell.",
+        "signInWithFirstOpen": "Inicia la sessió amb {{title}} primer. Obre un terminal a aquest amfitrió una vegada i torna-ho a provar.",
+        "theSignInAndThe": "l'inici de sessió i el certificat es troben al servidor",
+        "theHasNoSshAgent": "el {{deviceWord}} no té cap agent SSH",
+        "needsATermixServerBecause": "{{title}} necessita un servidor Termix perquè {{why}}. Enllaça'n un i connecta aquest amfitrió a través d'ell."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Un amfitrió de salt d'aquest amfitrió ja no existeix."
+      },
+      "localShell": {
+        "theConnectionWasCut": "La connexió s'ha tallat",
+        "theShellChannelClosed": "El canal del shell s'ha tancat",
+        "jumpHost": "Amfitrió de salt {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Codi no vàlid, torna-ho a provar:",
+        "authenticationFailed": "Autenticació fallida: {{message}}",
+        "theHostKeyWasNot": "No s'ha confiat en la clau de l'amfitrió.",
+        "loginCancelled": "Inici de sessió cancel·lat.",
+        "notConnected": "No connectat",
+        "signingInAs": "Connectant-se com a {{user}} amb {{method}}",
+        "methodKey": "una clau",
+        "methodPassword": "una contrasenya",
+        "methodNone": "sense accés desat"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "La connexió s'ha tallat"
+      },
+      "thisBuildHasNoSsh": "Aquesta compilació no té motor SSH. Utilitza l'aplicació de la botiga o enllaça un servidor Termix per connectar-te.",
+      "theHostsOnThisAre": "Els amfitrions d'aquest {{deviceWord}} encara no estan oberts.",
+      "thisServerSHostsAre": "Els amfitrions d'aquest servidor no es troben en aquest {{deviceWord}}. Activa el complement Sync al servidor per connectar-te des del {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "L'accés desat per a aquest amfitrió no està en aquest {{deviceWord}}, per tant només el servidor pot connectar-se"
+      }
+    },
+    "origin": {
+      "canTConnect": "No es pot connectar.",
+      "canTConnectFromThe": "No es pot connectar des d'aquest {{deviceWord}}.",
+      "canTReachTheServer": "No es pot arribar al servidor.",
+      "theOnlyConnectsToSsh": "El {{deviceWord}} només es connecta a servidors SSH i Telnet.",
+      "connectThisHostThroughThe": "Connecta aquest servidor a través del servidor",
+      "connectThisHostFromThe": "Connecta aquest servidor des del {{deviceWord}}",
+      "termixServer": "Servidor Termix",
+      "usesThisWhenItCan": "Utilitza aquest {{deviceWord}} quan pot arribar al servidor, altrament el servidor.",
+      "thisConnectsToTheHost": "Aquest {{deviceWord}} es connecta directament al servidor.",
+      "theTermixServerConnectsTo": "El servidor Termix es connecta al servidor per tu.",
+      "anSshConnection": "una connexió SSH",
+      "aTermixServer": "un servidor Termix",
+      "aConnectionFromThe": "una connexió des del {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} està desactivat en aquest servidor. {{how}} per utilitzar-lo.",
+      "isOffOnThisServer2": "{{title}} està desactivat en aquest servidor.",
+      "anotherWayToConnect": "una altra manera de connectar-se",
+      "needsToUseIt": "{{title}} necessita {{what}}. {{how}} per utilitzar-lo.",
+      "needsWhichThisHostCan": "{{title}} necessita {{what}}, que aquest servidor no pot utilitzar ara mateix.",
+      "thisDevice": "Aquest {{deviceWord}}",
+      "automatic": "Automàtic"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Has tancat la sessió d'aquest servidor. Inicia la sessió per connectar-te a través d'ell.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux no està instal·lat en aquest servidor. S'utilitza la shell bàsica.",
+        "tapRetryToBringIt": "Toca Reintenta per tornar-lo a obrir aquí.",
+        "thisSessionWasOpenedOn": "Aquesta sessió s'ha obert en un altre dispositiu",
+        "noServerUrlFoundLink": "No s'ha trobat l'URL del servidor. Enllaça el servidor de nou.",
+        "signedOutOfThisServer": "Sessió tancada d'aquest servidor. Inicia la sessió de nou.",
+        "signInWithInYour": "Inicia la sessió amb {{title}} al teu navegador. Això es tancarà quan acabi.",
+        "theSocketClosedWhileThe": "El socket s'ha tancat mentre l'aplicació estava en segon pla",
+        "noWebsocketUrlAvailableServer": "No hi ha URL de WebSocket disponible - servidor no configurat",
+        "connectionTimeoutServerNotResponding": "Temps d'espera de connexió - el servidor no respon",
+        "verificationCode": "Codi de verificació:",
+        "hostKeyVerificationRequiredBut": "Es requereix la verificació de la clau del servidor, però no hi ha cap gestor registrat",
+        "hostKeyChangedButNo": "La clau del servidor ha canviat, però no hi ha cap gestor registrat",
+        "thisHostNeedsASign": "Aquest servidor necessita un inici de sessió que només admet l'aplicació web",
+        "invalidCodeTryAgain": "Codi no vàlid, torna-ho a intentar:",
+        "unknownError": "Error desconegut",
+        "connectionClosed": "Connexió tancada",
+        "connectionClosed2": "Connexió tancada ({{code}})",
+        "theServerClosedTheConnection": "El servidor ha tancat la connexió",
+        "theSocketClosed": "El socket s'ha tancat ({{code}})",
+        "signIn": "Inici de sessió {{title}}",
+        "signInFailed": "Ha fallat l'inici de sessió {{title}}",
+        "isNotSetUpOn": "{{title}} no està configurat al servidor",
+        "signInTimedOut": "Temps d'espera de l'inici de sessió {{title}}",
+        "authenticationFailed": "Ha fallat l'autenticació: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Desa el servidor i connecta't-hi per comprovar-lo.",
+      "loggedInAsOn": "Sessió iniciada com a {{username}} a {{host}}",
+      "theHostAskedForMore": "El servidor ha demanat més que una contrasenya, com ara un codi. Desa el servidor i connecta't per finalitzar l'inici de sessió."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Esperant la xarxa",
+      "couldNotOpenTheTunnel": "No s'ha pogut obrir el túnel",
+      "theConnectionDropped": "La connexió s'ha perdut",
+      "iosStoppedThisTunnelWhile": "iOS ha aturat aquest túnel mentre l'aplicació estava en segon pla. Inicia-lo de nou per obrir-lo.",
+      "connecting": "Connectant",
+      "connected": "Connectat",
+      "retrying": "Reintentant",
+      "waiting": "Esperant",
+      "failed": "Ha fallat"
+    },
+    "gateways": {
+      "error": "Error",
+      "gateways": "Passarel·les",
+      "gatewaysCanOnlyBeChanged": "Les passarel·les només es poden modificar a Termix al web.",
+      "noHandshake": "Sense intercanvi de salutacions",
+      "rulesMissing": "Regles mancants",
+      "up": "Actiu",
+      "pending": "Pendent",
+      "applying": "Aplicant",
+      "down": "Aturat",
+      "unreachable": "Inaccessible"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Encara no hi ha túnels. Afege'n un per reenviar un port des de l'amfitrió de destí fins a aquest amfitrió.",
+      "tunnel": "Túnel {{value}}",
+      "removeTunnel": "Elimina el túnel {{value}}",
+      "mode": "Mode",
+      "local": "Local",
+      "remote": "Remot",
+      "dynamic": "Dinàmic",
+      "targetHost": "Amfitrió de destí",
+      "onThisHostForTunnels": "En aquest amfitrió, per als túnels que executa el {{deviceWord}}",
+      "bindHost": "Amfitrió d'enllaç",
+      "endpointHost": "Amfitrió de destí",
+      "addAnotherHostFirstTunnels": "Afegeix primer un altre amfitrió. Els túnels passen per un amfitrió desat.",
+      "sourcePort": "Port d'origen",
+      "endpointPort": "Port de destí",
+      "maxRetries": "Reintents màxims",
+      "retryEveryS": "Reintentar cada (s)",
+      "startOnItsOwn": "Iniciar automàticament",
+      "addTunnel": "Afegeix túnel",
+      "tunnelNeedsPortsFrom1": "El túnel {{value}} necessita ports entre 1 i 65535"
+    },
+    "register": {
+      "tunnels": "Túnels",
+      "startAndStopSavedTunnels": "Inicia i atura els túnels desats",
+      "tunnel": "TÚNEL",
+      "tunnel2": "Túnel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Punt final local copiat",
+      "tunnel": "Túnel | {{sourcePort}}",
+      "portMapping": "Mapa de ports",
+      "connect": "Connecta",
+      "disconnect": "Desconnecta",
+      "cancel": "Cancel·la",
+      "connected": "Connectat",
+      "connecting": "Connectant",
+      "disconnecting": "Desconnectant",
+      "error": "Error",
+      "retrying": "Reintentant ({{value}}/{{value2}})",
+      "waitingS": "Esperant {{value}}s",
+      "waiting": "Esperant",
+      "disconnected": "Desconnectat"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Iniciant túnel al port {{sourcePort}}",
+      "connectingTunnelOnPort": "Connectant túnel al port {{sourcePort}}",
+      "disconnectingPort": "Desconnectant port {{sourcePort}}",
+      "cancellingPort": "Cancel·lant port {{sourcePort}}",
+      "failedToTunnel": "No s'ha pogut {{action}} el túnel",
+      "tunnels": "Túnels | {{count}} | {{value}}",
+      "loadingTunnels": "Carregant túnels…",
+      "noSshTunnelsConfiguredFor": "No hi ha túnels SSH configurats per a aquest amfitrió. Afegeix túnels des del formulari de l'amfitrió.",
+      "runOn": "Executar a",
+      "server": "Servidor",
+      "this": "Aquest {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Els túnels d'aquest {{deviceWord}} s'aturen quan l'aplicació es tanca. A iOS també s'aturen poc després que l'aplicació passi a segon pla.",
+      "failedToFetchTunnelStatuses": "No s'han pogut obtenir els estats dels túnels",
+      "thisBuildCanTOpen": "Aquesta versió no pot obrir túnels al {{deviceWord}}.",
+      "sourceHostNotFound": "No s'ha trobat l'amfitrió d'origen",
+      "endpointHostNotFound": "No s'ha trobat l'amfitrió de destí: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Túnels",
+      "tunnelCount_one": "{{count}} túnel",
+      "tunnelCount_many": "{{count}} túnels",
+      "tunnelCount_other": "{{count}} túnels",
+      "runningOnServer": "{{connected}} en execució al servidor"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Eines de credencials"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker no està instal·lat en aquest host.",
+        "dockerDidNotAnswer": "Docker no ha respost",
+        "thatIsNotAValid": "Aquest no és un nom de stack vàlid"
+      }
+    },
+    "containerDetail": {
+      "stop": "Atura",
+      "start": "Inicia",
+      "restart": "Reinicia",
+      "remove": "Elimina",
+      "logs": "Registres",
+      "stats": "Estadístiques",
+      "console": "Consola",
+      "logsCopied": "Registres copiats",
+      "copy": "Copia",
+      "containerIsNotRunningNo": "El contenidor no s'està executant, no hi ha estadístiques en directe.",
+      "cpu": "CPU",
+      "memory": "Memòria",
+      "networkIO": "E/S de xarxa",
+      "blockIO": "E/S de blocs",
+      "pids": "PIDs",
+      "failedToLoadLogs": "No s'han pogut carregar els registres",
+      "failedToLoadStats": "No s'han pogut carregar les estadístiques",
+      "noOutput": "(sense sortida)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Connectant amb Docker...",
+    "remove": "Vols eliminar {{name}}?",
+    "stop": "Vols aturar {{name}}?",
+    "theContainerIsStoppedAnd": "El contenidor s'ha aturat i eliminat. Els seus volums es mantenen.",
+    "anythingRunningInItStops": "Tot el que s'executi dins s'aturarà.",
+    "remove2": "Elimina",
+    "stop2": "Atura",
+    "dockerThis": "Docker | aquest {{deviceWord}}",
+    "lookingForDocker": "Cercant Docker...",
+    "dockerIsNotAvailableOn": "Docker no està disponible en aquest host.",
+    "noContainersFound": "No s'han trobat contenidors",
+    "noContainersMatchYourFilters": "Cap contenidor no coincideix amb els filtres",
+    "useSudo": "Utilitza sudo",
+    "refresh": "Actualitza",
+    "containers": "Contenidors",
+    "stacks": "Stacks",
+    "searchContainers": "Cerca contenidors...",
+    "all": "Tots",
+    "running": "En execució",
+    "stopped": "Aturats",
+    "start": "Inicia",
+    "restart": "Reinicia",
+    "pause": "Pausa",
+    "unpause": "Reprèn",
+    "moreActions": "Més accions",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker no ha respost",
+      "docker": "Docker",
+      "noContainers": "Sense contenidors"
+    },
+    "dockerConsole": {
+      "attachingTo": "Connectant amb {{name}}...",
+      "consoleDisconnected": "Consola desconnectada",
+      "reconnect": "Torna a connectar",
+      "failedToLoadTheConsole": "No s'ha pogut carregar la consola",
+      "thisSessionHasNoServer": "Aquesta sessió no té servidor"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Contenidors, registres i estadístiques"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Els stacks estan desactivats en aquest servidor.",
+      "couldNotLoadStacks": "No s'han pogut carregar els stacks",
+      "noStacks": "No hi ha pilotes",
+      "composeProjectsOnThisHost": "Els projectes Compose d'aquest host s'hi mostren aquí.",
+      "ofRunning": "{{running}} de {{total}} en execució",
+      "couldNotLoadTheStack": "No s'ha pogut carregar la pilota",
+      "services": "Serveis",
+      "nothingIsRunning": "Res no s'està executant.",
+      "composeFile": "Fitxer Compose",
+      "partlyUp": "parcialment actiu",
+      "notDeployed": "no implementat",
+      "running": "en execució",
+      "stopped": "aturat",
+      "paused": "en pausa"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Això no és un id. de contenidor vàlid",
+      "consoleFailed": "Ha fallat la consola",
+      "notAuthenticated": "No autenticat",
+      "consoleError": "Error de la consola",
+      "connectionFailed": "Ha fallat la connexió"
+    },
+    "dockerDidNotAnswer": "Docker no ha respost",
+    "failedToLoadContainers": "No s'han pogut carregar els contenidors",
+    "failedTo": "Ha fallat {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "El servidor no ha enviat cap fitxer",
+        "cancelled": "Cancel·lat",
+        "isGone": "{{path}} ha desaparegut",
+        "canTGoToThe": "{{name}} no es pot moure a la paperera"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Id. d'element de la paperera no vàlid",
+        "invalidTrashMetadata": "Metadades de la paperera no vàlides",
+        "thisPathCanTBe": "Aquesta ruta no es pot moure a la paperera",
+        "aFileAlreadyExistsAt": "Ja existeix un fitxer a la ruta original"
+      },
+      "sftp": {
+        "commandFailed": "Ha fallat l'ordre: {{command}}",
+        "alreadyExists": "{{name}} ja existeix",
+        "alreadyExistsThere": "{{path}} ja existeix allà",
+        "canTGoToThe": "{{name}} no es pot moure a la paperera: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "El terminal ja no està obert",
+      "clearHistory": "Esborra l'historial",
+      "stopFollowingTheTerminal": "Deixa de seguir el terminal",
+      "followTheTerminal": "Segueix el terminal",
+      "goToTheTerminalS": "Vés a la carpeta del terminal",
+      "cdTheTerminalHere": "Canvia el directori del terminal aquí",
+      "folderHistory": "Historial de carpetes",
+      "mostUsedFirstThenRecent": "Primer els més utilitzats, després els recents",
+      "noFoldersYet": "Encara no hi ha carpetes"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "No es pot connectar.",
+        "couldNotSaveHowThis": "No s'ha pogut desar com es connecta aquest host",
+        "thisWayCanTOpen": "Aquesta manera no pot obrir fitxers"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "No s'ha pogut obrir aquesta carpeta",
+      "cancel": "Cancel·la",
+      "noFoldersHere": "No hi ha carpetes aquí"
+    },
+    "couldNotOpenThisFolder": "No s'ha pogut obrir aquesta carpeta",
+    "couldNotSaveToThe": "No s'ha pogut desar a la carpeta",
+    "failed": "{{label}} ha fallat",
+    "uploading": "Pujant {{name}}",
+    "uploadingFiles": "Pujant {{count}} fitxers",
+    "downloadingToFilesOnMy": "Descarregant a Fitxers, Al meu iPhone, Termix",
+    "downloading": "Descarregant {{name}}",
+    "downloadingFiles": "Descarregant {{count}} fitxers",
+    "openALargeFile": "Vols obrir un fitxer gran?",
+    "isBigForAEditor": "{{name}} és gran per a un editor de {{deviceWord}}. Potser serà lent.",
+    "open": "Obre",
+    "thisLooksLikeABinary": "Això sembla un fitxer binari",
+    "openItInAnotherApp": "Vols obrir-lo en una altra aplicació?",
+    "openWith": "Obre amb",
+    "tooBigForTheEditor": "Massa gran per a l'editor",
+    "isOver10MbDownload": "{{name}} té més de 10 MB. Vols descarregar-lo?",
+    "download": "Descarrega",
+    "delete": "Vols suprimir {{what}}?",
+    "moveToTheTrash": "Vols moure {{what}} a la paperera?",
+    "thisCanTBeUndone": "Aquesta acció no es pot desfer.",
+    "youCanRestoreItFrom": "Pots restaurar-lo des de la paperera.",
+    "delete2": "Suprimeix",
+    "moveToTrash": "Mou a la paperera",
+    "deleteForGood": "Vols suprimir-lo definitivament?",
+    "deleteItForGoodInstead": "{{message}}. Vols suprimir-lo definitivament? Aquesta acció no es pot desfer.",
+    "deleteFailed": "Ha fallat la supressió",
+    "connectingThroughTheServer": "S'està connectant a través del servidor...",
+    "connectingFromThis": "S'està connectant des d'aquest {{deviceWord}}...",
+    "connecting": "Connectant...",
+    "edit": "Edita",
+    "downloadFolder": "Descarrega la carpeta",
+    "share": "Comparteix",
+    "rename": "Canvia el nom",
+    "copyTo": "Copia a",
+    "moveTo": "Mou a",
+    "cut": "Talla",
+    "copy": "Copia",
+    "permissions": "Permisos",
+    "properties": "Propietats",
+    "makeALinkHere": "Crea un enllaç aquí",
+    "copyPath": "Copia la ruta",
+    "pathCopied": "Ruta copiada",
+    "done": "Fet",
+    "selectAll": "Selecciona-ho tot",
+    "filterByName": "Filtra per nom",
+    "closeSearch": "Tanca la cerca",
+    "search": "Cerca",
+    "changeSort": "Canvia l'ordenació",
+    "paste": "Enganxa {{count}}",
+    "upload": "Pujar",
+    "transfers2": "Transferències",
+    "more": "Més",
+    "nothingMatches": "Cap resultat",
+    "emptyFolder": "Carpeta buida",
+    "uploadFilesOrMakeA": "Puja fitxers o crea'n un de nou.",
+    "newFolder": "Carpeta nova",
+    "newFile": "Fitxer nou",
+    "select": "Selecciona",
+    "hideHiddenFiles": "Amaga els fitxers ocults",
+    "showHiddenFiles": "Mostra els fitxers ocults",
+    "trash": "Paperera",
+    "folderProperties": "Propietats de la carpeta",
+    "refresh": "Actualitza",
+    "rename2": "Canvia el nom de {{name}}",
+    "newLink": "Enllaç nou",
+    "aLinkInThatPoints": "Un enllaç a {{path}} que apunta a {{path2}}",
+    "name": "Nom",
+    "create": "Crea",
+    "copyHere": "Copia aquí",
+    "moveHere": "Mou aquí",
+    "fileViewer": {
+      "saved": "S'ha desat {{name}}",
+      "couldNotSaveTheFile": "No s'ha pogut desar el fitxer",
+      "discardChanges": "Vols descartar els canvis?",
+      "hasChangesThatAreNot": "{{name}} té canvis que no s'han desat.",
+      "discard": "Descartar",
+      "readOnly": "{{path}} | només lectura",
+      "find": "Cercar",
+      "smallerText": "Text més petit",
+      "biggerText": "Text més gran",
+      "turnOffLineWrap": "Desactivar el retorn automàtic de línia",
+      "wrapLines": "Retorn automàtic de línia",
+      "save": "Desa"
+    },
+    "hostSection": {
+      "startIn": "Inicia a",
+      "theFolderTheFileManager": "La carpeta on s'obre el gestor de fitxers primer",
+      "files": "Fitxers"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Ves a {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Més accions",
+        "moreFor": "Més per a {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Permisos",
+      "cancel": "Cancel·la",
+      "apply": "Aplica ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "No s'ha pogut obrir",
+      "openWith": "Obre amb",
+      "share": "Comparteix"
+    },
+    "propertiesView": {
+      "properties": "Propietats",
+      "path": "Camí",
+      "type": "Tipus",
+      "pointsTo": "Apunta a",
+      "size": "Mida",
+      "countFolderSize": "Calcula la mida de la carpeta",
+      "permissions": "Permisos",
+      "change": "Canvia",
+      "owner": "Propietari",
+      "group": "Grup",
+      "modified": "Modificat",
+      "opened": "Obert",
+      "linkToA": "Enllaç a un {{value}}",
+      "notShownForFolders": "No es mostra per a carpetes",
+      "file": "Fitxer",
+      "folder": "Carpeta",
+      "link": "Enllaç"
+    },
+    "register": {
+      "fileManager": "Gestor de fitxers",
+      "files": "Fitxers",
+      "browseEditAndMoveFiles": "Navega, edita i mou fitxers",
+      "files2": "FITXERS",
+      "fileManagerAndTransfers": "Gestor de fitxers i transferències"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "La transferència ha fallat"
+      },
+      "transfersPanel": {
+        "pause": "Pausa",
+        "resume": "Reprèn",
+        "tryAgain": "Torna-ho a provar",
+        "open": "Obre",
+        "cancel": "Cancel·la",
+        "transfers": "Transferències",
+        "goingOf": "{{active}} en curs | {{done}} de {{total}}",
+        "clearFinished": "Neteja les finalitzades",
+        "cancelAll": "Cancel·la-ho tot",
+        "noTransfersYet": "Encara no hi ha transferències",
+        "waiting": "En espera",
+        "paused": "En pausa",
+        "done": "Finalitzat",
+        "failed": "Ha fallat",
+        "cancelled": "Cancel·lat"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "No s'ha pogut carregar la paperera",
+      "restored": "S'ha restaurat {{name}}",
+      "failedToRestore": "No s'ha pogut restaurar",
+      "failedToDelete": "No s'ha pogut suprimir",
+      "trashEmptied": "S'ha buidat la paperera",
+      "failedToEmptyTrash": "No s'ha pogut buidar la paperera",
+      "trash": "Paperera",
+      "itemsAreRemovedAfterDays": "Els elements s'eliminen al cap de {{retentionDays}} dies",
+      "close": "Tanca",
+      "emptyTrash": "Buida la paperera",
+      "trashIsEmpty": "La paperera és buida",
+      "restore": "Restaura {{name}}",
+      "deleteForGood": "Suprimeix {{name}} definitivament"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Ara mateix"
+      }
+    },
+    "getting": "S'està obtenint {{name}}",
+    "itemCount_one": "{{count}} element",
+    "itemCount_many": "{{count}} elements",
+    "itemCount_other": "{{count}} elements",
+    "copiedWhat": "S'ha copiat {{what}}",
+    "movedWhat": "S'ha mogut {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} té més de {{limit}} fitxers. Descarrega carpetes més petites."
+    },
+    "downloadingToFilesOnMyIpad": "S'està descarregant a Fitxers, Al meu iPad, Termix",
+    "size": "Mida",
+    "date": "Data"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Enllaços de serveis",
+      "openInHomepage": "Obre a Homepage",
+      "thisWidgetOnlyShowsOn": "Aquest giny només es mostra a la pàgina completa."
+    },
+    "register": {
+      "serviceLinks": "Enllaços de serveis",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "No s'ha configurat cap canal.",
+        "couldNotLoadTheFeed": "No s'ha pogut carregar el canal.",
+        "theFeedIsEmpty": "El canal és buit.",
+        "noLocationSet": "No s'ha configurat cap ubicació.",
+        "couldNotLoadTheWeather": "No s'ha pogut carregar el temps.",
+        "noUrlSet": "No s'ha configurat cap URL.",
+        "couldNotLoadTheData": "No s'han pogut carregar les dades.",
+        "noPictureSet": "No s'ha configurat cap imatge.",
+        "badResponse": "resposta incorrecta"
+      },
+      "services": "Serveis",
+      "service": "Servei",
+      "serviceLinks": "Enllaços de serveis",
+      "bookmarks": "Adreces d'interès",
+      "links2": "Enllaços",
+      "search": "Cerca",
+      "clock": "Rellotge",
+      "countdown": "Compte enrere",
+      "calendar": "Calendari",
+      "notes": "Notes",
+      "banner": "Bàner",
+      "ping": "Ping",
+      "host": "Amfitrió",
+      "hosts": "Amfitrions",
+      "quickConnect": "Connexió ràpida",
+      "feed": "Canal",
+      "weather": "Temps",
+      "customApi": "API personalitzada",
+      "picture": "Imatge",
+      "widget": "Giny",
+      "links": {
+        "noServicesYet": "Encara no hi ha serveis.",
+        "noLinkSet": "No s'ha configurat cap enllaç.",
+        "noLinksYet": "Encara no hi ha enllaços.",
+        "noSearchEngineSet": "No s'ha configurat cap motor de cerca.",
+        "search": "Cerca",
+        "noShortcutsYet": "Encara no hi ha dreceres.",
+        "search2": "Cerca {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "No s'ha pogut obrir l'enllaç"
+      },
+      "status": {
+        "noUrlsYet": "Encara no hi ha URL.",
+        "down": "Inactiu",
+        "noHostsPicked": "No s'ha seleccionat cap amfitrió."
+      },
+      "text": {
+        "noNotesYet": "Encara no hi ha notes.",
+        "noTextYet": "Encara no hi ha text."
+      },
+      "time": {
+        "noDateSet": "No s'ha establert cap data.",
+        "timeIsUp": "S'ha acabat el temps"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "No s'ha pogut desar el valor predeterminat",
+    "couldNotResetTheDefault": "No s'ha pogut restablir el valor predeterminat",
+    "back": "Enrere",
+    "hostDefaults": "Valors predeterminats de l'amfitrió",
+    "newHostsStartFromThese": "Els nous amfitrions comencen amb aquests",
+    "managedOnTheServer": "Gestionat al servidor",
+    "defaultsForThisServerAre": "Els valors predeterminats d'aquest servidor es configuren a l'aplicació web.",
+    "level": "Nivell",
+    "yourDefaultsOrOneFolder": "Els teus valors predeterminats o els d'una carpeta",
+    "myDefaults": "Els meus valors predeterminats",
+    "theServerSets": " El servidor estableix {{adminCount}}.",
+    "aFolderWinsOverYour": "Una carpeta té prioritat sobre les teves configuracions predeterminades, i les teves predeterminades tenen prioritat sobre les del servidor. Un amfitrió manté qualsevol valor que hi hagis definit directament.{{value}}",
+    "save": "Desa",
+    "authentication": "Autenticació",
+    "none": "Cap",
+    "reset": "Restableix",
+    "model": {
+      "username": "Nom d'usuari",
+      "sshPort": "Port SSH",
+      "authentication": "Autenticació",
+      "aSavedCredentialForNew": "Una credencial desada per als nous amfitrions",
+      "forceKeyboardInteractive": "Força l'interactiu per teclat",
+      "keepaliveInterval": "Interval de keepalive",
+      "seconds0TurnsItOff": "Segons, 0 el desactiva",
+      "keepaliveTries": "Intents de keepalive",
+      "allowOldAlgorithms": "Permet algoritmes antics",
+      "agentForwarding": "Reenviament d'agent",
+      "environmentVariables": "Variables d'entorn",
+      "oneNameValuePerLine": "Un NOM=valor per línia",
+      "checkIfTheHostIs": "Comprova si l'amfitrió està actiu",
+      "checkInterval": "Interval de comprovació",
+      "secondsEmptyUsesTheServer": "Segons, buit utilitza el del servidor",
+      "socks5Proxy": "Proxy SOCKS5",
+      "setInTheWebApp": "Configurat a l'aplicació web",
+      "jumpHosts": "Amfitrions de salt",
+      "portKnocking": "Port knocking",
+      "notSet": "No configurat",
+      "fromTheServer": "Del servidor",
+      "fromYourDefaults": "Dels teus valors predeterminats",
+      "builtIn": "Integrat"
+    },
+    "register": {
+      "hostDefaults": "Valors predeterminats de l'amfitrió",
+      "portUserAndOptionsFor": "Port, usuari i opcions per als nous amfitrions"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Encara no hi ha dades",
+      "cpu": "CPU",
+      "memory": "Memòria",
+      "disk": "Disc",
+      "history": "Historial",
+      "loading": "S'està carregant..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "No s'han pogut llegir les mètriques",
+      "metrics": "Mètriques",
+      "cpu": "CPU",
+      "memory": "Memòria",
+      "disk": "Disc",
+      "noRecentSampleOpenThe": "No hi ha mostres recents. Obre les mètriques de l'amfitrió per iniciar-ne una."
+    },
+    "register": {
+      "enableMetrics": "Habilita les mètriques",
+      "cpuMemoryDiskAndNetwork": "CPU, memòria, disc i xarxa per SSH",
+      "hostMetrics": "Mètriques de l'amfitrió",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Mètriques",
+      "cpuMemoryDiskAndNetwork2": "CPU, memòria, disc i xarxa"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Mètriques de l'amfitrió | aquest {{deviceWord}}",
+      "hostMetrics": "Mètriques de l'amfitrió",
+      "ran": "S'ha executat {{name}}",
+      "loadingMetrics": "Carregant mètriques...",
+      "couldNotReadMetricsFrom": "No s'han pogut llegir les mètriques d'aquest amfitrió",
+      "failedToLoadMetrics": "No s'han pogut carregar les mètriques",
+      "thisSessionHasNoServer": "Aquesta sessió no té cap servidor",
+      "twoFactorRequiredForThis": "Es requereix autenticació de dos factors per a les estadístiques d'aquest amfitrió.",
+      "failedToStartMetrics": "No s'han pogut iniciar les mètriques",
+      "failedToRun": "No s'ha pogut executar {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Per nucli: {{value}}",
+        "cores": "Nuclis",
+        "load": "Càrrega",
+        "user": "Usuari",
+        "system": "Sistema",
+        "ioWait": "Espera d'E/S",
+        "steal": "Robat"
+      },
+      "diskWidget": {
+        "disk": "Disc {{mount}}",
+        "disk2": "Disc",
+        "used": "Utilitzat",
+        "total": "Total",
+        "free": "Lliure"
+      },
+      "firewallWidget": {
+        "firewall": "Tallafocs",
+        "rules": "{{type}} | {{ruleCount}} regles",
+        "noFirewallDetected": "No s'ha detectat cap tallafocs"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "Memòria",
+        "temp": "Temp.",
+        "power": "Potència",
+        "fan": "Ventilador"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Activitat d'inici de sessió",
+        "noLoginActivityRecorded": "No s'ha registrat cap activitat d'inici de sessió",
+        "logins": "Inicis de sessió",
+        "uniqueIps": "IPs úniques",
+        "failed": "Fallits",
+        "recent": "Recents"
+      },
+      "memoryWidget": {
+        "memory": "Memòria",
+        "used": "Utilitzat",
+        "total": "Total",
+        "cached": "En memòria cau",
+        "free": "Lliure"
+      },
+      "networkWidget": {
+        "network": "Xarxa",
+        "noInterfaces": "Cap interfície",
+        "up": "Pujada",
+        "down": "Baixada"
+      },
+      "portsWidget": {
+        "listeningPorts": "Ports escoltant",
+        "noListeningPorts": "Cap port escoltant"
+      },
+      "processesWidget": {
+        "sortBy": "Ordena per {{label}}",
+        "processes": "Processos",
+        "running": "{{value}} en execució | {{total}}",
+        "noProcessData": "Sense dades de processos",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "COMANDA"
+      },
+      "systemWidget": {
+        "system": "Sistema",
+        "hostname": "Nom d'amfitrió",
+        "os": "SO",
+        "kernel": "Nucli",
+        "arch": "Arquitectura",
+        "noSystemInfo": "Sense informació del sistema"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatura"
+      },
+      "uptimeWidget": {
+        "uptime": "Temps d'activitat"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Copiat amb la contrasenya",
+      "copiedTheLink": "Enllaç copiat",
+      "shareHost": "Compartir amfitrió",
+      "thatHostNoLongerExists": "Aquest amfitrió ja no existeix",
+      "scanThisInTermixOn": "Escaneja-ho a Termix en un altre {{deviceWord}}, a Importar i exportar. El codi conté l'adreça, el port i l'usuari. No conté contrasenya ni clau.",
+      "copyLink": "Copiar enllaç",
+      "copyLinkWithPassword": "Copiar enllaç amb contrasenya"
+    },
+    "includePasswordsAndKeys": "Incloure contrasenyes i claus?",
+    "anyoneWhoGetsThisFile": "Qualsevol persona que obtingui aquest fitxer pot iniciar sessió en aquests amfitrions. Guarda'l amb cura.",
+    "includeThem": "Incloure'ls",
+    "pickAtLeastOneHost": "Selecciona almenys un amfitrió",
+    "couldNotMakeTheFile": "No s'ha pogut crear el fitxer",
+    "copiedToTheClipboard": "Copiat al porta-retalls",
+    "importAndExport": "Importar i exportar",
+    "moveHostsInAndOut": "Moure amfitrions cap a dins i cap a fora",
+    "import": "Importar",
+    "aTermixHostFileAn": "Un fitxer d'amfitrió de Termix, un fitxer de configuració SSH o un enllaç o codi QR d'un amfitrió des d'un altre {{deviceWord}}.",
+    "export": "Exportar",
+    "allHosts": "Tots els amfitrions",
+    "picked": "{{size}} seleccionats",
+    "pickHosts": "Seleccionar amfitrions",
+    "includePasswordsAndKeys2": "Incloure contrasenyes i claus",
+    "offMakesAFileSafe": "Desactivat fa que el fitxer sigui segur per compartir. Els amfitrions que utilitzen una credencial desada hi fan referència pel nom",
+    "shareAFile": "Compartir un fitxer",
+    "copy": "Copiar",
+    "importPanel": {
+      "couldNotReadThat": "No s'ha pogut llegir",
+      "couldNotReadThatFile": "No s'ha pogut llegir aquest fitxer",
+      "importFailed": "Ha fallat la importació",
+      "chooseAFile": "Tria un fitxer",
+      "paste": "Enganxar",
+      "scanACode": "Escanejar un codi",
+      "couldNotBeRead": "{{count}} no s'han pogut llegir",
+      "updateHostsThatExist": "Actualitzar amfitrions que ja existeixen",
+      "sameAddressPortAndUser": "Mateixa adreça, port i usuari. En cas contrari, s'ometran",
+      "cancel": "Cancel·lar",
+      "import": "Importar",
+      "andMore": "i {{value}} més"
+    },
+    "qrCode": {
+      "qrCode": "Codi QR"
+    },
+    "register": {
+      "importAndExport": "Importar i exportar",
+      "moveHostsInOrOut": "Moure amfitrions cap a dins o cap a fora amb un fitxer o un codi QR",
+      "shareHost": "Compartir amfitrió"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Escanejar un codi d'amfitrió",
+      "pointTheCameraAtA": "Apunta la càmera a un codi QR d'amfitrió de Termix.",
+      "termixNeedsTheCameraTo": "Termix necessita la càmera per escanejar un codi. No es registra res.",
+      "allowTheCamera": "Permetre la càmera"
+    },
+    "read": {
+      "termixFile": "Fitxer de Termix",
+      "sshConfig": "Configuració SSH",
+      "thereIsNothingToImport": "No hi ha res per importar",
+      "thatIsNotATermix": "Això no és un enllaç d'amfitrió de Termix",
+      "linkHost": "1 amfitrió: {{name}}",
+      "sourceHosts_one": "{{what}} amb {{count}} amfitrió",
+      "sourceHosts_many": "{{what}} amb {{count}} amfitrions",
+      "sourceHosts_other": "{{what}} amb {{count}} amfitrions"
+    },
+    "saveYourTermixHosts": "Desa els teus amfitrions de Termix"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Fet",
+      "rejected": "Rebutjat",
+      "approvals": "Aprovacions",
+      "nothingIsWaiting": "No hi ha res en espera",
+      "actionsARuleHoldsFor": "Les accions que requereixen aprovació segons una regla s'hi mostren aquí.",
+      "approveAndRun": "Aprova i executa",
+      "reject": "Rebutja",
+      "couldNotLoadApprovals": "No s'han pogut carregar les aprovacions",
+      "couldNotDecide": "No s'ha pogut decidir"
+    },
+    "approvalsCard": {
+      "approved": "Aprovat",
+      "rejected": "Rebutjat",
+      "waitingForApproval": "En espera d'aprovació",
+      "approve": "Aprova",
+      "reject": "Rebutja",
+      "couldNotDecide": "No s'ha pogut decidir",
+      "seeAll": "Mostra-ho tot"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Això no es pot desfer. Vols executar-ho?",
+      "run": "Executa",
+      "sentForApproval": "Enviat per a aprovació",
+      "target": "Objectiu",
+      "theItemOnTheHost": "L'element a l'amfitrió, com ara un contenidor",
+      "dryRun": "Execució de prova",
+      "back": "Enrere",
+      "actions": "Accions",
+      "noActionsForThisHost": "No hi ha accions per a aquest amfitrió",
+      "turnOnAPluginLike": "Activa un complement com ara Docker o Serveis per a aquest amfitrió al servidor.",
+      "destructive": "Destructiu",
+      "changes": "Canvis",
+      "theActionCouldNotRun": "L'acció no s'ha pogut executar",
+      "couldNotLoadActions": "No s'han pogut carregar les accions"
+    },
+    "register": {
+      "actions": "Accions",
+      "waitingForApproval": "En espera d'aprovació",
+      "approvals": "Aprovacions",
+      "actionsWaitingForAPerson": "Accions en espera que una persona digui que sí",
+      "runHistory": "Historial d'execucions",
+      "everyActionAnyoneRanFrom": "Totes les accions que qualsevol ha executat, des de qualsevol dispositiu"
+    },
+    "runHistory": {
+      "cancelThisRun": "Vols cancel·lar aquesta execució?",
+      "cancelRun": "Cancel·la l'execució",
+      "keep": "Mantén",
+      "undoThisRun": "Vols desfer aquesta execució?",
+      "thisRunsTheActionS": "Això executa la desfer de l'acció amb la mateixa entrada.",
+      "undo": "Desfer",
+      "cancelled": "Cancel·lat",
+      "itAlreadyFinished": "Ja ha acabat",
+      "done": "Fet",
+      "runHistory": "Historial d'execucions",
+      "nothingHasRunYet": "Encara no s'ha executat res",
+      "dryRun": "Execució de prova",
+      "cancel": "Cancel·la",
+      "couldNotLoadHistory": "No s'ha pogut carregar l'historial",
+      "couldNotCancel": "No s'ha pogut cancel·lar",
+      "couldNotUndo": "No s'ha pogut desfer"
+    },
+    "api": {
+      "needsApproval": "Requereix aprovació",
+      "needsSignIn": "Requereix inici de sessió",
+      "done": "Fet",
+      "failed": "Ha fallat",
+      "running": "S'està executant",
+      "interrupted": "Interromput",
+      "rejected": "Rebutjat",
+      "cancelled": "Cancel·lat",
+      "expired": "Caducat"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Activa {{value}}",
+      "moreSettingsForThisAre": "Hi ha més configuracions per a això a l'aplicació web de Termix.",
+      "pluginHostSettings": "Configuració de l'amfitrió del connector"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} ha de ser un número",
+      "mustBeAtLeast": "{{field}} ha de ser com a mínim {{min}}",
+      "mustBeAtMost": "{{field}} ha de ser com a màxim {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Vincula un servidor per utilitzar-lo",
+      "runsOnYourTermixServer": "{{name}} s'executa al teu servidor Termix."
+    },
+    "pluginWebView": {
+      "canTLoad": "No es pot carregar {{name}}",
+      "theServerDidNotSend": "El servidor no ha enviat el connector. Comprova que està activat i torna-ho a provar.",
+      "openThisLink": "Vols obrir aquest enllaç?",
+      "open": "Obre",
+      "needsANewerVersionOf": "Cal una versió més recent de l'aplicació",
+      "usesPartsOfTermixThis": "{{name}} utilitza parts de Termix que aquesta aplicació encara no té.",
+      "didNotStart": "{{name}} no s'ha iniciat",
+      "thisScreenIsNotIn": "Aquesta pantalla no està a la versió del connector del servidor.",
+      "thePluginHitAnError": "El connector ha trobat un error en iniciar-se.",
+      "youReOffline": "Estàs fora de línia",
+      "runsOnYourServerSo": "{{name}} s'executa al teu servidor, per la qual cosa necessita una connexió. S'obrirà de nou quan tornis a estar en línia.",
+      "tryAgain": "Torna-ho a provar"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Aquest amfitrió encara no està a aquest {{deviceWord}}.",
+      "theAppCanTOpen": "L'aplicació no pot obrir això des d'ací.",
+      "thatHostIsNotOn2": "Aquest amfitrió encara no està a aquest {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Contrasenya",
+      "unchangedIfBlank": "Sense canvis si està buit",
+      "port": "Port",
+      "domain": "Domini",
+      "displaySoundAndClipboardSettings": "La configuració de la pantalla, el so i el porta-retalls es troba a l'aplicació web de Termix.",
+      "portMustBeFrom1": "El port de {{label}} ha de ser entre 1 i 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "S'ha perdut la connexió d'escriptori remot",
+        "signIn": "Inici de sessió de {{label}}",
+        "itWillNotBeSaved": "{{error}} No es desarà.",
+        "enterTheLoginForIt": "Introdueix les credencials d'inici de sessió per a {{title}}. No es desaran.",
+        "reconnecting": "Reconnectant {{label}}",
+        "connecting": "Connectant {{label}}",
+        "connectionFailed": "Ha fallat la connexió",
+        "disconnected": "Desconnectat",
+        "reconnect": "Reconnecta",
+        "connectThroughTheServer": "Connecta a través del servidor",
+        "pasteToRemote": "Enganxa al remot",
+        "typeClipboard": "Escriu el porta-retalls",
+        "copyRemoteClipboard": "Copia el porta-retalls remot",
+        "theComputerSCertificateWas": "El certificat de l'ordinador no era de confiança.",
+        "thatLoginWasRefusedTry": "Aquest inici de sessió s'ha rebutjat. Torna-ho a provar."
+      },
+      "target": {
+        "trustThisComputer": "Vols confiar en aquest ordinador?",
+        "theCanTCheckS": "Aquest {{deviceWord}} no pot verificar el certificat de {{hostName}}. Assegura't que aquesta empremta coincideix amb la de l'ordinador abans de continuar.\n\n{{fingerprint}}",
+        "trustAndConnect": "Confia i connecta",
+        "certificateChanged": "El certificat ha canviat",
+        "showsAnotherCertificateThanLast": "{{hostName}} mostra un certificat diferent de l'anterior. Això passa quan l'ordinador en genera un de nou o quan algú està interceptant la connexió.\n\nNova empremta:\n{{fingerprint}}",
+        "trustTheNewOne": "Confia en el nou"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Escriptori remot",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Maj",
+      "win": "Win",
+      "done": "Fet",
+      "keyboard": "Teclat",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Inici",
+      "end": "Fi",
+      "bksp": "Retroc.",
+      "del": "Supr",
+      "enter": "Retorn",
+      "fn": "Fn",
+      "settings": "Configuració",
+      "remoteSettings": "Configuració remota",
+      "mouseMode": "Mode del ratolí",
+      "touch": "Tàctil",
+      "trackpad": "Taqueta tàctil",
+      "tapWhereYouWantTo": "Toca on vulguis fer clic. Mantén premut per fer clic dret i arrossega per arrossegar.",
+      "dragToMoveThePointer": "Arrossega per moure el punter. Toca per fer clic, toca amb dos dits per fer clic dret i toca i arrossega per arrossegar.",
+      "zoomXPinchAnywhereTo": "Zoom: {{value}}x. Fes pinça en qualsevol lloc per fer zoom",
+      "reset": "Restableix",
+      "cancel": "Cancel·la",
+      "connect": "Connecta",
+      "username": "Nom d'usuari",
+      "domainOptional": "Domini (opcional)",
+      "domain": "Domini",
+      "password": "Contrasenya",
+      "leftArrow": "Fletxa esquerra",
+      "upArrow": "Fletxa amunt",
+      "downArrow": "Fletxa avall",
+      "rightArrow": "Fletxa dreta",
+      "rdpSignIn": "Inici de sessió RDP"
+    },
+    "theRemoteDesktopDropped": "S'ha tancat l'escriptori remot",
+    "theyWillNotBeSaved": "{{errorMessage}} No es desaran.",
+    "enterCredentialsForTheyWill": "Introdueix les credencials per a {{title}}. No es desaran.",
+    "connecting": "Connectant",
+    "connectionFailed": "Ha fallat la connexió",
+    "disconnected": "Desconnectat",
+    "reconnect": "Torna a connectar",
+    "route": {
+      "thisHostCanTOpen": "Aquest amfitrió no pot obrir un escriptori remot des d'aquí."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Bloquejat per l'aplicació"
+    },
+    "failedToStartRemoteSession": "No s'ha pogut iniciar la sessió remota",
+    "thatLoginWasRefusedTry": "S'ha rebutjat l'inici de sessió. Torna-ho a provar.",
+    "theRemoteRefusedTheSaved": "El remot ha rebutjat l'inici de sessió desat. Comprova l'inici de sessió RDP en aquest amfitrió.",
+    "remoteSessionFailed": "Ha fallat la sessió remota",
+    "remoteSessionReturnedAnInvalid": "La sessió remota ha retornat un missatge no vàlid",
+    "failedToLoadTheRemote": "No s'ha pogut carregar el client d'escriptori remot"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Cap registre",
+      "thisHostDoesNotKeep": "Aquest amfitrió no manté un registre de systemd.",
+      "all": "Tots",
+      "warnings": "Advertències",
+      "errors": "Errors",
+      "stop": "Atura",
+      "follow": "Segueix",
+      "nothingLogged": "Res registrat",
+      "tryAnotherLevel": "Prova un altre nivell.",
+      "couldNotReadTheJournal": "No s'ha pogut llegir el registre"
+    },
+    "register": {
+      "services": "Serveis",
+      "startStopAndReadLogs": "Iniciar, aturar i llegir registres"
+    },
+    "readingServices": "Llegint serveis...",
+    "thisHostHasNoSystemd": "Aquest amfitrió no té systemd ni OpenRC.",
+    "noServicesMatch": "Cap servei coincideix",
+    "noServicesFound": "No s'han trobat serveis",
+    "services": "Serveis",
+    "journal": "Registre",
+    "searchServices": "Cercar serveis...",
+    "all": "Tots",
+    "running": "En execució",
+    "failed": "Fallits ({{failed}})",
+    "failed2": "Fallit",
+    "servicesCard": {
+      "services": "Serveis",
+      "noSystemdOrOpenrc": "Sense systemd ni OpenRC",
+      "failed": "{{failed}} fallits",
+      "allRunning": "Tots en execució",
+      "couldNotReadServices": "No s'han pogut llegir els serveis"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Romandrà aturat fins que es torni a iniciar o fins que s'arrencui l'amfitrió.",
+      "itStopsForAMoment": "S'atura un moment i es reinicia.",
+      "stop": "Atura",
+      "restart": "Reinicia",
+      "is": "{{name}} està {{state}}",
+      "start": "Inicia",
+      "journal": "Registre",
+      "couldNotReadTheService": "No s'ha pogut llegir el servei",
+      "couldNot": "No s'ha pogut {{action}} {{name}}",
+      "startsAtBoot": "S'inicia a l'arrencada",
+      "mainPid": "PID principal",
+      "activeSince": "Actiu des de",
+      "unitFile": "Fitxer d'unitat",
+      "notSet": "[no configurat]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "No autenticat",
+        "followFailed": "Ha fallat el seguiment",
+        "connectionFailed": "Ha fallat la connexió"
+      }
+    },
+    "couldNotReadServices": "No s'han pogut llegir els serveis",
+    "services2": "Serveis{{where}}",
+    "title": "Serveis",
+    "failedCount": "{{count}} fallits"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Compartició de sessions",
+      "shareLink": "Compartir enllaç"
+    },
+    "shareSessionView": {
+      "canWatch": "Pot veure",
+      "canType": "Pot escriure",
+      "n1Hour": "1 hora",
+      "n8Hours": "8 hores",
+      "n1Day": "1 dia",
+      "n7Days": "7 dies",
+      "never": "Mai",
+      "shareSession": "Compartir sessió",
+      "anyoneWithTheLinkCan": "Qualsevol persona amb l'enllaç pot obrir aquest terminal mentre s'estigui executant. Pots revocar els enllaços a Termix.",
+      "peopleWithTheLink": "Persones amb l'enllaç",
+      "expiresAfter": "Caduca després de",
+      "link": "Enllaç",
+      "copy": "Copia",
+      "share": "Comparteix",
+      "makeLink": "Crea enllaç",
+      "theServerGaveNoLink": "El servidor no ha proporcionat cap enllaç",
+      "couldNotMakeALink": "No s'ha pogut crear un enllaç",
+      "linkCopied": "Enllaç copiat"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Sense carpeta"
+    },
+    "hostPicker": {
+      "selectNone": "Desselecciona tot",
+      "selectAll": "Selecciona-ho tot",
+      "done": "Fet"
+    },
+    "register": {
+      "snippets": "Fragments",
+      "snippets2": "FRAGMENTS",
+      "savedCommandsToRunOn": "Ordres desades per executar en qualsevol amfitrió"
+    },
+    "runHosts": {
+      "noWayToReachThis": "No hi ha manera d'arribar a aquest amfitrió des d'ací",
+      "exitedWith": "Ha sortit amb {{exitCode}}",
+      "thisCanTRunIt": "Aquest {{deviceWord}} no pot executar-ho",
+      "noServerIsLinked": "Cap servidor està enllaçat"
+    },
+    "runOnHostsSheet": {
+      "run": "Executa",
+      "run2": "Executa «{{name}}»",
+      "runsOverSshOnEach": "S'executa per SSH en cada amfitrió. No s'obre cap terminal.",
+      "close": "Tanca",
+      "hosts": "Amfitrions",
+      "pickHosts": "Tria amfitrions",
+      "workedFailed": "{{value}} ha funcionat, {{failed}} ha fallat",
+      "runOn2": "Executa en",
+      "runOn_one": "Executar {{name}} en {{count}} amfitrió?",
+      "runOn_many": "Executar {{name}} en {{count}} amfitrions?",
+      "runOn_other": "Executar {{name}} en {{count}} amfitrions?",
+      "hostsPicked_one": "{{count}} amfitrió seleccionat",
+      "hostsPicked_many": "{{count}} amfitrions seleccionats",
+      "hostsPicked_other": "{{count}} amfitrions seleccionats"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Cerca fragments",
+      "pastesTheNote": "Enganxa la nota",
+      "runsTheSnippet": "Executa el fragment",
+      "noSnippetsMatch": "Cap fragment coincideix",
+      "noSnippetsYet": "Encara no hi ha fragments",
+      "addSnippetsInSettingsSnippets": "Afegeix fragments a Configuració, Fragments",
+      "run": "Executa",
+      "insertWithoutRunning": "Insereix sense executar",
+      "copy": "Copia"
+    },
+    "snippetsCard": {
+      "snippets": "Fragments",
+      "run": "Executa {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "No hi ha fragments per exportar",
+      "couldNotMakeTheFile": "No s'ha pogut crear el fitxer",
+      "copiedToTheClipboard": "Copiat al porta-retalls",
+      "couldNotImport": "No s'ha pogut importar",
+      "couldNotReadThatFile": "No s'ha pogut llegir aquest fitxer",
+      "importAndExport": "Importa i exporta",
+      "theSameFileTheWeb": "El mateix fitxer que utilitza l'aplicació web.",
+      "export": "Exporta",
+      "shareAFile": "Comparteix un fitxer",
+      "copy": "Copia",
+      "import": "Importa",
+      "updateSnippetsThatExist": "Actualitza els fragments que ja existeixen",
+      "sameNameInTheSame": "El mateix nom en la mateixa carpeta. En cas contrari, s'ometen",
+      "chooseAFile": "Tria un fitxer",
+      "paste": "Enganxa",
+      "saveYourSnippets": "Desa els teus fragments"
+    },
+    "useSnippetRunner": {
+      "run": "Executar {{name}}?",
+      "run2": "Executa",
+      "fillInTheValuesFor": "Ompla els valors d'aquest fragment.",
+      "cancel": "Cancel·la",
+      "insert": "Insereix",
+      "noTerminalIsOpen": "Cap terminal està oberta"
+    },
+    "variables": {
+      "input": "Entrada {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Això no és un fitxer JSON vàlid",
+      "theFileNeedsASnippets": "El fitxer necessita una llista de fragments o carpetes",
+      "snippetNameAndContentAre": "Fragment {{value}}: el nom i el contingut són obligatoris",
+      "folder": "Carpeta {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "S'estan carregant els dispositius de Tailscale…",
+      "searchTailscaleDevices": "Cerca dispositius de Tailscale…",
+      "searchTailscaleDevices2": "Cerca dispositius Tailscale",
+      "clearDeviceSearch": "Esborra la cerca de dispositius",
+      "refreshTailscaleDevices": "Actualitza els dispositius Tailscale",
+      "device": "Dispositiu",
+      "noTailnetAddress": "Sense adreça tailnet",
+      "tailscaleDevice": "Dispositiu Tailscale",
+      "tailscaleDevices": "Dispositius Tailscale",
+      "addAHostThatConnects": "Afegeix un host que es connecti amb Tailscale SSH.",
+      "username": "Nom d'usuari",
+      "sshUsernameFor": "Nom d'usuari SSH per a {{value}}",
+      "addHost": "Afegeix host",
+      "noTailscaleDevicesMatchYour": "Cap dispositiu Tailscale coincideix amb la cerca.",
+      "noTailscaleDevicesFound": "No s'han trobat dispositius Tailscale.",
+      "noTailscaleApiKeyIs": "No hi ha cap clau API de Tailscale configurada en aquest servidor. Demana a un administrador que n'afegeixi una.",
+      "youDoNotHavePermission": "No tens permís per llistar dispositius Tailscale.",
+      "couldNotLoadTailscaleDevices": "No s'han pogut carregar els dispositius Tailscale. Actualitza per tornar-ho a provar.",
+      "tailscaleIsUnavailableOnThis": "Tailscale no està disponible en aquest servidor."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Reconnectant | intent {{attempt}}",
+      "reconnectingInSTry": "Reconnectant en {{secs}}s | intent {{attempt}}",
+      "offlineWaitingForNetwork": "Desconnectat, esperant la xarxa",
+      "sendToTheNewShell": "Enviar {{what}} al nou shell?",
+      "reconnectNow": "Reconnecta ara",
+      "send": "Envia",
+      "discard": "Descarta",
+      "typedChars_one": "{{count}} caràcter escrit",
+      "typedChars_many": "{{count}} caràcters escrits",
+      "typedChars_other": "{{count}} caràcters escrits",
+      "waiting": "{{what}} en espera"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Registre de connexió copiat",
+      "connectionLog": "Registre de connexió",
+      "copyItIntoABug": "Copia'l en un informe d'error. Les adreces i els noms d'usuari s'ometen.",
+      "copy": "Copia"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Vols esborrar l'historial d'aquest host?",
+        "clear": "Esborra",
+        "searchHistory": "Cerca a l'historial",
+        "typesTheCommandWithoutRunning": "Escriu l'ordre sense executar-la",
+        "noCommandsMatch": "Cap ordre coincideix",
+        "noHistoryYet": "Encara no hi ha historial",
+        "commandsYouRunOnThis": "Les ordres que executis en aquest host apareixeran aquí",
+        "run": "Executa",
+        "typeWithoutRunning": "Escriu sense executar",
+        "copy": "Copia",
+        "delete": "Suprimeix",
+        "historyCleared": "Historial esborrat"
+      },
+      "suggestionStrip": {
+        "use": "Fes servir {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Configuració de l'aplicació",
+      "delete": "Suprimeix (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Títol de la pestanya des del shell",
+      "programsCanSetTheTab": "Els programes poden establir el títol de la pestanya",
+      "openTmux": "Obre tmux",
+      "attachToATmuxSession": "Uneix-te a una sessió de tmux o inicia'n una",
+      "reconnectOnDrop": "Reconnecta en caure",
+      "keepTabOpenOnExit": "Mantén la pestanya oberta en sortir",
+      "pressEnterToConnectAgain": "Prem Retorn per connectar de nou",
+      "saveCommandHistory": "Desa l'historial d'ordres",
+      "offerToFillPasswordPrompts": "Ofereix omplir els camps de contrasenya",
+      "offerToFillSudoPrompts": "Ofereix omplir els camps de sudo",
+      "usesTheSudoPasswordFrom": "Utilitza la contrasenya de sudo de la pestanya SSH",
+      "none": "Cap",
+      "look": "Aparença",
+      "theme": "Tema",
+      "font": "Tipus de lletra",
+      "cursor": "Cursor",
+      "bell": "Campana",
+      "scrollbackLines": "Línies de desplaçament",
+      "app": "Aplicació",
+      "behavior": "Comportament",
+      "backspaceSends": "Retrocés envia",
+      "startupSnippet": "Fragment d'inici",
+      "runsOnceTheShellIs": "S'executa un cop el shell està llest",
+      "fillWithoutAsking": "Omplir sense preguntar",
+      "onThisOnlyOnceYou": "Només en aquest {{deviceWord}}, un cop hagueu seleccionat «Omplir sempre»",
+      "connection": "Connexió",
+      "keepalive": "Manteniment de connexió",
+      "secondsBetweenPings0Turns": "Segons entre pings, 0 el desactiva",
+      "default": "Predeterminat",
+      "keepaliveSeconds": "Segons de manteniment de connexió",
+      "missedPings": "Pings perduts",
+      "dropTheConnectionAfterThis": "Tanca la connexió després d'aquest nombre sense resposta",
+      "missedPingsBeforeDrop": "Pings perduts abans de tancar",
+      "environment": "Entorn",
+      "removeVariable": "Elimina la variable",
+      "addVariable": "Afegeix una variable"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "TECLAT"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Fila",
+        "keys": "Teclat",
+        "sendsAKeyCode": "Envia un codi de tecla",
+        "stickyModifier": "Modificador enganxós",
+        "appAction": "Acció de l'aplicació",
+        "tmuxPrefixThen": "Prefix de tmux, després {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Files de teclat",
+        "onlyFor": "Només per a {{name}}",
+        "usingTheAppSRows": "S'estan utilitzant les files de l'aplicació. Els canvis aquí són només per a {{name}}",
+        "useTheAppSRows": "Utilitza les files de l'aplicació"
+      },
+      "keyButton": {
+        "locked": "Bloquejat"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Cancel·la",
+        "remove": "Vols eliminar {{what}}?",
+        "remove2": "Elimina",
+        "dragToReorder": "Arrossega per reordenar",
+        "rowName": "Nom de la fila",
+        "groupName": "Nom del grup",
+        "add": "Afegeix",
+        "addKey": "Afegeix una tecla",
+        "addRow": "Afegeix una fila",
+        "addGroup": "Afegeix un grup",
+        "tmuxPrefix": "Prefix de tmux",
+        "name": "Nom",
+        "rename": "Canvia el nom",
+        "keys": "{{value}} tecles",
+        "noKeys": "Cap tecla",
+        "remove3": "Elimina {{label}}",
+        "keys2": "Tecles",
+        "custom": "Personalitzat",
+        "add2": "Afegeix {{label}}",
+        "typeText": "Escriu text",
+        "runCommand": "Executa l'ordre",
+        "ctrlKey": "Tecla Ctrl",
+        "label": "Etiqueta",
+        "optional": "Opcional",
+        "letter": "Lletra",
+        "command": "Comanda",
+        "text": "Text",
+        "resetToDefault": "Restablir als valors predeterminats"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Canvia les tecles a Configuració, Teclat"
+      },
+      "keyRowBar": {
+        "keyRow": "Fila de tecles {{label}}",
+        "tapForTheNextRow": "Toca per a la següent fila, mantén premut per triar-ne una",
+        "keyRows": "Files de tecles"
+      },
+      "model": {
+        "clear": "Esborrar",
+        "main": "Principal",
+        "keys": "Tecles",
+        "arrows": "Fletxes",
+        "symbols": "Símbols",
+        "actions": "Accions",
+        "nav": "Navegació",
+        "move": "Moure",
+        "function": "Funció",
+        "brackets": "Claudàtors",
+        "punctuation": "Puntuació",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Panells",
+        "copy": "Copia",
+        "split": "Divideix ─",
+        "split2": "Divideix │",
+        "newWin": "Fin. nova",
+        "prevWin": "Fin. ant.",
+        "nextWin": "Fin. seg.",
+        "pane": "Panell ←",
+        "pane2": "Panell ↓",
+        "pane3": "Panell ↑",
+        "pane4": "Panell →",
+        "copyMode": "Mode de còpia",
+        "pasteBuf": "Enganxa buf.",
+        "killPane": "Tanca panell"
+      }
+    },
+    "output": {
+      "openLink": "Obrir l'enllaç?",
+      "open": "Obrir",
+      "pasteLines": "Enganxar {{lines}} línies?",
+      "pasteThisText": "Enganxar aquest text?",
+      "theShellMayRunIt": "El shell pot executar-lo immediatament.\n\n{{text}}",
+      "paste": "Enganxar",
+      "letTheProgramReadYour": "Permetre que el programa llegeixi el porta-retalls?",
+      "itAskedForWhatYou": "Ha demanat l'últim text que has copiat.",
+      "allow": "Permetre",
+      "letTheProgramCopyTo": "Permetre que el programa copiï al porta-retalls?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Omplir la contrasenya desada?",
+      "asksForTheSudoPassword": "{{hostName}} demana la contrasenya de sudo.",
+      "asksForAPassword": "{{hostName}} demana una contrasenya.",
+      "fillPassword": "Omplir contrasenya",
+      "alwaysFillOnThisHost": "Omplir sempre en aquest host",
+      "asksNoMoreOnThis": "No preguntarà més en aquest {{deviceWord}}. Pots desactivar-ho a la pestanya Terminal de l'host.",
+      "notNow": "Ara no"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal i manteniment de connexió",
+      "history": "HISTORIAL",
+      "find": "Cercar",
+      "tmuxWindows": "finestres de tmux",
+      "connectionLog": "Registre de connexió",
+      "keyRowsForThisHost": "Files de tecles per a aquest host"
+    },
+    "searchBar": {
+      "noResults": "Sense resultats",
+      "matchCase": "Coincidència de majúscules i minúscules",
+      "wholeWord": "Paraula sencera",
+      "regularExpression": "Expressió regular",
+      "find": "Cerca",
+      "closeFind": "Tanca la cerca"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Sistema",
+      "block": "Bloc",
+      "bar": "Barra",
+      "underline": "Subratllat",
+      "off": "Desactivat",
+      "sound": "So",
+      "flash": "Flash",
+      "both": "Tots dos"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Nova pestanya en aquest host",
+      "closeTab": "Tanca la pestanya",
+      "nextTab": "Pestanya següent",
+      "previousTab": "Pestanya anterior",
+      "goToTab": "Ves a la pestanya",
+      "find": "Cerca",
+      "fontSize": "Mida de la font",
+      "paste": "Enganxa",
+      "escape": "Escapa",
+      "copyAndPaste": "Copia i enganxa"
+    },
+    "reconnecting": "Reconnectant...",
+    "waitingForNetwork": "Esperant la xarxa...",
+    "waitingForYou": "Esperant-te...",
+    "connecting": "Connectant...",
+    "terminalView": {
+      "scrollToBottom": "Desplaça fins al final",
+      "onlyWebLinksCanOpen": "Només es poden obrir enllaços web des del terminal",
+      "couldNotOpenLink": "No s'ha pogut obrir l'enllaç",
+      "copiedFromTheTerminal": "Copiat des del terminal"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Obre una sessió de tmux",
+        "newSession": "Nova sessió",
+        "plainShell": "Intèrpret d'ordres senzill",
+        "tmuxWindows": "finestres de tmux",
+        "newWindow": "Nova finestra",
+        "windowCount_one": "{{count}} finestra",
+        "windowCount_many": "{{count}} finestres",
+        "windowCount_other": "{{count}} finestres",
+        "attached": "{{count}} adjuntat",
+        "activeNow": "activa ara",
+        "activeMinAgo": "activa fa {{count}} min",
+        "activeHoursAgo": "activa fa {{count}} h",
+        "activeDaysAgo_one": "activa fa {{count}} dia",
+        "activeDaysAgo_many": "activa fa {{count}} dies",
+        "activeDaysAgo_other": "activa fa {{count}} dies"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Copia",
+        "selectAll": "Selecciona-ho tot",
+        "cancel": "Cancel·la",
+        "scrollToBottom": "Desplaça fins al final",
+        "couldNotCopy": "No s'ha pogut copiar",
+        "webviewError": "Error de WebView: {{description}}",
+        "webviewHttpError": "Error HTTP de WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "No hi ha cap contrasenya desada per a aquest host",
+    "backInTmuxSession": "Tornant a la sessió de tmux {{tmuxName}}",
+    "backInScreenSession": "Tornant a la sessió de screen {{name}}",
+    "theServerSessionEndedThis": "La sessió del servidor ha finalitzat. Aquest és un intèrpret d'ordres nou.",
+    "termixWasClosedSoThe": "Termix s'ha tancat, per la qual cosa l'intèrpret d'ordres anterior ha finalitzat. Aquest és un intèrpret d'ordres nou.",
+    "theConnectionDroppedAndThe": "La connexió s'ha interromput i l'intèrpret d'ordres anterior ha finalitzat. Aquest és un intèrpret d'ordres nou.",
+    "disconnectedFrom": "Desconnectat de {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Autenticació de dos factors",
+      "codesFromAnAuthenticatorApp": "Còdigs d'una aplicació autenticadora per al vostre compte del servidor"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "Adreça MAC",
+      "neededToWakeThisHost": "Necessària per despertar aquest amfitrió amb Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Utilitzeu una adreça MAC com 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN enviat a {{name}}",
+      "failedToSendWakeOn": "No s'ha pogut enviar el paquet Wake-on-LAN",
+      "noServer": "Sense servidor"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Desperta {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Voleu compartir estadístiques d'ús anònimes?",
+      "termixWouldSendAShort": "Termix enviaria un informe breu un cop al dia. Podeu canviar-ho en qualsevol moment a Configuració.",
+      "noThanks": "No, gràcies",
+      "share": "Compartir",
+      "theReportHasTheApp": "L'informe inclou la versió de l'aplicació, el tipus de {{deviceWord}}, recomptes aproximats d'amfitrions i sessions, les funcions que utilitzeu i si la connexió ha funcionat. Mai inclou noms d'amfitrió, noms d'usuari, adreces, rutes, comandes ni noms de servidor.",
+      "seeExactlyWhatIsSent": "Veure exactament què s'envia"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Carregant informació de la versió…",
+      "updateAvailable": "Actualització disponible",
+      "newVersionAvailable": "Hi ha una nova versió disponible",
+      "aNewerVersionOfThe": "Hi ha una versió més recent de l'aplicació mòbil disponible. És possible que algunes funcions no funcionin correctament fins que actualitzeu.",
+      "versionInformation": "Informació de la versió",
+      "installed": "Instal·lada",
+      "latest": "Última",
+      "unknown": "Desconeguda",
+      "tag": "Etiqueta",
+      "continueAnyway": "Continuar de totes maneres"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Copiat",
+      "copy": "Copia",
+      "hostKeyChanged": "La clau de l'amfitrió ha canviat",
+      "verifyHostKey": "Verifiqueu la clau de l'amfitrió",
+      "cancel": "Cancel·la",
+      "acceptNewKey": "Accepta la nova clau",
+      "connectAndTrust": "Connecta i confia",
+      "theHostSSshKey": "La clau SSH de l'amfitrió ha canviat des de la vostra última connexió. Això podria significar que algú està interceptant la connexió.",
+      "youAreConnectingToThis": "Us esteu connectant a aquest amfitrió per primera vegada. Comproveu l'empremta digital abans de confiar-hi.",
+      "previousKey": "Clau anterior",
+      "newFingerprint": "Nova empremta digital",
+      "hostFingerprint": "Empremta digital de l'amfitrió"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Cal la frase de contrasenya",
+      "enterThePassphraseForYour": "Introduïu la frase de contrasenya de la vostra clau SSH.",
+      "cancel": "Cancel·la",
+      "connect": "Connecta",
+      "keyPassphrase": "Frase de contrasenya de la clau"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Cal l'autenticació SSH",
+      "cancel": "Cancel·la",
+      "connect": "Connecta",
+      "password": "Contrasenya",
+      "sshKey": "Clau SSH",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nEnganxeu aquí la vostra clau privada...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Frase de contrasenya de la clau (opcional)",
+      "keyboardInteractiveAuthIsNot": "L'autenticació interactiva per teclat no està disponible. Introduïu les credencials directament.",
+      "authenticationFailedPleaseReEnter": "Ha fallat l'autenticació. Torneu a introduir les credencials.",
+      "connectionTimedOutPleaseTry": "La connexió ha caducat. Torneu-ho a provar amb les vostres credencials."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Comprovació SSH de Tailscale",
+      "completeTheTailscaleSshCheck": "Completeu la comprovació SSH de Tailscale al navegador per continuar.",
+      "cancel": "Cancel·la",
+      "copyUrl": "Copia l'URL",
+      "openBrowser": "Obre el navegador",
+      "urlCopied": "URL copiada",
+      "failedToCopy": "No s'ha pogut copiar",
+      "couldNotOpenBrowser": "No s'ha pogut obrir el navegador"
+    },
+    "tOTPDialog": {
+      "cancel": "Cancel·la",
+      "submit": "Envia",
+      "verify": "Verifica",
+      "password": "Contrasenya",
+      "pasteCode": "Enganxa el codi",
+      "passwordRequired": "Cal la contrasenya",
+      "twoFactorAuthentication": "Autenticació de dos factors",
+      "enterYourPasswordToContinue": "Introdueix la teva contrasenya per continuar.",
+      "enterThe6DigitCode": "Introdueix el codi de 6 xifres de la teva aplicació d'autenticació."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Autenticació de Warpgate",
+      "authenticateViaTheWarpgatePortal": "Autentica't a través del portal de Warpgate i, a continuació, toca Continua.",
+      "cancel": "Cancel·la",
+      "openBrowser": "Obre el navegador",
+      "continue": "Continua",
+      "securityKey": "Clau de seguretat",
+      "authUrl": "URL d'autenticació",
+      "copied": "Copiat",
+      "copy": "Copia",
+      "urlCopied": "URL copiada",
+      "failedToCopy": "No s'ha pogut copiar",
+      "couldNotOpenBrowser": "No s'ha pogut obrir el navegador"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "aquest {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Activitat recent",
+        "files": "Fitxers",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Notificacions",
+        "seeAll": "Mostra-ho tot"
+      },
+      "server": "Servidor",
+      "openSessions": "Sessions obertes",
+      "quickAccess": "Accés ràpid",
+      "notifications": "Notificacions",
+      "pinnedHosts": "Amfitrions fixats",
+      "recentHosts": "Amfitrions recents",
+      "recentActivity": "Activitat recent",
+      "pinnedCard": {
+        "addYourFirstHost": "Afegeix el teu primer amfitrió",
+        "hostsYouOpenShowUp": "Els amfitrions que obres apareixen aquí i els amfitrions fixats mostren targetes en directe.",
+        "addHost": "Afegeix un amfitrió",
+        "linkAServer": "Vincula un servidor",
+        "pinAHostToSee": "Fixa un amfitrió per veure'l aquí",
+        "pinnedHostsShowTheirMetrics": "Els amfitrions fixats mostren les seves mètriques, Docker i serveis d'un cop d'ull. Mantén premut un amfitrió per fixar-lo.",
+        "goToHosts": "Ves als amfitrions",
+        "pinned": "Fixat",
+        "opensTheTerminalHoldFor": "Obre la terminal. Mantén premut per a més opcions.",
+        "turnOnDockerOrServices": "Activa Docker o Serveis per a aquest amfitrió o toca'l per connectar-te.",
+        "opens": "Obre {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Accés ràpid",
+        "quickConnect": "Connexió ràpida",
+        "userHostPortWithoutSaving": "usuari@amfitrió:port, sense desar"
+      },
+      "recentCard": {
+        "recent": "Recent"
+      },
+      "serverCard": {
+        "server": "Servidor",
+        "version": "Versió",
+        "uptime": "Temps de funcionament",
+        "database": "Base de dades",
+        "hosts": "Amfitrions",
+        "online": "En línia",
+        "offline": "Fora de línia",
+        "logins": "Inicis de sessió"
+      },
+      "sessionsCard": {
+        "openSessions": "Sessions obertes",
+        "connected": "Connectat"
+      }
+    },
+    "resetHome": "Vols restablir l'inici?",
+    "cardsGoBackToThe": "Les targetes tornen a l'ordre predeterminat i a les targetes mostrades.",
+    "reset": "Restablir",
+    "doneEditingHome": "S'ha finalitzat l'edició de l'inici",
+    "editHome": "Edita l'inici",
+    "dragToReorder": "Arrossega {{title}} per reordenar",
+    "show": "Mostra {{title}}",
+    "dragCardsToReorderThem": "Arrossega les targetes per reordenar-les. Desactiva una targeta per amagar-la. Les targetes que no tenen res per mostrar es mantenen amagades automàticament.",
+    "resetToDefault": "Restablir al predeterminat",
+    "done": "Fet",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Encara no es pot accedir al servidor",
+      "canTReach": "No es pot accedir a {{account}}",
+      "youCanKeepWorkingWith": "Pots continuar treballant amb la còpia d'aquest {{deviceWord}}. Els canvis s'envien quan torni a estar disponible.",
+      "hostsSetToConnectFrom": "Els amfitrions configurats per connectar-se des d'aquest {{deviceWord}} continuen funcionant.",
+      "tryAgain": "Torna-ho a provar",
+      "noAnswer": "sense resposta"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Perfil de Vault",
+      "none": "Cap",
+      "signsInWithInYour": "Inicia sessió amb {{title}} al navegador a través del servidor Termix. Connecta aquest amfitrió a través del servidor.",
+      "needsATermixServerLink": "{{title}} necessita un servidor Termix. Enllaça'n un per utilitzar aquest inici de sessió.",
+      "isOffOnThisServer": "{{title}} està desactivat en aquest servidor. Aquest amfitrió manté la seva configuració d'inici de sessió."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "No s'han pogut carregar les credencials",
+      "deleted": "S'ha eliminat «{{name}}»",
+      "couldNotDeleteTheCredential": "No s'ha pogut eliminar la credencial",
+      "credentials": "Credencials",
+      "add": "Afegeix",
+      "searchCredentials": "Cerca credencials",
+      "clearSearch": "Esborra la cerca",
+      "loadingCredentials": "S'estan carregant les credencials...",
+      "noCredentialsMatchYourSearch": "Cap credencial coincideix amb la teva cerca",
+      "noCredentialsYet": "Encara no hi ha credencials",
+      "addCredential": "Afegeix credencial",
+      "edit": "Edita",
+      "delete": "Elimina",
+      "deleteCredential": "Elimina credencial",
+      "willBePermanentlyDeletedHosts": "«{{name}}» s'eliminarà permanentment. Els amfitrions que l'utilitzin perdran les seves credencials desades.",
+      "cancel": "Cancel·la",
+      "hostCount_one": "{{count}} amfitrió",
+      "hostCount_many": "{{count}} amfitrions",
+      "hostCount_other": "{{count}} amfitrions",
+      "sshKey": "Clau SSH"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Vols substituir la clau?",
+        "theNewKeyTakesThe": "La nova clau substitueix l'actual. Els amfitrions que només confiïn en la clau antiga deixaran d'acceptar aquesta credencial.",
+        "replace": "Substitueix",
+        "newKeyMadeCopyThe": "S'ha creat la nova clau. Copia la clau pública als teus amfitrions.",
+        "couldNotMakeAKey": "No s'ha pogut crear una clau",
+        "couldNotReadThatCertificate": "No s'ha pogut llegir el fitxer de certificat",
+        "leaveWithoutSaving": "Vols sortir sense desar?",
+        "yourChangesToThisCredential": "Els canvis d'aquesta credencial es perdran.",
+        "leave": "Surts",
+        "credentialSaved": "Credencial desada",
+        "credentialAdded": "Credencial afegida",
+        "couldNotSaveTheCredential": "No s'ha pogut desar la credencial",
+        "enterAHostToTest": "Introdueix un amfitrió per provar-hi, com ara 10.0.0.5 o caixa:2222.",
+        "enterTheUsernameFirst": "Introdueix primer el nom d'usuari.",
+        "editCredential": "Edita credencial",
+        "newCredential": "Nova credencial",
+        "cancel": "Cancel·la",
+        "save": "Desa",
+        "credential": "Credencial",
+        "name": "Nom",
+        "productionKey": "Clau de producció",
+        "username": "Nom d'usuari",
+        "signInWith": "Inicia sessió amb",
+        "password": "Contrasenya",
+        "sshKey": "Clau SSH",
+        "unchangedIfBlank": "Sense canvis si està buit",
+        "key": "Clau",
+        "fileOrPaste": "Fitxer o enganxa",
+        "makeANewKey": "Crea una clau nova",
+        "aKeyIsSavedChoose": "Ja hi ha una clau desada. Tria un fitxer o enganxa'n una per substituir-la.",
+        "type": "Tipus",
+        "ed25519AndEcdsaAreMade": "Ed25519 i ECDSA es generen en aquest {{deviceWord}}, RSA al teu servidor.",
+        "madeOnThisEd25519Works": "Generat en aquest {{deviceWord}}. Ed25519 funciona gairebé a tot arreu.",
+        "passphrase": "Frase de pas",
+        "optionalLocksTheNewKey": "Opcional. Bloqueja la clau nova en aquest {{deviceWord}} i al disc.",
+        "makeKey": "Crea clau",
+        "publicKey": "Clau pública",
+        "addThisLineToSsh": "Afegeix aquesta línia a ~/.ssh/authorized_keys als teus servidors",
+        "publicKeyCopied": "Clau pública copiada",
+        "copyPublicKey": "Copia la clau pública",
+        "certificate": "Certificat",
+        "aCertificateYourCaSigned": "Un certificat signat per la teva CA per a aquesta clau, per a servidors que confien en la CA.",
+        "chooseCertificateFile": "Tria el fitxer del certificat",
+        "thisDoesNotLookLike": "Això no sembla un certificat OpenSSH.",
+        "test": "Prova",
+        "hostToTestOn": "Servidor per provar",
+        "n10005Or": "10.0.0.5 o box.lan:2222",
+        "pickASavedHost": "Tria un servidor desat",
+        "details": "Detalls",
+        "description": "Descripció",
+        "whatThisCredentialIsFor": "Per a què serveix aquesta credencial",
+        "folder": "Carpeta",
+        "serverKeys": "Claus del servidor",
+        "testOnAHost": "Prova en un servidor",
+        "rsaKeysNeedALinked": "Les claus RSA necessiten un servidor vinculat."
+      },
+      "model": {
+        "giveThisCredentialAName": "Posa un nom a aquesta credencial",
+        "addAPrivateKeyOr": "Afegeix una clau privada o en crea una de nova"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Aquest és un certificat de servidor, no d'usuari.",
+        "thisCertificateIsNotValid": "Aquest certificat encara no és vàlid.",
+        "thisCertificateHasExpired": "Aquest certificat ha caducat.",
+        "itIsForAKey": "És per a una clau {{keyType}}, però aquesta clau és {{keyType2}}.",
+        "forAnyUser": "Per a qualsevol usuari",
+        "validFromNoEndDate": "Vàlid des de {{validAfter}}, sense data de finalització",
+        "signedBy": "Signat per {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Nom d'usuari",
+        "fromTheCredential": "De la credencial: {{credentialUser}}",
+        "signInWith": "Inicia sessió amb",
+        "password": "Contrasenya",
+        "key": "Clau",
+        "credential": "Credencial",
+        "none": "Cap",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Es connecta amb Tailscale SSH. No es guarda cap contrasenya ni clau.",
+        "tailscaleIsNotOnFor": "Tailscale no està activat per a {{value}}. Aquest servidor conserva la seva connexió de Tailscale.",
+        "unchangedIfBlank": "Sense canvis si està buit",
+        "noCredentialsYetTapThe": "Encara no hi ha credencials. Fes clic a la icona de clau a Servidors per afegir-ne una.",
+        "useCredential": "Utilitza la credencial {{name}}",
+        "sudoPassword": "Contrasenya de sudo",
+        "typedIntoSudoPromptsWhen": "S'escriu als missatges de sudo quan la secció Terminal l'activa",
+        "notSet": "No configurat",
+        "thisServer": "aquest servidor"
+      },
+      "colorIconField": {
+        "color": "Color",
+        "noColor": "Sense color",
+        "color2": "Color {{c}}",
+        "icon": "Icona",
+        "noIcon": "Sense icona",
+        "none": "Cap",
+        "icon2": "Icona {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Vols sortir sense desar?",
+        "yourChangesToThisHost": "Els canvis que has fet en aquest host es perdran.",
+        "leave": "Sortir",
+        "couldNotSaveHowThis": "No s'ha pogut desar la configuració de connexió d'aquest host",
+        "hostSaved": "Host desat",
+        "hostAdded": "Host afegit",
+        "couldNotSaveTheHost": "No s'ha pogut desar l'host",
+        "enterTheHostSAddress": "Introdueix primer l'adreça de l'host.",
+        "turnOnSshToTest": "Activa SSH per provar l'inici de sessió.",
+        "pickACredentialFirst": "Tria primer una credencial.",
+        "editHost": "Edita l'host",
+        "newHost": "Nou host",
+        "cancel": "Cancel·la",
+        "save": "Desa",
+        "host": "Host",
+        "name": "Nom",
+        "myServer": "El meu servidor",
+        "address": "Adreça",
+        "port": "Port",
+        "portAndUsernameComeFrom": "El port i el nom d'usuari provenen dels valors predeterminats de l'host fins que els canviïs.",
+        "folder": "Carpeta",
+        "production": "Producció",
+        "useAFolderInstead": "Utilitza una carpeta en canvi",
+        "putItUnderAHost": "Posa'l sota un host en canvi",
+        "pinToTop": "Fixa a la part superior",
+        "colorAndIcon": "Color i icona",
+        "notes": "Notes",
+        "anythingWorthRememberingAboutThis": "Qualsevol cosa que valgui la pena recordar sobre aquest host",
+        "protocols": "Protocols",
+        "terminalFilesAndMore": "Terminal, fitxers i més",
+        "connectFrom": "Connecta des de",
+        "features": "Funcions",
+        "otherProtocols": "Altres protocols",
+        "more": "Més",
+        "theTestRunsFromThis": "La prova s'executa des d'aquest {{deviceWord}}. Aquest host es connecta a través del servidor, així que pot funcionar encara que el {{deviceWord}} no hi pugui accedir directament."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Hosts de salt",
+        "connectsThroughTheseInOrder": "Es connecta a través d'aquests en ordre, i després a aquest host",
+        "reachThisHostThroughOther": "Arriba a aquest host a través d'altres hosts primer",
+        "moveUp": "Mou amunt",
+        "moveDown": "Mou avall",
+        "removeJumpHost": "Elimina l'host de salt",
+        "addJumpHost": "Afegeix un host de salt",
+        "pickASavedHostTo": "Tria un host desat per connectar-hi a través",
+        "searchHosts": "Cerca hosts",
+        "noOtherHostsToPick": "No hi ha altres hosts per triar. Un host no pot fer salt a través de si mateix ni d'un host que ja passi per ell.",
+        "missingHost": "Host mancant nº {{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Activa almenys un protocol",
+        "pickACredential": "Tria una credencial",
+        "enterTheHostSAddress": "Introduïu l'adreça de l'amfitrió",
+        "theAddressCanTHave": "L'adreça no pot contenir espais",
+        "portMustBeFrom1": "El port ha de ser entre 1 i 65535",
+        "enterTheSshUsername": "Introduïu el nom d'usuari SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "L'amfitrió s'hi mostrarà anidat sota el que seleccioneu",
+        "searchHosts": "Cerca amfitrions",
+        "noHostsToPickA": "No hi ha amfitrions disponibles. Un amfitrió no pot anidar-se sota si mateix, sota un dels seus propis subamfitrions ni sota un amfitrió compartit.",
+        "parentHost": "Amfitrió principal",
+        "subHostsFollowTheFolder": "Els subamfitrions segueixen la carpeta del seu amfitrió principal",
+        "pickParentHost": "Seleccioneu l'amfitrió principal",
+        "missingHost": "Amfitrió #{{value}} no trobat",
+        "pickAHost": "Seleccioneu un amfitrió",
+        "clearParentHost": "Esborra l'amfitrió principal"
+      },
+      "tagsField": {
+        "tags": "Etiquetes",
+        "typeATagAndPress": "Escriviu una etiqueta i premeu Retorn",
+        "removeTag": "Elimina l'etiqueta {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "No s'ha pogut desar la configuració de connexió d'aquest amfitrió",
+      "addressCopied": "Adreça copiada",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Connecta des de",
+      "dismiss": "Descarta",
+      "unpin": "Desenganxa",
+      "pinToHome": "Enganxa a Inici",
+      "select": "Selecciona",
+      "editHost": "Edita l'amfitrió",
+      "copyAddress": "Copia l'adreça",
+      "addSubHost": "Afegeix un subamfitrió",
+      "cloneHost": "Clona l'amfitrió",
+      "deleteHost": "Suprimeix l'amfitrió",
+      "connectThroughTheServer": "Connecta a través del servidor",
+      "connectFromThis": "Connecta des d'aquest {{deviceWord}}"
+    },
+    "defaultYourOrder": "Per defecte (la vostra ordre)",
+    "nameAZ": "Nom (A-Z)",
+    "nameZA": "Nom (Z-A)",
+    "ipAscending": "IP (ascendent)",
+    "ipDescending": "IP (descendent)",
+    "onlineFirst": "En línia primer",
+    "offlineFirst": "Fora de línia primer",
+    "pinnedFirst": "Enganxats primer",
+    "status": "Estat",
+    "online": "En línia",
+    "offline": "Fora de línia",
+    "pinned": "Enganxat",
+    "protocol": "Protocol",
+    "features": "Funcions",
+    "hostsCanOnlyMoveInside": "Els amfitrions només es poden moure dins de la seva pròpia carpeta",
+    "couldNotUpdateTheHosts": "No s'han pogut actualitzar els amfitrions",
+    "sharedHostsCanTBe": "Els amfitrions compartits no es poden suprimir aquí",
+    "delete2": "Suprimeix",
+    "noneOfTheseHostsOpen": "Cap d'aquests amfitrions obre un terminal",
+    "couldNotPinTheHost": "No s'ha pogut enganxar l'amfitrió",
+    "deleted": "S'ha suprimit {{name}}",
+    "failedToDeleteHost": "No s'ha pogut suprimir l'amfitrió",
+    "cloned": "S'ha clonat {{name}}",
+    "failedToCloneHost": "No s'ha pogut clonar l'amfitrió",
+    "reorderWorksWithTheDefault": "La reordenació funciona amb l'ordenació per defecte i sense cerca ni filtre",
+    "couldNotSaveTheOrder": "No s'ha pogut desar l'ordre",
+    "noHostsYet": "Encara no hi ha amfitrions",
+    "addAHostToConnect": "Afegeix un host per connectar-hi amb un sol toc.",
+    "addHost": "Afegeix un host",
+    "quickConnect2": "Connexió ràpida",
+    "linkAServer": "Vincula un servidor",
+    "noHostsMatch": "Cap host no coincideix",
+    "clearSearchAndFilters": "Esborra la cerca i els filtres",
+    "more": "Més",
+    "dragAHostByIts": "Arrossega un host pel seu mànec per moure'l dins de la seva carpeta.",
+    "done": "Fet",
+    "filterHosts": "Filtra els hosts",
+    "clearFilterText": "Esborra el text del filtre",
+    "sortHosts": "Ordena els hosts",
+    "removeFilter": "Elimina el filtre {{value}}",
+    "loadingHosts": "Carregant hosts…",
+    "moveUnderAHost": "Mou sota un host",
+    "moveToFolder": "Mou a la carpeta",
+    "leaveItEmptyToTake": "Deixa-ho buit per treure els hosts de les carpetes.",
+    "folderLikeProdWeb": "Carpeta, com ara Prod / Web",
+    "move": "Mou",
+    "hosts": "Hosts",
+    "selectHosts": "Selecciona els hosts",
+    "reorderHosts": "Reordena els hosts",
+    "customizeList": "Personalitza la llista",
+    "chooseWhatEachHostRow": "Tria què mostra cada fila d'host",
+    "credentials2": "Credencials",
+    "savedPasswordsAndKeys": "Contrasenyes i claus desades",
+    "tailscaleDevices": "Dispositius Tailscale",
+    "refresh": "Actualitza",
+    "rowDensityFollowsSettingsAppearance": "La densitat de les files segueix la configuració d'Aparença.",
+    "clearAllFilters": "Esborra tots els filtres",
+    "tags": "Etiquetes",
+    "stopSelecting": "Deixa de seleccionar",
+    "selected": "{{count}} seleccionat",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "No s'ha pogut llegir aquest fitxer de clau",
+        "theClipboardIsEmpty": "El porta-retalls és buit",
+        "privateKey": "Clau privada",
+        "chooseFile": "Tria un fitxer",
+        "paste": "Enganxa",
+        "unchangedIfBlank": "Sense canvis si està buit",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Contrasenya",
+        "onlyIfTheKeyHas": "Només si la clau en té una",
+        "theKeyIsCheckedWhen": "La clau es verifica quan et connectes.",
+        "thePastedKey": "la clau enganxada"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Obre",
+        "moreActions": "Més accions",
+        "opensTheTerminalHoldFor": "Obre el terminal. Mantén premut per veure'n més.",
+        "shared": "Compartit",
+        "drag": "Arrossega {{name}}",
+        "showSubHosts_one": "Mostra {{count}} subhost de {{name}}",
+        "showSubHosts_many": "Mostra {{count}} subhosts de {{name}}",
+        "showSubHosts_other": "Mostra {{count}} subhosts de {{name}}",
+        "hideSubHosts_one": "Amaga {{count}} subhost de {{name}}",
+        "hideSubHosts_many": "Amaga {{count}} subhosts de {{name}}",
+        "hideSubHosts_other": "Amaga {{count}} subhosts de {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Carpeta {{name}}, {{total}} hosts"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Cal indicar l'host i el nom d'usuari",
+      "hostSaved": "Host desat",
+      "couldNotSaveTheHost": "No s'ha pogut desar l'host",
+      "quickConnect": "Connexió ràpida",
+      "connectToAHostWithout": "Connecta't a un host sense desar-lo.",
+      "hostIp": "Host / IP",
+      "port": "Port",
+      "username": "Nom d'usuari",
+      "password": "Contrasenya",
+      "key": "Clau",
+      "privateKey": "Clau privada",
+      "saveToMyHosts": "Desa als meus amfitrions",
+      "keepThisHostAfterConnecting": "Mantén aquest amfitrió després de connectar-te",
+      "cancel": "Cancel·la",
+      "connect": "Connecta"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "S'estan obtenint els teus amfitrions del servidor",
+      "yourHostsStayOnThis": "{{message}} Els teus amfitrions es mantenen en aquest {{deviceWord}} mentrestant."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "La clau d'aquest amfitrió ha canviat",
+      "trustThisHost": "Confia en aquest amfitrió?",
+      "trust": "Confia",
+      "stopTest": "Atura la prova",
+      "testConnection": "Prova la connexió",
+      "connecting": "Connectant..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "No s'han pogut carregar els amfitrions."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. S'ha deixat {{count}} amfitrió compartit tal com era.",
+    "sharedLeftAsTheyAre_many": "{{done}}. S'han deixat {{count}} amfitrions compartits tal com eren.",
+    "sharedLeftAsTheyAre_other": "{{done}}. S'han deixat {{count}} amfitrions compartits tal com eren.",
+    "deleteHosts_one": "Vols suprimir {{count}} amfitrió?",
+    "deleteHosts_many": "Vols suprimir {{count}} amfitrions?",
+    "deleteHosts_other": "Vols suprimir {{count}} amfitrions?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "No hi ha cap carpeta anomenada {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Amfitrió «{{name}}»: port no vàlid",
+        "hostJumpIsNotIn": "Amfitrió «{{name}}»: el salt {{value}} no és al fitxer, per la qual cosa s'ha omès",
+        "credential": "Credencial {{name}}: {{error}}",
+        "noValidHostEntriesFound": "No s'han trobat entrades d'Amfitrió vàlides al fitxer de configuració de SSH",
+        "credentialWasNotFound": "{{label}}: no s'ha trobat la credencial {{value}}"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Amfitrió {{value}}: id d'amfitrió exportat duplicat {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Falten camps obligatoris (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: authType no vàlid. Ha de ser un dels següents: {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Cal un nom d'usuari per a les connexions SSH",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: Cal credentialAlias per a l'autenticació de credencials",
+        "thatIsNotAValid": "Això no és un fitxer JSON vàlid",
+        "hostsArrayIsRequiredAnd": "Cal la matriu d'amfitrions i no pot estar buida",
+        "jumpHostCycle": "{{label}}: cicle d'amfitrió de salt",
+        "jumpHostIsNotIn": "{{label}}: l'amfitrió de salt {{id}} no és al fitxer"
+      }
+    },
+    "movedTo": "S'ha mogut a {{value}}",
+    "movedOutOfFolders": "S'ha mogut fora de les carpetes",
+    "movedUnder": "S'ha mogut sota {{value}}",
+    "openTerminals": "Terminals oberts",
+    "theHost": "l'amfitrió"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Amaga la contrasenya",
+      "showPassword": "Mostra la contrasenya",
+      "enterAUsernameAndPassword": "Introdueix un nom d'usuari i una contrasenya",
+      "useAtLeast6Characters": "Utilitza com a mínim 6 caràcters per a la contrasenya",
+      "thePasswordsDonTMatch": "Les contrasenyes no coincideixen",
+      "makeTheAdminAccount": "Crea el compte d'administrador",
+      "makeAnAccount": "Crea un compte",
+      "thisIsTheFirstAccount": "Aquest és el primer compte del servidor, per la qual cosa administra el servidor.",
+      "pickAUsernameAndPassword": "Tria un nom d'usuari i una contrasenya per a aquest servidor.",
+      "username": "Nom d'usuari",
+      "password": "Contrasenya",
+      "passwordAgain": "Contrasenya de nou",
+      "makeAccount": "Crea el compte",
+      "back": "Enrere",
+      "haveAnAccountSignIn": "Ja tens un compte? Inicia sessió",
+      "resetCodeMadeItIs": "S'ha generat el codi de restabliment. Es troba als registres del servidor",
+      "enterYourUsername": "Introdueix el teu nom d'usuari",
+      "enterTheResetCode": "Introdueix el codi de restabliment",
+      "passwordChangedSignInWith": "S'ha canviat la contrasenya. Inicia sessió amb ella ara",
+      "resetPassword": "Restableix la contrasenya",
+      "enterYourUsernameTheServer": "Introdueix el teu nom d'usuari. El servidor escriu un codi de restabliment als seus registres.",
+      "sendResetCode": "Envia el codi de restabliment",
+      "enterThe6DigitCode": "Introduïu el codi de 6 xifres dels registres del servidor.",
+      "resetCode": "Restablir codi",
+      "checkCode": "Comprovar codi",
+      "newPassword": "Nova contrasenya",
+      "saveNewPassword": "Desar la nova contrasenya",
+      "backToSignIn": "Tornar a l'inici de sessió",
+      "couldNotMakeTheAccount": "No s'ha pogut crear el compte",
+      "couldNotStartTheReset": "No s'ha pogut iniciar el restabliment",
+      "thatCodeDidnTWork": "Aquest codi no ha funcionat",
+      "couldNotChangeThePassword": "No s'ha pogut canviar la contrasenya"
+    },
+    "browserStep": {
+      "signInFailed": "Ha fallat l'inici de sessió",
+      "signInCanceled": "Inici de sessió cancel·lat",
+      "couldNotOpenTheSign": "No s'ha pogut obrir el navegador d'inici de sessió",
+      "couldNotOpenTheSign2": "No s'ha pogut obrir la pàgina d'inici de sessió",
+      "certificateProblem": "Problema amb el certificat",
+      "back": "Enrere",
+      "signIn": "Inicia sessió",
+      "reload": "Recarrega",
+      "finishSigningInInYour": "Finalitza l'inici de sessió al navegador",
+      "useAnySignInYour": "Utilitzeu qualsevol mètode d'inici de sessió que tingui el vostre servidor, com una passkey o una clau de seguretat. L'aplicació continuarà un cop hàgiu iniciat la sessió.",
+      "theAppPicksUpOnce": "L'aplicació continuarà un cop el proveïdor d'inici de sessió hagi acabat.",
+      "signingIn": "Iniciant sessió...",
+      "openBrowserAgain": "Obre el navegador de nou",
+      "theServerTurnedTheSession": "El servidor ha rebutjat la sessió. Torneu-ho a provar.",
+      "signedInButTheApp": "S'ha iniciat la sessió, però l'aplicació no pot arribar a Termix. Potser un proxy està bloquejant-ho.",
+      "thatSignInLinkIs": "Aquest enllaç d'inici de sessió és d'un intent anterior. Inicieu sessió de nou.",
+      "signInAgain": "Inicieu sessió de nou.",
+      "openTheBrowserAgainWhen": "Obriu el navegador de nou quan estigueu llest.",
+      "theWebPageSignedIn": "La pàgina web ha iniciat la sessió però no ha enviat cap sessió. Actualitzeu el servidor i torneu-ho a provar.",
+      "theCanTCheckThis": "El {{deviceWord}} no pot verificar el certificat d'aquest servidor. Instal·leu la CA arrel al {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Voleu utilitzar {{name}} per iniciar sessió la propera vegada?",
+      "ifThisServerSignsYou": "Si aquest servidor tanca la sessió, inicieu sessió de nou amb {{name}} en lloc d'escriure la contrasenya. La contrasenya es manté en aquest {{deviceWord}}.",
+      "use": "Utilitza {{name}}",
+      "notNow": "Ara no",
+      "couldNotSaveTheLogin": "No s'ha pogut desar l'inici de sessió",
+      "thatSADifferentUser": "Això és un usuari diferent",
+      "signedIn": "Sessió iniciada",
+      "close": "Tanca",
+      "linkYourTermixServer": "Vincula el teu servidor Termix",
+      "yourHostsCredentialsSnippetsAnd": "Els teus amfitrions, credencials, fragments i configuracions es sincronitzen amb ell, i obtens els seus complements. Tot continua funcionant en aquest {{deviceWord}} quan el servidor no està disponible.",
+      "checking": "Comprovant {{host}}...",
+      "proxyAndClientCertificate": "Proxy i certificat del client",
+      "couldNotReachThatServer": "No s'ha pogut arribar a aquest servidor. Comproveu l'adreça o configureu el proxy o el certificat del client.",
+      "couldNotReachThatServer2": "No s'ha pogut arribar a aquest servidor",
+      "syncCouldNotStartYet": "La sincronització no ha pogut iniciar-se encara. Ho tornarà a provar automàticament.",
+      "checkingTheServer": "Comprovant el servidor",
+      "signIn": "Inicia sessió",
+      "makeAnAccount": "Crea un compte",
+      "resetPassword": "Restableix la contrasenya",
+      "oneMoreStep": "Un pas més",
+      "almostDone": "Gairebé fet",
+      "linkAServer": "Vincula un servidor"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "L'inici de sessió desat ja no funciona",
+      "enterYourUsernameAndPassword": "Introduïu el vostre nom d'usuari i contrasenya",
+      "thisServerIsBehindA": "Aquest servidor està darrere d'un proxy d'inici de sessió",
+      "signInWith": "Inicia sessió amb {{saved}}",
+      "signInWith2": "Inicia sessió amb",
+      "password": "Contrasenya",
+      "username": "Nom d'usuari",
+      "signIn": "Inicia sessió",
+      "forgotPassword": "Has oblidat la contrasenya?",
+      "makeAnAccount": "Crea un compte",
+      "or": "O",
+      "continueWith": "Continua amb {{label}}",
+      "signInWithAPasskey": "Inicia sessió amb una passkey o clau de seguretat",
+      "opensYourServerAposS": "Obre la pàgina d'inici de sessió del teu servidor al navegador. Face ID, empremta digital, NFC i claus USB funcionen allà. Requereix Termix 26.11.3 o superior.",
+      "signInInTheBrowser": "Inicia sessió al navegador",
+      "opensYourServerAposS2": "Obre la pàgina d'inici de sessió del teu servidor, per a qualsevol cosa que l'aplicació no pugui fer aquí. Requereix Termix 26.10.6 o superior.",
+      "thisServerHasNoSign": "Aquest servidor no té cap mètode d'inici de sessió activat que l'aplicació pugui utilitzar. Pregunta a qui el gestiona o prova l'inici de sessió al navegador que hi ha a dalt.",
+      "signInWithYourPassword": "Inicia sessió amb la teva contrasenya.",
+      "signInFailed": "Ha fallat l'inici de sessió",
+      "openingItsSignInPage": "S'està obrint la pàgina d'inici de sessió."
+    },
+    "smallSteps": {
+      "serverAddress": "Adreça del servidor",
+      "likeTermixExampleComOr": "Com termix.example.com o 192.168.1.20:30001",
+      "checking": "S'està verificant...",
+      "continue": "Continua",
+      "proxyAndClientCertificate": "Proxy i certificat del client",
+      "aServerWithASelf": "Un servidor amb un certificat autofirmat necessita que la seva CA arrel s'instal·li primer en aquest {{deviceWord}}. L'http pla funciona a la teva xarxa local.",
+      "enterTheCode": "Introdueix el codi",
+      "code": "Codi",
+      "the6DigitCodeFrom": "El codi de 6 xifres de la teva aplicació autenticadora o un codi de reserva",
+      "checkCode": "Verifica el codi",
+      "thisAccountAsksForA": "Aquest compte demana una clau de seguretat després de la contrasenya. Connecta't a la pàgina del servidor al teu navegador per utilitzar-la.",
+      "useASecurityKeyIn": "Utilitza una clau de seguretat al navegador",
+      "backToSignIn": "Torna a l'inici de sessió",
+      "bringThisAposSHosts": "Vols portar els amfitrions d'aquest {{deviceWord}}?",
+      "thisHasTheyStayOn": "Aquest {{deviceWord}} té {{what}}. Es queden en Aquest dispositiu en qualsevol cas.",
+      "merge": "Fusiona",
+      "copyThemToTooSo": "Copia'ls també a {{serverName}} perquè es sincronitzin. Es salten els que semblen iguals a un amfitrió del servidor.",
+      "replace": "Substitueix",
+      "useOnlyWhatIsOn": "Utilitza només el que hi ha a {{serverName}} per a aquest compte. No es copia res.",
+      "thatCodeDidnTWork": "Aquest codi no ha funcionat",
+      "hostsCredentialsOrSnippets": "amfitrions, credencials o fragments"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Vincula primer aquest servidor",
+      "thatHostIsnTHere": "Aquest amfitrió no hi és",
+      "couldNotOpenThatHost": "No s'ha pogut obrir aquest amfitrió",
+      "noHostWithIdOn": "Cap amfitrió amb l'identificador {{hostId}} a {{account}}.",
+      "isnTLinkedInThe": "{{value}} encara no està vinculat a l'aplicació."
+    }
+  },
+  "notifications": {
+    "notifications": "Notificacions",
+    "markAllRead": "Marca-ho tot com a llegit",
+    "clearReadNotifications": "Esborra les notificacions llegides",
+    "unread2": "No llegit",
+    "all": "Totes",
+    "noUnreadNotifications": "No hi ha notificacions no llegides",
+    "nothingHere": "No hi ha res aquí",
+    "markRead": "Marca com a llegit",
+    "delete": "Suprimeix",
+    "couldNotLoadNotifications": "No s'han pogut carregar les notificacions",
+    "couldNotMarkRead": "No s'ha pogut marcar com a llegit",
+    "couldNotDelete": "No s'ha pogut suprimir",
+    "couldNotClear": "No s'ha pogut esborrar"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Importa",
+      "hosts": "Amfitrions",
+      "aTermixHostFileYour": "Un fitxer d'amfitrions de Termix, el teu ~/.ssh/config o un enllaç o codi QR d'un altre {{deviceWord}}. Es guarden en aquest {{deviceWord}}.",
+      "backup": "Còpia de seguretat",
+      "aBackupThisAppMade": "Una còpia de seguretat feta per aquesta aplicació, bloquejada amb una frase de contrasenya. Restaura amfitrions, credencials i fragments.",
+      "restoreABackup": "Restaura una còpia de seguretat",
+      "done": "Fet",
+      "skipForNow": "Omet per ara",
+      "sshFilesAndRemoteDesktops": "SSH, fitxers i escriptoris remots des del teu {{deviceWord}}. Com vols començar?",
+      "useWithoutAServer": "Utilitzar sense servidor",
+      "hostsCredentialsAndSnippetsAre": "Els amfitrions, les credencials i els fragments es mantenen xifrats en aquest {{deviceWord}}. Pots vincular un servidor en qualsevol moment més endavant.",
+      "linkATermixServer": "Vincular un servidor Termix",
+      "syncYourHostsCredentialsSnippets": "Sincronitza els teus amfitrions, credencials, fragments i configuracions amb el teu servidor i utilitza els seus complements.",
+      "bringHostsFromATermix": "Importa amfitrions des d'un fitxer Termix, una configuració SSH, un codi QR o una còpia de seguretat.",
+      "thisDevice": "Aquest dispositiu"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Cerca amfitrions, fragments, accions",
+      "clearSearch": "Esborra la cerca",
+      "nothingMatches": "Cap resultat coincideix",
+      "typeToSearch": "Escriu per cercar",
+      "findAHostToConnect": "Troba un amfitrió per connectar-te, un fragment, una configuració o una acció.",
+      "suggested": "Suggerit | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Executa a {{title}}",
+      "copiedRunItFromThe": "Copiat. Executa'l des dels fragments del terminal per omplir els seus valors.",
+      "copiedOpenATerminalTo": "Copiat. Obre un terminal per executar fragments.",
+      "addHost": "Afegeix amfitrió",
+      "quickConnect": "Connexió ràpida",
+      "switchAccount": "Canvia de compte",
+      "linkAServer": "Vincula un servidor",
+      "fromYourServer": "Des del teu servidor",
+      "settings": "Configuració",
+      "accountsAppearanceSecurity": "Comptes, aspecte, seguretat"
+    },
+    "search": {
+      "hosts": "Amfitrions",
+      "snippets": "Fragments",
+      "actions": "Accions",
+      "settings": "Configuració"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "No s'han pogut carregar les sessions",
+      "sessionRevoked": "Sessió revocada",
+      "failedToRevokeSession": "No s'ha pogut revocar la sessió",
+      "allSessionsRevoked": "Totes les sessions revocades",
+      "failedToRevokeAllSessions": "No s'han pogut revocar totes les sessions",
+      "activeSessions": "Sessions actives",
+      "signOutAllOtherSessions": "Tanca la sessió de totes les altres sessions",
+      "loading": "S'està carregant…",
+      "noActiveSessionsFound": "No s'han trobat sessions actives.",
+      "unknownDevice": "Dispositiu desconegut",
+      "lastActive": "Última activitat {{lastActiveAt}}",
+      "created": "Creat {{createdAt}}",
+      "revokeSession": "Revoca la sessió",
+      "revokeSession2": "Revocar la sessió?",
+      "thisWillSignOutThat": "Això tancarà la sessió d'aquest dispositiu.",
+      "revoke": "Revoca",
+      "revokeAllSessions": "Revocar totes les sessions?",
+      "thisWillSignOutEvery": "Això tancarà la sessió de tots els dispositius. Continuaràs connectat en aquest dispositiu.",
+      "cancel": "Cancel·la",
+      "revokeAll": "Revoca totes"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "No s'han pogut carregar les claus API",
+      "failedToCreateApiKey": "No s'ha pogut crear la clau API",
+      "deleteApiKey": "Eliminar la clau API?",
+      "willStopWorkingRightAway": "\"{{name}}\" deixarà de funcionar immediatament.",
+      "apiKeyDeleted": "Clau API eliminada",
+      "failedToDeleteApiKey": "No s'ha pogut eliminar la clau API",
+      "apiKeys": "Claus API",
+      "newApiKey": "Nova clau API",
+      "loading": "S'està carregant…",
+      "apiKeysAllowProgrammaticAccess": "Les claus API permeten l'accés programàtic a Termix. El secret només es mostra una vegada, així que guarda'l amb cura.",
+      "noApiKeysYet": "Encara no hi ha claus API",
+      "created": "Creat {{createdAt}}",
+      "lastUsed": "Últim ús {{lastUsedAt}}",
+      "expires": "Caduca {{expiresAt}}",
+      "delete": "Suprimeix {{name}}",
+      "keyCreatedCopyItNow": "Clau creada. Copieu-la ara",
+      "newApiKey2": "Clau API nova",
+      "thisTokenWonTBe": "Aquest token no es tornarà a mostrar.",
+      "apiKeyCopied": "Clau API copiada",
+      "copy": "Copia",
+      "done": "Fet",
+      "cancel": "Cancel·la",
+      "create": "Crea",
+      "name": "Nom *",
+      "eGCiPipeline": "p. ex. Pipeline CI",
+      "user": "Usuari *",
+      "noUsersAvailable": "No hi ha usuaris disponibles.",
+      "expiresAtOptional": "Caducitat (opcional)",
+      "yyyyMmDd": "AAAA/MM/DD",
+      "yearMonthDay": "Any / Mes / Dia"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Mantén les sessions actives",
+      "showsANotificationWhileSessions": "Mostra una notificació mentre les sessions estan obertes, de manera que Android les manté actives quan sortiu de l'aplicació",
+      "batteryOptimization": "Optimització de la bateria",
+      "termixIsNotRestrictedSo": "Termix no està restringit, de manera que les sessions es poden mantenir obertes amb la pantalla apagada.",
+      "androidMayStillStopSessions": "Android pot aturar les sessions per estalviar bateria. Obriu la configuració de la bateria, busqueu Termix i seleccioneu No optimitzat o Sense restriccions.",
+      "openBatterySettings": "Obre la configuració de la bateria",
+      "notificationsAreOff": "Les notificacions estan desactivades",
+      "sessionsStillRunButThe": "Les sessions continuen funcionant, però la llista de sessions obertes i el botó Desconnecta-ho tot es mantenen ocults.",
+      "openNotificationSettings": "Obre la configuració de les notificacions",
+      "thisBuildCanTKeep": "Aquesta versió no pot mantenir les sessions actives en segon pla. Es reconnecten quan torneu.",
+      "lowPowerMode": "Mode d'estalvi d'energia",
+      "batterySaver": "Estalvi de bateria",
+      "isOnTermixChecksConnections": "{{value}} està activat. Termix comprova les connexions amb menys freqüència i espera més temps entre els intents de reconnectar.",
+      "backgroundSessions": "Sessions en segon pla",
+      "iosStopsAppsSoonAfter": "iOS atura les aplicacions poc després de sortir-ne, de manera que les sessions no es poden executar en segon pla. Es reconnecten quan torneu, i tmux o screen continuen on havíeu quedat."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Aturat",
+        "active": "Actiu",
+        "linkAServer": "Vincula un servidor",
+        "eachServerKeepsItsOwn": "Cada servidor manté la seva pròpia còpia dels vostres amfitrions, credencials i configuració en aquest {{deviceWord}}.",
+        "signedInAs": "Sessió iniciada com a",
+        "role": "Rol",
+        "administrator": "Administrador",
+        "user": "Usuari",
+        "serverVersion": "Versió del servidor",
+        "signOut": "Tanca la sessió",
+        "youAreSignedOutOf": "Heu tancat la sessió d'aquest servidor.",
+        "signIn": "Inicia la sessió",
+        "passwordChanged": "Contrasenya canviada",
+        "couldNotChangeThePassword": "No s'ha pogut canviar la contrasenya",
+        "changePassword": "Canvia la contrasenya",
+        "enterYourCurrentPasswordThen": "Introduïu la contrasenya actual i, a continuació, trieu-ne una de nova.",
+        "cancel": "Cancel·la",
+        "change": "Canvia",
+        "currentPassword": "Contrasenya actual",
+        "newPassword": "Contrasenya nova",
+        "accountDeleted": "Compte suprimit",
+        "couldNotDeleteTheAccount": "No s'ha pogut suprimir el compte",
+        "deleteServerAccount": "Suprimeix el compte del servidor",
+        "thisPermanentlyDeletesYourAccount": "Això suprimeix permanentment el vostre compte al servidor i tots els seus dades. No es pot desfer.",
+        "delete": "Suprimeix",
+        "confirmYourPassword": "Confirmeu la contrasenya",
+        "worksWithoutAServer": "Funciona sense servidor",
+        "signedOut": "Sessió tancada",
+        "readsLive": "Lectura en directe",
+        "toReview": "{{count}} per revisar",
+        "synced": "Sincronitzat",
+        "syncing": "Sincronitzant",
+        "offline": "Desconnectat"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Compartir estadístiques d'ús anònimes",
+        "aShortReportOnceA": "Un informe breu un cop al dia. Sense amfitrions, noms ni adreces",
+        "nextReport": "Pròxim informe",
+        "seeExactlyWhatWouldBe": "Veure exactament què s'enviaria",
+        "couldNotBuildTheReport": "No s'ha pogut generar l'informe",
+        "preview": "Vista prèvia",
+        "thisIsExactlyWhatWould": "Això és exactament el que s'enviaria ara mateix.",
+        "resetInstallId": "Restablir l'ID d'instal·lació",
+        "futureReportsWillLookLike": "Els futurs informes semblaran una instal·lació nova",
+        "resetTheInstallId": "Vols restablir l'ID d'instal·lació?",
+        "futureReportsWillLookLike2": "Els futurs informes semblaran una instal·lació nova.",
+        "reset": "Restablir",
+        "installIdReset": "ID d'instal·lació restablert"
+      },
+      "appearanceControls": {
+        "theme": "Tema",
+        "accentColor": "Color d'accent",
+        "textSize": "Mida del text",
+        "sizeOfTextAcrossThe": "Mida del text a tota l'aplicació, no al terminal",
+        "density": "Densitat",
+        "howTallListRowsAnd": "Alçada de les files de les llistes i la configuració"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Els amfitrions, credencials i fragments es guarden en un fitxer xifrat en aquest {{deviceWord}}. Les estadístiques d'ús estan desactivades a menys que les activis a continuació. Un servidor vinculat només rep el que li permetis sincronitzar.",
+        "recentHosts": "Amfitrions recents",
+        "forgetTheHostsYouOpened": "Oblidar els amfitrions que has obert recentment a tots els comptes",
+        "recentHostsCleared": "Amfitrions recents esborrats",
+        "clear": "Esborrar",
+        "couldNotCheckForUpdates": "No s'ha pogut comprovar si hi ha actualitzacions",
+        "versionIsOutUpdateFrom": "La versió {{version}} ja està disponible. Actualitza-la des de la teva botiga.",
+        "youHaveTheNewestVersion": "Tens l'última versió",
+        "termixMobile": "Termix Mobile",
+        "updates": "Actualitzacions",
+        "check": "Comprovar"
+      },
+      "pinSheet": {
+        "waitSeconds": "Espera {{value}} segons",
+        "digits": "{{PIN_LENGTH}} xifres"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "Els PIN no coincideixen",
+        "appLockIsOn": "El bloqueig de l'aplicació està activat",
+        "turnOffAppLock": "Desactivar el bloqueig de l'aplicació",
+        "enterYourPinToConfirm": "Introdueix el teu PIN per confirmar.",
+        "appLockIsOff": "El bloqueig de l'aplicació està desactivat",
+        "appLock": "Bloqueig de l'aplicació",
+        "askForFaceIdTouch": "Demana Face ID, Touch ID o un PIN per obrir l'aplicació",
+        "askForAPinTo": "Demana un PIN per obrir l'aplicació",
+        "pinChanged": "PIN canviat",
+        "couldNotChangeThePin": "No s'ha pogut canviar el PIN",
+        "changePin": "Canviar PIN",
+        "lockAfter": "Bloquejar després de",
+        "howLongTheAppCan": "Quant de temps pot estar l'aplicació fora de vista abans de bloquejar-se",
+        "hideInAppSwitcher": "Amagar al selector d'aplicacions",
+        "showABlankScreenIn": "Mostrar una pantalla en blanc a la llista d'aplicacions recents",
+        "chooseA4DigitPin": "Tria un PIN de 4 xifres.",
+        "confirmPin": "Confirma el PIN",
+        "enterTheSamePinAgain": "Introdueix el mateix PIN de nou.",
+        "currentPin": "PIN actual",
+        "enterYourCurrentPin": "Introdueix el teu PIN actual.",
+        "newPin": "Nou PIN",
+        "chooseANew4Digit": "Tria un nou PIN de 4 xifres.",
+        "confirmNewPin": "Confirma el nou PIN",
+        "enterTheNewPinAgain": "Introdueix el nou PIN de nou."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Gadgets de la pantalla d'inici",
+        "showYourHostsSnippetsAnd": "Mostra els amfitrions, fragments i botons d'acció a la pantalla d'inici",
+        "showAddresses": "Mostra les adreces",
+        "showUserHostUnderEach": "Mostra usuari@amfitrió sota cada nom de servidor",
+        "includeOfflineHosts": "Inclou amfitrions fora de línia",
+        "offShowsOnlyServersThat": "Desactivat mostra només els servidors que estan en línia",
+        "pinnedHostsOnly": "Només amfitrions fixats",
+        "showOnlyTheHostsYou": "Mostra només els amfitrions que has fixat",
+        "snippetsWidget": "Gadget de fragments",
+        "showSavedCommandsOnThe": "Mostra els comandaments desats a la pantalla d'inici",
+        "showCommandPreview": "Mostra la vista prèvia del comandament",
+        "showTheFirstLineOf": "Mostra la primera línia de cada comandament"
+      }
+    },
+    "fileSettings": {
+      "files": "Fitxers",
+      "fileManagerOnThis": "Gestor de fitxers en aquest {{deviceWord}}",
+      "browsing": "Navegació",
+      "transfersAtOnce": "Transferències simultànies",
+      "downloadsAndUploadsThatRun": "Descàrregues i pujades que s'executen alhora",
+      "editor": "Editor",
+      "textSize": "Mida del text",
+      "filesBesideTheTerminal": "Fitxers al costat del terminal",
+      "side": "Costat",
+      "whereThePanelSitsOn": "On es troba el panell en una tauleta",
+      "right": "Dreta",
+      "left": "Esquerra",
+      "howOftenToCheck": "Freqüència de comprovació",
+      "folderHistory": "Historial de carpetes",
+      "foldersKeptPerHost": "Carpetes conservades per amfitrió",
+      "showHiddenFiles": "Mostra fitxers ocults",
+      "filesAndFoldersThatStart": "Fitxers i carpetes que comencen amb un punt",
+      "askBeforeMovingToThe": "Demana confirmació abans de moure a la paperera",
+      "deletingForGoodAlwaysAsks": "Esborrar definitivament sempre demana confirmació",
+      "wrapLongLines": "Ajusta les línies llargues",
+      "openWithNewTerminals": "Obre amb nous terminals",
+      "onATabletShowThe": "En una tauleta, mostra el panell de fitxers quan s'obre un terminal",
+      "followTheTerminal": "Segueix el terminal",
+      "openTheFolderTheTerminal": "Obre la carpeta on es troba el terminal mentre fas servir cd"
+    },
+    "keyboardCustomization": {
+      "small": "Petita",
+      "medium": "Mitjana",
+      "large": "Gran",
+      "ms": "{{v}} ms",
+      "keyboard": "Teclat",
+      "keyRowsAboveTheKeyboard": "Files de tecles per sobre del teclat",
+      "rows": "Files",
+      "keys": "Tecles",
+      "aHostCanHaveIts": "Un amfitrió pot tenir les seves pròpies files: toca la pestanya oberta en una sessió i tria Files de tecles per a aquest amfitrió.",
+      "keySize": "Mida de les tecles",
+      "vibrateOnKeyPress": "Vibra en prémer una tecla",
+      "repeatAfter": "Repeteix després de",
+      "howLongToHoldAn": "Quant de temps cal mantenir premuda una fletxa o Retorn enrere",
+      "repeatEvery": "Repeteix cada",
+      "hardwareKeyboard": "Teclat físic",
+      "allShortcuts": "Tots els dreceres",
+      "show": "Mostra"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "No s'ha pogut fer la còpia de seguretat",
+      "deleteLocalData": "Vols eliminar les dades locals?",
+      "hostsCredentialsSnippetsAndHistory": "S'eliminaran els amfitrions, credencials, fragments i historial desats en aquest {{deviceWord}} per a {{account}}. Això no es pot desfer. Fes una còpia de seguretat primer si vols conservar-los.",
+      "delete": "Elimina",
+      "localDataDeleted": "Dades locals eliminades",
+      "couldNotDeleteLocalData": "No s'han pogut eliminar les dades locals",
+      "localData": "Dades locals",
+      "localDataIsOnlySaved": "Les dades locals només es guarden a l'aplicació {{deviceWord}}.",
+      "savedOnThisForThe": "Guardat en aquest {{deviceWord}} per a {{account}}. El fitxer està xifrat amb una clau que mai surt d'aquest {{deviceWord}}.",
+      "hosts": "Amfitrions",
+      "credentials": "Credencials",
+      "snippets": "Fragments",
+      "size": "Mida",
+      "dataVersion": "Versió de les dades",
+      "backup": "Còpia de seguretat",
+      "aBackupFileHoldsYour": "Un fitxer de còpia de seguretat conté les teves contrasenyes i claus, bloquejat amb una frase de pas que triïs. Ningú no pot obrir-lo sense aquesta frase de pas.",
+      "exportBackup": "Exportar còpia de seguretat",
+      "importBackup": "Importar còpia de seguretat",
+      "removesEverythingThisAccountSaved": "Elimina tot el que aquest compte ha guardat en aquest {{deviceWord}}. Un servidor vinculat conserva la seva pròpia còpia.",
+      "deleteLocalData2": "Eliminar dades locals",
+      "backupPassphrase": "Frase de pas de la còpia de seguretat",
+      "atLeast8CharactersYou": "Com a mínim 8 caràcters. La necessites per restaurar la còpia de seguretat.",
+      "passphrase": "Frase de pas",
+      "next": "Següent",
+      "typeItAgain": "Escriu-la de nou",
+      "export": "Exportar",
+      "saveYourTermixBackup": "Guarda la teva còpia de seguretat de Termix"
+    },
+    "logs": {
+      "logs": "Registres",
+      "latestLinesFromThisRun": "Línies més recents d'aquesta execució. Les adreces dels servidors, les contrasenyes i els tokens s'oculten.",
+      "logsCopied": "Registres copiats",
+      "copy": "Copiar",
+      "share": "Compartir",
+      "clear": "Netejar",
+      "noLogsYet": "Encara no hi ha registres",
+      "nothingHasBeenLogged": "No s'ha registrat res."
+    },
+    "plugins": {
+      "worksOnThis": "Funciona en aquest {{deviceWord}}",
+      "needsTheServer": "Requereix el servidor",
+      "notInTheApp": "No a l'aplicació",
+      "needsANewerVersionOf": "Requereix una versió més recent de l'aplicació",
+      "updateThePluginOnThe": "Actualitza el complement al servidor",
+      "inTheApp": "A l'aplicació",
+      "onThisServer": "En aquest servidor",
+      "version": "Versió",
+      "needsPluginApi": "Requereix l'API de complements",
+      "thisAppHas": "Aquesta aplicació té",
+      "note": "Nota",
+      "open": "Obrir",
+      "openFromAHostS": "Obre {{name}} des del menú d'un amfitrió.",
+      "plugins": "Complements",
+      "everything": "Tot",
+      "thisDeviceWorksWithNo": "Aquest dispositiu funciona sense servidor. Vincula un servidor per afegir el que en necessita un.",
+      "pluginsOnAndHowEach": "Complements a {{account}} i com es mostra cadascun a l'aplicació. Desplaça cap avall per comprovar-ho de nou.",
+      "whatRunsOnThisAnd": "Què s'executa en aquest {{deviceWord}} i què passa per {{account}}.",
+      "noPluginList": "No hi ha llista de complements",
+      "theServerDidNotSend": "El servidor no ha enviat els seus complements. Desplaça cap avall per tornar-ho a provar.",
+      "serversOlderThan29": "Els servidors anteriors a la 2.9 tenen totes les funcions integrades.",
+      "nothingToShow": "No hi ha res per mostrar",
+      "notSentByThisServer": "No enviat per aquest servidor"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Vols substituir les dades locals?",
+      "everythingSavedOnThisFor": "Tot el que està guardat en aquest {{deviceWord}} per a {{accountName}} es substitueix per la còpia de seguretat.",
+      "continue": "Continuar",
+      "couldNotReadThatFile": "No s'ha pogut llegir aquest fitxer",
+      "backupRestored": "Còpia de seguretat restaurada",
+      "couldNotRestoreTheBackup": "No s'ha pogut restaurar la còpia de seguretat",
+      "backupPassphrase": "Frase de pas de la còpia de seguretat",
+      "thePassphraseUsedWhenThe": "La frase de pas utilitzada quan es va fer la còpia de seguretat.",
+      "passphrase": "Frase de pas",
+      "restore": "Restaura"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Comptes",
+        "thisDeviceAndLinkedServers": "Aquest dispositiu i els servidors vinculats, amb el seu estat de sincronització",
+        "syncAndProxy": "Sincronització i proxy",
+        "whatSyncsConflictsProxyAnd": "Què es sincronitza, conflictes, proxy i desvinculació",
+        "serverAccount": "Compte del servidor",
+        "whoIsSignedInOn": "Qui ha iniciat sessió al servidor actiu",
+        "activeSessions": "Sessions actives",
+        "devicesSignedInToThe": "Dispositius amb sessió iniciada al servidor",
+        "apiKeys": "Claus API",
+        "keysForScriptsAndTools": "Claus per a scripts i eines",
+        "changePassword": "Canvia la contrasenya",
+        "passwordOfYourServerAccount": "Contrasenya del teu compte del servidor",
+        "deleteServerAccount": "Suprimeix el compte del servidor",
+        "removeYourAccountFromThe": "Elimina el teu compte del servidor",
+        "theme": "Tema",
+        "darkLightDraculaNordAnd": "Fosc, clar, Dracula, Nord i més",
+        "accentColor": "Color d'accent",
+        "textSize": "Mida del text",
+        "sizeOfTextAcrossThe": "Mida del text a tota l'aplicació",
+        "density": "Densitat",
+        "howTallListRowsAnd": "Alçada de les files de la llista i de la configuració",
+        "homeScreenWidgets": "Gadgets de la pantalla d'inici",
+        "hostsAndSnippetsOnThe": "Amfitrions i fragments a la pantalla d'inici",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Tipus de lletra, tema, cursor, desplaçament",
+        "keyboard": "Teclat",
+        "layoutKeysPresets": "Distribució, tecles, plantilles",
+        "appLock": "Bloqueig de l'aplicació",
+        "askForFaceIdTouch": "Demana Face ID, Touch ID o un PIN per obrir l'aplicació",
+        "lockAfter": "Bloqueja després de",
+        "howLongTheAppCan": "Quant de temps pot estar l'aplicació fora de vista abans de bloquejar-se",
+        "hideInAppSwitcher": "Amaga al canviador d'aplicacions",
+        "showABlankScreenIn": "Mostra una pantalla en blanc a la llista d'aplicacions recents",
+        "changePin": "Canvia el PIN",
+        "backgroundSessions": "Sessions en segon pla",
+        "whatHappensToOpenSessions": "Què passa amb les sessions obertes quan surts de l'aplicació",
+        "serverAlerts": "Alertes del servidor",
+        "alertsFromTheAlertsPlugin": "Alertes del complement d'Alertes al teu servidor",
+        "whatStaysOnThis": "Què es queda en aquest {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Els amfitrions, les credencials i els fragments s'emmagatzemen xifrats aquí",
+        "recentHosts": "Amfitrions recents",
+        "forgetTheHostsYouOpened": "Obliða els amfitrions que has obert recentment",
+        "shareAnonymousUsageStatistics": "Comparteix estadístiques d'ús anònimes",
+        "aShortReportOnceA": "Un informe breu un cop al dia. Sense amfitrions, noms ni adreces",
+        "nextReport": "Pròxim informe",
+        "seeExactlyWhatWouldBe": "Veure exactament què s'enviaria",
+        "resetInstallId": "Restableix l'ID d'instal·lació",
+        "futureReportsWillLookLike": "Els futurs informes semblaran una instal·lació nova",
+        "serverUsageStatistics": "Estadístiques d'ús del servidor",
+        "telemetrySettingsOnYourServer": "Configuració de telemetria al teu servidor",
+        "plugins": "Complements",
+        "whatTheServerAddsAnd": "Què afegeix el servidor i on s'executa",
+        "localData": "Dades locals",
+        "backupRestoreAndDeleteWhat": "Fes còpies de seguretat, restaura i suprimeix el que s'emmagatzema en aquest {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Versió i actualitzacions",
+        "logs": "Registres",
+        "latestLinesFromThisRun": "Últimes línies d'aquesta execució, per a informes d'errors",
+        "pushNotifications": "Notificacions push",
+        "pushNotificationsDescription": "Alertes dels teus servidors en aquest telèfon"
+      },
+      "sections": {
+        "accountsAndSync": "Comptes i sincronització",
+        "thisDeviceLinkedServersAnd": "Aquest dispositiu, servidors vinculats i què es sincronitza",
+        "appearance": "Aparença",
+        "themeAccentTextSizeAnd": "Idioma, tema, accent, mida del text i densitat",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Tipus de lletra, colors i sessions en segon pla",
+        "keyboard": "Teclat",
+        "keyRowsAndShortcuts": "Files de tecles i dreceres",
+        "security": "Seguretat",
+        "appLockFaceIdAnd": "Bloqueig de l'aplicació, Face ID i PIN",
+        "notifications": "Notificacions",
+        "alertsFromYourServer": "Alertes del teu servidor",
+        "privacyAndUsageStatistics": "Privadesa i estadístiques d'ús",
+        "whatStaysOnThis": "Què es queda en aquest {{deviceWord}}",
+        "plugins": "Complements",
+        "whatTheServerAddsTo": "Què afegeix el servidor a l'aplicació",
+        "backupAndData": "Còpia de seguretat i dades",
+        "backUpRestoreImportAnd": "Còpia de seguretat, restauració, importació i exportació",
+        "aboutAndLogs": "Quant a i registres",
+        "versionAndLogsForBug": "Versió i registres per a informes d'errors"
+      }
+    },
+    "settings": "Configuració",
+    "searchSettings": "Cerca configuració",
+    "noSettingsMatch": "Cap opció de configuració coincideix.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "No s'han pogut carregar els fragments",
+      "copied": "Copiat: {{name}}",
+      "nameIsRequired": "El nom és obligatori",
+      "contentIsRequired": "El contingut és obligatori",
+      "snippetUpdated": "Fragment actualitzat",
+      "snippetCreated": "Fragment creat",
+      "failedToSaveSnippet": "No s'ha pogut desar el fragment",
+      "snippetDeleted": "Fragment eliminat",
+      "failedToDeleteSnippet": "No s'ha pogut eliminar el fragment",
+      "folderNameIsRequired": "El nom de la carpeta és obligatori",
+      "folderCreated": "Carpeta creada",
+      "failedToCreateFolder": "No s'ha pogut crear la carpeta",
+      "folderDeleted": "Carpeta eliminada",
+      "failedToDeleteFolder": "No s'ha pogut eliminar la carpeta",
+      "folderRenamed": "Carpeta reanomenada",
+      "failedToRenameFolder": "No s'ha pogut reanomenar la carpeta",
+      "failedToSaveOrder": "No s'ha pogut desar l'ordre",
+      "moveUp": "Mou amunt",
+      "moveDown": "Mou avall",
+      "runOnHosts": "Executa {{name}} als servidors",
+      "copy": "Copia {{name}}",
+      "delete": "Elimina {{name}}",
+      "renameFolder": "Reanomena carpeta",
+      "deleteFolder": "Elimina carpeta",
+      "noSnippetsInThisFolder": "No hi ha fragments en aquesta carpeta",
+      "snippets": "Fragments",
+      "importAndExport": "Importa i exporta",
+      "folder": "Carpeta",
+      "new": "Nou",
+      "loading": "S'està carregant…",
+      "couldNotLoadSnippets": "No s'han pogut carregar els fragments",
+      "checkTheConnectionToYour": "Comprova la connexió amb el teu servidor i torna-ho a provar.",
+      "tryAgain": "Torna-ho a provar",
+      "noSnippetsYet": "Encara no hi ha fragments",
+      "createYourFirstSnippetOr": "Crea el teu primer fragment o afegeix fragments des de l'aplicació web o d'escriptori de Termix.",
+      "createSnippet": "Crea un fragment",
+      "askBeforeRunning": "Pregunta abans d'executar",
+      "confirmBeforeASnippetRuns": "Confirma abans que s'executi un fragment al terminal",
+      "editSnippet": "Edita el fragment",
+      "newSnippet": "Nou fragment",
+      "cancel": "Cancel·la",
+      "save": "Desa",
+      "create": "Crea",
+      "name": "Nom",
+      "eGUpdatePackages": "p. ex. Actualitza els paquets",
+      "content": "Contingut",
+      "descriptionOptional": "Descripció (opcional)",
+      "shortDescription": "Descripció curta",
+      "folderOptional": "Carpeta (opcional)",
+      "selectFolder": "Selecciona la carpeta",
+      "noFolder": "Sense carpeta",
+      "targetHostsOptional": "Màquines destinació (opcional)",
+      "none": "Cap",
+      "note": "Nota",
+      "pastedIntoTheTerminalWithout": "Enganxat al terminal sense executar-lo",
+      "targetHosts": "Màquines destinació",
+      "copy2": "Copia",
+      "edit": "Edita",
+      "runOnHosts2": "Executa a les màquines",
+      "delete2": "Suprimeix",
+      "deleteSnippet": "Suprimeix el fragment",
+      "deleteThisCannotBeUndone": "Vols suprimir «{{name}}»? Aquesta acció no es pot desfer.",
+      "renameFolder2": "Canvia el nom de la carpeta",
+      "rename": "Canvia el nom",
+      "folderName": "Nom de la carpeta",
+      "eGSystem": "p. ex. Sistema",
+      "newFolder": "Nova carpeta",
+      "deleteFolder2": "Suprimeix la carpeta",
+      "deleteSnippetsInThisFolder": "Vols suprimir «{{name}}»? Els fragments d'aquesta carpeta quedaran sense categoria."
+    },
+    "sync": {
+      "notYet": "Encara no",
+      "justNow": "Ara mateix",
+      "stopped": "Aturat",
+      "signInToThisServer": "Inicia sessió en aquest servidor de nou per sincronitzar",
+      "couldNotChangeThat": "No s'ha pogut canviar",
+      "sync": "Sincronitza",
+      "thisDeviceDoesNotSync": "Aquest dispositiu no sincronitza. Vincula un servidor de Termix per mantenir les teves màquines en més d'un dispositiu.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} manté les màquines, les credencials, els fragments i la configuració sincronitzats amb aquest {{deviceWord}}. Es conserva una còpia en aquest {{deviceWord}}, de manera que també funciona fora de línia.",
+      "lastSynced": "Última sincronització: {{value}}",
+      "live": "En directe",
+      "syncNow": "Sincronitza ara",
+      "fix": "Corregeix",
+      "thisServerReadsLiveAnd": "Aquest servidor llegeix en directe i no conserva cap còpia en el {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Activa el complement de Sincronització a la pàgina de complements del servidor i inicia sessió de nou aquí per conservar una còpia en aquest {{deviceWord}}.",
+      "whatSyncs": "Què es sincronitza",
+      "turnedOffThatDataStays": "Desactivat, aquestes dades es conserven només en aquest {{deviceWord}}.",
+      "conflicts": "Conflictes",
+      "changedHereAndOnThe": "S'ha modificat aquí i al servidor al mateix temps. S'ha conservat la versió del servidor.",
+      "useServer": "Utilitza la del servidor",
+      "keepMine": "Conserva la meva",
+      "notSavedOnTheServer": "No desat al servidor",
+      "theServerRefusedTheseChanges": "El servidor ha rebutjat aquests canvis. Es conserven en aquest {{deviceWord}}.",
+      "tryAgain": "Torna-ho a provar",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Només cal quan hi ha un proxy invers davant del servidor.",
+      "unlink": "Desvincula",
+      "unlinkThisServer": "Desvincula aquest servidor",
+      "minAgo": "Fa {{value}} min",
+      "signedOut": "S'ha tancat la sessió",
+      "waitingToSync": "Esperant sincronitzar",
+      "synced": "Sincronitzat",
+      "syncing": "Sincronitzant",
+      "offline": "Desconnectat"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Fons",
+        "text": "Text",
+        "cursor": "Cursor",
+        "textUnderCursor": "Text sota el cursor",
+        "selection": "Selecció",
+        "black": "Negre",
+        "red": "Vermell",
+        "green": "Verd",
+        "yellow": "Groc",
+        "blue": "Blau",
+        "magenta": "Magenta",
+        "cyan": "Cian",
+        "white": "Blanc",
+        "brightBlack": "Negre brillant",
+        "brightRed": "Vermell brillant",
+        "brightGreen": "Verd brillant",
+        "brightYellow": "Groc brillant",
+        "brightBlue": "Blau brillant",
+        "brightMagenta": "Magenta brillant",
+        "brightCyan": "Cian brillant",
+        "brightWhite": "Blanc brillant",
+        "customTheme": "Tema personalitzat",
+        "colorsAsHexLike1e1e2e": "Colors en hexadecimal, com ara #1e1e2e.",
+        "cancel": "Cancel·la",
+        "save": "Desa",
+        "isNotAHexColor": "{{label}} no és un color hexadecimal"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Compacte",
+      "default": "Predeterminat",
+      "relaxed": "Relaxat",
+      "spacious": "Espaiós",
+      "none": "Cap",
+      "couldNotSave": "No s'ha pogut desar",
+      "pickASizeFromTo": "Tria una mida entre {{MIN_FONT_SIZE}} i {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "S'han restablert la configuració del terminal",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "Un host pot definir el seu propi tema i cursor a Termix, la qual cosa té prioritat sobre aquests.",
+      "theme": "Tema",
+      "custom": "Personalitzat",
+      "font": "Tipus de lletra",
+      "active": "Actiu",
+      "sizeAndSpacing": "Mida i espaiat",
+      "pinchTheTerminalToChange": "Fes pinça al terminal per canviar també la mida. El text gran a la configuració del teu {{deviceWord}} el fa més gran.",
+      "custom2": "Personalitzat {{fontSize}}",
+      "lineHeight": "Alçada de línia",
+      "letterSpacing": "Espaiat de lletres",
+      "ligatures": "Lligadures",
+      "cursor": "Cursor",
+      "blink": "Parpelleig",
+      "bell": "Campana",
+      "vibrate": "Vibració",
+      "onTheBellAndWhen": "En la campana i en prémer llargament per seleccionar",
+      "scrollback": "Desplaçament enrere",
+      "linesKeptAboveTheScreen": "Línies conservades per sobre de la pantalla. S'aplica als terminals nous.",
+      "linksAndKeys": "Enllaços i tecles",
+      "askBeforeOpeningLinks": "Pregunta abans d'obrir els enllaços",
+      "doubleTapSendsTab": "Doble toc envia Tab",
+      "longPressStillSelectsText": "La premsa prolongada encara selecciona text",
+      "optionSendsAlt": "Opció envia Alt",
+      "onAHardwareKeyboardOff": "En un teclat físic. Desactivat escriu símbols com en un Mac.",
+      "history": "Historial",
+      "suggestCommands": "Suggerir comandes",
+      "showsPastCommandsThatStart": "Comandes anteriors mentre escrius",
+      "resetToDefault": "Restableix als valors predeterminats",
+      "fontSize": "Mida de la font",
+      "aSizeFromTo": "Una mida de {{MIN_FONT_SIZE}} a {{MAX_FONT_SIZE}}.",
+      "cancel": "Cancel·la",
+      "apply": "Aplica",
+      "resetTerminalSettings": "Voleu restablir la configuració del terminal?",
+      "themeFontSizeCursorBell": "El tema, la font, la mida, el cursor, el so de campana i la resta tornen als valors predeterminats.",
+      "reset": "Restableix",
+      "followsAppTheme": "Segueix el tema de l'aplicació"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "No s'ha pogut iniciar la configuració de l'autenticació de dos factors",
+      "twoFactorAuthenticationEnabled": "Autenticació de dos factors activada",
+      "invalidCodeTryAgain": "Codi no vàlid, torneu-ho a provar",
+      "twoFactorAuthenticationDisabled": "Autenticació de dos factors desactivada",
+      "failedToDisable2fa": "No s'ha pogut desactivar l'autenticació de dos factors",
+      "failedToFetchBackupCodes": "No s'han pogut obtenir els codis de còpia de seguretat",
+      "secretCopied": "Secret copiat",
+      "backupCodesCopied": "Codis de còpia de seguretat copiats",
+      "twoFactorAuthentication": "Autenticació de dos factors",
+      "loading": "S'està carregant…",
+      "scanThisQrCodeWith": "Escaneja aquest codi QR amb la teva aplicació d'autenticació (Google Authenticator, Authy, etc.) i, a continuació, introdueix el codi de 6 xifres per confirmar.",
+      "verifyAmpEnable": "Verificar i activar",
+      "cancel": "Cancel·la",
+      "saveYourBackupCodes": "Desa els teus codis de còpia de seguretat",
+      "storeTheseSomewhereSafeEach": "Emmagatzema-los en un lloc segur. Cada codi només es pot utilitzar una vegada si perds l'accés al teu autenticador.",
+      "copyAllCodes": "Copia tots els codis",
+      "done": "Fet",
+      "yourAccountIsProtectedWith": "El teu compte està protegit amb una aplicació d'autenticació.",
+      "addAnExtraLayerOf": "Afegeix una capa extra de seguretat al teu compte.",
+      "viewBackupCodes": "Mostra els codis de còpia de seguretat",
+      "disable2fa": "Desactiva l'autenticació de dos factors",
+      "enable2fa": "Activa l'autenticació de dos factors",
+      "disableTwoFactorAuthentication": "Desactiva l'autenticació de dos factors",
+      "enterACodeFromYour": "Introdueix un codi de la teva aplicació d'autenticació per confirmar. Pots tornar a activar l'autenticació de dos factors en qualsevol moment.",
+      "enterYourPasswordToConfirm": "Introdueix la teva contrasenya per confirmar. Pots tornar a activar l'autenticació de dos factors en qualsevol moment.",
+      "disable": "Desactiva",
+      "yourPassword": "La teva contrasenya",
+      "n2faIsEnabled": "L'autenticació de dos factors està activada",
+      "n2faIsNotEnabled": "L'autenticació de dos factors no està activada"
+    },
+    "language": {
+      "label": "Idioma",
+      "description": "L'aplicació es recarrega per canviar",
+      "system": "Igual que el dispositiu"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "No hi ha amfitrions SSH aquí",
+      "couldNotReadWhatWas": "No s'ha pogut llegir el que s'ha compartit",
+      "stopTheUploads": "Voleu aturar les pujades?",
+      "stopAndLeave": "Atura i surt",
+      "sendTo": "Envia a {{name}}",
+      "sendToAHost": "Envia a un amfitrió",
+      "nothingToSend": "No hi ha res per enviar",
+      "close": "Tanca",
+      "done": "Fet",
+      "cancel": "Cancel·la",
+      "uploadHere": "Puja aquí",
+      "uploadsStillGoing_one": "Encara s'està pujant {{count}} fitxer. Si marxeu, s'aturarà.",
+      "uploadsStillGoing_many": "Encara s'estan pujant {{count}} fitxers. Si marxeu, s'aturaran.",
+      "uploadsStillGoing_other": "Encara s'estan pujant {{count}} fitxers. Si marxeu, s'aturaran.",
+      "filesSize_one": "{{count}} fitxer | {{size}}",
+      "filesSize_many": "{{count}} fitxers | {{size}}",
+      "filesSize_other": "{{count}} fitxers | {{size}}",
+      "readingWhatWasShared": "Llegint el que s'ha compartit"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Error",
+      "worksWithoutAServer": "Funciona sense servidor",
+      "accountSwitch": "Compte {{account}}, canvia",
+      "search": "Cerca",
+      "notificationsUnread": "Notificacions, {{unread}} no llegides",
+      "notifications": "Notificacions",
+      "signedIn": "Sessió iniciada",
+      "signedOut": "Sessió tancada",
+      "copyOnThis": "Copia en aquest {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Inici",
+      "hosts": "Servidors",
+      "sessions": "Sessions",
+      "tools": "Eines",
+      "settings": "Configuració",
+      "open": "{{label}}, {{count}} obertes"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} obertes"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Trieu un servidor",
+      "searchHosts": "Cerca servidors",
+      "clearSearch": "Esborra la cerca",
+      "noHostsMatch": "Cap servidor no coincideix",
+      "noHostsCanUseThis": "Cap servidor no pot utilitzar-ho",
+      "turnItOnForA": "Activeu-ho per a un servidor a l'editor de servidors."
+    },
+    "noToolsHereYet": "Encara no hi ha cap eina aquí",
+    "onAHost": "En un servidor",
+    "saved": "Desat",
+    "fromYourServer": "Des del vostre servidor"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Cancel·la",
+      "delete": "Suprimeix",
+      "confirm": "Confirma"
+    },
+    "contextMenu": {
+      "closeMenu": "Tanca el menú"
+    },
+    "inlineView": {
+      "back": "Enrere"
+    },
+    "listRow": {
+      "moreActions": "Més accions"
+    },
+    "pinPad": {
+      "useBiometrics": "Utilitza la biometria",
+      "delete": "Suprimeix"
+    },
+    "popover": {
+      "close": "Tanca"
+    },
+    "promptSheet": {
+      "cancel": "Cancel·la"
+    },
+    "sheet": {
+      "close": "Tanca"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Aquesta clau està bloquejada. Introduïu-ne la frase de contrasenya.",
+      "thatPassphraseDoesnTOpen": "Aquesta frase de contrasenya no obre aquesta clau.",
+      "thisDoesnTLookLike": "Això no sembla una clau privada.",
+      "loadedAndChangedItTo": "S'ha carregat {{name}} i s'ha canviat al format OpenSSH",
+      "loadedItNeedsItsPassphrase": "S'ha carregat {{name}}. Necessita la seva frase de contrasenya per connectar-se"
+    },
+    "ago": {
+      "justNow": "ara mateix"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "No s'han pogut carregar els vostres servidors.",
+      "failedOn": "{{name}} ha fallat a {{name2}}",
+      "on": "{{name}} a {{name2}}: {{value}}",
+      "ranOn": "S'ha executat {{name}} a {{name2}}",
+      "runOn": "Executa «{{name}}» a",
+      "runSnippet": "Executa el fragment",
+      "loadingHosts": "Carregant servidors…",
+      "noHostsAvailable": "No hi ha servidors disponibles",
+      "addAHostInTermix": "Afegiu un servidor a Termix per executar fragments des de la pantalla d'inici.",
+      "lastUsed": "Última utilització",
+      "failedToRunSnippet": "No s'ha pogut executar el fragment"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Aquest fragment ja no existeix.",
+      "couldNotOpenThatSnippet": "No s'ha pogut obrir aquest fragment.",
+      "thatHostNoLongerExists": "Aquest servidor ja no existeix.",
+      "couldNotOpenThatHost": "No s'ha pogut obrir aquest amfitrió."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Inici"
+      },
+      "hosts": {
+        "hosts": "Amfitrions"
+      },
+      "sessions": {
+        "sessions": "Sessions",
+        "connectToATermixServer": "Connecta't a un servidor Termix per obrir terminals, túnels i sessions de fitxers."
+      }
+    },
+    "layout": {
+      "initializing": "S'està inicialitzant…",
+      "cancel": "Cancel·la"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Aquest amfitrió no té cap adreça MAC vàlida.",
+    "thisBuildCanTSend": "Aquesta compilació no pot enviar paquets Wake-on-LAN.",
+    "couldNotSendThePacket": "No s'ha pogut enviar el paquet. Comprova que el Wi-Fi estigui activat."
+  },
+  "common": {
+    "hostCount_one": "{{count}} amfitrió",
+    "hostCount_many": "{{count}} amfitrions",
+    "hostCount_other": "{{count}} amfitrions",
+    "device": {
+      "phone": "telèfon",
+      "tablet": "tauleta"
+    },
+    "thisDeviceLower": "aquest {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Compartició",
+    "action": "Comparteix amb persones",
+    "levels": {
+      "connect": "Connecta",
+      "view": "Visualitza",
+      "edit": "Edita",
+      "manage": "Gestiona"
+    },
+    "levelHints": {
+      "connect": "Només obrir sessions. La configuració de l'amfitrió romandrà oculta",
+      "view": "Connecta i visualitza la configuració de l'amfitrió. Els secrets mai es mostren",
+      "edit": "Visualitza i modifica la configuració, excepte l'inici de sessió",
+      "manage": "Edita, comparteix l'amfitrió i modifica o elimina l'accés"
+    },
+    "until": "fins al {{date}}",
+    "sharedBy": "per {{name}}",
+    "couldNotLoad": "No s'ha pogut carregar qui té accés",
+    "shared": "Amfitrió compartit",
+    "couldNotShare": "No s'ha pogut compartir l'amfitrió",
+    "updated": "Accés modificat",
+    "couldNotUpdate": "No s'ha pogut modificar l'accés",
+    "removeTitle": "Vols eliminar {{name}}?",
+    "removeHint": "Ja no podrà utilitzar aquest amfitrió.",
+    "remove": "Elimina",
+    "removed": "Accés eliminat",
+    "couldNotRemove": "No s'ha pogut eliminar l'accés",
+    "whoHasAccess": "Qui té accés",
+    "loading": "S'està carregant...",
+    "nobodyYet": "Només tu pots utilitzar aquest amfitrió.",
+    "changeAccessFor": "Modifica l'accés per a {{name}}",
+    "shareWith": "Comparteix amb",
+    "users": "Usuaris",
+    "roles": "Rols",
+    "searchUsers": "Cerca usuaris",
+    "searchRoles": "Cerca rols",
+    "noUsers": "No hi ha altres usuaris amb qui compartir.",
+    "noRoles": "No hi ha rols amb qui compartir.",
+    "options": "Accés",
+    "level": "Nivell",
+    "expires": "Finalitza",
+    "expiry": {
+      "never": "Mai",
+      "1h": "D'aquí 1 hora",
+      "1d": "D'aquí 1 dia",
+      "7d": "D'aquí 7 dies",
+      "30d": "D'aquí 30 dies"
+    },
+    "pickSomeone": "Tria amb qui compartir",
+    "shareCount_one": "Comparteix amb {{count}}",
+    "shareCount_many": "Comparteix amb {{count}}",
+    "shareCount_other": "Comparteix amb {{count}}",
+    "removeAccess": "Elimina l'accés"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Alertes del servidor",
+      "critical": "Alertes crítiques del servidor"
+    },
+    "severity": {
+      "info": "Tot",
+      "warning": "Advertències i pitjor",
+      "critical": "Només crítiques"
+    },
+    "settings": {
+      "on": "Les alertes apareixen en aquest telèfon",
+      "off": "Desactivat",
+      "toggle": "Notificacions push per a {{server}}",
+      "minSeverity": "Envia'm",
+      "denied": "Les notificacions estan desactivades per a Termix. Activa-les a la configuració del telèfon.",
+      "openSettings": "Obre configuració",
+      "outdated": "Aquest servidor necessita Alerts 1.4.0 o superior per a les notificacions push. Demana a un administrador que actualitzi el complement.",
+      "unavailable": "Connecta't a aquest servidor i activa el complement Alerts per rebre notificacions.",
+      "error": "No s'ha pogut contactar amb el servidor. Termix ho tornarà a provar la propera vegada que s'obri l'aplicació.",
+      "notInThisBuild": "Aquesta versió no pot mostrar notificacions.",
+      "noServers": "Vincula un servidor per rebre les seves alertes aquí.",
+      "pushHint": "Les alertes s'envien a través d'Expo i Apple o Google, amb el seu títol i text. Tria quines rebràs a les regles d'Alertes del servidor.",
+      "pollHint": "Aquesta versió no té serveis de Google, per tant Termix comprova noves alertes en segon pla, aproximadament cada 15 minuts."
+    }
+  }
+}

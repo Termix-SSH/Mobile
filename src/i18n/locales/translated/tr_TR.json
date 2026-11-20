@@ -1,0 +1,3874 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Giriş yap",
+      "addServer": "Sunucu ekle",
+      "switchAccount": "Hesap değiştir",
+      "noServerConnected": "Bağlı sunucu yok",
+      "connectToATermixServer": "Ana bilgisayarlarınızı, terminallerinizi, dosyalarınızı ve daha fazlasını yönetmek için bir Termix sunucusuna bağlanın."
+    },
+    "lockScreen": {
+      "cancel": "İptal",
+      "tooManyTriesWaitSeconds": "Çok fazla deneme. {{value}} saniye bekleyin",
+      "termixLocked": "Termix Kilitli",
+      "enterYourPinToContinue": "Devam etmek için PIN kodunuzu girin"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Turuncu",
+      "blue": "Mavi",
+      "green": "Yeşil",
+      "purple": "Mor",
+      "pink": "Pembe",
+      "cyan": "Camgöbeği",
+      "red": "Kırmızı",
+      "yellow": "Sarı",
+      "teal": "Turkuaz",
+      "indigo": "Çivit mavisi",
+      "rose": "Gül",
+      "lime": "Limon yeşili",
+      "system": "Sistem",
+      "light": "Açık",
+      "dark": "Koyu"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "PIN kullan",
+      "unlockTermix": "Termix'in kilidini aç",
+      "unlockTermixFirst": "Önce Termix'in kilidini açın."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Bu özellik sunucuda devre dışı bırakıldı.",
+      "aTabWasNotReopened": "Ana bilgisayarı kaldırıldığı için bir sekme yeniden açılmadı",
+      "tabsWereNotReopenedBecause": "{{count}} sekme, ana bilgisayarları kaldırıldığı için yeniden açılmadı"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Bunu kullanmak için bir Termix sunucusu bağlayın",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Sunucunuzun adresini girin",
+        "theAddressCanTHave": "Adres boşluk içeremez",
+        "useAnHttpOrHttps": "http:// veya https:// adresi kullanın",
+        "thatDoesnTLookLike": "Bu bir sunucu adresi gibi görünmüyor",
+        "thePortMustBeFrom": "Bağlantı noktası 1 ile 65535 arasında olmalıdır"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Termix yerine bir giriş vekili yanıt verdi. Önce vekile giriş yapın.",
+        "theServerDidNotSend": "Sunucu bir belirteç göndermedi.",
+        "theServerDidNotSend2": "Sunucu bir oturum göndermedi.",
+        "theServerSentNoSign": "Sunucu bir giriş adresi göndermedi.",
+        "theSignInRanOut": "Giriş süresi doldu veya zaten kullanıldı. Tekrar giriş yapın.",
+        "wrongUsernameOrPassword": "Yanlış kullanıcı adı veya şifre",
+        "signInFailedHttp": "Giriş başarısız oldu (HTTP {{status}})",
+        "thePageSignedYouIn": "Sayfa sizi giriş yaptırdı ancak geriye oturum göndermedi. Sunucuyu Termix 26.11.3 veya daha yenisine güncelleyin.",
+        "thisAccountIsnTAllowed": "Bu hesap burada giriş yapmaya izin verilmiyor.",
+        "noTermixAccountMatchesThat": "Bu girişe uyan bir Termix hesabı bulunamadı."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Bu oturumun sunucusu yok"
+    },
+    "store": {
+      "noSuchAccount": "Böyle bir hesap yok",
+      "thisDeviceCanTBe": "Bu cihaz kaldırılamaz",
+      "switchToAnotherAccountFirst": "Önce başka bir hesaba geçin"
+    },
+    "types": {
+      "thisDevice": "Bu cihaz"
+    },
+    "accountSwitcher": {
+      "error": "Hata",
+      "worksWithoutAServer": "Sunucu olmadan çalışır",
+      "couldNotSwitchAccount": "Hesap değiştirilemedi",
+      "accounts": "Hesaplar",
+      "openTabsKeepRunningWhen": "Açık sekmeler değiştirdiğinizde çalışmaya devam eder.",
+      "unlink": "{{account}} bağlantısını kaldır",
+      "linkAServer": "Sunucu bağla",
+      "eachServerKeepsItsOwn": "Her sunucu, bu {{deviceWord}} üzerinde kendi ana bilgisayarlarını, kimlik bilgilerini ve ayarlarını tutar.",
+      "signedIn": "Giriş yapıldı",
+      "signedOut": "Oturum kapatıldı",
+      "syncedCopy": "Senkronize kopya"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Pin kaydedilemedi",
+      "theServerSKeyMatches": "Sunucunun anahtarı pin ile eşleşiyor",
+      "theServerShowsAnotherKey": "Sunucu başka bir anahtar gösteriyor",
+      "pinThisKey": "Bu anahtarı sabitlemek ister misiniz?",
+      "pinThisKey2": "Bu anahtarı sabitle",
+      "keyPinned": "Anahtar sabitlendi",
+      "couldNotReadTheServer": "Sunucunun anahtarı okunamadı",
+      "thatIsNotAPin": "Bu bir pin değil",
+      "keysPinned": "Anahtarlar sabitlendi",
+      "certificatePin": "Sertifika pini",
+      "trustThisServerOnlyBy": "Bu sunucuya yalnızca anahtarına güvenin. Kendinden imzalı sertifika için veya başka hiçbir anahtarı reddetmek için kullanın. Sunucunun sertifikasını değiştirmeden önce bir sonraki anahtarı ekleyin.",
+      "removePin": "{{pin}} pinini kaldır",
+      "remove": "Kaldır",
+      "readTheKeyFromThe": "Anahtarı sunucudan oku",
+      "orPasteAPin": "Veya bir pin yapıştırın",
+      "pin": "Pin",
+      "add": "Ekle",
+      "issuedTo": "Verilen: {{subject}}",
+      "issuedBy": "Veren: {{issuer}}",
+      "validUntil": "Geçerlilik süresi: {{value}}",
+      "checkThatThisKeyMatches": "Sabitlemeden önce bu anahtarın sunucunuzdaki anahtarla eşleştiğini kontrol edin.",
+      "pasteTheBase64Sha256Of": "OpenSSL'in yazdığı gibi, sunucunun genel anahtarının base64 sha256 değerini yapıştırın."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Proxy ayarları kaydedildi",
+      "couldNotSaveTheProxy": "Proxy ayarları kaydedilemedi",
+      "couldNotReadThatFile": "Bu dosya okunamadı",
+      "certificateSaved": "Sertifika kaydedildi",
+      "theFileOrItsPassphrase": "Dosya veya parola yanlış",
+      "couldNotSaveTheCertificate": "Sertifika kaydedilemedi",
+      "headers": "Başlıklar",
+      "sentWithEveryRequestTo": "Bu sunucuya yapılan her istekle birlikte gönderilir, örneğin bir Cloudflare hizmet belirteci gibi.",
+      "name": "Ad",
+      "value": "Değer",
+      "removeHeader": "Başlığı kaldır",
+      "addHeader": "Başlık ekle",
+      "cloudflareServiceToken": "Cloudflare hizmet belirteci",
+      "basicAuth": "Temel kimlik doğrulama",
+      "forAProxyThatAsks": "Kullanıcı adı ve şifre isteyen bir proxy için.",
+      "userName": "Kullanıcı adı",
+      "password": "Şifre",
+      "saveHeadersAndBasicAuth": "Başlıkları ve temel kimlik doğrulamayı kaydet",
+      "clientCertificate": "İstemci sertifikası",
+      "forServersThatAskFor": "Biri isteyen sunucular için (mTLS). Anahtar {{deviceWord}}'ün güvenli depolamasında tutulur ve geri okunamaz.",
+      "certificate": "Sertifika",
+      "remove": "Kaldır",
+      "replaceCertificate": "Sertifikayı değiştir",
+      "pickAP12OrPfx": "Bir .p12 veya .pfx dosyası seçin",
+      "proxySignIn": "Proxy oturum açma",
+      "thisIsSignedInTo": " Bu {{deviceWord}} proxy'ye giriş yapmış durumda.",
+      "forCloudflareAccessAutheliaAuthentik": "Cloudflare Access, Authelia, Authentik ve kendi oturum açma sayfası olan diğer proxy'ler için.{{value}}",
+      "signInToTheProxy": "Proxy'ye giriş yap",
+      "forget": "Unut",
+      "certificatePassphrase": "Sertifika parolası",
+      "thePassphraseTheFileWas": "Dosyanın kaydedildiği parola. Yoksa boş bırakın.",
+      "passphrase": "Parola",
+      "save": "Kaydet"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Proxy'ye giriş yapıldı",
+      "couldNotSaveTheProxy": "Proxy oturum açma kaydedilemedi",
+      "signInToTheProxy": "Proxy'ye giriş yap",
+      "thisBuildOfTheApp": "Bu uygulama sürümü bir vekil sunucu oturumunu koruyamaz. Bunun yerine vekil sunucu başlıklarında bir hizmet belirteci kullanın."
+    },
+    "savedLoginRow": {
+      "signIn": "Oturum aç",
+      "signInWith": "{{name}} ile oturum aç",
+      "whenThisServerSignsYou": "Bu sunucu sizi çıkış yaptığında, şifrenizi tekrar yazmadan tekrar oturum açın."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Bağlantı kaldırıldı. {{copied}} öğe Bu cihazda tutuldu.",
+      "unlinked": "Bağlantı kaldırıldı",
+      "couldNotUnlinkTheServer": "Sunucunun bağlantısı kaldırılamadı",
+      "unlink": "{{value}} bağlantısı kaldırılsın mı?",
+      "thisSignsOutOfThe": "Bu {{deviceWord}} sunucudan çıkış yapar. Sunucuda hiçbir şey silinmez.",
+      "keepACopyOnThis": "Bu cihazda bir kopya tut",
+      "yourOwnHostsCredentialsAnd": "Kendi sunucularınız, kimlik bilgileriniz ve komut parçacıklarınız Bu cihaza taşınır. Sizinle paylaşılan sunucular tutulmaz.",
+      "deleteFromThis": "Bu {{deviceWord}}'den sil",
+      "everythingThisHasForThe": "Bu {{deviceWord}}'nun sunucu için sahip olduğu her şey kaldırılır."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Aşağıda Vekil Sunucu altında değiştirin",
+      "updateTermixMobileFromYour": "Termix Mobile'ı uygulama mağazanızdan güncelleyin"
+    },
+    "savedLogin": {
+      "signInToTermix": "Termix'e oturum aç",
+      "faceUnlock": "yüz kilidi açma"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Bu sürüm, bu sunucunun sabitlenmiş anahtarını kontrol edemez veya sertifikasını gönderemez."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Bu sunucu bu özelliği desteklemiyor",
+      "theProxyWantsYouTo": "Vekil sunucu sizden oturum açmanızı istiyor",
+      "endpointNotAvailableOnThis": "Bu sunucuda uç nokta mevcut değil",
+      "unknownError": "Bilinmeyen hata"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Bu sunucunun önündeki vekil sunucu sizden tekrar oturum açmanızı istiyor.",
+      "authenticationRequiredPleaseLogIn": "Kimlik doğrulama gerekli. Lütfen tekrar giriş yapın.",
+      "accessDeniedYouDoNot": "Erişim reddedildi. Bu işlemi gerçekleştirme izniniz yok.",
+      "thisFeatureIsTurnedOff": "Bu özellik sunucuda devre dışı bırakıldı.",
+      "thisServerDoesNotSupport": "Bu sunucu bu özelliği desteklemiyor.",
+      "resourceNotFoundTheRequested": "Kaynak bulunamadı. İstenen öğe silinmiş olabilir.",
+      "conflictTheResourceAlreadyExists": "Çakışma. Kaynak zaten mevcut veya kullanımda.",
+      "validationErrorPleaseCheckYour": "Doğrulama hatası. Lütfen girdinizi kontrol edin ve tekrar deneyin.",
+      "serverErrorOccurredPleaseTry": "Sunucu hatası oluştu. Lütfen daha sonra tekrar deneyin.",
+      "sslCertificateVerificationFailed": "SSL sertifikası doğrulaması başarısız oldu.",
+      "networkErrorPleaseCheckYour": "Ağ hatası. Lütfen bağlantınızı kontrol edin ve tekrar deneyin.",
+      "failedTo": "{{operation}} işlemi başarısız oldu",
+      "unknownError": "Bilinmeyen hata",
+      "unexpectedErrorDuring": "{{operation}} sırasında beklenmeyen hata: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Uygulama, bu yerel IP için HTTPS'ye güvenemedi. Sunucunun anahtarını Vekil Sunucu ve istemci sertifikası altında sabitleyin, {{deviceWord}}'nun güvendiği bir sertifika kullanın veya güvenilir bir yerel veya VPN ağında HTTP kullanın.",
+        "thisServerIsBehindA": "Bu sunucu bir giriş vekil sunucusunun arkasında. Bunun yerine harici oturum açma seçeneğini kullanın.",
+        "loginFailed": "Giriş başarısız"
+      },
+      "files": {
+        "fileNotFound": "Dosya bulunamadı",
+        "fileWriteOperationDidNot": "Dosya yazma işlemi başarı durumu döndürmedi",
+        "couldNot": "{{operation}} işlemi yapılamadı ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Sunucu kaydedildi, ancak bazı ayarlar başarısız oldu: {{value}}",
+        "unexpectedHostResponseFrom": "{{baseURL}}'den beklenmeyen sunucu yanıtı"
+      },
+      "metrics": {
+        "liveSampleFailed": "Canlı örnek başarısız oldu"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Yanıt yok"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Bu sunucu sabitlendiği anahtarı göstermediğinden sayfa açılmadı."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Bu {{what}} artık mevcut değil.",
+      "aHostCannotBeIts": "Bir sunucu kendi üst öğesi olamaz",
+      "parentHostNotFound": "Üst sunucu bulunamadı",
+      "aHostCanTGo": "Bir sunucu kendi alt sunucularından birinin altına gidemez",
+      "thisIsSharedWithYou": "Bu {{what}} sizinle paylaşılıyor. Sadece sahibi değiştirebilir.",
+      "nameIsRequired": "İsim gerekli",
+      "nameAndCommandAreRequired": "İsim ve komut gerekli",
+      "aFolderWithThatName": "Bu isimde bir klasör mevcut"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Bu cihaz {{what}} öğesini burada kaydedemez."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Bu komut parçacığı sizinle paylaşılıyor ve değiştirilemez."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "En az 8 karakter içeren bir parola cümlesi kullanın.",
+      "thisIsNotATermix": "Bu bir Termix yedekleme dosyası değil.",
+      "thisBackupIsFromA": "Bu yedekleme, Termix'in daha yeni bir sürümünden. Önce uygulamayı güncelleyin.",
+      "wrongPassphraseOrTheFile": "Yanlış şifre cümlesi veya dosya bozuk."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Bu derleme yerel verileri şifreleyemez."
+    },
+    "keys": {
+      "unlockTermixFirst": "Önce Termix'i kilidini açın.",
+      "thatIsNotADatabase": "Bu bir veritabanı anahtarı değil.",
+      "couldNotSaveTheDatabase": "Veritabanı anahtarı kaydedilemedi."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Bu veriler Termix'in daha yeni bir sürümü tarafından kaydedildi. Açmak için uygulamayı güncelleyin."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Bu cihaz senkronize edilmiyor.",
+      "localDataIsNotAvailable": "Yerel veriler burada mevcut değil.",
+      "unlockTermixFirst": "Önce Termix'i kilidini açın."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Bağlanılamıyor.",
+      "thisWayCanTRun": "Bu yöntem komut çalıştıramaz"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo şifresi",
+      "password": "Şifre",
+      "run": "Çalıştır",
+      "thatPasswordWasWrong": "Bu şifre yanlış.",
+      "onNeedsRoot": "{{hostName}} üzerinde {{reason}} işlemi root yetkisi gerektiriyor.",
+      "needsRootForThis": "{{hostName}} bu işlem için root yetkisi gerektiriyor.",
+      "itIsKeptUntilYou": "Uygulamayı kapatana kadar saklanır."
+    },
+    "run": {
+      "theHostTookTooLong": "Sunucunun yanıt vermesi çok uzun sürdü",
+      "connectionLost": "Bağlantı kesildi"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Bu işlem root yetkisi gerektiriyor. Root olarak giriş yapın, şifresiz sudo yapılandırın veya sunucu için bir sudo şifresi kaydedin.",
+      "theSudoPasswordWasWrong": "Sudo şifresi yanlış",
+      "commandFailed": "Komut başarısız oldu"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Terminalde Telnet kullanmak için {{deviceWord}} bağlantısı gerekir."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "{{id}} özelliği zaten kayıtlı"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adres",
+      "theIpOrHostName": "İsim altındaki IP veya sunucu adı",
+      "username": "Kullanıcı adı",
+      "theUserBeforeTheAddress": "Adresten önceki kullanıcı",
+      "port": "Port",
+      "thePortAfterTheAddress": "Adresten sonraki port",
+      "hostIcon": "Sunucu simgesi",
+      "theIconSetOnThe": "Sunucuya ayarlanan simge",
+      "pinIcon": "Sabit simge",
+      "marksPinnedHosts": "Sabitlenmiş sunucuları işaretler",
+      "sharedBadge": "Paylaşılan rozeti",
+      "marksHostsSharedWithYou": "Sizinle paylaşılan sunucuları işaretler",
+      "protocolBadges": "Protokol rozetleri",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker ve diğer etiketler",
+      "tags": "Etiketler",
+      "theHostSTags": "Sunucunun etiketleri",
+      "cpuAndRam": "CPU ve RAM",
+      "liveUsageBarsOnOnline": "Çevrimiçi sunucularda canlı kullanım çubukları",
+      "statusColors": "Durum renkleri",
+      "greenBarWhenOnlineRed": "Çevrimiçi olduğunda yeşil, çevrimdışı olduğunda kırmızı çubuk"
+    },
+    "uiPrefs": {
+      "small": "Küçük",
+      "default": "Varsayılan",
+      "large": "Büyük",
+      "comfortable": "Rahat",
+      "compact": "Kompakt"
+    },
+    "errors": {
+      "somethingWentWrong": "Bir şeyler ters gitti"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Bir anahtarı şifre cümlesiyle kilitlemek için web önizlemesi değil, Termix uygulaması gerekir."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Hemen",
+      "after15Seconds": "15 saniye sonra",
+      "after1Minute": "1 dakika sonra",
+      "after5Minutes": "5 dakika sonra"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Cihaz sırrı kayboldu",
+      "noSealedKey": "Mühürlü anahtar yok",
+      "theSealedKeyIsDamaged": "Mühürlü anahtar bozuk",
+      "wrongPin": "Yanlış PIN",
+      "theSealedKeyDidNot": "Mühürlü anahtar açılamadı",
+      "biometricsCanTOpenThe": "Biyometri anahtarı açamıyor"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Uygulamayı güncelle",
+      "onYourServerNeedsA": "Sunucunuzdaki {{name}}, bu {{deviceWord}} üzerinde Termix'in daha yeni bir sürümüne ihtiyaç duyuyor.",
+      "updateThePlugin": "Eklentiyi güncelle",
+      "onYourServerIsToo": "Sunucunuzdaki {{name}}, bu uygulama için çok eski. Bir yöneticiden Eklentiler bölümünde güncellemesini isteyin."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Uygulama tarafından engellendi",
+      "theAppDoesNotLet": "Uygulama, eklentilerin bu rotayı kullanmasına izin vermiyor.",
+      "thisBuildCanTReach": "Bu derleme, bu sunucuya güvenli bir şekilde ulaşamıyor."
+    },
+    "support": {
+      "needsANewerVersionOf": "Uygulamanın daha yeni bir sürümüne ihtiyaç duyuyor",
+      "updateThePluginOnThe": "Sunucudaki eklentiyi güncelle",
+      "theAppHasItsOwn": "Uygulamanın kendi görünümü var",
+      "notInTheAppYet": "Henüz uygulamada değil",
+      "linkAServerToUse": "Kullanmak için bir sunucu bağla",
+      "opensInTheAppFrom": "Sunucudan uygulamada açılır",
+      "runsOnTheServer": "Sunucuda çalışır",
+      "throughTheServer": "Sunucu üzerinden",
+      "inTheApp": "Uygulamada",
+      "webView": "Web görünümü",
+      "onTheServer": "Sunucuda",
+      "appLook": "Uygulama görünümü",
+      "notInTheApp": "Uygulamada değil",
+      "safeMode": "Güvenli mod",
+      "notRunning": "Çalışmıyor",
+      "notInstalled": "Yüklü değil",
+      "notOnThisServer": "Bu sunucuda değil",
+      "thePluginIsNotInstalled": "Eklenti bu sunucuya yüklü değil.",
+      "turnedOffOnTheServer": "Sunucuda kapatıldı",
+      "itOpensHereAgainWhen": "Bir yönetici açtığında burada tekrar açılır.",
+      "notRunningOnTheServer": "Sunucuda çalışmıyor",
+      "theServerIsInSafe": "Sunucu güvenli modda, bu nedenle yalnızca görünüm eklentileri çalışır.",
+      "thePluginDidNotStart": "Eklenti başlatılamadı. Bir yönetici bunu Eklentiler bölümünde kontrol edebilir.",
+      "thisPluginIsNotAvailable": "Bu eklenti mevcut değil",
+      "itIsNotMadeFor": "Uygulama için yapılmamış.",
+      "offOnThisServer": "bu sunucuda kapalı",
+      "notRunningOnThisServer": "bu sunucuda çalışmıyor",
+      "notOnThisServer2": "bu sunucuda değil",
+      "notInTheAppYet2": "Henüz uygulamada değil | bu sunucuda",
+      "worksOnThis": "Bu {{deviceWord}} üzerinde çalışır",
+      "andServer": "{{DeviceWord}} ve sunucu",
+      "deviceOnly": "Yalnızca {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Yenile"
+    },
+    "pluginSettings": {
+      "loading": "Ayarlar yükleniyor",
+      "forEveryone": "Sunucudaki herkes için",
+      "justForYou": "Sadece sizin için",
+      "couldNotSave": "Ayar kaydedilemedi",
+      "nothingYouCanChange": "Burada değiştirebileceğiniz bir şey yok. Bu ayarları bir yönetici değiştirebilir.",
+      "notANumber": "Bu bir sayı değil",
+      "atLeast": "{{min}} veya daha fazla olmalı",
+      "atMost": "{{max}} veya daha az olmalı"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Tümünü bağlantıyı kes",
+      "showOpenSessions": "Açık oturumları göster",
+      "termixShowsANotificationWhile": "Termix, oturumlar açıkken bir bildirim gösterir, böylece Android onları arka planda çalışır durumda tutar.",
+      "sessionsOpen_one": "{{count}} oturum açık",
+      "sessionsOpen_other": "{{count}} oturum açık",
+      "tunnelsActive_one": "{{count}} tünelleme aktif",
+      "tunnelsActive_other": "{{count}} tünelleme aktif",
+      "notConnected": "Bağlı değil",
+      "waitingForNetwork": "Ağ bekleniyor",
+      "connecting": "Bağlanıyor",
+      "connected": "Bağlandı",
+      "reconnecting": "Tekrar bağlanıyor",
+      "failed": "Başarısız",
+      "closed": "Kapalı"
+    },
+    "companionPane": {
+      "resizeThePanel": "{{title}} panelini yeniden boyutlandır"
+    },
+    "connectionsPanel": {
+      "close": "Kapat",
+      "closeAllTabs": "Tüm {{count}} sekme kapatılsın mı?",
+      "everySessionEnds": "Her oturum sona erer.",
+      "closeAll": "Tümünü kapat",
+      "noActiveConnections": "Aktif bağlantı yok",
+      "pickAHostFromThe": "Oturum başlatmak için listeden bir ana bilgisayar seçin. Diğer cihazlarda açtığınız sekmeler de burada görünür.",
+      "connectToAHostTo": "Oturum başlatmak için bir ana bilgisayara bağlanın. Diğer cihazlarda açtığınız sekmeler de burada görünür.",
+      "open": "Aç",
+      "background": "Arka plan",
+      "sessionsFromOtherDevicesOr": "Diğer cihazlardan gelen oturumlar veya arka plana alınan sekmeler. Yeniden canlandırmak için dokunun.",
+      "liveTapToReconnect": "Canlı, yeniden bağlanmak için dokunun",
+      "tapToReopen": "Yeniden açmak için dokunun"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Bu, sunucuda devre dışı bırakıldı",
+      "comesBackHereWhenAn": "{{title}}, bir yönetici eklentiyi tekrar etkinleştirdiğinde buraya geri dönecektir.",
+      "closeTab": "Sekmeyi kapat"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Bağlantılar",
+        "hideHostList": "Ana bilgisayar listesini gizle",
+        "showHostList": "Ana bilgisayar listesini göster",
+        "backToHosts": "Ana bilgisayarlara geri dön",
+        "showKeyboard": "Klavyeyi göster",
+        "hideKeyboard": "Klavyeyi gizle",
+        "hideKeysPanel": "Anahtarlar panelini gizle",
+        "showKeysPanel": "Anahtarlar panelini göster"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Sekme seçenekleri için dokunun, taşımak için basılı tutun",
+        "holdToMove": "Taşımak için basılı tutun",
+        "close": "{{title}} kapat"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Ağ bekleniyor",
+        "connectionFailed": "Bağlantı başarısız oldu",
+        "reconnecting": "Yeniden bağlanıyor"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Yeniden adlandır",
+      "newTabOnThisHost": "Bu ana bilgisayarda yeni sekme",
+      "here": "{{title}} burada",
+      "hidePanel": "{{title}} panelini gizle",
+      "showPanel": "{{title}} panelini göster",
+      "endSplitView": "Bölünmüş görünümü sonlandır",
+      "splitViewWith": "Bölünmüş görünüm...",
+      "moveLeft": "Sola taşı",
+      "moveRight": "Sağa taşı",
+      "closeTab": "Sekmeyi kapat",
+      "closeAllTabs": "Tüm sekmeleri kapat",
+      "closeAllTabs2": "Tüm {{count}} sekme kapatılsın mı?",
+      "everySessionEnds": "Her oturum sona erer.",
+      "closeAll": "Tümünü kapat",
+      "splitViewWith2": "Bölünmüş görünüm",
+      "renameTab": "Sekmeyi yeniden adlandır",
+      "leaveItEmptyToUse": "Ana bilgisayarın adını kullanmak için boş bırakın."
+    },
+    "resizeHostList": "Ana bilgisayar listesini yeniden boyutlandır",
+    "resizeSplitView": "Bölünmüş görünümü yeniden boyutlandır",
+    "connections": "Bağlantılar",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "İki Faktörlü Kimlik Doğrulama",
+        "enterThe6DigitCode": "Kimlik doğrulayıcı uygulamanızdan gelen 6 haneli kodu girin.",
+        "cancel": "İptal",
+        "verify": "Doğrula",
+        "codeExpiresInSGet": "Kod {{totpCountdown}} saniye içinde süresi doluyor, yeni bir kod alın",
+        "warpgateAuthentication": "Warpgate Kimlik Doğrulaması",
+        "confirmTheWarpgateAuthenticationUrl": "Warpgate kimlik doğrulama URL'sini ve güvenlik anahtarını onaylayın.",
+        "authenticate": "Kimlik doğrula",
+        "warpgateUrl": "Warpgate URL'si",
+        "securityKeyOptional": "Güvenlik anahtarı (isteğe bağlı)",
+        "authenticationRequired": "Kimlik Doğrulama Gerekli",
+        "thisHostNeedsCredentialsTo": "Bu ana bilgisayara bağlanmak için kimlik bilgileri gerekiyor.",
+        "connect": "Bağlan",
+        "password": "Şifre",
+        "sshKey": "SSH Anahtarı",
+        "pastePrivateKey": "Özel anahtarı yapıştır",
+        "keyPassphraseOptional": "Anahtar parolası (isteğe bağlı)"
+      },
+      "connectionError": {
+        "tryAgain": "Tekrar dene",
+        "close": "Kapat",
+        "connectThroughTheServer": "Sunucu üzerinden bağlan",
+        "connectFromThis": "Bu {{deviceWord}} üzerinden bağlan",
+        "triedFromThis": "Bu {{deviceWord}} üzerinden deneniyor",
+        "triedThroughTheServer": "Sunucu üzerinden deneniyor"
+      },
+      "execGate": {
+        "connecting": "Bağlanıyor..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Bir şeyler ters gitti",
+        "retry": "Yeniden dene",
+        "refresh": "Yenile",
+        "nothingToShow": "Gösterilecek bir şey yok"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Günlükler kopyalandı",
+        "connectionLog": "Bağlantı Günlüğü ({{count}})",
+        "copyLog": "Günlüğü kopyala",
+        "waitingForConnection": "Bağlantı bekleniyor…",
+        "noLogEntries": "Günlük girişi yok"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Bu sunucunun nasıl bağlandığı kaydedilemedi"
+      },
+      "useSessionConnect": {
+        "connected": "Bağlandı",
+        "connectingTo": "{{name}}'a bağlanılıyor…",
+        "connectionLost": "Bağlantı kesildi",
+        "failedToConnect": "Bağlanılamadı",
+        "invalidCode": "Geçersiz kod",
+        "warpgateAuthenticationFailed": "Warpgate kimlik doğrulaması başarısız oldu",
+        "authenticationCancelled": "Kimlik doğrulama iptal edildi"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Arama ve komutlar",
+    "addHost": "Sunucu ekle",
+    "keyboardShortcuts": "Klavye kısayolları",
+    "home": "Ana sayfa",
+    "hosts": "Sunucular",
+    "sessions": "Oturumlar",
+    "tools": "Araçlar",
+    "settings": "Ayarlar",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Klavye kısayolları"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Sunucular ve klasörler",
+      "yourHostsFoldersAndHosts": "Sunucularınız, klasörleriniz ve sizinle paylaşılan sunucular",
+      "credentials": "Kimlik bilgileri",
+      "savedPasswordsAndKeysAnd": "Kaydedilmiş şifreler ve anahtarlar, sizinle paylaşılan kimlik bilgileri",
+      "snippets": "Kod parçacıkları",
+      "snippetsAndTheirFolders": "Kod parçacıkları ve klasörleri",
+      "hostDefaults": "Sunucu varsayılanları",
+      "defaultSettingsForNewHosts": "Yeni sunucular için varsayılan ayarlar",
+      "preferences": "Tercihler",
+      "settingsThatFollowYouBetween": "Cihazlar arasında sizinle birlikte giden ayarlar"
+    },
+    "link": {
+      "noSuchServerAccount": "Böyle bir sunucu hesabı yok",
+      "signInFirst": "Önce oturum açın.",
+      "thisServerAccountBelongsTo": "Bu sunucu hesabı {{value}}'a ait. Onun adına oturum açın veya bu kullanıcı için sunucuyu tekrar ekleyin."
+    },
+    "reasons": {
+      "signedOut": "Oturum kapatıldı",
+      "thisSSignInTo": "Bu {{deviceWord}}'un sunucuya oturum açma süresi doldu.",
+      "theServerEndedThisS": "Sunucu, bu {{deviceWord}}'un oturumunu sonlandırdı. Başka bir cihazdan oturum kapatılmış olabilir.",
+      "proxySignInNeeded": "Vekil sunucu oturum açma gerekli",
+      "theProxyInFrontOf": "Bu sunucunun önündeki vekil sunucu, tekrar oturum açmanızı istiyor.",
+      "proxyPasswordNeeded": "Vekil sunucu şifresi gerekli",
+      "theProxyInFrontOf2": "Bu sunucunun önündeki vekil sunucu, şifresini istedi.",
+      "certificateRefused": "Sertifika reddedildi",
+      "theServerDidNotAccept": "Sunucu, bu {{deviceWord}}'un sertifikasını kabul etmedi.",
+      "untrustedServer": "Güvenilmeyen sunucu",
+      "theServerSCertificateIs": "Sunucunun sertifikası bu {{deviceWord}} tarafından güvenilmiyor.",
+      "serverKeyChanged": "Sunucu anahtarı değişti",
+      "theServerShowsAnotherKey": "Sunucu, ona sabitlenen anahtardan farklı bir anahtar gösteriyor. Sertifikanızı değiştirdiyseniz, yeni anahtarı sabitleyin.",
+      "offline": "Çevrimdışı",
+      "canTReachTheServer": "Sunucuya ulaşılamıyor. Eşzamanlama yakında tekrar deneyecek.",
+      "serverProblem": "Sunucu sorunu",
+      "theServerHadAProblem": "Sunucuda bir sorun oluştu. Eşzamanlama yakında tekrar deneyecek.",
+      "updateNeeded": "Güncelleme gerekli",
+      "thisServerUsesANewer": "Bu sunucu daha yeni bir eşzamanlama sürümü kullanıyor. Uygulamayı güncelleyin.",
+      "notATermixServer": "Termix sunucusu değil",
+      "theAddressDoesNotAnswer": "Bu adres bir Termix sunucusu gibi yanıt vermiyor.",
+      "syncIsOff": "Eşzamanlama kapalı",
+      "theSyncPluginIsOff": "Bu sunucuda Eşzamanlama eklentisi kapalı. Bir yöneticiden Eklentiler bölümünde açmasını isteyin.",
+      "differentUser": "Farklı kullanıcı",
+      "youSignedInAsA": "Bu sunucu hesabına ait olmayan farklı bir kullanıcı olarak giriş yaptınız.",
+      "syncStopped": "Eşzamanlama durdu",
+      "somethingWentWrong": "Bir şeyler ters gitti.",
+      "signInAgain": "Tekrar giriş yapın",
+      "signInToTheProxy": "Proxy'ye giriş yapın",
+      "enterThePassword": "Şifreyi girin",
+      "tryAgain": "Tekrar deneyin",
+      "checkThePin": "Sabitlenen anahtarı kontrol edin",
+      "checkForUpdates": "Güncellemeleri kontrol et",
+      "pickACertificate": "Bir sertifika seçin"
+    },
+    "settings": {
+      "noSuchSetting": "Böyle bir ayar yok",
+      "snippetFolder": "Kısayol klasörü",
+      "hostDefault": "Sunucu varsayılanı"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Sunucu bu {{deviceWord}}'un sertifikasını kabul etmedi.",
+      "theServerSCertificateIs": "Sunucunun sertifikası güvenilir değil.",
+      "canTReachTheServer": "Sunucuya ulaşılamıyor.",
+      "signedOut": "Çıkış yapıldı",
+      "theProxyAskedForIts": "Proxy şifresini istedi.",
+      "theProxyWantsYouTo": "Proxy giriş yapmanızı istiyor.",
+      "theSyncPluginIsOff": "Bu sunucuda Eşzamanlama eklentisi kapalı.",
+      "serverError": "Sunucu hatası {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Sunucu, sabitlenen anahtardan farklı bir anahtar gösteriyor."
+    },
+    "remote": {
+      "thisIsNotATermix": "Bu bir Termix sunucusu değil.",
+      "theProxyWantsYouTo": "Proxy giriş yapmanızı istiyor.",
+      "thisServerUsesANewer": "Bu sunucu daha yeni bir eşzamanlama sürümü kullanıyor. Uygulamayı güncelleyin."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} sunucu",
+      "hostCount_other": "{{count}} sunucu",
+      "credentialCount_one": "{{count}} kimlik bilgisi",
+      "credentialCount_other": "{{count}} kimlik bilgisi",
+      "snippetCount_one": "{{count}} kısayol",
+      "snippetCount_other": "{{count}} kısayol",
+      "folderCount_one": "{{count}} klasör",
+      "folderCount_other": "{{count}} klasör",
+      "nothingYet": "henüz hiçbir şey yok",
+      "listAnd": "{{list}} ve {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Bağlanılamıyor.",
+      "connectingToFromThis": "Bu {{deviceWord}} üzerinden {{name}}'e bağlanılıyor",
+      "connectingToThroughTheServer": "Sunucu üzerinden {{name}}'e bağlanılıyor",
+      "reconnectingTry": "Yeniden bağlanılıyor (deneme {{retry}})",
+      "disconnected": "Bağlantı kesildi",
+      "connected": "Bağlandı",
+      "reconnectedToTheSameSession": "Aynı oturuma yeniden bağlanıldı",
+      "reconnectedWithANewShell": "Yeni bir kabukla yeniden bağlanıldı",
+      "couldNotReachTheHost": "Bu {{deviceWord}} üzerinden sunucuya ulaşılamadı, sunucu üzerinden deneniyor",
+      "couldNotConnectThroughThe": "Sunucu üzerinden bağlanılamadı, bu {{deviceWord}} üzerinden deneniyor",
+      "connectionLost": "Bağlantı kesildi: {{reason}}",
+      "offlineWaitingForTheNetwork": "Çevrimdışı, ağ bekleniyor",
+      "nextTryInS": "Sonraki deneme {{value}} saniye içinde",
+      "reconnectingTry2": "Yeniden bağlanılıyor (deneme {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Sunucu yanıt vermeyi bıraktı",
+      "networkLost": "Ağ bağlantısı kesildi",
+      "network": "Ağ: {{type}}{{value}}",
+      "lowPowerModeOn": "Düşük güç modu açık",
+      "lowPowerModeOff": "Düşük güç modu kapalı",
+      "droppedTypedCharacters": "Girilen {{count}} karakter atlandı",
+      "youDidNotTrustThe": "Ana bilgisayar anahtarına güvenmediniz.",
+      "checkTheKeyWithWhoever": "Anahtarı ana bilgisayarı işleten kişiyle kontrol edin, ardından tekrar deneyin.",
+      "loginCancelled": "Oturum açma iptal edildi.",
+      "connectAgainWhenYouAre": "Hazır olduğunuzda tekrar bağlanın.",
+      "typedInputIsOver64": "Yazılan girdi 64 KB'ı aşıyor, en eski kısım atıldı",
+      "appInTheBackground": "Uygulama arka planda",
+      "appInTheForeground": "Uygulama ön planda",
+      "thisConnectionCanTRun": "Bu bağlantı komut çalıştıramaz"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Adresi ve bağlantı noktasını kontrol edin ve sunucunun ana bilgisayara ulaşabildiğinden emin olun.",
+      "checkTheAddressAndPort2": "Adresi ve bağlantı noktasını kontrol edin ve bu {{deviceWord}}'un ana bilgisayara ulaşabildiğinden emin olun.",
+      "checkTheProxySettingsOf": "Bu ana bilgisayarın proxy ayarlarını kontrol edin.",
+      "checkTheKeyWithWhoever": "Anahtara güvenmeden önce, anahtarı ana bilgisayarı işleten kişiyle kontrol edin.",
+      "checkTheUsernameAndLogin": "Kullanıcı adını ve oturum açma bilgilerini ana bilgisayar düzenleyicisinde kontrol edin.",
+      "checkThatTheServerIs": "Sunucunun çalıştığından ve hala oturum açmış olduğunuzdan emin olun.",
+      "tryAgainIfItKeeps": "Tekrar deneyin. Bağlantı sürekli kopuyorsa ağ bağlantısını kontrol edin.",
+      "connectAgainWhenYouAre": "Hazır olduğunuzda tekrar bağlanın.",
+      "pickAnotherWayToConnect": "Bu ana bilgisayara bağlanmak için başka bir yöntem seçin.",
+      "connectThisHostThroughA": "Bu ana bilgisayara bir Termix sunucusu üzerinden bağlanın.",
+      "pickTheJumpHostsAgain": "Ana bilgisayar düzenleyicisinde atlayıcı ana bilgisayarları tekrar seçin.",
+      "thisIsATailscaleAddress": "Bu bir Tailscale adresi. Bu {{deviceWord}}'da Tailscale'in bağlı olduğundan emin olun.",
+      "theSavedKeyCanT": "Kaydedilen anahtar okunamıyor. Anahtar düzenleyicide tekrar yapıştırın.",
+      "signInToThisServer": "Bu sunucuya tekrar oturum açın.",
+      "openThisHostInThe": "Bu ana bilgisayarı Termix web uygulamasında açın.",
+      "canTConnectThisWay": "Bu şekilde bağlanılamıyor",
+      "couldNotReachTheHost": "Ana bilgisayara ulaşılamadı",
+      "theProxyDidNotLet": "Proxy bağlantıyı geçmedi",
+      "theHostKeyWasNot": "Ana bilgisayar anahtarına güvenilmedi",
+      "theLoginWasRefused": "Oturum açma reddedildi",
+      "theTermixServerDidNot": "Termix sunucusu yanıt vermedi",
+      "theConnectionDropped": "Bağlantı koptu",
+      "loginCancelled": "Oturum açma iptal edildi"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH aracı",
+        "thisHostSignsInWith": "Bu ana bilgisayar \"{{authType}}\" ile oturum açıyor, bu bir Termix sunucusu gerektirir. Bağlanmak için bir tane bağlayın.",
+        "thisHostUsesA1password": "Bu ana bilgisayar bir 1Password referansı kullanıyor, bu Gizli Kaynaklar olan bir Termix sunucusu gerektirir. Bir tane bağlayın ve bu ana bilgisayara onun üzerinden bağlanın.",
+        "signInWithFirstOpen": "Önce {{title}} ile oturum açın. Bu ana bilgisayara bir kez terminal açın, ardından tekrar deneyin.",
+        "theSignInAndThe": "oturum açma ve sertifika sunucuda bulunur",
+        "theHasNoSshAgent": "{{deviceWord}}'da SSH aracı yok",
+        "needsATermixServerBecause": "{{title}}, {{why}} nedeniyle bir Termix sunucusu gerektirir. Bir tane bağlayın ve bu ana bilgisayara onun üzerinden bağlanın."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Bu ana bilgisayarın bir atlayıcı ana bilgisayarı artık mevcut değil."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Bağlantı kesildi",
+        "theShellChannelClosed": "Kabuk kanalı kapatıldı",
+        "jumpHost": "Atlayıcı ana bilgisayar {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Geçersiz kod, tekrar deneyin:",
+        "authenticationFailed": "Kimlik doğrulama başarısız: {{message}}",
+        "theHostKeyWasNot": "Ana bilgisayar anahtarına güvenilmedi.",
+        "loginCancelled": "Oturum açma iptal edildi.",
+        "notConnected": "Bağlı değil",
+        "signingInAs": "{{user}} olarak {{method}} ile giriş yapılıyor",
+        "methodKey": "bir anahtar",
+        "methodPassword": "bir şifre",
+        "methodNone": "kayıtlı giriş yok"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Bağlantı kesildi"
+      },
+      "thisBuildHasNoSsh": "Bu derlemede SSH motoru yok. Mağazadaki uygulamayı kullanın veya bağlanmak için bir Termix sunucusu bağlayın.",
+      "theHostsOnThisAre": "Bu {{deviceWord}}'daki ana bilgisayarlar henüz açık değil.",
+      "thisServerSHostsAre": "Bu sunucunun ana bilgisayarları bu {{deviceWord}}'da değil. {{deviceWord}}'dan bağlanmak için sunucuda Senkronizasyon eklentisini açın.",
+      "resolve": {
+        "theSavedLoginIsNot": "Bu ana bilgisayar için kayıtlı giriş bu {{deviceWord}} üzerinde olmadığından, yalnızca sunucu giriş yapabilir"
+      }
+    },
+    "origin": {
+      "canTConnect": "Bağlanılamıyor.",
+      "canTConnectFromThe": "Bu {{deviceWord}}'dan bağlanılamıyor.",
+      "canTReachTheServer": "Sunucuya ulaşılamıyor.",
+      "theOnlyConnectsToSsh": "Bu {{deviceWord}} yalnızca SSH ve Telnet sunucularına bağlanır.",
+      "connectThisHostThroughThe": "Bu sunucuyu kullanarak bu sunucuya bağlan",
+      "connectThisHostFromThe": "Bu {{deviceWord}} üzerinden bu sunucuya bağlan",
+      "termixServer": "Termix sunucusu",
+      "usesThisWhenItCan": "Sunucuya erişebildiğinde bu {{deviceWord}}'ü, aksi takdirde sunucuyu kullanır.",
+      "thisConnectsToTheHost": "Bu {{deviceWord}} doğrudan sunucuya bağlanır.",
+      "theTermixServerConnectsTo": "Termix sunucusu sizin adınıza sunucuya bağlanır.",
+      "anSshConnection": "bir SSH bağlantısı",
+      "aTermixServer": "bir Termix sunucusu",
+      "aConnectionFromThe": "{{deviceWord}} üzerinden bir bağlantı",
+      "isOffOnThisServer": "Bu sunucuda {{title}} kapalı. Kullanmak için {{how}}.",
+      "isOffOnThisServer2": "Bu sunucuda {{title}} kapalı.",
+      "anotherWayToConnect": "bağlanmanın başka bir yolu",
+      "needsToUseIt": "{{title}} için {{what}} gerekli. Kullanmak için {{how}}.",
+      "needsWhichThisHostCan": "{{title}} için {{what}} gerekli, ancak bu sunucu şu anda bunu kullanamıyor.",
+      "thisDevice": "Bu {{deviceWord}}",
+      "automatic": "Otomatik"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Bu sunucudan çıkış yapılmış. Üzerinden bağlanmak için giriş yapın.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "Bu sunucuda tmux yüklü değil. Düz kabuk kullanılıyor.",
+        "tapRetryToBringIt": "Buraya geri getirmek için Yeniden Dene'ye dokunun.",
+        "thisSessionWasOpenedOn": "Bu oturum başka bir cihazda açıldı",
+        "noServerUrlFoundLink": "Sunucu URL'si bulunamadı. Sunucuyu tekrar bağlayın.",
+        "signedOutOfThisServer": "Bu sunucudan çıkış yapıldı. Tekrar giriş yapın.",
+        "signInWithInYour": "Tarayıcınızda {{title}} ile giriş yapın. İşlem bittiğinde bu pencere kapanır.",
+        "theSocketClosedWhileThe": "Uygulama arka plandayken soket kapandı",
+        "noWebsocketUrlAvailableServer": "WebSocket URL'si mevcut değil - sunucu yapılandırılmamış",
+        "connectionTimeoutServerNotResponding": "Bağlantı zaman aşımı - sunucu yanıt vermiyor",
+        "verificationCode": "Doğrulama kodu:",
+        "hostKeyVerificationRequiredBut": "Sunucu anahtarı doğrulaması gerekli ancak kayıtli işleyici yok",
+        "hostKeyChangedButNo": "Sunucu anahtarı değişti ancak kayıtli işleyici yok",
+        "thisHostNeedsASign": "Bu sunucu, yalnızca web uygulamasının desteklediği bir giriş türü gerektiriyor",
+        "invalidCodeTryAgain": "Geçersiz kod, tekrar deneyin:",
+        "unknownError": "Bilinmeyen hata",
+        "connectionClosed": "Bağlantı kapatıldı",
+        "connectionClosed2": "Bağlantı kapatıldı ({{code}})",
+        "theServerClosedTheConnection": "Sunucu bağlantıyı kapattı",
+        "theSocketClosed": "Soket kapandı ({{code}})",
+        "signIn": "{{title}} girişi",
+        "signInFailed": "{{title}} girişi başarısız",
+        "isNotSetUpOn": "Sunucuda {{title}} yapılandırılmamış",
+        "signInTimedOut": "{{title}} girişi zaman aşımına uğradı",
+        "authenticationFailed": "Kimlik doğrulama başarısız: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Kontrol etmek için sunucuyu kaydedin ve ona bağlanın.",
+      "loggedInAsOn": "{{host}} üzerinde {{username}} olarak giriş yapıldı",
+      "theHostAskedForMore": "Sunucu, şifreden fazlasını (örneğin bir kod) istedi. Girişi tamamlamak için sunucuyu kaydedin ve bağlanın."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Ağ bekleniyor",
+      "couldNotOpenTheTunnel": "Tünel açılamadı",
+      "theConnectionDropped": "Bağlantı koptu",
+      "iosStoppedThisTunnelWhile": "Uygulama arka plandayken iOS bu tüneli durdurdu. Açmak için tekrar başlatın.",
+      "connecting": "Bağlanıyor",
+      "connected": "Bağlandı",
+      "retrying": "Yeniden deneniyor",
+      "waiting": "Bekleniyor",
+      "failed": "Başarısız"
+    },
+    "gateways": {
+      "error": "Hata",
+      "gateways": "Ağ Geçitleri",
+      "gatewaysCanOnlyBeChanged": "Ağ geçitleri yalnızca web üzerindeki Termix'te değiştirilebilir.",
+      "noHandshake": "El sıkışması yok",
+      "rulesMissing": "Kurallar eksik",
+      "up": "Aktif",
+      "pending": "Beklemede",
+      "applying": "Uygulanıyor",
+      "down": "Açık",
+      "unreachable": "Ulaşılamıyor"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Henüz tünel yok. Uç nokta sunucusundan bu sunucuya bir bağlantı noktası yönlendirmek için bir tünel ekleyin.",
+      "tunnel": "Tünel {{value}}",
+      "removeTunnel": "Tüneli kaldır {{value}}",
+      "mode": "Mod",
+      "local": "Yerel",
+      "remote": "Uzaktan",
+      "dynamic": "Dinamik",
+      "targetHost": "Hedef sunucu",
+      "onThisHostForTunnels": "Bu sunucuda, {{deviceWord}} tarafından yürütülen tünel için",
+      "bindHost": "Bağlama sunucusu",
+      "endpointHost": "Uç nokta sunucusu",
+      "addAnotherHostFirstTunnels": "Önce başka bir sunucu ekleyin. Tüneller kayıtlı bir sunucu üzerinden geçer.",
+      "sourcePort": "Kaynak bağlantı noktası",
+      "endpointPort": "Uç nokta bağlantı noktası",
+      "maxRetries": "Maksimum yeniden deneme",
+      "retryEveryS": "Yeniden deneme aralığı (s)",
+      "startOnItsOwn": "Kendi başına başlat",
+      "addTunnel": "Tünel ekle",
+      "tunnelNeedsPortsFrom1": "Tünel {{value}} için 1 ile 65535 arasında bağlantı noktası gerekiyor"
+    },
+    "register": {
+      "tunnels": "Tüneller",
+      "startAndStopSavedTunnels": "Kayıtlı tünelleri başlat ve durdur",
+      "tunnel": "TÜNEL",
+      "tunnel2": "Tünel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Yerel uç nokta kopyalandı",
+      "tunnel": "Tünel | {{sourcePort}}",
+      "portMapping": "Bağlantı Noktası Eşlemesi",
+      "connect": "Bağlan",
+      "disconnect": "Bağlantıyı Kes",
+      "cancel": "İptal",
+      "connected": "Bağlı",
+      "connecting": "Bağlanıyor",
+      "disconnecting": "Bağlantı Kesiliyor",
+      "error": "Hata",
+      "retrying": "Yeniden deneniyor ({{value}}/{{value2}})",
+      "waitingS": "Bekleniyor {{value}}s",
+      "waiting": "Bekleniyor",
+      "disconnected": "Bağlantı Kesildi"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "{{sourcePort}} bağlantı noktasında tünel başlatılıyor",
+      "connectingTunnelOnPort": "{{sourcePort}} bağlantı noktasında tünel bağlanıyor",
+      "disconnectingPort": "{{sourcePort}} bağlantı noktası bağlantısı kesiliyor",
+      "cancellingPort": "{{sourcePort}} bağlantı noktası iptal ediliyor",
+      "failedToTunnel": "Tünel {{action}} işlemi başarısız oldu",
+      "tunnels": "Tüneller | {{count}} | {{value}}",
+      "loadingTunnels": "Tüneller yükleniyor…",
+      "noSshTunnelsConfiguredFor": "Bu sunucu için SSH tüneli yapılandırılmamış. Sunucu formundan tünel ekleyin.",
+      "runOn": "Çalıştırma yeri",
+      "server": "Sunucu",
+      "this": "Bu {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Bu {{deviceWord}} üzerindeki tüneller uygulama kapatıldığında durur. iOS'ta uygulama arka plana geçtiğinde de kısa süre sonra dururlar.",
+      "failedToFetchTunnelStatuses": "Tünel durumları alınamadı",
+      "thisBuildCanTOpen": "Bu sürüm {{deviceWord}} üzerinde tünel açamaz.",
+      "sourceHostNotFound": "Kaynak sunucu bulunamadı",
+      "endpointHostNotFound": "Uç nokta sunucusu bulunamadı: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tüneller",
+      "tunnelCount_one": "{{count}} tünel",
+      "tunnelCount_other": "{{count}} tünel",
+      "runningOnServer": "{{connected}} sunucuda çalışıyor"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Kimlik Bilgisi Araçları"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Bu sunucuda Docker yüklü değil.",
+        "dockerDidNotAnswer": "Docker yanıt vermedi",
+        "thatIsNotAValid": "Bu geçerli bir yığın adı değil"
+      }
+    },
+    "containerDetail": {
+      "stop": "Durdur",
+      "start": "Başlat",
+      "restart": "Yeniden Başlat",
+      "remove": "Kaldır",
+      "logs": "Günlükler",
+      "stats": "İstatistikler",
+      "console": "Konsol",
+      "logsCopied": "Günlükler kopyalandı",
+      "copy": "Kopyala",
+      "containerIsNotRunningNo": "Konteyner çalışmıyor, canlı istatistik yok.",
+      "cpu": "İşlemci",
+      "memory": "Bellek",
+      "networkIO": "Ağ G/Ç",
+      "blockIO": "Blok G/Ç",
+      "pids": "İşlem Kimlikleri",
+      "failedToLoadLogs": "Günlükler yüklenemedi",
+      "failedToLoadStats": "İstatistikler yüklenemedi",
+      "noOutput": "(çıktı yok)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Docker'a bağlanılıyor...",
+    "remove": "{{name}} kaldırılsın mı?",
+    "stop": "{{name}} durdurulsun mu?",
+    "theContainerIsStoppedAnd": "Konteyner durduruldu ve silindi. Birimleri korunuyor.",
+    "anythingRunningInItStops": "İçinde çalışan her şey durur.",
+    "remove2": "Kaldır",
+    "stop2": "Durdur",
+    "dockerThis": "Docker | bu {{deviceWord}}",
+    "lookingForDocker": "Docker aranıyor...",
+    "dockerIsNotAvailableOn": "Bu sunucuda Docker kullanılamıyor.",
+    "noContainersFound": "Konteyner bulunamadı",
+    "noContainersMatchYourFilters": "Filtrelerinize uyan konteyner yok",
+    "useSudo": "sudo kullan",
+    "refresh": "Yenile",
+    "containers": "Konteynerler",
+    "stacks": "Yığınlar",
+    "searchContainers": "Konteyner ara...",
+    "all": "Tümü",
+    "running": "Çalışıyor",
+    "stopped": "Durduruldu",
+    "start": "Başlat",
+    "restart": "Yeniden Başlat",
+    "pause": "Duraklat",
+    "unpause": "Devam Et",
+    "moreActions": "Diğer işlemler",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker yanıt vermedi",
+      "docker": "Docker",
+      "noContainers": "Konteyner yok"
+    },
+    "dockerConsole": {
+      "attachingTo": "{{name}} bağlanılıyor...",
+      "consoleDisconnected": "Konsol bağlantısı kesildi",
+      "reconnect": "Tekrar Bağlan",
+      "failedToLoadTheConsole": "Konsol yüklenemedi",
+      "thisSessionHasNoServer": "Bu oturumun bir sunucusu yok"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Konteynerler, günlükler ve istatistikler"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Bu sunucuda yığınlar devre dışı bırakıldı.",
+      "couldNotLoadStacks": "Yığınlar yüklenemedi",
+      "noStacks": "Yığın yok",
+      "composeProjectsOnThisHost": "Bu ana makinedeki Compose projeleri burada görünür.",
+      "ofRunning": "{{total}} içinde {{running}} çalışıyor",
+      "couldNotLoadTheStack": "Yığın yüklenemedi",
+      "services": "Hizmetler",
+      "nothingIsRunning": "Hiçbir şey çalışmıyor.",
+      "composeFile": "Compose dosyası",
+      "partlyUp": "kısmen çalışıyor",
+      "notDeployed": "dağıtılmadı",
+      "running": "çalışıyor",
+      "stopped": "durduruldu",
+      "paused": "duraklatıldı"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Bu geçerli bir konteyner kimliği değil",
+      "consoleFailed": "Konsol başarısız oldu",
+      "notAuthenticated": "Kimlik doğrulanmadı",
+      "consoleError": "Konsol hatası",
+      "connectionFailed": "Bağlantı başarısız oldu"
+    },
+    "dockerDidNotAnswer": "Docker yanıt vermedi",
+    "failedToLoadContainers": "Konteynerler yüklenemedi",
+    "failedTo": "{{action}} işlemi başarısız oldu"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Sunucu dosya göndermedi",
+        "cancelled": "İptal edildi",
+        "isGone": "{{path}} kayboldu",
+        "canTGoToThe": "{{name}} çöp kutusuna taşınamıyor"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Geçersiz çöp öğesi kimliği",
+        "invalidTrashMetadata": "Geçersiz çöp meta verisi",
+        "thisPathCanTBe": "Bu yol çöp kutusuna taşınamaz",
+        "aFileAlreadyExistsAt": "Orijinal yolda zaten bir dosya var"
+      },
+      "sftp": {
+        "commandFailed": "Komut başarısız: {{command}}",
+        "alreadyExists": "{{name}} zaten var",
+        "alreadyExistsThere": "{{path}} orada zaten var",
+        "canTGoToThe": "{{name}} çöp kutusuna taşınamıyor: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminal artık açık değil",
+      "clearHistory": "Geçmişi temizle",
+      "stopFollowingTheTerminal": "Terminali takip etmeyi bırak",
+      "followTheTerminal": "Terminali takip et",
+      "goToTheTerminalS": "Terminalin klasörüne git",
+      "cdTheTerminalHere": "Terminali buraya cd yap",
+      "folderHistory": "Klasör geçmişi",
+      "mostUsedFirstThenRecent": "Önce en çok kullanılanlar, sonra son kullanılanlar",
+      "noFoldersYet": "Henüz klasör yok"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Bağlanılamıyor.",
+        "couldNotSaveHowThis": "Bu ana makinenin nasıl bağlandığı kaydedilemedi",
+        "thisWayCanTOpen": "Bu yöntem dosyaları açamaz"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Bu klasör açılamadı",
+      "cancel": "İptal",
+      "noFoldersHere": "Burada klasör yok"
+    },
+    "couldNotOpenThisFolder": "Bu klasör açılamadı",
+    "couldNotSaveToThe": "Klasöre kaydedilemedi",
+    "failed": "{{label}} başarısız oldu",
+    "uploading": "{{name}} yükleniyor",
+    "uploadingFiles": "Dosyalar yükleniyor: {{count}}",
+    "downloadingToFilesOnMy": "Dosyalara, iPhone’umda, Termix’e indiriliyor",
+    "downloading": "{{name}} indiriliyor",
+    "downloadingFiles": "Dosyalar indiriliyor: {{count}}",
+    "openALargeFile": "Büyük bir dosya açılsın mı?",
+    "isBigForAEditor": "{{name}}, {{deviceWord}} düzenleyicisi için büyük. Yavaş olabilir.",
+    "open": "Aç",
+    "thisLooksLikeABinary": "Bu bir ikili dosya gibi görünüyor",
+    "openItInAnotherApp": "Bunun yerine başka bir uygulamada açılsın mı?",
+    "openWith": "Şununla aç",
+    "tooBigForTheEditor": "Düzenleyici için çok büyük",
+    "isOver10MbDownload": "{{name}} 10 MB'ın üzerinde. Bunun yerine indirilsin mi?",
+    "download": "İndir",
+    "delete": "{{what}} silinsin mi?",
+    "moveToTheTrash": "{{what}} çöp kutusuna taşınsın mı?",
+    "thisCanTBeUndone": "Bu işlem geri alınamaz.",
+    "youCanRestoreItFrom": "Çöp kutusundan geri yükleyebilirsiniz.",
+    "delete2": "Sil",
+    "moveToTrash": "Çöp kutusuna taşı",
+    "deleteForGood": "Kalıcı olarak silinsin mi?",
+    "deleteItForGoodInstead": "{{message}} Bunun yerine kalıcı olarak silinsin mi? Bu işlem geri alınamaz.",
+    "deleteFailed": "Silme başarısız oldu",
+    "connectingThroughTheServer": "Sunucu üzerinden bağlanılıyor...",
+    "connectingFromThis": "Bu {{deviceWord}} üzerinden bağlanılıyor...",
+    "connecting": "Bağlanılıyor...",
+    "edit": "Düzenle",
+    "downloadFolder": "Klasörü indir",
+    "share": "Paylaş",
+    "rename": "Yeniden adlandır",
+    "copyTo": "Şuraya kopyala",
+    "moveTo": "Şuraya taşı",
+    "cut": "Kes",
+    "copy": "Kopyala",
+    "permissions": "İzinler",
+    "properties": "Özellikler",
+    "makeALinkHere": "Buraya bir bağlantı oluştur",
+    "copyPath": "Yolu kopyala",
+    "pathCopied": "Yol kopyalandı",
+    "done": "Tamam",
+    "selectAll": "Tümünü seç",
+    "filterByName": "İsme göre filtrele",
+    "closeSearch": "Aramayı kapat",
+    "search": "Ara",
+    "changeSort": "Sıralamayı değiştir",
+    "paste": "Yapıştır {{count}}",
+    "upload": "Yükle",
+    "transfers2": "İşlemler",
+    "more": "Daha fazla",
+    "nothingMatches": "Eşleşen bir şey yok",
+    "emptyFolder": "Boş klasör",
+    "uploadFilesOrMakeA": "Dosya yükleyin veya yeni bir tane oluşturun.",
+    "newFolder": "Yeni klasör",
+    "newFile": "Yeni dosya",
+    "select": "Seç",
+    "hideHiddenFiles": "Gizli dosyaları gizle",
+    "showHiddenFiles": "Gizli dosyaları göster",
+    "trash": "Çöp kutusu",
+    "folderProperties": "Klasör özellikleri",
+    "refresh": "Yenile",
+    "rename2": "{{name}} yeniden adlandır",
+    "newLink": "Yeni bağlantı",
+    "aLinkInThatPoints": "{{path}} içindeki ve {{path2}}'e işaret eden bir bağlantı",
+    "name": "İsim",
+    "create": "Oluştur",
+    "copyHere": "Buraya kopyala",
+    "moveHere": "Buraya taşı",
+    "fileViewer": {
+      "saved": "{{name}} kaydedildi",
+      "couldNotSaveTheFile": "Dosya kaydedilemedi",
+      "discardChanges": "Değişiklikler iptal edilsin mi?",
+      "hasChangesThatAreNot": "{{name}} dosyasında kaydedilmemiş değişiklikler var.",
+      "discard": "İptal Et",
+      "readOnly": "{{path}} | salt okunur",
+      "find": "Bul",
+      "smallerText": "Küçük yazı",
+      "biggerText": "Büyük yazı",
+      "turnOffLineWrap": "Satır kaydırmayı kapat",
+      "wrapLines": "Satırları kaydır",
+      "save": "Kaydet"
+    },
+    "hostSection": {
+      "startIn": "Başlangıç dizini",
+      "theFolderTheFileManager": "Dosya yöneticisinin ilk açıldığı klasör",
+      "files": "Dosyalar"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "{{path}} konumuna git"
+      },
+      "fileRow": {
+        "moreActions": "Diğer işlemler",
+        "moreFor": "{{name}} için diğer işlemler"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "İzinler",
+      "cancel": "İptal",
+      "apply": "Uygula ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Açılamadı",
+      "openWith": "Şununla aç",
+      "share": "Paylaş"
+    },
+    "propertiesView": {
+      "properties": "Özellikler",
+      "path": "Konum",
+      "type": "Tür",
+      "pointsTo": "Hedef",
+      "size": "Boyut",
+      "countFolderSize": "Klasör boyutunu hesapla",
+      "permissions": "İzinler",
+      "change": "Değiştir",
+      "owner": "Sahip",
+      "group": "Grup",
+      "modified": "Değiştirilme",
+      "opened": "Açılma",
+      "linkToA": "{{value}} türüne bağlantı",
+      "notShownForFolders": "Klasörler için gösterilmez",
+      "file": "Dosya",
+      "folder": "Klasör",
+      "link": "Bağlantı"
+    },
+    "register": {
+      "fileManager": "Dosya Yöneticisi",
+      "files": "Dosyalar",
+      "browseEditAndMoveFiles": "Dosyalara göz atın, düzenleyin ve taşıyın",
+      "files2": "DOSYALAR",
+      "fileManagerAndTransfers": "Dosya yöneticisi ve aktarımlar"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Aktarım başarısız oldu"
+      },
+      "transfersPanel": {
+        "pause": "Duraklat",
+        "resume": "Devam Et",
+        "tryAgain": "Tekrar dene",
+        "open": "Aç",
+        "cancel": "İptal",
+        "transfers": "Aktarımlar",
+        "goingOf": "{{active}} devam ediyor | {{total}}'den {{done}}",
+        "clearFinished": "Tamamlananları temizle",
+        "cancelAll": "Tümünü iptal et",
+        "noTransfersYet": "Henüz aktarım yok",
+        "waiting": "Beklemede",
+        "paused": "Duraklatıldı",
+        "done": "Tamamlandı",
+        "failed": "Başarısız",
+        "cancelled": "İptal edildi"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Çöp kutusu yüklenemedi",
+      "restored": "Geri yüklendi: {{name}}",
+      "failedToRestore": "Geri yükleme başarısız",
+      "failedToDelete": "Silme başarısız",
+      "trashEmptied": "Çöp kutusu boşaltıldı",
+      "failedToEmptyTrash": "Çöp kutusu boşaltılamadı",
+      "trash": "Çöp Kutusu",
+      "itemsAreRemovedAfterDays": "Öğeler {{retentionDays}} gün sonra kaldırılır",
+      "close": "Kapat",
+      "emptyTrash": "Çöp Kutusunu Boşalt",
+      "trashIsEmpty": "Çöp kutusu boş",
+      "restore": "{{name}} öğesini geri yükle",
+      "deleteForGood": "{{name}} öğesini kalıcı olarak sil"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Az önce"
+      }
+    },
+    "getting": "{{name}} alınıyor",
+    "itemCount_one": "{{count}} öğe",
+    "itemCount_other": "{{count}} öğe",
+    "copiedWhat": "Kopyalandı: {{what}}",
+    "movedWhat": "Taşındı: {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}}, {{limit}} dosyadan fazla içeriyor. Daha küçük klasörleri indirin."
+    },
+    "downloadingToFilesOnMyIpad": "Dosyalar'a, iPad'im'de, Termix'e indiriliyor",
+    "size": "Boyut",
+    "date": "Tarih"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Hizmet bağlantıları",
+      "openInHomepage": "Ana Sayfa'da aç",
+      "thisWidgetOnlyShowsOn": "Bu widget yalnızca tam sayfada görünür."
+    },
+    "register": {
+      "serviceLinks": "Hizmet bağlantıları",
+      "homepage": "Ana Sayfa"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Akış ayarlanmamış.",
+        "couldNotLoadTheFeed": "Akış yüklenemedi.",
+        "theFeedIsEmpty": "Akış boş.",
+        "noLocationSet": "Konum ayarlanmamış.",
+        "couldNotLoadTheWeather": "Hava durumu yüklenemedi.",
+        "noUrlSet": "URL ayarlanmamış.",
+        "couldNotLoadTheData": "Veriler yüklenemedi.",
+        "noPictureSet": "Resim ayarlanmamış.",
+        "badResponse": "geçersiz yanıt"
+      },
+      "services": "Hizmetler",
+      "service": "Hizmet",
+      "serviceLinks": "Hizmet bağlantıları",
+      "bookmarks": "Yer İmleri",
+      "links2": "Bağlantılar",
+      "search": "Ara",
+      "clock": "Saat",
+      "countdown": "Geri Sayım",
+      "calendar": "Takvim",
+      "notes": "Notlar",
+      "banner": "Afiş",
+      "ping": "Ping",
+      "host": "Sunucu",
+      "hosts": "Sunucular",
+      "quickConnect": "Hızlı bağlantı",
+      "feed": "Akış",
+      "weather": "Hava Durumu",
+      "customApi": "Özel API",
+      "picture": "Resim",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Henüz hizmet yok.",
+        "noLinkSet": "Bağlantı ayarlanmamış.",
+        "noLinksYet": "Henüz bağlantı yok.",
+        "noSearchEngineSet": "Arama motoru ayarlanmamış.",
+        "search": "Ara",
+        "noShortcutsYet": "Henüz kısayol yok.",
+        "search2": "{{label}} ara"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Bağlantı açılamadı"
+      },
+      "status": {
+        "noUrlsYet": "Henüz URL yok.",
+        "down": "Çalışmıyor",
+        "noHostsPicked": "Hiçbir sunucu seçilmedi."
+      },
+      "text": {
+        "noNotesYet": "Henüz not yok.",
+        "noTextYet": "Henüz metin yok."
+      },
+      "time": {
+        "noDateSet": "Tarih ayarlanmadı.",
+        "timeIsUp": "Süre doldu"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Varsayılanlar kaydedilemedi",
+    "couldNotResetTheDefault": "Varsayılanlar sıfırlanamadı",
+    "back": "Geri",
+    "hostDefaults": "Sunucu varsayılanları",
+    "newHostsStartFromThese": "Yeni sunucular bunlarla başlar",
+    "managedOnTheServer": "Sunucuda yönetiliyor",
+    "defaultsForThisServerAre": "Bu sunucu için varsayılanlar web uygulamasında ayarlanır.",
+    "level": "Seviye",
+    "yourDefaultsOrOneFolder": "Sizin varsayılanlarınız veya bir klasörün",
+    "myDefaults": "Benim varsayılanlarım",
+    "theServerSets": " Sunucu {{adminCount}} tane ayarlar.",
+    "aFolderWinsOverYour": "Bir klasör varsayılanlarınıza öncelik kazanır, varsayılanlarınız da sunucunun varsayılanlarına öncelik kazanır. Bir ana bilgisayar, üzerinde kendiniz belirlediğiniz her değeri korur.{{value}}",
+    "save": "Kaydet",
+    "authentication": "Kimlik Doğrulama",
+    "none": "Yok",
+    "reset": "Sıfırla",
+    "model": {
+      "username": "Kullanıcı adı",
+      "sshPort": "SSH bağlantı noktası",
+      "authentication": "Kimlik Doğrulama",
+      "aSavedCredentialForNew": "Yeni sunucular için kayıtlı bir kimlik bilgisi",
+      "forceKeyboardInteractive": "Klavye etkileşimini zorla",
+      "keepaliveInterval": "Bağlantıyı canlı tutma aralığı",
+      "seconds0TurnsItOff": "Saniye, 0 kapatır",
+      "keepaliveTries": "Bağlantıyı canlı tutma denemeleri",
+      "allowOldAlgorithms": "Eski algoritmaları izin ver",
+      "agentForwarding": "Aracı yönlendirme",
+      "environmentVariables": "Çevre değişkenleri",
+      "oneNameValuePerLine": "Her satırda bir AD=değer",
+      "checkIfTheHostIs": "Sunucunun çalışıp çalışmadığını kontrol et",
+      "checkInterval": "Kontrol aralığı",
+      "secondsEmptyUsesTheServer": "Saniye, boş bırakılırsa sunucunun değeri kullanılır",
+      "socks5Proxy": "SOCKS5 vekil sunucusu",
+      "setInTheWebApp": "Web uygulamasında ayarlandı",
+      "jumpHosts": "Atlayıcı sunucular",
+      "portKnocking": "Port knocking",
+      "notSet": "Ayarlanmadı",
+      "fromTheServer": "Sunucudan",
+      "fromYourDefaults": "Sizin varsayılanlarınızdan",
+      "builtIn": "Dahili"
+    },
+    "register": {
+      "hostDefaults": "Sunucu varsayılanları",
+      "portUserAndOptionsFor": "Yeni sunucular için bağlantı noktası, kullanıcı ve seçenekler"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Henüz veri yok",
+      "cpu": "İşlemci",
+      "memory": "Bellek",
+      "disk": "Disk",
+      "history": "Geçmiş",
+      "loading": "Yükleniyor..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Metrikler okunamadı",
+      "metrics": "Metrikler",
+      "cpu": "İşlemci",
+      "memory": "Bellek",
+      "disk": "Disk",
+      "noRecentSampleOpenThe": "Son örnek yok. Birini başlatmak için sunucunun metriklerini açın."
+    },
+    "register": {
+      "enableMetrics": "Metrikleri etkinleştir",
+      "cpuMemoryDiskAndNetwork": "SSH üzerinden CPU, bellek, disk ve ağ",
+      "hostMetrics": "Sunucu Metrikleri",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrikler",
+      "cpuMemoryDiskAndNetwork2": "CPU, bellek, disk ve ağ"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Sunucu Metrikleri | bu {{deviceWord}}",
+      "hostMetrics": "Sunucu Metrikleri",
+      "ran": "{{name}} çalıştırıldı",
+      "loadingMetrics": "Metrikler yükleniyor...",
+      "couldNotReadMetricsFrom": "Bu sunucudan metrikler okunamadı",
+      "failedToLoadMetrics": "Metrikler yüklenemedi",
+      "thisSessionHasNoServer": "Bu oturumda sunucu yok",
+      "twoFactorRequiredForThis": "Bu sunucunun istatistikleri için iki faktörlü doğrulama gerekli.",
+      "failedToStartMetrics": "Metrikler başlatılamadı",
+      "failedToRun": "{{name}} çalıştırılamadı"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Çekirdek başına: {{value}}",
+        "cores": "Çekirdekler",
+        "load": "Yük",
+        "user": "Kullanıcı",
+        "system": "Sistem",
+        "ioWait": "IO bekleme",
+        "steal": "Çalınan"
+      },
+      "diskWidget": {
+        "disk": "Disk {{mount}}",
+        "disk2": "Disk",
+        "used": "Kullanılan",
+        "total": "Toplam",
+        "free": "Boş"
+      },
+      "firewallWidget": {
+        "firewall": "Güvenlik Duvarı",
+        "rules": "{{type}} | {{ruleCount}} kural",
+        "noFirewallDetected": "Güvenlik duvarı algılanamadı"
+      },
+      "gpuWidget": {
+        "gpus": "GPU'lar ({{count}})",
+        "gpu": "GPU",
+        "memory": "Bellek",
+        "temp": "Sıcaklık",
+        "power": "Güç",
+        "fan": "Fan"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Giriş etkinliği",
+        "noLoginActivityRecorded": "Giriş etkinliği kaydedilmedi",
+        "logins": "Girişler",
+        "uniqueIps": "Benzersiz IP'ler",
+        "failed": "Başarısız",
+        "recent": "Son"
+      },
+      "memoryWidget": {
+        "memory": "Bellek",
+        "used": "Kullanılan",
+        "total": "Toplam",
+        "cached": "Önbelleğe alınmış",
+        "free": "Boş"
+      },
+      "networkWidget": {
+        "network": "Ağ",
+        "noInterfaces": "Arayüz yok",
+        "up": "Yukarı",
+        "down": "Aşağı"
+      },
+      "portsWidget": {
+        "listeningPorts": "Dinleyen Portlar",
+        "noListeningPorts": "Dinleyen port yok"
+      },
+      "processesWidget": {
+        "sortBy": "{{label}}'a göre sırala",
+        "processes": "İşlemler",
+        "running": "{{value}} çalışıyor | {{total}}",
+        "noProcessData": "İşlem verisi yok",
+        "cpu": "İşlemci%",
+        "mem": "Bellek%",
+        "command": "KOMUT"
+      },
+      "systemWidget": {
+        "system": "Sistem",
+        "hostname": "Bilgisayar adı",
+        "os": "İşletim sistemi",
+        "kernel": "Çekirdek",
+        "arch": "Mimari",
+        "noSystemInfo": "Sistem bilgisi yok"
+      },
+      "temperatureWidget": {
+        "temperature": "Sıcaklık"
+      },
+      "uptimeWidget": {
+        "uptime": "Çalışma süresi"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Şifre ile kopyalandı",
+      "copiedTheLink": "Bağlantı kopyalandı",
+      "shareHost": "Sunucuyu paylaş",
+      "thatHostNoLongerExists": "Bu sunucu artık mevcut değil",
+      "scanThisInTermixOn": "Bu kodu başka bir {{deviceWord}}'daki Termix uygulamasında, İçe ve dışa aktar bölümünde tarayın. Kod, adresi, bağlantı noktasını ve kullanıcıyı içerir. Şifre veya anahtar içermez.",
+      "copyLink": "Bağlantıyı kopyala",
+      "copyLinkWithPassword": "Şifre ile bağlantıyı kopyala"
+    },
+    "includePasswordsAndKeys": "Şifreler ve anahtarlar dahil edilsin mi?",
+    "anyoneWhoGetsThisFile": "Bu dosyaya erişen herkes bu sunuculara giriş yapabilir. Dosyayı güvende tutun.",
+    "includeThem": "Dahil et",
+    "pickAtLeastOneHost": "En az bir sunucu seçin",
+    "couldNotMakeTheFile": "Dosya oluşturulamadı",
+    "copiedToTheClipboard": "Panoya kopyalandı",
+    "importAndExport": "İçe ve dışa aktar",
+    "moveHostsInAndOut": "Sunucuları içe ve dışa taşı",
+    "import": "İçe aktar",
+    "aTermixHostFileAn": "Bir Termix sunucu dosyası, bir SSH yapılandırma dosyası veya başka bir {{deviceWord}}'dan sunucu bağlantısı veya QR kodu.",
+    "export": "Dışa aktar",
+    "allHosts": "Tüm sunucular",
+    "picked": "{{size}} seçildi",
+    "pickHosts": "Sunucu seç",
+    "includePasswordsAndKeys2": "Şifreler ve anahtarları dahil et",
+    "offMakesAFileSafe": "Kapalı, dosyanın paylaşımı için güvenli hale getirir. Kayıtlı kimlik bilgisi kullanan sunucular, bunlara adlarıyla başvurur",
+    "shareAFile": "Dosya paylaş",
+    "copy": "Kopyala",
+    "importPanel": {
+      "couldNotReadThat": "Bu okunamadı",
+      "couldNotReadThatFile": "Bu dosya okunamadı",
+      "importFailed": "İçe aktarma başarısız oldu",
+      "chooseAFile": "Bir dosya seçin",
+      "paste": "Yapıştır",
+      "scanACode": "Kod tara",
+      "couldNotBeRead": "{{count}} okunamadı",
+      "updateHostsThatExist": "Mevcut sunucuları güncelle",
+      "sameAddressPortAndUser": "Aynı adres, bağlantı noktası ve kullanıcı. Aksi takdirde atlanırlar",
+      "cancel": "İptal",
+      "import": "İçe aktar",
+      "andMore": "ve {{value}} tane daha"
+    },
+    "qrCode": {
+      "qrCode": "QR kodu"
+    },
+    "register": {
+      "importAndExport": "İçe ve dışa aktar",
+      "moveHostsInOrOut": "Sunucuları bir dosya veya QR kodu ile içe veya dışa taşı",
+      "shareHost": "Sunucuyu paylaş"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Sunucu kodunu tara",
+      "pointTheCameraAtA": "Kamerayı bir Termix sunucu QR koduna doğrultun.",
+      "termixNeedsTheCameraTo": "Termix, bir kodu taramak için kameraya ihtiyaç duyar. Hiçbir şey kaydedilmez.",
+      "allowTheCamera": "Kameraya izin ver"
+    },
+    "read": {
+      "termixFile": "Termix dosyası",
+      "sshConfig": "SSH yapılandırması",
+      "thereIsNothingToImport": "İçe aktarılacak bir şey yok",
+      "thatIsNotATermix": "Bu bir Termix ana bilgisayar bağlantısı değil",
+      "linkHost": "1 ana bilgisayar: {{name}}",
+      "sourceHosts_one": "{{count}} ana bilgisayar içeren {{what}}",
+      "sourceHosts_other": "{{count}} ana bilgisayar içeren {{what}}"
+    },
+    "saveYourTermixHosts": "Termix ana bilgisayarlarınızı kaydedin"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Tamamlandı",
+      "rejected": "Reddedildi",
+      "approvals": "Onaylar",
+      "nothingIsWaiting": "Bekleyen bir şey yok",
+      "actionsARuleHoldsFor": "Onay için bir kural tarafından beklenen işlemler burada görünür.",
+      "approveAndRun": "Onayla ve çalıştır",
+      "reject": "Reddet",
+      "couldNotLoadApprovals": "Onaylar yüklenemedi",
+      "couldNotDecide": "Karar verilemedi"
+    },
+    "approvalsCard": {
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi",
+      "waitingForApproval": "Onay bekleniyor",
+      "approve": "Onayla",
+      "reject": "Reddet",
+      "couldNotDecide": "Karar verilemedi",
+      "seeAll": "Tümünü gör"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Bu geri alınamaz. Çalıştırılsın mı?",
+      "run": "Çalıştır",
+      "sentForApproval": "Onaya gönderildi",
+      "target": "Hedef",
+      "theItemOnTheHost": "Ana bilgisayardaki öğe, örneğin bir kapsayıcı",
+      "dryRun": "Kuru çalıştırma",
+      "back": "Geri",
+      "actions": "İşlemler",
+      "noActionsForThisHost": "Bu ana bilgisayar için işlem yok",
+      "turnOnAPluginLike": "Bu ana bilgisayar için sunucuda Docker veya Hizmetler gibi bir eklentiyi açın.",
+      "destructive": "Yıkıcı",
+      "changes": "Değişiklikler",
+      "theActionCouldNotRun": "İşlem çalıştırılamadı",
+      "couldNotLoadActions": "İşlemler yüklenemedi"
+    },
+    "register": {
+      "actions": "İşlemler",
+      "waitingForApproval": "Onay bekleniyor",
+      "approvals": "Onaylar",
+      "actionsWaitingForAPerson": "Bir kişinin evet demesini bekleyen işlemler",
+      "runHistory": "Çalıştırma geçmişi",
+      "everyActionAnyoneRanFrom": "Herhangi bir cihazdan herhangi birinin çalıştırdığı her işlem"
+    },
+    "runHistory": {
+      "cancelThisRun": "Bu çalıştırma iptal edilsin mi?",
+      "cancelRun": "Çalıştırmayı iptal et",
+      "keep": "Tut",
+      "undoThisRun": "Bu çalıştırma geri alınsın mı?",
+      "thisRunsTheActionS": "Bu, aynı girişle işlemin geri alma işlemini çalıştırır.",
+      "undo": "Geri al",
+      "cancelled": "İptal edildi",
+      "itAlreadyFinished": "Zaten tamamlandı",
+      "done": "Tamamlandı",
+      "runHistory": "Çalıştırma geçmişi",
+      "nothingHasRunYet": "Henüz hiçbir şey çalıştırılmadı",
+      "dryRun": "Kuru çalıştırma",
+      "cancel": "İptal",
+      "couldNotLoadHistory": "Geçmiş yüklenemedi",
+      "couldNotCancel": "İptal edilemedi",
+      "couldNotUndo": "Geri alınamadı"
+    },
+    "api": {
+      "needsApproval": "Onay gerekiyor",
+      "needsSignIn": "Oturum açma gerekiyor",
+      "done": "Tamamlandı",
+      "failed": "Başarısız",
+      "running": "Çalışıyor",
+      "interrupted": "Kesildi",
+      "rejected": "Reddedildi",
+      "cancelled": "İptal edildi",
+      "expired": "Süresi doldu"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "{{value}}'yı aç",
+      "moreSettingsForThisAre": "Bununla ilgili daha fazla ayar Termix web uygulamasında bulunur.",
+      "pluginHostSettings": "Eklenti sunucu ayarları"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} bir sayı olmalıdır",
+      "mustBeAtLeast": "{{field}} en az {{min}} olmalıdır",
+      "mustBeAtMost": "{{field}} en fazla {{max}} olmalıdır"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Kullanmak için bir sunucu bağla",
+      "runsOnYourTermixServer": "{{name}} Termix sunucunuzda çalışır."
+    },
+    "pluginWebView": {
+      "canTLoad": "{{name}} yüklenemiyor",
+      "theServerDidNotSend": "Sunucu eklentiyi göndermedi. Açık olduğundan emin olun ve tekrar deneyin.",
+      "openThisLink": "Bu bağlantı açılsın mı?",
+      "open": "Aç",
+      "needsANewerVersionOf": "Uygulamanın daha yeni bir sürümü gerekiyor",
+      "usesPartsOfTermixThis": "{{name}}, bu uygulamanın henüz sahip olmadığı Termix bileşenlerini kullanır.",
+      "didNotStart": "{{name}} başlatılamadı",
+      "thisScreenIsNotIn": "Bu ekran, sunucudaki eklenti sürümünde bulunmuyor.",
+      "thePluginHitAnError": "Eklenti başlatılırken bir hatayla karşılaştı.",
+      "youReOffline": "Çevrimdışısınız",
+      "runsOnYourServerSo": "{{name}} sunucunuzda çalıştığı için bağlantı gerektirir. Çevrimiçi olduğunuzda tekrar açılır.",
+      "tryAgain": "Tekrar dene"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Bu ana bilgisayar henüz bu {{deviceWord}} üzerinde değil.",
+      "theAppCanTOpen": "Uygulama buradan bunu açamıyor.",
+      "thatHostIsNotOn2": "Bu ana bilgisayar henüz bu {{deviceWord}} üzerinde değil."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Şifre",
+      "unchangedIfBlank": "Boş bırakılırsa değişmez",
+      "port": "Bağlantı noktası",
+      "domain": "Alan adı",
+      "displaySoundAndClipboardSettings": "Ekran, ses ve panoya yönelik ayarlar Termix web uygulamasındadır.",
+      "portMustBeFrom1": "{{label}} bağlantı noktası 1 ile 65535 arasında olmalıdır"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Uzaktan masaüstü bağlantısı koptu",
+        "signIn": "{{label}} oturum açma",
+        "itWillNotBeSaved": "{{error}} Kaydedilmeyecek.",
+        "enterTheLoginForIt": "{{title}} için oturum açma bilgilerini girin. Kaydedilmeyecek.",
+        "reconnecting": "{{label}} yeniden bağlanıyor",
+        "connecting": "{{label}} bağlanıyor",
+        "connectionFailed": "Bağlantı Başarısız",
+        "disconnected": "Bağlantı kesildi",
+        "reconnect": "Yeniden bağlan",
+        "connectThroughTheServer": "Sunucu üzerinden bağlan",
+        "pasteToRemote": "Uzağa yapıştır",
+        "typeClipboard": "Panoyu yaz",
+        "copyRemoteClipboard": "Uzak panoyu kopyala",
+        "theComputerSCertificateWas": "Bilgisayarın sertifikası güvenilir olarak işaretlenmedi.",
+        "thatLoginWasRefusedTry": "Bu oturum açma reddedildi. Tekrar deneyin."
+      },
+      "target": {
+        "trustThisComputer": "Bu bilgisayara güvenilsin mi?",
+        "theCanTCheckS": "{{deviceWord}}, {{hostName}}'ın sertifikasını doğrulayamıyor. Devam etmeden önce bu parmak izinin bilgisayardakiyle eşleştiğinden emin olun.\n\n{{fingerprint}}",
+        "trustAndConnect": "Güven ve bağlan",
+        "certificateChanged": "Sertifika değişti",
+        "showsAnotherCertificateThanLast": "{{hostName}}, geçen seferkinden farklı bir sertifika gösteriyor. Bu, bilgisayar yeni bir sertifika oluşturduğunda veya arada bir dinleyici olduğunda gerçekleşir.\n\nYeni parmak izi:\n{{fingerprint}}",
+        "trustTheNewOne": "Yeni sertifikaya güven"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Uzaktan Masaüstü",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Tamam",
+      "keyboard": "Klavye",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Ayarlar",
+      "remoteSettings": "Uzaktan Ayarlar",
+      "mouseMode": "Fare Modu",
+      "touch": "Dokunmatik",
+      "trackpad": "Touchpad",
+      "tapWhereYouWantTo": "Tıklamak istediğiniz yere dokunun. Sağ tık için basılı tutun, sürüklemek için sürükleyin.",
+      "dragToMoveThePointer": "İmleci hareket ettirmek için sürükleyin. Tıklamak için dokunun, sağ tık için iki parmakla dokunun, sürüklemek için dokunup sürükleyin.",
+      "zoomXPinchAnywhereTo": "Yakınlaştırma: {{value}}x. Yakınlaştırmak için herhangi bir yeri sıkıştırın",
+      "reset": "Sıfırla",
+      "cancel": "İptal",
+      "connect": "Bağlan",
+      "username": "Kullanıcı Adı",
+      "domainOptional": "Alan Adı (isteğe bağlı)",
+      "domain": "Alan Adı",
+      "password": "Şifre",
+      "leftArrow": "Sol ok",
+      "upArrow": "Yukarı ok",
+      "downArrow": "Aşağı ok",
+      "rightArrow": "Sağ ok",
+      "rdpSignIn": "RDP oturum açma"
+    },
+    "theRemoteDesktopDropped": "Uzaktan masaüstü bağlantısı koptu",
+    "theyWillNotBeSaved": "{{errorMessage}} Kaydedilmeyecekler.",
+    "enterCredentialsForTheyWill": "{{title}} için kimlik bilgilerini girin. Kaydedilmeyecekler.",
+    "connecting": "Bağlanıyor",
+    "connectionFailed": "Bağlantı Başarısız",
+    "disconnected": "Bağlantı Kesildi",
+    "reconnect": "Yeniden Bağlan",
+    "route": {
+      "thisHostCanTOpen": "Bu ana bilgisayar buradan uzaktan masaüstü açamıyor."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Uygulama tarafından engellendi"
+    },
+    "failedToStartRemoteSession": "Uzaktan oturum başlatılamadı",
+    "thatLoginWasRefusedTry": "Bu oturum açma reddedildi. Tekrar deneyin.",
+    "theRemoteRefusedTheSaved": "Uzaktaki sistem kayıtlı oturum açmayı reddetti. Bu ana bilgisayardaki RDP oturum açma ayarlarını kontrol edin.",
+    "remoteSessionFailed": "Uzaktan oturum başarısız oldu",
+    "remoteSessionReturnedAnInvalid": "Uzaktan oturum geçersiz bir mesaj döndürdü",
+    "failedToLoadTheRemote": "Uzaktan masaüstü istemcisi yüklenemedi"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Günlük yok",
+      "thisHostDoesNotKeep": "Bu ana bilgisayar systemd günlüğü tutmuyor.",
+      "all": "Tümü",
+      "warnings": "Uyarılar",
+      "errors": "Hatalar",
+      "stop": "Durdur",
+      "follow": "Takip Et",
+      "nothingLogged": "Hiçbir şey kaydedilmedi",
+      "tryAnotherLevel": "Başka bir seviye deneyin.",
+      "couldNotReadTheJournal": "Günlük okunamadı"
+    },
+    "register": {
+      "services": "Hizmetler",
+      "startStopAndReadLogs": "Başlat, durdur ve günlükleri oku"
+    },
+    "readingServices": "Hizmetler okunuyor...",
+    "thisHostHasNoSystemd": "Bu sunucuda systemd veya OpenRC yok.",
+    "noServicesMatch": "Eşleşen hizmet yok",
+    "noServicesFound": "Hizmet bulunamadı",
+    "services": "Hizmetler",
+    "journal": "Günlük",
+    "searchServices": "Hizmetleri ara...",
+    "all": "Tümü",
+    "running": "Çalışıyor",
+    "failed": "Başarısız ({{failed}})",
+    "failed2": "Başarısız",
+    "servicesCard": {
+      "services": "Hizmetler",
+      "noSystemdOrOpenrc": "systemd veya OpenRC yok",
+      "failed": "{{failed}} başarısız",
+      "allRunning": "Tümü çalışıyor",
+      "couldNotReadServices": "Hizmetler okunamadı"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Yeniden başlatılana veya sunucu açılışına kadar duraklı kalır.",
+      "itStopsForAMoment": "Kısa bir süre durur ve tekrar başlar.",
+      "stop": "Durdur",
+      "restart": "Yeniden Başlat",
+      "is": "{{name}} durumu: {{state}}",
+      "start": "Başlat",
+      "journal": "Günlük",
+      "couldNotReadTheService": "Hizmet okunamadı",
+      "couldNot": "{{name}} {{action}} işlemi başarısız oldu",
+      "startsAtBoot": "Açılışta başlar",
+      "mainPid": "Ana PID",
+      "activeSince": "Aktif başlangıç",
+      "unitFile": "Birim dosyası",
+      "notSet": "[ayarlanmamış]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Oturum açılmadı",
+        "followFailed": "Takip başarısız oldu",
+        "connectionFailed": "Bağlantı başarısız oldu"
+      }
+    },
+    "couldNotReadServices": "Hizmetler okunamadı",
+    "services2": "Hizmetler{{where}}",
+    "title": "Hizmetler",
+    "failedCount": "{{count}} başarısız"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Oturum paylaşımı",
+      "shareLink": "Bağlantıyı paylaş"
+    },
+    "shareSessionView": {
+      "canWatch": "İzleyebilir",
+      "canType": "Yazabilir",
+      "n1Hour": "1 saat",
+      "n8Hours": "8 saat",
+      "n1Day": "1 gün",
+      "n7Days": "7 gün",
+      "never": "Asla",
+      "shareSession": "Oturumu paylaş",
+      "anyoneWithTheLinkCan": "Bağlantıya sahip olan herkes, terminal çalışırken bu terminali açabilir. Bağlantıları Termix'te iptal edebilirsiniz.",
+      "peopleWithTheLink": "Bağlantıya sahip kişiler",
+      "expiresAfter": "Süresi dolana kadar",
+      "link": "Bağlantı",
+      "copy": "Kopyala",
+      "share": "Paylaş",
+      "makeLink": "Bağlantı oluştur",
+      "theServerGaveNoLink": "Sunucu bağlantı vermedi",
+      "couldNotMakeALink": "Bağlantı oluşturulamadı",
+      "linkCopied": "Bağlantı kopyalandı"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Klasör yok"
+    },
+    "hostPicker": {
+      "selectNone": "Hiçbirini seç",
+      "selectAll": "Tümünü seç",
+      "done": "Tamam"
+    },
+    "register": {
+      "snippets": "Kod Parçacıkları",
+      "snippets2": "KOD PARÇACIKLARI",
+      "savedCommandsToRunOn": "Herhangi bir sunucuda çalıştırılmak üzere kaydedilmiş komutlar"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Buradan bu sunucuya erişilemiyor",
+      "exitedWith": "{{exitCode}} çıkış koduyla sonlandırıldı",
+      "thisCanTRunIt": "Bu {{deviceWord}} bunu çalıştıramaz",
+      "noServerIsLinked": "Bağlı sunucu yok"
+    },
+    "runOnHostsSheet": {
+      "run": "Çalıştır",
+      "run2": "\"{{name}}\" çalıştır",
+      "runsOverSshOnEach": "Her sunucuda SSH üzerinden çalıştırılır. Terminal açılmaz.",
+      "close": "Kapat",
+      "hosts": "Sunucular",
+      "pickHosts": "Sunucu seç",
+      "workedFailed": "{{value}} başarılı, {{failed}} başarısız",
+      "runOn2": "Şurada çalıştır:",
+      "runOn_one": "{{name}} {{count}} sunucuda çalıştırılsın mı?",
+      "runOn_other": "{{name}} {{count}} sunucuda çalıştırılsın mı?",
+      "hostsPicked_one": "{{count}} sunucu seçildi",
+      "hostsPicked_other": "{{count}} sunucu seçildi"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Kod parçacıkları ara",
+      "pastesTheNote": "Notu yapıştırır",
+      "runsTheSnippet": "Kod parçacığını çalıştırır",
+      "noSnippetsMatch": "Eşleşen kod parçacığı yok",
+      "noSnippetsYet": "Henüz kod parçacığı yok",
+      "addSnippetsInSettingsSnippets": "Ayarlar, Kod Parçacıkları bölümünden kod parçacıkları ekleyin",
+      "run": "Çalıştır",
+      "insertWithoutRunning": "Çalıştırmadan ekle",
+      "copy": "Kopyala"
+    },
+    "snippetsCard": {
+      "snippets": "Kod Parçacıkları",
+      "run": "{{name}} çalıştır"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Dışa aktarılacak kod parçacığı yok",
+      "couldNotMakeTheFile": "Dosya oluşturulamadı",
+      "copiedToTheClipboard": "Panoya kopyalandı",
+      "couldNotImport": "İçe aktarılamadı",
+      "couldNotReadThatFile": "Bu dosya okunamadı",
+      "importAndExport": "İçe ve dışa aktar",
+      "theSameFileTheWeb": "Web uygulamasının kullandığı aynı dosya.",
+      "export": "Dışa aktar",
+      "shareAFile": "Bir dosya paylaş",
+      "copy": "Kopyala",
+      "import": "İçe aktar",
+      "updateSnippetsThatExist": "Mevcut kod parçacıklarını güncelle",
+      "sameNameInTheSame": "Aynı klasörde aynı isim. Aksi takdirde atlanır",
+      "chooseAFile": "Bir dosya seç",
+      "paste": "Yapıştır",
+      "saveYourSnippets": "Kod parçacıklarınızı kaydedin"
+    },
+    "useSnippetRunner": {
+      "run": "{{name}} çalıştırılsın mı?",
+      "run2": "Çalıştır",
+      "fillInTheValuesFor": "Bu kod parçacığı için değerleri doldurun.",
+      "cancel": "İptal",
+      "insert": "Ekle",
+      "noTerminalIsOpen": "Açık terminal yok"
+    },
+    "variables": {
+      "input": "Girdi {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Bu geçerli bir JSON dosyası değil",
+      "theFileNeedsASnippets": "Dosyanın kod parçacıkları veya klasörler listesi içermesi gerekiyor",
+      "snippetNameAndContentAre": "Kod parçacığı {{value}}: isim ve içerik gerekli",
+      "folder": "Klasör {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Tailscale cihazları yükleniyor…",
+      "searchTailscaleDevices": "Tailscale cihazları ara…",
+      "searchTailscaleDevices2": "Tailscale cihazlarını ara",
+      "clearDeviceSearch": "Cihaz aramasını temizle",
+      "refreshTailscaleDevices": "Tailscale cihazlarını yenile",
+      "device": "Cihaz",
+      "noTailnetAddress": "Tailnet adresi yok",
+      "tailscaleDevice": "Tailscale cihazı",
+      "tailscaleDevices": "Tailscale cihazları",
+      "addAHostThatConnects": "Tailscale SSH ile bağlanan bir ana bilgisayar ekleyin.",
+      "username": "Kullanıcı adı",
+      "sshUsernameFor": "{{value}} için SSH kullanıcı adı",
+      "addHost": "Ana bilgisayar ekle",
+      "noTailscaleDevicesMatchYour": "Aramanızla eşleşen Tailscale cihazı bulunamadı.",
+      "noTailscaleDevicesFound": "Tailscale cihazı bulunamadı.",
+      "noTailscaleApiKeyIs": "Bu sunucuda Tailscale API anahtarı yapılandırılmamış. Bir yöneticiden eklemesini isteyin.",
+      "youDoNotHavePermission": "Tailscale cihazlarını listeleme izniniz yok.",
+      "couldNotLoadTailscaleDevices": "Tailscale cihazları yüklenemedi. Tekrar denemek için yenileyin.",
+      "tailscaleIsUnavailableOnThis": "Tailscale bu sunucuda kullanılamıyor."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Yeniden bağlanıyor | deneme {{attempt}}",
+      "reconnectingInSTry": "{{secs}} saniye içinde yeniden bağlanıyor | deneme {{attempt}}",
+      "offlineWaitingForNetwork": "Çevrimdışı, ağ bekleniyor",
+      "sendToTheNewShell": "{{what}} yeni kabuğa gönderilsin mi?",
+      "reconnectNow": "Şimdi yeniden bağlan",
+      "send": "Gönder",
+      "discard": "İptal",
+      "typedChars_one": "{{count}} yazılmış karakter",
+      "typedChars_other": "{{count}} yazılmış karakter",
+      "waiting": "{{what}} bekleniyor"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Bağlantı günlüğü kopyalandı",
+      "connectionLog": "Bağlantı günlüğü",
+      "copyItIntoABug": "Hata raporuna kopyalayın. Adresler ve kullanıcı adları hariç tutulur.",
+      "copy": "Kopyala"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Bu ana bilgisayar için geçmiş temizlensin mi?",
+        "clear": "Temizle",
+        "searchHistory": "Geçmişi ara",
+        "typesTheCommandWithoutRunning": "Komutu çalıştırmadan yazar",
+        "noCommandsMatch": "Eşleşen komut yok",
+        "noHistoryYet": "Henüz geçmiş yok",
+        "commandsYouRunOnThis": "Bu ana bilgisayarda çalıştırdığınız komutlar burada görünür",
+        "run": "Çalıştır",
+        "typeWithoutRunning": "Çalıştırmadan yaz",
+        "copy": "Kopyala",
+        "delete": "Sil",
+        "historyCleared": "Geçmiş temizlendi"
+      },
+      "suggestionStrip": {
+        "use": "{{command}} kullan"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Uygulama ayarı",
+      "delete": "Sil (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Kabuktan sekme başlığı",
+      "programsCanSetTheTab": "Programlar sekme başlığını ayarlayabilir",
+      "openTmux": "tmux aç",
+      "attachToATmuxSession": "Bir tmux oturumuna bağlan veya yeni bir tane başlat",
+      "reconnectOnDrop": "Bağlantı kopunca yeniden bağlan",
+      "keepTabOpenOnExit": "Çıkışta sekme açık kalsın",
+      "pressEnterToConnectAgain": "Tekrar bağlanmak için Enter'a basın",
+      "saveCommandHistory": "Komut geçmişini kaydet",
+      "offerToFillPasswordPrompts": "Şifre istemlerini doldurmayı teklif et",
+      "offerToFillSudoPrompts": "sudo istemlerini doldurmayı teklif et",
+      "usesTheSudoPasswordFrom": "SSH sekmesindeki sudo şifresini kullanır",
+      "none": "Yok",
+      "look": "Görünüm",
+      "theme": "Tema",
+      "font": "Yazı tipi",
+      "cursor": "İmleç",
+      "bell": "Zil",
+      "scrollbackLines": "Kaydırma satırları",
+      "app": "Uygulama",
+      "behavior": "Davranış",
+      "backspaceSends": "Geri sil gönderir",
+      "startupSnippet": "Başlangıç komutu",
+      "runsOnceTheShellIs": "Kabuk hazır olduğunda çalışır",
+      "fillWithoutAsking": "Sormadan doldur",
+      "onThisOnlyOnceYou": "Bu {{deviceWord}} üzerinde, \"Her zaman doldur\" seçeneğini işaretledikten sonra",
+      "connection": "Bağlantı",
+      "keepalive": "Bağlantıyı koru",
+      "secondsBetweenPings0Turns": "Pingler arasındaki saniye, 0 kapatır",
+      "default": "Varsayılan",
+      "keepaliveSeconds": "Bağlantıyı koru süresi",
+      "missedPings": "Cevapsız pingler",
+      "dropTheConnectionAfterThis": "Bu kadar cevapsız pingden sonra bağlantıyı kes",
+      "missedPingsBeforeDrop": "Kesilmeden önceki cevapsız pingler",
+      "environment": "Çevre",
+      "removeVariable": "Değişkeni kaldır",
+      "addVariable": "Değişken ekle"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "KLAVYE"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Satır",
+        "keys": "Tuşlar",
+        "sendsAKeyCode": "Tuş kodu gönderir",
+        "stickyModifier": "Yapışkan değiştirici",
+        "appAction": "Uygulama eylemi",
+        "tmuxPrefixThen": "tmux öneki, ardından {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Tuş satırları",
+        "onlyFor": "Sadece {{name}} için",
+        "usingTheAppSRows": "Uygulamanın satırlarını kullanıyor. Buradaki değişiklikler sadece {{name}} için geçerlidir",
+        "useTheAppSRows": "Uygulamanın satırlarını kullan"
+      },
+      "keyButton": {
+        "locked": "Kilitli"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "İptal",
+        "remove": "{{what}} kaldırılsın mı?",
+        "remove2": "Kaldır",
+        "dragToReorder": "Sıralamayı değiştirmek için sürükleyin",
+        "rowName": "Satır adı",
+        "groupName": "Grup adı",
+        "add": "Ekle",
+        "addKey": "Tuş ekle",
+        "addRow": "Satır ekle",
+        "addGroup": "Grup ekle",
+        "tmuxPrefix": "tmux öneki",
+        "name": "Ad",
+        "rename": "Yeniden adlandır",
+        "keys": "{{value}} tuş",
+        "noKeys": "Tuş yok",
+        "remove3": "{{label}} kaldır",
+        "keys2": "Tuşlar",
+        "custom": "Özel",
+        "add2": "{{label}} ekle",
+        "typeText": "Metin yaz",
+        "runCommand": "Komut çalıştır",
+        "ctrlKey": "Ctrl tuşu",
+        "label": "Etiket",
+        "optional": "İsteğe bağlı",
+        "letter": "Harf",
+        "command": "Komut",
+        "text": "Metin",
+        "resetToDefault": "Varsayılana sıfırla"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Ayarlar, Klavye bölümünden tuşları değiştir"
+      },
+      "keyRowBar": {
+        "keyRow": "Tuş satırı {{label}}",
+        "tapForTheNextRow": "Sonraki satır için dokunun, birini seçmek için basılı tutun",
+        "keyRows": "Tuş satırları"
+      },
+      "model": {
+        "clear": "Temizle",
+        "main": "Ana",
+        "keys": "Tuşlar",
+        "arrows": "Ok tuşları",
+        "symbols": "Semboller",
+        "actions": "Eylemler",
+        "nav": "Gezinme",
+        "move": "Taşı",
+        "function": "Fonksiyon",
+        "brackets": "Parantezler",
+        "punctuation": "Noktalama",
+        "ctrl": "Ctrl",
+        "control": "Kontrol",
+        "windows": "Windows",
+        "panes": "Paneller",
+        "copy": "Kopyala",
+        "split": "Böl ─",
+        "split2": "Böl │",
+        "newWin": "Yeni pencere",
+        "prevWin": "Önceki pencere",
+        "nextWin": "Sonraki pencere",
+        "pane": "Panel ←",
+        "pane2": "Panel ↓",
+        "pane3": "Panel ↑",
+        "pane4": "Panel →",
+        "copyMode": "Kopyalama modu",
+        "pasteBuf": "Arpazı yapıştır",
+        "killPane": "Paneli kapat"
+      }
+    },
+    "output": {
+      "openLink": "Bağlantı açılsın mı?",
+      "open": "Aç",
+      "pasteLines": "{{lines}} satır yapıştırılsın mı?",
+      "pasteThisText": "Bu metin yapıştırılsın mı?",
+      "theShellMayRunIt": "Kabuk bunu hemen çalıştırabilir.\n\n{{text}}",
+      "paste": "Yapıştır",
+      "letTheProgramReadYour": "Programın panonuzu okumasına izin verilsin mi?",
+      "itAskedForWhatYou": "En son kopyaladığınız şeyi istedi.",
+      "allow": "İzin ver",
+      "letTheProgramCopyTo": "Programın panonuza kopyalamasına izin verilsin mi?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Kaydedilen parola doldurulsun mu?",
+      "asksForTheSudoPassword": "{{hostName}} sudo parolası istiyor.",
+      "asksForAPassword": "{{hostName}} bir parola istiyor.",
+      "fillPassword": "Parolayı doldur",
+      "alwaysFillOnThisHost": "Bu sunucuda her zaman doldur",
+      "asksNoMoreOnThis": "Bu {{deviceWord}} üzerinde artık sormayacak. Sunucunun Terminal sekmesinden kapatın.",
+      "notNow": "Şimdi değil"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal ve bağlantıyı canlı tutma",
+      "history": "GEÇMİŞ",
+      "find": "Bul",
+      "tmuxWindows": "tmux pencereleri",
+      "connectionLog": "Bağlantı günlüğü",
+      "keyRowsForThisHost": "Bu sunucu için tuş satırları"
+    },
+    "searchBar": {
+      "noResults": "Sonuç yok",
+      "matchCase": "Büyük/küçük harfe uy",
+      "wholeWord": "Tam kelime",
+      "regularExpression": "Düzenli ifade",
+      "find": "Bul",
+      "closeFind": "Bulmayı kapat"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Sistem",
+      "block": "Blok",
+      "bar": "Çubuk",
+      "underline": "Altı çizili",
+      "off": "Kapalı",
+      "sound": "Ses",
+      "flash": "Flaş",
+      "both": "Her ikisi"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Bu ana makinede yeni sekme",
+      "closeTab": "Sekmeyi kapat",
+      "nextTab": "Sonraki sekme",
+      "previousTab": "Önceki sekme",
+      "goToTab": "Sekmeye git",
+      "find": "Bul",
+      "fontSize": "Yazı tipi boyutu",
+      "paste": "Yapıştır",
+      "escape": "Kaçış",
+      "copyAndPaste": "Kopyala ve yapıştır"
+    },
+    "reconnecting": "Yeniden bağlanıyor...",
+    "waitingForNetwork": "Ağ bekleniyor...",
+    "waitingForYou": "Sizin için bekleniyor...",
+    "connecting": "Bağlanıyor...",
+    "terminalView": {
+      "scrollToBottom": "En alta kaydır",
+      "onlyWebLinksCanOpen": "Terminalden yalnızca web bağlantıları açılabilir",
+      "couldNotOpenLink": "Bağlantı açılamadı",
+      "copiedFromTheTerminal": "Terminalden kopyalandı"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Bir tmux oturumu aç",
+        "newSession": "Yeni oturum",
+        "plainShell": "Düz kabuk",
+        "tmuxWindows": "tmux pencereleri",
+        "newWindow": "Yeni pencere",
+        "windowCount_one": "{{count}} pencere",
+        "windowCount_other": "{{count}} pencere",
+        "attached": "{{count}} bağlı",
+        "activeNow": "şu anda aktif",
+        "activeMinAgo": "{{count}} dakika önce aktif",
+        "activeHoursAgo": "{{count}} saat önce aktif",
+        "activeDaysAgo_one": "{{count}} gün önce aktif",
+        "activeDaysAgo_other": "{{count}} gün önce aktif"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopyala",
+        "selectAll": "Tümünü seç",
+        "cancel": "İptal",
+        "scrollToBottom": "En alta kaydır",
+        "couldNotCopy": "Kopyalanamadı",
+        "webviewError": "WebView hatası: {{description}}",
+        "webviewHttpError": "WebView HTTP hatası: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Bu ana makine için kaydedilmiş şifre yok",
+    "backInTmuxSession": "{{tmuxName}} tmux oturumuna geri dön",
+    "backInScreenSession": "{{name}} screen oturumuna geri dön",
+    "theServerSessionEndedThis": "Sunucu oturumu sona erdi. Bu yeni bir kabuk.",
+    "termixWasClosedSoThe": "Termix kapatıldığı için eski kabuk sona erdi. Bu yeni bir kabuk.",
+    "theConnectionDroppedAndThe": "Bağlantı koptu ve eski kabuk sona erdi. Bu yeni bir kabuk.",
+    "disconnectedFrom": "{{hostName}} bağlantısı kesildi"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "İki Faktörlü Kimlik Doğrulama",
+      "codesFromAnAuthenticatorApp": "Sunucu hesabınız için kimlik doğrulayıcı uygulamasından kodlar"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC adresi",
+      "neededToWakeThisHost": "Bu ana bilgisayarı Wake-on-LAN ile uyandırmak için gerekli",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "00:1A:2B:3C:4D:5E gibi bir MAC adresi kullanın"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN {{name}} adresine gönderildi",
+      "failedToSendWakeOn": "Wake-on-LAN paketi gönderilemedi",
+      "noServer": "Sunucu yok"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "{{value}}'yı Uyandır"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Anonim kullanım istatistikleri paylaşılmalı mı?",
+      "termixWouldSendAShort": "Termix günde bir kez kısa bir rapor gönderir. Bunu Ayarlar'dan istediğiniz zaman değiştirebilirsiniz.",
+      "noThanks": "Hayır teşekkürler",
+      "share": "Paylaş",
+      "theReportHasTheApp": "Rapor; uygulama sürümü, {{deviceWord}} türü, ana bilgisayar ve oturum sayılarının yaklaşık değerleri, kullandığınız özellikler ve bağlantının başarılı olup olmadığını içerir. Asla ana bilgisayar adları, kullanıcı adları, adresler, yollar, komutlar veya sunucu adları içermez.",
+      "seeExactlyWhatIsSent": "Gönderilenlerin tam olarak ne olduğunu görün"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Sürüm bilgileri yükleniyor…",
+      "updateAvailable": "Güncelleme Mevcut",
+      "newVersionAvailable": "Yeni sürüm mevcut",
+      "aNewerVersionOfThe": "Mobil uygulamanın daha yeni bir sürümü mevcut. Güncelleme yapana kadar bazı özellikler düzgün çalışmayabilir.",
+      "versionInformation": "Sürüm Bilgileri",
+      "installed": "Yüklü",
+      "latest": "En Yeni",
+      "unknown": "Bilinmiyor",
+      "tag": "Etiket",
+      "continueAnyway": "Yine de Devam Et"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Kopyalandı",
+      "copy": "Kopyala",
+      "hostKeyChanged": "Ana bilgisayar anahtarı değişti",
+      "verifyHostKey": "Ana bilgisayar anahtarını doğrula",
+      "cancel": "İptal",
+      "acceptNewKey": "Yeni anahtarı kabul et",
+      "connectAndTrust": "Bağlan ve güven",
+      "theHostSSshKey": "Ana bilgisayarın SSH anahtarı, son bağlantınızdan bu yana değişti. Bu, bağlantının birisi tarafından dinlendiği anlamına gelebilir.",
+      "youAreConnectingToThis": "Bu ana bilgisayara ilk kez bağlanıyorsunuz. Güvenmeden önce parmak izini kontrol edin.",
+      "previousKey": "Önceki anahtar",
+      "newFingerprint": "Yeni parmak izi",
+      "hostFingerprint": "Ana bilgisayar parmak izi"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Parola Gerekli",
+      "enterThePassphraseForYour": "SSH anahtarınız için parolayı girin.",
+      "cancel": "İptal",
+      "connect": "Bağlan",
+      "keyPassphrase": "Anahtar parolası"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH Kimlik Doğrulaması Gerekli",
+      "cancel": "İptal",
+      "connect": "Bağlan",
+      "password": "Şifre",
+      "sshKey": "SSH Anahtarı",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nÖzel anahtarınızı buraya yapıştırın...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Anahtar parolası (isteğe bağlı)",
+      "keyboardInteractiveAuthIsNot": "Klavye ile etkileşimli kimlik doğrulama mevcut değil. Kimlik bilgilerini doğrudan girin.",
+      "authenticationFailedPleaseReEnter": "Kimlik doğrulama başarısız oldu. Lütfen kimlik bilgilerinizi yeniden girin.",
+      "connectionTimedOutPleaseTry": "Bağlantı zaman aşımına uğradı. Lütfen kimlik bilgilerinizle tekrar deneyin."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH kontrolü",
+      "completeTheTailscaleSshCheck": "Devam etmek için tarayıcınızda Tailscale SSH kontrolünü tamamlayın.",
+      "cancel": "İptal",
+      "copyUrl": "URL'yi Kopyala",
+      "openBrowser": "Tarayıcıyı Aç",
+      "urlCopied": "URL kopyalandı",
+      "failedToCopy": "Kopyalanamadı",
+      "couldNotOpenBrowser": "Tarayıcı açılamadı"
+    },
+    "tOTPDialog": {
+      "cancel": "İptal",
+      "submit": "Gönder",
+      "verify": "Doğrula",
+      "password": "Şifre",
+      "pasteCode": "Kodu yapıştır",
+      "passwordRequired": "Şifre Gerekli",
+      "twoFactorAuthentication": "İki Faktörlü Kimlik Doğrulama",
+      "enterYourPasswordToContinue": "Devam etmek için şifrenizi girin.",
+      "enterThe6DigitCode": "Kimlik doğrulayıcı uygulamanızdan 6 haneli kodu girin."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate Kimlik Doğrulaması",
+      "authenticateViaTheWarpgatePortal": "Warpgate portalı üzerinden kimlik doğrulaması yapın, ardından Devam'a dokunun.",
+      "cancel": "İptal",
+      "openBrowser": "Tarayıcıyı Aç",
+      "continue": "Devam",
+      "securityKey": "Güvenlik Anahtarı",
+      "authUrl": "Doğrulama URL'si",
+      "copied": "Kopyalandı",
+      "copy": "Kopyala",
+      "urlCopied": "URL kopyalandı",
+      "failedToCopy": "Kopyalanamadı",
+      "couldNotOpenBrowser": "Tarayıcı açılamadı"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "bu {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Son aktiviteler",
+        "files": "Dosyalar",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Bildirimler",
+        "seeAll": "Tümünü gör"
+      },
+      "server": "Sunucu",
+      "openSessions": "Açık oturumlar",
+      "quickAccess": "Hızlı erişim",
+      "notifications": "Bildirimler",
+      "pinnedHosts": "Sabitlemiş ana bilgisayarlar",
+      "recentHosts": "Son ana bilgisayarlar",
+      "recentActivity": "Son aktiviteler",
+      "pinnedCard": {
+        "addYourFirstHost": "İlk ana bilgisayarınızı ekleyin",
+        "hostsYouOpenShowUp": "Açtığınız ana bilgisayarlar burada görünür, sabitlenen ana bilgisayarlar canlı kartlar gösterir.",
+        "addHost": "Ana bilgisayar ekle",
+        "linkAServer": "Bir sunucu bağla",
+        "pinAHostToSee": "Burada görmek için bir ana bilgisayarı sabitleyin",
+        "pinnedHostsShowTheirMetrics": "Sabitlemiş ana bilgisayarlar metriklerini, Docker ve hizmetlerini bir bakışta gösterir. Sabitlemek için bir ana bilgisayara basılı tutun.",
+        "goToHosts": "Ana bilgisayarlara git",
+        "pinned": "Sabitlenmiş",
+        "opensTheTerminalHoldFor": "Terminali açar. Daha fazlası için basılı tutun.",
+        "turnOnDockerOrServices": "Bu ana bilgisayar için Docker veya Hizmetleri açın veya bağlanmak için dokunun.",
+        "opens": "{{title}} açılır"
+      },
+      "quickCard": {
+        "quickAccess": "Hızlı erişim",
+        "quickConnect": "Hızlı bağlantı",
+        "userHostPortWithoutSaving": "kullanıcı@ana_bilgisayar:port, kaydetmeden"
+      },
+      "recentCard": {
+        "recent": "Son"
+      },
+      "serverCard": {
+        "server": "Sunucu",
+        "version": "Sürüm",
+        "uptime": "Çalışma süresi",
+        "database": "Veritabanı",
+        "hosts": "Ana bilgisayarlar",
+        "online": "Çevrimiçi",
+        "offline": "Çevrimdışı",
+        "logins": "Oturum açmalar"
+      },
+      "sessionsCard": {
+        "openSessions": "Açık oturumlar",
+        "connected": "Bağlı"
+      }
+    },
+    "resetHome": "Ana Sayfa Sıfırlansın mı?",
+    "cardsGoBackToThe": "Kartlar varsayılan sıraya ve görünen kartlara döner.",
+    "reset": "Sıfırla",
+    "doneEditingHome": "Ana Sayfa düzenlemesi tamamlandı",
+    "editHome": "Ana Sayfayı Düzenle",
+    "dragToReorder": "Sıralamayı değiştirmek için {{title}} sürükleyin",
+    "show": "{{title}} göster",
+    "dragCardsToReorderThem": "Kartları sıralamak için sürükleyin. Bir kartı gizlemek için kapatın. Gösterilecek hiçbir şeyi olmayan kartlar kendiliğinden gizli kalır.",
+    "resetToDefault": "Varsayılana sıfırla",
+    "done": "Tamam",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Sunucuya hala ulaşılamıyor",
+      "canTReach": "{{account}}'a ulaşılamıyor",
+      "youCanKeepWorkingWith": "Bu {{deviceWord}} üzerindeki kopya ile çalışmaya devam edebilirsiniz. Sunucu geri döndüğünde değişiklikler yukarı yüklenir.",
+      "hostsSetToConnectFrom": "Bu {{deviceWord}} üzerinden bağlanacak şekilde ayarlanmış ana bilgisayarlar hala çalışır.",
+      "tryAgain": "Tekrar dene",
+      "noAnswer": "yanıt yok"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault profili",
+      "none": "Yok",
+      "signsInWithInYour": "Termix sunucunuz aracılığıyla tarayıcınızda {{title}} ile oturum açar. Bu ana bilgisayara sunucu üzerinden bağlanın.",
+      "needsATermixServerLink": "{{title}} bir Termix sunucusu gerektirir. Bu oturum açmayı kullanmak için bir sunucu bağlayın.",
+      "isOffOnThisServer": "{{title}} bu sunucuda kapalı. Bu ana bilgisayar oturum açma ayarını korur."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Kimlik bilgileri yüklenemedi",
+      "deleted": "\"{{name}}\" silindi",
+      "couldNotDeleteTheCredential": "Kimlik bilgisi silinemedi",
+      "credentials": "Kimlik Bilgileri",
+      "add": "Ekle",
+      "searchCredentials": "Kimlik bilgilerini ara",
+      "clearSearch": "Aramayı temizle",
+      "loadingCredentials": "Kimlik bilgileri yükleniyor...",
+      "noCredentialsMatchYourSearch": "Aramanızla eşleşen kimlik bilgisi yok",
+      "noCredentialsYet": "Henüz kimlik bilgisi yok",
+      "addCredential": "Kimlik bilgisi ekle",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "deleteCredential": "Kimlik bilgisini sil",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" kalıcı olarak silinecektir. Bunu kullanan ana bilgisayarlar kayıtlı kimlik bilgilerini kaybedecektir.",
+      "cancel": "İptal",
+      "hostCount_one": "{{count}} ana bilgisayar",
+      "hostCount_other": "{{count}} ana bilgisayar",
+      "sshKey": "SSH anahtarı"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Anahtar değiştirilsin mi?",
+        "theNewKeyTakesThe": "Yeni anahtar mevcut olanın yerini alır. Sadece eski anahtarı tanıyan ana bilgisayarlar bu kimlik bilgisini kabul etmeyi bırakır.",
+        "replace": "Değiştir",
+        "newKeyMadeCopyThe": "Yeni anahtar oluşturuldu. Ana bilgisayarlarınıza genel anahtarı kopyalayın.",
+        "couldNotMakeAKey": "Anahtar oluşturulamadı",
+        "couldNotReadThatCertificate": "Bu sertifika dosyası okunamadı",
+        "leaveWithoutSaving": "Kaydetmeden ayrılsın mı?",
+        "yourChangesToThisCredential": "Bu kimlik bilgisine yaptığınız değişiklikler kaybolacaktır.",
+        "leave": "Ayrıl",
+        "credentialSaved": "Kimlik bilgisi kaydedildi",
+        "credentialAdded": "Kimlik bilgisi eklendi",
+        "couldNotSaveTheCredential": "Kimlik bilgisi kaydedilemedi",
+        "enterAHostToTest": "Test etmek için bir ana bilgisayar girin, örneğin 10.0.0.5 veya kutu:2222.",
+        "enterTheUsernameFirst": "Önce kullanıcı adını girin.",
+        "editCredential": "Kimlik bilgisini düzenle",
+        "newCredential": "Yeni kimlik bilgisi",
+        "cancel": "İptal",
+        "save": "Kaydet",
+        "credential": "Kimlik Bilgisi",
+        "name": "Ad",
+        "productionKey": "Üretim anahtarı",
+        "username": "Kullanıcı adı",
+        "signInWith": "Şununla oturum aç",
+        "password": "Şifre",
+        "sshKey": "SSH anahtarı",
+        "unchangedIfBlank": "Boş bırakılırsa değiştirilmez",
+        "key": "Anahtar",
+        "fileOrPaste": "Dosya veya yapıştır",
+        "makeANewKey": "Yeni bir anahtar oluştur",
+        "aKeyIsSavedChoose": "Bir anahtar kayıtlı. Değiştirmek için bir dosya seçin veya yapıştırın.",
+        "type": "Tür",
+        "ed25519AndEcdsaAreMade": "Ed25519 ve ECDSA bu {{deviceWord}} üzerinde oluşturulur, RSA sunucunuzda oluşturulur.",
+        "madeOnThisEd25519Works": "Bu {{deviceWord}} üzerinde oluşturuldu. Ed25519 neredeyse her yerde çalışır.",
+        "passphrase": "Parola",
+        "optionalLocksTheNewKey": "İsteğe bağlı. Yeni anahtarı bu {{deviceWord}} üzerinde ve diskte kilitleyin.",
+        "makeKey": "Anahtar oluştur",
+        "publicKey": "Genel anahtar",
+        "addThisLineToSsh": "Bu satırı sunucularınızdaki ~/.ssh/authorized_keys dosyasına ekleyin",
+        "publicKeyCopied": "Genel anahtar kopyalandı",
+        "copyPublicKey": "Genel anahtarı kopyala",
+        "certificate": "Sertifika",
+        "aCertificateYourCaSigned": "Bu anahtar için CA'nızın imzaladığı, CA'ya güvenen sunucular için bir sertifika.",
+        "chooseCertificateFile": "Sertifika dosyası seç",
+        "thisDoesNotLookLike": "Bu bir OpenSSH sertifikası gibi görünmüyor.",
+        "test": "Test",
+        "hostToTestOn": "Test edilecek sunucu",
+        "n10005Or": "10.0.0.5 veya box.lan:2222",
+        "pickASavedHost": "Kayıtlı bir sunucu seç",
+        "details": "Ayrıntılar",
+        "description": "Açıklama",
+        "whatThisCredentialIsFor": "Bu kimlik bilgisi ne için",
+        "folder": "Klasör",
+        "serverKeys": "Sunucu anahtarları",
+        "testOnAHost": "Bir sunucuda test et",
+        "rsaKeysNeedALinked": "RSA anahtarları bağlantılı bir sunucu gerektirir."
+      },
+      "model": {
+        "giveThisCredentialAName": "Bu kimlik bilgisine bir ad verin",
+        "addAPrivateKeyOr": "Bir özel anahtar ekleyin veya yeni bir tane oluşturun"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Bu bir kullanıcı sertifikası değil, bir sunucu sertifikasıdır.",
+        "thisCertificateIsNotValid": "Bu sertifika henüz geçerli değil.",
+        "thisCertificateHasExpired": "Bu sertifikanın süresi dolmuş.",
+        "itIsForAKey": "{{keyType}} anahtarı içindir, ancak bu anahtar {{keyType2}} türünde.",
+        "forAnyUser": "Herhangi bir kullanıcı için",
+        "validFromNoEndDate": "{{validAfter}} tarihinden itibaren geçerli, bitiş tarihi yok",
+        "signedBy": "{{caSha256}} tarafından imzalandı"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Kullanıcı adı",
+        "fromTheCredential": "Kimlik bilgisinden: {{credentialUser}}",
+        "signInWith": "Şununla oturum aç",
+        "password": "Şifre",
+        "key": "Anahtar",
+        "credential": "Kimlik Bilgisi",
+        "none": "Yok",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Tailscale SSH ile bağlanır. Şifre veya anahtar saklanmaz.",
+        "tailscaleIsNotOnFor": "{{value}} için Tailscale açık değil. Bu sunucu Tailscale oturum açma bilgilerini korur.",
+        "unchangedIfBlank": "Boş bırakılırsa değiştirilmez",
+        "noCredentialsYetTapThe": "Henüz kimlik bilgisi yok. Eklemek için Sunucular'daki anahtar simgesine dokunun.",
+        "useCredential": "{{name}} kimlik bilgilerini kullan",
+        "sudoPassword": "Sudo şifresi",
+        "typedIntoSudoPromptsWhen": "Terminal bölümü bunu etkinleştirdiğinde sudo istemlerine yazılır",
+        "notSet": "Ayarlanmadı",
+        "thisServer": "bu sunucu"
+      },
+      "colorIconField": {
+        "color": "Renk",
+        "noColor": "Renk yok",
+        "color2": "Renk {{c}}",
+        "icon": "Simge",
+        "noIcon": "Simge yok",
+        "none": "Yok",
+        "icon2": "Simge {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Kaydetmeden ayrılsın mı?",
+        "yourChangesToThisHost": "Bu ana makineye yaptığınız değişiklikler kaybolacak.",
+        "leave": "Ayrıl",
+        "couldNotSaveHowThis": "Bu ana makinenin nasıl bağlandığı kaydedilemedi",
+        "hostSaved": "Ana makine kaydedildi",
+        "hostAdded": "Ana makine eklendi",
+        "couldNotSaveTheHost": "Ana makine kaydedilemedi",
+        "enterTheHostSAddress": "Önce ana makinenin adresini girin.",
+        "turnOnSshToTest": "Girişi test etmek için SSH'yı açın.",
+        "pickACredentialFirst": "Önce bir kimlik bilgisi seçin.",
+        "editHost": "Ana makineyi düzenle",
+        "newHost": "Yeni ana makine",
+        "cancel": "İptal",
+        "save": "Kaydet",
+        "host": "Ana makine",
+        "name": "Ad",
+        "myServer": "Sunucum",
+        "address": "Adres",
+        "port": "Port",
+        "portAndUsernameComeFrom": "Port ve kullanıcı adı, bunları değiştirene kadar ana makine varsayılanlarınızdan alınır.",
+        "folder": "Klasör",
+        "production": "Üretim",
+        "useAFolderInstead": "Bunun yerine bir klasör kullanın",
+        "putItUnderAHost": "Bunun yerine bir ana makine altına koyun",
+        "pinToTop": "Üste sabitle",
+        "colorAndIcon": "Renk ve simge",
+        "notes": "Notlar",
+        "anythingWorthRememberingAboutThis": "Bu ana makine hakkında akılda tutulması gereken bir şey",
+        "protocols": "Protokoller",
+        "terminalFilesAndMore": "Terminal, dosyalar ve daha fazlası",
+        "connectFrom": "Bağlanma kaynağı",
+        "features": "Özellikler",
+        "otherProtocols": "Diğer protokoller",
+        "more": "Daha fazla",
+        "theTestRunsFromThis": "Test bu {{deviceWord}} üzerinden çalışır. Bu ana makine sunucu üzerinden bağlanır, bu nedenle {{deviceWord}} ona ulaşamadığında bile çalışmaya devam edebilir."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Atlayıcı ana makineler",
+        "connectsThroughTheseInOrder": "Bu sırayla bağlanır, ardından bu ana makineye",
+        "reachThisHostThroughOther": "Bu ana makineye önce diğer ana makineler üzerinden ulaşın",
+        "moveUp": "Yukarı taşı",
+        "moveDown": "Aşağı taşı",
+        "removeJumpHost": "Atlayıcı ana makineyi kaldır",
+        "addJumpHost": "Atlayıcı ana makine ekle",
+        "pickASavedHostTo": "Bağlanmak için kayıtlı bir ana makine seçin",
+        "searchHosts": "Ana makinelerde ara",
+        "noOtherHostsToPick": "Seçilecek başka ana makine yok. Bir ana makine kendisinden veya zaten kendisinden geçen bir ana makineden atlayamaz.",
+        "missingHost": "Eksik ana makine #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "En az bir protokolü açın",
+        "pickACredential": "Bir kimlik bilgisi seçin",
+        "enterTheHostSAddress": "Ana bilgisayarın adresini girin",
+        "theAddressCanTHave": "Adres boşluk içeremez",
+        "portMustBeFrom1": "Bağlantı noktası 1 ile 65535 arasında olmalıdır",
+        "enterTheSshUsername": "SSH kullanıcı adını girin"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Ana bilgisayar, seçtiğiniz ana bilgisayarın altında iç içe gösterilir",
+        "searchHosts": "Ana bilgisayarları ara",
+        "noHostsToPickA": "Seçilecek ana bilgisayar yok. Bir ana bilgisayar kendi altındaki, kendi alt ana bilgisayarlarından birinin veya paylaşılan bir ana bilgisayarın altında olamaz.",
+        "parentHost": "Üst ana bilgisayar",
+        "subHostsFollowTheFolder": "Alt ana bilgisayarlar üstlerinin klasörünü takip eder",
+        "pickParentHost": "Üst ana bilgisayar seç",
+        "missingHost": "Eksik ana bilgisayar #{{value}}",
+        "pickAHost": "Bir ana bilgisayar seç",
+        "clearParentHost": "Üst ana bilgisayarı temizle"
+      },
+      "tagsField": {
+        "tags": "Etiketler",
+        "typeATagAndPress": "Bir etiket yazın ve enter'a basın",
+        "removeTag": "{{tag}} etiketini kaldır",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Bu ana bilgisayarın nasıl bağlandığı kaydedilemedi",
+      "addressCopied": "Adres kopyalandı",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Bağlan",
+      "dismiss": "Kapat",
+      "unpin": "Sabitlemeyi kaldır",
+      "pinToHome": "Ana Sayfaya Sabitle",
+      "select": "Seç",
+      "editHost": "Ana Bilgisayarı Düzenle",
+      "copyAddress": "Adresi Kopyala",
+      "addSubHost": "Alt Ana Bilgisayar Ekle",
+      "cloneHost": "Ana Bilgisayarı Klonla",
+      "deleteHost": "Ana Bilgisayarı Sil",
+      "connectThroughTheServer": "Sunucu üzerinden bağlan",
+      "connectFromThis": "Bu {{deviceWord}} üzerinden bağlan"
+    },
+    "defaultYourOrder": "Varsayılan (sizin sıralamanız)",
+    "nameAZ": "İsim (A-Z)",
+    "nameZA": "İsim (Z-A)",
+    "ipAscending": "IP (artan)",
+    "ipDescending": "IP (azalan)",
+    "onlineFirst": "Önce çevrimiçi",
+    "offlineFirst": "Önce çevrimdışı",
+    "pinnedFirst": "Önce sabitlenmiş",
+    "status": "Durum",
+    "online": "Çevrimiçi",
+    "offline": "Çevrimdışı",
+    "pinned": "Sabitlenmiş",
+    "protocol": "Protokol",
+    "features": "Özellikler",
+    "hostsCanOnlyMoveInside": "Ana bilgisayarlar yalnızca kendi klasörlerinin içinde taşınabilir",
+    "couldNotUpdateTheHosts": "Ana bilgisayarlar güncellenemedi",
+    "sharedHostsCanTBe": "Paylaşılan ana bilgisayarlar burada silinemez",
+    "delete2": "Sil",
+    "noneOfTheseHostsOpen": "Bu ana bilgisayarların hiçbiri bir terminal açmıyor",
+    "couldNotPinTheHost": "Ana bilgisayar sabitlenemedi",
+    "deleted": "{{name}} silindi",
+    "failedToDeleteHost": "Ana bilgisayar silinemedi",
+    "cloned": "{{name}} klonlandı",
+    "failedToCloneHost": "Ana bilgisayar klonlanamadı",
+    "reorderWorksWithTheDefault": "Sıralama, Varsayılan sıralama ve arama veya filtre yokken çalışır",
+    "couldNotSaveTheOrder": "Sıralama kaydedilemedi",
+    "noHostsYet": "Henüz ana bilgisayar yok",
+    "addAHostToConnect": "Tek dokunuşla bağlanmak için bir ana bilgisayar ekleyin.",
+    "addHost": "Ana bilgisayar ekle",
+    "quickConnect2": "Hızlı bağlantı",
+    "linkAServer": "Bir sunucu bağla",
+    "noHostsMatch": "Eşleşen ana bilgisayar yok",
+    "clearSearchAndFilters": "Aramayı ve filtreleri temizle",
+    "more": "Daha fazla",
+    "dragAHostByIts": "Ana bilgisayarı klasörünün içinde taşımak için tutma yeriinden sürükleyin.",
+    "done": "Tamam",
+    "filterHosts": "Ana bilgisayarları filtrele",
+    "clearFilterText": "Filtre metnini temizle",
+    "sortHosts": "Ana bilgisayarları sırala",
+    "removeFilter": "{{value}} filtresini kaldır",
+    "loadingHosts": "Ana bilgisayarlar yükleniyor…",
+    "moveUnderAHost": "Bir ana bilgisayarın altına taşı",
+    "moveToFolder": "Klasöre taşı",
+    "leaveItEmptyToTake": "Ana bilgisayarları klasörlerden çıkarmak için boş bırakın.",
+    "folderLikeProdWeb": "Prod / Web gibi bir klasör",
+    "move": "Taşı",
+    "hosts": "Ana bilgisayarlar",
+    "selectHosts": "Ana bilgisayarları seç",
+    "reorderHosts": "Ana bilgisayarları yeniden sırala",
+    "customizeList": "Listeyi özelleştir",
+    "chooseWhatEachHostRow": "Her ana bilgisayar satırının ne göstereceğini seçin",
+    "credentials2": "Kimlik Bilgileri",
+    "savedPasswordsAndKeys": "Kaydedilmiş şifreler ve anahtarlar",
+    "tailscaleDevices": "Tailscale cihazları",
+    "refresh": "Yenile",
+    "rowDensityFollowsSettingsAppearance": "Satır yoğunluğu Ayarlar, Görünüm’e göre değişir.",
+    "clearAllFilters": "Tüm filtreleri temizle",
+    "tags": "Etiketler",
+    "stopSelecting": "Seçimi durdur",
+    "selected": "{{count}} seçildi",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Bu anahtar dosyası okunamadı",
+        "theClipboardIsEmpty": "Pano boş",
+        "privateKey": "Özel anahtar",
+        "chooseFile": "Dosya seç",
+        "paste": "Yapıştır",
+        "unchangedIfBlank": "Boş bırakılırsa değişmez",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Parola",
+        "onlyIfTheKeyHas": "Sadece anahtarın bir parolası varsa",
+        "theKeyIsCheckedWhen": "Anahtar, bağlandığınızda kontrol edilir.",
+        "thePastedKey": "yapıştırılan anahtar"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Aç",
+        "moreActions": "Daha fazla işlem",
+        "opensTheTerminalHoldFor": "Terminali açar. Daha fazla seçenek için basılı tutun.",
+        "shared": "Paylaşılan",
+        "drag": "{{name}} sürükle",
+        "showSubHosts_one": "{{name}}'in {{count}} alt ana bilgisayarını göster",
+        "showSubHosts_other": "{{name}}'in {{count}} alt ana bilgisayarını göster",
+        "hideSubHosts_one": "{{name}}'in {{count}} alt ana bilgisayarını gizle",
+        "hideSubHosts_other": "{{name}}'in {{count}} alt ana bilgisayarını gizle"
+      },
+      "hostList": {
+        "folderHosts": "{{name}} klasörü, {{total}} ana bilgisayar"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Ana bilgisayar ve kullanıcı adı gereklidir",
+      "hostSaved": "Ana bilgisayar kaydedildi",
+      "couldNotSaveTheHost": "Ana bilgisayar kaydedilemedi",
+      "quickConnect": "Hızlı bağlantı",
+      "connectToAHostWithout": "Kaydetmeden bir ana bilgisayara bağlanın.",
+      "hostIp": "Ana bilgisayar / IP",
+      "port": "Bağlantı noktası",
+      "username": "Kullanıcı adı",
+      "password": "Şifre",
+      "key": "Anahtar",
+      "privateKey": "Özel Anahtar",
+      "saveToMyHosts": "Sunucularımı kaydet",
+      "keepThisHostAfterConnecting": "Bağlandıktan sonra bu sunucuyu koru",
+      "cancel": "İptal",
+      "connect": "Bağlan"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Sunucularınız sunucudan alınıyor",
+      "yourHostsStayOnThis": "{{message}} Bu arada sunucularınız bu {{deviceWord}} üzerinde kalır."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Bu sunucunun anahtarı değişti",
+      "trustThisHost": "Bu sunucuya güvenilsin mi?",
+      "trust": "Güven",
+      "stopTest": "Testi durdur",
+      "testConnection": "Bağlantıyı test et",
+      "connecting": "Bağlanılıyor..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Sunucular yüklenemedi."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} paylaşılan sunucu olduğu gibi bırakıldı.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} paylaşılan sunucu olduğu gibi bırakıldı.",
+    "deleteHosts_one": "{{count}} sunucu silinsin mi?",
+    "deleteHosts_other": "{{count}} sunucu silinsin mi?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "{{name}} adında bir klasör yok"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Sunucu \"{{name}}\": geçersiz bağlantı noktası",
+        "hostJumpIsNotIn": "Sunucu \"{{name}}\": atlayış {{value}} dosyada yok, bu yüzden atlandı",
+        "credential": "Kimlik bilgisi {{name}}: {{error}}",
+        "noValidHostEntriesFound": "SSH yapılandırma dosyasında geçerli Host girdisi bulunamadı",
+        "credentialWasNotFound": "{{label}}: kimlik bilgisi {{value}} bulunamadı"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Sunucu {{value}}: yinelenen dışa aktarılan sunucu kimliği {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Gerekli alanlar eksik (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Geçersiz authType. {{value}} değerlerinden biri olmalıdır",
+        "usernameRequiredForSshConnections": "{{label}}: SSH bağlantıları için kullanıcı adı gerekli",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: kimlik bilgisi doğrulaması için credentialAlias gerekli",
+        "thatIsNotAValid": "Bu geçerli bir JSON dosyası değil",
+        "hostsArrayIsRequiredAnd": "Sunucular dizisi gerekli ve boş olmamalıdır",
+        "jumpHostCycle": "{{label}}: atlayış sunucusu döngüsü",
+        "jumpHostIsNotIn": "{{label}}: atlayış sunucusu {{id}} dosyada yok"
+      }
+    },
+    "movedTo": "{{value}} konumuna taşındı",
+    "movedOutOfFolders": "Klasörlerden çıkarıldı",
+    "movedUnder": "{{value}} altına taşındı",
+    "openTerminals": "Açık terminaller",
+    "theHost": "sunucu"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Şifreyi gizle",
+      "showPassword": "Şifreyi göster",
+      "enterAUsernameAndPassword": "Kullanıcı adı ve şifre girin",
+      "useAtLeast6Characters": "Şifre için en az 6 karakter kullanın",
+      "thePasswordsDonTMatch": "Şifreler eşleşmiyor",
+      "makeTheAdminAccount": "Yönetici hesabını oluştur",
+      "makeAnAccount": "Hesap oluştur",
+      "thisIsTheFirstAccount": "Bu sunucudaki ilk hesap olduğu için sunucuyu yönetir.",
+      "pickAUsernameAndPassword": "Bu sunucu için bir kullanıcı adı ve şifre seçin.",
+      "username": "Kullanıcı adı",
+      "password": "Şifre",
+      "passwordAgain": "Şifre (tekrar)",
+      "makeAccount": "Hesap oluştur",
+      "back": "Geri",
+      "haveAnAccountSignIn": "Hesabınız var mı? Giriş yapın",
+      "resetCodeMadeItIs": "Sıfırlama kodu oluşturuldu. Sunucu günlüklerinde bulunabilir",
+      "enterYourUsername": "Kullanıcı adınızı girin",
+      "enterTheResetCode": "Sıfırlama kodunu girin",
+      "passwordChangedSignInWith": "Şifre değiştirildi. Şimdi bununla giriş yapın",
+      "resetPassword": "Şifreyi sıfırla",
+      "enterYourUsernameTheServer": "Kullanıcı adınızı girin. Sunucu sıfırlama kodunu günlüğüne yazar.",
+      "sendResetCode": "Sıfırlama kodu gönder",
+      "enterThe6DigitCode": "Sunucu günlüklerinden 6 haneli kodu girin.",
+      "resetCode": "Kodu sıfırla",
+      "checkCode": "Kodu kontrol et",
+      "newPassword": "Yeni şifre",
+      "saveNewPassword": "Yeni şifreyi kaydet",
+      "backToSignIn": "Giriş sayfasına dön",
+      "couldNotMakeTheAccount": "Hesap oluşturulamadı",
+      "couldNotStartTheReset": "Sıfırlama başlatılamadı",
+      "thatCodeDidnTWork": "Bu kod çalışmadı",
+      "couldNotChangeThePassword": "Şifre değiştirilemedi"
+    },
+    "browserStep": {
+      "signInFailed": "Giriş başarısız",
+      "signInCanceled": "Giriş iptal edildi",
+      "couldNotOpenTheSign": "Giriş tarayıcısı açılamadı",
+      "couldNotOpenTheSign2": "Giriş sayfası açılamadı",
+      "certificateProblem": "Sertifika sorunu",
+      "back": "Geri",
+      "signIn": "Giriş yap",
+      "reload": "Yenile",
+      "finishSigningInInYour": "Tarayıcınızda girişi tamamlayın",
+      "useAnySignInYour": "Geçit anahtarı veya güvenlik anahtarı gibi sunucunuzda bulunan herhangi bir giriş yöntemini kullanın. Giriş yaptıktan sonra uygulama devreye girer.",
+      "theAppPicksUpOnce": "Giriş sağlayıcınız işlemi tamamladığında uygulama devreye girer.",
+      "signingIn": "Giriş yapılıyor...",
+      "openBrowserAgain": "Tarayıcıyı tekrar aç",
+      "theServerTurnedTheSession": "Sunucu oturumu reddetti. Tekrar deneyin.",
+      "signedInButTheApp": "Giriş yapıldı, ancak uygulama Termix'e ulaşamıyor. Bir proxy bunu engelliyor olabilir.",
+      "thatSignInLinkIs": "Bu giriş bağlantısı daha önceki bir denemeden kalma. Tekrar giriş yapın.",
+      "signInAgain": "Tekrar giriş yapın.",
+      "openTheBrowserAgainWhen": "Hazır olduğunuzda tarayıcıyı tekrar açın.",
+      "theWebPageSignedIn": "Web sayfası giriş yaptı ancak oturum göndermedi. Sunucuyu güncelleyin ve tekrar deneyin.",
+      "theCanTCheckThis": "{{deviceWord}}, bu sunucunun sertifikasını doğrulayamıyor. Kök CA'sını {{deviceWord}}'ye yükleyin. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Bir dahaki sefere {{name}} ile giriş yapmak ister misiniz?",
+      "ifThisServerSignsYou": "Bu sunucu sizi çıkış yaptığında, şifrenizi yazmak yerine {{name}} ile tekrar giriş yapın. Şifre bu {{deviceWord}}'de kalır.",
+      "use": "{{name}} kullan",
+      "notNow": "Şimdi değil",
+      "couldNotSaveTheLogin": "Giriş bilgileri kaydedilemedi",
+      "thatSADifferentUser": "Bu farklı bir kullanıcı",
+      "signedIn": "Giriş yapıldı",
+      "close": "Kapat",
+      "linkYourTermixServer": "Termix sunucunuzu bağlayın",
+      "yourHostsCredentialsSnippetsAnd": "Ana bilgisayarlarınız, kimlik bilgileriniz, kod parçacıklarınız ve ayarlarınız bununla senkronize olur ve eklentilerini alırsınız. Sunucu yokken her şey bu {{deviceWord}} üzerinde çalışmaya devam eder.",
+      "checking": "{{host}} kontrol ediliyor...",
+      "proxyAndClientCertificate": "Proxy ve istemci sertifikası",
+      "couldNotReachThatServer": "Bu sunucuya ulaşılamadı. Adresi kontrol edin veya proxy ve istemci sertifikasını yapılandırın.",
+      "couldNotReachThatServer2": "Bu sunucuya ulaşılamadı",
+      "syncCouldNotStartYet": "Senkronizasyon henüz başlayamadı. Kendiliğinden tekrar deneyecek.",
+      "checkingTheServer": "Sunucu kontrol ediliyor",
+      "signIn": "Giriş yap",
+      "makeAnAccount": "Hesap oluştur",
+      "resetPassword": "Şifreyi sıfırla",
+      "oneMoreStep": "Bir adım kaldı",
+      "almostDone": "Neredeyse tamam",
+      "linkAServer": "Bir sunucu bağla"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Kayıtlı giriş artık çalışmıyor",
+      "enterYourUsernameAndPassword": "Kullanıcı adınızı ve şifrenizi girin",
+      "thisServerIsBehindA": "Bu sunucu bir giriş proxy'sinin arkasında",
+      "signInWith": "{{saved}} ile giriş yap",
+      "signInWith2": "ile giriş yap",
+      "password": "Şifre",
+      "username": "Kullanıcı adı",
+      "signIn": "Giriş yap",
+      "forgotPassword": "Şifremi unuttum?",
+      "makeAnAccount": "Hesap oluştur",
+      "or": "VEYA",
+      "continueWith": "{{label}} ile devam et",
+      "signInWithAPasskey": "Geçit anahtarı veya güvenlik anahtarı ile oturum aç",
+      "opensYourServerAposS": "Tarayıcıda sunucunuzun giriş sayfasını açar. Face ID, parmak izi, NFC ve USB anahtarları burada çalışır. Termix 26.11.3 veya daha yeni bir sürüm gerektirir.",
+      "signInInTheBrowser": "Tarayıcıda oturum aç",
+      "opensYourServerAposS2": "Uygulamanın burada yapamadığı her şey için sunucunuzun giriş sayfasını açar. Termix 26.10.6 veya daha yeni bir sürüm gerektirir.",
+      "thisServerHasNoSign": "Bu sunucuda uygulama tarafından kullanılabilen bir oturum açma yöntemi etkin değil. Sunucuyu yöneten kişiyle iletişime geçin veya yukarıdaki tarayıcı oturum açma seçeneğini deneyin.",
+      "signInWithYourPassword": "Şifrenizle oturum açın.",
+      "signInFailed": "Oturum açma başarısız oldu",
+      "openingItsSignInPage": "Oturum açma sayfası açılıyor."
+    },
+    "smallSteps": {
+      "serverAddress": "Sunucu adresi",
+      "likeTermixExampleComOr": "Örneğin termix.example.com veya 192.168.1.20:30001",
+      "checking": "Kontrol ediliyor...",
+      "continue": "Devam et",
+      "proxyAndClientCertificate": "Proxy ve istemci sertifikası",
+      "aServerWithASelf": "Kendi imzalı sertifikaya sahip bir sunucu, önce bu {{deviceWord}}'e kök CA'sının yüklenmesini gerektirir. Kendi ağınızda düz http çalışır.",
+      "enterTheCode": "Kodu girin",
+      "code": "Kod",
+      "the6DigitCodeFrom": "Kimlik doğrulayıcı uygulamanızdan gelen 6 haneli kod veya yedek kod",
+      "checkCode": "Kodu kontrol et",
+      "thisAccountAsksForA": "Bu hesap, şifreden sonra bir güvenlik anahtarı ister. Kullanmak için tarayıcınızda sunucunun sayfasında giriş yapın.",
+      "useASecurityKeyIn": "Tarayıcıda güvenlik anahtarı kullan",
+      "backToSignIn": "Oturum açmaya dön",
+      "bringThisAposSHosts": "Bu {{deviceWord}}'nun ana bilgisayarlarını da getirilsin mi?",
+      "thisHasTheyStayOn": "Bu {{deviceWord}}'de {{what}} var. Her durumda bunlar bu cihazda kalır.",
+      "merge": "Birleştir",
+      "copyThemToTooSo": "Senkronize olmaları için {{serverName}}'e de kopyalayın. Sunucu ana bilgisayarına benzer olanlar atlanır.",
+      "replace": "Değiştir",
+      "useOnlyWhatIsOn": "Bu hesap için yalnızca {{serverName}}'deki verileri kullan. Hiçbir şey kopyalanmaz.",
+      "thatCodeDidnTWork": "Bu kod çalışmadı",
+      "hostsCredentialsOrSnippets": "ana bilgisayarlar, kimlik bilgileri veya komut parçacıkları"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Önce bu sunucuyu bağla",
+      "thatHostIsnTHere": "Bu ana bilgisayar burada değil",
+      "couldNotOpenThatHost": "Bu ana bilgisayar açılamadı",
+      "noHostWithIdOn": "{{account}} hesabında {{hostId}} kimliğine sahip bir ana bilgisayar yok.",
+      "isnTLinkedInThe": "{{value}} henüz uygulamada bağlı değil."
+    }
+  },
+  "notifications": {
+    "notifications": "Bildirimler",
+    "markAllRead": "Tümünü okundu olarak işaretle",
+    "clearReadNotifications": "Okunan bildirimleri temizle",
+    "unread2": "Okunmamış",
+    "all": "Tümü",
+    "noUnreadNotifications": "Okunmamış bildirim yok",
+    "nothingHere": "Burada bir şey yok",
+    "markRead": "Okundu olarak işaretle",
+    "delete": "Sil",
+    "couldNotLoadNotifications": "Bildirimler yüklenemedi",
+    "couldNotMarkRead": "Okundu olarak işaretlenemedi",
+    "couldNotDelete": "Silemedi",
+    "couldNotClear": "Temizlenemedi"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "İçe aktar",
+      "hosts": "Ana bilgisayarlar",
+      "aTermixHostFileYour": "Bir Termix ana bilgisayar dosyası, ~/.ssh/config dosyanız veya başka bir {{deviceWord}}'den gelen bir ana bilgisayar bağlantısı veya QR kodu. Bunlar bu {{deviceWord}}'e kaydedilir.",
+      "backup": "Yedekle",
+      "aBackupThisAppMade": "Bu uygulamanın oluşturduğu, bir parola ile kilitlenmiş bir yedek. Ana bilgisayarları, kimlik bilgilerini ve komut parçacıklarını geri getirir.",
+      "restoreABackup": "Bir yedeği geri yükle",
+      "done": "Tamamlandı",
+      "skipForNow": "Şimdilik atla",
+      "sshFilesAndRemoteDesktops": "{{deviceWord}}'ünüzden SSH, dosyalar ve uzak masaüstleri. Nasıl başlamak istersiniz?",
+      "useWithoutAServer": "Sunucu olmadan kullan",
+      "hostsCredentialsAndSnippetsAre": "Ana bilgisayarlar, kimlik bilgileri ve kod parçacıkları bu {{deviceWord}} üzerinde şifreli olarak saklanır. İstediğiniz zaman bir sunucuya bağlanabilirsiniz.",
+      "linkATermixServer": "Bir Termix sunucusuna bağlan",
+      "syncYourHostsCredentialsSnippets": "Ana bilgisayarlarınızı, kimlik bilgilerinizi, kod parçacıklarınızı ve ayarlarınızı sunucunuzla senkronize edin ve eklentilerini kullanın.",
+      "bringHostsFromATermix": "Ana bilgisayarları bir Termix dosyasından, SSH yapılandırmasından, QR kodundan veya yedekten içe aktarın.",
+      "thisDevice": "Bu cihaz"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Ana bilgisayarları, kod parçacıklarını, eylemleri ara",
+      "clearSearch": "Aramayı temizle",
+      "nothingMatches": "Eşleşen sonuç yok",
+      "typeToSearch": "Aramak için yazın",
+      "findAHostToConnect": "Bağlanmak için bir ana bilgisayar, bir kod parçacığı, bir ayar veya bir eylem bulun.",
+      "suggested": "Önerilen | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "{{title}} içinde çalıştır",
+      "copiedRunItFromThe": "Kopyalandı. Değerlerini doldurmak için terminalin kod parçacıklarından çalıştırın.",
+      "copiedOpenATerminalTo": "Kopyalandı. Kod parçacıklarını çalıştırmak için bir terminal açın.",
+      "addHost": "Ana bilgisayar ekle",
+      "quickConnect": "Hızlı bağlantı",
+      "switchAccount": "Hesap değiştir",
+      "linkAServer": "Bir sunucuya bağlan",
+      "fromYourServer": "Sunucunuzdan",
+      "settings": "Ayarlar",
+      "accountsAppearanceSecurity": "Hesaplar, görünüm, güvenlik"
+    },
+    "search": {
+      "hosts": "Ana bilgisayarlar",
+      "snippets": "Kod parçacıkları",
+      "actions": "Eylemler",
+      "settings": "Ayarlar"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Oturumlar yüklenemedi",
+      "sessionRevoked": "Oturum iptal edildi",
+      "failedToRevokeSession": "Oturum iptal edilemedi",
+      "allSessionsRevoked": "Tüm oturumlar iptal edildi",
+      "failedToRevokeAllSessions": "Tüm oturumlar iptal edilemedi",
+      "activeSessions": "Aktif oturumlar",
+      "signOutAllOtherSessions": "Diğer tüm oturumlardan çık",
+      "loading": "Yükleniyor…",
+      "noActiveSessionsFound": "Aktif oturum bulunamadı.",
+      "unknownDevice": "Bilinmeyen cihaz",
+      "lastActive": "Son aktif {{lastActiveAt}}",
+      "created": "Oluşturulma {{createdAt}}",
+      "revokeSession": "Oturumu iptal et",
+      "revokeSession2": "Oturum iptal edilsin mi?",
+      "thisWillSignOutThat": "Bu işlem o cihazdan çıkış yapacaktır.",
+      "revoke": "İptal et",
+      "revokeAllSessions": "Tüm oturumlar iptal edilsin mi?",
+      "thisWillSignOutEvery": "Bu işlem tüm cihazlardan çıkış yapacaktır. Bu cihazda oturumunuz açık kalacaktır.",
+      "cancel": "İptal",
+      "revokeAll": "Tümünü iptal et"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "API anahtarları yüklenemedi",
+      "failedToCreateApiKey": "API anahtarı oluşturulamadı",
+      "deleteApiKey": "API anahtarı silinsin mi?",
+      "willStopWorkingRightAway": "\"{{name}}\" hemen çalışmayı durduracaktır.",
+      "apiKeyDeleted": "API anahtarı silindi",
+      "failedToDeleteApiKey": "API anahtarı silinemedi",
+      "apiKeys": "API anahtarları",
+      "newApiKey": "Yeni API anahtarı",
+      "loading": "Yükleniyor…",
+      "apiKeysAllowProgrammaticAccess": "API anahtarları, Termix'e programlı erişim sağlar. Gizli anahtar yalnızca bir kez gösterilir, bu yüzden onu güvenli bir şekilde saklayın.",
+      "noApiKeysYet": "Henüz API anahtarı yok",
+      "created": "Oluşturulma {{createdAt}}",
+      "lastUsed": "Son kullanım {{lastUsedAt}}",
+      "expires": "Bitiş {{expiresAt}}",
+      "delete": "Sil {{name}}",
+      "keyCreatedCopyItNow": "Anahtar oluşturuldu. Şimdi kopyalayın",
+      "newApiKey2": "Yeni API Anahtarı",
+      "thisTokenWonTBe": "Bu jeton bir daha gösterilmeyecek.",
+      "apiKeyCopied": "API anahtarı kopyalandı",
+      "copy": "Kopyala",
+      "done": "Tamam",
+      "cancel": "İptal",
+      "create": "Oluştur",
+      "name": "Ad *",
+      "eGCiPipeline": "örn. CI Pipeline'ı",
+      "user": "Kullanıcı *",
+      "noUsersAvailable": "Kullanılabilir kullanıcı yok.",
+      "expiresAtOptional": "Son Kullanma Tarihi (isteğe bağlı)",
+      "yyyyMmDd": "YYYY/AA/GG",
+      "yearMonthDay": "Yıl / Ay / Gün"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Oturumları çalışır durumda tut",
+      "showsANotificationWhileSessions": "Oturumlar açıkken bir bildirim gösterir, böylece Android uygulamadan ayrıldığınızda oturumların devam etmesini sağlar",
+      "batteryOptimization": "Pil optimizasyonu",
+      "termixIsNotRestrictedSo": "Termix kısıtlanmadı, bu nedenle ekran kapalıyken oturumlar açık kalabilir.",
+      "androidMayStillStopSessions": "Android yine de pil tasarrufu sağlamak için oturumları durdurabilir. Pil ayarlarını açın, Termix'i bulun ve Optimize edilmemiş veya Kısıtsız seçeneğini seçin.",
+      "openBatterySettings": "Pil ayarlarını aç",
+      "notificationsAreOff": "Bildirimler kapalı",
+      "sessionsStillRunButThe": "Oturumlar yine de çalışır, ancak açık oturumların listesi ve Tüm bağlantıları kes düğmesi gizli kalır.",
+      "openNotificationSettings": "Bildirim ayarlarını aç",
+      "thisBuildCanTKeep": "Bu sürüm oturumları arka planda çalışır durumda tutamaz. Geri döndüğünüzde yeniden bağlanırlar.",
+      "lowPowerMode": "Düşük Güç Modu",
+      "batterySaver": "Pil tasarrufu",
+      "isOnTermixChecksConnections": "{{value}} açık. Termix bağlantıları daha az sıklıkla kontrol eder ve yeniden bağlanma denemeleri arasında daha uzun bekler.",
+      "backgroundSessions": "Arka plan oturumları",
+      "iosStopsAppsSoonAfter": "iOS, uygulamalardan ayrıldıktan kısa süre sonra uygulamaları durdurur, bu nedenle oturumlar arka planda çalışamaz. Geri döndüğünüzde yeniden bağlanırlar ve tmux veya screen kaldığınız yerden devam eder."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Durduruldu",
+        "active": "Aktif",
+        "linkAServer": "Bir sunucu bağla",
+        "eachServerKeepsItsOwn": "Her sunucu, bu {{deviceWord}} üzerindeki ana bilgisayarlarınızın, kimlik bilgilerinizin ve ayarlarınızın kendi kopyasını tutar.",
+        "signedInAs": "Olarak giriş yapıldı",
+        "role": "Rol",
+        "administrator": "Yönetici",
+        "user": "Kullanıcı",
+        "serverVersion": "Sunucu sürümü",
+        "signOut": "Çıkış yap",
+        "youAreSignedOutOf": "Bu sunucudan çıkış yaptınız.",
+        "signIn": "Giriş yap",
+        "passwordChanged": "Şifre değiştirildi",
+        "couldNotChangeThePassword": "Şifre değiştirilemedi",
+        "changePassword": "Şifreyi değiştir",
+        "enterYourCurrentPasswordThen": "Mevcut şifrenizi girin, ardından yeni bir şifre seçin.",
+        "cancel": "İptal",
+        "change": "Değiştir",
+        "currentPassword": "Mevcut şifre",
+        "newPassword": "Yeni şifre",
+        "accountDeleted": "Hesap silindi",
+        "couldNotDeleteTheAccount": "Hesap silinemedi",
+        "deleteServerAccount": "Sunucu hesabını sil",
+        "thisPermanentlyDeletesYourAccount": "Bu işlem, sunucudaki hesabınızı ve tüm verilerini kalıcı olarak siler. Geri alınamaz.",
+        "delete": "Sil",
+        "confirmYourPassword": "Şifrenizi onaylayın",
+        "worksWithoutAServer": "Sunucusuz çalışır",
+        "signedOut": "Çıkış yapıldı",
+        "readsLive": "Canlı okur",
+        "toReview": "{{count}} tane incelenecek",
+        "synced": "Senkronize edildi",
+        "syncing": "Senkronize ediliyor",
+        "offline": "Çevrimdışı"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Anonim kullanım istatistiklerini paylaş",
+        "aShortReportOnceA": "Günde bir kez kısa bir rapor. Hiçbir ana bilgisayar, isim veya adres paylaşılmaz",
+        "nextReport": "Sonraki rapor",
+        "seeExactlyWhatWouldBe": "Gönderilecek olanı tam olarak görüntüle",
+        "couldNotBuildTheReport": "Rapor oluşturulamadı",
+        "preview": "Önizleme",
+        "thisIsExactlyWhatWould": "Şu anda tam olarak bu gönderilecektir.",
+        "resetInstallId": "Kurulum kimliğini sıfırla",
+        "futureReportsWillLookLike": "Gelecekteki raporlar yeni bir kurulum gibi görünecek",
+        "resetTheInstallId": "Kurulum kimliği sıfırlansın mı?",
+        "futureReportsWillLookLike2": "Gelecekteki raporlar yeni bir kurulum gibi görünecek.",
+        "reset": "Sıfırla",
+        "installIdReset": "Kurulum kimliği sıfırlandı"
+      },
+      "appearanceControls": {
+        "theme": "Tema",
+        "accentColor": "Vurgu rengi",
+        "textSize": "Metin boyutu",
+        "sizeOfTextAcrossThe": "Uygulama genelindeki metin boyutu, terminal değil",
+        "density": "Yoğunluk",
+        "howTallListRowsAnd": "Liste satırlarının ve ayarların ne kadar yüksek olacağı"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Ana bilgisayarlar, kimlik bilgileri ve kod parçacıkları bu {{deviceWord}} üzerinde şifrelenmiş bir dosyada tutulur. Kullanım istatistikleri, aşağıda etkinleştirmedikçe kapalıdır. Bağlı bir sunucu yalnızca senkronize etmesine izin verdiğiniz şeyleri alır.",
+        "recentHosts": "Son ana bilgisayarlar",
+        "forgetTheHostsYouOpened": "Her hesapta yakın zamanda açtığınız ana bilgisayarları unut",
+        "recentHostsCleared": "Son ana bilgisayarlar temizlendi",
+        "clear": "Temizle",
+        "couldNotCheckForUpdates": "Güncellemeler kontrol edilemedi",
+        "versionIsOutUpdateFrom": "{{version}} sürümü yayınlandı. Mağazanızdan güncelleyin.",
+        "youHaveTheNewestVersion": "En yeni sürüme sahipsiniz",
+        "termixMobile": "Termix Mobil",
+        "updates": "Güncellemeler",
+        "check": "Kontrol et"
+      },
+      "pinSheet": {
+        "waitSeconds": "{{value}} saniye bekle",
+        "digits": "{{PIN_LENGTH}} haneli"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN kodları eşleşmiyor",
+        "appLockIsOn": "Uygulama Kilidi açık",
+        "turnOffAppLock": "Uygulama Kilidini kapat",
+        "enterYourPinToConfirm": "Onaylamak için PIN kodunuzu girin.",
+        "appLockIsOff": "Uygulama Kilidi kapalı",
+        "appLock": "Uygulama Kilidi",
+        "askForFaceIdTouch": "Uygulamayı açmak için Face ID, Touch ID veya PIN kodu iste",
+        "askForAPinTo": "Uygulamayı açmak için PIN kodu iste",
+        "pinChanged": "PIN kodu değiştirildi",
+        "couldNotChangeThePin": "PIN kodu değiştirilemedi",
+        "changePin": "PIN kodunu değiştir",
+        "lockAfter": "Kilitleme süresi",
+        "howLongTheAppCan": "Uygulamanın kilitlenmeden önce ne kadar süre görünmez kalabileceği",
+        "hideInAppSwitcher": "Uygulama değiştiricide gizle",
+        "showABlankScreenIn": "Son uygulamalar listesinde boş bir ekran göster",
+        "chooseA4DigitPin": "4 haneli bir PIN kodu seçin.",
+        "confirmPin": "PIN kodunu onayla",
+        "enterTheSamePinAgain": "Aynı PIN kodunu tekrar girin.",
+        "currentPin": "Mevcut PIN kodu",
+        "enterYourCurrentPin": "Mevcut PIN kodunuzu girin.",
+        "newPin": "Yeni PIN kodu",
+        "chooseANew4Digit": "Yeni bir 4 haneli PIN kodu seçin.",
+        "confirmNewPin": "Yeni PIN kodunu onayla",
+        "enterTheNewPinAgain": "Yeni PIN kodunu tekrar girin."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Ana ekran widget'ları",
+        "showYourHostsSnippetsAnd": "Ana ekranda sunucularınızı, komut parçacıklarınızı ve güç düğmelerinizi göster",
+        "showAddresses": "Adresleri göster",
+        "showUserHostUnderEach": "Her sunucu adının altında kullanıcı@sunucu bilgisini göster",
+        "includeOfflineHosts": "Çevrimdışı sunucuları dahil et",
+        "offShowsOnlyServersThat": "Kapalıyken yalnızca çevrimiçi sunucular gösterilir",
+        "pinnedHostsOnly": "Yalnızca sabitlenmiş sunucular",
+        "showOnlyTheHostsYou": "Yalnızca sabitlemiş olduğunuz sunucuları göster",
+        "snippetsWidget": "Komut parçacıkları widget'ı",
+        "showSavedCommandsOnThe": "Ana ekranda kaydedilmiş komutları göster",
+        "showCommandPreview": "Komut önizlemesini göster",
+        "showTheFirstLineOf": "Her komutun ilk satırını göster"
+      }
+    },
+    "fileSettings": {
+      "files": "Dosyalar",
+      "fileManagerOnThis": "Bu {{deviceWord}}'da dosya yöneticisi",
+      "browsing": "Göz atma",
+      "transfersAtOnce": "Aynı anda aktarımlar",
+      "downloadsAndUploadsThatRun": "Birlikte çalışan indirme ve yükleme işlemleri",
+      "editor": "Düzenleyici",
+      "textSize": "Metin boyutu",
+      "filesBesideTheTerminal": "Terminalin yanında dosyalar",
+      "side": "Yan",
+      "whereThePanelSitsOn": "Tablette panelin konumu",
+      "right": "Sağ",
+      "left": "Sol",
+      "howOftenToCheck": "Ne sıklıkla kontrol edilsin",
+      "folderHistory": "Klasör geçmişi",
+      "foldersKeptPerHost": "Sunucu başına tutulan klasörler",
+      "showHiddenFiles": "Gizli dosyaları göster",
+      "filesAndFoldersThatStart": "Nokta ile başlayan dosya ve klasörler",
+      "askBeforeMovingToThe": "Çöp kutusuna taşımadan önce sor",
+      "deletingForGoodAlwaysAsks": "Kalıcı silme işlemi her zaman onay ister",
+      "wrapLongLines": "Uzun satırları kaydır",
+      "openWithNewTerminals": "Yeni terminallerle aç",
+      "onATabletShowThe": "Tablette terminal açıldığında dosya panelini göster",
+      "followTheTerminal": "Terminali takip et",
+      "openTheFolderTheTerminal": "cd komutuyla dizin değiştirdikçe terminalin bulunduğu klasörü aç"
+    },
+    "keyboardCustomization": {
+      "small": "Küçük",
+      "medium": "Orta",
+      "large": "Büyük",
+      "ms": "{{v}} ms",
+      "keyboard": "Klavye",
+      "keyRowsAboveTheKeyboard": "Klavyenin üstündeki tuş satırları",
+      "rows": "Satırlar",
+      "keys": "Tuşlar",
+      "aHostCanHaveIts": "Bir sunucunun kendi satırları olabilir: Oturumda açık sekmesine dokunun ve Bu sunucu için tuş satırlarını seçin.",
+      "keySize": "Tuş boyutu",
+      "vibrateOnKeyPress": "Tuşa basıldığında titreşim",
+      "repeatAfter": "Tekrarlama süresi",
+      "howLongToHoldAn": "Ok veya Geri Sil tuşuna ne kadar süre basılı tutulsun",
+      "repeatEvery": "Tekrar aralığı",
+      "hardwareKeyboard": "Donanım klavyesi",
+      "allShortcuts": "Tüm kısayollar",
+      "show": "Göster"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Yedekleme oluşturulamadı",
+      "deleteLocalData": "Yerel veriler silinsin mi?",
+      "hostsCredentialsSnippetsAndHistory": "Bu {{deviceWord}}'da {{account}} için kaydedilmiş sunucular, kimlik bilgileri, komut parçacıkları ve geçmiş silinecektir. Bu işlem geri alınamaz. Bunları korumak istiyorsanız önce yedek alın.",
+      "delete": "Sil",
+      "localDataDeleted": "Yerel veriler silindi",
+      "couldNotDeleteLocalData": "Yerel veriler silinemedi",
+      "localData": "Yerel veriler",
+      "localDataIsOnlySaved": "Yerel veriler yalnızca {{deviceWord}} uygulamasında saklanır.",
+      "savedOnThisForThe": "{{account}} hesabı için bu {{deviceWord}} cihazında saklanır. Dosya, bu {{deviceWord}} cihazından asla ayrılmayan bir anahtarla şifrelenmiştir.",
+      "hosts": "Sunucular",
+      "credentials": "Kimlik Bilgileri",
+      "snippets": "Komut Parçaları",
+      "size": "Boyut",
+      "dataVersion": "Veri sürümü",
+      "backup": "Yedekleme",
+      "aBackupFileHoldsYour": "Bir yedekleme dosyası, seçtiğiniz bir parola ile kilitli şifrelerinizi ve anahtarlarınızı içerir. Bu parola olmadan kimse dosyayı açamaz.",
+      "exportBackup": "Yedeklemeyi dışa aktar",
+      "importBackup": "Yedeklemeyi içe aktar",
+      "removesEverythingThisAccountSaved": "Bu hesabın bu {{deviceWord}} cihazında kaydettiği her şeyi siler. Bağlı bir sunucu kendi kopyasını korur.",
+      "deleteLocalData2": "Yerel verileri sil",
+      "backupPassphrase": "Yedekleme parolası",
+      "atLeast8CharactersYou": "En az 8 karakter. Yedeklemeyi geri yüklemek için buna ihtiyacınız olacak.",
+      "passphrase": "Parola",
+      "next": "İleri",
+      "typeItAgain": "Tekrar yazın",
+      "export": "Dışa aktar",
+      "saveYourTermixBackup": "Termix yedeklemenizi kaydedin"
+    },
+    "logs": {
+      "logs": "Günlükler",
+      "latestLinesFromThisRun": "Bu çalıştırmadan en son satırlar. Sunucu adresleri, şifreler ve belirteçler gizlenmiştir.",
+      "logsCopied": "Günlükler kopyalandı",
+      "copy": "Kopyala",
+      "share": "Paylaş",
+      "clear": "Temizle",
+      "noLogsYet": "Henüz günlük yok",
+      "nothingHasBeenLogged": "Hiçbir şey günlüğe kaydedilmedi."
+    },
+    "plugins": {
+      "worksOnThis": "Bu {{deviceWord}} cihazında çalışır",
+      "needsTheServer": "Sunucu gerektirir",
+      "notInTheApp": "Uygulamada değil",
+      "needsANewerVersionOf": "Uygulamanın daha yeni bir sürümünü gerektirir",
+      "updateThePluginOnThe": "Eklentiyi sunucuda güncelleyin",
+      "inTheApp": "Uygulamada",
+      "onThisServer": "Bu sunucuda",
+      "version": "Sürüm",
+      "needsPluginApi": "Eklenti API'si gerektirir",
+      "thisAppHas": "Bu uygulamanın sahip olduğu",
+      "note": "Not",
+      "open": "Aç",
+      "openFromAHostS": "{{name}} eklentisini bir sunucunun menüsünden açın.",
+      "plugins": "Eklentiler",
+      "everything": "Tümü",
+      "thisDeviceWorksWithNo": "Bu cihaz sunucu olmadan çalışır. Sunucu gerektiren özellikleri eklemek için bir sunucu bağlayın.",
+      "pluginsOnAndHowEach": "{{account}} hesabındaki eklentiler ve her birinin uygulamada nasıl göründüğü. Tekrar kontrol etmek için aşağı çekin.",
+      "whatRunsOnThisAnd": "Bu {{deviceWord}} cihazında çalışanlar ve {{account}} üzerinden geçenler.",
+      "noPluginList": "Eklenti listesi yok",
+      "theServerDidNotSend": "Sunucu eklentilerini göndermedi. Tekrar denemek için aşağı çekin.",
+      "serversOlderThan29": "2.9'dan eski sunucuların tüm özellikleri dahildir.",
+      "nothingToShow": "Gösterilecek bir şey yok",
+      "notSentByThisServer": "Bu sunucu tarafından gönderilmedi"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Yerel veriler değiştirilsin mi?",
+      "everythingSavedOnThisFor": "{{accountName}} hesabı için bu {{deviceWord}} cihazında kaydedilen her şey yedekleme ile değiştirilir.",
+      "continue": "Devam et",
+      "couldNotReadThatFile": "Bu dosya okunamadı",
+      "backupRestored": "Yedekleme geri yüklendi",
+      "couldNotRestoreTheBackup": "Yedekleme geri yüklenemedi",
+      "backupPassphrase": "Yedekleme parolası",
+      "thePassphraseUsedWhenThe": "Yedekleme oluşturulurken kullanılan parola.",
+      "passphrase": "Parola",
+      "restore": "Geri Yükle"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Hesaplar",
+        "thisDeviceAndLinkedServers": "Bu cihaz ve bağlı sunucular, senkronizasyon durumlarıyla birlikte",
+        "syncAndProxy": "Senkronizasyon ve proxy",
+        "whatSyncsConflictsProxyAnd": "Ne senkronize edilir, çakışmalar, proxy ve bağlantıyı kesme",
+        "serverAccount": "Sunucu hesabı",
+        "whoIsSignedInOn": "Aktif sunucuda kimin giriş yaptığını gösterir",
+        "activeSessions": "Aktif oturumlar",
+        "devicesSignedInToThe": "Sunucuya giriş yapan cihazlar",
+        "apiKeys": "API anahtarları",
+        "keysForScriptsAndTools": "Komut dosyaları ve araçlar için anahtarlar",
+        "changePassword": "Şifreyi değiştir",
+        "passwordOfYourServerAccount": "Sunucu hesabınızın şifresi",
+        "deleteServerAccount": "Sunucu hesabını sil",
+        "removeYourAccountFromThe": "Hesabınızı sunucudan kaldırın",
+        "theme": "Tema",
+        "darkLightDraculaNordAnd": "Koyu, açık, Dracula, Nord ve daha fazlası",
+        "accentColor": "Vurgu rengi",
+        "textSize": "Metin boyutu",
+        "sizeOfTextAcrossThe": "Uygulama genelindeki metin boyutu",
+        "density": "Yoğunluk",
+        "howTallListRowsAnd": "Liste satırlarının ve ayarların ne kadar yüksek olacağı",
+        "homeScreenWidgets": "Ana ekran widget'ları",
+        "hostsAndSnippetsOnThe": "Ana ekranda sunucular ve komut parçacıkları",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Yazı tipi, tema, imleç, kaydırma geçmişi",
+        "keyboard": "Klavye",
+        "layoutKeysPresets": "Düzen, tuşlar, hazır ayarlar",
+        "appLock": "Uygulama Kilidi",
+        "askForFaceIdTouch": "Uygulamayı açmak için Face ID, Touch ID veya PIN isteyin",
+        "lockAfter": "Kilitleme süresi",
+        "howLongTheAppCan": "Uygulamanın kilitlenmeden önce ne kadar süre görünmez kalabileceği",
+        "hideInAppSwitcher": "Uygulama değiştiricide gizle",
+        "showABlankScreenIn": "Son kullanılan uygulamalar listesinde boş bir ekran göster",
+        "changePin": "PIN'i değiştir",
+        "backgroundSessions": "Arka plan oturumları",
+        "whatHappensToOpenSessions": "Uygulamadan ayrıldığınızda açık oturumlarla ne olacağı",
+        "serverAlerts": "Sunucu uyarıları",
+        "alertsFromTheAlertsPlugin": "Sunucunuzdaki Uyarılar eklentisinden gelen uyarılar",
+        "whatStaysOnThis": "Bu {{deviceWord}} üzerinde ne kalacak",
+        "hostsCredentialsAndSnippetsAre": "Sunucular, kimlik bilgileri ve komut parçacıkları burada şifreli olarak saklanır",
+        "recentHosts": "Son sunucular",
+        "forgetTheHostsYouOpened": "Yakın zamanda açtığınız sunucuları unut",
+        "shareAnonymousUsageStatistics": "Anonim kullanım istatistiklerini paylaş",
+        "aShortReportOnceA": "Günde bir kez kısa bir rapor. Hiçbir sunucu, isim veya adres yok",
+        "nextReport": "Sonraki rapor",
+        "seeExactlyWhatWouldBe": "Ne gönderileceğini tam olarak görün",
+        "resetInstallId": "Kurulum kimliğini sıfırla",
+        "futureReportsWillLookLike": "Gelecekteki raporlar yeni bir kurulum gibi görünecek",
+        "serverUsageStatistics": "Sunucu kullanım istatistikleri",
+        "telemetrySettingsOnYourServer": "Sunucunuzdaki telemetri ayarları",
+        "plugins": "Eklentiler",
+        "whatTheServerAddsAnd": "Sunucunun ne eklediği ve nerede çalıştığı",
+        "localData": "Yerel veriler",
+        "backupRestoreAndDeleteWhat": "Bu {{deviceWord}} üzerinde kaydedilenleri yedekleyin, geri yükleyin ve silin",
+        "termixMobile": "Termix Mobil",
+        "versionAndUpdates": "Sürüm ve güncellemeler",
+        "logs": "Günlükler",
+        "latestLinesFromThisRun": "Hata raporları için bu çalışmadan en son satırlar",
+        "pushNotifications": "Anlık bildirimler",
+        "pushNotificationsDescription": "Bu telefonda sunucularınızdan gelen uyarılar"
+      },
+      "sections": {
+        "accountsAndSync": "Hesaplar ve senkronizasyon",
+        "thisDeviceLinkedServersAnd": "Bu cihaz, bağlı sunucular ve senkronize edilenler",
+        "appearance": "Görünüm",
+        "themeAccentTextSizeAnd": "Dil, tema, vurgu rengi, yazı boyutu ve yoğunluk",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Yazı tipi, renkler ve arka plan oturumları",
+        "keyboard": "Klavye",
+        "keyRowsAndShortcuts": "Tuş sıraları ve kısayollar",
+        "security": "Güvenlik",
+        "appLockFaceIdAnd": "Uygulama Kilidi, Face ID ve PIN",
+        "notifications": "Bildirimler",
+        "alertsFromYourServer": "Sunucunuzdan gelen uyarılar",
+        "privacyAndUsageStatistics": "Gizlilik ve kullanım istatistikleri",
+        "whatStaysOnThis": "Bu {{deviceWord}} üzerinde kalanlar",
+        "plugins": "Eklentiler",
+        "whatTheServerAddsTo": "Sunucunun uygulamaya ekledikleri",
+        "backupAndData": "Yedekleme ve veriler",
+        "backUpRestoreImportAnd": "Yedekle, geri yükle, içe ve dışa aktar",
+        "aboutAndLogs": "Hakkında ve günlükler",
+        "versionAndLogsForBug": "Sürüm ve hata raporları için günlükler"
+      }
+    },
+    "settings": "Ayarlar",
+    "searchSettings": "Ayarları ara",
+    "noSettingsMatch": "Eşleşen ayar bulunamadı.",
+    "termixMobileV": "Termix Mobil v{{appVersion}}",
+    "termixMobile": "Termix Mobil",
+    "snippets": {
+      "failedToLoadSnippets": "Kod parçaları yüklenemedi",
+      "copied": "Kopyalandı: {{name}}",
+      "nameIsRequired": "İsim gerekli",
+      "contentIsRequired": "İçerik gerekli",
+      "snippetUpdated": "Kod parçası güncellendi",
+      "snippetCreated": "Kod parçası oluşturuldu",
+      "failedToSaveSnippet": "Kod parçası kaydedilemedi",
+      "snippetDeleted": "Kod parçası silindi",
+      "failedToDeleteSnippet": "Kod parçası silinemedi",
+      "folderNameIsRequired": "Klasör adı gerekli",
+      "folderCreated": "Klasör oluşturuldu",
+      "failedToCreateFolder": "Klasör oluşturulamadı",
+      "folderDeleted": "Klasör silindi",
+      "failedToDeleteFolder": "Klasör silinemedi",
+      "folderRenamed": "Klasör yeniden adlandırıldı",
+      "failedToRenameFolder": "Klasör yeniden adlandırılamadı",
+      "failedToSaveOrder": "Sıra kaydedilemedi",
+      "moveUp": "Yukarı taşı",
+      "moveDown": "Aşağı taşı",
+      "runOnHosts": "{{name}} kod parçasını sunucularda çalıştır",
+      "copy": "{{name}} kod parçasını kopyala",
+      "delete": "{{name}} kod parçasını sil",
+      "renameFolder": "Klasörü yeniden adlandır",
+      "deleteFolder": "Klasörü sil",
+      "noSnippetsInThisFolder": "Bu klasörde kod parçası yok",
+      "snippets": "Kod Parçaları",
+      "importAndExport": "İçe ve dışa aktar",
+      "folder": "Klasör",
+      "new": "Yeni",
+      "loading": "Yükleniyor…",
+      "couldNotLoadSnippets": "Kod parçaları yüklenemedi",
+      "checkTheConnectionToYour": "Sunucunuza olan bağlantıyı kontrol edin ve tekrar deneyin.",
+      "tryAgain": "Tekrar dene",
+      "noSnippetsYet": "Henüz kod parçası yok",
+      "createYourFirstSnippetOr": "İlk kod parçanızı oluşturun veya Termix web veya masaüstü uygulamasından kod parçaları ekleyin.",
+      "createSnippet": "Kod parçası oluştur",
+      "askBeforeRunning": "Çalıştırmadan önce sor",
+      "confirmBeforeASnippetRuns": "Bir snippet terminalde çalışmadan önce onayla",
+      "editSnippet": "Snippet Düzenle",
+      "newSnippet": "Yeni Snippet",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "create": "Oluştur",
+      "name": "Ad",
+      "eGUpdatePackages": "örn. Paketleri güncelle",
+      "content": "İçerik",
+      "descriptionOptional": "Açıklama (isteğe bağlı)",
+      "shortDescription": "Kısa açıklama",
+      "folderOptional": "Klasör (isteğe bağlı)",
+      "selectFolder": "Klasör seç",
+      "noFolder": "Klasör yok",
+      "targetHostsOptional": "Hedef sunucular (isteğe bağlı)",
+      "none": "Hiçbiri",
+      "note": "Not",
+      "pastedIntoTheTerminalWithout": "Çalıştırmadan terminalde yapıştırıldı",
+      "targetHosts": "Hedef sunucular",
+      "copy2": "Kopyala",
+      "edit": "Düzenle",
+      "runOnHosts2": "Sunucularda çalıştır",
+      "delete2": "Sil",
+      "deleteSnippet": "Snippet Sil",
+      "deleteThisCannotBeUndone": "\"{{name}}\" silinsin mi? Bu işlem geri alınamaz.",
+      "renameFolder2": "Klasör Adını Değiştir",
+      "rename": "Yeniden Adlandır",
+      "folderName": "Klasör adı",
+      "eGSystem": "örn. Sistem",
+      "newFolder": "Yeni Klasör",
+      "deleteFolder2": "Klasörü Sil",
+      "deleteSnippetsInThisFolder": "\"{{name}}\" silinsin mi? Bu klasördeki snippetler kategorisiz hale gelecektir."
+    },
+    "sync": {
+      "notYet": "Henüz değil",
+      "justNow": "Az önce",
+      "stopped": "Durduruldu",
+      "signInToThisServer": "Eşzamanlama için bu sunucuya tekrar giriş yapın",
+      "couldNotChangeThat": "Bu değiştirilemedi",
+      "sync": "Eşzamanla",
+      "thisDeviceDoesNotSync": "Bu cihaz eşzamanlama yapmıyor. Sunucularınızı birden fazla cihazda tutmak için bir Termix sunucusu bağlayın.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}}, sunucuları, kimlik bilgilerini, snippetleri ve ayarları bu {{deviceWord}} ile senkronize tutar. Bir kopya bu {{deviceWord}} üzerinde kalır, böylece çevrimdışı da çalışır.",
+      "lastSynced": "Son eşzamanlama: {{value}}",
+      "live": "Canlı",
+      "syncNow": "Şimdi eşzamanla",
+      "fix": "Düzelt",
+      "thisServerReadsLiveAnd": "Bu sunucu canlı okur ve {{deviceWord}} üzerinde kopya tutmaz.",
+      "turnOnTheSyncPlugin": "Sunucunun Eklentiler sayfasında Eşzamanlama eklentisini açın, ardından bu {{deviceWord}} üzerinde bir kopya tutmak için burada tekrar giriş yapın.",
+      "whatSyncs": "Neler eşzamanlanır",
+      "turnedOffThatDataStays": "Kapalı, bu veri yalnızca bu {{deviceWord}} üzerinde kalır.",
+      "conflicts": "Çakışmalar",
+      "changedHereAndOnThe": "Burada ve sunucuda aynı anda değiştirildi. Sunucunun sürümü korundu.",
+      "useServer": "Sunucuyu kullan",
+      "keepMine": "Benimkini tut",
+      "notSavedOnTheServer": "Sunucuda kaydedilmedi",
+      "theServerRefusedTheseChanges": "Sunucu bu değişiklikleri reddetti. Bunlar bu {{deviceWord}} üzerinde kalır.",
+      "tryAgain": "Tekrar dene",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Yalnızca sunucunun önünde bir ters proxy olduğunda gereklidir.",
+      "unlink": "Bağlantıyı kaldır",
+      "unlinkThisServer": "Bu sunucunun bağlantısını kaldır",
+      "minAgo": "{{value}} dakika önce",
+      "signedOut": "Oturum kapatıldı",
+      "waitingToSync": "Senkronizasyon bekleniyor",
+      "synced": "Senkronize edildi",
+      "syncing": "Senkronize ediliyor",
+      "offline": "Çevrimdışı"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Arka plan",
+        "text": "Metin",
+        "cursor": "İmleç",
+        "textUnderCursor": "İmleç altındaki metin",
+        "selection": "Seçim",
+        "black": "Siyah",
+        "red": "Kırmızı",
+        "green": "Yeşil",
+        "yellow": "Sarı",
+        "blue": "Mavi",
+        "magenta": "Eflatun",
+        "cyan": "Camgöbeği",
+        "white": "Beyaz",
+        "brightBlack": "Açık siyah",
+        "brightRed": "Açık kırmızı",
+        "brightGreen": "Açık yeşil",
+        "brightYellow": "Açık sarı",
+        "brightBlue": "Açık mavi",
+        "brightMagenta": "Açık eflatun",
+        "brightCyan": "Açık camgöbeği",
+        "brightWhite": "Açık beyaz",
+        "customTheme": "Özel tema",
+        "colorsAsHexLike1e1e2e": "Renkler onaltılık olarak, örneğin #1e1e2e.",
+        "cancel": "İptal",
+        "save": "Kaydet",
+        "isNotAHexColor": "{{label}} onaltılık bir renk değil"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompakt",
+      "default": "Varsayılan",
+      "relaxed": "Rahat",
+      "spacious": "Geniş",
+      "none": "Yok",
+      "couldNotSave": "Kaydedilemedi",
+      "pickASizeFromTo": "{{MIN_FONT_SIZE}} ile {{MAX_FONT_SIZE}} arasında bir boyut seçin",
+      "terminalSettingsReset": "Terminal ayarları sıfırlandı",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "Bir ana bilgisayar Termix'te kendi temasını ve imlecini ayarlayabilir; bu ayarlar bunların önceliğine sahiptir.",
+      "theme": "Tema",
+      "custom": "Özel",
+      "font": "Yazı tipi",
+      "active": "Etkin",
+      "sizeAndSpacing": "Boyut ve boşluk",
+      "pinchTheTerminalToChange": "Boyutu değiştirmek için terminali sıkıştırın. {{deviceWord}}ayarlarınızdaki büyük metin boyutu da onu büyütür.",
+      "custom2": "Özel {{fontSize}}",
+      "lineHeight": "Satır yüksekliği",
+      "letterSpacing": "Harf aralığı",
+      "ligatures": "Ligatürler",
+      "cursor": "İmleç",
+      "blink": "Yanıp sönme",
+      "bell": "Zil",
+      "vibrate": "Titreşim",
+      "onTheBellAndWhen": "Zil sesi ve uzun basarak seçim yaptığınızda",
+      "scrollback": "Kaydırma geçmişi",
+      "linesKeptAboveTheScreen": "Ekranın üzerinde tutulan satırlar. Yeni terminallere uygulanır.",
+      "linksAndKeys": "Bağlantılar ve tuşlar",
+      "askBeforeOpeningLinks": "Bağlantıları açmadan önce sor",
+      "doubleTapSendsTab": "Çift dokunma Tab gönderir",
+      "longPressStillSelectsText": "Uzun basma yine de metin seçer",
+      "optionSendsAlt": "Option tuşu Alt gönderir",
+      "onAHardwareKeyboardOff": "Donanım klavyesinde. Kapalıyken Mac'te olduğu gibi semboller yazar.",
+      "history": "Geçmiş",
+      "suggestCommands": "Komut öner",
+      "showsPastCommandsThatStart": "Yazarken geçmiş komutlar",
+      "resetToDefault": "Varsayılana sıfırla",
+      "fontSize": "Yazı tipi boyutu",
+      "aSizeFromTo": "{{MIN_FONT_SIZE}} ile {{MAX_FONT_SIZE}} arasında bir boyut.",
+      "cancel": "İptal",
+      "apply": "Uygula",
+      "resetTerminalSettings": "Terminal ayarları sıfırlansın mı?",
+      "themeFontSizeCursorBell": "Tema, yazı tipi, boyut, imleç, zil ve geri kalanı varsayılana döner.",
+      "reset": "Sıfırla",
+      "followsAppTheme": "Uygulama temasını takip eder"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "2FA kurulumu başlatılamadı",
+      "twoFactorAuthenticationEnabled": "İki faktörlü kimlik doğrulama etkinleştirildi",
+      "invalidCodeTryAgain": "Geçersiz kod, tekrar deneyin",
+      "twoFactorAuthenticationDisabled": "İki faktörlü kimlik doğrulama devre dışı bırakıldı",
+      "failedToDisable2fa": "2FA devre dışı bırakılamadı",
+      "failedToFetchBackupCodes": "Yedek kodlar alınamadı",
+      "secretCopied": "Gizli anahtar kopyalandı",
+      "backupCodesCopied": "Yedek kodlar kopyalandı",
+      "twoFactorAuthentication": "İki faktörlü kimlik doğrulama",
+      "loading": "Yükleniyor…",
+      "scanThisQrCodeWith": "Bu QR kodunu doğrulayıcı uygulamanızla (Google Authenticator, Authy vb.) tarayın, ardından onaylamak için 6 haneli kodu girin.",
+      "verifyAmpEnable": "Doğrula ve etkinleştir",
+      "cancel": "İptal",
+      "saveYourBackupCodes": "Yedek kodlarınızı kaydedin",
+      "storeTheseSomewhereSafeEach": "Bunları güvenli bir yerde saklayın. Doğrulayıcınıza erişiminizi kaybederseniz her kod yalnızca bir kez kullanılabilir.",
+      "copyAllCodes": "Tüm kodları kopyala",
+      "done": "Tamam",
+      "yourAccountIsProtectedWith": "Hesabınız bir doğrulayıcı uygulamasıyla korunuyor.",
+      "addAnExtraLayerOf": "Hesabınıza ekstra bir güvenlik katmanı ekleyin.",
+      "viewBackupCodes": "Yedek kodları görüntüle",
+      "disable2fa": "2FA'yı devre dışı bırak",
+      "enable2fa": "2FA'yı etkinleştir",
+      "disableTwoFactorAuthentication": "İki Faktörlü Kimlik Doğrulamayı Devre Dışı Bırak",
+      "enterACodeFromYour": "Onaylamak için doğrulayıcı uygulamanızdan bir kod girin. 2FA'yı istediğiniz zaman tekrar etkinleştirebilirsiniz.",
+      "enterYourPasswordToConfirm": "Onaylamak için şifrenizi girin. 2FA'yı istediğiniz zaman tekrar etkinleştirebilirsiniz.",
+      "disable": "Devre Dışı Bırak",
+      "yourPassword": "Şifreniz",
+      "n2faIsEnabled": "2FA etkin",
+      "n2faIsNotEnabled": "2FA etkin değil"
+    },
+    "language": {
+      "label": "Dil",
+      "description": "Değiştirmek için uygulama yeniden yüklenir",
+      "system": "Cihazla aynı"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Burada SSH ana makine yok",
+      "couldNotReadWhatWas": "Paylaşılan okunamadı",
+      "stopTheUploads": "Yüklemeler durdurulsun mu?",
+      "stopAndLeave": "Durdur ve çık",
+      "sendTo": "{{name}} adresine gönder",
+      "sendToAHost": "Bir ana makineye gönder",
+      "nothingToSend": "Gönderecek bir şey yok",
+      "close": "Kapat",
+      "done": "Tamam",
+      "cancel": "İptal",
+      "uploadHere": "Buraya yükle",
+      "uploadsStillGoing_one": "{{count}} yükleme devam ediyor. Çıkış yaparsanız durur.",
+      "uploadsStillGoing_other": "{{count}} yükleme devam ediyor. Çıkış yaparsanız dururlar.",
+      "filesSize_one": "{{count}} dosya | {{size}}",
+      "filesSize_other": "{{count}} dosya | {{size}}",
+      "readingWhatWasShared": "Paylaşılanlar okunuyor"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Hata",
+      "worksWithoutAServer": "Sunucu olmadan çalışır",
+      "accountSwitch": "{{account}} hesabı, değiştir",
+      "search": "Ara",
+      "notificationsUnread": "Bildirimler, {{unread}} okunmamış",
+      "notifications": "Bildirimler",
+      "signedIn": "Giriş yapıldı",
+      "signedOut": "Çıkış yapıldı",
+      "copyOnThis": "Bu {{deviceWord}}'da kopyala"
+    },
+    "bottomBar": {
+      "home": "Ana Sayfa",
+      "hosts": "Sunucular",
+      "sessions": "Oturumlar",
+      "tools": "Araçlar",
+      "settings": "Ayarlar",
+      "open": "{{label}}, {{count}} açık"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} açık"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Bir sunucu seçin",
+      "searchHosts": "Sunucuları ara",
+      "clearSearch": "Aramayı temizle",
+      "noHostsMatch": "Eşleşen sunucu yok",
+      "noHostsCanUseThis": "Bunu kullanabilecek sunucu yok",
+      "turnItOnForA": "Sunucu düzenleyicisinde bir sunucu için bunu etkinleştirin."
+    },
+    "noToolsHereYet": "Burada henüz araç yok",
+    "onAHost": "Bir sunucuda",
+    "saved": "Kaydedildi",
+    "fromYourServer": "Sunucunuzdan"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "İptal",
+      "delete": "Sil",
+      "confirm": "Onayla"
+    },
+    "contextMenu": {
+      "closeMenu": "Menüyü kapat"
+    },
+    "inlineView": {
+      "back": "Geri"
+    },
+    "listRow": {
+      "moreActions": "Daha fazla işlem"
+    },
+    "pinPad": {
+      "useBiometrics": "Biyometri kullan",
+      "delete": "Sil"
+    },
+    "popover": {
+      "close": "Kapat"
+    },
+    "promptSheet": {
+      "cancel": "İptal"
+    },
+    "sheet": {
+      "close": "Kapat"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Bu anahtar kilitli. Lütfen parola ifadesini girin.",
+      "thatPassphraseDoesnTOpen": "Bu parola ifadesi bu anahtarı açmıyor.",
+      "thisDoesnTLookLike": "Bu bir özel anahtar gibi görünmüyor.",
+      "loadedAndChangedItTo": "{{name}} yüklendi ve OpenSSH formatına dönüştürüldü",
+      "loadedItNeedsItsPassphrase": "{{name}} yüklendi. Bağlanmak için parola ifadesi gerekiyor"
+    },
+    "ago": {
+      "justNow": "az önce"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Sunucularınız yüklenemedi.",
+      "failedOn": "{{name}}, {{name2}} üzerinde başarısız oldu",
+      "on": "{{name2}} üzerinde {{name}}: {{value}}",
+      "ranOn": "{{name2}} üzerinde {{name}} çalıştırıldı",
+      "runOn": "\"{{name}}\" komutunu şurada çalıştır:",
+      "runSnippet": "Komut parçasını çalıştır",
+      "loadingHosts": "Sunucular yükleniyor…",
+      "noHostsAvailable": "Kullanılabilir sunucu yok",
+      "addAHostInTermix": "Ana ekranınızdan komut parçalarını çalıştırmak için Termix'e bir sunucu ekleyin.",
+      "lastUsed": "Son kullanım",
+      "failedToRunSnippet": "Komut parçası çalıştırılamadı"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Bu komut parçası artık mevcut değil.",
+      "couldNotOpenThatSnippet": "Bu komut parçası açılamadı.",
+      "thatHostNoLongerExists": "Bu sunucu artık mevcut değil.",
+      "couldNotOpenThatHost": "Bu ana bilgisayar açılamadı."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Ana Sayfa"
+      },
+      "hosts": {
+        "hosts": "Ana Bilgisayarlar"
+      },
+      "sessions": {
+        "sessions": "Oturumlar",
+        "connectToATermixServer": "Terminal, tünel ve dosya oturumlarını açmak için bir Termix sunucusuna bağlanın."
+      }
+    },
+    "layout": {
+      "initializing": "Başlatılıyor…",
+      "cancel": "İptal"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Bu ana bilgisayarın geçerli bir MAC adresi yok.",
+    "thisBuildCanTSend": "Bu sürüm Wake-on-LAN paketleri gönderemez.",
+    "couldNotSendThePacket": "Paket gönderilemedi. Wi-Fi'nin açık olduğundan emin olun."
+  },
+  "common": {
+    "hostCount_one": "{{count}} ana bilgisayar",
+    "hostCount_other": "{{count}} ana bilgisayar",
+    "device": {
+      "phone": "telefon",
+      "tablet": "tablet"
+    },
+    "thisDeviceLower": "bu {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Paylaşım",
+    "action": "Kişilerle paylaş",
+    "levels": {
+      "connect": "Bağlan",
+      "view": "Görüntüle",
+      "edit": "Düzenle",
+      "manage": "Yönet"
+    },
+    "levelHints": {
+      "connect": "Sadece oturumlar açılır. Ana bilgisayar ayarları gizli kalır",
+      "view": "Bağlanma ve ana bilgisayar ayarlarını görüntüleme. Gizli bilgiler asla gösterilmez",
+      "edit": "Görüntüleme ve giriş bilgileri dışındaki ayarları değiştirme",
+      "manage": "Düzenleme, ana bilgisayarı paylaşma ve erişimi değiştirme veya kaldırma"
+    },
+    "until": "{{date}} tarihine kadar",
+    "sharedBy": "{{name}} tarafından",
+    "couldNotLoad": "Erişimi olanlar yüklenemedi",
+    "shared": "Ana bilgisayar paylaşıldı",
+    "couldNotShare": "Ana bilgisayar paylaşılamadı",
+    "updated": "Erişim değiştirildi",
+    "couldNotUpdate": "Erişim değiştirilemedi",
+    "removeTitle": "{{name}} kaldırılsın mı?",
+    "removeHint": "Artık bu ana bilgisayarı kullanamayacaklar.",
+    "remove": "Kaldır",
+    "removed": "Erişim kaldırıldı",
+    "couldNotRemove": "Erişim kaldırılamadı",
+    "whoHasAccess": "Kimlerin erişimi var",
+    "loading": "Yükleniyor...",
+    "nobodyYet": "Bu ana bilgisayarı sadece siz kullanabilirsiniz.",
+    "changeAccessFor": "{{name}} için erişimi değiştir",
+    "shareWith": "Şununla paylaş",
+    "users": "Kullanıcılar",
+    "roles": "Roller",
+    "searchUsers": "Kullanıcıları ara",
+    "searchRoles": "Rolleri ara",
+    "noUsers": "Paylaşılacak başka kullanıcı yok.",
+    "noRoles": "Paylaşılacak rol yok.",
+    "options": "Erişim",
+    "level": "Seviye",
+    "expires": "Bitiş",
+    "expiry": {
+      "never": "Asla",
+      "1h": "1 saat içinde",
+      "1d": "1 gün içinde",
+      "7d": "7 gün içinde",
+      "30d": "30 gün içinde"
+    },
+    "pickSomeone": "Kiminle paylaşılacağını seçin",
+    "shareCount_one": "{{count}} kişiyle paylaş",
+    "shareCount_other": "{{count}} kişiyle paylaş",
+    "removeAccess": "Erişimi kaldır"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Sunucu uyarıları",
+      "critical": "Kritik sunucu uyarıları"
+    },
+    "severity": {
+      "info": "Her şey",
+      "warning": "Uyarılar ve daha fazlası",
+      "critical": "Yalnızca kritik"
+    },
+    "settings": {
+      "on": "Uyarılar bu telefonda görünür",
+      "off": "Kapalı",
+      "toggle": "{{server}} için anlık bildirimler",
+      "minSeverity": "Bana şunları gönder",
+      "denied": "Termix için bildirimler kapalı. Telefonun ayarlarından açın.",
+      "openSettings": "Ayarları aç",
+      "outdated": "Bu sunucu, anlık bildirimler için Alerts 1.4.0 veya daha yeni bir sürüm gerektiriyor. Bir yöneticiden eklentiyi güncellemesini isteyin.",
+      "unavailable": "Bildirim almak için bu sunucuya giriş yapın ve Alerts eklentisini açın.",
+      "error": "Sunucuya ulaşılamadı. Termix, uygulama bir sonraki açılışta tekrar deneyecek.",
+      "notInThisBuild": "Bu derleme bildirimleri gösteremiyor.",
+      "noServers": "Uyarılarını burada almak için bir sunucu bağlayın.",
+      "pushHint": "Uyarılar, başlık ve metinleriyle birlikte Expo ve Apple veya Google üzerinden gönderilir. Sunucudaki Alerts kurallarında hangilerinin gönderileceğini seçin.",
+      "pollHint": "Bu derlemede Google hizmetleri yok, bu nedenle Termix arka planda yaklaşık her 15 dakikada bir yeni uyarıları kontrol eder."
+    }
+  }
+}

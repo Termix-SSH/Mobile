@@ -26,6 +26,7 @@ import {
 } from "./chain";
 import { classifyKeyboardInteractive, responsesWithAnswer } from "./kbd";
 import type { ResolvedLogin } from "./resolve";
+import { t } from "@/i18n";
 
 /** Splits off a UTF-8 sequence cut at the end of a chunk, so it decodes with the next one. */
 export class Utf8Stream {
@@ -137,7 +138,11 @@ export class LocalShell implements ShellChannel {
     const decision = classifyKeyboardInteractive(prompts, login);
     if (decision.kind === "auto") return decision.responses;
     const prefix = hop
-      ? `Jump host ${hop.index + 1}/${hop.total} (${hop.ip}): `
+      ? t("transport.local.localShell.jumpHost", {
+          value: hop.index + 1,
+          total: hop.total,
+          ip: hop.ip,
+        })
       : "";
     const promptText = (i: number) =>
       [request.instructions.trim(), prompts[i].prompt]
@@ -146,7 +151,7 @@ export class LocalShell implements ShellChannel {
     let answer: string | null;
     if (decision.kind === "totp") {
       const text = this.totpAsked
-        ? "Invalid code, try again:"
+        ? t("transport.local.localShell.invalidCodeTryAgain")
         : promptText(decision.promptIndex);
       this.totpAsked = true;
       answer = await this.ask(prefix + text, false);
@@ -186,6 +191,18 @@ export class LocalShell implements ShellChannel {
           askHostKey: this.askHostKey,
           askKbd: this.askKbd,
           onBanner: this.onBanner,
+          onLogin: (login) =>
+            this.log(
+              "info",
+              t("transport.local.localShell.signingInAs", {
+                user: login.config.username || "?",
+                method: login.config.privateKey
+                  ? t("transport.local.localShell.methodKey")
+                  : login.config.password
+                    ? t("transport.local.localShell.methodPassword")
+                    : t("transport.local.localShell.methodNone"),
+              }),
+            ),
           signal: abort.signal,
           connectTimeoutSecs: this.options.connectTimeoutSecs,
         },
@@ -243,14 +260,19 @@ export class LocalShell implements ShellChannel {
           this.options.onAuthDialogNeeded("no_keyboard");
           return;
         }
-        this.fail(`Authentication failed: ${e.message}`, failure);
+        this.fail(
+          t("transport.local.localShell.authenticationFailed", {
+            message: e.message,
+          }),
+          failure,
+        );
         return;
       case "hostKeyRejected":
-        this.fail("The host key was not trusted.", failure);
+        this.fail(t("transport.local.localShell.theHostKeyWasNot"), failure);
         return;
       case "authCancelled":
       case "cancelled":
-        this.fail("Login cancelled.", failure);
+        this.fail(t("transport.local.localShell.loginCancelled"), failure);
         return;
     }
     this.fail(e.message, failure);
@@ -282,11 +304,17 @@ export class LocalShell implements ShellChannel {
             exitSignal === null &&
             (this.dropped || chain.target.isClosed)
           ) {
-            this.drop({ kind: "network", reason: "The connection was cut" });
+            this.drop({
+              kind: "network",
+              reason: t("transport.local.localShell.theConnectionWasCut"),
+            });
             return;
           }
           if (exitCode === null && exitSignal === null) {
-            this.drop({ kind: "ended", reason: "The shell channel closed" });
+            this.drop({
+              kind: "ended",
+              reason: t("transport.local.localShell.theShellChannelClosed"),
+            });
             return;
           }
           this.teardown();
@@ -401,7 +429,8 @@ export class LocalShell implements ShellChannel {
 
   async exec(command: string, timeoutSecs = 10): Promise<ShellExecResult> {
     const target = this.chain?.target;
-    if (!target || target.isClosed) throw new Error("Not connected");
+    if (!target || target.isClosed)
+      throw new Error(t("transport.local.localShell.notConnected"));
     const result = await target.exec(command, { timeoutSecs });
     return {
       stdout: utf8Decode(result.stdout),

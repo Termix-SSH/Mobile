@@ -1,0 +1,3874 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Σύνδεση",
+      "addServer": "Προσθήκη διακομιστή",
+      "switchAccount": "Εναλλαγή λογαριασμού",
+      "noServerConnected": "Δεν έχει συνδεθεί κανένας διακομιστής",
+      "connectToATermixServer": "Συνδεθείτε σε έναν διακομιστή Termix για να διαχειριστείτε τους υπολογιστές σας, τα τερματικά, τα αρχεία και πολλά άλλα."
+    },
+    "lockScreen": {
+      "cancel": "Ακύρωση",
+      "tooManyTriesWaitSeconds": "Πάρα πολλές προσπάθειες. Περιμένετε {{value}} δευτερόλεπτα",
+      "termixLocked": "Το Termix είναι κλειδωμένο",
+      "enterYourPinToContinue": "Εισάγετε τον κωδικό PIN για να συνεχίσετε"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Πορτοκαλί",
+      "blue": "Μπλε",
+      "green": "Πράσινο",
+      "purple": "Μωβ",
+      "pink": "Ροζ",
+      "cyan": "Κυανό",
+      "red": "Κόκκινο",
+      "yellow": "Κίτρινο",
+      "teal": "Σμαραγδί",
+      "indigo": "Ινδικό",
+      "rose": "Ροζ",
+      "lime": "Λεμόνι",
+      "system": "Σύστημα",
+      "light": "Φωτεινό",
+      "dark": "Σκοτεινό"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Χρήση PIN",
+      "unlockTermix": "Ξεκλείδωμα Termix",
+      "unlockTermixFirst": "Ξεκλειδώστε πρώτα το Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Αυτή η λειτουργία είναι απενεργοποιημένη στον διακομιστή.",
+      "aTabWasNotReopened": "Μια καρτέλα δεν επαναχρησιμοποιήθηκε επειδή ο υπολογιστής της έχει αφαιρεθεί",
+      "tabsWereNotReopenedBecause": "Δεν επαναχρησιμοποιήθηκαν {{count}} καρτέλες επειδή οι υποδοχείς τους έχουν αφαιρεθεί"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Συνδέστε έναν διακομιστή Termix για να το χρησιμοποιήσετε",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Εισάγετε τη διεύθυνση του διακομιστή σας",
+        "theAddressCanTHave": "Η διεύθυνση δεν μπορεί να περιέχει κενά",
+        "useAnHttpOrHttps": "Χρησιμοποιήστε μια διεύθυνση http:// ή https://",
+        "thatDoesnTLookLike": "Αυτό δεν μοιάζει με διεύθυνση διακομιστή",
+        "thePortMustBeFrom": "Η θύρα πρέπει να είναι από 1 έως 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Ένας μεσάζοντας σύνδεσης απάντησε αντί για το Termix. Συνδεθείτε πρώτα στον μεσάζοντα.",
+        "theServerDidNotSend": "Ο διακομιστής δεν έστειλε token.",
+        "theServerDidNotSend2": "Ο διακομιστής δεν έστειλε συνεδρία.",
+        "theServerSentNoSign": "Ο διακομιστής δεν έστειλε διεύθυνση σύνδεσης.",
+        "theSignInRanOut": "Η σύνδεση έληξε ή έχει ήδη χρησιμοποιηθεί. Συνδεθείτε ξανά.",
+        "wrongUsernameOrPassword": "Λάθος όνομα χρήστη ή κωδικός πρόσβασης",
+        "signInFailedHttp": "Η σύνδεση απέτυχε (HTTP {{status}})",
+        "thePageSignedYouIn": "Η σελίδα σας συνδέθηκε αλλά δεν έστειλε πίσω συνεδρία. Ενημερώστε τον διακομιστή στην έκδοση Termix 26.11.3 ή νεότερη.",
+        "thisAccountIsnTAllowed": "Αυτός ο λογαριασμός δεν επιτρέπεται να συνδεθεί εδώ.",
+        "noTermixAccountMatchesThat": "Κανένας λογαριασμός Termix δεν αντιστοιχεί σε αυτή τη σύνδεση."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Αυτή η συνεδρία δεν έχει διακομιστή"
+    },
+    "store": {
+      "noSuchAccount": "Δεν υπάρχει τέτοιος λογαριασμός",
+      "thisDeviceCanTBe": "Αυτή η συσκευή δεν μπορεί να αφαιρεθεί",
+      "switchToAnotherAccountFirst": "Εναλλαγή σε άλλο λογαριασμό πρώτα"
+    },
+    "types": {
+      "thisDevice": "Αυτή η συσκευή"
+    },
+    "accountSwitcher": {
+      "error": "Σφάλμα",
+      "worksWithoutAServer": "Λειτουργεί χωρίς διακομιστή",
+      "couldNotSwitchAccount": "Αδυναμία εναλλαγής λογαριασμού",
+      "accounts": "Λογαριασμοί",
+      "openTabsKeepRunningWhen": "Οι ανοιχτές καρτέλες συνεχίζουν να λειτουργούν όταν κάνετε εναλλαγή.",
+      "unlink": "Αποσύνδεση του {{account}}",
+      "linkAServer": "Σύνδεση διακομιστή",
+      "eachServerKeepsItsOwn": "Κάθε διακομιστής διατηρεί τους δικούς του hosts, διαπιστευτήρια και ρυθμίσεις σε αυτήν την {{deviceWord}}.",
+      "signedIn": "Συνδεδεμένος",
+      "signedOut": "Αποσυνδέθηκε",
+      "syncedCopy": "Συγχρονισμένο αντίγραφο"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Αδυναμία αποθήκευσης του pin",
+      "theServerSKeyMatches": "Το κλειδί του διακομιστή ταιριάζει με το pin",
+      "theServerShowsAnotherKey": "Ο διακομιστής εμφανίζει διαφορετικό κλειδί",
+      "pinThisKey": "Να οριστεί αυτό το κλειδί ως pin;",
+      "pinThisKey2": "Ορισμός κλειδιού ως pin",
+      "keyPinned": "Το κλειδί ορίστηκε ως pin",
+      "couldNotReadTheServer": "Αδυναμία ανάγνωσης του κλειδιού του διακομιστή",
+      "thatIsNotAPin": "Αυτό δεν είναι pin",
+      "keysPinned": "Τα κλειδιά ορίστηκαν ως pin",
+      "certificatePin": "Pin πιστοποιητικού",
+      "trustThisServerOnlyBy": "Εμπιστευτείτε αυτόν τον διακομιστή μόνο βάσει του κλειδιού του. Χρησιμοποιήστε το για αυτουπογεγραμμένο πιστοποιητικό ή για να απορρίπτετε οποιοδήποτε άλλο κλειδί. Προσθέστε το επόμενο κλειδί πριν αλλάξετε το πιστοποιητικό του διακομιστή.",
+      "removePin": "Αφαίρεση pin {{pin}}",
+      "remove": "Αφαίρεση",
+      "readTheKeyFromThe": "Ανάγνωση κλειδιού από τον διακομιστή",
+      "orPasteAPin": "Ή επικόλληση pin",
+      "pin": "Pin",
+      "add": "Προσθήκη",
+      "issuedTo": "Εκδόθηκε για: {{subject}}",
+      "issuedBy": "Εκδόθηκε από: {{issuer}}",
+      "validUntil": "Ισχύει έως: {{value}}",
+      "checkThatThisKeyMatches": "Ελέγξτε ότι αυτό το κλειδί ταιριάζει με αυτό στον διακομιστή σας πριν το ορίσετε ως pin.",
+      "pasteTheBase64Sha256Of": "Επικολλήστε το base64 sha256 του δημόσιου κλειδιού του διακομιστή, όπως το εμφανίζει η εντολή openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Οι ρυθμίσεις proxy αποθηκεύτηκαν",
+      "couldNotSaveTheProxy": "Αδυναμία αποθήκευσης των ρυθμίσεων proxy",
+      "couldNotReadThatFile": "Αδυναμία ανάγνωσης αυτού του αρχείου",
+      "certificateSaved": "Το πιστοποιητικό αποθηκεύτηκε",
+      "theFileOrItsPassphrase": "Το αρχείο ή ο κωδικός πρόσβασής του είναι λανθασμένος",
+      "couldNotSaveTheCertificate": "Αδυναμία αποθήκευσης του πιστοποιητικού",
+      "headers": "Επικεφαλίδες",
+      "sentWithEveryRequestTo": "Αποστέλλονται με κάθε αίτημα σε αυτόν τον διακομιστή, όπως ένα service token του Cloudflare.",
+      "name": "Όνομα",
+      "value": "Τιμή",
+      "removeHeader": "Αφαίρεση επικεφαλίδας",
+      "addHeader": "Προσθήκη επικεφαλίδας",
+      "cloudflareServiceToken": "Service token Cloudflare",
+      "basicAuth": "Βασική εγγραφή",
+      "forAProxyThatAsks": "Για proxy που ζητά όνομα χρήστη και κωδικό πρόσβασης.",
+      "userName": "Όνομα χρήστη",
+      "password": "Κωδικός πρόσβασης",
+      "saveHeadersAndBasicAuth": "Αποθήκευση επικεφαλίδων και βασικής εγγραφής",
+      "clientCertificate": "Πιστοποιητικό πελάτη",
+      "forServersThatAskFor": "Για διακομιστές που ζητούν ένα (mTLS). Το κλειδί διατηρείται στην ασφαλή αποθήκευση της συσκευής {{deviceWord}} και δεν μπορεί να διαβαστεί ξανά.",
+      "certificate": "Πιστοποιητικό",
+      "remove": "Αφαίρεση",
+      "replaceCertificate": "Αντικατάσταση πιστοποιητικού",
+      "pickAP12OrPfx": "Επιλέξτε αρχείο .p12 ή .pfx",
+      "proxySignIn": "Εγγραφή στο proxy",
+      "thisIsSignedInTo": " Αυτή η {{deviceWord}} είναι συνδεδεμένη στον proxy.",
+      "forCloudflareAccessAutheliaAuthentik": "Για Cloudflare Access, Authelia, Authentik και άλλα proxy με δική τους σελίδα εγγραφής.{{value}}",
+      "signInToTheProxy": "Εγγραφή στο proxy",
+      "forget": "Λήθη",
+      "certificatePassphrase": "Κωδικός πρόσβασης πιστοποιητικού",
+      "thePassphraseTheFileWas": "Ο κωδικός πρόσβασης με τον οποίο αποθηκεύτηκε το αρχείο. Αφήστε το κενό αν δεν έχει.",
+      "passphrase": "Κωδικός πρόσβασης",
+      "save": "Αποθήκευση"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Συνδεδεμένο στο proxy",
+      "couldNotSaveTheProxy": "Αδυναμία αποθήκευσης της εγγραφής στο proxy",
+      "signInToTheProxy": "Εγγραφή στο proxy",
+      "thisBuildOfTheApp": "Αυτή η έκδοση της εφαρμογής δεν μπορεί να διατηρήσει μια σύνδεση μέσω proxy. Χρησιμοποιήστε ένα service token στα headers του proxy αντί για αυτό."
+    },
+    "savedLoginRow": {
+      "signIn": "Σύνδεση",
+      "signInWith": "Σύνδεση με {{name}}",
+      "whenThisServerSignsYou": "Όταν αυτός ο διακομιστής σας αποσυνδέσει, συνδεθείτε ξανά χωρίς να πληκτρολογήσετε τον κωδικό πρόσβασης."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Αποσύνδεση. {{copied}} στοιχεία διατηρήθηκαν σε αυτή τη συσκευή.",
+      "unlinked": "Αποσύνδεση",
+      "couldNotUnlinkTheServer": "Αδυναμία αποσύνδεσης του διακομιστή",
+      "unlink": "Αποσύνδεση του {{value}};",
+      "thisSignsOutOfThe": "Αυτή η {{deviceWord}} αποσυνδέεται από τον διακομιστή. Τίποτα δεν διαγράφεται στον διακομιστή.",
+      "keepACopyOnThis": "Διατήρηση αντιγράφου σε αυτή τη συσκευή",
+      "yourOwnHostsCredentialsAnd": "Οι δικές σας hosts, τα διαπιστευτήρια και τα snippets μεταφέρονται σε αυτή τη συσκευή. Οι hosts που μοιράστηκαν μαζί σας δεν διατηρούνται.",
+      "deleteFromThis": "Διαγραφή από αυτή τη {{deviceWord}}",
+      "everythingThisHasForThe": "Ό,τι έχει αυτή η {{deviceWord}} για τον διακομιστή αφαιρείται."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Αλλάξτε το κάτω από Proxy παρακάτω",
+      "updateTermixMobileFromYour": "Ενημερώστε το Termix Mobile από το app store σας"
+    },
+    "savedLogin": {
+      "signInToTermix": "Σύνδεση στο Termix",
+      "faceUnlock": "αποκλείδωμα με πρόσωπο"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Αυτή η έκδοση δεν μπορεί να ελέγξει το pinned key αυτού του διακομιστή ή να στείλει το πιστοποιητικό του."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Αυτός ο διακομιστής δεν υποστηρίζει αυτή τη λειτουργία",
+      "theProxyWantsYouTo": "Το proxy ζητά να συνδεθείτε",
+      "endpointNotAvailableOnThis": "Το endpoint δεν είναι διαθέσιμο σε αυτόν τον διακομιστή",
+      "unknownError": "Άγνωστο σφάλμα"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Το proxy μπροστά από αυτόν τον διακομιστή ζητά να συνδεθείτε ξανά.",
+      "authenticationRequiredPleaseLogIn": "Απαιτείται έλεγχος ταυτότητας. Παρακαλώ συνδεθείτε ξανά.",
+      "accessDeniedYouDoNot": "Μη εξουσιοδοτημένη πρόσβαση. Δεν έχετε άδεια για να εκτελέσετε αυτή την ενέργεια.",
+      "thisFeatureIsTurnedOff": "Αυτή η λειτουργία είναι απενεργοποιημένη στον διακομιστή.",
+      "thisServerDoesNotSupport": "Αυτός ο διακομιστής δεν υποστηρίζει αυτή τη λειτουργία.",
+      "resourceNotFoundTheRequested": "Δεν βρέθηκε το πόρο. Το ζητούμενο στοιχείο μπορεί να έχει διαγραφεί.",
+      "conflictTheResourceAlreadyExists": "Συγκρούση. Ο πόρος υπάρχει ήδη ή χρησιμοποιείται.",
+      "validationErrorPleaseCheckYour": "Σφάλμα επικύρωσης. Παρακαλώ ελέγξτε τα δεδομένα εισόδου και προσπαθήστε ξανά.",
+      "serverErrorOccurredPleaseTry": "Παρουσιάστηκε σφάλμα διακομιστή. Παρακαλώ προσπαθήστε ξανά αργότερα.",
+      "sslCertificateVerificationFailed": "Αποτυχία επαλήθευσης πιστοποιητικού SSL.",
+      "networkErrorPleaseCheckYour": "Σφάλμα δικτύου. Παρακαλώ ελέγξτε τη σύνδεσή σας και προσπαθήστε ξανά.",
+      "failedTo": "Αποτυχία {{operation}}",
+      "unknownError": "Άγνωστο σφάλμα",
+      "unexpectedErrorDuring": "Απρόσμενο σφάλμα κατά τη διάρκεια {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Η εφαρμογή δεν μπορούσε να εμπιστευτεί το HTTPS για αυτή την τοπική IP. Κουμπώστε το key του διακομιστή κάτω από Proxy και client certificate, χρησιμοποιήστε ένα πιστοποιητικό που εμπιστεύεται η {{deviceWord}}, ή HTTP σε ένα αξιόπιστο τοπικό ή VPN δίκτυο.",
+        "thisServerIsBehindA": "Αυτός ο διακομιστής βρίσκεται πίσω από ένα login proxy. Χρησιμοποιήστε την εξωτερική επιλογή σύνδεσης αντί για αυτό.",
+        "loginFailed": "Αποτυχία σύνδεσης"
+      },
+      "files": {
+        "fileNotFound": "Το αρχείο δεν βρέθηκε",
+        "fileWriteOperationDidNot": "Η λειτουργία εγγραφής αρχείου δεν επέστρεψε κατάσταση επιτυχίας",
+        "couldNot": "Αδυναμία {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Η host αποθηκεύτηκε, αλλά ορισμένες ρυθμίσεις απέτυχαν: {{value}}",
+        "unexpectedHostResponseFrom": "Απρόσμενη απάντηση host από {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Αποτυχία ζωντανού δείγματος"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Χωρίς απάντηση"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Αυτός ο διακομιστής δεν έδειξε το key στο οποίο είναι κουμπωμένο, οπότε η σελίδα δεν ανοίχτηκε."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Αυτό το {{what}} δεν υπάρχει πλέον.",
+      "aHostCannotBeIts": "Μια host δεν μπορεί να είναι ο δικός της γονέας",
+      "parentHostNotFound": "Δεν βρέθηκε η γονική host",
+      "aHostCanTGo": "Μια host δεν μπορεί να μπει κάτω από μία από τις δικές της υπο-hosts",
+      "thisIsSharedWithYou": "Αυτό το {{what}} μοιράζεται μαζί σας. Μόνο ο ιδιοκτήτης του μπορεί να το αλλάξει.",
+      "nameIsRequired": "Το όνομα είναι υποχρεωτικό",
+      "nameAndCommandAreRequired": "Το όνομα και η εντολή είναι υποχρεωτικά",
+      "aFolderWithThatName": "Υπάρχει ήδη ένα φάκελο με αυτό το όνομα"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Αυτή η συσκευή δεν μπορεί να αποθηκεύσει {{what}} εδώ."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Αυτό το snippet μοιράζεται μαζί σας και δεν μπορεί να αλλάξει."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Χρησιμοποιήστε μια φράση κωδικού με τουλάχιστον 8 χαρακτήρες.",
+      "thisIsNotATermix": "Αυτό δεν είναι αρχείο backup του Termix.",
+      "thisBackupIsFromA": "Αυτό το backup είναι από νεότερη έκδοση του Termix. Ενημερώστε πρώτα την εφαρμογή.",
+      "wrongPassphraseOrTheFile": "Λάθος κωδικός πρόσβασης ή το αρχείο είναι κατεστραμμένο."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Αυτή η έκδοση δεν μπορεί να κρυπτογραφήσει τα τοπικά δεδομένα."
+    },
+    "keys": {
+      "unlockTermixFirst": "Ξεκλειδώστε πρώτα το Termix.",
+      "thatIsNotADatabase": "Αυτό δεν είναι κλειδί βάσης δεδομένων.",
+      "couldNotSaveTheDatabase": "Αδυναμία αποθήκευσης του κλειδιού της βάσης δεδομένων."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Αυτά τα δεδομένα αποθηκεύτηκαν από νεότερη έκδοση του Termix. Ενημερώστε την εφαρμογή για να τα ανοίξετε."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Αυτή η συσκευή δεν συγχρονίζεται.",
+      "localDataIsNotAvailable": "Τα τοπικά δεδομένα δεν είναι διαθέσιμα εδώ.",
+      "unlockTermixFirst": "Ξεκλειδώστε πρώτα το Termix."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Αδυναμία σύνδεσης.",
+      "thisWayCanTRun": "Αυτός ο τρόπος δεν μπορεί να εκτελέσει εντολές"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Κωδικός sudo",
+      "password": "Κωδικός πρόσβασης",
+      "run": "Εκτέλεση",
+      "thatPasswordWasWrong": "Ο κωδικός πρόσβασης ήταν λάθος.",
+      "onNeedsRoot": "Το {{reason}} στο {{hostName}} απαιτεί δικαιώματα root.",
+      "needsRootForThis": "Το {{hostName}} απαιτεί δικαιώματα root για αυτό.",
+      "itIsKeptUntilYou": "Διατηρείται μέχρι να κλείσετε την εφαρμογή."
+    },
+    "run": {
+      "theHostTookTooLong": "Ο υπολογιστής πήρε πολύ χρόνο για να απαντήσει",
+      "connectionLost": "Απώλεια σύνδεσης"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Αυτό απαιτεί δικαιώματα root. Συνδεθείτε ως root, ρυθμίστε το sudo χωρίς κωδικό ή αποθηκεύστε έναν κωδικό sudo για τον υπολογιστή.",
+      "theSudoPasswordWasWrong": "Ο κωδικός sudo ήταν λάθος",
+      "commandFailed": "Η εντολή απέτυχε"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Το Telnet στον τερματικό απαιτεί σύνδεση από τη συσκευή {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Το χαρακτηριστικό {{id}} είναι ήδη καταχωρημένο"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Διεύθυνση",
+      "theIpOrHostName": "Η διεύθυνση IP ή το όνομα υπολογιστή κάτω από το όνομα",
+      "username": "Όνομα χρήστη",
+      "theUserBeforeTheAddress": "Ο χρήστης πριν τη διεύθυνση",
+      "port": "Θύρα",
+      "thePortAfterTheAddress": "Η θύρα μετά τη διεύθυνση",
+      "hostIcon": "Εικονίδιο υπολογιστή",
+      "theIconSetOnThe": "Το εικονίδιο που ορίστηκε στον υπολογιστή",
+      "pinIcon": "Στερεωμένο εικονίδιο",
+      "marksPinnedHosts": "Σημαδιάζει τους στερεωμένους υπολογιστές",
+      "sharedBadge": "Σήμα κοινοποίησης",
+      "marksHostsSharedWithYou": "Σημαδιάζει τους υπολογιστές που έχουν κοινοποιηθεί σε εσάς",
+      "protocolBadges": "Σήματα πρωτοκόλλου",
+      "sshRdpDockerAndOther": "Ετικέτες SSH, RDP, Docker και άλλες",
+      "tags": "Ετικέτες",
+      "theHostSTags": "Οι ετικέτες του υπολογιστή",
+      "cpuAndRam": "CPU και RAM",
+      "liveUsageBarsOnOnline": "Μπάρες χρήσης σε πραγματικό χρόνο για ενεργούς υπολογιστές",
+      "statusColors": "Χρώματα κατάστασης",
+      "greenBarWhenOnlineRed": "Πράσινη μπάρα όταν είναι ενεργός, κόκκινη όταν είναι εκτός σύνδεσης"
+    },
+    "uiPrefs": {
+      "small": "Μικρό",
+      "default": "Προεπιλογή",
+      "large": "Μεγάλο",
+      "comfortable": "Άνετο",
+      "compact": "Συμπαγές"
+    },
+    "errors": {
+      "somethingWentWrong": "Κάτι πήγε στραβά"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Η κλείδωση ενός κλειδιού με κωδικό πρόσβασης απαιτεί την εφαρμογή Termix, όχι μια προεπισκόπηση ιστού."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Αμέσως",
+      "after15Seconds": "Μετά από 15 δευτερόλεπτα",
+      "after1Minute": "Μετά από 1 λεπτό",
+      "after5Minutes": "Μετά από 5 λεπτά"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Το μυστικό της συσκευής έχει χαθεί",
+      "noSealedKey": "Δεν υπάρχει σφραγισμένο κλειδί",
+      "theSealedKeyIsDamaged": "Το σφραγισμένο κλειδί είναι κατεστραμμένο",
+      "wrongPin": "Λάθος PIN",
+      "theSealedKeyDidNot": "Το κλειδί δεν ξεκλείδωσε",
+      "biometricsCanTOpenThe": "Η βιομετρία δεν μπορεί να ξεκλειδώσει το κλειδί"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Ενημέρωση της εφαρμογής",
+      "onYourServerNeedsA": "Το {{name}} στον διακομιστή σας χρειάζεται νεότερη έκδοση του Termix σε αυτή την {{deviceWord}}.",
+      "updateThePlugin": "Ενημέρωση του plugin",
+      "onYourServerIsToo": "Το {{name}} στον διακομιστή σας είναι πολύ παλιό για αυτή την εφαρμογή. Ζητήστε από έναν διαχειριστή να το ενημερώσει στα Plugins."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Αποκλείστηκε από την εφαρμογή",
+      "theAppDoesNotLet": "Η εφαρμογή δεν επιτρέπει στα plugins να χρησιμοποιούν αυτή τη διαδρομή.",
+      "thisBuildCanTReach": "Αυτή η έκδοση δεν μπορεί να επικοινωνήσει με αυτόν τον διακομιστή με ασφάλεια."
+    },
+    "support": {
+      "needsANewerVersionOf": "Απαιτείται νεότερη έκδοση της εφαρμογής",
+      "updateThePluginOnThe": "Ενημέρωση του plugin στον διακομιστή",
+      "theAppHasItsOwn": "Η εφαρμογή έχει τη δική της εμφάνιση",
+      "notInTheAppYet": "Δεν είναι ακόμη διαθέσιμο στην εφαρμογή",
+      "linkAServerToUse": "Συνδέστε έναν διακομιστή για να το χρησιμοποιήσετε",
+      "opensInTheAppFrom": "Ανοίγει στην εφαρμογή από τον διακομιστή",
+      "runsOnTheServer": "Εκτελείται στον διακομιστή",
+      "throughTheServer": "Μέσω του διακομιστή",
+      "inTheApp": "Στην εφαρμογή",
+      "webView": "Web view",
+      "onTheServer": "Στον διακομιστή",
+      "appLook": "Εμφάνιση εφαρμογής",
+      "notInTheApp": "Δεν είναι στην εφαρμογή",
+      "safeMode": "Ασφαλής λειτουργία",
+      "notRunning": "Δεν εκτελείται",
+      "notInstalled": "Δεν είναι εγκατεστημένο",
+      "notOnThisServer": "Δεν υπάρχει σε αυτόν τον διακομιστή",
+      "thePluginIsNotInstalled": "Το plugin δεν είναι εγκατεστημένο σε αυτόν τον διακομιστή.",
+      "turnedOffOnTheServer": "Απενεργοποιημένο στον διακομιστή",
+      "itOpensHereAgainWhen": "Θα ανοίξει ξανά εδώ όταν ένας διαχειριστής το ενεργοποιήσει.",
+      "notRunningOnTheServer": "Δεν εκτελείται στον διακομιστή",
+      "theServerIsInSafe": "Ο διακομιστής βρίσκεται σε ασφαλή λειτουργία, οπότε εκτελούνται μόνο plugins εμφάνισης.",
+      "thePluginDidNotStart": "Το plugin δεν ξεκίνησε. Ένας διαχειριστής μπορεί να το ελέγξει στα Plugins.",
+      "thisPluginIsNotAvailable": "Αυτό το plugin δεν είναι διαθέσιμο",
+      "itIsNotMadeFor": "Δεν έχει δημιουργηθεί για την εφαρμογή.",
+      "offOnThisServer": "απενεργοποιημένο σε αυτόν τον διακομιστή",
+      "notRunningOnThisServer": "δεν εκτελείται σε αυτόν τον διακομιστή",
+      "notOnThisServer2": "δεν υπάρχει σε αυτόν τον διακομιστή",
+      "notInTheAppYet2": "Δεν είναι ακόμη διαθέσιμο στην εφαρμογή | σε αυτόν τον διακομιστή",
+      "worksOnThis": "Λειτουργεί σε αυτή την {{deviceWord}}",
+      "andServer": "{{DeviceWord}} και διακομιστής",
+      "deviceOnly": "Μόνο {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Ανανέωση"
+    },
+    "pluginSettings": {
+      "loading": "Φόρτωση ρυθμίσεων",
+      "forEveryone": "Για όλους στον διακομιστή",
+      "justForYou": "Μόνο για εσάς",
+      "couldNotSave": "Αδυναμία αποθήκευσης της ρύθμισης",
+      "nothingYouCanChange": "Δεν υπάρχει τίποτα εδώ που μπορείτε να αλλάξετε. Ένας διαχειριστής μπορεί να αλλάξει αυτές τις ρυθμίσεις.",
+      "notANumber": "Αυτό δεν είναι αριθμός",
+      "atLeast": "Πρέπει να είναι {{min}} ή περισσότερο",
+      "atMost": "Πρέπει να είναι {{max}} ή λιγότερο"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Αποσύνδεση όλων",
+      "showOpenSessions": "Εμφάνιση ανοιχτών συνεδριών",
+      "termixShowsANotificationWhile": "Το Termix εμφανίζει μια ειδοποίηση όσο οι συνεδρίες είναι ανοιχτές, ώστε το Android να τις διατηρεί ενεργές στο παρασκήνιο.",
+      "sessionsOpen_one": "{{count}} συνεδρία ανοιχτή",
+      "sessionsOpen_other": "{{count}} συνεδρίες ανοιχτές",
+      "tunnelsActive_one": "{{count}} τούνελ ενεργό",
+      "tunnelsActive_other": "{{count}} τούνελ ενεργά",
+      "notConnected": "Μη συνδεδεμένο",
+      "waitingForNetwork": "Αναμονή δικτύου",
+      "connecting": "Σύνδεση",
+      "connected": "Συνδεδεμένο",
+      "reconnecting": "Επανασύνδεση",
+      "failed": "Αποτυχία",
+      "closed": "Κλειστό"
+    },
+    "companionPane": {
+      "resizeThePanel": "Αλλαγή μεγέθους του πίνακα {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Κλείσιμο",
+      "closeAllTabs": "Κλείσιμο όλων των {{count}} καρτελών;",
+      "everySessionEnds": "Κάθε συνεδρία τερματίζεται.",
+      "closeAll": "Κλείσιμο όλων",
+      "noActiveConnections": "Δεν υπάρχουν ενεργές συνδέσεις",
+      "pickAHostFromThe": "Επιλέξτε έναν υπολογιστή από τη λίστα για να ξεκινήσετε μια συνεδρία. Οι καρτέλες που ανοίγετε σε άλλες συσκευές εμφανίζονται επίσης εδώ.",
+      "connectToAHostTo": "Συνδεθείτε σε έναν υπολογιστή για να ξεκινήσετε μια συνεδρία. Οι καρτέλες που ανοίγετε σε άλλες συσκευές εμφανίζονται επίσης εδώ.",
+      "open": "Άνοιγμα",
+      "background": "Πίσω από το παρασκήνιο",
+      "sessionsFromOtherDevicesOr": "Συνεδρίες από άλλες συσκευές ή καρτέλες στο παρασκήνιο. Πατήστε για επαναφορά.",
+      "liveTapToReconnect": "Ενεργή, πατήστε για επανασύνδεση",
+      "tapToReopen": "Πατήστε για επαναφορά"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Αυτό είναι απενεργοποιημένο στον διακομιστή",
+      "comesBackHereWhenAn": "Το {{title}} θα εμφανιστεί ξανά εδώ όταν ένας διαχειριστής ενεργοποιήσει ξανά το πρόσθετό του.",
+      "closeTab": "Κλείσιμο καρτέλας"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Συνδέσεις",
+        "hideHostList": "Απόκρυψη λίστας υπολογιστών",
+        "showHostList": "Εμφάνιση λίστας υπολογιστών",
+        "backToHosts": "Επιστροφή στους υπολογιστές",
+        "showKeyboard": "Εμφάνιση πληκτρολογίου",
+        "hideKeyboard": "Απόκρυψη πληκτρολογίου",
+        "hideKeysPanel": "Απόκρυψη πάνελ κλειδιών",
+        "showKeysPanel": "Εμφάνιση πάνελ κλειδιών"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Πατήστε για επιλογές καρτέλας, κρατήστε πατημένο για μετακίνηση",
+        "holdToMove": "Κρατήστε πατημένο για μετακίνηση",
+        "close": "Κλείσιμο {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Αναμονή δικτύου",
+        "connectionFailed": "Αποτυχία σύνδεσης",
+        "reconnecting": "Επανασύνδεση"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Μετονομασία",
+      "newTabOnThisHost": "Νέα καρτέλα σε αυτόν τον υπολογιστή",
+      "here": "{{title}} εδώ",
+      "hidePanel": "Απόκρυψη πάνελ {{title}}",
+      "showPanel": "Εμφάνιση πάνελ {{title}}",
+      "endSplitView": "Τέλος διαιρεμένης προβολής",
+      "splitViewWith": "Διαιρεμένη προβολή με...",
+      "moveLeft": "Μετακίνηση αριστερά",
+      "moveRight": "Μετακίνηση δεξιά",
+      "closeTab": "Κλείσιμο καρτέλας",
+      "closeAllTabs": "Κλείσιμο όλων των καρτελών",
+      "closeAllTabs2": "Κλείσιμο όλων των {{count}} καρτελών;",
+      "everySessionEnds": "Κάθε συνεδρία λήγει.",
+      "closeAll": "Κλείσιμο όλων",
+      "splitViewWith2": "Διαιρεμένη προβολή με",
+      "renameTab": "Μετονομασία καρτέλας",
+      "leaveItEmptyToUse": "Αφήστε το κενό για να χρησιμοποιηθεί το όνομα του υπολογιστή."
+    },
+    "resizeHostList": "Αλλαγή μεγέθους λίστας υπολογιστών",
+    "resizeSplitView": "Αλλαγή μεγέθους διαιρεμένης προβολής",
+    "connections": "Συνδέσεις",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Επαλήθευση δύο παραγόντων",
+        "enterThe6DigitCode": "Εισάγετε τον 6ψήφιο κωδικό από την εφαρμογή επαλήθευσης.",
+        "cancel": "Ακύρωση",
+        "verify": "Επαλήθευση",
+        "codeExpiresInSGet": "Ο κωδικός λήγει σε {{totpCountdown}} δευτ., αποκτήστε έναν νέο κωδικό",
+        "warpgateAuthentication": "Επαλήθευση Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "Επιβεβαιώστε το URL επαλήθευσης Warpgate και το κλειδί ασφαλείας.",
+        "authenticate": "Επαλήθευση",
+        "warpgateUrl": "URL Warpgate",
+        "securityKeyOptional": "Κλειδί ασφαλείας (προαιρετικό)",
+        "authenticationRequired": "Απαιτείται Επαλήθευση",
+        "thisHostNeedsCredentialsTo": "Αυτός ο υπολογιστής απαιτεί διαπιστευτήρια για σύνδεση.",
+        "connect": "Σύνδεση",
+        "password": "Κωδικός πρόσβασης",
+        "sshKey": "Κλειδί SSH",
+        "pastePrivateKey": "Επικόλληση ιδιωτικού κλειδιού",
+        "keyPassphraseOptional": "Φράση κλειδιού (προαιρετικό)"
+      },
+      "connectionError": {
+        "tryAgain": "Δοκιμή ξανά",
+        "close": "Κλείσιμο",
+        "connectThroughTheServer": "Σύνδεση μέσω του διακομιστή",
+        "connectFromThis": "Σύνδεση από αυτή τη {{deviceWord}}",
+        "triedFromThis": "Δοκιμή από αυτή τη {{deviceWord}}",
+        "triedThroughTheServer": "Δοκιμή μέσω του διακομιστή"
+      },
+      "execGate": {
+        "connecting": "Σύνδεση..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Προέκυψε κάποιο πρόβλημα",
+        "retry": "Επανάληψη",
+        "refresh": "Ανανέωση",
+        "nothingToShow": "Δεν υπάρχει κάτι προς εμφάνιση"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Τα αρχεία καταγραφής αντιγράφηκαν",
+        "connectionLog": "Αρχείο καταγραφής σύνδεσης ({{count}})",
+        "copyLog": "Αντιγραφή αρχείου καταγραφής",
+        "waitingForConnection": "Αναμονή σύνδεσης…",
+        "noLogEntries": "Δεν υπάρχουν καταχωρίσεις αρχείου καταγραφής"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Αδυναμία αποθήκευσης του τρόπου σύνδεσης αυτού του host"
+      },
+      "useSessionConnect": {
+        "connected": "Συνδεδεμένος",
+        "connectingTo": "Σύνδεση στο {{name}}…",
+        "connectionLost": "Απώλεια σύνδεσης",
+        "failedToConnect": "Αποτυχία σύνδεσης",
+        "invalidCode": "Μη έγκυρος κωδικός",
+        "warpgateAuthenticationFailed": "Αποτυχία ελέγχου ταυτότητας Warpgate",
+        "authenticationCancelled": "Ο έλεγχος ταυτότητας ακυρώθηκε"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Αναζήτηση και εντολές",
+    "addHost": "Προσθήκη host",
+    "keyboardShortcuts": "Συντομεύσεις πληκτρολογίου",
+    "home": "Αρχική",
+    "hosts": "Hosts",
+    "sessions": "Ενότητες",
+    "tools": "Εργαλεία",
+    "settings": "Ρυθμίσεις",
+    "terminal": "Τερματικό",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Συντομεύσεις πληκτρολογίου"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Hosts και φακέλοι",
+      "yourHostsFoldersAndHosts": "Οι hosts, οι φακέλοι και οι hosts που μοιράστηκαν μαζί σας",
+      "credentials": "Στοιχεία ταυτότητας",
+      "savedPasswordsAndKeysAnd": "Αποθηκευμένοι κωδικοί πρόσβασης και κλειδιά, και στοιχεία ταυτότητας που μοιράστηκαν μαζί σας",
+      "snippets": "Αποσπάσματα",
+      "snippetsAndTheirFolders": "Αποσπάσματα και οι φακέλοι τους",
+      "hostDefaults": "Προεπιλογές host",
+      "defaultSettingsForNewHosts": "Προεπιλεγμένες ρυθμίσεις για νέους hosts",
+      "preferences": "Προτιμήσεις",
+      "settingsThatFollowYouBetween": "Ρυθμίσεις που σας ακολουθούν μεταξύ συσκευών"
+    },
+    "link": {
+      "noSuchServerAccount": "Δεν υπάρχει τέτοιος λογαριασμός διακομιστή",
+      "signInFirst": "Συνδεθείτε πρώτα.",
+      "thisServerAccountBelongsTo": "Αυτός ο λογαριασμός διακομιστή ανήκει στο {{value}}. Συνδεθείτε ως αυτός, ή προσθέστε ξανά τον διακομιστή για αυτόν τον χρήστη."
+    },
+    "reasons": {
+      "signedOut": "Αποσυνδεμένος",
+      "thisSSignInTo": "Η σύνδεση αυτής της {{deviceWord}} στον διακομιστή έληξε.",
+      "theServerEndedThisS": "Ο διακομιστής τερμάτισε την ενότητα αυτής της {{deviceWord}}. Ίσως αποσυνδέθηκε από μια άλλη συσκευή.",
+      "proxySignInNeeded": "Απαιτείται σύνδεση μέσω proxy",
+      "theProxyInFrontOf": "Το proxy μπροστά από αυτόν τον διακομιστή ζητά να συνδεθείτε ξανά.",
+      "proxyPasswordNeeded": "Απαιτείται κωδικός πρόσβασης proxy",
+      "theProxyInFrontOf2": "Το proxy μπροστά από αυτόν τον διακομιστή ζήτησε τον κωδικό πρόσβασής του.",
+      "certificateRefused": "Μη αποδεκτό πιστοποιητικό",
+      "theServerDidNotAccept": "Ο διακομιστής δεν δέχτηκε το πιστοποιητικό αυτής της {{deviceWord}}.",
+      "untrustedServer": "Μη αξιόπιστος διακομιστής",
+      "theServerSCertificateIs": "Το πιστοποιητικό του διακομιστή δεν εμπιστεύεται από αυτή τη {{deviceWord}}.",
+      "serverKeyChanged": "Το κλειδί του διακομιστή άλλαξε",
+      "theServerShowsAnotherKey": "Ο διακομιστής εμφανίζει διαφορετικό κλειδί από αυτό που έχει οριστεί για αυτόν. Αν άλλαξε το πιστοποιητικό του, ορίστε το νέο κλειδί.",
+      "offline": "Εκτός σύνδεσης",
+      "canTReachTheServer": "Δεν είναι δυνατή η επικοινωνία με τον διακομιστή. Η συγχρονισμένη σύνδεση θα ξαναπροσπαθήσει σύντομα.",
+      "serverProblem": "Πρόβλημα διακομιστή",
+      "theServerHadAProblem": "Ο διακομιστής είχε πρόβλημα. Η συγχρονισμένη σύνδεση θα ξαναπροσπαθήσει σύντομα.",
+      "updateNeeded": "Απαιτείται ενημέρωση",
+      "thisServerUsesANewer": "Αυτός ο διακομιστής χρησιμοποιεί νεότερη έκδοση συγχρονισμού. Ενημερώστε την εφαρμογή.",
+      "notATermixServer": "Δεν είναι διακομιστής Termix",
+      "theAddressDoesNotAnswer": "Η διεύθυνση δεν ανταποκρίνεται όπως θα έπρεπε ένας διακομιστής Termix.",
+      "syncIsOff": "Ο συγχρονισμός είναι απενεργοποιημένος",
+      "theSyncPluginIsOff": "Το πρόσθετο Sync είναι απενεργοποιημένο σε αυτόν τον διακομιστή. Ζητήστε από έναν διαχειριστή να το ενεργοποιήσει στα Προσθέματα.",
+      "differentUser": "Διαφορετικός χρήστης",
+      "youSignedInAsA": "Συνδεθήκατε ως διαφορετικός χρήστης από αυτόν που ανήκει σε αυτόν τον λογαριασμό διακομιστή.",
+      "syncStopped": "Ο συγχρονισμός σταμάτησε",
+      "somethingWentWrong": "Κάτι πήγε στραβά.",
+      "signInAgain": "Συνδεθείτε ξανά",
+      "signInToTheProxy": "Συνδεθείτε στον proxy",
+      "enterThePassword": "Εισάγετε τον κωδικό πρόσβασης",
+      "tryAgain": "Δοκιμάστε ξανά",
+      "checkThePin": "Ελέγξτε το pin",
+      "checkForUpdates": "Έλεγχος για ενημερώσεις",
+      "pickACertificate": "Επιλέξτε πιστοποιητικό"
+    },
+    "settings": {
+      "noSuchSetting": "Δεν υπάρχει αυτή η ρύθμιση",
+      "snippetFolder": "Φάκελος αποσπασμάτων",
+      "hostDefault": "Προεπιλογή υποδοχής"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Ο διακομιστής δεν δέχτηκε το πιστοποιητικό αυτής της {{deviceWord}}.",
+      "theServerSCertificateIs": "Το πιστοποιητικό του διακομιστή δεν εμπιστεύεται.",
+      "canTReachTheServer": "Δεν είναι δυνατή η επικοινωνία με τον διακομιστή.",
+      "signedOut": "Αποσυνδεθήκατε",
+      "theProxyAskedForIts": "Ο proxy ζήτησε τον κωδικό πρόσβασής του.",
+      "theProxyWantsYouTo": "Ο proxy θέλει να συνδεθείτε.",
+      "theSyncPluginIsOff": "Το πρόσθετο Sync είναι απενεργοποιημένο σε αυτόν τον διακομιστή.",
+      "serverError": "Σφάλμα διακομιστή {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Ο διακομιστής εμφανίζει διαφορετικό κλειδί από αυτό που έχει οριστεί."
+    },
+    "remote": {
+      "thisIsNotATermix": "Αυτός δεν είναι διακομιστής Termix.",
+      "theProxyWantsYouTo": "Ο proxy θέλει να συνδεθείτε.",
+      "thisServerUsesANewer": "Αυτός ο διακομιστής χρησιμοποιεί νεότερη έκδοση συγχρονισμού. Ενημερώστε την εφαρμογή."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} υποδοχή",
+      "hostCount_other": "{{count}} υποδοχές",
+      "credentialCount_one": "{{count}} διαπιστευτήριο",
+      "credentialCount_other": "{{count}} διαπιστευτήρια",
+      "snippetCount_one": "{{count}} απόσπασμα",
+      "snippetCount_other": "{{count}} αποσπάσματα",
+      "folderCount_one": "{{count}} φάκελος",
+      "folderCount_other": "{{count}} φάκελοι",
+      "nothingYet": "τίποτα ακόμα",
+      "listAnd": "{{list}} και {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Δεν είναι δυνατή η σύνδεση.",
+      "connectingToFromThis": "Σύνδεση με το {{name}} από αυτή την {{deviceWord}}",
+      "connectingToThroughTheServer": "Σύνδεση με το {{name}} μέσω του διακομιστή",
+      "reconnectingTry": "Επανασύνδεση (προσπάθεια {{retry}})",
+      "disconnected": "Αποσυνδεμένο",
+      "connected": "Συνδεδεμένο",
+      "reconnectedToTheSameSession": "Επανασύνδεση στην ίδια συνεδρία",
+      "reconnectedWithANewShell": "Επανασύνδεση με νέο shell",
+      "couldNotReachTheHost": "Δεν ήταν δυνατή η πρόσβαση στην υποδοχή από αυτή την {{deviceWord}}, δοκιμή μέσω του διακομιστή",
+      "couldNotConnectThroughThe": "Δεν ήταν δυνατή η σύνδεση μέσω του διακομιστή, δοκιμή από αυτή την {{deviceWord}}",
+      "connectionLost": "Απώλεια σύνδεσης: {{reason}}",
+      "offlineWaitingForTheNetwork": "Εκτός σύνδεσης, αναμονή για το δίκτυο",
+      "nextTryInS": "Επόμενη προσπάθεια σε {{value}} δευτ.",
+      "reconnectingTry2": "Επανασύνδεση (προσπάθεια {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Η υποδοχή σταμάτησε να ανταποκρίνεται",
+      "networkLost": "Απώλεια δικτύου",
+      "network": "Δίκτυο: {{type}}{{value}}",
+      "lowPowerModeOn": "Η λειτουργία χαμηλής κατανάλωσης είναι ενεργή",
+      "lowPowerModeOff": "Η λειτουργία χαμηλής κατανάλωσης είναι ανενεργή",
+      "droppedTypedCharacters": "Αρ. χαρακτήρων που παραλείφθηκαν: {{count}}",
+      "youDidNotTrustThe": "Δεν εμπιστεύεστε το κλειδί του host.",
+      "checkTheKeyWithWhoever": "Επαληθεύστε το κλειδί με τον διαχειριστή του host και προσπαθήστε ξανά.",
+      "loginCancelled": "Η σύνδεση ακυρώθηκε.",
+      "connectAgainWhenYouAre": "Συνδεθείτε ξανά όταν είστε έτοιμοι.",
+      "typedInputIsOver64": "Η πληκτρολογημένη είσοδος ξεπερνά τα 64 KB· το παλαιότερο μέρος παραλείφθηκε",
+      "appInTheBackground": "Η εφαρμογή βρίσκεται στο παρασκήνιο",
+      "appInTheForeground": "Η εφαρμογή βρίσκεται στο προσκήνιο",
+      "thisConnectionCanTRun": "Αυτή η σύνδεση δεν μπορεί να εκτελέσει εντολές"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Ελέγξτε τη διεύθυνση και τη θύρα, καθώς και ότι ο διακομιστής μπορεί να φτάσει το host.",
+      "checkTheAddressAndPort2": "Ελέγξτε τη διεύθυνση και τη θύρα, καθώς και ότι αυτή η {{deviceWord}} μπορεί να φτάσει το host.",
+      "checkTheProxySettingsOf": "Ελέγξτε τις ρυθμίσεις proxy αυτού του host.",
+      "checkTheKeyWithWhoever": "Επαληθεύστε το κλειδί με τον διαχειριστή του host πριν το εμπιστευτείτε.",
+      "checkTheUsernameAndLogin": "Ελέγξτε το όνομα χρήστη και τα στοιχεία σύνδεσης στον επεξεργαστή host.",
+      "checkThatTheServerIs": "Βεβαιωθείτε ότι ο διακομιστής είναι ενεργός και ότι είστε συνδεδεμένοι.",
+      "tryAgainIfItKeeps": "Δοκιμάστε ξανά. Αν η σύνδεση συνεχίζει να διακόπτεται, ελέγξτε το δίκτυο.",
+      "connectAgainWhenYouAre": "Συνδεθείτε ξανά όταν είστε έτοιμοι.",
+      "pickAnotherWayToConnect": "Επιλέξτε έναν άλλο τρόπο σύνδεσης για αυτό το host.",
+      "connectThisHostThroughA": "Συνδεθείτε σε αυτό το host μέσω ενός διακομιστή Termix.",
+      "pickTheJumpHostsAgain": "Επιλέξτε ξανά τους jump hosts στον επεξεργαστή host.",
+      "thisIsATailscaleAddress": "Αυτή είναι μια διεύθυνση Tailscale. Βεβαιωθείτε ότι το Tailscale είναι συνδεδεμένο σε αυτή την {{deviceWord}}.",
+      "theSavedKeyCanT": "Το αποθηκευμένο κλειδί δεν μπορεί να διαβαστεί. Επικολλήστε το ξανά στον επεξεργαστή host.",
+      "signInToThisServer": "Συνδεθείτε ξανά σε αυτόν τον διακομιστή.",
+      "openThisHostInThe": "Ανοίξτε αυτό το host στην εφαρμογή web του Termix.",
+      "canTConnectThisWay": "Δεν είναι δυνατή η σύνδεση με αυτόν τον τρόπο",
+      "couldNotReachTheHost": "Δεν ήταν δυνατή η πρόσβαση στο host",
+      "theProxyDidNotLet": "Το proxy δεν επέτρεψε τη σύνδεση",
+      "theHostKeyWasNot": "Το κλειδί του host δεν εμπιστεύτηκε",
+      "theLoginWasRefused": "Η σύνδεση απορρίφθηκε",
+      "theTermixServerDidNot": "Ο διακομιστής Termix δεν απάντησε",
+      "theConnectionDropped": "Η σύνδεση διακόπηκε",
+      "loginCancelled": "Η σύνδεση ακυρώθηκε"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH agent",
+        "thisHostSignsInWith": "Αυτό το host συνδέεται με «{{authType}}», το οποίο απαιτεί διακομιστή Termix. Συνδέστε έναν για να προχωρήσετε.",
+        "thisHostUsesA1password": "Αυτό το host χρησιμοποιεί αναφορά 1Password, η οποία απαιτεί διακομιστή Termix με Secret Sources. Συνδέστε έναν και συνδεθείτε σε αυτό το host μέσω αυτού.",
+        "signInWithFirstOpen": "Συνδεθείτε πρώτα με {{title}}. Ανοίξτε μια κονσόλα σε αυτό το host μία φορά και προσπαθήστε ξανά.",
+        "theSignInAndThe": "η σύνδεση και το πιστοποιητικό βρίσκονται στον διακομιστή",
+        "theHasNoSshAgent": "η {{deviceWord}} δεν έχει SSH agent",
+        "needsATermixServerBecause": "Το {{title}} απαιτεί διακομιστή Termix επειδή {{why}}. Συνδέστε έναν και συνδεθείτε σε αυτό το host μέσω αυτού."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Ένας jump host αυτού του host δεν υπάρχει πλέον."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Η σύνδεση διακόπηκε",
+        "theShellChannelClosed": "Ο κανάλι shell έκλεισε",
+        "jumpHost": "Jump host {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Μη έγκυρος κωδικός, δοκιμάστε ξανά:",
+        "authenticationFailed": "Αποτυχία ελέγχου ταυτότητας: {{message}}",
+        "theHostKeyWasNot": "Το κλειδί του host δεν εμπιστεύτηκε.",
+        "loginCancelled": "Η σύνδεση ακυρώθηκε.",
+        "notConnected": "Μη συνδεδεμένο",
+        "signingInAs": "Σύνδεση ως {{user}} με {{method}}",
+        "methodKey": "ένα κλειδί",
+        "methodPassword": "έναν κωδικό πρόσβασης",
+        "methodNone": "χωρίς αποθηκευμένη σύνδεση"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Η σύνδεση διακόπηκε"
+      },
+      "thisBuildHasNoSsh": "Αυτή η έκδοση δεν διαθέτει μηχανισμό SSH. Χρησιμοποιήστε την εφαρμογή από το κατάστημα ή συνδέστε έναν διακομιστή Termix για να συνδεθείτε.",
+      "theHostsOnThisAre": "Τα hosts σε αυτή την {{deviceWord}} δεν είναι ακόμη διαθέσιμα.",
+      "thisServerSHostsAre": "Τα hosts αυτού του διακομιστή δεν βρίσκονται σε αυτή την {{deviceWord}}. Ενεργοποιήστε το πρόσθετο Sync στον διακομιστή για να συνδεθείτε από την {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Η αποθηκευμένη σύνδεση για αυτόν τον host δεν βρίσκεται σε αυτήν την {{deviceWord}}, οπότε μόνο ο διακομιστής μπορεί να συνδεθεί"
+      }
+    },
+    "origin": {
+      "canTConnect": "Δεν είναι δυνατή η σύνδεση.",
+      "canTConnectFromThe": "Δεν είναι δυνατή η σύνδεση από αυτή την {{deviceWord}}.",
+      "canTReachTheServer": "Δεν είναι δυνατή η πρόσβαση στον διακομιστή.",
+      "theOnlyConnectsToSsh": "Η {{deviceWord}} συνδέεται μόνο με hosts SSH και Telnet.",
+      "connectThisHostThroughThe": "Σύνδεση με αυτόν τον host μέσω του server",
+      "connectThisHostFromThe": "Σύνδεση με αυτόν τον host από την {{deviceWord}}",
+      "termixServer": "Server Termix",
+      "usesThisWhenItCan": "Χρησιμοποιεί αυτήν την {{deviceWord}} όταν μπορεί να φτάσει τον host, αλλιώς τον server.",
+      "thisConnectsToTheHost": "Αυτή η {{deviceWord}} συνδέεται απευθείας με τον host.",
+      "theTermixServerConnectsTo": "Ο server Termix συνδέεται με τον host για εσάς.",
+      "anSshConnection": "μια σύνδεση SSH",
+      "aTermixServer": "ένας server Termix",
+      "aConnectionFromThe": "μια σύνδεση από την {{deviceWord}}",
+      "isOffOnThisServer": "Το {{title}} είναι απενεργοποιημένο σε αυτόν τον server. {{how}} για να το χρησιμοποιήσετε.",
+      "isOffOnThisServer2": "Το {{title}} είναι απενεργοποιημένο σε αυτόν τον server.",
+      "anotherWayToConnect": "ένας άλλος τρόπος σύνδεσης",
+      "needsToUseIt": "Το {{title}} χρειάζεται {{what}}. {{how}} για να το χρησιμοποιήσετε.",
+      "needsWhichThisHostCan": "Το {{title}} χρειάζεται {{what}}, το οποίο δεν μπορεί να χρησιμοποιήσει αυτός ο host αυτή τη στιγμή.",
+      "thisDevice": "Αυτή η {{deviceWord}}",
+      "automatic": "Αυτόματο"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Έχετε αποσυνδεθεί από αυτόν τον server. Συνδεθείτε για να περάσετε από αυτόν.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "Το tmux δεν είναι εγκατεστημένο σε αυτόν τον host. Χρήση απλού shell.",
+        "tapRetryToBringIt": "Πατήστε Επανάληψη για να το επαναφέρετε εδώ.",
+        "thisSessionWasOpenedOn": "Αυτή η συνεδρία άνοιξε σε άλλη συσκευή",
+        "noServerUrlFoundLink": "Δεν βρέθηκε URL server. Συνδέστε ξανά τον server.",
+        "signedOutOfThisServer": "Αποσυνδεθήκατε από αυτόν τον server. Συνδεθείτε ξανά.",
+        "signInWithInYour": "Συνδεθείτε με το {{title}} στον browser σας. Αυτό θα κλείσει όταν ολοκληρωθεί.",
+        "theSocketClosedWhileThe": "Το socket έκλεισε ενώ η εφαρμογή ήταν στο παρασκήνιο",
+        "noWebsocketUrlAvailableServer": "Δεν υπάρχει διαθέσιμο URL WebSocket - ο server δεν έχει ρυθμιστεί",
+        "connectionTimeoutServerNotResponding": "Λήξη χρονικού ορίου σύνδεσης - ο server δεν απαντά",
+        "verificationCode": "Κώδικας επαλήθευσης:",
+        "hostKeyVerificationRequiredBut": "Απαιτείται επαλήθευση κλειδιού host αλλά δεν έχει καταχωρηθεί χειριστής",
+        "hostKeyChangedButNo": "Το κλειδί host άλλαξε αλλά δεν έχει καταχωρηθεί χειριστής",
+        "thisHostNeedsASign": "Αυτός ο host χρειάζεται είσοδο που υποστηρίζεται μόνο από την web εφαρμογή",
+        "invalidCodeTryAgain": "Μη έγκυρος κώδικας, δοκιμάστε ξανά:",
+        "unknownError": "Άγνωστο σφάλμα",
+        "connectionClosed": "Η σύνδεση έκλεισε",
+        "connectionClosed2": "Η σύνδεση έκλεισε ({{code}})",
+        "theServerClosedTheConnection": "Ο server έκλεισε τη σύνδεση",
+        "theSocketClosed": "Το socket έκλεισε ({{code}})",
+        "signIn": "Είσοδος {{title}}",
+        "signInFailed": "Αποτυχία εισόδου {{title}}",
+        "isNotSetUpOn": "Το {{title}} δεν έχει ρυθμιστεί στον server",
+        "signInTimedOut": "Λήξη χρονικού ορίου εισόδου {{title}}",
+        "authenticationFailed": "Αποτυχία ελέγχου ταυτότητας: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Αποθηκεύστε τον host και συνδεθείτε μαζί του για να τον ελέγξετε.",
+      "loggedInAsOn": "Συνδεθήκατε ως {{username}} στο {{host}}",
+      "theHostAskedForMore": "Ο host ζήτησε περισσότερα από έναν κωδικό, όπως έναν κωδικό επαλήθευσης. Αποθηκεύστε τον host και συνδεθείτε για να ολοκληρώσετε την είσοδο."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Αναμονή για δίκτυο",
+      "couldNotOpenTheTunnel": "Αδυναμία ανοίγματος του tunnel",
+      "theConnectionDropped": "Η σύνδεση διακόπηκε",
+      "iosStoppedThisTunnelWhile": "Το iOS σταμάτησε αυτό το tunnel ενώ η εφαρμογή ήταν στο παρασκήνιο. Ξεκινήστε το ξανά για να το ανοίξετε.",
+      "connecting": "Σύνδεση",
+      "connected": "Συνδεδεμένο",
+      "retrying": "Επανάληψη",
+      "waiting": "Αναμονή",
+      "failed": "Αποτυχία"
+    },
+    "gateways": {
+      "error": "Σφάλμα",
+      "gateways": "Πύλες",
+      "gatewaysCanOnlyBeChanged": "Οι πύλες μπορούν να αλλάξουν μόνο στο Termix στο web.",
+      "noHandshake": "Χωρίς χειραψία",
+      "rulesMissing": "Λείπουν κανόνες",
+      "up": "Ενεργό",
+      "pending": "Περίμενε",
+      "applying": "Εφαρμογή",
+      "down": "Κατεβασμένο",
+      "unreachable": "Μη προσβάσιμο"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Δεν υπάρχουν σήραγγες ακόμα. Προσθέστε μία για να προωθήσετε μια θύρα από τον τελικό υπολογιστή σε αυτόν τον υπολογιστή.",
+      "tunnel": "Σήραγγα {{value}}",
+      "removeTunnel": "Αφαίρεση σήραγγας {{value}}",
+      "mode": "Λειτουργία",
+      "local": "Τοπική",
+      "remote": "Απομακρυσμένη",
+      "dynamic": "Δυναμική",
+      "targetHost": "Στόχος υπολογιστή",
+      "onThisHostForTunnels": "Σε αυτόν τον υπολογιστή, για σήραγγες που εκτελεί η {{deviceWord}}",
+      "bindHost": "Δέσμευση υπολογιστή",
+      "endpointHost": "Τελικός υπολογιστής",
+      "addAnotherHostFirstTunnels": "Προσθέστε πρώτα έναν άλλο υπολογιστή. Οι σήραγγες περνούν μέσω ενός αποθηκευμένου υπολογιστή.",
+      "sourcePort": "Πηγή θύρας",
+      "endpointPort": "Τελική θύρα",
+      "maxRetries": "Μέγιστες επαναλήψεις",
+      "retryEveryS": "Επανάληψη κάθε (δευτ.)",
+      "startOnItsOwn": "Έναρξη από μόνη της",
+      "addTunnel": "Προσθήκη σήραγγας",
+      "tunnelNeedsPortsFrom1": "Η σήραγγα {{value}} χρειάζεται θύρες από 1 έως 65535"
+    },
+    "register": {
+      "tunnels": "Σήραγγες",
+      "startAndStopSavedTunnels": "Έναρξη και διακοπή αποθηκευμένων σηράγγων",
+      "tunnel": "ΣΗΡΑΓΓΑ",
+      "tunnel2": "Σήραγγα"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Τοπικό άκρο αντιγράφηκε",
+      "tunnel": "Σήραγγα | {{sourcePort}}",
+      "portMapping": "Αντιστοίχιση Θύρας",
+      "connect": "Σύνδεση",
+      "disconnect": "Αποσύνδεση",
+      "cancel": "Ακύρωση",
+      "connected": "Συνδεδεμένο",
+      "connecting": "Σύνδεση",
+      "disconnecting": "Αποσύνδεση",
+      "error": "Σφάλμα",
+      "retrying": "Επανάληψη ({{value}}/{{value2}})",
+      "waitingS": "Περιμένει {{value}}δ",
+      "waiting": "Περιμένει",
+      "disconnected": "Αποσυνδεδεμένο"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Έναρξη σήραγγας στη θύρα {{sourcePort}}",
+      "connectingTunnelOnPort": "Σύνδεση σήραγγας στη θύρα {{sourcePort}}",
+      "disconnectingPort": "Αποσύνδεση θύρας {{sourcePort}}",
+      "cancellingPort": "Ακύρωση θύρας {{sourcePort}}",
+      "failedToTunnel": "Αποτυχία {{action}} σήραγγας",
+      "tunnels": "Σήραγγες | {{count}} | {{value}}",
+      "loadingTunnels": "Φόρτωση σηράγγων…",
+      "noSshTunnelsConfiguredFor": "Δεν έχουν οριστεί σήραγγες SSH για αυτόν τον υπολογιστή. Προσθέστε σήραγγες από τη φόρμα του υπολογιστή.",
+      "runOn": "Εκτέλεση σε",
+      "server": "Διακομιστής",
+      "this": "Αυτή η {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Οι σήραγγες σε αυτήν την {{deviceWord}} σταματούν όταν κλείνει η εφαρμογή. Στο iOS σταματούν επίσης σύντομα μετά την είσοδο της εφαρμογής στο παρασκήνιο.",
+      "failedToFetchTunnelStatuses": "Αποτυχία ανάκτησης καταστάσεων σηράγγων",
+      "thisBuildCanTOpen": "Αυτή η έκδοση δεν μπορεί να ανοίξει σήραγγες στην {{deviceWord}}.",
+      "sourceHostNotFound": "Δεν βρέθηκε πηγή υπολογιστή",
+      "endpointHostNotFound": "Δεν βρέθηκε τελικός υπολογιστής: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Σήραγγες",
+      "tunnelCount_one": "{{count}} σήραγγα",
+      "tunnelCount_other": "{{count}} σήραγγες",
+      "runningOnServer": "{{connected}} εκτελούνται στον διακομιστή"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Εργαλεία Στοιχείων Επαλήθευσης"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Το Docker δεν είναι εγκατεστημένο σε αυτόν τον υπολογιστή.",
+        "dockerDidNotAnswer": "Το Docker δεν απάντησε",
+        "thatIsNotAValid": "Αυτό δεν είναι έγκυρο όνομα στοίβας"
+      }
+    },
+    "containerDetail": {
+      "stop": "Διακοπή",
+      "start": "Έναρξη",
+      "restart": "Επανεκκίνηση",
+      "remove": "Αφαίρεση",
+      "logs": "Καταγραφές",
+      "stats": "Στατιστικά",
+      "console": "Κονσόλα",
+      "logsCopied": "Οι καταγραφές αντιγράφηκαν",
+      "copy": "Αντιγραφή",
+      "containerIsNotRunningNo": "Το περιβάλλον εκτέλεσης δεν εκτελείται, δεν υπάρχουν ζωντανά στατιστικά.",
+      "cpu": "CPU",
+      "memory": "Μνήμη",
+      "networkIO": "Ε/Ε δικτύου",
+      "blockIO": "Ε/Ε μπλοκ",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Αποτυχία φόρτωσης καταγραφών",
+      "failedToLoadStats": "Αποτυχία φόρτωσης στατιστικών",
+      "noOutput": "(καμία έξοδος)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Σύνδεση με το Docker...",
+    "remove": "Αφαίρεση του {{name}};",
+    "stop": "Διακοπή του {{name}};",
+    "theContainerIsStoppedAnd": "Το περιβάλλον εκτέλεσης σταμάτησε και διαγράφηκε. Τα όγκοι του παραμένουν.",
+    "anythingRunningInItStops": "Ό,τι εκτελείται μέσα σε αυτό σταματά.",
+    "remove2": "Αφαίρεση",
+    "stop2": "Διακοπή",
+    "dockerThis": "Docker | αυτό το {{deviceWord}}",
+    "lookingForDocker": "Αναζήτηση για Docker...",
+    "dockerIsNotAvailableOn": "Το Docker δεν είναι διαθέσιμο σε αυτόν τον υπολογιστή.",
+    "noContainersFound": "Δεν βρέθηκαν περιβάλλοντα εκτέλεσης",
+    "noContainersMatchYourFilters": "Κανένα περιβάλλον εκτέλεσης δεν ταιριάζει με τα φίλτρα σας",
+    "useSudo": "Χρήση sudo",
+    "refresh": "Ανανέωση",
+    "containers": "Περιβάλλοντα εκτέλεσης",
+    "stacks": "Στοίβες",
+    "searchContainers": "Αναζήτηση περιβαλλόντων εκτέλεσης...",
+    "all": "Όλα",
+    "running": "Ενεργά",
+    "stopped": "Σταματημένα",
+    "start": "Έναρξη",
+    "restart": "Επανεκκίνηση",
+    "pause": "Παύση",
+    "unpause": "Συνέχεια",
+    "moreActions": "Περισσότερες ενέργειες",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Το Docker δεν απάντησε",
+      "docker": "Docker",
+      "noContainers": "Κανένα περιβάλλον εκτέλεσης"
+    },
+    "dockerConsole": {
+      "attachingTo": "Σύνδεση με το {{name}}...",
+      "consoleDisconnected": "Η κονσόλα αποσυνδέθηκε",
+      "reconnect": "Επανασύνδεση",
+      "failedToLoadTheConsole": "Αποτυχία φόρτωσης της κονσόλας",
+      "thisSessionHasNoServer": "Αυτή η συνεδρία δεν έχει διακομιστή"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Περιβάλλοντα εκτέλεσης, καταγραφές και στατιστικά"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Οι στοίβες είναι απενεργοποιημένες σε αυτόν τον διακομιστή.",
+      "couldNotLoadStacks": "Αδυναμία φόρτωσης στοίβων",
+      "noStacks": "Δεν υπάρχουν stacks",
+      "composeProjectsOnThisHost": "Τα Compose projects σε αυτόν τον host εμφανίζονται εδώ.",
+      "ofRunning": "{{running}} από {{total}} εκτελούνται",
+      "couldNotLoadTheStack": "Αδυναμία φόρτωσης του stack",
+      "services": "Υπηρεσίες",
+      "nothingIsRunning": "Τίποτα δεν εκτελείται.",
+      "composeFile": "Αρχείο Compose",
+      "partlyUp": "μερικώς ενεργό",
+      "notDeployed": "δεν έχει αναπτυχθεί",
+      "running": "εκτελείται",
+      "stopped": "σταματημένο",
+      "paused": "παύση"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Αυτό δεν είναι έγκυρο container id",
+      "consoleFailed": "Αποτυχία κονσόλας",
+      "notAuthenticated": "Μη εγκεκριμένο",
+      "consoleError": "Σφάλμα κονσόλας",
+      "connectionFailed": "Αποτυχία σύνδεσης"
+    },
+    "dockerDidNotAnswer": "Το Docker δεν απάντησε",
+    "failedToLoadContainers": "Αποτυχία φόρτωσης containers",
+    "failedTo": "Αποτυχία {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Ο server δεν έστειλε αρχείο",
+        "cancelled": "Ακυρώθηκε",
+        "isGone": "Το {{path}} έχει χαθεί",
+        "canTGoToThe": "Το {{name}} δεν μπορεί να πάει στον κάδο απορριμμάτων"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Μη έγκυρο id στοιχείου κάδου απορριμμάτων",
+        "invalidTrashMetadata": "Μη έγκυρα metadata κάδου απορριμμάτων",
+        "thisPathCanTBe": "Αυτή η διαδρομή δεν μπορεί να μετακινηθεί στον κάδο απορριμμάτων",
+        "aFileAlreadyExistsAt": "Υπάρχει ήδη αρχείο στην αρχική διαδρομή"
+      },
+      "sftp": {
+        "commandFailed": "Αποτυχία εντολής: {{command}}",
+        "alreadyExists": "Το {{name}} υπάρχει ήδη",
+        "alreadyExistsThere": "Το {{path}} υπάρχει ήδη εκεί",
+        "canTGoToThe": "Το {{name}} δεν μπορεί να πάει στον κάδο απορριμμάτων: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Η κονσόλα δεν είναι ανοιχτή πια",
+      "clearHistory": "Εκκαθάριση ιστορικού",
+      "stopFollowingTheTerminal": "Διακοπή παρακολούθησης της κονσόλας",
+      "followTheTerminal": "Παρακολούθηση της κονσόλας",
+      "goToTheTerminalS": "Μετάβαση στον φάκελο της κονσόλας",
+      "cdTheTerminalHere": "cd την κονσόλα εδώ",
+      "folderHistory": "Ιστορικό φακέλων",
+      "mostUsedFirstThenRecent": "Πρώτα τα πιο χρησιμοποιημένα, μετά τα πρόσφατα",
+      "noFoldersYet": "Δεν υπάρχουν φάκελοι ακόμα"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Αδυναμία σύνδεσης.",
+        "couldNotSaveHowThis": "Αδυναμία αποθήκευσης του τρόπου σύνδεσης αυτού του host",
+        "thisWayCanTOpen": "Αυτός ο τρόπος δεν μπορεί να ανοίξει αρχεία"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Αδυναμία ανοίγματος αυτού του φακέλου",
+      "cancel": "Ακύρωση",
+      "noFoldersHere": "Δεν υπάρχουν φάκελοι εδώ"
+    },
+    "couldNotOpenThisFolder": "Αδυναμία ανοίγματος αυτού του φακέλου",
+    "couldNotSaveToThe": "Αδυναμία αποθήκευσης στον φάκελο",
+    "failed": "Αποτυχία {{label}}",
+    "uploading": "Μεταφόρτωση {{name}}",
+    "uploadingFiles": "Μεταφόρτωση {{count}} αρχείων",
+    "downloadingToFilesOnMy": "Λήψη στα Files, On My iPhone, Termix",
+    "downloading": "Λήψη {{name}}",
+    "downloadingFiles": "Λήψη {{count}} αρχείων",
+    "openALargeFile": "Άνοιγμα μεγάλου αρχείου;",
+    "isBigForAEditor": "Το {{name}} είναι μεγάλο για έναν {{deviceWord}} editor. Μπορεί να είναι αργό.",
+    "open": "Άνοιγμα",
+    "thisLooksLikeABinary": "Αυτό μοιάζει με binary αρχείο",
+    "openItInAnotherApp": "Να το ανοίξετε σε άλλη εφαρμογή;",
+    "openWith": "Άνοιγμα με",
+    "tooBigForTheEditor": "Πολύ μεγάλο για τον επεξεργαστή",
+    "isOver10MbDownload": "Το {{name}} είναι πάνω από 10 MB. Να το κατεβάσετε αντί για αυτό;",
+    "download": "Λήψη",
+    "delete": "Διαγραφή {{what}};",
+    "moveToTheTrash": "Μεταφορά {{what}} στον κάδο απορριμμάτων;",
+    "thisCanTBeUndone": "Αυτό δεν μπορεί να αναιρεθεί.",
+    "youCanRestoreItFrom": "Μπορείτε να το αποκαταστήσετε από τον κάδο απορριμμάτων.",
+    "delete2": "Διαγραφή",
+    "moveToTrash": "Μεταφορά στον κάδο",
+    "deleteForGood": "Οριστική διαγραφή;",
+    "deleteItForGoodInstead": "{{message}}. Να γίνει οριστική διαγραφή αντί για αυτό; Αυτό δεν μπορεί να αναιρεθεί.",
+    "deleteFailed": "Η διαγραφή απέτυχε",
+    "connectingThroughTheServer": "Σύνδεση μέσω του διακομιστή...",
+    "connectingFromThis": "Σύνδεση από αυτήν την {{deviceWord}}...",
+    "connecting": "Σύνδεση...",
+    "edit": "Επεξεργασία",
+    "downloadFolder": "Λήψη φακέλου",
+    "share": "Κοινοποίηση",
+    "rename": "Μετονομασία",
+    "copyTo": "Αντιγραφή σε",
+    "moveTo": "Μεταφορά σε",
+    "cut": "Αποκοπή",
+    "copy": "Αντιγραφή",
+    "permissions": "Άδειες",
+    "properties": "Ιδιότητες",
+    "makeALinkHere": "Δημιουργία συνδέσμου εδώ",
+    "copyPath": "Αντιγραφή διαδρομής",
+    "pathCopied": "Η διαδρομή αντιγράφηκε",
+    "done": "Ολοκληρώθηκε",
+    "selectAll": "Επιλογή όλων",
+    "filterByName": "Φιλτράρισμα ανά όνομα",
+    "closeSearch": "Κλείσιμο αναζήτησης",
+    "search": "Αναζήτηση",
+    "changeSort": "Αλλαγή ταξινόμησης",
+    "paste": "Επικόλληση {{count}}",
+    "upload": "Ανέβασμα",
+    "transfers2": "Μεταφορές",
+    "more": "Περισσότερα",
+    "nothingMatches": "Κανένα αποτέλεσμα",
+    "emptyFolder": "Άδειος φάκελος",
+    "uploadFilesOrMakeA": "Ανεβάστε αρχεία ή δημιουργήστε ένα νέο.",
+    "newFolder": "Νέος φάκελος",
+    "newFile": "Νέο αρχείο",
+    "select": "Επιλογή",
+    "hideHiddenFiles": "Απόκρυψη κρυφών αρχείων",
+    "showHiddenFiles": "Εμφάνιση κρυφών αρχείων",
+    "trash": "Κάδος απορριμμάτων",
+    "folderProperties": "Ιδιότητες φακέλου",
+    "refresh": "Ανανέωση",
+    "rename2": "Μετονομασία {{name}}",
+    "newLink": "Νέος σύνδεσμος",
+    "aLinkInThatPoints": "Ένας σύνδεσμος στο {{path}} που δείχνει στο {{path2}}",
+    "name": "Όνομα",
+    "create": "Δημιουργία",
+    "copyHere": "Αντιγραφή εδώ",
+    "moveHere": "Μεταφορά εδώ",
+    "fileViewer": {
+      "saved": "Αποθηκεύτηκε {{name}}",
+      "couldNotSaveTheFile": "Αδυναμία αποθήκευσης του αρχείου",
+      "discardChanges": "Απόρριψη αλλαγών;",
+      "hasChangesThatAreNot": "{{name}} έχει αλλαγές που δεν έχουν αποθηκευτεί.",
+      "discard": "Απόρριψη",
+      "readOnly": "{{path}} | μόνο για ανάγνωση",
+      "find": "Εύρεση",
+      "smallerText": "Μικρότερο κείμενο",
+      "biggerText": "Μεγαλύτερο κείμενο",
+      "turnOffLineWrap": "Απενεργοποίηση περιτύλιξης γραμμών",
+      "wrapLines": "Περιτύλιξη γραμμών",
+      "save": "Αποθήκευση"
+    },
+    "hostSection": {
+      "startIn": "Έναρξη σε",
+      "theFolderTheFileManager": "Ο φάκελος που ανοίγει πρώτος ο διαχειριστής αρχείων",
+      "files": "Αρχεία"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Μετάβαση στο {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Περισσότερες ενέργειες",
+        "moreFor": "Περισσότερα για το {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Άδειες",
+      "cancel": "Ακύρωση",
+      "apply": "Εφαρμογή ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Αδυναμία ανοίγματος",
+      "openWith": "Άνοιγμα με",
+      "share": "Κοινή χρήση"
+    },
+    "propertiesView": {
+      "properties": "Ιδιότητες",
+      "path": "Διαδρομή",
+      "type": "Τύπος",
+      "pointsTo": "Δείχνει προς",
+      "size": "Μέγεθος",
+      "countFolderSize": "Υπολογισμός μεγέθους φακέλου",
+      "permissions": "Άδειες",
+      "change": "Αλλαγή",
+      "owner": "Ιδιοκτήτης",
+      "group": "Ομάδα",
+      "modified": "Τροποποιήθηκε",
+      "opened": "Ανοίχτηκε",
+      "linkToA": "Σύνδεσμος προς {{value}}",
+      "notShownForFolders": "Δεν εμφανίζεται για φακέλους",
+      "file": "Αρχείο",
+      "folder": "Φάκελος",
+      "link": "Σύνδεσμος"
+    },
+    "register": {
+      "fileManager": "Διαχειριστής αρχείων",
+      "files": "Αρχεία",
+      "browseEditAndMoveFiles": "Περιήγηση, επεξεργασία και μετακίνηση αρχείων",
+      "files2": "ΑΡΧΕΙΑ",
+      "fileManagerAndTransfers": "Διαχειριστής αρχείων και μεταφορές"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Η μεταφορά απέτυχε"
+      },
+      "transfersPanel": {
+        "pause": "Παύση",
+        "resume": "Συνέχεια",
+        "tryAgain": "Δοκιμή ξανά",
+        "open": "Άνοιγμα",
+        "cancel": "Ακύρωση",
+        "transfers": "Μεταφορές",
+        "goingOf": "{{active}} σε εξέλιξη | {{done}} από {{total}}",
+        "clearFinished": "Εκκαθάριση ολοκληρωμένων",
+        "cancelAll": "Ακύρωση όλων",
+        "noTransfersYet": "Δεν υπάρχουν μεταφορές ακόμη",
+        "waiting": "Αναμονή",
+        "paused": "Σε παύση",
+        "done": "Ολοκληρώθηκε",
+        "failed": "Απέτυχε",
+        "cancelled": "Ακυρώθηκε"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Αποτυχία φόρτωσης κάδου απορριμμάτων",
+      "restored": "Επαναφέρθηκε το {{name}}",
+      "failedToRestore": "Αποτυχία επαναφοράς",
+      "failedToDelete": "Αποτυχία διαγραφής",
+      "trashEmptied": "Ο κάδος απορριμμάτων αδειάστηκε",
+      "failedToEmptyTrash": "Αποτυχία αδειάσματος του κάδου απορριμμάτων",
+      "trash": "Κάδος απορριμμάτων",
+      "itemsAreRemovedAfterDays": "Τα αντικείμενα διαγράφονται μετά από {{retentionDays}} ημέρες",
+      "close": "Κλείσιμο",
+      "emptyTrash": "Άδειασμα κάδου",
+      "trashIsEmpty": "Ο κάδος απορριμμάτων είναι άδειος",
+      "restore": "Επαναφορά του {{name}}",
+      "deleteForGood": "Οριστική διαγραφή του {{name}}"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Μόλις τώρα"
+      }
+    },
+    "getting": "Λήψη του {{name}}",
+    "itemCount_one": "{{count}} στοιχείο",
+    "itemCount_other": "{{count}} στοιχεία",
+    "copiedWhat": "Αντιγράφηκε το {{what}}",
+    "movedWhat": "Μετακινήθηκε το {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "Το {{name}} περιέχει περισσότερα από {{limit}} αρχεία. Κατεβάστε μικρότερους φακέλους."
+    },
+    "downloadingToFilesOnMyIpad": "Κατεβάστε στο Files, On My iPad, Termix",
+    "size": "Μέγεθος",
+    "date": "Ημερομηνία"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Σύνδεσμοι υπηρεσιών",
+      "openInHomepage": "Άνοιγμα στην Αρχική σελίδα",
+      "thisWidgetOnlyShowsOn": "Αυτό το widget εμφανίζεται μόνο στην πλήρη σελίδα."
+    },
+    "register": {
+      "serviceLinks": "Σύνδεσμοι υπηρεσιών",
+      "homepage": "Αρχική σελίδα"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Δεν έχει οριστεί κανένας φεφς.",
+        "couldNotLoadTheFeed": "Αδυναμία φόρτωσης του φεφς.",
+        "theFeedIsEmpty": "Ο φεφς είναι άδειος.",
+        "noLocationSet": "Δεν έχει οριστεί τοποθεσία.",
+        "couldNotLoadTheWeather": "Αδυναμία φόρτωσης των καιρικών συνθηκών.",
+        "noUrlSet": "Δεν έχει οριστεί URL.",
+        "couldNotLoadTheData": "Αδυναμία φόρτωσης των δεδομένων.",
+        "noPictureSet": "Δεν έχει οριστεί εικόνα.",
+        "badResponse": "λάθος απάντηση"
+      },
+      "services": "Υπηρεσίες",
+      "service": "Υπηρεσία",
+      "serviceLinks": "Σύνδεσμοι υπηρεσιών",
+      "bookmarks": "Σελιδοδείκτες",
+      "links2": "Σύνδεσμοι",
+      "search": "Αναζήτηση",
+      "clock": "Ρολόι",
+      "countdown": "Αντίστροφη μέτρηση",
+      "calendar": "Ημερολόγιο",
+      "notes": "Σημειώσεις",
+      "banner": "Баннер",
+      "ping": "Ping",
+      "host": "Host",
+      "hosts": "Hosts",
+      "quickConnect": "Γρήγορη σύνδεση",
+      "feed": "Φεφς",
+      "weather": "Καιρός",
+      "customApi": "Προσαρμοσμένο API",
+      "picture": "Εικόνα",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Δεν υπάρχουν ακόμη υπηρεσίες.",
+        "noLinkSet": "Δεν έχει οριστεί κανένας σύνδεσμος.",
+        "noLinksYet": "Δεν υπάρχουν ακόμη σύνδεσμοι.",
+        "noSearchEngineSet": "Δεν έχει οριστεί μηχανή αναζήτησης.",
+        "search": "Αναζήτηση",
+        "noShortcutsYet": "Δεν υπάρχουν συντομεύσεις ακόμα.",
+        "search2": "Αναζήτηση {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Δεν ήταν δυνατή η άνοιγμα του συνδέσμου"
+      },
+      "status": {
+        "noUrlsYet": "Δεν υπάρχουν URL ακόμα.",
+        "down": "Μη διαθέσιμο",
+        "noHostsPicked": "Δεν έχουν επιλεγεί hosts."
+      },
+      "text": {
+        "noNotesYet": "Δεν υπάρχουν σημειώσεις ακόμα.",
+        "noTextYet": "Δεν υπάρχει κείμενο ακόμα."
+      },
+      "time": {
+        "noDateSet": "Δεν έχει οριστεί ημερομηνία.",
+        "timeIsUp": "Ο χρόνος έληξε"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Δεν ήταν δυνατή η αποθήκευση της προεπιλογής",
+    "couldNotResetTheDefault": "Δεν ήταν δυνατή η επαναφορά της προεπιλογής",
+    "back": "Πίσω",
+    "hostDefaults": "Προεπιλογές host",
+    "newHostsStartFromThese": "Τα νέα hosts ξεκινούν από αυτές",
+    "managedOnTheServer": "Διαχειρίζεται από τον server",
+    "defaultsForThisServerAre": "Οι προεπιλογές για αυτόν τον server ορίζονται στην εφαρμογή web.",
+    "level": "Επίπεδο",
+    "yourDefaultsOrOneFolder": "Οι δικές σας προεπιλογές, ή μιας φακέλου",
+    "myDefaults": "Οι δικές μου προεπιλογές",
+    "theServerSets": " Ο server ορίζει {{adminCount}}.",
+    "aFolderWinsOverYour": "Ένας φάκελος υπερισχύει των προεπιλογιών σας, και οι προεπιλογίες σας υπερισχύουν αυτών του διακομιστή. Ένας host διατηρεί οποιαδήποτε τιμή ορίσετε μόνοι σας σε αυτόν.{{value}}",
+    "save": "Αποθήκευση",
+    "authentication": "Επιβεβαίωση ταυτότητας",
+    "none": "Κανένα",
+    "reset": "Επαναφορά",
+    "model": {
+      "username": "Όνομα χρήστη",
+      "sshPort": "Θύρα SSH",
+      "authentication": "Επιβεβαίωση ταυτότητας",
+      "aSavedCredentialForNew": "Ένα αποθηκευμένο στοιχείο ταυτότητας για νέα hosts",
+      "forceKeyboardInteractive": "Αναγκαστική διαδραστικότητα πληκτρολογίου",
+      "keepaliveInterval": "Διάστημα keepalive",
+      "seconds0TurnsItOff": "Δευτερόλεπτα, 0 το απενεργοποιεί",
+      "keepaliveTries": "Προσπάθειες keepalive",
+      "allowOldAlgorithms": "Επιτρέψτε παλιούς αλγορίθμους",
+      "agentForwarding": "Μεταβίβαση agent",
+      "environmentVariables": "Μεταβλητές περιβάλλοντος",
+      "oneNameValuePerLine": "Ένα ΟΝΟΜΑ=τιμή ανά γραμμή",
+      "checkIfTheHostIs": "Έλεγχος αν ο host είναι διαθέσιμος",
+      "checkInterval": "Διάστημα ελέγχου",
+      "secondsEmptyUsesTheServer": "Δευτερόλεπτα, άδειο χρησιμοποιεί αυτό του server",
+      "socks5Proxy": "Προξυ SOCKS5",
+      "setInTheWebApp": "Ορίζεται στην εφαρμογή web",
+      "jumpHosts": "Jump hosts",
+      "portKnocking": "Port knocking",
+      "notSet": "Δεν έχει οριστεί",
+      "fromTheServer": "Από τον server",
+      "fromYourDefaults": "Από τις δικές σας προεπιλογές",
+      "builtIn": "Ενσωματωμένο"
+    },
+    "register": {
+      "hostDefaults": "Προεπιλογές host",
+      "portUserAndOptionsFor": "Θύρα, χρήστης και επιλογές για νέα hosts"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Δεν υπάρχουν δεδομένα ακόμα",
+      "cpu": "CPU",
+      "memory": "Μνήμη",
+      "disk": "Δίσκος",
+      "history": "Ιστορικό",
+      "loading": "Φόρτωση..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Δεν ήταν δυνατή η ανάγνωση των μετρήσεων",
+      "metrics": "Μετρήσεις",
+      "cpu": "CPU",
+      "memory": "Μνήμη",
+      "disk": "Δίσκος",
+      "noRecentSampleOpenThe": "Δεν υπάρχει πρόσφατο δείγμα. Ανοίξτε τις μετρήσεις του host για να ξεκινήσετε ένα."
+    },
+    "register": {
+      "enableMetrics": "Ενεργοποίηση μετρήσεων",
+      "cpuMemoryDiskAndNetwork": "CPU, μνήμη, δίσκος και δίκτυο μέσω SSH",
+      "hostMetrics": "Μετρήσεις Host",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Μετρήσεις",
+      "cpuMemoryDiskAndNetwork2": "CPU, μνήμη, δίσκος και δίκτυο"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Μετρήσεις Host | αυτό το {{deviceWord}}",
+      "hostMetrics": "Μετρήσεις Host",
+      "ran": "Τρέχεται {{name}}",
+      "loadingMetrics": "Φόρτωση μετρήσεων...",
+      "couldNotReadMetricsFrom": "Αδυναμία ανάγνωσης μετρήσεων από αυτό το host",
+      "failedToLoadMetrics": "Αποτυχία φόρτωσης μετρήσεων",
+      "thisSessionHasNoServer": "Αυτή η συνεδρία δεν έχει server",
+      "twoFactorRequiredForThis": "Απαιτείται διπλή πιστοποίηση για τις στατιστικές αυτού του host.",
+      "failedToStartMetrics": "Αποτυχία εκκίνησης μετρήσεων",
+      "failedToRun": "Αποτυχία εκτέλεσης {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Ανά πυρήνα: {{value}}",
+        "cores": "Πυρήνες",
+        "load": "Φόρτος",
+        "user": "Χρήστης",
+        "system": "Σύστημα",
+        "ioWait": "Αναμονή IO",
+        "steal": "Κλοπή"
+      },
+      "diskWidget": {
+        "disk": "Δίσκος {{mount}}",
+        "disk2": "Δίσκος",
+        "used": "Χρησιμοποιούμενος",
+        "total": "Σύνολο",
+        "free": "Διαθέσιμος"
+      },
+      "firewallWidget": {
+        "firewall": "Firewall",
+        "rules": "{{type}} | {{ruleCount}} κανόνες",
+        "noFirewallDetected": "Δεν εντοπίστηκε firewall"
+      },
+      "gpuWidget": {
+        "gpus": "GPUs ({{count}})",
+        "gpu": "GPU",
+        "memory": "Μνήμη",
+        "temp": "Θερμ.",
+        "power": "Ισχύς",
+        "fan": "Ανεμιστήρας"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Δραστηριότητα σύνδεσης",
+        "noLoginActivityRecorded": "Δεν καταγράφηκε δραστηριότητα σύνδεσης",
+        "logins": "Συνδέσεις",
+        "uniqueIps": "Μοναδικές IP",
+        "failed": "Αποτυχίες",
+        "recent": "Πρόσφατες"
+      },
+      "memoryWidget": {
+        "memory": "Μνήμη",
+        "used": "Χρησιμοποιούμενη",
+        "total": "Σύνολο",
+        "cached": "Cache",
+        "free": "Διαθέσιμη"
+      },
+      "networkWidget": {
+        "network": "Δίκτυο",
+        "noInterfaces": "Χωρίς διεπαφές",
+        "up": "Ανέβασμα",
+        "down": "Κατέβασμα"
+      },
+      "portsWidget": {
+        "listeningPorts": "Θύρες ακρόασης",
+        "noListeningPorts": "Χωρίς θύρες ακρόασης"
+      },
+      "processesWidget": {
+        "sortBy": "Ταξινόμηση κατά {{label}}",
+        "processes": "Διαδικασίες",
+        "running": "{{value}} σε εκτέλεση | {{total}}",
+        "noProcessData": "Δεν υπάρχουν δεδομένα διαδικασιών",
+        "cpu": "CPU%",
+        "mem": "Μνήμη%",
+        "command": "ΕΝΤΟΛΗ"
+      },
+      "systemWidget": {
+        "system": "Σύστημα",
+        "hostname": "Όνομα υπολογιστή",
+        "os": "Λειτουργικό σύστημα",
+        "kernel": "Πυρήνας",
+        "arch": "Αρχιτεκτονική",
+        "noSystemInfo": "Δεν υπάρχουν πληροφορίες συστήματος"
+      },
+      "temperatureWidget": {
+        "temperature": "Θερμοκρασία"
+      },
+      "uptimeWidget": {
+        "uptime": "Χρόνος λειτουργίας"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Αντιγράφηκε με τον κωδικό πρόσβασης",
+      "copiedTheLink": "Αντιγράφηκε ο σύνδεσμος",
+      "shareHost": "Κοινοποίηση υποδοχής",
+      "thatHostNoLongerExists": "Αυτή η υποδοχή δεν υπάρχει πια",
+      "scanThisInTermixOn": "Σαρώστε το στο Termix σε άλλη {{deviceWord}}, στην ενότητα Εισαγωγή και εξαγωγή. Ο κωδικός περιέχει τη διεύθυνση, τη θύρα και τον χρήστη. Δεν περιέχει κωδικό πρόσβασης ή κλειδί.",
+      "copyLink": "Αντιγραφή συνδέσμου",
+      "copyLinkWithPassword": "Αντιγραφή συνδέσμου με κωδικό πρόσβασης"
+    },
+    "includePasswordsAndKeys": "Να συμπεριληφθούν οι κωδικοί πρόσβασης και τα κλειδιά;",
+    "anyoneWhoGetsThisFile": "Οποιοσδήποτε αποκτήσει αυτό το αρχείο μπορεί να συνδεθεί σε αυτές τις υποδοχές. Διατηρήστε το σε ασφαλές μέρος.",
+    "includeThem": "Να συμπεριληφθούν",
+    "pickAtLeastOneHost": "Επιλέξτε τουλάχιστον μία υποδοχή",
+    "couldNotMakeTheFile": "Δεν ήταν δυνατή η δημιουργία του αρχείου",
+    "copiedToTheClipboard": "Αντιγράφηκε στο πρόχειρο",
+    "importAndExport": "Εισαγωγή και εξαγωγή",
+    "moveHostsInAndOut": "Μετακίνηση υποδοχών προς τα μέσα και προς τα έξω",
+    "import": "Εισαγωγή",
+    "aTermixHostFileAn": "Ένα αρχείο υποδοχής Termix, ένα αρχείο ρυθμίσεων SSH ή ένας σύνδεσμος/QR κωδικός υποδοχής από άλλη {{deviceWord}}.",
+    "export": "Εξαγωγή",
+    "allHosts": "Όλες οι υποδοχές",
+    "picked": "{{size}} επιλεγμένα",
+    "pickHosts": "Επιλογή υποδοχών",
+    "includePasswordsAndKeys2": "Συμπερίληψη κωδικών πρόσβασης και κλειδιών",
+    "offMakesAFileSafe": "Η απενεργοποίηση καθιστά το αρχείο ασφαλές για κοινοποίηση. Οι υποδοχές που χρησιμοποιούν αποθηκευμένο στοιχείο πιστοποίησης αναφέρονται σε αυτό με το όνομά του",
+    "shareAFile": "Κοινοποίηση αρχείου",
+    "copy": "Αντιγραφή",
+    "importPanel": {
+      "couldNotReadThat": "Δεν ήταν δυνατή η ανάγνωση",
+      "couldNotReadThatFile": "Δεν ήταν δυνατή η ανάγνωση του αρχείου",
+      "importFailed": "Η εισαγωγή απέτυχε",
+      "chooseAFile": "Επιλογή αρχείου",
+      "paste": "Επικόλληση",
+      "scanACode": "Σάρωση κωδικού",
+      "couldNotBeRead": "{{count}} δεν μπόρεσαν να διαβαστούν",
+      "updateHostsThatExist": "Ενημέρωση υπαρχουσών υποδοχών",
+      "sameAddressPortAndUser": "Ίδια διεύθυνση, θύρα και χρήστης. Διαφορετικά παραλείπονται",
+      "cancel": "Ακύρωση",
+      "import": "Εισαγωγή",
+      "andMore": "και {{value}} ακόμη"
+    },
+    "qrCode": {
+      "qrCode": "QR κωδικός"
+    },
+    "register": {
+      "importAndExport": "Εισαγωγή και εξαγωγή",
+      "moveHostsInOrOut": "Μετακίνηση υποδοχών προς τα μέσα ή προς τα έξω με αρχείο ή QR κωδικό",
+      "shareHost": "Κοινοποίηση υποδοχής"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Σάρωση κωδικού υποδοχής",
+      "pointTheCameraAtA": "Στοχεύστε την κάμερα σε έναν QR κωδικό υποδοχής Termix.",
+      "termixNeedsTheCameraTo": "Το Termix χρειάζεται την κάμερα για να σαρώσει έναν κωδικό. Δεν καταγράφεται τίποτα.",
+      "allowTheCamera": "Επιτρέψτε την κάμερα"
+    },
+    "read": {
+      "termixFile": "Αρχείο Termix",
+      "sshConfig": "Ρύθμιση SSH",
+      "thereIsNothingToImport": "Δεν υπάρχει κάτι προς εισαγωγή",
+      "thatIsNotATermix": "Αυτό δεν είναι σύνδεση host Termix",
+      "linkHost": "1 host: {{name}}",
+      "sourceHosts_one": "{{what}} με {{count}} host",
+      "sourceHosts_other": "{{what}} με {{count}} hosts"
+    },
+    "saveYourTermixHosts": "Αποθήκευση των hosts Termix"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Ολοκληρώθηκε",
+      "rejected": "Απορρίφθηκε",
+      "approvals": "Εγκρίσεις",
+      "nothingIsWaiting": "Κανένα σε αναμονή",
+      "actionsARuleHoldsFor": "Εδώ εμφανίζονται οι ενέργειες που απαιτούν έγκριση βάσει κανόνα.",
+      "approveAndRun": "Έγκριση και εκτέλεση",
+      "reject": "Απόρριψη",
+      "couldNotLoadApprovals": "Αδυναμία φόρτωσης εγκρίσεων",
+      "couldNotDecide": "Αδυναμία λήψης απόφασης"
+    },
+    "approvalsCard": {
+      "approved": "Εγκεκριμένο",
+      "rejected": "Απορρίφθηκε",
+      "waitingForApproval": "Σε αναμονή έγκρισης",
+      "approve": "Έγκριση",
+      "reject": "Απόρριψη",
+      "couldNotDecide": "Αδυναμία λήψης απόφασης",
+      "seeAll": "Προβολή όλων"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Αυτό δεν μπορεί να αναιρεθεί. Να εκτελεστεί;",
+      "run": "Εκτέλεση",
+      "sentForApproval": "Απεστάλη για έγκριση",
+      "target": "Στόχος",
+      "theItemOnTheHost": "Το στοιχείο στον host, όπως ένα container",
+      "dryRun": "Δοκιμαστική εκτέλεση",
+      "back": "Πίσω",
+      "actions": "Ενέργειες",
+      "noActionsForThisHost": "Καμία ενέργεια για αυτόν τον host",
+      "turnOnAPluginLike": "Ενεργοποιήστε ένα plugin όπως το Docker ή τα Services για αυτόν τον host στον server.",
+      "destructive": "Καταστροφικό",
+      "changes": "Αλλαγές",
+      "theActionCouldNotRun": "Η ενέργεια δεν μπόρεσε να εκτελεστεί",
+      "couldNotLoadActions": "Αδυναμία φόρτωσης ενεργειών"
+    },
+    "register": {
+      "actions": "Ενέργειες",
+      "waitingForApproval": "Σε αναμονή έγκρισης",
+      "approvals": "Εγκρίσεις",
+      "actionsWaitingForAPerson": "Ενέργειες σε αναμονή ανθρώπινης έγκρισης",
+      "runHistory": "Ιστορικό εκτέλεσης",
+      "everyActionAnyoneRanFrom": "Κάθε ενέργεια που εκτελέστηκε από οποιονδήποτε, από οποιαδήποτε συσκευή"
+    },
+    "runHistory": {
+      "cancelThisRun": "Ακύρωση αυτής της εκτέλεσης;",
+      "cancelRun": "Ακύρωση εκτέλεσης",
+      "keep": "Διατήρηση",
+      "undoThisRun": "Αναίρεση αυτής της εκτέλεσης;",
+      "thisRunsTheActionS": "Αυτό εκτελεί την αναίρεση της ενέργειας με την ίδια είσοδο.",
+      "undo": "Αναίρεση",
+      "cancelled": "Ακυρώθηκε",
+      "itAlreadyFinished": "Έχει ήδη ολοκληρωθεί",
+      "done": "Ολοκληρώθηκε",
+      "runHistory": "Ιστορικό εκτέλεσης",
+      "nothingHasRunYet": "Δεν έχει εκτελεστεί τίποτα ακόμη",
+      "dryRun": "Δοκιμαστική εκτέλεση",
+      "cancel": "Ακύρωση",
+      "couldNotLoadHistory": "Αδυναμία φόρτωσης ιστορικού",
+      "couldNotCancel": "Αδυναμία ακύρωσης",
+      "couldNotUndo": "Αδυναμία αναιρέσεως"
+    },
+    "api": {
+      "needsApproval": "Απαιτείται έγκριση",
+      "needsSignIn": "Απαιτείται σύνδεση",
+      "done": "Ολοκληρώθηκε",
+      "failed": "Απέτυχε",
+      "running": "Εν εξελίξει",
+      "interrupted": "Διακόπηκε",
+      "rejected": "Απορρίφθηκε",
+      "cancelled": "Ακυρώθηκε",
+      "expired": "Λήξη"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Ενεργοποίηση {{value}}",
+      "moreSettingsForThisAre": "Περισσότερες ρυθμίσεις για αυτό βρίσκονται στην εφαρμογή ιστού του Termix.",
+      "pluginHostSettings": "Ρυθμίσεις υποδοχής πρόσθετου"
+    },
+    "fields": {
+      "mustBeANumber": "Το πεδίο {{field}} πρέπει να είναι αριθμός",
+      "mustBeAtLeast": "Το πεδίο {{field}} πρέπει να είναι τουλάχιστον {{min}}",
+      "mustBeAtMost": "Το πεδίο {{field}} πρέπει να είναι το πολύ {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Συνδέστε έναν διακομιστή για να τον χρησιμοποιήσετε",
+      "runsOnYourTermixServer": "Το {{name}} εκτελείται στον διακομιστή Termix σας."
+    },
+    "pluginWebView": {
+      "canTLoad": "Αδυναμία φόρτωσης του {{name}}",
+      "theServerDidNotSend": "Ο διακομιστής δεν έστειλε το πρόσθετο. Βεβαιωθείτε ότι είναι ενεργό και προσπαθήστε ξανά.",
+      "openThisLink": "Άνοιγμα αυτού του συνδέσμου;",
+      "open": "Άνοιγμα",
+      "needsANewerVersionOf": "Απαιτείται νεότερη έκδοση της εφαρμογής",
+      "usesPartsOfTermixThis": "Το {{name}} χρησιμοποιεί μέρη του Termix που δεν υπάρχουν ακόμη σε αυτήν την εφαρμογή.",
+      "didNotStart": "Το {{name}} δεν ξεκίνησε",
+      "thisScreenIsNotIn": "Αυτή η οθόνη δεν υπάρχει στην έκδοση του πρόσθετου στον διακομιστή.",
+      "thePluginHitAnError": "Το πρόσθετο συνάντησε σφάλμα κατά την εκκίνηση.",
+      "youReOffline": "Είστε εκτός σύνδεσης",
+      "runsOnYourServerSo": "Το {{name}} εκτελείται στον διακομιστή σας, οπότε χρειάζεται σύνδεση. Θα ανοίξει ξανά όταν επανασυνδεθείτε στο διαδίκτυο.",
+      "tryAgain": "Προσπάθεια ξανά"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Αυτός ο υπολογιστής δεν βρίσκεται ακόμη σε αυτήν την {{deviceWord}}.",
+      "theAppCanTOpen": "Η εφαρμογή δεν μπορεί να το ανοίξει από εδώ.",
+      "thatHostIsNotOn2": "Αυτός ο υπολογιστής δεν βρίσκεται ακόμη σε αυτήν την {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Κωδικός πρόσβασης",
+      "unchangedIfBlank": "Αμετάβλητο αν είναι κενό",
+      "port": "Θύρα",
+      "domain": "Δομή",
+      "displaySoundAndClipboardSettings": "Οι ρυθμίσεις οθόνης, ήχου και προχείρου βρίσκονται στην εφαρμογή ιστού του Termix.",
+      "portMustBeFrom1": "Η θύρα {{label}} πρέπει να είναι από 1 έως 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Η απομακρυσμένη επιφάνεια εργασίας διακόπηκε",
+        "signIn": "Σύνδεση {{label}}",
+        "itWillNotBeSaved": "{{error}} Δεν θα αποθηκευτεί.",
+        "enterTheLoginForIt": "Εισάγετε τα στοιχεία σύνδεσης για το {{title}}. Δεν θα αποθηκευτούν.",
+        "reconnecting": "Επανασύνδεση {{label}}",
+        "connecting": "Σύνδεση {{label}}",
+        "connectionFailed": "Αποτυχία σύνδεσης",
+        "disconnected": "Αποσυνδέθηκε",
+        "reconnect": "Επανασύνδεση",
+        "connectThroughTheServer": "Σύνδεση μέσω του διακομιστή",
+        "pasteToRemote": "Επικόλληση στο απομακρυσμένο σύστημα",
+        "typeClipboard": "Πληκτρολόγηση προχείρου",
+        "copyRemoteClipboard": "Αντιγραφή απομακρυσμένου προχείρου",
+        "theComputerSCertificateWas": "Το πιστοποιητικό του υπολογιστή δεν ήταν αξιόπιστο.",
+        "thatLoginWasRefusedTry": "Αυτή η σύνδεση απορρίφθηκε. Προσπαθήστε ξανά."
+      },
+      "target": {
+        "trustThisComputer": "Να εμπιστευτείτε αυτόν τον υπολογιστή;",
+        "theCanTCheckS": "Η {{deviceWord}} δεν μπορεί να ελέγξει το πιστοποιητικό του {{hostName}}. Βεβαιωθείτε ότι αυτό το αποτύπωμα ταιριάζει με αυτό στον υπολογιστή πριν προχωρήσετε.\n\n{{fingerprint}}",
+        "trustAndConnect": "Εμπιστοσύνη και σύνδεση",
+        "certificateChanged": "Το πιστοποιητικό άλλαξε",
+        "showsAnotherCertificateThanLast": "Το {{hostName}} εμφανίζει διαφορετικό πιστοποιητικό από την τελευταία φορά. Αυτό συμβαίνει όταν ο υπολογιστής δημιουργεί ένα νέο πιστοποιητικό ή όταν κάποιος παρακολουθεί τη σύνδεση.\n\nΝέο αποτύπωμα:\n{{fingerprint}}",
+        "trustTheNewOne": "Εμπιστοσύνη στο νέο πιστοποιητικό"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Απομακρυσμένη επιφάνεια εργασίας",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Τέλος",
+      "keyboard": "Πληκτρολόγιο",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Ρυθμίσεις",
+      "remoteSettings": "Απομακρυσμένες Ρυθμίσεις",
+      "mouseMode": "Λειτουργία Ποντικιού",
+      "touch": "Αφής",
+      "trackpad": "Trackpad",
+      "tapWhereYouWantTo": "Πατήστε όπου θέλετε να κάνετε κλικ. Κρατήστε πατημένο για δεξί κλικ, σύρετε για να μετακινήσετε.",
+      "dragToMoveThePointer": "Σύρετε για να μετακινήσετε τον δείκτη. Πατήστε για κλικ, διπλό πάτημα με δύο δάχτυλα για δεξί κλικ, πατήστε και σύρετε για να μετακινήσετε.",
+      "zoomXPinchAnywhereTo": "Μεγέθυνση: {{value}}x. Κάντε pinch οπουδήποτε για μεγέθυνση",
+      "reset": "Επαναφορά",
+      "cancel": "Ακύρωση",
+      "connect": "Σύνδεση",
+      "username": "Όνομα χρήστη",
+      "domainOptional": "Domain (προαιρετικό)",
+      "domain": "Domain",
+      "password": "Κωδικός πρόσβασης",
+      "leftArrow": "Βέλος αριστερά",
+      "upArrow": "Βέλος πάνω",
+      "downArrow": "Βέλος κάτω",
+      "rightArrow": "Βέλος δεξιά",
+      "rdpSignIn": "Σύνδεση RDP"
+    },
+    "theRemoteDesktopDropped": "Η απομακρυσμένη επιφάνεια εργασίας αποσυνδέθηκε",
+    "theyWillNotBeSaved": "{{errorMessage}} Δεν θα αποθηκευτούν.",
+    "enterCredentialsForTheyWill": "Εισάγετε τα διαπιστευτήρια για {{title}}. Δεν θα αποθηκευτούν.",
+    "connecting": "Σύνδεση σε εξέλιξη",
+    "connectionFailed": "Αποτυχία σύνδεσης",
+    "disconnected": "Αποσυνδεδεμένο",
+    "reconnect": "Επανασύνδεση",
+    "route": {
+      "thisHostCanTOpen": "Αυτός ο host δεν μπορεί να ανοίξει απομακρυσμένη επιφάνεια εργασίας από εδώ."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Αποκλείστηκε από την εφαρμογή"
+    },
+    "failedToStartRemoteSession": "Αποτυχία εκκίνησης απομακρυσμένης συνεδρίας",
+    "thatLoginWasRefusedTry": "Η σύνδεση απορρίφθηκε. Δοκιμάστε ξανά.",
+    "theRemoteRefusedTheSaved": "Το απομακρυσμένο σύστημα απέρριψε τα αποθηκευμένα στοιχεία σύνδεσης. Ελέγξτε τη σύνδεση RDP σε αυτόν τον host.",
+    "remoteSessionFailed": "Αποτυχία απομακρυσμένης συνεδρίας",
+    "remoteSessionReturnedAnInvalid": "Η απομακρυσμένη συνεδρία επέστρεψε μη έγκυρο μήνυμα",
+    "failedToLoadTheRemote": "Αποτυχία φόρτωσης του πελάτη απομακρυσμένης επιφάνειας εργασίας"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Κανένα journal",
+      "thisHostDoesNotKeep": "Αυτός ο host δεν διατηρεί systemd journal.",
+      "all": "Όλα",
+      "warnings": "Προειδοποιήσεις",
+      "errors": "Σφάλματα",
+      "stop": "Διακοπή",
+      "follow": "Ακολούθησε",
+      "nothingLogged": "Κανένα καταγεγραμμένο",
+      "tryAnotherLevel": "Δοκιμάστε άλλο επίπεδο.",
+      "couldNotReadTheJournal": "Αδυναμία ανάγνωσης του journal"
+    },
+    "register": {
+      "services": "Υπηρεσίες",
+      "startStopAndReadLogs": "Έναρξη, διακοπή και ανάγνωση αρχείων καταγραφής"
+    },
+    "readingServices": "Ανάγνωση υπηρεσιών...",
+    "thisHostHasNoSystemd": "Αυτός ο υπολογιστής δεν διαθέτει systemd ή OpenRC.",
+    "noServicesMatch": "Δεν βρέθηκαν αντιστοιχίες υπηρεσιών",
+    "noServicesFound": "Δεν βρέθηκαν υπηρεσίες",
+    "services": "Υπηρεσίες",
+    "journal": "Καταγραφές",
+    "searchServices": "Αναζήτηση υπηρεσιών...",
+    "all": "Όλες",
+    "running": "Ενεργές",
+    "failed": "Αποτυχία ({{failed}})",
+    "failed2": "Αποτυχία",
+    "servicesCard": {
+      "services": "Υπηρεσίες",
+      "noSystemdOrOpenrc": "Χωρίς systemd ή OpenRC",
+      "failed": "{{failed}} αποτυχίες",
+      "allRunning": "Όλες ενεργές",
+      "couldNotReadServices": "Αδυναμία ανάγνωσης υπηρεσιών"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Παραμένει σταματημένη μέχρι να ξεκινήσει ξανά ή να εκκινήσει ο υπολογιστής.",
+      "itStopsForAMoment": "Σταματά για λίγο και ξεκινά ξανά.",
+      "stop": "Διακοπή",
+      "restart": "Επανεκκίνηση",
+      "is": "Το {{name}} είναι {{state}}",
+      "start": "Έναρξη",
+      "journal": "Καταγραφές",
+      "couldNotReadTheService": "Αδυναμία ανάγνωσης της υπηρεσίας",
+      "couldNot": "Αδυναμία {{action}} του {{name}}",
+      "startsAtBoot": "Εκκίνηση κατά την εκκίνηση συστήματος",
+      "mainPid": "Κύριο PID",
+      "activeSince": "Ενεργό από",
+      "unitFile": "Αρχείο μονάδας",
+      "notSet": "[δεν έχει οριστεί]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Μη συνδεδεμένος",
+        "followFailed": "Αποτυχία παρακολούθησης",
+        "connectionFailed": "Αποτυχία σύνδεσης"
+      }
+    },
+    "couldNotReadServices": "Αδυναμία ανάγνωσης υπηρεσιών",
+    "services2": "Υπηρεσίες{{where}}",
+    "title": "Υπηρεσίες",
+    "failedCount": "{{count}} αποτυχίες"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Κοινοποίηση συνεδρίας",
+      "shareLink": "Κοινοποίηση συνδέσμου"
+    },
+    "shareSessionView": {
+      "canWatch": "Μπορεί να παρακολουθεί",
+      "canType": "Μπορεί να πληκτρολογεί",
+      "n1Hour": "1 ώρα",
+      "n8Hours": "8 ώρες",
+      "n1Day": "1 ημέρα",
+      "n7Days": "7 ημέρες",
+      "never": "Ποτέ",
+      "shareSession": "Κοινοποίηση συνεδρίας",
+      "anyoneWithTheLinkCan": "Οποιοσδήποτε διαθέτει τον σύνδεσμο μπορεί να ανοίξει αυτόν τον τερματικό όσο είναι ενεργός. Μπορείτε να ανακαλέσετε τους συνδέσμους στο Termix.",
+      "peopleWithTheLink": "Άτομα με τον σύνδεσμο",
+      "expiresAfter": "Λήγει μετά από",
+      "link": "Σύνδεσμος",
+      "copy": "Αντιγραφή",
+      "share": "Κοινοποίηση",
+      "makeLink": "Δημιουργία συνδέσμου",
+      "theServerGaveNoLink": "Ο διακομιστής δεν επέστρεψε κανέναν σύνδεσμο",
+      "couldNotMakeALink": "Αδυναμία δημιουργίας συνδέσμου",
+      "linkCopied": "Ο σύνδεσμος αντιγράφηκε"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Χωρίς φάκελο"
+    },
+    "hostPicker": {
+      "selectNone": "Αποεπιλογή όλων",
+      "selectAll": "Επιλογή όλων",
+      "done": "Τέλος"
+    },
+    "register": {
+      "snippets": "Αποσπάσματα",
+      "snippets2": "ΑΠΟΣΠΑΣΜΑΤΑ",
+      "savedCommandsToRunOn": "Αποθηκευμένες εντολές για εκτέλεση σε οποιοδήποτε host"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Δεν υπάρχει τρόπος πρόσβασης σε αυτό το host από εδώ",
+      "exitedWith": "Έξοδος με κωδικό {{exitCode}}",
+      "thisCanTRunIt": "Αυτή η συσκευή {{deviceWord}} δεν μπορεί να το εκτελέσει",
+      "noServerIsLinked": "Δεν συνδέεται κανένας server"
+    },
+    "runOnHostsSheet": {
+      "run": "Εκτέλεση",
+      "run2": "Εκτέλεση \"{{name}}\"",
+      "runsOverSshOnEach": "Εκτελείται μέσω SSH σε κάθε host. Δεν ανοίγει τερματικό.",
+      "close": "Κλείσιμο",
+      "hosts": "Hosts",
+      "pickHosts": "Επιλογή hosts",
+      "workedFailed": "{{value}} κατάφεραν, {{failed}} απέτυχαν",
+      "runOn2": "Εκτέλεση σε",
+      "runOn_one": "Εκτέλεση του {{name}} σε {{count}} host;",
+      "runOn_other": "Εκτέλεση του {{name}} σε {{count}} hosts;",
+      "hostsPicked_one": "{{count}} host επιλέχθηκε",
+      "hostsPicked_other": "{{count}} hosts επιλέχθηκαν"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Αναζήτηση αποσπασμάτων",
+      "pastesTheNote": "Επικόλληση της σημείωσης",
+      "runsTheSnippet": "Εκτέλεση του αποσπάσματος",
+      "noSnippetsMatch": "Κανένα απόσπασμα δεν ταιριάζει",
+      "noSnippetsYet": "Δεν υπάρχουν ακόμη αποσπάσματα",
+      "addSnippetsInSettingsSnippets": "Προσθέστε αποσπάσματα στις Ρυθμίσεις, Αποσπάσματα",
+      "run": "Εκτέλεση",
+      "insertWithoutRunning": "Εισαγωγή χωρίς εκτέλεση",
+      "copy": "Αντιγραφή"
+    },
+    "snippetsCard": {
+      "snippets": "Αποσπάσματα",
+      "run": "Εκτέλεση {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Δεν υπάρχουν αποσπάσματα για εξαγωγή",
+      "couldNotMakeTheFile": "Δεν ήταν δυνατή η δημιουργία του αρχείου",
+      "copiedToTheClipboard": "Αντιγράφηκε στο πρόχειρο",
+      "couldNotImport": "Δεν ήταν δυνατή η εισαγωγή",
+      "couldNotReadThatFile": "Δεν ήταν δυνατή η ανάγνωση αυτού του αρχείου",
+      "importAndExport": "Εισαγωγή και εξαγωγή",
+      "theSameFileTheWeb": "Το ίδιο αρχείο που χρησιμοποιεί η εφαρμογή ιστού.",
+      "export": "Εξαγωγή",
+      "shareAFile": "Κοινοποίηση αρχείου",
+      "copy": "Αντιγραφή",
+      "import": "Εισαγωγή",
+      "updateSnippetsThatExist": "Ενημέρωση των αποσπασμάτων που υπάρχουν",
+      "sameNameInTheSame": "Ίδιο όνομα στον ίδιο φάκελο. Διαφορετικά παραλείπονται",
+      "chooseAFile": "Επιλογή αρχείου",
+      "paste": "Επικόλληση",
+      "saveYourSnippets": "Αποθήκευση των αποσπασμάτων σας"
+    },
+    "useSnippetRunner": {
+      "run": "Εκτέλεση του {{name}};",
+      "run2": "Εκτέλεση",
+      "fillInTheValuesFor": "Συμπληρώστε τις τιμές για αυτό το απόσπασμα.",
+      "cancel": "Ακύρωση",
+      "insert": "Εισαγωγή",
+      "noTerminalIsOpen": "Δεν υπάρχει ανοιχτό τερματικό"
+    },
+    "variables": {
+      "input": "Είσοδος {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Αυτό δεν είναι έγκυρο αρχείο JSON",
+      "theFileNeedsASnippets": "Το αρχείο χρειάζεται μια λίστα αποσπασμάτων ή φακέλων",
+      "snippetNameAndContentAre": "Απόσπασμα {{value}}: απαιτούνται όνομα και περιεχόμενο",
+      "folder": "Φάκελος {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Φόρτωση συσκευών Tailscale…",
+      "searchTailscaleDevices": "Αναζήτηση συσκευών Tailscale…",
+      "searchTailscaleDevices2": "Αναζήτηση συσκευών Tailscale",
+      "clearDeviceSearch": "Εκκαθάριση αναζήτησης συσκευών",
+      "refreshTailscaleDevices": "Ανανέωση συσκευών Tailscale",
+      "device": "Συσκευή",
+      "noTailnetAddress": "Δεν υπάρχει διεύθυνση tailnet",
+      "tailscaleDevice": "Συσκευή Tailscale",
+      "tailscaleDevices": "Συσκευές Tailscale",
+      "addAHostThatConnects": "Προσθέστε έναν host που συνδέεται μέσω Tailscale SSH.",
+      "username": "Όνομα χρήστη",
+      "sshUsernameFor": "Όνομα χρήστη SSH για {{value}}",
+      "addHost": "Προσθήκη host",
+      "noTailscaleDevicesMatchYour": "Καμία συσκευή Tailscale δεν ταιριάζει με την αναζήτησή σας.",
+      "noTailscaleDevicesFound": "Δεν βρέθηκαν συσκευές Tailscale.",
+      "noTailscaleApiKeyIs": "Δεν έχει οριστεί κλειδί API Tailscale σε αυτόν τον server. Ζητήστε από έναν διαχειριστή να προσθέσει ένα.",
+      "youDoNotHavePermission": "Δεν έχετε άδεια για να δείτε τη λίστα των συσκευών Tailscale.",
+      "couldNotLoadTailscaleDevices": "Αδυναμία φόρτωσης των συσκευών Tailscale. Ανανεώστε για να δοκιμάσετε ξανά.",
+      "tailscaleIsUnavailableOnThis": "Το Tailscale δεν είναι διαθέσιμο σε αυτόν τον server."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Επανασύνδεση | προσπάθεια {{attempt}}",
+      "reconnectingInSTry": "Επανασύνδεση σε {{secs}}δ | προσπάθεια {{attempt}}",
+      "offlineWaitingForNetwork": "Εκτός σύνδεσης, αναμονή για δίκτυο",
+      "sendToTheNewShell": "Αποστολή {{what}} στο νέο shell;",
+      "reconnectNow": "Επανασύνδεση τώρα",
+      "send": "Αποστολή",
+      "discard": "Απόρριψη",
+      "typedChars_one": "{{count}} χαρακτήρας που πληκτρολογήθηκε",
+      "typedChars_other": "{{count}} χαρακτήρες που πληκτρολογήθηκαν",
+      "waiting": "{{what}} σε αναμονή"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Το αρχείο καταγραφής σύνδεσης αντιγράφηκε",
+      "connectionLog": "Αρχείο καταγραφής σύνδεσης",
+      "copyItIntoABug": "Αντιγράψτε το σε μια αναφορά σφάλματος. Οι διευθύνσεις και τα ονόματα χρηστών παραλείπονται.",
+      "copy": "Αντιγραφή"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Εκκαθάριση ιστορικού για αυτόν τον host;",
+        "clear": "Εκκαθάριση",
+        "searchHistory": "Αναζήτηση στο ιστορικό",
+        "typesTheCommandWithoutRunning": "Πληκτρολογεί την εντολή χωρίς να την εκτελέσει",
+        "noCommandsMatch": "Καμία εντολή δεν ταιριάζει",
+        "noHistoryYet": "Δεν υπάρχει ιστορικό ακόμα",
+        "commandsYouRunOnThis": "Οι εντολές που εκτελείτε σε αυτόν τον host εμφανίζονται εδώ",
+        "run": "Εκτέλεση",
+        "typeWithoutRunning": "Πληκτρολόγηση χωρίς εκτέλεση",
+        "copy": "Αντιγραφή",
+        "delete": "Διαγραφή",
+        "historyCleared": "Το ιστορικό εκκαθαρίστηκε"
+      },
+      "suggestionStrip": {
+        "use": "Χρήση {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Ρύθμιση εφαρμογής",
+      "delete": "Διαγραφή (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Τίτλος καρτέλας από το shell",
+      "programsCanSetTheTab": "Τα προγράμματα μπορούν να ορίσουν τον τίτλο της καρτέλας",
+      "openTmux": "Άνοιγμα tmux",
+      "attachToATmuxSession": "Σύνδεση σε μια συνεδρία tmux ή εκκίνηση νέας",
+      "reconnectOnDrop": "Επανασύνδεση σε διακοπή",
+      "keepTabOpenOnExit": "Διατήρηση ανοιχτής καρτέλας κατά την έξοδο",
+      "pressEnterToConnectAgain": "Πατήστε Enter για επανασύνδεση",
+      "saveCommandHistory": "Αποθήκευση ιστορικού εντολών",
+      "offerToFillPasswordPrompts": "Πρόταση συμπλήρωσης αιτημάτων κωδικού",
+      "offerToFillSudoPrompts": "Πρόταση συμπλήρωσης αιτημάτων sudo",
+      "usesTheSudoPasswordFrom": "Χρησιμοποιεί τον κωδικό sudo από την καρτέλα SSH",
+      "none": "Κανένα",
+      "look": "Εμφάνιση",
+      "theme": "Θέμα",
+      "font": "Γραμματοσειρά",
+      "cursor": "Δρομέας",
+      "bell": "Κώδωνας",
+      "scrollbackLines": "Γραμμές κύλισης",
+      "app": "Εφαρμογή",
+      "behavior": "Συμπεριφορά",
+      "backspaceSends": "Το Backspace στέλνει",
+      "startupSnippet": "Απόσπασμα εκκίνησης",
+      "runsOnceTheShellIs": "Εκτελείται μόλις το shell είναι έτοιμο",
+      "fillWithoutAsking": "Συμπλήρωση χωρίς ερώτηση",
+      "onThisOnlyOnceYou": "Μόνο σε αυτή την {{deviceWord}}, αφού επιλέξατε «Συμπλήρωση πάντα»",
+      "connection": "Σύνδεση",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Δευτερόλεπτα μεταξύ ping, το 0 το απενεργοποιεί",
+      "default": "Προεπιλογή",
+      "keepaliveSeconds": "Δευτερόλεπτα keepalive",
+      "missedPings": "Απώλεια ping",
+      "dropTheConnectionAfterThis": "Αποσύνδεση μετά από τόσα πολλά χωρίς απάντηση",
+      "missedPingsBeforeDrop": "Απώλεια ping πριν την αποσύνδεση",
+      "environment": "Περιβάλλον",
+      "removeVariable": "Αφαίρεση μεταβλητής",
+      "addVariable": "Προσθήκη μεταβλητής"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "ΠΛΗΚΤΡΟΛΟΓΙΟ"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Σειρά",
+        "keys": "Πλήκτρα",
+        "sendsAKeyCode": "Στέλνει κωδικό πλήκτρου",
+        "stickyModifier": "Ενδεικτικό modifier",
+        "appAction": "Ενέργεια εφαρμογής",
+        "tmuxPrefixThen": "Πρόθεμα tmux, στη συνέχεια {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Σειρές πλήκτρων",
+        "onlyFor": "Μόνο για {{name}}",
+        "usingTheAppSRows": "Χρήση των σειρών της εφαρμογής. Οι αλλαγές εδώ ισχύουν μόνο για {{name}}",
+        "useTheAppSRows": "Χρήση των σειρών της εφαρμογής"
+      },
+      "keyButton": {
+        "locked": "Κλειδωμένο"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Ακύρωση",
+        "remove": "Αφαίρεση {{what}};",
+        "remove2": "Αφαίρεση",
+        "dragToReorder": "Σύρετε για αναδιάταξη",
+        "rowName": "Όνομα σειράς",
+        "groupName": "Όνομα ομάδας",
+        "add": "Προσθήκη",
+        "addKey": "Προσθήκη πλήκτρου",
+        "addRow": "Προσθήκη σειράς",
+        "addGroup": "Προσθήκη ομάδας",
+        "tmuxPrefix": "Πρόθεμα tmux",
+        "name": "Όνομα",
+        "rename": "Μετονομασία",
+        "keys": "{{value}} πλήκτρα",
+        "noKeys": "Χωρίς πλήκτρα",
+        "remove3": "Αφαίρεση {{label}}",
+        "keys2": "Πλήκτρα",
+        "custom": "Προσαρμοσμένο",
+        "add2": "Προσθήκη {{label}}",
+        "typeText": "Πληκτρολόγηση κειμένου",
+        "runCommand": "Εκτέλεση εντολής",
+        "ctrlKey": "Πλήκτρο Ctrl",
+        "label": "Ετικέτα",
+        "optional": "Προαιρετικό",
+        "letter": "Γράμμα",
+        "command": "Εντολή",
+        "text": "Κείμενο",
+        "resetToDefault": "Επαναφορά στις προεπιλογές"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Αλλαγή πλήκτρων στις Ρυθμίσεις, Πληκτρολόγιο"
+      },
+      "keyRowBar": {
+        "keyRow": "Σειρά πλήκτρων {{label}}",
+        "tapForTheNextRow": "Πατήστε για την επόμενη σειρά, κρατήστε πατημένο για επιλογή",
+        "keyRows": "Σειρές πλήκτρων"
+      },
+      "model": {
+        "clear": "Εκκαθάριση",
+        "main": "Κύρια",
+        "keys": "Πλήκτρα",
+        "arrows": "Βέλη",
+        "symbols": "Σύμβολα",
+        "actions": "Ενέργειες",
+        "nav": "Πλοήγηση",
+        "move": "Μετακίνηση",
+        "function": "Λειτουργία",
+        "brackets": "Αγκύλες",
+        "punctuation": "Σημεία στίξης",
+        "ctrl": "Ctrl",
+        "control": "Έλεγχος",
+        "windows": "Windows",
+        "panes": "Παράθυρα",
+        "copy": "Αντιγραφή",
+        "split": "Διαίρεση ─",
+        "split2": "Διαίρεση │",
+        "newWin": "Νέο παράθυρο",
+        "prevWin": "Προηγ. παράθυρο",
+        "nextWin": "Επόμεν. παράθυρο",
+        "pane": "Παράθυρο ←",
+        "pane2": "Παράθυρο ↓",
+        "pane3": "Παράθυρο ↑",
+        "pane4": "Παράθυρο →",
+        "copyMode": "Λειτουργία αντιγραφής",
+        "pasteBuf": "Επικόλληση buffer",
+        "killPane": "Κλείσιμο παραθύρου"
+      }
+    },
+    "output": {
+      "openLink": "Άνοιγμα συνδέσμου;",
+      "open": "Άνοιγμα",
+      "pasteLines": "Επικόλληση {{lines}} γραμμών;",
+      "pasteThisText": "Επικόλληση αυτού του κειμένου;",
+      "theShellMayRunIt": "Το shell μπορεί να το εκτελέσει αμέσως.\n\n{{text}}",
+      "paste": "Επικόλληση",
+      "letTheProgramReadYour": "Να επιτρέψετε στο πρόγραμμα να διαβάσει το πρόχειρο;",
+      "itAskedForWhatYou": "Ζήτησε αυτό που αντιγράψατε τελευταίο.",
+      "allow": "Επιτρέπεται",
+      "letTheProgramCopyTo": "Να επιτρέψετε στο πρόγραμμα να αντιγράψει στο πρόχειρο;"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Συμπλήρωση της αποθηκευμένης κωδικής φράσης;",
+      "asksForTheSudoPassword": "Το {{hostName}} ζητάει τον κωδικό sudo.",
+      "asksForAPassword": "Το {{hostName}} ζητάει κωδικό πρόσβασης.",
+      "fillPassword": "Συμπλήρωση κωδικού",
+      "alwaysFillOnThisHost": "Πάντα συμπλήρωση σε αυτόν τον υπολογιστή",
+      "asksNoMoreOnThis": "Δεν θα ζητηθεί ξανά σε αυτή τη {{deviceWord}}. Απενεργοποιήστε το στην καρτέλα Terminal του υπολογιστή.",
+      "notNow": "Όχι τώρα"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal και keepalive",
+      "history": "ΙΣΤΟΡΙΚΟ",
+      "find": "Εύρεση",
+      "tmuxWindows": "παράθυρα tmux",
+      "connectionLog": "Καταγραφή σύνδεσης",
+      "keyRowsForThisHost": "Σειρές πλήκτρων για αυτόν τον υπολογιστή"
+    },
+    "searchBar": {
+      "noResults": "Κανένα αποτέλεσμα",
+      "matchCase": "Τίτλος περιπτώσεων",
+      "wholeWord": "Ολόκληρη λέξη",
+      "regularExpression": "Κανονική έκφραση",
+      "find": "Εύρεση",
+      "closeFind": "Κλείσιμο εύρεσης"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Σύστημα",
+      "block": "Μπλοκ",
+      "bar": "Ράβδος",
+      "underline": "Υπογράμμιση",
+      "off": "Ανενεργό",
+      "sound": "Ήχος",
+      "flash": "Αναλαμπή",
+      "both": "Και τα δύο"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Νέα καρτέλα σε αυτόν τον υπολογιστή",
+      "closeTab": "Κλείσιμο καρτέλας",
+      "nextTab": "Επόμενη καρτέλα",
+      "previousTab": "Προηγούμενη καρτέλα",
+      "goToTab": "Μετάβαση σε καρτέλα",
+      "find": "Εύρεση",
+      "fontSize": "Μέγεθος γραμματοσειράς",
+      "paste": "Επικόλληση",
+      "escape": "Escape",
+      "copyAndPaste": "Αντιγραφή και επικόλληση"
+    },
+    "reconnecting": "Επανασύνδεση...",
+    "waitingForNetwork": "Αναμονή δικτύου...",
+    "waitingForYou": "Αναμονή για εσάς...",
+    "connecting": "Σύνδεση...",
+    "terminalView": {
+      "scrollToBottom": "Κύλιση στο κάτω μέρος",
+      "onlyWebLinksCanOpen": "Μόνο οι συνδέσεις ιστού μπορούν να ανοίξουν από το τερματικό",
+      "couldNotOpenLink": "Αδυναμία ανοίγματος συνδέσμου",
+      "copiedFromTheTerminal": "Αντιγράφηκε από το τερματικό"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Άνοιγμα συνεδρίας tmux",
+        "newSession": "Νέα συνεδρία",
+        "plainShell": "Απλό shell",
+        "tmuxWindows": "παράθυρα tmux",
+        "newWindow": "Νέο παράθυρο",
+        "windowCount_one": "{{count}} παράθυρο",
+        "windowCount_other": "{{count}} παράθυρα",
+        "attached": "{{count}} συνδεδεμένα",
+        "activeNow": "ενεργό τώρα",
+        "activeMinAgo": "ενεργό πριν από {{count}} λεπτά",
+        "activeHoursAgo": "ενεργό πριν από {{count}} ώρες",
+        "activeDaysAgo_one": "ενεργό πριν από {{count}} ημέρα",
+        "activeDaysAgo_other": "ενεργό πριν από {{count}} ημέρες"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Αντιγραφή",
+        "selectAll": "Επιλογή όλων",
+        "cancel": "Ακύρωση",
+        "scrollToBottom": "Κύλιση στο κάτω μέρος",
+        "couldNotCopy": "Αδυναμία αντιγραφής",
+        "webviewError": "Σφάλμα WebView: {{description}}",
+        "webviewHttpError": "Σφάλμα HTTP WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Δεν υπάρχει αποθηκευμένος κωδικός πρόσβασης για αυτόν τον υπολογιστή",
+    "backInTmuxSession": "Επιστροφή στη συνεδρία tmux {{tmuxName}}",
+    "backInScreenSession": "Επιστροφή στη συνεδρία screen {{name}}",
+    "theServerSessionEndedThis": "Η συνεδρία του διακομιστή τερματίστηκε. Αυτό είναι ένα νέο shell.",
+    "termixWasClosedSoThe": "Το Termix έκλεισε, οπότε το παλιό shell τερματίστηκε. Αυτό είναι ένα νέο shell.",
+    "theConnectionDroppedAndThe": "Η σύνδεση διακόπηκε και το παλιό shell τερματίστηκε. Αυτό είναι ένα νέο shell.",
+    "disconnectedFrom": "Αποσυνδέθηκε από {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Επαλήθευση δύο παραγόντων",
+      "codesFromAnAuthenticatorApp": "Κωδικοί από μια εφαρμογή ελέγχου ταυτότητας για τον λογαριασμό του server σας"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "Διεύθυνση MAC",
+      "neededToWakeThisHost": "Απαιτείται για την ενεργοποίηση αυτού του host με Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Χρησιμοποιήστε μια διεύθυνση MAC όπως 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Ενεργοποίηση μέσω LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Το Wake-on-LAN στάλθηκε στο {{name}}",
+      "failedToSendWakeOn": "Αποτυχία αποστολής πακέτου Wake-on-LAN",
+      "noServer": "Χωρίς server"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Ενεργοποίηση μέσω LAN",
+      "wake": "Ενεργοποίηση του {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Μοιραστείτε ανώνυμα στατιστικά χρήσης;",
+      "termixWouldSendAShort": "Το Termix θα στέλνει μια σύντομη αναφορά μία φορά την ημέρα. Μπορείτε να αλλάξετε αυτή τη ρύθμιση ανά πάσα στιγμή στις Ρυθμίσεις.",
+      "noThanks": "Όχι, ευχαριστώ",
+      "share": "Μοιραστείτε",
+      "theReportHasTheApp": "Η αναφορά περιέχει την έκδοση της εφαρμογής, τον τύπο {{deviceWord}}, κατά προσέγγιση αριθμούς hosts και συνεδριών, ποιες λειτουργίες χρησιμοποιείτε και αν η σύνδεση ήταν επιτυχής. Δεν περιέχει ποτέ ονόματα hosts, ονόματα χρηστών, διευθύνσεις, διαδρομές, εντολές ή ονόματα server.",
+      "seeExactlyWhatIsSent": "Δείτε ακριβώς τι στέλνεται"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Φόρτωση πληροφοριών έκδοσης…",
+      "updateAvailable": "Διαθέσιμη Ενημέρωση",
+      "newVersionAvailable": "Διαθέσιμη νέα έκδοση",
+      "aNewerVersionOfThe": "Μια νεότερη έκδοση της εφαρμογής κινητού είναι διαθέσιμη. Ορισμένες λειτουργίες ενδέχεται να μην λειτουργούν σωστά μέχρι να κάνετε ενημέρωση.",
+      "versionInformation": "Πληροφορίες Έκδοσης",
+      "installed": "Εγκατεστημένη",
+      "latest": "Τελευταία",
+      "unknown": "Άγνωστη",
+      "tag": "Ετικέτα",
+      "continueAnyway": "Συνέχεια Παρόλα Αυτά"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Αντιγράφηκε",
+      "copy": "Αντιγραφή",
+      "hostKeyChanged": "Το κλειδί του host άλλαξε",
+      "verifyHostKey": "Επαλήθευση κλειδιού host",
+      "cancel": "Ακύρωση",
+      "acceptNewKey": "Αποδοχή νέου κλειδιού",
+      "connectAndTrust": "Σύνδεση και εμπιστοσύνη",
+      "theHostSSshKey": "Το SSH κλειδί του host έχει αλλάξει από την τελευταία σας σύνδεση. Αυτό μπορεί να σημαίνει ότι κάποιος παρεμβάλλεται στη σύνδεση.",
+      "youAreConnectingToThis": "Συνδέεστε σε αυτό το host για πρώτη φορά. Ελέγξτε το fingerprint πριν το εμπιστευτείτε.",
+      "previousKey": "Προηγούμενο κλειδί",
+      "newFingerprint": "Νέο fingerprint",
+      "hostFingerprint": "Fingerprint host"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Απαιτείται Κωδικός Πρόσβασης",
+      "enterThePassphraseForYour": "Εισάγετε τον κωδικό πρόσβασης για το SSH κλειδί σας.",
+      "cancel": "Ακύρωση",
+      "connect": "Σύνδεση",
+      "keyPassphrase": "Κωδικός πρόσβασης κλειδιού"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Απαιτείται Επαλήθευση SSH",
+      "cancel": "Ακύρωση",
+      "connect": "Σύνδεση",
+      "password": "Κωδικός",
+      "sshKey": "SSH Κλειδί",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nΕπικολλήστε το ιδιωτικό σας κλειδί εδώ...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Κωδικός πρόσβασης κλειδιού (προαιρετικό)",
+      "keyboardInteractiveAuthIsNot": "Η διαδραστική επαλήθευση πληκτρολογίου δεν είναι διαθέσιμη. Εισάγετε τα διαπιστευτήρια απευθείας.",
+      "authenticationFailedPleaseReEnter": "Η επαλήθευση απέτυχε. Εισάγετε ξανά τα διαπιστευτήριά σας.",
+      "connectionTimedOutPleaseTry": "Λήξη χρόνου σύνδεσης. Δοκιμάστε ξανά με τα διαπιστευτήριά σας."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Έλεγχος SSH Tailscale",
+      "completeTheTailscaleSshCheck": "Ολοκληρώστε τον έλεγχο SSH Tailscale στον περιηγητή σας για να συνεχίσετε.",
+      "cancel": "Ακύρωση",
+      "copyUrl": "Αντιγραφή URL",
+      "openBrowser": "Άνοιγμα Περιηγητή",
+      "urlCopied": "Το URL αντιγράφηκε",
+      "failedToCopy": "Αποτυχία αντιγραφής",
+      "couldNotOpenBrowser": "Αδυναμία ανοίγματος του περιηγητή"
+    },
+    "tOTPDialog": {
+      "cancel": "Ακύρωση",
+      "submit": "Υποβολή",
+      "verify": "Επαλήθευση",
+      "password": "Κωδικός πρόσβασης",
+      "pasteCode": "Επικόλληση κωδικού",
+      "passwordRequired": "Απαιτείται κωδικός πρόσβασης",
+      "twoFactorAuthentication": "Επαλήθευση δύο παραγόντων",
+      "enterYourPasswordToContinue": "Εισάγετε τον κωδικό πρόσβασης για να συνεχίσετε.",
+      "enterThe6DigitCode": "Εισάγετε τον 6ψήφιο κωδικό από την εφαρμογή ελέγχου ταυτότητας."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Επαλήθευση Warpgate",
+      "authenticateViaTheWarpgatePortal": "Επαληθεύστε μέσω του portal του Warpgate και στη συνέχεια πατήστε Συνέχεια.",
+      "cancel": "Ακύρωση",
+      "openBrowser": "Άνοιγμα περιηγητή",
+      "continue": "Συνέχεια",
+      "securityKey": "Κλειδί ασφαλείας",
+      "authUrl": "URL ελέγχου ταυτότητας",
+      "copied": "Αντιγράφηκε",
+      "copy": "Αντιγραφή",
+      "urlCopied": "Το URL αντιγράφηκε",
+      "failedToCopy": "Αποτυχία αντιγραφής",
+      "couldNotOpenBrowser": "Αδυναμία ανοίγματος του περιηγητή"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "αυτό το {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Πρόσφατη δραστηριότητα",
+        "files": "Αρχεία",
+        "terminal": "Τερματικό"
+      },
+      "alertsCard": {
+        "notifications": "Ειδοποιήσεις",
+        "seeAll": "Προβολή όλων"
+      },
+      "server": "Διακομιστής",
+      "openSessions": "Ανοιχτές συνεδρίες",
+      "quickAccess": "Γρήγορη πρόσβαση",
+      "notifications": "Ειδοποιήσεις",
+      "pinnedHosts": "Στερεωμένοι διακομιστές",
+      "recentHosts": "Πρόσφατοι διακομιστές",
+      "recentActivity": "Πρόσφατη δραστηριότητα",
+      "pinnedCard": {
+        "addYourFirstHost": "Προσθήκη του πρώτου σας διακομιστή",
+        "hostsYouOpenShowUp": "Οι διακομιστές που ανοίγετε εμφανίζονται εδώ, ενώ οι στερεωμένοι διακομιστές εμφανίζουν ζωντανές κάρτες.",
+        "addHost": "Προσθήκη διακομιστή",
+        "linkAServer": "Σύνδεση διακομιστή",
+        "pinAHostToSee": "Στερεώστε έναν διακομιστή για να τον δείτε εδώ",
+        "pinnedHostsShowTheirMetrics": "Οι στερεωμένοι διακομιστές εμφανίζουν τις μετρήσεις, τα Docker και τις υπηρεσίες τους με μια ματιά. Πατήστε παρατεταμένα έναν διακομιστή για να τον στερεώσετε.",
+        "goToHosts": "Μετάβαση στους διακομιστές",
+        "pinned": "Στερεωμένα",
+        "opensTheTerminalHoldFor": "Ανοίγει το τερματικό. Πατήστε παρατεταμένα για περισσότερα.",
+        "turnOnDockerOrServices": "Ενεργοποιήστε το Docker ή τις Υπηρεσίες για αυτόν τον διακομιστή ή πατήστε τον για σύνδεση.",
+        "opens": "Ανοίγει το {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Γρήγορη πρόσβαση",
+        "quickConnect": "Γρήγορη σύνδεση",
+        "userHostPortWithoutSaving": "χρήστης@διακομιστής:θύρα, χωρίς αποθήκευση"
+      },
+      "recentCard": {
+        "recent": "Πρόσφατα"
+      },
+      "serverCard": {
+        "server": "Διακομιστής",
+        "version": "Έκδοση",
+        "uptime": "Χρόνος λειτουργίας",
+        "database": "Βάση δεδομένων",
+        "hosts": "Διακομιστές",
+        "online": "Σε σύνδεση",
+        "offline": "Εκτός σύνδεσης",
+        "logins": "Συνδέσεις"
+      },
+      "sessionsCard": {
+        "openSessions": "Ανοιχτές συνεδρίες",
+        "connected": "Συνδεδεμένο"
+      }
+    },
+    "resetHome": "Επαναφορά Αρχικής Σελίδας;",
+    "cardsGoBackToThe": "Οι κάρτες επιστρέφουν στην προεπιλεγμένη σειρά και στις κάρτες που εμφανίζονται.",
+    "reset": "Επαναφορά",
+    "doneEditingHome": "Ολοκληρώθηκε η επεξεργασία της Αρχικής Σελίδας",
+    "editHome": "Επεξεργασία Αρχικής Σελίδας",
+    "dragToReorder": "Σύρετε το {{title}} για αναδιάταξη",
+    "show": "Εμφάνιση {{title}}",
+    "dragCardsToReorderThem": "Σύρετε τις κάρτες για να τις αναδιατάξετε. Απενεργοποιήστε μια κάρτα για να την αποκρύψετε. Οι κάρτες χωρίς περιεχόμενο παραμένουν κρυφές αυτόματα.",
+    "resetToDefault": "Επαναφορά στην προεπιλογή",
+    "done": "Έτοιμο",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Αδυναμία πρόσβασης στον διακομιστή",
+      "canTReach": "Αδυναμία πρόσβασης στο {{account}}",
+      "youCanKeepWorkingWith": "Μπορείτε να συνεχίσετε να εργάζεστε με το αντίγραφο σε αυτήν την {{deviceWord}}. Οι αλλαγές θα συγχρονιστούν όταν επανέλθει η σύνδεση.",
+      "hostsSetToConnectFrom": "Οι hosts που έχουν ρυθμιστεί να συνδέονται από αυτήν την {{deviceWord}} λειτουργούν κανονικά.",
+      "tryAgain": "Δοκιμή ξανά",
+      "noAnswer": "χωρίς απάντηση"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Προφίλ Vault",
+      "none": "Κανένα",
+      "signsInWithInYour": "Συνδέεται με το {{title}} στον περιηγητή σας μέσω του διακομιστή Termix. Συνδέστε αυτόν τον host μέσω του διακομιστή.",
+      "needsATermixServerLink": "Το {{title}} απαιτεί διακομιστή Termix. Συνδέστε έναν για να χρησιμοποιήσετε αυτήν τη σύνδεση.",
+      "isOffOnThisServer": "Το {{title}} είναι απενεργοποιημένο σε αυτόν τον διακομιστή. Αυτός ο host διατηρεί τη ρύθμιση σύνδεσής του."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Αδυναμία φόρτωσης διαπιστευτηρίων",
+      "deleted": "Διαγράφηκε το \"{{name}}\"",
+      "couldNotDeleteTheCredential": "Αδυναμία διαγραφής του διαπιστευτηρίου",
+      "credentials": "Διαπιστευτήρια",
+      "add": "Προσθήκη",
+      "searchCredentials": "Αναζήτηση διαπιστευτηρίων",
+      "clearSearch": "Εκκαθάριση αναζήτησης",
+      "loadingCredentials": "Φόρτωση διαπιστευτηρίων...",
+      "noCredentialsMatchYourSearch": "Κανένα διαπιστευτήριο δεν ταιριάζει με την αναζήτησή σας",
+      "noCredentialsYet": "Δεν υπάρχουν ακόμη διαπιστευτήρια",
+      "addCredential": "Προσθήκη διαπιστευτηρίου",
+      "edit": "Επεξεργασία",
+      "delete": "Διαγραφή",
+      "deleteCredential": "Διαγραφή διαπιστευτηρίου",
+      "willBePermanentlyDeletedHosts": "Το \"{{name}}\" θα διαγραφεί οριστικά. Οι hosts που το χρησιμοποιούν θα χάσουν τα αποθηκευμένα διαπιστευτήριά τους.",
+      "cancel": "Ακύρωση",
+      "hostCount_one": "{{count}} host",
+      "hostCount_other": "{{count}} hosts",
+      "sshKey": "Κλειδί SSH"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Αντικατάσταση του κλειδιού;",
+        "theNewKeyTakesThe": "Το νέο κλειδί αντικαθιστά το τρέχον. Οι hosts που εμπιστεύονται μόνο το παλιό κλειδί θα σταματήσουν να αποδέχονται αυτό το διαπιστευτήριο.",
+        "replace": "Αντικατάσταση",
+        "newKeyMadeCopyThe": "Δημιουργήθηκε νέο κλειδί. Αντιγράψτε το δημόσιο κλειδί στους hosts σας.",
+        "couldNotMakeAKey": "Αδυναμία δημιουργίας κλειδιού",
+        "couldNotReadThatCertificate": "Αδυναμία ανάγνωσης του αρχείου πιστοποιητικού",
+        "leaveWithoutSaving": "Αποχώρηση χωρίς αποθήκευση;",
+        "yourChangesToThisCredential": "Οι αλλαγές σας σε αυτό το διαπιστευτήριο θα χαθούν.",
+        "leave": "Αποχώρηση",
+        "credentialSaved": "Αποθηκεύτηκε το διαπιστευτήριο",
+        "credentialAdded": "Προστέθηκε διαπιστευτήριο",
+        "couldNotSaveTheCredential": "Αδυναμία αποθήκευσης του διαπιστευτηρίου",
+        "enterAHostToTest": "Εισάγετε έναν host για δοκιμή, όπως 10.0.0.5 ή box:2222.",
+        "enterTheUsernameFirst": "Εισάγετε πρώτα το όνομα χρήστη.",
+        "editCredential": "Επεξεργασία διαπιστευτηρίου",
+        "newCredential": "Νέο διαπιστευτήριο",
+        "cancel": "Ακύρωση",
+        "save": "Αποθήκευση",
+        "credential": "Στοιχεία σύνδεσης",
+        "name": "Όνομα",
+        "productionKey": "Κλειδί παραγωγής",
+        "username": "Όνομα χρήστη",
+        "signInWith": "Σύνδεση με",
+        "password": "Κωδικός πρόσβασης",
+        "sshKey": "Κλειδί SSH",
+        "unchangedIfBlank": "Αμετάβλητο αν είναι κενό",
+        "key": "Κλειδί",
+        "fileOrPaste": "Αρχείο ή επικόλληση",
+        "makeANewKey": "Δημιουργία νέου κλειδιού",
+        "aKeyIsSavedChoose": "Έχει αποθηκευτεί ένα κλειδί. Επιλέξτε αρχείο ή επικολλήστε για να το αντικαταστήσετε.",
+        "type": "Τύπος",
+        "ed25519AndEcdsaAreMade": "Τα Ed25519 και ECDSA δημιουργούνται σε αυτή τη {{deviceWord}}, το RSA στον διακομιστή σας.",
+        "madeOnThisEd25519Works": "Δημιουργήθηκε σε αυτή τη {{deviceWord}}. Το Ed25519 λειτουργεί σχεδόν παντού.",
+        "passphrase": "Φράση πρόσβασης",
+        "optionalLocksTheNewKey": "Προαιρετικό. Κλειδώνει το νέο κλειδί σε αυτή τη {{deviceWord}} και στον δίσκο.",
+        "makeKey": "Δημιουργία κλειδιού",
+        "publicKey": "Δημόσιο κλειδί",
+        "addThisLineToSsh": "Προσθέστε αυτή τη γραμμή στο ~/.ssh/authorized_keys στους διακομιστές σας",
+        "publicKeyCopied": "Το δημόσιο κλειδί αντιγράφηκε",
+        "copyPublicKey": "Αντιγραφή δημόσιου κλειδιού",
+        "certificate": "Πιστοποιητικό",
+        "aCertificateYourCaSigned": "Ένα πιστοποιητικό που υπέγραψε η CA σας για αυτό το κλειδί, για διακομιστές που εμπιστεύονται την CA.",
+        "chooseCertificateFile": "Επιλογή αρχείου πιστοποιητικού",
+        "thisDoesNotLookLike": "Αυτό δεν μοιάζει με πιστοποιητικό OpenSSH.",
+        "test": "Δοκιμή",
+        "hostToTestOn": "Διακομιστής για δοκιμή",
+        "n10005Or": "10.0.0.5 ή box.lan:2222",
+        "pickASavedHost": "Επιλογή αποθηκευμένου διακομιστή",
+        "details": "Λεπτομέρειες",
+        "description": "Περιγραφή",
+        "whatThisCredentialIsFor": "Για τι προορίζονται αυτά τα στοιχεία σύνδεσης",
+        "folder": "Φάκελος",
+        "serverKeys": "Κλειδιά διακομιστή",
+        "testOnAHost": "Δοκιμή σε διακομιστή",
+        "rsaKeysNeedALinked": "Τα κλειδιά RSA χρειάζονται συνδεδεμένο διακομιστή."
+      },
+      "model": {
+        "giveThisCredentialAName": "Δώστε ένα όνομα σε αυτά τα στοιχεία σύνδεσης",
+        "addAPrivateKeyOr": "Προσθέστε ένα ιδιωτικό κλειδί ή δημιουργήστε ένα νέο"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Αυτό είναι πιστοποιητικό διακομιστή, όχι χρήστη.",
+        "thisCertificateIsNotValid": "Αυτό το πιστοποιητικό δεν είναι ακόμη έγκυρο.",
+        "thisCertificateHasExpired": "Αυτό το πιστοποιητικό έχει λήξει.",
+        "itIsForAKey": "Είναι για κλειδί {{keyType}}, αλλά αυτό το κλειδί είναι {{keyType2}}.",
+        "forAnyUser": "Για οποιονδήποτε χρήστη",
+        "validFromNoEndDate": "Έγκυρο από {{validAfter}}, χωρίς ημερομηνία λήξης",
+        "signedBy": "Υπογεγραμμένο από {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Όνομα χρήστη",
+        "fromTheCredential": "Από τα στοιχεία σύνδεσης: {{credentialUser}}",
+        "signInWith": "Σύνδεση με",
+        "password": "Κωδικός πρόσβασης",
+        "key": "Κλειδί",
+        "credential": "Στοιχεία σύνδεσης",
+        "none": "Κανένα",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Συνδέεται με Tailscale SSH. Δεν αποθηκεύεται κωδικός πρόσβασης ή κλειδί.",
+        "tailscaleIsNotOnFor": "Το Tailscale δεν είναι ενεργό για το {{value}}. Αυτός ο διακομιστής διατηρεί τη σύνδεσή του στο Tailscale.",
+        "unchangedIfBlank": "Αμετάβλητο αν είναι κενό",
+        "noCredentialsYetTapThe": "Δεν υπάρχουν ακόμη στοιχεία σύνδεσης. Πατήστε το εικονίδιο κλειδιού στους Διακομιστές για να προσθέσετε ένα.",
+        "useCredential": "Χρήση διαπιστευτηρίου {{name}}",
+        "sudoPassword": "Κωδικός sudo",
+        "typedIntoSudoPromptsWhen": "Πληκτρολογείται στα prompts του sudo όταν η ενότητα Terminal το ενεργοποιεί",
+        "notSet": "Δεν έχει οριστεί",
+        "thisServer": "αυτός ο server"
+      },
+      "colorIconField": {
+        "color": "Χρώμα",
+        "noColor": "Χωρίς χρώμα",
+        "color2": "Χρώμα {{c}}",
+        "icon": "Εικονίδιο",
+        "noIcon": "Χωρίς εικονίδιο",
+        "none": "Κανένα",
+        "icon2": "Εικονίδιο {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Αποχώρηση χωρίς αποθήκευση;",
+        "yourChangesToThisHost": "Οι αλλαγές σας σε αυτόν τον host θα χαθούν.",
+        "leave": "Αποχώρηση",
+        "couldNotSaveHowThis": "Αδυναμία αποθήκευσης του τρόπου σύνδεσης αυτού του host",
+        "hostSaved": "Ο host αποθηκεύτηκε",
+        "hostAdded": "Προστέθηκε host",
+        "couldNotSaveTheHost": "Αδυναμία αποθήκευσης του host",
+        "enterTheHostSAddress": "Εισάγετε πρώτα τη διεύθυνση του host.",
+        "turnOnSshToTest": "Ενεργοποιήστε το SSH για να δοκιμάσετε τη σύνδεση.",
+        "pickACredentialFirst": "Επιλέξτε πρώτα ένα διαπιστευτήριο.",
+        "editHost": "Επεξεργασία host",
+        "newHost": "Νέος host",
+        "cancel": "Ακύρωση",
+        "save": "Αποθήκευση",
+        "host": "Host",
+        "name": "Όνομα",
+        "myServer": "Ο server μου",
+        "address": "Διεύθυνση",
+        "port": "Θύρα",
+        "portAndUsernameComeFrom": "Η θύρα και το όνομα χρήστη προέρχονται από τις προεπιλογές του host μέχρι να τις αλλάξετε.",
+        "folder": "Φάκελος",
+        "production": "Παραγωγή",
+        "useAFolderInstead": "Χρησιμοποιήστε έναν φάκελο αντί για αυτό",
+        "putItUnderAHost": "Τοποθετήστε το κάτω από έναν host αντί για αυτό",
+        "pinToTop": "Καρφίωμα στην κορυφή",
+        "colorAndIcon": "Χρώμα και εικονίδιο",
+        "notes": "Σημειώσεις",
+        "anythingWorthRememberingAboutThis": "Τιδήποτε αξίζει να θυμάστε για αυτόν τον host",
+        "protocols": "Πρωτόκολλα",
+        "terminalFilesAndMore": "Τερματικό, αρχεία και άλλα",
+        "connectFrom": "Σύνδεση από",
+        "features": "Χαρακτηριστικά",
+        "otherProtocols": "Άλλα πρωτόκολλα",
+        "more": "Περισσότερα",
+        "theTestRunsFromThis": "Η δοκιμή εκτελείται από αυτή τη {{deviceWord}}. Αυτός ο host συνδέεται μέσω του server, οπότε μπορεί να λειτουργεί ακόμα και όταν η {{deviceWord}} δεν μπορεί να τον φτάσει."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Jump hosts",
+        "connectsThroughTheseInOrder": "Συνδέεται μέσω αυτών με τη σειρά, και μετά σε αυτόν τον host",
+        "reachThisHostThroughOther": "Φτάστε σε αυτόν τον host μέσω άλλων hosts πρώτα",
+        "moveUp": "Μετακίνηση πάνω",
+        "moveDown": "Μετακίνηση κάτω",
+        "removeJumpHost": "Αφαίρεση jump host",
+        "addJumpHost": "Προσθήκη jump host",
+        "pickASavedHostTo": "Επιλέξτε έναν αποθηκευμένο host για σύνδεση μέσω αυτού",
+        "searchHosts": "Αναζήτηση hosts",
+        "noOtherHostsToPick": "Δεν υπάρχουν άλλοι hosts για επιλογή. Ένας host δεν μπορεί να κάνει jump μέσω του εαυτού του ή ενός host που ήδη περνάει από αυτόν.",
+        "missingHost": "Λείπει ο host #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Ενεργοποιήστε τουλάχιστον ένα πρωτόκολλο",
+        "pickACredential": "Επιλέξτε ένα διαπιστευτήριο",
+        "enterTheHostSAddress": "Εισάγετε τη διεύθυνση του host",
+        "theAddressCanTHave": "Η διεύθυνση δεν μπορεί να περιέχει κενά",
+        "portMustBeFrom1": "Η θύρα πρέπει να είναι από 1 έως 65535",
+        "enterTheSshUsername": "Εισάγετε το όνομα χρήστη SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Το host εμφανίζεται ως υποστοιχείο του host που επιλέξετε",
+        "searchHosts": "Αναζήτηση hosts",
+        "noHostsToPickA": "Δεν υπάρχουν hosts προς επιλογή. Ένα host δεν μπορεί να τοποθετηθεί κάτω από τον εαυτό του, ένα από τα υπο-hosts του ή ένα κοινό host.",
+        "parentHost": "Γονικό host",
+        "subHostsFollowTheFolder": "Τα υπο-hosts ακολουθούν τον φάκελο του γονικού τους host",
+        "pickParentHost": "Επιλογή γονικού host",
+        "missingHost": "Λείπει το host #{{value}}",
+        "pickAHost": "Επιλέξτε ένα host",
+        "clearParentHost": "Καθαρισμός γονικού host"
+      },
+      "tagsField": {
+        "tags": "Ετικέτες",
+        "typeATagAndPress": "Πληκτρολογήστε μια ετικέτα και πατήστε Enter",
+        "removeTag": "Αφαίρεση ετικέτας {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Αδυναμία αποθήκευσης των ρυθμίσεων σύνδεσης για αυτό το host",
+      "addressCopied": "Η διεύθυνση αντιγράφηκε",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Σύνδεση από",
+      "dismiss": "Απόρριψη",
+      "unpin": "Αποσύνδεση",
+      "pinToHome": "Καρφίτσωμα στην Αρχική",
+      "select": "Επιλογή",
+      "editHost": "Επεξεργασία Host",
+      "copyAddress": "Αντιγραφή Διεύθυνσης",
+      "addSubHost": "Προσθήκη Υπο-host",
+      "cloneHost": "Αντιγραφή Host",
+      "deleteHost": "Διαγραφή Host",
+      "connectThroughTheServer": "Σύνδεση μέσω του server",
+      "connectFromThis": "Σύνδεση από αυτή τη {{deviceWord}}"
+    },
+    "defaultYourOrder": "Προεπιλογή (η σειρά σας)",
+    "nameAZ": "Όνομα (Α-Ω)",
+    "nameZA": "Όνομα (Ω-Α)",
+    "ipAscending": "IP (αύξουσα)",
+    "ipDescending": "IP (φθίνουσα)",
+    "onlineFirst": "Οnline πρώτα",
+    "offlineFirst": "Offline πρώτα",
+    "pinnedFirst": "Καρφιτωμένα πρώτα",
+    "status": "Κατάσταση",
+    "online": "Online",
+    "offline": "Offline",
+    "pinned": "Καρφιτωμένο",
+    "protocol": "Πρωτόκολλο",
+    "features": "Χαρακτηριστικά",
+    "hostsCanOnlyMoveInside": "Τα hosts μπορούν να μετακινηθούν μόνο μέσα στον δικό τους φάκελο",
+    "couldNotUpdateTheHosts": "Αδυναμία ενημέρωσης των hosts",
+    "sharedHostsCanTBe": "Τα κοινά hosts δεν μπορούν να διαγραφούν από εδώ",
+    "delete2": "Διαγραφή",
+    "noneOfTheseHostsOpen": "Κανένα από αυτά τα hosts δεν ανοίγει ένα terminal",
+    "couldNotPinTheHost": "Αδυναμία καρφίτσωμα του host",
+    "deleted": "Διαγράφηκε το {{name}}",
+    "failedToDeleteHost": "Αποτυχία διαγραφής host",
+    "cloned": "Αντιγράφηκε το {{name}}",
+    "failedToCloneHost": "Αποτυχία αντιγραφής host",
+    "reorderWorksWithTheDefault": "Η αναδιάταξη λειτουργεί με την προεπιλεγμένη ταξινόμηση και χωρίς αναζήτηση ή φίλτρο",
+    "couldNotSaveTheOrder": "Αδυναμία αποθήκευσης της σειράς",
+    "noHostsYet": "Δεν υπάρχουν hosts ακόμη",
+    "addAHostToConnect": "Προσθέστε έναν host για να συνδεθείτε με ένα πάτημα.",
+    "addHost": "Προσθήκη host",
+    "quickConnect2": "Γρήγορη σύνδεση",
+    "linkAServer": "Σύνδεση server",
+    "noHostsMatch": "Δεν βρέθηκαν hosts",
+    "clearSearchAndFilters": "Εκκαθάριση αναζήτησης και φίλτρων",
+    "more": "Περισσότερα",
+    "dragAHostByIts": "Σύρετε έναν host από τη λαβή του για να τον μετακινήσετε μέσα στο φάκελό του.",
+    "done": "Τέλος",
+    "filterHosts": "Φιλτράρισμα hosts",
+    "clearFilterText": "Εκκαθάριση κειμένου φίλτρου",
+    "sortHosts": "Ταξινόμηση hosts",
+    "removeFilter": "Αφαίρεση φίλτρου {{value}}",
+    "loadingHosts": "Φόρτωση hosts…",
+    "moveUnderAHost": "Μετακίνηση κάτω από έναν host",
+    "moveToFolder": "Μετακίνηση σε φάκελο",
+    "leaveItEmptyToTake": "Αφήστε το κενό για να βγάλετε τους hosts από φακέλους.",
+    "folderLikeProdWeb": "Φάκελος, όπως Prod / Web",
+    "move": "Μετακίνηση",
+    "hosts": "Hosts",
+    "selectHosts": "Επιλογή hosts",
+    "reorderHosts": "Επαναταξινόμηση hosts",
+    "customizeList": "Προσαρμογή λίστας",
+    "chooseWhatEachHostRow": "Επιλέξτε τι εμφανίζει κάθε γραμμή host",
+    "credentials2": "Στοιχεία σύνδεσης",
+    "savedPasswordsAndKeys": "Αποθηκευμένοι κωδικοί και κλειδιά",
+    "tailscaleDevices": "Συσκευές Tailscale",
+    "refresh": "Ανανέωση",
+    "rowDensityFollowsSettingsAppearance": "Η πυκνότητα γραμμών ακολουθεί τις Ρυθμίσεις, Εμφάνιση.",
+    "clearAllFilters": "Εκκαθάριση όλων των φίλτρων",
+    "tags": "Ετικέτες",
+    "stopSelecting": "Διακοπή επιλογής",
+    "selected": "{{count}} επιλεγμένα",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Αδυναμία ανάγνωσης του αρχείου κλειδιού",
+        "theClipboardIsEmpty": "Το πρόχειρο είναι κενό",
+        "privateKey": "Ιδιωτικό κλειδί",
+        "chooseFile": "Επιλογή αρχείου",
+        "paste": "Επικόλληση",
+        "unchangedIfBlank": "Αμετάβλητο αν είναι κενό",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Φράση πρόσβασης",
+        "onlyIfTheKeyHas": "Μόνο αν το κλειδί έχει μία",
+        "theKeyIsCheckedWhen": "Το κλειδί ελέγχεται κατά τη σύνδεση.",
+        "thePastedKey": "το επικολλημένο κλειδί"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Άνοιγμα",
+        "moreActions": "Περισσότερες ενέργειες",
+        "opensTheTerminalHoldFor": "Ανοίγει το terminal. Πατήστε παρατεταμένα για περισσότερα.",
+        "shared": "Κοινόχρηστο",
+        "drag": "Σύρετε το {{name}}",
+        "showSubHosts_one": "Εμφάνιση {{count}} υπο-host του {{name}}",
+        "showSubHosts_other": "Εμφάνιση {{count}} υπο-hosts του {{name}}",
+        "hideSubHosts_one": "Απόκρυψη {{count}} υπο-host του {{name}}",
+        "hideSubHosts_other": "Απόκρυψη {{count}} υπο-hosts του {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Φάκελος {{name}}, {{total}} hosts"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Απαιτούνται host και όνομα χρήστη",
+      "hostSaved": "Ο host αποθηκεύτηκε",
+      "couldNotSaveTheHost": "Αδυναμία αποθήκευσης του host",
+      "quickConnect": "Γρήγορη σύνδεση",
+      "connectToAHostWithout": "Συνδεθείτε σε έναν host χωρίς να τον αποθηκεύσετε.",
+      "hostIp": "Host / IP",
+      "port": "Θύρα",
+      "username": "Όνομα χρήστη",
+      "password": "Κωδικός πρόσβασης",
+      "key": "Κλειδί",
+      "privateKey": "Ιδιωτικό κλειδί",
+      "saveToMyHosts": "Αποθήκευση στους hosts μου",
+      "keepThisHostAfterConnecting": "Διατήρηση αυτού του host μετά τη σύνδεση",
+      "cancel": "Ακύρωση",
+      "connect": "Σύνδεση"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Λήψη των hosts σας από τον server",
+      "yourHostsStayOnThis": "{{message}} Οι hosts σας παραμένουν σε αυτή τη {{deviceWord}} εν τω μεταξύ."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Το κλειδί αυτού του host άλλαξε",
+      "trustThisHost": "Να εμπιστευτείτε αυτόν τον host;",
+      "trust": "Εμπιστοσύνη",
+      "stopTest": "Διακοπή δοκιμής",
+      "testConnection": "Δοκιμή σύνδεσης",
+      "connecting": "Σύνδεση..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Αποτυχία φόρτωσης των hosts."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} κοινόχρηστος host άφησε ως έχει.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} κοινόχρηστοι hosts άφησαν ως έχουν.",
+    "deleteHosts_one": "Διαγραφή {{count}} host;",
+    "deleteHosts_other": "Διαγραφή {{count}} hosts;",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Δεν υπάρχει φάκελος με όνομα {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Host \"{{name}}\": λανθασμένη θύρα",
+        "hostJumpIsNotIn": "Host \"{{name}}\": το jump {{value}} δεν βρίσκεται στο αρχείο, οπότε παραλείφθηκε",
+        "credential": "Στοιχεία ταυτότητας {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Δεν βρέθηκαν έγκυρες καταχωρίσεις Host στο αρχείο ρυθμίσεων SSH",
+        "credentialWasNotFound": "{{label}}: τα στοιχεία ταυτότητας {{value}} δεν βρέθηκαν"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Host {{value}}: διπλό export host id {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Λείπουν απαιτούμενα πεδία (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Μη έγκυρο authType. Πρέπει να είναι ένα από {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Απαιτείται όνομα χρήστη για συνδέσεις SSH",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: Απαιτείται credentialAlias για εγγραφή ταυτότητας",
+        "thatIsNotAValid": "Αυτό δεν είναι έγκυρο αρχείο JSON",
+        "hostsArrayIsRequiredAnd": "Απαιτείται πίνακας Hosts και δεν πρέπει να είναι άδειος",
+        "jumpHostCycle": "{{label}}: κύκλος jump host",
+        "jumpHostIsNotIn": "{{label}}: ο jump host {{id}} δεν βρίσκεται στο αρχείο"
+      }
+    },
+    "movedTo": "Μετακινήθηκε στο {{value}}",
+    "movedOutOfFolders": "Μετακινήθηκε εκτός φακέλων",
+    "movedUnder": "Μετακινήθηκε κάτω από {{value}}",
+    "openTerminals": "Ανοιχτά τερματικά",
+    "theHost": "ο host"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Απόκρυψη κωδικού πρόσβασης",
+      "showPassword": "Εμφάνιση κωδικού πρόσβασης",
+      "enterAUsernameAndPassword": "Εισαγάγετε όνομα χρήστη και κωδικό πρόσβασης",
+      "useAtLeast6Characters": "Χρησιμοποιήστε τουλάχιστον 6 χαρακτήρες για τον κωδικό πρόσβασης",
+      "thePasswordsDonTMatch": "Οι κωδικοί πρόσβασης δεν ταιριάζουν",
+      "makeTheAdminAccount": "Δημιουργία λογαριασμού διαχειριστή",
+      "makeAnAccount": "Δημιουργία λογαριασμού",
+      "thisIsTheFirstAccount": "Αυτός είναι ο πρώτος λογαριασμός στον server, οπότε διαχειρίζεται τον server.",
+      "pickAUsernameAndPassword": "Επιλέξτε όνομα χρήστη και κωδικό πρόσβασης για αυτόν τον server.",
+      "username": "Όνομα χρήστη",
+      "password": "Κωδικός πρόσβασης",
+      "passwordAgain": "Κωδικός πρόσβασης ξανά",
+      "makeAccount": "Δημιουργία λογαριασμού",
+      "back": "Πίσω",
+      "haveAnAccountSignIn": "Έχετε λογαριασμό; Συνδεθείτε",
+      "resetCodeMadeItIs": "Δημιουργήθηκε κωδικός επαναφοράς. Βρίσκεται στα αρχεία καταγραφής του server",
+      "enterYourUsername": "Εισαγάγετε το όνομα χρήστη σας",
+      "enterTheResetCode": "Εισαγάγετε τον κωδικό επαναφοράς",
+      "passwordChangedSignInWith": "Ο κωδικός πρόσβασης άλλαξε. Συνδεθείτε με αυτόν τώρα",
+      "resetPassword": "Επαναφορά κωδικού πρόσβασης",
+      "enterYourUsernameTheServer": "Εισαγάγετε το όνομα χρήστη σας. Ο server γράφει έναν κωδικό επαναφοράς στα αρχεία καταγραφής του.",
+      "sendResetCode": "Αποστολή κωδικού επαναφοράς",
+      "enterThe6DigitCode": "Εισάγετε τον 6ψήφιο κωδικό από τα αρχεία καταγραφής του διακομιστή.",
+      "resetCode": "Επαναφορά κωδικού",
+      "checkCode": "Έλεγχος κωδικού",
+      "newPassword": "Νέος κωδικός πρόσβασης",
+      "saveNewPassword": "Αποθήκευση νέου κωδικού πρόσβασης",
+      "backToSignIn": "Επιστροφή στην είσοδο",
+      "couldNotMakeTheAccount": "Δεν ήταν δυνατή η δημιουργία του λογαριασμού",
+      "couldNotStartTheReset": "Δεν ήταν δυνατή η έναρξη της επαναφοράς",
+      "thatCodeDidnTWork": "Αυτός ο κωδικός δεν λειτούργησε",
+      "couldNotChangeThePassword": "Δεν ήταν δυνατή η αλλαγή του κωδικού πρόσβασης"
+    },
+    "browserStep": {
+      "signInFailed": "Αποτυχία εισόδου",
+      "signInCanceled": "Η είσοδος ακυρώθηκε",
+      "couldNotOpenTheSign": "Δεν ήταν δυνατό το άνοιγμα του προγράμματος περιήγησης για είσοδο",
+      "couldNotOpenTheSign2": "Δεν ήταν δυνατή η άνοιγμα της σελίδας εισόδου",
+      "certificateProblem": "Πρόβλημα με το πιστοποιητικό",
+      "back": "Πίσω",
+      "signIn": "Είσοδος",
+      "reload": "Ανανέωση",
+      "finishSigningInInYour": "Ολοκληρώστε την είσοδο στο πρόγραμμα περιήγησης",
+      "useAnySignInYour": "Χρησιμοποιήστε οποιαδήποτε μέθοδο εισόδου διαθέτει ο διακομιστής σας, όπως passkey ή κλειδί ασφαλείας. Η εφαρμογή θα συνεχίσει μόλις ολοκληρώσετε την είσοδο.",
+      "theAppPicksUpOnce": "Η εφαρμογή θα συνεχίσει μόλις ολοκληρωθεί η διαδικασία εισόδου από τον πάροχό σας.",
+      "signingIn": "Γίνεται είσοδος...",
+      "openBrowserAgain": "Άνοιγμα προγράμματος περιήγησης ξανά",
+      "theServerTurnedTheSession": "Ο διακομιστής απέρριψε τη συνεδρία. Δοκιμάστε ξανά.",
+      "signedInButTheApp": "Γεγονόσα η είσοδος, αλλά η εφαρμογή δεν μπορεί να επικοινωνήσει με το Termix. Ένας proxy μπορεί να το εμποδίζει.",
+      "thatSignInLinkIs": "Αυτός ο σύνδεσμος εισόδου προέρχεται από μια παλαιότερη προσπάθεια. Κάντε είσοδο ξανά.",
+      "signInAgain": "Κάντε είσοδο ξανά.",
+      "openTheBrowserAgainWhen": "Ανοίξτε ξανά το πρόγραμμα περιήγησης όταν είστε έτοιμοι.",
+      "theWebPageSignedIn": "Η ιστοσελίδα ολοκλήρωσε την είσοδο αλλά δεν έστειλε συνεδρία. Ενημερώστε τον διακομιστή και δοκιμάστε ξανά.",
+      "theCanTCheckThis": "Το {{deviceWord}} δεν μπορεί να ελέγξει το πιστοποιητικό αυτού του διακομιστή. Εγκαταστήστε την ρίζα CA του στο {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Να χρησιμοποιηθεί το {{name}} για την επόμενη είσοδο;",
+      "ifThisServerSignsYou": "Αν ο διακομιστής σας αποσυνδέσει, κάντε ξανά είσοδο με το {{name}} αντί να πληκτρολογείτε τον κωδικό σας. Ο κωδικός παραμένει σε αυτή τη συσκευή {{deviceWord}}.",
+      "use": "Χρήση του {{name}}",
+      "notNow": "Όχι τώρα",
+      "couldNotSaveTheLogin": "Δεν ήταν δυνατή η αποθήκευση των στοιχείων εισόδου",
+      "thatSADifferentUser": "Αυτός είναι διαφορετικός χρήστης",
+      "signedIn": "Συνδεδεμένος",
+      "close": "Κλείσιμο",
+      "linkYourTermixServer": "Σύνδεση του διακομιστή Termix",
+      "yourHostsCredentialsSnippetsAnd": "Οι hosts, τα διαπιστευτήρια, τα snippets και οι ρυθμίσεις σας συγχρονίζονται μαζί του, και λαμβάνετε τα plugins του. Τα πάντα συνεχίζουν να λειτουργούν σε αυτήν την {{deviceWord}} όταν ο διακομιστής είναι εκτός σύνδεσης.",
+      "checking": "Έλεγχος του {{host}}...",
+      "proxyAndClientCertificate": "Proxy και πιστοποιητικό πελάτη",
+      "couldNotReachThatServer": "Δεν ήταν δυνατή η πρόσβαση σε αυτόν τον διακομιστή. Ελέγξτε τη διεύθυνση, ή ρυθμίστε το proxy ή το πιστοποιητικό πελάτη.",
+      "couldNotReachThatServer2": "Δεν ήταν δυνατή η πρόσβαση σε αυτόν τον διακομιστή",
+      "syncCouldNotStartYet": "Ο συγχρονισμός δεν μπόρεσε να ξεκινήσει ακόμη. Θα δοκιμάσει ξανά αυτόματα.",
+      "checkingTheServer": "Έλεγχος του διακομιστή",
+      "signIn": "Είσοδος",
+      "makeAnAccount": "Δημιουργία λογαριασμού",
+      "resetPassword": "Επαναφορά κωδικού πρόσβασης",
+      "oneMoreStep": "Ένα ακόμη βήμα",
+      "almostDone": "Σχεδόν ολοκληρώθηκε",
+      "linkAServer": "Σύνδεση διακομιστή"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Τα αποθηκευμένα στοιχεία εισόδου δεν λειτουργούν πλέον",
+      "enterYourUsernameAndPassword": "Εισάγετε το όνομα χρήστη και τον κωδικό πρόσβασης",
+      "thisServerIsBehindA": "Αυτός ο διακομιστής βρίσκεται πίσω από proxy εισόδου",
+      "signInWith": "Είσοδος με {{saved}}",
+      "signInWith2": "Είσοδος με",
+      "password": "Κωδικός πρόσβασης",
+      "username": "Όνομα χρήστη",
+      "signIn": "Είσοδος",
+      "forgotPassword": "Ξεχάσατε τον κωδικό;",
+      "makeAnAccount": "Δημιουργία λογαριασμού",
+      "or": "Ή",
+      "continueWith": "Συνέχεια με {{label}}",
+      "signInWithAPasskey": "Σύνδεση με passkey ή κλειδί ασφαλείας",
+      "opensYourServerAposS": "Ανοίγει τη σελίδα σύνδεσης του διακομιστή σας στον browser. Το Face ID, το αποτύπωμα δακτύλου, το NFC και τα USB κλειδιά λειτουργούν όλα εκεί. Απαιτείται Termix 26.11.3 ή νεότερη έκδοση.",
+      "signInInTheBrowser": "Σύνδεση στον browser",
+      "opensYourServerAposS2": "Ανοίγει τη σελίδα σύνδεσης του διακομιστή σας, για οτιδήποτε η εφαρμογή δεν μπορεί να κάνει εδώ. Απαιτείται Termix 26.10.6 ή νεότερη έκδοση.",
+      "thisServerHasNoSign": "Αυτός ο server δεν έχει ενεργοποιημένη τη δυνατότητα σύνδεσης που μπορεί να χρησιμοποιήσει η εφαρμογή. Ρωτήστε τον διαχειριστή του ή δοκιμάστε τη σύνδεση μέσω browser παραπάνω.",
+      "signInWithYourPassword": "Συνδεθείτε με τον κωδικό σας.",
+      "signInFailed": "Αποτυχία σύνδεσης",
+      "openingItsSignInPage": "Άνοιγμα της σελίδας σύνδεσης."
+    },
+    "smallSteps": {
+      "serverAddress": "Διεύθυνση server",
+      "likeTermixExampleComOr": "Όπως termix.example.com ή 192.168.1.20:30001",
+      "checking": "Έλεγχος...",
+      "continue": "Συνέχεια",
+      "proxyAndClientCertificate": "Proxy και πιστοποιητικό πελάτη",
+      "aServerWithASelf": "Ένας server με αυτουπογεγραμμένο πιστοποιητικό χρειάζεται πρώτα να εγκατασταθεί η root CA του σε αυτή τη {{deviceWord}}. Το απλό http λειτουργεί στο δικό σας δίκτυο.",
+      "enterTheCode": "Εισαγωγή κωδικού",
+      "code": "Κωδικός",
+      "the6DigitCodeFrom": "Ο 6ψήφιος κωδικός από την εφαρμογή ελέγχου ταυτότητας ή ένας κωδικός επαναφοράς",
+      "checkCode": "Έλεγχος κωδικού",
+      "thisAccountAsksForA": "Αυτός ο λογαριασμός ζητά κλειδί ασφαλείας μετά τον κωδικό πρόσβασης. Συνδεθείτε στη σελίδα του διακομιστή στον browser σας για να το χρησιμοποιήσετε.",
+      "useASecurityKeyIn": "Χρήση κλειδιού ασφαλείας στον browser",
+      "backToSignIn": "Επιστροφή στη σύνδεση",
+      "bringThisAposSHosts": "Να φέρετε μαζί τους hosts αυτής της {{deviceWord}};",
+      "thisHasTheyStayOn": "Αυτή η {{deviceWord}} έχει {{what}}. Θα παραμείνουν σε αυτή τη συσκευή σε κάθε περίπτωση.",
+      "merge": "Ενσωμάτωση",
+      "copyThemToTooSo": "Αντιγραφή τους και στο {{serverName}} για συγχρονισμό. Αυτά που ταιριάζουν με hosts του server παραλείπονται.",
+      "replace": "Αντικατάσταση",
+      "useOnlyWhatIsOn": "Χρήση μόνο όσων υπάρχουν στο {{serverName}} για αυτόν τον λογαριασμό. Δεν γίνεται αντιγραφή.",
+      "thatCodeDidnTWork": "Αυτός ο κωδικός δεν δούλεψε",
+      "hostsCredentialsOrSnippets": "hosts, διαπιστευτήρια ή snippets"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Συνδέστε πρώτα αυτόν τον server",
+      "thatHostIsnTHere": "Αυτός ο host δεν υπάρχει εδώ",
+      "couldNotOpenThatHost": "Δεν ήταν δυνατός ο άνοιγμα αυτού του host",
+      "noHostWithIdOn": "Δεν υπάρχει host με id {{hostId}} στο {{account}}.",
+      "isnTLinkedInThe": "Το {{value}} δεν έχει συνδεθεί ακόμα στην εφαρμογή."
+    }
+  },
+  "notifications": {
+    "notifications": "Ειδοποιήσεις",
+    "markAllRead": "Σήμανση όλων ως αναγνωσμένων",
+    "clearReadNotifications": "Εκκαθάριση αναγνωσμένων ειδοποιήσεων",
+    "unread2": "Μη αναγνωσμένα",
+    "all": "Όλα",
+    "noUnreadNotifications": "Δεν υπάρχουν μη αναγνωσμένες ειδοποιήσεις",
+    "nothingHere": "Κανένα αποτέλεσμα",
+    "markRead": "Σήμανση ως αναγνωσμένο",
+    "delete": "Διαγραφή",
+    "couldNotLoadNotifications": "Δεν ήταν δυνατή η φόρτωση των ειδοποιήσεων",
+    "couldNotMarkRead": "Δεν ήταν δυνατή η σήμανση ως αναγνωσμένο",
+    "couldNotDelete": "Δεν ήταν δυνατή η διαγραφή",
+    "couldNotClear": "Δεν ήταν δυνατή η εκκαθάριση"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Εισαγωγή",
+      "hosts": "Hosts",
+      "aTermixHostFileYour": "Ένα αρχείο hosts του Termix, το ~/.ssh/config σας, ή ένας σύνδεσμος ή QR code host από άλλη {{deviceWord}}. Αποθηκεύονται σε αυτή τη {{deviceWord}}.",
+      "backup": "Αντίγραφο ασφαλείας",
+      "aBackupThisAppMade": "Ένα αντίγραφο ασφαλείας που δημιούργησε αυτή η εφαρμογή, κρυπτογραφημένο με φράση πρόσβασης. Επαναφέρει hosts, διαπιστευτήρια και snippets.",
+      "restoreABackup": "Επαναφορά αντιγράφου ασφαλείας",
+      "done": "Ολοκληρώθηκε",
+      "skipForNow": "Παράλειψη για τώρα",
+      "sshFilesAndRemoteDesktops": "SSH, αρχεία και απομακρυσμένες επιφάνειες εργασίας από τη {{deviceWord}} σας. Πώς θέλετε να ξεκινήσετε;",
+      "useWithoutAServer": "Χρήση χωρίς διακομιστή",
+      "hostsCredentialsAndSnippetsAre": "Οι διακομιστές, τα διαπιστευτήρια και τα αποσπάσματα αποθηκεύονται κρυπτογραφημένα σε αυτήν την {{deviceWord}}. Μπορείτε να συνδέσετε έναν διακομιστή οποιαδήποτε στιγμή αργότερα.",
+      "linkATermixServer": "Σύνδεση διακομιστή Termix",
+      "syncYourHostsCredentialsSnippets": "Συγχρονίστε τους διακομιστές, τα διαπιστευτήρια, τα αποσπάσματα και τις ρυθμίσεις σας με τον διακομιστή σας και χρησιμοποιήστε τα πρόσθετά του.",
+      "bringHostsFromATermix": "Μεταφέρετε διακομιστές από ένα αρχείο Termix, μια διαμόρφωση SSH, έναν κωδικό QR ή ένα αντίγραφο ασφαλείας.",
+      "thisDevice": "Αυτή η συσκευή"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Αναζήτηση διακομιστών, αποσπασμάτων, ενεργειών",
+      "clearSearch": "Εκκαθάριση αναζήτησης",
+      "nothingMatches": "Κανένα αποτέλεσμα",
+      "typeToSearch": "Πληκτρολογήστε για αναζήτηση",
+      "findAHostToConnect": "Βρείτε έναν διακομιστή για σύνδεση, ένα απόσπασμα, μια ρύθμιση ή μια ενέργεια.",
+      "suggested": "Προτεινόμενο | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Εκτέλεση στο {{title}}",
+      "copiedRunItFromThe": "Αντιγράφηκε. Εκτελέστε το από τα αποσπάσματα του τερματικού για να συμπληρώσετε τις τιμές του.",
+      "copiedOpenATerminalTo": "Αντιγράφηκε. Ανοίξτε ένα τερματικό για να εκτελέσετε αποσπάσματα.",
+      "addHost": "Προσθήκη διακομιστή",
+      "quickConnect": "Γρήγορη σύνδεση",
+      "switchAccount": "Εναλλαγή λογαριασμού",
+      "linkAServer": "Σύνδεση διακομιστή",
+      "fromYourServer": "Από τον διακομιστή σας",
+      "settings": "Ρυθμίσεις",
+      "accountsAppearanceSecurity": "Λογαριασμοί, εμφάνιση, ασφάλεια"
+    },
+    "search": {
+      "hosts": "Διακομιστές",
+      "snippets": "Αποσπάσματα",
+      "actions": "Ενέργειες",
+      "settings": "Ρυθμίσεις"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Αποτυχία φόρτωσης συνεδριών",
+      "sessionRevoked": "Η συνεδρία ακυρώθηκε",
+      "failedToRevokeSession": "Αποτυχία ακύρωσης συνεδρίας",
+      "allSessionsRevoked": "Όλες οι συνεδρίες ακυρώθηκαν",
+      "failedToRevokeAllSessions": "Αποτυχία ακύρωσης όλων των συνεδριών",
+      "activeSessions": "Ενεργές συνεδρίες",
+      "signOutAllOtherSessions": "Αποσύνδεση από όλες τις άλλες συνεδρίες",
+      "loading": "Φόρτωση…",
+      "noActiveSessionsFound": "Δεν βρέθηκαν ενεργές συνεδρίες.",
+      "unknownDevice": "Άγνωστη συσκευή",
+      "lastActive": "Τελευταία δραστηριότητα {{lastActiveAt}}",
+      "created": "Δημιουργήθηκε {{createdAt}}",
+      "revokeSession": "Ακύρωση συνεδρίας",
+      "revokeSession2": "Ακύρωση συνεδρίας;",
+      "thisWillSignOutThat": "Αυτό θα αποσυνδέσει αυτήν τη συσκευή.",
+      "revoke": "Ακύρωση",
+      "revokeAllSessions": "Ακύρωση όλων των συνεδριών;",
+      "thisWillSignOutEvery": "Αυτό θα αποσυνδέσει κάθε συσκευή. Θα παραμείνετε συνδεδεμένοι σε αυτήν τη συσκευή.",
+      "cancel": "Ακύρωση",
+      "revokeAll": "Ακύρωση όλων"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Αποτυχία φόρτωσης κλειδιών API",
+      "failedToCreateApiKey": "Αποτυχία δημιουργίας κλειδιού API",
+      "deleteApiKey": "Διαγραφή κλειδιού API;",
+      "willStopWorkingRightAway": "Το \"{{name}}\" θα σταματήσει να λειτουργεί αμέσως.",
+      "apiKeyDeleted": "Το κλειδί API διαγράφηκε",
+      "failedToDeleteApiKey": "Αποτυχία διαγραφής κλειδιού API",
+      "apiKeys": "Κλειδιά API",
+      "newApiKey": "Νέο κλειδί API",
+      "loading": "Φόρτωση…",
+      "apiKeysAllowProgrammaticAccess": "Τα κλειδιά API επιτρέπουν προγραμματισμένη πρόσβαση στο Termix. Το μυστικό εμφανίζεται μόνο μία φορά, οπότε αποθηκεύστε το με ασφάλεια.",
+      "noApiKeysYet": "Δεν υπάρχουν ακόμη κλειδιά API",
+      "created": "Δημιουργήθηκε {{createdAt}}",
+      "lastUsed": "Τελευταία χρήση {{lastUsedAt}}",
+      "expires": "Λήγει {{expiresAt}}",
+      "delete": "Διαγραφή {{name}}",
+      "keyCreatedCopyItNow": "Δημιουργήθηκε κλειδί. Αντιγράψτε το τώρα",
+      "newApiKey2": "Νέο API Key",
+      "thisTokenWonTBe": "Αυτό το token δεν θα εμφανιστεί ξανά.",
+      "apiKeyCopied": "Το API key αντιγράφηκε",
+      "copy": "Αντιγραφή",
+      "done": "Τέλος",
+      "cancel": "Ακύρωση",
+      "create": "Δημιουργία",
+      "name": "Όνομα *",
+      "eGCiPipeline": "π.χ. CI Pipeline",
+      "user": "Χρήστης *",
+      "noUsersAvailable": "Δεν υπάρχουν διαθέσιμοι χρήστες.",
+      "expiresAtOptional": "Λήξη (προαιρετικό)",
+      "yyyyMmDd": "ΕΕΕΕ/ΜΜ/ΗΗ",
+      "yearMonthDay": "Έτος / Μήνας / Ημέρα"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Διατήρηση των συνεδριών ενεργών",
+      "showsANotificationWhileSessions": "Εμφανίζει μια ειδοποίηση όταν οι συνεδρίες είναι ανοιχτές, ώστε το Android να τις διατηρεί ενεργές όταν απομακρύνεστε από την εφαρμογή",
+      "batteryOptimization": "Βελτιστοποίηση μπαταρίας",
+      "termixIsNotRestrictedSo": "Το Termix δεν έχει περιορισμούς, οπότε οι συνεδρίες μπορούν να παραμείνουν ανοιχτές με κλειστή την οθόνη.",
+      "androidMayStillStopSessions": "Το Android ενδέχεται να σταματήσει τις συνεδρίες για εξοικονόμηση μπαταρίας. Ανοίξτε τις ρυθμίσεις μπαταρίας, βρείτε το Termix και επιλέξτε «Χωρίς βελτιστοποίηση» ή «Χωρίς περιορισμούς».",
+      "openBatterySettings": "Άνοιγμα ρυθμίσεων μπαταρίας",
+      "notificationsAreOff": "Οι ειδοποιήσεις είναι απενεργοποιημένες",
+      "sessionsStillRunButThe": "Οι συνεδρίες συνεχίζουν να εκτελούνται, αλλά η λίστα των ανοιχτών συνεδριών και το κουμπί «Αποσύνδεση όλων» παραμένουν κρυφά.",
+      "openNotificationSettings": "Άνοιγμα ρυθμίσεων ειδοποιήσεων",
+      "thisBuildCanTKeep": "Αυτή η έκδοση δεν μπορεί να διατηρήσει τις συνεδρίες ενεργές στο παρασκήνιο. Θα επανασυνδεθούν όταν επιστρέψετε.",
+      "lowPowerMode": "Λειτουργία χαμηλής κατανάλωσης",
+      "batterySaver": "Εξοικονόμηση μπαταρίας",
+      "isOnTermixChecksConnections": "Το {{value}} είναι ενεργό. Το Termix ελέγχει τις συνδέσεις λιγότερο συχνά και περιμένει περισσότερο μεταξύ των προσπαθειών επανασύνδεσης.",
+      "backgroundSessions": "Συνεδρίες στο παρασκήνιο",
+      "iosStopsAppsSoonAfter": "Το iOS σταματά τις εφαρμογές σύντομα μετά την απομάκρυνσή σας, οπότε οι συνεδρίες δεν μπορούν να εκτελούνται στο παρασκήνιο. Θα επανασυνδεθούν όταν επιστρέψετε, και το tmux ή το screen θα συνεχίσουν από εκεί που σταματήσατε."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Σταματημένο",
+        "active": "Ενεργό",
+        "linkAServer": "Σύνδεση ενός server",
+        "eachServerKeepsItsOwn": "Κάθε server διατηρεί το δικό του αντίγραφο των hosts, των στοιχείων σύνδεσης και των ρυθμίσεών σας σε αυτή τη {{deviceWord}}.",
+        "signedInAs": "Συνδεδεμένος ως",
+        "role": "Ρόλος",
+        "administrator": "Διαχειριστής",
+        "user": "Χρήστης",
+        "serverVersion": "Έκδοση server",
+        "signOut": "Αποσύνδεση",
+        "youAreSignedOutOf": "Είστε αποσυνδεδεμένος από αυτόν τον server.",
+        "signIn": "Σύνδεση",
+        "passwordChanged": "Η κωδικός άλλαξε",
+        "couldNotChangeThePassword": "Δεν ήταν δυνατή η αλλαγή του κωδικού",
+        "changePassword": "Αλλαγή κωδικού",
+        "enterYourCurrentPasswordThen": "Εισάγετε τον τρέχοντα κωδικό σας και στη συνέχεια επιλέξτε έναν νέο.",
+        "cancel": "Ακύρωση",
+        "change": "Αλλαγή",
+        "currentPassword": "Τρέχων κωδικός",
+        "newPassword": "Νέος κωδικός",
+        "accountDeleted": "Ο λογαριασμός διαγράφηκε",
+        "couldNotDeleteTheAccount": "Δεν ήταν δυνατή η διαγραφή του λογαριασμού",
+        "deleteServerAccount": "Διαγραφή λογαριασμού server",
+        "thisPermanentlyDeletesYourAccount": "Αυτό διαγράφει οριστικά τον λογαριασμό σας στον server και όλα τα σχετικά δεδομένα. Δεν μπορεί να αναιρεθεί.",
+        "delete": "Διαγραφή",
+        "confirmYourPassword": "Επιβεβαίωση κωδικού",
+        "worksWithoutAServer": "Λειτουργεί χωρίς server",
+        "signedOut": "Αποσυνδεδεμένος",
+        "readsLive": "Ανάγνωση σε πραγματικό χρόνο",
+        "toReview": "{{count}} προς έλεγχο",
+        "synced": "Συγχρονίστηκε",
+        "syncing": "Συγχρονισμός",
+        "offline": "Εκτός σύνδεσης"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Κοινοποίηση ανώνυμων στατιστικών χρήσης",
+        "aShortReportOnceA": "Μια σύντομη αναφορά μία φορά την ημέρα. Κανένας υπολογιστής, όνομα ή διεύθυνση",
+        "nextReport": "Επόμενη αναφορά",
+        "seeExactlyWhatWouldBe": "Δείτε ακριβώς τι θα σταλεί",
+        "couldNotBuildTheReport": "Αδυναμία δημιουργίας της αναφοράς",
+        "preview": "Προεπισκόπηση",
+        "thisIsExactlyWhatWould": "Αυτό είναι ακριβώς αυτό που θα σταλεί αυτή τη στιγμή.",
+        "resetInstallId": "Επαναφορά ID εγκατάστασης",
+        "futureReportsWillLookLike": "Οι μελλοντικές αναφορές θα φαίνονται σαν νέα εγκατάσταση",
+        "resetTheInstallId": "Επαναφορά του ID εγκατάστασης;",
+        "futureReportsWillLookLike2": "Οι μελλοντικές αναφορές θα φαίνονται σαν νέα εγκατάσταση.",
+        "reset": "Επαναφορά",
+        "installIdReset": "Επαναφορά ID εγκατάστασης"
+      },
+      "appearanceControls": {
+        "theme": "Θέμα",
+        "accentColor": "Χρώμα έμφασης",
+        "textSize": "Μέγεθος κειμένου",
+        "sizeOfTextAcrossThe": "Μέγεθος κειμένου σε όλη την εφαρμογή, όχι στον τερματικό",
+        "density": "Πυκνότητα",
+        "howTallListRowsAnd": "Πόσο ψηλές είναι οι γραμμές λιστών και οι ρυθμίσεις"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Οι hosts, τα διαπιστευτήρια και τα snippets διατηρούνται σε ένα κρυπτογραφημένο αρχείο σε αυτήν την {{deviceWord}}. Τα στατιστικά χρήσης είναι απενεργοποιημένα εκτός αν τα ενεργοποιήσετε παρακάτω. Ένας συνδεδεμένος διακομιστής λαμβάνει μόνο ό,τι του επιτρέπετε να συγχρονίσει.",
+        "recentHosts": "Πρόσφατοι υπολογιστές",
+        "forgetTheHostsYouOpened": "Ξεχάστε τους υπολογιστές που ανοίξατε πρόσφατα σε κάθε λογαριασμό",
+        "recentHostsCleared": "Οι πρόσφατοι υπολογιστές διαγράφηκαν",
+        "clear": "Εκκαθάριση",
+        "couldNotCheckForUpdates": "Αδυναμία έλεγχου για ενημερώσεις",
+        "versionIsOutUpdateFrom": "Η έκδοση {{version}} είναι διαθέσιμη. Ενημερώστε από το κατάστημά σας.",
+        "youHaveTheNewestVersion": "Έχετε την πιο πρόσφατη έκδοση",
+        "termixMobile": "Termix Mobile",
+        "updates": "Ενημερώσεις",
+        "check": "Έλεγχος"
+      },
+      "pinSheet": {
+        "waitSeconds": "Περιμένετε {{value}} δευτερόλεπτα",
+        "digits": "{{PIN_LENGTH}} ψηφία"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "Τα PIN δεν ταιριάζουν",
+        "appLockIsOn": "Η κλείδωση εφαρμογής είναι ενεργή",
+        "turnOffAppLock": "Απενεργοποίηση κλείδωσης εφαρμογής",
+        "enterYourPinToConfirm": "Εισάγετε το PIN σας για επιβεβαίωση.",
+        "appLockIsOff": "Η κλείδωση εφαρμογής είναι απενεργοποιημένη",
+        "appLock": "Κλείδωση εφαρμογής",
+        "askForFaceIdTouch": "Ζήτηση Face ID, Touch ID ή PIN για άνοιγμα της εφαρμογής",
+        "askForAPinTo": "Ζήτηση PIN για άνοιγμα της εφαρμογής",
+        "pinChanged": "Το PIN άλλαξε",
+        "couldNotChangeThePin": "Αδυναμία αλλαγής του PIN",
+        "changePin": "Αλλαγή PIN",
+        "lockAfter": "Κλείδωμα μετά από",
+        "howLongTheAppCan": "Πόσο καιρό μπορεί να είναι η εφαρμογή εκτός οπτικής επαφής πριν κλειδώσει",
+        "hideInAppSwitcher": "Απόκρυψη στον εναλλακτή εφαρμογών",
+        "showABlankScreenIn": "Εμφάνιση κενής οθόνης στη λίστα πρόσφατων εφαρμογών",
+        "chooseA4DigitPin": "Επιλέξτε ένα PIN 4 ψηφίων.",
+        "confirmPin": "Επιβεβαίωση PIN",
+        "enterTheSamePinAgain": "Εισάγετε το ίδιο PIN ξανά.",
+        "currentPin": "Τρέχον PIN",
+        "enterYourCurrentPin": "Εισάγετε το τρέχον PIN σας.",
+        "newPin": "Νέο PIN",
+        "chooseANew4Digit": "Επιλέξτε ένα νέο PIN 4 ψηφίων.",
+        "confirmNewPin": "Επιβεβαίωση νέου PIN",
+        "enterTheNewPinAgain": "Εισάγετε το νέο PIN ξανά."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Γεωργικά στοιχεία αρχικής οθόνης",
+        "showYourHostsSnippetsAnd": "Εμφάνιση των hosts, snippets και κουμπιών ενεργοποίησης στην αρχική οθόνη",
+        "showAddresses": "Εμφάνιση διευθύνσεων",
+        "showUserHostUnderEach": "Εμφάνιση user@host κάτω από κάθε όνομα server",
+        "includeOfflineHosts": "Συμπερίληψη hosts εκτός σύνδεσης",
+        "offShowsOnlyServersThat": "Η απενεργοποίηση εμφανίζει μόνο servers που είναι εντός σύνδεσης",
+        "pinnedHostsOnly": "Μόνο προσαρτημένοι hosts",
+        "showOnlyTheHostsYou": "Εμφάνιση μόνο των hosts που έχετε προσαρτήσει",
+        "snippetsWidget": "Γεωργικό στοιχείο snippets",
+        "showSavedCommandsOnThe": "Εμφάνιση αποθηκευμένων εντολών στην αρχική οθόνη",
+        "showCommandPreview": "Εμφάνιση προεπισκόπησης εντολής",
+        "showTheFirstLineOf": "Εμφάνιση της πρώτης γραμμής κάθε εντολής"
+      }
+    },
+    "fileSettings": {
+      "files": "Αρχεία",
+      "fileManagerOnThis": "Διαχειριστής αρχείων σε αυτή τη {{deviceWord}}",
+      "browsing": "Περιήγηση",
+      "transfersAtOnce": "Μεταφορές ταυτόχρονα",
+      "downloadsAndUploadsThatRun": "Λήψεις και μεταφορτώσεις που εκτελούνται ταυτόχρονα",
+      "editor": "Επεξεργαστής",
+      "textSize": "Μέγεθος κειμένου",
+      "filesBesideTheTerminal": "Αρχεία δίπλα στο terminal",
+      "side": "Πλευρά",
+      "whereThePanelSitsOn": "Πού βρίσκεται το πάνελ σε μια tablet",
+      "right": "Δεξιά",
+      "left": "Αριστερά",
+      "howOftenToCheck": "Πόσο συχνά να ελέγχετε",
+      "folderHistory": "Ιστορικό φακέλων",
+      "foldersKeptPerHost": "Φάκελοι που διατηρούνται ανά host",
+      "showHiddenFiles": "Εμφάνιση κρυφών αρχείων",
+      "filesAndFoldersThatStart": "Αρχεία και φάκελοι που ξεκινούν με τελεία",
+      "askBeforeMovingToThe": "Ερώτηση πριν τη μεταφορά στο κάδο απορριμμάτων",
+      "deletingForGoodAlwaysAsks": "Η οριστική διαγραφή ζητά πάντα επιβεβαίωση",
+      "wrapLongLines": "Αναδίπλωση μακρών γραμμών",
+      "openWithNewTerminals": "Άνοιγμα με νέα terminals",
+      "onATabletShowThe": "Σε tablet, εμφάνιση του πάνελ αρχείων όταν ανοίγει ένα terminal",
+      "followTheTerminal": "Ακολούθησε το terminal",
+      "openTheFolderTheTerminal": "Άνοιγμα του φακέλου όπου βρίσκεται το terminal καθώς κάνετε cd"
+    },
+    "keyboardCustomization": {
+      "small": "Μικρό",
+      "medium": "Μέτριο",
+      "large": "Μεγάλο",
+      "ms": "{{v}} ms",
+      "keyboard": "Πληκτρολόγιο",
+      "keyRowsAboveTheKeyboard": "Σειρές πλήκτρων πάνω από το πληκτρολόγιο",
+      "rows": "Σειρές",
+      "keys": "Πλήκτρα",
+      "aHostCanHaveIts": "Ένας host μπορεί να έχει τις δικές του σειρές: πατήστε την ανοιχτή καρτέλα του σε μια συνεδρία και επιλέξτε Σειρές πλήκτρων για αυτόν τον host.",
+      "keySize": "Μέγεθος πλήκτρων",
+      "vibrateOnKeyPress": "Δόνηση κατά το πάτημα πλήκτρου",
+      "repeatAfter": "Επανάληψη μετά από",
+      "howLongToHoldAn": "Πόσο καιρό να κρατάτε πατημένο ένα βέλος ή το Backspace",
+      "repeatEvery": "Επανάληψη κάθε",
+      "hardwareKeyboard": "Φυσικό πληκτρολόγιο",
+      "allShortcuts": "Όλες οι συντομεύσεις",
+      "show": "Εμφάνιση"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Αδυναμία δημιουργίας αντιγράφου ασφαλείας",
+      "deleteLocalData": "Διαγραφή τοπικών δεδομένων;",
+      "hostsCredentialsSnippetsAndHistory": "Οι hosts, τα διαπιστευτήρια, τα snippets και το ιστορικό που έχουν αποθηκευτεί σε αυτή τη {{deviceWord}} για τον λογαριασμό {{account}} θα διαγραφούν. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Κάντε αντίγραφο ασφαλείας πρώτα αν θέλετε να τα διατηρήσετε.",
+      "delete": "Διαγραφή",
+      "localDataDeleted": "Τοπικά δεδομένα διαγράφηκαν",
+      "couldNotDeleteLocalData": "Αδυναμία διαγραφής τοπικών δεδομένων",
+      "localData": "Τοπικά δεδομένα",
+      "localDataIsOnlySaved": "Τα τοπικά δεδομένα αποθηκεύονται μόνο στην εφαρμογή {{deviceWord}}.",
+      "savedOnThisForThe": "Αποθηκεύονται σε αυτήν την {{deviceWord}} για τον λογαριασμό {{account}}. Το αρχείο είναι κρυπτογραφημένο με ένα κλειδί που δεν φεύγει ποτέ από αυτήν την {{deviceWord}}.",
+      "hosts": "Hosts",
+      "credentials": "Στοιχεία σύνδεσης",
+      "snippets": "Αποσπάσματα",
+      "size": "Μέγεθος",
+      "dataVersion": "Έκδοση δεδομένων",
+      "backup": "Αντίγραφο ασφαλείας",
+      "aBackupFileHoldsYour": "Ένα αρχείο αντίγραφου ασφαλείας περιέχει τους κωδικούς πρόσβασης και τα κλειδιά σας, κλειδωμένα με μια φράση πρόσβασης που επιλέγετε. Κανείς δεν μπορεί να το ανοίξει χωρίς αυτήν τη φράση πρόσβασης.",
+      "exportBackup": "Εξαγωγή αντίγραφου ασφαλείας",
+      "importBackup": "Εισαγωγή αντίγραφου ασφαλείας",
+      "removesEverythingThisAccountSaved": "Διαγράφει τα πάντα που έχει αποθηκεύσει αυτός ο λογαριασμός σε αυτήν την {{deviceWord}}. Ένας συνδεδεμένος διακομιστής διατηρεί το δικό του αντίγραφο.",
+      "deleteLocalData2": "Διαγραφή τοπικών δεδομένων",
+      "backupPassphrase": "Φράση πρόσβασης αντίγραφου ασφαλείας",
+      "atLeast8CharactersYou": "Τουλάχιστον 8 χαρακτήρες. Θα την χρειαστείτε για να αποκαταστήσετε το αντίγραφο ασφαλείας.",
+      "passphrase": "Φράση πρόσβασης",
+      "next": "Επόμενο",
+      "typeItAgain": "Πληκτρολογήστε το ξανά",
+      "export": "Εξαγωγή",
+      "saveYourTermixBackup": "Αποθήκευση του αντίγραφου ασφαλείας Termix"
+    },
+    "logs": {
+      "logs": "Καταγραφές",
+      "latestLinesFromThisRun": "Τελευταίες γραμμές από αυτήν την εκτέλεση. Οι διευθύνσεις διακομιστών, οι κωδικοί πρόσβασης και τα tokens είναι κρυμμένα.",
+      "logsCopied": "Οι καταγραφές αντιγράφηκαν",
+      "copy": "Αντιγραφή",
+      "share": "Κοινή χρήση",
+      "clear": "Εκκαθάριση",
+      "noLogsYet": "Δεν υπάρχουν ακόμη καταγραφές",
+      "nothingHasBeenLogged": "Δεν έχει καταγραφεί τίποτα."
+    },
+    "plugins": {
+      "worksOnThis": "Λειτουργεί σε αυτήν την {{deviceWord}}",
+      "needsTheServer": "Απαιτείται ο διακομιστής",
+      "notInTheApp": "Δεν υπάρχει στην εφαρμογή",
+      "needsANewerVersionOf": "Απαιτείται νεότερη έκδοση της εφαρμογής",
+      "updateThePluginOnThe": "Ενημέρωση του plugin στον διακομιστή",
+      "inTheApp": "Στην εφαρμογή",
+      "onThisServer": "Σε αυτόν τον διακομιστή",
+      "version": "Έκδοση",
+      "needsPluginApi": "Απαιτείται API plugin",
+      "thisAppHas": "Αυτή η εφαρμογή έχει",
+      "note": "Σημείωση",
+      "open": "Άνοιγμα",
+      "openFromAHostS": "Ανοίξτε το {{name}} από το μενού ενός host.",
+      "plugins": "Plugins",
+      "everything": "Όλα",
+      "thisDeviceWorksWithNo": "Αυτή η συσκευή λειτουργεί χωρίς διακομιστή. Συνδέστε έναν διακομιστή για να προσθέσετε ό,τι τον απαιτεί.",
+      "pluginsOnAndHowEach": "Plugins στο {{account}} και πώς εμφανίζεται το καθένα στην εφαρμογή. Τραβήξτε προς τα κάτω για να ελέγξετε ξανά.",
+      "whatRunsOnThisAnd": "Τι τρέχει σε αυτήν την {{deviceWord}} και τι περνάει μέσω του {{account}}.",
+      "noPluginList": "Δεν υπάρχει λίστα plugins",
+      "theServerDidNotSend": "Ο διακομιστής δεν έστειλε τα plugins του. Τραβήξτε προς τα κάτω για να δοκιμάσετε ξανά.",
+      "serversOlderThan29": "Οι διακομιστές παλαιότεροι από την 2.9 έχουν όλες τις λειτουργίες ενσωματωμένες.",
+      "nothingToShow": "Δεν υπάρχει κάτι προς εμφάνιση",
+      "notSentByThisServer": "Δεν στάλθηκε από αυτόν τον διακομιστή"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Αντικατάσταση τοπικών δεδομένων;",
+      "everythingSavedOnThisFor": "Ό,τι έχει αποθηκευτεί σε αυτήν την {{deviceWord}} για τον {{accountName}} αντικαθίσταται με το αντίγραφο ασφαλείας.",
+      "continue": "Συνέχεια",
+      "couldNotReadThatFile": "Δεν ήταν δυνατή η ανάγνωση αυτού του αρχείου",
+      "backupRestored": "Το αντίγραφο ασφαλείας αποκαταστάθηκε",
+      "couldNotRestoreTheBackup": "Δεν ήταν δυνατή η αποκατάσταση του αντίγραφου ασφαλείας",
+      "backupPassphrase": "Φράση πρόσβασης αντίγραφου ασφαλείας",
+      "thePassphraseUsedWhenThe": "Η φράση πρόσβασης που χρησιμοποιήθηκε όταν δημιουργήθηκε το αντίγραφο ασφαλείας.",
+      "passphrase": "Φράση πρόσβασης",
+      "restore": "Επαναφορά"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Λογαριασμοί",
+        "thisDeviceAndLinkedServers": "Αυτή η συσκευή και οι συνδεδεμένοι διακομιστές, με την κατάσταση συγχρονισμού τους",
+        "syncAndProxy": "Συγχρονισμός και proxy",
+        "whatSyncsConflictsProxyAnd": "Τι συγχρονίζεται, συγκρούσεις, proxy και αποσύνδεση",
+        "serverAccount": "Λογαριασμός διακομιστή",
+        "whoIsSignedInOn": "Ποιος είναι συνδεδεμένος στον ενεργό διακομιστή",
+        "activeSessions": "Ενεργές συνεδρίες",
+        "devicesSignedInToThe": "Συσκευές συνδεδεμένες στον διακομιστή",
+        "apiKeys": "Κλειδιά API",
+        "keysForScriptsAndTools": "Κλειδιά για σενάρια και εργαλεία",
+        "changePassword": "Αλλαγή κωδικού πρόσβασης",
+        "passwordOfYourServerAccount": "Κωδικός πρόσβασης του λογαριασμού σας στον διακομιστή",
+        "deleteServerAccount": "Διαγραφή λογαριασμού διακομιστή",
+        "removeYourAccountFromThe": "Αφαίρεση του λογαριασμού σας από τον διακομιστή",
+        "theme": "Θέμα",
+        "darkLightDraculaNordAnd": "Σκοτεινό, ανοιχτό, Dracula, Nord και άλλα",
+        "accentColor": "Χρώμα έμφασης",
+        "textSize": "Μέγεθος κειμένου",
+        "sizeOfTextAcrossThe": "Μέγεθος κειμένου σε όλη την εφαρμογή",
+        "density": "Πυκνότητα",
+        "howTallListRowsAnd": "Πόσο ψηλές είναι οι γραμμές λιστών και οι ρυθμίσεις",
+        "homeScreenWidgets": "Γιαφάκια στην αρχική οθόνη",
+        "hostsAndSnippetsOnThe": "Διακομιστές και αποσπάσματα στην αρχική οθόνη",
+        "terminal": "Τερματικό",
+        "fontThemeCursorScrollback": "Γραμματοσειρά, θέμα, δρομέας, κύλιση προς τα πίσω",
+        "keyboard": "Πληκτρολόγιο",
+        "layoutKeysPresets": "Διάταξη, πλήκτρα, προκαθορισμένα",
+        "appLock": "Κλείδωμα εφαρμογής",
+        "askForFaceIdTouch": "Αίτηση για Face ID, Touch ID ή PIN για άνοιγμα της εφαρμογής",
+        "lockAfter": "Κλείδωμα μετά από",
+        "howLongTheAppCan": "Πόσο καιρό μπορεί να είναι η εφαρμογή εκτός οθόνης πριν κλειδώσει",
+        "hideInAppSwitcher": "Απόκρυψη στον εναλλακτήρα εφαρμογών",
+        "showABlankScreenIn": "Εμφάνιση κενής οθόνης στη λίστα πρόσφατων εφαρμογών",
+        "changePin": "Αλλαγή PIN",
+        "backgroundSessions": "Συνεδρίες στο παρασκήνιο",
+        "whatHappensToOpenSessions": "Τι συμβαίνει στις ανοιχτές συνεδρίες όταν απομακρύνεστε από την εφαρμογή",
+        "serverAlerts": "Ειδοποιήσεις διακομιστή",
+        "alertsFromTheAlertsPlugin": "Ειδοποιήσεις από το πρόσθετο Alerts στον διακομιστή σας",
+        "whatStaysOnThis": "Τι παραμένει σε αυτή την {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Οι διακομιστές, τα διαπιστευτήρια και τα αποσπάσματα αποθηκεύονται κρυπτογραφημένα εδώ",
+        "recentHosts": "Πρόσφατοι διακομιστές",
+        "forgetTheHostsYouOpened": "Ξεχάστε τους διακομιστές που ανοίξατε πρόσφατα",
+        "shareAnonymousUsageStatistics": "Κοινοποίηση ανωνύμων στατιστικών χρήσης",
+        "aShortReportOnceA": "Μια σύντομη αναφορά μία φορά την ημέρα. Κανένας διακομιστής, όνομα ή διεύθυνση",
+        "nextReport": "Επόμενη αναφορά",
+        "seeExactlyWhatWouldBe": "Δείτε ακριβώς τι θα σταλεί",
+        "resetInstallId": "Επαναφορά ID εγκατάστασης",
+        "futureReportsWillLookLike": "Οι μελλοντικές αναφορές θα φαίνονται σαν νέα εγκατάσταση",
+        "serverUsageStatistics": "Στατιστικά χρήσης διακομιστή",
+        "telemetrySettingsOnYourServer": "Ρυθμίσεις τηλεμετρίας στον διακομιστή σας",
+        "plugins": "Πρόσθετα",
+        "whatTheServerAddsAnd": "Τι προσθέτει ο διακομιστής και πού εκτελείται",
+        "localData": "Τοπικά δεδομένα",
+        "backupRestoreAndDeleteWhat": "Αντίγραφο ασφαλείας, επαναφορά και διαγραφή ό,τι είναι αποθηκευμένο σε αυτή την {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Έκδοση και ενημερώσεις",
+        "logs": "Αρχεία καταγραφής",
+        "latestLinesFromThisRun": "Τελευταίες γραμμές από αυτή την εκτέλεση, για αναφορές σφαλμάτων",
+        "pushNotifications": "Ειδοποιήσεις push",
+        "pushNotificationsDescription": "Ειδοποιήσεις από τους διακομιστές σας σε αυτό το τηλέφωνο"
+      },
+      "sections": {
+        "accountsAndSync": "Λογαριασμοί και συγχρονισμός",
+        "thisDeviceLinkedServersAnd": "Αυτό το device, συνδεδεμένοι servers και τι συγχρονίζεται",
+        "appearance": "Εμφάνιση",
+        "themeAccentTextSizeAnd": "Γλώσσα, θέμα, χρώμα έμφασης, μέγεθος κειμένου και πυκνότητα",
+        "terminal": "Τερματικό",
+        "fontColorsAndBackgroundSessions": "Γραμματοσειρά, χρώματα και συνεδρίες στο παρασκήνιο",
+        "keyboard": "Πληκτρολόγιο",
+        "keyRowsAndShortcuts": "Σειρές πλήκτρων και συντομεύσεις",
+        "security": "Ασφάλεια",
+        "appLockFaceIdAnd": "Κλείδωμα εφαρμογής, Face ID και PIN",
+        "notifications": "Ειδοποιήσεις",
+        "alertsFromYourServer": "Ειδοποιήσεις από τον server σας",
+        "privacyAndUsageStatistics": "Ιδιωτικότητα και στατιστικά χρήσης",
+        "whatStaysOnThis": "Τι παραμένει σε αυτό το {{deviceWord}}",
+        "plugins": "Plugins",
+        "whatTheServerAddsTo": "Τι προσθέτει ο server στην εφαρμογή",
+        "backupAndData": "Αντίγραφα ασφαλείας και δεδομένα",
+        "backUpRestoreImportAnd": "Αντίγραφα ασφαλείας, αποκατάσταση, εισαγωγή και εξαγωγή",
+        "aboutAndLogs": "Σχετικά και αρχεία καταγραφής",
+        "versionAndLogsForBug": "Έκδοση και αρχεία καταγραφής για αναφορές σφαλμάτων"
+      }
+    },
+    "settings": "Ρυθμίσεις",
+    "searchSettings": "Αναζήτηση ρυθμίσεων",
+    "noSettingsMatch": "Δεν βρέθηκαν αντίστοιχες ρυθμίσεις.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Αποτυχία φόρτωσης snippets",
+      "copied": "Αντιγράφηκε: {{name}}",
+      "nameIsRequired": "Το όνομα είναι υποχρεωτικό",
+      "contentIsRequired": "Το περιεχόμενο είναι υποχρεωτικό",
+      "snippetUpdated": "Το snippet ενημερώθηκε",
+      "snippetCreated": "Δημιουργήθηκε snippet",
+      "failedToSaveSnippet": "Αποτυχία αποθήκευσης snippet",
+      "snippetDeleted": "Το snippet διαγράφηκε",
+      "failedToDeleteSnippet": "Αποτυχία διαγραφής snippet",
+      "folderNameIsRequired": "Το όνομα του φακέλου είναι υποχρεωτικό",
+      "folderCreated": "Δημιουργήθηκε φάκελος",
+      "failedToCreateFolder": "Αποτυχία δημιουργίας φακέλου",
+      "folderDeleted": "Ο φάκελος διαγράφηκε",
+      "failedToDeleteFolder": "Αποτυχία διαγραφής φακέλου",
+      "folderRenamed": "Ο φάκελος μετονομάστηκε",
+      "failedToRenameFolder": "Αποτυχία μετονομασίας φακέλου",
+      "failedToSaveOrder": "Αποτυχία αποθήκευσης σειράς",
+      "moveUp": "Μετακίνηση επάνω",
+      "moveDown": "Μετακίνηση κάτω",
+      "runOnHosts": "Εκτέλεση {{name}} σε hosts",
+      "copy": "Αντιγραφή {{name}}",
+      "delete": "Διαγραφή {{name}}",
+      "renameFolder": "Μετονομασία φακέλου",
+      "deleteFolder": "Διαγραφή φακέλου",
+      "noSnippetsInThisFolder": "Δεν υπάρχουν snippets σε αυτόν τον φάκελο",
+      "snippets": "Snippets",
+      "importAndExport": "Εισαγωγή και εξαγωγή",
+      "folder": "Φάκελος",
+      "new": "Νέο",
+      "loading": "Φόρτωση…",
+      "couldNotLoadSnippets": "Αδυναμία φόρτωσης snippets",
+      "checkTheConnectionToYour": "Ελέγξτε τη σύνδεση με τον server σας και προσπαθήστε ξανά.",
+      "tryAgain": "Προσπαθήστε ξανά",
+      "noSnippetsYet": "Δεν υπάρχουν snippets ακόμα",
+      "createYourFirstSnippetOr": "Δημιουργήστε το πρώτο σας snippet ή προσθέστε snippets από την εφαρμογή Termix για web ή desktop.",
+      "createSnippet": "Δημιουργία snippet",
+      "askBeforeRunning": "Ρώτα πριν την εκτέλεση",
+      "confirmBeforeASnippetRuns": "Επιβεβαίωση πριν εκτελεστεί ένα snippet στον τερματικό",
+      "editSnippet": "Επεξεργασία Snippet",
+      "newSnippet": "Νέο Snippet",
+      "cancel": "Ακύρωση",
+      "save": "Αποθήκευση",
+      "create": "Δημιουργία",
+      "name": "Όνομα",
+      "eGUpdatePackages": "π.χ. Ενημέρωση πακέτων",
+      "content": "Περιεχόμενο",
+      "descriptionOptional": "Περιγραφή (προαιρετικά)",
+      "shortDescription": "Σύντομη περιγραφή",
+      "folderOptional": "Φάκελος (προαιρετικά)",
+      "selectFolder": "Επιλογή φακέλου",
+      "noFolder": "Χωρίς φάκελο",
+      "targetHostsOptional": "Στόχοι hosts (προαιρετικά)",
+      "none": "Κανένας",
+      "note": "Σημείωση",
+      "pastedIntoTheTerminalWithout": "Επικόλληση στον τερματικό χωρίς εκτέλεση",
+      "targetHosts": "Στόχοι hosts",
+      "copy2": "Αντιγραφή",
+      "edit": "Επεξεργασία",
+      "runOnHosts2": "Εκτέλεση σε hosts",
+      "delete2": "Διαγραφή",
+      "deleteSnippet": "Διαγραφή Snippet",
+      "deleteThisCannotBeUndone": "Διαγραφή του «{{name}}»; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.",
+      "renameFolder2": "Μετονομασία Φακέλου",
+      "rename": "Μετονομασία",
+      "folderName": "Όνομα φακέλου",
+      "eGSystem": "π.χ. Σύστημα",
+      "newFolder": "Νέος Φάκελος",
+      "deleteFolder2": "Διαγραφή Φακέλου",
+      "deleteSnippetsInThisFolder": "Διαγραφή του «{{name}}»; Τα snippets σε αυτόν τον φάκελο θα γίνουν μη κατηγοριοποιημένα."
+    },
+    "sync": {
+      "notYet": "Όχι ακόμα",
+      "justNow": "Τώρα",
+      "stopped": "Σταμάτησε",
+      "signInToThisServer": "Συνδεθείτε ξανά σε αυτόν τον server για συγχρονισμό",
+      "couldNotChangeThat": "Αδυναμία αλλαγής",
+      "sync": "Συγχρονισμός",
+      "thisDeviceDoesNotSync": "Αυτή η συσκευή δεν συγχρονίζεται. Συνδέστε έναν server Termix για να διατηρείτε τους hosts σας σε περισσότερες από μία συσκευές.",
+      "keepsHostsCredentialsSnippetsAnd": "Ο {{server}} διατηρεί τους hosts, τα διαπιστευτήρια, τα snippets και τις ρυθμίσεις σε συγχρονισμό με αυτή την {{deviceWord}}. Μια αντίγραφο παραμένει σε αυτή την {{deviceWord}}, ώστε να λειτουργεί και offline.",
+      "lastSynced": "Τελευταίος συγχρονισμός {{value}}",
+      "live": "Ζωντανά",
+      "syncNow": "Συγχρονισμός τώρα",
+      "fix": "Διόρθωση",
+      "thisServerReadsLiveAnd": "Αυτός ο server διαβάζει ζωντανά και δεν διατηρεί αντίγραφο σε αυτή την {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Ενεργοποιήστε το πρόσθετο Sync στη σελίδα Προσθέτων του server και στη συνέχεια συνδεθείτε ξανά εδώ για να διατηρήσετε αντίγραφο σε αυτή την {{deviceWord}}.",
+      "whatSyncs": "Τι συγχρονίζεται",
+      "turnedOffThatDataStays": "Ανενεργό, αυτά τα δεδομένα παραμένουν μόνο σε αυτή την {{deviceWord}}.",
+      "conflicts": "Συγκρούσεις",
+      "changedHereAndOnThe": "Αλλαγή εδώ και στον server ταυτόχρονα. Διατηρήθηκε η έκδοση του server.",
+      "useServer": "Χρήση server",
+      "keepMine": "Διατήρηση της δικής μου",
+      "notSavedOnTheServer": "Δεν αποθηκεύτηκε στον server",
+      "theServerRefusedTheseChanges": "Ο server απέρριψε αυτές τις αλλαγές. Παραμένουν σε αυτή την {{deviceWord}}.",
+      "tryAgain": "Δοκιμάστε ξανά",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Απαιτείται μόνο όταν υπάρχει reverse proxy μπροστά από τον server.",
+      "unlink": "Αποσύνδεση",
+      "unlinkThisServer": "Αποσύνδεση αυτού του server",
+      "minAgo": "{{value}} λεπτά πριν",
+      "signedOut": "Αποσυνδέθηκε",
+      "waitingToSync": "Αναμονή συγχρονισμού",
+      "synced": "Συγχρονίστηκε",
+      "syncing": "Συγχρονισμός",
+      "offline": "Εκτός σύνδεσης"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Φόντο",
+        "text": "Κείμενο",
+        "cursor": "Δρομέας",
+        "textUnderCursor": "Κείμενο κάτω από τον δρομέα",
+        "selection": "Επιλογή",
+        "black": "Μαύρο",
+        "red": "Κόκκινο",
+        "green": "Πράσινο",
+        "yellow": "Κίτρινο",
+        "blue": "Μπλε",
+        "magenta": "Ματζέντα",
+        "cyan": "Κυανό",
+        "white": "Λευκό",
+        "brightBlack": "Φωτεινό μαύρο",
+        "brightRed": "Φωτεινό κόκκινο",
+        "brightGreen": "Φωτεινό πράσινο",
+        "brightYellow": "Φωτεινό κίτρινο",
+        "brightBlue": "Φωτεινό μπλε",
+        "brightMagenta": "Φωτεινό ματζέντα",
+        "brightCyan": "Φωτεινό κυανό",
+        "brightWhite": "Φωτεινό λευκό",
+        "customTheme": "Προσαρμοσμένο θέμα",
+        "colorsAsHexLike1e1e2e": "Χρώματα σε hex, όπως #1e1e2e.",
+        "cancel": "Ακύρωση",
+        "save": "Αποθήκευση",
+        "isNotAHexColor": "Το {{label}} δεν είναι χρώμα hex"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Συμπαγές",
+      "default": "Προεπιλογή",
+      "relaxed": "Χαλαρό",
+      "spacious": "Ευρύχωρο",
+      "none": "Κανένα",
+      "couldNotSave": "Αδυναμία αποθήκευσης",
+      "pickASizeFromTo": "Επιλέξτε μέγεθος από {{MIN_FONT_SIZE}} έως {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Επαναφορά ρυθμίσεων τερματικού",
+      "terminal": "Τερματικό",
+      "aHostCanSetIts": "Ένας host μπορεί να ορίσει το δικό του θέμα και δρομέα στο Termix, τα οποία υπερισχύουν αυτών.",
+      "theme": "Θέμα",
+      "custom": "Προσαρμοσμένο",
+      "font": "Γραμματοσειρά",
+      "active": "Ενεργό",
+      "sizeAndSpacing": "Μέγεθος και διάστημα",
+      "pinchTheTerminalToChange": "Ζουμάρτε το τερματικό για να αλλάξετε και το μέγεθος. Μεγάλο κείμενο στις ρυθμίσεις της συσκευής {{deviceWord}} το κάνει μεγαλύτερο.",
+      "custom2": "Προσαρμοσμένο {{fontSize}}",
+      "lineHeight": "Ύψος γραμμής",
+      "letterSpacing": "Διάστημα χαρακτήρων",
+      "ligatures": "Συνδέσεις γραμμάτων",
+      "cursor": "Δρομέας",
+      "blink": "Αναβοσβήνει",
+      "bell": "Κουδούνισμα",
+      "vibrate": "Δόνηση",
+      "onTheBellAndWhen": "Στο κουδούνισμα και όταν κάνετε μακρύ πάτημα για επιλογή",
+      "scrollback": "Ιστορικό κύλισης",
+      "linesKeptAboveTheScreen": "Γραμμές που διατηρούνται πάνω από την οθόνη. Ισχύει για νέα τερματικά.",
+      "linksAndKeys": "Σύνδεσμοι και πλήκτρα",
+      "askBeforeOpeningLinks": "Ρώτα πριν ανοίξω συνδέσμους",
+      "doubleTapSendsTab": "Το διπλό πάτημα στέλνει Tab",
+      "longPressStillSelectsText": "Το μακρύ πάτημα επιλέγει κείμενο",
+      "optionSendsAlt": "Το Option στέλνει Alt",
+      "onAHardwareKeyboardOff": "Σε υλικό πληκτρολόγιο. Το Off πληκτρολογεί σύμβολα όπως σε Mac.",
+      "history": "Ιστορικό",
+      "suggestCommands": "Προτάσεις εντολών",
+      "showsPastCommandsThatStart": "Προηγούμενες εντολές καθώς πληκτρολογείτε",
+      "resetToDefault": "Επαναφορά στις προεπιλογές",
+      "fontSize": "Μέγεθος γραμματοσειράς",
+      "aSizeFromTo": "Μέγεθος από {{MIN_FONT_SIZE}} έως {{MAX_FONT_SIZE}}.",
+      "cancel": "Ακύρωση",
+      "apply": "Εφαρμογή",
+      "resetTerminalSettings": "Επαναφορά ρυθμίσεων τερματικού;",
+      "themeFontSizeCursorBell": "Το θέμα, η γραμματοσειρά, το μέγεθος, το курсор, το κουδούνι και τα υπόλοιπα επιστρέφουν στις προεπιλογές.",
+      "reset": "Επαναφορά",
+      "followsAppTheme": "Ακολουθεί το θέμα της εφαρμογής"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Αποτυχία εκκίνησης ρύθμισης 2FA",
+      "twoFactorAuthenticationEnabled": "Η διπλή έλεγχος ταυτότητας ενεργοποιήθηκε",
+      "invalidCodeTryAgain": "Μη έγκυρος κωδικός, δοκιμάστε ξανά",
+      "twoFactorAuthenticationDisabled": "Η διπλή έλεγχος ταυτότητας απενεργοποιήθηκε",
+      "failedToDisable2fa": "Αποτυχία απενεργοποίησης 2FA",
+      "failedToFetchBackupCodes": "Αποτυχία ανάκτησης κωδικών επείγοντος",
+      "secretCopied": "Το μυστικό αντιγράφηκε",
+      "backupCodesCopied": "Οι κωδικοί επείγοντος αντιγράφηκαν",
+      "twoFactorAuthentication": "Διπλή έλεγχος ταυτότητας",
+      "loading": "Φόρτωση…",
+      "scanThisQrCodeWith": "Σαρώστε αυτόν τον κωδικό QR με την εφαρμογή ελέγχου ταυτότητας (Google Authenticator, Authy, κ.λπ.), στη συνέχεια εισάγετε τον 6ψήφιο κωδικό για επιβεβαίωση.",
+      "verifyAmpEnable": "Επαλήθευση και ενεργοποίηση",
+      "cancel": "Ακύρωση",
+      "saveYourBackupCodes": "Αποθηκεύστε τους κωδικούς επείγοντος",
+      "storeTheseSomewhereSafeEach": "Αποθηκεύστε τους σε ασφαλές μέρος. Κάθε κωδικός μπορεί να χρησιμοποιηθεί μόνο μία φορά αν χάσετε πρόσβαση στην εφαρμογή ελέγχου ταυτότητας.",
+      "copyAllCodes": "Αντιγραφή όλων των κωδικών",
+      "done": "Ολοκληρώθηκε",
+      "yourAccountIsProtectedWith": "Ο λογαριασμός σας προστατεύεται με εφαρμογή ελέγχου ταυτότητας.",
+      "addAnExtraLayerOf": "Προσθέστε ένα επιπλέον επίπεδο ασφάλειας στον λογαριασμό σας.",
+      "viewBackupCodes": "Προβολή κωδικών επείγοντος",
+      "disable2fa": "Απενεργοποίηση 2FA",
+      "enable2fa": "Ενεργοποίηση 2FA",
+      "disableTwoFactorAuthentication": "Απενεργοποίηση διπλής έλεγχος ταυτότητας",
+      "enterACodeFromYour": "Εισάγετε έναν κωδικό από την εφαρμογή ελέγχου ταυτότητας για επιβεβαίωση. Μπορείτε να ενεργοποιήσετε ξανά το 2FA ανά πάσα στιγμή.",
+      "enterYourPasswordToConfirm": "Εισάγετε τον κωδικό πρόσβασης για επιβεβαίωση. Μπορείτε να ενεργοποιήσετε ξανά το 2FA ανά πάσα στιγμή.",
+      "disable": "Απενεργοποίηση",
+      "yourPassword": "Ο κωδικός πρόσβασης",
+      "n2faIsEnabled": "Το 2FA είναι ενεργοποιημένο",
+      "n2faIsNotEnabled": "Το 2FA δεν είναι ενεργοποιημένο"
+    },
+    "language": {
+      "label": "Γλώσσα",
+      "description": "Η εφαρμογή επανεκκινεί για αλλαγή",
+      "system": "Ίδια με τη συσκευή"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Δεν υπάρχουν SSH hosts εδώ",
+      "couldNotReadWhatWas": "Αδυναμία ανάγνωσης του κοινού περιεχομένου",
+      "stopTheUploads": "Διακοπή των μεταφορτώσεων;",
+      "stopAndLeave": "Διακοπή και έξοδος",
+      "sendTo": "Αποστολή στο {{name}}",
+      "sendToAHost": "Αποστολή σε host",
+      "nothingToSend": "Τίποτα για αποστολή",
+      "close": "Κλείσιμο",
+      "done": "Ολοκληρώθηκε",
+      "cancel": "Ακύρωση",
+      "uploadHere": "Μεταφόρτωση εδώ",
+      "uploadsStillGoing_one": "{{count}} μεταφόρτωση συνεχίζεται. Η έξοδος θα την σταματήσει.",
+      "uploadsStillGoing_other": "{{count}} μεταφορτώσεις συνεχίζονται. Η έξοδος θα τις σταματήσει.",
+      "filesSize_one": "{{count}} αρχείο | {{size}}",
+      "filesSize_other": "{{count}} αρχεία | {{size}}",
+      "readingWhatWasShared": "Ανάγνωση του κοινού περιεχομένου"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Σφάλμα",
+      "worksWithoutAServer": "Λειτουργεί χωρίς διακομιστή",
+      "accountSwitch": "Λογαριασμός {{account}}, εναλλαγή",
+      "search": "Αναζήτηση",
+      "notificationsUnread": "Ειδοποιήσεις, {{unread}} μη αναγνωσμένες",
+      "notifications": "Ειδοποιήσεις",
+      "signedIn": "Συνδεδεμένος",
+      "signedOut": "Αποσυνδεδεμένος",
+      "copyOnThis": "Αντιγραφή σε αυτή τη {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Αρχική",
+      "hosts": "Διακομιστές",
+      "sessions": "Συνεδρίες",
+      "tools": "Εργαλεία",
+      "settings": "Ρυθμίσεις",
+      "open": "{{label}}, {{count}} ανοιχτά"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} ανοιχτά"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Επιλέξτε έναν διακομιστή",
+      "searchHosts": "Αναζήτηση διακομιστών",
+      "clearSearch": "Εκκαθάριση αναζήτησης",
+      "noHostsMatch": "Δεν βρέθηκαν ταιριάσματα διακομιστών",
+      "noHostsCanUseThis": "Κανένας διακομιστής δεν μπορεί να το χρησιμοποιήσει",
+      "turnItOnForA": "Ενεργοποιήστε το για έναν διακομιστή στο επεξεργαστή διακομιστών."
+    },
+    "noToolsHereYet": "Δεν υπάρχουν ακόμη εργαλεία εδώ",
+    "onAHost": "Σε διακομιστή",
+    "saved": "Αποθηκεύτηκε",
+    "fromYourServer": "Από τον διακομιστή σας"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Ακύρωση",
+      "delete": "Διαγραφή",
+      "confirm": "Επιβεβαίωση"
+    },
+    "contextMenu": {
+      "closeMenu": "Κλείσιμο μενού"
+    },
+    "inlineView": {
+      "back": "Πίσω"
+    },
+    "listRow": {
+      "moreActions": "Περισσότερες ενέργειες"
+    },
+    "pinPad": {
+      "useBiometrics": "Χρήση βιομετρικών δεδομένων",
+      "delete": "Διαγραφή"
+    },
+    "popover": {
+      "close": "Κλείσιμο"
+    },
+    "promptSheet": {
+      "cancel": "Ακύρωση"
+    },
+    "sheet": {
+      "close": "Κλείσιμο"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Αυτό το κλειδί είναι κλειδωμένο. Εισάγετε τη φράση πρόσβασής του.",
+      "thatPassphraseDoesnTOpen": "Αυτή η φράση πρόσβασης δεν ανοίγει αυτό το κλειδί.",
+      "thisDoesnTLookLike": "Αυτό δεν μοιάζει με ιδιωτικό κλειδί.",
+      "loadedAndChangedItTo": "Φορτώθηκε το {{name}} και μετατράπηκε σε μορφή OpenSSH",
+      "loadedItNeedsItsPassphrase": "Φορτώθηκε το {{name}}. Χρειάζεται τη φράση πρόσβασής του για σύνδεση"
+    },
+    "ago": {
+      "justNow": "μόλις τώρα"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Δεν ήταν δυνατή η φόρτωση των διακομιστών σας.",
+      "failedOn": "Το {{name}} απέτυχε στο {{name2}}",
+      "on": "{{name}} στο {{name2}}: {{value}}",
+      "ranOn": "Τρέχον {{name}} στο {{name2}}",
+      "runOn": "Εκτέλεση \"{{name}}\" σε",
+      "runSnippet": "Εκτέλεση αποσπάσματος",
+      "loadingHosts": "Φόρτωση διακομιστών…",
+      "noHostsAvailable": "Δεν υπάρχουν διαθέσιμοι διακομιστές",
+      "addAHostInTermix": "Προσθέστε έναν διακομιστή στο Termix για να εκτελείτε αποσπάσματα από την αρχική οθόνη.",
+      "lastUsed": "Τελευταία χρήση",
+      "failedToRunSnippet": "Αποτυχία εκτέλεσης αποσπάσματος"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Αυτό το απόσπασμα δεν υπάρχει πλέον.",
+      "couldNotOpenThatSnippet": "Δεν ήταν δυνατή η άνοιγμα αυτού του αποσπάσματος.",
+      "thatHostNoLongerExists": "Αυτός ο διακομιστής δεν υπάρχει πλέον.",
+      "couldNotOpenThatHost": "Δεν ήταν δυνατή η άνοιγμα αυτού του host."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Αρχική"
+      },
+      "hosts": {
+        "hosts": "Hosts"
+      },
+      "sessions": {
+        "sessions": "Συνδέσεις",
+        "connectToATermixServer": "Συνδεθείτε σε έναν server Termix για να ανοίξετε τερματικά, tunnels και συνεδρίες αρχείων."
+      }
+    },
+    "layout": {
+      "initializing": "Εκκίνηση…",
+      "cancel": "Ακύρωση"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Αυτός ο host δεν έχει έγκυρη διεύθυνση MAC.",
+    "thisBuildCanTSend": "Αυτή η έκδοση δεν μπορεί να στείλει πακέτα Wake-on-LAN.",
+    "couldNotSendThePacket": "Δεν ήταν δυνατή η αποστολή του πακέτου. Ελέγξτε ότι το Wi-Fi είναι ενεργοποιημένο."
+  },
+  "common": {
+    "hostCount_one": "{{count}} host",
+    "hostCount_other": "{{count}} hosts",
+    "device": {
+      "phone": "τηλέφωνο",
+      "tablet": "tablet"
+    },
+    "thisDeviceLower": "αυτό το {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Κοινοποίηση",
+    "action": "Κοινοποίηση σε άτομα",
+    "levels": {
+      "connect": "Σύνδεση",
+      "view": "Προβολή",
+      "edit": "Επεξεργασία",
+      "manage": "Διαχείριση"
+    },
+    "levelHints": {
+      "connect": "Μόνο άνοιγμα συνεδριών. Οι ρυθμίσεις του host παραμένουν κρυφές",
+      "view": "Σύνδεση, καθώς και προβολή των ρυθμίσεων του host. Τα μυστικά δεν εμφανίζονται ποτέ",
+      "edit": "Προβολή, καθώς και αλλαγή ρυθμίσεων εκτός από τη σύνδεση",
+      "manage": "Επεξεργασία, καθώς και κοινοποίηση του host και αλλαγή ή αφαίρεση πρόσβασης"
+    },
+    "until": "μέχρι {{date}}",
+    "sharedBy": "από {{name}}",
+    "couldNotLoad": "Δεν ήταν δυνατή η φόρτωση των ατόμων με πρόσβαση",
+    "shared": "Ο host κοινοποιήθηκε",
+    "couldNotShare": "Δεν ήταν δυνατή η κοινοποίηση του host",
+    "updated": "Η πρόσβαση άλλαξε",
+    "couldNotUpdate": "Δεν ήταν δυνατή η αλλαγή της πρόσβασης",
+    "removeTitle": "Αφαίρεση του {{name}};",
+    "removeHint": "Δεν θα μπορούν πλέον να χρησιμοποιήσουν αυτόν τον host.",
+    "remove": "Αφαίρεση",
+    "removed": "Η πρόσβαση αφαιρέθηκε",
+    "couldNotRemove": "Δεν ήταν δυνατή η αφαίρεση της πρόσβασης",
+    "whoHasAccess": "Ποιοι έχουν πρόσβαση",
+    "loading": "Φόρτωση...",
+    "nobodyYet": "Μόνο εσείς μπορείτε να χρησιμοποιήσετε αυτόν τον host.",
+    "changeAccessFor": "Αλλαγή πρόσβασης για {{name}}",
+    "shareWith": "Κοινοποίηση με",
+    "users": "Χρήστες",
+    "roles": "Ρόλοι",
+    "searchUsers": "Αναζήτηση χρηστών",
+    "searchRoles": "Αναζήτηση ρόλων",
+    "noUsers": "Δεν υπάρχουν άλλοι χρήστες για κοινοποίηση.",
+    "noRoles": "Δεν υπάρχουν ρόλοι για κοινοποίηση.",
+    "options": "Πρόσβαση",
+    "level": "Επίπεδο",
+    "expires": "Λήξη",
+    "expiry": {
+      "never": "Ποτέ",
+      "1h": "Σε 1 ώρα",
+      "1d": "Σε 1 ημέρα",
+      "7d": "Σε 7 ημέρες",
+      "30d": "Σε 30 ημέρες"
+    },
+    "pickSomeone": "Επιλέξτε με ποιον θα κοινοποιήσετε",
+    "shareCount_one": "Κοινοποίηση με {{count}}",
+    "shareCount_other": "Κοινοποίηση με {{count}}",
+    "removeAccess": "Αφαίρεση πρόσβασης"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Ειδοποιήσεις διακομιστή",
+      "critical": "Κρίσιμες ειδοποιήσεις διακομιστή"
+    },
+    "severity": {
+      "info": "Όλα",
+      "warning": "Προειδοποιήσεις και χειρότερα",
+      "critical": "Μόνο κρίσιμες"
+    },
+    "settings": {
+      "on": "Οι ειδοποιήσεις εμφανίζονται σε αυτό το τηλέφωνο",
+      "off": "Απενεργοποιημένο",
+      "toggle": "Ειδοποιήσεις push για {{server}}",
+      "minSeverity": "Στείλετε μου",
+      "denied": "Οι ειδοποιήσεις είναι απενεργοποιημένες για το Termix. Ενεργοποιήστε τις στις ρυθμίσεις του τηλεφώνου.",
+      "openSettings": "Άνοιγμα ρυθμίσεων",
+      "outdated": "Αυτός ο διακομιστής χρειάζεται την έκδοση Alerts 1.4.0 ή νεότερη για ειδοποιήσεις push. Ζητήστε από έναν διαχειριστή να ενημερώσει το plugin.",
+      "unavailable": "Συνδεθείτε σε αυτόν τον διακομιστή και ενεργοποιήστε το plugin Alerts για να λαμβάνετε ειδοποιήσεις.",
+      "error": "Αδυναμία επικοινωνίας με τον διακομιστή. Το Termix θα ξαναπροσπαθήσει την επόμενη φορά που θα ανοίξει η εφαρμογή.",
+      "notInThisBuild": "Αυτή η έκδοση δεν μπορεί να εμφανίσει ειδοποιήσεις.",
+      "noServers": "Συνδέστε έναν διακομιστή για να λάβετε τις ειδοποιήσεις του εδώ.",
+      "pushHint": "Οι ειδοποιήσεις στέλνονται μέσω Expo και Apple ή Google, με τον τίτλο και το κείμενό τους. Επιλέξτε ποιες στις κανόνες Alerts στον διακομιστή.",
+      "pollHint": "Αυτή η έκδοση δεν έχει υπηρεσίες Google, οπότε το Termix ελέγχει για νέες ειδοποιήσεις στο παρασκήνιο, περίπου κάθε 15 λεπτά."
+    }
+  }
+}

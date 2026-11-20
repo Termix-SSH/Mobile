@@ -1,9 +1,12 @@
 package expo.modules.termixnet
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.security.keystore.KeyProperties
 import android.security.keystore.KeyProtection
 import android.util.Base64
+import android.webkit.WebView
 import java.io.ByteArrayInputStream
 import java.net.Socket
 import java.security.KeyStore
@@ -62,6 +65,7 @@ object ClientCerts {
       if (name.startsWith("host.") && value == alias) edit.remove(name)
     }
     edit.putString("host.${host.lowercase()}", alias).apply()
+    forgetWebChoices()
 
     return mapOf(
       "subject" to leaf.subjectX500Principal.name,
@@ -79,6 +83,26 @@ object ClientCerts {
       if (name.startsWith("host.") && value == alias) edit.remove(name)
     }
     edit.apply()
+    forgetWebChoices()
+  }
+
+  // Web views remember a certificate answer per host until the app quits.
+  private fun forgetWebChoices() {
+    Handler(Looper.getMainLooper()).post {
+      try {
+        WebView.clearClientCertPreferences(null)
+      } catch (_: Exception) {}
+    }
+  }
+
+  /** The key and chain a web view shows to this host, or null. */
+  @JvmStatic
+  fun webClientCert(context: Context, host: String?): Array<Any>? {
+    val manager = KeyManager(context)
+    val alias = manager.aliasForHost(host) ?: return null
+    val key = manager.getPrivateKey(alias) ?: return null
+    val chain = manager.getCertificateChain(alias) ?: return null
+    return arrayOf(key, chain)
   }
 
   fun has(accountId: String): Boolean =
@@ -90,7 +114,7 @@ object ClientCerts {
 
   /** Picks the certificate saved for the host the TLS handshake is with. */
   class KeyManager(private val context: Context) : X509ExtendedKeyManager() {
-    private fun aliasForHost(host: String?): String? {
+    fun aliasForHost(host: String?): String? {
       if (host.isNullOrEmpty()) return null
       val alias = prefs(context).getString("host.${host.lowercase()}", null) ?: return null
       return if (keystore().containsAlias(alias)) alias else null

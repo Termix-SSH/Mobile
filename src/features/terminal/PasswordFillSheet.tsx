@@ -1,6 +1,8 @@
 import { KeyRound } from "lucide-react-native";
 import { Sheet, SheetRow } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 export type FillChoice = "once" | "always" | "no";
 
@@ -19,21 +21,29 @@ export function PasswordFillSheet({
     <Sheet
       visible={ask !== null}
       onClose={() => onChoose("no")}
-      title="Fill the saved password?"
+      title={t("terminal.passwordFillSheet.fillTheSavedPassword")}
       description={
         ask?.sudo
-          ? `${hostName} asks for the sudo password.`
-          : `${hostName} asks for a password.`
+          ? t("terminal.passwordFillSheet.asksForTheSudoPassword", { hostName })
+          : t("terminal.passwordFillSheet.asksForAPassword", { hostName })
       }
       icon={<KeyRound size={16} color={color("accent-brand")} />}
     >
-      <SheetRow label="Fill password" onPress={() => onChoose("once")} />
       <SheetRow
-        label="Always fill on this host"
-        description="Asks no more on this phone. Turn it off in the host's Terminal tab."
+        label={t("terminal.passwordFillSheet.fillPassword")}
+        onPress={() => onChoose("once")}
+      />
+      <SheetRow
+        label={t("terminal.passwordFillSheet.alwaysFillOnThisHost")}
+        description={t("terminal.passwordFillSheet.asksNoMoreOnThis", {
+          deviceWord,
+        })}
         onPress={() => onChoose("always")}
       />
-      <SheetRow label="Not now" onPress={() => onChoose("no")} />
+      <SheetRow
+        label={t("terminal.passwordFillSheet.notNow")}
+        onPress={() => onChoose("no")}
+      />
     </Sheet>
   );
 }

@@ -2,6 +2,7 @@ import {
   checkNeeds,
   planConnection,
   readOrigin,
+  telnetServerFallback,
   type ConnectionOrigin,
   type OriginInputs,
 } from "@/core/transport/origin";
@@ -202,5 +203,42 @@ describe("checkNeeds", () => {
     expect(checkNeeds([], planFor("auto"), "X", planFor).attempts).toHaveLength(
       2,
     );
+  });
+});
+
+describe("telnetServerFallback", () => {
+  const base = { failedFrom: "local", switchable: true, serverOk: true };
+
+  test("automatic moves to the server when the phone can't reach the host", () => {
+    expect(telnetServerFallback({ ...base, origin: "auto" })).toBe("move");
+  });
+
+  test("this phone only offers the server", () => {
+    expect(telnetServerFallback({ ...base, origin: "device" })).toBe("offer");
+  });
+
+  test("a host set to the server always moves", () => {
+    expect(
+      telnetServerFallback({
+        origin: "server",
+        switchable: false,
+        serverOk: true,
+      }),
+    ).toBe("move");
+  });
+
+  test("nothing without a usable server", () => {
+    expect(
+      telnetServerFallback({ ...base, origin: "auto", serverOk: false }),
+    ).toBeNull();
+  });
+
+  test("nothing for failures another way can't fix", () => {
+    expect(
+      telnetServerFallback({ ...base, origin: "auto", switchable: false }),
+    ).toBeNull();
+    expect(
+      telnetServerFallback({ ...base, origin: "auto", failedFrom: "relay" }),
+    ).toBeNull();
   });
 });

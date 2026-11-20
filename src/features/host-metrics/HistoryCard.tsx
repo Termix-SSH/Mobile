@@ -6,6 +6,7 @@ import type { MetricPoint } from "@/core/data/types";
 import { usePoll } from "@/core/exec";
 import { Tabs, Text } from "@/ui";
 import { Sparkline, WidgetCard } from "./widgets/WidgetCard";
+import { t } from "@/i18n";
 
 export type HistoryRange = "1h" | "6h" | "24h" | "7d";
 
@@ -32,15 +33,15 @@ export function bucket(
 }
 
 export function summary(values: number[]): string {
-  if (!values.length) return "No data yet";
+  if (!values.length) return t("hostMetrics.historyCard.noDataYet");
   const avg = values.reduce((a, b) => a + b, 0) / values.length;
   return `avg ${avg.toFixed(0)}% | max ${Math.max(...values).toFixed(0)}%`;
 }
 
 const SERIES = [
-  { key: "cpu", label: "CPU" },
-  { key: "mem", label: "Memory" },
-  { key: "disk", label: "Disk" },
+  { key: "cpu", label: t("hostMetrics.historyCard.cpu") },
+  { key: "mem", label: t("hostMetrics.historyCard.memory") },
+  { key: "disk", label: t("hostMetrics.historyCard.disk") },
 ] as const;
 
 function Poller({ run }: { run: () => Promise<void> }) {
@@ -72,7 +73,7 @@ export function HistoryCard({
   return (
     <WidgetCard
       icon={<History size={14} color={color("muted-foreground")} />}
-      title="History"
+      title={t("hostMetrics.historyCard.history")}
     >
       {/* Keyed by range so a new range loads at once and polls from there. */}
       <Poller key={range} run={refresh} />
@@ -96,7 +97,9 @@ export function HistoryCard({
                   {s.label}
                 </Text>
                 <Text className="text-[11px] text-muted-foreground">
-                  {points ? summary(values) : "Loading..."}
+                  {points
+                    ? summary(values)
+                    : t("hostMetrics.historyCard.loading")}
                 </Text>
               </View>
               <Sparkline data={values} stroke={stroke} max={100} height={32} />

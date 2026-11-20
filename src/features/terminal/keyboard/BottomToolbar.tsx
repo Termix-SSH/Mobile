@@ -6,6 +6,7 @@ import KeyPanel from "../keys/KeyPanel";
 import { useKeyboardTabs } from "@/core/features";
 import { useUiColors } from "@/contexts/ThemeContext";
 import type { SSHHost } from "@/types";
+import { t as tr } from "@/i18n";
 
 const TAB_STRIP_HEIGHT = 36;
 
@@ -52,7 +53,7 @@ export default function BottomToolbar({
   const safeKeyboardHeight = keyboardHeight + barHeight - stripHeight;
 
   const tabs: { id: ToolbarMode; label: string }[] = [
-    { id: "keyboard", label: "KEYBOARD" },
+    { id: "keyboard", label: tr("terminal.keyboard.bottomToolbar.keyboard") },
     ...extraTabs.map((t) => ({ id: t.id, label: t.label })),
   ];
   const ExtraTab = extraTabs.find((t) => t.id === mode)?.component;

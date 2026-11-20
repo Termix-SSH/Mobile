@@ -11,7 +11,7 @@ import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.viewevent.EventDispatcher
 import expo.modules.kotlin.views.ExpoView
 
-/** Draws a frame scaled and panned. Touch goes to the React view on top; hardware keys come here. */
+/** Draws a frame scaled and panned. Touch goes to React's responders on this view; keys come here. */
 class TermixDisplayView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
   private val onKey by EventDispatcher<Map<String, Any>>()
 
@@ -21,16 +21,19 @@ class TermixDisplayView(context: Context, appContext: AppContext) : ExpoView(con
   private var scale = 1f
   private var offsetX = 0f
   private var offsetY = 0f
-  private val matrix = Matrix()
+  // Not `matrix`: inside the View below that name is View.getMatrix(), a throwaway copy.
+  private val drawMatrix = Matrix()
   private val paint = Paint(Paint.FILTER_BITMAP_FLAG)
 
   private val canvasView = object : View(context) {
     override fun onDraw(canvas: Canvas) {
       canvas.drawColor(0xff000000.toInt())
       val bmp = bitmap ?: return
-      matrix.setScale(scale, scale)
-      matrix.postTranslate(-offsetX * scale, -offsetY * scale)
-      canvas.drawBitmap(bmp, matrix, paint)
+      // The canvas is in physical pixels, the placement scale in points (dp).
+      val pxScale = scale * resources.displayMetrics.density
+      drawMatrix.setScale(pxScale, pxScale)
+      drawMatrix.postTranslate(-offsetX * pxScale, -offsetY * pxScale)
+      canvas.drawBitmap(bmp, drawMatrix, paint)
     }
   }
 
@@ -52,6 +55,10 @@ class TermixDisplayView(context: Context, appContext: AppContext) : ExpoView(con
     pull()
   }
 
+  /**
+   * [scale] is in points (dp) per remote pixel, as React Native lays out; [offsetX] and
+   * [offsetY] are the top left corner in remote pixels. onDraw converts to physical pixels.
+   */
   fun setPlacement(scale: Float, offsetX: Float, offsetY: Float) {
     this.scale = scale
     this.offsetX = offsetX

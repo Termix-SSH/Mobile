@@ -1,3 +1,4 @@
+import type { DataResult } from "@/core/data-values/data-value";
 import type { ComponentType, Ref, RefObject } from "react";
 import type { Account } from "@/core/accounts/types";
 import type { AccountClient } from "@/core/api/AccountClient";
@@ -114,6 +115,11 @@ export interface SessionTabDef {
     session: Pick<SessionLike, "remoteProtocol">,
     client: AccountClient | null,
   ) => string;
+  /**
+   * Recent activity type to log when the user opens this tab, the same one
+   * the web plugin declares. None for tabs that log on their own.
+   */
+  activityType?: (session: Pick<SessionLike, "remoteProtocol">) => string;
   /** Options to reopen a server tab record of one of `serverTabTypes`. */
   fromServerTabType?: (tabType: string) => { remoteProtocol?: string };
   /** What the server needs for this tab, per session. */
@@ -246,6 +252,17 @@ export interface HostEditorSectionDef {
   editor: HostFormEditor;
 }
 
+/** Live numbers on a host row, the phone's side of the web's dashboard.hostRow data slot. */
+export interface HostRowDataDef {
+  id: string;
+  order: number;
+  /** Plain values for the row, or null. `metrics` is what the list already polls. */
+  value: (
+    host: SSHHost,
+    metrics: { cpu: number | null; ram: number | null } | undefined,
+  ) => DataResult;
+}
+
 /** A short tag on host rows, like DKR. */
 export interface HostBadgeDef {
   label: string;
@@ -336,6 +353,8 @@ export interface TerminalKeyTarget {
 
 /** What a `terminal-input` tab exposes through its ref. */
 export interface TerminalInputHandle {
+  /** Encode a named-key sequence using the terminal's current cursor mode. */
+  sendKeySequence?: (data: string) => void;
   sendInput: (data: string) => void;
   fit: () => void;
   isDialogOpen: () => boolean;
@@ -442,6 +461,37 @@ export interface DashboardCardDef {
   component: ComponentType<DashboardCardProps>;
 }
 
+export interface HomeCardProps {
+  accountId: string;
+  /** False while Home is hidden; cards stop polling. */
+  active: boolean;
+  /** Goes up on pull to refresh. */
+  refreshKey: number;
+  /** Which one, for cards with instances. */
+  instance?: string;
+}
+
+export interface HomeCardInstance {
+  key: string;
+  title: string;
+  /** Overrides the card's `defaultOn` for this one. */
+  defaultOn?: boolean;
+}
+
+/** A card on the Home dashboard. */
+export interface HomeCardDef {
+  id: string;
+  title: string;
+  icon: FeatureIcon;
+  order: number;
+  /** On a fresh layout. Defaults to true. */
+  defaultOn?: boolean;
+  isAvailable?: (ctx: FeatureContext) => boolean;
+  /** One card per instance, like one per Homepage widget. */
+  instances?: (ctx: FeatureContext) => Promise<HomeCardInstance[]>;
+  component: ComponentType<HomeCardProps>;
+}
+
 export interface FeatureDef {
   id: string;
   title: string;
@@ -453,6 +503,11 @@ export interface FeatureDef {
    * plugin does in the app.
    */
   plugins?: string[];
+  /**
+   * Plugin views this native feature replaces. Unset means all of them; the
+   * rest still open as web views.
+   */
+  replacesViews?: string[];
   /** Needed on linked servers. Unset means always there. */
   requires?: FeatureRequirement;
   /** Which accounts can use it. Defaults to linked servers only. */
@@ -464,6 +519,7 @@ export interface FeatureDef {
   hostEditorSections?:
     HostEditorSectionDef[] | ((ctx: FeatureContext) => HostEditorSectionDef[]);
   hostBadges?: HostBadgeDef[];
+  hostRowData?: HostRowDataDef[];
   hostFilters?: HostFilterDef[];
   settingsLinks?: SettingsLinkDef[];
   quickActions?: QuickActionDef[];
@@ -472,6 +528,7 @@ export interface FeatureDef {
   sessionMenuItems?: SessionMenuItemDef[];
   companions?: CompanionDef[];
   dashboardCards?: DashboardCardDef[];
+  homeCards?: HomeCardDef[];
   /**
    * Named things in the app's own vocabulary that this feature fills, for
    * small spots like a form field. See CAPABILITIES.

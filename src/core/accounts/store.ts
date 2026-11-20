@@ -15,6 +15,7 @@ import {
   type ServerAccount,
 } from "./types";
 import { migrateLegacyServer } from "./migrate";
+import { t } from "@/i18n";
 
 const STORE_KEY = "accounts.v1";
 const LOCAL: LocalAccount = { id: LOCAL_ACCOUNT_ID, kind: "local" };
@@ -207,7 +208,8 @@ export class AccountStore {
     patch: Partial<Omit<ServerAccount, "id" | "kind">>,
   ): Promise<ServerAccount> {
     const index = this.servers.findIndex((a) => a.id === id);
-    if (index < 0) throw new AppError("No such account", "NOT_FOUND");
+    if (index < 0)
+      throw new AppError(t("accounts.store.noSuchAccount"), "NOT_FOUND");
     const next = {
       ...this.servers[index],
       ...patch,
@@ -222,7 +224,8 @@ export class AccountStore {
   }
 
   async setActive(id: string): Promise<void> {
-    if (!this.find(id)) throw new AppError("No such account", "NOT_FOUND");
+    if (!this.find(id))
+      throw new AppError(t("accounts.store.noSuchAccount"), "NOT_FOUND");
     this.activeId = id;
     await this.client(id)?.load();
     await this.commit();
@@ -260,12 +263,19 @@ export class AccountStore {
   /** Removes a linked server and wipes its data. This device stays. */
   async remove(id: string): Promise<void> {
     if (id === LOCAL_ACCOUNT_ID) {
-      throw new AppError("This device can't be removed", "VALIDATION_ERROR");
+      throw new AppError(
+        t("accounts.store.thisDeviceCanTBe"),
+        "VALIDATION_ERROR",
+      );
     }
     if (id === this.activeId) {
-      throw new AppError("Switch to another account first", "VALIDATION_ERROR");
+      throw new AppError(
+        t("accounts.store.switchToAnotherAccountFirst"),
+        "VALIDATION_ERROR",
+      );
     }
-    if (!this.find(id)) throw new AppError("No such account", "NOT_FOUND");
+    if (!this.find(id))
+      throw new AppError(t("accounts.store.noSuchAccount"), "NOT_FOUND");
     await this.wipe(id);
     this.servers = this.servers.filter((a) => a.id !== id);
     await this.commit();

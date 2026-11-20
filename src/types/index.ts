@@ -377,6 +377,8 @@ export interface TerminalConfig {
   fontSize: number;
   fontFamily: string;
   letterSpacing: number;
+  /** App only. Join runs like -> into one glyph. */
+  ligatures?: boolean;
   lineHeight: number;
   theme: string;
 
@@ -404,6 +406,8 @@ export interface TerminalConfig {
   haptics: boolean;
   /** Phone only: Option on an iPad keyboard sends Alt instead of symbols. */
   optionAsMeta: boolean;
+  /** Phone only: a double tap on the terminal sends Tab. */
+  doubleTapTab?: boolean;
   /** Phone only: ask before a snippet runs. */
   confirmSnippetRun?: boolean;
   /** Phone only: show past commands that match the typed line. */
@@ -874,7 +878,7 @@ export interface UptimeInfo {
 export interface RecentActivityItem {
   id: number;
   userId: string;
-  type: "terminal" | "file_manager";
+  type: string;
   hostId: number;
   hostName: string;
   timestamp: string;

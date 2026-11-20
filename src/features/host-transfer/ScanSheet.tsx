@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { View } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { Button, Sheet, SheetBody, Text } from "@/ui";
+import { t } from "@/i18n";
 
 /** Scans one QR code and hands its text back. */
 export function ScanSheet({
@@ -23,16 +24,18 @@ export function ScanSheet({
     <Sheet
       visible={visible}
       onClose={onClose}
-      title="Scan a host code"
-      description="Point the camera at a Termix host QR code."
+      title={t("hostTransfer.scanSheet.scanAHostCode")}
+      description={t("hostTransfer.scanSheet.pointTheCameraAtA")}
     >
       <SheetBody>
         {!permission ? null : !permission.granted ? (
           <View className="gap-3">
             <Text className="text-meta text-muted-foreground">
-              Termix needs the camera to scan a code. Nothing is recorded.
+              {t("hostTransfer.scanSheet.termixNeedsTheCameraTo")}
             </Text>
-            <Button onPress={() => void request()}>Allow the camera</Button>
+            <Button onPress={() => void request()}>
+              {t("hostTransfer.scanSheet.allowTheCamera")}
+            </Button>
           </View>
         ) : (
           <View className="aspect-square w-full overflow-hidden border border-border">

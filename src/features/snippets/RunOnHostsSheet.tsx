@@ -10,6 +10,7 @@ import { HostPicker } from "./HostPicker";
 import { inputsOf } from "./run";
 import { accountBackend, runOnHosts, type HostRunResult } from "./run-hosts";
 import { targetHosts } from "./targets";
+import { t as tr } from "@/i18n";
 
 const preview = (text: string) => {
   const lines = text.trim().split("\n");
@@ -64,8 +65,11 @@ export function RunOnHostsSheet({
     if (!snippet || chosen.length === 0) return;
     if (config.confirmSnippetRun) {
       const ok = await confirm({
-        title: `Run ${snippet.name} on ${chosen.length} ${chosen.length === 1 ? "host" : "hosts"}?`,
-        confirmLabel: "Run",
+        title: tr("snippets.runOnHostsSheet.runOn", {
+          name: snippet.name,
+          count: chosen.length,
+        }),
+        confirmLabel: tr("snippets.runOnHostsSheet.run"),
         destructive: false,
       });
       if (!ok) return;
@@ -90,12 +94,16 @@ export function RunOnHostsSheet({
         scroll
         visible={snippet !== null && !picking}
         onClose={running ? () => {} : onClose}
-        title={snippet ? `Run "${snippet.name}"` : "Run"}
-        description="Runs over SSH on each host. No terminal opens."
+        title={
+          snippet
+            ? tr("snippets.runOnHostsSheet.run2", { name: snippet.name })
+            : tr("snippets.runOnHostsSheet.run")
+        }
+        description={tr("snippets.runOnHostsSheet.runsOverSshOnEach")}
         footer={
           <View className="flex-row gap-2">
             <Button variant="muted" className="flex-1" onPress={onClose}>
-              Close
+              {tr("snippets.runOnHostsSheet.close")}
             </Button>
             <Button
               className="flex-1"
@@ -103,18 +111,20 @@ export function RunOnHostsSheet({
               disabled={chosen.length === 0}
               onPress={() => void run()}
             >
-              Run
+              {tr("snippets.runOnHostsSheet.run")}
             </Button>
           </View>
         }
       >
         <SheetBody>
           <View className="gap-1">
-            <Label>Hosts</Label>
+            <Label>{tr("snippets.runOnHostsSheet.hosts")}</Label>
             <Button variant="muted" onPress={() => setPicking(true)}>
               {chosen.length === 0
-                ? "Pick hosts"
-                : `${chosen.length} ${chosen.length === 1 ? "host" : "hosts"} picked`}
+                ? tr("snippets.runOnHostsSheet.pickHosts")
+                : tr("snippets.runOnHostsSheet.hostsPicked", {
+                    count: chosen.length,
+                  })}
             </Button>
           </View>
           {inputs.map((input) => (
@@ -133,7 +143,10 @@ export function RunOnHostsSheet({
           {results.length > 0 ? (
             <View className="gap-2">
               <Text weight="medium" className="text-row text-foreground">
-                {results.length - failed} worked, {failed} failed
+                {tr("snippets.runOnHostsSheet.workedFailed", {
+                  value: results.length - failed,
+                  failed,
+                })}
               </Text>
               <ScrollView nestedScrollEnabled style={{ maxHeight: 320 }}>
                 {results.map((r) => (
@@ -169,7 +182,7 @@ export function RunOnHostsSheet({
       </Sheet>
       <HostPicker
         visible={picking}
-        title="Run on"
+        title={tr("snippets.runOnHostsSheet.runOn2")}
         hosts={hosts}
         selected={selected}
         onChange={setSelected}

@@ -19,6 +19,7 @@ import { toast } from "@/utils/toast";
 import { apiOf, useActiveClient } from "@/core/accounts";
 import type { ApiKey } from "@/core/api/types";
 import { Screen } from "@/components/Screen";
+import { t } from "@/i18n";
 
 function formatDate(iso: string | null): string {
   if (!iso) return "Never";
@@ -56,8 +57,7 @@ export default function ApiKeys() {
   const [expiresAt, setExpiresAt] = useState("");
   const [createBusy, setCreateBusy] = useState(false);
 
-  // Secret reveal
-  const [revealDialog, setRevealDialog] = useState(false);
+  // Shown once in the same sheet, since swapping sheets can drop the second.
   const [newKeySecret, setNewKeySecret] = useState("");
 
   const load = useCallback(async () => {
@@ -73,7 +73,7 @@ export default function ApiKeys() {
         setKeyUserId((prev) => (prev ? prev : getUserId(userList[0])));
       }
     } catch {
-      toast.error("Failed to load API keys");
+      toast.error(t("settings.apiKeys.failedToLoadApiKeys"));
     }
   }, [client]);
 
@@ -92,6 +92,7 @@ export default function ApiKeys() {
   const closeCreate = () => {
     setCreateDialog(false);
     setCreateBusy(false);
+    setNewKeySecret("");
   };
 
   // Accepts "YYYY/MM/DD" or "YYYY-MM-DD" with partial tolerance
@@ -133,19 +134,15 @@ export default function ApiKeys() {
         keyUserId,
         buildExpiresAt(),
       );
-      closeCreate();
       load();
-      const newKey = res?.apiKey as any;
-      if (newKey) {
-        const secret = newKey.token ?? newKey.key ?? "";
-        if (secret) {
-          setNewKeySecret(secret);
-          setRevealDialog(true);
-        }
-      }
+      const secret = res?.token ?? res?.key ?? "";
+      if (secret) setNewKeySecret(secret);
+      else closeCreate();
     } catch (e: any) {
       toast.error(
-        e?.response?.data?.error ?? e?.message ?? "Failed to create API key",
+        e?.response?.data?.error ??
+          e?.message ??
+          t("settings.apiKeys.failedToCreateApiKey"),
       );
     } finally {
       setCreateBusy(false);
@@ -154,27 +151,27 @@ export default function ApiKeys() {
 
   const handleDelete = async (keyId: string, name: string) => {
     const ok = await confirm({
-      title: "Delete API key?",
-      description: `"${name}" will stop working right away.`,
+      title: t("settings.apiKeys.deleteApiKey"),
+      description: t("settings.apiKeys.willStopWorkingRightAway", { name }),
     });
     if (!ok) return;
     try {
       await apiOf(client).apiKeys.deleteApiKey(keyId);
       setKeys((prev) => prev.filter((k) => k.id !== keyId));
-      toast.success("API key deleted");
+      toast.success(t("settings.apiKeys.apiKeyDeleted"));
     } catch {
-      toast.error("Failed to delete API key");
+      toast.error(t("settings.apiKeys.failedToDeleteApiKey"));
     }
   };
 
   return (
     <Screen
-      title="API keys"
+      title={t("settings.apiKeys.apiKeys")}
       onBack={() => router.back()}
       headerRight={
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="New API key"
+          accessibilityLabel={t("settings.apiKeys.newApiKey")}
           onPress={openCreate}
           hitSlop={8}
           className="h-9 w-9 items-center justify-center"
@@ -185,7 +182,9 @@ export default function ApiKeys() {
     >
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-sm text-muted-foreground">Loading…</Text>
+          <Text className="text-sm text-muted-foreground">
+            {t("settings.apiKeys.loading")}
+          </Text>
         </View>
       ) : (
         <ScrollView
@@ -204,12 +203,14 @@ export default function ApiKeys() {
           }
         >
           <Text className="text-xs text-muted-foreground">
-            API keys allow programmatic access to Termix. The secret is only
-            shown once so store it safely.
+            {t("settings.apiKeys.apiKeysAllowProgrammaticAccess")}
           </Text>
 
           {keys.length === 0 ? (
-            <EmptyState icon={KeyRound} title="No API keys yet" />
+            <EmptyState
+              icon={KeyRound}
+              title={t("settings.apiKeys.noApiKeysYet")}
+            />
           ) : (
             keys.map((k) => (
               <View
@@ -231,20 +232,28 @@ export default function ApiKeys() {
                     </Text>
                   ) : null}
                   <Text className="text-[11px] text-muted-foreground">
-                    Created {formatDate(k.createdAt)}
+                    {t("settings.apiKeys.created", {
+                      createdAt: formatDate(k.createdAt),
+                    })}
                   </Text>
                   <Text className="text-[11px] text-muted-foreground">
-                    Last used {formatDate(k.lastUsedAt)}
+                    {t("settings.apiKeys.lastUsed", {
+                      lastUsedAt: formatDate(k.lastUsedAt),
+                    })}
                   </Text>
                   {k.expiresAt ? (
                     <Text className="text-[11px] text-muted-foreground">
-                      Expires {formatDate(k.expiresAt)}
+                      {t("settings.apiKeys.expires", {
+                        expiresAt: formatDate(k.expiresAt),
+                      })}
                     </Text>
                   ) : null}
                 </View>
                 <Pressable
                   accessibilityRole="button"
-                  accessibilityLabel={`Delete ${k.name}`}
+                  accessibilityLabel={t("settings.apiKeys.delete", {
+                    name: k.name,
+                  })}
                   onPress={() => handleDelete(k.id, k.name)}
                   hitSlop={8}
                   className="mt-0.5"
@@ -260,139 +269,131 @@ export default function ApiKeys() {
       {/* Create dialog */}
       <Sheet
         scroll
-        visible={createDialog}
+        visible={createDialog || !!newKeySecret}
         onClose={closeCreate}
         icon={<Key size={20} color={color("accent-brand")} />}
-        title="New API Key"
+        title={
+          newKeySecret
+            ? t("settings.apiKeys.keyCreatedCopyItNow")
+            : t("settings.apiKeys.newApiKey2")
+        }
+        description={
+          newKeySecret ? t("settings.apiKeys.thisTokenWonTBe") : undefined
+        }
         footer={
-          <View className="flex-row gap-2">
-            <Button variant="muted" className="flex-1" onPress={closeCreate}>
-              Cancel
-            </Button>
-            <Button
-              variant="default"
-              className="flex-1"
-              onPress={handleCreate}
-              loading={createBusy}
-              disabled={!keyName.trim() || !keyUserId}
-            >
-              Create
-            </Button>
-          </View>
+          newKeySecret ? (
+            <View className="flex-row gap-2">
+              <Button
+                variant="muted"
+                className="flex-1"
+                onPress={async () => {
+                  await Clipboard.setStringAsync(newKeySecret);
+                  toast.success(t("settings.apiKeys.apiKeyCopied"));
+                }}
+                icon={<Copy size={14} color={color("foreground")} />}
+              >
+                {t("settings.apiKeys.copy")}
+              </Button>
+              <Button
+                variant="default"
+                className="flex-1"
+                onPress={closeCreate}
+              >
+                {t("settings.apiKeys.done")}
+              </Button>
+            </View>
+          ) : (
+            <View className="flex-row gap-2">
+              <Button variant="muted" className="flex-1" onPress={closeCreate}>
+                {t("settings.apiKeys.cancel")}
+              </Button>
+              <Button
+                variant="default"
+                className="flex-1"
+                onPress={handleCreate}
+                loading={createBusy}
+                disabled={!keyName.trim() || !keyUserId}
+              >
+                {t("settings.apiKeys.create")}
+              </Button>
+            </View>
+          )
         }
       >
         <SheetBody>
-          <View className="gap-4">
-            {/* Name */}
-            <View className="gap-1.5">
-              <Label>Name *</Label>
-              <Input
-                value={keyName}
-                onChangeText={setKeyName}
-                placeholder="e.g. CI Pipeline"
-                autoCapitalize="none"
-                autoFocus
-              />
-            </View>
-
-            {/* User */}
-            <View className="gap-1.5">
-              <Label>User *</Label>
-              {users.length === 0 ? (
-                <Text className="text-xs text-muted-foreground">
-                  No users available.
-                </Text>
-              ) : (
-                <View className="overflow-hidden border border-border bg-card">
-                  {users.map((u, i) => {
-                    const uid = getUserId(u);
-                    const selected = keyUserId === uid;
-                    return (
-                      <Pressable
-                        key={uid || u.username}
-                        onPress={() => setKeyUserId(uid)}
-                        className={`flex-row items-center justify-between px-3 py-2.5 ${
-                          i > 0 ? "border-t border-border/50" : ""
-                        } ${selected ? "bg-accent-brand/10" : "active:bg-muted/40"}`}
-                      >
-                        <Text
-                          className={`text-sm ${selected ? "text-accent-text" : "text-foreground"}`}
-                        >
-                          {u.username}
-                        </Text>
-                        {u.is_admin ? (
-                          <Text className="text-[10px] text-muted-foreground">
-                            admin
-                          </Text>
-                        ) : null}
-                      </Pressable>
-                    );
-                  })}
-                </View>
-              )}
-            </View>
-
-            {/* Expires At */}
-            <View className="gap-1.5">
-              <Label>Expires At (optional)</Label>
-              <Input
-                value={expiresAt}
-                onChangeText={handleExpiresChange}
-                placeholder="YYYY/MM/DD"
-                keyboardType="number-pad"
-                maxLength={10}
-              />
-              <Text className="text-[11px] text-muted-foreground">
-                Year / Month / Day
+          {newKeySecret ? (
+            <View className="border border-border bg-muted/30 p-3">
+              <Text className="font-mono text-xs text-foreground" selectable>
+                {newKeySecret}
               </Text>
             </View>
-          </View>
-        </SheetBody>
-      </Sheet>
+          ) : (
+            <View className="gap-4">
+              {/* Name */}
+              <View className="gap-1.5">
+                <Label>{t("settings.apiKeys.name")}</Label>
+                <Input
+                  value={keyName}
+                  onChangeText={setKeyName}
+                  placeholder={t("settings.apiKeys.eGCiPipeline")}
+                  autoCapitalize="none"
+                  autoFocus
+                />
+              </View>
 
-      {/* Secret reveal - shown once */}
-      <Sheet
-        scroll
-        visible={revealDialog}
-        onClose={() => {
-          setRevealDialog(false);
-          setNewKeySecret("");
-        }}
-        icon={<Key size={20} color={color("accent-brand")} />}
-        title="Key created. Copy it now"
-        description="This token won't be shown again."
-        footer={
-          <View className="flex-row gap-2">
-            <Button
-              variant="muted"
-              className="flex-1"
-              onPress={async () => {
-                await Clipboard.setStringAsync(newKeySecret);
-                toast.success("API key copied");
-              }}
-              icon={<Copy size={14} color={color("foreground")} />}
-            >
-              Copy
-            </Button>
-            <Button
-              variant="default"
-              className="flex-1"
-              onPress={() => {
-                setRevealDialog(false);
-                setNewKeySecret("");
-              }}
-            >
-              Done
-            </Button>
-          </View>
-        }
-      >
-        <SheetBody>
-          <View className="border border-border bg-muted/30 p-3">
-            <Text className="font-mono text-xs text-foreground" selectable>
-              {newKeySecret}
-            </Text>
-          </View>
+              {/* User */}
+              <View className="gap-1.5">
+                <Label>{t("settings.apiKeys.user")}</Label>
+                {users.length === 0 ? (
+                  <Text className="text-xs text-muted-foreground">
+                    {t("settings.apiKeys.noUsersAvailable")}
+                  </Text>
+                ) : (
+                  <View className="overflow-hidden border border-border bg-card">
+                    {users.map((u, i) => {
+                      const uid = getUserId(u);
+                      const selected = keyUserId === uid;
+                      return (
+                        <Pressable
+                          key={uid || u.username}
+                          onPress={() => setKeyUserId(uid)}
+                          className={`flex-row items-center justify-between px-3 py-2.5 ${
+                            i > 0 ? "border-t border-border/50" : ""
+                          } ${selected ? "bg-accent-brand/10" : "active:bg-muted/40"}`}
+                        >
+                          <Text
+                            className={`text-sm ${selected ? "text-accent-text" : "text-foreground"}`}
+                          >
+                            {u.username}
+                          </Text>
+                          {u.is_admin ? (
+                            <Text className="text-[10px] text-muted-foreground">
+                              admin
+                            </Text>
+                          ) : null}
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                )}
+              </View>
+
+              {/* Expires At */}
+              <View className="gap-1.5">
+                <Label>{t("settings.apiKeys.expiresAtOptional")}</Label>
+                <Input
+                  value={expiresAt}
+                  onChangeText={handleExpiresChange}
+                  placeholder={t("settings.apiKeys.yyyyMmDd")}
+                  keyboardType="number-pad"
+                  maxLength={10}
+                />
+                <Text className="text-[11px] text-muted-foreground">
+                  {t("settings.apiKeys.yearMonthDay")}
+                </Text>
+              </View>
+            </View>
+          )}
         </SheetBody>
       </Sheet>
     </Screen>

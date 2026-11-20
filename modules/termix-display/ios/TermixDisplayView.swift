@@ -1,10 +1,42 @@
 import ExpoModulesCore
 import QuartzCore
 import UIKit
+import UIKit.UIGestureRecognizerSubclass
 
-/// Draws a frame scaled and panned. Touch goes to the React view on top; hardware keys come here.
-final class TermixDisplayView: ExpoView, FrameListener {
+/// Follows a trackpad or mouse press and its buttons. Only indirect pointer touches reach it.
+final class PointerPressRecognizer: UIGestureRecognizer {
+  private(set) var mask: UIEvent.ButtonMask = []
+
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+    mask = event.buttonMask
+    state = .began
+  }
+
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
+    mask = event.buttonMask
+    state = .changed
+  }
+
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
+    mask = []
+    state = .ended
+  }
+
+  override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
+    mask = []
+    state = .cancelled
+  }
+
+  override func reset() {
+    mask = []
+  }
+}
+
+/// Draws a frame scaled and panned. Finger touches go to JS through React's responder props;
+/// hardware keys and a trackpad or mouse (hover, buttons, scroll) come here.
+final class TermixDisplayView: ExpoView, FrameListener, UIGestureRecognizerDelegate {
   let onKey = EventDispatcher()
+  let onPointer = EventDispatcher()
 
   private let desktop = CALayer()
   private var buffer: FrameBuffer?
@@ -12,6 +44,10 @@ final class TermixDisplayView: ExpoView, FrameListener {
   private var scale: CGFloat = 1
   private var offset = CGPoint.zero
   private var pending = false
+  private var pressButtons = 0
+  /// The desktop in tiles, row by row, for a frame of `tiled` size.
+  private var tiles: [CALayer] = []
+  private var tiled = (width: 0, height: 0)
 
   required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
@@ -21,6 +57,83 @@ final class TermixDisplayView: ExpoView, FrameListener {
     desktop.magnificationFilter = .linear
     desktop.actions = ["contents": NSNull(), "bounds": NSNull(), "position": NSNull(), "transform": NSNull()]
     layer.addSublayer(desktop)
+    addPointerRecognizers()
+  }
+
+  // A trackpad or mouse hovers and scrolls without touches, and clicks with indirect pointer
+  // touches. React gets those touches too; the JS gestures drop them while a press is down.
+  private func addPointerRecognizers() {
+    let pointer = [NSNumber(value: UITouch.TouchType.indirectPointer.rawValue)]
+
+    let hover = UIHoverGestureRecognizer(target: self, action: #selector(hovered(_:)))
+    hover.allowedTouchTypes = pointer
+    let press = PointerPressRecognizer(target: self, action: #selector(pressed(_:)))
+    press.allowedTouchTypes = pointer
+    let scroll = UIPanGestureRecognizer(target: self, action: #selector(scrolled(_:)))
+    scroll.allowedScrollTypesMask = .all
+    scroll.allowedTouchTypes = []  // Scroll only; a finger never starts it.
+
+    for recognizer in [hover, press, scroll] {
+      recognizer.cancelsTouchesInView = false
+      recognizer.delegate = self
+      addGestureRecognizer(recognizer)
+    }
+  }
+
+  /// Bits like the JS side and Guacamole: 1 left, 2 middle, 4 right.
+  private static func buttons(_ mask: UIEvent.ButtonMask) -> Int {
+    var bits = 0
+    if mask.contains(.primary) { bits |= 1 }
+    if mask.contains(.button(3)) { bits |= 2 }
+    if mask.contains(.secondary) { bits |= 4 }
+    return bits
+  }
+
+  private func emit(_ kind: String, at point: CGPoint, buttons: Int = 0, dy: CGFloat = 0) {
+    onPointer([
+      "kind": kind,
+      "x": Double(point.x),
+      "y": Double(point.y),
+      "buttons": buttons,
+      "dy": Double(dy),
+    ])
+  }
+
+  @objc private func hovered(_ gesture: UIHoverGestureRecognizer) {
+    guard gesture.state == .began || gesture.state == .changed else { return }
+    emit("hover", at: gesture.location(in: self))
+  }
+
+  @objc private func pressed(_ gesture: PointerPressRecognizer) {
+    let at = gesture.location(in: self)
+    switch gesture.state {
+    case .began:
+      // Some clicks come without a mask; they are the primary button.
+      pressButtons = Self.buttons(gesture.mask)
+      if pressButtons == 0 { pressButtons = 1 }
+      emit("down", at: at, buttons: pressButtons)
+    case .changed:
+      let now = Self.buttons(gesture.mask)
+      if now != 0 { pressButtons = now }
+      emit("move", at: at, buttons: pressButtons)
+    case .ended, .cancelled:
+      emit("up", at: at)
+    default: break
+    }
+  }
+
+  @objc private func scrolled(_ gesture: UIPanGestureRecognizer) {
+    guard gesture.state == .began || gesture.state == .changed else { return }
+    let dy = gesture.translation(in: self).y
+    gesture.setTranslation(.zero, in: self)
+    if dy != 0 { emit("scroll", at: gesture.location(in: self), dy: dy) }
+  }
+
+  func gestureRecognizer(
+    _ gestureRecognizer: UIGestureRecognizer,
+    shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+  ) -> Bool {
+    true
   }
 
   func setFrameId(_ id: String?) {
@@ -28,6 +141,7 @@ final class TermixDisplayView: ExpoView, FrameListener {
     buffer?.setListener(nil)
     frameId = id
     buffer = id.map { TermixFrames.get($0) }
+    buffer?.markAll()
     buffer?.setListener(self)
     frameChanged()
   }
@@ -46,22 +160,82 @@ final class TermixDisplayView: ExpoView, FrameListener {
     CATransaction.commit()
   }
 
-  // Coalesces many rectangles into one image per main thread turn.
+  // Coalesces many rectangles into one update per main thread turn.
   func frameChanged() {
     DispatchQueue.main.async { [weak self] in
       guard let self, !self.pending else { return }
       self.pending = true
       DispatchQueue.main.async {
         self.pending = false
-        guard let image = self.buffer?.image() else { return }
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        self.desktop.bounds = CGRect(x: 0, y: 0, width: image.width, height: image.height)
-        self.desktop.contents = image
-        CATransaction.commit()
-        self.place()
+        self.draw()
       }
     }
+  }
+
+  // Only the tiles under the changed area get new images, so a small change copies and
+  // uploads a few tiles instead of the whole desktop.
+  private func draw() {
+    CATransaction.begin()
+    CATransaction.setDisableActions(true)
+    buffer?.takeDirty { area, pixels, width, height in
+      var area = area
+      if width != tiled.width || height != tiled.height {
+        layoutTiles(width: width, height: height)
+        area = Dirty(x: 0, y: 0, width: width, height: height)
+      }
+      let size = Self.tileSize
+      let cols = (width + size - 1) / size
+      for row in (area.y / size)...((area.y + area.height - 1) / size) {
+        for col in (area.x / size)...((area.x + area.width - 1) / size) {
+          let tile = Dirty(
+            x: col * size, y: row * size, width: min(size, width - col * size),
+            height: min(size, height - row * size))
+          tiles[row * cols + col].contents = Self.image(pixels, frameWidth: width, tile: tile)
+        }
+      }
+    }
+    CATransaction.commit()
+  }
+
+  private static let tileSize = 256
+
+  private func layoutTiles(width: Int, height: Int) {
+    tiles.forEach { $0.removeFromSuperlayer() }
+    tiles = []
+    tiled = (width, height)
+    desktop.bounds = CGRect(x: 0, y: 0, width: width, height: height)
+    let size = Self.tileSize
+    for y in stride(from: 0, to: height, by: size) {
+      for x in stride(from: 0, to: width, by: size) {
+        let tile = CALayer()
+        tile.anchorPoint = .zero
+        tile.frame = CGRect(x: x, y: y, width: min(size, width - x), height: min(size, height - y))
+        tile.isOpaque = true
+        tile.magnificationFilter = .linear
+        tile.actions = ["contents": NSNull()]
+        desktop.addSublayer(tile)
+        tiles.append(tile)
+      }
+    }
+  }
+
+  /// A copy of one tile's pixels, so the image never holds on to the frame.
+  private static func image(_ pixels: UnsafeRawBufferPointer, frameWidth: Int, tile: Dirty) -> CGImage? {
+    let rowBytes = tile.width * 4
+    var data = Data(count: rowBytes * tile.height)
+    data.withUnsafeMutableBytes { dst in
+      for row in 0..<tile.height {
+        let src = ((tile.y + row) * frameWidth + tile.x) * 4
+        dst.baseAddress!.advanced(by: row * rowBytes)
+          .copyMemory(from: pixels.baseAddress!.advanced(by: src), byteCount: rowBytes)
+      }
+    }
+    guard let provider = CGDataProvider(data: data as CFData) else { return nil }
+    return CGImage(
+      width: tile.width, height: tile.height, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: rowBytes,
+      space: CGColorSpaceCreateDeviceRGB(),
+      bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipLast.rawValue),
+      provider: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
   }
 
   override var canBecomeFirstResponder: Bool { true }

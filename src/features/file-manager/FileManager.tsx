@@ -89,6 +89,8 @@ import { summarize, type Transfer } from "./transfers/queue";
 import { TransfersPanel, useTransfers } from "./transfers/TransfersPanel";
 import { isTextFile, modeText, sortEntries } from "./utils/fileUtils";
 import { useDebouncedValue, useStableCallback } from "@/utils/hooks";
+import { deviceWord, isTablet } from "@/utils/device-word";
+import { t as tr } from "@/i18n";
 
 export interface FileManagerHandle {
   /** The folder on screen. */
@@ -143,7 +145,11 @@ function ToolButton({
   );
 }
 
-const SORT_LABEL = { name: "Name", size: "Size", modified: "Date" } as const;
+const SORT_LABEL = {
+  name: tr("fileManager.name"),
+  size: tr("fileManager.size"),
+  modified: tr("fileManager.date"),
+} as const;
 
 /**
  * The files of one host, over the phone's SFTP or the server's File Manager.
@@ -230,7 +236,9 @@ export const FileManager = forwardRef<
         setSelected(new Set());
         setSelecting(false);
       } catch (e) {
-        setListError(toUserMessage(e, "Could not open this folder"));
+        setListError(
+          toUserMessage(e, tr("fileManager.couldNotOpenThisFolder")),
+        );
         if (!pathRef.current) setPath(target);
       } finally {
         setLoading(false);
@@ -286,7 +294,9 @@ export const FileManager = forwardRef<
                   { path: t.localPath, relative: t.relative ?? [] },
                 ]);
               } catch (e) {
-                toast.error(toUserMessage(e, "Could not save to the folder"));
+                toast.error(
+                  toUserMessage(e, tr("fileManager.couldNotSaveToThe")),
+                );
               }
             },
           })
@@ -320,7 +330,7 @@ export const FileManager = forwardRef<
       await fn();
       return true;
     } catch (e) {
-      toast.error(toUserMessage(e, `${label} failed`));
+      toast.error(toUserMessage(e, tr("fileManager.failed", { label })));
       return false;
     } finally {
       setBusy(null);
@@ -343,8 +353,8 @@ export const FileManager = forwardRef<
       );
       toast.success(
         items.length === 1
-          ? `Uploading ${items[0].name}`
-          : `Uploading ${items.length} files`,
+          ? tr("fileManager.uploading", { name: items[0].name })
+          : tr("fileManager.uploadingFiles", { count: items.length }),
       );
     },
     [manager],
@@ -398,17 +408,21 @@ export const FileManager = forwardRef<
     manager.add(inputs);
     toast.success(
       Platform.OS === "ios"
-        ? "Downloading to Files, On My iPhone, Termix"
+        ? tr(
+            isTablet()
+              ? "fileManager.downloadingToFilesOnMyIpad"
+              : "fileManager.downloadingToFilesOnMy",
+          )
         : inputs.length === 1
-          ? `Downloading ${inputs[0].name}`
-          : `Downloading ${inputs.length} files`,
+          ? tr("fileManager.downloading", { name: inputs[0].name })
+          : tr("fileManager.downloadingFiles", { count: inputs.length }),
     );
   };
 
   /** Fetches one file to the cache, for share, open with and previews. */
   const fetchToCache = async (entry: FileEntry) => {
     const local = previewTarget(entry.name);
-    setBusy(`Getting ${entry.name}`);
+    setBusy(tr("fileManager.getting", { name: entry.name }));
     try {
       await backend!.download(entry.path, local);
       return local;
@@ -429,9 +443,12 @@ export const FileManager = forwardRef<
     if (
       ask &&
       !(await confirm({
-        title: "Open a large file?",
-        description: `${entry.name} is big for a phone editor. It may be slow.`,
-        confirmLabel: "Open",
+        title: tr("fileManager.openALargeFile"),
+        description: tr("fileManager.isBigForAEditor", {
+          name: entry.name,
+          deviceWord,
+        }),
+        confirmLabel: tr("fileManager.open"),
         destructive: false,
       }))
     ) {
@@ -442,9 +459,9 @@ export const FileManager = forwardRef<
       if (res.text == null) {
         if (
           await confirm({
-            title: "This looks like a binary file",
-            description: "Open it in another app instead?",
-            confirmLabel: "Open with",
+            title: tr("fileManager.thisLooksLikeABinary"),
+            description: tr("fileManager.openItInAnotherApp"),
+            confirmLabel: tr("fileManager.openWith"),
             destructive: false,
           })
         ) {
@@ -483,9 +500,11 @@ export const FileManager = forwardRef<
       case "tooBig":
         if (
           await confirm({
-            title: "Too big for the editor",
-            description: `${target.name} is over 10 MB. Download it instead?`,
-            confirmLabel: "Download",
+            title: tr("fileManager.tooBigForTheEditor"),
+            description: tr("fileManager.isOver10MbDownload", {
+              name: target.name,
+            }),
+            confirmLabel: tr("fileManager.download"),
             destructive: false,
           })
         ) {
@@ -502,16 +521,22 @@ export const FileManager = forwardRef<
   const removeEntries = async (entries: FileEntry[]) => {
     if (!backend || !entries.length) return;
     const what =
-      entries.length === 1 ? entries[0].name : `${entries.length} items`;
+      entries.length === 1
+        ? entries[0].name
+        : tr("fileManager.itemCount", { count: entries.length });
     const permanent = !backend.trash;
     if (
       (permanent || settings.confirmBeforeTrash) &&
       !(await confirm({
-        title: permanent ? `Delete ${what}?` : `Move ${what} to the trash?`,
+        title: permanent
+          ? tr("fileManager.delete", { what })
+          : tr("fileManager.moveToTheTrash", { what }),
         description: permanent
-          ? "This can't be undone."
-          : "You can restore it from the trash.",
-        confirmLabel: permanent ? "Delete" : "Move to trash",
+          ? tr("fileManager.thisCanTBeUndone")
+          : tr("fileManager.youCanRestoreItFrom"),
+        confirmLabel: permanent
+          ? tr("fileManager.delete2")
+          : tr("fileManager.moveToTrash"),
       }))
     ) {
       return;
@@ -522,17 +547,21 @@ export const FileManager = forwardRef<
     } catch (e) {
       if (e instanceof TrashUnavailableError) {
         const ok = await confirm({
-          title: "Delete for good?",
-          description: `${e.message}. Delete it for good instead? This can't be undone.`,
-          confirmLabel: "Delete",
+          title: tr("fileManager.deleteForGood"),
+          description: tr("fileManager.deleteItForGoodInstead", {
+            message: e.message,
+          }),
+          confirmLabel: tr("fileManager.delete2"),
         });
         if (ok) {
           await backend
             .remove(entries, true)
-            .catch((err) => toast.error(toUserMessage(err, "Delete failed")));
+            .catch((err) =>
+              toast.error(toUserMessage(err, tr("fileManager.deleteFailed"))),
+            );
         }
       } else {
-        toast.error(toUserMessage(e, "Delete failed"));
+        toast.error(toUserMessage(e, tr("fileManager.deleteFailed")));
       }
     } finally {
       setBusy(null);
@@ -554,7 +583,15 @@ export const FileManager = forwardRef<
     });
     if (ok) {
       toast.success(
-        `${mode === "copy" ? "Copied" : "Moved"} ${entries.length === 1 ? entries[0].name : `${entries.length} items`}`,
+        tr(
+          mode === "copy" ? "fileManager.copiedWhat" : "fileManager.movedWhat",
+          {
+            what:
+              entries.length === 1
+                ? entries[0].name
+                : tr("fileManager.itemCount", { count: entries.length }),
+          },
+        ),
       );
     }
     refresh();
@@ -566,14 +603,16 @@ export const FileManager = forwardRef<
     if (!d || !backend) return;
     const name = value.trim();
     if (d.kind === "newFolder")
-      await run("New folder", () => backend.mkdir(path, name));
+      await run(tr("fileManager.newFolder"), () => backend.mkdir(path, name));
     else if (d.kind === "newFile")
-      await run("New file", () => backend.createFile(path, name));
+      await run(tr("fileManager.newFile"), () =>
+        backend.createFile(path, name),
+      );
     else if (d.kind === "rename")
       await run("Rename", () => backend.rename(d.entry.path, name));
     else if (d.kind === "link" && backend.symlink) {
       const link = backend.symlink;
-      await run("New link", () =>
+      await run(tr("fileManager.newLink"), () =>
         link(`${path.replace(/\/$/, "")}/${name}`, d.entry.path),
       );
     }
@@ -635,10 +674,10 @@ export const FileManager = forwardRef<
         <ActivityIndicator color={colors.brand} />
         <Text className="text-sm text-muted-foreground">
           {conn.state.phase === "relay"
-            ? "Connecting through the server..."
+            ? tr("fileManager.connectingThroughTheServer")
             : conn.state.phase === "connecting" && conn.state.via === "local"
-              ? "Connecting from this phone..."
-              : "Connecting..."}
+              ? tr("fileManager.connectingFromThis", { deviceWord })
+              : tr("fileManager.connecting")}
         </Text>
         {conn.state.phase === "relay" ? (
           <RelayConnector
@@ -672,88 +711,96 @@ export const FileManager = forwardRef<
       {
         key: "open",
         icon: <Eye size={16} color={colors.text} />,
-        label: folder ? "Open" : text ? "Edit" : "Open",
+        label: folder
+          ? tr("fileManager.open")
+          : text
+            ? tr("fileManager.edit")
+            : tr("fileManager.open"),
         onPress: () => void open(entry),
       },
       !folder && {
         key: "openWith",
         icon: <ExternalLink size={16} color={colors.text} />,
-        label: "Open with",
+        label: tr("fileManager.openWith"),
         onPress: () => void openWithEntry(entry),
       },
       {
         key: "download",
         icon: <ArrowDownToLine size={16} color={colors.text} />,
-        label: folder ? "Download folder" : "Download",
+        label: folder
+          ? tr("fileManager.downloadFolder")
+          : tr("fileManager.download"),
         onPress: () => void download([entry]),
       },
       !folder && {
         key: "share",
         icon: <Share2 size={16} color={colors.text} />,
-        label: "Share",
+        label: tr("fileManager.share"),
         onPress: () => void shareEntry(entry),
       },
       {
         key: "rename",
         icon: <Pencil size={16} color={colors.text} />,
-        label: "Rename",
+        label: tr("fileManager.rename"),
         onPress: () => setDialog({ kind: "rename", entry }),
       },
       {
         key: "copy",
         icon: <Copy size={16} color={colors.text} />,
-        label: "Copy to",
+        label: tr("fileManager.copyTo"),
         onPress: () => setPick({ mode: "copy", entries: [entry] }),
       },
       {
         key: "move",
         icon: <FolderInput size={16} color={colors.text} />,
-        label: "Move to",
+        label: tr("fileManager.moveTo"),
         onPress: () => setPick({ mode: "move", entries: [entry] }),
       },
       {
         key: "cut",
         icon: <Scissors size={16} color={colors.text} />,
-        label: "Cut",
+        label: tr("fileManager.cut"),
         onPress: () => setClipboard({ mode: "move", entries: [entry] }),
       },
       {
         key: "clip",
         icon: <ClipboardCopy size={16} color={colors.text} />,
-        label: "Copy",
+        label: tr("fileManager.copy"),
         onPress: () => setClipboard({ mode: "copy", entries: [entry] }),
       },
       {
         key: "perms",
         icon: <Lock size={16} color={colors.text} />,
-        label: "Permissions",
+        label: tr("fileManager.permissions"),
         onPress: () => setPerms(entry),
       },
       {
         key: "props",
         icon: <Info size={16} color={colors.text} />,
-        label: "Properties",
+        label: tr("fileManager.properties"),
         onPress: () => setProps(entry),
       },
       b.symlink && {
         key: "link",
         icon: <LinkIcon size={16} color={colors.text} />,
-        label: "Make a link here",
+        label: tr("fileManager.makeALinkHere"),
         onPress: () => setDialog({ kind: "link", entry }),
       },
       {
         key: "path",
         icon: <ClipboardCopy size={16} color={colors.text} />,
-        label: "Copy path",
+        label: tr("fileManager.copyPath"),
         onPress: () => {
           void Clipboard.setStringAsync(entry.path);
-          toast.success("Path copied");
+          toast.success(tr("fileManager.pathCopied"));
         },
       },
       {
         key: "delete",
         icon: <Trash2 size={16} color={colors.destructive} />,
-        label: b.trash ? "Move to trash" : "Delete",
+        label: b.trash
+          ? tr("fileManager.moveToTrash")
+          : tr("fileManager.delete2"),
         destructive: true,
         onPress: () => void removeEntries([entry]),
       },
@@ -762,20 +809,20 @@ export const FileManager = forwardRef<
 
   const toolbar = selecting ? (
     <View className="h-11 flex-row items-center border-b border-border px-1">
-      <ToolButton label="Done" onPress={endSelect}>
+      <ToolButton label={tr("fileManager.done")} onPress={endSelect}>
         <X size={17} color={colors.text} />
       </ToolButton>
       <Text weight="bold" className="flex-1 text-sm text-foreground">
         {`${selected.size} selected`}
       </Text>
       <ToolButton
-        label="Select all"
+        label={tr("fileManager.selectAll")}
         onPress={() => setSelected(new Set(shown.map((f) => f.path)))}
       >
         <CheckSquare size={17} color={colors.text} />
       </ToolButton>
       <ToolButton
-        label="Download"
+        label={tr("fileManager.download")}
         onPress={() => {
           void download(selectedEntries());
           endSelect();
@@ -784,19 +831,19 @@ export const FileManager = forwardRef<
         <ArrowDownToLine size={17} color={colors.text} />
       </ToolButton>
       <ToolButton
-        label="Copy to"
+        label={tr("fileManager.copyTo")}
         onPress={() => setPick({ mode: "copy", entries: selectedEntries() })}
       >
         <Copy size={17} color={colors.text} />
       </ToolButton>
       <ToolButton
-        label="Move to"
+        label={tr("fileManager.moveTo")}
         onPress={() => setPick({ mode: "move", entries: selectedEntries() })}
       >
         <FolderInput size={17} color={colors.text} />
       </ToolButton>
       <ToolButton
-        label="Delete"
+        label={tr("fileManager.delete2")}
         onPress={() => {
           const entries = selectedEntries();
           endSelect();
@@ -813,7 +860,7 @@ export const FileManager = forwardRef<
         autoFocus
         value={query}
         onChangeText={setQuery}
-        placeholder="Filter by name"
+        placeholder={tr("fileManager.filterByName")}
         placeholderTextColor={colors.textFaint}
         autoCapitalize="none"
         autoCorrect={false}
@@ -821,7 +868,7 @@ export const FileManager = forwardRef<
         style={{ fontSize: 14 }}
       />
       <ToolButton
-        label="Close search"
+        label={tr("fileManager.closeSearch")}
         onPress={() => {
           setQuery("");
           setSearching(false);
@@ -833,13 +880,16 @@ export const FileManager = forwardRef<
   ) : (
     <View className="h-11 flex-row items-center border-b border-border px-1">
       {toolbarExtra}
-      <ToolButton label="Search" onPress={() => setSearching(true)}>
+      <ToolButton
+        label={tr("fileManager.search")}
+        onPress={() => setSearching(true)}
+      >
         <Search size={17} color={colors.text} />
       </ToolButton>
       <Pressable
         onPress={sortNext}
         accessibilityRole="button"
-        accessibilityLabel="Change sort"
+        accessibilityLabel={tr("fileManager.changeSort")}
         className="h-10 flex-row items-center gap-1 px-2 active:bg-muted"
       >
         <ArrowUpDown size={15} color={colors.text} />
@@ -850,7 +900,7 @@ export const FileManager = forwardRef<
       <View className="flex-1" />
       {clipboard ? (
         <ToolButton
-          label={`Paste ${clipboard.entries.length}`}
+          label={tr("fileManager.paste", { count: clipboard.entries.length })}
           onPress={() => {
             const c = clipboard;
             setClipboard(null);
@@ -860,17 +910,23 @@ export const FileManager = forwardRef<
           <ClipboardPaste size={17} color={colors.brand} />
         </ToolButton>
       ) : null}
-      <ToolButton label="Upload" onPress={() => void pickUploads()}>
+      <ToolButton
+        label={tr("fileManager.upload")}
+        onPress={() => void pickUploads()}
+      >
         <Upload size={17} color={colors.text} />
       </ToolButton>
       <ToolButton
-        label="Transfers"
+        label={tr("fileManager.transfers2")}
         onPress={() => setTransfersOpen(true)}
         badge={transferSum.active || undefined}
       >
         <ArrowDownToLine size={17} color={colors.text} />
       </ToolButton>
-      <ToolButton label="More" onPress={() => setMoreOpen(true)}>
+      <ToolButton
+        label={tr("fileManager.more")}
+        onPress={() => setMoreOpen(true)}
+      >
         <MoreVertical size={17} color={colors.text} />
       </ToolButton>
     </View>
@@ -908,8 +964,12 @@ export const FileManager = forwardRef<
             </View>
           ) : (
             <EmptyState
-              title={query ? "Nothing matches" : "Empty folder"}
-              hint={query ? undefined : "Upload files or make a new one."}
+              title={
+                query
+                  ? tr("fileManager.nothingMatches")
+                  : tr("fileManager.emptyFolder")
+              }
+              hint={query ? undefined : tr("fileManager.uploadFilesOrMakeA")}
             />
           )
         }
@@ -934,19 +994,19 @@ export const FileManager = forwardRef<
           {
             key: "newFolder",
             icon: <FolderPlus size={16} color={colors.text} />,
-            label: "New folder",
+            label: tr("fileManager.newFolder"),
             onPress: () => setDialog({ kind: "newFolder" }),
           },
           {
             key: "newFile",
             icon: <FilePlus size={16} color={colors.text} />,
-            label: "New file",
+            label: tr("fileManager.newFile"),
             onPress: () => setDialog({ kind: "newFile" }),
           },
           {
             key: "select",
             icon: <CheckSquare size={16} color={colors.text} />,
-            label: "Select",
+            label: tr("fileManager.select"),
             onPress: () => setSelecting(true),
           },
           {
@@ -957,21 +1017,21 @@ export const FileManager = forwardRef<
               <Eye size={16} color={colors.text} />
             ),
             label: settings.showHidden
-              ? "Hide hidden files"
-              : "Show hidden files",
+              ? tr("fileManager.hideHiddenFiles")
+              : tr("fileManager.showHiddenFiles"),
             onPress: () =>
               void updateFileSettings({ showHidden: !settings.showHidden }),
           },
           !!b.trash && {
             key: "trash",
             icon: <Trash2 size={16} color={colors.text} />,
-            label: "Trash",
+            label: tr("fileManager.trash"),
             onPress: () => setTrashOpen(true),
           },
           {
             key: "folderProps",
             icon: <Info size={16} color={colors.text} />,
-            label: "Folder properties",
+            label: tr("fileManager.folderProperties"),
             onPress: () =>
               setProps({
                 name: remoteName(path),
@@ -985,7 +1045,7 @@ export const FileManager = forwardRef<
           {
             key: "refresh",
             icon: <RefreshCw size={16} color={colors.text} />,
-            label: "Refresh",
+            label: tr("fileManager.refresh"),
             onPress: () => void load(path),
           },
         ]}
@@ -995,19 +1055,22 @@ export const FileManager = forwardRef<
         visible={!!dialog}
         title={
           dialog?.kind === "newFolder"
-            ? "New folder"
+            ? tr("fileManager.newFolder")
             : dialog?.kind === "newFile"
-              ? "New file"
+              ? tr("fileManager.newFile")
               : dialog?.kind === "rename"
-                ? `Rename ${dialog.entry.name}`
-                : "New link"
+                ? tr("fileManager.rename2", { name: dialog.entry.name })
+                : tr("fileManager.newLink")
         }
         description={
           dialog?.kind === "link"
-            ? `A link in ${path} that points to ${dialog.entry.path}`
+            ? tr("fileManager.aLinkInThatPoints", {
+                path,
+                path2: dialog.entry.path,
+              })
             : undefined
         }
-        placeholder="Name"
+        placeholder={tr("fileManager.name")}
         defaultValue={
           dialog?.kind === "rename"
             ? dialog.entry.name
@@ -1015,7 +1078,11 @@ export const FileManager = forwardRef<
               ? `${dialog.entry.name}-link`
               : ""
         }
-        confirmLabel={dialog?.kind === "rename" ? "Rename" : "Create"}
+        confirmLabel={
+          dialog?.kind === "rename"
+            ? tr("fileManager.rename")
+            : tr("fileManager.create")
+        }
         validate={validName}
         onSubmit={(v) => void submitDialog(v)}
         onCancel={() => setDialog(null)}
@@ -1064,8 +1131,16 @@ export const FileManager = forwardRef<
 
       <DestinationPicker
         open={!!pick}
-        title={pick?.mode === "copy" ? "Copy to" : "Move to"}
-        confirmLabel={pick?.mode === "copy" ? "Copy here" : "Move here"}
+        title={
+          pick?.mode === "copy"
+            ? tr("fileManager.copyTo")
+            : tr("fileManager.moveTo")
+        }
+        confirmLabel={
+          pick?.mode === "copy"
+            ? tr("fileManager.copyHere")
+            : tr("fileManager.moveHere")
+        }
         backend={b}
         startPath={path || "/"}
         onClose={() => setPick(null)}

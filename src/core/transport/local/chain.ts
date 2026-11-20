@@ -15,6 +15,7 @@ import {
 import type { TerminalHostConfig } from "../types";
 import { checkHostKey, type AskHostKey } from "./host-keys";
 import { resolveLogin, tailscaleRetry, type ResolvedLogin } from "./resolve";
+import { t } from "@/i18n";
 
 export interface HopInfo {
   index: number;
@@ -32,6 +33,8 @@ export interface ChainHandlers {
     hop: HopInfo | null,
   ): Promise<string[] | null>;
   onBanner?(banner: string, login: ResolvedLogin): void;
+  /** The target's login, before it is tried. */
+  onLogin?(login: ResolvedLogin): void;
   signal?: AbortSignal;
   /** Overrides the connect timeout, except for Tailscale's browser check. */
   connectTimeoutSecs?: number;
@@ -125,7 +128,7 @@ export async function openJumps(
       const p = repo ? await repo.profile(id) : null;
       if (!p) {
         throw new AppError(
-          "A jump host of this host no longer exists.",
+          t("transport.local.chain.aJumpHostOfThis"),
           "JUMP_HOST_MISSING",
         );
       }
@@ -167,6 +170,7 @@ export async function openChain(
     applyOverrides(resolveLogin(profile, host), overrides),
     h.connectTimeoutSecs,
   );
+  h.onLogin?.(login);
   const hops = await openJumps(repo, host, login.jumpHostIds, h);
   const opts = { signal: h.signal };
   try {

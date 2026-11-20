@@ -36,6 +36,7 @@ import type { Snippet } from "@/types";
 import { toast } from "@/utils/toast";
 import type { PaletteItem } from "./search";
 import { openTab } from "@/screens/shell/navigate";
+import { t } from "@/i18n";
 
 /**
  * Everything the palette can find: hosts, snippets, actions and settings.
@@ -103,7 +104,9 @@ export function usePaletteItems({
         section: "snippets",
         label: snippet.name,
         detail:
-          terminal && !asks ? `Run in ${terminal.title}` : snippet.content,
+          terminal && !asks
+            ? t("palette.usePaletteItems.runIn", { title: terminal.title })
+            : snippet.content,
         keywords: [snippet.content, snippet.folder ?? ""],
         icon: FileText,
         run: () => {
@@ -118,8 +121,8 @@ export function usePaletteItems({
           void Clipboard.setStringAsync(snippet.content);
           toast.success(
             asks
-              ? "Copied. Run it from the terminal's snippets to fill in its values."
-              : "Copied. Open a terminal to run snippets.",
+              ? t("palette.usePaletteItems.copiedRunItFromThe")
+              : t("palette.usePaletteItems.copiedOpenATerminalTo"),
           );
         },
       });
@@ -128,7 +131,7 @@ export function usePaletteItems({
     items.push({
       id: "action:add-host",
       section: "actions",
-      label: "Add host",
+      label: t("palette.usePaletteItems.addHost"),
       icon: Plus,
       suggested: true,
       run: () => {
@@ -140,7 +143,7 @@ export function usePaletteItems({
       items.push({
         id: "action:quick-connect",
         section: "actions",
-        label: "Quick connect",
+        label: t("palette.usePaletteItems.quickConnect"),
         detail: "user@host:port",
         icon: Zap,
         suggested: true,
@@ -154,7 +157,7 @@ export function usePaletteItems({
       {
         id: "action:switch-account",
         section: "actions",
-        label: "Switch account",
+        label: t("palette.usePaletteItems.switchAccount"),
         icon: Users,
         run: () => {
           close();
@@ -164,7 +167,7 @@ export function usePaletteItems({
       {
         id: "action:link-server",
         section: "actions",
-        label: "Link a server",
+        label: t("palette.usePaletteItems.linkAServer"),
         icon: Link,
         run: () => {
           close();
@@ -189,7 +192,7 @@ export function usePaletteItems({
         id: `quick:${action.id}`,
         section: "actions",
         label: action.label,
-        detail: "From your server",
+        detail: t("palette.usePaletteItems.fromYourServer"),
         icon: action.icon,
         run: () => {
           close();
@@ -201,8 +204,8 @@ export function usePaletteItems({
     items.push({
       id: "settings:home",
       section: "settings",
-      label: "Settings",
-      detail: "Accounts, appearance, security",
+      label: t("palette.usePaletteItems.settings"),
+      detail: t("palette.usePaletteItems.accountsAppearanceSecurity"),
       icon: Settings,
       run: go("/(tabs)/settings"),
     });

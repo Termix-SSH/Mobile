@@ -23,6 +23,7 @@ import { createWakeOnLanApi } from "./wakeOnLan";
 import { createApiKeysApi } from "./apiKeys";
 import { createSessionSharingApi } from "./sessionSharing";
 import { createServicesApi } from "./services";
+import { createPluginSettingsApi } from "./pluginSettings";
 
 export function createModules(c: AccountClient) {
   return {
@@ -50,6 +51,7 @@ export function createModules(c: AccountClient) {
     apiKeys: createApiKeysApi(c),
     sessionSharing: createSessionSharingApi(c),
     services: createServicesApi(c),
+    pluginSettings: createPluginSettingsApi(c),
   };
 }
 

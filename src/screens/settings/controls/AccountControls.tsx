@@ -31,14 +31,16 @@ import {
 } from "@/ui";
 import { toast } from "@/utils/toast";
 import { useServerUser } from "../useServerUser";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 const STATE_TEXT = {
-  idle: "Synced",
-  syncing: "Syncing",
-  offline: "Offline",
-  error: "Stopped",
-  signed_out: "Signed out",
-  off: "Reads live",
+  idle: t("settings.controls.accountControls.synced"),
+  syncing: t("settings.controls.accountControls.syncing"),
+  offline: t("settings.controls.accountControls.offline"),
+  error: t("settings.controls.accountControls.stopped"),
+  signed_out: t("settings.controls.accountControls.signedOut"),
+  off: t("settings.controls.accountControls.readsLive"),
 } as const;
 
 function AccountRow({
@@ -61,11 +63,15 @@ function AccountRow({
         server.username,
         server.serverUrl.replace(/^https?:\/\//, ""),
         STATE_TEXT[status.state],
-        conflicts.length ? `${conflicts.length} to review` : null,
+        conflicts.length
+          ? t("settings.controls.accountControls.toReview", {
+              count: conflicts.length,
+            })
+          : null,
       ]
         .filter(Boolean)
         .join(" | ")
-    : "Works without a server";
+    : t("settings.controls.accountControls.worksWithoutAServer");
   const Icon = server ? Server : Smartphone;
 
   return (
@@ -83,7 +89,13 @@ function AccountRow({
       }
       icon={<Icon size={14} color={color("muted-foreground")} />}
       title={accountLabel(account)}
-      badges={active ? <Badge variant="success">Active</Badge> : null}
+      badges={
+        active ? (
+          <Badge variant="success">
+            {t("settings.controls.accountControls.active")}
+          </Badge>
+        ) : null
+      }
       meta={<Text className="text-meta text-muted-foreground">{meta}</Text>}
       onPress={() => {
         if (server) {
@@ -119,12 +131,13 @@ export function AccountsControl() {
           onPress={() => openAuthFlow("server")}
           icon={<Plus size={14} />}
         >
-          Link a server
+          {t("settings.controls.accountControls.linkAServer")}
         </Button>
       </View>
       <Text className="pt-2 text-meta text-muted-foreground">
-        Each server keeps its own copy of your hosts, credentials and settings
-        on this phone.
+        {t("settings.controls.accountControls.eachServerKeepsItsOwn", {
+          deviceWord,
+        })}
       </Text>
     </View>
   );
@@ -152,18 +165,22 @@ export function ServerSessionControl() {
     <View>
       {isAuthenticated ? (
         <>
-          <SettingRow label="Signed in as">
+          <SettingRow label={t("settings.controls.accountControls.signedInAs")}>
             <Text weight="medium" className="text-row text-foreground">
               {user.username || "-"}
             </Text>
           </SettingRow>
-          <SettingRow label="Role">
+          <SettingRow label={t("settings.controls.accountControls.role")}>
             <Text className="text-row text-muted-foreground">
-              {user.isAdmin ? "Administrator" : "User"}
+              {user.isAdmin
+                ? t("settings.controls.accountControls.administrator")
+                : t("settings.controls.accountControls.user")}
             </Text>
           </SettingRow>
           {user.version ? (
-            <SettingRow label="Server version">
+            <SettingRow
+              label={t("settings.controls.accountControls.serverVersion")}
+            >
               <Text className="text-row text-muted-foreground">
                 v{user.version}
               </Text>
@@ -171,16 +188,18 @@ export function ServerSessionControl() {
           ) : null}
           <View className="py-3">
             <Button variant="destructive" loading={busy} onPress={signOut}>
-              Sign out
+              {t("settings.controls.accountControls.signOut")}
             </Button>
           </View>
         </>
       ) : (
         <View className="gap-2 py-3">
           <Text className="text-meta text-muted-foreground">
-            You are signed out of this server.
+            {t("settings.controls.accountControls.youAreSignedOutOf")}
           </Text>
-          <Button onPress={() => openAuthFlow("login")}>Sign in</Button>
+          <Button onPress={() => openAuthFlow("login")}>
+            {t("settings.controls.accountControls.signIn")}
+          </Button>
         </View>
       )}
     </View>
@@ -202,36 +221,45 @@ export function ChangePasswordControl() {
     setBusy(true);
     try {
       await changeServerPassword(client, current, next);
-      toast.success("Password changed");
+      toast.success(t("settings.controls.accountControls.passwordChanged"));
       close();
     } catch (e) {
-      toast.error(toUserMessage(e, "Could not change the password"));
+      toast.error(
+        toUserMessage(
+          e,
+          t("settings.controls.accountControls.couldNotChangeThePassword"),
+        ),
+      );
     } finally {
       setBusy(false);
     }
   };
   return (
     <>
-      <Button variant="muted" onPress={() => setOpen(true)}>
-        Change password
-      </Button>
+      <View className="py-3">
+        <Button variant="muted" onPress={() => setOpen(true)}>
+          {t("settings.controls.accountControls.changePassword")}
+        </Button>
+      </View>
       <Sheet
         scroll
         visible={open}
         onClose={close}
-        title="Change password"
-        description="Enter your current password, then choose a new one."
+        title={t("settings.controls.accountControls.changePassword")}
+        description={t(
+          "settings.controls.accountControls.enterYourCurrentPasswordThen",
+        )}
         footer={
           <>
             <Button variant="ghost" size="sm" onPress={close}>
-              Cancel
+              {t("settings.controls.accountControls.cancel")}
             </Button>
             <Button
               size="sm"
               disabled={busy || !current || !next}
               onPress={submit}
             >
-              Change
+              {t("settings.controls.accountControls.change")}
             </Button>
           </>
         }
@@ -242,14 +270,16 @@ export function ChangePasswordControl() {
               value={current}
               onChangeText={setCurrent}
               secureTextEntry
-              placeholder="Current password"
+              placeholder={t(
+                "settings.controls.accountControls.currentPassword",
+              )}
               autoCapitalize="none"
             />
             <Input
               value={next}
               onChangeText={setNext}
               secureTextEntry
-              placeholder="New password"
+              placeholder={t("settings.controls.accountControls.newPassword")}
               autoCapitalize="none"
             />
           </View>
@@ -275,28 +305,37 @@ export function DeleteAccountControl() {
       await deleteServerAccount(client, password);
       setAuthenticated(false);
       close();
-      toast.success("Account deleted");
+      toast.success(t("settings.controls.accountControls.accountDeleted"));
     } catch (e) {
-      toast.error(toUserMessage(e, "Could not delete the account"));
+      toast.error(
+        toUserMessage(
+          e,
+          t("settings.controls.accountControls.couldNotDeleteTheAccount"),
+        ),
+      );
     } finally {
       setBusy(false);
     }
   };
   return (
     <>
-      <Button variant="destructive" onPress={() => setOpen(true)}>
-        Delete server account
-      </Button>
+      <View className="py-3">
+        <Button variant="destructive" onPress={() => setOpen(true)}>
+          {t("settings.controls.accountControls.deleteServerAccount")}
+        </Button>
+      </View>
       <Sheet
         scroll
         visible={open}
         onClose={close}
-        title="Delete server account"
-        description="This permanently deletes your account on the server and all of its data. It cannot be undone."
+        title={t("settings.controls.accountControls.deleteServerAccount")}
+        description={t(
+          "settings.controls.accountControls.thisPermanentlyDeletesYourAccount",
+        )}
         footer={
           <>
             <Button variant="ghost" size="sm" onPress={close}>
-              Cancel
+              {t("settings.controls.accountControls.cancel")}
             </Button>
             <Button
               variant="destructive"
@@ -304,7 +343,7 @@ export function DeleteAccountControl() {
               disabled={busy || !password}
               onPress={submit}
             >
-              Delete
+              {t("settings.controls.accountControls.delete")}
             </Button>
           </>
         }
@@ -314,7 +353,9 @@ export function DeleteAccountControl() {
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-            placeholder="Confirm your password"
+            placeholder={t(
+              "settings.controls.accountControls.confirmYourPassword",
+            )}
             autoCapitalize="none"
           />
         </SheetBody>

@@ -2,6 +2,7 @@ import { Pressable, View } from "react-native";
 import { Check, Slash } from "lucide-react-native";
 import { Field, LOOK_COLORS, LOOK_ICONS, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
+import { t } from "@/i18n";
 
 const HOST_ICONS = [
   "server",
@@ -44,12 +45,12 @@ export function ColorIconField({
   const tint = value ?? color("foreground");
   return (
     <View className="gap-3">
-      <Field label="Color">
+      <Field label={t("hosts.editor.colorIconField.color")}>
         <View className="flex-row flex-wrap gap-2">
           <Pressable
             onPress={() => onChange({ color: null })}
             accessibilityRole="button"
-            accessibilityLabel="No color"
+            accessibilityLabel={t("hosts.editor.colorIconField.noColor")}
             accessibilityState={{ selected: value === null }}
             className={`h-11 w-11 items-center justify-center border ${value === null ? "border-foreground" : "border-border"}`}
           >
@@ -60,7 +61,9 @@ export function ColorIconField({
               key={c}
               onPress={() => onChange({ color: c })}
               accessibilityRole="button"
-              accessibilityLabel={`Color ${c}`}
+              accessibilityLabel={t("hosts.editor.colorIconField.color2", {
+                c,
+              })}
               accessibilityState={{ selected: value === c }}
               className={`h-11 w-11 items-center justify-center border ${value === c ? "border-foreground" : "border-transparent"}`}
             >
@@ -74,16 +77,18 @@ export function ColorIconField({
           ))}
         </View>
       </Field>
-      <Field label="Icon">
+      <Field label={t("hosts.editor.colorIconField.icon")}>
         <View className="flex-row flex-wrap gap-2">
           <Pressable
             onPress={() => onChange({ icon: null })}
             accessibilityRole="button"
-            accessibilityLabel="No icon"
+            accessibilityLabel={t("hosts.editor.colorIconField.noIcon")}
             accessibilityState={{ selected: icon === null }}
             className={`h-11 w-11 items-center justify-center border ${icon === null ? "border-foreground bg-muted/40" : "border-border"}`}
           >
-            <Text className="text-[10px] text-muted-foreground">None</Text>
+            <Text className="text-[10px] text-muted-foreground">
+              {t("hosts.editor.colorIconField.none")}
+            </Text>
           </Pressable>
           {HOST_ICONS.map((name) => {
             const Icon = LOOK_ICONS[name];
@@ -93,7 +98,9 @@ export function ColorIconField({
                 key={name}
                 onPress={() => onChange({ icon: name })}
                 accessibilityRole="button"
-                accessibilityLabel={`Icon ${name}`}
+                accessibilityLabel={t("hosts.editor.colorIconField.icon2", {
+                  name,
+                })}
                 accessibilityState={{ selected }}
                 className={`h-11 w-11 items-center justify-center border ${selected ? "border-foreground bg-muted/40" : "border-border"}`}
               >

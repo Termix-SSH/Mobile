@@ -2,16 +2,16 @@ import type { SshForward } from "@/modules/termix-ssh";
 import type { HostSession } from "@/core/transport/types";
 import { reconnectDelay } from "@/core/transport/reconnect";
 import type { TunnelConnection, TunnelStatus } from "@/types";
+import { t as tr } from "@/i18n";
 
-export const IOS_STOPPED =
-  "iOS stopped this tunnel while the app was in the background. Start it again to open it.";
+export const IOS_STOPPED = tr("tunnels.runner.iosStoppedThisTunnelWhile");
 
 const STATE_TEXT: Record<string, string> = {
-  connecting: "Connecting",
-  connected: "Connected",
-  retrying: "Retrying",
-  waiting: "Waiting",
-  failed: "Failed",
+  connecting: tr("tunnels.runner.connecting"),
+  connected: tr("tunnels.runner.connected"),
+  retrying: tr("tunnels.runner.retrying"),
+  waiting: tr("tunnels.runner.waiting"),
+  failed: tr("tunnels.runner.failed"),
 };
 
 export const tunnelStateText = (state?: string) =>
@@ -172,7 +172,7 @@ export class LocalTunnelRunner {
       this.set(key, {
         connected: false,
         status: "waiting",
-        reason: "Waiting for network",
+        reason: tr("tunnels.runner.waitingForNetwork"),
       });
       return;
     }
@@ -198,7 +198,10 @@ export class LocalTunnelRunner {
       this.set(key, { connected: true, status: "connected" });
     } catch (err) {
       this.release(entry);
-      this.fail(entry, (err as Error)?.message || "Could not open the tunnel");
+      this.fail(
+        entry,
+        (err as Error)?.message || tr("tunnels.runner.couldNotOpenTheTunnel"),
+      );
     }
   }
 
@@ -209,7 +212,7 @@ export class LocalTunnelRunner {
       this.giveUp(entry, IOS_STOPPED);
       return;
     }
-    this.fail(entry, reason || "The connection dropped");
+    this.fail(entry, reason || tr("tunnels.runner.theConnectionDropped"));
   }
 
   private giveUp(entry: Entry, reason: string) {
@@ -271,7 +274,7 @@ export class LocalTunnelRunner {
         if (entry.session !== session || entry.stopped) return;
         this.release(entry);
         if (this.deps.platform === "ios") this.giveUp(entry, IOS_STOPPED);
-        else this.fail(entry, "The connection dropped");
+        else this.fail(entry, tr("tunnels.runner.theConnectionDropped"));
       });
     }
   }
@@ -287,7 +290,7 @@ export class LocalTunnelRunner {
         this.set(e.job.key, {
           connected: false,
           status: "waiting",
-          reason: "Waiting for network",
+          reason: tr("tunnels.runner.waitingForNetwork"),
         });
       }
       return;

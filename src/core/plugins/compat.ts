@@ -1,5 +1,7 @@
 import semver from "semver";
 import { PLUGIN_HOST_API } from "./host-api";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /**
  * Whether the app can show a plugin, from its `engine.api` range:
@@ -40,14 +42,14 @@ export function fitMessage(
 ): { title: string; hint: string } | null {
   if (fit === "update-app") {
     return {
-      title: "Update the app",
-      hint: `${name} on your server needs a newer version of Termix on this phone.`,
+      title: t("plugins.compat.updateTheApp"),
+      hint: t("plugins.compat.onYourServerNeedsA", { name, deviceWord }),
     };
   }
   if (fit === "update-plugin") {
     return {
-      title: "Update the plugin",
-      hint: `${name} on your server is too old for this app. Ask an admin to update it in Plugins.`,
+      title: t("plugins.compat.updateThePlugin"),
+      hint: t("plugins.compat.onYourServerIsToo", { name }),
     };
   }
   return null;

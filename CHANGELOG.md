@@ -1,5 +1,79 @@
 # Changelog
 
+## 2.1.0
+
+### Added
+
+- Actions on a host: every action the server's plugins offer for that host, such as restarting a container or service, with a form, a dry run and the result. New plugins show up with no app update
+- Approvals and Run history under Tools, when the server has Operations Center
+- Cancel a run that is still going or waiting, and undo a finished one, from Run history
+- Notifications have their own screen behind a bell on Home, Hosts and Tools, with an unread count, mark read, mark all read and delete
+- Push notifications for server alerts. Turn them on per server in Settings, Notifications and pick how bad an alert has to be. Tapping one opens that server's inbox. Needs Alerts 1.4.0 on the server. The F-Droid build checks for new alerts in the background instead
+- WireGuard opens in the app
+- The Wake-on-LAN Power page opens in the app, so you can wake machines that are not hosts
+- AI Assistant and the Login Security pages (sessions and keys, connect check, admin waits) open in the app
+- The Android and iOS files on each release carry signed build provenance you can check with `gh attestation verify`
+- Plugin pages in the app can show your own sessions and API keys, revoke your keys right after you tap the page, and show waiting approvals and your own second factors
+- Privileged Access, Ansible, DNS, Git, Network Devices, Notes, Object Storage, Out-of-band, Storage Health, UPS Manager and Virtual Machines open in the app
+- Plugin pages in the app show other plugins' parts again, like Homepage widgets from Docker or Proxmox. Each part runs in its own web view over the page
+- A trackpad or mouse works in remote desktops the phone opens itself on iPad: hover, clicks with the right button and scrolling
+- Power widget for one machine from the Power tab: it shows the name and status, and a tap wakes it or shuts it down without opening the app (iOS 17 and Android)
+- iPhone Duo: the app lays out around the fold, uses the side bar column for tabs and keeps clear of the inner screen's corners
+- Home is a dashboard of cards you can reorder and hide: tap the pencil, drag cards, turn them on or off. Pull down to refresh
+- Server card on Home with version, update notice, uptime, database health, hosts online and offline, and logins
+- Homepage widgets show on Home as native cards: service grids with up and down dots, links, bookmarks, search, clocks, countdowns, calendars, notes, banners, pings, hosts, RSS, weather, custom APIs and pictures. Other widgets open the full Homepage
+- Home cards for notifications, recent activity, approvals you can answer in place, snippets to run on hosts, Wake on LAN and tunnels
+- Connect from shows for Telnet, VNC and RDP hosts too, not only SSH. On Automatic, Telnet moves to the server when the phone can't reach the host
+- Double tap sends Tab in the terminal, a setting under Terminal | Links and keys. Long press still selects text
+- Ligatures switch under Terminal | Font, to draw runs like -> and != as separate characters
+- The app comes in 41 languages. It follows the device language, or pick one on the first screen or under Settings | Appearance | Language
+- Share a server host with people and roles from its menu: pick the level and when it ends, then change or remove access later
+
+### Changed
+
+- Server notifications no longer show as cards above the host list
+- Home on tablets lays its cards out in two columns, and pinned and recent hosts show whether they are online
+- With App Lock on, the key to this phone's data is locked by your PIN and biometrics, so the data opens only after you unlock
+- Wrong PIN tries are counted across restarts of the app
+- Plugin pages reach only their own files and actions on the server
+- Plugin pages run plugins made for the newest plugin API (2.9)
+- CPU and RAM on host rows are drawn the same way as on the web dashboard, with their labels
+- Remote desktops zoom out below fit, and two fingers pan a zoomed in desktop
+- Remote desktops the phone opens itself scroll faster: only the changed parts are redrawn on iOS and the connection asks for compression, thanks to loidolt
+- On an iPad or Android tablet the app says tablet instead of phone
+- Settings > Logs shows which way a terminal connected and why its socket closed
+
+### Fixed
+
+- Sign in to proxy now shows the server's client certificate, so it loads behind mTLS instead of failing with ERR_BAD_SSL_CLIENT_AUTH_CERT
+- In split screen and pop up windows on foldables, text is no longer cut short and buttons work again
+- Hosts and other rows a server no longer has, like after it was restored or reset, now leave the phone too. Sync now checks the whole list, and the app does it on its own every few hours
+- Some sign in and sync text showed codes like &apos; instead of an apostrophe
+- Change password and Delete server account have space between them in Settings
+- The Suggest commands description in Terminal settings is no longer cut off
+- Two linked servers with the same name now show their addresses, so you can tell them apart in tabs, lists and the server menu
+- Opening files, Docker, Host Metrics, a tunnel or a remote desktop now shows in recent activity, not only the terminal
+- The app no longer crashes on iOS when a page with several web views opens, like Homepage with widgets from other plugins
+- Server usage statistics in Settings opens its settings instead of saying the plugin is not made for the app. Any server plugin with settings but no page now shows them, server wide ones only to admins
+- Text that names this phone or tablet no longer runs the words together, like "on thisphone"
+- On Automatic, a host whose saved login is not on the phone now connects through the server instead of failing. The connection log says which login the phone tried
+- Homepage no longer goes black a moment after it opens on a phone
+- Signing in through the browser with a passkey, security key or other method no longer comes back with "sent no session back" (needs Termix 26.11.3 or newer)
+- Going back to the Hosts tab no longer reloads the whole list; it refreshes in the background
+- The SSH engine is built with library releases that have security fixes
+- A pinned server is never reached without its pin check, also in builds or cases where the pin could not be set
+- Removing an account no longer turns off the pins of another account on the same server
+- Android sign in pages now check a pinned server's key even when its certificate is otherwise trusted
+- App logs hide more kinds of secrets, such as passphrases, API keys and private keys
+- Saving a host on this phone no longer turns off its Host Metrics
+- Snippet folders can be picked when creating or editing a snippet on iOS, and No folder clears the folder
+- Arrow keys work in pagers like less -S in the fallback terminal
+- Android remote desktops draw at the right size and follow zoom and pan
+- The first tap after a two finger gesture in a remote desktop clicks again
+- A new API key now shows its token once after you create it
+- Connecting from the phone uses the host's username when it has one, and the linked credential's only when it doesn't, like the server
+- Connections lists each tab by the title its tab shows, so tabs on the same host can be told apart
+
 ## 2.0.0
 
 Termix Mobile now works with no server. Hosts, logins and snippets stay encrypted on the phone, and the terminal, files, tunnels, Docker, metrics, services and remote desktop connect straight from it. Link one or more Termix servers to sync with them and use their plugins.

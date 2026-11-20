@@ -20,4 +20,12 @@
   <string name="termix_widget_configure_opens_terminal">Terminal</string>
   <string name="termix_widget_configure_opens_stats">Metrics</string>
   <string name="termix_widget_configure_opens_files">Files</string>
+  <string name="termix_widget_power_label">Termix Power</string>
+  <string name="termix_widget_power_description">Wake or shut down a machine with one tap.</string>
+  <string name="termix_widget_power_wordmark">POWER</string>
+  <string name="termix_widget_power_empty_title">No machine</string>
+  <string name="termix_widget_power_empty_message">Turn on Power for a host, then open Termix.</string>
+  <string name="termix_widget_power_configure_title">Choose a machine</string>
+  <string name="termix_widget_power_configure_message">A tap wakes it when it is off and shuts it down when it is on.</string>
+  <string name="termix_widget_power_configure_empty">No machines yet. Turn on Power for a host in Termix and open the app, then this widget fills in on its own.</string>
 </resources>

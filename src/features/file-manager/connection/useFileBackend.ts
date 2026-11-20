@@ -14,6 +14,7 @@ import { toTerminalHostConfig } from "@/utils/hosts";
 import { toast } from "@/utils/toast";
 import { createSftpBackend } from "../backend/sftp";
 import type { FileBackend } from "../backend/types";
+import { t as tr } from "@/i18n";
 
 export type FileConnection =
   | { phase: "connecting"; via: Transport["kind"] | null }
@@ -71,7 +72,9 @@ export function useFileBackend(
         phase: "failed",
         failure: {
           stage: "unavailable",
-          message: check.blocked?.reason ?? "Can't connect.",
+          message:
+            check.blocked?.reason ??
+            tr("fileManager.connection.useFileBackend.canTConnect"),
           hint: "",
         },
         fix: check.blocked?.fix,
@@ -93,7 +96,9 @@ export function useFileBackend(
       setState({ phase: "connecting", via: "local" });
       const backend = createSftpBackend(() => {
         if (!transport.openSession) {
-          throw new Error("This way can't open files");
+          throw new Error(
+            tr("fileManager.connection.useFileBackend.thisWayCanTOpen"),
+          );
         }
         return transport.openSession(toTerminalHostConfig(host), {
           connectTimeoutSecs: hasNext ? FALLBACK_TIMEOUT_SECS : undefined,
@@ -128,7 +133,7 @@ export function useFileBackend(
       phase: "failed",
       failure: last ?? {
         stage: "unavailable",
-        message: "Can't connect.",
+        message: tr("fileManager.connection.useFileBackend.canTConnect"),
         hint: "",
       },
       fix: viaServer?.attempts.some((t) => t.kind === "relay")
@@ -169,7 +174,7 @@ export function useFileBackend(
       setOverride(next);
       saveOrigin(accountId, hostRef.current.id, next).catch((err) =>
         toast.error(
-          "Could not save how this host connects",
+          tr("fileManager.connection.useFileBackend.couldNotSaveHowThis"),
           err instanceof Error ? err.message : undefined,
         ),
       );

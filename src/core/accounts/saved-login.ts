@@ -2,6 +2,7 @@ import { Platform } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 import type { AccountClient } from "@/core/api/AccountClient";
+import { t } from "@/i18n";
 
 /**
  * A server's username and password kept behind Face ID or a fingerprint, so a
@@ -23,7 +24,7 @@ const keyFor = (accountId: string) =>
 const OPTIONS: SecureStore.SecureStoreOptions = {
   requireAuthentication: true,
   keychainAccessible: SecureStore.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
-  authenticationPrompt: "Sign in to Termix",
+  authenticationPrompt: t("accounts.savedLogin.signInToTermix"),
 };
 
 /** False without Face ID, Touch ID or a fingerprint set up. */
@@ -45,7 +46,7 @@ export async function biometricName(): Promise<string> {
     LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION,
   );
   if (Platform.OS === "ios") return face ? "Face ID" : "Touch ID";
-  return face ? "face unlock" : "fingerprint";
+  return face ? t("accounts.savedLogin.faceUnlock") : "fingerprint";
 }
 
 /** Ask once per server after a password sign in, unless one is saved. */

@@ -13,6 +13,7 @@ import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
 import { apiOf, useActiveClient } from "@/core/accounts";
 import { Screen } from "@/components/Screen";
+import { t } from "@/i18n";
 
 interface Session {
   id: string;
@@ -73,7 +74,7 @@ export default function ActiveSessions() {
       setSessions(sessRes?.sessions ?? []);
       setUserId(userRes?.userId ?? null);
     } catch {
-      toast.error("Failed to load sessions");
+      toast.error(t("settings.activeSessions.failedToLoadSessions"));
     }
   }, [client]);
 
@@ -85,9 +86,9 @@ export default function ActiveSessions() {
     try {
       await apiOf(client).users.revokeSession(sessionId);
       setSessions((prev) => prev.filter((s) => s.id !== sessionId));
-      toast.success("Session revoked");
+      toast.success(t("settings.activeSessions.sessionRevoked"));
     } catch {
-      toast.error("Failed to revoke session");
+      toast.error(t("settings.activeSessions.failedToRevokeSession"));
     }
   };
 
@@ -98,9 +99,9 @@ export default function ActiveSessions() {
       await apiOf(client).users.revokeAllUserSessions(userId);
       setSessions([]);
       setRevokeAllDialog(false);
-      toast.success("All sessions revoked");
+      toast.success(t("settings.activeSessions.allSessionsRevoked"));
     } catch {
-      toast.error("Failed to revoke all sessions");
+      toast.error(t("settings.activeSessions.failedToRevokeAllSessions"));
     } finally {
       setRevokeAllBusy(false);
     }
@@ -108,13 +109,15 @@ export default function ActiveSessions() {
 
   return (
     <Screen
-      title="Active sessions"
+      title={t("settings.activeSessions.activeSessions")}
       onBack={() => router.back()}
       headerRight={
         sessions.length > 0 ? (
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Sign out all other sessions"
+            accessibilityLabel={t(
+              "settings.activeSessions.signOutAllOtherSessions",
+            )}
             onPress={() => setRevokeAllDialog(true)}
             hitSlop={8}
             className="h-9 w-9 items-center justify-center"
@@ -126,7 +129,9 @@ export default function ActiveSessions() {
     >
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-sm text-muted-foreground">Loading…</Text>
+          <Text className="text-sm text-muted-foreground">
+            {t("settings.activeSessions.loading")}
+          </Text>
         </View>
       ) : (
         <ScrollView
@@ -146,7 +151,7 @@ export default function ActiveSessions() {
         >
           {sessions.length === 0 ? (
             <Text className="mt-8 text-center text-sm text-muted-foreground">
-              No active sessions found.
+              {t("settings.activeSessions.noActiveSessionsFound")}
             </Text>
           ) : (
             sessions.map((session) => (
@@ -165,23 +170,31 @@ export default function ActiveSessions() {
                   >
                     {session.deviceInfo ||
                       session.deviceType ||
-                      "Unknown device"}
+                      t("settings.activeSessions.unknownDevice")}
                   </Text>
                   <Text className="text-[11px] text-muted-foreground">
-                    Last active {formatDate(session.lastActiveAt)}
+                    {t("settings.activeSessions.lastActive", {
+                      lastActiveAt: formatDate(session.lastActiveAt),
+                    })}
                   </Text>
                   <Text className="text-[11px] text-muted-foreground">
-                    Created {formatDate(session.createdAt)}
+                    {t("settings.activeSessions.created", {
+                      createdAt: formatDate(session.createdAt),
+                    })}
                   </Text>
                 </View>
                 <Pressable
                   accessibilityRole="button"
-                  accessibilityLabel="Revoke session"
+                  accessibilityLabel={t(
+                    "settings.activeSessions.revokeSession",
+                  )}
                   onPress={async () => {
                     const ok = await confirm({
-                      title: "Revoke session?",
-                      description: "This will sign out that device.",
-                      confirmLabel: "Revoke",
+                      title: t("settings.activeSessions.revokeSession2"),
+                      description: t(
+                        "settings.activeSessions.thisWillSignOutThat",
+                      ),
+                      confirmLabel: t("settings.activeSessions.revoke"),
                     });
                     if (ok) handleRevoke(session.id);
                   }}
@@ -201,8 +214,8 @@ export default function ActiveSessions() {
         visible={revokeAllDialog}
         onClose={() => setRevokeAllDialog(false)}
         icon={<LogOut size={20} color={color("destructive")} />}
-        title="Revoke all sessions?"
-        description="This will sign out every device. You will remain signed in on this device."
+        title={t("settings.activeSessions.revokeAllSessions")}
+        description={t("settings.activeSessions.thisWillSignOutEvery")}
         footer={
           <View className="flex-row gap-2">
             <Button
@@ -210,7 +223,7 @@ export default function ActiveSessions() {
               className="flex-1"
               onPress={() => setRevokeAllDialog(false)}
             >
-              Cancel
+              {t("settings.activeSessions.cancel")}
             </Button>
             <Button
               variant="destructive"
@@ -218,7 +231,7 @@ export default function ActiveSessions() {
               onPress={handleRevokeAll}
               loading={revokeAllBusy}
             >
-              Revoke all
+              {t("settings.activeSessions.revokeAll")}
             </Button>
           </View>
         }

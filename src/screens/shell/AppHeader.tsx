@@ -1,25 +1,42 @@
 import { Pressable, View } from "react-native";
-import { ChevronDown, Search, Server, Smartphone } from "lucide-react-native";
+import { router } from "expo-router";
+import {
+  Bell,
+  ChevronDown,
+  Search,
+  Server,
+  Smartphone,
+} from "lucide-react-native";
 import { useAppContext } from "@/contexts/AppContext";
 import { useThemeColor } from "@/contexts/ThemeContext";
-import { accountLabel, useActiveAccount, type Account } from "@/core/accounts";
+import {
+  accountLabel,
+  useActiveAccount,
+  useActiveClient,
+  type Account,
+} from "@/core/accounts";
+import { useUnreadAlerts } from "@/screens/notifications/unread";
 import { palette } from "@/screens/palette/store";
 import { Button, Text } from "@/ui";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 const STATUS: Record<string, string> = {
-  idle: "Signed in",
+  idle: t("shell.appHeader.signedIn"),
   syncing: "Syncing",
   offline: "Offline",
-  error: "Error",
-  signed_out: "Signed out",
+  error: t("shell.appHeader.error"),
+  signed_out: t("shell.appHeader.signedOut"),
 };
 
 /** One short line under the account name. */
 export function accountLine(account: Account): string {
-  if (account.kind === "local") return "Works without a server";
+  if (account.kind === "local") return t("shell.appHeader.worksWithoutAServer");
   return [
     STATUS[account.status],
-    account.options.sync === true ? "Copy on this phone" : null,
+    account.options.sync === true
+      ? t("shell.appHeader.copyOnThis", { deviceWord })
+      : null,
   ]
     .filter(Boolean)
     .join(" | ");
@@ -35,7 +52,9 @@ export function AccountButton() {
     <Pressable
       onPress={openAccountSwitcher}
       accessibilityRole="button"
-      accessibilityLabel={`Account ${accountLabel(account)}, switch`}
+      accessibilityLabel={t("shell.appHeader.accountSwitch", {
+        account: accountLabel(account),
+      })}
       className="flex-row items-center gap-2 active:opacity-70"
       hitSlop={6}
     >
@@ -66,9 +85,42 @@ export function SearchButton() {
     <Button
       variant="ghost"
       size="icon"
-      accessibilityLabel="Search"
+      accessibilityLabel={t("shell.appHeader.search")}
       onPress={palette.open}
       icon={<Search size={18} color={color("muted-foreground")} />}
     />
+  );
+}
+
+/** Opens the notifications inbox, with the unread count on it. */
+export function NotificationsButton() {
+  const color = useThemeColor();
+  const client = useActiveClient();
+  const unread = useUnreadAlerts();
+  if (!client || !client.api.alerts.available()) return null;
+  return (
+    <View>
+      <Button
+        variant="ghost"
+        size="icon"
+        accessibilityLabel={
+          unread > 0
+            ? t("shell.appHeader.notificationsUnread", { unread })
+            : t("shell.appHeader.notifications")
+        }
+        onPress={() => router.push("/tabs/settings/Notifications" as never)}
+        icon={<Bell size={18} color={color("muted-foreground")} />}
+      />
+      {unread > 0 ? (
+        <View
+          pointerEvents="none"
+          className="absolute right-0.5 top-0.5 min-w-4 items-center bg-accent-brand px-1"
+        >
+          <Text weight="bold" className="text-2xs text-background">
+            {unread > 99 ? "99+" : String(unread)}
+          </Text>
+        </View>
+      ) : null}
+    </View>
   );
 }

@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
 import {
+  features,
   useHostActions,
   type FeatureContext,
   type HostActionDef,
@@ -40,5 +41,28 @@ export function useOpenHost(): (host: SSHHost) => Promise<boolean> {
       return true;
     },
     [actions, ctx, navigateToSessions],
+  );
+}
+
+/**
+ * Opens a host on the tab a server tab type names, like "files" from recent
+ * activity. Resolves to false when this app can't open that tab here.
+ */
+export function useOpenHostAs(): (
+  host: SSHHost,
+  serverTabType: string,
+) => Promise<boolean> {
+  const { navigateToSessions } = useTerminalSessions();
+  const { ctx } = useHostActions();
+  return useCallback(
+    async (host: SSHHost, serverTabType: string) => {
+      const found = features.sessionTabForServerType(serverTabType);
+      if (!found || !features.canOpen(found.tab.type, found.opts, ctx)) {
+        return false;
+      }
+      await navigateToSessions(host, found.tab.type, found.opts);
+      return true;
+    },
+    [ctx, navigateToSessions],
   );
 }

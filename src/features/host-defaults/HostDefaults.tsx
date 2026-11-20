@@ -32,6 +32,7 @@ import {
   sourceLabel,
   type KeyRow,
 } from "./model";
+import { t } from "@/i18n";
 
 const USER = "__user__";
 
@@ -74,14 +75,14 @@ export default function HostDefaults() {
     try {
       await store!.set(target, row.fullKey, value);
     } catch (e: any) {
-      toast.error(e?.message || "Could not save the default");
+      toast.error(e?.message || t("hostDefaults.couldNotSaveTheDefault"));
     }
   };
   const reset = async (row: KeyRow) => {
     try {
       await store!.unset(target, row.fullKey);
     } catch (e: any) {
-      toast.error(e?.message || "Could not reset the default");
+      toast.error(e?.message || t("hostDefaults.couldNotResetTheDefault"));
     }
   };
 
@@ -97,7 +98,7 @@ export default function HostDefaults() {
     <Pressable
       onPress={() => router.back()}
       accessibilityRole="button"
-      accessibilityLabel="Back"
+      accessibilityLabel={t("hostDefaults.back")}
       hitSlop={8}
     >
       <ArrowLeft size={20} color={color("foreground")} />
@@ -107,13 +108,13 @@ export default function HostDefaults() {
   if (!store) {
     return (
       <Screen
-        title="Host defaults"
-        subtitle="New hosts start from these"
+        title={t("hostDefaults.hostDefaults")}
+        subtitle={t("hostDefaults.newHostsStartFromThese")}
         headerLeft={header}
       >
         <EmptyState
-          title="Managed on the server"
-          hint="Defaults for this server are set in the web app."
+          title={t("hostDefaults.managedOnTheServer")}
+          hint={t("hostDefaults.defaultsForThisServerAre")}
         />
       </Screen>
     );
@@ -121,18 +122,18 @@ export default function HostDefaults() {
 
   return (
     <Screen
-      title="Host defaults"
-      subtitle="New hosts start from these"
+      title={t("hostDefaults.hostDefaults")}
+      subtitle={t("hostDefaults.newHostsStartFromThese")}
       headerLeft={header}
     >
       <ScrollView contentContainerStyle={{ padding: 12, gap: 12 }}>
         <View className="border border-border bg-card px-3">
           <ChoiceRow
-            label="Level"
-            description="Your defaults, or one folder's"
+            label={t("hostDefaults.level")}
+            description={t("hostDefaults.yourDefaultsOrOneFolder")}
             value={choice}
             options={[
-              { value: USER, label: "My defaults" },
+              { value: USER, label: t("hostDefaults.myDefaults") },
               ...folderNames.map((name) => ({ value: name, label: name })),
             ]}
             onChange={setChoice}
@@ -140,9 +141,12 @@ export default function HostDefaults() {
           />
         </View>
         <Text className="text-meta text-muted-foreground">
-          A folder wins over your defaults, and your defaults win over the
-          server&apos;s. A host keeps any value you set on it yourself.
-          {adminCount > 0 ? ` The server sets ${adminCount}.` : ""}
+          {t("hostDefaults.aFolderWinsOverYour", {
+            value:
+              adminCount > 0
+                ? t("hostDefaults.theServerSets", { adminCount })
+                : "",
+          })}
         </Text>
         <View className="border border-border bg-card px-3">
           {rows.map((row, i) => (
@@ -205,7 +209,7 @@ export default function HostDefaults() {
               void save(row, parseEnvText(envDraft));
             }}
           >
-            Save
+            {t("hostDefaults.save")}
           </Button>
         }
       >
@@ -224,11 +228,11 @@ export default function HostDefaults() {
       <Sheet
         visible={!!authOpen}
         onClose={() => setAuthOpen(null)}
-        title="Authentication"
+        title={t("hostDefaults.authentication")}
         scroll
       >
         <SheetRow
-          label="None"
+          label={t("hostDefaults.none")}
           selected={false}
           onPress={() => {
             const row = authOpen!;
@@ -308,7 +312,7 @@ function Row({
         )}
         {row.own && row.kind !== "readonly" ? (
           <Button variant="ghost" size="sm" onPress={onReset}>
-            Reset
+            {t("hostDefaults.reset")}
           </Button>
         ) : null}
       </View>

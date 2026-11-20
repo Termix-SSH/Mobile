@@ -1,0 +1,19 @@
+[[IgnoredVulns]]
+id = "GHSA-qr28-fpjm-wq7f"
+ignoreUntil = 2027-02-15
+reason = "decode-uri-component 0.2 comes from expo-router's query-string 7 and only sees links opened on the phone itself. The fixed 0.5 is ESM only and query-string 7 can't load it."
+
+[[IgnoredVulns]]
+id = "GHSA-vcc3-ghjq-m6fr"
+ignoreUntil = 2027-02-15
+reason = "Same decode-uri-component 0.2 as above, fixed only in the ESM only 0.5."
+
+[[IgnoredVulns]]
+id = "GHSA-67mh-4wv8-2f99"
+ignoreUntil = 2027-02-15
+reason = "esbuild 0.18 is inside drizzle-kit, a dev tool that never starts the esbuild dev server."
+
+[[IgnoredVulns]]
+id = "GHSA-mrhx-c7xc-m3w5"
+ignoreUntil = 2027-02-15
+reason = "zod 3 is inside @expo/cli, a dev tool that only validates its own config. The app uses zod 4.6.7."

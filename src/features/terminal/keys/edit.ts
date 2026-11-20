@@ -6,6 +6,7 @@ import {
   type KeyLayout,
   type KeyRow,
 } from "./model";
+import { t } from "@/i18n";
 
 export function reorder<T>(list: T[], from: number, to: number): T[] {
   if (from === to || from < 0 || from >= list.length) return list;
@@ -59,8 +60,10 @@ export function updateGroup(
 export function addRow(layout: KeyLayout, label: string): KeyLayout {
   const row: KeyRow = {
     id: newId("row"),
-    label: label.trim() || "Row",
-    groups: [{ id: newId("group"), label: "Keys", keys: [] }],
+    label: label.trim() || t("terminal.keys.edit.row"),
+    groups: [
+      { id: newId("group"), label: t("terminal.keys.edit.keys"), keys: [] },
+    ],
   };
   return { ...layout, rows: [...layout.rows, row] };
 }
@@ -74,7 +77,11 @@ export function addGroup(
     ...row,
     groups: [
       ...row.groups,
-      { id: newId("group"), label: label.trim() || "Keys", keys: [] },
+      {
+        id: newId("group"),
+        label: label.trim() || t("terminal.keys.edit.keys"),
+        keys: [],
+      },
     ],
   }));
 }
@@ -130,12 +137,14 @@ export function describeAction(action: KeyAction): string {
     case "raw":
       return action.data.endsWith("\r")
         ? `Runs ${JSON.stringify(action.data.slice(0, -1))}`
-        : "Sends a key code";
+        : t("terminal.keys.edit.sendsAKeyCode");
     case "modifier":
-      return "Sticky modifier";
+      return t("terminal.keys.edit.stickyModifier");
     case "tmux":
-      return `tmux prefix, then ${action.key ?? JSON.stringify(action.text ?? "")}`;
+      return t("terminal.keys.edit.tmuxPrefixThen", {
+        value: action.key ?? JSON.stringify(action.text ?? ""),
+      });
     case "command":
-      return "App action";
+      return t("terminal.keys.edit.appAction");
   }
 }

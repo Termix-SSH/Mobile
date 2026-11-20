@@ -41,6 +41,28 @@
         android:resource="@xml/termix_widget_snippets_info" />
     </receiver>
 
+    <receiver
+      android:name="expo.modules.termixwidgets.PowerWidgetProvider"
+      android:exported="false"
+      android:label="@string/termix_widget_power_label">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/termix_widget_power_info" />
+    </receiver>
+
+    <!-- Machine picker for the Power widget. -->
+    <activity
+      android:name="expo.modules.termixwidgets.PowerConfigureActivity"
+      android:exported="true"
+      android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+      </intent-filter>
+    </activity>
+
     <!-- Feeds host and snippet rows to the collection widgets. -->
     <service
       android:name="expo.modules.termixwidgets.HostCollectionService"

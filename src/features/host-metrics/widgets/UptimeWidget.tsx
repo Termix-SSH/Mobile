@@ -3,6 +3,7 @@ import { ServerMetrics } from "@/types";
 import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { WidgetCard } from "./WidgetCard";
+import { t } from "@/i18n";
 
 function formatUptime(seconds: number): string {
   const d = Math.floor(seconds / 86400);
@@ -25,7 +26,7 @@ export function UptimeWidget({ metrics }: { metrics: ServerMetrics }) {
   return (
     <WidgetCard
       icon={<Clock size={15} color={color("accent-brand")} />}
-      title="Uptime"
+      title={t("hostMetrics.widgets.uptimeWidget.uptime")}
     >
       <Text weight="bold" className="text-lg text-foreground">
         {text}

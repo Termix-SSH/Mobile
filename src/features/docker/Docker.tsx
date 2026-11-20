@@ -43,6 +43,8 @@ import { createLocalDockerBackend } from "./backend/local";
 import { createRelayDockerBackend } from "./backend/relay";
 import { hostStacksOn } from "./backend/stacks-setting";
 import type { DockerBackend, DockerCheck } from "./backend/types";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 interface DockerProps {
   host: SSHHost;
@@ -165,9 +167,9 @@ function RelayDocker({ host }: { host: SSHHost }) {
       <>
         <SessionFrame
           title={host.name}
-          subtitle="Docker"
+          subtitle={t("docker.docker")}
           status={conn.state === "error" ? "error" : "loading"}
-          loadingLabel="Connecting to Docker..."
+          loadingLabel={t("docker.connectingToDocker")}
           errorMessage={conn.errorMessage}
           failure={conn.state === "error" ? conn.failure : null}
           onRetry={conn.state === "error" ? conn.retry : undefined}
@@ -242,8 +244,8 @@ export function DockerView({
         setContainers(await backend.containers(signal));
       } catch (e) {
         if (signal?.aborted) return;
-        if (!check) setCheckError(errorText(e, "Docker did not answer"));
-        else toast.error(errorText(e, "Failed to load containers"));
+        if (!check) setCheckError(errorText(e, t("docker.dockerDidNotAnswer")));
+        else toast.error(errorText(e, t("docker.failedToLoadContainers")));
       } finally {
         if (!signal?.aborted) setLoaded(true);
       }
@@ -270,12 +272,16 @@ export function DockerView({
       const name = cleanName(c.name);
       if (action === "remove" || action === "stop") {
         const ok = await confirm({
-          title: action === "remove" ? `Remove ${name}?` : `Stop ${name}?`,
+          title:
+            action === "remove"
+              ? t("docker.remove", { name })
+              : t("docker.stop", { name }),
           description:
             action === "remove"
-              ? "The container is stopped and deleted. Its volumes stay."
-              : "Anything running in it stops.",
-          confirmLabel: action === "remove" ? "Remove" : "Stop",
+              ? t("docker.theContainerIsStoppedAnd")
+              : t("docker.anythingRunningInItStops"),
+          confirmLabel:
+            action === "remove" ? t("docker.remove2") : t("docker.stop2"),
           destructive: true,
         });
         if (!ok) return false;
@@ -287,7 +293,7 @@ export function DockerView({
         await load();
         return true;
       } catch (e) {
-        toast.error(errorText(e, `Failed to ${action}`));
+        toast.error(errorText(e, t("docker.failedTo", { action })));
         return false;
       } finally {
         setBusyId(null);
@@ -336,24 +342,28 @@ export function DockerView({
     <>
       <SessionFrame
         title={host.name}
-        subtitle={backend.via === "local" ? "Docker | this phone" : "Docker"}
+        subtitle={
+          backend.via === "local"
+            ? t("docker.dockerThis", { deviceWord })
+            : t("docker.docker")
+        }
         status={frameStatus}
-        loadingLabel="Looking for Docker..."
+        loadingLabel={t("docker.lookingForDocker")}
         errorMessage={checkError}
         onRetry={checkError ? () => void refresh() : undefined}
         emptyMessage={
           unavailable
-            ? (check?.error ?? "Docker is not available on this host.")
+            ? (check?.error ?? t("docker.dockerIsNotAvailableOn"))
             : containers.length === 0
-              ? "No containers found"
-              : "No containers match your filters"
+              ? t("docker.noContainersFound")
+              : t("docker.noContainersMatchYourFilters")
         }
         emptyIcon={
           unavailable && check?.code === "PERMISSION_DENIED" && onUseSudo ? (
             <View className="items-center gap-3">
               <ShieldCheck size={32} color={color("muted-foreground")} />
               <Button size="sm" onPress={onUseSudo}>
-                Use sudo
+                {t("docker.useSudo")}
               </Button>
             </View>
           ) : (
@@ -363,7 +373,7 @@ export function DockerView({
         headerActions={
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Refresh"
+            accessibilityLabel={t("docker.refresh")}
             onPress={refresh}
             disabled={refreshing}
             hitSlop={8}
@@ -385,8 +395,8 @@ export function DockerView({
                   value={section}
                   onChange={setSection}
                   options={[
-                    { id: "containers", label: "Containers" },
-                    { id: "stacks", label: "Stacks" },
+                    { id: "containers", label: t("docker.containers") },
+                    { id: "stacks", label: t("docker.stacks") },
                   ]}
                 />
               ) : null}
@@ -396,7 +406,7 @@ export function DockerView({
                     <Input
                       value={query}
                       onChangeText={setQuery}
-                      placeholder="Search containers..."
+                      placeholder={t("docker.searchContainers")}
                       autoCapitalize="none"
                       autoCorrect={false}
                       leading={
@@ -408,9 +418,9 @@ export function DockerView({
                     value={statusFilter}
                     onChange={setStatusFilter}
                     options={[
-                      { id: "all", label: "All" },
-                      { id: "running", label: "Running" },
-                      { id: "stopped", label: "Stopped" },
+                      { id: "all", label: t("docker.all") },
+                      { id: "running", label: t("docker.running") },
+                      { id: "stopped", label: t("docker.stopped") },
                     ]}
                   />
                 </>
@@ -477,40 +487,40 @@ function buildActions(
       : {
           key: "start",
           icon: <Play size={18} color={color("accent-brand")} />,
-          label: "Start",
+          label: t("docker.start"),
           onPress: () => run(c, "start"),
         },
     running
       ? {
           key: "stop",
           icon: <Square size={18} color={fg} />,
-          label: "Stop",
+          label: t("docker.stop2"),
           onPress: () => run(c, "stop"),
         }
       : null,
     {
       key: "restart",
       icon: <RotateCcw size={18} color={fg} />,
-      label: "Restart",
+      label: t("docker.restart"),
       onPress: () => run(c, "restart"),
     },
     running
       ? {
           key: "pause",
           icon: <Pause size={18} color={fg} />,
-          label: "Pause",
+          label: t("docker.pause"),
           onPress: () => run(c, "pause"),
         }
       : {
           key: "unpause",
           icon: <Play size={18} color={fg} />,
-          label: "Unpause",
+          label: t("docker.unpause"),
           onPress: () => run(c, "unpause"),
         },
     {
       key: "remove",
       icon: <Trash2 size={18} color={color("destructive")} />,
-      label: "Remove",
+      label: t("docker.remove2"),
       destructive: true,
       onPress: () => run(c, "remove"),
     },
@@ -567,7 +577,7 @@ function ContainerRow({
         )}
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="More actions"
+          accessibilityLabel={t("docker.moreActions")}
           onPress={onMenu}
           hitSlop={8}
           disabled={busy}

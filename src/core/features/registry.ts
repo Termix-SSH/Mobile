@@ -7,10 +7,12 @@ import type {
   FeatureContext,
   FeatureDef,
   FeatureRequirement,
+  HomeCardDef,
   SessionCapability,
   SessionMenuContext,
   SessionTabDef,
 } from "./types";
+import { t as tr } from "@/i18n";
 
 /** Whether the account's server (or This device) can use this requirement. */
 export function meets(
@@ -45,7 +47,9 @@ export class FeatureRegistry {
 
   register(def: FeatureDef): () => void {
     if (this.defs.has(def.id)) {
-      throw new Error(`Feature ${def.id} is already registered`);
+      throw new Error(
+        tr("features.registry.featureIsAlreadyRegistered", { id: def.id }),
+      );
     }
     this.defs.set(def.id, def);
     this.emit();
@@ -186,6 +190,10 @@ export class FeatureRegistry {
     return this.collect(ctx, (d) => d.hostBadges).sort(byOrder);
   }
 
+  hostRowData(ctx: FeatureContext) {
+    return this.collect(ctx, (d) => d.hostRowData).sort(byOrder);
+  }
+
   hostFilters(ctx: FeatureContext) {
     return this.collect(ctx, (d) => d.hostFilters).sort(byOrder);
   }
@@ -233,6 +241,13 @@ export class FeatureRegistry {
   dashboardCards(host: SSHHost, ctx: FeatureContext): DashboardCardDef[] {
     return this.collect(ctx, (d) => d.dashboardCards)
       .filter((c) => c.isAvailable(host))
+      .sort(byOrder);
+  }
+
+  /** Dashboard cards features add to Home. */
+  homeCards(ctx: FeatureContext): HomeCardDef[] {
+    return this.collect(ctx, (d) => d.homeCards)
+      .filter((c) => c.isAvailable?.(ctx) ?? true)
       .sort(byOrder);
   }
 

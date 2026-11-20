@@ -1,12 +1,6 @@
 import { memo } from "react";
 import { View, Pressable } from "react-native";
-import {
-  ChevronRight,
-  Cpu,
-  GripVertical,
-  MemoryStick,
-  Pin,
-} from "lucide-react-native";
+import { ChevronRight, GripVertical, Pin } from "lucide-react-native";
 import { SSHHost } from "@/types";
 import {
   Checkbox,
@@ -17,10 +11,13 @@ import {
   useContextMenu,
 } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
-import type { HostBadgeDef } from "@/core/features";
+import type { HostBadgeDef, HostRowDataDef } from "@/core/features";
+import { parseDataValue } from "@/core/data-values/data-value";
+import { DataValues } from "@/ui/DataValues";
 import type { HostListPrefs } from "@/core/host-list-prefs";
 import { isSshActive } from "@/utils/hosts";
 import type { HostStatus } from "@/screens/hosts/navigation/hostTree";
+import { t } from "@/i18n";
 
 export interface HostMetrics {
   cpu: number | null;
@@ -48,6 +45,8 @@ interface HostProps {
   dragging?: boolean;
   /** Feature badges, read once by the list. */
   badges: HostBadgeDef[];
+  /** Live numbers from features (host metrics), read once by the list. */
+  rowData?: HostRowDataDef[];
   /** How many sub-hosts sit right under it. */
   subHosts?: number;
   /** Its sub-hosts show. */
@@ -67,43 +66,12 @@ function FeatureChip({ label }: { label: string }) {
 }
 
 /** A thin labelled usage bar (CPU / RAM) shown on online hosts. */
-function MetricBar({
-  icon,
-  value,
-  high,
-  mid,
-}: {
-  icon: React.ReactNode;
-  value: number;
-  high: number;
-  mid: number;
-}) {
-  const color = useThemeColor();
-  const accent = color("accent-brand");
-  const barColor = value > high ? "#f87171" : value > mid ? "#facc15" : accent;
-  return (
-    <View className="flex-row items-center gap-1">
-      {icon}
-      <View className="h-[3px] w-9 overflow-hidden rounded-full bg-muted-foreground/15">
-        <View
-          style={{
-            width: `${Math.min(100, Math.max(0, value))}%`,
-            backgroundColor: barColor,
-          }}
-          className="h-full rounded-full"
-        />
-      </View>
-      <Text className="text-[9px] text-muted-foreground">
-        {Math.round(value)}%
-      </Text>
-    </View>
-  );
-}
 
 function Host({
   host,
   status,
   metrics,
+  rowData = [],
   prefs,
   compact = false,
   striped = false,
@@ -126,12 +94,16 @@ function Host({
     selecting
       ? []
       : [
-          { id: "open", label: "Open", onPress: () => onPress(host) },
+          {
+            id: "open",
+            label: t("hosts.navigation.host.open"),
+            onPress: () => onPress(host),
+          },
           ...(onLongPress
             ? [
                 {
                   id: "more",
-                  label: "More actions",
+                  label: t("hosts.navigation.host.moreActions"),
                   onPress: () => onLongPress(host),
                 },
               ]
@@ -148,10 +120,11 @@ function Host({
     }
   }
 
-  const showCpu =
-    prefs.showMetrics && online && metrics?.cpu != null && metrics.cpu > 0;
-  const showRam =
-    prefs.showMetrics && online && metrics?.ram != null && metrics.ram > 0;
+  // The same plain values the web's dashboard rows draw.
+  const live =
+    prefs.showMetrics && online
+      ? rowData.flatMap((def) => parseDataValue(def.value(host, metrics)) ?? [])
+      : [];
   const stripe = prefs.statusColors
     ? online
       ? color("success")
@@ -169,14 +142,23 @@ function Host({
       onLongPress={onLongPress ? () => onLongPress(host) : undefined}
       accessibilityRole="button"
       accessibilityActions={
-        onLongPress ? [{ name: "longpress", label: "More actions" }] : undefined
+        onLongPress
+          ? [
+              {
+                name: "longpress",
+                label: t("hosts.navigation.host.moreActions"),
+              },
+            ]
+          : undefined
       }
       onAccessibilityAction={(e) => {
         if (e.nativeEvent.actionName === "longpress") onLongPress?.(host);
       }}
       accessibilityLabel={`${host.name}, ${status}`}
       accessibilityHint={
-        selecting ? undefined : "Opens the terminal. Hold for more."
+        selecting
+          ? undefined
+          : t("hosts.navigation.host.opensTheTerminalHoldFor")
       }
       accessibilityState={selecting ? { selected } : undefined}
       style={{ marginLeft: depth * 14 }}
@@ -223,7 +205,7 @@ function Host({
             <Pin size={11} color={accent} fill={accent} />
           ) : null}
           {prefs.showSharedBadge && host.shared ? (
-            <FeatureChip label="Shared" />
+            <FeatureChip label={t("hosts.navigation.host.shared")} />
           ) : null}
           {protocols.map((p) => (
             <FeatureChip key={p} label={p} />
@@ -239,29 +221,9 @@ function Host({
         ) : null}
 
         {/* Live metrics */}
-        {showCpu || showRam ? (
-          <View className="mt-0.5 flex-row items-center gap-3">
-            {showCpu ? (
-              <MetricBar
-                icon={<Cpu size={10} color={color("muted-foreground", 0.4)} />}
-                value={metrics!.cpu!}
-                high={80}
-                mid={50}
-              />
-            ) : null}
-            {showRam ? (
-              <MetricBar
-                icon={
-                  <MemoryStick
-                    size={10}
-                    color={color("muted-foreground", 0.4)}
-                  />
-                }
-                value={metrics!.ram!}
-                high={80}
-                mid={60}
-              />
-            ) : null}
+        {live.length > 0 ? (
+          <View className="mt-0.5">
+            <DataValues values={live} />
           </View>
         ) : null}
 
@@ -294,7 +256,12 @@ function Host({
         <Pressable
           onPress={() => onToggleSubHosts(host.id)}
           accessibilityRole="button"
-          accessibilityLabel={`${open ? "Hide" : "Show"} ${subHosts} ${subHosts === 1 ? "sub-host" : "sub-hosts"} of ${host.name}`}
+          accessibilityLabel={t(
+            open
+              ? "hosts.navigation.host.hideSubHosts"
+              : "hosts.navigation.host.showSubHosts",
+            { count: subHosts, name: host.name },
+          )}
           accessibilityState={{ expanded: open }}
           hitSlop={6}
           className="flex-row items-center gap-1 px-3 active:bg-muted/40"
@@ -308,7 +275,9 @@ function Host({
       {onDrag ? (
         <Pressable
           onPressIn={onDrag}
-          accessibilityLabel={`Drag ${host.name}`}
+          accessibilityLabel={t("hosts.navigation.host.drag", {
+            name: host.name,
+          })}
           hitSlop={6}
           className="justify-center px-3"
         >

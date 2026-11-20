@@ -20,6 +20,8 @@ import {
 import { describeCounts, type OwnDataCounts } from "@/core/sync";
 import { toast } from "@/utils/toast";
 import { StepCard, TextLink, errorText } from "./AccountSteps";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 export function AddressStep({
   address,
@@ -43,9 +45,9 @@ export function AddressStep({
     <View className="w-full max-w-md gap-4">
       <StepCard>
         <Field
-          label="Server address"
+          label={t("link.smallSteps.serverAddress")}
           error={error}
-          hint="Like termix.example.com or 192.168.1.20:30001"
+          hint={t("link.smallSteps.likeTermixExampleComOr")}
         >
           <Input
             value={address}
@@ -64,7 +66,7 @@ export function AddressStep({
           />
         </Field>
         <Button size="lg" loading={busy} onPress={onContinue}>
-          {busy ? "Checking..." : "Continue"}
+          {busy ? t("link.smallSteps.checking") : t("link.smallSteps.continue")}
         </Button>
         <Button
           variant="ghost"
@@ -72,14 +74,13 @@ export function AddressStep({
           disabled={busy}
           icon={<SlidersHorizontal size={14} color={muted} />}
         >
-          Proxy and client certificate
+          {t("link.smallSteps.proxyAndClientCertificate")}
         </Button>
       </StepCard>
       <View className="flex-row gap-2.5 border border-border bg-card/60 px-3 py-2.5">
         <ShieldAlert size={15} color={muted} style={{ marginTop: 1 }} />
         <Text className="flex-1 text-[11px] leading-4 text-muted-foreground">
-          A server with a self signed certificate needs its root CA installed on
-          this phone first. Plain http works on your own network.
+          {t("link.smallSteps.aServerWithASelf", { deviceWord })}
         </Text>
       </View>
     </View>
@@ -107,14 +108,14 @@ export function SecondFactorStep({
   const submit = async () => {
     if (!factor) return;
     if (!code.trim()) {
-      toast.error("Enter the code");
+      toast.error(t("link.smallSteps.enterTheCode"));
       return;
     }
     setBusy(true);
     try {
       onResult(await verifySecondFactor(client, step, factor, code));
     } catch (e) {
-      toast.error(errorText(e, "That code didn't work"));
+      toast.error(errorText(e, t("link.smallSteps.thatCodeDidnTWork")));
     } finally {
       setBusy(false);
     }
@@ -125,8 +126,8 @@ export function SecondFactorStep({
       {factor ? (
         <>
           <Field
-            label="Code"
-            hint="The 6 digit code from your authenticator app, or a backup code"
+            label={t("link.smallSteps.code")}
+            hint={t("link.smallSteps.the6DigitCodeFrom")}
           >
             <Input
               value={code}
@@ -143,13 +144,12 @@ export function SecondFactorStep({
             />
           </Field>
           <Button size="lg" loading={busy} onPress={submit}>
-            Check code
+            {t("link.smallSteps.checkCode")}
           </Button>
         </>
       ) : (
         <Text className="text-sm leading-5 text-muted-foreground">
-          This account asks for a security key after the password. Sign in on
-          the server&apos;s page in your browser to use it.
+          {t("link.smallSteps.thisAccountAsksForA")}
         </Text>
       )}
       {step.factors.some((f) => f !== "totp") ? (
@@ -164,10 +164,10 @@ export function SecondFactorStep({
             />
           }
         >
-          Use a security key in the browser
+          {t("link.smallSteps.useASecurityKeyIn")}
         </Button>
       ) : null}
-      <TextLink label="Back to sign in" onPress={onBack} />
+      <TextLink label={t("link.smallSteps.backToSignIn")} onPress={onBack} />
     </StepCard>
   );
 }
@@ -184,27 +184,27 @@ export function MergeStep({
   const color = useThemeColor();
   const what = counts
     ? describeCounts(counts)
-    : "hosts, credentials or snippets";
+    : t("link.smallSteps.hostsCredentialsOrSnippets");
   return (
     <View className="w-full max-w-md border border-border bg-card">
       <View className="gap-1 p-5 pb-3">
         <Text weight="medium" className="text-base text-foreground">
-          Bring this phone&apos;s hosts along?
+          {t("link.smallSteps.bringThisAposSHosts", { deviceWord })}
         </Text>
         <Text className="text-xs leading-5 text-muted-foreground">
-          {`This phone has ${what}. They stay on This device either way.`}
+          {t("link.smallSteps.thisHasTheyStayOn", { deviceWord, what })}
         </Text>
       </View>
       <SheetRow
         icon={<Merge size={18} color={color("foreground")} />}
-        label="Merge"
-        description={`Copy them to ${serverName} too, so they sync. Ones that look the same as a server host are skipped.`}
+        label={t("link.smallSteps.merge")}
+        description={t("link.smallSteps.copyThemToTooSo", { serverName })}
         onPress={() => onChoose(true)}
       />
       <SheetRow
         icon={<Smartphone size={18} color={color("foreground")} />}
-        label="Replace"
-        description={`Use only what is on ${serverName} for this account. Nothing is copied.`}
+        label={t("link.smallSteps.replace")}
+        description={t("link.smallSteps.useOnlyWhatIsOn", { serverName })}
         onPress={() => onChoose(false)}
       />
     </View>

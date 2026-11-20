@@ -2,6 +2,7 @@ import { useSyncExternalStore } from "react";
 import { Platform } from "react-native";
 import type { AppShortcutDef } from "@/modules/hardware-keyboard";
 import { shortcutHelp } from "@/features/terminal/shortcuts";
+import { t } from "@/i18n";
 
 export type AppShortcutId =
   | "palette"
@@ -54,56 +55,56 @@ const ctrlAlt = (input: string, keys: string): Combo => ({
 export const APP_SHORTCUTS: Def[] = [
   {
     id: "palette",
-    label: "Search and commands",
+    label: t("shortcuts.searchAndCommands"),
     section: "App",
     ios: cmd("k", "Cmd K"),
     android: ctrlShift("k", "Ctrl Shift K"),
   },
   {
     id: "newHost",
-    label: "Add host",
+    label: t("shortcuts.addHost"),
     section: "App",
     ios: cmd("n", "Cmd N"),
     android: ctrlShift("n", "Ctrl Shift N"),
   },
   {
     id: "shortcuts",
-    label: "Keyboard shortcuts",
+    label: t("shortcuts.keyboardShortcuts"),
     section: "App",
     ios: cmd("/", "Cmd /"),
     android: ctrlShift("/", "Ctrl Shift /"),
   },
   {
     id: "goHome",
-    label: "Home",
+    label: t("shortcuts.home"),
     section: "Go to",
     ios: cmdOpt("1", "Cmd Opt 1"),
     android: ctrlAlt("1", "Ctrl Alt 1"),
   },
   {
     id: "goHosts",
-    label: "Hosts",
+    label: t("shortcuts.hosts"),
     section: "Go to",
     ios: cmdOpt("2", "Cmd Opt 2"),
     android: ctrlAlt("2", "Ctrl Alt 2"),
   },
   {
     id: "goSessions",
-    label: "Sessions",
+    label: t("shortcuts.sessions"),
     section: "Go to",
     ios: cmdOpt("3", "Cmd Opt 3"),
     android: ctrlAlt("3", "Ctrl Alt 3"),
   },
   {
     id: "goTools",
-    label: "Tools",
+    label: t("shortcuts.tools"),
     section: "Go to",
     ios: cmdOpt("4", "Cmd Opt 4"),
     android: ctrlAlt("4", "Ctrl Alt 4"),
   },
   {
     id: "goSettings",
-    label: "Settings",
+    label: t("shortcuts.settings"),
     section: "Go to",
     ios: cmd(",", "Cmd ,"),
     android: ctrlShift(",", "Ctrl Shift ,"),
@@ -161,7 +162,7 @@ export function shortcutSections(os: string = Platform.OS): ShortcutSection[] {
     );
     if (rows.length > 0) sections.push({ title, rows });
   }
-  sections.push({ title: "Terminal", rows: shortcutHelp(os) });
+  sections.push({ title: t("shortcuts.terminal"), rows: shortcutHelp(os) });
   return sections;
 }
 

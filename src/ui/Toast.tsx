@@ -22,7 +22,12 @@ export function Toaster() {
   const insets = useSafeAreaInsets();
   const win = useWindowInfo();
   // Clear of the side rail, and on the right half when a fold splits the screen.
-  const rail = shellLayout(win, 0).nav === "side" ? SIDEBAR_WIDTH : 0;
+  // A rail in the Duo bar column sits inside the safe area, so it adds nothing.
+  const shell = shellLayout(win, 0);
+  const rail =
+    shell.nav === "side" && shell.railSide === "left" && !shell.railInBar
+      ? SIDEBAR_WIDTH
+      : 0;
   const fold = win.fold?.axis === "vertical" ? win.fold.end : 0;
   const left = Math.max(insets.left + rail, fold);
   const right = insets.right;

@@ -14,6 +14,8 @@ import { Text } from "./Text";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { HEIGHTS } from "@/constants/tokens";
 import { useBottomInset, useSideInsets, useTopInset } from "./bottom-inset";
+import { useCornerPad } from "./corner-pad";
+import { t } from "@/i18n";
 
 /**
  * What used to be a full screen modal: a view that covers the screen it was
@@ -55,6 +57,7 @@ export function InlineView({
   const side = useSideInsets();
   const bottomInset = useBottomInset();
   const color = useThemeColor();
+  const { onLayout: onCornerLayout, pad: cornerPad } = useCornerPad();
 
   const requestClose = useCallback(async () => {
     if (onBeforeClose && !(await onBeforeClose())) return;
@@ -96,14 +99,20 @@ export function InlineView({
         style={{ flex: 1 }}
       >
         <View
-          style={{ minHeight: HEIGHTS.header }}
+          onLayout={onCornerLayout}
+          style={[
+            { minHeight: HEIGHTS.header },
+            // The same spacing as px-1.5, plus room for a rounded screen corner.
+            cornerPad.left ? { paddingLeft: 6 + cornerPad.left } : null,
+            cornerPad.right ? { paddingRight: 6 + cornerPad.right } : null,
+          ]}
           className="flex-row items-center gap-2 border-b border-border px-1.5"
         >
           <Pressable
             onPress={() => void requestClose()}
             hitSlop={6}
             accessibilityRole="button"
-            accessibilityLabel="Back"
+            accessibilityLabel={t("ui.inlineView.back")}
             className="h-11 w-11 items-center justify-center active:bg-muted"
           >
             <ArrowLeft size={20} color={color("foreground")} />

@@ -8,6 +8,8 @@ import { features } from "@/core/features";
 import type { SSHHost } from "@/types";
 import { toast } from "@/utils/toast";
 import { openTab as openAppTab } from "@/screens/shell/navigate";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 export interface FrameShellDeps {
   client: AccountClient;
@@ -76,7 +78,7 @@ export function handleShellCall(
     if (own) {
       if (own.host) {
         if (!host) {
-          toast.error("That host is not on this phone yet.");
+          toast.error(t("pluginWebview.shell.thatHostIsNotOn", { deviceWord }));
           return;
         }
         await deps.navigateToSessions(host, frameTabType(plugin.id, own.view));
@@ -91,7 +93,7 @@ export function handleShellCall(
       await deps.navigateToSessions(host, appType);
       return;
     }
-    toast.error("The app can't open that from here.");
+    toast.error(t("pluginWebview.shell.theAppCanTOpen"));
   };
 
   switch (call) {
@@ -108,7 +110,9 @@ export function handleShellCall(
     case "connectHost":
       void findHost(client, args[0]).then((host) => {
         if (!host) {
-          toast.error("That host is not on this phone yet.");
+          toast.error(
+            t("pluginWebview.shell.thatHostIsNotOn2", { deviceWord }),
+          );
           return;
         }
         const appType =

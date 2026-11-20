@@ -8,6 +8,7 @@ import { serverRepositories } from "./server";
 import { withServerHistory } from "./history-sync";
 import { withSharedSnippets } from "./shared-snippets";
 import type { DataRepositories, Repository } from "./types";
+import { t } from "@/i18n";
 
 export * from "./types";
 export { serverRepositories } from "./server";
@@ -16,7 +17,10 @@ export { localRepositories } from "./local";
 const noop = () => () => {};
 
 const refuse = (what: string) => async (): Promise<never> => {
-  throw new AppError(`This device can't save ${what} here.`, "NO_LOCAL_STORE");
+  throw new AppError(
+    t("data.repositories.thisDeviceCanTSave", { what }),
+    "NO_LOCAL_STORE",
+  );
 };
 
 function emptyRepository<T, Draft>(what: string): Repository<T, Draft> {

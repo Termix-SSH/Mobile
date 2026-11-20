@@ -4,6 +4,7 @@ import { ServerMetrics } from "@/types";
 import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { WidgetCard, Meter, Stats } from "./WidgetCard";
+import { t } from "@/i18n";
 
 export function DiskWidget({
   metrics,
@@ -23,7 +24,11 @@ export function DiskWidget({
   return (
     <WidgetCard
       icon={<HardDrive size={15} color={color("accent-brand")} />}
-      title={disk?.mount ? `Disk  ${disk.mount}` : "Disk"}
+      title={
+        disk?.mount
+          ? t("hostMetrics.widgets.diskWidget.disk", { mount: disk.mount })
+          : t("hostMetrics.widgets.diskWidget.disk2")
+      }
       trailing={
         <Text className="text-xs text-muted-foreground">
           {percent.toFixed(0)}%
@@ -33,9 +38,18 @@ export function DiskWidget({
       <Meter percent={percent} history={history} />
       <Stats
         items={[
-          { label: "Used", value: disk?.usedHuman },
-          { label: "Total", value: disk?.totalHuman },
-          { label: "Free", value: disk?.availableHuman },
+          {
+            label: t("hostMetrics.widgets.diskWidget.used"),
+            value: disk?.usedHuman,
+          },
+          {
+            label: t("hostMetrics.widgets.diskWidget.total"),
+            value: disk?.totalHuman,
+          },
+          {
+            label: t("hostMetrics.widgets.diskWidget.free"),
+            value: disk?.availableHuman,
+          },
         ]}
       />
       {others.length ? (

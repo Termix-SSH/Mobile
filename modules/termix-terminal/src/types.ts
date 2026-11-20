@@ -75,6 +75,8 @@ export interface TerminalViewProps {
   lineHeight?: number;
   /** Extra points between cells. */
   letterSpacing?: number;
+  /** Join character runs like -> into one glyph. On by default. */
+  ligatures?: boolean;
   theme: TerminalTheme;
   cursor?: TerminalCursor;
   /** Lines kept above the screen. Read once, before the first output. */
@@ -82,6 +84,8 @@ export interface TerminalViewProps {
   bell?: TerminalBell;
   /** iPad keyboards: Option sends Alt. */
   optionAsMeta?: boolean;
+  /** A double tap sends Tab instead of selecting a word. */
+  doubleTapTab?: boolean;
   /** Selection handles and similar accents. */
   accentColor?: string;
   /** Bytes the user typed or the terminal answered, base64. */

@@ -34,6 +34,8 @@ import { recordKey, SyncBook } from "./store";
 const log = createLogger("sync");
 
 const MAX_PAGES = 500;
+/** How often a pass reads the whole feed to drop rows the server lost. */
+export const FULL_CHECK_MS = 6 * 60 * 60 * 1000;
 const DELETED_HASH = "deleted";
 
 /** The server calls a pass makes. SyncRemote, or a fake in tests. */
@@ -63,6 +65,8 @@ export interface PassSummary {
   conflicts: number;
   rejected: number;
   first: boolean;
+  /** Rows dropped because the server no longer has them. */
+  removed: number;
 }
 
 interface PendingOp extends PushOp {
@@ -71,8 +75,15 @@ interface PendingOp extends PushOp {
 
 export class SyncEngine {
   private serverTypes: EntityTypeInfo[] | null = null;
+  private lastFullCheck = 0;
+  private fullNext = false;
 
   constructor(private readonly deps: EngineDeps) {}
+
+  /** Makes the next pass read the whole feed, like after Sync now. */
+  requestFullCheck(): void {
+    this.fullNext = true;
+  }
 
   /** Runs one full pass. Throws SyncError when the server can't be used. */
   async pass(): Promise<PassSummary> {
@@ -86,14 +97,23 @@ export class SyncEngine {
       conflicts: 0,
       rejected: 0,
       first,
+      removed: 0,
     };
 
     if (first) {
       await this.backfill(ctx, book, summary, true);
       await this.push(ctx, book, summary);
+      this.lastFullCheck = (this.deps.now?.() ?? new Date()).getTime();
     } else {
       await this.push(ctx, book, summary);
-      await this.pull(ctx, book, summary);
+      const now = (this.deps.now?.() ?? new Date()).getTime();
+      if (this.fullNext || now - this.lastFullCheck >= FULL_CHECK_MS) {
+        this.fullNext = false;
+        await this.fullCheck(ctx, book, summary);
+        this.lastFullCheck = now;
+      } else {
+        await this.pull(ctx, book, summary);
+      }
       // A kind switched back on: send what the phone kept meanwhile.
       if (await this.backfill(ctx, book, summary, false)) {
         await this.push(ctx, book, summary);
@@ -115,6 +135,7 @@ export class SyncEngine {
       conflicts: 0,
       rejected: 0,
       first: false,
+      removed: 0,
     };
     if (book.state().knownTypes.length === 0) return summary;
     await this.push(this.context(db, book), book, summary);
@@ -164,6 +185,77 @@ export class SyncEngine {
       cursor = page.nextCursor;
       book.setState({ cursor });
       if (!page.hasMore) break;
+    }
+  }
+
+  /**
+   * Reads the whole feed from the start. A server restored from a backup or
+   * reset starts its feed over without deletes for the rows it lost, so a
+   * saved cursor never sees them go. Synced rows the feed no longer has are
+   * dropped; ones edited here are sent again instead.
+   */
+  private async fullCheck(
+    ctx: SyncContext,
+    book: SyncBook,
+    summary: PassSummary,
+  ): Promise<void> {
+    const disabled = this.disabled();
+    const types = book.state().knownTypes.filter((type) => !disabled.has(type));
+    if (types.length === 0) return;
+    const seen = new Set<string>();
+    let cursor = 0;
+    let complete = false;
+    for (let i = 0; i < MAX_PAGES; i++) {
+      const page = await this.deps.remote.changes(cursor, { types });
+      this.learn(page);
+      for (const change of page.changes) {
+        seen.add(recordKey(change.entityType, change.syncId));
+      }
+      summary.pulled += this.apply(
+        ctx,
+        book,
+        page.changes,
+        false,
+        summary,
+        true,
+      );
+      cursor = page.nextCursor;
+      if (!page.hasMore) {
+        complete = true;
+        break;
+      }
+    }
+    if (!complete) return;
+    book.setState({ cursor });
+
+    // A type the server stopped listing keeps its rows, like a normal pull.
+    const listed = new Set((this.serverTypes ?? []).map((t) => t.type));
+    const touched = new Set<string>();
+    ctx.db.transaction(() => {
+      for (const type of types.filter((t) => listed.has(t))) {
+        const adapter = adapterFor(type);
+        for (const record of book.records(type).values()) {
+          if (record.deleted || record.revision <= 0) continue;
+          if (seen.has(recordKey(type, record.syncId))) continue;
+          const local = adapter.load(ctx, record.syncId);
+          if (local && !adapter.readOnly && record.hash !== hashRow(local)) {
+            // Edited here and not sent yet: create it on the server again.
+            book.put(type, record.syncId, { revision: 0 });
+            continue;
+          }
+          adapter.remove(ctx, record.syncId);
+          book.remove(type, record.syncId);
+          adapter.tables.forEach((t) => touched.add(t));
+          summary.removed++;
+        }
+      }
+    });
+    if (touched.size) this.deps.emit([...touched]);
+    if (summary.removed) {
+      log.info("Dropped rows the server no longer has", {
+        operation: "sync_full_check",
+        count: summary.removed,
+      });
     }
   }
 
@@ -235,6 +327,8 @@ export class SyncEngine {
     changes: RemoteChange[],
     adopt: boolean,
     summary: PassSummary,
+    /** The server's feed wins even with a lower revision, after a restore. */
+    full = false,
   ): number {
     if (changes.length === 0) return 0;
     const touched = new Set<string>();
@@ -244,7 +338,14 @@ export class SyncEngine {
     ctx.db.transaction(() => {
       for (const change of this.sortChanges(changes)) {
         const record = book.record(change.entityType, change.syncId);
-        if (record && record.revision >= change.revision) continue;
+        if (
+          record &&
+          (full
+            ? record.revision === change.revision
+            : record.revision >= change.revision)
+        ) {
+          continue;
+        }
         const adapter = adapterFor(change.entityType);
         try {
           if (

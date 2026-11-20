@@ -12,6 +12,7 @@ import { usePoll } from "@/core/exec";
 import { DockerConsole } from "./DockerConsole";
 import type { DockerContainerStats } from "@/types";
 import type { DockerBackend } from "./backend/types";
+import { t } from "@/i18n";
 
 type DetailTab = "logs" | "stats" | "console";
 
@@ -63,25 +64,25 @@ export function ContainerDetail({
         {running ? (
           <ActionChip
             icon={<Square size={13} color={color("foreground")} />}
-            label="Stop"
+            label={t("docker.containerDetail.stop")}
             onPress={() => onAction(container, "stop")}
           />
         ) : (
           <ActionChip
             icon={<Play size={13} color={color("accent-brand")} />}
-            label="Start"
+            label={t("docker.containerDetail.start")}
             accent
             onPress={() => onAction(container, "start")}
           />
         )}
         <ActionChip
           icon={<RotateCcw size={13} color={color("foreground")} />}
-          label="Restart"
+          label={t("docker.containerDetail.restart")}
           onPress={() => onAction(container, "restart")}
         />
         <ActionChip
           icon={<Trash2 size={13} color={color("destructive")} />}
-          label="Remove"
+          label={t("docker.containerDetail.remove")}
           destructive
           onPress={() => {
             void onAction(container, "remove").then((ok) => ok && onBack());
@@ -93,9 +94,9 @@ export function ContainerDetail({
         value={tab}
         onChange={setTab}
         options={[
-          { id: "logs", label: "Logs" },
-          { id: "stats", label: "Stats" },
-          { id: "console", label: "Console" },
+          { id: "logs", label: t("docker.containerDetail.logs") },
+          { id: "stats", label: t("docker.containerDetail.stats") },
+          { id: "console", label: t("docker.containerDetail.console") },
         ]}
       />
 
@@ -166,9 +167,10 @@ function LogsTab({
     async (signal: AbortSignal) => {
       try {
         const text = await backend.logs(container.id, 300, signal);
-        setLogs(text || "(no output)");
+        setLogs(text || t("docker.containerDetail.noOutput"));
       } catch (e) {
-        if (!signal.aborted) setLogs(errorText(e, "Failed to load logs"));
+        if (!signal.aborted)
+          setLogs(errorText(e, t("docker.containerDetail.failedToLoadLogs")));
       } finally {
         setLoading(false);
       }
@@ -180,7 +182,7 @@ function LogsTab({
 
   const copy = async () => {
     await Clipboard.setStringAsync(logs);
-    toast.success("Logs copied");
+    toast.success(t("docker.containerDetail.logsCopied"));
   };
 
   if (loading) {
@@ -200,7 +202,9 @@ function LogsTab({
           className="flex-row items-center gap-1"
         >
           <Copy size={13} color={color("muted-foreground")} />
-          <Text className="text-[11px] text-muted-foreground">Copy</Text>
+          <Text className="text-[11px] text-muted-foreground">
+            {t("docker.containerDetail.copy")}
+          </Text>
         </Pressable>
       </View>
       <ScrollView contentContainerStyle={{ padding: 12 }}>
@@ -235,7 +239,8 @@ function StatsTab({
         setStats(await backend.stats(container.id, signal));
         setError("");
       } catch (e) {
-        if (!signal.aborted) setError(errorText(e, "Failed to load stats"));
+        if (!signal.aborted)
+          setError(errorText(e, t("docker.containerDetail.failedToLoadStats")));
       }
     },
     [backend, container.id, running],
@@ -247,7 +252,7 @@ function StatsTab({
     return (
       <View className="flex-1 items-center justify-center px-8">
         <Text className="text-center text-sm text-muted-foreground">
-          Container is not running, no live stats.
+          {t("docker.containerDetail.containerIsNotRunningNo")}
         </Text>
       </View>
     );
@@ -273,21 +278,21 @@ function StatsTab({
 
   return (
     <ScrollView contentContainerStyle={{ padding: 12, gap: 10 }}>
-      <StatCard label="CPU" value={stats.cpu} />
+      <StatCard label={t("docker.containerDetail.cpu")} value={stats.cpu} />
       <StatCard
-        label="Memory"
+        label={t("docker.containerDetail.memory")}
         value={`${stats.memoryUsed} / ${stats.memoryLimit}`}
         sub={stats.memoryPercent}
       />
       <StatCard
-        label="Network I/O"
+        label={t("docker.containerDetail.networkIO")}
         value={`↓ ${stats.netInput}   ↑ ${stats.netOutput}`}
       />
       <StatCard
-        label="Block I/O"
+        label={t("docker.containerDetail.blockIO")}
         value={`R ${stats.blockRead}   W ${stats.blockWrite}`}
       />
-      <StatCard label="PIDs" value={stats.pids} />
+      <StatCard label={t("docker.containerDetail.pids")} value={stats.pids} />
     </ScrollView>
   );
 }

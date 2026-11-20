@@ -19,6 +19,8 @@ import {
   Section as UiSection,
 } from "@/ui";
 import { ImportPanel } from "./ImportPanel";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 function Section({
   title,
@@ -64,10 +66,9 @@ export default function HostTransfer() {
   const makeExport = async () => {
     if (secrets) {
       const ok = await confirm({
-        title: "Include passwords and keys?",
-        description:
-          "Anyone who gets this file can sign in to these hosts. Keep it safe.",
-        confirmLabel: "Include them",
+        title: t("hostTransfer.includePasswordsAndKeys"),
+        description: t("hostTransfer.anyoneWhoGetsThisFile"),
+        confirmLabel: t("hostTransfer.includeThem"),
       });
       if (!ok) return null;
     }
@@ -80,7 +81,8 @@ export default function HostTransfer() {
   };
 
   const shareFile = async () => {
-    if (chosen.length === 0) return toast.error("Pick at least one host");
+    if (chosen.length === 0)
+      return toast.error(t("hostTransfer.pickAtLeastOneHost"));
     setBusy(true);
     try {
       const content = await makeExport();
@@ -88,72 +90,72 @@ export default function HostTransfer() {
       const day = new Date().toISOString().slice(0, 10);
       await shareTempFile(`termix-hosts-${day}.json`, content, {
         mimeType: "application/json",
-        dialogTitle: "Save your Termix hosts",
+        dialogTitle: t("hostTransfer.saveYourTermixHosts"),
       });
     } catch (e: any) {
-      toast.error(e?.message || "Could not make the file");
+      toast.error(e?.message || t("hostTransfer.couldNotMakeTheFile"));
     } finally {
       setBusy(false);
     }
   };
 
   const copy = async () => {
-    if (chosen.length === 0) return toast.error("Pick at least one host");
+    if (chosen.length === 0)
+      return toast.error(t("hostTransfer.pickAtLeastOneHost"));
     const content = await makeExport();
     if (!content) return;
     await Clipboard.setStringAsync(content);
-    toast.success("Copied to the clipboard");
+    toast.success(t("hostTransfer.copiedToTheClipboard"));
   };
 
   return (
     <Screen
-      title="Import and export"
-      subtitle="Move hosts in and out"
+      title={t("hostTransfer.importAndExport")}
+      subtitle={t("hostTransfer.moveHostsInAndOut")}
       onBack={() => router.back()}
     >
       <ScrollView contentContainerStyle={{ padding: 12, gap: 12 }}>
-        <Section title="Import">
+        <Section title={t("hostTransfer.import")}>
           <Text className="text-meta text-muted-foreground">
-            A Termix host file, an SSH config file, or a host link or QR code
-            from another phone.
+            {t("hostTransfer.aTermixHostFileAn", { deviceWord })}
           </Text>
           <ImportPanel />
         </Section>
 
-        <Section title="Export">
+        <Section title={t("hostTransfer.export")}>
           <SettingRow
-            label="All hosts"
+            label={t("hostTransfer.allHosts")}
             description={
               everything
-                ? `${hosts.length} ${hosts.length === 1 ? "host" : "hosts"}`
-                : `${picked.size} picked`
+                ? t("common.hostCount", { count: hosts.length })
+                : t("hostTransfer.picked", { size: picked.size })
             }
           >
             <FakeSwitch
               checked={everything}
               onChange={setEverything}
-              accessibilityLabel="All hosts"
+              accessibilityLabel={t("hostTransfer.allHosts")}
             />
           </SettingRow>
           {!everything ? (
             <Button variant="muted" size="sm" onPress={() => setPicking(true)}>
-              Pick hosts
+              {t("hostTransfer.pickHosts")}
             </Button>
           ) : null}
           <SettingRow
-            label="Include passwords and keys"
-            description="Off makes a file safe to share. Hosts that use a saved credential point at it by name"
+            label={t("hostTransfer.includePasswordsAndKeys2")}
+            description={t("hostTransfer.offMakesAFileSafe")}
             last
           >
             <FakeSwitch
               checked={secrets}
               onChange={setSecrets}
-              accessibilityLabel="Include passwords and keys"
+              accessibilityLabel={t("hostTransfer.includePasswordsAndKeys2")}
             />
           </SettingRow>
           <View className="flex-row flex-wrap gap-2">
             <Button size="sm" disabled={busy} onPress={() => void shareFile()}>
-              Share a file
+              {t("hostTransfer.shareAFile")}
             </Button>
             <Button
               variant="muted"
@@ -161,7 +163,7 @@ export default function HostTransfer() {
               disabled={busy}
               onPress={() => void copy()}
             >
-              Copy
+              {t("hostTransfer.copy")}
             </Button>
           </View>
         </Section>
@@ -170,7 +172,7 @@ export default function HostTransfer() {
       <Sheet
         visible={picking}
         onClose={() => setPicking(false)}
-        title="Pick hosts"
+        title={t("hostTransfer.pickHosts")}
         scroll
       >
         {hosts.map((h) => (

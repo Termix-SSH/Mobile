@@ -7,6 +7,7 @@ export const MOBILE_DEFAULT_TERMINAL_CONFIG: Partial<TerminalConfig> = {
   fontSize: 14,
   fontFamily: "CaskaydiaCove NFM",
   letterSpacing: 0,
+  ligatures: true,
   lineHeight: 1,
   theme: "termix",
   scrollback: 10000,
@@ -25,4 +26,5 @@ export const MOBILE_DEFAULT_TERMINAL_CONFIG: Partial<TerminalConfig> = {
   linkClickBehavior: "confirm",
   haptics: true,
   optionAsMeta: false,
+  doubleTapTab: false,
 };

@@ -1,6 +1,7 @@
 import { Pressable, View } from "react-native";
 import type { SSHHost } from "@/types";
 import { Button, Checkbox, Sheet, Text } from "@/ui";
+import { t } from "@/i18n";
 
 /** Pick any number of hosts. The caller owns the selection. */
 export function HostPicker({
@@ -43,10 +44,12 @@ export function HostPicker({
               )
             }
           >
-            {selected.size === hosts.length ? "Select none" : "Select all"}
+            {selected.size === hosts.length
+              ? t("snippets.hostPicker.selectNone")
+              : t("snippets.hostPicker.selectAll")}
           </Button>
           <Button className="flex-1" onPress={onClose}>
-            Done
+            {t("snippets.hostPicker.done")}
           </Button>
         </View>
       }

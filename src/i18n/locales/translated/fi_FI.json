@@ -1,0 +1,3874 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Kirjaudu sisään",
+      "addServer": "Lisää palvelin",
+      "switchAccount": "Vaihda tiliä",
+      "noServerConnected": "Palvelimeen ei ole muodostettu yhteyttä",
+      "connectToATermixServer": "Muodosta yhteys Termix-palvelimeen hallitaksesi isäntiäsi, terminaaleja, tiedostoja ja muuta."
+    },
+    "lockScreen": {
+      "cancel": "Peruuta",
+      "tooManyTriesWaitSeconds": "Liian monta yritystä. Odota {{value}} sekuntia",
+      "termixLocked": "Termix on lukittu",
+      "enterYourPinToContinue": "Syötä PIN-koodisi jatkaaksesi"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oranssi",
+      "blue": "Sininen",
+      "green": "Vihreä",
+      "purple": "Violetti",
+      "pink": "Vaaleanpunainen",
+      "cyan": "Syaani",
+      "red": "Punainen",
+      "yellow": "Keltainen",
+      "teal": "Teal",
+      "indigo": "Indigo",
+      "rose": "Ruusu",
+      "lime": "Lime",
+      "system": "Järjestelmä",
+      "light": "Vaalea",
+      "dark": "Tumma"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Käytä PIN-koodia",
+      "unlockTermix": "Avaa Termixin lukitus",
+      "unlockTermixFirst": "Avaa Termixin lukitus ensin."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Tämä ominaisuus on poistettu käytöstä palvelimella.",
+      "aTabWasNotReopened": "Välilehteä ei avattu uudelleen, koska sen isäntä on kadonnut",
+      "tabsWereNotReopenedBecause": "Välilehtiä {{count}} ei avattu uudelleen, koska niiden palvelimet ovat kadonneet"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Linkitä Termix-palvelin käyttääksesi tätä",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Syötä palvelimesi osoite",
+        "theAddressCanTHave": "Osoitteessa ei saa olla välilyöntejä",
+        "useAnHttpOrHttps": "Käytä http://- tai https://-osoitetta",
+        "thatDoesnTLookLike": "Tuo ei näytä palvelinosoitteelta",
+        "thePortMustBeFrom": "Portin on oltava välillä 1–65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Kirjautumisproxy vastasi Termixin sijaan. Kirjaudu proxyyn ensin.",
+        "theServerDidNotSend": "Palvelin ei lähettänyt tokenia.",
+        "theServerDidNotSend2": "Palvelin ei lähettänyt istuntoa.",
+        "theServerSentNoSign": "Palvelin ei lähettänyt kirjautumisosoitetta.",
+        "theSignInRanOut": "Kirjautumislinkki on vanhentunut tai sitä on jo käytetty. Kirjaudu sisään uudelleen.",
+        "wrongUsernameOrPassword": "Väärä käyttäjätunnus tai salasana",
+        "signInFailedHttp": "Kirjautuminen epäonnistui (HTTP {{status}})",
+        "thePageSignedYouIn": "Sivu kirjasi sinut sisään, mutta ei lähettänyt istuntoa takaisin. Päivitä palvelin Termix-versioon 26.11.3 tai uudempaan.",
+        "thisAccountIsnTAllowed": "Tällä tilillä ei ole lupaa kirjautua tähän.",
+        "noTermixAccountMatchesThat": "Tätä kirjautumista vastaavaa Termix-tiliä ei löydy."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Tällä istunnolla ei ole palvelinta"
+    },
+    "store": {
+      "noSuchAccount": "Tällaista tiliä ei ole olemassa",
+      "thisDeviceCanTBe": "Tätä laitetta ei voi poistaa",
+      "switchToAnotherAccountFirst": "Vaihda toiseen tiliin ensin"
+    },
+    "types": {
+      "thisDevice": "Tämä laite"
+    },
+    "accountSwitcher": {
+      "error": "Virhe",
+      "worksWithoutAServer": "Toimii ilman palvelinta",
+      "couldNotSwitchAccount": "Tilin vaihtaminen epäonnistui",
+      "accounts": "Tilit",
+      "openTabsKeepRunningWhen": "Avoinna olevat välilehdet pysyvät käynnissä vaihdon aikana.",
+      "unlink": "Irrota yhteys tililtä {{account}}",
+      "linkAServer": "Linkitä palvelin",
+      "eachServerKeepsItsOwn": "Jokainen palvelin säilyttää omat isäntänsä, tunnistetietonsa ja asetuksensa tällä {{deviceWord}}:lla.",
+      "signedIn": "Kirjautuneena sisään",
+      "signedOut": "Kirjautunut ulos",
+      "syncedCopy": "Synkronoitu kopio"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Pin-koodia ei voitu tallentaa",
+      "theServerSKeyMatches": "Palvelimen avain vastaa pin-koodia",
+      "theServerShowsAnotherKey": "Palvelin näyttää toisen avaimen",
+      "pinThisKey": "Kiinnitetäänkö tämä avain?",
+      "pinThisKey2": "Kiinnitä tämä avain",
+      "keyPinned": "Avain kiinnitetty",
+      "couldNotReadTheServer": "Palvelimen avainta ei voitu lukea",
+      "thatIsNotAPin": "Tuo ei ole pin-koodi",
+      "keysPinned": "Avaimet kiinnitetty",
+      "certificatePin": "Varmennepin",
+      "trustThisServerOnlyBy": "Luota tähän palvelimeen vain sen avaimen perusteella. Käytä tätä itse allekirjoitetun varmenteen kanssa tai kieltääksesi muut avaimet. Lisää uusi avain ennen palvelimen varmenteen vaihtoa.",
+      "removePin": "Poista pin {{pin}}",
+      "remove": "Poista",
+      "readTheKeyFromThe": "Lue avain palvelimelta",
+      "orPasteAPin": "Tai liitä pin-koodi",
+      "pin": "Pin",
+      "add": "Lisää",
+      "issuedTo": "Myönnetty: {{subject}}",
+      "issuedBy": "Myöntäjä: {{issuer}}",
+      "validUntil": "Voimassa asti: {{value}}",
+      "checkThatThisKeyMatches": "Varmista, että tämä avain vastaa palvelimellasi olevaa ennen kiinnittämistä.",
+      "pasteTheBase64Sha256Of": "Liitä palvelimen julkisen avaimen base64 sha256 -muodossa, kuten openssl tulostaa sen."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Välityspalvelimen asetukset tallennettu",
+      "couldNotSaveTheProxy": "Välityspalvelimen asetuksia ei voitu tallentaa",
+      "couldNotReadThatFile": "Tätä tiedostoa ei voitu lukea",
+      "certificateSaved": "Varmenne tallennettu",
+      "theFileOrItsPassphrase": "Tiedosto tai sen salasanake on väärä",
+      "couldNotSaveTheCertificate": "Varmennetta ei voitu tallentaa",
+      "headers": "Otsikot",
+      "sentWithEveryRequestTo": "Lähetetään jokaisen pyynnön mukana tähän palvelimeen, kuten Cloudflare-palvelun tunnus.",
+      "name": "Nimi",
+      "value": "Arvo",
+      "removeHeader": "Poista otsikko",
+      "addHeader": "Lisää otsikko",
+      "cloudflareServiceToken": "Cloudflare-palvelun tunnus",
+      "basicAuth": "Perusautentikointi",
+      "forAProxyThatAsks": "Välityspalvelimelle, joka pyytää käyttäjänimeä ja salasanaa.",
+      "userName": "Käyttäjänimi",
+      "password": "Salasana",
+      "saveHeadersAndBasicAuth": "Tallenna otsikot ja perusautentikointi",
+      "clientCertificate": "Asiakasvarmenne",
+      "forServersThatAskFor": "Palvelimille, jotka pyytävät sitä (mTLS). Avain säilytetään {{deviceWord}}n turvallisessa tallennuksessa eikä sitä voi lukea takaisin.",
+      "certificate": "Varmenne",
+      "remove": "Poista",
+      "replaceCertificate": "Vaihda varmenne",
+      "pickAP12OrPfx": "Valitse .p12- tai .pfx-tiedosto",
+      "proxySignIn": "Välityspalvelimen kirjautuminen",
+      "thisIsSignedInTo": " Tämä {{deviceWord}} on kirjautunut välityspalvelimeen.",
+      "forCloudflareAccessAutheliaAuthentik": "Cloudflare Accessille, Authelialle, Authentikille ja muille välityspalvelimille, joilla on oma kirjautumissivu.{{value}}",
+      "signInToTheProxy": "Kirjaudu välityspalvelimeen",
+      "forget": "Unohda",
+      "certificatePassphrase": "Varmennesalasana",
+      "thePassphraseTheFileWas": "Salasanake, jolla tiedosto tallennettiin. Jätä tyhjäksi, jos sellaista ei ole.",
+      "passphrase": "Salasanake",
+      "save": "Tallenna"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Kirjautunut välityspalvelimeen",
+      "couldNotSaveTheProxy": "Välityspalvelimen kirjautumista ei voitu tallentaa",
+      "signInToTheProxy": "Kirjaudu välityspalvelimeen",
+      "thisBuildOfTheApp": "Tämä sovelluksen versio ei voi ylläpitää välityspalvelimen kirjautumista. Käytä palvelintunnusta välityspalvelimen otsikoissa sen sijaan."
+    },
+    "savedLoginRow": {
+      "signIn": "Kirjaudu sisään",
+      "signInWith": "Kirjaudu sisään nimellä {{name}}",
+      "whenThisServerSignsYou": "Kun tämä palvelin kirjaa sinut ulos, kirjaudu sisään uudelleen ilman salasanan kirjoittamista."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Irrotettu. {{copied}} kohdetta säilytettiin laitteella Tämä laite.",
+      "unlinked": "Irrotettu",
+      "couldNotUnlinkTheServer": "Palvelinta ei voitu irrottaa",
+      "unlink": "Haluatko irrottaa kohteen {{value}}?",
+      "thisSignsOutOfThe": "Tämä {{deviceWord}} kirjautuu palvelimelta ulos. Mitään ei poisteta palvelimelta.",
+      "keepACopyOnThis": "Säilytä kopio laitteella Tämä laite",
+      "yourOwnHostsCredentialsAnd": "Omat isäntäpalvelimesi, tunnuksesi ja koodinpätkäsi siirtyvät laitteelle Tämä laite. Sinulle jaettuja isäntäpalvelimia ei säilytetä.",
+      "deleteFromThis": "Poista tältä {{deviceWord}}",
+      "everythingThisHasForThe": "Kaikki, mitä tällä {{deviceWord}}:lla on palvelimesta, poistetaan."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Muuta se alla olevassa Välityspalvelin-osiosta",
+      "updateTermixMobileFromYour": "Päivitä Termix Mobile sovelluskaupastasi"
+    },
+    "savedLogin": {
+      "signInToTermix": "Kirjaudu Termixiin",
+      "faceUnlock": "kasvotunnistus"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Tämä versio ei voi tarkistaa tämän palvelimen kiinnitettyä avainta eikä lähettää sen sertifikaattia."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Tämä palvelin ei tue tätä ominaisuutta",
+      "theProxyWantsYouTo": "Välityspalvelin vaatii kirjautumisen",
+      "endpointNotAvailableOnThis": "Päätepiste ei ole käytettävissä tällä palvelimella",
+      "unknownError": "Tuntematon virhe"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Tämän palvelimen edessä oleva välityspalvelin vaatii uudelleenkirjautumisen.",
+      "authenticationRequiredPleaseLogIn": "Todennus vaaditaan. Kirjaudu sisään uudelleen.",
+      "accessDeniedYouDoNot": "Pääsy evätty. Sinulla ei ole lupaa suorittaa tätä toimintoa.",
+      "thisFeatureIsTurnedOff": "Tämä ominaisuus on poistettu käytöstä palvelimella.",
+      "thisServerDoesNotSupport": "Tämä palvelin ei tue tätä ominaisuutta.",
+      "resourceNotFoundTheRequested": "Resurssia ei löydy. Pyydetty kohde on saattanut poistua.",
+      "conflictTheResourceAlreadyExists": "Ristiriita. Resurssi on jo olemassa tai sitä käytetään.",
+      "validationErrorPleaseCheckYour": "Vahvistusvirhe. Tarkista syöte ja yritä uudelleen.",
+      "serverErrorOccurredPleaseTry": "Palvelinvirhe. Yritä myöhemmin uudelleen.",
+      "sslCertificateVerificationFailed": "SSL-sertifikaatin vahvistus epäonnistui.",
+      "networkErrorPleaseCheckYour": "Verkkovirhe. Tarkista yhteys ja yritä uudelleen.",
+      "failedTo": "Toiminto {{operation}} epäonnistui",
+      "unknownError": "Tuntematon virhe",
+      "unexpectedErrorDuring": "Odottamaton virhe toiminnon {{operation}} aikana: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Sovellus ei voinut luottaa HTTPS-yhteyteen tähän paikalliseen IP-osoitteeseen. Kiinnitä palvelimen avain Välityspalvelin ja asiakassertifikaatti -osiossa, käytä {{deviceWord}}:n luottamaa sertifikaattia tai HTTP-yhteyttä luotetussa paikallisessa tai VPN-verkossa.",
+        "thisServerIsBehindA": "Tämä palvelin on kirjautumisvälityspalvelimen takana. Käytä ulkoista kirjautumisvaihtoehtoa sen sijaan.",
+        "loginFailed": "Kirjautuminen epäonnistui"
+      },
+      "files": {
+        "fileNotFound": "Tiedostoa ei löydy",
+        "fileWriteOperationDidNot": "Tiedoston kirjoitusoperaatio ei palauttanut onnistumisilmoitusta",
+        "couldNot": "Toimintoa {{operation}} ei voitu suorittaa ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Isäntäpalvelin tallennettu, mutta jotkin asetukset epäonnistuivat: {{value}}",
+        "unexpectedHostResponseFrom": "Odottamaton isäntäpalvelimen vastaus osoitteesta {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Reaaliaikainen näyte epäonnistui"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Ei vastausta"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Tämä palvelin ei näyttönyt kiinnitettyä avaintaan, joten sivua ei avattu."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Tätä {{what}} ei enää ole olemassa.",
+      "aHostCannotBeIts": "Isäntäpalvelin ei voi olla oma vanhemmansa",
+      "parentHostNotFound": "Vanhempaa isäntäpalvelinta ei löydy",
+      "aHostCanTGo": "Isäntäpalvelinta ei voi siirtää yhden omien alaisempien isäntäpalvelimiensa alle",
+      "thisIsSharedWithYou": "Tämä {{what}} on jaettu sinulle. Vain omistaja voi muuttaa sitä.",
+      "nameIsRequired": "Nimi on pakollinen",
+      "nameAndCommandAreRequired": "Nimi ja komento ovat pakollisia",
+      "aFolderWithThatName": "Samanniminen kansio on jo olemassa"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Tämä laite ei voi tallentaa kohdetta {{what}} tähän."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Tämä koodinpätkä on jaettu sinulle eikä sitä voi muuttaa."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Käytä salasanaa, jossa on vähintään 8 merkkiä.",
+      "thisIsNotATermix": "Tämä ei ole Termix-varmuuskopiointitiedosto.",
+      "thisBackupIsFromA": "Tämä varmuuskopio on uudemmalta Termix-versiolta. Päivitä sovellus ensin.",
+      "wrongPassphraseOrTheFile": "Väärä salasanalause tai tiedosto on vaurioitunut."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Tämä versio ei voi salata paikallisia tietoja."
+    },
+    "keys": {
+      "unlockTermixFirst": "Avaa Termixin lukitus ensin.",
+      "thatIsNotADatabase": "Tämä ei ole tietokannan avain.",
+      "couldNotSaveTheDatabase": "Tietokannan avainta ei voitu tallentaa."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Nämä tiedot on tallennettu uudemmalla Termix-versiolla. Päivitä sovellus avataksesi ne."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Tämä laite ei synkronoi.",
+      "localDataIsNotAvailable": "Paikallisia tietoja ei ole saatavilla täällä.",
+      "unlockTermixFirst": "Avaa Termixin lukitus ensin."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Yhteyttä ei voi muodostaa.",
+      "thisWayCanTRun": "Tällä tavalla ei voi suorittaa komentoja"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo-salasana",
+      "password": "Salasana",
+      "run": "Suorita",
+      "thatPasswordWasWrong": "Salasana oli väärä.",
+      "onNeedsRoot": "{{reason}} palvelimella {{hostName}} vaatii root-oikeudet.",
+      "needsRootForThis": "{{hostName}} vaatii root-oikeudet tähän.",
+      "itIsKeptUntilYou": "Se säilyy, kunnes suljet sovelluksen."
+    },
+    "run": {
+      "theHostTookTooLong": "Palvelimen vastaus kesti liian kauan",
+      "connectionLost": "Yhteys katkesi"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Tämä vaatii root-oikeudet. Kirjaudu root-käyttäjänä, määritä salasanasudon tai tallenna sudo-salasana palvelimelle.",
+      "theSudoPasswordWasWrong": "Sudo-salasana oli väärä",
+      "commandFailed": "Komento epäonnistui"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnetin käyttö terminaalissa vaatii yhteyden laitteesta {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Ominaisuus {{id}} on jo rekisteröity"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Osoite",
+      "theIpOrHostName": "IP-osoite tai palvelimen nimi nimen alla",
+      "username": "Käyttäjänimi",
+      "theUserBeforeTheAddress": "Käyttäjä ennen osoitetta",
+      "port": "Portti",
+      "thePortAfterTheAddress": "Portti osoitteen jälkeen",
+      "hostIcon": "Palvelimen kuvake",
+      "theIconSetOnThe": "Palvelimelle asetettu kuvake",
+      "pinIcon": "Kiinnitä kuvake",
+      "marksPinnedHosts": "Merkitsee kiinnitetyt palvelimet",
+      "sharedBadge": "Jaettu merkki",
+      "marksHostsSharedWithYou": "Merkitsee sinulle jaetut palvelimet",
+      "protocolBadges": "Protokollamerkit",
+      "sshRdpDockerAndOther": "SSH-, RDP-, Docker- ja muut tunnisteet",
+      "tags": "Tunnisteet",
+      "theHostSTags": "Palvelimen tunnisteet",
+      "cpuAndRam": "CPU ja RAM",
+      "liveUsageBarsOnOnline": "Reaaliaikaiset käyttöviivat online-palvelimilla",
+      "statusColors": "Tilan värit",
+      "greenBarWhenOnlineRed": "Vihreä viiva, kun online, punainen, kun offline"
+    },
+    "uiPrefs": {
+      "small": "Pieni",
+      "default": "Oletus",
+      "large": "Suuri",
+      "comfortable": "Mukava",
+      "compact": "Kompakti"
+    },
+    "errors": {
+      "somethingWentWrong": "Jokin meni pieleen"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Avaimen lukitseminen salasanalauseella vaatii Termix-sovelluksen, ei verkkoesikatselua."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Välittömästi",
+      "after15Seconds": "15 sekunnin kuluttua",
+      "after1Minute": "1 minuutin kuluttua",
+      "after5Minutes": "5 minuutin kuluttua"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Laitteen salaisuus on kadonnut",
+      "noSealedKey": "Ei suljettua avainta",
+      "theSealedKeyIsDamaged": "Suljettu avain on vaurioitunut",
+      "wrongPin": "Väärä PIN-koodi",
+      "theSealedKeyDidNot": "Sinettattu avain ei avautunut",
+      "biometricsCanTOpenThe": "Biometria ei voi avata avainta"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Päivitä sovellus",
+      "onYourServerNeedsA": "{{name}} palvelimellasi vaatii uudemman version Termixistä tässä {{deviceWord}}-laitteessa.",
+      "updateThePlugin": "Päivitä lisäosa",
+      "onYourServerIsToo": "{{name}} palvelimellasi on liian vanha tähän sovellukseen. Pyydä ylläpitäjää päivittämään se Lisäosista."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Sovellus on estänyt",
+      "theAppDoesNotLet": "Sovellus ei salli lisäosien käyttää tätä reittiä.",
+      "thisBuildCanTReach": "Tämä rakennus ei voi tavoittaa tätä palvelinta turvallisesti."
+    },
+    "support": {
+      "needsANewerVersionOf": "Vaatii uudemman version sovelluksesta",
+      "updateThePluginOnThe": "Päivitä lisäosa palvelimella",
+      "theAppHasItsOwn": "Sovelluksella on oma ulkoasunsa",
+      "notInTheAppYet": "Ei vielä sovelluksessa",
+      "linkAServerToUse": "Linkitä palvelin käyttääksesi sitä",
+      "opensInTheAppFrom": "Avautuu sovellukseen palvelimelta",
+      "runsOnTheServer": "Käynnistyy palvelimella",
+      "throughTheServer": "Palvelimen kautta",
+      "inTheApp": "Sovelluksessa",
+      "webView": "Web-katselu",
+      "onTheServer": "Palvelimella",
+      "appLook": "Sovelluksen ulkoasu",
+      "notInTheApp": "Ei sovelluksessa",
+      "safeMode": "Turvatoiminto",
+      "notRunning": "Ei käynnissä",
+      "notInstalled": "Ei asennettu",
+      "notOnThisServer": "Ei tällä palvelimella",
+      "thePluginIsNotInstalled": "Lisäosaa ei ole asennettu tähän palvelimeen.",
+      "turnedOffOnTheServer": "Sammutettu palvelimella",
+      "itOpensHereAgainWhen": "Se avautuu tänne uudelleen, kun ylläpitäjä kytkee sen päälle.",
+      "notRunningOnTheServer": "Ei käynnissä palvelimella",
+      "theServerIsInSafe": "Palvelin on turvatoiminnossa, joten vain ulkoasulisiäosat toimivat.",
+      "thePluginDidNotStart": "Lisäosa ei käynnistynyt. Ylläpitäjä voi tarkistaa sen Lisäosista.",
+      "thisPluginIsNotAvailable": "Tämä lisäosa ei ole saatavilla",
+      "itIsNotMadeFor": "Sitä ei ole tehty sovellusta varten.",
+      "offOnThisServer": "sammutettu tällä palvelimella",
+      "notRunningOnThisServer": "ei käynnissä tällä palvelimella",
+      "notOnThisServer2": "ei tällä palvelimella",
+      "notInTheAppYet2": "Ei vielä sovelluksessa | tällä palvelimella",
+      "worksOnThis": "Toimii tässä {{deviceWord}}-laitteessa",
+      "andServer": "{{DeviceWord}} ja palvelin",
+      "deviceOnly": "Vain {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Päivitä"
+    },
+    "pluginSettings": {
+      "loading": "Asetusten lataaminen",
+      "forEveryone": "Kaikille palvelimella",
+      "justForYou": "Vain sinulle",
+      "couldNotSave": "Asetusta ei voitu tallentaa",
+      "nothingYouCanChange": "Täällä ei ole mitään, mitä voit muuttaa. Ylläpitäjä voi muuttaa näitä asetuksia.",
+      "notANumber": "Tuo ei ole numero",
+      "atLeast": "Sen on oltava vähintään {{min}}",
+      "atMost": "Sen on oltava enintään {{max}}"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Katkaise kaikki",
+      "showOpenSessions": "Näytä avoimet istunnot",
+      "termixShowsANotificationWhile": "Termix näyttää ilmoituksen, kun istuntoja on auki, jotta Android pitää ne käynnissä taustalla.",
+      "sessionsOpen_one": "{{count}} istunto auki",
+      "sessionsOpen_other": "{{count}} istuntoa auki",
+      "tunnelsActive_one": "{{count}} tunneli aktiivinen",
+      "tunnelsActive_other": "{{count}} tunnelia aktiivisena",
+      "notConnected": "Ei yhdistetty",
+      "waitingForNetwork": "Odottaa verkkoa",
+      "connecting": "Yhdistetään",
+      "connected": "Yhdistetty",
+      "reconnecting": "Uudelleen yhdistetään",
+      "failed": "Epäonnistui",
+      "closed": "Suljettu"
+    },
+    "companionPane": {
+      "resizeThePanel": "Muuta {{title}}-paneelin kokoa"
+    },
+    "connectionsPanel": {
+      "close": "Sulje",
+      "closeAllTabs": "Suljetaanko kaikki {{count}} välilehteä?",
+      "everySessionEnds": "Jokainen istunto päättyy.",
+      "closeAll": "Sulje kaikki",
+      "noActiveConnections": "Ei aktiivisia yhteyksiä",
+      "pickAHostFromThe": "Valitse isäntälistasta aloittaaksesi istunnon. Muilla laitteilla avaamasi välilehdet näkyvät myös tässä.",
+      "connectToAHostTo": "Yhdistä isäntään aloittaaksesi istunnon. Muilla laitteilla avaamasi välilehdet näkyvät myös tässä.",
+      "open": "Avaa",
+      "background": "Tausta",
+      "sessionsFromOtherDevicesOr": "Istunnot muilta laitteilta tai taustalle siirretyt välilehdet. Napauta palauttaaksesi.",
+      "liveTapToReconnect": "Aktiivinen, napauta yhdistääksesi uudelleen",
+      "tapToReopen": "Napauta avataksesi uudelleen"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Tämä on poistettu käytöstä palvelimella",
+      "comesBackHereWhenAn": "{{title}} ilmestyy takaisin tähän, kun ylläpitäjä ottaa sen lisäosan uudelleen käyttöön.",
+      "closeTab": "Sulje välilehti"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Yhteydet",
+        "hideHostList": "Piilota isäntälista",
+        "showHostList": "Näytä isäntälista",
+        "backToHosts": "Takaisin isäntiin",
+        "showKeyboard": "Näytä näppäimistö",
+        "hideKeyboard": "Piilota näppäimistö",
+        "hideKeysPanel": "Piilota avainpaneeli",
+        "showKeysPanel": "Näytä avainpaneeli"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Napauta nähdäksesi välilehden asetukset, pidä painettuna siirtääksesi",
+        "holdToMove": "Pidä painettuna siirtääksesi",
+        "close": "Sulje {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Odottaa verkkoa",
+        "connectionFailed": "Yhteys epäonnistui",
+        "reconnecting": "Yhdistetään uudelleen"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Nimeä uudelleen",
+      "newTabOnThisHost": "Uusi välilehti tälle isännälle",
+      "here": "{{title}} tässä",
+      "hidePanel": "Piilota {{title}}-paneeli",
+      "showPanel": "Näytä {{title}}-paneeli",
+      "endSplitView": "Lopeta jaettu näkymä",
+      "splitViewWith": "Jaettu näkymä...",
+      "moveLeft": "Siirrä vasemmalle",
+      "moveRight": "Siirrä oikealle",
+      "closeTab": "Sulje välilehti",
+      "closeAllTabs": "Sulje kaikki välilehdet",
+      "closeAllTabs2": "Sulje kaikki {{count}} välilehteä?",
+      "everySessionEnds": "Kaikki istunnot päättyvät.",
+      "closeAll": "Sulje kaikki",
+      "splitViewWith2": "Jaettu näkymä",
+      "renameTab": "Nimeä välilehti uudelleen",
+      "leaveItEmptyToUse": "Jätä tyhjäksi käyttääksesi isännän nimeä."
+    },
+    "resizeHostList": "Muuta isäntälistan kokoa",
+    "resizeSplitView": "Muuta jaetun näkymän kokoa",
+    "connections": "Yhteydet",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Kaksivaiheinen tunnistautuminen",
+        "enterThe6DigitCode": "Syötä 6-numeroinen koodi todennussovelluksestasi.",
+        "cancel": "Peruuta",
+        "verify": "Vahvista",
+        "codeExpiresInSGet": "Koodi vanhenee {{totpCountdown}} sekunnissa, hae uusi koodi",
+        "warpgateAuthentication": "Warpgate-tunnistautuminen",
+        "confirmTheWarpgateAuthenticationUrl": "Vahvista Warpgate-tunnistautumis-URL ja turvaväline.",
+        "authenticate": "Tunnista",
+        "warpgateUrl": "Warpgate-URL",
+        "securityKeyOptional": "Turvaväline (valinnainen)",
+        "authenticationRequired": "Tunnistautuminen vaaditaan",
+        "thisHostNeedsCredentialsTo": "Tähän isäntään yhdistäminen vaatii kirjautumistiedot.",
+        "connect": "Yhdistä",
+        "password": "Salasana",
+        "sshKey": "SSH-avain",
+        "pastePrivateKey": "Liitä yksityinen avain",
+        "keyPassphraseOptional": "Avaimen salasanake (valinnainen)"
+      },
+      "connectionError": {
+        "tryAgain": "Yritä uudelleen",
+        "close": "Sulje",
+        "connectThroughTheServer": "Yhdistä palvelimen kautta",
+        "connectFromThis": "Yhdistä tästä {{deviceWord}}:sta",
+        "triedFromThis": "Yritetty tästä {{deviceWord}}:sta",
+        "triedThroughTheServer": "Yritetty palvelimen kautta"
+      },
+      "execGate": {
+        "connecting": "Yhdistetään..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Jokin meni pieleen",
+        "retry": "Yritä uudelleen",
+        "refresh": "Päivitä",
+        "nothingToShow": "Ei näyttääksemme"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Lokit kopioitu",
+        "connectionLog": "Yhteyden loki ({{count}})",
+        "copyLog": "Kopioi loki",
+        "waitingForConnection": "Odottaa yhteyttä…",
+        "noLogEntries": "Ei lokimerkintöjä"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Tämän isäntäpalvelimen yhteystapaa ei voitu tallentaa"
+      },
+      "useSessionConnect": {
+        "connected": "Yhdistetty",
+        "connectingTo": "Yhdistetään kohteeseen {{name}}…",
+        "connectionLost": "Yhteys katkesi",
+        "failedToConnect": "Yhteys epäonnistui",
+        "invalidCode": "Virheellinen koodi",
+        "warpgateAuthenticationFailed": "Warpgate-tunnistus epäonnistui",
+        "authenticationCancelled": "Tunnistus peruutettu"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Haku ja komennot",
+    "addHost": "Lisää isäntäpalvelin",
+    "keyboardShortcuts": "Pikanäppäimet",
+    "home": "Koti",
+    "hosts": "Isäntäpalvelimet",
+    "sessions": "Istunnot",
+    "tools": "Työkalut",
+    "settings": "Asetukset",
+    "terminal": "Pääte",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Pikanäppäimet"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Isäntäpalvelimet ja kansiot",
+      "yourHostsFoldersAndHosts": "Isäntäpalvelimesi, kansiosi ja sinulle jaetut isäntäpalvelimet",
+      "credentials": "Tunnistetiedot",
+      "savedPasswordsAndKeysAnd": "Tallennetut salasanat ja avaimet sekä sinulle jaetut tunnistetiedot",
+      "snippets": "Koodinpätkät",
+      "snippetsAndTheirFolders": "Koodinpätkät ja niiden kansiot",
+      "hostDefaults": "Isäntäpalvelimen oletusarvot",
+      "defaultSettingsForNewHosts": "Uusien isäntäpalvelimien oletusasetukset",
+      "preferences": "Oletukset",
+      "settingsThatFollowYouBetween": "Asetukset, jotka seuraavat sinua laitteiden välillä"
+    },
+    "link": {
+      "noSuchServerAccount": "Tällaista palvelintiliä ei ole",
+      "signInFirst": "Kirjaudu sisään ensin.",
+      "thisServerAccountBelongsTo": "Tämä palvelintili kuuluu käyttäjälle {{value}}. Kirjaudu sisään hänen tilillään tai lisää palvelin uudelleen tälle käyttäjälle."
+    },
+    "reasons": {
+      "signedOut": "Kirjautunut ulos",
+      "thisSSignInTo": "Tämän {{deviceWord}}:n kirjautuminen palvelimeen on vanhentunut.",
+      "theServerEndedThisS": "Palvelin päätti tämän {{deviceWord}}:n istunnon. Se on saattanut kirjautua ulos toiselta laitteelta.",
+      "proxySignInNeeded": "Välityspalvelimen kirjautuminen vaaditaan",
+      "theProxyInFrontOf": "Tämän palvelimen edessä oleva välityspalvelin pyytää sinua kirjautumaan sisään uudelleen.",
+      "proxyPasswordNeeded": "Välityspalvelimen salasana vaaditaan",
+      "theProxyInFrontOf2": "Tämän palvelimen edessä oleva välityspalvelin pyysi sen salasanaa.",
+      "certificateRefused": "Varmenne hylätty",
+      "theServerDidNotAccept": "Palvelin ei hyväksynyt tämän {{deviceWord}}:n varmennetta.",
+      "untrustedServer": "Luotamaton palvelin",
+      "theServerSCertificateIs": "Palvelimen varmenne ei ole luotettu tässä {{deviceWord}}:ssa.",
+      "serverKeyChanged": "Palvelimen avain vaihtui",
+      "theServerShowsAnotherKey": "Palvelin näyttää eri avaimen kuin sen kiinnitetty. Jos vaihdoit sen sertifikaatin, kiinnitä uusi avain.",
+      "offline": "Yhteydetön",
+      "canTReachTheServer": "Palvelimeen ei saada yhteyttä. Synkronointi yrittää uudelleen pian.",
+      "serverProblem": "Palvelinvirhe",
+      "theServerHadAProblem": "Palvelimessa oli ongelma. Synkronointi yrittää uudelleen pian.",
+      "updateNeeded": "Päivitys tarvitaan",
+      "thisServerUsesANewer": "Tämä palvelin käyttää uudemman synkronointiversiota. Päivitä sovellus.",
+      "notATermixServer": "Ei Termix-palvelin",
+      "theAddressDoesNotAnswer": "Osoite ei vastaa kuten Termix-palvelin.",
+      "syncIsOff": "Synkronointi pois päältä",
+      "theSyncPluginIsOff": "Synkronointiliitännäinen on pois päältä tässä palvelimessa. Pyydä ylläpitäjää ottamaan se käyttöön Lisäosat-asetuksista.",
+      "differentUser": "Eri käyttäjä",
+      "youSignedInAsA": "Olet kirjautunut eri käyttäjänä kuin tämä palvelintili kuuluu.",
+      "syncStopped": "Synkronointi pysäytetty",
+      "somethingWentWrong": "Jokin meni pieleen.",
+      "signInAgain": "Kirjaudu uudelleen",
+      "signInToTheProxy": "Kirjaudu välityspalvelimeen",
+      "enterThePassword": "Syötä salasana",
+      "tryAgain": "Yritä uudelleen",
+      "checkThePin": "Tarkista kiinnitys",
+      "checkForUpdates": "Tarkista päivitykset",
+      "pickACertificate": "Valitse sertifikaatti"
+    },
+    "settings": {
+      "noSuchSetting": "Sellaista asetusta ei ole",
+      "snippetFolder": "Koodinpätkäkansio",
+      "hostDefault": "Isäntän oletus"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Palvelin ei hyväksynyt tämän {{deviceWord}}n sertifikaattia.",
+      "theServerSCertificateIs": "Palvelimen sertifikaattia ei luoteta.",
+      "canTReachTheServer": "Palvelimeen ei saada yhteyttä.",
+      "signedOut": "Kirjauduttu ulos",
+      "theProxyAskedForIts": "Välityspalvelin pyysi sen salasanaa.",
+      "theProxyWantsYouTo": "Välityspalvelin haluaa sinun kirjautuvan sisään.",
+      "theSyncPluginIsOff": "Synkronointiliitännäinen on pois päältä tässä palvelimessa.",
+      "serverError": "Palvelinvirhe {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Palvelin näyttää eri avaimen kuin kiinnitetty."
+    },
+    "remote": {
+      "thisIsNotATermix": "Tämä ei ole Termix-palvelin.",
+      "theProxyWantsYouTo": "Välityspalvelin haluaa sinun kirjautuvan sisään.",
+      "thisServerUsesANewer": "Tämä palvelin käyttää uudemman synkronointiversiota. Päivitä sovellus."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} isäntä",
+      "hostCount_other": "{{count}} isäntää",
+      "credentialCount_one": "{{count}} tunnistetieto",
+      "credentialCount_other": "{{count}} tunnistetietoa",
+      "snippetCount_one": "{{count}} koodinpätkä",
+      "snippetCount_other": "{{count}} koodinpätkää",
+      "folderCount_one": "{{count}} kansio",
+      "folderCount_other": "{{count}} kansiota",
+      "nothingYet": "ei mitään vielä",
+      "listAnd": "{{list}} ja {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Yhteyttä ei saada.",
+      "connectingToFromThis": "Yhdistetään kohteeseen {{name}} tästä {{deviceWord}}sta",
+      "connectingToThroughTheServer": "Yhdistetään kohteeseen {{name}} palvelimen kautta",
+      "reconnectingTry": "Yhdistetään uudelleen (yritys {{retry}})",
+      "disconnected": "Yhteys katkaistu",
+      "connected": "Yhdistetty",
+      "reconnectedToTheSameSession": "Yhdistetty uudelleen samaan istuntoon",
+      "reconnectedWithANewShell": "Yhdistetty uudelleen uudella shellillä",
+      "couldNotReachTheHost": "Isäntään ei saatu yhteyttä tästä {{deviceWord}}sta, yritetään palvelimen kautta",
+      "couldNotConnectThroughThe": "Yhteyttä ei saatu palvelimen kautta, yritetään tästä {{deviceWord}}sta",
+      "connectionLost": "Yhteys katkesi: {{reason}}",
+      "offlineWaitingForTheNetwork": "Yhteydetön, odotetaan verkkoa",
+      "nextTryInS": "Seuraava yritys {{value}} sekunnin kuluttua",
+      "reconnectingTry2": "Yhdistetään uudelleen (yritys {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Isäntä lopetti vastaamisen",
+      "networkLost": "Verkko katosi",
+      "network": "Verkko: {{type}}{{value}}",
+      "lowPowerModeOn": "Virransäästötila päällä",
+      "lowPowerModeOff": "Virransäästötila pois päältä",
+      "droppedTypedCharacters": "Hylätty syötettyjä merkkejä: {{count}}",
+      "youDidNotTrustThe": "Et luottanut isäntäavaimeseen.",
+      "checkTheKeyWithWhoever": "Tarkista avain isännän ylläpitäjän kanssa ja yritä uudelleen.",
+      "loginCancelled": "Kirjautuminen peruutettu.",
+      "connectAgainWhenYouAre": "Yhdistä uudelleen, kun olet valmis.",
+      "typedInputIsOver64": "Kirjoitettu syöte ylittää 64 kt, vanhin osa hylättiin",
+      "appInTheBackground": "Sovellus taustalla",
+      "appInTheForeground": "Sovellus etualalla",
+      "thisConnectionCanTRun": "Tämä yhteys ei voi suorittaa komentoja"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Tarkista osoite ja portti sekä se, että palvelin pääsee yhteyteen isäntään.",
+      "checkTheAddressAndPort2": "Tarkista osoite ja portti sekä se, että tämä {{deviceWord}} pääsee yhteyteen isäntään.",
+      "checkTheProxySettingsOf": "Tarkista tämän isännän välityspalvelinasetukset.",
+      "checkTheKeyWithWhoever": "Tarkista avain isännän ylläpitäjän kanssa ennen kuin luotat siihen.",
+      "checkTheUsernameAndLogin": "Tarkista käyttäjätunnus ja kirjautumistiedot isännän muokkaimessa.",
+      "checkThatTheServerIs": "Varmista, että palvelin on käynnissä ja että olet edelleen kirjautunut sisään.",
+      "tryAgainIfItKeeps": "Yritä uudelleen. Jos yhteys katkeaa toistuvasti, tarkista verkko.",
+      "connectAgainWhenYouAre": "Yhdistä uudelleen, kun olet valmis.",
+      "pickAnotherWayToConnect": "Valitse toinen tapa yhdistää tähän isäntään.",
+      "connectThisHostThroughA": "Yhdistä tähän isäntään Termix-palvelimen kautta.",
+      "pickTheJumpHostsAgain": "Valitse välittäjäisännät uudelleen isännän muokkaimessa.",
+      "thisIsATailscaleAddress": "Tämä on Tailscale-osoite. Varmista, että Tailscale on yhdistetty tässä {{deviceWord}}.",
+      "theSavedKeyCanT": "Tallennettua avainta ei voi lukea. Liitä se uudelleen isännän muokkaimessa.",
+      "signInToThisServer": "Kirjaudu tähän palvelimeen uudelleen.",
+      "openThisHostInThe": "Avaa tämä isäntä Termixin verkkosovelluksessa.",
+      "canTConnectThisWay": "Yhdistäminen tällä tavalla ei onnistu",
+      "couldNotReachTheHost": "Isäntään ei päästy yhteyteen",
+      "theProxyDidNotLet": "Välityspalvelin esti yhteyden",
+      "theHostKeyWasNot": "Isäntäavainta ei luotettu",
+      "theLoginWasRefused": "Kirjautuminen hylättiin",
+      "theTermixServerDidNot": "Termix-palvelin ei vastannut",
+      "theConnectionDropped": "Yhteys katkesi",
+      "loginCancelled": "Kirjautuminen peruutettu"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH-agentti",
+        "thisHostSignsInWith": "Tämä isäntä kirjautuu sisään käyttäen \"{{authType}}\"-tapaa, joka vaatii Termix-palvelimen. Linkitä palvelin yhdistääksesi.",
+        "thisHostUsesA1password": "Tämä isäntä käyttää 1Password-viitettä, joka vaatii Termix-palvelimen, jossa on Secret Sources -ominaisuus. Linkitä palvelin ja yhdistä tähän isäntään sen kautta.",
+        "signInWithFirstOpen": "Kirjaudu ensin sisään {{title}}-tilille. Avaa terminaali tähän isäntään kerran ja yritä sitten uudelleen.",
+        "theSignInAndThe": "kirjautuminen ja varmenne sijaitsevat palvelimella",
+        "theHasNoSshAgent": "{{deviceWord}}:ssä ei ole SSH-agenttia",
+        "needsATermixServerBecause": "{{title}} vaatii Termix-palvelimen, koska {{why}}. Linkitä palvelin ja yhdistä tähän isäntään sen kautta."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Tämän isännän välittäjäisäntää ei enää ole olemassa."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Yhteys katkesi",
+        "theShellChannelClosed": "Shell-kanava suljettiin",
+        "jumpHost": "Välittäjäisäntä {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Virheellinen koodi, yritä uudelleen:",
+        "authenticationFailed": "Todennus epäonnistui: {{message}}",
+        "theHostKeyWasNot": "Isäntäavainta ei luotettu.",
+        "loginCancelled": "Kirjautuminen peruutettu.",
+        "notConnected": "Ei yhdistetty",
+        "signingInAs": "Kirjaudutaan käyttäjänä {{user}} menetelmällä {{method}}",
+        "methodKey": "avain",
+        "methodPassword": "salasana",
+        "methodNone": "ei tallennettua kirjautumista"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Yhteys katkesi"
+      },
+      "thisBuildHasNoSsh": "Tässä rakennelmassa ei ole SSH-moottoria. Käytä kaupasta ladattua sovellusta tai linkitä Termix-palvelin yhdistääksesi.",
+      "theHostsOnThisAre": "Tämän {{deviceWord}} isännät eivät ole vielä avoimia.",
+      "thisServerSHostsAre": "Tämän palvelimen isännät eivät ole tässä {{deviceWord}}. Ota palvelimella käyttöön Sync-lisäosa yhdistääksesi {{deviceWord}}:stä.",
+      "resolve": {
+        "theSavedLoginIsNot": "Tämän isännän tallennettu kirjautuminen ei ole tällä {{deviceWord}}:lla, joten vain palvelin voi kirjautua sisään"
+      }
+    },
+    "origin": {
+      "canTConnect": "Yhdistäminen ei onnistu.",
+      "canTConnectFromThe": "Yhdistäminen ei onnistu tästä {{deviceWord}}:stä.",
+      "canTReachTheServer": "Palvelimeen ei päästä yhteyteen.",
+      "theOnlyConnectsToSsh": "Tämä {{deviceWord}} yhdistää vain SSH- ja Telnet-palvelimiin.",
+      "connectThisHostThroughThe": "Yhdistä tähän palvelimeen palvelimen kautta",
+      "connectThisHostFromThe": "Yhdistä tähän palvelimeen {{deviceWord}}:n kautta",
+      "termixServer": "Termix-palvelin",
+      "usesThisWhenItCan": "Käyttää tätä {{deviceWord}}:ia, jos palvelimeen päästään käsiksi, muuten palvelinta.",
+      "thisConnectsToTheHost": "Tämä {{deviceWord}} yhdistää palvelimeen suoraan.",
+      "theTermixServerConnectsTo": "Termix-palvelin yhdistää palvelimeen puolestasi.",
+      "anSshConnection": "SSH-yhteys",
+      "aTermixServer": "Termix-palvelin",
+      "aConnectionFromThe": "yhteys {{deviceWord}}:sta",
+      "isOffOnThisServer": "{{title}} on poissa käytöstä tässä palvelimessa. {{how}} käyttää sitä.",
+      "isOffOnThisServer2": "{{title}} on poissa käytöstä tässä palvelimessa.",
+      "anotherWayToConnect": "toinen tapa yhdistää",
+      "needsToUseIt": "{{title}} tarvitsee {{what}}:n. {{how}} käyttää sitä.",
+      "needsWhichThisHostCan": "{{title}} tarvitsee {{what}}:n, jota tämä palvelin ei voi käyttää juuri nyt.",
+      "thisDevice": "Tämä {{deviceWord}}",
+      "automatic": "Automaattinen"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Olet kirjautunut ulos tästä palvelimesta. Kirjaudu sisään yhdistääksesi sen kautta.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux ei ole asennettu tähän palvelimeen. Käytetään peruskomentotulkkia.",
+        "tapRetryToBringIt": "Napauta Yritä uudelleen tuodaksesi sen takaisin tänne.",
+        "thisSessionWasOpenedOn": "Tämä istunto avattiin toisella laitteella",
+        "noServerUrlFoundLink": "Palvelimen URL-osoitetta ei löydy. Linkitä palvelin uudelleen.",
+        "signedOutOfThisServer": "Kirjauduttu ulos palvelimesta. Kirjaudu sisään uudelleen.",
+        "signInWithInYour": "Kirjaudu sisään {{title}}:llä selaimessasi. Tämä sulkeutuu, kun valmis.",
+        "theSocketClosedWhileThe": "Socket sulkeutui, kun sovellus oli poissa",
+        "noWebsocketUrlAvailableServer": "WebSocket-URL-osoitetta ei saatavilla – palvelinta ei ole määritetty",
+        "connectionTimeoutServerNotResponding": "Yhteyden aikakatkaisu – palvelin ei vastaa",
+        "verificationCode": "Vahvistuskoodi:",
+        "hostKeyVerificationRequiredBut": "Palvelimen avainten vahvistus vaaditaan, mutta käsittelijää ei ole rekisteröity",
+        "hostKeyChangedButNo": "Palvelimen avain on muuttunut, mutta käsittelijää ei ole rekisteröity",
+        "thisHostNeedsASign": "Tämä palvelin vaatii kirjautumisen, jota vain verkkosovellus tukee",
+        "invalidCodeTryAgain": "Virheellinen koodi, yritä uudelleen:",
+        "unknownError": "Tuntematon virhe",
+        "connectionClosed": "Yhteys suljettu",
+        "connectionClosed2": "Yhteys suljettu ({{code}})",
+        "theServerClosedTheConnection": "Palvelin sulki yhteyden",
+        "theSocketClosed": "Socket suljettiin ({{code}})",
+        "signIn": "{{title}}-kirjautuminen",
+        "signInFailed": "{{title}}-kirjautuminen epäonnistui",
+        "isNotSetUpOn": "{{title}}:ää ei ole määritetty palvelimelle",
+        "signInTimedOut": "{{title}}-kirjautuminen aikakatkaistiin",
+        "authenticationFailed": "Todennus epäonnistui: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Tallenna palvelin ja yhdistä siihen tarkistaaksesi sen.",
+      "loggedInAsOn": "Kirjauduttu sisään käyttäjänä {{username}} palvelimessa {{host}}",
+      "theHostAskedForMore": "Palvelin pyysi enemmän kuin pelkkää salasanaa, kuten koodia. Tallenna palvelin ja yhdistä viimeistelläksesi kirjautumisen."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Odottaa verkkoa",
+      "couldNotOpenTheTunnel": "Reikää ei voitu avata",
+      "theConnectionDropped": "Yhteys katkesi",
+      "iosStoppedThisTunnelWhile": "iOS pysäytti tämän reikän, kun sovellus oli taustalla. Käynnistä se uudelleen avataksesi sen.",
+      "connecting": "Yhdistetään",
+      "connected": "Yhdistetty",
+      "retrying": "Yritetään uudelleen",
+      "waiting": "Odottaa",
+      "failed": "Epäonnistui"
+    },
+    "gateways": {
+      "error": "Virhe",
+      "gateways": "Yhdyskäytävät",
+      "gatewaysCanOnlyBeChanged": "Yhdyskäytävien voi muuttaa vain Termixissä verkossa.",
+      "noHandshake": "Ei kättelyä",
+      "rulesMissing": "Säännöt puuttuvat",
+      "up": "Ylhäällä",
+      "pending": "Odottaa",
+      "applying": "Käynnistyy",
+      "down": "Pois päältä",
+      "unreachable": "Ei tavoitettavissa"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Ei tunnelia vielä. Lisää tunneli välittääksesi portin päätepisteenä toimivalta palvelimelta tälle palvelimelle.",
+      "tunnel": "Tunneli {{value}}",
+      "removeTunnel": "Poista tunneli {{value}}",
+      "mode": "Tila",
+      "local": "Paikallinen",
+      "remote": "Etä",
+      "dynamic": "Dynaaminen",
+      "targetHost": "Kohdepalvelin",
+      "onThisHostForTunnels": "Tällä palvelimella, tunnelit jotka {{deviceWord}} ajaa",
+      "bindHost": "Sidospalvelin",
+      "endpointHost": "Päätepisteenä toimiva palvelin",
+      "addAnotherHostFirstTunnels": "Lisää ensin toinen palvelin. Tunnelit kulkevat tallennetun palvelimen kautta.",
+      "sourcePort": "Lähdeportti",
+      "endpointPort": "Päätepisteen portti",
+      "maxRetries": "Uudelleenyritysten maksimimäärä",
+      "retryEveryS": "Yritä uudelleen joka (s)",
+      "startOnItsOwn": "Käynnisty itsenäisesti",
+      "addTunnel": "Lisää tunneli",
+      "tunnelNeedsPortsFrom1": "Tunneli {{value}} tarvitsee portteja väliltä 1–65535"
+    },
+    "register": {
+      "tunnels": "Tunnelit",
+      "startAndStopSavedTunnels": "Käynnistä ja pysäytä tallennetut tunnelit",
+      "tunnel": "TUNNELI",
+      "tunnel2": "Tunneli"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Paikallinen päätepiste kopioitu",
+      "tunnel": "Tunneli | {{sourcePort}}",
+      "portMapping": "Porttikartoitus",
+      "connect": "Yhdistä",
+      "disconnect": "Katkaise yhteys",
+      "cancel": "Peruuta",
+      "connected": "Yhdistetty",
+      "connecting": "Yhdistetään",
+      "disconnecting": "Yhteyttä katkaistaan",
+      "error": "Virhe",
+      "retrying": "Yritetään uudelleen ({{value}}/{{value2}})",
+      "waitingS": "Odottaa {{value}} s",
+      "waiting": "Odottaa",
+      "disconnected": "Yhteys katkaistu"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Käynnistetään tunnelia portissa {{sourcePort}}",
+      "connectingTunnelOnPort": "Yhdistetään tunneliin portissa {{sourcePort}}",
+      "disconnectingPort": "Katkaisee yhteyden portista {{sourcePort}}",
+      "cancellingPort": "Peruuttaa portin {{sourcePort}}",
+      "failedToTunnel": "Tunnelin {{action}} epäonnistui",
+      "tunnels": "Tunnelit | {{count}} | {{value}}",
+      "loadingTunnels": "Ladataan tunnelia…",
+      "noSshTunnelsConfiguredFor": "Tälle palvelimelle ei ole määritetty SSH-tunnelia. Lisää tunnelit palvelimen lomakkeesta.",
+      "runOn": "Suorita palvelimella",
+      "server": "Palvelin",
+      "this": "Tämä {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tämän {{deviceWord}} tunnelit pysähtyvät, kun sovellus suljetaan. iOS:ssä ne pysähtyvät myös pian sen jälkeen, kun sovellus siirtyy taustalle.",
+      "failedToFetchTunnelStatuses": "Tunnelien tilojen hakeminen epäonnistui",
+      "thisBuildCanTOpen": "Tämä versio ei voi avata tunnelia {{deviceWord}}:ssa.",
+      "sourceHostNotFound": "Lähtöpalvelinta ei löydy",
+      "endpointHostNotFound": "Päätepisteenä toimivaa palvelinta ei löydy: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tunnelit",
+      "tunnelCount_one": "{{count}} tunneli",
+      "tunnelCount_other": "{{count}} tunnelia",
+      "runningOnServer": "{{connected}} käynnissä palvelimella"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Tunnusvälineet"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Dockeria ei ole asennettu tähän isäntään.",
+        "dockerDidNotAnswer": "Docker ei vastannut",
+        "thatIsNotAValid": "Tuo ei ole kelvollinen pino-nimi"
+      }
+    },
+    "containerDetail": {
+      "stop": "Pysäytä",
+      "start": "Käynnistä",
+      "restart": "Käynnistä uudelleen",
+      "remove": "Poista",
+      "logs": "Lokit",
+      "stats": "Tilastot",
+      "console": "Konsoli",
+      "logsCopied": "Lokit kopioitu",
+      "copy": "Kopioi",
+      "containerIsNotRunningNo": "Kontti ei ole käynnissä, reaaliaikaisia tilastoja ei ole saatavilla.",
+      "cpu": "CPU",
+      "memory": "Muisti",
+      "networkIO": "Verkon I/O",
+      "blockIO": "Lohkoi/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Lokien lataaminen epäonnistui",
+      "failedToLoadStats": "Tilastojen lataaminen epäonnistui",
+      "noOutput": "(ei tulostetta)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Yhdistetään Dockeriin...",
+    "remove": "Poistetaanko {{name}}?",
+    "stop": "Pysäytetäänkö {{name}}?",
+    "theContainerIsStoppedAnd": "Kontti on pysäytetty ja poistettu. Sen tilavolyymit säilyvät.",
+    "anythingRunningInItStops": "Kaikki sen sisällä toimiva pysähtyy.",
+    "remove2": "Poista",
+    "stop2": "Pysäytä",
+    "dockerThis": "Docker | tämä {{deviceWord}}",
+    "lookingForDocker": "Etsitään Dockeria...",
+    "dockerIsNotAvailableOn": "Dockeria ei ole saatavilla tässä isännässä.",
+    "noContainersFound": "Kontteja ei löytynyt",
+    "noContainersMatchYourFilters": "Yksikään kontti ei täytä suodattimiisi",
+    "useSudo": "Käytä sudoa",
+    "refresh": "Päivitä",
+    "containers": "Kontit",
+    "stacks": "Pinot",
+    "searchContainers": "Hae kontteja...",
+    "all": "Kaikki",
+    "running": "Käynnissä",
+    "stopped": "Pysäytetty",
+    "start": "Käynnistä",
+    "restart": "Käynnistä uudelleen",
+    "pause": "Keskeytä",
+    "unpause": "Jatka",
+    "moreActions": "Lisää toimintoja",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker ei vastannut",
+      "docker": "Docker",
+      "noContainers": "Ei kontteja"
+    },
+    "dockerConsole": {
+      "attachingTo": "Liitetään kohteeseen {{name}}...",
+      "consoleDisconnected": "Konsoli katkennut",
+      "reconnect": "Yhdistä uudelleen",
+      "failedToLoadTheConsole": "Konsolin lataaminen epäonnistui",
+      "thisSessionHasNoServer": "Tällä istunnolla ei ole palvelinta"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Kontit, lokit ja tilastot"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Pinot on poistettu käytöstä tässä palvelimessa.",
+      "couldNotLoadStacks": "Pinojen lataaminen epäonnistui",
+      "noStacks": "Ei stackeja",
+      "composeProjectsOnThisHost": "Tämän isäntäpalvelimen Compose-projektit näkyvät tässä.",
+      "ofRunning": "{{running}}/{{total}} käynnissä",
+      "couldNotLoadTheStack": "Stackin lataaminen epäonnistui",
+      "services": "Palvelut",
+      "nothingIsRunning": "Mitään ei ole käynnissä.",
+      "composeFile": "Compose-tiedosto",
+      "partlyUp": "osittain käynnissä",
+      "notDeployed": "ei julkaistu",
+      "running": "käynnissä",
+      "stopped": "pysäytetty",
+      "paused": "keskeytetty"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Tuo ei ole kelvollinen konttidentifikaattori",
+      "consoleFailed": "Konsoli epäonnistui",
+      "notAuthenticated": "Ei todennettu",
+      "consoleError": "Konsolivirhe",
+      "connectionFailed": "Yhteys epäonnistui"
+    },
+    "dockerDidNotAnswer": "Docker ei vastannut",
+    "failedToLoadContainers": "Konttien lataaminen epäonnistui",
+    "failedTo": "{{action}} epäonnistui"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Palvelin ei lähettänyt tiedostoa",
+        "cancelled": "Peruutettu",
+        "isGone": "{{path}} on poistettu",
+        "canTGoToThe": "{{name}} ei voi siirtyä roskakoriin"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Virheellinen roskakorikohteen tunnus",
+        "invalidTrashMetadata": "Virheellinen roskakorin metatieto",
+        "thisPathCanTBe": "Tätä polkua ei voi siirtää roskakoriin",
+        "aFileAlreadyExistsAt": "Tiedosto on jo olemassa alkuperäisellä polulla"
+      },
+      "sftp": {
+        "commandFailed": "Komento epäonnistui: {{command}}",
+        "alreadyExists": "{{name}} on jo olemassa",
+        "alreadyExistsThere": "{{path}} on jo olemassa siellä",
+        "canTGoToThe": "{{name}} ei voi siirtyä roskakoriin: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Pääte ei ole enää auki",
+      "clearHistory": "Tyhjennä historia",
+      "stopFollowingTheTerminal": "Lopeta pääteen seuraaminen",
+      "followTheTerminal": "Seuraa pääteikkunaa",
+      "goToTheTerminalS": "Siirry pääteen kansioon",
+      "cdTheTerminalHere": "Siirrä pääte tähän kansioon",
+      "folderHistory": "Kansioiden historia",
+      "mostUsedFirstThenRecent": "Useimmin käytetyt ensin, sitten viimeisimmät",
+      "noFoldersYet": "Ei kansiota vielä"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Yhteyttä ei voi muodostaa.",
+        "couldNotSaveHowThis": "Isäntäpalvelimen yhteystietojen tallentaminen epäonnistui",
+        "thisWayCanTOpen": "Tällä tavalla ei voi avata tiedostoja"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Tätä kansiota ei voitu avata",
+      "cancel": "Peruuta",
+      "noFoldersHere": "Ei kansiota täällä"
+    },
+    "couldNotOpenThisFolder": "Tätä kansiota ei voitu avata",
+    "couldNotSaveToThe": "Tallentaminen kansioon epäonnistui",
+    "failed": "{{label}} epäonnistui",
+    "uploading": "Ladataan {{name}}",
+    "uploadingFiles": "Tiedostoja {{count}} ladattavana",
+    "downloadingToFilesOnMy": "Ladataan tiedostoihin, iPhone-tiedostoihin, Termixiin",
+    "downloading": "Ladataan {{name}}",
+    "downloadingFiles": "Tiedostoja {{count}} ladattavana",
+    "openALargeFile": "Avataanko suuri tiedosto?",
+    "isBigForAEditor": "{{name}} on suuri {{deviceWord}}-muokkainta varten. Se voi olla hidas.",
+    "open": "Avaa",
+    "thisLooksLikeABinary": "Tämä näyttää binääritiedostolta",
+    "openItInAnotherApp": "Avataanko se toisessa sovelluksessa?",
+    "openWith": "Avaa ohjelmalla",
+    "tooBigForTheEditor": "Liian suuri muokattavaksi",
+    "isOver10MbDownload": "{{name}} on yli 10 Mt. Ladataanko se sen sijaan?",
+    "download": "Lataa",
+    "delete": "Poistetaanko {{what}}?",
+    "moveToTheTrash": "Siirretäänkö {{what}} roskakoriin?",
+    "thisCanTBeUndone": "Tätä ei voi peruuttaa.",
+    "youCanRestoreItFrom": "Voit palauttaa sen roskakorista.",
+    "delete2": "Poista",
+    "moveToTrash": "Siirrä roskakoriin",
+    "deleteForGood": "Poistetaanko pysyvästi?",
+    "deleteItForGoodInstead": "{{message}}. Poistetaanko se sen sijaan pysyvästi? Tätä ei voi peruuttaa.",
+    "deleteFailed": "Poisto epäonnistui",
+    "connectingThroughTheServer": "Yhdistetään palvelimen kautta...",
+    "connectingFromThis": "Yhdistetään tästä {{deviceWord}}sta...",
+    "connecting": "Yhdistetään...",
+    "edit": "Muokkaa",
+    "downloadFolder": "Lataa kansio",
+    "share": "Jaa",
+    "rename": "Nimeä uudelleen",
+    "copyTo": "Kopioi kohteeseen",
+    "moveTo": "Siirrä kohteeseen",
+    "cut": "Leikkaa",
+    "copy": "Kopioi",
+    "permissions": "Oikeudet",
+    "properties": "Ominaisuudet",
+    "makeALinkHere": "Luo linkki tähän",
+    "copyPath": "Kopioi polku",
+    "pathCopied": "Polku kopioitu",
+    "done": "Valmis",
+    "selectAll": "Valitse kaikki",
+    "filterByName": "Suodata nimellä",
+    "closeSearch": "Sulje haku",
+    "search": "Hae",
+    "changeSort": "Vaihda järjestystä",
+    "paste": "Liitä {{count}}",
+    "upload": "Lataa ylös",
+    "transfers2": "Siirrot",
+    "more": "Lisää",
+    "nothingMatches": "Ei tuloksia",
+    "emptyFolder": "Tyhjä kansio",
+    "uploadFilesOrMakeA": "Lataa tiedostoja tai luo uusi.",
+    "newFolder": "Uusi kansio",
+    "newFile": "Uusi tiedosto",
+    "select": "Valitse",
+    "hideHiddenFiles": "Piilota piilotiedostot",
+    "showHiddenFiles": "Näytä piilotiedostot",
+    "trash": "Roskakori",
+    "folderProperties": "Kansion ominaisuudet",
+    "refresh": "Päivitä",
+    "rename2": "Nimeä uudelleen {{name}}",
+    "newLink": "Uusi linkki",
+    "aLinkInThatPoints": "Linkki kohteessa {{path}}, joka osoittaa kohteeseen {{path2}}",
+    "name": "Nimi",
+    "create": "Luo",
+    "copyHere": "Kopioi tähän",
+    "moveHere": "Siirrä tähän",
+    "fileViewer": {
+      "saved": "Tallennettu {{name}}",
+      "couldNotSaveTheFile": "Tiedostoa ei voitu tallentaa",
+      "discardChanges": "Hylätäänkö muutokset?",
+      "hasChangesThatAreNot": "{{name}} sisältää tallentamattomia muutoksia.",
+      "discard": "Hylkää",
+      "readOnly": "{{path}} | vain luku",
+      "find": "Etsi",
+      "smallerText": "Pienempi teksti",
+      "biggerText": "Suurempi teksti",
+      "turnOffLineWrap": "Poista rivinvaihto käytöstä",
+      "wrapLines": "Rivinvaihto",
+      "save": "Tallenna"
+    },
+    "hostSection": {
+      "startIn": "Aloita kohteesta",
+      "theFolderTheFileManager": "Kansio, jossa tiedostonhallinta avautuu ensimmäisenä",
+      "files": "Tiedostot"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Siirry kohteeseen {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Lisää toimintoja",
+        "moreFor": "Lisää kohteelle {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Oikeudet",
+      "cancel": "Peruuta",
+      "apply": "Käytä ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Avaa epäonnistui",
+      "openWith": "Avaa ohjelmalla",
+      "share": "Jaa"
+    },
+    "propertiesView": {
+      "properties": "Ominaisuudet",
+      "path": "Polku",
+      "type": "Tyyppi",
+      "pointsTo": "Viittaa kohteeseen",
+      "size": "Koko",
+      "countFolderSize": "Laske kansion koko",
+      "permissions": "Oikeudet",
+      "change": "Muuta",
+      "owner": "Omistaja",
+      "group": "Ryhmä",
+      "modified": "Muokattu",
+      "opened": "Avattu",
+      "linkToA": "Linkki kohteeseen {{value}}",
+      "notShownForFolders": "Ei näytetä kansioille",
+      "file": "Tiedosto",
+      "folder": "Kansio",
+      "link": "Linkki"
+    },
+    "register": {
+      "fileManager": "Tiedostonhallinta",
+      "files": "Tiedostot",
+      "browseEditAndMoveFiles": "Selaa, muokkaa ja siirrä tiedostoja",
+      "files2": "TIEDOSTOT",
+      "fileManagerAndTransfers": "Tiedostonhallinta ja siirrot"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Siirto epäonnistui"
+      },
+      "transfersPanel": {
+        "pause": "Keskeytä",
+        "resume": "Jatka",
+        "tryAgain": "Yritä uudelleen",
+        "open": "Avaa",
+        "cancel": "Peruuta",
+        "transfers": "Siirrot",
+        "goingOf": "{{active}} käynnissä | {{done}}/{{total}}",
+        "clearFinished": "Tyhjennä valmiit",
+        "cancelAll": "Peruuta kaikki",
+        "noTransfersYet": "Siirtoja ei vielä",
+        "waiting": "Odottaa",
+        "paused": "Keskeytetty",
+        "done": "Valmis",
+        "failed": "Epäonnistunut",
+        "cancelled": "Peruutettu"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Roskakorven lataus epäonnistui",
+      "restored": "Palautettu {{name}}",
+      "failedToRestore": "Palauttaminen epäonnistui",
+      "failedToDelete": "Poistaminen epäonnistui",
+      "trashEmptied": "Roskakori tyhjennetty",
+      "failedToEmptyTrash": "Roskakorin tyhjennys epäonnistui",
+      "trash": "Roskakori",
+      "itemsAreRemovedAfterDays": "Kohteet poistetaan {{retentionDays}} päivän kuluttua",
+      "close": "Sulje",
+      "emptyTrash": "Tyhjennä roskakori",
+      "trashIsEmpty": "Roskakori on tyhjä",
+      "restore": "Palauta {{name}}",
+      "deleteForGood": "Poista {{name}} pysyvästi"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Juuri nyt"
+      }
+    },
+    "getting": "Haetaan kohdetta {{name}}",
+    "itemCount_one": "{{count}} kohde",
+    "itemCount_other": "{{count}} kohdetta",
+    "copiedWhat": "Kopioitu {{what}}",
+    "movedWhat": "Siirretty {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "Kohteessa {{name}} on yli {{limit}} tiedostoa. Lataa pienempiä kansioita."
+    },
+    "downloadingToFilesOnMyIpad": "Ladataan Tiedostot-sovellukseen, iPadilleni, Termix",
+    "size": "Koko",
+    "date": "Päivämäärä"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Palvelulinkit",
+      "openInHomepage": "Avaa Kotisivuissa",
+      "thisWidgetOnlyShowsOn": "Tämä widget näkyy vain koko sivulla."
+    },
+    "register": {
+      "serviceLinks": "Palvelulinkit",
+      "homepage": "Kotisivu"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Syöte ei ole määritetty.",
+        "couldNotLoadTheFeed": "Syötettä ei voitu ladata.",
+        "theFeedIsEmpty": "Syöte on tyhjä.",
+        "noLocationSet": "Sijaintia ei ole määritetty.",
+        "couldNotLoadTheWeather": "Säätilannetta ei voitu ladata.",
+        "noUrlSet": "URL-osoitetta ei ole määritetty.",
+        "couldNotLoadTheData": "Tietoja ei voitu ladata.",
+        "noPictureSet": "Kuvaa ei ole määritetty.",
+        "badResponse": "virheellinen vastaus"
+      },
+      "services": "Palvelut",
+      "service": "Palvelu",
+      "serviceLinks": "Palvelulinkit",
+      "bookmarks": "Kirjanmerkit",
+      "links2": "Linkit",
+      "search": "Hae",
+      "clock": "Kello",
+      "countdown": "Laskuri",
+      "calendar": "Kalenteri",
+      "notes": "Muistiinpanot",
+      "banner": "Banneri",
+      "ping": "Ping",
+      "host": "Isäntä",
+      "hosts": "Isännät",
+      "quickConnect": "Pikayhteys",
+      "feed": "Syöte",
+      "weather": "Sää",
+      "customApi": "Mukautettu API",
+      "picture": "Kuva",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Palveluita ei vielä ole.",
+        "noLinkSet": "Linkkiä ei ole määritetty.",
+        "noLinksYet": "Linkkejä ei vielä ole.",
+        "noSearchEngineSet": "Hakukonetta ei ole määritetty.",
+        "search": "Hae",
+        "noShortcutsYet": "Ei vielä pikalinkkejä.",
+        "search2": "Hae {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Linkkiä ei voitu avata"
+      },
+      "status": {
+        "noUrlsYet": "Ei vielä URL-osoitteita.",
+        "down": "Poissa päältä",
+        "noHostsPicked": "Yhtään isäntää ei ole valittu."
+      },
+      "text": {
+        "noNotesYet": "Ei vielä muistiinpanoja.",
+        "noTextYet": "Ei vielä tekstiä."
+      },
+      "time": {
+        "noDateSet": "Päivämäärää ei ole asetettu.",
+        "timeIsUp": "Aika on loppu"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Oletusarvoa ei voitu tallentaa",
+    "couldNotResetTheDefault": "Oletusarvoa ei voitu palauttaa",
+    "back": "Takaisin",
+    "hostDefaults": "Isäntien oletusarvot",
+    "newHostsStartFromThese": "Uudet isännät perustuvat näihin",
+    "managedOnTheServer": "Hallitaan palvelimella",
+    "defaultsForThisServerAre": "Tämän palvelimen oletusarvot on määritetty verkkosovelluksessa.",
+    "level": "Taso",
+    "yourDefaultsOrOneFolder": "Omat oletusarvot tai yhden kansion",
+    "myDefaults": "Omat oletusarvot",
+    "theServerSets": " Palvelin asettaa {{adminCount}}.",
+    "aFolderWinsOverYour": "Kansio päättelee oletusasetuksesi, ja oletusasetuksesi päättelevät palvelimen asetukset. Isäntä säilyttää kaikki arvot, jotka olet asettanut sille itse.{{value}}",
+    "save": "Tallenna",
+    "authentication": "Todennus",
+    "none": "Ei mitään",
+    "reset": "Palauta",
+    "model": {
+      "username": "Käyttäjänimi",
+      "sshPort": "SSH-portti",
+      "authentication": "Todennus",
+      "aSavedCredentialForNew": "Tallennettu tunnus uusia isäntiä varten",
+      "forceKeyboardInteractive": "Pakota näppäimistön interaktiivisuus",
+      "keepaliveInterval": "Keepalive-väli",
+      "seconds0TurnsItOff": "Sekunteja, 0 poistaa käytöstä",
+      "keepaliveTries": "Keepalive-yritetyt",
+      "allowOldAlgorithms": "Salli vanhat algoritmit",
+      "agentForwarding": "Agentin välitys",
+      "environmentVariables": "Ympäristömuuttujat",
+      "oneNameValuePerLine": "Yksi NIMI=arvo per rivi",
+      "checkIfTheHostIs": "Tarkista, onko isäntä päällä",
+      "checkInterval": "Tarkistusväli",
+      "secondsEmptyUsesTheServer": "Sekunteja, tyhjä käyttää palvelimen arvoa",
+      "socks5Proxy": "SOCKS5-välityspalvelin",
+      "setInTheWebApp": "Määritetty verkkosovelluksessa",
+      "jumpHosts": "Hyppysisännät",
+      "portKnocking": "Port knocking",
+      "notSet": "Ei asetettu",
+      "fromTheServer": "Palvelimelta",
+      "fromYourDefaults": "Omat oletusarvot",
+      "builtIn": "Sisäänrakennettu"
+    },
+    "register": {
+      "hostDefaults": "Isäntien oletusarvot",
+      "portUserAndOptionsFor": "Portti, käyttäjä ja vaihtoehdot uusille isännille"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Ei vielä dataa",
+      "cpu": "CPU",
+      "memory": "Muisti",
+      "disk": "Levy",
+      "history": "Historia",
+      "loading": "Ladataan..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Mittareita ei voitu lukea",
+      "metrics": "Mittarit",
+      "cpu": "CPU",
+      "memory": "Muisti",
+      "disk": "Levy",
+      "noRecentSampleOpenThe": "Ei viimeaikaisia näytteitä. Avaa isäntälaitteen mittaristot aloittaaksesi seurannan."
+    },
+    "register": {
+      "enableMetrics": "Ota mittaristot käyttöön",
+      "cpuMemoryDiskAndNetwork": "Suoritin, muisti, levy ja verkko SSH:n kautta",
+      "hostMetrics": "Isäntälaitteen mittaristot",
+      "cpu": "Suoritin",
+      "ram": "RAM",
+      "metrics": "Mittaristot",
+      "cpuMemoryDiskAndNetwork2": "Suoritin, muisti, levy ja verkko"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Isäntälaitteen mittaristot | tämä {{deviceWord}}",
+      "hostMetrics": "Isäntälaitteen mittaristot",
+      "ran": "Suoritettu {{name}}",
+      "loadingMetrics": "Ladataan mittaristoja...",
+      "couldNotReadMetricsFrom": "Mittaristoja ei voitu lukea tästä isäntälaitteesta",
+      "failedToLoadMetrics": "Mittaristojen lataaminen epäonnistui",
+      "thisSessionHasNoServer": "Tässä istunnossa ei ole palvelinta",
+      "twoFactorRequiredForThis": "Kaksivaiheinen todennus vaaditaan tämän isäntälaitteen tilastojen katsomiseen.",
+      "failedToStartMetrics": "Mittaristojen käynnistäminen epäonnistui",
+      "failedToRun": "Suorituksen {{name}} suorittaminen epäonnistui"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "Suoritin",
+        "perCore": "Ydintä kohti: {{value}}",
+        "cores": "Ytimet",
+        "load": "Kuorma",
+        "user": "Käyttäjä",
+        "system": "Järjestelmä",
+        "ioWait": "IO-odotus",
+        "steal": "Väistetty"
+      },
+      "diskWidget": {
+        "disk": "Levy {{mount}}",
+        "disk2": "Levy",
+        "used": "Käytetty",
+        "total": "Yhteensä",
+        "free": "Vapaa"
+      },
+      "firewallWidget": {
+        "firewall": "Palomuuri",
+        "rules": "{{type}} | {{ruleCount}} sääntöä",
+        "noFirewallDetected": "Palomuuria ei havaittu"
+      },
+      "gpuWidget": {
+        "gpus": "GPUt ({{count}})",
+        "gpu": "GPU",
+        "memory": "Muisti",
+        "temp": "Lämpötila",
+        "power": "Teho",
+        "fan": "Tuuletin"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Kirjautumisaktiviteetti",
+        "noLoginActivityRecorded": "Kirjautumisaktiviteettia ei ole tallennettu",
+        "logins": "Kirjautumiset",
+        "uniqueIps": "Uniikit IP-osoitteet",
+        "failed": "Epäonnistuneet",
+        "recent": "Viimeaikaiset"
+      },
+      "memoryWidget": {
+        "memory": "Muisti",
+        "used": "Käytetty",
+        "total": "Yhteensä",
+        "cached": "Välimuistissa",
+        "free": "Vapaa"
+      },
+      "networkWidget": {
+        "network": "Verkko",
+        "noInterfaces": "Ei liitäntöjä",
+        "up": "Lähetys",
+        "down": "Vastaanotto"
+      },
+      "portsWidget": {
+        "listeningPorts": "Kuuntelevat portit",
+        "noListeningPorts": "Ei kuuntelevia portteja"
+      },
+      "processesWidget": {
+        "sortBy": "Järjestä sarakkeella {{label}}",
+        "processes": "Prosessit",
+        "running": "{{value}} käynnissä | {{total}}",
+        "noProcessData": "Ei prosessitietoja",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "KOMENNO"
+      },
+      "systemWidget": {
+        "system": "Järjestelmä",
+        "hostname": "Isäntänimi",
+        "os": "OS",
+        "kernel": "Ydin",
+        "arch": "Arkkitehtuuri",
+        "noSystemInfo": "Ei järjestelmätietoja"
+      },
+      "temperatureWidget": {
+        "temperature": "Lämpötila"
+      },
+      "uptimeWidget": {
+        "uptime": "Käyttöaika"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Kopioitu salasanalla",
+      "copiedTheLink": "Linkki kopioitu",
+      "shareHost": "Jaa isäntä",
+      "thatHostNoLongerExists": "Tätä isäntää ei enää ole olemassa",
+      "scanThisInTermixOn": "Skannaa tämä Termixissä toisella {{deviceWord}}:lla kohdassa Tuo ja vie. Koodi sisältää osoitteen, portin ja käyttäjän. Siinä ei ole salasanaa tai avainta.",
+      "copyLink": "Kopioi linkki",
+      "copyLinkWithPassword": "Kopioi linkki salasanalla"
+    },
+    "includePasswordsAndKeys": "Sisällytetäänkö salasanat ja avaimet?",
+    "anyoneWhoGetsThisFile": "Kuka tahansa, joka saa tämän tiedoston, voi kirjautua näille isännille. Säilytä se turvallisesti.",
+    "includeThem": "Sisällytä ne",
+    "pickAtLeastOneHost": "Valitse vähintään yksi isäntä",
+    "couldNotMakeTheFile": "Tiedostoa ei voitu luoda",
+    "copiedToTheClipboard": "Kopioitu leikepöydälle",
+    "importAndExport": "Tuo ja vie",
+    "moveHostsInAndOut": "Siirrä isäntiä sisään ja ulos",
+    "import": "Tuo",
+    "aTermixHostFileAn": "Termix-isäntätiedosto, SSH-asetustiedosto tai isäntälinkki tai QR-koodi toiselta {{deviceWord}}:lta.",
+    "export": "Vie",
+    "allHosts": "Kaikki isännät",
+    "picked": "{{size}} valittu",
+    "pickHosts": "Valitse isännät",
+    "includePasswordsAndKeys2": "Sisällytä salasanat ja avaimet",
+    "offMakesAFileSafe": "Poiskytkettynä tiedosto on turvallinen jaettavaksi. Isännät, jotka käyttävät tallennettua tunnistetietoa, viittaavat siihen nimellä",
+    "shareAFile": "Jaa tiedosto",
+    "copy": "Kopioi",
+    "importPanel": {
+      "couldNotReadThat": "Sitä ei voitu lukea",
+      "couldNotReadThatFile": "Tätä tiedostoa ei voitu lukea",
+      "importFailed": "Tuonti epäonnistui",
+      "chooseAFile": "Valitse tiedosto",
+      "paste": "Liitä",
+      "scanACode": "Skannaa koodi",
+      "couldNotBeRead": "{{count}} ei voitu lukea",
+      "updateHostsThatExist": "Päivitä olemassa olevat isännät",
+      "sameAddressPortAndUser": "Sama osoite, portti ja käyttäjä. Muuten ne ohitetaan",
+      "cancel": "Peruuta",
+      "import": "Tuo",
+      "andMore": "ja {{value}} muuta"
+    },
+    "qrCode": {
+      "qrCode": "QR-koodi"
+    },
+    "register": {
+      "importAndExport": "Tuo ja vie",
+      "moveHostsInOrOut": "Siirrä isäntiä sisään tai ulos tiedostolla tai QR-koodilla",
+      "shareHost": "Jaa isäntä"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Skannaa isäntäkoodi",
+      "pointTheCameraAtA": "Suuntaa kamera Termix-isäntä QR-koodiin.",
+      "termixNeedsTheCameraTo": "Termix tarvitsee kameran koodin skannaamiseen. Mitään ei tallenneta.",
+      "allowTheCamera": "Salli kamera"
+    },
+    "read": {
+      "termixFile": "Termix-tiedosto",
+      "sshConfig": "SSH-asetukset",
+      "thereIsNothingToImport": "Tuo ei ole mitään",
+      "thatIsNotATermix": "Tämä ei ole Termix-isäntälinkki",
+      "linkHost": "1 isäntä: {{name}}",
+      "sourceHosts_one": "{{what}} jossa {{count}} isäntä",
+      "sourceHosts_other": "{{what}} jossa {{count}} isäntää"
+    },
+    "saveYourTermixHosts": "Tallenna Termix-isännät"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Valmis",
+      "rejected": "Hylätty",
+      "approvals": "Hyväksynnät",
+      "nothingIsWaiting": "Mitään ei odota",
+      "actionsARuleHoldsFor": "Toiminnot, jotka vaativat säännön hyväksynnän, näkyvät tässä.",
+      "approveAndRun": "Hyväksy ja suorita",
+      "reject": "Hylkää",
+      "couldNotLoadApprovals": "Hyväksyntöjä ei voitu ladata",
+      "couldNotDecide": "Päätöstä ei voitu tehdä"
+    },
+    "approvalsCard": {
+      "approved": "Hyväksytty",
+      "rejected": "Hylätty",
+      "waitingForApproval": "Odottaa hyväksyntää",
+      "approve": "Hyväksy",
+      "reject": "Hylkää",
+      "couldNotDecide": "Päätöstä ei voitu tehdä",
+      "seeAll": "Näytä kaikki"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Tätä ei voi perua. Suoritetaanko?",
+      "run": "Suorita",
+      "sentForApproval": "Lähetetty hyväksyttäväksi",
+      "target": "Kohde",
+      "theItemOnTheHost": "Isännän kohde, kuten kontti",
+      "dryRun": "Kuivakäynti",
+      "back": "Takaisin",
+      "actions": "Toiminnot",
+      "noActionsForThisHost": "Ei toimintoja tälle isännälle",
+      "turnOnAPluginLike": "Ota käyttöön lisäosa, kuten Docker tai Palvelut, tälle isännälle palvelimella.",
+      "destructive": "Tuhoava",
+      "changes": "Muutokset",
+      "theActionCouldNotRun": "Toimintoa ei voitu suorittaa",
+      "couldNotLoadActions": "Toimintoja ei voitu ladata"
+    },
+    "register": {
+      "actions": "Toiminnot",
+      "waitingForApproval": "Odottaa hyväksyntää",
+      "approvals": "Hyväksynnät",
+      "actionsWaitingForAPerson": "Toiminnot, jotka odottavat ihmisen myöntävää vastausta",
+      "runHistory": "Suoritushistoria",
+      "everyActionAnyoneRanFrom": "Kaikki toiminnot, jotka kuka tahansa on suorittanut mille tahansa laitteelle"
+    },
+    "runHistory": {
+      "cancelThisRun": "Perutaanko tämä suoritus?",
+      "cancelRun": "Peru suoritus",
+      "keep": "Säilytä",
+      "undoThisRun": "Perutaanko tämä suoritus?",
+      "thisRunsTheActionS": "Tämä suorittaa toiminnon perumisen samalla syötteellä.",
+      "undo": "Peru",
+      "cancelled": "Peruttu",
+      "itAlreadyFinished": "Se on jo valmis",
+      "done": "Valmis",
+      "runHistory": "Suoritushistoria",
+      "nothingHasRunYet": "Mitään ei ole vielä suoritettu",
+      "dryRun": "Kuivakäynti",
+      "cancel": "Peruuta",
+      "couldNotLoadHistory": "Historiaa ei voitu ladata",
+      "couldNotCancel": "Peruutusta ei voitu suorittaa",
+      "couldNotUndo": "Perumista ei voitu suorittaa"
+    },
+    "api": {
+      "needsApproval": "Vaatii hyväksynnän",
+      "needsSignIn": "Vaatii kirjautumisen",
+      "done": "Valmis",
+      "failed": "Epäonnistui",
+      "running": "Käynnissä",
+      "interrupted": "Keskeytetty",
+      "rejected": "Hylätty",
+      "cancelled": "Peruutettu",
+      "expired": "Vanhentunut"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Kytke {{value}} päälle",
+      "moreSettingsForThisAre": "Lisäasetukset löytyvät Termixin verkkosovelluksesta.",
+      "pluginHostSettings": "Liitännäispalvelimen asetukset"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}}:n on oltava numero",
+      "mustBeAtLeast": "{{field}}:n on oltava vähintään {{min}}",
+      "mustBeAtMost": "{{field}}:n on oltava enintään {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Linkitä palvelin käyttääksesi sitä",
+      "runsOnYourTermixServer": "{{name}} toimii Termix-palvelimellasi."
+    },
+    "pluginWebView": {
+      "canTLoad": "{{name}}:n lataaminen epäonnistui",
+      "theServerDidNotSend": "Palvelin ei lähettänyt liitännäistä. Varmista, että se on päällä, ja yritä uudelleen.",
+      "openThisLink": "Avataanko tämä linkki?",
+      "open": "Avaa",
+      "needsANewerVersionOf": "Vaatii uudemman sovellusversion",
+      "usesPartsOfTermixThis": "{{name}} käyttää Termixin osia, joita tässä sovelluksessa ei vielä ole.",
+      "didNotStart": "{{name}} ei käynnistynyt",
+      "thisScreenIsNotIn": "Tätä näkymää ei ole palvelimella olevassa liitännäisversiossa.",
+      "thePluginHitAnError": "Liitännäisessä tapahtui virhe käynnistyksen aikana.",
+      "youReOffline": "Olet offline-tilassa",
+      "runsOnYourServerSo": "{{name}} toimii palvelimellasi, joten se tarvitsee yhteyden. Se avautuu uudelleen, kun olet jälleen online.",
+      "tryAgain": "Yritä uudelleen"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Tätä isäntää ei ole vielä tässä {{deviceWord}}:ssa.",
+      "theAppCanTOpen": "Sovellus ei voi avata tätä täältä.",
+      "thatHostIsNotOn2": "Tätä isäntää ei ole vielä tässä {{deviceWord}}:ssa."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Salasana",
+      "unchangedIfBlank": "Ei muutosta, jos tyhjä",
+      "port": "Portti",
+      "domain": "Domain",
+      "displaySoundAndClipboardSettings": "Näytön, äänen ja leikepöydän asetukset löytyvät Termixin verkkosovelluksesta.",
+      "portMustBeFrom1": "{{label}}-portin on oltava välillä 1–65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Kaukokatseluyhteys katkesi",
+        "signIn": "{{label}}-kirjautuminen",
+        "itWillNotBeSaved": "{{error}} Sitä ei tallenneta.",
+        "enterTheLoginForIt": "Syötä kirjautumistiedot kohteeseen {{title}}. Niitä ei tallenneta.",
+        "reconnecting": "Yhdistetään uudelleen kohteeseen {{label}}",
+        "connecting": "Yhdistetään kohteeseen {{label}}",
+        "connectionFailed": "Yhteys epäonnistui",
+        "disconnected": "Yhteys katkaistu",
+        "reconnect": "Yhdistä uudelleen",
+        "connectThroughTheServer": "Yhdistä palvelimen kautta",
+        "pasteToRemote": "Liitä kaukokoneelle",
+        "typeClipboard": "Kirjoita leikepöydän sisältö",
+        "copyRemoteClipboard": "Kopioi kaukokoneen leikepöytä",
+        "theComputerSCertificateWas": "Tietokoneen varmenne ei ollut luotettava.",
+        "thatLoginWasRefusedTry": "Kirjautuminen hylättiin. Yritä uudelleen."
+      },
+      "target": {
+        "trustThisComputer": "Luotetaanko tähän tietokoneeseen?",
+        "theCanTCheckS": "{{deviceWord}} ei voi tarkistaa {{hostName}}:n varmennetta. Varmista, että tämä sormenjälki vastaa tietokoneessa näkyvää ennen jatkamista.\n\n{{fingerprint}}",
+        "trustAndConnect": "Luota ja yhdistä",
+        "certificateChanged": "Varmenne on muuttunut",
+        "showsAnotherCertificateThanLast": "{{hostName}} näyttää eri varmenteen kuin viimeksi. Tämä voi johtua uuden varmenteen luomisesta tietokoneessa tai välikuvastamisesta.\n\nUusi sormenjälki:\n{{fingerprint}}",
+        "trustTheNewOne": "Luota uuteen varmennepä"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Kaukokatselu",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Valmis",
+      "keyboard": "Näppäimistö",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Asetukset",
+      "remoteSettings": "Etäasetukset",
+      "mouseMode": "Hiiren tila",
+      "touch": "Kosketus",
+      "trackpad": "Kosketuslevy",
+      "tapWhereYouWantTo": "Napauta kohdassa, johon haluat klikata. Pidä painettuna oikealle klikkaukselle, vedä vetämistä varten.",
+      "dragToMoveThePointer": "Vedä osoittimen siirtämiseksi. Napauta klikkaaksesi, napauta kahdella sormella oikealle klikkaukselle, napauta ja vedä vetämistä varten.",
+      "zoomXPinchAnywhereTo": "Zoomaus: {{value}}x. Pura mistä tahansa zoomataksesi",
+      "reset": "Palauta",
+      "cancel": "Peruuta",
+      "connect": "Yhdistä",
+      "username": "Käyttäjänimi",
+      "domainOptional": "Domain (valinnainen)",
+      "domain": "Domain",
+      "password": "Salasana",
+      "leftArrow": "Vasen nuoli",
+      "upArrow": "Ylänuoli",
+      "downArrow": "Alanuoli",
+      "rightArrow": "Oikea nuoli",
+      "rdpSignIn": "RDP-kirjautuminen"
+    },
+    "theRemoteDesktopDropped": "Etätyöpöydän yhteys katkesi",
+    "theyWillNotBeSaved": "{{errorMessage}} Niitä ei tallenneta.",
+    "enterCredentialsForTheyWill": "Syötä kirjautumistiedot kohteelle {{title}}. Niitä ei tallenneta.",
+    "connecting": "Yhdistetään",
+    "connectionFailed": "Yhteys epäonnistui",
+    "disconnected": "Yhteys katkaistu",
+    "reconnect": "Yhdistä uudelleen",
+    "route": {
+      "thisHostCanTOpen": "Tämä isäntä ei voi avata etätyöpöytää täältä."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Sovelluksen estämä"
+    },
+    "failedToStartRemoteSession": "Etäistunnon käynnistäminen epäonnistui",
+    "thatLoginWasRefusedTry": "Kirjautuminen hylättiin. Yritä uudelleen.",
+    "theRemoteRefusedTheSaved": "Etäpääte hylkäsi tallennetun kirjautumisen. Tarkista RDP-kirjautuminen tässä isännässä.",
+    "remoteSessionFailed": "Etäistunto epäonnistui",
+    "remoteSessionReturnedAnInvalid": "Etäistunto palautti virheellisen viestin",
+    "failedToLoadTheRemote": "Etätyöpöytäasiakkaan lataaminen epäonnistui"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Ei lokia",
+      "thisHostDoesNotKeep": "Tämä isäntä ei pidä systemd-lokia.",
+      "all": "Kaikki",
+      "warnings": "Varoitukset",
+      "errors": "Virheet",
+      "stop": "Pysäytä",
+      "follow": "Seuraa",
+      "nothingLogged": "Ei lokitetua sisältöä",
+      "tryAnotherLevel": "Kokeile toista tasoa.",
+      "couldNotReadTheJournal": "Lokin lukeminen epäonnistui"
+    },
+    "register": {
+      "services": "Palvelut",
+      "startStopAndReadLogs": "Käynnistä, pysäytä ja lue lokit"
+    },
+    "readingServices": "Luetellaan palveluita...",
+    "thisHostHasNoSystemd": "Tässä isäntäpalvelimessa ei ole systemd- tai OpenRC-järjestelmää.",
+    "noServicesMatch": "Palveluita ei löytynyt",
+    "noServicesFound": "Palveluita ei löytynyt",
+    "services": "Palvelut",
+    "journal": "Loki",
+    "searchServices": "Hae palveluita...",
+    "all": "Kaikki",
+    "running": "Käynnissä",
+    "failed": "Epäonnistuneet ({{failed}})",
+    "failed2": "Epäonnistuneet",
+    "servicesCard": {
+      "services": "Palvelut",
+      "noSystemdOrOpenrc": "Ei systemd- tai OpenRC-järjestelmää",
+      "failed": "{{failed}} epäonnistunut",
+      "allRunning": "Kaikki käynnissä",
+      "couldNotReadServices": "Palveluita ei voitu lukea"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Se pysyy pysäytettynä, kunnes se käynnistetään uudelleen tai isäntäpalvelin käynnistetään.",
+      "itStopsForAMoment": "Se pysähtyy hetkeksi ja käynnistyy uudelleen.",
+      "stop": "Pysäytä",
+      "restart": "Käynnistä uudelleen",
+      "is": "{{name}} on {{state}}",
+      "start": "Käynnistä",
+      "journal": "Loki",
+      "couldNotReadTheService": "Palvelua ei voitu lukea",
+      "couldNot": "{{name}}:n {{action}} epäonnistui",
+      "startsAtBoot": "Käynnistyy käynnistyksen yhteydessä",
+      "mainPid": "Pää-PID",
+      "activeSince": "Aktiivinen alkaen",
+      "unitFile": "Yksikkötiedosto",
+      "notSet": "[ei asetettu]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Kirjautumaton",
+        "followFailed": "Seuranta epäonnistui",
+        "connectionFailed": "Yhteys epäonnistui"
+      }
+    },
+    "couldNotReadServices": "Palveluita ei voitu lukea",
+    "services2": "Palvelut{{where}}",
+    "title": "Palvelut",
+    "failedCount": "{{count}} epäonnistunut"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Istunnon jakaminen",
+      "shareLink": "Jaa linkki"
+    },
+    "shareSessionView": {
+      "canWatch": "Voi katsoa",
+      "canType": "Voi kirjoittaa",
+      "n1Hour": "1 tunti",
+      "n8Hours": "8 tuntia",
+      "n1Day": "1 päivä",
+      "n7Days": "7 päivää",
+      "never": "Ei koskaan",
+      "shareSession": "Jaa istunto",
+      "anyoneWithTheLinkCan": "Kuka tahansa, jolla on linkki, voi avata tämän terminaalin sen ollessa käynnissä. Voit peruuttaa linkit Termixissä.",
+      "peopleWithTheLink": "Henkilöt, joilla on linkki",
+      "expiresAfter": "Vanhenee",
+      "link": "Linkki",
+      "copy": "Kopioi",
+      "share": "Jaa",
+      "makeLink": "Luo linkki",
+      "theServerGaveNoLink": "Palvelin ei antanut linkkiä",
+      "couldNotMakeALink": "Linkkiä ei voitu luoda",
+      "linkCopied": "Linkki kopioitu"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Ei kansiota"
+    },
+    "hostPicker": {
+      "selectNone": "Poista valinnat",
+      "selectAll": "Valitse kaikki",
+      "done": "Valmis"
+    },
+    "register": {
+      "snippets": "Koodinpätkät",
+      "snippets2": "KOODINPÄTKÄT",
+      "savedCommandsToRunOn": "Tallennetut komennot, jotka voidaan suorittaa mille tahansa isäntäpalvelimelle"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Tästä ei ole yhteyttä tähän isäntäpalvelimeen",
+      "exitedWith": "Lopetettiin koodilla {{exitCode}}",
+      "thisCanTRunIt": "Tämä {{deviceWord}} ei voi suorittaa sitä",
+      "noServerIsLinked": "Palvelinta ei ole linkitetty"
+    },
+    "runOnHostsSheet": {
+      "run": "Suorita",
+      "run2": "Suorita \"{{name}}\"",
+      "runsOverSshOnEach": "Suorittaa SSH:n kautta jokaisella isäntäpalvelimella. Pääteikkunaa ei avata.",
+      "close": "Sulje",
+      "hosts": "Isäntäpalvelimet",
+      "pickHosts": "Valitse isäntäpalvelimet",
+      "workedFailed": "{{value}} onnistui, {{failed}} epäonnistui",
+      "runOn2": "Suorita palvelimella",
+      "runOn_one": "Suoritetaanko {{name}} yhdellä isäntäpalvelimella?",
+      "runOn_other": "Suoritetaanko {{name}} {{count}} isäntäpalvelimella?",
+      "hostsPicked_one": "{{count}} isäntäpalvelin valittu",
+      "hostsPicked_other": "{{count}} isäntäpalvelinta valittu"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Hae koodinpätkiä",
+      "pastesTheNote": "Liittää muistiinpanon",
+      "runsTheSnippet": "Suorittaa koodinpätkän",
+      "noSnippetsMatch": "Yhtään koodinpätkää ei löydy",
+      "noSnippetsYet": "Koodinpätkiä ei vielä ole",
+      "addSnippetsInSettingsSnippets": "Lisää koodinpätkiä Asetukset, Koodinpätkät -kohdasta",
+      "run": "Suorita",
+      "insertWithoutRunning": "Lisää ilman suorittamista",
+      "copy": "Kopioi"
+    },
+    "snippetsCard": {
+      "snippets": "Koodinpätkät",
+      "run": "Suorita {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Vientiin ei ole koodinpätkiä",
+      "couldNotMakeTheFile": "Tiedostoa ei voitu luoda",
+      "copiedToTheClipboard": "Kopioitu leikepöydälle",
+      "couldNotImport": "Tuontia ei voitu suorittaa",
+      "couldNotReadThatFile": "Tiedostoa ei voitu lukea",
+      "importAndExport": "Tuo ja vie",
+      "theSameFileTheWeb": "Sama tiedosto, jota verkkosovellus käyttää.",
+      "export": "Vie",
+      "shareAFile": "Jaa tiedosto",
+      "copy": "Kopioi",
+      "import": "Tuo",
+      "updateSnippetsThatExist": "Päivitä olemassa olevat koodinpätkät",
+      "sameNameInTheSame": "Sama nimi samassa kansiossa. Muuten ne ohitetaan",
+      "chooseAFile": "Valitse tiedosto",
+      "paste": "Liitä",
+      "saveYourSnippets": "Tallenna koodinpätkäsi"
+    },
+    "useSnippetRunner": {
+      "run": "Suoritetaanko {{name}}?",
+      "run2": "Suorita",
+      "fillInTheValuesFor": "Täytä tämän koodinpätkän arvot.",
+      "cancel": "Peruuta",
+      "insert": "Lisää",
+      "noTerminalIsOpen": "Päätettä ei ole auki"
+    },
+    "variables": {
+      "input": "Syöte {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Tämä ei ole kelvollinen JSON-tiedosto",
+      "theFileNeedsASnippets": "Tiedostossa on oltava koodinpätkien tai kansioiden lista",
+      "snippetNameAndContentAre": "Koodinpätkä {{value}}: nimi ja sisältö ovat pakollisia",
+      "folder": "Kansio {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Ladataan Tailscale-laitteita…",
+      "searchTailscaleDevices": "Hae Tailscale-laitteita…",
+      "searchTailscaleDevices2": "Hae Tailscale-laitteita",
+      "clearDeviceSearch": "Tyhjennä laitehaku",
+      "refreshTailscaleDevices": "Päivitä Tailscale-laitteet",
+      "device": "Laite",
+      "noTailnetAddress": "Ei tailnet-osoitetta",
+      "tailscaleDevice": "Tailscale-laite",
+      "tailscaleDevices": "Tailscale-laitteet",
+      "addAHostThatConnects": "Lisää isäntä, joka yhdistää Tailscale SSH:n kautta.",
+      "username": "Käyttäjänimi",
+      "sshUsernameFor": "SSH-käyttäjänimi kohteelle {{value}}",
+      "addHost": "Lisää isäntä",
+      "noTailscaleDevicesMatchYour": "Yhtään Tailscale-laitetta ei vastaa hakusi.",
+      "noTailscaleDevicesFound": "Tailscale-laitteita ei löytynyt.",
+      "noTailscaleApiKeyIs": "Tälle palvelimelle ei ole määritetty Tailscale API-avainta. Pyydä järjestelmänvalvojaa lisäämään yksi.",
+      "youDoNotHavePermission": "Sinulla ei ole oikeuksia listata Tailscale-laitteita.",
+      "couldNotLoadTailscaleDevices": "Tailscale-laitteita ei voitu ladata. Yritä uudelleen päivittämällä.",
+      "tailscaleIsUnavailableOnThis": "Tailscale ei ole käytettävissä tällä palvelimella."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Yhdistetään uudelleen | yritys {{attempt}}",
+      "reconnectingInSTry": "Yhdistetään uudelleen {{secs}} s kuluttua | yritys {{attempt}}",
+      "offlineWaitingForNetwork": "Yhteydetön, odotetaan verkkoyhteyttä",
+      "sendToTheNewShell": "Lähetetäänkö {{what}} uuteen komentotulkkiin?",
+      "reconnectNow": "Yhdistä nyt",
+      "send": "Lähetä",
+      "discard": "Hylkää",
+      "typedChars_one": "{{count}} kirjoitettu merkki",
+      "typedChars_other": "{{count}} kirjoitettua merkkiä",
+      "waiting": "{{what}} odottaa"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Yhteysloki kopioitu",
+      "connectionLog": "Yhteysloki",
+      "copyItIntoABug": "Kopioi se vikailmoitukseen. Osoitteet ja käyttäjänimet on jätetty pois.",
+      "copy": "Kopioi"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Tyhjennetäänkö tämän isännän historia?",
+        "clear": "Tyhjennä",
+        "searchHistory": "Hae historiasta",
+        "typesTheCommandWithoutRunning": "Kirjoittaa komennon suorittamatta sitä",
+        "noCommandsMatch": "Yhtään komentoa ei vastaa",
+        "noHistoryYet": "Historiaa ei vielä ole",
+        "commandsYouRunOnThis": "Tällä isännällä suorittamasi komennot näkyvät täällä",
+        "run": "Suorita",
+        "typeWithoutRunning": "Kirjoita suorittamatta",
+        "copy": "Kopioi",
+        "delete": "Poista",
+        "historyCleared": "Historia tyhjennetty"
+      },
+      "suggestionStrip": {
+        "use": "Käytä komentoa {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Sovelluksen asetus",
+      "delete": "Poista (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Välilehden otsikko komentotulkesta",
+      "programsCanSetTheTab": "Ohjelmat voivat asettaa välilehden otsikon",
+      "openTmux": "Avaa tmux",
+      "attachToATmuxSession": "Liity tmux-istuntoon tai aloita uusi",
+      "reconnectOnDrop": "Yhdistä uudelleen katkeamatta",
+      "keepTabOpenOnExit": "Pidä välilehti auki poistumisen yhteydessä",
+      "pressEnterToConnectAgain": "Paina Enter-yhtymästä yhdistääksesi uudelleen",
+      "saveCommandHistory": "Tallenna komentojen historia",
+      "offerToFillPasswordPrompts": "Tarjoa täyttää salasana-pyyntöjä",
+      "offerToFillSudoPrompts": "Tarjoa täyttää sudo-pyyntöjä",
+      "usesTheSudoPasswordFrom": "Käyttää SSH-välilehden sudo-salasanaa",
+      "none": "Ei mitään",
+      "look": "Ulkoasu",
+      "theme": "Teema",
+      "font": "Fontti",
+      "cursor": "Kursori",
+      "bell": "Äänimerkki",
+      "scrollbackLines": "Vierityshistorian rivit",
+      "app": "Sovellus",
+      "behavior": "Käyttäytyminen",
+      "backspaceSends": "Backspace lähettää",
+      "startupSnippet": "Käynnistyskomento",
+      "runsOnceTheShellIs": "Suoritetaan, kun shell on valmis",
+      "fillWithoutAsking": "Täytä ilman kysymistä",
+      "onThisOnlyOnceYou": "Vain tällä {{deviceWord}}:lla, kun olet valinnut \"Täytä aina\"",
+      "connection": "Yhteys",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Sekuntia pingien välillä, 0 poistaa käytöstä",
+      "default": "Oletus",
+      "keepaliveSeconds": "Keepalive-ajat (sekunteina)",
+      "missedPings": "Ohitetut pingit",
+      "dropTheConnectionAfterThis": "Katkaistaan yhteys, jos näin monta jää vastaamatta",
+      "missedPingsBeforeDrop": "Ohitetut pingit ennen katkaisua",
+      "environment": "Ympäristö",
+      "removeVariable": "Poista muuttuja",
+      "addVariable": "Lisää muuttuja"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "NÄPPÄIMISTÖ"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Rivi",
+        "keys": "Näppäimet",
+        "sendsAKeyCode": "Lähettää näppäinkoodin",
+        "stickyModifier": "Tarttuva muokkausnäppäin",
+        "appAction": "Sovellustoiminto",
+        "tmuxPrefixThen": "tmux-etuliite, sitten {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Näppäinrivit",
+        "onlyFor": "Vain kohteelle {{name}}",
+        "usingTheAppSRows": "Käytetään sovelluksen rivejä. Tässä tehdyt muutokset koskevat vain kohdetta {{name}}",
+        "useTheAppSRows": "Käytä sovelluksen rivejä"
+      },
+      "keyButton": {
+        "locked": "Lukittu"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Peruuta",
+        "remove": "Poistetaanko {{what}}?",
+        "remove2": "Poista",
+        "dragToReorder": "Vedä uudelleenjärjestääksesi",
+        "rowName": "Rivin nimi",
+        "groupName": "Ryhmän nimi",
+        "add": "Lisää",
+        "addKey": "Lisää näppäin",
+        "addRow": "Lisää rivi",
+        "addGroup": "Lisää ryhmä",
+        "tmuxPrefix": "tmux-etuliite",
+        "name": "Nimi",
+        "rename": "Nimeä uudelleen",
+        "keys": "{{value}} näppäintä",
+        "noKeys": "Ei näppäimiä",
+        "remove3": "Poista {{label}}",
+        "keys2": "Näppäimet",
+        "custom": "Mukautettu",
+        "add2": "Lisää {{label}}",
+        "typeText": "Kirjoita tekstiä",
+        "runCommand": "Suorita komento",
+        "ctrlKey": "Ctrl-näppäin",
+        "label": "Nimike",
+        "optional": "Valinnainen",
+        "letter": "Kirjain",
+        "command": "Komento",
+        "text": "Teksti",
+        "resetToDefault": "Palauta oletusasetukset"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Muuta näppäimiä Asetukset → Näppäimistö"
+      },
+      "keyRowBar": {
+        "keyRow": "Näppäinrivi {{label}}",
+        "tapForTheNextRow": "Napauta seuraavaan riviin, pidä painettuna valitaksesi",
+        "keyRows": "Näppäinrivit"
+      },
+      "model": {
+        "clear": "Tyhjennä",
+        "main": "Pää",
+        "keys": "Näppäimet",
+        "arrows": "Nuolet",
+        "symbols": "Symbolit",
+        "actions": "Toiminnot",
+        "nav": "Navigointi",
+        "move": "Siirrä",
+        "function": "Funktio",
+        "brackets": "Sulkeet",
+        "punctuation": "Välimerkit",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Ikkunat",
+        "copy": "Kopioi",
+        "split": "Jaa ─",
+        "split2": "Jaa │",
+        "newWin": "Uusi ikkuna",
+        "prevWin": "Ed. ikkuna",
+        "nextWin": "Seur. ikkuna",
+        "pane": "Ikkuna ←",
+        "pane2": "Ikkuna ↓",
+        "pane3": "Ikkuna ↑",
+        "pane4": "Ikkuna →",
+        "copyMode": "Kopiointitila",
+        "pasteBuf": "Liitä puskuri",
+        "killPane": "Sulje ikkuna"
+      }
+    },
+    "output": {
+      "openLink": "Avataanko linkki?",
+      "open": "Avaa",
+      "pasteLines": "Liitetäänkö {{lines}} riviä?",
+      "pasteThisText": "Liitetäänkö tämä teksti?",
+      "theShellMayRunIt": "Komentotulkki saattaa suorittaa sen heti.\n\n{{text}}",
+      "paste": "Liitä",
+      "letTheProgramReadYour": "Sallitaanko ohjelman lukea leikepöydästäsi?",
+      "itAskedForWhatYou": "Se pyysi viimeksi kopioimaasi sisältöä.",
+      "allow": "Salli",
+      "letTheProgramCopyTo": "Sallitaanko ohjelman kopioida leikepöydällesi?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Täytetäänkö tallennettu salasana?",
+      "asksForTheSudoPassword": "{{hostName}} pyytää sudo-salasanaa.",
+      "asksForAPassword": "{{hostName}} pyytää salasanaa.",
+      "fillPassword": "Täytä salasana",
+      "alwaysFillOnThisHost": "Täytä aina tässä isäntäpalvelimessa",
+      "asksNoMoreOnThis": "Ei enää kysytä tässä {{deviceWord}}. Voit poistaa sen käytöstä isäntäpalvelimen Pääte-välilehdeltä.",
+      "notNow": "Ei nyt"
+    },
+    "register": {
+      "terminal": "Pääte",
+      "terminalAndKeepalive": "Pääte ja keepalive",
+      "history": "HISTORIA",
+      "find": "Etsi",
+      "tmuxWindows": "tmux-ikkunat",
+      "connectionLog": "Yhteyden loki",
+      "keyRowsForThisHost": "Näppäinrivit tälle isäntäpalvelimelle"
+    },
+    "searchBar": {
+      "noResults": "Ei tuloksia",
+      "matchCase": "Huomioi kirjainkoko",
+      "wholeWord": "Koko sana",
+      "regularExpression": "Säännöllinen lauseke",
+      "find": "Etsi",
+      "closeFind": "Sulje etsintä"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Järjestelmä",
+      "block": "Lohko",
+      "bar": "Palkki",
+      "underline": "Alleviivaus",
+      "off": "Pois päältä",
+      "sound": "Ääni",
+      "flash": "Välke",
+      "both": "Molemmat"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Uusi välilehti tälle palvelimelle",
+      "closeTab": "Sulje välilehti",
+      "nextTab": "Seuraava välilehti",
+      "previousTab": "Edellinen välilehti",
+      "goToTab": "Siirry välilehdelle",
+      "find": "Etsi",
+      "fontSize": "Fonttikoko",
+      "paste": "Liitä",
+      "escape": "Escape",
+      "copyAndPaste": "Kopioi ja liitä"
+    },
+    "reconnecting": "Yhdistetään uudelleen...",
+    "waitingForNetwork": "Odottaa verkkoa...",
+    "waitingForYou": "Odottaa sinua...",
+    "connecting": "Yhdistetään...",
+    "terminalView": {
+      "scrollToBottom": "Vieritä alaspäin",
+      "onlyWebLinksCanOpen": "Vain verkkolinkkejä voidaan avata terminaalista",
+      "couldNotOpenLink": "Linkkiä ei voitu avata",
+      "copiedFromTheTerminal": "Kopioitu terminaalista"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Avaa tmux-istunto",
+        "newSession": "Uusi istunto",
+        "plainShell": "Peruskomentorivi",
+        "tmuxWindows": "tmux-ikkunat",
+        "newWindow": "Uusi ikkuna",
+        "windowCount_one": "{{count}} ikkuna",
+        "windowCount_other": "{{count}} ikkunaa",
+        "attached": "{{count}} liitetty",
+        "activeNow": "aktiivinen nyt",
+        "activeMinAgo": "aktiivinen {{count}} min sitten",
+        "activeHoursAgo": "aktiivinen {{count}} t sitten",
+        "activeDaysAgo_one": "aktiivinen {{count}} pv sitten",
+        "activeDaysAgo_other": "aktiivinen {{count}} pv sitten"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopioi",
+        "selectAll": "Valitse kaikki",
+        "cancel": "Peruuta",
+        "scrollToBottom": "Vieritä alaspäin",
+        "couldNotCopy": "Kopiointi epäonnistui",
+        "webviewError": "WebView-virhe: {{description}}",
+        "webviewHttpError": "WebView HTTP-virhe: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Tälle palvelimelle ei ole tallennettua salasanaa",
+    "backInTmuxSession": "Takaisin tmux-istuntoon {{tmuxName}}",
+    "backInScreenSession": "Takaisin screen-istuntoon {{name}}",
+    "theServerSessionEndedThis": "Palvelimen istunto päättyi. Tämä on uusi komentorivi.",
+    "termixWasClosedSoThe": "Termix suljettiin, joten vanha komentorivi päättyi. Tämä on uusi komentorivi.",
+    "theConnectionDroppedAndThe": "Yhteys katkesi ja vanha komentorivi päättyi. Tämä on uusi komentorivi.",
+    "disconnectedFrom": "Yhteys katkaistu palvelimelle {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Kaksivaiheinen tunnistautuminen",
+      "codesFromAnAuthenticatorApp": "Koodit todennussovelluksesta palvelimesi tilille"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC-osoite",
+      "neededToWakeThisHost": "Tarvitaan tämän isäntälaitteen herättämiseen Wake-on-LANilla",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Käytä MAC-osoitetta muodossa 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN lähetetty kohteeseen {{name}}",
+      "failedToSendWakeOn": "Wake-on-LAN-paketin lähetys epäonnistui",
+      "noServer": "Ei palvelinta"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Herätä {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Jaa anonyymejä käyttötilastoja?",
+      "termixWouldSendAShort": "Termix lähettää lyhyen raportin kerran päivässä. Voit muuttaa tätä milloin tahansa Asetuksista.",
+      "noThanks": "Ei kiitos",
+      "share": "Jaa",
+      "theReportHasTheApp": "Raportti sisältää sovelluksen version, {{deviceWord}}-tyypin, isäntälaitteiden ja istuntojen suuntaavat määrät, käyttämäsi ominaisuudet sekä onnistuiko yhteys. Se ei koskaan sisällä isäntänimiä, käyttäjänimiä, osoitteita, polkuja, komentoja tai palvelinten nimiä.",
+      "seeExactlyWhatIsSent": "Näe tarkalleen, mitä lähetetään"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Ladataan versiotietoja…",
+      "updateAvailable": "Päivitys saatavilla",
+      "newVersionAvailable": "Uusi versio saatavilla",
+      "aNewerVersionOfThe": "Uudempi versio mobiilisovelluksesta on saatavilla. Jotkin ominaisuudet eivät välttämättä toimi oikein, ennen kuin päivität.",
+      "versionInformation": "Versiotiedot",
+      "installed": "Asennettu",
+      "latest": "Viimeisin",
+      "unknown": "Tuntematon",
+      "tag": "Tagi",
+      "continueAnyway": "Jatka silti"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Kopioitu",
+      "copy": "Kopioi",
+      "hostKeyChanged": "Isäntäavain on muuttunut",
+      "verifyHostKey": "Varmista isäntäavain",
+      "cancel": "Peruuta",
+      "acceptNewKey": "Hyväksy uusi avain",
+      "connectAndTrust": "Yhdistä ja luota",
+      "theHostSSshKey": "Isäntälaitteen SSH-avain on muuttunut edellisestä yhteydestäsi. Tämä voi tarkoittaa, että joku sieppaa yhteyden.",
+      "youAreConnectingToThis": "Yhdistät tähän isäntälaitteeseen ensimmäistä kertaa. Tarkista sormenjälki ennen kuin luotat siihen.",
+      "previousKey": "Edellinen avain",
+      "newFingerprint": "Uusi sormenjälki",
+      "hostFingerprint": "Isäntälaitteen sormenjälki"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Salasana vaaditaan",
+      "enterThePassphraseForYour": "Syötä SSH-avaimen salasanake.",
+      "cancel": "Peruuta",
+      "connect": "Yhdistä",
+      "keyPassphrase": "Avaimen salasanake"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH-todennus vaaditaan",
+      "cancel": "Peruuta",
+      "connect": "Yhdistä",
+      "password": "Salasana",
+      "sshKey": "SSH-avain",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nLiitä yksityinen avain tähän...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Avaimen salasanake (valinnainen)",
+      "keyboardInteractiveAuthIsNot": "Näppäimistöpohjainen interaktiivinen todennus ei ole käytettävissä. Syötä tunnus tiedot suoraan.",
+      "authenticationFailedPleaseReEnter": "Todennus epäonnistui. Syötä tunnus tiedot uudelleen.",
+      "connectionTimedOutPleaseTry": "Yhteys aikakatkaistiin. Yritä uudelleen tunnus tiedoillasi."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH-tarkistus",
+      "completeTheTailscaleSshCheck": "Suorita Tailscale SSH-tarkistus selaimessasi jatkaaksesi.",
+      "cancel": "Peruuta",
+      "copyUrl": "Kopioi URL-osoite",
+      "openBrowser": "Avaa selain",
+      "urlCopied": "URL-osoite kopioitu",
+      "failedToCopy": "Kopiointi epäonnistui",
+      "couldNotOpenBrowser": "Selainta ei voitu avata"
+    },
+    "tOTPDialog": {
+      "cancel": "Peruuta",
+      "submit": "Lähetä",
+      "verify": "Vahvista",
+      "password": "Salasana",
+      "pasteCode": "Liitä koodi",
+      "passwordRequired": "Salasana vaaditaan",
+      "twoFactorAuthentication": "Kaksivaiheinen tunnistautuminen",
+      "enterYourPasswordToContinue": "Syötä salasanasi jatkaaksesi.",
+      "enterThe6DigitCode": "Syötä 6-numeroinen koodi todennussovelluksestasi."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate-tunnistautuminen",
+      "authenticateViaTheWarpgatePortal": "Tunnista itsesi Warpgate-palvelimessa ja napauta jatkaaksesi.",
+      "cancel": "Peruuta",
+      "openBrowser": "Avaa selain",
+      "continue": "Jatka",
+      "securityKey": "Turvallisuusavain",
+      "authUrl": "Tunnistautumis-URL",
+      "copied": "Kopioitu",
+      "copy": "Kopioi",
+      "urlCopied": "URL kopioitu",
+      "failedToCopy": "Kopiointi epäonnistui",
+      "couldNotOpenBrowser": "Selainta ei voitu avata"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "tämä {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Viimeisin toiminta",
+        "files": "Tiedostot",
+        "terminal": "Pääte"
+      },
+      "alertsCard": {
+        "notifications": "Ilmoitukset",
+        "seeAll": "Näytä kaikki"
+      },
+      "server": "Palvelin",
+      "openSessions": "Avoinna olevat istunnot",
+      "quickAccess": "Pikakäyttö",
+      "notifications": "Ilmoitukset",
+      "pinnedHosts": "Kiinnitetyt isäntäpalvelimet",
+      "recentHosts": "Viimeksi käytetyt isäntäpalvelimet",
+      "recentActivity": "Viimeisin toiminta",
+      "pinnedCard": {
+        "addYourFirstHost": "Lisää ensimmäinen isäntäpalvelimesi",
+        "hostsYouOpenShowUp": "Avatut isäntäpalvelimet näkyvät tässä, ja kiinnitetyt isäntäpalvelimet näyttävät reaaliaikaisia kortteja.",
+        "addHost": "Lisää isäntäpalvelin",
+        "linkAServer": "Linkitä palvelin",
+        "pinAHostToSee": "Kiinnitä isäntäpalvelin nähdäksesi sen tässä",
+        "pinnedHostsShowTheirMetrics": "Kiinnitetyt isäntäpalvelimet näyttävät mittareitaan, Dockerin ja palvelunsa yhdellä silmäyksellä. Pidä isäntäpalvelinta painettuna kiinnittääksesi sen.",
+        "goToHosts": "Siirry isäntäpalvelimiin",
+        "pinned": "Kiinnitetty",
+        "opensTheTerminalHoldFor": "Avaa pääteen. Pidä painettuna nähdäksesi lisää.",
+        "turnOnDockerOrServices": "Ota Docker tai Palvelut käyttöön tälle isäntäpalvelimelle tai napauta sitä yhdistääksesi.",
+        "opens": "Avaa {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Pikakäyttö",
+        "quickConnect": "Pikayhteys",
+        "userHostPortWithoutSaving": "käyttäjä@isäntä:portti, tallentamatta"
+      },
+      "recentCard": {
+        "recent": "Viimeisin"
+      },
+      "serverCard": {
+        "server": "Palvelin",
+        "version": "Versio",
+        "uptime": "Käyttöaika",
+        "database": "Tietokanta",
+        "hosts": "Isäntäpalvelimet",
+        "online": "Yhdistetty",
+        "offline": "Ei yhdistetty",
+        "logins": "Kirjautumiset"
+      },
+      "sessionsCard": {
+        "openSessions": "Avoinna olevat istunnot",
+        "connected": "Yhteydessä"
+      }
+    },
+    "resetHome": "Palautetaanko kotinäyttö?",
+    "cardsGoBackToThe": "Kortit palautuvat oletusjärjestykseen ja näkyviin.",
+    "reset": "Palauta",
+    "doneEditingHome": "Kotinäytön muokkaus valmis",
+    "editHome": "Muokkaa kotinäyttöä",
+    "dragToReorder": "Vedä {{title}} uudelleenjärjestämistä varten",
+    "show": "Näytä {{title}}",
+    "dragCardsToReorderThem": "Vedä kortteja uudelleenjärjestämistä varten. Piilota kortti sammuttamalla se. Tyhjät kortit piiloutuvat automaattisesti.",
+    "resetToDefault": "Palauta oletusasetukset",
+    "done": "Valmis",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Palvelimeen ei vieläkään saada yhteyttä",
+      "canTReach": "{{account}}:iin ei saada yhteyttä",
+      "youCanKeepWorkingWith": "Voit jatkaa työtä tämän {{deviceWord}}:n kopiolla. Muutokset synkronoidaan, kun yhteys palaa.",
+      "hostsSetToConnectFrom": "Tältä {{deviceWord}}:ltä yhdistettävät isäntäpalvelimet toimivat edelleen.",
+      "tryAgain": "Yritä uudelleen",
+      "noAnswer": "ei vastausta"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault-profiili",
+      "none": "Ei mitään",
+      "signsInWithInYour": "Kirjautuu sisään {{title}}:n kautta selaimessa Termix-palvelimesi välityksellä. Yhdistä tämä isäntäpalvelin palvelimen kautta.",
+      "needsATermixServerLink": "{{title}} vaatii Termix-palvelimen. Liitä palvelin käyttääksesi tätä kirjautumistapaa.",
+      "isOffOnThisServer": "{{title}} on poissa käytöstä tässä palvelimessa. Tämä isäntäpalvelin säilyttää kirjautumisasetuksensa."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Tunnuksia ei voitu ladata",
+      "deleted": "Poistettiin \"{{name}}\"",
+      "couldNotDeleteTheCredential": "Tunnusta ei voitu poistaa",
+      "credentials": "Tunnukset",
+      "add": "Lisää",
+      "searchCredentials": "Hae tunnuksia",
+      "clearSearch": "Tyhjennä haku",
+      "loadingCredentials": "Ladataan tunnuksia...",
+      "noCredentialsMatchYourSearch": "Hakuun ei löydy vastaavia tunnuksia",
+      "noCredentialsYet": "Tunnuksia ei vielä ole",
+      "addCredential": "Lisää tunnus",
+      "edit": "Muokkaa",
+      "delete": "Poista",
+      "deleteCredential": "Poista tunnus",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" poistetaan pysyvästi. Isäntäpalvelimet, jotka käyttävät sitä, menettävät tallennetut tunnukset.",
+      "cancel": "Peruuta",
+      "hostCount_one": "{{count}} isäntäpalvelin",
+      "hostCount_other": "{{count}} isäntäpalvelinta",
+      "sshKey": "SSH-avain"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Korvataanko avain?",
+        "theNewKeyTakesThe": "Uusi avain korvaa nykyisen. Isäntäpalvelimet, jotka luottavat vain vanhaan avaimeen, eivät enää hyväksy tätä tunnusta.",
+        "replace": "Korvaa",
+        "newKeyMadeCopyThe": "Uusi avain luotu. Kopioi julkinen avain isäntäpalvelimiisi.",
+        "couldNotMakeAKey": "Avainta ei voitu luoda",
+        "couldNotReadThatCertificate": "Varmennetiedostoa ei voitu lukea",
+        "leaveWithoutSaving": "Poistutaanko tallentamatta?",
+        "yourChangesToThisCredential": "Tämän tunnuksen muutokset menetetään.",
+        "leave": "Poistu",
+        "credentialSaved": "Tunnus tallennettu",
+        "credentialAdded": "Tunnus lisätty",
+        "couldNotSaveTheCredential": "Tunnuksen tallennus epäonnistui",
+        "enterAHostToTest": "Syötä isäntäpalvelin testattavaksi, kuten 10.0.0.5 tai box:2222.",
+        "enterTheUsernameFirst": "Syötä ensin käyttäjätunnus.",
+        "editCredential": "Muokkaa tunnusta",
+        "newCredential": "Uusi tunnus",
+        "cancel": "Peruuta",
+        "save": "Tallenna",
+        "credential": "Kirjautumistiedot",
+        "name": "Nimi",
+        "productionKey": "Tuotantokäyttöön tarkoitettu avain",
+        "username": "Käyttäjätunnus",
+        "signInWith": "Kirjaudu sisään",
+        "password": "Salasana",
+        "sshKey": "SSH-avain",
+        "unchangedIfBlank": "Jää ennalleen, jos jätetään tyhjäksi",
+        "key": "Avain",
+        "fileOrPaste": "Tiedosto tai liitä",
+        "makeANewKey": "Luo uusi avain",
+        "aKeyIsSavedChoose": "Avain on jo tallennettu. Valitse tiedosto tai liitä korvataksesi sen.",
+        "type": "Tyyppi",
+        "ed25519AndEcdsaAreMade": "Ed25519 ja ECDSA luodaan tässä {{deviceWord}}-laitteessa, RSA palvelimellasi.",
+        "madeOnThisEd25519Works": "Luotu tässä {{deviceWord}}-laitteessa. Ed25519 toimii lähes kaikkialla.",
+        "passphrase": "Salasana",
+        "optionalLocksTheNewKey": "Valinnainen. Lukitsee uuden avaimen tässä {{deviceWord}}-laitteessa ja levyllä.",
+        "makeKey": "Luo avain",
+        "publicKey": "Julkinen avain",
+        "addThisLineToSsh": "Lisää tämä rivi kohtaan ~/.ssh/authorized_keys palvelimillasi",
+        "publicKeyCopied": "Julkinen avain kopioitu",
+        "copyPublicKey": "Kopioi julkinen avain",
+        "certificate": "Varmenne",
+        "aCertificateYourCaSigned": "CA:n allekirjoittama varmenne tälle avaimelle, palvelimia varten, jotka luottavat CA:han.",
+        "chooseCertificateFile": "Valitse varmennetiedosto",
+        "thisDoesNotLookLike": "Tämä ei näytä OpenSSH-varmenteelta.",
+        "test": "Testaa",
+        "hostToTestOn": "Testattava palvelin",
+        "n10005Or": "10.0.0.5 tai box.lan:2222",
+        "pickASavedHost": "Valitse tallennettu palvelin",
+        "details": "Yksityiskohdat",
+        "description": "Kuvaus",
+        "whatThisCredentialIsFor": "Mihin nämä kirjautumistiedot liittyvät",
+        "folder": "Kansio",
+        "serverKeys": "Palvelimen avaimet",
+        "testOnAHost": "Testaa palvelimella",
+        "rsaKeysNeedALinked": "RSA-avaimet vaativat yhdistetyn palvelimen."
+      },
+      "model": {
+        "giveThisCredentialAName": "Anna kirjautumistiedoille nimi",
+        "addAPrivateKeyOr": "Lisää yksityisavain tai luo uusi"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Tämä on palvelinvarmenne, ei käyttäjävarmenne.",
+        "thisCertificateIsNotValid": "Tämä varmenne ei ole vielä voimassa.",
+        "thisCertificateHasExpired": "Tämän varmenteen voimaaika on päättynyt.",
+        "itIsForAKey": "Se on tarkoitettu {{keyType}}-avaimelle, mutta tämä avain on {{keyType2}}.",
+        "forAnyUser": "Mille tahansa käyttäjälle",
+        "validFromNoEndDate": "Voimassa alkaen {{validAfter}}, ei päättymispäivää",
+        "signedBy": "Allekirjoittanut {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Käyttäjätunnus",
+        "fromTheCredential": "Kirjautumistiedoista: {{credentialUser}}",
+        "signInWith": "Kirjaudu sisään",
+        "password": "Salasana",
+        "key": "Avain",
+        "credential": "Kirjautumistiedot",
+        "none": "Ei mitään",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Yhdistetään Tailscale SSH:n kautta. Salasanaa tai avainta ei tallenneta.",
+        "tailscaleIsNotOnFor": "Tailscale ei ole käytössä kohteessa {{value}}. Tämä palvelin säilyttää omat Tailscale-kirjautumistietonsa.",
+        "unchangedIfBlank": "Jää ennalleen, jos jätetään tyhjäksi",
+        "noCredentialsYetTapThe": "Kirjautumistietoja ei ole vielä. Lisää uusi painamalla avainkuvaketta Palvelimet-näkymässä.",
+        "useCredential": "Käytä tunnuksia {{name}}",
+        "sudoPassword": "Sudo-salasana",
+        "typedIntoSudoPromptsWhen": "Syötetään sudo-pyyntöihin, kun Terminaaliosio ottaa sen käyttöön",
+        "notSet": "Ei asetettu",
+        "thisServer": "tämä palvelin"
+      },
+      "colorIconField": {
+        "color": "Väri",
+        "noColor": "Ei väriä",
+        "color2": "Väri {{c}}",
+        "icon": "Kuvake",
+        "noIcon": "Ei kuvaketta",
+        "none": "Ei mitään",
+        "icon2": "Kuvake {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Poistu tallentamatta?",
+        "yourChangesToThisHost": "Tämän isäntäkonetta koskevat muutokset katoavat.",
+        "leave": "Poistu",
+        "couldNotSaveHowThis": "Isäntäkonetta koskevia yhteystietoja ei voitu tallentaa",
+        "hostSaved": "Isäntäkonetta tallennettu",
+        "hostAdded": "Isäntäkonetta lisätty",
+        "couldNotSaveTheHost": "Isäntäkonetta ei voitu tallentaa",
+        "enterTheHostSAddress": "Syötä isäntäkonetta osoite ensin.",
+        "turnOnSshToTest": "Ota SSH käyttöön testataksesi kirjautumista.",
+        "pickACredentialFirst": "Valitse tunnus ensin.",
+        "editHost": "Muokkaa isäntäkonetta",
+        "newHost": "Uusi isäntäkonetta",
+        "cancel": "Peruuta",
+        "save": "Tallenna",
+        "host": "Isäntäkonetta",
+        "name": "Nimi",
+        "myServer": "Oma palvelin",
+        "address": "Osoite",
+        "port": "Portti",
+        "portAndUsernameComeFrom": "Portti ja käyttäjänimi tulevat isäntäkonetta oletusasetuksista, kunnes muutat niitä.",
+        "folder": "Kansio",
+        "production": "Tuotanto",
+        "useAFolderInstead": "Käytä kansiota sen sijaan",
+        "putItUnderAHost": "Aseta se isäntäkonetta alle sen sijaan",
+        "pinToTop": "Kiinnitä yläosaan",
+        "colorAndIcon": "Väri ja kuvake",
+        "notes": "Muistiinpanot",
+        "anythingWorthRememberingAboutThis": "Mitä tahansa muistettavaa tästä isäntäkonetta",
+        "protocols": "Protokollat",
+        "terminalFilesAndMore": "Terminaali, tiedostot ja muuta",
+        "connectFrom": "Yhdistä",
+        "features": "Ominaisuudet",
+        "otherProtocols": "Muut protokollat",
+        "more": "Lisää",
+        "theTestRunsFromThis": "Testi suoritetaan tästä {{deviceWord}}sta. Tämä isäntäkonetta yhdistää palvelimen kautta, joten se voi edelleen toimia, kun {{deviceWord}} ei pääse siihen."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Välikoneet",
+        "connectsThroughTheseInOrder": "Yhdistää näiden kautta järjestyksessä, sitten tähän isäntäkonetta",
+        "reachThisHostThroughOther": "Pääse tähän isäntäkonetta muiden isäntäkonetta kautta ensin",
+        "moveUp": "Siirrä ylös",
+        "moveDown": "Siirrä alas",
+        "removeJumpHost": "Poista välikone",
+        "addJumpHost": "Lisää välikone",
+        "pickASavedHostTo": "Valitse tallennettu isäntäkonetta yhdistämistä varten",
+        "searchHosts": "Hae isäntäkonetta",
+        "noOtherHostsToPick": "Ei muita isäntäkonetta valittavaksi. Isäntäkonetta ei voi käyttää välikonetta itsensä tai isäntäkonetta kautta, joka jo kulkee sen kautta.",
+        "missingHost": "Puuttuva isäntäkonetta #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Ota käyttöön vähintään yksi protokolla",
+        "pickACredential": "Valitse tunnus",
+        "enterTheHostSAddress": "Syötä isäntäpalvelimen osoite",
+        "theAddressCanTHave": "Osoitteessa ei saa olla välilyöntejä",
+        "portMustBeFrom1": "Portin on oltava välillä 1–65535",
+        "enterTheSshUsername": "Syötä SSH-käyttäjätunnus"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Isäntäpalvelin näkyy valitsemasi palvelimen alaisuudessa",
+        "searchHosts": "Hae isäntäpalvelimia",
+        "noHostsToPickA": "Valittavia isäntäpalvelimia ei ole. Isäntäpalvelin ei voi olla oman alaisensa, alaisensa alaisen tai jaetun isäntäpalvelimen alainen.",
+        "parentHost": "Ylätason isäntäpalvelin",
+        "subHostsFollowTheFolder": "Alaisisännät seuraavat ylätason isäntäpalvelimensa kansiota",
+        "pickParentHost": "Valitse ylätason isäntäpalvelin",
+        "missingHost": "Puuttuva isäntäpalvelin #{{value}}",
+        "pickAHost": "Valitse isäntäpalvelin",
+        "clearParentHost": "Tyhjennä ylätason isäntäpalvelin"
+      },
+      "tagsField": {
+        "tags": "Tunnisteet",
+        "typeATagAndPress": "Kirjoita tunniste ja paina Enter",
+        "removeTag": "Poista tunniste {{tag}}",
+        "webProd": "web, tuotanto"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Isäntäpalvelimen yhteystietoja ei voitu tallentaa",
+      "addressCopied": "Osoite kopioitu",
+      "cpu": "CPU {{value}} %",
+      "ram": "RAM {{value}} %",
+      "connectFrom": "Yhdistä laitteesta",
+      "dismiss": "Hylkää",
+      "unpin": "Poista kiinnitys",
+      "pinToHome": "Kiinnitä etusivulle",
+      "select": "Valitse",
+      "editHost": "Muokkaa isäntäpalvelinta",
+      "copyAddress": "Kopioi osoite",
+      "addSubHost": "Lisää alaisisäntä",
+      "cloneHost": "Kloonaa isäntäpalvelin",
+      "deleteHost": "Poista isäntäpalvelin",
+      "connectThroughTheServer": "Yhdistä palvelimen kautta",
+      "connectFromThis": "Yhdistä tältä {{deviceWord}}:ltä"
+    },
+    "defaultYourOrder": "Oletus (oma järjestys)",
+    "nameAZ": "Nimi (A–Ö)",
+    "nameZA": "Nimi (Ö–A)",
+    "ipAscending": "IP (nouseva)",
+    "ipDescending": "IP (laskeva)",
+    "onlineFirst": "Yhdistetyt ensin",
+    "offlineFirst": "Yhdistämättömät ensin",
+    "pinnedFirst": "Kiinnitetyt ensin",
+    "status": "Tila",
+    "online": "Yhdistetty",
+    "offline": "Yhdistämätön",
+    "pinned": "Kiinnitetty",
+    "protocol": "Protokolla",
+    "features": "Ominaisuudet",
+    "hostsCanOnlyMoveInside": "Isäntäpalvelimia voi siirtää vain oman kansionsa sisällä",
+    "couldNotUpdateTheHosts": "Isäntäpalvelimia ei voitu päivittää",
+    "sharedHostsCanTBe": "Jaettuja isäntäpalvelimia ei voi poistaa täältä",
+    "delete2": "Poista",
+    "noneOfTheseHostsOpen": "Yksikään näistä isäntäpalvelimista ei avaa päättettä",
+    "couldNotPinTheHost": "Isäntäpalvelinta ei voitu kiinnittää",
+    "deleted": "Poistettu {{name}}",
+    "failedToDeleteHost": "Isäntäpalvelimen poistaminen epäonnistui",
+    "cloned": "Kloonattu {{name}}",
+    "failedToCloneHost": "Isäntäpalvelimen kloonaus epäonnistui",
+    "reorderWorksWithTheDefault": "Uudelleenjärjestely toimii oletusjärjestyksellä ilman hakua tai suodatinta",
+    "couldNotSaveTheOrder": "Järjestystä ei voitu tallentaa",
+    "noHostsYet": "Ei vielä isäntäpalvelimia",
+    "addAHostToConnect": "Lisää isäntä, jotta voit yhdistää siihen yhdellä napautuksella.",
+    "addHost": "Lisää isäntä",
+    "quickConnect2": "Pikayhteys",
+    "linkAServer": "Linkitä palvelin",
+    "noHostsMatch": "Ei vastaavia isäntiä",
+    "clearSearchAndFilters": "Tyhjennä haku ja suodattimet",
+    "more": "Lisää",
+    "dragAHostByIts": "Vedä isäntää kahvasta siirtääksesi sen kansioon.",
+    "done": "Valmis",
+    "filterHosts": "Suodata isäntiä",
+    "clearFilterText": "Tyhjennä suodatin",
+    "sortHosts": "Järjestä isäntiä",
+    "removeFilter": "Poista suodatin {{value}}",
+    "loadingHosts": "Ladataan isäntiä…",
+    "moveUnderAHost": "Siirrä isännän alle",
+    "moveToFolder": "Siirrä kansioon",
+    "leaveItEmptyToTake": "Jätä tyhjäksi, jos haluat ottaa isännät pois kansiosta.",
+    "folderLikeProdWeb": "Kansio, kuten Tuotanto / Web",
+    "move": "Siirrä",
+    "hosts": "Isännät",
+    "selectHosts": "Valitse isäntiä",
+    "reorderHosts": "Uudelleenjärjestä isäntiä",
+    "customizeList": "Mukauta listaa",
+    "chooseWhatEachHostRow": "Valitse, mitä jokainen isäntärivi näyttää",
+    "credentials2": "Kirjautumistiedot",
+    "savedPasswordsAndKeys": "Tallennetut salasanat ja avaimet",
+    "tailscaleDevices": "Tailscale-laitteet",
+    "refresh": "Päivitä",
+    "rowDensityFollowsSettingsAppearance": "Rivitiheys noudattaa Asetukset, Ulkoasu -asetuksia.",
+    "clearAllFilters": "Tyhjennä kaikki suodattimet",
+    "tags": "Tunnisteet",
+    "stopSelecting": "Lopeta valinta",
+    "selected": "{{count}} valittu",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Avain tiedostoa ei voitu lukea",
+        "theClipboardIsEmpty": "Leikepöytä on tyhjä",
+        "privateKey": "Yksityinen avain",
+        "chooseFile": "Valitse tiedosto",
+        "paste": "Liitä",
+        "unchangedIfBlank": "Ei muutosta, jos tyhjä",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Salasana",
+        "onlyIfTheKeyHas": "Vain jos avaimella on sellainen",
+        "theKeyIsCheckedWhen": "Avain tarkistetaan, kun yhdistät.",
+        "thePastedKey": "liitetty avain"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Avaa",
+        "moreActions": "Lisää toimintoja",
+        "opensTheTerminalHoldFor": "Avaa terminaaliohjelma. Pidä painettuna nähdäksesi lisää.",
+        "shared": "Jaettu",
+        "drag": "Vedä {{name}}",
+        "showSubHosts_one": "Näytä {{count}} alaisäntä isännältä {{name}}",
+        "showSubHosts_other": "Näytä {{count}} alaisäntää isännältä {{name}}",
+        "hideSubHosts_one": "Piilota {{count}} alaisäntä isännältä {{name}}",
+        "hideSubHosts_other": "Piilota {{count}} alaisäntää isännältä {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Kansio {{name}}, {{total}} isäntää"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Isäntä ja käyttäjätunnus ovat pakollisia",
+      "hostSaved": "Isäntä tallennettu",
+      "couldNotSaveTheHost": "Isäntää ei voitu tallentaa",
+      "quickConnect": "Pikayhteys",
+      "connectToAHostWithout": "Yhdistä isäntään tallentamatta sitä.",
+      "hostIp": "Isäntä / IP",
+      "port": "Portti",
+      "username": "Käyttäjätunnus",
+      "password": "Salasana",
+      "key": "Avain",
+      "privateKey": "Yksityinen avain",
+      "saveToMyHosts": "Tallenna isäntiin",
+      "keepThisHostAfterConnecting": "Pidä tämä isäntä yhdistämisen jälkeen",
+      "cancel": "Peruuta",
+      "connect": "Yhdistä"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Haetaan isäntiä palvelimelta",
+      "yourHostsStayOnThis": "{{message}} Isännät pysyvät tässä {{deviceWord}}ssa välillä."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Tämän isännän avain on muuttunut",
+      "trustThisHost": "Luota tähän isäntään?",
+      "trust": "Luota",
+      "stopTest": "Pysäytä testi",
+      "testConnection": "Testaa yhteys",
+      "connecting": "Yhdistetään..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Isäntien lataaminen epäonnistui."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} jaettu isäntä jätettiin ennalleen.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} jaettua isäntää jätettiin ennalleen.",
+    "deleteHosts_one": "Poistetaanko {{count}} isäntä?",
+    "deleteHosts_other": "Poistetaanko {{count}} isäntää?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Kansiota nimeltä {{name}} ei ole"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Isäntä \"{{name}}\": virheellinen portti",
+        "hostJumpIsNotIn": "Isäntä \"{{name}}\": hyppyisäntä {{value}} ei ole tiedostossa, joten se jätettiin pois",
+        "credential": "Tunnus {{name}}: {{error}}",
+        "noValidHostEntriesFound": "SSH-asetustiedostosta ei löydy kelvollisia Host-määrittelyjä",
+        "credentialWasNotFound": "{{label}}: tunnistetietoja {{value}} ei löydy"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Isäntä {{value}}: kaksoiskäyttöinen vientitunnus {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Pakolliset kentät (ip, portti) puuttuvat",
+        "invalidAuthtypeMustBeOne": "{{label}}: Virheellinen authType. Tulee olla yksi seuraavista: {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Käyttäjätunnus vaaditaan SSH-yhteyksiin",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias vaaditaan tunnistetietopohjaiseen todennukseen",
+        "thatIsNotAValid": "Tämä ei ole kelvollinen JSON-tiedosto",
+        "hostsArrayIsRequiredAnd": "Isäntien taulukko on pakollinen eikä saa olla tyhjä",
+        "jumpHostCycle": "{{label}}: hyppyisännän sykli",
+        "jumpHostIsNotIn": "{{label}}: hyppyisäntä {{id}} ei ole tiedostossa"
+      }
+    },
+    "movedTo": "Siirretty kohteeseen {{value}}",
+    "movedOutOfFolders": "Siirretty kansioiden ulkopuolelle",
+    "movedUnder": "Siirretty kohteen {{value}} alle",
+    "openTerminals": "Avoinna olevat terminaali-ikkunat",
+    "theHost": "isäntä"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Piilota salasana",
+      "showPassword": "Näytä salasana",
+      "enterAUsernameAndPassword": "Syötä käyttäjätunnus ja salasana",
+      "useAtLeast6Characters": "Salasanan tulee olla vähintään 6 merkkiä",
+      "thePasswordsDonTMatch": "Salasanat eivät täsmää",
+      "makeTheAdminAccount": "Luo ylläpitäjätili",
+      "makeAnAccount": "Luo tili",
+      "thisIsTheFirstAccount": "Tämä on palvelimen ensimmäinen tili, joten se toimii palvelimen ylläpitäjänä.",
+      "pickAUsernameAndPassword": "Valitse käyttäjätunnus ja salasana tälle palvelimelle.",
+      "username": "Käyttäjätunnus",
+      "password": "Salasana",
+      "passwordAgain": "Salasana uudelleen",
+      "makeAccount": "Luo tili",
+      "back": "Takaisin",
+      "haveAnAccountSignIn": "Onko sinulla jo tili? Kirjaudu sisään",
+      "resetCodeMadeItIs": "Palautuskoodi luotu. Se löytyy palvelimen lokista",
+      "enterYourUsername": "Syötä käyttäjätunnuksesi",
+      "enterTheResetCode": "Syötä palautuskoodi",
+      "passwordChangedSignInWith": "Salasana muutettu. Kirjaudu sisään sillä nyt",
+      "resetPassword": "Nollaa salasana",
+      "enterYourUsernameTheServer": "Syötä käyttäjätunnuksesi. Palvelin kirjoittaa palautuskoodin lokihistoriaansa.",
+      "sendResetCode": "Lähetä palautuskoodi",
+      "enterThe6DigitCode": "Syötä palvelimen lokista löytyvä 6-numeroinen koodi.",
+      "resetCode": "Nollaa koodi",
+      "checkCode": "Tarkista koodi",
+      "newPassword": "Uusi salasana",
+      "saveNewPassword": "Tallenna uusi salasana",
+      "backToSignIn": "Takaisin kirjautumiseen",
+      "couldNotMakeTheAccount": "Tiliä ei voitu luoda",
+      "couldNotStartTheReset": "Nollaus ei voitu aloittaa",
+      "thatCodeDidnTWork": "Koodi ei toiminut",
+      "couldNotChangeThePassword": "Salasanaa ei voitu vaihtaa"
+    },
+    "browserStep": {
+      "signInFailed": "Kirjautuminen epäonnistui",
+      "signInCanceled": "Kirjautuminen peruttiin",
+      "couldNotOpenTheSign": "Kirjautumisselainta ei voitu avata",
+      "couldNotOpenTheSign2": "Kirjautumissivua ei voitu avata",
+      "certificateProblem": "Varmennepulma",
+      "back": "Takaisin",
+      "signIn": "Kirjaudu sisään",
+      "reload": "Päivitä",
+      "finishSigningInInYour": "Viimeistele kirjautuminen selaimessa",
+      "useAnySignInYour": "Käytä mitä tahansa palvelimellasi olevaa kirjautumistapaa, kuten passkeyä tai turvaimentta. Sovellus ottaa yhteyden, kun olet kirjautunut sisään.",
+      "theAppPicksUpOnce": "Sovellus ottaa yhteyden, kun kirjautumispalvelusi on valmis.",
+      "signingIn": "Kirjaudutaan sisään...",
+      "openBrowserAgain": "Avaa selain uudelleen",
+      "theServerTurnedTheSession": "Palvelin hylkäsi istunnon. Yritä uudelleen.",
+      "signedInButTheApp": "Kirjauduit sisään, mutta sovellus ei pääse yhteyteen Termixin kanssa. Välityspalvelin saattaa estää yhteyden.",
+      "thatSignInLinkIs": "Tämä kirjautumislinkki on vanhemmalta yritykseltä. Kirjaudu sisään uudelleen.",
+      "signInAgain": "Kirjaudu sisään uudelleen.",
+      "openTheBrowserAgainWhen": "Avaa selain uudelleen, kun olet valmis.",
+      "theWebPageSignedIn": "Verkkosivu kirjautui sisään, mutta ei lähettänyt istuntoa. Päivitä palvelin ja yritä uudelleen.",
+      "theCanTCheckThis": "{{deviceWord}} ei voi tarkistaa tämän palvelimen varmennetta. Asenna sen juuriviranomaisen varmenne {{deviceWord}}:iin. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Käytetäänkö {{name}}:ää kirjautumiseen seuraavan kerran?",
+      "ifThisServerSignsYou": "Jos tämä palvelin kirjaa sinut ulos, kirjaudu sisään uudelleen käyttämällä {{name}}:ää sen sijaan, että kirjoitat salasanasi. Salasana säilyy tässä {{deviceWord}}:ssa.",
+      "use": "Käytä {{name}}:ää",
+      "notNow": "Ei nyt",
+      "couldNotSaveTheLogin": "Kirjautumistietoja ei voitu tallentaa",
+      "thatSADifferentUser": "Se on eri käyttäjä",
+      "signedIn": "Kirjauduttu sisään",
+      "close": "Sulje",
+      "linkYourTermixServer": "Linkitä Termix-palvelimesi",
+      "yourHostsCredentialsSnippetsAnd": "Isäntäsi, tunnistetietosi, koodinpätkät ja asetukset synkronoituvat sen kanssa, ja saat sen lisäosat. Kaikki toimii edelleen tällä {{deviceWord}}:lla, kun palvelin on poissa.",
+      "checking": "Tarkistetaan {{host}}...",
+      "proxyAndClientCertificate": "Välityspalvelin ja asiakasvarmenne",
+      "couldNotReachThatServer": "Palvelimeen ei päästy yhteyteen. Tarkista osoite tai määritä välityspalvelin tai asiakasvarmenne.",
+      "couldNotReachThatServer2": "Palvelimeen ei päästy yhteyteen",
+      "syncCouldNotStartYet": "Synkronointia ei voitu aloittaa vielä. Se yrittää uudelleen automaattisesti.",
+      "checkingTheServer": "Tarkistetaan palvelinta",
+      "signIn": "Kirjaudu sisään",
+      "makeAnAccount": "Luo tili",
+      "resetPassword": "Nollaa salasana",
+      "oneMoreStep": "Yksi askel lisää",
+      "almostDone": "Lähes valmis",
+      "linkAServer": "Linkitä palvelin"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Tallennetut kirjautumistiedot eivät enää toimi",
+      "enterYourUsernameAndPassword": "Syötä käyttäjätunnuksesi ja salasanasi",
+      "thisServerIsBehindA": "Tämä palvelin on kirjautumisvälityspalvelimen takana",
+      "signInWith": "Kirjaudu sisään käyttämällä {{saved}}",
+      "signInWith2": "Kirjaudu sisään käyttämällä",
+      "password": "Salasana",
+      "username": "Käyttäjätunnus",
+      "signIn": "Kirjaudu sisään",
+      "forgotPassword": "Unohditko salasanasi?",
+      "makeAnAccount": "Luo tili",
+      "or": "TAI",
+      "continueWith": "Jatka palvelulla {{label}}",
+      "signInWithAPasskey": "Kirjaudu sisään passkeyllä tai turvallaiteavaimella",
+      "opensYourServerAposS": "Avaa palvelimesi kirjautumissivun selaimessa. Face ID, sormenjälki, NFC ja USB-avaimet toimivat siellä. Vaatii Termix 26.11.3 tai uudemman.",
+      "signInInTheBrowser": "Kirjaudu sisään selaimessa",
+      "opensYourServerAposS2": "Avaa palvelimesi kirjautumissivun asioita varten, joita sovellus ei voi tehdä täällä. Vaatii Termix 26.10.6 tai uudemman.",
+      "thisServerHasNoSign": "Tässä palvelimessa ei ole käytössä kirjautumistapaa, jota sovellus voi käyttää. Kysy palvelimen ylläpitäjältä tai kokeile yllä olevaa kirjautumista selaimessa.",
+      "signInWithYourPassword": "Kirjaudu sisään salasanallasi.",
+      "signInFailed": "Kirjautuminen epäonnistui",
+      "openingItsSignInPage": "Avataan kirjautumissivua."
+    },
+    "smallSteps": {
+      "serverAddress": "Palvelimen osoite",
+      "likeTermixExampleComOr": "Esimerkiksi termix.example.com tai 192.168.1.20:30001",
+      "checking": "Tarkistetaan...",
+      "continue": "Jatka",
+      "proxyAndClientCertificate": "Välityspalvelin ja asiakassertifikaatti",
+      "aServerWithASelf": "Palvelin, jossa on itseallekirjoitettu sertifikaatti, vaatii, että sen juuriviranomaisen (CA) sertifikaatti on ensin asennettu tähän {{deviceWord}}:iin. Tavallinen http toimii omassa verkossasi.",
+      "enterTheCode": "Syötä koodi",
+      "code": "Koodi",
+      "the6DigitCodeFrom": "6-numeroinen koodi todennussovelluksestasi tai varmuuskoodi",
+      "checkCode": "Tarkista koodi",
+      "thisAccountAsksForA": "Tämä tili pyytää turvaavaa avainta salasanan jälkeen. Kirjaudu sisään palvelimen sivulla selaimessasi käyttääksesi sitä.",
+      "useASecurityKeyIn": "Käytä turvavälinettä selaimessa",
+      "backToSignIn": "Takaisin kirjautumiseen",
+      "bringThisAposSHosts": "Tuodaan tämän {{deviceWord}}:n isännät mukaan?",
+      "thisHasTheyStayOn": "Tässä {{deviceWord}}issa on {{what}}. Ne pysyvät tässä laitteessa joka tapauksessa.",
+      "merge": "Yhdistä",
+      "copyThemToTooSo": "Kopioi ne myös palvelimelle {{serverName}}, jotta ne synkronoituvat. Isännät, jotka näyttävät samalta kuin palvelimen isäntä, ohitetaan.",
+      "replace": "Korvaa",
+      "useOnlyWhatIsOn": "Käytä vain palvelimella {{serverName}} olevaa tietoa tälle tilille. Mitään ei kopioida.",
+      "thatCodeDidnTWork": "Koodi ei toiminut",
+      "hostsCredentialsOrSnippets": "isäntiä, tunnuksia tai koodinpätkiä"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Linkitä tämä palvelin ensin",
+      "thatHostIsnTHere": "Tätä isäntää ei ole täällä",
+      "couldNotOpenThatHost": "Isäntää ei voitu avata",
+      "noHostWithIdOn": "Isäntää, jonka tunniste on {{hostId}}, ei ole tilillä {{account}}.",
+      "isnTLinkedInThe": "{{value}}:ää ei ole vielä linkitetty sovellukseen."
+    }
+  },
+  "notifications": {
+    "notifications": "Ilmoitukset",
+    "markAllRead": "Merkitse kaikki luetuiksi",
+    "clearReadNotifications": "Tyhjennä luetut ilmoitukset",
+    "unread2": "Lukemattomat",
+    "all": "Kaikki",
+    "noUnreadNotifications": "Ei lukemattomia ilmoituksia",
+    "nothingHere": "Ei mitään täällä",
+    "markRead": "Merkitse luetuksi",
+    "delete": "Poista",
+    "couldNotLoadNotifications": "Ilmoituksia ei voitu ladata",
+    "couldNotMarkRead": "Ei voitu merkitä luetuksi",
+    "couldNotDelete": "Ei voitu poistaa",
+    "couldNotClear": "Ei voitu tyhjentää"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Tuo",
+      "hosts": "Isännät",
+      "aTermixHostFileYour": "Termix-isäntätiedosto, ~/.ssh/config-tiedostosi tai isäntälinkki tai QR-koodi toiselta {{deviceWord}}:ilta. Ne tallennetaan tähän {{deviceWord}}:iin.",
+      "backup": "Varmuuskopiointi",
+      "aBackupThisAppMade": "Tämän sovelluksen luoma varmuuskopio, joka on lukittu salasanalla. Se palauttaa isännät, tunnukset ja koodinpätkät.",
+      "restoreABackup": "Palauta varmuuskopio",
+      "done": "Valmis",
+      "skipForNow": "Ohita nyt",
+      "sshFilesAndRemoteDesktops": "SSH, tiedostot ja etätyöpöydät {{deviceWord}}iltasi. Miten haluat aloittaa?",
+      "useWithoutAServer": "Käytä ilman palvelinta",
+      "hostsCredentialsAndSnippetsAre": "Isäntäpalvelimet, tunnus tiedot ja koodinpätkät tallennetaan salattuina tähän {{deviceWord}}:iin. Voit yhdistää palvelimen myöhemmin milloin tahansa.",
+      "linkATermixServer": "Yhdistä Termix-palvelin",
+      "syncYourHostsCredentialsSnippets": "Synkronoi isäntäpalvelimesi, tunnustietosi, koodinpätkäsi ja asetukset palvelimesi kanssa ja käytä sen lisäosia.",
+      "bringHostsFromATermix": "Tuo isäntäpalvelimia Termix-tiedostosta, SSH-asetustiedostosta, QR-koodista tai varmuuskopiosta.",
+      "thisDevice": "Tämä laite"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Hae isäntäpalvelimia, koodinpätkiä ja toimintoja",
+      "clearSearch": "Tyhjennä haku",
+      "nothingMatches": "Ei osumia",
+      "typeToSearch": "Kirjoita hakeaksesi",
+      "findAHostToConnect": "Etsi isäntäpalvelin, johon haluat yhdistää, koodinpätkä, asetus tai toiminto.",
+      "suggested": "Ehdotettu | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Suorita kohteessa {{title}}",
+      "copiedRunItFromThe": "Kopioitu. Suorita se terminaalista koodinpätkien kautta täyttääksesi arvot.",
+      "copiedOpenATerminalTo": "Kopioitu. Avaa terminaali suorittaaksesi koodinpätkiä.",
+      "addHost": "Lisää isäntäpalvelin",
+      "quickConnect": "Pikayhteys",
+      "switchAccount": "Vaihda tiliä",
+      "linkAServer": "Yhdistä palvelin",
+      "fromYourServer": "Palvelimesi kautta",
+      "settings": "Asetukset",
+      "accountsAppearanceSecurity": "Tilit, ulkoasu, turvallisuus"
+    },
+    "search": {
+      "hosts": "Isäntäpalvelimet",
+      "snippets": "Koodinpätkät",
+      "actions": "Toiminnot",
+      "settings": "Asetukset"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Istuntojen lataaminen epäonnistui",
+      "sessionRevoked": "Istunto kumottu",
+      "failedToRevokeSession": "Istunnon kumoaminen epäonnistui",
+      "allSessionsRevoked": "Kaikki istunnot kumottu",
+      "failedToRevokeAllSessions": "Kaikkien istuntojen kumoaminen epäonnistui",
+      "activeSessions": "Aktiiviset istunnot",
+      "signOutAllOtherSessions": "Kirjaudu ulos kaikista muista istunnoista",
+      "loading": "Ladataan…",
+      "noActiveSessionsFound": "Aktiivisia istuntoja ei löytynyt.",
+      "unknownDevice": "Tuntematon laite",
+      "lastActive": "Viimeksi aktiivinen {{lastActiveAt}}",
+      "created": "Luotu {{createdAt}}",
+      "revokeSession": "Kumoa istunto",
+      "revokeSession2": "Kumotaanko istunto?",
+      "thisWillSignOutThat": "Tämä kirjaa laitteen ulos.",
+      "revoke": "Kumoa",
+      "revokeAllSessions": "Kumotaanko kaikki istunnot?",
+      "thisWillSignOutEvery": "Tämä kirjaa kaikki laitteet ulos. Pysyt kirjautuneena sisään tällä laitteella.",
+      "cancel": "Peruuta",
+      "revokeAll": "Kumoa kaikki"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "API-avainten lataaminen epäonnistui",
+      "failedToCreateApiKey": "API-avaimen luominen epäonnistui",
+      "deleteApiKey": "Poistetaanko API-avain?",
+      "willStopWorkingRightAway": "\"{{name}}\" lakkaa toimimasta välittömästi.",
+      "apiKeyDeleted": "API-avain poistettu",
+      "failedToDeleteApiKey": "API-avaimen poistaminen epäonnistui",
+      "apiKeys": "API-avaimet",
+      "newApiKey": "Uusi API-avain",
+      "loading": "Ladataan…",
+      "apiKeysAllowProgrammaticAccess": "API-avaimet mahdollistavat ohjelmallisen pääsyn Termixiin. Salainen avain näytetään vain kerran, joten säilytä se turvallisesti.",
+      "noApiKeysYet": "Ei vielä API-avaimia",
+      "created": "Luotu {{createdAt}}",
+      "lastUsed": "Viimeksi käytetty {{lastUsedAt}}",
+      "expires": "Vanhenee {{expiresAt}}",
+      "delete": "Poista {{name}}",
+      "keyCreatedCopyItNow": "Avain luotu. Kopioi se nyt",
+      "newApiKey2": "Uusi API-avain",
+      "thisTokenWonTBe": "Tätä tunnusta ei näytetä uudelleen.",
+      "apiKeyCopied": "API-avain kopioitu",
+      "copy": "Kopioi",
+      "done": "Valmis",
+      "cancel": "Peruuta",
+      "create": "Luo",
+      "name": "Nimi *",
+      "eGCiPipeline": "esim. CI-putki",
+      "user": "Käyttäjä *",
+      "noUsersAvailable": "Käyttäjiä ei saatavilla.",
+      "expiresAtOptional": "Vanhenee (valinnainen)",
+      "yyyyMmDd": "VVKKPP",
+      "yearMonthDay": "Vuosi / Kuukausi / Päivä"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Pidä istunnot käynnissä",
+      "showsANotificationWhileSessions": "Näyttää ilmoituksen, kun istunnot ovat auki, jotta Android pitää ne käynnissä, kun poistut sovelluksesta",
+      "batteryOptimization": "Akun optimointi",
+      "termixIsNotRestrictedSo": "Termix ei ole rajoitettu, joten istunnot voivat pysyä auki, vaikka näyttö on sammutettu.",
+      "androidMayStillStopSessions": "Android voi silti lopettaa istunnot akun säästämiseksi. Avaa akun asetukset, etsi Termix ja valitse Ei optimoitu tai Rajoittamaton.",
+      "openBatterySettings": "Avaa akun asetukset",
+      "notificationsAreOff": "Ilmoitukset ovat pois päältä",
+      "sessionsStillRunButThe": "Istunnot toimivat edelleen, mutta avoimien istuntojen lista ja Irrota kaikki -painike pysyvät piilossa.",
+      "openNotificationSettings": "Avaa ilmoitusasetukset",
+      "thisBuildCanTKeep": "Tämä versio ei voi pitää istuntoja käynnissä taustalla. Ne yhdistyvät uudelleen, kun palaat takaisin.",
+      "lowPowerMode": "Virransäästötila",
+      "batterySaver": "Virransäästö",
+      "isOnTermixChecksConnections": "{{value}} on päällä. Termix tarkistaa yhteydet harvemmin ja odottaa pidempään uudelleenyhdistystenttien välillä.",
+      "backgroundSessions": "Taustalla toimivat istunnot",
+      "iosStopsAppsSoonAfter": "iOS pysäyttää sovellukset pian poistumisen jälkeen, joten istunnot eivät voi toimia taustalla. Ne yhdistyvät uudelleen, kun palaat takaisin, ja tmux tai screen jatkaa siitä, missä olit."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Pysäytetty",
+        "active": "Aktiivinen",
+        "linkAServer": "Linkitä palvelin",
+        "eachServerKeepsItsOwn": "Jokainen palvelin pitää oman kopionsa isäntistä, tunnuksista ja asetuksista tässä {{deviceWord}}ssa.",
+        "signedInAs": "Kirjautunut sisään nimellä",
+        "role": "Rooli",
+        "administrator": "Ylläpitäjä",
+        "user": "Käyttäjä",
+        "serverVersion": "Palvelimen versio",
+        "signOut": "Kirjaudu ulos",
+        "youAreSignedOutOf": "Olet kirjautunut ulos tältä palvelimelta.",
+        "signIn": "Kirjaudu sisään",
+        "passwordChanged": "Salasana vaihdettu",
+        "couldNotChangeThePassword": "Salasanan vaihtaminen epäonnistui",
+        "changePassword": "Vaihda salasana",
+        "enterYourCurrentPasswordThen": "Syötä nykyinen salasanasi ja valitse sitten uusi.",
+        "cancel": "Peruuta",
+        "change": "Vaihda",
+        "currentPassword": "Nykyinen salasana",
+        "newPassword": "Uusi salasana",
+        "accountDeleted": "Tili poistettu",
+        "couldNotDeleteTheAccount": "Tilin poistaminen epäonnistui",
+        "deleteServerAccount": "Poista palvelintili",
+        "thisPermanentlyDeletesYourAccount": "Tämä poistaa tilisi palvelimelta ja kaikki sen tiedot pysyvästi. Toimintoa ei voi peruuttaa.",
+        "delete": "Poista",
+        "confirmYourPassword": "Vahvista salasanasi",
+        "worksWithoutAServer": "Toimii ilman palvelinta",
+        "signedOut": "Kirjautunut ulos",
+        "readsLive": "Lue reaaliaikaisesti",
+        "toReview": "Tarkistettavana {{count}}",
+        "synced": "Synkronoitu",
+        "syncing": "Synkronoidaan",
+        "offline": "Ei verkossa"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Jaa anonyymejä käyttötilastoja",
+        "aShortReportOnceA": "Lyhyt raportti kerran päivässä. Ei isäntiä, nimiä tai osoitteita",
+        "nextReport": "Seuraava raportti",
+        "seeExactlyWhatWouldBe": "Näe tarkalleen mitä lähetettäisiin",
+        "couldNotBuildTheReport": "Raporttia ei voitu luoda",
+        "preview": "Esikatselu",
+        "thisIsExactlyWhatWould": "Tämä on tarkalleen se, mitä lähetettäisiin nyt.",
+        "resetInstallId": "Nollaa asennustunniste",
+        "futureReportsWillLookLike": "Tulevat raportit näyttävät uuden asennuksen kaltaisilta",
+        "resetTheInstallId": "Nollataanko asennustunniste?",
+        "futureReportsWillLookLike2": "Tulevat raportit näyttävät uuden asennuksen kaltaisilta.",
+        "reset": "Nollaa",
+        "installIdReset": "Asennustunniste nollattu"
+      },
+      "appearanceControls": {
+        "theme": "Teema",
+        "accentColor": "Korostusväri",
+        "textSize": "Tekstin koko",
+        "sizeOfTextAcrossThe": "Tekstin koko sovelluksessa, ei pääteikkunassa",
+        "density": "Tiheys",
+        "howTallListRowsAnd": "Kuinka korkeita listan rivit ja asetukset ovat"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Isännät, tunnistetiedot ja koodinpätkät säilytetään salatussa tiedostossa tällä {{deviceWord}}:lla. Käyttötilastot ovat pois päältä, ellei niitä ota käyttöön alla. Linkitetty palvelin saa vain sen, mitä annat sen synkronoida.",
+        "recentHosts": "Viimeisimmät isännät",
+        "forgetTheHostsYouOpened": "Unohda isännät, joita avasit äskettäin kaikissa tileissä",
+        "recentHostsCleared": "Viimeisimmät isännät tyhjennetty",
+        "clear": "Tyhjennä",
+        "couldNotCheckForUpdates": "Päivityksiä ei voitu tarkistaa",
+        "versionIsOutUpdateFrom": "Versio {{version}} on julkaistu. Päivitä kaupastasi.",
+        "youHaveTheNewestVersion": "Sinulla on uusin versio",
+        "termixMobile": "Termix Mobile",
+        "updates": "Päivitykset",
+        "check": "Tarkista"
+      },
+      "pinSheet": {
+        "waitSeconds": "Odota {{value}} sekuntia",
+        "digits": "{{PIN_LENGTH}} numeroa"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN-koodit eivät täsmää",
+        "appLockIsOn": "Sovelluksen lukitus on päällä",
+        "turnOffAppLock": "Ota sovelluksen lukitus pois päältä",
+        "enterYourPinToConfirm": "Syötä PIN-koodisi vahvistaaksesi.",
+        "appLockIsOff": "Sovelluksen lukitus on pois päältä",
+        "appLock": "Sovelluksen lukitus",
+        "askForFaceIdTouch": "Pyydä Face ID:tä, Touch ID:tä tai PIN-koodia sovelluksen avaamiseen",
+        "askForAPinTo": "Pyydä PIN-koodia sovelluksen avaamiseen",
+        "pinChanged": "PIN-koodi muutettu",
+        "couldNotChangeThePin": "PIN-koodia ei voitu muuttaa",
+        "changePin": "Vaihda PIN-koodi",
+        "lockAfter": "Lukitse ajan jälkeen",
+        "howLongTheAppCan": "Kuinka kauan sovellus voi olla näkymättömänä ennen lukitusta",
+        "hideInAppSwitcher": "Piilota sovellusvaihtimesta",
+        "showABlankScreenIn": "Näytä tyhjä ruutu viimeisimpien sovellusten listalla",
+        "chooseA4DigitPin": "Valitse 4-numeroinen PIN-koodi.",
+        "confirmPin": "Vahvista PIN-koodi",
+        "enterTheSamePinAgain": "Syötä sama PIN-koodi uudelleen.",
+        "currentPin": "Nykyinen PIN-koodi",
+        "enterYourCurrentPin": "Syötä nykyinen PIN-koodisi.",
+        "newPin": "Uusi PIN-koodi",
+        "chooseANew4Digit": "Valitse uusi 4-numeroinen PIN-koodi.",
+        "confirmNewPin": "Vahvista uusi PIN-koodi",
+        "enterTheNewPinAgain": "Syötä uusi PIN-koodi uudelleen."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Kotinäytön widgetit",
+        "showYourHostsSnippetsAnd": "Näytä isäntäpalvelimet, komentosnippetit ja virtapainikkeet kotinäytöllä",
+        "showAddresses": "Näytä osoitteet",
+        "showUserHostUnderEach": "Näytä käyttäjä@isäntä palvelimen nimen alla",
+        "includeOfflineHosts": "Sisällytä offline-isännät",
+        "offShowsOnlyServersThat": "Poissa käytöstä näyttää vain online-palvelimet",
+        "pinnedHostsOnly": "Vain kiinnitetyt isännät",
+        "showOnlyTheHostsYou": "Näytä vain kiinnittämäsi isännät",
+        "snippetsWidget": "Snippettien widget",
+        "showSavedCommandsOnThe": "Näytä tallennetut komennot kotinäytöllä",
+        "showCommandPreview": "Näytä komennon esikatselu",
+        "showTheFirstLineOf": "Näytä kunkin komennon ensimmäinen rivi"
+      }
+    },
+    "fileSettings": {
+      "files": "Tiedostot",
+      "fileManagerOnThis": "Tiedostonhallinta tässä {{deviceWord}}-laitteessa",
+      "browsing": "Selailu",
+      "transfersAtOnce": "Siirrot kerralla",
+      "downloadsAndUploadsThatRun": "Lataukset ja lataukset, jotka suoritetaan samanaikaisesti",
+      "editor": "Muokkain",
+      "textSize": "Tekstin koko",
+      "filesBesideTheTerminal": "Tiedostot terminaalin vieressä",
+      "side": "Sivu",
+      "whereThePanelSitsOn": "Panelin sijainti tabletilla",
+      "right": "Oikea",
+      "left": "Vasen",
+      "howOftenToCheck": "Tarkistusväli",
+      "folderHistory": "Kansiohistoria",
+      "foldersKeptPerHost": "Tallennettavat kansiot isäntää kohden",
+      "showHiddenFiles": "Näytä piilotiedostot",
+      "filesAndFoldersThatStart": "Pisteellä alkavat tiedostot ja kansiot",
+      "askBeforeMovingToThe": "Kysy ennen roskakoriin siirtämistä",
+      "deletingForGoodAlwaysAsks": "Pysyvä poisto kysyy aina",
+      "wrapLongLines": "Rivinvaihto pitkissä riveissä",
+      "openWithNewTerminals": "Avaa uusilla terminaalilla",
+      "onATabletShowThe": "Näytä tiedostopaneeli, kun terminaali avataan tabletilla",
+      "followTheTerminal": "Seuraa terminaalia",
+      "openTheFolderTheTerminal": "Avaa kansio, jossa terminaali on, kun siirryt cd-komennolla"
+    },
+    "keyboardCustomization": {
+      "small": "Pieni",
+      "medium": "Keskikokoinen",
+      "large": "Suuri",
+      "ms": "{{v}} ms",
+      "keyboard": "Näppäimistö",
+      "keyRowsAboveTheKeyboard": "Näppäinrivit näppäimistön yläpuolella",
+      "rows": "Rivit",
+      "keys": "Näppäimet",
+      "aHostCanHaveIts": "Isännällä voi olla omat rivinsä: napauta sen avoin välilehti istunnossa ja valitse Näppäinrivit tälle isännälle.",
+      "keySize": "Näppäimen koko",
+      "vibrateOnKeyPress": "Värinä näppäimen painalluksesta",
+      "repeatAfter": "Toista ajan jälkeen",
+      "howLongToHoldAn": "Kuinka kauan nuolta tai Backspacea pitää pitää painettuna",
+      "repeatEvery": "Toista välein",
+      "hardwareKeyboard": "Fyysinen näppäimistö",
+      "allShortcuts": "Kaikki pikanäppäimet",
+      "show": "Näytä"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Varmuuskopiota ei voitu luoda",
+      "deleteLocalData": "Haluatko poistaa paikalliset tiedot?",
+      "hostsCredentialsSnippetsAndHistory": "Tässä {{deviceWord}}-laitteessa {{account}}-tilille tallennetut isännät, tunnuksia, snippetit ja historia poistetaan. Tätä ei voi peruuttaa. Tee varmuuskopio, jos haluat säilyttää ne.",
+      "delete": "Poista",
+      "localDataDeleted": "Paikalliset tiedot poistettu",
+      "couldNotDeleteLocalData": "Paikallisia tietoja ei voitu poistaa",
+      "localData": "Paikalliset tiedot",
+      "localDataIsOnlySaved": "Paikalliset tiedot tallennetaan vain {{deviceWord}}-sovellukseen.",
+      "savedOnThisForThe": "Tallennettu tähän {{deviceWord}}-laitteeseen tilille {{account}}. Tiedosto on salattu avaimella, joka ei koskaan poistu tältä {{deviceWord}}-laitteelta.",
+      "hosts": "Isäntäpalvelimet",
+      "credentials": "Kirjautumistiedot",
+      "snippets": "Koodinpätkät",
+      "size": "Koko",
+      "dataVersion": "Tietojen versio",
+      "backup": "Varmuuskopiointi",
+      "aBackupFileHoldsYour": "Varmuuskopiointitiedosto sisältää salasanasi ja avaimesi, jotka on lukittu valitsemallasi salasanalla. Kukaan ei voi avata sitä ilman tätä salasanaa.",
+      "exportBackup": "Vie varmuuskopio",
+      "importBackup": "Tuo varmuuskopio",
+      "removesEverythingThisAccountSaved": "Poistaa kaiken, mitä tämä tili on tallentanut tähän {{deviceWord}}-laitteeseen. Linkitetty palvelin säilyttää oman kopionsa.",
+      "deleteLocalData2": "Poista paikalliset tiedot",
+      "backupPassphrase": "Varmuuskopion salasana",
+      "atLeast8CharactersYou": "Vähintään 8 merkkiä. Tarvitset sen varmuuskopion palauttamiseen.",
+      "passphrase": "Salasana",
+      "next": "Seuraava",
+      "typeItAgain": "Kirjoita se uudelleen",
+      "export": "Vie",
+      "saveYourTermixBackup": "Tallenna Termix-varmuuskopiosi"
+    },
+    "logs": {
+      "logs": "Lokit",
+      "latestLinesFromThisRun": "Viimeisimmät rivit tästä käynnistä. Palvelinosoitteet, salasanat ja tunnisteet on piilotettu.",
+      "logsCopied": "Lokit kopioitu",
+      "copy": "Kopioi",
+      "share": "Jaa",
+      "clear": "Tyhjennä",
+      "noLogsYet": "Ei vielä lokia",
+      "nothingHasBeenLogged": "Mitään ei ole kirjattu lokiin."
+    },
+    "plugins": {
+      "worksOnThis": "Toimii tässä {{deviceWord}}-laitteessa",
+      "needsTheServer": "Vaatii palvelimen",
+      "notInTheApp": "Ei sovelluksessa",
+      "needsANewerVersionOf": "Vaatii uudemman sovellusversion",
+      "updateThePluginOnThe": "Päivitä lisäosa palvelimella",
+      "inTheApp": "Sovelluksessa",
+      "onThisServer": "Tällä palvelimella",
+      "version": "Versio",
+      "needsPluginApi": "Vaatii lisäosan API:n",
+      "thisAppHas": "Tässä sovelluksessa on",
+      "note": "Huom",
+      "open": "Avaa",
+      "openFromAHostS": "Avaa {{name}} isäntäpalvelimen valikosta.",
+      "plugins": "Lisäosat",
+      "everything": "Kaikki",
+      "thisDeviceWorksWithNo": "Tämä laite toimii ilman palvelinta. Linkitä palvelin lisätäksesi ominaisuudet, jotka sitä vaativat.",
+      "pluginsOnAndHowEach": "Lisäosat tilillä {{account}} ja niiden näkyminen sovelluksessa. Vedä alas tarkistaaksesi uudelleen.",
+      "whatRunsOnThisAnd": "Mitä suoritetaan tässä {{deviceWord}}-laitteessa ja mitä käsitellään tilin {{account}} kautta.",
+      "noPluginList": "Ei lisäosalistaa",
+      "theServerDidNotSend": "Palvelin ei lähettänyt lisäosiaan. Vedä alas kokeillaksesi uudelleen.",
+      "serversOlderThan29": "Palvelimissa, jotka ovat vanhempia kuin versio 2.9, kaikki ominaisuudet on sisällytetty.",
+      "nothingToShow": "Ei näytettävää",
+      "notSentByThisServer": "Tämä palvelin ei lähettänyt"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Korvataanko paikalliset tiedot?",
+      "everythingSavedOnThisFor": "Kaikki tähän {{deviceWord}}-laitteeseen tilille {{accountName}} tallennetut tiedot korvataan varmuuskopiolla.",
+      "continue": "Jatka",
+      "couldNotReadThatFile": "Tiedostoa ei voitu lukea",
+      "backupRestored": "Varmuuskopio palautettu",
+      "couldNotRestoreTheBackup": "Varmuuskopiota ei voitu palauttaa",
+      "backupPassphrase": "Varmuuskopion salasana",
+      "thePassphraseUsedWhenThe": "Salasana, jota käytettiin varmuuskopion luonnissa.",
+      "passphrase": "Salasana",
+      "restore": "Palauta"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Tilit",
+        "thisDeviceAndLinkedServers": "Tämä laite ja linkitetyt palvelimet sekä niiden synkronointitila",
+        "syncAndProxy": "Synkronointi ja välityspalvelin",
+        "whatSyncsConflictsProxyAnd": "Synkronoitavat tiedot, ristiriidat, välityspalvelin ja linkityksen purku",
+        "serverAccount": "Palvelintili",
+        "whoIsSignedInOn": "Kuka on kirjautunut sisään aktiiviselle palvelimelle",
+        "activeSessions": "Aktiiviset istunnot",
+        "devicesSignedInToThe": "Palvelimeen kirjautuneet laitteet",
+        "apiKeys": "API-avaimet",
+        "keysForScriptsAndTools": "Avaimet skripteille ja työkaluille",
+        "changePassword": "Vaihda salasana",
+        "passwordOfYourServerAccount": "Palvelintilisi salasana",
+        "deleteServerAccount": "Poista palvelintili",
+        "removeYourAccountFromThe": "Poista tilisi palvelimelta",
+        "theme": "Teema",
+        "darkLightDraculaNordAnd": "Tumma, vaalea, Dracula, Nord ja muut",
+        "accentColor": "Korostusväri",
+        "textSize": "Tekstin koko",
+        "sizeOfTextAcrossThe": "Tekstin koko sovelluksessa",
+        "density": "Tiheys",
+        "howTallListRowsAnd": "Listarivien ja asetusten korkeus",
+        "homeScreenWidgets": "Kotinäytön widgetit",
+        "hostsAndSnippetsOnThe": "Isäntäkonemiehet ja koodinpätkät kotinäytöllä",
+        "terminal": "Pääte",
+        "fontThemeCursorScrollback": "Fontti, teema, kursori, vierityshistoria",
+        "keyboard": "Näppäimistö",
+        "layoutKeysPresets": "Asettelu, näppäimet, esiasetukset",
+        "appLock": "Sovelluksen lukitus",
+        "askForFaceIdTouch": "Pyydä Face ID, Touch ID tai PIN-koodi sovelluksen avaamiseen",
+        "lockAfter": "Lukitse ajan jälkeen",
+        "howLongTheAppCan": "Kuinka kauan sovellus voi olla näkymättömänä ennen lukitusta",
+        "hideInAppSwitcher": "Piilota sovellusvaihtimesta",
+        "showABlankScreenIn": "Näytä tyhjä näyttö viimeisimpien sovellusten listalla",
+        "changePin": "Vaihda PIN-koodi",
+        "backgroundSessions": "Tausta-istunnot",
+        "whatHappensToOpenSessions": "Mitä avoimille istunnoille tapahtuu, kun poistut sovelluksesta",
+        "serverAlerts": "Palvelimen ilmoitukset",
+        "alertsFromTheAlertsPlugin": "Ilmoitukset palvelimesi Alerts-lisäosasta",
+        "whatStaysOnThis": "Mitä säilyy tässä {{deviceWord}}ssa",
+        "hostsCredentialsAndSnippetsAre": "Isäntäkonemiehet, tunnuksia ja koodinpätkät tallennetaan salattuina tähän",
+        "recentHosts": "Viimeisimmät isäntäkonemiehet",
+        "forgetTheHostsYouOpened": "Unohda äskettäin avatut isäntäkonemiehet",
+        "shareAnonymousUsageStatistics": "Jaa anonyymejä käyttötilastoja",
+        "aShortReportOnceA": "Lyhyt raportti kerran päivässä. Ei isäntäkonemiehiä, nimiä tai osoitteita",
+        "nextReport": "Seuraava raportti",
+        "seeExactlyWhatWouldBe": "Näe tarkasti, mitä lähetettäisiin",
+        "resetInstallId": "Nollaa asennustunnus",
+        "futureReportsWillLookLike": "Tulevat raportit näyttävät uuden asennuksen kaltaisilta",
+        "serverUsageStatistics": "Palvelimen käyttötilastot",
+        "telemetrySettingsOnYourServer": "Telemetriasetukset palvelimellasi",
+        "plugins": "Lisäosat",
+        "whatTheServerAddsAnd": "Mitä palvelin lisää ja missä se ajaa",
+        "localData": "Paikalliset tiedot",
+        "backupRestoreAndDeleteWhat": "Varmuuskopioi, palauta ja poista tämässä {{deviceWord}}ssa tallennetut tiedot",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Versio ja päivitykset",
+        "logs": "Lokit",
+        "latestLinesFromThisRun": "Viimeisimmät rivit tästä ajosta, virheraportteja varten",
+        "pushNotifications": "Push-ilmoitukset",
+        "pushNotificationsDescription": "Palvelimesi hälytykset tällä puhelimella"
+      },
+      "sections": {
+        "accountsAndSync": "Tilit ja synkronointi",
+        "thisDeviceLinkedServersAnd": "Tämä laite, linkitetyt palvelimet ja synkronointi",
+        "appearance": "Ulkoasu",
+        "themeAccentTextSizeAnd": "Kieli, teema, korostusväri, tekstin koko ja tiheys",
+        "terminal": "Pääte",
+        "fontColorsAndBackgroundSessions": "Fontti, värit ja taustasessiot",
+        "keyboard": "Näppäimistö",
+        "keyRowsAndShortcuts": "Näppäinrivit ja pikanäppäimet",
+        "security": "Turvallisuus",
+        "appLockFaceIdAnd": "Sovelluksen lukitus, Face ID ja PIN-koodi",
+        "notifications": "Ilmoitukset",
+        "alertsFromYourServer": "Hälytykset palvelimeltasi",
+        "privacyAndUsageStatistics": "Tietosuoja ja käyttötilastot",
+        "whatStaysOnThis": "Mitä säilytetään tässä {{deviceWord}}ssa",
+        "plugins": "Liitännäiset",
+        "whatTheServerAddsTo": "Mitä palvelin lisää sovellukseen",
+        "backupAndData": "Varmuuskopiointi ja tiedot",
+        "backUpRestoreImportAnd": "Varmuuskopiointi, palauttaminen, tuonti ja vienti",
+        "aboutAndLogs": "Tietoja ja lokit",
+        "versionAndLogsForBug": "Versio ja virheraporttien lokit"
+      }
+    },
+    "settings": "Asetukset",
+    "searchSettings": "Hae asetuksia",
+    "noSettingsMatch": "Asetuksia ei löytynyt.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Koodinpätkien lataaminen epäonnistui",
+      "copied": "Kopioitu: {{name}}",
+      "nameIsRequired": "Nimi on pakollinen",
+      "contentIsRequired": "Sisältö on pakollinen",
+      "snippetUpdated": "Koodinpätkä päivitetty",
+      "snippetCreated": "Koodinpätkä luotu",
+      "failedToSaveSnippet": "Koodinpätkän tallentaminen epäonnistui",
+      "snippetDeleted": "Koodinpätkä poistettu",
+      "failedToDeleteSnippet": "Koodinpätkän poistaminen epäonnistui",
+      "folderNameIsRequired": "Kansion nimi on pakollinen",
+      "folderCreated": "Kansio luotu",
+      "failedToCreateFolder": "Kansion luominen epäonnistui",
+      "folderDeleted": "Kansio poistettu",
+      "failedToDeleteFolder": "Kansion poistaminen epäonnistui",
+      "folderRenamed": "Kansion nimi muutettu",
+      "failedToRenameFolder": "Kansion nimen muuttaminen epäonnistui",
+      "failedToSaveOrder": "Järjestyksen tallentaminen epäonnistui",
+      "moveUp": "Siirrä ylös",
+      "moveDown": "Siirrä alas",
+      "runOnHosts": "Suorita {{name}} palvelimilla",
+      "copy": "Kopioi {{name}}",
+      "delete": "Poista {{name}}",
+      "renameFolder": "Nimeä kansio uudelleen",
+      "deleteFolder": "Poista kansio",
+      "noSnippetsInThisFolder": "Tässä kansiossa ei ole koodinpätkiä",
+      "snippets": "Koodinpätkät",
+      "importAndExport": "Tuonti ja vienti",
+      "folder": "Kansio",
+      "new": "Uusi",
+      "loading": "Ladataan…",
+      "couldNotLoadSnippets": "Koodinpätkiä ei voitu ladata",
+      "checkTheConnectionToYour": "Tarkista yhteys palvelimeen ja yritä uudelleen.",
+      "tryAgain": "Yritä uudelleen",
+      "noSnippetsYet": "Koodinpätkiä ei vielä ole",
+      "createYourFirstSnippetOr": "Luo ensimmäinen koodinpätkäsi tai lisää koodinpätkiä Termixin web- tai työpöytäsovelluksesta.",
+      "createSnippet": "Luo koodinpätkä",
+      "askBeforeRunning": "Kysy ennen suorittamista",
+      "confirmBeforeASnippetRuns": "Vahvista ennen koodinpätkän suorittamista terminaalissa",
+      "editSnippet": "Muokkaa koodinpätkää",
+      "newSnippet": "Uusi koodinpätkä",
+      "cancel": "Peruuta",
+      "save": "Tallenna",
+      "create": "Luo",
+      "name": "Nimi",
+      "eGUpdatePackages": "esim. Päivitä paketit",
+      "content": "Sisältö",
+      "descriptionOptional": "Kuvaus (valinnainen)",
+      "shortDescription": "Lyhyt kuvaus",
+      "folderOptional": "Kansio (valinnainen)",
+      "selectFolder": "Valitse kansio",
+      "noFolder": "Ei kansiota",
+      "targetHostsOptional": "Kohde-isäntätietokoneet (valinnainen)",
+      "none": "Ei mitään",
+      "note": "Huom",
+      "pastedIntoTheTerminalWithout": "Liitetty terminaaliin ilman suorittamista",
+      "targetHosts": "Kohde-isäntätietokoneet",
+      "copy2": "Kopioi",
+      "edit": "Muokkaa",
+      "runOnHosts2": "Suorita isäntätietokoneilla",
+      "delete2": "Poista",
+      "deleteSnippet": "Poista koodinpätkä",
+      "deleteThisCannotBeUndone": "Poistetaanko \"{{name}}\"? Toimintoa ei voi peruuttaa.",
+      "renameFolder2": "Nimeä kansio uudelleen",
+      "rename": "Nimeä uudelleen",
+      "folderName": "Kansion nimi",
+      "eGSystem": "esim. Järjestelmä",
+      "newFolder": "Uusi kansio",
+      "deleteFolder2": "Poista kansio",
+      "deleteSnippetsInThisFolder": "Poistetaanko \"{{name}}\"? Tämän kansion koodinpätkät siirtyvät luokittelemattomiin."
+    },
+    "sync": {
+      "notYet": "Ei vielä",
+      "justNow": "Juuri nyt",
+      "stopped": "Keskeytetty",
+      "signInToThisServer": "Kirjaudu tähän palvelimeen uudelleen synkronointia varten",
+      "couldNotChangeThat": "Muutosta ei voitu suorittaa",
+      "sync": "Synkronoi",
+      "thisDeviceDoesNotSync": "Tämä laite ei synkronoi. Linkitä Termix-palvelin, jotta isäntätietokoneesi ovat saatavilla useammalla laitteella.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} pitää isäntätietokoneet, tunnuksen, koodinpätkät ja asetukset ajan tasalla tämän {{deviceWord}} kanssa. Kopio säilyy tässä {{deviceWord}}ssa, joten se toimii myös ilman verkkoyhteyttä.",
+      "lastSynced": "Viimeksi synkronoitu {{value}}",
+      "live": "Reaaliaikainen",
+      "syncNow": "Synkronoi nyt",
+      "fix": "Korjaa",
+      "thisServerReadsLiveAnd": "Tämä palvelin lukee reaaliajassa eikä pidä kopiota tässä {{deviceWord}}ssa.",
+      "turnOnTheSyncPlugin": "Ota Synkronointi-lisäosa käyttöön palvelimen Lisäosat-sivulla ja kirjaudu sitten uudelleen tähän, jotta kopio säilyy tässä {{deviceWord}}ssa.",
+      "whatSyncs": "Mitä synkronoidaan",
+      "turnedOffThatDataStays": "Sammutettu, tämä data säilyy vain tässä {{deviceWord}}ssa.",
+      "conflicts": "Ristiriidat",
+      "changedHereAndOnThe": "Muutettu täällä ja palvelimella samanaikaisesti. Palvelimen versio säilytettiin.",
+      "useServer": "Käytä palvelinta",
+      "keepMine": "Pidä oma",
+      "notSavedOnTheServer": "Ei tallennettu palvelimelle",
+      "theServerRefusedTheseChanges": "Palvelin hylkäsi nämä muutokset. Ne säilyvät tässä {{deviceWord}}ssa.",
+      "tryAgain": "Yritä uudelleen",
+      "proxy": "Välityspalvelin",
+      "onlyNeededWhenAReverse": "Tarvitaan vain, kun palvelimen edessä on käänteinen välityspalvelin.",
+      "unlink": "Irrota linkki",
+      "unlinkThisServer": "Irrota tämän palvelimen linkki",
+      "minAgo": "{{value}} min sitten",
+      "signedOut": "Kirjautunut ulos",
+      "waitingToSync": "Odottaa synkronointia",
+      "synced": "Synkronoitu",
+      "syncing": "Synkronoidaan",
+      "offline": "Ei yhteyttä"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Tausta",
+        "text": "Teksti",
+        "cursor": "Kursori",
+        "textUnderCursor": "Kursorin alla oleva teksti",
+        "selection": "Valinta",
+        "black": "Musta",
+        "red": "Punainen",
+        "green": "Vihreä",
+        "yellow": "Keltainen",
+        "blue": "Sininen",
+        "magenta": "Purppura",
+        "cyan": "Syaani",
+        "white": "Valkoinen",
+        "brightBlack": "Kirkas musta",
+        "brightRed": "Kirkas punainen",
+        "brightGreen": "Kirkas vihreä",
+        "brightYellow": "Kirkas keltainen",
+        "brightBlue": "Kirkas sininen",
+        "brightMagenta": "Kirkas purppura",
+        "brightCyan": "Kirkas syaani",
+        "brightWhite": "Kirkas valkoinen",
+        "customTheme": "Mukautettu teema",
+        "colorsAsHexLike1e1e2e": "Värit heksadesimaalimuodossa, kuten #1e1e2e.",
+        "cancel": "Peruuta",
+        "save": "Tallenna",
+        "isNotAHexColor": "{{label}} ei ole heksadesimaaliväri"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompakti",
+      "default": "Oletus",
+      "relaxed": "Rentoutunut",
+      "spacious": "Avoin",
+      "none": "Ei mitään",
+      "couldNotSave": "Tallennus epäonnistui",
+      "pickASizeFromTo": "Valitse koko väliltä {{MIN_FONT_SIZE}}–{{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Pääteasetukset nollattu",
+      "terminal": "Pääte",
+      "aHostCanSetIts": "Isäntä voi määrittää oman teemansa ja kursorinsa Termixissä, ja ne ohittavat nämä asetukset.",
+      "theme": "Teema",
+      "custom": "Mukautettu",
+      "font": "Fontti",
+      "active": "Aktiivinen",
+      "sizeAndSpacing": "Koko ja väli",
+      "pinchTheTerminalToChange": "Voit muuttaa kokoa myös puristamalla päätettä. Suuri teksti {{deviceWord}}asetuksissa tekee siitä suurempaa.",
+      "custom2": "Mukautettu {{fontSize}}",
+      "lineHeight": "Riviväli",
+      "letterSpacing": "Kirjainväli",
+      "ligatures": "Ligatuurit",
+      "cursor": "Kursori",
+      "blink": "Välkkyvä",
+      "bell": "Kellonsoitto",
+      "vibrate": "Värinä",
+      "onTheBellAndWhen": "Kellonsoiton yhteydessä ja pitkän painalluksen valinnassa",
+      "scrollback": "Vierityshistoria",
+      "linesKeptAboveTheScreen": "Näytön yläpuolelle säilytetyt rivit. Sovelletaan uusiin päätteisiin.",
+      "linksAndKeys": "Linkit ja avaimet",
+      "askBeforeOpeningLinks": "Kysy ennen linkkien avaamista",
+      "doubleTapSendsTab": "Kaksoisnapautus lähettää Tab-näppäimen",
+      "longPressStillSelectsText": "Pitkä painallus valitsee edelleen tekstin",
+      "optionSendsAlt": "Option-näppäin lähettää Alt-näppäimen",
+      "onAHardwareKeyboardOff": "Fyysisellä näppäimistöllä. Poiskytkettynä symbolit kirjoitetaan kuten Macissä.",
+      "history": "Historia",
+      "suggestCommands": "Ehdota komentoja",
+      "showsPastCommandsThatStart": "Aiemmat komennot kirjoittaessasi",
+      "resetToDefault": "Palauta oletusasetukset",
+      "fontSize": "Fonttikoko",
+      "aSizeFromTo": "Koko välillä {{MIN_FONT_SIZE}}–{{MAX_FONT_SIZE}}.",
+      "cancel": "Peruuta",
+      "apply": "Käytä",
+      "resetTerminalSettings": "Palautetaanko terminaalin asetukset?",
+      "themeFontSizeCursorBell": "Teema, fontti, koko, kursori, äänimerkki ja muut asetukset palautuvat oletusarvoihinsa.",
+      "reset": "Palauta",
+      "followsAppTheme": "Seuraa sovelluksen teemaa"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Kaksivaiheisen todennuksen määritys epäonnistui",
+      "twoFactorAuthenticationEnabled": "Kaksivaiheinen todennus otettu käyttöön",
+      "invalidCodeTryAgain": "Virheellinen koodi, yritä uudelleen",
+      "twoFactorAuthenticationDisabled": "Kaksivaiheinen todennus poistettu käytöstä",
+      "failedToDisable2fa": "Kaksivaiheisen todennuksen poistaminen epäonnistui",
+      "failedToFetchBackupCodes": "Varmuuskoodien hakeminen epäonnistui",
+      "secretCopied": "Salasana kopioitu",
+      "backupCodesCopied": "Varmuuskoodit kopioitu",
+      "twoFactorAuthentication": "Kaksivaiheinen todennus",
+      "loading": "Ladataan…",
+      "scanThisQrCodeWith": "Skannaa tämä QR-koodi todennussovelluksellasi (kuten Google Authenticator tai Authy) ja syötä 6-numeroinen koodi vahvistaaksesi.",
+      "verifyAmpEnable": "Vahvista ja ota käyttöön",
+      "cancel": "Peruuta",
+      "saveYourBackupCodes": "Tallenna varmuuskoodisi",
+      "storeTheseSomewhereSafeEach": "Tallenna nämä johonkin turvalliseen paikkaan. Jokainen koodi voidaan käyttää vain kerran, jos menetät pääsyn todennussovellukseen.",
+      "copyAllCodes": "Kopioi kaikki koodit",
+      "done": "Valmis",
+      "yourAccountIsProtectedWith": "Tilisi on suojattu todennussovelluksella.",
+      "addAnExtraLayerOf": "Lisää tilillesi ylimääräinen turvakerros.",
+      "viewBackupCodes": "Näytä varmuuskoodit",
+      "disable2fa": "Poista 2FA käytöstä",
+      "enable2fa": "Ota 2FA käyttöön",
+      "disableTwoFactorAuthentication": "Poista kaksivaiheinen todennus käytöstä",
+      "enterACodeFromYour": "Syötä koodi todennussovelluksestasi vahvistaaksesi. Voit ottaa 2FA:n uudelleen käyttöön milloin tahansa.",
+      "enterYourPasswordToConfirm": "Syötä salasanasi vahvistaaksesi. Voit ottaa 2FA:n uudelleen käyttöön milloin tahansa.",
+      "disable": "Poista käytöstä",
+      "yourPassword": "Salasanasi",
+      "n2faIsEnabled": "2FA on käytössä",
+      "n2faIsNotEnabled": "2FA ei ole käytössä"
+    },
+    "language": {
+      "label": "Kieli",
+      "description": "Sovellus latautuu uudelleen kielen vaihtuessa",
+      "system": "Sama kuin laitteessa"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Täällä ei ole SSH-isäntiä",
+      "couldNotReadWhatWas": "Jaettua sisältöä ei voitu lukea",
+      "stopTheUploads": "Keskeytetäänkö lataukset?",
+      "stopAndLeave": "Keskeytä ja poistu",
+      "sendTo": "Lähetä kohteeseen {{name}}",
+      "sendToAHost": "Lähetä isäntään",
+      "nothingToSend": "Lähetettävää ei ole",
+      "close": "Sulje",
+      "done": "Valmis",
+      "cancel": "Peruuta",
+      "uploadHere": "Lataa tähän",
+      "uploadsStillGoing_one": "{{count}} lataus on vielä käynnissä. Poistuminen keskeyttää sen.",
+      "uploadsStillGoing_other": "{{count}} latausta on vielä käynnissä. Poistuminen keskeyttää ne.",
+      "filesSize_one": "{{count}} tiedosto | {{size}}",
+      "filesSize_other": "{{count}} tiedostoa | {{size}}",
+      "readingWhatWasShared": "Luetaan jaettua sisältöä"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Virhe",
+      "worksWithoutAServer": "Toimii ilman palvelinta",
+      "accountSwitch": "Tili {{account}}, vaihda",
+      "search": "Hae",
+      "notificationsUnread": "Ilmoitukset, {{unread}} lukematon",
+      "notifications": "Ilmoitukset",
+      "signedIn": "Kirjautunut sisään",
+      "signedOut": "Kirjautunut ulos",
+      "copyOnThis": "Kopioi tähän {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Koti",
+      "hosts": "Palvelimet",
+      "sessions": "Istunnot",
+      "tools": "Työkalut",
+      "settings": "Asetukset",
+      "open": "{{label}}, {{count}} auki"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} auki"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Valitse palvelin",
+      "searchHosts": "Hae palvelimia",
+      "clearSearch": "Tyhjennä haku",
+      "noHostsMatch": "Palvelimia ei löytynyt",
+      "noHostsCanUseThis": "Mikään palvelin ei voi käyttää tätä",
+      "turnItOnForA": "Ota se käyttöön palvelimelle palvelinten muokkausnäkymässä."
+    },
+    "noToolsHereYet": "Täällä ei vielä ole työkaluja",
+    "onAHost": "Palvelimella",
+    "saved": "Tallennettu",
+    "fromYourServer": "Palvelimeltasi"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Peruuta",
+      "delete": "Poista",
+      "confirm": "Vahvista"
+    },
+    "contextMenu": {
+      "closeMenu": "Sulje valikko"
+    },
+    "inlineView": {
+      "back": "Takaisin"
+    },
+    "listRow": {
+      "moreActions": "Lisää toimintoja"
+    },
+    "pinPad": {
+      "useBiometrics": "Käytä biometriaa",
+      "delete": "Poista"
+    },
+    "popover": {
+      "close": "Sulje"
+    },
+    "promptSheet": {
+      "cancel": "Peruuta"
+    },
+    "sheet": {
+      "close": "Sulje"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Tämä avain on lukittu. Syötä sen salasanake.",
+      "thatPassphraseDoesnTOpen": "Tuo salasanake ei avaa tätä avainta.",
+      "thisDoesnTLookLike": "Tämä ei näytä yksityiseltä avaimelta.",
+      "loadedAndChangedItTo": "Ladattiin {{name}} ja muutettiin se OpenSSH-muotoon",
+      "loadedItNeedsItsPassphrase": "Ladattiin {{name}}. Yhteyden muodostamiseen tarvitaan sen salasanake"
+    },
+    "ago": {
+      "justNow": "juuri nyt"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Palvelimia ei voitu ladata.",
+      "failedOn": "{{name}} epäonnistui palvelimella {{name2}}",
+      "on": "{{name}} palvelimella {{name2}}: {{value}}",
+      "ranOn": "Suoritettiin {{name}} palvelimella {{name2}}",
+      "runOn": "Suorita \"{{name}}\" palvelimella",
+      "runSnippet": "Suorita komentosnippetti",
+      "loadingHosts": "Ladataan palvelimia…",
+      "noHostsAvailable": "Palvelimia ei saatavilla",
+      "addAHostInTermix": "Lisää palvelin Termixiin, jotta voit suorittaa komentosnippettejä aloitusnäytöltä.",
+      "lastUsed": "Viimeksi käytetty",
+      "failedToRunSnippet": "Komentosnipetin suoritus epäonnistui"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Tätä komentosnippetiä ei enää ole olemassa.",
+      "couldNotOpenThatSnippet": "Tätä komentosnippetiä ei voitu avata.",
+      "thatHostNoLongerExists": "Tätä palvelinta ei enää ole olemassa.",
+      "couldNotOpenThatHost": "Tätä isäntää ei voitu avata."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Koti"
+      },
+      "hosts": {
+        "hosts": "Isännät"
+      },
+      "sessions": {
+        "sessions": "Istunnot",
+        "connectToATermixServer": "Yhdistä Termix-palvelimeen avataksesi terminaali-, tunneli- ja tiedostoistuntoja."
+      }
+    },
+    "layout": {
+      "initializing": "Alustetaan…",
+      "cancel": "Peruuta"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Tällä isännällä ei ole kelvollista MAC-osoitetta.",
+    "thisBuildCanTSend": "Tämä versio ei voi lähettää Wake-on-LAN-paketteja.",
+    "couldNotSendThePacket": "Pakettia ei voitu lähettää. Tarkista, että Wi-Fi on päällä."
+  },
+  "common": {
+    "hostCount_one": "{{count}} isäntä",
+    "hostCount_other": "{{count}} isäntää",
+    "device": {
+      "phone": "puhelin",
+      "tablet": "tabletti"
+    },
+    "thisDeviceLower": "tämä {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Jakaminen",
+    "action": "Jaa muiden kanssa",
+    "levels": {
+      "connect": "Yhdistä",
+      "view": "Näytä",
+      "edit": "Muokkaa",
+      "manage": "Hallinnoi"
+    },
+    "levelHints": {
+      "connect": "Vain istuntojen avaaminen. Isännän asetukset pysyvät piilossa.",
+      "view": "Yhdistäminen ja isännän asetusten näyttäminen. Salaisuuksia ei koskaan näytetä.",
+      "edit": "Näytä ja muutetaan muita asetuksia kuin kirjautumistietoja.",
+      "manage": "Muokkaa, jaa isäntä ja muuta tai poista pääsy."
+    },
+    "until": "päivään {{date}} asti",
+    "sharedBy": "käyttäjän {{name}} jakamana",
+    "couldNotLoad": "Pääsyn saaneiden listaa ei voitu ladata",
+    "shared": "Isäntä jaettu",
+    "couldNotShare": "Isäntää ei voitu jakaa",
+    "updated": "Pääsy muutettu",
+    "couldNotUpdate": "Pääsyä ei voitu muuttaa",
+    "removeTitle": "Poistetaanko {{name}}?",
+    "removeHint": "He eivät voi enää käyttää tätä isäntää.",
+    "remove": "Poista",
+    "removed": "Pääsy poistettu",
+    "couldNotRemove": "Pääsyä ei voitu poistaa",
+    "whoHasAccess": "Kenellä on pääsy",
+    "loading": "Ladataan...",
+    "nobodyYet": "Vain sinä voit käyttää tätä isäntää.",
+    "changeAccessFor": "Muuta pääsyä käyttäjälle {{name}}",
+    "shareWith": "Jaa kanssa",
+    "users": "Käyttäjät",
+    "roles": "Roolit",
+    "searchUsers": "Hae käyttäjiä",
+    "searchRoles": "Hae rooleja",
+    "noUsers": "Ei muita käyttäjiä, joilla voit jakaa.",
+    "noRoles": "Ei rooleja, joilla voit jakaa.",
+    "options": "Pääsy",
+    "level": "Taso",
+    "expires": "Päätyy",
+    "expiry": {
+      "never": "Ei koskaan",
+      "1h": "1 tunnin kuluttua",
+      "1d": "1 päivän kuluttua",
+      "7d": "7 päivän kuluttua",
+      "30d": "30 päivän kuluttua"
+    },
+    "pickSomeone": "Valitse, kenelle jaat",
+    "shareCount_one": "Jaa {{count}} kanssa",
+    "shareCount_other": "Jaa {{count}} kanssa",
+    "removeAccess": "Poista pääsy"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Palvelinhälytykset",
+      "critical": "Kriittiset palvelinhälytykset"
+    },
+    "severity": {
+      "info": "Kaikki",
+      "warning": "Varoitukset ja vakavammat",
+      "critical": "Vain kriittiset"
+    },
+    "settings": {
+      "on": "Hälytykset näkyvät tällä puhelimella",
+      "off": "Pois päältä",
+      "toggle": "Push-ilmoitukset palvelimelle {{server}}",
+      "minSeverity": "Lähetä minulle",
+      "denied": "Ilmoitukset on poistettu käytöstä Termixissä. Ota ne käyttöön puhelimen asetuksista.",
+      "openSettings": "Avaa asetukset",
+      "outdated": "Tämä palvelin tarvitsee Alerts 1.4.0 tai uudemman push-ilmoituksia varten. Pyydä ylläpitäjää päivittämään lisäosa.",
+      "unavailable": "Kirjaudu sisään tähän palvelimeen ja ota Alerts-lisäosa käyttöön saadaksesi ilmoituksia.",
+      "error": "Palvelimeen ei voitu yhdistää. Termix yrittää uudelleen, kun sovellus avataan seuraavan kerran.",
+      "notInThisBuild": "Tämä rakennus ei voi näyttää ilmoituksia.",
+      "noServers": "Linkitä palvelin saadaksesi sen hälytykset tänne.",
+      "pushHint": "Hälytykset lähetetään Expon ja Applen tai Googlen kautta niiden otsikolla ja tekstillä. Valitse, mitkä niistä näytetään palvelimen Alerts-säännöissä.",
+      "pollHint": "Tässä rakennuksessa ei ole Google-palveluita, joten Termix tarkistaa uudet hälytykset taustalla noin 15 minuutin välein."
+    }
+  }
+}

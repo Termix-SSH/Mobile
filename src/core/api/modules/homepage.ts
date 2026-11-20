@@ -28,7 +28,7 @@ export function createHomepageApi(c: AccountClient) {
   }
 
   async function logActivity(
-    type: "terminal" | "file_manager",
+    type: string,
     hostId: number,
     hostName: string,
   ): Promise<{ message: string; id: number | string }> {

@@ -2,6 +2,7 @@ import { randomUUID } from "expo-crypto";
 import type { TrashItem } from "@/core/api/types";
 import { utf8Decode, type SshSftp } from "@/modules/termix-ssh";
 import { joinRemote, remoteName } from "./paths";
+import { t } from "@/i18n";
 
 // The same layout as Plugin-File-Manager's trash-service.ts, so the web app
 // and the phone see one trash per host user.
@@ -79,7 +80,8 @@ function publicItem({ trashPath: _trashPath, ...item }: Stored): TrashItem {
 }
 
 async function readStored(sftp: SshSftp, dirs: Dirs, id: string) {
-  if (!ID_PATTERN.test(id)) throw new Error("Invalid trash item id");
+  if (!ID_PATTERN.test(id))
+    throw new Error(t("fileManager.backend.sftpTrash.invalidTrashItemId"));
   const raw = await sftp.readFile(joinRemote(dirs.info, `${id}.json`));
   const parsed = JSON.parse(utf8Decode(raw)) as Stored;
   if (
@@ -87,7 +89,7 @@ async function readStored(sftp: SshSftp, dirs: Dirs, id: string) {
     parsed.trashPath !== joinRemote(dirs.files, id) ||
     !isSafeTrashSource(parsed.originalPath, dirs.root)
   ) {
-    throw new Error("Invalid trash metadata");
+    throw new Error(t("fileManager.backend.sftpTrash.invalidTrashMetadata"));
   }
   return parsed;
 }
@@ -98,7 +100,7 @@ export async function moveToTrash(
 ): Promise<TrashItem> {
   const dirs = await trashDirs(sftp);
   if (!isSafeTrashSource(path, dirs.root)) {
-    throw new Error("This path can't be moved to the trash");
+    throw new Error(t("fileManager.backend.sftpTrash.thisPathCanTBe"));
   }
   const stat = await sftp.lstat(path);
   const id = randomUUID();
@@ -156,7 +158,7 @@ export async function restoreTrashItem(sftp: SshSftp, id: string) {
   const dirs = await trashDirs(sftp);
   const item = await readStored(sftp, dirs, id);
   if (await exists(sftp, item.originalPath)) {
-    throw new Error("A file already exists at the original path");
+    throw new Error(t("fileManager.backend.sftpTrash.aFileAlreadyExistsAt"));
   }
   await sftp.rename(item.trashPath, item.originalPath);
   await sftp.remove(joinRemote(dirs.info, `${id}.json`));

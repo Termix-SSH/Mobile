@@ -1,3 +1,5 @@
+import { t } from "@/i18n";
+
 /**
  * One error type for the whole app. API calls, transports and features throw
  * this, and the UI shows `toUserMessage(error)`.
@@ -32,7 +34,7 @@ export class AppError extends Error {
 /** Text that is safe to show in a toast. */
 export function toUserMessage(
   error: unknown,
-  fallback = "Something went wrong",
+  fallback = t("core.errors.somethingWentWrong"),
 ): string {
   if (error instanceof AppError) return error.message || fallback;
   if (error instanceof Error && error.message) return error.message;

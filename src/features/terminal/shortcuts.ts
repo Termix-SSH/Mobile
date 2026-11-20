@@ -1,4 +1,5 @@
 import { Platform } from "react-native";
+import { t } from "@/i18n";
 
 /**
  * App shortcuts on hardware keyboards. The native terminal reports these ids
@@ -29,26 +30,44 @@ export function shortcutHelp(
 ): { keys: string; label: string }[] {
   if (os === "ios") {
     return [
-      { keys: "Cmd T", label: "New tab on this host" },
-      { keys: "Cmd W", label: "Close tab" },
-      { keys: "Cmd Shift ] | Ctrl Tab", label: "Next tab" },
-      { keys: "Cmd Shift [ | Ctrl Shift Tab", label: "Previous tab" },
-      { keys: "Cmd 1 to 9", label: "Go to tab" },
-      { keys: "Cmd F", label: "Find" },
-      { keys: "Cmd + | Cmd - | Cmd 0", label: "Font size" },
-      { keys: "Cmd V", label: "Paste" },
-      { keys: "Cmd .", label: "Escape" },
+      { keys: "Cmd T", label: t("terminal.shortcuts.newTabOnThisHost") },
+      { keys: "Cmd W", label: t("terminal.shortcuts.closeTab") },
+      {
+        keys: "Cmd Shift ] | Ctrl Tab",
+        label: t("terminal.shortcuts.nextTab"),
+      },
+      {
+        keys: "Cmd Shift [ | Ctrl Shift Tab",
+        label: t("terminal.shortcuts.previousTab"),
+      },
+      { keys: "Cmd 1 to 9", label: t("terminal.shortcuts.goToTab") },
+      { keys: "Cmd F", label: t("terminal.shortcuts.find") },
+      {
+        keys: "Cmd + | Cmd - | Cmd 0",
+        label: t("terminal.shortcuts.fontSize"),
+      },
+      { keys: "Cmd V", label: t("terminal.shortcuts.paste") },
+      { keys: "Cmd .", label: t("terminal.shortcuts.escape") },
     ];
   }
   return [
-    { keys: "Ctrl Shift T", label: "New tab on this host" },
-    { keys: "Ctrl Shift W", label: "Close tab" },
-    { keys: "Ctrl Tab | Ctrl PgDn", label: "Next tab" },
-    { keys: "Ctrl Shift Tab | Ctrl PgUp", label: "Previous tab" },
-    { keys: "Ctrl Shift 1 to 9", label: "Go to tab" },
-    { keys: "Ctrl Shift F", label: "Find" },
-    { keys: "Ctrl = | Ctrl - | Ctrl 0", label: "Font size" },
-    { keys: "Ctrl Shift C | Ctrl Shift V", label: "Copy and paste" },
+    { keys: "Ctrl Shift T", label: t("terminal.shortcuts.newTabOnThisHost") },
+    { keys: "Ctrl Shift W", label: t("terminal.shortcuts.closeTab") },
+    { keys: "Ctrl Tab | Ctrl PgDn", label: t("terminal.shortcuts.nextTab") },
+    {
+      keys: "Ctrl Shift Tab | Ctrl PgUp",
+      label: t("terminal.shortcuts.previousTab"),
+    },
+    { keys: "Ctrl Shift 1 to 9", label: t("terminal.shortcuts.goToTab") },
+    { keys: "Ctrl Shift F", label: t("terminal.shortcuts.find") },
+    {
+      keys: "Ctrl = | Ctrl - | Ctrl 0",
+      label: t("terminal.shortcuts.fontSize"),
+    },
+    {
+      keys: "Ctrl Shift C | Ctrl Shift V",
+      label: t("terminal.shortcuts.copyAndPaste"),
+    },
   ];
 }
 

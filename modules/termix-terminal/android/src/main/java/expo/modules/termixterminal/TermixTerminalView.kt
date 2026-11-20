@@ -61,6 +61,8 @@ class TermixTerminalView(context: Context, appContext: AppContext) :
 
   fun setLetterSpacing(value: Float) = terminal.setLetterSpacing(value)
 
+  fun setLigatures(on: Boolean) = terminal.setLigatures(on)
+
   fun setCursor(style: String?, blink: Boolean) = terminal.setCursor(style, blink)
 
   fun setScrollback(lines: Int) = terminal.setScrollback(lines)
@@ -68,6 +70,10 @@ class TermixTerminalView(context: Context, appContext: AppContext) :
   fun setBell(style: String?, haptics: Boolean) = terminal.setBell(style, haptics)
 
   fun setAccentColor(color: String?) = terminal.setHandleColor(color)
+
+  fun setDoubleTapTab(on: Boolean) {
+    terminal.doubleTapTab = on
+  }
 
   fun setPromptWatch(on: Boolean) {
     terminal.promptWatch = on

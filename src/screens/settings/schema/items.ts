@@ -21,6 +21,7 @@ import {
 import {
   AccentControl,
   DensityControl,
+  LanguageControl,
   TextSizeControl,
   ThemeControl,
 } from "../controls/AppearanceControls";
@@ -42,7 +43,10 @@ import {
   UsageStatsControl,
 } from "../controls/AnalyticsControls";
 import { WidgetsControl } from "../controls/WidgetsControl";
+import { PushNotificationsControl } from "../controls/PushControls";
 import type { SettingsItemDef } from "./types";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /**
  * Settings that belong to the app itself. Features add their own through
@@ -53,8 +57,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "accounts",
     section: "accounts",
-    label: "Accounts",
-    description: "This device and linked servers, with their sync state",
+    label: t("settings.schema.items.accounts"),
+    description: t("settings.schema.items.thisDeviceAndLinkedServers"),
     keywords: ["server", "link", "switch", "unlink", "conflicts", "device"],
     order: 10,
     icon: RefreshCw,
@@ -63,8 +67,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "sync",
     section: "accounts",
-    label: "Sync and proxy",
-    description: "What syncs, conflicts, proxy and unlink",
+    label: t("settings.schema.items.syncAndProxy"),
+    description: t("settings.schema.items.whatSyncsConflictsProxyAnd"),
     keywords: ["sync now", "offline", "proxy", "certificate", "conflict"],
     order: 20,
     icon: RefreshCw,
@@ -74,8 +78,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "server-session",
     section: "accounts",
-    label: "Server account",
-    description: "Who is signed in on the active server",
+    label: t("settings.schema.items.serverAccount"),
+    description: t("settings.schema.items.whoIsSignedInOn"),
     keywords: ["sign in", "sign out", "login", "logout", "username", "role"],
     order: 30,
     icon: Key,
@@ -85,8 +89,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "active-sessions",
     section: "accounts",
-    label: "Active sessions",
-    description: "Devices signed in to the server",
+    label: t("settings.schema.items.activeSessions"),
+    description: t("settings.schema.items.devicesSignedInToThe"),
     keywords: ["admin", "devices", "revoke"],
     order: 40,
     icon: Monitor,
@@ -96,8 +100,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "api-keys",
     section: "accounts",
-    label: "API keys",
-    description: "Keys for scripts and tools",
+    label: t("settings.schema.items.apiKeys"),
+    description: t("settings.schema.items.keysForScriptsAndTools"),
     keywords: ["admin", "token"],
     order: 50,
     icon: Key,
@@ -107,8 +111,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "change-password",
     section: "accounts",
-    label: "Change password",
-    description: "Password of your server account",
+    label: t("settings.schema.items.changePassword"),
+    description: t("settings.schema.items.passwordOfYourServerAccount"),
     keywords: ["credentials"],
     order: 60,
     icon: Lock,
@@ -118,8 +122,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "delete-account",
     section: "accounts",
-    label: "Delete server account",
-    description: "Remove your account from the server",
+    label: t("settings.schema.items.deleteServerAccount"),
+    description: t("settings.schema.items.removeYourAccountFromThe"),
     keywords: ["remove"],
     order: 70,
     icon: Lock,
@@ -130,10 +134,20 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
 
   // Appearance
   {
+    id: "language",
+    section: "appearance",
+    label: t("settings.language.label"),
+    description: t("settings.language.description"),
+    keywords: ["language", "translation", "locale"],
+    order: 5,
+    icon: Blocks,
+    Control: LanguageControl,
+  },
+  {
     id: "theme",
     section: "appearance",
-    label: "Theme",
-    description: "Dark, light, Dracula, Nord and more",
+    label: t("settings.schema.items.theme"),
+    description: t("settings.schema.items.darkLightDraculaNordAnd"),
     keywords: ["dark", "light", "colors", "mode"],
     order: 10,
     icon: Blocks,
@@ -142,7 +156,7 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "accent",
     section: "appearance",
-    label: "Accent color",
+    label: t("settings.schema.items.accentColor"),
     keywords: ["color", "hex", "highlight"],
     order: 20,
     icon: Blocks,
@@ -151,8 +165,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "text-size",
     section: "appearance",
-    label: "Text size",
-    description: "Size of text across the app",
+    label: t("settings.schema.items.textSize"),
+    description: t("settings.schema.items.sizeOfTextAcrossThe"),
     keywords: ["font", "bigger", "smaller", "scale"],
     order: 30,
     icon: Blocks,
@@ -161,8 +175,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "density",
     section: "appearance",
-    label: "Density",
-    description: "How tall list rows and settings are",
+    label: t("settings.schema.items.density"),
+    description: t("settings.schema.items.howTallListRowsAnd"),
     keywords: ["compact", "comfortable", "spacing", "rows"],
     order: 40,
     icon: Blocks,
@@ -171,8 +185,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "widgets",
     section: "appearance",
-    label: "Home screen widgets",
-    description: "Hosts and snippets on the home screen",
+    label: t("settings.schema.items.homeScreenWidgets"),
+    description: t("settings.schema.items.hostsAndSnippetsOnThe"),
     keywords: ["widget", "addresses", "pinned", "offline"],
     order: 50,
     icon: Blocks,
@@ -184,8 +198,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "terminal",
     section: "terminal",
-    label: "Terminal",
-    description: "Font, theme, cursor, scrollback",
+    label: t("settings.schema.items.terminal"),
+    description: t("settings.schema.items.fontThemeCursorScrollback"),
     keywords: ["font", "colors", "cursor", "scrollback", "bell"],
     order: 10,
     icon: SquareTerminal,
@@ -194,8 +208,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "keyboard",
     section: "keyboard",
-    label: "Keyboard",
-    description: "Layout, keys, presets",
+    label: t("settings.schema.items.keyboard"),
+    description: t("settings.schema.items.layoutKeysPresets"),
     keywords: ["keys", "ctrl", "esc", "tab", "shortcuts", "repeat"],
     order: 10,
     icon: Keyboard,
@@ -206,8 +220,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "app-lock",
     section: "security",
-    label: "App Lock",
-    description: "Ask for Face ID, Touch ID or a PIN to open the app",
+    label: t("settings.schema.items.appLock"),
+    description: t("settings.schema.items.askForFaceIdTouch"),
     keywords: ["pin", "biometrics", "face id", "touch id", "fingerprint"],
     order: 10,
     icon: Lock,
@@ -216,8 +230,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "lock-delay",
     section: "security",
-    label: "Lock after",
-    description: "How long the app can be out of sight before it locks",
+    label: t("settings.schema.items.lockAfter"),
+    description: t("settings.schema.items.howLongTheAppCan"),
     keywords: ["delay", "background", "timeout", "immediately"],
     order: 20,
     icon: Timer,
@@ -227,8 +241,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "hide-switcher",
     section: "security",
-    label: "Hide in app switcher",
-    description: "Show a blank screen in the list of recent apps",
+    label: t("settings.schema.items.hideInAppSwitcher"),
+    description: t("settings.schema.items.showABlankScreenIn"),
     keywords: ["privacy", "screenshot", "recents", "blank"],
     order: 30,
     icon: Lock,
@@ -237,7 +251,7 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "change-pin",
     section: "security",
-    label: "Change PIN",
+    label: t("settings.schema.items.changePin"),
     keywords: ["pin", "app lock"],
     order: 40,
     icon: Lock,
@@ -249,18 +263,28 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "background-sessions",
     section: "terminal",
-    label: "Background sessions",
-    description: "What happens to open sessions when you leave the app",
+    label: t("settings.schema.items.backgroundSessions"),
+    description: t("settings.schema.items.whatHappensToOpenSessions"),
     keywords: ["battery", "notification", "android", "ios", "low power"],
     order: 20,
     icon: BatteryCharging,
     Control: BackgroundSessionsControl,
   },
   {
+    id: "push-notifications",
+    section: "notifications",
+    label: t("settings.schema.items.pushNotifications"),
+    description: t("settings.schema.items.pushNotificationsDescription"),
+    keywords: ["push", "alerts", "notifications", "phone"],
+    order: 10,
+    icon: Bell,
+    Control: PushNotificationsControl,
+  },
+  {
     id: "server-alerts",
     section: "notifications",
-    label: "Server alerts",
-    description: "Alerts from the Alerts plugin on your server",
+    label: t("settings.schema.items.serverAlerts"),
+    description: t("settings.schema.items.alertsFromTheAlertsPlugin"),
     keywords: ["alerts", "push", "channels"],
     order: 20,
     icon: Bell,
@@ -272,8 +296,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "privacy-note",
     section: "privacy",
-    label: "What stays on this phone",
-    description: "Hosts, credentials and snippets are stored encrypted here",
+    label: t("settings.schema.items.whatStaysOnThis", { deviceWord }),
+    description: t("settings.schema.items.hostsCredentialsAndSnippetsAre"),
     keywords: ["data", "encrypted", "tracking", "analytics", "usage"],
     order: 10,
     icon: Lock,
@@ -282,8 +306,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "clear-recent",
     section: "privacy",
-    label: "Recent hosts",
-    description: "Forget the hosts you opened lately",
+    label: t("settings.schema.items.recentHosts"),
+    description: t("settings.schema.items.forgetTheHostsYouOpened"),
     keywords: ["history", "clear"],
     order: 20,
     icon: Lock,
@@ -292,8 +316,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "usage-stats",
     section: "privacy",
-    label: "Share anonymous usage statistics",
-    description: "A short report once a day. No hosts, names or addresses",
+    label: t("settings.schema.items.shareAnonymousUsageStatistics"),
+    description: t("settings.schema.items.aShortReportOnceA"),
     keywords: ["telemetry", "analytics", "stats", "posthog", "tracking"],
     order: 25,
     icon: Database,
@@ -302,8 +326,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "usage-preview",
     section: "privacy",
-    label: "Next report",
-    description: "See exactly what would be sent",
+    label: t("settings.schema.items.nextReport"),
+    description: t("settings.schema.items.seeExactlyWhatWouldBe"),
     keywords: ["telemetry", "analytics", "preview"],
     order: 26,
     icon: Database,
@@ -312,8 +336,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "usage-reset-id",
     section: "privacy",
-    label: "Reset install id",
-    description: "Future reports will look like a new install",
+    label: t("settings.schema.items.resetInstallId"),
+    description: t("settings.schema.items.futureReportsWillLookLike"),
     keywords: ["telemetry", "analytics", "id"],
     order: 27,
     icon: Database,
@@ -322,8 +346,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "usage-statistics",
     section: "privacy",
-    label: "Server usage statistics",
-    description: "Telemetry settings on your server",
+    label: t("settings.schema.items.serverUsageStatistics"),
+    description: t("settings.schema.items.telemetrySettingsOnYourServer"),
     keywords: ["telemetry", "analytics", "stats"],
     order: 30,
     icon: Database,
@@ -335,8 +359,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "plugins",
     section: "plugins",
-    label: "Plugins",
-    description: "What the server adds and where it runs",
+    label: t("settings.schema.items.plugins"),
+    description: t("settings.schema.items.whatTheServerAddsAnd"),
     keywords: ["server", "extensions", "features", "webview"],
     order: 10,
     icon: Blocks,
@@ -347,8 +371,10 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "local-data",
     section: "backup",
-    label: "Local data",
-    description: "Backup, restore and delete what is saved on this phone",
+    label: t("settings.schema.items.localData"),
+    description: t("settings.schema.items.backupRestoreAndDeleteWhat", {
+      deviceWord,
+    }),
     keywords: ["export", "import", "backup", "restore", "wipe", "reset"],
     order: 10,
     icon: Database,
@@ -359,8 +385,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "version",
     section: "about",
-    label: "Termix Mobile",
-    description: "Version and updates",
+    label: t("settings.schema.items.termixMobile"),
+    description: t("settings.schema.items.versionAndUpdates"),
     keywords: ["about", "update", "release", "build"],
     order: 10,
     icon: FileText,
@@ -369,8 +395,8 @@ export const SETTINGS_ITEMS: SettingsItemDef[] = [
   {
     id: "logs",
     section: "about",
-    label: "Logs",
-    description: "Latest lines from this run, for bug reports",
+    label: t("settings.schema.items.logs"),
+    description: t("settings.schema.items.latestLinesFromThisRun"),
     keywords: ["debug", "errors", "support", "share", "copy"],
     order: 20,
     icon: FileText,

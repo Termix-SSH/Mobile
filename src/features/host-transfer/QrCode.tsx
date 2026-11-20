@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { encode } from "uqr";
+import { t } from "@/i18n";
 
 /** The squares of a QR code as one SVG path, a module per unit. */
 export function qrPath(matrix: boolean[][]): string {
@@ -25,7 +26,7 @@ export function QrCode({ value, size }: { value: string; size: number }) {
   return (
     <View
       style={{ width: size, height: size, backgroundColor: "#ffffff" }}
-      accessibilityLabel="QR code"
+      accessibilityLabel={t("hostTransfer.qrCode.qrCode")}
       accessibilityRole="image"
     >
       <Svg

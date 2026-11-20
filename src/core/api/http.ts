@@ -14,6 +14,7 @@ import {
   tunnelLogger,
   type LogContext,
 } from "@/core/log/logger";
+import { t } from "@/i18n";
 
 /** What an axios instance needs from the account that owns it. */
 export interface HttpOwner {
@@ -156,7 +157,7 @@ export function createHttp(
       ) {
         return Promise.reject(
           new AxiosError(
-            "The proxy wants you to sign in",
+            t("api.http.theProxyWantsYouTo"),
             "ERR_BAD_RESPONSE",
             response.config,
             response.request,
@@ -169,7 +170,7 @@ export function createHttp(
       if (isHtmlPayload(response.data)) {
         return Promise.reject(
           new AxiosError(
-            "Endpoint not available on this server",
+            t("api.http.endpointNotAvailableOnThis"),
             "ERR_BAD_RESPONSE",
             response.config,
             response.request,
@@ -177,7 +178,7 @@ export function createHttp(
               ...response,
               status: 404,
               data: {
-                error: "This server does not support this feature",
+                error: t("api.http.thisServerDoesNotSupport"),
                 code: "UNSUPPORTED_ENDPOINT",
               },
             },
@@ -229,7 +230,7 @@ export function createHttp(
       const message =
         (error.response?.data as any)?.error ||
         (error as Error).message ||
-        "Unknown error";
+        t("api.http.unknownError");
       const errorCode = (error.response?.data as any)?.code || error.code;
 
       const context: LogContext = {

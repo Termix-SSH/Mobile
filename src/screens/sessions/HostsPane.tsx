@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Hosts from "@/screens/hosts/Hosts";
+import { SideInsetsPadded } from "@/ui/bottom-inset";
+import { useFoldTweenWidth } from "@/utils/fold-tween";
 import {
   HOSTS_PANE_MIN_WIDTH,
   SESSION_MIN_WIDTH,
@@ -16,6 +18,26 @@ export const SPLIT_RATIO_KEY = "sessions.splitRatio";
 export function clampHostsPaneWidth(width: number, available: number): number {
   const max = Math.max(HOSTS_PANE_MIN_WIDTH, available - SESSION_MIN_WIDTH);
   return Math.round(Math.min(max, Math.max(HOSTS_PANE_MIN_WIDTH, width)));
+}
+
+/**
+ * The host list width the user chose, or null to follow the fold or the default.
+ * Half folded it is always null, so the list ends at the crease.
+ */
+export function chosenHostsPaneWidth({
+  bentFold,
+  dragged,
+  saved,
+  available,
+}: {
+  bentFold: boolean;
+  dragged: number | null;
+  saved: number | null;
+  available: number;
+}): number | null {
+  if (bentFold) return null;
+  if (dragged != null) return dragged;
+  return saved == null ? null : clampHostsPaneWidth(saved, available);
 }
 
 /** Pane width that ends at a window position, like the left edge of a fold. */
@@ -33,11 +55,14 @@ export function HostsPane({
   edge,
   width,
   onLeft,
+  tweenKey,
 }: {
   edge?: number;
   width?: number | null;
   /** Window position of the pane's left side, for drags that snap to a fold. */
   onLeft?: (left: number) => void;
+  /** The width glides when this changes, like the screen bending or going flat. */
+  tweenKey?: unknown;
 }) {
   const ref = useRef<View>(null);
   const [left, setLeft] = useState<number | null>(null);
@@ -46,14 +71,22 @@ export function HostsPane({
       setLeft((prev) => (prev === x ? prev : x));
       onLeft?.(x);
     });
+  const shown = useFoldTweenWidth(
+    width ?? hostsPaneWidth(left, edge),
+    tweenKey,
+  );
   return (
     <View
       ref={ref}
       onLayout={measure}
       className="border-r border-border bg-background"
-      style={{ width: width ?? hostsPaneWidth(left, edge) }}
+      style={{ width: shown }}
     >
-      <Hosts />
+      {/* Sessions already pads for side insets, like the Duo status rail, so the list
+          doesn't pad for them again and leave a gap before the divider. */}
+      <SideInsetsPadded.Provider value>
+        <Hosts />
+      </SideInsetsPadded.Provider>
     </View>
   );
 }

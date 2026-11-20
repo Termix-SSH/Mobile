@@ -1,0 +1,3874 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Bejelentkezés",
+      "addServer": "Szerver hozzáadása",
+      "switchAccount": "Fiók váltása",
+      "noServerConnected": "Nincs csatlakoztatott szerver",
+      "connectToATermixServer": "Csatlakozzon egy Termix szerverhez a hostok, terminálok, fájlok és egyéb elemek kezeléséhez."
+    },
+    "lockScreen": {
+      "cancel": "Mégse",
+      "tooManyTriesWaitSeconds": "Túl sok próbálkozás. Várjon {{value}} másodpercet",
+      "termixLocked": "Termix zárolva",
+      "enterYourPinToContinue": "Adja meg a PIN-kódját a folytatáshoz"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Narancs",
+      "blue": "Kék",
+      "green": "Zöld",
+      "purple": "Lila",
+      "pink": "Rózsaszín",
+      "cyan": "Cián",
+      "red": "Piros",
+      "yellow": "Sárga",
+      "teal": "Teal",
+      "indigo": "Indigó",
+      "rose": "Rózsa",
+      "lime": "Lime",
+      "system": "Rendszer",
+      "light": "Világos",
+      "dark": "Sötét"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "PIN használata",
+      "unlockTermix": "Termix feloldása",
+      "unlockTermixFirst": "Először oldja fel a Termixet."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Ez a funkció kikapcsolva van a szerveren.",
+      "aTabWasNotReopened": "Egy lap nem lett újra megnyitva, mert a hostja eltűnt",
+      "tabsWereNotReopenedBecause": "A(z) {{count}} lap nem lett újra megnyitva, mert a gazdagépek már nem elérhetők"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Hozza létre a kapcsolatot egy Termix szerverrel ehhez",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Adja meg a szerver címét",
+        "theAddressCanTHave": "A cím nem tartalmazhat szóközt",
+        "useAnHttpOrHttps": "Használjon http:// vagy https:// címet",
+        "thatDoesnTLookLike": "Ez nem úgy néz ki, mint egy szervercím",
+        "thePortMustBeFrom": "A portnak 1 és 65535 között kell lennie"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Bejelentkezési proxy válaszolt a Termix helyett. Először jelentkezzen be a proxyba.",
+        "theServerDidNotSend": "A szerver nem küldött tokent.",
+        "theServerDidNotSend2": "A szerver nem küldött munkamenetet.",
+        "theServerSentNoSign": "A szerver nem küldött bejelentkezési címet.",
+        "theSignInRanOut": "A bejelentkezés lejárt vagy már használt volt. Jelentkezzen be újra.",
+        "wrongUsernameOrPassword": "Helytelen felhasználónév vagy jelszó",
+        "signInFailedHttp": "A bejelentkezés sikertelen (HTTP {{status}})",
+        "thePageSignedYouIn": "Az oldal bejelentkezett, de nem küldött vissza munkamenetet. Frissítse a szervert a Termix 26.11.3 vagy újabb verzióra.",
+        "thisAccountIsnTAllowed": "Ez a fiók nem jelentkezhet be ide.",
+        "noTermixAccountMatchesThat": "Nincs olyan Termix fiók, amely megfelelne ennek a bejelentkezésnek."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Ennek a munkamenetnek nincs szervere"
+    },
+    "store": {
+      "noSuchAccount": "Nincs ilyen fiók",
+      "thisDeviceCanTBe": "Ezt az eszközt nem lehet eltávolítani",
+      "switchToAnotherAccountFirst": "Először váltson másik fiókra"
+    },
+    "types": {
+      "thisDevice": "Ez az eszköz"
+    },
+    "accountSwitcher": {
+      "error": "Hiba",
+      "worksWithoutAServer": "Szerver nélkül is működik",
+      "couldNotSwitchAccount": "Nem sikerült váltani a fiókot",
+      "accounts": "Fiókok",
+      "openTabsKeepRunningWhen": "A megnyitott lapok futtatva maradnak a váltás során.",
+      "unlink": "{{account}} leválasztása",
+      "linkAServer": "Szerver csatlakoztatása",
+      "eachServerKeepsItsOwn": "Minden szerver a saját hosztjait, hitelesítő adatait és beállításait tárolja ezen a {{deviceWord}} eszközön.",
+      "signedIn": "Bejelentkezve",
+      "signedOut": "Kijelentkezve",
+      "syncedCopy": "Szinkronizált másolat"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Nem sikerült menteni a pin-t",
+      "theServerSKeyMatches": "A szerver kulcsa megegyezik a pin-nel",
+      "theServerShowsAnotherKey": "A szerver egy másik kulcsot mutat",
+      "pinThisKey": "Megbízik ebben a kulcsban?",
+      "pinThisKey2": "Kulcs megbízása",
+      "keyPinned": "Kulcs megbízva",
+      "couldNotReadTheServer": "Nem sikerült beolvasni a szerver kulcsát",
+      "thatIsNotAPin": "Ez nem egy pin",
+      "keysPinned": "Kulcsok megbízva",
+      "certificatePin": "Tanúsítvány pin",
+      "trustThisServerOnlyBy": "Csak a kulcsa alapján bízza meg ezt a szervert. Használja önállóan aláírt tanúsítvány esetén, vagy ha elutasítana minden más kulcsot. Adja hozzá a következő kulcsot, mielőtt megváltoztatná a szerver tanúsítványát.",
+      "removePin": "Pin eltávolítása: {{pin}}",
+      "remove": "Eltávolítás",
+      "readTheKeyFromThe": "Kulcs beolvasása a szerverről",
+      "orPasteAPin": "Vagy illesszen be egy pin-t",
+      "pin": "Pin",
+      "add": "Hozzáadás",
+      "issuedTo": "Kibocsátva: {{subject}}",
+      "issuedBy": "Kibocsátó: {{issuer}}",
+      "validUntil": "Érvényes: {{value}}-ig",
+      "checkThatThisKeyMatches": "Ellenőrizze, hogy ez a kulcs megegyezik-e a szerverén lévővel, mielőtt megbízná.",
+      "pasteTheBase64Sha256Of": "Illessze be a szerver nyilvános kulcsának base64 sha256 hashjét, ahogy az openssl kiírja."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Proxy beállítások mentve",
+      "couldNotSaveTheProxy": "Nem sikerült menteni a proxy beállításokat",
+      "couldNotReadThatFile": "Nem sikerült beolvasni ezt a fájlt",
+      "certificateSaved": "Tanúsítvány mentve",
+      "theFileOrItsPassphrase": "A fájl vagy a jelszava hibás",
+      "couldNotSaveTheCertificate": "Nem sikerült menteni a tanúsítványt",
+      "headers": "Fejlécek",
+      "sentWithEveryRequestTo": "Minden kérésnél elküldésre kerül ehhez a szerverhez, például egy Cloudflare szolgáltatási tokenként.",
+      "name": "Név",
+      "value": "Érték",
+      "removeHeader": "Fejléc eltávolítása",
+      "addHeader": "Fejléc hozzáadása",
+      "cloudflareServiceToken": "Cloudflare szolgáltatási token",
+      "basicAuth": "Alap hitelesítés",
+      "forAProxyThatAsks": "Olyan proxyhoz, amely felhasználónevet és jelszót kér.",
+      "userName": "Felhasználónév",
+      "password": "Jelszó",
+      "saveHeadersAndBasicAuth": "Fejlécek és alap hitelesítés mentése",
+      "clientCertificate": "Kliens tanúsítvány",
+      "forServersThatAskFor": "Olyan szerverekhez, amelyek ezt kérik (mTLS). A kulcs a {{deviceWord}} biztonságos tárolójában marad, és nem olvasható vissza.",
+      "certificate": "Tanúsítvány",
+      "remove": "Eltávolítás",
+      "replaceCertificate": "Tanúsítvány cseréje",
+      "pickAP12OrPfx": "Válasszon egy .p12 vagy .pfx fájlt",
+      "proxySignIn": "Proxy bejelentkezés",
+      "thisIsSignedInTo": " Ez a {{deviceWord}} eszköz be van jelentkezve a proxyba.",
+      "forCloudflareAccessAutheliaAuthentik": "Cloudflare Access, Authelia, Authentik és más, saját bejelentkezési oldallal rendelkező proxykhoz.{{value}}",
+      "signInToTheProxy": "Bejelentkezés a proxyba",
+      "forget": "Felejtsd el",
+      "certificatePassphrase": "Tanúsítvány jelszava",
+      "thePassphraseTheFileWas": "A fájl mentéséhez használt jelszó. Hagyja üresen, ha nincs ilyen.",
+      "passphrase": "Jelszó",
+      "save": "Mentés"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Bejelentkezve a proxyba",
+      "couldNotSaveTheProxy": "Nem sikerült menteni a proxy bejelentkezést",
+      "signInToTheProxy": "Bejelentkezés a proxyba",
+      "thisBuildOfTheApp": "Ez az alkalmazásverzió nem tudja megőrizni a proxy bejelentkezést. Használjon inkább szolgáltatási tokent a proxy fejlécekben."
+    },
+    "savedLoginRow": {
+      "signIn": "Bejelentkezés",
+      "signInWith": "Bejelentkezés ezzel: {{name}}",
+      "whenThisServerSignsYou": "Amikor ez a kiszolgáló kijelentkeztet, jelentkezzen be újra jelszó megadása nélkül."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Kapcsolat bontva. A(z) {{copied}} elem megmaradt ezen az eszközön.",
+      "unlinked": "Kapcsolat bontva",
+      "couldNotUnlinkTheServer": "Nem sikerült bontani a kiszolgáló kapcsolatát",
+      "unlink": "Kapcsolat bontása: {{value}}?",
+      "thisSignsOutOfThe": "Ez a(z) {{deviceWord}} kijelentkezik a kiszolgálóról. A kiszolgálón semmi nem törlődik.",
+      "keepACopyOnThis": "Másolat megtartása ezen az eszközön",
+      "yourOwnHostsCredentialsAnd": "A saját kiszolgálói, hitelesítő adatai és parancsmentései átkerülnek erre az eszközre. Az Önnel megosztott kiszolgálók nem maradnak meg.",
+      "deleteFromThis": "Törlés erről a(z) {{deviceWord}}ről",
+      "everythingThisHasForThe": "Minden, amit ez a(z) {{deviceWord}} a kiszolgálóhoz tárolt, eltávolításra kerül."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Módosítsa lentebb a Proxy alatt",
+      "updateTermixMobileFromYour": "Frissítse a Termix Mobile alkalmazást az alkalmazásboltból"
+    },
+    "savedLogin": {
+      "signInToTermix": "Bejelentkezés a Termixbe",
+      "faceUnlock": "arcfelismeréses feloldás"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Ez a verzió nem tudja ellenőrizni a kiszolgáló rögzített kulcsát, vagy elküldeni a tanúsítványát."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Ez a kiszolgáló nem támogatja ezt a funkciót",
+      "theProxyWantsYouTo": "A proxy bejelentkezést kér",
+      "endpointNotAvailableOnThis": "A végpont nem elérhető ezen a kiszolgálón",
+      "unknownError": "Ismeretlen hiba"
+    },
+    "errors": {
+      "theProxyInFrontOf": "A kiszolgáló előtti proxy újra bejelentkezést kér.",
+      "authenticationRequiredPleaseLogIn": "Hitelesítés szükséges. Kérjük, jelentkezzen be újra.",
+      "accessDeniedYouDoNot": "Hozzáférés megtagadva. Nincs jogosultsága ennek a műveletnek a végrehajtására.",
+      "thisFeatureIsTurnedOff": "Ez a funkció kikapcsolva a kiszolgálón.",
+      "thisServerDoesNotSupport": "Ez a kiszolgáló nem támogatja ezt a funkciót.",
+      "resourceNotFoundTheRequested": "Erőforrás nem található. A kért elem esetlegesen törölve lett.",
+      "conflictTheResourceAlreadyExists": "Ütközés. Az erőforrás már létezik vagy használatban van.",
+      "validationErrorPleaseCheckYour": "Érvényesítési hiba. Kérjük, ellenőrizze a bemenetet, és próbálja újra.",
+      "serverErrorOccurredPleaseTry": "Kiszolgálóhiba történt. Kérjük, próbálja újra később.",
+      "sslCertificateVerificationFailed": "Az SSL-tanúsítvány ellenőrzése sikertelen.",
+      "networkErrorPleaseCheckYour": "Hálózati hiba. Kérjük, ellenőrizze a kapcsolatot, és próbálja újra.",
+      "failedTo": "Sikertelen: {{operation}}",
+      "unknownError": "Ismeretlen hiba",
+      "unexpectedErrorDuring": "Váratlan hiba a(z) {{operation}} során: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Az alkalmazás nem tudta megbízni az HTTPS-t ehhez a helyi IP-címhez. Rögzítse a kiszolgáló kulcsát a Proxy és ügyféltanúsítvány alatt, használjon olyan tanúsítványt, amit a(z) {{deviceWord}} megbíz, vagy HTTP-t egy megbízható helyi vagy VPN-hálózaton.",
+        "thisServerIsBehindA": "Ez a kiszolgáló egy bejelentkezési proxy mögött van. Használja helyette a külső bejelentkezési lehetőséget.",
+        "loginFailed": "Bejelentkezés sikertelen"
+      },
+      "files": {
+        "fileNotFound": "Fájl nem található",
+        "fileWriteOperationDidNot": "A fájlírás művelet nem adott vissza sikeres állapotot",
+        "couldNot": "Nem sikerült: {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Kiszolgáló mentve, de néhány beállítás sikertelen: {{value}}",
+        "unexpectedHostResponseFrom": "Váratlan kiszolgálóválasz a(z) {{baseURL}} címről"
+      },
+      "metrics": {
+        "liveSampleFailed": "Élő minta sikertelen"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Nincs válasz"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "A kiszolgáló nem mutatta meg a rögzített kulcsot, ezért az oldal nem nyílt meg."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Ez a(z) {{what}} már nem létezik.",
+      "aHostCannotBeIts": "Egy kiszolgáló nem lehet a saját szülője",
+      "parentHostNotFound": "Szülőkiszolgáló nem található",
+      "aHostCanTGo": "Egy kiszolgáló nem helyezhető el az egyik alkiszolgálója alá",
+      "thisIsSharedWithYou": "Ez a(z) {{what}} megosztott Önnel. Csak a tulajdonos módosíthatja.",
+      "nameIsRequired": "A név megadása kötelező",
+      "nameAndCommandAreRequired": "A név és a parancs megadása kötelező",
+      "aFolderWithThatName": "Már létezik ilyen nevű mappa"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Ez az eszköz nem tudja itt menteni a(z) {{what}}t."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Ez a parancsmentés megosztott Önnel, és nem módosítható."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Használjon legalább 8 karakteres jelszót.",
+      "thisIsNotATermix": "Ez nem Termix biztonsági mentési fájl.",
+      "thisBackupIsFromA": "Ez a biztonsági mentés egy újabb Termix-verzióból származik. Először frissítse az alkalmazást.",
+      "wrongPassphraseOrTheFile": "Helytelen jelszófráza, vagy a fájl sérült."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Ez a verzió nem képes helyi adatokat titkosítani."
+    },
+    "keys": {
+      "unlockTermixFirst": "Először oldja fel a Termix zárolását.",
+      "thatIsNotADatabase": "Ez nem adatbázis-kulcs.",
+      "couldNotSaveTheDatabase": "Nem sikerült menteni az adatbázis-kulcsot."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Ezt az adatot a Termix újabb verziója mentette. Frissítse az alkalmazást a megnyitáshoz."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Ez az eszköz nem szinkronizál.",
+      "localDataIsNotAvailable": "A helyi adatok itt nem érhetők el.",
+      "unlockTermixFirst": "Először oldja fel a Termix zárolását."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Nem sikerült csatlakozni.",
+      "thisWayCanTRun": "Ez a módszer nem futtathat parancsokat"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo jelszó",
+      "password": "Jelszó",
+      "run": "Futtatás",
+      "thatPasswordWasWrong": "A megadott jelszó helytelen volt.",
+      "onNeedsRoot": "A(z) {{reason}} a(z) {{hostName}} gépen root jogosultságot igényel.",
+      "needsRootForThis": "A(z) {{hostName}} ehhez root jogosultságot igényel.",
+      "itIsKeptUntilYou": "Addig megmarad, amíg nem zárja be az alkalmazást."
+    },
+    "run": {
+      "theHostTookTooLong": "A host túl sokáig tartotta a választ",
+      "connectionLost": "A kapcsolat megszakadt"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Ehhez root jogosultság szükséges. Jelentkezzen be root felhasználóként, állítson be jelszómentes sudo-t, vagy mentse el a host sudo jelszavát.",
+      "theSudoPasswordWasWrong": "A sudo jelszó helytelen volt",
+      "commandFailed": "A parancs sikertelen"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "A terminálban a Telnethez kapcsolatra van szükség a(z) {{deviceWord}} felől."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "A(z) {{id}} funkció már regisztrálva van"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Cím",
+      "theIpOrHostName": "Az IP-cím vagy a host neve a név alatt",
+      "username": "Felhasználónév",
+      "theUserBeforeTheAddress": "A felhasználó a cím előtt",
+      "port": "Port",
+      "thePortAfterTheAddress": "A port a cím után",
+      "hostIcon": "Host ikon",
+      "theIconSetOnThe": "A hoston beállított ikon",
+      "pinIcon": "Ikon rögzítése",
+      "marksPinnedHosts": "Megjelöli a rögzített hostokat",
+      "sharedBadge": "Megosztott jelvény",
+      "marksHostsSharedWithYou": "Megjelöli az Önnek megosztott hostokat",
+      "protocolBadges": "Protokoll jelvények",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker és egyéb jelölők",
+      "tags": "Címkék",
+      "theHostSTags": "A host címkéi",
+      "cpuAndRam": "CPU és RAM",
+      "liveUsageBarsOnOnline": "Élő használati sávok az online hostokon",
+      "statusColors": "Állapot színek",
+      "greenBarWhenOnlineRed": "Zöld sáv online állapotban, piros offline állapotban"
+    },
+    "uiPrefs": {
+      "small": "Kicsi",
+      "default": "Alapértelmezett",
+      "large": "Nagy",
+      "comfortable": "Kényelmes",
+      "compact": "Kompakt"
+    },
+    "errors": {
+      "somethingWentWrong": "Valami hiba történt"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Egy kulcs jelszófrázissal való zárolásához a Termix alkalmazásra van szükség, nem webes előnézetre."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Azonnal",
+      "after15Seconds": "15 másodperc után",
+      "after1Minute": "1 perc után",
+      "after5Minutes": "5 perc után"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Az eszköz titka eltűnt",
+      "noSealedKey": "Nincs lezárt kulcs",
+      "theSealedKeyIsDamaged": "A lezárt kulcs sérült",
+      "wrongPin": "Hibás PIN",
+      "theSealedKeyDidNot": "A lezárt kulcs nem nyílt meg",
+      "biometricsCanTOpenThe": "A biometria nem tudja megnyitni a kulcsot"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Alkalmazás frissítése",
+      "onYourServerNeedsA": "A(z) {{name}} a szerveren újabb Termix-verziót igényel ezen a(z) {{deviceWord}} eszközön.",
+      "updateThePlugin": "Bővítmény frissítése",
+      "onYourServerIsToo": "A(z) {{name}} a szerveren túl régi ehhez az alkalmazáshoz. Kérjen egy rendszergazdát, hogy frissítse a Bővítmények menüpontban."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Az alkalmazás által blokkolva",
+      "theAppDoesNotLet": "Az alkalmazás nem engedi, hogy a bővítmények ezt az útvonalat használják.",
+      "thisBuildCanTReach": "Ez a verzió nem tud biztonságosan kapcsolódni ehhez a szerverhez."
+    },
+    "support": {
+      "needsANewerVersionOf": "Újabb alkalmazásverzió szükséges",
+      "updateThePluginOnThe": "Bővítmény frissítése a szerveren",
+      "theAppHasItsOwn": "Az alkalmazásnak saját megjelenése van",
+      "notInTheAppYet": "Még nem elérhető az alkalmazásban",
+      "linkAServerToUse": "Kapcsoljon egy szervert a használatához",
+      "opensInTheAppFrom": "Megnyílik az alkalmazásban a szerverről",
+      "runsOnTheServer": "A szerveren fut",
+      "throughTheServer": "A szerveren keresztül",
+      "inTheApp": "Az alkalmazásban",
+      "webView": "Webes nézet",
+      "onTheServer": "A szerveren",
+      "appLook": "Alkalmazás megjelenése",
+      "notInTheApp": "Nem elérhető az alkalmazásban",
+      "safeMode": "Biztonságos mód",
+      "notRunning": "Nem fut",
+      "notInstalled": "Nincs telepítve",
+      "notOnThisServer": "Nincs ezen a szerveren",
+      "thePluginIsNotInstalled": "A bővítmény nincs telepítve erre a szerverre.",
+      "turnedOffOnTheServer": "Kikapcsolva a szerveren",
+      "itOpensHereAgainWhen": "Újra itt nyílik meg, amikor egy rendszergazda bekapcsolja.",
+      "notRunningOnTheServer": "Nem fut a szerveren",
+      "theServerIsInSafe": "A szerver biztonságos módban van, így csak a megjelenés bővítmények futnak.",
+      "thePluginDidNotStart": "A bővítmény nem indult el. Egy rendszergazda ellenőrizheti a Bővítmények menüpontban.",
+      "thisPluginIsNotAvailable": "Ez a bővítmény nem elérhető",
+      "itIsNotMadeFor": "Nem az alkalmazáshoz készült.",
+      "offOnThisServer": "kikapcsolva ezen a szerveren",
+      "notRunningOnThisServer": "nem fut ezen a szerveren",
+      "notOnThisServer2": "nincs ezen a szerveren",
+      "notInTheAppYet2": "Még nem elérhető az alkalmazásban | ezen a szerveren",
+      "worksOnThis": "Működik ezen a(z) {{deviceWord}} eszközön",
+      "andServer": "{{DeviceWord}} és szerver",
+      "deviceOnly": "Csak {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Újratöltés"
+    },
+    "pluginSettings": {
+      "loading": "Beállítások betöltése",
+      "forEveryone": "Mindenki számára a szerveren",
+      "justForYou": "Csak neked",
+      "couldNotSave": "Nem sikerült menteni a beállítást",
+      "nothingYouCanChange": "Itt nincs, amit módosíthass. Egy rendszergazda változtathat ezeken a beállításokon.",
+      "notANumber": "Ez nem szám",
+      "atLeast": "Legalább {{min}}-nek kell lennie",
+      "atMost": "Legfeljebb {{max}} lehet"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Összes leválasztása",
+      "showOpenSessions": "Nyitott munkamenetek megjelenítése",
+      "termixShowsANotificationWhile": "Termix értesítést jelenít meg, amíg munkamenetek nyitva vannak, így az Android háttérben is futtatja őket.",
+      "sessionsOpen_one": "{{count}} nyitott munkamenet",
+      "sessionsOpen_other": "{{count}} nyitott munkamenet",
+      "tunnelsActive_one": "{{count}} aktív alagút",
+      "tunnelsActive_other": "{{count}} aktív alagút",
+      "notConnected": "Nincs kapcsolat",
+      "waitingForNetwork": "Hálózatra várakozás",
+      "connecting": "Kapcsolódás",
+      "connected": "Csatlakoztatva",
+      "reconnecting": "Újracsatlakozás",
+      "failed": "Sikertelen",
+      "closed": "Bezárva"
+    },
+    "companionPane": {
+      "resizeThePanel": "{{title}} panel átméretezése"
+    },
+    "connectionsPanel": {
+      "close": "Bezárás",
+      "closeAllTabs": "Bezárja az összes {{count}} fület?",
+      "everySessionEnds": "Minden munkamenet véget ér.",
+      "closeAll": "Összes bezárása",
+      "noActiveConnections": "Nincs aktív kapcsolat",
+      "pickAHostFromThe": "Válassz egy gazdagépet a listából a munkamenet indításához. Az egyéb eszközökön megnyitott lapok is itt jelennek meg.",
+      "connectToAHostTo": "Csatlakozz egy gazdagéphez a munkamenet indításához. Az egyéb eszközökön megnyitott lapok is itt jelennek meg.",
+      "open": "Megnyitás",
+      "background": "Háttér",
+      "sessionsFromOtherDevicesOr": "Munkamenetek más eszközökről vagy háttérbe helyezett lapok. koppents ide az újrakezdéshez.",
+      "liveTapToReconnect": "Élő, koppents az újracsatlakozáshoz",
+      "tapToReopen": "Koppents az újranyitáshoz"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Ez kikapcsolva van a szerveren",
+      "comesBackHereWhenAn": "{{title}} akkor jelenik meg újra, ha egy rendszergazda újra bekapcsolja a bővítményt.",
+      "closeTab": "Lap bezárása"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Kapcsolatok",
+        "hideHostList": "Gazdagéplista elrejtése",
+        "showHostList": "Gazdagéplista megjelenítése",
+        "backToHosts": "Vissza a gazdagépekhez",
+        "showKeyboard": "Billentyűzet megjelenítése",
+        "hideKeyboard": "Billentyűzet elrejtése",
+        "hideKeysPanel": "Kulcsok panel elrejtése",
+        "showKeysPanel": "Kulcsok panel megjelenítése"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Koppents a lapbeállításokért, nyomd meg hosszan a mozgatáshoz",
+        "holdToMove": "Nyomd meg hosszan a mozgatáshoz",
+        "close": "{{title}} bezárása"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Várakozás a hálózatra",
+        "connectionFailed": "A kapcsolat sikertelen",
+        "reconnecting": "Újracsatlakozás"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Átnevezés",
+      "newTabOnThisHost": "Új lap ezen a gazdagépen",
+      "here": "{{title}} itt",
+      "hidePanel": "{{title}} panel elrejtése",
+      "showPanel": "{{title}} panel megjelenítése",
+      "endSplitView": "Osztott nézet befejezése",
+      "splitViewWith": "Osztott nézet...",
+      "moveLeft": "Mozgatás balra",
+      "moveRight": "Mozgatás jobbra",
+      "closeTab": "Lap bezárása",
+      "closeAllTabs": "Összes lap bezárása",
+      "closeAllTabs2": "Bezárja az összes {{count}} lapot?",
+      "everySessionEnds": "Minden munkamenet véget ér.",
+      "closeAll": "Összes bezárása",
+      "splitViewWith2": "Osztott nézet",
+      "renameTab": "Lap átnevezése",
+      "leaveItEmptyToUse": "Hagyja üresen a gazdagép nevének használatához."
+    },
+    "resizeHostList": "Gazdagéplista átméretezése",
+    "resizeSplitView": "Osztott nézet átméretezése",
+    "connections": "Kapcsolatok",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Kétfaktoros hitelesítés",
+        "enterThe6DigitCode": "Adja meg a 6 jegyű kódot a hitelesítő alkalmazásából.",
+        "cancel": "Mégse",
+        "verify": "Ellenőrzés",
+        "codeExpiresInSGet": "A kód {{totpCountdown}} másodperc múlva lejár, kérjen friss kódot",
+        "warpgateAuthentication": "Warpgate hitelesítés",
+        "confirmTheWarpgateAuthenticationUrl": "Erősítse meg a Warpgate hitelesítési URL-t és a biztonsági kulcsot.",
+        "authenticate": "Hitelesítés",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "Biztonsági kulcs (opcionális)",
+        "authenticationRequired": "Hitelesítés szükséges",
+        "thisHostNeedsCredentialsTo": "Ehhez a gazdagéphez hitelesítő adatok kellenek a csatlakozáshoz.",
+        "connect": "Csatlakozás",
+        "password": "Jelszó",
+        "sshKey": "SSH kulcs",
+        "pastePrivateKey": "Szerkesztő kulcs beillesztése",
+        "keyPassphraseOptional": "Kulcs jelszava (opcionális)"
+      },
+      "connectionError": {
+        "tryAgain": "Újrapróbál",
+        "close": "Bezárás",
+        "connectThroughTheServer": "Csatlakozás a szerveren keresztül",
+        "connectFromThis": "Csatlakozás erről a {{deviceWord}}ról",
+        "triedFromThis": "Megpróbálva erről a {{deviceWord}}ról",
+        "triedThroughTheServer": "Megpróbálva a szerveren keresztül"
+      },
+      "execGate": {
+        "connecting": "Csatlakozás..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Valami hiba történt",
+        "retry": "Újrapróbál",
+        "refresh": "Frissítés",
+        "nothingToShow": "Nincs megjeleníthető tartalom"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Naplók másolva",
+        "connectionLog": "Csatlakozási napló ({{count}})",
+        "copyLog": "Napló másolása",
+        "waitingForConnection": "Várakozás a csatlakozásra…",
+        "noLogEntries": "Nincsenek naplóbejegyzések"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Nem sikerült menteni, hogyan csatlakozik ez a gazdagép"
+      },
+      "useSessionConnect": {
+        "connected": "Csatlakozva",
+        "connectingTo": "Csatlakozás a(z) {{name}}-hoz…",
+        "connectionLost": "A kapcsolat megszakadt",
+        "failedToConnect": "Nem sikerült csatlakozni",
+        "invalidCode": "Érvénytelen kód",
+        "warpgateAuthenticationFailed": "A Warpgate hitelesítés sikertelen",
+        "authenticationCancelled": "A hitelesítés megszakítva"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Keresés és parancsok",
+    "addHost": "Gazdagép hozzáadása",
+    "keyboardShortcuts": "Billentyűparancsok",
+    "home": "Kezdőlap",
+    "hosts": "Gazdagépek",
+    "sessions": "Munkamenetek",
+    "tools": "Eszközök",
+    "settings": "Beállítások",
+    "terminal": "Terminál",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Billentyűparancsok"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Gazdagépek és mappák",
+      "yourHostsFoldersAndHosts": "Saját gazdagépek, mappák és veled megosztott gazdagépek",
+      "credentials": "Hitelesítő adatok",
+      "savedPasswordsAndKeysAnd": "Mentett jelszavak és kulcsok, valamint veled megosztott hitelesítő adatok",
+      "snippets": "Kódvázlatok",
+      "snippetsAndTheirFolders": "Kódvázlatok és azok mappái",
+      "hostDefaults": "Gazdagép alapértelmezések",
+      "defaultSettingsForNewHosts": "Új gazdagépek alapértelmezett beállításai",
+      "preferences": "Preferenciák",
+      "settingsThatFollowYouBetween": "Beállítások, amelyek követnek az eszközök között"
+    },
+    "link": {
+      "noSuchServerAccount": "Ilyen szerverfiók nem létezik",
+      "signInFirst": "Először jelentkezzen be.",
+      "thisServerAccountBelongsTo": "Ez a szerverfiók a(z) {{value}} tulajdona. Jelentkezzen be mint ő, vagy adja hozzá újra a szervert ennek a felhasználónak."
+    },
+    "reasons": {
+      "signedOut": "Kijelentkezve",
+      "thisSSignInTo": "Ez a {{deviceWord}} szerverbejelentkezése lejárt.",
+      "theServerEndedThisS": "A szerver lezárta ennek a {{deviceWord}}-nak a munkamenetét. Lehet, hogy kijelentkezett egy másik eszközről.",
+      "proxySignInNeeded": "Proxy bejelentkezés szükséges",
+      "theProxyInFrontOf": "A szerver előtti proxy újra bejelentkezést kér.",
+      "proxyPasswordNeeded": "Proxy jelszó szükséges",
+      "theProxyInFrontOf2": "A szerver előtti proxy a jelszavát kérte.",
+      "certificateRefused": "Tanúsítvány elutasítva",
+      "theServerDidNotAccept": "A szerver nem fogadta el ennek a {{deviceWord}}-nak a tanúsítványát.",
+      "untrustedServer": "Nem megbízható szerver",
+      "theServerSCertificateIs": "A szerver tanúsítványát nem bízza meg ez a {{deviceWord}}.",
+      "serverKeyChanged": "A szerver kulcsa megváltozott",
+      "theServerShowsAnotherKey": "A szerver egy másik kulcsot mutat, mint amelyik hozzá van rögzítve. Ha megváltoztatta a tanúsítványát, rögzítse az új kulcsot.",
+      "offline": "Offline",
+      "canTReachTheServer": "A szerver nem érhető el. A szinkronizálás hamarosan újra megpróbálja.",
+      "serverProblem": "Szerverhiba",
+      "theServerHadAProblem": "A szerveren hiba történt. A szinkronizálás hamarosan újra megpróbálja.",
+      "updateNeeded": "Frissítés szükséges",
+      "thisServerUsesANewer": "Ez a szerver újabb szinkronizálási verziót használ. Frissítse az alkalmazást.",
+      "notATermixServer": "Nem Termix szerver",
+      "theAddressDoesNotAnswer": "A cím nem úgy válaszol, mint egy Termix szerver.",
+      "syncIsOff": "A szinkronizálás ki van kapcsolva",
+      "theSyncPluginIsOff": "A Sync bővítmény ki van kapcsolva ezen a szerveren. Kérjen meg egy rendszergazdát, hogy kapcsolja be a Bővítmények menüpontban.",
+      "differentUser": "Másik felhasználó",
+      "youSignedInAsA": "Másik felhasználóként jelentkezett be, mint amelyikhez ez a szerverfiatal tartozik.",
+      "syncStopped": "A szinkronizálás leállt",
+      "somethingWentWrong": "Valami hiba történt.",
+      "signInAgain": "Jelentkezzen be újra",
+      "signInToTheProxy": "Jelentkezzen be a proxyba",
+      "enterThePassword": "Adja meg a jelszót",
+      "tryAgain": "Próbálja újra",
+      "checkThePin": "Ellenőrizze a rögzítést",
+      "checkForUpdates": "Frissítések keresése",
+      "pickACertificate": "Válasszon tanúsítványt"
+    },
+    "settings": {
+      "noSuchSetting": "Ilyen beállítás nincs",
+      "snippetFolder": "Parancsment mappa",
+      "hostDefault": "Host alapértelmezett"
+    },
+    "errors": {
+      "theServerDidNotAccept": "A szerver nem fogadta el ennek a {{deviceWord}}-nak a tanúsítványát.",
+      "theServerSCertificateIs": "A szerver tanúsítványa nem megbízható.",
+      "canTReachTheServer": "A szerver nem érhető el.",
+      "signedOut": "Kijelentkezve",
+      "theProxyAskedForIts": "A proxy a jelszavát kérte.",
+      "theProxyWantsYouTo": "A proxy bejelentkezést kér.",
+      "theSyncPluginIsOff": "A Sync bővítmény ki van kapcsolva ezen a szerveren.",
+      "serverError": "Szerverhiba {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "A szerver egy másik kulcsot mutat, mint a rögzített."
+    },
+    "remote": {
+      "thisIsNotATermix": "Ez nem Termix szerver.",
+      "theProxyWantsYouTo": "A proxy bejelentkezést kér.",
+      "thisServerUsesANewer": "Ez a szerver újabb szinkronizálási verziót használ. Frissítse az alkalmazást."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} host",
+      "hostCount_other": "{{count}} host",
+      "credentialCount_one": "{{count}} hitelesítő adat",
+      "credentialCount_other": "{{count}} hitelesítő adat",
+      "snippetCount_one": "{{count}} parancsment",
+      "snippetCount_other": "{{count}} parancsment",
+      "folderCount_one": "{{count}} mappa",
+      "folderCount_other": "{{count}} mappa",
+      "nothingYet": "még semmi",
+      "listAnd": "{{list}} és {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Nem lehet csatlakozni.",
+      "connectingToFromThis": "Csatlakozás a(z) {{name}}-hoz ebből a {{deviceWord}}-ból",
+      "connectingToThroughTheServer": "Csatlakozás a(z) {{name}}-hoz a szerveren keresztül",
+      "reconnectingTry": "Újracsatlakozás ({{retry}}. kísérlet)",
+      "disconnected": "Kapcsolat bontva",
+      "connected": "Csatlakozva",
+      "reconnectedToTheSameSession": "Újracsatlakozás ugyanahhoz a munkamenethez",
+      "reconnectedWithANewShell": "Újracsatlakozás új shell-lel",
+      "couldNotReachTheHost": "A host nem érhető el ebből a {{deviceWord}}-ból, próbálkozás a szerveren keresztül",
+      "couldNotConnectThroughThe": "Nem lehet csatlakozni a szerveren keresztül, próbálkozás ebből a {{deviceWord}}-ból",
+      "connectionLost": "Kapcsolat megszakadt: {{reason}}",
+      "offlineWaitingForTheNetwork": "Offline, várakozás a hálózatra",
+      "nextTryInS": "Következő kísérlet {{value}} másodperc múlva",
+      "reconnectingTry2": "Újracsatlakozás ({{reconnectAttempt}}. kísérlet)",
+      "theHostStoppedAnswering": "A host abbahagyta a választást",
+      "networkLost": "Hálózati kapcsolat megszakadt",
+      "network": "Hálózat: {{type}}{{value}}",
+      "lowPowerModeOn": "Alacsony energiafogyasztású mód bekapcsolva",
+      "lowPowerModeOff": "Alacsony energiafogyasztású mód kikapcsolva",
+      "droppedTypedCharacters": "Elvetett {{count}} begépel karakter",
+      "youDidNotTrustThe": "Nem bízott meg a host kulcsában.",
+      "checkTheKeyWithWhoever": "Ellenőrizze a kulcsot a host üzemeltetőjével, majd próbálja újra.",
+      "loginCancelled": "Bejelentkezés megszakítva.",
+      "connectAgainWhenYouAre": "Csatlakozzon újra, amikor készen áll.",
+      "typedInputIsOver64": "A begépelt bemenet meghaladja a 64 KB-ot, a legrégebbi rész eldobásra került",
+      "appInTheBackground": "Alkalmazás a háttérben",
+      "appInTheForeground": "Alkalmazás az előtérben",
+      "thisConnectionCanTRun": "Ez a kapcsolat nem tud parancsokat futtatni"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Ellenőrizze a címet és a portot, valamint hogy a szerver elérheti-e a hostot.",
+      "checkTheAddressAndPort2": "Ellenőrizze a címet és a portot, valamint hogy ez a(z) {{deviceWord}} elérheti-e a hostot.",
+      "checkTheProxySettingsOf": "Ellenőrizze a host proxy beállításait.",
+      "checkTheKeyWithWhoever": "Ellenőrizze a kulcsot a host üzemeltetőjével, mielőtt megbízna benne.",
+      "checkTheUsernameAndLogin": "Ellenőrizze a felhasználónevet és a bejelentkezést a host szerkesztőben.",
+      "checkThatTheServerIs": "Ellenőrizze, hogy a szerver fut-e, és hogy továbbra is be van-e jelentkezve.",
+      "tryAgainIfItKeeps": "Próbálja újra. Ha folyamatosan megszakad, ellenőrizze a hálózatot.",
+      "connectAgainWhenYouAre": "Csatlakozzon újra, amikor készen áll.",
+      "pickAnotherWayToConnect": "Válasszon másik kapcsolódási módot ehhez a hosthoz.",
+      "connectThisHostThroughA": "Csatlakozzon ehhez a hosthoz egy Termix szerveren keresztül.",
+      "pickTheJumpHostsAgain": "Válassza ki újra a átugró hostokat a host szerkesztőben.",
+      "thisIsATailscaleAddress": "Ez egy Tailscale cím. Ellenőrizze, hogy a Tailscale csatlakoztatva van-e ezen a(z) {{deviceWord}} eszközön.",
+      "theSavedKeyCanT": "A mentett kulcs nem olvasható. Illessze be újra a host szerkesztőben.",
+      "signInToThisServer": "Jelentkezzen be újra erre a szerverre.",
+      "openThisHostInThe": "Nyissa meg ezt a hostot a Termix webalkalmazásban.",
+      "canTConnectThisWay": "Nem lehet így csatlakozni",
+      "couldNotReachTheHost": "Nem lehet elérni a hostot",
+      "theProxyDidNotLet": "A proxy nem engedte át a kapcsolatot",
+      "theHostKeyWasNot": "A host kulcsa nem lett megbízhatóként jelölve",
+      "theLoginWasRefused": "A bejelentkezést elutasították",
+      "theTermixServerDidNot": "A Termix szerver nem válaszolt",
+      "theConnectionDropped": "A kapcsolat megszakadt",
+      "loginCancelled": "Bejelentkezés megszakítva"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH ügynök",
+        "thisHostSignsInWith": "Ez a host \"{{authType}}\" segítségével jelentkezik be, amihez Termix szerver szükséges. Hozzon létre egyet a csatlakozáshoz.",
+        "thisHostUsesA1password": "Ez a host egy 1Password hivatkozást használ, amihez Termix szerverre van szükség Secret Sources funkcióval. Hozzon létre egyet, és csatlakozzon a hosthoz ezen keresztül.",
+        "signInWithFirstOpen": "Először jelentkezzen be a(z) {{title}} segítségével. Nyisson meg egyszer egy terminált ehhez a hosthoz, majd próbálja újra.",
+        "theSignInAndThe": "a bejelentkezés és a tanúsítvány a szerveren található",
+        "theHasNoSshAgent": "a(z) {{deviceWord}} eszköznek nincs SSH ügynöke",
+        "needsATermixServerBecause": "A(z) {{title}} Termix szervert igényel, mert {{why}}. Hozzon létre egyet, és csatlakozzon a hosthoz ezen keresztül."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Ez a host egyik átugró hostja már nem létezik."
+      },
+      "localShell": {
+        "theConnectionWasCut": "A kapcsolat megszakadt",
+        "theShellChannelClosed": "A shell csatorna bezárult",
+        "jumpHost": "Átugró host {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Érvénytelen kód, próbálja újra:",
+        "authenticationFailed": "Hitelesítés sikertelen: {{message}}",
+        "theHostKeyWasNot": "A host kulcsa nem lett megbízhatóként jelölve.",
+        "loginCancelled": "Bejelentkezés megszakítva.",
+        "notConnected": "Nincs kapcsolat",
+        "signingInAs": "Bejelentkezés {{user}} felhasználóként {{method}} módszerrel",
+        "methodKey": "kulccsal",
+        "methodPassword": "jelszóval",
+        "methodNone": "nincs mentett bejelentkezés"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "A kapcsolat megszakadt"
+      },
+      "thisBuildHasNoSsh": "Ez a verzió nem tartalmaz SSH motort. Használja az áruházban elérhető alkalmazást, vagy hozzon létre egy Termix szervert a csatlakozáshoz.",
+      "theHostsOnThisAre": "A(z) {{deviceWord}} eszközön lévő hostok még nem nyitottak.",
+      "thisServerSHostsAre": "Ez a szerver hostjai nem találhatók ezen a(z) {{deviceWord}} eszközön. Kapcsolja be a Sync bővítményt a szerveren, hogy csatlakozhasson a(z) {{deviceWord}} eszközről.",
+      "resolve": {
+        "theSavedLoginIsNot": "Ennek a hosztnak a mentett bejelentkezési adatai nincsenek ezen a {{deviceWord}} eszközön, így csak a szerver tud bejelentkezni."
+      }
+    },
+    "origin": {
+      "canTConnect": "Nem lehet csatlakozni.",
+      "canTConnectFromThe": "Nem lehet csatlakozni erről a(z) {{deviceWord}} eszközről.",
+      "canTReachTheServer": "Nem lehet elérni a szervert.",
+      "theOnlyConnectsToSsh": "A(z) {{deviceWord}} csak SSH és Telnet hoszthoz tud csatlakozni.",
+      "connectThisHostThroughThe": "Csatlakozás ehhez a hoszthoz a szerveren keresztül",
+      "connectThisHostFromThe": "Csatlakozás ehhez a hoszthoz a(z) {{deviceWord}}-ről",
+      "termixServer": "Termix szerver",
+      "usesThisWhenItCan": "Ha elérhető a hoszt, ezt a(z) {{deviceWord}}-t használja, egyébként a szervert.",
+      "thisConnectsToTheHost": "Ez a(z) {{deviceWord}} közvetlenül a hoszthoz csatlakozik.",
+      "theTermixServerConnectsTo": "A Termix szerver csatlakozik a hoszthoz helyetted.",
+      "anSshConnection": "egy SSH kapcsolat",
+      "aTermixServer": "egy Termix szerver",
+      "aConnectionFromThe": "egy kapcsolat a(z) {{deviceWord}}-ről",
+      "isOffOnThisServer": "A(z) {{title}} kikapcsolva ezen a szerveren. {{how}} a használatához.",
+      "isOffOnThisServer2": "A(z) {{title}} kikapcsolva ezen a szerveren.",
+      "anotherWayToConnect": "egy másik csatlakozási mód",
+      "needsToUseIt": "A(z) {{title}}-hoz szükséges a(z) {{what}}. {{how}} a használatához.",
+      "needsWhichThisHostCan": "A(z) {{title}}-hoz szükséges a(z) {{what}}, amelyet ez a hoszt jelenleg nem tud használni.",
+      "thisDevice": "Ez a(z) {{deviceWord}}",
+      "automatic": "Automatikus"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Kijelentkeztél erről a szerverről. Jelentkezz be, hogy keresztül lehessen csatlakozni rajta.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "A tmux nincs telepítve ezen a hoszton. Sima shell használata.",
+        "tapRetryToBringIt": "Nyomd meg az Újrapróbálást, hogy visszahozd ide.",
+        "thisSessionWasOpenedOn": "Ezt a munkamenetet egy másik eszközön nyitották meg",
+        "noServerUrlFoundLink": "Nem található szerver URL. Húzd újra össze a szervert.",
+        "signedOutOfThisServer": "Kijelentkeztél erről a szerverről. Jelentkezz be újra.",
+        "signInWithInYour": "Jelentkezz be a(z) {{title}}-val a böngésződben. Ez bezárul, amikor kész.",
+        "theSocketClosedWhileThe": "A socket bezárult, miközben az app háttérben volt",
+        "noWebsocketUrlAvailableServer": "Nincs elérhető WebSocket URL – a szerver nincs beállítva",
+        "connectionTimeoutServerNotResponding": "Kapcsolat időtúllépés – a szerver nem válaszol",
+        "verificationCode": "Ellenőrző kód:",
+        "hostKeyVerificationRequiredBut": "Hoszt kulcs ellenőrzése szükséges, de nincs regisztrált kezelő",
+        "hostKeyChangedButNo": "A hoszt kulcs megváltozott, de nincs regisztrált kezelő",
+        "thisHostNeedsASign": "Ez a hoszt olyan bejelentkezést igényel, amelyet csak a webes app támogat",
+        "invalidCodeTryAgain": "Érvénytelen kód, próbáld újra:",
+        "unknownError": "Ismeretlen hiba",
+        "connectionClosed": "Kapcsolat lezárva",
+        "connectionClosed2": "Kapcsolat lezárva ({{code}})",
+        "theServerClosedTheConnection": "A szerver lezárta a kapcsolatot",
+        "theSocketClosed": "A socket bezárult ({{code}})",
+        "signIn": "{{title}} bejelentkezés",
+        "signInFailed": "{{title}} bejelentkezés sikertelen",
+        "isNotSetUpOn": "A(z) {{title}} nincs beállítva a szerveren",
+        "signInTimedOut": "{{title}} bejelentkezés időtúllépés",
+        "authenticationFailed": "Hitelesítés sikertelen: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Mentsd el a hosztot, és csatlakozz hozzá, hogy ellenőrizd.",
+      "loggedInAsOn": "Bejelentkezve mint {{username}} a(z) {{host}} hoszton",
+      "theHostAskedForMore": "A hoszt többet kért, mint csak jelszót, például kódot. Mentsd el a hosztot, és csatlakozz hozzá, hogy befejezd a bejelentkezést."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Várakozás a hálózatra",
+      "couldNotOpenTheTunnel": "Nem sikerült megnyitni az alagutat",
+      "theConnectionDropped": "A kapcsolat megszakadt",
+      "iosStoppedThisTunnelWhile": "Az iOS leállította ezt az alagutat, miközben az app háttérben volt. Indítsd újra, hogy megnyisd.",
+      "connecting": "Csatlakozás",
+      "connected": "Csatlakozva",
+      "retrying": "Újrapróbálás",
+      "waiting": "Várakozás",
+      "failed": "Sikertelen"
+    },
+    "gateways": {
+      "error": "Hiba",
+      "gateways": "Kapuk",
+      "gatewaysCanOnlyBeChanged": "A kapukat csak a Termix webes felületén lehet módosítani.",
+      "noHandshake": "Nincs kézfogás",
+      "rulesMissing": "Szabályok hiányoznak",
+      "up": "Aktív",
+      "pending": "Folyamatban",
+      "applying": "Alkalmazás",
+      "down": "Leállítva",
+      "unreachable": "Elérhetetlen"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Még nincsenek alagutak. Hozzon létre egyet a végpont gazdagépről erre a gazdagépre irányuló porttovábbításhoz.",
+      "tunnel": "Alagút {{value}}",
+      "removeTunnel": "Alagút eltávolítása: {{value}}",
+      "mode": "Mód",
+      "local": "Helyi",
+      "remote": "Távoli",
+      "dynamic": "Dinamikus",
+      "targetHost": "Célgazdagép",
+      "onThisHostForTunnels": "Ennél a gazdagépnél, az alagutakhoz, amelyeket a(z) {{deviceWord}} futtat",
+      "bindHost": "Kötési gazdagép",
+      "endpointHost": "Végpont gazdagép",
+      "addAnotherHostFirstTunnels": "Először adjon hozzá egy másik gazdagépet. Az alagutak egy mentett gazdagépen keresztül haladnak.",
+      "sourcePort": "Forrásport",
+      "endpointPort": "Végpont port",
+      "maxRetries": "Maximális újrapróbálkozások",
+      "retryEveryS": "Újrapróbálkozás minden (mp)",
+      "startOnItsOwn": "Független indítás",
+      "addTunnel": "Alagút hozzáadása",
+      "tunnelNeedsPortsFrom1": "A(z) {{value}} alagúthoz 1 és 65535 közötti portok kellenek"
+    },
+    "register": {
+      "tunnels": "Alagutak",
+      "startAndStopSavedTunnels": "Mentett alagutak indítása és leállítása",
+      "tunnel": "ALAGÚT",
+      "tunnel2": "Alagút"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Helyi végpont másolva",
+      "tunnel": "Alagút | {{sourcePort}}",
+      "portMapping": "Portleképezés",
+      "connect": "Csatlakozás",
+      "disconnect": "Leválasztás",
+      "cancel": "Mégse",
+      "connected": "Csatlakoztatva",
+      "connecting": "Csatlakozás",
+      "disconnecting": "Leválasztás",
+      "error": "Hiba",
+      "retrying": "Újrapróbálkozás ({{value}}/{{value2}})",
+      "waitingS": "Várakozás {{value}} mp",
+      "waiting": "Várakozás",
+      "disconnected": "Leválasztva"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Alagút indítása a(z) {{sourcePort}} porton",
+      "connectingTunnelOnPort": "Alagút csatlakoztatása a(z) {{sourcePort}} porton",
+      "disconnectingPort": "Port leválasztása: {{sourcePort}}",
+      "cancellingPort": "Port megszüntetése: {{sourcePort}}",
+      "failedToTunnel": "Nem sikerült {{action}} az alagutat",
+      "tunnels": "Alagutak | {{count}} | {{value}}",
+      "loadingTunnels": "Alagutak betöltése…",
+      "noSshTunnelsConfiguredFor": "Nincsenek SSH-alagutak konfigurálva ehhez a gazdagéphez. Az alagutakat a gazdagép űrlapjáról adhatja hozzá.",
+      "runOn": "Futtatás ezen",
+      "server": "Szerver",
+      "this": "Ez a(z) {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Az ezen a(z) {{deviceWord}}-on futó alagutak leállnak, amikor az alkalmazás bezárul. iOS-en az alagutak hamarosan leállnak, amikor az alkalmazás a háttérbe kerül.",
+      "failedToFetchTunnelStatuses": "Nem sikerült lekérni az alagutak állapotát",
+      "thisBuildCanTOpen": "Ez a verzió nem tud alagutakat nyitni a(z) {{deviceWord}}-on.",
+      "sourceHostNotFound": "A forrás gazdagép nem található",
+      "endpointHostNotFound": "A végpont gazdagép nem található: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Alagutak",
+      "tunnelCount_one": "{{count}} alagút",
+      "tunnelCount_other": "{{count}} alagút",
+      "runningOnServer": "{{connected}} fut a szerveren"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Hitelesítési eszközök"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "A Docker nincs telepítve ezen a gazdagépen.",
+        "dockerDidNotAnswer": "A Docker nem válaszolt",
+        "thatIsNotAValid": "Ez nem érvényes stack név"
+      }
+    },
+    "containerDetail": {
+      "stop": "Leállítás",
+      "start": "Indítás",
+      "restart": "Újraindítás",
+      "remove": "Eltávolítás",
+      "logs": "Naplók",
+      "stats": "Statisztikák",
+      "console": "Konzol",
+      "logsCopied": "Naplók másolva",
+      "copy": "Másolás",
+      "containerIsNotRunningNo": "A konténer nem fut, nincs élő statisztika.",
+      "cpu": "CPU",
+      "memory": "Memória",
+      "networkIO": "Hálózati I/O",
+      "blockIO": "Blokk I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "A naplók betöltése sikertelen",
+      "failedToLoadStats": "A statisztikák betöltése sikertelen",
+      "noOutput": "(nincs kimenet)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Csatlakozás a Dockerhez...",
+    "remove": "Eltávolítja a(z) {{name}} elemet?",
+    "stop": "Leállítja a(z) {{name}} elemet?",
+    "theContainerIsStoppedAnd": "A konténer leállt és törölve. A kötetek megmaradnak.",
+    "anythingRunningInItStops": "Minden, ami benne fut, leáll.",
+    "remove2": "Eltávolítás",
+    "stop2": "Leállítás",
+    "dockerThis": "Docker | ez a(z) {{deviceWord}}",
+    "lookingForDocker": "Docker keresése...",
+    "dockerIsNotAvailableOn": "A Docker nem elérhető ezen a gazdagépen.",
+    "noContainersFound": "Nem található konténer",
+    "noContainersMatchYourFilters": "Nincs a szűrőknek megfelelő konténer",
+    "useSudo": "sudo használata",
+    "refresh": "Frissítés",
+    "containers": "Konténerek",
+    "stacks": "Stackek",
+    "searchContainers": "Konténerek keresése...",
+    "all": "Összes",
+    "running": "Fut",
+    "stopped": "Leállítva",
+    "start": "Indítás",
+    "restart": "Újraindítás",
+    "pause": "Szüneteltetés",
+    "unpause": "Folytatás",
+    "moreActions": "További műveletek",
+    "dockerCard": {
+      "dockerDidNotAnswer": "A Docker nem válaszolt",
+      "docker": "Docker",
+      "noContainers": "Nincs konténer"
+    },
+    "dockerConsole": {
+      "attachingTo": "Csatlakozás a(z) {{name}} elemhez...",
+      "consoleDisconnected": "A konzol levált",
+      "reconnect": "Újracsatlakozás",
+      "failedToLoadTheConsole": "A konzol betöltése sikertelen",
+      "thisSessionHasNoServer": "Ez a munkamenet nem rendelkezik szerverrel"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Konténerek, naplók és statisztikák"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "A stackek letiltva ezen a szerveren.",
+      "couldNotLoadStacks": "A stackek betöltése sikertelen",
+      "noStacks": "Nincs stack",
+      "composeProjectsOnThisHost": "A Compose projektek ezen a hoston itt jelennek meg.",
+      "ofRunning": "{{running}}/{{total}} fut",
+      "couldNotLoadTheStack": "A stack betöltése sikertelen",
+      "services": "Szolgáltatások",
+      "nothingIsRunning": "Nincs futó folyamat.",
+      "composeFile": "Compose fájl",
+      "partlyUp": "részben fut",
+      "notDeployed": "nem telepítve",
+      "running": "fut",
+      "stopped": "leállítva",
+      "paused": "szüneteltetve"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Ez nem érvényes konténer azonosító",
+      "consoleFailed": "Konzol hiba",
+      "notAuthenticated": "Nincs hitelesítve",
+      "consoleError": "Konzol hiba",
+      "connectionFailed": "A kapcsolat sikertelen"
+    },
+    "dockerDidNotAnswer": "A Docker nem válaszolt",
+    "failedToLoadContainers": "A konténerek betöltése sikertelen",
+    "failedTo": "A(z) {{action}} sikertelen"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "A szerver nem küldött fájlt",
+        "cancelled": "Megszakítva",
+        "isGone": "A(z) {{path}} eltűnt",
+        "canTGoToThe": "A(z) {{name}} nem helyezhető a kukába"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Érvénytelen kukában lévő elem azonosító",
+        "invalidTrashMetadata": "Érvénytelen kukában lévő elem metaadatai",
+        "thisPathCanTBe": "Ez az elérési út nem helyezhető a kukába",
+        "aFileAlreadyExistsAt": "Már létezik fájl az eredeti elérési úton"
+      },
+      "sftp": {
+        "commandFailed": "Parancs sikertelen: {{command}}",
+        "alreadyExists": "A(z) {{name}} már létezik",
+        "alreadyExistsThere": "A(z) {{path}} már létezik itt",
+        "canTGoToThe": "A(z) {{name}} nem helyezhető a kukába: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "A terminál már nincs nyitva",
+      "clearHistory": "Előzmények törlése",
+      "stopFollowingTheTerminal": "Terminál követésének leállítása",
+      "followTheTerminal": "Terminál követése",
+      "goToTheTerminalS": "Ugrás a terminál mappájába",
+      "cdTheTerminalHere": "Terminál átirányítása ide (cd)",
+      "folderHistory": "Mappa előzmények",
+      "mostUsedFirstThenRecent": "Leggyakrabban használt először, majd a legfrissebbek",
+      "noFoldersYet": "Még nincsenek mappák"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Nem sikerült csatlakozni.",
+        "couldNotSaveHowThis": "Nem sikerült menteni a host csatlakozási beállításait",
+        "thisWayCanTOpen": "Ez a módszer nem nyithat meg fájlokat"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Nem sikerült megnyitni ezt a mappát",
+      "cancel": "Mégse",
+      "noFoldersHere": "Nincsenek mappák itt"
+    },
+    "couldNotOpenThisFolder": "Nem sikerült megnyitni ezt a mappát",
+    "couldNotSaveToThe": "Nem sikerült menteni a mappába",
+    "failed": "A(z) {{label}} sikertelen",
+    "uploading": "{{name}} feltöltése",
+    "uploadingFiles": "{{count}} fájl feltöltése",
+    "downloadingToFilesOnMy": "Letöltés a Fájlok alkalmazásba, Az én iPhone-omra, Termix",
+    "downloading": "{{name}} letöltése",
+    "downloadingFiles": "{{count}} fájl letöltése",
+    "openALargeFile": "Nagy fájl megnyitása?",
+    "isBigForAEditor": "A(z) {{name}} nagy egy {{deviceWord}} szerkesztőhöz. Lassú lehet.",
+    "open": "Megnyitás",
+    "thisLooksLikeABinary": "Ez bináris fájlnak tűnik",
+    "openItInAnotherApp": "Megnyitás másik alkalmazásban?",
+    "openWith": "Megnyitás ezzel",
+    "tooBigForTheEditor": "Túl nagy a szerkesztőhöz",
+    "isOver10MbDownload": "A(z) {{name}} több mint 10 MB. Letölti helyette?",
+    "download": "Letöltés",
+    "delete": "Törli a(z) {{what}}?",
+    "moveToTheTrash": "Áthelyezi a(z) {{what}} a kukába?",
+    "thisCanTBeUndone": "Ez nem vonható vissza.",
+    "youCanRestoreItFrom": "Visszaállítható a kukából.",
+    "delete2": "Törlés",
+    "moveToTrash": "Áthelyezés a kukába",
+    "deleteForGood": "Véglegesen törli?",
+    "deleteItForGoodInstead": "{{message}}. Véglegesen törli helyette? Ez nem vonható vissza.",
+    "deleteFailed": "A törlés sikertelen",
+    "connectingThroughTheServer": "Csatlakozás a szerveren keresztül...",
+    "connectingFromThis": "Csatlakozás erről a(z) {{deviceWord}}ról...",
+    "connecting": "Csatlakozás...",
+    "edit": "Szerkesztés",
+    "downloadFolder": "Mappa letöltése",
+    "share": "Megosztás",
+    "rename": "Átnevezés",
+    "copyTo": "Másolás ide",
+    "moveTo": "Áthelyezés ide",
+    "cut": "Kivágás",
+    "copy": "Másolás",
+    "permissions": "Jogosultságok",
+    "properties": "Tulajdonságok",
+    "makeALinkHere": "Hivatkozás létrehozása itt",
+    "copyPath": "Útvonal másolása",
+    "pathCopied": "Útvonal másolva",
+    "done": "Kész",
+    "selectAll": "Összes kijelölése",
+    "filterByName": "Szűrés név szerint",
+    "closeSearch": "Keresés bezárása",
+    "search": "Keresés",
+    "changeSort": "Rendezés módosítása",
+    "paste": "Beillesztés ({{count}})",
+    "upload": "Feltöltés",
+    "transfers2": "Átvitelek",
+    "more": "Továbbiak",
+    "nothingMatches": "Nincs találat",
+    "emptyFolder": "Üres mappa",
+    "uploadFilesOrMakeA": "Fájlok feltöltése vagy új létrehozása.",
+    "newFolder": "Új mappa",
+    "newFile": "Új fájl",
+    "select": "Kijelölés",
+    "hideHiddenFiles": "Rejtett fájlok elrejtése",
+    "showHiddenFiles": "Rejtett fájlok megjelenítése",
+    "trash": "Kuka",
+    "folderProperties": "Mappa tulajdonságai",
+    "refresh": "Frissítés",
+    "rename2": "Átnevezés: {{name}}",
+    "newLink": "Új hivatkozás",
+    "aLinkInThatPoints": "Hivatkozás a(z) {{path}} helyen, amely a(z) {{path2}}-ra mutat",
+    "name": "Név",
+    "create": "Létrehozás",
+    "copyHere": "Másolás ide",
+    "moveHere": "Áthelyezés ide",
+    "fileViewer": {
+      "saved": "Mentve: {{name}}",
+      "couldNotSaveTheFile": "A fájl nem menthető",
+      "discardChanges": "Visszavonja a módosításokat?",
+      "hasChangesThatAreNot": "{{name}} tartalmaz nem mentett módosításokat.",
+      "discard": "Elvetés",
+      "readOnly": "{{path}} | csak olvasható",
+      "find": "Keresés",
+      "smallerText": "Kisebb betűméret",
+      "biggerText": "Nagyobb betűméret",
+      "turnOffLineWrap": "Sortörés kikapcsolása",
+      "wrapLines": "Sortörés",
+      "save": "Mentés"
+    },
+    "hostSection": {
+      "startIn": "Indítás itt:",
+      "theFolderTheFileManager": "A mappa, amelyikben a fájlkezelő először megnyílik",
+      "files": "Fájlok"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Ugrás ide: {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "További műveletek",
+        "moreFor": "Továbbiak ehhez: {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Jogosultságok",
+      "cancel": "Mégse",
+      "apply": "Alkalmazás ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Nem sikerült megnyitni",
+      "openWith": "Megnyitás ezzel:",
+      "share": "Megosztás"
+    },
+    "propertiesView": {
+      "properties": "Tulajdonságok",
+      "path": "Útvonal",
+      "type": "Típus",
+      "pointsTo": "Célja",
+      "size": "Méret",
+      "countFolderSize": "Mappa méretének kiszámítása",
+      "permissions": "Jogosultságok",
+      "change": "Módosítás",
+      "owner": "Tulajdonos",
+      "group": "Csoport",
+      "modified": "Módosítva",
+      "opened": "Megnyitva",
+      "linkToA": "Hivatkozás erre: {{value}}",
+      "notShownForFolders": "Mappák esetén nem jelenik meg",
+      "file": "Fájl",
+      "folder": "Mappa",
+      "link": "Hivatkozás"
+    },
+    "register": {
+      "fileManager": "Fájlkezelő",
+      "files": "Fájlok",
+      "browseEditAndMoveFiles": "Fájlok böngészése, szerkesztése és áthelyezése",
+      "files2": "FÁJLOK",
+      "fileManagerAndTransfers": "Fájlkezelő és átvitelek"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Az átvitel sikertelen"
+      },
+      "transfersPanel": {
+        "pause": "Szüneteltetés",
+        "resume": "Folytatás",
+        "tryAgain": "Újrapróbálkozás",
+        "open": "Megnyitás",
+        "cancel": "Mégse",
+        "transfers": "Átvitelek",
+        "goingOf": "{{active}} folyamatban | {{done}}/{{total}}",
+        "clearFinished": "Kész átvitelek törlése",
+        "cancelAll": "Összes megszüntetése",
+        "noTransfersYet": "Még nincsenek átvitelek",
+        "waiting": "Várakozás",
+        "paused": "Szüneteltetve",
+        "done": "Kész",
+        "failed": "Sikertelen",
+        "cancelled": "Megszakítva"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "A kukica betöltése sikertelen",
+      "restored": "Visszaállítva: {{name}}",
+      "failedToRestore": "Nem sikerült visszaállítani",
+      "failedToDelete": "Nem sikerült törölni",
+      "trashEmptied": "A Kuka kiürítve",
+      "failedToEmptyTrash": "Nem sikerült kiüríteni a Kukát",
+      "trash": "Kuka",
+      "itemsAreRemovedAfterDays": "Az elemek {{retentionDays}} nap után törlődnek",
+      "close": "Bezárás",
+      "emptyTrash": "Kuka kiürítése",
+      "trashIsEmpty": "A Kuka üres",
+      "restore": "{{name}} visszaállítása",
+      "deleteForGood": "{{name}} végleges törlése"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Épp most"
+      }
+    },
+    "getting": "{{name}} lekérése",
+    "itemCount_one": "{{count}} elem",
+    "itemCount_other": "{{count}} elem",
+    "copiedWhat": "{{what}} másolva",
+    "movedWhat": "{{what}} áthelyezve",
+    "actions": {
+      "hasMoreThanFilesDownload": "A(z) {{name}} több mint {{limit}} fájlt tartalmaz. Töltsön le kisebb mappákat."
+    },
+    "downloadingToFilesOnMyIpad": "Letöltés a Fájlok alkalmazásba, Az én iPad-om, Termix",
+    "size": "Méret",
+    "date": "Dátum"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Szolgáltatás linkek",
+      "openInHomepage": "Megnyitás a Homepage-ban",
+      "thisWidgetOnlyShowsOn": "Ez a widget csak a teljes oldalon jelenik meg."
+    },
+    "register": {
+      "serviceLinks": "Szolgáltatás linkek",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Nincs feed beállítva.",
+        "couldNotLoadTheFeed": "Nem sikerült betölteni a feedet.",
+        "theFeedIsEmpty": "A feed üres.",
+        "noLocationSet": "Nincs helyszín beállítva.",
+        "couldNotLoadTheWeather": "Nem sikerült betölteni az időjárást.",
+        "noUrlSet": "Nincs URL beállítva.",
+        "couldNotLoadTheData": "Nem sikerült betölteni az adatokat.",
+        "noPictureSet": "Nincs kép beállítva.",
+        "badResponse": "hibás válasz"
+      },
+      "services": "Szolgáltatások",
+      "service": "Szolgáltatás",
+      "serviceLinks": "Szolgáltatás linkek",
+      "bookmarks": "Könyvjelzők",
+      "links2": "Linkek",
+      "search": "Keresés",
+      "clock": "Óra",
+      "countdown": "Visszaszámlálás",
+      "calendar": "Naptár",
+      "notes": "Jegyzetek",
+      "banner": "Banner",
+      "ping": "Ping",
+      "host": "Host",
+      "hosts": "Hostok",
+      "quickConnect": "Gyors csatlakozás",
+      "feed": "Feed",
+      "weather": "Időjárás",
+      "customApi": "Egyedi API",
+      "picture": "Kép",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Még nincsenek szolgáltatások.",
+        "noLinkSet": "Nincs link beállítva.",
+        "noLinksYet": "Még nincsenek linkek.",
+        "noSearchEngineSet": "Nincs keresőmotor beállítva.",
+        "search": "Keresés",
+        "noShortcutsYet": "Még nincsenek gyorslinkek.",
+        "search2": "{{label}} keresése"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Nem sikerült megnyitni a linket"
+      },
+      "status": {
+        "noUrlsYet": "Még nincsenek URL-ek.",
+        "down": "Nem elérhető",
+        "noHostsPicked": "Nincs kiválasztva gazdagép."
+      },
+      "text": {
+        "noNotesYet": "Még nincsenek jegyzetek.",
+        "noTextYet": "Még nincs szöveg."
+      },
+      "time": {
+        "noDateSet": "Nincs beállítva dátum.",
+        "timeIsUp": "Lejárt az idő"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Nem sikerült menteni az alapértelmezést",
+    "couldNotResetTheDefault": "Nem sikerült visszaállítani az alapértelmezést",
+    "back": "Vissza",
+    "hostDefaults": "Gazdagép-alapértelmezések",
+    "newHostsStartFromThese": "Az új gazdagépek ezekből indulnak ki",
+    "managedOnTheServer": "A szerveren kezelt",
+    "defaultsForThisServerAre": "Ennek a szervernek az alapértelmezéseit a webes alkalmazásban állították be.",
+    "level": "Szint",
+    "yourDefaultsOrOneFolder": "Saját alapértelmezések, vagy egy mappaé",
+    "myDefaults": "Saját alapértelmezések",
+    "theServerSets": " A szerver {{adminCount}} beállítást határoz meg.",
+    "aFolderWinsOverYour": "Egy mappa felülírja az alapértelmezéseidet, az alapértelmezéseid pedig felülírják a szerverét. Egy hoszt megtartja minden olyan értéket, amit közvetlenül rá állítottál be.{{value}}",
+    "save": "Mentés",
+    "authentication": "Hitelesítés",
+    "none": "Egyik sem",
+    "reset": "Visszaállítás",
+    "model": {
+      "username": "Felhasználónév",
+      "sshPort": "SSH-port",
+      "authentication": "Hitelesítés",
+      "aSavedCredentialForNew": "Mentett hitelesítő adat az új gazdagépekhez",
+      "forceKeyboardInteractive": "Billentyűzetes interaktív mód kényszerítése",
+      "keepaliveInterval": "Keepalive-intervallum",
+      "seconds0TurnsItOff": "Másodperc, 0 esetén kikapcsol",
+      "keepaliveTries": "Keepalive próbálkozások száma",
+      "allowOldAlgorithms": "Régi algoritmusok engedélyezése",
+      "agentForwarding": "Agent továbbítás",
+      "environmentVariables": "Környezeti változók",
+      "oneNameValuePerLine": "Egy NÉV=érték soronként",
+      "checkIfTheHostIs": "Ellenőrizze, hogy a gazdagép elérhető-e",
+      "checkInterval": "Ellenőrzési intervallum",
+      "secondsEmptyUsesTheServer": "Másodperc, üresen a szerverét használja",
+      "socks5Proxy": "SOCKS5-proxy",
+      "setInTheWebApp": "A webes alkalmazásban beállítva",
+      "jumpHosts": "Jump hostok",
+      "portKnocking": "Port knocking",
+      "notSet": "Nincs beállítva",
+      "fromTheServer": "A szerverről",
+      "fromYourDefaults": "A saját alapértelmezésekből",
+      "builtIn": "Beépített"
+    },
+    "register": {
+      "hostDefaults": "Gazdagép-alapértelmezések",
+      "portUserAndOptionsFor": "Port, felhasználó és beállítások az új gazdagépekhez"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Még nincsenek adatok",
+      "cpu": "CPU",
+      "memory": "Memória",
+      "disk": "Lemez",
+      "history": "Előzmények",
+      "loading": "Betöltés..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Nem sikerült beolvasni a metrikákat",
+      "metrics": "Metrikák",
+      "cpu": "CPU",
+      "memory": "Memória",
+      "disk": "Lemez",
+      "noRecentSampleOpenThe": "Nincs friss mérés. Nyissa meg a host metrikáit egy új mérés indításához."
+    },
+    "register": {
+      "enableMetrics": "Metrikák engedélyezése",
+      "cpuMemoryDiskAndNetwork": "CPU, memória, lemez és hálózat SSH-n keresztül",
+      "hostMetrics": "Host metrikák",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrikák",
+      "cpuMemoryDiskAndNetwork2": "CPU, memória, lemez és hálózat"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Host metrikák | ez a {{deviceWord}}",
+      "hostMetrics": "Host metrikák",
+      "ran": "A(z) {{name}} futtatva",
+      "loadingMetrics": "Metrikák betöltése...",
+      "couldNotReadMetricsFrom": "Nem sikerült beolvasni a metrikákat erről a hostról",
+      "failedToLoadMetrics": "A metrikák betöltése sikertelen",
+      "thisSessionHasNoServer": "Ez a munkamenet nem rendelkezik szerverrel",
+      "twoFactorRequiredForThis": "Kétfaktoros hitelesítés szükséges ehhez a host metrikáihoz.",
+      "failedToStartMetrics": "A metrikák indítása sikertelen",
+      "failedToRun": "A(z) {{name}} futtatása sikertelen"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Magonként: {{value}}",
+        "cores": "Magok",
+        "load": "Terhelés",
+        "user": "Felhasználó",
+        "system": "Rendszer",
+        "ioWait": "IO várakozás",
+        "steal": "Steal"
+      },
+      "diskWidget": {
+        "disk": "Lemez {{mount}}",
+        "disk2": "Lemez",
+        "used": "Használt",
+        "total": "Összesen",
+        "free": "Szabad"
+      },
+      "firewallWidget": {
+        "firewall": "Tűzfal",
+        "rules": "{{type}} | {{ruleCount}} szabály",
+        "noFirewallDetected": "Nem észlelt tűzfal"
+      },
+      "gpuWidget": {
+        "gpus": "GPU-k ({{count}})",
+        "gpu": "GPU",
+        "memory": "Memória",
+        "temp": "Hőmérséklet",
+        "power": "Teljesítmény",
+        "fan": "Ventilátor"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Bejelentkezési aktivitás",
+        "noLoginActivityRecorded": "Nincs rögzített bejelentkezési aktivitás",
+        "logins": "Bejelentkezések",
+        "uniqueIps": "Egyedi IP-k",
+        "failed": "Sikertelen",
+        "recent": "Legutóbbi"
+      },
+      "memoryWidget": {
+        "memory": "Memória",
+        "used": "Használt",
+        "total": "Összesen",
+        "cached": "Gyorsítótárazott",
+        "free": "Szabad"
+      },
+      "networkWidget": {
+        "network": "Hálózat",
+        "noInterfaces": "Nincs interfész",
+        "up": "Feltöltés",
+        "down": "Letöltés"
+      },
+      "portsWidget": {
+        "listeningPorts": "Figyelő portok",
+        "noListeningPorts": "Nincs figyelő port"
+      },
+      "processesWidget": {
+        "sortBy": "Rendezés: {{label}}",
+        "processes": "Folyamatok",
+        "running": "{{value}} fut | {{total}}",
+        "noProcessData": "Nincs folyamatadat",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "PARANCS"
+      },
+      "systemWidget": {
+        "system": "Rendszer",
+        "hostname": "Gépnév",
+        "os": "Operációs rendszer",
+        "kernel": "Mag",
+        "arch": "Architektúra",
+        "noSystemInfo": "Nincs rendszerinformáció"
+      },
+      "temperatureWidget": {
+        "temperature": "Hőmérséklet"
+      },
+      "uptimeWidget": {
+        "uptime": "Futtatási idő"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Jelszóval együtt másolva",
+      "copiedTheLink": "Link másolva",
+      "shareHost": "Host megosztása",
+      "thatHostNoLongerExists": "Ez a host már nem létezik",
+      "scanThisInTermixOn": "Olvasd be ezt a kódot egy másik {{deviceWord}}-on a Termixben, az Importálás és exportálás menüpont alatt. A kód tartalmazza a címet, a portot és a felhasználót. Nem tartalmaz jelszót vagy kulcsot.",
+      "copyLink": "Link másolása",
+      "copyLinkWithPassword": "Link másolása jelszóval"
+    },
+    "includePasswordsAndKeys": "Beletartozzanak a jelszavak és kulcsok?",
+    "anyoneWhoGetsThisFile": "Bárki, aki hozzájut ehhez a fájlhoz, bejelentkezhet ezekbe a hostokba. Őrizd biztonságban.",
+    "includeThem": "Beletartoznak",
+    "pickAtLeastOneHost": "Válassz ki legalább egy hostot",
+    "couldNotMakeTheFile": "Nem sikerült létrehozni a fájlt",
+    "copiedToTheClipboard": "Vágólapra másolva",
+    "importAndExport": "Importálás és exportálás",
+    "moveHostsInAndOut": "Hostok mozgatása be és ki",
+    "import": "Importálás",
+    "aTermixHostFileAn": "Egy Termix hostfájl, egy SSH konfigurációs fájl, vagy egy host link vagy QR-kód egy másik {{deviceWord}}-ról.",
+    "export": "Exportálás",
+    "allHosts": "Minden host",
+    "picked": "{{size}} kiválasztva",
+    "pickHosts": "Hostok kiválasztása",
+    "includePasswordsAndKeys2": "Jelszavak és kulcsok belefoglalása",
+    "offMakesAFileSafe": "A kikapcsolás biztonságossá teszi a fájlt a megosztáshoz. A mentett hitelesítést használó hostok név szerint hivatkoznak rá",
+    "shareAFile": "Fájl megosztása",
+    "copy": "Másolás",
+    "importPanel": {
+      "couldNotReadThat": "Nem sikerült beolvasni",
+      "couldNotReadThatFile": "Nem sikerült beolvasni ezt a fájlt",
+      "importFailed": "Az importálás sikertelen",
+      "chooseAFile": "Fájl kiválasztása",
+      "paste": "Beillesztés",
+      "scanACode": "Kód beolvasása",
+      "couldNotBeRead": "{{count}} nem volt beolvasható",
+      "updateHostsThatExist": "Meglévő hostok frissítése",
+      "sameAddressPortAndUser": "Ugyanaz a cím, port és felhasználó. Egyébként kihagyásra kerülnek",
+      "cancel": "Mégse",
+      "import": "Importálás",
+      "andMore": "és még {{value}}"
+    },
+    "qrCode": {
+      "qrCode": "QR-kód"
+    },
+    "register": {
+      "importAndExport": "Importálás és exportálás",
+      "moveHostsInOrOut": "Hostok mozgatása be vagy ki fájllal vagy QR-kóddal",
+      "shareHost": "Host megosztása"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Hostkód beolvasása",
+      "pointTheCameraAtA": "Irányítsd a kamerát egy Termix host QR-kódra.",
+      "termixNeedsTheCameraTo": "A Termixnek szüksége van a kamerára a kód beolvasásához. Nem történik rögzítés.",
+      "allowTheCamera": "Kamera engedélyezése"
+    },
+    "read": {
+      "termixFile": "Termix fájl",
+      "sshConfig": "SSH konfiguráció",
+      "thereIsNothingToImport": "Nincs mit importálni",
+      "thatIsNotATermix": "Ez nem Termix hosztlink",
+      "linkHost": "1 host: {{name}}",
+      "sourceHosts_one": "{{what}} {{count}} hosttal",
+      "sourceHosts_other": "{{what}} {{count}} hosttal"
+    },
+    "saveYourTermixHosts": "Mentsd el a Termix hosztjaidat"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Kész",
+      "rejected": "Elutasítva",
+      "approvals": "Jóváhagyások",
+      "nothingIsWaiting": "Nincs várakozó elem",
+      "actionsARuleHoldsFor": "Azok a műveletek jelennek meg itt, amelyekhez a szabály jóváhagyást igényel.",
+      "approveAndRun": "Jóváhagyás és futtatás",
+      "reject": "Elutasítás",
+      "couldNotLoadApprovals": "Nem sikerült betölteni a jóváhagyásokat",
+      "couldNotDecide": "Nem sikerült dönteni"
+    },
+    "approvalsCard": {
+      "approved": "Jóváhagyva",
+      "rejected": "Elutasítva",
+      "waitingForApproval": "Jóváhagyásra vár",
+      "approve": "Jóváhagyás",
+      "reject": "Elutasítás",
+      "couldNotDecide": "Nem sikerült dönteni",
+      "seeAll": "Összes megtekintése"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Ez nem vonható vissza. Futtatod?",
+      "run": "Futtatás",
+      "sentForApproval": "Jóváhagyásra küldve",
+      "target": "Cél",
+      "theItemOnTheHost": "Az elem a hoszton, például egy konténer",
+      "dryRun": "Tesztfuttatás",
+      "back": "Vissza",
+      "actions": "Műveletek",
+      "noActionsForThisHost": "Nincsenek műveletek ehhez a hoszthoz",
+      "turnOnAPluginLike": "Kapcsold be a Docker vagy a Services bővítményt ehhez a hoszthoz a szerveren.",
+      "destructive": "Megsemmisítő",
+      "changes": "Változtatások",
+      "theActionCouldNotRun": "A művelet nem futtatható",
+      "couldNotLoadActions": "Nem sikerült betölteni a műveleteket"
+    },
+    "register": {
+      "actions": "Műveletek",
+      "waitingForApproval": "Jóváhagyásra vár",
+      "approvals": "Jóváhagyások",
+      "actionsWaitingForAPerson": "Műveletek, amelyek egy személy igenjére várnak",
+      "runHistory": "Futtatási előzmények",
+      "everyActionAnyoneRanFrom": "Minden művelet, amelyet bárki futtatott, bármilyen eszközről"
+    },
+    "runHistory": {
+      "cancelThisRun": "Megszakítod ezt a futtatást?",
+      "cancelRun": "Futtatás megszakítása",
+      "keep": "Megőrzés",
+      "undoThisRun": "Visszavonod ezt a futtatást?",
+      "thisRunsTheActionS": "Ez ugyanazzal a bemenettel futtatja a művelet visszavonását.",
+      "undo": "Visszavonás",
+      "cancelled": "Megszakítva",
+      "itAlreadyFinished": "Már befejeződött",
+      "done": "Kész",
+      "runHistory": "Futtatási előzmények",
+      "nothingHasRunYet": "Még semmi sem futott",
+      "dryRun": "Tesztfuttatás",
+      "cancel": "Mégse",
+      "couldNotLoadHistory": "Nem sikerült betölteni az előzményeket",
+      "couldNotCancel": "Nem sikerült megszakítani",
+      "couldNotUndo": "Nem sikerült visszavonni"
+    },
+    "api": {
+      "needsApproval": "Jóváhagyás szükséges",
+      "needsSignIn": "Bejelentkezés szükséges",
+      "done": "Kész",
+      "failed": "Sikertelen",
+      "running": "Folyamatban",
+      "interrupted": "Megszakítva",
+      "rejected": "Elutasítva",
+      "cancelled": "Megszakítva",
+      "expired": "Lejárt"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "{{value}} bekapcsolása",
+      "moreSettingsForThisAre": "A további beállítások a Termix webalkalmazásban találhatók.",
+      "pluginHostSettings": "Bővítmény-szerver beállításai"
+    },
+    "fields": {
+      "mustBeANumber": "A(z) {{field}} szám kell legyen",
+      "mustBeAtLeast": "A(z) {{field}} legalább {{min}} kell legyen",
+      "mustBeAtMost": "A(z) {{field}} legfeljebb {{max}} lehet"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Kapcsoljon egy szervert a használatához",
+      "runsOnYourTermixServer": "A(z) {{name}} a Termix szerverén fut."
+    },
+    "pluginWebView": {
+      "canTLoad": "A(z) {{name}} nem tölthető be",
+      "theServerDidNotSend": "A szerver nem küldte el a bővítményt. Ellenőrizze, hogy be van-e kapcsolva, majd próbálja újra.",
+      "openThisLink": "Megnyitja ezt a hivatkozást?",
+      "open": "Megnyitás",
+      "needsANewerVersionOf": "Az alkalmazás újabb verziójára van szükség",
+      "usesPartsOfTermixThis": "A(z) {{name}} olyan Termix-funkciókat használ, amelyek még nincsenek meg ebben az alkalmazásban.",
+      "didNotStart": "A(z) {{name}} nem indult el",
+      "thisScreenIsNotIn": "Ez a képernyő nincs benne a szerveren lévő bővítmény verziójában.",
+      "thePluginHitAnError": "A bővítmény hibaüzenetet kapott az indítás során.",
+      "youReOffline": "Offline állapotban van",
+      "runsOnYourServerSo": "A(z) {{name}} a szerverén fut, ezért kapcsolatra van szüksége. Újra megnyílik, amikor újra online lesz.",
+      "tryAgain": "Próbálja újra"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Ez a gazdagép még nincs ezen a(z) {{deviceWord}}-n.",
+      "theAppCanTOpen": "Az alkalmazás nem tudja innen megnyitni.",
+      "thatHostIsNotOn2": "Ez a gazdagép még nincs ezen a(z) {{deviceWord}}-n."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Jelszó",
+      "unchangedIfBlank": "Ha üres, változatlan marad",
+      "port": "Port",
+      "domain": "Domain",
+      "displaySoundAndClipboardSettings": "A kijelző, hang és vágólap beállításai a Termix webalkalmazásban találhatók.",
+      "portMustBeFrom1": "A(z) {{label}} portnak 1 és 65535 között kell lennie"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "A távoli asztal kapcsolat megszakadt",
+        "signIn": "{{label}} bejelentkezés",
+        "itWillNotBeSaved": "{{error}} Nem lesz mentve.",
+        "enterTheLoginForIt": "Adja meg a(z) {{title}} bejelentkezési adatait. Nem lesz mentve.",
+        "reconnecting": "{{label}} újracsatlakozás",
+        "connecting": "{{label}} csatlakozás",
+        "connectionFailed": "A csatlakozás sikertelen",
+        "disconnected": "Kapcsolat bontva",
+        "reconnect": "Újracsatlakozás",
+        "connectThroughTheServer": "Csatlakozás a szerveren keresztül",
+        "pasteToRemote": "Beillesztés a távoli gépre",
+        "typeClipboard": "Vágólap gépelése",
+        "copyRemoteClipboard": "Távoli vágólap másolása",
+        "theComputerSCertificateWas": "A számítógép tanúsítványa nem volt megbízható.",
+        "thatLoginWasRefusedTry": "A bejelentkezést elutasították. Próbálja újra."
+      },
+      "target": {
+        "trustThisComputer": "Megbízható ez a számítógép?",
+        "theCanTCheckS": "A(z) {{deviceWord}} nem tudja ellenőrizni a(z) {{hostName}} tanúsítványát. Győződjön meg arról, hogy ez az ujjlenyomat megegyezik a számítógépen lévővel, mielőtt folytatná.\n\n{{fingerprint}}",
+        "trustAndConnect": "Megbízható és csatlakozás",
+        "certificateChanged": "Tanúsítvány megváltozott",
+        "showsAnotherCertificateThanLast": "A(z) {{hostName}} más tanúsítványt mutat, mint legutóbb. Ez akkor történik, ha a számítógép új tanúsítványt generál, vagy ha valaki a kapcsolat közepette figyel.\n\nÚj ujjlenyomat:\n{{fingerprint}}",
+        "trustTheNewOne": "Az új megbízható"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Távoli asztal",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Kész",
+      "keyboard": "Billentyűzet",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Beállítások",
+      "remoteSettings": "Távoli beállítások",
+      "mouseMode": "Egér mód",
+      "touch": "Érintés",
+      "trackpad": "Érintőpad",
+      "tapWhereYouWantTo": "Érintse meg, ahol kattintani szeretne. Nyomja meg hosszan a jobb klikkhez, húzza a húzáshoz.",
+      "dragToMoveThePointer": "Húzza a mutató mozgatásához. Érintse meg a kattintáshoz, két ujjal érintse a jobb klikkhez, érintse meg, majd húzza a húzáshoz.",
+      "zoomXPinchAnywhereTo": "Nagyítás: {{value}}x. Csípjen bárhova a nagyításhoz",
+      "reset": "Visszaállítás",
+      "cancel": "Mégse",
+      "connect": "Csatlakozás",
+      "username": "Felhasználónév",
+      "domainOptional": "Domain (opcionális)",
+      "domain": "Domain",
+      "password": "Jelszó",
+      "leftArrow": "Bal nyíl",
+      "upArrow": "Fel nyíl",
+      "downArrow": "Le nyíl",
+      "rightArrow": "Jobb nyíl",
+      "rdpSignIn": "RDP bejelentkezés"
+    },
+    "theRemoteDesktopDropped": "A távoli asztal kapcsolat megszakadt",
+    "theyWillNotBeSaved": "{{errorMessage}} Nem lesznek mentve.",
+    "enterCredentialsForTheyWill": "Adja meg a {{title}} hitelesítő adatait. Nem lesznek mentve.",
+    "connecting": "Csatlakozás",
+    "connectionFailed": "A kapcsolat sikertelen",
+    "disconnected": "Kapcsolat megszakítva",
+    "reconnect": "Újracsatlakozás",
+    "route": {
+      "thisHostCanTOpen": "Ez a gazdagép nem tud távoli asztalt nyitni innen."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Az alkalmazás által blokkolva"
+    },
+    "failedToStartRemoteSession": "A távoli munkamenet indítása sikertelen",
+    "thatLoginWasRefusedTry": "A bejelentkezést elutasították. Próbálja újra.",
+    "theRemoteRefusedTheSaved": "A távoli gép elutasította a mentett bejelentkezést. Ellenőrizze az RDP bejelentkezést ezen a gazdagépen.",
+    "remoteSessionFailed": "A távoli munkamenet sikertelen",
+    "remoteSessionReturnedAnInvalid": "A távoli munkamenet érvénytelen üzenetet adott vissza",
+    "failedToLoadTheRemote": "A távoli asztal kliens betöltése sikertelen"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Nincs napló",
+      "thisHostDoesNotKeep": "Ez a gazdagép nem tart systemd naplót.",
+      "all": "Összes",
+      "warnings": "Figyelmeztetések",
+      "errors": "Hibák",
+      "stop": "Leállítás",
+      "follow": "Követés",
+      "nothingLogged": "Nincs naplózott esemény",
+      "tryAnotherLevel": "Próbáljon meg egy másik szintet.",
+      "couldNotReadTheJournal": "Nem sikerült olvasni a naplót"
+    },
+    "register": {
+      "services": "Szolgáltatások",
+      "startStopAndReadLogs": "Indítás, leállítás és naplók olvasása"
+    },
+    "readingServices": "Szolgáltatások olvasása...",
+    "thisHostHasNoSystemd": "Ennek a gazdagépeknek nincs systemd vagy OpenRC rendszere.",
+    "noServicesMatch": "Nincs egyező szolgáltatás",
+    "noServicesFound": "Nem található szolgáltatás",
+    "services": "Szolgáltatások",
+    "journal": "Napló",
+    "searchServices": "Szolgáltatások keresése...",
+    "all": "Összes",
+    "running": "Fut",
+    "failed": "Sikertelen ({{failed}})",
+    "failed2": "Sikertelen",
+    "servicesCard": {
+      "services": "Szolgáltatások",
+      "noSystemdOrOpenrc": "Nincs systemd vagy OpenRC",
+      "failed": "{{failed}} sikertelen",
+      "allRunning": "Összes fut",
+      "couldNotReadServices": "Nem sikerült beolvasni a szolgáltatásokat"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Leállt állapotban marad, amíg újra nem indítják, vagy a gazdagép újraindul.",
+      "itStopsForAMoment": "Egy pillanatra leáll, majd újra elindul.",
+      "stop": "Leállítás",
+      "restart": "Újraindítás",
+      "is": "A(z) {{name}} állapota: {{state}}",
+      "start": "Indítás",
+      "journal": "Napló",
+      "couldNotReadTheService": "Nem sikerült beolvasni a szolgáltatást",
+      "couldNot": "Nem sikerült {{action}} a(z) {{name}}",
+      "startsAtBoot": "Indítás indításkor",
+      "mainPid": "Fő PID",
+      "activeSince": "Aktív óta",
+      "unitFile": "Unit fájl",
+      "notSet": "[nincs beállítva]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Nincs bejelentkezve",
+        "followFailed": "A követés sikertelen",
+        "connectionFailed": "A kapcsolat sikertelen"
+      }
+    },
+    "couldNotReadServices": "Nem sikerült beolvasni a szolgáltatásokat",
+    "services2": "Szolgáltatások{{where}}",
+    "title": "Szolgáltatások",
+    "failedCount": "{{count}} sikertelen"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Munkamenet megosztása",
+      "shareLink": "Hivatkozás megosztása"
+    },
+    "shareSessionView": {
+      "canWatch": "Megtekintheti",
+      "canType": "Írhat",
+      "n1Hour": "1 óra",
+      "n8Hours": "8 óra",
+      "n1Day": "1 nap",
+      "n7Days": "7 nap",
+      "never": "Soha",
+      "shareSession": "Munkamenet megosztása",
+      "anyoneWithTheLinkCan": "A hivatkozással bárki megnyithatja ezt a terminált, amíg fut. A hivatkozásokat a Termixben érvénytelenítheti.",
+      "peopleWithTheLink": "A hivatkozással rendelkezők",
+      "expiresAfter": "Lejárati idő",
+      "link": "Hivatkozás",
+      "copy": "Másolás",
+      "share": "Megosztás",
+      "makeLink": "Hivatkozás létrehozása",
+      "theServerGaveNoLink": "A szerver nem adott hivatkozást",
+      "couldNotMakeALink": "Nem sikerült hivatkozást létrehozni",
+      "linkCopied": "Hivatkozás másolva"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Nincs mappa"
+    },
+    "hostPicker": {
+      "selectNone": "Kijelölés törlése",
+      "selectAll": "Összes kijelölése",
+      "done": "Kész"
+    },
+    "register": {
+      "snippets": "Kódvázlatok",
+      "snippets2": "KÓDVÁZLATOK",
+      "savedCommandsToRunOn": "Mentett parancsok bármely gazdagépen való futtatásához"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Nincs elérési út ehhez a gazdagéphez innen",
+      "exitedWith": "Kilépési kód: {{exitCode}}",
+      "thisCanTRunIt": "Ez a(z) {{deviceWord}} nem tudja futtatni",
+      "noServerIsLinked": "Nincs összekapcsolt szerver"
+    },
+    "runOnHostsSheet": {
+      "run": "Futtatás",
+      "run2": "A(z) \"{{name}}\" futtatása",
+      "runsOverSshOnEach": "SSH-n keresztül fut minden gazdagépen. Nem nyílik meg terminál.",
+      "close": "Bezárás",
+      "hosts": "Gazdagépek",
+      "pickHosts": "Gazdagépek kiválasztása",
+      "workedFailed": "{{value}} sikeres, {{failed}} sikertelen",
+      "runOn2": "Futtatás ezen:",
+      "runOn_one": "Futtatja a(z) {{name}}-t {{count}} gazdagépen?",
+      "runOn_other": "Futtatja a(z) {{name}}-t {{count}} gazdagépen?",
+      "hostsPicked_one": "{{count}} gazdagép kiválasztva",
+      "hostsPicked_other": "{{count}} gazdagép kiválasztva"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Kódvázlatok keresése",
+      "pastesTheNote": "A megjegyzés beillesztése",
+      "runsTheSnippet": "A kódvázlat futtatása",
+      "noSnippetsMatch": "Nincs találat",
+      "noSnippetsYet": "Még nincsenek kódvázlatok",
+      "addSnippetsInSettingsSnippets": "Kódvázlatok hozzáadása a Beállítások, Kódvázlatok menüpontban",
+      "run": "Futtatás",
+      "insertWithoutRunning": "Beillesztés futtatás nélkül",
+      "copy": "Másolás"
+    },
+    "snippetsCard": {
+      "snippets": "Kódvázlatok",
+      "run": "A(z) {{name}} futtatása"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Nincsenek exportálható kódvázlatok",
+      "couldNotMakeTheFile": "Nem sikerült létrehozni a fájlt",
+      "copiedToTheClipboard": "Vágólapra másolva",
+      "couldNotImport": "Nem sikerült importálni",
+      "couldNotReadThatFile": "Nem sikerült beolvasni a fájlt",
+      "importAndExport": "Importálás és exportálás",
+      "theSameFileTheWeb": "Ugyanaz a fájl, amelyet a webes alkalmazás használ.",
+      "export": "Exportálás",
+      "shareAFile": "Fájl megosztása",
+      "copy": "Másolás",
+      "import": "Importálás",
+      "updateSnippetsThatExist": "Meglévő kódvázlatok frissítése",
+      "sameNameInTheSame": "Ugyanaz a név ugyanabban a mappában. Egyébként kihagyásra kerülnek.",
+      "chooseAFile": "Fájl kiválasztása",
+      "paste": "Beillesztés",
+      "saveYourSnippets": "Kódvázlatai mentése"
+    },
+    "useSnippetRunner": {
+      "run": "Futtatja a(z) {{name}}-t?",
+      "run2": "Futtatás",
+      "fillInTheValuesFor": "Töltse ki a kódvázlat értékeit.",
+      "cancel": "Mégse",
+      "insert": "Beillesztés",
+      "noTerminalIsOpen": "Nincs nyitott terminál"
+    },
+    "variables": {
+      "input": "Bemenet {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Ez nem érvényes JSON fájl",
+      "theFileNeedsASnippets": "A fájlnak tartalmaznia kell egy kódvázlatok vagy mappák listát",
+      "snippetNameAndContentAre": "{{value}} kódvázlat: a név és a tartalom kötelező",
+      "folder": "{{name}} mappa: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Tailscale eszközök betöltése…",
+      "searchTailscaleDevices": "Tailscale eszközök keresése…",
+      "searchTailscaleDevices2": "Tailscale-eszközök keresése",
+      "clearDeviceSearch": "Eszközkeresés törlése",
+      "refreshTailscaleDevices": "Tailscale-eszközök frissítése",
+      "device": "Eszköz",
+      "noTailnetAddress": "Nincs tailnet-cím",
+      "tailscaleDevice": "Tailscale-eszköz",
+      "tailscaleDevices": "Tailscale-eszközök",
+      "addAHostThatConnects": "Adjon hozzá egy olyan hostot, amely Tailscale SSH-val csatlakozik.",
+      "username": "Felhasználónév",
+      "sshUsernameFor": "SSH-felhasználónév ehhez: {{value}}",
+      "addHost": "Host hozzáadása",
+      "noTailscaleDevicesMatchYour": "Nincs olyan Tailscale-eszköz, amely illeszkedne a kereséshez.",
+      "noTailscaleDevicesFound": "Nem található Tailscale-eszköz.",
+      "noTailscaleApiKeyIs": "Nincs konfigurálva Tailscale API-kulcs ezen a szerveren. Kérjen meg egy rendszergazdát, hogy adjon hozzá egyet.",
+      "youDoNotHavePermission": "Nincs jogosultsága a Tailscale-eszközök listázására.",
+      "couldNotLoadTailscaleDevices": "A Tailscale-eszközök betöltése sikertelen. Frissítsen az újrapróbáláshoz.",
+      "tailscaleIsUnavailableOnThis": "A Tailscale nem elérhető ezen a szerveren."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Újracsatlakozás | {{attempt}}. kísérlet",
+      "reconnectingInSTry": "Újracsatlakozás {{secs}} mp múlva | {{attempt}}. kísérlet",
+      "offlineWaitingForNetwork": "Offline, hálózatra vár",
+      "sendToTheNewShell": "Elküldi a(z) {{what}} elemet az új shellnek?",
+      "reconnectNow": "Azonnali újracsatlakozás",
+      "send": "Küldés",
+      "discard": "Elvetés",
+      "typedChars_one": "{{count}} begépelten karakter",
+      "typedChars_other": "{{count}} begépelten karakter",
+      "waiting": "{{what}} várakozik"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Csatlakozási napló másolva",
+      "connectionLog": "Csatlakozási napló",
+      "copyItIntoABug": "Másolja be egy hibajelentésbe. A címek és felhasználónevek nem kerülnek bele.",
+      "copy": "Másolás"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Törli az előzményeket ehhez a hosthoz?",
+        "clear": "Törlés",
+        "searchHistory": "Előzmények keresése",
+        "typesTheCommandWithoutRunning": "Begépezi a parancsot, de nem hajtja végre",
+        "noCommandsMatch": "Nincs egyező parancs",
+        "noHistoryYet": "Még nincsenek előzmények",
+        "commandsYouRunOnThis": "Az ezen a hoston futtatott parancsok itt jelennek meg",
+        "run": "Futtatás",
+        "typeWithoutRunning": "Begépelés futtatás nélkül",
+        "copy": "Másolás",
+        "delete": "Törlés",
+        "historyCleared": "Előzmények törölve"
+      },
+      "suggestionStrip": {
+        "use": "{{command}} használata"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Alkalmazásbeállítás",
+      "delete": "Törlés (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Fül címe a shellből",
+      "programsCanSetTheTab": "A programok beállíthatják a fül címét",
+      "openTmux": "tmux megnyitása",
+      "attachToATmuxSession": "Csatlakozás egy tmux-munkamenethez, vagy indítson egyet",
+      "reconnectOnDrop": "Újracsatlakozás megszakadáskor",
+      "keepTabOpenOnExit": "Fül nyitva tartása kilépéskor",
+      "pressEnterToConnectAgain": "Nyomja meg az Enter billentyűt az újracsatlakozáshoz",
+      "saveCommandHistory": "Parancselőzmény mentése",
+      "offerToFillPasswordPrompts": "Jelszókitöltés felajánlása",
+      "offerToFillSudoPrompts": "Sudo-jelszókitöltés felajánlása",
+      "usesTheSudoPasswordFrom": "A sudo jelszót az SSH-fülből használja",
+      "none": "Egyik sem",
+      "look": "Megjelenés",
+      "theme": "Téma",
+      "font": "Betűtípus",
+      "cursor": "Kurzor",
+      "bell": "Hangjelzés",
+      "scrollbackLines": "Visszatekerhető sorok",
+      "app": "Alkalmazás",
+      "behavior": "Viselkedés",
+      "backspaceSends": "Visszafelejtés küld",
+      "startupSnippet": "Indítási parancssor",
+      "runsOnceTheShellIs": "Futtatás, amikor a shell készen áll",
+      "fillWithoutAsking": "Kitöltés kérdezés nélkül",
+      "onThisOnlyOnceYou": "Csak ezen a {{deviceWord}}-on, miután a Mindig kitölt opciót választotta",
+      "connection": "Kapcsolat",
+      "keepalive": "Kapcsolattartás",
+      "secondsBetweenPings0Turns": "Másodpercek a pingek között, 0 kikapcsolja",
+      "default": "Alapértelmezett",
+      "keepaliveSeconds": "Kapcsolattartási másodpercek",
+      "missedPings": "Kihagyott pingek",
+      "dropTheConnectionAfterThis": "Kapcsolat bontása, ha ennyi válasz nélkül marad",
+      "missedPingsBeforeDrop": "Kihagyott pingek a bontás előtt",
+      "environment": "Környezet",
+      "removeVariable": "Változó eltávolítása",
+      "addVariable": "Változó hozzáadása"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "BILLentyűZET"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Sor",
+        "keys": "Billentyűk",
+        "sendsAKeyCode": "Billentyűkód küldése",
+        "stickyModifier": "Ragadós módosító",
+        "appAction": "Alkalmazás művelet",
+        "tmuxPrefixThen": "tmux prefix, majd {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Billentyűsorok",
+        "onlyFor": "Csak {{name}} esetén",
+        "usingTheAppSRows": "Az alkalmazás sorainak használata. A változtatások itt csak {{name}}-re vonatkoznak",
+        "useTheAppSRows": "Az alkalmazás sorainak használata"
+      },
+      "keyButton": {
+        "locked": "Zárolva"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Mégse",
+        "remove": "{{what}} eltávolítása?",
+        "remove2": "Eltávolítás",
+        "dragToReorder": "Húzza az átrendezéshez",
+        "rowName": "Sor neve",
+        "groupName": "Csoport neve",
+        "add": "Hozzáadás",
+        "addKey": "Billentyű hozzáadása",
+        "addRow": "Sor hozzáadása",
+        "addGroup": "Csoport hozzáadása",
+        "tmuxPrefix": "tmux prefix",
+        "name": "Név",
+        "rename": "Átnevezés",
+        "keys": "{{value}} billentyű",
+        "noKeys": "Nincsenek billentyűk",
+        "remove3": "{{label}} eltávolítása",
+        "keys2": "Billentyűk",
+        "custom": "Egyéni",
+        "add2": "{{label}} hozzáadása",
+        "typeText": "Szöveg beírása",
+        "runCommand": "Parancs futtatása",
+        "ctrlKey": "Ctrl billentyű",
+        "label": "Címke",
+        "optional": "Opcionális",
+        "letter": "Betű",
+        "command": "Parancs",
+        "text": "Szöveg",
+        "resetToDefault": "Alapértelmezettre visszaállítás"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Billentyűk módosítása a Beállítások, Billentyűzet menüpontban"
+      },
+      "keyRowBar": {
+        "keyRow": "{{label}} billentyűsor",
+        "tapForTheNextRow": "Koppints a következő sorhoz, nyomd meg hosszan a kiválasztáshoz",
+        "keyRows": "Billentyűsorok"
+      },
+      "model": {
+        "clear": "Törlés",
+        "main": "Fő",
+        "keys": "Billentyűk",
+        "arrows": "Nyilak",
+        "symbols": "Szimbólumok",
+        "actions": "Műveletek",
+        "nav": "Navigáció",
+        "move": "Mozgatás",
+        "function": "Funkció",
+        "brackets": "Zárójelek",
+        "punctuation": "Központozás",
+        "ctrl": "Ctrl",
+        "control": "Vezérlés",
+        "windows": "Windows",
+        "panes": "Panelek",
+        "copy": "Másolás",
+        "split": "Osztás ─",
+        "split2": "Osztás │",
+        "newWin": "Új ablak",
+        "prevWin": "Előző ablak",
+        "nextWin": "Következő ablak",
+        "pane": "Panel ←",
+        "pane2": "Panel ↓",
+        "pane3": "Panel ↑",
+        "pane4": "Panel →",
+        "copyMode": "Másolási mód",
+        "pasteBuf": "Vágólap beillesztése",
+        "killPane": "Panel bezárása"
+      }
+    },
+    "output": {
+      "openLink": "Hivatkozás megnyitása?",
+      "open": "Megnyitás",
+      "pasteLines": "{{lines}} sor beillesztése?",
+      "pasteThisText": "Ez a szöveg beillesztése?",
+      "theShellMayRunIt": "A shell azonnal végrehajthatja.\n\n{{text}}",
+      "paste": "Beillesztés",
+      "letTheProgramReadYour": "Megengedjük, hogy a program olvassa a vágólapot?",
+      "itAskedForWhatYou": "A legutóbb másolt adatot kéri.",
+      "allow": "Engedélyezés",
+      "letTheProgramCopyTo": "Megengedjük, hogy a program másolja a vágólapra?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "A mentett jelszó kitöltése?",
+      "asksForTheSudoPassword": "A(z) {{hostName}} sudo jelszót kér.",
+      "asksForAPassword": "A(z) {{hostName}} jelszót kér.",
+      "fillPassword": "Jelszó kitöltése",
+      "alwaysFillOnThisHost": "Mindig kitöltés ezen a hoszton",
+      "asksNoMoreOnThis": "Ezentúl nem kérdez rá ezen a(z) {{deviceWord}}-on. Kikapcsolható a hoszt Terminál fülén.",
+      "notNow": "Most nem"
+    },
+    "register": {
+      "terminal": "Terminál",
+      "terminalAndKeepalive": "Terminál és keepalive",
+      "history": "ELŐZMÉNYEK",
+      "find": "Keresés",
+      "tmuxWindows": "tmux ablakok",
+      "connectionLog": "Csatlakozási napló",
+      "keyRowsForThisHost": "Billentyűsorok ehhez a hoszthoz"
+    },
+    "searchBar": {
+      "noResults": "Nincs találat",
+      "matchCase": "Kis- és nagybetű érzékeny",
+      "wholeWord": "Teljes szó",
+      "regularExpression": "Reguláris kifejezés",
+      "find": "Keresés",
+      "closeFind": "Keresés bezárása"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Rendszer",
+      "block": "Blokk",
+      "bar": "Csík",
+      "underline": "Aláhúzás",
+      "off": "Ki",
+      "sound": "Hang",
+      "flash": "Villogás",
+      "both": "Mindkettő"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Új lap ezen a hoszton",
+      "closeTab": "Lap bezárása",
+      "nextTab": "Következő lap",
+      "previousTab": "Előző lap",
+      "goToTab": "Ugrás lapra",
+      "find": "Keresés",
+      "fontSize": "Betűméret",
+      "paste": "Beillesztés",
+      "escape": "Escape",
+      "copyAndPaste": "Másolás és beillesztés"
+    },
+    "reconnecting": "Újracsatlakozás...",
+    "waitingForNetwork": "Várakozás a hálózatra...",
+    "waitingForYou": "Várakozás rád...",
+    "connecting": "Csatlakozás...",
+    "terminalView": {
+      "scrollToBottom": "Görgés az aljára",
+      "onlyWebLinksCanOpen": "Csak webes linkek nyithatók meg a terminálból",
+      "couldNotOpenLink": "A link nem nyitható meg",
+      "copiedFromTheTerminal": "A terminálból másolva"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "tmux munkamenet megnyitása",
+        "newSession": "Új munkamenet",
+        "plainShell": "Egyszerű shell",
+        "tmuxWindows": "tmux ablakok",
+        "newWindow": "Új ablak",
+        "windowCount_one": "{{count}} ablak",
+        "windowCount_other": "{{count}} ablak",
+        "attached": "{{count}} csatlakoztatva",
+        "activeNow": "jelenleg aktív",
+        "activeMinAgo": "{{count}} perce aktív",
+        "activeHoursAgo": "{{count}} órája aktív",
+        "activeDaysAgo_one": "{{count}} napja aktív",
+        "activeDaysAgo_other": "{{count}} napja aktív"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Másolás",
+        "selectAll": "Összes kijelölése",
+        "cancel": "Mégse",
+        "scrollToBottom": "Görgés az aljára",
+        "couldNotCopy": "Nem sikerült másolni",
+        "webviewError": "WebView hiba: {{description}}",
+        "webviewHttpError": "WebView HTTP hiba: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Nincs mentett jelszó ehhez a hoszthoz",
+    "backInTmuxSession": "Vissza a(z) {{tmuxName}} tmux munkamenetbe",
+    "backInScreenSession": "Vissza a(z) {{name}} screen munkamenetbe",
+    "theServerSessionEndedThis": "A kiszolgálói munkamenet véget ért. Ez egy új shell.",
+    "termixWasClosedSoThe": "A Termix bezárult, így a régi shell véget ért. Ez egy új shell.",
+    "theConnectionDroppedAndThe": "A kapcsolat megszakadt, és a régi shell véget ért. Ez egy új shell.",
+    "disconnectedFrom": "Kapcsolat bontása a(z) {{hostName}} hoszttal"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Kétfaktoros hitelesítés",
+      "codesFromAnAuthenticatorApp": "Kódok egy hitelesítő alkalmazásból a kiszolgálói fiókjához"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC-cím",
+      "neededToWakeThisHost": "Szükséges ehhez a gazdagéphez a Wake-on-LAN használatához",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Használjon MAC-címet, például 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN küldve a(z) {{name}} címére",
+      "failedToSendWakeOn": "Nem sikerült elküldeni a Wake-on-LAN csomagot",
+      "noServer": "Nincs kiszolgáló"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Feltámasztás: {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Megosztja a névtelen használati statisztikákat?",
+      "termixWouldSendAShort": "A Termix naponta egyszer rövid jelentést küld. Ezt bármikor módosíthatja a Beállításokban.",
+      "noThanks": "Nem, köszönöm",
+      "share": "Megosztás",
+      "theReportHasTheApp": "A jelentés tartalmazza az alkalmazás verzióját, az {{deviceWord}} típusát, a gazdagépek és munkamenetek hozzávetőleges számát, az Ön által használt funkciókat, valamint azt, hogy a csatlakozás sikeres volt-e. Soha nem tartalmaz gazdagépnévket, felhasználóneveket, címeket, elérési utakat, parancsokat vagy kiszolgálóneveket.",
+      "seeExactlyWhatIsSent": "Pontosan megnézni, mi kerül elküldésre"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Verzióinformációk betöltése…",
+      "updateAvailable": "Frissítés elérhető",
+      "newVersionAvailable": "Új verzió elérhető",
+      "aNewerVersionOfThe": "A mobilalkalmazás újabb verziója elérhető. Egyes funkciók a frissítésig nem működhetnek megfelelően.",
+      "versionInformation": "Verzióinformációk",
+      "installed": "Telepített",
+      "latest": "Legújabb",
+      "unknown": "Ismeretlen",
+      "tag": "Címke",
+      "continueAnyway": "Folytatás mindenképpen"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Másolva",
+      "copy": "Másolás",
+      "hostKeyChanged": "A gazdagép kulcsa megváltozott",
+      "verifyHostKey": "Gazdagép kulcsának ellenőrzése",
+      "cancel": "Mégse",
+      "acceptNewKey": "Új kulcs elfogadása",
+      "connectAndTrust": "Csatlakozás és bizalom",
+      "theHostSSshKey": "A gazdagép SSH-kulcsa megváltozott az utolsó csatlakozása óta. Ez azt jelentheti, hogy valaki lehallgatja a kapcsolatot.",
+      "youAreConnectingToThis": "Ez az első alkalom, hogy ehhez a gazdagéphez csatlakozik. Ellenőrizze az ujjlenyomatot, mielőtt megbízná.",
+      "previousKey": "Előző kulcs",
+      "newFingerprint": "Új ujjlenyomat",
+      "hostFingerprint": "Gazdagép ujjlenyomata"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Jelszó szükséges",
+      "enterThePassphraseForYour": "Adja meg az SSH-kulcs jelszavát.",
+      "cancel": "Mégse",
+      "connect": "Csatlakozás",
+      "keyPassphrase": "Kulcs jelszava"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH-hitelesítés szükséges",
+      "cancel": "Mégse",
+      "connect": "Csatlakozás",
+      "password": "Jelszó",
+      "sshKey": "SSH-kulcs",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nIllessze ide a privát kulcsát...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Kulcs jelszava (opcionális)",
+      "keyboardInteractiveAuthIsNot": "A billentyűzetes interaktív hitelesítés nem elérhető. Adja meg közvetlenül a hitelesítő adatokat.",
+      "authenticationFailedPleaseReEnter": "A hitelesítés sikertelen. Kérjük, adja meg újra a hitelesítő adatait.",
+      "connectionTimedOutPleaseTry": "A kapcsolat időtúllépése. Kérjük, próbálja újra a hitelesítő adataival."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH-ellenőrzés",
+      "completeTheTailscaleSshCheck": "Végezze el a Tailscale SSH-ellenőrzést a böngészőjében a folytatáshoz.",
+      "cancel": "Mégse",
+      "copyUrl": "URL másolása",
+      "openBrowser": "Böngésző megnyitása",
+      "urlCopied": "URL másolva",
+      "failedToCopy": "Másolás sikertelen",
+      "couldNotOpenBrowser": "Nem sikerült megnyitni a böngészőt"
+    },
+    "tOTPDialog": {
+      "cancel": "Mégse",
+      "submit": "Küldés",
+      "verify": "Ellenőrzés",
+      "password": "Jelszó",
+      "pasteCode": "Kód beillesztése",
+      "passwordRequired": "Jelszó szükséges",
+      "twoFactorAuthentication": "Kétfaktoros hitelesítés",
+      "enterYourPasswordToContinue": "Írd be a jelszavad a folytatáshoz.",
+      "enterThe6DigitCode": "Írd be a 6 jegyű kódot a hitelesítő alkalmazásodból."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate hitelesítés",
+      "authenticateViaTheWarpgatePortal": "Hitelesítsd magad a Warpgate portálon, majd koppints a Folytatás gombra.",
+      "cancel": "Mégse",
+      "openBrowser": "Böngésző megnyitása",
+      "continue": "Folytatás",
+      "securityKey": "Biztonsági kulcs",
+      "authUrl": "Hitelesítési URL",
+      "copied": "Másolva",
+      "copy": "Másolás",
+      "urlCopied": "URL másolva",
+      "failedToCopy": "Másolás sikertelen",
+      "couldNotOpenBrowser": "Nem sikerült megnyitni a böngészőt"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "ez a {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Legutóbbi tevékenység",
+        "files": "Fájlok",
+        "terminal": "Terminál"
+      },
+      "alertsCard": {
+        "notifications": "Értesítések",
+        "seeAll": "Összes megtekintése"
+      },
+      "server": "Szerver",
+      "openSessions": "Nyitott munkamenetek",
+      "quickAccess": "Gyors hozzáférés",
+      "notifications": "Értesítések",
+      "pinnedHosts": "Kitűzött hostok",
+      "recentHosts": "Legutóbbi hostok",
+      "recentActivity": "Legutóbbi tevékenység",
+      "pinnedCard": {
+        "addYourFirstHost": "Add hozzá az első hostodat",
+        "hostsYouOpenShowUp": "A megnyitott hostok itt jelennek meg, a kitűzött hostok élő kártyákkal.",
+        "addHost": "Host hozzáadása",
+        "linkAServer": "Szerver összekötése",
+        "pinAHostToSee": "Tűzz ki egy hostot, hogy itt lásd",
+        "pinnedHostsShowTheirMetrics": "A kitűzött hostok metrikáit, Docker állapotát és szolgáltatásait pillantásra láthatod. Tartsd nyomva a hostot a kitűzéshez.",
+        "goToHosts": "Hostokhoz",
+        "pinned": "Kitűzött",
+        "opensTheTerminalHoldFor": "Megnyitja a terminált. Tartsd nyomva a többi lehetőséghez.",
+        "turnOnDockerOrServices": "Kapcsold be a Dockert vagy a Szolgáltatásokat ehhez a hosthoz, vagy koppints rá a csatlakozáshoz.",
+        "opens": "Megnyitja a(z) {{title}} elemet"
+      },
+      "quickCard": {
+        "quickAccess": "Gyors hozzáférés",
+        "quickConnect": "Gyors csatlakozás",
+        "userHostPortWithoutSaving": "felhasználó@host:port, mentés nélkül"
+      },
+      "recentCard": {
+        "recent": "Legutóbbi"
+      },
+      "serverCard": {
+        "server": "Szerver",
+        "version": "Verzió",
+        "uptime": "Üzemidő",
+        "database": "Adatbázis",
+        "hosts": "Hostok",
+        "online": "Online",
+        "offline": "Offline",
+        "logins": "Bejelentkezések"
+      },
+      "sessionsCard": {
+        "openSessions": "Nyitott munkamenetek",
+        "connected": "Csatlakozva"
+      }
+    },
+    "resetHome": "Kezdőlap visszaállítása?",
+    "cardsGoBackToThe": "A kártyák visszaállnak az alapértelmezett sorrendbe és megjelenítésre.",
+    "reset": "Visszaállítás",
+    "doneEditingHome": "A kezdőlap szerkesztése kész",
+    "editHome": "Kezdőlap szerkesztése",
+    "dragToReorder": "Húzza a(z) {{title}} elemet a sorrend módosításához",
+    "show": "{{title}} megjelenítése",
+    "dragCardsToReorderThem": "Húzza a kártyákat a sorrend módosításához. Kapcsolja ki egy kártyát, hogy elrejtse. Az üres tartalmú kártyák automatikusan rejtve maradnak.",
+    "resetToDefault": "Visszaállítás alapértelmezettre",
+    "done": "Kész",
+    "serverReachBanner": {
+      "stillCanTReachThe": "A szerver továbbra sem érhető el",
+      "canTReach": "A(z) {{account}} nem érhető el",
+      "youCanKeepWorkingWith": "Folytathatja a munkát ezen a(z) {{deviceWord}} eszközön lévő másolattal. A módosítások feltöltődnek, amikor újra elérhető lesz.",
+      "hostsSetToConnectFrom": "Azok a hostok, amelyek ehhez a(z) {{deviceWord}} eszközhöz vannak beállítva, továbbra is működnek.",
+      "tryAgain": "Újrapróbál",
+      "noAnswer": "nincs válasz"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault profil",
+      "none": "Egyik sem",
+      "signsInWithInYour": "Bejelentkezés a(z) {{title}} segítségével a böngészőben, a Termix szerveren keresztül. Csatlakoztassa ezt a hostot a szerveren keresztül.",
+      "needsATermixServerLink": "A(z) {{title}} egy Termix szervert igényel. Hozzon létre egyet a bejelentkezés használatához.",
+      "isOffOnThisServer": "A(z) {{title}} ki van kapcsolva ezen a szerveren. Ez a host megtartja a bejelentkezési beállítását."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Nem sikerült betölteni a hitelesítő adatokat",
+      "deleted": "A(z) \"{{name}}\" törölve",
+      "couldNotDeleteTheCredential": "Nem sikerült törölni a hitelesítő adatot",
+      "credentials": "Hitelesítő adatok",
+      "add": "Hozzáadás",
+      "searchCredentials": "Hitelesítő adatok keresése",
+      "clearSearch": "Keresés törlése",
+      "loadingCredentials": "Hitelesítő adatok betöltése...",
+      "noCredentialsMatchYourSearch": "Nincs a keresésnek megfelelő hitelesítő adat",
+      "noCredentialsYet": "Még nincsenek hitelesítő adatok",
+      "addCredential": "Hitelesítő adat hozzáadása",
+      "edit": "Szerkesztés",
+      "delete": "Törlés",
+      "deleteCredential": "Hitelesítő adat törlése",
+      "willBePermanentlyDeletedHosts": "A(z) \"{{name}}\" véglegesen törlődik. Azokat a hostokat, amelyek ezt használják, elveszítik a mentett hitelesítő adataikat.",
+      "cancel": "Mégse",
+      "hostCount_one": "{{count}} host",
+      "hostCount_other": "{{count}} host",
+      "sshKey": "SSH kulcs"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Kulcs cseréje?",
+        "theNewKeyTakesThe": "Az új kulcs helyettesíti a jelenlegit. Azok a hostok, amelyek csak a régi kulcsnak bíznak, már nem fogadják el ezt a hitelesítő adatot.",
+        "replace": "Csere",
+        "newKeyMadeCopyThe": "Új kulcs létrehozva. Másolja a nyilvános kulcsot a hostjaira.",
+        "couldNotMakeAKey": "Nem sikerült kulcsot létrehozni",
+        "couldNotReadThatCertificate": "Nem sikerült beolvasni a tanúsítványfájlt",
+        "leaveWithoutSaving": "Kilépés mentés nélkül?",
+        "yourChangesToThisCredential": "A hitelesítő adathoz végzett módosítások elvesznek.",
+        "leave": "Kilépés",
+        "credentialSaved": "Hitelesítő adat mentve",
+        "credentialAdded": "Hitelesítő adat hozzáadva",
+        "couldNotSaveTheCredential": "Nem sikerült menteni a hitelesítő adatot",
+        "enterAHostToTest": "Adjon meg egy hostot a teszteléshez, például 10.0.0.5 vagy box:2222.",
+        "enterTheUsernameFirst": "Először adja meg a felhasználónevet.",
+        "editCredential": "Hitelesítő adat szerkesztése",
+        "newCredential": "Új hitelesítő adat",
+        "cancel": "Mégsem",
+        "save": "Mentés",
+        "credential": "Hitelesítő adat",
+        "name": "Név",
+        "productionKey": "Éles kulcs",
+        "username": "Felhasználónév",
+        "signInWith": "Bejelentkezés ezzel",
+        "password": "Jelszó",
+        "sshKey": "SSH-kulcs",
+        "unchangedIfBlank": "Ha üres, nem változik",
+        "key": "Kulcs",
+        "fileOrPaste": "Fájl vagy beillesztés",
+        "makeANewKey": "Új kulcs létrehozása",
+        "aKeyIsSavedChoose": "Már van egy mentett kulcs. Válassz fájlt, vagy illessz be egyet a helyettesítéshez.",
+        "type": "Típus",
+        "ed25519AndEcdsaAreMade": "Az Ed25519 és az ECDSA ezen a {{deviceWord}} készül, az RSA a szervereden.",
+        "madeOnThisEd25519Works": "Ezen a {{deviceWord}} készül. Az Ed25519 szinte mindenhol működik.",
+        "passphrase": "Jelszavas mondat",
+        "optionalLocksTheNewKey": "Opcionális. Megvédi az új kulcsot ezen a {{deviceWord}} és a lemezen is.",
+        "makeKey": "Kulcs létrehozása",
+        "publicKey": "Nyilvános kulcs",
+        "addThisLineToSsh": "Add hozzá ezt a sort a ~/.ssh/authorized_keys fájlhoz a szervereiden",
+        "publicKeyCopied": "Nyilvános kulcs másolva",
+        "copyPublicKey": "Nyilvános kulcs másolása",
+        "certificate": "Tanúsítvány",
+        "aCertificateYourCaSigned": "Egy tanúsítvány, amelyet a CA-d aláírt ehhez a kulcshoz, azoknak a szervereknek, amelyek megbíznak a CA-ban.",
+        "chooseCertificateFile": "Tanúsítványfájl kiválasztása",
+        "thisDoesNotLookLike": "Ez nem úgy néz ki, mint egy OpenSSH-tanúsítvány.",
+        "test": "Teszt",
+        "hostToTestOn": "Teszteléshez használt szerver",
+        "n10005Or": "10.0.0.5 vagy box.lan:2222",
+        "pickASavedHost": "Válassz egy mentett szervert",
+        "details": "Részletek",
+        "description": "Leírás",
+        "whatThisCredentialIsFor": "Mire szolgál ez a hitelesítő adat",
+        "folder": "Mappa",
+        "serverKeys": "Szerverkulcsok",
+        "testOnAHost": "Tesztelés egy szerveren",
+        "rsaKeysNeedALinked": "Az RSA-kulcsokhoz kapcsolódó szerver szükséges."
+      },
+      "model": {
+        "giveThisCredentialAName": "Adj nevet ennek a hitelesítő adatnak",
+        "addAPrivateKeyOr": "Adj hozzá egy privát kulcsot, vagy hozz létre egy újat"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Ez egy szervertanúsítvány, nem felhasználói.",
+        "thisCertificateIsNotValid": "Ez a tanúsítvány még nem érvényes.",
+        "thisCertificateHasExpired": "Ez a tanúsítvány lejárt.",
+        "itIsForAKey": "Ez egy {{keyType}} kulcshoz tartozik, de ez a kulcs {{keyType2}}.",
+        "forAnyUser": "Bármely felhasználó számára",
+        "validFromNoEndDate": "Érvényes {{validAfter}}-tól, nincs lejárati dátum",
+        "signedBy": "Aláírta: {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Felhasználónév",
+        "fromTheCredential": "A hitelesítő adatból: {{credentialUser}}",
+        "signInWith": "Bejelentkezés ezzel",
+        "password": "Jelszó",
+        "key": "Kulcs",
+        "credential": "Hitelesítő adat",
+        "none": "Egyik sem",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Tailscale SSH-val kapcsolódik. Nem tárol jelszót vagy kulcsot.",
+        "tailscaleIsNotOnFor": "A Tailscale nincs bekapcsolva a(z) {{value}} számára. Ez a szerver megőrzi a Tailscale-bejelentkezését.",
+        "unchangedIfBlank": "Ha üres, nem változik",
+        "noCredentialsYetTapThe": "Még nincsenek hitelesítő adatok. Koppints a kulcs ikonra a Szerverek oldalon, hogy hozzáadj egyet.",
+        "useCredential": "Hitelesítő adat használata: {{name}}",
+        "sudoPassword": "Sudo jelszó",
+        "typedIntoSudoPromptsWhen": "A sudo kérésekbe írandó, ha a Terminál szakasz engedélyezi",
+        "notSet": "Nincs beállítva",
+        "thisServer": "ezen szerver"
+      },
+      "colorIconField": {
+        "color": "Szín",
+        "noColor": "Nincs szín",
+        "color2": "Szín: {{c}}",
+        "icon": "Ikon",
+        "noIcon": "Nincs ikon",
+        "none": "Egyik sem",
+        "icon2": "Ikon: {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Elhagyás mentés nélkül?",
+        "yourChangesToThisHost": "A hoston végzett módosítások elvesznek.",
+        "leave": "Elhagyás",
+        "couldNotSaveHowThis": "Nem sikerült menteni a host kapcsolódási beállításait",
+        "hostSaved": "Host mentve",
+        "hostAdded": "Host hozzáadva",
+        "couldNotSaveTheHost": "Nem sikerült menteni a hostot",
+        "enterTheHostSAddress": "Először adja meg a host címét.",
+        "turnOnSshToTest": "Kapcsolja be az SSH-t a bejelentkezés teszteléséhez.",
+        "pickACredentialFirst": "Először válasszon hitelesítő adatot.",
+        "editHost": "Host szerkesztése",
+        "newHost": "Új host",
+        "cancel": "Mégse",
+        "save": "Mentés",
+        "host": "Host",
+        "name": "Név",
+        "myServer": "Saját szerver",
+        "address": "Cím",
+        "port": "Port",
+        "portAndUsernameComeFrom": "A port és a felhasználónév a host alapértelmezett beállításaiból származik, amíg meg nem változtatja őket.",
+        "folder": "Mappa",
+        "production": "Éles környezet",
+        "useAFolderInstead": "Használjon inkább mappát",
+        "putItUnderAHost": "Helyezze inkább egy host alá",
+        "pinToTop": "Rögzítés a tetejére",
+        "colorAndIcon": "Szín és ikon",
+        "notes": "Jegyzetek",
+        "anythingWorthRememberingAboutThis": "Bármilyen megjegyzés, amit érdemes megjegyezni erről a hostról",
+        "protocols": "Protokollok",
+        "terminalFilesAndMore": "Terminál, fájlok és több",
+        "connectFrom": "Kapcsolódás innen",
+        "features": "Funkciók",
+        "otherProtocols": "Egyéb protokollok",
+        "more": "Továbbiak",
+        "theTestRunsFromThis": "A teszt ezen a {{deviceWord}}-ről fut. Ez a host a szerveren keresztül kapcsolódik, így akkor is működhet, ha a {{deviceWord}} nem éri el közvetlenül."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Átjáró hostok",
+        "connectsThroughTheseInOrder": "Ezekon keresztül kapcsolódik sorrendben, majd erre a hostra",
+        "reachThisHostThroughOther": "Először más hostokon keresztül érje el ezt a hostot",
+        "moveUp": "Mozgatás felfelé",
+        "moveDown": "Mozgatás lefelé",
+        "removeJumpHost": "Átjáró host eltávolítása",
+        "addJumpHost": "Átjáró host hozzáadása",
+        "pickASavedHostTo": "Válasszon egy mentett hostot a kapcsolódáshoz",
+        "searchHosts": "Hostok keresése",
+        "noOtherHostsToPick": "Nincs más host választható. Egy host nem léphet át önmagán vagy egy olyan hoston, amely már keresztülhalad rajta.",
+        "missingHost": "Hiányzó host #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Kapcsoljon be legalább egy protokollt",
+        "pickACredential": "Válasszon hitelesítő adatot",
+        "enterTheHostSAddress": "Adja meg a host címét",
+        "theAddressCanTHave": "A cím nem tartalmazhat szóközt",
+        "portMustBeFrom1": "A portnak 1 és 65535 között kell lennie",
+        "enterTheSshUsername": "Adja meg az SSH felhasználónevet"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "A host a kiválasztott alatt jelenik meg beágyazva",
+        "searchHosts": "Hostok keresése",
+        "noHostsToPickA": "Nincs választható host. Egy host nem helyezhető el önmaga, saját alhostja vagy egy megosztott host alá.",
+        "parentHost": "Szülő host",
+        "subHostsFollowTheFolder": "Az alhostok követik a szülő mappáját",
+        "pickParentHost": "Szülő host kiválasztása",
+        "missingHost": "Hiányzó host #{{value}}",
+        "pickAHost": "Válasszon egy hostot",
+        "clearParentHost": "Szülő host törlése"
+      },
+      "tagsField": {
+        "tags": "Címkék",
+        "typeATagAndPress": "Írjon be egy címkét, majd nyomja meg az Enter billentyűt",
+        "removeTag": "{{tag}} címke eltávolítása",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Nem sikerült menteni a host kapcsolódási beállításait",
+      "addressCopied": "Cím másolva",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Kapcsolódás innen",
+      "dismiss": "Elutasítás",
+      "unpin": "Kitűzés megszüntetése",
+      "pinToHome": "Kitűzés a Főoldalra",
+      "select": "Kijelölés",
+      "editHost": "Host szerkesztése",
+      "copyAddress": "Cím másolása",
+      "addSubHost": "Alhost hozzáadása",
+      "cloneHost": "Host klónozása",
+      "deleteHost": "Host törlése",
+      "connectThroughTheServer": "Kapcsolódás a szerveren keresztül",
+      "connectFromThis": "Kapcsolódás erről a {{deviceWord}}ról"
+    },
+    "defaultYourOrder": "Alapértelmezett (saját sorrend)",
+    "nameAZ": "Név (A-Z)",
+    "nameZA": "Név (Z-A)",
+    "ipAscending": "IP (növekvő)",
+    "ipDescending": "IP (csökkenő)",
+    "onlineFirst": "Először az online",
+    "offlineFirst": "Először az offline",
+    "pinnedFirst": "Először a kitűzött",
+    "status": "Státusz",
+    "online": "Online",
+    "offline": "Offline",
+    "pinned": "Kitűzött",
+    "protocol": "Protokoll",
+    "features": "Funkciók",
+    "hostsCanOnlyMoveInside": "A hostok csak a saját mappájukon belül helyezhetők át",
+    "couldNotUpdateTheHosts": "Nem sikerült frissíteni a hostokat",
+    "sharedHostsCanTBe": "A megosztott hostok itt nem törölhetők",
+    "delete2": "Törlés",
+    "noneOfTheseHostsOpen": "Ezek közül egyik host sem nyit terminált",
+    "couldNotPinTheHost": "Nem sikerült kitűzni a hostot",
+    "deleted": "{{name}} törölve",
+    "failedToDeleteHost": "Nem sikerült törölni a hostot",
+    "cloned": "{{name}} klónozva",
+    "failedToCloneHost": "Nem sikerült klónozni a hostot",
+    "reorderWorksWithTheDefault": "A sorrend módosítása az Alapértelmezett rendezéssel működik, keresés vagy szűrés nélkül",
+    "couldNotSaveTheOrder": "Nem sikerült menteni a sorrendet",
+    "noHostsYet": "Még nincsenek hostok",
+    "addAHostToConnect": "Adjon hozzá egy hostot, hogy egyetlen koppintással csatlakozhasson.",
+    "addHost": "Host hozzáadása",
+    "quickConnect2": "Gyors csatlakozás",
+    "linkAServer": "Szerver összekapcsolása",
+    "noHostsMatch": "Nincs egyező host",
+    "clearSearchAndFilters": "Keresés és szűrők törlése",
+    "more": "Továbbiak",
+    "dragAHostByIts": "Húzza a hostot a fogópontjánál, hogy áthelyezze a mappáján belül.",
+    "done": "Kész",
+    "filterHosts": "Hostok szűrése",
+    "clearFilterText": "Szűrőszöveg törlése",
+    "sortHosts": "Hostok rendezése",
+    "removeFilter": "{{value}} szűrő eltávolítása",
+    "loadingHosts": "Hostok betöltése…",
+    "moveUnderAHost": "Áthelyezés egy host alá",
+    "moveToFolder": "Áthelyezés mappába",
+    "leaveItEmptyToTake": "Hagyja üresen, ha ki szeretné venni a hostokat a mappákból.",
+    "folderLikeProdWeb": "Mappa, például Prod / Web",
+    "move": "Áthelyezés",
+    "hosts": "Hostok",
+    "selectHosts": "Hostok kijelölése",
+    "reorderHosts": "Hostok átrendezése",
+    "customizeList": "Lista testreszabása",
+    "chooseWhatEachHostRow": "Válassza ki, mit mutasson minden host sor",
+    "credentials2": "Hitelesítő adatok",
+    "savedPasswordsAndKeys": "Mentett jelszavak és kulcsok",
+    "tailscaleDevices": "Tailscale eszközök",
+    "refresh": "Frissítés",
+    "rowDensityFollowsSettingsAppearance": "A sűrűség a Beállítások, Megjelenés szerint változik.",
+    "clearAllFilters": "Összes szűrő törlése",
+    "tags": "Címkék",
+    "stopSelecting": "Kijelölés leállítása",
+    "selected": "{{count}} kijelölve",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Nem sikerült beolvasni a kulcsfájlt",
+        "theClipboardIsEmpty": "A vágólap üres",
+        "privateKey": "Privát kulcs",
+        "chooseFile": "Fájl kiválasztása",
+        "paste": "Beillesztés",
+        "unchangedIfBlank": "Nem változik, ha üres",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Jelszó",
+        "onlyIfTheKeyHas": "Csak akkor, ha a kulcs rendelkezik vele",
+        "theKeyIsCheckedWhen": "A kulcs ellenőrzése csatlakozáskor történik.",
+        "thePastedKey": "a beillesztett kulcs"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Megnyitás",
+        "moreActions": "További műveletek",
+        "opensTheTerminalHoldFor": "Megnyitja a terminált. Tartsa nyomva a többiért.",
+        "shared": "Megosztott",
+        "drag": "{{name}} húzása",
+        "showSubHosts_one": "{{name}} {{count}} alhostjának megjelenítése",
+        "showSubHosts_other": "{{name}} {{count}} alhostjának megjelenítése",
+        "hideSubHosts_one": "{{name}} {{count}} alhostjának elrejtése",
+        "hideSubHosts_other": "{{name}} {{count}} alhostjának elrejtése"
+      },
+      "hostList": {
+        "folderHosts": "{{name}} mappa, {{total}} host"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "A host és a felhasználónév megadása kötelező",
+      "hostSaved": "Host mentve",
+      "couldNotSaveTheHost": "Nem sikerült menteni a hostot",
+      "quickConnect": "Gyors csatlakozás",
+      "connectToAHostWithout": "Csatlakozzon egy hosthoz mentés nélkül.",
+      "hostIp": "Host / IP",
+      "port": "Port",
+      "username": "Felhasználónév",
+      "password": "Jelszó",
+      "key": "Kulcs",
+      "privateKey": "Privát kulcs",
+      "saveToMyHosts": "Mentés a gazdagépeim közé",
+      "keepThisHostAfterConnecting": "Gazdagép megtartása a csatlakozás után",
+      "cancel": "Mégse",
+      "connect": "Csatlakozás"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Gazdagépek lekérése a szerverről",
+      "yourHostsStayOnThis": "{{message}} Közben a gazdagépeid ezen a {{deviceWord}} eszközön maradnak."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "A gazdagép kulcsa megváltozott",
+      "trustThisHost": "Megbízol ebben a gazdagépben?",
+      "trust": "Megbízás",
+      "stopTest": "Teszt leállítása",
+      "testConnection": "Kapcsolat tesztelése",
+      "connecting": "Csatlakozás..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "A gazdagépek betöltése sikertelen."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} megosztott gazdagép változatlan maradt.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} megosztott gazdagép változatlan maradt.",
+    "deleteHosts_one": "{{count}} gazdagép törlése?",
+    "deleteHosts_other": "{{count}} gazdagép törlése?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Nincs ilyen nevű mappa: {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "{{name}} gazdagép: érvénytelen port",
+        "hostJumpIsNotIn": "{{name}} gazdagép: a(z) {{value}} átugró gazdagép nincs a fájlban, ezért kihagyásra került",
+        "credential": "{{name}} hitelesítő adat: {{error}}",
+        "noValidHostEntriesFound": "Nem található érvényes Host bejegyzés az SSH konfigurációs fájlban",
+        "credentialWasNotFound": "{{label}}: a(z) {{value}} hitelesítő adat nem található"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "{{value}} gazdagép: ismétlődő exportált gazdagép-azonosító: {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Hiányzó kötelező mezők (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Érvénytelen authType. Az alábbiak egyikének kell lennie: {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Felhasználónév szükséges SSH kapcsolatokhoz",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias szükséges a hitelesítő adat alapú hitelesítéshez",
+        "thatIsNotAValid": "Ez nem érvényes JSON fájl",
+        "hostsArrayIsRequiredAnd": "A gazdagépek tömbje kötelező, és nem lehet üres",
+        "jumpHostCycle": "{{label}}: átugró gazdagép körkörös hivatkozás",
+        "jumpHostIsNotIn": "{{label}}: a(z) {{id}} átugró gazdagép nincs a fájlban"
+      }
+    },
+    "movedTo": "Áthelyezve ide: {{value}}",
+    "movedOutOfFolders": "Áthelyezve a mappákból",
+    "movedUnder": "Áthelyezve ide: {{value}} alá",
+    "openTerminals": "Nyitott terminálok",
+    "theHost": "a gazdagép"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Jelszó elrejtése",
+      "showPassword": "Jelszó megjelenítése",
+      "enterAUsernameAndPassword": "Add meg a felhasználónevet és a jelszót",
+      "useAtLeast6Characters": "A jelszó legalább 6 karakter hosszú legyen",
+      "thePasswordsDonTMatch": "A jelszavak nem egyeznek",
+      "makeTheAdminAccount": "Adminisztrátori fiók létrehozása",
+      "makeAnAccount": "Fiók létrehozása",
+      "thisIsTheFirstAccount": "Ez az első fiók a szerveren, így ez kezeli a szervert.",
+      "pickAUsernameAndPassword": "Válassz felhasználónevet és jelszót ehhez a szerverhez.",
+      "username": "Felhasználónév",
+      "password": "Jelszó",
+      "passwordAgain": "Jelszó újra",
+      "makeAccount": "Fiók létrehozása",
+      "back": "Vissza",
+      "haveAnAccountSignIn": "Már van fiókod? Jelentkezz be",
+      "resetCodeMadeItIs": "Visszaállítási kód generálva. A szerver naplófájljában található.",
+      "enterYourUsername": "Add meg a felhasználóneved",
+      "enterTheResetCode": "Add meg a visszaállítási kódot",
+      "passwordChangedSignInWith": "Jelszó megváltoztatva. Jelentkezz be vele most",
+      "resetPassword": "Jelszó visszaállítása",
+      "enterYourUsernameTheServer": "Add meg a felhasználóneved. A szerver egy visszaállítási kódot ír a naplófájljaiba.",
+      "sendResetCode": "Visszaállítási kód küldése",
+      "enterThe6DigitCode": "Adja meg a 6 jegyű kódot a szerver naplóiból.",
+      "resetCode": "Kód visszaállítása",
+      "checkCode": "Kód ellenőrzése",
+      "newPassword": "Új jelszó",
+      "saveNewPassword": "Új jelszó mentése",
+      "backToSignIn": "Vissza a bejelentkezéshez",
+      "couldNotMakeTheAccount": "Nem sikerült létrehozni a fiókot",
+      "couldNotStartTheReset": "Nem sikerült elindítani a visszaállítást",
+      "thatCodeDidnTWork": "Ez a kód nem működött",
+      "couldNotChangeThePassword": "Nem sikerült megváltoztatni a jelszót"
+    },
+    "browserStep": {
+      "signInFailed": "A bejelentkezés sikertelen",
+      "signInCanceled": "A bejelentkezés megszakadt",
+      "couldNotOpenTheSign": "Nem sikerült megnyitni a bejelentkezési böngészőt",
+      "couldNotOpenTheSign2": "Nem sikerült megnyitni a bejelentkezési oldalt",
+      "certificateProblem": "Tanúsítványprobléma",
+      "back": "Vissza",
+      "signIn": "Bejelentkezés",
+      "reload": "Újratöltés",
+      "finishSigningInInYour": "Fejezze be a bejelentkezést a böngészőben",
+      "useAnySignInYour": "Használja a szerverén elérhető bármely bejelentkezési módszert, például passkeyt vagy biztonsági kulcsot. Az alkalmazás átvállalja a folyamatot, miután bejelentkezett.",
+      "theAppPicksUpOnce": "Az alkalmazás átvállalja a folyamatot, miután a bejelentkezési szolgáltatója befejezte a munkát.",
+      "signingIn": "Bejelentkezés...",
+      "openBrowserAgain": "Böngésző újbóli megnyitása",
+      "theServerTurnedTheSession": "A szerver elutasította a munkamenetet. Próbálja újra.",
+      "signedInButTheApp": "Bejelentkezett, de az alkalmazás nem éri el a Termixet. Egy proxy blokkolhatja.",
+      "thatSignInLinkIs": "Ez a bejelentkezési hivatkozás egy korábbi kísérletből származik. Jelentkezzen be újra.",
+      "signInAgain": "Jelentkezzen be újra.",
+      "openTheBrowserAgainWhen": "Nyissa meg újra a böngészőt, amikor készen áll.",
+      "theWebPageSignedIn": "A weboldal bejelentkezett, de nem küldött munkamenetet. Frissítse a szervert, és próbálja újra.",
+      "theCanTCheckThis": "A(z) {{deviceWord}} nem tudja ellenőrizni a szerver tanúsítványát. Telepítse a gyökér CA-t a(z) {{deviceWord}}-re. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Legközelebb a(z) {{name}} használatával szeretne bejelentkezni?",
+      "ifThisServerSignsYou": "Ha ez a szerver kijelentkeztet, a jelszó helyett a(z) {{name}} segítségével jelentkezzen be újra. A jelszó ezen a(z) {{deviceWord}}-n marad.",
+      "use": "{{name}} használata",
+      "notNow": "Később",
+      "couldNotSaveTheLogin": "Nem sikerült menteni a bejelentkezési adatokat",
+      "thatSADifferentUser": "Ez egy másik felhasználó",
+      "signedIn": "Bejelentkezve",
+      "close": "Bezárás",
+      "linkYourTermixServer": "Termix szerver összekapcsolása",
+      "yourHostsCredentialsSnippetsAnd": "A hosztjaid, hitelesítő adataid, kódrészleteid és beállításaid szinkronizálódnak vele, és megkapod a bővítményeit is. Minden továbbra is működik ezen a {{deviceWord}} eszközön, amikor a szerver elérhetetlen.",
+      "checking": "{{host}} ellenőrzése...",
+      "proxyAndClientCertificate": "Proxy és kliens tanúsítvány",
+      "couldNotReachThatServer": "Nem sikerült elérni a szervert. Ellenőrizze a címet, vagy állítsa be a proxyt vagy a kliens tanúsítványt.",
+      "couldNotReachThatServer2": "Nem sikerült elérni a szervert",
+      "syncCouldNotStartYet": "A szinkronizálás még nem tudott elindulni. Önmagától újra megpróbálja.",
+      "checkingTheServer": "Szerver ellenőrzése",
+      "signIn": "Bejelentkezés",
+      "makeAnAccount": "Fiók létrehozása",
+      "resetPassword": "Jelszó visszaállítása",
+      "oneMoreStep": "Még egy lépés",
+      "almostDone": "Majdnem kész",
+      "linkAServer": "Szerver összekapcsolása"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "A mentett bejelentkezési adat már nem működik",
+      "enterYourUsernameAndPassword": "Adja meg a felhasználónevét és jelszavát",
+      "thisServerIsBehindA": "Ez a szerver egy bejelentkezési proxy mögött található",
+      "signInWith": "Bejelentkezés ezzel: {{saved}}",
+      "signInWith2": "Bejelentkezés ezzel:",
+      "password": "Jelszó",
+      "username": "Felhasználónév",
+      "signIn": "Bejelentkezés",
+      "forgotPassword": "Elfelejtett jelszó?",
+      "makeAnAccount": "Fiók létrehozása",
+      "or": "VAGY",
+      "continueWith": "Folytatás {{label}} használatával",
+      "signInWithAPasskey": "Bejelentkezés passkey vagy biztonsági kulccsal",
+      "opensYourServerAposS": "Megnyitja a szerver bejelentkezési oldalát a böngészőben. Face ID, ujjlenyomat, NFC és USB-kulcsok is működnek ott. Termix 26.11.3 vagy újabb verzió szükséges.",
+      "signInInTheBrowser": "Bejelentkezés a böngészőben",
+      "opensYourServerAposS2": "Megnyitja a szerver bejelentkezési oldalát, mindenre, amit az alkalmazás itt nem tud kezelni. Termix 26.10.6 vagy újabb verzió szükséges.",
+      "thisServerHasNoSign": "Ennek a szervernek nincs olyan bejelentkezési módja, amit az alkalmazás használhatna. Kérdezze meg a szerver üzemeltetőjét, vagy próbálja meg a fenti böngészős bejelentkezést.",
+      "signInWithYourPassword": "Bejelentkezés a jelszavával.",
+      "signInFailed": "A bejelentkezés sikertelen",
+      "openingItsSignInPage": "A bejelentkezési oldal megnyitása."
+    },
+    "smallSteps": {
+      "serverAddress": "Szerver címe",
+      "likeTermixExampleComOr": "Például termix.example.com vagy 192.168.1.20:30001",
+      "checking": "Ellenőrzés...",
+      "continue": "Tovább",
+      "proxyAndClientCertificate": "Proxy és ügyfél tanúsítvány",
+      "aServerWithASelf": "Egy önállóan aláírt tanúsítvánnyal rendelkező szerverhez először telepíteni kell a gyökér CA-t erre a(z) {{deviceWord}} eszközre. A sima http a saját hálózatban működik.",
+      "enterTheCode": "Kód megadása",
+      "code": "Kód",
+      "the6DigitCodeFrom": "A hitelesítő alkalmazásból származó 6 számjegyű kód, vagy egy biztonsági kód",
+      "checkCode": "Kód ellenőrzése",
+      "thisAccountAsksForA": "Ez a fiók biztonsági kulcsot kér a jelszó után. Jelentkezz be a szerver oldalán a böngésződben, hogy használd.",
+      "useASecurityKeyIn": "Biztonsági kulcs használata a böngészőben",
+      "backToSignIn": "Vissza a bejelentkezéshez",
+      "bringThisAposSHosts": "Vidd magaddal ennek a {{deviceWord}} eszköznek a hosztjait?",
+      "thisHasTheyStayOn": "Ennek a(z) {{deviceWord}} eszköznek van {{what}}. Ezek mindenképpen ezen az eszközön maradnak.",
+      "merge": "Összevonás",
+      "copyThemToTooSo": "Másolja át őket a(z) {{serverName}} szerverre is, hogy szinkronizálódjanak. Azok, amelyek megegyeznek egy szerver hosttal, kihagyásra kerülnek.",
+      "replace": "Csere",
+      "useOnlyWhatIsOn": "Csak a(z) {{serverName}} szerveren lévőket használja ehhez a fiókhoz. Semmit nem másol át.",
+      "thatCodeDidnTWork": "Ez a kód nem működött",
+      "hostsCredentialsOrSnippets": "hostok, hitelesítő adatok vagy kódrészletek"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Először kapcsolja össze ezt a szervert",
+      "thatHostIsnTHere": "Ez a host itt nincs",
+      "couldNotOpenThatHost": "Nem sikerült megnyitni ezt a hostot",
+      "noHostWithIdOn": "Nincs {{hostId}} azonosítójú host a(z) {{account}} fiókon.",
+      "isnTLinkedInThe": "A(z) {{value}} még nincs összekapcsolva az alkalmazással."
+    }
+  },
+  "notifications": {
+    "notifications": "Értesítések",
+    "markAllRead": "Összes olvasottnak jelölése",
+    "clearReadNotifications": "Olvasott értesítések törlése",
+    "unread2": "Olvasatlan",
+    "all": "Összes",
+    "noUnreadNotifications": "Nincsenek olvasatlan értesítések",
+    "nothingHere": "Itt nincs semmi",
+    "markRead": "Olvasottnak jelölés",
+    "delete": "Törlés",
+    "couldNotLoadNotifications": "Nem sikerült betölteni az értesítéseket",
+    "couldNotMarkRead": "Nem sikerült olvasottnak jelölni",
+    "couldNotDelete": "Nem sikerült törölni",
+    "couldNotClear": "Nem sikerült törölni"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Importálás",
+      "hosts": "Hostok",
+      "aTermixHostFileYour": "Egy Termix host fájl, a ~/.ssh/config fájl, vagy egy host link vagy QR-kód egy másik {{deviceWord}} eszközről. Ezek ezen a(z) {{deviceWord}} eszközön kerülnek mentésre.",
+      "backup": "Biztonsági mentés",
+      "aBackupThisAppMade": "Egy erre az alkalmazásra készült biztonsági mentés, jelszófrázissal védve. Ez visszaállítja a hostokat, hitelesítő adatokat és kódrészleteket.",
+      "restoreABackup": "Biztonsági mentés visszaállítása",
+      "done": "Kész",
+      "skipForNow": "Kihagyás most",
+      "sshFilesAndRemoteDesktops": "SSH, fájlok és távoli asztalok a(z) {{deviceWord}} eszközéről. Hogyan szeretné kezdeni?",
+      "useWithoutAServer": "Használat szerver nélkül",
+      "hostsCredentialsAndSnippetsAre": "A gazdagépek, hitelesítő adatok és kódrészletek titkosítva tárolódnak ezen a {{deviceWord}}on. Szerverhez bármikor később is csatlakoztathat.",
+      "linkATermixServer": "Termix szerver csatlakoztatása",
+      "syncYourHostsCredentialsSnippets": "Szinkronizálja a gazdagépeket, hitelesítő adatokat, kódrészleteket és beállításokat a szerverével, és használja a bővítményeit.",
+      "bringHostsFromATermix": "Gazdagépek importálása Termix fájlból, SSH konfigurációból, QR-kódból vagy biztonsági mentésből.",
+      "thisDevice": "Ez az eszköz"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Gazdagépek, kódrészletek, műveletek keresése",
+      "clearSearch": "Keresés törlése",
+      "nothingMatches": "Nincs találat",
+      "typeToSearch": "Írjon a kereséshez",
+      "findAHostToConnect": "Keresse meg a csatlakoztatni kívánt gazdagépet, kódrészletet, beállítást vagy műveletet.",
+      "suggested": "Javasolt | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Futtatás a(z) {{title}}-ban",
+      "copiedRunItFromThe": "Másolva. Futtassa a terminál kódrészleteiből az értékek kitöltéséhez.",
+      "copiedOpenATerminalTo": "Másolva. Nyisson meg egy terminált a kódrészletek futtatásához.",
+      "addHost": "Gazdagép hozzáadása",
+      "quickConnect": "Gyors csatlakozás",
+      "switchAccount": "Fiók váltása",
+      "linkAServer": "Szerver csatlakoztatása",
+      "fromYourServer": "A szerveréről",
+      "settings": "Beállítások",
+      "accountsAppearanceSecurity": "Fiókok, megjelenés, biztonság"
+    },
+    "search": {
+      "hosts": "Gazdagépek",
+      "snippets": "Kódrészletek",
+      "actions": "Műveletek",
+      "settings": "Beállítások"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Nem sikerült betölteni a munkameneteket",
+      "sessionRevoked": "Munkamenet visszavonva",
+      "failedToRevokeSession": "Nem sikerült visszavonni a munkamenetet",
+      "allSessionsRevoked": "Minden munkamenet visszavonva",
+      "failedToRevokeAllSessions": "Nem sikerült visszavonni az összes munkamenetet",
+      "activeSessions": "Aktív munkamenetek",
+      "signOutAllOtherSessions": "Kijelentkezés minden más munkamenetből",
+      "loading": "Betöltés…",
+      "noActiveSessionsFound": "Nem található aktív munkamenet.",
+      "unknownDevice": "Ismeretlen eszköz",
+      "lastActive": "Utolsó aktivitás: {{lastActiveAt}}",
+      "created": "Létrehozva: {{createdAt}}",
+      "revokeSession": "Munkamenet visszavonása",
+      "revokeSession2": "Munkamenet visszavonása?",
+      "thisWillSignOutThat": "Ez kijelentkezteti az eszközt.",
+      "revoke": "Visszavonás",
+      "revokeAllSessions": "Összes munkamenet visszavonása?",
+      "thisWillSignOutEvery": "Ez kijelentkezteti az összes eszközt. Ezen az eszközön bejelentkezve marad.",
+      "cancel": "Mégse",
+      "revokeAll": "Összes visszavonása"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Nem sikerült betölteni az API-kulcsokat",
+      "failedToCreateApiKey": "Nem sikerült létrehozni az API-kulcsot",
+      "deleteApiKey": "API-kulcs törlése?",
+      "willStopWorkingRightAway": "A(z) \"{{name}}\" azonnal leáll.",
+      "apiKeyDeleted": "API-kulcs törölve",
+      "failedToDeleteApiKey": "Nem sikerült törölni az API-kulcsot",
+      "apiKeys": "API-kulcsok",
+      "newApiKey": "Új API-kulcs",
+      "loading": "Betöltés…",
+      "apiKeysAllowProgrammaticAccess": "Az API-kulcsok programozott hozzáférést tesznek lehetővé a Termixhez. A titkos kulcsot csak egyszer mutatjuk meg, ezért tárolja biztonságosan.",
+      "noApiKeysYet": "Még nincsenek API-kulcsok",
+      "created": "Létrehozva: {{createdAt}}",
+      "lastUsed": "Utolsó használat: {{lastUsedAt}}",
+      "expires": "Lejár: {{expiresAt}}",
+      "delete": "Törlés: {{name}}",
+      "keyCreatedCopyItNow": "A kulcs létrejött. Másold le most",
+      "newApiKey2": "Új API-kulcs",
+      "thisTokenWonTBe": "Ezt a tokent nem mutatjuk meg újra.",
+      "apiKeyCopied": "API-kulcs másolva",
+      "copy": "Másolás",
+      "done": "Kész",
+      "cancel": "Mégse",
+      "create": "Létrehozás",
+      "name": "Név *",
+      "eGCiPipeline": "pl. CI Pipeline",
+      "user": "Felhasználó *",
+      "noUsersAvailable": "Nincsenek elérhető felhasználók.",
+      "expiresAtOptional": "Lejárat (opcionális)",
+      "yyyyMmDd": "ÉÉÉÉ/HH/NN",
+      "yearMonthDay": "Év / Hónap / Nap"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Munkamenetek futtatása háttérben",
+      "showsANotificationWhileSessions": "Értesítést jelenít meg, amíg a munkamenetek nyitva vannak, így az Android tovább futtatja őket, amikor elhagyod az alkalmazást",
+      "batteryOptimization": "Akkumulátor-optimalizálás",
+      "termixIsNotRestrictedSo": "A Termix nem korlátozott, így a munkamenetek nyitva maradhatnak kikapcsolt képernyő mellett is.",
+      "androidMayStillStopSessions": "Az Android mégis leállíthatja a munkameneteket az akkumulátor kímélése érdekében. Nyisd meg az akkumulátor-beállításokat, keresd meg a Termixet, és válaszd a Nem optimalizált vagy Korlátlan lehetőséget.",
+      "openBatterySettings": "Akkumulátor-beállítások megnyitása",
+      "notificationsAreOff": "Az értesítések kikapcsolva",
+      "sessionsStillRunButThe": "A munkamenetek továbbra is futnak, de a nyitott munkamenetek listája és az Összes leválasztás gomb rejtve marad.",
+      "openNotificationSettings": "Értesítés-beállítások megnyitása",
+      "thisBuildCanTKeep": "Ez a verzió nem tudja háttérben futtatni a munkameneteket. Visszakapcsoláskor újra csatlakoznak.",
+      "lowPowerMode": "Alacsony energiafogyasztású mód",
+      "batterySaver": "Akkumulátorkímélő mód",
+      "isOnTermixChecksConnections": "{{value}} bekapcsolva. A Termix ritkábban ellenőrzi a kapcsolatokat, és tovább vár a újracsatlakozási kísérletek között.",
+      "backgroundSessions": "Háttérben futó munkamenetek",
+      "iosStopsAppsSoonAfter": "Az iOS hamarosan leállítja az alkalmazásokat, amikor elhagyod őket, így a munkamenetek nem futtathatók háttérben. Visszatérésedkor újra csatlakoznak, és a tmux vagy a screen folytatja, ahol abbahagytad."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Leállítva",
+        "active": "Aktív",
+        "linkAServer": "Szerver összekötése",
+        "eachServerKeepsItsOwn": "Minden szerver saját példányt tart a gazdagépeidről, hitelesítő adataidról és beállításaidról ezen a {{deviceWord}}-on.",
+        "signedInAs": "Bejelentkezve mint",
+        "role": "Szerepkör",
+        "administrator": "Rendszergazda",
+        "user": "Felhasználó",
+        "serverVersion": "Szerver verzió",
+        "signOut": "Kijelentkezés",
+        "youAreSignedOutOf": "Kijelentkeztél erről a szerverről.",
+        "signIn": "Bejelentkezés",
+        "passwordChanged": "Jelszó megváltoztatva",
+        "couldNotChangeThePassword": "Nem sikerült megváltoztatni a jelszót",
+        "changePassword": "Jelszó megváltoztatása",
+        "enterYourCurrentPasswordThen": "Add meg a jelenlegi jelszavadat, majd válassz egy újat.",
+        "cancel": "Mégse",
+        "change": "Megváltoztatás",
+        "currentPassword": "Jelenlegi jelszó",
+        "newPassword": "Új jelszó",
+        "accountDeleted": "Fiók törölve",
+        "couldNotDeleteTheAccount": "Nem sikerült törölni a fiókot",
+        "deleteServerAccount": "Szerveri fiók törlése",
+        "thisPermanentlyDeletesYourAccount": "Ez véglegesen törli a fiókodat a szerveren és az összes adatait. Ez nem vonható vissza.",
+        "delete": "Törlés",
+        "confirmYourPassword": "Jelszó megerősítése",
+        "worksWithoutAServer": "Szerver nélkül is működik",
+        "signedOut": "Kijelentkezve",
+        "readsLive": "Élő olvasás",
+        "toReview": "{{count}} ellenőrzendő",
+        "synced": "Szinkronizálva",
+        "syncing": "Szinkronizálás",
+        "offline": "Offline"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Névtelen használati statisztikák megosztása",
+        "aShortReportOnceA": "Egy rövid jelentés naponta. Nincsenek benne hostok, nevek vagy címek",
+        "nextReport": "Következő jelentés",
+        "seeExactlyWhatWouldBe": "Pontosan megnézni, mi lenne elküldve",
+        "couldNotBuildTheReport": "Nem sikerült előállítani a jelentést",
+        "preview": "Előnézet",
+        "thisIsExactlyWhatWould": "Pontosan ez lenne most elküldve.",
+        "resetInstallId": "Telepítési azonosító visszaállítása",
+        "futureReportsWillLookLike": "A jövőbeli jelentések új telepítésként fognak kinézni",
+        "resetTheInstallId": "Visszaállítja a telepítési azonosítót?",
+        "futureReportsWillLookLike2": "A jövőbeli jelentések új telepítésként fognak kinézni.",
+        "reset": "Visszaállítás",
+        "installIdReset": "Telepítési azonosító visszaállítva"
+      },
+      "appearanceControls": {
+        "theme": "Téma",
+        "accentColor": "Kiemelő szín",
+        "textSize": "Szövegméret",
+        "sizeOfTextAcrossThe": "A szövegek mérete az alkalmazásban, nem a terminálban",
+        "density": "Sűrűség",
+        "howTallListRowsAnd": "A listaelemek és beállítások magassága"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "A hosztok, hitelesítő adatok és kódrészletek egy titkosított fájlban vannak tárolva ezen a {{deviceWord}} eszközön. A használati statisztikák kikapcsolva vannak, hacsak lent nem kapcsolod be őket. Egy összekapcsolt szerver csak azt kapja meg, amit engedélyezel a szinkronizálásra.",
+        "recentHosts": "Legutóbbi hostok",
+        "forgetTheHostsYouOpened": "Felejtsd el a hostokat, amelyeket nemrég nyitott meg minden fiókon",
+        "recentHostsCleared": "Legutóbbi hostok törölve",
+        "clear": "Törlés",
+        "couldNotCheckForUpdates": "Nem sikerült ellenőrizni a frissítéseket",
+        "versionIsOutUpdateFrom": "A(z) {{version}} verzió elérhető. Frissítsen az áruházából.",
+        "youHaveTheNewestVersion": "A legújabb verziót használja",
+        "termixMobile": "Termix Mobile",
+        "updates": "Frissítések",
+        "check": "Ellenőrzés"
+      },
+      "pinSheet": {
+        "waitSeconds": "Várjon {{value}} másodpercet",
+        "digits": "{{PIN_LENGTH}} számjegy"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "A PIN-k nem egyeznek",
+        "appLockIsOn": "Az alkalmazászárolás be van kapcsolva",
+        "turnOffAppLock": "Alkalmazászárolás kikapcsolása",
+        "enterYourPinToConfirm": "Adja meg a PIN-kódját a megerősítéshez.",
+        "appLockIsOff": "Az alkalmazászárolás ki van kapcsolva",
+        "appLock": "Alkalmazászárolás",
+        "askForFaceIdTouch": "Face ID, Touch ID vagy PIN-kód kérése az alkalmazás megnyitásához",
+        "askForAPinTo": "PIN-kód kérése az alkalmazás megnyitásához",
+        "pinChanged": "PIN-kód módosítva",
+        "couldNotChangeThePin": "Nem sikerült módosítani a PIN-kódot",
+        "changePin": "PIN-kód módosítása",
+        "lockAfter": "Zárolás után",
+        "howLongTheAppCan": "Mennyi ideig maradhat az alkalmazás a háttérben, mielőtt lezárul",
+        "hideInAppSwitcher": "Elrejtés az alkalmazásváltóban",
+        "showABlankScreenIn": "Üres képernyő megjelenítése a legutóbbi alkalmazások listájában",
+        "chooseA4DigitPin": "Válasszon egy 4 számjegyű PIN-kódot.",
+        "confirmPin": "PIN-kód megerősítése",
+        "enterTheSamePinAgain": "Adja meg ugyanazt a PIN-kódot újra.",
+        "currentPin": "Jelenlegi PIN-kód",
+        "enterYourCurrentPin": "Adja meg a jelenlegi PIN-kódját.",
+        "newPin": "Új PIN-kód",
+        "chooseANew4Digit": "Válasszon egy új 4 számjegyű PIN-kódot.",
+        "confirmNewPin": "Új PIN-kód megerősítése",
+        "enterTheNewPinAgain": "Adja meg az új PIN-kódot újra."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Főképernyő-eszköztárgyak",
+        "showYourHostsSnippetsAnd": "Szerverek, parancsmentések és gyorskapcsolók megjelenítése a főképernyőn",
+        "showAddresses": "Címek megjelenítése",
+        "showUserHostUnderEach": "A felhasználónév@szerver megjelenítése minden szerver neve alatt",
+        "includeOfflineHosts": "Offline szerverek belefoglalása",
+        "offShowsOnlyServersThat": "A kikapcsolt állapot csak az online szervereket mutatja",
+        "pinnedHostsOnly": "Csak rögzített szerverek",
+        "showOnlyTheHostsYou": "Csak a rögzített szerverek megjelenítése",
+        "snippetsWidget": "Parancsmentések eszköztárgy",
+        "showSavedCommandsOnThe": "Mentett parancsok megjelenítése a főképernyőn",
+        "showCommandPreview": "Parancs előnézetének megjelenítése",
+        "showTheFirstLineOf": "Minden parancs első sorának megjelenítése"
+      }
+    },
+    "fileSettings": {
+      "files": "Fájlok",
+      "fileManagerOnThis": "Fájlkezelő ezen a {{deviceWord}} eszközön",
+      "browsing": "Böngészés",
+      "transfersAtOnce": "Egyszeri átvitelek száma",
+      "downloadsAndUploadsThatRun": "Egyidejű letöltések és feltöltések",
+      "editor": "Szerkesztő",
+      "textSize": "Szövegméret",
+      "filesBesideTheTerminal": "Fájlok a terminál mellett",
+      "side": "Oldal",
+      "whereThePanelSitsOn": "A panel elhelyezkedése táblagépen",
+      "right": "Jobb",
+      "left": "Bal",
+      "howOftenToCheck": "Ellenőrzés gyakorisága",
+      "folderHistory": "Mappaelőzmények",
+      "foldersKeptPerHost": "Szerverenként mentett mappák száma",
+      "showHiddenFiles": "Rejtett fájlok megjelenítése",
+      "filesAndFoldersThatStart": "Ponttal kezdődő fájlok és mappák",
+      "askBeforeMovingToThe": "Kérdezzen a kukába helyezéskor",
+      "deletingForGoodAlwaysAsks": "A végleges törlés mindig kérdez",
+      "wrapLongLines": "Hosszú sorok törése",
+      "openWithNewTerminals": "Megnyitás új terminálokkal",
+      "onATabletShowThe": "Táblagépen a fájlpネル megjelenítése terminál megnyitásakor",
+      "followTheTerminal": "Kövesse a terminált",
+      "openTheFolderTheTerminal": "Nyissa meg a terminál aktuális mappáját cd parancs használatakor"
+    },
+    "keyboardCustomization": {
+      "small": "Kicsi",
+      "medium": "Közepes",
+      "large": "Nagy",
+      "ms": "{{v}} ms",
+      "keyboard": "Billentyűzet",
+      "keyRowsAboveTheKeyboard": "Billentyűsorok a billentyűzet felett",
+      "rows": "Sorok",
+      "keys": "Billentyűk",
+      "aHostCanHaveIts": "Egy szervernek lehetnek saját sorai: koppintson a megnyitott fülre egy munkamenetben, és válassza a Szerver specifikus billentyűsorok lehetőséget.",
+      "keySize": "Billentyűméret",
+      "vibrateOnKeyPress": "Rezgés billentyűlenyomásnál",
+      "repeatAfter": "Ismétlés után",
+      "howLongToHoldAn": "Mennyi ideig kell nyomva tartani a nyilakat vagy a Backspace-t",
+      "repeatEvery": "Ismétlés gyakorisága",
+      "hardwareKeyboard": "Hardveres billentyűzet",
+      "allShortcuts": "Minden gyorsbillentyű",
+      "show": "Megjelenítés"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Nem sikerült biztonsági mentést készíteni",
+      "deleteLocalData": "Helyi adatok törlése?",
+      "hostsCredentialsSnippetsAndHistory": "A(z) {{account}} fiókhoz tartozó szerverek, hitelesítési adatok, parancsmentések és előzmények, amelyek ezen a {{deviceWord}} eszközön vannak mentve, törlésre kerülnek. Ez a művelet nem vonható vissza. Készítsen biztonsági mentést, ha meg szeretné őrizni őket.",
+      "delete": "Törlés",
+      "localDataDeleted": "Helyi adatok törölve",
+      "couldNotDeleteLocalData": "Nem sikerült törölni a helyi adatokat",
+      "localData": "Helyi adatok",
+      "localDataIsOnlySaved": "A helyi adatok csak a(z) {{deviceWord}} alkalmazásban tárolódnak.",
+      "savedOnThisForThe": "Mentve ezen a(z) {{deviceWord}} eszközön a(z) {{account}} fiókhoz. A fájlt egy kulccsal titkosítjuk, amely soha nem hagyja el ezt a(z) {{deviceWord}} eszközt.",
+      "hosts": "Hostok",
+      "credentials": "Hitelesítő adatok",
+      "snippets": "Kódvázlatok",
+      "size": "Méret",
+      "dataVersion": "Adatverzió",
+      "backup": "Biztonsági mentés",
+      "aBackupFileHoldsYour": "A biztonsági mentési fájl tartalmazza a jelszavakat és kulcsokat, amelyeket egy általad választott jelszófrázissal zárolunk. Senki sem nyithatja meg anélkül.",
+      "exportBackup": "Biztonsági mentés exportálása",
+      "importBackup": "Biztonsági mentés importálása",
+      "removesEverythingThisAccountSaved": "Törli a fiók ezen a(z) {{deviceWord}} eszközön mentett összes adatát. A csatlakoztatott szerver megtartja a saját másolatát.",
+      "deleteLocalData2": "Helyi adatok törlése",
+      "backupPassphrase": "Biztonsági mentés jelszófrázisa",
+      "atLeast8CharactersYou": "Legalább 8 karakter. Erre lesz szükség a biztonsági mentés visszaállításához.",
+      "passphrase": "Jelszófrázis",
+      "next": "Tovább",
+      "typeItAgain": "Írd be újra",
+      "export": "Exportálás",
+      "saveYourTermixBackup": "Mentsd el a Termix biztonsági mentést"
+    },
+    "logs": {
+      "logs": "Naplók",
+      "latestLinesFromThisRun": "A legutóbbi sorok ebből a futtatásból. A szervercímek, jelszavak és tokenek elrejtve vannak.",
+      "logsCopied": "Naplók másolva",
+      "copy": "Másolás",
+      "share": "Megosztás",
+      "clear": "Törlés",
+      "noLogsYet": "Még nincsenek naplók",
+      "nothingHasBeenLogged": "Még semmi nem került naplózásra."
+    },
+    "plugins": {
+      "worksOnThis": "Működik ezen a(z) {{deviceWord}} eszközön",
+      "needsTheServer": "Szerver szükséges",
+      "notInTheApp": "Nincs az alkalmazásban",
+      "needsANewerVersionOf": "Újabb alkalmazásverzió szükséges",
+      "updateThePluginOnThe": "Frissítsd a bővítményt a szerveren",
+      "inTheApp": "Az alkalmazásban",
+      "onThisServer": "Ezen a szerveren",
+      "version": "Verzió",
+      "needsPluginApi": "Bővítmény-API szükséges",
+      "thisAppHas": "Ez az alkalmazás rendelkezik",
+      "note": "Megjegyzés",
+      "open": "Megnyitás",
+      "openFromAHostS": "Nyisd meg a(z) {{name}} elemet egy host menüjéből.",
+      "plugins": "Bővítmények",
+      "everything": "Minden",
+      "thisDeviceWorksWithNo": "Ez az eszköz szerver nélkül is működik. Csatlakoztass egy szervert a hozzáadandó funkciókhoz.",
+      "pluginsOnAndHowEach": "Bővítmények a(z) {{account}} fiókhoz és megjelenésük az alkalmazásban. Húzd lefelé az újrapróbáláshoz.",
+      "whatRunsOnThisAnd": "Mi fut ezen a(z) {{deviceWord}} eszközön, és mi halad át a(z) {{account}} fiókon keresztül.",
+      "noPluginList": "Nincs bővítménylista",
+      "theServerDidNotSend": "A szerver nem küldte el a bővítményeit. Húzd lefelé az újrapróbáláshoz.",
+      "serversOlderThan29": "A 2.9-nél régebbi szerverekbe minden funkció beépítve van.",
+      "nothingToShow": "Nincs mit megjeleníteni",
+      "notSentByThisServer": "Nem küldte ezt a szerver"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Helyi adatok felülírása?",
+      "everythingSavedOnThisFor": "A(z) {{accountName}} fiókhoz ezen a(z) {{deviceWord}} eszközön mentett összes adatot a biztonsági mentés helyettesíti.",
+      "continue": "Folytatás",
+      "couldNotReadThatFile": "A fájl nem olvasható",
+      "backupRestored": "Biztonsági mentés visszaállítva",
+      "couldNotRestoreTheBackup": "A biztonsági mentés nem állítható vissza",
+      "backupPassphrase": "Biztonsági mentés jelszófrázisa",
+      "thePassphraseUsedWhenThe": "A biztonsági mentés készítésekor használt jelszófrázis.",
+      "passphrase": "Jelszófrázis",
+      "restore": "Visszaállítás"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Fiókok",
+        "thisDeviceAndLinkedServers": "Ez az eszköz és a hozzá kapcsolódó szerverek, szinkronizálási állapotukkal",
+        "syncAndProxy": "Szinkronizálás és proxy",
+        "whatSyncsConflictsProxyAnd": "Szinkronizálható adatok, ütközések, proxy és leválasztás",
+        "serverAccount": "Szerverfiók",
+        "whoIsSignedInOn": "Ki van bejelentkezve az aktív szerveren",
+        "activeSessions": "Aktív munkamenetek",
+        "devicesSignedInToThe": "A szerveren bejelentkezett eszközök",
+        "apiKeys": "API-kulcsok",
+        "keysForScriptsAndTools": "Kulcsok szkriptekhez és eszközökhöz",
+        "changePassword": "Jelszó módosítása",
+        "passwordOfYourServerAccount": "A szerverfiók jelszava",
+        "deleteServerAccount": "Szerverfiók törlése",
+        "removeYourAccountFromThe": "Fiókja eltávolítása a szerverről",
+        "theme": "Téma",
+        "darkLightDraculaNordAnd": "Sötét, világos, Dracula, Nord és többi",
+        "accentColor": "Kiemelő szín",
+        "textSize": "Szövegméret",
+        "sizeOfTextAcrossThe": "A szövegek mérete az alkalmazásban",
+        "density": "Sűrűség",
+        "howTallListRowsAnd": "A listaelemek és beállítások magassága",
+        "homeScreenWidgets": "Főképernyő-eszközök",
+        "hostsAndSnippetsOnThe": "Gazdagépek és parancsmentsétek a főképernyőn",
+        "terminal": "Terminál",
+        "fontThemeCursorScrollback": "Betűtípus, téma, kurzor, görgetési előzmények",
+        "keyboard": "Billentyűzet",
+        "layoutKeysPresets": "Elrendezés, billentyűk, előre beállított konfigurációk",
+        "appLock": "Alkalmazászár",
+        "askForFaceIdTouch": "Face ID, Touch ID vagy PIN kérése az alkalmazás megnyitásához",
+        "lockAfter": "Zárolás után",
+        "howLongTheAppCan": "Mennyi ideig maradhat az alkalmazás láthatatlanul, mielőtt zárolódik",
+        "hideInAppSwitcher": "Elrejtés az alkalmazásváltóban",
+        "showABlankScreenIn": "Üres képernyő megjelenítése a legutóbbi alkalmazások listájában",
+        "changePin": "PIN módosítása",
+        "backgroundSessions": "Háttérben futó munkamenetek",
+        "whatHappensToOpenSessions": "Mi történik a nyitott munkamenetekkel, amikor elhagyja az alkalmazást",
+        "serverAlerts": "Szerverértesítések",
+        "alertsFromTheAlertsPlugin": "Értesítések a szerverén futó Alerts bővítményből",
+        "whatStaysOnThis": "Mi marad meg ezen a(z) {{deviceWord}}n",
+        "hostsCredentialsAndSnippetsAre": "A gazdagépek, hitelesítő adatok és parancsmentsétek titkosítva vannak tárolva itt",
+        "recentHosts": "Legutóbbi gazdagépek",
+        "forgetTheHostsYouOpened": "A nemrég megnyitott gazdagépek elfelejtése",
+        "shareAnonymousUsageStatistics": "Névtelen használati statisztikák megosztása",
+        "aShortReportOnceA": "Egy rövid jelentés naponta. Nincsenek benne gazdagépek, nevek vagy címek",
+        "nextReport": "Következő jelentés",
+        "seeExactlyWhatWouldBe": "Pontosan megnézni, mi lenne elküldve",
+        "resetInstallId": "Telepítési azonosító visszaállítása",
+        "futureReportsWillLookLike": "A jövőbeli jelentések úgy fognak kinézni, mint egy új telepítésé",
+        "serverUsageStatistics": "Szerverhasználati statisztikák",
+        "telemetrySettingsOnYourServer": "Telemetriai beállítások a szerverén",
+        "plugins": "Bővítmények",
+        "whatTheServerAddsAnd": "Mit ad hozzá a szerver, és hol fut",
+        "localData": "Helyi adatok",
+        "backupRestoreAndDeleteWhat": "Biztonsági mentés, visszaállítás és törlés, ami ezen a(z) {{deviceWord}}n van mentve",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Verzió és frissítések",
+        "logs": "Naplók",
+        "latestLinesFromThisRun": "A legutóbbi sorok ebből a futtatásból, hibajelentésekhez",
+        "pushNotifications": "Push értesítések",
+        "pushNotificationsDescription": "Értesítések a szervereidtől ezen a telefonon"
+      },
+      "sections": {
+        "accountsAndSync": "Fiókok és szinkronizálás",
+        "thisDeviceLinkedServersAnd": "Ez az eszköz, összekapcsolt szerverek és a szinkronizált adatok",
+        "appearance": "Megjelenés",
+        "themeAccentTextSizeAnd": "Nyelv, téma, kiemelő szín, szövegméret és sűrűség",
+        "terminal": "Terminál",
+        "fontColorsAndBackgroundSessions": "Betűtípus, színek és háttérfolyamatok",
+        "keyboard": "Billentyűzet",
+        "keyRowsAndShortcuts": "Billentyűsorok és gyorsbillentyűk",
+        "security": "Biztonság",
+        "appLockFaceIdAnd": "Alkalmazásmegzárás, Face ID és PIN-kód",
+        "notifications": "Értesítések",
+        "alertsFromYourServer": "Riasztások a szerveredről",
+        "privacyAndUsageStatistics": "Adatvédelem és használati statisztikák",
+        "whatStaysOnThis": "Mi marad ezen a(z) {{deviceWord}}n",
+        "plugins": "Bővítmények",
+        "whatTheServerAddsTo": "Mit ad hozzá a szerver az alkalmazáshoz",
+        "backupAndData": "Biztonsági mentés és adatok",
+        "backUpRestoreImportAnd": "Biztonsági mentés, visszaállítás, importálás és exportálás",
+        "aboutAndLogs": "Névjegy és naplók",
+        "versionAndLogsForBug": "Verzió és naplók hibajelentésekhez"
+      }
+    },
+    "settings": "Beállítások",
+    "searchSettings": "Beállítások keresése",
+    "noSettingsMatch": "Nincs találat a beállítások között.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "A kódrészletek betöltése sikertelen",
+      "copied": "Másolva: {{name}}",
+      "nameIsRequired": "A név megadása kötelező",
+      "contentIsRequired": "A tartalom megadása kötelező",
+      "snippetUpdated": "Kódrészlet frissítve",
+      "snippetCreated": "Kódrészlet létrehozva",
+      "failedToSaveSnippet": "A kódrészlet mentése sikertelen",
+      "snippetDeleted": "Kódrészlet törölve",
+      "failedToDeleteSnippet": "A kódrészlet törlése sikertelen",
+      "folderNameIsRequired": "A mappa neve megadása kötelező",
+      "folderCreated": "Mappa létrehozva",
+      "failedToCreateFolder": "A mappa létrehozása sikertelen",
+      "folderDeleted": "Mappa törölve",
+      "failedToDeleteFolder": "A mappa törlése sikertelen",
+      "folderRenamed": "Mappa átnevezve",
+      "failedToRenameFolder": "A mappa átnevezése sikertelen",
+      "failedToSaveOrder": "A sorrend mentése sikertelen",
+      "moveUp": "Mozgatás felfelé",
+      "moveDown": "Mozgatás lefelé",
+      "runOnHosts": "{{name}} futtatása a szervereken",
+      "copy": "{{name}} másolása",
+      "delete": "{{name}} törlése",
+      "renameFolder": "Mappa átnevezése",
+      "deleteFolder": "Mappa törlése",
+      "noSnippetsInThisFolder": "Nincsenek kódrészletek ebben a mappában",
+      "snippets": "Kódrészletek",
+      "importAndExport": "Importálás és exportálás",
+      "folder": "Mappa",
+      "new": "Új",
+      "loading": "Betöltés…",
+      "couldNotLoadSnippets": "A kódrészletek betöltése sikertelen",
+      "checkTheConnectionToYour": "Ellenőrizd a kapcsolatot a szervereddel, és próbáld meg újra.",
+      "tryAgain": "Próbáld meg újra",
+      "noSnippetsYet": "Még nincsenek kódrészletek",
+      "createYourFirstSnippetOr": "Hozd létre az első kódrészletedet, vagy adj hozzá kódrészleteket a Termix webes vagy asztali alkalmazásából.",
+      "createSnippet": "Kódrészlet létrehozása",
+      "askBeforeRunning": "Kérdezés futtatás előtt",
+      "confirmBeforeASnippetRuns": "Erősítés a snippet futtatása előtt a terminálban",
+      "editSnippet": "Snippet szerkesztése",
+      "newSnippet": "Új snippet",
+      "cancel": "Mégse",
+      "save": "Mentés",
+      "create": "Létrehozás",
+      "name": "Név",
+      "eGUpdatePackages": "pl. Csomagok frissítése",
+      "content": "Tartalom",
+      "descriptionOptional": "Leírás (opcionális)",
+      "shortDescription": "Rövid leírás",
+      "folderOptional": "Mappa (opcionális)",
+      "selectFolder": "Mappa kiválasztása",
+      "noFolder": "Nincs mappa",
+      "targetHostsOptional": "Célhostok (opcionális)",
+      "none": "Egyik sem",
+      "note": "Megjegyzés",
+      "pastedIntoTheTerminalWithout": "Beillesztve a terminálba futtatás nélkül",
+      "targetHosts": "Célhostok",
+      "copy2": "Másolás",
+      "edit": "Szerkesztés",
+      "runOnHosts2": "Futtatás hostokon",
+      "delete2": "Törlés",
+      "deleteSnippet": "Snippet törlése",
+      "deleteThisCannotBeUndone": "Törli a(z) \"{{name}}\" elemet? Ez nem vonható vissza.",
+      "renameFolder2": "Mappa átnevezése",
+      "rename": "Átnevezés",
+      "folderName": "Mappa neve",
+      "eGSystem": "pl. Rendszer",
+      "newFolder": "Új mappa",
+      "deleteFolder2": "Mappa törlése",
+      "deleteSnippetsInThisFolder": "Törli a(z) \"{{name}}\" mappát? A mappában lévő snippetek kategóriátlanok lesznek."
+    },
+    "sync": {
+      "notYet": "Még nem",
+      "justNow": "Épp most",
+      "stopped": "Megállítva",
+      "signInToThisServer": "Jelentkezzen be újra erre a szerverre a szinkronizáláshoz",
+      "couldNotChangeThat": "Nem sikerült módosítani",
+      "sync": "Szinkronizálás",
+      "thisDeviceDoesNotSync": "Ez az eszköz nem szinkronizál. Hozzon létre egy Termix-szerver kapcsolatot, hogy a hostjait több eszközön is elérhesse.",
+      "keepsHostsCredentialsSnippetsAnd": "A(z) {{server}} szinkronban tartja a hostokat, hitelesítő adatokat, snippeteket és beállításokat ezzel a(z) {{deviceWord}} eszközzel. Egy másolat marad ezen a(z) {{deviceWord}} eszközön, így offline is működik.",
+      "lastSynced": "Utolsó szinkronizálás: {{value}}",
+      "live": "Élő",
+      "syncNow": "Szinkronizálás most",
+      "fix": "Javítás",
+      "thisServerReadsLiveAnd": "Ez a szerver élőben olvassa az adatokat, és nem tart másolatot a(z) {{deviceWord}} eszközön.",
+      "turnOnTheSyncPlugin": "Kapcsolja be a Szinkron bővítményt a szerver Bővítmények oldalán, majd jelentkezzen be újra ide, hogy egy másolatot tartson ezen a(z) {{deviceWord}} eszközön.",
+      "whatSyncs": "Mi szinkronizálódik",
+      "turnedOffThatDataStays": "Kikapcsolva, az adat csak ezen a(z) {{deviceWord}} eszközön marad.",
+      "conflicts": "Ütközések",
+      "changedHereAndOnThe": "Itt és a szerveren is egyszerre módosult. A szerver verziója maradt meg.",
+      "useServer": "Szerver használata",
+      "keepMine": "Az enyém marad",
+      "notSavedOnTheServer": "Nincs mentve a szerveren",
+      "theServerRefusedTheseChanges": "A szerver elutasította ezeket a módosításokat. Ezek maradnak ezen a(z) {{deviceWord}} eszközön.",
+      "tryAgain": "Újrapróbálkozás",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Csak akkor szükséges, ha egy fordított proxy áll a szerver előtt.",
+      "unlink": "Kapcsolat bontása",
+      "unlinkThisServer": "Ennek a szervernek a kapcsolatának bontása",
+      "minAgo": "{{value}} perce",
+      "signedOut": "Kijelentkezve",
+      "waitingToSync": "Szinkronizálás várakozása",
+      "synced": "Szinkronizálva",
+      "syncing": "Szinkronizálás",
+      "offline": "Offline"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Háttér",
+        "text": "Szöveg",
+        "cursor": "Kurzor",
+        "textUnderCursor": "A kurzor alatti szöveg",
+        "selection": "Kijelölés",
+        "black": "Fekete",
+        "red": "Piros",
+        "green": "Zöld",
+        "yellow": "Sárga",
+        "blue": "Kék",
+        "magenta": "Magenta",
+        "cyan": "Cián",
+        "white": "Fehér",
+        "brightBlack": "Világos fekete",
+        "brightRed": "Világos piros",
+        "brightGreen": "Világos zöld",
+        "brightYellow": "Világos sárga",
+        "brightBlue": "Világos kék",
+        "brightMagenta": "Világos magenta",
+        "brightCyan": "Világos cián",
+        "brightWhite": "Világos fehér",
+        "customTheme": "Egyéni téma",
+        "colorsAsHexLike1e1e2e": "Színek hexadecimális formátumban, például #1e1e2e.",
+        "cancel": "Mégse",
+        "save": "Mentés",
+        "isNotAHexColor": "A(z) {{label}} nem hexadecimális szín"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompakt",
+      "default": "Alapértelmezett",
+      "relaxed": "Laza",
+      "spacious": "Tágas",
+      "none": "Nincs",
+      "couldNotSave": "Nem sikerült menteni",
+      "pickASizeFromTo": "Válassz méretet {{MIN_FONT_SIZE}} és {{MAX_FONT_SIZE}} között",
+      "terminalSettingsReset": "A terminál beállításai visszaállítva",
+      "terminal": "Terminál",
+      "aHostCanSetIts": "Egy gazdagép saját témát és kurzort állíthat be a Termixben, ami felülírja ezeket.",
+      "theme": "Téma",
+      "custom": "Egyéni",
+      "font": "Betűtípus",
+      "active": "Aktív",
+      "sizeAndSpacing": "Méret és távolság",
+      "pinchTheTerminalToChange": "A méretet a terminál csípésével is módosíthatod. A(z) {{deviceWord}}beállításaiban a nagy szöveg nagyobbá teszi azt.",
+      "custom2": "Egyéni {{fontSize}}",
+      "lineHeight": "Sormagasság",
+      "letterSpacing": "Karaktertávolság",
+      "ligatures": "Ligatúrák",
+      "cursor": "Kurzor",
+      "blink": "Villogás",
+      "bell": "Csengő",
+      "vibrate": "Rezgés",
+      "onTheBellAndWhen": "Csengőkor és hosszú nyomással történő kijelöléskor",
+      "scrollback": "Visszagörgetés",
+      "linesKeptAboveTheScreen": "A képernyő felett megtartott sorok. Az új terminálokra vonatkozik.",
+      "linksAndKeys": "Hivatkozások és kulcsok",
+      "askBeforeOpeningLinks": "Kérdezzen meg a hivatkozások megnyitása előtt",
+      "doubleTapSendsTab": "Dupla koppintás Tabot küld",
+      "longPressStillSelectsText": "Hosszú nyomás továbbra is kijelöli a szöveget",
+      "optionSendsAlt": "Az Option billentyű Altot küld",
+      "onAHardwareKeyboardOff": "Hardveres billentyűzeten. Kikapcsolva Mac-szerű szimbólumokat ír.",
+      "history": "Előzmények",
+      "suggestCommands": "Parancsok javasolása",
+      "showsPastCommandsThatStart": "Korábbi parancsok megjelenítése gépelés közben",
+      "resetToDefault": "Visszaállítás alapértelmezettre",
+      "fontSize": "Betűméret",
+      "aSizeFromTo": "Méret {{MIN_FONT_SIZE}} és {{MAX_FONT_SIZE}} között.",
+      "cancel": "Mégse",
+      "apply": "Alkalmaz",
+      "resetTerminalSettings": "Visszaállítja a terminál beállításait?",
+      "themeFontSizeCursorBell": "A téma, betűtípus, méret, kurzor, hangjelzés és a többi visszaáll az alapértelmezettre.",
+      "reset": "Visszaállítás",
+      "followsAppTheme": "Követi az alkalmazás témáját"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "A 2FA beállítása nem sikerült",
+      "twoFactorAuthenticationEnabled": "Kétfaktoros hitelesítés engedélyezve",
+      "invalidCodeTryAgain": "Érvénytelen kód, próbálja újra",
+      "twoFactorAuthenticationDisabled": "Kétfaktoros hitelesítés letiltva",
+      "failedToDisable2fa": "A 2FA letiltása nem sikerült",
+      "failedToFetchBackupCodes": "A biztonsági kódok lekérése nem sikerült",
+      "secretCopied": "Titok másolva",
+      "backupCodesCopied": "Biztonsági kódok másolva",
+      "twoFactorAuthentication": "Kétfaktoros hitelesítés",
+      "loading": "Betöltés…",
+      "scanThisQrCodeWith": "Olvasd be ezt a QR-kódot a hitelesítő alkalmazásoddal (Google Authenticator, Authy stb.), majd add meg a 6 jegyű kódot a megerősítéshez.",
+      "verifyAmpEnable": "Ellenőrzés és engedélyezés",
+      "cancel": "Mégse",
+      "saveYourBackupCodes": "Mentsd el a biztonsági kódjaidat",
+      "storeTheseSomewhereSafeEach": "Tárold őket biztonságos helyen. Minden kód csak egyszer használható, ha elveszíted a hozzáférést a hitelesítő alkalmazáshoz.",
+      "copyAllCodes": "Összes kód másolása",
+      "done": "Kész",
+      "yourAccountIsProtectedWith": "A fiókod egy hitelesítő alkalmazással védett.",
+      "addAnExtraLayerOf": "Adj egy extra biztonsági réteget a fiókodhoz.",
+      "viewBackupCodes": "Biztonsági kódok megtekintése",
+      "disable2fa": "2FA letiltása",
+      "enable2fa": "2FA engedélyezése",
+      "disableTwoFactorAuthentication": "Kétfaktoros hitelesítés letiltása",
+      "enterACodeFromYour": "Add meg a hitelesítő alkalmazásodból származó kódot a megerősítéshez. A 2FA-t bármikor újra engedélyezheted.",
+      "enterYourPasswordToConfirm": "Add meg a jelszavadat a megerősítéshez. A 2FA-t bármikor újra engedélyezheted.",
+      "disable": "Letiltás",
+      "yourPassword": "A jelszavad",
+      "n2faIsEnabled": "A 2FA engedélyezve van",
+      "n2faIsNotEnabled": "A 2FA nincs engedélyezve"
+    },
+    "language": {
+      "label": "Nyelv",
+      "description": "Az alkalmazás újratöltődik a váltáshoz",
+      "system": "Ugyanaz, mint az eszközé"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Nincsenek SSH hosztek itt",
+      "couldNotReadWhatWas": "Nem sikerült beolvasni a megosztott tartalmat",
+      "stopTheUploads": "Megszakítja a feltöltéseket?",
+      "stopAndLeave": "Megszakítás és kilépés",
+      "sendTo": "Küldés ide: {{name}}",
+      "sendToAHost": "Küldés egy hosztnak",
+      "nothingToSend": "Nincs mit küldeni",
+      "close": "Bezárás",
+      "done": "Kész",
+      "cancel": "Mégse",
+      "uploadHere": "Feltöltés ide",
+      "uploadsStillGoing_one": "{{count}} feltöltés még folyamatban van. A kilépés megszakítja azt.",
+      "uploadsStillGoing_other": "{{count}} feltöltés még folyamatban van. A kilépés megszakítja őket.",
+      "filesSize_one": "{{count}} fájl | {{size}}",
+      "filesSize_other": "{{count}} fájl | {{size}}",
+      "readingWhatWasShared": "A megosztott tartalom olvasása"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Hiba",
+      "worksWithoutAServer": "Szerver nélkül is működik",
+      "accountSwitch": "{{account}} fiók, váltás",
+      "search": "Keresés",
+      "notificationsUnread": "Értesítések, {{unread}} olvasatlan",
+      "notifications": "Értesítések",
+      "signedIn": "Bejelentkezve",
+      "signedOut": "Kijelentkezve",
+      "copyOnThis": "Másolás erre a {{deviceWord}} eszközre"
+    },
+    "bottomBar": {
+      "home": "Kezdőlap",
+      "hosts": "Hostok",
+      "sessions": "Munkamenetek",
+      "tools": "Eszközök",
+      "settings": "Beállítások",
+      "open": "{{label}}, {{count}} nyitva"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} nyitva"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Válassz egy hostot",
+      "searchHosts": "Hostok keresése",
+      "clearSearch": "Keresés törlése",
+      "noHostsMatch": "Nincs találat",
+      "noHostsCanUseThis": "Ezt egyik host sem tudja használni",
+      "turnItOnForA": "Kapcsold be egy hostnál a host szerkesztőben."
+    },
+    "noToolsHereYet": "Még nincsenek eszközök itt",
+    "onAHost": "Egy hoston",
+    "saved": "Mentett",
+    "fromYourServer": "A szerveredről"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Mégse",
+      "delete": "Törlés",
+      "confirm": "Megerősítés"
+    },
+    "contextMenu": {
+      "closeMenu": "Menü bezárása"
+    },
+    "inlineView": {
+      "back": "Vissza"
+    },
+    "listRow": {
+      "moreActions": "További műveletek"
+    },
+    "pinPad": {
+      "useBiometrics": "Biometria használata",
+      "delete": "Törlés"
+    },
+    "popover": {
+      "close": "Bezárás"
+    },
+    "promptSheet": {
+      "cancel": "Mégse"
+    },
+    "sheet": {
+      "close": "Bezárás"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Ez a kulcs zárolva van. Add meg a jelszavát.",
+      "thatPassphraseDoesnTOpen": "Ez a jelszó nem nyitja meg ezt a kulcsot.",
+      "thisDoesnTLookLike": "Ez nem úgy néz ki, mint egy privát kulcs.",
+      "loadedAndChangedItTo": "Betöltve a {{name}} fájlt, és átalakítva OpenSSH formátumba",
+      "loadedItNeedsItsPassphrase": "Betöltve a {{name}} fájlt. A csatlakozáshoz meg kell adni a jelszavát"
+    },
+    "ago": {
+      "justNow": "épp most"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Nem sikerült betölteni a hostjaidat.",
+      "failedOn": "{{name}} sikertelen volt a {{name2}} hoston",
+      "on": "{{name}} a {{name2}} hoston: {{value}}",
+      "ranOn": "{{name}} futtatva a {{name2}} hoston",
+      "runOn": "\"{{name}}\" futtatása",
+      "runSnippet": "Kódletölt futtatása",
+      "loadingHosts": "Hostok betöltése…",
+      "noHostsAvailable": "Nincs elérhető host",
+      "addAHostInTermix": "Adj hozzá egy hostot a Termixben, hogy a kódleteket a kezdőképernyőről futtasd.",
+      "lastUsed": "Utoljára használt",
+      "failedToRunSnippet": "Nem sikerült futtatni a kódletet"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Ez a kódlet már nem létezik.",
+      "couldNotOpenThatSnippet": "Nem sikerült megnyitni ezt a kódletet.",
+      "thatHostNoLongerExists": "Ez a host már nem létezik.",
+      "couldNotOpenThatHost": "Nem sikerült megnyitni a gazdagépet."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Kezdőlap"
+      },
+      "hosts": {
+        "hosts": "Gazdagépek"
+      },
+      "sessions": {
+        "sessions": "Munkamenetek",
+        "connectToATermixServer": "Csatlakozzon egy Termix szerverhez a terminálok, alagutak és fájlmunkamenetek megnyitásához."
+      }
+    },
+    "layout": {
+      "initializing": "Inicializálás…",
+      "cancel": "Mégse"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Ennek a gazdagépnek nincs érvényes MAC-címe.",
+    "thisBuildCanTSend": "Ez a verzió nem küldhet Wake-on-LAN csomagokat.",
+    "couldNotSendThePacket": "Nem sikerült elküldeni a csomagot. Ellenőrizze, hogy a Wi-Fi be van-e kapcsolva."
+  },
+  "common": {
+    "hostCount_one": "{{count}} gazdagép",
+    "hostCount_other": "{{count}} gazdagép",
+    "device": {
+      "phone": "telefon",
+      "tablet": "tablet"
+    },
+    "thisDeviceLower": "ez a {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Megosztás",
+    "action": "Megosztás másokkal",
+    "levels": {
+      "connect": "Csatlakozás",
+      "view": "Megtekintés",
+      "edit": "Szerkesztés",
+      "manage": "Kezelés"
+    },
+    "levelHints": {
+      "connect": "Csak munkamenetek megnyitása. A gazdagép beállításai rejtve maradnak.",
+      "view": "Csatlakozás, valamint a gazdagép beállításainak megtekintése. A titkos adatok sosem jelennek meg.",
+      "edit": "Megtekintés, valamint a bejelentkezéstől eltérő beállítások módosítása.",
+      "manage": "Szerkesztés, valamint a gazdagép megosztása és a hozzáférés módosítása vagy eltávolítása."
+    },
+    "until": "{{date}}-ig",
+    "sharedBy": "{{name}} által",
+    "couldNotLoad": "Nem sikerült betölteni a hozzáférési listát",
+    "shared": "Gazdagép megosztva",
+    "couldNotShare": "Nem sikerült megosztani a gazdagépet",
+    "updated": "Hozzáférés módosítva",
+    "couldNotUpdate": "Nem sikerült módosítani a hozzáférést",
+    "removeTitle": "Eltávolítja {{name}} felhasználót?",
+    "removeHint": "Többé nem tudja használni ezt a gazdagépet.",
+    "remove": "Eltávolítás",
+    "removed": "Hozzáférés eltávolítva",
+    "couldNotRemove": "Nem sikerült eltávolítani a hozzáférést",
+    "whoHasAccess": "Kinek van hozzáférése",
+    "loading": "Betöltés...",
+    "nobodyYet": "Csak Ön használhatja ezt a gazdagépet.",
+    "changeAccessFor": "Hozzáférés módosítása {{name}} számára",
+    "shareWith": "Megosztás",
+    "users": "Felhasználók",
+    "roles": "Szerepkörök",
+    "searchUsers": "Felhasználók keresése",
+    "searchRoles": "Szerepkörök keresése",
+    "noUsers": "Nincsenek más felhasználók, akikkel megoszthatná.",
+    "noRoles": "Nincsenek szerepkörök, amelyekkel megoszthatná.",
+    "options": "Hozzáférés",
+    "level": "Szint",
+    "expires": "Lejár",
+    "expiry": {
+      "never": "Soha",
+      "1h": "1 óra múlva",
+      "1d": "1 nap múlva",
+      "7d": "7 nap múlva",
+      "30d": "30 nap múlva"
+    },
+    "pickSomeone": "Válassza ki, kivel szeretné megosztani",
+    "shareCount_one": "Megosztás {{count}} felhasználóval",
+    "shareCount_other": "Megosztás {{count}} felhasználóval",
+    "removeAccess": "Hozzáférés eltávolítása"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Szerver értesítések",
+      "critical": "Kritikus szerver értesítések"
+    },
+    "severity": {
+      "info": "Minden",
+      "warning": "Figyelmeztetések és súlyosabbak",
+      "critical": "Csak kritikus"
+    },
+    "settings": {
+      "on": "Az értesítések megjelennek ezen a telefonon",
+      "off": "Ki",
+      "toggle": "Push értesítések a {{server}} szerverhez",
+      "minSeverity": "Küldj nekem",
+      "denied": "Az értesítések kikapcsolva vannak a Termix számára. Kapcsold be őket a telefon beállításaiban.",
+      "openSettings": "Beállítások megnyitása",
+      "outdated": "Ennek a szervernek az Alerts 1.4.0 vagy újabb verziója szükséges a push értesítésekhez. Kérj egy rendszergazdát, hogy frissítse a bővítményt.",
+      "unavailable": "Jelentkezz be erre a szerverre, és kapcsold be az Alerts bővítményt az értesítésekhez.",
+      "error": "Nem sikerült elérni a szervert. A Termix legközelebb újra megpróbálja, amikor az alkalmazás megnyílik.",
+      "notInThisBuild": "Ez a verzió nem tudja megjeleníteni az értesítéseket.",
+      "noServers": "Kapcsold össze egy szervert, hogy itt kapd meg az értesítéseit.",
+      "pushHint": "Az értesítéseket az Expo és az Apple vagy Google közvetíti, a címükkel és szövegükkel együtt. Válaszd ki, melyeket szeretnél a szerver Alerts szabályaiban.",
+      "pollHint": "Ez a verzió nem tartalmaz Google szolgáltatásokat, így a Termix háttérben ellenőrzi az új értesítéseket, kb. 15 percenként."
+    }
+  }
+}

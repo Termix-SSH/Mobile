@@ -7,21 +7,22 @@ import { MONO_FONT } from "@/constants/fonts";
 import { usePoll } from "@/core/exec";
 import { Badge, EmptyState, Text } from "@/ui";
 import type { DockerBackend, StackSummary, StackDetail } from "./backend/types";
+import { t } from "@/i18n";
 
 const STATE_LABEL: Record<StackSummary["state"], string> = {
-  running: "running",
-  partial: "partly up",
-  stopped: "stopped",
-  paused: "paused",
-  "not-deployed": "not deployed",
+  running: t("docker.stacksView.running"),
+  partial: t("docker.stacksView.partlyUp"),
+  stopped: t("docker.stacksView.stopped"),
+  paused: t("docker.stacksView.paused"),
+  "not-deployed": t("docker.stacksView.notDeployed"),
 };
 
 const errorText = (e: unknown) => {
   const message = e instanceof Error ? e.message : "";
   if (/403|forbidden|turned off|disabled/i.test(message)) {
-    return "Stacks are turned off on this server.";
+    return t("docker.stacksView.stacksAreTurnedOffOn");
   }
-  return message || "Could not load stacks";
+  return message || t("docker.stacksView.couldNotLoadStacks");
 };
 
 /** Compose stacks on the host. Read only for now. */
@@ -54,7 +55,13 @@ export function StacksView({ backend }: { backend: DockerBackend }) {
     );
   }
   if (error) {
-    return <EmptyState icon={Layers} title="No stacks" hint={error} />;
+    return (
+      <EmptyState
+        icon={Layers}
+        title={t("docker.stacksView.noStacks")}
+        hint={error}
+      />
+    );
   }
   if (!stacks) {
     return (
@@ -67,8 +74,8 @@ export function StacksView({ backend }: { backend: DockerBackend }) {
     return (
       <EmptyState
         icon={Layers}
-        title="No stacks"
-        hint="Compose projects on this host show up here."
+        title={t("docker.stacksView.noStacks")}
+        hint={t("docker.stacksView.composeProjectsOnThisHost")}
       />
     );
   }
@@ -95,7 +102,10 @@ export function StacksView({ backend }: { backend: DockerBackend }) {
               className="text-[10px] text-muted-foreground"
               numberOfLines={1}
             >
-              {s.running} of {s.total} running
+              {t("docker.stacksView.ofRunning", {
+                running: s.running,
+                total: s.total,
+              })}
             </Text>
           </View>
           <Badge variant={s.state === "running" ? "success" : "muted"}>
@@ -136,7 +146,7 @@ function StackScreen({
       {error ? (
         <EmptyState
           icon={Layers}
-          title="Could not load the stack"
+          title={t("docker.stacksView.couldNotLoadTheStack")}
           hint={error}
         />
       ) : !detail ? (
@@ -148,11 +158,11 @@ function StackScreen({
           contentContainerStyle={{ padding: 12, gap: 8, paddingBottom: 24 }}
         >
           <Text className="text-[10px] uppercase tracking-[1px] text-muted-foreground">
-            Services
+            {t("docker.stacksView.services")}
           </Text>
           {detail.services.length === 0 ? (
             <Text className="text-sm text-muted-foreground">
-              Nothing is running.
+              {t("docker.stacksView.nothingIsRunning")}
             </Text>
           ) : (
             detail.services.map((s) => (
@@ -184,7 +194,7 @@ function StackScreen({
           {detail.compose !== null ? (
             <>
               <Text className="mt-2 text-[10px] uppercase tracking-[1px] text-muted-foreground">
-                {detail.composeFile ?? "Compose file"}
+                {detail.composeFile ?? t("docker.stacksView.composeFile")}
               </Text>
               <View className="border border-border bg-card p-3">
                 <Text

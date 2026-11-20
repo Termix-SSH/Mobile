@@ -64,6 +64,7 @@ import {
   RDP_CERT_PREF,
   type DisplayLogin,
 } from "./target";
+import { t as tr } from "@/i18n";
 
 // Matches the server view: the session area sits above the tab bar.
 const SESSION_TAB_BAR_HEIGHT = 62;
@@ -123,6 +124,8 @@ export function NativeRemoteDesktop({
 
   const session = useRef<LocalDisplay | null>(null);
   const gestures = useRef<DisplayGestures | null>(null);
+  /** False when a move, not a touch-down, claimed the touch responder. */
+  const freshGrant = useRef(true);
   const inputRef = useRef<TextInput>(null);
   const viewRef = useRef<{ focus(): void } | null>(null);
   const containerRef = useRef(container);
@@ -179,6 +182,9 @@ export function NativeRemoteDesktop({
       gestures.current.held = held;
     } else gestures.current.setView(view);
   }, [view, mouseMode, held]);
+
+  // A new or closed display can't finish a press the old one started.
+  useEffect(() => gestures.current?.releasePointer(), [frameId]);
 
   const closeSession = () => {
     session.current?.close();
@@ -290,14 +296,22 @@ export function NativeRemoteDesktop({
             void reconnectRef.current();
             return;
           }
-          setError("The computer's certificate was not trusted.");
+          setError(
+            tr(
+              "remoteDesktop.native.nativeRemoteDesktop.theComputerSCertificateWas",
+            ),
+          );
           setPhase("failed");
           return;
         }
         // The phone does the login, so a refused one can be typed again right here.
         if (err instanceof SshError && err.kind === "auth") {
           typed.current = null;
-          setError("That login was refused. Try again.");
+          setError(
+            tr(
+              "remoteDesktop.native.nativeRemoteDesktop.thatLoginWasRefusedTry",
+            ),
+          );
           setPhase("awaiting-credentials");
           return;
         }
@@ -384,7 +398,12 @@ export function NativeRemoteDesktop({
     const report = onStatusRef.current;
     if (!report) return;
     if (reconnecting) {
-      report({ state: "reconnecting", reason: "The remote desktop dropped" });
+      report({
+        state: "reconnecting",
+        reason: tr(
+          "remoteDesktop.native.nativeRemoteDesktop.theRemoteDesktopDropped",
+        ),
+      });
       return;
     }
     switch (phase) {
@@ -507,12 +526,17 @@ export function NativeRemoteDesktop({
     >
       <RdpSignInSheet
         visible={isVisible && phase === "awaiting-credentials"}
-        title={`${label} sign-in`}
+        title={tr("remoteDesktop.native.nativeRemoteDesktop.signIn", { label })}
         showDomain={protocol === "rdp"}
         description={
           error
-            ? `${error} It will not be saved.`
-            : `Enter the login for ${title}. It will not be saved.`
+            ? tr("remoteDesktop.native.nativeRemoteDesktop.itWillNotBeSaved", {
+                error,
+              })
+            : tr(
+                "remoteDesktop.native.nativeRemoteDesktop.enterTheLoginForIt",
+                { title },
+              )
         }
         initialUsername={displayLogin(host, protocol, null).username ?? ""}
         initialDomain={displayLogin(host, protocol, null).domain ?? ""}
@@ -537,35 +561,68 @@ export function NativeRemoteDesktop({
               const sym = keysymFor(e.nativeEvent);
               if (sym != null) display()?.keySym(sym, e.nativeEvent.down);
             }}
+            onPointer={(e) => {
+              // Always track the press, so a release after a drop still clears it.
+              const actions = gestures.current?.pointer(e.nativeEvent) ?? [];
+              if (connected) apply(actions);
+            }}
+            // Touches go to the display itself, so its trackpad and mouse
+            // recognizers see the same hits.
+            // React Native passes an event when it negotiates the responder;
+            // a bare call only asks whether we would take it (tests do that).
+            onStartShouldSetResponder={(e?: GestureResponderEvent) => {
+              if (e) freshGrant.current = true;
+              return connected;
+            }}
+            // A finger left down after a release can take the responder back
+            // by moving: that grant must not start a click or drag.
+            onMoveShouldSetResponder={(e?: GestureResponderEvent) => {
+              if (e) freshGrant.current = false;
+              return connected;
+            }}
+            onResponderGrant={(e) =>
+              apply(
+                gestures.current?.grant(
+                  points(e),
+                  Date.now(),
+                  freshGrant.current,
+                ) ?? [],
+              )
+            }
+            onResponderStart={(e) =>
+              apply(gestures.current?.begin(points(e), Date.now()) ?? [])
+            }
+            onResponderMove={(e) =>
+              apply(gestures.current?.move(points(e)) ?? [])
+            }
+            onResponderEnd={(e) =>
+              apply(
+                gestures.current?.end(
+                  e.nativeEvent.touches.length,
+                  Date.now(),
+                ) ?? [],
+              )
+            }
+            // The last finger's end can be missing after two fingers: these finish.
+            onResponderRelease={() =>
+              apply(gestures.current?.release(Date.now()) ?? [])
+            }
+            onResponderTerminate={() => apply(gestures.current?.cancel() ?? [])}
           />
         ) : null}
-        <View
-          style={StyleSheet.absoluteFill}
-          onStartShouldSetResponder={() => connected}
-          onMoveShouldSetResponder={() => connected}
-          onResponderGrant={(e) =>
-            apply(gestures.current?.begin(points(e), Date.now()) ?? [])
-          }
-          onResponderStart={(e) =>
-            apply(gestures.current?.begin(points(e), Date.now()) ?? [])
-          }
-          onResponderMove={(e) =>
-            apply(gestures.current?.move(points(e)) ?? [])
-          }
-          onResponderEnd={(e) =>
-            apply(
-              gestures.current?.end(e.nativeEvent.touches.length, Date.now()) ??
-                [],
-            )
-          }
-        />
       </View>
 
       {(phase === "connecting" || reconnecting) && (
         <View style={styles.overlay}>
           <ActivityIndicator size="large" color={c.accent} />
           <Text style={styles.title}>
-            {reconnecting ? `Reconnecting ${label}` : `Connecting ${label}`}
+            {reconnecting
+              ? tr("remoteDesktop.native.nativeRemoteDesktop.reconnecting", {
+                  label,
+                })
+              : tr("remoteDesktop.native.nativeRemoteDesktop.connecting", {
+                  label,
+                })}
           </Text>
           <Text style={styles.text}>{title}</Text>
         </View>
@@ -574,7 +631,9 @@ export function NativeRemoteDesktop({
       {(phase === "failed" || phase === "disconnected") && !reconnecting && (
         <View style={styles.overlay}>
           <Text style={styles.title}>
-            {phase === "failed" ? "Connection Failed" : "Disconnected"}
+            {phase === "failed"
+              ? tr("remoteDesktop.native.nativeRemoteDesktop.connectionFailed")
+              : tr("remoteDesktop.native.nativeRemoteDesktop.disconnected")}
           </Text>
           {error ? <Text style={styles.text}>{error}</Text> : null}
           <Button
@@ -583,11 +642,13 @@ export function NativeRemoteDesktop({
             className="mt-4"
             icon={<RotateCcw size={14} color={c.fg} />}
           >
-            Reconnect
+            {tr("remoteDesktop.native.nativeRemoteDesktop.reconnect")}
           </Button>
           {canUseServer && onUseServer ? (
             <Button variant="muted" onPress={onUseServer} className="mt-2">
-              Connect through the server
+              {tr(
+                "remoteDesktop.native.nativeRemoteDesktop.connectThroughTheServer",
+              )}
             </Button>
           ) : null}
         </View>
@@ -668,7 +729,7 @@ export function NativeRemoteDesktop({
               Clipboard.getStringAsync().then((t) => display()?.clipboard(t))
             }
           >
-            Paste to remote
+            {tr("remoteDesktop.native.nativeRemoteDesktop.pasteToRemote")}
           </Button>
           <Button
             variant="muted"
@@ -677,7 +738,7 @@ export function NativeRemoteDesktop({
               Clipboard.getStringAsync().then((t) => display()?.type(t))
             }
           >
-            Type clipboard
+            {tr("remoteDesktop.native.nativeRemoteDesktop.typeClipboard")}
           </Button>
           {remoteClip != null ? (
             <Button
@@ -685,7 +746,9 @@ export function NativeRemoteDesktop({
               size="sm"
               onPress={() => void Clipboard.setStringAsync(remoteClip)}
             >
-              Copy remote clipboard
+              {tr(
+                "remoteDesktop.native.nativeRemoteDesktop.copyRemoteClipboard",
+              )}
             </Button>
           ) : null}
         </View>

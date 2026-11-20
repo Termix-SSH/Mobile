@@ -1,0 +1,3920 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Přihlásit se",
+      "addServer": "Přidat server",
+      "switchAccount": "Přepnout účet",
+      "noServerConnected": "Není připojen žádný server",
+      "connectToATermixServer": "Připojte se k Termix serveru pro správu hostitelů, terminálů, souborů a dalšího."
+    },
+    "lockScreen": {
+      "cancel": "Zrušit",
+      "tooManyTriesWaitSeconds": "Příliš mnoho pokusů. Počkejte {{value}} sekund",
+      "termixLocked": "Termix je uzamčen",
+      "enterYourPinToContinue": "Pro pokračování zadejte PIN"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oranžová",
+      "blue": "Modrá",
+      "green": "Zelená",
+      "purple": "Fialová",
+      "pink": "Růžová",
+      "cyan": "Azurová",
+      "red": "Červená",
+      "yellow": "Žlutá",
+      "teal": "Tyrkysová",
+      "indigo": "Indigová",
+      "rose": "Růžová",
+      "lime": "Limetková",
+      "system": "Systémová",
+      "light": "Světlá",
+      "dark": "Tmavá"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Použít PIN",
+      "unlockTermix": "Odemknout Termix",
+      "unlockTermixFirst": "Nejprve odemkněte Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Tato funkce je na serveru vypnuta.",
+      "aTabWasNotReopened": "Karta nebyla znovu otevřena, protože její hostitel neexistuje",
+      "tabsWereNotReopenedBecause": "Nelze znovu otevřít {{count}} záložek, protože jejich hostitelé již neexistují"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Pro použití připojte Termix server",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Zadejte adresu svého serveru",
+        "theAddressCanTHave": "Adresa nesmí obsahovat mezery",
+        "useAnHttpOrHttps": "Použijte adresu http:// nebo https://",
+        "thatDoesnTLookLike": "To nevypadá jako adresa serveru",
+        "thePortMustBeFrom": "Port musí být v rozmezí 1 až 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Místo Termix odpověděl login proxy. Nejprve se přihlaste k proxy.",
+        "theServerDidNotSend": "Server neposlal token.",
+        "theServerDidNotSend2": "Server neposlal relaci.",
+        "theServerSentNoSign": "Server neposlal adresu pro přihlášení.",
+        "theSignInRanOut": "Platnost přihlášení vypršela nebo již bylo použito. Přihlaste se znovu.",
+        "wrongUsernameOrPassword": "Špatné uživatelské jméno nebo heslo",
+        "signInFailedHttp": "Přihlášení selhalo (HTTP {{status}})",
+        "thePageSignedYouIn": "Stránka vás přihlásila, ale nevrátila žádnou relaci. Aktualizujte server na Termix 26.11.3 nebo novější.",
+        "thisAccountIsnTAllowed": "Tento účet nemá oprávnění se zde přihlásit.",
+        "noTermixAccountMatchesThat": "Žádný Termix účet neodpovídá tomuto přihlášení."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Tato relace nemá žádný server"
+    },
+    "store": {
+      "noSuchAccount": "Takový účet neexistuje",
+      "thisDeviceCanTBe": "Toto zařízení nelze odstranit",
+      "switchToAnotherAccountFirst": "Nejprve přepněte na jiný účet"
+    },
+    "types": {
+      "thisDevice": "Toto zařízení"
+    },
+    "accountSwitcher": {
+      "error": "Chyba",
+      "worksWithoutAServer": "Funguje bez serveru",
+      "couldNotSwitchAccount": "Nelze přepnout účet",
+      "accounts": "Účty",
+      "openTabsKeepRunningWhen": "Otevřené karty běží i po přepnutí.",
+      "unlink": "Odpojit {{account}}",
+      "linkAServer": "Připojit server",
+      "eachServerKeepsItsOwn": "Každý server si na tomto {{deviceWord}} udržuje vlastní hostitele, přihlašovací údaje a nastavení.",
+      "signedIn": "Přihlášen",
+      "signedOut": "Odhlášeno",
+      "syncedCopy": "Synchronizovaná kopie"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Nelze uložit pin",
+      "theServerSKeyMatches": "Klíč serveru odpovídá pinu",
+      "theServerShowsAnotherKey": "Server zobrazuje jiný klíč",
+      "pinThisKey": "Připnout tento klíč?",
+      "pinThisKey2": "Připnout tento klíč",
+      "keyPinned": "Klíč připnut",
+      "couldNotReadTheServer": "Nelze přečíst klíč serveru",
+      "thatIsNotAPin": "Toto není pin",
+      "keysPinned": "Klíče připnuty",
+      "certificatePin": "Pin certifikátu",
+      "trustThisServerOnlyBy": "Důvěřujte tomuto serveru pouze podle jeho klíče. Použijte to pro self-signed certifikát nebo k odmítnutí jakéhokoli jiného klíče. Přidejte další klíč před změnou certifikátu serveru.",
+      "removePin": "Odstranit pin {{pin}}",
+      "remove": "Odstranit",
+      "readTheKeyFromThe": "Přečíst klíč ze serveru",
+      "orPasteAPin": "Nebo vložit pin",
+      "pin": "Pin",
+      "add": "Přidat",
+      "issuedTo": "Vydáno pro: {{subject}}",
+      "issuedBy": "Vydáno od: {{issuer}}",
+      "validUntil": "Platné do: {{value}}",
+      "checkThatThisKeyMatches": "Před připnutím ověřte, že tento klíč odpovídá tomu na vašem serveru.",
+      "pasteTheBase64Sha256Of": "Vložte base64 sha256 veřejného klíče serveru, jak jej tiskne openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Nastavení proxy uloženo",
+      "couldNotSaveTheProxy": "Nelze uložit nastavení proxy",
+      "couldNotReadThatFile": "Nelze přečíst tento soubor",
+      "certificateSaved": "Certifikát uložen",
+      "theFileOrItsPassphrase": "Soubor nebo jeho heslo je nesprávné",
+      "couldNotSaveTheCertificate": "Nelze uložit certifikát",
+      "headers": "Hlavičky",
+      "sentWithEveryRequestTo": "Odesíláno s každým požadavkem na tento server, například jako Cloudflare service token.",
+      "name": "Název",
+      "value": "Hodnota",
+      "removeHeader": "Odstranit hlavičku",
+      "addHeader": "Přidat hlavičku",
+      "cloudflareServiceToken": "Cloudflare service token",
+      "basicAuth": "Základní autentizace",
+      "forAProxyThatAsks": "Pro proxy, která vyžaduje uživatelské jméno a heslo.",
+      "userName": "Uživatelské jméno",
+      "password": "Heslo",
+      "saveHeadersAndBasicAuth": "Uložit hlavičky a základní autentizaci",
+      "clientCertificate": "Klientský certifikát",
+      "forServersThatAskFor": "Pro servery, které ho vyžadují (mTLS). Klíč je uložen v zabezpečeném úložišti {{deviceWord}} a nelze ho zpětně přečíst.",
+      "certificate": "Certifikát",
+      "remove": "Odstranit",
+      "replaceCertificate": "Nahradit certifikát",
+      "pickAP12OrPfx": "Vyberte soubor .p12 nebo .pfx",
+      "proxySignIn": "Přihlášení k proxy",
+      "thisIsSignedInTo": " Toto {{deviceWord}} je přihlášeno k proxy.",
+      "forCloudflareAccessAutheliaAuthentik": "Pro Cloudflare Access, Authelia, Authentik a další proxy s vlastní přihlašovací stránkou.{{value}}",
+      "signInToTheProxy": "Přihlásit se k proxy",
+      "forget": "Zapomenout",
+      "certificatePassphrase": "Heslo certifikátu",
+      "thePassphraseTheFileWas": "Heslo, se kterým byl soubor uložen. Nechte prázdné, pokud žádné nemá.",
+      "passphrase": "Heslo",
+      "save": "Uložit"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Přihlášeno k proxy",
+      "couldNotSaveTheProxy": "Nelze uložit přihlášení k proxy",
+      "signInToTheProxy": "Přihlásit se k proxy",
+      "thisBuildOfTheApp": "Tato verze aplikace neumí udržovat proxy přihlášení. Místo toho použijte service token v hlavičkách proxy."
+    },
+    "savedLoginRow": {
+      "signIn": "Přihlásit se",
+      "signInWith": "Přihlásit se pomocí {{name}}",
+      "whenThisServerSignsYou": "Když vás tento server odhlásí, znovu se přihlaste bez zadávání hesla."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Odkázáno. {{copied}} položek zůstalo na tomto zařízení.",
+      "unlinked": "Odkázáno",
+      "couldNotUnlinkTheServer": "Server se nepodařilo odkázat",
+      "unlink": "Odkázat {{value}}?",
+      "thisSignsOutOfThe": "Toto {{deviceWord}} se odhlásí ze serveru. Na serveru nic není smazáno.",
+      "keepACopyOnThis": "Zachovat kopii na tomto zařízení",
+      "yourOwnHostsCredentialsAnd": "Vaše vlastní hosty, přihlašovací údaje a úryvky se přesunou na toto zařízení. Hosty sdílené s vámi nejsou zachovány.",
+      "deleteFromThis": "Smazat z tohoto {{deviceWord}}",
+      "everythingThisHasForThe": "Vše, co má toto {{deviceWord}} pro tento server, bude odstraněno."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Změňte to níže v sekci Proxy",
+      "updateTermixMobileFromYour": "Aktualizujte Termix Mobile z obchodu s aplikacemi"
+    },
+    "savedLogin": {
+      "signInToTermix": "Přihlásit se do Termix",
+      "faceUnlock": "odemknutí obličejem"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Tato verze nemůže ověřit pinovanou klíč tohoto serveru ani odeslat jeho certifikát."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Tento server nepodporuje tuto funkci",
+      "theProxyWantsYouTo": "Proxy vyžaduje, abyste se přihlásili",
+      "endpointNotAvailableOnThis": "Koncový bod není na tomto serveru dostupný",
+      "unknownError": "Neznámá chyba"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Proxy před tímto serverem vyžaduje, abyste se znovu přihlásili.",
+      "authenticationRequiredPleaseLogIn": "Je vyžadováno ověření. Prosím, přihlaste se znovu.",
+      "accessDeniedYouDoNot": "Přístup zamítnut. Nemáte oprávnění k provedení této akce.",
+      "thisFeatureIsTurnedOff": "Tato funkce je na serveru vypnuta.",
+      "thisServerDoesNotSupport": "Tento server nepodporuje tuto funkci.",
+      "resourceNotFoundTheRequested": "Zdroj nebyl nalezen. Požadovaná položka mohla být smazána.",
+      "conflictTheResourceAlreadyExists": "Konflikt. Zdroj již existuje nebo je používán.",
+      "validationErrorPleaseCheckYour": "Chyba ověření. Zkontrolujte svůj vstup a zkuste to znovu.",
+      "serverErrorOccurredPleaseTry": "Došlo k chybě serveru. Zkuste to prosím později.",
+      "sslCertificateVerificationFailed": "Ověření SSL certifikátu selhalo.",
+      "networkErrorPleaseCheckYour": "Síťová chyba. Zkontrolujte své připojení a zkuste to znovu.",
+      "failedTo": "Operace {{operation}} selhala",
+      "unknownError": "Neznámá chyba",
+      "unexpectedErrorDuring": "Neočekávaná chyba během {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Aplikace nemohla důvěřovat HTTPS pro tuto místní IP adresu. Pinujte klíč serveru v sekci Proxy a klientský certifikát, použijte certifikát, kterému {{deviceWord}} důvěřuje, nebo HTTP na důvěryhodné místní nebo VPN síti.",
+        "thisServerIsBehindA": "Tento server je za přihlašovací proxy. Místo toho použijte možnost externího přihlášení.",
+        "loginFailed": "Přihlášení selhalo"
+      },
+      "files": {
+        "fileNotFound": "Soubor nebyl nalezen",
+        "fileWriteOperationDidNot": "Operace zápisu souboru nevrátila stav úspěchu",
+        "couldNot": "Nelze {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Host byl uložen, ale některá nastavení selhala: {{value}}",
+        "unexpectedHostResponseFrom": "Neočekávaná odpověď hosta od {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Živý vzorek selhal"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Žádná odpověď"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Tento server nezobrazil klíč, ke kterému je pinován, takže stránka nebyla otevřena."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Tento {{what}} již neexistuje.",
+      "aHostCannotBeIts": "Host nemůže být svým vlastním nadřazeným",
+      "parentHostNotFound": "Nadřazený host nebyl nalezen",
+      "aHostCanTGo": "Host nemůže být pod jedním ze svých vlastních podhostů",
+      "thisIsSharedWithYou": "Tento {{what}} je s vámi sdílen. Může jej měnit pouze jeho vlastník.",
+      "nameIsRequired": "Název je povinný",
+      "nameAndCommandAreRequired": "Název a příkaz jsou povinné",
+      "aFolderWithThatName": "Složka s tímto názvem již existuje"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Toto zařízení nemůže uložit {{what}} sem."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Tento úryvek je s vámi sdílen a nelze jej měnit."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Použijte heslo s alespoň 8 znaky.",
+      "thisIsNotATermix": "Toto není záložní soubor Termix.",
+      "thisBackupIsFromA": "Tato záloha pochází z novější verze Termix. Nejprve aktualizujte aplikaci.",
+      "wrongPassphraseOrTheFile": "Špatné heslo nebo je soubor poškozený."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Tato verze neumí šifrovat lokální data."
+    },
+    "keys": {
+      "unlockTermixFirst": "Nejprve odemkněte Termix.",
+      "thatIsNotADatabase": "Toto není klíč databáze.",
+      "couldNotSaveTheDatabase": "Klíč databáze se nepodařilo uložit."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Tato data byla uložena novější verzí Termix. Pro otevření aktualizujte aplikaci."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Toto zařízení nesynchronizuje.",
+      "localDataIsNotAvailable": "Lokální data zde nejsou k dispozici.",
+      "unlockTermixFirst": "Nejprve odemkněte Termix."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Nelze se připojit.",
+      "thisWayCanTRun": "Tento způsob nepodporuje spouštění příkazů."
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Heslo pro sudo",
+      "password": "Heslo",
+      "run": "Spustit",
+      "thatPasswordWasWrong": "Toto heslo bylo špatné.",
+      "onNeedsRoot": "{{reason}} na {{hostName}} vyžaduje oprávnění root.",
+      "needsRootForThis": "{{hostName}} pro tuto akci vyžaduje oprávnění root.",
+      "itIsKeptUntilYou": "Zůstane uložené, dokud aplikaci nezavřete."
+    },
+    "run": {
+      "theHostTookTooLong": "Hostitel odpovídal příliš dlouho.",
+      "connectionLost": "Připojení ztraceno"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Toto vyžaduje oprávnění root. Přihlaste se jako root, nastavte sudo bez hesla nebo uložte heslo pro sudo pro tohoto hostitele.",
+      "theSudoPasswordWasWrong": "Heslo pro sudo bylo špatné.",
+      "commandFailed": "Příkaz selhal"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet v terminálu vyžaduje připojení z {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Funkce {{id}} je již registrována."
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adresa",
+      "theIpOrHostName": "IP adresa nebo název hostitele pod názvem",
+      "username": "Uživatelské jméno",
+      "theUserBeforeTheAddress": "Uživatel před adresou",
+      "port": "Port",
+      "thePortAfterTheAddress": "Port za adresou",
+      "hostIcon": "Ikona hostitele",
+      "theIconSetOnThe": "Ikona nastavená na hostiteli",
+      "pinIcon": "Připnout ikonu",
+      "marksPinnedHosts": "Označuje připnuté hostitele",
+      "sharedBadge": "Označení sdílení",
+      "marksHostsSharedWithYou": "Označuje hostitele sdílené s vámi",
+      "protocolBadges": "Označení protokolů",
+      "sshRdpDockerAndOther": "Štítky SSH, RDP, Docker a další",
+      "tags": "Štítky",
+      "theHostSTags": "Štítky hostitele",
+      "cpuAndRam": "CPU a RAM",
+      "liveUsageBarsOnOnline": "Živé ukazatele využití u online hostitelů",
+      "statusColors": "Barvy stavu",
+      "greenBarWhenOnlineRed": "Zelený pruh online, červený offline"
+    },
+    "uiPrefs": {
+      "small": "Malé",
+      "default": "Výchozí",
+      "large": "Velké",
+      "comfortable": "Pohodlné",
+      "compact": "Kompaktní"
+    },
+    "errors": {
+      "somethingWentWrong": "Něco se pokazilo"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Zamknutí klíče heslem vyžaduje aplikaci Termix, ne webový náhled."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Okamžitě",
+      "after15Seconds": "Po 15 sekundách",
+      "after1Minute": "Po 1 minutě",
+      "after5Minutes": "Po 5 minutách"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Tajný klíč zařízení chybí",
+      "noSealedKey": "Žádný utěsněný klíč",
+      "theSealedKeyIsDamaged": "Utěsněný klíč je poškozený",
+      "wrongPin": "Špatný PIN",
+      "theSealedKeyDidNot": "Zapečetěný klíč se nepodařilo otevřít",
+      "biometricsCanTOpenThe": "Biometrie nemůže klíč otevřít"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Aktualizovat aplikaci",
+      "onYourServerNeedsA": "{{name}} na vašem serveru vyžaduje novější verzi Termixu na tomto {{deviceWord}}.",
+      "updateThePlugin": "Aktualizovat plugin",
+      "onYourServerIsToo": "{{name}} na vašem serveru je příliš starý pro tuto aplikaci. Požádejte administrátora, aby ho aktualizoval v sekci Pluginy."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Blokováno aplikací",
+      "theAppDoesNotLet": "Aplikace nedovoluje pluginům používat tuto trasu.",
+      "thisBuildCanTReach": "Tato verze se nemůže bezpečně připojit k tomuto serveru."
+    },
+    "support": {
+      "needsANewerVersionOf": "Vyžaduje novější verzi aplikace",
+      "updateThePluginOnThe": "Aktualizovat plugin na serveru",
+      "theAppHasItsOwn": "Aplikace má vlastní vzhled",
+      "notInTheAppYet": "Ještě není v aplikaci",
+      "linkAServerToUse": "Propojte server pro použití",
+      "opensInTheAppFrom": "Otevírá se v aplikaci ze serveru",
+      "runsOnTheServer": "Běží na serveru",
+      "throughTheServer": "Přes server",
+      "inTheApp": "V aplikaci",
+      "webView": "Webový pohled",
+      "onTheServer": "Na serveru",
+      "appLook": "Vzhled aplikace",
+      "notInTheApp": "Není v aplikaci",
+      "safeMode": "Bezpečný režim",
+      "notRunning": "Neběží",
+      "notInstalled": "Není nainstalován",
+      "notOnThisServer": "Není na tomto serveru",
+      "thePluginIsNotInstalled": "Plugin není na tomto serveru nainstalován.",
+      "turnedOffOnTheServer": "Vypnuto na serveru",
+      "itOpensHereAgainWhen": "Znovu se otevře zde, když ho administrátor zapne.",
+      "notRunningOnTheServer": "Neběží na serveru",
+      "theServerIsInSafe": "Server je v bezpečném režimu, takže běží pouze pluginy s vzhledem.",
+      "thePluginDidNotStart": "Plugin se nespustil. Administrátor ho může zkontrolovat v sekci Pluginy.",
+      "thisPluginIsNotAvailable": "Tento plugin není k dispozici",
+      "itIsNotMadeFor": "Není určen pro aplikaci.",
+      "offOnThisServer": "vypnuto na tomto serveru",
+      "notRunningOnThisServer": "neběží na tomto serveru",
+      "notOnThisServer2": "není na tomto serveru",
+      "notInTheAppYet2": "Ještě není v aplikaci | na tomto serveru",
+      "worksOnThis": "Funguje na tomto {{deviceWord}}",
+      "andServer": "{{DeviceWord}} a server",
+      "deviceOnly": "Pouze {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Obnovit"
+    },
+    "pluginSettings": {
+      "loading": "Načítání nastavení",
+      "forEveryone": "Pro všechny na serveru",
+      "justForYou": "Pouze pro vás",
+      "couldNotSave": "Nepodařilo se uložit nastavení",
+      "nothingYouCanChange": "Zde nemůžete nic měnit. Tato nastavení může změnit správce.",
+      "notANumber": "Toto není číslo",
+      "atLeast": "Musí být {{min}} nebo více",
+      "atMost": "Musí být {{max}} nebo méně"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Odpojit vše",
+      "showOpenSessions": "Zobrazit otevřené relace",
+      "termixShowsANotificationWhile": "Termix zobrazuje oznámení, zatímco jsou relace otevřené, aby je Android udržoval běžet na pozadí.",
+      "sessionsOpen_one": "{{count}} otevřená relace",
+      "sessionsOpen_few": "{{count}} otevřené relace",
+      "sessionsOpen_many": "{{count}} otevřených relací",
+      "sessionsOpen_other": "{{count}} otevřených relací",
+      "tunnelsActive_one": "{{count}} aktivní tunel",
+      "tunnelsActive_few": "{{count}} aktivní tunely",
+      "tunnelsActive_many": "{{count}} aktivních tunelů",
+      "tunnelsActive_other": "{{count}} aktivních tunelů",
+      "notConnected": "Nepřipojeno",
+      "waitingForNetwork": "Čekání na síť",
+      "connecting": "Připojování",
+      "connected": "Připojeno",
+      "reconnecting": "Znovu připojování",
+      "failed": "Selhalo",
+      "closed": "Uzavřeno"
+    },
+    "companionPane": {
+      "resizeThePanel": "Změnit velikost panelu {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Zavřít",
+      "closeAllTabs": "Zavřít všech {{count}} záložek?",
+      "everySessionEnds": "Každá relace skončí.",
+      "closeAll": "Zavřít vše",
+      "noActiveConnections": "Žádná aktivní připojení",
+      "pickAHostFromThe": "Vyberte hostitele ze seznamu pro zahájení relace. Zde se zobrazují také karty otevřené na jiných zařízeních.",
+      "connectToAHostTo": "Připojte se k hostiteli pro zahájení relace. Zde se zobrazují také karty otevřené na jiných zařízeních.",
+      "open": "Otevřít",
+      "background": "Na pozadí",
+      "sessionsFromOtherDevicesOr": "Relace z jiných zařízení nebo karty na pozadí. Klepnutím obnovíte.",
+      "liveTapToReconnect": "Živé, klepnutím znovu připojíte",
+      "tapToReopen": "Klepnutím znovu otevřete"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Toto je na serveru vypnuto",
+      "comesBackHereWhenAn": "{{title}} se sem vrátí, když správce znovu zapne jeho plugin.",
+      "closeTab": "Zavřít kartu"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Připojení",
+        "hideHostList": "Skrýt seznam hostitelů",
+        "showHostList": "Zobrazit seznam hostitelů",
+        "backToHosts": "Zpět na hostitele",
+        "showKeyboard": "Zobrazit klávesnici",
+        "hideKeyboard": "Skrýt klávesnici",
+        "hideKeysPanel": "Skrýt panel klíčů",
+        "showKeysPanel": "Zobrazit panel klíčů"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Klepnutím zobrazíte možnosti karty, podržením přesunete",
+        "holdToMove": "Podržením přesunete",
+        "close": "Zavřít {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Čeká na síť",
+        "connectionFailed": "Připojení selhalo",
+        "reconnecting": "Obnovování připojení"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Přejmenovat",
+      "newTabOnThisHost": "Nová karta na tomto hostiteli",
+      "here": "{{title}} zde",
+      "hidePanel": "Skrýt panel {{title}}",
+      "showPanel": "Zobrazit panel {{title}}",
+      "endSplitView": "Ukončit rozdělený zobrazení",
+      "splitViewWith": "Rozdělené zobrazení s...",
+      "moveLeft": "Posunout doleva",
+      "moveRight": "Posunout doprava",
+      "closeTab": "Zavřít kartu",
+      "closeAllTabs": "Zavřít všechny karty",
+      "closeAllTabs2": "Zavřít všech {{count}} karet?",
+      "everySessionEnds": "Každá relace končí.",
+      "closeAll": "Zavřít vše",
+      "splitViewWith2": "Rozdělené zobrazení s",
+      "renameTab": "Přejmenovat kartu",
+      "leaveItEmptyToUse": "Pokud chcete použít název hostitele, nechte prázdné."
+    },
+    "resizeHostList": "Změnit velikost seznamu hostitelů",
+    "resizeSplitView": "Změnit velikost rozděleného zobrazení",
+    "connections": "Připojení",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Dvoufázové ověřování",
+        "enterThe6DigitCode": "Zadejte 6místný kód z vaší aplikace pro ověřování.",
+        "cancel": "Zrušit",
+        "verify": "Ověřit",
+        "codeExpiresInSGet": "Kód vyprší za {{totpCountdown}} s, získat nový kód",
+        "warpgateAuthentication": "Ověřování Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "Potvrďte URL adresu pro ověřování Warpgate a bezpečnostní klíč.",
+        "authenticate": "Ověřit",
+        "warpgateUrl": "URL adresa Warpgate",
+        "securityKeyOptional": "Bezpečnostní klíč (volitelné)",
+        "authenticationRequired": "Požadováno ověření",
+        "thisHostNeedsCredentialsTo": "Tento hostitel vyžaduje přihlašovací údaje pro připojení.",
+        "connect": "Připojit",
+        "password": "Heslo",
+        "sshKey": "SSH klíč",
+        "pastePrivateKey": "Vložit soukromý klíč",
+        "keyPassphraseOptional": "Heslo klíče (volitelné)"
+      },
+      "connectionError": {
+        "tryAgain": "Zkusit znovu",
+        "close": "Zavřít",
+        "connectThroughTheServer": "Připojit přes server",
+        "connectFromThis": "Připojit z tohoto {{deviceWord}}",
+        "triedFromThis": "Zkoušeno z tohoto {{deviceWord}}",
+        "triedThroughTheServer": "Zkoušeno přes server"
+      },
+      "execGate": {
+        "connecting": "Připojování…"
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Něco se pokazilo",
+        "retry": "Opakovat",
+        "refresh": "Obnovit",
+        "nothingToShow": "Nic k zobrazení"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Protokoly zkopírovány",
+        "connectionLog": "Protokol připojení ({{count}})",
+        "copyLog": "Kopírovat protokol",
+        "waitingForConnection": "Čekání na připojení…",
+        "noLogEntries": "Žádné záznamy v protokolu"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Nelze uložit způsob připojení tohoto hostitele"
+      },
+      "useSessionConnect": {
+        "connected": "Připojeno",
+        "connectingTo": "Připojování k {{name}}…",
+        "connectionLost": "Připojení ztraceno",
+        "failedToConnect": "Připojení selhalo",
+        "invalidCode": "Neplatný kód",
+        "warpgateAuthenticationFailed": "Ověření přes Warpgate selhalo",
+        "authenticationCancelled": "Ověření zrušeno"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Vyhledávání a příkazy",
+    "addHost": "Přidat hostitele",
+    "keyboardShortcuts": "Klávesové zkratky",
+    "home": "Domů",
+    "hosts": "Hostitelé",
+    "sessions": "Relace",
+    "tools": "Nástroje",
+    "settings": "Nastavení",
+    "terminal": "Terminál",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Klávesové zkratky"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Hostitelé a složky",
+      "yourHostsFoldersAndHosts": "Vaši hostitelé, složky a hostitelé sdílení s vámi",
+      "credentials": "Přihlašovací údaje",
+      "savedPasswordsAndKeysAnd": "Uložená hesla a klíče a přihlašovací údaje sdílené s vámi",
+      "snippets": "Úryvky",
+      "snippetsAndTheirFolders": "Úryvky a jejich složky",
+      "hostDefaults": "Výchozí hodnoty hostitelů",
+      "defaultSettingsForNewHosts": "Výchozí nastavení pro nové hostitele",
+      "preferences": "Předvolby",
+      "settingsThatFollowYouBetween": "Nastavení, které vás sleduje mezi zařízeními"
+    },
+    "link": {
+      "noSuchServerAccount": "Takový serverový účet neexistuje",
+      "signInFirst": "Nejprve se přihlaste.",
+      "thisServerAccountBelongsTo": "Tento serverový účet patří uživateli {{value}}. Přihlaste se jako tento uživatel nebo server znovu přidejte pro tohoto uživatele."
+    },
+    "reasons": {
+      "signedOut": "Odhlášeno",
+      "thisSSignInTo": "Platnost přihlášení tohoto {{deviceWord}} k serveru vypršela.",
+      "theServerEndedThisS": "Server ukončil relaci tohoto {{deviceWord}}. Možná bylo odhlášeno z jiného zařízení.",
+      "proxySignInNeeded": "Je nutné přihlášení k proxy",
+      "theProxyInFrontOf": "Proxy před tímto serverem vyžaduje znovupřihlášení.",
+      "proxyPasswordNeeded": "Je nutné heslo proxy",
+      "theProxyInFrontOf2": "Proxy před tímto serverem požadovala své heslo.",
+      "certificateRefused": "Certifikát odmítnut",
+      "theServerDidNotAccept": "Server nepřijal certifikát tohoto {{deviceWord}}.",
+      "untrustedServer": "Nedůvěryhodný server",
+      "theServerSCertificateIs": "Certifikát serveru není tímto {{deviceWord}} důvěryhodný.",
+      "serverKeyChanged": "Klíč serveru se změnil",
+      "theServerShowsAnotherKey": "Server zobrazuje jiný klíč než ten, který je pro něj připnut. Pokud jste změnili jeho certifikát, připněte nový klíč.",
+      "offline": "Offline",
+      "canTReachTheServer": "Nelze se připojit k serveru. Synchronizace se brzy zkusí znovu.",
+      "serverProblem": "Problém se serverem",
+      "theServerHadAProblem": "Došlo k problému na serveru. Synchronizace se brzy zkusí znovu.",
+      "updateNeeded": "Je nutná aktualizace",
+      "thisServerUsesANewer": "Tento server používá novější verzi synchronizace. Aktualizujte aplikaci.",
+      "notATermixServer": "Není to server Termix",
+      "theAddressDoesNotAnswer": "Adresa neodpovídá jako server Termix.",
+      "syncIsOff": "Synchronizace je vypnutá",
+      "theSyncPluginIsOff": "Plugin Synchronizace je na tomto serveru vypnutý. Požádejte administrátora, aby ho zapnul v sekci Pluginy.",
+      "differentUser": "Jiný uživatel",
+      "youSignedInAsA": "Přihlásili jste se jako jiný uživatel, než tomu odpovídá účet na tomto serveru.",
+      "syncStopped": "Synchronizace zastavena",
+      "somethingWentWrong": "Něco se pokazilo.",
+      "signInAgain": "Přihlaste se znovu",
+      "signInToTheProxy": "Přihlaste se k proxy",
+      "enterThePassword": "Zadejte heslo",
+      "tryAgain": "Zkusit znovu",
+      "checkThePin": "Zkontrolujte PIN",
+      "checkForUpdates": "Zkontrolovat aktualizace",
+      "pickACertificate": "Vyberte certifikát"
+    },
+    "settings": {
+      "noSuchSetting": "Takové nastavení neexistuje",
+      "snippetFolder": "Složka úryvků",
+      "hostDefault": "Výchozí hodnota hostitele"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Server nepřijal certifikát tohoto {{deviceWord}}.",
+      "theServerSCertificateIs": "Certifikát serveru není důvěryhodný.",
+      "canTReachTheServer": "Nelze se připojit k serveru.",
+      "signedOut": "Odhlášeno",
+      "theProxyAskedForIts": "Proxy vyžádala své heslo.",
+      "theProxyWantsYouTo": "Proxy vyžaduje přihlášení.",
+      "theSyncPluginIsOff": "Plugin Synchronizace je na tomto serveru vypnutý.",
+      "serverError": "Chyba serveru {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Server zobrazuje jiný klíč než ten připnutý."
+    },
+    "remote": {
+      "thisIsNotATermix": "Toto není server Termix.",
+      "theProxyWantsYouTo": "Proxy vyžaduje přihlášení.",
+      "thisServerUsesANewer": "Tento server používá novější verzi synchronizace. Aktualizujte aplikaci."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} hostitel",
+      "hostCount_few": "{{count}} hostitelé",
+      "hostCount_many": "{{count}} hostitelů",
+      "hostCount_other": "{{count}} hostitelů",
+      "credentialCount_one": "{{count}} přihlašovací údaje",
+      "credentialCount_few": "{{count}} přihlašovací údaje",
+      "credentialCount_many": "{{count}} přihlašovacích údajů",
+      "credentialCount_other": "{{count}} přihlašovacích údajů",
+      "snippetCount_one": "{{count}} úryvek",
+      "snippetCount_few": "{{count}} úryvky",
+      "snippetCount_many": "{{count}} úryvků",
+      "snippetCount_other": "{{count}} úryvků",
+      "folderCount_one": "{{count}} složka",
+      "folderCount_few": "{{count}} složky",
+      "folderCount_many": "{{count}} složek",
+      "folderCount_other": "{{count}} složek",
+      "nothingYet": "zatím nic",
+      "listAnd": "{{list}} a {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Nelze se připojit.",
+      "connectingToFromThis": "Připojování k {{name}} z tohoto {{deviceWord}}",
+      "connectingToThroughTheServer": "Připojování k {{name}} přes server",
+      "reconnectingTry": "Obnovování připojení (pokus {{retry}})",
+      "disconnected": "Odpojeno",
+      "connected": "Připojeno",
+      "reconnectedToTheSameSession": "Obnovení připojení ke stejné relaci",
+      "reconnectedWithANewShell": "Obnovení připojení s novým shellem",
+      "couldNotReachTheHost": "Nelze dosáhnout hostitele z tohoto {{deviceWord}}, zkouším přes server",
+      "couldNotConnectThroughThe": "Nelze se připojit přes server, zkouším z tohoto {{deviceWord}}",
+      "connectionLost": "Připojení ztraceno: {{reason}}",
+      "offlineWaitingForTheNetwork": "Offline, čekání na síť",
+      "nextTryInS": "Další pokus za {{value}}s",
+      "reconnectingTry2": "Obnovování připojení (pokus {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Hostitel přestal odpovídat",
+      "networkLost": "Síť ztracena",
+      "network": "Síť: {{type}}{{value}}",
+      "lowPowerModeOn": "Režim úspory energie zapnutý",
+      "lowPowerModeOff": "Režim úspory energie vypnutý",
+      "droppedTypedCharacters": "Zahozeno {{count}} zadaných znaků",
+      "youDidNotTrustThe": "Klíč hostitele nebyl důvěryhodný.",
+      "checkTheKeyWithWhoever": "Ověřte klíč s osobou, která hostitel spravuje, a zkuste to znovu.",
+      "loginCancelled": "Přihlášení zrušeno.",
+      "connectAgainWhenYouAre": "Připojte se znovu, až budete připraveni.",
+      "typedInputIsOver64": "Zadaný vstup přesahuje 64 KB, nejstarší část byla zahazena",
+      "appInTheBackground": "Aplikace na pozadí",
+      "appInTheForeground": "Aplikace v popředí",
+      "thisConnectionCanTRun": "Toto připojení nemůže spouštět příkazy"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Zkontrolujte adresu a port a zda server může hostitele dosáhnout.",
+      "checkTheAddressAndPort2": "Zkontrolujte adresu a port a zda tento {{deviceWord}} může hostitele dosáhnout.",
+      "checkTheProxySettingsOf": "Zkontrolujte nastavení proxy tohoto hostitele.",
+      "checkTheKeyWithWhoever": "Než klíči důvěříte, ověřte ho s osobou, která hostitel spravuje.",
+      "checkTheUsernameAndLogin": "Zkontrolujte uživatelské jméno a přihlašovací údaje v editoru hostitele.",
+      "checkThatTheServerIs": "Zkontrolujte, zda je server spuštěn a zda jste stále přihlášeni.",
+      "tryAgainIfItKeeps": "Zkuste to znovu. Pokud se připojení stále ruší, zkontrolujte síť.",
+      "connectAgainWhenYouAre": "Připojte se znovu, až budete připraveni.",
+      "pickAnotherWayToConnect": "Vyberte jiný způsob připojení tohoto hostitele.",
+      "connectThisHostThroughA": "Připojte tohoto hostitele přes server Termix.",
+      "pickTheJumpHostsAgain": "Znovu vyberte přeskočovací hostitele v editoru hostitele.",
+      "thisIsATailscaleAddress": "Toto je adresa Tailscale. Zkontrolujte, zda je Tailscale na tomto {{deviceWord}} připojen.",
+      "theSavedKeyCanT": "Uložený klíč nelze přečíst. Znovu ho vložte v editoru hostitele.",
+      "signInToThisServer": "Znovu se přihlaste k tomuto serveru.",
+      "openThisHostInThe": "Otevřete tohoto hostitele ve webové aplikaci Termix.",
+      "canTConnectThisWay": "Tímto způsobem nelze připojit",
+      "couldNotReachTheHost": "Nelze dosáhnout hostitele",
+      "theProxyDidNotLet": "Proxy nepropustila připojení",
+      "theHostKeyWasNot": "Klíč hostitele nebyl důvěryhodný",
+      "theLoginWasRefused": "Přihlášení bylo zamítnuto",
+      "theTermixServerDidNot": "Server Termix neodpověděl",
+      "theConnectionDropped": "Připojení bylo přerušeno",
+      "loginCancelled": "Přihlášení zrušeno"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH agent",
+        "thisHostSignsInWith": "Tento hostitel se přihlašuje pomocí „{{authType}}“, což vyžaduje server Termix. Propojte jeden pro připojení.",
+        "thisHostUsesA1password": "Tento hostitel používá odkaz na 1Password, což vyžaduje server Termix s Secret Sources. Propojte jeden a připojte tohoto hostitele přes něj.",
+        "signInWithFirstOpen": "Nejprve se přihlaste pomocí {{title}}. Otevřete jednou terminál k tomuto hostiteli a zkuste to znovu.",
+        "theSignInAndThe": "přihlášení a certifikát jsou na serveru",
+        "theHasNoSshAgent": "tento {{deviceWord}} nemá SSH agenta",
+        "needsATermixServerBecause": "{{title}} vyžaduje server Termix, protože {{why}}. Propojte jeden a připojte tohoto hostitele přes něj."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Přeskočovací hostitel tohoto hostitele již neexistuje."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Připojení bylo přerušeno",
+        "theShellChannelClosed": "Kanál shellu byl uzavřen",
+        "jumpHost": "Přeskočovací hostitel {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Neplatný kód, zkuste to znovu:",
+        "authenticationFailed": "Ověření selhalo: {{message}}",
+        "theHostKeyWasNot": "Klíč hostitele nebyl důvěryhodný.",
+        "loginCancelled": "Přihlášení zrušeno.",
+        "notConnected": "Nepřipojeno",
+        "signingInAs": "Přihlašování jako {{user}} pomocí {{method}}",
+        "methodKey": "klíč",
+        "methodPassword": "heslo",
+        "methodNone": "žádné uložené přihlášení"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Připojení bylo přerušeno"
+      },
+      "thisBuildHasNoSsh": "Tato verze nemá SSH engine. Použijte aplikaci ze store nebo propojte server Termix pro připojení.",
+      "theHostsOnThisAre": "Hostitelé na tomto {{deviceWord}} ještě nejsou otevřeni.",
+      "thisServerSHostsAre": "Hostitelé tohoto serveru nejsou na tomto {{deviceWord}}. Zapněte plugin Sync na serveru pro připojení z {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Uložené přihlášení pro tohoto hostitele není na tomto {{deviceWord}}, takže se může přihlásit pouze server."
+      }
+    },
+    "origin": {
+      "canTConnect": "Nelze připojit.",
+      "canTConnectFromThe": "Nelze připojit z tohoto {{deviceWord}}.",
+      "canTReachTheServer": "Nelze dosáhnout serveru.",
+      "theOnlyConnectsToSsh": "Toto {{deviceWord}} se připojuje pouze k hostitelům SSH a Telnet.",
+      "connectThisHostThroughThe": "Připojit tohoto hostitele přes server",
+      "connectThisHostFromThe": "Připojit tohoto hostitele z {{deviceWord}}",
+      "termixServer": "Termix server",
+      "usesThisWhenItCan": "Používá toto {{deviceWord}}, pokud se může připojit k hostiteli, jinak server.",
+      "thisConnectsToTheHost": "Toto {{deviceWord}} se připojuje přímo k hostiteli.",
+      "theTermixServerConnectsTo": "Termix server se za vás připojí k hostiteli.",
+      "anSshConnection": "SSH připojení",
+      "aTermixServer": "Termix server",
+      "aConnectionFromThe": "připojení z {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} je na tomto serveru vypnuto. {{how}} pro jeho použití.",
+      "isOffOnThisServer2": "{{title}} je na tomto serveru vypnuto.",
+      "anotherWayToConnect": "další způsob připojení",
+      "needsToUseIt": "{{title}} vyžaduje {{what}}. {{how}} pro jeho použití.",
+      "needsWhichThisHostCan": "{{title}} vyžaduje {{what}}, což tento hostitel momentálně nepodporuje.",
+      "thisDevice": "Toto {{deviceWord}}",
+      "automatic": "Automaticky"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Jste odhlášeni z tohoto serveru. Přihlaste se pro připojení přes něj.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux není na tomto hostiteli nainstalován. Používá se obyčejný shell.",
+        "tapRetryToBringIt": "Klepněte na Opakovat pro jeho obnovení zde.",
+        "thisSessionWasOpenedOn": "Tato relace byla otevřena na jiném zařízení",
+        "noServerUrlFoundLink": "Nebyla nalezena adresa serveru. Odkazujte server znovu.",
+        "signedOutOfThisServer": "Odhlášeni z tohoto serveru. Přihlaste se znovu.",
+        "signInWithInYour": "Přihlaste se pomocí {{title}} ve svém prohlížeči. Toto okno se po dokončení zavře.",
+        "theSocketClosedWhileThe": "Socket se uzavřel, zatímco byla aplikace na pozadí",
+        "noWebsocketUrlAvailableServer": "Není dostupná WebSocket adresa – server není nakonfigurován",
+        "connectionTimeoutServerNotResponding": "Časový limit připojení – server neodpovídá",
+        "verificationCode": "Ověřovací kód:",
+        "hostKeyVerificationRequiredBut": "Je vyžadována ověření klíče hostitele, ale není zaregistrován žádný zpracovatel",
+        "hostKeyChangedButNo": "Klíč hostitele se změnil, ale není zaregistrován žádný zpracovatel",
+        "thisHostNeedsASign": "Tento hostitel vyžaduje přihlášení, které podporuje pouze webová aplikace",
+        "invalidCodeTryAgain": "Neplatný kód, zkuste to znovu:",
+        "unknownError": "Neznámá chyba",
+        "connectionClosed": "Připojení uzavřeno",
+        "connectionClosed2": "Připojení uzavřeno ({{code}})",
+        "theServerClosedTheConnection": "Server uzavřel připojení",
+        "theSocketClosed": "Socket se uzavřel ({{code}})",
+        "signIn": "Přihlášení {{title}}",
+        "signInFailed": "Přihlášení {{title}} selhalo",
+        "isNotSetUpOn": "{{title}} není na serveru nastaveno",
+        "signInTimedOut": "Časový limit přihlášení {{title}} vypršel",
+        "authenticationFailed": "Ověření selhalo: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Uložte hostitele a připojte se k němu pro ověření.",
+      "loggedInAsOn": "Přihlášeno jako {{username}} na {{host}}",
+      "theHostAskedForMore": "Hostitel požadoval více než heslo, například kód. Uložte hostitele a připojte se pro dokončení přihlášení."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Čekání na síť",
+      "couldNotOpenTheTunnel": "Nelze otevřít tunel",
+      "theConnectionDropped": "Připojení přerušeno",
+      "iosStoppedThisTunnelWhile": "iOS zastavil tento tunel, zatímco byla aplikace na pozadí. Spusťte jej znovu pro otevření.",
+      "connecting": "Připojování",
+      "connected": "Připojeno",
+      "retrying": "Opakování",
+      "waiting": "Čekání",
+      "failed": "Selhalo"
+    },
+    "gateways": {
+      "error": "Chyba",
+      "gateways": "Brány",
+      "gatewaysCanOnlyBeChanged": "Brány lze měnit pouze v Termixu na webu.",
+      "noHandshake": "Žádné potřesení rukou",
+      "rulesMissing": "Chybí pravidla",
+      "up": "Aktivní",
+      "pending": "Čeká se",
+      "applying": "Aplikuje se",
+      "down": "Vypnuto",
+      "unreachable": "Nedostupné"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Zatím žádné tunely. Přidejte jeden pro přeposílání portu z koncového hostitele na tento hostitel.",
+      "tunnel": "Tunel {{value}}",
+      "removeTunnel": "Odebrat tunel {{value}}",
+      "mode": "Režim",
+      "local": "Lokální",
+      "remote": "Vzdálený",
+      "dynamic": "Dynamický",
+      "targetHost": "Cílový hostitel",
+      "onThisHostForTunnels": "Na tomto hostiteli, pro tunely, které běží na {{deviceWord}}",
+      "bindHost": "Hostitel vazby",
+      "endpointHost": "Koncový hostitel",
+      "addAnotherHostFirstTunnels": "Nejprve přidejte jiného hostitele. Tunely procházejí přes uloženého hostitele.",
+      "sourcePort": "Zdrojový port",
+      "endpointPort": "Koncový port",
+      "maxRetries": "Max. počet opakování",
+      "retryEveryS": "Opakovat každých (s)",
+      "startOnItsOwn": "Spustit automaticky",
+      "addTunnel": "Přidat tunel",
+      "tunnelNeedsPortsFrom1": "Tunel {{value}} vyžaduje porty v rozmezí 1 až 65535"
+    },
+    "register": {
+      "tunnels": "Tunely",
+      "startAndStopSavedTunnels": "Spouštět a zastavovat uložené tunely",
+      "tunnel": "TUNEL",
+      "tunnel2": "Tunel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Lokální koncový bod zkopírován",
+      "tunnel": "Tunel | {{sourcePort}}",
+      "portMapping": "Mapování portů",
+      "connect": "Připojit",
+      "disconnect": "Odpojit",
+      "cancel": "Zrušit",
+      "connected": "Připojeno",
+      "connecting": "Připojování",
+      "disconnecting": "Odpojování",
+      "error": "Chyba",
+      "retrying": "Opakování ({{value}}/{{value2}})",
+      "waitingS": "Čekání {{value}} s",
+      "waiting": "Čekání",
+      "disconnected": "Odpojeno"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Spouštění tunelu na portu {{sourcePort}}",
+      "connectingTunnelOnPort": "Připojování tunelu na portu {{sourcePort}}",
+      "disconnectingPort": "Odpojování portu {{sourcePort}}",
+      "cancellingPort": "Rušení portu {{sourcePort}}",
+      "failedToTunnel": "Nepodařilo se {{action}} tunel",
+      "tunnels": "Tunely | {{count}} | {{value}}",
+      "loadingTunnels": "Načítání tunelů…",
+      "noSshTunnelsConfiguredFor": "Pro tohoto hostitele nejsou nakonfigurovány žádné SSH tunely. Přidejte tunely z formuláře hostitele.",
+      "runOn": "Spustit na",
+      "server": "Server",
+      "this": "Tento {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tunely na tomto {{deviceWord}} se zastaví po zavření aplikace. Na iOS se také zastaví krátce po přechodu aplikace na pozadí.",
+      "failedToFetchTunnelStatuses": "Nepodařilo se načíst stavy tunelů",
+      "thisBuildCanTOpen": "Tato verze nemůže otevírat tunely na {{deviceWord}}.",
+      "sourceHostNotFound": "Zdrojový hostitel nebyl nalezen",
+      "endpointHostNotFound": "Koncový hostitel nebyl nalezen: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tunely",
+      "tunnelCount_one": "{{count}} tunel",
+      "tunnelCount_few": "{{count}} tunely",
+      "tunnelCount_many": "{{count}} tunelů",
+      "tunnelCount_other": "{{count}} tunelů",
+      "runningOnServer": "{{connected}} běží na serveru"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Nástroje pro přihlašovací údaje"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker není na tomto hostiteli nainstalován.",
+        "dockerDidNotAnswer": "Docker neodpověděl",
+        "thatIsNotAValid": "Toto není platný název stacku"
+      }
+    },
+    "containerDetail": {
+      "stop": "Zastavit",
+      "start": "Spustit",
+      "restart": "Restartovat",
+      "remove": "Odstranit",
+      "logs": "Protokoly",
+      "stats": "Statistiky",
+      "console": "Konzole",
+      "logsCopied": "Protokoly zkopírovány",
+      "copy": "Kopírovat",
+      "containerIsNotRunningNo": "Kontejner neběží, nejsou k dispozici živé statistiky.",
+      "cpu": "CPU",
+      "memory": "Paměť",
+      "networkIO": "Síťový I/O",
+      "blockIO": "Blokový I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Nepodařilo se načíst protokoly",
+      "failedToLoadStats": "Nepodařilo se načíst statistiky",
+      "noOutput": "(žádný výstup)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Připojování k Dockeru...",
+    "remove": "Odstranit {{name}}?",
+    "stop": "Zastavit {{name}}?",
+    "theContainerIsStoppedAnd": "Kontejner je zastaven a smazán. Jeho svazky zůstanou.",
+    "anythingRunningInItStops": "Všechno, co v něm běží, se zastaví.",
+    "remove2": "Odstranit",
+    "stop2": "Zastavit",
+    "dockerThis": "Docker | tento {{deviceWord}}",
+    "lookingForDocker": "Vyhledávání Dockeru...",
+    "dockerIsNotAvailableOn": "Docker není na tomto hostiteli k dispozici.",
+    "noContainersFound": "Nebyly nalezeny žádné kontejnery",
+    "noContainersMatchYourFilters": "Žádné kontejnery neodpovídají vašim filtrům",
+    "useSudo": "Použít sudo",
+    "refresh": "Obnovit",
+    "containers": "Kontejnery",
+    "stacks": "Stacky",
+    "searchContainers": "Hledat kontejnery...",
+    "all": "Vše",
+    "running": "Běžící",
+    "stopped": "Zastavené",
+    "start": "Spustit",
+    "restart": "Restartovat",
+    "pause": "Pozastavit",
+    "unpause": "Zrušit pozastavení",
+    "moreActions": "Další akce",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker neodpověděl",
+      "docker": "Docker",
+      "noContainers": "Žádné kontejnery"
+    },
+    "dockerConsole": {
+      "attachingTo": "Připojování k {{name}}...",
+      "consoleDisconnected": "Konzole odpojena",
+      "reconnect": "Znovu připojit",
+      "failedToLoadTheConsole": "Nepodařilo se načíst konzoli",
+      "thisSessionHasNoServer": "Tato relace nemá server"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Kontejnery, protokoly a statistiky"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stacky jsou na tomto serveru vypnuty.",
+      "couldNotLoadStacks": "Nepodařilo se načíst stacky",
+      "noStacks": "Žádné zásobníky",
+      "composeProjectsOnThisHost": "Zde se zobrazují Compose projekty na tomto hostiteli.",
+      "ofRunning": "{{running}} z {{total}} běží",
+      "couldNotLoadTheStack": "Nepodařilo se načíst zásobník",
+      "services": "Služby",
+      "nothingIsRunning": "Nic neběží.",
+      "composeFile": "Soubor Compose",
+      "partlyUp": "částečně spuštěno",
+      "notDeployed": "nenasazeno",
+      "running": "běží",
+      "stopped": "zastaveno",
+      "paused": "pozastaveno"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Toto není platné ID kontejneru",
+      "consoleFailed": "Konzole selhala",
+      "notAuthenticated": "Neautentizováno",
+      "consoleError": "Chyba konzole",
+      "connectionFailed": "Připojení selhalo"
+    },
+    "dockerDidNotAnswer": "Docker neodpověděl",
+    "failedToLoadContainers": "Nepodařilo se načíst kontejnery",
+    "failedTo": "Akce {{action}} selhala"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Server neposlal žádný soubor",
+        "cancelled": "Zrušeno",
+        "isGone": "{{path}} neexistuje",
+        "canTGoToThe": "{{name}} nelze přesunout do koše"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Neplatné ID položky v koši",
+        "invalidTrashMetadata": "Neplatná metadata koše",
+        "thisPathCanTBe": "Tuto cestu nelze přesunout do koše",
+        "aFileAlreadyExistsAt": "Na původní cestě již existuje soubor"
+      },
+      "sftp": {
+        "commandFailed": "Příkaz selhal: {{command}}",
+        "alreadyExists": "{{name}} již existuje",
+        "alreadyExistsThere": "{{path}} tam již existuje",
+        "canTGoToThe": "{{name}} nelze přesunout do koše: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminál již není otevřený",
+      "clearHistory": "Vymazat historii",
+      "stopFollowingTheTerminal": "Přestat sledovat terminál",
+      "followTheTerminal": "Sledovat terminál",
+      "goToTheTerminalS": "Přejít do složky terminálu",
+      "cdTheTerminalHere": "Přejít terminálem do této složky",
+      "folderHistory": "Historie složek",
+      "mostUsedFirstThenRecent": "Nejprve nejčastěji používané, pak nedávné",
+      "noFoldersYet": "Zatím žádné složky"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Nelze se připojit.",
+        "couldNotSaveHowThis": "Nepodařilo se uložit způsob připojení tohoto hostitele",
+        "thisWayCanTOpen": "Tento způsob neumí otevírat soubory"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Nepodařilo se otevřít tuto složku",
+      "cancel": "Zrušit",
+      "noFoldersHere": "Zde nejsou žádné složky"
+    },
+    "couldNotOpenThisFolder": "Nepodařilo se otevřít tuto složku",
+    "couldNotSaveToThe": "Nepodařilo se uložit do složky",
+    "failed": "{{label}} selhalo",
+    "uploading": "Nahrávání {{name}}",
+    "uploadingFiles": "Nahrávání {{count}} souborů",
+    "downloadingToFilesOnMy": "Stahování do Souborů, Na mém iPhonu, Termix",
+    "downloading": "Stahování {{name}}",
+    "downloadingFiles": "Stahování {{count}} souborů",
+    "openALargeFile": "Otevřít velký soubor?",
+    "isBigForAEditor": "{{name}} je velký pro editor na {{deviceWord}}. Může být pomalý.",
+    "open": "Otevřít",
+    "thisLooksLikeABinary": "Toto vypadá jako binární soubor",
+    "openItInAnotherApp": "Otevřít ho v jiné aplikaci?",
+    "openWith": "Otevřít v",
+    "tooBigForTheEditor": "Soubor je příliš velký pro editor",
+    "isOver10MbDownload": "{{name}} je větší než 10 MB. Stáhnout ho místo toho?",
+    "download": "Stáhnout",
+    "delete": "Smazat {{what}}?",
+    "moveToTheTrash": "Přesunout {{what}} do koše?",
+    "thisCanTBeUndone": "Tuto akci nelze vrátit zpět.",
+    "youCanRestoreItFrom": "Můžete ho obnovit z koše.",
+    "delete2": "Smazat",
+    "moveToTrash": "Přesunout do koše",
+    "deleteForGood": "Trvale smazat?",
+    "deleteItForGoodInstead": "{{message}}. Místo toho ho trvale smazat? Tuto akci nelze vrátit zpět.",
+    "deleteFailed": "Mazání selhalo",
+    "connectingThroughTheServer": "Připojování přes server...",
+    "connectingFromThis": "Připojování z tohoto {{deviceWord}}...",
+    "connecting": "Připojování...",
+    "edit": "Upravit",
+    "downloadFolder": "Stáhnout složku",
+    "share": "Sdílet",
+    "rename": "Přejmenovat",
+    "copyTo": "Kopírovat do",
+    "moveTo": "Přesunout do",
+    "cut": "Vyjmout",
+    "copy": "Kopírovat",
+    "permissions": "Oprávnění",
+    "properties": "Vlastnosti",
+    "makeALinkHere": "Vytvořit odkaz zde",
+    "copyPath": "Kopírovat cestu",
+    "pathCopied": "Cesta zkopírována",
+    "done": "Hotovo",
+    "selectAll": "Vybrat vše",
+    "filterByName": "Filtrovat podle názvu",
+    "closeSearch": "Zavřít hledání",
+    "search": "Hledat",
+    "changeSort": "Změnit řazení",
+    "paste": "Vložit {{count}}",
+    "upload": "Nahrát",
+    "transfers2": "Přenosy",
+    "more": "Více",
+    "nothingMatches": "Nic neodpovídá",
+    "emptyFolder": "Prázdná složka",
+    "uploadFilesOrMakeA": "Nahrajte soubory nebo vytvořte nový.",
+    "newFolder": "Nová složka",
+    "newFile": "Nový soubor",
+    "select": "Vybrat",
+    "hideHiddenFiles": "Skrýt skryté soubory",
+    "showHiddenFiles": "Zobrazit skryté soubory",
+    "trash": "Koš",
+    "folderProperties": "Vlastnosti složky",
+    "refresh": "Obnovit",
+    "rename2": "Přejmenovat {{name}}",
+    "newLink": "Nový odkaz",
+    "aLinkInThatPoints": "Odkaz v {{path}} ukazující na {{path2}}",
+    "name": "Název",
+    "create": "Vytvořit",
+    "copyHere": "Kopírovat sem",
+    "moveHere": "Přesunout sem",
+    "fileViewer": {
+      "saved": "Uloženo {{name}}",
+      "couldNotSaveTheFile": "Soubor se nepodařilo uložit",
+      "discardChanges": "Zahodit změny?",
+      "hasChangesThatAreNot": "{{name}} má neuložené změny.",
+      "discard": "Zahodit",
+      "readOnly": "{{path}} | pouze pro čtení",
+      "find": "Hledat",
+      "smallerText": "Menší text",
+      "biggerText": "Větší text",
+      "turnOffLineWrap": "Vypnout zalomení řádků",
+      "wrapLines": "Zalomit řádky",
+      "save": "Uložit"
+    },
+    "hostSection": {
+      "startIn": "Spustit v",
+      "theFolderTheFileManager": "Složka, ve které se správce souborů otevře jako první",
+      "files": "Soubory"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Přejít do {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Další akce",
+        "moreFor": "Další pro {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Oprávnění",
+      "cancel": "Zrušit",
+      "apply": "Použít ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Nelze otevřít",
+      "openWith": "Otevřít pomocí",
+      "share": "Sdílet"
+    },
+    "propertiesView": {
+      "properties": "Vlastnosti",
+      "path": "Cesta",
+      "type": "Typ",
+      "pointsTo": "Odkazuje na",
+      "size": "Velikost",
+      "countFolderSize": "Spočítat velikost složky",
+      "permissions": "Oprávnění",
+      "change": "Změnit",
+      "owner": "Vlastník",
+      "group": "Skupina",
+      "modified": "Změněno",
+      "opened": "Otevřeno",
+      "linkToA": "Odkaz na {{value}}",
+      "notShownForFolders": "Nezobrazuje se pro složky",
+      "file": "Soubor",
+      "folder": "Složka",
+      "link": "Odkaz"
+    },
+    "register": {
+      "fileManager": "Správce souborů",
+      "files": "Soubory",
+      "browseEditAndMoveFiles": "Procházení, úprava a přesun souborů",
+      "files2": "SOUBORY",
+      "fileManagerAndTransfers": "Správce souborů a přenosy"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Přenos selhal"
+      },
+      "transfersPanel": {
+        "pause": "Pozastavit",
+        "resume": "Obnovit",
+        "tryAgain": "Zkusit znovu",
+        "open": "Otevřít",
+        "cancel": "Zrušit",
+        "transfers": "Přenosy",
+        "goingOf": "{{active}} probíhá | {{done}} z {{total}}",
+        "clearFinished": "Vyčistit dokončené",
+        "cancelAll": "Zrušit vše",
+        "noTransfersYet": "Zatím žádné přenosy",
+        "waiting": "Čeká se",
+        "paused": "Pozastaveno",
+        "done": "Dokončeno",
+        "failed": "Selhalo",
+        "cancelled": "Zrušeno"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Nepodařilo se načíst koš",
+      "restored": "Obnoven {{name}}",
+      "failedToRestore": "Obnovení selhalo",
+      "failedToDelete": "Smazání selhalo",
+      "trashEmptied": "Koš vyprázdněn",
+      "failedToEmptyTrash": "Vyprázdnění koše selhalo",
+      "trash": "Koš",
+      "itemsAreRemovedAfterDays": "Položky jsou odstraněny po {{retentionDays}} dnech",
+      "close": "Zavřít",
+      "emptyTrash": "Vyprázdnit koš",
+      "trashIsEmpty": "Koš je prázdný",
+      "restore": "Obnovit {{name}}",
+      "deleteForGood": "Trvale smazat {{name}}"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Právě teď"
+      }
+    },
+    "getting": "Načítání {{name}}",
+    "itemCount_one": "{{count}} položka",
+    "itemCount_few": "{{count}} položky",
+    "itemCount_many": "{{count}} položek",
+    "itemCount_other": "{{count}} položek",
+    "copiedWhat": "Zkopírováno {{what}}",
+    "movedWhat": "Přesunuto {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} obsahuje více než {{limit}} souborů. Stáhněte menší složky."
+    },
+    "downloadingToFilesOnMyIpad": "Stahování do Soubory, Na mém iPadu, Termix",
+    "size": "Velikost",
+    "date": "Datum"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Odkazy na služby",
+      "openInHomepage": "Otevřít na domovské stránce",
+      "thisWidgetOnlyShowsOn": "Tento widget se zobrazuje pouze na celé stránce."
+    },
+    "register": {
+      "serviceLinks": "Odkazy na služby",
+      "homepage": "Domovská stránka"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Žádný kanál nenastaven.",
+        "couldNotLoadTheFeed": "Kanál se nepodařilo načíst.",
+        "theFeedIsEmpty": "Kanál je prázdný.",
+        "noLocationSet": "Žádná poloha nenastavena.",
+        "couldNotLoadTheWeather": "Počasí se nepodařilo načíst.",
+        "noUrlSet": "Žádná URL nenastavena.",
+        "couldNotLoadTheData": "Data se nepodařilo načíst.",
+        "noPictureSet": "Žádný obrázek nenastaven.",
+        "badResponse": "špatná odpověď"
+      },
+      "services": "Služby",
+      "service": "Služba",
+      "serviceLinks": "Odkazy na služby",
+      "bookmarks": "Záložky",
+      "links2": "Odkazy",
+      "search": "Hledat",
+      "clock": "Hodiny",
+      "countdown": "Odpočet",
+      "calendar": "Kalendář",
+      "notes": "Poznámky",
+      "banner": "Bannr",
+      "ping": "Ping",
+      "host": "Hostitel",
+      "hosts": "Hostitelé",
+      "quickConnect": "Rychlé připojení",
+      "feed": "Kanál",
+      "weather": "Počasí",
+      "customApi": "Vlastní API",
+      "picture": "Obrázek",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Zatím žádné služby.",
+        "noLinkSet": "Žádný odkaz nenastaven.",
+        "noLinksYet": "Zatím žádné odkazy.",
+        "noSearchEngineSet": "Žádný vyhledávač nenastaven.",
+        "search": "Hledat",
+        "noShortcutsYet": "Zatím žádné zkratky.",
+        "search2": "Hledat v {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Odkaz se nepodařilo otevřít"
+      },
+      "status": {
+        "noUrlsYet": "Zatím žádné URL.",
+        "down": "Mimo provoz",
+        "noHostsPicked": "Nebyly vybrány žádné hosty."
+      },
+      "text": {
+        "noNotesYet": "Zatím žádné poznámky.",
+        "noTextYet": "Zatím žádný text."
+      },
+      "time": {
+        "noDateSet": "Datum není nastaveno.",
+        "timeIsUp": "Čas vypršel"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Výchozí hodnoty se nepodařilo uložit",
+    "couldNotResetTheDefault": "Výchozí hodnoty se nepodařilo resetovat",
+    "back": "Zpět",
+    "hostDefaults": "Výchozí hodnoty hostů",
+    "newHostsStartFromThese": "Noví hosté začínají s těmito hodnotami",
+    "managedOnTheServer": "Spravováno na serveru",
+    "defaultsForThisServerAre": "Výchozí hodnoty pro tento server jsou nastaveny v webové aplikaci.",
+    "level": "Úroveň",
+    "yourDefaultsOrOneFolder": "Vaše výchozí hodnoty nebo hodnoty složky",
+    "myDefaults": "Moje výchozí hodnoty",
+    "theServerSets": " Server nastavuje {{adminCount}}.",
+    "aFolderWinsOverYour": "Složka má přednost před vašimi výchozími hodnotami a vaše výchozí hodnoty mají přednost před těmi serveru. Hostitel si zachovává jakoukoli hodnotu, kterou jste na něm nastavili sami.{{value}}",
+    "save": "Uložit",
+    "authentication": "Ověřování",
+    "none": "Žádné",
+    "reset": "Resetovat",
+    "model": {
+      "username": "Uživatelské jméno",
+      "sshPort": "SSH port",
+      "authentication": "Ověřování",
+      "aSavedCredentialForNew": "Uložené přihlašovací údaje pro nové hosty",
+      "forceKeyboardInteractive": "Vynutit interaktivní klávesnici",
+      "keepaliveInterval": "Interval keepalive",
+      "seconds0TurnsItOff": "Sekundy, 0 vypne funkci",
+      "keepaliveTries": "Počet pokusů keepalive",
+      "allowOldAlgorithms": "Povolit staré algoritmy",
+      "agentForwarding": "Přeposílání agenta",
+      "environmentVariables": "Proměnné prostředí",
+      "oneNameValuePerLine": "Jeden NAME=hodnota na řádek",
+      "checkIfTheHostIs": "Zkontrolovat, zda je host dostupný",
+      "checkInterval": "Interval kontroly",
+      "secondsEmptyUsesTheServer": "Sekundy, prázdné použije hodnotu serveru",
+      "socks5Proxy": "SOCKS5 proxy",
+      "setInTheWebApp": "Nastaveno v webové aplikaci",
+      "jumpHosts": "Překopírovat hosty",
+      "portKnocking": "Port knocking",
+      "notSet": "Nenastaveno",
+      "fromTheServer": "Ze serveru",
+      "fromYourDefaults": "Z vašich výchozích hodnot",
+      "builtIn": "Vestavěné"
+    },
+    "register": {
+      "hostDefaults": "Výchozí hodnoty hostů",
+      "portUserAndOptionsFor": "Port, uživatel a možnosti pro nové hosty"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Zatím žádná data",
+      "cpu": "CPU",
+      "memory": "Paměť",
+      "disk": "Disk",
+      "history": "Historie",
+      "loading": "Načítání..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Metriky se nepodařilo přečíst",
+      "metrics": "Metriky",
+      "cpu": "CPU",
+      "memory": "Paměť",
+      "disk": "Disk",
+      "noRecentSampleOpenThe": "Žádná nedávná data. Otevřete metriky hostitele pro spuštění sběru."
+    },
+    "register": {
+      "enableMetrics": "Povolit metriky",
+      "cpuMemoryDiskAndNetwork": "CPU, paměť, disk a síť přes SSH",
+      "hostMetrics": "Metriky hostitele",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metriky",
+      "cpuMemoryDiskAndNetwork2": "CPU, paměť, disk a síť"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Metriky hostitele | tento {{deviceWord}}",
+      "hostMetrics": "Metriky hostitele",
+      "ran": "Spuštěno {{name}}",
+      "loadingMetrics": "Načítání metrik...",
+      "couldNotReadMetricsFrom": "Nelze přečíst metriky z tohoto hostitele",
+      "failedToLoadMetrics": "Nepodařilo se načíst metriky",
+      "thisSessionHasNoServer": "Tato relace nemá přiřazený server",
+      "twoFactorRequiredForThis": "Pro statistiky tohoto hostitele je vyžadováno dvoufázové ověření.",
+      "failedToStartMetrics": "Nepodařilo se spustit sběr metrik",
+      "failedToRun": "Nepodařilo se spustit {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Na jádro: {{value}}",
+        "cores": "Jádra",
+        "load": "Zátěž",
+        "user": "Uživatel",
+        "system": "Systém",
+        "ioWait": "Poč. na IO",
+        "steal": "Vyhrazeno"
+      },
+      "diskWidget": {
+        "disk": "Disk {{mount}}",
+        "disk2": "Disk",
+        "used": "Použito",
+        "total": "Celkem",
+        "free": "Volné"
+      },
+      "firewallWidget": {
+        "firewall": "Firewall",
+        "rules": "{{type}} | {{ruleCount}} pravidel",
+        "noFirewallDetected": "Nebyl detekován žádný firewall"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "Paměť",
+        "temp": "Teplota",
+        "power": "Výkon",
+        "fan": "Ventilátor"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Aktivita přihlášení",
+        "noLoginActivityRecorded": "Nebyla zaznamenána žádná aktivita přihlášení",
+        "logins": "Přihlášení",
+        "uniqueIps": "Unikátní IP adresy",
+        "failed": "Nepovedené",
+        "recent": "Nedávné"
+      },
+      "memoryWidget": {
+        "memory": "Paměť",
+        "used": "Použito",
+        "total": "Celkem",
+        "cached": "V mezipaměti",
+        "free": "Volné"
+      },
+      "networkWidget": {
+        "network": "Síť",
+        "noInterfaces": "Žádné rozhraní",
+        "up": "Nahoru",
+        "down": "Dolů"
+      },
+      "portsWidget": {
+        "listeningPorts": "Poslouchající porty",
+        "noListeningPorts": "Žádné poslouchající porty"
+      },
+      "processesWidget": {
+        "sortBy": "Seřadit podle {{label}}",
+        "processes": "Procesy",
+        "running": "{{value}} běží | {{total}}",
+        "noProcessData": "Žádná data o procesech",
+        "cpu": "CPU %",
+        "mem": "MEM %",
+        "command": "POKYN"
+      },
+      "systemWidget": {
+        "system": "Systém",
+        "hostname": "Název hostitele",
+        "os": "OS",
+        "kernel": "Jádro",
+        "arch": "Architektura",
+        "noSystemInfo": "Žádné informace o systému"
+      },
+      "temperatureWidget": {
+        "temperature": "Teplota"
+      },
+      "uptimeWidget": {
+        "uptime": "Doba běhu"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Zkopírováno s heslem",
+      "copiedTheLink": "Odkaz zkopírován",
+      "shareHost": "Sdílet hostitele",
+      "thatHostNoLongerExists": "Tento hostitel již neexistuje",
+      "scanThisInTermixOn": "Naskenujte toto v Termixu na jiném {{deviceWord}} v sekci Import a export. Kód obsahuje adresu, port a uživatele. Neobsahuje heslo ani klíč.",
+      "copyLink": "Kopírovat odkaz",
+      "copyLinkWithPassword": "Kopírovat odkaz s heslem"
+    },
+    "includePasswordsAndKeys": "Zahrnout hesla a klíče?",
+    "anyoneWhoGetsThisFile": "Kdokoli, kdo získá tento soubor, se může přihlásit k těmto hostitelům. Chraňte jej.",
+    "includeThem": "Zahrnout",
+    "pickAtLeastOneHost": "Vyberte alespoň jednoho hostitele",
+    "couldNotMakeTheFile": "Nelze vytvořit soubor",
+    "copiedToTheClipboard": "Zkopírováno do schránky",
+    "importAndExport": "Import a export",
+    "moveHostsInAndOut": "Přesun hostitelů",
+    "import": "Import",
+    "aTermixHostFileAn": "Soubor hostitele Termix, konfigurační soubor SSH nebo odkaz na hostitele nebo QR kód z jiného {{deviceWord}}.",
+    "export": "Export",
+    "allHosts": "Všichni hostitelé",
+    "picked": "{{size}} vybráno",
+    "pickHosts": "Vybrat hostitele",
+    "includePasswordsAndKeys2": "Zahrnout hesla a klíče",
+    "offMakesAFileSafe": "Vypnutí zajišťuje bezpečnost souboru pro sdílení. Hostitelé používající uložené přihlašovací údaje na něj odkazují podle názvu",
+    "shareAFile": "Sdílet soubor",
+    "copy": "Kopírovat",
+    "importPanel": {
+      "couldNotReadThat": "Nelze to přečíst",
+      "couldNotReadThatFile": "Nelze přečíst tento soubor",
+      "importFailed": "Import selhal",
+      "chooseAFile": "Vyberte soubor",
+      "paste": "Vložit",
+      "scanACode": "Naskenovat kód",
+      "couldNotBeRead": "{{count}} nelze přečíst",
+      "updateHostsThatExist": "Aktualizovat existující hostitele",
+      "sameAddressPortAndUser": "Stejná adresa, port a uživatel. V opačném případě jsou přeskočeni",
+      "cancel": "Zrušit",
+      "import": "Import",
+      "andMore": "a {{value}} dalších"
+    },
+    "qrCode": {
+      "qrCode": "QR kód"
+    },
+    "register": {
+      "importAndExport": "Import a export",
+      "moveHostsInOrOut": "Přesun hostitelů pomocí souboru nebo QR kódu",
+      "shareHost": "Sdílet hostitele"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Naskenovat kód hostitele",
+      "pointTheCameraAtA": "Namířte kameru na QR kód hostitele Termix.",
+      "termixNeedsTheCameraTo": "Termix potřebuje kameru pro skenování kódu. Nic se neukládá.",
+      "allowTheCamera": "Povolit kameru"
+    },
+    "read": {
+      "termixFile": "Soubor Termix",
+      "sshConfig": "SSH config",
+      "thereIsNothingToImport": "Není co importovat",
+      "thatIsNotATermix": "Toto není odkaz na hostitele Termix",
+      "linkHost": "1 hostitel: {{name}}",
+      "sourceHosts_one": "{{what}} s {{count}} hostitelem",
+      "sourceHosts_few": "{{what}} s {{count}} hostiteli",
+      "sourceHosts_many": "{{what}} s {{count}} hostiteli",
+      "sourceHosts_other": "{{what}} s {{count}} hostiteli"
+    },
+    "saveYourTermixHosts": "Uložit hostitele Termix"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Hotovo",
+      "rejected": "Zamítnuto",
+      "approvals": "Schvalování",
+      "nothingIsWaiting": "Nic nečeká",
+      "actionsARuleHoldsFor": "Akce vyžadující schválení podle pravidel se zobrazí zde.",
+      "approveAndRun": "Schválit a spustit",
+      "reject": "Zamítnout",
+      "couldNotLoadApprovals": "Nelze načíst schvalování",
+      "couldNotDecide": "Nelze rozhodnout"
+    },
+    "approvalsCard": {
+      "approved": "Schváleno",
+      "rejected": "Zamítnuto",
+      "waitingForApproval": "Čeká na schválení",
+      "approve": "Schválit",
+      "reject": "Zamítnout",
+      "couldNotDecide": "Nelze rozhodnout",
+      "seeAll": "Zobrazit vše"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Toto nelze vrátit zpět. Spustit?",
+      "run": "Spustit",
+      "sentForApproval": "Odesláno ke schválení",
+      "target": "Cíl",
+      "theItemOnTheHost": "Položka na hostiteli, například kontejner",
+      "dryRun": "Testovací spuštění",
+      "back": "Zpět",
+      "actions": "Akce",
+      "noActionsForThisHost": "Žádné akce pro tohoto hostitele",
+      "turnOnAPluginLike": "Na serveru pro tohoto hostitele zapněte plugin jako Docker nebo Services.",
+      "destructive": "Destruktivní",
+      "changes": "Změny",
+      "theActionCouldNotRun": "Akci se nepodařilo spustit",
+      "couldNotLoadActions": "Nelze načíst akce"
+    },
+    "register": {
+      "actions": "Akce",
+      "waitingForApproval": "Čeká na schválení",
+      "approvals": "Schvalování",
+      "actionsWaitingForAPerson": "Akce čekající na souhlas uživatele",
+      "runHistory": "Historie spuštění",
+      "everyActionAnyoneRanFrom": "Všechny akce spuštěné kýmkoli z jakéhokoli zařízení"
+    },
+    "runHistory": {
+      "cancelThisRun": "Zrušit toto spuštění?",
+      "cancelRun": "Zrušit spuštění",
+      "keep": "Ponechat",
+      "undoThisRun": "Vrátit toto spuštění zpět?",
+      "thisRunsTheActionS": "Toto spustí vrácení akce se stejným vstupem.",
+      "undo": "Vrátit zpět",
+      "cancelled": "Zrušeno",
+      "itAlreadyFinished": "Už je hotovo",
+      "done": "Hotovo",
+      "runHistory": "Historie spuštění",
+      "nothingHasRunYet": "Zatím nic nebylo spuštěno",
+      "dryRun": "Testovací spuštění",
+      "cancel": "Zrušit",
+      "couldNotLoadHistory": "Nelze načíst historii",
+      "couldNotCancel": "Nelze zrušit",
+      "couldNotUndo": "Nelze vrátit zpět"
+    },
+    "api": {
+      "needsApproval": "Vyžaduje schválení",
+      "needsSignIn": "Vyžaduje přihlášení",
+      "done": "Hotovo",
+      "failed": "Selhalo",
+      "running": "Běží",
+      "interrupted": "Přerušeno",
+      "rejected": "Odmítnuto",
+      "cancelled": "Zrušeno",
+      "expired": "Vypršela platnost"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Zapnout {{value}}",
+      "moreSettingsForThisAre": "Další nastavení najdete v webové aplikaci Termix.",
+      "pluginHostSettings": "Nastavení hostitele pluginu"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} musí být číslo",
+      "mustBeAtLeast": "{{field}} musí být alespoň {{min}}",
+      "mustBeAtMost": "{{field}} musí být nejvýše {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Pro použití propojte server",
+      "runsOnYourTermixServer": "{{name}} běží na vašem serveru Termix."
+    },
+    "pluginWebView": {
+      "canTLoad": "Nelze načíst {{name}}",
+      "theServerDidNotSend": "Server neposlal plugin. Zkontrolujte, zda je spuštěn, a zkuste to znovu.",
+      "openThisLink": "Otevřít tento odkaz?",
+      "open": "Otevřít",
+      "needsANewerVersionOf": "Vyžaduje novější verzi aplikace",
+      "usesPartsOfTermixThis": "{{name}} používá části Termix, které tato aplikace ještě nemá.",
+      "didNotStart": "{{name}} se nespustil",
+      "thisScreenIsNotIn": "Tento obrazovka není součástí verze pluginu na serveru.",
+      "thePluginHitAnError": "Během spouštění pluginu došlo k chybě.",
+      "youReOffline": "Jste offline",
+      "runsOnYourServerSo": "{{name}} běží na vašem serveru, takže potřebuje připojení. Otevře se znovu, jakmile budete online.",
+      "tryAgain": "Zkusit znovu"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Tento hostitel ještě není na tomto {{deviceWord}}.",
+      "theAppCanTOpen": "Aplikace to odtud nemůže otevřít.",
+      "thatHostIsNotOn2": "Tento hostitel ještě není na tomto {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Heslo",
+      "unchangedIfBlank": "Pokud je prázdné, zůstane beze změny",
+      "port": "Port",
+      "domain": "Doména",
+      "displaySoundAndClipboardSettings": "Nastavení zobrazení, zvuku a schránky najdete v webové aplikaci Termix.",
+      "portMustBeFrom1": "Port {{label}} musí být v rozmezí 1 až 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Připojení k vzdálené ploše bylo přerušeno",
+        "signIn": "Přihlášení do {{label}}",
+        "itWillNotBeSaved": "{{error}} Nebude uloženo.",
+        "enterTheLoginForIt": "Zadejte přihlašovací údaje pro {{title}}. Nebudou uloženy.",
+        "reconnecting": "Obnovování připojení k {{label}}",
+        "connecting": "Připojování k {{label}}",
+        "connectionFailed": "Připojení selhalo",
+        "disconnected": "Odpojeno",
+        "reconnect": "Znovu připojit",
+        "connectThroughTheServer": "Připojit přes server",
+        "pasteToRemote": "Vložit do vzdáleného systému",
+        "typeClipboard": "Přepsat schránku",
+        "copyRemoteClipboard": "Kopírovat vzdálenou schránku",
+        "theComputerSCertificateWas": "Certifikát počítače nebyl důvěryhodný.",
+        "thatLoginWasRefusedTry": "Přihlášení bylo odmítnuto. Zkuste to znovu."
+      },
+      "target": {
+        "trustThisComputer": "Důvěřovat tomuto počítači?",
+        "theCanTCheckS": "{{deviceWord}} nemůže ověřit certifikát {{hostName}}. Ujistěte se, že tento otisk odpovídá tomu na počítači, než budete pokračovat.\n\n{{fingerprint}}",
+        "trustAndConnect": "Důvěřovat a připojit",
+        "certificateChanged": "Certifikát se změnil",
+        "showsAnotherCertificateThanLast": "{{hostName}} zobrazuje jiný certifikát než naposledy. K tomu dochází po vygenerování nového certifikátu počítačem nebo pokud někdo odposlouchává komunikaci.\n\nNový otisk:\n{{fingerprint}}",
+        "trustTheNewOne": "Důvěřovat novému certifikátu"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Vzdálená plocha",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Hotovo",
+      "keyboard": "Klávesnice",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Nastavení",
+      "remoteSettings": "Vzdálené nastavení",
+      "mouseMode": "Režim myši",
+      "touch": "Dotyk",
+      "trackpad": "Trackpad",
+      "tapWhereYouWantTo": "Klepněte tam, kde chcete kliknout. Podržení pro kliknutí pravým tlačítkem, tažení pro přetažení.",
+      "dragToMoveThePointer": "Tažením přesuňte ukazatel. Klepnutí pro kliknutí, klepnutí dvěma prsty pro kliknutí pravým tlačítkem, klepnutí a následné tažení pro přetažení.",
+      "zoomXPinchAnywhereTo": "Přiblížení: {{value}}×. Šipnutím prstů k sobě nebo od sebe přiblížte nebo oddálte.",
+      "reset": "Obnovit",
+      "cancel": "Zrušit",
+      "connect": "Připojit",
+      "username": "Uživatelské jméno",
+      "domainOptional": "Doména (volitelné)",
+      "domain": "Doména",
+      "password": "Heslo",
+      "leftArrow": "Šipka doleva",
+      "upArrow": "Šipka nahoru",
+      "downArrow": "Šipka dolů",
+      "rightArrow": "Šipka doprava",
+      "rdpSignIn": "Přihlášení k RDP"
+    },
+    "theRemoteDesktopDropped": "Spojení s vzdálenou plochou bylo přerušeno",
+    "theyWillNotBeSaved": "{{errorMessage}} Nebudou uloženy.",
+    "enterCredentialsForTheyWill": "Zadejte přihlašovací údaje pro {{title}}. Nebudou uloženy.",
+    "connecting": "Připojování",
+    "connectionFailed": "Připojení selhalo",
+    "disconnected": "Odpojeno",
+    "reconnect": "Znovu připojit",
+    "route": {
+      "thisHostCanTOpen": "Tento hostitel nemůže odtud otevřít vzdálenou plochu."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Blokováno aplikací"
+    },
+    "failedToStartRemoteSession": "Nepodařilo se spustit vzdálenou relaci",
+    "thatLoginWasRefusedTry": "Přihlášení bylo zamítnuto. Zkuste to znovu.",
+    "theRemoteRefusedTheSaved": "Vzdálený systém zamítl uložené přihlašovací údaje. Zkontrolujte přihlášení RDP na tomto hostiteli.",
+    "remoteSessionFailed": "Vzdálená relace selhala",
+    "remoteSessionReturnedAnInvalid": "Vzdálená relace vrátila neplatnou zprávu",
+    "failedToLoadTheRemote": "Nepodařilo se načíst klienta vzdálené plochy"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Žádný záznam",
+      "thisHostDoesNotKeep": "Tento hostitel nevede systemd záznam.",
+      "all": "Vše",
+      "warnings": "Varování",
+      "errors": "Chyby",
+      "stop": "Zastavit",
+      "follow": "Sledovat",
+      "nothingLogged": "Nic nezaznamenáno",
+      "tryAnotherLevel": "Zkuste jinou úroveň.",
+      "couldNotReadTheJournal": "Nelze číst záznam"
+    },
+    "register": {
+      "services": "Služby",
+      "startStopAndReadLogs": "Spustit, zastavit a číst logy"
+    },
+    "readingServices": "Načítání služeb...",
+    "thisHostHasNoSystemd": "Tento hostitel nemá systemd ani OpenRC.",
+    "noServicesMatch": "Žádné služby neodpovídají",
+    "noServicesFound": "Nebyly nalezeny žádné služby",
+    "services": "Služby",
+    "journal": "Žurnál",
+    "searchServices": "Hledat služby...",
+    "all": "Vše",
+    "running": "Běžící",
+    "failed": "Selhaly ({{failed}})",
+    "failed2": "Selhaly",
+    "servicesCard": {
+      "services": "Služby",
+      "noSystemdOrOpenrc": "Žádné systemd ani OpenRC",
+      "failed": "{{failed}} selhalo",
+      "allRunning": "Vše běží",
+      "couldNotReadServices": "Nelze načíst služby"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Zůstane zastavený, dokud není znovu spuštěn nebo hostitel nabootuje.",
+      "itStopsForAMoment": "Na chvíli se zastaví a znovu spustí.",
+      "stop": "Zastavit",
+      "restart": "Restartovat",
+      "is": "{{name}} je {{state}}",
+      "start": "Spustit",
+      "journal": "Žurnál",
+      "couldNotReadTheService": "Nelze načíst službu",
+      "couldNot": "Nelze {{action}} {{name}}",
+      "startsAtBoot": "Spouští se při startu",
+      "mainPid": "Hlavní PID",
+      "activeSince": "Aktivní od",
+      "unitFile": "Soubor jednotky",
+      "notSet": "[není nastaveno]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Nepřihlášen",
+        "followFailed": "Sledování selhalo",
+        "connectionFailed": "Připojení selhalo"
+      }
+    },
+    "couldNotReadServices": "Nelze načíst služby",
+    "services2": "Služby{{where}}",
+    "title": "Služby",
+    "failedCount": "{{count}} selhalo"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Sdílení relace",
+      "shareLink": "Sdílet odkaz"
+    },
+    "shareSessionView": {
+      "canWatch": "Může sledovat",
+      "canType": "Může psát",
+      "n1Hour": "1 hodina",
+      "n8Hours": "8 hodin",
+      "n1Day": "1 den",
+      "n7Days": "7 dní",
+      "never": "Nikdy",
+      "shareSession": "Sdílet relaci",
+      "anyoneWithTheLinkCan": "Kdokoli s odkazem může otevřít tento terminál, zatímco běží. Odkazy můžete zrušit v Termix.",
+      "peopleWithTheLink": "Lidé s odkazem",
+      "expiresAfter": "Vyprší za",
+      "link": "Odkaz",
+      "copy": "Kopírovat",
+      "share": "Sdílet",
+      "makeLink": "Vytvořit odkaz",
+      "theServerGaveNoLink": "Server nevrátil žádný odkaz",
+      "couldNotMakeALink": "Nelze vytvořit odkaz",
+      "linkCopied": "Odkaz zkopírován"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Žádná složka"
+    },
+    "hostPicker": {
+      "selectNone": "Zrušit výběr",
+      "selectAll": "Vybrat vše",
+      "done": "Hotovo"
+    },
+    "register": {
+      "snippets": "Úkazy",
+      "snippets2": "ÚKAZY",
+      "savedCommandsToRunOn": "Uložené příkazy pro spuštění na libovolném hostiteli"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Zde není cesta k tomuto hostiteli",
+      "exitedWith": "Ukončeno s kódem {{exitCode}}",
+      "thisCanTRunIt": "Toto {{deviceWord}} to nemůže spustit",
+      "noServerIsLinked": "Žádný server není propojen"
+    },
+    "runOnHostsSheet": {
+      "run": "Spustit",
+      "run2": "Spustit „{{name}}“",
+      "runsOverSshOnEach": "Spustí se přes SSH na každém hostiteli. Terminál se neotevře.",
+      "close": "Zavřít",
+      "hosts": "Hostitelé",
+      "pickHosts": "Vybrat hostitele",
+      "workedFailed": "{{value}} úspěšných, {{failed}} neúspěšných",
+      "runOn2": "Spustit na",
+      "runOn_one": "Spustit {{name}} na {{count}} hostiteli?",
+      "runOn_few": "Spustit {{name}} na {{count}} hostitech?",
+      "runOn_many": "Spustit {{name}} na {{count}} hostitech?",
+      "runOn_other": "Spustit {{name}} na {{count}} hostitech?",
+      "hostsPicked_one": "Vybrán {{count}} hostitel",
+      "hostsPicked_few": "Vybráno {{count}} hostitelů",
+      "hostsPicked_many": "Vybráno {{count}} hostitelů",
+      "hostsPicked_other": "Vybráno {{count}} hostitelů"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Hledat úkazy",
+      "pastesTheNote": "Vloží poznámku",
+      "runsTheSnippet": "Spustí úkaz",
+      "noSnippetsMatch": "Žádné úkazy neodpovídají",
+      "noSnippetsYet": "Zatím žádné úkazy",
+      "addSnippetsInSettingsSnippets": "Přidejte úkazy v Nastavení, Úkazy",
+      "run": "Spustit",
+      "insertWithoutRunning": "Vložit bez spuštění",
+      "copy": "Kopírovat"
+    },
+    "snippetsCard": {
+      "snippets": "Úkazy",
+      "run": "Spustit {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Nejsou žádné úkazy k exportu",
+      "couldNotMakeTheFile": "Soubor se nepodařilo vytvořit",
+      "copiedToTheClipboard": "Zkopírováno do schránky",
+      "couldNotImport": "Import se nezdařil",
+      "couldNotReadThatFile": "Tento soubor se nepodařilo přečíst",
+      "importAndExport": "Import a export",
+      "theSameFileTheWeb": "Stejný soubor, který používá webová aplikace.",
+      "export": "Export",
+      "shareAFile": "Sdílet soubor",
+      "copy": "Kopírovat",
+      "import": "Import",
+      "updateSnippetsThatExist": "Aktualizovat existující úkazy",
+      "sameNameInTheSame": "Stejný název ve stejné složce. Jinak se přeskočí",
+      "chooseAFile": "Vybrat soubor",
+      "paste": "Vložit",
+      "saveYourSnippets": "Uložit své úkazy"
+    },
+    "useSnippetRunner": {
+      "run": "Spustit {{name}}?",
+      "run2": "Spustit",
+      "fillInTheValuesFor": "Vyplňte hodnoty pro tento úkaz.",
+      "cancel": "Zrušit",
+      "insert": "Vložit",
+      "noTerminalIsOpen": "Žádný terminál není otevřen"
+    },
+    "variables": {
+      "input": "Vstup {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "To není platný soubor JSON",
+      "theFileNeedsASnippets": "Soubor musí obsahovat seznam úkazů nebo složek",
+      "snippetNameAndContentAre": "Úkaz {{value}}: název a obsah jsou povinné",
+      "folder": "Složka {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Načítání zařízení Tailscale…",
+      "searchTailscaleDevices": "Hledat zařízení Tailscale…",
+      "searchTailscaleDevices2": "Hledat zařízení Tailscale",
+      "clearDeviceSearch": "Vymazat hledání zařízení",
+      "refreshTailscaleDevices": "Obnovit zařízení Tailscale",
+      "device": "Zařízení",
+      "noTailnetAddress": "Žádná adresa tailnetu",
+      "tailscaleDevice": "Zařízení Tailscale",
+      "tailscaleDevices": "Zařízení Tailscale",
+      "addAHostThatConnects": "Přidejte hostitele, který se připojuje pomocí Tailscale SSH.",
+      "username": "Uživatelské jméno",
+      "sshUsernameFor": "SSH uživatelské jméno pro {{value}}",
+      "addHost": "Přidat hostitele",
+      "noTailscaleDevicesMatchYour": "Žádná zařízení Tailscale neodpovídají vašemu hledání.",
+      "noTailscaleDevicesFound": "Nebyla nalezena žádná zařízení Tailscale.",
+      "noTailscaleApiKeyIs": "Na tomto serveru není nakonfigurován žádný API klíč Tailscale. Požádejte administrátora, aby ho přidal.",
+      "youDoNotHavePermission": "Nemáte oprávnění k zobrazení seznamu zařízení Tailscale.",
+      "couldNotLoadTailscaleDevices": "Nelze načíst zařízení Tailscale. Obnovte stránku a zkuste to znovu.",
+      "tailscaleIsUnavailableOnThis": "Tailscale není na tomto serveru dostupný."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Opětovné připojení | pokus {{attempt}}",
+      "reconnectingInSTry": "Opětovné připojení za {{secs}} s | pokus {{attempt}}",
+      "offlineWaitingForNetwork": "Offline, čekání na síť",
+      "sendToTheNewShell": "Odeslat {{what}} do nového shellu?",
+      "reconnectNow": "Připojit znovu",
+      "send": "Odeslat",
+      "discard": "Zahodit",
+      "typedChars_one": "{{count}} napsaný znak",
+      "typedChars_few": "{{count}} napsané znaky",
+      "typedChars_many": "{{count}} napsaných znaků",
+      "typedChars_other": "{{count}} napsaných znaků",
+      "waiting": "{{what}} čeká"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Protokol připojení zkopírován",
+      "connectionLog": "Protokol připojení",
+      "copyItIntoABug": "Zkopírujte ho do hlášení chyby. Adresy a uživatelská jména jsou vynechány.",
+      "copy": "Kopírovat"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Vymazat historii pro tohoto hostitele?",
+        "clear": "Vymazat",
+        "searchHistory": "Hledat v historii",
+        "typesTheCommandWithoutRunning": "Napíše příkaz, aniž by ho spustil",
+        "noCommandsMatch": "Žádné příkazy neodpovídají",
+        "noHistoryYet": "Zatím žádná historie",
+        "commandsYouRunOnThis": "Příkazy, které spustíte na tomto hostiteli, se zobrazí zde",
+        "run": "Spustit",
+        "typeWithoutRunning": "Napsat bez spuštění",
+        "copy": "Kopírovat",
+        "delete": "Smazat",
+        "historyCleared": "Historie vymazána"
+      },
+      "suggestionStrip": {
+        "use": "Použít {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Nastavení aplikace",
+      "delete": "Smazat (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Název karty ze shellu",
+      "programsCanSetTheTab": "Programy mohou nastavit název karty",
+      "openTmux": "Otevřít tmux",
+      "attachToATmuxSession": "Připojit se k relaci tmux nebo ji spustit",
+      "reconnectOnDrop": "Připojit znovu při ztrátě spojení",
+      "keepTabOpenOnExit": "Ponechat kartu otevřenou po ukončení",
+      "pressEnterToConnectAgain": "Stiskněte Enter pro opětovné připojení",
+      "saveCommandHistory": "Uložit historii příkazů",
+      "offerToFillPasswordPrompts": "Nabídnout vyplnění výzev k zadání hesla",
+      "offerToFillSudoPrompts": "Nabídnout vyplnění výzev k sudo",
+      "usesTheSudoPasswordFrom": "Používá sudo heslo ze záložky SSH",
+      "none": "Žádné",
+      "look": "Vzhled",
+      "theme": "Téma",
+      "font": "Písmo",
+      "cursor": "Kurzor",
+      "bell": "Zvonek",
+      "scrollbackLines": "Počet řádků pro posun",
+      "app": "Aplikace",
+      "behavior": "Chování",
+      "backspaceSends": "Backspace odesílá",
+      "startupSnippet": "Úvodní příkaz",
+      "runsOnceTheShellIs": "Spustí se, jakmile je shell připraven",
+      "fillWithoutAsking": "Vyplnit bez dotazu",
+      "onThisOnlyOnceYou": "Pouze na tomto {{deviceWord}}u, po výběru Vždy vyplnit",
+      "connection": "Připojení",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Sekundy mezi pingu, 0 vypne",
+      "default": "Výchozí",
+      "keepaliveSeconds": "Keepalive v sekundách",
+      "missedPings": "Přehlédnuté pingu",
+      "dropTheConnectionAfterThis": "Připojení se ukončí, pokud toto množství zůstane bez odpovědi",
+      "missedPingsBeforeDrop": "Přehlédnuté pingu před ukončením",
+      "environment": "Prostředí",
+      "removeVariable": "Odstranit proměnnou",
+      "addVariable": "Přidat proměnnou"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "KLÁVESNICE"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Řádek",
+        "keys": "Klávesy",
+        "sendsAKeyCode": "Odesílá kód klávesy",
+        "stickyModifier": "Přilnavý modifikátor",
+        "appAction": "Akce aplikace",
+        "tmuxPrefixThen": "tmux prefix, pak {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Řádky kláves",
+        "onlyFor": "Pouze pro {{name}}",
+        "usingTheAppSRows": "Používá řádky aplikace. Změny zde platí pouze pro {{name}}",
+        "useTheAppSRows": "Použít řádky aplikace"
+      },
+      "keyButton": {
+        "locked": "Uzamčeno"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Zrušit",
+        "remove": "Odstranit {{what}}?",
+        "remove2": "Odstranit",
+        "dragToReorder": "Tažením změníte pořadí",
+        "rowName": "Název řádku",
+        "groupName": "Název skupiny",
+        "add": "Přidat",
+        "addKey": "Přidat klávesu",
+        "addRow": "Přidat řádek",
+        "addGroup": "Přidat skupinu",
+        "tmuxPrefix": "tmux prefix",
+        "name": "Název",
+        "rename": "Přejmenovat",
+        "keys": "{{value}} kláves",
+        "noKeys": "Žádné klávesy",
+        "remove3": "Odstranit {{label}}",
+        "keys2": "Klávesy",
+        "custom": "Vlastní",
+        "add2": "Přidat {{label}}",
+        "typeText": "Zadat text",
+        "runCommand": "Spustit příkaz",
+        "ctrlKey": "Klávesa Ctrl",
+        "label": "Popisek",
+        "optional": "Volitelné",
+        "letter": "Písmeno",
+        "command": "Příkaz",
+        "text": "Text",
+        "resetToDefault": "Obnovit výchozí"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Změnit klávesy v Nastavení, Klávesnice"
+      },
+      "keyRowBar": {
+        "keyRow": "Řádek kláves {{label}}",
+        "tapForTheNextRow": "Klepnutím přejdete na další řádek, podržením vyberete jeden",
+        "keyRows": "Řádky kláves"
+      },
+      "model": {
+        "clear": "Vymazat",
+        "main": "Hlavní",
+        "keys": "Klávesy",
+        "arrows": "Šipky",
+        "symbols": "Symboly",
+        "actions": "Akce",
+        "nav": "Navigace",
+        "move": "Přesunout",
+        "function": "Funkce",
+        "brackets": "Závorky",
+        "punctuation": "Interpunkce",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Panely",
+        "copy": "Kopírovat",
+        "split": "Rozdělit ─",
+        "split2": "Rozdělit │",
+        "newWin": "Nové okno",
+        "prevWin": "Předchozí okno",
+        "nextWin": "Další okno",
+        "pane": "Panel ←",
+        "pane2": "Panel ↓",
+        "pane3": "Panel ↑",
+        "pane4": "Panel →",
+        "copyMode": "Režim kopírování",
+        "pasteBuf": "Vložit schránku",
+        "killPane": "Zavřít panel"
+      }
+    },
+    "output": {
+      "openLink": "Otevřít odkaz?",
+      "open": "Otevřít",
+      "pasteLines": "Vložit {{lines}} řádků?",
+      "pasteThisText": "Vložit tento text?",
+      "theShellMayRunIt": "Shell ho může okamžitě spustit.\n\n{{text}}",
+      "paste": "Vložit",
+      "letTheProgramReadYour": "Povolit programu číst ze schránky?",
+      "itAskedForWhatYou": "Požaduje to, co jste naposledy zkopírovali.",
+      "allow": "Povolit",
+      "letTheProgramCopyTo": "Povolit programu kopírovat do schránky?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Vyplnit uložené heslo?",
+      "asksForTheSudoPassword": "{{hostName}} žádá o sudo heslo.",
+      "asksForAPassword": "{{hostName}} žádá o heslo.",
+      "fillPassword": "Vyplnit heslo",
+      "alwaysFillOnThisHost": "Vždy vyplňovat na tomto hostiteli",
+      "asksNoMoreOnThis": "Na tomto {{deviceWord}} se již neptá. Vypněte to na kartě Terminál hostitele.",
+      "notNow": "Nyní ne"
+    },
+    "register": {
+      "terminal": "Terminál",
+      "terminalAndKeepalive": "Terminál a keepalive",
+      "history": "HISTORIE",
+      "find": "Hledat",
+      "tmuxWindows": "tmux okna",
+      "connectionLog": "Protokol připojení",
+      "keyRowsForThisHost": "Řádky kláves pro tohoto hostitele"
+    },
+    "searchBar": {
+      "noResults": "Žádné výsledky",
+      "matchCase": "Rozlišovat velikost",
+      "wholeWord": "Celé slovo",
+      "regularExpression": "Regulární výraz",
+      "find": "Najít",
+      "closeFind": "Zavřít hledání"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Systém",
+      "block": "Blok",
+      "bar": "Čára",
+      "underline": "Podtržení",
+      "off": "Vypnuto",
+      "sound": "Zvuk",
+      "flash": "Blikání",
+      "both": "Obě"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Nová karta na tomto hostiteli",
+      "closeTab": "Zavřít kartu",
+      "nextTab": "Další karta",
+      "previousTab": "Předchozí karta",
+      "goToTab": "Přejít na kartu",
+      "find": "Najít",
+      "fontSize": "Velikost písma",
+      "paste": "Vložit",
+      "escape": "Escape",
+      "copyAndPaste": "Kopírovat a vložit"
+    },
+    "reconnecting": "Obnovování připojení...",
+    "waitingForNetwork": "Čekání na síť...",
+    "waitingForYou": "Čekání na vás...",
+    "connecting": "Připojování...",
+    "terminalView": {
+      "scrollToBottom": "Posunout dolů",
+      "onlyWebLinksCanOpen": "Z terminálu lze otevřít pouze webové odkazy",
+      "couldNotOpenLink": "Odkaz se nepodařilo otevřít",
+      "copiedFromTheTerminal": "Zkopírováno z terminálu"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Otevřít relaci tmux",
+        "newSession": "Nová relace",
+        "plainShell": "Běžný shell",
+        "tmuxWindows": "okna tmux",
+        "newWindow": "Nové okno",
+        "windowCount_one": "{{count}} okno",
+        "windowCount_few": "{{count}} okna",
+        "windowCount_many": "{{count}} oken",
+        "windowCount_other": "{{count}} oken",
+        "attached": "{{count}} připojeno",
+        "activeNow": "aktivní právě teď",
+        "activeMinAgo": "aktivní před {{count}} min",
+        "activeHoursAgo": "aktivní před {{count}} hod",
+        "activeDaysAgo_one": "aktivní před {{count}} dnem",
+        "activeDaysAgo_few": "aktivní před {{count}} dny",
+        "activeDaysAgo_many": "aktivní před {{count}} dny",
+        "activeDaysAgo_other": "aktivní před {{count}} dny"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopírovat",
+        "selectAll": "Vybrat vše",
+        "cancel": "Zrušit",
+        "scrollToBottom": "Posunout dolů",
+        "couldNotCopy": "Kopírování se nezdařilo",
+        "webviewError": "Chyba WebView: {{description}}",
+        "webviewHttpError": "HTTP chyba WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Pro tohoto hostitele není uložené heslo",
+    "backInTmuxSession": "Zpět v relaci tmux {{tmuxName}}",
+    "backInScreenSession": "Zpět v relaci screen {{name}}",
+    "theServerSessionEndedThis": "Relace na serveru skončila. Toto je nový shell.",
+    "termixWasClosedSoThe": "Termix byl zavřen, takže starý shell skončil. Toto je nový shell.",
+    "theConnectionDroppedAndThe": "Připojení bylo přerušeno a starý shell skončil. Toto je nový shell.",
+    "disconnectedFrom": "Odpojeno od {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Dvoufázové ověřování",
+      "codesFromAnAuthenticatorApp": "Kódy z autentizační aplikace pro váš serverový účet"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC adresa",
+      "neededToWakeThisHost": "Potřebné k probuzení tohoto hostitele pomocí Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Použijte MAC adresu ve formátu 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN odesláno na {{name}}",
+      "failedToSendWakeOn": "Nepodařilo se odeslat paket Wake-on-LAN",
+      "noServer": "Žádný server"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Probudit {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Sdílet anonymní statistiky používání?",
+      "termixWouldSendAShort": "Termix by jednou denně odesílal krátkou zprávu. Toto můžete kdykoli změnit v Nastavení.",
+      "noThanks": "Ne, děkuji",
+      "share": "Sdílet",
+      "theReportHasTheApp": "Zpráva obsahuje verzi aplikace, typ {{deviceWord}}, přibližný počet hostitelů a relací, které funkce používáte a zda se připojení podařilo. Nikdy neobsahuje názvy hostitelů, uživatelská jména, adresy, cesty, příkazy ani názvy serverů.",
+      "seeExactlyWhatIsSent": "Zobrazit přesně, co se odesílá"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Načítání informací o verzi…",
+      "updateAvailable": "Dostupná aktualizace",
+      "newVersionAvailable": "Dostupná nová verze",
+      "aNewerVersionOfThe": "Je dostupná novější verze mobilní aplikace. Některé funkce mohou fungovat nesprávně, dokud neaktualizujete.",
+      "versionInformation": "Informace o verzi",
+      "installed": "Nainstalováno",
+      "latest": "Nejnovější",
+      "unknown": "Neznámé",
+      "tag": "Štítek",
+      "continueAnyway": "Pokračovat přesto"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Zkopírováno",
+      "copy": "Kopírovat",
+      "hostKeyChanged": "Klíč hostitele se změnil",
+      "verifyHostKey": "Ověřit klíč hostitele",
+      "cancel": "Zrušit",
+      "acceptNewKey": "Přijmout nový klíč",
+      "connectAndTrust": "Připojit a důvěřovat",
+      "theHostSSshKey": "SSH klíč hostitele se změnil od vašeho posledního připojení. To může znamenat, že někdo odposlouchává připojení.",
+      "youAreConnectingToThis": "Připojujete se k tomuto hostiteli poprvé. Před důvěrou zkontrolujte otisk.",
+      "previousKey": "Předchozí klíč",
+      "newFingerprint": "Nový otisk",
+      "hostFingerprint": "Otisk hostitele"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Vyžadováno heslo",
+      "enterThePassphraseForYour": "Zadejte heslo pro váš SSH klíč.",
+      "cancel": "Zrušit",
+      "connect": "Připojit",
+      "keyPassphrase": "Heslo klíče"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Vyžadováno ověření SSH",
+      "cancel": "Zrušit",
+      "connect": "Připojit",
+      "password": "Heslo",
+      "sshKey": "SSH klíč",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nSem vložte svůj soukromý klíč...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Heslo klíče (volitelné)",
+      "keyboardInteractiveAuthIsNot": "Interaktivní ověření pomocí klávesnice není k dispozici. Zadejte přihlašovací údaje přímo.",
+      "authenticationFailedPleaseReEnter": "Ověření selhalo. Zadejte prosím znovu své přihlašovací údaje.",
+      "connectionTimedOutPleaseTry": "Připojení vypršelo. Zkuste to prosím znovu se svými přihlašovacími údaji."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Kontrola Tailscale SSH",
+      "completeTheTailscaleSshCheck": "Pro pokračování dokončete kontrolu Tailscale SSH ve vašem prohlížeči.",
+      "cancel": "Zrušit",
+      "copyUrl": "Kopírovat URL",
+      "openBrowser": "Otevřít prohlížeč",
+      "urlCopied": "URL zkopírováno",
+      "failedToCopy": "Kopírování se nezdařilo",
+      "couldNotOpenBrowser": "Nelze otevřít prohlížeč"
+    },
+    "tOTPDialog": {
+      "cancel": "Zrušit",
+      "submit": "Odeslat",
+      "verify": "Ověřit",
+      "password": "Heslo",
+      "pasteCode": "Vložit kód",
+      "passwordRequired": "Je vyžadováno heslo",
+      "twoFactorAuthentication": "Dvoufázové ověřování",
+      "enterYourPasswordToContinue": "Pro pokračování zadejte své heslo.",
+      "enterThe6DigitCode": "Zadejte 6místný kód z aplikace pro ověřování."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Ověření Warpgate",
+      "authenticateViaTheWarpgatePortal": "Ověřte se prostřednictvím portálu Warpgate a poté klepněte na Pokračovat.",
+      "cancel": "Zrušit",
+      "openBrowser": "Otevřít prohlížeč",
+      "continue": "Pokračovat",
+      "securityKey": "Zabezpečovací klíč",
+      "authUrl": "URL pro ověření",
+      "copied": "Zkopírováno",
+      "copy": "Kopírovat",
+      "urlCopied": "URL zkopírována",
+      "failedToCopy": "Kopírování se nezdařilo",
+      "couldNotOpenBrowser": "Nelze otevřít prohlížeč"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "toto {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Nedávná aktivita",
+        "files": "Soubory",
+        "terminal": "Terminál"
+      },
+      "alertsCard": {
+        "notifications": "Oznámení",
+        "seeAll": "Zobrazit vše"
+      },
+      "server": "Server",
+      "openSessions": "Otevřené relace",
+      "quickAccess": "Rychlý přístup",
+      "notifications": "Oznámení",
+      "pinnedHosts": "Připnuté hosty",
+      "recentHosts": "Nedávní hosty",
+      "recentActivity": "Nedávná aktivita",
+      "pinnedCard": {
+        "addYourFirstHost": "Přidat prvního hosta",
+        "hostsYouOpenShowUp": "Zde se zobrazují hosté, které otevřete, a připnutí hosté zobrazují živé karty.",
+        "addHost": "Přidat hosta",
+        "linkAServer": "Propojit server",
+        "pinAHostToSee": "Připněte hosta, abyste ho viděli zde",
+        "pinnedHostsShowTheirMetrics": "Připnutí hosté zobrazují jejich metriky, Docker a služby na první pohled. Podržte hosta pro připnutí.",
+        "goToHosts": "Přejít na hosty",
+        "pinned": "Připnuto",
+        "opensTheTerminalHoldFor": "Otevře terminál. Podržte pro více možností.",
+        "turnOnDockerOrServices": "Pro tohoto hosta zapněte Docker nebo Služby, nebo na něj klepněte pro připojení.",
+        "opens": "Otevře {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Rychlý přístup",
+        "quickConnect": "Rychlé připojení",
+        "userHostPortWithoutSaving": "uživatel@host:port, bez uložení"
+      },
+      "recentCard": {
+        "recent": "Nedávné"
+      },
+      "serverCard": {
+        "server": "Server",
+        "version": "Verze",
+        "uptime": "Doba běhu",
+        "database": "Databáze",
+        "hosts": "Hosté",
+        "online": "Online",
+        "offline": "Offline",
+        "logins": "Přihlášení"
+      },
+      "sessionsCard": {
+        "openSessions": "Otevřené relace",
+        "connected": "Připojeno"
+      }
+    },
+    "resetHome": "Obnovit domovskou stránku?",
+    "cardsGoBackToThe": "Karty se vrátí do výchozího pořadí a zobrazených karet.",
+    "reset": "Obnovit",
+    "doneEditingHome": "Úprava domovské stránky dokončena",
+    "editHome": "Upravit domovskou stránku",
+    "dragToReorder": "Přetáhněte {{title}} pro změnu pořadí",
+    "show": "Zobrazit {{title}}",
+    "dragCardsToReorderThem": "Přetahováním karet měňte jejich pořadí. Vypnutím karty ji skryjete. Karty bez obsahu zůstanou skryté automaticky.",
+    "resetToDefault": "Obnovit na výchozí",
+    "done": "Hotovo",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Stále se nedaří připojit k serveru",
+      "canTReach": "Nepodařilo se připojit k {{account}}",
+      "youCanKeepWorkingWith": "Můžete pokračovat v práci s kopií na tomto {{deviceWord}}. Změny se synchronizují, jakmile bude server zpět.",
+      "hostsSetToConnectFrom": "Hostitelé nastavení pro připojení z tohoto {{deviceWord}} stále fungují.",
+      "tryAgain": "Zkusit znovu",
+      "noAnswer": "žádná odpověď"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Profil Vault",
+      "none": "Žádný",
+      "signsInWithInYour": "Přihlašuje se pomocí {{title}} ve vašem prohlížeči prostřednictvím vašeho Termix serveru. Připojte tohoto hostitele přes server.",
+      "needsATermixServerLink": "{{title}} vyžaduje Termix server. Propojte jeden pro použití tohoto přihlášení.",
+      "isOffOnThisServer": "{{title}} je na tomto serveru vypnuto. Tento hostitel si zachovává nastavení přihlášení."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Nelze načíst přihlašovací údaje",
+      "deleted": "Smazáno „{{name}}“",
+      "couldNotDeleteTheCredential": "Nelze smazat přihlašovací údaje",
+      "credentials": "Přihlašovací údaje",
+      "add": "Přidat",
+      "searchCredentials": "Hledat přihlašovací údaje",
+      "clearSearch": "Vymazat hledání",
+      "loadingCredentials": "Načítání přihlašovacích údajů...",
+      "noCredentialsMatchYourSearch": "Žádné přihlašovací údaje neodpovídají vašemu hledání",
+      "noCredentialsYet": "Zatím žádné přihlašovací údaje",
+      "addCredential": "Přidat přihlašovací údaje",
+      "edit": "Upravit",
+      "delete": "Smazat",
+      "deleteCredential": "Smazat přihlašovací údaje",
+      "willBePermanentlyDeletedHosts": "„{{name}}“ bude trvale smazáno. Hostitelé, které používají, ztratí své uložené přihlašovací údaje.",
+      "cancel": "Zrušit",
+      "hostCount_one": "{{count}} hostitel",
+      "hostCount_few": "{{count}} hostitelé",
+      "hostCount_many": "{{count}} hostitelů",
+      "hostCount_other": "{{count}} hostitelů",
+      "sshKey": "SSH klíč"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Nahradit klíč?",
+        "theNewKeyTakesThe": "Nový klíč nahradí ten současný. Hostitelé, kteří důvěřují pouze starému klíči, přestanou tento přihlašovací údaj přijímat.",
+        "replace": "Nahradit",
+        "newKeyMadeCopyThe": "Nový klíč vytvořen. Zkopírujte veřejný klíč na své hostitele.",
+        "couldNotMakeAKey": "Nelze vytvořit klíč",
+        "couldNotReadThatCertificate": "Nelze přečíst tento soubor certifikátu",
+        "leaveWithoutSaving": "Odejít bez uložení?",
+        "yourChangesToThisCredential": "Vaše změny tohoto přihlašovacího údaje budou ztraceny.",
+        "leave": "Odejít",
+        "credentialSaved": "Přihlašovací údaje uloženy",
+        "credentialAdded": "Přihlašovací údaje přidány",
+        "couldNotSaveTheCredential": "Nelze uložit přihlašovací údaje",
+        "enterAHostToTest": "Zadejte hostitele pro testování, např. 10.0.0.5 nebo box:2222.",
+        "enterTheUsernameFirst": "Nejprve zadejte uživatelské jméno.",
+        "editCredential": "Upravit přihlašovací údaje",
+        "newCredential": "Nové přihlašovací údaje",
+        "cancel": "Zrušit",
+        "save": "Uložit",
+        "credential": "Přihlašovací údaje",
+        "name": "Název",
+        "productionKey": "Produktový klíč",
+        "username": "Uživatelské jméno",
+        "signInWith": "Přihlásit se pomocí",
+        "password": "Heslo",
+        "sshKey": "SSH klíč",
+        "unchangedIfBlank": "Pokud je prázdné, zůstane beze změny",
+        "key": "Klíč",
+        "fileOrPaste": "Soubor nebo vložit",
+        "makeANewKey": "Vytvořit nový klíč",
+        "aKeyIsSavedChoose": "Klíč je uložen. Vyberte soubor nebo vložte text pro jeho nahrazení.",
+        "type": "Typ",
+        "ed25519AndEcdsaAreMade": "Ed25519 a ECDSA jsou generovány na tomto {{deviceWord}}, RSA na vašem serveru.",
+        "madeOnThisEd25519Works": "Vygenerováno na tomto {{deviceWord}}. Ed25519 funguje téměř všude.",
+        "passphrase": "Heslová fráze",
+        "optionalLocksTheNewKey": "Volitelné. Zamkne nový klíč na tomto {{deviceWord}} i na disku.",
+        "makeKey": "Vytvořit klíč",
+        "publicKey": "Veřejný klíč",
+        "addThisLineToSsh": "Přidejte tento řádek do ~/.ssh/authorized_keys na vašich hostitelích",
+        "publicKeyCopied": "Veřejný klíč zkopírován",
+        "copyPublicKey": "Kopírovat veřejný klíč",
+        "certificate": "Certifikát",
+        "aCertificateYourCaSigned": "Certifikát podepsaný vaší CA pro tento klíč, pro hostitele, kterým CA důvěřuje.",
+        "chooseCertificateFile": "Vybrat soubor certifikátu",
+        "thisDoesNotLookLike": "Toto nevypadá jako OpenSSH certifikát.",
+        "test": "Test",
+        "hostToTestOn": "Hostitel pro testování",
+        "n10005Or": "10.0.0.5 nebo box.lan:2222",
+        "pickASavedHost": "Vybrat uložený hostitel",
+        "details": "Podrobnosti",
+        "description": "Popis",
+        "whatThisCredentialIsFor": "K čemu slouží tyto přihlašovací údaje",
+        "folder": "Složka",
+        "serverKeys": "Klíče serveru",
+        "testOnAHost": "Testovat na hostiteli",
+        "rsaKeysNeedALinked": "RSA klíče vyžadují propojený server."
+      },
+      "model": {
+        "giveThisCredentialAName": "Dejte těmto přihlašovacím údajům název",
+        "addAPrivateKeyOr": "Přidejte soukromý klíč nebo vytvořte nový"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Toto je certifikát hostitele, ne uživatelský.",
+        "thisCertificateIsNotValid": "Tento certifikát ještě není platný.",
+        "thisCertificateHasExpired": "Tento certifikát vypršel.",
+        "itIsForAKey": "Je určen pro klíč typu {{keyType}}, ale tento klíč je typu {{keyType2}}.",
+        "forAnyUser": "Pro jakéhokoli uživatele",
+        "validFromNoEndDate": "Platné od {{validAfter}}, bez data konce platnosti",
+        "signedBy": "Podepsáno {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Uživatelské jméno",
+        "fromTheCredential": "Z přihlašovacích údajů: {{credentialUser}}",
+        "signInWith": "Přihlásit se pomocí",
+        "password": "Heslo",
+        "key": "Klíč",
+        "credential": "Přihlašovací údaje",
+        "none": "Žádné",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Připojení pomocí Tailscale SSH. Neukládá se žádné heslo ani klíč.",
+        "tailscaleIsNotOnFor": "Tailscale není zapnutý pro {{value}}. Tento hostitel si uchovává své přihlášení k Tailscale.",
+        "unchangedIfBlank": "Pokud je prázdné, zůstane beze změny",
+        "noCredentialsYetTapThe": "Zatím žádné přihlašovací údaje. Klepněte na ikonu klíče v Hostitech pro přidání.",
+        "useCredential": "Použít přihlašovací údaje {{name}}",
+        "sudoPassword": "Heslo pro sudo",
+        "typedIntoSudoPromptsWhen": "Zadáno do výzev sudo, když je to povoleno v sekci Terminál",
+        "notSet": "Nenastaveno",
+        "thisServer": "tento server"
+      },
+      "colorIconField": {
+        "color": "Barva",
+        "noColor": "Bez barvy",
+        "color2": "Barva {{c}}",
+        "icon": "Ikona",
+        "noIcon": "Bez ikony",
+        "none": "Žádná",
+        "icon2": "Ikona {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Odejít bez uložení?",
+        "yourChangesToThisHost": "Vaše změny tohoto hostitele budou ztraceny.",
+        "leave": "Odejít",
+        "couldNotSaveHowThis": "Nepodařilo se uložit způsob připojení tohoto hostitele",
+        "hostSaved": "Hostitel uložen",
+        "hostAdded": "Hostitel přidán",
+        "couldNotSaveTheHost": "Nepodařilo se uložit hostitele",
+        "enterTheHostSAddress": "Nejprve zadejte adresu hostitele.",
+        "turnOnSshToTest": "Pro otestování přihlášení zapněte SSH.",
+        "pickACredentialFirst": "Nejprve vyberte přihlašovací údaje.",
+        "editHost": "Upravit hostitele",
+        "newHost": "Nový hostitel",
+        "cancel": "Zrušit",
+        "save": "Uložit",
+        "host": "Hostitel",
+        "name": "Název",
+        "myServer": "Můj server",
+        "address": "Adresa",
+        "port": "Port",
+        "portAndUsernameComeFrom": "Port a uživatelské jméno pocházejí z výchozích hodnot hostitele, dokud je nezměníte.",
+        "folder": "Složka",
+        "production": "Produkce",
+        "useAFolderInstead": "Místo toho použijte složku",
+        "putItUnderAHost": "Místo toho ho umístěte pod hostitele",
+        "pinToTop": "Připnout nahoru",
+        "colorAndIcon": "Barva a ikona",
+        "notes": "Poznámky",
+        "anythingWorthRememberingAboutThis": "Cokoliv, co si o tomto hostiteli stojí za to pamatovat",
+        "protocols": "Protokoly",
+        "terminalFilesAndMore": "Terminál, soubory a další",
+        "connectFrom": "Připojit z",
+        "features": "Funkce",
+        "otherProtocols": "Další protokoly",
+        "more": "Více",
+        "theTestRunsFromThis": "Test se spouští z tohoto {{deviceWord}}. Tento hostitel se připojuje přes server, takže může fungovat i tehdy, když ho {{deviceWord}} nedosáhne."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Přeskočovací hostitelé",
+        "connectsThroughTheseInOrder": "Připojuje se přes tyto v pořadí, pak k tomuto hostiteli",
+        "reachThisHostThroughOther": "Nejprve se k tomuto hostiteli dostanete přes jiné hostitele",
+        "moveUp": "Posunout nahoru",
+        "moveDown": "Posunout dolů",
+        "removeJumpHost": "Odebrat přeskočovacího hostitele",
+        "addJumpHost": "Přidat přeskočovacího hostitele",
+        "pickASavedHostTo": "Vyberte uloženého hostitele pro připojení přes něj",
+        "searchHosts": "Hledat hostitele",
+        "noOtherHostsToPick": "Žádní jiní hostitelé k výběru. Hostitel se nemůže přeskočit přes sebe nebo přes hostitele, který již přes něj prochází.",
+        "missingHost": "Chybějící hostitel #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Zapněte alespoň jeden protokol",
+        "pickACredential": "Vyberte přihlašovací údaje",
+        "enterTheHostSAddress": "Zadejte adresu hostitele",
+        "theAddressCanTHave": "Adresa nesmí obsahovat mezery",
+        "portMustBeFrom1": "Port musí být v rozmezí 1 až 65535",
+        "enterTheSshUsername": "Zadejte SSH uživatelské jméno"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Hostitel se zobrazí jako vnořený pod tím, který vyberete",
+        "searchHosts": "Hledat hostitele",
+        "noHostsToPickA": "Žádní hostitelé k výběru. Hostitel nemůže být pod sebou samým, jedním ze svých podhostitelů ani sdíleným hostitelem.",
+        "parentHost": "Nadřazený hostitel",
+        "subHostsFollowTheFolder": "Podhostitelé následují složku svého nadřazeného hostitele",
+        "pickParentHost": "Vybrat nadřazeného hostitele",
+        "missingHost": "Chybějící hostitel #{{value}}",
+        "pickAHost": "Vybrat hostitele",
+        "clearParentHost": "Zrušit nadřazeného hostitele"
+      },
+      "tagsField": {
+        "tags": "Štítky",
+        "typeATagAndPress": "Napište štítek a stiskněte Enter",
+        "removeTag": "Odstranit štítek {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Nepodařilo se uložit způsob připojení tohoto hostitele",
+      "addressCopied": "Adresa zkopírována",
+      "cpu": "CPU {{value}} %",
+      "ram": "RAM {{value}} %",
+      "connectFrom": "Připojit z",
+      "dismiss": "Zavřít",
+      "unpin": "Odepnout",
+      "pinToHome": "Připnout na Domů",
+      "select": "Vybrat",
+      "editHost": "Upravit hostitele",
+      "copyAddress": "Kopírovat adresu",
+      "addSubHost": "Přidat podhostitele",
+      "cloneHost": "Klonovat hostitele",
+      "deleteHost": "Smazat hostitele",
+      "connectThroughTheServer": "Připojit přes server",
+      "connectFromThis": "Připojit z tohoto {{deviceWord}}"
+    },
+    "defaultYourOrder": "Výchozí (vaše pořadí)",
+    "nameAZ": "Název (A-Z)",
+    "nameZA": "Název (Z-A)",
+    "ipAscending": "IP (vzestupně)",
+    "ipDescending": "IP (sestupně)",
+    "onlineFirst": "Nejprve online",
+    "offlineFirst": "Nejprve offline",
+    "pinnedFirst": "Nejprve připnuté",
+    "status": "Stav",
+    "online": "Online",
+    "offline": "Offline",
+    "pinned": "Připnuto",
+    "protocol": "Protokol",
+    "features": "Funkce",
+    "hostsCanOnlyMoveInside": "Hostitelé se mohou přesouvat pouze uvnitř své vlastní složky",
+    "couldNotUpdateTheHosts": "Nepodařilo se aktualizovat hostitele",
+    "sharedHostsCanTBe": "Sdílené hostitele nelze zde smazat",
+    "delete2": "Smazat",
+    "noneOfTheseHostsOpen": "Žádný z těchto hostitelů neotevře terminál",
+    "couldNotPinTheHost": "Nepodařilo se připnout hostitele",
+    "deleted": "Smazáno {{name}}",
+    "failedToDeleteHost": "Mazání hostitele selhalo",
+    "cloned": "Klonováno {{name}}",
+    "failedToCloneHost": "Klonování hostitele selhalo",
+    "reorderWorksWithTheDefault": "Přeuspořádávání funguje s výchozím řazením a bez vyhledávání nebo filtru",
+    "couldNotSaveTheOrder": "Nepodařilo se uložit pořadí",
+    "noHostsYet": "Zatím žádní hostitelé",
+    "addAHostToConnect": "Přidejte hostitele, abyste se k němu mohli připojit jedním klepnutím.",
+    "addHost": "Přidat hostitele",
+    "quickConnect2": "Rychlé připojení",
+    "linkAServer": "Odkaz na server",
+    "noHostsMatch": "Žádný hostitel neodpovídá",
+    "clearSearchAndFilters": "Vymazat hledání a filtry",
+    "more": "Více",
+    "dragAHostByIts": "Tažením za úchyt hostitele ho přesuňte uvnitř složky.",
+    "done": "Hotovo",
+    "filterHosts": "Filtrovat hostitele",
+    "clearFilterText": "Vymazat text filtru",
+    "sortHosts": "Seřadit hostitele",
+    "removeFilter": "Odebrat filtr {{value}}",
+    "loadingHosts": "Načítání hostitelů…",
+    "moveUnderAHost": "Přesunout pod hostitele",
+    "moveToFolder": "Přesunout do složky",
+    "leaveItEmptyToTake": "Pokud chcete hostitele vyjmout ze složek, nechte prázdné.",
+    "folderLikeProdWeb": "Složka, např. Prod / Web",
+    "move": "Přesunout",
+    "hosts": "Hostitelé",
+    "selectHosts": "Vybrat hostitele",
+    "reorderHosts": "Změnit pořadí hostitelů",
+    "customizeList": "Přizpůsobit seznam",
+    "chooseWhatEachHostRow": "Vyberte, co bude každý řádek hostitele zobrazovat",
+    "credentials2": "Přihlašovací údaje",
+    "savedPasswordsAndKeys": "Uložená hesla a klíče",
+    "tailscaleDevices": "Zařízení Tailscale",
+    "refresh": "Obnovit",
+    "rowDensityFollowsSettingsAppearance": "Hustota řádků odpovídá nastavení vzhledu.",
+    "clearAllFilters": "Vymazat všechny filtry",
+    "tags": "Štítky",
+    "stopSelecting": "Zrušit výběr",
+    "selected": "Vybráno: {{count}}",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Nelze přečíst tento soubor klíče",
+        "theClipboardIsEmpty": "Schránka je prázdná",
+        "privateKey": "Soukromý klíč",
+        "chooseFile": "Vybrat soubor",
+        "paste": "Vložit",
+        "unchangedIfBlank": "Zůstane beze změny, pokud je prázdné",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Heslová fráze",
+        "onlyIfTheKeyHas": "Pouze pokud klíč má heslovou frázi",
+        "theKeyIsCheckedWhen": "Klíč se ověří při připojení.",
+        "thePastedKey": "vložený klíč"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Otevřít",
+        "moreActions": "Další akce",
+        "opensTheTerminalHoldFor": "Otevře terminál. Podržte pro více možností.",
+        "shared": "Sdílený",
+        "drag": "Tažení {{name}}",
+        "showSubHosts_one": "Zobrazit {{count}} podhostitele z {{name}}",
+        "showSubHosts_few": "Zobrazit {{count}} podhostitelů z {{name}}",
+        "showSubHosts_many": "Zobrazit {{count}} podhostitelů z {{name}}",
+        "showSubHosts_other": "Zobrazit {{count}} podhostitelů z {{name}}",
+        "hideSubHosts_one": "Skrýt {{count}} podhostitele z {{name}}",
+        "hideSubHosts_few": "Skrýt {{count}} podhostitelů z {{name}}",
+        "hideSubHosts_many": "Skrýt {{count}} podhostitelů z {{name}}",
+        "hideSubHosts_other": "Skrýt {{count}} podhostitelů z {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Složka {{name}}, {{total}} hostitelů"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Hostitel a uživatelské jméno jsou povinné",
+      "hostSaved": "Hostitel uložen",
+      "couldNotSaveTheHost": "Nelze uložit hostitele",
+      "quickConnect": "Rychlé připojení",
+      "connectToAHostWithout": "Připojte se k hostiteli, aniž byste ho ukládali.",
+      "hostIp": "Hostitel / IP",
+      "port": "Port",
+      "username": "Uživatelské jméno",
+      "password": "Heslo",
+      "key": "Klíč",
+      "privateKey": "Soukromý klíč",
+      "saveToMyHosts": "Uložit do mých hostitelů",
+      "keepThisHostAfterConnecting": "Ponechat tohoto hostitele po připojení",
+      "cancel": "Zrušit",
+      "connect": "Připojit"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Načítání hostitelů ze serveru",
+      "yourHostsStayOnThis": "{{message}} Mezitím zůstávají vaši hostitelé na tomto {{deviceWord}}."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Klíč tohoto hostitele se změnil",
+      "trustThisHost": "Důvěřovat tomuto hostiteli?",
+      "trust": "Důvěřovat",
+      "stopTest": "Zastavit test",
+      "testConnection": "Otestovat připojení",
+      "connecting": "Připojování..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Nepodařilo se načíst hostitele."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} sdílený hostitel byl ponechán beze změny.",
+    "sharedLeftAsTheyAre_few": "{{done}}. {{count}} sdílení hostitelé byli ponecháni beze změny.",
+    "sharedLeftAsTheyAre_many": "{{done}}. {{count}} sdílených hostitelů bylo ponecháno beze změny.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} sdílených hostitelů bylo ponecháno beze změny.",
+    "deleteHosts_one": "Smazat {{count}} hostitele?",
+    "deleteHosts_few": "Smazat {{count}} hostitele?",
+    "deleteHosts_many": "Smazat {{count}} hostitelů?",
+    "deleteHosts_other": "Smazat {{count}} hostitelů?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Neexistuje složka s názvem {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Hostitel \"{{name}}\": špatný port",
+        "hostJumpIsNotIn": "Hostitel \"{{name}}\": přeskok {{value}} není v souboru, byl proto vynechán",
+        "credential": "Přihlašovací údaje {{name}}: {{error}}",
+        "noValidHostEntriesFound": "V konfiguračním souboru SSH nebyly nalezeny žádné platné položky Host",
+        "credentialWasNotFound": "{{label}}: přihlašovací údaje {{value}} nebyly nalezeny"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Hostitel {{value}}: duplicitní exportované ID hostitele {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Chybí povinná pole (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Neplatné authType. Musí být jedno z {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Pro SSH připojení je vyžadován uživatelské jméno",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: Pro ověřování pomocí přihlašovacích údajů je vyžadován credentialAlias",
+        "thatIsNotAValid": "Toto není platný soubor JSON",
+        "hostsArrayIsRequiredAnd": "Pole hostitelů je povinné a nesmí být prázdné",
+        "jumpHostCycle": "{{label}}: cyklus přeskočného hostitele",
+        "jumpHostIsNotIn": "{{label}}: přeskočný hostitel {{id}} není v souboru"
+      }
+    },
+    "movedTo": "Přesunuto do {{value}}",
+    "movedOutOfFolders": "Přesunuto ze složek",
+    "movedUnder": "Přesunuto pod {{value}}",
+    "openTerminals": "Otevřené terminály",
+    "theHost": "hostitel"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Skrýt heslo",
+      "showPassword": "Zobrazit heslo",
+      "enterAUsernameAndPassword": "Zadejte uživatelské jméno a heslo",
+      "useAtLeast6Characters": "Použijte pro heslo alespoň 6 znaků",
+      "thePasswordsDonTMatch": "Hesla se neshodují",
+      "makeTheAdminAccount": "Vytvořit účet správce",
+      "makeAnAccount": "Vytvořit účet",
+      "thisIsTheFirstAccount": "Toto je první účet na serveru, takže spravuje server.",
+      "pickAUsernameAndPassword": "Vyberte uživatelské jméno a heslo pro tento server.",
+      "username": "Uživatelské jméno",
+      "password": "Heslo",
+      "passwordAgain": "Heslo znovu",
+      "makeAccount": "Vytvořit účet",
+      "back": "Zpět",
+      "haveAnAccountSignIn": "Máte účet? Přihlaste se",
+      "resetCodeMadeItIs": "Resetovací kód byl vytvořen. Nachází se v logech serveru.",
+      "enterYourUsername": "Zadejte své uživatelské jméno",
+      "enterTheResetCode": "Zadejte resetovací kód",
+      "passwordChangedSignInWith": "Heslo bylo změněno. Přihlaste se pomocí něj nyní.",
+      "resetPassword": "Obnovit heslo",
+      "enterYourUsernameTheServer": "Zadejte své uživatelské jméno. Server zapíše resetovací kód do svých logů.",
+      "sendResetCode": "Odeslat resetovací kód",
+      "enterThe6DigitCode": "Zadejte 6místný kód z logů serveru.",
+      "resetCode": "Obnovit kód",
+      "checkCode": "Ověřit kód",
+      "newPassword": "Nové heslo",
+      "saveNewPassword": "Uložit nové heslo",
+      "backToSignIn": "Zpět na přihlášení",
+      "couldNotMakeTheAccount": "Nelze vytvořit účet",
+      "couldNotStartTheReset": "Nelze zahájit obnovení",
+      "thatCodeDidnTWork": "Tento kód nefunguje",
+      "couldNotChangeThePassword": "Nelze změnit heslo"
+    },
+    "browserStep": {
+      "signInFailed": "Přihlášení selhalo",
+      "signInCanceled": "Přihlášení zrušeno",
+      "couldNotOpenTheSign": "Nelze otevřít prohlížeč pro přihlášení",
+      "couldNotOpenTheSign2": "Nelze otevřít stránku pro přihlášení",
+      "certificateProblem": "Problém s certifikátem",
+      "back": "Zpět",
+      "signIn": "Přihlásit se",
+      "reload": "Obnovit",
+      "finishSigningInInYour": "Dokončete přihlášení v prohlížeči",
+      "useAnySignInYour": "Použijte jakékoli přihlášení, které váš server podporuje, například passkey nebo bezpečnostní klíč. Aplikace se připojí, jakmile se přihlásíte.",
+      "theAppPicksUpOnce": "Aplikace se připojí, jakmile váš poskytovatel přihlášení dokončí proces.",
+      "signingIn": "Přihlašování...",
+      "openBrowserAgain": "Otevřít prohlížeč znovu",
+      "theServerTurnedTheSession": "Server zamítl relaci. Zkuste to znovu.",
+      "signedInButTheApp": "Přihlášení proběhlo, ale aplikace se nemůže připojit k Termix. Možná to blokuje proxy.",
+      "thatSignInLinkIs": "Tento odkaz pro přihlášení pochází z dřívějšího pokusu. Přihlaste se znovu.",
+      "signInAgain": "Přihlaste se znovu.",
+      "openTheBrowserAgainWhen": "Když budete připraveni, otevřete prohlížeč znovu.",
+      "theWebPageSignedIn": "Webová stránka se přihlásila, ale neposlala žádnou relaci. Aktualizujte server a zkuste to znovu.",
+      "theCanTCheckThis": "Zařízení {{deviceWord}} nemůže ověřit certifikát tohoto serveru. Nainstalujte kořenový CA na zařízení {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Příště použít {{name}} pro přihlášení?",
+      "ifThisServerSignsYou": "Pokud vás tento server odhlásí, přihlaste se znovu pomocí {{name}} místo zadávání hesla. Heslo zůstává uloženo na tomto zařízení {{deviceWord}}.",
+      "use": "Použít {{name}}",
+      "notNow": "Nyní ne",
+      "couldNotSaveTheLogin": "Nelze uložit přihlašovací údaje",
+      "thatSADifferentUser": "Jde o jiného uživatele",
+      "signedIn": "Přihlášení úspěšné",
+      "close": "Zavřít",
+      "linkYourTermixServer": "Propojit server Termix",
+      "yourHostsCredentialsSnippetsAnd": "Vaši hostitelé, přihlašovací údaje, úryvky a nastavení se s ním synchronizují a získáte jeho pluginy. Všechno bude na tomto {{deviceWord}} fungovat i když je server nedostupný.",
+      "checking": "Kontrola {{host}}...",
+      "proxyAndClientCertificate": "Proxy a klientský certifikát",
+      "couldNotReachThatServer": "Nelze se připojit k tomuto serveru. Zkontrolujte adresu nebo nastavte proxy nebo klientský certifikát.",
+      "couldNotReachThatServer2": "Nelze se připojit k tomuto serveru",
+      "syncCouldNotStartYet": "Synchronizace zatím nemohla začít. Zkusí to znovu automaticky.",
+      "checkingTheServer": "Kontrola serveru",
+      "signIn": "Přihlásit se",
+      "makeAnAccount": "Vytvořit účet",
+      "resetPassword": "Obnovit heslo",
+      "oneMoreStep": "Ještě jeden krok",
+      "almostDone": "Skoro hotovo",
+      "linkAServer": "Propojit server"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Uložené přihlašovací údaje již nefungují",
+      "enterYourUsernameAndPassword": "Zadejte své uživatelské jméno a heslo",
+      "thisServerIsBehindA": "Tento server je za přihlašovací proxy",
+      "signInWith": "Přihlásit se pomocí {{saved}}",
+      "signInWith2": "Přihlásit se pomocí",
+      "password": "Heslo",
+      "username": "Uživatelské jméno",
+      "signIn": "Přihlásit se",
+      "forgotPassword": "Zapomněli jste heslo?",
+      "makeAnAccount": "Vytvořit účet",
+      "or": "NEBO",
+      "continueWith": "Pokračovat pomocí {{label}}",
+      "signInWithAPasskey": "Přihlásit se pomocí passkey nebo bezpečnostního klíče",
+      "opensYourServerAposS": "Otevře stránku pro přihlášení na vašem serveru v prohlížeči. Face ID, otisk prstu, NFC a USB klíče tam fungují. Vyžaduje Termix 26.11.3 nebo novější.",
+      "signInInTheBrowser": "Přihlásit se v prohlížeči",
+      "opensYourServerAposS2": "Otevře stránku pro přihlášení na vašem serveru pro vše, co aplikace nemůže udělat zde. Vyžaduje Termix 26.10.6 nebo novější.",
+      "thisServerHasNoSign": "Tento server nemá zapnuté přihlašování, které by aplikace mohla použít. Zeptejte se správce serveru nebo zkuste přihlášení v prohlížeči výše.",
+      "signInWithYourPassword": "Přihlaste se pomocí svého hesla.",
+      "signInFailed": "Přihlášení selhalo",
+      "openingItsSignInPage": "Otevírá se přihlašovací stránka."
+    },
+    "smallSteps": {
+      "serverAddress": "Adresa serveru",
+      "likeTermixExampleComOr": "Např. termix.priklad.cz nebo 192.168.1.20:30001",
+      "checking": "Kontrola...",
+      "continue": "Pokračovat",
+      "proxyAndClientCertificate": "Proxy a klientský certifikát",
+      "aServerWithASelf": "Server s vlastním certifikátem vyžaduje, aby byl na tomto {{deviceWord}} nejprve nainstalován jeho kořenový CA. Čisté http funguje ve vaší vlastní síti.",
+      "enterTheCode": "Zadejte kód",
+      "code": "Kód",
+      "the6DigitCodeFrom": "6místný kód z vaší autentizační aplikace nebo záložní kód",
+      "checkCode": "Ověřit kód",
+      "thisAccountAsksForA": "Tento účet vyžaduje bezpečnostní klíč po zadání hesla. Pro jeho použití se přihlaste na stránce serveru ve vašem prohlížeči.",
+      "useASecurityKeyIn": "Použít bezpečnostní klíč v prohlížeči",
+      "backToSignIn": "Zpět k přihlášení",
+      "bringThisAposSHosts": "Přinést hostitele z tohoto {{deviceWord}}?",
+      "thisHasTheyStayOn": "Tento {{deviceWord}} má {{what}}. Zůstanou na tomto zařízení v každém případě.",
+      "merge": "Sloučit",
+      "copyThemToTooSo": "Zkopírovat je také na {{serverName}}, aby se synchronizovaly. Ty, které vypadají stejně jako hostitel na serveru, se přeskočí.",
+      "replace": "Nahradit",
+      "useOnlyWhatIsOn": "Použít pouze to, co je na {{serverName}} pro tento účet. Nic se nekopíruje.",
+      "thatCodeDidnTWork": "Tento kód nefungoval",
+      "hostsCredentialsOrSnippets": "hostitele, přihlašovací údaje nebo úryvky"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Nejprve propojte tento server",
+      "thatHostIsnTHere": "Tento hostitel zde není",
+      "couldNotOpenThatHost": "Nelze otevřít tohoto hostitele",
+      "noHostWithIdOn": "Na účtu {{account}} neexistuje hostitel s id {{hostId}}.",
+      "isnTLinkedInThe": "{{value}} ještě není v aplikaci propojen."
+    }
+  },
+  "notifications": {
+    "notifications": "Oznámení",
+    "markAllRead": "Označit všechna jako přečtená",
+    "clearReadNotifications": "Smazat přečtená oznámení",
+    "unread2": "Nepřečtená",
+    "all": "Všechna",
+    "noUnreadNotifications": "Žádná nepřečtená oznámení",
+    "nothingHere": "Nic zde není",
+    "markRead": "Označit jako přečtené",
+    "delete": "Smazat",
+    "couldNotLoadNotifications": "Nelze načíst oznámení",
+    "couldNotMarkRead": "Nelze označit jako přečtené",
+    "couldNotDelete": "Nelze smazat",
+    "couldNotClear": "Nelze vyčistit"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Importovat",
+      "hosts": "Hostitelé",
+      "aTermixHostFileYour": "Soubor hostitelů Termix, váš ~/.ssh/config nebo odkaz na hostitele nebo QR kód z jiného {{deviceWord}}. Uloží se na tento {{deviceWord}}.",
+      "backup": "Záloha",
+      "aBackupThisAppMade": "Záloha vytvořená touto aplikací, uzamčená heslem. Obnoví hostitele, přihlašovací údaje a úryvky.",
+      "restoreABackup": "Obnovit ze zálohy",
+      "done": "Hotovo",
+      "skipForNow": "Přeskočit prozatím",
+      "sshFilesAndRemoteDesktops": "SSH, soubory a vzdálené plochy z vašeho {{deviceWord}}. Jak chcete začít?",
+      "useWithoutAServer": "Použít bez serveru",
+      "hostsCredentialsAndSnippetsAre": "Hostitelé, přihlašovací údaje a úryvky jsou šifrovány na tomto {{deviceWord}}. Server můžete propojit kdykoli později.",
+      "linkATermixServer": "Propojit server Termix",
+      "syncYourHostsCredentialsSnippets": "Synchronizujte své hostitele, přihlašovací údaje, úryvky a nastavení se serverem a používejte jeho pluginy.",
+      "bringHostsFromATermix": "Importujte hostitele ze souboru Termix, SSH konfigurace, QR kódu nebo zálohy.",
+      "thisDevice": "Toto zařízení"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Hledat hostitele, úryvky, akce",
+      "clearSearch": "Vymazat hledání",
+      "nothingMatches": "Nic neodpovídá",
+      "typeToSearch": "Zadejte pro hledání",
+      "findAHostToConnect": "Najděte hostitele pro připojení, úryvek, nastavení nebo akci.",
+      "suggested": "Doporučeno | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Spustit v {{title}}",
+      "copiedRunItFromThe": "Zkopírováno. Spusťte jej z úryvků v terminálu pro vyplnění hodnot.",
+      "copiedOpenATerminalTo": "Zkopírováno. Otevřete terminál pro spuštění úryvků.",
+      "addHost": "Přidat hostitele",
+      "quickConnect": "Rychlé připojení",
+      "switchAccount": "Přepnout účet",
+      "linkAServer": "Propojit server",
+      "fromYourServer": "Z vašeho serveru",
+      "settings": "Nastavení",
+      "accountsAppearanceSecurity": "Účty, vzhled, zabezpečení"
+    },
+    "search": {
+      "hosts": "Hostitelé",
+      "snippets": "Úryvky",
+      "actions": "Akce",
+      "settings": "Nastavení"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Nepodařilo se načíst relace",
+      "sessionRevoked": "Relace odvolána",
+      "failedToRevokeSession": "Nepodařilo se odvolat relaci",
+      "allSessionsRevoked": "Všechny relace odvolány",
+      "failedToRevokeAllSessions": "Nepodařilo se odvolat všechny relace",
+      "activeSessions": "Aktivní relace",
+      "signOutAllOtherSessions": "Odhlásit všechny ostatní relace",
+      "loading": "Načítání…",
+      "noActiveSessionsFound": "Nebyly nalezeny žádné aktivní relace.",
+      "unknownDevice": "Neznámé zařízení",
+      "lastActive": "Naposledy aktivní {{lastActiveAt}}",
+      "created": "Vytvořeno {{createdAt}}",
+      "revokeSession": "Odvolat relaci",
+      "revokeSession2": "Odvolat relaci?",
+      "thisWillSignOutThat": "Tím se toto zařízení odhlásí.",
+      "revoke": "Odvolat",
+      "revokeAllSessions": "Odvolat všechny relace?",
+      "thisWillSignOutEvery": "Tím se odhlásí všechna zařízení. Na tomto zařízení zůstane přihlášen.",
+      "cancel": "Zrušit",
+      "revokeAll": "Odvolat všechny"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Nepodařilo se načíst API klíče",
+      "failedToCreateApiKey": "Nepodařilo se vytvořit API klíč",
+      "deleteApiKey": "Smazat API klíč?",
+      "willStopWorkingRightAway": "\"{{name}}\" přestane fungovat okamžitě.",
+      "apiKeyDeleted": "API klíč smazán",
+      "failedToDeleteApiKey": "Nepodařilo se smazat API klíč",
+      "apiKeys": "API klíče",
+      "newApiKey": "Nový API klíč",
+      "loading": "Načítání…",
+      "apiKeysAllowProgrammaticAccess": "API klíče umožňují programový přístup k Termix. Tajný klíč je zobrazen pouze jednou, takže jej bezpečně uložte.",
+      "noApiKeysYet": "Zatím žádné API klíče",
+      "created": "Vytvořeno {{createdAt}}",
+      "lastUsed": "Naposledy použito {{lastUsedAt}}",
+      "expires": "Vyprší {{expiresAt}}",
+      "delete": "Smazat {{name}}",
+      "keyCreatedCopyItNow": "Klíč byl vytvořen. Zkopírujte ho nyní",
+      "newApiKey2": "Nový API klíč",
+      "thisTokenWonTBe": "Tento token již nebude znovu zobrazen.",
+      "apiKeyCopied": "API klíč zkopírován",
+      "copy": "Kopírovat",
+      "done": "Hotovo",
+      "cancel": "Zrušit",
+      "create": "Vytvořit",
+      "name": "Název *",
+      "eGCiPipeline": "např. CI Pipeline",
+      "user": "Uživatel *",
+      "noUsersAvailable": "Žádní uživatelé nejsou k dispozici.",
+      "expiresAtOptional": "Platnost do (volitelné)",
+      "yyyyMmDd": "RRRR/MM/DD",
+      "yearMonthDay": "Rok / Měsíc / Den"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Ponechat relace spuštěné",
+      "showsANotificationWhileSessions": "Zobrazuje oznámení, když jsou relace otevřené, takže Android ponechá jejich běh i po opuštění aplikace",
+      "batteryOptimization": "Optimalizace baterie",
+      "termixIsNotRestrictedSo": "Termix není omezen, takže relace mohou zůstat otevřené i s vypnutou obrazovkou.",
+      "androidMayStillStopSessions": "Android může relace stále ukončit pro úsporu baterie. Otevřete nastavení baterie, najděte Termix a vyberte Neoptimalizováno nebo Bez omezení.",
+      "openBatterySettings": "Otevřít nastavení baterie",
+      "notificationsAreOff": "Oznámení jsou vypnutá",
+      "sessionsStillRunButThe": "Relace stále běží, ale seznam otevřených relací a tlačítko Odpojit vše zůstávají skryté.",
+      "openNotificationSettings": "Otevřít nastavení oznámení",
+      "thisBuildCanTKeep": "Tato verze neumí udržovat relace spuštěné na pozadí. Po návratu se znovu připojí.",
+      "lowPowerMode": "Režim úspory energie",
+      "batterySaver": "Úspora baterie",
+      "isOnTermixChecksConnections": "{{value}} je zapnuto. Termix kontroluje připojení méně často a déle čeká mezi pokusy o opětovné připojení.",
+      "backgroundSessions": "Relace na pozadí",
+      "iosStopsAppsSoonAfter": "iOS zastaví aplikace brzy po jejich opuštění, takže relace nemohou běžet na pozadí. Po návratu se znovu připojí a tmux nebo screen naváže tam, kde jste skončili."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Zastaveno",
+        "active": "Aktivní",
+        "linkAServer": "Propojit server",
+        "eachServerKeepsItsOwn": "Každý server si na tomto {{deviceWord}} udržuje vlastní kopii vašich hostitelů, přihlašovacích údajů a nastavení.",
+        "signedInAs": "Přihlášen jako",
+        "role": "Role",
+        "administrator": "Administrátor",
+        "user": "Uživatel",
+        "serverVersion": "Verze serveru",
+        "signOut": "Odhlásit se",
+        "youAreSignedOutOf": "Jste odhlášen z tohoto serveru.",
+        "signIn": "Přihlásit se",
+        "passwordChanged": "Heslo změněno",
+        "couldNotChangeThePassword": "Heslo se nepodařilo změnit",
+        "changePassword": "Změnit heslo",
+        "enterYourCurrentPasswordThen": "Zadejte své aktuální heslo a poté zvolte nové.",
+        "cancel": "Zrušit",
+        "change": "Změnit",
+        "currentPassword": "Aktuální heslo",
+        "newPassword": "Nové heslo",
+        "accountDeleted": "Účet smazán",
+        "couldNotDeleteTheAccount": "Účet se nepodařilo smazat",
+        "deleteServerAccount": "Smazat účet na serveru",
+        "thisPermanentlyDeletesYourAccount": "Tímto trvale smažete svůj účet na serveru a všechna jeho data. Tuto akci nelze vrátit zpět.",
+        "delete": "Smazat",
+        "confirmYourPassword": "Potvrďte své heslo",
+        "worksWithoutAServer": "Funguje bez serveru",
+        "signedOut": "Odhlášen",
+        "readsLive": "Čte živá data",
+        "toReview": "{{count}} k ověření",
+        "synced": "Synchronizováno",
+        "syncing": "Synchronizace",
+        "offline": "Offline"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Sdílet anonymní statistiky používání",
+        "aShortReportOnceA": "Krátká zpráva jednou denně. Žádné hostitele, jména ani adresy",
+        "nextReport": "Další zpráva",
+        "seeExactlyWhatWouldBe": "Zobrazit přesně, co bude odesláno",
+        "couldNotBuildTheReport": "Nelze vytvořit zprávu",
+        "preview": "Náhled",
+        "thisIsExactlyWhatWould": "Toto je přesně to, co by bylo právě teď odesláno.",
+        "resetInstallId": "Obnovit ID instalace",
+        "futureReportsWillLookLike": "Budoucí zprávy budou vypadat jako nová instalace",
+        "resetTheInstallId": "Obnovit ID instalace?",
+        "futureReportsWillLookLike2": "Budoucí zprávy budou vypadat jako nová instalace.",
+        "reset": "Obnovit",
+        "installIdReset": "ID instalace obnoveno"
+      },
+      "appearanceControls": {
+        "theme": "Téma",
+        "accentColor": "Akcentní barva",
+        "textSize": "Velikost textu",
+        "sizeOfTextAcrossThe": "Velikost textu v celé aplikaci, ne v terminálu",
+        "density": "Hustota",
+        "howTallListRowsAnd": "Výška řádků seznamů a nastavení"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Hostitelé, přihlašovací údaje a úryvky jsou uloženy v šifrovaném souboru na tomto {{deviceWord}}. Statistiky využití jsou vypnuty, pokud je níže nezapnete. Propojený server získá pouze to, co mu dovolíte synchronizovat.",
+        "recentHosts": "Nedávné hostitele",
+        "forgetTheHostsYouOpened": "Zapomenout hostitele, ke kterým jste se nedávno připojili, na všech účtech",
+        "recentHostsCleared": "Nedávné hostitele vymazány",
+        "clear": "Vymazat",
+        "couldNotCheckForUpdates": "Nelze zkontrolovat aktualizace",
+        "versionIsOutUpdateFrom": "Je k dispozici verze {{version}}. Aktualizujte ji z obchodu.",
+        "youHaveTheNewestVersion": "Máte nejnovější verzi",
+        "termixMobile": "Termix Mobile",
+        "updates": "Aktualizace",
+        "check": "Zkontrolovat"
+      },
+      "pinSheet": {
+        "waitSeconds": "Počkat {{value}} sekund",
+        "digits": "{{PIN_LENGTH}} číslic"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PINy se neshodují",
+        "appLockIsOn": "Odemknutí aplikace je zapnuto",
+        "turnOffAppLock": "Vypnout odemknutí aplikace",
+        "enterYourPinToConfirm": "Pro potvrzení zadejte svůj PIN.",
+        "appLockIsOff": "Odemknutí aplikace je vypnuto",
+        "appLock": "Odemknutí aplikace",
+        "askForFaceIdTouch": "Požádat o Face ID, Touch ID nebo PIN pro otevření aplikace",
+        "askForAPinTo": "Požádat o PIN pro otevření aplikace",
+        "pinChanged": "PIN změněn",
+        "couldNotChangeThePin": "Nelze změnit PIN",
+        "changePin": "Změnit PIN",
+        "lockAfter": "Uzamknout po",
+        "howLongTheAppCan": "Jak dlouho může aplikace být mimo zřetel, než se uzamkne",
+        "hideInAppSwitcher": "Skrýt v přepínači aplikací",
+        "showABlankScreenIn": "Zobrazit prázdnou obrazovku v seznamu nedávných aplikací",
+        "chooseA4DigitPin": "Vyberte 4místný PIN.",
+        "confirmPin": "Potvrdit PIN",
+        "enterTheSamePinAgain": "Zadejte stejný PIN znovu.",
+        "currentPin": "Aktuální PIN",
+        "enterYourCurrentPin": "Zadejte svůj aktuální PIN.",
+        "newPin": "Nový PIN",
+        "chooseANew4Digit": "Vyberte nový 4místný PIN.",
+        "confirmNewPin": "Potvrdit nový PIN",
+        "enterTheNewPinAgain": "Zadejte nový PIN znovu."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Widgety na domovské obrazovce",
+        "showYourHostsSnippetsAnd": "Zobrazit hostitele, úryvky a tlačítka napájení na domovské obrazovce",
+        "showAddresses": "Zobrazit adresy",
+        "showUserHostUnderEach": "Zobrazit uživatele@hostitele pod názvem každého serveru",
+        "includeOfflineHosts": "Zahrnout offline hostitele",
+        "offShowsOnlyServersThat": "Vypnuto zobrazuje pouze servery, které jsou online",
+        "pinnedHostsOnly": "Pouze připnuté hostitele",
+        "showOnlyTheHostsYou": "Zobrazit pouze hostitele, které jste připnuli",
+        "snippetsWidget": "Widget úryvků",
+        "showSavedCommandsOnThe": "Zobrazit uložené příkazy na domovské obrazovce",
+        "showCommandPreview": "Zobrazit náhled příkazu",
+        "showTheFirstLineOf": "Zobrazit první řádek každého příkazu"
+      }
+    },
+    "fileSettings": {
+      "files": "Soubory",
+      "fileManagerOnThis": "Správce souborů na tomto {{deviceWord}}",
+      "browsing": "Procházení",
+      "transfersAtOnce": "Přenosy najednou",
+      "downloadsAndUploadsThatRun": "Stahování a nahrávání, která probíhají současně",
+      "editor": "Editor",
+      "textSize": "Velikost textu",
+      "filesBesideTheTerminal": "Soubory vedle terminálu",
+      "side": "Strana",
+      "whereThePanelSitsOn": "Kde se panel nachází na tabletu",
+      "right": "Vpravo",
+      "left": "Vlevo",
+      "howOftenToCheck": "Jak často kontrolovat",
+      "folderHistory": "Historie složek",
+      "foldersKeptPerHost": "Uložené složky na hostitele",
+      "showHiddenFiles": "Zobrazit skryté soubory",
+      "filesAndFoldersThatStart": "Soubory a složky začínající tečkou",
+      "askBeforeMovingToThe": "Zeptat se před přesunem do koše",
+      "deletingForGoodAlwaysAsks": "Trvalé smazání se vždy ptá",
+      "wrapLongLines": "Zalamovat dlouhé řádky",
+      "openWithNewTerminals": "Otevřít s novými terminály",
+      "onATabletShowThe": "Na tabletu zobrazit panel souborů při otevření terminálu",
+      "followTheTerminal": "Sledovat terminál",
+      "openTheFolderTheTerminal": "Otevírat složku, ve které se terminál nachází, při použití cd"
+    },
+    "keyboardCustomization": {
+      "small": "Malé",
+      "medium": "Střední",
+      "large": "Velké",
+      "ms": "{{v}} ms",
+      "keyboard": "Klávesnice",
+      "keyRowsAboveTheKeyboard": "Řady kláves nad klávesnicí",
+      "rows": "Řady",
+      "keys": "Klávesy",
+      "aHostCanHaveIts": "Hostitel může mít vlastní řady: klepněte na jeho otevřenou kartu v relaci a vyberte Řady kláves pro tohoto hostitele.",
+      "keySize": "Velikost kláves",
+      "vibrateOnKeyPress": "Vibrovat při stisku klávesy",
+      "repeatAfter": "Opakovat po",
+      "howLongToHoldAn": "Jak dlouho držet šipku nebo Backspace",
+      "repeatEvery": "Opakovat každých",
+      "hardwareKeyboard": "Hardwarová klávesnice",
+      "allShortcuts": "Všechny zkratky",
+      "show": "Zobrazit"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Nelze vytvořit zálohu",
+      "deleteLocalData": "Smazat lokální data?",
+      "hostsCredentialsSnippetsAndHistory": "Hostitelé, přihlašovací údaje, úryvky a historie uložené na tomto {{deviceWord}} pro {{account}} budou smazány. Tuto akci nelze vrátit zpět. Pokud je chcete zachovat, nejprve vytvořte zálohu.",
+      "delete": "Smazat",
+      "localDataDeleted": "Lokální data smazána",
+      "couldNotDeleteLocalData": "Nelze smazat lokální data",
+      "localData": "Lokální data",
+      "localDataIsOnlySaved": "Místní data jsou uložena pouze v aplikaci {{deviceWord}}.",
+      "savedOnThisForThe": "Uloženo na tomto zařízení {{deviceWord}} pro účet {{account}}. Soubor je šifrován klíčem, který nikdy neopustí toto zařízení {{deviceWord}}.",
+      "hosts": "Hostitelé",
+      "credentials": "Přihlašovací údaje",
+      "snippets": "Úkazy",
+      "size": "Velikost",
+      "dataVersion": "Verze dat",
+      "backup": "Záloha",
+      "aBackupFileHoldsYour": "Záložní soubor obsahuje vaše hesla a klíče, uzamčené heslem, které si zvolíte. Nikdo ho bez tohoto hesla neotevře.",
+      "exportBackup": "Exportovat zálohu",
+      "importBackup": "Importovat zálohu",
+      "removesEverythingThisAccountSaved": "Odstraní všechna data, která tento účet uložil na tomto zařízení {{deviceWord}}. Propojený server si uchová vlastní kopii.",
+      "deleteLocalData2": "Smazat místní data",
+      "backupPassphrase": "Heslo pro zálohu",
+      "atLeast8CharactersYou": "Minimálně 8 znaků. Budete ho potřebovat k obnovení zálohy.",
+      "passphrase": "Heslo",
+      "next": "Další",
+      "typeItAgain": "Zadejte znovu",
+      "export": "Exportovat",
+      "saveYourTermixBackup": "Uložit zálohu Termix"
+    },
+    "logs": {
+      "logs": "Protokoly",
+      "latestLinesFromThisRun": "Nejnovější řádky z tohoto spuštění. Adresy serverů, hesla a tokeny jsou skryty.",
+      "logsCopied": "Protokoly zkopírovány",
+      "copy": "Kopírovat",
+      "share": "Sdílet",
+      "clear": "Vymazat",
+      "noLogsYet": "Zatím žádné protokoly",
+      "nothingHasBeenLogged": "Nic nebylo zaznamenáno."
+    },
+    "plugins": {
+      "worksOnThis": "Funguje na tomto zařízení {{deviceWord}}",
+      "needsTheServer": "Vyžaduje server",
+      "notInTheApp": "Není v aplikaci",
+      "needsANewerVersionOf": "Vyžaduje novější verzi aplikace",
+      "updateThePluginOnThe": "Aktualizovat plugin na serveru",
+      "inTheApp": "V aplikaci",
+      "onThisServer": "Na tomto serveru",
+      "version": "Verze",
+      "needsPluginApi": "Vyžaduje plugin API",
+      "thisAppHas": "Tato aplikace má",
+      "note": "Poznámka",
+      "open": "Otevřít",
+      "openFromAHostS": "Otevřít {{name}} z nabídky hostitele.",
+      "plugins": "Pluginy",
+      "everything": "Vše",
+      "thisDeviceWorksWithNo": "Toto zařízení funguje bez serveru. Propojte server, abyste přidali funkce, které ho vyžadují.",
+      "pluginsOnAndHowEach": "Pluginy na účtu {{account}} a jak se každý z nich zobrazuje v aplikaci. Tažením dolů zkontrolujete znovu.",
+      "whatRunsOnThisAnd": "Co běží na tomto zařízení {{deviceWord}} a co prochází přes {{account}}.",
+      "noPluginList": "Žádný seznam pluginů",
+      "theServerDidNotSend": "Server neposlal své pluginy. Tažením dolů to zkuste znovu.",
+      "serversOlderThan29": "Servery starší než 2.9 mají všechny funkce vestavěné.",
+      "nothingToShow": "Nic k zobrazení",
+      "notSentByThisServer": "Neposláno tímto serverem"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Nahradit místní data?",
+      "everythingSavedOnThisFor": "Všechna data uložená na tomto zařízení {{deviceWord}} pro účet {{accountName}} budou nahrazena zálohou.",
+      "continue": "Pokračovat",
+      "couldNotReadThatFile": "Nelze přečíst tento soubor",
+      "backupRestored": "Záloha obnovena",
+      "couldNotRestoreTheBackup": "Nelze obnovit zálohu",
+      "backupPassphrase": "Heslo pro zálohu",
+      "thePassphraseUsedWhenThe": "Heslo použité při vytváření zálohy.",
+      "passphrase": "Heslo",
+      "restore": "Obnovit"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Účty",
+        "thisDeviceAndLinkedServers": "Toto zařízení a propojené servery včetně stavu synchronizace",
+        "syncAndProxy": "Synchronizace a proxy",
+        "whatSyncsConflictsProxyAnd": "Co se synchronizuje, konflikty, proxy a odpojení",
+        "serverAccount": "Serverový účet",
+        "whoIsSignedInOn": "Kdo je přihlášen na aktivním serveru",
+        "activeSessions": "Aktivní relace",
+        "devicesSignedInToThe": "Zařízení přihlášená k serveru",
+        "apiKeys": "API klíče",
+        "keysForScriptsAndTools": "Klíče pro skripty a nástroje",
+        "changePassword": "Změnit heslo",
+        "passwordOfYourServerAccount": "Heslo vašeho serverového účtu",
+        "deleteServerAccount": "Smazat serverový účet",
+        "removeYourAccountFromThe": "Odstranit váš účet ze serveru",
+        "theme": "Motiv",
+        "darkLightDraculaNordAnd": "Tmavý, světlý, Dracula, Nord a další",
+        "accentColor": "Akcentní barva",
+        "textSize": "Velikost textu",
+        "sizeOfTextAcrossThe": "Velikost textu v celé aplikaci",
+        "density": "Hustota",
+        "howTallListRowsAnd": "Výška řádků seznamů a nastavení",
+        "homeScreenWidgets": "Widgety na domovské obrazovce",
+        "hostsAndSnippetsOnThe": "Hostitelé a úryvky na domovské obrazovce",
+        "terminal": "Terminál",
+        "fontThemeCursorScrollback": "Písmo, motiv, kurzor, historie posouvání",
+        "keyboard": "Klávesnice",
+        "layoutKeysPresets": "Rozložení, klávesy, předvolby",
+        "appLock": "Zámek aplikace",
+        "askForFaceIdTouch": "Požadovat Face ID, Touch ID nebo PIN pro otevření aplikace",
+        "lockAfter": "Uzamknout po",
+        "howLongTheAppCan": "Jak dlouho může být aplikace mimo zřetel, než se uzamkne",
+        "hideInAppSwitcher": "Skrýt v přepínači aplikací",
+        "showABlankScreenIn": "Zobrazit prázdnou obrazovku v seznamu nedávných aplikací",
+        "changePin": "Změnit PIN",
+        "backgroundSessions": "Relace na pozadí",
+        "whatHappensToOpenSessions": "Co se stane s otevřenými relacemi, když opustíte aplikaci",
+        "serverAlerts": "Upozornění ze serveru",
+        "alertsFromTheAlertsPlugin": "Upozornění z pluginu Alerts na vašem serveru",
+        "whatStaysOnThis": "Co zůstává na tomto {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Hostitelé, přihlašovací údaje a úryvky jsou zde uloženy šifrovaně",
+        "recentHosts": "Nedávní hostitelé",
+        "forgetTheHostsYouOpened": "Zapomenout hostitele, ke kterým jste se nedávno připojili",
+        "shareAnonymousUsageStatistics": "Sdílet anonymní statistiky používání",
+        "aShortReportOnceA": "Stručná zpráva jednou denně. Žádní hostitelé, jména ani adresy",
+        "nextReport": "Další zpráva",
+        "seeExactlyWhatWouldBe": "Zobrazit přesně, co by bylo odesláno",
+        "resetInstallId": "Resetovat ID instalace",
+        "futureReportsWillLookLike": "Budoucí zprávy budou vypadat jako nová instalace",
+        "serverUsageStatistics": "Statistiky používání serveru",
+        "telemetrySettingsOnYourServer": "Nastavení telemetrie na vašem serveru",
+        "plugins": "Pluginy",
+        "whatTheServerAddsAnd": "Co server přidává a kde běží",
+        "localData": "Lokální data",
+        "backupRestoreAndDeleteWhat": "Zálohovat, obnovit a smazat to, co je uloženo na tomto {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Verze a aktualizace",
+        "logs": "Protokoly",
+        "latestLinesFromThisRun": "Nejnovější řádky z tohoto spuštění, pro hlášení chyb",
+        "pushNotifications": "Push notifikace",
+        "pushNotificationsDescription": "Upozornění z vašich serverů na tomto telefonu"
+      },
+      "sections": {
+        "accountsAndSync": "Účty a synchronizace",
+        "thisDeviceLinkedServersAnd": "Toto zařízení, propojené servery a synchronizace",
+        "appearance": "Vzhled",
+        "themeAccentTextSizeAnd": "Jazyk, motiv, zvýraznění, velikost textu a hustota",
+        "terminal": "Terminál",
+        "fontColorsAndBackgroundSessions": "Písmo, barvy a relace na pozadí",
+        "keyboard": "Klávesnice",
+        "keyRowsAndShortcuts": "Řádky kláves a zkratky",
+        "security": "Zabezpečení",
+        "appLockFaceIdAnd": "Zámek aplikace, Face ID a PIN",
+        "notifications": "Oznámení",
+        "alertsFromYourServer": "Upozornění ze vašeho serveru",
+        "privacyAndUsageStatistics": "Ochrana soukromí a statistiky používání",
+        "whatStaysOnThis": "Co zůstává na tomto {{deviceWord}}",
+        "plugins": "Pluginy",
+        "whatTheServerAddsTo": "Co server přidává do aplikace",
+        "backupAndData": "Záloha a data",
+        "backUpRestoreImportAnd": "Zálohování, obnovení, import a export",
+        "aboutAndLogs": "O aplikaci a protokoly",
+        "versionAndLogsForBug": "Verze a protokoly pro hlášení chyb"
+      }
+    },
+    "settings": "Nastavení",
+    "searchSettings": "Hledat v nastavení",
+    "noSettingsMatch": "Žádné nastavení neodpovídá.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Nepodařilo se načíst úryvky",
+      "copied": "Zkopírováno: {{name}}",
+      "nameIsRequired": "Název je povinný",
+      "contentIsRequired": "Obsah je povinný",
+      "snippetUpdated": "Úryvek aktualizován",
+      "snippetCreated": "Úryvek vytvořen",
+      "failedToSaveSnippet": "Nepodařilo se uložit úryvek",
+      "snippetDeleted": "Úryvek smazán",
+      "failedToDeleteSnippet": "Nepodařilo se smazat úryvek",
+      "folderNameIsRequired": "Název složky je povinný",
+      "folderCreated": "Složka vytvořena",
+      "failedToCreateFolder": "Nepodařilo se vytvořit složku",
+      "folderDeleted": "Složka smazána",
+      "failedToDeleteFolder": "Nepodařilo se smazat složku",
+      "folderRenamed": "Složka přejmenována",
+      "failedToRenameFolder": "Nepodařilo se přejmenovat složku",
+      "failedToSaveOrder": "Nepodařilo se uložit pořadí",
+      "moveUp": "Posunout nahoru",
+      "moveDown": "Posunout dolů",
+      "runOnHosts": "Spustit {{name}} na hostitelích",
+      "copy": "Kopírovat {{name}}",
+      "delete": "Smazat {{name}}",
+      "renameFolder": "Přejmenovat složku",
+      "deleteFolder": "Smazat složku",
+      "noSnippetsInThisFolder": "V této složce nejsou žádné úryvky",
+      "snippets": "Úryvky",
+      "importAndExport": "Import a export",
+      "folder": "Složka",
+      "new": "Nový",
+      "loading": "Načítání…",
+      "couldNotLoadSnippets": "Nepodařilo se načíst úryvky",
+      "checkTheConnectionToYour": "Zkontrolujte připojení k vašemu serveru a zkuste to znovu.",
+      "tryAgain": "Zkusit znovu",
+      "noSnippetsYet": "Zatím žádné úryvky",
+      "createYourFirstSnippetOr": "Vytvořte svůj první úryvek nebo přidejte úryvky z webové nebo desktopové aplikace Termix.",
+      "createSnippet": "Vytvořit úryvek",
+      "askBeforeRunning": "Před spuštěním se zeptat",
+      "confirmBeforeASnippetRuns": "Potvrdit před spuštěním úryvku v terminálu",
+      "editSnippet": "Upravit úryvek",
+      "newSnippet": "Nový úryvek",
+      "cancel": "Zrušit",
+      "save": "Uložit",
+      "create": "Vytvořit",
+      "name": "Název",
+      "eGUpdatePackages": "např. Aktualizovat balíčky",
+      "content": "Obsah",
+      "descriptionOptional": "Popis (volitelné)",
+      "shortDescription": "Krátký popis",
+      "folderOptional": "Složka (volitelné)",
+      "selectFolder": "Vybrat složku",
+      "noFolder": "Žádná složka",
+      "targetHostsOptional": "Cílové hostitele (volitelné)",
+      "none": "Žádné",
+      "note": "Poznámka",
+      "pastedIntoTheTerminalWithout": "Vloženo do terminálu bez spuštění",
+      "targetHosts": "Cílové hostitele",
+      "copy2": "Kopírovat",
+      "edit": "Upravit",
+      "runOnHosts2": "Spustit na hostitelích",
+      "delete2": "Smazat",
+      "deleteSnippet": "Smazat úryvek",
+      "deleteThisCannotBeUndone": "Smazat „{{name}}“? Tuto akci nelze vrátit zpět.",
+      "renameFolder2": "Přejmenovat složku",
+      "rename": "Přejmenovat",
+      "folderName": "Název složky",
+      "eGSystem": "např. Systém",
+      "newFolder": "Nová složka",
+      "deleteFolder2": "Smazat složku",
+      "deleteSnippetsInThisFolder": "Smazat „{{name}}“? Úryvky v této složce se stanou nekategorizovanými."
+    },
+    "sync": {
+      "notYet": "Ještě ne",
+      "justNow": "Právě teď",
+      "stopped": "Zastaveno",
+      "signInToThisServer": "Pro synchronizaci se znovu přihlaste k tomuto serveru",
+      "couldNotChangeThat": "Toto se nepodařilo změnit",
+      "sync": "Synchronizace",
+      "thisDeviceDoesNotSync": "Toto zařízení nesynchronizuje. Propojte server Termix, abyste měli své hostitele na více zařízeních.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} udržuje hostitele, přihlašovací údaje, úryvky a nastavení v souladu s tímto {{deviceWord}}. Kopie zůstává na tomto {{deviceWord}}, takže funguje i offline.",
+      "lastSynced": "Naposledy synchronizováno {{value}}",
+      "live": "Živě",
+      "syncNow": "Synchronizovat nyní",
+      "fix": "Opravit",
+      "thisServerReadsLiveAnd": "Tento server čte živě a neuchovává žádnou kopii na {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Zapněte plugin Synchronizace na stránce Pluginy serveru a poté se zde znovu přihlaste, abyste si na tomto {{deviceWord}} udrželi kopii.",
+      "whatSyncs": "Co se synchronizuje",
+      "turnedOffThatDataStays": "Vypnuto, tato data zůstanou pouze na tomto {{deviceWord}}.",
+      "conflicts": "Konflikty",
+      "changedHereAndOnThe": "Změněno zde i na serveru ve stejnou dobu. Byla zachována verze ze serveru.",
+      "useServer": "Použít server",
+      "keepMine": "Zachovat mou verzi",
+      "notSavedOnTheServer": "Neuloženo na serveru",
+      "theServerRefusedTheseChanges": "Server tyto změny odmítl. Zůstanou na tomto {{deviceWord}}.",
+      "tryAgain": "Zkusit znovu",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Potřebné pouze tehdy, když je před serverem reverzní proxy.",
+      "unlink": "Odpojit",
+      "unlinkThisServer": "Odpojit tento server",
+      "minAgo": "před {{value}} min",
+      "signedOut": "Odhlášeno",
+      "waitingToSync": "Čeká na synchronizaci",
+      "synced": "Synchronizováno",
+      "syncing": "Synchronizuje se",
+      "offline": "Offline"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Pozadí",
+        "text": "Text",
+        "cursor": "Kurzor",
+        "textUnderCursor": "Text pod kurzorem",
+        "selection": "Výběr",
+        "black": "Černá",
+        "red": "Červená",
+        "green": "Zelená",
+        "yellow": "Žlutá",
+        "blue": "Modrá",
+        "magenta": "Magenta",
+        "cyan": "Azurová",
+        "white": "Bílá",
+        "brightBlack": "Světle černá",
+        "brightRed": "Světle červená",
+        "brightGreen": "Světle zelená",
+        "brightYellow": "Světle žlutá",
+        "brightBlue": "Světle modrá",
+        "brightMagenta": "Světle magenta",
+        "brightCyan": "Světle azurová",
+        "brightWhite": "Světle bílá",
+        "customTheme": "Vlastní motiv",
+        "colorsAsHexLike1e1e2e": "Barvy v hexadecimálním tvaru, např. #1e1e2e.",
+        "cancel": "Zrušit",
+        "save": "Uložit",
+        "isNotAHexColor": "{{label}} není hexadecimální barva"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompaktní",
+      "default": "Výchozí",
+      "relaxed": "Uvolněný",
+      "spacious": "Prostranný",
+      "none": "Žádný",
+      "couldNotSave": "Nelze uložit",
+      "pickASizeFromTo": "Vyberte velikost od {{MIN_FONT_SIZE}} do {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Nastavení terminálu bylo resetováno",
+      "terminal": "Terminál",
+      "aHostCanSetIts": "Hostitel si může v Termix nastavit vlastní motiv a kurzor, které mají přednost před těmito.",
+      "theme": "Motiv",
+      "custom": "Vlastní",
+      "font": "Písmo",
+      "active": "Aktivní",
+      "sizeAndSpacing": "Velikost a rozestupy",
+      "pinchTheTerminalToChange": "Velikost můžete změnit i tažením terminálu. Velké písmo v nastavení vašeho {{deviceWord}} ho zvětší.",
+      "custom2": "Vlastní {{fontSize}}",
+      "lineHeight": "Výška řádku",
+      "letterSpacing": "Mezery mezi znaky",
+      "ligatures": "Spojnice",
+      "cursor": "Kurzor",
+      "blink": "Blikání",
+      "bell": "Zvuk",
+      "vibrate": "Vibrace",
+      "onTheBellAndWhen": "Při zvuku a při dlouhém stisku pro výběr",
+      "scrollback": "Posuv historie",
+      "linesKeptAboveTheScreen": "Počet řádků uložených nad obrazovkou. Platí pro nové terminály.",
+      "linksAndKeys": "Odkazy a klíče",
+      "askBeforeOpeningLinks": "Poptat potvrzení před otevřením odkazů",
+      "doubleTapSendsTab": "Dvojitý klepnutí odesílá Tab",
+      "longPressStillSelectsText": "Dlouhý stisk stále vybírá text",
+      "optionSendsAlt": "Option odesílá Alt",
+      "onAHardwareKeyboardOff": "Na hardwarové klávesnici. Při vypnutí se píšou symboly jako na Macu.",
+      "history": "Historie",
+      "suggestCommands": "Navrhovat příkazy",
+      "showsPastCommandsThatStart": "Minulé příkazy při psaní",
+      "resetToDefault": "Obnovit výchozí nastavení",
+      "fontSize": "Velikost písma",
+      "aSizeFromTo": "Velikost od {{MIN_FONT_SIZE}} do {{MAX_FONT_SIZE}}.",
+      "cancel": "Zrušit",
+      "apply": "Použít",
+      "resetTerminalSettings": "Obnovit nastavení terminálu?",
+      "themeFontSizeCursorBell": "Téma, písmo, velikost, kurzor, zvuk a zbytek se vrátí k výchozím hodnotám.",
+      "reset": "Obnovit",
+      "followsAppTheme": "Sledovat téma aplikace"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Nepodařilo se spustit nastavení 2FA",
+      "twoFactorAuthenticationEnabled": "Dvoufázové ověřování povoleno",
+      "invalidCodeTryAgain": "Neplatný kód, zkuste to znovu",
+      "twoFactorAuthenticationDisabled": "Dvoufázové ověřování zakázáno",
+      "failedToDisable2fa": "Nepodařilo se zakázat 2FA",
+      "failedToFetchBackupCodes": "Nepodařilo se načíst záložní kódy",
+      "secretCopied": "Tajný klíč zkopírován",
+      "backupCodesCopied": "Záložní kódy zkopírovány",
+      "twoFactorAuthentication": "Dvoufázové ověřování",
+      "loading": "Načítání…",
+      "scanThisQrCodeWith": "Naskenujte tento QR kód pomocí aplikace pro ověřování (Google Authenticator, Authy atd.) a poté zadejte 6místný kód pro potvrzení.",
+      "verifyAmpEnable": "Ověřit a povolit",
+      "cancel": "Zrušit",
+      "saveYourBackupCodes": "Uložte si své záložní kódy",
+      "storeTheseSomewhereSafeEach": "Uložte je na bezpečné místo. Každý kód lze použít pouze jednou, pokud ztratíte přístup ke svému ověřovacímu nástroji.",
+      "copyAllCodes": "Zkopírovat všechny kódy",
+      "done": "Hotovo",
+      "yourAccountIsProtectedWith": "Váš účet je chráněn pomocí ověřovací aplikace.",
+      "addAnExtraLayerOf": "Přidejte další vrstvu zabezpečení svému účtu.",
+      "viewBackupCodes": "Zobrazit záložní kódy",
+      "disable2fa": "Zakázat 2FA",
+      "enable2fa": "Povolit 2FA",
+      "disableTwoFactorAuthentication": "Zakázat dvoufázové ověřování",
+      "enterACodeFromYour": "Zadejte kód z vaší ověřovací aplikace pro potvrzení. 2FA můžete kdykoli znovu povolit.",
+      "enterYourPasswordToConfirm": "Zadejte své heslo pro potvrzení. 2FA můžete kdykoli znovu povolit.",
+      "disable": "Zakázat",
+      "yourPassword": "Vaše heslo",
+      "n2faIsEnabled": "2FA je povoleno",
+      "n2faIsNotEnabled": "2FA není povoleno"
+    },
+    "language": {
+      "label": "Jazyk",
+      "description": "Aplikace se znovu načte pro přepnutí",
+      "system": "Stejný jako na zařízení"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Žádné SSH hosty zde",
+      "couldNotReadWhatWas": "Nelze přečíst sdílený obsah",
+      "stopTheUploads": "Zastavit nahrávání?",
+      "stopAndLeave": "Zastavit a opustit",
+      "sendTo": "Odeslat na {{name}}",
+      "sendToAHost": "Odeslat na host",
+      "nothingToSend": "Nic k odeslání",
+      "close": "Zavřít",
+      "done": "Hotovo",
+      "cancel": "Zrušit",
+      "uploadHere": "Nahrát sem",
+      "uploadsStillGoing_one": "Stále probíhá {{count}} nahrávání. Opuštění ho zastaví.",
+      "uploadsStillGoing_few": "Stále probíhá {{count}} nahrávání. Opuštění je zastaví.",
+      "uploadsStillGoing_many": "Stále probíhá {{count}} nahrávání. Opuštění je zastaví.",
+      "uploadsStillGoing_other": "Stále probíhá {{count}} nahrávání. Opuštění je zastaví.",
+      "filesSize_one": "{{count}} soubor | {{size}}",
+      "filesSize_few": "{{count}} soubory | {{size}}",
+      "filesSize_many": "{{count}} souborů | {{size}}",
+      "filesSize_other": "{{count}} souborů | {{size}}",
+      "readingWhatWasShared": "Čtení sdílených dat"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Chyba",
+      "worksWithoutAServer": "Funguje bez serveru",
+      "accountSwitch": "Účet {{account}}, přepnout",
+      "search": "Hledat",
+      "notificationsUnread": "Oznámení, {{unread}} nepřečtených",
+      "notifications": "Oznámení",
+      "signedIn": "Přihlášen",
+      "signedOut": "Odhlášen",
+      "copyOnThis": "Kopírovat na toto {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Domů",
+      "hosts": "Hostitelé",
+      "sessions": "Relace",
+      "tools": "Nástroje",
+      "settings": "Nastavení",
+      "open": "{{label}}, {{count}} otevřených"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} otevřených"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Vyberte hostitele",
+      "searchHosts": "Hledat hostitele",
+      "clearSearch": "Vymazat hledání",
+      "noHostsMatch": "Žádný hostitel neodpovídá",
+      "noHostsCanUseThis": "Žádný hostitel to nepodporuje",
+      "turnItOnForA": "Povolte to pro hostitele v editoru hostitele."
+    },
+    "noToolsHereYet": "Zatím zde nejsou žádné nástroje",
+    "onAHost": "Na hostiteli",
+    "saved": "Uloženo",
+    "fromYourServer": "Z vašeho serveru"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Zrušit",
+      "delete": "Smazat",
+      "confirm": "Potvrdit"
+    },
+    "contextMenu": {
+      "closeMenu": "Zavřít menu"
+    },
+    "inlineView": {
+      "back": "Zpět"
+    },
+    "listRow": {
+      "moreActions": "Další akce"
+    },
+    "pinPad": {
+      "useBiometrics": "Použít biometrii",
+      "delete": "Smazat"
+    },
+    "popover": {
+      "close": "Zavřít"
+    },
+    "promptSheet": {
+      "cancel": "Zrušit"
+    },
+    "sheet": {
+      "close": "Zavřít"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Tento klíč je uzamčen. Zadejte jeho heslo.",
+      "thatPassphraseDoesnTOpen": "Toto heslo tento klíč neotevře.",
+      "thisDoesnTLookLike": "Toto nevypadá jako soukromý klíč.",
+      "loadedAndChangedItTo": "Načteno {{name}} a převedeno do formátu OpenSSH",
+      "loadedItNeedsItsPassphrase": "Načteno {{name}}. Pro připojení je potřeba jeho heslo"
+    },
+    "ago": {
+      "justNow": "právě teď"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Nelze načíst vaše hostitele.",
+      "failedOn": "{{name}} selhalo na {{name2}}",
+      "on": "{{name}} na {{name2}}: {{value}}",
+      "ranOn": "Spuštěno {{name}} na {{name2}}",
+      "runOn": "Spustit „{{name}}“ na",
+      "runSnippet": "Spustit úryvek",
+      "loadingHosts": "Načítání hostitelů…",
+      "noHostsAvailable": "Žádný hostitel není k dispozici",
+      "addAHostInTermix": "Přidejte hostitele v Termix, abyste mohli spouštět úryvky z domovské obrazovky.",
+      "lastUsed": "Naposledy použito",
+      "failedToRunSnippet": "Nepodařilo se spustit úryvek"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Tento úryvek již neexistuje.",
+      "couldNotOpenThatSnippet": "Nelze otevřít tento úryvek.",
+      "thatHostNoLongerExists": "Tento hostitel již neexistuje.",
+      "couldNotOpenThatHost": "Tento hostitel se nepodařilo otevřít."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Domů"
+      },
+      "hosts": {
+        "hosts": "Hostitelé"
+      },
+      "sessions": {
+        "sessions": "Relace",
+        "connectToATermixServer": "Připojte se k serveru Termix pro otevření terminálů, tunelů a souborových relací."
+      }
+    },
+    "layout": {
+      "initializing": "Inicializace…",
+      "cancel": "Zrušit"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Tento hostitel nemá platnou MAC adresu.",
+    "thisBuildCanTSend": "Tato verze neumí odesílat Wake-on-LAN pakety.",
+    "couldNotSendThePacket": "Paket se nepodařilo odeslat. Zkontrolujte, zda je Wi-Fi zapnutá."
+  },
+  "common": {
+    "hostCount_one": "{{count}} hostitel",
+    "hostCount_few": "{{count}} hostitelé",
+    "hostCount_many": "{{count}} hostitelů",
+    "hostCount_other": "{{count}} hostitelů",
+    "device": {
+      "phone": "telefon",
+      "tablet": "tablet"
+    },
+    "thisDeviceLower": "tento {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Sdílení",
+    "action": "Sdílet s lidmi",
+    "levels": {
+      "connect": "Připojení",
+      "view": "Zobrazení",
+      "edit": "Úprava",
+      "manage": "Správa"
+    },
+    "levelHints": {
+      "connect": "Pouze otevírání relací. Nastavení hostitele zůstává skryté.",
+      "view": "Připojení plus zobrazení nastavení hostitele. Tajné údaje se nikdy nezobrazují.",
+      "edit": "Zobrazení plus změna nastavení kromě přihlášení.",
+      "manage": "Úprava plus sdílení hostitele a změna nebo odebrání přístupu."
+    },
+    "until": "do {{date}}",
+    "sharedBy": "od {{name}}",
+    "couldNotLoad": "Nepodařilo se načíst, kdo má přístup",
+    "shared": "Hostitel sdílen",
+    "couldNotShare": "Nepodařilo se sdílet hostitele",
+    "updated": "Přístup změněn",
+    "couldNotUpdate": "Nepodařilo se změnit přístup",
+    "removeTitle": "Odebrat {{name}}?",
+    "removeHint": "Už nebude moci používat tohoto hostitele.",
+    "remove": "Odebrat",
+    "removed": "Přístup odebrán",
+    "couldNotRemove": "Nepodařilo se odebrat přístup",
+    "whoHasAccess": "Kdo má přístup",
+    "loading": "Načítání…",
+    "nobodyYet": "Tento hostitel může používat pouze vy.",
+    "changeAccessFor": "Změnit přístup pro {{name}}",
+    "shareWith": "Sdílet s",
+    "users": "Uživatelé",
+    "roles": "Role",
+    "searchUsers": "Hledat uživatele",
+    "searchRoles": "Hledat role",
+    "noUsers": "Nejsou k dispozici žádní další uživatelé pro sdílení.",
+    "noRoles": "Nejsou k dispozici žádné role pro sdílení.",
+    "options": "Přístup",
+    "level": "Úroveň",
+    "expires": "Končí",
+    "expiry": {
+      "never": "Nikdy",
+      "1h": "Za 1 hodinu",
+      "1d": "Za 1 den",
+      "7d": "Za 7 dní",
+      "30d": "Za 30 dní"
+    },
+    "pickSomeone": "Vyberte, s kým sdílet",
+    "shareCount_one": "Sdílet s {{count}}",
+    "shareCount_few": "Sdílet s {{count}}",
+    "shareCount_many": "Sdílet s {{count}}",
+    "shareCount_other": "Sdílet s {{count}}",
+    "removeAccess": "Odebrat přístup"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Upozornění ze serveru",
+      "critical": "Kritická upozornění ze serveru"
+    },
+    "severity": {
+      "info": "Všechno",
+      "warning": "Varování a horší",
+      "critical": "Pouze kritická"
+    },
+    "settings": {
+      "on": "Upozornění se zobrazují na tomto telefonu",
+      "off": "Vypnuto",
+      "toggle": "Push notifikace pro {{server}}",
+      "minSeverity": "Posílejte mi",
+      "denied": "Notifikace pro Termix jsou vypnuty. Zapněte je v nastavení telefonu.",
+      "openSettings": "Otevřít nastavení",
+      "outdated": "Tento server pro push notifikace potřebuje Alerts 1.4.0 nebo novější. Požádejte správce o aktualizaci pluginu.",
+      "unavailable": "Přihlaste se na tento server a zapněte plugin Alerts pro získávání notifikací.",
+      "error": "Nepodařilo se připojit k serveru. Termix to zkusí znovu při příštím otevření aplikace.",
+      "notInThisBuild": "Tato verze nemůže zobrazovat notifikace.",
+      "noServers": "Propojte server pro získávání jeho upozornění zde.",
+      "pushHint": "Upozornění jsou odesílána prostřednictvím Expo a Apple nebo Google, včetně jejich názvu a textu. Vyberte, která z nich chcete v pravidlech Alerts na serveru.",
+      "pollHint": "Tato verze nemá služby Google, takže Termix kontroluje nová upozornění na pozadí přibližně každých 15 minut."
+    }
+  }
+}

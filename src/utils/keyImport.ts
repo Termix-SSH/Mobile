@@ -4,6 +4,7 @@ import {
   isSshEngineAvailable,
   SshError,
 } from "@/modules/termix-ssh";
+import { t } from "@/i18n";
 
 export interface ImportedKey {
   key: string;
@@ -49,9 +50,9 @@ export function importPrivateKey(
 /** One line for the toast after loading a key file. */
 export function importMessage(name: string, imported: ImportedKey): string {
   if (imported.converted)
-    return `Loaded ${name} and changed it to OpenSSH format`;
+    return t("utils.keyImport.loadedAndChangedItTo", { name });
   if (imported.locked) {
-    return `Loaded ${name}. It needs its passphrase to connect`;
+    return t("utils.keyImport.loadedItNeedsItsPassphrase", { name });
   }
   return `Loaded ${name}`;
 }
@@ -95,11 +96,11 @@ export function keyStatusText(status: KeyStatus): string | null {
     case "ok":
       return `${status.keyType}${status.bits ? ` ${status.bits} bit` : ""} | ${status.fingerprint}`;
     case "needsPassphrase":
-      return "This key is locked. Enter its passphrase.";
+      return t("utils.keyImport.thisKeyIsLockedEnter");
     case "wrongPassphrase":
-      return "That passphrase doesn't open this key.";
+      return t("utils.keyImport.thatPassphraseDoesnTOpen");
     case "invalid":
-      return "This doesn't look like a private key.";
+      return t("utils.keyImport.thisDoesnTLookLike");
     default:
       return null;
   }

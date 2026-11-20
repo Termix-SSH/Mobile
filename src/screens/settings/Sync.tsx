@@ -39,23 +39,26 @@ import { SavedLoginRow } from "@/screens/accounts/SavedLoginRow";
 import { UnlinkSheet } from "@/screens/accounts/UnlinkSheet";
 import { useSyncFix } from "@/screens/accounts/useSyncFix";
 import { Screen } from "@/components/Screen";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 function since(iso: string | null): string {
-  if (!iso) return "Not yet";
+  if (!iso) return t("settings.sync.notYet");
   const seconds = Math.max(0, (Date.now() - Date.parse(iso)) / 1000);
-  if (seconds < 60) return "Just now";
-  if (seconds < 3600) return `${Math.floor(seconds / 60)} min ago`;
+  if (seconds < 60) return t("settings.sync.justNow");
+  if (seconds < 3600)
+    return t("settings.sync.minAgo", { value: Math.floor(seconds / 60) });
   if (seconds < 86400) return `${Math.floor(seconds / 3600)} h ago`;
   return new Date(iso).toLocaleDateString();
 }
 
 const STATE_TEXT = {
-  idle: "Synced",
-  syncing: "Syncing",
-  offline: "Offline",
-  error: "Stopped",
-  signed_out: "Signed out",
-  off: "Waiting to sync",
+  idle: t("settings.sync.synced"),
+  syncing: t("settings.sync.syncing"),
+  offline: t("settings.sync.offline"),
+  error: t("settings.sync.stopped"),
+  signed_out: t("settings.sync.signedOut"),
+  off: t("settings.sync.waitingToSync"),
 } as const;
 
 function Section({ title, hint }: { title: string; hint?: string }) {
@@ -93,9 +96,9 @@ export default function SyncSettings() {
   const syncNow = async () => {
     setBusy(true);
     try {
-      await sync.syncNow(account.id);
+      await sync.syncNow(account.id, { full: true });
       if (sync.get(account.id).state === "off") {
-        toast.error("Sign in to this server again to sync");
+        toast.error(t("settings.sync.signInToThisServer"));
       }
     } finally {
       setBusy(false);
@@ -106,25 +109,25 @@ export default function SyncSettings() {
     try {
       await setKindEnabled(account.id, kindId, on);
     } catch (error) {
-      toast.error(toUserMessage(error, "Could not change that"));
+      toast.error(toUserMessage(error, t("settings.sync.couldNotChangeThat")));
     }
   };
 
   return (
-    <Screen title="Sync" onBack={() => router.back()}>
+    <Screen title={t("settings.sync.sync")} onBack={() => router.back()}>
       {!server ? (
         <View className="flex-1 items-center justify-center p-6">
           <Text className="text-center text-sm text-muted-foreground">
-            This device does not sync. Link a Termix server to keep your hosts
-            on more than one device.
+            {t("settings.sync.thisDeviceDoesNotSync")}
           </Text>
         </View>
       ) : (
         <ScrollView contentContainerStyle={{ padding: 12, paddingBottom: 48 }}>
           <Text className="mb-3 text-[11px] text-muted-foreground">
-            {accountLabel(server)} keeps hosts, credentials, snippets and
-            settings in step with this phone. A copy stays on this phone, so it
-            works offline too.
+            {t("settings.sync.keepsHostsCredentialsSnippetsAnd", {
+              server: accountLabel(server),
+              deviceWord,
+            })}
           </Text>
 
           {synced ? (
@@ -134,12 +137,16 @@ export default function SyncSettings() {
                 description={
                   (status.reason ?? server.lastError)
                     ? reason.message
-                    : `Last synced ${since(
-                        status.lastSyncAt ?? server.lastSyncAt,
-                      ).toLowerCase()}`
+                    : t("settings.sync.lastSynced", {
+                        value: since(
+                          status.lastSyncAt ?? server.lastSyncAt,
+                        ).toLowerCase(),
+                      })
                 }
               >
-                {status.live ? <Badge variant="success">Live</Badge> : null}
+                {status.live ? (
+                  <Badge variant="success">{t("settings.sync.live")}</Badge>
+                ) : null}
               </SettingRow>
               <View className="flex-row gap-2 py-3">
                 <Button
@@ -150,11 +157,11 @@ export default function SyncSettings() {
                   onPress={() => void syncNow()}
                   disabled={status.state === "signed_out"}
                 >
-                  Sync now
+                  {t("settings.sync.syncNow")}
                 </Button>
                 {status.reason && reason.fix && reason.fix !== "retry" ? (
                   <Button size="sm" onPress={() => fix(reason.fix!)}>
-                    {reason.fixLabel ?? "Fix"}
+                    {reason.fixLabel ?? t("settings.sync.fix")}
                   </Button>
                 ) : null}
               </View>
@@ -162,12 +169,10 @@ export default function SyncSettings() {
           ) : (
             <View className="border border-border bg-card p-3">
               <Text className="text-sm text-foreground">
-                This server reads live and keeps no copy on the phone.
+                {t("settings.sync.thisServerReadsLiveAnd", { deviceWord })}
               </Text>
               <Text className="mt-1 text-[11px] text-muted-foreground">
-                {
-                  "Turn on the Sync plugin in the server's Plugins page, then sign in again here to keep a copy on this phone."
-                }
+                {t("settings.sync.turnOnTheSyncPlugin", { deviceWord })}
               </Text>
             </View>
           )}
@@ -175,8 +180,8 @@ export default function SyncSettings() {
           {synced ? (
             <>
               <Section
-                title="What syncs"
-                hint="Turned off, that data stays on this phone only."
+                title={t("settings.sync.whatSyncs")}
+                hint={t("settings.sync.turnedOffThatDataStays", { deviceWord })}
               />
               <View className="border border-border bg-card px-3">
                 {SYNC_KINDS.map((kind, index) => (
@@ -198,8 +203,8 @@ export default function SyncSettings() {
               {conflicts.length ? (
                 <>
                   <Section
-                    title="Conflicts"
-                    hint="Changed here and on the server at the same time. The server's version was kept."
+                    title={t("settings.sync.conflicts")}
+                    hint={t("settings.sync.changedHereAndOnThe")}
                   />
                   <View className="border border-border bg-card px-3">
                     {conflicts.map((conflict, index) => (
@@ -221,7 +226,7 @@ export default function SyncSettings() {
                               )
                             }
                           >
-                            Use server
+                            {t("settings.sync.useServer")}
                           </Button>
                           <Button
                             variant="muted"
@@ -234,7 +239,7 @@ export default function SyncSettings() {
                               )
                             }
                           >
-                            Keep mine
+                            {t("settings.sync.keepMine")}
                           </Button>
                         </View>
                       </SettingRow>
@@ -246,8 +251,10 @@ export default function SyncSettings() {
               {rejected.length ? (
                 <>
                   <Section
-                    title="Not saved on the server"
-                    hint="The server refused these changes. They stay on this phone."
+                    title={t("settings.sync.notSavedOnTheServer")}
+                    hint={t("settings.sync.theServerRefusedTheseChanges", {
+                      deviceWord,
+                    })}
                   />
                   <View className="border border-border bg-card px-3">
                     {rejected.map((record, index) => (
@@ -268,7 +275,7 @@ export default function SyncSettings() {
                     className="mt-2"
                     onPress={() => void retryRejected(account.id)}
                   >
-                    Try again
+                    {t("settings.sync.tryAgain")}
                   </Button>
                 </>
               ) : null}
@@ -280,8 +287,8 @@ export default function SyncSettings() {
           ) : null}
 
           <Section
-            title="Proxy"
-            hint="Only needed when a reverse proxy sits in front of the server."
+            title={t("settings.sync.proxy")}
+            hint={t("settings.sync.onlyNeededWhenAReverse")}
           />
           {client?.isLoaded() ? (
             <ProxySettings
@@ -291,9 +298,9 @@ export default function SyncSettings() {
             />
           ) : null}
 
-          <Section title="Unlink" />
+          <Section title={t("settings.sync.unlink")} />
           <Button variant="destructive" onPress={() => setUnlinkOpen(true)}>
-            Unlink this server
+            {t("settings.sync.unlinkThisServer")}
           </Button>
         </ScrollView>
       )}

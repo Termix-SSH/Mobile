@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Sheet, SheetBody } from "./Sheet";
 import { Button } from "./Button";
 import { Input } from "./Input";
+import { t } from "@/i18n";
 
 /** Asks for one line of text, like core's pane prompt. */
 export function PromptSheet({
@@ -51,7 +52,7 @@ export function PromptSheet({
       footer={
         <View className="flex-row gap-2">
           <Button variant="muted" className="flex-1" onPress={onCancel}>
-            Cancel
+            {t("ui.promptSheet.cancel")}
           </Button>
           <Button
             className="flex-1"

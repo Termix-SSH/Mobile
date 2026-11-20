@@ -10,6 +10,7 @@ import type { SSHHost, Snippet } from "@/types";
 import { accounts, api } from "@/core/accounts";
 import { serverHostId, serverSnippetId } from "@/core/sync";
 import { useRepositories } from "@/core/data/hooks";
+import { t } from "@/i18n";
 
 /** Remembers the host a widget-run snippet last targeted. */
 const LAST_HOST_KEY = "widgetSnippetLastHostId";
@@ -60,7 +61,7 @@ export function RunSnippetSheet({ snippet, onClose }: RunSnippetSheetProps) {
       } catch (error) {
         if (cancelled) return;
         setHosts([]);
-        toast.error("Could not load your hosts.");
+        toast.error(t("widgets.runSnippetSheet.couldNotLoadYourHosts"));
         systemLogger.warn("[widgets] failed to load hosts for snippet run", {
           operation: "widgets",
           errorMessage: error instanceof Error ? error.message : String(error),
@@ -90,21 +91,36 @@ export function RunSnippetSheet({ snippet, onClose }: RunSnippetSheetProps) {
         AsyncStorage.setItem(LAST_HOST_KEY, String(host.id)).catch(() => {});
 
         if (result?.success === false) {
-          toast.error(result.error || `${snippet.name} failed on ${host.name}`);
+          toast.error(
+            result.error ||
+              t("widgets.runSnippetSheet.failedOn", {
+                name: snippet.name,
+                name2: host.name,
+              }),
+          );
         } else {
           // Show the first line of output when there is any - a bare "ran it"
           // leaves the user guessing whether anything happened.
           const preview = (result?.output ?? "").trim().split("\n")[0];
           toast.success(
             preview
-              ? `${snippet.name} on ${host.name}: ${preview.slice(0, 80)}`
-              : `Ran ${snippet.name} on ${host.name}`,
+              ? t("widgets.runSnippetSheet.on", {
+                  name: snippet.name,
+                  name2: host.name,
+                  value: preview.slice(0, 80),
+                })
+              : t("widgets.runSnippetSheet.ranOn", {
+                  name: snippet.name,
+                  name2: host.name,
+                }),
           );
         }
         onClose();
       } catch (error) {
         const message =
-          error instanceof Error ? error.message : "Failed to run snippet";
+          error instanceof Error
+            ? error.message
+            : t("widgets.runSnippetSheet.failedToRunSnippet");
         toast.error(message);
       } finally {
         setRunningHostId(null);
@@ -124,7 +140,11 @@ export function RunSnippetSheet({ snippet, onClose }: RunSnippetSheetProps) {
     <Sheet
       visible={visible}
       onClose={runningHostId === null ? onClose : () => {}}
-      title={snippet ? `Run "${snippet.name}" on` : "Run snippet"}
+      title={
+        snippet
+          ? t("widgets.runSnippetSheet.runOn", { name: snippet.name })
+          : t("widgets.runSnippetSheet.runSnippet")
+      }
     >
       {snippet?.content ? (
         <View className="border-b border-border bg-card px-4 py-2.5">
@@ -141,15 +161,17 @@ export function RunSnippetSheet({ snippet, onClose }: RunSnippetSheetProps) {
       {loading ? (
         <View className="items-center gap-2 py-8">
           <ActivityIndicator color={color("accent-brand")} />
-          <Text className="text-xs text-muted-foreground">Loading hosts…</Text>
+          <Text className="text-xs text-muted-foreground">
+            {t("widgets.runSnippetSheet.loadingHosts")}
+          </Text>
         </View>
       ) : ordered.length === 0 ? (
         <View className="items-center gap-1 px-4 py-8">
           <Text weight="medium" className="text-sm text-foreground">
-            No hosts available
+            {t("widgets.runSnippetSheet.noHostsAvailable")}
           </Text>
           <Text className="text-center text-[11px] text-muted-foreground">
-            Add a host in Termix to run snippets from your home screen.
+            {t("widgets.runSnippetSheet.addAHostInTermix")}
           </Text>
         </View>
       ) : (
@@ -173,7 +195,9 @@ export function RunSnippetSheet({ snippet, onClose }: RunSnippetSheetProps) {
               onPress={() => run(host)}
               trailing={
                 <Text className="text-[10px] text-muted-foreground">
-                  {host.id === lastHostId ? "Last used" : host.ip}
+                  {host.id === lastHostId
+                    ? t("widgets.runSnippetSheet.lastUsed")
+                    : host.ip}
                 </Text>
               }
             />

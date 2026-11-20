@@ -17,6 +17,7 @@ import {
   type HostPlacement,
 } from "./resolve";
 import { joinKey, toObject, type DefaultsLevel } from "./values";
+import { t } from "@/i18n";
 
 export type DefaultsTarget =
   { level: "user" } | { level: "folder"; folder: string };
@@ -66,7 +67,7 @@ export function loadDefaultsIndex(d: LocalDb): DefaultsIndex {
 
 function folderSyncIdOf(d: LocalDb, name: string): string {
   const row = d.select().from(folders).where(eq(folders.name, name)).get();
-  if (!row) throw new Error(`No folder named ${name}`);
+  if (!row) throw new Error(t("hosts.defaults.store.noFolderNamed", { name }));
   return row.syncId;
 }
 

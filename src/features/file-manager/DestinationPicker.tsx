@@ -8,6 +8,7 @@ import { Breadcrumbs } from "./list/Breadcrumbs";
 import { FileList } from "./list/FileList";
 import { isFolderLike } from "./list/FileRow";
 import { sortEntries } from "./utils/fileUtils";
+import { t } from "@/i18n";
 
 /** Browse folders only and pick one, for move, copy and files shared in. */
 export function DestinationPicker({
@@ -42,7 +43,12 @@ export function DestinationPicker({
         setPath(res.path);
         setFolders(sortEntries(res.files.filter(isFolderLike)));
       } catch (e) {
-        setError(toUserMessage(e, "Could not open this folder"));
+        setError(
+          toUserMessage(
+            e,
+            t("fileManager.destinationPicker.couldNotOpenThisFolder"),
+          ),
+        );
       } finally {
         setLoading(false);
       }
@@ -65,7 +71,7 @@ export function DestinationPicker({
       footer={
         <View className="flex-row gap-2">
           <Button variant="muted" className="flex-1" onPress={onClose}>
-            Cancel
+            {t("fileManager.destinationPicker.cancel")}
           </Button>
           <Button
             className="flex-1"
@@ -99,7 +105,11 @@ export function DestinationPicker({
           onPress={(f) => void load(f.path)}
           onLongPress={(f) => void load(f.path)}
           onMenu={(f) => void load(f.path)}
-          empty={<EmptyState title="No folders here" />}
+          empty={
+            <EmptyState
+              title={t("fileManager.destinationPicker.noFoldersHere")}
+            />
+          }
         />
       )}
     </InlineView>

@@ -6,6 +6,7 @@ import { toUserMessage } from "@/core/errors";
 import { isNetAvailable, peekServerKey } from "@/modules/termix-net";
 import { Button, Input, SettingRow, Text, useConfirm } from "@/ui";
 import { toast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 const short = (pin: string) => `${pin.slice(0, 10)}...${pin.slice(-6)}`;
 
@@ -17,16 +18,21 @@ function keyDetails(key: {
   selfSigned: boolean | null;
 }): string {
   const lines = [`Key: ${key.pin}`];
-  if (key.subject) lines.push(`Issued to: ${key.subject}`);
-  if (key.issuer) lines.push(`Issued by: ${key.issuer}`);
+  if (key.subject)
+    lines.push(
+      t("accounts.certPinSettings.issuedTo", { subject: key.subject }),
+    );
+  if (key.issuer)
+    lines.push(t("accounts.certPinSettings.issuedBy", { issuer: key.issuer }));
   if (key.selfSigned) lines.push("Self-signed");
   if (key.notAfter) {
-    lines.push(`Valid until: ${new Date(key.notAfter).toDateString()}`);
+    lines.push(
+      t("accounts.certPinSettings.validUntil", {
+        value: new Date(key.notAfter).toDateString(),
+      }),
+    );
   }
-  lines.push(
-    "",
-    "Check that this key matches the one on your server before you pin it.",
-  );
+  lines.push("", t("accounts.certPinSettings.checkThatThisKeyMatches"));
   return lines.join("\n");
 }
 
@@ -53,7 +59,9 @@ export function CertPinSettings({
       onSaved?.();
       return true;
     } catch (error) {
-      toast.error(toUserMessage(error, "Could not save the pin"));
+      toast.error(
+        toUserMessage(error, t("accounts.certPinSettings.couldNotSaveThePin")),
+      );
       return false;
     }
   };
@@ -64,18 +72,26 @@ export function CertPinSettings({
       const { host, port } = keyTarget(client.rootBase());
       const key = await peekServerKey(host, port);
       if (pins.includes(key.pin)) {
-        toast.success("The server's key matches the pin");
+        toast.success(t("accounts.certPinSettings.theServerSKeyMatches"));
         return;
       }
       const ok = await confirm({
-        title: pins.length ? "The server shows another key" : "Pin this key?",
+        title: pins.length
+          ? t("accounts.certPinSettings.theServerShowsAnotherKey")
+          : t("accounts.certPinSettings.pinThisKey"),
         description: keyDetails(key),
-        confirmLabel: "Pin this key",
+        confirmLabel: t("accounts.certPinSettings.pinThisKey2"),
         destructive: pins.length > 0,
       });
-      if (ok && (await save([...pins, key.pin]))) toast.success("Key pinned");
+      if (ok && (await save([...pins, key.pin])))
+        toast.success(t("accounts.certPinSettings.keyPinned"));
     } catch (error) {
-      toast.error(toUserMessage(error, "Could not read the server's key"));
+      toast.error(
+        toUserMessage(
+          error,
+          t("accounts.certPinSettings.couldNotReadTheServer"),
+        ),
+      );
     } finally {
       setBusy(false);
     }
@@ -85,27 +101,29 @@ export function CertPinSettings({
     const { pins: typed, bad } = parsePins(text);
     if (bad.length || !typed.length) {
       toast.error(
-        "That is not a pin",
-        "Paste the base64 sha256 of the server's public key, like openssl prints it.",
+        t("accounts.certPinSettings.thatIsNotAPin"),
+        t("accounts.certPinSettings.pasteTheBase64Sha256Of"),
       );
       return;
     }
     const next = [...pins, ...typed.filter((p) => !pins.includes(p))];
     if (await save(next)) {
       setText("");
-      toast.success(typed.length > 1 ? "Keys pinned" : "Key pinned");
+      toast.success(
+        typed.length > 1
+          ? t("accounts.certPinSettings.keysPinned")
+          : t("accounts.certPinSettings.keyPinned"),
+      );
     }
   };
 
   return (
     <View>
       <Text weight="medium" className="mb-1 text-sm text-foreground">
-        Certificate pin
+        {t("accounts.certPinSettings.certificatePin")}
       </Text>
       <Text className="mb-2 text-[11px] text-muted-foreground">
-        {
-          "Trust this server only by its key. Use it for a self-signed certificate, or to refuse any other key. Add the next key before you change the server's certificate."
-        }
+        {t("accounts.certPinSettings.trustThisServerOnlyBy")}
       </Text>
       {pins.length ? (
         <View className="mb-2 border border-border bg-card px-3">
@@ -118,10 +136,12 @@ export function CertPinSettings({
               <Button
                 variant="ghost"
                 size="sm"
-                accessibilityLabel={`Remove pin ${short(pin)}`}
+                accessibilityLabel={t("accounts.certPinSettings.removePin", {
+                  pin: short(pin),
+                })}
                 onPress={() => void save(pins.filter((p) => p !== pin))}
               >
-                Remove
+                {t("accounts.certPinSettings.remove")}
               </Button>
             </SettingRow>
           ))}
@@ -134,24 +154,24 @@ export function CertPinSettings({
         disabled={!isNetAvailable()}
         className="mb-2"
       >
-        Read the key from the server
+        {t("accounts.certPinSettings.readTheKeyFromThe")}
       </Button>
       <View className="mb-6 flex-row items-center gap-2">
         <Input
           containerClassName="flex-1"
-          placeholder="Or paste a pin"
+          placeholder={t("accounts.certPinSettings.orPasteAPin")}
           autoCapitalize="none"
           autoCorrect={false}
           value={text}
           onChangeText={setText}
-          accessibilityLabel="Pin"
+          accessibilityLabel={t("accounts.certPinSettings.pin")}
         />
         <Button
           variant="muted"
           onPress={() => void addTyped()}
           disabled={!text.trim() || !isNetAvailable()}
         >
-          Add
+          {t("accounts.certPinSettings.add")}
         </Button>
       </View>
     </View>

@@ -2,6 +2,7 @@ import type { AccountClient } from "@/core/api/AccountClient";
 import { clearSession } from "@/core/api/webSession";
 import { clearCachedUserId } from "@/utils/user";
 import { resetWidgets } from "@/widgets";
+import { forgetPushAccount } from "@/core/push/register";
 import { apiOf } from "./index";
 
 /**
@@ -10,6 +11,7 @@ import { apiOf } from "./index";
  * signed-in flag.
  */
 export async function signOutClient(client: AccountClient | null) {
+  if (client) await forgetPushAccount(client.accountId);
   try {
     await apiOf(client).auth.logoutUser();
   } catch {

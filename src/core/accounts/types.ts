@@ -1,3 +1,5 @@
+import { t } from "@/i18n";
+
 /**
  * Accounts mirror the desktop accounts in Plugin-Sync: "This device" works on
  * its own, and each linked server is its own account with its own data.
@@ -41,13 +43,35 @@ export function isServerAccount(
   return account?.kind === "server";
 }
 
-/** Name shown in the switcher: the server name, else its host. */
-export function accountLabel(account: Account): string {
-  if (account.kind === "local") return "This device";
-  if (account.serverName) return account.serverName;
+function hostOf(account: ServerAccount): string {
   try {
     return new URL(account.serverUrl).host || account.serverUrl;
   } catch {
     return account.serverUrl;
   }
+}
+
+const same = (a: string | null, b: string | null) =>
+  !!a && !!b && a.trim().toLowerCase() === b.trim().toLowerCase();
+
+/**
+ * Name shown for an account: the server name, else its host. When another
+ * linked server has the same name, its host tells them apart, and the user
+ * name too when both are on the same host.
+ */
+export function accountLabelAmong(
+  account: Account,
+  others: readonly Account[] = [],
+): string {
+  if (account.kind === "local") return t("accounts.types.thisDevice");
+  const servers = others.filter(
+    (o): o is ServerAccount => isServerAccount(o) && o.id !== account.id,
+  );
+  const host = hostOf(account);
+  const name = account.serverName?.trim();
+  if (name && !servers.some((o) => same(o.serverName, name))) return name;
+  if (account.username && servers.some((o) => same(hostOf(o), host))) {
+    return `${account.username}@${host}`;
+  }
+  return host;
 }

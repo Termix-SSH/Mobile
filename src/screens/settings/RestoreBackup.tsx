@@ -5,6 +5,8 @@ import { localStores } from "@/core/db";
 import { toUserMessage } from "@/core/errors";
 import { PromptSheet, useConfirm } from "@/ui";
 import { toast } from "@/utils/toast";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /**
  * Picks a passphrase locked backup and restores it into one account's data.
@@ -40,13 +42,16 @@ export function useRestoreBackup({
       const ok =
         !askFirst ||
         (await confirm({
-          title: "Replace local data?",
-          description: `Everything saved on this phone for ${accountName} is replaced with the backup.`,
-          confirmLabel: "Continue",
+          title: t("settings.restoreBackup.replaceLocalData"),
+          description: t("settings.restoreBackup.everythingSavedOnThisFor", {
+            deviceWord,
+            accountName,
+          }),
+          confirmLabel: t("settings.restoreBackup.continue"),
         }));
       if (ok) setContent(text);
     } catch {
-      toast.error("Could not read that file");
+      toast.error(t("settings.restoreBackup.couldNotReadThatFile"));
     }
   };
 
@@ -56,10 +61,15 @@ export function useRestoreBackup({
     try {
       await localStores.importBackup(accountId, content, passphrase);
       setContent(null);
-      toast.success("Backup restored");
+      toast.success(t("settings.restoreBackup.backupRestored"));
       onDone?.();
     } catch (error) {
-      toast.error(toUserMessage(error, "Could not restore the backup"));
+      toast.error(
+        toUserMessage(
+          error,
+          t("settings.restoreBackup.couldNotRestoreTheBackup"),
+        ),
+      );
     } finally {
       setBusy(false);
     }
@@ -68,10 +78,10 @@ export function useRestoreBackup({
   const sheet = (
     <PromptSheet
       visible={content !== null}
-      title="Backup passphrase"
-      description="The passphrase used when the backup was made."
-      placeholder="Passphrase"
-      confirmLabel="Restore"
+      title={t("settings.restoreBackup.backupPassphrase")}
+      description={t("settings.restoreBackup.thePassphraseUsedWhenThe")}
+      placeholder={t("settings.restoreBackup.passphrase")}
+      confirmLabel={t("settings.restoreBackup.restore")}
       secureTextEntry
       loading={busy}
       onSubmit={(passphrase) => void restore(passphrase)}

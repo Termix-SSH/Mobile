@@ -3,6 +3,8 @@ import type { FeatureRegistry } from "@/core/features/registry";
 import type { FeatureDef } from "@/core/features/types";
 import { OFFICIAL_PLUGINS, catalogEntry } from "./catalog";
 import { apiFit, type ApiFit } from "./compat";
+import { deviceWord, DeviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /**
  * - `native`: the app has its own screens.
@@ -105,11 +107,11 @@ function plainNote(note: string | undefined): string | undefined {
 function serverWord(state: ServerState): string | null {
   switch (state) {
     case "off":
-      return "off on this server";
+      return t("plugins.support.offOnThisServer");
     case "failed":
-      return "not running on this server";
+      return t("plugins.support.notRunningOnThisServer");
     case "missing":
-      return "not on this server";
+      return t("plugins.support.notOnThisServer2");
     default:
       return null;
   }
@@ -124,25 +126,30 @@ export function describeSupport(
 ): string {
   const { mode, onDevice, server } = row;
   if (row.needsNewerApp || row.fit === "update-app") {
-    return "Needs a newer version of the app";
+    return t("plugins.support.needsANewerVersionOf");
   }
-  if (row.fit === "update-plugin") return "Update the plugin on the server";
-  if (mode === "look") return "The app has its own look";
+  if (row.fit === "update-plugin")
+    return t("plugins.support.updateThePluginOnThe");
+  if (mode === "look") return t("plugins.support.theAppHasItsOwn");
   if (mode === "none") {
     return server === "on"
-      ? "Not in the app yet | on this server"
-      : "Not in the app yet";
+      ? t("plugins.support.notInTheAppYet2")
+      : t("plugins.support.notInTheAppYet");
   }
   const reach = serverWord(server);
   if (onDevice) {
-    if (server === "none") return "Works on this phone";
-    if (server === "on" || server === "unknown") return "Phone and server";
-    return `Phone only | ${reach}`;
+    if (server === "none")
+      return t("plugins.support.worksOnThis", { deviceWord });
+    if (server === "on" || server === "unknown")
+      return t("plugins.support.andServer", { DeviceWord });
+    return t("plugins.support.deviceOnly", { DeviceWord, reach });
   }
-  if (server === "none") return "Link a server to use it";
+  if (server === "none") return t("plugins.support.linkAServerToUse");
   if (reach) return reach.charAt(0).toUpperCase() + reach.slice(1);
-  if (mode === "webview") return "Opens in the app from the server";
-  return mode === "server" ? "Runs on the server" : "Through the server";
+  if (mode === "webview") return t("plugins.support.opensInTheAppFrom");
+  return mode === "server"
+    ? t("plugins.support.runsOnTheServer")
+    : t("plugins.support.throughTheServer");
 }
 
 /** How the plugin shows in the app, in a word or two. */
@@ -150,15 +157,15 @@ export function modeLabel(mode: SupportMode): string {
   switch (mode) {
     case "native":
     case "app":
-      return "In the app";
+      return t("plugins.support.inTheApp");
     case "webview":
-      return "Web view";
+      return t("plugins.support.webView");
     case "server":
-      return "On the server";
+      return t("plugins.support.onTheServer");
     case "look":
-      return "App look";
+      return t("plugins.support.appLook");
     default:
-      return "Not in the app";
+      return t("plugins.support.notInTheApp");
   }
 }
 
@@ -170,9 +177,11 @@ export function stateLabel(row: Pick<SupportRow, "server" | "serverDetail">) {
     case "off":
       return "Off";
     case "failed":
-      return row.serverDetail === "safe-mode" ? "Safe mode" : "Not running";
+      return row.serverDetail === "safe-mode"
+        ? t("plugins.support.safeMode")
+        : t("plugins.support.notRunning");
     case "missing":
-      return "Not installed";
+      return t("plugins.support.notInstalled");
     default:
       return "";
   }
@@ -264,28 +273,28 @@ export function unavailableText(entry: ServerPlugin | null): {
 } {
   if (!entry) {
     return {
-      title: "Not on this server",
-      hint: "The plugin is not installed on this server.",
+      title: t("plugins.support.notOnThisServer"),
+      hint: t("plugins.support.thePluginIsNotInstalled"),
     };
   }
   const state = pluginState(entry);
   if (state === "off") {
     return {
-      title: "Turned off on the server",
-      hint: "It opens here again when an admin turns it on.",
+      title: t("plugins.support.turnedOffOnTheServer"),
+      hint: t("plugins.support.itOpensHereAgainWhen"),
     };
   }
   if (state === "failed") {
     return {
-      title: "Not running on the server",
+      title: t("plugins.support.notRunningOnTheServer"),
       hint:
         entry.state === "safe-mode"
-          ? "The server is in safe mode, so only look plugins run."
-          : "The plugin did not start. An admin can check it in Plugins.",
+          ? t("plugins.support.theServerIsInSafe")
+          : t("plugins.support.thePluginDidNotStart"),
     };
   }
   return {
-    title: "This plugin is not available",
-    hint: "It is not made for the app.",
+    title: t("plugins.support.thisPluginIsNotAvailable"),
+    hint: t("plugins.support.itIsNotMadeFor"),
   };
 }

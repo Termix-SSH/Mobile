@@ -1,0 +1,74 @@
+name: Translate
+
+on:
+  push:
+    branches:
+      - "dev-*"
+    paths:
+      - src/i18n/locales/en.json
+      - src/i18n/locales/languages.json
+  workflow_dispatch:
+    inputs:
+      retranslate:
+        description: "Translate every string again, not only new or changed ones"
+        type: boolean
+        default: false
+
+# The push goes through the App token, the job token only reads.
+permissions: {}
+
+concurrency:
+  group: translate-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    if: ${{ startsWith(github.ref, 'refs/heads/dev-') }}
+    runs-on: ubuntu-24.04
+    environment: build
+    permissions:
+      contents: read
+    steps:
+      - name: App token
+        id: app
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.CI_APP_CLIENT_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+          owner: Termix-SSH
+          repositories: Mobile
+          permission-contents: write
+
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+          token: ${{ steps.app.outputs.token }}
+          # The commit step pushes with it.
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Translate
+        uses: Termix-SSH/Termix-Registry/translate@main
+        with:
+          source: src/i18n/locales/en.json
+          out: src/i18n/locales/translated
+          languages: src/i18n/locales/languages.json
+          retranslate: ${{ inputs.retranslate || false }}
+          api-key: ${{ secrets.TERMIX_LLM_API_KEY }}
+
+      - name: Commit translations
+        run: |
+          git add src/i18n/locales
+          if git diff --cached --quiet; then
+            echo "No translation changes."
+            exit 0
+          fi
+          git config user.name "LukeGus"
+          git config user.email "bugattiguy527@gmail.com"
+          git commit -m "chore: update translations"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

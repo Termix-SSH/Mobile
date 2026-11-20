@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, Pressable } from "react-native";
 import { Sheet, SheetBody, Button, Text } from "@/ui";
+import { t } from "@/i18n";
 
 type Bit = "r" | "w" | "x";
 const CLASSES = ["owner", "group", "other"] as const;
@@ -68,18 +69,20 @@ export function PermissionsDialog({
       scroll
       visible={visible}
       onClose={onClose}
-      title="Permissions"
+      title={t("fileManager.permissionsDialog.permissions")}
       description={fileName}
       footer={
         <View className="flex-row gap-2">
           <Button variant="muted" className="flex-1" onPress={onClose}>
-            Cancel
+            {t("fileManager.permissionsDialog.cancel")}
           </Button>
           <Button
             variant="default"
             className="flex-1"
             onPress={() => onApply(octal)}
-          >{`Apply (${octal})`}</Button>
+          >
+            {t("fileManager.permissionsDialog.apply", { octal })}
+          </Button>
         </View>
       }
     >

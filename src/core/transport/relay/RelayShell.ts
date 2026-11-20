@@ -1,4 +1,5 @@
 import type { AccountClient } from "@/core/api/AccountClient";
+import { sshLogger } from "@/core/log/logger";
 import { fromRelayMessage } from "../errors";
 import { BROWSER_SIGN_IN_TITLES } from "../local/auth-support";
 import type {
@@ -7,8 +8,14 @@ import type {
   ShellOptions,
   TerminalHostConfig,
 } from "../types";
+import { t } from "@/i18n";
 
-const TAKEN_OVER = "This session was opened on another device";
+/** Socket URL without the query, which can carry the token on old servers. */
+function socketPath(url: string): string {
+  return url.split("?")[0];
+}
+
+const TAKEN_OVER = t("transport.relay.relayShell.thisSessionWasOpenedOn");
 
 /** Shell over the linked server's terminal socket. */
 export interface RelayShellConfig extends ShellOptions {
@@ -86,13 +93,17 @@ export class RelayShell implements ShellChannel {
     const { client } = this.config;
     const serverUrl = client.serverUrl;
     if (!serverUrl) {
-      this.notifyFailureOnce("No server URL found. Link the server again.");
+      this.notifyFailureOnce(
+        t("transport.relay.relayShell.noServerUrlFoundLink"),
+      );
       return;
     }
 
     const jwtToken = client.token();
     if (!jwtToken || jwtToken.trim() === "") {
-      this.notifyFailureOnce("Signed out of this server. Log in again.");
+      this.notifyFailureOnce(
+        t("transport.relay.relayShell.signedOutOfThisServer"),
+      );
       return;
     }
 
@@ -292,8 +303,8 @@ export class RelayShell implements ShellChannel {
         this.signInId = id;
         this.config.onBrowserCheckRequired?.(
           msg.url as string,
-          `Sign in with ${title} in your browser. This closes when it is done.`,
-          `${title} sign in`,
+          t("transport.relay.relayShell.signInWithInYour", { title }),
+          t("transport.relay.relayShell.signIn", { title }),
         );
         return true;
       case "completed":
@@ -307,13 +318,13 @@ export class RelayShell implements ShellChannel {
         this.signInId = null;
         return true;
       case "error":
-        fail(`${title} sign in failed`);
+        fail(t("transport.relay.relayShell.signInFailed", { title }));
         return true;
       case "config_error":
-        fail(`${title} is not set up on the server`);
+        fail(t("transport.relay.relayShell.isNotSetUpOn", { title }));
         return true;
       case "timeout":
-        fail(`${title} sign in timed out`);
+        fail(t("transport.relay.relayShell.signInTimedOut", { title }));
         return true;
     }
     return false;
@@ -369,7 +380,7 @@ export class RelayShell implements ShellChannel {
       return;
     }
     if (this.everConnected) {
-      this.drop("The socket closed while the app was away");
+      this.drop(t("transport.relay.relayShell.theSocketClosedWhileThe"));
     }
   }
 
@@ -453,7 +464,7 @@ export class RelayShell implements ShellChannel {
 
     if (!this.wsUrl) {
       this.notifyFailureOnce(
-        "No WebSocket URL available - server not configured",
+        t("transport.relay.relayShell.noWebsocketUrlAvailableServer"),
       );
       return;
     }
@@ -479,6 +490,7 @@ export class RelayShell implements ShellChannel {
 
     this.config.onStateChange("connecting", { retryCount: 0 });
 
+    sshLogger.info(`Opening terminal socket ${socketPath(this.wsUrl)}`);
     const ws = this.config.client.openSocket(
       this.wsUrl,
       this.wsProtocols,
@@ -491,7 +503,9 @@ export class RelayShell implements ShellChannel {
           ws.onclose = null;
           ws.close();
         } catch (_) {}
-        this.notifyFailureOnce("Connection timeout - server not responding");
+        this.notifyFailureOnce(
+          t("transport.relay.relayShell.connectionTimeoutServerNotResponding"),
+        );
       }
     }, 10000);
 
@@ -568,7 +582,8 @@ export class RelayShell implements ShellChannel {
           });
         } else if (msg.type === "totp_required") {
           this.config.onTotpRequired(
-            (msg.prompt as string) || "Verification code:",
+            (msg.prompt as string) ||
+              t("transport.relay.relayShell.verificationCode"),
             false,
           );
         } else if (msg.type === "password_required") {
@@ -598,7 +613,7 @@ export class RelayShell implements ShellChannel {
           } else {
             this.shouldNotReconnect = true;
             this.notifyFailureOnce(
-              "Host key verification required but no handler is registered",
+              t("transport.relay.relayShell.hostKeyVerificationRequiredBut"),
             );
           }
         } else if (msg.type === "host_key_changed") {
@@ -614,7 +629,7 @@ export class RelayShell implements ShellChannel {
           } else {
             this.shouldNotReconnect = true;
             this.notifyFailureOnce(
-              "Host key changed but no handler is registered",
+              t("transport.relay.relayShell.hostKeyChangedButNo"),
             );
           }
         } else if (msg.type === "passphrase_required") {
@@ -644,16 +659,21 @@ export class RelayShell implements ShellChannel {
             this.shouldNotReconnect = true;
             this.notifyFailureOnce(
               (msg.message as string) ||
-                "This host needs a sign-in that only the web app supports",
+                t("transport.relay.relayShell.thisHostNeedsASign"),
             );
           }
         } else if (msg.type === "totp_retry") {
-          this.config.onTotpRequired("Invalid code, try again:", false);
+          this.config.onTotpRequired(
+            t("transport.relay.relayShell.invalidCodeTryAgain"),
+            false,
+          );
         } else if (msg.type === "session_ended") {
           this.setServerSessionId(null);
           this.config.onDisconnected(this.config.hostConfig.name);
         } else if (msg.type === "error") {
-          const message = (msg.message as string) || "Unknown error";
+          const message =
+            (msg.message as string) ||
+            t("transport.relay.relayShell.unknownError");
           if (
             this.config.hostConfig.authType === "none" &&
             this.isAuthenticationError(message)
@@ -667,7 +687,9 @@ export class RelayShell implements ShellChannel {
           this.lastServerError = message;
           if (this.isUnrecoverableError(message)) {
             this.shouldNotReconnect = true;
-            this.notifyFailureOnce("Authentication failed: " + message);
+            this.notifyFailureOnce(
+              t("transport.relay.relayShell.authenticationFailed") + message,
+            );
             try {
               ws.close(1000);
             } catch (_) {}
@@ -738,8 +760,7 @@ export class RelayShell implements ShellChannel {
           this.config.onConnectionLog?.({
             level: "warning",
             stage: "tmux",
-            message:
-              "tmux is not installed on this host. Using the plain shell.",
+            message: t("transport.relay.relayShell.tmuxIsNotInstalledOn"),
           });
         } else if (msg.type === "connection_log") {
           if (msg.data) {
@@ -754,6 +775,9 @@ export class RelayShell implements ShellChannel {
     };
 
     ws.onclose = (event: CloseEvent) => {
+      sshLogger.info(
+        `Terminal socket closed (${event.code}${event.reason ? `, ${event.reason}` : ""})`,
+      );
       if (this.connectionTimeout) {
         clearTimeout(this.connectionTimeout);
         this.connectionTimeout = null;
@@ -769,14 +793,20 @@ export class RelayShell implements ShellChannel {
       if (this.destroyed) return;
 
       if (this.shouldNotReconnect) {
-        this.notifyFailureOnce(this.lastServerError ?? "Connection closed");
+        this.notifyFailureOnce(
+          this.lastServerError ??
+            t("transport.relay.relayShell.connectionClosed"),
+        );
         return;
       }
 
       // Before the shell was up it's a failed connect, after it a drop.
       if (!this.everConnected) {
         this.notifyFailureOnce(
-          this.lastServerError ?? `Connection closed (${event.code})`,
+          this.lastServerError ??
+            t("transport.relay.relayShell.connectionClosed2", {
+              code: event.code,
+            }),
         );
         return;
       }
@@ -784,13 +814,17 @@ export class RelayShell implements ShellChannel {
       this.drop(
         this.lastServerError ??
           (goingAway
-            ? "The server closed the connection"
-            : `The socket closed (${event.code})`),
+            ? t("transport.relay.relayShell.theServerClosedTheConnection")
+            : t("transport.relay.relayShell.theSocketClosed", {
+                code: event.code,
+              })),
         goingAway ? "server" : "network",
       );
     };
 
-    ws.onerror = () => {
+    ws.onerror = (event: Event) => {
+      const message = (event as Event & { message?: string }).message;
+      sshLogger.warn(`Terminal socket error${message ? `: ${message}` : ""}`);
       if (this.connectionTimeout) {
         clearTimeout(this.connectionTimeout);
         this.connectionTimeout = null;
@@ -834,7 +868,7 @@ export class RelayShell implements ShellChannel {
         ? {
             ...failure,
             stage: "session",
-            hint: "Tap Retry to bring it back here.",
+            hint: t("transport.relay.relayShell.tapRetryToBringIt"),
             noRetry,
           }
         : failure,

@@ -6,6 +6,7 @@ import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { MONO_FONT } from "@/constants/fonts";
 import { WidgetCard } from "./WidgetCard";
+import { t } from "@/i18n";
 
 type SortKey = "cpu" | "mem";
 
@@ -21,7 +22,9 @@ export function ProcessesWidget({ metrics }: { metrics: ServerMetrics }) {
     <Pressable
       onPress={() => setSort(id)}
       accessibilityRole="button"
-      accessibilityLabel={`Sort by ${label}`}
+      accessibilityLabel={t("hostMetrics.widgets.processesWidget.sortBy", {
+        label,
+      })}
       accessibilityState={{ selected: sort === id }}
       hitSlop={8}
       className="w-12"
@@ -38,24 +41,35 @@ export function ProcessesWidget({ metrics }: { metrics: ServerMetrics }) {
   return (
     <WidgetCard
       icon={<Activity size={15} color={color("accent-brand")} />}
-      title="Processes"
+      title={t("hostMetrics.widgets.processesWidget.processes")}
       trailing={
         proc?.total != null ? (
           <Text className="text-xs text-muted-foreground">
-            {proc.running ?? 0} running | {proc.total}
+            {t("hostMetrics.widgets.processesWidget.running", {
+              value: proc.running ?? 0,
+              total: proc.total,
+            })}
           </Text>
         ) : undefined
       }
     >
       {top.length === 0 ? (
-        <Text className="text-meta text-muted-foreground">No process data</Text>
+        <Text className="text-meta text-muted-foreground">
+          {t("hostMetrics.widgets.processesWidget.noProcessData")}
+        </Text>
       ) : (
         <View className="gap-1">
           <View className="flex-row gap-2">
-            <SortHead id="cpu" label="CPU%" />
-            <SortHead id="mem" label="MEM%" />
+            <SortHead
+              id="cpu"
+              label={t("hostMetrics.widgets.processesWidget.cpu")}
+            />
+            <SortHead
+              id="mem"
+              label={t("hostMetrics.widgets.processesWidget.mem")}
+            />
             <Text className="flex-1 text-2xs text-muted-foreground">
-              COMMAND
+              {t("hostMetrics.widgets.processesWidget.command")}
             </Text>
           </View>
           {top.map((p, i) => (

@@ -1,4 +1,5 @@
 import type { Snippet, SnippetFolder } from "@/types";
+import { t } from "@/i18n";
 
 export interface SnippetGroup {
   /** The folder name, or "" for snippets in no folder. */
@@ -42,7 +43,7 @@ export function groupSnippets(
   const keys = byFolder.has("") ? ["", ...names] : names;
   return keys.map((key) => ({
     key,
-    label: key || "No folder",
+    label: key || t("snippets.group.noFolder"),
     color: known.get(key)?.color,
     items: (byFolder.get(key) ?? []).sort(
       (a, b) => (a.order ?? 0) - (b.order ?? 0),

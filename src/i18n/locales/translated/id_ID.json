@@ -1,0 +1,3851 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Masuk",
+      "addServer": "Tambahkan server",
+      "switchAccount": "Ganti akun",
+      "noServerConnected": "Tidak ada server yang terhubung",
+      "connectToATermixServer": "Hubungkan ke server Termix untuk mengelola host, terminal, file, dan lainnya."
+    },
+    "lockScreen": {
+      "cancel": "Batal",
+      "tooManyTriesWaitSeconds": "Terlalu banyak percobaan. Tunggu {{value}} detik",
+      "termixLocked": "Termix Terkunci",
+      "enterYourPinToContinue": "Masukkan PIN Anda untuk melanjutkan"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oranye",
+      "blue": "Biru",
+      "green": "Hijau",
+      "purple": "Ungu",
+      "pink": "Merah Muda",
+      "cyan": "Sian",
+      "red": "Merah",
+      "yellow": "Kuning",
+      "teal": "Teal",
+      "indigo": "Indigo",
+      "rose": "Mawar",
+      "lime": "Lime",
+      "system": "Sistem",
+      "light": "Terang",
+      "dark": "Gelap"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Gunakan PIN",
+      "unlockTermix": "Buka kunci Termix",
+      "unlockTermixFirst": "Buka kunci Termix terlebih dahulu."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Fitur ini dinonaktifkan di server.",
+      "aTabWasNotReopened": "Sebuah tab tidak dibuka kembali karena host-nya hilang",
+      "tabsWereNotReopenedBecause": "{{count}} tab tidak dibuka kembali karena host-nya hilang"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Hubungkan server Termix untuk menggunakan ini",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Masukkan alamat server Anda",
+        "theAddressCanTHave": "Alamat tidak boleh mengandung spasi",
+        "useAnHttpOrHttps": "Gunakan alamat http:// atau https://",
+        "thatDoesnTLookLike": "Itu tidak terlihat seperti alamat server",
+        "thePortMustBeFrom": "Port harus antara 1 hingga 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Proxy login menjawab alih-alih Termix. Masuk ke proxy terlebih dahulu.",
+        "theServerDidNotSend": "Server tidak mengirim token.",
+        "theServerDidNotSend2": "Server tidak mengirim sesi.",
+        "theServerSentNoSign": "Server tidak mengirim alamat masuk.",
+        "theSignInRanOut": "Sesi masuk telah kedaluwarsa atau sudah digunakan. Masuk kembali.",
+        "wrongUsernameOrPassword": "Nama pengguna atau kata sandi salah",
+        "signInFailedHttp": "Gagal masuk (HTTP {{status}})",
+        "thePageSignedYouIn": "Halaman telah memasukkan Anda tetapi tidak mengembalikan sesi. Perbarui server ke Termix 26.11.3 atau lebih baru.",
+        "thisAccountIsnTAllowed": "Akun ini tidak diizinkan untuk masuk di sini.",
+        "noTermixAccountMatchesThat": "Tidak ada akun Termix yang cocok dengan masuk tersebut."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Sesi ini tidak memiliki server"
+    },
+    "store": {
+      "noSuchAccount": "Akun tersebut tidak ada",
+      "thisDeviceCanTBe": "Perangkat ini tidak dapat dihapus",
+      "switchToAnotherAccountFirst": "Ganti ke akun lain terlebih dahulu"
+    },
+    "types": {
+      "thisDevice": "Perangkat ini"
+    },
+    "accountSwitcher": {
+      "error": "Kesalahan",
+      "worksWithoutAServer": "Berfungsi tanpa server",
+      "couldNotSwitchAccount": "Tidak dapat mengganti akun",
+      "accounts": "Akun",
+      "openTabsKeepRunningWhen": "Tab yang terbuka tetap berjalan saat Anda beralih.",
+      "unlink": "Putuskan tautan {{account}}",
+      "linkAServer": "Hubungkan server",
+      "eachServerKeepsItsOwn": "Setiap server menyimpan host, kredensial, dan pengaturannya sendiri di {{deviceWord}} ini.",
+      "signedIn": "Sudah masuk",
+      "signedOut": "Keluar",
+      "syncedCopy": "Salinan tersinkronisasi"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Tidak dapat menyimpan pin",
+      "theServerSKeyMatches": "Kunci server cocok dengan pin",
+      "theServerShowsAnotherKey": "Server menampilkan kunci lain",
+      "pinThisKey": "Pin kunci ini?",
+      "pinThisKey2": "Pin kunci ini",
+      "keyPinned": "Kunci dipin",
+      "couldNotReadTheServer": "Tidak dapat membaca kunci server",
+      "thatIsNotAPin": "Bukan pin",
+      "keysPinned": "Kunci dipin",
+      "certificatePin": "Pin sertifikat",
+      "trustThisServerOnlyBy": "Percayai server ini hanya berdasarkan kuncinya. Gunakan untuk sertifikat yang ditandatangani sendiri, atau untuk menolak kunci lain. Tambahkan kunci berikutnya sebelum mengubah sertifikat server.",
+      "removePin": "Hapus pin {{pin}}",
+      "remove": "Hapus",
+      "readTheKeyFromThe": "Baca kunci dari server",
+      "orPasteAPin": "Atau tempel pin",
+      "pin": "Pin",
+      "add": "Tambah",
+      "issuedTo": "Diterbitkan untuk: {{subject}}",
+      "issuedBy": "Diterbitkan oleh: {{issuer}}",
+      "validUntil": "Berlaku hingga: {{value}}",
+      "checkThatThisKeyMatches": "Pastikan kunci ini cocok dengan yang ada di server Anda sebelum mem-pin-nya.",
+      "pasteTheBase64Sha256Of": "Tempelkan base64 sha256 dari kunci publik server, seperti yang dicetak oleh openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Pengaturan proxy disimpan",
+      "couldNotSaveTheProxy": "Tidak dapat menyimpan pengaturan proxy",
+      "couldNotReadThatFile": "Tidak dapat membaca file tersebut",
+      "certificateSaved": "Sertifikat disimpan",
+      "theFileOrItsPassphrase": "File atau frasa sandinya salah",
+      "couldNotSaveTheCertificate": "Tidak dapat menyimpan sertifikat",
+      "headers": "Header",
+      "sentWithEveryRequestTo": "Dikirim dengan setiap permintaan ke server ini, seperti token layanan Cloudflare.",
+      "name": "Nama",
+      "value": "Nilai",
+      "removeHeader": "Hapus header",
+      "addHeader": "Tambah header",
+      "cloudflareServiceToken": "Token layanan Cloudflare",
+      "basicAuth": "Autentikasi dasar",
+      "forAProxyThatAsks": "Untuk proxy yang meminta nama pengguna dan kata sandi.",
+      "userName": "Nama pengguna",
+      "password": "Kata sandi",
+      "saveHeadersAndBasicAuth": "Simpan header dan autentikasi dasar",
+      "clientCertificate": "Sertifikat klien",
+      "forServersThatAskFor": "Untuk server yang memintanya (mTLS). Kunci disimpan di penyimpanan aman {{deviceWord}} dan tidak dapat dibaca kembali.",
+      "certificate": "Sertifikat",
+      "remove": "Hapus",
+      "replaceCertificate": "Ganti sertifikat",
+      "pickAP12OrPfx": "Pilih file .p12 atau .pfx",
+      "proxySignIn": "Masuk proxy",
+      "thisIsSignedInTo": " {{deviceWord}} ini masuk ke proxy.",
+      "forCloudflareAccessAutheliaAuthentik": "Untuk Cloudflare Access, Authelia, Authentik, dan proxy lain dengan halaman masuk sendiri.{{value}}",
+      "signInToTheProxy": "Masuk ke proxy",
+      "forget": "Lupakan",
+      "certificatePassphrase": "Frasa sandi sertifikat",
+      "thePassphraseTheFileWas": "Frasa sandi yang digunakan saat file disimpan. Kosongkan jika tidak ada.",
+      "passphrase": "Frasa sandi",
+      "save": "Simpan"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Masuk ke proxy",
+      "couldNotSaveTheProxy": "Tidak dapat menyimpan masuk proxy",
+      "signInToTheProxy": "Masuk ke proxy",
+      "thisBuildOfTheApp": "Build aplikasi ini tidak dapat mempertahankan masuk melalui proxy. Gunakan token layanan di header proxy sebagai gantinya."
+    },
+    "savedLoginRow": {
+      "signIn": "Masuk",
+      "signInWith": "Masuk dengan {{name}}",
+      "whenThisServerSignsYou": "Saat server ini mengeluarkan Anda, masuk kembali tanpa mengetik kata sandi."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Terputus. {{copied}} item tetap ada di Perangkat ini.",
+      "unlinked": "Terputus",
+      "couldNotUnlinkTheServer": "Tidak dapat memutuskan sambungan server",
+      "unlink": "Putuskan sambungan {{value}}?",
+      "thisSignsOutOfThe": "Perangkat {{deviceWord}} ini keluar dari server. Tidak ada yang dihapus di server.",
+      "keepACopyOnThis": "Simpan salinan di Perangkat ini",
+      "yourOwnHostsCredentialsAnd": "Host, kredensial, dan cuplikan Anda sendiri dipindahkan ke Perangkat ini. Host yang dibagikan kepada Anda tidak disimpan.",
+      "deleteFromThis": "Hapus dari {{deviceWord}} ini",
+      "everythingThisHasForThe": "Semua data {{deviceWord}} ini untuk server akan dihapus."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Ubah di bawah Proxy di bawah ini",
+      "updateTermixMobileFromYour": "Perbarui Termix Mobile dari toko aplikasi Anda"
+    },
+    "savedLogin": {
+      "signInToTermix": "Masuk ke Termix",
+      "faceUnlock": "buka kunci wajah"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Build ini tidak dapat memeriksa kunci yang disematkan dari server ini atau mengirim sertifikatnya."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Server ini tidak mendukung fitur ini",
+      "theProxyWantsYouTo": "Proxy meminta Anda untuk masuk",
+      "endpointNotAvailableOnThis": "Titik akhir tidak tersedia di server ini",
+      "unknownError": "Kesalahan tidak dikenal"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Proxy di depan server ini meminta Anda untuk masuk kembali.",
+      "authenticationRequiredPleaseLogIn": "Autentikasi diperlukan. Silakan masuk kembali.",
+      "accessDeniedYouDoNot": "Akses ditolak. Anda tidak memiliki izin untuk melakukan tindakan ini.",
+      "thisFeatureIsTurnedOff": "Fitur ini dimatikan di server.",
+      "thisServerDoesNotSupport": "Server ini tidak mendukung fitur ini.",
+      "resourceNotFoundTheRequested": "Sumber daya tidak ditemukan. Item yang diminta mungkin telah dihapus.",
+      "conflictTheResourceAlreadyExists": "Konflik. Sumber daya sudah ada atau sedang digunakan.",
+      "validationErrorPleaseCheckYour": "Kesalahan validasi. Periksa input Anda dan coba lagi.",
+      "serverErrorOccurredPleaseTry": "Terjadi kesalahan server. Silakan coba lagi nanti.",
+      "sslCertificateVerificationFailed": "Verifikasi sertifikat SSL gagal.",
+      "networkErrorPleaseCheckYour": "Kesalahan jaringan. Periksa koneksi Anda dan coba lagi.",
+      "failedTo": "Gagal {{operation}}",
+      "unknownError": "Kesalahan tidak dikenal",
+      "unexpectedErrorDuring": "Kesalahan tak terduga saat {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Aplikasi tidak dapat mempercayai HTTPS untuk IP lokal ini. Sematkan kunci server di bawah Proxy dan sertifikat klien, gunakan sertifikat yang dipercaya {{deviceWord}}, atau gunakan HTTP di jaringan lokal atau VPN yang dipercaya.",
+        "thisServerIsBehindA": "Server ini berada di balik proxy login. Gunakan opsi masuk eksternal sebagai gantinya.",
+        "loginFailed": "Login gagal"
+      },
+      "files": {
+        "fileNotFound": "File tidak ditemukan",
+        "fileWriteOperationDidNot": "Operasi penulisan file tidak mengembalikan status sukses",
+        "couldNot": "Tidak dapat {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Host disimpan, tetapi beberapa pengaturan gagal: {{value}}",
+        "unexpectedHostResponseFrom": "Respons host tak terduga dari {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Sampel langsung gagal"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Tidak ada jawaban"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Server ini tidak menampilkan kunci yang disematkan, sehingga halaman tidak dibuka."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "{{what}} tersebut tidak lagi ada.",
+      "aHostCannotBeIts": "Host tidak dapat menjadi induknya sendiri",
+      "parentHostNotFound": "Host induk tidak ditemukan",
+      "aHostCanTGo": "Host tidak dapat berada di bawah salah satu sub-host miliknya sendiri",
+      "thisIsSharedWithYou": "{{what}} ini dibagikan kepada Anda. Hanya pemiliknya yang dapat mengubahnya.",
+      "nameIsRequired": "Nama wajib diisi",
+      "nameAndCommandAreRequired": "Nama dan perintah wajib diisi",
+      "aFolderWithThatName": "Folder dengan nama tersebut sudah ada"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Perangkat ini tidak dapat menyimpan {{what}} di sini."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Cuplikan ini dibagikan kepada Anda dan tidak dapat diubah."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Gunakan frasa sandi dengan minimal 8 karakter.",
+      "thisIsNotATermix": "Ini bukan file cadangan Termix.",
+      "thisBackupIsFromA": "Cadangan ini berasal dari versi Termix yang lebih baru. Perbarui aplikasi terlebih dahulu.",
+      "wrongPassphraseOrTheFile": "Kata sandi salah, atau file rusak."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Build ini tidak dapat mengenkripsi data lokal."
+    },
+    "keys": {
+      "unlockTermixFirst": "Buka kunci Termix terlebih dahulu.",
+      "thatIsNotADatabase": "Bukan kunci database.",
+      "couldNotSaveTheDatabase": "Gagal menyimpan kunci database."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Data ini disimpan oleh versi Termix yang lebih baru. Perbarui aplikasi untuk membukanya."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Perangkat ini tidak melakukan sinkronisasi.",
+      "localDataIsNotAvailable": "Data lokal tidak tersedia di sini.",
+      "unlockTermixFirst": "Buka kunci Termix terlebih dahulu."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Tidak dapat terhubung.",
+      "thisWayCanTRun": "Cara ini tidak dapat menjalankan perintah"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Kata sandi sudo",
+      "password": "Kata sandi",
+      "run": "Jalankan",
+      "thatPasswordWasWrong": "Kata sandi tersebut salah.",
+      "onNeedsRoot": "{{reason}} di {{hostName}} memerlukan root.",
+      "needsRootForThis": "{{hostName}} memerlukan root untuk ini.",
+      "itIsKeptUntilYou": "Ini akan disimpan hingga Anda menutup aplikasi."
+    },
+    "run": {
+      "theHostTookTooLong": "Host terlalu lama untuk merespons",
+      "connectionLost": "Koneksi terputus"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Ini memerlukan root. Masuk sebagai root, atur sudo tanpa kata sandi, atau simpan kata sandi sudo untuk host.",
+      "theSudoPasswordWasWrong": "Kata sandi sudo salah",
+      "commandFailed": "Perintah gagal"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet di terminal memerlukan koneksi dari {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Fitur {{id}} sudah terdaftar"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Alamat",
+      "theIpOrHostName": "IP atau nama host di bawah nama",
+      "username": "Nama pengguna",
+      "theUserBeforeTheAddress": "Pengguna sebelum alamat",
+      "port": "Port",
+      "thePortAfterTheAddress": "Port setelah alamat",
+      "hostIcon": "Ikon host",
+      "theIconSetOnThe": "Ikon yang ditetapkan pada host",
+      "pinIcon": "Ikon pin",
+      "marksPinnedHosts": "Menandai host yang dipin",
+      "sharedBadge": "Lencana bersama",
+      "marksHostsSharedWithYou": "Menandai host yang dibagikan kepada Anda",
+      "protocolBadges": "Lencana protokol",
+      "sshRdpDockerAndOther": "Chip SSH, RDP, Docker, dan lainnya",
+      "tags": "Tag",
+      "theHostSTags": "Tag host",
+      "cpuAndRam": "CPU dan RAM",
+      "liveUsageBarsOnOnline": "Bar penggunaan langsung pada host online",
+      "statusColors": "Warna status",
+      "greenBarWhenOnlineRed": "Bar hijau saat online, merah saat offline"
+    },
+    "uiPrefs": {
+      "small": "Kecil",
+      "default": "Bawaan",
+      "large": "Besar",
+      "comfortable": "Nyaman",
+      "compact": "Padat"
+    },
+    "errors": {
+      "somethingWentWrong": "Terjadi kesalahan"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Mengunci kunci dengan kata sandi memerlukan aplikasi Termix, bukan pratinjau web."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Segera",
+      "after15Seconds": "Setelah 15 detik",
+      "after1Minute": "Setelah 1 menit",
+      "after5Minutes": "Setelah 5 menit"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Rahasia perangkat hilang",
+      "noSealedKey": "Tidak ada kunci tertutup",
+      "theSealedKeyIsDamaged": "Kunci tertutup rusak",
+      "wrongPin": "PIN salah",
+      "theSealedKeyDidNot": "Kunci yang disegel tidak terbuka",
+      "biometricsCanTOpenThe": "Biometrik tidak dapat membuka kunci"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Perbarui aplikasi",
+      "onYourServerNeedsA": "{{name}} di server Anda memerlukan versi Termix yang lebih baru di {{deviceWord}} ini.",
+      "updateThePlugin": "Perbarui plugin",
+      "onYourServerIsToo": "{{name}} di server Anda terlalu lama untuk aplikasi ini. Mintalah admin memperbaruinya di Plugin."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Diblokir oleh aplikasi",
+      "theAppDoesNotLet": "Aplikasi tidak mengizinkan plugin menggunakan rute ini.",
+      "thisBuildCanTReach": "Build ini tidak dapat menjangkau server ini dengan aman."
+    },
+    "support": {
+      "needsANewerVersionOf": "Memerlukan versi aplikasi yang lebih baru",
+      "updateThePluginOnThe": "Perbarui plugin di server",
+      "theAppHasItsOwn": "Aplikasi memiliki tampilan sendiri",
+      "notInTheAppYet": "Belum ada di aplikasi",
+      "linkAServerToUse": "Hubungkan server untuk menggunakannya",
+      "opensInTheAppFrom": "Terbuka di aplikasi dari server",
+      "runsOnTheServer": "Berjalan di server",
+      "throughTheServer": "Melalui server",
+      "inTheApp": "Di dalam aplikasi",
+      "webView": "Tampilan web",
+      "onTheServer": "Di server",
+      "appLook": "Tampilan aplikasi",
+      "notInTheApp": "Tidak ada di aplikasi",
+      "safeMode": "Mode aman",
+      "notRunning": "Tidak berjalan",
+      "notInstalled": "Tidak terpasang",
+      "notOnThisServer": "Tidak ada di server ini",
+      "thePluginIsNotInstalled": "Plugin tidak terpasang di server ini.",
+      "turnedOffOnTheServer": "Dimatikan di server",
+      "itOpensHereAgainWhen": "Ini akan terbuka di sini lagi ketika admin mengaktifkannya.",
+      "notRunningOnTheServer": "Tidak berjalan di server",
+      "theServerIsInSafe": "Server berada dalam mode aman, sehingga hanya plugin tampilan yang berjalan.",
+      "thePluginDidNotStart": "Plugin tidak berhasil dimulai. Admin dapat memeriksanya di Plugin.",
+      "thisPluginIsNotAvailable": "Plugin ini tidak tersedia",
+      "itIsNotMadeFor": "Plugin ini tidak dibuat untuk aplikasi.",
+      "offOnThisServer": "dimatikan di server ini",
+      "notRunningOnThisServer": "tidak berjalan di server ini",
+      "notOnThisServer2": "tidak ada di server ini",
+      "notInTheAppYet2": "Belum ada di aplikasi | di server ini",
+      "worksOnThis": "Berfungsi di {{deviceWord}} ini",
+      "andServer": "{{DeviceWord}} dan server",
+      "deviceOnly": "Hanya {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Muat ulang"
+    },
+    "pluginSettings": {
+      "loading": "Memuat pengaturan",
+      "forEveryone": "Untuk semua orang di server",
+      "justForYou": "Hanya untuk Anda",
+      "couldNotSave": "Tidak dapat menyimpan pengaturan",
+      "nothingYouCanChange": "Tidak ada yang bisa Anda ubah di sini. Admin dapat mengubah pengaturan ini.",
+      "notANumber": "Bukan angka",
+      "atLeast": "Harus {{min}} atau lebih",
+      "atMost": "Harus {{max}} atau kurang"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Putuskan semua",
+      "showOpenSessions": "Tampilkan sesi terbuka",
+      "termixShowsANotificationWhile": "Termix menampilkan notifikasi saat sesi terbuka, agar Android menjaganya tetap berjalan di latar belakang.",
+      "sessionsOpen_other": "{{count}} sesi terbuka",
+      "tunnelsActive_other": "{{count}} tunnel aktif",
+      "notConnected": "Tidak terhubung",
+      "waitingForNetwork": "Menunggu jaringan",
+      "connecting": "Menghubungkan",
+      "connected": "Terhubung",
+      "reconnecting": "Menghubungkan ulang",
+      "failed": "Gagal",
+      "closed": "Ditutup"
+    },
+    "companionPane": {
+      "resizeThePanel": "Ubah ukuran panel {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Tutup",
+      "closeAllTabs": "Tutup semua {{count}} tab?",
+      "everySessionEnds": "Setiap sesi akan berakhir.",
+      "closeAll": "Tutup semua",
+      "noActiveConnections": "Tidak ada koneksi aktif",
+      "pickAHostFromThe": "Pilih host dari daftar untuk memulai sesi. Tab yang Anda buka di perangkat lain juga akan muncul di sini.",
+      "connectToAHostTo": "Hubungkan ke host untuk memulai sesi. Tab yang Anda buka di perangkat lain juga akan muncul di sini.",
+      "open": "Buka",
+      "background": "Latar belakang",
+      "sessionsFromOtherDevicesOr": "Sesi dari perangkat lain atau tab yang berjalan di latar belakang. Ketuk untuk mengaktifkan kembali.",
+      "liveTapToReconnect": "Aktif, ketuk untuk menghubungkan ulang",
+      "tapToReopen": "Ketuk untuk membuka kembali"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Ini dinonaktifkan di server",
+      "comesBackHereWhenAn": "{{title}} akan muncul kembali di sini ketika admin mengaktifkan pluginnya lagi.",
+      "closeTab": "Tutup tab"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Koneksi",
+        "hideHostList": "Sembunyikan daftar host",
+        "showHostList": "Tampilkan daftar host",
+        "backToHosts": "Kembali ke host",
+        "showKeyboard": "Tampilkan keyboard",
+        "hideKeyboard": "Sembunyikan keyboard",
+        "hideKeysPanel": "Sembunyikan panel kunci",
+        "showKeysPanel": "Tampilkan panel kunci"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Ketuk untuk opsi tab, tahan untuk memindahkan",
+        "holdToMove": "Tahan untuk memindahkan",
+        "close": "Tutup {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Menunggu jaringan",
+        "connectionFailed": "Koneksi gagal",
+        "reconnecting": "Menghubungkan ulang"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Ubah nama",
+      "newTabOnThisHost": "Tab baru di host ini",
+      "here": "{{title}} di sini",
+      "hidePanel": "Sembunyikan panel {{title}}",
+      "showPanel": "Tampilkan panel {{title}}",
+      "endSplitView": "Akhiri tampilan terbagi",
+      "splitViewWith": "Tampilan terbagi dengan...",
+      "moveLeft": "Pindahkan ke kiri",
+      "moveRight": "Pindahkan ke kanan",
+      "closeTab": "Tutup tab",
+      "closeAllTabs": "Tutup semua tab",
+      "closeAllTabs2": "Tutup semua {{count}} tab?",
+      "everySessionEnds": "Setiap sesi akan berakhir.",
+      "closeAll": "Tutup semua",
+      "splitViewWith2": "Tampilan terbagi dengan",
+      "renameTab": "Ubah nama tab",
+      "leaveItEmptyToUse": "Biarkan kosong untuk menggunakan nama host."
+    },
+    "resizeHostList": "Ubah ukuran daftar host",
+    "resizeSplitView": "Ubah ukuran tampilan terbagi",
+    "connections": "Koneksi",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Autentikasi Dua Faktor",
+        "enterThe6DigitCode": "Masukkan kode 6 digit dari aplikasi autentikator Anda.",
+        "cancel": "Batal",
+        "verify": "Verifikasi",
+        "codeExpiresInSGet": "Kode kedaluwarsa dalam {{totpCountdown}}s, dapatkan kode baru",
+        "warpgateAuthentication": "Autentikasi Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "Konfirmasi URL autentikasi Warpgate dan kunci keamanan.",
+        "authenticate": "Autentikasi",
+        "warpgateUrl": "URL Warpgate",
+        "securityKeyOptional": "Kunci keamanan (opsional)",
+        "authenticationRequired": "Autentikasi Diperlukan",
+        "thisHostNeedsCredentialsTo": "Host ini memerlukan kredensial untuk terhubung.",
+        "connect": "Hubungkan",
+        "password": "Kata sandi",
+        "sshKey": "Kunci SSH",
+        "pastePrivateKey": "Tempelkan kunci privat",
+        "keyPassphraseOptional": "Frasa sandi kunci (opsional)"
+      },
+      "connectionError": {
+        "tryAgain": "Coba lagi",
+        "close": "Tutup",
+        "connectThroughTheServer": "Hubungkan melalui server",
+        "connectFromThis": "Hubungkan dari {{deviceWord}} ini",
+        "triedFromThis": "Telah dicoba dari {{deviceWord}} ini",
+        "triedThroughTheServer": "Telah dicoba melalui server"
+      },
+      "execGate": {
+        "connecting": "Menghubungkan..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Terjadi kesalahan",
+        "retry": "Coba lagi",
+        "refresh": "Muat ulang",
+        "nothingToShow": "Tidak ada yang ditampilkan"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Log disalin",
+        "connectionLog": "Log Koneksi ({{count}})",
+        "copyLog": "Salin log",
+        "waitingForConnection": "Menunggu koneksi…",
+        "noLogEntries": "Tidak ada entri log"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Gagal menyimpan cara host ini terhubung"
+      },
+      "useSessionConnect": {
+        "connected": "Terhubung",
+        "connectingTo": "Menghubungkan ke {{name}}…",
+        "connectionLost": "Koneksi terputus",
+        "failedToConnect": "Gagal terhubung",
+        "invalidCode": "Kode tidak valid",
+        "warpgateAuthenticationFailed": "Autentikasi Warpgate gagal",
+        "authenticationCancelled": "Autentikasi dibatalkan"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Pencarian dan perintah",
+    "addHost": "Tambah host",
+    "keyboardShortcuts": "Pintasan keyboard",
+    "home": "Beranda",
+    "hosts": "Host",
+    "sessions": "Sesi",
+    "tools": "Alat",
+    "settings": "Pengaturan",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Pintasan keyboard"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Host dan folder",
+      "yourHostsFoldersAndHosts": "Host Anda, folder, dan host yang dibagikan kepada Anda",
+      "credentials": "Kredensial",
+      "savedPasswordsAndKeysAnd": "Sandi dan kunci yang disimpan, serta kredensial yang dibagikan kepada Anda",
+      "snippets": "Snippet",
+      "snippetsAndTheirFolders": "Snippet dan foldernya",
+      "hostDefaults": "Pengaturan default host",
+      "defaultSettingsForNewHosts": "Pengaturan default untuk host baru",
+      "preferences": "Preferensi",
+      "settingsThatFollowYouBetween": "Pengaturan yang mengikuti Anda antar perangkat"
+    },
+    "link": {
+      "noSuchServerAccount": "Akun server tidak ditemukan",
+      "signInFirst": "Masuk terlebih dahulu.",
+      "thisServerAccountBelongsTo": "Akun server ini milik {{value}}. Masuk sebagai pengguna tersebut, atau tambahkan server lagi untuk pengguna ini."
+    },
+    "reasons": {
+      "signedOut": "Keluar",
+      "thisSSignInTo": "Sesi masuk {{deviceWord}} ini ke server telah berakhir.",
+      "theServerEndedThisS": "Server mengakhiri sesi {{deviceWord}} ini. Mungkin telah keluar dari perangkat lain.",
+      "proxySignInNeeded": "Perlu masuk ke proxy",
+      "theProxyInFrontOf": "Proxy di depan server ini meminta Anda masuk kembali.",
+      "proxyPasswordNeeded": "Perlu sandi proxy",
+      "theProxyInFrontOf2": "Proxy di depan server ini meminta sandinya.",
+      "certificateRefused": "Sertifikat ditolak",
+      "theServerDidNotAccept": "Server tidak menerima sertifikat {{deviceWord}} ini.",
+      "untrustedServer": "Server tidak dipercaya",
+      "theServerSCertificateIs": "Sertifikat server tidak dipercaya oleh {{deviceWord}} ini.",
+      "serverKeyChanged": "Kunci server berubah",
+      "theServerShowsAnotherKey": "Server menampilkan kunci yang berbeda dari kunci yang dipin untuknya. Jika Anda mengubah sertifikatnya, pin kunci baru tersebut.",
+      "offline": "Luring",
+      "canTReachTheServer": "Tidak dapat menjangkau server. Sinkronisasi akan mencoba lagi dalam waktu dekat.",
+      "serverProblem": "Masalah server",
+      "theServerHadAProblem": "Server mengalami masalah. Sinkronisasi akan mencoba lagi dalam waktu dekat.",
+      "updateNeeded": "Perlu pembaruan",
+      "thisServerUsesANewer": "Server ini menggunakan versi sinkronisasi yang lebih baru. Perbarui aplikasi.",
+      "notATermixServer": "Bukan server Termix",
+      "theAddressDoesNotAnswer": "Alamat tersebut tidak merespons seperti server Termix.",
+      "syncIsOff": "Sinkronisasi dimatikan",
+      "theSyncPluginIsOff": "Plugin Sinkronisasi dimatikan di server ini. Mintalah admin untuk mengaktifkannya di Plugin.",
+      "differentUser": "Pengguna berbeda",
+      "youSignedInAsA": "Anda masuk sebagai pengguna yang berbeda dari milik akun server ini.",
+      "syncStopped": "Sinkronisasi berhenti",
+      "somethingWentWrong": "Terjadi kesalahan.",
+      "signInAgain": "Masuk lagi",
+      "signInToTheProxy": "Masuk ke proxy",
+      "enterThePassword": "Masukkan kata sandi",
+      "tryAgain": "Coba lagi",
+      "checkThePin": "Periksa pin",
+      "checkForUpdates": "Periksa pembaruan",
+      "pickACertificate": "Pilih sertifikat"
+    },
+    "settings": {
+      "noSuchSetting": "Pengaturan tidak ditemukan",
+      "snippetFolder": "Folder cuplikan",
+      "hostDefault": "Default host"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Server tidak menerima sertifikat {{deviceWord}} ini.",
+      "theServerSCertificateIs": "Sertifikat server tidak dipercaya.",
+      "canTReachTheServer": "Tidak dapat menjangkau server.",
+      "signedOut": "Keluar",
+      "theProxyAskedForIts": "Proxy meminta kata sandinya.",
+      "theProxyWantsYouTo": "Proxy meminta Anda untuk masuk.",
+      "theSyncPluginIsOff": "Plugin Sinkronisasi dimatikan di server ini.",
+      "serverError": "Kesalahan server {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Server menampilkan kunci yang berbeda dari kunci yang dipin."
+    },
+    "remote": {
+      "thisIsNotATermix": "Ini bukan server Termix.",
+      "theProxyWantsYouTo": "Proxy meminta Anda untuk masuk.",
+      "thisServerUsesANewer": "Server ini menggunakan versi sinkronisasi yang lebih baru. Perbarui aplikasi."
+    },
+    "copy": {
+      "hostCount_other": "{{count}} host",
+      "credentialCount_other": "{{count}} kredensial",
+      "snippetCount_other": "{{count}} cuplikan",
+      "folderCount_other": "{{count}} folder",
+      "nothingYet": "belum ada apa-apa",
+      "listAnd": "{{list}} dan {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Tidak dapat terhubung.",
+      "connectingToFromThis": "Menghubungkan ke {{name}} dari {{deviceWord}} ini",
+      "connectingToThroughTheServer": "Menghubungkan ke {{name}} melalui server",
+      "reconnectingTry": "Menghubungkan ulang (percobaan {{retry}})",
+      "disconnected": "Terputus",
+      "connected": "Terhubung",
+      "reconnectedToTheSameSession": "Terhubung ulang ke sesi yang sama",
+      "reconnectedWithANewShell": "Terhubung ulang dengan shell baru",
+      "couldNotReachTheHost": "Tidak dapat menjangkau host dari {{deviceWord}} ini, mencoba melalui server",
+      "couldNotConnectThroughThe": "Tidak dapat terhubung melalui server, mencoba dari {{deviceWord}} ini",
+      "connectionLost": "Koneksi hilang: {{reason}}",
+      "offlineWaitingForTheNetwork": "Luring, menunggu jaringan",
+      "nextTryInS": "Percobaan berikutnya dalam {{value}}dtk",
+      "reconnectingTry2": "Menghubungkan ulang (percobaan {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Host berhenti merespons",
+      "networkLost": "Jaringan hilang",
+      "network": "Jaringan: {{type}}{{value}}",
+      "lowPowerModeOn": "Mode hemat daya aktif",
+      "lowPowerModeOff": "Mode hemat daya nonaktif",
+      "droppedTypedCharacters": "forms: { other: \"{{count}} karakter yang diketik diabaikan\" }",
+      "youDidNotTrustThe": "Anda tidak mempercayai kunci host.",
+      "checkTheKeyWithWhoever": "Periksa kunci dengan pengelola host, lalu coba lagi.",
+      "loginCancelled": "Login dibatalkan.",
+      "connectAgainWhenYouAre": "Hubungkan kembali saat Anda siap.",
+      "typedInputIsOver64": "Input yang diketik melebihi 64 KB, bagian tertua diabaikan",
+      "appInTheBackground": "Aplikasi di latar belakang",
+      "appInTheForeground": "Aplikasi di latar depan",
+      "thisConnectionCanTRun": "Koneksi ini tidak dapat menjalankan perintah"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Periksa alamat dan port, serta pastikan server dapat menjangkau host.",
+      "checkTheAddressAndPort2": "Periksa alamat dan port, serta pastikan {{deviceWord}} ini dapat menjangkau host.",
+      "checkTheProxySettingsOf": "Periksa pengaturan proxy host ini.",
+      "checkTheKeyWithWhoever": "Periksa kunci dengan pengelola host sebelum Anda mempercayainya.",
+      "checkTheUsernameAndLogin": "Periksa nama pengguna dan login di editor host.",
+      "checkThatTheServerIs": "Pastikan server aktif dan Anda masih masuk.",
+      "tryAgainIfItKeeps": "Coba lagi. Jika terus terputus, periksa jaringan.",
+      "connectAgainWhenYouAre": "Hubungkan kembali saat Anda siap.",
+      "pickAnotherWayToConnect": "Pilih cara lain untuk menghubungkan host ini.",
+      "connectThisHostThroughA": "Hubungkan host ini melalui server Termix.",
+      "pickTheJumpHostsAgain": "Pilih kembali jump host di editor host.",
+      "thisIsATailscaleAddress": "Ini adalah alamat Tailscale. Pastikan Tailscale terhubung di {{deviceWord}} ini.",
+      "theSavedKeyCanT": "Kunci yang disimpan tidak dapat dibaca. Tempelkan kembali di editor host.",
+      "signInToThisServer": "Masuk ke server ini lagi.",
+      "openThisHostInThe": "Buka host ini di aplikasi web Termix.",
+      "canTConnectThisWay": "Tidak dapat terhubung dengan cara ini",
+      "couldNotReachTheHost": "Tidak dapat menjangkau host",
+      "theProxyDidNotLet": "Proxy tidak mengizinkan koneksi",
+      "theHostKeyWasNot": "Kunci host tidak dipercaya",
+      "theLoginWasRefused": "Login ditolak",
+      "theTermixServerDidNot": "Server Termix tidak merespons",
+      "theConnectionDropped": "Koneksi terputus",
+      "loginCancelled": "Login dibatalkan"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "Agen SSH",
+        "thisHostSignsInWith": "Host ini masuk menggunakan \"{{authType}}\", yang memerlukan server Termix. Hubungkan satu untuk terhubung.",
+        "thisHostUsesA1password": "Host ini menggunakan referensi 1Password, yang memerlukan server Termix dengan Secret Sources. Hubungkan satu dan sambungkan host ini melaluinya.",
+        "signInWithFirstOpen": "Masuk dengan {{title}} terlebih dahulu. Buka terminal ke host ini sekali, lalu coba lagi.",
+        "theSignInAndThe": "proses masuk dan sertifikat berada di server",
+        "theHasNoSshAgent": "{{deviceWord}} tidak memiliki agen SSH",
+        "needsATermixServerBecause": "{{title}} memerlukan server Termix karena {{why}}. Hubungkan satu dan sambungkan host ini melaluinya."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Jump host dari host ini tidak lagi ada."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Koneksi terputus",
+        "theShellChannelClosed": "Saluran shell ditutup",
+        "jumpHost": "Jump host {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Kode tidak valid, coba lagi:",
+        "authenticationFailed": "Autentikasi gagal: {{message}}",
+        "theHostKeyWasNot": "Kunci host tidak dipercaya.",
+        "loginCancelled": "Login dibatalkan.",
+        "notConnected": "Tidak terhubung",
+        "signingInAs": "Masuk sebagai {{user}} dengan {{method}}",
+        "methodKey": "kunci",
+        "methodPassword": "kata sandi",
+        "methodNone": "tidak ada login yang disimpan"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Koneksi terputus"
+      },
+      "thisBuildHasNoSsh": "Build ini tidak memiliki mesin SSH. Gunakan aplikasi dari toko, atau hubungkan server Termix untuk terhubung.",
+      "theHostsOnThisAre": "Host di {{deviceWord}} ini belum terbuka.",
+      "thisServerSHostsAre": "Host server ini tidak ada di {{deviceWord}} ini. Aktifkan plugin Sync di server untuk terhubung dari {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Login yang disimpan untuk host ini tidak ada di {{deviceWord}} ini, jadi hanya server yang bisa masuk"
+      }
+    },
+    "origin": {
+      "canTConnect": "Tidak dapat terhubung.",
+      "canTConnectFromThe": "Tidak dapat terhubung dari {{deviceWord}} ini.",
+      "canTReachTheServer": "Tidak dapat menjangkau server.",
+      "theOnlyConnectsToSsh": "Perangkat {{deviceWord}} hanya terhubung ke host SSH dan Telnet.",
+      "connectThisHostThroughThe": "Hubungkan host ini melalui server",
+      "connectThisHostFromThe": "Hubungkan host ini dari {{deviceWord}}",
+      "termixServer": "Server Termix",
+      "usesThisWhenItCan": "Menggunakan {{deviceWord}} ini jika dapat menjangkau host, jika tidak, menggunakan server.",
+      "thisConnectsToTheHost": "{{deviceWord}} ini terhubung langsung ke host.",
+      "theTermixServerConnectsTo": "Server Termix terhubung ke host untuk Anda.",
+      "anSshConnection": "sambungan SSH",
+      "aTermixServer": "server Termix",
+      "aConnectionFromThe": "sambungan dari {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} dinonaktifkan di server ini. {{how}} untuk menggunakannya.",
+      "isOffOnThisServer2": "{{title}} dinonaktifkan di server ini.",
+      "anotherWayToConnect": "cara lain untuk terhubung",
+      "needsToUseIt": "{{title}} membutuhkan {{what}}. {{how}} untuk menggunakannya.",
+      "needsWhichThisHostCan": "{{title}} membutuhkan {{what}}, yang tidak dapat digunakan oleh host ini saat ini.",
+      "thisDevice": "{{deviceWord}} ini",
+      "automatic": "Otomatis"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Anda telah keluar dari server ini. Masuk untuk terhubung melaluinya.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux tidak terinstal di host ini. Menggunakan shell biasa.",
+        "tapRetryToBringIt": "Ketuk Coba Lagi untuk memulihkannya di sini.",
+        "thisSessionWasOpenedOn": "Sesi ini dibuka di perangkat lain",
+        "noServerUrlFoundLink": "Tidak ditemukan URL server. Hubungkan server lagi.",
+        "signedOutOfThisServer": "Keluar dari server ini. Masuk lagi.",
+        "signInWithInYour": "Masuk dengan {{title}} di browser Anda. Ini akan tertutup setelah selesai.",
+        "theSocketClosedWhileThe": "Socket tertutup saat aplikasi tidak aktif",
+        "noWebsocketUrlAvailableServer": "Tidak ada URL WebSocket tersedia - server tidak dikonfigurasi",
+        "connectionTimeoutServerNotResponding": "Waktu koneksi habis - server tidak merespons",
+        "verificationCode": "Kode verifikasi:",
+        "hostKeyVerificationRequiredBut": "Verifikasi kunci host diperlukan tetapi tidak ada penangan yang terdaftar",
+        "hostKeyChangedButNo": "Kunci host berubah tetapi tidak ada penangan yang terdaftar",
+        "thisHostNeedsASign": "Host ini memerlukan masuk yang hanya didukung oleh aplikasi web",
+        "invalidCodeTryAgain": "Kode tidak valid, coba lagi:",
+        "unknownError": "Kesalahan tidak dikenal",
+        "connectionClosed": "Sambungan ditutup",
+        "connectionClosed2": "Sambungan ditutup ({{code}})",
+        "theServerClosedTheConnection": "Server menutup sambungan",
+        "theSocketClosed": "Socket tertutup ({{code}})",
+        "signIn": "Masuk {{title}}",
+        "signInFailed": "Gagal masuk {{title}}",
+        "isNotSetUpOn": "{{title}} belum diatur di server",
+        "signInTimedOut": "Waktu masuk {{title}} habis",
+        "authenticationFailed": "Autentikasi gagal: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Simpan host dan sambungkan untuk memeriksanya.",
+      "loggedInAsOn": "Masuk sebagai {{username}} di {{host}}",
+      "theHostAskedForMore": "Host meminta lebih dari sekadar kata sandi, seperti kode. Simpan host dan sambungkan untuk menyelesaikan proses masuk."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Menunggu jaringan",
+      "couldNotOpenTheTunnel": "Tidak dapat membuka terowongan",
+      "theConnectionDropped": "Sambungan terputus",
+      "iosStoppedThisTunnelWhile": "iOS menghentikan terowongan ini saat aplikasi berada di latar belakang. Mulai lagi untuk membukanya.",
+      "connecting": "Menghubungkan",
+      "connected": "Terhubung",
+      "retrying": "Mencoba lagi",
+      "waiting": "Menunggu",
+      "failed": "Gagal"
+    },
+    "gateways": {
+      "error": "Kesalahan",
+      "gateways": "Gerbang",
+      "gatewaysCanOnlyBeChanged": "Gerbang hanya dapat diubah di Termix pada web.",
+      "noHandshake": "Tidak ada jabat tangan",
+      "rulesMissing": "Aturan hilang",
+      "up": "Aktif",
+      "pending": "Menunggu",
+      "applying": "Menerapkan",
+      "down": "Mati",
+      "unreachable": "Tidak Terjangkau"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Belum ada terowongan. Tambahkan satu untuk meneruskan port dari host titik akhir ke host ini.",
+      "tunnel": "Terowongan {{value}}",
+      "removeTunnel": "Hapus terowongan {{value}}",
+      "mode": "Mode",
+      "local": "Lokal",
+      "remote": "Jauh",
+      "dynamic": "Dinamis",
+      "targetHost": "Host target",
+      "onThisHostForTunnels": "Di host ini, untuk terowongan yang dijalankan oleh {{deviceWord}}",
+      "bindHost": "Host pengikat",
+      "endpointHost": "Host titik akhir",
+      "addAnotherHostFirstTunnels": "Tambahkan host lain terlebih dahulu. Terowongan melewati host yang disimpan.",
+      "sourcePort": "Port sumber",
+      "endpointPort": "Port titik akhir",
+      "maxRetries": "Maks. percobaan ulang",
+      "retryEveryS": "Ulangi setiap (dtk)",
+      "startOnItsOwn": "Mulai secara mandiri",
+      "addTunnel": "Tambah terowongan",
+      "tunnelNeedsPortsFrom1": "Terowongan {{value}} memerlukan port dari 1 hingga 65535"
+    },
+    "register": {
+      "tunnels": "Terowongan",
+      "startAndStopSavedTunnels": "Mulai dan hentikan terowongan yang disimpan",
+      "tunnel": "TEROWONGAN",
+      "tunnel2": "Terowongan"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Titik akhir lokal disalin",
+      "tunnel": "Terowongan | {{sourcePort}}",
+      "portMapping": "Pemetaan Port",
+      "connect": "Sambungkan",
+      "disconnect": "Putuskan",
+      "cancel": "Batal",
+      "connected": "Tersambung",
+      "connecting": "Menyambung",
+      "disconnecting": "Memutuskan",
+      "error": "Kesalahan",
+      "retrying": "Mencoba ulang ({{value}}/{{value2}})",
+      "waitingS": "Menunggu {{value}}dtk",
+      "waiting": "Menunggu",
+      "disconnected": "Terputus"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Memulai terowongan di port {{sourcePort}}",
+      "connectingTunnelOnPort": "Menyambung terowongan di port {{sourcePort}}",
+      "disconnectingPort": "Memutuskan port {{sourcePort}}",
+      "cancellingPort": "Membatalkan port {{sourcePort}}",
+      "failedToTunnel": "Gagal {{action}} terowongan",
+      "tunnels": "Terowongan | {{count}} | {{value}}",
+      "loadingTunnels": "Memuat terowongan…",
+      "noSshTunnelsConfiguredFor": "Tidak ada terowongan SSH yang dikonfigurasi untuk host ini. Tambahkan terowongan dari formulir host.",
+      "runOn": "Jalankan di",
+      "server": "Server",
+      "this": "{{deviceWord}} ini",
+      "tunnelsOnThisStopWhen": "Terowongan di {{deviceWord}} ini berhenti saat aplikasi ditutup. Di iOS, mereka juga berhenti segera setelah aplikasi masuk ke latar belakang.",
+      "failedToFetchTunnelStatuses": "Gagal mengambil status terowongan",
+      "thisBuildCanTOpen": "Build ini tidak dapat membuka terowongan di {{deviceWord}}.",
+      "sourceHostNotFound": "Host sumber tidak ditemukan",
+      "endpointHostNotFound": "Host titik akhir tidak ditemukan: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Terowongan",
+      "tunnelCount_other": "{{count}} terowongan",
+      "runningOnServer": "{{connected}} berjalan di server"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Alat Kredensial"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker tidak terinstal di host ini.",
+        "dockerDidNotAnswer": "Docker tidak merespons",
+        "thatIsNotAValid": "Bukan nama stack yang valid"
+      }
+    },
+    "containerDetail": {
+      "stop": "Berhenti",
+      "start": "Mulai",
+      "restart": "Mulai Ulang",
+      "remove": "Hapus",
+      "logs": "Log",
+      "stats": "Statistik",
+      "console": "Konsol",
+      "logsCopied": "Log disalin",
+      "copy": "Salin",
+      "containerIsNotRunningNo": "Kontainer tidak berjalan, tidak ada statistik langsung.",
+      "cpu": "CPU",
+      "memory": "Memori",
+      "networkIO": "I/O Jaringan",
+      "blockIO": "I/O Blok",
+      "pids": "PID",
+      "failedToLoadLogs": "Gagal memuat log",
+      "failedToLoadStats": "Gagal memuat statistik",
+      "noOutput": "(tidak ada output)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Menghubungkan ke Docker...",
+    "remove": "Hapus {{name}}?",
+    "stop": "Berhenti {{name}}?",
+    "theContainerIsStoppedAnd": "Kontainer dihentikan dan dihapus. Volumennya tetap ada.",
+    "anythingRunningInItStops": "Segala sesuatu yang berjalan di dalamnya akan berhenti.",
+    "remove2": "Hapus",
+    "stop2": "Berhenti",
+    "dockerThis": "Docker | {{deviceWord}} ini",
+    "lookingForDocker": "Mencari Docker...",
+    "dockerIsNotAvailableOn": "Docker tidak tersedia di host ini.",
+    "noContainersFound": "Tidak ada kontainer ditemukan",
+    "noContainersMatchYourFilters": "Tidak ada kontainer yang cocok dengan filter Anda",
+    "useSudo": "Gunakan sudo",
+    "refresh": "Segarkan",
+    "containers": "Kontainer",
+    "stacks": "Stack",
+    "searchContainers": "Cari kontainer...",
+    "all": "Semua",
+    "running": "Berjalan",
+    "stopped": "Berhenti",
+    "start": "Mulai",
+    "restart": "Mulai Ulang",
+    "pause": "Jeda",
+    "unpause": "Lanjutkan",
+    "moreActions": "Lainnya",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker tidak merespons",
+      "docker": "Docker",
+      "noContainers": "Tidak ada kontainer"
+    },
+    "dockerConsole": {
+      "attachingTo": "Menyambung ke {{name}}...",
+      "consoleDisconnected": "Konsol terputus",
+      "reconnect": "Sambung Ulang",
+      "failedToLoadTheConsole": "Gagal memuat konsol",
+      "thisSessionHasNoServer": "Sesi ini tidak memiliki server"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Kontainer, log, dan statistik"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stack dinonaktifkan di server ini.",
+      "couldNotLoadStacks": "Tidak dapat memuat stack",
+      "noStacks": "Tidak ada stack",
+      "composeProjectsOnThisHost": "Proyek Compose di host ini akan muncul di sini.",
+      "ofRunning": "{{running}} dari {{total}} berjalan",
+      "couldNotLoadTheStack": "Gagal memuat stack",
+      "services": "Layanan",
+      "nothingIsRunning": "Tidak ada yang berjalan.",
+      "composeFile": "File Compose",
+      "partlyUp": "sebagian berjalan",
+      "notDeployed": "belum dideploy",
+      "running": "berjalan",
+      "stopped": "berhenti",
+      "paused": "dijeda"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Bukan ID container yang valid",
+      "consoleFailed": "Konsol gagal",
+      "notAuthenticated": "Belum terautentikasi",
+      "consoleError": "Kesalahan konsol",
+      "connectionFailed": "Koneksi gagal"
+    },
+    "dockerDidNotAnswer": "Docker tidak merespons",
+    "failedToLoadContainers": "Gagal memuat container",
+    "failedTo": "Gagal melakukan {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Server tidak mengirim file",
+        "cancelled": "Dibatalkan",
+        "isGone": "{{path}} telah hilang",
+        "canTGoToThe": "{{name}} tidak bisa dimasukkan ke tempat sampah"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "ID item tempat sampah tidak valid",
+        "invalidTrashMetadata": "Metadata tempat sampah tidak valid",
+        "thisPathCanTBe": "Path ini tidak bisa dipindahkan ke tempat sampah",
+        "aFileAlreadyExistsAt": "File sudah ada di path asli"
+      },
+      "sftp": {
+        "commandFailed": "Perintah gagal: {{command}}",
+        "alreadyExists": "{{name}} sudah ada",
+        "alreadyExistsThere": "{{path}} sudah ada di sana",
+        "canTGoToThe": "{{name}} tidak bisa dimasukkan ke tempat sampah: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminal tidak terbuka lagi",
+      "clearHistory": "Hapus riwayat",
+      "stopFollowingTheTerminal": "Berhenti mengikuti terminal",
+      "followTheTerminal": "Ikuti terminal",
+      "goToTheTerminalS": "Buka folder terminal",
+      "cdTheTerminalHere": "cd terminal ke sini",
+      "folderHistory": "Riwayat folder",
+      "mostUsedFirstThenRecent": "Paling sering digunakan dulu, lalu terbaru",
+      "noFoldersYet": "Belum ada folder"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Tidak bisa terhubung.",
+        "couldNotSaveHowThis": "Gagal menyimpan cara host ini terhubung",
+        "thisWayCanTOpen": "Cara ini tidak bisa membuka file"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Gagal membuka folder ini",
+      "cancel": "Batal",
+      "noFoldersHere": "Tidak ada folder di sini"
+    },
+    "couldNotOpenThisFolder": "Gagal membuka folder ini",
+    "couldNotSaveToThe": "Gagal menyimpan ke folder",
+    "failed": "{{label}} gagal",
+    "uploading": "Mengunggah {{name}}",
+    "uploadingFiles": "Mengunggah {{count}} file",
+    "downloadingToFilesOnMy": "Mengunduh ke Files, Di iPhone Saya, Termix",
+    "downloading": "Mengunduh {{name}}",
+    "downloadingFiles": "Mengunduh {{count}} file",
+    "openALargeFile": "Buka file besar?",
+    "isBigForAEditor": "{{name}} terlalu besar untuk editor {{deviceWord}}. Mungkin akan lambat.",
+    "open": "Buka",
+    "thisLooksLikeABinary": "Ini terlihat seperti file biner",
+    "openItInAnotherApp": "Buka di aplikasi lain?",
+    "openWith": "Buka dengan",
+    "tooBigForTheEditor": "Terlalu besar untuk editor",
+    "isOver10MbDownload": "{{name}} lebih dari 10 MB. Unduh saja?",
+    "download": "Unduh",
+    "delete": "Hapus {{what}}?",
+    "moveToTheTrash": "Pindahkan {{what}} ke tempat sampah?",
+    "thisCanTBeUndone": "Tindakan ini tidak dapat dibatalkan.",
+    "youCanRestoreItFrom": "Anda dapat memulihkannya dari tempat sampah.",
+    "delete2": "Hapus",
+    "moveToTrash": "Pindahkan ke tempat sampah",
+    "deleteForGood": "Hapus permanen?",
+    "deleteItForGoodInstead": "{{message}}. Hapus permanen saja? Tindakan ini tidak dapat dibatalkan.",
+    "deleteFailed": "Gagal menghapus",
+    "connectingThroughTheServer": "Menghubungkan melalui server...",
+    "connectingFromThis": "Menghubungkan dari {{deviceWord}} ini...",
+    "connecting": "Menghubungkan...",
+    "edit": "Edit",
+    "downloadFolder": "Unduh folder",
+    "share": "Bagikan",
+    "rename": "Ubah nama",
+    "copyTo": "Salin ke",
+    "moveTo": "Pindahkan ke",
+    "cut": "Potong",
+    "copy": "Salin",
+    "permissions": "Izin",
+    "properties": "Properti",
+    "makeALinkHere": "Buat tautan di sini",
+    "copyPath": "Salin jalur",
+    "pathCopied": "Jalur disalin",
+    "done": "Selesai",
+    "selectAll": "Pilih semua",
+    "filterByName": "Filter berdasarkan nama",
+    "closeSearch": "Tutup pencarian",
+    "search": "Cari",
+    "changeSort": "Ubah pengurutan",
+    "paste": "Tempel {{count}}",
+    "upload": "Unggah",
+    "transfers2": "Transfer",
+    "more": "Lainnya",
+    "nothingMatches": "Tidak ada yang cocok",
+    "emptyFolder": "Folder kosong",
+    "uploadFilesOrMakeA": "Unggah file atau buat yang baru.",
+    "newFolder": "Folder baru",
+    "newFile": "File baru",
+    "select": "Pilih",
+    "hideHiddenFiles": "Sembunyikan file tersembunyi",
+    "showHiddenFiles": "Tampilkan file tersembunyi",
+    "trash": "Tempat sampah",
+    "folderProperties": "Properti folder",
+    "refresh": "Muat ulang",
+    "rename2": "Ubah nama {{name}}",
+    "newLink": "Tautan baru",
+    "aLinkInThatPoints": "Tautan di {{path}} yang mengarah ke {{path2}}",
+    "name": "Nama",
+    "create": "Buat",
+    "copyHere": "Salin ke sini",
+    "moveHere": "Pindahkan ke sini",
+    "fileViewer": {
+      "saved": "{{name}} disimpan",
+      "couldNotSaveTheFile": "Tidak dapat menyimpan file",
+      "discardChanges": "Buang perubahan?",
+      "hasChangesThatAreNot": "{{name}} memiliki perubahan yang belum disimpan.",
+      "discard": "Buang",
+      "readOnly": "{{path}} | baca saja",
+      "find": "Cari",
+      "smallerText": "Teks lebih kecil",
+      "biggerText": "Teks lebih besar",
+      "turnOffLineWrap": "Matikan bungkus baris",
+      "wrapLines": "Bungkus baris",
+      "save": "Simpan"
+    },
+    "hostSection": {
+      "startIn": "Mulai di",
+      "theFolderTheFileManager": "Folder tempat file manager terbuka pertama kali",
+      "files": "File"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Buka {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Lainnya",
+        "moreFor": "Lainnya untuk {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Izin",
+      "cancel": "Batal",
+      "apply": "Terapkan ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Tidak dapat membuka file ini",
+      "openWith": "Buka dengan",
+      "share": "Bagikan"
+    },
+    "propertiesView": {
+      "properties": "Properti",
+      "path": "Path",
+      "type": "Tipe",
+      "pointsTo": "Menuju ke",
+      "size": "Ukuran",
+      "countFolderSize": "Hitung ukuran folder",
+      "permissions": "Izin",
+      "change": "Ubah",
+      "owner": "Pemilik",
+      "group": "Grup",
+      "modified": "Dimodifikasi",
+      "opened": "Dibuka",
+      "linkToA": "Tautan ke {{value}}",
+      "notShownForFolders": "Tidak ditampilkan untuk folder",
+      "file": "File",
+      "folder": "Folder",
+      "link": "Tautan"
+    },
+    "register": {
+      "fileManager": "File Manager",
+      "files": "File",
+      "browseEditAndMoveFiles": "Jelajahi, edit, dan pindahkan file",
+      "files2": "FILE",
+      "fileManagerAndTransfers": "File manager dan transfer"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Transfer gagal"
+      },
+      "transfersPanel": {
+        "pause": "Jeda",
+        "resume": "Lanjutkan",
+        "tryAgain": "Coba lagi",
+        "open": "Buka",
+        "cancel": "Batal",
+        "transfers": "Transfer",
+        "goingOf": "{{active}} sedang berjalan | {{done}} dari {{total}}",
+        "clearFinished": "Hapus yang selesai",
+        "cancelAll": "Batal semua",
+        "noTransfersYet": "Belum ada transfer",
+        "waiting": "Menunggu",
+        "paused": "Dijeda",
+        "done": "Selesai",
+        "failed": "Gagal",
+        "cancelled": "Dibatalkan"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Gagal memuat tempat sampah",
+      "restored": "Memulihkan {{name}}",
+      "failedToRestore": "Gagal memulihkan",
+      "failedToDelete": "Gagal menghapus",
+      "trashEmptied": "Sampah telah dikosongkan",
+      "failedToEmptyTrash": "Gagal mengosongkan sampah",
+      "trash": "Sampah",
+      "itemsAreRemovedAfterDays": "Item akan dihapus setelah {{retentionDays}} hari",
+      "close": "Tutup",
+      "emptyTrash": "Kosongkan Sampah",
+      "trashIsEmpty": "Sampah kosong",
+      "restore": "Pulihkan {{name}}",
+      "deleteForGood": "Hapus {{name}} secara permanen"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Baru saja"
+      }
+    },
+    "getting": "Mengambil {{name}}",
+    "itemCount_other": "{{count}} item",
+    "copiedWhat": "{{what}} disalin",
+    "movedWhat": "{{what}} dipindahkan",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} memiliki lebih dari {{limit}} file. Unduh folder yang lebih kecil."
+    },
+    "downloadingToFilesOnMyIpad": "Mengunduh ke Files, Di iPad Saya, Termix",
+    "size": "Ukuran",
+    "date": "Tanggal"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Tautan layanan",
+      "openInHomepage": "Buka di Homepage",
+      "thisWidgetOnlyShowsOn": "Widget ini hanya muncul di halaman penuh."
+    },
+    "register": {
+      "serviceLinks": "Tautan layanan",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Tidak ada feed yang diatur.",
+        "couldNotLoadTheFeed": "Tidak dapat memuat feed.",
+        "theFeedIsEmpty": "Feed kosong.",
+        "noLocationSet": "Tidak ada lokasi yang diatur.",
+        "couldNotLoadTheWeather": "Tidak dapat memuat cuaca.",
+        "noUrlSet": "Tidak ada URL yang diatur.",
+        "couldNotLoadTheData": "Tidak dapat memuat data.",
+        "noPictureSet": "Tidak ada gambar yang diatur.",
+        "badResponse": "respons buruk"
+      },
+      "services": "Layanan",
+      "service": "Layanan",
+      "serviceLinks": "Tautan layanan",
+      "bookmarks": "Bookmark",
+      "links2": "Tautan",
+      "search": "Cari",
+      "clock": "Jam",
+      "countdown": "Hitung Mundur",
+      "calendar": "Kalender",
+      "notes": "Catatan",
+      "banner": "Banner",
+      "ping": "Ping",
+      "host": "Host",
+      "hosts": "Hosts",
+      "quickConnect": "Koneksi cepat",
+      "feed": "Feed",
+      "weather": "Cuaca",
+      "customApi": "API Kustom",
+      "picture": "Gambar",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Belum ada layanan.",
+        "noLinkSet": "Tidak ada tautan yang diatur.",
+        "noLinksYet": "Belum ada tautan.",
+        "noSearchEngineSet": "Tidak ada mesin pencari yang diatur.",
+        "search": "Cari",
+        "noShortcutsYet": "Belum ada pintasan.",
+        "search2": "Cari {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Tidak dapat membuka tautan"
+      },
+      "status": {
+        "noUrlsYet": "Belum ada URL.",
+        "down": "Tidak tersedia",
+        "noHostsPicked": "Belum ada host dipilih."
+      },
+      "text": {
+        "noNotesYet": "Belum ada catatan.",
+        "noTextYet": "Belum ada teks."
+      },
+      "time": {
+        "noDateSet": "Tanggal belum diatur.",
+        "timeIsUp": "Waktu habis"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Tidak dapat menyimpan default",
+    "couldNotResetTheDefault": "Tidak dapat mereset default",
+    "back": "Kembali",
+    "hostDefaults": "Default host",
+    "newHostsStartFromThese": "Host baru dimulai dari sini",
+    "managedOnTheServer": "Dikelola di server",
+    "defaultsForThisServerAre": "Default untuk server ini diatur di aplikasi web.",
+    "level": "Level",
+    "yourDefaultsOrOneFolder": "Default Anda, atau satu folder",
+    "myDefaults": "Default saya",
+    "theServerSets": " Server mengatur {{adminCount}}.",
+    "aFolderWinsOverYour": "Folder mengalahkan default Anda, dan default Anda mengalahkan default server. Host tetap menggunakan nilai yang Anda atur sendiri.{{value}}",
+    "save": "Simpan",
+    "authentication": "Autentikasi",
+    "none": "Tidak ada",
+    "reset": "Reset",
+    "model": {
+      "username": "Nama pengguna",
+      "sshPort": "Port SSH",
+      "authentication": "Autentikasi",
+      "aSavedCredentialForNew": "Kredensial tersimpan untuk host baru",
+      "forceKeyboardInteractive": "Paksa keyboard interaktif",
+      "keepaliveInterval": "Interval keepalive",
+      "seconds0TurnsItOff": "Detik, 0 untuk menonaktifkan",
+      "keepaliveTries": "Coba keepalive",
+      "allowOldAlgorithms": "Izinkan algoritma lama",
+      "agentForwarding": "Penerusan agen",
+      "environmentVariables": "Variabel lingkungan",
+      "oneNameValuePerLine": "Satu NAMA=nilai per baris",
+      "checkIfTheHostIs": "Periksa apakah host tersedia",
+      "checkInterval": "Interval pemeriksaan",
+      "secondsEmptyUsesTheServer": "Detik, kosong menggunakan server",
+      "socks5Proxy": "Proxy SOCKS5",
+      "setInTheWebApp": "Diatur di aplikasi web",
+      "jumpHosts": "Host lompat",
+      "portKnocking": "Port knocking",
+      "notSet": "Belum diatur",
+      "fromTheServer": "Dari server",
+      "fromYourDefaults": "Dari default Anda",
+      "builtIn": "Tertanam"
+    },
+    "register": {
+      "hostDefaults": "Default host",
+      "portUserAndOptionsFor": "Port, pengguna, dan opsi untuk host baru"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Belum ada data",
+      "cpu": "CPU",
+      "memory": "Memori",
+      "disk": "Disk",
+      "history": "Riwayat",
+      "loading": "Memuat..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Tidak dapat membaca metrik",
+      "metrics": "Metrik",
+      "cpu": "CPU",
+      "memory": "Memori",
+      "disk": "Disk",
+      "noRecentSampleOpenThe": "Tidak ada sampel terbaru. Buka metrik host untuk memulai."
+    },
+    "register": {
+      "enableMetrics": "Aktifkan metrik",
+      "cpuMemoryDiskAndNetwork": "CPU, memori, disk, dan jaringan melalui SSH",
+      "hostMetrics": "Metrik Host",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrik",
+      "cpuMemoryDiskAndNetwork2": "CPU, memori, disk, dan jaringan"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Metrik Host | {{deviceWord}} ini",
+      "hostMetrics": "Metrik Host",
+      "ran": "Menjalankan {{name}}",
+      "loadingMetrics": "Memuat metrik...",
+      "couldNotReadMetricsFrom": "Tidak dapat membaca metrik dari host ini",
+      "failedToLoadMetrics": "Gagal memuat metrik",
+      "thisSessionHasNoServer": "Sesi ini tidak memiliki server",
+      "twoFactorRequiredForThis": "Autentikasi dua faktor diperlukan untuk statistik host ini.",
+      "failedToStartMetrics": "Gagal memulai metrik",
+      "failedToRun": "Gagal menjalankan {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Per inti: {{value}}",
+        "cores": "Inti",
+        "load": "Beban",
+        "user": "Pengguna",
+        "system": "Sistem",
+        "ioWait": "Tunggu IO",
+        "steal": "Dicuri"
+      },
+      "diskWidget": {
+        "disk": "Disk {{mount}}",
+        "disk2": "Disk",
+        "used": "Digunakan",
+        "total": "Total",
+        "free": "Bebas"
+      },
+      "firewallWidget": {
+        "firewall": "Firewall",
+        "rules": "{{type}} | {{ruleCount}} aturan",
+        "noFirewallDetected": "Tidak ada firewall terdeteksi"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "Memori",
+        "temp": "Suhu",
+        "power": "Daya",
+        "fan": "Kipas"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Aktivitas login",
+        "noLoginActivityRecorded": "Tidak ada aktivitas login yang tercatat",
+        "logins": "Login",
+        "uniqueIps": "IP Unik",
+        "failed": "Gagal",
+        "recent": "Terbaru"
+      },
+      "memoryWidget": {
+        "memory": "Memori",
+        "used": "Digunakan",
+        "total": "Total",
+        "cached": "Tersimpan di cache",
+        "free": "Bebas"
+      },
+      "networkWidget": {
+        "network": "Jaringan",
+        "noInterfaces": "Tidak ada antarmuka",
+        "up": "Naik",
+        "down": "Turun"
+      },
+      "portsWidget": {
+        "listeningPorts": "Port Mendengarkan",
+        "noListeningPorts": "Tidak ada port yang mendengarkan"
+      },
+      "processesWidget": {
+        "sortBy": "Urutkan berdasarkan {{label}}",
+        "processes": "Proses",
+        "running": "{{value}} berjalan | {{total}}",
+        "noProcessData": "Tidak ada data proses",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "PERINTAH"
+      },
+      "systemWidget": {
+        "system": "Sistem",
+        "hostname": "Nama Host",
+        "os": "Sistem Operasi",
+        "kernel": "Kernel",
+        "arch": "Arsitektur",
+        "noSystemInfo": "Tidak ada info sistem"
+      },
+      "temperatureWidget": {
+        "temperature": "Suhu"
+      },
+      "uptimeWidget": {
+        "uptime": "Waktu Aktif"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Disalin dengan kata sandi",
+      "copiedTheLink": "Tautan disalin",
+      "shareHost": "Bagikan host",
+      "thatHostNoLongerExists": "Host tersebut tidak lagi ada",
+      "scanThisInTermixOn": "Pindai ini di Termix pada {{deviceWord}} lain, di bawah Impor dan Ekspor. Kode ini berisi alamat, port, dan pengguna. Tidak ada kata sandi atau kunci.",
+      "copyLink": "Salin tautan",
+      "copyLinkWithPassword": "Salin tautan dengan kata sandi"
+    },
+    "includePasswordsAndKeys": "Sertakan kata sandi dan kunci?",
+    "anyoneWhoGetsThisFile": "Siapa pun yang mendapatkan file ini dapat masuk ke host-host ini. Jaga keamanannya.",
+    "includeThem": "Sertakan",
+    "pickAtLeastOneHost": "Pilih setidaknya satu host",
+    "couldNotMakeTheFile": "Tidak dapat membuat file",
+    "copiedToTheClipboard": "Disalin ke papan klip",
+    "importAndExport": "Impor dan Ekspor",
+    "moveHostsInAndOut": "Pindahkan host masuk dan keluar",
+    "import": "Impor",
+    "aTermixHostFileAn": "File host Termix, file konfigurasi SSH, atau tautan host atau kode QR dari {{deviceWord}} lain.",
+    "export": "Ekspor",
+    "allHosts": "Semua host",
+    "picked": "{{size}} dipilih",
+    "pickHosts": "Pilih host",
+    "includePasswordsAndKeys2": "Sertakan kata sandi dan kunci",
+    "offMakesAFileSafe": "Nonaktif membuat file aman untuk dibagikan. Host yang menggunakan kredensial tersimpan menunjuk ke nama kredensial tersebut",
+    "shareAFile": "Bagikan file",
+    "copy": "Salin",
+    "importPanel": {
+      "couldNotReadThat": "Tidak dapat membaca itu",
+      "couldNotReadThatFile": "Tidak dapat membaca file tersebut",
+      "importFailed": "Impor gagal",
+      "chooseAFile": "Pilih file",
+      "paste": "Tempel",
+      "scanACode": "Pindai kode",
+      "couldNotBeRead": "{{count}} tidak dapat dibaca",
+      "updateHostsThatExist": "Perbarui host yang sudah ada",
+      "sameAddressPortAndUser": "Alamat, port, dan pengguna yang sama. Jika tidak, mereka akan dilewati",
+      "cancel": "Batal",
+      "import": "Impor",
+      "andMore": "dan {{value}} lainnya"
+    },
+    "qrCode": {
+      "qrCode": "Kode QR"
+    },
+    "register": {
+      "importAndExport": "Impor dan Ekspor",
+      "moveHostsInOrOut": "Pindahkan host masuk atau keluar dengan file atau kode QR",
+      "shareHost": "Bagikan host"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Pindai kode host",
+      "pointTheCameraAtA": "Arahkan kamera ke kode QR host Termix.",
+      "termixNeedsTheCameraTo": "Termix membutuhkan kamera untuk memindai kode. Tidak ada yang direkam.",
+      "allowTheCamera": "Izinkan kamera"
+    },
+    "read": {
+      "termixFile": "File Termix",
+      "sshConfig": "Konfigurasi SSH",
+      "thereIsNothingToImport": "Tidak ada yang dapat diimpor",
+      "thatIsNotATermix": "Bukan tautan host Termix",
+      "linkHost": "1 host: {{name}}",
+      "sourceHosts_other": "{{what}} dengan {{count}} host"
+    },
+    "saveYourTermixHosts": "Simpan host Termix Anda"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Selesai",
+      "rejected": "Ditolak",
+      "approvals": "Persetujuan",
+      "nothingIsWaiting": "Tidak ada yang menunggu",
+      "actionsARuleHoldsFor": "Tindakan yang memerlukan persetujuan aturan akan muncul di sini.",
+      "approveAndRun": "Setujui dan jalankan",
+      "reject": "Tolak",
+      "couldNotLoadApprovals": "Gagal memuat persetujuan",
+      "couldNotDecide": "Gagal mengambil keputusan"
+    },
+    "approvalsCard": {
+      "approved": "Disetujui",
+      "rejected": "Ditolak",
+      "waitingForApproval": "Menunggu persetujuan",
+      "approve": "Setujui",
+      "reject": "Tolak",
+      "couldNotDecide": "Gagal mengambil keputusan",
+      "seeAll": "Lihat semua"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Ini tidak dapat dibatalkan. Jalankan?",
+      "run": "Jalankan",
+      "sentForApproval": "Dikirim untuk persetujuan",
+      "target": "Target",
+      "theItemOnTheHost": "Item pada host, seperti kontainer",
+      "dryRun": "Coba jalankan",
+      "back": "Kembali",
+      "actions": "Tindakan",
+      "noActionsForThisHost": "Tidak ada tindakan untuk host ini",
+      "turnOnAPluginLike": "Aktifkan plugin seperti Docker atau Layanan untuk host ini di server.",
+      "destructive": "Destruktif",
+      "changes": "Perubahan",
+      "theActionCouldNotRun": "Tindakan tidak dapat dijalankan",
+      "couldNotLoadActions": "Gagal memuat tindakan"
+    },
+    "register": {
+      "actions": "Tindakan",
+      "waitingForApproval": "Menunggu persetujuan",
+      "approvals": "Persetujuan",
+      "actionsWaitingForAPerson": "Tindakan menunggu persetujuan orang",
+      "runHistory": "Riwayat eksekusi",
+      "everyActionAnyoneRanFrom": "Setiap tindakan yang dijalankan siapa pun, dari perangkat apa pun"
+    },
+    "runHistory": {
+      "cancelThisRun": "Batalkan eksekusi ini?",
+      "cancelRun": "Batalkan eksekusi",
+      "keep": "Pertahankan",
+      "undoThisRun": "Batalkan eksekusi ini?",
+      "thisRunsTheActionS": "Ini menjalankan pembatalan tindakan dengan input yang sama.",
+      "undo": "Batalkan",
+      "cancelled": "Dibatalkan",
+      "itAlreadyFinished": "Sudah selesai",
+      "done": "Selesai",
+      "runHistory": "Riwayat eksekusi",
+      "nothingHasRunYet": "Belum ada yang dijalankan",
+      "dryRun": "Coba jalankan",
+      "cancel": "Batal",
+      "couldNotLoadHistory": "Gagal memuat riwayat",
+      "couldNotCancel": "Gagal membatalkan",
+      "couldNotUndo": "Gagal membatalkan"
+    },
+    "api": {
+      "needsApproval": "Memerlukan persetujuan",
+      "needsSignIn": "Memerlukan masuk",
+      "done": "Selesai",
+      "failed": "Gagal",
+      "running": "Sedang berjalan",
+      "interrupted": "Terhenti",
+      "rejected": "Ditolak",
+      "cancelled": "Dibatalkan",
+      "expired": "Kadaluarsa"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Nyalakan {{value}}",
+      "moreSettingsForThisAre": "Pengaturan lainnya untuk ini ada di aplikasi web Termix.",
+      "pluginHostSettings": "Pengaturan host plugin"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} harus berupa angka",
+      "mustBeAtLeast": "{{field}} harus minimal {{min}}",
+      "mustBeAtMost": "{{field}} harus maksimal {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Hubungkan server untuk menggunakannya",
+      "runsOnYourTermixServer": "{{name}} berjalan di server Termix Anda."
+    },
+    "pluginWebView": {
+      "canTLoad": "Tidak dapat memuat {{name}}",
+      "theServerDidNotSend": "Server tidak mengirim plugin. Pastikan server menyala dan coba lagi.",
+      "openThisLink": "Buka tautan ini?",
+      "open": "Buka",
+      "needsANewerVersionOf": "Memerlukan versi aplikasi yang lebih baru",
+      "usesPartsOfTermixThis": "{{name}} menggunakan bagian dari Termix yang belum ada di aplikasi ini.",
+      "didNotStart": "{{name}} tidak dapat dimulai",
+      "thisScreenIsNotIn": "Layar ini tidak ada di versi plugin pada server.",
+      "thePluginHitAnError": "Plugin mengalami kesalahan saat dimulai.",
+      "youReOffline": "Anda sedang offline",
+      "runsOnYourServerSo": "{{name}} berjalan di server Anda, sehingga memerlukan koneksi. Ini akan terbuka kembali saat Anda online.",
+      "tryAgain": "Coba lagi"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Host tersebut belum ada di {{deviceWord}} ini.",
+      "theAppCanTOpen": "Aplikasi tidak dapat membuka itu dari sini.",
+      "thatHostIsNotOn2": "Host tersebut belum ada di {{deviceWord}} ini."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Kata sandi",
+      "unchangedIfBlank": "Tidak berubah jika kosong",
+      "port": "Port",
+      "domain": "Domain",
+      "displaySoundAndClipboardSettings": "Pengaturan tampilan, suara, dan papan klip ada di aplikasi web Termix.",
+      "portMustBeFrom1": "Port {{label}} harus antara 1 hingga 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Remote desktop terputus",
+        "signIn": "Masuk {{label}}",
+        "itWillNotBeSaved": "{{error}} Ini tidak akan disimpan.",
+        "enterTheLoginForIt": "Masukkan login untuk {{title}}. Ini tidak akan disimpan.",
+        "reconnecting": "Menghubungkan kembali {{label}}",
+        "connecting": "Menghubungkan {{label}}",
+        "connectionFailed": "Koneksi Gagal",
+        "disconnected": "Terputus",
+        "reconnect": "Hubungkan kembali",
+        "connectThroughTheServer": "Hubungkan melalui server",
+        "pasteToRemote": "Tempel ke remote",
+        "typeClipboard": "Ketik papan klip",
+        "copyRemoteClipboard": "Salin papan klip remote",
+        "theComputerSCertificateWas": "Sertifikat komputer tidak dipercaya.",
+        "thatLoginWasRefusedTry": "Login tersebut ditolak. Coba lagi."
+      },
+      "target": {
+        "trustThisComputer": "Percayai komputer ini?",
+        "theCanTCheckS": "{{deviceWord}} tidak dapat memeriksa sertifikat {{hostName}}. Pastikan sidik jari ini cocok dengan yang ada di komputer sebelum melanjutkan.\n\n{{fingerprint}}",
+        "trustAndConnect": "Percayai dan hubungkan",
+        "certificateChanged": "Sertifikat berubah",
+        "showsAnotherCertificateThanLast": "{{hostName}} menampilkan sertifikat yang berbeda dari sebelumnya. Hal ini terjadi setelah komputer membuat sertifikat baru, atau ketika ada yang menyadap di antara.\n\nSidik jari baru:\n{{fingerprint}}",
+        "trustTheNewOne": "Percayai yang baru"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Remote Desktop",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Selesai",
+      "keyboard": "Papan Ketik",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Pengaturan",
+      "remoteSettings": "Pengaturan Jarak Jauh",
+      "mouseMode": "Mode Tetikus",
+      "touch": "Sentuh",
+      "trackpad": "Trackpad",
+      "tapWhereYouWantTo": "Ketuk di mana Anda ingin mengklik. Tahan untuk klik kanan, seret untuk menyeret.",
+      "dragToMoveThePointer": "Seret untuk memindahkan penunjuk. Ketuk untuk mengklik, ketuk dua jari untuk klik kanan, ketuk lalu seret untuk menyeret.",
+      "zoomXPinchAnywhereTo": "Zoom: {{value}}x. Cubit di mana saja untuk zoom",
+      "reset": "Setel Ulang",
+      "cancel": "Batal",
+      "connect": "Sambungkan",
+      "username": "Nama Pengguna",
+      "domainOptional": "Domain (opsional)",
+      "domain": "Domain",
+      "password": "Kata Sandi",
+      "leftArrow": "Panah kiri",
+      "upArrow": "Panah atas",
+      "downArrow": "Panah bawah",
+      "rightArrow": "Panah kanan",
+      "rdpSignIn": "Masuk RDP"
+    },
+    "theRemoteDesktopDropped": "Sesi desktop jarak jauh terputus",
+    "theyWillNotBeSaved": "{{errorMessage}} Data tidak akan disimpan.",
+    "enterCredentialsForTheyWill": "Masukkan kredensial untuk {{title}}. Data tidak akan disimpan.",
+    "connecting": "Menyambung",
+    "connectionFailed": "Koneksi Gagal",
+    "disconnected": "Terputus",
+    "reconnect": "Sambung Ulang",
+    "route": {
+      "thisHostCanTOpen": "Host ini tidak dapat membuka desktop jarak jauh dari sini."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Diblokir oleh aplikasi"
+    },
+    "failedToStartRemoteSession": "Gagal memulai sesi jarak jauh",
+    "thatLoginWasRefusedTry": "Login ditolak. Coba lagi.",
+    "theRemoteRefusedTheSaved": "Sisi jarak jauh menolak login yang disimpan. Periksa login RDP pada host ini.",
+    "remoteSessionFailed": "Sesi jarak jauh gagal",
+    "remoteSessionReturnedAnInvalid": "Sesi jarak jauh mengembalikan pesan tidak valid",
+    "failedToLoadTheRemote": "Gagal memuat klien desktop jarak jauh"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Tidak ada jurnal",
+      "thisHostDoesNotKeep": "Host ini tidak menyimpan jurnal systemd.",
+      "all": "Semua",
+      "warnings": "Peringatan",
+      "errors": "Kesalahan",
+      "stop": "Berhenti",
+      "follow": "Ikuti",
+      "nothingLogged": "Tidak ada log",
+      "tryAnotherLevel": "Coba tingkat lain.",
+      "couldNotReadTheJournal": "Tidak dapat membaca jurnal"
+    },
+    "register": {
+      "services": "Layanan",
+      "startStopAndReadLogs": "Mulai, hentikan, dan baca log"
+    },
+    "readingServices": "Membaca layanan...",
+    "thisHostHasNoSystemd": "Host ini tidak memiliki systemd atau OpenRC.",
+    "noServicesMatch": "Tidak ada layanan yang cocok",
+    "noServicesFound": "Tidak ada layanan ditemukan",
+    "services": "Layanan",
+    "journal": "Jurnal",
+    "searchServices": "Cari layanan...",
+    "all": "Semua",
+    "running": "Berjalan",
+    "failed": "Gagal ({{failed}})",
+    "failed2": "Gagal",
+    "servicesCard": {
+      "services": "Layanan",
+      "noSystemdOrOpenrc": "Tidak ada systemd atau OpenRC",
+      "failed": "{{failed}} gagal",
+      "allRunning": "Semua berjalan",
+      "couldNotReadServices": "Tidak dapat membaca layanan"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Layanan tetap berhenti hingga dimulai kembali atau host di-boot.",
+      "itStopsForAMoment": "Layanan berhenti sebentar dan dimulai kembali.",
+      "stop": "Hentikan",
+      "restart": "Mulai ulang",
+      "is": "{{name}} sedang {{state}}",
+      "start": "Mulai",
+      "journal": "Jurnal",
+      "couldNotReadTheService": "Tidak dapat membaca layanan",
+      "couldNot": "Tidak dapat {{action}} {{name}}",
+      "startsAtBoot": "Mulai saat boot",
+      "mainPid": "PID Utama",
+      "activeSince": "Aktif sejak",
+      "unitFile": "File unit",
+      "notSet": "[tidak diatur]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Belum masuk",
+        "followFailed": "Ikuti gagal",
+        "connectionFailed": "Koneksi gagal"
+      }
+    },
+    "couldNotReadServices": "Tidak dapat membaca layanan",
+    "services2": "Layanan{{where}}",
+    "title": "Layanan",
+    "failedCount": "{{count}} gagal"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Berbagi sesi",
+      "shareLink": "Bagikan tautan"
+    },
+    "shareSessionView": {
+      "canWatch": "Dapat menonton",
+      "canType": "Dapat mengetik",
+      "n1Hour": "1 jam",
+      "n8Hours": "8 jam",
+      "n1Day": "1 hari",
+      "n7Days": "7 hari",
+      "never": "Tidak pernah",
+      "shareSession": "Bagikan sesi",
+      "anyoneWithTheLinkCan": "Siapa pun yang memiliki tautan dapat membuka terminal ini selama berjalan. Anda dapat mencabut tautan di Termix.",
+      "peopleWithTheLink": "Orang dengan tautan",
+      "expiresAfter": "Kadaluarsa setelah",
+      "link": "Tautan",
+      "copy": "Salin",
+      "share": "Bagikan",
+      "makeLink": "Buat tautan",
+      "theServerGaveNoLink": "Server tidak memberikan tautan",
+      "couldNotMakeALink": "Tidak dapat membuat tautan",
+      "linkCopied": "Tautan disalin"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Tidak ada folder"
+    },
+    "hostPicker": {
+      "selectNone": "Pilih tidak ada",
+      "selectAll": "Pilih semua",
+      "done": "Selesai"
+    },
+    "register": {
+      "snippets": "Snippets",
+      "snippets2": "SNIPPETS",
+      "savedCommandsToRunOn": "Perintah tersimpan untuk dijalankan di host mana pun"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Tidak ada cara untuk mencapai host ini dari sini",
+      "exitedWith": "Berakhir dengan {{exitCode}}",
+      "thisCanTRunIt": "{{deviceWord}} ini tidak dapat menjalankannya",
+      "noServerIsLinked": "Tidak ada server yang terhubung"
+    },
+    "runOnHostsSheet": {
+      "run": "Jalankan",
+      "run2": "Jalankan \"{{name}}\"",
+      "runsOverSshOnEach": "Dijalankan melalui SSH di setiap host. Tidak ada terminal yang terbuka.",
+      "close": "Tutup",
+      "hosts": "Host",
+      "pickHosts": "Pilih host",
+      "workedFailed": "{{value}} berhasil, {{failed}} gagal",
+      "runOn2": "Jalankan di",
+      "runOn_other": "Jalankan {{name}} di {{count}} host?",
+      "hostsPicked_other": "{{count}} host dipilih"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Cari snippets",
+      "pastesTheNote": "Menempelkan catatan",
+      "runsTheSnippet": "Menjalankan snippet",
+      "noSnippetsMatch": "Tidak ada snippets yang cocok",
+      "noSnippetsYet": "Belum ada snippets",
+      "addSnippetsInSettingsSnippets": "Tambahkan snippets di Pengaturan, Snippets",
+      "run": "Jalankan",
+      "insertWithoutRunning": "Sisipkan tanpa menjalankan",
+      "copy": "Salin"
+    },
+    "snippetsCard": {
+      "snippets": "Snippets",
+      "run": "Jalankan {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Tidak ada snippets untuk diekspor",
+      "couldNotMakeTheFile": "Tidak dapat membuat file",
+      "copiedToTheClipboard": "Disalin ke papan klip",
+      "couldNotImport": "Tidak dapat mengimpor",
+      "couldNotReadThatFile": "Tidak dapat membaca file tersebut",
+      "importAndExport": "Impor dan ekspor",
+      "theSameFileTheWeb": "File yang sama yang digunakan oleh aplikasi web.",
+      "export": "Ekspor",
+      "shareAFile": "Bagikan file",
+      "copy": "Salin",
+      "import": "Impor",
+      "updateSnippetsThatExist": "Perbarui snippets yang sudah ada",
+      "sameNameInTheSame": "Nama yang sama di folder yang sama. Jika tidak, mereka akan dilewati",
+      "chooseAFile": "Pilih file",
+      "paste": "Tempel",
+      "saveYourSnippets": "Simpan snippets Anda"
+    },
+    "useSnippetRunner": {
+      "run": "Jalankan {{name}}?",
+      "run2": "Jalankan",
+      "fillInTheValuesFor": "Isi nilai untuk snippet ini.",
+      "cancel": "Batal",
+      "insert": "Sisipkan",
+      "noTerminalIsOpen": "Tidak ada terminal yang terbuka"
+    },
+    "variables": {
+      "input": "Masukan {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Bukan file JSON yang valid",
+      "theFileNeedsASnippets": "File tersebut memerlukan daftar snippets atau folder",
+      "snippetNameAndContentAre": "Snippet {{value}}: nama dan konten wajib diisi",
+      "folder": "Folder {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Memuat perangkat Tailscale…",
+      "searchTailscaleDevices": "Cari perangkat Tailscale…",
+      "searchTailscaleDevices2": "Cari perangkat Tailscale",
+      "clearDeviceSearch": "Hapus pencarian perangkat",
+      "refreshTailscaleDevices": "Muat ulang perangkat Tailscale",
+      "device": "Perangkat",
+      "noTailnetAddress": "Tidak ada alamat tailnet",
+      "tailscaleDevice": "Perangkat Tailscale",
+      "tailscaleDevices": "Perangkat Tailscale",
+      "addAHostThatConnects": "Tambahkan host yang terhubung dengan Tailscale SSH.",
+      "username": "Nama pengguna",
+      "sshUsernameFor": "Nama pengguna SSH untuk {{value}}",
+      "addHost": "Tambah host",
+      "noTailscaleDevicesMatchYour": "Tidak ada perangkat Tailscale yang cocok dengan pencarian Anda.",
+      "noTailscaleDevicesFound": "Tidak ada perangkat Tailscale ditemukan.",
+      "noTailscaleApiKeyIs": "Tidak ada kunci API Tailscale yang dikonfigurasi di server ini. Minta administrator untuk menambahkannya.",
+      "youDoNotHavePermission": "Anda tidak memiliki izin untuk melihat daftar perangkat Tailscale.",
+      "couldNotLoadTailscaleDevices": "Gagal memuat perangkat Tailscale. Muat ulang untuk mencoba lagi.",
+      "tailscaleIsUnavailableOnThis": "Tailscale tidak tersedia di server ini."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Menghubungkan ulang | coba ke-{{attempt}}",
+      "reconnectingInSTry": "Menghubungkan ulang dalam {{secs}}d | coba ke-{{attempt}}",
+      "offlineWaitingForNetwork": "Luring, menunggu jaringan",
+      "sendToTheNewShell": "Kirim {{what}} ke shell baru?",
+      "reconnectNow": "Hubungkan ulang sekarang",
+      "send": "Kirim",
+      "discard": "Buang",
+      "typedChars_other": "{{count}} karakter diketik",
+      "waiting": "{{what}} menunggu"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Log koneksi disalin",
+      "connectionLog": "Log koneksi",
+      "copyItIntoABug": "Salin ke laporan bug. Alamat dan nama pengguna tidak disertakan.",
+      "copy": "Salin"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Hapus riwayat untuk host ini?",
+        "clear": "Hapus",
+        "searchHistory": "Cari riwayat",
+        "typesTheCommandWithoutRunning": "Mengetik perintah tanpa menjalankannya",
+        "noCommandsMatch": "Tidak ada perintah yang cocok",
+        "noHistoryYet": "Belum ada riwayat",
+        "commandsYouRunOnThis": "Perintah yang Anda jalankan di host ini akan muncul di sini",
+        "run": "Jalankan",
+        "typeWithoutRunning": "Ketik tanpa menjalankan",
+        "copy": "Salin",
+        "delete": "Hapus",
+        "historyCleared": "Riwayat dihapus"
+      },
+      "suggestionStrip": {
+        "use": "Gunakan {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Pengaturan aplikasi",
+      "delete": "Hapus (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Judul tab dari shell",
+      "programsCanSetTheTab": "Program dapat mengatur judul tab",
+      "openTmux": "Buka tmux",
+      "attachToATmuxSession": "Sambungkan ke sesi tmux, atau mulai sesi baru",
+      "reconnectOnDrop": "Hubungkan ulang saat terputus",
+      "keepTabOpenOnExit": "Tetap buka tab saat keluar",
+      "pressEnterToConnectAgain": "Tekan Enter untuk terhubung lagi",
+      "saveCommandHistory": "Simpan riwayat perintah",
+      "offerToFillPasswordPrompts": "Tawarkan untuk mengisi permintaan kata sandi",
+      "offerToFillSudoPrompts": "Tawarkan untuk mengisi permintaan sudo",
+      "usesTheSudoPasswordFrom": "Menggunakan kata sandi sudo dari tab SSH",
+      "none": "Tidak ada",
+      "look": "Tampilan",
+      "theme": "Tema",
+      "font": "Font",
+      "cursor": "Kursor",
+      "bell": "Bel",
+      "scrollbackLines": "Baris gulir balik",
+      "app": "Aplikasi",
+      "behavior": "Perilaku",
+      "backspaceSends": "Backspace mengirim",
+      "startupSnippet": "Snippet startup",
+      "runsOnceTheShellIs": "Dijalankan setelah shell siap",
+      "fillWithoutAsking": "Isi tanpa bertanya",
+      "onThisOnlyOnceYou": "Hanya di {{deviceWord}} ini, setelah Anda memilih Isi selalu",
+      "connection": "Koneksi",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Detik antar ping, 0 untuk menonaktifkan",
+      "default": "Bawaan",
+      "keepaliveSeconds": "Detik keepalive",
+      "missedPings": "Ping yang terlewat",
+      "dropTheConnectionAfterThis": "Putuskan koneksi setelah jumlah ini tidak dijawab",
+      "missedPingsBeforeDrop": "Ping terlewat sebelum putus",
+      "environment": "Lingkungan",
+      "removeVariable": "Hapus variabel",
+      "addVariable": "Tambah variabel"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "KEYBOARD"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Baris",
+        "keys": "Tombol",
+        "sendsAKeyCode": "Mengirim kode tombol",
+        "stickyModifier": "Modifikasi lengket",
+        "appAction": "Tindakan aplikasi",
+        "tmuxPrefixThen": "Awalan tmux, lalu {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Baris tombol",
+        "onlyFor": "Hanya untuk {{name}}",
+        "usingTheAppSRows": "Menggunakan baris aplikasi. Perubahan di sini hanya untuk {{name}}",
+        "useTheAppSRows": "Gunakan baris aplikasi"
+      },
+      "keyButton": {
+        "locked": "Terkunci"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Batal",
+        "remove": "Hapus {{what}}?",
+        "remove2": "Hapus",
+        "dragToReorder": "Seret untuk mengurutkan ulang",
+        "rowName": "Nama baris",
+        "groupName": "Nama grup",
+        "add": "Tambah",
+        "addKey": "Tambah tombol",
+        "addRow": "Tambah baris",
+        "addGroup": "Tambah grup",
+        "tmuxPrefix": "Awalan tmux",
+        "name": "Nama",
+        "rename": "Ubah nama",
+        "keys": "{{value}} tombol",
+        "noKeys": "Tidak ada tombol",
+        "remove3": "Hapus {{label}}",
+        "keys2": "Tombol",
+        "custom": "Kustom",
+        "add2": "Tambah {{label}}",
+        "typeText": "Ketik teks",
+        "runCommand": "Jalankan perintah",
+        "ctrlKey": "Tombol Ctrl",
+        "label": "Label",
+        "optional": "Opsional",
+        "letter": "Huruf",
+        "command": "Perintah",
+        "text": "Teks",
+        "resetToDefault": "Atur ulang ke bawaan"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Ubah tombol di Pengaturan, Papan Ketik"
+      },
+      "keyRowBar": {
+        "keyRow": "Baris tombol {{label}}",
+        "tapForTheNextRow": "Ketuk untuk baris berikutnya, tahan untuk memilih",
+        "keyRows": "Baris tombol"
+      },
+      "model": {
+        "clear": "Hapus",
+        "main": "Utama",
+        "keys": "Tombol",
+        "arrows": "Panah",
+        "symbols": "Simbol",
+        "actions": "Tindakan",
+        "nav": "Navigasi",
+        "move": "Pindah",
+        "function": "Fungsi",
+        "brackets": "Kurung",
+        "punctuation": "Tanda Baca",
+        "ctrl": "Ctrl",
+        "control": "Kontrol",
+        "windows": "Windows",
+        "panes": "Panel",
+        "copy": "Salin",
+        "split": "Pecah ─",
+        "split2": "Pecah │",
+        "newWin": "Jendela baru",
+        "prevWin": "Jendela sebelumnya",
+        "nextWin": "Jendela berikutnya",
+        "pane": "Panel ←",
+        "pane2": "Panel ↓",
+        "pane3": "Panel ↑",
+        "pane4": "Panel →",
+        "copyMode": "Mode salin",
+        "pasteBuf": "Tempel buffer",
+        "killPane": "Tutup panel"
+      }
+    },
+    "output": {
+      "openLink": "Buka tautan?",
+      "open": "Buka",
+      "pasteLines": "Tempel {{lines}} baris?",
+      "pasteThisText": "Tempel teks ini?",
+      "theShellMayRunIt": "Shell mungkin menjalankannya segera.\n\n{{text}}",
+      "paste": "Tempel",
+      "letTheProgramReadYour": "Izinkan program membaca papan klip Anda?",
+      "itAskedForWhatYou": "Program meminta apa yang baru saja Anda salin.",
+      "allow": "Izinkan",
+      "letTheProgramCopyTo": "Izinkan program menyalin ke papan klip Anda?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Isi kata sandi yang disimpan?",
+      "asksForTheSudoPassword": "{{hostName}} meminta kata sandi sudo.",
+      "asksForAPassword": "{{hostName}} meminta kata sandi.",
+      "fillPassword": "Isi kata sandi",
+      "alwaysFillOnThisHost": "Selalu isi di host ini",
+      "asksNoMoreOnThis": "Tidak akan bertanya lagi di {{deviceWord}} ini. Matikan di tab Terminal host.",
+      "notNow": "Tidak sekarang"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal dan keepalive",
+      "history": "RIWAYAT",
+      "find": "Cari",
+      "tmuxWindows": "jendela tmux",
+      "connectionLog": "Log koneksi",
+      "keyRowsForThisHost": "Baris tombol untuk host ini"
+    },
+    "searchBar": {
+      "noResults": "Tidak ada hasil",
+      "matchCase": "Sesuaikan huruf besar/kecil",
+      "wholeWord": "Seluruh kata",
+      "regularExpression": "Ekspresi reguler",
+      "find": "Cari",
+      "closeFind": "Tutup pencarian"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Sistem",
+      "block": "Blok",
+      "bar": "Batang",
+      "underline": "Garis bawah",
+      "off": "Mati",
+      "sound": "Suara",
+      "flash": "Kedip",
+      "both": "Keduanya"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Tab baru di host ini",
+      "closeTab": "Tutup tab",
+      "nextTab": "Tab berikutnya",
+      "previousTab": "Tab sebelumnya",
+      "goToTab": "Buka tab",
+      "find": "Cari",
+      "fontSize": "Ukuran font",
+      "paste": "Tempel",
+      "escape": "Escape",
+      "copyAndPaste": "Salin dan tempel"
+    },
+    "reconnecting": "Menghubungkan ulang...",
+    "waitingForNetwork": "Menunggu jaringan...",
+    "waitingForYou": "Menunggu Anda...",
+    "connecting": "Menghubungkan...",
+    "terminalView": {
+      "scrollToBottom": "Gulir ke bawah",
+      "onlyWebLinksCanOpen": "Hanya tautan web yang dapat dibuka dari terminal",
+      "couldNotOpenLink": "Tidak dapat membuka tautan",
+      "copiedFromTheTerminal": "Disalin dari terminal"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Buka sesi tmux",
+        "newSession": "Sesi baru",
+        "plainShell": "Shell biasa",
+        "tmuxWindows": "Jendela tmux",
+        "newWindow": "Jendela baru",
+        "windowCount_other": "{{count}} jendela",
+        "attached": "{{count}} terhubung",
+        "activeNow": "aktif sekarang",
+        "activeMinAgo": "aktif {{count}} menit lalu",
+        "activeHoursAgo": "aktif {{count}} jam lalu",
+        "activeDaysAgo_other": "aktif {{count}} hari lalu"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Salin",
+        "selectAll": "Pilih semua",
+        "cancel": "Batal",
+        "scrollToBottom": "Gulir ke bawah",
+        "couldNotCopy": "Tidak dapat menyalin",
+        "webviewError": "Kesalahan WebView: {{description}}",
+        "webviewHttpError": "Kesalahan HTTP WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Tidak ada kata sandi yang disimpan untuk host ini",
+    "backInTmuxSession": "Kembali ke sesi tmux {{tmuxName}}",
+    "backInScreenSession": "Kembali ke sesi screen {{name}}",
+    "theServerSessionEndedThis": "Sesi server berakhir. Ini adalah shell baru.",
+    "termixWasClosedSoThe": "Termix ditutup, sehingga shell lama berakhir. Ini adalah shell baru.",
+    "theConnectionDroppedAndThe": "Koneksi terputus dan shell lama berakhir. Ini adalah shell baru.",
+    "disconnectedFrom": "Terputus dari {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Autentikasi Dua Faktor",
+      "codesFromAnAuthenticatorApp": "Kode dari aplikasi autentikator untuk akun server Anda"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "Alamat MAC",
+      "neededToWakeThisHost": "Diperlukan untuk membangunkan host ini dengan Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Gunakan alamat MAC seperti 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN dikirim ke {{name}}",
+      "failedToSendWakeOn": "Gagal mengirim paket Wake-on-LAN",
+      "noServer": "Tidak ada server"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Bangunkan {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Bagikan statistik penggunaan anonim?",
+      "termixWouldSendAShort": "Termix akan mengirimkan laporan singkat sekali sehari. Anda dapat mengubah pengaturan ini kapan saja di Pengaturan.",
+      "noThanks": "Tidak, terima kasih",
+      "share": "Bagikan",
+      "theReportHasTheApp": "Laporan ini berisi versi aplikasi, jenis {{deviceWord}}, perkiraan jumlah host dan sesi, fitur yang Anda gunakan, serta apakah koneksi berhasil. Laporan ini tidak pernah berisi nama host, nama pengguna, alamat, jalur, perintah, atau nama server.",
+      "seeExactlyWhatIsSent": "Lihat secara persis apa yang dikirim"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Memuat informasi versi…",
+      "updateAvailable": "Pembaruan Tersedia",
+      "newVersionAvailable": "Versi baru tersedia",
+      "aNewerVersionOfThe": "Versi aplikasi seluler yang lebih baru tersedia. Beberapa fitur mungkin tidak berfungsi dengan benar hingga Anda memperbarui.",
+      "versionInformation": "Informasi Versi",
+      "installed": "Terinstal",
+      "latest": "Terbaru",
+      "unknown": "Tidak diketahui",
+      "tag": "Tag",
+      "continueAnyway": "Lanjutkan Saja"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Disalin",
+      "copy": "Salin",
+      "hostKeyChanged": "Kunci host berubah",
+      "verifyHostKey": "Verifikasi kunci host",
+      "cancel": "Batal",
+      "acceptNewKey": "Terima kunci baru",
+      "connectAndTrust": "Sambungkan dan percaya",
+      "theHostSSshKey": "Kunci SSH host telah berubah sejak koneksi terakhir Anda. Ini bisa berarti seseorang sedang menyadap koneksi.",
+      "youAreConnectingToThis": "Anda sedang terhubung ke host ini untuk pertama kalinya. Periksa sidik jari sebelum mempercayainya.",
+      "previousKey": "Kunci sebelumnya",
+      "newFingerprint": "Sidik jari baru",
+      "hostFingerprint": "Sidik jari host"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Passphrase Diperlukan",
+      "enterThePassphraseForYour": "Masukkan passphrase untuk kunci SSH Anda.",
+      "cancel": "Batal",
+      "connect": "Sambungkan",
+      "keyPassphrase": "Passphrase kunci"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Autentikasi SSH Diperlukan",
+      "cancel": "Batal",
+      "connect": "Sambungkan",
+      "password": "Kata sandi",
+      "sshKey": "Kunci SSH",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nTempelkan kunci privat Anda di sini...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Passphrase kunci (opsional)",
+      "keyboardInteractiveAuthIsNot": "Autentikasi interaktif keyboard tidak tersedia. Masukkan kredensial secara langsung.",
+      "authenticationFailedPleaseReEnter": "Autentikasi gagal. Silakan masukkan kembali kredensial Anda.",
+      "connectionTimedOutPleaseTry": "Koneksi waktu habis. Silakan coba lagi dengan kredensial Anda."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Pemeriksaan SSH Tailscale",
+      "completeTheTailscaleSshCheck": "Selesaikan pemeriksaan SSH Tailscale di browser Anda untuk melanjutkan.",
+      "cancel": "Batal",
+      "copyUrl": "Salin URL",
+      "openBrowser": "Buka Browser",
+      "urlCopied": "URL disalin",
+      "failedToCopy": "Gagal menyalin",
+      "couldNotOpenBrowser": "Tidak dapat membuka browser"
+    },
+    "tOTPDialog": {
+      "cancel": "Batal",
+      "submit": "Kirim",
+      "verify": "Verifikasi",
+      "password": "Kata sandi",
+      "pasteCode": "Tempel kode",
+      "passwordRequired": "Kata Sandi Diperlukan",
+      "twoFactorAuthentication": "Autentikasi Dua Faktor",
+      "enterYourPasswordToContinue": "Masukkan kata sandi Anda untuk melanjutkan.",
+      "enterThe6DigitCode": "Masukkan kode 6 digit dari aplikasi autentikator Anda."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Autentikasi Warpgate",
+      "authenticateViaTheWarpgatePortal": "Lakukan autentikasi melalui portal Warpgate, lalu ketuk Lanjutkan.",
+      "cancel": "Batal",
+      "openBrowser": "Buka Browser",
+      "continue": "Lanjutkan",
+      "securityKey": "Kunci Keamanan",
+      "authUrl": "URL Autentikasi",
+      "copied": "Disalin",
+      "copy": "Salin",
+      "urlCopied": "URL disalin",
+      "failedToCopy": "Gagal menyalin",
+      "couldNotOpenBrowser": "Tidak dapat membuka browser"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "{{deviceWord}} ini"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Aktivitas terbaru",
+        "files": "File",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Notifikasi",
+        "seeAll": "Lihat semua"
+      },
+      "server": "Server",
+      "openSessions": "Sesi terbuka",
+      "quickAccess": "Akses cepat",
+      "notifications": "Notifikasi",
+      "pinnedHosts": "Host yang disematkan",
+      "recentHosts": "Host terbaru",
+      "recentActivity": "Aktivitas terbaru",
+      "pinnedCard": {
+        "addYourFirstHost": "Tambahkan host pertama Anda",
+        "hostsYouOpenShowUp": "Host yang Anda buka akan muncul di sini, dan host yang disematkan menampilkan kartu langsung.",
+        "addHost": "Tambah host",
+        "linkAServer": "Hubungkan server",
+        "pinAHostToSee": "Sematkan host untuk melihatnya di sini",
+        "pinnedHostsShowTheirMetrics": "Host yang disematkan menampilkan metrik, Docker, dan layanan mereka sekilas. Tahan host untuk menyematkannya.",
+        "goToHosts": "Buka host",
+        "pinned": "Disematkan",
+        "opensTheTerminalHoldFor": "Membuka terminal. Tahan untuk opsi lainnya.",
+        "turnOnDockerOrServices": "Aktifkan Docker atau Layanan untuk host ini, atau ketuk untuk terhubung.",
+        "opens": "Membuka {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Akses cepat",
+        "quickConnect": "Koneksi cepat",
+        "userHostPortWithoutSaving": "pengguna@host:port, tanpa menyimpan"
+      },
+      "recentCard": {
+        "recent": "Terbaru"
+      },
+      "serverCard": {
+        "server": "Server",
+        "version": "Versi",
+        "uptime": "Waktu aktif",
+        "database": "Basis data",
+        "hosts": "Host",
+        "online": "Online",
+        "offline": "Offline",
+        "logins": "Login"
+      },
+      "sessionsCard": {
+        "openSessions": "Sesi terbuka",
+        "connected": "Terhubung"
+      }
+    },
+    "resetHome": "Setel Ulang Beranda?",
+    "cardsGoBackToThe": "Kartu akan kembali ke urutan dan tampilan default.",
+    "reset": "Setel Ulang",
+    "doneEditingHome": "Selesai mengedit Beranda",
+    "editHome": "Edit Beranda",
+    "dragToReorder": "Seret {{title}} untuk mengubah urutan",
+    "show": "Tampilkan {{title}}",
+    "dragCardsToReorderThem": "Seret kartu untuk mengubah urutannya. Matikan kartu untuk menyembunyikannya. Kartu tanpa konten akan tetap tersembunyi secara otomatis.",
+    "resetToDefault": "Setel ulang ke default",
+    "done": "Selesai",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Masih tidak dapat menjangkau server",
+      "canTReach": "Tidak dapat menjangkau {{account}}",
+      "youCanKeepWorkingWith": "Anda dapat terus bekerja dengan salinan di {{deviceWord}} ini. Perubahan akan disinkronkan saat server kembali online.",
+      "hostsSetToConnectFrom": "Host yang diatur untuk terhubung dari {{deviceWord}} ini tetap berfungsi.",
+      "tryAgain": "Coba lagi",
+      "noAnswer": "tidak ada jawaban"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Profil Vault",
+      "none": "Tidak ada",
+      "signsInWithInYour": "Melakukan login dengan {{title}} di browser Anda melalui server Termix. Hubungkan host ini melalui server.",
+      "needsATermixServerLink": "{{title}} memerlukan server Termix. Hubungkan satu server untuk menggunakan login ini.",
+      "isOffOnThisServer": "{{title}} dinonaktifkan di server ini. Host ini tetap mempertahankan pengaturan loginya."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Tidak dapat memuat kredensial",
+      "deleted": "Menghapus \"{{name}}\"",
+      "couldNotDeleteTheCredential": "Tidak dapat menghapus kredensial",
+      "credentials": "Kredensial",
+      "add": "Tambah",
+      "searchCredentials": "Cari kredensial",
+      "clearSearch": "Hapus pencarian",
+      "loadingCredentials": "Memuat kredensial...",
+      "noCredentialsMatchYourSearch": "Tidak ada kredensial yang cocok dengan pencarian Anda",
+      "noCredentialsYet": "Belum ada kredensial",
+      "addCredential": "Tambah kredensial",
+      "edit": "Edit",
+      "delete": "Hapus",
+      "deleteCredential": "Hapus kredensial",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" akan dihapus secara permanen. Host yang menggunakannya akan kehilangan kredensial yang disimpan.",
+      "cancel": "Batal",
+      "hostCount_other": "{{count}} host",
+      "sshKey": "Kunci SSH"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Ganti kunci?",
+        "theNewKeyTakesThe": "Kunci baru akan menggantikan kunci saat ini. Host yang hanya mempercayai kunci lama akan berhenti menerima kredensial ini.",
+        "replace": "Ganti",
+        "newKeyMadeCopyThe": "Kunci baru dibuat. Salin kunci publik ke host Anda.",
+        "couldNotMakeAKey": "Tidak dapat membuat kunci",
+        "couldNotReadThatCertificate": "Tidak dapat membaca file sertifikat tersebut",
+        "leaveWithoutSaving": "Keluar tanpa menyimpan?",
+        "yourChangesToThisCredential": "Perubahan Anda pada kredensial ini akan hilang.",
+        "leave": "Keluar",
+        "credentialSaved": "Kredensial disimpan",
+        "credentialAdded": "Kredensial ditambahkan",
+        "couldNotSaveTheCredential": "Tidak dapat menyimpan kredensial",
+        "enterAHostToTest": "Masukkan host untuk diuji, seperti 10.0.0.5 atau box:2222.",
+        "enterTheUsernameFirst": "Masukkan nama pengguna terlebih dahulu.",
+        "editCredential": "Edit kredensial",
+        "newCredential": "Kredensial baru",
+        "cancel": "Batal",
+        "save": "Simpan",
+        "credential": "Kredensial",
+        "name": "Nama",
+        "productionKey": "Kunci produksi",
+        "username": "Nama pengguna",
+        "signInWith": "Masuk dengan",
+        "password": "Kata sandi",
+        "sshKey": "Kunci SSH",
+        "unchangedIfBlank": "Tidak berubah jika kosong",
+        "key": "Kunci",
+        "fileOrPaste": "File atau tempel",
+        "makeANewKey": "Buat kunci baru",
+        "aKeyIsSavedChoose": "Kunci sudah disimpan. Pilih file atau tempel untuk menggantinya.",
+        "type": "Tipe",
+        "ed25519AndEcdsaAreMade": "Ed25519 dan ECDSA dibuat di {{deviceWord}} ini, RSA di server Anda.",
+        "madeOnThisEd25519Works": "Dibuat di {{deviceWord}} ini. Ed25519 bekerja di hampir semua tempat.",
+        "passphrase": "Passphrase",
+        "optionalLocksTheNewKey": "Opsional. Mengunci kunci baru di {{deviceWord}} ini dan di disk.",
+        "makeKey": "Buat kunci",
+        "publicKey": "Kunci publik",
+        "addThisLineToSsh": "Tambahkan baris ini ke ~/.ssh/authorized_keys di host Anda",
+        "publicKeyCopied": "Kunci publik disalin",
+        "copyPublicKey": "Salin kunci publik",
+        "certificate": "Sertifikat",
+        "aCertificateYourCaSigned": "Sertifikat yang ditandatangani CA Anda untuk kunci ini, untuk host yang mempercayai CA.",
+        "chooseCertificateFile": "Pilih file sertifikat",
+        "thisDoesNotLookLike": "Ini tidak terlihat seperti sertifikat OpenSSH.",
+        "test": "Uji",
+        "hostToTestOn": "Host untuk diuji",
+        "n10005Or": "10.0.0.5 atau box.lan:2222",
+        "pickASavedHost": "Pilih host yang disimpan",
+        "details": "Detail",
+        "description": "Deskripsi",
+        "whatThisCredentialIsFor": "Untuk apa kredensial ini digunakan",
+        "folder": "Folder",
+        "serverKeys": "Kunci server",
+        "testOnAHost": "Uji pada host",
+        "rsaKeysNeedALinked": "Kunci RSA memerlukan server yang terhubung."
+      },
+      "model": {
+        "giveThisCredentialAName": "Berikan nama untuk kredensial ini",
+        "addAPrivateKeyOr": "Tambahkan kunci privat, atau buat yang baru"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Ini adalah sertifikat host, bukan sertifikat pengguna.",
+        "thisCertificateIsNotValid": "Sertifikat ini belum berlaku.",
+        "thisCertificateHasExpired": "Sertifikat ini telah kedaluwarsa.",
+        "itIsForAKey": "Ini untuk kunci {{keyType}}, tetapi kunci ini adalah {{keyType2}}.",
+        "forAnyUser": "Untuk semua pengguna",
+        "validFromNoEndDate": "Berlaku sejak {{validAfter}}, tanpa tanggal akhir",
+        "signedBy": "Ditandatangani oleh {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Nama pengguna",
+        "fromTheCredential": "Dari kredensial: {{credentialUser}}",
+        "signInWith": "Masuk dengan",
+        "password": "Kata sandi",
+        "key": "Kunci",
+        "credential": "Kredensial",
+        "none": "Tidak ada",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Terhubung dengan Tailscale SSH. Tidak ada kata sandi atau kunci yang disimpan.",
+        "tailscaleIsNotOnFor": "Tailscale tidak aktif untuk {{value}}. Host ini menyimpan login Tailscale-nya.",
+        "unchangedIfBlank": "Tidak berubah jika kosong",
+        "noCredentialsYetTapThe": "Belum ada kredensial. Ketuk ikon kunci di Host untuk menambahkannya.",
+        "useCredential": "Gunakan kredensial {{name}}",
+        "sudoPassword": "Kata sandi sudo",
+        "typedIntoSudoPromptsWhen": "Diketikkan ke prompt sudo ketika bagian Terminal mengaktifkannya",
+        "notSet": "Belum diatur",
+        "thisServer": "server ini"
+      },
+      "colorIconField": {
+        "color": "Warna",
+        "noColor": "Tanpa warna",
+        "color2": "Warna {{c}}",
+        "icon": "Ikon",
+        "noIcon": "Tanpa ikon",
+        "none": "Tidak ada",
+        "icon2": "Ikon {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Keluar tanpa menyimpan?",
+        "yourChangesToThisHost": "Perubahan Anda pada host ini akan hilang.",
+        "leave": "Keluar",
+        "couldNotSaveHowThis": "Gagal menyimpan cara host ini terhubung",
+        "hostSaved": "Host disimpan",
+        "hostAdded": "Host ditambahkan",
+        "couldNotSaveTheHost": "Gagal menyimpan host",
+        "enterTheHostSAddress": "Masukkan alamat host terlebih dahulu.",
+        "turnOnSshToTest": "Aktifkan SSH untuk menguji login.",
+        "pickACredentialFirst": "Pilih kredensial terlebih dahulu.",
+        "editHost": "Edit host",
+        "newHost": "Host baru",
+        "cancel": "Batal",
+        "save": "Simpan",
+        "host": "Host",
+        "name": "Nama",
+        "myServer": "Server saya",
+        "address": "Alamat",
+        "port": "Port",
+        "portAndUsernameComeFrom": "Port dan nama pengguna berasal dari pengaturan default host Anda hingga Anda mengubahnya.",
+        "folder": "Folder",
+        "production": "Produksi",
+        "useAFolderInstead": "Gunakan folder sebagai gantinya",
+        "putItUnderAHost": "Letakkan di bawah host sebagai gantinya",
+        "pinToTop": "Sematkan ke atas",
+        "colorAndIcon": "Warna dan ikon",
+        "notes": "Catatan",
+        "anythingWorthRememberingAboutThis": "Hal yang perlu diingat tentang host ini",
+        "protocols": "Protokol",
+        "terminalFilesAndMore": "Terminal, file, dan lainnya",
+        "connectFrom": "Hubungkan dari",
+        "features": "Fitur",
+        "otherProtocols": "Protokol lainnya",
+        "more": "Lainnya",
+        "theTestRunsFromThis": "Tes dijalankan dari {{deviceWord}} ini. Host ini terhubung melalui server, sehingga tetap dapat berfungsi ketika {{deviceWord}} tidak dapat menjangkaunya."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Host lompat",
+        "connectsThroughTheseInOrder": "Terhubung melalui host-host ini secara berurutan, kemudian ke host ini",
+        "reachThisHostThroughOther": "Jangkau host ini melalui host lain terlebih dahulu",
+        "moveUp": "Pindah ke atas",
+        "moveDown": "Pindah ke bawah",
+        "removeJumpHost": "Hapus host lompat",
+        "addJumpHost": "Tambahkan host lompat",
+        "pickASavedHostTo": "Pilih host yang tersimpan untuk terhubung melalui",
+        "searchHosts": "Cari host",
+        "noOtherHostsToPick": "Tidak ada host lain untuk dipilih. Host tidak dapat melompati dirinya sendiri atau host yang sudah melewatinya.",
+        "missingHost": "Host #{{id}} hilang"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Aktifkan setidaknya satu protokol",
+        "pickACredential": "Pilih kredensial",
+        "enterTheHostSAddress": "Masukkan alamat host",
+        "theAddressCanTHave": "Alamat tidak boleh mengandung spasi",
+        "portMustBeFrom1": "Port harus antara 1 hingga 65535",
+        "enterTheSshUsername": "Masukkan nama pengguna SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Host akan ditampilkan bersarang di bawah host yang Anda pilih",
+        "searchHosts": "Cari host",
+        "noHostsToPickA": "Tidak ada host yang bisa dipilih. Host tidak bisa berada di bawah dirinya sendiri, sub-host miliknya, atau host bersama.",
+        "parentHost": "Host induk",
+        "subHostsFollowTheFolder": "Sub-host mengikuti folder dari host induknya",
+        "pickParentHost": "Pilih host induk",
+        "missingHost": "Host #{{value}} hilang",
+        "pickAHost": "Pilih host",
+        "clearParentHost": "Hapus host induk"
+      },
+      "tagsField": {
+        "tags": "Tag",
+        "typeATagAndPress": "Ketik tag dan tekan enter",
+        "removeTag": "Hapus tag {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Gagal menyimpan cara host ini terhubung",
+      "addressCopied": "Alamat disalin",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Hubungkan dari",
+      "dismiss": "Tutup",
+      "unpin": "Lepas pin",
+      "pinToHome": "Pin ke Beranda",
+      "select": "Pilih",
+      "editHost": "Edit Host",
+      "copyAddress": "Salin Alamat",
+      "addSubHost": "Tambah Sub-host",
+      "cloneHost": "Klon Host",
+      "deleteHost": "Hapus Host",
+      "connectThroughTheServer": "Hubungkan melalui server",
+      "connectFromThis": "Hubungkan dari {{deviceWord}} ini"
+    },
+    "defaultYourOrder": "Bawaan (urutan Anda)",
+    "nameAZ": "Nama (A-Z)",
+    "nameZA": "Nama (Z-A)",
+    "ipAscending": "IP (naik)",
+    "ipDescending": "IP (turun)",
+    "onlineFirst": "Online dulu",
+    "offlineFirst": "Offline dulu",
+    "pinnedFirst": "Dipin dulu",
+    "status": "Status",
+    "online": "Online",
+    "offline": "Offline",
+    "pinned": "Dipin",
+    "protocol": "Protokol",
+    "features": "Fitur",
+    "hostsCanOnlyMoveInside": "Host hanya bisa dipindahkan di dalam folder miliknya sendiri",
+    "couldNotUpdateTheHosts": "Gagal memperbarui host",
+    "sharedHostsCanTBe": "Host bersama tidak bisa dihapus di sini",
+    "delete2": "Hapus",
+    "noneOfTheseHostsOpen": "Tidak ada host ini yang membuka terminal",
+    "couldNotPinTheHost": "Gagal mem-pin host",
+    "deleted": "{{name}} dihapus",
+    "failedToDeleteHost": "Gagal menghapus host",
+    "cloned": "{{name}} diklon",
+    "failedToCloneHost": "Gagal mengklon host",
+    "reorderWorksWithTheDefault": "Pengurutan ulang bekerja dengan pengurutan Bawaan dan tanpa pencarian atau filter",
+    "couldNotSaveTheOrder": "Gagal menyimpan urutan",
+    "noHostsYet": "Belum ada host",
+    "addAHostToConnect": "Tambahkan host untuk terhubung dengannya dengan satu ketukan.",
+    "addHost": "Tambahkan host",
+    "quickConnect2": "Sambungkan cepat",
+    "linkAServer": "Hubungkan server",
+    "noHostsMatch": "Tidak ada host yang cocok",
+    "clearSearchAndFilters": "Hapus pencarian dan filter",
+    "more": "Lainnya",
+    "dragAHostByIts": "Seret host dari pegangannya untuk memindahkannya di dalam foldernya.",
+    "done": "Selesai",
+    "filterHosts": "Filter host",
+    "clearFilterText": "Hapus teks filter",
+    "sortHosts": "Urutkan host",
+    "removeFilter": "Hapus filter {{value}}",
+    "loadingHosts": "Memuat host…",
+    "moveUnderAHost": "Pindahkan ke bawah host",
+    "moveToFolder": "Pindahkan ke folder",
+    "leaveItEmptyToTake": "Biarkan kosong untuk mengeluarkan host dari folder.",
+    "folderLikeProdWeb": "Folder, seperti Prod / Web",
+    "move": "Pindahkan",
+    "hosts": "Host",
+    "selectHosts": "Pilih host",
+    "reorderHosts": "Urutkan ulang host",
+    "customizeList": "Sesuaikan daftar",
+    "chooseWhatEachHostRow": "Pilih apa yang ditampilkan setiap baris host",
+    "credentials2": "Kredensial",
+    "savedPasswordsAndKeys": "Kata sandi dan kunci yang disimpan",
+    "tailscaleDevices": "Perangkat Tailscale",
+    "refresh": "Muat ulang",
+    "rowDensityFollowsSettingsAppearance": "Kepadatan baris mengikuti Pengaturan, Tampilan.",
+    "clearAllFilters": "Hapus semua filter",
+    "tags": "Tag",
+    "stopSelecting": "Berhenti memilih",
+    "selected": "{{count}} dipilih",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Tidak dapat membaca file kunci tersebut",
+        "theClipboardIsEmpty": "Papan klip kosong",
+        "privateKey": "Kunci privat",
+        "chooseFile": "Pilih file",
+        "paste": "Tempel",
+        "unchangedIfBlank": "Tidak berubah jika kosong",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Passphrase",
+        "onlyIfTheKeyHas": "Hanya jika kunci memiliki satu",
+        "theKeyIsCheckedWhen": "Kunci diperiksa saat Anda terhubung.",
+        "thePastedKey": "kunci yang ditempelkan"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Buka",
+        "moreActions": "Tindakan lainnya",
+        "opensTheTerminalHoldFor": "Membuka terminal. Tahan untuk lebih banyak.",
+        "shared": "Dibagikan",
+        "drag": "Seret {{name}}",
+        "showSubHosts_other": "Tampilkan {{count}} sub-host dari {{name}}",
+        "hideSubHosts_other": "Sembunyikan {{count}} sub-host dari {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Folder {{name}}, {{total}} host"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Host dan nama pengguna wajib diisi",
+      "hostSaved": "Host disimpan",
+      "couldNotSaveTheHost": "Tidak dapat menyimpan host",
+      "quickConnect": "Sambungkan cepat",
+      "connectToAHostWithout": "Hubungkan ke host tanpa menyimpannya.",
+      "hostIp": "Host / IP",
+      "port": "Port",
+      "username": "Nama pengguna",
+      "password": "Kata Sandi",
+      "key": "Kunci",
+      "privateKey": "Kunci Pribadi",
+      "saveToMyHosts": "Simpan ke host saya",
+      "keepThisHostAfterConnecting": "Simpan host ini setelah terhubung",
+      "cancel": "Batal",
+      "connect": "Hubungkan"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Mengambil host Anda dari server",
+      "yourHostsStayOnThis": "{{message}} Host Anda tetap berada di {{deviceWord}} ini sementara itu."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Kunci host ini telah berubah",
+      "trustThisHost": "Percayai host ini?",
+      "trust": "Percayai",
+      "stopTest": "Hentikan uji",
+      "testConnection": "Uji koneksi",
+      "connecting": "Menghubungkan..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Gagal memuat host."
+    },
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} host bersama dibiarkan seperti semula.",
+    "deleteHosts_other": "Hapus {{count}} host?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Tidak ada folder bernama {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Host \"{{name}}\": port tidak valid",
+        "hostJumpIsNotIn": "Host \"{{name}}\": jump {{value}} tidak ada dalam file, sehingga diabaikan",
+        "credential": "Kredensial {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Tidak ditemukan entri Host yang valid dalam file konfigurasi SSH",
+        "credentialWasNotFound": "{{label}}: kredensial {{value}} tidak ditemukan"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Host {{value}}: id host yang diekspor duplikat {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Bidang wajib hilang (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: authType tidak valid. Harus salah satu dari {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Nama pengguna diperlukan untuk koneksi SSH",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias diperlukan untuk autentikasi kredensial",
+        "thatIsNotAValid": "Bukan file JSON yang valid",
+        "hostsArrayIsRequiredAnd": "Array Hosts diperlukan dan tidak boleh kosong",
+        "jumpHostCycle": "{{label}}: siklus jump host",
+        "jumpHostIsNotIn": "{{label}}: jump host {{id}} tidak ada dalam file"
+      }
+    },
+    "movedTo": "Dipindahkan ke {{value}}",
+    "movedOutOfFolders": "Dipindahkan keluar dari folder",
+    "movedUnder": "Dipindahkan ke bawah {{value}}",
+    "openTerminals": "Terminal terbuka",
+    "theHost": "host"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Sembunyikan kata sandi",
+      "showPassword": "Tampilkan kata sandi",
+      "enterAUsernameAndPassword": "Masukkan nama pengguna dan kata sandi",
+      "useAtLeast6Characters": "Gunakan minimal 6 karakter untuk kata sandi",
+      "thePasswordsDonTMatch": "Kata sandi tidak cocok",
+      "makeTheAdminAccount": "Buat akun admin",
+      "makeAnAccount": "Buat akun",
+      "thisIsTheFirstAccount": "Ini adalah akun pertama di server, sehingga mengelola server.",
+      "pickAUsernameAndPassword": "Pilih nama pengguna dan kata sandi untuk server ini.",
+      "username": "Nama Pengguna",
+      "password": "Kata Sandi",
+      "passwordAgain": "Ulangi kata sandi",
+      "makeAccount": "Buat akun",
+      "back": "Kembali",
+      "haveAnAccountSignIn": "Sudah punya akun? Masuk",
+      "resetCodeMadeItIs": "Kode reset telah dibuat. Kode tersebut ada di log server",
+      "enterYourUsername": "Masukkan nama pengguna Anda",
+      "enterTheResetCode": "Masukkan kode reset",
+      "passwordChangedSignInWith": "Kata sandi telah diubah. Masuk sekarang dengan kata sandi baru",
+      "resetPassword": "Atur ulang kata sandi",
+      "enterYourUsernameTheServer": "Masukkan nama pengguna Anda. Server akan menulis kode reset ke log-nya.",
+      "sendResetCode": "Kirim kode reset",
+      "enterThe6DigitCode": "Masukkan kode 6 digit dari log server.",
+      "resetCode": "Atur ulang kode",
+      "checkCode": "Periksa kode",
+      "newPassword": "Kata sandi baru",
+      "saveNewPassword": "Simpan kata sandi baru",
+      "backToSignIn": "Kembali ke masuk",
+      "couldNotMakeTheAccount": "Tidak dapat membuat akun",
+      "couldNotStartTheReset": "Tidak dapat memulai pengatur ulang",
+      "thatCodeDidnTWork": "Kode tersebut tidak berhasil",
+      "couldNotChangeThePassword": "Tidak dapat mengubah kata sandi"
+    },
+    "browserStep": {
+      "signInFailed": "Masuk gagal",
+      "signInCanceled": "Masuk dibatalkan",
+      "couldNotOpenTheSign": "Tidak dapat membuka browser masuk",
+      "couldNotOpenTheSign2": "Tidak dapat membuka halaman masuk",
+      "certificateProblem": "Masalah sertifikat",
+      "back": "Kembali",
+      "signIn": "Masuk",
+      "reload": "Muat ulang",
+      "finishSigningInInYour": "Selesaikan masuk di browser Anda",
+      "useAnySignInYour": "Gunakan metode masuk apa pun yang tersedia di server Anda, seperti passkey atau kunci keamanan. Aplikasi akan melanjutkan setelah Anda masuk.",
+      "theAppPicksUpOnce": "Aplikasi akan melanjutkan setelah penyedia masuk Anda selesai.",
+      "signingIn": "Sedang masuk...",
+      "openBrowserAgain": "Buka browser lagi",
+      "theServerTurnedTheSession": "Server menolak sesi. Coba lagi.",
+      "signedInButTheApp": "Sudah masuk, tetapi aplikasi tidak dapat menjangkau Termix. Proxy mungkin memblokirnya.",
+      "thatSignInLinkIs": "Tautan masuk tersebut berasal dari percobaan sebelumnya. Masuk lagi.",
+      "signInAgain": "Masuk lagi.",
+      "openTheBrowserAgainWhen": "Buka browser lagi saat Anda siap.",
+      "theWebPageSignedIn": "Halaman web berhasil masuk tetapi tidak mengirimkan sesi. Perbarui server dan coba lagi.",
+      "theCanTCheckThis": "{{deviceWord}} tidak dapat memeriksa sertifikat server ini. Instal CA root-nya di {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Gunakan {{name}} untuk masuk lain kali?",
+      "ifThisServerSignsYou": "Jika server ini mengeluarkan Anda, masuk lagi dengan {{name}} alih-alih mengetik kata sandi Anda. Kata sandi tetap tersimpan di {{deviceWord}} ini.",
+      "use": "Gunakan {{name}}",
+      "notNow": "Tidak sekarang",
+      "couldNotSaveTheLogin": "Tidak dapat menyimpan login",
+      "thatSADifferentUser": "Itu adalah pengguna yang berbeda",
+      "signedIn": "Sudah masuk",
+      "close": "Tutup",
+      "linkYourTermixServer": "Hubungkan server Termix Anda",
+      "yourHostsCredentialsSnippetsAnd": "Host, kredensial, cuplikan, dan pengaturan Anda disinkronkan dengannya, dan Anda mendapatkan pluginnya. Semua tetap berfungsi di {{deviceWord}} ini saat server tidak tersedia.",
+      "checking": "Memeriksa {{host}}...",
+      "proxyAndClientCertificate": "Proxy dan sertifikat klien",
+      "couldNotReachThatServer": "Tidak dapat menjangkau server tersebut. Periksa alamat, atau atur proxy atau sertifikat klien.",
+      "couldNotReachThatServer2": "Tidak dapat menjangkau server tersebut",
+      "syncCouldNotStartYet": "Sinkronisasi belum dapat dimulai. Ini akan mencoba lagi secara otomatis.",
+      "checkingTheServer": "Memeriksa server",
+      "signIn": "Masuk",
+      "makeAnAccount": "Buat akun",
+      "resetPassword": "Atur ulang kata sandi",
+      "oneMoreStep": "Satu langkah lagi",
+      "almostDone": "Hampir selesai",
+      "linkAServer": "Hubungkan server"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Login yang disimpan tidak lagi berfungsi",
+      "enterYourUsernameAndPassword": "Masukkan nama pengguna dan kata sandi Anda",
+      "thisServerIsBehindA": "Server ini berada di balik proxy login",
+      "signInWith": "Masuk dengan {{saved}}",
+      "signInWith2": "Masuk dengan",
+      "password": "Kata sandi",
+      "username": "Nama pengguna",
+      "signIn": "Masuk",
+      "forgotPassword": "Lupa kata sandi?",
+      "makeAnAccount": "Buat akun",
+      "or": "ATAU",
+      "continueWith": "Lanjutkan dengan {{label}}",
+      "signInWithAPasskey": "Masuk dengan passkey atau kunci keamanan",
+      "opensYourServerAposS": "Membuka halaman masuk server Anda di browser. Face ID, sidik jari, NFC, dan kunci USB semuanya berfungsi di sana. Memerlukan Termix 26.11.3 atau lebih baru.",
+      "signInInTheBrowser": "Masuk di browser",
+      "opensYourServerAposS2": "Membuka halaman masuk server Anda, untuk hal-hal yang tidak bisa dilakukan aplikasi di sini. Memerlukan Termix 26.10.6 atau lebih baru.",
+      "thisServerHasNoSign": "Server ini tidak memiliki fitur masuk yang dapat digunakan oleh aplikasi. Tanyakan kepada pengelola server, atau coba masuk melalui browser di atas.",
+      "signInWithYourPassword": "Masuk dengan kata sandi Anda.",
+      "signInFailed": "Gagal masuk",
+      "openingItsSignInPage": "Membuka halaman masuknya."
+    },
+    "smallSteps": {
+      "serverAddress": "Alamat server",
+      "likeTermixExampleComOr": "Seperti termix.example.com atau 192.168.1.20:30001",
+      "checking": "Memeriksa...",
+      "continue": "Lanjutkan",
+      "proxyAndClientCertificate": "Proxy dan sertifikat klien",
+      "aServerWithASelf": "Server dengan sertifikat tanda tangan sendiri memerlukan instalasi root CA-nya di {{deviceWord}} ini terlebih dahulu. HTTP biasa berfungsi di jaringan Anda sendiri.",
+      "enterTheCode": "Masukkan kode",
+      "code": "Kode",
+      "the6DigitCodeFrom": "Kode 6 digit dari aplikasi autentikator Anda, atau kode cadangan",
+      "checkCode": "Periksa kode",
+      "thisAccountAsksForA": "Akun ini meminta kunci keamanan setelah kata sandi. Masuk di halaman server di browser Anda untuk menggunakannya.",
+      "useASecurityKeyIn": "Gunakan kunci keamanan di browser",
+      "backToSignIn": "Kembali ke masuk",
+      "bringThisAposSHosts": "Bawa host dari {{deviceWord}} ini juga?",
+      "thisHasTheyStayOn": "{{deviceWord}} ini memiliki {{what}}. Mereka tetap berada di Perangkat ini dalam keadaan apa pun.",
+      "merge": "Gabungkan",
+      "copyThemToTooSo": "Salin juga ke {{serverName}}, agar dapat disinkronkan. Host yang terlihat sama dengan host server akan dilewati.",
+      "replace": "Ganti",
+      "useOnlyWhatIsOn": "Gunakan hanya apa yang ada di {{serverName}} untuk akun ini. Tidak ada yang disalin.",
+      "thatCodeDidnTWork": "Kode tersebut tidak berhasil",
+      "hostsCredentialsOrSnippets": "host, kredensial, atau cuplikan"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Hubungkan server ini terlebih dahulu",
+      "thatHostIsnTHere": "Host tersebut tidak ada di sini",
+      "couldNotOpenThatHost": "Tidak dapat membuka host tersebut",
+      "noHostWithIdOn": "Tidak ada host dengan id {{hostId}} di {{account}}.",
+      "isnTLinkedInThe": "{{value}} belum terhubung di aplikasi."
+    }
+  },
+  "notifications": {
+    "notifications": "Notifikasi",
+    "markAllRead": "Tandai semua sudah dibaca",
+    "clearReadNotifications": "Hapus notifikasi yang sudah dibaca",
+    "unread2": "Belum dibaca",
+    "all": "Semua",
+    "noUnreadNotifications": "Tidak ada notifikasi yang belum dibaca",
+    "nothingHere": "Tidak ada apa-apa di sini",
+    "markRead": "Tandai sudah dibaca",
+    "delete": "Hapus",
+    "couldNotLoadNotifications": "Tidak dapat memuat notifikasi",
+    "couldNotMarkRead": "Tidak dapat menandai sudah dibaca",
+    "couldNotDelete": "Tidak dapat menghapus",
+    "couldNotClear": "Tidak dapat menghapus"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Impor",
+      "hosts": "Host",
+      "aTermixHostFileYour": "File host Termix, ~/.ssh/config Anda, atau tautan host atau kode QR dari {{deviceWord}} lain. Mereka disimpan di {{deviceWord}} ini.",
+      "backup": "Cadangan",
+      "aBackupThisAppMade": "Cadangan yang dibuat oleh aplikasi ini, dikunci dengan frasa sandi. Ini memulihkan host, kredensial, dan cuplikan.",
+      "restoreABackup": "Pulihkan cadangan",
+      "done": "Selesai",
+      "skipForNow": "Lewati untuk sekarang",
+      "sshFilesAndRemoteDesktops": "SSH, file, dan desktop jarak jauh dari {{deviceWord}} Anda. Bagaimana Anda ingin memulai?",
+      "useWithoutAServer": "Gunakan tanpa server",
+      "hostsCredentialsAndSnippetsAre": "Host, kredensial, dan snippet disimpan dalam bentuk terenkripsi di {{deviceWord}} ini. Anda dapat menghubungkan server kapan saja nanti.",
+      "linkATermixServer": "Hubungkan server Termix",
+      "syncYourHostsCredentialsSnippets": "Sinkronkan host, kredensial, snippet, dan pengaturan Anda dengan server, serta gunakan plugin-nya.",
+      "bringHostsFromATermix": "Impor host dari file Termix, konfigurasi SSH, kode QR, atau cadangan.",
+      "thisDevice": "Perangkat ini"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Cari host, snippet, tindakan",
+      "clearSearch": "Hapus pencarian",
+      "nothingMatches": "Tidak ada hasil yang cocok",
+      "typeToSearch": "Ketik untuk mencari",
+      "findAHostToConnect": "Temukan host untuk terhubung, snippet, pengaturan, atau tindakan.",
+      "suggested": "Disarankan | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Jalankan di {{title}}",
+      "copiedRunItFromThe": "Disalin. Jalankan dari snippet terminal untuk mengisi nilainya.",
+      "copiedOpenATerminalTo": "Disalin. Buka terminal untuk menjalankan snippet.",
+      "addHost": "Tambah host",
+      "quickConnect": "Sambungkan cepat",
+      "switchAccount": "Ganti akun",
+      "linkAServer": "Hubungkan server",
+      "fromYourServer": "Dari server Anda",
+      "settings": "Pengaturan",
+      "accountsAppearanceSecurity": "Akun, tampilan, keamanan"
+    },
+    "search": {
+      "hosts": "Host",
+      "snippets": "Snippet",
+      "actions": "Tindakan",
+      "settings": "Pengaturan"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Gagal memuat sesi",
+      "sessionRevoked": "Sesi dicabut",
+      "failedToRevokeSession": "Gagal mencabut sesi",
+      "allSessionsRevoked": "Semua sesi dicabut",
+      "failedToRevokeAllSessions": "Gagal mencabut semua sesi",
+      "activeSessions": "Sesi aktif",
+      "signOutAllOtherSessions": "Keluar dari semua sesi lain",
+      "loading": "Memuat…",
+      "noActiveSessionsFound": "Tidak ada sesi aktif ditemukan.",
+      "unknownDevice": "Perangkat tidak dikenal",
+      "lastActive": "Terakhir aktif {{lastActiveAt}}",
+      "created": "Dibuat {{createdAt}}",
+      "revokeSession": "Cabut sesi",
+      "revokeSession2": "Cabut sesi?",
+      "thisWillSignOutThat": "Ini akan mengeluarkan perangkat tersebut.",
+      "revoke": "Cabut",
+      "revokeAllSessions": "Cabut semua sesi?",
+      "thisWillSignOutEvery": "Ini akan mengeluarkan semua perangkat. Anda akan tetap masuk di perangkat ini.",
+      "cancel": "Batal",
+      "revokeAll": "Cabut semua"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Gagal memuat kunci API",
+      "failedToCreateApiKey": "Gagal membuat kunci API",
+      "deleteApiKey": "Hapus kunci API?",
+      "willStopWorkingRightAway": "\"{{name}}\" akan berhenti bekerja segera.",
+      "apiKeyDeleted": "Kunci API dihapus",
+      "failedToDeleteApiKey": "Gagal menghapus kunci API",
+      "apiKeys": "Kunci API",
+      "newApiKey": "Kunci API baru",
+      "loading": "Memuat…",
+      "apiKeysAllowProgrammaticAccess": "Kunci API memungkinkan akses programatik ke Termix. Rahasia hanya ditampilkan sekali, jadi simpan dengan aman.",
+      "noApiKeysYet": "Belum ada kunci API",
+      "created": "Dibuat {{createdAt}}",
+      "lastUsed": "Terakhir digunakan {{lastUsedAt}}",
+      "expires": "Kadaluarsa {{expiresAt}}",
+      "delete": "Hapus {{name}}",
+      "keyCreatedCopyItNow": "Kunci dibuat. Salin sekarang",
+      "newApiKey2": "Kunci API Baru",
+      "thisTokenWonTBe": "Token ini tidak akan ditampilkan lagi.",
+      "apiKeyCopied": "Kunci API disalin",
+      "copy": "Salin",
+      "done": "Selesai",
+      "cancel": "Batal",
+      "create": "Buat",
+      "name": "Nama *",
+      "eGCiPipeline": "mis. CI Pipeline",
+      "user": "Pengguna *",
+      "noUsersAvailable": "Tidak ada pengguna tersedia.",
+      "expiresAtOptional": "Kadaluarsa Pada (opsional)",
+      "yyyyMmDd": "TTTT/BB/HH",
+      "yearMonthDay": "Tahun / Bulan / Hari"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Pertahankan sesi berjalan",
+      "showsANotificationWhileSessions": "Menampilkan notifikasi saat sesi terbuka, sehingga Android menjaga sesi tetap berjalan saat Anda meninggalkan aplikasi",
+      "batteryOptimization": "Optimasi baterai",
+      "termixIsNotRestrictedSo": "Termix tidak dibatasi, sehingga sesi dapat tetap terbuka dengan layar mati.",
+      "androidMayStillStopSessions": "Android mungkin masih menghentikan sesi untuk menghemat baterai. Buka pengaturan baterai, temukan Termix, dan pilih Tidak dioptimalkan atau Tanpa batasan.",
+      "openBatterySettings": "Buka pengaturan baterai",
+      "notificationsAreOff": "Notifikasi dimatikan",
+      "sessionsStillRunButThe": "Sesi tetap berjalan, tetapi daftar sesi terbuka dan tombol Putuskan semua tetap tersembunyi.",
+      "openNotificationSettings": "Buka pengaturan notifikasi",
+      "thisBuildCanTKeep": "Build ini tidak dapat menjaga sesi berjalan di latar belakang. Mereka akan terhubung kembali saat Anda kembali.",
+      "lowPowerMode": "Mode Daya Rendah",
+      "batterySaver": "Penghemat baterai",
+      "isOnTermixChecksConnections": "{{value}} aktif. Termix memeriksa koneksi lebih jarang dan menunggu lebih lama antara upaya koneksi ulang.",
+      "backgroundSessions": "Sesi latar belakang",
+      "iosStopsAppsSoonAfter": "iOS menghentikan aplikasi segera setelah Anda meninggalkannya, sehingga sesi tidak dapat berjalan di latar belakang. Mereka akan terhubung kembali saat Anda kembali, dan tmux atau screen akan melanjutkan dari tempat Anda berhenti."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Berhenti",
+        "active": "Aktif",
+        "linkAServer": "Hubungkan server",
+        "eachServerKeepsItsOwn": "Setiap server menyimpan salinan sendiri dari host, kredensial, dan pengaturan Anda di {{deviceWord}} ini.",
+        "signedInAs": "Masuk sebagai",
+        "role": "Peran",
+        "administrator": "Administrator",
+        "user": "Pengguna",
+        "serverVersion": "Versi server",
+        "signOut": "Keluar",
+        "youAreSignedOutOf": "Anda telah keluar dari server ini.",
+        "signIn": "Masuk",
+        "passwordChanged": "Kata sandi diubah",
+        "couldNotChangeThePassword": "Tidak dapat mengubah kata sandi",
+        "changePassword": "Ubah kata sandi",
+        "enterYourCurrentPasswordThen": "Masukkan kata sandi saat ini, lalu pilih yang baru.",
+        "cancel": "Batal",
+        "change": "Ubah",
+        "currentPassword": "Kata sandi saat ini",
+        "newPassword": "Kata sandi baru",
+        "accountDeleted": "Akun dihapus",
+        "couldNotDeleteTheAccount": "Tidak dapat menghapus akun",
+        "deleteServerAccount": "Hapus akun server",
+        "thisPermanentlyDeletesYourAccount": "Ini akan menghapus akun Anda di server dan semua datanya secara permanen. Tindakan ini tidak dapat dibatalkan.",
+        "delete": "Hapus",
+        "confirmYourPassword": "Konfirmasi kata sandi Anda",
+        "worksWithoutAServer": "Berfungsi tanpa server",
+        "signedOut": "Keluar",
+        "readsLive": "Membaca langsung",
+        "toReview": "{{count}} untuk ditinjau",
+        "synced": "Tersinkronisasi",
+        "syncing": "Menyinkronkan",
+        "offline": "Luring"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Bagikan statistik penggunaan anonim",
+        "aShortReportOnceA": "Laporan singkat sekali sehari. Tanpa host, nama, atau alamat",
+        "nextReport": "Laporan berikutnya",
+        "seeExactlyWhatWouldBe": "Lihat persis apa yang akan dikirim",
+        "couldNotBuildTheReport": "Tidak dapat membuat laporan",
+        "preview": "Pratinjau",
+        "thisIsExactlyWhatWould": "Ini adalah persis apa yang akan dikirim saat ini.",
+        "resetInstallId": "Atur ulang ID instalasi",
+        "futureReportsWillLookLike": "Laporan masa depan akan terlihat seperti instalasi baru",
+        "resetTheInstallId": "Atur ulang ID instalasi?",
+        "futureReportsWillLookLike2": "Laporan masa depan akan terlihat seperti instalasi baru.",
+        "reset": "Atur Ulang",
+        "installIdReset": "ID instalasi direset"
+      },
+      "appearanceControls": {
+        "theme": "Tema",
+        "accentColor": "Warna aksen",
+        "textSize": "Ukuran teks",
+        "sizeOfTextAcrossThe": "Ukuran teks di seluruh aplikasi, bukan di terminal",
+        "density": "Kepadatan",
+        "howTallListRowsAnd": "Seberapa tinggi baris daftar dan pengaturan"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Host, kredensial, dan cuplikan disimpan dalam file terenkripsi di {{deviceWord}} ini. Statistik penggunaan dimatikan kecuali Anda mengaktifkannya di bawah. Server yang terhubung hanya mendapatkan apa yang Anda izinkan untuk disinkronkan.",
+        "recentHosts": "Host terbaru",
+        "forgetTheHostsYouOpened": "Lupakan host yang baru saja Anda buka di setiap akun",
+        "recentHostsCleared": "Host terbaru dihapus",
+        "clear": "Hapus",
+        "couldNotCheckForUpdates": "Tidak dapat memeriksa pembaruan",
+        "versionIsOutUpdateFrom": "Versi {{version}} telah dirilis. Perbarui dari toko Anda.",
+        "youHaveTheNewestVersion": "Anda memiliki versi terbaru",
+        "termixMobile": "Termix Mobile",
+        "updates": "Pembaruan",
+        "check": "Periksa"
+      },
+      "pinSheet": {
+        "waitSeconds": "Tunggu {{value}} detik",
+        "digits": "{{PIN_LENGTH}} digit"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN tidak cocok",
+        "appLockIsOn": "Kunci Aplikasi aktif",
+        "turnOffAppLock": "Matikan Kunci Aplikasi",
+        "enterYourPinToConfirm": "Masukkan PIN Anda untuk mengonfirmasi.",
+        "appLockIsOff": "Kunci Aplikasi tidak aktif",
+        "appLock": "Kunci Aplikasi",
+        "askForFaceIdTouch": "Minta Face ID, Touch ID, atau PIN untuk membuka aplikasi",
+        "askForAPinTo": "Minta PIN untuk membuka aplikasi",
+        "pinChanged": "PIN diubah",
+        "couldNotChangeThePin": "Tidak dapat mengubah PIN",
+        "changePin": "Ubah PIN",
+        "lockAfter": "Kunci setelah",
+        "howLongTheAppCan": "Seberapa lama aplikasi dapat tidak terlihat sebelum terkunci",
+        "hideInAppSwitcher": "Sembunyikan di pengalih aplikasi",
+        "showABlankScreenIn": "Tampilkan layar kosong di daftar aplikasi terbaru",
+        "chooseA4DigitPin": "Pilih PIN 4 digit.",
+        "confirmPin": "Konfirmasi PIN",
+        "enterTheSamePinAgain": "Masukkan PIN yang sama lagi.",
+        "currentPin": "PIN saat ini",
+        "enterYourCurrentPin": "Masukkan PIN saat ini Anda.",
+        "newPin": "PIN baru",
+        "chooseANew4Digit": "Pilih PIN 4 digit baru.",
+        "confirmNewPin": "Konfirmasi PIN baru",
+        "enterTheNewPinAgain": "Masukkan PIN baru lagi."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Widget layar beranda",
+        "showYourHostsSnippetsAnd": "Tampilkan host, cuplikan, dan tombol daya di layar beranda",
+        "showAddresses": "Tampilkan alamat",
+        "showUserHostUnderEach": "Tampilkan user@host di bawah setiap nama server",
+        "includeOfflineHosts": "Sertakan host yang offline",
+        "offShowsOnlyServersThat": "Nonaktif hanya menampilkan server yang online",
+        "pinnedHostsOnly": "Hanya host yang disematkan",
+        "showOnlyTheHostsYou": "Hanya tampilkan host yang Anda sematkan",
+        "snippetsWidget": "Widget cuplikan",
+        "showSavedCommandsOnThe": "Tampilkan perintah yang disimpan di layar beranda",
+        "showCommandPreview": "Tampilkan pratinjau perintah",
+        "showTheFirstLineOf": "Tampilkan baris pertama dari setiap perintah"
+      }
+    },
+    "fileSettings": {
+      "files": "File",
+      "fileManagerOnThis": "Manajer file di {{deviceWord}} ini",
+      "browsing": "Penjelajahan",
+      "transfersAtOnce": "Transfer sekaligus",
+      "downloadsAndUploadsThatRun": "Unduhan dan unggahan yang berjalan bersamaan",
+      "editor": "Editor",
+      "textSize": "Ukuran teks",
+      "filesBesideTheTerminal": "File di samping terminal",
+      "side": "Sisi",
+      "whereThePanelSitsOn": "Di mana panel berada di tablet",
+      "right": "Kanan",
+      "left": "Kiri",
+      "howOftenToCheck": "Seberapa sering memeriksa",
+      "folderHistory": "Riwayat folder",
+      "foldersKeptPerHost": "Folder yang disimpan per host",
+      "showHiddenFiles": "Tampilkan file tersembunyi",
+      "filesAndFoldersThatStart": "File dan folder yang dimulai dengan titik",
+      "askBeforeMovingToThe": "Tanya sebelum memindahkan ke tempat sampah",
+      "deletingForGoodAlwaysAsks": "Menghapus permanen selalu meminta konfirmasi",
+      "wrapLongLines": "Balut baris panjang",
+      "openWithNewTerminals": "Buka dengan terminal baru",
+      "onATabletShowThe": "Di tablet, tampilkan panel file saat terminal dibuka",
+      "followTheTerminal": "Ikuti terminal",
+      "openTheFolderTheTerminal": "Buka folder tempat terminal berada saat Anda menggunakan cd"
+    },
+    "keyboardCustomization": {
+      "small": "Kecil",
+      "medium": "Sedang",
+      "large": "Besar",
+      "ms": "{{v}} ms",
+      "keyboard": "Papan ketik",
+      "keyRowsAboveTheKeyboard": "Baris tombol di atas papan ketik",
+      "rows": "Baris",
+      "keys": "Tombol",
+      "aHostCanHaveIts": "Host dapat memiliki baris sendiri: ketuk tab terbuka host dalam sesi dan pilih Baris tombol untuk host ini.",
+      "keySize": "Ukuran tombol",
+      "vibrateOnKeyPress": "Getar saat tombol ditekan",
+      "repeatAfter": "Ulangi setelah",
+      "howLongToHoldAn": "Seberapa lama menahan panah atau Backspace",
+      "repeatEvery": "Ulangi setiap",
+      "hardwareKeyboard": "Papan ketik perangkat keras",
+      "allShortcuts": "Semua pintasan",
+      "show": "Tampilkan"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Tidak dapat membuat cadangan",
+      "deleteLocalData": "Hapus data lokal?",
+      "hostsCredentialsSnippetsAndHistory": "Host, kredensial, cuplikan, dan riwayat yang disimpan di {{deviceWord}} ini untuk {{account}} akan dihapus. Ini tidak dapat dibatalkan. Buat cadangan terlebih dahulu jika Anda ingin menyimpannya.",
+      "delete": "Hapus",
+      "localDataDeleted": "Data lokal dihapus",
+      "couldNotDeleteLocalData": "Tidak dapat menghapus data lokal",
+      "localData": "Data lokal",
+      "localDataIsOnlySaved": "Data lokal hanya disimpan di aplikasi {{deviceWord}}.",
+      "savedOnThisForThe": "Disimpan di {{deviceWord}} ini untuk {{account}}. File ini dienkripsi dengan kunci yang tidak pernah meninggalkan {{deviceWord}} ini.",
+      "hosts": "Host",
+      "credentials": "Kredensial",
+      "snippets": "Snippets",
+      "size": "Ukuran",
+      "dataVersion": "Versi data",
+      "backup": "Cadangan",
+      "aBackupFileHoldsYour": "File cadangan menyimpan kata sandi dan kunci Anda, dikunci dengan frasa sandi yang Anda pilih. Tidak ada yang bisa membukanya tanpa frasa sandi tersebut.",
+      "exportBackup": "Ekspor cadangan",
+      "importBackup": "Impor cadangan",
+      "removesEverythingThisAccountSaved": "Menghapus semua yang disimpan akun ini di {{deviceWord}} ini. Server yang terhubung tetap menyimpan salinannya sendiri.",
+      "deleteLocalData2": "Hapus data lokal",
+      "backupPassphrase": "Frasa sandi cadangan",
+      "atLeast8CharactersYou": "Minimal 8 karakter. Anda membutuhkannya untuk memulihkan cadangan.",
+      "passphrase": "Frasa sandi",
+      "next": "Selanjutnya",
+      "typeItAgain": "Ketik ulang",
+      "export": "Ekspor",
+      "saveYourTermixBackup": "Simpan cadangan Termix Anda"
+    },
+    "logs": {
+      "logs": "Log",
+      "latestLinesFromThisRun": "Baris terbaru dari sesi ini. Alamat server, kata sandi, dan token disembunyikan.",
+      "logsCopied": "Log disalin",
+      "copy": "Salin",
+      "share": "Bagikan",
+      "clear": "Bersihkan",
+      "noLogsYet": "Belum ada log",
+      "nothingHasBeenLogged": "Tidak ada yang dicatat."
+    },
+    "plugins": {
+      "worksOnThis": "Berfungsi di {{deviceWord}} ini",
+      "needsTheServer": "Memerlukan server",
+      "notInTheApp": "Tidak ada di aplikasi",
+      "needsANewerVersionOf": "Memerlukan versi aplikasi yang lebih baru",
+      "updateThePluginOnThe": "Perbarui plugin di server",
+      "inTheApp": "Di aplikasi",
+      "onThisServer": "Di server ini",
+      "version": "Versi",
+      "needsPluginApi": "Memerlukan API plugin",
+      "thisAppHas": "Aplikasi ini memiliki",
+      "note": "Catatan",
+      "open": "Buka",
+      "openFromAHostS": "Buka {{name}} dari menu host.",
+      "plugins": "Plugin",
+      "everything": "Semua",
+      "thisDeviceWorksWithNo": "Perangkat ini berfungsi tanpa server. Hubungkan server untuk menambahkan fitur yang memerlukannya.",
+      "pluginsOnAndHowEach": "Plugin di {{account}} dan bagaimana masing-masing ditampilkan di aplikasi. Tarik ke bawah untuk memeriksa lagi.",
+      "whatRunsOnThisAnd": "Apa yang berjalan di {{deviceWord}} ini dan apa yang melalui {{account}}.",
+      "noPluginList": "Tidak ada daftar plugin",
+      "theServerDidNotSend": "Server tidak mengirim pluginnya. Tarik ke bawah untuk mencoba lagi.",
+      "serversOlderThan29": "Server versi sebelum 2.9 memiliki semua fitur bawaan.",
+      "nothingToShow": "Tidak ada yang ditampilkan",
+      "notSentByThisServer": "Tidak dikirim oleh server ini"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Ganti data lokal?",
+      "everythingSavedOnThisFor": "Semua yang disimpan di {{deviceWord}} ini untuk {{accountName}} akan diganti dengan cadangan.",
+      "continue": "Lanjutkan",
+      "couldNotReadThatFile": "Tidak dapat membaca file tersebut",
+      "backupRestored": "Cadangan dipulihkan",
+      "couldNotRestoreTheBackup": "Tidak dapat memulihkan cadangan",
+      "backupPassphrase": "Frasa sandi cadangan",
+      "thePassphraseUsedWhenThe": "Frasa sandi yang digunakan saat cadangan dibuat.",
+      "passphrase": "Frasa sandi",
+      "restore": "Pulihkan"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Akun",
+        "thisDeviceAndLinkedServers": "Perangkat ini dan server yang terhubung, beserta status sinkronisasinya",
+        "syncAndProxy": "Sinkronisasi dan proxy",
+        "whatSyncsConflictsProxyAnd": "Apa yang disinkronkan, konflik, proxy, dan pemutusan tautan",
+        "serverAccount": "Akun server",
+        "whoIsSignedInOn": "Siapa yang masuk di server aktif",
+        "activeSessions": "Sesi aktif",
+        "devicesSignedInToThe": "Perangkat yang masuk ke server",
+        "apiKeys": "Kunci API",
+        "keysForScriptsAndTools": "Kunci untuk skrip dan alat",
+        "changePassword": "Ubah kata sandi",
+        "passwordOfYourServerAccount": "Kata sandi akun server Anda",
+        "deleteServerAccount": "Hapus akun server",
+        "removeYourAccountFromThe": "Hapus akun Anda dari server",
+        "theme": "Tema",
+        "darkLightDraculaNordAnd": "Gelap, terang, Dracula, Nord, dan lainnya",
+        "accentColor": "Warna aksen",
+        "textSize": "Ukuran teks",
+        "sizeOfTextAcrossThe": "Ukuran teks di seluruh aplikasi",
+        "density": "Kepadatan",
+        "howTallListRowsAnd": "Tinggi baris daftar dan pengaturan",
+        "homeScreenWidgets": "Widget layar beranda",
+        "hostsAndSnippetsOnThe": "Host dan cuplikan di layar beranda",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Font, tema, kursor, gulir balik",
+        "keyboard": "Papan ketik",
+        "layoutKeysPresets": "Tata letak, tombol, preset",
+        "appLock": "Kunci Aplikasi",
+        "askForFaceIdTouch": "Minta Face ID, Touch ID, atau PIN untuk membuka aplikasi",
+        "lockAfter": "Kunci setelah",
+        "howLongTheAppCan": "Seberapa lama aplikasi bisa tidak terlihat sebelum terkunci",
+        "hideInAppSwitcher": "Sembunyikan di pengalih aplikasi",
+        "showABlankScreenIn": "Tampilkan layar kosong di daftar aplikasi terbaru",
+        "changePin": "Ubah PIN",
+        "backgroundSessions": "Sesi latar belakang",
+        "whatHappensToOpenSessions": "Apa yang terjadi pada sesi terbuka saat Anda meninggalkan aplikasi",
+        "serverAlerts": "Peringatan server",
+        "alertsFromTheAlertsPlugin": "Peringatan dari plugin Peringatan di server Anda",
+        "whatStaysOnThis": "Apa yang tetap ada di {{deviceWord}} ini",
+        "hostsCredentialsAndSnippetsAre": "Host, kredensial, dan cuplikan disimpan dalam bentuk terenkripsi di sini",
+        "recentHosts": "Host terbaru",
+        "forgetTheHostsYouOpened": "Lupakan host yang baru saja Anda buka",
+        "shareAnonymousUsageStatistics": "Bagikan statistik penggunaan anonim",
+        "aShortReportOnceA": "Laporan singkat sekali sehari. Tanpa host, nama, atau alamat",
+        "nextReport": "Laporan berikutnya",
+        "seeExactlyWhatWouldBe": "Lihat persis apa yang akan dikirim",
+        "resetInstallId": "Atur ulang ID instalasi",
+        "futureReportsWillLookLike": "Laporan masa depan akan terlihat seperti instalasi baru",
+        "serverUsageStatistics": "Statistik penggunaan server",
+        "telemetrySettingsOnYourServer": "Pengaturan telemetri di server Anda",
+        "plugins": "Plugin",
+        "whatTheServerAddsAnd": "Apa yang ditambahkan server dan di mana ia berjalan",
+        "localData": "Data lokal",
+        "backupRestoreAndDeleteWhat": "Cadangkan, pulihkan, dan hapus apa yang disimpan di {{deviceWord}} ini",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Versi dan pembaruan",
+        "logs": "Log",
+        "latestLinesFromThisRun": "Baris terbaru dari sesi ini, untuk laporan bug",
+        "pushNotifications": "Notifikasi push",
+        "pushNotificationsDescription": "Peringatan dari server Anda di ponsel ini"
+      },
+      "sections": {
+        "accountsAndSync": "Akun dan sinkronisasi",
+        "thisDeviceLinkedServersAnd": "Perangkat ini, server yang terhubung, dan apa yang disinkronkan",
+        "appearance": "Tampilan",
+        "themeAccentTextSizeAnd": "Bahasa, tema, aksen, ukuran teks, dan kepadatan",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Font, warna, dan sesi latar belakang",
+        "keyboard": "Papan ketik",
+        "keyRowsAndShortcuts": "Baris tombol dan pintasan",
+        "security": "Keamanan",
+        "appLockFaceIdAnd": "Kunci Aplikasi, Face ID, dan PIN",
+        "notifications": "Notifikasi",
+        "alertsFromYourServer": "Peringatan dari server Anda",
+        "privacyAndUsageStatistics": "Privasi dan statistik penggunaan",
+        "whatStaysOnThis": "Apa yang tersimpan di {{deviceWord}} ini",
+        "plugins": "Plugin",
+        "whatTheServerAddsTo": "Apa yang ditambahkan server ke aplikasi",
+        "backupAndData": "Cadangan dan data",
+        "backUpRestoreImportAnd": "Cadangkan, pulihkan, impor, dan ekspor",
+        "aboutAndLogs": "Tentang dan log",
+        "versionAndLogsForBug": "Versi dan log untuk laporan bug"
+      }
+    },
+    "settings": "Pengaturan",
+    "searchSettings": "Cari pengaturan",
+    "noSettingsMatch": "Tidak ada pengaturan yang cocok.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Gagal memuat snippet",
+      "copied": "Disalin: {{name}}",
+      "nameIsRequired": "Nama wajib diisi",
+      "contentIsRequired": "Konten wajib diisi",
+      "snippetUpdated": "Snippet diperbarui",
+      "snippetCreated": "Snippet dibuat",
+      "failedToSaveSnippet": "Gagal menyimpan snippet",
+      "snippetDeleted": "Snippet dihapus",
+      "failedToDeleteSnippet": "Gagal menghapus snippet",
+      "folderNameIsRequired": "Nama folder wajib diisi",
+      "folderCreated": "Folder dibuat",
+      "failedToCreateFolder": "Gagal membuat folder",
+      "folderDeleted": "Folder dihapus",
+      "failedToDeleteFolder": "Gagal menghapus folder",
+      "folderRenamed": "Folder diganti nama",
+      "failedToRenameFolder": "Gagal mengganti nama folder",
+      "failedToSaveOrder": "Gagal menyimpan urutan",
+      "moveUp": "Pindah ke atas",
+      "moveDown": "Pindah ke bawah",
+      "runOnHosts": "Jalankan {{name}} pada host",
+      "copy": "Salin {{name}}",
+      "delete": "Hapus {{name}}",
+      "renameFolder": "Ganti nama folder",
+      "deleteFolder": "Hapus folder",
+      "noSnippetsInThisFolder": "Tidak ada snippet di folder ini",
+      "snippets": "Snippet",
+      "importAndExport": "Impor dan ekspor",
+      "folder": "Folder",
+      "new": "Baru",
+      "loading": "Memuat…",
+      "couldNotLoadSnippets": "Tidak dapat memuat snippet",
+      "checkTheConnectionToYour": "Periksa koneksi ke server Anda dan coba lagi.",
+      "tryAgain": "Coba lagi",
+      "noSnippetsYet": "Belum ada snippet",
+      "createYourFirstSnippetOr": "Buat snippet pertama Anda, atau tambahkan snippet dari aplikasi web atau desktop Termix.",
+      "createSnippet": "Buat snippet",
+      "askBeforeRunning": "Tanya sebelum menjalankan",
+      "confirmBeforeASnippetRuns": "Konfirmasi sebelum snippet dijalankan di terminal",
+      "editSnippet": "Edit Snippet",
+      "newSnippet": "Snippet Baru",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "create": "Buat",
+      "name": "Nama",
+      "eGUpdatePackages": "mis. Perbarui paket",
+      "content": "Konten",
+      "descriptionOptional": "Deskripsi (opsional)",
+      "shortDescription": "Deskripsi singkat",
+      "folderOptional": "Folder (opsional)",
+      "selectFolder": "Pilih folder",
+      "noFolder": "Tanpa folder",
+      "targetHostsOptional": "Host target (opsional)",
+      "none": "Tidak ada",
+      "note": "Catatan",
+      "pastedIntoTheTerminalWithout": "Ditempel ke terminal tanpa dijalankan",
+      "targetHosts": "Host target",
+      "copy2": "Salin",
+      "edit": "Edit",
+      "runOnHosts2": "Jalankan di host",
+      "delete2": "Hapus",
+      "deleteSnippet": "Hapus Snippet",
+      "deleteThisCannotBeUndone": "Hapus \"{{name}}\"? Tindakan ini tidak dapat dibatalkan.",
+      "renameFolder2": "Ubah Nama Folder",
+      "rename": "Ubah Nama",
+      "folderName": "Nama folder",
+      "eGSystem": "mis. Sistem",
+      "newFolder": "Folder Baru",
+      "deleteFolder2": "Hapus Folder",
+      "deleteSnippetsInThisFolder": "Hapus \"{{name}}\"? Snippet di folder ini akan menjadi tidak terkategorisasi."
+    },
+    "sync": {
+      "notYet": "Belum",
+      "justNow": "Baru saja",
+      "stopped": "Berhenti",
+      "signInToThisServer": "Masuk ke server ini lagi untuk menyinkronkan",
+      "couldNotChangeThat": "Tidak dapat mengubah itu",
+      "sync": "Sinkronisasi",
+      "thisDeviceDoesNotSync": "Perangkat ini tidak disinkronkan. Hubungkan server Termix untuk menyimpan host Anda di lebih dari satu perangkat.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} menjaga host, kredensial, snippet, dan pengaturan tetap selaras dengan {{deviceWord}} ini. Salinan tetap ada di {{deviceWord}} ini, sehingga dapat berfungsi secara offline juga.",
+      "lastSynced": "Terakhir disinkronkan {{value}}",
+      "live": "Langsung",
+      "syncNow": "Sinkronkan sekarang",
+      "fix": "Perbaiki",
+      "thisServerReadsLiveAnd": "Server ini membaca secara langsung dan tidak menyimpan salinan di {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Aktifkan plugin Sinkronisasi di halaman Plugin server, lalu masuk lagi di sini untuk menyimpan salinan di {{deviceWord}} ini.",
+      "whatSyncs": "Apa yang disinkronkan",
+      "turnedOffThatDataStays": "Dimatikan, data tersebut hanya tetap ada di {{deviceWord}} ini.",
+      "conflicts": "Konflik",
+      "changedHereAndOnThe": "Diubah di sini dan di server pada waktu yang sama. Versi server dipertahankan.",
+      "useServer": "Gunakan server",
+      "keepMine": "Pertahankan milik saya",
+      "notSavedOnTheServer": "Tidak disimpan di server",
+      "theServerRefusedTheseChanges": "Server menolak perubahan ini. Perubahan tetap ada di {{deviceWord}} ini.",
+      "tryAgain": "Coba lagi",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Hanya diperlukan ketika ada reverse proxy di depan server.",
+      "unlink": "Putuskan tautan",
+      "unlinkThisServer": "Putuskan tautan server ini",
+      "minAgo": "{{value}} menit lalu",
+      "signedOut": "Keluar",
+      "waitingToSync": "Menunggu sinkronisasi",
+      "synced": "Tersinkronisasi",
+      "syncing": "Menyinkronkan",
+      "offline": "Luring"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Latar belakang",
+        "text": "Teks",
+        "cursor": "Kursor",
+        "textUnderCursor": "Teks di bawah kursor",
+        "selection": "Seleksi",
+        "black": "Hitam",
+        "red": "Merah",
+        "green": "Hijau",
+        "yellow": "Kuning",
+        "blue": "Biru",
+        "magenta": "Magenta",
+        "cyan": "Sian",
+        "white": "Putih",
+        "brightBlack": "Hitam terang",
+        "brightRed": "Merah terang",
+        "brightGreen": "Hijau terang",
+        "brightYellow": "Kuning terang",
+        "brightBlue": "Biru terang",
+        "brightMagenta": "Magenta terang",
+        "brightCyan": "Sian terang",
+        "brightWhite": "Putih terang",
+        "customTheme": "Tema kustom",
+        "colorsAsHexLike1e1e2e": "Warna dalam format heksadesimal, seperti #1e1e2e.",
+        "cancel": "Batal",
+        "save": "Simpan",
+        "isNotAHexColor": "{{label}} bukan warna heksadesimal"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Padat",
+      "default": "Bawaan",
+      "relaxed": "Santai",
+      "spacious": "Luas",
+      "none": "Tidak ada",
+      "couldNotSave": "Gagal menyimpan",
+      "pickASizeFromTo": "Pilih ukuran dari {{MIN_FONT_SIZE}} hingga {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Pengaturan terminal direset",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "Host dapat mengatur tema dan kursor sendiri di Termix, yang akan mengungguli pengaturan ini.",
+      "theme": "Tema",
+      "custom": "Kustom",
+      "font": "Font",
+      "active": "Aktif",
+      "sizeAndSpacing": "Ukuran dan spasi",
+      "pinchTheTerminalToChange": "Cubit terminal untuk mengubah ukurannya juga. Teks besar di pengaturan {{deviceWord}} Anda akan membuatnya lebih besar.",
+      "custom2": "Kustom {{fontSize}}",
+      "lineHeight": "Tinggi baris",
+      "letterSpacing": "Spasi huruf",
+      "ligatures": "Ligatur",
+      "cursor": "Kursor",
+      "blink": "Berkedip",
+      "bell": "Bel",
+      "vibrate": "Getar",
+      "onTheBellAndWhen": "Saat bel berbunyi dan saat Anda menekan lama untuk memilih",
+      "scrollback": "Gulung balik",
+      "linesKeptAboveTheScreen": "Baris yang disimpan di atas layar. Berlaku untuk terminal baru.",
+      "linksAndKeys": "Tautan dan kunci",
+      "askBeforeOpeningLinks": "Tanya sebelum membuka tautan",
+      "doubleTapSendsTab": "Ketuk ganda mengirim Tab",
+      "longPressStillSelectsText": "Tekan lama tetap memilih teks",
+      "optionSendsAlt": "Option mengirim Alt",
+      "onAHardwareKeyboardOff": "Pada keyboard fisik. Nonaktif mengetik simbol seperti di Mac.",
+      "history": "Riwayat",
+      "suggestCommands": "Sarankan perintah",
+      "showsPastCommandsThatStart": "Perintah sebelumnya saat Anda mengetik",
+      "resetToDefault": "Atur ulang ke default",
+      "fontSize": "Ukuran font",
+      "aSizeFromTo": "Ukuran dari {{MIN_FONT_SIZE}} hingga {{MAX_FONT_SIZE}}.",
+      "cancel": "Batal",
+      "apply": "Terapkan",
+      "resetTerminalSettings": "Atur ulang pengaturan terminal?",
+      "themeFontSizeCursorBell": "Tema, font, ukuran, kursor, bel, dan lainnya kembali ke pengaturan default.",
+      "reset": "Atur Ulang",
+      "followsAppTheme": "Ikuti tema aplikasi"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Gagal memulai pengaturan 2FA",
+      "twoFactorAuthenticationEnabled": "Autentikasi dua faktor diaktifkan",
+      "invalidCodeTryAgain": "Kode tidak valid, coba lagi",
+      "twoFactorAuthenticationDisabled": "Autentikasi dua faktor dinonaktifkan",
+      "failedToDisable2fa": "Gagal menonaktifkan 2FA",
+      "failedToFetchBackupCodes": "Gagal mengambil kode cadangan",
+      "secretCopied": "Rahasia disalin",
+      "backupCodesCopied": "Kode cadangan disalin",
+      "twoFactorAuthentication": "Autentikasi dua faktor",
+      "loading": "Memuat…",
+      "scanThisQrCodeWith": "Pindai kode QR ini dengan aplikasi autentikator Anda (Google Authenticator, Authy, dll.), lalu masukkan kode 6 digit untuk konfirmasi.",
+      "verifyAmpEnable": "Verifikasi dan aktifkan",
+      "cancel": "Batal",
+      "saveYourBackupCodes": "Simpan kode cadangan Anda",
+      "storeTheseSomewhereSafeEach": "Simpan kode ini di tempat yang aman. Setiap kode hanya dapat digunakan sekali jika Anda kehilangan akses ke autentikator Anda.",
+      "copyAllCodes": "Salin semua kode",
+      "done": "Selesai",
+      "yourAccountIsProtectedWith": "Akun Anda dilindungi dengan aplikasi autentikator.",
+      "addAnExtraLayerOf": "Tambahkan lapisan keamanan ekstra pada akun Anda.",
+      "viewBackupCodes": "Lihat kode cadangan",
+      "disable2fa": "Nonaktifkan 2FA",
+      "enable2fa": "Aktifkan 2FA",
+      "disableTwoFactorAuthentication": "Nonaktifkan Autentikasi Dua Faktor",
+      "enterACodeFromYour": "Masukkan kode dari aplikasi autentikator Anda untuk konfirmasi. Anda dapat mengaktifkan kembali 2FA kapan saja.",
+      "enterYourPasswordToConfirm": "Masukkan kata sandi Anda untuk konfirmasi. Anda dapat mengaktifkan kembali 2FA kapan saja.",
+      "disable": "Nonaktifkan",
+      "yourPassword": "Kata sandi Anda",
+      "n2faIsEnabled": "2FA diaktifkan",
+      "n2faIsNotEnabled": "2FA tidak diaktifkan"
+    },
+    "language": {
+      "label": "Bahasa",
+      "description": "Aplikasi akan dimuat ulang untuk beralih",
+      "system": "Sama dengan perangkat"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Tidak ada host SSH di sini",
+      "couldNotReadWhatWas": "Tidak dapat membaca apa yang dibagikan",
+      "stopTheUploads": "Hentikan unggahan?",
+      "stopAndLeave": "Hentikan dan keluar",
+      "sendTo": "Kirim ke {{name}}",
+      "sendToAHost": "Kirim ke host",
+      "nothingToSend": "Tidak ada yang dikirim",
+      "close": "Tutup",
+      "done": "Selesai",
+      "cancel": "Batal",
+      "uploadHere": "Unggah di sini",
+      "uploadsStillGoing_other": "{{count}} unggahan masih berjalan. Meninggalkan akan menghentikannya.",
+      "filesSize_other": "{{count}} file | {{size}}",
+      "readingWhatWasShared": "Membaca apa yang dibagikan"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Kesalahan",
+      "worksWithoutAServer": "Berfungsi tanpa server",
+      "accountSwitch": "Akun {{account}}, beralih",
+      "search": "Cari",
+      "notificationsUnread": "Notifikasi, {{unread}} belum dibaca",
+      "notifications": "Notifikasi",
+      "signedIn": "Sudah masuk",
+      "signedOut": "Sudah keluar",
+      "copyOnThis": "Salin di {{deviceWord}} ini"
+    },
+    "bottomBar": {
+      "home": "Beranda",
+      "hosts": "Host",
+      "sessions": "Sesi",
+      "tools": "Alat",
+      "settings": "Pengaturan",
+      "open": "{{label}}, {{count}} terbuka"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} terbuka"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Pilih host",
+      "searchHosts": "Cari host",
+      "clearSearch": "Hapus pencarian",
+      "noHostsMatch": "Tidak ada host yang cocok",
+      "noHostsCanUseThis": "Tidak ada host yang dapat menggunakan ini",
+      "turnItOnForA": "Aktifkan untuk host di editor host."
+    },
+    "noToolsHereYet": "Belum ada alat di sini",
+    "onAHost": "Di host",
+    "saved": "Tersimpan",
+    "fromYourServer": "Dari server Anda"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Batal",
+      "delete": "Hapus",
+      "confirm": "Konfirmasi"
+    },
+    "contextMenu": {
+      "closeMenu": "Tutup menu"
+    },
+    "inlineView": {
+      "back": "Kembali"
+    },
+    "listRow": {
+      "moreActions": "Lainnya"
+    },
+    "pinPad": {
+      "useBiometrics": "Gunakan biometrik",
+      "delete": "Hapus"
+    },
+    "popover": {
+      "close": "Tutup"
+    },
+    "promptSheet": {
+      "cancel": "Batal"
+    },
+    "sheet": {
+      "close": "Tutup"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Kunci ini terkunci. Masukkan frasa sandinya.",
+      "thatPassphraseDoesnTOpen": "Frasa sandi tersebut tidak dapat membuka kunci ini.",
+      "thisDoesnTLookLike": "Ini tidak terlihat seperti kunci privat.",
+      "loadedAndChangedItTo": "Memuat {{name}} dan mengubahnya ke format OpenSSH",
+      "loadedItNeedsItsPassphrase": "Memuat {{name}}. Dibutuhkan frasa sandi untuk terhubung"
+    },
+    "ago": {
+      "justNow": "baru saja"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Tidak dapat memuat host Anda.",
+      "failedOn": "{{name}} gagal di {{name2}}",
+      "on": "{{name}} di {{name2}}: {{value}}",
+      "ranOn": "Menjalankan {{name}} di {{name2}}",
+      "runOn": "Jalankan \"{{name}}\" di",
+      "runSnippet": "Jalankan cuplikan",
+      "loadingHosts": "Memuat host…",
+      "noHostsAvailable": "Tidak ada host tersedia",
+      "addAHostInTermix": "Tambahkan host di Termix untuk menjalankan cuplikan dari layar beranda Anda.",
+      "lastUsed": "Terakhir digunakan",
+      "failedToRunSnippet": "Gagal menjalankan cuplikan"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Cuplikan tersebut tidak lagi ada.",
+      "couldNotOpenThatSnippet": "Tidak dapat membuka cuplikan tersebut.",
+      "thatHostNoLongerExists": "Host tersebut tidak lagi ada.",
+      "couldNotOpenThatHost": "Tidak dapat membuka host tersebut."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Beranda"
+      },
+      "hosts": {
+        "hosts": "Host"
+      },
+      "sessions": {
+        "sessions": "Sesi",
+        "connectToATermixServer": "Hubungkan ke server Termix untuk membuka terminal, terowongan, dan sesi file."
+      }
+    },
+    "layout": {
+      "initializing": "Menginisialisasi…",
+      "cancel": "Batal"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Host ini tidak memiliki alamat MAC yang valid.",
+    "thisBuildCanTSend": "Versi ini tidak dapat mengirim paket Wake-on-LAN.",
+    "couldNotSendThePacket": "Tidak dapat mengirim paket. Pastikan Wi-Fi menyala."
+  },
+  "common": {
+    "hostCount_other": "{{count}} host",
+    "device": {
+      "phone": "ponsel",
+      "tablet": "tablet"
+    },
+    "thisDeviceLower": "{{deviceWord}} ini"
+  },
+  "hostAccess": {
+    "title": "Berbagi",
+    "action": "Bagikan dengan orang lain",
+    "levels": {
+      "connect": "Hubungkan",
+      "view": "Lihat",
+      "edit": "Edit",
+      "manage": "Kelola"
+    },
+    "levelHints": {
+      "connect": "Hanya membuka sesi. Pengaturan host tetap tersembunyi",
+      "view": "Hubungkan, plus lihat pengaturan host. Rahasia tidak pernah ditampilkan",
+      "edit": "Lihat, plus ubah pengaturan selain login",
+      "manage": "Edit, plus bagikan host dan ubah atau hapus akses"
+    },
+    "until": "sampai {{date}}",
+    "sharedBy": "oleh {{name}}",
+    "couldNotLoad": "Tidak dapat memuat siapa yang memiliki akses",
+    "shared": "Host dibagikan",
+    "couldNotShare": "Tidak dapat membagikan host",
+    "updated": "Akses diubah",
+    "couldNotUpdate": "Tidak dapat mengubah akses",
+    "removeTitle": "Hapus {{name}}?",
+    "removeHint": "Mereka tidak dapat lagi menggunakan host ini.",
+    "remove": "Hapus",
+    "removed": "Akses dihapus",
+    "couldNotRemove": "Tidak dapat menghapus akses",
+    "whoHasAccess": "Siapa yang memiliki akses",
+    "loading": "Memuat...",
+    "nobodyYet": "Hanya Anda yang dapat menggunakan host ini.",
+    "changeAccessFor": "Ubah akses untuk {{name}}",
+    "shareWith": "Bagikan dengan",
+    "users": "Pengguna",
+    "roles": "Peran",
+    "searchUsers": "Cari pengguna",
+    "searchRoles": "Cari peran",
+    "noUsers": "Tidak ada pengguna lain untuk dibagikan.",
+    "noRoles": "Tidak ada peran untuk dibagikan.",
+    "options": "Akses",
+    "level": "Tingkat",
+    "expires": "Berakhir",
+    "expiry": {
+      "never": "Tidak pernah",
+      "1h": "Dalam 1 jam",
+      "1d": "Dalam 1 hari",
+      "7d": "Dalam 7 hari",
+      "30d": "Dalam 30 hari"
+    },
+    "pickSomeone": "Pilih siapa yang akan dibagikan",
+    "shareCount_other": "Bagikan dengan {{count}}",
+    "removeAccess": "Hapus akses"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Peringatan server",
+      "critical": "Peringatan server kritis"
+    },
+    "severity": {
+      "info": "Semua",
+      "warning": "Peringatan dan yang lebih parah",
+      "critical": "Hanya kritis"
+    },
+    "settings": {
+      "on": "Peringatan muncul di ponsel ini",
+      "off": "Mati",
+      "toggle": "Notifikasi push untuk {{server}}",
+      "minSeverity": "Kirimkan saya",
+      "denied": "Notifikasi dimatikan untuk Termix. Aktifkan di pengaturan ponsel.",
+      "openSettings": "Buka pengaturan",
+      "outdated": "Server ini memerlukan Alerts 1.4.0 atau lebih baru untuk notifikasi push. Minta admin untuk memperbarui plugin.",
+      "unavailable": "Masuk ke server ini dan aktifkan plugin Alerts untuk mendapatkan notifikasi.",
+      "error": "Tidak dapat menghubungi server. Termix akan mencoba lagi saat aplikasi dibuka berikutnya.",
+      "notInThisBuild": "Build ini tidak dapat menampilkan notifikasi.",
+      "noServers": "Hubungkan server untuk mendapatkan peringatannya di sini.",
+      "pushHint": "Peringatan dikirim melalui Expo dan Apple atau Google, dengan judul dan teksnya. Pilih mana yang akan dikirim di aturan Alerts di server.",
+      "pollHint": "Build ini tidak memiliki layanan Google, jadi Termix memeriksa peringatan baru di latar belakang, sekitar setiap 15 menit."
+    }
+  }
+}

@@ -9,6 +9,7 @@ import {
   type ImportFile,
   type ImportRow,
 } from "./termix-json";
+import { t } from "@/i18n";
 
 export interface ImportResult {
   created: number;
@@ -37,7 +38,7 @@ export function importSummary(result: ImportResult): string {
 export function rowsFromSshConfig(content: string): ImportFile {
   const hosts = parseSshConfig(content);
   if (hosts.length === 0) {
-    throw new Error("No valid Host entries found in the SSH config file");
+    throw new Error(t("hosts.transfer.import.noValidHostEntriesFound"));
   }
   const rows: ImportRow[] = [];
   const errors: string[] = [];
@@ -48,7 +49,7 @@ export function rowsFromSshConfig(content: string): ImportFile {
   for (const host of hosts) {
     const port = host.port ?? 22;
     if (!isValidPort(port)) {
-      errors.push(`Host "${host.name}": bad port`);
+      errors.push(t("hosts.transfer.import.hostBadPort", { name: host.name }));
       continue;
     }
     const hops = host.proxyJump.map(parseHop);
@@ -77,7 +78,10 @@ export function rowsFromSshConfig(content: string): ImportFile {
     const jumpsOutside = hops.filter((hop) => !known.has(hop.host));
     if (jumpsOutside.length) {
       errors.push(
-        `Host "${host.name}": jump ${jumpsOutside.map((h) => h.host).join(", ")} is not in the file, so it was left out`,
+        t("hosts.transfer.import.hostJumpIsNotIn", {
+          name: host.name,
+          value: jumpsOutside.map((h) => h.host).join(", "),
+        }),
       );
     }
   }
@@ -194,7 +198,12 @@ async function ensureCredentials(
       aliases.set(wantedCredential.alias.toLowerCase(), made.id);
       aliases.set(wantedCredential.name.toLowerCase(), made.id);
     } catch (error) {
-      errors.push(`Credential ${wantedCredential.name}: ${message(error)}`);
+      errors.push(
+        t("hosts.transfer.import.credential", {
+          name: wantedCredential.name,
+          error: message(error),
+        }),
+      );
     }
   }
   return aliases;
@@ -252,7 +261,10 @@ export async function importHosts(
           else {
             result.failed++;
             result.errors.push(
-              `${label}: credential ${row.credentialAlias ?? ""} was not found`,
+              t("hosts.transfer.import.credentialWasNotFound", {
+                label,
+                value: row.credentialAlias ?? "",
+              }),
             );
             continue;
           }

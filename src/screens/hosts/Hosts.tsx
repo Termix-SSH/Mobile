@@ -10,7 +10,6 @@ import {
 import { useLocalSearchParams, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-  AlertTriangle,
   ArrowUpDown,
   Check,
   Download,
@@ -73,7 +72,11 @@ import {
 } from "@/core/host-list-prefs";
 import { useHostsData } from "@/screens/hosts/useHostsData";
 import { useOpenHost } from "@/screens/hosts/useOpenHost";
-import { AccountButton, SearchButton } from "@/screens/shell/AppHeader";
+import {
+  AccountButton,
+  NotificationsButton,
+  SearchButton,
+} from "@/screens/shell/AppHeader";
 import type { SSHHost } from "@/types";
 import {
   Button,
@@ -92,16 +95,17 @@ import {
 import { isSshHost } from "@/utils/hosts";
 import { useDebouncedValue, useStableCallback } from "@/utils/hooks";
 import { toast } from "@/utils/toast";
+import { t as tr } from "@/i18n";
 
 const SORT_OPTIONS: { id: SortKey; label: string }[] = [
-  { id: "default", label: "Default (your order)" },
-  { id: "name-asc", label: "Name (A-Z)" },
-  { id: "name-desc", label: "Name (Z-A)" },
-  { id: "ip-asc", label: "IP (ascending)" },
-  { id: "ip-desc", label: "IP (descending)" },
-  { id: "status-online", label: "Online first" },
-  { id: "status-offline", label: "Offline first" },
-  { id: "pinned", label: "Pinned first" },
+  { id: "default", label: tr("hosts.defaultYourOrder") },
+  { id: "name-asc", label: tr("hosts.nameAZ") },
+  { id: "name-desc", label: tr("hosts.nameZA") },
+  { id: "ip-asc", label: tr("hosts.ipAscending") },
+  { id: "ip-desc", label: tr("hosts.ipDescending") },
+  { id: "status-online", label: tr("hosts.onlineFirst") },
+  { id: "status-offline", label: tr("hosts.offlineFirst") },
+  { id: "pinned", label: tr("hosts.pinnedFirst") },
 ];
 
 const FILTER_GROUPS: {
@@ -111,24 +115,23 @@ const FILTER_GROUPS: {
 }[] = [
   {
     group: "status",
-    title: "Status",
+    title: tr("hosts.status"),
     options: [
-      { value: "online", label: "Online" },
-      { value: "offline", label: "Offline" },
-      { value: "pinned", label: "Pinned" },
+      { value: "online", label: tr("hosts.online") },
+      { value: "offline", label: tr("hosts.offline") },
+      { value: "pinned", label: tr("hosts.pinned") },
     ],
   },
   {
     group: "protocol",
-    title: "Protocol",
+    title: tr("hosts.protocol"),
     options: [{ value: "ssh", label: "SSH" }],
   },
-  { group: "features", title: "Features", options: [] },
+  { group: "features", title: tr("hosts.features"), options: [] },
 ];
 
 const NO_SELECTION = new Set<number>();
-const refusedDrop = () =>
-  toast.error("Hosts can only move inside their own folder");
+const refusedDrop = () => toast.error(tr("hosts.hostsCanOnlyMoveInside"));
 
 const STORAGE_SORT = "hostSortKey";
 const STORAGE_FILTER = "hostFilterState";
@@ -375,12 +378,12 @@ export default function Hosts() {
       if (own.length) await run(own.map((h) => h.id));
       toast.success(
         skipped
-          ? `${done}. ${skipped} shared ${skipped === 1 ? "host was" : "hosts were"} left as they are.`
+          ? tr("hosts.sharedLeftAsTheyAre", { done, count: skipped })
           : done,
       );
       setSelected(null);
     } catch (e: any) {
-      toast.error(e?.message || "Could not update the hosts");
+      toast.error(e?.message || tr("hosts.couldNotUpdateTheHosts"));
     }
   };
 
@@ -394,7 +397,9 @@ export default function Hosts() {
     setMoving(false);
     void onOwn(
       (ids) => repos.hosts.bulkUpdate(ids, { folder }),
-      folder.trim() ? `Moved to ${folder.trim()}` : "Moved out of folders",
+      folder.trim()
+        ? tr("hosts.movedTo", { value: folder.trim() })
+        : tr("hosts.movedOutOfFolders"),
     );
   };
 
@@ -403,23 +408,23 @@ export default function Hosts() {
     const parent = hosts.find((h) => h.id === parentHostId);
     void onOwn(
       (ids) => repos.hosts.bulkUpdate(ids, { parentHostId }),
-      `Moved under ${parent?.name ?? "the host"}`,
+      tr("hosts.movedUnder", { value: parent?.name ?? tr("hosts.theHost") }),
     );
   };
 
   const bulkDelete = async () => {
     const own = selectedHosts.filter((h) => !h.shared);
     if (own.length === 0) {
-      toast.error("Shared hosts can't be deleted here");
+      toast.error(tr("hosts.sharedHostsCanTBe"));
       return;
     }
     const ok = await confirm({
-      title: `Delete ${own.length} ${own.length === 1 ? "host" : "hosts"}?`,
+      title: tr("hosts.deleteHosts", { count: own.length }),
       description: own
         .slice(0, 5)
         .map((h) => h.name)
         .join(", "),
-      confirmLabel: "Delete",
+      confirmLabel: tr("hosts.delete2"),
     });
     if (!ok) return;
     await onOwn(async (ids) => {
@@ -430,7 +435,7 @@ export default function Hosts() {
   const bulkOpen = async () => {
     const ssh = selectedHosts.filter(isSshHost).slice(0, BULK_OPEN_LIMIT);
     if (ssh.length === 0) {
-      toast.error("None of these hosts open a terminal");
+      toast.error(tr("hosts.noneOfTheseHostsOpen"));
       return;
     }
     setSelected(null);
@@ -452,16 +457,16 @@ export default function Hosts() {
     try {
       await repos.hosts.bulkUpdate([host.id], { pin: !host.pin });
     } catch (e: any) {
-      toast.error(e?.message || "Could not pin the host");
+      toast.error(e?.message || tr("hosts.couldNotPinTheHost"));
     }
   };
 
   const handleDelete = async (host: SSHHost) => {
     try {
       await repos.hosts.remove(host.id);
-      toast.success(`Deleted ${host.name}`);
+      toast.success(tr("hosts.deleted", { name: host.name }));
     } catch (e: any) {
-      toast.error(e?.message || "Failed to delete host");
+      toast.error(e?.message || tr("hosts.failedToDeleteHost"));
     }
   };
 
@@ -510,9 +515,9 @@ export default function Hosts() {
         statsConfig: host.statsConfig,
         terminalConfig: host.terminalConfig,
       } as any);
-      toast.success(`Cloned ${host.name}`);
+      toast.success(tr("hosts.cloned", { name: host.name }));
     } catch (e: any) {
-      toast.error(e?.message || "Failed to clone host");
+      toast.error(e?.message || tr("hosts.failedToCloneHost"));
     }
   };
 
@@ -545,9 +550,7 @@ export default function Hosts() {
   const startReorder = () => {
     setSheet(null);
     if (sortKey !== "default" || q || isFilterActive) {
-      toast.error(
-        "Reorder works with the Default sort and no search or filter",
-      );
+      toast.error(tr("hosts.reorderWorksWithTheDefault"));
       return;
     }
     setSelected(null);
@@ -558,7 +561,7 @@ export default function Hosts() {
     try {
       await repos.hosts.reorder(positions);
     } catch (e: any) {
-      toast.error(e?.message || "Could not save the order");
+      toast.error(e?.message || tr("hosts.couldNotSaveTheOrder"));
     }
   };
 
@@ -569,8 +572,8 @@ export default function Hosts() {
   const emptyList = noHosts ? (
     <EmptyState
       icon={Server}
-      title="No hosts yet"
-      hint="Add a host to connect to it with one tap."
+      title={tr("hosts.noHostsYet")}
+      hint={tr("hosts.addAHostToConnect")}
       action={
         <View className="items-center gap-2">
           <Button
@@ -578,7 +581,7 @@ export default function Hosts() {
             onPress={openCreate}
             icon={<Plus size={15} color={color("accent-brand")} />}
           >
-            Add host
+            {tr("hosts.addHost")}
           </Button>
           {canQuickConnect ? (
             <Button
@@ -586,7 +589,7 @@ export default function Hosts() {
               variant="muted"
               onPress={() => setQuickConnectOpen(true)}
             >
-              Quick connect
+              {tr("hosts.quickConnect2")}
             </Button>
           ) : null}
           {importLink ? (
@@ -604,7 +607,7 @@ export default function Hosts() {
             variant="ghost"
             onPress={() => openAuthFlow("server")}
           >
-            Link a server
+            {tr("hosts.linkAServer")}
           </Button>
         </View>
       }
@@ -612,7 +615,7 @@ export default function Hosts() {
   ) : (
     <EmptyState
       icon={Search}
-      title="No hosts match"
+      title={tr("hosts.noHostsMatch")}
       action={
         <Button
           size="sm"
@@ -622,7 +625,7 @@ export default function Hosts() {
             saveFilters(DEFAULT_FILTERS);
           }}
         >
-          Clear search and filters
+          {tr("hosts.clearSearchAndFilters")}
         </Button>
       }
     />
@@ -632,34 +635,6 @@ export default function Hosts() {
     <View className="gap-2 pb-2">
       <ServerReachBanner />
       <SyncBanner />
-      {data.alerts.map((alert) => (
-        <View
-          key={alert.id}
-          className="flex-row items-start gap-2 border border-border bg-card p-3"
-        >
-          <AlertTriangle
-            size={15}
-            color={color("accent-brand")}
-            style={{ marginTop: 1 }}
-          />
-          <View className="flex-1">
-            <Text weight="medium" className="text-sm text-foreground">
-              {alert.title}
-            </Text>
-            <Text className="mt-0.5 text-xs text-muted-foreground">
-              {alert.message}
-            </Text>
-          </View>
-          <Pressable
-            onPress={() => data.dismissAlert(alert.id)}
-            hitSlop={8}
-            accessibilityLabel="Dismiss"
-            className="p-0.5 active:bg-muted/40"
-          >
-            <X size={14} color={muted} />
-          </Pressable>
-        </View>
-      ))}
     </View>
   );
 
@@ -683,12 +658,13 @@ export default function Hosts() {
       }
       headerRight={
         <View className="flex-row items-center gap-1">
+          <NotificationsButton />
           <SearchButton />
           {canQuickConnect ? (
             <Button
               variant="ghost"
               size="icon"
-              accessibilityLabel="Quick connect"
+              accessibilityLabel={tr("hosts.quickConnect2")}
               onPress={() => setQuickConnectOpen(true)}
               icon={<Zap size={18} color={muted} />}
             />
@@ -696,14 +672,14 @@ export default function Hosts() {
           <Button
             variant="ghost"
             size="icon"
-            accessibilityLabel="Add host"
+            accessibilityLabel={tr("hosts.addHost")}
             onPress={openCreate}
             icon={<Plus size={20} color={muted} />}
           />
           <Button
             variant="ghost"
             size="icon"
-            accessibilityLabel="More"
+            accessibilityLabel={tr("hosts.more")}
             onPress={() => setSheet("more")}
             icon={<MoreVertical size={18} color={muted} />}
           />
@@ -714,10 +690,10 @@ export default function Hosts() {
         <View className="flex-row items-center gap-2 border-b border-border bg-card px-3 py-2">
           <GripVertical size={15} color={muted} />
           <Text className="flex-1 text-xs text-muted-foreground">
-            Drag a host by its grip to move it inside its folder.
+            {tr("hosts.dragAHostByIts")}
           </Text>
           <Button size="sm" onPress={() => setReorder(false)}>
-            Done
+            {tr("hosts.done")}
           </Button>
         </View>
       ) : (
@@ -725,7 +701,7 @@ export default function Hosts() {
           <View className="flex-row items-center gap-1.5">
             <Input
               containerClassName="flex-1"
-              placeholder="Filter hosts"
+              placeholder={tr("hosts.filterHosts")}
               value={searchQuery}
               onChangeText={setSearchQuery}
               autoCapitalize="none"
@@ -736,7 +712,7 @@ export default function Hosts() {
                   <Pressable
                     onPress={() => setSearchQuery("")}
                     hitSlop={8}
-                    accessibilityLabel="Clear filter text"
+                    accessibilityLabel={tr("hosts.clearFilterText")}
                   >
                     <X size={15} color={muted} />
                   </Pressable>
@@ -746,7 +722,7 @@ export default function Hosts() {
             <Button
               variant="muted"
               size="icon-field"
-              accessibilityLabel="Filter hosts"
+              accessibilityLabel={tr("hosts.filterHosts")}
               onPress={() => setSheet("filter")}
               icon={
                 <Filter
@@ -758,7 +734,7 @@ export default function Hosts() {
             <Button
               variant="muted"
               size="icon-field"
-              accessibilityLabel="Sort hosts"
+              accessibilityLabel={tr("hosts.sortHosts")}
               onPress={() => setSheet("sort")}
               icon={
                 <ArrowUpDown
@@ -778,7 +754,9 @@ export default function Hosts() {
                 <Pressable
                   key={`${group}:${value}`}
                   onPress={() => toggleFilter(group, value)}
-                  accessibilityLabel={`Remove filter ${filterLabel(group, value)}`}
+                  accessibilityLabel={tr("hosts.removeFilter", {
+                    value: filterLabel(group, value),
+                  })}
                   className="flex-row items-center gap-1 border border-border bg-muted/30 px-2 py-1 active:bg-muted"
                 >
                   <Text className="text-[11px] text-foreground">
@@ -796,7 +774,7 @@ export default function Hosts() {
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color={color("accent-brand")} />
           <Text className="mt-3 text-sm text-muted-foreground">
-            Loading hosts…
+            {tr("hosts.loadingHosts")}
           </Text>
         </View>
       ) : (
@@ -855,7 +833,7 @@ export default function Hosts() {
 
       <ParentHostSheet
         visible={nesting}
-        title="Move under a host"
+        title={tr("hosts.moveUnderAHost")}
         hosts={hosts}
         moving={selectedHosts.filter((h) => !h.shared).map((h) => h.id)}
         onPick={bulkNest}
@@ -864,10 +842,10 @@ export default function Hosts() {
 
       <PromptSheet
         visible={moving}
-        title="Move to folder"
-        description="Leave it empty to take the hosts out of folders."
-        placeholder="Folder, like Prod / Web"
-        confirmLabel="Move"
+        title={tr("hosts.moveToFolder")}
+        description={tr("hosts.leaveItEmptyToTake")}
+        placeholder={tr("hosts.folderLikeProdWeb")}
+        confirmLabel={tr("hosts.move")}
         validate={() => true}
         onSubmit={bulkMove}
         onCancel={() => setMoving(false)}
@@ -876,11 +854,11 @@ export default function Hosts() {
       <Sheet
         visible={sheet === "more"}
         onClose={() => setSheet(null)}
-        title="Hosts"
+        title={tr("hosts.hosts")}
       >
         <SheetRow
           icon={<ListChecks size={18} color={color("foreground")} />}
-          label="Select hosts"
+          label={tr("hosts.selectHosts")}
           onPress={() => {
             setSheet(null);
             setReorder(false);
@@ -889,19 +867,19 @@ export default function Hosts() {
         />
         <SheetRow
           icon={<GripVertical size={18} color={color("foreground")} />}
-          label="Reorder hosts"
+          label={tr("hosts.reorderHosts")}
           onPress={startReorder}
         />
         <SheetRow
           icon={<SlidersHorizontal size={18} color={color("foreground")} />}
-          label="Customize list"
-          description="Choose what each host row shows"
+          label={tr("hosts.customizeList")}
+          description={tr("hosts.chooseWhatEachHostRow")}
           onPress={() => setSheet("customize")}
         />
         <SheetRow
           icon={<KeyRound size={18} color={color("foreground")} />}
-          label="Credentials"
-          description="Saved passwords and keys"
+          label={tr("hosts.credentials2")}
+          description={tr("hosts.savedPasswordsAndKeys")}
           onPress={() => {
             setSheet(null);
             setCredentialListOpen(true);
@@ -910,7 +888,7 @@ export default function Hosts() {
         {tailscaleAvailable ? (
           <SheetRow
             icon={<Radar size={18} color={color("foreground")} />}
-            label="Tailscale devices"
+            label={tr("hosts.tailscaleDevices")}
             onPress={() => {
               setSheet(null);
               pendingTailscaleFormRef.current = false;
@@ -920,7 +898,7 @@ export default function Hosts() {
         ) : null}
         <SheetRow
           icon={<RefreshCw size={18} color={color("foreground")} />}
-          label="Refresh"
+          label={tr("hosts.refresh")}
           onPress={() => {
             setSheet(null);
             data.refresh();
@@ -931,7 +909,7 @@ export default function Hosts() {
       <Sheet
         visible={sheet === "customize"}
         onClose={() => setSheet(null)}
-        title="Customize list"
+        title={tr("hosts.customizeList")}
         scroll
       >
         <SheetBody className="gap-0">
@@ -951,7 +929,7 @@ export default function Hosts() {
             </SettingRow>
           ))}
           <Text className="pt-3 text-meta text-muted-foreground">
-            Row density follows Settings, Appearance.
+            {tr("hosts.rowDensityFollowsSettingsAppearance")}
           </Text>
         </SheetBody>
       </Sheet>
@@ -959,7 +937,7 @@ export default function Hosts() {
       <Sheet
         visible={sheet === "sort"}
         onClose={() => setSheet(null)}
-        title="Sort hosts"
+        title={tr("hosts.sortHosts")}
         scroll
       >
         {SORT_OPTIONS.map((opt) => (
@@ -979,13 +957,13 @@ export default function Hosts() {
       <Sheet
         visible={sheet === "filter"}
         onClose={() => setSheet(null)}
-        title="Filter hosts"
+        title={tr("hosts.filterHosts")}
         scroll
       >
         {isFilterActive ? (
           <SheetRow
             icon={<X size={18} color={color("accent-brand")} />}
-            label="Clear all filters"
+            label={tr("hosts.clearAllFilters")}
             onPress={() => saveFilters(DEFAULT_FILTERS)}
           />
         ) : null}
@@ -995,7 +973,7 @@ export default function Hosts() {
             ? [
                 {
                   group: "tags" as const,
-                  title: "Tags",
+                  title: tr("hosts.tags"),
                   options: allTags.map((t) => ({ value: t, label: t })),
                 },
               ]
@@ -1094,22 +1072,30 @@ function SelectionBar({
       <Button
         variant="ghost"
         size="icon"
-        accessibilityLabel="Stop selecting"
+        accessibilityLabel={tr("hosts.stopSelecting")}
         onPress={onCancel}
         icon={<X size={18} color={fg} />}
       />
       <Text weight="medium" className="flex-1 text-sm text-foreground">
-        {count} selected
+        {tr("hosts.selected", { count })}
       </Text>
       {action(
-        "Open terminals",
+        tr("hosts.openTerminals"),
         <SquareTerminal size={18} color={fg} />,
         onOpen,
       )}
       {action("Pin", <Pin size={18} color={fg} />, onPin)}
       {action("Unpin", <PinOff size={18} color={fg} />, onUnpin)}
-      {action("Move to folder", <FolderInput size={18} color={fg} />, onMove)}
-      {action("Move under a host", <ListTree size={18} color={fg} />, onNest)}
+      {action(
+        tr("hosts.moveToFolder"),
+        <FolderInput size={18} color={fg} />,
+        onMove,
+      )}
+      {action(
+        tr("hosts.moveUnderAHost"),
+        <ListTree size={18} color={fg} />,
+        onNest,
+      )}
       {action(
         "Delete",
         <Trash2 size={18} color={color("destructive")} />,

@@ -5,6 +5,7 @@ import {
   shortcutSheet,
   useShortcutSheetOpen,
 } from "@/core/shortcuts";
+import { t } from "@/i18n";
 
 /** Every keyboard shortcut in one list. Opens with Cmd / or from Settings. */
 export function ShortcutSheet() {
@@ -13,7 +14,7 @@ export function ShortcutSheet() {
     <Sheet
       visible={visible}
       onClose={shortcutSheet.close}
-      title="Keyboard shortcuts"
+      title={t("shortcuts.shortcutSheet.keyboardShortcuts")}
       scroll
     >
       {shortcutSections().map((section) => (

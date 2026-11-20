@@ -1,0 +1,3874 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Teken aan",
+      "addServer": "Voeg bediener by",
+      "switchAccount": "Wissel rekening",
+      "noServerConnected": "Geen bediener gekoppel nie",
+      "connectToATermixServer": "Koppel aan 'n Termix-bedienaar om jou gasheer, terminale, lêers en meer te bestuur."
+    },
+    "lockScreen": {
+      "cancel": "Kanselleer",
+      "tooManyTriesWaitSeconds": "Te veel pogings. Wag {{value}} sekondes",
+      "termixLocked": "Termix Gesluit",
+      "enterYourPinToContinue": "Voer jou PIN in om voort te gaan"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oranje",
+      "blue": "Blou",
+      "green": "Groen",
+      "purple": "Pers",
+      "pink": "Roos",
+      "cyan": "Siaan",
+      "red": "Rooi",
+      "yellow": "Geel",
+      "teal": "Teal",
+      "indigo": "Indigo",
+      "rose": "Roos",
+      "lime": "Limoen",
+      "system": "Stelsel",
+      "light": "Lig",
+      "dark": "Donker"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Gebruik PIN",
+      "unlockTermix": "Ontsluit Termix",
+      "unlockTermixFirst": "Ontsluit eers Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Hierdie funksie is op die bediener afgeskakel.",
+      "aTabWasNotReopened": "'n Oortjie is nie heropen nie omdat die gasheer weg is",
+      "tabsWereNotReopenedBecause": "Die {{count}} oortjies is nie heropen nie omdat hul gasheerbedieners weg is"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Koppel 'n Termix-bedienaar om dit te gebruik",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Voer jou bediener se adres in",
+        "theAddressCanTHave": "Die adres mag nie spasies hê nie",
+        "useAnHttpOrHttps": "Gebruik 'n http:// of https://-adres",
+        "thatDoesnTLookLike": "Dit lyk nie soos 'n bedieneradres nie",
+        "thePortMustBeFrom": "Die poort moet tussen 1 en 65535 wees"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "'n Aanmeldproxy het geantwoord in plaas van Termix. Teken eers by die proxy aan.",
+        "theServerDidNotSend": "Die bediener het nie 'n teken gestuur nie.",
+        "theServerDidNotSend2": "Die bediener het nie 'n sessie gestuur nie.",
+        "theServerSentNoSign": "Die bediener het geen aanmeldadres gestuur nie.",
+        "theSignInRanOut": "Die aanmeld het verval of is reeds gebruik. Teken weer aan.",
+        "wrongUsernameOrPassword": "Verkeerde gebruikersnaam of wagwoord",
+        "signInFailedHttp": "Aanmeld het misluk (HTTP {{status}})",
+        "thePageSignedYouIn": "Die bladsy het jou aangemeld, maar geen sessie teruggestuur nie. Werk die bediener op na Termix 26.11.3 of nuwer.",
+        "thisAccountIsnTAllowed": "Hierdie rekening mag nie hier aanmeld nie.",
+        "noTermixAccountMatchesThat": "Geen Termix-rekening stem ooreen met daardie aanmeld nie."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Hierdie sessie het geen bediener nie"
+    },
+    "store": {
+      "noSuchAccount": "Geen sulke rekening nie",
+      "thisDeviceCanTBe": "Hierdie toestel kan nie verwyder word nie",
+      "switchToAnotherAccountFirst": "Wissel eers na 'n ander rekening"
+    },
+    "types": {
+      "thisDevice": "Hierdie toestel"
+    },
+    "accountSwitcher": {
+      "error": "Fout",
+      "worksWithoutAServer": "Werk sonder 'n bediener",
+      "couldNotSwitchAccount": "Kon nie rekening wissel nie",
+      "accounts": "Rekeninge",
+      "openTabsKeepRunningWhen": "Oop oortjies bly loop wanneer jy wissel.",
+      "unlink": "Ontkoppel {{account}}",
+      "linkAServer": "Koppel 'n bediener",
+      "eachServerKeepsItsOwn": "Elke bediener hou sy eie gasheer, geloofsbriewe en instellings op hierdie {{deviceWord}}.",
+      "signedIn": "Aangemeld",
+      "signedOut": "Uitgelog",
+      "syncedCopy": "Geskikde kopie"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Kon die pin nie stoor nie",
+      "theServerSKeyMatches": "Die bediener se sleutel stem ooreen met die pin",
+      "theServerShowsAnotherKey": "Die bediener wys 'n ander sleutel",
+      "pinThisKey": "Pin hierdie sleutel?",
+      "pinThisKey2": "Pin hierdie sleutel",
+      "keyPinned": "Sleutel gepin",
+      "couldNotReadTheServer": "Kon die bediener se sleutel nie lees nie",
+      "thatIsNotAPin": "Dit is nie 'n pin nie",
+      "keysPinned": "Sleutels gepin",
+      "certificatePin": "Sertifikaatpin",
+      "trustThisServerOnlyBy": "Vertrou hierdie bediener slegs deur sy sleutel. Gebruik dit vir 'n self-ondertekende sertifikaat, of om enige ander sleutel te weier. Voeg die volgende sleutel by voordat jy die bediener se sertifikaat verander.",
+      "removePin": "Verwyder pin {{pin}}",
+      "remove": "Verwyder",
+      "readTheKeyFromThe": "Lees die sleutel van die bediener",
+      "orPasteAPin": "Of plak 'n pin",
+      "pin": "Pin",
+      "add": "Voeg by",
+      "issuedTo": "Uitgereik aan: {{subject}}",
+      "issuedBy": "Uitgereik deur: {{issuer}}",
+      "validUntil": "Geldig tot: {{value}}",
+      "checkThatThisKeyMatches": "Kontroleer dat hierdie sleutel ooreenstem met die een op jou bediener voordat jy dit pin.",
+      "pasteTheBase64Sha256Of": "Plak die base64 sha256 van die bediener se openbare sleutel, soos openssl dit druk."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Proxy-instellings gestoor",
+      "couldNotSaveTheProxy": "Kon die proxy-instellings nie stoor nie",
+      "couldNotReadThatFile": "Kon daardie lêer nie lees nie",
+      "certificateSaved": "Sertifikaat gestoor",
+      "theFileOrItsPassphrase": "Die lêer of sy wagwoord is verkeerd",
+      "couldNotSaveTheCertificate": "Kon die sertifikaat nie stoor nie",
+      "headers": "Koppe",
+      "sentWithEveryRequestTo": "Saam met elke versoek aan hierdie bediener gestuur, soos 'n Cloudflare-diens token.",
+      "name": "Naam",
+      "value": "Waarde",
+      "removeHeader": "Verwyder kop",
+      "addHeader": "Voeg kop by",
+      "cloudflareServiceToken": "Cloudflare-diens token",
+      "basicAuth": "Basiese outentisering",
+      "forAProxyThatAsks": "Vir 'n proxy wat om 'n gebruikersnaam en wagwoord vra.",
+      "userName": "Gebruikersnaam",
+      "password": "Wagwoord",
+      "saveHeadersAndBasicAuth": "Stoor koppe en basiese outentisering",
+      "clientCertificate": "Kliëntsertifikaat",
+      "forServersThatAskFor": "Vir bedieners wat daarom vra (mTLS). Die sleutel word in die {{deviceWord}} se veilige stoorplek gehou en kan nie teruggelees word nie.",
+      "certificate": "Sertifikaat",
+      "remove": "Verwyder",
+      "replaceCertificate": "Vervang sertifikaat",
+      "pickAP12OrPfx": "Kies 'n .p12 of .pfx-lêer",
+      "proxySignIn": "Proxy-aanmelding",
+      "thisIsSignedInTo": " Hierdie {{deviceWord}} is aangemeld by die proxy.",
+      "forCloudflareAccessAutheliaAuthentik": "Vir Cloudflare Access, Authelia, Authentik en ander proxys met hul eie aanmeldbladsy.{{value}}",
+      "signInToTheProxy": "Meld aan by die proxy",
+      "forget": "Vergeet",
+      "certificatePassphrase": "Sertifikaatwagwoord",
+      "thePassphraseTheFileWas": "Die wagwoord waarmee die lêer gestoor is. Laat dit leeg as dit geen het nie.",
+      "passphrase": "Wagwoord",
+      "save": "Stoor"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Aangemeld by die proxy",
+      "couldNotSaveTheProxy": "Kon die proxy-aanmelding nie stoor nie",
+      "signInToTheProxy": "Meld aan by die proxy",
+      "thisBuildOfTheApp": "Hierdie bou van die toepassing kan nie 'n proxy-aanmelding handhaaf nie. Gebruik eerder 'n diens-token in die proxy-opskrifte."
+    },
+    "savedLoginRow": {
+      "signIn": "Meld aan",
+      "signInWith": "Meld aan met {{name}}",
+      "whenThisServerSignsYou": "Wanneer hierdie bediener jou afmeld, meld weer aan sonder om jou wagwoord in te tik."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Ontkoppel. {{copied}} items is op Hierdie toestel gehou.",
+      "unlinked": "Ontkoppel",
+      "couldNotUnlinkTheServer": "Kon nie die bediener ontkoppel nie",
+      "unlink": "Ontkoppel {{value}}?",
+      "thisSignsOutOfThe": "Hierdie {{deviceWord}} meld af van die bediener. Niks word op die bediener verwyder nie.",
+      "keepACopyOnThis": "Hou 'n kopie op Hierdie toestel",
+      "yourOwnHostsCredentialsAnd": "Jou eie gasheerbedieners, geloofsbriewe en fragmente beweeg na Hierdie toestel. Gasheerbedieners wat met jou gedeel word, word nie gehou nie.",
+      "deleteFromThis": "Verwyder van hierdie {{deviceWord}}",
+      "everythingThisHasForThe": "Alles wat hierdie {{deviceWord}} vir die bediener het, word verwyder."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Verander dit onder Proxy hieronder",
+      "updateTermixMobileFromYour": "Dateer Termix Mobile op vanaf jou toepassingswinkel"
+    },
+    "savedLogin": {
+      "signInToTermix": "Meld aan by Termix",
+      "faceUnlock": "gesig-ontsluiting"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Hierdie bou kan nie die bediener se vasgepyn sleutel toets of sy sertifikaat stuur nie."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Hierdie bediener ondersteun nie hierdie funksie nie",
+      "theProxyWantsYouTo": "Die proxy wil hê jy moet aanmeld",
+      "endpointNotAvailableOnThis": "Eindpunt nie beskikbaar op hierdie bediener nie",
+      "unknownError": "Onbekende fout"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Die proxy voor hierdie bediener wil hê jy moet weer aanmeld.",
+      "authenticationRequiredPleaseLogIn": "Verifikasie vereis. Meld asseblief weer aan.",
+      "accessDeniedYouDoNot": "Toegang geweier. Jy het nie toestemming om hierdie aksie uit te voer nie.",
+      "thisFeatureIsTurnedOff": "Hierdie funksie is op die bediener afgeskakel.",
+      "thisServerDoesNotSupport": "Hierdie bediener ondersteun nie hierdie funksie nie.",
+      "resourceNotFoundTheRequested": "Hulpbron nie gevind nie. Die versoekte item is dalk verwyder.",
+      "conflictTheResourceAlreadyExists": "Konflik. Die hulpbron bestaan reeds of is in gebruik.",
+      "validationErrorPleaseCheckYour": "Valideringsfout. Kontroleer asseblief jou invoer en probeer weer.",
+      "serverErrorOccurredPleaseTry": "Bedienerfout het voorgekom. Probeer asseblief later weer.",
+      "sslCertificateVerificationFailed": "SSL-sertifikaatverifikasie het misluk.",
+      "networkErrorPleaseCheckYour": "Netwerkfout. Kontroleer asseblief jou verbinding en probeer weer.",
+      "failedTo": "Het misluk om {{operation}}",
+      "unknownError": "Onbekende fout",
+      "unexpectedErrorDuring": "Onverwagte fout tydens {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Die toepassing kon nie HTTPS vir hierdie plaaslike IP vertrou nie. Pyn die bediener se sleutel onder Proxy en kliëntsertifikaat, gebruik 'n sertifikaat wat die {{deviceWord}} vertrou, of HTTP op 'n vertroude plaaslike of VPN-netwerk.",
+        "thisServerIsBehindA": "Hierdie bediener is agter 'n aanmeldproxy. Gebruik die eksterne aanmeldopsie in plaas daarvan.",
+        "loginFailed": "Aanmelding het misluk"
+      },
+      "files": {
+        "fileNotFound": "Lêer nie gevind nie",
+        "fileWriteOperationDidNot": "Lêerskryfoperasie het nie suksesstatus teruggegee nie",
+        "couldNot": "Kon nie {{operation}} nie ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Gasheerbediener gestoor, maar sommige instellings het misluk: {{value}}",
+        "unexpectedHostResponseFrom": "Onverwagte gasheerbedienerrespons van {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Lewende monster het misluk"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Geen antwoord nie"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Hierdie bediener het nie die sleutel getoon waaraan dit vasgepen is nie, dus is die bladsy nie oopgemaak nie."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Daardie {{what}} bestaan nie meer nie.",
+      "aHostCannotBeIts": "'n Gasheerbediener kan nie sy eie ouer wees nie",
+      "parentHostNotFound": "Ouer-gasheerbediener nie gevind nie",
+      "aHostCanTGo": "'n Gasheerbediener kan nie onder een van sy eie sub-gasheerbedieners gaan nie",
+      "thisIsSharedWithYou": "Hierdie {{what}} word met jou gedeel. Slegs die eienaar kan dit verander.",
+      "nameIsRequired": "Naam is vereis",
+      "nameAndCommandAreRequired": "Naam en opdrag is vereis",
+      "aFolderWithThatName": "'n Map met daardie naam bestaan"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Hierdie toestel kan nie {{what}} hier stoor nie."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Hierdie fragment word met jou gedeel en kan nie verander word nie."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Gebruik 'n wagwoordfrasie met ten minste 8 karakters.",
+      "thisIsNotATermix": "Hierdie is nie 'n Termix-terugvoerlêer nie.",
+      "thisBackupIsFromA": "Hierdie gelykstelling is van 'n nuwer weergawe van Termix. Werk die program eers op.",
+      "wrongPassphraseOrTheFile": "Verkeerde wagwoordfrase, of die lêer is beskadig."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Hierdie bou kan plaaslike data nie versleutel nie."
+    },
+    "keys": {
+      "unlockTermixFirst": "Ontsluit Termix eers.",
+      "thatIsNotADatabase": "Dit is nie 'n databasis-sleutel nie.",
+      "couldNotSaveTheDatabase": "Kon nie die databasis-sleutel stoor nie."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Hierdie data is deur 'n nuwer weergawe van Termix gestoor. Werk die program op om dit oop te maak."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Hierdie toestel sinkroniseer nie.",
+      "localDataIsNotAvailable": "Plaaslike data is nie hier beskikbaar nie.",
+      "unlockTermixFirst": "Ontsluit Termix eers."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Kan nie verbind nie.",
+      "thisWayCanTRun": "Hierdie manier kan nie opdragte uitvoer nie"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo-wagwoord",
+      "password": "Wagwoord",
+      "run": "Voer uit",
+      "thatPasswordWasWrong": "Daardie wagwoord was verkeerd.",
+      "onNeedsRoot": "{{reason}} op {{hostName}} benodig root.",
+      "needsRootForThis": "{{hostName}} benodig root vir dit.",
+      "itIsKeptUntilYou": "Dit word gehou totdat jy die program sluit."
+    },
+    "run": {
+      "theHostTookTooLong": "Die gasheer het te lank geneem om te antwoord",
+      "connectionLost": "Verbinding verlore"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Dit benodig root. Meld aan as root, stel wagwoordlose sudo in, of stoor 'n sudo-wagwoord vir die gasheer.",
+      "theSudoPasswordWasWrong": "Die sudo-wagwoord was verkeerd",
+      "commandFailed": "Opdrag het misluk"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet in die terminaal benodig 'n verbinding van die {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Eienskap {{id}} is reeds geregistreer"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adres",
+      "theIpOrHostName": "Die IP- of gasheernaam onder die naam",
+      "username": "Gebruikersnaam",
+      "theUserBeforeTheAddress": "Die gebruiker voor die adres",
+      "port": "Poort",
+      "thePortAfterTheAddress": "Die poort na die adres",
+      "hostIcon": "Gasheer-ikoon",
+      "theIconSetOnThe": "Die ikoon wat op die gasheer gestel is",
+      "pinIcon": "Speldikoon",
+      "marksPinnedHosts": "Merk gespeld gasheer",
+      "sharedBadge": "Gedeelde badge",
+      "marksHostsSharedWithYou": "Merk gasheer wat met jou gedeel is",
+      "protocolBadges": "Protokol-badges",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker en ander chips",
+      "tags": "Etikette",
+      "theHostSTags": "Die gasheer se etikette",
+      "cpuAndRam": "CPU en RAM",
+      "liveUsageBarsOnOnline": "Lewendige gebruiksbalkies op aanlyn gasheer",
+      "statusColors": "Statuskleure",
+      "greenBarWhenOnlineRed": "Groen balk wanneer aanlyn, rooi wanneer aflyn"
+    },
+    "uiPrefs": {
+      "small": "Klein",
+      "default": "Verstek",
+      "large": "Groot",
+      "comfortable": "Gerieflik",
+      "compact": "Kompak"
+    },
+    "errors": {
+      "somethingWentWrong": "Iets het verkeerd geloop"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Om 'n sleutel met 'n wagwoordfrase te sluit, benodig jy die Termix-program, nie 'n webvoorskou nie."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Dadelik",
+      "after15Seconds": "Na 15 sekondes",
+      "after1Minute": "Na 1 minuut",
+      "after5Minutes": "Na 5 minute"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Die toestelgeheim is weg",
+      "noSealedKey": "Geen versegelde sleutel nie",
+      "theSealedKeyIsDamaged": "Die versegelde sleutel is beskadig",
+      "wrongPin": "Verkeerde PIN",
+      "theSealedKeyDidNot": "Die verslote sleutel het nie oopgemaak nie",
+      "biometricsCanTOpenThe": "Biometrie kan die sleutel nie oopmaak nie"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Dateer die program op",
+      "onYourServerNeedsA": "{{name}} op jou bediener benodig 'n nuwer weergawe van Termix op hierdie {{deviceWord}}.",
+      "updateThePlugin": "Dateer die invoegtoepassing op",
+      "onYourServerIsToo": "{{name}} op jou bediener is te oud vir hierdie program. Vra 'n admin om dit op te dateer in Invoegtoepassings."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Geblokkeer deur die program",
+      "theAppDoesNotLet": "Die program laat nie invoegtoepassings toe om hierdie roete te gebruik nie.",
+      "thisBuildCanTReach": "Hierdie bou kan nie veilig na hierdie bediener verbind nie."
+    },
+    "support": {
+      "needsANewerVersionOf": "Benodig 'n nuwer weergawe van die program",
+      "updateThePluginOnThe": "Dateer die invoegtoepassing op die bediener op",
+      "theAppHasItsOwn": "Die program het sy eie voorkoms",
+      "notInTheAppYet": "Nog nie in die program nie",
+      "linkAServerToUse": "Koppel 'n bediener om dit te gebruik",
+      "opensInTheAppFrom": "Maak oop in die program vanaf die bediener",
+      "runsOnTheServer": "Draai op die bediener",
+      "throughTheServer": "Deur die bediener",
+      "inTheApp": "In die program",
+      "webView": "Webweergawe",
+      "onTheServer": "Op die bediener",
+      "appLook": "Programvoorkoms",
+      "notInTheApp": "Nie in die program nie",
+      "safeMode": "Veilige modus",
+      "notRunning": "Nie aan die loop nie",
+      "notInstalled": "Nie geïnstalleer nie",
+      "notOnThisServer": "Nie op hierdie bediener nie",
+      "thePluginIsNotInstalled": "Die invoegtoepassing is nie op hierdie bediener geïnstalleer nie.",
+      "turnedOffOnTheServer": "Afgeskakel op die bediener",
+      "itOpensHereAgainWhen": "Dit maak hier weer oop wanneer 'n admin dit aanskakel.",
+      "notRunningOnTheServer": "Nie aan die loop op die bediener nie",
+      "theServerIsInSafe": "Die bediener is in veilige modus, dus draai slegs voorkoms-invoegtoepassings.",
+      "thePluginDidNotStart": "Die invoegtoepassing het nie begin nie. 'n Admin kan dit in Invoegtoepassings kontroleer.",
+      "thisPluginIsNotAvailable": "Hierdie invoegtoepassing is nie beskikbaar nie",
+      "itIsNotMadeFor": "Dit is nie vir die program gemaak nie.",
+      "offOnThisServer": "af op hierdie bediener",
+      "notRunningOnThisServer": "nie aan die loop op hierdie bediener nie",
+      "notOnThisServer2": "nie op hierdie bediener nie",
+      "notInTheAppYet2": "Nog nie in die program nie | op hierdie bediener",
+      "worksOnThis": "Werk op hierdie {{deviceWord}}",
+      "andServer": "{{DeviceWord}} en bediener",
+      "deviceOnly": "Slegs {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Herlaai"
+    },
+    "pluginSettings": {
+      "loading": "Laai instellings",
+      "forEveryone": "Vir almal op die bediener",
+      "justForYou": "Net vir jou",
+      "couldNotSave": "Kon nie die instelling stoor nie",
+      "nothingYouCanChange": "Daar is niks hier wat jy kan verander nie. 'n Admin kan hierdie instellings verander.",
+      "notANumber": "Dit is nie 'n getal nie",
+      "atLeast": "Dit moet {{min}} of meer wees",
+      "atMost": "Dit moet {{max}} of minder wees"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Ontkoppel alles",
+      "showOpenSessions": "Wys oop sessies",
+      "termixShowsANotificationWhile": "Termix wys 'n kennisgewing terwyl sessies oop is, sodat Android hulle in die agtergrond laat loop.",
+      "sessionsOpen_one": "{{count}} sessie oop",
+      "sessionsOpen_other": "{{count}} sessies oop",
+      "tunnelsActive_one": "{{count}} tunnel aktief",
+      "tunnelsActive_other": "{{count}} tunnels aktief",
+      "notConnected": "Nie gekoppel nie",
+      "waitingForNetwork": "Wag vir netwerk",
+      "connecting": "Koppel tans",
+      "connected": "Gekoppel",
+      "reconnecting": "Herkoppel tans",
+      "failed": "Misluk",
+      "closed": "Gesluit"
+    },
+    "companionPane": {
+      "resizeThePanel": "Verander die grootte van die {{title}}-paneel"
+    },
+    "connectionsPanel": {
+      "close": "Maak toe",
+      "closeAllTabs": "Maak al {{count}} blaaie toe?",
+      "everySessionEnds": "Elke sessie eindig.",
+      "closeAll": "Maak alles toe",
+      "noActiveConnections": "Geen aktiewe verbindings nie",
+      "pickAHostFromThe": "Kies 'n gasheer uit die lys om 'n sessie te begin. Oop tabs op ander toestelle verskyn ook hier.",
+      "connectToAHostTo": "Maak 'n verbinding met 'n gasheer om 'n sessie te begin. Oop tabs op ander toestelle verskyn ook hier.",
+      "open": "Maak oop",
+      "background": "Agtergrond",
+      "sessionsFromOtherDevicesOr": "Sessies van ander toestelle of tabs in die agtergrond. Tik om te herstel.",
+      "liveTapToReconnect": "Lewend, tik om weer te verbind",
+      "tapToReopen": "Tik om weer oop te maak"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Hierdie is op die bediener afgeskakel",
+      "comesBackHereWhenAn": "{{title}} verskyn hier weer wanneer 'n bestuurder die invoegprogram weer inskakel.",
+      "closeTab": "Maak tab toe"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Verbindings",
+        "hideHostList": "Versteek gasheerlys",
+        "showHostList": "Wys gasheerlys",
+        "backToHosts": "Terug na gasheer",
+        "showKeyboard": "Wys toetsbord",
+        "hideKeyboard": "Versteek toetsbord",
+        "hideKeysPanel": "Versteek sleutelspaneel",
+        "showKeysPanel": "Wys sleutelspaneel"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Tik vir tabopsies, hou vas om te verskuif",
+        "holdToMove": "Hou vas om te verskuif",
+        "close": "Maak {{title}} toe"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Wag vir netwerk",
+        "connectionFailed": "Verbinding misluk",
+        "reconnecting": "Her verbind"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Hernoem",
+      "newTabOnThisHost": "Nuwe tab op hierdie gasheer",
+      "here": "{{title}} hier",
+      "hidePanel": "Versteek {{title}} paneel",
+      "showPanel": "Wys {{title}} paneel",
+      "endSplitView": "Beëindig gesplete aansig",
+      "splitViewWith": "Gesplete aansig met...",
+      "moveLeft": "Verskuif links",
+      "moveRight": "Verskuif regs",
+      "closeTab": "Maak tab toe",
+      "closeAllTabs": "Maak alle tabs toe",
+      "closeAllTabs2": "Maak alle {{count}} tabs toe?",
+      "everySessionEnds": "Elke sessie eindig.",
+      "closeAll": "Maak alles toe",
+      "splitViewWith2": "Gesplete aansig met",
+      "renameTab": "Hernoem tab",
+      "leaveItEmptyToUse": "Laat dit leeg om die gasheer se naam te gebruik."
+    },
+    "resizeHostList": "Verander grootte van gasheerlys",
+    "resizeSplitView": "Verander grootte van gesplete aansig",
+    "connections": "Verbindings",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Twee-faktor-verifikasie",
+        "enterThe6DigitCode": "Voer die 6-syfer kode in van jou verifikasie-toepassing.",
+        "cancel": "Kanselleer",
+        "verify": "Verifieer",
+        "codeExpiresInSGet": "Kode verval in {{totpCountdown}}s, kry 'n nuwe kode",
+        "warpgateAuthentication": "Warpgate-verifikasie",
+        "confirmTheWarpgateAuthenticationUrl": "Bevestig die Warpgate-verifikasie-URL en sekuriteitsleutel.",
+        "authenticate": "Verifieer",
+        "warpgateUrl": "Warpgate-URL",
+        "securityKeyOptional": "Sekuriteitsleutel (opsioneel)",
+        "authenticationRequired": "Verifikasie Vereis",
+        "thisHostNeedsCredentialsTo": "Hierdie gasheer vereis geloofsbriewe om te verbind.",
+        "connect": "Verbind",
+        "password": "Wagwoord",
+        "sshKey": "SSH-sleutel",
+        "pastePrivateKey": "Plak privaat sleutel",
+        "keyPassphraseOptional": "Sleutelwagwoord (opsioneel)"
+      },
+      "connectionError": {
+        "tryAgain": "Probeer weer",
+        "close": "Maak toe",
+        "connectThroughTheServer": "Maak verbinding deur die bediener",
+        "connectFromThis": "Maak verbinding vanaf hierdie {{deviceWord}}",
+        "triedFromThis": "Getoets vanaf hierdie {{deviceWord}}",
+        "triedThroughTheServer": "Getoets deur die bediener"
+      },
+      "execGate": {
+        "connecting": "Maak verbinding..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Iets het verkeerd geloop",
+        "retry": "Probeer weer",
+        "refresh": "Verfris",
+        "nothingToShow": "Niks om te wys nie"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Logboeke gekopieer",
+        "connectionLog": "Verbindingslogboek ({{count}})",
+        "copyLog": "Kopieer logboek",
+        "waitingForConnection": "Wag vir verbinding…",
+        "noLogEntries": "Geen logboekinskrywings nie"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Kon nie stoor hoe hierdie gasheer verbind nie"
+      },
+      "useSessionConnect": {
+        "connected": "Verbind",
+        "connectingTo": "Maak verbinding met {{name}}…",
+        "connectionLost": "Verbinding verlore",
+        "failedToConnect": "Kon nie verbinding maak nie",
+        "invalidCode": "Ongeldige kode",
+        "warpgateAuthenticationFailed": "Warpgate-verifikasie het misluk",
+        "authenticationCancelled": "Verifikasie gekanselleer"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Soek en opdragte",
+    "addHost": "Voeg gasheer by",
+    "keyboardShortcuts": "Skiere kortpaaie",
+    "home": "Tuis",
+    "hosts": "Gasheer",
+    "sessions": "Sessies",
+    "tools": "Hulpmiddels",
+    "settings": "Instellings",
+    "terminal": "Terminaal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Skiere kortpaaie"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Gasheer en vouers",
+      "yourHostsFoldersAndHosts": "Jou gasheer, vouers en gasheer wat met jou gedeel is",
+      "credentials": "Aanmeldingsbesonderhede",
+      "savedPasswordsAndKeysAnd": "Opgeslate wagwoorde en sleutels, en aanmeldingsbesonderhede wat met jou gedeel is",
+      "snippets": "Sneppies",
+      "snippetsAndTheirFolders": "Sneppies en hul vouers",
+      "hostDefaults": "Gasheerstandaarde",
+      "defaultSettingsForNewHosts": "Standaardinstellings vir nuwe gasheer",
+      "preferences": "Voorkeure",
+      "settingsThatFollowYouBetween": "Instellings wat jou tussen toestelle volg"
+    },
+    "link": {
+      "noSuchServerAccount": "Daar is nie so 'n bedienerrekening nie",
+      "signInFirst": "Meld eers aan.",
+      "thisServerAccountBelongsTo": "Hierdie bedienerrekening behoort aan {{value}}. Meld aan as hulle, of voeg die bediener weer by vir hierdie gebruiker."
+    },
+    "reasons": {
+      "signedOut": "Afgemeld",
+      "thisSSignInTo": "Hierdie {{deviceWord}} se aanmelding by die bediener het verstryk.",
+      "theServerEndedThisS": "Die bediener het hierdie {{deviceWord}} se sessie beëindig. Dit is dalk van 'n ander toestel af afgemeld.",
+      "proxySignInNeeded": "Proxy-aanmelding nodig",
+      "theProxyInFrontOf": "Die proxy voor hierdie bediener wil hê jy moet weer aanmeld.",
+      "proxyPasswordNeeded": "Proxy-wagwoord nodig",
+      "theProxyInFrontOf2": "Die proxy voor hierdie bediener het om sy wagwoord gevra.",
+      "certificateRefused": "Sertifikaat verwerp",
+      "theServerDidNotAccept": "Die bediener het hierdie {{deviceWord}} se sertifikaat nie aanvaar nie.",
+      "untrustedServer": "Onbetroubare bediener",
+      "theServerSCertificateIs": "Die bediener se sertifikaat word nie deur hierdie {{deviceWord}} vertrou nie.",
+      "serverKeyChanged": "Bediener sleutel verander",
+      "theServerShowsAnotherKey": "Die bediener wys 'n ander sleutel as die een wat daarvoor vasgestel is. As jy die sertifikaat verander het, stel die nuwe sleutel vas.",
+      "offline": "Vanlyn",
+      "canTReachTheServer": "Kan nie die bediener bereik nie. Sinkronisering sal binnekort weer probeer.",
+      "serverProblem": "Bedienerprobleem",
+      "theServerHadAProblem": "Die bediener het 'n probleem gehad. Sinkronisering sal binnekort weer probeer.",
+      "updateNeeded": "Opdatering nodig",
+      "thisServerUsesANewer": "Hierdie bediener gebruik 'n nuwer sinkroniseringsweergawe. Werk die program op.",
+      "notATermixServer": "Nie 'n Termix-bediener nie",
+      "theAddressDoesNotAnswer": "Die adres antwoord nie soos 'n Termix-bediener nie.",
+      "syncIsOff": "Sinkronisering is af",
+      "theSyncPluginIsOff": "Die Sinkronisering-plug-in is af op hierdie bediener. Vra 'n bestuurder om dit in Plug-ins aan te skakel.",
+      "differentUser": "Verskillende gebruiker",
+      "youSignedInAsA": "Jy het aangemeld as 'n ander gebruiker as waartoe hierdie bedienerrekening behoort.",
+      "syncStopped": "Sinkronisering gestop",
+      "somethingWentWrong": "Iets het verkeerd geloop.",
+      "signInAgain": "Meld weer aan",
+      "signInToTheProxy": "Meld aan by die proxy",
+      "enterThePassword": "Voer die wagwoord in",
+      "tryAgain": "Probeer weer",
+      "checkThePin": "Kontroleer die vasgestelde sleutel",
+      "checkForUpdates": "Kontroleer vir opdaterings",
+      "pickACertificate": "Kies 'n sertifikaat"
+    },
+    "settings": {
+      "noSuchSetting": "Geen sulke instelling nie",
+      "snippetFolder": "Knipselfolder",
+      "hostDefault": "Gasheerstandaard"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Die bediener het hierdie {{deviceWord}} se sertifikaat nie aanvaar nie.",
+      "theServerSCertificateIs": "Die bediener se sertifikaat word nie vertrou nie.",
+      "canTReachTheServer": "Kan nie die bediener bereik nie.",
+      "signedOut": "Afgemeld",
+      "theProxyAskedForIts": "Die proxy het om sy wagwoord gevra.",
+      "theProxyWantsYouTo": "Die proxy wil hê jy moet aanmeld.",
+      "theSyncPluginIsOff": "Die Sinkronisering-plug-in is af op hierdie bediener.",
+      "serverError": "Bedienerfout {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Die bediener wys 'n ander sleutel as die vasgestelde een."
+    },
+    "remote": {
+      "thisIsNotATermix": "Dit is nie 'n Termix-bediener nie.",
+      "theProxyWantsYouTo": "Die proxy wil hê jy moet aanmeld.",
+      "thisServerUsesANewer": "Hierdie bediener gebruik 'n nuwer sinkroniseringsweergawe. Werk die program op."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} gasheer",
+      "hostCount_other": "{{count}} gasheer",
+      "credentialCount_one": "{{count}} geloofsbriew",
+      "credentialCount_other": "{{count}} geloofsbriewe",
+      "snippetCount_one": "{{count}} knipsel",
+      "snippetCount_other": "{{count}} knipsels",
+      "folderCount_one": "{{count}} folder",
+      "folderCount_other": "{{count}} folders",
+      "nothingYet": "nog niks nie",
+      "listAnd": "{{list}} en {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Kan nie verbind nie.",
+      "connectingToFromThis": "Verbind met {{name}} vanaf hierdie {{deviceWord}}",
+      "connectingToThroughTheServer": "Verbind met {{name}} deur die bediener",
+      "reconnectingTry": "Herverbind (poging {{retry}})",
+      "disconnected": "Ontkoppel",
+      "connected": "Verbind",
+      "reconnectedToTheSameSession": "Herverbind met dieselfde sessie",
+      "reconnectedWithANewShell": "Herverbind met 'n nuwe skul",
+      "couldNotReachTheHost": "Kon nie die gasheer vanaf hierdie {{deviceWord}} bereik nie, probeer deur die bediener",
+      "couldNotConnectThroughThe": "Kon nie deur die bediener verbind nie, probeer vanaf hierdie {{deviceWord}}",
+      "connectionLost": "Verbinding verlore: {{reason}}",
+      "offlineWaitingForTheNetwork": "Vanlyn, wag vir die netwerk",
+      "nextTryInS": "Volgende poging in {{value}}s",
+      "reconnectingTry2": "Herverbind (poging {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Die gasheer het opgehou antwoord",
+      "networkLost": "Netwerk verlore",
+      "network": "Netwerk: {{type}}{{value}}",
+      "lowPowerModeOn": "Laagkragmodus aan",
+      "lowPowerModeOff": "Laagkragmodus af",
+      "droppedTypedCharacters": "Het {{count}} getik karakters weggelaat",
+      "youDidNotTrustThe": "Jy het nie die gasheer sleutel vertrou nie.",
+      "checkTheKeyWithWhoever": "Kontroleer die sleutel met wie ook al die gasheer bedryf, en probeer weer.",
+      "loginCancelled": "Aanmeld gekanselleer.",
+      "connectAgainWhenYouAre": "Maak weer skakeling wanneer jy gereed is.",
+      "typedInputIsOver64": "Getik invoer is meer as 64 KB, die oudste deel is verlore",
+      "appInTheBackground": "Program op die agtergrond",
+      "appInTheForeground": "Program op die voorgrond",
+      "thisConnectionCanTRun": "Hierdie verbinding kan nie opdragte uitvoer nie"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Kontroleer die adres en poort, en dat die bediener die gasheer kan bereik.",
+      "checkTheAddressAndPort2": "Kontroleer die adres en poort, en dat hierdie {{deviceWord}} die gasheer kan bereik.",
+      "checkTheProxySettingsOf": "Kontroleer die proxy-instellings van hierdie gasheer.",
+      "checkTheKeyWithWhoever": "Kontroleer die sleutel met wie ook al die gasheer bedryf voordat jy dit vertrou.",
+      "checkTheUsernameAndLogin": "Kontroleer die gebruikersnaam en aanmelding in die gasheer-redigeerder.",
+      "checkThatTheServerIs": "Kontroleer dat die bediener aan is en dat jy steeds aangemeld is.",
+      "tryAgainIfItKeeps": "Probeer weer. As dit voortdurend val, kontroleer die netwerk.",
+      "connectAgainWhenYouAre": "Maak weer skakeling wanneer jy gereed is.",
+      "pickAnotherWayToConnect": "Kies 'n ander manier om hierdie gasheer te verbind.",
+      "connectThisHostThroughA": "Verbind hierdie gasheer deur 'n Termix-bedriener.",
+      "pickTheJumpHostsAgain": "Kies die spring-gasheers weer in die gasheer-redigeerder.",
+      "thisIsATailscaleAddress": "Dit is 'n Tailscale-adres. Kontroleer dat Tailscale op hierdie {{deviceWord}} gekoppel is.",
+      "theSavedKeyCanT": "Die gestoorde sleutel kan nie gelees word nie. Plak dit weer in die gasheer-redigeerder.",
+      "signInToThisServer": "Meld weer aan by hierdie bediener.",
+      "openThisHostInThe": "Maak hierdie gasheer oop in die Termix-webprogram.",
+      "canTConnectThisWay": "Kan nie op hierdie manier verbind nie",
+      "couldNotReachTheHost": "Kon nie die gasheer bereik nie",
+      "theProxyDidNotLet": "Die proxy het nie die verbinding deurgelaat nie",
+      "theHostKeyWasNot": "Die gasheer sleutel is nie vertrou nie",
+      "theLoginWasRefused": "Die aanmelding is verwerp",
+      "theTermixServerDidNot": "Die Termix-bedriener het nie geantwoord nie",
+      "theConnectionDropped": "Die verbinding is verbroken",
+      "loginCancelled": "Aanmeld gekanselleer"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH-agent",
+        "thisHostSignsInWith": "Hierdie gasheer meld aan met \"{{authType}}\", wat 'n Termix-bedriener benodig. Koppel een om te verbind.",
+        "thisHostUsesA1password": "Hierdie gasheer gebruik 'n 1Password-verwysing, wat 'n Termix-bedriener met Geheime Bronne benodig. Koppel een en verbind hierdie gasheer daardeur.",
+        "signInWithFirstOpen": "Meld eers aan met {{title}}. Maak 'n terminaal na hierdie gasheer oop, en probeer dan weer.",
+        "theSignInAndThe": "die aanmelding en die sertifikaat is op die bediener",
+        "theHasNoSshAgent": "die {{deviceWord}} het geen SSH-agent nie",
+        "needsATermixServerBecause": "{{title}} benodig 'n Termix-bedriener omdat {{why}}. Koppel een en verbind hierdie gasheer daardeur."
+      },
+      "chain": {
+        "aJumpHostOfThis": "'n Spring-gasheer van hierdie gasheer bestaan nie meer nie."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Die verbinding is verbroken",
+        "theShellChannelClosed": "Die skul-kanaal is gesluit",
+        "jumpHost": "Spring-gasheer {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Ongeldige kode, probeer weer:",
+        "authenticationFailed": "Verifikasie misluk: {{message}}",
+        "theHostKeyWasNot": "Die gasheer sleutel is nie vertrou nie.",
+        "loginCancelled": "Aanmeld gekanselleer.",
+        "notConnected": "Nie gekoppel nie",
+        "signingInAs": "Teken in as {{user}} met {{method}}",
+        "methodKey": "'n sleutel",
+        "methodPassword": "'n wagwoord",
+        "methodNone": "geen gestoorde aanmelding nie"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Die verbinding is verbroken"
+      },
+      "thisBuildHasNoSsh": "Hierdie bou het geen SSH-enjin nie. Gebruik die program uit die winkel, of koppel 'n Termix-bedriener om te verbind.",
+      "theHostsOnThisAre": "Die gasheers op hierdie {{deviceWord}} is nog nie oop nie.",
+      "thisServerSHostsAre": "Hierdie bediener se gasheers is nie op hierdie {{deviceWord}} nie. Skakel die Sinkroniseer-plug-in op die bediener aan om vanaf die {{deviceWord}} te verbind.",
+      "resolve": {
+        "theSavedLoginIsNot": "Die gestoorde aanmelding vir hierdie gasheer is nie op hierdie {{deviceWord}} nie, dus kan slegs die bediener aanmeld"
+      }
+    },
+    "origin": {
+      "canTConnect": "Kan nie verbind nie.",
+      "canTConnectFromThe": "Kan nie vanaf hierdie {{deviceWord}} verbind nie.",
+      "canTReachTheServer": "Kan nie die bediener bereik nie.",
+      "theOnlyConnectsToSsh": "Die {{deviceWord}} sluit slegs aan by SSH- en Telnet-gasheërs.",
+      "connectThisHostThroughThe": "Sluit hierdie gasheer aan deur die bediener",
+      "connectThisHostFromThe": "Sluit hierdie gasheer aan vanaf die {{deviceWord}}",
+      "termixServer": "Termix-bediener",
+      "usesThisWhenItCan": "Gebruik hierdie {{deviceWord}} wanneer dit die gasheer kan bereik, andersins die bediener.",
+      "thisConnectsToTheHost": "Hierdie {{deviceWord}} sluit aan by die gasheer self.",
+      "theTermixServerConnectsTo": "Die Termix-bediener sluit vir jou aan by die gasheer.",
+      "anSshConnection": "'n SSH-verbinding",
+      "aTermixServer": "'n Termix-bediener",
+      "aConnectionFromThe": "'n verbinding vanaf die {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} is af op hierdie bediener. {{how}} om dit te gebruik.",
+      "isOffOnThisServer2": "{{title}} is af op hierdie bediener.",
+      "anotherWayToConnect": "'n ander manier om aan te sluit",
+      "needsToUseIt": "{{title}} benodig {{what}}. {{how}} om dit te gebruik.",
+      "needsWhichThisHostCan": "{{title}} benodig {{what}}, wat hierdie gasheer tans nie kan gebruik nie.",
+      "thisDevice": "Hierdie {{deviceWord}}",
+      "automatic": "Outomaties"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Jy is uitgelog van hierdie bediener. Meld aan om daardeur aan te sluit.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux is nie op hierdie gasheer geïnstalleer nie. Gebruik die eenvoudige shell.",
+        "tapRetryToBringIt": "Tik Opnuut probeer om dit hierheen terug te bring.",
+        "thisSessionWasOpenedOn": "Hierdie sessie is op 'n ander toestel oopgemaak",
+        "noServerUrlFoundLink": "Geen bediener-URL gevind nie. Skakel die bediener weer aan.",
+        "signedOutOfThisServer": "Uitgelog van hierdie bediener. Meld weer aan.",
+        "signInWithInYour": "Meld aan met {{title}} in jou blaaier. Dit sluit wanneer dit klaar is.",
+        "theSocketClosedWhileThe": "Die sokkel het gesluit terwyl die app weg was",
+        "noWebsocketUrlAvailableServer": "Geen WebSocket-URL beskikbaar nie - bediener nie geconfigureer nie",
+        "connectionTimeoutServerNotResponding": "Verbindingsverstryking - bediener reageer nie",
+        "verificationCode": "Verifikasiekode:",
+        "hostKeyVerificationRequiredBut": "Gasheersleutelverifikasie vereis, maar geen hanteerder is geregistreer nie",
+        "hostKeyChangedButNo": "Gasheersleutel het verander, maar geen hanteerder is geregistreer nie",
+        "thisHostNeedsASign": "Hierdie gasheer benodig 'n aanmelding wat slegs die webtoepassing ondersteun",
+        "invalidCodeTryAgain": "Ongeldige kode, probeer weer:",
+        "unknownError": "Onbekende fout",
+        "connectionClosed": "Verbinding gesluit",
+        "connectionClosed2": "Verbinding gesluit ({{code}})",
+        "theServerClosedTheConnection": "Die bediener het die verbinding gesluit",
+        "theSocketClosed": "Die sokkel het gesluit ({{code}})",
+        "signIn": "{{title}} aanmelding",
+        "signInFailed": "{{title}} aanmelding het misluk",
+        "isNotSetUpOn": "{{title}} is nie op die bediener opgestel nie",
+        "signInTimedOut": "{{title}} aanmelding het verstryk",
+        "authenticationFailed": "Verifikasie het misluk: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Stoor die gasheer en sluit daaraan aan om dit te toets.",
+      "loggedInAsOn": "Aangemeld as {{username}} op {{host}}",
+      "theHostAskedForMore": "Die gasheer het meer as 'n wagwoord gevra, soos 'n kode. Stoor die gasheer en sluit aan om die aanmelding te voltooi."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Wag vir netwerk",
+      "couldNotOpenTheTunnel": "Kon nie die tunnel oopmaak nie",
+      "theConnectionDropped": "Die verbinding is verloor",
+      "iosStoppedThisTunnelWhile": "iOS het hierdie tunnel gestop terwyl die app in die agtergrond was. Begin dit weer om dit oop te maak.",
+      "connecting": "Besig om aan te sluit",
+      "connected": "Aangesluit",
+      "retrying": "Opnuut probeer",
+      "waiting": "Wag",
+      "failed": "Misluk"
+    },
+    "gateways": {
+      "error": "Fout",
+      "gateways": "Hekke",
+      "gatewaysCanOnlyBeChanged": "Hekke kan slegs in Termix op die web verander word.",
+      "noHandshake": "Geen handdruk nie",
+      "rulesMissing": "Reëls ontbreek",
+      "up": "Op",
+      "pending": "Agter die hand",
+      "applying": "Word toegepas",
+      "down": "Af",
+      "unreachable": "Onbereikbaar"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Nog geen tonnels nie. Voeg een by om 'n poort van die eindpunt-host na hierdie host te vorentoe te stuur.",
+      "tunnel": "Tunnel {{value}}",
+      "removeTunnel": "Verwyder tunnel {{value}}",
+      "mode": "Modus",
+      "local": "Plaaslik",
+      "remote": "Ver",
+      "dynamic": "Dinamies",
+      "targetHost": "Teikenhost",
+      "onThisHostForTunnels": "Op hierdie host, vir tonnels wat die {{deviceWord}} uitvoer",
+      "bindHost": "Bind-host",
+      "endpointHost": "Eindpunt-host",
+      "addAnotherHostFirstTunnels": "Voeg eers 'n ander host by. Tonnels gaan deur 'n gestoorde host.",
+      "sourcePort": "Bronpoort",
+      "endpointPort": "Eindpunt-poort",
+      "maxRetries": "Maksimum herproeiewe",
+      "retryEveryS": "Herproeie elke (s)",
+      "startOnItsOwn": "Begin selfstandig",
+      "addTunnel": "Voeg tunnel by",
+      "tunnelNeedsPortsFrom1": "Tunnel {{value}} benodig poorte van 1 tot 65535"
+    },
+    "register": {
+      "tunnels": "Tonnels",
+      "startAndStopSavedTunnels": "Begin en stop gestoorde tonnels",
+      "tunnel": "TUNNEL",
+      "tunnel2": "Tunnel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Plaaslike eindpunt gekopieer",
+      "tunnel": "Tunnel | {{sourcePort}}",
+      "portMapping": "Poorttoewysing",
+      "connect": "Koppel",
+      "disconnect": "Ontkoppel",
+      "cancel": "Kanselleer",
+      "connected": "Gekoppel",
+      "connecting": "Koppel tans",
+      "disconnecting": "Ontkoppel tans",
+      "error": "Fout",
+      "retrying": "Herproeie ({{value}}/{{value2}})",
+      "waitingS": "Wag {{value}}s",
+      "waiting": "Wag",
+      "disconnected": "Ontkoppel"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Begin tunnel op poort {{sourcePort}}",
+      "connectingTunnelOnPort": "Koppel tunnel op poort {{sourcePort}}",
+      "disconnectingPort": "Ontkoppel poort {{sourcePort}}",
+      "cancellingPort": "Kanselleer poort {{sourcePort}}",
+      "failedToTunnel": "Kon nie {{action}} tunnel nie",
+      "tunnels": "Tonnels | {{count}} | {{value}}",
+      "loadingTunnels": "Laai tonnels…",
+      "noSshTunnelsConfiguredFor": "Geen SSH-tonnels vir hierdie host geconfigureer nie. Voeg tonnels by vanaf die hostvorm.",
+      "runOn": "Voer uit op",
+      "server": "Bediener",
+      "this": "Hierdie {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tonnels op hierdie {{deviceWord}} stop wanneer die app gesluit word. Op iOS stop hulle ook kort nadat die app na die agtergrond gaan.",
+      "failedToFetchTunnelStatuses": "Kon nie tunnelstatusse haal nie",
+      "thisBuildCanTOpen": "Hierdie bou kan nie tonnels op die {{deviceWord}} oopmaak nie.",
+      "sourceHostNotFound": "Bronhost nie gevind nie",
+      "endpointHostNotFound": "Eindpunt-host nie gevind nie: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tonnels",
+      "tunnelCount_one": "{{count}} tunnel",
+      "tunnelCount_other": "{{count}} tonnels",
+      "runningOnServer": "{{connected}} loop op bediener"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Aanmeldingsinstrumente"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker is nie op hierdie gasheer geïnstalleer nie.",
+        "dockerDidNotAnswer": "Docker het nie geantwoord nie",
+        "thatIsNotAValid": "Dit is nie 'n geldige stapelnaam nie"
+      }
+    },
+    "containerDetail": {
+      "stop": "Stop",
+      "start": "Begin",
+      "restart": "Herbegin",
+      "remove": "Verwyder",
+      "logs": "Logboeke",
+      "stats": "Statistieke",
+      "console": "Konsole",
+      "logsCopied": "Logboeke gekopieer",
+      "copy": "Kopieer",
+      "containerIsNotRunningNo": "Behouer loop nie, geen lewende statistieke nie.",
+      "cpu": "CPU",
+      "memory": "Geheue",
+      "networkIO": "Netwerk-I/O",
+      "blockIO": "Blok-I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Kon nie logboeke laai nie",
+      "failedToLoadStats": "Kon nie statistieke laai nie",
+      "noOutput": "(geen uitset nie)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Maak verbinding met Docker...",
+    "remove": "Verwyder {{name}}?",
+    "stop": "Stop {{name}}?",
+    "theContainerIsStoppedAnd": "Die behouer is gestop en verwyder. Die volumes bly.",
+    "anythingRunningInItStops": "Alles wat daarin loop, stop.",
+    "remove2": "Verwyder",
+    "stop2": "Stop",
+    "dockerThis": "Docker | hierdie {{deviceWord}}",
+    "lookingForDocker": "Soek na Docker...",
+    "dockerIsNotAvailableOn": "Docker is nie op hierdie gasheer beskikbaar nie.",
+    "noContainersFound": "Geen behouers gevind nie",
+    "noContainersMatchYourFilters": "Geen behouers pas by jou filters nie",
+    "useSudo": "Gebruik sudo",
+    "refresh": "Verfris",
+    "containers": "Behouers",
+    "stacks": "Stapels",
+    "searchContainers": "Soek behouers...",
+    "all": "Almal",
+    "running": "Loop",
+    "stopped": "Gestop",
+    "start": "Begin",
+    "restart": "Herbegin",
+    "pause": "Pouseer",
+    "unpause": "Hervat",
+    "moreActions": "Meer aksies",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker het nie geantwoord nie",
+      "docker": "Docker",
+      "noContainers": "Geen behouers nie"
+    },
+    "dockerConsole": {
+      "attachingTo": "Maak verbinding met {{name}}...",
+      "consoleDisconnected": "Konsole ontkoppel",
+      "reconnect": "Herverbind",
+      "failedToLoadTheConsole": "Kon nie die konsole laai nie",
+      "thisSessionHasNoServer": "Hierdie sessie het geen bediener nie"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Behouers, logboeke en statistieke"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stapels is op hierdie bediener afgeskakel.",
+      "couldNotLoadStacks": "Kon nie stapels laai nie",
+      "noStacks": "Geen stapels nie",
+      "composeProjectsOnThisHost": "Compose-projekte op hierdie gasheer verskyn hier.",
+      "ofRunning": "{{running}} van {{total}} aktief",
+      "couldNotLoadTheStack": "Kon die stapel nie laai nie",
+      "services": "Dienste",
+      "nothingIsRunning": "Niks loop nie.",
+      "composeFile": "Compose-lêer",
+      "partlyUp": "gedeeltelik aktief",
+      "notDeployed": "nie geïmplementeer nie",
+      "running": "aktief",
+      "stopped": "gestop",
+      "paused": "gepouseer"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Dit is nie 'n geldige houer-ID nie",
+      "consoleFailed": "Konsole het misluk",
+      "notAuthenticated": "Nie geverifieer nie",
+      "consoleError": "Konsole-fout",
+      "connectionFailed": "Verbinding het misluk"
+    },
+    "dockerDidNotAnswer": "Docker het nie geantwoord nie",
+    "failedToLoadContainers": "Kon houers nie laai nie",
+    "failedTo": "Het misluk om {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Die bediener het geen lêer gestuur nie",
+        "cancelled": "Gekanselleer",
+        "isGone": "{{path}} is weg",
+        "canTGoToThe": "{{name}} kan nie na die prulbak gaan nie"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Ongeldige prulbak-item-ID",
+        "invalidTrashMetadata": "Ongeldige prulbak-meta-inligting",
+        "thisPathCanTBe": "Hierdie pad kan nie na die prulbak geskuif word nie",
+        "aFileAlreadyExistsAt": "'n Lêer bestaan reeds by die oorspronklike pad"
+      },
+      "sftp": {
+        "commandFailed": "Opdrag het misluk: {{command}}",
+        "alreadyExists": "{{name}} bestaan reeds",
+        "alreadyExistsThere": "{{path}} bestaan reeds daar",
+        "canTGoToThe": "{{name}} kan nie na die prulbak gaan nie: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Die terminaal is nie meer oop nie",
+      "clearHistory": "Vee geskiedenis uit",
+      "stopFollowingTheTerminal": "Hou op om die terminaal te volg",
+      "followTheTerminal": "Volg die terminaal",
+      "goToTheTerminalS": "Gaan na die terminaal se gids",
+      "cdTheTerminalHere": "cd die terminaal hierheen",
+      "folderHistory": "Gids-geskiedenis",
+      "mostUsedFirstThenRecent": "Mees gebruikte eerste, dan onlangse",
+      "noFoldersYet": "Nog geen gidse nie"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Kan nie verbind nie.",
+        "couldNotSaveHowThis": "Kon nie stoor hoe hierdie gasheer verbind nie",
+        "thisWayCanTOpen": "Hierdie manier kan nie lêers oopmaak nie"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Kon hierdie gids nie oopmaak nie",
+      "cancel": "Kanselleer",
+      "noFoldersHere": "Geen gidse hier nie"
+    },
+    "couldNotOpenThisFolder": "Kon hierdie gids nie oopmaak nie",
+    "couldNotSaveToThe": "Kon nie na die gids stoor nie",
+    "failed": "{{label}} het misluk",
+    "uploading": "Laai {{name}} op",
+    "uploadingFiles": "Laai {{count}} lêers op",
+    "downloadingToFilesOnMy": "Laai af na Lêers, Op My iPhone, Termix",
+    "downloading": "Laai {{name}} af",
+    "downloadingFiles": "Laai {{count}} lêers af",
+    "openALargeFile": "Maak 'n groot lêer oop?",
+    "isBigForAEditor": "{{name}} is groot vir 'n {{deviceWord}} redigeerder. Dit kan stadig wees.",
+    "open": "Maak oop",
+    "thisLooksLikeABinary": "Dit lyk soos 'n binêre lêer",
+    "openItInAnotherApp": "Maak dit in 'n ander program oop in plaas daarvan?",
+    "openWith": "Open met",
+    "tooBigForTheEditor": "Te groot vir die redigeerder",
+    "isOver10MbDownload": "{{name}} is meer as 10 MB. Laai dit eerder af?",
+    "download": "Laai af",
+    "delete": "Vee {{what}} uit?",
+    "moveToTheTrash": "Skuif {{what}} na die prulbak?",
+    "thisCanTBeUndone": "Dit kan nie ongedaan gemaak word nie.",
+    "youCanRestoreItFrom": "Jy kan dit uit die prulbak herstel.",
+    "delete2": "Vee uit",
+    "moveToTrash": "Skuif na prulbak",
+    "deleteForGood": "Vee permanent uit?",
+    "deleteItForGoodInstead": "{{message}}. Vee dit eerder permanent uit? Dit kan nie ongedaan gemaak word nie.",
+    "deleteFailed": "Verwydering het misluk",
+    "connectingThroughTheServer": "Maak verbinding deur die bediener...",
+    "connectingFromThis": "Maak verbinding vanaf hierdie {{deviceWord}}...",
+    "connecting": "Maak verbinding...",
+    "edit": "Redigeer",
+    "downloadFolder": "Laai vouer af",
+    "share": "Deel",
+    "rename": "Hernoem",
+    "copyTo": "Kopieer na",
+    "moveTo": "Skuif na",
+    "cut": "Knip",
+    "copy": "Kopieer",
+    "permissions": "Toestemmings",
+    "properties": "Eienskappe",
+    "makeALinkHere": "Maak 'n skakel hier",
+    "copyPath": "Kopieer pad",
+    "pathCopied": "Pad gekopieer",
+    "done": "Klaar",
+    "selectAll": "Selekteer alles",
+    "filterByName": "Filter volgens naam",
+    "closeSearch": "Maak soeksluit",
+    "search": "Soek",
+    "changeSort": "Verander sortering",
+    "paste": "Plak {{count}}",
+    "upload": "Laai op",
+    "transfers2": "Oordragte",
+    "more": "Meer",
+    "nothingMatches": "Niets pas nie",
+    "emptyFolder": "Leë vouer",
+    "uploadFilesOrMakeA": "Laai lêers op of maak 'n nuwe een.",
+    "newFolder": "Nuwe vouer",
+    "newFile": "Nuwe lêer",
+    "select": "Selekteer",
+    "hideHiddenFiles": "Versteek versteekte lêers",
+    "showHiddenFiles": "Wys versteekte lêers",
+    "trash": "Prulbak",
+    "folderProperties": "Vouereienskappe",
+    "refresh": "Verfris",
+    "rename2": "Hernoem {{name}}",
+    "newLink": "Nuwe skakel",
+    "aLinkInThatPoints": "'n Skakel in {{path}} wat na {{path2}} wys",
+    "name": "Naam",
+    "create": "Skep",
+    "copyHere": "Kopieer hierheen",
+    "moveHere": "Skuif hierheen",
+    "fileViewer": {
+      "saved": "{{name}} gestoor",
+      "couldNotSaveTheFile": "Kon nie die lêer stoor nie",
+      "discardChanges": "Verwerp veranderinge?",
+      "hasChangesThatAreNot": "{{name}} het veranderinge wat nie gestoor is nie.",
+      "discard": "Verwerp",
+      "readOnly": "{{path}} | lees slegs",
+      "find": "Soek",
+      "smallerText": "Kleiner teks",
+      "biggerText": "Groter teks",
+      "turnOffLineWrap": "Skakel lynomdraai af",
+      "wrapLines": "Draai lyne om",
+      "save": "Stoor"
+    },
+    "hostSection": {
+      "startIn": "Begin in",
+      "theFolderTheFileManager": "Die vouer waarin die lêerbestuurder eerste oopmaak",
+      "files": "Lêers"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Gaan na {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Meer aksies",
+        "moreFor": "Meer vir {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Toestemmings",
+      "cancel": "Kanselleer",
+      "apply": "Pas toe ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Kon nie oopmaak nie",
+      "openWith": "Maak oop met",
+      "share": "Deel"
+    },
+    "propertiesView": {
+      "properties": "Eienskappe",
+      "path": "Pad",
+      "type": "Tipe",
+      "pointsTo": "Wys na",
+      "size": "Grootte",
+      "countFolderSize": "Bereken vouergrootte",
+      "permissions": "Toestemmings",
+      "change": "Verander",
+      "owner": "Eienaar",
+      "group": "Groep",
+      "modified": "Gewysig",
+      "opened": "Oopgemaak",
+      "linkToA": "Skakel na 'n {{value}}",
+      "notShownForFolders": "Nie vir vouers getoon nie",
+      "file": "Lêer",
+      "folder": "Vouer",
+      "link": "Skakel"
+    },
+    "register": {
+      "fileManager": "Lêerbestuurder",
+      "files": "Lêers",
+      "browseEditAndMoveFiles": "Blader, redigeer en verskuif lêers",
+      "files2": "LÊERS",
+      "fileManagerAndTransfers": "Lêerbestuurder en oordragte"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Oordrag het misluk"
+      },
+      "transfersPanel": {
+        "pause": "Pouseer",
+        "resume": "Hervat",
+        "tryAgain": "Probeer weer",
+        "open": "Maak oop",
+        "cancel": "Kanselleer",
+        "transfers": "Oordragte",
+        "goingOf": "{{active}} besig | {{done}} van {{total}}",
+        "clearFinished": "Vee voltooi uit",
+        "cancelAll": "Kanselleer almal",
+        "noTransfersYet": "Nog geen oordragte nie",
+        "waiting": "Wag",
+        "paused": "Gepouseer",
+        "done": "Klaar",
+        "failed": "Misluk",
+        "cancelled": "Gekanselleer"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Kon nie prul oplaai nie",
+      "restored": "Herstel {{name}}",
+      "failedToRestore": "Kon nie herstel nie",
+      "failedToDelete": "Kon nie verwyder nie",
+      "trashEmptied": "Prulbak is geleeg",
+      "failedToEmptyTrash": "Kon nie prulbak leegmaak nie",
+      "trash": "Prulbak",
+      "itemsAreRemovedAfterDays": "Items word na {{retentionDays}} dae verwyder",
+      "close": "Maak toe",
+      "emptyTrash": "Maak Prulbak Leeg",
+      "trashIsEmpty": "Prulbak is leeg",
+      "restore": "Herstel {{name}}",
+      "deleteForGood": "Verwyder {{name}} permanent"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Net nou"
+      }
+    },
+    "getting": "Besig om {{name}} te kry",
+    "itemCount_one": "{{count}} item",
+    "itemCount_other": "{{count}} items",
+    "copiedWhat": "{{what}} gekopieer",
+    "movedWhat": "{{what}} verskuif",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} het meer as {{limit}} lêers. Laai kleiner vouers af."
+    },
+    "downloadingToFilesOnMyIpad": "Aflaai na Lêers, Op My iPad, Termix",
+    "size": "Grootte",
+    "date": "Datum"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Diensskakels",
+      "openInHomepage": "Maak oop in Tuisblad",
+      "thisWidgetOnlyShowsOn": "Hierdie widget verskyn slegs op die volle bladsy."
+    },
+    "register": {
+      "serviceLinks": "Diensskakels",
+      "homepage": "Tuisblad"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Geen voer ingestel nie.",
+        "couldNotLoadTheFeed": "Kon nie die voer laai nie.",
+        "theFeedIsEmpty": "Die voer is leeg.",
+        "noLocationSet": "Geen ligging ingestel nie.",
+        "couldNotLoadTheWeather": "Kon nie die weer laai nie.",
+        "noUrlSet": "Geen URL ingestel nie.",
+        "couldNotLoadTheData": "Kon nie die data laai nie.",
+        "noPictureSet": "Geen prentjie ingestel nie.",
+        "badResponse": "slegte reaksie"
+      },
+      "services": "Dienste",
+      "service": "Diens",
+      "serviceLinks": "Diensskakels",
+      "bookmarks": "Bladwysers",
+      "links2": "Skakels",
+      "search": "Soek",
+      "clock": "Klok",
+      "countdown": "Aftelling",
+      "calendar": "Kalender",
+      "notes": "Notas",
+      "banner": "Banner",
+      "ping": "Ping",
+      "host": "Gasheer",
+      "hosts": "Gasheerbedieners",
+      "quickConnect": "Vinnige verbinding",
+      "feed": "Voer",
+      "weather": "Weer",
+      "customApi": "Aangepaste API",
+      "picture": "Prentjie",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Nog geen dienste nie.",
+        "noLinkSet": "Geen skakel ingestel nie.",
+        "noLinksYet": "Nog geen skakels nie.",
+        "noSearchEngineSet": "Geen soekenjin ingestel nie.",
+        "search": "Soek",
+        "noShortcutsYet": "Nog geen kortpaaie nie.",
+        "search2": "Soek {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Kon nie die skakel oopmaak nie"
+      },
+      "status": {
+        "noUrlsYet": "Nog geen URL's nie.",
+        "down": "Af",
+        "noHostsPicked": "Geen gasheer gekies nie."
+      },
+      "text": {
+        "noNotesYet": "Nog geen notas nie.",
+        "noTextYet": "Nog geen teks nie."
+      },
+      "time": {
+        "noDateSet": "Geen datum gestel nie.",
+        "timeIsUp": "Tyd is verby"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Kon nie die verstek opmaak nie",
+    "couldNotResetTheDefault": "Kon nie die verstek herstel nie",
+    "back": "Terug",
+    "hostDefaults": "Gasheer-verstekke",
+    "newHostsStartFromThese": "Nuwe gasheer begin met hierdie",
+    "managedOnTheServer": "Bestuur op die bediener",
+    "defaultsForThisServerAre": "Verstekke vir hierdie bediener word in die web-toepassing gestel.",
+    "level": "Vlak",
+    "yourDefaultsOrOneFolder": "Jou verstekke, of een vouer se",
+    "myDefaults": "My verstekke",
+    "theServerSets": " Die bediener stel {{adminCount}}.",
+    "aFolderWinsOverYour": "'n Map wen oor jou standaarde, en jou standaarde wen oor die bediener s'n. 'n Gasheer hou enige waarde wat jy self daarop stel.{{value}}",
+    "save": "Stoor",
+    "authentication": "Verifikasie",
+    "none": "Geen",
+    "reset": "Herstel",
+    "model": {
+      "username": "Gebruikersnaam",
+      "sshPort": "SSH-poort",
+      "authentication": "Verifikasie",
+      "aSavedCredentialForNew": "'n Opgestoorde geloofsbriewe vir nuwe gasheer",
+      "forceKeyboardInteractive": "Dwing toetsbord-interaktief",
+      "keepaliveInterval": "Hou-lewe interval",
+      "seconds0TurnsItOff": "Sekondes, 0 skakel dit af",
+      "keepaliveTries": "Hou-lewe pogings",
+      "allowOldAlgorithms": "Staaf ou algoritmes",
+      "agentForwarding": "Agent-doorgif",
+      "environmentVariables": "Omgewingsveranderlikes",
+      "oneNameValuePerLine": "Een NAAM=waarde per lyn",
+      "checkIfTheHostIs": "Kontroleer of die gasheer aan is",
+      "checkInterval": "Kontroleer interval",
+      "secondsEmptyUsesTheServer": "Sekondes, leeg gebruik die bediener s'n",
+      "socks5Proxy": "SOCKS5-proksy",
+      "setInTheWebApp": "Stel in die web-toepassing",
+      "jumpHosts": "Sprong-gasheer",
+      "portKnocking": "Poort-klop",
+      "notSet": "Nie gestel nie",
+      "fromTheServer": "Van die bediener",
+      "fromYourDefaults": "Van jou verstekke",
+      "builtIn": "Ingebou"
+    },
+    "register": {
+      "hostDefaults": "Gasheer-verstekke",
+      "portUserAndOptionsFor": "Poort, gebruiker en opsies vir nuwe gasheer"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Nog geen data nie",
+      "cpu": "CPU",
+      "memory": "Geheue",
+      "disk": "Skyf",
+      "history": "Geskiedenis",
+      "loading": "Laai..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Kon nie metrieke lees nie",
+      "metrics": "Metrieke",
+      "cpu": "CPU",
+      "memory": "Geheue",
+      "disk": "Skyf",
+      "noRecentSampleOpenThe": "Geen onlangse steekproef nie. Maak die gasheer se metrieke oop om een te begin."
+    },
+    "register": {
+      "enableMetrics": "Aktiveer metrieke",
+      "cpuMemoryDiskAndNetwork": "CPU, geheue, skyf en netwerk oor SSH",
+      "hostMetrics": "Gasheer Metrieke",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrieke",
+      "cpuMemoryDiskAndNetwork2": "CPU, geheue, skyf en netwerk"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Gasheer Metrieke | hierdie {{deviceWord}}",
+      "hostMetrics": "Gasheer Metrieke",
+      "ran": "Het {{name}} uitgevoer",
+      "loadingMetrics": "Laai metrieke...",
+      "couldNotReadMetricsFrom": "Kon nie metrieke van hierdie gasheer lees nie",
+      "failedToLoadMetrics": "Het misluk om metrieke te laai",
+      "thisSessionHasNoServer": "Hierdie sessie het geen bediener nie",
+      "twoFactorRequiredForThis": "Twee-faktor word vereis vir hierdie gasheer se statistieke.",
+      "failedToStartMetrics": "Het misluk om metrieke te begin",
+      "failedToRun": "Het misluk om {{name}} uit te voer"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Per kern: {{value}}",
+        "cores": "Kerne",
+        "load": "Las",
+        "user": "Gebruiker",
+        "system": "Stelsel",
+        "ioWait": "IO wag",
+        "steal": "Steel"
+      },
+      "diskWidget": {
+        "disk": "Skyf  {{mount}}",
+        "disk2": "Skyf",
+        "used": "Gebruik",
+        "total": "Totaal",
+        "free": "Vry"
+      },
+      "firewallWidget": {
+        "firewall": "Vuurmuur",
+        "rules": "{{type}} | {{ruleCount}} reëls",
+        "noFirewallDetected": "Geen vuurmuur opgespoor nie"
+      },
+      "gpuWidget": {
+        "gpus": "GPUs ({{count}})",
+        "gpu": "GPU",
+        "memory": "Geheue",
+        "temp": "Temp",
+        "power": "Krag",
+        "fan": "Waaiers"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Aanmeldaktiwiteit",
+        "noLoginActivityRecorded": "Geen aanmeldaktiwiteit aangeteken nie",
+        "logins": "Aanmeldings",
+        "uniqueIps": "Unieke IPs",
+        "failed": "Misluk",
+        "recent": "Onlangs"
+      },
+      "memoryWidget": {
+        "memory": "Geheue",
+        "used": "Gebruik",
+        "total": "Totaal",
+        "cached": "Gekas",
+        "free": "Vry"
+      },
+      "networkWidget": {
+        "network": "Netwerk",
+        "noInterfaces": "Geen koppelvlakke nie",
+        "up": "Op",
+        "down": "Af"
+      },
+      "portsWidget": {
+        "listeningPorts": "Luisterende Poorte",
+        "noListeningPorts": "Geen luisterende poorte nie"
+      },
+      "processesWidget": {
+        "sortBy": "Sorteer volgens {{label}}",
+        "processes": "Prosesse",
+        "running": "{{value}} loop | {{total}}",
+        "noProcessData": "Geen prosesdata nie",
+        "cpu": "CPU%",
+        "mem": "GEH%",
+        "command": "OPDRAG"
+      },
+      "systemWidget": {
+        "system": "Stelsel",
+        "hostname": "Gasheernaam",
+        "os": "BS",
+        "kernel": "Kern",
+        "arch": "Arg",
+        "noSystemInfo": "Geen stelselinligting nie"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatuur"
+      },
+      "uptimeWidget": {
+        "uptime": "Bedryfstyd"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Gekopieer met die wagwoord",
+      "copiedTheLink": "Skakel gekopieer",
+      "shareHost": "Deel gasheer",
+      "thatHostNoLongerExists": "Daardie gasheer bestaan nie meer nie",
+      "scanThisInTermixOn": "Skandeer dit in Termix op 'n ander {{deviceWord}}, onder Invoer en uitvoer. Die kode bevat die adres, poort en gebruiker. Dit bevat geen wagwoord of sleutel nie.",
+      "copyLink": "Kopieer skakel",
+      "copyLinkWithPassword": "Kopieer skakel met wagwoord"
+    },
+    "includePasswordsAndKeys": "Sluit wagwoorde en sleutels in?",
+    "anyoneWhoGetsThisFile": "Enigeen wat hierdie lêer kry, kan by hierdie gasheer aanmeld. Hou dit veilig.",
+    "includeThem": "Sluit hulle in",
+    "pickAtLeastOneHost": "Kies ten minste een gasheer",
+    "couldNotMakeTheFile": "Kon nie die lêer skep nie",
+    "copiedToTheClipboard": "Gekopieer na die knipbord",
+    "importAndExport": "Invoer en uitvoer",
+    "moveHostsInAndOut": "Skuif gasheer in en uit",
+    "import": "Voer in",
+    "aTermixHostFileAn": "'n Termix-gasheerlêer, 'n SSH-konfigurasielêer, of 'n gasheerskakel of QR-kode van 'n ander {{deviceWord}}.",
+    "export": "Voer uit",
+    "allHosts": "Alle gasheer",
+    "picked": "{{size}} gekies",
+    "pickHosts": "Kies gasheer",
+    "includePasswordsAndKeys2": "Sluit wagwoorde en sleutels in",
+    "offMakesAFileSafe": "Af maak 'n lêer veilig om te deel. Gasheer wat 'n gestoorde geloofsbewys gebruik, verwys daarna by naam",
+    "shareAFile": "Deel 'n lêer",
+    "copy": "Kopieer",
+    "importPanel": {
+      "couldNotReadThat": "Kon dit nie lees nie",
+      "couldNotReadThatFile": "Kon daardie lêer nie lees nie",
+      "importFailed": "Invoer het misluk",
+      "chooseAFile": "Kies 'n lêer",
+      "paste": "Plak",
+      "scanACode": "Skandeer 'n kode",
+      "couldNotBeRead": "{{count}} kon nie gelees word nie",
+      "updateHostsThatExist": "Dateer gasheer wat bestaan op",
+      "sameAddressPortAndUser": "Selfde adres, poort en gebruiker. Anders word hulle oorgeslaan",
+      "cancel": "Kanselleer",
+      "import": "Voer in",
+      "andMore": "en {{value}} meer"
+    },
+    "qrCode": {
+      "qrCode": "QR-kode"
+    },
+    "register": {
+      "importAndExport": "Invoer en uitvoer",
+      "moveHostsInOrOut": "Skuif gasheer in of uit met 'n lêer of QR-kode",
+      "shareHost": "Deel gasheer"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Skandeer 'n gasheerkode",
+      "pointTheCameraAtA": "Rig die kamera na 'n Termix-gasheer QR-kode.",
+      "termixNeedsTheCameraTo": "Termix benodig die kamera om 'n kode te skandeer. Niks word opgeneem nie.",
+      "allowTheCamera": "Staaf die kamera toe"
+    },
+    "read": {
+      "termixFile": "Termix-lêer",
+      "sshConfig": "SSH-config",
+      "thereIsNothingToImport": "Daar is niks om te importeer nie",
+      "thatIsNotATermix": "Dit is nie 'n Termix-gashefferskoppeling nie",
+      "linkHost": "1 gasheer: {{name}}",
+      "sourceHosts_one": "{{what}} met {{count}} gasheer",
+      "sourceHosts_other": "{{what}} met {{count}} gasheer"
+    },
+    "saveYourTermixHosts": "Stoor jou Termix-gasheer"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Klaar",
+      "rejected": "Verwerp",
+      "approvals": "Goedkeurings",
+      "nothingIsWaiting": "Niks wag nie",
+      "actionsARuleHoldsFor": "Aksies waarvoor 'n reël goedkeuring vereis, verskyn hier.",
+      "approveAndRun": "Goedkeur en voer uit",
+      "reject": "Verwerp",
+      "couldNotLoadApprovals": "Kon nie goedkeurings laai nie",
+      "couldNotDecide": "Kon nie besluit nie"
+    },
+    "approvalsCard": {
+      "approved": "Goedgekeur",
+      "rejected": "Verwerp",
+      "waitingForApproval": "Wag vir goedkeuring",
+      "approve": "Goedkeur",
+      "reject": "Verwerp",
+      "couldNotDecide": "Kon nie besluit nie",
+      "seeAll": "Sien alles"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Dit kan nie ongedaan gemaak word nie. Vervolgaan?",
+      "run": "Voer uit",
+      "sentForApproval": "Vir goedkeuring gestuur",
+      "target": "Teiken",
+      "theItemOnTheHost": "Die item op die gasheer, soos 'n houer",
+      "dryRun": "Droë loop",
+      "back": "Terug",
+      "actions": "Aksies",
+      "noActionsForThisHost": "Geen aksies vir hierdie gasheer nie",
+      "turnOnAPluginLike": "Skakel 'n bykomer soos Docker of Dienste vir hierdie gasheer op die bediener aan.",
+      "destructive": "Verwoestend",
+      "changes": "Veranderinge",
+      "theActionCouldNotRun": "Die aksie kon nie uitgevoer word nie",
+      "couldNotLoadActions": "Kon nie aksies laai nie"
+    },
+    "register": {
+      "actions": "Aksies",
+      "waitingForApproval": "Wag vir goedkeuring",
+      "approvals": "Goedkeurings",
+      "actionsWaitingForAPerson": "Aksies wat wag vir 'n persoon om ja te sê",
+      "runHistory": "Uitvoergeskiedenis",
+      "everyActionAnyoneRanFrom": "Elke aksie wat iemand uitgevoer het, vanaf enige toestel"
+    },
+    "runHistory": {
+      "cancelThisRun": "Kanselleer hierdie uitvoering?",
+      "cancelRun": "Kanselleer uitvoering",
+      "keep": "Behou",
+      "undoThisRun": "Maak hierdie uitvoering ongedaan?",
+      "thisRunsTheActionS": "Dit voer die aksie se ongedaanmaak uit met dieselfde invoer.",
+      "undo": "Ongedaan maak",
+      "cancelled": "Gekanselleer",
+      "itAlreadyFinished": "Dit is reeds voltooi",
+      "done": "Klaar",
+      "runHistory": "Uitvoergeskiedenis",
+      "nothingHasRunYet": "Nog niks is uitgevoer nie",
+      "dryRun": "Droë loop",
+      "cancel": "Kanselleer",
+      "couldNotLoadHistory": "Kon nie geskiedenis laai nie",
+      "couldNotCancel": "Kon nie kanselleer nie",
+      "couldNotUndo": "Kon nie ongedaan maak nie"
+    },
+    "api": {
+      "needsApproval": "Vereis goedkeuring",
+      "needsSignIn": "Vereis aanmelding",
+      "done": "Klaar",
+      "failed": "Misluk",
+      "running": "Besig",
+      "interrupted": "Gestoor",
+      "rejected": "Verwerp",
+      "cancelled": "Gekanselleer",
+      "expired": "Vervalle"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Skakel {{value}} aan",
+      "moreSettingsForThisAre": "Meer instellings hiervoor is in die Termix web-toepassing.",
+      "pluginHostSettings": "Plugin-host-instellings"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} moet 'n getal wees",
+      "mustBeAtLeast": "{{field}} moet ten minste {{min}} wees",
+      "mustBeAtMost": "{{field}} moet hoogstens {{max}} wees"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Koppel 'n bediener om dit te gebruik",
+      "runsOnYourTermixServer": "{{name}} loop op jou Termix-bedienaar."
+    },
+    "pluginWebView": {
+      "canTLoad": "Kan nie {{name}} laai nie",
+      "theServerDidNotSend": "Die bediener het nie die plugin gestuur nie. Kontroleer of dit aan is en probeer weer.",
+      "openThisLink": "Open hierdie skakel?",
+      "open": "Open",
+      "needsANewerVersionOf": "Benodig 'n nuwer weergawe van die toepassing",
+      "usesPartsOfTermixThis": "{{name}} gebruik dele van Termix wat hierdie toepassing nog nie het nie.",
+      "didNotStart": "{{name}} het nie begin nie",
+      "thisScreenIsNotIn": "Hierdie skerm is nie in die plugin-weergawe op die bediener nie.",
+      "thePluginHitAnError": "Die plugin het 'n fout ervaar tydens die beginproses.",
+      "youReOffline": "Jy is aflyn",
+      "runsOnYourServerSo": "{{name}} loop op jou bediener, so dit het 'n verbinding nodig. Dit open weer wanneer jy aanlyn is.",
+      "tryAgain": "Probeer weer"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Daardie gasheer is nog nie op hierdie {{deviceWord}} nie.",
+      "theAppCanTOpen": "Die toepassing kan dit nie van hieruit oopmaak nie.",
+      "thatHostIsNotOn2": "Daardie gasheer is nog nie op hierdie {{deviceWord}} nie."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Wagwoord",
+      "unchangedIfBlank": "Onveranderd as leeg",
+      "port": "Poort",
+      "domain": "Domein",
+      "displaySoundAndClipboardSettings": "Skerm-, klank- en knipbord-instellings is in die Termix web-toepassing.",
+      "portMustBeFrom1": "{{label}}-poort moet tussen 1 en 65535 wees"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Die afgeleë bureblad is verby",
+        "signIn": "{{label}}-aanmelding",
+        "itWillNotBeSaved": "{{error}} Dit sal nie gestoor word nie.",
+        "enterTheLoginForIt": "Voer die aanmeldingsgegewens in vir {{title}}. Dit sal nie gestoor word nie.",
+        "reconnecting": "Herverbind {{label}}",
+        "connecting": "Verbind {{label}}",
+        "connectionFailed": "Verbinding misluk",
+        "disconnected": "Ontkoppel",
+        "reconnect": "Herverbind",
+        "connectThroughTheServer": "Verbind deur die bediener",
+        "pasteToRemote": "Plak na afgeleë",
+        "typeClipboard": "Tik knipbord",
+        "copyRemoteClipboard": "Kopieer afgeleë knipbord",
+        "theComputerSCertificateWas": "Die rekenaar se sertifikaat is nie vertrou nie.",
+        "thatLoginWasRefusedTry": "Daardie aanmelding is verwerp. Probeer weer."
+      },
+      "target": {
+        "trustThisComputer": "Vertrou hierdie rekenaar?",
+        "theCanTCheckS": "Die {{deviceWord}} kan nie {{hostName}} se sertifikaat kontroleer nie. Maak seker hierdie vingerafdruk stem ooreen met die een op die rekenaar voordat jy voortgaan.\n\n{{fingerprint}}",
+        "trustAndConnect": "Vertrou en verbind",
+        "certificateChanged": "Sertifikaat verander",
+        "showsAnotherCertificateThanLast": "{{hostName}} wys 'n ander sertifikaat as laaste keer. Dit gebeur nadat die rekenaar 'n nuwe een gemaak het, of wanneer iemand tussenin luister.\n\nNuwe vingerafdruk:\n{{fingerprint}}",
+        "trustTheNewOne": "Vertrou die nuwe een"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Afgeleë Bureblad",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Klaar",
+      "keyboard": "Sleutelbord",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Tuis",
+      "end": "Einde",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Instellings",
+      "remoteSettings": "Afstandbediening-instellings",
+      "mouseMode": "Muismodus",
+      "touch": "Aanraak",
+      "trackpad": "Streeppad",
+      "tapWhereYouWantTo": "Tik waar jy wil klik. Hou vas vir 'n regterklik, sleep om te sleep.",
+      "dragToMoveThePointer": "Sleep om die aanwyser te beweeg. Tik om te klik, twee-vinger tik vir 'n regterklik, tik en dan sleep om te sleep.",
+      "zoomXPinchAnywhereTo": "Zoom: {{value}}x. Knyp oralom om te zoom",
+      "reset": "Herstel",
+      "cancel": "Kanselleer",
+      "connect": "Koppel",
+      "username": "Gebruikersnaam",
+      "domainOptional": "Domein (opsioneel)",
+      "domain": "Domein",
+      "password": "Wagwoord",
+      "leftArrow": "Links pyltjie",
+      "upArrow": "Bo pyltjie",
+      "downArrow": "Onder pyltjie",
+      "rightArrow": "Regs pyltjie",
+      "rdpSignIn": "RDP-aanmelding"
+    },
+    "theRemoteDesktopDropped": "Die afstandsbureaublad is verloor",
+    "theyWillNotBeSaved": "{{errorMessage}} Hulle sal nie gestoor word nie.",
+    "enterCredentialsForTheyWill": "Voer geloofsbriewe in vir {{title}}. Hulle sal nie gestoor word nie.",
+    "connecting": "Koppel tans",
+    "connectionFailed": "Verbinding misluk",
+    "disconnected": "Ontkoppel",
+    "reconnect": "Herkoppel",
+    "route": {
+      "thisHostCanTOpen": "Hierdie gasheer kan nie 'n afstandsbureaublad van hieruit oopmaak nie."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Geblokkeer deur die program"
+    },
+    "failedToStartRemoteSession": "Kon nie die afstandsgebeurtenis begin nie",
+    "thatLoginWasRefusedTry": "Daardie aanmelding is verwerp. Probeer weer.",
+    "theRemoteRefusedTheSaved": "Die afstandsbureaublad het die gestoorde aanmelding verwerp. Kontroleer die RDP-aanmelding op hierdie gasheer.",
+    "remoteSessionFailed": "Afstandsgebeurtenis het misluk",
+    "remoteSessionReturnedAnInvalid": "Afstandsgebeurtenis het 'n ongeldige boodskap teruggegee",
+    "failedToLoadTheRemote": "Kon nie die afstandsbureaublad-kliënt laai nie"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Geen joernaal nie",
+      "thisHostDoesNotKeep": "Hierdie gasheer hou nie 'n systemd-journal by nie.",
+      "all": "Almal",
+      "warnings": "Waarskuwings",
+      "errors": "Foute",
+      "stop": "Stop",
+      "follow": "Volg",
+      "nothingLogged": "Niks gelog nie",
+      "tryAnotherLevel": "Probeer 'n ander vlak.",
+      "couldNotReadTheJournal": "Kon nie die joernaal lees nie"
+    },
+    "register": {
+      "services": "Dienste",
+      "startStopAndReadLogs": "Begin, stop en lees logboeke"
+    },
+    "readingServices": "Dienste word gelees...",
+    "thisHostHasNoSystemd": "Hierdie gasheer het geen systemd of OpenRC nie.",
+    "noServicesMatch": "Geen dienste pas by nie",
+    "noServicesFound": "Geen dienste gevind nie",
+    "services": "Dienste",
+    "journal": "Joernaal",
+    "searchServices": "Soek dienste...",
+    "all": "Almal",
+    "running": "Besig",
+    "failed": "Misluk ({{failed}})",
+    "failed2": "Misluk",
+    "servicesCard": {
+      "services": "Dienste",
+      "noSystemdOrOpenrc": "Geen systemd of OpenRC nie",
+      "failed": "{{failed}} misluk",
+      "allRunning": "Almal besig",
+      "couldNotReadServices": "Kon nie dienste lees nie"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Dit bly gestop totdat dit weer begin word of die gasheer laai.",
+      "itStopsForAMoment": "Dit stop vir 'n oomblik en begin weer.",
+      "stop": "Stop",
+      "restart": "Herbegin",
+      "is": "{{name}} is {{state}}",
+      "start": "Begin",
+      "journal": "Joernaal",
+      "couldNotReadTheService": "Kon nie die diens lees nie",
+      "couldNot": "Kon nie {{action}} {{name}} nie",
+      "startsAtBoot": "Begin by laai",
+      "mainPid": "Hoof-PID",
+      "activeSince": "Aktief sedert",
+      "unitFile": "Eenheidslêer",
+      "notSet": "[nie gestel nie]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Nie aangemeld nie",
+        "followFailed": "Volg het misluk",
+        "connectionFailed": "Verbinding het misluk"
+      }
+    },
+    "couldNotReadServices": "Kon nie dienste lees nie",
+    "services2": "Dienste{{where}}",
+    "title": "Dienste",
+    "failedCount": "{{count}} misluk"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Sessie-deling",
+      "shareLink": "Deel skakel"
+    },
+    "shareSessionView": {
+      "canWatch": "Kan kyk",
+      "canType": "Kan tik",
+      "n1Hour": "1 uur",
+      "n8Hours": "8 uur",
+      "n1Day": "1 dag",
+      "n7Days": "7 dae",
+      "never": "Nooit",
+      "shareSession": "Deel sessie",
+      "anyoneWithTheLinkCan": "Enigeen met die skakel kan hierdie terminaal oopmaak terwyl dit loop. Jy kan skakels in Termix herroep.",
+      "peopleWithTheLink": "Mense met die skakel",
+      "expiresAfter": "Verval na",
+      "link": "Skakel",
+      "copy": "Kopieer",
+      "share": "Deel",
+      "makeLink": "Maak skakel",
+      "theServerGaveNoLink": "Die bediener het geen skakel gegee nie",
+      "couldNotMakeALink": "Kon nie 'n skakel maak nie",
+      "linkCopied": "Skakel gekopieer"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Geen gids nie"
+    },
+    "hostPicker": {
+      "selectNone": "Selekteer geen",
+      "selectAll": "Selekteer alles",
+      "done": "Klaar"
+    },
+    "register": {
+      "snippets": "Sneppies",
+      "snippets2": "SNEPPIES",
+      "savedCommandsToRunOn": "Opgeslae opdragte om op enige gasheer uit te voer"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Geen manier om hierdie gasheer van hier af te bereik nie",
+      "exitedWith": "Het uitgetree met {{exitCode}}",
+      "thisCanTRunIt": "Hierdie {{deviceWord}} kan dit nie uitvoer nie",
+      "noServerIsLinked": "Geen bediener is gekoppel nie"
+    },
+    "runOnHostsSheet": {
+      "run": "Voer uit",
+      "run2": "Voer \"{{name}}\" uit",
+      "runsOverSshOnEach": "Voer oor SSH op elke gasheer uit. Geen terminaal word oopgemaak nie.",
+      "close": "Maak toe",
+      "hosts": "Gasheer",
+      "pickHosts": "Kies gasheer",
+      "workedFailed": "{{value}} het gewerk, {{failed}} het misluk",
+      "runOn2": "Voer uit op",
+      "runOn_one": "Voer {{name}} uit op {{count}} gasheer?",
+      "runOn_other": "Voer {{name}} uit op {{count}} gasheer?",
+      "hostsPicked_one": "{{count}} gasheer gekies",
+      "hostsPicked_other": "{{count}} gasheer gekies"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Soek sneppies",
+      "pastesTheNote": "Plak die nota",
+      "runsTheSnippet": "Voer die sneppie uit",
+      "noSnippetsMatch": "Geen sneppies pas nie",
+      "noSnippetsYet": "Nog geen sneppies nie",
+      "addSnippetsInSettingsSnippets": "Voeg sneppies by in Instellings, Sneppies",
+      "run": "Voer uit",
+      "insertWithoutRunning": "Voeg in sonder om uit te voer",
+      "copy": "Kopieer"
+    },
+    "snippetsCard": {
+      "snippets": "Sneppies",
+      "run": "Voer {{name}} uit"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Daar is geen sneppies om uit te voer nie",
+      "couldNotMakeTheFile": "Kon nie die lêer maak nie",
+      "copiedToTheClipboard": "Na die knipbord gekopieer",
+      "couldNotImport": "Kon nie invoer nie",
+      "couldNotReadThatFile": "Kon nie daardie lêer lees nie",
+      "importAndExport": "Invoer en uitvoer",
+      "theSameFileTheWeb": "Dieselfde lêer wat die web-toepassing gebruik.",
+      "export": "Voer uit",
+      "shareAFile": "Deel 'n lêer",
+      "copy": "Kopieer",
+      "import": "Voer in",
+      "updateSnippetsThatExist": "Dateer sneppies wat bestaan op",
+      "sameNameInTheSame": "Dieselfde naam in dieselfde gids. Anders word hulle oorgeslaan",
+      "chooseAFile": "Kies 'n lêer",
+      "paste": "Plak",
+      "saveYourSnippets": "Stoor jou sneppies"
+    },
+    "useSnippetRunner": {
+      "run": "Voer {{name}} uit?",
+      "run2": "Voer uit",
+      "fillInTheValuesFor": "Vul die waardes in vir hierdie sneppie.",
+      "cancel": "Kanselleer",
+      "insert": "Voeg in",
+      "noTerminalIsOpen": "Geen terminaal is oop nie"
+    },
+    "variables": {
+      "input": "Invoer {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Dit is nie 'n geldige JSON-lêer nie",
+      "theFileNeedsASnippets": "Die lêer benodig 'n sneppies- of gidse lys",
+      "snippetNameAndContentAre": "Sneppie {{value}}: naam en inhoud is verpligtend",
+      "folder": "Gids {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Laai Tailscale-toestelle…",
+      "searchTailscaleDevices": "Soek Tailscale-toestelle…",
+      "searchTailscaleDevices2": "Soek Tailscale-toestelle",
+      "clearDeviceSearch": "Vee toestelsoekskryf uit",
+      "refreshTailscaleDevices": "Verfris Tailscale-toestelle",
+      "device": "Toestel",
+      "noTailnetAddress": "Geen tailnet-adres nie",
+      "tailscaleDevice": "Tailscale-toestel",
+      "tailscaleDevices": "Tailscale-toestelle",
+      "addAHostThatConnects": "Voeg 'n gasheer by wat met Tailscale SSH verbind.",
+      "username": "Gebruikersnaam",
+      "sshUsernameFor": "SSH-gebruikersnaam vir {{value}}",
+      "addHost": "Voeg gasheer by",
+      "noTailscaleDevicesMatchYour": "Geen Tailscale-toestelle pas by jou soekopdrag nie.",
+      "noTailscaleDevicesFound": "Geen Tailscale-toestelle gevind nie.",
+      "noTailscaleApiKeyIs": "Geen Tailscale API-sleutel is op hierdie bediener gekonfigureer nie. Vra 'n bestuurder om een by te voeg.",
+      "youDoNotHavePermission": "Jy het nie toestemming om Tailscale-toestelle te lys nie.",
+      "couldNotLoadTailscaleDevices": "Kon nie Tailscale-toestelle laai nie. Verfris om weer te probeer.",
+      "tailscaleIsUnavailableOnThis": "Tailscale is nie op hierdie bediener beskikbaar nie."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Herverbind | probeer {{attempt}}",
+      "reconnectingInSTry": "Herverbind in {{secs}}s | probeer {{attempt}}",
+      "offlineWaitingForNetwork": "Vanlyn, wag vir netwerk",
+      "sendToTheNewShell": "Stuur {{what}} na die nuwe skil?",
+      "reconnectNow": "Herverbind nou",
+      "send": "Stuur",
+      "discard": "Verwerp",
+      "typedChars_one": "{{count}} getik karakter",
+      "typedChars_other": "{{count}} getik karakters",
+      "waiting": "{{what}} wag"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Verbindingslogboek gekopieer",
+      "connectionLog": "Verbindingslogboek",
+      "copyItIntoABug": "Kopieer dit in 'n foute-rapport. Adresse en gebruikersname word uitgesluit.",
+      "copy": "Kopieer"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Vee geskiedenis vir hierdie gasheer uit?",
+        "clear": "Vee uit",
+        "searchHistory": "Soek geskiedenis",
+        "typesTheCommandWithoutRunning": "Tik die opdrag sonder om dit uit te voer",
+        "noCommandsMatch": "Geen opdragte pas by nie",
+        "noHistoryYet": "Nog geen geskiedenis nie",
+        "commandsYouRunOnThis": "Opdragte wat jy op hierdie gasheer uitvoer, verskyn hier",
+        "run": "Voer uit",
+        "typeWithoutRunning": "Tik sonder om uit te voer",
+        "copy": "Kopieer",
+        "delete": "Verwyder",
+        "historyCleared": "Geskiedenis uitgevee"
+      },
+      "suggestionStrip": {
+        "use": "Gebruik {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "App-instelling",
+      "delete": "Verwyder (^?)",
+      "controlHH": "Beheer H (^H)",
+      "tabTitleFromTheShell": "Oortitel van die skil",
+      "programsCanSetTheTab": "Programme kan die oortitel stel",
+      "openTmux": "Maak tmux oop",
+      "attachToATmuxSession": "Maak aan by 'n tmux-sessie, of begin een",
+      "reconnectOnDrop": "Herverbind by verlies",
+      "keepTabOpenOnExit": "Hou oop by afsluiting",
+      "pressEnterToConnectAgain": "Druk Enter om weer te verbind",
+      "saveCommandHistory": "Stoor opdraggeskiedenis",
+      "offerToFillPasswordPrompts": "Bied aan om wagwoord-aanvrae in te vul",
+      "offerToFillSudoPrompts": "Bied aan om sudo-aanvrae in te vul",
+      "usesTheSudoPasswordFrom": "Gebruik die sudo-wagwoord van die SSH-oortjie",
+      "none": "Geen",
+      "look": "Uiterlik",
+      "theme": "Tema",
+      "font": "Lettertipe",
+      "cursor": "Vlak",
+      "bell": "Bel",
+      "scrollbackLines": "Rolverryfingsreëls",
+      "app": "Toep",
+      "behavior": "Gedrag",
+      "backspaceSends": "Backspace stuur",
+      "startupSnippet": "Opstart-snippet",
+      "runsOnceTheShellIs": "Voer uit sodra die shell gereed is",
+      "fillWithoutAsking": "Vul sonder om te vra",
+      "onThisOnlyOnceYou": "Slegs op hierdie {{deviceWord}}, nadat jy altyd vul gekies het",
+      "connection": "Verbinding",
+      "keepalive": "Hou-lewendig",
+      "secondsBetweenPings0Turns": "Sekondes tussen pings, 0 skakel dit af",
+      "default": "Verstek",
+      "keepaliveSeconds": "Hou-lewendig sekondes",
+      "missedPings": "Gemiste pings",
+      "dropTheConnectionAfterThis": "Verwyder die verbinding nadat hierdie aantal onbeantwoord bly",
+      "missedPingsBeforeDrop": "Gemiste pings voor verwydering",
+      "environment": "Omgewing",
+      "removeVariable": "Verwyder veranderlike",
+      "addVariable": "Voeg veranderlike by"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "SLEutelbord"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Ry",
+        "keys": "Sleutels",
+        "sendsAKeyCode": "Stuur 'n sleutelkode",
+        "stickyModifier": "Klewerige wysiger",
+        "appAction": "Toep-handeling",
+        "tmuxPrefixThen": "tmux voorvoegsel, dan {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Sleutelreëls",
+        "onlyFor": "Slegs vir {{name}}",
+        "usingTheAppSRows": "Gebruik die toep se reëls. Veranderinge hier is slegs vir {{name}}",
+        "useTheAppSRows": "Gebruik die toep se reëls"
+      },
+      "keyButton": {
+        "locked": "Gesluit"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Kanselleer",
+        "remove": "Verwyder {{what}}?",
+        "remove2": "Verwyder",
+        "dragToReorder": "Sleep om te herskik",
+        "rowName": "Ry-naam",
+        "groupName": "Groep-naam",
+        "add": "Voeg by",
+        "addKey": "Voeg sleutel by",
+        "addRow": "Voeg ry by",
+        "addGroup": "Voeg groep by",
+        "tmuxPrefix": "tmux voorvoegsel",
+        "name": "Naam",
+        "rename": "Hernoem",
+        "keys": "{{value}} sleutels",
+        "noKeys": "Geen sleutels nie",
+        "remove3": "Verwyder {{label}}",
+        "keys2": "Sleutels",
+        "custom": "Aangepas",
+        "add2": "Voeg {{label}} by",
+        "typeText": "Tik teks",
+        "runCommand": "Voer opdrag uit",
+        "ctrlKey": "Ctrl-sleutel",
+        "label": "Etiket",
+        "optional": "Opsioneel",
+        "letter": "Letter",
+        "command": "Opdrag",
+        "text": "Teks",
+        "resetToDefault": "Stel terug na verstek"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Verander sleutels in Instellings, Toetsbord"
+      },
+      "keyRowBar": {
+        "keyRow": "Sleutelry {{label}}",
+        "tapForTheNextRow": "Tik vir die volgende ry, hou vas om een te kies",
+        "keyRows": "Sleutelrye"
+      },
+      "model": {
+        "clear": "Vee uit",
+        "main": "Hoof",
+        "keys": "Sleutels",
+        "arrows": "Pyle",
+        "symbols": "Simbole",
+        "actions": "Aksies",
+        "nav": "Nav",
+        "move": "Beweeg",
+        "function": "Funksie",
+        "brackets": "Hakies",
+        "punctuation": "Leestekens",
+        "ctrl": "Ctrl",
+        "control": "Beheer",
+        "windows": "Windows",
+        "panes": "Panele",
+        "copy": "Kopieer",
+        "split": "Splits ─",
+        "split2": "Splits │",
+        "newWin": "Nuwe ven",
+        "prevWin": "Vorige ven",
+        "nextWin": "Volgende ven",
+        "pane": "Paneel ←",
+        "pane2": "Paneel ↓",
+        "pane3": "Paneel ↑",
+        "pane4": "Paneel →",
+        "copyMode": "Kopieermodus",
+        "pasteBuf": "Plak buffer",
+        "killPane": "Maak paneel toe"
+      }
+    },
+    "output": {
+      "openLink": "Maak skakel oop?",
+      "open": "Maak oop",
+      "pasteLines": "Plak {{lines}} reëls?",
+      "pasteThisText": "Plak hierdie teks?",
+      "theShellMayRunIt": "Die skul kan dit dadelik uitvoer.\n\n{{text}}",
+      "paste": "Plak",
+      "letTheProgramReadYour": "Laat die program jou knipbord lees?",
+      "itAskedForWhatYou": "Dit het gevra vir wat jy laas gekopieer het.",
+      "allow": "Laat toe",
+      "letTheProgramCopyTo": "Laat die program na jou knipbord kopieer?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Vul die gestoorde wagwoord?",
+      "asksForTheSudoPassword": "{{hostName}} vra vir die sudo-wagwoord.",
+      "asksForAPassword": "{{hostName}} vra vir 'n wagwoord.",
+      "fillPassword": "Vul wagwoord",
+      "alwaysFillOnThisHost": "Vul altyd op hierdie gasheer",
+      "asksNoMoreOnThis": "Vra nie meer op hierdie {{deviceWord}} nie. Skakel dit af in die gasheer se Terminaal-oortjie.",
+      "notNow": "Nie nou nie"
+    },
+    "register": {
+      "terminal": "Terminaal",
+      "terminalAndKeepalive": "Terminaal en keepalive",
+      "history": "GESKIEDENIS",
+      "find": "Soek",
+      "tmuxWindows": "tmux-vensters",
+      "connectionLog": "Verbindingslogboek",
+      "keyRowsForThisHost": "Sleutelrye vir hierdie gasheer"
+    },
+    "searchBar": {
+      "noResults": "Geen resultate nie",
+      "matchCase": "Kassensitief",
+      "wholeWord": "Hele woord",
+      "regularExpression": "Regular expression",
+      "find": "Soek",
+      "closeFind": "Maak soekvenster toe"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Stelsel",
+      "block": "Blok",
+      "bar": "Staf",
+      "underline": "Onderstreep",
+      "off": "Af",
+      "sound": "Klank",
+      "flash": "Flits",
+      "both": "Beide"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Nuwe oortjie op hierdie gasheer",
+      "closeTab": "Maak oortjie toe",
+      "nextTab": "Volgende oortjie",
+      "previousTab": "Vorige oortjie",
+      "goToTab": "Gaan na oortjie",
+      "find": "Soek",
+      "fontSize": "Lettertipegrootte",
+      "paste": "Plak",
+      "escape": "Ontsnap",
+      "copyAndPaste": "Kopieer en plak"
+    },
+    "reconnecting": "Herkoppel...",
+    "waitingForNetwork": "Wag vir netwerk...",
+    "waitingForYou": "Wag vir jou...",
+    "connecting": "Koppel tans...",
+    "terminalView": {
+      "scrollToBottom": "Rol na onder",
+      "onlyWebLinksCanOpen": "Slegs web-skakels kan vanaf die terminaal oopgemaak word",
+      "couldNotOpenLink": "Kon nie skakel oopmaak nie",
+      "copiedFromTheTerminal": "Gekopieer vanaf die terminaal"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Maak 'n tmux-sessie oop",
+        "newSession": "Nuwe sessie",
+        "plainShell": "Eenvoudige shell",
+        "tmuxWindows": "tmux-vensters",
+        "newWindow": "Nuwe venster",
+        "windowCount_one": "{{count}} venster",
+        "windowCount_other": "{{count}} vensters",
+        "attached": "{{count}} gekoppel",
+        "activeNow": "tans aktief",
+        "activeMinAgo": "aktief {{count}} min gelede",
+        "activeHoursAgo": "aktief {{count}} u gelede",
+        "activeDaysAgo_one": "aktief {{count}} dag gelede",
+        "activeDaysAgo_other": "aktief {{count}} dae gelede"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopieer",
+        "selectAll": "Selekteer alles",
+        "cancel": "Kanselleer",
+        "scrollToBottom": "Rol na onder",
+        "couldNotCopy": "Kon nie kopieer nie",
+        "webviewError": "WebView-fout: {{description}}",
+        "webviewHttpError": "WebView HTTP-fout: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Geen opgeslate wagwoord vir hierdie gasheer nie",
+    "backInTmuxSession": "Terug in tmux-sessie {{tmuxName}}",
+    "backInScreenSession": "Terug in screen-sessie {{name}}",
+    "theServerSessionEndedThis": "Die bedienerseisie het geëindig. Dit is 'n nuwe shell.",
+    "termixWasClosedSoThe": "Termix is toe, dus het die ou shell geëindig. Dit is 'n nuwe shell.",
+    "theConnectionDroppedAndThe": "Die verbinding is verbroken en die ou shell het geëindig. Dit is 'n nuwe shell.",
+    "disconnectedFrom": "Ontkoppel van {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Tweefaktor-verifikasie",
+      "codesFromAnAuthenticatorApp": "Kodes van 'n verifikasietoepassing vir jou bedienerrekening"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC-adres",
+      "neededToWakeThisHost": "Noodsaaklik om hierdie gasheer met Wake-on-LAN aan te skakel",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Gebruik 'n MAC-adres soos 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN gestuur na {{name}}",
+      "failedToSendWakeOn": "Kon nie Wake-on-LAN-pakket stuur nie",
+      "noServer": "Geen bediener nie"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Wek {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Deel anonieme gebruiksstatistieke?",
+      "termixWouldSendAShort": "Termix sal een keer per dag 'n kort verslag stuur. Jy kan dit enige tyd in Instellings verander.",
+      "noThanks": "Nee, dankie",
+      "share": "Deel",
+      "theReportHasTheApp": "Die verslag bevat die toepassingweergawe, {{deviceWord}}-tipe, grof tellings van gasheer en sessies, watter kenmerke jy gebruik, en of die verbinding gewerk het. Dit bevat nooit gasheernamme, gebruikersname, adresse, paaie, opdragte of bedienername nie.",
+      "seeExactlyWhatIsSent": "Sien presies wat gestuur word"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Laai weergaweinligting…",
+      "updateAvailable": "Opdatering Beskikbaar",
+      "newVersionAvailable": "Nuwe weergawe beskikbaar",
+      "aNewerVersionOfThe": "Daar is 'n nuwer weergawe van die mobiele toepassing beskikbaar. Sommige kenmerke mag nie korrek werk nie totdat jy opdateer.",
+      "versionInformation": "Weergaweinligting",
+      "installed": "Geïnstalleer",
+      "latest": "Nuutste",
+      "unknown": "Onbekend",
+      "tag": "Etiket",
+      "continueAnyway": "Gaan Tog voort"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Gekopieer",
+      "copy": "Kopieer",
+      "hostKeyChanged": "Gasheersleutel het verander",
+      "verifyHostKey": "Verifieer gasheersleutel",
+      "cancel": "Kanselleer",
+      "acceptNewKey": "Aanvaar nuwe sleutel",
+      "connectAndTrust": "Maak verbinding en vertrou",
+      "theHostSSshKey": "Die gasheer se SSH-sleutel het verander sedert jou laaste verbinding. Dit kan beteken iemand onderskep die verbinding.",
+      "youAreConnectingToThis": "Jy maak vir die eerste keer verbinding met hierdie gasheer. Kontroleer die vingerafdruk voordat jy dit vertrou.",
+      "previousKey": "Vorige sleutel",
+      "newFingerprint": "Nuwe vingerafdruk",
+      "hostFingerprint": "Gasheer vingerafdruk"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Wagwoordfrase Vereis",
+      "enterThePassphraseForYour": "Voer die wagwoordfrase vir jou SSH-sleutel in.",
+      "cancel": "Kanselleer",
+      "connect": "Maak verbinding",
+      "keyPassphrase": "Sleutel wagwoordfrase"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH-verifikasie Vereis",
+      "cancel": "Kanselleer",
+      "connect": "Maak verbinding",
+      "password": "Wagwoord",
+      "sshKey": "SSH-sleutel",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nPlak jou privaat sleutel hier...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Sleutel wagwoordfrase (opsioneel)",
+      "keyboardInteractiveAuthIsNot": "Sleutelbord-interaktiewe verifikasie is nie beskikbaar nie. Voer geloofsbriewe direk in.",
+      "authenticationFailedPleaseReEnter": "Verifikasie het misluk. Voer asseblief jou geloofsbriewe weer in.",
+      "connectionTimedOutPleaseTry": "Verbinding het verstryk. Probeer asseblief weer met jou geloofsbriewe."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH-kontrole",
+      "completeTheTailscaleSshCheck": "Voltooi die Tailscale SSH-kontrole in jou blaaier om voort te gaan.",
+      "cancel": "Kanselleer",
+      "copyUrl": "Kopieer URL",
+      "openBrowser": "Maak Blaaiers oop",
+      "urlCopied": "URL gekopieer",
+      "failedToCopy": "Kon nie kopieer nie",
+      "couldNotOpenBrowser": "Kon nie blaaier oopmaak nie"
+    },
+    "tOTPDialog": {
+      "cancel": "Kanselleer",
+      "submit": "Dien in",
+      "verify": "Verifieer",
+      "password": "Wagwoord",
+      "pasteCode": "Plak kode",
+      "passwordRequired": "Wagwoord Verpligtend",
+      "twoFactorAuthentication": "Twee-Faktor Verifikasie",
+      "enterYourPasswordToContinue": "Voer jou wagwoord in om voort te gaan.",
+      "enterThe6DigitCode": "Voer die 6-syfer kode in van jou verifikasie-toepassing."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate Verifikasie",
+      "authenticateViaTheWarpgatePortal": "Verifieer via die Warpgate-portaal, en tik dan op Voortgaan.",
+      "cancel": "Kanselleer",
+      "openBrowser": "Maak Blaaier Oop",
+      "continue": "Voortgaan",
+      "securityKey": "Veiligheidssleutel",
+      "authUrl": "Verifikasie-URL",
+      "copied": "Gekopieer",
+      "copy": "Kopieer",
+      "urlCopied": "URL gekopieer",
+      "failedToCopy": "Kon nie kopieer nie",
+      "couldNotOpenBrowser": "Kon nie blaaier oopmaak nie"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "hierdie {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Onlangse aktiwiteit",
+        "files": "Lêers",
+        "terminal": "Terminaal"
+      },
+      "alertsCard": {
+        "notifications": "Kennisgewings",
+        "seeAll": "Sien alles"
+      },
+      "server": "Bediener",
+      "openSessions": "Oop sessies",
+      "quickAccess": "Vinnige toegang",
+      "notifications": "Kennisgewings",
+      "pinnedHosts": "Vastegemaakte gasheer",
+      "recentHosts": "Onlangse gasheer",
+      "recentActivity": "Onlangse aktiwiteit",
+      "pinnedCard": {
+        "addYourFirstHost": "Voeg jou eerste gasheer by",
+        "hostsYouOpenShowUp": "Gasheer wat jy oopmaak verskyn hier, en vastegemaakte gasheer wys lewende kaarte.",
+        "addHost": "Voeg gasheer by",
+        "linkAServer": "Koppel 'n bediener",
+        "pinAHostToSee": "Vestig 'n gasheer om dit hier te sien",
+        "pinnedHostsShowTheirMetrics": "Vastegemaakte gasheer wys hul metrieke, Docker en dienste op 'n oogopslag. Hou 'n gasheer vas om dit te vestig.",
+        "goToHosts": "Gaan na gasheer",
+        "pinned": "Vastegemaak",
+        "opensTheTerminalHoldFor": "Maak die terminaal oop. Hou vir meer.",
+        "turnOnDockerOrServices": "Skakel Docker of Dienste aan vir hierdie gasheer, of tik daarop om te koppel.",
+        "opens": "Maak {{title}} oop"
+      },
+      "quickCard": {
+        "quickAccess": "Vinnige toegang",
+        "quickConnect": "Vinnige verbinding",
+        "userHostPortWithoutSaving": "gebruiker@gasheer:poort, sonder om te stoor"
+      },
+      "recentCard": {
+        "recent": "Onlangs"
+      },
+      "serverCard": {
+        "server": "Bediener",
+        "version": "Weergawe",
+        "uptime": "Uptyme",
+        "database": "Databasis",
+        "hosts": "Gasheer",
+        "online": "Aanlyn",
+        "offline": "Aflyn",
+        "logins": "Aanmeldings"
+      },
+      "sessionsCard": {
+        "openSessions": "Open sessies",
+        "connected": "Verbind"
+      }
+    },
+    "resetHome": "Herstel Tuis?",
+    "cardsGoBackToThe": "Kaarte gaan terug na die standaardvolgorde en vertoonde kaarte.",
+    "reset": "Herstel",
+    "doneEditingHome": "Klaar met redigeer Tuis",
+    "editHome": "Redigeer Tuis",
+    "dragToReorder": "Sleep {{title}} om te herskik",
+    "show": "Wys {{title}}",
+    "dragCardsToReorderThem": "Sleep kaarte om hulle te herskik. Skakel 'n kaart af om dit te versteek. Kaarte met niks om te wys nie bly self versteek.",
+    "resetToDefault": "Herstel na standaard",
+    "done": "Klaar",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Kan steeds nie die bediener bereik nie",
+      "canTReach": "Kan nie {{account}} bereik nie",
+      "youCanKeepWorkingWith": "Jy kan voortgaan om te werk met die kopie op hierdie {{deviceWord}}. Veranderinge gaan op wanneer dit terug is.",
+      "hostsSetToConnectFrom": "Gashere wat ingestel is om vanaf hierdie {{deviceWord}} te verbind, werk steeds.",
+      "tryAgain": "Probeer weer",
+      "noAnswer": "geen antwoord nie"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault-profiel",
+      "none": "Geen",
+      "signsInWithInYour": "Meld aan met {{title}} in jou blaaier deur jou Termix-bedriener. Verbind hierdie gasheer deur die bediener.",
+      "needsATermixServerLink": "{{title}} benodig 'n Termix-bedriener. Koppel een om hierdie aanmelding te gebruik.",
+      "isOffOnThisServer": "{{title}} is af op hierdie bediener. Hierdie gasheer behou sy aanmeldinstelling."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Kon nie geloofsbriewe laai nie",
+      "deleted": "Het \"{{name}}\" verwyder",
+      "couldNotDeleteTheCredential": "Kon nie die geloofsbriewe verwyder nie",
+      "credentials": "Geloofsbriewe",
+      "add": "Voeg by",
+      "searchCredentials": "Soek geloofsbriewe",
+      "clearSearch": "Vee soek uit",
+      "loadingCredentials": "Laai geloofsbriewe...",
+      "noCredentialsMatchYourSearch": "Geen geloofsbriewe pas by jou soek nie",
+      "noCredentialsYet": "Nog geen geloofsbriewe nie",
+      "addCredential": "Voeg geloofsbriewe by",
+      "edit": "Redigeer",
+      "delete": "Verwyder",
+      "deleteCredential": "Verwyder geloofsbriewe",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" sal permanent verwyder word. Gashere wat dit gebruik, sal hul opgeslaan geloofsbriewe verloor.",
+      "cancel": "Kanselleer",
+      "hostCount_one": "{{count}} gasheer",
+      "hostCount_other": "{{count}} gashere",
+      "sshKey": "SSH-sleutel"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Vervang die sleutel?",
+        "theNewKeyTakesThe": "Die nuwe sleutel neem die plek van die huidige een in. Gashere wat slegs die ou sleutel vertrou, sal hierdie geloofsbriewe nie meer aanvaar nie.",
+        "replace": "Vervang",
+        "newKeyMadeCopyThe": "Nuwe sleutel gemaak. Kopieer die openbare sleutel na jou gashere.",
+        "couldNotMakeAKey": "Kon nie 'n sleutel maak nie",
+        "couldNotReadThatCertificate": "Kon nie daardie sertifikaat lêer lees nie",
+        "leaveWithoutSaving": "Verlaat sonder om op te slaan?",
+        "yourChangesToThisCredential": "Jy veranderinge aan hierdie geloofsbriewe sal verlore gaan.",
+        "leave": "Verlaat",
+        "credentialSaved": "Geloofsbriewe opgeslaan",
+        "credentialAdded": "Geloofsbriewe bygevoeg",
+        "couldNotSaveTheCredential": "Kon nie die geloofsbriewe opslaan nie",
+        "enterAHostToTest": "Voer 'n gasheer in om te toets, soos 10.0.0.5 of box:2222.",
+        "enterTheUsernameFirst": "Voer eers die gebruikersnaam in.",
+        "editCredential": "Redigeer geloofsbriewe",
+        "newCredential": "Nuwe geloofsbriewe",
+        "cancel": "Kanselleer",
+        "save": "Stoor",
+        "credential": "Geloofsbriewe",
+        "name": "Naam",
+        "productionKey": "Produksleutel",
+        "username": "Gebruikersnaam",
+        "signInWith": "Teken aan met",
+        "password": "Wagwoord",
+        "sshKey": "SSH-sleutel",
+        "unchangedIfBlank": "Onveranderd as leeg",
+        "key": "Sleutel",
+        "fileOrPaste": "Lêer of plak",
+        "makeANewKey": "Maak 'n nuwe sleutel",
+        "aKeyIsSavedChoose": "'n Sleutel is gestoor. Kies 'n lêer of plak om dit te vervang.",
+        "type": "Tipe",
+        "ed25519AndEcdsaAreMade": "Ed25519 en ECDSA word op hierdie {{deviceWord}} gemaak, RSA op jou bediener.",
+        "madeOnThisEd25519Works": "Gemaak op hierdie {{deviceWord}}. Ed25519 werk byna oral.",
+        "passphrase": "Wagfrase",
+        "optionalLocksTheNewKey": "Opsioneel. Sluit die nuwe sleutel op hierdie {{deviceWord}} en op skyf.",
+        "makeKey": "Maak sleutel",
+        "publicKey": "Openbare sleutel",
+        "addThisLineToSsh": "Voeg hierdie lyn by ~/.ssh/authorized_keys op jou gasheerbedieners",
+        "publicKeyCopied": "Openbare sleutel gekopieer",
+        "copyPublicKey": "Kopieer openbare sleutel",
+        "certificate": "Sertifikaat",
+        "aCertificateYourCaSigned": "'n Sertifikaat wat jou CA vir hierdie sleutel onderteken het, vir gasheerbedieners wat die CA vertrou.",
+        "chooseCertificateFile": "Kies sertifikaatlêer",
+        "thisDoesNotLookLike": "Dit lyk nie soos 'n OpenSSH-sertifikaat nie.",
+        "test": "Toets",
+        "hostToTestOn": "Gasheerbediener om op te toets",
+        "n10005Or": "10.0.0.5 of box.lan:2222",
+        "pickASavedHost": "Kies 'n gestoorde gasheerbediener",
+        "details": "Besonderhede",
+        "description": "Beskrywing",
+        "whatThisCredentialIsFor": "Waarvoor hierdie geloofsbriewe is",
+        "folder": "Map",
+        "serverKeys": "Bedienersleutels",
+        "testOnAHost": "Toets op 'n gasheerbediener",
+        "rsaKeysNeedALinked": "RSA-sleutels benodig 'n gekoppelde bediener."
+      },
+      "model": {
+        "giveThisCredentialAName": "Gee hierdie geloofsbriewe 'n naam",
+        "addAPrivateKeyOr": "Voeg 'n privaat sleutel by, of maak 'n nuwe een"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Dit is 'n gasheersertifikaat, nie 'n gebruikersertifikaat nie.",
+        "thisCertificateIsNotValid": "Hierdie sertifikaat is nog nie geldig nie.",
+        "thisCertificateHasExpired": "Hierdie sertifikaat het verval.",
+        "itIsForAKey": "Dit is vir 'n {{keyType}}-sleutel, maar hierdie sleutel is {{keyType2}}.",
+        "forAnyUser": "Vir enige gebruiker",
+        "validFromNoEndDate": "Geldig vanaf {{validAfter}}, geen einddatum nie",
+        "signedBy": "Onderteken deur {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Gebruikersnaam",
+        "fromTheCredential": "Van die geloofsbriewe: {{credentialUser}}",
+        "signInWith": "Teken aan met",
+        "password": "Wagwoord",
+        "key": "Sleutel",
+        "credential": "Geloofsbriewe",
+        "none": "Geen",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Maak verbinding met Tailscale SSH. Geen wagwoord of sleutel word gestoor nie.",
+        "tailscaleIsNotOnFor": "Tailscale is nie aan vir {{value}} nie. Hierdie gasheerbediener behou sy Tailscale-aanmelding.",
+        "unchangedIfBlank": "Onveranderd as leeg",
+        "noCredentialsYetTapThe": "Nog geen geloofsbriewe nie. Tik op die sleutel-ikoon in Hosts om een by te voeg.",
+        "useCredential": "Gebruik geloofsbryf {{name}}",
+        "sudoPassword": "Sudo-wagwoord",
+        "typedIntoSudoPromptsWhen": "Getik in sudo-aanwysings wanneer die Terminaal-seksie dit inskakel",
+        "notSet": "Nie gestel nie",
+        "thisServer": "hierdie bediener"
+      },
+      "colorIconField": {
+        "color": "Kleur",
+        "noColor": "Geen kleur nie",
+        "color2": "Kleur {{c}}",
+        "icon": "Ikoon",
+        "noIcon": "Geen ikoon nie",
+        "none": "Geen",
+        "icon2": "Ikoon {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Verlaat sonder om te stoor?",
+        "yourChangesToThisHost": "Jy verloor jou veranderinge aan hierdie host.",
+        "leave": "Verlaat",
+        "couldNotSaveHowThis": "Kon nie stoor hoe hierdie host verbind nie",
+        "hostSaved": "Host gestoor",
+        "hostAdded": "Host bygevoeg",
+        "couldNotSaveTheHost": "Kon nie die host stoor nie",
+        "enterTheHostSAddress": "Voer eers die host se adres in.",
+        "turnOnSshToTest": "Skakel SSH aan om die aanmelding te toets.",
+        "pickACredentialFirst": "Kies eers 'n geloofsbryf.",
+        "editHost": "Wysig host",
+        "newHost": "Nuwe host",
+        "cancel": "Kanselleer",
+        "save": "Stoor",
+        "host": "Host",
+        "name": "Naam",
+        "myServer": "My bediener",
+        "address": "Adres",
+        "port": "Poort",
+        "portAndUsernameComeFrom": "Poort en gebruikersnaam kom van jou host-verstekke af tot jy dit verander.",
+        "folder": "Map",
+        "production": "Produksie",
+        "useAFolderInstead": "Gebruik eerder 'n map",
+        "putItUnderAHost": "Plaas dit eerder onder 'n host",
+        "pinToTop": "Pyn aan bo",
+        "colorAndIcon": "Kleur en ikoon",
+        "notes": "Notas",
+        "anythingWorthRememberingAboutThis": "Enige iets wat die moeite werd is om oor hierdie host te onthou",
+        "protocols": "Protokolle",
+        "terminalFilesAndMore": "Terminaal, lêers en meer",
+        "connectFrom": "Verbind vanaf",
+        "features": "Eienskappe",
+        "otherProtocols": "Ander protokolle",
+        "more": "Meer",
+        "theTestRunsFromThis": "Die toets word vanaf hierdie {{deviceWord}} uitgevoer. Hierdie host verbind deur die bediener, so dit kan steeds werk wanneer die {{deviceWord}} dit nie kan bereik nie."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Sprong-hosts",
+        "connectsThroughTheseInOrder": "Verbind in hierdie volgorde, dan na hierdie host",
+        "reachThisHostThroughOther": "Bereik hierdie host eers deur ander hosts",
+        "moveUp": "Beweeg op",
+        "moveDown": "Beweeg af",
+        "removeJumpHost": "Verwyder sprong-host",
+        "addJumpHost": "Voeg sprong-host by",
+        "pickASavedHostTo": "Kies 'n gestoorde host om deurheen te verbind",
+        "searchHosts": "Soek hosts",
+        "noOtherHostsToPick": "Geen ander hosts om te kies nie. 'n Host kan nie deur homself of 'n host wat reeds deur dit gaan, spring nie.",
+        "missingHost": "Ontbrekende host #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Skakel ten minste een protokol aan",
+        "pickACredential": "Kies 'n geloofsbewys",
+        "enterTheHostSAddress": "Voer die gasheer se adres in",
+        "theAddressCanTHave": "Die adres mag nie spasies hê nie",
+        "portMustBeFrom1": "Poort moet tussen 1 en 65535 wees",
+        "enterTheSshUsername": "Voer die SSH-gebruikersnaam in"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Die gasheer word geneste onder die een wat jy kies",
+        "searchHosts": "Soek gasheer",
+        "noHostsToPickA": "Geen gasheer om te kies nie. 'n Gasheer kan nie onder homself, een van sy eie sub-gasheer of 'n gedeelde gasheer gaan nie.",
+        "parentHost": "Ouer-gasheer",
+        "subHostsFollowTheFolder": "Sub-gasheer volg die vouer van hul ouer",
+        "pickParentHost": "Kies ouer-gasheer",
+        "missingHost": "Gasheer #{{value}} ontbreek",
+        "pickAHost": "Kies 'n gasheer",
+        "clearParentHost": "Vee ouer-gasheer uit"
+      },
+      "tagsField": {
+        "tags": "Etikette",
+        "typeATagAndPress": "Tik 'n etiket en druk Enter",
+        "removeTag": "Verwyder etiket {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Kon nie stoor hoe hierdie gasheer verbind nie",
+      "addressCopied": "Adres gekopieer",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Verbind vanaf",
+      "dismiss": "Maak toe",
+      "unpin": "Ontspeld",
+      "pinToHome": "Speld aan Tuis",
+      "select": "Kies",
+      "editHost": "Wysig Gasheer",
+      "copyAddress": "Kopieer Adres",
+      "addSubHost": "Voeg Sub-gasheer by",
+      "cloneHost": "Kloon Gasheer",
+      "deleteHost": "Verwyder Gasheer",
+      "connectThroughTheServer": "Verbind deur die bediener",
+      "connectFromThis": "Verbind vanaf hierdie {{deviceWord}}"
+    },
+    "defaultYourOrder": "Verstek (jou volgorde)",
+    "nameAZ": "Naam (A-Z)",
+    "nameZA": "Naam (Z-A)",
+    "ipAscending": "IP (oplopend)",
+    "ipDescending": "IP (aflopend)",
+    "onlineFirst": "Aanlyn eerste",
+    "offlineFirst": "Vanlyn eerste",
+    "pinnedFirst": "Gespeel eerste",
+    "status": "Status",
+    "online": "Aanlyn",
+    "offline": "Vanlyn",
+    "pinned": "Gespeel",
+    "protocol": "Protokol",
+    "features": "Eienskappe",
+    "hostsCanOnlyMoveInside": "Gasheer kan slegs binne hul eie vouer beweeg",
+    "couldNotUpdateTheHosts": "Kon nie die gasheer opdateer nie",
+    "sharedHostsCanTBe": "Gedeelde gasheer kan hier nie verwyder word nie",
+    "delete2": "Verwyder",
+    "noneOfTheseHostsOpen": "Geen van hierdie gasheer open 'n terminaal nie",
+    "couldNotPinTheHost": "Kon nie die gasheer speld nie",
+    "deleted": "Het {{name}} verwyder",
+    "failedToDeleteHost": "Kon nie gasheer verwyder nie",
+    "cloned": "Het {{name}} gekloon",
+    "failedToCloneHost": "Kon nie gasheer kloon nie",
+    "reorderWorksWithTheDefault": "Herrangskik werk met die Verstek sortering en geen soek of filter nie",
+    "couldNotSaveTheOrder": "Kon nie die volgorde stoor nie",
+    "noHostsYet": "Nog geen gasheer nie",
+    "addAHostToConnect": "Voeg 'n gasheer by om met een tik daaraan te koppel.",
+    "addHost": "Voeg gasheer by",
+    "quickConnect2": "Vinnige verbinding",
+    "linkAServer": "Koppel 'n bediener",
+    "noHostsMatch": "Geen gasheer stem ooreen nie",
+    "clearSearchAndFilters": "Vee soektog en filters uit",
+    "more": "Meer",
+    "dragAHostByIts": "Sleep 'n gasheer aan die greep om dit binne die gids te beweeg.",
+    "done": "Klaar",
+    "filterHosts": "Filter gasheer",
+    "clearFilterText": "Vee filterteks uit",
+    "sortHosts": "Rangskik gasheer",
+    "removeFilter": "Verwyder filter {{value}}",
+    "loadingHosts": "Laai gasheer…",
+    "moveUnderAHost": "Beweeg onder 'n gasheer",
+    "moveToFolder": "Beweeg na gids",
+    "leaveItEmptyToTake": "Laat dit leeg om die gasheer uit gidse te haal.",
+    "folderLikeProdWeb": "Gids, soos Prod / Web",
+    "move": "Beweeg",
+    "hosts": "Gasheer",
+    "selectHosts": "Kies gasheer",
+    "reorderHosts": "Herrangskik gasheer",
+    "customizeList": "Pas lys aan",
+    "chooseWhatEachHostRow": "Kies wat elke gasheer-ry wys",
+    "credentials2": "Geloofsbewyse",
+    "savedPasswordsAndKeys": "Opgeslate wagwoorde en sleutels",
+    "tailscaleDevices": "Tailscale-toestelle",
+    "refresh": "Verfris",
+    "rowDensityFollowsSettingsAppearance": "Rydigtheid volg Instellings, Voorkoms.",
+    "clearAllFilters": "Vee alle filters uit",
+    "tags": "Etikette",
+    "stopSelecting": "Stop met kies",
+    "selected": "{{count}} gekies",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Kon nie daardie sleutel lêer lees nie",
+        "theClipboardIsEmpty": "Die knipbord is leeg",
+        "privateKey": "Privaat sleutel",
+        "chooseFile": "Kies lêer",
+        "paste": "Plak",
+        "unchangedIfBlank": "Onveranderd as leeg",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Wagwoord",
+        "onlyIfTheKeyHas": "Slegs as die sleutel een het",
+        "theKeyIsCheckedWhen": "Die sleutel word gecontroleer wanneer jy koppel.",
+        "thePastedKey": "die geplakte sleutel"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Maak oop",
+        "moreActions": "Meer aksies",
+        "opensTheTerminalHoldFor": "Maak die terminaal oop. Hou vir meer.",
+        "shared": "Gedeel",
+        "drag": "Sleep {{name}}",
+        "showSubHosts_one": "Wys {{count}} sub-gasheer van {{name}}",
+        "showSubHosts_other": "Wys {{count}} sub-gasheer van {{name}}",
+        "hideSubHosts_one": "Versteek {{count}} sub-gasheer van {{name}}",
+        "hideSubHosts_other": "Versteek {{count}} sub-gasheer van {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Gids {{name}}, {{total}} gasheer"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Gasheer en gebruikersnaam is verpligtend",
+      "hostSaved": "Gasheer gestoor",
+      "couldNotSaveTheHost": "Kon nie die gasheer stoor nie",
+      "quickConnect": "Vinnige verbinding",
+      "connectToAHostWithout": "Koppel aan 'n gasheer sonder om dit te stoor.",
+      "hostIp": "Gasheer / IP",
+      "port": "Poort",
+      "username": "Gebruikersnaam",
+      "password": "Wagwoord",
+      "key": "Sleutel",
+      "privateKey": "Privaat sleutel",
+      "saveToMyHosts": "Stoor na my gasheerders",
+      "keepThisHostAfterConnecting": "Behou hierdie gasheerder na verbinding",
+      "cancel": "Kanselleer",
+      "connect": "Koppel"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Haal jou gasheerders van die bediener",
+      "yourHostsStayOnThis": "{{message}} Jou gasheerders bly op hierdie {{deviceWord}} intussen."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Hierdie gasheerder se sleutel het verander",
+      "trustThisHost": "Vertrou hierdie gasheerder?",
+      "trust": "Vertrou",
+      "stopTest": "Stop toets",
+      "testConnection": "Toets verbinding",
+      "connecting": "Koppel tans..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Kon nie gasheerders laai nie."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} gedeelde gasheerder is ongewys gelaat.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} gedeelde gasheerders is ongewys gelaat.",
+    "deleteHosts_one": "Vee {{count}} gasheerder uit?",
+    "deleteHosts_other": "Vee {{count}} gasheerders uit?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Geen gids met die naam {{name}} nie"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Gasheerder \"{{name}}\": ongeldige poort",
+        "hostJumpIsNotIn": "Gasheer \"{{name}}\": sprong {{value}} is nie in die lêer nie, so dit is uitgesluit",
+        "credential": "Aangifte {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Geen geldige Gasheerder-inskrywings gevind in die SSH-konfigurasiebêre nie",
+        "credentialWasNotFound": "{{label}}: aangifte {{value}} is nie gevind nie"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Gasheerder {{value}}: dubbele uitgevoerde gasheerder-ID {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Vereiste velde (ip, port) ontbreek",
+        "invalidAuthtypeMustBeOne": "{{label}}: Ongeldige authType. Moet een van {{value}} wees",
+        "usernameRequiredForSshConnections": "{{label}}: Gebruikersnaam vereis vir SSH-verbindings",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias vereis vir aangifte-verifikasie",
+        "thatIsNotAValid": "Dit is nie 'n geldige JSON-lêer nie",
+        "hostsArrayIsRequiredAnd": "Gasheerders-reeks is vereis en mag nie leeg wees nie",
+        "jumpHostCycle": "{{label}}: sprong-gasheerder-siklus",
+        "jumpHostIsNotIn": "{{label}}: sprong-gasheerder {{id}} is nie in die lêer nie"
+      }
+    },
+    "movedTo": "Verskuif na {{value}}",
+    "movedOutOfFolders": "Verskuif uit gidse",
+    "movedUnder": "Verskuif onder {{value}}",
+    "openTerminals": "Maak terminale oop",
+    "theHost": "die gasheerder"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Versteek wagwoord",
+      "showPassword": "Wys wagwoord",
+      "enterAUsernameAndPassword": "Voer 'n gebruikersnaam en wagwoord in",
+      "useAtLeast6Characters": "Gebruik ten minste 6 karakters vir die wagwoord",
+      "thePasswordsDonTMatch": "Die wagwoorde stem nie ooreen nie",
+      "makeTheAdminAccount": "Maak die administrateur-rekening",
+      "makeAnAccount": "Maak 'n rekening",
+      "thisIsTheFirstAccount": "Dit is die eerste rekening op die bediener, so dit bestuur die bediener.",
+      "pickAUsernameAndPassword": "Kies 'n gebruikersnaam en wagwoord vir hierdie bediener.",
+      "username": "Gebruikersnaam",
+      "password": "Wagwoord",
+      "passwordAgain": "Wagwoord weer",
+      "makeAccount": "Maak rekening",
+      "back": "Terug",
+      "haveAnAccountSignIn": "Het jy 'n rekening? Meld aan",
+      "resetCodeMadeItIs": "Herstelkode gemaak. Dit is in die bediener se logboeke",
+      "enterYourUsername": "Voer jou gebruikersnaam in",
+      "enterTheResetCode": "Voer die herstelkode in",
+      "passwordChangedSignInWith": "Wagwoord verander. Meld nou daarmee aan",
+      "resetPassword": "Stel wagwoord terug",
+      "enterYourUsernameTheServer": "Voer jou gebruikersnaam in. Die bediener skryf 'n herstelkode na sy logboeke.",
+      "sendResetCode": "Stuur herstelkode",
+      "enterThe6DigitCode": "Voer die 6-syfer kode in van die bediener se logboeke.",
+      "resetCode": "Herstelkode",
+      "checkCode": "Kontroleer kode",
+      "newPassword": "Nuwe wagwoord",
+      "saveNewPassword": "Stoor nuwe wagwoord",
+      "backToSignIn": "Terug na aanmeld",
+      "couldNotMakeTheAccount": "Kon nie die rekening skep nie",
+      "couldNotStartTheReset": "Kon nie die herstel begin nie",
+      "thatCodeDidnTWork": "Daardie kode het nie gewerk nie",
+      "couldNotChangeThePassword": "Kon nie die wagwoord verander nie"
+    },
+    "browserStep": {
+      "signInFailed": "Aanmeld het misluk",
+      "signInCanceled": "Aanmeld is gekanselleer",
+      "couldNotOpenTheSign": "Kon nie die aanmeldblaaier oopmaak nie",
+      "couldNotOpenTheSign2": "Kon nie die aanmeldblad oopmaak nie",
+      "certificateProblem": "Sertifikaatprobleem",
+      "back": "Terug",
+      "signIn": "Meld aan",
+      "reload": "Herlaai",
+      "finishSigningInInYour": "Voltooi aanmelding in jou blaaier",
+      "useAnySignInYour": "Gebruik enige aanmeldmetode wat jou bediener het, soos 'n passkey of sekuriteitsleutel. Die app neem oor sodra jy ingemeld is.",
+      "theAppPicksUpOnce": "Die app neem oor sodra jou aanmeldverskaffer klaar is.",
+      "signingIn": "Meld aan...",
+      "openBrowserAgain": "Maak blaaier weer oop",
+      "theServerTurnedTheSession": "Die bediener het die sessie verwerp. Probeer weer.",
+      "signedInButTheApp": "Ingemeld, maar die app kan nie Termix bereik nie. 'n Proxy blokkeer dit moontlik.",
+      "thatSignInLinkIs": "Daardie aanmeldskakel is van 'n ouer poging. Meld weer aan.",
+      "signInAgain": "Meld weer aan.",
+      "openTheBrowserAgainWhen": "Maak die blaaier weer oop wanneer jy gereed is.",
+      "theWebPageSignedIn": "Die webblad het aangemeld maar geen sessie gestuur nie. Werk die bediener op en probeer weer.",
+      "theCanTCheckThis": "Die {{deviceWord}} kan nie hierdie bediener se sertifikaat verifieer nie. Installeer sy root CA op die {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Gebruik {{name}} die volgende keer om aan te meld?",
+      "ifThisServerSignsYou": "As hierdie bediener jou uitmeld, meld dan weer aan met {{name}} in plaas daarvan om jou wagwoord in te tik. Die wagwoord bly op hierdie {{deviceWord}}.",
+      "use": "Gebruik {{name}}",
+      "notNow": "Nie nou nie",
+      "couldNotSaveTheLogin": "Kon nie die aanmelding stoor nie",
+      "thatSADifferentUser": "Dit is 'n ander gebruiker",
+      "signedIn": "Ingemeld",
+      "close": "Maak toe",
+      "linkYourTermixServer": "Koppel jou Termix-bedriener",
+      "yourHostsCredentialsSnippetsAnd": "Jou gasheer, geloofsbriewe, fragmente en instellings sinkroniseer daarmee, en jy kry sy plugins. Alles gaan voort op hierdie {{deviceWord}} wanneer die bediener weg is.",
+      "checking": "Kontroleer {{host}}...",
+      "proxyAndClientCertificate": "Proxy en kliëntsertifikaat",
+      "couldNotReachThatServer": "Kon nie daardie bediener bereik nie. Kontroleer die adres, of stel die proxy of kliëntsertifikaat op.",
+      "couldNotReachThatServer2": "Kon nie daardie bediener bereik nie",
+      "syncCouldNotStartYet": "Sinschronisering kon nog nie begin nie. Dit probeer weer outomaties.",
+      "checkingTheServer": "Kontroleer die bediener",
+      "signIn": "Meld aan",
+      "makeAnAccount": "Skep 'n rekening",
+      "resetPassword": "Stel wagwoord terug",
+      "oneMoreStep": "Nog een stap",
+      "almostDone": "Byna klaar",
+      "linkAServer": "Koppel 'n bediener"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Die gestoorde aanmelding werk nie meer nie",
+      "enterYourUsernameAndPassword": "Voer jou gebruikersnaam en wagwoord in",
+      "thisServerIsBehindA": "Hierdie bediener is agter 'n aanmeldproxy",
+      "signInWith": "Meld aan met {{saved}}",
+      "signInWith2": "Meld aan met",
+      "password": "Wagwoord",
+      "username": "Gebruikersnaam",
+      "signIn": "Teken aan",
+      "forgotPassword": "Het jy jou wagwoord vergeet?",
+      "makeAnAccount": "Maak 'n rekening",
+      "or": "OF",
+      "continueWith": "Gaan voort met {{label}}",
+      "signInWithAPasskey": "Teken aan met 'n passkey of sekuriteitsleutel",
+      "opensYourServerAposS": "Maak jou bediener se aanmeldbladsy oop in die blaaier. Face ID, vingerafdruk, NFC en USB-sleutels werk almal daar. Vereis Termix 26.11.3 of nuwer.",
+      "signInInTheBrowser": "Teken aan in die blaaier",
+      "opensYourServerAposS2": "Maak jou bediener se aanmeldbladsy oop, vir alles wat die app hier nie kan doen nie. Vereis Termix 26.10.6 of nuwer.",
+      "thisServerHasNoSign": "Hierdie bediener het geen aanmelding ingeskakel wat die app kan gebruik nie. Vra wie dit bestuur, of probeer die blaaier-aanmelding hierbo.",
+      "signInWithYourPassword": "Teken aan met jou wagwoord.",
+      "signInFailed": "Aanmelding het misluk",
+      "openingItsSignInPage": "Maak sy aanmeldbladsy oop."
+    },
+    "smallSteps": {
+      "serverAddress": "Bedieneradres",
+      "likeTermixExampleComOr": "Soos termix.example.com of 192.168.1.20:30001",
+      "checking": "Kontroleer...",
+      "continue": "Gaan voort",
+      "proxyAndClientCertificate": "Proxy en kliëntsertifikaat",
+      "aServerWithASelf": "'n Bediener met 'n selfondertekende sertifikaat moet sy root CA eers op hierdie {{deviceWord}} geïnstalleer hê. Gewone http werk op jou eie netwerk.",
+      "enterTheCode": "Voer die kode in",
+      "code": "Kode",
+      "the6DigitCodeFrom": "Die 6-syfer kode van jou autentikator-app, of 'n rugsteunkode",
+      "checkCode": "Kontroleer kode",
+      "thisAccountAsksForA": "Hierdie rekening vra vir 'n sekuriteitsleutel na die wagwoord. Meld aan op die bediener se bladsy in jou blaaier om dit te gebruik.",
+      "useASecurityKeyIn": "Gebruik 'n sekuriteitsleutel in die blaaier",
+      "backToSignIn": "Terug na aanmelding",
+      "bringThisAposSHosts": "Neem hierdie {{deviceWord}} se gasheer saam?",
+      "thisHasTheyStayOn": "Hierdie {{deviceWord}} het {{what}}. Hulle bly op Hierdie toestel in enige geval.",
+      "merge": "Voeg saam",
+      "copyThemToTooSo": "Kopieer hulle ook na {{serverName}}, sodat hulle sinkroniseer. Dié wat dieselfde lyk as 'n bedienergasheer word oorgeslaan.",
+      "replace": "Vervang",
+      "useOnlyWhatIsOn": "Gebruik slegs wat op {{serverName}} is vir hierdie rekening. Niks word gekopieer nie.",
+      "thatCodeDidnTWork": "Daardie kode het nie gewerk nie",
+      "hostsCredentialsOrSnippets": "gasheerme, geloofsbriewe of fragmente"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Koppel hierdie bediener eers",
+      "thatHostIsnTHere": "Daardie gasheer is nie hier nie",
+      "couldNotOpenThatHost": "Kon nie daardie gasheer oopmaak nie",
+      "noHostWithIdOn": "Geen gasheer met id {{hostId}} op {{account}} nie.",
+      "isnTLinkedInThe": "{{value}} is nog nie in die app gekoppel nie."
+    }
+  },
+  "notifications": {
+    "notifications": "Kennisgewings",
+    "markAllRead": "Merk alles as gelees",
+    "clearReadNotifications": "Vee gelees kennisgewings uit",
+    "unread2": "Ongelees",
+    "all": "Almal",
+    "noUnreadNotifications": "Geen ongelees kennisgewings nie",
+    "nothingHere": "Niks hier nie",
+    "markRead": "Merk as gelees",
+    "delete": "Vee uit",
+    "couldNotLoadNotifications": "Kon nie kennisgewings laai nie",
+    "couldNotMarkRead": "Kon nie as gelees merk nie",
+    "couldNotDelete": "Kon nie vee uit nie",
+    "couldNotClear": "Kon nie vee uit nie"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Voer in",
+      "hosts": "Gasheerme",
+      "aTermixHostFileYour": "'n Termix-gasheerlêer, jou ~/.ssh/config, of 'n gasheerkoppeling of QR-kode van 'n ander {{deviceWord}}. Hulle word op hierdie {{deviceWord}} gestoor.",
+      "backup": "Rugsteun",
+      "aBackupThisAppMade": "'n Rugsteun wat hierdie app gemaak het, gesluit met 'n wagwoord. Dit herstel gasheerme, geloofsbriewe en fragmente.",
+      "restoreABackup": "Herstel 'n rugsteun",
+      "done": "Klaar",
+      "skipForNow": "Slaan vir nou oor",
+      "sshFilesAndRemoteDesktops": "SSH, lêers en afstandsbureaus van jou {{deviceWord}}. Hoe wil jy begin?",
+      "useWithoutAServer": "Gebruik sonder 'n bediener",
+      "hostsCredentialsAndSnippetsAre": "Gashere, geloofsbriewe en fragmente word versleutel op hierdie {{deviceWord}} gestoor. Jy kan later enige tyd 'n bediener koppel.",
+      "linkATermixServer": "Koppel 'n Termix-bediener",
+      "syncYourHostsCredentialsSnippets": "Sinkroniseer jou gashere, geloofsbriewe, fragmente en instellings met jou bediener en gebruik sy plugins.",
+      "bringHostsFromATermix": "Voeg gashere by vanaf 'n Termix-lêer, 'n SSH-konfigurasie, 'n QR-kode of 'n rugsteun.",
+      "thisDevice": "Hierdie toestel"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Soek gashere, fragmente, aksies",
+      "clearSearch": "Vee soekopdrag uit",
+      "nothingMatches": "Niets pas nie",
+      "typeToSearch": "Tik om te soek",
+      "findAHostToConnect": "Vind 'n gasheer om aan te sluit, 'n fragment, 'n instelling of 'n aksie.",
+      "suggested": "Voorgestel | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Voer uit in {{title}}",
+      "copiedRunItFromThe": "Gekopieer. Voer dit uit vanaf die terminaal se fragmente om die waardes in te vul.",
+      "copiedOpenATerminalTo": "Gekopieer. Open 'n terminaal om fragmente uit te voer.",
+      "addHost": "Voeg gasheer by",
+      "quickConnect": "Vinnige verbinding",
+      "switchAccount": "Wissel rekening",
+      "linkAServer": "Koppel 'n bediener",
+      "fromYourServer": "Vanaf jou bediener",
+      "settings": "Instellings",
+      "accountsAppearanceSecurity": "Rekeninge, voorkoms, sekuriteit"
+    },
+    "search": {
+      "hosts": "Gashere",
+      "snippets": "Fragmente",
+      "actions": "Aksies",
+      "settings": "Instellings"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Kon nie sessies laai nie",
+      "sessionRevoked": "Sessie herroep",
+      "failedToRevokeSession": "Kon nie sessie herroep nie",
+      "allSessionsRevoked": "Alle sessies herroep",
+      "failedToRevokeAllSessions": "Kon nie alle sessies herroep nie",
+      "activeSessions": "Aktiewe sessies",
+      "signOutAllOtherSessions": "Teken uit van alle ander sessies",
+      "loading": "Laai tans…",
+      "noActiveSessionsFound": "Geen aktiewe sessies gevind nie.",
+      "unknownDevice": "Onbekende toestel",
+      "lastActive": "Laas aktief {{lastActiveAt}}",
+      "created": "Geskep {{createdAt}}",
+      "revokeSession": "Herroep sessie",
+      "revokeSession2": "Herroep sessie?",
+      "thisWillSignOutThat": "Dit sal daardie toestel uitteken.",
+      "revoke": "Herroep",
+      "revokeAllSessions": "Herroep alle sessies?",
+      "thisWillSignOutEvery": "Dit sal elke toestel uitteken. Jy sal op hierdie toestel aangemeld bly.",
+      "cancel": "Kanselleer",
+      "revokeAll": "Herroep almal"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Kon nie API-sleutels laai nie",
+      "failedToCreateApiKey": "Kon nie API-sleutel skep nie",
+      "deleteApiKey": "Verwyder API-sleutel?",
+      "willStopWorkingRightAway": "\"{{name}}\" sal dadelik ophou werk.",
+      "apiKeyDeleted": "API-sleutel verwyder",
+      "failedToDeleteApiKey": "Kon nie API-sleutel verwyder nie",
+      "apiKeys": "API-sleutels",
+      "newApiKey": "Nuwe API-sleutel",
+      "loading": "Laai tans…",
+      "apiKeysAllowProgrammaticAccess": "API-sleutels stel programmatiese toegang tot Termix moontlik. Die geheim word slegs een keer vertoon, so stoor dit veilig.",
+      "noApiKeysYet": "Nog geen API-sleutels nie",
+      "created": "Geskep {{createdAt}}",
+      "lastUsed": "Laas gebruik {{lastUsedAt}}",
+      "expires": "Verval op {{expiresAt}}",
+      "delete": "Vee {{name}} uit",
+      "keyCreatedCopyItNow": "Sleutel geskep. Kopieer dit nou",
+      "newApiKey2": "Nuwe API-sleutel",
+      "thisTokenWonTBe": "Hierdie token sal nie weer vertoon word nie.",
+      "apiKeyCopied": "API-sleutel gekopieer",
+      "copy": "Kopieer",
+      "done": "Klaar",
+      "cancel": "Kanselleer",
+      "create": "Skep",
+      "name": "Naam *",
+      "eGCiPipeline": "bv. CI-pyplyn",
+      "user": "Gebruiker *",
+      "noUsersAvailable": "Geen gebruikers beskikbaar nie.",
+      "expiresAtOptional": "Verval op (opsioneel)",
+      "yyyyMmDd": "JJJJ/MM/DD",
+      "yearMonthDay": "Jaar / Maand / Dag"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Hou sessies aktief",
+      "showsANotificationWhileSessions": "Wys 'n kennisgewing terwyl sessies oop is, sodat Android hulle laat loop wanneer jy die app verlaat",
+      "batteryOptimization": "Batteryoptimalisering",
+      "termixIsNotRestrictedSo": "Termix is nie beperk nie, dus kan sessies oop bly met die skerm af.",
+      "androidMayStillStopSessions": "Android mag steeds sessies stop om batterylewe te bespaar. Open die batterystellings, vind Termix en kies Nie geoptimaliseer of Onbeperkt.",
+      "openBatterySettings": "Open batterystellings",
+      "notificationsAreOff": "Kennisgewings is af",
+      "sessionsStillRunButThe": "Sessies loop steeds, maar die lys van oop sessies en die Koppel alles los-knoppie bly versteek.",
+      "openNotificationSettings": "Open kennisgewingsstellings",
+      "thisBuildCanTKeep": "Hierdie bou kan nie sessies in die agtergrond laat loop nie. Hulle herkoppel wanneer jy terugkeer.",
+      "lowPowerMode": "Laagkragmodus",
+      "batterySaver": "Batteryspaarder",
+      "isOnTermixChecksConnections": "{{value}} is aan. Termix kontroleer verbindinge minder gereeld en wag langer tussen herkoppel-pogings.",
+      "backgroundSessions": "Agtergrondsessies",
+      "iosStopsAppsSoonAfter": "iOS stop apps kort nadat jy hulle verlaat, dus kan sessies nie in die agtergrond loop nie. Hulle herkoppel wanneer jy terugkeer, en tmux of screen neem op waar jy gebleef het."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Gestop",
+        "active": "Aktief",
+        "linkAServer": "Koppel 'n bediener",
+        "eachServerKeepsItsOwn": "Elke bediener hou sy eie kopie van jou gasheer, geloofsbriewe en stellings op hierdie {{deviceWord}}.",
+        "signedInAs": "Aangemeld as",
+        "role": "Rol",
+        "administrator": "Administrateur",
+        "user": "Gebruiker",
+        "serverVersion": "Bedienerweergawe",
+        "signOut": "Teken uit",
+        "youAreSignedOutOf": "Jy is uitgeteken van hierdie bediener.",
+        "signIn": "Teken in",
+        "passwordChanged": "Wagwoord verander",
+        "couldNotChangeThePassword": "Kon nie die wagwoord verander nie",
+        "changePassword": "Verander wagwoord",
+        "enterYourCurrentPasswordThen": "Voer jou huidige wagwoord in, en kies dan 'n nuwe een.",
+        "cancel": "Kanselleer",
+        "change": "Verander",
+        "currentPassword": "Huidige wagwoord",
+        "newPassword": "Nuwe wagwoord",
+        "accountDeleted": "Rekening verwyder",
+        "couldNotDeleteTheAccount": "Kon nie die rekening verwyder nie",
+        "deleteServerAccount": "Verwyder bedienerrekening",
+        "thisPermanentlyDeletesYourAccount": "Hierdie verwyder jou rekening op die bediener en al sy data permanent. Dit kan nie ongedaan gemaak word nie.",
+        "delete": "Verwyder",
+        "confirmYourPassword": "Bevestig jou wagwoord",
+        "worksWithoutAServer": "Werk sonder 'n bediener",
+        "signedOut": "Uitgeteken",
+        "readsLive": "Lees live",
+        "toReview": "{{count}} om te hersien",
+        "synced": "Geskik",
+        "syncing": "Sinkroniseer",
+        "offline": "Vanlyn"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Deel anonieme gebruiksstatistieke",
+        "aShortReportOnceA": "n kort verslag een keer per dag. Geen gasheer, name of adresse nie",
+        "nextReport": "Volgende verslag",
+        "seeExactlyWhatWouldBe": "Sien presies wat gestuur sou word",
+        "couldNotBuildTheReport": "Kon nie die verslag bou nie",
+        "preview": "Voorskou",
+        "thisIsExactlyWhatWould": "Dit is presies wat nou gestuur sou word.",
+        "resetInstallId": "Stel installasie-ID terug",
+        "futureReportsWillLookLike": "Toekomstige verslag sal soos nuwe installasie lyk",
+        "resetTheInstallId": "Stel die installasie-ID terug?",
+        "futureReportsWillLookLike2": "Toekomstige verslag sal soos nuwe installasie lyk.",
+        "reset": "Stel terug",
+        "installIdReset": "Installasie-ID teruggestel"
+      },
+      "appearanceControls": {
+        "theme": "Tema",
+        "accentColor": "Aksentkleur",
+        "textSize": "Teksgrootte",
+        "sizeOfTextAcrossThe": "Grootte van teks oor die app, nie die terminaal nie",
+        "density": "Digtheid",
+        "howTallListRowsAnd": "Hoe hoog lysrye en instellings is"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Gasheer, geloofsbriewe en fragmente word in 'n versleutelde lêer op hierdie {{deviceWord}} gehou. Gebruikstatistieke is af tensy jy dit hieronder aanskakel. 'n Gekoppelde bediener kry slegs wat jy laat sinkroniseer.",
+        "recentHosts": "Onlangse gasheer",
+        "forgetTheHostsYouOpened": "Vergeet die gasheer wat jy onlangs op elke rekening oopgemaak het",
+        "recentHostsCleared": "Onlangse gasheer skoongemaak",
+        "clear": "Maak skoon",
+        "couldNotCheckForUpdates": "Kon nie vir opdaterings kyk nie",
+        "versionIsOutUpdateFrom": "Weergawe {{version}} is uit. Werk op vanaf jou winkel.",
+        "youHaveTheNewestVersion": "Jy het die nuutste weergawe",
+        "termixMobile": "Termix Mobile",
+        "updates": "Opdaterings",
+        "check": "Kontroleer"
+      },
+      "pinSheet": {
+        "waitSeconds": "Wag {{value}} sekondes",
+        "digits": "{{PIN_LENGTH}} syfers"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "Die PINs stem nie ooreen nie",
+        "appLockIsOn": "App Slot is aan",
+        "turnOffAppLock": "Skakel App Slot af",
+        "enterYourPinToConfirm": "Voer jou PIN in om te bevestig.",
+        "appLockIsOff": "App Slot is af",
+        "appLock": "App Slot",
+        "askForFaceIdTouch": "Vra vir Face ID, Touch ID of 'n PIN om die app oop te maak",
+        "askForAPinTo": "Vra vir 'n PIN om die app oop te maak",
+        "pinChanged": "PIN verander",
+        "couldNotChangeThePin": "Kon nie die PIN verander nie",
+        "changePin": "Verander PIN",
+        "lockAfter": "Slot na",
+        "howLongTheAppCan": "Hoe lank die app uit sig kan wees voordat dit slot",
+        "hideInAppSwitcher": "Versteek in app-skakelaar",
+        "showABlankScreenIn": "Wys 'n leë skerm in die lys van onlangse apps",
+        "chooseA4DigitPin": "Kies 'n 4-syfer PIN.",
+        "confirmPin": "Bevestig PIN",
+        "enterTheSamePinAgain": "Voer dieselfde PIN weer in.",
+        "currentPin": "Huidige PIN",
+        "enterYourCurrentPin": "Voer jou huidige PIN in.",
+        "newPin": "Nuwe PIN",
+        "chooseANew4Digit": "Kies 'n nuwe 4-syfer PIN.",
+        "confirmNewPin": "Bevestig nuwe PIN",
+        "enterTheNewPinAgain": "Voer die nuwe PIN weer in."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Tuis-skerm widgets",
+        "showYourHostsSnippetsAnd": "Wys jou gasheer, uittreksels en kragknoppies op die tuis-skerm",
+        "showAddresses": "Wys adresse",
+        "showUserHostUnderEach": "Wys gebruiker@gasheer onder elke bediener se naam",
+        "includeOfflineHosts": "Sluit aflyn gasheer in",
+        "offShowsOnlyServersThat": "Af wys slegs bedieners wat aanlyn is",
+        "pinnedHostsOnly": "Slegs vasgemaakte gasheer",
+        "showOnlyTheHostsYou": "Wys slegs die gasheer wat jy vasgemaak het",
+        "snippetsWidget": "Uittreksels widget",
+        "showSavedCommandsOnThe": "Wys opgeslate opdragte op die tuis-skerm",
+        "showCommandPreview": "Wys opdrag voorskou",
+        "showTheFirstLineOf": "Wys die eerste lyn van elke opdrag"
+      }
+    },
+    "fileSettings": {
+      "files": "Lêers",
+      "fileManagerOnThis": "Lêerbestuurder op hierdie {{deviceWord}}",
+      "browsing": "Blaaie",
+      "transfersAtOnce": "Oordragte gelyktydig",
+      "downloadsAndUploadsThatRun": "Aflaais en op-laais wat gelyktydig loop",
+      "editor": "Redigeerder",
+      "textSize": "Teks grootte",
+      "filesBesideTheTerminal": "Lêers langs die terminaal",
+      "side": "Sy",
+      "whereThePanelSitsOn": "Waar die paneel op 'n tablet sit",
+      "right": "Regs",
+      "left": "Links",
+      "howOftenToCheck": "Hoe dikwels om te kontroleer",
+      "folderHistory": "Geskiedenis van vouers",
+      "foldersKeptPerHost": "Vouers gehou per gasheer",
+      "showHiddenFiles": "Wys versteekte lêers",
+      "filesAndFoldersThatStart": "Lêers en vouers wat met 'n punt begin",
+      "askBeforeMovingToThe": "Vra voor verskuiwing na die prulblik",
+      "deletingForGoodAlwaysAsks": "Permanent verwydering vra altyd",
+      "wrapLongLines": "Vou lang lyne",
+      "openWithNewTerminals": "Maak oop met nuwe terminale",
+      "onATabletShowThe": "Op 'n tablet, wys die lêers-paneel wanneer 'n terminaal oopmaak",
+      "followTheTerminal": "Volg die terminaal",
+      "openTheFolderTheTerminal": "Maak die vouer oop waar die terminaal in is terwyl jy cd gebruik"
+    },
+    "keyboardCustomization": {
+      "small": "Klein",
+      "medium": "Medium",
+      "large": "Groot",
+      "ms": "{{v}} ms",
+      "keyboard": "Sleutelbord",
+      "keyRowsAboveTheKeyboard": "Sleutelrye bo die sleutelbord",
+      "rows": "Rye",
+      "keys": "Sleutels",
+      "aHostCanHaveIts": "'n Gasheer kan sy eie rye hê: tik sy oop tab in 'n sessie en kies Sleutelrye vir hierdie gasheer.",
+      "keySize": "Sleutelgrootte",
+      "vibrateOnKeyPress": "Vibreer by sleutel-druk",
+      "repeatAfter": "Herhaal na",
+      "howLongToHoldAn": "Hoe lank om 'n pyltjie of Backspace ingedruk te hou",
+      "repeatEvery": "Herhaal elke",
+      "hardwareKeyboard": "Hardeware sleutelbord",
+      "allShortcuts": "Alle kortpaaie",
+      "show": "Wys"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Kon nie die rugsteunkopie maak nie",
+      "deleteLocalData": "Verwyder plaaslike data?",
+      "hostsCredentialsSnippetsAndHistory": "Gasheer, geloofsbriewe, uittreksels en geskiedenis wat op hierdie {{deviceWord}} vir {{account}} gestoor is, word verwyder. Dit kan nie ongedaan gemaak word nie. Maak eers 'n rugsteunkopie as jy dit wil behou.",
+      "delete": "Verwyder",
+      "localDataDeleted": "Plaaslike data verwyder",
+      "couldNotDeleteLocalData": "Kon nie plaaslike data verwyder nie",
+      "localData": "Plaaslike data",
+      "localDataIsOnlySaved": "Plaaslike data word slegs in die {{deviceWord}}-toepassing gestoor.",
+      "savedOnThisForThe": "Gestoor op hierdie {{deviceWord}} vir {{account}}. Die lêer word versleutel met 'n sleutel wat nooit hierdie {{deviceWord}} verlaat nie.",
+      "hosts": "Gashere",
+      "credentials": "Aanmeldingsgegewens",
+      "snippets": "Sneppette",
+      "size": "Grootte",
+      "dataVersion": "Data-weergawe",
+      "backup": "Terugvoer",
+      "aBackupFileHoldsYour": "'n Terugvoerlêer bevat jou wagwoorde en sleutels, gesluit met 'n wagfrase wat jy kies. Niemand kan dit sonder daardie wagfrase oopmaak nie.",
+      "exportBackup": "Voer terugvoer uit",
+      "importBackup": "Voer terugvoer in",
+      "removesEverythingThisAccountSaved": "Verwyder alles wat hierdie rekening op hierdie {{deviceWord}} gestoor het. 'n Gelinkte bediener hou sy eie kopie.",
+      "deleteLocalData2": "Vee plaaslike data uit",
+      "backupPassphrase": "Terugvoer-wagfrase",
+      "atLeast8CharactersYou": "Ten minste 8 karakters. Jy het dit nodig om die terugvoer te herstel.",
+      "passphrase": "Wagfrase",
+      "next": "Volgende",
+      "typeItAgain": "Tik dit weer",
+      "export": "Voer uit",
+      "saveYourTermixBackup": "Stoor jou Termix-terugvoer"
+    },
+    "logs": {
+      "logs": "Logboeke",
+      "latestLinesFromThisRun": "Nuutste reëls van hierdie uitvoering. Bediener-adresse, wagwoorde en tokens is versteek.",
+      "logsCopied": "Logboeke gekopieer",
+      "copy": "Kopieer",
+      "share": "Deel",
+      "clear": "Vee uit",
+      "noLogsYet": "Nog geen logboeke nie",
+      "nothingHasBeenLogged": "Niks is nog gelog nie."
+    },
+    "plugins": {
+      "worksOnThis": "Werk op hierdie {{deviceWord}}",
+      "needsTheServer": "Benodig die bediener",
+      "notInTheApp": "Nie in die toepassing nie",
+      "needsANewerVersionOf": "Benodig 'n nuwer weergawe van die toepassing",
+      "updateThePluginOnThe": "Dateer die invoegprogram op die bediener op",
+      "inTheApp": "In die toepassing",
+      "onThisServer": "Op hierdie bediener",
+      "version": "Weergawe",
+      "needsPluginApi": "Benodig invoegprogram-API",
+      "thisAppHas": "Hierdie toepassing het",
+      "note": "Nota",
+      "open": "Maak oop",
+      "openFromAHostS": "Maak {{name}} oop vanaf 'n gasheer se spyskaart.",
+      "plugins": "Invoegprogramme",
+      "everything": "Alles",
+      "thisDeviceWorksWithNo": "Hierdie toestel werk sonder 'n bediener. Skakel 'n bediener aan om funksies wat een benodig, by te voeg.",
+      "pluginsOnAndHowEach": "Invoegprogramme op {{account}} en hoe elkeen in die toepassing verskyn. Sleep af om weer te kontroleer.",
+      "whatRunsOnThisAnd": "Wat op hierdie {{deviceWord}} loop en wat deur {{account}} gaan.",
+      "noPluginList": "Geen invoegprogramlys nie",
+      "theServerDidNotSend": "Die bediener het sy invoegprogramme nie gestuur nie. Sleep af om weer te probeer.",
+      "serversOlderThan29": "Bedieners ouer as 2.9 het elke funksie ingebou.",
+      "nothingToShow": "Niks om te wys nie",
+      "notSentByThisServer": "Nie deur hierdie bediener gestuur nie"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Vervang plaaslike data?",
+      "everythingSavedOnThisFor": "Alles wat op hierdie {{deviceWord}} vir {{accountName}} gestoor is, word vervang met die terugvoer.",
+      "continue": "Gaan voort",
+      "couldNotReadThatFile": "Kon nie daardie lêer lees nie",
+      "backupRestored": "Terugvoer herstel",
+      "couldNotRestoreTheBackup": "Kon nie die terugvoer herstel nie",
+      "backupPassphrase": "Terugvoer-wagfrase",
+      "thePassphraseUsedWhenThe": "Die wagfrase wat gebruik is toe die terugvoer gemaak is.",
+      "passphrase": "Passphrase",
+      "restore": "Herstel"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Rekeninge",
+        "thisDeviceAndLinkedServers": "Hierdie toestel en gekoppelde bedieners, met hul sinkroniseringsstatus",
+        "syncAndProxy": "Sinkronisering en proxy",
+        "whatSyncsConflictsProxyAnd": "Wat sinkroniseer, konflikte, proxy en ontkoppel",
+        "serverAccount": "Bedienerrekening",
+        "whoIsSignedInOn": "Wie is aangemeld op die aktiewe bediener",
+        "activeSessions": "Aktiewe sessies",
+        "devicesSignedInToThe": "Toestelle wat aangemeld is by die bediener",
+        "apiKeys": "API-sleutels",
+        "keysForScriptsAndTools": "Sleutels vir skripte en gereedskap",
+        "changePassword": "Verander wagwoord",
+        "passwordOfYourServerAccount": "Wagwoord van jou bedienerrekening",
+        "deleteServerAccount": "Verwyder bedienerrekening",
+        "removeYourAccountFromThe": "Verwyder jou rekening van die bediener",
+        "theme": "Tema",
+        "darkLightDraculaNordAnd": "Donker, lig, Dracula, Nord en meer",
+        "accentColor": "Aksentkleur",
+        "textSize": "Teks grootte",
+        "sizeOfTextAcrossThe": "Grootte van teks oor die hele app",
+        "density": "Digtheid",
+        "howTallListRowsAnd": "Hoe hoog lysrye en instellings is",
+        "homeScreenWidgets": "Tuisskerm widgets",
+        "hostsAndSnippetsOnThe": "Gashere en fragmente op die tuisskerm",
+        "terminal": "Terminaal",
+        "fontThemeCursorScrollback": "Lettertipe, tema, cursor, terugrol",
+        "keyboard": "Toetsbord",
+        "layoutKeysPresets": "Uitleg, sleutels, voorinstellings",
+        "appLock": "App Slot",
+        "askForFaceIdTouch": "Vra vir Face ID, Touch ID of 'n PIN om die app oop te maak",
+        "lockAfter": "Slot na",
+        "howLongTheAppCan": "Hoe lank die app uit sig kan wees voordat dit sluit",
+        "hideInAppSwitcher": "Versteek in app-skakelaar",
+        "showABlankScreenIn": "Wys 'n leë skerm in die lys van onlangse apps",
+        "changePin": "Verander PIN",
+        "backgroundSessions": "Agtergrond sessies",
+        "whatHappensToOpenSessions": "Wat gebeur met oop sessies wanneer jy die app verlaat",
+        "serverAlerts": "Bediener waarskuwings",
+        "alertsFromTheAlertsPlugin": "Waarskuwings van die Alerts plugin op jou bediener",
+        "whatStaysOnThis": "Wat bly op hierdie {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Gashere, geloofsbriewe en fragmente word hier versleutel gestoor",
+        "recentHosts": "Onlangse gashere",
+        "forgetTheHostsYouOpened": "Vergeet die gashere wat jy onlangs oopgemaak het",
+        "shareAnonymousUsageStatistics": "Deel anonieme gebruiksstatistieke",
+        "aShortReportOnceA": "'n Kort verslag een keer per dag. Geen gashere, name of adresse nie",
+        "nextReport": "Volgende verslag",
+        "seeExactlyWhatWouldBe": "Sien presies wat gestuur sou word",
+        "resetInstallId": "Stel installasie-ID terug",
+        "futureReportsWillLookLike": "Toekomstige verslagte sal lyk soos 'n nuwe installasie",
+        "serverUsageStatistics": "Bediener gebruiksstatistieke",
+        "telemetrySettingsOnYourServer": "Telemetrie-instellings op jou bediener",
+        "plugins": "Plugins",
+        "whatTheServerAddsAnd": "Wat die bediener byvoeg en waar dit loop",
+        "localData": "Plaklike data",
+        "backupRestoreAndDeleteWhat": "Back-up, herstel en verwyder wat op hierdie {{deviceWord}} gestoor is",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Weergawe en opdaterings",
+        "logs": "Logboeke",
+        "latestLinesFromThisRun": "Nuutste reëls van hierdie loop, vir foutverslae",
+        "pushNotifications": "Stootmeldings",
+        "pushNotificationsDescription": "Waarskuwings van jou bedieners op hierdie foon"
+      },
+      "sections": {
+        "accountsAndSync": "Rekeninge en sinkronisering",
+        "thisDeviceLinkedServersAnd": "Hierdie toestel, gekoppelde bedieners en wat sinkroniseer",
+        "appearance": "Voorkoms",
+        "themeAccentTextSizeAnd": "Taal, tema, aksent, teks grootte en digtheid",
+        "terminal": "Terminaal",
+        "fontColorsAndBackgroundSessions": "Lettertipe, kleure en agtergrond sessies",
+        "keyboard": "Toetsbord",
+        "keyRowsAndShortcuts": "Sleutel rye en kortpaaie",
+        "security": "Veiligheid",
+        "appLockFaceIdAnd": "App Sluiting, Face ID en PIN",
+        "notifications": "Kennisgewings",
+        "alertsFromYourServer": "Waarskuwings van jou bediener",
+        "privacyAndUsageStatistics": "Privaatheid en gebruik statistieke",
+        "whatStaysOnThis": "Wat op hierdie {{deviceWord}} bly",
+        "plugins": "Plugins",
+        "whatTheServerAddsTo": "Wat die bediener aan die app byvoeg",
+        "backupAndData": "Terugvoer en data",
+        "backUpRestoreImportAnd": "Terugvoer, herstel, invoer en uitvoer",
+        "aboutAndLogs": "Oor en logboeke",
+        "versionAndLogsForBug": "Weergawe en logboeke vir foutverslae"
+      }
+    },
+    "settings": "Instellings",
+    "searchSettings": "Soek instellings",
+    "noSettingsMatch": "Geen instellings pas nie.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Kon nie snippets laai nie",
+      "copied": "Gekopieer: {{name}}",
+      "nameIsRequired": "Naam is verpligtend",
+      "contentIsRequired": "Inhoud is verpligtend",
+      "snippetUpdated": "Snippet opgedateer",
+      "snippetCreated": "Snippet geskep",
+      "failedToSaveSnippet": "Kon nie snippet stoor nie",
+      "snippetDeleted": "Snippet verwyder",
+      "failedToDeleteSnippet": "Kon nie snippet verwyder nie",
+      "folderNameIsRequired": "Map naam is verpligtend",
+      "folderCreated": "Map geskep",
+      "failedToCreateFolder": "Kon nie map skep nie",
+      "folderDeleted": "Map verwyder",
+      "failedToDeleteFolder": "Kon nie map verwyder nie",
+      "folderRenamed": "Map hernoem",
+      "failedToRenameFolder": "Kon nie map hernoem nie",
+      "failedToSaveOrder": "Kon nie volgorde stoor nie",
+      "moveUp": "Beweeg op",
+      "moveDown": "Beweeg af",
+      "runOnHosts": "Voer {{name}} uit op bedieners",
+      "copy": "Kopieer {{name}}",
+      "delete": "Verwyder {{name}}",
+      "renameFolder": "Hernoem map",
+      "deleteFolder": "Verwyder map",
+      "noSnippetsInThisFolder": "Geen snippets in hierdie map nie",
+      "snippets": "Snippets",
+      "importAndExport": "Invoer en uitvoer",
+      "folder": "Map",
+      "new": "Nuut",
+      "loading": "Laai tans…",
+      "couldNotLoadSnippets": "Kon nie snippets laai nie",
+      "checkTheConnectionToYour": "Kontroleer die verbinding na jou bediener en probeer weer.",
+      "tryAgain": "Probeer weer",
+      "noSnippetsYet": "Nog geen snippets nie",
+      "createYourFirstSnippetOr": "Skep jou eerste snippet, of voeg snippets by vanaf die Termix web of desktop app.",
+      "createSnippet": "Skep snit",
+      "askBeforeRunning": "Vra voor uitvoering",
+      "confirmBeforeASnippetRuns": "Bevestig voordat 'n snit in die terminaal uitvoer",
+      "editSnippet": "Wysig snit",
+      "newSnippet": "Nuwe snit",
+      "cancel": "Kanselleer",
+      "save": "Stoor",
+      "create": "Skep",
+      "name": "Naam",
+      "eGUpdatePackages": "bv. Werk pakkette op",
+      "content": "Inhoud",
+      "descriptionOptional": "Beskrywing (opsioneel)",
+      "shortDescription": "Kort beskrywing",
+      "folderOptional": "Gids (opsioneel)",
+      "selectFolder": "Kies gids",
+      "noFolder": "Geen gids nie",
+      "targetHostsOptional": "Teikenhoste (opsioneel)",
+      "none": "Geen",
+      "note": "Nota",
+      "pastedIntoTheTerminalWithout": "In die terminaal ingevoeg sonder om uit te voer",
+      "targetHosts": "Teikenhoste",
+      "copy2": "Kopieer",
+      "edit": "Wysig",
+      "runOnHosts2": "Voer uit op hoste",
+      "delete2": "Vee uit",
+      "deleteSnippet": "Vee snit uit",
+      "deleteThisCannotBeUndone": "Vee \"{{name}}\" uit? Dit kan nie ongedaan gemaak word nie.",
+      "renameFolder2": "Hernoem gids",
+      "rename": "Hernoem",
+      "folderName": "Gidsnaam",
+      "eGSystem": "bv. Stelsel",
+      "newFolder": "Nuwe gids",
+      "deleteFolder2": "Vee gids uit",
+      "deleteSnippetsInThisFolder": "Vee \"{{name}}\" uit? Snite in hierdie gids sal ongekategoriseerd word."
+    },
+    "sync": {
+      "notYet": "Nog nie",
+      "justNow": "Net nou",
+      "stopped": "Gestop",
+      "signInToThisServer": "Meld weer by hierdie bediener aan om te sinkroniseer",
+      "couldNotChangeThat": "Kon dit nie verander nie",
+      "sync": "Sinkroniseer",
+      "thisDeviceDoesNotSync": "Hierdie toestel sinkroniseer nie. Koppel 'n Termix-bediener om jou hoste op meer as een toestel te hou.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} hou hoste, geloofsbriewe, snitte en instellings op datum met hierdie {{deviceWord}}. 'n Kopie bly op hierdie {{deviceWord}}, so dit werk ook aflyn.",
+      "lastSynced": "Laaste sinkronisering {{value}}",
+      "live": "Lewend",
+      "syncNow": "Sinkroniseer nou",
+      "fix": "Herstel",
+      "thisServerReadsLiveAnd": "Hierdie bediener lees lewend en hou geen kopie op die {{deviceWord}} nie.",
+      "turnOnTheSyncPlugin": "Skakel die Sinkronisering-plug-in aan op die bediener se Plug-ins-bladsy, en meld dan weer hier aan om 'n kopie op hierdie {{deviceWord}} te hou.",
+      "whatSyncs": "Wat sinkroniseer",
+      "turnedOffThatDataStays": "Afgeskakel, daardie data bly slegs op hierdie {{deviceWord}}.",
+      "conflicts": "Konflikte",
+      "changedHereAndOnThe": "Verander hier en op die bediener gelyktydig. Die bediener se weergawe is gehou.",
+      "useServer": "Gebruik bediener",
+      "keepMine": "Hou myne",
+      "notSavedOnTheServer": "Nie op die bediener gestoor nie",
+      "theServerRefusedTheseChanges": "Die bediener het hierdie veranderinge geweier. Hulle bly op hierdie {{deviceWord}}.",
+      "tryAgain": "Probeer weer",
+      "proxy": "Proksy",
+      "onlyNeededWhenAReverse": "Slegs nodig wanneer 'n omgekeerde proksy voor die bediener sit.",
+      "unlink": "Ontkoppel",
+      "unlinkThisServer": "Ontkoppel hierdie bediener",
+      "minAgo": "{{value}} min gelede",
+      "signedOut": "Uitgelog",
+      "waitingToSync": "Wag om te sinkroniseer",
+      "synced": "Gesinkroniseer",
+      "syncing": "Besig om te sinkroniseer",
+      "offline": "Vanlyn"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Agtergrond",
+        "text": "Teks",
+        "cursor": "Vlakker",
+        "textUnderCursor": "Teks onder vlakker",
+        "selection": "Seleksie",
+        "black": "Swart",
+        "red": "Rooi",
+        "green": "Groen",
+        "yellow": "Geel",
+        "blue": "Blou",
+        "magenta": "Magenta",
+        "cyan": "Siaan",
+        "white": "Wit",
+        "brightBlack": "Helder swart",
+        "brightRed": "Helder rooi",
+        "brightGreen": "Helder groen",
+        "brightYellow": "Helder geel",
+        "brightBlue": "Helder blou",
+        "brightMagenta": "Helder magenta",
+        "brightCyan": "Helder siaan",
+        "brightWhite": "Helder wit",
+        "customTheme": "Aangepaste tema",
+        "colorsAsHexLike1e1e2e": "Kleure as heks, soos #1e1e2e.",
+        "cancel": "Kanselleer",
+        "save": "Stoor",
+        "isNotAHexColor": "{{label}} is nie 'n hekskleur nie"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompak",
+      "default": "Verstek",
+      "relaxed": "Ontspanne",
+      "spacious": "Ruimtelik",
+      "none": "Geen",
+      "couldNotSave": "Kon nie stoor nie",
+      "pickASizeFromTo": "Kies 'n grootte van {{MIN_FONT_SIZE}} tot {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Terminale-instellings is herstel",
+      "terminal": "Terminaal",
+      "aHostCanSetIts": "'n Gasheer kan sy eie tema en vlakker in Termix stel, wat voorkeur kry bo hierdie.",
+      "theme": "Tema",
+      "custom": "Aangepas",
+      "font": "Lettertipe",
+      "active": "Aktief",
+      "sizeAndSpacing": "Grootte en spasie",
+      "pinchTheTerminalToChange": "Pinch die terminaal om die grootte ook te verander. Groot teks in jou {{deviceWord}}instellings maak dit groter.",
+      "custom2": "Aangepas {{fontSize}}",
+      "lineHeight": "Reëlhoogte",
+      "letterSpacing": "Letterspasiëring",
+      "ligatures": "Ligatures",
+      "cursor": "Vlakker",
+      "blink": "Knip",
+      "bell": "Bel",
+      "vibrate": "Vibreer",
+      "onTheBellAndWhen": "Op die bel en wanneer jy lank druk om te selekteer",
+      "scrollback": "Terugrol",
+      "linesKeptAboveTheScreen": "Reëls wat bo die skerm gehou word. Geld vir nuwe terminale.",
+      "linksAndKeys": "Skakels en sleutels",
+      "askBeforeOpeningLinks": "Vrae voor skakels oopgemaak word",
+      "doubleTapSendsTab": "Dubbel tik stuur Tab",
+      "longPressStillSelectsText": "Lang druk kies steeds teks",
+      "optionSendsAlt": "Opsie stuur Alt",
+      "onAHardwareKeyboardOff": "Op 'n hardewaretoetsbord. Af tipes simbole soos op 'n Mac.",
+      "history": "Geskenie",
+      "suggestCommands": "Stel opdragte voor",
+      "showsPastCommandsThatStart": "Vorige opdragte terwyl jy tik",
+      "resetToDefault": "Stel terug na verstek",
+      "fontSize": "Lettertipegrootte",
+      "aSizeFromTo": "'n Grootte van {{MIN_FONT_SIZE}} tot {{MAX_FONT_SIZE}}.",
+      "cancel": "Kanselleer",
+      "apply": "Pas toe",
+      "resetTerminalSettings": "Stel terminaalinstellings terug?",
+      "themeFontSizeCursorBell": "Tema, lettertipe, grootte, cursor, klok en die res gaan terug na die verstek.",
+      "reset": "Stel terug",
+      "followsAppTheme": "Volg app-tema"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Kon nie 2FA-opstelling begin nie",
+      "twoFactorAuthenticationEnabled": "Twee-faktor-verifikasie geaktiveer",
+      "invalidCodeTryAgain": "Ongeldige kode, probeer weer",
+      "twoFactorAuthenticationDisabled": "Twee-faktor-verifikasie gedeaktiveer",
+      "failedToDisable2fa": "Kon nie 2FA deaktiveer nie",
+      "failedToFetchBackupCodes": "Kon nie rugsteunkodes ophaal nie",
+      "secretCopied": "Geheim gekopieer",
+      "backupCodesCopied": "Rugsteunkodes gekopieer",
+      "twoFactorAuthentication": "Twee-faktor-verifikasie",
+      "loading": "Laai tans…",
+      "scanThisQrCodeWith": "Skandeer hierdie QR-kode met jou verifikasie-app (Google Authenticator, Authy, ens.), en voer dan die 6-syfer kode in om te bevestig.",
+      "verifyAmpEnable": "Verifieer en skakel aan",
+      "cancel": "Kanselleer",
+      "saveYourBackupCodes": "Stoor jou rugsteunkodes",
+      "storeTheseSomewhereSafeEach": "Stoor hierdie kode ergens veilig. Elke kode kan slegs een keer gebruik word as jy toegang tot jou verifikasie-app verloor.",
+      "copyAllCodes": "Kopieer alle kodes",
+      "done": "Klaar",
+      "yourAccountIsProtectedWith": "Jou rekening word beskerm met 'n verifikasie-app.",
+      "addAnExtraLayerOf": "Voeg 'n ekstra laag van sekuriteit by jou rekening.",
+      "viewBackupCodes": "Besigtig rugsteunkodes",
+      "disable2fa": "Deaktiveer 2FA",
+      "enable2fa": "Aktiveer 2FA",
+      "disableTwoFactorAuthentication": "Deaktiveer Twee-Faktor-Verifikasie",
+      "enterACodeFromYour": "Voer 'n kode in van jou verifikasie-app om te bevestig. Jy kan 2FA te eniger tyd weer aktiveer.",
+      "enterYourPasswordToConfirm": "Voer jou wagwoord in om te bevestig. Jy kan 2FA te eniger tyd weer aktiveer.",
+      "disable": "Deaktiveer",
+      "yourPassword": "Jou wagwoord",
+      "n2faIsEnabled": "2FA is geaktiveer",
+      "n2faIsNotEnabled": "2FA is nie geaktiveer nie"
+    },
+    "language": {
+      "label": "Taal",
+      "description": "Die app laai her om te skakel",
+      "system": "Dieselfde as die toestel"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Geen SSH-gasheer hier nie",
+      "couldNotReadWhatWas": "Kon nie lees wat gedeel is nie",
+      "stopTheUploads": "Stop die oploads?",
+      "stopAndLeave": "Stop en verlaat",
+      "sendTo": "Stuur na {{name}}",
+      "sendToAHost": "Stuur na 'n gasheer",
+      "nothingToSend": "Niks om te stuur nie",
+      "close": "Maak toe",
+      "done": "Klaar",
+      "cancel": "Kanselleer",
+      "uploadHere": "Laai hier op",
+      "uploadsStillGoing_one": "{{count}} oplaai is nog besig. As jy vertrek, word dit gestop.",
+      "uploadsStillGoing_other": "{{count}} opslaai is nog besig. As jy vertrek, word hulle gestop.",
+      "filesSize_one": "{{count}} lêer | {{size}}",
+      "filesSize_other": "{{count}} lêers | {{size}}",
+      "readingWhatWasShared": "Lees wat gedeel is"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Fout",
+      "worksWithoutAServer": "Werk sonder 'n bediener",
+      "accountSwitch": "Rekening {{account}}, skakel oor",
+      "search": "Soek",
+      "notificationsUnread": "Kennisgewings, {{unread}} ongelees",
+      "notifications": "Kennisgewings",
+      "signedIn": "Aangemeld",
+      "signedOut": "Afgemeld",
+      "copyOnThis": "Kopieer op hierdie {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Tuis",
+      "hosts": "Gashere",
+      "sessions": "Sessies",
+      "tools": "Hulpmiddels",
+      "settings": "Instellings",
+      "open": "{{label}}, {{count}} oop"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} oop"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Kies 'n gasheer",
+      "searchHosts": "Soek gashere",
+      "clearSearch": "Vee soek uit",
+      "noHostsMatch": "Geen gashere pas by nie",
+      "noHostsCanUseThis": "Geen gashere kan dit gebruik nie",
+      "turnItOnForA": "Skakel dit aan vir 'n gasheer in die gasheer-redigeerder."
+    },
+    "noToolsHereYet": "Nog geen hulpmiddels hier nie",
+    "onAHost": "Op 'n gasheer",
+    "saved": "Opgespaar",
+    "fromYourServer": "Vanaf jou bediener"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Kanselleer",
+      "delete": "Vee uit",
+      "confirm": "Bevestig"
+    },
+    "contextMenu": {
+      "closeMenu": "Maak menu toe"
+    },
+    "inlineView": {
+      "back": "Terug"
+    },
+    "listRow": {
+      "moreActions": "Meer aksies"
+    },
+    "pinPad": {
+      "useBiometrics": "Gebruik biometrie",
+      "delete": "Vee uit"
+    },
+    "popover": {
+      "close": "Maak toe"
+    },
+    "promptSheet": {
+      "cancel": "Kanselleer"
+    },
+    "sheet": {
+      "close": "Maak toe"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Hierdie sleutel is gesluit. Voer die wagwoord in.",
+      "thatPassphraseDoesnTOpen": "Daardie wagwoord open nie hierdie sleutel nie.",
+      "thisDoesnTLookLike": "Dit lyk nie soos 'n privaat sleutel nie.",
+      "loadedAndChangedItTo": "Het {{name}} gelaai en na OpenSSH-formaat verander",
+      "loadedItNeedsItsPassphrase": "Het {{name}} gelaai. Dit benodig sy wagwoord om te verbind"
+    },
+    "ago": {
+      "justNow": "net nou"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Kon nie jou gashere laai nie.",
+      "failedOn": "{{name}} het misluk op {{name2}}",
+      "on": "{{name}} op {{name2}}: {{value}}",
+      "ranOn": "Het {{name}} op {{name2}} uitgevoer",
+      "runOn": "Voer \"{{name}}\" uit op",
+      "runSnippet": "Voer fragment uit",
+      "loadingHosts": "Laai gashere…",
+      "noHostsAvailable": "Geen gashere beskikbaar nie",
+      "addAHostInTermix": "Voeg 'n gasheer by in Termix om fragmente vanaf jou tuisskerm uit te voer.",
+      "lastUsed": "Laaste gebruik",
+      "failedToRunSnippet": "Kon nie fragment uitvoer nie"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Daardie fragment bestaan nie meer nie.",
+      "couldNotOpenThatSnippet": "Kon nie daardie fragment oopmaak nie.",
+      "thatHostNoLongerExists": "Daardie gasheer bestaan nie meer nie.",
+      "couldNotOpenThatHost": "Kon nie daardie gasheer oopmaak nie."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Tuis"
+      },
+      "hosts": {
+        "hosts": "Gasheer"
+      },
+      "sessions": {
+        "sessions": "Sessies",
+        "connectToATermixServer": "Maak verbinding met 'n Termix-bediener om terminale, tonnels en lêersessies oop te maak."
+      }
+    },
+    "layout": {
+      "initializing": "Inisialiseer…",
+      "cancel": "Kanselleer"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Hierdie gasheer het geen geldige MAC-adres nie.",
+    "thisBuildCanTSend": "Hierdie weergawe kan nie Wake-on-LAN-pakkette stuur nie.",
+    "couldNotSendThePacket": "Kon nie die pakket stuur nie. Kontroleer of Wi-Fi aan is."
+  },
+  "common": {
+    "hostCount_one": "{{count}} gasheer",
+    "hostCount_other": "{{count}} gasheer",
+    "device": {
+      "phone": "foon",
+      "tablet": "tablet"
+    },
+    "thisDeviceLower": "hierdie {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Deel",
+    "action": "Deel met mense",
+    "levels": {
+      "connect": "Maak verbinding",
+      "view": "Besigtig",
+      "edit": "Wysig",
+      "manage": "Bestuur"
+    },
+    "levelHints": {
+      "connect": "Maak slegs sessies oop. Die gasheer-instellings bly versteek",
+      "view": "Maak verbinding, plus sien die gasheer-instellings. Geheime word nooit getoon nie",
+      "edit": "Besigtig, plus verander instellings anders as die aanmelding",
+      "manage": "Wysig, plus deel die gasheer en verander of verwyder toegang"
+    },
+    "until": "tot {{date}}",
+    "sharedBy": "deur {{name}}",
+    "couldNotLoad": "Kon nie laai wie toegang het nie",
+    "shared": "Gasheer gedeel",
+    "couldNotShare": "Kon nie die gasheer deel nie",
+    "updated": "Toegang verander",
+    "couldNotUpdate": "Kon nie die toegang verander nie",
+    "removeTitle": "Verwyder {{name}}?",
+    "removeHint": "Hulle kan nie meer hierdie gasheer gebruik nie.",
+    "remove": "Verwyder",
+    "removed": "Toegang verwyder",
+    "couldNotRemove": "Kon nie die toegang verwyder nie",
+    "whoHasAccess": "Wie het toegang",
+    "loading": "Laai tans...",
+    "nobodyYet": "Slegs jy kan hierdie gasheer gebruik.",
+    "changeAccessFor": "Verander toegang vir {{name}}",
+    "shareWith": "Deel met",
+    "users": "Gebruikers",
+    "roles": "Rolle",
+    "searchUsers": "Soek gebruikers",
+    "searchRoles": "Soek rolle",
+    "noUsers": "Geen ander gebruikers om mee te deel nie.",
+    "noRoles": "Geen rolle om mee te deel nie.",
+    "options": "Toegang",
+    "level": "Vlak",
+    "expires": "Eindig",
+    "expiry": {
+      "never": "Nooit",
+      "1h": "Binne 1 uur",
+      "1d": "Binne 1 dag",
+      "7d": "Binne 7 dae",
+      "30d": "Binne 30 dae"
+    },
+    "pickSomeone": "Kies met wie om te deel",
+    "shareCount_one": "Deel met {{count}}",
+    "shareCount_other": "Deel met {{count}}",
+    "removeAccess": "Verwyder toegang"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Bedienerwaarskuwings",
+      "critical": "Kritieke bedienerwaarskuwings"
+    },
+    "severity": {
+      "info": "Alles",
+      "warning": "Waarskuwings en erger",
+      "critical": "Slegs kritiek"
+    },
+    "settings": {
+      "on": "Waarskuwings verskyn op hierdie foon",
+      "off": "Af",
+      "toggle": "Stootmeldings vir {{server}}",
+      "minSeverity": "Stuur my",
+      "denied": "Meldings is vir Termix afgeskakel. Skakel dit aan in die foon se instellings.",
+      "openSettings": "Maak instellings oop",
+      "outdated": "Hierdie bediener benodig Waarskuwings 1.4.0 of nuwer vir stootmeldings. Vra 'n admin om die plugin op te dateer.",
+      "unavailable": "Meld aan by hierdie bediener en skakel die Waarskuwings-plugin aan om meldings te kry.",
+      "error": "Kon nie die bediener bereik nie. Termix probeer weer die volgende keer dat die app oopmaak.",
+      "notInThisBuild": "Hierdie bou kan nie meldings wys nie.",
+      "noServers": "Koppel 'n bediener om sy waarskuwings hier te kry.",
+      "pushHint": "Waarskuwings word deur Expo en Apple of Google gestuur, met hul titel en teks. Kies watter in die Waarskuwingsreëls op die bediener.",
+      "pollHint": "Hierdie bou het geen Google-dienste nie, so Termix kyk in die agtergrond na nuwe waarskuwings, ongeveer elke 15 minute."
+    }
+  }
+}

@@ -1,0 +1,3850 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "サインイン",
+      "addServer": "サーバーを追加",
+      "switchAccount": "アカウントを切り替え",
+      "noServerConnected": "サーバーに接続されていません",
+      "connectToATermixServer": "Termix サーバーに接続して、ホスト、ターミナル、ファイルなどを管理しましょう。"
+    },
+    "lockScreen": {
+      "cancel": "キャンセル",
+      "tooManyTriesWaitSeconds": "試行回数が多すぎます。{{value}}秒お待ちください",
+      "termixLocked": "Termix がロックされています",
+      "enterYourPinToContinue": "続行するには PIN を入力してください"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "オレンジ",
+      "blue": "ブルー",
+      "green": "グリーン",
+      "purple": "パープル",
+      "pink": "ピンク",
+      "cyan": "シアン",
+      "red": "レッド",
+      "yellow": "イエロー",
+      "teal": "ティール",
+      "indigo": "インディゴ",
+      "rose": "ローズ",
+      "lime": "ライム",
+      "system": "システム",
+      "light": "ライト",
+      "dark": "ダーク"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "PIN を使用する",
+      "unlockTermix": "Termix のロックを解除",
+      "unlockTermixFirst": "まず Termix のロックを解除してください。"
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "この機能はサーバーで無効になっています。",
+      "aTabWasNotReopened": "ホストが存在しないため、タブが再開されませんでした",
+      "tabsWereNotReopenedBecause": "ホストが存在しないため、{{count}}個のタブが再開されませんでした"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "これを使用するには Termix サーバーをリンクしてください",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "サーバーのアドレスを入力してください",
+        "theAddressCanTHave": "アドレスにはスペースを含めることはできません",
+        "useAnHttpOrHttps": "http:// または https:// のアドレスを使用してください",
+        "thatDoesnTLookLike": "サーバーのアドレスのように見えません",
+        "thePortMustBeFrom": "ポート番号は 1 から 65535 の範囲で指定してください"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Termix の代わりにログインプロキシが応答しました。まずプロキシにサインインしてください。",
+        "theServerDidNotSend": "サーバーからトークンが送信されませんでした。",
+        "theServerDidNotSend2": "サーバーからセッションが送信されませんでした。",
+        "theServerSentNoSign": "サーバーからサインインアドレスが送信されませんでした。",
+        "theSignInRanOut": "サインインの有効期限が切れているか、すでに使用されています。もう一度サインインしてください。",
+        "wrongUsernameOrPassword": "ユーザー名またはパスワードが間違っています",
+        "signInFailedHttp": "サインインに失敗しました (HTTP {{status}})",
+        "thePageSignedYouIn": "ページでサインインは完了しましたが、セッションが返されませんでした。サーバーを Termix 26.11.3 以降に更新してください。",
+        "thisAccountIsnTAllowed": "このアカウントはここでサインインできません。",
+        "noTermixAccountMatchesThat": "このサインインに一致する Termix アカウントが見つかりません。"
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "このセッションにはサーバーがありません"
+    },
+    "store": {
+      "noSuchAccount": "そのようなアカウントはありません",
+      "thisDeviceCanTBe": "このデバイスは削除できません",
+      "switchToAnotherAccountFirst": "まず別のアカウントに切り替えてください"
+    },
+    "types": {
+      "thisDevice": "このデバイス"
+    },
+    "accountSwitcher": {
+      "error": "エラー",
+      "worksWithoutAServer": "サーバーなしでも動作します",
+      "couldNotSwitchAccount": "アカウントを切り替えられませんでした",
+      "accounts": "アカウント",
+      "openTabsKeepRunningWhen": "切り替えても開いているタブは実行され続けます。",
+      "unlink": "{{account}} のリンクを解除",
+      "linkAServer": "サーバーをリンク",
+      "eachServerKeepsItsOwn": "この {{deviceWord}} には、各サーバーのホスト、認証情報、設定が個別に保存されます。",
+      "signedIn": "サインイン済み",
+      "signedOut": "サインアウト済み",
+      "syncedCopy": "同期済みコピー"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "ピンを保存できませんでした",
+      "theServerSKeyMatches": "サーバーのキーはピンと一致しています",
+      "theServerShowsAnotherKey": "サーバーは別のキーを表示しています",
+      "pinThisKey": "このキーをピン留めしますか？",
+      "pinThisKey2": "このキーをピン留め",
+      "keyPinned": "キーをピン留めしました",
+      "couldNotReadTheServer": "サーバーのキーを読み取れませんでした",
+      "thatIsNotAPin": "これはピンではありません",
+      "keysPinned": "キーをピン留めしました",
+      "certificatePin": "証明書ピン",
+      "trustThisServerOnlyBy": "このサーバーはキーのみで信頼します。自己署名証明書に使用するか、他のキーを拒否するために使用します。サーバーの証明書を変更する前に、次のキーを追加してください。",
+      "removePin": "ピン {{pin}} を削除",
+      "remove": "削除",
+      "readTheKeyFromThe": "サーバーからキーを読み取る",
+      "orPasteAPin": "またはピンを貼り付け",
+      "pin": "ピン",
+      "add": "追加",
+      "issuedTo": "発行先: {{subject}}",
+      "issuedBy": "発行者: {{issuer}}",
+      "validUntil": "有効期限: {{value}}",
+      "checkThatThisKeyMatches": "ピン留めする前に、このキーがサーバー上のものと一致することを確認してください。",
+      "pasteTheBase64Sha256Of": "openssl が出力する形式のように、サーバーの公開鍵の base64 sha256 を貼り付けてください。"
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "プロキシ設定を保存しました",
+      "couldNotSaveTheProxy": "プロキシ設定を保存できませんでした",
+      "couldNotReadThatFile": "そのファイルを読み取れませんでした",
+      "certificateSaved": "証明書を保存しました",
+      "theFileOrItsPassphrase": "ファイルまたはそのパスフレーズが正しくありません",
+      "couldNotSaveTheCertificate": "証明書を保存できませんでした",
+      "headers": "ヘッダー",
+      "sentWithEveryRequestTo": "このサーバーへのすべてのリクエストに送信されます（例: Cloudflare サービストークン）。",
+      "name": "名前",
+      "value": "値",
+      "removeHeader": "ヘッダーを削除",
+      "addHeader": "ヘッダーを追加",
+      "cloudflareServiceToken": "Cloudflare サービストークン",
+      "basicAuth": "基本認証",
+      "forAProxyThatAsks": "ユーザー名とパスワードを要求するプロキシ用。",
+      "userName": "ユーザー名",
+      "password": "パスワード",
+      "saveHeadersAndBasicAuth": "ヘッダーと基本認証を保存",
+      "clientCertificate": "クライアント証明書",
+      "forServersThatAskFor": "クライアント証明書を要求するサーバー用（mTLS）。キーは {{deviceWord}} の安全なストレージに保持され、読み出すことはできません。",
+      "certificate": "証明書",
+      "remove": "削除",
+      "replaceCertificate": "証明書を置換",
+      "pickAP12OrPfx": ".p12 または .pfx ファイルを選択",
+      "proxySignIn": "プロキシサインイン",
+      "thisIsSignedInTo": " この {{deviceWord}} はプロキシにサインインしています。",
+      "forCloudflareAccessAutheliaAuthentik": "Cloudflare Access、Authelia、Authentik、および独自のサインインページを持つ他のプロキシ用。{{value}}",
+      "signInToTheProxy": "プロキシにサインイン",
+      "forget": "忘れる",
+      "certificatePassphrase": "証明書パスフレーズ",
+      "thePassphraseTheFileWas": "ファイルが保存されたときのパスフレーズ。設定されていない場合は空のままにしてください。",
+      "passphrase": "パスフレーズ",
+      "save": "保存"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "プロキシにサインインしました",
+      "couldNotSaveTheProxy": "プロキシサインインを保存できませんでした",
+      "signInToTheProxy": "プロキシにサインイン",
+      "thisBuildOfTheApp": "このアプリのビルドではプロキシ認証を維持できません。代わりにプロキシヘッダーにサービストークンを使用してください。"
+    },
+    "savedLoginRow": {
+      "signIn": "サインイン",
+      "signInWith": "{{name}} でサインイン",
+      "whenThisServerSignsYou": "このサーバーからサインアウトされた場合、パスワードを入力せずに再度サインインします。"
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "リンクが解除されました。{{copied}} 件のアイテムが「このデバイス」に保持されました。",
+      "unlinked": "リンク解除済み",
+      "couldNotUnlinkTheServer": "サーバーのリンクを解除できませんでした",
+      "unlink": "{{value}} のリンクを解除しますか？",
+      "thisSignsOutOfThe": "この {{deviceWord}} はサーバーからサインアウトします。サーバー上のデータは削除されません。",
+      "keepACopyOnThis": "このデバイスにコピーを保持する",
+      "yourOwnHostsCredentialsAnd": "独自のホスト、認証情報、スニペットは「このデバイス」に移動されます。共有されたホストは保持されません。",
+      "deleteFromThis": "この {{deviceWord}} から削除する",
+      "everythingThisHasForThe": "この {{deviceWord}} がサーバーに対して保持しているすべてのデータが削除されます。"
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "下の「プロキシ」で変更してください",
+      "updateTermixMobileFromYour": "アプリストアから Termix Mobile を更新してください"
+    },
+    "savedLogin": {
+      "signInToTermix": "Termix にサインイン",
+      "faceUnlock": "顔認証ロック解除"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "このビルドでは、サーバーのピン留めキーの確認や証明書の送信ができません。"
+    },
+    "http": {
+      "thisServerDoesNotSupport": "このサーバーはこの機能をサポートしていません",
+      "theProxyWantsYouTo": "プロキシからサインインを求められています",
+      "endpointNotAvailableOnThis": "このサーバーではエンドポイントが利用できません",
+      "unknownError": "不明なエラー"
+    },
+    "errors": {
+      "theProxyInFrontOf": "このサーバーの前段にあるプロキシから、再度サインインを求められています。",
+      "authenticationRequiredPleaseLogIn": "認証が必要です。再度ログインしてください。",
+      "accessDeniedYouDoNot": "アクセスが拒否されました。この操作を行う権限がありません。",
+      "thisFeatureIsTurnedOff": "この機能はサーバーで無効化されています。",
+      "thisServerDoesNotSupport": "このサーバーはこの機能をサポートしていません。",
+      "resourceNotFoundTheRequested": "リソースが見つかりません。リクエストされたアイテムは削除されている可能性があります。",
+      "conflictTheResourceAlreadyExists": "競合が発生しました。リソースは既に存在するか、使用中です。",
+      "validationErrorPleaseCheckYour": "検証エラーです。入力内容を確認して、もう一度お試しください。",
+      "serverErrorOccurredPleaseTry": "サーバーエラーが発生しました。後でもう一度お試しください。",
+      "sslCertificateVerificationFailed": "SSL 証明書の検証に失敗しました。",
+      "networkErrorPleaseCheckYour": "ネットワークエラーです。接続を確認して、もう一度お試しください。",
+      "failedTo": "{{operation}} に失敗しました",
+      "unknownError": "不明なエラー",
+      "unexpectedErrorDuring": "{{operation}} 中に予期しないエラーが発生しました: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "アプリはこのローカル IP に対する HTTPS を信頼できませんでした。プロキシとクライアント証明書でサーバーのキーをピン留めするか、{{deviceWord}} が信頼する証明書を使用するか、信頼できるローカルまたは VPN ネットワーク上で HTTP を使用してください。",
+        "thisServerIsBehindA": "このサーバーはログインプロキシの背後にあります。代わりに外部サインインオプションを使用してください。",
+        "loginFailed": "ログインに失敗しました"
+      },
+      "files": {
+        "fileNotFound": "ファイルが見つかりません",
+        "fileWriteOperationDidNot": "ファイル書き込み操作が成功ステータスを返していません",
+        "couldNot": "{{operation}} できませんでした ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "ホストは保存されましたが、一部の設定に失敗しました: {{value}}",
+        "unexpectedHostResponseFrom": "{{baseURL}} からの予期しないホスト応答"
+      },
+      "metrics": {
+        "liveSampleFailed": "ライブサンプルに失敗しました"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "応答なし"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "このサーバーはピン留めされているキーを表示しなかったため、ページは開かれませんでした。"
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "その {{what}} はもう存在しません。",
+      "aHostCannotBeIts": "ホストは自身を親にすることはできません",
+      "parentHostNotFound": "親ホストが見つかりません",
+      "aHostCanTGo": "ホストは自身のサブホストの下に配置することはできません",
+      "thisIsSharedWithYou": "この {{what}} はあなたと共有されています。変更できるのは所有者のみです。",
+      "nameIsRequired": "名前は必須です",
+      "nameAndCommandAreRequired": "名前とコマンドは必須です",
+      "aFolderWithThatName": "その名前のフォルダは既に存在します"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "このデバイスでは {{what}} をここに保存できません。"
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "このスニペットはあなたと共有されており、変更できません。"
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "8文字以上のパスフレーズを使用してください。",
+      "thisIsNotATermix": "これは Termix のバックアップファイルではありません。",
+      "thisBackupIsFromA": "このバックアップは、より新しいバージョンの Termix から作成されたものです。まずアプリを更新してください。",
+      "wrongPassphraseOrTheFile": "パスフレーズが間違っているか、ファイルが破損しています。"
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "このビルドではローカルデータを暗号化できません。"
+    },
+    "keys": {
+      "unlockTermixFirst": "まず Termix をアンロックしてください。",
+      "thatIsNotADatabase": "データベースキーではありません。",
+      "couldNotSaveTheDatabase": "データベースキーを保存できませんでした。"
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "このデータは、より新しいバージョンの Termix によって保存されました。アプリを更新して開いてください。"
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "このデバイスは同期しません。",
+      "localDataIsNotAvailable": "ローカルデータはここで利用できません。",
+      "unlockTermixFirst": "まず Termix をアンロックしてください。"
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "接続できません。",
+      "thisWayCanTRun": "この方法ではコマンドを実行できません"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo パスワード",
+      "password": "パスワード",
+      "run": "実行",
+      "thatPasswordWasWrong": "パスワードが間違っています。",
+      "onNeedsRoot": "{{hostName}} での {{reason}} には root 権限が必要です。",
+      "needsRootForThis": "{{hostName}} ではこれに root 権限が必要です。",
+      "itIsKeptUntilYou": "アプリを閉じるまで保持されます。"
+    },
+    "run": {
+      "theHostTookTooLong": "ホストからの応答に時間がかかりすぎました",
+      "connectionLost": "接続が失われました"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "root 権限が必要です。root としてログインするか、パスワードなしの sudo を設定するか、ホストの sudo パスワードを保存してください。",
+      "theSudoPasswordWasWrong": "sudo パスワードが間違っています",
+      "commandFailed": "コマンドが失敗しました"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "ターミナルでの Telnet には、{{deviceWord}} からの接続が必要です。"
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "機能 {{id}} は既に登録されています"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "アドレス",
+      "theIpOrHostName": "名前の下の IP またはホスト名",
+      "username": "ユーザー名",
+      "theUserBeforeTheAddress": "アドレスの前のユーザー",
+      "port": "ポート",
+      "thePortAfterTheAddress": "アドレスの後のポート",
+      "hostIcon": "ホストアイコン",
+      "theIconSetOnThe": "ホストに設定されたアイコン",
+      "pinIcon": "ピン留めアイコン",
+      "marksPinnedHosts": "ピン留めされたホストを示します",
+      "sharedBadge": "共有バッジ",
+      "marksHostsSharedWithYou": "あなたと共有されたホストを示します",
+      "protocolBadges": "プロトコルバッジ",
+      "sshRdpDockerAndOther": "SSH、RDP、Docker などのチップ",
+      "tags": "タグ",
+      "theHostSTags": "ホストのタグ",
+      "cpuAndRam": "CPU と RAM",
+      "liveUsageBarsOnOnline": "オンラインホストのライブ使用量バー",
+      "statusColors": "ステータスカラー",
+      "greenBarWhenOnlineRed": "オンライン時は緑、オフライン時は赤のバー"
+    },
+    "uiPrefs": {
+      "small": "小",
+      "default": "デフォルト",
+      "large": "大",
+      "comfortable": "快適",
+      "compact": "コンパクト"
+    },
+    "errors": {
+      "somethingWentWrong": "エラーが発生しました"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "パスフレーズでキーをロックするには、ウェブプレビューではなく Termix アプリが必要です。"
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "すぐに",
+      "after15Seconds": "15秒後",
+      "after1Minute": "1分後",
+      "after5Minutes": "5分後"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "デバイスシークレットが失われました",
+      "noSealedKey": "シールされたキーがありません",
+      "theSealedKeyIsDamaged": "シールされたキーが破損しています",
+      "wrongPin": "PIN が間違っています",
+      "theSealedKeyDidNot": "シールされたキーが開きませんでした",
+      "biometricsCanTOpenThe": "生体認証ではキーを開けません"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "アプリを更新",
+      "onYourServerNeedsA": "サーバー上の {{name}} は、この {{deviceWord}} でより新しいバージョンの Termix が必要です。",
+      "updateThePlugin": "プラグインを更新",
+      "onYourServerIsToo": "サーバー上の {{name}} は、このアプリには古すぎます。管理者にプラグインで更新を依頼してください。"
+    },
+    "frameBridge": {
+      "blockedByTheApp": "アプリによってブロックされています",
+      "theAppDoesNotLet": "アプリはプラグインがこのルートを使用することを許可していません。",
+      "thisBuildCanTReach": "このビルドは、このサーバーに安全に到達できません。"
+    },
+    "support": {
+      "needsANewerVersionOf": "アプリのより新しいバージョンが必要です",
+      "updateThePluginOnThe": "サーバー上のプラグインを更新",
+      "theAppHasItsOwn": "アプリは独自の外観を持っています",
+      "notInTheAppYet": "まだアプリにはありません",
+      "linkAServerToUse": "サーバーをリンクして使用",
+      "opensInTheAppFrom": "サーバーからアプリで開きます",
+      "runsOnTheServer": "サーバー上で実行されます",
+      "throughTheServer": "サーバー経由",
+      "inTheApp": "アプリ内",
+      "webView": "Web ビュー",
+      "onTheServer": "サーバー上",
+      "appLook": "アプリの外観",
+      "notInTheApp": "アプリにはありません",
+      "safeMode": "セーフモード",
+      "notRunning": "実行されていません",
+      "notInstalled": "インストールされていません",
+      "notOnThisServer": "このサーバーにはありません",
+      "thePluginIsNotInstalled": "このサーバーにはプラグインがインストールされていません。",
+      "turnedOffOnTheServer": "サーバー上でオフになっています",
+      "itOpensHereAgainWhen": "管理者がオンにすると、ここで再度開きます。",
+      "notRunningOnTheServer": "サーバー上で実行されていません",
+      "theServerIsInSafe": "サーバーはセーフモードのため、外観プラグインのみが実行されます。",
+      "thePluginDidNotStart": "プラグインが起動しませんでした。管理者はプラグインで確認できます。",
+      "thisPluginIsNotAvailable": "このプラグインは利用できません",
+      "itIsNotMadeFor": "アプリ向けに作成されていません。",
+      "offOnThisServer": "このサーバーでオフ",
+      "notRunningOnThisServer": "このサーバーで実行されていません",
+      "notOnThisServer2": "このサーバーにはありません",
+      "notInTheAppYet2": "まだアプリにはありません | このサーバー上",
+      "worksOnThis": "この {{deviceWord}} で動作します",
+      "andServer": "{{DeviceWord}} とサーバー",
+      "deviceOnly": "{{DeviceWord}} のみ | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "再読み込み"
+    },
+    "pluginSettings": {
+      "loading": "設定を読み込み中",
+      "forEveryone": "サーバー上の全員向け",
+      "justForYou": "あなたのみ向け",
+      "couldNotSave": "設定を保存できませんでした",
+      "nothingYouCanChange": "変更できる項目はありません。管理者がこれらの設定を変更できます。",
+      "notANumber": "数値ではありません",
+      "atLeast": "{{min}} 以上である必要があります",
+      "atMost": "{{max}} 以下である必要があります"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "すべて切断",
+      "showOpenSessions": "開いているセッションを表示",
+      "termixShowsANotificationWhile": "セッションが開いている間、Termix は通知を表示し、Android がバックグラウンドでそれらを維持します。",
+      "sessionsOpen_other": "{{count}} セッションが開いています",
+      "tunnelsActive_other": "{{count}} つのトンネルがアクティブです",
+      "notConnected": "接続されていません",
+      "waitingForNetwork": "ネットワークを待機中",
+      "connecting": "接続中",
+      "connected": "接続済み",
+      "reconnecting": "再接続中",
+      "failed": "失敗しました",
+      "closed": "閉じられました"
+    },
+    "companionPane": {
+      "resizeThePanel": "{{title}} パネルのサイズを変更"
+    },
+    "connectionsPanel": {
+      "close": "閉じる",
+      "closeAllTabs": "すべての {{count}} タブを閉じますか？",
+      "everySessionEnds": "すべてのセッションが終了します。",
+      "closeAll": "すべて閉じる",
+      "noActiveConnections": "アクティブな接続はありません",
+      "pickAHostFromThe": "セッションを開始するには、リストからホストを選択してください。他のデバイスで開いたタブもここに表示されます。",
+      "connectToAHostTo": "セッションを開始するには、ホストに接続してください。他のデバイスで開いたタブもここに表示されます。",
+      "open": "開く",
+      "background": "バックグラウンド",
+      "sessionsFromOtherDevicesOr": "他のデバイスからのセッション、またはバックグラウンドにあるタブです。タップして再開します。",
+      "liveTapToReconnect": "ライブ、タップして再接続",
+      "tapToReopen": "タップして再オープン"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "サーバーで無効化されています",
+      "comesBackHereWhenAn": "管理者がプラグインを再度有効にすると、{{title}} がここに戻ってきます。",
+      "closeTab": "タブを閉じる"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "接続",
+        "hideHostList": "ホストリストを非表示",
+        "showHostList": "ホストリストを表示",
+        "backToHosts": "ホストに戻る",
+        "showKeyboard": "キーボードを表示",
+        "hideKeyboard": "キーボードを非表示",
+        "hideKeysPanel": "キーパネルを非表示",
+        "showKeysPanel": "キーパネルを表示"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "タップでタブオプション、長押しで移動",
+        "holdToMove": "長押しで移動",
+        "close": "{{title}} を閉じる"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "ネットワークを待機中",
+        "connectionFailed": "接続に失敗しました",
+        "reconnecting": "再接続中"
+      }
+    },
+    "sessionMenu": {
+      "rename": "名前を変更",
+      "newTabOnThisHost": "このホストで新しいタブ",
+      "here": "{{title}} をここで開く",
+      "hidePanel": "{{title}} パネルを非表示",
+      "showPanel": "{{title}} パネルを表示",
+      "endSplitView": "分割ビューを終了",
+      "splitViewWith": "分割ビュー...",
+      "moveLeft": "左に移動",
+      "moveRight": "右に移動",
+      "closeTab": "タブを閉じる",
+      "closeAllTabs": "すべてのタブを閉じる",
+      "closeAllTabs2": "すべての {{count}} 個のタブを閉じますか？",
+      "everySessionEnds": "すべてのセッションが終了します。",
+      "closeAll": "すべて閉じる",
+      "splitViewWith2": "分割ビュー",
+      "renameTab": "タブの名前を変更",
+      "leaveItEmptyToUse": "空のままにすると、ホスト名が使用されます。"
+    },
+    "resizeHostList": "ホストリストのサイズを変更",
+    "resizeSplitView": "分割ビューのサイズを変更",
+    "connections": "接続",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "二段階認証",
+        "enterThe6DigitCode": "認証アプリから6桁のコードを入力してください。",
+        "cancel": "キャンセル",
+        "verify": "検証",
+        "codeExpiresInSGet": "コードは {{totpCountdown}} 秒で期限切れになります。新しいコードを取得",
+        "warpgateAuthentication": "Warpgate 認証",
+        "confirmTheWarpgateAuthenticationUrl": "Warpgate 認証URLとセキュリティキーを確認してください。",
+        "authenticate": "認証",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "セキュリティキー（オプション）",
+        "authenticationRequired": "認証が必要です",
+        "thisHostNeedsCredentialsTo": "このホストに接続するには認証情報が必要です。",
+        "connect": "接続",
+        "password": "パスワード",
+        "sshKey": "SSH キー",
+        "pastePrivateKey": "秘密鍵を貼り付け",
+        "keyPassphraseOptional": "鍵のパスフレーズ（オプション）"
+      },
+      "connectionError": {
+        "tryAgain": "再試行",
+        "close": "閉じる",
+        "connectThroughTheServer": "サーバー経由で接続",
+        "connectFromThis": "この {{deviceWord}} から接続",
+        "triedFromThis": "この {{deviceWord}} から試行済み",
+        "triedThroughTheServer": "サーバー経由で試行済み"
+      },
+      "execGate": {
+        "connecting": "接続中..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "エラーが発生しました",
+        "retry": "再試行",
+        "refresh": "更新",
+        "nothingToShow": "表示する内容がありません"
+      },
+      "useConnectionLog": {
+        "logsCopied": "ログをコピーしました",
+        "connectionLog": "接続ログ ({{count}})",
+        "copyLog": "ログをコピー",
+        "waitingForConnection": "接続を待機中…",
+        "noLogEntries": "ログエントリがありません"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "このホストの接続方法を保存できませんでした"
+      },
+      "useSessionConnect": {
+        "connected": "接続済み",
+        "connectingTo": "{{name}} に接続中…",
+        "connectionLost": "接続が切断されました",
+        "failedToConnect": "接続に失敗しました",
+        "invalidCode": "無効なコード",
+        "warpgateAuthenticationFailed": "Warpgate 認証に失敗しました",
+        "authenticationCancelled": "認証がキャンセルされました"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "検索とコマンド",
+    "addHost": "ホストを追加",
+    "keyboardShortcuts": "キーボードショートカット",
+    "home": "ホーム",
+    "hosts": "ホスト",
+    "sessions": "セッション",
+    "tools": "ツール",
+    "settings": "設定",
+    "terminal": "ターミナル",
+    "shortcutSheet": {
+      "keyboardShortcuts": "キーボードショートカット"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "ホストとフォルダ",
+      "yourHostsFoldersAndHosts": "あなたのホスト、フォルダ、およびあなたと共有されたホスト",
+      "credentials": "認証情報",
+      "savedPasswordsAndKeysAnd": "保存されたパスワードと鍵、およびあなたと共有された認証情報",
+      "snippets": "スニペット",
+      "snippetsAndTheirFolders": "スニペットとそのフォルダ",
+      "hostDefaults": "ホストのデフォルト設定",
+      "defaultSettingsForNewHosts": "新しいホストのデフォルト設定",
+      "preferences": "環境設定",
+      "settingsThatFollowYouBetween": "デバイス間で追従する設定"
+    },
+    "link": {
+      "noSuchServerAccount": "そのようなサーバーアカウントは存在しません",
+      "signInFirst": "まずサインインしてください。",
+      "thisServerAccountBelongsTo": "このサーバーアカウントは {{value}} に属しています。そのユーザーとしてサインインするか、このユーザー用にサーバーを再度追加してください。"
+    },
+    "reasons": {
+      "signedOut": "サインアウト済み",
+      "thisSSignInTo": "この {{deviceWord}} のサーバーへのサインイン期限が切れました。",
+      "theServerEndedThisS": "サーバーがこの {{deviceWord}} のセッションを終了しました。他のデバイスからサインアウトされた可能性があります。",
+      "proxySignInNeeded": "プロキシのサインインが必要です",
+      "theProxyInFrontOf": "このサーバーの前段にあるプロキシが、再サインインを求めています。",
+      "proxyPasswordNeeded": "プロキシのパスワードが必要です",
+      "theProxyInFrontOf2": "このサーバーの前段にあるプロキシが、パスワードを要求しました。",
+      "certificateRefused": "証明書が拒否されました",
+      "theServerDidNotAccept": "サーバーがこの {{deviceWord}} の証明書を受け入れませんでした。",
+      "untrustedServer": "信頼されていないサーバー",
+      "theServerSCertificateIs": "サーバーの証明書は、この {{deviceWord}} によって信頼されていません。",
+      "serverKeyChanged": "サーバーのキーが変更されました",
+      "theServerShowsAnotherKey": "サーバーに表示されているキーは、ピン留めされたものと異なります。証明書を変更した場合は、新しいキーをピン留めしてください。",
+      "offline": "オフライン",
+      "canTReachTheServer": "サーバーに到達できません。まもなく同期を再試行します。",
+      "serverProblem": "サーバーの問題",
+      "theServerHadAProblem": "サーバーに問題が発生しました。まもなく同期を再試行します。",
+      "updateNeeded": "アップデートが必要です",
+      "thisServerUsesANewer": "このサーバーは新しい同期バージョンを使用しています。アプリをアップデートしてください。",
+      "notATermixServer": "Termix サーバーではありません",
+      "theAddressDoesNotAnswer": "このアドレスは Termix サーバーとして応答していません。",
+      "syncIsOff": "同期が無効です",
+      "theSyncPluginIsOff": "このサーバーでは同期プラグインが無効になっています。管理者にプラグインで有効化を依頼してください。",
+      "differentUser": "ユーザーが異なります",
+      "youSignedInAsA": "サインインしたユーザーは、このサーバーアカウントに属するユーザーと異なります。",
+      "syncStopped": "同期が停止しました",
+      "somethingWentWrong": "エラーが発生しました。",
+      "signInAgain": "再度サインインしてください",
+      "signInToTheProxy": "プロキシにサインインしてください",
+      "enterThePassword": "パスワードを入力してください",
+      "tryAgain": "再試行",
+      "checkThePin": "ピン留めを確認してください",
+      "checkForUpdates": "アップデートを確認",
+      "pickACertificate": "証明書を選択"
+    },
+    "settings": {
+      "noSuchSetting": "そのような設定はありません",
+      "snippetFolder": "スニペットフォルダ",
+      "hostDefault": "ホストのデフォルト"
+    },
+    "errors": {
+      "theServerDidNotAccept": "サーバーはこの{{deviceWord}}の証明書を承認しませんでした。",
+      "theServerSCertificateIs": "サーバーの証明書は信頼されていません。",
+      "canTReachTheServer": "サーバーに到達できません。",
+      "signedOut": "サインアウトしました",
+      "theProxyAskedForIts": "プロキシがパスワードを要求しました。",
+      "theProxyWantsYouTo": "プロキシがサインインを要求しています。",
+      "theSyncPluginIsOff": "このサーバーでは同期プラグインが無効になっています。",
+      "serverError": "サーバーエラー {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "サーバーに表示されているキーは、ピン留めされたものと異なります。"
+    },
+    "remote": {
+      "thisIsNotATermix": "これは Termix サーバーではありません。",
+      "theProxyWantsYouTo": "プロキシがサインインを要求しています。",
+      "thisServerUsesANewer": "このサーバーは新しい同期バージョンを使用しています。アプリをアップデートしてください。"
+    },
+    "copy": {
+      "hostCount_other": "{{count}} 台のホスト",
+      "credentialCount_other": "{{count}} 件の認証情報",
+      "snippetCount_other": "{{count}} 件のスニペット",
+      "folderCount_other": "{{count}} 個のフォルダ",
+      "nothingYet": "まだ何もありません",
+      "listAnd": "{{list}} と {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "接続できません。",
+      "connectingToFromThis": "この{{deviceWord}}から {{name}} に接続中",
+      "connectingToThroughTheServer": "サーバー経由で {{name}} に接続中",
+      "reconnectingTry": "再接続中（試行 {{retry}}）",
+      "disconnected": "切断されました",
+      "connected": "接続済み",
+      "reconnectedToTheSameSession": "同じセッションに再接続しました",
+      "reconnectedWithANewShell": "新しいシェルで再接続しました",
+      "couldNotReachTheHost": "この{{deviceWord}}からホストに到達できないため、サーバー経由で試しています",
+      "couldNotConnectThroughThe": "サーバー経由で接続できないため、この{{deviceWord}}から試しています",
+      "connectionLost": "接続が失われました: {{reason}}",
+      "offlineWaitingForTheNetwork": "オフラインです。ネットワークを待機中",
+      "nextTryInS": "{{value}}秒後に再試行",
+      "reconnectingTry2": "再接続中（試行 {{reconnectAttempt}}）",
+      "theHostStoppedAnswering": "ホストが応答しなくなりました",
+      "networkLost": "ネットワーク接続が失われました",
+      "network": "ネットワーク: {{type}}{{value}}",
+      "lowPowerModeOn": "低電力モードがオン",
+      "lowPowerModeOff": "低電力モードがオフ",
+      "droppedTypedCharacters": "入力した {{count}} 文字を破棄しました",
+      "youDidNotTrustThe": "ホストキーを信頼していません。",
+      "checkTheKeyWithWhoever": "ホストの管理者にキーを確認し、もう一度お試しください。",
+      "loginCancelled": "ログインがキャンセルされました。",
+      "connectAgainWhenYouAre": "準備ができたら再接続してください。",
+      "typedInputIsOver64": "入力データが 64 KB を超えたため、最も古い部分が破棄されました",
+      "appInTheBackground": "アプリがバックグラウンドで実行中",
+      "appInTheForeground": "アプリがフォアグラウンドで実行中",
+      "thisConnectionCanTRun": "この接続ではコマンドを実行できません"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "アドレスとポート、およびサーバーからホストに到達できることを確認してください。",
+      "checkTheAddressAndPort2": "アドレスとポート、およびこの {{deviceWord}} からホストに到達できることを確認してください。",
+      "checkTheProxySettingsOf": "このホストのプロキシ設定を確認してください。",
+      "checkTheKeyWithWhoever": "信頼する前に、ホストの管理者にキーを確認してください。",
+      "checkTheUsernameAndLogin": "ホストエディタでユーザー名とログイン情報を確認してください。",
+      "checkThatTheServerIs": "サーバーが稼働しており、ログイン状態であることを確認してください。",
+      "tryAgainIfItKeeps": "もう一度お試しください。接続が頻繁に切れる場合は、ネットワークを確認してください。",
+      "connectAgainWhenYouAre": "準備ができたら再接続してください。",
+      "pickAnotherWayToConnect": "このホストへの接続方法を別のものに変更してください。",
+      "connectThisHostThroughA": "Termix サーバー経由でこのホストに接続してください。",
+      "pickTheJumpHostsAgain": "ホストエディタでジャンプホストを再選択してください。",
+      "thisIsATailscaleAddress": "これは Tailscale アドレスです。この {{deviceWord}} で Tailscale が接続されていることを確認してください。",
+      "theSavedKeyCanT": "保存されたキーを読み取れません。ホストエディタで再度貼り付けてください。",
+      "signInToThisServer": "このサーバーに再度サインインしてください。",
+      "openThisHostInThe": "Termix ウェブアプリでこのホストを開いてください。",
+      "canTConnectThisWay": "この方法では接続できません",
+      "couldNotReachTheHost": "ホストに到達できません",
+      "theProxyDidNotLet": "プロキシが接続を許可しませんでした",
+      "theHostKeyWasNot": "ホストキーが信頼されていません",
+      "theLoginWasRefused": "ログインが拒否されました",
+      "theTermixServerDidNot": "Termix サーバーから応答がありません",
+      "theConnectionDropped": "接続が切断されました",
+      "loginCancelled": "ログインがキャンセルされました"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH エージェント",
+        "thisHostSignsInWith": "このホストは「{{authType}}」でサインインします。これには Termix サーバーが必要です。接続するにはサーバーをリンクしてください。",
+        "thisHostUsesA1password": "このホストは 1Password の参照を使用しており、Secret Sources を備えた Termix サーバーが必要です。サーバーをリンクし、その経由でこのホストに接続してください。",
+        "signInWithFirstOpen": "まず {{title}} でサインインしてください。このホストへのターミナルを一度開き、もう一度お試しください。",
+        "theSignInAndThe": "サインインと証明書はサーバー上に存在します",
+        "theHasNoSshAgent": "{{deviceWord}} に SSH エージェントがありません",
+        "needsATermixServerBecause": "{{title}} は {{why}} のため、Termix サーバーが必要です。サーバーをリンクし、その経由でこのホストに接続してください。"
+      },
+      "chain": {
+        "aJumpHostOfThis": "このホストのジャンプホストが存在しなくなりました。"
+      },
+      "localShell": {
+        "theConnectionWasCut": "接続が切断されました",
+        "theShellChannelClosed": "シェルチャネルが閉じられました",
+        "jumpHost": "ジャンプホスト {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "無効なコードです。もう一度お試しください:",
+        "authenticationFailed": "認証に失敗しました: {{message}}",
+        "theHostKeyWasNot": "ホストキーが信頼されていません。",
+        "loginCancelled": "ログインがキャンセルされました。",
+        "notConnected": "接続されていません",
+        "signingInAs": "{{method}} を使用して {{user}} としてサインイン中",
+        "methodKey": "キー",
+        "methodPassword": "パスワード",
+        "methodNone": "保存されたログイン情報なし"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "接続が切断されました"
+      },
+      "thisBuildHasNoSsh": "このビルドには SSH エンジンが含まれていません。ストアのアプリを使用するか、接続するために Termix サーバーをリンクしてください。",
+      "theHostsOnThisAre": "この {{deviceWord}} 上のホストはまだ開かれていません。",
+      "thisServerSHostsAre": "このサーバーのホストはこの {{deviceWord}} 上にありません。{{deviceWord}} から接続するには、サーバーで Sync プラグインを有効にしてください。",
+      "resolve": {
+        "theSavedLoginIsNot": "このホストの保存されたログイン情報は、この {{deviceWord}} には存在しないため、サーバーでのみサインインできます"
+      }
+    },
+    "origin": {
+      "canTConnect": "接続できません。",
+      "canTConnectFromThe": "この {{deviceWord}} から接続できません。",
+      "canTReachTheServer": "サーバーに到達できません。",
+      "theOnlyConnectsToSsh": "この{{deviceWord}}は、SSHおよびTelnetホストにのみ接続します。",
+      "connectThisHostThroughThe": "このホストをサーバー経由で接続します",
+      "connectThisHostFromThe": "この{{deviceWord}}からこのホストに接続します",
+      "termixServer": "Termixサーバー",
+      "usesThisWhenItCan": "ホストに到達できる場合はこの{{deviceWord}}を使用し、それ以外の場合はサーバーを使用します。",
+      "thisConnectsToTheHost": "この{{deviceWord}}はホスト自体に接続します。",
+      "theTermixServerConnectsTo": "Termixサーバーが代わりにホストに接続します。",
+      "anSshConnection": "SSH接続",
+      "aTermixServer": "Termixサーバー",
+      "aConnectionFromThe": "{{deviceWord}}からの接続",
+      "isOffOnThisServer": "このサーバーでは{{title}}が無効です。{{how}}して使用してください。",
+      "isOffOnThisServer2": "このサーバーでは{{title}}が無効です。",
+      "anotherWayToConnect": "別の接続方法",
+      "needsToUseIt": "{{title}}には{{what}}が必要です。{{how}}して使用してください。",
+      "needsWhichThisHostCan": "{{title}}には{{what}}が必要ですが、このホストでは現在使用できません。",
+      "thisDevice": "この{{deviceWord}}",
+      "automatic": "自動"
+    },
+    "relay": {
+      "youAreSignedOutOf": "このサーバーからサインアウトしています。経由して接続するにはサインインしてください。",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "このホストにはtmuxがインストールされていません。プレーンシェルを使用しています。",
+        "tapRetryToBringIt": "再試行をタップして、ここに戻してください。",
+        "thisSessionWasOpenedOn": "このセッションは別のデバイスで開かれました",
+        "noServerUrlFoundLink": "サーバーURLが見つかりません。サーバーを再度リンクしてください。",
+        "signedOutOfThisServer": "このサーバーからサインアウトしました。再度ログインしてください。",
+        "signInWithInYour": "ブラウザで{{title}}にサインインしてください。完了するとこの画面は閉じます。",
+        "theSocketClosedWhileThe": "アプリがバックグラウンドにある間にソケットが閉じられました",
+        "noWebsocketUrlAvailableServer": "WebSocket URLが利用できません - サーバーが設定されていません",
+        "connectionTimeoutServerNotResponding": "接続タイムアウト - サーバーが応答していません",
+        "verificationCode": "確認コード:",
+        "hostKeyVerificationRequiredBut": "ホストキーの確認が必要ですが、ハンドラーが登録されていません",
+        "hostKeyChangedButNo": "ホストキーが変更されましたが、ハンドラーが登録されていません",
+        "thisHostNeedsASign": "このホストには、Webアプリのみがサポートするサインインが必要です",
+        "invalidCodeTryAgain": "無効なコードです。もう一度お試しください:",
+        "unknownError": "不明なエラー",
+        "connectionClosed": "接続が閉じられました",
+        "connectionClosed2": "接続が閉じられました ({{code}})",
+        "theServerClosedTheConnection": "サーバーが接続を閉じました",
+        "theSocketClosed": "ソケットが閉じられました ({{code}})",
+        "signIn": "{{title}}サインイン",
+        "signInFailed": "{{title}}サインインに失敗しました",
+        "isNotSetUpOn": "サーバーで{{title}}が設定されていません",
+        "signInTimedOut": "{{title}}サインインがタイムアウトしました",
+        "authenticationFailed": "認証に失敗しました: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "ホストを保存して接続し、確認してください。",
+      "loggedInAsOn": "{{host}}で{{username}}としてログインしました",
+      "theHostAskedForMore": "ホストはパスワード以外（コードなど）を要求しました。ログインを完了するには、ホストを保存して接続してください。"
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "ネットワークを待機中",
+      "couldNotOpenTheTunnel": "トンネルを開くことができませんでした",
+      "theConnectionDropped": "接続が切断されました",
+      "iosStoppedThisTunnelWhile": "アプリがバックグラウンドにある間に、iOSがこのトンネルを停止しました。再度開始して開いてください。",
+      "connecting": "接続中",
+      "connected": "接続済み",
+      "retrying": "再試行中",
+      "waiting": "待機中",
+      "failed": "失敗"
+    },
+    "gateways": {
+      "error": "エラー",
+      "gateways": "ゲートウェイ",
+      "gatewaysCanOnlyBeChanged": "ゲートウェイはWeb版Termixでのみ変更できます。",
+      "noHandshake": "ハンドシェイクなし",
+      "rulesMissing": "ルールがありません",
+      "up": "稼働中",
+      "pending": "保留中",
+      "applying": "適用中",
+      "down": "停止中",
+      "unreachable": "到達不可"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "トンネルがまだありません。エンドポイントホストからこのホストへのポートフォワーディングを追加してください。",
+      "tunnel": "トンネル {{value}}",
+      "removeTunnel": "トンネル {{value}} を削除",
+      "mode": "モード",
+      "local": "ローカル",
+      "remote": "リモート",
+      "dynamic": "ダイナミック",
+      "targetHost": "ターゲットホスト",
+      "onThisHostForTunnels": "このホスト上（トンネルを実行する{{deviceWord}}用）",
+      "bindHost": "バインドホスト",
+      "endpointHost": "エンドポイントホスト",
+      "addAnotherHostFirstTunnels": "まず別のホストを追加してください。トンネルは保存されたホストを介して接続されます。",
+      "sourcePort": "ソースポート",
+      "endpointPort": "エンドポイントポート",
+      "maxRetries": "最大リトライ回数",
+      "retryEveryS": "リトライ間隔（秒）",
+      "startOnItsOwn": "自動起動",
+      "addTunnel": "トンネルを追加",
+      "tunnelNeedsPortsFrom1": "トンネル {{value}} には 1 から 65535 のポートが必要です"
+    },
+    "register": {
+      "tunnels": "トンネル",
+      "startAndStopSavedTunnels": "保存されたトンネルの開始と停止",
+      "tunnel": "トンネル",
+      "tunnel2": "トンネル"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "ローカルエンドポイントをコピーしました",
+      "tunnel": "トンネル | {{sourcePort}}",
+      "portMapping": "ポートマッピング",
+      "connect": "接続",
+      "disconnect": "切断",
+      "cancel": "キャンセル",
+      "connected": "接続済み",
+      "connecting": "接続中",
+      "disconnecting": "切断中",
+      "error": "エラー",
+      "retrying": "リトライ中（{{value}}/{{value2}}）",
+      "waitingS": "{{value}}秒待機中",
+      "waiting": "待機中",
+      "disconnected": "切断済み"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "ポート {{sourcePort}} でトンネルを開始しています",
+      "connectingTunnelOnPort": "ポート {{sourcePort}} でトンネルに接続しています",
+      "disconnectingPort": "ポート {{sourcePort}} を切断しています",
+      "cancellingPort": "ポート {{sourcePort}} をキャンセルしています",
+      "failedToTunnel": "トンネルの{{action}}に失敗しました",
+      "tunnels": "トンネル | {{count}} | {{value}}",
+      "loadingTunnels": "トンネルを読み込み中…",
+      "noSshTunnelsConfiguredFor": "このホストにはSSHトンネルが設定されていません。ホスト設定画面からトンネルを追加してください。",
+      "runOn": "実行先",
+      "server": "サーバー",
+      "this": "この{{deviceWord}}",
+      "tunnelsOnThisStopWhen": "この{{deviceWord}}上のトンネルは、アプリが閉じられると停止します。iOSでは、アプリがバックグラウンドに移行した後もすぐに停止します。",
+      "failedToFetchTunnelStatuses": "トンネルのステータスの取得に失敗しました",
+      "thisBuildCanTOpen": "このビルドでは{{deviceWord}}上でトンネルを開くことができません。",
+      "sourceHostNotFound": "ソースホストが見つかりません",
+      "endpointHostNotFound": "エンドポイントホストが見つかりません: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "トンネル",
+      "tunnelCount_other": "{{count}}個のトンネル",
+      "runningOnServer": "サーバー上で{{connected}}実行中"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Credential Tools"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "このホストには Docker がインストールされていません。",
+        "dockerDidNotAnswer": "Docker から応答がありません",
+        "thatIsNotAValid": "有効なスタック名ではありません"
+      }
+    },
+    "containerDetail": {
+      "stop": "停止",
+      "start": "開始",
+      "restart": "再起動",
+      "remove": "削除",
+      "logs": "ログ",
+      "stats": "統計情報",
+      "console": "コンソール",
+      "logsCopied": "ログをコピーしました",
+      "copy": "コピー",
+      "containerIsNotRunningNo": "コンテナは実行されていないため、リアルタイムの統計情報はありません。",
+      "cpu": "CPU",
+      "memory": "メモリ",
+      "networkIO": "ネットワーク I/O",
+      "blockIO": "ブロック I/O",
+      "pids": "PID",
+      "failedToLoadLogs": "ログの読み込みに失敗しました",
+      "failedToLoadStats": "統計情報の読み込みに失敗しました",
+      "noOutput": "(出力なし)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Docker に接続しています...",
+    "remove": "{{name}} を削除しますか？",
+    "stop": "{{name}} を停止しますか？",
+    "theContainerIsStoppedAnd": "コンテナは停止され、削除されます。ボリュームは保持されます。",
+    "anythingRunningInItStops": "内部で実行されているすべてのプロセスが停止します。",
+    "remove2": "削除",
+    "stop2": "停止",
+    "dockerThis": "Docker | この{{deviceWord}}",
+    "lookingForDocker": "Docker を検索中...",
+    "dockerIsNotAvailableOn": "このホストでは Docker が利用できません。",
+    "noContainersFound": "コンテナが見つかりません",
+    "noContainersMatchYourFilters": "フィルターに一致するコンテナがありません",
+    "useSudo": "sudo を使用する",
+    "refresh": "更新",
+    "containers": "コンテナ",
+    "stacks": "スタック",
+    "searchContainers": "コンテナを検索...",
+    "all": "すべて",
+    "running": "実行中",
+    "stopped": "停止済み",
+    "start": "開始",
+    "restart": "再起動",
+    "pause": "一時停止",
+    "unpause": "再開",
+    "moreActions": "その他の操作",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker から応答がありません",
+      "docker": "Docker",
+      "noContainers": "コンテナなし"
+    },
+    "dockerConsole": {
+      "attachingTo": "{{name}} に接続しています...",
+      "consoleDisconnected": "コンソールが切断されました",
+      "reconnect": "再接続",
+      "failedToLoadTheConsole": "コンソールの読み込みに失敗しました",
+      "thisSessionHasNoServer": "このセッションにはサーバーがありません"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "コンテナ、ログ、統計情報"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "このサーバーではスタックが無効化されています。",
+      "couldNotLoadStacks": "スタックを読み込めませんでした",
+      "noStacks": "スタックがありません",
+      "composeProjectsOnThisHost": "このホスト上の Compose プロジェクトがここに表示されます。",
+      "ofRunning": "{{total}} 件中 {{running}} 件実行中",
+      "couldNotLoadTheStack": "スタックを読み込めませんでした",
+      "services": "サービス",
+      "nothingIsRunning": "実行中のサービスはありません。",
+      "composeFile": "Compose ファイル",
+      "partlyUp": "一部実行中",
+      "notDeployed": "未デプロイ",
+      "running": "実行中",
+      "stopped": "停止中",
+      "paused": "一時停止中"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "有効なコンテナ ID ではありません",
+      "consoleFailed": "コンソールに失敗しました",
+      "notAuthenticated": "認証されていません",
+      "consoleError": "コンソールエラー",
+      "connectionFailed": "接続に失敗しました"
+    },
+    "dockerDidNotAnswer": "Docker から応答がありません",
+    "failedToLoadContainers": "コンテナの読み込みに失敗しました",
+    "failedTo": "{{action}} に失敗しました"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "サーバーからファイルが送信されませんでした",
+        "cancelled": "キャンセルしました",
+        "isGone": "{{path}} は存在しません",
+        "canTGoToThe": "{{name}} はゴミ箱に移動できません"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "無効なゴミ箱アイテム ID です",
+        "invalidTrashMetadata": "無効なゴミ箱メタデータです",
+        "thisPathCanTBe": "このパスはゴミ箱に移動できません",
+        "aFileAlreadyExistsAt": "元のパスにファイルが既に存在します"
+      },
+      "sftp": {
+        "commandFailed": "コマンドに失敗しました: {{command}}",
+        "alreadyExists": "{{name}} は既に存在します",
+        "alreadyExistsThere": "{{path}} は既にそこに存在します",
+        "canTGoToThe": "{{name}} はゴミ箱に移動できません: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "ターミナルはもう開いていません",
+      "clearHistory": "履歴をクリア",
+      "stopFollowingTheTerminal": "ターミナルの追従を停止",
+      "followTheTerminal": "ターミナルを追従",
+      "goToTheTerminalS": "ターミナルのフォルダに移動",
+      "cdTheTerminalHere": "ターミナルをここに cd",
+      "folderHistory": "フォルダ履歴",
+      "mostUsedFirstThenRecent": "よく使った順、次に最近使った順",
+      "noFoldersYet": "まだフォルダはありません"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "接続できません。",
+        "couldNotSaveHowThis": "このホストの接続方法を保存できませんでした",
+        "thisWayCanTOpen": "この方法ではファイルを開けません"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "このフォルダを開けませんでした",
+      "cancel": "キャンセル",
+      "noFoldersHere": "ここにはフォルダがありません"
+    },
+    "couldNotOpenThisFolder": "このフォルダを開けませんでした",
+    "couldNotSaveToThe": "フォルダに保存できませんでした",
+    "failed": "{{label}} に失敗しました",
+    "uploading": "{{name}} をアップロード中",
+    "uploadingFiles": "ファイル {{count}} 個をアップロード中",
+    "downloadingToFilesOnMy": "「ファイル」アプリの「iPhone 上のファイル」>「Termix」にダウンロード中",
+    "downloading": "{{name}} をダウンロード中",
+    "downloadingFiles": "ファイル {{count}} 個をダウンロード中",
+    "openALargeFile": "大きなファイルを開きますか？",
+    "isBigForAEditor": "{{name}} は {{deviceWord}} のエディタには大きすぎます。動作が遅くなる可能性があります。",
+    "open": "開く",
+    "thisLooksLikeABinary": "バイナリファイルのようです",
+    "openItInAnotherApp": "別のアプリで開きますか？",
+    "openWith": "アプリで開く",
+    "tooBigForTheEditor": "エディタで開くには大きすぎます",
+    "isOver10MbDownload": "{{name}} は 10 MB を超えています。ダウンロードしますか？",
+    "download": "ダウンロード",
+    "delete": "{{what}} を削除しますか？",
+    "moveToTheTrash": "{{what}} をゴミ箱に移動しますか？",
+    "thisCanTBeUndone": "この操作は元に戻せません。",
+    "youCanRestoreItFrom": "ゴミ箱から復元できます。",
+    "delete2": "削除",
+    "moveToTrash": "ゴミ箱に移動",
+    "deleteForGood": "完全に削除しますか？",
+    "deleteItForGoodInstead": "{{message}}。代わりに完全に削除しますか？この操作は元に戻せません。",
+    "deleteFailed": "削除に失敗しました",
+    "connectingThroughTheServer": "サーバー経由で接続中...",
+    "connectingFromThis": "この{{deviceWord}}から接続中...",
+    "connecting": "接続中...",
+    "edit": "編集",
+    "downloadFolder": "フォルダをダウンロード",
+    "share": "共有",
+    "rename": "名前を変更",
+    "copyTo": "コピー先",
+    "moveTo": "移動先",
+    "cut": "切り取り",
+    "copy": "コピー",
+    "permissions": "権限",
+    "properties": "プロパティ",
+    "makeALinkHere": "ここにリンクを作成",
+    "copyPath": "パスをコピー",
+    "pathCopied": "パスをコピーしました",
+    "done": "完了",
+    "selectAll": "すべて選択",
+    "filterByName": "名前でフィルタ",
+    "closeSearch": "検索を閉じる",
+    "search": "検索",
+    "changeSort": "並べ替えを変更",
+    "paste": "{{count}}個を貼り付け",
+    "upload": "アップロード",
+    "transfers2": "転送",
+    "more": "もっと",
+    "nothingMatches": "一致するものはありません",
+    "emptyFolder": "空のフォルダ",
+    "uploadFilesOrMakeA": "ファイルをアップロードするか、新しいファイルを作成してください。",
+    "newFolder": "新しいフォルダ",
+    "newFile": "新しいファイル",
+    "select": "選択",
+    "hideHiddenFiles": "隠しファイルを非表示",
+    "showHiddenFiles": "隠しファイルを表示",
+    "trash": "ゴミ箱",
+    "folderProperties": "フォルダのプロパティ",
+    "refresh": "更新",
+    "rename2": "{{name}}の名前を変更",
+    "newLink": "新しいリンク",
+    "aLinkInThatPoints": "{{path}}にある{{path2}}へのリンク",
+    "name": "名前",
+    "create": "作成",
+    "copyHere": "ここにコピー",
+    "moveHere": "ここに移動",
+    "fileViewer": {
+      "saved": "{{name}}を保存しました",
+      "couldNotSaveTheFile": "ファイルを保存できませんでした",
+      "discardChanges": "変更を破棄しますか？",
+      "hasChangesThatAreNot": "{{name}} に保存されていない変更があります。",
+      "discard": "破棄",
+      "readOnly": "{{path}} | 読み取り専用",
+      "find": "検索",
+      "smallerText": "文字を小さく",
+      "biggerText": "文字を大きく",
+      "turnOffLineWrap": "折り返しをオフ",
+      "wrapLines": "行を折り返す",
+      "save": "保存"
+    },
+    "hostSection": {
+      "startIn": "開始ディレクトリ",
+      "theFolderTheFileManager": "ファイルマネージャーが最初に開くフォルダ",
+      "files": "ファイル"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "{{path}} に移動"
+      },
+      "fileRow": {
+        "moreActions": "その他の操作",
+        "moreFor": "{{name}} のその他の操作"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "権限",
+      "cancel": "キャンセル",
+      "apply": "適用 ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "開くことができませんでした",
+      "openWith": "アプリで開く",
+      "share": "共有"
+    },
+    "propertiesView": {
+      "properties": "プロパティ",
+      "path": "パス",
+      "type": "種類",
+      "pointsTo": "リンク先",
+      "size": "サイズ",
+      "countFolderSize": "フォルダのサイズを計算",
+      "permissions": "権限",
+      "change": "変更",
+      "owner": "所有者",
+      "group": "グループ",
+      "modified": "更新日",
+      "opened": "最終アクセス",
+      "linkToA": "{{value}} へのリンク",
+      "notShownForFolders": "フォルダには表示されません",
+      "file": "ファイル",
+      "folder": "フォルダ",
+      "link": "リンク"
+    },
+    "register": {
+      "fileManager": "ファイルマネージャー",
+      "files": "ファイル",
+      "browseEditAndMoveFiles": "ファイルの閲覧、編集、移動",
+      "files2": "ファイル",
+      "fileManagerAndTransfers": "ファイルマネージャーと転送"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "転送に失敗しました"
+      },
+      "transfersPanel": {
+        "pause": "一時停止",
+        "resume": "再開",
+        "tryAgain": "再試行",
+        "open": "開く",
+        "cancel": "キャンセル",
+        "transfers": "転送",
+        "goingOf": "{{active}} 件中 | {{total}} 件中 {{done}} 件完了",
+        "clearFinished": "完了したものを削除",
+        "cancelAll": "すべてキャンセル",
+        "noTransfersYet": "転送はまだありません",
+        "waiting": "待機中",
+        "paused": "一時停止中",
+        "done": "完了",
+        "failed": "失敗",
+        "cancelled": "キャンセル済み"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "ゴミ箱の読み込みに失敗しました",
+      "restored": "「{{name}}」を復元しました",
+      "failedToRestore": "復元に失敗しました",
+      "failedToDelete": "削除に失敗しました",
+      "trashEmptied": "ゴミ箱を空にしました",
+      "failedToEmptyTrash": "ゴミ箱の空げに失敗しました",
+      "trash": "ゴミ箱",
+      "itemsAreRemovedAfterDays": "アイテムは {{retentionDays}} 日後に削除されます",
+      "close": "閉じる",
+      "emptyTrash": "ゴミ箱を空にする",
+      "trashIsEmpty": "ゴミ箱は空です",
+      "restore": "「{{name}}」を復元",
+      "deleteForGood": "「{{name}}」を完全に削除"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "たった今"
+      }
+    },
+    "getting": "「{{name}}」を取得中",
+    "itemCount_other": "{{count}} 件のアイテム",
+    "copiedWhat": "「{{what}}」をコピーしました",
+    "movedWhat": "「{{what}}」を移動しました",
+    "actions": {
+      "hasMoreThanFilesDownload": "「{{name}}」には {{limit}} 個を超えるファイルが含まれています。小さなフォルダをダウンロードしてください。"
+    },
+    "downloadingToFilesOnMyIpad": "「ファイル」アプリの「iPad 内」>「Termix」にダウンロード中",
+    "size": "サイズ",
+    "date": "日付"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "サービスリンク",
+      "openInHomepage": "ホームページで開く",
+      "thisWidgetOnlyShowsOn": "このウィジェットはフルページでのみ表示されます。"
+    },
+    "register": {
+      "serviceLinks": "サービスリンク",
+      "homepage": "ホームページ"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "フィードが設定されていません。",
+        "couldNotLoadTheFeed": "フィードを読み込めませんでした。",
+        "theFeedIsEmpty": "フィードは空です。",
+        "noLocationSet": "場所が設定されていません。",
+        "couldNotLoadTheWeather": "天気情報を取得できませんでした。",
+        "noUrlSet": "URL が設定されていません。",
+        "couldNotLoadTheData": "データを取得できませんでした。",
+        "noPictureSet": "画像が設定されていません。",
+        "badResponse": "応答エラー"
+      },
+      "services": "サービス",
+      "service": "サービス",
+      "serviceLinks": "サービスリンク",
+      "bookmarks": "ブックマーク",
+      "links2": "リンク",
+      "search": "検索",
+      "clock": "時計",
+      "countdown": "カウントダウン",
+      "calendar": "カレンダー",
+      "notes": "メモ",
+      "banner": "バナー",
+      "ping": "Ping",
+      "host": "ホスト",
+      "hosts": "ホスト",
+      "quickConnect": "クイック接続",
+      "feed": "フィード",
+      "weather": "天気",
+      "customApi": "カスタム API",
+      "picture": "画像",
+      "widget": "ウィジェット",
+      "links": {
+        "noServicesYet": "まだサービスがありません。",
+        "noLinkSet": "リンクが設定されていません。",
+        "noLinksYet": "まだリンクがありません。",
+        "noSearchEngineSet": "検索エンジンが設定されていません。",
+        "search": "検索",
+        "noShortcutsYet": "ショートカットはまだありません。",
+        "search2": "{{label}} を検索"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "リンクを開けませんでした"
+      },
+      "status": {
+        "noUrlsYet": "URL はまだありません。",
+        "down": "ダウン",
+        "noHostsPicked": "ホストが選択されていません。"
+      },
+      "text": {
+        "noNotesYet": "メモはまだありません。",
+        "noTextYet": "テキストはまだありません。"
+      },
+      "time": {
+        "noDateSet": "日付が設定されていません。",
+        "timeIsUp": "時間切れ"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "デフォルト値を保存できませんでした",
+    "couldNotResetTheDefault": "デフォルト値をリセットできませんでした",
+    "back": "戻る",
+    "hostDefaults": "ホストのデフォルト",
+    "newHostsStartFromThese": "新しいホストはこれらから開始されます",
+    "managedOnTheServer": "サーバーで管理されています",
+    "defaultsForThisServerAre": "このサーバーのデフォルトは、ウェブアプリで設定されています。",
+    "level": "レベル",
+    "yourDefaultsOrOneFolder": "あなたのデフォルト、またはフォルダのデフォルト",
+    "myDefaults": "私のデフォルト",
+    "aFolderWinsOverYour": "フォルダの設定はデフォルト設定より優先され、デフォルト設定はサーバーの設定より優先されます。ホストに直接設定した値は保持されます。{{value}}",
+    "save": "保存",
+    "authentication": "認証",
+    "none": "なし",
+    "reset": "リセット",
+    "model": {
+      "username": "ユーザー名",
+      "sshPort": "SSH ポート",
+      "authentication": "認証",
+      "aSavedCredentialForNew": "新しいホスト用の保存済み認証情報",
+      "forceKeyboardInteractive": "キーボードインタラクティブを強制",
+      "keepaliveInterval": "キープアライブ間隔",
+      "seconds0TurnsItOff": "秒数、0 で無効化",
+      "keepaliveTries": "キープアライブ試行回数",
+      "allowOldAlgorithms": "古いアルゴリズムを許可",
+      "agentForwarding": "エージェントフォワーディング",
+      "environmentVariables": "環境変数",
+      "oneNameValuePerLine": "1行に1つの NAME=value",
+      "checkIfTheHostIs": "ホストが稼働しているか確認",
+      "checkInterval": "確認間隔",
+      "secondsEmptyUsesTheServer": "秒数、空欄の場合はサーバーの設定を使用",
+      "socks5Proxy": "SOCKS5 プロキシ",
+      "setInTheWebApp": "ウェブアプリで設定",
+      "jumpHosts": "ジャンプホスト",
+      "portKnocking": "ポートノッキング",
+      "notSet": "未設定",
+      "fromTheServer": "サーバーから",
+      "fromYourDefaults": "あなたのデフォルトから",
+      "builtIn": "内蔵"
+    },
+    "register": {
+      "hostDefaults": "ホストのデフォルト",
+      "portUserAndOptionsFor": "新しいホスト用のポート、ユーザー、オプション"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "データはまだありません",
+      "cpu": "CPU",
+      "memory": "メモリ",
+      "disk": "ディスク",
+      "history": "履歴",
+      "loading": "読み込み中..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "メトリクスを読み取れませんでした",
+      "metrics": "メトリクス",
+      "cpu": "CPU",
+      "memory": "メモリ",
+      "disk": "ディスク",
+      "noRecentSampleOpenThe": "最近のサンプルがありません。ホストのメトリクスを開いて収集を開始してください。"
+    },
+    "register": {
+      "enableMetrics": "メトリクスを有効にする",
+      "cpuMemoryDiskAndNetwork": "SSH 経由の CPU、メモリ、ディスク、ネットワーク",
+      "hostMetrics": "ホストメトリクス",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "メトリクス",
+      "cpuMemoryDiskAndNetwork2": "CPU、メモリ、ディスク、ネットワーク"
+    },
+    "serverStats": {
+      "hostMetricsThis": "ホストメトリクス | この {{deviceWord}}",
+      "hostMetrics": "ホストメトリクス",
+      "ran": "{{name}} を実行しました",
+      "loadingMetrics": "メトリクスを読み込んでいます...",
+      "couldNotReadMetricsFrom": "このホストからメトリクスを読み取れませんでした",
+      "failedToLoadMetrics": "メトリクスの読み込みに失敗しました",
+      "thisSessionHasNoServer": "このセッションにはサーバーがありません",
+      "twoFactorRequiredForThis": "このホストの統計情報には二段階認証が必要です。",
+      "failedToStartMetrics": "メトリクスの開始に失敗しました",
+      "failedToRun": "{{name}} の実行に失敗しました"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "コア別: {{value}}",
+        "cores": "コア数",
+        "load": "ロード",
+        "user": "ユーザー",
+        "system": "システム",
+        "ioWait": "IO 待機",
+        "steal": "スチール"
+      },
+      "diskWidget": {
+        "disk": "ディスク {{mount}}",
+        "disk2": "ディスク",
+        "used": "使用量",
+        "total": "合計",
+        "free": "空き容量"
+      },
+      "firewallWidget": {
+        "firewall": "ファイアウォール",
+        "rules": "{{type}} | {{ruleCount}} 件のルール",
+        "noFirewallDetected": "ファイアウォールが検出されませんでした"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "メモリ",
+        "temp": "温度",
+        "power": "電力",
+        "fan": "ファン"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "ログインアクティビティ",
+        "noLoginActivityRecorded": "ログインアクティビティの記録はありません",
+        "logins": "ログイン",
+        "uniqueIps": "一意の IP",
+        "failed": "失敗",
+        "recent": "最近"
+      },
+      "memoryWidget": {
+        "memory": "メモリ",
+        "used": "使用量",
+        "total": "合計",
+        "cached": "キャッシュ",
+        "free": "空き容量"
+      },
+      "networkWidget": {
+        "network": "ネットワーク",
+        "noInterfaces": "インターフェースがありません",
+        "up": "アップロード",
+        "down": "ダウンロード"
+      },
+      "portsWidget": {
+        "listeningPorts": "リスニングポート",
+        "noListeningPorts": "リスニングポートがありません"
+      },
+      "processesWidget": {
+        "sortBy": "{{label}} で並べ替え",
+        "processes": "プロセス",
+        "running": "{{value}} 実行中 | {{total}}",
+        "noProcessData": "プロセスデータがありません",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "コマンド"
+      },
+      "systemWidget": {
+        "system": "システム",
+        "hostname": "ホスト名",
+        "os": "OS",
+        "kernel": "カーネル",
+        "arch": "アーキテクチャ",
+        "noSystemInfo": "システム情報がありません"
+      },
+      "temperatureWidget": {
+        "temperature": "温度"
+      },
+      "uptimeWidget": {
+        "uptime": "稼働時間"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "パスワード付きでコピーしました",
+      "copiedTheLink": "リンクをコピーしました",
+      "shareHost": "ホストを共有",
+      "thatHostNoLongerExists": "そのホストは存在しません",
+      "scanThisInTermixOn": "別の {{deviceWord}} で Termix を開き、「インポートとエクスポート」からスキャンしてください。コードにはアドレス、ポート、ユーザーが含まれますが、パスワードや鍵は含まれません。",
+      "copyLink": "リンクをコピー",
+      "copyLinkWithPassword": "パスワード付きリンクをコピー"
+    },
+    "includePasswordsAndKeys": "パスワードと鍵を含めますか？",
+    "anyoneWhoGetsThisFile": "このファイルを取得した誰でも、これらのホストにサインインできます。安全に保管してください。",
+    "includeThem": "含める",
+    "pickAtLeastOneHost": "少なくとも1つのホストを選択してください",
+    "couldNotMakeTheFile": "ファイルを作成できませんでした",
+    "copiedToTheClipboard": "クリップボードにコピーしました",
+    "importAndExport": "インポートとエクスポート",
+    "moveHostsInAndOut": "ホストの移動",
+    "import": "インポート",
+    "aTermixHostFileAn": "Termix ホストファイル、SSH 設定ファイル、または別の {{deviceWord}} からのホストリンクまたは QR コード。",
+    "export": "エクスポート",
+    "allHosts": "すべてのホスト",
+    "picked": "{{size}} 選択済み",
+    "pickHosts": "ホストを選択",
+    "includePasswordsAndKeys2": "パスワードと鍵を含める",
+    "offMakesAFileSafe": "オフにすると、ファイルを安全に共有できます。保存された認証情報を使用するホストは、名前によって参照されます",
+    "shareAFile": "ファイルを共有",
+    "copy": "コピー",
+    "importPanel": {
+      "couldNotReadThat": "読み取れませんでした",
+      "couldNotReadThatFile": "そのファイルを読み取れませんでした",
+      "importFailed": "インポートに失敗しました",
+      "chooseAFile": "ファイルを選択",
+      "paste": "貼り付け",
+      "scanACode": "コードをスキャン",
+      "couldNotBeRead": "{{count}} 読み取れませんでした",
+      "updateHostsThatExist": "既存のホストを更新",
+      "sameAddressPortAndUser": "同じアドレス、ポート、ユーザーの場合。それ以外の場合はスキップされます",
+      "cancel": "キャンセル",
+      "import": "インポート",
+      "andMore": "および {{value}} 件"
+    },
+    "qrCode": {
+      "qrCode": "QR コード"
+    },
+    "register": {
+      "importAndExport": "インポートとエクスポート",
+      "moveHostsInOrOut": "ファイルまたは QR コードでホストを移動",
+      "shareHost": "ホストを共有"
+    },
+    "scanSheet": {
+      "scanAHostCode": "ホストコードをスキャン",
+      "pointTheCameraAtA": "カメラを Termix ホストの QR コードに向けてください。",
+      "termixNeedsTheCameraTo": "Termix はコードをスキャンするためにカメラが必要です。何も記録されません。",
+      "allowTheCamera": "カメラを許可"
+    },
+    "read": {
+      "termixFile": "Termix ファイル",
+      "sshConfig": "SSH 設定",
+      "thereIsNothingToImport": "インポートするものはありません",
+      "thatIsNotATermix": "Termix ホストリンクではありません",
+      "linkHost": "1 ホスト: {{name}}",
+      "sourceHosts_other": "{{what}}（{{count}} ホスト）"
+    },
+    "saveYourTermixHosts": "Termix ホストを保存"
+  },
+  "operations": {
+    "approvals": {
+      "done": "完了",
+      "rejected": "却下",
+      "approvals": "承認",
+      "nothingIsWaiting": "保留中のものはありません",
+      "actionsARuleHoldsFor": "承認が必要なルールが適用されるアクションがここに表示されます。",
+      "approveAndRun": "承認して実行",
+      "reject": "却下",
+      "couldNotLoadApprovals": "承認一覧を読み込めませんでした",
+      "couldNotDecide": "判断できませんでした"
+    },
+    "approvalsCard": {
+      "approved": "承認済み",
+      "rejected": "却下済み",
+      "waitingForApproval": "承認待ち",
+      "approve": "承認",
+      "reject": "却下",
+      "couldNotDecide": "判断できませんでした",
+      "seeAll": "すべて表示"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "この操作は元に戻せません。実行しますか？",
+      "run": "実行",
+      "sentForApproval": "承認依頼を送信",
+      "target": "対象",
+      "theItemOnTheHost": "ホスト上のアイテム（コンテナなど）",
+      "dryRun": "ドライラン",
+      "back": "戻る",
+      "actions": "アクション",
+      "noActionsForThisHost": "このホストにはアクションがありません",
+      "turnOnAPluginLike": "サーバーで、このホストに対して Docker や Services などのプラグインを有効にしてください。",
+      "destructive": "破壊的",
+      "changes": "変更",
+      "theActionCouldNotRun": "アクションを実行できませんでした",
+      "couldNotLoadActions": "アクションを読み込めませんでした"
+    },
+    "register": {
+      "actions": "アクション",
+      "waitingForApproval": "承認待ち",
+      "approvals": "承認",
+      "actionsWaitingForAPerson": "人間の承認を待っているアクション",
+      "runHistory": "実行履歴",
+      "everyActionAnyoneRanFrom": "あらゆるデバイスから実行されたすべてのアクション"
+    },
+    "runHistory": {
+      "cancelThisRun": "この実行をキャンセルしますか？",
+      "cancelRun": "実行をキャンセル",
+      "keep": "保持",
+      "undoThisRun": "この実行を元に戻しますか？",
+      "thisRunsTheActionS": "同じ入力を使用して、アクションの元に戻す処理を実行します。",
+      "undo": "元に戻す",
+      "cancelled": "キャンセル済み",
+      "itAlreadyFinished": "すでに完了しています",
+      "done": "完了",
+      "runHistory": "実行履歴",
+      "nothingHasRunYet": "まだ実行されたものはありません",
+      "dryRun": "ドライラン",
+      "cancel": "キャンセル",
+      "couldNotLoadHistory": "履歴を読み込めませんでした",
+      "couldNotCancel": "キャンセルできませんでした",
+      "couldNotUndo": "元に戻せませんでした"
+    },
+    "api": {
+      "needsApproval": "承認が必要",
+      "needsSignIn": "サインインが必要",
+      "done": "完了",
+      "failed": "失敗",
+      "running": "実行中",
+      "interrupted": "中断",
+      "rejected": "拒否",
+      "cancelled": "キャンセル",
+      "expired": "期限切れ"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "{{value}} を有効にする",
+      "moreSettingsForThisAre": "詳細設定は Termix ウェブアプリで行えます。",
+      "pluginHostSettings": "プラグインホストの設定"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} は数値である必要があります",
+      "mustBeAtLeast": "{{field}} は {{min}} 以上である必要があります",
+      "mustBeAtMost": "{{field}} は {{max}} 以下である必要があります"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "使用するサーバーをリンクしてください",
+      "runsOnYourTermixServer": "{{name}} は Termix サーバー上で実行されています。"
+    },
+    "pluginWebView": {
+      "canTLoad": "{{name}} を読み込めません",
+      "theServerDidNotSend": "サーバーからプラグインが送信されませんでした。サーバーが起動していることを確認し、もう一度お試しください。",
+      "openThisLink": "このリンクを開きますか？",
+      "open": "開く",
+      "needsANewerVersionOf": "アプリの新しいバージョンが必要です",
+      "usesPartsOfTermixThis": "{{name}} は、このアプリではまだ利用できない Termix の機能を使用しています。",
+      "didNotStart": "{{name}} が起動しませんでした",
+      "thisScreenIsNotIn": "この画面は、サーバー上のプラグインバージョンには含まれていません。",
+      "thePluginHitAnError": "プラグインの起動中にエラーが発生しました。",
+      "youReOffline": "オフラインです",
+      "runsOnYourServerSo": "{{name}} はサーバー上で実行されるため、接続が必要です。オンラインに戻ると自動的に開きます。",
+      "tryAgain": "再試行"
+    },
+    "shell": {
+      "thatHostIsNotOn": "そのホストはまだこの {{deviceWord}} にありません。",
+      "theAppCanTOpen": "アプリはここからそれを開くことができません。",
+      "thatHostIsNotOn2": "そのホストはまだこの {{deviceWord}} にありません。"
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "パスワード",
+      "unchangedIfBlank": "空白の場合は変更なし",
+      "port": "ポート",
+      "domain": "ドメイン",
+      "displaySoundAndClipboardSettings": "ディスプレイ、サウンド、クリップボードの設定は Termix ウェブアプリで行えます。",
+      "portMustBeFrom1": "{{label}} ポートは 1 から 65535 の範囲である必要があります"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "リモートデスクトップの接続が切断されました",
+        "signIn": "{{label}} のサインイン",
+        "itWillNotBeSaved": "{{error}} 保存されません。",
+        "enterTheLoginForIt": "{{title}} のログイン情報を入力してください。保存されません。",
+        "reconnecting": "{{label}} に再接続中",
+        "connecting": "{{label}} に接続中",
+        "connectionFailed": "接続に失敗しました",
+        "disconnected": "切断されました",
+        "reconnect": "再接続",
+        "connectThroughTheServer": "サーバー経由で接続",
+        "pasteToRemote": "リモートに貼り付け",
+        "typeClipboard": "クリップボードをタイプ入力",
+        "copyRemoteClipboard": "リモートのクリップボードをコピー",
+        "theComputerSCertificateWas": "コンピューターの証明書が信頼されていません。",
+        "thatLoginWasRefusedTry": "そのログインは拒否されました。もう一度お試しください。"
+      },
+      "target": {
+        "trustThisComputer": "このコンピューターを信頼しますか？",
+        "theCanTCheckS": "{{deviceWord}} は {{hostName}} の証明書を確認できません。続行する前に、このフィンガープリントがコンピューター上のものと一致することを確認してください。\n\n{{fingerprint}}",
+        "trustAndConnect": "信頼して接続",
+        "certificateChanged": "証明書が変更されました",
+        "showsAnotherCertificateThanLast": "{{hostName}} は前回と異なる証明書を表示しています。これは、コンピューターが新しい証明書を作成した場合や、誰かが通信を傍受している場合に発生します。\n\n新しいフィンガープリント:\n{{fingerprint}}",
+        "trustTheNewOne": "新しい証明書を信頼する"
+      }
+    },
+    "register": {
+      "remoteDesktop": "リモートデスクトップ",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "完了",
+      "keyboard": "キーボード",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "設定",
+      "remoteSettings": "リモート設定",
+      "mouseMode": "マウスモード",
+      "touch": "タッチ",
+      "trackpad": "トラックパッド",
+      "tapWhereYouWantTo": "クリックしたい場所をタップします。長押しで右クリック、ドラッグでドラッグします。",
+      "dragToMoveThePointer": "ポインターを動かすにはドラッグします。タップでクリック、2本指タップで右クリック、タップしてドラッグでドラッグします。",
+      "zoomXPinchAnywhereTo": "ズーム: {{value}}倍。どこでもピンチしてズームします",
+      "reset": "リセット",
+      "cancel": "キャンセル",
+      "connect": "接続",
+      "username": "ユーザー名",
+      "domainOptional": "ドメイン（オプション）",
+      "domain": "ドメイン",
+      "password": "パスワード",
+      "leftArrow": "左矢印",
+      "upArrow": "上矢印",
+      "downArrow": "下矢印",
+      "rightArrow": "右矢印",
+      "rdpSignIn": "RDPサインイン"
+    },
+    "theRemoteDesktopDropped": "リモートデスクトップの接続が切断されました",
+    "theyWillNotBeSaved": "{{errorMessage}} 保存されません。",
+    "enterCredentialsForTheyWill": "{{title}} の認証情報を入力してください。保存されません。",
+    "connecting": "接続中",
+    "connectionFailed": "接続に失敗しました",
+    "disconnected": "切断されました",
+    "reconnect": "再接続",
+    "route": {
+      "thisHostCanTOpen": "このホストからはここでリモートデスクトップを開くことができません。"
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "アプリによってブロックされました"
+    },
+    "failedToStartRemoteSession": "リモートセッションの開始に失敗しました",
+    "thatLoginWasRefusedTry": "ログインが拒否されました。もう一度お試しください。",
+    "theRemoteRefusedTheSaved": "保存されたログインがリモート側で拒否されました。このホストの RDP ログインを確認してください。",
+    "remoteSessionFailed": "リモートセッションに失敗しました",
+    "remoteSessionReturnedAnInvalid": "リモートセッションが無効なメッセージを返しました",
+    "failedToLoadTheRemote": "リモートデスクトップクライアントの読み込みに失敗しました"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "ジャーナルがありません",
+      "thisHostDoesNotKeep": "このホストは systemd ジャーナルを保持していません。",
+      "all": "すべて",
+      "warnings": "警告",
+      "errors": "エラー",
+      "stop": "停止",
+      "follow": "追従",
+      "nothingLogged": "ログなし",
+      "tryAnotherLevel": "別のレベルをお試しください。",
+      "couldNotReadTheJournal": "ジャーナルを読み取れませんでした"
+    },
+    "register": {
+      "services": "サービス",
+      "startStopAndReadLogs": "開始、停止、ログの表示"
+    },
+    "readingServices": "サービスを読み込み中...",
+    "thisHostHasNoSystemd": "このホストには systemd または OpenRC がありません。",
+    "noServicesMatch": "一致するサービスがありません",
+    "noServicesFound": "サービスが見つかりません",
+    "services": "サービス",
+    "journal": "ジャーナル",
+    "searchServices": "サービスを検索...",
+    "all": "すべて",
+    "running": "実行中",
+    "failed": "失敗 ({{failed}})",
+    "failed2": "失敗",
+    "servicesCard": {
+      "services": "サービス",
+      "noSystemdOrOpenrc": "systemd または OpenRC なし",
+      "failed": "{{failed}} 件失敗",
+      "allRunning": "すべて実行中",
+      "couldNotReadServices": "サービスを読み込めませんでした"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "再度開始するか、ホストが起動するまで停止したままになります。",
+      "itStopsForAMoment": "一時的に停止し、すぐに再起動します。",
+      "stop": "停止",
+      "restart": "再起動",
+      "is": "{{name}} は {{state}} です",
+      "start": "開始",
+      "journal": "ジャーナル",
+      "couldNotReadTheService": "サービスを読み込めませんでした",
+      "couldNot": "{{name}} を {{action}} できませんでした",
+      "startsAtBoot": "起動時に開始",
+      "mainPid": "メイン PID",
+      "activeSince": "アクティブ開始時刻",
+      "unitFile": "ユニットファイル",
+      "notSet": "[未設定]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "サインインしていません",
+        "followFailed": "フォローに失敗しました",
+        "connectionFailed": "接続に失敗しました"
+      }
+    },
+    "couldNotReadServices": "サービスを読み込めませんでした",
+    "services2": "サービス{{where}}",
+    "title": "サービス",
+    "failedCount": "{{count}} 件失敗"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "セッション共有",
+      "shareLink": "リンクを共有"
+    },
+    "shareSessionView": {
+      "canWatch": "閲覧可能",
+      "canType": "入力可能",
+      "n1Hour": "1 時間",
+      "n8Hours": "8 時間",
+      "n1Day": "1 日",
+      "n7Days": "7 日",
+      "never": "期限なし",
+      "shareSession": "セッションを共有",
+      "anyoneWithTheLinkCan": "リンクを知っている人は、このターミナルが実行されている間、いつでも開くことができます。リンクは Termix で無効化できます。",
+      "peopleWithTheLink": "リンクを知っている人",
+      "expiresAfter": "有効期限",
+      "link": "リンク",
+      "copy": "コピー",
+      "share": "共有",
+      "makeLink": "リンクを作成",
+      "theServerGaveNoLink": "サーバーからリンクが返されませんでした",
+      "couldNotMakeALink": "リンクを作成できませんでした",
+      "linkCopied": "リンクをコピーしました"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "フォルダなし"
+    },
+    "hostPicker": {
+      "selectNone": "選択解除",
+      "selectAll": "すべて選択",
+      "done": "完了"
+    },
+    "register": {
+      "snippets": "スニペット",
+      "snippets2": "スニペット",
+      "savedCommandsToRunOn": "任意のホストで実行する保存済みコマンド"
+    },
+    "runHosts": {
+      "noWayToReachThis": "ここからこのホストに到達できません",
+      "exitedWith": "終了コード {{exitCode}} で終了しました",
+      "thisCanTRunIt": "この {{deviceWord}} では実行できません",
+      "noServerIsLinked": "リンクされたサーバーがありません"
+    },
+    "runOnHostsSheet": {
+      "run": "実行",
+      "run2": "\"{{name}}\" を実行",
+      "runsOverSshOnEach": "各ホストで SSH を介して実行します。ターミナルは開きません。",
+      "close": "閉じる",
+      "hosts": "ホスト",
+      "pickHosts": "ホストを選択",
+      "workedFailed": "{{value}} 件成功、{{failed}} 件失敗",
+      "runOn2": "実行先",
+      "runOn_other": "{{count}} 件のホストで {{name}} を実行しますか？",
+      "hostsPicked_other": "{{count}} 件のホストを選択済み"
+    },
+    "snippetsBar": {
+      "searchSnippets": "スニペットを検索",
+      "pastesTheNote": "メモを貼り付けます",
+      "runsTheSnippet": "スニペットを実行します",
+      "noSnippetsMatch": "一致するスニペットがありません",
+      "noSnippetsYet": "まだスニペットがありません",
+      "addSnippetsInSettingsSnippets": "設定 > スニペットでスニペットを追加してください",
+      "run": "実行",
+      "insertWithoutRunning": "実行せずに挿入",
+      "copy": "コピー"
+    },
+    "snippetsCard": {
+      "snippets": "スニペット",
+      "run": "{{name}} を実行"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "エクスポートするスニペットがありません",
+      "couldNotMakeTheFile": "ファイルを作成できませんでした",
+      "copiedToTheClipboard": "クリップボードにコピーしました",
+      "couldNotImport": "インポートできませんでした",
+      "couldNotReadThatFile": "そのファイルを読み取れませんでした",
+      "importAndExport": "インポートとエクスポート",
+      "theSameFileTheWeb": "Web アプリで使用されるのと同じファイルです。",
+      "export": "エクスポート",
+      "shareAFile": "ファイルを共有",
+      "copy": "コピー",
+      "import": "インポート",
+      "updateSnippetsThatExist": "既存のスニペットを更新",
+      "sameNameInTheSame": "同じフォルダ内の同じ名前のスニペットのみ更新します。それ以外はスキップされます。",
+      "chooseAFile": "ファイルを選択",
+      "paste": "貼り付け",
+      "saveYourSnippets": "スニペットを保存"
+    },
+    "useSnippetRunner": {
+      "run": "{{name}} を実行しますか？",
+      "run2": "実行",
+      "fillInTheValuesFor": "このスニペットの値を入力してください。",
+      "cancel": "キャンセル",
+      "insert": "挿入",
+      "noTerminalIsOpen": "ターミナルが開いていません"
+    },
+    "variables": {
+      "input": "入力 {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "有効な JSON ファイルではありません",
+      "theFileNeedsASnippets": "ファイルにはスニペットまたはフォルダのリストが必要です",
+      "snippetNameAndContentAre": "スニペット {{value}}: 名前と内容は必須です",
+      "folder": "フォルダ {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Tailscale デバイスをロード中…",
+      "searchTailscaleDevices": "Tailscale デバイスを検索…",
+      "searchTailscaleDevices2": "Tailscale デバイスの検索",
+      "clearDeviceSearch": "デバイス検索をクリア",
+      "refreshTailscaleDevices": "Tailscale デバイスを更新",
+      "device": "デバイス",
+      "noTailnetAddress": "tailnet アドレスなし",
+      "tailscaleDevice": "Tailscale デバイス",
+      "tailscaleDevices": "Tailscale デバイス",
+      "addAHostThatConnects": "Tailscale SSH で接続するホストを追加します。",
+      "username": "ユーザー名",
+      "sshUsernameFor": "{{value}} の SSH ユーザー名",
+      "addHost": "ホストを追加",
+      "noTailscaleDevicesMatchYour": "検索条件に一致する Tailscale デバイスが見つかりません。",
+      "noTailscaleDevicesFound": "Tailscale デバイスが見つかりません。",
+      "noTailscaleApiKeyIs": "このサーバーには Tailscale API キーが設定されていません。管理者に追加を依頼してください。",
+      "youDoNotHavePermission": "Tailscale デバイスの一覧表示権限がありません。",
+      "couldNotLoadTailscaleDevices": "Tailscale デバイスの読み込みに失敗しました。再試行するには更新してください。",
+      "tailscaleIsUnavailableOnThis": "このサーバーでは Tailscale が利用できません。"
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "再接続中 | 試行 {{attempt}}",
+      "reconnectingInSTry": "{{secs}}秒後に再接続 | 試行 {{attempt}}",
+      "offlineWaitingForNetwork": "オフライン、ネットワークを待機中",
+      "sendToTheNewShell": "{{what}} を新しいシェルに送信しますか？",
+      "reconnectNow": "今すぐ再接続",
+      "send": "送信",
+      "discard": "破棄",
+      "typedChars_other": "{{count}}文字入力済み",
+      "waiting": "{{what}} 待機中"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "接続ログをコピーしました",
+      "connectionLog": "接続ログ",
+      "copyItIntoABug": "バグレポートにコピーしてください。アドレスとユーザー名は除外されます。",
+      "copy": "コピー"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "このホストの履歴をクリアしますか？",
+        "clear": "クリア",
+        "searchHistory": "履歴を検索",
+        "typesTheCommandWithoutRunning": "コマンドを実行せずに入力します",
+        "noCommandsMatch": "一致するコマンドがありません",
+        "noHistoryYet": "まだ履歴がありません",
+        "commandsYouRunOnThis": "このホストで実行したコマンドがここに表示されます",
+        "run": "実行",
+        "typeWithoutRunning": "実行せずに入力",
+        "copy": "コピー",
+        "delete": "削除",
+        "historyCleared": "履歴をクリアしました"
+      },
+      "suggestionStrip": {
+        "use": "{{command}} を使用"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "アプリ設定",
+      "delete": "削除 (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "シェルからタブタイトルを取得",
+      "programsCanSetTheTab": "プログラムがタブタイトルを設定できます",
+      "openTmux": "tmux を開く",
+      "attachToATmuxSession": "tmux セッションに接続、または新規作成",
+      "reconnectOnDrop": "切断時に再接続",
+      "keepTabOpenOnExit": "終了時にタブを開いたままにする",
+      "pressEnterToConnectAgain": "Enter キーを押して再接続",
+      "saveCommandHistory": "コマンド履歴を保存",
+      "offerToFillPasswordPrompts": "パスワード入力を補完する提案を表示",
+      "offerToFillSudoPrompts": "sudo 入力を補完する提案を表示",
+      "usesTheSudoPasswordFrom": "SSH タブの sudo パスワードを使用します",
+      "none": "なし",
+      "look": "外観",
+      "theme": "テーマ",
+      "font": "フォント",
+      "cursor": "カーソル",
+      "bell": "ベル",
+      "scrollbackLines": "スクロールバック行数",
+      "app": "アプリ",
+      "behavior": "動作",
+      "backspaceSends": "Backspace キーの送信",
+      "startupSnippet": "起動スニペット",
+      "runsOnceTheShellIs": "シェルが準備できた後に実行",
+      "fillWithoutAsking": "確認なしで入力",
+      "onThisOnlyOnceYou": "この {{deviceWord}} でのみ、「常に入力」を選択した後に適用されます",
+      "connection": "接続",
+      "keepalive": "キープアライブ",
+      "secondsBetweenPings0Turns": "ピング間の秒数（0 で無効化）",
+      "default": "デフォルト",
+      "keepaliveSeconds": "キープアライブ秒数",
+      "missedPings": "応答なしのピング数",
+      "dropTheConnectionAfterThis": "この回数応答がない場合、接続を切断します",
+      "missedPingsBeforeDrop": "切断前の応答なしピング数",
+      "environment": "環境",
+      "removeVariable": "変数を削除",
+      "addVariable": "変数を追加"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "キーボード"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "行",
+        "keys": "キー",
+        "sendsAKeyCode": "キーコードを送信",
+        "stickyModifier": "スティッキー修飾キー",
+        "appAction": "アプリアクション",
+        "tmuxPrefixThen": "tmux プレフィックス、その後 {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "キー行",
+        "onlyFor": "{{name}} のみ",
+        "usingTheAppSRows": "アプリの行を使用しています。ここでの変更は {{name}} のみに適用されます",
+        "useTheAppSRows": "アプリの行を使用"
+      },
+      "keyButton": {
+        "locked": "ロック済み"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "キャンセル",
+        "remove": "{{what}} を削除しますか？",
+        "remove2": "削除",
+        "dragToReorder": "ドラッグして並べ替え",
+        "rowName": "行名",
+        "groupName": "グループ名",
+        "add": "追加",
+        "addKey": "キーを追加",
+        "addRow": "行を追加",
+        "addGroup": "グループを追加",
+        "tmuxPrefix": "tmux プレフィックス",
+        "name": "名前",
+        "rename": "名前を変更",
+        "keys": "{{value}} キー",
+        "noKeys": "キーなし",
+        "remove3": "{{label}} を削除",
+        "keys2": "キー",
+        "custom": "カスタム",
+        "add2": "{{label}} を追加",
+        "typeText": "テキストを入力",
+        "runCommand": "コマンドを実行",
+        "ctrlKey": "Ctrl キー",
+        "label": "ラベル",
+        "optional": "オプション",
+        "letter": "文字",
+        "command": "コマンド",
+        "text": "テキスト",
+        "resetToDefault": "デフォルトに戻す"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "設定 > キーボードでキーを変更"
+      },
+      "keyRowBar": {
+        "keyRow": "キー行 {{label}}",
+        "tapForTheNextRow": "タップで次の行、長押しで選択",
+        "keyRows": "キー行"
+      },
+      "model": {
+        "clear": "クリア",
+        "main": "メイン",
+        "keys": "キー",
+        "arrows": "矢印",
+        "symbols": "記号",
+        "actions": "アクション",
+        "nav": "ナビ",
+        "move": "移動",
+        "function": "ファンクション",
+        "brackets": "括弧",
+        "punctuation": "句読点",
+        "ctrl": "Ctrl",
+        "control": "コントロール",
+        "windows": "Windows",
+        "panes": "ペイン",
+        "copy": "コピー",
+        "split": "分割 ─",
+        "split2": "分割 │",
+        "newWin": "新規ウィンドウ",
+        "prevWin": "前のウィンドウ",
+        "nextWin": "次のウィンドウ",
+        "pane": "ペイン ←",
+        "pane2": "ペイン ↓",
+        "pane3": "ペイン ↑",
+        "pane4": "ペイン →",
+        "copyMode": "コピーモード",
+        "pasteBuf": "バッファ貼り付け",
+        "killPane": "ペイン終了"
+      }
+    },
+    "output": {
+      "openLink": "リンクを開きますか？",
+      "open": "開く",
+      "pasteLines": "{{lines}} 行を貼り付けますか？",
+      "pasteThisText": "このテキストを貼り付けますか？",
+      "theShellMayRunIt": "シェルがすぐに実行する可能性があります。\n\n{{text}}",
+      "paste": "貼り付け",
+      "letTheProgramReadYour": "プログラムがクリップボードを読み取ることを許可しますか？",
+      "itAskedForWhatYou": "最後にコピーした内容を要求しています。",
+      "allow": "許可",
+      "letTheProgramCopyTo": "プログラムがクリップボードにコピーすることを許可しますか？"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "保存したパスワードを入力しますか？",
+      "asksForTheSudoPassword": "{{hostName}} が sudo パスワードを要求しています。",
+      "asksForAPassword": "{{hostName}} がパスワードを要求しています。",
+      "fillPassword": "パスワードを入力",
+      "alwaysFillOnThisHost": "このホストでは常に自動入力",
+      "asksNoMoreOnThis": "この {{deviceWord}} ではこれ以上確認しません。ホストのターミナルタブで無効にできます。",
+      "notNow": "今はしない"
+    },
+    "register": {
+      "terminal": "ターミナル",
+      "terminalAndKeepalive": "ターミナルとキープアライブ",
+      "history": "履歴",
+      "find": "検索",
+      "tmuxWindows": "tmux ウィンドウ",
+      "connectionLog": "接続ログ",
+      "keyRowsForThisHost": "このホストのキー行"
+    },
+    "searchBar": {
+      "noResults": "結果がありません",
+      "matchCase": "大文字小文字を区別",
+      "wholeWord": "単語単位",
+      "regularExpression": "正規表現",
+      "find": "検索",
+      "closeFind": "検索を閉じる"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "システム",
+      "block": "ブロック",
+      "bar": "バー",
+      "underline": "下線",
+      "off": "オフ",
+      "sound": "サウンド",
+      "flash": "フラッシュ",
+      "both": "両方"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "このホストで新しいタブを開く",
+      "closeTab": "タブを閉じる",
+      "nextTab": "次のタブ",
+      "previousTab": "前のタブ",
+      "goToTab": "タブに移動",
+      "find": "検索",
+      "fontSize": "フォントサイズ",
+      "paste": "貼り付け",
+      "escape": "エスケープ",
+      "copyAndPaste": "コピーして貼り付け"
+    },
+    "reconnecting": "再接続中...",
+    "waitingForNetwork": "ネットワークを待機中...",
+    "waitingForYou": "操作中を待機中...",
+    "connecting": "接続中...",
+    "terminalView": {
+      "scrollToBottom": "最下部へスクロール",
+      "onlyWebLinksCanOpen": "ターミナルからはWebリンクのみを開くことができます",
+      "couldNotOpenLink": "リンクを開けませんでした",
+      "copiedFromTheTerminal": "ターミナルからコピーしました"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "tmuxセッションを開く",
+        "newSession": "新しいセッション",
+        "plainShell": "プレーンシェル",
+        "tmuxWindows": "tmuxウィンドウ",
+        "newWindow": "新しいウィンドウ",
+        "windowCount_other": "{{count}}ウィンドウ",
+        "attached": "{{count}}接続済み",
+        "activeNow": "現在アクティブ",
+        "activeMinAgo": "{{count}}分前にアクティブ",
+        "activeHoursAgo": "{{count}}時間前にアクティブ",
+        "activeDaysAgo_other": "{{count}}日前にアクティブ"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "コピー",
+        "selectAll": "すべて選択",
+        "cancel": "キャンセル",
+        "scrollToBottom": "最下部へスクロール",
+        "couldNotCopy": "コピーできませんでした",
+        "webviewError": "WebViewエラー: {{description}}",
+        "webviewHttpError": "WebView HTTPエラー: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "このホストの保存されたパスワードがありません",
+    "backInTmuxSession": "tmuxセッション {{tmuxName}} に戻る",
+    "backInScreenSession": "screenセッション {{name}} に戻る",
+    "theServerSessionEndedThis": "サーバーセッションが終了しました。新しいシェルです。",
+    "termixWasClosedSoThe": "Termixが閉じられたため、以前のシェルは終了しました。新しいシェルです。",
+    "theConnectionDroppedAndThe": "接続が切断され、以前のシェルは終了しました。新しいシェルです。",
+    "disconnectedFrom": "{{hostName}} から切断されました"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "二要素認証",
+      "codesFromAnAuthenticatorApp": "サーバーアカウント用の認証アプリからのコード"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC アドレス",
+      "neededToWakeThisHost": "Wake-on-LAN でこのホストを起動するために必要です",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "00:1A:2B:3C:4D:5E のような MAC アドレスを使用してください"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "{{name}} に Wake-on-LAN を送信しました",
+      "failedToSendWakeOn": "Wake-on-LAN パケットの送信に失敗しました",
+      "noServer": "サーバーなし"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "{{value}} を起動"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "匿名の使用統計を共有しますか？",
+      "termixWouldSendAShort": "Termix は1日1回、短いレポートを送信します。設定でいつでも変更できます。",
+      "noThanks": "いいえ",
+      "share": "共有する",
+      "theReportHasTheApp": "レポートには、アプリのバージョン、{{deviceWord}} の種類、ホストとセッションの概数、使用している機能、接続が成功したかどうかが含まれます。ホスト名、ユーザー名、アドレス、パス、コマンド、またはサーバー名は含まれません。",
+      "seeExactlyWhatIsSent": "送信される内容を確認する"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "バージョン情報の読み込み中…",
+      "updateAvailable": "アップデート利用可能",
+      "newVersionAvailable": "新しいバージョンが利用可能です",
+      "aNewerVersionOfThe": "モバイルアプリの新しいバージョンが利用可能です。アップデートするまで、一部の機能が正しく動作しない場合があります。",
+      "versionInformation": "バージョン情報",
+      "installed": "インストール済み",
+      "latest": "最新",
+      "unknown": "不明",
+      "tag": "タグ",
+      "continueAnyway": "続行する"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "コピーしました",
+      "copy": "コピー",
+      "hostKeyChanged": "ホストキーが変更されました",
+      "verifyHostKey": "ホストキーを確認",
+      "cancel": "キャンセル",
+      "acceptNewKey": "新しいキーを受け入れる",
+      "connectAndTrust": "接続して信頼する",
+      "theHostSSshKey": "前回の接続以降、ホストの SSH キーが変更されました。これは、誰かが接続を傍受している可能性があります。",
+      "youAreConnectingToThis": "初めてこのホストに接続しています。信頼する前にフィンガープリントを確認してください。",
+      "previousKey": "以前のキー",
+      "newFingerprint": "新しいフィンガープリント",
+      "hostFingerprint": "ホストのフィンガープリント"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "パスフレーズが必要です",
+      "enterThePassphraseForYour": "SSH キーのパスフレーズを入力してください。",
+      "cancel": "キャンセル",
+      "connect": "接続",
+      "keyPassphrase": "キーのパスフレーズ"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH 認証が必要です",
+      "cancel": "キャンセル",
+      "connect": "接続",
+      "password": "パスワード",
+      "sshKey": "SSH キー",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nここに秘密鍵を貼り付けてください...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "キーのパスフレーズ（オプション）",
+      "keyboardInteractiveAuthIsNot": "キーボードインタラクティブ認証は利用できません。認証情報を直接入力してください。",
+      "authenticationFailedPleaseReEnter": "認証に失敗しました。認証情報を再入力してください。",
+      "connectionTimedOutPleaseTry": "接続がタイムアウトしました。認証情報を使って再試行してください。"
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH チェック",
+      "completeTheTailscaleSshCheck": "続行するには、ブラウザで Tailscale SSH チェックを完了してください。",
+      "cancel": "キャンセル",
+      "copyUrl": "URL をコピー",
+      "openBrowser": "ブラウザを開く",
+      "urlCopied": "URL をコピーしました",
+      "failedToCopy": "コピーに失敗しました",
+      "couldNotOpenBrowser": "ブラウザを開けませんでした"
+    },
+    "tOTPDialog": {
+      "cancel": "キャンセル",
+      "submit": "送信",
+      "verify": "確認",
+      "password": "パスワード",
+      "pasteCode": "コードを貼り付け",
+      "passwordRequired": "パスワードが必要です",
+      "twoFactorAuthentication": "二段階認証",
+      "enterYourPasswordToContinue": "続行するにはパスワードを入力してください。",
+      "enterThe6DigitCode": "認証アプリから6桁のコードを入力してください。"
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate 認証",
+      "authenticateViaTheWarpgatePortal": "Warpgate ポータルで認証し、続行をタップしてください。",
+      "cancel": "キャンセル",
+      "openBrowser": "ブラウザを開く",
+      "continue": "続行",
+      "securityKey": "セキュリティキー",
+      "authUrl": "認証URL",
+      "copied": "コピーしました",
+      "copy": "コピー",
+      "urlCopied": "URLをコピーしました",
+      "failedToCopy": "コピーに失敗しました",
+      "couldNotOpenBrowser": "ブラウザを開けませんでした"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "この {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "最近のアクティビティ",
+        "files": "ファイル",
+        "terminal": "ターミナル"
+      },
+      "alertsCard": {
+        "notifications": "通知",
+        "seeAll": "すべて表示"
+      },
+      "server": "サーバー",
+      "openSessions": "開いているセッション",
+      "quickAccess": "クイックアクセス",
+      "notifications": "通知",
+      "pinnedHosts": "ピン留めされたホスト",
+      "recentHosts": "最近のホスト",
+      "recentActivity": "最近のアクティビティ",
+      "pinnedCard": {
+        "addYourFirstHost": "最初のホストを追加",
+        "hostsYouOpenShowUp": "開いたホストがここに表示され、ピン留めされたホストはライブカードを表示します。",
+        "addHost": "ホストを追加",
+        "linkAServer": "サーバーをリンク",
+        "pinAHostToSee": "ホストをピン留めするとここに表示されます",
+        "pinnedHostsShowTheirMetrics": "ピン留めされたホストは、メトリクス、Docker、サービスを一目で確認できます。ホストを長押ししてピン留めしてください。",
+        "goToHosts": "ホストへ移動",
+        "pinned": "ピン留め済み",
+        "opensTheTerminalHoldFor": "ターミナルを開きます。長押しで詳細を表示。",
+        "turnOnDockerOrServices": "このホストでDockerまたはサービスを有効にするか、タップして接続してください。",
+        "opens": "{{title}} を開きます"
+      },
+      "quickCard": {
+        "quickAccess": "クイックアクセス",
+        "quickConnect": "クイック接続",
+        "userHostPortWithoutSaving": "user@host:port（保存なし）"
+      },
+      "recentCard": {
+        "recent": "最近"
+      },
+      "serverCard": {
+        "server": "サーバー",
+        "version": "バージョン",
+        "uptime": "稼働時間",
+        "database": "データベース",
+        "hosts": "ホスト",
+        "online": "オンライン",
+        "offline": "オフライン",
+        "logins": "ログイン"
+      },
+      "sessionsCard": {
+        "openSessions": "開いているセッション",
+        "connected": "接続済み"
+      }
+    },
+    "resetHome": "ホームをリセットしますか？",
+    "cardsGoBackToThe": "カードはデフォルトの順序と表示状態に戻ります。",
+    "reset": "リセット",
+    "doneEditingHome": "ホームの編集を完了",
+    "editHome": "ホームを編集",
+    "dragToReorder": "{{title}} をドラッグして順序を変更",
+    "show": "{{title}} を表示",
+    "dragCardsToReorderThem": "カードをドラッグして順序を変更します。カードをオフにすると非表示になります。表示する内容がないカードは自動的に非表示になります。",
+    "resetToDefault": "デフォルトに戻す",
+    "done": "完了",
+    "serverReachBanner": {
+      "stillCanTReachThe": "サーバーにまだ接続できません",
+      "canTReach": "{{account}} に接続できません",
+      "youCanKeepWorkingWith": "この {{deviceWord}} 上のコピーで作業を続けることができます。接続が回復すると変更が同期されます。",
+      "hostsSetToConnectFrom": "この {{deviceWord}} から接続するように設定されたホストは引き続き動作します。",
+      "tryAgain": "再試行",
+      "noAnswer": "応答なし"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault プロファイル",
+      "none": "なし",
+      "signsInWithInYour": "Termix サーバー経由でブラウザから {{title}} を使用してサインインします。このホストはサーバー経由で接続されます。",
+      "needsATermixServerLink": "{{title}} には Termix サーバーが必要です。このサインインを使用するにはサーバーをリンクしてください。",
+      "isOffOnThisServer": "このサーバーでは {{title}} がオフになっています。このホストはサインイン設定を保持します。"
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "資格情報を読み込めませんでした",
+      "deleted": "\"{{name}}\" を削除しました",
+      "couldNotDeleteTheCredential": "資格情報を削除できませんでした",
+      "credentials": "資格情報",
+      "add": "追加",
+      "searchCredentials": "資格情報を検索",
+      "clearSearch": "検索をクリア",
+      "loadingCredentials": "資格情報を読み込み中...",
+      "noCredentialsMatchYourSearch": "検索条件に一致する資格情報はありません",
+      "noCredentialsYet": "まだ資格情報はありません",
+      "addCredential": "資格情報を追加",
+      "edit": "編集",
+      "delete": "削除",
+      "deleteCredential": "資格情報を削除",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" は完全に削除されます。これを使用しているホストは保存された資格情報を失います。",
+      "cancel": "キャンセル",
+      "hostCount_other": "{{count}} 台のホスト",
+      "sshKey": "SSH キー"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "キーを置き換えますか？",
+        "theNewKeyTakesThe": "新しいキーが現在のキーに置き換わります。古いキーのみを信頼しているホストは、この資格情報の受け入れを停止します。",
+        "replace": "置き換え",
+        "newKeyMadeCopyThe": "新しいキーが作成されました。公開キーをホストにコピーしてください。",
+        "couldNotMakeAKey": "キーを作成できませんでした",
+        "couldNotReadThatCertificate": "証明書ファイルを読み取れませんでした",
+        "leaveWithoutSaving": "保存せずに離れますか？",
+        "yourChangesToThisCredential": "この資格情報への変更は失われます。",
+        "leave": "離れる",
+        "credentialSaved": "資格情報を保存しました",
+        "credentialAdded": "資格情報を追加しました",
+        "couldNotSaveTheCredential": "資格情報を保存できませんでした",
+        "enterAHostToTest": "テスト対象のホストを入力してください。例: 10.0.0.5 または box:2222",
+        "enterTheUsernameFirst": "まずユーザー名を入力してください。",
+        "editCredential": "資格情報を編集",
+        "newCredential": "新しい資格情報",
+        "cancel": "キャンセル",
+        "save": "保存",
+        "credential": "認証情報",
+        "name": "名前",
+        "productionKey": "本番用キー",
+        "username": "ユーザー名",
+        "signInWith": "サインイン方法",
+        "password": "パスワード",
+        "sshKey": "SSH キー",
+        "unchangedIfBlank": "空白の場合は変更なし",
+        "key": "キー",
+        "fileOrPaste": "ファイルまたは貼り付け",
+        "makeANewKey": "新しいキーを作成",
+        "aKeyIsSavedChoose": "キーが保存されています。置き換えるにはファイルを選択するか貼り付けてください。",
+        "type": "種類",
+        "ed25519AndEcdsaAreMade": "Ed25519 と ECDSA はこの {{deviceWord}} で作成され、RSA はサーバー上で作成されます。",
+        "madeOnThisEd25519Works": "この {{deviceWord}} で作成されます。Ed25519 はほぼすべての環境で動作します。",
+        "passphrase": "パスフレーズ",
+        "optionalLocksTheNewKey": "オプション。この {{deviceWord}} およびディスク上の新しいキーをロックします。",
+        "makeKey": "キーを作成",
+        "publicKey": "公開鍵",
+        "addThisLineToSsh": "この行をホストの ~/.ssh/authorized_keys に追加してください",
+        "publicKeyCopied": "公開鍵をコピーしました",
+        "copyPublicKey": "公開鍵をコピー",
+        "certificate": "証明書",
+        "aCertificateYourCaSigned": "このキーに対して CA が署名した証明書。CA を信頼するホスト用です。",
+        "chooseCertificateFile": "証明書ファイルを選択",
+        "thisDoesNotLookLike": "これは OpenSSH 証明書のように見えません。",
+        "test": "テスト",
+        "hostToTestOn": "テスト対象のホスト",
+        "n10005Or": "10.0.0.5 または box.lan:2222",
+        "pickASavedHost": "保存済みのホストを選択",
+        "details": "詳細",
+        "description": "説明",
+        "whatThisCredentialIsFor": "この認証情報の用途",
+        "folder": "フォルダ",
+        "serverKeys": "サーバーキー",
+        "testOnAHost": "ホストでテスト",
+        "rsaKeysNeedALinked": "RSA キーにはリンクされたサーバーが必要です。"
+      },
+      "model": {
+        "giveThisCredentialAName": "この認証情報に名前を付けてください",
+        "addAPrivateKeyOr": "秘密鍵を追加するか、新しいものを作成してください"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "これはユーザー証明書ではなく、ホスト証明書です。",
+        "thisCertificateIsNotValid": "この証明書はまだ有効ではありません。",
+        "thisCertificateHasExpired": "この証明書は期限切れです。",
+        "itIsForAKey": "これは {{keyType}} キー用ですが、このキーは {{keyType2}} です。",
+        "forAnyUser": "すべてのユーザー用",
+        "validFromNoEndDate": "{{validAfter}} から有効、終了日なし",
+        "signedBy": "{{caSha256}} によって署名"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "ユーザー名",
+        "fromTheCredential": "認証情報から: {{credentialUser}}",
+        "signInWith": "サインイン方法",
+        "password": "パスワード",
+        "key": "キー",
+        "credential": "認証情報",
+        "none": "なし",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Tailscale SSH で接続します。パスワードやキーは保存されません。",
+        "tailscaleIsNotOnFor": "{{value}} では Tailscale が有効ではありません。このホストは Tailscale のサインイン情報を保持します。",
+        "unchangedIfBlank": "空白の場合は変更なし",
+        "noCredentialsYetTapThe": "認証情報がまだありません。[ホスト] のキーアイコンをタップして追加してください。",
+        "useCredential": "資格情報 {{name}} を使用する",
+        "sudoPassword": "Sudo パスワード",
+        "typedIntoSudoPromptsWhen": "ターミナルセクションで有効にすると、sudo プロンプトに入力されます",
+        "notSet": "未設定",
+        "thisServer": "このサーバー"
+      },
+      "colorIconField": {
+        "color": "色",
+        "noColor": "色なし",
+        "color2": "色 {{c}}",
+        "icon": "アイコン",
+        "noIcon": "アイコンなし",
+        "none": "なし",
+        "icon2": "アイコン {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "保存せずに離れますか？",
+        "yourChangesToThisHost": "このホストへの変更は失われます。",
+        "leave": "離れる",
+        "couldNotSaveHowThis": "このホストの接続方法を保存できませんでした",
+        "hostSaved": "ホストを保存しました",
+        "hostAdded": "ホストを追加しました",
+        "couldNotSaveTheHost": "ホストを保存できませんでした",
+        "enterTheHostSAddress": "まずホストのアドレスを入力してください。",
+        "turnOnSshToTest": "ログインをテストするには SSH を有効にしてください。",
+        "pickACredentialFirst": "まず資格情報を選択してください。",
+        "editHost": "ホストを編集",
+        "newHost": "新しいホスト",
+        "cancel": "キャンセル",
+        "save": "保存",
+        "host": "ホスト",
+        "name": "名前",
+        "myServer": "マイサーバー",
+        "address": "アドレス",
+        "port": "ポート",
+        "portAndUsernameComeFrom": "ポートとユーザー名は、変更するまでホストのデフォルト値が使用されます。",
+        "folder": "フォルダ",
+        "production": "本番環境",
+        "useAFolderInstead": "代わりにフォルダを使用する",
+        "putItUnderAHost": "代わりにホストの下に配置する",
+        "pinToTop": "上部にピン留め",
+        "colorAndIcon": "色とアイコン",
+        "notes": "メモ",
+        "anythingWorthRememberingAboutThis": "このホストについて覚えておくべきこと",
+        "protocols": "プロトコル",
+        "terminalFilesAndMore": "ターミナル、ファイルなど",
+        "connectFrom": "接続元",
+        "features": "機能",
+        "otherProtocols": "その他のプロトコル",
+        "more": "もっと",
+        "theTestRunsFromThis": "テストはこの {{deviceWord}} から実行されます。このホストはサーバー経由で接続するため、{{deviceWord}} が到達できない場合でも動作する可能性があります。"
+      },
+      "jumpHostsField": {
+        "jumpHosts": "ジャンプホスト",
+        "connectsThroughTheseInOrder": "これらのホストを順に経由し、最後にこのホストに接続します",
+        "reachThisHostThroughOther": "まず他のホスト経由でこのホストに到達する",
+        "moveUp": "上に移動",
+        "moveDown": "下に移動",
+        "removeJumpHost": "ジャンプホストを削除",
+        "addJumpHost": "ジャンプホストを追加",
+        "pickASavedHostTo": "経由する保存済みホストを選択",
+        "searchHosts": "ホストを検索",
+        "noOtherHostsToPick": "選択できる他のホストがありません。ホストは自身や、すでに経由しているホストをジャンプホストにすることはできません。",
+        "missingHost": "ホスト #{{id}} が見つかりません"
+      },
+      "model": {
+        "turnOnAtLeastOne": "少なくとも1つのプロトコルを有効にしてください",
+        "pickACredential": "資格情報を選択してください",
+        "enterTheHostSAddress": "ホストのアドレスを入力してください",
+        "theAddressCanTHave": "アドレスにはスペースを含められません",
+        "portMustBeFrom1": "ポート番号は 1 から 65535 の範囲で指定してください",
+        "enterTheSshUsername": "SSH ユーザー名を入力してください"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "選択したホストの下にネストして表示されます",
+        "searchHosts": "ホストを検索",
+        "noHostsToPickA": "選択できるホストがありません。ホストは自身、自身のサブホスト、または共有ホストの下に配置できません。",
+        "parentHost": "親ホスト",
+        "subHostsFollowTheFolder": "サブホストは親のフォルダに従います",
+        "pickParentHost": "親ホストを選択",
+        "missingHost": "ホスト #{{value}} が見つかりません",
+        "pickAHost": "ホストを選択",
+        "clearParentHost": "親ホストをクリア"
+      },
+      "tagsField": {
+        "tags": "タグ",
+        "typeATagAndPress": "タグを入力して Enter キーを押してください",
+        "removeTag": "タグ {{tag}} を削除",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "このホストの接続設定を保存できませんでした",
+      "addressCopied": "アドレスをコピーしました",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "接続元",
+      "dismiss": "閉じる",
+      "unpin": "ピン留め解除",
+      "pinToHome": "ホームにピン留め",
+      "select": "選択",
+      "editHost": "ホストを編集",
+      "copyAddress": "アドレスをコピー",
+      "addSubHost": "サブホストを追加",
+      "cloneHost": "ホストを複製",
+      "deleteHost": "ホストを削除",
+      "connectThroughTheServer": "サーバー経由で接続",
+      "connectFromThis": "この {{deviceWord}} から接続"
+    },
+    "defaultYourOrder": "デフォルト（ユーザーの順序）",
+    "nameAZ": "名前（A-Z）",
+    "nameZA": "名前（Z-A）",
+    "ipAscending": "IP（昇順）",
+    "ipDescending": "IP（降順）",
+    "onlineFirst": "オンライン優先",
+    "offlineFirst": "オフライン優先",
+    "pinnedFirst": "ピン留め優先",
+    "status": "ステータス",
+    "online": "オンライン",
+    "offline": "オフライン",
+    "pinned": "ピン留め済み",
+    "protocol": "プロトコル",
+    "features": "機能",
+    "hostsCanOnlyMoveInside": "ホストは自身のフォルダ内でのみ移動できます",
+    "couldNotUpdateTheHosts": "ホストを更新できませんでした",
+    "sharedHostsCanTBe": "共有ホストはここで削除できません",
+    "delete2": "削除",
+    "noneOfTheseHostsOpen": "これらのホストのいずれもターミナルを開きません",
+    "couldNotPinTheHost": "ホストをピン留めできませんでした",
+    "deleted": "{{name}} を削除しました",
+    "failedToDeleteHost": "ホストの削除に失敗しました",
+    "cloned": "{{name}} を複製しました",
+    "failedToCloneHost": "ホストの複製に失敗しました",
+    "reorderWorksWithTheDefault": "並べ替えは「デフォルト」ソートで、検索やフィルターなしの場合にのみ機能します",
+    "couldNotSaveTheOrder": "順序を保存できませんでした",
+    "noHostsYet": "まだホストがありません",
+    "addAHostToConnect": "ホストを追加して、ワンタップで接続しましょう。",
+    "addHost": "ホストを追加",
+    "quickConnect2": "クイック接続",
+    "linkAServer": "サーバーをリンク",
+    "noHostsMatch": "一致するホストがありません",
+    "clearSearchAndFilters": "検索とフィルターをクリア",
+    "more": "もっと",
+    "dragAHostByIts": "ホストのグリップをドラッグして、フォルダ内での位置を変更します。",
+    "done": "完了",
+    "filterHosts": "ホストをフィルター",
+    "clearFilterText": "フィルターテキストをクリア",
+    "sortHosts": "ホストを並べ替え",
+    "removeFilter": "フィルター {{value}} を削除",
+    "loadingHosts": "ホストを読み込み中…",
+    "moveUnderAHost": "ホストの下に移動",
+    "moveToFolder": "フォルダに移動",
+    "leaveItEmptyToTake": "空のままにすると、ホストはフォルダから外れます。",
+    "folderLikeProdWeb": "Prod / Web のようなフォルダ名",
+    "move": "移動",
+    "hosts": "ホスト",
+    "selectHosts": "ホストを選択",
+    "reorderHosts": "ホストの順序を変更",
+    "customizeList": "リストをカスタマイズ",
+    "chooseWhatEachHostRow": "各ホスト行に表示する内容を選択",
+    "credentials2": "認証情報",
+    "savedPasswordsAndKeys": "保存されたパスワードと鍵",
+    "tailscaleDevices": "Tailscale デバイス",
+    "refresh": "更新",
+    "rowDensityFollowsSettingsAppearance": "行密度は「設定」>「外観」に従います。",
+    "clearAllFilters": "すべてのフィルターをクリア",
+    "tags": "タグ",
+    "stopSelecting": "選択を中止",
+    "selected": "{{count}} 件選択中",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "その鍵ファイルを読み取れませんでした",
+        "theClipboardIsEmpty": "クリップボードが空です",
+        "privateKey": "秘密鍵",
+        "chooseFile": "ファイルを選択",
+        "paste": "貼り付け",
+        "unchangedIfBlank": "空白の場合は変更なし",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "パスフレーズ",
+        "onlyIfTheKeyHas": "鍵にパスフレーズが設定されている場合のみ",
+        "theKeyIsCheckedWhen": "接続時に鍵が検証されます。",
+        "thePastedKey": "貼り付けられた鍵"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "開く",
+        "moreActions": "その他のアクション",
+        "opensTheTerminalHoldFor": "ターミナルを開きます。長押しで詳細を表示。",
+        "shared": "共有",
+        "drag": "{{name}} をドラッグ",
+        "showSubHosts_other": "{{name}} の {{count}} 件のサブホストを表示",
+        "hideSubHosts_other": "{{name}} の {{count}} 件のサブホストを非表示"
+      },
+      "hostList": {
+        "folderHosts": "フォルダ {{name}}、{{total}} 件のホスト"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "ホストとユーザー名は必須です",
+      "hostSaved": "ホストが保存されました",
+      "couldNotSaveTheHost": "ホストを保存できませんでした",
+      "quickConnect": "クイック接続",
+      "connectToAHostWithout": "保存せずにホストに接続します。",
+      "hostIp": "ホスト / IP",
+      "port": "ポート",
+      "username": "ユーザー名",
+      "password": "パスワード",
+      "key": "キー",
+      "privateKey": "秘密鍵",
+      "saveToMyHosts": "ホストに保存",
+      "keepThisHostAfterConnecting": "接続後もこのホストを保持する",
+      "cancel": "キャンセル",
+      "connect": "接続"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "サーバーからホストを取得中",
+      "yourHostsStayOnThis": "{{message}} その間、ホストはこの{{deviceWord}}に保持されます。"
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "このホストのキーが変更されました",
+      "trustThisHost": "このホストを信頼しますか？",
+      "trust": "信頼する",
+      "stopTest": "テストを停止",
+      "testConnection": "接続テスト",
+      "connecting": "接続中..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "ホストの読み込みに失敗しました。"
+    },
+    "sharedLeftAsTheyAre_other": "{{done}}。{{count}}個の共有ホストは変更されませんでした。",
+    "deleteHosts_other": "{{count}}個のホストを削除しますか？",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "{{name}}という名前のフォルダはありません"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "ホスト「{{name}}」: 無効なポート",
+        "hostJumpIsNotIn": "ホスト「{{name}}」: ジャンプホスト {{value}} がファイルに存在しないため除外されました",
+        "credential": "認証情報 {{name}}: {{error}}",
+        "noValidHostEntriesFound": "SSH設定ファイルに有効なHostエントリが見つかりませんでした",
+        "credentialWasNotFound": "{{label}}: 認証情報 {{value}} が見つかりませんでした"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "ホスト {{value}}: 重複するエクスポート済みホストID {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: 必須フィールド (ip, port) が不足しています",
+        "invalidAuthtypeMustBeOne": "{{label}}: 無効なauthTypeです。{{value}} のいずれかである必要があります",
+        "usernameRequiredForSshConnections": "{{label}}: SSH接続にはユーザー名が必要です",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: 認証情報認証には credentialAlias が必要です",
+        "thatIsNotAValid": "有効なJSONファイルではありません",
+        "hostsArrayIsRequiredAnd": "ホストの配列は必須であり、空であってはなりません",
+        "jumpHostCycle": "{{label}}: ジャンプホストの循環参照",
+        "jumpHostIsNotIn": "{{label}}: ジャンプホスト {{id}} がファイルに存在しません"
+      }
+    },
+    "movedTo": "{{value}} に移動しました",
+    "movedOutOfFolders": "フォルダから移動しました",
+    "movedUnder": "{{value}} の下に移動しました",
+    "openTerminals": "ターミナルを開く",
+    "theHost": "ホスト"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "パスワードを非表示",
+      "showPassword": "パスワードを表示",
+      "enterAUsernameAndPassword": "ユーザー名とパスワードを入力してください",
+      "useAtLeast6Characters": "パスワードは6文字以上を使用してください",
+      "thePasswordsDonTMatch": "パスワードが一致しません",
+      "makeTheAdminAccount": "管理者アカウントを作成",
+      "makeAnAccount": "アカウントを作成",
+      "thisIsTheFirstAccount": "これはサーバー上の最初のアカウントであるため、サーバーを管理します。",
+      "pickAUsernameAndPassword": "このサーバーのユーザー名とパスワードを選択してください。",
+      "username": "ユーザー名",
+      "password": "パスワード",
+      "passwordAgain": "パスワード（確認）",
+      "makeAccount": "アカウントを作成",
+      "back": "戻る",
+      "haveAnAccountSignIn": "アカウントをお持ちですか？サインイン",
+      "resetCodeMadeItIs": "リセットコードが生成されました。サーバーのログに記録されています",
+      "enterYourUsername": "ユーザー名を入力してください",
+      "enterTheResetCode": "リセットコードを入力してください",
+      "passwordChangedSignInWith": "パスワードが変更されました。これでサインインしてください",
+      "resetPassword": "パスワードをリセット",
+      "enterYourUsernameTheServer": "ユーザー名を入力してください。サーバーはリセットコードをログに記録します。",
+      "sendResetCode": "リセットコードを送信",
+      "enterThe6DigitCode": "サーバーログから6桁のコードを入力してください。",
+      "resetCode": "コードをリセット",
+      "checkCode": "コードを確認",
+      "newPassword": "新しいパスワード",
+      "saveNewPassword": "新しいパスワードを保存",
+      "backToSignIn": "サインインに戻る",
+      "couldNotMakeTheAccount": "アカウントを作成できませんでした",
+      "couldNotStartTheReset": "リセットを開始できませんでした",
+      "thatCodeDidnTWork": "そのコードは有効ではありません",
+      "couldNotChangeThePassword": "パスワードを変更できませんでした"
+    },
+    "browserStep": {
+      "signInFailed": "サインインに失敗しました",
+      "signInCanceled": "サインインがキャンセルされました",
+      "couldNotOpenTheSign": "サインイン用のブラウザを開けませんでした",
+      "couldNotOpenTheSign2": "サインインページを開けませんでした",
+      "certificateProblem": "証明書の問題",
+      "back": "戻る",
+      "signIn": "サインイン",
+      "reload": "再読み込み",
+      "finishSigningInInYour": "ブラウザでサインインを完了してください",
+      "useAnySignInYour": "パスキーやセキュリティキーなど、サーバーで利用可能なサインイン方法を使用してください。サインインが完了するとアプリが引き継ぎます。",
+      "theAppPicksUpOnce": "サインインプロバイダーの処理が完了すると、アプリが引き継ぎます。",
+      "signingIn": "サインイン中...",
+      "openBrowserAgain": "ブラウザを再度開く",
+      "theServerTurnedTheSession": "サーバーがセッションを拒否しました。もう一度お試しください。",
+      "signedInButTheApp": "サインインは成功しましたが、アプリがTermixに接続できません。プロキシがブロックしている可能性があります。",
+      "thatSignInLinkIs": "そのサインインリンクは古い試行からのものです。再度サインインしてください。",
+      "signInAgain": "再度サインインしてください。",
+      "openTheBrowserAgainWhen": "準備ができたら、ブラウザを再度開いてください。",
+      "theWebPageSignedIn": "ウェブページはサインインしましたが、セッションを送信していません。サーバーを更新して、もう一度お試しください。",
+      "theCanTCheckThis": "{{deviceWord}}はこのサーバーの証明書を確認できません。{{deviceWord}}にルートCAをインストールしてください。{{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "次回以降、{{name}}でサインインしますか？",
+      "ifThisServerSignsYou": "このサーバーからサインアウトされた場合、パスワードを入力する代わりに{{name}}で再度サインインしてください。パスワードはこの{{deviceWord}}に保存されます。",
+      "use": "{{name}}を使用",
+      "notNow": "今はしない",
+      "couldNotSaveTheLogin": "ログイン情報を保存できませんでした",
+      "thatSADifferentUser": "別のユーザーです",
+      "signedIn": "サインインしました",
+      "close": "閉じる",
+      "linkYourTermixServer": "Termixサーバーをリンク",
+      "yourHostsCredentialsSnippetsAnd": "ホスト、認証情報、スニペット、設定が同期され、サーバーのプラグインが利用可能になります。サーバーがオフラインの場合でも、この {{deviceWord}} ではすべてが動作し続けます。",
+      "checking": "{{host}}を確認中...",
+      "proxyAndClientCertificate": "プロキシとクライアント証明書",
+      "couldNotReachThatServer": "そのサーバーに接続できませんでした。アドレスを確認するか、プロキシまたはクライアント証明書を設定してください。",
+      "couldNotReachThatServer2": "そのサーバーに接続できませんでした",
+      "syncCouldNotStartYet": "同期はまだ開始できません。自動的に再試行されます。",
+      "checkingTheServer": "サーバーを確認中",
+      "signIn": "サインイン",
+      "makeAnAccount": "アカウントを作成",
+      "resetPassword": "パスワードをリセット",
+      "oneMoreStep": "あと一歩",
+      "almostDone": "ほぼ完了",
+      "linkAServer": "サーバーをリンク"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "保存されたログイン情報はもう使用できません",
+      "enterYourUsernameAndPassword": "ユーザー名とパスワードを入力してください",
+      "thisServerIsBehindA": "このサーバーはログインプロキシの背後にあります",
+      "signInWith": "{{saved}}でサインイン",
+      "signInWith2": "でサインイン",
+      "password": "パスワード",
+      "username": "ユーザー名",
+      "signIn": "サインイン",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "makeAnAccount": "アカウントを作成",
+      "or": "または",
+      "continueWith": "{{label}}で続行",
+      "signInWithAPasskey": "パスキーまたはセキュリティキーでサインイン",
+      "opensYourServerAposS": "ブラウザでサーバーのサインインページを開きます。Face ID、指紋認証、NFC、USB キーがすべて利用可能です。Termix 26.11.3 以降が必要です。",
+      "signInInTheBrowser": "ブラウザでサインイン",
+      "opensYourServerAposS2": "アプリで処理できない操作のために、サーバーのサインインページを開きます。Termix 26.10.6 以降が必要です。",
+      "thisServerHasNoSign": "このサーバーには、アプリで使用できるサインイン方法が有効になっていません。管理者に問い合わせてください。または、上記のブラウザでのサインインを試してください。",
+      "signInWithYourPassword": "パスワードでサインインします。",
+      "signInFailed": "サインインに失敗しました",
+      "openingItsSignInPage": "サインインページを開いています。"
+    },
+    "smallSteps": {
+      "serverAddress": "サーバーアドレス",
+      "likeTermixExampleComOr": "例: termix.example.com または 192.168.1.20:30001",
+      "checking": "確認中...",
+      "continue": "続行",
+      "proxyAndClientCertificate": "プロキシとクライアント証明書",
+      "aServerWithASelf": "自己署名証明書を使用しているサーバーの場合、まずこの{{deviceWord}}にルートCAをインストールする必要があります。ローカルネットワーク内では、平文のHTTPでも動作します。",
+      "enterTheCode": "コードを入力",
+      "code": "コード",
+      "the6DigitCodeFrom": "認証アプリの6桁のコード、またはバックアップコード",
+      "checkCode": "コードを確認",
+      "thisAccountAsksForA": "このアカウントは、パスワード入力後にセキュリティキーを要求します。ブラウザのサーバーページでサインインして使用してください。",
+      "useASecurityKeyIn": "ブラウザでセキュリティキーを使用",
+      "backToSignIn": "サインインに戻る",
+      "bringThisAposSHosts": "この {{deviceWord}} のホストも持ち運びますか？",
+      "thisHasTheyStayOn": "この{{deviceWord}}には{{what}}があります。いずれにせよ、これらは「このデバイス」上に残ります。",
+      "merge": "統合",
+      "copyThemToTooSo": "同期のために{{serverName}}にもコピーします。サーバーのホストと似ているものはスキップされます。",
+      "replace": "上書き",
+      "useOnlyWhatIsOn": "このアカウントでは{{serverName}}にあるもののみを使用します。何もコピーされません。",
+      "thatCodeDidnTWork": "そのコードは機能しませんでした",
+      "hostsCredentialsOrSnippets": "ホスト、認証情報、またはスニペット"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "まずこのサーバーをリンクしてください",
+      "thatHostIsnTHere": "そのホストはここにはありません",
+      "couldNotOpenThatHost": "そのホストを開くことができませんでした",
+      "noHostWithIdOn": "{{account}}にID {{hostId}}のホストはありません。",
+      "isnTLinkedInThe": "{{value}}はまだアプリにリンクされていません。"
+    }
+  },
+  "notifications": {
+    "notifications": "通知",
+    "markAllRead": "すべて既読にする",
+    "clearReadNotifications": "既読の通知を削除",
+    "unread2": "未読",
+    "all": "すべて",
+    "noUnreadNotifications": "未読の通知はありません",
+    "nothingHere": "ここには何もありません",
+    "markRead": "既読にする",
+    "delete": "削除",
+    "couldNotLoadNotifications": "通知を読み込めませんでした",
+    "couldNotMarkRead": "既読にできませんでした",
+    "couldNotDelete": "削除できませんでした",
+    "couldNotClear": "クリアできませんでした"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "インポート",
+      "hosts": "ホスト",
+      "aTermixHostFileYour": "Termixのホストファイル、~/.ssh/config、または他の{{deviceWord}}からのホストリンクまたはQRコード。これらはこの{{deviceWord}}に保存されます。",
+      "backup": "バックアップ",
+      "aBackupThisAppMade": "このアプリが作成した、パスフレーズで保護されたバックアップ。ホスト、認証情報、スニペットを復元します。",
+      "restoreABackup": "バックアップを復元",
+      "done": "完了",
+      "skipForNow": "今はスキップ",
+      "sshFilesAndRemoteDesktops": "{{deviceWord}}からのSSH、ファイル、リモートデスクトップ。どのように始めますか？",
+      "useWithoutAServer": "サーバーなしで使用する",
+      "hostsCredentialsAndSnippetsAre": "ホスト、認証情報、スニペットは、この {{deviceWord}} 上で暗号化されて保存されます。後からいつでもサーバーをリンクできます。",
+      "linkATermixServer": "Termix サーバーをリンクする",
+      "syncYourHostsCredentialsSnippets": "ホスト、認証情報、スニペット、設定をサーバーと同期し、サーバーのプラグインを使用します。",
+      "bringHostsFromATermix": "Termix ファイル、SSH 設定、QR コード、またはバックアップからホストをインポートします。",
+      "thisDevice": "このデバイス"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "ホスト、スニペット、アクションを検索",
+      "clearSearch": "検索をクリア",
+      "nothingMatches": "一致する結果がありません",
+      "typeToSearch": "入力して検索",
+      "findAHostToConnect": "接続するホスト、スニペット、設定、またはアクションを検索します。",
+      "suggested": "推奨 | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "{{title}} で実行",
+      "copiedRunItFromThe": "コピーしました。ターミナルのスニペットから実行して、値を入力してください。",
+      "copiedOpenATerminalTo": "コピーしました。スニペットを実行するにはターミナルを開いてください。",
+      "addHost": "ホストを追加",
+      "quickConnect": "クイック接続",
+      "switchAccount": "アカウントを切り替え",
+      "linkAServer": "サーバーをリンクする",
+      "fromYourServer": "サーバーから",
+      "settings": "設定",
+      "accountsAppearanceSecurity": "アカウント、外観、セキュリティ"
+    },
+    "search": {
+      "hosts": "ホスト",
+      "snippets": "スニペット",
+      "actions": "アクション",
+      "settings": "設定"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "セッションの読み込みに失敗しました",
+      "sessionRevoked": "セッションが取り消されました",
+      "failedToRevokeSession": "セッションの取り消しに失敗しました",
+      "allSessionsRevoked": "すべてのセッションが取り消されました",
+      "failedToRevokeAllSessions": "すべてのセッションの取り消しに失敗しました",
+      "activeSessions": "アクティブなセッション",
+      "signOutAllOtherSessions": "他のすべてのセッションからサインアウト",
+      "loading": "読み込み中…",
+      "noActiveSessionsFound": "アクティブなセッションが見つかりません。",
+      "unknownDevice": "不明なデバイス",
+      "lastActive": "最終アクティブ: {{lastActiveAt}}",
+      "created": "作成日: {{createdAt}}",
+      "revokeSession": "セッションを取り消す",
+      "revokeSession2": "セッションを取り消しますか？",
+      "thisWillSignOutThat": "このデバイスからサインアウトされます。",
+      "revoke": "取り消す",
+      "revokeAllSessions": "すべてのセッションを取り消しますか？",
+      "thisWillSignOutEvery": "すべてのデバイスからサインアウトされます。このデバイスではサインインしたままになります。",
+      "cancel": "キャンセル",
+      "revokeAll": "すべて取り消す"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "API キーの読み込みに失敗しました",
+      "failedToCreateApiKey": "API キーの作成に失敗しました",
+      "deleteApiKey": "API キーを削除しますか？",
+      "willStopWorkingRightAway": "「{{name}}」はすぐに使用できなくなります。",
+      "apiKeyDeleted": "API キーが削除されました",
+      "failedToDeleteApiKey": "API キーの削除に失敗しました",
+      "apiKeys": "API キー",
+      "newApiKey": "新しい API キー",
+      "loading": "読み込み中…",
+      "apiKeysAllowProgrammaticAccess": "API キーは Termix へのプログラムによるアクセスを可能にします。シークレットは1回だけ表示されるので、安全に保管してください。",
+      "noApiKeysYet": "まだ API キーはありません",
+      "created": "作成日: {{createdAt}}",
+      "lastUsed": "最終使用: {{lastUsedAt}}",
+      "expires": "有効期限: {{expiresAt}}",
+      "delete": "{{name}} を削除",
+      "keyCreatedCopyItNow": "キーが作成されました。今すぐコピーしてください",
+      "newApiKey2": "新しい API キー",
+      "thisTokenWonTBe": "このトークンは二度と表示されません。",
+      "apiKeyCopied": "API キーをコピーしました",
+      "copy": "コピー",
+      "done": "完了",
+      "cancel": "キャンセル",
+      "create": "作成",
+      "name": "名前 *",
+      "eGCiPipeline": "例: CI パイプライン",
+      "user": "ユーザー *",
+      "noUsersAvailable": "利用可能なユーザーがありません。",
+      "expiresAtOptional": "有効期限（オプション）",
+      "yyyyMmDd": "YYYY/MM/DD",
+      "yearMonthDay": "年 / 月 / 日"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "セッションを維持する",
+      "showsANotificationWhileSessions": "セッションが開いている間に通知を表示し、アプリを離れても Android がセッションを維持します",
+      "batteryOptimization": "バッテリー最適化",
+      "termixIsNotRestrictedSo": "Termix は制限されていないため、画面がオフでもセッションを開いたままにできます。",
+      "androidMayStillStopSessions": "Android はバッテリー節約のためにセッションを停止する場合があります。バッテリー設定を開き、Termix を見つけて「最適化しない」または「無制限」を選択してください。",
+      "openBatterySettings": "バッテリー設定を開く",
+      "notificationsAreOff": "通知がオフになっています",
+      "sessionsStillRunButThe": "セッションは実行され続けますが、開いているセッションのリストと「すべて切断」ボタンは非表示のままです。",
+      "openNotificationSettings": "通知設定を開く",
+      "thisBuildCanTKeep": "このビルドではバックグラウンドでセッションを維持できません。戻ってきたときに再接続されます。",
+      "lowPowerMode": "低電力モード",
+      "batterySaver": "バッテリーセーバー",
+      "isOnTermixChecksConnections": "{{value}} がオンになっています。Termix は接続チェックの間隔を延ばし、再接続試行の間隔も長くなります。",
+      "backgroundSessions": "バックグラウンドセッション",
+      "iosStopsAppsSoonAfter": "iOS はアプリを離れるとすぐにアプリを停止するため、バックグラウンドでセッションを実行することはできません。戻ってきたときに再接続され、tmux または screen が中断したところから再開します。"
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "停止中",
+        "active": "アクティブ",
+        "linkAServer": "サーバーをリンクする",
+        "eachServerKeepsItsOwn": "各サーバーは、この {{deviceWord}} 上のホスト、認証情報、設定の独自のコピーを保持します。",
+        "signedInAs": "サインイン中",
+        "role": "役割",
+        "administrator": "管理者",
+        "user": "ユーザー",
+        "serverVersion": "サーバーバージョン",
+        "signOut": "サインアウト",
+        "youAreSignedOutOf": "このサーバーからサインアウトしました。",
+        "signIn": "サインイン",
+        "passwordChanged": "パスワードを変更しました",
+        "couldNotChangeThePassword": "パスワードを変更できませんでした",
+        "changePassword": "パスワードを変更",
+        "enterYourCurrentPasswordThen": "現在のパスワードを入力し、新しいパスワードを選択してください。",
+        "cancel": "キャンセル",
+        "change": "変更",
+        "currentPassword": "現在のパスワード",
+        "newPassword": "新しいパスワード",
+        "accountDeleted": "アカウントを削除しました",
+        "couldNotDeleteTheAccount": "アカウントを削除できませんでした",
+        "deleteServerAccount": "サーバーアカウントを削除",
+        "thisPermanentlyDeletesYourAccount": "これにより、サーバー上のアカウントとそのすべてのデータが永久に削除されます。取り消すことはできません。",
+        "delete": "削除",
+        "confirmYourPassword": "パスワードを確認",
+        "worksWithoutAServer": "サーバーなしでも動作",
+        "signedOut": "サインアウト済み",
+        "readsLive": "リアルタイムで読み取り",
+        "toReview": "{{count}} 件のレビューが必要",
+        "synced": "同期済み",
+        "syncing": "同期中",
+        "offline": "オフライン"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "匿名の使用統計を共有する",
+        "aShortReportOnceA": "1日1回の短いレポート。ホスト、名前、アドレスは含まれません",
+        "nextReport": "次のレポート",
+        "seeExactlyWhatWouldBe": "送信される内容を確認する",
+        "couldNotBuildTheReport": "レポートを作成できませんでした",
+        "preview": "プレビュー",
+        "thisIsExactlyWhatWould": "これが今すぐ送信される内容です。",
+        "resetInstallId": "インストールIDをリセット",
+        "futureReportsWillLookLike": "今後のレポートは新規インストールとして扱われます",
+        "resetTheInstallId": "インストールIDをリセットしますか？",
+        "futureReportsWillLookLike2": "今後のレポートは新規インストールとして扱われます。",
+        "reset": "リセット",
+        "installIdReset": "インストールIDがリセットされました"
+      },
+      "appearanceControls": {
+        "theme": "テーマ",
+        "accentColor": "アクセントカラー",
+        "textSize": "テキストサイズ",
+        "sizeOfTextAcrossThe": "ターミナルを除くアプリ全体のテキストサイズ",
+        "density": "密度",
+        "howTallListRowsAnd": "リスト行や設定項目の高さ"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "ホスト、認証情報、スニペットは、この {{deviceWord}} 上の暗号化されたファイルに保存されます。利用状況統計は、以下で有効にするまでオフになっています。リンクされたサーバーは、同期を許可した情報のみ取得します。",
+        "recentHosts": "最近のホスト",
+        "forgetTheHostsYouOpened": "すべてのアカウントで、最近開いたホストを忘れる",
+        "recentHostsCleared": "最近のホストがクリアされました",
+        "clear": "クリア",
+        "couldNotCheckForUpdates": "アップデートを確認できませんでした",
+        "versionIsOutUpdateFrom": "バージョン {{version}} がリリースされました。ストアからアップデートしてください。",
+        "youHaveTheNewestVersion": "最新バージョンを使用しています",
+        "termixMobile": "Termix Mobile",
+        "updates": "アップデート",
+        "check": "確認"
+      },
+      "pinSheet": {
+        "waitSeconds": "{{value}} 秒待つ",
+        "digits": "{{PIN_LENGTH}} 桁"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN が一致しません",
+        "appLockIsOn": "アプリロックがオンです",
+        "turnOffAppLock": "アプリロックをオフにする",
+        "enterYourPinToConfirm": "確認のためPINを入力してください。",
+        "appLockIsOff": "アプリロックがオフです",
+        "appLock": "アプリロック",
+        "askForFaceIdTouch": "アプリを開く際に Face ID、Touch ID、または PIN を要求する",
+        "askForAPinTo": "アプリを開く際に PIN を要求する",
+        "pinChanged": "PIN が変更されました",
+        "couldNotChangeThePin": "PIN を変更できませんでした",
+        "changePin": "PIN を変更",
+        "lockAfter": "ロックまでの時間",
+        "howLongTheAppCan": "ロックされるまで、アプリが画面外にあることができる時間",
+        "hideInAppSwitcher": "アプリスイッチャーで隠す",
+        "showABlankScreenIn": "最近のアプリ一覧で空白の画面を表示する",
+        "chooseA4DigitPin": "4桁のPINを選択してください。",
+        "confirmPin": "PIN を確認",
+        "enterTheSamePinAgain": "同じPINを再度入力してください。",
+        "currentPin": "現在のPIN",
+        "enterYourCurrentPin": "現在のPINを入力してください。",
+        "newPin": "新しいPIN",
+        "chooseANew4Digit": "新しい4桁のPINを選択してください。",
+        "confirmNewPin": "新しいPINを確認",
+        "enterTheNewPinAgain": "新しいPINを再度入力してください。"
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "ホーム画面ウィジェット",
+        "showYourHostsSnippetsAnd": "ホーム画面にホスト、スニペット、電源ボタンを表示",
+        "showAddresses": "アドレスを表示",
+        "showUserHostUnderEach": "各サーバー名の下に user@host を表示",
+        "includeOfflineHosts": "オフラインのホストを含める",
+        "offShowsOnlyServersThat": "オフにすると、オンラインのサーバーのみを表示します",
+        "pinnedHostsOnly": "ピン留めしたホストのみ",
+        "showOnlyTheHostsYou": "ピン留めしたホストのみを表示",
+        "snippetsWidget": "スニペットウィジェット",
+        "showSavedCommandsOnThe": "ホーム画面に保存したコマンドを表示",
+        "showCommandPreview": "コマンドプレビューを表示",
+        "showTheFirstLineOf": "各コマンドの最初の行を表示"
+      }
+    },
+    "fileSettings": {
+      "files": "ファイル",
+      "fileManagerOnThis": "この {{deviceWord}} 上のファイルマネージャー",
+      "browsing": "ブラウジング",
+      "transfersAtOnce": "同時転送数",
+      "downloadsAndUploadsThatRun": "同時に実行されるダウンロードとアップロードの数",
+      "editor": "エディター",
+      "textSize": "文字サイズ",
+      "filesBesideTheTerminal": "ターミナル横のファイル",
+      "side": "位置",
+      "whereThePanelSitsOn": "タブレットでのパネルの表示位置",
+      "right": "右",
+      "left": "左",
+      "howOftenToCheck": "チェック間隔",
+      "folderHistory": "フォルダ履歴",
+      "foldersKeptPerHost": "ホストごとに保持するフォルダ数",
+      "showHiddenFiles": "隠しファイルを表示",
+      "filesAndFoldersThatStart": "ドットで始まるファイルとフォルダ",
+      "askBeforeMovingToThe": "ゴミ箱へ移動する前に確認",
+      "deletingForGoodAlwaysAsks": "完全に削除する場合は常に確認します",
+      "wrapLongLines": "長い行を折り返す",
+      "openWithNewTerminals": "新しいターミナルで開く",
+      "onATabletShowThe": "タブレットでは、ターミナルを開いたときにファイルパネルを表示",
+      "followTheTerminal": "ターミナルに従う",
+      "openTheFolderTheTerminal": "cd コマンドを実行した際、ターミナルが現在いるフォルダを開く"
+    },
+    "keyboardCustomization": {
+      "small": "小",
+      "medium": "中",
+      "large": "大",
+      "ms": "{{v}} ms",
+      "keyboard": "キーボード",
+      "keyRowsAboveTheKeyboard": "キーボード上のキー行",
+      "rows": "行数",
+      "keys": "キー",
+      "aHostCanHaveIts": "ホストごとに独自の行を設定できます：セッションでそのホストのタブをタップし、「このホストのキー行」を選択してください。",
+      "keySize": "キーサイズ",
+      "vibrateOnKeyPress": "キー押下時に振動",
+      "repeatAfter": "繰り返し開始までの時間",
+      "howLongToHoldAn": "矢印キーや Backspace を押し続ける時間",
+      "repeatEvery": "繰り返し間隔",
+      "hardwareKeyboard": "ハードウェアキーボード",
+      "allShortcuts": "すべてのショートカット",
+      "show": "表示"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "バックアップを作成できませんでした",
+      "deleteLocalData": "ローカルデータを削除しますか？",
+      "hostsCredentialsSnippetsAndHistory": "この {{deviceWord}} に保存されている {{account}} のホスト、認証情報、スニペット、履歴が削除されます。この操作は元に戻せません。保持する場合は、事前にバックアップを作成してください。",
+      "delete": "削除",
+      "localDataDeleted": "ローカルデータを削除しました",
+      "couldNotDeleteLocalData": "ローカルデータを削除できませんでした",
+      "localData": "ローカルデータ",
+      "localDataIsOnlySaved": "ローカルデータは {{deviceWord}} アプリ内でのみ保存されます。",
+      "savedOnThisForThe": "{{account}} のこの {{deviceWord}} に保存されています。ファイルは、この {{deviceWord}} から外部に出ない鍵で暗号化されています。",
+      "hosts": "ホスト",
+      "credentials": "認証情報",
+      "snippets": "スニペット",
+      "size": "サイズ",
+      "dataVersion": "データバージョン",
+      "backup": "バックアップ",
+      "aBackupFileHoldsYour": "バックアップファイルには、あなたが選択したパスフレーズで保護されたパスワードや鍵が含まれています。そのパスフレーズなしでは、誰も開くことはできません。",
+      "exportBackup": "バックアップのエクスポート",
+      "importBackup": "バックアップのインポート",
+      "removesEverythingThisAccountSaved": "この {{deviceWord}} でこのアカウントが保存したすべてのデータを削除します。リンクされたサーバーは独自のコピーを保持します。",
+      "deleteLocalData2": "ローカルデータの削除",
+      "backupPassphrase": "バックアップパスフレーズ",
+      "atLeast8CharactersYou": "8文字以上。バックアップを復元する際に必要です。",
+      "passphrase": "パスフレーズ",
+      "next": "次へ",
+      "typeItAgain": "もう一度入力してください",
+      "export": "エクスポート",
+      "saveYourTermixBackup": "Termix バックアップを保存"
+    },
+    "logs": {
+      "logs": "ログ",
+      "latestLinesFromThisRun": "今回の実行からの最新ログ行。サーバーアドレス、パスワード、トークンは非表示になっています。",
+      "logsCopied": "ログをコピーしました",
+      "copy": "コピー",
+      "share": "共有",
+      "clear": "クリア",
+      "noLogsYet": "まだログはありません",
+      "nothingHasBeenLogged": "ログは記録されていません。"
+    },
+    "plugins": {
+      "worksOnThis": "この {{deviceWord}} で動作します",
+      "needsTheServer": "サーバーが必要です",
+      "notInTheApp": "アプリにはありません",
+      "needsANewerVersionOf": "アプリの新しいバージョンが必要です",
+      "updateThePluginOnThe": "サーバー上のプラグインを更新",
+      "inTheApp": "アプリ内",
+      "onThisServer": "このサーバー上",
+      "version": "バージョン",
+      "needsPluginApi": "プラグインAPIが必要です",
+      "thisAppHas": "このアプリには",
+      "note": "注意",
+      "open": "開く",
+      "openFromAHostS": "ホストのメニューから {{name}} を開きます。",
+      "plugins": "プラグイン",
+      "everything": "すべて",
+      "thisDeviceWorksWithNo": "このデバイスはサーバーなしでも動作します。サーバーをリンクして、必要な機能を追加してください。",
+      "pluginsOnAndHowEach": "{{account}} のプラグインと、アプリでの表示方法。下に引っ張って再確認してください。",
+      "whatRunsOnThisAnd": "この {{deviceWord}} で動作するもの、および {{account}} を通じて処理されるもの。",
+      "noPluginList": "プラグインリストがありません",
+      "theServerDidNotSend": "サーバーからプラグインが送信されていません。下に引っ張って再試行してください。",
+      "serversOlderThan29": "2.9 より前のサーバーは、すべての機能が組み込まれています。",
+      "nothingToShow": "表示する内容がありません",
+      "notSentByThisServer": "このサーバーから送信されていません"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "ローカルデータを置き換えますか？",
+      "everythingSavedOnThisFor": "{{accountName}} のこの {{deviceWord}} に保存されているすべてのデータが、バックアップで置き換えられます。",
+      "continue": "続行",
+      "couldNotReadThatFile": "そのファイルを読み取れませんでした",
+      "backupRestored": "バックアップが復元されました",
+      "couldNotRestoreTheBackup": "バックアップを復元できませんでした",
+      "backupPassphrase": "バックアップパスフレーズ",
+      "thePassphraseUsedWhenThe": "バックアップ作成時に使用されたパスフレーズ。",
+      "passphrase": "パスフレーズ",
+      "restore": "復元"
+    },
+    "schema": {
+      "items": {
+        "accounts": "アカウント",
+        "thisDeviceAndLinkedServers": "このデバイスとリンクされたサーバー、およびその同期状態",
+        "syncAndProxy": "同期とプロキシ",
+        "whatSyncsConflictsProxyAnd": "同期対象、競合、プロキシ、およびリンク解除",
+        "serverAccount": "サーバーアカウント",
+        "whoIsSignedInOn": "アクティブなサーバーにサインインしているユーザー",
+        "activeSessions": "アクティブなセッション",
+        "devicesSignedInToThe": "サーバーにサインインしているデバイス",
+        "apiKeys": "API キー",
+        "keysForScriptsAndTools": "スクリプトやツール用のキー",
+        "changePassword": "パスワードを変更",
+        "passwordOfYourServerAccount": "サーバーアカウントのパスワード",
+        "deleteServerAccount": "サーバーアカウントを削除",
+        "removeYourAccountFromThe": "サーバーからアカウントを削除",
+        "theme": "テーマ",
+        "darkLightDraculaNordAnd": "ダーク、ライト、Dracula、Nord など",
+        "accentColor": "アクセントカラー",
+        "textSize": "テキストサイズ",
+        "sizeOfTextAcrossThe": "アプリ全体のテキストサイズ",
+        "density": "密度",
+        "howTallListRowsAnd": "リスト行や設定項目の高さ",
+        "homeScreenWidgets": "ホーム画面ウィジェット",
+        "hostsAndSnippetsOnThe": "ホーム画面のホストとスニペット",
+        "terminal": "ターミナル",
+        "fontThemeCursorScrollback": "フォント、テーマ、カーソル、スクロールバック",
+        "keyboard": "キーボード",
+        "layoutKeysPresets": "レイアウト、キー、プリセット",
+        "appLock": "アプリロック",
+        "askForFaceIdTouch": "アプリを開く際に Face ID、Touch ID、または PIN を要求",
+        "lockAfter": "ロックまでの時間",
+        "howLongTheAppCan": "ロックがかかるまで、アプリが画面外にある許容時間",
+        "hideInAppSwitcher": "アプリスイッチャーで非表示",
+        "showABlankScreenIn": "最近使ったアプリのリストで空白の画面を表示",
+        "changePin": "PIN を変更",
+        "backgroundSessions": "バックグラウンドセッション",
+        "whatHappensToOpenSessions": "アプリを離れたときに開いているセッションの扱い",
+        "serverAlerts": "サーバーアラート",
+        "alertsFromTheAlertsPlugin": "サーバー上の Alerts プラグインからのアラート",
+        "whatStaysOnThis": "この {{deviceWord}} に保存されるデータ",
+        "hostsCredentialsAndSnippetsAre": "ホスト、認証情報、スニペットは暗号化されてここに保存されます",
+        "recentHosts": "最近のホスト",
+        "forgetTheHostsYouOpened": "最近開いたホストの履歴を削除",
+        "shareAnonymousUsageStatistics": "匿名の使用統計を共有",
+        "aShortReportOnceA": "1 日 1 回の短いレポート。ホスト名、名前、アドレスは含みません",
+        "nextReport": "次のレポート",
+        "seeExactlyWhatWouldBe": "送信される内容を確認",
+        "resetInstallId": "インストール ID をリセット",
+        "futureReportsWillLookLike": "今後のレポートは新規インストールと同じ扱いになります",
+        "serverUsageStatistics": "サーバーの使用統計",
+        "telemetrySettingsOnYourServer": "サーバー上のテレメトリ設定",
+        "plugins": "プラグイン",
+        "whatTheServerAddsAnd": "サーバーが追加する機能と実行場所",
+        "localData": "ローカルデータ",
+        "backupRestoreAndDeleteWhat": "この {{deviceWord}} に保存されているデータのバックアップ、復元、削除",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "バージョンとアップデート",
+        "logs": "ログ",
+        "latestLinesFromThisRun": "バグ報告用の、今回の実行からの最新ログ",
+        "pushNotifications": "プッシュ通知",
+        "pushNotificationsDescription": "この電話機へのサーバーからのアラート"
+      },
+      "sections": {
+        "accountsAndSync": "アカウントと同期",
+        "thisDeviceLinkedServersAnd": "このデバイス、リンクされたサーバー、および同期対象",
+        "appearance": "外観",
+        "themeAccentTextSizeAnd": "言語、テーマ、アクセントカラー、文字サイズ、密度",
+        "terminal": "ターミナル",
+        "fontColorsAndBackgroundSessions": "フォント、カラー、バックグラウンドセッション",
+        "keyboard": "キーボード",
+        "keyRowsAndShortcuts": "キー行とショートカット",
+        "security": "セキュリティ",
+        "appLockFaceIdAnd": "アプリロック、Face ID、PIN",
+        "notifications": "通知",
+        "alertsFromYourServer": "サーバーからのアラート",
+        "privacyAndUsageStatistics": "プライバシーと使用統計",
+        "whatStaysOnThis": "この{{deviceWord}}に保持されるデータ",
+        "plugins": "プラグイン",
+        "whatTheServerAddsTo": "サーバーがアプリに追加する機能",
+        "backupAndData": "バックアップとデータ",
+        "backUpRestoreImportAnd": "バックアップ、復元、インポート、エクスポート",
+        "aboutAndLogs": "概要とログ",
+        "versionAndLogsForBug": "バージョンとバグ報告用ログ"
+      }
+    },
+    "settings": "設定",
+    "searchSettings": "設定を検索",
+    "noSettingsMatch": "一致する設定がありません。",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "スニペットの読み込みに失敗しました",
+      "copied": "コピーしました: {{name}}",
+      "nameIsRequired": "名前は必須です",
+      "contentIsRequired": "内容は必須です",
+      "snippetUpdated": "スニペットを更新しました",
+      "snippetCreated": "スニペットを作成しました",
+      "failedToSaveSnippet": "スニペットの保存に失敗しました",
+      "snippetDeleted": "スニペットを削除しました",
+      "failedToDeleteSnippet": "スニペットの削除に失敗しました",
+      "folderNameIsRequired": "フォルダ名は必須です",
+      "folderCreated": "フォルダを作成しました",
+      "failedToCreateFolder": "フォルダの作成に失敗しました",
+      "folderDeleted": "フォルダを削除しました",
+      "failedToDeleteFolder": "フォルダの削除に失敗しました",
+      "folderRenamed": "フォルダの名前を変更しました",
+      "failedToRenameFolder": "フォルダの名前変更に失敗しました",
+      "failedToSaveOrder": "順序の保存に失敗しました",
+      "moveUp": "上に移動",
+      "moveDown": "下に移動",
+      "runOnHosts": "ホストで {{name}} を実行",
+      "copy": "{{name}} をコピー",
+      "delete": "{{name}} を削除",
+      "renameFolder": "フォルダの名前を変更",
+      "deleteFolder": "フォルダを削除",
+      "noSnippetsInThisFolder": "このフォルダにはスニペットがありません",
+      "snippets": "スニペット",
+      "importAndExport": "インポートとエクスポート",
+      "folder": "フォルダ",
+      "new": "新規作成",
+      "loading": "読み込み中…",
+      "couldNotLoadSnippets": "スニペットを読み込めませんでした",
+      "checkTheConnectionToYour": "サーバーへの接続を確認し、もう一度お試しください。",
+      "tryAgain": "再試行",
+      "noSnippetsYet": "まだスニペットがありません",
+      "createYourFirstSnippetOr": "最初のスニペットを作成するか、Termix の Web またはデスクトップアプリからスニペットを追加してください。",
+      "createSnippet": "スニペットを作成",
+      "askBeforeRunning": "実行前に確認する",
+      "confirmBeforeASnippetRuns": "スニペットをターミナルで実行する前に確認する",
+      "editSnippet": "スニペットを編集",
+      "newSnippet": "新しいスニペット",
+      "cancel": "キャンセル",
+      "save": "保存",
+      "create": "作成",
+      "name": "名前",
+      "eGUpdatePackages": "例: パッケージの更新",
+      "content": "内容",
+      "descriptionOptional": "説明（オプション）",
+      "shortDescription": "簡単な説明",
+      "folderOptional": "フォルダ（オプション）",
+      "selectFolder": "フォルダを選択",
+      "noFolder": "フォルダなし",
+      "targetHostsOptional": "対象ホスト（オプション）",
+      "none": "なし",
+      "note": "注記",
+      "pastedIntoTheTerminalWithout": "実行せずにターミナルに貼り付け",
+      "targetHosts": "対象ホスト",
+      "copy2": "コピー",
+      "edit": "編集",
+      "runOnHosts2": "ホストで実行",
+      "delete2": "削除",
+      "deleteSnippet": "スニペットを削除",
+      "deleteThisCannotBeUndone": "「{{name}}」を削除しますか？この操作は元に戻せません。",
+      "renameFolder2": "フォルダの名前を変更",
+      "rename": "名前を変更",
+      "folderName": "フォルダ名",
+      "eGSystem": "例: システム",
+      "newFolder": "新しいフォルダ",
+      "deleteFolder2": "フォルダを削除",
+      "deleteSnippetsInThisFolder": "「{{name}}」を削除しますか？このフォルダ内のスニペットは未分類になります。"
+    },
+    "sync": {
+      "notYet": "まだ",
+      "justNow": "たった今",
+      "stopped": "停止中",
+      "signInToThisServer": "同期するには、このサーバーに再度サインインしてください",
+      "couldNotChangeThat": "変更できませんでした",
+      "sync": "同期",
+      "thisDeviceDoesNotSync": "このデバイスは同期しません。複数のデバイスでホストを共有するには、Termix サーバーをリンクしてください。",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} は、ホスト、認証情報、スニペット、設定をこの {{deviceWord}} と同期します。コピーはこの {{deviceWord}} にも残るため、オフラインでも動作します。",
+      "lastSynced": "最終同期: {{value}}",
+      "live": "ライブ",
+      "syncNow": "今すぐ同期",
+      "fix": "修正",
+      "thisServerReadsLiveAnd": "このサーバーはライブで読み取り、{{deviceWord}} にはコピーを保存しません。",
+      "turnOnTheSyncPlugin": "サーバーのプラグインページで同期プラグンを有効にし、この {{deviceWord}} にコピーを保存するためにここで再度サインインしてください。",
+      "whatSyncs": "同期対象",
+      "turnedOffThatDataStays": "オフにすると、そのデータはこの {{deviceWord}} のみに残ります。",
+      "conflicts": "競合",
+      "changedHereAndOnThe": "こちらとサーバーで同時に変更されました。サーバー側のバージョンが保持されました。",
+      "useServer": "サーバーを使用",
+      "keepMine": "こちらを保持",
+      "notSavedOnTheServer": "サーバーに保存されていません",
+      "theServerRefusedTheseChanges": "サーバーはこれらの変更を拒否しました。変更はこの {{deviceWord}} のみに残ります。",
+      "tryAgain": "再試行",
+      "proxy": "プロキシ",
+      "onlyNeededWhenAReverse": "サーバーの前にリバースプロキシがある場合にのみ必要です。",
+      "unlink": "リンク解除",
+      "unlinkThisServer": "このサーバーのリンクを解除",
+      "minAgo": "{{value}} 分前",
+      "signedOut": "サインアウト済み",
+      "waitingToSync": "同期を待機中",
+      "synced": "同期済み",
+      "syncing": "同期中",
+      "offline": "オフライン"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "背景",
+        "text": "テキスト",
+        "cursor": "カーソル",
+        "textUnderCursor": "カーソル下のテキスト",
+        "selection": "選択範囲",
+        "black": "黒",
+        "red": "赤",
+        "green": "緑",
+        "yellow": "黄",
+        "blue": "青",
+        "magenta": "マゼンタ",
+        "cyan": "シアン",
+        "white": "白",
+        "brightBlack": "明るい黒",
+        "brightRed": "明るい赤",
+        "brightGreen": "明るい緑",
+        "brightYellow": "明るい黄",
+        "brightBlue": "明るい青",
+        "brightMagenta": "明るいマゼンタ",
+        "brightCyan": "明るいシアン",
+        "brightWhite": "明るい白",
+        "customTheme": "カスタムテーマ",
+        "colorsAsHexLike1e1e2e": "カラーは #1e1e2e のような 16 進数で指定します。",
+        "cancel": "キャンセル",
+        "save": "保存",
+        "isNotAHexColor": "{{label}} は 16 進数のカラーではありません"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "コンパクト",
+      "default": "デフォルト",
+      "relaxed": "リラックス",
+      "spacious": "ゆったり",
+      "none": "なし",
+      "couldNotSave": "保存できませんでした",
+      "pickASizeFromTo": "{{MIN_FONT_SIZE}} から {{MAX_FONT_SIZE}} の範囲でサイズを選択してください",
+      "terminalSettingsReset": "ターミナル設定がリセットされました",
+      "terminal": "ターミナル",
+      "aHostCanSetIts": "Termix ではホストごとに独自のテーマとカーソルを設定でき、それらがこれらの設定より優先されます。",
+      "theme": "テーマ",
+      "custom": "カスタム",
+      "font": "フォント",
+      "active": "アクティブ",
+      "sizeAndSpacing": "サイズと間隔",
+      "pinchTheTerminalToChange": "ターミナルをピンチしてサイズも変更できます。{{deviceWord}}の設定で大きなテキストにすると、さらに大きくなります。",
+      "custom2": "カスタム {{fontSize}}",
+      "lineHeight": "行の高さ",
+      "letterSpacing": "文字間隔",
+      "ligatures": "リガチャ",
+      "cursor": "カーソル",
+      "blink": "点滅",
+      "bell": "ベル",
+      "vibrate": "振動",
+      "onTheBellAndWhen": "ベル音と長押し選択時",
+      "scrollback": "スクロールバック",
+      "linesKeptAboveTheScreen": "画面上部に保持する行数。新しいターミナルに適用されます。",
+      "linksAndKeys": "リンクとキー",
+      "askBeforeOpeningLinks": "リンクを開く前に確認する",
+      "doubleTapSendsTab": "ダブルタップでTabを送信",
+      "longPressStillSelectsText": "長押しでテキストを選択",
+      "optionSendsAlt": "OptionキーでAltを送信",
+      "onAHardwareKeyboardOff": "ハードウェアキーボードを使用時。オフにすると、Macのように記号が入力されます。",
+      "history": "履歴",
+      "suggestCommands": "コマンドの提案",
+      "showsPastCommandsThatStart": "入力中に過去のコマンドを表示",
+      "resetToDefault": "デフォルトに戻す",
+      "fontSize": "フォントサイズ",
+      "aSizeFromTo": "{{MIN_FONT_SIZE}}から{{MAX_FONT_SIZE}}までのサイズ",
+      "cancel": "キャンセル",
+      "apply": "適用",
+      "resetTerminalSettings": "ターミナルの設定をリセットしますか？",
+      "themeFontSizeCursorBell": "テーマ、フォント、サイズ、カーソル、ベル音などがデフォルトに戻ります。",
+      "reset": "リセット",
+      "followsAppTheme": "アプリのテーマに従う"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "2FAのセットアップを開始できませんでした",
+      "twoFactorAuthenticationEnabled": "二要素認証が有効になりました",
+      "invalidCodeTryAgain": "無効なコードです。もう一度お試しください",
+      "twoFactorAuthenticationDisabled": "二要素認証が無効になりました",
+      "failedToDisable2fa": "2FAを無効にできませんでした",
+      "failedToFetchBackupCodes": "バックアップコードの取得に失敗しました",
+      "secretCopied": "シークレットをコピーしました",
+      "backupCodesCopied": "バックアップコードをコピーしました",
+      "twoFactorAuthentication": "二要素認証",
+      "loading": "読み込み中…",
+      "scanThisQrCodeWith": "認証アプリ（Google Authenticator、Authyなど）でこのQRコードをスキャンし、6桁のコードを入力して確認してください。",
+      "verifyAmpEnable": "確認して有効化",
+      "cancel": "キャンセル",
+      "saveYourBackupCodes": "バックアップコードを保存してください",
+      "storeTheseSomewhereSafeEach": "安全な場所に保管してください。各コードは1回限り使用でき、認証アプリへのアクセスを失った場合に使用します。",
+      "copyAllCodes": "すべてのコードをコピー",
+      "done": "完了",
+      "yourAccountIsProtectedWith": "アカウントは認証アプリで保護されています。",
+      "addAnExtraLayerOf": "アカウントに追加のセキュリティレイヤーを追加します。",
+      "viewBackupCodes": "バックアップコードを表示",
+      "disable2fa": "2FAを無効化",
+      "enable2fa": "2FAを有効化",
+      "disableTwoFactorAuthentication": "二要素認証を無効化",
+      "enterACodeFromYour": "認証アプリからコードを入力して確認してください。いつでも2FAを再度有効にできます。",
+      "enterYourPasswordToConfirm": "パスワードを入力して確認してください。いつでも2FAを再度有効にできます。",
+      "disable": "無効化",
+      "yourPassword": "パスワード",
+      "n2faIsEnabled": "2FAが有効です",
+      "n2faIsNotEnabled": "2FAが無効です"
+    },
+    "language": {
+      "label": "言語",
+      "description": "切り替えるにはアプリを再読み込みします",
+      "system": "デバイスと同じ"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "SSHホストがありません",
+      "couldNotReadWhatWas": "共有された内容を読み取れませんでした",
+      "stopTheUploads": "アップロードを停止しますか？",
+      "stopAndLeave": "停止して終了",
+      "sendTo": "{{name}}に送信",
+      "sendToAHost": "ホストに送信",
+      "nothingToSend": "送信するものはありません",
+      "close": "閉じる",
+      "done": "完了",
+      "cancel": "キャンセル",
+      "uploadHere": "ここにアップロード",
+      "uploadsStillGoing_other": "{{count}} 件のアップロードが進行中です。離れると中断されます。",
+      "filesSize_other": "{{count}} 件のファイル | {{size}}",
+      "readingWhatWasShared": "共有された内容を読み込んでいます"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "エラー",
+      "worksWithoutAServer": "サーバーなしでも動作します",
+      "accountSwitch": "アカウント {{account}}、切り替え",
+      "search": "検索",
+      "notificationsUnread": "通知、{{unread}} 件の未読",
+      "notifications": "通知",
+      "signedIn": "サインイン済み",
+      "signedOut": "サインアウト済み",
+      "copyOnThis": "この {{deviceWord}} でコピー"
+    },
+    "bottomBar": {
+      "home": "ホーム",
+      "hosts": "ホスト",
+      "sessions": "セッション",
+      "tools": "ツール",
+      "settings": "設定",
+      "open": "{{label}}、{{count}} 件開いている"
+    },
+    "sideBar": {
+      "open": "{{label}}、{{count}} 件開いている"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "ホストを選択",
+      "searchHosts": "ホストを検索",
+      "clearSearch": "検索をクリア",
+      "noHostsMatch": "一致するホストがありません",
+      "noHostsCanUseThis": "これを使用できるホストがありません",
+      "turnItOnForA": "ホストエディタでホストに対してこれを有効にしてください。"
+    },
+    "noToolsHereYet": "まだツールがありません",
+    "onAHost": "ホスト上",
+    "saved": "保存済み",
+    "fromYourServer": "サーバーから"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "キャンセル",
+      "delete": "削除",
+      "confirm": "確認"
+    },
+    "contextMenu": {
+      "closeMenu": "メニューを閉じる"
+    },
+    "inlineView": {
+      "back": "戻る"
+    },
+    "listRow": {
+      "moreActions": "その他の操作"
+    },
+    "pinPad": {
+      "useBiometrics": "生体認証を使用",
+      "delete": "削除"
+    },
+    "popover": {
+      "close": "閉じる"
+    },
+    "promptSheet": {
+      "cancel": "キャンセル"
+    },
+    "sheet": {
+      "close": "閉じる"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "このキーはロックされています。パスフレーズを入力してください。",
+      "thatPassphraseDoesnTOpen": "そのパスフレーズではこのキーを開けません。",
+      "thisDoesnTLookLike": "これは秘密キーのように見えません。",
+      "loadedAndChangedItTo": "{{name}} を読み込み、OpenSSH 形式に変換しました",
+      "loadedItNeedsItsPassphrase": "{{name}} を読み込みました。接続するにはパスフレーズが必要です"
+    },
+    "ago": {
+      "justNow": "たった今"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "ホストを読み込めませんでした。",
+      "failedOn": "{{name2}} で {{name}} が失敗しました",
+      "on": "{{name2}} の {{name}}: {{value}}",
+      "ranOn": "{{name2}} で {{name}} を実行しました",
+      "runOn": "「{{name}}」を実行するホストを選択",
+      "runSnippet": "スニペットを実行",
+      "loadingHosts": "ホストを読み込んでいます…",
+      "noHostsAvailable": "利用可能なホストがありません",
+      "addAHostInTermix": "ホーム画面からスニペットを実行するには、Termix にホストを追加してください。",
+      "lastUsed": "最終使用",
+      "failedToRunSnippet": "スニペットの実行に失敗しました"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "そのスニペットはもう存在しません。",
+      "couldNotOpenThatSnippet": "そのスニペットを開けませんでした。",
+      "thatHostNoLongerExists": "そのホストはもう存在しません。",
+      "couldNotOpenThatHost": "そのホストを開くことができませんでした。"
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "ホーム"
+      },
+      "hosts": {
+        "hosts": "ホスト"
+      },
+      "sessions": {
+        "sessions": "セッション",
+        "connectToATermixServer": "ターミナル、トンネル、ファイルセッションを開くには、Termix サーバーに接続してください。"
+      }
+    },
+    "layout": {
+      "initializing": "初期化中…",
+      "cancel": "キャンセル"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "このホストには有効な MAC アドレスがありません。",
+    "thisBuildCanTSend": "このビルドでは Wake-on-LAN パケットを送信できません。",
+    "couldNotSendThePacket": "パケットを送信できませんでした。Wi-Fi がオンになっているか確認してください。"
+  },
+  "common": {
+    "hostCount_other": "{{count}} 台のホスト",
+    "device": {
+      "phone": "スマートフォン",
+      "tablet": "タブレット"
+    },
+    "thisDeviceLower": "この{{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "共有",
+    "action": "ユーザーと共有",
+    "levels": {
+      "connect": "接続",
+      "view": "閲覧",
+      "edit": "編集",
+      "manage": "管理"
+    },
+    "levelHints": {
+      "connect": "セッションのみを開けます。ホストの設定は非表示のままです。",
+      "view": "接続に加え、ホストの設定を閲覧できます。秘密情報は一切表示されません。",
+      "edit": "閲覧に加え、ログイン情報以外の設定を変更できます。",
+      "manage": "編集に加え、ホストの共有やアクセス権限の変更・削除ができます。"
+    },
+    "until": "{{date}} まで",
+    "sharedBy": "{{name}} によって",
+    "couldNotLoad": "アクセス権限を持つユーザーの読み込みに失敗しました",
+    "shared": "ホストを共有しました",
+    "couldNotShare": "ホストの共有に失敗しました",
+    "updated": "アクセス権限を変更しました",
+    "couldNotUpdate": "アクセス権限の変更に失敗しました",
+    "removeTitle": "{{name}} を削除しますか？",
+    "removeHint": "このホストをこれ以上使用できなくなります。",
+    "remove": "削除",
+    "removed": "アクセス権限を削除しました",
+    "couldNotRemove": "アクセス権限の削除に失敗しました",
+    "whoHasAccess": "アクセス権限を持つユーザー",
+    "loading": "読み込み中...",
+    "nobodyYet": "このホストはあなたのみが使用できます。",
+    "changeAccessFor": "{{name}} のアクセス権限を変更",
+    "shareWith": "共有先",
+    "users": "ユーザー",
+    "roles": "ロール",
+    "searchUsers": "ユーザーを検索",
+    "searchRoles": "ロールを検索",
+    "noUsers": "共有できる他のユーザーはいません。",
+    "noRoles": "共有できるロールはありません。",
+    "options": "アクセス",
+    "level": "レベル",
+    "expires": "終了日",
+    "expiry": {
+      "never": "無期限",
+      "1h": "1 時間後",
+      "1d": "1 日後",
+      "7d": "7 日後",
+      "30d": "30 日後"
+    },
+    "pickSomeone": "共有先を選択",
+    "shareCount_other": "{{count}} 人と共有",
+    "removeAccess": "アクセス権限を削除"
+  },
+  "push": {
+    "channels": {
+      "alerts": "サーバーアラート",
+      "critical": "重大なサーバーアラート"
+    },
+    "severity": {
+      "info": "すべて",
+      "warning": "警告以上",
+      "critical": "重大なアラートのみ"
+    },
+    "settings": {
+      "on": "アラートはこの電話機に表示されます",
+      "off": "オフ",
+      "toggle": "{{server}} のプッシュ通知",
+      "minSeverity": "送信するアラート",
+      "denied": "Termix の通知がオフになっています。電話機の設定でオンにしてください。",
+      "openSettings": "設定を開く",
+      "outdated": "このサーバーはプッシュ通知のために Alerts 1.4.0 以降が必要です。管理者にプラグインの更新を依頼してください。",
+      "unavailable": "通知を受け取るには、このサーバーにサインインして Alerts プラグインを有効にしてください。",
+      "error": "サーバーに接続できませんでした。アプリを次回開いた際に Termix が再試行します。",
+      "notInThisBuild": "このビルドは通知を表示できません。",
+      "noServers": "アラートを受け取るには、サーバーをリンクしてください。",
+      "pushHint": "アラートは、タイトルと本文を含めて Expo および Apple または Google を介して送信されます。サーバーの Alerts ルールで、どのアラートを送信するかを選択してください。",
+      "pollHint": "このビルドには Google サービスが含まれていないため、Termix は約 15 分ごとにバックグラウンドで新しいアラートをチェックします。"
+    }
+  }
+}

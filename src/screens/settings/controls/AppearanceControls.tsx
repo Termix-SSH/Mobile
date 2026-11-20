@@ -9,12 +9,14 @@ import {
 } from "@/constants/theme";
 import { DENSITIES, TEXT_SIZES, setUiPrefs, useUiPrefs } from "@/core/ui-prefs";
 import { ChoiceRow, Input, Label, Text } from "@/ui";
+import { savedLanguage, t } from "@/i18n";
+import { languageOptions, switchLanguage } from "@/i18n/options";
 
 export function ThemeControl() {
   const { theme, setTheme } = useTheme();
   return (
     <View className="gap-2 py-3">
-      <Label>Theme</Label>
+      <Label>{t("settings.controls.appearanceControls.theme")}</Label>
       <View className="flex-row flex-wrap gap-1.5">
         {THEMES.map((id) => {
           const active = theme === id;
@@ -70,7 +72,7 @@ export function AccentControl() {
 
   return (
     <View className="gap-2 py-3">
-      <Label>Accent color</Label>
+      <Label>{t("settings.controls.appearanceControls.accentColor")}</Label>
       <View className="flex-row flex-wrap gap-2">
         {ACCENT_PRESET_COLORS.map(({ value }) => {
           const active = accent.toLowerCase() === value.toLowerCase();
@@ -115,8 +117,10 @@ export function TextSizeControl() {
   return (
     <View>
       <ChoiceRow
-        label="Text size"
-        description="Size of text across the app, not the terminal"
+        label={t("settings.controls.appearanceControls.textSize")}
+        description={t(
+          "settings.controls.appearanceControls.sizeOfTextAcrossThe",
+        )}
         value={textSize}
         options={TEXT_SIZES.map((s) => ({ value: s.id, label: s.label }))}
         onChange={(v) => void setUiPrefs({ textSize: v })}
@@ -131,11 +135,32 @@ export function DensityControl() {
   return (
     <View>
       <ChoiceRow
-        label="Density"
-        description="How tall list rows and settings are"
+        label={t("settings.controls.appearanceControls.density")}
+        description={t(
+          "settings.controls.appearanceControls.howTallListRowsAnd",
+        )}
         value={density}
         options={DENSITIES.map((d) => ({ value: d.id, label: d.label }))}
         onChange={(v) => void setUiPrefs({ density: v })}
+        last
+      />
+    </View>
+  );
+}
+
+export function LanguageControl() {
+  const [choice, setChoice] = useState(savedLanguage);
+  return (
+    <View>
+      <ChoiceRow
+        label={t("settings.language.label")}
+        description={t("settings.language.description")}
+        value={choice}
+        options={languageOptions()}
+        onChange={(v) => {
+          setChoice(v);
+          switchLanguage(v);
+        }}
         last
       />
     </View>

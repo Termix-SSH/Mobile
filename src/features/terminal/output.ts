@@ -1,6 +1,7 @@
 import { toBase64, utf8Encode } from "@/modules/termix-ssh/src/base64";
 import type { ClipboardRequest } from "@/modules/termix-terminal";
 import type { ConfirmOptions } from "@/ui/Confirm";
+import { t } from "@/i18n";
 
 /**
  * Collects output that comes through JS (the server relay, docker) and hands it to the view once
@@ -44,9 +45,9 @@ export function isOpenableLink(url: string): boolean {
 
 export function linkPrompt(url: string): ConfirmOptions {
   return {
-    title: "Open link?",
+    title: t("terminal.output.openLink"),
     description: url,
-    confirmLabel: "Open",
+    confirmLabel: t("terminal.output.open"),
     destructive: false,
   };
 }
@@ -65,24 +66,29 @@ export function clipboardPrompt(request: ClipboardRequest): ConfirmOptions {
     case "paste": {
       const lines = lineCount(request.text);
       return {
-        title: lines > 1 ? `Paste ${lines} lines?` : "Paste this text?",
-        description: `The shell may run it right away.\n\n${preview(request.text)}`,
-        confirmLabel: "Paste",
+        title:
+          lines > 1
+            ? t("terminal.output.pasteLines", { lines })
+            : t("terminal.output.pasteThisText"),
+        description: t("terminal.output.theShellMayRunIt", {
+          text: preview(request.text),
+        }),
+        confirmLabel: t("terminal.output.paste"),
         destructive: false,
       };
     }
     case "read":
       return {
-        title: "Let the program read your clipboard?",
-        description: "It asked for what you last copied.",
-        confirmLabel: "Allow",
+        title: t("terminal.output.letTheProgramReadYour"),
+        description: t("terminal.output.itAskedForWhatYou"),
+        confirmLabel: t("terminal.output.allow"),
         destructive: false,
       };
     case "write":
       return {
-        title: "Let the program copy to your clipboard?",
+        title: t("terminal.output.letTheProgramCopyTo"),
         description: preview(request.text),
-        confirmLabel: "Allow",
+        confirmLabel: t("terminal.output.allow"),
         destructive: false,
       };
   }

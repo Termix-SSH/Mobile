@@ -16,6 +16,7 @@ import { closeAll, openJumps } from "./local/chain";
 import { checkHostKey, type AskHostKey } from "./local/host-keys";
 import { NO_ENGINE } from "./local";
 import type { TerminalHostConfig } from "./types";
+import { t } from "@/i18n";
 
 export interface TestTarget {
   /** Saved host being edited, so a key it already trusts is used. */
@@ -86,7 +87,7 @@ export async function testOnDevice(
       failure: {
         stage: "unavailable",
         message: NO_ENGINE,
-        hint: "Save the host and connect to it to check it.",
+        hint: t("transport.test.saveTheHostAndConnect"),
       },
     };
   }
@@ -135,14 +136,16 @@ export async function testOnDevice(
     sessions.push(session);
     return {
       ok: true,
-      message: `Logged in as ${config.username} on ${config.host}`,
+      message: t("transport.test.loggedInAsOn", {
+        username: config.username,
+        host: config.host,
+      }),
       fingerprint: session.hostKey.sha256,
     };
   } catch (err) {
     const failure = fromError(err);
     if (failure.stage === "cancelled") {
-      failure.message =
-        "The host asked for more than a password, like a code. Save the host and connect to finish the login.";
+      failure.message = t("transport.test.theHostAskedForMore");
     }
     return { ok: false, failure };
   } finally {

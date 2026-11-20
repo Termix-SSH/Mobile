@@ -1,0 +1,3920 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Prisijungti",
+      "addServer": "Pridėti serverį",
+      "switchAccount": "Keisti paskyrą",
+      "noServerConnected": "Nėra prisijungta prie serverio",
+      "connectToATermixServer": "Prisijunkite prie Termix serverio, kad valdytumėte savo hostus, terminalus, failus ir daugiau."
+    },
+    "lockScreen": {
+      "cancel": "Atšaukti",
+      "tooManyTriesWaitSeconds": "Per daug bandymų. Palaukite {{value}} sekundžių",
+      "termixLocked": "Termix užrakintas",
+      "enterYourPinToContinue": "Įveskite PIN kodą, kad tęstumėte"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oranžinė",
+      "blue": "Mėlyna",
+      "green": "Žalia",
+      "purple": "Violetinė",
+      "pink": "Rožinė",
+      "cyan": "Cianinė",
+      "red": "Raudona",
+      "yellow": "Geltona",
+      "teal": "Žalsvai mėlyna",
+      "indigo": "Indigo",
+      "rose": "Rožinė",
+      "lime": "Limo",
+      "system": "Sistemos",
+      "light": "Šviesus",
+      "dark": "Tamsus"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Naudoti PIN",
+      "unlockTermix": "Atrakinti Termix",
+      "unlockTermixFirst": "Pirmiausia atrakinkite Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Ši funkcija serverio yra išjungta.",
+      "aTabWasNotReopened": "Skirtukas nebuvo atidarytas iš naujo, nes jo hostas dingo",
+      "tabsWereNotReopenedBecause": "Nepavyko atidaryti {{count}} skirtukų, nes jų serveriai nebeegzistuoja"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Norėdami naudoti tai, susiekite Termix serverį",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Įveskite savo serverio adresą",
+        "theAddressCanTHave": "Adrese negali būti tarpų",
+        "useAnHttpOrHttps": "Naudokite http:// arba https:// adresą",
+        "thatDoesnTLookLike": "Tai neatrodo kaip serverio adresas",
+        "thePortMustBeFrom": "Prievatas turi būti nuo 1 iki 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Vietoj Termix atsakė prisijungimo tarpininkas. Pirmiausia prisijunkite prie tarpininko.",
+        "theServerDidNotSend": "Serveris nepasiuntė žetono.",
+        "theServerDidNotSend2": "Serveris nepasiuntė sesijos.",
+        "theServerSentNoSign": "Serveris nepasiuntė prisijungimo adreso.",
+        "theSignInRanOut": "Prisijungimo laikas baigėsi arba jis jau buvo panaudotas. Prisijunkite iš naujo.",
+        "wrongUsernameOrPassword": "Neteisingas vartotojo vardas arba slaptažodis",
+        "signInFailedHttp": "Prisijungimas nepavyko (HTTP {{status}})",
+        "thePageSignedYouIn": "Puslapis jus prisijungė, bet nepasiuntė atgal sesijos. Atnaujinkite serverį į Termix 26.11.3 arba naujesnę versiją.",
+        "thisAccountIsnTAllowed": "Ši paskyra neturi teisės čia prisijungti.",
+        "noTermixAccountMatchesThat": "Nėra Termix paskyros, atitinkančios šį prisijungimą."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Ši sesija neturi serverio"
+    },
+    "store": {
+      "noSuchAccount": "Tokios paskyros nėra",
+      "thisDeviceCanTBe": "Šio įrenginio negalima pašalinti",
+      "switchToAnotherAccountFirst": "Pirmiausia perjunkite į kitą paskyrą"
+    },
+    "types": {
+      "thisDevice": "Šis įrenginys"
+    },
+    "accountSwitcher": {
+      "error": "Klaida",
+      "worksWithoutAServer": "Veikia be serverio",
+      "couldNotSwitchAccount": "Nepavyko perjungti paskyros",
+      "accounts": "Paskyros",
+      "openTabsKeepRunningWhen": "Atidaryti skirtukai veikia toliau, kai perjungiate.",
+      "unlink": "Atsieti {{account}}",
+      "linkAServer": "Susieti serverį",
+      "eachServerKeepsItsOwn": "Kiekvienas serveris šiame {{deviceWord}} saugo savo serverius, prisijungimo duomenis ir nustatymus.",
+      "signedIn": "Prisijungta",
+      "signedOut": "Atsijungta",
+      "syncedCopy": "Sinchronizuota kopija"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Nepavyko išsaugoti rakto",
+      "theServerSKeyMatches": "Serverio raktas atitinka įvestą raktą",
+      "theServerShowsAnotherKey": "Serveris rodo kitą raktą",
+      "pinThisKey": "Fiksuoti šį raktą?",
+      "pinThisKey2": "Fiksuoti šį raktą",
+      "keyPinned": "Raktas fiksuotas",
+      "couldNotReadTheServer": "Nepavyko perskaityti serverio rakto",
+      "thatIsNotAPin": "Tai nėra raktas",
+      "keysPinned": "Raktai fiksuoti",
+      "certificatePin": "Sertifikato raktas",
+      "trustThisServerOnlyBy": "Pasitikėkite šiuo serveriu tik pagal jo raktą. Naudokite su savarankiškai pasirašytu sertifikatu arba norėdami atmesti bet kokį kitą raktą. Pridėkite naują raktą prieš keisdami serverio sertifikatą.",
+      "removePin": "Pašalinti raktą {{pin}}",
+      "remove": "Pašalinti",
+      "readTheKeyFromThe": "Nuskaityti raktą iš serverio",
+      "orPasteAPin": "Arba įklijuoti raktą",
+      "pin": "Raktas",
+      "add": "Pridėti",
+      "issuedTo": "Išduota: {{subject}}",
+      "issuedBy": "Išdavė: {{issuer}}",
+      "validUntil": "Galioja iki: {{value}}",
+      "checkThatThisKeyMatches": "Prieš fiksuodami įsitikinkite, kad šis raktas atitinka tą, kuris yra jūsų serveryje.",
+      "pasteTheBase64Sha256Of": "Įklijuokite serverio viešojo rakto base64 sha256 reikšmę, kaip ją rodo openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Tarpinio serverio nustatymai išsaugoti",
+      "couldNotSaveTheProxy": "Nepavyko išsaugoti tarpinio serverio nustatymų",
+      "couldNotReadThatFile": "Nepavyko perskaityti to failo",
+      "certificateSaved": "Sertifikatas išsaugotas",
+      "theFileOrItsPassphrase": "Failas arba jo slaptažodis neteisingas",
+      "couldNotSaveTheCertificate": "Nepavyko išsaugoti sertifikato",
+      "headers": "Antraštės",
+      "sentWithEveryRequestTo": "Siunčiamos su kiekvienu užklausimu į šį serverį, pavyzdžiui, Cloudflare tarnybos raktas.",
+      "name": "Pavadinimas",
+      "value": "Reikšmė",
+      "removeHeader": "Pašalinti antraštę",
+      "addHeader": "Pridėti antraštę",
+      "cloudflareServiceToken": "Cloudflare tarnybos raktas",
+      "basicAuth": "Pagrindinė autentifikacija",
+      "forAProxyThatAsks": "Tarpiniam serveriui, kuris prašo vartotojo vardo ir slaptažodžio.",
+      "userName": "Vartotojo vardas",
+      "password": "Slaptažodis",
+      "saveHeadersAndBasicAuth": "Išsaugoti antraštes ir pagrindinę autentifikaciją",
+      "clientCertificate": "Kliento sertifikatas",
+      "forServersThatAskFor": "Serveriams, kurie jo prašo (mTLS). Raktas laikomas {{deviceWord}} saugioje atmintyje ir jo negalima perskaityti atgal.",
+      "certificate": "Sertifikatas",
+      "remove": "Pašalinti",
+      "replaceCertificate": "Pakeisti sertifikatą",
+      "pickAP12OrPfx": "Pasirinkite .p12 arba .pfx failą",
+      "proxySignIn": "Tarpinio serverio prisijungimas",
+      "thisIsSignedInTo": " Šis {{deviceWord}} yra prisijungęs prie tarpinio serverio.",
+      "forCloudflareAccessAutheliaAuthentik": "Cloudflare Access, Authelia, Authentik ir kitiems tarpiniams serveriams, turintiems savo prisijungimo puslapį.{{value}}",
+      "signInToTheProxy": "Prisijungti prie tarpinio serverio",
+      "forget": "Pamiršti",
+      "certificatePassphrase": "Sertifikato slaptažodis",
+      "thePassphraseTheFileWas": "Slaptažodis, su kuriuo failas buvo išsaugotas. Palikite tuščią, jei jo nėra.",
+      "passphrase": "Slaptažodis",
+      "save": "Išsaugoti"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Prisijungta prie tarpinio serverio",
+      "couldNotSaveTheProxy": "Nepavyko išsaugoti tarpinio serverio prisijungimo",
+      "signInToTheProxy": "Prisijungti prie tarpinio serverio",
+      "thisBuildOfTheApp": "Ši programos versija negali išlaikyti tarpinio serverio prisijungimo. Vietoj to naudokite tarnybos raktą tarpinio serverio antraštėse."
+    },
+    "savedLoginRow": {
+      "signIn": "Prisijungti",
+      "signInWith": "Prisijungti su {{name}}",
+      "whenThisServerSignsYou": "Kai šis serveris jus atjungia, prisijunkite iš naujo nereikšdami slaptažodžio."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Atsijungta. {{copied}} elementai buvo išsaugoti šiame įrenginyje.",
+      "unlinked": "Atsijungta",
+      "couldNotUnlinkTheServer": "Nepavyko atsijungti nuo serverio",
+      "unlink": "Atsijungti nuo {{value}}?",
+      "thisSignsOutOfThe": "Šis {{deviceWord}} atsijungia nuo serverio. Nieko iš serverio nėra ištrinama.",
+      "keepACopyOnThis": "Išsaugoti kopiją šiame įrenginyje",
+      "yourOwnHostsCredentialsAnd": "Jūsų pačių serveriai, prisijungimo duomenys ir komandos perkeliama į šį įrenginį. Su jumis bendrinami serveriai nėra išsaugomi.",
+      "deleteFromThis": "Ištrinti iš šio {{deviceWord}}",
+      "everythingThisHasForThe": "Viskas, ką šis {{deviceWord}} turi šiam serveriui, bus pašalinta."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Pakeiskite tai žemiau skiltyje „Tarpinis serveris“",
+      "updateTermixMobileFromYour": "Atnaujinkite Termix Mobile iš programų parduotuvės"
+    },
+    "savedLogin": {
+      "signInToTermix": "Prisijungti prie Termix",
+      "faceUnlock": "veido atrakinimas"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Ši versija negali patikrinti šio serverio pritvirtinto rakto arba išsiųsti jo sertifikato."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Šis serveris nepalaiko šios funkcijos",
+      "theProxyWantsYouTo": "Tarpinis serveris prašo prisijungti",
+      "endpointNotAvailableOnThis": "Galūninis taškas šioje serverio versijoje nepasiekiamas",
+      "unknownError": "Nežinoma klaida"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Tarpinis serveris prieš šį serverį prašo prisijungti iš naujo.",
+      "authenticationRequiredPleaseLogIn": "Reikalinga autentifikacija. Prisijunkite iš naujo.",
+      "accessDeniedYouDoNot": "Prieiga atmesta. Neturite leidimo atlikti šį veiksmą.",
+      "thisFeatureIsTurnedOff": "Ši funkcija serverio nustatymuose išjungta.",
+      "thisServerDoesNotSupport": "Šis serveris nepalaiko šios funkcijos.",
+      "resourceNotFoundTheRequested": "Išteklis nerastas. Paprašytas elementas galėjo būti ištrintas.",
+      "conflictTheResourceAlreadyExists": "Konfliktas. Išteklis jau egzistuoja arba yra naudojamas.",
+      "validationErrorPleaseCheckYour": "Patikrinimo klaida. Patikrinkite įvestus duomenis ir bandykite dar kartą.",
+      "serverErrorOccurredPleaseTry": "Įvyko serverio klaida. Pabandykite vėliau.",
+      "sslCertificateVerificationFailed": "Nepavyko patikrinti SSL sertifikato.",
+      "networkErrorPleaseCheckYour": "Tinklo klaida. Patikrinkite savo ryšį ir bandykite dar kartą.",
+      "failedTo": "Nepavyko atlikti {{operation}}",
+      "unknownError": "Nežinoma klaida",
+      "unexpectedErrorDuring": "Netikėta klaida vykdant {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Programa negalėjo pasitikėti HTTPS šiuo vietiniu IP adresu. Pritvirtinkite serverio raktą skiltyje „Tarpinis serveris ir kliento sertifikatas“, naudokite sertifikatą, kuriam pasitiki {{deviceWord}}, arba HTTP patikimame vietiniame ar VPN tinkle.",
+        "thisServerIsBehindA": "Šis serveris yra už prisijungimo tarpinio serverio. Vietoj to naudokite išorinį prisijungimo būdą.",
+        "loginFailed": "Prisijungimas nepavyko"
+      },
+      "files": {
+        "fileNotFound": "Failas nerastas",
+        "fileWriteOperationDidNot": "Failo rašymo operacija negrąžino sėkmės būsenos",
+        "couldNot": "Nepavyko {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Serveris išsaugotas, bet kai kurie nustatymai nepavyko: {{value}}",
+        "unexpectedHostResponseFrom": "Netikėtas serverio atsakymas iš {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Tiesioginis matavimas nepavyko"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Nėra atsakymo"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Šis serveris nerodė rakto, prie kurio jis pritvirtintas, todėl puslapis nebuvo atidarytas."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Šis {{what}} nebeegzistuoja.",
+      "aHostCannotBeIts": "Serveris negali būti savo paties tėvinis",
+      "parentHostNotFound": "Tėvinis serveris nerastas",
+      "aHostCanTGo": "Serveris negali būti padėtas po vieno iš savo pačių pogrupių",
+      "thisIsSharedWithYou": "Šis {{what}} yra su jumis bendrinamas. Jį gali keisti tik savininkas.",
+      "nameIsRequired": "Pavadinimas yra privalomas",
+      "nameAndCommandAreRequired": "Pavadinimas ir komanda yra privalomi",
+      "aFolderWithThatName": "Aplankas su tokiu pavadinimu jau egzistuoja"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Šis įrenginys negali čia išsaugoti {{what}}."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Ši komanda yra su jumis bendrinama ir jos negalima keisti."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Naudokite slaptažodį, kuriame būtų ne mažiau nei 8 simboliai.",
+      "thisIsNotATermix": "Tai nėra Termix atsarginės kopijos failas.",
+      "thisBackupIsFromA": "Ši atsarginė kopija yra iš naujesnės Termix versijos. Pirmiausia atnaujinkite programą.",
+      "wrongPassphraseOrTheFile": "Neteisinga slaptafrazė arba failas pažeistas."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Ši versija negali šifruoti vietinių duomenų."
+    },
+    "keys": {
+      "unlockTermixFirst": "Pirmiausia atrakinkite Termix.",
+      "thatIsNotADatabase": "Tai nėra duomenų bazės raktas.",
+      "couldNotSaveTheDatabase": "Nepavyko išsaugoti duomenų bazės rakto."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Šie duomenys buvo išsaugoti naujesnėje Termix versijoje. Atnaujinkite programą, kad galėtumėte juos atidaryti."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Šis įrenginys nesinchronizuoja.",
+      "localDataIsNotAvailable": "Vietiniai duomenys čia nepasiekiami.",
+      "unlockTermixFirst": "Pirmiausia atrakinkite Termix."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Nepavyko prisijungti.",
+      "thisWayCanTRun": "Šiuo būdu negalima vykdyti komandų"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo slaptažodis",
+      "password": "Slaptažodis",
+      "run": "Vykdyti",
+      "thatPasswordWasWrong": "Šis slaptažodis buvo neteisingas.",
+      "onNeedsRoot": "{{reason}} ant {{hostName}} reikalauja root teisių.",
+      "needsRootForThis": "{{hostName}} tam reikalauja root teisių.",
+      "itIsKeptUntilYou": "Jis bus išsaugotas, kol uždarysite programą."
+    },
+    "run": {
+      "theHostTookTooLong": "Serveris per ilgai neatsakė",
+      "connectionLost": "Prarastas ryšys"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Tam reikia root teisių. Prisijunkite kaip root, sukonfigūruokite sudo be slaptažodžio arba išsaugokite sudo slaptažodį šiam serveriui.",
+      "theSudoPasswordWasWrong": "Sudo slaptažodis buvo neteisingas",
+      "commandFailed": "Komanda nepavyko"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet terminalui reikia ryšio iš {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Funkcija {{id}} jau yra užregistruota"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adresas",
+      "theIpOrHostName": "IP arba serverio pavadinimas po pavadinimo",
+      "username": "Vartotojo vardas",
+      "theUserBeforeTheAddress": "Vartotojas prieš adresą",
+      "port": "Prievadas",
+      "thePortAfterTheAddress": "Prievadas po adreso",
+      "hostIcon": "Serverio piktograma",
+      "theIconSetOnThe": "Serverio nustatyta piktograma",
+      "pinIcon": "Suskaitmeninto piktograma",
+      "marksPinnedHosts": "Pažymi prisegtus serverius",
+      "sharedBadge": "Bendrinimo ženklelis",
+      "marksHostsSharedWithYou": "Pažymi su jumis bendrinamus serverius",
+      "protocolBadges": "Protokolo ženkleliai",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker ir kiti ženkleliai",
+      "tags": "Žymos",
+      "theHostSTags": "Serverio žymos",
+      "cpuAndRam": "CPU ir RAM",
+      "liveUsageBarsOnOnline": "Tikrojo laiko naudojimo juostos prisijungusiems serveriams",
+      "statusColors": "Būsenos spalvos",
+      "greenBarWhenOnlineRed": "Žalia juosta, kai prisijungęs, raudona, kai atjungtas"
+    },
+    "uiPrefs": {
+      "small": "Mažas",
+      "default": "Numatytasis",
+      "large": "Didelis",
+      "comfortable": "Patogus",
+      "compact": "Kompaktiškas"
+    },
+    "errors": {
+      "somethingWentWrong": "Kažkas nutiko ne taip"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Rakto užrakinimas slaptafraze reikalauja Termix programos, o ne naršyklės peržiūros."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Vidui",
+      "after15Seconds": "Po 15 sekundžių",
+      "after1Minute": "Po 1 minutės",
+      "after5Minutes": "Po 5 minučių"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Įrenginio slaptažodis prarastas",
+      "noSealedKey": "Nėra užsandarinto rakto",
+      "theSealedKeyIsDamaged": "Užsandarintas raktas pažeistas",
+      "wrongPin": "Neteisingas PIN kodas",
+      "theSealedKeyDidNot": "Užrakintas raktas neatidarytas",
+      "biometricsCanTOpenThe": "Biometrijos negali atidaryti rakto"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Atnaujinti programą",
+      "onYourServerNeedsA": "{{name}} jūsų serveryje reikalauja naujesnės Termix versijos šiame {{deviceWord}}.",
+      "updateThePlugin": "Atnaujinti įskiepį",
+      "onYourServerIsToo": "{{name}} jūsų serveryje yra per senas šiai programai. Paprašykite administratoriaus atnaujinti jį skiltyje „Įskiepiai“."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Užblokuota programos",
+      "theAppDoesNotLet": "Programa neleidžia įskiepiams naudoti šio maršruto.",
+      "thisBuildCanTReach": "Ši versija negali saugiai pasiekti šio serverio."
+    },
+    "support": {
+      "needsANewerVersionOf": "Reikia naujesnės programos versijos",
+      "updateThePluginOnThe": "Atnaujinti įskiepį serveryje",
+      "theAppHasItsOwn": "Programa turi savo išvaizdą",
+      "notInTheAppYet": "Dar nėra programoje",
+      "linkAServerToUse": "Susiekite serverį, kad galėtumėte jį naudoti",
+      "opensInTheAppFrom": "Atsidaro programoje iš serverio",
+      "runsOnTheServer": "Veikia serveryje",
+      "throughTheServer": "Per serverį",
+      "inTheApp": "Programoje",
+      "webView": "Žiniatinklio rodinys",
+      "onTheServer": "Serveryje",
+      "appLook": "Programos išvaizda",
+      "notInTheApp": "Nėra programoje",
+      "safeMode": "Saugus režimas",
+      "notRunning": "Nevykdomas",
+      "notInstalled": "Neįdiegta",
+      "notOnThisServer": "Nėra šiame serveryje",
+      "thePluginIsNotInstalled": "Įskiepis nėra įdiegtas šiame serveryje.",
+      "turnedOffOnTheServer": "Išjungtas serveryje",
+      "itOpensHereAgainWhen": "Jis vėl atsidarys čia, kai administratorius jį įjungs.",
+      "notRunningOnTheServer": "Nevykdomas serveryje",
+      "theServerIsInSafe": "Serveris yra saugiu režimu, todėl veikia tik išvaizdos įskiepiai.",
+      "thePluginDidNotStart": "Įskiepis nepaleistas. Administratorius gali jį patikrinti skiltyje „Įskiepiai“.",
+      "thisPluginIsNotAvailable": "Šis įskiepis nėra prieinamas",
+      "itIsNotMadeFor": "Jis nėra skirtas programai.",
+      "offOnThisServer": "išjungta šiame serveryje",
+      "notRunningOnThisServer": "nevykdoma šiame serveryje",
+      "notOnThisServer2": "nėra šiame serveryje",
+      "notInTheAppYet2": "Dar nėra programoje | šiame serveryje",
+      "worksOnThis": "Veikia šiame {{deviceWord}}",
+      "andServer": "{{DeviceWord}} ir serveris",
+      "deviceOnly": "Tik {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Perkrauti"
+    },
+    "pluginSettings": {
+      "loading": "Įkeliami nustatymai",
+      "forEveryone": "Visiems serverio vartotojams",
+      "justForYou": "Tik jums",
+      "couldNotSave": "Nepavyko išsaugoti nustatymo",
+      "nothingYouCanChange": "Čia nėra nieko, ką galėtumėte pakeisti. Šiuos nustatymus gali keisti administratorius.",
+      "notANumber": "Tai nėra skaičius",
+      "atLeast": "Jis turi būti {{min}} arba daugiau",
+      "atMost": "Jis turi būti {{max}} arba mažiau"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Atsijungti visiems",
+      "showOpenSessions": "Rodyti atviras sesijas",
+      "termixShowsANotificationWhile": "Termix rodo pranešimą, kol sesijos yra atviros, kad Android jas palaikytų fone.",
+      "sessionsOpen_one": "{{count}} sesija atvira",
+      "sessionsOpen_few": "{{count}} sesijos atviros",
+      "sessionsOpen_many": "{{count}} sesijų atviro",
+      "sessionsOpen_other": "{{count}} sesijų atviro",
+      "tunnelsActive_one": "{{count}} tunelis aktyvus",
+      "tunnelsActive_few": "{{count}} tuneliai aktyvūs",
+      "tunnelsActive_many": "{{count}} tunelių aktyvu",
+      "tunnelsActive_other": "{{count}} tunelių aktyvu",
+      "notConnected": "Neprisijungta",
+      "waitingForNetwork": "Laukiama tinklo",
+      "connecting": "Prisijungiama",
+      "connected": "Prisijungta",
+      "reconnecting": "Vėl prisijungiama",
+      "failed": "Nepavyko",
+      "closed": "Uždaryta"
+    },
+    "companionPane": {
+      "resizeThePanel": "Keisti {{title}} skydelio dydį"
+    },
+    "connectionsPanel": {
+      "close": "Uždaryti",
+      "closeAllTabs": "Uždaryti visus {{count}} skirtukus?",
+      "everySessionEnds": "Visos sesijos baigiamos.",
+      "closeAll": "Uždaryti visus",
+      "noActiveConnections": "Nėra aktyvių ryšių",
+      "pickAHostFromThe": "Pasirinkite serverį iš sąrašo, kad pradėtumėte sesiją. Čia taip pat rodomos kortelės, atidarytos kituose įrenginiuose.",
+      "connectToAHostTo": "Prisijunkite prie serverio, kad pradėtumėte sesiją. Čia taip pat rodomos kortelės, atidarytos kituose įrenginiuose.",
+      "open": "Atidaryti",
+      "background": "Fonas",
+      "sessionsFromOtherDevicesOr": "Sesijos iš kitų įrenginių arba fone veikiančios kortelės. Baksnotelkite, kad atgaivintumėte.",
+      "liveTapToReconnect": "Aktyvi, baksnotelkite, kad prisijungtumėte iš naujo",
+      "tapToReopen": "Baksnotelkite, kad atidarytumėte iš naujo"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Tai išjungta serveryje",
+      "comesBackHereWhenAn": "{{title}} vėl atsiras čia, kai administratorius vėl įjungs šį priedą.",
+      "closeTab": "Uždaryti kortelę"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Ryšiai",
+        "hideHostList": "Slėpti serverių sąrašą",
+        "showHostList": "Rodyti serverių sąrašą",
+        "backToHosts": "Atgal į serverius",
+        "showKeyboard": "Rodyti klaviatūrą",
+        "hideKeyboard": "Slėpti klaviatūrą",
+        "hideKeysPanel": "Slėpti raktų skydelį",
+        "showKeysPanel": "Rodyti raktų skydelį"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Baksnotelkite norėdami peržiūrėti kortelės parinktis, paspauskite ir laikykite norėdami perkelti",
+        "holdToMove": "Paspauskite ir laikykite norėdami perkelti",
+        "close": "Uždaryti „{{title}}“"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Laukiama tinklo",
+        "connectionFailed": "Nepavyko prisijungti",
+        "reconnecting": "Jungiamasi iš naujo"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Pervadinti",
+      "newTabOnThisHost": "Nauja kortelė šiame serveryje",
+      "here": "{{title}} čia",
+      "hidePanel": "Slėpti „{{title}}“ skydelį",
+      "showPanel": "Rodyti „{{title}}“ skydelį",
+      "endSplitView": "Baigti padalintą vaizdą",
+      "splitViewWith": "Padalintas vaizdas su...",
+      "moveLeft": "Perkelti į kairę",
+      "moveRight": "Perkelti į dešinę",
+      "closeTab": "Uždaryti kortelę",
+      "closeAllTabs": "Uždaryti visas korteles",
+      "closeAllTabs2": "Uždaryti visas {{count}} korteles?",
+      "everySessionEnds": "Visos sesijos baigiamos.",
+      "closeAll": "Uždaryti visas",
+      "splitViewWith2": "Padalintas vaizdas su",
+      "renameTab": "Pervadinti kortelę",
+      "leaveItEmptyToUse": "Palikite tuščią, kad būtų naudojamas serverio pavadinimas."
+    },
+    "resizeHostList": "Keisti serverių sąrašo dydį",
+    "resizeSplitView": "Keisti padalinto vaizdo dydį",
+    "connections": "Ryšiai",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Dvejetainė autentifikacija",
+        "enterThe6DigitCode": "Įveskite 6 skaitmenų kodą iš savo autentifikatoriaus programėlės.",
+        "cancel": "Atšaukti",
+        "verify": "Patikrinti",
+        "codeExpiresInSGet": "Kodo galiojimas baigiasi po {{totpCountdown}} s, gauti naują kodą",
+        "warpgateAuthentication": "Warpgate autentifikacija",
+        "confirmTheWarpgateAuthenticationUrl": "Patvirtinkite Warpgate autentifikavimo URL ir saugos raktą.",
+        "authenticate": "Autentikuoti",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "Saugos raktas (nebūtina)",
+        "authenticationRequired": "Reikalinga autentifikacija",
+        "thisHostNeedsCredentialsTo": "Šiam serveriui prisijungti reikia prisijungimo duomenų.",
+        "connect": "Prisijungti",
+        "password": "Slaptažodis",
+        "sshKey": "SSH raktas",
+        "pastePrivateKey": "Įklijuoti privatų raktą",
+        "keyPassphraseOptional": "Rakto slaptažodis (nebūtina)"
+      },
+      "connectionError": {
+        "tryAgain": "Bandyti dar kartą",
+        "close": "Uždaryti",
+        "connectThroughTheServer": "Prisijungti per serverį",
+        "connectFromThis": "Prisijungti iš šio {{deviceWord}}",
+        "triedFromThis": "Bandyta iš šio {{deviceWord}}",
+        "triedThroughTheServer": "Bandyta per serverį"
+      },
+      "execGate": {
+        "connecting": "Jungiamasi..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Kažkas nutiko ne taip",
+        "retry": "Bandyti dar kartą",
+        "refresh": "Atnaujinti",
+        "nothingToShow": "Nėra ką rodyti"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Žurnalai nukopijuoti",
+        "connectionLog": "Jungimosi žurnalas ({{count}})",
+        "copyLog": "Kopijuoti žurnalą",
+        "waitingForConnection": "Laukiama jungimosi…",
+        "noLogEntries": "Žurnale įrašų nėra"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Nepavyko išsaugoti, kaip šis hostas jungiasi"
+      },
+      "useSessionConnect": {
+        "connected": "Prisijungta",
+        "connectingTo": "Jungiamasi prie {{name}}…",
+        "connectionLost": "Jungtis prarasta",
+        "failedToConnect": "Nepavyko prisijungti",
+        "invalidCode": "Neteisingas kodas",
+        "warpgateAuthenticationFailed": "Warpgate autentifikavimas nepavyko",
+        "authenticationCancelled": "Autentifikavimas atšauktas"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Paieška ir komandos",
+    "addHost": "Pridėti hostą",
+    "keyboardShortcuts": "Klaviatūros trumpiniai",
+    "home": "Pradžia",
+    "hosts": "Hostai",
+    "sessions": "Sesijos",
+    "tools": "Įrankiai",
+    "settings": "Nustatymai",
+    "terminal": "Terminalas",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Klaviatūros trumpiniai"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Hostai ir aplankai",
+      "yourHostsFoldersAndHosts": "Jūsų hostai, aplankai ir su jumis bendrinami hostai",
+      "credentials": "Autentifikavimo duomenys",
+      "savedPasswordsAndKeysAnd": "Išsaugoti slaptažodžiai ir raktai, bei su jumis bendrinami autentifikavimo duomenys",
+      "snippets": "Kodo fragmentai",
+      "snippetsAndTheirFolders": "Kodo fragmentai ir jų aplankai",
+      "hostDefaults": "Hostų numatytieji nustatymai",
+      "defaultSettingsForNewHosts": "Numatytieji naujų hostų nustatymai",
+      "preferences": "Pirmenybės",
+      "settingsThatFollowYouBetween": "Nustatymai, kurie jus lydi tarp įrenginių"
+    },
+    "link": {
+      "noSuchServerAccount": "Tokio serverio paskyros nėra",
+      "signInFirst": "Pirmiausia prisijunkite.",
+      "thisServerAccountBelongsTo": "Ši serverio paskyra priklauso {{value}}. Prisijunkite kaip šis vartotojas arba pridėkite serverį dar kartą šiam vartotojui."
+    },
+    "reasons": {
+      "signedOut": "Atsijungta",
+      "thisSSignInTo": "Šio {{deviceWord}} prisijungimas prie serverio baigėsi.",
+      "theServerEndedThisS": "Serveris baigė šio {{deviceWord}} sesiją. Galbūt buvo atsijungta iš kito įrenginio.",
+      "proxySignInNeeded": "Reikalingas tarpinio serverio prisijungimas",
+      "theProxyInFrontOf": "Tarpinis serveris prieš šį serverį prašo prisijungti dar kartą.",
+      "proxyPasswordNeeded": "Reikalingas tarpinio serverio slaptažodis",
+      "theProxyInFrontOf2": "Tarpinis serveris prieš šį serverį paprašė slaptažodžio.",
+      "certificateRefused": "Sertifikatas atmestas",
+      "theServerDidNotAccept": "Serveris nepriėmė šio {{deviceWord}} sertifikato.",
+      "untrustedServer": "Netikimas serveris",
+      "theServerSCertificateIs": "Serverio sertifikatas nėra patikimas šiam {{deviceWord}}.",
+      "serverKeyChanged": "Serverio raktas pakeistas",
+      "theServerShowsAnotherKey": "Serveris rodo kitą raktą nei įtvirtintas. Jei pakeitėte jo sertifikatą, įtvirtinkite naują raktą.",
+      "offline": "Neprisijungęs",
+      "canTReachTheServer": "Nepavyksta pasiekti serverio. Sinchronizacija bandys vėl netrukus.",
+      "serverProblem": "Serverio problema",
+      "theServerHadAProblem": "Serverio kilo problema. Sinchronizacija bandys vėl netrukus.",
+      "updateNeeded": "Reikia atnaujinti",
+      "thisServerUsesANewer": "Šis serveris naudoja naujesnę sinchronizacijos versiją. Atnaujinkite programą.",
+      "notATermixServer": "Tai nėra Termix serveris",
+      "theAddressDoesNotAnswer": "Adresas atsako ne taip, kaip Termix serveris.",
+      "syncIsOff": "Sinchronizacija išjungta",
+      "theSyncPluginIsOff": "Sinchronizacijos priedas šiame serveryje išjungtas. Paprašykite administratoriaus jį įjungti skiltyje „Priedai“.",
+      "differentUser": "Kitas vartotojas",
+      "youSignedInAsA": "Prisijungėte kaip kitas vartotojas nei priklauso šiam serverio paskyros.",
+      "syncStopped": "Sinchronizacija sustabdyta",
+      "somethingWentWrong": "Kažkas nutiko ne taip.",
+      "signInAgain": "Prisijunkite dar kartą",
+      "signInToTheProxy": "Prisijunkite prie tarpinio serverio",
+      "enterThePassword": "Įveskite slaptažodį",
+      "tryAgain": "Bandykite dar kartą",
+      "checkThePin": "Patikrinkite įtvirtinimą",
+      "checkForUpdates": "Ieškoti atnaujinimų",
+      "pickACertificate": "Pasirinkite sertifikatą"
+    },
+    "settings": {
+      "noSuchSetting": "Tokio nustatymo nėra",
+      "snippetFolder": "Kodų fragmentų aplankas",
+      "hostDefault": "Serverio numatytasis"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Serveris nepriėmė šio {{deviceWord}} sertifikato.",
+      "theServerSCertificateIs": "Serverio sertifikatas nepatikimas.",
+      "canTReachTheServer": "Nepavyksta pasiekti serverio.",
+      "signedOut": "Atsijungta",
+      "theProxyAskedForIts": "Tarpinis serveris paprašė slaptažodžio.",
+      "theProxyWantsYouTo": "Tarpinis serveris prašo prisijungti.",
+      "theSyncPluginIsOff": "Sinchronizacijos priedas šiame serveryje išjungtas.",
+      "serverError": "Serverio klaida {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Serveris rodo kitą raktą nei įtvirtintas."
+    },
+    "remote": {
+      "thisIsNotATermix": "Tai nėra Termix serveris.",
+      "theProxyWantsYouTo": "Tarpinis serveris prašo prisijungti.",
+      "thisServerUsesANewer": "Šis serveris naudoja naujesnę sinchronizacijos versiją. Atnaujinkite programą."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} serveris",
+      "hostCount_few": "{{count}} serveriai",
+      "hostCount_many": "{{count}} serverių",
+      "hostCount_other": "{{count}} serverių",
+      "credentialCount_one": "{{count}} prisijungimo duomenų rinkinys",
+      "credentialCount_few": "{{count}} prisijungimo duomenų rinkiniai",
+      "credentialCount_many": "{{count}} prisijungimo duomenų rinkinių",
+      "credentialCount_other": "{{count}} prisijungimo duomenų rinkinių",
+      "snippetCount_one": "{{count}} kodų fragmentas",
+      "snippetCount_few": "{{count}} kodų fragmentai",
+      "snippetCount_many": "{{count}} kodų fragmentų",
+      "snippetCount_other": "{{count}} kodų fragmentų",
+      "folderCount_one": "{{count}} aplankas",
+      "folderCount_few": "{{count}} aplankai",
+      "folderCount_many": "{{count}} aplankų",
+      "folderCount_other": "{{count}} aplankų",
+      "nothingYet": "dar nieko",
+      "listAnd": "{{list}} ir {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Nepavyksta prisijungti.",
+      "connectingToFromThis": "Prisijungiama prie {{name}} iš šio {{deviceWord}}",
+      "connectingToThroughTheServer": "Prisijungiama prie {{name}} per serverį",
+      "reconnectingTry": "Vėl prisijungiama (bandymas {{retry}})",
+      "disconnected": "Atsijungta",
+      "connected": "Prisijungta",
+      "reconnectedToTheSameSession": "Vėl prisijungta prie tos pačios sesijos",
+      "reconnectedWithANewShell": "Vėl prisijungta su nauju komandinės eilutės langeliu",
+      "couldNotReachTheHost": "Nepavyko pasiekti serverio iš šio {{deviceWord}}, bandoma per serverį",
+      "couldNotConnectThroughThe": "Nepavyko prisijungti per serverį, bandoma iš šio {{deviceWord}}",
+      "connectionLost": "Prisijungimas prarastas: {{reason}}",
+      "offlineWaitingForTheNetwork": "Neprisijungęs, laukiama tinklo",
+      "nextTryInS": "Kitas bandymas po {{value}} s",
+      "reconnectingTry2": "Vėl prisijungiama (bandymas {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Serveris nustojė atsakyti",
+      "networkLost": "Tinklas prarastas",
+      "network": "Tinklas: {{type}}{{value}}",
+      "lowPowerModeOn": "Įjungtas taupymo režimas",
+      "lowPowerModeOff": "Išjungtas taupymo režimas",
+      "droppedTypedCharacters": "Išmesta {{count}} įvestų simbolių",
+      "youDidNotTrustThe": "Nepasitikėjote serverio raktu.",
+      "checkTheKeyWithWhoever": "Patikrinkite raktą su serverio administratoriumi ir bandykite dar kartą.",
+      "loginCancelled": "Prisijungimas atšauktas.",
+      "connectAgainWhenYouAre": "Jungkitės vėl, kai būsite pasiruošę.",
+      "typedInputIsOver64": "Įvestas tekstas viršija 64 KB, seniausia dalis buvo atmesta",
+      "appInTheBackground": "Programa veikia fone",
+      "appInTheForeground": "Programa veikia priekiniame plane",
+      "thisConnectionCanTRun": "Šiuo ryšiu negalima vykdyti komandų"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Patikrinkite adresą ir portą bei įsitikinkite, kad serveris gali pasiekti šį serverį.",
+      "checkTheAddressAndPort2": "Patikrinkite adresą ir portą bei įsitikinkite, kad šis {{deviceWord}} gali pasiekti serverį.",
+      "checkTheProxySettingsOf": "Patikrinkite šio serverio proxo nustatymus.",
+      "checkTheKeyWithWhoever": "Prieš pasitikėdami, patikrinkite raktą su serverio administratoriumi.",
+      "checkTheUsernameAndLogin": "Patikrinkite vartotojo vardą ir prisijungimo duomenis serverio redaktoriuje.",
+      "checkThatTheServerIs": "Įsitikinkite, kad serveris veikia ir vis dar esate prisijungę.",
+      "tryAgainIfItKeeps": "Bandykite dar kartą. Jei ryšys toliau nutrūksta, patikrinkite tinklą.",
+      "connectAgainWhenYouAre": "Jungkitės vėl, kai būsite pasiruošę.",
+      "pickAnotherWayToConnect": "Pasirinkite kitą būdą prisijungti prie šio serverio.",
+      "connectThisHostThroughA": "Prisijunkite prie šio serverio per Termix serverį.",
+      "pickTheJumpHostsAgain": "Serverio redaktoriuje vėl pasirinkite tarpinius serverius.",
+      "thisIsATailscaleAddress": "Tai yra Tailscale adresas. Įsitikinkite, kad Tailscale yra prijungtas šiame {{deviceWord}}.",
+      "theSavedKeyCanT": "Išsaugoto rakto nepavyko perskaityti. Įklijuokite jį dar kartą serverio redaktoriuje.",
+      "signInToThisServer": "Prisijunkite prie šio serverio dar kartą.",
+      "openThisHostInThe": "Atidarykite šį serverį Termix naršyklės programėlėje.",
+      "canTConnectThisWay": "Šiuo būdu nepavyko prisijungti",
+      "couldNotReachTheHost": "Nepavyko pasiekti serverio",
+      "theProxyDidNotLet": "Proxas neleido užmegzti ryšio",
+      "theHostKeyWasNot": "Serverio raktas nebuvo pasitikėtas",
+      "theLoginWasRefused": "Prisijungimas atmestas",
+      "theTermixServerDidNot": "Termix serveris neatsakė",
+      "theConnectionDropped": "Ryšys nutrūko",
+      "loginCancelled": "Prisijungimas atšauktas"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH agentas",
+        "thisHostSignsInWith": "Šis serveris prisijungia naudodamas „{{authType}}“, tam reikia Termix serverio. Prisijunkite prie vieno, kad galėtumėte jungtis.",
+        "thisHostUsesA1password": "Šis serveris naudoja 1Password nuorodą, tam reikia Termix serverio su Secret Sources. Prisijunkite prie vieno ir jungkitės prie šio serverio per jį.",
+        "signInWithFirstOpen": "Pirmiausia prisijunkite naudodami {{title}}. Atidarykite terminalą į šį serverį vieną kartą, tada bandykite dar kartą.",
+        "theSignInAndThe": "prisijungimas ir sertifikatas yra serveryje",
+        "theHasNoSshAgent": "{{deviceWord}} neturi SSH agento",
+        "needsATermixServerBecause": "{{title}} reikia Termix serverio, nes {{why}}. Prisijunkite prie vieno ir jungkitės prie šio serverio per jį."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Vienas iš šio serverio tarpinių serverių nebeegzistuoja."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Ryšys buvo nutrauktas",
+        "theShellChannelClosed": "Shell kanalas uždarytas",
+        "jumpHost": "Tarpinis serveris {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Neteisingas kodas, bandykite dar kartą:",
+        "authenticationFailed": "Autentifikacija nepavyko: {{message}}",
+        "theHostKeyWasNot": "Serverio raktas nebuvo pasitikėtas.",
+        "loginCancelled": "Prisijungimas atšauktas.",
+        "notConnected": "Neprijungta",
+        "signingInAs": "Prisijungiama kaip {{user}} naudojant {{method}}",
+        "methodKey": "raktas",
+        "methodPassword": "slaptažodis",
+        "methodNone": "nėra išsaugotų prisijungimo duomenų"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Ryšys buvo nutrauktas"
+      },
+      "thisBuildHasNoSsh": "Šioje versijoje nėra SSH variklio. Naudokite programėlę iš parduotuvės arba prisijunkite prie Termix serverio, kad galėtumėte jungtis.",
+      "theHostsOnThisAre": "Šio {{deviceWord}} serveriai dar nėra atidaryti.",
+      "thisServerSHostsAre": "Šio serverio serveriai nėra šiame {{deviceWord}}. Įjunkite Sync priedą serveryje, kad galėtumėte jungtis iš {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Išsaugoti šio serverio prisijungimo duomenys nėra šiame {{deviceWord}}, todėl prisijungti gali tik serveris"
+      }
+    },
+    "origin": {
+      "canTConnect": "Nepavyko prisijungti.",
+      "canTConnectFromThe": "Nepavyko prisijungti iš šio {{deviceWord}}.",
+      "canTReachTheServer": "Nepavyko pasiekti serverio.",
+      "theOnlyConnectsToSsh": "Šis {{deviceWord}} jungiasi tik prie SSH ir Telnet serverių.",
+      "connectThisHostThroughThe": "Jungtis prie šio serverio per serverį",
+      "connectThisHostFromThe": "Jungtis prie šio serverio iš {{deviceWord}}",
+      "termixServer": "Termix serveris",
+      "usesThisWhenItCan": "Naudoja šį {{deviceWord}}, kai gali pasiekti serverį, kitaip – serverį.",
+      "thisConnectsToTheHost": "Šis {{deviceWord}} jungiasi tiesiai prie serverio.",
+      "theTermixServerConnectsTo": "Termix serveris jungiasi prie serverio jūsų vardu.",
+      "anSshConnection": "SSH ryšys",
+      "aTermixServer": "Termix serveris",
+      "aConnectionFromThe": "ryšys iš {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} šiame serveryje išjungtas. {{how}}, kad jį naudotumėte.",
+      "isOffOnThisServer2": "{{title}} šiame serveryje išjungtas.",
+      "anotherWayToConnect": "kitas būdas jungtis",
+      "needsToUseIt": "{{title}} reikia {{what}}. {{how}}, kad jį naudotumėte.",
+      "needsWhichThisHostCan": "{{title}} reikia {{what}}, ko šis serveris šiuo metu negali naudoti.",
+      "thisDevice": "Šis {{deviceWord}}",
+      "automatic": "Automatiškai"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Atsijungėte nuo šio serverio. Prisijunkite, kad jungtumėtės per jį.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux nėra įdiegtas šiame serveryje. Naudojamas paprastas shell.",
+        "tapRetryToBringIt": "Bakstelėkite „Bandyti dar kartą“, kad jį grąžintumėte čia.",
+        "thisSessionWasOpenedOn": "Ši sesija buvo atidaryta kitame įrenginyje",
+        "noServerUrlFoundLink": "Serverio URL nerastas. Vėl susiekite serverį.",
+        "signedOutOfThisServer": "Atsijungta nuo šio serverio. Prisijunkite dar kartą.",
+        "signInWithInYour": "Prisijunkite naudodami {{title}} naršyklėje. Tai uždarys, kai bus baigta.",
+        "theSocketClosedWhileThe": "Lizdas uždarytas, kai programa buvo fone",
+        "noWebsocketUrlAvailableServer": "WebSocket URL nepasiekiamas – serveris nesukonfigūruotas",
+        "connectionTimeoutServerNotResponding": "Ryšio laikas baigėsi – serveris neatsako",
+        "verificationCode": "Patvirtinimo kodas:",
+        "hostKeyVerificationRequiredBut": "Reikalinga serverio rakto patikra, bet nėra registruoto tvarkytojo",
+        "hostKeyChangedButNo": "Serverio raktas pasikeitė, bet nėra registruoto tvarkytojo",
+        "thisHostNeedsASign": "Šiam serveriui reikia prisijungimo, kurį palaiko tik internetinė programa",
+        "invalidCodeTryAgain": "Neteisingas kodas, bandykite dar kartą:",
+        "unknownError": "Nežinoma klaida",
+        "connectionClosed": "Ryšys uždarytas",
+        "connectionClosed2": "Ryšys uždarytas ({{code}})",
+        "theServerClosedTheConnection": "Serveris uždarė ryšį",
+        "theSocketClosed": "Lizdas uždarytas ({{code}})",
+        "signIn": "{{title}} prisijungimas",
+        "signInFailed": "{{title}} prisijungimas nepavyko",
+        "isNotSetUpOn": "{{title}} nėra sukonfigūruotas serveryje",
+        "signInTimedOut": "{{title}} prisijungimo laikas baigėsi",
+        "authenticationFailed": "Autentifikacija nepavyko: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Išsaugokite serverį ir jungkitės prie jo, kad patikrintumėte.",
+      "loggedInAsOn": "Prisijungta kaip {{username}} prie {{host}}",
+      "theHostAskedForMore": "Serveris paprašė daugiau nei slaptažodžio, pavyzdžiui, kodo. Išsaugokite serverį ir jungkitės, kad užbaigtumėte prisijungimą."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Laukiama tinklo",
+      "couldNotOpenTheTunnel": "Nepavyko atidaryti tunelio",
+      "theConnectionDropped": "Ryšys nutrūko",
+      "iosStoppedThisTunnelWhile": "iOS sustabdė šį tunelį, kai programa buvo fone. Paleiskite jį iš naujo, kad atidarytumėte.",
+      "connecting": "Jungiamasi",
+      "connected": "Jungtis įsteigta",
+      "retrying": "Bandoma dar kartą",
+      "waiting": "Laukiama",
+      "failed": "Nepavyko"
+    },
+    "gateways": {
+      "error": "Klaida",
+      "gateways": "Šliuzai",
+      "gatewaysCanOnlyBeChanged": "Šliuzus galima keisti tik Termix interneto programoje.",
+      "noHandshake": "Nėra susitarimo",
+      "rulesMissing": "Trūksta taisyklių",
+      "up": "Veikia",
+      "pending": "Laukiama",
+      "applying": "Taikoma",
+      "down": "Nedujanti",
+      "unreachable": "Nepasiekiama"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Dar nėra tunelių. Pridėkite vieną, kad nukreiptumėte prievadą iš galinio taško serverio į šį serverį.",
+      "tunnel": "Tunelis {{value}}",
+      "removeTunnel": "Šalinti tunelį {{value}}",
+      "mode": "Režimas",
+      "local": "Vietinis",
+      "remote": "Nuotolinis",
+      "dynamic": "Dinaminis",
+      "targetHost": "Tikslinis serveris",
+      "onThisHostForTunnels": "Šiame serveryje, tuneliams, kuriuos vykdo {{deviceWord}}",
+      "bindHost": "Ryšio serveris",
+      "endpointHost": "Galutinio taško serveris",
+      "addAnotherHostFirstTunnels": "Pirmiausia pridėkite kitą serverį. Tuneliai eina per išsaugotą serverį.",
+      "sourcePort": "Šaltinio prievadas",
+      "endpointPort": "Galutinio taško prievadas",
+      "maxRetries": "Maksimalus bandymų skaičius",
+      "retryEveryS": "Bandyti kas (s)",
+      "startOnItsOwn": "Paleisti savarankiškai",
+      "addTunnel": "Pridėti tunelį",
+      "tunnelNeedsPortsFrom1": "Tuneliui {{value}} reikia prievadų nuo 1 iki 65535"
+    },
+    "register": {
+      "tunnels": "Tuneliai",
+      "startAndStopSavedTunnels": "Paleisti ir sustabdyti išsaugotus tunelius",
+      "tunnel": "TUNELIS",
+      "tunnel2": "Tunelis"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Vietinis galutinis taškas nukopijuotas",
+      "tunnel": "Tunelis | {{sourcePort}}",
+      "portMapping": "Prievadų atvaizdavimas",
+      "connect": "Prisijungti",
+      "disconnect": "Atsijungti",
+      "cancel": "Atšaukti",
+      "connected": "Prisijungta",
+      "connecting": "Prisijungiama",
+      "disconnecting": "Atsijungiama",
+      "error": "Klaida",
+      "retrying": "Bandoma iš naujo ({{value}}/{{value2}})",
+      "waitingS": "Laukiama {{value}} s",
+      "waiting": "Laukiama",
+      "disconnected": "Atsijungta"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Paleidžiamas tunelis prievade {{sourcePort}}",
+      "connectingTunnelOnPort": "Prisijungiama prie tunelio prievade {{sourcePort}}",
+      "disconnectingPort": "Atsijungiama nuo prievado {{sourcePort}}",
+      "cancellingPort": "Atšaukiamas prievadas {{sourcePort}}",
+      "failedToTunnel": "Nepavyko {{action}} tunelio",
+      "tunnels": "Tuneliai | {{count}} | {{value}}",
+      "loadingTunnels": "Kraunami tuneliai…",
+      "noSshTunnelsConfiguredFor": "Šiam serveriui nesukonfigūruoti SSH tuneliai. Pridėkite tunelius iš serverio formos.",
+      "runOn": "Vykdyti",
+      "server": "Serveris",
+      "this": "Šis {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tuneliai šiame {{deviceWord}} sustoja, kai programa uždaroma. „iOS“ jie taip pat sustoja netrukus po to, kai programa pereina į foną.",
+      "failedToFetchTunnelStatuses": "Nepavyko gauti tunelių būsenų",
+      "thisBuildCanTOpen": "Ši versija negali atidaryti tunelių {{deviceWord}}.",
+      "sourceHostNotFound": "Šaltinio serveris nerastas",
+      "endpointHostNotFound": "Galutinio taško serveris nerastas: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tuneliai",
+      "tunnelCount_one": "{{count}} tunelis",
+      "tunnelCount_few": "{{count}} tuneliai",
+      "tunnelCount_many": "{{count}} tunelių",
+      "tunnelCount_other": "{{count}} tunelių",
+      "runningOnServer": "{{connected}} veikia serveryje"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Įgaliojimų įrankiai"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker nėra įdiegtas šiame serveryje.",
+        "dockerDidNotAnswer": "Docker neatsako",
+        "thatIsNotAValid": "Tai nėra galiojantis stekų pavadinimas"
+      }
+    },
+    "containerDetail": {
+      "stop": "Sustabdyti",
+      "start": "Paleisti",
+      "restart": "Perkrauti",
+      "remove": "Pašalinti",
+      "logs": "Žurnalai",
+      "stats": "Statistika",
+      "console": "Konsolė",
+      "logsCopied": "Žurnalai nukopijuoti",
+      "copy": "Kopijuoti",
+      "containerIsNotRunningNo": "Konteineris neveikia, realaus laiko statistikos nėra.",
+      "cpu": "CPU",
+      "memory": "Atmintis",
+      "networkIO": "Tinklo I/O",
+      "blockIO": "Bloko I/O",
+      "pids": "PID",
+      "failedToLoadLogs": "Nepavyko įkelti žurnalų",
+      "failedToLoadStats": "Nepavyko įkelti statistikos",
+      "noOutput": "(išvesties nėra)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Jungiamasi prie Docker...",
+    "remove": "Pašalinti {{name}}?",
+    "stop": "Sustabdyti {{name}}?",
+    "theContainerIsStoppedAnd": "Konteineris sustabdytas ir ištrintas. Jo tūmai išlieka.",
+    "anythingRunningInItStops": "Viskas, kas joje veikia, sustoja.",
+    "remove2": "Pašalinti",
+    "stop2": "Sustabdyti",
+    "dockerThis": "Docker | šis {{deviceWord}}",
+    "lookingForDocker": "Ieškoma Docker...",
+    "dockerIsNotAvailableOn": "Docker nėra prieinamas šiame serveryje.",
+    "noContainersFound": "Konteinerių nerasta",
+    "noContainersMatchYourFilters": "Nėra konteinerių, atitinkančių jūsų filtrus",
+    "useSudo": "Naudoti sudo",
+    "refresh": "Atnaujinti",
+    "containers": "Konteineriai",
+    "stacks": "Stekai",
+    "searchContainers": "Ieškoti konteinerių...",
+    "all": "Visi",
+    "running": "Veikiantys",
+    "stopped": "Sustabdyti",
+    "start": "Paleisti",
+    "restart": "Perkrauti",
+    "pause": "Pauzė",
+    "unpause": "Tęsti",
+    "moreActions": "Daugiau veiksmų",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker neatsako",
+      "docker": "Docker",
+      "noContainers": "Konteinerių nėra"
+    },
+    "dockerConsole": {
+      "attachingTo": "Jungiamasi prie {{name}}...",
+      "consoleDisconnected": "Konsolės ryšys nutrauktas",
+      "reconnect": "Prijungti iš naujo",
+      "failedToLoadTheConsole": "Nepavyko įkelti konsolės",
+      "thisSessionHasNoServer": "Ši sesija neturi serverio"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Konteineriai, žurnalai ir statistika"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stekai šiame serveryje išjungti.",
+      "couldNotLoadStacks": "Nepavyko įkelti stekų",
+      "noStacks": "Nėra stekų",
+      "composeProjectsOnThisHost": "Čia rodomi šio hosto Compose projektai.",
+      "ofRunning": "{{running}} iš {{total}} veikia",
+      "couldNotLoadTheStack": "Nepavyko įkelti steko",
+      "services": "Paslaugos",
+      "nothingIsRunning": "Nieko neveikia.",
+      "composeFile": "Compose failas",
+      "partlyUp": "dalies veikia",
+      "notDeployed": "neišdėstyta",
+      "running": "veikia",
+      "stopped": "sustabdyta",
+      "paused": "pauzėta"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Tai nėra galiojantis konteinerio ID",
+      "consoleFailed": "Konsolė nepavyko",
+      "notAuthenticated": "Neautentikuota",
+      "consoleError": "Konsolės klaida",
+      "connectionFailed": "Nepavyko prisijungti"
+    },
+    "dockerDidNotAnswer": "Docker neatsakė",
+    "failedToLoadContainers": "Nepavyko įkelti konteinerių",
+    "failedTo": "Nepavyko atlikti veiksmo {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Serveris neperssiuntė failo",
+        "cancelled": "Atšaukta",
+        "isGone": "{{path}} nebėra",
+        "canTGoToThe": "{{name}} negali būti perkeltas į šiukšlinę"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Neteisingas šiukšlinės elemento ID",
+        "invalidTrashMetadata": "Neteisingi šiukšlinės metaduomenys",
+        "thisPathCanTBe": "Šio kelio negalima perkelti į šiukšlinę",
+        "aFileAlreadyExistsAt": "Pradinėje vietoje jau yra failas"
+      },
+      "sftp": {
+        "commandFailed": "Komanda nepavyko: {{command}}",
+        "alreadyExists": "{{name}} jau egzistuoja",
+        "alreadyExistsThere": "{{path}} ten jau egzistuoja",
+        "canTGoToThe": "{{name}} negali būti perkeltas į šiukšlinę: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminalas jau nebeatidarytas",
+      "clearHistory": "Išvalyti istoriją",
+      "stopFollowingTheTerminal": "Nustoti sekti terminalą",
+      "followTheTerminal": "Sekti terminalą",
+      "goToTheTerminalS": "Eiti į terminalo aplanką",
+      "cdTheTerminalHere": "cd terminalą čia",
+      "folderHistory": "Aplankų istorija",
+      "mostUsedFirstThenRecent": "Pirmiausia dažniausiai naudojami, tada naujausi",
+      "noFoldersYet": "Dar nėra aplankų"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Nepavyko prisijungti.",
+        "couldNotSaveHowThis": "Nepavyko išsaugoti, kaip šis hostas prisijungia",
+        "thisWayCanTOpen": "Šiuo būdu negalima atidaryti failų"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Nepavyko atidaryti šio aplanko",
+      "cancel": "Atšaukti",
+      "noFoldersHere": "Čia nėra aplankų"
+    },
+    "couldNotOpenThisFolder": "Nepavyko atidaryti šio aplanko",
+    "couldNotSaveToThe": "Nepavyko išsaugoti į aplanką",
+    "failed": "{{label}} nepavyko",
+    "uploading": "Įkeliamas {{name}}",
+    "uploadingFiles": "Įkeliami {{count}} failai",
+    "downloadingToFilesOnMy": "Atsisiunčiama į „Files“, „On My iPhone“, „Termix“",
+    "downloading": "Atsisiunčiamas {{name}}",
+    "downloadingFiles": "Atsisiunčiami {{count}} failai",
+    "openALargeFile": "Atidaryti didelį failą?",
+    "isBigForAEditor": "{{name}} yra didelis {{deviceWord}} redaktoriui. Jis gali veikti lėtai.",
+    "open": "Atidaryti",
+    "thisLooksLikeABinary": "Tai atrodo kaip binarinis failas",
+    "openItInAnotherApp": "Atidaryti jį kitoje programėlėje?",
+    "openWith": "Atidaryti su",
+    "tooBigForTheEditor": "Per didelis redaktoriui",
+    "isOver10MbDownload": "{{name}} yra didesnis nei 10 MB. Ar jį atsisiųsti?",
+    "download": "Atsisiųsti",
+    "delete": "Ištrinti {{what}}?",
+    "moveToTheTrash": "Perkelti {{what}} į šiukšlinę?",
+    "thisCanTBeUndone": "Šio veiksmo negalima atšaukti.",
+    "youCanRestoreItFrom": "Jį galite atkurti iš šiukšlinės.",
+    "delete2": "Ištrinti",
+    "moveToTrash": "Perkelti į šiukšlinę",
+    "deleteForGood": "Ištrinti visam laikui?",
+    "deleteItForGoodInstead": "{{message}}. Ar vietoj to jį ištrinti visam laikui? Šio veiksmo negalima atšaukti.",
+    "deleteFailed": "Nepavyko ištrinti",
+    "connectingThroughTheServer": "Jungiamasi per serverį...",
+    "connectingFromThis": "Jungiamasi iš šio {{deviceWord}}...",
+    "connecting": "Jungiamasi...",
+    "edit": "Redaguoti",
+    "downloadFolder": "Atsisiųsti aplanką",
+    "share": "Bendrinti",
+    "rename": "Pervadinti",
+    "copyTo": "Kopijuoti į",
+    "moveTo": "Perkelti į",
+    "cut": "Iškirpti",
+    "copy": "Kopijuoti",
+    "permissions": "Teisės",
+    "properties": "Savybės",
+    "makeALinkHere": "Sukurti nuorodą čia",
+    "copyPath": "Kopijuoti kelią",
+    "pathCopied": "Kelias nukopijuotas",
+    "done": "Atlikta",
+    "selectAll": "Pažymėti viską",
+    "filterByName": "Filtruoti pagal pavadinimą",
+    "closeSearch": "Uždaryti paiešką",
+    "search": "Paieška",
+    "changeSort": "Keisti rikiavimą",
+    "paste": "Įklijuoti {{count}}",
+    "upload": "Įkelti",
+    "transfers2": "Perdavimai",
+    "more": "Daugiau",
+    "nothingMatches": "Niekas neatitinka",
+    "emptyFolder": "Tuščias aplankas",
+    "uploadFilesOrMakeA": "Įkelkite failus arba sukurkite naują.",
+    "newFolder": "Naujas aplankas",
+    "newFile": "Naujas failas",
+    "select": "Pasirinkti",
+    "hideHiddenFiles": "Slėpti paslėptus failus",
+    "showHiddenFiles": "Rodyti paslėptus failus",
+    "trash": "Šiukšlinė",
+    "folderProperties": "Aplanko savybės",
+    "refresh": "Atnaujinti",
+    "rename2": "Pervadinti {{name}}",
+    "newLink": "Nauja nuoroda",
+    "aLinkInThatPoints": "Nuoroda {{path}}, rodanti į {{path2}}",
+    "name": "Pavadinimas",
+    "create": "Sukurti",
+    "copyHere": "Kopijuoti čia",
+    "moveHere": "Perkelti čia",
+    "fileViewer": {
+      "saved": "Išsaugota {{name}}",
+      "couldNotSaveTheFile": "Nepavyko išsaugoti failo",
+      "discardChanges": "Atmesti pakeitimus?",
+      "hasChangesThatAreNot": "{{name}} turi pakeitimų, kurie nėra išsaugoti.",
+      "discard": "Atmesti",
+      "readOnly": "{{path}} | tik skaitymui",
+      "find": "Ieškoti",
+      "smallerText": "Mažesnis tekstas",
+      "biggerText": "Didesnis tekstas",
+      "turnOffLineWrap": "Išjungti eilučių lūžimą",
+      "wrapLines": "Laužyti eilutes",
+      "save": "Išsaugoti"
+    },
+    "hostSection": {
+      "startIn": "Pradėti",
+      "theFolderTheFileManager": "Aplankas, kuriame pirmiausia atidaromas failų tvarkytuvė",
+      "files": "Failai"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Eiti į {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Daugiau veiksmų",
+        "moreFor": "Daugiau veiksmų failui {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Leidimai",
+      "cancel": "Atšaukti",
+      "apply": "Taikyti ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Nepavyko atidaryti",
+      "openWith": "Atidaryti su",
+      "share": "Bendrinti"
+    },
+    "propertiesView": {
+      "properties": "Savybės",
+      "path": "Kelias",
+      "type": "Tipas",
+      "pointsTo": "Nurodo į",
+      "size": "Dydis",
+      "countFolderSize": "Apskaičiuoti aplanko dydį",
+      "permissions": "Leidimai",
+      "change": "Keisti",
+      "owner": "Savininkas",
+      "group": "Grupė",
+      "modified": "Pakeista",
+      "opened": "Atidaryta",
+      "linkToA": "Nuoroda į {{value}}",
+      "notShownForFolders": "Nerodoma aplankams",
+      "file": "Failas",
+      "folder": "Aplankas",
+      "link": "Nuoroda"
+    },
+    "register": {
+      "fileManager": "Failų tvarkytuvė",
+      "files": "Failai",
+      "browseEditAndMoveFiles": "Naršykite, redaguokite ir perkelti failus",
+      "files2": "FAILAI",
+      "fileManagerAndTransfers": "Failų tvarkytuvė ir perdavimai"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Perdavimas nepavyko"
+      },
+      "transfersPanel": {
+        "pause": "Pauzė",
+        "resume": "Tęsti",
+        "tryAgain": "Bandyti dar kartą",
+        "open": "Atidaryti",
+        "cancel": "Atšaukti",
+        "transfers": "Perdavimai",
+        "goingOf": "{{active}} vyksta | {{done}} iš {{total}}",
+        "clearFinished": "Išvalyti baigtus",
+        "cancelAll": "Atšaukti visus",
+        "noTransfersYet": "Dar nėra perdavimų",
+        "waiting": "Laukiama",
+        "paused": "Pristabdyta",
+        "done": "Atlikta",
+        "failed": "Nepavyko",
+        "cancelled": "Atšaukta"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Nepavyko įkelti šiukšliadėžės",
+      "restored": "Atkurtas {{name}}",
+      "failedToRestore": "Nepavyko atkurti",
+      "failedToDelete": "Nepavyko ištrinti",
+      "trashEmptied": "Šiukšlinė išvalyta",
+      "failedToEmptyTrash": "Nepavyko išvalyti šiukšlinės",
+      "trash": "Šiukšlinė",
+      "itemsAreRemovedAfterDays": "Elementai pašalinami po {{retentionDays}} d.",
+      "close": "Uždaryti",
+      "emptyTrash": "Išvalyti šiukšlinę",
+      "trashIsEmpty": "Šiukšlinė tuščia",
+      "restore": "Atkurti {{name}}",
+      "deleteForGood": "Visam laikui ištrinti {{name}}"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Bent ką"
+      }
+    },
+    "getting": "Gaunama {{name}}",
+    "itemCount_one": "{{count}} elementas",
+    "itemCount_few": "{{count}} elementai",
+    "itemCount_many": "{{count}} elementų",
+    "itemCount_other": "{{count}} elementų",
+    "copiedWhat": "Nukopijuota {{what}}",
+    "movedWhat": "Perkelta {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} turi daugiau nei {{limit}} failų. Atsisiųskite mažesnes aplankus."
+    },
+    "downloadingToFilesOnMyIpad": "Atsisiunčiama į „Files“, „On My iPad“, „Termix“",
+    "size": "Dydis",
+    "date": "Data"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Paslaugų nuorodos",
+      "openInHomepage": "Atidaryti pradžios puslapyje",
+      "thisWidgetOnlyShowsOn": "Šis valdiklis rodomas tik pilname puslapyje."
+    },
+    "register": {
+      "serviceLinks": "Paslaugų nuorodos",
+      "homepage": "Pradžios puslapis"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Šaltinis nenustatytas.",
+        "couldNotLoadTheFeed": "Nepavyko įkelti šaltinio.",
+        "theFeedIsEmpty": "Šaltinis tuščias.",
+        "noLocationSet": "Vieta nenustatyta.",
+        "couldNotLoadTheWeather": "Nepavyko įkelti oro sąlygų.",
+        "noUrlSet": "URL nenustatytas.",
+        "couldNotLoadTheData": "Nepavyko įkelti duomenų.",
+        "noPictureSet": "Paveikslėlis nenustatytas.",
+        "badResponse": "blogas atsakymas"
+      },
+      "services": "Paslaugos",
+      "service": "Paslauga",
+      "serviceLinks": "Paslaugų nuorodos",
+      "bookmarks": "Žymelės",
+      "links2": "Nuorodos",
+      "search": "Paieška",
+      "clock": "Laikrodis",
+      "countdown": "Atvirkštinis skaičiavimas",
+      "calendar": "Kalendorius",
+      "notes": "Pastabos",
+      "banner": "Baneris",
+      "ping": "Ping",
+      "host": "Serveris",
+      "hosts": "Serveriai",
+      "quickConnect": "Greitas prisijungimas",
+      "feed": "Šaltinis",
+      "weather": "Oro sąlygos",
+      "customApi": "Nepriklausoma API",
+      "picture": "Paveikslėlis",
+      "widget": "Valdiklis",
+      "links": {
+        "noServicesYet": "Dar nėra paslaugų.",
+        "noLinkSet": "Nuoroda nenustatyta.",
+        "noLinksYet": "Dar nėra nuorodų.",
+        "noSearchEngineSet": "Paieškos variklis nenustatytas.",
+        "search": "Paieška",
+        "noShortcutsYet": "Dar nėra nuorodų.",
+        "search2": "Ieškoti {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Nepavyko atidaryti nuorodos"
+      },
+      "status": {
+        "noUrlsYet": "Dar nėra URL adresų.",
+        "down": "Nedujantis",
+        "noHostsPicked": "Nėra pasirinktų serverių."
+      },
+      "text": {
+        "noNotesYet": "Dar nėra pastabų.",
+        "noTextYet": "Dar nėra teksto."
+      },
+      "time": {
+        "noDateSet": "Data nenustatyta.",
+        "timeIsUp": "Laikas baigėsi"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Nepavyko išsaugoti numatytųjų",
+    "couldNotResetTheDefault": "Nepavyko atstatyti numatytųjų",
+    "back": "Atgal",
+    "hostDefaults": "Serverių numatytieji nustatymai",
+    "newHostsStartFromThese": "Nauji serveriai pradeda nuo šių",
+    "managedOnTheServer": "Valdoma serveryje",
+    "defaultsForThisServerAre": "Šio serverio numatytieji nustatymai nustatomi svetainėje.",
+    "level": "Lygis",
+    "yourDefaultsOrOneFolder": "Jūsų numatytieji arba vieno aplanko",
+    "myDefaults": "Mano numatytieji",
+    "theServerSets": " Serveris nustato {{adminCount}}.",
+    "aFolderWinsOverYour": "Aplankas turi prioritetą prieš jūsų numatytuosius nustatymus, o jūsų numatytieji – prieš serverio. Serveris išlaiko bet kokią reikšmę, kurią nustatėte patys.{{value}}",
+    "save": "Išsaugoti",
+    "authentication": "Autentifikacija",
+    "none": "Nėra",
+    "reset": "Atstatyti",
+    "model": {
+      "username": "Vartotojo vardas",
+      "sshPort": "SSH prievadas",
+      "authentication": "Autentifikacija",
+      "aSavedCredentialForNew": "Išsaugotas prisijungimo būdas naujiems serveriams",
+      "forceKeyboardInteractive": "Priverstinė klaviatūros sąveika",
+      "keepaliveInterval": "Keepalive intervalas",
+      "seconds0TurnsItOff": "Sekundės, 0 išjungia",
+      "keepaliveTries": "Keepalive bandymai",
+      "allowOldAlgorithms": "Leisti senus algoritmus",
+      "agentForwarding": "Agento perdavimas",
+      "environmentVariables": "Aplinkos kintamieji",
+      "oneNameValuePerLine": "Vienas VARDAS=reikšmė eilutėje",
+      "checkIfTheHostIs": "Patikrinti, ar serveris veikia",
+      "checkInterval": "Patikros intervalas",
+      "secondsEmptyUsesTheServer": "Sekundės, tuščia naudoja serverio",
+      "socks5Proxy": "SOCKS5 tarpinis serveris",
+      "setInTheWebApp": "Nustatyta svetainėje",
+      "jumpHosts": "Tarpiniai serveriai",
+      "portKnocking": "Prievado baksnojimas",
+      "notSet": "Nenustatyta",
+      "fromTheServer": "Iš serverio",
+      "fromYourDefaults": "Iš jūsų numatytųjų",
+      "builtIn": "Integruota"
+    },
+    "register": {
+      "hostDefaults": "Serverių numatytieji nustatymai",
+      "portUserAndOptionsFor": "Prievadas, vartotojas ir parinktys naujiems serveriams"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Dar nėra duomenų",
+      "cpu": "CPU",
+      "memory": "Atmintis",
+      "disk": "Diskas",
+      "history": "Istorija",
+      "loading": "Įkeliama..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Nepavyko perskaityti metrikų",
+      "metrics": "Metrikos",
+      "cpu": "CPU",
+      "memory": "Atmintis",
+      "disk": "Diskas",
+      "noRecentSampleOpenThe": "Nėra naujausių duomenų. Atidarykite šio serverio metrikas, kad pradėtumėte rinkti."
+    },
+    "register": {
+      "enableMetrics": "Įjungti metrikas",
+      "cpuMemoryDiskAndNetwork": "CPU, atmintis, diskas ir tinklas per SSH",
+      "hostMetrics": "Serverio metrikos",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrikos",
+      "cpuMemoryDiskAndNetwork2": "CPU, atmintis, diskas ir tinklas"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Serverio metrikos | šis {{deviceWord}}",
+      "hostMetrics": "Serverio metrikos",
+      "ran": "Vykdyta {{name}}",
+      "loadingMetrics": "Kraunamos metrikos...",
+      "couldNotReadMetricsFrom": "Nepavyko perskaityti metrikų iš šio serverio",
+      "failedToLoadMetrics": "Nepavyko įkelti metrikų",
+      "thisSessionHasNoServer": "Ši sesija neturi serverio",
+      "twoFactorRequiredForThis": "Šio serverio statistikai reikalingas dviejų faktorių autentifikavimas.",
+      "failedToStartMetrics": "Nepavyko pradėti metrikų",
+      "failedToRun": "Nepavyko vykdyti {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Vienam šerdies: {{value}}",
+        "cores": "Šerdys",
+        "load": "Krovinys",
+        "user": "Naudotojas",
+        "system": "Sistema",
+        "ioWait": "IO laukimas",
+        "steal": "Pavogta"
+      },
+      "diskWidget": {
+        "disk": "Diskas {{mount}}",
+        "disk2": "Diskas",
+        "used": "Naudojama",
+        "total": "Iš viso",
+        "free": "Laisva"
+      },
+      "firewallWidget": {
+        "firewall": "Ugniasienė",
+        "rules": "{{type}} | {{ruleCount}} taisyklės",
+        "noFirewallDetected": "Ugniasienė neaptikta"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "Atmintis",
+        "temp": "Temperatūra",
+        "power": "Galios suvartojimas",
+        "fan": "Ventiliatorius"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Prisijungimų veikla",
+        "noLoginActivityRecorded": "Prisijungimų veikla nefiksuota",
+        "logins": "Prisijungimai",
+        "uniqueIps": "Unikalūs IP",
+        "failed": "Nepavyko",
+        "recent": "Naujausi"
+      },
+      "memoryWidget": {
+        "memory": "Atmintis",
+        "used": "Naudojama",
+        "total": "Iš viso",
+        "cached": "Kešinėje",
+        "free": "Laisva"
+      },
+      "networkWidget": {
+        "network": "Tinklas",
+        "noInterfaces": "Nėra sąsajų",
+        "up": "Įkelti",
+        "down": "Atsiųsti"
+      },
+      "portsWidget": {
+        "listeningPorts": "Klausomos prievadai",
+        "noListeningPorts": "Nėra klausomų prievadų"
+      },
+      "processesWidget": {
+        "sortBy": "Rikiuoti pagal {{label}}",
+        "processes": "Procesai",
+        "running": "{{value}} veikia | {{total}}",
+        "noProcessData": "Nėra procesų duomenų",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "KOMANDA"
+      },
+      "systemWidget": {
+        "system": "Sistema",
+        "hostname": "Kompiuterio pavadinimas",
+        "os": "OS",
+        "kernel": "Branduolys",
+        "arch": "Architektūra",
+        "noSystemInfo": "Nėra sistemos informacijos"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatūra"
+      },
+      "uptimeWidget": {
+        "uptime": "Veikimo laikas"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Nukopijuota su slaptažodžiu",
+      "copiedTheLink": "Nukopijuota nuoroda",
+      "shareHost": "Bendrinti serverį",
+      "thatHostNoLongerExists": "Šio serverio nebėra",
+      "scanThisInTermixOn": "Nuskenuokite tai Termix programoje kitame {{deviceWord}}, skiltyje Importas ir eksportas. Kode yra adresas, prievadas ir vartotojas. Jame nėra slaptažodžio ar rakto.",
+      "copyLink": "Kopijuoti nuorodą",
+      "copyLinkWithPassword": "Kopijuoti nuorodą su slaptažodžiu"
+    },
+    "includePasswordsAndKeys": "Įtraukti slaptažodžius ir raktus?",
+    "anyoneWhoGetsThisFile": "Bet kas, gavęs šį failą, gali prisijungti prie šių serverių. Saugokite jį.",
+    "includeThem": "Įtraukti",
+    "pickAtLeastOneHost": "Pasirinkite bent vieną serverį",
+    "couldNotMakeTheFile": "Nepavyko sukurti failo",
+    "copiedToTheClipboard": "Nukopijuota į iškarpinę",
+    "importAndExport": "Importas ir eksportas",
+    "moveHostsInAndOut": "Perkelti serverius į vidų ir išorę",
+    "import": "Importuoti",
+    "aTermixHostFileAn": "Termix serverių failas, SSH konfigūracijos failas arba serverio nuoroda ar QR kodas iš kito {{deviceWord}}.",
+    "export": "Eksportuoti",
+    "allHosts": "Visi serveriai",
+    "picked": "{{size}} pasirinkta",
+    "pickHosts": "Pasirinkti serverius",
+    "includePasswordsAndKeys2": "Įtraukti slaptažodžius ir raktus",
+    "offMakesAFileSafe": "Išjungus, failas tampa saugus bendrinimui. Serveriai, naudojantys išsaugotus prisijungimo duomenis, į juos nuorodą pagal pavadinimą",
+    "shareAFile": "Bendrinti failą",
+    "copy": "Kopijuoti",
+    "importPanel": {
+      "couldNotReadThat": "To nepavyko perskaityti",
+      "couldNotReadThatFile": "To failo nepavyko perskaityti",
+      "importFailed": "Importas nepavyko",
+      "chooseAFile": "Pasirinkite failą",
+      "paste": "Įklijuoti",
+      "scanACode": "Nuskenuoti kodą",
+      "couldNotBeRead": "{{count}} nepavyko perskaityti",
+      "updateHostsThatExist": "Atnaujinti jau esamus serverius",
+      "sameAddressPortAndUser": "Tas pats adresas, prievadas ir vartotojas. Priešingu atveju jie bus praleisti",
+      "cancel": "Atšaukti",
+      "import": "Importuoti",
+      "andMore": "ir dar {{value}}"
+    },
+    "qrCode": {
+      "qrCode": "QR kodas"
+    },
+    "register": {
+      "importAndExport": "Importas ir eksportas",
+      "moveHostsInOrOut": "Perkelkite serverius į vidų ar išorę naudodami failą arba QR kodą",
+      "shareHost": "Bendrinti serverį"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Nuskenuoti serverio kodą",
+      "pointTheCameraAtA": "Nukreipkite kamerą į Termix serverio QR kodą.",
+      "termixNeedsTheCameraTo": "Termix reikia kameros, kad nuskenuotų kodą. Nieko nėra įrašoma.",
+      "allowTheCamera": "Leisti naudoti kamerą"
+    },
+    "read": {
+      "termixFile": "Termix failas",
+      "sshConfig": "SSH konfigūracija",
+      "thereIsNothingToImport": "Nėra ko importuoti",
+      "thatIsNotATermix": "Tai nėra Termix serverio nuoroda",
+      "linkHost": "1 serveris: {{name}}",
+      "sourceHosts_one": "{{what}} su {{count}} serveriu",
+      "sourceHosts_few": "{{what}} su {{count}} serveriais",
+      "sourceHosts_many": "{{what}} su {{count}} serverių",
+      "sourceHosts_other": "{{what}} su {{count}} serverių"
+    },
+    "saveYourTermixHosts": "Išsaugokite savo Termix serverius"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Atlikta",
+      "rejected": "Atmesta",
+      "approvals": "Patvirtinimai",
+      "nothingIsWaiting": "Nieko nebelaukiama",
+      "actionsARuleHoldsFor": "Čia rodomi veiksmai, kuriems taisyklė reikalauja patvirtinimo.",
+      "approveAndRun": "Patvirtinti ir vykdyti",
+      "reject": "Atmesti",
+      "couldNotLoadApprovals": "Nepavyko įkelti patvirtinimų",
+      "couldNotDecide": "Nepavyko priimti sprendimo"
+    },
+    "approvalsCard": {
+      "approved": "Patvirtinta",
+      "rejected": "Atmesta",
+      "waitingForApproval": "Laukiama patvirtinimo",
+      "approve": "Patvirtinti",
+      "reject": "Atmesti",
+      "couldNotDecide": "Nepavyko priimti sprendimo",
+      "seeAll": "Rodyti visus"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "To negalima atšaukti. Vykdyti?",
+      "run": "Vykdyti",
+      "sentForApproval": "Pateikta patvirtinimui",
+      "target": "Tikslas",
+      "theItemOnTheHost": "Elementas serveryje, pvz., konteineris",
+      "dryRun": "Bandomasis vykdymas",
+      "back": "Atgal",
+      "actions": "Veiksmai",
+      "noActionsForThisHost": "Šiam serveriui nėra veiksmų",
+      "turnOnAPluginLike": "Įjunkite šiam serveriui skirtą priedą, pvz., „Docker“ arba „Paslaugos“.",
+      "destructive": "Destructive",
+      "changes": "Pakeitimai",
+      "theActionCouldNotRun": "Veiksmo nepavyko vykdyti",
+      "couldNotLoadActions": "Nepavyko įkelti veiksmų"
+    },
+    "register": {
+      "actions": "Veiksmai",
+      "waitingForApproval": "Laukiama patvirtinimo",
+      "approvals": "Patvirtinimai",
+      "actionsWaitingForAPerson": "Veiksmai, laukiantys žmogaus sutikimo",
+      "runHistory": "Vykdomų veiksmų istorija",
+      "everyActionAnyoneRanFrom": "Visi veiksmai, kuriuos atliko bet kas iš bet kokio įrenginio"
+    },
+    "runHistory": {
+      "cancelThisRun": "Atšaukti šį vykdymą?",
+      "cancelRun": "Atšaukti vykdymą",
+      "keep": "Palikti",
+      "undoThisRun": "Atšaukti šį vykdymą?",
+      "thisRunsTheActionS": "Tai vykdys veiksmo atšaukimą su tais pačiais įvedimais.",
+      "undo": "Atšaukti",
+      "cancelled": "Atšaukta",
+      "itAlreadyFinished": "Jau baigta",
+      "done": "Atlikta",
+      "runHistory": "Vykdomų veiksmų istorija",
+      "nothingHasRunYet": "Dar niekas nebuvo vykdyta",
+      "dryRun": "Bandomasis vykdymas",
+      "cancel": "Atšaukti",
+      "couldNotLoadHistory": "Nepavyko įkelti istorijos",
+      "couldNotCancel": "Nepavyko atšaukti",
+      "couldNotUndo": "Nepavyko atšaukti"
+    },
+    "api": {
+      "needsApproval": "Reikia patvirtinimo",
+      "needsSignIn": "Reikia prisijungti",
+      "done": "Atlikta",
+      "failed": "Nepavyko",
+      "running": "Vykdoma",
+      "interrupted": "Pertraukta",
+      "rejected": "Atmesta",
+      "cancelled": "Atšaukta",
+      "expired": "Pasibaigęs galiojimas"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Įjungti {{value}}",
+      "moreSettingsForThisAre": "Daugiau nustatymų rasite „Termix“ internetinėje programėlėje.",
+      "pluginHostSettings": "Priedo serverio nustatymai"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} turi būti skaičius",
+      "mustBeAtLeast": "{{field}} turi būti ne mažiau kaip {{min}}",
+      "mustBeAtMost": "{{field}} turi būti ne daugiau kaip {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Susiekite serverį, kad galėtumėte jį naudoti",
+      "runsOnYourTermixServer": "{{name}} veikia jūsų „Termix“ serveryje."
+    },
+    "pluginWebView": {
+      "canTLoad": "Nepavyko įkelti {{name}}",
+      "theServerDidNotSend": "Serveris neperssiuntė priedo. Įsitikinkite, kad jis įjungtas, ir bandykite dar kartą.",
+      "openThisLink": "Atidaryti šią nuorodą?",
+      "open": "Atidaryti",
+      "needsANewerVersionOf": "Reikalinga naujesnė programėlės versija",
+      "usesPartsOfTermixThis": "{{name}} naudoja „Termix“ dalis, kurių šioje programėlėje dar nėra.",
+      "didNotStart": "{{name}} nepavyko paleisti",
+      "thisScreenIsNotIn": "Šis ekranas nėra serveryje esančioje priedo versijoje.",
+      "thePluginHitAnError": "Paleidžiant priedą įvyko klaida.",
+      "youReOffline": "Jūs esate neprisijungę",
+      "runsOnYourServerSo": "{{name}} veikia jūsų serveryje, todėl reikia ryšio. Jis vėl atsivers, kai būsite prisijungę.",
+      "tryAgain": "Bandyti dar kartą"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Šis hostas dar nėra šiame {{deviceWord}}.",
+      "theAppCanTOpen": "Programėlė negali to atidaryti iš čia.",
+      "thatHostIsNotOn2": "Šis hostas dar nėra šiame {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Slaptažodis",
+      "unchangedIfBlank": "Nepakeista, jei tuščia",
+      "port": "Prievadas",
+      "domain": "Domenas",
+      "displaySoundAndClipboardSettings": "Ekrano, garso ir iškarpinės nustatymai yra „Termix“ internetinėje programėlėje.",
+      "portMustBeFrom1": "{{label}} prievadas turi būti nuo 1 iki 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Nuotolinio darbalaukio ryšys nutrūko",
+        "signIn": "{{label}} prisijungimas",
+        "itWillNotBeSaved": "{{error}} Jis nebus išsaugotas.",
+        "enterTheLoginForIt": "Įveskite prisijungimo duomenis hostui {{title}}. Jie nebus išsaugoti.",
+        "reconnecting": "Vėl jungiamasi prie {{label}}",
+        "connecting": "Jungiamasi prie {{label}}",
+        "connectionFailed": "Ryšio nustatymas nepavyko",
+        "disconnected": "Atsijungta",
+        "reconnect": "Jungtis iš naujo",
+        "connectThroughTheServer": "Jungtis per serverį",
+        "pasteToRemote": "Įklijuoti į nuotolinį kompiuterį",
+        "typeClipboard": "Rašyti iškarpinę",
+        "copyRemoteClipboard": "Kopijuoti nuotolinę iškarpinę",
+        "theComputerSCertificateWas": "Kompiuterio sertifikatas nebuvo patikimas.",
+        "thatLoginWasRefusedTry": "Prisijungimas atmestas. Bandykite dar kartą."
+      },
+      "target": {
+        "trustThisComputer": "Pasitikėti šiuo kompiuteriu?",
+        "theCanTCheckS": "{{deviceWord}} negali patikrinti {{hostName}} sertifikato. Prieš tęsdami įsitikinkite, kad šis pirštų atspaudas atitinka tą, kuris yra kompiuteryje.\n\n{{fingerprint}}",
+        "trustAndConnect": "Pasitikėti ir jungtis",
+        "certificateChanged": "Sertifikatas pakeistas",
+        "showsAnotherCertificateThanLast": "{{hostName}} rodo kitą sertifikatą nei paskutinį kartą. Tai įvyksta, kai kompiuteris sukuria naują sertifikatą, arba kai kas nors klausosi tarp jūsų.\n\nNaujas pirštų atspaudas:\n{{fingerprint}}",
+        "trustTheNewOne": "Pasitikėti naujuoju"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Nuotolinis darbalaukis",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Atlikta",
+      "keyboard": "Klaviatūra",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Nustatymai",
+      "remoteSettings": "Nuotoliniai nustatymai",
+      "mouseMode": "Pelės režimas",
+      "touch": "Jutiklinis ekranas",
+      "trackpad": "Taktilinė plokštė",
+      "tapWhereYouWantTo": "Bakstelėkite ten, kur norite spustelėti. Laikykite nuspaudę dešiniuoju pelės mygtuku, vilkite, kad vilktumėte.",
+      "dragToMoveThePointer": "Vilkite, kad judintumėte žymeklį. Bakstelėkite, kad spustelėtumėte, bakstelėkite dviem pirštais dešiniuoju pelės mygtuku, bakstelėkite ir vilkite, kad vilktumėte.",
+      "zoomXPinchAnywhereTo": "Priartinimas: {{value}}x. Suspauskite bet kur, kad priartintumėte",
+      "reset": "Atstatyti",
+      "cancel": "Atšaukti",
+      "connect": "Prisijungti",
+      "username": "Vartotojo vardas",
+      "domainOptional": "Domenas (nebūtina)",
+      "domain": "Domenas",
+      "password": "Slaptažodis",
+      "leftArrow": "Rodyklė į kairę",
+      "upArrow": "Rodyklė į viršų",
+      "downArrow": "Rodyklė žemyn",
+      "rightArrow": "Rodyklė į dešinę",
+      "rdpSignIn": "RDP prisijungimas"
+    },
+    "theRemoteDesktopDropped": "Nuotolinis darbalaukis atjungtas",
+    "theyWillNotBeSaved": "{{errorMessage}} Jie nebus išsaugoti.",
+    "enterCredentialsForTheyWill": "Įveskite prisijungimo duomenis prie {{title}}. Jie nebus išsaugoti.",
+    "connecting": "Jungiamasi",
+    "connectionFailed": "Nepavyko prisijungti",
+    "disconnected": "Atjungta",
+    "reconnect": "Prijungti iš naujo",
+    "route": {
+      "thisHostCanTOpen": "Šis serveris negali atidaryti nuotolinio darbalaukio iš čia."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Užblokuota programos"
+    },
+    "failedToStartRemoteSession": "Nepavyko pradėti nuotolinės sesijos",
+    "thatLoginWasRefusedTry": "Prisijungimas atmestas. Bandykite dar kartą.",
+    "theRemoteRefusedTheSaved": "Nuotolinis serveris atmetė išsaugotus prisijungimo duomenis. Patikrinkite RDP prisijungimą šiame serveryje.",
+    "remoteSessionFailed": "Nuotolinė sesija nepavyko",
+    "remoteSessionReturnedAnInvalid": "Nuotolinė sesija grąžino neteisingą žinutę",
+    "failedToLoadTheRemote": "Nepavyko įkelti nuotolinio darbalaukio kliento"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Jokių įrašų",
+      "thisHostDoesNotKeep": "Šis serveris nelaiko systemd žurnalo.",
+      "all": "Visi",
+      "warnings": "Įspėjimai",
+      "errors": "Klaidos",
+      "stop": "Sustabdyti",
+      "follow": "Sekti",
+      "nothingLogged": "Nėra įrašų",
+      "tryAnotherLevel": "Pabandykite kitą lygį.",
+      "couldNotReadTheJournal": "Nepavyko perskaityti žurnalo"
+    },
+    "register": {
+      "services": "Paslaugos",
+      "startStopAndReadLogs": "Paleisti, sustabdyti ir skaityti žurnalus"
+    },
+    "readingServices": "Kraunami paslaugos...",
+    "thisHostHasNoSystemd": "Šis serveris neturi systemd arba OpenRC.",
+    "noServicesMatch": "Atitinkančių paslaugų nerasta",
+    "noServicesFound": "Paslaugų nerasta",
+    "services": "Paslaugos",
+    "journal": "Žurnalas",
+    "searchServices": "Ieškoti paslaugų...",
+    "all": "Visos",
+    "running": "Veikiančios",
+    "failed": "Nesėkmingos ({{failed}})",
+    "failed2": "Nesėkmingos",
+    "servicesCard": {
+      "services": "Paslaugos",
+      "noSystemdOrOpenrc": "Nėra systemd arba OpenRC",
+      "failed": "{{failed}} nesėkmingos",
+      "allRunning": "Visos veikia",
+      "couldNotReadServices": "Nepavyko nuskaityti paslaugų"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Ji lieka sustabdyta, kol bus paleista iš naujo arba paleistas serveris.",
+      "itStopsForAMoment": "Ji trumpam sustoja ir vėl paleidžiama.",
+      "stop": "Sustabdyti",
+      "restart": "Perkrauti",
+      "is": "{{name}} yra {{state}}",
+      "start": "Paleisti",
+      "journal": "Žurnalas",
+      "couldNotReadTheService": "Nepavyko nuskaityti paslaugos",
+      "couldNot": "Nepavyko {{action}} {{name}}",
+      "startsAtBoot": "Paleidžiama paleidus sistemą",
+      "mainPid": "Pagrindinis PID",
+      "activeSince": "Aktyvi nuo",
+      "unitFile": "Vieneto failas",
+      "notSet": "[nenurodyta]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Neprisijungęs",
+        "followFailed": "Sekimas nepavyko",
+        "connectionFailed": "Nesėkmingas prisijungimas"
+      }
+    },
+    "couldNotReadServices": "Nepavyko nuskaityti paslaugų",
+    "services2": "Paslaugos{{where}}",
+    "title": "Paslaugos",
+    "failedCount": "{{count}} nesėkmingos"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Sesijos dalijimasis",
+      "shareLink": "Dalintis nuoroda"
+    },
+    "shareSessionView": {
+      "canWatch": "Gali stebėti",
+      "canType": "Gali rašyti",
+      "n1Hour": "1 valanda",
+      "n8Hours": "8 valandos",
+      "n1Day": "1 diena",
+      "n7Days": "7 dienos",
+      "never": "Niekada",
+      "shareSession": "Dalintis sesija",
+      "anyoneWithTheLinkCan": "Bet kas, turintis nuorodą, gali atidaryti šį terminalą, kol jis veikia. Nuorodas galite panaikinti Termix.",
+      "peopleWithTheLink": "Žmonės, turintys nuorodą",
+      "expiresAfter": "Galioja iki",
+      "link": "Nuoroda",
+      "copy": "Kopijuoti",
+      "share": "Dalintis",
+      "makeLink": "Sukurti nuorodą",
+      "theServerGaveNoLink": "Serveris nepateikė nuorodos",
+      "couldNotMakeALink": "Nepavyko sukurti nuorodos",
+      "linkCopied": "Nuoroda nukopijuota"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Nėra aplanko"
+    },
+    "hostPicker": {
+      "selectNone": "Deselect all",
+      "selectAll": "Pažymėti visus",
+      "done": "Atlikta"
+    },
+    "register": {
+      "snippets": "Kodų fragmentai",
+      "snippets2": "KODŲ FRAGMENTAI",
+      "savedCommandsToRunOn": "Išsaugotos komandos, kurias galima vykdyti bet kuriame serveryje"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Nėra būdo pasiekti šio serverio iš čia",
+      "exitedWith": "Baigta su {{exitCode}}",
+      "thisCanTRunIt": "Šis {{deviceWord}} negali jo vykdyti",
+      "noServerIsLinked": "Joks serveris nėra susietas"
+    },
+    "runOnHostsSheet": {
+      "run": "Vykdyti",
+      "run2": "Vykdyti „{{name}}“",
+      "runsOverSshOnEach": "Vykdoma per SSH kiekviename serveryje. Terminalas neatidaromas.",
+      "close": "Uždaryti",
+      "hosts": "Serveriai",
+      "pickHosts": "Pasirinkti serverius",
+      "workedFailed": "{{value}} pavyko, {{failed}} nepavyko",
+      "runOn2": "Vykdyti",
+      "runOn_one": "Vykdyti „{{name}}“ {{count}} serveryje?",
+      "runOn_few": "Vykdyti „{{name}}“ {{count}} serveriuose?",
+      "runOn_many": "Vykdyti „{{name}}“ {{count}} serverių?",
+      "runOn_other": "Vykdyti „{{name}}“ {{count}} serveriuose?",
+      "hostsPicked_one": "Pasirinktas {{count}} serveris",
+      "hostsPicked_few": "Pasirinkti {{count}} serveriai",
+      "hostsPicked_many": "Pasirinkta {{count}} serverių",
+      "hostsPicked_other": "Pasirinkti {{count}} serveriai"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Ieškoti kodų fragmentų",
+      "pastesTheNote": "Įklijuoja pastabą",
+      "runsTheSnippet": "Vykdo kodų fragmentą",
+      "noSnippetsMatch": "Nėra atitinkančių kodų fragmentų",
+      "noSnippetsYet": "Dar nėra kodų fragmentų",
+      "addSnippetsInSettingsSnippets": "Pridėkite kodų fragmentus skiltyje Nustatymai, Kodų fragmentai",
+      "run": "Vykdyti",
+      "insertWithoutRunning": "Įterpti nevykdant",
+      "copy": "Kopijuoti"
+    },
+    "snippetsCard": {
+      "snippets": "Kodų fragmentai",
+      "run": "Vykdyti „{{name}}“"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Nėra kodų fragmentų, kuriuos būtų galima eksportuoti",
+      "couldNotMakeTheFile": "Nepavyko sukurti failo",
+      "copiedToTheClipboard": "Nukopijuota į iškarpinę",
+      "couldNotImport": "Nepavyko importuoti",
+      "couldNotReadThatFile": "Nepavyko perskaityti to failo",
+      "importAndExport": "Importuoti ir eksportuoti",
+      "theSameFileTheWeb": "Tas pats failas, kurį naudoja naršyklės programėlė.",
+      "export": "Eksportuoti",
+      "shareAFile": "Bendrinti failą",
+      "copy": "Kopijuoti",
+      "import": "Importuoti",
+      "updateSnippetsThatExist": "Atnaujinti jau esamus kodų fragmentus",
+      "sameNameInTheSame": "Tas pats pavadinimas tame pačiame aplanke. Priešingu atveju jie bus praleisti",
+      "chooseAFile": "Pasirinkti failą",
+      "paste": "Įklijuoti",
+      "saveYourSnippets": "Išsaugokite savo kodų fragmentus"
+    },
+    "useSnippetRunner": {
+      "run": "Vykdyti „{{name}}“?",
+      "run2": "Vykdyti",
+      "fillInTheValuesFor": "Užpildykite šio kodų fragmento reikšmes.",
+      "cancel": "Atšaukti",
+      "insert": "Įterpti",
+      "noTerminalIsOpen": "Nėra atidaryto terminalo"
+    },
+    "variables": {
+      "input": "Įvestis {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Tai nėra galiojantis JSON failas",
+      "theFileNeedsASnippets": "Faile turi būti kodų fragmentų arba aplankų sąrašas",
+      "snippetNameAndContentAre": "Kodų fragmentas „{{value}}“: būtinas pavadinimas ir turinys",
+      "folder": "Aplankas „{{name}}“: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Įkeliami Tailscale įrenginiai…",
+      "searchTailscaleDevices": "Ieškoti Tailscale įrenginių…",
+      "searchTailscaleDevices2": "Ieškoti Tailscale įrenginių",
+      "clearDeviceSearch": "Išvalyti įrenginių paiešką",
+      "refreshTailscaleDevices": "Atnaujinti Tailscale įrenginius",
+      "device": "Įrenginys",
+      "noTailnetAddress": "Nėra tailnet adreso",
+      "tailscaleDevice": "Tailscale įrenginys",
+      "tailscaleDevices": "Tailscale įrenginiai",
+      "addAHostThatConnects": "Pridėkite hostą, kuris jungiasi per Tailscale SSH.",
+      "username": "Vartotojo vardas",
+      "sshUsernameFor": "SSH vartotojo vardas hostui {{value}}",
+      "addHost": "Pridėti hostą",
+      "noTailscaleDevicesMatchYour": "Nerasta Tailscale įrenginių, atitinkančių jūsų paiešką.",
+      "noTailscaleDevicesFound": "Nerasta Tailscale įrenginių.",
+      "noTailscaleApiKeyIs": "Šiame serveryje nesukonfigūruotas Tailscale API raktas. Paprašykite administratoriaus jį pridėti.",
+      "youDoNotHavePermission": "Neturite leidimo peržiūrėti Tailscale įrenginių sąrašo.",
+      "couldNotLoadTailscaleDevices": "Nepavyko įkelti Tailscale įrenginių. Pabandykite dar kartą atnaujinę.",
+      "tailscaleIsUnavailableOnThis": "Tailscale šiuo metu nepasiekiamas šiame serveryje."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Jungiamasi iš naujo | bandymas {{attempt}}",
+      "reconnectingInSTry": "Jungiamasi iš naujo po {{secs}} s | bandymas {{attempt}}",
+      "offlineWaitingForNetwork": "Atjungta, laukiama tinklo",
+      "sendToTheNewShell": "Siųsti {{what}} į naują komandų eilutę?",
+      "reconnectNow": "Jungtis iš naujo dabar",
+      "send": "Siųsti",
+      "discard": "Atmesti",
+      "typedChars_one": "{{count}} įvestas simbolis",
+      "typedChars_few": "{{count}} įvesti simboliai",
+      "typedChars_many": "{{count}} įvestų simbolių",
+      "typedChars_other": "{{count}} įvestų simbolių",
+      "waiting": "{{what}} laukiama"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Jungimosi žurnalas nukopijuotas",
+      "connectionLog": "Jungimosi žurnalas",
+      "copyItIntoABug": "Nukopijuokite jį į klaidos pranešimą. Adresai ir vartotojo vardai neįtraukiami.",
+      "copy": "Kopijuoti"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Išvalyti šio hosto istoriją?",
+        "clear": "Išvalyti",
+        "searchHistory": "Ieškoti istorijoje",
+        "typesTheCommandWithoutRunning": "Įveda komandą, bet jos nevykdo",
+        "noCommandsMatch": "Nėra atitinkančių komandų",
+        "noHistoryYet": "Istorijos dar nėra",
+        "commandsYouRunOnThis": "Čia rodomos komandos, kurias vykdate šiame hoste",
+        "run": "Vykd",
+        "typeWithoutRunning": "Įvesti nevykdant",
+        "copy": "Kopijuoti",
+        "delete": "Ištrinti",
+        "historyCleared": "Istorija išvalyta"
+      },
+      "suggestionStrip": {
+        "use": "Naudoti {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Programos nustatymas",
+      "delete": "Ištrinti (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Kortelės pavadinimas iš komandų eilutės",
+      "programsCanSetTheTab": "Programos gali nustatyti kortelės pavadinimą",
+      "openTmux": "Atidaryti tmux",
+      "attachToATmuxSession": "Prijungti prie tmux sesijos arba sukurti naują",
+      "reconnectOnDrop": "Jungtis iš naujo nutraukus ryšį",
+      "keepTabOpenOnExit": "Palikti kortelę atidarytą išeinant",
+      "pressEnterToConnectAgain": "Paspauskite Enter, kad jungtumėtės iš naujo",
+      "saveCommandHistory": "Išsaugoti komandų istoriją",
+      "offerToFillPasswordPrompts": "Siūlyti užpildyti slaptažodžio užklausas",
+      "offerToFillSudoPrompts": "Siūlyti užpildyti sudo užklausas",
+      "usesTheSudoPasswordFrom": "Naudoti sudo slaptažodį iš SSH kortelės",
+      "none": "Nėra",
+      "look": "Išvaizda",
+      "theme": "Tema",
+      "font": "Šriftas",
+      "cursor": "Kursorius",
+      "bell": "Garso signalas",
+      "scrollbackLines": "Slinkimo eilutės",
+      "app": "Programėlė",
+      "behavior": "Elgsena",
+      "backspaceSends": "Backspace siunčia",
+      "startupSnippet": "Paleidimo komanda",
+      "runsOnceTheShellIs": "Vykdoma, kai shellas paruoštas",
+      "fillWithoutAsking": "Užpildyti neklausiant",
+      "onThisOnlyOnceYou": "Tik šiame {{deviceWord}}, pasirinkus „Visada užpildyti“",
+      "connection": "Ryšys",
+      "keepalive": "Ryšio palaikymas",
+      "secondsBetweenPings0Turns": "Sekundės tarp pingų, 0 išjungia",
+      "default": "Numatytasis",
+      "keepaliveSeconds": "Ryšio palaikymo sekundės",
+      "missedPings": "Praleisti pingai",
+      "dropTheConnectionAfterThis": "Atjungti, kai tiek pingų lieka be atsakymo",
+      "missedPingsBeforeDrop": "Praleisti pingai prieš atjungiant",
+      "environment": "Aplinka",
+      "removeVariable": "Pašalinti kintamąjį",
+      "addVariable": "Pridėti kintamąjį"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "KLAVIATŪRA"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Eilutė",
+        "keys": "Klavišai",
+        "sendsAKeyCode": "Siunčia klavišo kodą",
+        "stickyModifier": "Lipnus modifikatorius",
+        "appAction": "Programėlės veiksmas",
+        "tmuxPrefixThen": "tmux prefiksas, tada {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Klavišų eilutės",
+        "onlyFor": "Tik {{name}}",
+        "usingTheAppSRows": "Naudojamos programėlės eilutės. Pakeitimai čia taikomi tik {{name}}",
+        "useTheAppSRows": "Naudoti programėlės eilutes"
+      },
+      "keyButton": {
+        "locked": "Užrakinta"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Atšaukti",
+        "remove": "Pašalinti {{what}}?",
+        "remove2": "Pašalinti",
+        "dragToReorder": "Vilkite, kad pakeistumėte tvarką",
+        "rowName": "Eilutės pavadinimas",
+        "groupName": "Grupės pavadinimas",
+        "add": "Pridėti",
+        "addKey": "Pridėti klavišą",
+        "addRow": "Pridėti eilutę",
+        "addGroup": "Pridėti grupę",
+        "tmuxPrefix": "tmux prefiksas",
+        "name": "Pavadinimas",
+        "rename": "Pervadinti",
+        "keys": "{{value}} klavišai",
+        "noKeys": "Nėra klavišų",
+        "remove3": "Pašalinti {{label}}",
+        "keys2": "Klavišai",
+        "custom": "Nepriklausomas",
+        "add2": "Pridėti {{label}}",
+        "typeText": "Rašyti tekstą",
+        "runCommand": "Vykdyti komandą",
+        "ctrlKey": "Ctrl klavišas",
+        "label": "Etiketė",
+        "optional": "Pasirenkama",
+        "letter": "Rašmenas",
+        "command": "Komanda",
+        "text": "Tekstas",
+        "resetToDefault": "Atstatyti numatytąjį"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Keisti klavišus nustatymuose, skiltyje „Klaviatūra“"
+      },
+      "keyRowBar": {
+        "keyRow": "Klavišų eilutė {{label}}",
+        "tapForTheNextRow": "Bakstelėkite kitai eilutei, laikykite nuspaudę, kad pasirinktumėte",
+        "keyRows": "Klavišų eilutės"
+      },
+      "model": {
+        "clear": "Išvalyti",
+        "main": "Pagrindinis",
+        "keys": "Klavišai",
+        "arrows": "Rodyklės",
+        "symbols": "Simboliai",
+        "actions": "Veiksmai",
+        "nav": "Navigacija",
+        "move": "Perkelti",
+        "function": "Funkcija",
+        "brackets": "Skliaustai",
+        "punctuation": "Skyrybos ženklai",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Langai",
+        "copy": "Kopijuoti",
+        "split": "Padalinti ─",
+        "split2": "Padalinti │",
+        "newWin": "Naujas langas",
+        "prevWin": "Ankst. langas",
+        "nextWin": "Kitas langas",
+        "pane": "Langas ←",
+        "pane2": "Langas ↓",
+        "pane3": "Langas ↑",
+        "pane4": "Langas →",
+        "copyMode": "Kopijavimo režimas",
+        "pasteBuf": "Įklijuoti buferį",
+        "killPane": "Uždaryti langą"
+      }
+    },
+    "output": {
+      "openLink": "Atidaryti nuorodą?",
+      "open": "Atidaryti",
+      "pasteLines": "Įklijuoti {{lines}} eilučių?",
+      "pasteThisText": "Įklijuoti šį tekstą?",
+      "theShellMayRunIt": "Komandų eilutė gali jį iškart paleisti.\n\n{{text}}",
+      "paste": "Įklijuoti",
+      "letTheProgramReadYour": "Leisti programai skaityti iš iškarpinės?",
+      "itAskedForWhatYou": "Ji paprašė to, ką paskiausiai nukopijavote.",
+      "allow": "Leisti",
+      "letTheProgramCopyTo": "Leisti programai kopijuoti į iškarpinę?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Užpildyti išsaugotą slaptažodį?",
+      "asksForTheSudoPassword": "{{hostName}} prašo sudo slaptažodžio.",
+      "asksForAPassword": "{{hostName}} prašo slaptažodžio.",
+      "fillPassword": "Užpildyti slaptažodį",
+      "alwaysFillOnThisHost": "Visada užpildyti šiame serveryje",
+      "asksNoMoreOnThis": "Šiame {{deviceWord}} daugiau nebeklaus. Išjunkite serveryje skirtuke „Terminalas“.",
+      "notNow": "Ne dabar"
+    },
+    "register": {
+      "terminal": "Terminalas",
+      "terminalAndKeepalive": "Terminalas ir ryšio palaikymas",
+      "history": "ISTORIJA",
+      "find": "Ieškoti",
+      "tmuxWindows": "tmux langai",
+      "connectionLog": "Ryšio žurnalas",
+      "keyRowsForThisHost": "Klavišų eilutės šiam serveriui"
+    },
+    "searchBar": {
+      "noResults": "Rezultatų nerasta",
+      "matchCase": "Atsižvelgti į raidžių dydį",
+      "wholeWord": "Visas žodis",
+      "regularExpression": "Reguliarusis reiškinys",
+      "find": "Ieškoti",
+      "closeFind": "Uždaryti paiešką"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Sistemos",
+      "block": "Blokas",
+      "bar": "Juostelė",
+      "underline": "Pabraukimas",
+      "off": "Išjungta",
+      "sound": "Garsas",
+      "flash": "Mirksėjimas",
+      "both": "Abu"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Nauja kortelė šiame serveryje",
+      "closeTab": "Uždaryti kortelę",
+      "nextTab": "Kita kortelė",
+      "previousTab": "Ankstesnė kortelė",
+      "goToTab": "Eiti į kortelę",
+      "find": "Ieškoti",
+      "fontSize": "Šrifto dydis",
+      "paste": "Įklijuoti",
+      "escape": "Escape",
+      "copyAndPaste": "Kopijuoti ir įklijuoti"
+    },
+    "reconnecting": "Vėl jungiamasi...",
+    "waitingForNetwork": "Laukiama tinklo...",
+    "waitingForYou": "Laukiama jūsų...",
+    "connecting": "Jungiamasi...",
+    "terminalView": {
+      "scrollToBottom": "Slinkti į apačią",
+      "onlyWebLinksCanOpen": "Iš terminalo galima atidaryti tik svetainių nuorodas",
+      "couldNotOpenLink": "Nepavyko atidaryti nuorodos",
+      "copiedFromTheTerminal": "Nukopijuota iš terminalo"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Atidaryti tmux sesiją",
+        "newSession": "Nauja sesija",
+        "plainShell": "Paprastas shell",
+        "tmuxWindows": "tmux langai",
+        "newWindow": "Naujas langas",
+        "windowCount_one": "{{count}} langas",
+        "windowCount_few": "{{count}} langai",
+        "windowCount_many": "{{count}} langų",
+        "windowCount_other": "{{count}} langų",
+        "attached": "{{count}} prijungta",
+        "activeNow": "aktyvuota dabar",
+        "activeMinAgo": "aktyvuota prieš {{count}} min.",
+        "activeHoursAgo": "aktyvuota prieš {{count}} val.",
+        "activeDaysAgo_one": "aktyvuota prieš {{count}} d.",
+        "activeDaysAgo_few": "aktyvuota prieš {{count}} d.",
+        "activeDaysAgo_many": "aktyvuota prieš {{count}} d.",
+        "activeDaysAgo_other": "aktyvuota prieš {{count}} d."
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopijuoti",
+        "selectAll": "Pažymėti viską",
+        "cancel": "Atšaukti",
+        "scrollToBottom": "Slinkti į apačią",
+        "couldNotCopy": "Nepavyko nukopijuoti",
+        "webviewError": "WebView klaida: {{description}}",
+        "webviewHttpError": "WebView HTTP klaida: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Šiam serveryui įrašytas slaptažodis nėra",
+    "backInTmuxSession": "Grįžta į tmux sesiją „{{tmuxName}}“",
+    "backInScreenSession": "Grįžta į screen sesiją „{{name}}“",
+    "theServerSessionEndedThis": "Serverio sesija baigėsi. Tai naujas shell.",
+    "termixWasClosedSoThe": "Termix buvo uždarytas, todėl senas shell baigėsi. Tai naujas shell.",
+    "theConnectionDroppedAndThe": "Jungtis nutrūko ir senas shell baigėsi. Tai naujas shell.",
+    "disconnectedFrom": "Atsijungta nuo „{{hostName}}“"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Dvejetainė autentifikacija",
+      "codesFromAnAuthenticatorApp": "Kodai iš autentifikatoriaus programėlės jūsų serverio paskyrai"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC adresas",
+      "neededToWakeThisHost": "Reikalinga šiam kompiuteriui pažadinti naudojant Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Naudokite MAC adresą, pvz., 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Pažadinti per LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN siunčiama į {{name}}",
+      "failedToSendWakeOn": "Nepavyko išsiųsti Wake-on-LAN paketo",
+      "noServer": "Nėra serverio"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Pažadinti per LAN",
+      "wake": "Pažadinti {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Dalintis anoniminiais naudojimo statistikos duomenimis?",
+      "termixWouldSendAShort": "Termix kas dieną siųstų trumpą ataskaitą. Tai galite pakeisti bet kada „Nustatymuose“.",
+      "noThanks": "Ne, ačiū",
+      "share": "Dalintis",
+      "theReportHasTheApp": "Ataskaitoje yra programos versija, {{deviceWord}} tipas, apytikslis kompiuterių ir sesijų skaičius, kurias funkcijas naudojate ir ar prisijungimas pavyko. Joje niekada nėra kompiuterių pavadinimų, vartotojo vardų, adresų, kelių, komandų ar serverių pavadinimų.",
+      "seeExactlyWhatIsSent": "Peržiūrėti, kas tiksliai siunčiama"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Įkeliamas versijos informacija…",
+      "updateAvailable": "Yra naujinimas",
+      "newVersionAvailable": "Yra nauja versija",
+      "aNewerVersionOfThe": "Yra naujesnė mobiliosios programos versija. Kai kurios funkcijos gali neveikti teisingai, kol atnaujinsite.",
+      "versionInformation": "Versijos informacija",
+      "installed": "Įdiegta",
+      "latest": "Naujausia",
+      "unknown": "Nežinoma",
+      "tag": "Žyma",
+      "continueAnyway": "Toliau vis tiek"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Nukopijuota",
+      "copy": "Kopijuoti",
+      "hostKeyChanged": "Kompiuterio raktas pasikeitė",
+      "verifyHostKey": "Patikrinti kompiuterio raktą",
+      "cancel": "Atšaukti",
+      "acceptNewKey": "Priimti naują raktą",
+      "connectAndTrust": "Prisijungti ir pasitikėti",
+      "theHostSSshKey": "Kompiuterio SSH raktas pasikeitė nuo jūsų paskutinio prisijungimo. Tai gali reikšti, kad kas nors perima ryšį.",
+      "youAreConnectingToThis": "Pirmą kartą prisijungiate prie šio kompiuterio. Patikrinkite pirštų atspaudą, prieš pasitikėdami juo.",
+      "previousKey": "Ankstesnis raktas",
+      "newFingerprint": "Naujas pirštų atspaudas",
+      "hostFingerprint": "Kompiuterio pirštų atspaudas"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Reikalinga slaptafraze",
+      "enterThePassphraseForYour": "Įveskite savo SSH rakto slaptafrazę.",
+      "cancel": "Atšaukti",
+      "connect": "Prisijungti",
+      "keyPassphrase": "Rakto slaptafraze"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Reikalinga SSH autentifikacija",
+      "cancel": "Atšaukti",
+      "connect": "Prisijungti",
+      "password": "Slaptažodis",
+      "sshKey": "SSH raktas",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nČia įklijuokite savo privatų raktą...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Rakto slaptafraze (nebūtina)",
+      "keyboardInteractiveAuthIsNot": "Klaviatūros interaktyvi autentifikacija nepasiekiama. Įveskite prisijungimo duomenis tiesiogiai.",
+      "authenticationFailedPleaseReEnter": "Autentifikacija nepavyko. Pabandykite įvesti prisijungimo duomenis dar kartą.",
+      "connectionTimedOutPleaseTry": "Ryšio laikas baigėsi. Pabandykite dar kartą su savo prisijungimo duomenimis."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH patikra",
+      "completeTheTailscaleSshCheck": "Norėdami tęsti, atlikite Tailscale SSH patikrą naršyklėje.",
+      "cancel": "Atšaukti",
+      "copyUrl": "Kopijuoti URL",
+      "openBrowser": "Atidaryti naršyklę",
+      "urlCopied": "URL nukopijuotas",
+      "failedToCopy": "Nepavyko nukopijuoti",
+      "couldNotOpenBrowser": "Nepavyko atidaryti naršyklės"
+    },
+    "tOTPDialog": {
+      "cancel": "Atšaukti",
+      "submit": "Pateikti",
+      "verify": "Patikrinti",
+      "password": "Slaptažodis",
+      "pasteCode": "Įklijuoti kodą",
+      "passwordRequired": "Reikalingas slaptažodis",
+      "twoFactorAuthentication": "Dvejetainė autentifikacija",
+      "enterYourPasswordToContinue": "Įveskite slaptažodį, kad tęstumėte.",
+      "enterThe6DigitCode": "Įveskite 6 skaitmenų kodą iš savo autentifikatoriaus programėlės."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate autentifikacija",
+      "authenticateViaTheWarpgatePortal": "Autentikuokitės per Warpgate portalą, tada bakstelėkite Tęsti.",
+      "cancel": "Atšaukti",
+      "openBrowser": "Atidaryti naršyklę",
+      "continue": "Tęsti",
+      "securityKey": "Saugumo raktas",
+      "authUrl": "Autentifikavimo URL",
+      "copied": "Nukopijuota",
+      "copy": "Kopijuoti",
+      "urlCopied": "URL nukopijuotas",
+      "failedToCopy": "Nepavyko nukopijuoti",
+      "couldNotOpenBrowser": "Nepavyko atidaryti naršyklės"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "šis {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Naujausia veikla",
+        "files": "Failai",
+        "terminal": "Terminalas"
+      },
+      "alertsCard": {
+        "notifications": "Pranešimai",
+        "seeAll": "Rodyti visus"
+      },
+      "server": "Serveris",
+      "openSessions": "Atidarytos sesijos",
+      "quickAccess": "Greitas prieigos",
+      "notifications": "Pranešimai",
+      "pinnedHosts": "Pritvirtinti serveriai",
+      "recentHosts": "Naujausi serveriai",
+      "recentActivity": "Naujausia veikla",
+      "pinnedCard": {
+        "addYourFirstHost": "Pridėkite savo pirmąjį serverį",
+        "hostsYouOpenShowUp": "Čia rodomi serveriai, kuriuos atidarote, o pritvirtinti serveriai rodo gyvas korteles.",
+        "addHost": "Pridėti serverį",
+        "linkAServer": "Susieti serverį",
+        "pinAHostToSee": "Pritvirtinkite serverį, kad jį matytumėte čia",
+        "pinnedHostsShowTheirMetrics": "Pritvirtinti serveriai rodo jų metrikas, Docker ir paslaugas iš karto. Laikykite serverį, kad jį pritvirtintumėte.",
+        "goToHosts": "Eiti į serverius",
+        "pinned": "Pritvirtinta",
+        "opensTheTerminalHoldFor": "Atidaro terminalą. Laikykite, kad pamatytumėte daugiau.",
+        "turnOnDockerOrServices": "Įjunkite Docker arba Paslaugas šiam serveriui, arba bakstelėkite, kad prisijungtumėte.",
+        "opens": "Atidaro {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Greitas prieigos",
+        "quickConnect": "Greitas prisijungimas",
+        "userHostPortWithoutSaving": "vartotojas@serveris:portas, neišsaugant"
+      },
+      "recentCard": {
+        "recent": "Naujausi"
+      },
+      "serverCard": {
+        "server": "Serveris",
+        "version": "Versija",
+        "uptime": "Veikimo laikas",
+        "database": "Duomenų bazė",
+        "hosts": "Serveriai",
+        "online": "Tinklas",
+        "offline": "Atsijungęs",
+        "logins": "Prisijungimai"
+      },
+      "sessionsCard": {
+        "openSessions": "Atidarytos sesijos",
+        "connected": "Prijungta"
+      }
+    },
+    "resetHome": "Atstat pagrindinį puslapį?",
+    "cardsGoBackToThe": "Kortelės grįžta į numatytąją tvarką ir rodomas kortelės.",
+    "reset": "Atstatyti",
+    "doneEditingHome": "Pagrindinio puslapio redagavimas baigtas",
+    "editHome": "Redaguoti pagrindinį puslapį",
+    "dragToReorder": "Vilkite {{title}}, kad pakeistumėte tvarką",
+    "show": "Rodyti {{title}}",
+    "dragCardsToReorderThem": "Vilkite kortelės, kad pakeistumėte jų tvarką. Išjunkite kortelę, kad ją paslėptumėte. Kortelės, kurių nėra ką rodyti, lieka paslėptos automatiškai.",
+    "resetToDefault": "Atstatyti į numatytąją",
+    "done": "Atlikta",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Vis dar nepavyksta pasiekti serverio",
+      "canTReach": "Nepavyksta pasiekti {{account}}",
+      "youCanKeepWorkingWith": "Galite toliau dirbti su kopija šiame {{deviceWord}}. Pakeitimai bus sinchronizuoti, kai serveris vėl bus pasiekiamas.",
+      "hostsSetToConnectFrom": "Šiam {{deviceWord}} nustatyti priimti veikia toliau.",
+      "tryAgain": "Bandyti dar kartą",
+      "noAnswer": "atsakymo nėra"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault profilis",
+      "none": "Nėra",
+      "signsInWithInYour": "Prisijungia su {{title}} naršyklėje per jūsų Termix serverį. Prijunkite šią priimti per serverį.",
+      "needsATermixServerLink": "{{title}} reikia Termix serverio. Susiekite vieną, kad naudotumėte šį prisijungimą.",
+      "isOffOnThisServer": "{{title}} išjungtas šiame serveryje. Ši priimti išlaiko savo prisijungimo nustatymą."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Nepavyko įkelti prisijungimo duomenų",
+      "deleted": "Ištrinta „{{name}}“",
+      "couldNotDeleteTheCredential": "Nepavyko ištrinti prisijungimo duomenų",
+      "credentials": "Prisijungimo duomenys",
+      "add": "Pridėti",
+      "searchCredentials": "Ieškoti prisijungimo duomenų",
+      "clearSearch": "Išvalyti paiešką",
+      "loadingCredentials": "Įkeliami prisijungimo duomenys...",
+      "noCredentialsMatchYourSearch": "Jokie prisijungimo duomenys neatitinka jūsų paieškos",
+      "noCredentialsYet": "Dar nėra prisijungimo duomenų",
+      "addCredential": "Pridėti prisijungimo duomenis",
+      "edit": "Redaguoti",
+      "delete": "Ištrinti",
+      "deleteCredential": "Ištrinti prisijungimo duomenis",
+      "willBePermanentlyDeletedHosts": "„{{name}}“ bus ištrinta visam laikui. Priimti, kurie juos naudoja, praras išsaugotus prisijungimo duomenis.",
+      "cancel": "Atšaukti",
+      "hostCount_one": "{{count}} priimti",
+      "hostCount_few": "{{count}} priimti",
+      "hostCount_many": "{{count}} priimtių",
+      "hostCount_other": "{{count}} priimtių",
+      "sshKey": "SSH raktas"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Pakeisti raktą?",
+        "theNewKeyTakesThe": "Naujas raktas pakeičia dabartinį. Priimti, kurie pasitiki tik seniu raktu, nustos priimti šiuos prisijungimo duomenis.",
+        "replace": "Pakeisti",
+        "newKeyMadeCopyThe": "Sukurtas naujas raktas. Nukopijuokite viešąjį raktą į savo priimti.",
+        "couldNotMakeAKey": "Nepavyko sukurti rakto",
+        "couldNotReadThatCertificate": "Nepavyko perskaityti šio sertifikato failo",
+        "leaveWithoutSaving": "Išeiti neišsaugius?",
+        "yourChangesToThisCredential": "Jūsų pakeitimai šiuose prisijungimo duomenyse bus prarasti.",
+        "leave": "Išeiti",
+        "credentialSaved": "Prisijungimo duomenys išsaugoti",
+        "credentialAdded": "Prisijungimo duomenys pridėti",
+        "couldNotSaveTheCredential": "Nepavyko išsaugoti prisijungimo duomenų",
+        "enterAHostToTest": "Įveskite priimti, kurioje norite testuoti, pvz., 10.0.0.5 arba box:2222.",
+        "enterTheUsernameFirst": "Pirmiausia įveskite vartotojo vardą.",
+        "editCredential": "Redaguoti prisijungimo duomenis",
+        "newCredential": "Nauji prisijungimo duomenys",
+        "cancel": "Atšaukti",
+        "save": "Išsaugoti",
+        "credential": "Pristatymo duomenys",
+        "name": "Pavadinimas",
+        "productionKey": "Produkcijos raktas",
+        "username": "Vartotojo vardas",
+        "signInWith": "Prisijungti su",
+        "password": "Slaptažodis",
+        "sshKey": "SSH raktas",
+        "unchangedIfBlank": "Nebus pakeista, jei palikta tuščia",
+        "key": "Raktas",
+        "fileOrPaste": "Failas arba įklijuoti",
+        "makeANewKey": "Sukurti naują raktą",
+        "aKeyIsSavedChoose": "Raktas jau išsaugotas. Pasirinkite failą arba įklijuokite, kad jį pakeistumėte.",
+        "type": "Tipas",
+        "ed25519AndEcdsaAreMade": "Ed25519 ir ECDSA yra generuojami šiame {{deviceWord}}, o RSA – jūsų serveryje.",
+        "madeOnThisEd25519Works": "Sugeneruota šiame {{deviceWord}}. Ed25519 veikia beveik visur.",
+        "passphrase": "Slaptafrasė",
+        "optionalLocksTheNewKey": "Pasirenkama. Užrakina naują raktą šiame {{deviceWord}} ir diske.",
+        "makeKey": "Sukurti raktą",
+        "publicKey": "Viešasis raktas",
+        "addThisLineToSsh": "Pridėkite šią eilutę į ~/.ssh/authorized_keys savo serveriuose",
+        "publicKeyCopied": "Viešasis raktas nukopijuotas",
+        "copyPublicKey": "Kopijuoti viešąjį raktą",
+        "certificate": "Sertifikatas",
+        "aCertificateYourCaSigned": "Sertifikatas, pasirašytas jūsų CA šiam raktui, skirtas serveriams, kurie pasitiki CA.",
+        "chooseCertificateFile": "Pasirinkite sertifikato failą",
+        "thisDoesNotLookLike": "Tai neatrodo kaip OpenSSH sertifikatas.",
+        "test": "Testuoti",
+        "hostToTestOn": "Serveris testavimui",
+        "n10005Or": "10.0.0.5 arba box.lan:2222",
+        "pickASavedHost": "Pasirinkite išsaugotą serverį",
+        "details": "Išsami informacija",
+        "description": "Aprašymas",
+        "whatThisCredentialIsFor": "Kam skirti šie prisijungimo duomenys",
+        "folder": "Aplankas",
+        "serverKeys": "Serverio raktai",
+        "testOnAHost": "Testuoti serveryje",
+        "rsaKeysNeedALinked": "RSA raktams reikia susieto serverio."
+      },
+      "model": {
+        "giveThisCredentialAName": "Pavadinkite šiuos prisijungimo duomenis",
+        "addAPrivateKeyOr": "Pridėkite privatų raktą arba sukurkite naują"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Tai yra serverio sertifikatas, ne vartotojo.",
+        "thisCertificateIsNotValid": "Šis sertifikatas dar nėra galiojantis.",
+        "thisCertificateHasExpired": "Šio sertifikato galiojimas baigėsi.",
+        "itIsForAKey": "Jis skirtas {{keyType}} raktui, bet šis raktas yra {{keyType2}}.",
+        "forAnyUser": "Bet kuriam vartotojui",
+        "validFromNoEndDate": "Galioja nuo {{validAfter}}, be galiojimo pabaigos datos",
+        "signedBy": "Pasirašyta {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Vartotojo vardas",
+        "fromTheCredential": "Iš prisijungimo duomenų: {{credentialUser}}",
+        "signInWith": "Prisijungti su",
+        "password": "Slaptažodis",
+        "key": "Raktas",
+        "credential": "Pristatymo duomenys",
+        "none": "Nėra",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Jungiasi per Tailscale SSH. Slaptažodis ar raktas nėra saugomi.",
+        "tailscaleIsNotOnFor": "Tailscale nėra įjungtas {{value}}. Šis serveris išlaiko savo Tailscale prisijungimą.",
+        "unchangedIfBlank": "Nebus pakeista, jei palikta tuščia",
+        "noCredentialsYetTapThe": "Dar nėra prisijungimo duomenų. Spustelėkite rakto piktogramą skiltyje „Serveriai“, kad pridėtumėte.",
+        "useCredential": "Naudoti prisijungimo duomenis {{name}}",
+        "sudoPassword": "Sudo slaptažodis",
+        "typedIntoSudoPromptsWhen": "Įvedamas į sudo užklausas, kai Terminalo skiltyje tai įjungta",
+        "notSet": "Nenustatyta",
+        "thisServer": "šis serveris"
+      },
+      "colorIconField": {
+        "color": "Spalva",
+        "noColor": "Be spalvos",
+        "color2": "Spalva {{c}}",
+        "icon": "Piktograma",
+        "noIcon": "Be piktogramos",
+        "none": "Nėra",
+        "icon2": "Piktograma {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Išeiti neišsaugius?",
+        "yourChangesToThisHost": "Jūsų atlikti pakeitimai šiam hostui bus prarasti.",
+        "leave": "Išeiti",
+        "couldNotSaveHowThis": "Nepavyko išsaugoti šio hosto prisijungimo nustatymų",
+        "hostSaved": "Hostas išsaugotas",
+        "hostAdded": "Hostas pridėtas",
+        "couldNotSaveTheHost": "Nepavyko išsaugoti hosto",
+        "enterTheHostSAddress": "Pirmiausia įveskite hosto adresą.",
+        "turnOnSshToTest": "Įjunkite SSH, kad ištestuotumėte prisijungimą.",
+        "pickACredentialFirst": "Pirmiausia pasirinkite prisijungimo duomenis.",
+        "editHost": "Redaguoti hostą",
+        "newHost": "Naujas hostas",
+        "cancel": "Atšaukti",
+        "save": "Išsaugoti",
+        "host": "Hostas",
+        "name": "Pavadinimas",
+        "myServer": "Mano serveris",
+        "address": "Adresas",
+        "port": "Prievadas",
+        "portAndUsernameComeFrom": "Prievadas ir vartotojo vardas imami iš jūsų numatytųjų hosto nustatymų, kol juos nepakeisite.",
+        "folder": "Aplankas",
+        "production": "Produkcija",
+        "useAFolderInstead": "Vietoj to naudokite aplanką",
+        "putItUnderAHost": "Vietoj to įdėkite po hostu",
+        "pinToTop": "Pritvirtinti viršuje",
+        "colorAndIcon": "Spalva ir piktograma",
+        "notes": "Pastabos",
+        "anythingWorthRememberingAboutThis": "Kas nors verta prisiminti apie šį hostą",
+        "protocols": "Protokoliai",
+        "terminalFilesAndMore": "Terminalas, failai ir daugiau",
+        "connectFrom": "Prisijungti iš",
+        "features": "Funkcijos",
+        "otherProtocols": "Kiti protokoliai",
+        "more": "Daugiau",
+        "theTestRunsFromThis": "Testas vykdomas iš šio {{deviceWord}}. Šis hostas jungiasi per serverį, todėl jis vis tiek gali veikti, kai {{deviceWord}} negali jo pasiekti."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Tarpiniai hostai",
+        "connectsThroughTheseInOrder": "Jungiasi per juos iš eilės, tada prie šio hosto",
+        "reachThisHostThroughOther": "Pirmiausia pasiekti šį hostą per kitus hostus",
+        "moveUp": "Perkelti aukštyn",
+        "moveDown": "Perkelti žemyn",
+        "removeJumpHost": "Pašalinti tarpinį hostą",
+        "addJumpHost": "Pridėti tarpinį hostą",
+        "pickASavedHostTo": "Pasirinkite išsaugotą hostą, per kurį jungtis",
+        "searchHosts": "Ieškoti hostų",
+        "noOtherHostsToPick": "Kitų hostų pasirinkti nėra. Hostas negali jungtis per save arba per hostą, kuris jau jungiasi per jį.",
+        "missingHost": "Trūkstamas hostas #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Įjunkite bent vieną protokolą",
+        "pickACredential": "Pasirinkite prisijungimo duomenis",
+        "enterTheHostSAddress": "Įveskite serverio adresą",
+        "theAddressCanTHave": "Adrese negali būti tarpų",
+        "portMustBeFrom1": "Prievadas turi būti nuo 1 iki 65535",
+        "enterTheSshUsername": "Įveskite SSH vartotojo vardą"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Serveris bus rodomas kaip įdėtas po pasirinkto",
+        "searchHosts": "Ieškoti serverių",
+        "noHostsToPickA": "Nėra serverių, kuriuos būtų galima pasirinkti. Serveris negali būti įdėtas po savęs, savo paties po serverio arba bendrinamo serverio.",
+        "parentHost": "Tėvinis serveris",
+        "subHostsFollowTheFolder": "Po serveriai paveldi tėvinio serverio aplanką",
+        "pickParentHost": "Pasirinkti tėvinį serverį",
+        "missingHost": "Trūksta serverio #{{value}}",
+        "pickAHost": "Pasirinkti serverį",
+        "clearParentHost": "Išvalyti tėvinį serverį"
+      },
+      "tagsField": {
+        "tags": "Žymos",
+        "typeATagAndPress": "Įveskite žymą ir paspauskite Enter",
+        "removeTag": "Pašalinti žymą „{{tag}}“",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Nepavyko išsaugoti šio serverio prisijungimo nustatymų",
+      "addressCopied": "Adresas nukopijuotas",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Prisijungti iš",
+      "dismiss": "Atmesti",
+      "unpin": "Atsirišti",
+      "pinToHome": "Pritvirtinti prie pradžios",
+      "select": "Pasirinkti",
+      "editHost": "Redaguoti serverį",
+      "copyAddress": "Kopijuoti adresą",
+      "addSubHost": "Pridėti po serverį",
+      "cloneHost": "Klonuoti serverį",
+      "deleteHost": "Ištrinti serverį",
+      "connectThroughTheServer": "Prisijungti per serverį",
+      "connectFromThis": "Prisijungti iš šio {{deviceWord}}"
+    },
+    "defaultYourOrder": "Numatytasis (jūsų tvarka)",
+    "nameAZ": "Pavadinimas (A-Z)",
+    "nameZA": "Pavadinimas (Z-A)",
+    "ipAscending": "IP (didėjimo tvarka)",
+    "ipDescending": "IP (mažėjimo tvarka)",
+    "onlineFirst": "Pirmiausia prisijungę",
+    "offlineFirst": "Pirmiausia neprisijungę",
+    "pinnedFirst": "Pirmiausia pritvirtinti",
+    "status": "Būsena",
+    "online": "Prisijungęs",
+    "offline": "Neprisijungęs",
+    "pinned": "Pritvirtintas",
+    "protocol": "Protokolas",
+    "features": "Funkcijos",
+    "hostsCanOnlyMoveInside": "Serverius galima perkelti tik savo aplanko viduje",
+    "couldNotUpdateTheHosts": "Nepavyko atnaujinti serverių",
+    "sharedHostsCanTBe": "Bendrinamų serverių čia ištrinti negalima",
+    "delete2": "Ištrinti",
+    "noneOfTheseHostsOpen": "Nė vienas iš šių serverių neatidaro terminalo",
+    "couldNotPinTheHost": "Nepavyko pritvirtinti serverio",
+    "deleted": "Ištrinta „{{name}}“",
+    "failedToDeleteHost": "Nepavyko ištrinti serverio",
+    "cloned": "Klonuota „{{name}}“",
+    "failedToCloneHost": "Nepavyko klonuoti serverio",
+    "reorderWorksWithTheDefault": "Tvarkos keitimas veikia tik su numatytąja rūšiavimo tvarka ir be paieškos ar filtro",
+    "couldNotSaveTheOrder": "Nepavyko išsaugoti tvarkos",
+    "noHostsYet": "Dar nėra serverių",
+    "addAHostToConnect": "Pridėkite hostą, kad galėtumėte prisijungti vienu paspaudimu.",
+    "addHost": "Pridėti hostą",
+    "quickConnect2": "Greitas prisijungimas",
+    "linkAServer": "Susieti serverį",
+    "noHostsMatch": "Nerasta atitinkančių hostų",
+    "clearSearchAndFilters": "Išvalyti paiešką ir filtrus",
+    "more": "Daugiau",
+    "dragAHostByIts": "Tempkite hostą už rankenėlės, kad perkeltumėte jį aplanko viduje.",
+    "done": "Atlikta",
+    "filterHosts": "Filtruoti hostus",
+    "clearFilterText": "Išvalyti filtro tekstą",
+    "sortHosts": "Rūšiuoti hostus",
+    "removeFilter": "Pašalinti filtrą „{{value}}“",
+    "loadingHosts": "Įkeliami hostai…",
+    "moveUnderAHost": "Perkelti po hostu",
+    "moveToFolder": "Perkelti į aplanką",
+    "leaveItEmptyToTake": "Palikite tuščią, kad išimtumėte hostus iš aplankų.",
+    "folderLikeProdWeb": "Aplankas, pvz., „Prod / Web“",
+    "move": "Perkelti",
+    "hosts": "Hostai",
+    "selectHosts": "Pasirinkti hostus",
+    "reorderHosts": "Pakeisti hostų tvarką",
+    "customizeList": "Tinkinti sąrašą",
+    "chooseWhatEachHostRow": "Pasirinkite, ką rodyti kiekvienoje hosto eilutėje",
+    "credentials2": "Prijungimo duomenys",
+    "savedPasswordsAndKeys": "Išsaugoti slaptažodžiai ir raktai",
+    "tailscaleDevices": "Tailscale įrenginiai",
+    "refresh": "Atnaujinti",
+    "rowDensityFollowsSettingsAppearance": "Eilučių tankumas priklauso nuo nustatymų „Išvaizda“.",
+    "clearAllFilters": "Išvalyti visus filtrus",
+    "tags": "Žymos",
+    "stopSelecting": "Baigti pasirinkimą",
+    "selected": "Pasirinkta: {{count}}",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Nepavyko perskaityti to rakto failo",
+        "theClipboardIsEmpty": "Iškarpinė tuščia",
+        "privateKey": "Privatus raktas",
+        "chooseFile": "Pasirinkti failą",
+        "paste": "Įklijuoti",
+        "unchangedIfBlank": "Nepasikeis, jei tuščia",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Slaptafrasė",
+        "onlyIfTheKeyHas": "Tik jei raktas turi slaptafrasę",
+        "theKeyIsCheckedWhen": "Raktas tikrinamas prisijungiant.",
+        "thePastedKey": "įklijuotas raktas"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Atidaryti",
+        "moreActions": "Daugiau veiksmų",
+        "opensTheTerminalHoldFor": "Atidaro terminalą. Laikykite nuspaudę, kad pamatytumėte daugiau.",
+        "shared": "Bendrinamas",
+        "drag": "Tempkite „{{name}}“",
+        "showSubHosts_one": "Rodyti {{count}} „{{name}}“ sub-hostą",
+        "showSubHosts_few": "Rodyti {{count}} „{{name}}“ sub-hostus",
+        "showSubHosts_many": "Rodyti {{count}} „{{name}}“ sub-hostų",
+        "showSubHosts_other": "Rodyti {{count}} „{{name}}“ sub-hostų",
+        "hideSubHosts_one": "Slėpti {{count}} „{{name}}“ sub-hostą",
+        "hideSubHosts_few": "Slėpti {{count}} „{{name}}“ sub-hostus",
+        "hideSubHosts_many": "Slėpti {{count}} „{{name}}“ sub-hostų",
+        "hideSubHosts_other": "Slėpti {{count}} „{{name}}“ sub-hostų"
+      },
+      "hostList": {
+        "folderHosts": "Aplankas „{{name}}“, {{total}} hostų"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Būtina nurodyti hostą ir vartotojo vardą",
+      "hostSaved": "Hostas išsaugotas",
+      "couldNotSaveTheHost": "Nepavyko išsaugoti hosto",
+      "quickConnect": "Greitas prisijungimas",
+      "connectToAHostWithout": "Prisijunkite prie hosto neišsaugodami jo.",
+      "hostIp": "Hostas / IP",
+      "port": "Prievadas",
+      "username": "Vartotojo vardas",
+      "password": "Slaptažodis",
+      "key": "Raktas",
+      "privateKey": "Privatus raktas",
+      "saveToMyHosts": "Išsaugoti mano serveriuose",
+      "keepThisHostAfterConnecting": "Palikti šį serverį prisijungus",
+      "cancel": "Atšaukti",
+      "connect": "Prisijungti"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Serveriai įkeliami iš serverio",
+      "yourHostsStayOnThis": "{{message}} Tuo tarpu jūsų serveriai lieka šiame {{deviceWord}}."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Šio serverio raktas pasikeitė",
+      "trustThisHost": "Pasitikėti šiuo serveriu?",
+      "trust": "Pasitikėti",
+      "stopTest": "Sustabdyti testą",
+      "testConnection": "Testuoti ryšį",
+      "connecting": "Jungiamasi..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Nepavyko įkelti serverių."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} bendrinamas serveris paliktas nepakitęs.",
+    "sharedLeftAsTheyAre_few": "{{done}}. {{count}} bendrinami serveriai palikti nepakitę.",
+    "sharedLeftAsTheyAre_many": "{{done}}. {{count}} bendrinamų serverių palikta nepakitę.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} bendrinamų serverių palikta nepakitę.",
+    "deleteHosts_one": "Ištrinti {{count}} serverį?",
+    "deleteHosts_few": "Ištrinti {{count}} serverius?",
+    "deleteHosts_many": "Ištrinti {{count}} serverių?",
+    "deleteHosts_other": "Ištrinti {{count}} serverių?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Nėra aplanko su pavadinimu {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Serveris „{{name}}“: neteisingas prievadas",
+        "hostJumpIsNotIn": "Serveris „{{name}}“: tarpinis serveris {{value}} nėra faile, todėl buvo praleistas",
+        "credential": "Prijungimo duomenys {{name}}: {{error}}",
+        "noValidHostEntriesFound": "SSH konfigūracijos faile nerasta jokių galiojančių Host įrašų",
+        "credentialWasNotFound": "{{label}}: prijungimo duomenų {{value}} nerasta"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Serveris {{value}}: dubliuotas eksportuoto serverio ID {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Trūksta privalomų laukų (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Netinkamas authType. Turi būti vienas iš {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: SSH ryšiams reikalingas vartotojo vardas",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: autentifikavimui naudojant prijungimo duomenis reikalingas credentialAlias",
+        "thatIsNotAValid": "Tai nėra galiojantis JSON failas",
+        "hostsArrayIsRequiredAnd": "Serverių masyvas yra privalomas ir negali būti tuščias",
+        "jumpHostCycle": "{{label}}: tarpinio serverio ciklas",
+        "jumpHostIsNotIn": "{{label}}: tarpinis serveris {{id}} nėra faile"
+      }
+    },
+    "movedTo": "Perkelta į {{value}}",
+    "movedOutOfFolders": "Perkelta iš aplankų",
+    "movedUnder": "Perkelta po {{value}}",
+    "openTerminals": "Atidaryti terminalus",
+    "theHost": "serveris"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Slėpti slaptažodį",
+      "showPassword": "Rodyti slaptažodį",
+      "enterAUsernameAndPassword": "Įveskite vartotojo vardą ir slaptažodį",
+      "useAtLeast6Characters": "Slaptažodžiui naudokite bent 6 simbolius",
+      "thePasswordsDonTMatch": "Slaptažodžiai nesutampa",
+      "makeTheAdminAccount": "Sukurti administratoriaus paskyrą",
+      "makeAnAccount": "Sukurti paskyrą",
+      "thisIsTheFirstAccount": "Tai yra pirmoji paskyra serveryje, todėl ji valdo serverį.",
+      "pickAUsernameAndPassword": "Pasirinkite šio serverio vartotojo vardą ir slaptažodį.",
+      "username": "Vartotojo vardas",
+      "password": "Slaptažodis",
+      "passwordAgain": "Slaptažodis dar kartą",
+      "makeAccount": "Sukurti paskyrą",
+      "back": "Atgal",
+      "haveAnAccountSignIn": "Jau turite paskyrą? Prisijunkite",
+      "resetCodeMadeItIs": "Atstatymo kodas sugeneruotas. Jis yra serverio žurnaluose",
+      "enterYourUsername": "Įveskite savo vartotojo vardą",
+      "enterTheResetCode": "Įveskite atstatymo kodą",
+      "passwordChangedSignInWith": "Slaptažodis pakeistas. Dabar prisijunkite su juo",
+      "resetPassword": "Atstatyti slaptažodį",
+      "enterYourUsernameTheServer": "Įveskite savo vartotojo vardą. Serveris į savo žurnalus įrašo atstatymo kodą.",
+      "sendResetCode": "Siųsti atstatymo kodą",
+      "enterThe6DigitCode": "Įveskite 6 skaitmenų kodą iš serverio žurnalų.",
+      "resetCode": "Atstatyti kodą",
+      "checkCode": "Patikrinti kodą",
+      "newPassword": "Naujas slaptažodis",
+      "saveNewPassword": "Išsaugoti naują slaptažodį",
+      "backToSignIn": "Grįžti prie prisijungimo",
+      "couldNotMakeTheAccount": "Nepavyko sukurti paskyros",
+      "couldNotStartTheReset": "Nepavyko pradėti atstatymo",
+      "thatCodeDidnTWork": "Šis kodas neveikė",
+      "couldNotChangeThePassword": "Nepavyko pakeisti slaptažodžio"
+    },
+    "browserStep": {
+      "signInFailed": "Prisijungimas nepavyko",
+      "signInCanceled": "Prisijungimas atšauktas",
+      "couldNotOpenTheSign": "Nepavyko atidaryti prisijungimo naršyklės",
+      "couldNotOpenTheSign2": "Nepavyko atidaryti prisijungimo puslapio",
+      "certificateProblem": "Sertifikato problema",
+      "back": "Atgal",
+      "signIn": "Prisijungti",
+      "reload": "Perkrauti",
+      "finishSigningInInYour": "Užbaigti prisijungimą naršyklėje",
+      "useAnySignInYour": "Naudokite bet kurį prisijungimo būdą, kurį turi jūsų serveris, pavyzdžiui, prisijungimo raktą ar saugumo raktą. Programėlė perims valdymą, kai būsite prisijungę.",
+      "theAppPicksUpOnce": "Programėlė perims valdymą, kai jūsų prisijungimo teikėjas baigs darbą.",
+      "signingIn": "Prisijungiama...",
+      "openBrowserAgain": "Vėl atidaryti naršyklę",
+      "theServerTurnedTheSession": "Serveris atmetė sesiją. Bandykite dar kartą.",
+      "signedInButTheApp": "Prisijungta, tačiau programėlė negali pasiekti Termix. Galbūt tai blokuoja tarpinis serveris.",
+      "thatSignInLinkIs": "Šis prisijungimo nuorodos bandymas buvo senesnis. Prisijunkite dar kartą.",
+      "signInAgain": "Prisijunkite dar kartą.",
+      "openTheBrowserAgainWhen": "Atidarykite naršyklę iš naujo, kai būsite pasiruošę.",
+      "theWebPageSignedIn": "Web puslapis prisijungė, tačiau neperssiuntė sesijos. Atnaujinkite serverį ir bandykite dar kartą.",
+      "theCanTCheckThis": "{{deviceWord}} negali patikrinti šio serverio sertifikato. Įdiekite jo šakninį CA į {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Kitą kartą naudoti {{name}} prisijungimui?",
+      "ifThisServerSignsYou": "Jei šis serveris jus atjungia, prisijunkite vėl naudodami {{name}}, o ne įvesdami slaptažodį. Slaptažodis lieka šiame {{deviceWord}}.",
+      "use": "Naudoti {{name}}",
+      "notNow": "Ne dabar",
+      "couldNotSaveTheLogin": "Nepavyko išsaugoti prisijungimo duomenų",
+      "thatSADifferentUser": "Tai kitas vartotojas",
+      "signedIn": "Prisijungta",
+      "close": "Uždaryti",
+      "linkYourTermixServer": "Susieti savo Termix serverį",
+      "yourHostsCredentialsSnippetsAnd": "Jūsų serveriai, prisijungimo duomenys, komandų fragmentai ir nustatymai sinchronizuojami su juo, o jūs gaunate jo įskiepius. Viskas veikia šiame {{deviceWord}}, kai serveris nepasiekiamas.",
+      "checking": "Tikrinama {{host}}...",
+      "proxyAndClientCertificate": "Tarpinis serveris ir kliento sertifikatas",
+      "couldNotReachThatServer": "Nepavyko pasiekti to serverio. Patikrinkite adresą arba sukonfigūruokite tarpinį serverį ar kliento sertifikatą.",
+      "couldNotReachThatServer2": "Nepavyko pasiekti to serverio",
+      "syncCouldNotStartYet": "Sinchronizacija dar negali būti pradėta. Ji bandys dar kartą automatiškai.",
+      "checkingTheServer": "Tikrinamas serveris",
+      "signIn": "Prisijungti",
+      "makeAnAccount": "Sukurti paskyrą",
+      "resetPassword": "Atstatyti slaptažodį",
+      "oneMoreStep": "Dar vienas žingsnis",
+      "almostDone": "Beveik baigta",
+      "linkAServer": "Susieti serverį"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Išsaugoti prisijungimo duomenys nebeveikia",
+      "enterYourUsernameAndPassword": "Įveskite savo vartotojo vardą ir slaptažodį",
+      "thisServerIsBehindA": "Šis serveris yra už prisijungimo tarpinio serverio",
+      "signInWith": "Prisijungti naudojant {{saved}}",
+      "signInWith2": "Prisijungti naudojant",
+      "password": "Slaptažodis",
+      "username": "Vartotojo vardas",
+      "signIn": "Prisijungti",
+      "forgotPassword": "Pamiršėte slaptažodį?",
+      "makeAnAccount": "Sukurti paskyrą",
+      "or": "ARBA",
+      "continueWith": "Tęsti su {{label}}",
+      "signInWithAPasskey": "Prisijungti naudojant prisijungimo raktą arba saugumo raktą",
+      "opensYourServerAposS": "Atidaro jūsų serverio prisijungimo puslapį naršyklėje. Ten veikia „Face ID“, pirštų atspaudai, NFC ir USB raktai. Reikalinga Termix 26.11.3 arba naujesnė versija.",
+      "signInInTheBrowser": "Prisijungti naršyklėje",
+      "opensYourServerAposS2": "Atidaro jūsų serverio prisijungimo puslapį, skirtam veiksmams, kurių programėlė negali atlikti čia. Reikalinga Termix 26.10.6 arba naujesnė versija.",
+      "thisServerHasNoSign": "Šiame serveryje nėra įjungto prisijungimo būdo, kurį galėtų naudoti programėlė. Kreipkitės į serverio administratorių arba pabandykite prisijungti naršyklėje aukščiau.",
+      "signInWithYourPassword": "Prisijunkite naudodami slaptažodį.",
+      "signInFailed": "Prisijungimas nepavyko",
+      "openingItsSignInPage": "Atidaromas prisijungimo puslapis."
+    },
+    "smallSteps": {
+      "serverAddress": "Serverio adresas",
+      "likeTermixExampleComOr": "Pvz., termix.example.com arba 192.168.1.20:30001",
+      "checking": "Tikrinama...",
+      "continue": "Tęsti",
+      "proxyAndClientCertificate": "Tarpinis serveris ir kliento sertifikatas",
+      "aServerWithASelf": "Serveriui su saviparašuotu sertifikatu pirmiausia reikia įdiegti šakninį CA sertifikatą šiame {{deviceWord}}. Paprastas „http“ veikia jūsų tinkle.",
+      "enterTheCode": "Įveskite kodą",
+      "code": "Kodas",
+      "the6DigitCodeFrom": "6 skaitmenų kodas iš autentifikatoriaus programėlės arba atsarginis kodas",
+      "checkCode": "Patikrinti kodą",
+      "thisAccountAsksForA": "Ši paskyra po slaptažodžio reikalauja saugumo rakto. Norėdami jį naudoti, prisijunkite per serverio puslapį naršyklėje.",
+      "useASecurityKeyIn": "Naudoti saugumo raktą naršyklėje",
+      "backToSignIn": "Grįžti prie prisijungimo",
+      "bringThisAposSHosts": "Ar perkelti šio {{deviceWord}} serverius?",
+      "thisHasTheyStayOn": "Šiame {{deviceWord}} yra {{what}}. Jie vis tiek lieka šiame įrenginyje.",
+      "merge": "Sujungti",
+      "copyThemToTooSo": "Nukopijuoti juos ir į {{serverName}}, kad būtų sinchronizuojama. Tie, kurie atrodo taip pat kaip serverio kompiuteriai, bus praleisti.",
+      "replace": "Pakeisti",
+      "useOnlyWhatIsOn": "Naudoti tik tai, kas yra {{serverName}} šiai paskyrai. Nieko nekopijuojama.",
+      "thatCodeDidnTWork": "Šis kodas neveikė",
+      "hostsCredentialsOrSnippets": "kompiuterius, prisijungimo duomenis arba komandas"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Pirmiausia susieti šį serverį",
+      "thatHostIsnTHere": "Šio kompiuterio čia nėra",
+      "couldNotOpenThatHost": "Nepavyko atidaryti šio kompiuterio",
+      "noHostWithIdOn": "Paskyroje {{account}} nėra kompiuterio su ID {{hostId}}.",
+      "isnTLinkedInThe": "{{value}} dar nėra susieta su programėle."
+    }
+  },
+  "notifications": {
+    "notifications": "Pranešimai",
+    "markAllRead": "Pažymėti visus kaip perskaitytus",
+    "clearReadNotifications": "Išvalyti perskaitytus pranešimus",
+    "unread2": "Neperskaityti",
+    "all": "Visi",
+    "noUnreadNotifications": "Nėra neperskaitytų pranešimų",
+    "nothingHere": "Čia nieko nėra",
+    "markRead": "Pažymėti kaip perskaitytą",
+    "delete": "Ištrinti",
+    "couldNotLoadNotifications": "Nepavyko įkelti pranešimų",
+    "couldNotMarkRead": "Nepavyko pažymėti kaip perskaitytą",
+    "couldNotDelete": "Nepavyko ištrinti",
+    "couldNotClear": "Nepavyko išvalyti"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Importuoti",
+      "hosts": "Kompiuteriai",
+      "aTermixHostFileYour": "„Termix“ kompiuterių failas, jūsų ~/.ssh/config arba kompiuterio nuoroda / QR kodas iš kito {{deviceWord}}. Jie išsaugomi šiame {{deviceWord}}.",
+      "backup": "Atsarginė kopija",
+      "aBackupThisAppMade": "Šios programėlės sukurta atsarginė kopija, užrakinta slaptafraze. Ji atkuria kompiuterius, prisijungimo duomenis ir komandas.",
+      "restoreABackup": "Atkurti atsarginę kopiją",
+      "done": "Atlikta",
+      "skipForNow": "Praleisti šiuo metu",
+      "sshFilesAndRemoteDesktops": "„SSH“, failai ir nuotoliniai darbalaukiai iš jūsų {{deviceWord}}. Kaip norite pradėti?",
+      "useWithoutAServer": "Naudoti be serverio",
+      "hostsCredentialsAndSnippetsAre": "Šeimininkai, prisijungimo duomenys ir komandų fragmentai yra saugomi šifruoti šiame {{deviceWord}}. Serverį galite susieti bet kuriuo metu vėliau.",
+      "linkATermixServer": "Susieti su Termix serveriu",
+      "syncYourHostsCredentialsSnippets": "Sinchronizuokite savo šeimininkus, prisijungimo duomenis, komandų fragmentus ir nustatymus su serveriu ir naudokite jo priedus.",
+      "bringHostsFromATermix": "Importuokite šeimininkus iš Termix failo, SSH konfigūracijos, QR kodo arba atsarginės kopijos.",
+      "thisDevice": "Šis įrenginys"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Ieškoti šeimininkų, komandų fragmentų, veiksmų",
+      "clearSearch": "Išvalyti paiešką",
+      "nothingMatches": "Nieko nerasta",
+      "typeToSearch": "Rašykite, kad ieškotumėte",
+      "findAHostToConnect": "Raskite šeimininką, prie kurio norite prisijungti, komandų fragmentą, nustatymą arba veiksmą.",
+      "suggested": "Pasiūlymai | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Vykdyti „{{title}}“",
+      "copiedRunItFromThe": "Nukopijuota. Vykdykite jį iš terminalo komandų fragmentų, kad įvestumėte jo reikšmes.",
+      "copiedOpenATerminalTo": "Nukopijuota. Atidarykite terminalą, kad vykdytumėte komandų fragmentus.",
+      "addHost": "Pridėti šeimininką",
+      "quickConnect": "Greitasis prisijungimas",
+      "switchAccount": "Keisti paskyrą",
+      "linkAServer": "Susieti su serveriu",
+      "fromYourServer": "Iš jūsų serverio",
+      "settings": "Nustatymai",
+      "accountsAppearanceSecurity": "Paskyros, išvaizda, saugumas"
+    },
+    "search": {
+      "hosts": "Šeimininkai",
+      "snippets": "Komandų fragmentai",
+      "actions": "Veiksmai",
+      "settings": "Nustatymai"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Nepavyko įkelti sesijų",
+      "sessionRevoked": "Sesija atšaukta",
+      "failedToRevokeSession": "Nepavyko atšaukti sesijos",
+      "allSessionsRevoked": "Visos sesijos atšauktos",
+      "failedToRevokeAllSessions": "Nepavyko atšaukti visų sesijų",
+      "activeSessions": "Aktyvios sesijos",
+      "signOutAllOtherSessions": "Atsijungti iš visų kitų sesijų",
+      "loading": "Įkeliamas…",
+      "noActiveSessionsFound": "Aktyvių sesijų nerasta.",
+      "unknownDevice": "Nežinomas įrenginys",
+      "lastActive": "Paskutinį kartą aktyvus {{lastActiveAt}}",
+      "created": "Sukurta {{createdAt}}",
+      "revokeSession": "Atšaukti sesiją",
+      "revokeSession2": "Atšaukti sesiją?",
+      "thisWillSignOutThat": "Tai atsijungs nuo to įrenginio.",
+      "revoke": "Atšaukti",
+      "revokeAllSessions": "Atšaukti visas sesijas?",
+      "thisWillSignOutEvery": "Tai atsijungs nuo visų įrenginių. Šiame įrenginyje liksite prisijungę.",
+      "cancel": "Atšaukti",
+      "revokeAll": "Atšaukti visas"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Nepavyko įkelti API raktų",
+      "failedToCreateApiKey": "Nepavyko sukurti API rakto",
+      "deleteApiKey": "Ištrinti API raktą?",
+      "willStopWorkingRightAway": "„{{name}}“ nedelsiant nustos veikti.",
+      "apiKeyDeleted": "API raktas ištrintas",
+      "failedToDeleteApiKey": "Nepavyko ištrinti API rakto",
+      "apiKeys": "API raktai",
+      "newApiKey": "Naujas API raktas",
+      "loading": "Įkeliamas…",
+      "apiKeysAllowProgrammaticAccess": "API raktai leidžia programiniu būdu prisijungti prie Termix. Slaptas raktas rodomas tik vieną kartą, todėl saugokite jį atsargiai.",
+      "noApiKeysYet": "Dar nėra API raktų",
+      "created": "Sukurta {{createdAt}}",
+      "lastUsed": "Paskutinį kartą naudotas {{lastUsedAt}}",
+      "expires": "Galioja iki {{expiresAt}}",
+      "delete": "Pašalinti „{{name}}“",
+      "keyCreatedCopyItNow": "Raktas sukurtas. Nukopijuokite jį dabar",
+      "newApiKey2": "Naujas API raktas",
+      "thisTokenWonTBe": "Šis raktas daugiau nebebus rodomas.",
+      "apiKeyCopied": "API raktas nukopijuotas",
+      "copy": "Kopijuoti",
+      "done": "Atlikta",
+      "cancel": "Atšaukti",
+      "create": "Sukurti",
+      "name": "Pavadinimas *",
+      "eGCiPipeline": "pvz., CI konvejeris",
+      "user": "Naudotojas *",
+      "noUsersAvailable": "Naudotojų nėra.",
+      "expiresAtOptional": "Galiojimo pabaiga (nebūtina)",
+      "yyyyMmDd": "MMMM/MM/DD",
+      "yearMonthDay": "Metai / Mėnuo / Diena"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Laikyti sesijas veikiančias",
+      "showsANotificationWhileSessions": "Rodo pranešimą, kol sesijos yra atidarytos, kad Android jas palaikytų veikiančias, kai išeinate iš programos",
+      "batteryOptimization": "Baterijos optimizavimas",
+      "termixIsNotRestrictedSo": "Termix nėra apribotas, todėl sesijos gali likti atidarytos, kai ekranas išjungtas.",
+      "androidMayStillStopSessions": "Android vis tiek gali sustabdyti sesijas, kad sutaupytų bateriją. Atidarykite baterijos nustatymus, suraskite Termix ir pasirinkite „Neoptimizuota“ arba „Neribota“.",
+      "openBatterySettings": "Atidaryti baterijos nustatymus",
+      "notificationsAreOff": "Pranešimai išjungti",
+      "sessionsStillRunButThe": "Sesijos vis tiek veikia, tačiau atidarytų sesijų sąrašas ir mygtukas „Atjungti visas“ lieka paslėpti.",
+      "openNotificationSettings": "Atidaryti pranešimų nustatymus",
+      "thisBuildCanTKeep": "Ši versija negali palaikyti sesijų fone. Jos prisijungia iš naujo, kai grįžtate.",
+      "lowPowerMode": "Mažos galios režimas",
+      "batterySaver": "Baterijos taupymas",
+      "isOnTermixChecksConnections": "{{value}} įjungtas. Termix rečiau tikrina ryšius ir ilgiau laukia tarp prisijungimo iš naujo bandymų.",
+      "backgroundSessions": "Foninės sesijos",
+      "iosStopsAppsSoonAfter": "iOS greitai sustabdo programas, kai jas paliekate, todėl sesijos negali veikti fone. Jos prisijungia iš naujo, kai grįžtate, o tmux arba screen tęsia ten, kur buvote."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Sustabdyta",
+        "active": "Aktyvi",
+        "linkAServer": "Susieti serverį",
+        "eachServerKeepsItsOwn": "Kiekvienas serveris šioje {{deviceWord}} saugo savo jūsų hostų, prisijungimo duomenų ir nustatymų kopiją.",
+        "signedInAs": "Prisijungę kaip",
+        "role": "Vaidmuo",
+        "administrator": "Administratorius",
+        "user": "Naudotojas",
+        "serverVersion": "Serverio versija",
+        "signOut": "Atsijungti",
+        "youAreSignedOutOf": "Jūs atsijungėte nuo šio serverio.",
+        "signIn": "Prisijungti",
+        "passwordChanged": "Slaptažodis pakeistas",
+        "couldNotChangeThePassword": "Nepavyko pakeisti slaptažodžio",
+        "changePassword": "Keisti slaptažodį",
+        "enterYourCurrentPasswordThen": "Įveskite dabartinį slaptažodį, tada pasirinkite naują.",
+        "cancel": "Atšaukti",
+        "change": "Keisti",
+        "currentPassword": "Dabartinis slaptažodis",
+        "newPassword": "Naujas slaptažodis",
+        "accountDeleted": "Paskyra ištrinta",
+        "couldNotDeleteTheAccount": "Nepavyko ištrinti paskyros",
+        "deleteServerAccount": "Ištrinti serverio paskyrą",
+        "thisPermanentlyDeletesYourAccount": "Tai visam laikui ištrins jūsų paskyrą serveryje ir visus jos duomenis. To negalima atšaukti.",
+        "delete": "Ištrinti",
+        "confirmYourPassword": "Patvirtinkite slaptažodį",
+        "worksWithoutAServer": "Veikia be serverio",
+        "signedOut": "Atsijungta",
+        "readsLive": "Skaitymas realiuoju laiku",
+        "toReview": "{{count}} reikia peržiūrėti",
+        "synced": "Sinchronizuota",
+        "syncing": "Sinchronizuojama",
+        "offline": "Neprisijungęs"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Dalintis anoniminiais naudojimo statistikos duomenimis",
+        "aShortReportOnceA": "Trumpas ataskaitos pranešimas kartą per dieną. Jokių serverių, vardų ar adresų",
+        "nextReport": "Kitas pranešimas",
+        "seeExactlyWhatWouldBe": "Peržiūrėti, kas tiksliai būtų išsiųsta",
+        "couldNotBuildTheReport": "Nepavyko sukurti ataskaitos",
+        "preview": "Peržiūra",
+        "thisIsExactlyWhatWould": "Tai yra tai, kas būtų išsiųsta šiuo metu.",
+        "resetInstallId": "Nustatyti diegimo ID iš naujo",
+        "futureReportsWillLookLike": "Ateities pranešimai atrodys kaip naujas diegimas",
+        "resetTheInstallId": "Nustatyti diegimo ID iš naujo?",
+        "futureReportsWillLookLike2": "Ateities pranešimai atrodys kaip naujas diegimas.",
+        "reset": "Nustatyti iš naujo",
+        "installIdReset": "Diegimo ID nustatytas iš naujo"
+      },
+      "appearanceControls": {
+        "theme": "Tema",
+        "accentColor": "Akcento spalva",
+        "textSize": "Teksto dydis",
+        "sizeOfTextAcrossThe": "Teksto dydis visoje programėlėje, ne terminale",
+        "density": "Tankis",
+        "howTallListRowsAnd": "Sąrašo eilučių ir nustatymų aukštis"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Serveriai, prisijungimo duomenys ir komandų fragmentai saugomi šifruotame faile šiame {{deviceWord}}. Naudojimo statistika išjungta, nebent ją įjungsite žemiau. Susietas serveris gauna tik tai, ką leidžiate sinchronizuoti.",
+        "recentHosts": "Neseniai naudoti serveriai",
+        "forgetTheHostsYouOpened": "Pamiršti serverius, kuriuos neseniai atidarėte visuose paskyrose",
+        "recentHostsCleared": "Neseniai naudoti serveriai išvalyti",
+        "clear": "Išvalyti",
+        "couldNotCheckForUpdates": "Nepavyko patikrinti atnaujinimų",
+        "versionIsOutUpdateFrom": "Išleista versija {{version}}. Atnaujinkite iš savo parduotuvės.",
+        "youHaveTheNewestVersion": "Turite naujausią versiją",
+        "termixMobile": "Termix Mobile",
+        "updates": "Atnaujinimai",
+        "check": "Patikrinti"
+      },
+      "pinSheet": {
+        "waitSeconds": "Palaukti {{value}} sekundžių",
+        "digits": "{{PIN_LENGTH}} skaitmenys"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN kodai nesutampa",
+        "appLockIsOn": "Programėlės užraktas įjungtas",
+        "turnOffAppLock": "Išjungti programėlės užraktą",
+        "enterYourPinToConfirm": "Įveskite savo PIN kodą, kad patvirtintumėte.",
+        "appLockIsOff": "Programėlės užraktas išjungtas",
+        "appLock": "Programėlės užraktas",
+        "askForFaceIdTouch": "Reikalauti Face ID, Touch ID arba PIN kodo norint atidaryti programėlę",
+        "askForAPinTo": "Reikalauti PIN kodo norint atidaryti programėlę",
+        "pinChanged": "PIN kodas pakeistas",
+        "couldNotChangeThePin": "Nepavyko pakeisti PIN kodo",
+        "changePin": "Keisti PIN kodą",
+        "lockAfter": "Užrakinti po",
+        "howLongTheAppCan": "Kaip ilgai programėlė gali būti nematoma, kol ji užrakins",
+        "hideInAppSwitcher": "Slėpti programų perjungime",
+        "showABlankScreenIn": "Rodyti tuščią ekraną neseniai naudotų programų sąraše",
+        "chooseA4DigitPin": "Pasirinkite 4 skaitmenų PIN kodą.",
+        "confirmPin": "Patvirtinti PIN kodą",
+        "enterTheSamePinAgain": "Įveskite tą patį PIN kodą dar kartą.",
+        "currentPin": "Dabartinis PIN kodas",
+        "enterYourCurrentPin": "Įveskite savo dabartinį PIN kodą.",
+        "newPin": "Naujas PIN kodas",
+        "chooseANew4Digit": "Pasirinkite naują 4 skaitmenų PIN kodą.",
+        "confirmNewPin": "Patvirtinti naują PIN kodą",
+        "enterTheNewPinAgain": "Įveskite naują PIN kodą dar kartą."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Pradinio ekrano valdikliai",
+        "showYourHostsSnippetsAnd": "Rodyti serverius, komandų fragmentus ir maitinimo mygtukus pradinio ekrane",
+        "showAddresses": "Rodyti adresus",
+        "showUserHostUnderEach": "Rodyti vartotoją@serverį po kiekvieno serverio pavadinimo",
+        "includeOfflineHosts": "Įtraukti neprisijungusius serverius",
+        "offShowsOnlyServersThat": "Išjungus rodomi tik prisijungę serveriai",
+        "pinnedHostsOnly": "Tik prisegti serveriai",
+        "showOnlyTheHostsYou": "Rodyti tik tuos serverius, kuriuos prisegėte",
+        "snippetsWidget": "Komandų fragmentų valdiklis",
+        "showSavedCommandsOnThe": "Rodyti išsaugotas komandas pradinio ekrane",
+        "showCommandPreview": "Rodyti komandos peržiūrą",
+        "showTheFirstLineOf": "Rodyti kiekvienos komandos pirmąją eilutę"
+      }
+    },
+    "fileSettings": {
+      "files": "Failai",
+      "fileManagerOnThis": "Failų tvarkytuvė šiame {{deviceWord}}",
+      "browsing": "Naršymas",
+      "transfersAtOnce": "Vienu metu vykdomi perdavimai",
+      "downloadsAndUploadsThatRun": "Atsisiuntimai ir įkėlimai, vykstantys vienu metu",
+      "editor": "Redaktorius",
+      "textSize": "Teksto dydis",
+      "filesBesideTheTerminal": "Failai šalia terminalo",
+      "side": "Pusė",
+      "whereThePanelSitsOn": "Kur panelė rodoma planšetėje",
+      "right": "Dešinėje",
+      "left": "Kairėje",
+      "howOftenToCheck": "Patikrinimo dažnumas",
+      "folderHistory": "Aplankų istorija",
+      "foldersKeptPerHost": "Išsaugomi aplankai vienam serveriui",
+      "showHiddenFiles": "Rodyti paslėptus failus",
+      "filesAndFoldersThatStart": "Failai ir aplankai, prasidedantys tašku",
+      "askBeforeMovingToThe": "Klausti prieš perkėlimą į šiukšlinę",
+      "deletingForGoodAlwaysAsks": "Visiškas ištrynimas visada prašo patvirtinimo",
+      "wrapLongLines": "Pertraukti ilgus eilutes",
+      "openWithNewTerminals": "Atidaryti naujuose terminaluose",
+      "onATabletShowThe": "Planšetėje rodyti failų panelę, kai atidaromas terminalas",
+      "followTheTerminal": "Sekti terminalą",
+      "openTheFolderTheTerminal": "Atidaryti aplanką, kuriame yra terminalas, kai naudojate cd komandą"
+    },
+    "keyboardCustomization": {
+      "small": "Mažas",
+      "medium": "Vidutinis",
+      "large": "Didelis",
+      "ms": "{{v}} ms",
+      "keyboard": "Klaviatūra",
+      "keyRowsAboveTheKeyboard": "Klavišų eilutės virš klaviatūros",
+      "rows": "Eilutės",
+      "keys": "Klavišai",
+      "aHostCanHaveIts": "Serveris gali turėti savo eilutes: bakstelėkite jo atidarytą skirtuką sesijoje ir pasirinkite „Klavišų eilutės šiam serveriui“.",
+      "keySize": "Klavišo dydis",
+      "vibrateOnKeyPress": "Vibruoti paspaudus klavišą",
+      "repeatAfter": "Kartoti po",
+      "howLongToHoldAn": "Kaip ilgai laikyti rodyklę arba Backspace",
+      "repeatEvery": "Kartoti kas",
+      "hardwareKeyboard": "Fizinė klaviatūra",
+      "allShortcuts": "Visi sparčiojo klavišo deriniai",
+      "show": "Rodyti"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Nepavyko sukurti atsarginės kopijos",
+      "deleteLocalData": "Ištrinti vietinius duomenis?",
+      "hostsCredentialsSnippetsAndHistory": "Šiame {{deviceWord}} išsaugoti serveriai, prisijungimo duomenys, komandų fragmentai ir istorija paskyrai {{account}} bus ištrinti. Šio veiksmo negalima atšaukti. Jei norite jų išsaugoti, pirmiausia sukurkite atsarginę kopiją.",
+      "delete": "Ištrinti",
+      "localDataDeleted": "Vietiniai duomenys ištrinti",
+      "couldNotDeleteLocalData": "Nepavyko ištrinti vietinių duomenų",
+      "localData": "Vietiniai duomenys",
+      "localDataIsOnlySaved": "Vietiniai duomenys išsaugomi tik {{deviceWord}} programoje.",
+      "savedOnThisForThe": "Išsaugota šiame {{deviceWord}} paskyrai {{account}}. Failas šifruotas raktu, kuris niekada nepalieka šio {{deviceWord}}.",
+      "hosts": "Serveriai",
+      "credentials": "Prijungimo duomenys",
+      "snippets": "Kodo fragmentai",
+      "size": "Dydis",
+      "dataVersion": "Duomenų versija",
+      "backup": "Atsarginė kopija",
+      "aBackupFileHoldsYour": "Atsarginės kopijos faile saugomi jūsų slaptažodžiai ir raktai, užrakinti pasirinkta slaptafraze. Be šios slaptafrazės niekas negali jo atidaryti.",
+      "exportBackup": "Eksportuoti atsarginę kopiją",
+      "importBackup": "Importuoti atsarginę kopiją",
+      "removesEverythingThisAccountSaved": "Pašalina viską, ką ši paskyra išsaugojo šiame {{deviceWord}}. Susietas serveris išlaiko savo kopiją.",
+      "deleteLocalData2": "Ištrinti vietinius duomenis",
+      "backupPassphrase": "Atsarginės kopijos slaptafraze",
+      "atLeast8CharactersYou": "Mažiausiai 8 simboliai. Jos reikės atsarginės kopijos atkūrimui.",
+      "passphrase": "Slaptafraze",
+      "next": "Toliau",
+      "typeItAgain": "Įveskite dar kartą",
+      "export": "Eksportuoti",
+      "saveYourTermixBackup": "Išsaugokite savo Termix atsarginę kopiją"
+    },
+    "logs": {
+      "logs": "Žurnalai",
+      "latestLinesFromThisRun": "Naujausios eilutės iš šio paleidimo. Serverių adresai, slaptažodžiai ir žetonai paslėpti.",
+      "logsCopied": "Žurnalai nukopijuoti",
+      "copy": "Kopijuoti",
+      "share": "Bendrinti",
+      "clear": "Išvalyti",
+      "noLogsYet": "Žurnalų dar nėra",
+      "nothingHasBeenLogged": "Nieko nebuvo užregistruota."
+    },
+    "plugins": {
+      "worksOnThis": "Veikia šiame {{deviceWord}}",
+      "needsTheServer": "Reikalingas serveris",
+      "notInTheApp": "Nėra programoje",
+      "needsANewerVersionOf": "Reikalinga naujesnė programos versija",
+      "updateThePluginOnThe": "Atnaujinkite įskiepį serveryje",
+      "inTheApp": "Programoje",
+      "onThisServer": "Šiame serveryje",
+      "version": "Versija",
+      "needsPluginApi": "Reikalinga įskiepių API",
+      "thisAppHas": "Šioje programoje yra",
+      "note": "Pastaba",
+      "open": "Atidaryti",
+      "openFromAHostS": "Atidarykite {{name}} iš serverio meniu.",
+      "plugins": "Įskiepiai",
+      "everything": "Viskas",
+      "thisDeviceWorksWithNo": "Šis įrenginys veikia be serverio. Susiekite serverį, kad pridėtumėte funkcijas, kurioms jo reikia.",
+      "pluginsOnAndHowEach": "Įskiepiai paskyroje {{account}} ir kaip kiekvienas iš jų rodomas programoje. Tempkite žemyn, kad patikrintumėte dar kartą.",
+      "whatRunsOnThisAnd": "Kas veikia šiame {{deviceWord}} ir kas vyksta per {{account}}.",
+      "noPluginList": "Įskiepių sąrašo nėra",
+      "theServerDidNotSend": "Serveris neperssiuntė savo įskiepių. Tempkite žemyn, kad bandytumėte dar kartą.",
+      "serversOlderThan29": "Serveriuose, senesniuose nei 2.9, visos funkcijos integruotos.",
+      "nothingToShow": "Nėra ką rodyti",
+      "notSentByThisServer": "Nepersiųsta šio serverio"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Pakeisti vietinius duomenis?",
+      "everythingSavedOnThisFor": "Viskas, kas išsaugota šiame {{deviceWord}} paskyrai {{accountName}}, bus pakeista atsargine kopija.",
+      "continue": "Tęsti",
+      "couldNotReadThatFile": "Nepavyko perskaityti to failo",
+      "backupRestored": "Atsarginė kopija atkurta",
+      "couldNotRestoreTheBackup": "Nepavyko atkurti atsarginės kopijos",
+      "backupPassphrase": "Atsarginės kopijos slaptafraze",
+      "thePassphraseUsedWhenThe": "Slaptafraze, naudota kuriant atsarginę kopiją.",
+      "passphrase": "Slaptafraze",
+      "restore": "Atkurti"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Paskyros",
+        "thisDeviceAndLinkedServers": "Šis įrenginys ir susieti serveriai su jų sinchronizavimo būsena",
+        "syncAndProxy": "Sinchronizavimas ir tarpinis serveris",
+        "whatSyncsConflictsProxyAnd": "Kas sinchronizuojama, konfliktai, tarpinis serveris ir atskyrimas",
+        "serverAccount": "Serverio paskyra",
+        "whoIsSignedInOn": "Kas prisijungęs prie aktyvaus serverio",
+        "activeSessions": "Aktyvios sesijos",
+        "devicesSignedInToThe": "Įrenginiai, prisijungę prie serverio",
+        "apiKeys": "API raktai",
+        "keysForScriptsAndTools": "Raktai skriptams ir įrankiams",
+        "changePassword": "Keisti slaptažodį",
+        "passwordOfYourServerAccount": "Jūsų serverio paskyros slaptažodis",
+        "deleteServerAccount": "Ištrinti serverio paskyrą",
+        "removeYourAccountFromThe": "Pašalinti savo paskyrą iš serverio",
+        "theme": "Tema",
+        "darkLightDraculaNordAnd": "Tamsi, šviesi, Dracula, Nord ir kt.",
+        "accentColor": "Akcento spalva",
+        "textSize": "Teksto dydis",
+        "sizeOfTextAcrossThe": "Teksto dydis visoje programėlėje",
+        "density": "Tankis",
+        "howTallListRowsAnd": "Sąrašo eilučių ir nustatymų aukštis",
+        "homeScreenWidgets": "Pradinio ekrano valdikliai",
+        "hostsAndSnippetsOnThe": "Mazgai ir komandos pradžios ekrane",
+        "terminal": "Terminalas",
+        "fontThemeCursorScrollback": "Šriftas, tema, kursorius, slinkimo istorija",
+        "keyboard": "Klaviatūra",
+        "layoutKeysPresets": "Išdėstymas, klavišai, išankstiniai nustatymai",
+        "appLock": "Programėlės užraktas",
+        "askForFaceIdTouch": "Reikalauti Face ID, Touch ID arba PIN kodo norint atidaryti programėlę",
+        "lockAfter": "Užrakinti po",
+        "howLongTheAppCan": "Kaip ilgai programėlė gali būti nematoma, kol bus užrakinta",
+        "hideInAppSwitcher": "Slėpti programų perjungime",
+        "showABlankScreenIn": "Rodyti tuščią ekraną neseniai naudotų programų sąraše",
+        "changePin": "Keisti PIN kodą",
+        "backgroundSessions": "Fono sesijos",
+        "whatHappensToOpenSessions": "Kas atsitinka su atidarytomis sesijomis, kai paliekate programėlę",
+        "serverAlerts": "Serverio įspėjimai",
+        "alertsFromTheAlertsPlugin": "Įspėjimai iš „Alerts“ priedo jūsų serveryje",
+        "whatStaysOnThis": "Kas lieka šiame {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Mazgai, prisijungimo duomenys ir komandos saugomi šifruoti čia",
+        "recentHosts": "Neseniai naudoti mazgai",
+        "forgetTheHostsYouOpened": "Pamiršti mazgus, kuriuos neseniai atidarėte",
+        "shareAnonymousUsageStatistics": "Dalintis anoniminiais naudojimo statistikos duomenimis",
+        "aShortReportOnceA": "Trumpas ataskaitos pranešimas kartą per dieną. Jokių mazgų, vardų ar adresų",
+        "nextReport": "Kita ataskaita",
+        "seeExactlyWhatWouldBe": "Peržiūrėti tiksliai, kas būtų išsiųsta",
+        "resetInstallId": "Nustatyti diegimo ID iš naujo",
+        "futureReportsWillLookLike": "Ateities ataskaitos atrodys kaip naujas diegimas",
+        "serverUsageStatistics": "Serverio naudojimo statistika",
+        "telemetrySettingsOnYourServer": "Telemetrijos nustatymai jūsų serveryje",
+        "plugins": "Priedai",
+        "whatTheServerAddsAnd": "Ką serveris prideda ir kur jis veikia",
+        "localData": "Vietiniai duomenys",
+        "backupRestoreAndDeleteWhat": "Kurti atsargines kopijas, atkurti ir ištrinti tai, kas išsaugota šiame {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Versija ir atnaujinimai",
+        "logs": "Žurnalai",
+        "latestLinesFromThisRun": "Naujausios eilutės iš šio paleidimo, skirtos klaidų pranešimams",
+        "pushNotifications": "Stumiamieji pranešimai",
+        "pushNotificationsDescription": "Pranešimai iš jūsų serverių šiame telefone"
+      },
+      "sections": {
+        "accountsAndSync": "Paskyros ir sinchronizavimas",
+        "thisDeviceLinkedServersAnd": "Šis įrenginys, susieti serveriai ir sinchronizavimo duomenys",
+        "appearance": "Išvaizda",
+        "themeAccentTextSizeAnd": "Kalba, tema, akcentas, teksto dydis ir tankis",
+        "terminal": "Terminalas",
+        "fontColorsAndBackgroundSessions": "Šriftas, spalvos ir foninės sesijos",
+        "keyboard": "Klaviatūra",
+        "keyRowsAndShortcuts": "Klaviatūros eilutės ir sparčiuosieji klavišai",
+        "security": "Saugumas",
+        "appLockFaceIdAnd": "Programos užraktas, „Face ID“ ir PIN kodas",
+        "notifications": "Pranešimai",
+        "alertsFromYourServer": "Įspėjimai iš jūsų serverio",
+        "privacyAndUsageStatistics": "Privatumas ir naudojimo statistika",
+        "whatStaysOnThis": "Kas lieka šiame {{deviceWord}}",
+        "plugins": "Priedai",
+        "whatTheServerAddsTo": "Ką serveris prideda prie programos",
+        "backupAndData": "Atsarginė kopija ir duomenys",
+        "backUpRestoreImportAnd": "Atsarginės kopijos, atkūrimas, importas ir eksportas",
+        "aboutAndLogs": "Apie programą ir žurnalai",
+        "versionAndLogsForBug": "Versija ir žurnalai klaidų pranešimams"
+      }
+    },
+    "settings": "Nustatymai",
+    "searchSettings": "Ieškoti nustatymų",
+    "noSettingsMatch": "Nėra jokių atitinkančių nustatymų.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Nepavyko įkelti komandų fragmentų",
+      "copied": "Nukopijuota: {{name}}",
+      "nameIsRequired": "Pavadinimas yra privalomas",
+      "contentIsRequired": "Turinys yra privalomas",
+      "snippetUpdated": "Komandos fragmentas atnaujintas",
+      "snippetCreated": "Komandos fragmentas sukurtas",
+      "failedToSaveSnippet": "Nepavyko išsaugoti komandos fragmento",
+      "snippetDeleted": "Komandos fragmentas ištrintas",
+      "failedToDeleteSnippet": "Nepavyko ištrinti komandos fragmento",
+      "folderNameIsRequired": "Aplanko pavadinimas yra privalomas",
+      "folderCreated": "Aplankas sukurtas",
+      "failedToCreateFolder": "Nepavyko sukurti aplanko",
+      "folderDeleted": "Aplankas ištrintas",
+      "failedToDeleteFolder": "Nepavyko ištrinti aplanko",
+      "folderRenamed": "Aplankui pakeistas pavadinimas",
+      "failedToRenameFolder": "Nepavyko pakeisti aplanko pavadinimo",
+      "failedToSaveOrder": "Nepavyko išsaugoti tvarkos",
+      "moveUp": "Perkelti aukštyn",
+      "moveDown": "Perkelti žemyn",
+      "runOnHosts": "Vykdyti {{name}} serveriuose",
+      "copy": "Kopijuoti {{name}}",
+      "delete": "Ištrinti {{name}}",
+      "renameFolder": "Pervadinti aplanką",
+      "deleteFolder": "Ištrinti aplanką",
+      "noSnippetsInThisFolder": "Šiame aplanke nėra komandų fragmentų",
+      "snippets": "Komandų fragmentai",
+      "importAndExport": "Importas ir eksportas",
+      "folder": "Aplankas",
+      "new": "Naujas",
+      "loading": "Įkeliamas…",
+      "couldNotLoadSnippets": "Nepavyko įkelti komandų fragmentų",
+      "checkTheConnectionToYour": "Patikrinkite ryšį su serveriu ir bandykite dar kartą.",
+      "tryAgain": "Bandyti dar kartą",
+      "noSnippetsYet": "Dar nėra komandų fragmentų",
+      "createYourFirstSnippetOr": "Sukurkite savo pirmąjį komandos fragmentą arba pridėkite fragmentų iš „Termix“ naršyklės arba darbalaukio programos.",
+      "createSnippet": "Sukurti komandos fragmentą",
+      "askBeforeRunning": "Klausti prieš vykdydami",
+      "confirmBeforeASnippetRuns": "Patvirtinkite prieš fragmentas vykdomas terminale",
+      "editSnippet": "Redaguoti fragmentą",
+      "newSnippet": "Naujas fragmentas",
+      "cancel": "Atšaukti",
+      "save": "Išsaugoti",
+      "create": "Sukurti",
+      "name": "Pavadinimas",
+      "eGUpdatePackages": "pvz., Atnaujinti paketus",
+      "content": "Turinys",
+      "descriptionOptional": "Aprašymas (nebūtina)",
+      "shortDescription": "Trumpas aprašymas",
+      "folderOptional": "Aplankas (nebūtina)",
+      "selectFolder": "Pasirinkti aplanką",
+      "noFolder": "Be aplanko",
+      "targetHostsOptional": "Tiksliniai serveriai (nebūtina)",
+      "none": "Nėra",
+      "note": "Pastaba",
+      "pastedIntoTheTerminalWithout": "Įklijuota į terminalą nevykdant",
+      "targetHosts": "Tiksliniai serveriai",
+      "copy2": "Kopijuoti",
+      "edit": "Redaguoti",
+      "runOnHosts2": "Vykdyti serveriuose",
+      "delete2": "Ištrinti",
+      "deleteSnippet": "Ištrinti fragmentą",
+      "deleteThisCannotBeUndone": "Ištrinti „{{name}}“? To negalima atšaukti.",
+      "renameFolder2": "Pervadinti aplanką",
+      "rename": "Pervadinti",
+      "folderName": "Aplanko pavadinimas",
+      "eGSystem": "pvz., Sistema",
+      "newFolder": "Naujas aplankas",
+      "deleteFolder2": "Ištrinti aplanką",
+      "deleteSnippetsInThisFolder": "Ištrinti „{{name}}“? Šiame aplanke esantys fragmentai taps neklasifikuotais."
+    },
+    "sync": {
+      "notYet": "Dar ne",
+      "justNow": "Būtent dabar",
+      "stopped": "Sustabdyta",
+      "signInToThisServer": "Prisijunkite prie šio serverio iš naujo, kad sinchronizuotumėte",
+      "couldNotChangeThat": "To pakeisti nepavyko",
+      "sync": "Sinchronizuoti",
+      "thisDeviceDoesNotSync": "Šis įrenginys nesinchronizuoja. Susiekite Termix serverį, kad serverius naudotumėte daugiau nei viename įrenginyje.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} laiko serverius, prisijungimo duomenis, fragmentus ir nustatymus sinchronizuotus su šiuo {{deviceWord}}. Kopija lieka šiame {{deviceWord}}, todėl veikia ir be interneto.",
+      "lastSynced": "Paskutinį kartą sinchronizuota {{value}}",
+      "live": "Tiesiogiai",
+      "syncNow": "Sinchronizuoti dabar",
+      "fix": "Taisyti",
+      "thisServerReadsLiveAnd": "Šis serveris skaito tiesiogiai ir šiame {{deviceWord}} nekoppuoja duomenų.",
+      "turnOnTheSyncPlugin": "Įjunkite Sinchronizacijos priedą serverio Priedų puslapyje, tada prisijunkite čia iš naujo, kad šiame {{deviceWord}} išliktų kopija.",
+      "whatSyncs": "Kas sinchronizuojama",
+      "turnedOffThatDataStays": "Išjungta, šie duomenys lieka tik šiame {{deviceWord}}.",
+      "conflicts": "Konfliktai",
+      "changedHereAndOnThe": "Pakeista čia ir serveryje tuo pačiu metu. Palikta serverio versija.",
+      "useServer": "Naudoti serverį",
+      "keepMine": "Palikti mano",
+      "notSavedOnTheServer": "Neišsaugota serveryje",
+      "theServerRefusedTheseChanges": "Serveris atmetė šiuos pakeitimus. Jie lieka šiame {{deviceWord}}.",
+      "tryAgain": "Bandyti dar kartą",
+      "proxy": "Tarpinis serveris",
+      "onlyNeededWhenAReverse": "Reikalinga tik tada, kai prieš serverį yra atvirkštinis tarpinis serveris.",
+      "unlink": "Atsieti",
+      "unlinkThisServer": "Atsieti šį serverį",
+      "minAgo": "Prieš {{value}} min.",
+      "signedOut": "Atsijungta",
+      "waitingToSync": "Laukiama sinchronizavimo",
+      "synced": "Sinchronizuota",
+      "syncing": "Sinchronizuojama",
+      "offline": "Neprisijungęs"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Fonas",
+        "text": "Tekstas",
+        "cursor": "Kursorius",
+        "textUnderCursor": "Tekstas po kursoriumi",
+        "selection": "Pažymėjimas",
+        "black": "Juoda",
+        "red": "Raudona",
+        "green": "Žalia",
+        "yellow": "Geltona",
+        "blue": "Mėlyna",
+        "magenta": "Magenta",
+        "cyan": "Cian",
+        "white": "Balta",
+        "brightBlack": "Šviesi juoda",
+        "brightRed": "Šviesi raudona",
+        "brightGreen": "Šviesi žalia",
+        "brightYellow": "Šviesi geltona",
+        "brightBlue": "Šviesi mėlyna",
+        "brightMagenta": "Šviesi magenta",
+        "brightCyan": "Šviesus cian",
+        "brightWhite": "Šviesi balta",
+        "customTheme": "Nepriklausoma tema",
+        "colorsAsHexLike1e1e2e": "Spalvos kaip hex, pvz., #1e1e2e.",
+        "cancel": "Atšaukti",
+        "save": "Išsaugoti",
+        "isNotAHexColor": "{{label}} nėra hex spalva"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompaktiškas",
+      "default": "Numatytasis",
+      "relaxed": "Laisvas",
+      "spacious": "Erdvus",
+      "none": "Nėra",
+      "couldNotSave": "Nepavyko išsaugoti",
+      "pickASizeFromTo": "Pasirinkite dydį nuo {{MIN_FONT_SIZE}} iki {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Terminalo nustatymai atstatyti",
+      "terminal": "Terminalas",
+      "aHostCanSetIts": "Svetainė gali nustatyti savo temą ir kursorių Termix, kurie turi prioritetą prieš šiuos nustatymus.",
+      "theme": "Tema",
+      "custom": "Nepriklausoma",
+      "font": "Šriftas",
+      "active": "Aktyvus",
+      "sizeAndSpacing": "Dydis ir tarpai",
+      "pinchTheTerminalToChange": "Norėdami pakeisti dydį, taip pat galite naudoti terminalo tempimą. Didelis tekstas jūsų {{deviceWord}}nustatymuose jį padidins.",
+      "custom2": "Nepriklausomas {{fontSize}}",
+      "lineHeight": "Eilutės aukštis",
+      "letterSpacing": "Rašmenų tarpai",
+      "ligatures": "Ligatūros",
+      "cursor": "Kursorius",
+      "blink": "Mirksėjimas",
+      "bell": "Varpelis",
+      "vibrate": "Vibracija",
+      "onTheBellAndWhen": "Kai skamba varpelis ir kai ilgai paspaudžiate, kad pažymėtumėte",
+      "scrollback": "Slinkimas atgal",
+      "linesKeptAboveTheScreen": "Eilutės, išsaugotos virš ekrano. Taikoma naujiems terminalams.",
+      "linksAndKeys": "Nuorodos ir raktai",
+      "askBeforeOpeningLinks": "Klausti prieš atidarydamas nuorodas",
+      "doubleTapSendsTab": "Dvigubas bakstelėjimas siunčia Tab",
+      "longPressStillSelectsText": "Ilgas paspaudimas vis tiek pažymi tekstą",
+      "optionSendsAlt": "Option siunčia Alt",
+      "onAHardwareKeyboardOff": "Naudojant fizinę klaviatūrą. Išjungus simboliai rašomi kaip „Mac“.",
+      "history": "Istorija",
+      "suggestCommands": "Siūlyti komandas",
+      "showsPastCommandsThatStart": "Anksčiau naudotos komandos rašant",
+      "resetToDefault": "Atstatyti numatytuosius",
+      "fontSize": "Šrifto dydis",
+      "aSizeFromTo": "Dydis nuo {{MIN_FONT_SIZE}} iki {{MAX_FONT_SIZE}}.",
+      "cancel": "Atšaukti",
+      "apply": "Taikyti",
+      "resetTerminalSettings": "Atstatyti terminalo nustatymus?",
+      "themeFontSizeCursorBell": "Tema, šriftas, dydis, kursorius, signalas ir kiti nustatymai bus grąžinti į numatytuosius.",
+      "reset": "Atstatyti",
+      "followsAppTheme": "Sekti programos temą"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Nepavyko pradėti 2FA nustatymo",
+      "twoFactorAuthenticationEnabled": "Dvejetainė autentifikacija įjungta",
+      "invalidCodeTryAgain": "Neteisingas kodas, bandykite dar kartą",
+      "twoFactorAuthenticationDisabled": "Dvejetainė autentifikacija išjungta",
+      "failedToDisable2fa": "Nepavyko išjungti 2FA",
+      "failedToFetchBackupCodes": "Nepavyko gauti atsarginių kodų",
+      "secretCopied": "Slaptas raktas nukopijuotas",
+      "backupCodesCopied": "Atsarginiai kodai nukopijuoti",
+      "twoFactorAuthentication": "Dvejetainė autentifikacija",
+      "loading": "Įkeliama…",
+      "scanThisQrCodeWith": "Nuskenuokite šį QR kodą su autentifikatoriaus programėle („Google Authenticator“, „Authy“ ir kt.), tada įveskite 6 skaitmenų kodą patvirtinimui.",
+      "verifyAmpEnable": "Patvirtinti ir įjungti",
+      "cancel": "Atšaukti",
+      "saveYourBackupCodes": "Išsaugokite savo atsarginius kodus",
+      "storeTheseSomewhereSafeEach": "Saugokite juos saugioje vietoje. Kiekvienas kodas gali būti naudojamas tik vieną kartą, jei prarasite prieigą prie autentifikatoriaus.",
+      "copyAllCodes": "Kopijuoti visus kodus",
+      "done": "Atlikta",
+      "yourAccountIsProtectedWith": "Jūsų paskyra apsaugota autentifikatoriaus programėle.",
+      "addAnExtraLayerOf": "Pridėkite papildomą saugumo sluoksnį savo paskyrai.",
+      "viewBackupCodes": "Peržiūrėti atsarginius kodus",
+      "disable2fa": "Išjungti 2FA",
+      "enable2fa": "Įjungti 2FA",
+      "disableTwoFactorAuthentication": "Išjungti dvejetainę autentifikaciją",
+      "enterACodeFromYour": "Įveskite kodą iš savo autentifikatoriaus programėlės patvirtinimui. 2FA galite įjungti bet kuriuo metu.",
+      "enterYourPasswordToConfirm": "Įveskite slaptažodį patvirtinimui. 2FA galite įjungti bet kuriuo metu.",
+      "disable": "Išjungti",
+      "yourPassword": "Jūsų slaptažodis",
+      "n2faIsEnabled": "2FA įjungta",
+      "n2faIsNotEnabled": "2FA neįjungta"
+    },
+    "language": {
+      "label": "Kalba",
+      "description": "Programa perkraunama, kad pakeistų kalbą",
+      "system": "Ta pati kaip įrenginio"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Čia nėra SSH serverių",
+      "couldNotReadWhatWas": "Nepavyko perskaityti, kas buvo pasidalinta",
+      "stopTheUploads": "Sustabdyti įkėlimus?",
+      "stopAndLeave": "Sustabdyti ir išeiti",
+      "sendTo": "Siųsti į {{name}}",
+      "sendToAHost": "Siųsti į serverį",
+      "nothingToSend": "Nėra ko siųsti",
+      "close": "Uždaryti",
+      "done": "Atlikta",
+      "cancel": "Atšaukti",
+      "uploadHere": "Įkelti čia",
+      "uploadsStillGoing_one": "Vis dar vyksta {{count}} įkėlimas. Išeinant jis bus sustabdytas.",
+      "uploadsStillGoing_few": "Vis dar vyksta {{count}} įkėlimai. Išeinant jie bus sustabdyti.",
+      "uploadsStillGoing_many": "Vis dar vyksta {{count}} įkėlimų. Išeinant jie bus sustabdyti.",
+      "uploadsStillGoing_other": "Vis dar vyksta {{count}} įkėlimų. Išeinant jie bus sustabdyti.",
+      "filesSize_one": "{{count}} failas | {{size}}",
+      "filesSize_few": "{{count}} failai | {{size}}",
+      "filesSize_many": "{{count}} failų | {{size}}",
+      "filesSize_other": "{{count}} failų | {{size}}",
+      "readingWhatWasShared": "Skaitoma, kas buvo pasidalinta"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Klaida",
+      "worksWithoutAServer": "Veikia be serverio",
+      "accountSwitch": "Paskyra {{account}}, perjungti",
+      "search": "Paieška",
+      "notificationsUnread": "Pranešimai, {{unread}} neperskaitytų",
+      "notifications": "Pranešimai",
+      "signedIn": "Prisijungta",
+      "signedOut": "Atsijungta",
+      "copyOnThis": "Kopijuoti į šį {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Pradžia",
+      "hosts": "Serveriai",
+      "sessions": "Sesijos",
+      "tools": "Įrankiai",
+      "settings": "Nustatymai",
+      "open": "{{label}}, {{count}} atidarytų"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} atidarytų"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Pasirinkti serverį",
+      "searchHosts": "Ieškoti serverių",
+      "clearSearch": "Išvalyti paiešką",
+      "noHostsMatch": "Nerasta jokių atitinkančių serverių",
+      "noHostsCanUseThis": "Nėra serverių, galinčių naudoti tai",
+      "turnItOnForA": "Įjunkite tai serveriui serverio redaktoriuje."
+    },
+    "noToolsHereYet": "Čia dar nėra įrankių",
+    "onAHost": "Serverio",
+    "saved": "Išsaugota",
+    "fromYourServer": "Iš jūsų serverio"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Atšaukti",
+      "delete": "Pašalinti",
+      "confirm": "Patvirtinti"
+    },
+    "contextMenu": {
+      "closeMenu": "Uždaryti meniu"
+    },
+    "inlineView": {
+      "back": "Atgal"
+    },
+    "listRow": {
+      "moreActions": "Daugiau veiksmų"
+    },
+    "pinPad": {
+      "useBiometrics": "Naudoti biometriją",
+      "delete": "Pašalinti"
+    },
+    "popover": {
+      "close": "Uždaryti"
+    },
+    "promptSheet": {
+      "cancel": "Atšaukti"
+    },
+    "sheet": {
+      "close": "Uždaryti"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Šis raktas užrakintas. Įveskite jo slaptažodį.",
+      "thatPassphraseDoesnTOpen": "Šis slaptažodis neatverčia šio rakto.",
+      "thisDoesnTLookLike": "Tai neatrodo kaip privatus raktas.",
+      "loadedAndChangedItTo": "Įkeltas „{{name}}“ ir pakeistas į OpenSSH formatą",
+      "loadedItNeedsItsPassphrase": "Įkeltas „{{name}}“. Prisijungimui reikia jo slaptažodžio"
+    },
+    "ago": {
+      "justNow": "būtent dabar"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Nepavyko įkelti jūsų serverių.",
+      "failedOn": "{{name}} nepavyko „{{name2}}“",
+      "on": "{{name}} „{{name2}}“: {{value}}",
+      "ranOn": "Paleistas „{{name}}“ „{{name2}}“",
+      "runOn": "Paleisti „{{name}}“",
+      "runSnippet": "Paleisti komandą",
+      "loadingHosts": "Įkeliami serveriai…",
+      "noHostsAvailable": "Nėra prieinamų serverių",
+      "addAHostInTermix": "Pridėkite serverį Termix, kad galėtumėte paleisti komandas iš pagrindinio ekrano.",
+      "lastUsed": "Paskutinį kartą naudota",
+      "failedToRunSnippet": "Nepavyko paleisti komandos"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Šios komandos nebėra.",
+      "couldNotOpenThatSnippet": "Nepavyko atidaryti šios komandos.",
+      "thatHostNoLongerExists": "Šio serverio nebėra.",
+      "couldNotOpenThatHost": "Nepavyko atidaryti šio hosto."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Pradžia"
+      },
+      "hosts": {
+        "hosts": "Hostai"
+      },
+      "sessions": {
+        "sessions": "Sesijos",
+        "connectToATermixServer": "Prisijunkite prie Termix serverio, kad atidarytumėte terminalus, tunelius ir failų sesijas."
+      }
+    },
+    "layout": {
+      "initializing": "Inicijuojama…",
+      "cancel": "Atšaukti"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Šis hostas neturi galiojančio MAC adreso.",
+    "thisBuildCanTSend": "Ši versija negali siųsti Wake-on-LAN paketų.",
+    "couldNotSendThePacket": "Nepavyko išsiųsti paketo. Įsitikinkite, kad Wi-Fi įjungtas."
+  },
+  "common": {
+    "hostCount_one": "{{count}} hostas",
+    "hostCount_few": "{{count}} hostai",
+    "hostCount_many": "{{count}} hostų",
+    "hostCount_other": "{{count}} hostų",
+    "device": {
+      "phone": "telefonas",
+      "tablet": "planšetė"
+    },
+    "thisDeviceLower": "šis {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Bendrinimas",
+    "action": "Bendrinti su žmonėmis",
+    "levels": {
+      "connect": "Prisijungti",
+      "view": "Peržiūrėti",
+      "edit": "Redaguoti",
+      "manage": "Tvarkyti"
+    },
+    "levelHints": {
+      "connect": "Tik atidaryti sesijas. Hosto nustatymai lieka paslėpti",
+      "view": "Prisijungti ir matyti hosto nustatymus. Slaptažodžiai niekada nerodomi",
+      "edit": "Peržiūrėti ir keisti nustatymus, išskyrus prisijungimo duomenis",
+      "manage": "Redaguoti, bendrinti hostą ir keisti arba pašalinti prieigą"
+    },
+    "until": "iki {{date}}",
+    "sharedBy": "nuo {{name}}",
+    "couldNotLoad": "Nepavyko įkelti prieigos sąrašo",
+    "shared": "Hostas bendrinamas",
+    "couldNotShare": "Nepavyko bendrinti hosto",
+    "updated": "Prieiga pakeista",
+    "couldNotUpdate": "Nepavyko pakeisti prieigos",
+    "removeTitle": "Pašalinti {{name}}?",
+    "removeHint": "Jie nebegalės naudoti šio hosto.",
+    "remove": "Pašalinti",
+    "removed": "Prieiga pašalinta",
+    "couldNotRemove": "Nepavyko pašalinti prieigos",
+    "whoHasAccess": "Kas turi prieigą",
+    "loading": "Įkeliamas...",
+    "nobodyYet": "Šį hostą gali naudoti tik jūs.",
+    "changeAccessFor": "Keisti prieigą vartotojui {{name}}",
+    "shareWith": "Bendrinti su",
+    "users": "Vartotojai",
+    "roles": "Vaidmenys",
+    "searchUsers": "Ieškoti vartotojų",
+    "searchRoles": "Ieškoti vaidmenų",
+    "noUsers": "Kitų vartotojų, su kuriais galima bendrinti, nėra.",
+    "noRoles": "Vaidmenų, su kuriais galima bendrinti, nėra.",
+    "options": "Prieiga",
+    "level": "Lygis",
+    "expires": "Baigiasi",
+    "expiry": {
+      "never": "Niekada",
+      "1h": "Po 1 valandos",
+      "1d": "Po 1 dienos",
+      "7d": "Po 7 dienų",
+      "30d": "Po 30 dienų"
+    },
+    "pickSomeone": "Pasirinkite, su kuo bendrinti",
+    "shareCount_one": "Bendrinti su {{count}}",
+    "shareCount_few": "Bendrinti su {{count}}",
+    "shareCount_many": "Bendrinti su {{count}}",
+    "shareCount_other": "Bendrinti su {{count}}",
+    "removeAccess": "Pašalinti prieigą"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Serverio įspėjimai",
+      "critical": "Kritiniai serverio įspėjimai"
+    },
+    "severity": {
+      "info": "Viskas",
+      "warning": "Įspėjimai ir rimtesni",
+      "critical": "Tik kritiniai"
+    },
+    "settings": {
+      "on": "Įspėjimai rodomi šiame telefone",
+      "off": "Išjungta",
+      "toggle": "Stumiamieji pranešimai iš {{server}}",
+      "minSeverity": "Siųskite man",
+      "denied": "Termix pranešimai išjungti. Įjunkite juos telefono nustatymuose.",
+      "openSettings": "Atidaryti nustatymus",
+      "outdated": "Šiam serveriui stumiamiesiems pranešimams reikia „Alerts“ 1.4.0 arba naujesnės versijos. Paprašykite administratoriaus atnaujinti įskiepį.",
+      "unavailable": "Prisijunkite prie šio serverio ir įjunkite „Alerts“ įskiepį, kad gautumėte pranešimus.",
+      "error": "Nepavyko pasiekti serverio. Termix bandys dar kartą kitą kartą atidarius programėlę.",
+      "notInThisBuild": "Ši versija negali rodyti pranešimų.",
+      "noServers": "Susiekite serverį, kad čia gautumėte jo įspėjimus.",
+      "pushHint": "Įspėjimai siunčiami per „Expo“ ir „Apple“ arba „Google“, su jų pavadinimu ir tekstu. Pasirinkite, kuriuos norite gauti, serverio „Alerts“ taisyklėse.",
+      "pollHint": "Šioje versijoje nėra „Google“ paslaugų, todėl Termix fone tikrina naujus įspėjimus maždaug kas 15 minučių."
+    }
+  }
+}

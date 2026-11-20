@@ -1,78 +1,150 @@
-import { useCallback, useState } from "react";
-import { Pressable, ScrollView, View } from "react-native";
-import { useFocusEffect } from "expo-router";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  ChevronRight,
-  Clock,
-  Plus,
-  Server,
-  SquareTerminal,
-  Zap,
-} from "lucide-react-native";
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  useWindowDimensions,
+  View,
+} from "react-native";
+import { useFocusEffect } from "expo-router";
+import DraggableFlatList, {
+  ScaleDecorator,
+  type RenderItemParams,
+} from "react-native-draggable-flatlist";
+import { Check, GripVertical, Pencil } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
-import { useAppContext } from "@/contexts/AppContext";
 import { useThemeColor } from "@/contexts/ThemeContext";
-import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
-import { displayTitle } from "@/contexts/session-tabs";
 import { useAccounts } from "@/core/accounts";
 import { useLiveList, useRepositories } from "@/core/data/hooks";
-import { features } from "@/core/features/registry";
-import {
-  useCapability,
-  useDashboardCards,
-  useQuickActions,
-} from "@/core/features/hooks";
-import { useRecentHosts } from "@/core/hosts/recent";
-import { useSessionStatuses } from "@/core/sessions/status";
+import { useHomeCards } from "@/core/features/hooks";
+import type {
+  FeatureContext,
+  HomeCardDef,
+  HomeCardInstance,
+} from "@/core/features/types";
+import { useHostStatuses } from "@/core/status";
 import { HostActionSheet } from "@/screens/hosts/HostActionSheet";
-import { QuickConnect } from "@/screens/hosts/QuickConnect";
-import { useOpenHost } from "@/screens/hosts/useOpenHost";
+import { useOpenHost, useOpenHostAs } from "@/screens/hosts/useOpenHost";
 import {
-  statusLabel,
-  TabStatusMark,
-} from "@/screens/sessions/navigation/TabStatusMark";
-import { AccountButton, SearchButton } from "@/screens/shell/AppHeader";
-import type { SSHHost } from "@/types";
-import { Button, EmptyState, ListRow, SectionLabel, Text } from "@/ui";
-import { isSshHost } from "@/utils/hosts";
+  AccountButton,
+  NotificationsButton,
+  SearchButton,
+} from "@/screens/shell/AppHeader";
 import { openTab } from "@/screens/shell/navigate";
+import type { SSHHost } from "@/types";
+import { Button, FakeSwitch, Text, useConfirm } from "@/ui";
+import { windowInfo } from "@/utils/window-class";
+import { CORE_HOME_CARDS } from "./cards";
+import { HomeDataContext, type HomeData } from "./HomeData";
+import {
+  mergeLayout,
+  resolveLayout,
+  saveHomeLayout,
+  useHomeLayout,
+  type HomeEntry,
+  type HomeSlot,
+} from "./layout";
 import { ServerReachBanner } from "./ServerReachBanner";
+import { t } from "@/i18n";
 
-const RECENT_SHOWN = 5;
+export { pinnedHosts } from "./cards";
 
-/** Pinned hosts, newest name order, SSH first since only they have cards. */
-export function pinnedHosts(hosts: SSHHost[]): SSHHost[] {
-  return hosts
-    .filter((h) => h.pin)
-    .sort(
-      (a, b) =>
-        Number(isSshHost(b)) - Number(isSshHost(a)) ||
-        (a.name || a.ip).localeCompare(b.name || b.ip),
-    );
+/** A card that can sit on Home: one card def, or one instance of it. */
+export interface CardEntry extends HomeEntry {
+  def: HomeCardDef;
+  title: string;
+  instance?: string;
 }
 
-function SectionTitle({ children }: { children: string }) {
-  return <SectionLabel>{children}</SectionLabel>;
+/** Every card Home can show for this account, instances filled in. */
+export function useCardEntries(
+  ctx: FeatureContext,
+  featureCards: HomeCardDef[],
+  refreshKey: number,
+): CardEntry[] {
+  const defs = useMemo(
+    () =>
+      [
+        ...CORE_HOME_CARDS.filter((c) => c.isAvailable?.(ctx) ?? true),
+        ...featureCards,
+      ].sort((a, b) => a.order - b.order),
+    [ctx, featureCards],
+  );
+  const [instances, setInstances] = useState<
+    Record<string, HomeCardInstance[]>
+  >({});
+
+  useEffect(() => {
+    let live = true;
+    for (const def of defs) {
+      if (!def.instances) continue;
+      def
+        .instances(ctx)
+        .then((list) => {
+          if (live) setInstances((prev) => ({ ...prev, [def.id]: list }));
+        })
+        .catch(() => {
+          // Keeps the last list when the source can't be reached.
+        });
+    }
+    return () => {
+      live = false;
+    };
+  }, [defs, ctx, refreshKey]);
+
+  return useMemo(
+    () =>
+      defs.flatMap((def): CardEntry[] => {
+        const defaultOn = def.defaultOn ?? true;
+        if (!def.instances) {
+          return [
+            { key: def.id, order: def.order, defaultOn, def, title: def.title },
+          ];
+        }
+        return (instances[def.id] ?? []).map((inst, index) => ({
+          key: `${def.id}:${inst.key}`,
+          order: def.order + index / 1000,
+          defaultOn: inst.defaultOn ?? defaultOn,
+          def,
+          title: inst.title || def.title,
+          instance: inst.key,
+        }));
+      }),
+    [defs, instances],
+  );
 }
 
-/** Open sessions, quick connect, pinned hosts with live cards, recent hosts. */
+/** The Home dashboard: cards the user can reorder and hide. */
 export default function Home() {
   const repos = useRepositories();
   const { active: account } = useAccounts();
-  const { openAuthFlow } = useAppContext();
   const color = useThemeColor();
-  const openHost = useOpenHost();
+  const confirm = useConfirm();
+  const openHostRaw = useOpenHost();
+  const openHostAsRaw = useOpenHostAs();
+  const { width, height } = useWindowDimensions();
+  const twoColumns = windowInfo(width, height).canSplit;
   const [focused, setFocused] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
+  const [editing, setEditing] = useState<HomeSlot[] | null>(null);
   const [sheetHost, setSheetHost] = useState<SSHHost | null>(null);
-  const [quickOpen, setQuickOpen] = useState(false);
-  const canQuickConnect = useCapability("host.quickConnect");
   const hosts = useLiveList(repos.hosts, () => repos.hosts.list(), [repos]);
-  const pinned = pinnedHosts(hosts.data);
-  const recent = useRecentHosts(account.id, hosts.data)
-    .filter((h) => !h.pin)
-    .slice(0, RECENT_SHOWN);
-  const quick = useQuickActions();
-  const muted = color("muted-foreground");
+  const statuses = useHostStatuses(account.id, hosts.data, {
+    active: focused,
+    refreshKey,
+  });
+  const { ctx, cards: featureCards } = useHomeCards();
+  const entries = useCardEntries(ctx, featureCards, refreshKey);
+  const { layout, loaded } = useHomeLayout(account.id);
+  const placed = useMemo(
+    () => resolveLayout(layout, entries),
+    [layout, entries],
+  );
+  const byKey = useMemo(
+    () => new Map(entries.map((e) => [e.key, e])),
+    [entries],
+  );
 
   // Cards only poll while Home is the screen in front.
   useFocusEffect(
@@ -82,261 +154,229 @@ export default function Home() {
     }, []),
   );
 
+  const openHost = useCallback(
+    (host: SSHHost) =>
+      void openHostRaw(host).then((opened) => !opened && setSheetHost(host)),
+    [openHostRaw],
+  );
+  const openHostAs = useCallback(
+    (host: SSHHost, serverTabType: string) =>
+      void openHostAsRaw(host, serverTabType).then(
+        (opened) => !opened && openHost(host),
+      ),
+    [openHostAsRaw, openHost],
+  );
+  const data: HomeData = useMemo(
+    () => ({
+      hosts: hosts.data,
+      hostsLoading: hosts.loading,
+      statuses,
+      openHost,
+      openHostAs,
+      showHostMenu: setSheetHost,
+    }),
+    [hosts.data, hosts.loading, statuses, openHost, openHostAs],
+  );
+
   const toHosts = () => openTab("/(tabs)/hosts");
-  const tap = (host: SSHHost) =>
-    void openHost(host).then((opened) => !opened && setSheetHost(host));
-  const noHosts = !hosts.loading && hosts.data.length === 0;
+  const refresh = () => {
+    setRefreshing(true);
+    setRefreshKey((k) => k + 1);
+    setTimeout(() => setRefreshing(false), 600);
+  };
+
+  const startEditing = () =>
+    setEditing(placed.map((p) => ({ key: p.entry.key, hidden: p.hidden })));
+  const finishEditing = () => {
+    if (editing) void saveHomeLayout(account.id, mergeLayout(layout, editing));
+    setEditing(null);
+  };
+  const resetLayout = async () => {
+    const ok = await confirm({
+      title: t("home.resetHome"),
+      description: t("home.cardsGoBackToThe"),
+      confirmLabel: t("home.reset"),
+    });
+    if (!ok) return;
+    await saveHomeLayout(account.id, null);
+    setEditing(null);
+  };
+
+  const visible = placed.filter((p) => !p.hidden);
+  const renderCard = ({ entry }: { entry: CardEntry }) => {
+    const Card = entry.def.component;
+    return (
+      <Card
+        key={`${account.id}:${entry.key}`}
+        accountId={account.id}
+        active={focused}
+        refreshKey={refreshKey}
+        instance={entry.instance}
+      />
+    );
+  };
+  const columns = twoColumns
+    ? [
+        visible.filter((_, i) => i % 2 === 0),
+        visible.filter((_, i) => i % 2 === 1),
+      ]
+    : [visible];
 
   return (
-    <Screen titleNode={<AccountButton />} headerRight={<SearchButton />}>
-      <ScrollView
-        contentContainerStyle={{ padding: 12, gap: 16, paddingBottom: 48 }}
-      >
-        <ServerReachBanner />
-        <OpenSessions />
-
-        {canQuickConnect ? (
-          <View className="border border-border">
-            <ListRow
-              title="Quick connect"
-              icon={<Zap size={16} color={muted} />}
-              meta={
-                <Text className="text-meta text-muted-foreground">
-                  user@host:port, without saving
-                </Text>
-              }
-              trailing={<ChevronRight size={16} color={muted} />}
-              onPress={() => setQuickOpen(true)}
-            />
-          </View>
-        ) : null}
-
-        <QuickActions {...quick} />
-
-        {noHosts ? (
-          <EmptyState
-            icon={Server}
-            title="Add your first host"
-            hint="Hosts you open show up here, and pinned hosts show live cards."
-            action={
-              <View className="items-center gap-2">
-                <Button
-                  size="sm"
-                  onPress={() => openTab("/(tabs)/hosts?action=new")}
-                  icon={<Plus size={15} color={color("accent-brand")} />}
-                >
-                  Add host
-                </Button>
-                {account.kind === "local" ? (
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onPress={() => openAuthFlow("server")}
-                  >
-                    Link a server
-                  </Button>
-                ) : null}
+    <Screen
+      titleNode={<AccountButton />}
+      headerRight={
+        <View className="flex-row items-center gap-1">
+          {editing ? null : (
+            <>
+              <NotificationsButton />
+              <SearchButton />
+            </>
+          )}
+          <Pressable
+            onPress={editing ? finishEditing : startEditing}
+            accessibilityRole="button"
+            accessibilityLabel={
+              editing ? t("home.doneEditingHome") : t("home.editHome")
+            }
+            hitSlop={8}
+            className="h-9 w-9 items-center justify-center active:opacity-60"
+          >
+            {editing ? (
+              <Check size={18} color={color("accent-brand")} />
+            ) : (
+              <Pencil size={17} color={color("foreground")} />
+            )}
+          </Pressable>
+        </View>
+      }
+    >
+      <HomeDataContext.Provider value={data}>
+        {editing ? (
+          <EditHome
+            slots={editing}
+            entries={byKey}
+            onChange={setEditing}
+            onDone={finishEditing}
+            onReset={() => void resetLayout()}
+          />
+        ) : (
+          <ScrollView
+            contentContainerStyle={{ padding: 12, gap: 12, paddingBottom: 48 }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={refresh} />
+            }
+          >
+            <ServerReachBanner />
+            {loaded ? (
+              <View className="flex-row gap-3">
+                {columns.map((column, index) => (
+                  <View key={index} className="min-w-0 flex-1 gap-3">
+                    {column.map(renderCard)}
+                  </View>
+                ))}
               </View>
-            }
-          />
-        ) : null}
-
-        {pinned.length > 0 ? (
-          <View className="gap-4">
-            <SectionTitle>Pinned</SectionTitle>
-            {pinned.map((host) => (
-              <HostSection
-                key={`${account.id}:${host.id}`}
-                host={host}
-                accountId={account.id}
-                active={focused}
-                onOpen={() => tap(host)}
-                onMore={() => setSheetHost(host)}
-                chevron={muted}
-              />
-            ))}
-          </View>
-        ) : null}
-
-        {recent.length > 0 ? (
-          <View>
-            <SectionTitle>Recent</SectionTitle>
-            <View className="border border-border">
-              {recent.map((host, index) => (
-                <ListRow
-                  key={host.id}
-                  index={index}
-                  title={host.name || host.ip}
-                  icon={<Clock size={16} color={muted} />}
-                  meta={
-                    <Text className="text-meta text-muted-foreground">
-                      {host.username ? `${host.username}@` : ""}
-                      {host.ip}
-                    </Text>
-                  }
-                  onPress={() => tap(host)}
-                  onLongPress={() => setSheetHost(host)}
-                />
-              ))}
-            </View>
-          </View>
-        ) : null}
-
-        {!noHosts && pinned.length === 0 && !hosts.loading ? (
-          <EmptyState
-            icon={Server}
-            title="Pin a host to see it here"
-            hint="Pinned hosts show their metrics, Docker and services at a glance. Hold a host to pin it."
-            action={
-              <Button size="sm" onPress={toHosts}>
-                Go to hosts
-              </Button>
-            }
-          />
-        ) : null}
-      </ScrollView>
+            ) : null}
+          </ScrollView>
+        )}
+      </HomeDataContext.Provider>
       <HostActionSheet
         host={sheetHost}
-        status="unknown"
+        status={sheetHost ? (statuses[sheetHost.id] ?? "unknown") : "unknown"}
         visible={sheetHost !== null}
         onClose={() => setSheetHost(null)}
         onEdit={toHosts}
         onClone={toHosts}
         onDelete={toHosts}
       />
-      <QuickConnect visible={quickOpen} onClose={() => setQuickOpen(false)} />
     </Screen>
   );
 }
 
-/** Cards for the tabs that are open, to jump back in. */
-function OpenSessions() {
+/** Reorder by dragging the grip, show or hide with the switch. */
+function EditHome({
+  slots,
+  entries,
+  onChange,
+  onDone,
+  onReset,
+}: {
+  slots: HomeSlot[];
+  entries: Map<string, CardEntry>;
+  onChange: (slots: HomeSlot[]) => void;
+  onDone: () => void;
+  onReset: () => void;
+}) {
   const color = useThemeColor();
-  const { sessions, activeSessionId, setActiveSession } = useTerminalSessions();
-  const statuses = useSessionStatuses();
-  if (sessions.length === 0) return null;
   const muted = color("muted-foreground");
 
-  return (
-    <View>
-      <SectionTitle>Open sessions</SectionTitle>
-      <View className="border border-border">
-        {sessions.map((session, index) => {
-          const Icon =
-            features.sessionTab(session.type)?.icon ?? SquareTerminal;
-          const state = statuses[session.id]?.state;
-          return (
-            <ListRow
-              key={session.id}
-              index={index}
-              selected={session.id === activeSessionId}
-              title={displayTitle(session)}
-              icon={<Icon size={16} color={muted} />}
-              meta={
-                <Text className="text-meta text-muted-foreground">
-                  {statusLabel(state) ??
-                    (state === "connected" ? "Connected" : session.host.ip)}
-                </Text>
-              }
-              trailing={<TabStatusMark state={state} />}
-              onPress={() => {
-                setActiveSession(session.id);
-                openTab("/(tabs)/sessions");
-              }}
-            />
-          );
-        })}
-      </View>
-    </View>
-  );
-}
-
-/** Screens from features and server plugins. */
-function QuickActions({ ctx, actions }: ReturnType<typeof useQuickActions>) {
-  const color = useThemeColor();
-  if (actions.length === 0) return null;
-  return (
-    <View>
-      <SectionTitle>From your server</SectionTitle>
-      <View className="border border-border">
-        {actions.map((action, index) => {
-          const Icon = action.icon;
-          return (
-            <ListRow
-              key={action.id}
-              index={index}
-              title={action.label}
-              icon={<Icon size={16} color={color("muted-foreground")} />}
-              onPress={() => action.run(ctx)}
-            />
-          );
-        })}
-      </View>
-    </View>
-  );
-}
-
-function HostSection({
-  host,
-  accountId,
-  active,
-  onOpen,
-  onMore,
-  chevron,
-}: {
-  host: SSHHost;
-  accountId: string;
-  active: boolean;
-  onOpen: () => void;
-  onMore: () => void;
-  chevron: string;
-}) {
-  const cards = useDashboardCards(host);
-  const { navigateToSessions } = useTerminalSessions();
-  return (
-    <View className="gap-2">
-      <Pressable
-        onPress={onOpen}
-        onLongPress={onMore}
-        accessibilityRole="button"
-        accessibilityHint="Opens the terminal. Hold for more."
-        className="flex-row items-center gap-2 active:opacity-70"
-      >
-        <View className="min-w-0 flex-1">
-          <Text
-            weight="bold"
-            className="text-sm text-foreground"
-            numberOfLines={1}
+  const row = ({ item, drag, isActive }: RenderItemParams<HomeSlot>) => {
+    const entry = entries.get(item.key);
+    if (!entry) return null;
+    const Icon = entry.def.icon;
+    const toggle = (on: boolean) =>
+      onChange(
+        slots.map((s) => (s.key === item.key ? { ...s, hidden: !on } : s)),
+      );
+    return (
+      <ScaleDecorator>
+        <View
+          className={`flex-row items-center gap-2 border-b border-border pr-3 ${isActive ? "bg-muted" : "bg-card"}`}
+        >
+          <Pressable
+            onPressIn={drag}
+            accessibilityLabel={t("home.dragToReorder", { title: entry.title })}
+            className="h-12 w-10 items-center justify-center"
           >
-            {host.name || host.ip}
-          </Text>
-          <Text className="text-[11px] text-muted-foreground" numberOfLines={1}>
-            {host.username ? `${host.username}@` : ""}
-            {host.ip}
-          </Text>
+            <GripVertical size={16} color={muted} />
+          </Pressable>
+          <Icon size={16} color={muted} />
+          <View className="min-w-0 flex-1">
+            <Text className="text-sm text-foreground" numberOfLines={1}>
+              {entry.title}
+            </Text>
+            {entry.instance ? (
+              <Text className="text-[11px] text-muted-foreground">
+                {entry.def.title}
+              </Text>
+            ) : null}
+          </View>
+          <FakeSwitch
+            checked={!item.hidden}
+            onChange={toggle}
+            accessibilityLabel={t("home.show", { title: entry.title })}
+          />
         </View>
-        <ChevronRight size={16} color={chevron} />
-      </Pressable>
-      {cards.length === 0 ? (
-        <Text className="text-[11px] text-muted-foreground">
-          Turn on Docker or Services for this host, or tap it to connect.
-        </Text>
-      ) : (
-        cards.map((card) => {
-          const Card = card.component;
-          return (
-            <Pressable
-              key={card.id}
-              accessibilityRole="button"
-              accessibilityHint={`Opens ${card.title}`}
-              onPress={() => void navigateToSessions(host, card.tabType)}
-            >
-              {/* a11y-reads-children: each card draws its own text */}
-              <Card host={host} accountId={accountId} active={active} />
-            </Pressable>
-          );
-        })
-      )}
+      </ScaleDecorator>
+    );
+  };
+
+  return (
+    <View className="flex-1">
+      <Text className="px-4 py-3 text-[11px] text-muted-foreground">
+        {t("home.dragCardsToReorderThem")}
+      </Text>
+      <View className="flex-1 border-t border-border">
+        <DraggableFlatList
+          data={slots.filter((s) => entries.has(s.key))}
+          keyExtractor={(s) => s.key}
+          renderItem={row}
+          onDragEnd={({ data: moved }) => {
+            const hiddenAway = slots.filter((s) => !entries.has(s.key));
+            onChange([...moved, ...hiddenAway]);
+          }}
+        />
+      </View>
+      <View className="flex-row gap-2 border-t border-border bg-background px-3 py-3">
+        <View className="flex-1">
+          <Button variant="ghost" onPress={onReset}>
+            {t("home.resetToDefault")}
+          </Button>
+        </View>
+        <View className="flex-1">
+          <Button onPress={onDone}>{t("home.done")}</Button>
+        </View>
+      </View>
     </View>
   );
 }

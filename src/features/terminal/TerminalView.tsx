@@ -30,6 +30,7 @@ import {
   isOpenableLink,
   linkPrompt,
 } from "./output";
+import { t } from "@/i18n";
 
 export interface ModifierState {
   ctrl: StickyState;
@@ -139,7 +140,7 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
     const handleLink = useCallback(
       async (url: string) => {
         if (!isOpenableLink(url)) {
-          showToast.warning("Only web links can open from the terminal");
+          showToast.warning(t("terminal.terminalView.onlyWebLinksCanOpen"));
           return;
         }
         if (settings.linkPolicy !== "direct") {
@@ -147,7 +148,7 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
           if (!ok) return;
         }
         Linking.openURL(url).catch(() =>
-          showToast.error("Could not open link"),
+          showToast.error(t("terminal.terminalView.couldNotOpenLink")),
         );
       },
       [confirm, settings.linkPolicy],
@@ -162,7 +163,11 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
     );
 
     const handleCopy = useCallback((_text: string, fromProgram: boolean) => {
-      showToast.success(fromProgram ? "Copied from the terminal" : "Copied");
+      showToast.success(
+        fromProgram
+          ? t("terminal.terminalView.copiedFromTheTerminal")
+          : "Copied",
+      );
     }, []);
 
     const fontSizeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -192,11 +197,13 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
           fontFamily={settings.fontFamily}
           lineHeight={settings.lineHeight}
           letterSpacing={settings.letterSpacing}
+          ligatures={settings.ligatures}
           theme={settings.theme}
           cursor={settings.cursor}
           scrollback={settings.scrollback}
           bell={settings.bell}
           optionAsMeta={settings.optionAsMeta}
+          doubleTapTab={settings.doubleTapTab}
           accentColor={ui.brand}
           onInput={handleInput}
           onResize={onResize}
@@ -217,7 +224,7 @@ export const TerminalView = forwardRef<TerminalViewApi, Props>(
         {showScrollButton && !atBottom ? (
           <TouchableOpacity
             accessibilityRole="button"
-            accessibilityLabel="Scroll to bottom"
+            accessibilityLabel={t("terminal.terminalView.scrollToBottom")}
             onPress={() => {
               setAtBottom(true);
               native.current?.scrollToBottom();

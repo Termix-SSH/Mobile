@@ -1,0 +1,3920 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Увійти",
+      "addServer": "Додати сервер",
+      "switchAccount": "Перемкнути обліковий запис",
+      "noServerConnected": "Сервер не підключено",
+      "connectToATermixServer": "Підключіться до сервера Termix, щоб керувати хостами, терміналами, файлами тощо."
+    },
+    "lockScreen": {
+      "cancel": "Скасувати",
+      "tooManyTriesWaitSeconds": "Забагато спроб. Зачекайте {{value}} секунд",
+      "termixLocked": "Termix заблоковано",
+      "enterYourPinToContinue": "Введіть PIN-код, щоб продовжити"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Помаранчевий",
+      "blue": "Синій",
+      "green": "Зелений",
+      "purple": "Фіолетовий",
+      "pink": "Рожевий",
+      "cyan": "Бірюзовий",
+      "red": "Червоний",
+      "yellow": "Жовтий",
+      "teal": "Темно-бірюзовий",
+      "indigo": "Індиго",
+      "rose": "Рожево-червоний",
+      "lime": "Лаймовий",
+      "system": "Системна",
+      "light": "Світла",
+      "dark": "Темна"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Використовувати PIN",
+      "unlockTermix": "Розблокувати Termix",
+      "unlockTermixFirst": "Спочатку розблокуйте Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Ця функція вимкнена на сервері.",
+      "aTabWasNotReopened": "Вкладку не відкрито знову, оскільки хост зник",
+      "tabsWereNotReopenedBecause": "Не вдалося відкрити {{count}} вкладок, оскільки їхні хости недоступні"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Підключіть сервер Termix, щоб використовувати це",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Введіть адресу вашого сервера",
+        "theAddressCanTHave": "Адреса не може містити пробіли",
+        "useAnHttpOrHttps": "Використовуйте адресу http:// або https://",
+        "thatDoesnTLookLike": "Це схоже не на адресу сервера",
+        "thePortMustBeFrom": "Порт має бути від 1 до 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Замість Termix відповів проксі-сервер входу. Спочатку увійдіть у проксі.",
+        "theServerDidNotSend": "Сервер не надіслав токен.",
+        "theServerDidNotSend2": "Сервер не надіслав сесію.",
+        "theServerSentNoSign": "Сервер не надіслав адресу входу.",
+        "theSignInRanOut": "Термін дії входу минув або він уже використаний. Увійдіть знову.",
+        "wrongUsernameOrPassword": "Неправильне ім'я користувача або пароль",
+        "signInFailedHttp": "Помилка входу (HTTP {{status}})",
+        "thePageSignedYouIn": "Сторінка виконала вхід, але не повернула сесію. Оновіть сервер до Termix 26.11.3 або новішої версії.",
+        "thisAccountIsnTAllowed": "Цей обліковий запис не має права входу сюди.",
+        "noTermixAccountMatchesThat": "Жоден обліковий запис Termix не відповідає цьому входу."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "У цій сесії немає сервера"
+    },
+    "store": {
+      "noSuchAccount": "Такого облікового запису не існує",
+      "thisDeviceCanTBe": "Цей пристрій не можна видалити",
+      "switchToAnotherAccountFirst": "Спочатку перемкніться на інший обліковий запис"
+    },
+    "types": {
+      "thisDevice": "Цей пристрій"
+    },
+    "accountSwitcher": {
+      "error": "Помилка",
+      "worksWithoutAServer": "Працює без сервера",
+      "couldNotSwitchAccount": "Не вдалося перемкнути обліковий запис",
+      "accounts": "Облікові записи",
+      "openTabsKeepRunningWhen": "Відкриті вкладки продовжують працювати під час перемикання.",
+      "unlink": "Від'єднати {{account}}",
+      "linkAServer": "Підключити сервер",
+      "eachServerKeepsItsOwn": "Кожен сервер зберігає власні хости, облікові дані та налаштування на цьому {{deviceWord}}.",
+      "signedIn": "Увійдено",
+      "signedOut": "Вийшли",
+      "syncedCopy": "Синхронізована копія"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Не вдалося зберегти пін",
+      "theServerSKeyMatches": "Ключ сервера збігається з піном",
+      "theServerShowsAnotherKey": "Сервер показує інший ключ",
+      "pinThisKey": "Закріпити цей ключ?",
+      "pinThisKey2": "Закріпити цей ключ",
+      "keyPinned": "Ключ закріплено",
+      "couldNotReadTheServer": "Не вдалося прочитати ключ сервера",
+      "thatIsNotAPin": "Це не пін",
+      "keysPinned": "Ключі закріплено",
+      "certificatePin": "Пін сертифіката",
+      "trustThisServerOnlyBy": "Довіряйте цьому серверу лише за його ключем. Використовуйте це для самопідписаного сертифіката або щоб відхилити будь-який інший ключ. Додайте новий ключ, перш ніж змінювати сертифікат сервера.",
+      "removePin": "Видалити пін {{pin}}",
+      "remove": "Видалити",
+      "readTheKeyFromThe": "Прочитати ключ із сервера",
+      "orPasteAPin": "Або вставити пін",
+      "pin": "Пін",
+      "add": "Додати",
+      "issuedTo": "Видано: {{subject}}",
+      "issuedBy": "Видано від: {{issuer}}",
+      "validUntil": "Дійсний до: {{value}}",
+      "checkThatThisKeyMatches": "Перевірте, чи цей ключ збігається з тим, що на вашому сервері, перш ніж закріплювати його.",
+      "pasteTheBase64Sha256Of": "Вставте base64 sha256 відкритого ключа сервера, як його виводить openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Налаштування проксі збережено",
+      "couldNotSaveTheProxy": "Не вдалося зберегти налаштування проксі",
+      "couldNotReadThatFile": "Не вдалося прочитати цей файл",
+      "certificateSaved": "Сертифікат збережено",
+      "theFileOrItsPassphrase": "Файл або його пароль невірні",
+      "couldNotSaveTheCertificate": "Не вдалося зберегти сертифікат",
+      "headers": "Заголовки",
+      "sentWithEveryRequestTo": "Надсилаються з кожним запитом до цього сервера, наприклад, токен служби Cloudflare.",
+      "name": "Назва",
+      "value": "Значення",
+      "removeHeader": "Видалити заголовок",
+      "addHeader": "Додати заголовок",
+      "cloudflareServiceToken": "Токен служби Cloudflare",
+      "basicAuth": "Базова автентифікація",
+      "forAProxyThatAsks": "Для проксі, який запитує ім'я користувача та пароль.",
+      "userName": "Ім'я користувача",
+      "password": "Пароль",
+      "saveHeadersAndBasicAuth": "Зберегти заголовки та базову автентифікацію",
+      "clientCertificate": "Клієнтський сертифікат",
+      "forServersThatAskFor": "Для серверів, які його запитують (mTLS). Ключ зберігається в захищеному сховищі {{deviceWord}} і не може бути прочитаний назад.",
+      "certificate": "Сертифікат",
+      "remove": "Видалити",
+      "replaceCertificate": "Замінити сертифікат",
+      "pickAP12OrPfx": "Оберіть файл .p12 або .pfx",
+      "proxySignIn": "Увійти через проксі",
+      "thisIsSignedInTo": " Цей {{deviceWord}} увійшов у проксі.",
+      "forCloudflareAccessAutheliaAuthentik": "Для Cloudflare Access, Authelia, Authentik та інших проксі з власною сторінкою входу.{{value}}",
+      "signInToTheProxy": "Увійти в проксі",
+      "forget": "Забути",
+      "certificatePassphrase": "Пароль сертифіката",
+      "thePassphraseTheFileWas": "Пароль, з яким було збережено файл. Залиште порожнім, якщо його немає.",
+      "passphrase": "Пароль",
+      "save": "Зберегти"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Увійдено в проксі",
+      "couldNotSaveTheProxy": "Не вдалося зберегти вхід через проксі",
+      "signInToTheProxy": "Увійти в проксі",
+      "thisBuildOfTheApp": "Ця збірка додатка не підтримує вхід через проксі. Натомість використовуйте токен сервісу в заголовках проксі."
+    },
+    "savedLoginRow": {
+      "signIn": "Увійти",
+      "signInWith": "Увійти через {{name}}",
+      "whenThisServerSignsYou": "Коли цей сервер виконує вихід, знову ввійдіть, не вводячи пароль."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Розв'язано. {{copied}} елементів залишено на цьому пристрої.",
+      "unlinked": "Розв'язано",
+      "couldNotUnlinkTheServer": "Не вдалося розв'язати сервер",
+      "unlink": "Розв'язати {{value}}?",
+      "thisSignsOutOfThe": "Цей {{deviceWord}} виходить з сервера. Нічого не видаляється на сервері.",
+      "keepACopyOnThis": "Зберегти копію на цьому пристрої",
+      "yourOwnHostsCredentialsAnd": "Ваші власні хости, облікові дані та фрагменти коду переміщуються на цей пристрій. Хости, поділені з вами, не зберігаються.",
+      "deleteFromThis": "Видалити з цього {{deviceWord}}",
+      "everythingThisHasForThe": "Все, що є на цьому {{deviceWord}} для сервера, буде видалено."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Змініть це в розділі Проксі нижче",
+      "updateTermixMobileFromYour": "Оновіть Termix Mobile зі свого магазину додатків"
+    },
+    "savedLogin": {
+      "signInToTermix": "Увійти в Termix",
+      "faceUnlock": "розблокування обличчям"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Ця збірка не може перевірити закріплений ключ цього сервера або надіслати його сертифікат."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Цей сервер не підтримує цю функцію",
+      "theProxyWantsYouTo": "Проксі вимагає від вас входу в систему",
+      "endpointNotAvailableOnThis": "Кінцева точка недоступна на цьому сервері",
+      "unknownError": "Невідома помилка"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Проксі перед цим сервером вимагає від вас повторного входу.",
+      "authenticationRequiredPleaseLogIn": "Потрібна автентифікація. Будь ласка, увійдіть знову.",
+      "accessDeniedYouDoNot": "Доступ заборонено. У вас немає дозволу на виконання цієї дії.",
+      "thisFeatureIsTurnedOff": "Ця функція вимкнена на сервері.",
+      "thisServerDoesNotSupport": "Цей сервер не підтримує цю функцію.",
+      "resourceNotFoundTheRequested": "Ресурс не знайдено. Запитаний елемент, можливо, було видалено.",
+      "conflictTheResourceAlreadyExists": "Конфлікт. Ресурс вже існує або використовується.",
+      "validationErrorPleaseCheckYour": "Помилка валідації. Будь ласка, перевірте введені дані та спробуйте ще раз.",
+      "serverErrorOccurredPleaseTry": "Сталася помилка сервера. Будь ласка, спробуйте пізніше.",
+      "sslCertificateVerificationFailed": "Не вдалося перевірити сертифікат SSL.",
+      "networkErrorPleaseCheckYour": "Помилка мережі. Будь ласка, перевірте з'єднання та спробуйте ще раз.",
+      "failedTo": "Не вдалося виконати {{operation}}",
+      "unknownError": "Невідома помилка",
+      "unexpectedErrorDuring": "Несподівана помилка під час {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Додаток не може довіряти HTTPS для цієї локальної IP-адреси. Закріпіть ключ сервера в розділі Проксі та клієнтський сертифікат, використовуйте сертифікат, якому довіряє {{deviceWord}}, або HTTP у довіреній локальній або VPN-мережі.",
+        "thisServerIsBehindA": "Цей сервер знаходиться за проксі входу. Натомість використовуйте зовнішній варіант входу.",
+        "loginFailed": "Не вдалося увійти"
+      },
+      "files": {
+        "fileNotFound": "Файл не знайдено",
+        "fileWriteOperationDidNot": "Операція запису файлу не повернула статус успіху",
+        "couldNot": "Не вдалося {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Хост збережено, але деякі налаштування не вдалося застосувати: {{value}}",
+        "unexpectedHostResponseFrom": "Несподівана відповідь хоста від {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Не вдалося отримати зразок у реальному часі"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Немає відповіді"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Цей сервер не показав ключ, до якого він закріплений, тому сторінку не відкрито."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Цього {{what}} більше не існує.",
+      "aHostCannotBeIts": "Хост не може бути своїм власним батьківським елементом",
+      "parentHostNotFound": "Батьківський хост не знайдено",
+      "aHostCanTGo": "Хост не може бути розміщений під одним із своїх підхостів",
+      "thisIsSharedWithYou": "Цей {{what}} поділено з вами. Змінити його може лише власник.",
+      "nameIsRequired": "Ім'я є обов'язковим",
+      "nameAndCommandAreRequired": "Ім'я та команда є обов'язковими",
+      "aFolderWithThatName": "Тека з такою назвою вже існує"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Цей пристрій не може зберегти {{what}} тут."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Цей фрагмент коду поділено з вами, і його не можна змінити."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Використовуйте парольну фразу з мінімум 8 символами.",
+      "thisIsNotATermix": "Це не файл резервної копії Termix.",
+      "thisBackupIsFromA": "Ця резервна копія створена в новішій версії Termix. Спочатку оновіть додаток.",
+      "wrongPassphraseOrTheFile": "Неправильна фраза-пароль або файл пошкоджено."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Ця версія не може шифрувати локальні дані."
+    },
+    "keys": {
+      "unlockTermixFirst": "Спочатку розблокуйте Termix.",
+      "thatIsNotADatabase": "Це не ключ бази даних.",
+      "couldNotSaveTheDatabase": "Не вдалося зберегти ключ бази даних."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Ці дані збережено новішою версією Termix. Оновіть додаток, щоб відкрити їх."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Цей пристрій не синхронізується.",
+      "localDataIsNotAvailable": "Локальні дані тут недоступні.",
+      "unlockTermixFirst": "Спочатку розблокуйте Termix."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Не вдалося підключитися.",
+      "thisWayCanTRun": "Цей спосіб не підтримує виконання команд"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Пароль sudo",
+      "password": "Пароль",
+      "run": "Виконати",
+      "thatPasswordWasWrong": "Цей пароль неправильний.",
+      "onNeedsRoot": "{{reason}} на {{hostName}} потребує прав root.",
+      "needsRootForThis": "{{hostName}} потребує прав root для цього.",
+      "itIsKeptUntilYou": "Він зберігається, доки ви не закриєте додаток."
+    },
+    "run": {
+      "theHostTookTooLong": "Хост занадто довго не відповідав",
+      "connectionLost": "З'єднання втрачено"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Це потребує прав root. Увійдіть як root, налаштуйте sudo без пароля або збережіть пароль sudo для хоста.",
+      "theSudoPasswordWasWrong": "Пароль sudo був неправильним",
+      "commandFailed": "Команду не вдалося виконати"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet у терміналі потребує з'єднання з {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Функцію {{id}} вже зареєстровано"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Адреса",
+      "theIpOrHostName": "IP-адреса або ім'я хоста під назвою",
+      "username": "Ім'я користувача",
+      "theUserBeforeTheAddress": "Користувач перед адресою",
+      "port": "Порт",
+      "thePortAfterTheAddress": "Порт після адреси",
+      "hostIcon": "Іконка хоста",
+      "theIconSetOnThe": "Іконка, встановлена на хості",
+      "pinIcon": "Закріпити іконку",
+      "marksPinnedHosts": "Позначає закріплені хости",
+      "sharedBadge": "Значок спільного доступу",
+      "marksHostsSharedWithYou": "Позначає хости, надані вам у спільний доступ",
+      "protocolBadges": "Значки протоколів",
+      "sshRdpDockerAndOther": "Чіпи SSH, RDP, Docker та інші",
+      "tags": "Теги",
+      "theHostSTags": "Теги хоста",
+      "cpuAndRam": "CPU та RAM",
+      "liveUsageBarsOnOnline": "Живі індикатори використання для онлайн-хостів",
+      "statusColors": "Кольори статусу",
+      "greenBarWhenOnlineRed": "Зелений індикатор, коли онлайн, червоний — коли офлайн"
+    },
+    "uiPrefs": {
+      "small": "Маленький",
+      "default": "За замовчуванням",
+      "large": "Великий",
+      "comfortable": "Комфортний",
+      "compact": "Компактний"
+    },
+    "errors": {
+      "somethingWentWrong": "Щось пішло не так"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Для блокування ключа фразою-паролем потрібен додаток Termix, а не веб-перегляд."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Миттєво",
+      "after15Seconds": "Через 15 секунд",
+      "after1Minute": "Через 1 хвилину",
+      "after5Minutes": "Через 5 хвилин"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Секрет пристрою втрачено",
+      "noSealedKey": "Немає запакованого ключа",
+      "theSealedKeyIsDamaged": "Запакований ключ пошкоджено",
+      "wrongPin": "Неправильний PIN-код",
+      "theSealedKeyDidNot": "Запечатаний ключ не відкрився",
+      "biometricsCanTOpenThe": "Біометрія не може відкрити ключ"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Оновити застосунок",
+      "onYourServerNeedsA": "{{name}} на вашому сервері потребує новішої версії Termix на цьому {{deviceWord}}.",
+      "updateThePlugin": "Оновити плагін",
+      "onYourServerIsToo": "{{name}} на вашому сервері застарів для цього застосунку. Попросіть адміністратора оновити його в розділі Плагіни."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Заблоковано застосунком",
+      "theAppDoesNotLet": "Застосунок не дозволяє плагінам використовувати цей маршрут.",
+      "thisBuildCanTReach": "Ця збірка не може безпечно підключитися до цього сервера."
+    },
+    "support": {
+      "needsANewerVersionOf": "Потребує новішої версії застосунку",
+      "updateThePluginOnThe": "Оновити плагін на сервері",
+      "theAppHasItsOwn": "Застосунок має власний вигляд",
+      "notInTheAppYet": "Ще немає в застосунку",
+      "linkAServerToUse": "Підключіть сервер, щоб використовувати його",
+      "opensInTheAppFrom": "Відкривається в застосунку з сервера",
+      "runsOnTheServer": "Працює на сервері",
+      "throughTheServer": "Через сервер",
+      "inTheApp": "В застосунку",
+      "webView": "Веб-перегляд",
+      "onTheServer": "На сервері",
+      "appLook": "Вигляд застосунку",
+      "notInTheApp": "Немає в застосунку",
+      "safeMode": "Безпечний режим",
+      "notRunning": "Не працює",
+      "notInstalled": "Не встановлено",
+      "notOnThisServer": "Немає на цьому сервері",
+      "thePluginIsNotInstalled": "Плагін не встановлено на цьому сервері.",
+      "turnedOffOnTheServer": "Вимкнено на сервері",
+      "itOpensHereAgainWhen": "Він знову відкриється тут, коли адміністратор увімкне його.",
+      "notRunningOnTheServer": "Не працює на сервері",
+      "theServerIsInSafe": "Сервер у безпечному режимі, тому працюють лише плагіни вигляду.",
+      "thePluginDidNotStart": "Плагін не запустився. Адміністратор може перевірити його в розділі Плагіни.",
+      "thisPluginIsNotAvailable": "Цей плагін недоступний",
+      "itIsNotMadeFor": "Він не призначений для застосунку.",
+      "offOnThisServer": "вимкнено на цьому сервері",
+      "notRunningOnThisServer": "не працює на цьому сервері",
+      "notOnThisServer2": "немає на цьому сервері",
+      "notInTheAppYet2": "Ще немає в застосунку | на цьому сервері",
+      "worksOnThis": "Працює на цьому {{deviceWord}}",
+      "andServer": "{{DeviceWord}} і сервер",
+      "deviceOnly": "Лише {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Оновити"
+    },
+    "pluginSettings": {
+      "loading": "Завантаження налаштувань",
+      "forEveryone": "Для всіх на сервері",
+      "justForYou": "Тільки для вас",
+      "couldNotSave": "Не вдалося зберегти налаштування",
+      "nothingYouCanChange": "Тут немає нічого, що ви можете змінити. Ці налаштування може змінити адміністратор.",
+      "notANumber": "Це не число",
+      "atLeast": "Має бути {{min}} або більше",
+      "atMost": "Має бути {{max}} або менше"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Від'єднати всі",
+      "showOpenSessions": "Показати відкриті сесії",
+      "termixShowsANotificationWhile": "Termix показує сповіщення, поки сесії відкриті, щоб Android тримав їх активними у фоновому режимі.",
+      "sessionsOpen_one": "{{count}} сесія відкрита",
+      "sessionsOpen_few": "{{count}} сесії відкриті",
+      "sessionsOpen_many": "{{count}} сесій відкрито",
+      "sessionsOpen_other": "{{count}} сесій відкрито",
+      "tunnelsActive_one": "{{count}} тунель активний",
+      "tunnelsActive_few": "{{count}} тунелі активні",
+      "tunnelsActive_many": "{{count}} тунелів активних",
+      "tunnelsActive_other": "{{count}} тунелів активних",
+      "notConnected": "Не підключено",
+      "waitingForNetwork": "Очікування мережі",
+      "connecting": "Підключення",
+      "connected": "Підключено",
+      "reconnecting": "Перепідключення",
+      "failed": "Не вдалося",
+      "closed": "Закрито"
+    },
+    "companionPane": {
+      "resizeThePanel": "Змінити розмір панелі {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Закрити",
+      "closeAllTabs": "Закрити всі {{count}} вкладки?",
+      "everySessionEnds": "Кожна сесія завершується.",
+      "closeAll": "Закрити всі",
+      "noActiveConnections": "Немає активних з'єднань",
+      "pickAHostFromThe": "Виберіть хост зі списку, щоб розпочати сесію. Вкладки, відкриті на інших пристроях, також відображатимуться тут.",
+      "connectToAHostTo": "Підключіться до хоста, щоб розпочати сесію. Вкладки, відкриті на інших пристроях, також відображатимуться тут.",
+      "open": "Відкрити",
+      "background": "Фоновий режим",
+      "sessionsFromOtherDevicesOr": "Сесії з інших пристроїв або вкладки у фоновому режимі. Торкніться, щоб відновити.",
+      "liveTapToReconnect": "Активна, торкніться для повторного підключення",
+      "tapToReopen": "Торкніться, щоб відкрити знову"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Це вимкнено на сервері",
+      "comesBackHereWhenAn": "{{title}} з'явиться тут знову, коли адміністратор увімкне плагін.",
+      "closeTab": "Закрити вкладку"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "З'єднання",
+        "hideHostList": "Сховати список хостів",
+        "showHostList": "Показати список хостів",
+        "backToHosts": "Назад до хостів",
+        "showKeyboard": "Показати клавіатуру",
+        "hideKeyboard": "Сховати клавіатуру",
+        "hideKeysPanel": "Сховати панель ключів",
+        "showKeysPanel": "Показати панель ключів"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Торкніться для параметрів вкладки, утримуйте для переміщення",
+        "holdToMove": "Утримуйте для переміщення",
+        "close": "Закрити {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Очікування мережі",
+        "connectionFailed": "Помилка з'єднання",
+        "reconnecting": "Повторне підключення"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Перейменувати",
+      "newTabOnThisHost": "Нова вкладка на цьому хості",
+      "here": "{{title}} тут",
+      "hidePanel": "Сховати панель {{title}}",
+      "showPanel": "Показати панель {{title}}",
+      "endSplitView": "Закінчити розділений перегляд",
+      "splitViewWith": "Розділений перегляд з...",
+      "moveLeft": "Перемістити вліво",
+      "moveRight": "Перемістити вправо",
+      "closeTab": "Закрити вкладку",
+      "closeAllTabs": "Закрити всі вкладки",
+      "closeAllTabs2": "Закрити всі {{count}} вкладки?",
+      "everySessionEnds": "Кожна сесія закінчується.",
+      "closeAll": "Закрити все",
+      "splitViewWith2": "Розділений перегляд з",
+      "renameTab": "Перейменувати вкладку",
+      "leaveItEmptyToUse": "Залиште порожнім, щоб використовувати назву хоста."
+    },
+    "resizeHostList": "Змінити розмір списку хостів",
+    "resizeSplitView": "Змінити розмір розділеного перегляду",
+    "connections": "З'єднання",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Двофакторна автентифікація",
+        "enterThe6DigitCode": "Введіть 6-значний код із вашого додатка для автентифікації.",
+        "cancel": "Скасувати",
+        "verify": "Перевірити",
+        "codeExpiresInSGet": "Код дійсний ще {{totpCountdown}} с, отримати новий код",
+        "warpgateAuthentication": "Автентифікація Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "Підтвердіть URL-адресу автентифікації Warpgate та ключ безпеки.",
+        "authenticate": "Автентифікувати",
+        "warpgateUrl": "URL-адреса Warpgate",
+        "securityKeyOptional": "Ключ безпеки (необов'язково)",
+        "authenticationRequired": "Потрібна автентифікація",
+        "thisHostNeedsCredentialsTo": "Для підключення до цього хоста потрібні облікові дані.",
+        "connect": "Підключитися",
+        "password": "Пароль",
+        "sshKey": "SSH-ключ",
+        "pastePrivateKey": "Вставити приватний ключ",
+        "keyPassphraseOptional": "Гасло ключа (необов’язково)"
+      },
+      "connectionError": {
+        "tryAgain": "Спробувати ще раз",
+        "close": "Закрити",
+        "connectThroughTheServer": "Підключитися через сервер",
+        "connectFromThis": "Підключитися з цього {{deviceWord}}",
+        "triedFromThis": "Спробовано з цього {{deviceWord}}",
+        "triedThroughTheServer": "Спробовано через сервер"
+      },
+      "execGate": {
+        "connecting": "Підключення..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Щось пішло не так",
+        "retry": "Повторити",
+        "refresh": "Оновити",
+        "nothingToShow": "Немає чого показувати"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Журнал скопійовано",
+        "connectionLog": "Журнал підключення ({{count}})",
+        "copyLog": "Копіювати журнал",
+        "waitingForConnection": "Очікування підключення…",
+        "noLogEntries": "Немає записів у журналі"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Не вдалося зберегти спосіб підключення цього хоста"
+      },
+      "useSessionConnect": {
+        "connected": "Підключено",
+        "connectingTo": "Підключення до {{name}}…",
+        "connectionLost": "З’єднання втрачено",
+        "failedToConnect": "Не вдалося підключитися",
+        "invalidCode": "Невірний код",
+        "warpgateAuthenticationFailed": "Помилка автентифікації Warpgate",
+        "authenticationCancelled": "Автентифікацію скасовано"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Пошук та команди",
+    "addHost": "Додати хост",
+    "keyboardShortcuts": "Комбінації клавіш",
+    "home": "Головна",
+    "hosts": "Хости",
+    "sessions": "Сесії",
+    "tools": "Інструменти",
+    "settings": "Налаштування",
+    "terminal": "Термінал",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Комбінації клавіш"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Хости та папки",
+      "yourHostsFoldersAndHosts": "Ваші хости, папки та хости, які поділені з вами",
+      "credentials": "Облікові дані",
+      "savedPasswordsAndKeysAnd": "Збережені паролі та ключі, а також облікові дані, поділені з вами",
+      "snippets": "Сніпети",
+      "snippetsAndTheirFolders": "Сніпети та їхні папки",
+      "hostDefaults": "Типові налаштування хостів",
+      "defaultSettingsForNewHosts": "Типові налаштування для нових хостів",
+      "preferences": "Уподобання",
+      "settingsThatFollowYouBetween": "Налаштування, що супроводжують вас між пристроями"
+    },
+    "link": {
+      "noSuchServerAccount": "Такого облікового запису сервера не існує",
+      "signInFirst": "Спочатку увійдіть.",
+      "thisServerAccountBelongsTo": "Цей обліковий запис сервера належить {{value}}. Увійдіть під цим обліковим записом або додайте сервер знову для цього користувача."
+    },
+    "reasons": {
+      "signedOut": "Вийшли з системи",
+      "thisSSignInTo": "Термін дії входу цього {{deviceWord}} на сервер закінчився.",
+      "theServerEndedThisS": "Сервер завершив сесію цього {{deviceWord}}. Можливо, з іншого пристрою було виконано вихід.",
+      "proxySignInNeeded": "Потрібен вхід через проксі",
+      "theProxyInFrontOf": "Проксі перед цим сервером вимагає повторного входу.",
+      "proxyPasswordNeeded": "Потрібен пароль проксі",
+      "theProxyInFrontOf2": "Проксі перед цим сервером запитав свій пароль.",
+      "certificateRefused": "Сертифікат відхилено",
+      "theServerDidNotAccept": "Сервер не прийняв сертифікат цього {{deviceWord}}.",
+      "untrustedServer": "Недовірений сервер",
+      "theServerSCertificateIs": "Сертифікат сервера не довіряється цьому {{deviceWord}}.",
+      "serverKeyChanged": "Ключ сервера змінено",
+      "theServerShowsAnotherKey": "Сервер показує інший ключ, ніж закріплений для нього. Якщо ви змінили його сертифікат, закріпіть новий ключ.",
+      "offline": "Не в мережі",
+      "canTReachTheServer": "Не вдається підключитися до сервера. Синхронізація спробує знову найближчим часом.",
+      "serverProblem": "Проблема з сервером",
+      "theServerHadAProblem": "На сервері сталася помилка. Синхронізація спробує знову найближчим часом.",
+      "updateNeeded": "Потрібне оновлення",
+      "thisServerUsesANewer": "Цей сервер використовує новішу версію синхронізації. Оновіть додаток.",
+      "notATermixServer": "Це не сервер Termix",
+      "theAddressDoesNotAnswer": "За цією адресою не відповідає сервер Termix.",
+      "syncIsOff": "Синхронізацію вимкнено",
+      "theSyncPluginIsOff": "Плагін Sync вимкнено на цьому сервері. Попросіть адміністратора увімкнути його в розділі Плагіни.",
+      "differentUser": "Інший користувач",
+      "youSignedInAsA": "Ви увійшли як інший користувач, ніж той, якому належить цей обліковий запис сервера.",
+      "syncStopped": "Синхронізацію зупинено",
+      "somethingWentWrong": "Щось пішло не так.",
+      "signInAgain": "Увійдіть знову",
+      "signInToTheProxy": "Увійдіть у проксі",
+      "enterThePassword": "Введіть пароль",
+      "tryAgain": "Спробуйте ще раз",
+      "checkThePin": "Перевірте PIN-код",
+      "checkForUpdates": "Перевірити наявність оновлень",
+      "pickACertificate": "Оберіть сертифікат"
+    },
+    "settings": {
+      "noSuchSetting": "Такого налаштування немає",
+      "snippetFolder": "Тека зі сниппетами",
+      "hostDefault": "Типовий хост"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Сервер не прийняв сертифікат цього {{deviceWord}}.",
+      "theServerSCertificateIs": "Сертифікат сервера не довірений.",
+      "canTReachTheServer": "Не вдається підключитися до сервера.",
+      "signedOut": "Вийшли з системи",
+      "theProxyAskedForIts": "Проксі запитує свій пароль.",
+      "theProxyWantsYouTo": "Проксі просить вас увійти в систему.",
+      "theSyncPluginIsOff": "Плагін Sync вимкнено на цьому сервері.",
+      "serverError": "Помилка сервера {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Сервер показує інший ключ, ніж закріплений."
+    },
+    "remote": {
+      "thisIsNotATermix": "Це не сервер Termix.",
+      "theProxyWantsYouTo": "Проксі просить вас увійти в систему.",
+      "thisServerUsesANewer": "Цей сервер використовує новішу версію синхронізації. Оновіть додаток."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} хост",
+      "hostCount_few": "{{count}} хости",
+      "hostCount_many": "{{count}} хостів",
+      "hostCount_other": "{{count}} хостів",
+      "credentialCount_one": "{{count}} облікові дані",
+      "credentialCount_few": "{{count}} облікові дані",
+      "credentialCount_many": "{{count}} облікових даних",
+      "credentialCount_other": "{{count}} облікових даних",
+      "snippetCount_one": "{{count}} сниппет",
+      "snippetCount_few": "{{count}} сниппети",
+      "snippetCount_many": "{{count}} сниппетів",
+      "snippetCount_other": "{{count}} сниппетів",
+      "folderCount_one": "{{count}} тека",
+      "folderCount_few": "{{count}} теки",
+      "folderCount_many": "{{count}} теок",
+      "folderCount_other": "{{count}} теок",
+      "nothingYet": "поки нічого",
+      "listAnd": "{{list}} та {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Не вдається підключитися.",
+      "connectingToFromThis": "Підключення до {{name}} з цього {{deviceWord}}",
+      "connectingToThroughTheServer": "Підключення до {{name}} через сервер",
+      "reconnectingTry": "Повторне підключення (спроба {{retry}})",
+      "disconnected": "Відключено",
+      "connected": "Підключено",
+      "reconnectedToTheSameSession": "Підключено до тієї ж сесії",
+      "reconnectedWithANewShell": "Підключено з новою оболонкою",
+      "couldNotReachTheHost": "Не вдалося досягти хоста з цього {{deviceWord}}, спроба через сервер",
+      "couldNotConnectThroughThe": "Не вдалося підключитися через сервер, спроба з цього {{deviceWord}}",
+      "connectionLost": "З'єднання втрачено: {{reason}}",
+      "offlineWaitingForTheNetwork": "Не в мережі, очікування підключення до мережі",
+      "nextTryInS": "Наступна спроба через {{value}} с",
+      "reconnectingTry2": "Повторне підключення (спроба {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Хост перестав відповідати",
+      "networkLost": "Мережа втрачена",
+      "network": "Мережа: {{type}}{{value}}",
+      "lowPowerModeOn": "Режим енергозбереження увімкнено",
+      "lowPowerModeOff": "Режим енергозбереження вимкнено",
+      "droppedTypedCharacters": "Викинуто {{count}} введених символів",
+      "youDidNotTrustThe": "Ви не довіряєте ключу хоста.",
+      "checkTheKeyWithWhoever": "Перевірте ключ із адміністратором хоста, а потім спробуйте ще раз.",
+      "loginCancelled": "Вхід скасовано.",
+      "connectAgainWhenYouAre": "Підключіться знову, коли будете готові.",
+      "typedInputIsOver64": "Введений текст перевищує 64 КБ, найстаріша частина була викинута",
+      "appInTheBackground": "Додаток у фоновому режимі",
+      "appInTheForeground": "Додаток на передньому плані",
+      "thisConnectionCanTRun": "Це з’єднання не може виконувати команди"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Перевірте адресу та порт, а також чи може сервер досягти хоста.",
+      "checkTheAddressAndPort2": "Перевірте адресу та порт, а також чи може цей {{deviceWord}} досягти хоста.",
+      "checkTheProxySettingsOf": "Перевірте налаштування проксі для цього хоста.",
+      "checkTheKeyWithWhoever": "Перевірте ключ із адміністратором хоста, перш ніж довіряти йому.",
+      "checkTheUsernameAndLogin": "Перевірте ім’я користувача та дані входу в редакторі хоста.",
+      "checkThatTheServerIs": "Переконайтеся, що сервер працює, і ви досі авторизовані.",
+      "tryAgainIfItKeeps": "Спробуйте ще раз. Якщо з’єднання продовжує розриватися, перевірте мережу.",
+      "connectAgainWhenYouAre": "Підключіться знову, коли будете готові.",
+      "pickAnotherWayToConnect": "Оберіть інший спосіб підключення до цього хоста.",
+      "connectThisHostThroughA": "Підключіться до цього хоста через сервер Termix.",
+      "pickTheJumpHostsAgain": "Знову оберіть проміжні хости в редакторі хоста.",
+      "thisIsATailscaleAddress": "Це адреса Tailscale. Переконайтеся, що Tailscale підключено на цьому {{deviceWord}}.",
+      "theSavedKeyCanT": "Збережений ключ неможливо прочитати. Вставте його ще раз у редакторі хоста.",
+      "signInToThisServer": "Увійдіть на цей сервер знову.",
+      "openThisHostInThe": "Відкрийте цей хост у веб-додатку Termix.",
+      "canTConnectThisWay": "Неможливо підключитися таким способом",
+      "couldNotReachTheHost": "Не вдалося досягти хоста",
+      "theProxyDidNotLet": "Проксі не дозволив з’єднання",
+      "theHostKeyWasNot": "Ключу хоста не довіряли",
+      "theLoginWasRefused": "Вхід відхилено",
+      "theTermixServerDidNot": "Сервер Termix не відповів",
+      "theConnectionDropped": "З’єднання розірвано",
+      "loginCancelled": "Вхід скасовано"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH-агент",
+        "thisHostSignsInWith": "Цей хост використовує вхід через «{{authType}}», для чого потрібен сервер Termix. Підключіть його для встановлення з’єднання.",
+        "thisHostUsesA1password": "Цей хост використовує посилання на 1Password, для чого потрібен сервер Termix із Secret Sources. Підключіть сервер і підключіться до цього хоста через нього.",
+        "signInWithFirstOpen": "Спочатку увійдіть через {{title}}. Відкрийте термінал до цього хоста один раз, а потім спробуйте ще раз.",
+        "theSignInAndThe": "дані входу та сертифікат зберігаються на сервері",
+        "theHasNoSshAgent": "на цьому {{deviceWord}} немає SSH-агента",
+        "needsATermixServerBecause": "{{title}} потребує сервера Termix, оскільки {{why}}. Підключіть сервер і підключіться до цього хоста через нього."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Проміжний хост для цього хоста більше не існує."
+      },
+      "localShell": {
+        "theConnectionWasCut": "З’єднання розірвано",
+        "theShellChannelClosed": "Канал оболонки закрито",
+        "jumpHost": "Проміжний хост {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Невірний код, спробуйте ще раз:",
+        "authenticationFailed": "Помилка автентифікації: {{message}}",
+        "theHostKeyWasNot": "Ключу хоста не довіряли.",
+        "loginCancelled": "Вхід скасовано.",
+        "notConnected": "Не підключено",
+        "signingInAs": "Вхід як {{user}} з {{method}}",
+        "methodKey": "ключ",
+        "methodPassword": "пароль",
+        "methodNone": "без збереженого входу"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "З’єднання розірвано"
+      },
+      "thisBuildHasNoSsh": "Ця збірка не має SSH-рушія. Використовуйте додаток зі магазину або підключіть сервер Termix для встановлення з’єднання.",
+      "theHostsOnThisAre": "Хости на цьому {{deviceWord}} ще не відкриті.",
+      "thisServerSHostsAre": "Хости цього сервера не доступні на цьому {{deviceWord}}. Увімкніть плагін Sync на сервері, щоб підключатися з {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "Збережені облікові дані для цього хоста відсутні на цьому {{deviceWord}}, тому вхід можливий лише через сервер"
+      }
+    },
+    "origin": {
+      "canTConnect": "Неможливо підключитися.",
+      "canTConnectFromThe": "Неможливо підключитися з цього {{deviceWord}}.",
+      "canTReachTheServer": "Неможливо досягти сервера.",
+      "theOnlyConnectsToSsh": "Цей {{deviceWord}} підключається лише до хостів SSH та Telnet.",
+      "connectThisHostThroughThe": "Підключитися до цього хоста через сервер",
+      "connectThisHostFromThe": "Підключитися до цього хоста з {{deviceWord}}",
+      "termixServer": "Сервер Termix",
+      "usesThisWhenItCan": "Використовує цей {{deviceWord}}, якщо може досягти хоста, інакше — сервер.",
+      "thisConnectsToTheHost": "Цей {{deviceWord}} підключається безпосередньо до хоста.",
+      "theTermixServerConnectsTo": "Сервер Termix підключається до хоста за вас.",
+      "anSshConnection": "з'єднання SSH",
+      "aTermixServer": "сервер Termix",
+      "aConnectionFromThe": "з'єднання з {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} вимкнено на цьому сервері. {{how}}, щоб ним скористатися.",
+      "isOffOnThisServer2": "{{title}} вимкнено на цьому сервері.",
+      "anotherWayToConnect": "інший спосіб підключення",
+      "needsToUseIt": "{{title}} потребує {{what}}. {{how}}, щоб ним скористатися.",
+      "needsWhichThisHostCan": "{{title}} потребує {{what}}, який цей хост зараз не може використовувати.",
+      "thisDevice": "Цей {{deviceWord}}",
+      "automatic": "Автоматично"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Ви вийшли з цього сервера. Увійдіть, щоб підключатися через нього.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux не встановлено на цьому хості. Використовується звичайна оболонка.",
+        "tapRetryToBringIt": "Натисніть «Повторити», щоб повернути його сюди.",
+        "thisSessionWasOpenedOn": "Цю сесію відкрито на іншому пристрої",
+        "noServerUrlFoundLink": "URL-адресу сервера не знайдено. Пов'яжіть сервер знову.",
+        "signedOutOfThisServer": "Вийшли з цього сервера. Увійдіть знову.",
+        "signInWithInYour": "Увійдіть через {{title}} у браузері. Це вікно закриється після завершення.",
+        "theSocketClosedWhileThe": "Сокет закрито, поки додаток був у фоновому режимі",
+        "noWebsocketUrlAvailableServer": "URL-адреса WebSocket недоступна — сервер не налаштовано",
+        "connectionTimeoutServerNotResponding": "Тайм-аут з'єднання — сервер не відповідає",
+        "verificationCode": "Код підтвердження:",
+        "hostKeyVerificationRequiredBut": "Потрібна перевірка ключа хоста, але обробник не зареєстровано",
+        "hostKeyChangedButNo": "Ключ хоста змінено, але обробник не зареєстровано",
+        "thisHostNeedsASign": "Цей хост потребує входу, який підтримується лише веб-додатком",
+        "invalidCodeTryAgain": "Невірний код, спробуйте ще раз:",
+        "unknownError": "Невідома помилка",
+        "connectionClosed": "З'єднання закрито",
+        "connectionClosed2": "З'єднання закрито ({{code}})",
+        "theServerClosedTheConnection": "Сервер заклав з'єднання",
+        "theSocketClosed": "Сокет закрито ({{code}})",
+        "signIn": "Вхід у {{title}}",
+        "signInFailed": "Вхід у {{title}} не вдалося",
+        "isNotSetUpOn": "{{title}} не налаштовано на сервері",
+        "signInTimedOut": "Тайм-аут входу в {{title}}",
+        "authenticationFailed": "Помилка автентифікації: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Збережіть хост і підключіться до нього, щоб перевірити.",
+      "loggedInAsOn": "Увійдено як {{username}} на {{host}}",
+      "theHostAskedForMore": "Хост запросив більше, ніж просто пароль, наприклад код. Збережіть хост і підключіться, щоб завершити вхід."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Очікування мережі",
+      "couldNotOpenTheTunnel": "Не вдалося відкрити тунель",
+      "theConnectionDropped": "З'єднання втрачено",
+      "iosStoppedThisTunnelWhile": "iOS зупинила цей тунель, коли додаток був у фоновому режимі. Запустіть його знову, щоб відкрити.",
+      "connecting": "Підключення",
+      "connected": "Підключено",
+      "retrying": "Повторна спроба",
+      "waiting": "Очікування",
+      "failed": "Не вдалося"
+    },
+    "gateways": {
+      "error": "Помилка",
+      "gateways": "Шлюзи",
+      "gatewaysCanOnlyBeChanged": "Шлюзи можна змінювати лише в Termix у браузері.",
+      "noHandshake": "Відсутнє рукостискання",
+      "rulesMissing": "Відсутні правила",
+      "up": "Активний",
+      "pending": "Очікування",
+      "applying": "Застосування",
+      "down": "Неактивний",
+      "unreachable": "Недоступний"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Тунелів ще немає. Додайте один, щоб переслати порт з кінцевого хоста на цей хост.",
+      "tunnel": "Тунель {{value}}",
+      "removeTunnel": "Видалити тунель {{value}}",
+      "mode": "Режим",
+      "local": "Локальний",
+      "remote": "Віддалений",
+      "dynamic": "Динамічний",
+      "targetHost": "Цільовий хост",
+      "onThisHostForTunnels": "На цьому хості, для тунелів, які запускає {{deviceWord}}",
+      "bindHost": "Хост прив'язки",
+      "endpointHost": "Кінцевий хост",
+      "addAnotherHostFirstTunnels": "Спочатку додайте інший хост. Тунелі проходять через збережений хост.",
+      "sourcePort": "Порт джерела",
+      "endpointPort": "Порт кінцевої точки",
+      "maxRetries": "Макс. спроб",
+      "retryEveryS": "Повторювати кожні (с)",
+      "startOnItsOwn": "Запускати самостійно",
+      "addTunnel": "Додати тунель",
+      "tunnelNeedsPortsFrom1": "Тунелю {{value}} потрібні порти від 1 до 65535"
+    },
+    "register": {
+      "tunnels": "Тунелі",
+      "startAndStopSavedTunnels": "Запускати та зупиняти збережені тунелі",
+      "tunnel": "ТУНЕЛЬ",
+      "tunnel2": "Тунель"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Локальну кінцеву точку скопійовано",
+      "tunnel": "Тунель | {{sourcePort}}",
+      "portMapping": "Відображення портів",
+      "connect": "Підключитися",
+      "disconnect": "Відключитися",
+      "cancel": "Скасувати",
+      "connected": "Підключено",
+      "connecting": "Підключення",
+      "disconnecting": "Відключення",
+      "error": "Помилка",
+      "retrying": "Повторна спроба ({{value}}/{{value2}})",
+      "waitingS": "Очікування {{value}} с",
+      "waiting": "Очікування",
+      "disconnected": "Відключено"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Запуск тунелю на порту {{sourcePort}}",
+      "connectingTunnelOnPort": "Підключення тунелю на порту {{sourcePort}}",
+      "disconnectingPort": "Відключення порту {{sourcePort}}",
+      "cancellingPort": "Скасування порту {{sourcePort}}",
+      "failedToTunnel": "Не вдалося {{action}} тунель",
+      "tunnels": "Тунелі | {{count}} | {{value}}",
+      "loadingTunnels": "Завантаження тунелів…",
+      "noSshTunnelsConfiguredFor": "Для цього хоста не налаштовано SSH-тунелів. Додайте тунелі з форми хоста.",
+      "runOn": "Запускати на",
+      "server": "Сервер",
+      "this": "Цей {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Тунелі на цьому {{deviceWord}} зупиняються, коли застосунок закривається. На iOS вони також зупиняються незабаром після того, як застосунок переходить у фоновий режим.",
+      "failedToFetchTunnelStatuses": "Не вдалося отримати статуси тунелів",
+      "thisBuildCanTOpen": "Ця збірка не може відкривати тунелі на {{deviceWord}}.",
+      "sourceHostNotFound": "Хост джерела не знайдено",
+      "endpointHostNotFound": "Кінцевий хост не знайдено: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Тунелі",
+      "tunnelCount_one": "{{count}} тунель",
+      "tunnelCount_few": "{{count}} тунелі",
+      "tunnelCount_many": "{{count}} тунелів",
+      "tunnelCount_other": "{{count}} тунелів",
+      "runningOnServer": "{{connected}} працює на сервері"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Інструменти облікових даних"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker не встановлено на цьому хості.",
+        "dockerDidNotAnswer": "Docker не відповідає",
+        "thatIsNotAValid": "Це не є дійсною назвою стеку"
+      }
+    },
+    "containerDetail": {
+      "stop": "Зупинити",
+      "start": "Запустити",
+      "restart": "Перезапустити",
+      "remove": "Видалити",
+      "logs": "Журнали",
+      "stats": "Статистика",
+      "console": "Консоль",
+      "logsCopied": "Журнали скопійовано",
+      "copy": "Копіювати",
+      "containerIsNotRunningNo": "Контейнер не працює, немає поточної статистики.",
+      "cpu": "CPU",
+      "memory": "Пам'ять",
+      "networkIO": "Мережевий I/O",
+      "blockIO": "Блоковий I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Не вдалося завантажити журнали",
+      "failedToLoadStats": "Не вдалося завантажити статистику",
+      "noOutput": "(немає виводу)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Підключення до Docker...",
+    "remove": "Видалити {{name}}?",
+    "stop": "Зупинити {{name}}?",
+    "theContainerIsStoppedAnd": "Контейнер зупинено та видалено. Його томи залишаються.",
+    "anythingRunningInItStops": "Все, що працює всередині, зупиняється.",
+    "remove2": "Видалити",
+    "stop2": "Зупинити",
+    "dockerThis": "Docker | цей {{deviceWord}}",
+    "lookingForDocker": "Пошук Docker...",
+    "dockerIsNotAvailableOn": "Docker недоступний на цьому хості.",
+    "noContainersFound": "Контейнерів не знайдено",
+    "noContainersMatchYourFilters": "Жоден контейнер не відповідає вашим фільтрам",
+    "useSudo": "Використовувати sudo",
+    "refresh": "Оновити",
+    "containers": "Контейнери",
+    "stacks": "Стеки",
+    "searchContainers": "Пошук контейнерів...",
+    "all": "Усі",
+    "running": "Активні",
+    "stopped": "Зупинені",
+    "start": "Запустити",
+    "restart": "Перезапустити",
+    "pause": "Призупинити",
+    "unpause": "Відновити",
+    "moreActions": "Більше дій",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker не відповідає",
+      "docker": "Docker",
+      "noContainers": "Немає контейнерів"
+    },
+    "dockerConsole": {
+      "attachingTo": "Підключення до {{name}}...",
+      "consoleDisconnected": "Консоль від'єднана",
+      "reconnect": "Підключитися знову",
+      "failedToLoadTheConsole": "Не вдалося завантажити консоль",
+      "thisSessionHasNoServer": "У цьому сеансі немає сервера"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Контейнери, журнали та статистика"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Стеки вимкнено на цьому сервері.",
+      "couldNotLoadStacks": "Не вдалося завантажити стеки",
+      "noStacks": "Немає стеків",
+      "composeProjectsOnThisHost": "Проекти Compose на цьому хості відображатимуться тут.",
+      "ofRunning": "{{running}} з {{total}} працюють",
+      "couldNotLoadTheStack": "Не вдалося завантажити стек",
+      "services": "Сервіси",
+      "nothingIsRunning": "Нічого не працює.",
+      "composeFile": "Файл Compose",
+      "partlyUp": "частково запущено",
+      "notDeployed": "не розгорнуто",
+      "running": "працює",
+      "stopped": "зупинено",
+      "paused": "призупинено"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Це не є дійсним ідентифікатором контейнера",
+      "consoleFailed": "Помилка консолі",
+      "notAuthenticated": "Не автентифіковано",
+      "consoleError": "Помилка консолі",
+      "connectionFailed": "Помилка підключення"
+    },
+    "dockerDidNotAnswer": "Docker не відповідає",
+    "failedToLoadContainers": "Не вдалося завантажити контейнери",
+    "failedTo": "Не вдалося {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Сервер не надіслав файл",
+        "cancelled": "Скасовано",
+        "isGone": "{{path}} зник",
+        "canTGoToThe": "{{name}} не можна перемістити в кошик"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Недійсний ідентифікатор елемента кошика",
+        "invalidTrashMetadata": "Недійсні метадані кошика",
+        "thisPathCanTBe": "Цей шлях не можна перемістити в кошик",
+        "aFileAlreadyExistsAt": "Файл за початковим шляхом вже існує"
+      },
+      "sftp": {
+        "commandFailed": "Помилка команди: {{command}}",
+        "alreadyExists": "{{name}} вже існує",
+        "alreadyExistsThere": "{{path}} вже існує там",
+        "canTGoToThe": "{{name}} не можна перемістити в кошик: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Термінал більше не відкрито",
+      "clearHistory": "Очистити історію",
+      "stopFollowingTheTerminal": "Перестати слідкувати за терміналом",
+      "followTheTerminal": "Слідкувати за терміналом",
+      "goToTheTerminalS": "Перейти до папки терміналу",
+      "cdTheTerminalHere": "Перейти в терміналі сюди",
+      "folderHistory": "Історія папок",
+      "mostUsedFirstThenRecent": "Спочатку найчастіші, потім останні",
+      "noFoldersYet": "Ще немає папок"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Не вдалося підключитися.",
+        "couldNotSaveHowThis": "Не вдалося зберегти налаштування підключення цього хоста",
+        "thisWayCanTOpen": "Цей спосіб не підтримує відкриття файлів"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Не вдалося відкрити цю папку",
+      "cancel": "Скасувати",
+      "noFoldersHere": "Тут немає папок"
+    },
+    "couldNotOpenThisFolder": "Не вдалося відкрити цю папку",
+    "couldNotSaveToThe": "Не вдалося зберегти в папку",
+    "failed": "{{label}} не вдалося",
+    "uploading": "Завантаження {{name}}",
+    "uploadingFiles": "Завантаження {{count}} файлів",
+    "downloadingToFilesOnMy": "Завантаження в «Файли», «На моєму iPhone», Termix",
+    "downloading": "Завантаження {{name}}",
+    "downloadingFiles": "Завантаження {{count}} файлів",
+    "openALargeFile": "Відкрити великий файл?",
+    "isBigForAEditor": "{{name}} — великий файл для редактора на {{deviceWord}}. Це може працювати повільно.",
+    "open": "Відкрити",
+    "thisLooksLikeABinary": "Схоже, це бінарний файл",
+    "openItInAnotherApp": "Відкрити в іншій програмі?",
+    "openWith": "Відкрити за допомогою",
+    "tooBigForTheEditor": "Файл занадто великий для редактора",
+    "isOver10MbDownload": "{{name}} важить більше 10 МБ. Завантажити його?",
+    "download": "Завантажити",
+    "delete": "Видалити {{what}}?",
+    "moveToTheTrash": "Перемістити {{what}} у кошик?",
+    "thisCanTBeUndone": "Цю дію не можна скасувати.",
+    "youCanRestoreItFrom": "Ви можете відновити його з кошика.",
+    "delete2": "Видалити",
+    "moveToTrash": "Перемістити в кошик",
+    "deleteForGood": "Видалити назавжди?",
+    "deleteItForGoodInstead": "{{message}}. Видалити назавжди? Цю дію не можна скасувати.",
+    "deleteFailed": "Не вдалося видалити",
+    "connectingThroughTheServer": "Підключення через сервер...",
+    "connectingFromThis": "Підключення з цього {{deviceWord}}...",
+    "connecting": "Підключення...",
+    "edit": "Редагувати",
+    "downloadFolder": "Завантажити теку",
+    "share": "Поділитися",
+    "rename": "Перейменувати",
+    "copyTo": "Копіювати в",
+    "moveTo": "Перемістити в",
+    "cut": "Вирізати",
+    "copy": "Копіювати",
+    "permissions": "Дозволи",
+    "properties": "Властивості",
+    "makeALinkHere": "Створити посилання тут",
+    "copyPath": "Копіювати шлях",
+    "pathCopied": "Шлях скопійовано",
+    "done": "Готово",
+    "selectAll": "Виділити все",
+    "filterByName": "Фільтр за назвою",
+    "closeSearch": "Закрити пошук",
+    "search": "Пошук",
+    "changeSort": "Змінити сортування",
+    "paste": "Вставити {{count}}",
+    "upload": "Завантажити",
+    "transfers2": "Передачі",
+    "more": "Більше",
+    "nothingMatches": "Нічого не знайдено",
+    "emptyFolder": "Порожня тека",
+    "uploadFilesOrMakeA": "Завантажте файли або створіть новий.",
+    "newFolder": "Нова тека",
+    "newFile": "Новий файл",
+    "select": "Вибрати",
+    "hideHiddenFiles": "Приховати приховані файли",
+    "showHiddenFiles": "Показати приховані файли",
+    "trash": "Кошик",
+    "folderProperties": "Властивості теки",
+    "refresh": "Оновити",
+    "rename2": "Перейменувати {{name}}",
+    "newLink": "Нове посилання",
+    "aLinkInThatPoints": "Посилання в {{path}}, що вказує на {{path2}}",
+    "name": "Назва",
+    "create": "Створити",
+    "copyHere": "Копіювати сюди",
+    "moveHere": "Перемістити сюди",
+    "fileViewer": {
+      "saved": "Збережено {{name}}",
+      "couldNotSaveTheFile": "Не вдалося зберегти файл",
+      "discardChanges": "Відмінити зміни?",
+      "hasChangesThatAreNot": "{{name}} має незбережені зміни.",
+      "discard": "Відмінити",
+      "readOnly": "{{path}} | тільки для читання",
+      "find": "Знайти",
+      "smallerText": "Зменшити текст",
+      "biggerText": "Збільшити текст",
+      "turnOffLineWrap": "Вимкнути перенос рядків",
+      "wrapLines": "Переносити рядки",
+      "save": "Зберегти"
+    },
+    "hostSection": {
+      "startIn": "Почати в",
+      "theFolderTheFileManager": "Тека, яка відкривається першою у файловому менеджері",
+      "files": "Файли"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Перейти до {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Більше дій",
+        "moreFor": "Більше для {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Дозволи",
+      "cancel": "Скасувати",
+      "apply": "Застосувати ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Не вдалося відкрити",
+      "openWith": "Відкрити за допомогою",
+      "share": "Поділитися"
+    },
+    "propertiesView": {
+      "properties": "Властивості",
+      "path": "Шлях",
+      "type": "Тип",
+      "pointsTo": "Вказує на",
+      "size": "Розмір",
+      "countFolderSize": "Обчислити розмір теки",
+      "permissions": "Дозволи",
+      "change": "Змінити",
+      "owner": "Власник",
+      "group": "Група",
+      "modified": "Змінено",
+      "opened": "Відкрито",
+      "linkToA": "Посилання на {{value}}",
+      "notShownForFolders": "Не відображається для тек",
+      "file": "Файл",
+      "folder": "Тека",
+      "link": "Посилання"
+    },
+    "register": {
+      "fileManager": "Файловий менеджер",
+      "files": "Файли",
+      "browseEditAndMoveFiles": "Перегляд, редагування та переміщення файлів",
+      "files2": "ФАЙЛИ",
+      "fileManagerAndTransfers": "Файловий менеджер та передачі"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Передачу не вдалося виконати"
+      },
+      "transfersPanel": {
+        "pause": "Пауза",
+        "resume": "Відновити",
+        "tryAgain": "Спробувати ще раз",
+        "open": "Відкрити",
+        "cancel": "Скасувати",
+        "transfers": "Передачі",
+        "goingOf": "{{active}} активних | {{done}} з {{total}}",
+        "clearFinished": "Очистити завершені",
+        "cancelAll": "Скасувати всі",
+        "noTransfersYet": "Ще немає передач",
+        "waiting": "Очікування",
+        "paused": "Призупинено",
+        "done": "Готово",
+        "failed": "Не вдалося",
+        "cancelled": "Скасовано"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Не вдалося завантажити кошик",
+      "restored": "Відновлено {{name}}",
+      "failedToRestore": "Не вдалося відновити",
+      "failedToDelete": "Не вдалося видалити",
+      "trashEmptied": "Кошик очищено",
+      "failedToEmptyTrash": "Не вдалося очистити кошик",
+      "trash": "Кошик",
+      "itemsAreRemovedAfterDays": "Елементи видаляються через {{retentionDays}} днів",
+      "close": "Закрити",
+      "emptyTrash": "Очистити кошик",
+      "trashIsEmpty": "Кошик порожній",
+      "restore": "Відновити {{name}}",
+      "deleteForGood": "Видалити {{name}} назавжди"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Щойно"
+      }
+    },
+    "getting": "Отримання {{name}}",
+    "itemCount_one": "{{count}} елемент",
+    "itemCount_few": "{{count}} елементи",
+    "itemCount_many": "{{count}} елементів",
+    "itemCount_other": "{{count}} елементів",
+    "copiedWhat": "Скопійовано {{what}}",
+    "movedWhat": "Переміщено {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "У {{name}} більше ніж {{limit}} файлів. Завантажуйте менші папки."
+    },
+    "downloadingToFilesOnMyIpad": "Завантаження в «Файли», «На моєму iPad», Termix",
+    "size": "Розмір",
+    "date": "Дата"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Посилання на сервіси",
+      "openInHomepage": "Відкрити на головній сторінці",
+      "thisWidgetOnlyShowsOn": "Цей віджет відображається лише на повній сторінці."
+    },
+    "register": {
+      "serviceLinks": "Посилання на сервіси",
+      "homepage": "Головна сторінка"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Стрічку не налаштовано.",
+        "couldNotLoadTheFeed": "Не вдалося завантажити стрічку.",
+        "theFeedIsEmpty": "Стрічка порожня.",
+        "noLocationSet": "Локацію не вказано.",
+        "couldNotLoadTheWeather": "Не вдалося завантажити погоду.",
+        "noUrlSet": "URL не вказано.",
+        "couldNotLoadTheData": "Не вдалося завантажити дані.",
+        "noPictureSet": "Зображення не вказано.",
+        "badResponse": "помилкова відповідь"
+      },
+      "services": "Сервіси",
+      "service": "Сервіс",
+      "serviceLinks": "Посилання на сервіси",
+      "bookmarks": "Закладки",
+      "links2": "Посилання",
+      "search": "Пошук",
+      "clock": "Годинник",
+      "countdown": "Зворотний відлік",
+      "calendar": "Календар",
+      "notes": "Нотатки",
+      "banner": "Банер",
+      "ping": "Пінг",
+      "host": "Хост",
+      "hosts": "Хости",
+      "quickConnect": "Швидке підключення",
+      "feed": "Стрічка",
+      "weather": "Погода",
+      "customApi": "Власний API",
+      "picture": "Зображення",
+      "widget": "Віджет",
+      "links": {
+        "noServicesYet": "Сервісів поки немає.",
+        "noLinkSet": "Посилання не вказано.",
+        "noLinksYet": "Посилань поки немає.",
+        "noSearchEngineSet": "Пошукову систему не вказано.",
+        "search": "Пошук",
+        "noShortcutsYet": "Ще немає ярликів.",
+        "search2": "Шукати {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Не вдалося відкрити посилання"
+      },
+      "status": {
+        "noUrlsYet": "Ще немає URL-адрес.",
+        "down": "Недоступний",
+        "noHostsPicked": "Хости не обрано."
+      },
+      "text": {
+        "noNotesYet": "Ще немає нотаток.",
+        "noTextYet": "Ще немає тексту."
+      },
+      "time": {
+        "noDateSet": "Дату не вказано.",
+        "timeIsUp": "Час вийшов"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Не вдалося зберегти значення за замовчуванням",
+    "couldNotResetTheDefault": "Не вдалося скинути значення за замовчуванням",
+    "back": "Назад",
+    "hostDefaults": "Параметри хостів за замовчуванням",
+    "newHostsStartFromThese": "Нові хости створюються з цих параметрів",
+    "managedOnTheServer": "Керується на сервері",
+    "defaultsForThisServerAre": "Параметри за замовчуванням для цього сервера встановлюються в веб-додатку.",
+    "level": "Рівень",
+    "yourDefaultsOrOneFolder": "Ваші параметри або параметри однієї папки",
+    "myDefaults": "Мої параметри",
+    "theServerSets": " Сервер встановлює {{adminCount}}.",
+    "aFolderWinsOverYour": "Папка має пріоритет над вашими налаштуваннями за замовчуванням, а ваші налаштування за замовчуванням — над налаштуваннями сервера. Хост зберігає будь-яке значення, яке ви встановили для нього вручну.{{value}}",
+    "save": "Зберегти",
+    "authentication": "Автентифікація",
+    "none": "Немає",
+    "reset": "Скинути",
+    "model": {
+      "username": "Ім'я користувача",
+      "sshPort": "Порт SSH",
+      "authentication": "Автентифікація",
+      "aSavedCredentialForNew": "Збережені облікові дані для нових хостів",
+      "forceKeyboardInteractive": "Примусово використовувати інтерактивну клавіатуру",
+      "keepaliveInterval": "Інтервал keepalive",
+      "seconds0TurnsItOff": "Секунди, 0 вимикає функцію",
+      "keepaliveTries": "Кількість спроб keepalive",
+      "allowOldAlgorithms": "Дозволити застарілі алгоритми",
+      "agentForwarding": "Переадресація агента",
+      "environmentVariables": "Змінні середовища",
+      "oneNameValuePerLine": "Одне NAME=значення на рядок",
+      "checkIfTheHostIs": "Перевіряти доступність хоста",
+      "checkInterval": "Інтервал перевірки",
+      "secondsEmptyUsesTheServer": "Секунди, якщо порожньо — використовується значення сервера",
+      "socks5Proxy": "SOCKS5-проксі",
+      "setInTheWebApp": "Встановлено в веб-додатку",
+      "jumpHosts": "Проміжні хости",
+      "portKnocking": "Port knocking",
+      "notSet": "Не встановлено",
+      "fromTheServer": "З сервера",
+      "fromYourDefaults": "З ваших параметрів за замовчуванням",
+      "builtIn": "Вбудовано"
+    },
+    "register": {
+      "hostDefaults": "Параметри хостів за замовчуванням",
+      "portUserAndOptionsFor": "Порт, користувач та параметри для нових хостів"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Ще немає даних",
+      "cpu": "CPU",
+      "memory": "Пам'ять",
+      "disk": "Диск",
+      "history": "Історія",
+      "loading": "Завантаження..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Не вдалося прочитати метрики",
+      "metrics": "Метрики",
+      "cpu": "CPU",
+      "memory": "Пам'ять",
+      "disk": "Диск",
+      "noRecentSampleOpenThe": "Немає недавніх даних. Відкрийте метрики хоста, щоб запустити збір."
+    },
+    "register": {
+      "enableMetrics": "Увімкнути метрики",
+      "cpuMemoryDiskAndNetwork": "CPU, пам'ять, диск та мережа через SSH",
+      "hostMetrics": "Метрики хоста",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Метрики",
+      "cpuMemoryDiskAndNetwork2": "CPU, пам'ять, диск та мережа"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Метрики хоста | цей {{deviceWord}}",
+      "hostMetrics": "Метрики хоста",
+      "ran": "Виконано {{name}}",
+      "loadingMetrics": "Завантаження метрик...",
+      "couldNotReadMetricsFrom": "Не вдалося прочитати метрики з цього хоста",
+      "failedToLoadMetrics": "Не вдалося завантажити метрики",
+      "thisSessionHasNoServer": "У цьому сеансі немає сервера",
+      "twoFactorRequiredForThis": "Для перегляду статистики цього хоста потрібна двофакторна аутентифікація.",
+      "failedToStartMetrics": "Не вдалося запустити метрики",
+      "failedToRun": "Не вдалося виконати {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "На ядро: {{value}}",
+        "cores": "Ядра",
+        "load": "Навантаження",
+        "user": "Користувач",
+        "system": "Система",
+        "ioWait": "Очікування IO",
+        "steal": "Викрадене"
+      },
+      "diskWidget": {
+        "disk": "Диск {{mount}}",
+        "disk2": "Диск",
+        "used": "Використано",
+        "total": "Всього",
+        "free": "Вільно"
+      },
+      "firewallWidget": {
+        "firewall": "Файрвол",
+        "rules": "{{type}} | {{ruleCount}} правил",
+        "noFirewallDetected": "Файрвол не виявлено"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "Пам'ять",
+        "temp": "Темп.",
+        "power": "Потужність",
+        "fan": "Вентилятор"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Активність входу",
+        "noLoginActivityRecorded": "Активність входу не записано",
+        "logins": "Входи",
+        "uniqueIps": "Унікальні IP",
+        "failed": "Невдалі",
+        "recent": "Недавні"
+      },
+      "memoryWidget": {
+        "memory": "Пам'ять",
+        "used": "Використано",
+        "total": "Всього",
+        "cached": "Кешовано",
+        "free": "Вільно"
+      },
+      "networkWidget": {
+        "network": "Мережа",
+        "noInterfaces": "Немає інтерфейсів",
+        "up": "Вихід",
+        "down": "Вхід"
+      },
+      "portsWidget": {
+        "listeningPorts": "Порти, що слухають",
+        "noListeningPorts": "Немає портів, що слухають"
+      },
+      "processesWidget": {
+        "sortBy": "Сортувати за {{label}}",
+        "processes": "Процеси",
+        "running": "{{value}} запущено | {{total}}",
+        "noProcessData": "Немає даних про процеси",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "КОМАНДА"
+      },
+      "systemWidget": {
+        "system": "Система",
+        "hostname": "Ім'я хоста",
+        "os": "ОС",
+        "kernel": "Ядро",
+        "arch": "Архітектура",
+        "noSystemInfo": "Немає системної інформації"
+      },
+      "temperatureWidget": {
+        "temperature": "Температура"
+      },
+      "uptimeWidget": {
+        "uptime": "Час роботи"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Скопійовано з паролем",
+      "copiedTheLink": "Скопійовано посилання",
+      "shareHost": "Поділитися хостом",
+      "thatHostNoLongerExists": "Цей хост більше не існує",
+      "scanThisInTermixOn": "Скануйте це в Termix на іншому {{deviceWord}} у розділі «Імпорт та експорт». Код містить адресу, порт та користувача. Він не містить пароля чи ключа.",
+      "copyLink": "Копіювати посилання",
+      "copyLinkWithPassword": "Копіювати посилання з паролем"
+    },
+    "includePasswordsAndKeys": "Включити паролі та ключі?",
+    "anyoneWhoGetsThisFile": "Будь-хто, хто отримає цей файл, зможе увійти в ці хости. Зберігайте його в безпеці.",
+    "includeThem": "Включити",
+    "pickAtLeastOneHost": "Оберіть хоча б один хост",
+    "couldNotMakeTheFile": "Не вдалося створити файл",
+    "copiedToTheClipboard": "Скопійовано в буфер обміну",
+    "importAndExport": "Імпорт та експорт",
+    "moveHostsInAndOut": "Переміщуйте хости всередину та назовні",
+    "import": "Імпорт",
+    "aTermixHostFileAn": "Файл хоста Termix, файл конфігурації SSH або посилання/QR-код хоста з іншого {{deviceWord}}.",
+    "export": "Експорт",
+    "allHosts": "Усі хости",
+    "picked": "{{size}} обрано",
+    "pickHosts": "Обрати хости",
+    "includePasswordsAndKeys2": "Включити паролі та ключі",
+    "offMakesAFileSafe": "Вимкнення робить файл безпечним для поширення. Хости, які використовують збережені облікові дані, посилаються на них за назвою",
+    "shareAFile": "Поділитися файлом",
+    "copy": "Копіювати",
+    "importPanel": {
+      "couldNotReadThat": "Не вдалося прочитати",
+      "couldNotReadThatFile": "Не вдалося прочитати цей файл",
+      "importFailed": "Помилка імпорту",
+      "chooseAFile": "Оберіть файл",
+      "paste": "Вставити",
+      "scanACode": "Сканувати код",
+      "couldNotBeRead": "Не вдалося прочитати {{count}}",
+      "updateHostsThatExist": "Оновити існуючі хости",
+      "sameAddressPortAndUser": "Та сама адреса, порт та користувач. Інакше вони будуть пропущені",
+      "cancel": "Скасувати",
+      "import": "Імпорт",
+      "andMore": "та ще {{value}}"
+    },
+    "qrCode": {
+      "qrCode": "QR-код"
+    },
+    "register": {
+      "importAndExport": "Імпорт та експорт",
+      "moveHostsInOrOut": "Переміщуйте хости всередину або назовні за допомогою файлу або QR-коду",
+      "shareHost": "Поділитися хостом"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Сканувати код хоста",
+      "pointTheCameraAtA": "Наведіть камеру на QR-код хоста Termix.",
+      "termixNeedsTheCameraTo": "Termix потребує доступу до камери для сканування коду. Нічого не записується.",
+      "allowTheCamera": "Дозволити камеру"
+    },
+    "read": {
+      "termixFile": "Файл Termix",
+      "sshConfig": "SSH config",
+      "thereIsNothingToImport": "Немає нічого для імпорту",
+      "thatIsNotATermix": "Це не посилання на хост Termix",
+      "linkHost": "1 хост: {{name}}",
+      "sourceHosts_one": "{{what}} з {{count}} хостом",
+      "sourceHosts_few": "{{what}} з {{count}} хостами",
+      "sourceHosts_many": "{{what}} з {{count}} хостів",
+      "sourceHosts_other": "{{what}} з {{count}} хостів"
+    },
+    "saveYourTermixHosts": "Зберегти ваші хости Termix"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Готово",
+      "rejected": "Відхилено",
+      "approvals": "Затвердження",
+      "nothingIsWaiting": "Нічого не очікує",
+      "actionsARuleHoldsFor": "Тут відображаються дії, для яких правило вимагає затвердження.",
+      "approveAndRun": "Затвердити та запустити",
+      "reject": "Відхилити",
+      "couldNotLoadApprovals": "Не вдалося завантажити затвердження",
+      "couldNotDecide": "Не вдалося прийняти рішення"
+    },
+    "approvalsCard": {
+      "approved": "Затверджено",
+      "rejected": "Відхилено",
+      "waitingForApproval": "Очікує затвердження",
+      "approve": "Затвердити",
+      "reject": "Відхилити",
+      "couldNotDecide": "Не вдалося прийняти рішення",
+      "seeAll": "Переглянути всі"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Це не можна скасувати. Запустити?",
+      "run": "Запустити",
+      "sentForApproval": "Надіслано на затвердження",
+      "target": "Ціль",
+      "theItemOnTheHost": "Елемент на хості, наприклад, контейнер",
+      "dryRun": "Тестовий запуск",
+      "back": "Назад",
+      "actions": "Дії",
+      "noActionsForThisHost": "Немає дій для цього хоста",
+      "turnOnAPluginLike": "Увімкніть плагін, наприклад Docker або Services, для цього хоста на сервері.",
+      "destructive": "Деструктивні",
+      "changes": "Зміни",
+      "theActionCouldNotRun": "Дію не вдалося виконати",
+      "couldNotLoadActions": "Не вдалося завантажити дії"
+    },
+    "register": {
+      "actions": "Дії",
+      "waitingForApproval": "Очікує затвердження",
+      "approvals": "Затвердження",
+      "actionsWaitingForAPerson": "Дії, що очікують на підтвердження людиною",
+      "runHistory": "Історія запусків",
+      "everyActionAnyoneRanFrom": "Кожна дія, запущена будь-ким з будь-якого пристрою"
+    },
+    "runHistory": {
+      "cancelThisRun": "Скасувати цей запуск?",
+      "cancelRun": "Скасувати запуск",
+      "keep": "Залишити",
+      "undoThisRun": "Скасувати цей запуск?",
+      "thisRunsTheActionS": "Це запустить скасування дії з тими самими вхідними даними.",
+      "undo": "Скасувати",
+      "cancelled": "Скасовано",
+      "itAlreadyFinished": "Вже завершено",
+      "done": "Готово",
+      "runHistory": "Історія запусків",
+      "nothingHasRunYet": "Ще нічого не запускалося",
+      "dryRun": "Тестовий запуск",
+      "cancel": "Скасувати",
+      "couldNotLoadHistory": "Не вдалося завантажити історію",
+      "couldNotCancel": "Не вдалося скасувати",
+      "couldNotUndo": "Не вдалося скасувати"
+    },
+    "api": {
+      "needsApproval": "Потребує затвердження",
+      "needsSignIn": "Потребує входу",
+      "done": "Готово",
+      "failed": "Не вдалося",
+      "running": "Виконується",
+      "interrupted": "Перервано",
+      "rejected": "Відхилено",
+      "cancelled": "Скасовано",
+      "expired": "Термін дії минув"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Увімкнути {{value}}",
+      "moreSettingsForThisAre": "Додаткові налаштування для цього є в веб-додатку Termix.",
+      "pluginHostSettings": "Налаштування хоста плагіна"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} має бути числом",
+      "mustBeAtLeast": "{{field}} має бути не менше {{min}}",
+      "mustBeAtMost": "{{field}} має бути не більше {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Підключіть сервер, щоб використовувати його",
+      "runsOnYourTermixServer": "{{name}} працює на вашому сервері Termix."
+    },
+    "pluginWebView": {
+      "canTLoad": "Не вдалося завантажити {{name}}",
+      "theServerDidNotSend": "Сервер не надіслав плагін. Переконайтеся, що він увімкнено, і спробуйте ще раз.",
+      "openThisLink": "Відкрити це посилання?",
+      "open": "Відкрити",
+      "needsANewerVersionOf": "Потрібна новіша версія додатка",
+      "usesPartsOfTermixThis": "{{name}} використовує частини Termix, яких ще немає в цьому додатку.",
+      "didNotStart": "{{name}} не вдалося запустити",
+      "thisScreenIsNotIn": "Цей екран відсутній у версії плагіна на сервері.",
+      "thePluginHitAnError": "Під час запуску плагіна сталася помилка.",
+      "youReOffline": "Ви не підключені до мережі",
+      "runsOnYourServerSo": "{{name}} працює на вашому сервері, тому потребує підключення. Він відкриється знову, коли ви з'явитеся в мережі.",
+      "tryAgain": "Спробувати ще раз"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Цей хост ще не додано на цей {{deviceWord}}.",
+      "theAppCanTOpen": "Додаток не може відкрити це звідси.",
+      "thatHostIsNotOn2": "Цей хост ще не додано на цей {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Пароль",
+      "unchangedIfBlank": "Не змінюється, якщо порожнє",
+      "port": "Порт",
+      "domain": "Домен",
+      "displaySoundAndClipboardSettings": "Налаштування дисплея, звуку та буфера обміну є в веб-додатку Termix.",
+      "portMustBeFrom1": "Порт {{label}} має бути від 1 до 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "З'єднання з віддаленим робочим столом втрачено",
+        "signIn": "Вхід в {{label}}",
+        "itWillNotBeSaved": "{{error}} Це не буде збережено.",
+        "enterTheLoginForIt": "Введіть облікові дані для {{title}}. Вони не будуть збережені.",
+        "reconnecting": "Повторне підключення {{label}}",
+        "connecting": "Підключення {{label}}",
+        "connectionFailed": "Помилка підключення",
+        "disconnected": "Відключено",
+        "reconnect": "Підключити знову",
+        "connectThroughTheServer": "Підключитися через сервер",
+        "pasteToRemote": "Вставити на віддалений комп'ютер",
+        "typeClipboard": "Ввести з буфера обміну",
+        "copyRemoteClipboard": "Копіювати буфер обміну віддаленого комп'ютера",
+        "theComputerSCertificateWas": "Сертифікат комп'ютера не довірений.",
+        "thatLoginWasRefusedTry": "Вхід відхилено. Спробуйте ще раз."
+      },
+      "target": {
+        "trustThisComputer": "Довіряти цьому комп'ютеру?",
+        "theCanTCheckS": "{{deviceWord}} не може перевірити сертифікат {{hostName}}. Переконайтеся, що цей відбиток збігається з тим, що на комп'ютері, перш ніж продовжувати.\n\n{{fingerprint}}",
+        "trustAndConnect": "Довіряти та підключитися",
+        "certificateChanged": "Сертифікат змінено",
+        "showsAnotherCertificateThanLast": "{{hostName}} показує інший сертифікат, ніж минулого разу. Це трапляється, коли комп'ютер створює новий сертифікат, або коли хтось перехоплює з'єднання.\n\nНовий відбиток:\n{{fingerprint}}",
+        "trustTheNewOne": "Довіряти новому"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Віддалений робочий стіл",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Готово",
+      "keyboard": "Клавіатура",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Налаштування",
+      "remoteSettings": "Віддалені налаштування",
+      "mouseMode": "Режим миші",
+      "touch": "Сенсорний",
+      "trackpad": "Тачпад",
+      "tapWhereYouWantTo": "Торкніться там, де хочете клацнути. Утримуйте для правого клацання, перетягуйте для перетягування.",
+      "dragToMoveThePointer": "Перетягуйте, щоб перемістити вказівник. Торкніться для клацання, торкніться двома пальцями для правого клацання, торкніться та перетягніть для перетягування.",
+      "zoomXPinchAnywhereTo": "Масштаб: {{value}}x. Щипок будь-де для масштабування",
+      "reset": "Скинути",
+      "cancel": "Скасувати",
+      "connect": "Підключитися",
+      "username": "Ім'я користувача",
+      "domainOptional": "Домен (необов'язково)",
+      "domain": "Домен",
+      "password": "Пароль",
+      "leftArrow": "Стрілка вліво",
+      "upArrow": "Стрілка вгору",
+      "downArrow": "Стрілка вниз",
+      "rightArrow": "Стрілка вправо",
+      "rdpSignIn": "Вхід через RDP"
+    },
+    "theRemoteDesktopDropped": "З'єднання з віддаленим робочим столом втрачено",
+    "theyWillNotBeSaved": "{{errorMessage}} Вони не будуть збережені.",
+    "enterCredentialsForTheyWill": "Введіть облікові дані для {{title}}. Вони не будуть збережені.",
+    "connecting": "Підключення",
+    "connectionFailed": "Помилка підключення",
+    "disconnected": "Відключено",
+    "reconnect": "Підключитися знову",
+    "route": {
+      "thisHostCanTOpen": "Цей хост не може відкрити віддалений робочий стіл звідси."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Заблоковано додатком"
+    },
+    "failedToStartRemoteSession": "Не вдалося запустити віддалену сесію",
+    "thatLoginWasRefusedTry": "Вхід відхилено. Спробуйте ще раз.",
+    "theRemoteRefusedTheSaved": "Віддалений сервер відхилив збережені облікові дані. Перевірте вхід RDP на цьому хості.",
+    "remoteSessionFailed": "Помилка віддаленої сесії",
+    "remoteSessionReturnedAnInvalid": "Віддалена сесія повернула невірне повідомлення",
+    "failedToLoadTheRemote": "Не вдалося завантажити клієнт віддаленого робочого столу"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Журнал відсутній",
+      "thisHostDoesNotKeep": "Цей хост не веде журнал systemd.",
+      "all": "Усі",
+      "warnings": "Попередження",
+      "errors": "Помилки",
+      "stop": "Зупинити",
+      "follow": "Слідкувати",
+      "nothingLogged": "Нічого не записано",
+      "tryAnotherLevel": "Спробуйте інший рівень.",
+      "couldNotReadTheJournal": "Не вдалося прочитати журнал"
+    },
+    "register": {
+      "services": "Служби",
+      "startStopAndReadLogs": "Запуск, зупинка та перегляд журналів"
+    },
+    "readingServices": "Зчитування служб...",
+    "thisHostHasNoSystemd": "На цьому хості немає systemd або OpenRC.",
+    "noServicesMatch": "Служб не знайдено",
+    "noServicesFound": "Служб не знайдено",
+    "services": "Служби",
+    "journal": "Журнал",
+    "searchServices": "Пошук служб...",
+    "all": "Усі",
+    "running": "Активні",
+    "failed": "Невдалі ({{failed}})",
+    "failed2": "Невдалі",
+    "servicesCard": {
+      "services": "Служби",
+      "noSystemdOrOpenrc": "Немає systemd або OpenRC",
+      "failed": "{{failed}} невдалих",
+      "allRunning": "Усі активні",
+      "couldNotReadServices": "Не вдалося зчитати служби"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Вона залишається зупиненою, доки її не запущено знову або хост не перезавантажено.",
+      "itStopsForAMoment": "Вона зупиняється на мить і запускається знову.",
+      "stop": "Зупинити",
+      "restart": "Перезапустити",
+      "is": "{{name}} має статус {{state}}",
+      "start": "Запустити",
+      "journal": "Журнал",
+      "couldNotReadTheService": "Не вдалося зчитати службу",
+      "couldNot": "Не вдалося {{action}} {{name}}",
+      "startsAtBoot": "Запускається при завантаженні",
+      "mainPid": "Основний PID",
+      "activeSince": "Активна з",
+      "unitFile": "Файл одиниці",
+      "notSet": "[не встановлено]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Не авторизовано",
+        "followFailed": "Не вдалося відстежувати",
+        "connectionFailed": "Помилка підключення"
+      }
+    },
+    "couldNotReadServices": "Не вдалося зчитати служби",
+    "services2": "Служби{{where}}",
+    "title": "Служби",
+    "failedCount": "{{count}} невдалих"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Спільний доступ до сесії",
+      "shareLink": "Поділитися посиланням"
+    },
+    "shareSessionView": {
+      "canWatch": "Може переглядати",
+      "canType": "Може вводити",
+      "n1Hour": "1 година",
+      "n8Hours": "8 годин",
+      "n1Day": "1 день",
+      "n7Days": "7 днів",
+      "never": "Ніколи",
+      "shareSession": "Поділитися сесією",
+      "anyoneWithTheLinkCan": "Будь-хто з посиланням може відкрити цей термінал, поки він працює. Ви можете скасувати посилання в Termix.",
+      "peopleWithTheLink": "Люди з посиланням",
+      "expiresAfter": "Термін дії закінчується через",
+      "link": "Посилання",
+      "copy": "Копіювати",
+      "share": "Поділитися",
+      "makeLink": "Створити посилання",
+      "theServerGaveNoLink": "Сервер не надав посилання",
+      "couldNotMakeALink": "Не вдалося створити посилання",
+      "linkCopied": "Посилання скопійовано"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Без папки"
+    },
+    "hostPicker": {
+      "selectNone": "Зняти виділення",
+      "selectAll": "Вибрати все",
+      "done": "Готово"
+    },
+    "register": {
+      "snippets": "Сніпети",
+      "snippets2": "СНІПЕТИ",
+      "savedCommandsToRunOn": "Збережені команди для виконання на будь-якому хості"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Неможливо досягти цього хоста звідси",
+      "exitedWith": "Завершено з кодом {{exitCode}}",
+      "thisCanTRunIt": "Цей {{deviceWord}} не може цього виконати",
+      "noServerIsLinked": "Жоден сервер не підключено"
+    },
+    "runOnHostsSheet": {
+      "run": "Виконати",
+      "run2": "Виконати «{{name}}»",
+      "runsOverSshOnEach": "Виконується через SSH на кожному хості. Термінал не відкривається.",
+      "close": "Закрити",
+      "hosts": "Хости",
+      "pickHosts": "Обрати хости",
+      "workedFailed": "{{value}} виконано, {{failed}} не вдалося",
+      "runOn2": "Виконати на",
+      "runOn_one": "Виконати {{name}} на {{count}} хості?",
+      "runOn_few": "Виконати {{name}} на {{count}} хостах?",
+      "runOn_many": "Виконати {{name}} на {{count}} хостах?",
+      "runOn_other": "Виконати {{name}} на {{count}} хостах?",
+      "hostsPicked_one": "Обрано {{count}} хост",
+      "hostsPicked_few": "Обрано {{count}} хости",
+      "hostsPicked_many": "Обрано {{count}} хостів",
+      "hostsPicked_other": "Обрано {{count}} хостів"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Пошук сніпетів",
+      "pastesTheNote": "Вставляє примітку",
+      "runsTheSnippet": "Виконує сніпет",
+      "noSnippetsMatch": "Не знайдено відповідних сніпетів",
+      "noSnippetsYet": "Сніпетів поки немає",
+      "addSnippetsInSettingsSnippets": "Додайте сніпети в Налаштуваннях, Сніпети",
+      "run": "Виконати",
+      "insertWithoutRunning": "Вставити без виконання",
+      "copy": "Копіювати"
+    },
+    "snippetsCard": {
+      "snippets": "Сніпети",
+      "run": "Виконати {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Немає сніпетів для експорту",
+      "couldNotMakeTheFile": "Не вдалося створити файл",
+      "copiedToTheClipboard": "Скопійовано в буфер обміну",
+      "couldNotImport": "Не вдалося імпортувати",
+      "couldNotReadThatFile": "Не вдалося прочитати цей файл",
+      "importAndExport": "Імпорт та експорт",
+      "theSameFileTheWeb": "Той самий файл, що використовує веб-додаток.",
+      "export": "Експорт",
+      "shareAFile": "Поділитися файлом",
+      "copy": "Копіювати",
+      "import": "Імпорт",
+      "updateSnippetsThatExist": "Оновити існуючі сніпети",
+      "sameNameInTheSame": "Така сама назва в тій самій папці. Інакше вони пропускаються",
+      "chooseAFile": "Обрати файл",
+      "paste": "Вставити",
+      "saveYourSnippets": "Зберегти свої сніпети"
+    },
+    "useSnippetRunner": {
+      "run": "Виконати {{name}}?",
+      "run2": "Виконати",
+      "fillInTheValuesFor": "Заповніть значення для цього сніпета.",
+      "cancel": "Скасувати",
+      "insert": "Вставити",
+      "noTerminalIsOpen": "Термінал не відкрито"
+    },
+    "variables": {
+      "input": "Ввід {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Це не є дійсним JSON-файлом",
+      "theFileNeedsASnippets": "Файл має містити список сніпетів або папок",
+      "snippetNameAndContentAre": "Сніпет {{value}}: назва та вміст обов'язкові",
+      "folder": "Папка {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Завантаження пристроїв Tailscale…",
+      "searchTailscaleDevices": "Пошук пристроїв Tailscale…",
+      "searchTailscaleDevices2": "Пошук пристроїв Tailscale",
+      "clearDeviceSearch": "Очистити пошук пристроїв",
+      "refreshTailscaleDevices": "Оновити пристрої Tailscale",
+      "device": "Пристрій",
+      "noTailnetAddress": "Немає адреси tailnet",
+      "tailscaleDevice": "Пристрій Tailscale",
+      "tailscaleDevices": "Пристрої Tailscale",
+      "addAHostThatConnects": "Додайте хост, який підключається через Tailscale SSH.",
+      "username": "Ім'я користувача",
+      "sshUsernameFor": "Ім'я користувача SSH для {{value}}",
+      "addHost": "Додати хост",
+      "noTailscaleDevicesMatchYour": "Не знайдено пристроїв Tailscale, що відповідають пошуку.",
+      "noTailscaleDevicesFound": "Не знайдено пристроїв Tailscale.",
+      "noTailscaleApiKeyIs": "На цьому сервері не налаштовано ключ API Tailscale. Зверніться до адміністратора, щоб додати його.",
+      "youDoNotHavePermission": "У вас немає дозволу на перегляд списку пристроїв Tailscale.",
+      "couldNotLoadTailscaleDevices": "Не вдалося завантажити пристрої Tailscale. Оновіть сторінку, щоб спробувати ще раз.",
+      "tailscaleIsUnavailableOnThis": "Tailscale недоступний на цьому сервері."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Перепідключення | спроба {{attempt}}",
+      "reconnectingInSTry": "Перепідключення через {{secs}} с | спроба {{attempt}}",
+      "offlineWaitingForNetwork": "Офлайн, очікування мережі",
+      "sendToTheNewShell": "Надіслати {{what}} у новий оболонку?",
+      "reconnectNow": "Підключитися зараз",
+      "send": "Надіслати",
+      "discard": "Відмінити",
+      "typedChars_one": "{{count}} введений символ",
+      "typedChars_few": "{{count}} введені символи",
+      "typedChars_many": "{{count}} введених символів",
+      "typedChars_other": "{{count}} введених символів",
+      "waiting": "{{what}} очікує"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Журнал підключення скопійовано",
+      "connectionLog": "Журнал підключення",
+      "copyItIntoABug": "Скопіюйте його у звіт про помилку. Адреси та імена користувачів не включаються.",
+      "copy": "Копіювати"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Очистити історію для цього хоста?",
+        "clear": "Очистити",
+        "searchHistory": "Пошук в історії",
+        "typesTheCommandWithoutRunning": "Вводить команду без її виконання",
+        "noCommandsMatch": "Немає збігів команд",
+        "noHistoryYet": "Історії поки немає",
+        "commandsYouRunOnThis": "Команди, які ви запускаєте на цьому хості, відображатимуться тут",
+        "run": "Запустити",
+        "typeWithoutRunning": "Ввести без запуску",
+        "copy": "Копіювати",
+        "delete": "Видалити",
+        "historyCleared": "Історію очищено"
+      },
+      "suggestionStrip": {
+        "use": "Використати {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Налаштування програми",
+      "delete": "Видалити (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Назва вкладки з оболонки",
+      "programsCanSetTheTab": "Програми можуть встановлювати назву вкладки",
+      "openTmux": "Відкрити tmux",
+      "attachToATmuxSession": "Підключитися до сесії tmux або створити нову",
+      "reconnectOnDrop": "Перепідключення при втраті зв'язку",
+      "keepTabOpenOnExit": "Залишати вкладку відкритою після виходу",
+      "pressEnterToConnectAgain": "Натисніть Enter, щоб підключитися знову",
+      "saveCommandHistory": "Зберігати історію команд",
+      "offerToFillPasswordPrompts": "Пропонувати заповнювати запити пароля",
+      "offerToFillSudoPrompts": "Пропонувати заповнювати запити sudo",
+      "usesTheSudoPasswordFrom": "Використовує пароль sudo з вкладки SSH",
+      "none": "Немає",
+      "look": "Зовнішній вигляд",
+      "theme": "Тема",
+      "font": "Шрифт",
+      "cursor": "Курсор",
+      "bell": "Дзвінок",
+      "scrollbackLines": "Рядки прокрутки",
+      "app": "Додаток",
+      "behavior": "Поведінка",
+      "backspaceSends": "Backspace надсилає",
+      "startupSnippet": "Команда запуску",
+      "runsOnceTheShellIs": "Виконується, коли оболонка готова",
+      "fillWithoutAsking": "Заповнювати без запиту",
+      "onThisOnlyOnceYou": "Лише на цьому {{deviceWord}}, після вибору «Завжди заповнювати»",
+      "connection": "З'єднання",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Секунди між пінгами, 0 вимикає",
+      "default": "За замовчуванням",
+      "keepaliveSeconds": "Секунди keepalive",
+      "missedPings": "Пропущені пінги",
+      "dropTheConnectionAfterThis": "Розірвати з'єднання, якщо стільки пінгів не отримають відповіді",
+      "missedPingsBeforeDrop": "Пропущені пінги перед розривом",
+      "environment": "Середовище",
+      "removeVariable": "Видалити змінну",
+      "addVariable": "Додати змінну"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "КЛАВІАТУРА"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Рядок",
+        "keys": "Кнопки",
+        "sendsAKeyCode": "Надсилає код клавіші",
+        "stickyModifier": "Ліпкий модифікатор",
+        "appAction": "Дія додатка",
+        "tmuxPrefixThen": "префікс tmux, потім {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Рядки клавіш",
+        "onlyFor": "Лише для {{name}}",
+        "usingTheAppSRows": "Використовуються рядки додатка. Зміни тут стосуються лише {{name}}",
+        "useTheAppSRows": "Використовувати рядки додатка"
+      },
+      "keyButton": {
+        "locked": "Заблоковано"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Скасувати",
+        "remove": "Видалити {{what}}?",
+        "remove2": "Видалити",
+        "dragToReorder": "Перетягніть, щоб змінити порядок",
+        "rowName": "Назва рядка",
+        "groupName": "Назва групи",
+        "add": "Додати",
+        "addKey": "Додати кнопку",
+        "addRow": "Додати рядок",
+        "addGroup": "Додати групу",
+        "tmuxPrefix": "префікс tmux",
+        "name": "Назва",
+        "rename": "Перейменувати",
+        "keys": "{{value}} клавіш",
+        "noKeys": "Немає клавіш",
+        "remove3": "Видалити {{label}}",
+        "keys2": "Клавіші",
+        "custom": "Користувацька",
+        "add2": "Додати {{label}}",
+        "typeText": "Ввести текст",
+        "runCommand": "Виконати команду",
+        "ctrlKey": "Клавіша Ctrl",
+        "label": "Мітка",
+        "optional": "Необов'язково",
+        "letter": "Літера",
+        "command": "Команда",
+        "text": "Текст",
+        "resetToDefault": "Скинути до типових"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Змінити клавіші в Налаштуваннях, Клавіатура"
+      },
+      "keyRowBar": {
+        "keyRow": "Рядок клавіш {{label}}",
+        "tapForTheNextRow": "Торкніться для наступного рядка, утримуйте для вибору",
+        "keyRows": "Рядки клавіш"
+      },
+      "model": {
+        "clear": "Очистити",
+        "main": "Основний",
+        "keys": "Клавіші",
+        "arrows": "Стрілки",
+        "symbols": "Символи",
+        "actions": "Дії",
+        "nav": "Навігація",
+        "move": "Перемістити",
+        "function": "Функція",
+        "brackets": "Дужки",
+        "punctuation": "Розділові знаки",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Панелі",
+        "copy": "Копіювати",
+        "split": "Розділити ─",
+        "split2": "Розділити │",
+        "newWin": "Нове вікно",
+        "prevWin": "Попереднє вікно",
+        "nextWin": "Наступне вікно",
+        "pane": "Панель ←",
+        "pane2": "Панель ↓",
+        "pane3": "Панель ↑",
+        "pane4": "Панель →",
+        "copyMode": "Режим копіювання",
+        "pasteBuf": "Вставити буфер",
+        "killPane": "Закрити панель"
+      }
+    },
+    "output": {
+      "openLink": "Відкрити посилання?",
+      "open": "Відкрити",
+      "pasteLines": "Вставити {{lines}} рядків?",
+      "pasteThisText": "Вставити цей текст?",
+      "theShellMayRunIt": "Шел може виконати його одразу.\n\n{{text}}",
+      "paste": "Вставити",
+      "letTheProgramReadYour": "Дозволити програмі читати ваш буфер обміну?",
+      "itAskedForWhatYou": "Вона запитує те, що ви останнє скопіювали.",
+      "allow": "Дозволити",
+      "letTheProgramCopyTo": "Дозволити програмі копіювати у ваш буфер обміну?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Заповнити збережений пароль?",
+      "asksForTheSudoPassword": "{{hostName}} запитує пароль sudo.",
+      "asksForAPassword": "{{hostName}} запитує пароль.",
+      "fillPassword": "Заповнити пароль",
+      "alwaysFillOnThisHost": "Завжди заповнювати на цьому хості",
+      "asksNoMoreOnThis": "Більше не запитуватиме на цьому {{deviceWord}}. Вимкніть це на вкладці Термінал хоста.",
+      "notNow": "Не зараз"
+    },
+    "register": {
+      "terminal": "Термінал",
+      "terminalAndKeepalive": "Термінал та keepalive",
+      "history": "ІСТОРІЯ",
+      "find": "Знайти",
+      "tmuxWindows": "вікна tmux",
+      "connectionLog": "Журнал підключення",
+      "keyRowsForThisHost": "Рядки клавіш для цього хоста"
+    },
+    "searchBar": {
+      "noResults": "Нічого не знайдено",
+      "matchCase": "Збіг регістру",
+      "wholeWord": "Ціле слово",
+      "regularExpression": "Регулярний вираз",
+      "find": "Знайти",
+      "closeFind": "Закрити пошук"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Системний",
+      "block": "Блок",
+      "bar": "Рядок",
+      "underline": "Підкреслення",
+      "off": "Вимкнено",
+      "sound": "Звук",
+      "flash": "Спалах",
+      "both": "Обидва"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Нова вкладка на цьому хості",
+      "closeTab": "Закрити вкладку",
+      "nextTab": "Наступна вкладка",
+      "previousTab": "Попередня вкладка",
+      "goToTab": "Перейти до вкладки",
+      "find": "Знайти",
+      "fontSize": "Розмір шрифту",
+      "paste": "Вставити",
+      "escape": "Escape",
+      "copyAndPaste": "Копіювати та вставити"
+    },
+    "reconnecting": "Повторне підключення...",
+    "waitingForNetwork": "Очікування мережі...",
+    "waitingForYou": "Очікування на вас...",
+    "connecting": "Підключення...",
+    "terminalView": {
+      "scrollToBottom": "Прокрутити вниз",
+      "onlyWebLinksCanOpen": "З терміналу можна відкривати лише веб-посилання",
+      "couldNotOpenLink": "Не вдалося відкрити посилання",
+      "copiedFromTheTerminal": "Скопійовано з терміналу"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Відкрити сеанс tmux",
+        "newSession": "Новий сеанс",
+        "plainShell": "Звичайна оболонка",
+        "tmuxWindows": "Вікна tmux",
+        "newWindow": "Нове вікно",
+        "windowCount_one": "{{count}} вікно",
+        "windowCount_few": "{{count}} вікна",
+        "windowCount_many": "{{count}} вікон",
+        "windowCount_other": "{{count}} вікон",
+        "attached": "{{count}} підключено",
+        "activeNow": "активний зараз",
+        "activeMinAgo": "активний {{count}} хв. тому",
+        "activeHoursAgo": "активний {{count}} год. тому",
+        "activeDaysAgo_one": "активний {{count}} день тому",
+        "activeDaysAgo_few": "активний {{count}} дні тому",
+        "activeDaysAgo_many": "активний {{count}} днів тому",
+        "activeDaysAgo_other": "активний {{count}} днів тому"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Копіювати",
+        "selectAll": "Виділити все",
+        "cancel": "Скасувати",
+        "scrollToBottom": "Прокрутити вниз",
+        "couldNotCopy": "Не вдалося скопіювати",
+        "webviewError": "Помилка WebView: {{description}}",
+        "webviewHttpError": "HTTP-помилка WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Для цього хоста немає збереженого пароля",
+    "backInTmuxSession": "Повернення до сеансу tmux {{tmuxName}}",
+    "backInScreenSession": "Повернення до сеансу screen {{name}}",
+    "theServerSessionEndedThis": "Сеанс на сервері завершено. Це нова оболонка.",
+    "termixWasClosedSoThe": "Termix було закрито, тому стару оболонку завершено. Це нова оболонка.",
+    "theConnectionDroppedAndThe": "З'єднання втрачено, і стару оболонку завершено. Це нова оболонка.",
+    "disconnectedFrom": "Відключено від {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Двофакторна аутентифікація",
+      "codesFromAnAuthenticatorApp": "Коди з програми-автентифікатора для вашого облікового запису сервера"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC-адреса",
+      "neededToWakeThisHost": "Необхідна для пробудження цього хоста через Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Використовуйте MAC-адресу на кшталт 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Пробудження по мережі"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Сигнал Wake-on-LAN надіслано до {{name}}",
+      "failedToSendWakeOn": "Не вдалося надіслати пакет Wake-on-LAN",
+      "noServer": "Сервер відсутній"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Пробудження по мережі",
+      "wake": "Пробудити {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Поділитися анонімною статистикою використання?",
+      "termixWouldSendAShort": "Termix надсилатиме короткий звіт раз на день. Ви можете змінити це будь-коли в Налаштуваннях.",
+      "noThanks": "Ні, дякую",
+      "share": "Поділитися",
+      "theReportHasTheApp": "Звіт містить версію програми, тип {{deviceWord}}, приблизну кількість хостів і сесій, які функції ви використовуєте, і чи вдалося підключитися. Він ніколи не містить імен хостів, імен користувачів, адрес, шляхів, команд або назв серверів.",
+      "seeExactlyWhatIsSent": "Переглянути, що саме надсилається"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Завантаження інформації про версію…",
+      "updateAvailable": "Доступне оновлення",
+      "newVersionAvailable": "Доступна нова версія",
+      "aNewerVersionOfThe": "Доступна новіша версія мобільної програми. Деякі функції можуть працювати некоректно, доки ви не оновите програму.",
+      "versionInformation": "Інформація про версію",
+      "installed": "Встановлено",
+      "latest": "Остання",
+      "unknown": "Невідомо",
+      "tag": "Тег",
+      "continueAnyway": "Продовжити все одно"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Скопійовано",
+      "copy": "Копіювати",
+      "hostKeyChanged": "Ключ хоста змінено",
+      "verifyHostKey": "Перевірити ключ хоста",
+      "cancel": "Скасувати",
+      "acceptNewKey": "Прийняти новий ключ",
+      "connectAndTrust": "Підключитися та довіряти",
+      "theHostSSshKey": "SSH-ключ хоста змінився з моменту вашого останнього підключення. Це може означати, що хтось перехоплює з'єднання.",
+      "youAreConnectingToThis": "Ви підключаєтеся до цього хоста вперше. Перевірте відбиток ключа, перш ніж довіряти йому.",
+      "previousKey": "Попередній ключ",
+      "newFingerprint": "Новий відбиток",
+      "hostFingerprint": "Відбиток хоста"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Потрібен пароль",
+      "enterThePassphraseForYour": "Введіть пароль для вашого SSH-ключа.",
+      "cancel": "Скасувати",
+      "connect": "Підключитися",
+      "keyPassphrase": "Пароль ключа"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Потрібна автентифікація SSH",
+      "cancel": "Скасувати",
+      "connect": "Підключитися",
+      "password": "Пароль",
+      "sshKey": "SSH-ключ",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nВставте ваш приватний ключ сюди...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Пароль ключа (необов'язково)",
+      "keyboardInteractiveAuthIsNot": "Інтерактивна автентифікація з клавіатури недоступна. Введіть облікові дані безпосередньо.",
+      "authenticationFailedPleaseReEnter": "Автентифікація не вдалася. Будь ласка, введіть облікові дані ще раз.",
+      "connectionTimedOutPleaseTry": "Час очікування з'єднання вичерпано. Будь ласка, спробуйте ще раз, ввівши облікові дані."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Перевірка SSH Tailscale",
+      "completeTheTailscaleSshCheck": "Завершіть перевірку SSH Tailscale у браузері, щоб продовжити.",
+      "cancel": "Скасувати",
+      "copyUrl": "Копіювати URL",
+      "openBrowser": "Відкрити браузер",
+      "urlCopied": "URL скопійовано",
+      "failedToCopy": "Не вдалося скопіювати",
+      "couldNotOpenBrowser": "Не вдалося відкрити браузер"
+    },
+    "tOTPDialog": {
+      "cancel": "Скасувати",
+      "submit": "Надіслати",
+      "verify": "Перевірити",
+      "password": "Пароль",
+      "pasteCode": "Вставити код",
+      "passwordRequired": "Потрібен пароль",
+      "twoFactorAuthentication": "Двофакторна аутентифікація",
+      "enterYourPasswordToContinue": "Введіть пароль, щоб продовжити.",
+      "enterThe6DigitCode": "Введіть 6-значний код із вашого додатка для аутентифікації."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Аутентифікація Warpgate",
+      "authenticateViaTheWarpgatePortal": "Пройдіть аутентифікацію через портал Warpgate, а потім натисніть «Продовжити».",
+      "cancel": "Скасувати",
+      "openBrowser": "Відкрити браузер",
+      "continue": "Продовжити",
+      "securityKey": "Ключ безпеки",
+      "authUrl": "URL аутентифікації",
+      "copied": "Скопійовано",
+      "copy": "Копіювати",
+      "urlCopied": "URL скопійовано",
+      "failedToCopy": "Не вдалося скопіювати",
+      "couldNotOpenBrowser": "Не вдалося відкрити браузер"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "цей {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Остання активність",
+        "files": "Файли",
+        "terminal": "Термінал"
+      },
+      "alertsCard": {
+        "notifications": "Сповіщення",
+        "seeAll": "Переглянути всі"
+      },
+      "server": "Сервер",
+      "openSessions": "Активні сесії",
+      "quickAccess": "Швидкий доступ",
+      "notifications": "Сповіщення",
+      "pinnedHosts": "Закріплені хости",
+      "recentHosts": "Останні хости",
+      "recentActivity": "Остання активність",
+      "pinnedCard": {
+        "addYourFirstHost": "Додайте свій перший хост",
+        "hostsYouOpenShowUp": "Тут відображаються хости, до яких ви підключаєтеся, а закріплені хости показують картки в реальному часі.",
+        "addHost": "Додати хост",
+        "linkAServer": "Підключити сервер",
+        "pinAHostToSee": "Закріпіть хост, щоб побачити його тут",
+        "pinnedHostsShowTheirMetrics": "Закріплені хости показують їхні метрики, Docker та сервіси одним поглядом. Утримуйте хост, щоб закріпити його.",
+        "goToHosts": "Перейти до хостів",
+        "pinned": "Закріплено",
+        "opensTheTerminalHoldFor": "Відкриває термінал. Утримуйте для інших дій.",
+        "turnOnDockerOrServices": "Увімкніть Docker або Сервіси для цього хоста, або натисніть, щоб підключитися.",
+        "opens": "Відкриває {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Швидкий доступ",
+        "quickConnect": "Швидке підключення",
+        "userHostPortWithoutSaving": "користувач@хост:порт, без збереження"
+      },
+      "recentCard": {
+        "recent": "Останні"
+      },
+      "serverCard": {
+        "server": "Сервер",
+        "version": "Версія",
+        "uptime": "Час роботи",
+        "database": "База даних",
+        "hosts": "Хости",
+        "online": "Онлайн",
+        "offline": "Офлайн",
+        "logins": "Входи"
+      },
+      "sessionsCard": {
+        "openSessions": "Активні сесії",
+        "connected": "Підключено"
+      }
+    },
+    "resetHome": "Скинути головну сторінку?",
+    "cardsGoBackToThe": "Картки повернуться до початкового порядку та набору.",
+    "reset": "Скинути",
+    "doneEditingHome": "Редагування головної сторінки завершено",
+    "editHome": "Редагувати головну сторінку",
+    "dragToReorder": "Перетягніть {{title}}, щоб змінити порядок",
+    "show": "Показати {{title}}",
+    "dragCardsToReorderThem": "Перетягніть картки, щоб змінити їх порядок. Вимкніть картку, щоб приховати її. Картки без даних залишаються прихованими автоматично.",
+    "resetToDefault": "Скинути до типових налаштувань",
+    "done": "Готово",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Сервер досі недоступний",
+      "canTReach": "Не вдається підключитися до {{account}}",
+      "youCanKeepWorkingWith": "Ви можете продовжити роботу з копією на цьому {{deviceWord}}. Зміни синхронізуються, коли з'явиться з'єднання.",
+      "hostsSetToConnectFrom": "Хости, налаштовані на підключення з цього {{deviceWord}}, працюватимуть як зазвичай.",
+      "tryAgain": "Спробувати ще раз",
+      "noAnswer": "немає відповіді"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Профіль Vault",
+      "none": "Немає",
+      "signsInWithInYour": "Увійти через {{title}} у браузері через ваш сервер Termix. Підключайте цей хост через сервер.",
+      "needsATermixServerLink": "Для {{title}} потрібен сервер Termix. Підключіть його, щоб використовувати цей метод входу.",
+      "isOffOnThisServer": "{{title}} вимкнено на цьому сервері. Цей хост збереже свої налаштування входу."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Не вдалося завантажити облікові дані",
+      "deleted": "Видалено «{{name}}»",
+      "couldNotDeleteTheCredential": "Не вдалося видалити облікові дані",
+      "credentials": "Облікові дані",
+      "add": "Додати",
+      "searchCredentials": "Пошук облікових даних",
+      "clearSearch": "Очистити пошук",
+      "loadingCredentials": "Завантаження облікових даних...",
+      "noCredentialsMatchYourSearch": "Не знайдено облікових даних за вашим запитом",
+      "noCredentialsYet": "Облікових даних ще немає",
+      "addCredential": "Додати облікові дані",
+      "edit": "Редагувати",
+      "delete": "Видалити",
+      "deleteCredential": "Видалити облікові дані",
+      "willBePermanentlyDeletedHosts": "«{{name}}» буде видалено назавжди. Хости, які використовують ці дані, втратять збережені облікові дані.",
+      "cancel": "Скасувати",
+      "hostCount_one": "{{count}} хост",
+      "hostCount_few": "{{count}} хости",
+      "hostCount_many": "{{count}} хостів",
+      "hostCount_other": "{{count}} хостів",
+      "sshKey": "SSH-ключ"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Замінити ключ?",
+        "theNewKeyTakesThe": "Новий ключ замінить поточний. Хости, які довіряють лише старому ключу, перестануть приймати ці облікові дані.",
+        "replace": "Замінити",
+        "newKeyMadeCopyThe": "Новий ключ створено. Скопіюйте відкритий ключ на ваші хости.",
+        "couldNotMakeAKey": "Не вдалося створити ключ",
+        "couldNotReadThatCertificate": "Не вдалося прочитати файл сертифіката",
+        "leaveWithoutSaving": "Вийти без збереження?",
+        "yourChangesToThisCredential": "Ваші зміни до цих облікових даних будуть втрачені.",
+        "leave": "Вийти",
+        "credentialSaved": "Облікові дані збережено",
+        "credentialAdded": "Облікові дані додано",
+        "couldNotSaveTheCredential": "Не вдалося зберегти облікові дані",
+        "enterAHostToTest": "Введіть хост для тестування, наприклад 10.0.0.5 або box:2222.",
+        "enterTheUsernameFirst": "Спочатку введіть ім'я користувача.",
+        "editCredential": "Редагувати облікові дані",
+        "newCredential": "Нові облікові дані",
+        "cancel": "Скасувати",
+        "save": "Зберегти",
+        "credential": "Облікові дані",
+        "name": "Назва",
+        "productionKey": "Виробничий ключ",
+        "username": "Ім'я користувача",
+        "signInWith": "Увійти за допомогою",
+        "password": "Пароль",
+        "sshKey": "SSH-ключ",
+        "unchangedIfBlank": "Не змінюється, якщо порожнє",
+        "key": "Ключ",
+        "fileOrPaste": "Файл або вставити",
+        "makeANewKey": "Створити новий ключ",
+        "aKeyIsSavedChoose": "Ключ уже збережено. Виберіть файл або вставте текст, щоб замінити його.",
+        "type": "Тип",
+        "ed25519AndEcdsaAreMade": "Ed25519 та ECDSA створюються на цьому {{deviceWord}}, RSA — на вашому сервері.",
+        "madeOnThisEd25519Works": "Створено на цьому {{deviceWord}}. Ed25519 працює майже скрізь.",
+        "passphrase": "Парольна фраза",
+        "optionalLocksTheNewKey": "Необов'язково. Блокує новий ключ на цьому {{deviceWord}} та на диску.",
+        "makeKey": "Створити ключ",
+        "publicKey": "Відкритий ключ",
+        "addThisLineToSsh": "Додайте цей рядок до ~/.ssh/authorized_keys на ваших хостах",
+        "publicKeyCopied": "Відкритий ключ скопійовано",
+        "copyPublicKey": "Копіювати відкритий ключ",
+        "certificate": "Сертифікат",
+        "aCertificateYourCaSigned": "Сертифікат, підписаний вашим центром сертифікації для цього ключа, для хостів, яким довіряє центр сертифікації.",
+        "chooseCertificateFile": "Обрати файл сертифіката",
+        "thisDoesNotLookLike": "Це не схоже на сертифікат OpenSSH.",
+        "test": "Перевірити",
+        "hostToTestOn": "Хост для перевірки",
+        "n10005Or": "10.0.0.5 або box.lan:2222",
+        "pickASavedHost": "Обрати збережений хост",
+        "details": "Деталі",
+        "description": "Опис",
+        "whatThisCredentialIsFor": "Для чого призначені ці облікові дані",
+        "folder": "Тека",
+        "serverKeys": "Серверні ключі",
+        "testOnAHost": "Перевірити на хості",
+        "rsaKeysNeedALinked": "RSA-ключам потрібен пов'язаний сервер."
+      },
+      "model": {
+        "giveThisCredentialAName": "Дайте цим обліковим даним назву",
+        "addAPrivateKeyOr": "Додайте закритий ключ або створіть новий"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Це сертифікат хоста, а не користувача.",
+        "thisCertificateIsNotValid": "Цей сертифікат ще не дійсний.",
+        "thisCertificateHasExpired": "Термін дії цього сертифіката минув.",
+        "itIsForAKey": "Він призначений для ключа {{keyType}}, але цей ключ — {{keyType2}}.",
+        "forAnyUser": "Для будь-якого користувача",
+        "validFromNoEndDate": "Дійсний з {{validAfter}}, без кінцевої дати",
+        "signedBy": "Підписано {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Ім'я користувача",
+        "fromTheCredential": "З облікових даних: {{credentialUser}}",
+        "signInWith": "Увійти за допомогою",
+        "password": "Пароль",
+        "key": "Ключ",
+        "credential": "Облікові дані",
+        "none": "Немає",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Підключається через Tailscale SSH. Пароль або ключ не зберігаються.",
+        "tailscaleIsNotOnFor": "Tailscale не увімкнено для {{value}}. Цей хост зберігає свої облікові дані Tailscale.",
+        "unchangedIfBlank": "Не змінюється, якщо порожнє",
+        "noCredentialsYetTapThe": "Облікових даних ще немає. Натисніть значок ключа в розділі «Хости», щоб додати.",
+        "useCredential": "Використовувати облікові дані {{name}}",
+        "sudoPassword": "Пароль sudo",
+        "typedIntoSudoPromptsWhen": "Вводиться у запити sudo, коли розділ Термінал увімкнено",
+        "notSet": "Не встановлено",
+        "thisServer": "цей сервер"
+      },
+      "colorIconField": {
+        "color": "Колір",
+        "noColor": "Без кольору",
+        "color2": "Колір {{c}}",
+        "icon": "Іконка",
+        "noIcon": "Без іконки",
+        "none": "Немає",
+        "icon2": "Іконка {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Вийти без збереження?",
+        "yourChangesToThisHost": "Внесені вами зміни до цього хоста буде втрачено.",
+        "leave": "Вийти",
+        "couldNotSaveHowThis": "Не вдалося зберегти налаштування підключення цього хоста",
+        "hostSaved": "Хост збережено",
+        "hostAdded": "Хост додано",
+        "couldNotSaveTheHost": "Не вдалося зберегти хост",
+        "enterTheHostSAddress": "Спочатку введіть адресу хоста.",
+        "turnOnSshToTest": "Увімкніть SSH, щоб перевірити вхід.",
+        "pickACredentialFirst": "Спочатку оберіть облікові дані.",
+        "editHost": "Редагувати хост",
+        "newHost": "Новий хост",
+        "cancel": "Скасувати",
+        "save": "Зберегти",
+        "host": "Хост",
+        "name": "Назва",
+        "myServer": "Мій сервер",
+        "address": "Адреса",
+        "port": "Порт",
+        "portAndUsernameComeFrom": "Порт та ім'я користувача беруться з типових налаштувань хоста, доки ви їх не зміните.",
+        "folder": "Тека",
+        "production": "Production",
+        "useAFolderInstead": "Замість цього використайте теку",
+        "putItUnderAHost": "Замість цього розмістіть його під хостом",
+        "pinToTop": "Закріпити зверху",
+        "colorAndIcon": "Колір та іконка",
+        "notes": "Нотатки",
+        "anythingWorthRememberingAboutThis": "Все, що варто запам'ятати про цей хост",
+        "protocols": "Протоколи",
+        "terminalFilesAndMore": "Термінал, файли та інше",
+        "connectFrom": "Підключатися з",
+        "features": "Можливості",
+        "otherProtocols": "Інші протоколи",
+        "more": "Більше",
+        "theTestRunsFromThis": "Перевірка виконується з цього {{deviceWord}}. Цей хост підключається через сервер, тому він може працювати навіть тоді, коли {{deviceWord}} не може досягти його напряму."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Проміжні хости",
+        "connectsThroughTheseInOrder": "Підключається через них у порядку, а потім до цього хоста",
+        "reachThisHostThroughOther": "Спочатку підключайтеся до цього хоста через інші хости",
+        "moveUp": "Перемістити вгору",
+        "moveDown": "Перемістити вниз",
+        "removeJumpHost": "Видалити проміжний хост",
+        "addJumpHost": "Додати проміжний хост",
+        "pickASavedHostTo": "Оберіть збережений хост для підключення через нього",
+        "searchHosts": "Пошук хостів",
+        "noOtherHostsToPick": "Немає інших хостів для вибору. Хост не може проходити через себе або через хост, який вже проходить через нього.",
+        "missingHost": "Відсутній хост #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Увімкніть принаймні один протокол",
+        "pickACredential": "Оберіть облікові дані",
+        "enterTheHostSAddress": "Введіть адресу хоста",
+        "theAddressCanTHave": "Адреса не може містити пробіли",
+        "portMustBeFrom1": "Порт має бути від 1 до 65535",
+        "enterTheSshUsername": "Введіть ім'я користувача SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Хост відображатиметься вкладеним під тим, який ви оберете",
+        "searchHosts": "Пошук хостів",
+        "noHostsToPickA": "Немає хостів для вибору. Хост не може бути вкладеним під собою, одним із своїх підхостів або спільним хостом.",
+        "parentHost": "Батьківський хост",
+        "subHostsFollowTheFolder": "Підхости успадковують папку свого батьківського хоста",
+        "pickParentHost": "Обрати батьківський хост",
+        "missingHost": "Відсутній хост #{{value}}",
+        "pickAHost": "Обрати хост",
+        "clearParentHost": "Очистити батьківський хост"
+      },
+      "tagsField": {
+        "tags": "Теги",
+        "typeATagAndPress": "Введіть тег і натисніть Enter",
+        "removeTag": "Видалити тег {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Не вдалося зберегти налаштування підключення цього хоста",
+      "addressCopied": "Адресу скопійовано",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Підключитися з",
+      "dismiss": "Закрити",
+      "unpin": "Відкріпити",
+      "pinToHome": "Закріпити на головній",
+      "select": "Вибрати",
+      "editHost": "Редагувати хост",
+      "copyAddress": "Копіювати адресу",
+      "addSubHost": "Додати підхост",
+      "cloneHost": "Клонувати хост",
+      "deleteHost": "Видалити хост",
+      "connectThroughTheServer": "Підключитися через сервер",
+      "connectFromThis": "Підключитися з цього {{deviceWord}}"
+    },
+    "defaultYourOrder": "За замовчуванням (ваш порядок)",
+    "nameAZ": "Назва (А-Я)",
+    "nameZA": "Назва (Я-А)",
+    "ipAscending": "IP (за зростанням)",
+    "ipDescending": "IP (за спаданням)",
+    "onlineFirst": "Спочатку онлайн",
+    "offlineFirst": "Спочатку офлайн",
+    "pinnedFirst": "Спочатку закріплені",
+    "status": "Статус",
+    "online": "Онлайн",
+    "offline": "Офлайн",
+    "pinned": "Закріплені",
+    "protocol": "Протокол",
+    "features": "Можливості",
+    "hostsCanOnlyMoveInside": "Хости можна переміщувати лише всередині своєї папки",
+    "couldNotUpdateTheHosts": "Не вдалося оновити хости",
+    "sharedHostsCanTBe": "Спільні хости не можна видаляти тут",
+    "delete2": "Видалити",
+    "noneOfTheseHostsOpen": "Жоден із цих хостів не відкриває термінал",
+    "couldNotPinTheHost": "Не вдалося закріпити хост",
+    "deleted": "Видалено {{name}}",
+    "failedToDeleteHost": "Не вдалося видалити хост",
+    "cloned": "Клонувано {{name}}",
+    "failedToCloneHost": "Не вдалося клонувати хост",
+    "reorderWorksWithTheDefault": "Перестановка працює лише за сортуванням «За замовчуванням» без пошуку чи фільтрів",
+    "couldNotSaveTheOrder": "Не вдалося зберегти порядок",
+    "noHostsYet": "Ще немає хостів",
+    "addAHostToConnect": "Додайте хост, щоб підключатися до нього одним дотиком.",
+    "addHost": "Додати хост",
+    "quickConnect2": "Швидке підключення",
+    "linkAServer": "Підключити сервер",
+    "noHostsMatch": "Хости не знайдено",
+    "clearSearchAndFilters": "Очистити пошук та фільтри",
+    "more": "Більше",
+    "dragAHostByIts": "Перетягуйте хост за маркер, щоб перемістити його всередині папки.",
+    "done": "Готово",
+    "filterHosts": "Фільтрувати хости",
+    "clearFilterText": "Очистити текст фільтра",
+    "sortHosts": "Сортувати хости",
+    "removeFilter": "Видалити фільтр {{value}}",
+    "loadingHosts": "Завантаження хостів…",
+    "moveUnderAHost": "Перемістити під хост",
+    "moveToFolder": "Перемістити в папку",
+    "leaveItEmptyToTake": "Залиште порожнім, щоб вивести хости з папок.",
+    "folderLikeProdWeb": "Папка, наприклад Prod / Web",
+    "move": "Перемістити",
+    "hosts": "Хости",
+    "selectHosts": "Вибрати хости",
+    "reorderHosts": "Переставити хости",
+    "customizeList": "Налаштувати список",
+    "chooseWhatEachHostRow": "Оберіть, що відображатиметься в рядку кожного хоста",
+    "credentials2": "Облікові дані",
+    "savedPasswordsAndKeys": "Збережені паролі та ключі",
+    "tailscaleDevices": "Пристрої Tailscale",
+    "refresh": "Оновити",
+    "rowDensityFollowsSettingsAppearance": "Густота рядків відповідає налаштуванням «Зовнішній вигляд».",
+    "clearAllFilters": "Очистити всі фільтри",
+    "tags": "Теги",
+    "stopSelecting": "Зупинити вибір",
+    "selected": "Вибрано: {{count}}",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Не вдалося прочитати цей файл ключа",
+        "theClipboardIsEmpty": "Буфер обміну порожній",
+        "privateKey": "Приватний ключ",
+        "chooseFile": "Обрати файл",
+        "paste": "Вставити",
+        "unchangedIfBlank": "Не змінюється, якщо порожньо",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Парольна фраза",
+        "onlyIfTheKeyHas": "Тільки якщо ключ має таку",
+        "theKeyIsCheckedWhen": "Ключ перевіряється під час підключення.",
+        "thePastedKey": "вставлений ключ"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Відкрити",
+        "moreActions": "Більше дій",
+        "opensTheTerminalHoldFor": "Відкриває термінал. Утримуйте для інших дій.",
+        "shared": "Спільний доступ",
+        "drag": "Перетягнути {{name}}",
+        "showSubHosts_one": "Показати {{count}} підхост {{name}}",
+        "showSubHosts_few": "Показати {{count}} підхости {{name}}",
+        "showSubHosts_many": "Показати {{count}} підхостів {{name}}",
+        "showSubHosts_other": "Показати {{count}} підхостів {{name}}",
+        "hideSubHosts_one": "Сховати {{count}} підхост {{name}}",
+        "hideSubHosts_few": "Сховати {{count}} підхости {{name}}",
+        "hideSubHosts_many": "Сховати {{count}} підхостів {{name}}",
+        "hideSubHosts_other": "Сховати {{count}} підхостів {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Папка {{name}}, {{total}} хостів"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Хост та ім'я користувача є обов'язковими",
+      "hostSaved": "Хост збережено",
+      "couldNotSaveTheHost": "Не вдалося зберегти хост",
+      "quickConnect": "Швидке підключення",
+      "connectToAHostWithout": "Підключіться до хоста, не зберігаючи його.",
+      "hostIp": "Хост / IP",
+      "port": "Порт",
+      "username": "Ім'я користувача",
+      "password": "Пароль",
+      "key": "Ключ",
+      "privateKey": "Приватний ключ",
+      "saveToMyHosts": "Зберегти до моїх хостів",
+      "keepThisHostAfterConnecting": "Залишити цей хост після підключення",
+      "cancel": "Скасувати",
+      "connect": "Підключитися"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Отримання ваших хостів із сервера",
+      "yourHostsStayOnThis": "{{message}} Ваші хости залишаються на цьому {{deviceWord}} тим часом."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Ключ цього хоста змінився",
+      "trustThisHost": "Довіряти цьому хосту?",
+      "trust": "Довіряти",
+      "stopTest": "Зупинити тест",
+      "testConnection": "Тестувати з'єднання",
+      "connecting": "Підключення..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Не вдалося завантажити хости."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} спільний хост залишено без змін.",
+    "sharedLeftAsTheyAre_few": "{{done}}. {{count}} спільних хости залишено без змін.",
+    "sharedLeftAsTheyAre_many": "{{done}}. {{count}} спільних хостів залишено без змін.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} спільних хостів залишено без змін.",
+    "deleteHosts_one": "Видалити {{count}} хост?",
+    "deleteHosts_few": "Видалити {{count}} хости?",
+    "deleteHosts_many": "Видалити {{count}} хостів?",
+    "deleteHosts_other": "Видалити {{count}} хостів?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Немає папки з назвою {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Хост \"{{name}}\": невірний порт",
+        "hostJumpIsNotIn": "Хост \"{{name}}\": проміжний хост {{value}} відсутній у файлі, тому його пропущено",
+        "credential": "Облікові дані {{name}}: {{error}}",
+        "noValidHostEntriesFound": "У файлі конфігурації SSH не знайдено дійсних записів Host",
+        "credentialWasNotFound": "{{label}}: облікові дані {{value}} не знайдено"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Хост {{value}}: дубльований ідентифікатор експортованого хоста {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Відсутні обов'язкові поля (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Невірний authType. Має бути одним із {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Для SSH-з'єднань потрібне ім'я користувача",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: Для автентифікації за обліковими даними потрібен credentialAlias",
+        "thatIsNotAValid": "Це не дійсний файл JSON",
+        "hostsArrayIsRequiredAnd": "Масив хостів є обов'язковим і не повинен бути порожнім",
+        "jumpHostCycle": "{{label}}: цикл проміжних хостів",
+        "jumpHostIsNotIn": "{{label}}: проміжний хост {{id}} відсутній у файлі"
+      }
+    },
+    "movedTo": "Переміщено до {{value}}",
+    "movedOutOfFolders": "Переміщено з папок",
+    "movedUnder": "Переміщено під {{value}}",
+    "openTerminals": "Відкриті термінали",
+    "theHost": "хост"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Приховати пароль",
+      "showPassword": "Показати пароль",
+      "enterAUsernameAndPassword": "Введіть ім'я користувача та пароль",
+      "useAtLeast6Characters": "Використовуйте щонайменше 6 символів для пароля",
+      "thePasswordsDonTMatch": "Паролі не збігаються",
+      "makeTheAdminAccount": "Створити обліковий запис адміністратора",
+      "makeAnAccount": "Створити обліковий запис",
+      "thisIsTheFirstAccount": "Це перший обліковий запис на сервері, тому він керує сервером.",
+      "pickAUsernameAndPassword": "Оберіть ім'я користувача та пароль для цього сервера.",
+      "username": "Ім'я користувача",
+      "password": "Пароль",
+      "passwordAgain": "Повторіть пароль",
+      "makeAccount": "Створити обліковий запис",
+      "back": "Назад",
+      "haveAnAccountSignIn": "Вже маєте обліковий запис? Увійдіть",
+      "resetCodeMadeItIs": "Код скидання створено. Він є в журналах сервера",
+      "enterYourUsername": "Введіть ваше ім'я користувача",
+      "enterTheResetCode": "Введіть код скидання",
+      "passwordChangedSignInWith": "Пароль змінено. Увійдіть з ним зараз",
+      "resetPassword": "Скинути пароль",
+      "enterYourUsernameTheServer": "Введіть ваше ім'я користувача. Сервер запише код скидання у свої журнали.",
+      "sendResetCode": "Надіслати код скидання",
+      "enterThe6DigitCode": "Введіть 6-значний код із журналів сервера.",
+      "resetCode": "Скинути код",
+      "checkCode": "Перевірити код",
+      "newPassword": "Новий пароль",
+      "saveNewPassword": "Зберегти новий пароль",
+      "backToSignIn": "Назад до входу",
+      "couldNotMakeTheAccount": "Не вдалося створити обліковий запис",
+      "couldNotStartTheReset": "Не вдалося розпочати скидання",
+      "thatCodeDidnTWork": "Цей код не підійшов",
+      "couldNotChangeThePassword": "Не вдалося змінити пароль"
+    },
+    "browserStep": {
+      "signInFailed": "Вхід не вдалося виконати",
+      "signInCanceled": "Вхід скасовано",
+      "couldNotOpenTheSign": "Не вдалося відкрити браузер для входу",
+      "couldNotOpenTheSign2": "Не вдалося відкрити сторінку входу",
+      "certificateProblem": "Проблема з сертифікатом",
+      "back": "Назад",
+      "signIn": "Увійти",
+      "reload": "Оновити",
+      "finishSigningInInYour": "Завершіть вхід у браузері",
+      "useAnySignInYour": "Використовуйте будь-який метод входу, доступний на сервері, наприклад Passkey або ключ безпеки. Додаток підхопить процес, коли ви увійдете.",
+      "theAppPicksUpOnce": "Додаток підхопить процес, коли ваш провайдер входу завершить роботу.",
+      "signingIn": "Вхід...",
+      "openBrowserAgain": "Знову відкрити браузер",
+      "theServerTurnedTheSession": "Сервер відхилив сесію. Спробуйте ще раз.",
+      "signedInButTheApp": "Вхід виконано, але додаток не може підключитися до Termix. Можливо, проксі блокує з'єднання.",
+      "thatSignInLinkIs": "Це посилання для входу зі спроби раніше. Увійдіть знову.",
+      "signInAgain": "Увійдіть знову.",
+      "openTheBrowserAgainWhen": "Відкрийте браузер знову, коли будете готові.",
+      "theWebPageSignedIn": "Вебсторінка виконала вхід, але не надіслала сесію. Оновіть сервер і спробуйте ще раз.",
+      "theCanTCheckThis": "{{deviceWord}} не може перевірити сертифікат цього сервера. Встановіть кореневий CA на {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Використовувати {{name}} для входу наступного разу?",
+      "ifThisServerSignsYou": "Якщо цей сервер виконає вихід, увійдіть знову за допомогою {{name}}, замість того щоб вводити пароль. Пароль залишиться на цьому {{deviceWord}}.",
+      "use": "Використовувати {{name}}",
+      "notNow": "Не зараз",
+      "couldNotSaveTheLogin": "Не вдалося зберегти дані входу",
+      "thatSADifferentUser": "Це інший користувач",
+      "signedIn": "Вхід виконано",
+      "close": "Закрити",
+      "linkYourTermixServer": "Підключіть сервер Termix",
+      "yourHostsCredentialsSnippetsAnd": "Ваші хости, облікові дані, фрагменти та налаштування синхронізуються з ним, і ви отримуєте його плагіни. Усе продовжує працювати на цьому {{deviceWord}}, коли сервер недоступний.",
+      "checking": "Перевірка {{host}}...",
+      "proxyAndClientCertificate": "Проксі та клієнтський сертифікат",
+      "couldNotReachThatServer": "Не вдалося підключитися до цього сервера. Перевірте адресу або налаштуйте проксі або клієнтський сертифікат.",
+      "couldNotReachThatServer2": "Не вдалося підключитися до цього сервера",
+      "syncCouldNotStartYet": "Синхронізація ще не може розпочатися. Вона спробує знову автоматично.",
+      "checkingTheServer": "Перевірка сервера",
+      "signIn": "Увійти",
+      "makeAnAccount": "Створити обліковий запис",
+      "resetPassword": "Скинути пароль",
+      "oneMoreStep": "Ще один крок",
+      "almostDone": "Майже готово",
+      "linkAServer": "Підключити сервер"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Збережені дані входу більше не працюють",
+      "enterYourUsernameAndPassword": "Введіть ім'я користувача та пароль",
+      "thisServerIsBehindA": "Цей сервер знаходиться за проксі входу",
+      "signInWith": "Увійти за допомогою {{saved}}",
+      "signInWith2": "Увійти за допомогою",
+      "password": "Пароль",
+      "username": "Ім'я користувача",
+      "signIn": "Увійти",
+      "forgotPassword": "Забули пароль?",
+      "makeAnAccount": "Створити обліковий запис",
+      "or": "АБО",
+      "continueWith": "Продовжити через {{label}}",
+      "signInWithAPasskey": "Увійти за допомогою Passkey або ключа безпеки",
+      "opensYourServerAposS": "Відкриває сторінку входу на вашому сервері в браузері. Там працюють Face ID, відбиток пальця, NFC та USB-ключі. Потрібна Termix версії 26.11.3 або новішої.",
+      "signInInTheBrowser": "Увійти в браузері",
+      "opensYourServerAposS2": "Відкриває сторінку входу на вашому сервері для дій, які неможливо виконати в додатку. Потрібна Termix версії 26.10.6 або новішої.",
+      "thisServerHasNoSign": "На цьому сервері не увімкнено жоден метод входу, який може використовувати додаток. Зверніться до адміністратора сервера або спробуйте увійти через браузер вище.",
+      "signInWithYourPassword": "Увійдіть за допомогою пароля.",
+      "signInFailed": "Помилка входу",
+      "openingItsSignInPage": "Відкривається сторінка входу."
+    },
+    "smallSteps": {
+      "serverAddress": "Адреса сервера",
+      "likeTermixExampleComOr": "Наприклад, termix.example.com або 192.168.1.20:30001",
+      "checking": "Перевірка...",
+      "continue": "Далі",
+      "proxyAndClientCertificate": "Проксі та клієнтський сертифікат",
+      "aServerWithASelf": "Сервер із самопідписаним сертифікатом спочатку потребує встановлення його кореневого CA на цьому {{deviceWord}}. Звичайний http працює у вашій локальній мережі.",
+      "enterTheCode": "Введіть код",
+      "code": "Код",
+      "the6DigitCodeFrom": "6-значний код з вашого додатка-аутентифікатора або резервний код",
+      "checkCode": "Перевірити код",
+      "thisAccountAsksForA": "Цей обліковий запис вимагає ключ безпеки після введення пароля. Виконайте вхід на сторінці сервера в браузері, щоб скористатися ним.",
+      "useASecurityKeyIn": "Використати ключ безпеки в браузері",
+      "backToSignIn": "Назад до входу",
+      "bringThisAposSHosts": "Перенести хости з цього {{deviceWord}}?",
+      "thisHasTheyStayOn": "На цьому {{deviceWord}} є {{what}}. Вони залишаться на цьому пристрої в будь-якому разі.",
+      "merge": "Об'єднати",
+      "copyThemToTooSo": "Скопіювати їх також на {{serverName}} для синхронізації. Хости, які збігаються з серверними, пропускаються.",
+      "replace": "Замінити",
+      "useOnlyWhatIsOn": "Використовувати лише те, що є на {{serverName}} для цього облікового запису. Нічого не копіюється.",
+      "thatCodeDidnTWork": "Цей код не підійшов",
+      "hostsCredentialsOrSnippets": "хости, облікові дані або фрагменти"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Спочатку прив'яжіть цей сервер",
+      "thatHostIsnTHere": "Цього хоста немає тут",
+      "couldNotOpenThatHost": "Не вдалося відкрити цей хост",
+      "noHostWithIdOn": "Хоста з id {{hostId}} немає на {{account}}.",
+      "isnTLinkedInThe": "{{value}} ще не прив'язано в додатку."
+    }
+  },
+  "notifications": {
+    "notifications": "Сповіщення",
+    "markAllRead": "Позначити всі як прочитані",
+    "clearReadNotifications": "Очистити прочитані сповіщення",
+    "unread2": "Непрочитані",
+    "all": "Всі",
+    "noUnreadNotifications": "Немає непрочитаних сповіщень",
+    "nothingHere": "Тут нічого немає",
+    "markRead": "Позначити як прочитане",
+    "delete": "Видалити",
+    "couldNotLoadNotifications": "Не вдалося завантажити сповіщення",
+    "couldNotMarkRead": "Не вдалося позначити як прочитане",
+    "couldNotDelete": "Не вдалося видалити",
+    "couldNotClear": "Не вдалося очистити"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Імпортувати",
+      "hosts": "Хости",
+      "aTermixHostFileYour": "Файл хостів Termix, ваш ~/.ssh/config або посилання/QR-код хоста з іншого {{deviceWord}}. Вони зберігаються на цьому {{deviceWord}}.",
+      "backup": "Резервна копія",
+      "aBackupThisAppMade": "Резервна копія, створена цим додатком, захищена гаслом. Відновлює хости, облікові дані та фрагменти.",
+      "restoreABackup": "Відновити з резервної копії",
+      "done": "Готово",
+      "skipForNow": "Пропустити зараз",
+      "sshFilesAndRemoteDesktops": "SSH, файли та віддалені робочі столи з вашого {{deviceWord}}. Як ви хочете почати?",
+      "useWithoutAServer": "Використовувати без сервера",
+      "hostsCredentialsAndSnippetsAre": "Хости, облікові дані та фрагменти зберігаються в зашифрованому вигляді на цьому {{deviceWord}}. Ви можете підключити сервер у будь-який момент пізніше.",
+      "linkATermixServer": "Підключити сервер Termix",
+      "syncYourHostsCredentialsSnippets": "Синхронізуйте хости, облікові дані, фрагменти та налаштування з вашим сервером і використовуйте його плагіни.",
+      "bringHostsFromATermix": "Імпортуйте хости з файлу Termix, конфігурації SSH, QR-коду або резервної копії.",
+      "thisDevice": "Цей пристрій"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Пошук хостів, фрагментів, дій",
+      "clearSearch": "Очистити пошук",
+      "nothingMatches": "Нічого не знайдено",
+      "typeToSearch": "Введіть для пошуку",
+      "findAHostToConnect": "Знайдіть хост для підключення, фрагмент, налаштування або дію.",
+      "suggested": "Рекомендовано | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Запустити в {{title}}",
+      "copiedRunItFromThe": "Скопійовано. Запустіть його з фрагментів терміналу, щоб заповнити значення.",
+      "copiedOpenATerminalTo": "Скопійовано. Відкрийте термінал, щоб запустити фрагменти.",
+      "addHost": "Додати хост",
+      "quickConnect": "Швидке підключення",
+      "switchAccount": "Змінити обліковий запис",
+      "linkAServer": "Підключити сервер",
+      "fromYourServer": "З вашого сервера",
+      "settings": "Налаштування",
+      "accountsAppearanceSecurity": "Облікові записи, зовнішній вигляд, безпека"
+    },
+    "search": {
+      "hosts": "Хости",
+      "snippets": "Фрагменти",
+      "actions": "Дії",
+      "settings": "Налаштування"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Не вдалося завантажити сесії",
+      "sessionRevoked": "Сесію скасовано",
+      "failedToRevokeSession": "Не вдалося скасувати сесію",
+      "allSessionsRevoked": "Усі сесії скасовано",
+      "failedToRevokeAllSessions": "Не вдалося скасувати всі сесії",
+      "activeSessions": "Активні сесії",
+      "signOutAllOtherSessions": "Вийти з усіх інших сесій",
+      "loading": "Завантаження…",
+      "noActiveSessionsFound": "Активних сесій не знайдено.",
+      "unknownDevice": "Невідомий пристрій",
+      "lastActive": "Остання активність {{lastActiveAt}}",
+      "created": "Створено {{createdAt}}",
+      "revokeSession": "Скасувати сесію",
+      "revokeSession2": "Скасувати сесію?",
+      "thisWillSignOutThat": "Це призведе до виходу з цього пристрою.",
+      "revoke": "Скасувати",
+      "revokeAllSessions": "Скасувати всі сесії?",
+      "thisWillSignOutEvery": "Це призведе до виходу з усіх пристроїв. Ви залишитеся ввійшли на цьому пристрої.",
+      "cancel": "Скасувати",
+      "revokeAll": "Скасувати всі"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Не вдалося завантажити API-ключі",
+      "failedToCreateApiKey": "Не вдалося створити API-ключ",
+      "deleteApiKey": "Видалити API-ключ?",
+      "willStopWorkingRightAway": "\"{{name}}\" перестане працювати негайно.",
+      "apiKeyDeleted": "API-ключ видалено",
+      "failedToDeleteApiKey": "Не вдалося видалити API-ключ",
+      "apiKeys": "API-ключі",
+      "newApiKey": "Новий API-ключ",
+      "loading": "Завантаження…",
+      "apiKeysAllowProgrammaticAccess": "API-ключі дозволяють програмний доступ до Termix. Секретний ключ показується лише один раз, тому збережіть його надійно.",
+      "noApiKeysYet": "Ще немає API-ключів",
+      "created": "Створено {{createdAt}}",
+      "lastUsed": "Востаннє використано {{lastUsedAt}}",
+      "expires": "Діє до {{expiresAt}}",
+      "delete": "Видалити {{name}}",
+      "keyCreatedCopyItNow": "Ключ створено. Скопіюйте його зараз",
+      "newApiKey2": "Новий ключ API",
+      "thisTokenWonTBe": "Цей токен більше не буде показано.",
+      "apiKeyCopied": "Ключ API скопійовано",
+      "copy": "Копіювати",
+      "done": "Готово",
+      "cancel": "Скасувати",
+      "create": "Створити",
+      "name": "Назва *",
+      "eGCiPipeline": "напр. CI Pipeline",
+      "user": "Користувач *",
+      "noUsersAvailable": "Немає доступних користувачів.",
+      "expiresAtOptional": "Термін дії (необов'язково)",
+      "yyyyMmDd": "РРРР/ММ/ДД",
+      "yearMonthDay": "Рік / Місяць / День"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Залишати сесії активними",
+      "showsANotificationWhileSessions": "Показує сповіщення, поки сесії відкриті, щоб Android продовжував їх роботу, коли ви виходите з додатка",
+      "batteryOptimization": "Оптимізація батареї",
+      "termixIsNotRestrictedSo": "Termix не обмежено, тому сесії можуть залишатися відкритими навіть із вимкненим екраном.",
+      "androidMayStillStopSessions": "Android все одно може зупиняти сесії для економії батареї. Відкрийте налаштування батареї, знайдіть Termix і виберіть «Не оптимізовано» або «Без обмежень».",
+      "openBatterySettings": "Відкрити налаштування батареї",
+      "notificationsAreOff": "Сповіщення вимкнено",
+      "sessionsStillRunButThe": "Сесії продовжують працювати, але список відкритих сесій і кнопка «Від’єднати всі» залишаються прихованими.",
+      "openNotificationSettings": "Відкрити налаштування сповіщень",
+      "thisBuildCanTKeep": "Ця версія не може підтримувати сесії у фоновому режимі. Вони перепідключаються, коли ви повертаєтеся.",
+      "lowPowerMode": "Режим енергозбереження",
+      "batterySaver": "Економія батареї",
+      "isOnTermixChecksConnections": "{{value}} увімкнено. Termix перевіряє з’єднання рідше і довше чекає між спробами перепідключення.",
+      "backgroundSessions": "Фонові сесії",
+      "iosStopsAppsSoonAfter": "iOS зупиняє додатки незабаром після виходу з них, тому сесії не можуть працювати у фоновому режимі. Вони перепідключаються, коли ви повертаєтеся, а tmux або screen відновлюють роботу з того місця, де ви зупинилися."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Зупинено",
+        "active": "Активно",
+        "linkAServer": "Підключити сервер",
+        "eachServerKeepsItsOwn": "Кожен сервер зберігає власну копію ваших хостів, облікових даних і налаштувань на цьому {{deviceWord}}.",
+        "signedInAs": "Увійдено як",
+        "role": "Роль",
+        "administrator": "Адміністратор",
+        "user": "Користувач",
+        "serverVersion": "Версія сервера",
+        "signOut": "Вийти",
+        "youAreSignedOutOf": "Ви вийшли з цього сервера.",
+        "signIn": "Увійти",
+        "passwordChanged": "Пароль змінено",
+        "couldNotChangeThePassword": "Не вдалося змінити пароль",
+        "changePassword": "Змінити пароль",
+        "enterYourCurrentPasswordThen": "Введіть поточний пароль, а потім оберіть новий.",
+        "cancel": "Скасувати",
+        "change": "Змінити",
+        "currentPassword": "Поточний пароль",
+        "newPassword": "Новий пароль",
+        "accountDeleted": "Обліковий запис видалено",
+        "couldNotDeleteTheAccount": "Не вдалося видалити обліковий запис",
+        "deleteServerAccount": "Видалити обліковий запис на сервері",
+        "thisPermanentlyDeletesYourAccount": "Це назавжди видалить ваш обліковий запис на сервері та всі його дані. Цю дію неможливо скасувати.",
+        "delete": "Видалити",
+        "confirmYourPassword": "Підтвердіть пароль",
+        "worksWithoutAServer": "Працює без сервера",
+        "signedOut": "Вийдено",
+        "readsLive": "Читає в реальному часі",
+        "toReview": "{{count}} для перевірки",
+        "synced": "Синхронізовано",
+        "syncing": "Синхронізація",
+        "offline": "Не в мережі"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Надсилати анонімну статистику використання",
+        "aShortReportOnceA": "Короткий звіт раз на день. Без даних про хости, імен чи адрес",
+        "nextReport": "Наступний звіт",
+        "seeExactlyWhatWouldBe": "Переглянути, що саме буде надіслано",
+        "couldNotBuildTheReport": "Не вдалося сформувати звіт",
+        "preview": "Попередній перегляд",
+        "thisIsExactlyWhatWould": "Це саме те, що буде надіслано зараз.",
+        "resetInstallId": "Скинути ID встановлення",
+        "futureReportsWillLookLike": "Майбутні звіти будуть виглядати як нове встановлення",
+        "resetTheInstallId": "Скинути ID встановлення?",
+        "futureReportsWillLookLike2": "Майбутні звіти будуть виглядати як нове встановлення.",
+        "reset": "Скинути",
+        "installIdReset": "ID встановлення скинуто"
+      },
+      "appearanceControls": {
+        "theme": "Тема",
+        "accentColor": "Акцентний колір",
+        "textSize": "Розмір тексту",
+        "sizeOfTextAcrossThe": "Розмір тексту в додатку, а не в терміналі",
+        "density": "Щільність",
+        "howTallListRowsAnd": "Висота рядків списків та налаштувань"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Хости, облікові дані та фрагменти зберігаються в зашифрованому файлі на цьому {{deviceWord}}. Статистика використання вимкнена, доки ви не увімкнете її нижче. Пов'язаний сервер отримує лише те, що ви дозволили синхронізувати.",
+        "recentHosts": "Останні хости",
+        "forgetTheHostsYouOpened": "Забути хости, до яких ви з’єднувалися нещодавно, для всіх облікових записів",
+        "recentHostsCleared": "Список останніх хостів очищено",
+        "clear": "Очистити",
+        "couldNotCheckForUpdates": "Не вдалося перевірити наявність оновлень",
+        "versionIsOutUpdateFrom": "Вийшла версія {{version}}. Оновіть додаток у магазині.",
+        "youHaveTheNewestVersion": "У вас остання версія",
+        "termixMobile": "Termix Mobile",
+        "updates": "Оновлення",
+        "check": "Перевірити"
+      },
+      "pinSheet": {
+        "waitSeconds": "Зачекати {{value}} секунд",
+        "digits": "{{PIN_LENGTH}} цифр"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN-коди не збігаються",
+        "appLockIsOn": "Блокування додатку увімкнено",
+        "turnOffAppLock": "Вимкнути блокування додатку",
+        "enterYourPinToConfirm": "Введіть PIN-код для підтвердження.",
+        "appLockIsOff": "Блокування додатку вимкнено",
+        "appLock": "Блокування додатку",
+        "askForFaceIdTouch": "Вимагати Face ID, Touch ID або PIN-код для відкриття додатку",
+        "askForAPinTo": "Вимагати PIN-код для відкриття додатку",
+        "pinChanged": "PIN-код змінено",
+        "couldNotChangeThePin": "Не вдалося змінити PIN-код",
+        "changePin": "Змінити PIN-код",
+        "lockAfter": "Блокувати через",
+        "howLongTheAppCan": "Як довго додаток може бути невидимим, перш ніж заблокується",
+        "hideInAppSwitcher": "Приховати в перемикачі додатків",
+        "showABlankScreenIn": "Показувати порожній екран у списку недавніх додатків",
+        "chooseA4DigitPin": "Оберіть 4-значний PIN-код.",
+        "confirmPin": "Підтвердити PIN-код",
+        "enterTheSamePinAgain": "Введіть той самий PIN-код ще раз.",
+        "currentPin": "Поточний PIN-код",
+        "enterYourCurrentPin": "Введіть поточний PIN-код.",
+        "newPin": "Новий PIN-код",
+        "chooseANew4Digit": "Оберіть новий 4-значний PIN-код.",
+        "confirmNewPin": "Підтвердити новий PIN-код",
+        "enterTheNewPinAgain": "Введіть новий PIN-код ще раз."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Віджети головного екрана",
+        "showYourHostsSnippetsAnd": "Показувати хости, фрагменти та кнопки живлення на головному екрані",
+        "showAddresses": "Показувати адреси",
+        "showUserHostUnderEach": "Показувати user@host під назвою кожного сервера",
+        "includeOfflineHosts": "Включати офлайн-хости",
+        "offShowsOnlyServersThat": "Якщо вимкнено, показуються лише сервери, які онлайн",
+        "pinnedHostsOnly": "Тільки закріплені хости",
+        "showOnlyTheHostsYou": "Показувати лише хости, які ви закріпили",
+        "snippetsWidget": "Віджет фрагментів",
+        "showSavedCommandsOnThe": "Показувати збережені команди на головному екрані",
+        "showCommandPreview": "Показувати попередній перегляд команди",
+        "showTheFirstLineOf": "Показувати перший рядок кожної команди"
+      }
+    },
+    "fileSettings": {
+      "files": "Файли",
+      "fileManagerOnThis": "Файловий менеджер на цьому {{deviceWord}}",
+      "browsing": "Перегляд",
+      "transfersAtOnce": "Одночасні передачі",
+      "downloadsAndUploadsThatRun": "Завантаження та вивантаження, що виконуються одночасно",
+      "editor": "Редактор",
+      "textSize": "Розмір тексту",
+      "filesBesideTheTerminal": "Файли поруч із терміналом",
+      "side": "Сторона",
+      "whereThePanelSitsOn": "Де розташовується панель на планшеті",
+      "right": "Право",
+      "left": "Ліво",
+      "howOftenToCheck": "Як часто перевіряти",
+      "folderHistory": "Історія папок",
+      "foldersKeptPerHost": "Папки, що зберігаються для кожного хоста",
+      "showHiddenFiles": "Показувати приховані файли",
+      "filesAndFoldersThatStart": "Файли та папки, які починаються з крапки",
+      "askBeforeMovingToThe": "Запитувати перед переміщенням у кошик",
+      "deletingForGoodAlwaysAsks": "Остаточне видалення завжди запитує підтвердження",
+      "wrapLongLines": "Переносити довгі рядки",
+      "openWithNewTerminals": "Відкривати в нових терміналах",
+      "onATabletShowThe": "На планшеті показувати панель файлів при відкритті терміналу",
+      "followTheTerminal": "Слідувати за терміналом",
+      "openTheFolderTheTerminal": "Відкривати папку, в якій знаходиться термінал, під час виконання cd"
+    },
+    "keyboardCustomization": {
+      "small": "Маленький",
+      "medium": "Середній",
+      "large": "Великий",
+      "ms": "{{v}} мс",
+      "keyboard": "Клавіатура",
+      "keyRowsAboveTheKeyboard": "Ряди клавіш над клавіатурою",
+      "rows": "Ряди",
+      "keys": "Клавіші",
+      "aHostCanHaveIts": "Хост може мати власні ряди: торкніться його відкритої вкладки в сесії та виберіть Ряди клавіш для цього хоста.",
+      "keySize": "Розмір клавіш",
+      "vibrateOnKeyPress": "Вібрація при натисканні клавіші",
+      "repeatAfter": "Повторювати через",
+      "howLongToHoldAn": "Як довго утримувати стрілку або Backspace",
+      "repeatEvery": "Повторювати кожні",
+      "hardwareKeyboard": "Апаратна клавіатура",
+      "allShortcuts": "Усі скорочення",
+      "show": "Показати"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Не вдалося створити резервну копію",
+      "deleteLocalData": "Видалити локальні дані?",
+      "hostsCredentialsSnippetsAndHistory": "Хости, облікові дані, фрагменти та історія, збережені на цьому {{deviceWord}} для {{account}}, будуть видалені. Цю дію неможливо скасувати. Створіть резервну копію, якщо хочете їх зберегти.",
+      "delete": "Видалити",
+      "localDataDeleted": "Локальні дані видалено",
+      "couldNotDeleteLocalData": "Не вдалося видалити локальні дані",
+      "localData": "Локальні дані",
+      "localDataIsOnlySaved": "Локальні дані зберігаються лише в додатку {{deviceWord}}.",
+      "savedOnThisForThe": "Збережено на цьому пристрої {{deviceWord}} для {{account}}. Файл зашифровано ключем, який ніколи не залишає цей пристрій {{deviceWord}}.",
+      "hosts": "Хости",
+      "credentials": "Облікові дані",
+      "snippets": "Сніпети",
+      "size": "Розмір",
+      "dataVersion": "Версія даних",
+      "backup": "Резервне копіювання",
+      "aBackupFileHoldsYour": "Файл резервної копії містить ваші паролі та ключі, захищені парою, яку ви обираєте. Ніхто не зможе відкрити його без цієї пароля.",
+      "exportBackup": "Експортувати резервну копію",
+      "importBackup": "Імпортувати резервну копію",
+      "removesEverythingThisAccountSaved": "Видаляє все, що цей обліковий запис зберіг на цьому пристрої {{deviceWord}}. Підключений сервер зберігає власну копію.",
+      "deleteLocalData2": "Видалити локальні дані",
+      "backupPassphrase": "Пароль для резервної копії",
+      "atLeast8CharactersYou": "Щонайменше 8 символів. Він потрібен для відновлення резервної копії.",
+      "passphrase": "Пароль",
+      "next": "Далі",
+      "typeItAgain": "Введіть ще раз",
+      "export": "Експорт",
+      "saveYourTermixBackup": "Збережіть резервну копію Termix"
+    },
+    "logs": {
+      "logs": "Журнали",
+      "latestLinesFromThisRun": "Останні рядки з цього запуску. Адреси серверів, паролі та токени приховано.",
+      "logsCopied": "Журнали скопійовано",
+      "copy": "Копіювати",
+      "share": "Поділитися",
+      "clear": "Очистити",
+      "noLogsYet": "Журналів ще немає",
+      "nothingHasBeenLogged": "Нічого не записано в журнал."
+    },
+    "plugins": {
+      "worksOnThis": "Працює на цьому пристрої {{deviceWord}}",
+      "needsTheServer": "Потребує сервер",
+      "notInTheApp": "Немає в додатку",
+      "needsANewerVersionOf": "Потребує новішої версії додатка",
+      "updateThePluginOnThe": "Оновіть плагін на сервері",
+      "inTheApp": "В додатку",
+      "onThisServer": "На цьому сервері",
+      "version": "Версія",
+      "needsPluginApi": "Потребує API плагіна",
+      "thisAppHas": "Цей додаток має",
+      "note": "Примітка",
+      "open": "Відкрити",
+      "openFromAHostS": "Відкрийте {{name}} з меню хоста.",
+      "plugins": "Плагіни",
+      "everything": "Все",
+      "thisDeviceWorksWithNo": "Цей пристрій працює без сервера. Підключіть сервер, щоб додати функції, які його потребують.",
+      "pluginsOnAndHowEach": "Плагіни для {{account}} і як кожен з них відображається в додатку. Прокрутіть вниз, щоб перевірити ще раз.",
+      "whatRunsOnThisAnd": "Що працює на цьому пристрої {{deviceWord}} і що йде через {{account}}.",
+      "noPluginList": "Списку плагінів немає",
+      "theServerDidNotSend": "Сервер не надіслав свої плагіни. Прокрутіть вниз, щоб спробувати ще раз.",
+      "serversOlderThan29": "Сервери старші за версію 2.9 мають усі функції вбудованими.",
+      "nothingToShow": "Немає що показати",
+      "notSentByThisServer": "Не надіслано цим сервером"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Замінити локальні дані?",
+      "everythingSavedOnThisFor": "Все, що збережено на цьому пристрої {{deviceWord}} для {{accountName}}, буде замінено даними з резервної копії.",
+      "continue": "Продовжити",
+      "couldNotReadThatFile": "Не вдалося прочитати цей файл",
+      "backupRestored": "Резервну копію відновлено",
+      "couldNotRestoreTheBackup": "Не вдалося відновити резервну копію",
+      "backupPassphrase": "Пароль для резервної копії",
+      "thePassphraseUsedWhenThe": "Пароль, який використовувався під час створення резервної копії.",
+      "passphrase": "Пароль",
+      "restore": "Відновити"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Облікові записи",
+        "thisDeviceAndLinkedServers": "Цей пристрій та пов'язані сервери з їхнім станом синхронізації",
+        "syncAndProxy": "Синхронізація та проксі",
+        "whatSyncsConflictsProxyAnd": "Що синхронізується, конфлікти, проксі та від'єднання",
+        "serverAccount": "Обліковий запис сервера",
+        "whoIsSignedInOn": "Хто увійшов на активному сервері",
+        "activeSessions": "Активні сесії",
+        "devicesSignedInToThe": "Пристрої, що увійшли на сервер",
+        "apiKeys": "Ключі API",
+        "keysForScriptsAndTools": "Ключі для скриптів та інструментів",
+        "changePassword": "Змінити пароль",
+        "passwordOfYourServerAccount": "Пароль вашого облікового запису сервера",
+        "deleteServerAccount": "Видалити обліковий запис сервера",
+        "removeYourAccountFromThe": "Видалити ваш обліковий запис з сервера",
+        "theme": "Тема",
+        "darkLightDraculaNordAnd": "Темна, світла, Dracula, Nord та інші",
+        "accentColor": "Акцентний колір",
+        "textSize": "Розмір тексту",
+        "sizeOfTextAcrossThe": "Розмір тексту в усьому додатку",
+        "density": "Щільність",
+        "howTallListRowsAnd": "Висота рядків списків та налаштувань",
+        "homeScreenWidgets": "Віджети на головному екрані",
+        "hostsAndSnippetsOnThe": "Хости та фрагменти на головному екрані",
+        "terminal": "Термінал",
+        "fontThemeCursorScrollback": "Шрифт, тема, курсор, прокрутка",
+        "keyboard": "Клавіатура",
+        "layoutKeysPresets": "Розкладка, клавіші, шаблони",
+        "appLock": "Блокування додатка",
+        "askForFaceIdTouch": "Запитувати Face ID, Touch ID або PIN-код для відкриття додатка",
+        "lockAfter": "Блокувати через",
+        "howLongTheAppCan": "Як довго додаток може бути невидимим, перш ніж заблокуватися",
+        "hideInAppSwitcher": "Приховати в перемикачі додатків",
+        "showABlankScreenIn": "Показувати порожній екран у списку недавніх додатків",
+        "changePin": "Змінити PIN-код",
+        "backgroundSessions": "Фонові сесії",
+        "whatHappensToOpenSessions": "Що відбувається з відкритими сесіями, коли ви виходите з додатка",
+        "serverAlerts": "Сповіщення сервера",
+        "alertsFromTheAlertsPlugin": "Сповіщення від плагіна Alerts на вашому сервері",
+        "whatStaysOnThis": "Що зберігається на цьому {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Хости, облікові дані та фрагменти зберігаються тут у зашифрованому вигляді",
+        "recentHosts": "Недавні хости",
+        "forgetTheHostsYouOpened": "Забути хости, які ви відкривали нещодавно",
+        "shareAnonymousUsageStatistics": "Надсилати анонімну статистику використання",
+        "aShortReportOnceA": "Короткий звіт раз на день. Без хостів, імен чи адрес",
+        "nextReport": "Наступний звіт",
+        "seeExactlyWhatWouldBe": "Переглянути, що саме буде надіслано",
+        "resetInstallId": "Скинути ID встановлення",
+        "futureReportsWillLookLike": "Майбутні звіти будуть виглядати як нове встановлення",
+        "serverUsageStatistics": "Статистика використання сервера",
+        "telemetrySettingsOnYourServer": "Налаштування телеметрії на вашому сервері",
+        "plugins": "Плагіни",
+        "whatTheServerAddsAnd": "Що додає сервер і де він працює",
+        "localData": "Локальні дані",
+        "backupRestoreAndDeleteWhat": "Резервне копіювання, відновлення та видалення того, що збережено на цьому {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Версія та оновлення",
+        "logs": "Журнали",
+        "latestLinesFromThisRun": "Останні рядки з цього запуску, для звітів про помилки",
+        "pushNotifications": "Push-сповіщення",
+        "pushNotificationsDescription": "Сповіщення від ваших серверів на цьому телефоні"
+      },
+      "sections": {
+        "accountsAndSync": "Облікові записи та синхронізація",
+        "thisDeviceLinkedServersAnd": "Цей пристрій, пов'язані сервери та синхронізація",
+        "appearance": "Зовнішній вигляд",
+        "themeAccentTextSizeAnd": "Мова, тема, акцент, розмір тексту та щільність",
+        "terminal": "Термінал",
+        "fontColorsAndBackgroundSessions": "Шрифт, кольори та фонові сесії",
+        "keyboard": "Клавіатура",
+        "keyRowsAndShortcuts": "Рядки клавіш та скорочення",
+        "security": "Безпека",
+        "appLockFaceIdAnd": "Блокування додатка, Face ID та PIN-код",
+        "notifications": "Сповіщення",
+        "alertsFromYourServer": "Сповіщення від вашого сервера",
+        "privacyAndUsageStatistics": "Конфіденційність та статистика використання",
+        "whatStaysOnThis": "Що зберігається на цьому {{deviceWord}}",
+        "plugins": "Плагіни",
+        "whatTheServerAddsTo": "Що сервер додає до додатка",
+        "backupAndData": "Резервне копіювання та дані",
+        "backUpRestoreImportAnd": "Резервне копіювання, відновлення, імпорт та експорт",
+        "aboutAndLogs": "Про додаток та журнали",
+        "versionAndLogsForBug": "Версія та журнали для звітів про помилки"
+      }
+    },
+    "settings": "Налаштування",
+    "searchSettings": "Пошук налаштувань",
+    "noSettingsMatch": "Налаштувань не знайдено.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Не вдалося завантажити фрагменти",
+      "copied": "Скопійовано: {{name}}",
+      "nameIsRequired": "Ім'я є обов'язковим",
+      "contentIsRequired": "Вміст є обов'язковим",
+      "snippetUpdated": "Фрагмент оновлено",
+      "snippetCreated": "Фрагмент створено",
+      "failedToSaveSnippet": "Не вдалося зберегти фрагмент",
+      "snippetDeleted": "Фрагмент видалено",
+      "failedToDeleteSnippet": "Не вдалося видалити фрагмент",
+      "folderNameIsRequired": "Назва папки є обов'язковою",
+      "folderCreated": "Папку створено",
+      "failedToCreateFolder": "Не вдалося створити папку",
+      "folderDeleted": "Папку видалено",
+      "failedToDeleteFolder": "Не вдалося видалити папку",
+      "folderRenamed": "Папку перейменовано",
+      "failedToRenameFolder": "Не вдалося перейменувати папку",
+      "failedToSaveOrder": "Не вдалося зберегти порядок",
+      "moveUp": "Перемістити вгору",
+      "moveDown": "Перемістити вниз",
+      "runOnHosts": "Запустити {{name}} на хостах",
+      "copy": "Копіювати {{name}}",
+      "delete": "Видалити {{name}}",
+      "renameFolder": "Перейменувати папку",
+      "deleteFolder": "Видалити папку",
+      "noSnippetsInThisFolder": "У цій папці немає фрагментів",
+      "snippets": "Фрагменти",
+      "importAndExport": "Імпорт та експорт",
+      "folder": "Папка",
+      "new": "Новий",
+      "loading": "Завантаження…",
+      "couldNotLoadSnippets": "Не вдалося завантажити фрагменти",
+      "checkTheConnectionToYour": "Перевірте з'єднання з вашим сервером і спробуйте ще раз.",
+      "tryAgain": "Спробувати ще раз",
+      "noSnippetsYet": "Фрагментів ще немає",
+      "createYourFirstSnippetOr": "Створіть свій перший фрагмент або додайте фрагменти з веб- або десктоп-додатка Termix.",
+      "createSnippet": "Створити фрагмент",
+      "askBeforeRunning": "Запитувати перед виконанням",
+      "confirmBeforeASnippetRuns": "Підтверджуйте перед виконанням фрагмента в терміналі",
+      "editSnippet": "Редагувати фрагмент",
+      "newSnippet": "Новий фрагмент",
+      "cancel": "Скасувати",
+      "save": "Зберегти",
+      "create": "Створити",
+      "name": "Назва",
+      "eGUpdatePackages": "напр. Оновити пакунки",
+      "content": "Вміст",
+      "descriptionOptional": "Опис (необов’язково)",
+      "shortDescription": "Короткий опис",
+      "folderOptional": "Тека (необов’язково)",
+      "selectFolder": "Обрати теку",
+      "noFolder": "Без теки",
+      "targetHostsOptional": "Цільові хости (необов’язково)",
+      "none": "Немає",
+      "note": "Примітка",
+      "pastedIntoTheTerminalWithout": "Вставлено в термінал без виконання",
+      "targetHosts": "Цільові хости",
+      "copy2": "Копіювати",
+      "edit": "Редагувати",
+      "runOnHosts2": "Виконати на хостах",
+      "delete2": "Видалити",
+      "deleteSnippet": "Видалити фрагмент",
+      "deleteThisCannotBeUndone": "Видалити «{{name}}»? Цю дію неможливо скасувати.",
+      "renameFolder2": "Перейменувати теку",
+      "rename": "Перейменувати",
+      "folderName": "Назва теки",
+      "eGSystem": "напр. Система",
+      "newFolder": "Нова тека",
+      "deleteFolder2": "Видалити теку",
+      "deleteSnippetsInThisFolder": "Видалити «{{name}}»? Фрагменти в цій теці стануть некатегоризованими."
+    },
+    "sync": {
+      "notYet": "Ще ні",
+      "justNow": "Щойно",
+      "stopped": "Зупинено",
+      "signInToThisServer": "Увійдіть на цей сервер знову, щоб синхронізувати",
+      "couldNotChangeThat": "Не вдалося змінити",
+      "sync": "Синхронізація",
+      "thisDeviceDoesNotSync": "Цей пристрій не синхронізується. Підключіть сервер Termix, щоб мати доступ до хостів з кількох пристроїв.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} синхронізує хости, облікові дані, фрагменти та налаштування з цим {{deviceWord}}. Копія зберігається на цьому {{deviceWord}}, тому працює навіть без інтернету.",
+      "lastSynced": "Остання синхронізація: {{value}}",
+      "live": "Онлайн",
+      "syncNow": "Синхронізувати зараз",
+      "fix": "Виправити",
+      "thisServerReadsLiveAnd": "Цей сервер працює в режимі реального часу і не зберігає копію на {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Увімкніть плагін Sync на сторінці плагінів сервера, а потім увійдіть знову, щоб зберегти копію на цьому {{deviceWord}}.",
+      "whatSyncs": "Що синхронізується",
+      "turnedOffThatDataStays": "Вимкнено, ці дані залишаться лише на цьому {{deviceWord}}.",
+      "conflicts": "Конфлікти",
+      "changedHereAndOnThe": "Змінено тут і на сервері одночасно. Збережено версію сервера.",
+      "useServer": "Використати сервер",
+      "keepMine": "Залишити мої",
+      "notSavedOnTheServer": "Не збережено на сервері",
+      "theServerRefusedTheseChanges": "Сервер відхилив ці зміни. Вони залишаться на цьому {{deviceWord}}.",
+      "tryAgain": "Спробувати ще раз",
+      "proxy": "Проксі",
+      "onlyNeededWhenAReverse": "Потрібно лише, якщо перед сервером стоїть зворотний проксі.",
+      "unlink": "Від’єднати",
+      "unlinkThisServer": "Від’єднати цей сервер",
+      "minAgo": "{{value}} хв. тому",
+      "signedOut": "Вийшли",
+      "waitingToSync": "Очікування синхронізації",
+      "synced": "Синхронізовано",
+      "syncing": "Синхронізація",
+      "offline": "Не в мережі"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Фон",
+        "text": "Текст",
+        "cursor": "Курсор",
+        "textUnderCursor": "Текст під курсором",
+        "selection": "Виділення",
+        "black": "Чорний",
+        "red": "Червоний",
+        "green": "Зелений",
+        "yellow": "Жовтий",
+        "blue": "Синій",
+        "magenta": "Пурпуровий",
+        "cyan": "Бірюзовий",
+        "white": "Білий",
+        "brightBlack": "Яскраво-чорний",
+        "brightRed": "Яскраво-червоний",
+        "brightGreen": "Яскраво-зелений",
+        "brightYellow": "Яскраво-жовтий",
+        "brightBlue": "Яскраво-синій",
+        "brightMagenta": "Яскраво-пурпуровий",
+        "brightCyan": "Яскраво-бірюзовий",
+        "brightWhite": "Яскраво-білий",
+        "customTheme": "Користувацька тема",
+        "colorsAsHexLike1e1e2e": "Кольори у шістнадцятковому форматі, наприклад #1e1e2e.",
+        "cancel": "Скасувати",
+        "save": "Зберегти",
+        "isNotAHexColor": "{{label}} не є шістнадцятковим кольором"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Компактний",
+      "default": "За замовчуванням",
+      "relaxed": "Розслаблений",
+      "spacious": "Просторий",
+      "none": "Немає",
+      "couldNotSave": "Не вдалося зберегти",
+      "pickASizeFromTo": "Оберіть розмір від {{MIN_FONT_SIZE}} до {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Налаштування терміналу скинуто",
+      "terminal": "Термінал",
+      "aHostCanSetIts": "Хост може встановити власну тему та курсор у Termix, які мають пріоритет над цими налаштуваннями.",
+      "theme": "Тема",
+      "custom": "Користувацька",
+      "font": "Шрифт",
+      "active": "Активний",
+      "sizeAndSpacing": "Розмір та інтервали",
+      "pinchTheTerminalToChange": "Щоб змінити розмір, також можна скористатися жестом щипка на терміналі. Великий текст у налаштуваннях {{deviceWord}} також збільшить його.",
+      "custom2": "Користувацький {{fontSize}}",
+      "lineHeight": "Висота рядка",
+      "letterSpacing": "Інтервал між літерами",
+      "ligatures": "Лігатури",
+      "cursor": "Курсор",
+      "blink": "Мерехтіння",
+      "bell": "Дзвінок",
+      "vibrate": "Вібрація",
+      "onTheBellAndWhen": "При дзвінку та при довгому натисканні для виділення",
+      "scrollback": "Прокрутка",
+      "linesKeptAboveTheScreen": "Кількість рядків, що зберігаються вище екрана. Стосується нових терміналів.",
+      "linksAndKeys": "Посилання та клавіші",
+      "askBeforeOpeningLinks": "Питати перед відкриттям посилань",
+      "doubleTapSendsTab": "Подвійне торкання надсилає Tab",
+      "longPressStillSelectsText": "Довге натискання все ще виділяє текст",
+      "optionSendsAlt": "Option надсилає Alt",
+      "onAHardwareKeyboardOff": "На фізичній клавіатурі. Вимкнено: символи вводяться як на Mac.",
+      "history": "Історія",
+      "suggestCommands": "Підказки команд",
+      "showsPastCommandsThatStart": "Минулі команди під час введення",
+      "resetToDefault": "Скинути до типових",
+      "fontSize": "Розмір шрифту",
+      "aSizeFromTo": "Розмір від {{MIN_FONT_SIZE}} до {{MAX_FONT_SIZE}}.",
+      "cancel": "Скасувати",
+      "apply": "Застосувати",
+      "resetTerminalSettings": "Скинути налаштування терміналу?",
+      "themeFontSizeCursorBell": "Тему, шрифт, розмір, курсор, сигнал дзвінка та інші параметри буде скинуто до типових.",
+      "reset": "Скинути",
+      "followsAppTheme": "Слідувати за темою додатка"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Не вдалося запустити налаштування 2FA",
+      "twoFactorAuthenticationEnabled": "Двофакторну аутентифікацію ввімкнено",
+      "invalidCodeTryAgain": "Невірний код, спробуйте ще раз",
+      "twoFactorAuthenticationDisabled": "Двофакторну аутентифікацію вимкнено",
+      "failedToDisable2fa": "Не вдалося вимкнути 2FA",
+      "failedToFetchBackupCodes": "Не вдалося отримати резервні коди",
+      "secretCopied": "Секрет скопійовано",
+      "backupCodesCopied": "Резервні коди скопійовано",
+      "twoFactorAuthentication": "Двофакторна аутентифікація",
+      "loading": "Завантаження…",
+      "scanThisQrCodeWith": "Відскануйте цей QR-код у додатку для аутентифікації (Google Authenticator, Authy тощо), а потім введіть 6-значний код для підтвердження.",
+      "verifyAmpEnable": "Перевірити та увімкнути",
+      "cancel": "Скасувати",
+      "saveYourBackupCodes": "Збережіть свої резервні коди",
+      "storeTheseSomewhereSafeEach": "Збережіть їх у безпечному місці. Кожен код можна використати лише один раз, якщо ви втратите доступ до свого додатка для аутентифікації.",
+      "copyAllCodes": "Скопіювати всі коди",
+      "done": "Готово",
+      "yourAccountIsProtectedWith": "Ваш обліковий запис захищений додатком для аутентифікації.",
+      "addAnExtraLayerOf": "Додайте додатковий рівень безпеки для свого облікового запису.",
+      "viewBackupCodes": "Переглянути резервні коди",
+      "disable2fa": "Вимкнути 2FA",
+      "enable2fa": "Увімкнути 2FA",
+      "disableTwoFactorAuthentication": "Вимкнути двофакторну аутентифікацію",
+      "enterACodeFromYour": "Введіть код із додатка для аутентифікації для підтвердження. Ви можете знову увімкнути 2FA у будь-який час.",
+      "enterYourPasswordToConfirm": "Введіть свій пароль для підтвердження. Ви можете знову увімкнути 2FA у будь-який час.",
+      "disable": "Вимкнути",
+      "yourPassword": "Ваш пароль",
+      "n2faIsEnabled": "2FA ввімкнено",
+      "n2faIsNotEnabled": "2FA не ввімкнено"
+    },
+    "language": {
+      "label": "Мова",
+      "description": "Додаток перезавантажиться для зміни",
+      "system": "Як на пристрої"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Тут немає SSH-хостів",
+      "couldNotReadWhatWas": "Не вдалося прочитати передані дані",
+      "stopTheUploads": "Зупинити завантаження?",
+      "stopAndLeave": "Зупинити та вийти",
+      "sendTo": "Надіслати на {{name}}",
+      "sendToAHost": "Надіслати на хост",
+      "nothingToSend": "Немає чого надсилати",
+      "close": "Закрити",
+      "done": "Готово",
+      "cancel": "Скасувати",
+      "uploadHere": "Завантажити сюди",
+      "uploadsStillGoing_one": "Ще йде завантаження {{count}} файлу. Вихід призупинить його.",
+      "uploadsStillGoing_few": "Ще йде завантаження {{count}} файлів. Вихід призупинить їх.",
+      "uploadsStillGoing_many": "Ще йде завантаження {{count}} файлів. Вихід призупинить їх.",
+      "uploadsStillGoing_other": "Ще йде завантаження {{count}} файлів. Вихід призупинить їх.",
+      "filesSize_one": "{{count}} файл | {{size}}",
+      "filesSize_few": "{{count}} файли | {{size}}",
+      "filesSize_many": "{{count}} файлів | {{size}}",
+      "filesSize_other": "{{count}} файлів | {{size}}",
+      "readingWhatWasShared": "Читання спільного доступу"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Помилка",
+      "worksWithoutAServer": "Працює без сервера",
+      "accountSwitch": "Обліковий запис {{account}}, перемкнути",
+      "search": "Пошук",
+      "notificationsUnread": "Сповіщення, {{unread}} непрочитаних",
+      "notifications": "Сповіщення",
+      "signedIn": "Увійдено",
+      "signedOut": "Вийдено",
+      "copyOnThis": "Копіювати на цей {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Головна",
+      "hosts": "Хости",
+      "sessions": "Сесії",
+      "tools": "Інструменти",
+      "settings": "Налаштування",
+      "open": "{{label}}, {{count}} відкрито"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} відкрито"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Оберіть хост",
+      "searchHosts": "Пошук хостів",
+      "clearSearch": "Очистити пошук",
+      "noHostsMatch": "Не знайдено відповідних хостів",
+      "noHostsCanUseThis": "Жоден хост не може цього використовувати",
+      "turnItOnForA": "Увімкніть це для хоста в редакторі хоста."
+    },
+    "noToolsHereYet": "Інструментів поки немає",
+    "onAHost": "На хості",
+    "saved": "Збережено",
+    "fromYourServer": "З вашого сервера"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Скасувати",
+      "delete": "Видалити",
+      "confirm": "Підтвердити"
+    },
+    "contextMenu": {
+      "closeMenu": "Закрити меню"
+    },
+    "inlineView": {
+      "back": "Назад"
+    },
+    "listRow": {
+      "moreActions": "Більше дій"
+    },
+    "pinPad": {
+      "useBiometrics": "Використовувати біометрію",
+      "delete": "Видалити"
+    },
+    "popover": {
+      "close": "Закрити"
+    },
+    "promptSheet": {
+      "cancel": "Скасувати"
+    },
+    "sheet": {
+      "close": "Закрити"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Цей ключ заблоковано. Введіть його парольну фразу.",
+      "thatPassphraseDoesnTOpen": "Ця парольна фраза не відкриває цей ключ.",
+      "thisDoesnTLookLike": "Це не схоже на приватний ключ.",
+      "loadedAndChangedItTo": "Завантажено {{name}} і змінено формат на OpenSSH",
+      "loadedItNeedsItsPassphrase": "Завантажено {{name}}. Для підключення потрібна парольна фраза"
+    },
+    "ago": {
+      "justNow": "щойно"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Не вдалося завантажити ваші хости.",
+      "failedOn": "{{name}} не вдалося на {{name2}}",
+      "on": "{{name}} на {{name2}}: {{value}}",
+      "ranOn": "Виконано {{name}} на {{name2}}",
+      "runOn": "Виконати \"{{name}}\" на",
+      "runSnippet": "Виконати фрагмент",
+      "loadingHosts": "Завантаження хостів…",
+      "noHostsAvailable": "Хости недоступні",
+      "addAHostInTermix": "Додайте хост у Termix, щоб виконувати фрагменти з головного екрана.",
+      "lastUsed": "Востаннє використано",
+      "failedToRunSnippet": "Не вдалося виконати фрагмент"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Цього фрагмента більше не існує.",
+      "couldNotOpenThatSnippet": "Не вдалося відкрити цей фрагмент.",
+      "thatHostNoLongerExists": "Цього хоста більше не існує.",
+      "couldNotOpenThatHost": "Не вдалося відкрити цей хост."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Головна"
+      },
+      "hosts": {
+        "hosts": "Хости"
+      },
+      "sessions": {
+        "sessions": "Сесії",
+        "connectToATermixServer": "Підключіться до сервера Termix, щоб відкривати термінали, тунелі та файлові сесії."
+      }
+    },
+    "layout": {
+      "initializing": "Ініціалізація…",
+      "cancel": "Скасувати"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Цей хост не має дійсної MAC-адреси.",
+    "thisBuildCanTSend": "Ця версія не може надсилати пакети Wake-on-LAN.",
+    "couldNotSendThePacket": "Не вдалося надіслати пакет. Переконайтеся, що Wi-Fi увімкнено."
+  },
+  "common": {
+    "hostCount_one": "{{count}} хост",
+    "hostCount_few": "{{count}} хости",
+    "hostCount_many": "{{count}} хостів",
+    "hostCount_other": "{{count}} хостів",
+    "device": {
+      "phone": "телефон",
+      "tablet": "планшет"
+    },
+    "thisDeviceLower": "цей {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Спільний доступ",
+    "action": "Надати доступ іншим",
+    "levels": {
+      "connect": "Підключення",
+      "view": "Перегляд",
+      "edit": "Редагування",
+      "manage": "Управління"
+    },
+    "levelHints": {
+      "connect": "Лише відкриття сесій. Налаштування хоста залишаються прихованими",
+      "view": "Підключення та перегляд налаштувань хоста. Секрети ніколи не відображаються",
+      "edit": "Перегляд та зміна налаштувань, крім облікових даних",
+      "manage": "Редагування, а також надання доступу до хоста та зміна або видалення доступу"
+    },
+    "until": "до {{date}}",
+    "sharedBy": "від {{name}}",
+    "couldNotLoad": "Не вдалося завантажити список користувачів із доступом",
+    "shared": "Доступ до хоста надано",
+    "couldNotShare": "Не вдалося надати доступ до хоста",
+    "updated": "Доступ змінено",
+    "couldNotUpdate": "Не вдалося змінити доступ",
+    "removeTitle": "Видалити {{name}}?",
+    "removeHint": "Цей користувач більше не зможе використовувати цей хост.",
+    "remove": "Видалити",
+    "removed": "Доступ видалено",
+    "couldNotRemove": "Не вдалося видалити доступ",
+    "whoHasAccess": "Хто має доступ",
+    "loading": "Завантаження...",
+    "nobodyYet": "Цей хост може використовувати лише ви.",
+    "changeAccessFor": "Змінити доступ для {{name}}",
+    "shareWith": "Надати доступ",
+    "users": "Користувачі",
+    "roles": "Ролі",
+    "searchUsers": "Пошук користувачів",
+    "searchRoles": "Пошук ролей",
+    "noUsers": "Немає інших користувачів для надання доступу.",
+    "noRoles": "Немає ролей для надання доступу.",
+    "options": "Доступ",
+    "level": "Рівень",
+    "expires": "Закінчується",
+    "expiry": {
+      "never": "Ніколи",
+      "1h": "Через 1 годину",
+      "1d": "Через 1 день",
+      "7d": "Через 7 днів",
+      "30d": "Через 30 днів"
+    },
+    "pickSomeone": "Оберіть, кому надати доступ",
+    "shareCount_one": "Надати доступ {{count}} користувачу",
+    "shareCount_few": "Надати доступ {{count}} користувачам",
+    "shareCount_many": "Надати доступ {{count}} користувачам",
+    "shareCount_other": "Надати доступ {{count}} користувачам",
+    "removeAccess": "Видалити доступ"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Сповіщення сервера",
+      "critical": "Критичні сповіщення сервера"
+    },
+    "severity": {
+      "info": "Усе",
+      "warning": "Попередження та важливіші",
+      "critical": "Тільки критичні"
+    },
+    "settings": {
+      "on": "Сповіщення відображаються на цьому телефоні",
+      "off": "Вимкнено",
+      "toggle": "Push-сповіщення для {{server}}",
+      "minSeverity": "Надсилати мені",
+      "denied": "Сповіщення для Termix вимкнено. Увімкніть їх у налаштуваннях телефону.",
+      "openSettings": "Відкрити налаштування",
+      "outdated": "Цей сервер потребує плагіна Alerts версії 1.4.0 або новішої для push-сповіщень. Попросіть адміністратора оновити плагін.",
+      "unavailable": "Увійдіть на цей сервер і увімкніть плагін Alerts, щоб отримувати сповіщення.",
+      "error": "Не вдалося зв'язатися з сервером. Termix спробує знову при наступному відкритті додатка.",
+      "notInThisBuild": "Ця збірка не підтримує сповіщення.",
+      "noServers": "Пов'яжіть сервер, щоб отримувати його сповіщення тут.",
+      "pushHint": "Сповіщення надсилаються через Expo та Apple або Google, із заголовком і текстом. Оберіть, які саме, у правилах Alerts на сервері.",
+      "pollHint": "Ця збірка не має сервісів Google, тому Termix перевіряє нові сповіщення у фоновому режимі приблизно кожні 15 хвилин."
+    }
+  }
+}

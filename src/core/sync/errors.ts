@@ -1,6 +1,8 @@
 import { AxiosError } from "axios";
 import { AppError } from "@/core/errors";
 import { isHtmlPayload } from "@/core/api/http";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /**
  * Why talking to a linked server failed, in the same terms as the desktop's
@@ -77,13 +79,13 @@ export function classifyRemoteError(error: unknown): SyncError {
     if (CLIENT_CERT_FAILURE.test(text)) {
       return new SyncError(
         "client_cert",
-        "The server did not accept this phone's certificate.",
+        t("sync.errors.theServerDidNotAccept", { deviceWord }),
       );
     }
     if (TLS_FAILURE.test(text) && error.code !== "ECONNABORTED") {
-      return new SyncError("tls", "The server's certificate is not trusted.");
+      return new SyncError("tls", t("sync.errors.theServerSCertificateIs"));
     }
-    return new SyncError("offline", "Can't reach the server.");
+    return new SyncError("offline", t("sync.errors.canTReachTheServer"));
   }
   const status = response.status;
   const data = response.data as unknown;
@@ -95,35 +97,43 @@ export function classifyRemoteError(error: unknown): SyncError {
 
   if (status === 401) {
     if (!page && data && typeof data === "object") {
-      return new SyncError("signed_out", serverMessage ?? "Signed out", {
-        status,
-        serverMessage,
-      });
+      return new SyncError(
+        "signed_out",
+        serverMessage ?? t("sync.errors.signedOut"),
+        {
+          status,
+          serverMessage,
+        },
+      );
     }
     if (/^basic/i.test(header(error, "www-authenticate"))) {
-      return new SyncError("basic_auth", "The proxy asked for its password.", {
+      return new SyncError("basic_auth", t("sync.errors.theProxyAskedForIts"), {
         status,
       });
     }
-    return new SyncError("proxy_login", "The proxy wants you to sign in.", {
+    return new SyncError("proxy_login", t("sync.errors.theProxyWantsYouTo"), {
       status,
     });
   }
   if (status === 404) {
-    return new SyncError("no_sync", "The Sync plugin is off on this server.", {
+    return new SyncError("no_sync", t("sync.errors.theSyncPluginIsOff"), {
       status,
       serverMessage,
     });
   }
   if (page || status === 302 || status === 303) {
-    return new SyncError("proxy_login", "The proxy wants you to sign in.", {
+    return new SyncError("proxy_login", t("sync.errors.theProxyWantsYouTo"), {
       status,
     });
   }
-  return new SyncError("server", serverMessage ?? `Server error ${status}`, {
-    status,
-    serverMessage,
-  });
+  return new SyncError(
+    "server",
+    serverMessage ?? t("sync.errors.serverError", { status }),
+    {
+      status,
+      serverMessage,
+    },
+  );
 }
 
 /** Problems a person has to fix. Anything else is retried on its own. */

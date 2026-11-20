@@ -100,6 +100,7 @@ import {
   type XtermTerminalApi,
 } from "./xterm/XtermTerminalView";
 import { XTERM_FALLBACK } from "./fallback";
+import { t } from "@/i18n";
 
 interface TerminalProps {
   host: SSHHost;
@@ -110,6 +111,8 @@ interface TerminalProps {
   origin?: ConnectionOrigin;
   /** Telnet instead of SSH. */
   protocol?: ShellProtocol;
+  /** Telnet only: opens the host in the server's view instead. */
+  onUseServer?: () => void;
   isVisible: boolean;
   title?: string;
   onClose?: () => void;
@@ -146,6 +149,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       type,
       origin,
       protocol,
+      onUseServer,
       isVisible,
       onClose,
       onBackgroundColorChange,
@@ -233,7 +237,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         });
         if (!password) {
           watcherRef.current?.settle(false);
-          showToast.warning("No saved password for this host");
+          showToast.warning(t("terminal.noSavedPasswordForThis"));
           return;
         }
         // Straight to the host, so it never reaches history.
@@ -472,7 +476,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           parseSessions(found.stdout).some((x) => x.name === tmuxName)
         ) {
           conn.sendNow(`${attachLine(tmuxName, false)}\r`);
-          writeNote(`Back in tmux session ${tmuxName}`);
+          writeNote(t("terminal.backInTmuxSession", { tmuxName }));
           restoredFirst.current = false;
           setTimeout(() => connRef.current?.flushInput(), 800);
           return;
@@ -487,7 +491,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           : undefined;
         if (found?.exitCode === 0 && match) {
           conn.sendNow(`${screenAttachLine(match.id, false)}\r`);
-          writeNote(`Back in screen session ${match.name}`);
+          writeNote(t("terminal.backInScreenSession", { name: match.name }));
           restoredFirst.current = false;
           setTimeout(() => connRef.current?.flushInput(), 800);
           return;
@@ -495,10 +499,10 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       }
       writeNote(
         !local
-          ? "The server session ended. This is a new shell."
+          ? t("terminal.theServerSessionEndedThis")
           : restoredFirst.current
-            ? "Termix was closed, so the old shell ended. This is a new shell."
-            : "The connection dropped and the old shell ended. This is a new shell.",
+            ? t("terminal.termixWasClosedSoThe")
+            : t("terminal.theConnectionDroppedAndThe"),
       );
       restoredFirst.current = false;
       rememberSession(null, null);
@@ -528,6 +532,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
         type,
         origin,
         protocol,
+        onUseServer,
         tabInstanceId,
         initialSessionId,
         restored,
@@ -573,7 +578,7 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
           }),
         onDisconnected: (hostName) => {
           // The shell ended on purpose (exit, or the server ended it).
-          showToast.warning(`Disconnected from ${hostName}`);
+          showToast.warning(t("terminal.disconnectedFrom", { hostName }));
           onClose?.();
         },
       });
@@ -817,6 +822,9 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
       ref,
       () => ({
         sendInput,
+        sendKeySequence: XTERM_FALLBACK
+          ? (data: string) => xtermRef.current?.sendKeySequence(data)
+          : undefined,
         fit: () => {
           // The native view follows its own size.
           if (XTERM_FALLBACK) xtermRef.current?.fit();
@@ -959,12 +967,12 @@ const TerminalComponent = forwardRef<TerminalHandle, TerminalProps>(
               >
                 {(state.status === "connecting" && state.retry > 0) ||
                 state.status === "reconnecting"
-                  ? "Reconnecting..."
+                  ? t("terminal.reconnecting")
                   : state.status === "offline"
-                    ? "Waiting for network..."
+                    ? t("terminal.waitingForNetwork")
                     : state.status === "prompt"
-                      ? "Waiting for you..."
-                      : "Connecting..."}
+                      ? t("terminal.waitingForYou")
+                      : t("terminal.connecting")}
               </Text>
               <Text
                 style={{

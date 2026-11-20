@@ -16,6 +16,7 @@ import {
 } from "./utils/fileUtils";
 import type { TrashItem } from "@/core/api/types";
 import type { TrashApi } from "./backend/types";
+import { t } from "@/i18n";
 
 /**
  * Deleted files go to the host's trash rather than away, so this lists them
@@ -45,7 +46,7 @@ export function TrashView({
       setItems(res.items);
       setRetentionDays(res.retentionDays);
     } catch (e: any) {
-      toast.error(e?.message || "Failed to load trash");
+      toast.error(e?.message || t("fileManager.trashView.failedToLoadTrash"));
     } finally {
       setLoading(false);
     }
@@ -59,11 +60,11 @@ export function TrashView({
     setBusyId(item.id);
     try {
       await trash.restore(item.id);
-      toast.success(`Restored ${item.name}`);
+      toast.success(t("fileManager.trashView.restored", { name: item.name }));
       setItems((prev) => prev.filter((i) => i.id !== item.id));
       onRestored();
     } catch (e: any) {
-      toast.error(e?.message || "Failed to restore");
+      toast.error(e?.message || t("fileManager.trashView.failedToRestore"));
     } finally {
       setBusyId(null);
     }
@@ -75,7 +76,7 @@ export function TrashView({
       await trash.remove(item.id);
       setItems((prev) => prev.filter((i) => i.id !== item.id));
     } catch (e: any) {
-      toast.error(e?.message || "Failed to delete");
+      toast.error(e?.message || t("fileManager.trashView.failedToDelete"));
     } finally {
       setBusyId(null);
     }
@@ -86,9 +87,9 @@ export function TrashView({
     try {
       await trash.empty();
       setItems([]);
-      toast.success("Trash emptied");
+      toast.success(t("fileManager.trashView.trashEmptied"));
     } catch (e: any) {
-      toast.error(e?.message || "Failed to empty trash");
+      toast.error(e?.message || t("fileManager.trashView.failedToEmptyTrash"));
     } finally {
       setLoading(false);
     }
@@ -99,17 +100,19 @@ export function TrashView({
       scroll
       visible={visible}
       onClose={onClose}
-      title="Trash"
+      title={t("fileManager.trashView.trash")}
       description={
         retentionDays > 0
-          ? `Items are removed after ${retentionDays} days`
+          ? t("fileManager.trashView.itemsAreRemovedAfterDays", {
+              retentionDays,
+            })
           : undefined
       }
       icon={<Trash2 size={18} color={color("foreground")} />}
       footer={
         <View style={{ flexDirection: "row", gap: 8 }}>
           <Button variant="ghost" size="sm" onPress={onClose}>
-            Close
+            {t("fileManager.trashView.close")}
           </Button>
           <Button
             variant="destructive"
@@ -117,7 +120,7 @@ export function TrashView({
             disabled={items.length === 0 || loading}
             onPress={empty}
           >
-            Empty Trash
+            {t("fileManager.trashView.emptyTrash")}
           </Button>
         </View>
       }
@@ -129,7 +132,7 @@ export function TrashView({
           </View>
         ) : items.length === 0 ? (
           <Text className="py-6 text-center text-sm text-muted-foreground">
-            Trash is empty
+            {t("fileManager.trashView.trashIsEmpty")}
           </Text>
         ) : (
           <View>
@@ -171,7 +174,9 @@ export function TrashView({
                 </View>
                 <Pressable
                   accessibilityRole="button"
-                  accessibilityLabel={`Restore ${item.name}`}
+                  accessibilityLabel={t("fileManager.trashView.restore", {
+                    name: item.name,
+                  })}
                   onPress={() => restore(item)}
                   disabled={busyId === item.id}
                   hitSlop={6}
@@ -181,7 +186,9 @@ export function TrashView({
                 </Pressable>
                 <Pressable
                   accessibilityRole="button"
-                  accessibilityLabel={`Delete ${item.name} for good`}
+                  accessibilityLabel={t("fileManager.trashView.deleteForGood", {
+                    name: item.name,
+                  })}
                   onPress={() => purge(item)}
                   disabled={busyId === item.id}
                   hitSlop={6}

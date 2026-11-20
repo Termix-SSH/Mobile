@@ -27,11 +27,23 @@ function findSdk() {
     candidates.push(resolve(root, process.env.TERMIX_SDK_DIR));
   }
   try {
+    // SDK 2 exports no package.json, so step up from the frame host file.
+    candidates.push(
+      join(
+        dirname(appRequire.resolve("@termix-ssh/plugin-sdk/frame-host")),
+        "..",
+        "..",
+      ),
+    );
+  } catch {
+    // Not installed.
+  }
+  try {
     candidates.push(
       dirname(appRequire.resolve("@termix-ssh/plugin-sdk/package.json")),
     );
   } catch {
-    // Not installed.
+    // Older SDKs only.
   }
   return (
     candidates.find((dir) =>

@@ -5,6 +5,7 @@ import { Sheet, SheetBody, Input, Button, Text, Tabs } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { SessionAuthOverrides } from "@/types";
 import type { SessionConnectState } from "./useSessionConnect";
+import { t as tr } from "@/i18n";
 
 function useTotpCountdown() {
   const [secondsLeft, setSecondsLeft] = useState(
@@ -126,12 +127,12 @@ export function AuthDialogs({
         visible={state === "totp"}
         onClose={onCancel}
         icon={<ShieldCheck size={22} color={color("accent-brand")} />}
-        title="Two-Factor Authentication"
-        description="Enter the 6-digit code from your authenticator app."
+        title={tr("sessions.shared.authDialogs.twoFactorAuthentication")}
+        description={tr("sessions.shared.authDialogs.enterThe6DigitCode")}
         footer={
           <View className="flex-row gap-2">
             <Button variant="muted" className="flex-1" onPress={onCancel}>
-              Cancel
+              {tr("sessions.shared.authDialogs.cancel")}
             </Button>
             <Button
               variant="default"
@@ -140,7 +141,7 @@ export function AuthDialogs({
               loading={totpBusy}
               disabled={code.trim().length < 6}
             >
-              Verify
+              {tr("sessions.shared.authDialogs.verify")}
             </Button>
           </View>
         }
@@ -167,7 +168,9 @@ export function AuthDialogs({
               className={`text-xs ${totpExpiringSoon ? "text-destructive-text" : "text-muted-foreground"}`}
             >
               {totpExpiringSoon
-                ? `Code expires in ${totpCountdown}s, get a fresh code`
+                ? tr("sessions.shared.authDialogs.codeExpiresInSGet", {
+                    totpCountdown,
+                  })
                 : `${totpCountdown}s remaining`}
             </Text>
           </View>
@@ -185,12 +188,14 @@ export function AuthDialogs({
         visible={state === "warpgate"}
         onClose={onCancel}
         icon={<KeyRound size={22} color={color("accent-brand")} />}
-        title="Warpgate Authentication"
-        description="Confirm the Warpgate authentication URL and security key."
+        title={tr("sessions.shared.authDialogs.warpgateAuthentication")}
+        description={tr(
+          "sessions.shared.authDialogs.confirmTheWarpgateAuthenticationUrl",
+        )}
         footer={
           <View className="flex-row gap-2">
             <Button variant="muted" className="flex-1" onPress={onCancel}>
-              Cancel
+              {tr("sessions.shared.authDialogs.cancel")}
             </Button>
             <Button
               variant="default"
@@ -199,7 +204,7 @@ export function AuthDialogs({
               loading={wgBusy}
               disabled={!wgUrl.trim()}
             >
-              Authenticate
+              {tr("sessions.shared.authDialogs.authenticate")}
             </Button>
           </View>
         }
@@ -209,13 +214,15 @@ export function AuthDialogs({
             <Input
               value={wgUrl}
               onChangeText={setWgUrl}
-              placeholder="Warpgate URL"
+              placeholder={tr("sessions.shared.authDialogs.warpgateUrl")}
               autoCapitalize="none"
             />
             <Input
               value={wgKey}
               onChangeText={setWgKey}
-              placeholder="Security key (optional)"
+              placeholder={tr(
+                "sessions.shared.authDialogs.securityKeyOptional",
+              )}
               autoCapitalize="none"
               secureTextEntry
             />
@@ -234,12 +241,14 @@ export function AuthDialogs({
         visible={state === "auth"}
         onClose={onCancel}
         icon={<Lock size={22} color={color("accent-brand")} />}
-        title="Authentication Required"
-        description="This host needs credentials to connect."
+        title={tr("sessions.shared.authDialogs.authenticationRequired")}
+        description={tr(
+          "sessions.shared.authDialogs.thisHostNeedsCredentialsTo",
+        )}
         footer={
           <View className="flex-row gap-2">
             <Button variant="muted" className="flex-1" onPress={onCancel}>
-              Cancel
+              {tr("sessions.shared.authDialogs.cancel")}
             </Button>
             <Button
               variant="default"
@@ -250,7 +259,7 @@ export function AuthDialogs({
                 authMethod === "password" ? !authPassword : !authKey.trim()
               }
             >
-              Connect
+              {tr("sessions.shared.authDialogs.connect")}
             </Button>
           </View>
         }
@@ -258,8 +267,11 @@ export function AuthDialogs({
         <SheetBody>
           <Tabs<"password" | "key">
             options={[
-              { id: "password", label: "Password" },
-              { id: "key", label: "SSH Key" },
+              {
+                id: "password",
+                label: tr("sessions.shared.authDialogs.password"),
+              },
+              { id: "key", label: tr("sessions.shared.authDialogs.sshKey") },
             ]}
             value={authMethod}
             onChange={setAuthMethod}
@@ -269,7 +281,7 @@ export function AuthDialogs({
             <Input
               value={authPassword}
               onChangeText={setAuthPassword}
-              placeholder="Password"
+              placeholder={tr("sessions.shared.authDialogs.password")}
               secureTextEntry
               autoCapitalize="none"
               autoFocus
@@ -279,7 +291,7 @@ export function AuthDialogs({
               <Input
                 value={authKey}
                 onChangeText={setAuthKey}
-                placeholder="Paste private key"
+                placeholder={tr("sessions.shared.authDialogs.pastePrivateKey")}
                 multiline
                 numberOfLines={4}
                 autoCapitalize="none"
@@ -288,7 +300,9 @@ export function AuthDialogs({
               <Input
                 value={authKeyPassword}
                 onChangeText={setAuthKeyPassword}
-                placeholder="Key passphrase (optional)"
+                placeholder={tr(
+                  "sessions.shared.authDialogs.keyPassphraseOptional",
+                )}
                 secureTextEntry
                 autoCapitalize="none"
               />

@@ -14,6 +14,7 @@ import {
   snippetImportSummary,
   type SnippetImportResult,
 } from "./transfer";
+import { t } from "@/i18n";
 
 /** Import and export the snippets of the active account as a JSON file. */
 export function SnippetTransferSheet({
@@ -34,7 +35,7 @@ export function SnippetTransferSheet({
       repos.snippetFolders.list(),
     ]);
     if (snippets.length === 0 && folders.length === 0) {
-      toast.error("There are no snippets to export");
+      toast.error(t("snippets.snippetTransferSheet.thereAreNoSnippetsTo"));
       return null;
     }
     return JSON.stringify(buildSnippetExport(snippets, folders), null, 2);
@@ -48,10 +49,12 @@ export function SnippetTransferSheet({
       const day = new Date().toISOString().slice(0, 10);
       await shareTempFile(`termix-snippets-${day}.json`, text, {
         mimeType: "application/json",
-        dialogTitle: "Save your snippets",
+        dialogTitle: t("snippets.snippetTransferSheet.saveYourSnippets"),
       });
     } catch (e: any) {
-      toast.error(e?.message || "Could not make the file");
+      toast.error(
+        e?.message || t("snippets.snippetTransferSheet.couldNotMakeTheFile"),
+      );
     } finally {
       setBusy(false);
     }
@@ -61,7 +64,7 @@ export function SnippetTransferSheet({
     const text = await exportText();
     if (!text) return;
     await Clipboard.setStringAsync(text);
-    toast.success("Copied to the clipboard");
+    toast.success(t("snippets.snippetTransferSheet.copiedToTheClipboard"));
   };
 
   const importText = async (text: string) => {
@@ -75,7 +78,9 @@ export function SnippetTransferSheet({
         toast.success(snippetImportSummary(res));
       }
     } catch (e: any) {
-      toast.error(e?.message || "Could not import");
+      toast.error(
+        e?.message || t("snippets.snippetTransferSheet.couldNotImport"),
+      );
     } finally {
       setBusy(false);
     }
@@ -90,7 +95,7 @@ export function SnippetTransferSheet({
       if (res.canceled || !res.assets?.[0]) return;
       await importText(await readLocalText(res.assets[0].uri));
     } catch {
-      toast.error("Could not read that file");
+      toast.error(t("snippets.snippetTransferSheet.couldNotReadThatFile"));
     }
   };
 
@@ -102,16 +107,16 @@ export function SnippetTransferSheet({
         setResult(null);
         onClose();
       }}
-      title="Import and export"
-      description="The same file the web app uses."
+      title={t("snippets.snippetTransferSheet.importAndExport")}
+      description={t("snippets.snippetTransferSheet.theSameFileTheWeb")}
     >
       <SheetBody>
         <Text weight="medium" className="text-row text-foreground">
-          Export
+          {t("snippets.snippetTransferSheet.export")}
         </Text>
         <View className="flex-row gap-2">
           <Button size="sm" disabled={busy} onPress={() => void shareFile()}>
-            Share a file
+            {t("snippets.snippetTransferSheet.shareAFile")}
           </Button>
           <Button
             variant="muted"
@@ -119,21 +124,23 @@ export function SnippetTransferSheet({
             disabled={busy}
             onPress={() => void copy()}
           >
-            Copy
+            {t("snippets.snippetTransferSheet.copy")}
           </Button>
         </View>
         <Text weight="medium" className="mt-2 text-row text-foreground">
-          Import
+          {t("snippets.snippetTransferSheet.import")}
         </Text>
         <SettingRow
-          label="Update snippets that exist"
-          description="Same name in the same folder. Otherwise they are skipped"
+          label={t("snippets.snippetTransferSheet.updateSnippetsThatExist")}
+          description={t("snippets.snippetTransferSheet.sameNameInTheSame")}
           last
         >
           <FakeSwitch
             checked={overwrite}
             onChange={setOverwrite}
-            accessibilityLabel="Update snippets that exist"
+            accessibilityLabel={t(
+              "snippets.snippetTransferSheet.updateSnippetsThatExist",
+            )}
           />
         </SettingRow>
         <View className="flex-row gap-2">
@@ -143,7 +150,7 @@ export function SnippetTransferSheet({
             disabled={busy}
             onPress={() => void chooseFile()}
           >
-            Choose a file
+            {t("snippets.snippetTransferSheet.chooseAFile")}
           </Button>
           <Button
             variant="muted"
@@ -153,7 +160,7 @@ export function SnippetTransferSheet({
               void importText(await Clipboard.getStringAsync())
             }
           >
-            Paste
+            {t("snippets.snippetTransferSheet.paste")}
           </Button>
         </View>
         {result ? (

@@ -11,6 +11,7 @@ import {
   useSettingsGroups,
   type SettingsItemDef,
 } from "./schema";
+import { t } from "@/i18n";
 
 function ItemRow({ item }: { item: SettingsItemDef }) {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function Settings() {
   const searching = query.trim().length > 0;
 
   return (
-    <Screen title="Settings">
+    <Screen title={t("settings.settings")}>
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ padding: 12, gap: 16, paddingBottom: 40 }}
@@ -47,12 +48,12 @@ export default function Settings() {
         <Input
           value={query}
           onChangeText={setQuery}
-          placeholder="Search settings"
+          placeholder={t("settings.searchSettings")}
           autoCapitalize="none"
           autoCorrect={false}
           returnKeyType="search"
           leading={<Search size={15} color={color("muted-foreground")} />}
-          accessibilityLabel="Search settings"
+          accessibilityLabel={t("settings.searchSettings")}
         />
 
         {searching ? (
@@ -72,7 +73,7 @@ export default function Settings() {
             </View>
           ) : (
             <Text className="py-6 text-center text-xs text-muted-foreground">
-              No settings match.
+              {t("settings.noSettingsMatch")}
             </Text>
           )
         ) : (
@@ -105,7 +106,9 @@ export default function Settings() {
         )}
 
         <Text className="text-center text-meta text-muted-foreground">
-          {appVersion ? `Termix Mobile v${appVersion}` : "Termix Mobile"}
+          {appVersion
+            ? t("settings.termixMobileV", { appVersion })
+            : t("settings.termixMobile")}
         </Text>
       </ScrollView>
     </Screen>

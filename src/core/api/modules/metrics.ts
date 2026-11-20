@@ -5,6 +5,7 @@ import type {
   ServerMetrics,
   LoginStatsMetrics,
 } from "@/types/index";
+import { t } from "@/i18n";
 
 export function createMetricsApi(c: AccountClient) {
   // 2.9 adds "reachable" (port answers, login failed). The UI only knows
@@ -143,7 +144,10 @@ export function createMetricsApi(c: AccountClient) {
       return response.data ?? null;
     } catch (error: any) {
       const code = error?.response?.data?.code;
-      throw Object.assign(new Error("Live sample failed"), { code });
+      throw Object.assign(
+        new Error(t("api.modules.metrics.liveSampleFailed")),
+        { code },
+      );
     }
   }
 

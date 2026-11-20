@@ -65,6 +65,11 @@ export function useHostBadges() {
   return useMemo(() => features.hostBadges(ctx), [ctx]);
 }
 
+export function useHostRowData() {
+  const ctx = useFeatureContext();
+  return useMemo(() => features.hostRowData(ctx), [ctx]);
+}
+
 export function useHostFilters() {
   const ctx = useFeatureContext();
   return useMemo(() => features.hostFilters(ctx), [ctx]);
@@ -79,6 +84,12 @@ export function useSettingsLinks() {
 export function useQuickActions() {
   const ctx = useFeatureContext();
   return useMemo(() => ({ ctx, actions: features.quickActions(ctx) }), [ctx]);
+}
+
+/** Cards features add to the Home dashboard. */
+export function useHomeCards() {
+  const ctx = useFeatureContext();
+  return useMemo(() => ({ ctx, cards: features.homeCards(ctx) }), [ctx]);
 }
 
 /** Rows for the Tools tab. */

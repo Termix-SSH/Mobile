@@ -98,3 +98,12 @@ enum ClientIdentity {
     return URLCredential(identity: identity, certificates: chain.isEmpty ? nil : chain, persistence: .forSession)
   }
 }
+
+// Web views can't link this module, so they find it by name.
+@objc(TermixClientIdentity)
+public class WebClientIdentity: NSObject {
+  @objc(credentialForHost:)
+  public static func credential(forHost host: String) -> URLCredential? {
+    ClientIdentity.credential(host: host)
+  }
+}

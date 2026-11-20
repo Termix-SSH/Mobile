@@ -1,5 +1,5 @@
 import { AccountStore } from "@/core/accounts/store";
-import { LOCAL_ACCOUNT_ID, accountLabel } from "@/core/accounts/types";
+import { LOCAL_ACCOUNT_ID, accountLabelAmong } from "@/core/accounts/types";
 import { plainStore, accountStorage } from "@/core/storage/kv";
 import { resetStorage } from "../../helpers/http";
 
@@ -19,7 +19,7 @@ test("a fresh install has only This device, and it is active", async () => {
   expect(s.list().map((a) => a.id)).toEqual([LOCAL_ACCOUNT_ID]);
   expect(s.active().kind).toBe("local");
   expect(s.activeClient()).toBeNull();
-  expect(accountLabel(s.active())).toBe("This device");
+  expect(accountLabelAmong(s.active())).toBe("This device");
 });
 
 test("adding a server does not switch to it", async () => {

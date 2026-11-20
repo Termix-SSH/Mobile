@@ -1,6 +1,7 @@
 import { Pressable, View, type PressableProps } from "react-native";
 import { useUiPrefs } from "@/core/ui-prefs";
 import { Text } from "./Text";
+import { t } from "@/i18n";
 
 export type ListRowTone =
   "brand" | "muted" | "success" | "warning" | "destructive" | "none";
@@ -76,7 +77,9 @@ export function ListRow({
       accessibilityState={{ selected: !!selected }}
       // A screen reader has no long press, so it gets a named action.
       accessibilityActions={
-        onLongPress ? [{ name: "longpress", label: "More actions" }] : undefined
+        onLongPress
+          ? [{ name: "longpress", label: t("ui.listRow.moreActions") }]
+          : undefined
       }
       onAccessibilityAction={
         onLongPress

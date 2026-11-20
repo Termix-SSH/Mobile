@@ -18,6 +18,7 @@ import {
   type ImportFile,
   type ImportRow,
 } from "@/core/hosts/transfer/termix-json";
+import { t } from "@/i18n";
 
 export type ImportSource =
   | { kind: "termix"; file: ImportFile }
@@ -27,20 +28,25 @@ export type ImportSource =
 /** What a person gets told about a source before it is imported. */
 export function describeSource(source: ImportSource): string {
   if (source.kind === "link") {
-    return `1 host: ${source.shared.name || source.shared.ip}`;
+    return t("hostTransfer.read.linkHost", {
+      name: source.shared.name || source.shared.ip,
+    });
   }
   const count = source.file.rows.length;
-  const what = source.kind === "termix" ? "Termix file" : "SSH config";
-  return `${what} with ${count} ${count === 1 ? "host" : "hosts"}`;
+  const what =
+    source.kind === "termix"
+      ? t("hostTransfer.read.termixFile")
+      : t("hostTransfer.read.sshConfig");
+  return t("hostTransfer.read.sourceHosts", { what, count });
 }
 
 /** Reads text from a file, the clipboard or a QR code. Throws a plain message. */
 export function readImportText(text: string): ImportSource {
   const trimmed = text.trim();
-  if (!trimmed) throw new Error("There is nothing to import");
+  if (!trimmed) throw new Error(t("hostTransfer.read.thereIsNothingToImport"));
   if (trimmed.startsWith(SHARE_PREFIX)) {
     const shared = decodeHostShare(trimmed);
-    if (!shared) throw new Error("That is not a Termix host link");
+    if (!shared) throw new Error(t("hostTransfer.read.thatIsNotATermix"));
     return { kind: "link", shared };
   }
   if (trimmed.startsWith("{") || trimmed.startsWith("[")) {

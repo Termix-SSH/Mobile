@@ -7,6 +7,7 @@
  */
 
 import { blend, readableOn } from "./contrast";
+import { t } from "@/i18n";
 
 export type ThemeId =
   | "system"
@@ -459,9 +460,9 @@ export function tripletToHex(triplet: string): string {
 }
 
 export const THEME_LABELS: Record<ThemeId, string> = {
-  system: "System",
-  light: "Light",
-  dark: "Dark",
+  system: t("constants.theme.system"),
+  light: t("constants.theme.light"),
+  dark: t("constants.theme.dark"),
   dracula: "Dracula",
   catppuccin: "Catppuccin",
   nord: "Nord",
@@ -473,18 +474,18 @@ export const THEME_LABELS: Record<ThemeId, string> = {
 
 /** 12 accent presets - identical set + order to the web app. */
 export const ACCENT_PRESET_COLORS = [
-  { label: "Orange", value: "#f59145" },
-  { label: "Blue", value: "#3b82f6" },
-  { label: "Green", value: "#22c55e" },
-  { label: "Purple", value: "#a855f7" },
-  { label: "Pink", value: "#ec4899" },
-  { label: "Cyan", value: "#06b6d4" },
-  { label: "Red", value: "#ef4444" },
-  { label: "Yellow", value: "#eab308" },
-  { label: "Teal", value: "#14b8a6" },
-  { label: "Indigo", value: "#6366f1" },
-  { label: "Rose", value: "#f43f5e" },
-  { label: "Lime", value: "#84cc16" },
+  { label: t("constants.theme.orange"), value: "#f59145" },
+  { label: t("constants.theme.blue"), value: "#3b82f6" },
+  { label: t("constants.theme.green"), value: "#22c55e" },
+  { label: t("constants.theme.purple"), value: "#a855f7" },
+  { label: t("constants.theme.pink"), value: "#ec4899" },
+  { label: t("constants.theme.cyan"), value: "#06b6d4" },
+  { label: t("constants.theme.red"), value: "#ef4444" },
+  { label: t("constants.theme.yellow"), value: "#eab308" },
+  { label: t("constants.theme.teal"), value: "#14b8a6" },
+  { label: t("constants.theme.indigo"), value: "#6366f1" },
+  { label: t("constants.theme.rose"), value: "#f43f5e" },
+  { label: t("constants.theme.lime"), value: "#84cc16" },
 ];
 
 export const DEFAULT_ACCENT = "#f59145";

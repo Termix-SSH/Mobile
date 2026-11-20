@@ -1,7 +1,7 @@
 import { Platform, Pressable, View } from "react-native";
 import { Image } from "expo-image";
 import { useVideoPlayer, VideoView } from "expo-video";
-import { WebView } from "react-native-webview";
+import { WebView } from "@/ui/web-view";
 import { ExternalLink, Share2 } from "lucide-react-native";
 import { InlineView } from "@/ui";
 import { useUiColors } from "@/contexts/ThemeContext";
@@ -9,6 +9,7 @@ import { toUserMessage } from "@/core/errors";
 import { toast } from "@/utils/toast";
 import { openWith, shareFile } from "./transfers/device";
 import { isImageFile, isPdfFile, isVideoFile } from "./utils/fileUtils";
+import { t } from "@/i18n";
 
 export type PreviewKind = "image" | "video" | "pdf";
 
@@ -55,7 +56,11 @@ export function PreviewView({
   const colors = useUiColors();
   const uri = fileUri(localPath);
   const run = (fn: () => Promise<void>) => () =>
-    void fn().catch((e) => toast.error(toUserMessage(e, "Could not open it")));
+    void fn().catch((e) =>
+      toast.error(
+        toUserMessage(e, t("fileManager.previewView.couldNotOpenIt")),
+      ),
+    );
 
   return (
     <InlineView
@@ -69,7 +74,7 @@ export function PreviewView({
           <Pressable
             onPress={run(() => openWith(localPath, name))}
             accessibilityRole="button"
-            accessibilityLabel="Open with"
+            accessibilityLabel={t("fileManager.previewView.openWith")}
             className="h-10 w-10 items-center justify-center active:bg-muted"
           >
             <ExternalLink size={17} color={colors.text} />
@@ -77,7 +82,7 @@ export function PreviewView({
           <Pressable
             onPress={run(() => shareFile(localPath, name))}
             accessibilityRole="button"
-            accessibilityLabel="Share"
+            accessibilityLabel={t("fileManager.previewView.share")}
             className="h-10 w-10 items-center justify-center active:bg-muted"
           >
             <Share2 size={17} color={colors.text} />

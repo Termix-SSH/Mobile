@@ -7,6 +7,7 @@ import { ConnectionLog } from "./useConnectionLog";
 import { ConnectionError } from "./ConnectionError";
 import type { ConnectFailure } from "@/core/transport";
 import type { ConnectionLogEntry } from "@/types";
+import { t } from "@/i18n";
 
 export type SessionFrameStatus = "loading" | "ready" | "error" | "empty";
 
@@ -28,7 +29,7 @@ export function SessionFrame({
   loadingLabel = "Connecting…",
   errorMessage,
   failure,
-  emptyMessage = "Nothing to show",
+  emptyMessage = t("sessions.shared.sessionFrame.nothingToShow"),
   emptyIcon,
   onRetry,
   logEntries,
@@ -104,7 +105,8 @@ export function SessionFrame({
         <View className="flex-1 items-center justify-center gap-3 px-8">
           <AlertCircle size={36} color={color("destructive")} />
           <Text className="text-center text-sm leading-5 text-muted-foreground">
-            {errorMessage || "Something went wrong"}
+            {errorMessage ||
+              t("sessions.shared.sessionFrame.somethingWentWrong")}
           </Text>
           {onRetry ? (
             <Button
@@ -113,7 +115,7 @@ export function SessionFrame({
               icon={<RotateCcw size={14} color={color("foreground")} />}
               onPress={onRetry}
             >
-              Retry
+              {t("sessions.shared.sessionFrame.retry")}
             </Button>
           ) : null}
         </View>
@@ -132,7 +134,7 @@ export function SessionFrame({
               icon={<RotateCcw size={14} color={color("foreground")} />}
               onPress={onRetry}
             >
-              Refresh
+              {t("sessions.shared.sessionFrame.refresh")}
             </Button>
           ) : null}
         </View>

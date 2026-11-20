@@ -1,6 +1,7 @@
 // Snippet files, in the same JSON Plugin-Snippets exports and imports.
 import type { DataRepositories } from "@/core/data/types";
 import type { Snippet, SnippetFolder } from "@/types";
+import { t } from "@/i18n";
 
 export interface SnippetEntry {
   name: string;
@@ -65,12 +66,12 @@ export function parseSnippetFile(source: string): SnippetFile {
   try {
     data = JSON.parse(source);
   } catch {
-    throw new Error("That is not a valid JSON file");
+    throw new Error(t("snippets.transfer.thatIsNotAValid"));
   }
   const rawSnippets = Array.isArray(data) ? data : data?.snippets;
   const rawFolders = Array.isArray(data) ? [] : data?.folders;
   if (!Array.isArray(rawSnippets) && !Array.isArray(rawFolders)) {
-    throw new Error("The file needs a snippets or folders list");
+    throw new Error(t("snippets.transfer.theFileNeedsASnippets"));
   }
   const out: SnippetFile = { snippets: [], folders: [], errors: [] };
   (Array.isArray(rawSnippets) ? rawSnippets : []).forEach(
@@ -79,7 +80,9 @@ export function parseSnippetFile(source: string): SnippetFile {
       const content =
         typeof raw?.content === "string" ? raw.content.trim() : "";
       if (!name || !content) {
-        out.errors.push(`Snippet ${i + 1}: name and content are required`);
+        out.errors.push(
+          t("snippets.transfer.snippetNameAndContentAre", { value: i + 1 }),
+        );
         return;
       }
       out.snippets.push({
@@ -147,7 +150,10 @@ export async function importSnippetFile(
       result.foldersCreated++;
     } catch (error) {
       result.errors.push(
-        `Folder ${folder.name}: ${error instanceof Error ? error.message : error}`,
+        t("snippets.transfer.folder", {
+          name: folder.name,
+          value: error instanceof Error ? error.message : error,
+        }),
       );
     }
   }

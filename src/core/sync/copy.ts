@@ -9,6 +9,7 @@ import {
 } from "@/core/db/schema";
 import { adapterFor, type SyncContext } from "./entities";
 import type { SyncRow } from "./protocol";
+import { t } from "@/i18n";
 
 /** What gets copied, in an order where targets come first. */
 const COPY_TYPES = [
@@ -184,15 +185,20 @@ export function ownDataCounts(db: LocalDb): OwnDataCounts {
 
 /** "12 hosts, 3 credentials and 5 snippets", leaving out what is zero. */
 export function describeCounts(counts: OwnDataCounts): string {
-  const parts = [
-    [counts.hosts, "host"],
-    [counts.logins, "credential"],
-    [counts.snippets, "snippet"],
-    [counts.folders, "folder"],
-  ]
-    .filter(([n]) => (n as number) > 0)
-    .map(([n, word]) => `${n} ${word}${n === 1 ? "" : "s"}`);
-  if (parts.length === 0) return "nothing yet";
+  const parts = (
+    [
+      [counts.hosts, "sync.copy.hostCount"],
+      [counts.logins, "sync.copy.credentialCount"],
+      [counts.snippets, "sync.copy.snippetCount"],
+      [counts.folders, "sync.copy.folderCount"],
+    ] as const
+  )
+    .filter(([n]) => n > 0)
+    .map(([count, key]) => t(key, { count }));
+  if (parts.length === 0) return t("sync.copy.nothingYet");
   if (parts.length === 1) return parts[0];
-  return `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
+  return t("sync.copy.listAnd", {
+    list: parts.slice(0, -1).join(", "),
+    last: parts[parts.length - 1],
+  });
 }

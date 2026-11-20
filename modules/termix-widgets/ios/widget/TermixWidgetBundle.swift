@@ -40,6 +40,7 @@ enum TermixWidgetBundle {
       // the command runs, so there is nothing to configure here. The modern
       // variant only differs in forcing full-colour rendering.
       ModernSnippetsWidget()
+      PowerWidget()
     }
   }
 #endif

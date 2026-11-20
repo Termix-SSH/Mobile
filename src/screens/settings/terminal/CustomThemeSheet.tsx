@@ -3,29 +3,63 @@ import { View } from "react-native";
 import { Button, Input, Sheet, SheetBody, Text } from "@/ui";
 import type { TerminalThemeColors } from "@/constants/terminal-themes";
 import { TerminalPreview } from "./TerminalPreview";
+import { t } from "@/i18n";
 
 const FIELDS: { key: keyof TerminalThemeColors; label: string }[] = [
-  { key: "background", label: "Background" },
-  { key: "foreground", label: "Text" },
-  { key: "cursor", label: "Cursor" },
-  { key: "cursorAccent", label: "Text under cursor" },
-  { key: "selectionBackground", label: "Selection" },
-  { key: "black", label: "Black" },
-  { key: "red", label: "Red" },
-  { key: "green", label: "Green" },
-  { key: "yellow", label: "Yellow" },
-  { key: "blue", label: "Blue" },
-  { key: "magenta", label: "Magenta" },
-  { key: "cyan", label: "Cyan" },
-  { key: "white", label: "White" },
-  { key: "brightBlack", label: "Bright black" },
-  { key: "brightRed", label: "Bright red" },
-  { key: "brightGreen", label: "Bright green" },
-  { key: "brightYellow", label: "Bright yellow" },
-  { key: "brightBlue", label: "Bright blue" },
-  { key: "brightMagenta", label: "Bright magenta" },
-  { key: "brightCyan", label: "Bright cyan" },
-  { key: "brightWhite", label: "Bright white" },
+  {
+    key: "background",
+    label: t("settings.terminal.customThemeSheet.background"),
+  },
+  { key: "foreground", label: t("settings.terminal.customThemeSheet.text") },
+  { key: "cursor", label: t("settings.terminal.customThemeSheet.cursor") },
+  {
+    key: "cursorAccent",
+    label: t("settings.terminal.customThemeSheet.textUnderCursor"),
+  },
+  {
+    key: "selectionBackground",
+    label: t("settings.terminal.customThemeSheet.selection"),
+  },
+  { key: "black", label: t("settings.terminal.customThemeSheet.black") },
+  { key: "red", label: t("settings.terminal.customThemeSheet.red") },
+  { key: "green", label: t("settings.terminal.customThemeSheet.green") },
+  { key: "yellow", label: t("settings.terminal.customThemeSheet.yellow") },
+  { key: "blue", label: t("settings.terminal.customThemeSheet.blue") },
+  { key: "magenta", label: t("settings.terminal.customThemeSheet.magenta") },
+  { key: "cyan", label: t("settings.terminal.customThemeSheet.cyan") },
+  { key: "white", label: t("settings.terminal.customThemeSheet.white") },
+  {
+    key: "brightBlack",
+    label: t("settings.terminal.customThemeSheet.brightBlack"),
+  },
+  {
+    key: "brightRed",
+    label: t("settings.terminal.customThemeSheet.brightRed"),
+  },
+  {
+    key: "brightGreen",
+    label: t("settings.terminal.customThemeSheet.brightGreen"),
+  },
+  {
+    key: "brightYellow",
+    label: t("settings.terminal.customThemeSheet.brightYellow"),
+  },
+  {
+    key: "brightBlue",
+    label: t("settings.terminal.customThemeSheet.brightBlue"),
+  },
+  {
+    key: "brightMagenta",
+    label: t("settings.terminal.customThemeSheet.brightMagenta"),
+  },
+  {
+    key: "brightCyan",
+    label: t("settings.terminal.customThemeSheet.brightCyan"),
+  },
+  {
+    key: "brightWhite",
+    label: t("settings.terminal.customThemeSheet.brightWhite"),
+  },
 ];
 
 const HEX = /^#[0-9a-f]{6}$/i;
@@ -79,25 +113,31 @@ export function CustomThemeSheet({
       scroll
       visible={visible}
       onClose={onClose}
-      title="Custom theme"
-      description="Colors as hex, like #1e1e2e."
+      title={t("settings.terminal.customThemeSheet.customTheme")}
+      description={t(
+        "settings.terminal.customThemeSheet.colorsAsHexLike1e1e2e",
+      )}
       footer={
         <>
           <Button variant="ghost" size="sm" onPress={onClose}>
-            Cancel
+            {t("settings.terminal.customThemeSheet.cancel")}
           </Button>
           <Button
             variant="default"
             size="sm"
             onPress={() => {
               if (!checked.ok) {
-                setError(`${checked.label} is not a hex color`);
+                setError(
+                  t("settings.terminal.customThemeSheet.isNotAHexColor", {
+                    label: checked.label,
+                  }),
+                );
                 return;
               }
               onSave(checked.colors);
             }}
           >
-            Save
+            {t("settings.terminal.customThemeSheet.save")}
           </Button>
         </>
       }

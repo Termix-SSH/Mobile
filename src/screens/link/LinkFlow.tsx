@@ -45,6 +45,8 @@ import { ResetStep, SignupStep } from "./AccountSteps";
 import { BrowserStep, type BrowserMode } from "./BrowserStep";
 import { SignInStep } from "./SignInStep";
 import { AddressStep, MergeStep, SecondFactorStep } from "./SmallSteps";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 type Step =
   | "address"
@@ -57,14 +59,14 @@ type Step =
   | "merge";
 
 const TITLES: Record<Step, string> = {
-  address: "Link a server",
-  checking: "Checking the server",
-  signin: "Sign in",
-  signup: "Make an account",
-  reset: "Reset password",
-  factor: "One more step",
-  browser: "Sign in",
-  merge: "Almost done",
+  address: t("link.linkFlow.linkAServer"),
+  checking: t("link.linkFlow.checkingTheServer"),
+  signin: t("link.linkFlow.signIn"),
+  signup: t("link.linkFlow.makeAnAccount"),
+  reset: t("link.linkFlow.resetPassword"),
+  factor: t("link.linkFlow.oneMoreStep"),
+  browser: t("link.linkFlow.signIn"),
+  merge: t("link.linkFlow.almostDone"),
 };
 
 /**
@@ -142,9 +144,7 @@ export default function LinkFlow() {
     const found = await readSignIn(target);
     setSignIn(found);
     if (!found.reachable) {
-      setAddressError(
-        "Could not reach that server. Check the address, or set up the proxy or client certificate.",
-      );
+      setAddressError(t("link.linkFlow.couldNotReachThatServer"));
       setStep("address");
       return;
     }
@@ -174,7 +174,9 @@ export default function LinkFlow() {
     try {
       await check(await prepare(parsed.url));
     } catch (e: any) {
-      setAddressError(e?.message || "Could not reach that server");
+      setAddressError(
+        e?.message || t("link.linkFlow.couldNotReachThatServer2"),
+      );
       setStep("address");
     }
   };
@@ -199,17 +201,20 @@ export default function LinkFlow() {
       await markOffered(target);
       const name = await biometricName();
       const yes = await confirm({
-        title: `Use ${name} to sign in next time?`,
-        description: `If this server signs you out, sign in again with ${name} instead of typing your password. The password stays on this phone.`,
-        confirmLabel: `Use ${name}`,
-        cancelLabel: "Not now",
+        title: t("link.linkFlow.useToSignInNext", { name }),
+        description: t("link.linkFlow.ifThisServerSignsYou", {
+          name,
+          deviceWord,
+        }),
+        confirmLabel: t("link.linkFlow.use", { name }),
+        cancelLabel: t("link.linkFlow.notNow"),
         destructive: false,
       });
       if (!yes) return;
       try {
         await saveLogin(target, login);
       } catch {
-        toast.error("Could not save the login");
+        toast.error(t("link.linkFlow.couldNotSaveTheLogin"));
       }
     },
     [confirm],
@@ -227,13 +232,13 @@ export default function LinkFlow() {
       outcome = await finishSignIn();
     } catch (e) {
       if (e instanceof SyncError && e.kind === "different_account") {
-        toast.error("That's a different user", e.message);
+        toast.error(t("link.linkFlow.thatSADifferentUser"), e.message);
         setStep("signin");
         return;
       }
       toast.warning(
-        "Signed in",
-        "Sync could not start yet. It tries again on its own.",
+        t("link.linkFlow.signedIn"),
+        t("link.linkFlow.syncCouldNotStartYet"),
       );
     }
     if (outcome?.synced) {
@@ -293,7 +298,12 @@ export default function LinkFlow() {
     return (
       <View
         className="flex-1 bg-background"
-        style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+        style={{
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
       >
         <BrowserStep
           client={client}
@@ -312,7 +322,11 @@ export default function LinkFlow() {
   const canGoBack =
     step !== "address" && step !== "merge" && step !== "checking";
   return (
-    <View className="flex-1 bg-background">
+    // Drawn over the whole app, so it keeps clear of side insets itself, like the Duo status rail.
+    <View
+      className="flex-1 bg-background"
+      style={{ paddingLeft: insets.left, paddingRight: insets.right }}
+    >
       <KeyboardAvoidingView
         className="flex-1"
         // Edge to edge Android no longer resizes for the keyboard.
@@ -329,7 +343,7 @@ export default function LinkFlow() {
                   onPress={() => void close()}
                   hitSlop={6}
                   accessibilityRole="button"
-                  accessibilityLabel="Close"
+                  accessibilityLabel={t("link.linkFlow.close")}
                   className="h-9 w-9 items-center justify-center active:bg-muted"
                 >
                   <X size={20} color={color("muted-foreground")} />
@@ -360,12 +374,12 @@ export default function LinkFlow() {
                   <Server size={24} color={color("accent-brand")} />
                 </View>
                 <Text weight="bold" className="text-lg text-foreground">
-                  Link your Termix server
+                  {t("link.linkFlow.linkYourTermixServer")}
                 </Text>
                 <Text className="text-sm leading-5 text-muted-foreground">
-                  Your hosts, credentials, snippets and settings sync with it,
-                  and you get its plugins. Everything keeps working on this
-                  phone when the server is away.
+                  {t("link.linkFlow.yourHostsCredentialsSnippetsAnd", {
+                    deviceWord,
+                  })}
                 </Text>
               </View>
               <AddressStep
@@ -386,7 +400,7 @@ export default function LinkFlow() {
             <View className="flex-1 items-center justify-center gap-3">
               <ActivityIndicator size="large" color={color("accent-brand")} />
               <Text className="text-sm text-muted-foreground">
-                Checking {host}...
+                {t("link.linkFlow.checking", { host })}
               </Text>
             </View>
           ) : null}
@@ -441,7 +455,7 @@ export default function LinkFlow() {
       <InlineView
         open={proxyOpen}
         onClose={() => setProxyOpen(false)}
-        title="Proxy and client certificate"
+        title={t("link.linkFlow.proxyAndClientCertificate")}
         subtitle={host}
       >
         {client ? (

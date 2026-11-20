@@ -1,0 +1,3874 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Sign in",
+      "addServer": "Add server",
+      "switchAccount": "Switch account",
+      "noServerConnected": "No server connected",
+      "connectToATermixServer": "Connect to a Termix server to manage your hosts, terminals, files and more."
+    },
+    "lockScreen": {
+      "cancel": "Cancel",
+      "tooManyTriesWaitSeconds": "Too many tries. Wait {{value}} seconds",
+      "termixLocked": "Termix Locked",
+      "enterYourPinToContinue": "Enter your PIN to continue"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Orange",
+      "blue": "Blue",
+      "green": "Green",
+      "purple": "Purple",
+      "pink": "Pink",
+      "cyan": "Cyan",
+      "red": "Red",
+      "yellow": "Yellow",
+      "teal": "Teal",
+      "indigo": "Indigo",
+      "rose": "Rose",
+      "lime": "Lime",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Use PIN",
+      "unlockTermix": "Unlock Termix",
+      "unlockTermixFirst": "Unlock Termix first."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "This feature is turned off on the server.",
+      "aTabWasNotReopened": "A tab was not reopened because its host is gone",
+      "tabsWereNotReopenedBecause": "{{count}} tabs were not reopened because their hosts are gone"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Link a Termix server to use this",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Enter your server's address",
+        "theAddressCanTHave": "The address can't have spaces",
+        "useAnHttpOrHttps": "Use an http:// or https:// address",
+        "thatDoesnTLookLike": "That doesn't look like a server address",
+        "thePortMustBeFrom": "The port must be from 1 to 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "A login proxy answered instead of Termix. Sign in to the proxy first.",
+        "theServerDidNotSend": "The server did not send a token.",
+        "theServerDidNotSend2": "The server did not send a session.",
+        "theServerSentNoSign": "The server sent no sign in address.",
+        "theSignInRanOut": "The sign in ran out or was already used. Sign in again.",
+        "wrongUsernameOrPassword": "Wrong username or password",
+        "signInFailedHttp": "Sign in failed (HTTP {{status}})",
+        "thePageSignedYouIn": "The page signed you in but sent no session back. Update the server to Termix 26.11.3 or newer.",
+        "thisAccountIsnTAllowed": "This account isn't allowed to sign in here.",
+        "noTermixAccountMatchesThat": "No Termix account matches that sign in."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "This session has no server"
+    },
+    "store": {
+      "noSuchAccount": "No such account",
+      "thisDeviceCanTBe": "This device can't be removed",
+      "switchToAnotherAccountFirst": "Switch to another account first"
+    },
+    "types": {
+      "thisDevice": "This device"
+    },
+    "accountSwitcher": {
+      "error": "Error",
+      "worksWithoutAServer": "Works without a server",
+      "couldNotSwitchAccount": "Could not switch account",
+      "accounts": "Accounts",
+      "openTabsKeepRunningWhen": "Open tabs keep running when you switch.",
+      "unlink": "Unlink {{account}}",
+      "linkAServer": "Link a server",
+      "eachServerKeepsItsOwn": "Each server keeps its own hosts, credentials and settings on this {{deviceWord}}.",
+      "signedIn": "Signed in",
+      "signedOut": "Signed out",
+      "syncedCopy": "Synced copy"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Could not save the pin",
+      "theServerSKeyMatches": "The server's key matches the pin",
+      "theServerShowsAnotherKey": "The server shows another key",
+      "pinThisKey": "Pin this key?",
+      "pinThisKey2": "Pin this key",
+      "keyPinned": "Key pinned",
+      "couldNotReadTheServer": "Could not read the server's key",
+      "thatIsNotAPin": "That is not a pin",
+      "keysPinned": "Keys pinned",
+      "certificatePin": "Certificate pin",
+      "trustThisServerOnlyBy": "Trust this server only by its key. Use it for a self-signed certificate, or to refuse any other key. Add the next key before you change the server's certificate.",
+      "removePin": "Remove pin {{pin}}",
+      "remove": "Remove",
+      "readTheKeyFromThe": "Read the key from the server",
+      "orPasteAPin": "Or paste a pin",
+      "pin": "Pin",
+      "add": "Add",
+      "issuedTo": "Issued to: {{subject}}",
+      "issuedBy": "Issued by: {{issuer}}",
+      "validUntil": "Valid until: {{value}}",
+      "checkThatThisKeyMatches": "Check that this key matches the one on your server before you pin it.",
+      "pasteTheBase64Sha256Of": "Paste the base64 sha256 of the server's public key, like openssl prints it."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Proxy settings saved",
+      "couldNotSaveTheProxy": "Could not save the proxy settings",
+      "couldNotReadThatFile": "Could not read that file",
+      "certificateSaved": "Certificate saved",
+      "theFileOrItsPassphrase": "The file or its passphrase is wrong",
+      "couldNotSaveTheCertificate": "Could not save the certificate",
+      "headers": "Headers",
+      "sentWithEveryRequestTo": "Sent with every request to this server, like a Cloudflare service token.",
+      "name": "Name",
+      "value": "Value",
+      "removeHeader": "Remove header",
+      "addHeader": "Add header",
+      "cloudflareServiceToken": "Cloudflare service token",
+      "basicAuth": "Basic auth",
+      "forAProxyThatAsks": "For a proxy that asks for a user name and password.",
+      "userName": "User name",
+      "password": "Password",
+      "saveHeadersAndBasicAuth": "Save headers and basic auth",
+      "clientCertificate": "Client certificate",
+      "forServersThatAskFor": "For servers that ask for one (mTLS). The key is kept in the {{deviceWord}}'s secure storage and can't be read back out.",
+      "certificate": "Certificate",
+      "remove": "Remove",
+      "replaceCertificate": "Replace certificate",
+      "pickAP12OrPfx": "Pick a .p12 or .pfx file",
+      "proxySignIn": "Proxy sign in",
+      "thisIsSignedInTo": " This {{deviceWord}} is signed in to the proxy.",
+      "forCloudflareAccessAutheliaAuthentik": "For Cloudflare Access, Authelia, Authentik and other proxies with their own sign in page.{{value}}",
+      "signInToTheProxy": "Sign in to the proxy",
+      "forget": "Forget",
+      "certificatePassphrase": "Certificate passphrase",
+      "thePassphraseTheFileWas": "The passphrase the file was saved with. Leave it empty if it has none.",
+      "passphrase": "Passphrase",
+      "save": "Save"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Signed in to the proxy",
+      "couldNotSaveTheProxy": "Could not save the proxy sign in",
+      "signInToTheProxy": "Sign in to the proxy",
+      "thisBuildOfTheApp": "This build of the app can't keep a proxy sign in. Use a service token in the proxy headers instead."
+    },
+    "savedLoginRow": {
+      "signIn": "Sign in",
+      "signInWith": "Sign in with {{name}}",
+      "whenThisServerSignsYou": "When this server signs you out, sign in again without typing your password."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Unlinked. {{copied}} items were kept on This device.",
+      "unlinked": "Unlinked",
+      "couldNotUnlinkTheServer": "Could not unlink the server",
+      "unlink": "Unlink {{value}}?",
+      "thisSignsOutOfThe": "This {{deviceWord}} signs out of the server. Nothing is deleted on the server.",
+      "keepACopyOnThis": "Keep a copy on This device",
+      "yourOwnHostsCredentialsAnd": "Your own hosts, credentials and snippets move to This device. Hosts shared with you are not kept.",
+      "deleteFromThis": "Delete from this {{deviceWord}}",
+      "everythingThisHasForThe": "Everything this {{deviceWord}} has for the server is removed."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Change it under Proxy below",
+      "updateTermixMobileFromYour": "Update Termix Mobile from your app store"
+    },
+    "savedLogin": {
+      "signInToTermix": "Sign in to Termix",
+      "faceUnlock": "face unlock"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "This build can't check this server's pinned key or send its certificate."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "This server does not support this feature",
+      "theProxyWantsYouTo": "The proxy wants you to sign in",
+      "endpointNotAvailableOnThis": "Endpoint not available on this server",
+      "unknownError": "Unknown error"
+    },
+    "errors": {
+      "theProxyInFrontOf": "The proxy in front of this server wants you to sign in again.",
+      "authenticationRequiredPleaseLogIn": "Authentication required. Please log in again.",
+      "accessDeniedYouDoNot": "Access denied. You do not have permission to perform this action.",
+      "thisFeatureIsTurnedOff": "This feature is turned off on the server.",
+      "thisServerDoesNotSupport": "This server does not support this feature.",
+      "resourceNotFoundTheRequested": "Resource not found. The requested item may have been deleted.",
+      "conflictTheResourceAlreadyExists": "Conflict. The resource already exists or is in use.",
+      "validationErrorPleaseCheckYour": "Validation error. Please check your input and try again.",
+      "serverErrorOccurredPleaseTry": "Server error occurred. Please try again later.",
+      "sslCertificateVerificationFailed": "SSL certificate verification failed.",
+      "networkErrorPleaseCheckYour": "Network error. Please check your connection and try again.",
+      "failedTo": "Failed to {{operation}}",
+      "unknownError": "Unknown error",
+      "unexpectedErrorDuring": "Unexpected error during {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "The app could not trust HTTPS for this local IP. Pin the server's key under Proxy and client certificate, use a certificate the {{deviceWord}} trusts, or HTTP on a trusted local or VPN network.",
+        "thisServerIsBehindA": "This server is behind a login proxy. Use the external sign-in option instead.",
+        "loginFailed": "Login failed"
+      },
+      "files": {
+        "fileNotFound": "File not found",
+        "fileWriteOperationDidNot": "File write operation did not return success status",
+        "couldNot": "Could not {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Host saved, but some settings failed: {{value}}",
+        "unexpectedHostResponseFrom": "Unexpected host response from {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Live sample failed"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "No answer"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "This server did not show the key it is pinned to, so the page was not opened."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "That {{what}} no longer exists.",
+      "aHostCannotBeIts": "A host cannot be its own parent",
+      "parentHostNotFound": "Parent host not found",
+      "aHostCanTGo": "A host can't go under one of its own sub-hosts",
+      "thisIsSharedWithYou": "This {{what}} is shared with you. Only its owner can change it.",
+      "nameIsRequired": "Name is required",
+      "nameAndCommandAreRequired": "Name and command are required",
+      "aFolderWithThatName": "A folder with that name exists"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "This device can't save {{what}} here."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "This snippet is shared with you and can't be changed."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Use a passphrase with at least 8 characters.",
+      "thisIsNotATermix": "This is not a Termix backup file.",
+      "thisBackupIsFromA": "This backup is from a newer version of Termix. Update the app first.",
+      "wrongPassphraseOrTheFile": "Wrong passphrase, or the file is damaged."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "This build can't encrypt local data."
+    },
+    "keys": {
+      "unlockTermixFirst": "Unlock Termix first.",
+      "thatIsNotADatabase": "That is not a database key.",
+      "couldNotSaveTheDatabase": "Could not save the database key."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "This data was saved by a newer version of Termix. Update the app to open it."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "This device does not sync.",
+      "localDataIsNotAvailable": "Local data is not available here.",
+      "unlockTermixFirst": "Unlock Termix first."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Can't connect.",
+      "thisWayCanTRun": "This way can't run commands"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo password",
+      "password": "Password",
+      "run": "Run",
+      "thatPasswordWasWrong": "That password was wrong.",
+      "onNeedsRoot": "{{reason}} on {{hostName}} needs root.",
+      "needsRootForThis": "{{hostName}} needs root for this.",
+      "itIsKeptUntilYou": "It is kept until you close the app."
+    },
+    "run": {
+      "theHostTookTooLong": "The host took too long to answer",
+      "connectionLost": "Connection lost"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "This needs root. Log in as root, set up passwordless sudo, or save a sudo password for the host.",
+      "theSudoPasswordWasWrong": "The sudo password was wrong",
+      "commandFailed": "Command failed"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet in the terminal needs a connection from the {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Feature {{id}} is already registered"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Address",
+      "theIpOrHostName": "The IP or host name under the name",
+      "username": "Username",
+      "theUserBeforeTheAddress": "The user before the address",
+      "port": "Port",
+      "thePortAfterTheAddress": "The port after the address",
+      "hostIcon": "Host icon",
+      "theIconSetOnThe": "The icon set on the host",
+      "pinIcon": "Pin icon",
+      "marksPinnedHosts": "Marks pinned hosts",
+      "sharedBadge": "Shared badge",
+      "marksHostsSharedWithYou": "Marks hosts shared with you",
+      "protocolBadges": "Protocol badges",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker and other chips",
+      "tags": "Tags",
+      "theHostSTags": "The host's tags",
+      "cpuAndRam": "CPU and RAM",
+      "liveUsageBarsOnOnline": "Live usage bars on online hosts",
+      "statusColors": "Status colors",
+      "greenBarWhenOnlineRed": "Green bar when online, red when offline"
+    },
+    "uiPrefs": {
+      "small": "Small",
+      "default": "Default",
+      "large": "Large",
+      "comfortable": "Comfortable",
+      "compact": "Compact"
+    },
+    "errors": {
+      "somethingWentWrong": "Something went wrong"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Locking a key with a passphrase needs the Termix app, not a web preview."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Right away",
+      "after15Seconds": "After 15 seconds",
+      "after1Minute": "After 1 minute",
+      "after5Minutes": "After 5 minutes"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "The device secret is gone",
+      "noSealedKey": "No sealed key",
+      "theSealedKeyIsDamaged": "The sealed key is damaged",
+      "wrongPin": "Wrong PIN",
+      "theSealedKeyDidNot": "The sealed key did not open",
+      "biometricsCanTOpenThe": "Biometrics can't open the key"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Update the app",
+      "onYourServerNeedsA": "{{name}} on your server needs a newer version of Termix on this {{deviceWord}}.",
+      "updateThePlugin": "Update the plugin",
+      "onYourServerIsToo": "{{name}} on your server is too old for this app. Ask an admin to update it in Plugins."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Blocked by the app",
+      "theAppDoesNotLet": "The app does not let plugins use this route.",
+      "thisBuildCanTReach": "This build can't reach this server safely."
+    },
+    "support": {
+      "needsANewerVersionOf": "Needs a newer version of the app",
+      "updateThePluginOnThe": "Update the plugin on the server",
+      "theAppHasItsOwn": "The app has its own look",
+      "notInTheAppYet": "Not in the app yet",
+      "linkAServerToUse": "Link a server to use it",
+      "opensInTheAppFrom": "Opens in the app from the server",
+      "runsOnTheServer": "Runs on the server",
+      "throughTheServer": "Through the server",
+      "inTheApp": "In the app",
+      "webView": "Web view",
+      "onTheServer": "On the server",
+      "appLook": "App look",
+      "notInTheApp": "Not in the app",
+      "safeMode": "Safe mode",
+      "notRunning": "Not running",
+      "notInstalled": "Not installed",
+      "notOnThisServer": "Not on this server",
+      "thePluginIsNotInstalled": "The plugin is not installed on this server.",
+      "turnedOffOnTheServer": "Turned off on the server",
+      "itOpensHereAgainWhen": "It opens here again when an admin turns it on.",
+      "notRunningOnTheServer": "Not running on the server",
+      "theServerIsInSafe": "The server is in safe mode, so only look plugins run.",
+      "thePluginDidNotStart": "The plugin did not start. An admin can check it in Plugins.",
+      "thisPluginIsNotAvailable": "This plugin is not available",
+      "itIsNotMadeFor": "It is not made for the app.",
+      "offOnThisServer": "off on this server",
+      "notRunningOnThisServer": "not running on this server",
+      "notOnThisServer2": "not on this server",
+      "notInTheAppYet2": "Not in the app yet | on this server",
+      "worksOnThis": "Works on this {{deviceWord}}",
+      "andServer": "{{DeviceWord}} and server",
+      "deviceOnly": "{{DeviceWord}} only | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Reload"
+    },
+    "pluginSettings": {
+      "loading": "Loading settings",
+      "forEveryone": "For everyone on the server",
+      "justForYou": "Just for you",
+      "couldNotSave": "Could not save the setting",
+      "nothingYouCanChange": "There is nothing here you can change. An admin can change these settings.",
+      "notANumber": "That is not a number",
+      "atLeast": "It has to be {{min}} or more",
+      "atMost": "It has to be {{max}} or less"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Disconnect all",
+      "showOpenSessions": "Show open sessions",
+      "termixShowsANotificationWhile": "Termix shows a notification while sessions are open, so Android keeps them running in the background.",
+      "sessionsOpen_one": "{{count}} session open",
+      "sessionsOpen_other": "{{count}} sessions open",
+      "tunnelsActive_one": "{{count}} tunnel active",
+      "tunnelsActive_other": "{{count}} tunnels active",
+      "notConnected": "Not connected",
+      "waitingForNetwork": "Waiting for network",
+      "connecting": "Connecting",
+      "connected": "Connected",
+      "reconnecting": "Reconnecting",
+      "failed": "Failed",
+      "closed": "Closed"
+    },
+    "companionPane": {
+      "resizeThePanel": "Resize the {{title}} panel"
+    },
+    "connectionsPanel": {
+      "close": "Close",
+      "closeAllTabs": "Close all {{count}} tabs?",
+      "everySessionEnds": "Every session ends.",
+      "closeAll": "Close all",
+      "noActiveConnections": "No active connections",
+      "pickAHostFromThe": "Pick a host from the list to start a session. Tabs you open on other devices show here too.",
+      "connectToAHostTo": "Connect to a host to start a session. Tabs you open on other devices show here too.",
+      "open": "Open",
+      "background": "Background",
+      "sessionsFromOtherDevicesOr": "Sessions from other devices or backgrounded tabs. Tap to revive.",
+      "liveTapToReconnect": "Live, tap to reconnect",
+      "tapToReopen": "Tap to reopen"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "This is turned off on the server",
+      "comesBackHereWhenAn": "{{title}} comes back here when an admin turns its plugin on again.",
+      "closeTab": "Close tab"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Connections",
+        "hideHostList": "Hide host list",
+        "showHostList": "Show host list",
+        "backToHosts": "Back to hosts",
+        "showKeyboard": "Show keyboard",
+        "hideKeyboard": "Hide keyboard",
+        "hideKeysPanel": "Hide keys panel",
+        "showKeysPanel": "Show keys panel"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Tap for tab options, hold to move",
+        "holdToMove": "Hold to move",
+        "close": "Close {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Waiting for network",
+        "connectionFailed": "Connection failed",
+        "reconnecting": "Reconnecting"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Rename",
+      "newTabOnThisHost": "New tab on this host",
+      "here": "{{title}} here",
+      "hidePanel": "Hide {{title}} panel",
+      "showPanel": "Show {{title}} panel",
+      "endSplitView": "End split view",
+      "splitViewWith": "Split view with...",
+      "moveLeft": "Move left",
+      "moveRight": "Move right",
+      "closeTab": "Close tab",
+      "closeAllTabs": "Close all tabs",
+      "closeAllTabs2": "Close all {{count}} tabs?",
+      "everySessionEnds": "Every session ends.",
+      "closeAll": "Close all",
+      "splitViewWith2": "Split view with",
+      "renameTab": "Rename tab",
+      "leaveItEmptyToUse": "Leave it empty to use the host's name."
+    },
+    "resizeHostList": "Resize host list",
+    "resizeSplitView": "Resize split view",
+    "connections": "Connections",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Two-Factor Authentication",
+        "enterThe6DigitCode": "Enter the 6-digit code from your authenticator app.",
+        "cancel": "Cancel",
+        "verify": "Verify",
+        "codeExpiresInSGet": "Code expires in {{totpCountdown}}s, get a fresh code",
+        "warpgateAuthentication": "Warpgate Authentication",
+        "confirmTheWarpgateAuthenticationUrl": "Confirm the Warpgate authentication URL and security key.",
+        "authenticate": "Authenticate",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "Security key (optional)",
+        "authenticationRequired": "Authentication Required",
+        "thisHostNeedsCredentialsTo": "This host needs credentials to connect.",
+        "connect": "Connect",
+        "password": "Password",
+        "sshKey": "SSH Key",
+        "pastePrivateKey": "Paste private key",
+        "keyPassphraseOptional": "Key passphrase (optional)"
+      },
+      "connectionError": {
+        "tryAgain": "Try again",
+        "close": "Close",
+        "connectThroughTheServer": "Connect through the server",
+        "connectFromThis": "Connect from this {{deviceWord}}",
+        "triedFromThis": "Tried from this {{deviceWord}}",
+        "triedThroughTheServer": "Tried through the server"
+      },
+      "execGate": {
+        "connecting": "Connecting..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Something went wrong",
+        "retry": "Retry",
+        "refresh": "Refresh",
+        "nothingToShow": "Nothing to show"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Logs copied",
+        "connectionLog": "Connection Log ({{count}})",
+        "copyLog": "Copy log",
+        "waitingForConnection": "Waiting for connection…",
+        "noLogEntries": "No log entries"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Could not save how this host connects"
+      },
+      "useSessionConnect": {
+        "connected": "Connected",
+        "connectingTo": "Connecting to {{name}}…",
+        "connectionLost": "Connection lost",
+        "failedToConnect": "Failed to connect",
+        "invalidCode": "Invalid code",
+        "warpgateAuthenticationFailed": "Warpgate authentication failed",
+        "authenticationCancelled": "Authentication cancelled"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Search and commands",
+    "addHost": "Add host",
+    "keyboardShortcuts": "Keyboard shortcuts",
+    "home": "Home",
+    "hosts": "Hosts",
+    "sessions": "Sessions",
+    "tools": "Tools",
+    "settings": "Settings",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Keyboard shortcuts"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Hosts and folders",
+      "yourHostsFoldersAndHosts": "Your hosts, folders and hosts shared with you",
+      "credentials": "Credentials",
+      "savedPasswordsAndKeysAnd": "Saved passwords and keys, and credentials shared with you",
+      "snippets": "Snippets",
+      "snippetsAndTheirFolders": "Snippets and their folders",
+      "hostDefaults": "Host defaults",
+      "defaultSettingsForNewHosts": "Default settings for new hosts",
+      "preferences": "Preferences",
+      "settingsThatFollowYouBetween": "Settings that follow you between devices"
+    },
+    "link": {
+      "noSuchServerAccount": "No such server account",
+      "signInFirst": "Sign in first.",
+      "thisServerAccountBelongsTo": "This server account belongs to {{value}}. Sign in as them, or add the server again for this user."
+    },
+    "reasons": {
+      "signedOut": "Signed out",
+      "thisSSignInTo": "This {{deviceWord}}'s sign in to the server ran out.",
+      "theServerEndedThisS": "The server ended this {{deviceWord}}'s session. It may have been signed out from another device.",
+      "proxySignInNeeded": "Proxy sign in needed",
+      "theProxyInFrontOf": "The proxy in front of this server wants you to sign in again.",
+      "proxyPasswordNeeded": "Proxy password needed",
+      "theProxyInFrontOf2": "The proxy in front of this server asked for its password.",
+      "certificateRefused": "Certificate refused",
+      "theServerDidNotAccept": "The server did not accept this {{deviceWord}}'s certificate.",
+      "untrustedServer": "Untrusted server",
+      "theServerSCertificateIs": "The server's certificate is not trusted by this {{deviceWord}}.",
+      "serverKeyChanged": "Server key changed",
+      "theServerShowsAnotherKey": "The server shows another key than the one pinned for it. If you changed its certificate, pin the new key.",
+      "offline": "Offline",
+      "canTReachTheServer": "Can't reach the server. Sync will try again soon.",
+      "serverProblem": "Server problem",
+      "theServerHadAProblem": "The server had a problem. Sync will try again soon.",
+      "updateNeeded": "Update needed",
+      "thisServerUsesANewer": "This server uses a newer sync version. Update the app.",
+      "notATermixServer": "Not a Termix server",
+      "theAddressDoesNotAnswer": "The address does not answer like a Termix server.",
+      "syncIsOff": "Sync is off",
+      "theSyncPluginIsOff": "The Sync plugin is off on this server. Ask an admin to turn it on in Plugins.",
+      "differentUser": "Different user",
+      "youSignedInAsA": "You signed in as a different user than this server account belongs to.",
+      "syncStopped": "Sync stopped",
+      "somethingWentWrong": "Something went wrong.",
+      "signInAgain": "Sign in again",
+      "signInToTheProxy": "Sign in to the proxy",
+      "enterThePassword": "Enter the password",
+      "tryAgain": "Try again",
+      "checkThePin": "Check the pin",
+      "checkForUpdates": "Check for updates",
+      "pickACertificate": "Pick a certificate"
+    },
+    "settings": {
+      "noSuchSetting": "No such setting",
+      "snippetFolder": "Snippet folder",
+      "hostDefault": "Host default"
+    },
+    "errors": {
+      "theServerDidNotAccept": "The server did not accept this {{deviceWord}}'s certificate.",
+      "theServerSCertificateIs": "The server's certificate is not trusted.",
+      "canTReachTheServer": "Can't reach the server.",
+      "signedOut": "Signed out",
+      "theProxyAskedForIts": "The proxy asked for its password.",
+      "theProxyWantsYouTo": "The proxy wants you to sign in.",
+      "theSyncPluginIsOff": "The Sync plugin is off on this server.",
+      "serverError": "Server error {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "The server shows another key than the pinned one."
+    },
+    "remote": {
+      "thisIsNotATermix": "This is not a Termix server.",
+      "theProxyWantsYouTo": "The proxy wants you to sign in.",
+      "thisServerUsesANewer": "This server uses a newer sync version. Update the app."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} host",
+      "hostCount_other": "{{count}} hosts",
+      "credentialCount_one": "{{count}} credential",
+      "credentialCount_other": "{{count}} credentials",
+      "snippetCount_one": "{{count}} snippet",
+      "snippetCount_other": "{{count}} snippets",
+      "folderCount_one": "{{count}} folder",
+      "folderCount_other": "{{count}} folders",
+      "nothingYet": "nothing yet",
+      "listAnd": "{{list}} and {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Can't connect.",
+      "connectingToFromThis": "Connecting to {{name}} from this {{deviceWord}}",
+      "connectingToThroughTheServer": "Connecting to {{name}} through the server",
+      "reconnectingTry": "Reconnecting (try {{retry}})",
+      "disconnected": "Disconnected",
+      "connected": "Connected",
+      "reconnectedToTheSameSession": "Reconnected to the same session",
+      "reconnectedWithANewShell": "Reconnected with a new shell",
+      "couldNotReachTheHost": "Could not reach the host from this {{deviceWord}}, trying through the server",
+      "couldNotConnectThroughThe": "Could not connect through the server, trying from this {{deviceWord}}",
+      "connectionLost": "Connection lost: {{reason}}",
+      "offlineWaitingForTheNetwork": "Offline, waiting for the network",
+      "nextTryInS": "Next try in {{value}}s",
+      "reconnectingTry2": "Reconnecting (try {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "The host stopped answering",
+      "networkLost": "Network lost",
+      "network": "Network: {{type}}{{value}}",
+      "lowPowerModeOn": "Low power mode on",
+      "lowPowerModeOff": "Low power mode off",
+      "droppedTypedCharacters": "Dropped {{count}} typed characters",
+      "youDidNotTrustThe": "You did not trust the host key.",
+      "checkTheKeyWithWhoever": "Check the key with whoever runs the host, then try again.",
+      "loginCancelled": "Login cancelled.",
+      "connectAgainWhenYouAre": "Connect again when you are ready.",
+      "typedInputIsOver64": "Typed input is over 64 KB, the oldest part was dropped",
+      "appInTheBackground": "App in the background",
+      "appInTheForeground": "App in the foreground",
+      "thisConnectionCanTRun": "This connection can't run commands"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Check the address and port, and that the server can reach the host.",
+      "checkTheAddressAndPort2": "Check the address and port, and that this {{deviceWord}} can reach the host.",
+      "checkTheProxySettingsOf": "Check the proxy settings of this host.",
+      "checkTheKeyWithWhoever": "Check the key with whoever runs the host before you trust it.",
+      "checkTheUsernameAndLogin": "Check the username and login in the host editor.",
+      "checkThatTheServerIs": "Check that the server is up and that you are still signed in.",
+      "tryAgainIfItKeeps": "Try again. If it keeps dropping, check the network.",
+      "connectAgainWhenYouAre": "Connect again when you are ready.",
+      "pickAnotherWayToConnect": "Pick another way to connect this host.",
+      "connectThisHostThroughA": "Connect this host through a Termix server.",
+      "pickTheJumpHostsAgain": "Pick the jump hosts again in the host editor.",
+      "thisIsATailscaleAddress": "This is a Tailscale address. Check that Tailscale is connected on this {{deviceWord}}.",
+      "theSavedKeyCanT": "The saved key can't be read. Paste it again in the host editor.",
+      "signInToThisServer": "Sign in to this server again.",
+      "openThisHostInThe": "Open this host in the Termix web app.",
+      "canTConnectThisWay": "Can't connect this way",
+      "couldNotReachTheHost": "Could not reach the host",
+      "theProxyDidNotLet": "The proxy did not let the connection through",
+      "theHostKeyWasNot": "The host key was not trusted",
+      "theLoginWasRefused": "The login was refused",
+      "theTermixServerDidNot": "The Termix server did not answer",
+      "theConnectionDropped": "The connection dropped",
+      "loginCancelled": "Login cancelled"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH agent",
+        "thisHostSignsInWith": "This host signs in with \"{{authType}}\", which needs a Termix server. Link one to connect.",
+        "thisHostUsesA1password": "This host uses a 1Password reference, which needs a Termix server with Secret Sources. Link one and connect this host through it.",
+        "signInWithFirstOpen": "Sign in with {{title}} first. Open a terminal to this host once, then try again.",
+        "theSignInAndThe": "the sign in and the certificate live on the server",
+        "theHasNoSshAgent": "the {{deviceWord}} has no SSH agent",
+        "needsATermixServerBecause": "{{title}} needs a Termix server because {{why}}. Link one and connect this host through it."
+      },
+      "chain": {
+        "aJumpHostOfThis": "A jump host of this host no longer exists."
+      },
+      "localShell": {
+        "theConnectionWasCut": "The connection was cut",
+        "theShellChannelClosed": "The shell channel closed",
+        "jumpHost": "Jump host {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Invalid code, try again:",
+        "authenticationFailed": "Authentication failed: {{message}}",
+        "theHostKeyWasNot": "The host key was not trusted.",
+        "loginCancelled": "Login cancelled.",
+        "notConnected": "Not connected",
+        "signingInAs": "Signing in as {{user}} with {{method}}",
+        "methodKey": "a key",
+        "methodPassword": "a password",
+        "methodNone": "no saved login"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "The connection was cut"
+      },
+      "thisBuildHasNoSsh": "This build has no SSH engine. Use the app from the store, or link a Termix server to connect.",
+      "theHostsOnThisAre": "The hosts on this {{deviceWord}} are not open yet.",
+      "thisServerSHostsAre": "This server's hosts are not on this {{deviceWord}}. Turn on the Sync plugin on the server to connect from the {{deviceWord}}.",
+      "resolve": {
+        "theSavedLoginIsNot": "The saved login for this host is not on this {{deviceWord}}, so only the server can sign in"
+      }
+    },
+    "origin": {
+      "canTConnect": "Can't connect.",
+      "canTConnectFromThe": "Can't connect from this {{deviceWord}}.",
+      "canTReachTheServer": "Can't reach the server.",
+      "theOnlyConnectsToSsh": "The {{deviceWord}} only connects to SSH and Telnet hosts.",
+      "connectThisHostThroughThe": "Connect this host through the server",
+      "connectThisHostFromThe": "Connect this host from the {{deviceWord}}",
+      "termixServer": "Termix server",
+      "usesThisWhenItCan": "Uses this {{deviceWord}} when it can reach the host, otherwise the server.",
+      "thisConnectsToTheHost": "This {{deviceWord}} connects to the host itself.",
+      "theTermixServerConnectsTo": "The Termix server connects to the host for you.",
+      "anSshConnection": "an SSH connection",
+      "aTermixServer": "a Termix server",
+      "aConnectionFromThe": "a connection from the {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} is off on this server. {{how}} to use it.",
+      "isOffOnThisServer2": "{{title}} is off on this server.",
+      "anotherWayToConnect": "another way to connect",
+      "needsToUseIt": "{{title}} needs {{what}}. {{how}} to use it.",
+      "needsWhichThisHostCan": "{{title}} needs {{what}}, which this host can't use right now.",
+      "thisDevice": "This {{deviceWord}}",
+      "automatic": "Automatic"
+    },
+    "relay": {
+      "youAreSignedOutOf": "You are signed out of this server. Sign in to connect through it.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux is not installed on this host. Using the plain shell.",
+        "tapRetryToBringIt": "Tap Retry to bring it back here.",
+        "thisSessionWasOpenedOn": "This session was opened on another device",
+        "noServerUrlFoundLink": "No server URL found. Link the server again.",
+        "signedOutOfThisServer": "Signed out of this server. Log in again.",
+        "signInWithInYour": "Sign in with {{title}} in your browser. This closes when it is done.",
+        "theSocketClosedWhileThe": "The socket closed while the app was away",
+        "noWebsocketUrlAvailableServer": "No WebSocket URL available - server not configured",
+        "connectionTimeoutServerNotResponding": "Connection timeout - server not responding",
+        "verificationCode": "Verification code:",
+        "hostKeyVerificationRequiredBut": "Host key verification required but no handler is registered",
+        "hostKeyChangedButNo": "Host key changed but no handler is registered",
+        "thisHostNeedsASign": "This host needs a sign-in that only the web app supports",
+        "invalidCodeTryAgain": "Invalid code, try again:",
+        "unknownError": "Unknown error",
+        "connectionClosed": "Connection closed",
+        "connectionClosed2": "Connection closed ({{code}})",
+        "theServerClosedTheConnection": "The server closed the connection",
+        "theSocketClosed": "The socket closed ({{code}})",
+        "signIn": "{{title}} sign in",
+        "signInFailed": "{{title}} sign in failed",
+        "isNotSetUpOn": "{{title}} is not set up on the server",
+        "signInTimedOut": "{{title}} sign in timed out",
+        "authenticationFailed": "Authentication failed: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Save the host and connect to it to check it.",
+      "loggedInAsOn": "Logged in as {{username}} on {{host}}",
+      "theHostAskedForMore": "The host asked for more than a password, like a code. Save the host and connect to finish the login."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Waiting for network",
+      "couldNotOpenTheTunnel": "Could not open the tunnel",
+      "theConnectionDropped": "The connection dropped",
+      "iosStoppedThisTunnelWhile": "iOS stopped this tunnel while the app was in the background. Start it again to open it.",
+      "connecting": "Connecting",
+      "connected": "Connected",
+      "retrying": "Retrying",
+      "waiting": "Waiting",
+      "failed": "Failed"
+    },
+    "gateways": {
+      "error": "Error",
+      "gateways": "Gateways",
+      "gatewaysCanOnlyBeChanged": "Gateways can only be changed in Termix on the web.",
+      "noHandshake": "No handshake",
+      "rulesMissing": "Rules missing",
+      "up": "Up",
+      "pending": "Pending",
+      "applying": "Applying",
+      "down": "Down",
+      "unreachable": "Unreachable"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "No tunnels yet. Add one to forward a port from the endpoint host to this host.",
+      "tunnel": "Tunnel {{value}}",
+      "removeTunnel": "Remove tunnel {{value}}",
+      "mode": "Mode",
+      "local": "Local",
+      "remote": "Remote",
+      "dynamic": "Dynamic",
+      "targetHost": "Target host",
+      "onThisHostForTunnels": "On this host, for tunnels the {{deviceWord}} runs",
+      "bindHost": "Bind host",
+      "endpointHost": "Endpoint host",
+      "addAnotherHostFirstTunnels": "Add another host first. Tunnels go through a saved host.",
+      "sourcePort": "Source port",
+      "endpointPort": "Endpoint port",
+      "maxRetries": "Max retries",
+      "retryEveryS": "Retry every (s)",
+      "startOnItsOwn": "Start on its own",
+      "addTunnel": "Add tunnel",
+      "tunnelNeedsPortsFrom1": "Tunnel {{value}} needs ports from 1 to 65535"
+    },
+    "register": {
+      "tunnels": "Tunnels",
+      "startAndStopSavedTunnels": "Start and stop saved tunnels",
+      "tunnel": "TUNNEL",
+      "tunnel2": "Tunnel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Local endpoint copied",
+      "tunnel": "Tunnel | {{sourcePort}}",
+      "portMapping": "Port Mapping",
+      "connect": "Connect",
+      "disconnect": "Disconnect",
+      "cancel": "Cancel",
+      "connected": "Connected",
+      "connecting": "Connecting",
+      "disconnecting": "Disconnecting",
+      "error": "Error",
+      "retrying": "Retrying ({{value}}/{{value2}})",
+      "waitingS": "Waiting {{value}}s",
+      "waiting": "Waiting",
+      "disconnected": "Disconnected"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Starting tunnel on port {{sourcePort}}",
+      "connectingTunnelOnPort": "Connecting tunnel on port {{sourcePort}}",
+      "disconnectingPort": "Disconnecting port {{sourcePort}}",
+      "cancellingPort": "Cancelling port {{sourcePort}}",
+      "failedToTunnel": "Failed to {{action}} tunnel",
+      "tunnels": "Tunnels | {{count}} | {{value}}",
+      "loadingTunnels": "Loading tunnels…",
+      "noSshTunnelsConfiguredFor": "No SSH tunnels configured for this host. Add tunnels from the host form.",
+      "runOn": "Run on",
+      "server": "Server",
+      "this": "This {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tunnels on this {{deviceWord}} stop when the app is closed. On iOS they also stop soon after the app goes to the background.",
+      "failedToFetchTunnelStatuses": "Failed to fetch tunnel statuses",
+      "thisBuildCanTOpen": "This build can't open tunnels on the {{deviceWord}}.",
+      "sourceHostNotFound": "Source host not found",
+      "endpointHostNotFound": "Endpoint host not found: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tunnels",
+      "tunnelCount_one": "{{count}} tunnel",
+      "tunnelCount_other": "{{count}} tunnels",
+      "runningOnServer": "{{connected}} running on server"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Credential Tools"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker is not installed on this host.",
+        "dockerDidNotAnswer": "Docker did not answer",
+        "thatIsNotAValid": "That is not a valid stack name"
+      }
+    },
+    "containerDetail": {
+      "stop": "Stop",
+      "start": "Start",
+      "restart": "Restart",
+      "remove": "Remove",
+      "logs": "Logs",
+      "stats": "Stats",
+      "console": "Console",
+      "logsCopied": "Logs copied",
+      "copy": "Copy",
+      "containerIsNotRunningNo": "Container is not running, no live stats.",
+      "cpu": "CPU",
+      "memory": "Memory",
+      "networkIO": "Network I/O",
+      "blockIO": "Block I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Failed to load logs",
+      "failedToLoadStats": "Failed to load stats",
+      "noOutput": "(no output)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Connecting to Docker...",
+    "remove": "Remove {{name}}?",
+    "stop": "Stop {{name}}?",
+    "theContainerIsStoppedAnd": "The container is stopped and deleted. Its volumes stay.",
+    "anythingRunningInItStops": "Anything running in it stops.",
+    "remove2": "Remove",
+    "stop2": "Stop",
+    "dockerThis": "Docker | this {{deviceWord}}",
+    "lookingForDocker": "Looking for Docker...",
+    "dockerIsNotAvailableOn": "Docker is not available on this host.",
+    "noContainersFound": "No containers found",
+    "noContainersMatchYourFilters": "No containers match your filters",
+    "useSudo": "Use sudo",
+    "refresh": "Refresh",
+    "containers": "Containers",
+    "stacks": "Stacks",
+    "searchContainers": "Search containers...",
+    "all": "All",
+    "running": "Running",
+    "stopped": "Stopped",
+    "start": "Start",
+    "restart": "Restart",
+    "pause": "Pause",
+    "unpause": "Unpause",
+    "moreActions": "More actions",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker did not answer",
+      "docker": "Docker",
+      "noContainers": "No containers"
+    },
+    "dockerConsole": {
+      "attachingTo": "Attaching to {{name}}...",
+      "consoleDisconnected": "Console disconnected",
+      "reconnect": "Reconnect",
+      "failedToLoadTheConsole": "Failed to load the console",
+      "thisSessionHasNoServer": "This session has no server"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Containers, logs and stats"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stacks are turned off on this server.",
+      "couldNotLoadStacks": "Could not load stacks",
+      "noStacks": "No stacks",
+      "composeProjectsOnThisHost": "Compose projects on this host show up here.",
+      "ofRunning": "{{running}} of {{total}} running",
+      "couldNotLoadTheStack": "Could not load the stack",
+      "services": "Services",
+      "nothingIsRunning": "Nothing is running.",
+      "composeFile": "Compose file",
+      "partlyUp": "partly up",
+      "notDeployed": "not deployed",
+      "running": "running",
+      "stopped": "stopped",
+      "paused": "paused"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "That is not a valid container id",
+      "consoleFailed": "Console failed",
+      "notAuthenticated": "Not authenticated",
+      "consoleError": "Console error",
+      "connectionFailed": "Connection failed"
+    },
+    "dockerDidNotAnswer": "Docker did not answer",
+    "failedToLoadContainers": "Failed to load containers",
+    "failedTo": "Failed to {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "The server sent no file",
+        "cancelled": "Cancelled",
+        "isGone": "{{path}} is gone",
+        "canTGoToThe": "{{name}} can't go to the trash"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Invalid trash item id",
+        "invalidTrashMetadata": "Invalid trash metadata",
+        "thisPathCanTBe": "This path can't be moved to the trash",
+        "aFileAlreadyExistsAt": "A file already exists at the original path"
+      },
+      "sftp": {
+        "commandFailed": "Command failed: {{command}}",
+        "alreadyExists": "{{name}} already exists",
+        "alreadyExistsThere": "{{path}} already exists there",
+        "canTGoToThe": "{{name}} can't go to the trash: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "The terminal isn't open anymore",
+      "clearHistory": "Clear history",
+      "stopFollowingTheTerminal": "Stop following the terminal",
+      "followTheTerminal": "Follow the terminal",
+      "goToTheTerminalS": "Go to the terminal's folder",
+      "cdTheTerminalHere": "cd the terminal here",
+      "folderHistory": "Folder history",
+      "mostUsedFirstThenRecent": "Most used first, then recent",
+      "noFoldersYet": "No folders yet"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Can't connect.",
+        "couldNotSaveHowThis": "Could not save how this host connects",
+        "thisWayCanTOpen": "This way can't open files"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Could not open this folder",
+      "cancel": "Cancel",
+      "noFoldersHere": "No folders here"
+    },
+    "couldNotOpenThisFolder": "Could not open this folder",
+    "couldNotSaveToThe": "Could not save to the folder",
+    "failed": "{{label}} failed",
+    "uploading": "Uploading {{name}}",
+    "uploadingFiles": "Uploading {{count}} files",
+    "downloadingToFilesOnMy": "Downloading to Files, On My iPhone, Termix",
+    "downloading": "Downloading {{name}}",
+    "downloadingFiles": "Downloading {{count}} files",
+    "openALargeFile": "Open a large file?",
+    "isBigForAEditor": "{{name}} is big for a {{deviceWord}} editor. It may be slow.",
+    "open": "Open",
+    "thisLooksLikeABinary": "This looks like a binary file",
+    "openItInAnotherApp": "Open it in another app instead?",
+    "openWith": "Open with",
+    "tooBigForTheEditor": "Too big for the editor",
+    "isOver10MbDownload": "{{name}} is over 10 MB. Download it instead?",
+    "download": "Download",
+    "delete": "Delete {{what}}?",
+    "moveToTheTrash": "Move {{what}} to the trash?",
+    "thisCanTBeUndone": "This can't be undone.",
+    "youCanRestoreItFrom": "You can restore it from the trash.",
+    "delete2": "Delete",
+    "moveToTrash": "Move to trash",
+    "deleteForGood": "Delete for good?",
+    "deleteItForGoodInstead": "{{message}}. Delete it for good instead? This can't be undone.",
+    "deleteFailed": "Delete failed",
+    "connectingThroughTheServer": "Connecting through the server...",
+    "connectingFromThis": "Connecting from this {{deviceWord}}...",
+    "connecting": "Connecting...",
+    "edit": "Edit",
+    "downloadFolder": "Download folder",
+    "share": "Share",
+    "rename": "Rename",
+    "copyTo": "Copy to",
+    "moveTo": "Move to",
+    "cut": "Cut",
+    "copy": "Copy",
+    "permissions": "Permissions",
+    "properties": "Properties",
+    "makeALinkHere": "Make a link here",
+    "copyPath": "Copy path",
+    "pathCopied": "Path copied",
+    "done": "Done",
+    "selectAll": "Select all",
+    "filterByName": "Filter by name",
+    "closeSearch": "Close search",
+    "search": "Search",
+    "changeSort": "Change sort",
+    "paste": "Paste {{count}}",
+    "upload": "Upload",
+    "transfers2": "Transfers",
+    "more": "More",
+    "nothingMatches": "Nothing matches",
+    "emptyFolder": "Empty folder",
+    "uploadFilesOrMakeA": "Upload files or make a new one.",
+    "newFolder": "New folder",
+    "newFile": "New file",
+    "select": "Select",
+    "hideHiddenFiles": "Hide hidden files",
+    "showHiddenFiles": "Show hidden files",
+    "trash": "Trash",
+    "folderProperties": "Folder properties",
+    "refresh": "Refresh",
+    "rename2": "Rename {{name}}",
+    "newLink": "New link",
+    "aLinkInThatPoints": "A link in {{path}} that points to {{path2}}",
+    "name": "Name",
+    "create": "Create",
+    "copyHere": "Copy here",
+    "moveHere": "Move here",
+    "fileViewer": {
+      "saved": "Saved {{name}}",
+      "couldNotSaveTheFile": "Could not save the file",
+      "discardChanges": "Discard changes?",
+      "hasChangesThatAreNot": "{{name}} has changes that are not saved.",
+      "discard": "Discard",
+      "readOnly": "{{path}} | read only",
+      "find": "Find",
+      "smallerText": "Smaller text",
+      "biggerText": "Bigger text",
+      "turnOffLineWrap": "Turn off line wrap",
+      "wrapLines": "Wrap lines",
+      "save": "Save"
+    },
+    "hostSection": {
+      "startIn": "Start in",
+      "theFolderTheFileManager": "The folder the file manager opens first",
+      "files": "Files"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Go to {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "More actions",
+        "moreFor": "More for {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Permissions",
+      "cancel": "Cancel",
+      "apply": "Apply ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Could not open it",
+      "openWith": "Open with",
+      "share": "Share"
+    },
+    "propertiesView": {
+      "properties": "Properties",
+      "path": "Path",
+      "type": "Type",
+      "pointsTo": "Points to",
+      "size": "Size",
+      "countFolderSize": "Count folder size",
+      "permissions": "Permissions",
+      "change": "Change",
+      "owner": "Owner",
+      "group": "Group",
+      "modified": "Modified",
+      "opened": "Opened",
+      "linkToA": "Link to a {{value}}",
+      "notShownForFolders": "Not shown for folders",
+      "file": "File",
+      "folder": "Folder",
+      "link": "Link"
+    },
+    "register": {
+      "fileManager": "File Manager",
+      "files": "Files",
+      "browseEditAndMoveFiles": "Browse, edit and move files",
+      "files2": "FILES",
+      "fileManagerAndTransfers": "File manager and transfers"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Transfer failed"
+      },
+      "transfersPanel": {
+        "pause": "Pause",
+        "resume": "Resume",
+        "tryAgain": "Try again",
+        "open": "Open",
+        "cancel": "Cancel",
+        "transfers": "Transfers",
+        "goingOf": "{{active}} going | {{done}} of {{total}}",
+        "clearFinished": "Clear finished",
+        "cancelAll": "Cancel all",
+        "noTransfersYet": "No transfers yet",
+        "waiting": "Waiting",
+        "paused": "Paused",
+        "done": "Done",
+        "failed": "Failed",
+        "cancelled": "Cancelled"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Failed to load trash",
+      "restored": "Restored {{name}}",
+      "failedToRestore": "Failed to restore",
+      "failedToDelete": "Failed to delete",
+      "trashEmptied": "Trash emptied",
+      "failedToEmptyTrash": "Failed to empty trash",
+      "trash": "Trash",
+      "itemsAreRemovedAfterDays": "Items are removed after {{retentionDays}} days",
+      "close": "Close",
+      "emptyTrash": "Empty Trash",
+      "trashIsEmpty": "Trash is empty",
+      "restore": "Restore {{name}}",
+      "deleteForGood": "Delete {{name}} for good"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Just now"
+      }
+    },
+    "getting": "Getting {{name}}",
+    "itemCount_one": "{{count}} item",
+    "itemCount_other": "{{count}} items",
+    "copiedWhat": "Copied {{what}}",
+    "movedWhat": "Moved {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} has more than {{limit}} files. Download smaller folders."
+    },
+    "downloadingToFilesOnMyIpad": "Downloading to Files, On My iPad, Termix",
+    "size": "Size",
+    "date": "Date"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Service links",
+      "openInHomepage": "Open in Homepage",
+      "thisWidgetOnlyShowsOn": "This widget only shows on the full page."
+    },
+    "register": {
+      "serviceLinks": "Service links",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "No feed set.",
+        "couldNotLoadTheFeed": "Could not load the feed.",
+        "theFeedIsEmpty": "The feed is empty.",
+        "noLocationSet": "No location set.",
+        "couldNotLoadTheWeather": "Could not load the weather.",
+        "noUrlSet": "No URL set.",
+        "couldNotLoadTheData": "Could not load the data.",
+        "noPictureSet": "No picture set.",
+        "badResponse": "bad response"
+      },
+      "services": "Services",
+      "service": "Service",
+      "serviceLinks": "Service links",
+      "bookmarks": "Bookmarks",
+      "links2": "Links",
+      "search": "Search",
+      "clock": "Clock",
+      "countdown": "Countdown",
+      "calendar": "Calendar",
+      "notes": "Notes",
+      "banner": "Banner",
+      "ping": "Ping",
+      "host": "Host",
+      "hosts": "Hosts",
+      "quickConnect": "Quick connect",
+      "feed": "Feed",
+      "weather": "Weather",
+      "customApi": "Custom API",
+      "picture": "Picture",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "No services yet.",
+        "noLinkSet": "No link set.",
+        "noLinksYet": "No links yet.",
+        "noSearchEngineSet": "No search engine set.",
+        "search": "Search",
+        "noShortcutsYet": "No shortcuts yet.",
+        "search2": "Search {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Could not open the link"
+      },
+      "status": {
+        "noUrlsYet": "No URLs yet.",
+        "down": "Down",
+        "noHostsPicked": "No hosts picked."
+      },
+      "text": {
+        "noNotesYet": "No notes yet.",
+        "noTextYet": "No text yet."
+      },
+      "time": {
+        "noDateSet": "No date set.",
+        "timeIsUp": "Time is up"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Could not save the default",
+    "couldNotResetTheDefault": "Could not reset the default",
+    "back": "Back",
+    "hostDefaults": "Host defaults",
+    "newHostsStartFromThese": "New hosts start from these",
+    "managedOnTheServer": "Managed on the server",
+    "defaultsForThisServerAre": "Defaults for this server are set in the web app.",
+    "level": "Level",
+    "yourDefaultsOrOneFolder": "Your defaults, or one folder's",
+    "myDefaults": "My defaults",
+    "theServerSets": " The server sets {{adminCount}}.",
+    "aFolderWinsOverYour": "A folder wins over your defaults, and your defaults win over the server's. A host keeps any value you set on it yourself.{{value}}",
+    "save": "Save",
+    "authentication": "Authentication",
+    "none": "None",
+    "reset": "Reset",
+    "model": {
+      "username": "Username",
+      "sshPort": "SSH port",
+      "authentication": "Authentication",
+      "aSavedCredentialForNew": "A saved credential for new hosts",
+      "forceKeyboardInteractive": "Force keyboard interactive",
+      "keepaliveInterval": "Keepalive interval",
+      "seconds0TurnsItOff": "Seconds, 0 turns it off",
+      "keepaliveTries": "Keepalive tries",
+      "allowOldAlgorithms": "Allow old algorithms",
+      "agentForwarding": "Agent forwarding",
+      "environmentVariables": "Environment variables",
+      "oneNameValuePerLine": "One NAME=value per line",
+      "checkIfTheHostIs": "Check if the host is up",
+      "checkInterval": "Check interval",
+      "secondsEmptyUsesTheServer": "Seconds, empty uses the server's",
+      "socks5Proxy": "SOCKS5 proxy",
+      "setInTheWebApp": "Set in the web app",
+      "jumpHosts": "Jump hosts",
+      "portKnocking": "Port knocking",
+      "notSet": "Not set",
+      "fromTheServer": "From the server",
+      "fromYourDefaults": "From your defaults",
+      "builtIn": "Built in"
+    },
+    "register": {
+      "hostDefaults": "Host defaults",
+      "portUserAndOptionsFor": "Port, user and options for new hosts"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "No data yet",
+      "cpu": "CPU",
+      "memory": "Memory",
+      "disk": "Disk",
+      "history": "History",
+      "loading": "Loading..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Could not read metrics",
+      "metrics": "Metrics",
+      "cpu": "CPU",
+      "memory": "Memory",
+      "disk": "Disk",
+      "noRecentSampleOpenThe": "No recent sample. Open the host's metrics to start one."
+    },
+    "register": {
+      "enableMetrics": "Enable metrics",
+      "cpuMemoryDiskAndNetwork": "CPU, memory, disk and network over SSH",
+      "hostMetrics": "Host Metrics",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrics",
+      "cpuMemoryDiskAndNetwork2": "CPU, memory, disk and network"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Host Metrics | this {{deviceWord}}",
+      "hostMetrics": "Host Metrics",
+      "ran": "Ran {{name}}",
+      "loadingMetrics": "Loading metrics...",
+      "couldNotReadMetricsFrom": "Could not read metrics from this host",
+      "failedToLoadMetrics": "Failed to load metrics",
+      "thisSessionHasNoServer": "This session has no server",
+      "twoFactorRequiredForThis": "Two-factor required for this host's stats.",
+      "failedToStartMetrics": "Failed to start metrics",
+      "failedToRun": "Failed to run {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Per core: {{value}}",
+        "cores": "Cores",
+        "load": "Load",
+        "user": "User",
+        "system": "System",
+        "ioWait": "IO wait",
+        "steal": "Steal"
+      },
+      "diskWidget": {
+        "disk": "Disk  {{mount}}",
+        "disk2": "Disk",
+        "used": "Used",
+        "total": "Total",
+        "free": "Free"
+      },
+      "firewallWidget": {
+        "firewall": "Firewall",
+        "rules": "{{type}} | {{ruleCount}} rules",
+        "noFirewallDetected": "No firewall detected"
+      },
+      "gpuWidget": {
+        "gpus": "GPUs ({{count}})",
+        "gpu": "GPU",
+        "memory": "Memory",
+        "temp": "Temp",
+        "power": "Power",
+        "fan": "Fan"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Login activity",
+        "noLoginActivityRecorded": "No login activity recorded",
+        "logins": "Logins",
+        "uniqueIps": "Unique IPs",
+        "failed": "Failed",
+        "recent": "Recent"
+      },
+      "memoryWidget": {
+        "memory": "Memory",
+        "used": "Used",
+        "total": "Total",
+        "cached": "Cached",
+        "free": "Free"
+      },
+      "networkWidget": {
+        "network": "Network",
+        "noInterfaces": "No interfaces",
+        "up": "Up",
+        "down": "Down"
+      },
+      "portsWidget": {
+        "listeningPorts": "Listening Ports",
+        "noListeningPorts": "No listening ports"
+      },
+      "processesWidget": {
+        "sortBy": "Sort by {{label}}",
+        "processes": "Processes",
+        "running": "{{value}} running | {{total}}",
+        "noProcessData": "No process data",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "COMMAND"
+      },
+      "systemWidget": {
+        "system": "System",
+        "hostname": "Hostname",
+        "os": "OS",
+        "kernel": "Kernel",
+        "arch": "Arch",
+        "noSystemInfo": "No system info"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperature"
+      },
+      "uptimeWidget": {
+        "uptime": "Uptime"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Copied with the password",
+      "copiedTheLink": "Copied the link",
+      "shareHost": "Share host",
+      "thatHostNoLongerExists": "That host no longer exists",
+      "scanThisInTermixOn": "Scan this in Termix on another {{deviceWord}}, under Import and export. The code has the address, port and user. It has no password or key.",
+      "copyLink": "Copy link",
+      "copyLinkWithPassword": "Copy link with password"
+    },
+    "includePasswordsAndKeys": "Include passwords and keys?",
+    "anyoneWhoGetsThisFile": "Anyone who gets this file can sign in to these hosts. Keep it safe.",
+    "includeThem": "Include them",
+    "pickAtLeastOneHost": "Pick at least one host",
+    "couldNotMakeTheFile": "Could not make the file",
+    "copiedToTheClipboard": "Copied to the clipboard",
+    "importAndExport": "Import and export",
+    "moveHostsInAndOut": "Move hosts in and out",
+    "import": "Import",
+    "aTermixHostFileAn": "A Termix host file, an SSH config file, or a host link or QR code from another {{deviceWord}}.",
+    "export": "Export",
+    "allHosts": "All hosts",
+    "picked": "{{size}} picked",
+    "pickHosts": "Pick hosts",
+    "includePasswordsAndKeys2": "Include passwords and keys",
+    "offMakesAFileSafe": "Off makes a file safe to share. Hosts that use a saved credential point at it by name",
+    "shareAFile": "Share a file",
+    "copy": "Copy",
+    "importPanel": {
+      "couldNotReadThat": "Could not read that",
+      "couldNotReadThatFile": "Could not read that file",
+      "importFailed": "Import failed",
+      "chooseAFile": "Choose a file",
+      "paste": "Paste",
+      "scanACode": "Scan a code",
+      "couldNotBeRead": "{{count}} could not be read",
+      "updateHostsThatExist": "Update hosts that exist",
+      "sameAddressPortAndUser": "Same address, port and user. Otherwise they are skipped",
+      "cancel": "Cancel",
+      "import": "Import",
+      "andMore": "and {{value}} more"
+    },
+    "qrCode": {
+      "qrCode": "QR code"
+    },
+    "register": {
+      "importAndExport": "Import and export",
+      "moveHostsInOrOut": "Move hosts in or out with a file or QR code",
+      "shareHost": "Share host"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Scan a host code",
+      "pointTheCameraAtA": "Point the camera at a Termix host QR code.",
+      "termixNeedsTheCameraTo": "Termix needs the camera to scan a code. Nothing is recorded.",
+      "allowTheCamera": "Allow the camera"
+    },
+    "read": {
+      "termixFile": "Termix file",
+      "sshConfig": "SSH config",
+      "thereIsNothingToImport": "There is nothing to import",
+      "thatIsNotATermix": "That is not a Termix host link",
+      "linkHost": "1 host: {{name}}",
+      "sourceHosts_one": "{{what}} with {{count}} host",
+      "sourceHosts_other": "{{what}} with {{count}} hosts"
+    },
+    "saveYourTermixHosts": "Save your Termix hosts"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Done",
+      "rejected": "Rejected",
+      "approvals": "Approvals",
+      "nothingIsWaiting": "Nothing is waiting",
+      "actionsARuleHoldsFor": "Actions a rule holds for approval show up here.",
+      "approveAndRun": "Approve and run",
+      "reject": "Reject",
+      "couldNotLoadApprovals": "Could not load approvals",
+      "couldNotDecide": "Could not decide"
+    },
+    "approvalsCard": {
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "waitingForApproval": "Waiting for approval",
+      "approve": "Approve",
+      "reject": "Reject",
+      "couldNotDecide": "Could not decide",
+      "seeAll": "See all"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "This can't be undone. Run it?",
+      "run": "Run",
+      "sentForApproval": "Sent for approval",
+      "target": "Target",
+      "theItemOnTheHost": "The item on the host, such as a container",
+      "dryRun": "Dry run",
+      "back": "Back",
+      "actions": "Actions",
+      "noActionsForThisHost": "No actions for this host",
+      "turnOnAPluginLike": "Turn on a plugin like Docker or Services for this host on the server.",
+      "destructive": "Destructive",
+      "changes": "Changes",
+      "theActionCouldNotRun": "The action could not run",
+      "couldNotLoadActions": "Could not load actions"
+    },
+    "register": {
+      "actions": "Actions",
+      "waitingForApproval": "Waiting for approval",
+      "approvals": "Approvals",
+      "actionsWaitingForAPerson": "Actions waiting for a person to say yes",
+      "runHistory": "Run history",
+      "everyActionAnyoneRanFrom": "Every action anyone ran, from any device"
+    },
+    "runHistory": {
+      "cancelThisRun": "Cancel this run?",
+      "cancelRun": "Cancel run",
+      "keep": "Keep",
+      "undoThisRun": "Undo this run?",
+      "thisRunsTheActionS": "This runs the action's undo with the same input.",
+      "undo": "Undo",
+      "cancelled": "Cancelled",
+      "itAlreadyFinished": "It already finished",
+      "done": "Done",
+      "runHistory": "Run history",
+      "nothingHasRunYet": "Nothing has run yet",
+      "dryRun": "Dry run",
+      "cancel": "Cancel",
+      "couldNotLoadHistory": "Could not load history",
+      "couldNotCancel": "Could not cancel",
+      "couldNotUndo": "Could not undo"
+    },
+    "api": {
+      "needsApproval": "Needs approval",
+      "needsSignIn": "Needs sign in",
+      "done": "Done",
+      "failed": "Failed",
+      "running": "Running",
+      "interrupted": "Interrupted",
+      "rejected": "Rejected",
+      "cancelled": "Cancelled",
+      "expired": "Expired"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Turn on {{value}}",
+      "moreSettingsForThisAre": "More settings for this are in the Termix web app.",
+      "pluginHostSettings": "Plugin host settings"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} must be a number",
+      "mustBeAtLeast": "{{field}} must be at least {{min}}",
+      "mustBeAtMost": "{{field}} must be at most {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Link a server to use it",
+      "runsOnYourTermixServer": "{{name}} runs on your Termix server."
+    },
+    "pluginWebView": {
+      "canTLoad": "Can't load {{name}}",
+      "theServerDidNotSend": "The server did not send the plugin. Check that it is on and try again.",
+      "openThisLink": "Open this link?",
+      "open": "Open",
+      "needsANewerVersionOf": "Needs a newer version of the app",
+      "usesPartsOfTermixThis": "{{name}} uses parts of Termix this app does not have yet.",
+      "didNotStart": "{{name}} did not start",
+      "thisScreenIsNotIn": "This screen is not in the plugin version on the server.",
+      "thePluginHitAnError": "The plugin hit an error while starting.",
+      "youReOffline": "You're offline",
+      "runsOnYourServerSo": "{{name}} runs on your server, so it needs a connection. It opens again when you're back online.",
+      "tryAgain": "Try again"
+    },
+    "shell": {
+      "thatHostIsNotOn": "That host is not on this {{deviceWord}} yet.",
+      "theAppCanTOpen": "The app can't open that from here.",
+      "thatHostIsNotOn2": "That host is not on this {{deviceWord}} yet."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Password",
+      "unchangedIfBlank": "Unchanged if blank",
+      "port": "Port",
+      "domain": "Domain",
+      "displaySoundAndClipboardSettings": "Display, sound and clipboard settings are in the Termix web app.",
+      "portMustBeFrom1": "{{label}} port must be from 1 to 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "The remote desktop dropped",
+        "signIn": "{{label}} sign-in",
+        "itWillNotBeSaved": "{{error}} It will not be saved.",
+        "enterTheLoginForIt": "Enter the login for {{title}}. It will not be saved.",
+        "reconnecting": "Reconnecting {{label}}",
+        "connecting": "Connecting {{label}}",
+        "connectionFailed": "Connection Failed",
+        "disconnected": "Disconnected",
+        "reconnect": "Reconnect",
+        "connectThroughTheServer": "Connect through the server",
+        "pasteToRemote": "Paste to remote",
+        "typeClipboard": "Type clipboard",
+        "copyRemoteClipboard": "Copy remote clipboard",
+        "theComputerSCertificateWas": "The computer's certificate was not trusted.",
+        "thatLoginWasRefusedTry": "That login was refused. Try again."
+      },
+      "target": {
+        "trustThisComputer": "Trust this computer?",
+        "theCanTCheckS": "The {{deviceWord}} can't check {{hostName}}'s certificate. Make sure this fingerprint matches the one on the computer before you go on.\n\n{{fingerprint}}",
+        "trustAndConnect": "Trust and connect",
+        "certificateChanged": "Certificate changed",
+        "showsAnotherCertificateThanLast": "{{hostName}} shows another certificate than last time. That happens after the computer makes a new one, or when someone is listening in between.\n\nNew fingerprint:\n{{fingerprint}}",
+        "trustTheNewOne": "Trust the new one"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Remote Desktop",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Done",
+      "keyboard": "Keyboard",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Settings",
+      "remoteSettings": "Remote Settings",
+      "mouseMode": "Mouse Mode",
+      "touch": "Touch",
+      "trackpad": "Trackpad",
+      "tapWhereYouWantTo": "Tap where you want to click. Hold for a right click, drag to drag.",
+      "dragToMoveThePointer": "Drag to move the pointer. Tap to click, two finger tap to right click, tap then drag to drag.",
+      "zoomXPinchAnywhereTo": "Zoom: {{value}}x. Pinch anywhere to zoom",
+      "reset": "Reset",
+      "cancel": "Cancel",
+      "connect": "Connect",
+      "username": "Username",
+      "domainOptional": "Domain (optional)",
+      "domain": "Domain",
+      "password": "Password",
+      "leftArrow": "Left arrow",
+      "upArrow": "Up arrow",
+      "downArrow": "Down arrow",
+      "rightArrow": "Right arrow",
+      "rdpSignIn": "RDP sign-in"
+    },
+    "theRemoteDesktopDropped": "The remote desktop dropped",
+    "theyWillNotBeSaved": "{{errorMessage}} They will not be saved.",
+    "enterCredentialsForTheyWill": "Enter credentials for {{title}}. They will not be saved.",
+    "connecting": "Connecting",
+    "connectionFailed": "Connection Failed",
+    "disconnected": "Disconnected",
+    "reconnect": "Reconnect",
+    "route": {
+      "thisHostCanTOpen": "This host can't open a remote desktop from here."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Blocked by the app"
+    },
+    "failedToStartRemoteSession": "Failed to start remote session",
+    "thatLoginWasRefusedTry": "That login was refused. Try again.",
+    "theRemoteRefusedTheSaved": "The remote refused the saved login. Check the RDP login on this host.",
+    "remoteSessionFailed": "Remote session failed",
+    "remoteSessionReturnedAnInvalid": "Remote session returned an invalid message",
+    "failedToLoadTheRemote": "Failed to load the remote desktop client"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "No journal",
+      "thisHostDoesNotKeep": "This host does not keep a systemd journal.",
+      "all": "All",
+      "warnings": "Warnings",
+      "errors": "Errors",
+      "stop": "Stop",
+      "follow": "Follow",
+      "nothingLogged": "Nothing logged",
+      "tryAnotherLevel": "Try another level.",
+      "couldNotReadTheJournal": "Could not read the journal"
+    },
+    "register": {
+      "services": "Services",
+      "startStopAndReadLogs": "Start, stop and read logs"
+    },
+    "readingServices": "Reading services...",
+    "thisHostHasNoSystemd": "This host has no systemd or OpenRC.",
+    "noServicesMatch": "No services match",
+    "noServicesFound": "No services found",
+    "services": "Services",
+    "journal": "Journal",
+    "searchServices": "Search services...",
+    "all": "All",
+    "running": "Running",
+    "failed": "Failed ({{failed}})",
+    "failed2": "Failed",
+    "servicesCard": {
+      "services": "Services",
+      "noSystemdOrOpenrc": "No systemd or OpenRC",
+      "failed": "{{failed}} failed",
+      "allRunning": "All running",
+      "couldNotReadServices": "Could not read services"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "It stays stopped until it is started again or the host boots.",
+      "itStopsForAMoment": "It stops for a moment and starts again.",
+      "stop": "Stop",
+      "restart": "Restart",
+      "is": "{{name}} is {{state}}",
+      "start": "Start",
+      "journal": "Journal",
+      "couldNotReadTheService": "Could not read the service",
+      "couldNot": "Could not {{action}} {{name}}",
+      "startsAtBoot": "Starts at boot",
+      "mainPid": "Main PID",
+      "activeSince": "Active since",
+      "unitFile": "Unit file",
+      "notSet": "[not set]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Not signed in",
+        "followFailed": "Follow failed",
+        "connectionFailed": "Connection failed"
+      }
+    },
+    "couldNotReadServices": "Could not read services",
+    "services2": "Services{{where}}",
+    "title": "Services",
+    "failedCount": "{{count}} failed"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Session sharing",
+      "shareLink": "Share link"
+    },
+    "shareSessionView": {
+      "canWatch": "Can watch",
+      "canType": "Can type",
+      "n1Hour": "1 hour",
+      "n8Hours": "8 hours",
+      "n1Day": "1 day",
+      "n7Days": "7 days",
+      "never": "Never",
+      "shareSession": "Share session",
+      "anyoneWithTheLinkCan": "Anyone with the link can open this terminal while it runs. You can revoke links in Termix.",
+      "peopleWithTheLink": "People with the link",
+      "expiresAfter": "Expires after",
+      "link": "Link",
+      "copy": "Copy",
+      "share": "Share",
+      "makeLink": "Make link",
+      "theServerGaveNoLink": "The server gave no link",
+      "couldNotMakeALink": "Could not make a link",
+      "linkCopied": "Link copied"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "No folder"
+    },
+    "hostPicker": {
+      "selectNone": "Select none",
+      "selectAll": "Select all",
+      "done": "Done"
+    },
+    "register": {
+      "snippets": "Snippets",
+      "snippets2": "SNIPPETS",
+      "savedCommandsToRunOn": "Saved commands to run on any host"
+    },
+    "runHosts": {
+      "noWayToReachThis": "No way to reach this host from here",
+      "exitedWith": "Exited with {{exitCode}}",
+      "thisCanTRunIt": "This {{deviceWord}} can't run it",
+      "noServerIsLinked": "No server is linked"
+    },
+    "runOnHostsSheet": {
+      "run": "Run",
+      "run2": "Run \"{{name}}\"",
+      "runsOverSshOnEach": "Runs over SSH on each host. No terminal opens.",
+      "close": "Close",
+      "hosts": "Hosts",
+      "pickHosts": "Pick hosts",
+      "workedFailed": "{{value}} worked, {{failed}} failed",
+      "runOn2": "Run on",
+      "runOn_one": "Run {{name}} on {{count}} host?",
+      "runOn_other": "Run {{name}} on {{count}} hosts?",
+      "hostsPicked_one": "{{count}} host picked",
+      "hostsPicked_other": "{{count}} hosts picked"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Search snippets",
+      "pastesTheNote": "Pastes the note",
+      "runsTheSnippet": "Runs the snippet",
+      "noSnippetsMatch": "No snippets match",
+      "noSnippetsYet": "No snippets yet",
+      "addSnippetsInSettingsSnippets": "Add snippets in Settings, Snippets",
+      "run": "Run",
+      "insertWithoutRunning": "Insert without running",
+      "copy": "Copy"
+    },
+    "snippetsCard": {
+      "snippets": "Snippets",
+      "run": "Run {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "There are no snippets to export",
+      "couldNotMakeTheFile": "Could not make the file",
+      "copiedToTheClipboard": "Copied to the clipboard",
+      "couldNotImport": "Could not import",
+      "couldNotReadThatFile": "Could not read that file",
+      "importAndExport": "Import and export",
+      "theSameFileTheWeb": "The same file the web app uses.",
+      "export": "Export",
+      "shareAFile": "Share a file",
+      "copy": "Copy",
+      "import": "Import",
+      "updateSnippetsThatExist": "Update snippets that exist",
+      "sameNameInTheSame": "Same name in the same folder. Otherwise they are skipped",
+      "chooseAFile": "Choose a file",
+      "paste": "Paste",
+      "saveYourSnippets": "Save your snippets"
+    },
+    "useSnippetRunner": {
+      "run": "Run {{name}}?",
+      "run2": "Run",
+      "fillInTheValuesFor": "Fill in the values for this snippet.",
+      "cancel": "Cancel",
+      "insert": "Insert",
+      "noTerminalIsOpen": "No terminal is open"
+    },
+    "variables": {
+      "input": "Input {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "That is not a valid JSON file",
+      "theFileNeedsASnippets": "The file needs a snippets or folders list",
+      "snippetNameAndContentAre": "Snippet {{value}}: name and content are required",
+      "folder": "Folder {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Loading Tailscale devices…",
+      "searchTailscaleDevices": "Search Tailscale devices…",
+      "searchTailscaleDevices2": "Search Tailscale devices",
+      "clearDeviceSearch": "Clear device search",
+      "refreshTailscaleDevices": "Refresh Tailscale devices",
+      "device": "Device",
+      "noTailnetAddress": "No tailnet address",
+      "tailscaleDevice": "Tailscale device",
+      "tailscaleDevices": "Tailscale devices",
+      "addAHostThatConnects": "Add a host that connects with Tailscale SSH.",
+      "username": "Username",
+      "sshUsernameFor": "SSH username for {{value}}",
+      "addHost": "Add host",
+      "noTailscaleDevicesMatchYour": "No Tailscale devices match your search.",
+      "noTailscaleDevicesFound": "No Tailscale devices found.",
+      "noTailscaleApiKeyIs": "No Tailscale API key is configured on this server. Ask an administrator to add one.",
+      "youDoNotHavePermission": "You do not have permission to list Tailscale devices.",
+      "couldNotLoadTailscaleDevices": "Could not load Tailscale devices. Refresh to try again.",
+      "tailscaleIsUnavailableOnThis": "Tailscale is unavailable on this server."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Reconnecting | try {{attempt}}",
+      "reconnectingInSTry": "Reconnecting in {{secs}}s | try {{attempt}}",
+      "offlineWaitingForNetwork": "Offline, waiting for network",
+      "sendToTheNewShell": "Send {{what}} to the new shell?",
+      "reconnectNow": "Reconnect now",
+      "send": "Send",
+      "discard": "Discard",
+      "typedChars_one": "{{count}} typed character",
+      "typedChars_other": "{{count}} typed characters",
+      "waiting": "{{what}} waiting"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Connection log copied",
+      "connectionLog": "Connection log",
+      "copyItIntoABug": "Copy it into a bug report. Addresses and usernames are left out.",
+      "copy": "Copy"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Clear history for this host?",
+        "clear": "Clear",
+        "searchHistory": "Search history",
+        "typesTheCommandWithoutRunning": "Types the command without running it",
+        "noCommandsMatch": "No commands match",
+        "noHistoryYet": "No history yet",
+        "commandsYouRunOnThis": "Commands you run on this host show up here",
+        "run": "Run",
+        "typeWithoutRunning": "Type without running",
+        "copy": "Copy",
+        "delete": "Delete",
+        "historyCleared": "History cleared"
+      },
+      "suggestionStrip": {
+        "use": "Use {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "App setting",
+      "delete": "Delete (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Tab title from the shell",
+      "programsCanSetTheTab": "Programs can set the tab title",
+      "openTmux": "Open tmux",
+      "attachToATmuxSession": "Attach to a tmux session, or start one",
+      "reconnectOnDrop": "Reconnect on drop",
+      "keepTabOpenOnExit": "Keep tab open on exit",
+      "pressEnterToConnectAgain": "Press Enter to connect again",
+      "saveCommandHistory": "Save command history",
+      "offerToFillPasswordPrompts": "Offer to fill password prompts",
+      "offerToFillSudoPrompts": "Offer to fill sudo prompts",
+      "usesTheSudoPasswordFrom": "Uses the sudo password from the SSH tab",
+      "none": "None",
+      "look": "Look",
+      "theme": "Theme",
+      "font": "Font",
+      "cursor": "Cursor",
+      "bell": "Bell",
+      "scrollbackLines": "Scrollback lines",
+      "app": "App",
+      "behavior": "Behavior",
+      "backspaceSends": "Backspace sends",
+      "startupSnippet": "Startup snippet",
+      "runsOnceTheShellIs": "Runs once the shell is ready",
+      "fillWithoutAsking": "Fill without asking",
+      "onThisOnlyOnceYou": "On this {{deviceWord}} only, once you picked Always fill",
+      "connection": "Connection",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Seconds between pings, 0 turns it off",
+      "default": "Default",
+      "keepaliveSeconds": "Keepalive seconds",
+      "missedPings": "Missed pings",
+      "dropTheConnectionAfterThis": "Drop the connection after this many go unanswered",
+      "missedPingsBeforeDrop": "Missed pings before drop",
+      "environment": "Environment",
+      "removeVariable": "Remove variable",
+      "addVariable": "Add variable"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "KEYBOARD"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Row",
+        "keys": "Keys",
+        "sendsAKeyCode": "Sends a key code",
+        "stickyModifier": "Sticky modifier",
+        "appAction": "App action",
+        "tmuxPrefixThen": "tmux prefix, then {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Key rows",
+        "onlyFor": "Only for {{name}}",
+        "usingTheAppSRows": "Using the app's rows. Changes here are only for {{name}}",
+        "useTheAppSRows": "Use the app's rows"
+      },
+      "keyButton": {
+        "locked": "Locked"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Cancel",
+        "remove": "Remove {{what}}?",
+        "remove2": "Remove",
+        "dragToReorder": "Drag to reorder",
+        "rowName": "Row name",
+        "groupName": "Group name",
+        "add": "Add",
+        "addKey": "Add key",
+        "addRow": "Add row",
+        "addGroup": "Add group",
+        "tmuxPrefix": "tmux prefix",
+        "name": "Name",
+        "rename": "Rename",
+        "keys": "{{value}} keys",
+        "noKeys": "No keys",
+        "remove3": "Remove {{label}}",
+        "keys2": "Keys",
+        "custom": "Custom",
+        "add2": "Add {{label}}",
+        "typeText": "Type text",
+        "runCommand": "Run command",
+        "ctrlKey": "Ctrl key",
+        "label": "Label",
+        "optional": "Optional",
+        "letter": "Letter",
+        "command": "Command",
+        "text": "Text",
+        "resetToDefault": "Reset to default"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Change keys in Settings, Keyboard"
+      },
+      "keyRowBar": {
+        "keyRow": "Key row {{label}}",
+        "tapForTheNextRow": "Tap for the next row, hold to pick one",
+        "keyRows": "Key rows"
+      },
+      "model": {
+        "clear": "Clear",
+        "main": "Main",
+        "keys": "Keys",
+        "arrows": "Arrows",
+        "symbols": "Symbols",
+        "actions": "Actions",
+        "nav": "Nav",
+        "move": "Move",
+        "function": "Function",
+        "brackets": "Brackets",
+        "punctuation": "Punctuation",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Panes",
+        "copy": "Copy",
+        "split": "Split ─",
+        "split2": "Split │",
+        "newWin": "New win",
+        "prevWin": "Prev win",
+        "nextWin": "Next win",
+        "pane": "Pane ←",
+        "pane2": "Pane ↓",
+        "pane3": "Pane ↑",
+        "pane4": "Pane →",
+        "copyMode": "Copy mode",
+        "pasteBuf": "Paste buf",
+        "killPane": "Kill pane"
+      }
+    },
+    "output": {
+      "openLink": "Open link?",
+      "open": "Open",
+      "pasteLines": "Paste {{lines}} lines?",
+      "pasteThisText": "Paste this text?",
+      "theShellMayRunIt": "The shell may run it right away.\n\n{{text}}",
+      "paste": "Paste",
+      "letTheProgramReadYour": "Let the program read your clipboard?",
+      "itAskedForWhatYou": "It asked for what you last copied.",
+      "allow": "Allow",
+      "letTheProgramCopyTo": "Let the program copy to your clipboard?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Fill the saved password?",
+      "asksForTheSudoPassword": "{{hostName}} asks for the sudo password.",
+      "asksForAPassword": "{{hostName}} asks for a password.",
+      "fillPassword": "Fill password",
+      "alwaysFillOnThisHost": "Always fill on this host",
+      "asksNoMoreOnThis": "Asks no more on this {{deviceWord}}. Turn it off in the host's Terminal tab.",
+      "notNow": "Not now"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal and keepalive",
+      "history": "HISTORY",
+      "find": "Find",
+      "tmuxWindows": "tmux windows",
+      "connectionLog": "Connection log",
+      "keyRowsForThisHost": "Key rows for this host"
+    },
+    "searchBar": {
+      "noResults": "No results",
+      "matchCase": "Match case",
+      "wholeWord": "Whole word",
+      "regularExpression": "Regular expression",
+      "find": "Find",
+      "closeFind": "Close find"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "System",
+      "block": "Block",
+      "bar": "Bar",
+      "underline": "Underline",
+      "off": "Off",
+      "sound": "Sound",
+      "flash": "Flash",
+      "both": "Both"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "New tab on this host",
+      "closeTab": "Close tab",
+      "nextTab": "Next tab",
+      "previousTab": "Previous tab",
+      "goToTab": "Go to tab",
+      "find": "Find",
+      "fontSize": "Font size",
+      "paste": "Paste",
+      "escape": "Escape",
+      "copyAndPaste": "Copy and paste"
+    },
+    "reconnecting": "Reconnecting...",
+    "waitingForNetwork": "Waiting for network...",
+    "waitingForYou": "Waiting for you...",
+    "connecting": "Connecting...",
+    "terminalView": {
+      "scrollToBottom": "Scroll to bottom",
+      "onlyWebLinksCanOpen": "Only web links can open from the terminal",
+      "couldNotOpenLink": "Could not open link",
+      "copiedFromTheTerminal": "Copied from the terminal"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Open a tmux session",
+        "newSession": "New session",
+        "plainShell": "Plain shell",
+        "tmuxWindows": "tmux windows",
+        "newWindow": "New window",
+        "windowCount_one": "{{count}} window",
+        "windowCount_other": "{{count}} windows",
+        "attached": "{{count}} attached",
+        "activeNow": "active now",
+        "activeMinAgo": "active {{count}} min ago",
+        "activeHoursAgo": "active {{count}} h ago",
+        "activeDaysAgo_one": "active {{count}} day ago",
+        "activeDaysAgo_other": "active {{count}} days ago"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Copy",
+        "selectAll": "Select all",
+        "cancel": "Cancel",
+        "scrollToBottom": "Scroll to bottom",
+        "couldNotCopy": "Could not copy",
+        "webviewError": "WebView error: {{description}}",
+        "webviewHttpError": "WebView HTTP error: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "No saved password for this host",
+    "backInTmuxSession": "Back in tmux session {{tmuxName}}",
+    "backInScreenSession": "Back in screen session {{name}}",
+    "theServerSessionEndedThis": "The server session ended. This is a new shell.",
+    "termixWasClosedSoThe": "Termix was closed, so the old shell ended. This is a new shell.",
+    "theConnectionDroppedAndThe": "The connection dropped and the old shell ended. This is a new shell.",
+    "disconnectedFrom": "Disconnected from {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Two-Factor Authentication",
+      "codesFromAnAuthenticatorApp": "Codes from an authenticator app for your server account"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC address",
+      "neededToWakeThisHost": "Needed to wake this host with Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Use a MAC address like 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN sent to {{name}}",
+      "failedToSendWakeOn": "Failed to send Wake-on-LAN packet",
+      "noServer": "No server"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Wake {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Share anonymous usage statistics?",
+      "termixWouldSendAShort": "Termix would send a short report once a day. You can change this any time in Settings.",
+      "noThanks": "No thanks",
+      "share": "Share",
+      "theReportHasTheApp": "The report has the app version, {{deviceWord}} type, rough counts of hosts and sessions, which features you use, and whether connecting worked. It never has hostnames, usernames, addresses, paths, commands or server names.",
+      "seeExactlyWhatIsSent": "See exactly what is sent"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Loading version information…",
+      "updateAvailable": "Update Available",
+      "newVersionAvailable": "New version available",
+      "aNewerVersionOfThe": "A newer version of the mobile app is available. Some features may not work correctly until you update.",
+      "versionInformation": "Version Information",
+      "installed": "Installed",
+      "latest": "Latest",
+      "unknown": "Unknown",
+      "tag": "Tag",
+      "continueAnyway": "Continue Anyway"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Copied",
+      "copy": "Copy",
+      "hostKeyChanged": "Host key changed",
+      "verifyHostKey": "Verify host key",
+      "cancel": "Cancel",
+      "acceptNewKey": "Accept new key",
+      "connectAndTrust": "Connect and trust",
+      "theHostSSshKey": "The host's SSH key has changed since your last connection. This could mean someone is intercepting the connection.",
+      "youAreConnectingToThis": "You are connecting to this host for the first time. Check the fingerprint before you trust it.",
+      "previousKey": "Previous key",
+      "newFingerprint": "New fingerprint",
+      "hostFingerprint": "Host fingerprint"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Passphrase Required",
+      "enterThePassphraseForYour": "Enter the passphrase for your SSH key.",
+      "cancel": "Cancel",
+      "connect": "Connect",
+      "keyPassphrase": "Key passphrase"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH Authentication Required",
+      "cancel": "Cancel",
+      "connect": "Connect",
+      "password": "Password",
+      "sshKey": "SSH Key",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nPaste your private key here...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Key passphrase (optional)",
+      "keyboardInteractiveAuthIsNot": "Keyboard-interactive auth is not available. Enter credentials directly.",
+      "authenticationFailedPleaseReEnter": "Authentication failed. Please re-enter your credentials.",
+      "connectionTimedOutPleaseTry": "Connection timed out. Please try again with your credentials."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH check",
+      "completeTheTailscaleSshCheck": "Complete the Tailscale SSH check in your browser to continue.",
+      "cancel": "Cancel",
+      "copyUrl": "Copy URL",
+      "openBrowser": "Open Browser",
+      "urlCopied": "URL copied",
+      "failedToCopy": "Failed to copy",
+      "couldNotOpenBrowser": "Could not open browser"
+    },
+    "tOTPDialog": {
+      "cancel": "Cancel",
+      "submit": "Submit",
+      "verify": "Verify",
+      "password": "Password",
+      "pasteCode": "Paste code",
+      "passwordRequired": "Password Required",
+      "twoFactorAuthentication": "Two-Factor Authentication",
+      "enterYourPasswordToContinue": "Enter your password to continue.",
+      "enterThe6DigitCode": "Enter the 6-digit code from your authenticator app."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate Authentication",
+      "authenticateViaTheWarpgatePortal": "Authenticate via the Warpgate portal, then tap Continue.",
+      "cancel": "Cancel",
+      "openBrowser": "Open Browser",
+      "continue": "Continue",
+      "securityKey": "Security Key",
+      "authUrl": "Auth URL",
+      "copied": "Copied",
+      "copy": "Copy",
+      "urlCopied": "URL copied",
+      "failedToCopy": "Failed to copy",
+      "couldNotOpenBrowser": "Could not open browser"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "this {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Recent activity",
+        "files": "Files",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Notifications",
+        "seeAll": "See all"
+      },
+      "server": "Server",
+      "openSessions": "Open sessions",
+      "quickAccess": "Quick access",
+      "notifications": "Notifications",
+      "pinnedHosts": "Pinned hosts",
+      "recentHosts": "Recent hosts",
+      "recentActivity": "Recent activity",
+      "pinnedCard": {
+        "addYourFirstHost": "Add your first host",
+        "hostsYouOpenShowUp": "Hosts you open show up here, and pinned hosts show live cards.",
+        "addHost": "Add host",
+        "linkAServer": "Link a server",
+        "pinAHostToSee": "Pin a host to see it here",
+        "pinnedHostsShowTheirMetrics": "Pinned hosts show their metrics, Docker and services at a glance. Hold a host to pin it.",
+        "goToHosts": "Go to hosts",
+        "pinned": "Pinned",
+        "opensTheTerminalHoldFor": "Opens the terminal. Hold for more.",
+        "turnOnDockerOrServices": "Turn on Docker or Services for this host, or tap it to connect.",
+        "opens": "Opens {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Quick access",
+        "quickConnect": "Quick connect",
+        "userHostPortWithoutSaving": "user@host:port, without saving"
+      },
+      "recentCard": {
+        "recent": "Recent"
+      },
+      "serverCard": {
+        "server": "Server",
+        "version": "Version",
+        "uptime": "Uptime",
+        "database": "Database",
+        "hosts": "Hosts",
+        "online": "Online",
+        "offline": "Offline",
+        "logins": "Logins"
+      },
+      "sessionsCard": {
+        "openSessions": "Open sessions",
+        "connected": "Connected"
+      }
+    },
+    "resetHome": "Reset Home?",
+    "cardsGoBackToThe": "Cards go back to the default order and shown cards.",
+    "reset": "Reset",
+    "doneEditingHome": "Done editing Home",
+    "editHome": "Edit Home",
+    "dragToReorder": "Drag {{title}} to reorder",
+    "show": "Show {{title}}",
+    "dragCardsToReorderThem": "Drag cards to reorder them. Turn a card off to hide it. Cards with nothing to show stay hidden on their own.",
+    "resetToDefault": "Reset to default",
+    "done": "Done",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Still can't reach the server",
+      "canTReach": "Can't reach {{account}}",
+      "youCanKeepWorkingWith": "You can keep working with the copy on this {{deviceWord}}. Changes go up when it is back.",
+      "hostsSetToConnectFrom": "Hosts set to connect from this {{deviceWord}} still work.",
+      "tryAgain": "Try again",
+      "noAnswer": "no answer"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault profile",
+      "none": "None",
+      "signsInWithInYour": "Signs in with {{title}} in your browser through your Termix server. Connect this host through the server.",
+      "needsATermixServerLink": "{{title}} needs a Termix server. Link one to use this sign in.",
+      "isOffOnThisServer": "{{title}} is off on this server. This host keeps its sign in setting."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Could not load credentials",
+      "deleted": "Deleted \"{{name}}\"",
+      "couldNotDeleteTheCredential": "Could not delete the credential",
+      "credentials": "Credentials",
+      "add": "Add",
+      "searchCredentials": "Search credentials",
+      "clearSearch": "Clear search",
+      "loadingCredentials": "Loading credentials...",
+      "noCredentialsMatchYourSearch": "No credentials match your search",
+      "noCredentialsYet": "No credentials yet",
+      "addCredential": "Add credential",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteCredential": "Delete credential",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" will be permanently deleted. Hosts using it will lose their saved credentials.",
+      "cancel": "Cancel",
+      "hostCount_one": "{{count}} host",
+      "hostCount_other": "{{count}} hosts",
+      "sshKey": "SSH key"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Replace the key?",
+        "theNewKeyTakesThe": "The new key takes the place of the current one. Hosts that only trust the old key will stop accepting this credential.",
+        "replace": "Replace",
+        "newKeyMadeCopyThe": "New key made. Copy the public key to your hosts.",
+        "couldNotMakeAKey": "Could not make a key",
+        "couldNotReadThatCertificate": "Could not read that certificate file",
+        "leaveWithoutSaving": "Leave without saving?",
+        "yourChangesToThisCredential": "Your changes to this credential will be lost.",
+        "leave": "Leave",
+        "credentialSaved": "Credential saved",
+        "credentialAdded": "Credential added",
+        "couldNotSaveTheCredential": "Could not save the credential",
+        "enterAHostToTest": "Enter a host to test on, like 10.0.0.5 or box:2222.",
+        "enterTheUsernameFirst": "Enter the username first.",
+        "editCredential": "Edit credential",
+        "newCredential": "New credential",
+        "cancel": "Cancel",
+        "save": "Save",
+        "credential": "Credential",
+        "name": "Name",
+        "productionKey": "Production key",
+        "username": "Username",
+        "signInWith": "Sign in with",
+        "password": "Password",
+        "sshKey": "SSH key",
+        "unchangedIfBlank": "Unchanged if blank",
+        "key": "Key",
+        "fileOrPaste": "File or paste",
+        "makeANewKey": "Make a new key",
+        "aKeyIsSavedChoose": "A key is saved. Choose a file or paste to replace it.",
+        "type": "Type",
+        "ed25519AndEcdsaAreMade": "Ed25519 and ECDSA are made on this {{deviceWord}}, RSA on your server.",
+        "madeOnThisEd25519Works": "Made on this {{deviceWord}}. Ed25519 works almost everywhere.",
+        "passphrase": "Passphrase",
+        "optionalLocksTheNewKey": "Optional. Locks the new key on this {{deviceWord}} and on disk.",
+        "makeKey": "Make key",
+        "publicKey": "Public key",
+        "addThisLineToSsh": "Add this line to ~/.ssh/authorized_keys on your hosts",
+        "publicKeyCopied": "Public key copied",
+        "copyPublicKey": "Copy public key",
+        "certificate": "Certificate",
+        "aCertificateYourCaSigned": "A certificate your CA signed for this key, for hosts that trust the CA.",
+        "chooseCertificateFile": "Choose certificate file",
+        "thisDoesNotLookLike": "This does not look like an OpenSSH certificate.",
+        "test": "Test",
+        "hostToTestOn": "Host to test on",
+        "n10005Or": "10.0.0.5 or box.lan:2222",
+        "pickASavedHost": "Pick a saved host",
+        "details": "Details",
+        "description": "Description",
+        "whatThisCredentialIsFor": "What this credential is for",
+        "folder": "Folder",
+        "serverKeys": "Server keys",
+        "testOnAHost": "Test on a host",
+        "rsaKeysNeedALinked": "RSA keys need a linked server."
+      },
+      "model": {
+        "giveThisCredentialAName": "Give this credential a name",
+        "addAPrivateKeyOr": "Add a private key, or make a new one"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "This is a host certificate, not a user one.",
+        "thisCertificateIsNotValid": "This certificate is not valid yet.",
+        "thisCertificateHasExpired": "This certificate has expired.",
+        "itIsForAKey": "It is for a {{keyType}} key, but this key is {{keyType2}}.",
+        "forAnyUser": "For any user",
+        "validFromNoEndDate": "Valid from {{validAfter}}, no end date",
+        "signedBy": "Signed by {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Username",
+        "fromTheCredential": "From the credential: {{credentialUser}}",
+        "signInWith": "Sign in with",
+        "password": "Password",
+        "key": "Key",
+        "credential": "Credential",
+        "none": "None",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Connects with Tailscale SSH. No password or key is kept.",
+        "tailscaleIsNotOnFor": "Tailscale is not on for {{value}}. This host keeps its Tailscale sign in.",
+        "unchangedIfBlank": "Unchanged if blank",
+        "noCredentialsYetTapThe": "No credentials yet. Tap the key icon in Hosts to add one.",
+        "useCredential": "Use credential {{name}}",
+        "sudoPassword": "Sudo password",
+        "typedIntoSudoPromptsWhen": "Typed into sudo prompts when the Terminal section turns that on",
+        "notSet": "Not set",
+        "thisServer": "this server"
+      },
+      "colorIconField": {
+        "color": "Color",
+        "noColor": "No color",
+        "color2": "Color {{c}}",
+        "icon": "Icon",
+        "noIcon": "No icon",
+        "none": "None",
+        "icon2": "Icon {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Leave without saving?",
+        "yourChangesToThisHost": "Your changes to this host will be lost.",
+        "leave": "Leave",
+        "couldNotSaveHowThis": "Could not save how this host connects",
+        "hostSaved": "Host saved",
+        "hostAdded": "Host added",
+        "couldNotSaveTheHost": "Could not save the host",
+        "enterTheHostSAddress": "Enter the host's address first.",
+        "turnOnSshToTest": "Turn on SSH to test the login.",
+        "pickACredentialFirst": "Pick a credential first.",
+        "editHost": "Edit host",
+        "newHost": "New host",
+        "cancel": "Cancel",
+        "save": "Save",
+        "host": "Host",
+        "name": "Name",
+        "myServer": "My server",
+        "address": "Address",
+        "port": "Port",
+        "portAndUsernameComeFrom": "Port and username come from your host defaults until you change them.",
+        "folder": "Folder",
+        "production": "Production",
+        "useAFolderInstead": "Use a folder instead",
+        "putItUnderAHost": "Put it under a host instead",
+        "pinToTop": "Pin to top",
+        "colorAndIcon": "Color and icon",
+        "notes": "Notes",
+        "anythingWorthRememberingAboutThis": "Anything worth remembering about this host",
+        "protocols": "Protocols",
+        "terminalFilesAndMore": "Terminal, files and more",
+        "connectFrom": "Connect from",
+        "features": "Features",
+        "otherProtocols": "Other protocols",
+        "more": "More",
+        "theTestRunsFromThis": "The test runs from this {{deviceWord}}. This host connects through the server, so it can still work when the {{deviceWord}} can't reach it."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Jump hosts",
+        "connectsThroughTheseInOrder": "Connects through these in order, then to this host",
+        "reachThisHostThroughOther": "Reach this host through other hosts first",
+        "moveUp": "Move up",
+        "moveDown": "Move down",
+        "removeJumpHost": "Remove jump host",
+        "addJumpHost": "Add jump host",
+        "pickASavedHostTo": "Pick a saved host to connect through",
+        "searchHosts": "Search hosts",
+        "noOtherHostsToPick": "No other hosts to pick. A host cannot jump through itself or a host that already goes through it.",
+        "missingHost": "Missing host #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Turn on at least one protocol",
+        "pickACredential": "Pick a credential",
+        "enterTheHostSAddress": "Enter the host's address",
+        "theAddressCanTHave": "The address can't have spaces",
+        "portMustBeFrom1": "Port must be from 1 to 65535",
+        "enterTheSshUsername": "Enter the SSH username"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "The host shows nested under the one you pick",
+        "searchHosts": "Search hosts",
+        "noHostsToPickA": "No hosts to pick. A host can't go under itself, one of its own sub-hosts or a shared host.",
+        "parentHost": "Parent host",
+        "subHostsFollowTheFolder": "Sub-hosts follow the folder of their parent",
+        "pickParentHost": "Pick parent host",
+        "missingHost": "Missing host #{{value}}",
+        "pickAHost": "Pick a host",
+        "clearParentHost": "Clear parent host"
+      },
+      "tagsField": {
+        "tags": "Tags",
+        "typeATagAndPress": "Type a tag and press enter",
+        "removeTag": "Remove tag {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Could not save how this host connects",
+      "addressCopied": "Address copied",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Connect from",
+      "dismiss": "Dismiss",
+      "unpin": "Unpin",
+      "pinToHome": "Pin to Home",
+      "select": "Select",
+      "editHost": "Edit Host",
+      "copyAddress": "Copy Address",
+      "addSubHost": "Add Sub-host",
+      "cloneHost": "Clone Host",
+      "deleteHost": "Delete Host",
+      "connectThroughTheServer": "Connect through the server",
+      "connectFromThis": "Connect from this {{deviceWord}}"
+    },
+    "defaultYourOrder": "Default (your order)",
+    "nameAZ": "Name (A-Z)",
+    "nameZA": "Name (Z-A)",
+    "ipAscending": "IP (ascending)",
+    "ipDescending": "IP (descending)",
+    "onlineFirst": "Online first",
+    "offlineFirst": "Offline first",
+    "pinnedFirst": "Pinned first",
+    "status": "Status",
+    "online": "Online",
+    "offline": "Offline",
+    "pinned": "Pinned",
+    "protocol": "Protocol",
+    "features": "Features",
+    "hostsCanOnlyMoveInside": "Hosts can only move inside their own folder",
+    "couldNotUpdateTheHosts": "Could not update the hosts",
+    "sharedHostsCanTBe": "Shared hosts can't be deleted here",
+    "delete2": "Delete",
+    "noneOfTheseHostsOpen": "None of these hosts open a terminal",
+    "couldNotPinTheHost": "Could not pin the host",
+    "deleted": "Deleted {{name}}",
+    "failedToDeleteHost": "Failed to delete host",
+    "cloned": "Cloned {{name}}",
+    "failedToCloneHost": "Failed to clone host",
+    "reorderWorksWithTheDefault": "Reorder works with the Default sort and no search or filter",
+    "couldNotSaveTheOrder": "Could not save the order",
+    "noHostsYet": "No hosts yet",
+    "addAHostToConnect": "Add a host to connect to it with one tap.",
+    "addHost": "Add host",
+    "quickConnect2": "Quick connect",
+    "linkAServer": "Link a server",
+    "noHostsMatch": "No hosts match",
+    "clearSearchAndFilters": "Clear search and filters",
+    "more": "More",
+    "dragAHostByIts": "Drag a host by its grip to move it inside its folder.",
+    "done": "Done",
+    "filterHosts": "Filter hosts",
+    "clearFilterText": "Clear filter text",
+    "sortHosts": "Sort hosts",
+    "removeFilter": "Remove filter {{value}}",
+    "loadingHosts": "Loading hosts…",
+    "moveUnderAHost": "Move under a host",
+    "moveToFolder": "Move to folder",
+    "leaveItEmptyToTake": "Leave it empty to take the hosts out of folders.",
+    "folderLikeProdWeb": "Folder, like Prod / Web",
+    "move": "Move",
+    "hosts": "Hosts",
+    "selectHosts": "Select hosts",
+    "reorderHosts": "Reorder hosts",
+    "customizeList": "Customize list",
+    "chooseWhatEachHostRow": "Choose what each host row shows",
+    "credentials2": "Credentials",
+    "savedPasswordsAndKeys": "Saved passwords and keys",
+    "tailscaleDevices": "Tailscale devices",
+    "refresh": "Refresh",
+    "rowDensityFollowsSettingsAppearance": "Row density follows Settings, Appearance.",
+    "clearAllFilters": "Clear all filters",
+    "tags": "Tags",
+    "stopSelecting": "Stop selecting",
+    "selected": "{{count}} selected",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Could not read that key file",
+        "theClipboardIsEmpty": "The clipboard is empty",
+        "privateKey": "Private key",
+        "chooseFile": "Choose file",
+        "paste": "Paste",
+        "unchangedIfBlank": "Unchanged if blank",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Passphrase",
+        "onlyIfTheKeyHas": "Only if the key has one",
+        "theKeyIsCheckedWhen": "The key is checked when you connect.",
+        "thePastedKey": "the pasted key"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Open",
+        "moreActions": "More actions",
+        "opensTheTerminalHoldFor": "Opens the terminal. Hold for more.",
+        "shared": "Shared",
+        "drag": "Drag {{name}}",
+        "showSubHosts_one": "Show {{count}} sub-host of {{name}}",
+        "showSubHosts_other": "Show {{count}} sub-hosts of {{name}}",
+        "hideSubHosts_one": "Hide {{count}} sub-host of {{name}}",
+        "hideSubHosts_other": "Hide {{count}} sub-hosts of {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Folder {{name}}, {{total}} hosts"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Host and username are required",
+      "hostSaved": "Host saved",
+      "couldNotSaveTheHost": "Could not save the host",
+      "quickConnect": "Quick connect",
+      "connectToAHostWithout": "Connect to a host without saving it.",
+      "hostIp": "Host / IP",
+      "port": "Port",
+      "username": "Username",
+      "password": "Password",
+      "key": "Key",
+      "privateKey": "Private Key",
+      "saveToMyHosts": "Save to my hosts",
+      "keepThisHostAfterConnecting": "Keep this host after connecting",
+      "cancel": "Cancel",
+      "connect": "Connect"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Getting your hosts from the server",
+      "yourHostsStayOnThis": "{{message}} Your hosts stay on this {{deviceWord}} meanwhile."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "This host's key changed",
+      "trustThisHost": "Trust this host?",
+      "trust": "Trust",
+      "stopTest": "Stop test",
+      "testConnection": "Test connection",
+      "connecting": "Connecting..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Failed to load hosts."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} shared host was left as it is.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} shared hosts were left as they are.",
+    "deleteHosts_one": "Delete {{count}} host?",
+    "deleteHosts_other": "Delete {{count}} hosts?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "No folder named {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Host \"{{name}}\": bad port",
+        "hostJumpIsNotIn": "Host \"{{name}}\": jump {{value}} is not in the file, so it was left out",
+        "credential": "Credential {{name}}: {{error}}",
+        "noValidHostEntriesFound": "No valid Host entries found in the SSH config file",
+        "credentialWasNotFound": "{{label}}: credential {{value}} was not found"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Host {{value}}: duplicate exported host id {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Missing required fields (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Invalid authType. Must be one of {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Username required for SSH connections",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias required for credential authentication",
+        "thatIsNotAValid": "That is not a valid JSON file",
+        "hostsArrayIsRequiredAnd": "Hosts array is required and must not be empty",
+        "jumpHostCycle": "{{label}}: jump host cycle",
+        "jumpHostIsNotIn": "{{label}}: jump host {{id}} is not in the file"
+      }
+    },
+    "movedTo": "Moved to {{value}}",
+    "movedOutOfFolders": "Moved out of folders",
+    "movedUnder": "Moved under {{value}}",
+    "openTerminals": "Open terminals",
+    "theHost": "the host"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Hide password",
+      "showPassword": "Show password",
+      "enterAUsernameAndPassword": "Enter a username and password",
+      "useAtLeast6Characters": "Use at least 6 characters for the password",
+      "thePasswordsDonTMatch": "The passwords don't match",
+      "makeTheAdminAccount": "Make the admin account",
+      "makeAnAccount": "Make an account",
+      "thisIsTheFirstAccount": "This is the first account on the server, so it runs the server.",
+      "pickAUsernameAndPassword": "Pick a username and password for this server.",
+      "username": "Username",
+      "password": "Password",
+      "passwordAgain": "Password again",
+      "makeAccount": "Make account",
+      "back": "Back",
+      "haveAnAccountSignIn": "Have an account? Sign in",
+      "resetCodeMadeItIs": "Reset code made. It is in the server's logs",
+      "enterYourUsername": "Enter your username",
+      "enterTheResetCode": "Enter the reset code",
+      "passwordChangedSignInWith": "Password changed. Sign in with it now",
+      "resetPassword": "Reset password",
+      "enterYourUsernameTheServer": "Enter your username. The server writes a reset code to its logs.",
+      "sendResetCode": "Send reset code",
+      "enterThe6DigitCode": "Enter the 6 digit code from the server logs.",
+      "resetCode": "Reset code",
+      "checkCode": "Check code",
+      "newPassword": "New password",
+      "saveNewPassword": "Save new password",
+      "backToSignIn": "Back to sign in",
+      "couldNotMakeTheAccount": "Could not make the account",
+      "couldNotStartTheReset": "Could not start the reset",
+      "thatCodeDidnTWork": "That code didn't work",
+      "couldNotChangeThePassword": "Could not change the password"
+    },
+    "browserStep": {
+      "signInFailed": "Sign in failed",
+      "signInCanceled": "Sign in canceled",
+      "couldNotOpenTheSign": "Could not open the sign in browser",
+      "couldNotOpenTheSign2": "Could not open the sign in page",
+      "certificateProblem": "Certificate problem",
+      "back": "Back",
+      "signIn": "Sign in",
+      "reload": "Reload",
+      "finishSigningInInYour": "Finish signing in in your browser",
+      "useAnySignInYour": "Use any sign in your server has, like a passkey or security key. The app picks up once you are in.",
+      "theAppPicksUpOnce": "The app picks up once your sign in provider is done.",
+      "signingIn": "Signing in...",
+      "openBrowserAgain": "Open browser again",
+      "theServerTurnedTheSession": "The server turned the session down. Try again.",
+      "signedInButTheApp": "Signed in, but the app can't reach Termix. A proxy may be blocking it.",
+      "thatSignInLinkIs": "That sign in link is from an older try. Sign in again.",
+      "signInAgain": "Sign in again.",
+      "openTheBrowserAgainWhen": "Open the browser again when you are ready.",
+      "theWebPageSignedIn": "The web page signed in but sent no session. Update the server and try again.",
+      "theCanTCheckThis": "The {{deviceWord}} can't check this server's certificate. Install its root CA on the {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Use {{name}} to sign in next time?",
+      "ifThisServerSignsYou": "If this server signs you out, sign in again with {{name}} instead of typing your password. The password stays on this {{deviceWord}}.",
+      "use": "Use {{name}}",
+      "notNow": "Not now",
+      "couldNotSaveTheLogin": "Could not save the login",
+      "thatSADifferentUser": "That's a different user",
+      "signedIn": "Signed in",
+      "close": "Close",
+      "linkYourTermixServer": "Link your Termix server",
+      "yourHostsCredentialsSnippetsAnd": "Your hosts, credentials, snippets and settings sync with it, and you get its plugins. Everything keeps working on this {{deviceWord}} when the server is away.",
+      "checking": "Checking {{host}}...",
+      "proxyAndClientCertificate": "Proxy and client certificate",
+      "couldNotReachThatServer": "Could not reach that server. Check the address, or set up the proxy or client certificate.",
+      "couldNotReachThatServer2": "Could not reach that server",
+      "syncCouldNotStartYet": "Sync could not start yet. It tries again on its own.",
+      "checkingTheServer": "Checking the server",
+      "signIn": "Sign in",
+      "makeAnAccount": "Make an account",
+      "resetPassword": "Reset password",
+      "oneMoreStep": "One more step",
+      "almostDone": "Almost done",
+      "linkAServer": "Link a server"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "The saved login no longer works",
+      "enterYourUsernameAndPassword": "Enter your username and password",
+      "thisServerIsBehindA": "This server is behind a login proxy",
+      "signInWith": "Sign in with {{saved}}",
+      "signInWith2": "Sign in with",
+      "password": "Password",
+      "username": "Username",
+      "signIn": "Sign in",
+      "forgotPassword": "Forgot password?",
+      "makeAnAccount": "Make an account",
+      "or": "OR",
+      "continueWith": "Continue with {{label}}",
+      "signInWithAPasskey": "Sign in with a passkey or security key",
+      "opensYourServerAposS": "Opens your server's sign in page in the browser. Face ID, fingerprint, NFC and USB keys all work there. Needs Termix 26.11.3 or newer.",
+      "signInInTheBrowser": "Sign in in the browser",
+      "opensYourServerAposS2": "Opens your server's sign in page, for anything the app can't do here. Needs Termix 26.10.6 or newer.",
+      "thisServerHasNoSign": "This server has no sign in turned on that the app can use. Ask whoever runs it, or try the browser sign in above.",
+      "signInWithYourPassword": "Sign in with your password.",
+      "signInFailed": "Sign in failed",
+      "openingItsSignInPage": "Opening its sign in page."
+    },
+    "smallSteps": {
+      "serverAddress": "Server address",
+      "likeTermixExampleComOr": "Like termix.example.com or 192.168.1.20:30001",
+      "checking": "Checking...",
+      "continue": "Continue",
+      "proxyAndClientCertificate": "Proxy and client certificate",
+      "aServerWithASelf": "A server with a self signed certificate needs its root CA installed on this {{deviceWord}} first. Plain http works on your own network.",
+      "enterTheCode": "Enter the code",
+      "code": "Code",
+      "the6DigitCodeFrom": "The 6 digit code from your authenticator app, or a backup code",
+      "checkCode": "Check code",
+      "thisAccountAsksForA": "This account asks for a security key after the password. Sign in on the server's page in your browser to use it.",
+      "useASecurityKeyIn": "Use a security key in the browser",
+      "backToSignIn": "Back to sign in",
+      "bringThisAposSHosts": "Bring this {{deviceWord}}'s hosts along?",
+      "thisHasTheyStayOn": "This {{deviceWord}} has {{what}}. They stay on This device either way.",
+      "merge": "Merge",
+      "copyThemToTooSo": "Copy them to {{serverName}} too, so they sync. Ones that look the same as a server host are skipped.",
+      "replace": "Replace",
+      "useOnlyWhatIsOn": "Use only what is on {{serverName}} for this account. Nothing is copied.",
+      "thatCodeDidnTWork": "That code didn't work",
+      "hostsCredentialsOrSnippets": "hosts, credentials or snippets"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Link this server first",
+      "thatHostIsnTHere": "That host isn't here",
+      "couldNotOpenThatHost": "Could not open that host",
+      "noHostWithIdOn": "No host with id {{hostId}} on {{account}}.",
+      "isnTLinkedInThe": "{{value}} isn't linked in the app yet."
+    }
+  },
+  "notifications": {
+    "notifications": "Notifications",
+    "markAllRead": "Mark all read",
+    "clearReadNotifications": "Clear read notifications",
+    "unread2": "Unread",
+    "all": "All",
+    "noUnreadNotifications": "No unread notifications",
+    "nothingHere": "Nothing here",
+    "markRead": "Mark read",
+    "delete": "Delete",
+    "couldNotLoadNotifications": "Could not load notifications",
+    "couldNotMarkRead": "Could not mark read",
+    "couldNotDelete": "Could not delete",
+    "couldNotClear": "Could not clear"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Import",
+      "hosts": "Hosts",
+      "aTermixHostFileYour": "A Termix host file, your ~/.ssh/config, or a host link or QR code from another {{deviceWord}}. They are saved on this {{deviceWord}}.",
+      "backup": "Backup",
+      "aBackupThisAppMade": "A backup this app made, locked with a passphrase. It brings back hosts, credentials and snippets.",
+      "restoreABackup": "Restore a backup",
+      "done": "Done",
+      "skipForNow": "Skip for now",
+      "sshFilesAndRemoteDesktops": "SSH, files and remote desktops from your {{deviceWord}}. How do you want to start?",
+      "useWithoutAServer": "Use without a server",
+      "hostsCredentialsAndSnippetsAre": "Hosts, credentials and snippets are kept encrypted on this {{deviceWord}}. You can link a server any time later.",
+      "linkATermixServer": "Link a Termix server",
+      "syncYourHostsCredentialsSnippets": "Sync your hosts, credentials, snippets and settings with your server and use its plugins.",
+      "bringHostsFromATermix": "Bring hosts from a Termix file, an SSH config, a QR code or a backup.",
+      "thisDevice": "This device"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Search hosts, snippets, actions",
+      "clearSearch": "Clear search",
+      "nothingMatches": "Nothing matches",
+      "typeToSearch": "Type to search",
+      "findAHostToConnect": "Find a host to connect, a snippet, a setting or an action.",
+      "suggested": "Suggested | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Run in {{title}}",
+      "copiedRunItFromThe": "Copied. Run it from the terminal's snippets to fill in its values.",
+      "copiedOpenATerminalTo": "Copied. Open a terminal to run snippets.",
+      "addHost": "Add host",
+      "quickConnect": "Quick connect",
+      "switchAccount": "Switch account",
+      "linkAServer": "Link a server",
+      "fromYourServer": "From your server",
+      "settings": "Settings",
+      "accountsAppearanceSecurity": "Accounts, appearance, security"
+    },
+    "search": {
+      "hosts": "Hosts",
+      "snippets": "Snippets",
+      "actions": "Actions",
+      "settings": "Settings"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Failed to load sessions",
+      "sessionRevoked": "Session revoked",
+      "failedToRevokeSession": "Failed to revoke session",
+      "allSessionsRevoked": "All sessions revoked",
+      "failedToRevokeAllSessions": "Failed to revoke all sessions",
+      "activeSessions": "Active sessions",
+      "signOutAllOtherSessions": "Sign out all other sessions",
+      "loading": "Loading…",
+      "noActiveSessionsFound": "No active sessions found.",
+      "unknownDevice": "Unknown device",
+      "lastActive": "Last active {{lastActiveAt}}",
+      "created": "Created {{createdAt}}",
+      "revokeSession": "Revoke session",
+      "revokeSession2": "Revoke session?",
+      "thisWillSignOutThat": "This will sign out that device.",
+      "revoke": "Revoke",
+      "revokeAllSessions": "Revoke all sessions?",
+      "thisWillSignOutEvery": "This will sign out every device. You will remain signed in on this device.",
+      "cancel": "Cancel",
+      "revokeAll": "Revoke all"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Failed to load API keys",
+      "failedToCreateApiKey": "Failed to create API key",
+      "deleteApiKey": "Delete API key?",
+      "willStopWorkingRightAway": "\"{{name}}\" will stop working right away.",
+      "apiKeyDeleted": "API key deleted",
+      "failedToDeleteApiKey": "Failed to delete API key",
+      "apiKeys": "API keys",
+      "newApiKey": "New API key",
+      "loading": "Loading…",
+      "apiKeysAllowProgrammaticAccess": "API keys allow programmatic access to Termix. The secret is only shown once so store it safely.",
+      "noApiKeysYet": "No API keys yet",
+      "created": "Created {{createdAt}}",
+      "lastUsed": "Last used {{lastUsedAt}}",
+      "expires": "Expires {{expiresAt}}",
+      "delete": "Delete {{name}}",
+      "keyCreatedCopyItNow": "Key created. Copy it now",
+      "newApiKey2": "New API Key",
+      "thisTokenWonTBe": "This token won't be shown again.",
+      "apiKeyCopied": "API key copied",
+      "copy": "Copy",
+      "done": "Done",
+      "cancel": "Cancel",
+      "create": "Create",
+      "name": "Name *",
+      "eGCiPipeline": "e.g. CI Pipeline",
+      "user": "User *",
+      "noUsersAvailable": "No users available.",
+      "expiresAtOptional": "Expires At (optional)",
+      "yyyyMmDd": "YYYY/MM/DD",
+      "yearMonthDay": "Year / Month / Day"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Keep sessions running",
+      "showsANotificationWhileSessions": "Shows a notification while sessions are open, so Android keeps them going when you leave the app",
+      "batteryOptimization": "Battery optimization",
+      "termixIsNotRestrictedSo": "Termix is not restricted, so sessions can stay open with the screen off.",
+      "androidMayStillStopSessions": "Android may still stop sessions to save battery. Open the battery settings, find Termix and pick Not optimized or Unrestricted.",
+      "openBatterySettings": "Open battery settings",
+      "notificationsAreOff": "Notifications are off",
+      "sessionsStillRunButThe": "Sessions still run, but the list of open sessions and the Disconnect all button stay hidden.",
+      "openNotificationSettings": "Open notification settings",
+      "thisBuildCanTKeep": "This build can't keep sessions running in the background. They reconnect when you come back.",
+      "lowPowerMode": "Low Power Mode",
+      "batterySaver": "Battery saver",
+      "isOnTermixChecksConnections": "{{value}} is on. Termix checks connections less often and waits longer between reconnect tries.",
+      "backgroundSessions": "Background sessions",
+      "iosStopsAppsSoonAfter": "iOS stops apps soon after you leave them, so sessions can't run in the background. They reconnect when you come back, and tmux or screen picks up where you were."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Stopped",
+        "active": "Active",
+        "linkAServer": "Link a server",
+        "eachServerKeepsItsOwn": "Each server keeps its own copy of your hosts, credentials and settings on this {{deviceWord}}.",
+        "signedInAs": "Signed in as",
+        "role": "Role",
+        "administrator": "Administrator",
+        "user": "User",
+        "serverVersion": "Server version",
+        "signOut": "Sign out",
+        "youAreSignedOutOf": "You are signed out of this server.",
+        "signIn": "Sign in",
+        "passwordChanged": "Password changed",
+        "couldNotChangeThePassword": "Could not change the password",
+        "changePassword": "Change password",
+        "enterYourCurrentPasswordThen": "Enter your current password, then choose a new one.",
+        "cancel": "Cancel",
+        "change": "Change",
+        "currentPassword": "Current password",
+        "newPassword": "New password",
+        "accountDeleted": "Account deleted",
+        "couldNotDeleteTheAccount": "Could not delete the account",
+        "deleteServerAccount": "Delete server account",
+        "thisPermanentlyDeletesYourAccount": "This permanently deletes your account on the server and all of its data. It cannot be undone.",
+        "delete": "Delete",
+        "confirmYourPassword": "Confirm your password",
+        "worksWithoutAServer": "Works without a server",
+        "signedOut": "Signed out",
+        "readsLive": "Reads live",
+        "toReview": "{{count}} to review",
+        "synced": "Synced",
+        "syncing": "Syncing",
+        "offline": "Offline"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Share anonymous usage statistics",
+        "aShortReportOnceA": "A short report once a day. No hosts, names or addresses",
+        "nextReport": "Next report",
+        "seeExactlyWhatWouldBe": "See exactly what would be sent",
+        "couldNotBuildTheReport": "Could not build the report",
+        "preview": "Preview",
+        "thisIsExactlyWhatWould": "This is exactly what would be sent right now.",
+        "resetInstallId": "Reset install id",
+        "futureReportsWillLookLike": "Future reports will look like a new install",
+        "resetTheInstallId": "Reset the install id?",
+        "futureReportsWillLookLike2": "Future reports will look like a new install.",
+        "reset": "Reset",
+        "installIdReset": "Install id reset"
+      },
+      "appearanceControls": {
+        "theme": "Theme",
+        "accentColor": "Accent color",
+        "textSize": "Text size",
+        "sizeOfTextAcrossThe": "Size of text across the app, not the terminal",
+        "density": "Density",
+        "howTallListRowsAnd": "How tall list rows and settings are"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Hosts, credentials and snippets are kept in an encrypted file on this {{deviceWord}}. Usage statistics are off unless you turn them on below. A linked server only gets what you let it sync.",
+        "recentHosts": "Recent hosts",
+        "forgetTheHostsYouOpened": "Forget the hosts you opened lately on every account",
+        "recentHostsCleared": "Recent hosts cleared",
+        "clear": "Clear",
+        "couldNotCheckForUpdates": "Could not check for updates",
+        "versionIsOutUpdateFrom": "Version {{version}} is out. Update from your store.",
+        "youHaveTheNewestVersion": "You have the newest version",
+        "termixMobile": "Termix Mobile",
+        "updates": "Updates",
+        "check": "Check"
+      },
+      "pinSheet": {
+        "waitSeconds": "Wait {{value}} seconds",
+        "digits": "{{PIN_LENGTH}} digits"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "The PINs do not match",
+        "appLockIsOn": "App Lock is on",
+        "turnOffAppLock": "Turn off App Lock",
+        "enterYourPinToConfirm": "Enter your PIN to confirm.",
+        "appLockIsOff": "App Lock is off",
+        "appLock": "App Lock",
+        "askForFaceIdTouch": "Ask for Face ID, Touch ID or a PIN to open the app",
+        "askForAPinTo": "Ask for a PIN to open the app",
+        "pinChanged": "PIN changed",
+        "couldNotChangeThePin": "Could not change the PIN",
+        "changePin": "Change PIN",
+        "lockAfter": "Lock after",
+        "howLongTheAppCan": "How long the app can be out of sight before it locks",
+        "hideInAppSwitcher": "Hide in app switcher",
+        "showABlankScreenIn": "Show a blank screen in the list of recent apps",
+        "chooseA4DigitPin": "Choose a 4 digit PIN.",
+        "confirmPin": "Confirm PIN",
+        "enterTheSamePinAgain": "Enter the same PIN again.",
+        "currentPin": "Current PIN",
+        "enterYourCurrentPin": "Enter your current PIN.",
+        "newPin": "New PIN",
+        "chooseANew4Digit": "Choose a new 4 digit PIN.",
+        "confirmNewPin": "Confirm new PIN",
+        "enterTheNewPinAgain": "Enter the new PIN again."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Home screen widgets",
+        "showYourHostsSnippetsAnd": "Show your hosts, snippets and power buttons on the home screen",
+        "showAddresses": "Show addresses",
+        "showUserHostUnderEach": "Show user@host under each server name",
+        "includeOfflineHosts": "Include offline hosts",
+        "offShowsOnlyServersThat": "Off shows only servers that are online",
+        "pinnedHostsOnly": "Pinned hosts only",
+        "showOnlyTheHostsYou": "Show only the hosts you pinned",
+        "snippetsWidget": "Snippets widget",
+        "showSavedCommandsOnThe": "Show saved commands on the home screen",
+        "showCommandPreview": "Show command preview",
+        "showTheFirstLineOf": "Show the first line of each command"
+      }
+    },
+    "fileSettings": {
+      "files": "Files",
+      "fileManagerOnThis": "File manager on this {{deviceWord}}",
+      "browsing": "Browsing",
+      "transfersAtOnce": "Transfers at once",
+      "downloadsAndUploadsThatRun": "Downloads and uploads that run together",
+      "editor": "Editor",
+      "textSize": "Text size",
+      "filesBesideTheTerminal": "Files beside the terminal",
+      "side": "Side",
+      "whereThePanelSitsOn": "Where the panel sits on a tablet",
+      "right": "Right",
+      "left": "Left",
+      "howOftenToCheck": "How often to check",
+      "folderHistory": "Folder history",
+      "foldersKeptPerHost": "Folders kept per host",
+      "showHiddenFiles": "Show hidden files",
+      "filesAndFoldersThatStart": "Files and folders that start with a dot",
+      "askBeforeMovingToThe": "Ask before moving to the trash",
+      "deletingForGoodAlwaysAsks": "Deleting for good always asks",
+      "wrapLongLines": "Wrap long lines",
+      "openWithNewTerminals": "Open with new terminals",
+      "onATabletShowThe": "On a tablet, show the files panel when a terminal opens",
+      "followTheTerminal": "Follow the terminal",
+      "openTheFolderTheTerminal": "Open the folder the terminal is in as you cd"
+    },
+    "keyboardCustomization": {
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "ms": "{{v}} ms",
+      "keyboard": "Keyboard",
+      "keyRowsAboveTheKeyboard": "Key rows above the keyboard",
+      "rows": "Rows",
+      "keys": "Keys",
+      "aHostCanHaveIts": "A host can have its own rows: tap its open tab in a session and pick Key rows for this host.",
+      "keySize": "Key size",
+      "vibrateOnKeyPress": "Vibrate on key press",
+      "repeatAfter": "Repeat after",
+      "howLongToHoldAn": "How long to hold an arrow or Backspace",
+      "repeatEvery": "Repeat every",
+      "hardwareKeyboard": "Hardware keyboard",
+      "allShortcuts": "All shortcuts",
+      "show": "Show"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Could not make the backup",
+      "deleteLocalData": "Delete local data?",
+      "hostsCredentialsSnippetsAndHistory": "Hosts, credentials, snippets and history saved on this {{deviceWord}} for {{account}} are deleted. This can't be undone. Make a backup first if you want to keep them.",
+      "delete": "Delete",
+      "localDataDeleted": "Local data deleted",
+      "couldNotDeleteLocalData": "Could not delete local data",
+      "localData": "Local data",
+      "localDataIsOnlySaved": "Local data is only saved in the {{deviceWord}} app.",
+      "savedOnThisForThe": "Saved on this {{deviceWord}} for {{account}}. The file is encrypted with a key that never leaves this {{deviceWord}}.",
+      "hosts": "Hosts",
+      "credentials": "Credentials",
+      "snippets": "Snippets",
+      "size": "Size",
+      "dataVersion": "Data version",
+      "backup": "Backup",
+      "aBackupFileHoldsYour": "A backup file holds your passwords and keys, locked with a passphrase you choose. Nobody can open it without that passphrase.",
+      "exportBackup": "Export backup",
+      "importBackup": "Import backup",
+      "removesEverythingThisAccountSaved": "Removes everything this account saved on this {{deviceWord}}. A linked server keeps its own copy.",
+      "deleteLocalData2": "Delete local data",
+      "backupPassphrase": "Backup passphrase",
+      "atLeast8CharactersYou": "At least 8 characters. You need it to restore the backup.",
+      "passphrase": "Passphrase",
+      "next": "Next",
+      "typeItAgain": "Type it again",
+      "export": "Export",
+      "saveYourTermixBackup": "Save your Termix backup"
+    },
+    "logs": {
+      "logs": "Logs",
+      "latestLinesFromThisRun": "Latest lines from this run. Server addresses, passwords and tokens are hidden.",
+      "logsCopied": "Logs copied",
+      "copy": "Copy",
+      "share": "Share",
+      "clear": "Clear",
+      "noLogsYet": "No logs yet",
+      "nothingHasBeenLogged": "Nothing has been logged."
+    },
+    "plugins": {
+      "worksOnThis": "Works on this {{deviceWord}}",
+      "needsTheServer": "Needs the server",
+      "notInTheApp": "Not in the app",
+      "needsANewerVersionOf": "Needs a newer version of the app",
+      "updateThePluginOnThe": "Update the plugin on the server",
+      "inTheApp": "In the app",
+      "onThisServer": "On this server",
+      "version": "Version",
+      "needsPluginApi": "Needs plugin API",
+      "thisAppHas": "This app has",
+      "note": "Note",
+      "open": "Open",
+      "openFromAHostS": "Open {{name}} from a host's menu.",
+      "plugins": "Plugins",
+      "everything": "Everything",
+      "thisDeviceWorksWithNo": "This device works with no server. Link a server to add what needs one.",
+      "pluginsOnAndHowEach": "Plugins on {{account}} and how each one shows in the app. Pull down to check again.",
+      "whatRunsOnThisAnd": "What runs on this {{deviceWord}} and what goes through {{account}}.",
+      "noPluginList": "No plugin list",
+      "theServerDidNotSend": "The server did not send its plugins. Pull down to try again.",
+      "serversOlderThan29": "Servers older than 2.9 have every feature built in.",
+      "nothingToShow": "Nothing to show",
+      "notSentByThisServer": "Not sent by this server"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Replace local data?",
+      "everythingSavedOnThisFor": "Everything saved on this {{deviceWord}} for {{accountName}} is replaced with the backup.",
+      "continue": "Continue",
+      "couldNotReadThatFile": "Could not read that file",
+      "backupRestored": "Backup restored",
+      "couldNotRestoreTheBackup": "Could not restore the backup",
+      "backupPassphrase": "Backup passphrase",
+      "thePassphraseUsedWhenThe": "The passphrase used when the backup was made.",
+      "passphrase": "Passphrase",
+      "restore": "Restore"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Accounts",
+        "thisDeviceAndLinkedServers": "This device and linked servers, with their sync state",
+        "syncAndProxy": "Sync and proxy",
+        "whatSyncsConflictsProxyAnd": "What syncs, conflicts, proxy and unlink",
+        "serverAccount": "Server account",
+        "whoIsSignedInOn": "Who is signed in on the active server",
+        "activeSessions": "Active sessions",
+        "devicesSignedInToThe": "Devices signed in to the server",
+        "apiKeys": "API keys",
+        "keysForScriptsAndTools": "Keys for scripts and tools",
+        "changePassword": "Change password",
+        "passwordOfYourServerAccount": "Password of your server account",
+        "deleteServerAccount": "Delete server account",
+        "removeYourAccountFromThe": "Remove your account from the server",
+        "theme": "Theme",
+        "darkLightDraculaNordAnd": "Dark, light, Dracula, Nord and more",
+        "accentColor": "Accent color",
+        "textSize": "Text size",
+        "sizeOfTextAcrossThe": "Size of text across the app",
+        "density": "Density",
+        "howTallListRowsAnd": "How tall list rows and settings are",
+        "homeScreenWidgets": "Home screen widgets",
+        "hostsAndSnippetsOnThe": "Hosts and snippets on the home screen",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Font, theme, cursor, scrollback",
+        "keyboard": "Keyboard",
+        "layoutKeysPresets": "Layout, keys, presets",
+        "appLock": "App Lock",
+        "askForFaceIdTouch": "Ask for Face ID, Touch ID or a PIN to open the app",
+        "lockAfter": "Lock after",
+        "howLongTheAppCan": "How long the app can be out of sight before it locks",
+        "hideInAppSwitcher": "Hide in app switcher",
+        "showABlankScreenIn": "Show a blank screen in the list of recent apps",
+        "changePin": "Change PIN",
+        "backgroundSessions": "Background sessions",
+        "whatHappensToOpenSessions": "What happens to open sessions when you leave the app",
+        "serverAlerts": "Server alerts",
+        "alertsFromTheAlertsPlugin": "Alerts from the Alerts plugin on your server",
+        "whatStaysOnThis": "What stays on this {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Hosts, credentials and snippets are stored encrypted here",
+        "recentHosts": "Recent hosts",
+        "forgetTheHostsYouOpened": "Forget the hosts you opened lately",
+        "shareAnonymousUsageStatistics": "Share anonymous usage statistics",
+        "aShortReportOnceA": "A short report once a day. No hosts, names or addresses",
+        "nextReport": "Next report",
+        "seeExactlyWhatWouldBe": "See exactly what would be sent",
+        "resetInstallId": "Reset install id",
+        "futureReportsWillLookLike": "Future reports will look like a new install",
+        "serverUsageStatistics": "Server usage statistics",
+        "telemetrySettingsOnYourServer": "Telemetry settings on your server",
+        "plugins": "Plugins",
+        "whatTheServerAddsAnd": "What the server adds and where it runs",
+        "localData": "Local data",
+        "backupRestoreAndDeleteWhat": "Backup, restore and delete what is saved on this {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Version and updates",
+        "logs": "Logs",
+        "latestLinesFromThisRun": "Latest lines from this run, for bug reports",
+        "pushNotifications": "Push notifications",
+        "pushNotificationsDescription": "Alerts from your servers on this phone"
+      },
+      "sections": {
+        "accountsAndSync": "Accounts and sync",
+        "thisDeviceLinkedServersAnd": "This device, linked servers and what syncs",
+        "appearance": "Appearance",
+        "themeAccentTextSizeAnd": "Language, theme, accent, text size and density",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Font, colors and background sessions",
+        "keyboard": "Keyboard",
+        "keyRowsAndShortcuts": "Key rows and shortcuts",
+        "security": "Security",
+        "appLockFaceIdAnd": "App Lock, Face ID and PIN",
+        "notifications": "Notifications",
+        "alertsFromYourServer": "Alerts from your server",
+        "privacyAndUsageStatistics": "Privacy and usage statistics",
+        "whatStaysOnThis": "What stays on this {{deviceWord}}",
+        "plugins": "Plugins",
+        "whatTheServerAddsTo": "What the server adds to the app",
+        "backupAndData": "Backup and data",
+        "backUpRestoreImportAnd": "Back up, restore, import and export",
+        "aboutAndLogs": "About and logs",
+        "versionAndLogsForBug": "Version and logs for bug reports"
+      }
+    },
+    "settings": "Settings",
+    "searchSettings": "Search settings",
+    "noSettingsMatch": "No settings match.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Failed to load snippets",
+      "copied": "Copied: {{name}}",
+      "nameIsRequired": "Name is required",
+      "contentIsRequired": "Content is required",
+      "snippetUpdated": "Snippet updated",
+      "snippetCreated": "Snippet created",
+      "failedToSaveSnippet": "Failed to save snippet",
+      "snippetDeleted": "Snippet deleted",
+      "failedToDeleteSnippet": "Failed to delete snippet",
+      "folderNameIsRequired": "Folder name is required",
+      "folderCreated": "Folder created",
+      "failedToCreateFolder": "Failed to create folder",
+      "folderDeleted": "Folder deleted",
+      "failedToDeleteFolder": "Failed to delete folder",
+      "folderRenamed": "Folder renamed",
+      "failedToRenameFolder": "Failed to rename folder",
+      "failedToSaveOrder": "Failed to save order",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "runOnHosts": "Run {{name}} on hosts",
+      "copy": "Copy {{name}}",
+      "delete": "Delete {{name}}",
+      "renameFolder": "Rename folder",
+      "deleteFolder": "Delete folder",
+      "noSnippetsInThisFolder": "No snippets in this folder",
+      "snippets": "Snippets",
+      "importAndExport": "Import and export",
+      "folder": "Folder",
+      "new": "New",
+      "loading": "Loading…",
+      "couldNotLoadSnippets": "Could not load snippets",
+      "checkTheConnectionToYour": "Check the connection to your server and try again.",
+      "tryAgain": "Try again",
+      "noSnippetsYet": "No snippets yet",
+      "createYourFirstSnippetOr": "Create your first snippet, or add snippets from the Termix web or desktop app.",
+      "createSnippet": "Create snippet",
+      "askBeforeRunning": "Ask before running",
+      "confirmBeforeASnippetRuns": "Confirm before a snippet runs in the terminal",
+      "editSnippet": "Edit Snippet",
+      "newSnippet": "New Snippet",
+      "cancel": "Cancel",
+      "save": "Save",
+      "create": "Create",
+      "name": "Name",
+      "eGUpdatePackages": "e.g. Update packages",
+      "content": "Content",
+      "descriptionOptional": "Description (optional)",
+      "shortDescription": "Short description",
+      "folderOptional": "Folder (optional)",
+      "selectFolder": "Select folder",
+      "noFolder": "No folder",
+      "targetHostsOptional": "Target hosts (optional)",
+      "none": "None",
+      "note": "Note",
+      "pastedIntoTheTerminalWithout": "Pasted into the terminal without running",
+      "targetHosts": "Target hosts",
+      "copy2": "Copy",
+      "edit": "Edit",
+      "runOnHosts2": "Run on hosts",
+      "delete2": "Delete",
+      "deleteSnippet": "Delete Snippet",
+      "deleteThisCannotBeUndone": "Delete \"{{name}}\"? This cannot be undone.",
+      "renameFolder2": "Rename Folder",
+      "rename": "Rename",
+      "folderName": "Folder name",
+      "eGSystem": "e.g. System",
+      "newFolder": "New Folder",
+      "deleteFolder2": "Delete Folder",
+      "deleteSnippetsInThisFolder": "Delete \"{{name}}\"? Snippets in this folder will become uncategorized."
+    },
+    "sync": {
+      "notYet": "Not yet",
+      "justNow": "Just now",
+      "stopped": "Stopped",
+      "signInToThisServer": "Sign in to this server again to sync",
+      "couldNotChangeThat": "Could not change that",
+      "sync": "Sync",
+      "thisDeviceDoesNotSync": "This device does not sync. Link a Termix server to keep your hosts on more than one device.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} keeps hosts, credentials, snippets and settings in step with this {{deviceWord}}. A copy stays on this {{deviceWord}}, so it works offline too.",
+      "lastSynced": "Last synced {{value}}",
+      "live": "Live",
+      "syncNow": "Sync now",
+      "fix": "Fix",
+      "thisServerReadsLiveAnd": "This server reads live and keeps no copy on the {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Turn on the Sync plugin in the server's Plugins page, then sign in again here to keep a copy on this {{deviceWord}}.",
+      "whatSyncs": "What syncs",
+      "turnedOffThatDataStays": "Turned off, that data stays on this {{deviceWord}} only.",
+      "conflicts": "Conflicts",
+      "changedHereAndOnThe": "Changed here and on the server at the same time. The server's version was kept.",
+      "useServer": "Use server",
+      "keepMine": "Keep mine",
+      "notSavedOnTheServer": "Not saved on the server",
+      "theServerRefusedTheseChanges": "The server refused these changes. They stay on this {{deviceWord}}.",
+      "tryAgain": "Try again",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Only needed when a reverse proxy sits in front of the server.",
+      "unlink": "Unlink",
+      "unlinkThisServer": "Unlink this server",
+      "minAgo": "{{value}} min ago",
+      "signedOut": "Signed out",
+      "waitingToSync": "Waiting to sync",
+      "synced": "Synced",
+      "syncing": "Syncing",
+      "offline": "Offline"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Background",
+        "text": "Text",
+        "cursor": "Cursor",
+        "textUnderCursor": "Text under cursor",
+        "selection": "Selection",
+        "black": "Black",
+        "red": "Red",
+        "green": "Green",
+        "yellow": "Yellow",
+        "blue": "Blue",
+        "magenta": "Magenta",
+        "cyan": "Cyan",
+        "white": "White",
+        "brightBlack": "Bright black",
+        "brightRed": "Bright red",
+        "brightGreen": "Bright green",
+        "brightYellow": "Bright yellow",
+        "brightBlue": "Bright blue",
+        "brightMagenta": "Bright magenta",
+        "brightCyan": "Bright cyan",
+        "brightWhite": "Bright white",
+        "customTheme": "Custom theme",
+        "colorsAsHexLike1e1e2e": "Colors as hex, like #1e1e2e.",
+        "cancel": "Cancel",
+        "save": "Save",
+        "isNotAHexColor": "{{label}} is not a hex color"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Compact",
+      "default": "Default",
+      "relaxed": "Relaxed",
+      "spacious": "Spacious",
+      "none": "None",
+      "couldNotSave": "Could not save",
+      "pickASizeFromTo": "Pick a size from {{MIN_FONT_SIZE}} to {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Terminal settings reset",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "A host can set its own theme and cursor in Termix, which wins over these.",
+      "theme": "Theme",
+      "custom": "Custom",
+      "font": "Font",
+      "active": "Active",
+      "sizeAndSpacing": "Size and spacing",
+      "pinchTheTerminalToChange": "Pinch the terminal to change the size too. Large text in your {{deviceWord}}settings makes it bigger.",
+      "custom2": "Custom {{fontSize}}",
+      "lineHeight": "Line height",
+      "letterSpacing": "Letter spacing",
+      "ligatures": "Ligatures",
+      "cursor": "Cursor",
+      "blink": "Blink",
+      "bell": "Bell",
+      "vibrate": "Vibrate",
+      "onTheBellAndWhen": "On the bell and when you long press to select",
+      "scrollback": "Scrollback",
+      "linesKeptAboveTheScreen": "Lines kept above the screen. Applies to new terminals.",
+      "linksAndKeys": "Links and keys",
+      "askBeforeOpeningLinks": "Ask before opening links",
+      "doubleTapSendsTab": "Double tap sends Tab",
+      "longPressStillSelectsText": "Long press still selects text",
+      "optionSendsAlt": "Option sends Alt",
+      "onAHardwareKeyboardOff": "On a hardware keyboard. Off types symbols like on a Mac.",
+      "history": "History",
+      "suggestCommands": "Suggest commands",
+      "showsPastCommandsThatStart": "Past commands as you type",
+      "resetToDefault": "Reset to default",
+      "fontSize": "Font size",
+      "aSizeFromTo": "A size from {{MIN_FONT_SIZE}} to {{MAX_FONT_SIZE}}.",
+      "cancel": "Cancel",
+      "apply": "Apply",
+      "resetTerminalSettings": "Reset terminal settings?",
+      "themeFontSizeCursorBell": "Theme, font, size, cursor, bell and the rest go back to the defaults.",
+      "reset": "Reset",
+      "followsAppTheme": "Follows app theme"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Failed to start 2FA setup",
+      "twoFactorAuthenticationEnabled": "Two-factor authentication enabled",
+      "invalidCodeTryAgain": "Invalid code, try again",
+      "twoFactorAuthenticationDisabled": "Two-factor authentication disabled",
+      "failedToDisable2fa": "Failed to disable 2FA",
+      "failedToFetchBackupCodes": "Failed to fetch backup codes",
+      "secretCopied": "Secret copied",
+      "backupCodesCopied": "Backup codes copied",
+      "twoFactorAuthentication": "Two-factor authentication",
+      "loading": "Loading…",
+      "scanThisQrCodeWith": "Scan this QR code with your authenticator app (Google Authenticator, Authy, etc.), then enter the 6-digit code to confirm.",
+      "verifyAmpEnable": "Verify and enable",
+      "cancel": "Cancel",
+      "saveYourBackupCodes": "Save your backup codes",
+      "storeTheseSomewhereSafeEach": "Store these somewhere safe. Each code can only be used once if you lose access to your authenticator.",
+      "copyAllCodes": "Copy all codes",
+      "done": "Done",
+      "yourAccountIsProtectedWith": "Your account is protected with an authenticator app.",
+      "addAnExtraLayerOf": "Add an extra layer of security to your account.",
+      "viewBackupCodes": "View backup codes",
+      "disable2fa": "Disable 2FA",
+      "enable2fa": "Enable 2FA",
+      "disableTwoFactorAuthentication": "Disable Two-Factor Authentication",
+      "enterACodeFromYour": "Enter a code from your authenticator app to confirm. You can re-enable 2FA at any time.",
+      "enterYourPasswordToConfirm": "Enter your password to confirm. You can re-enable 2FA at any time.",
+      "disable": "Disable",
+      "yourPassword": "Your password",
+      "n2faIsEnabled": "2FA is enabled",
+      "n2faIsNotEnabled": "2FA is not enabled"
+    },
+    "language": {
+      "label": "Language",
+      "description": "The app reloads to switch",
+      "system": "Same as the device"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "No SSH hosts here",
+      "couldNotReadWhatWas": "Could not read what was shared",
+      "stopTheUploads": "Stop the uploads?",
+      "stopAndLeave": "Stop and leave",
+      "sendTo": "Send to {{name}}",
+      "sendToAHost": "Send to a host",
+      "nothingToSend": "Nothing to send",
+      "close": "Close",
+      "done": "Done",
+      "cancel": "Cancel",
+      "uploadHere": "Upload here",
+      "uploadsStillGoing_one": "{{count}} upload is still going. Leaving stops it.",
+      "uploadsStillGoing_other": "{{count}} uploads are still going. Leaving stops them.",
+      "filesSize_one": "{{count}} file | {{size}}",
+      "filesSize_other": "{{count}} files | {{size}}",
+      "readingWhatWasShared": "Reading what was shared"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Error",
+      "worksWithoutAServer": "Works without a server",
+      "accountSwitch": "Account {{account}}, switch",
+      "search": "Search",
+      "notificationsUnread": "Notifications, {{unread}} unread",
+      "notifications": "Notifications",
+      "signedIn": "Signed in",
+      "signedOut": "Signed out",
+      "copyOnThis": "Copy on this {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Home",
+      "hosts": "Hosts",
+      "sessions": "Sessions",
+      "tools": "Tools",
+      "settings": "Settings",
+      "open": "{{label}}, {{count}} open"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} open"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Pick a host",
+      "searchHosts": "Search hosts",
+      "clearSearch": "Clear search",
+      "noHostsMatch": "No hosts match",
+      "noHostsCanUseThis": "No hosts can use this",
+      "turnItOnForA": "Turn it on for a host in the host editor."
+    },
+    "noToolsHereYet": "No tools here yet",
+    "onAHost": "On a host",
+    "saved": "Saved",
+    "fromYourServer": "From your server"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "confirm": "Confirm"
+    },
+    "contextMenu": {
+      "closeMenu": "Close menu"
+    },
+    "inlineView": {
+      "back": "Back"
+    },
+    "listRow": {
+      "moreActions": "More actions"
+    },
+    "pinPad": {
+      "useBiometrics": "Use biometrics",
+      "delete": "Delete"
+    },
+    "popover": {
+      "close": "Close"
+    },
+    "promptSheet": {
+      "cancel": "Cancel"
+    },
+    "sheet": {
+      "close": "Close"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "This key is locked. Enter its passphrase.",
+      "thatPassphraseDoesnTOpen": "That passphrase doesn't open this key.",
+      "thisDoesnTLookLike": "This doesn't look like a private key.",
+      "loadedAndChangedItTo": "Loaded {{name}} and changed it to OpenSSH format",
+      "loadedItNeedsItsPassphrase": "Loaded {{name}}. It needs its passphrase to connect"
+    },
+    "ago": {
+      "justNow": "just now"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Could not load your hosts.",
+      "failedOn": "{{name}} failed on {{name2}}",
+      "on": "{{name}} on {{name2}}: {{value}}",
+      "ranOn": "Ran {{name}} on {{name2}}",
+      "runOn": "Run \"{{name}}\" on",
+      "runSnippet": "Run snippet",
+      "loadingHosts": "Loading hosts…",
+      "noHostsAvailable": "No hosts available",
+      "addAHostInTermix": "Add a host in Termix to run snippets from your home screen.",
+      "lastUsed": "Last used",
+      "failedToRunSnippet": "Failed to run snippet"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "That snippet no longer exists.",
+      "couldNotOpenThatSnippet": "Could not open that snippet.",
+      "thatHostNoLongerExists": "That host no longer exists.",
+      "couldNotOpenThatHost": "Could not open that host."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Home"
+      },
+      "hosts": {
+        "hosts": "Hosts"
+      },
+      "sessions": {
+        "sessions": "Sessions",
+        "connectToATermixServer": "Connect to a Termix server to open terminals, tunnels and file sessions."
+      }
+    },
+    "layout": {
+      "initializing": "Initializing…",
+      "cancel": "Cancel"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "This host has no valid MAC address.",
+    "thisBuildCanTSend": "This build can't send Wake-on-LAN packets.",
+    "couldNotSendThePacket": "Could not send the packet. Check that Wi-Fi is on."
+  },
+  "common": {
+    "hostCount_one": "{{count}} host",
+    "hostCount_other": "{{count}} hosts",
+    "device": {
+      "phone": "phone",
+      "tablet": "tablet"
+    },
+    "thisDeviceLower": "this {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Sharing",
+    "action": "Share with people",
+    "levels": {
+      "connect": "Connect",
+      "view": "View",
+      "edit": "Edit",
+      "manage": "Manage"
+    },
+    "levelHints": {
+      "connect": "Open sessions only. The host settings stay hidden",
+      "view": "Connect, plus see the host settings. Secrets are never shown",
+      "edit": "View, plus change settings other than the login",
+      "manage": "Edit, plus share the host and change or remove access"
+    },
+    "until": "until {{date}}",
+    "sharedBy": "by {{name}}",
+    "couldNotLoad": "Could not load who has access",
+    "shared": "Host shared",
+    "couldNotShare": "Could not share the host",
+    "updated": "Access changed",
+    "couldNotUpdate": "Could not change the access",
+    "removeTitle": "Remove {{name}}?",
+    "removeHint": "They can no longer use this host.",
+    "remove": "Remove",
+    "removed": "Access removed",
+    "couldNotRemove": "Could not remove the access",
+    "whoHasAccess": "Who has access",
+    "loading": "Loading...",
+    "nobodyYet": "Only you can use this host.",
+    "changeAccessFor": "Change access for {{name}}",
+    "shareWith": "Share with",
+    "users": "Users",
+    "roles": "Roles",
+    "searchUsers": "Search users",
+    "searchRoles": "Search roles",
+    "noUsers": "No other users to share with.",
+    "noRoles": "No roles to share with.",
+    "options": "Access",
+    "level": "Level",
+    "expires": "Ends",
+    "expiry": {
+      "never": "Never",
+      "1h": "In 1 hour",
+      "1d": "In 1 day",
+      "7d": "In 7 days",
+      "30d": "In 30 days"
+    },
+    "pickSomeone": "Pick who to share with",
+    "shareCount_one": "Share with {{count}}",
+    "shareCount_other": "Share with {{count}}",
+    "removeAccess": "Remove access"
+  },
+  "push": {
+    "channels": {
+      "alerts": "Server alerts",
+      "critical": "Critical server alerts"
+    },
+    "severity": {
+      "info": "Everything",
+      "warning": "Warnings and worse",
+      "critical": "Only critical"
+    },
+    "settings": {
+      "on": "Alerts show up on this phone",
+      "off": "Off",
+      "toggle": "Push notifications for {{server}}",
+      "minSeverity": "Send me",
+      "denied": "Notifications are turned off for Termix. Turn them on in the phone's settings.",
+      "openSettings": "Open settings",
+      "outdated": "This server needs Alerts 1.4.0 or newer for push notifications. Ask an admin to update the plugin.",
+      "unavailable": "Sign in to this server and turn on the Alerts plugin to get notifications.",
+      "error": "Could not reach the server. Termix tries again next time the app opens.",
+      "notInThisBuild": "This build can't show notifications.",
+      "noServers": "Link a server to get its alerts here.",
+      "pushHint": "Alerts are sent through Expo and Apple or Google, with their title and text. Pick which ones in the Alerts rules on the server.",
+      "pollHint": "This build has no Google services, so Termix checks for new alerts in the background, about every 15 minutes."
+    }
+  }
+}

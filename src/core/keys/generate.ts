@@ -12,12 +12,13 @@ import {
   isSshEngineAvailable,
 } from "@/modules/termix-ssh";
 import { privateKeyText, publicLine, type OpenSshKey } from "./openssh";
+import { t } from "@/i18n";
 
 export type PhoneKeyType = "ed25519" | "ecdsa";
 
 export const PHONE_KEY_TYPES: { id: PhoneKeyType; label: string }[] = [
   { id: "ed25519", label: "Ed25519" },
-  { id: "ecdsa", label: "ECDSA P-256" },
+  { id: "ecdsa", label: t("keys.generate.ecdsaP256") },
 ];
 
 export interface GeneratedKey {
@@ -59,10 +60,7 @@ export function generateKeyPair(
   let privateKey = privateKeyText(key, check, comment);
   if (options.passphrase) {
     if (!isSshEngineAvailable) {
-      throw new AppError(
-        "Locking a key with a passphrase needs the Termix app, not a web preview.",
-        "NO_ENGINE",
-      );
+      throw new AppError(t("keys.generate.lockingAKeyWithA"), "NO_ENGINE");
     }
     privateKey = convertKeyToOpenssh(privateKey, undefined, options.passphrase);
   }

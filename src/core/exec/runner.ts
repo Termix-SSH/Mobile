@@ -18,6 +18,7 @@ import {
   type RunOptions,
   type RunResult,
 } from "./types";
+import { t } from "@/i18n";
 
 export interface RunnerOptions {
   /** Pool key: account and host. */
@@ -37,8 +38,7 @@ export function resetSudoState() {
   needsPassword.clear();
 }
 
-const SUDO_HELP =
-  "This needs root. Log in as root, set up passwordless sudo, or save a sudo password for the host.";
+const SUDO_HELP = t("exec.runner.thisNeedsRootLogIn");
 
 /** A runner for one host on the shared connection pool. */
 export function createRunner(options: RunnerOptions): ExecRunner {
@@ -110,7 +110,7 @@ export function createRunner(options: RunnerOptions): ExecRunner {
       if (fromUser) sudoMemory.set(options.key, password);
       return result;
     }
-    throw new ExecError("sudo", "The sudo password was wrong");
+    throw new ExecError("sudo", t("exec.runner.theSudoPasswordWasWrong"));
   }
 
   return {
@@ -134,7 +134,10 @@ export function createRunner(options: RunnerOptions): ExecRunner {
         throw new ExecError(
           "exit",
           scrub(
-            own || result.stderr || result.stdout || "Command failed",
+            own ||
+              result.stderr ||
+              result.stdout ||
+              t("exec.runner.commandFailed"),
             1500,
           ),
           result,

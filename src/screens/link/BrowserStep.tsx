@@ -8,10 +8,15 @@ import {
 } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { ArrowLeft, Globe, RefreshCw } from "lucide-react-native";
-import { WebView, type WebViewNavigation } from "react-native-webview";
+import {
+  WebView,
+  type WebViewHandle,
+  type WebViewNavigation,
+} from "@/ui/web-view";
 import { Button, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
+import { PIN_REFUSED_TEXT, pinnedServerOk } from "@/core/api/pin-preflight";
 import {
   consumeOidcCallback,
   isOidcCallbackHandled,
@@ -20,19 +25,26 @@ import {
 import { readWebCookies } from "@/modules/termix-net";
 import type { AccountClient } from "@/core/api/AccountClient";
 import { consumeFreshWebSession } from "@/core/api/webSession";
-import { startFlow, takeFlow } from "@/core/accounts/link/flow";
+import {
+  currentChallenge,
+  startFlow,
+  takeFlowEntry,
+} from "@/core/accounts/link/flow";
 import {
   APP_CALLBACK_URL,
   browserCanceled,
   browserSignInUrl,
   callbackUrlFor,
   parseCallback,
+  redeemAppCode,
   redirectStartUrl,
   type SecondFactorStep,
 } from "@/core/accounts/link/login";
 import type { SignInOption } from "@/core/accounts/link/methods";
 import { ProxySignIn } from "@/screens/accounts/ProxySignIn";
 import { readHandoff, TOKEN_HANDOFF_SCRIPT } from "./webview-handoff";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /** How this step signs in. */
 export type BrowserMode =
@@ -63,7 +75,7 @@ export function BrowserStep({
   const color = useThemeColor();
   const bg = color("background");
   const accent = color("accent-brand");
-  const webViewRef = useRef<WebView>(null);
+  const webViewRef = useRef<WebViewHandle>(null);
   const [source, setSource] = useState<{ uri: string } | null>(null);
   const [url, setUrl] = useState("");
   const [authUrl, setAuthUrl] = useState<string | null>(null);
@@ -115,8 +127,8 @@ export function BrowserStep({
             if (e?.response?.status === 401 || e?.status === 401) {
               await client.clearToken();
               toast.error(
-                "Sign in failed",
-                "The server turned the session down. Try again.",
+                t("link.browserStep.signInFailed"),
+                t("link.browserStep.theServerTurnedTheSession"),
               );
               started.current = false;
               return;
@@ -126,8 +138,8 @@ export function BrowserStep({
         }
         await client.clearToken();
         toast.error(
-          "Sign in failed",
-          "Signed in, but the app can't reach Termix. A proxy may be blocking it.",
+          t("link.browserStep.signInFailed"),
+          t("link.browserStep.signedInButTheApp"),
         );
         started.current = false;
       } finally {
@@ -145,24 +157,46 @@ export function BrowserStep({
       if (isOidcCallbackHandled(link)) return;
       markOidcCallbackHandled(link);
       // Only the sign in open now, and only once.
-      if (!(await takeFlow(result.flow ?? null))) {
+      const taken = await takeFlowEntry(result.flow ?? null);
+      if (!taken) {
         toast.error(
-          "Sign in failed",
-          "That sign in link is from an older try. Sign in again.",
+          t("link.browserStep.signInFailed"),
+          t("link.browserStep.thatSignInLinkIs"),
         );
         return;
       }
       if (result.kind === "error") {
-        toast.error("Sign in failed", result.message);
+        toast.error(t("link.browserStep.signInFailed"), result.message);
         return;
       }
       if (result.kind === "secondFactor") {
         onSecondFactor(result.step);
         return;
       }
+      if (result.kind === "code") {
+        if (!taken.verifier) {
+          toast.error(
+            t("link.browserStep.signInFailed"),
+            t("link.browserStep.signInAgain"),
+          );
+          return;
+        }
+        let token: string;
+        try {
+          token = await redeemAppCode(client, result.code, taken.verifier);
+        } catch (e) {
+          toast.error(
+            t("link.browserStep.signInFailed"),
+            e instanceof Error ? e.message : undefined,
+          );
+          return;
+        }
+        await finish(token);
+        return;
+      }
       await finish(result.token);
     },
-    [finish, onSecondFactor],
+    [client, finish, onSecondFactor],
   );
 
   const openBrowser = useCallback(
@@ -184,13 +218,13 @@ export function BrowserStep({
           setTimeout(() => {
             if (started.current) return;
             toast.info(
-              "Sign in canceled",
-              "Open the browser again when you are ready.",
+              t("link.browserStep.signInCanceled"),
+              t("link.browserStep.openTheBrowserAgainWhen"),
             );
           }, 800);
         }
       } catch {
-        toast.error("Could not open the sign in browser");
+        toast.error(t("link.browserStep.couldNotOpenTheSign"));
       } finally {
         setOpening(false);
       }
@@ -216,7 +250,15 @@ export function BrowserStep({
   useEffect(() => {
     if (inited.current) return;
     inited.current = true;
-    const showWebView = (uri: string) => {
+    const showWebView = async (uri: string) => {
+      // A pinned server must show its pinned key before a page opens.
+      if (!(await pinnedServerOk(client))) {
+        toast.error(
+          t("link.browserStep.couldNotOpenTheSign2"),
+          PIN_REFUSED_TEXT,
+        );
+        return;
+      }
       usedWebView.current = true;
       setSource({ uri });
       setUrl(uri);
@@ -240,20 +282,20 @@ export function BrowserStep({
       flowId.current = plain ? null : flow;
 
       if (mode.kind === "proxy") {
-        showWebView(client.serverUrl);
+        await showWebView(client.serverUrl);
         return;
       }
       let target: string;
       try {
         target =
           mode.kind === "browser"
-            ? browserSignInUrl(client, flowId.current)
+            ? browserSignInUrl(client, flowId.current, await currentChallenge())
             : await redirectStartUrl(client, mode.option, flowId.current);
       } catch {
         // The web app's own login still covers it.
         await startFlow(true);
         flowId.current = null;
-        showWebView(client.serverUrl);
+        await showWebView(client.serverUrl);
         return;
       }
       // Always the system browser, also after a sign out: it keeps the SSO
@@ -290,8 +332,8 @@ export function BrowserStep({
     );
     if (result === "empty") {
       toast.error(
-        "Sign in failed",
-        "The web page signed in but sent no session. Update the server and try again.",
+        t("link.browserStep.signInFailed"),
+        t("link.browserStep.theWebPageSignedIn"),
       );
     } else if (result) {
       void finish(result.token);
@@ -302,8 +344,8 @@ export function BrowserStep({
     const text = event.nativeEvent.description ?? "";
     if (/SSL|certificate|ERR_CERT/i.test(text)) {
       toast.error(
-        "Certificate problem",
-        `The phone can't check this server's certificate. Install its root CA on the phone. ${text}`,
+        t("link.browserStep.certificateProblem"),
+        t("link.browserStep.theCanTCheckThis", { deviceWord, text }),
       );
     }
   };
@@ -315,12 +357,12 @@ export function BrowserStep({
           onPress={onBack}
           hitSlop={6}
           accessibilityRole="button"
-          accessibilityLabel="Back"
+          accessibilityLabel={t("link.browserStep.back")}
           className="h-11 flex-row items-center gap-1.5 px-2 active:bg-muted"
         >
           <ArrowLeft size={20} color={color("foreground")} />
           <Text weight="medium" className="text-sm text-foreground">
-            Sign in
+            {t("link.browserStep.signIn")}
           </Text>
         </Pressable>
         <Text
@@ -337,7 +379,7 @@ export function BrowserStep({
             }}
             hitSlop={6}
             accessibilityRole="button"
-            accessibilityLabel="Reload"
+            accessibilityLabel={t("link.browserStep.reload")}
             className="h-11 w-11 items-center justify-center active:bg-muted"
           >
             <RefreshCw size={17} color={color("foreground")} />
@@ -351,12 +393,12 @@ export function BrowserStep({
         <View className="flex-1 items-center justify-center px-6">
           <Globe size={38} color={accent} />
           <Text weight="medium" className="mt-4 text-lg text-foreground">
-            Finish signing in in your browser
+            {t("link.browserStep.finishSigningInInYour")}
           </Text>
           <Text className="mt-2 text-center text-sm leading-5 text-muted-foreground">
             {mode.kind === "browser"
-              ? "Use any sign in your server has, like a passkey or security key. The app picks up once you are in."
-              : "The app picks up once your sign in provider is done."}
+              ? t("link.browserStep.useAnySignInYour")
+              : t("link.browserStep.theAppPicksUpOnce")}
           </Text>
           <Button
             size="lg"
@@ -364,7 +406,9 @@ export function BrowserStep({
             loading={opening || finishing}
             onPress={() => openBrowser(authUrl)}
           >
-            {finishing ? "Signing in..." : "Open browser again"}
+            {finishing
+              ? t("link.browserStep.signingIn")
+              : t("link.browserStep.openBrowserAgain")}
           </Button>
         </View>
       ) : source ? (

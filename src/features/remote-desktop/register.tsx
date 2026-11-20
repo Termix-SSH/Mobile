@@ -3,7 +3,7 @@ import {
   Monitor,
   MousePointerClick,
 } from "lucide-react-native";
-import { forwardRef, useMemo } from "react";
+import { forwardRef, useMemo, useState } from "react";
 import { checkOpen } from "@/core/features/open-check";
 import type {
   FeatureDef,
@@ -23,6 +23,7 @@ import { useRemoteRoute } from "./route";
 import { RemoteDesktop, type RemoteDesktopProtocol } from "./RemoteDesktop";
 import { REMOTE_DESKTOP_TAB, TELNET_TAB, telnetTabFor } from "./telnet";
 import { protocolSection } from "./host-sections";
+import { t } from "@/i18n";
 
 const PLUGIN = "remote-desktop";
 const PROTOCOLS: RemoteDesktopProtocol[] = ["rdp", "vnc", "telnet"];
@@ -101,22 +102,35 @@ function RemoteDesktopTab({
   }
 }
 
-/** Telnet the phone opens itself, in the native terminal. */
-const TelnetTab = forwardRef<TerminalHandle, SessionTabProps>(
-  (
-    {
-      session,
-      isVisible,
-      onClose,
-      onTransportResolved,
-      onBackgroundColorChange,
-      onTitle,
-      onMenu,
-      onShortcut,
-      onStatus,
-    },
-    ref,
-  ) => (
+/**
+ * Telnet the phone opens itself, in the native terminal. When the phone can't
+ * reach the host, it moves to the server's view.
+ */
+const TelnetTab = forwardRef<TerminalHandle, SessionTabProps>((props, ref) => {
+  const {
+    session,
+    isVisible,
+    onClose,
+    onTransportResolved,
+    onBackgroundColorChange,
+    onTitle,
+    onMenu,
+    onShortcut,
+    onStatus,
+  } = props;
+  const [viaServer, setViaServer] = useState(false);
+  const serverSession = useMemo(
+    () => ({
+      ...session,
+      remoteProtocol: "telnet",
+      origin: "server" as const,
+    }),
+    [session],
+  );
+  if (viaServer) {
+    return <RemoteDesktopTab {...props} session={serverSession} />;
+  }
+  return (
     <Terminal
       ref={ref}
       host={session.host}
@@ -124,6 +138,7 @@ const TelnetTab = forwardRef<TerminalHandle, SessionTabProps>(
       type={session.type}
       origin={session.origin}
       protocol="telnet"
+      onUseServer={() => setViaServer(true)}
       onTransportResolved={onTransportResolved}
       isVisible={isVisible}
       title={session.title}
@@ -136,8 +151,8 @@ const TelnetTab = forwardRef<TerminalHandle, SessionTabProps>(
       restored={session.restored}
       onStatus={onStatus}
     />
-  ),
-);
+  );
+});
 TelnetTab.displayName = "TelnetTab";
 
 /**
@@ -147,7 +162,7 @@ TelnetTab.displayName = "TelnetTab";
 export const remoteDesktopFeature: FeatureDef = {
   id: "remote-desktop",
   plugins: ["remote-desktop"],
-  title: "Remote Desktop",
+  title: t("remoteDesktop.register.remoteDesktop"),
   source: "native",
   availableOn: ["local", "server"],
   sessionTabs: [
@@ -162,6 +177,7 @@ export const remoteDesktopFeature: FeatureDef = {
       relayRequires: { plugin: PLUGIN },
       serverTabTypes: PROTOCOLS,
       toServerTabType: (s) => asProtocol(s.remoteProtocol),
+      activityType: (s) => asProtocol(s.remoteProtocol),
       fromServerTabType: (tabType) => ({ remoteProtocol: tabType }),
       capabilities: ["own-keyboard"],
       component: RemoteDesktopTab,
@@ -248,7 +264,7 @@ const PHONE_TOO: Partial<FeatureDef> = {
 export const rdpFeature = protocolFeature("rdp", {
   label: "RDP",
   badge: "RDP",
-  description: "Remote Desktop",
+  description: t("remoteDesktop.register.remoteDesktop"),
   icon: Monitor,
   order: 0,
   enabled: (host) => !!host.enableRdp,
@@ -269,7 +285,7 @@ export const vncFeature = protocolFeature("vnc", {
 // The phone dials Telnet itself, so it works with no server and on servers
 // without the remote desktop plugin. Through a server it uses that plugin.
 export const telnetFeature = protocolFeature("telnet", {
-  label: "Telnet",
+  label: t("remoteDesktop.register.telnet"),
   badge: "TEL",
   icon: MessagesSquare,
   order: 2,
@@ -301,6 +317,7 @@ export const telnetFeature = protocolFeature("telnet", {
         // Server tab records named telnet still reopen in the server's view.
         serverTabTypes: [],
         toServerTabType: () => "telnet",
+        activityType: () => "telnet",
         capabilities: ["terminal-input"],
         component: TelnetTab,
         inputChrome: { keyRow: KeyRowBar, keyPanel: BottomToolbar },

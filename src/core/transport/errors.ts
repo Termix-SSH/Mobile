@@ -1,6 +1,8 @@
 import { AppError } from "@/core/errors";
 import { SshError, type SshErrorKind } from "@/modules/termix-ssh";
 import type { TransportKind } from "./types";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 /** Which step of connecting went wrong. */
 export type FailureStage =
@@ -25,14 +27,14 @@ export interface ConnectFailure {
 }
 
 const TITLES: Record<FailureStage, string> = {
-  unavailable: "Can't connect this way",
-  network: "Could not reach the host",
-  proxy: "The proxy did not let the connection through",
-  hostKey: "The host key was not trusted",
-  auth: "The login was refused",
-  server: "The Termix server did not answer",
-  session: "The connection dropped",
-  cancelled: "Login cancelled",
+  unavailable: t("transport.errors.canTConnectThisWay"),
+  network: t("transport.errors.couldNotReachTheHost"),
+  proxy: t("transport.errors.theProxyDidNotLet"),
+  hostKey: t("transport.errors.theHostKeyWasNot"),
+  auth: t("transport.errors.theLoginWasRefused"),
+  server: t("transport.errors.theTermixServerDidNot"),
+  session: t("transport.errors.theConnectionDropped"),
+  cancelled: t("transport.errors.loginCancelled"),
 };
 
 /** Short heading for a failure. */
@@ -45,22 +47,22 @@ export function hintFor(stage: FailureStage, origin?: TransportKind): string {
   switch (stage) {
     case "network":
       return origin === "relay"
-        ? "Check the address and port, and that the server can reach the host."
-        : "Check the address and port, and that this phone can reach the host.";
+        ? t("transport.errors.checkTheAddressAndPort")
+        : t("transport.errors.checkTheAddressAndPort2", { deviceWord });
     case "proxy":
-      return "Check the proxy settings of this host.";
+      return t("transport.errors.checkTheProxySettingsOf");
     case "hostKey":
-      return "Check the key with whoever runs the host before you trust it.";
+      return t("transport.errors.checkTheKeyWithWhoever");
     case "auth":
-      return "Check the username and login in the host editor.";
+      return t("transport.errors.checkTheUsernameAndLogin");
     case "server":
-      return "Check that the server is up and that you are still signed in.";
+      return t("transport.errors.checkThatTheServerIs");
     case "session":
-      return "Try again. If it keeps dropping, check the network.";
+      return t("transport.errors.tryAgainIfItKeeps");
     case "cancelled":
-      return "Connect again when you are ready.";
+      return t("transport.errors.connectAgainWhenYouAre");
     case "unavailable":
-      return "Pick another way to connect this host.";
+      return t("transport.errors.pickAnotherWayToConnect");
   }
 }
 
@@ -75,8 +77,9 @@ export function isTailnetAddress(address: string): boolean {
   return TAILNET_V4.test(a) || TAILNET_NAME.test(a) || TAILNET_V6.test(a);
 }
 
-export const TAILSCALE_HINT =
-  "This is a Tailscale address. Check that Tailscale is connected on this phone.";
+export const TAILSCALE_HINT = t("transport.errors.thisIsATailscaleAddress", {
+  deviceWord,
+});
 
 const SSH_STAGE: Record<SshErrorKind, FailureStage> = {
   connect: "network",
@@ -105,7 +108,7 @@ export function fromError(err: unknown): ConnectFailure {
     if (stage === "network" && PROXY.test(err.message)) stage = "proxy";
     const hint =
       err.kind === "invalidKey"
-        ? "The saved key can't be read. Paste it again in the host editor."
+        ? t("transport.errors.theSavedKeyCanT")
         : hintFor(stage, "local");
     return { stage, message: err.message, hint };
   }
@@ -117,13 +120,13 @@ export function fromError(err: unknown): ConnectFailure {
         return {
           stage: "unavailable",
           message: err.message,
-          hint: "Connect this host through a Termix server.",
+          hint: t("transport.errors.connectThisHostThroughA"),
         };
       case "JUMP_HOST_MISSING":
         return {
           stage: "unavailable",
           message: err.message,
-          hint: "Pick the jump hosts again in the host editor.",
+          hint: t("transport.errors.pickTheJumpHostsAgain"),
         };
     }
   }
@@ -152,9 +155,9 @@ export function fromRelayMessage(message: string): ConnectFailure {
     hint,
   });
   if (/log in again|no server url|not configured|signed out/i.test(m))
-    return make("server", "Sign in to this server again.");
+    return make("server", t("transport.errors.signInToThisServer"));
   if (/only the web app|needs a sign-in/i.test(m))
-    return make("unavailable", "Open this host in the Termix web app.");
+    return make("unavailable", t("transport.errors.openThisHostInThe"));
   if (/^authentication failed|permission denied|password/i.test(m))
     return make("auth");
   if (/host key/i.test(m)) return make("hostKey");

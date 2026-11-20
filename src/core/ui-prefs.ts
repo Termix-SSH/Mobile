@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { plainStore } from "@/core/storage/kv";
+import { t } from "@/i18n";
 
 /** Device wide look settings that are not themes: text size and row density. */
 export type TextSize = "small" | "default" | "large";
@@ -11,14 +12,14 @@ export interface UiPrefs {
 }
 
 export const TEXT_SIZES: { id: TextSize; label: string; scale: number }[] = [
-  { id: "small", label: "Small", scale: 0.9 },
-  { id: "default", label: "Default", scale: 1 },
-  { id: "large", label: "Large", scale: 1.15 },
+  { id: "small", label: t("core.uiPrefs.small"), scale: 0.9 },
+  { id: "default", label: t("core.uiPrefs.default"), scale: 1 },
+  { id: "large", label: t("core.uiPrefs.large"), scale: 1.15 },
 ];
 
 export const DENSITIES: { id: Density; label: string }[] = [
-  { id: "comfortable", label: "Comfortable" },
-  { id: "compact", label: "Compact" },
+  { id: "comfortable", label: t("core.uiPrefs.comfortable") },
+  { id: "compact", label: t("core.uiPrefs.compact") },
 ];
 
 const KEY = "ui.prefs";

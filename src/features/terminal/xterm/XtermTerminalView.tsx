@@ -13,7 +13,7 @@ import {
   View,
   type LayoutChangeEvent,
 } from "react-native";
-import { WebView } from "react-native-webview";
+import { WebView, type WebViewHandle } from "@/ui/web-view";
 import { LOCAL_PAGE_ORIGINS, stayOnLocalPage } from "@/utils/webview";
 import { ChevronDown } from "lucide-react-native";
 import * as Clipboard from "expo-clipboard";
@@ -22,7 +22,9 @@ import { showToast } from "@/utils/toast";
 import { useUiColors } from "@/contexts/ThemeContext";
 import type { TerminalConfig } from "@/types";
 import type { TerminalThemeColors } from "@/constants/terminal-themes";
+import { cursorKeysScript } from "./cursorKeys";
 import { loadXtermAssets } from "../loadXtermAssets";
+import { t as tr } from "@/i18n";
 
 // The xterm fonts for the family names the native view uses.
 const XTERM_FONTS: Record<string, string> = {
@@ -36,6 +38,7 @@ const XTERM_FONTS: Record<string, string> = {
 };
 
 export interface XtermTerminalApi {
+  sendKeySequence(data: string): void;
   write(text: string): void;
   notifyConnected(fromBackground: boolean, isReattach: boolean): void;
   fit(): void;
@@ -75,7 +78,7 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
     ref,
   ) {
     const ui = useUiColors();
-    const webViewRef = useRef<WebView>(null);
+    const webViewRef = useRef<WebViewHandle>(null);
     const [htmlContent, setHtmlContent] = useState("");
     const [isSelecting, setIsSelecting] = useState(false);
     const [selectedText, setSelectedText] = useState("");
@@ -100,6 +103,7 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
         const { width, height } = Dimensions.get("window");
         const baseFontSize = fontSize || 16;
         const fontFamily = XTERM_FONTS[family] ?? XTERM_FONTS.monospace;
+        const liga = terminalConfig.ligatures === false ? 0 : 1;
         const nerdFontFace = assets.nerdFontBase64
           ? `@font-face {
       font-family: "Caskaydia Cove Nerd Font Mono";
@@ -171,7 +175,7 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
     }
 
     .xterm {
-      font-feature-settings: "liga" 1, "calt" 1;
+      font-feature-settings: "liga" ${liga}, "calt" ${liga};
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -179,11 +183,11 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
 
     .xterm .xterm-screen {
       font-family: ${fontFamily} !important;
-      font-variant-ligatures: contextual;
+      font-variant-ligatures: ${liga ? "contextual" : "none"};
     }
 
     .xterm .xterm-screen .xterm-char {
-      font-feature-settings: "liga" 1, "calt" 1;
+      font-feature-settings: "liga" ${liga}, "calt" ${liga};
     }
 
     .xterm .xterm-viewport::-webkit-scrollbar {
@@ -300,6 +304,7 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'input', data: data }));
       }
     }
+    ${cursorKeysScript}
     terminal.onData(forwardTerminalInput);
     terminal.onBinary(forwardTerminalInput);
 
@@ -457,6 +462,10 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
     // Set by the touch-scroll handler once a wheel step was sent, so a gesture
     // that scrolled is never also reported as a click.
     let wheelSentThisGesture = false;
+    const doubleTapTab = ${terminalConfig.doubleTapTab ? "true" : "false"};
+    let lastTapTime = 0;
+    let lastTapX = 0;
+    let lastTapY = 0;
     let wordStart = null;
     let wordEnd = null;
     let selStart = null;
@@ -760,6 +769,19 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
       const isPlainTap = !hasMoved && !multiTouchSeen && !wheelSentThisGesture &&
         (!e.touches || e.touches.length === 0) &&
         Date.now() - touchStartTime < 400;
+      if (isPlainTap && doubleTapTab) {
+        const now = Date.now();
+        const isDouble = now - lastTapTime < 300 &&
+          Math.abs(touchStartX - lastTapX) < 30 && Math.abs(touchStartY - lastTapY) < 30;
+        lastTapTime = isDouble ? 0 : now;
+        lastTapX = touchStartX;
+        lastTapY = touchStartY;
+        if (isDouble) {
+          try { e.preventDefault(); } catch(e2) {}
+          forwardTerminalInput('\\t');
+          return;
+        }
+      }
       if (isPlainTap && terminal.modes.mouseTrackingMode !== 'none') {
         try { e.preventDefault(); } catch(e2) {}
         sendTapClick(touchStartX, touchStartY);
@@ -1075,6 +1097,8 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
     useImperativeHandle(
       ref,
       () => ({
+        sendKeySequence: (data) =>
+          inject(`window.sendTerminalKeySequence(${JSON.stringify(data)})`),
         write: (data) => {
           pendingDataRef.current.push(data);
           if (!dataFlushTimerRef.current) {
@@ -1125,7 +1149,7 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
         await Clipboard.setStringAsync(selectedText);
         showToast.success("Copied");
       } catch {
-        showToast.error("Could not copy");
+        showToast.error(tr("terminal.xterm.xtermTerminalView.couldNotCopy"));
       }
       clearSelection();
     };
@@ -1195,10 +1219,18 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
           androidLayerType="hardware"
           onMessage={handleMessage}
           onError={(e) =>
-            onFailure(`WebView error: ${e.nativeEvent.description}`)
+            onFailure(
+              tr("terminal.xterm.xtermTerminalView.webviewError", {
+                description: e.nativeEvent.description,
+              }),
+            )
           }
           onHttpError={(e) =>
-            onFailure(`WebView HTTP error: ${e.nativeEvent.statusCode}`)
+            onFailure(
+              tr("terminal.xterm.xtermTerminalView.webviewHttpError", {
+                statusCode: e.nativeEvent.statusCode,
+              }),
+            )
           }
           scrollEnabled={false}
           overScrollMode="never"
@@ -1225,9 +1257,18 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
             }}
           >
             {[
-              { label: "Copy", onPress: copySelection },
-              { label: "Select all", onPress: selectAll },
-              { label: "Cancel", onPress: clearSelection },
+              {
+                label: tr("terminal.xterm.xtermTerminalView.copy"),
+                onPress: copySelection,
+              },
+              {
+                label: tr("terminal.xterm.xtermTerminalView.selectAll"),
+                onPress: selectAll,
+              },
+              {
+                label: tr("terminal.xterm.xtermTerminalView.cancel"),
+                onPress: clearSelection,
+              },
             ].map((action) => (
               <TouchableOpacity
                 key={action.label}
@@ -1248,7 +1289,9 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
         {showScrollToBottomButton && hasData && (
           <TouchableOpacity
             accessibilityRole="button"
-            accessibilityLabel="Scroll to bottom"
+            accessibilityLabel={tr(
+              "terminal.xterm.xtermTerminalView.scrollToBottom",
+            )}
             onPress={() => {
               setShowScrollToBottomButton(false);
               inject("window.resetScroll && window.resetScroll()");

@@ -3,6 +3,7 @@ import { Screen } from "@/components/Screen";
 import { ConnectEmptyState } from "@/components/ConnectEmptyState";
 import { useAppContext } from "@/contexts/AppContext";
 import { hasUsableData, useActiveAccount } from "@/core/accounts";
+import { t } from "@/i18n";
 
 export default function HomeScreen() {
   const { isAuthenticated } = useAppContext();
@@ -10,7 +11,7 @@ export default function HomeScreen() {
 
   if (!hasUsableData(account, isAuthenticated)) {
     return (
-      <Screen title="Home">
+      <Screen title={t("app.tabs.home.home")}>
         <ConnectEmptyState />
       </Screen>
     );

@@ -8,13 +8,14 @@ import type {
   TerminalCursor,
   TerminalTheme,
 } from "@/modules/termix-terminal";
+import { t } from "@/i18n";
 
 /** Fonts bundled with the app, by the family name the native view loads. */
 export const TERMINAL_FONTS = [
-  { value: "CaskaydiaCove NFM", label: "Caskaydia Cove" },
-  { value: "JetBrainsMono NFM", label: "JetBrains Mono" },
-  { value: "FiraCode Nerd Font Mono", label: "Fira Code" },
-  { value: "monospace", label: "System" },
+  { value: "CaskaydiaCove NFM", label: t("terminal.settings.caskaydiaCove") },
+  { value: "JetBrainsMono NFM", label: t("terminal.settings.jetbrainsMono") },
+  { value: "FiraCode Nerd Font Mono", label: t("terminal.settings.firaCode") },
+  { value: "monospace", label: t("terminal.settings.system") },
 ] as const;
 
 export const DEFAULT_TERMINAL_FONT = TERMINAL_FONTS[0].value;
@@ -38,16 +39,16 @@ export function terminalFont(value?: string | null): string {
 }
 
 export const CURSOR_STYLES = [
-  { value: "block", label: "Block" },
-  { value: "bar", label: "Bar" },
-  { value: "underline", label: "Underline" },
+  { value: "block", label: t("terminal.settings.block") },
+  { value: "bar", label: t("terminal.settings.bar") },
+  { value: "underline", label: t("terminal.settings.underline") },
 ] as const;
 
 export const BELL_STYLES = [
-  { value: "none", label: "Off" },
-  { value: "sound", label: "Sound" },
-  { value: "visual", label: "Flash" },
-  { value: "both", label: "Both" },
+  { value: "none", label: t("terminal.settings.off") },
+  { value: "sound", label: t("terminal.settings.sound") },
+  { value: "visual", label: t("terminal.settings.flash") },
+  { value: "both", label: t("terminal.settings.both") },
 ] as const;
 
 /** The app theme families, as Termix's "Termix Default" terminal theme follows them. */
@@ -139,10 +140,12 @@ export interface TerminalSettings {
   scaledFontSize: number;
   lineHeight: number;
   letterSpacing: number;
+  ligatures: boolean;
   cursor: TerminalCursor;
   scrollback: number;
   bell: TerminalBell;
   optionAsMeta: boolean;
+  doubleTapTab: boolean;
   linkPolicy: "confirm" | "direct";
 }
 
@@ -171,6 +174,7 @@ export function resolveTerminalSettings(
     scaledFontSize: Math.round(fontSize * scale * 2) / 2,
     lineHeight: clamp(merged.lineHeight ?? 1, 0.8, 2),
     letterSpacing: clamp(merged.letterSpacing ?? 0, 0, 8),
+    ligatures: user.ligatures ?? true,
     cursor: {
       style: merged.cursorStyle ?? "block",
       blink: merged.cursorBlink ?? true,
@@ -181,6 +185,7 @@ export function resolveTerminalSettings(
       haptics: user.haptics ?? true,
     },
     optionAsMeta: user.optionAsMeta ?? false,
+    doubleTapTab: user.doubleTapTab ?? false,
     linkPolicy: merged.linkClickBehavior === "direct" ? "direct" : "confirm",
   };
 }

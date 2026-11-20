@@ -47,10 +47,17 @@ test("a feature that needs a server plugin lists it in plugins", () => {
   }
 });
 
-test("official plugins with app screens are marked none in the catalog", () => {
-  // The features decide those; a catalog kind would be ignored and go stale.
+test("official plugins with app screens are none unless some views stay web", () => {
+  // Features that replace every view decide alone; a catalog kind would go stale.
+  const partial = new Set(
+    BUILT_IN_FEATURES.filter((def) => def.replacesViews).flatMap(
+      (def) => def.plugins ?? [],
+    ),
+  );
   const covered = new Set(
     BUILT_IN_FEATURES.flatMap((def) => def.plugins ?? []),
   );
-  for (const id of covered) expect(catalogEntry(id)?.kind).toBe("none");
+  for (const id of covered) {
+    expect(catalogEntry(id)?.kind).toBe(partial.has(id) ? "webview" : "none");
+  }
 });

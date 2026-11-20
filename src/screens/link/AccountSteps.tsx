@@ -5,6 +5,7 @@ import { Button, Field, Input, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import type { AccountClient } from "@/core/api/AccountClient";
 import { toast } from "@/utils/toast";
+import { t } from "@/i18n";
 
 export function errorText(e: any, fallback: string): string {
   return e?.response?.data?.error || e?.message || fallback;
@@ -78,7 +79,11 @@ export function PasswordInput({
           onPress={() => setShow((s) => !s)}
           hitSlop={10}
           accessibilityRole="button"
-          accessibilityLabel={show ? "Hide password" : "Show password"}
+          accessibilityLabel={
+            show
+              ? t("link.accountSteps.hidePassword")
+              : t("link.accountSteps.showPassword")
+          }
         >
           {show ? (
             <EyeOff size={16} color={color("muted-foreground")} />
@@ -109,15 +114,15 @@ export function SignupStep({
 
   const submit = async () => {
     if (!username.trim() || !password) {
-      toast.error("Enter a username and password");
+      toast.error(t("link.accountSteps.enterAUsernameAndPassword"));
       return;
     }
     if (password.length < 6) {
-      toast.error("Use at least 6 characters for the password");
+      toast.error(t("link.accountSteps.useAtLeast6Characters"));
       return;
     }
     if (password !== confirm) {
-      toast.error("The passwords don't match");
+      toast.error(t("link.accountSteps.thePasswordsDonTMatch"));
       return;
     }
     setBusy(true);
@@ -126,7 +131,7 @@ export function SignupStep({
       await client.api.auth.loginUser(username.trim(), password);
       onSignedIn();
     } catch (e) {
-      toast.error(errorText(e, "Could not make the account"));
+      toast.error(errorText(e, t("link.accountSteps.couldNotMakeTheAccount")));
     } finally {
       setBusy(false);
     }
@@ -136,15 +141,17 @@ export function SignupStep({
     <StepCard>
       <View className="gap-1">
         <Text weight="medium" className="text-sm text-foreground">
-          {firstUser ? "Make the admin account" : "Make an account"}
+          {firstUser
+            ? t("link.accountSteps.makeTheAdminAccount")
+            : t("link.accountSteps.makeAnAccount")}
         </Text>
         <Text className="text-meta text-muted-foreground">
           {firstUser
-            ? "This is the first account on the server, so it runs the server."
-            : "Pick a username and password for this server."}
+            ? t("link.accountSteps.thisIsTheFirstAccount")
+            : t("link.accountSteps.pickAUsernameAndPassword")}
         </Text>
       </View>
-      <Field label="Username">
+      <Field label={t("link.accountSteps.username")}>
         <Input
           value={username}
           onChangeText={setUsername}
@@ -157,7 +164,7 @@ export function SignupStep({
           editable={!busy}
         />
       </Field>
-      <Field label="Password">
+      <Field label={t("link.accountSteps.password")}>
         <PasswordInput
           value={password}
           onChangeText={setPassword}
@@ -165,7 +172,7 @@ export function SignupStep({
           newPassword
         />
       </Field>
-      <Field label="Password again">
+      <Field label={t("link.accountSteps.passwordAgain")}>
         <PasswordInput
           value={confirm}
           onChangeText={setConfirm}
@@ -175,10 +182,14 @@ export function SignupStep({
         />
       </Field>
       <Button size="lg" loading={busy} onPress={submit}>
-        Make account
+        {t("link.accountSteps.makeAccount")}
       </Button>
       <TextLink
-        label={firstUser ? "Back" : "Have an account? Sign in"}
+        label={
+          firstUser
+            ? t("link.accountSteps.back")
+            : t("link.accountSteps.haveAnAccountSignIn")
+        }
         onPress={onBack}
       />
     </StepCard>
@@ -216,10 +227,10 @@ export function ResetStep({
     username.trim()
       ? run(async () => {
           await client.api.auth.initiatePasswordReset(username.trim());
-          toast.success("Reset code made. It is in the server's logs");
+          toast.success(t("link.accountSteps.resetCodeMadeItIs"));
           setPhase("code");
-        }, "Could not start the reset")
-      : toast.error("Enter your username");
+        }, t("link.accountSteps.couldNotStartTheReset"))
+      : toast.error(t("link.accountSteps.enterYourUsername"));
 
   const verify = () =>
     code.trim()
@@ -230,8 +241,8 @@ export function ResetStep({
           );
           setTempToken(res?.tempToken || "");
           setPhase("password");
-        }, "That code didn't work")
-      : toast.error("Enter the reset code");
+        }, t("link.accountSteps.thatCodeDidnTWork"))
+      : toast.error(t("link.accountSteps.enterTheResetCode"));
 
   const save = () =>
     password.length >= 6
@@ -241,22 +252,22 @@ export function ResetStep({
             tempToken,
             password,
           );
-          toast.success("Password changed. Sign in with it now");
+          toast.success(t("link.accountSteps.passwordChangedSignInWith"));
           onDone();
-        }, "Could not change the password")
-      : toast.error("Use at least 6 characters for the password");
+        }, t("link.accountSteps.couldNotChangeThePassword"))
+      : toast.error(t("link.accountSteps.useAtLeast6Characters"));
 
   return (
     <StepCard>
       <Text weight="medium" className="text-sm text-foreground">
-        Reset password
+        {t("link.accountSteps.resetPassword")}
       </Text>
       {phase === "request" ? (
         <>
           <Text className="text-meta text-muted-foreground">
-            Enter your username. The server writes a reset code to its logs.
+            {t("link.accountSteps.enterYourUsernameTheServer")}
           </Text>
-          <Field label="Username">
+          <Field label={t("link.accountSteps.username")}>
             <Input
               value={username}
               onChangeText={setUsername}
@@ -268,15 +279,15 @@ export function ResetStep({
             />
           </Field>
           <Button size="lg" loading={busy} onPress={request}>
-            Send reset code
+            {t("link.accountSteps.sendResetCode")}
           </Button>
         </>
       ) : phase === "code" ? (
         <>
           <Text className="text-meta text-muted-foreground">
-            Enter the 6 digit code from the server logs.
+            {t("link.accountSteps.enterThe6DigitCode")}
           </Text>
-          <Field label="Reset code">
+          <Field label={t("link.accountSteps.resetCode")}>
             <Input
               value={code}
               onChangeText={setCode}
@@ -287,12 +298,12 @@ export function ResetStep({
             />
           </Field>
           <Button size="lg" loading={busy} onPress={verify}>
-            Check code
+            {t("link.accountSteps.checkCode")}
           </Button>
         </>
       ) : (
         <>
-          <Field label="New password">
+          <Field label={t("link.accountSteps.newPassword")}>
             <PasswordInput
               value={password}
               onChangeText={setPassword}
@@ -302,11 +313,11 @@ export function ResetStep({
             />
           </Field>
           <Button size="lg" loading={busy} onPress={save}>
-            Save new password
+            {t("link.accountSteps.saveNewPassword")}
           </Button>
         </>
       )}
-      <TextLink label="Back to sign in" onPress={onDone} />
+      <TextLink label={t("link.accountSteps.backToSignIn")} onPress={onDone} />
     </StepCard>
   );
 }

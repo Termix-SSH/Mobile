@@ -47,6 +47,8 @@ import {
   mergeLive,
   type LiveSample,
 } from "./live";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 interface ServerStatsProps {
   host: SSHHost;
@@ -159,7 +161,9 @@ function LocalStats({
         repos.metricSamples.append(host, next.point).catch(() => {});
       } catch (e) {
         if (signal?.aborted) return;
-        setError(errorText(e, "Could not read metrics from this host"));
+        setError(
+          errorText(e, t("hostMetrics.serverStats.couldNotReadMetricsFrom")),
+        );
       }
     },
     [source, repos, host],
@@ -183,7 +187,7 @@ function LocalStats({
       host={host}
       feed={feed}
       widgets={config.enabledWidgets.filter((w) => LOCAL_WIDGETS.includes(w))}
-      subtitle="Host Metrics | this phone"
+      subtitle={t("hostMetrics.serverStats.hostMetricsThis", { deviceWord })}
     />
   );
 }
@@ -204,7 +208,7 @@ function RelayStats({
       host={host}
       feed={feed}
       widgets={config.enabledWidgets}
-      subtitle="Host Metrics"
+      subtitle={t("hostMetrics.serverStats.hostMetrics")}
       client={client}
     />
   );
@@ -245,7 +249,9 @@ function useRelayMetrics(
       setError("");
     } catch (e) {
       if (!hasMetrics.current) {
-        setError(errorText(e, "Failed to load metrics"));
+        setError(
+          errorText(e, t("hostMetrics.serverStats.failedToLoadMetrics")),
+        );
         setStatus("error");
       }
     }
@@ -253,7 +259,7 @@ function useRelayMetrics(
 
   useEffect(() => {
     if (!client) {
-      setError("This session has no server");
+      setError(t("hostMetrics.serverStats.thisSessionHasNoServer"));
       setStatus("error");
       return;
     }
@@ -262,14 +268,17 @@ function useRelayMetrics(
       try {
         const res = await client.api.metrics.startMetricsPolling(hostId);
         if (res?.requiresTOTP) {
-          setError("Two-factor required for this host's stats.");
+          setError(t("hostMetrics.serverStats.twoFactorRequiredForThis"));
           setStatus("error");
           return;
         }
         if (res?.viewerSessionId) viewerRef.current = res.viewerSessionId;
       } catch (e) {
         // The host may already be polling, so metrics can still arrive.
-        startErrorRef.current = errorText(e, "Failed to start metrics");
+        startErrorRef.current = errorText(
+          e,
+          t("hostMetrics.serverStats.failedToStartMetrics"),
+        );
       }
       if (!viewerRef.current && !cancelled) {
         const reg = await client.api.metrics
@@ -409,9 +418,11 @@ function MetricsView({
       if (!client) return;
       try {
         await client.api.snippets.executeSnippet(snippetId, host.id);
-        toast.success(`Ran ${name}`);
+        toast.success(t("hostMetrics.serverStats.ran", { name }));
       } catch (e) {
-        toast.error(errorText(e, `Failed to run ${name}`));
+        toast.error(
+          errorText(e, t("hostMetrics.serverStats.failedToRun", { name })),
+        );
       }
     },
     [client, host.id],
@@ -426,7 +437,7 @@ function MetricsView({
       title={host.name}
       subtitle={subtitle}
       status={feed.status}
-      loadingLabel="Loading metrics..."
+      loadingLabel={t("hostMetrics.serverStats.loadingMetrics")}
       errorMessage={feed.error}
       onRetry={feed.status === "error" ? feed.retry : undefined}
     >

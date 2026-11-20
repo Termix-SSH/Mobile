@@ -4,6 +4,7 @@ import { ServerMetrics } from "@/types";
 import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { WidgetCard } from "./WidgetCard";
+import { t } from "@/i18n";
 
 /** Bytes per second as a short rate, like 1.2 MB/s. */
 export function formatRate(bps: number): string {
@@ -24,10 +25,12 @@ export function NetworkWidget({ metrics }: { metrics: ServerMetrics }) {
   return (
     <WidgetCard
       icon={<Network size={15} color={color("accent-brand")} />}
-      title="Network"
+      title={t("hostMetrics.widgets.networkWidget.network")}
     >
       {interfaces.length === 0 ? (
-        <Text className="text-meta text-muted-foreground">No interfaces</Text>
+        <Text className="text-meta text-muted-foreground">
+          {t("hostMetrics.widgets.networkWidget.noInterfaces")}
+        </Text>
       ) : (
         <View className="gap-2">
           {interfaces.map((iface) => {
@@ -48,7 +51,11 @@ export function NetworkWidget({ metrics }: { metrics: ServerMetrics }) {
                       : color("destructive"),
                   }}
                   className="h-2 w-2 rounded-full"
-                  accessibilityLabel={up ? "Up" : "Down"}
+                  accessibilityLabel={
+                    up
+                      ? t("hostMetrics.widgets.networkWidget.up")
+                      : t("hostMetrics.widgets.networkWidget.down")
+                  }
                 />
                 <View className="min-w-0 flex-1">
                   <Text

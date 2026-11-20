@@ -4,6 +4,7 @@ import { ServerMetrics } from "@/types";
 import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { WidgetCard, Meter, Stats, useLevelColor } from "./WidgetCard";
+import { t } from "@/i18n";
 
 const pct = (n: number) => `${n.toFixed(0)}%`;
 
@@ -23,7 +24,7 @@ export function CpuWidget({
   return (
     <WidgetCard
       icon={<Cpu size={15} color={color("accent-brand")} />}
-      title="CPU"
+      title={t("hostMetrics.widgets.cpuWidget.cpu")}
       trailing={
         <Text className="text-xs text-muted-foreground">{pct(percent)}</Text>
       }
@@ -33,7 +34,9 @@ export function CpuWidget({
         <View
           className="mt-2 flex-row items-end gap-[2px]"
           style={{ height: 24 }}
-          accessibilityLabel={`Per core: ${perCore.map(pct).join(", ")}`}
+          accessibilityLabel={t("hostMetrics.widgets.cpuWidget.perCore", {
+            value: perCore.map(pct).join(", "),
+          })}
         >
           {perCore.map((v, i) => (
             <View key={i} className="h-full flex-1 justify-end bg-muted">
@@ -50,20 +53,29 @@ export function CpuWidget({
       <Stats
         items={[
           {
-            label: "Cores",
+            label: t("hostMetrics.widgets.cpuWidget.cores"),
             value: cpu?.cores != null ? String(cpu.cores) : null,
           },
           {
-            label: "Load",
+            label: t("hostMetrics.widgets.cpuWidget.load"),
             value: cpu?.load
               ? cpu.load.map((l) => Number(l).toFixed(2)).join("  ")
               : null,
           },
-          { label: "User", value: cpu?.mix ? pct(cpu.mix.user) : null },
-          { label: "System", value: cpu?.mix ? pct(cpu.mix.system) : null },
-          { label: "IO wait", value: cpu?.mix ? pct(cpu.mix.iowait) : null },
           {
-            label: "Steal",
+            label: t("hostMetrics.widgets.cpuWidget.user"),
+            value: cpu?.mix ? pct(cpu.mix.user) : null,
+          },
+          {
+            label: t("hostMetrics.widgets.cpuWidget.system"),
+            value: cpu?.mix ? pct(cpu.mix.system) : null,
+          },
+          {
+            label: t("hostMetrics.widgets.cpuWidget.ioWait"),
+            value: cpu?.mix ? pct(cpu.mix.iowait) : null,
+          },
+          {
+            label: t("hostMetrics.widgets.cpuWidget.steal"),
             value: cpu?.mix && cpu.mix.steal > 0 ? pct(cpu.mix.steal) : null,
           },
         ]}

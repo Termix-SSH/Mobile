@@ -11,6 +11,7 @@ import {
   type PushResult,
   type ServerInfo,
 } from "./protocol";
+import { t } from "@/i18n";
 
 /** What sync needs from an account's client. */
 export type SyncClient = Pick<
@@ -64,9 +65,9 @@ export class SyncRemote {
       const landed = (response.request as { responseURL?: string } | undefined)
         ?.responseURL;
       if (rest.url === "/sync/v2/info" && sameRoute(landed, rest.url)) {
-        throw new SyncError("not_termix", "This is not a Termix server.");
+        throw new SyncError("not_termix", t("sync.remote.thisIsNotATermix"));
       }
-      throw new SyncError("proxy_login", "The proxy wants you to sign in.", {
+      throw new SyncError("proxy_login", t("sync.remote.theProxyWantsYouTo"), {
         status: response.status,
       });
     }
@@ -90,12 +91,12 @@ export class SyncRemote {
       throw sync;
     }
     if (!info || info.termix !== true || typeof info.protocol !== "number") {
-      throw new SyncError("not_termix", "This is not a Termix server.");
+      throw new SyncError("not_termix", t("sync.remote.thisIsNotATermix"));
     }
     if (info.protocol !== SUPPORTED_PROTOCOL) {
       throw new SyncError(
         "version_mismatch",
-        "This server uses a newer sync version. Update the app.",
+        t("sync.remote.thisServerUsesANewer"),
       );
     }
     return info as ServerInfo;

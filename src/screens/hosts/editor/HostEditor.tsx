@@ -57,6 +57,8 @@ import {
   visibleSections,
   type HostEditorForm,
 } from "./model";
+import { deviceWord } from "@/utils/device-word";
+import { t as tr } from "@/i18n";
 
 function Band({
   title,
@@ -265,6 +267,8 @@ export default function HostEditor({
     shown.filter((s) => s.group === group);
   const protocolToggles = toggles.filter((t) => t.group === "protocol");
   const featureToggles = toggles.filter((t) => t.group === "feature");
+  const anyProtocol =
+    form.enableSsh || protocolToggles.some((t) => !!form.toggles[t.key]);
 
   const dirty = () =>
     JSON.stringify(form) !== startForm.current ||
@@ -273,9 +277,9 @@ export default function HostEditor({
   const onBeforeClose = async () =>
     !dirty() ||
     (await confirm({
-      title: "Leave without saving?",
-      description: "Your changes to this host will be lost.",
-      confirmLabel: "Leave",
+      title: tr("hosts.editor.hostEditor.leaveWithoutSaving"),
+      description: tr("hosts.editor.hostEditor.yourChangesToThisHost"),
+      confirmLabel: tr("hosts.editor.hostEditor.leave"),
       destructive: true,
     }));
 
@@ -310,34 +314,40 @@ export default function HostEditor({
         isEdit && host
           ? await repos.hosts.update(host.id, payload)
           : await repos.hosts.create(payload);
-      if (
-        picksOrigin &&
-        form.enableSsh &&
-        connectFrom !== savedOrigin.current
-      ) {
+      if (picksOrigin && anyProtocol && connectFrom !== savedOrigin.current) {
         await saveOrigin(account.id, saved.id, connectFrom).catch((e) =>
-          toast.error("Could not save how this host connects", e?.message),
+          toast.error(
+            tr("hosts.editor.hostEditor.couldNotSaveHowThis"),
+            e?.message,
+          ),
         );
       }
-      toast.success(isEdit ? "Host saved" : "Host added");
+      toast.success(
+        isEdit
+          ? tr("hosts.editor.hostEditor.hostSaved")
+          : tr("hosts.editor.hostEditor.hostAdded"),
+      );
       onSaved();
     } catch (e: any) {
-      toast.error(e?.message || "Could not save the host");
+      toast.error(
+        e?.message || tr("hosts.editor.hostEditor.couldNotSaveTheHost"),
+      );
     } finally {
       setSaving(false);
     }
   };
 
   const testTarget = async (): Promise<TestTarget | string> => {
-    if (!form.ip.trim()) return "Enter the host's address first.";
-    if (!form.enableSsh) return "Turn on SSH to test the login.";
+    if (!form.ip.trim())
+      return tr("hosts.editor.hostEditor.enterTheHostSAddress");
+    if (!form.enableSsh) return tr("hosts.editor.hostEditor.turnOnSshToTest");
     let { username, authType, password, key, keyPassword } = form;
     let certificate: string | undefined;
     if (authType === "credential") {
       const cred = form.credentialId
         ? await repos.credentials.get(form.credentialId).catch(() => null)
         : null;
-      if (!cred) return "Pick a credential first.";
+      if (!cred) return tr("hosts.editor.hostEditor.pickACredentialFirst");
       authType = cred.key ? "key" : "password";
       password = cred.password ?? "";
       key = cred.key ?? "";
@@ -395,7 +405,7 @@ export default function HostEditor({
 
   const originNote =
     picksOrigin && connectFrom === "server"
-      ? "The test runs from this phone. This host connects through the server, so it can still work when the phone can't reach it."
+      ? tr("hosts.editor.hostEditor.theTestRunsFromThis", { deviceWord })
       : undefined;
 
   return (
@@ -403,7 +413,11 @@ export default function HostEditor({
       open={visible}
       onClose={onClose}
       onBeforeClose={onBeforeClose}
-      title={isEdit ? "Edit host" : "New host"}
+      title={
+        isEdit
+          ? tr("hosts.editor.hostEditor.editHost")
+          : tr("hosts.editor.hostEditor.newHost")
+      }
       subtitle={isEdit ? host?.name : undefined}
       scroll={false}
       bare
@@ -414,7 +428,7 @@ export default function HostEditor({
             className="flex-1"
             onPress={async () => (await onBeforeClose()) && onClose()}
           >
-            Cancel
+            {tr("hosts.editor.hostEditor.cancel")}
           </Button>
           <Button
             className="flex-1"
@@ -422,7 +436,7 @@ export default function HostEditor({
             disabled={loading}
             onPress={handleSave}
           >
-            Save
+            {tr("hosts.editor.hostEditor.save")}
           </Button>
         </View>
       }
@@ -432,16 +446,19 @@ export default function HostEditor({
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="interactive"
       >
-        <Band title="Host">
-          <Field label="Name">
+        <Band title={tr("hosts.editor.hostEditor.host")}>
+          <Field label={tr("hosts.editor.hostEditor.name")}>
             <Input
               value={form.name}
               onChangeText={(name) => set({ name })}
-              placeholder="My server"
+              placeholder={tr("hosts.editor.hostEditor.myServer")}
             />
           </Field>
           <FieldRow>
-            <Field label="Address" className="flex-[3]">
+            <Field
+              label={tr("hosts.editor.hostEditor.address")}
+              className="flex-[3]"
+            >
               <Input
                 value={form.ip}
                 onChangeText={(ip) => set({ ip })}
@@ -451,7 +468,10 @@ export default function HostEditor({
                 keyboardType="url"
               />
             </Field>
-            <Field label="Port" className="flex-1">
+            <Field
+              label={tr("hosts.editor.hostEditor.port")}
+              className="flex-1"
+            >
               <Input
                 value={form.port}
                 onChangeText={(v) => set({ port: digits(v) })}
@@ -464,8 +484,7 @@ export default function HostEditor({
           filled.port !== undefined &&
           form.port === String(filled.port) ? (
             <Text className="-mt-2 text-meta text-muted-foreground">
-              Port and username come from your host defaults until you change
-              them.
+              {tr("hosts.editor.hostEditor.portAndUsernameComeFrom")}
             </Text>
           ) : null}
           {underHost ? (
@@ -476,11 +495,11 @@ export default function HostEditor({
               hosts={otherHosts}
             />
           ) : (
-            <Field label="Folder">
+            <Field label={tr("hosts.editor.hostEditor.folder")}>
               <Input
                 value={form.folder}
                 onChangeText={changeFolder}
-                placeholder="Production"
+                placeholder={tr("hosts.editor.hostEditor.production")}
               />
             </Field>
           )}
@@ -490,13 +509,15 @@ export default function HostEditor({
             className="-mt-2 self-start"
             onPress={switchPlace}
           >
-            {underHost ? "Use a folder instead" : "Put it under a host instead"}
+            {underHost
+              ? tr("hosts.editor.hostEditor.useAFolderInstead")
+              : tr("hosts.editor.hostEditor.putItUnderAHost")}
           </Button>
           <TagsField tags={form.tags} onChange={(tags) => set({ tags })} />
-          <SettingRow label="Pin to top" last>
+          <SettingRow label={tr("hosts.editor.hostEditor.pinToTop")} last>
             <FakeSwitch checked={form.pin} onChange={(pin) => set({ pin })} />
           </SettingRow>
-          <AccordionSection label="Color and icon">
+          <AccordionSection label={tr("hosts.editor.hostEditor.colorAndIcon")}>
             <View className="pt-3">
               <ColorIconField
                 color={form.color}
@@ -506,22 +527,24 @@ export default function HostEditor({
             </View>
           </AccordionSection>
           {byGroup("host").map((s) => renderSection(s, true))}
-          <Field label="Notes">
+          <Field label={tr("hosts.editor.hostEditor.notes")}>
             <Input
               value={form.notes}
               onChangeText={(notes) => set({ notes })}
               multiline
-              placeholder="Anything worth remembering about this host"
+              placeholder={tr(
+                "hosts.editor.hostEditor.anythingWorthRememberingAboutThis",
+              )}
               style={{ minHeight: 80 }}
             />
           </Field>
         </Band>
 
-        <Band title="Protocols">
+        <Band title={tr("hosts.editor.hostEditor.protocols")}>
           <View>
             <SettingRow
               label="SSH"
-              description="Terminal, files and more"
+              description={tr("hosts.editor.hostEditor.terminalFilesAndMore")}
               last={protocolToggles.length === 0}
             >
               <FakeSwitch
@@ -545,6 +568,24 @@ export default function HostEditor({
               </SettingRow>
             ))}
           </View>
+          {picksOrigin && anyProtocol ? (
+            <Field
+              label={tr("hosts.editor.hostEditor.connectFrom")}
+              hint={
+                planConnection(connectFrom, originInputs(account.id, true))
+                  .blocked?.reason ?? ORIGIN_HELP[connectFrom]
+              }
+            >
+              <Tabs<ConnectionOrigin>
+                value={connectFrom}
+                onChange={setConnectFrom}
+                options={ORIGINS.map((id) => ({
+                  id,
+                  label: ORIGIN_LABELS[id],
+                }))}
+              />
+            </Field>
+          ) : null}
         </Band>
 
         {form.enableSsh ? (
@@ -562,28 +603,12 @@ export default function HostEditor({
               selfId={host?.id}
               hosts={otherHosts}
             />
-            {picksOrigin ? (
-              <Field
-                label="Connect from"
-                hint={
-                  planConnection(connectFrom, originInputs(account.id, true))
-                    .blocked?.reason ?? ORIGIN_HELP[connectFrom]
-                }
-              >
-                <Tabs<ConnectionOrigin>
-                  value={connectFrom}
-                  onChange={setConnectFrom}
-                  options={ORIGINS.map((id) => ({
-                    id,
-                    label: ORIGIN_LABELS[id],
-                  }))}
-                />
-              </Field>
-            ) : null}
             <TestConnection getTarget={testTarget} note={originNote} />
             {featureToggles.length > 0 ? (
               <View>
-                <Label className="mb-1 text-muted-foreground">Features</Label>
+                <Label className="mb-1 text-muted-foreground">
+                  {tr("hosts.editor.hostEditor.features")}
+                </Label>
                 {featureToggles.map((t, i) => (
                   <SettingRow
                     key={t.key}
@@ -606,13 +631,13 @@ export default function HostEditor({
         ) : null}
 
         {byGroup("protocol").length > 0 ? (
-          <Band title="Other protocols">
+          <Band title={tr("hosts.editor.hostEditor.otherProtocols")}>
             {byGroup("protocol").map((s) => renderSection(s, true))}
           </Band>
         ) : null}
 
         {byGroup("feature").length > 0 ? (
-          <Band title="More">
+          <Band title={tr("hosts.editor.hostEditor.more")}>
             {byGroup("feature").map((s) => renderSection(s, false))}
           </Band>
         ) : null}

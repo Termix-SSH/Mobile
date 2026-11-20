@@ -5,6 +5,8 @@ import {
 import {
   parseHostSettings,
   type PluginHostSettings,
+  parseSettingsFields,
+  type HostSettingField,
 } from "@/core/plugins/host-settings";
 
 /** What a plugin web view needs from the server's plugin list. */
@@ -40,6 +42,9 @@ export interface ServerPlugin {
   frame?: PluginFrameInfo;
   /** The manifest's host settings, which the host editor can draw. */
   hostSettings?: PluginHostSettings;
+  /** The manifest's server wide and per user settings. */
+  adminSettings?: HostSettingField[];
+  userSettings?: HostSettingField[];
 }
 
 function parseFrame(p: any): PluginFrameInfo | undefined {
@@ -107,6 +112,14 @@ export function parseServerPlugins(list: unknown): ServerPlugin[] | null {
         p.contributes?.settings?.host ?? p.hostSettings,
       );
       if (hostSettings) out.hostSettings = hostSettings;
+      const adminSettings = parseSettingsFields(
+        p.contributes?.settings?.admin ?? p.adminSettings,
+      );
+      if (adminSettings.length) out.adminSettings = adminSettings;
+      const userSettings = parseSettingsFields(
+        p.contributes?.settings?.user ?? p.userSettings,
+      );
+      if (userSettings.length) out.userSettings = userSettings;
       return out;
     });
 }

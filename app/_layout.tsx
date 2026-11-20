@@ -39,7 +39,11 @@ import * as SplashScreen from "expo-splash-screen";
 import { FONT_MAP, MONO_FONT, MONO_FONT_BOLD } from "@/constants/fonts";
 import "../global.css";
 import UpdateRequired from "@/screens/authentication/UpdateRequired";
-import { WidgetDeepLinkHost, useWidgetSync } from "@/widgets";
+import {
+  WidgetDeepLinkHost,
+  usePowerWidgetSync,
+  useWidgetSync,
+} from "@/widgets";
 import { loadHostListPrefs } from "@/core/host-list-prefs";
 import { loadUiPrefs } from "@/core/ui-prefs";
 import { registerBuiltInFeatures } from "@/features";
@@ -55,6 +59,10 @@ import { SHOWCASE } from "@/showcase/enabled";
 import { ShowcaseHost } from "@/showcase/ShowcaseHost";
 // Defines the background sync task, which must exist when the app loads.
 import "@/core/sync/background";
+// Same for the F-Droid alert check.
+import "@/core/push/poll";
+import { usePushNotifications } from "@/core/push/usePushNotifications";
+import { t } from "@/i18n";
 
 registerBuiltInFeatures();
 markStartup("bundle");
@@ -81,6 +89,8 @@ function RootLayoutContent() {
   usePluginFrameFeatures();
   useAppShortcuts();
   useWidgetSync();
+  usePowerWidgetSync();
+  usePushNotifications(!isLoading);
 
   useEffect(() => {
     if (isLoading) return;
@@ -96,7 +106,7 @@ function RootLayoutContent() {
           className="mt-4 text-base text-foreground"
           style={{ fontFamily: MONO_FONT }}
         >
-          Initializing…
+          {t("app.layout.initializing")}
         </Text>
         <TouchableOpacity
           onPress={() => setIsLoading(false)}
@@ -106,7 +116,7 @@ function RootLayoutContent() {
             className="text-foreground"
             style={{ fontFamily: MONO_FONT_BOLD }}
           >
-            Cancel
+            {t("app.layout.cancel")}
           </Text>
         </TouchableOpacity>
       </View>

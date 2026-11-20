@@ -7,6 +7,7 @@ import {
 } from "../compat/api-compat";
 import type { SSHHost, SSHHostData } from "@/types/index";
 import type { HostBulkUpdate } from "@/core/data/types";
+import { t } from "@/i18n";
 
 export function createHostsApi(c: AccountClient) {
   function normalizeJumpHosts(value: unknown): { hostId: number }[] {
@@ -133,7 +134,9 @@ export function createHostsApi(c: AccountClient) {
 
     if (failures.length > 0) {
       throw new ApiError(
-        `Host saved, but some settings failed: ${failures.join("; ")}`,
+        t("api.modules.hosts.hostSavedButSomeSettings", {
+          value: failures.join("; "),
+        }),
         400,
         "PLUGIN_SETTINGS_FAILED",
       );
@@ -181,7 +184,9 @@ export function createHostsApi(c: AccountClient) {
           c.http.host = candidateApi;
           return hosts;
         }
-        lastError = new Error(`Unexpected host response from ${baseURL}`);
+        lastError = new Error(
+          t("api.modules.hosts.unexpectedHostResponseFrom", { baseURL }),
+        );
       } catch (error) {
         lastError = error;
         if (

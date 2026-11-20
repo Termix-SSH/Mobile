@@ -11,6 +11,7 @@ import { AppError } from "@/core/errors";
 import type { DbDriver, SqlValue } from "./driver";
 import { libraryDatabaseDirectory, moveDatabase } from "./location";
 import * as schema from "./schema";
+import { t } from "@/i18n";
 
 // iOS keeps the files out of Documents, which the Files app shows.
 const DIRECTORY: string | undefined =
@@ -60,7 +61,7 @@ export const expoDriver: DbDriver | null = {
       );
       if (!cipher?.cipher_version) {
         throw new AppError(
-          "This build can't encrypt local data.",
+          t("db.expoDriver.thisBuildCanTEncrypt"),
           "DB_NOT_ENCRYPTED",
         );
       }

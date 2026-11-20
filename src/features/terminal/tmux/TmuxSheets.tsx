@@ -2,6 +2,7 @@ import { Layers, Plus, SquareTerminal } from "lucide-react-native";
 import { Sheet, SheetRow } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import type { TmuxWindow } from "./tmux";
+import { t } from "@/i18n";
 
 export interface PickSession {
   name: string;
@@ -14,18 +15,26 @@ export interface PickSession {
 function ago(seconds?: number): string {
   if (!seconds) return "";
   const mins = Math.max(0, Math.round((Date.now() / 1000 - seconds) / 60));
-  if (mins < 1) return "active now";
-  if (mins < 60) return `active ${mins} min ago`;
+  if (mins < 1) return t("terminal.tmux.tmuxSheets.activeNow");
+  if (mins < 60) {
+    return t("terminal.tmux.tmuxSheets.activeMinAgo", { count: mins });
+  }
   const hours = Math.round(mins / 60);
   return hours < 48
-    ? `active ${hours} h ago`
-    : `active ${Math.round(hours / 24)} days ago`;
+    ? t("terminal.tmux.tmuxSheets.activeHoursAgo", { count: hours })
+    : t("terminal.tmux.tmuxSheets.activeDaysAgo", {
+        count: Math.round(hours / 24),
+      });
 }
 
 export function sessionDetail(s: PickSession): string {
   return [
-    s.windows ? `${s.windows} ${s.windows === 1 ? "window" : "windows"}` : "",
-    s.attached ? `${s.attached} attached` : "",
+    s.windows
+      ? t("terminal.tmux.tmuxSheets.windowCount", { count: s.windows })
+      : "",
+    s.attached
+      ? t("terminal.tmux.tmuxSheets.attached", { count: s.attached })
+      : "",
     ago(s.activity),
   ]
     .filter(Boolean)
@@ -49,7 +58,7 @@ export function TmuxPickerSheet({
     <Sheet
       visible={sessions !== null}
       onClose={() => onPick(allowPlain ? null : "")}
-      title="Open a tmux session"
+      title={t("terminal.tmux.tmuxSheets.openATmuxSession")}
       scroll
     >
       {(sessions ?? []).map((s) => (
@@ -63,13 +72,13 @@ export function TmuxPickerSheet({
       ))}
       <SheetRow
         icon={<Plus size={16} color={color("foreground")} />}
-        label="New session"
+        label={t("terminal.tmux.tmuxSheets.newSession")}
         onPress={() => onPick("")}
       />
       {allowPlain ? (
         <SheetRow
           icon={<SquareTerminal size={16} color={color("foreground")} />}
-          label="Plain shell"
+          label={t("terminal.tmux.tmuxSheets.plainShell")}
           onPress={() => onPick(null)}
         />
       ) : null}
@@ -94,7 +103,7 @@ export function TmuxWindowsSheet({
     <Sheet
       visible={windows !== null}
       onClose={onClose}
-      title="tmux windows"
+      title={t("terminal.tmux.tmuxSheets.tmuxWindows")}
       scroll
     >
       {(windows ?? []).map((w) => (
@@ -108,7 +117,7 @@ export function TmuxWindowsSheet({
       ))}
       <SheetRow
         icon={<Plus size={16} color={color("foreground")} />}
-        label="New window"
+        label={t("terminal.tmux.tmuxSheets.newWindow")}
         onPress={onNew}
       />
     </Sheet>

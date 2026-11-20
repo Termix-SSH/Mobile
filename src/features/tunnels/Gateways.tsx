@@ -1,16 +1,17 @@
 import { View } from "react-native";
 import type { Gateway } from "@/core/api/modules/tunnels";
 import { Badge, Text } from "@/ui";
+import { t } from "@/i18n";
 
 const STATE_LABEL: Record<string, string> = {
-  up: "Up",
-  pending: "Pending",
-  applying: "Applying",
-  no_handshake: "No handshake",
-  rules_missing: "Rules missing",
-  down: "Down",
-  unreachable: "Unreachable",
-  error: "Error",
+  up: t("tunnels.gateways.up"),
+  pending: t("tunnels.gateways.pending"),
+  applying: t("tunnels.gateways.applying"),
+  no_handshake: t("tunnels.gateways.noHandshake"),
+  rules_missing: t("tunnels.gateways.rulesMissing"),
+  down: t("tunnels.gateways.down"),
+  unreachable: t("tunnels.gateways.unreachable"),
+  error: t("tunnels.gateways.error"),
 };
 
 /** WireGuard gateways from the server. Read only: they are set up in Termix on the web. */
@@ -19,7 +20,7 @@ export function Gateways({ gateways }: { gateways: Gateway[] }) {
   return (
     <View className="mt-2 gap-2.5">
       <Text className="text-[10px] uppercase tracking-[1px] text-muted-foreground">
-        Gateways
+        {t("tunnels.gateways.gateways")}
       </Text>
       {gateways.map((g) => (
         <View key={g.id} className="gap-2 border border-border bg-card p-3.5">
@@ -52,7 +53,7 @@ export function Gateways({ gateways }: { gateways: Gateway[] }) {
         </View>
       ))}
       <Text className="text-[11px] text-muted-foreground">
-        Gateways can only be changed in Termix on the web.
+        {t("tunnels.gateways.gatewaysCanOnlyBeChanged")}
       </Text>
     </View>
   );

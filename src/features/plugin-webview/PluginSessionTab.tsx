@@ -9,6 +9,7 @@ import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
 import { EmptyState } from "@/ui";
 import { PluginWebView, type PluginWebViewHandle } from "./PluginWebView";
 import { handleShellCall } from "./shell";
+import { t } from "@/i18n";
 
 /** A plugin view about one host, as a session tab. */
 export function PluginSessionTab({
@@ -78,8 +79,10 @@ export function PluginSessionTab({
       <EmptyState
         className="flex-1"
         icon={CloudOff}
-        title="Link a server to use it"
-        hint={`${plugin.name} runs on your Termix server.`}
+        title={t("pluginWebview.pluginSessionTab.linkAServerToUse")}
+        hint={t("pluginWebview.pluginSessionTab.runsOnYourTermixServer", {
+          name: plugin.name,
+        })}
       />
     );
   }

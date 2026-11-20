@@ -39,16 +39,18 @@ import type { TerminalConfig } from "@/types";
 import { TerminalPreview } from "./terminal/TerminalPreview";
 import { CustomThemeSheet } from "./terminal/CustomThemeSheet";
 import { Screen } from "@/components/Screen";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 const FONT_SIZES = [12, 14, 16, 18, 20, 24];
 const LINE_HEIGHTS = [
-  { label: "Compact", value: 1 },
-  { label: "Default", value: 1.1 },
-  { label: "Relaxed", value: 1.25 },
-  { label: "Spacious", value: 1.5 },
+  { label: t("settings.terminalCustomization.compact"), value: 1 },
+  { label: t("settings.terminalCustomization.default"), value: 1.1 },
+  { label: t("settings.terminalCustomization.relaxed"), value: 1.25 },
+  { label: t("settings.terminalCustomization.spacious"), value: 1.5 },
 ];
 const LETTER_SPACINGS = [
-  { label: "None", value: 0 },
+  { label: t("settings.terminalCustomization.none"), value: 0 },
   { label: "1", value: 1 },
   { label: "2", value: 2 },
 ];
@@ -132,7 +134,9 @@ export default function TerminalCustomization() {
   );
 
   const save = (updates: Partial<TerminalConfig>) => {
-    updateConfig(updates).catch(() => toast.error("Could not save"));
+    updateConfig(updates).catch(() =>
+      toast.error(t("settings.terminalCustomization.couldNotSave")),
+    );
   };
 
   const handleCustomFontSize = async () => {
@@ -142,7 +146,12 @@ export default function TerminalCustomization() {
       size < MIN_FONT_SIZE ||
       size > MAX_FONT_SIZE
     ) {
-      toast.error(`Pick a size from ${MIN_FONT_SIZE} to ${MAX_FONT_SIZE}`);
+      toast.error(
+        t("settings.terminalCustomization.pickASizeFromTo", {
+          MIN_FONT_SIZE,
+          MAX_FONT_SIZE,
+        }),
+      );
       return;
     }
     await updateFontSize(size);
@@ -152,12 +161,15 @@ export default function TerminalCustomization() {
 
   const handleReset = async () => {
     await resetToDefault();
-    toast.success("Terminal settings reset");
+    toast.success(t("settings.terminalCustomization.terminalSettingsReset"));
     setShowResetConfirm(false);
   };
 
   return (
-    <Screen title="Terminal" onBack={() => router.back()}>
+    <Screen
+      title={t("settings.terminalCustomization.terminal")}
+      onBack={() => router.back()}
+    >
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ padding: 12, gap: 16, paddingBottom: 40 }}
@@ -168,11 +180,13 @@ export default function TerminalCustomization() {
           fontSize={current.fontSize ?? 14}
         />
         <Text className="-mt-2 text-meta text-muted-foreground">
-          A host can set its own theme and cursor in Termix, which wins over
-          these.
+          {t("settings.terminalCustomization.aHostCanSetIts")}
         </Text>
 
-        <Section icon={Palette} title="Theme">
+        <Section
+          icon={Palette}
+          title={t("settings.terminalCustomization.theme")}
+        >
           <View className="flex-row flex-wrap gap-2">
             {[...THEME_IDS, "custom"].map((id) => {
               const c = resolveTerminalColors(
@@ -183,7 +197,7 @@ export default function TerminalCustomization() {
               const active = id === theme;
               const name =
                 id === "termix"
-                  ? "Follows app theme"
+                  ? t("settings.terminalCustomization.followsAppTheme")
                   : (TERMINAL_THEMES[id]?.name ?? id);
               return (
                 <Pressable
@@ -222,7 +236,9 @@ export default function TerminalCustomization() {
                         marginTop: 6,
                       }}
                     >
-                      {id === "custom" ? "Custom" : name}
+                      {id === "custom"
+                        ? t("settings.terminalCustomization.custom")
+                        : name}
                     </Text>
                   </View>
                 </Pressable>
@@ -231,7 +247,7 @@ export default function TerminalCustomization() {
           </View>
         </Section>
 
-        <Section icon={Type} title="Font">
+        <Section icon={Type} title={t("settings.terminalCustomization.font")}>
           {TERMINAL_FONTS.map((option, i) => {
             const active = fontFamily === option.value;
             return (
@@ -263,7 +279,7 @@ export default function TerminalCustomization() {
                       weight="bold"
                       className="text-[8px] uppercase tracking-wider text-accent-text"
                     >
-                      Active
+                      {t("settings.terminalCustomization.active")}
                     </Text>
                   </View>
                 ) : null}
@@ -272,18 +288,24 @@ export default function TerminalCustomization() {
           })}
         </Section>
 
-        <Section icon={AlignLeft} title="Size and spacing">
+        <Section
+          icon={AlignLeft}
+          title={t("settings.terminalCustomization.sizeAndSpacing")}
+        >
           <Text className="mb-2 text-meta text-muted-foreground">
-            Pinch the terminal to change the size too. Large text in your phone
-            settings makes it bigger.
+            {t("settings.terminalCustomization.pinchTheTerminalToChange", {
+              deviceWord,
+            })}
           </Text>
           <Choices
             options={[
               ...FONT_SIZES.map((s) => ({ label: String(s), value: s })),
               {
                 label: FONT_SIZES.includes(current.fontSize ?? 14)
-                  ? "Custom"
-                  : `Custom ${current.fontSize}`,
+                  ? t("settings.terminalCustomization.custom")
+                  : t("settings.terminalCustomization.custom2", {
+                      fontSize: current.fontSize,
+                    }),
                 value: -1,
               },
             ]}
@@ -297,7 +319,7 @@ export default function TerminalCustomization() {
             }
           />
           <Text className="mb-2 mt-4 text-meta text-muted-foreground">
-            Line height
+            {t("settings.terminalCustomization.lineHeight")}
           </Text>
           <Choices
             options={LINE_HEIGHTS}
@@ -305,33 +327,50 @@ export default function TerminalCustomization() {
             onPick={(value) => save({ lineHeight: value })}
           />
           <Text className="mb-2 mt-4 text-meta text-muted-foreground">
-            Letter spacing
+            {t("settings.terminalCustomization.letterSpacing")}
           </Text>
           <Choices
             options={LETTER_SPACINGS}
             value={current.letterSpacing}
             onPick={(value) => save({ letterSpacing: value })}
           />
+          <View className="mt-2">
+            <SettingRow
+              label={t("settings.terminalCustomization.ligatures")}
+              last
+            >
+              <FakeSwitch
+                checked={current.ligatures ?? true}
+                onChange={(v) => save({ ligatures: v })}
+                accessibilityLabel={t(
+                  "settings.terminalCustomization.ligatures",
+                )}
+              />
+            </SettingRow>
+          </View>
         </Section>
 
-        <Section icon={TextCursor} title="Cursor">
+        <Section
+          icon={TextCursor}
+          title={t("settings.terminalCustomization.cursor")}
+        >
           <Choices
             options={CURSOR_STYLES}
             value={current.cursorStyle}
             onPick={(value) => save({ cursorStyle: value })}
           />
           <View className="mt-2">
-            <SettingRow label="Blink" last>
+            <SettingRow label={t("settings.terminalCustomization.blink")} last>
               <FakeSwitch
                 checked={current.cursorBlink ?? true}
                 onChange={(v) => save({ cursorBlink: v })}
-                accessibilityLabel="Blink"
+                accessibilityLabel={t("settings.terminalCustomization.blink")}
               />
             </SettingRow>
           </View>
         </Section>
 
-        <Section icon={Bell} title="Bell">
+        <Section icon={Bell} title={t("settings.terminalCustomization.bell")}>
           <Choices
             options={BELL_STYLES}
             value={current.bellStyle}
@@ -339,22 +378,25 @@ export default function TerminalCustomization() {
           />
           <View className="mt-2">
             <SettingRow
-              label="Vibrate"
-              description="On the bell and when you long press to select"
+              label={t("settings.terminalCustomization.vibrate")}
+              description={t("settings.terminalCustomization.onTheBellAndWhen")}
               last
             >
               <FakeSwitch
                 checked={current.haptics ?? true}
                 onChange={(v) => save({ haptics: v })}
-                accessibilityLabel="Vibrate"
+                accessibilityLabel={t("settings.terminalCustomization.vibrate")}
               />
             </SettingRow>
           </View>
         </Section>
 
-        <Section icon={Rows3} title="Scrollback">
+        <Section
+          icon={Rows3}
+          title={t("settings.terminalCustomization.scrollback")}
+        >
           <Text className="mb-2 text-meta text-muted-foreground">
-            Lines kept above the screen. Applies to new terminals.
+            {t("settings.terminalCustomization.linesKeptAboveTheScreen")}
           </Text>
           <Choices
             options={SCROLLBACKS.map((n) => ({
@@ -366,50 +408,80 @@ export default function TerminalCustomization() {
           />
         </Section>
 
-        <Section icon={Link} title="Links and keys">
+        <Section
+          icon={Link}
+          title={t("settings.terminalCustomization.linksAndKeys")}
+        >
           <SettingRow
-            label="Ask before opening links"
-            last={Platform.OS !== "ios"}
+            label={t("settings.terminalCustomization.askBeforeOpeningLinks")}
           >
             <FakeSwitch
               checked={current.linkClickBehavior !== "direct"}
               onChange={(v) =>
                 save({ linkClickBehavior: v ? "confirm" : "direct" })
               }
-              accessibilityLabel="Ask before opening links"
+              accessibilityLabel={t(
+                "settings.terminalCustomization.askBeforeOpeningLinks",
+              )}
+            />
+          </SettingRow>
+          <SettingRow
+            label={t("settings.terminalCustomization.doubleTapSendsTab")}
+            description={t(
+              "settings.terminalCustomization.longPressStillSelectsText",
+            )}
+            last={Platform.OS !== "ios"}
+          >
+            <FakeSwitch
+              checked={current.doubleTapTab ?? false}
+              onChange={(v) => save({ doubleTapTab: v })}
+              accessibilityLabel={t(
+                "settings.terminalCustomization.doubleTapSendsTab",
+              )}
             />
           </SettingRow>
           {Platform.OS === "ios" ? (
             <SettingRow
-              label="Option sends Alt"
-              description="On a hardware keyboard. Off types symbols like on a Mac."
+              label={t("settings.terminalCustomization.optionSendsAlt")}
+              description={t(
+                "settings.terminalCustomization.onAHardwareKeyboardOff",
+              )}
               last
             >
               <FakeSwitch
                 checked={current.optionAsMeta ?? false}
                 onChange={(v) => save({ optionAsMeta: v })}
-                accessibilityLabel="Option sends Alt"
+                accessibilityLabel={t(
+                  "settings.terminalCustomization.optionSendsAlt",
+                )}
               />
             </SettingRow>
           ) : null}
         </Section>
 
-        <Section icon={History} title="History">
+        <Section
+          icon={History}
+          title={t("settings.terminalCustomization.history")}
+        >
           <SettingRow
-            label="Suggest commands"
-            description="Shows past commands that start with what you type"
+            label={t("settings.terminalCustomization.suggestCommands")}
+            description={t(
+              "settings.terminalCustomization.showsPastCommandsThatStart",
+            )}
             last
           >
             <FakeSwitch
               checked={current.commandSuggestions ?? false}
               onChange={(v) => save({ commandSuggestions: v })}
-              accessibilityLabel="Suggest commands"
+              accessibilityLabel={t(
+                "settings.terminalCustomization.suggestCommands",
+              )}
             />
           </SettingRow>
         </Section>
 
         <Button variant="destructive" onPress={() => setShowResetConfirm(true)}>
-          Reset to default
+          {t("settings.terminalCustomization.resetToDefault")}
         </Button>
       </ScrollView>
 
@@ -431,8 +503,11 @@ export default function TerminalCustomization() {
           setShowCustomInput(false);
           setCustomFontSize("");
         }}
-        title="Font size"
-        description={`A size from ${MIN_FONT_SIZE} to ${MAX_FONT_SIZE}.`}
+        title={t("settings.terminalCustomization.fontSize")}
+        description={t("settings.terminalCustomization.aSizeFromTo", {
+          MIN_FONT_SIZE,
+          MAX_FONT_SIZE,
+        })}
         footer={
           <>
             <Button
@@ -443,10 +518,10 @@ export default function TerminalCustomization() {
                 setCustomFontSize("");
               }}
             >
-              Cancel
+              {t("settings.terminalCustomization.cancel")}
             </Button>
             <Button variant="default" size="sm" onPress={handleCustomFontSize}>
-              Apply
+              {t("settings.terminalCustomization.apply")}
             </Button>
           </>
         }
@@ -466,8 +541,10 @@ export default function TerminalCustomization() {
         scroll
         visible={showResetConfirm}
         onClose={() => setShowResetConfirm(false)}
-        title="Reset terminal settings?"
-        description="Theme, font, size, cursor, bell and the rest go back to the defaults."
+        title={t("settings.terminalCustomization.resetTerminalSettings")}
+        description={t(
+          "settings.terminalCustomization.themeFontSizeCursorBell",
+        )}
         footer={
           <>
             <Button
@@ -475,10 +552,10 @@ export default function TerminalCustomization() {
               size="sm"
               onPress={() => setShowResetConfirm(false)}
             >
-              Cancel
+              {t("settings.terminalCustomization.cancel")}
             </Button>
             <Button variant="destructive" size="sm" onPress={handleReset}>
-              Reset
+              {t("settings.terminalCustomization.reset")}
             </Button>
           </>
         }

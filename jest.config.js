@@ -4,6 +4,9 @@ module.exports = {
   testMatch: ["<rootDir>/tests/**/*.test.ts?(x)"],
   setupFiles: ["<rootDir>/tests/setup.ts"],
   moduleNameMapper: {
+    // Jest does not transform the .mjs build Metro uses.
+    "^lucide-react-native$":
+      "<rootDir>/node_modules/lucide-react-native/dist/cjs/lucide-react-native.js",
     "^@/modules/(.*)$": "<rootDir>/modules/$1",
     "^@/assets/(.*)$": "<rootDir>/assets/$1",
     "^@/(.*)$": "<rootDir>/src/$1",

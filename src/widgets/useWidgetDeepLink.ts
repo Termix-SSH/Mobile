@@ -28,6 +28,7 @@ import type { Snippet } from "@/types";
 import { WIDGET_LINK_PREFIX } from "./types";
 import { useRepositories } from "@/core/data/hooks";
 import { openTab } from "@/screens/shell/navigate";
+import { t } from "@/i18n";
 
 /** Session types a widget link is allowed to open. */
 const ALLOWED_SESSION_TYPES: SessionType[] = [
@@ -134,7 +135,7 @@ export function useWidgetDeepLink(): {
       const snippet = await reposRef.current.snippets.get(snippetId);
 
       if (!snippet) {
-        toast.error("That snippet no longer exists.");
+        toast.error(t("widgets.useWidgetDeepLink.thatSnippetNoLongerExists"));
         router.push("/tabs/settings/Snippets" as never);
         return;
       }
@@ -145,7 +146,7 @@ export function useWidgetDeepLink(): {
         operation: "widgets",
         errorMessage: error instanceof Error ? error.message : String(error),
       });
-      toast.error("Could not open that snippet.");
+      toast.error(t("widgets.useWidgetDeepLink.couldNotOpenThatSnippet"));
       router.push("/tabs/settings/Snippets" as never);
     }
   }, []);
@@ -178,7 +179,7 @@ export function useWidgetDeepLink(): {
         const host = hosts.find((candidate) => candidate.id === link.hostId);
 
         if (!host) {
-          toast.error("That host no longer exists.");
+          toast.error(t("widgets.useWidgetDeepLink.thatHostNoLongerExists"));
           openTab("/(tabs)/hosts");
           return;
         }
@@ -190,7 +191,7 @@ export function useWidgetDeepLink(): {
           hostId: link.hostId,
           errorMessage: error instanceof Error ? error.message : String(error),
         });
-        toast.error("Could not open that host.");
+        toast.error(t("widgets.useWidgetDeepLink.couldNotOpenThatHost"));
         openTab("/(tabs)/hosts");
       }
     },

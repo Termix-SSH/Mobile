@@ -145,7 +145,15 @@ describe("resolveTerminalSettings", () => {
       bell: { style: "none", haptics: true },
       linkPolicy: "confirm",
       optionAsMeta: false,
+      doubleTapTab: false,
     });
+  });
+
+  test("double tap sends Tab only when turned on", () => {
+    expect(
+      resolveTerminalSettings({ doubleTapTab: true }, undefined, "dark")
+        .doubleTapTab,
+    ).toBe(true);
   });
 
   test("links open directly only when asked", () => {
@@ -163,5 +171,16 @@ describe("resolveTerminalSettings", () => {
         "dark",
       ).linkPolicy,
     ).toBe("confirm");
+  });
+
+  test("ligatures are on unless the user turns them off, and a host can't change them", () => {
+    expect(resolveTerminalSettings({}, undefined, "dark").ligatures).toBe(true);
+    expect(
+      resolveTerminalSettings({ ligatures: false }, undefined, "dark")
+        .ligatures,
+    ).toBe(false);
+    expect(
+      resolveTerminalSettings({}, { ligatures: false }, "dark").ligatures,
+    ).toBe(true);
   });
 });

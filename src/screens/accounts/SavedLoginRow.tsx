@@ -7,6 +7,7 @@ import {
   hasSavedLogin,
 } from "@/core/accounts/saved-login";
 import { FakeSwitch, SettingRow, Text } from "@/ui";
+import { t } from "@/i18n";
 
 /** Shows the saved Face ID sign in for a server, with a switch to drop it. */
 export function SavedLoginRow({ client }: { client: AccountClient }) {
@@ -29,13 +30,13 @@ export function SavedLoginRow({ client }: { client: AccountClient }) {
     <>
       <View className="mb-2 mt-6">
         <Text weight="medium" className="text-sm text-foreground">
-          Sign in
+          {t("accounts.savedLoginRow.signIn")}
         </Text>
       </View>
       <View className="border border-border bg-card px-3">
         <SettingRow
-          label={`Sign in with ${name}`}
-          description="When this server signs you out, sign in again without typing your password."
+          label={t("accounts.savedLoginRow.signInWith", { name })}
+          description={t("accounts.savedLoginRow.whenThisServerSignsYou")}
           last
         >
           <FakeSwitch
@@ -43,7 +44,9 @@ export function SavedLoginRow({ client }: { client: AccountClient }) {
             onChange={() => {
               void clearSavedLogin(client).then(() => setName(null));
             }}
-            accessibilityLabel={`Sign in with ${name}`}
+            accessibilityLabel={t("accounts.savedLoginRow.signInWith", {
+              name,
+            })}
           />
         </SettingRow>
       </View>

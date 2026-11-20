@@ -3,6 +3,7 @@ import type {
   HostEditorSectionDef,
   HostFormTabProps,
 } from "@/core/features/types";
+import { t } from "@/i18n";
 
 const MAC = /^([0-9a-f]{2}[:-]){5}[0-9a-f]{2}$/i;
 
@@ -10,15 +11,15 @@ export function macError(value: string): string | null {
   const mac = value.trim();
   return !mac || MAC.test(mac)
     ? null
-    : "Use a MAC address like 00:1A:2B:3C:4D:5E";
+    : t("wakeOnLan.hostSection.useAMacAddressLike");
 }
 
 function MacAddress({ value, onChange }: HostFormTabProps) {
   const mac = String(value.macAddress ?? "");
   return (
     <Field
-      label="MAC address"
-      hint="Needed to wake this host with Wake-on-LAN"
+      label={t("wakeOnLan.hostSection.macAddress")}
+      hint={t("wakeOnLan.hostSection.neededToWakeThisHost")}
       error={macError(mac)}
     >
       <Input
@@ -34,7 +35,7 @@ function MacAddress({ value, onChange }: HostFormTabProps) {
 
 export const wakeHostSection: HostEditorSectionDef = {
   id: "wake-on-lan",
-  label: "Wake-on-LAN",
+  label: t("wakeOnLan.hostSection.wakeOnLan"),
   group: "host",
   order: 90,
   editor: {

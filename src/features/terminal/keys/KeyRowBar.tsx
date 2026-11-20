@@ -11,6 +11,7 @@ import { KeyView } from "./KeyView";
 import { compactKeySize } from "./compact";
 import { useKeyLayout } from "./useKeyLayout";
 import { useKeyPad } from "./useKeyPad";
+import { t } from "@/i18n";
 
 /**
  * The key row above the keyboard. Shows one row of the layout at a time;
@@ -69,8 +70,10 @@ export default function KeyRowBar({
           onPress={() => setRowIndex((i) => (i + 1) % layout.rows.length)}
           onLongPress={() => setPicking(true)}
           accessibilityRole="button"
-          accessibilityLabel={`Key row ${row.label}`}
-          accessibilityHint="Tap for the next row, hold to pick one"
+          accessibilityLabel={t("terminal.keys.keyRowBar.keyRow", {
+            label: row.label,
+          })}
+          accessibilityHint={t("terminal.keys.keyRowBar.tapForTheNextRow")}
           className="active:bg-muted"
           style={{
             width: 48,
@@ -139,7 +142,7 @@ export default function KeyRowBar({
       <Sheet
         visible={picking}
         onClose={() => setPicking(false)}
-        title="Key rows"
+        title={t("terminal.keys.keyRowBar.keyRows")}
       >
         {layout.rows.map((r, i) => (
           <SheetRow

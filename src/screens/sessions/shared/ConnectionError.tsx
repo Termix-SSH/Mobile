@@ -8,15 +8,17 @@ import {
   type ConnectFailure,
   type ConnectionOrigin,
 } from "@/core/transport";
+import { deviceWord } from "@/utils/device-word";
+import { t } from "@/i18n";
 
 const SWITCH_LABEL: Record<Exclude<ConnectionOrigin, "auto">, string> = {
-  server: "Connect through the server",
-  device: "Connect from this phone",
+  server: t("sessions.shared.connectionError.connectThroughTheServer"),
+  device: t("sessions.shared.connectionError.connectFromThis", { deviceWord }),
 };
 
 const VIA: Record<string, string> = {
-  local: "Tried from this phone",
-  relay: "Tried through the server",
+  local: t("sessions.shared.connectionError.triedFromThis", { deviceWord }),
+  relay: t("sessions.shared.connectionError.triedThroughTheServer"),
 };
 
 /**
@@ -65,7 +67,7 @@ export function ConnectionError({
               icon={<RotateCcw size={14} color={color("primary-foreground")} />}
               onPress={onRetry}
             >
-              Try again
+              {t("sessions.shared.connectionError.tryAgain")}
             </Button>
           ) : null}
           {canSwitch ? (
@@ -79,7 +81,7 @@ export function ConnectionError({
           ) : null}
           {onClose ? (
             <Button size="sm" variant="muted" onPress={onClose}>
-              Close
+              {t("sessions.shared.connectionError.close")}
             </Button>
           ) : null}
         </View>

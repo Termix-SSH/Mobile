@@ -1,6 +1,7 @@
 import axios from "axios";
 import { AppError } from "@/core/errors";
 import { apiLogger, authLogger, type LogContext } from "@/core/log/logger";
+import { t } from "@/i18n";
 
 export class ApiError extends AppError {
   constructor(message: string, status?: number, code?: string) {
@@ -66,11 +67,7 @@ export function handleApiError(
       // A proxy in front of the server answered, not Termix. The session is
       // fine, so never sign out over it.
       authLogger.warn(`Proxy asked to sign in: ${method} ${url}`, errorContext);
-      throw new ApiError(
-        "The proxy in front of this server wants you to sign in again.",
-        401,
-        "PROXY_LOGIN",
-      );
+      throw new ApiError(t("api.errors.theProxyInFrontOf"), 401, "PROXY_LOGIN");
     } else if (status === 401) {
       authLogger.warn(
         `Auth failed: ${method} ${url} - ${message}`,
@@ -86,14 +83,14 @@ export function handleApiError(
       if (isCriticalEndpoint) hooks.onAuthLost();
 
       throw new ApiError(
-        "Authentication required. Please log in again.",
+        t("api.errors.authenticationRequiredPleaseLogIn"),
         401,
         "AUTH_REQUIRED",
       );
     } else if (status === 403) {
       authLogger.warn(`Access denied: ${method} ${url}`, errorContext);
       throw new ApiError(
-        "Access denied. You do not have permission to perform this action.",
+        t("api.errors.accessDeniedYouDoNot"),
         403,
         "ACCESS_DENIED",
       );
@@ -101,28 +98,28 @@ export function handleApiError(
       apiLogger.warn(`Feature disabled: ${method} ${url}`, errorContext);
       void hooks.refreshEnabledPlugins();
       throw new ApiError(
-        "This feature is turned off on the server.",
+        t("api.errors.thisFeatureIsTurnedOff"),
         503,
         "FEATURE_DISABLED",
       );
     } else if (status === 404 && code === "UNSUPPORTED_ENDPOINT") {
       apiLogger.warn(`Unsupported endpoint: ${method} ${url}`, errorContext);
       throw new ApiError(
-        "This server does not support this feature.",
+        t("api.errors.thisServerDoesNotSupport"),
         404,
         "UNSUPPORTED_ENDPOINT",
       );
     } else if (status === 404) {
       apiLogger.warn(`Not found: ${method} ${url}`, errorContext);
       throw new ApiError(
-        "Resource not found. The requested item may have been deleted.",
+        t("api.errors.resourceNotFoundTheRequested"),
         404,
         "NOT_FOUND",
       );
     } else if (status === 409) {
       apiLogger.warn(`Conflict: ${method} ${url}`, errorContext);
       throw new ApiError(
-        "Conflict. The resource already exists or is in use.",
+        t("api.errors.conflictTheResourceAlreadyExists"),
         409,
         "CONFLICT",
       );
@@ -132,7 +129,7 @@ export function handleApiError(
         errorContext,
       );
       throw new ApiError(
-        "Validation error. Please check your input and try again.",
+        t("api.errors.validationErrorPleaseCheckYour"),
         422,
         "VALIDATION_ERROR",
       );
@@ -143,7 +140,7 @@ export function handleApiError(
         errorContext,
       );
       throw new ApiError(
-        "Server error occurred. Please try again later.",
+        t("api.errors.serverErrorOccurredPleaseTry"),
         status,
         "SERVER_ERROR",
       );
@@ -162,7 +159,7 @@ export function handleApiError(
           errorContext,
         );
         throw new ApiError(
-          "SSL certificate verification failed.",
+          t("api.errors.sslCertificateVerificationFailed"),
           0,
           "SSL_CERTIFICATE_ERROR",
         );
@@ -174,7 +171,7 @@ export function handleApiError(
         errorContext,
       );
       throw new ApiError(
-        "Network error. Please check your connection and try again.",
+        t("api.errors.networkErrorPleaseCheckYour"),
         0,
         "NETWORK_ERROR",
       );
@@ -184,7 +181,11 @@ export function handleApiError(
         error,
         errorContext,
       );
-      throw new ApiError(message || `Failed to ${operation}`, status, code);
+      throw new ApiError(
+        message || t("api.errors.failedTo", { operation }),
+        status,
+        code,
+      );
     }
   }
 
@@ -192,14 +193,15 @@ export function handleApiError(
     throw error;
   }
 
-  const errorMessage = error instanceof Error ? error.message : "Unknown error";
+  const errorMessage =
+    error instanceof Error ? error.message : t("api.errors.unknownError");
   apiLogger.error(
     `Unexpected error during ${operation}: ${errorMessage}`,
     error,
     context,
   );
   throw new ApiError(
-    `Unexpected error during ${operation}: ${errorMessage}`,
+    t("api.errors.unexpectedErrorDuring", { operation, errorMessage }),
     undefined,
     "UNKNOWN_ERROR",
   );

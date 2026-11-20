@@ -4,15 +4,23 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   ChevronRight,
   Download,
+  Languages,
   Server,
   Smartphone,
 } from "lucide-react-native";
-import { Button, Label, Text } from "@/ui";
+import { Button, Label, Sheet, SheetRow, Text } from "@/ui";
 import { ScreenHeader } from "@/components/Screen";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { LOCAL_ACCOUNT_ID } from "@/core/accounts/types";
 import { ImportPanel } from "@/features/host-transfer/ImportPanel";
 import { useRestoreBackup } from "@/screens/settings/RestoreBackup";
+import { deviceWord } from "@/utils/device-word";
+import { savedLanguage, t } from "@/i18n";
+import {
+  currentLanguageLabel,
+  languageOptions,
+  switchLanguage,
+} from "@/i18n/options";
 
 export type WelcomeChoice = "standalone" | "link" | "import";
 
@@ -77,17 +85,28 @@ export default function Welcome({
   const fg = color("foreground");
   const [view, setView] = useState<"choose" | "import">("choose");
   const [imported, setImported] = useState(false);
+  const [picking, setPicking] = useState(false);
   const restore = useRestoreBackup({
     accountId: LOCAL_ACCOUNT_ID,
-    accountName: "This device",
+    accountName: t("onboarding.welcome.thisDevice"),
     askFirst: false,
     onDone: () => setImported(true),
   });
 
   if (view === "import") {
     return (
-      <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
-        <ScreenHeader title="Import" onBack={() => setView("choose")} />
+      <View
+        className="flex-1 bg-background"
+        style={{
+          paddingTop: insets.top,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
+      >
+        <ScreenHeader
+          title={t("onboarding.welcome.import")}
+          onBack={() => setView("choose")}
+        />
         <ScrollView
           contentContainerStyle={{
             padding: 16,
@@ -97,27 +116,27 @@ export default function Welcome({
           keyboardShouldPersistTaps="handled"
         >
           <View className="gap-2">
-            <Label>Hosts</Label>
+            <Label>{t("onboarding.welcome.hosts")}</Label>
             <Text className="text-sm leading-5 text-muted-foreground">
-              A Termix host file, your ~/.ssh/config, or a host link or QR code
-              from another phone. They are saved on this phone.
+              {t("onboarding.welcome.aTermixHostFileYour", { deviceWord })}
             </Text>
             <ImportPanel
               onImported={(r) => r.created > 0 && setImported(true)}
             />
           </View>
           <View className="gap-2">
-            <Label>Backup</Label>
+            <Label>{t("onboarding.welcome.backup")}</Label>
             <Text className="text-sm leading-5 text-muted-foreground">
-              A backup this app made, locked with a passphrase. It brings back
-              hosts, credentials and snippets.
+              {t("onboarding.welcome.aBackupThisAppMade")}
             </Text>
             <Button variant="muted" onPress={() => void restore.start()}>
-              Restore a backup
+              {t("onboarding.welcome.restoreABackup")}
             </Button>
           </View>
           <Button size="lg" onPress={() => onDone("import")}>
-            {imported ? "Done" : "Skip for now"}
+            {imported
+              ? t("onboarding.welcome.done")
+              : t("onboarding.welcome.skipForNow")}
           </Button>
         </ScrollView>
         {restore.sheet}
@@ -134,6 +153,8 @@ export default function Welcome({
         padding: 20,
         paddingTop: insets.top + 24,
         paddingBottom: insets.bottom + 24,
+        paddingLeft: insets.left + 20,
+        paddingRight: insets.right + 20,
         gap: 24,
       }}
     >
@@ -145,11 +166,10 @@ export default function Welcome({
           weight="bold"
           className="mt-2 text-3xl tracking-[3px] text-foreground"
         >
-          TERMIX
+          {"TERMIX"}
         </Text>
         <Text className="text-sm leading-5 text-muted-foreground">
-          SSH, files and remote desktops from your phone. How do you want to
-          start?
+          {t("onboarding.welcome.sshFilesAndRemoteDesktops", { deviceWord })}
         </Text>
       </View>
 
@@ -157,23 +177,58 @@ export default function Welcome({
         <Choice
           primary
           icon={<Smartphone size={20} color={accent} />}
-          title="Use without a server"
-          body="Hosts, credentials and snippets are kept encrypted on this phone. You can link a server any time later."
+          title={t("onboarding.welcome.useWithoutAServer")}
+          body={t("onboarding.welcome.hostsCredentialsAndSnippetsAre", {
+            deviceWord,
+          })}
           onPress={() => onDone("standalone")}
         />
         <Choice
           icon={<Server size={20} color={fg} />}
-          title="Link a Termix server"
-          body="Sync your hosts, credentials, snippets and settings with your server and use its plugins."
+          title={t("onboarding.welcome.linkATermixServer")}
+          body={t("onboarding.welcome.syncYourHostsCredentialsSnippets")}
           onPress={() => onDone("link")}
         />
         <Choice
           icon={<Download size={20} color={fg} />}
-          title="Import"
-          body="Bring hosts from a Termix file, an SSH config, a QR code or a backup."
+          title={t("onboarding.welcome.import")}
+          body={t("onboarding.welcome.bringHostsFromATermix")}
           onPress={() => setView("import")}
         />
       </View>
+
+      <Pressable
+        onPress={() => setPicking(true)}
+        accessibilityRole="button"
+        accessibilityLabel={`${t("settings.language.label")}: ${currentLanguageLabel()}`}
+        className="min-h-11 flex-row items-center justify-center gap-2 self-center px-3 active:opacity-70"
+      >
+        <Languages size={16} color={color("muted-foreground")} />
+        <Text className="text-sm text-muted-foreground">
+          {currentLanguageLabel()}
+        </Text>
+        <ChevronRight size={14} color={color("muted-foreground")} />
+      </Pressable>
+
+      <Sheet
+        visible={picking}
+        onClose={() => setPicking(false)}
+        title={t("settings.language.label")}
+        scroll
+      >
+        {languageOptions().map((o) => (
+          <SheetRow
+            key={o.value}
+            label={o.label}
+            description={o.description}
+            selected={o.value === savedLanguage()}
+            onPress={() => {
+              setPicking(false);
+              switchLanguage(o.value);
+            }}
+          />
+        ))}
+      </Sheet>
     </ScrollView>
   );
 }

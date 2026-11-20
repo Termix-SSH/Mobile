@@ -4,6 +4,7 @@ import { History } from "lucide-react-native";
 import { Text } from "@/ui";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { suggestCommands, type CommandLineTracker } from "./capture";
+import { t } from "@/i18n";
 
 /** Past commands that start with what is typed. Tapping one types the rest. */
 export function SuggestionStrip({
@@ -50,7 +51,9 @@ export function SuggestionStrip({
             key={command}
             onPress={() => onPick(command.slice(typed.length))}
             accessibilityRole="button"
-            accessibilityLabel={`Use ${command}`}
+            accessibilityLabel={t("terminal.history.suggestionStrip.use", {
+              command,
+            })}
             style={{
               minHeight: 36,
               justifyContent: "center",

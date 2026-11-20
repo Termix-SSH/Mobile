@@ -21,6 +21,7 @@ Object.assign(globalThis, {
   TransformStream: web.TransformStream,
   WritableStream: web.WritableStream,
   Blob: require("node:buffer").Blob,
+  MessagePort: require("node:worker_threads").MessagePort,
 });
 const { Headers, Request, Response } = require("undici");
 Object.assign(globalThis, { Headers, Request, Response });

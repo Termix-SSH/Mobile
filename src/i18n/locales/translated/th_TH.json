@@ -1,0 +1,3851 @@
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "เข้าสู่ระบบ",
+      "addServer": "เพิ่มเซิร์ฟเวอร์",
+      "switchAccount": "สลับบัญชี",
+      "noServerConnected": "ไม่ได้เชื่อมต่อกับเซิร์ฟเวอร์",
+      "connectToATermixServer": "เชื่อมต่อกับเซิร์ฟเวอร์ Termix เพื่อจัดการโฮสต์, เทอร์มินัล, ไฟล์ และอื่นๆ"
+    },
+    "lockScreen": {
+      "cancel": "ยกเลิก",
+      "tooManyTriesWaitSeconds": "พยายามมากเกินไป โปรดรอ {{value}} วินาที",
+      "termixLocked": "Termix ถูกล็อก",
+      "enterYourPinToContinue": "ป้อน PIN ของคุณเพื่อดำเนินการต่อ"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "ส้ม",
+      "blue": "น้ำเงิน",
+      "green": "เขียว",
+      "purple": "ม่วง",
+      "pink": "ชมพู",
+      "cyan": "ฟ้าอมเขียว",
+      "red": "แดง",
+      "yellow": "เหลือง",
+      "teal": "เขียวอมฟ้า",
+      "indigo": "น้ำเงินเข้ม",
+      "rose": "กุหลาบ",
+      "lime": "มะนาว",
+      "system": "ระบบ",
+      "light": "สว่าง",
+      "dark": "มืด"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "ใช้ PIN",
+      "unlockTermix": "ปลดล็อก Termix",
+      "unlockTermixFirst": "ปลดล็อก Termix ก่อน"
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "ฟีเจอร์นี้ถูกปิดใช้งานบนเซิร์ฟเวอร์",
+      "aTabWasNotReopened": "แท็บหนึ่งแท็บไม่ถูกเปิดใหม่เนื่องจากโฮสต์หายไป",
+      "tabsWereNotReopenedBecause": "ไม่สามารถเปิดแท็บ {{count}} แท็บใหม่ได้ เนื่องจากโฮสต์เหล่านั้นหายไป"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "ลิงก์เซิร์ฟเวอร์ Termix เพื่อใช้ฟีเจอร์นี้",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "ป้อนที่อยู่ของเซิร์ฟเวอร์ของคุณ",
+        "theAddressCanTHave": "ที่อยู่ไม่สามารถมีช่องว่างได้",
+        "useAnHttpOrHttps": "ใช้ที่อยู่ http:// หรือ https://",
+        "thatDoesnTLookLike": "ดูเหมือนไม่ใช่ที่อยู่เซิร์ฟเวอร์",
+        "thePortMustBeFrom": "พอร์ตต้องอยู่ระหว่าง 1 ถึง 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "พร็อกซีล็อกอินตอบกลับแทน Termix โปรดเข้าสู่ระบบพร็อกซีก่อน",
+        "theServerDidNotSend": "เซิร์ฟเวอร์ไม่ได้ส่งโทเค็น",
+        "theServerDidNotSend2": "เซิร์ฟเวอร์ไม่ได้ส่งเซสชัน",
+        "theServerSentNoSign": "เซิร์ฟเวอร์ไม่ได้ส่งที่อยู่เข้าสู่ระบบ",
+        "theSignInRanOut": "การเข้าสู่ระบบหมดอายุหรือถูกใช้ไปแล้ว โปรดเข้าสู่ระบบอีกครั้ง",
+        "wrongUsernameOrPassword": "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
+        "signInFailedHttp": "เข้าสู่ระบบล้มเหลว (HTTP {{status}})",
+        "thePageSignedYouIn": "หน้าเว็บเข้าสู่ระบบให้คุณแล้วแต่ไม่ได้ส่งเซสชันกลับมา โปรดอัปเดตเซิร์ฟเวอร์เป็น Termix 26.11.3 หรือใหม่กว่า",
+        "thisAccountIsnTAllowed": "บัญชีนี้ไม่ได้รับอนุญาตให้เข้าสู่ระบบที่นี่",
+        "noTermixAccountMatchesThat": "ไม่พบบัญชี Termix ที่ตรงกับข้อมูลเข้าสู่ระบบนี้"
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "เซสชันนี้ไม่มีเซิร์ฟเวอร์"
+    },
+    "store": {
+      "noSuchAccount": "ไม่พบบัญชีดังกล่าว",
+      "thisDeviceCanTBe": "ไม่สามารถลบอุปกรณ์นี้ได้",
+      "switchToAnotherAccountFirst": "สลับไปใช้บัญชีอื่นก่อน"
+    },
+    "types": {
+      "thisDevice": "อุปกรณ์นี้"
+    },
+    "accountSwitcher": {
+      "error": "ข้อผิดพลาด",
+      "worksWithoutAServer": "ใช้งานได้โดยไม่ต้องมีเซิร์ฟเวอร์",
+      "couldNotSwitchAccount": "ไม่สามารถสลับบัญชีได้",
+      "accounts": "บัญชี",
+      "openTabsKeepRunningWhen": "แท็บที่เปิดอยู่จะทำงานต่อเมื่อคุณสลับบัญชี",
+      "unlink": "ยกเลิกการลิงก์ {{account}}",
+      "linkAServer": "ลิงก์เซิร์ฟเวอร์",
+      "eachServerKeepsItsOwn": "แต่ละเซิร์ฟเวอร์จะเก็บโฮสต์ ข้อมูลการเข้าสู่ระบบ และการตั้งค่าของตัวเองไว้บน {{deviceWord}} นี้",
+      "signedIn": "เข้าสู่ระบบแล้ว",
+      "signedOut": "ออกจากระบบแล้ว",
+      "syncedCopy": "สำเนาที่ซิงค์แล้ว"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "ไม่สามารถบันทึกพินได้",
+      "theServerSKeyMatches": "คีย์ของเซิร์ฟเวอร์ตรงกับพิน",
+      "theServerShowsAnotherKey": "เซิร์ฟเวอร์แสดงคีย์อื่น",
+      "pinThisKey": "ปักหมุดคีย์นี้หรือไม่",
+      "pinThisKey2": "ปักหมุดคีย์นี้",
+      "keyPinned": "ปักหมุดคีย์แล้ว",
+      "couldNotReadTheServer": "ไม่สามารถอ่านคีย์ของเซิร์ฟเวอร์ได้",
+      "thatIsNotAPin": "นี่ไม่ใช่พิน",
+      "keysPinned": "ปักหมุดคีย์แล้ว",
+      "certificatePin": "พินใบรับรอง",
+      "trustThisServerOnlyBy": "ไว้วางใจเซิร์ฟเวอร์นี้โดยดูจากคีย์เท่านั้น ใช้กับใบรับรองที่ลงนามเอง หรือเพื่อปฏิเสธคีย์อื่น ๆ เพิ่มคีย์ถัดไปก่อนเปลี่ยนใบรับรองของเซิร์ฟเวอร์",
+      "removePin": "ลบพิน {{pin}}",
+      "remove": "ลบ",
+      "readTheKeyFromThe": "อ่านคีย์จากเซิร์ฟเวอร์",
+      "orPasteAPin": "หรือวางพิน",
+      "pin": "พิน",
+      "add": "เพิ่ม",
+      "issuedTo": "ออกให้สำหรับ: {{subject}}",
+      "issuedBy": "ออกโดย: {{issuer}}",
+      "validUntil": "ใช้ได้จนถึง: {{value}}",
+      "checkThatThisKeyMatches": "ตรวจสอบว่าคีย์นี้ตรงกับคีย์บนเซิร์ฟเวอร์ของคุณก่อนปักหมุด",
+      "pasteTheBase64Sha256Of": "วาง base64 sha256 ของคีย์สาธารณะของเซิร์ฟเวอร์ เช่นเดียวกับที่ openssl แสดงผล"
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "บันทึกการตั้งค่าพร็อกซีแล้ว",
+      "couldNotSaveTheProxy": "ไม่สามารถบันทึกการตั้งค่าพร็อกซีได้",
+      "couldNotReadThatFile": "ไม่สามารถอ่านไฟล์นั้นได้",
+      "certificateSaved": "บันทึกใบรับรองแล้ว",
+      "theFileOrItsPassphrase": "ไฟล์หรือรหัสผ่านของไฟล์ไม่ถูกต้อง",
+      "couldNotSaveTheCertificate": "ไม่สามารถบันทึกใบรับรองได้",
+      "headers": "ส่วนหัว",
+      "sentWithEveryRequestTo": "ส่งไปกับทุกคำขอไปยังเซิร์ฟเวอร์นี้ เช่น โทเค็นบริการของ Cloudflare",
+      "name": "ชื่อ",
+      "value": "ค่า",
+      "removeHeader": "ลบส่วนหัว",
+      "addHeader": "เพิ่มส่วนหัว",
+      "cloudflareServiceToken": "โทเค็นบริการ Cloudflare",
+      "basicAuth": "การตรวจสอบสิทธิ์แบบพื้นฐาน",
+      "forAProxyThatAsks": "สำหรับพร็อกซีที่ขอชื่อผู้ใช้และรหัสผ่าน",
+      "userName": "ชื่อผู้ใช้",
+      "password": "รหัสผ่าน",
+      "saveHeadersAndBasicAuth": "บันทึกส่วนหัวและการตรวจสอบสิทธิ์แบบพื้นฐาน",
+      "clientCertificate": "ใบรับรองไคลเอนต์",
+      "forServersThatAskFor": "สำหรับเซิร์ฟเวอร์ที่ขอใบรับรองนี้ (mTLS) คีย์จะถูกเก็บไว้ในที่เก็บข้อมูลปลอดภัยของ {{deviceWord}} และไม่สามารถอ่านกลับออกมาได้",
+      "certificate": "ใบรับรอง",
+      "remove": "ลบ",
+      "replaceCertificate": "แทนที่ใบรับรอง",
+      "pickAP12OrPfx": "เลือกไฟล์ .p12 หรือ .pfx",
+      "proxySignIn": "เข้าสู่ระบบพร็อกซี",
+      "thisIsSignedInTo": " {{deviceWord}} นี้เข้าสู่ระบบพร็อกซีแล้ว",
+      "forCloudflareAccessAutheliaAuthentik": "สำหรับ Cloudflare Access, Authelia, Authentik และพร็อกซีอื่น ๆ ที่มีหน้าเข้าสู่ระบบของตัวเอง{{value}}",
+      "signInToTheProxy": "เข้าสู่ระบบพร็อกซี",
+      "forget": "ลืม",
+      "certificatePassphrase": "รหัสผ่านใบรับรอง",
+      "thePassphraseTheFileWas": "รหัสผ่านที่ใช้บันทึกไฟล์ เว้นว่างไว้หากไม่มี",
+      "passphrase": "รหัสผ่าน",
+      "save": "บันทึก"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "เข้าสู่ระบบพร็อกซีแล้ว",
+      "couldNotSaveTheProxy": "ไม่สามารถบันทึกการเข้าสู่ระบบพร็อกซีได้",
+      "signInToTheProxy": "เข้าสู่ระบบพร็อกซี",
+      "thisBuildOfTheApp": "รุ่นนี้ของแอปไม่สามารถรักษาการเข้าสู่ระบบผ่านพร็อกซีได้ ให้ใช้โทเค็นบริการในหัวพร็อกซีแทน"
+    },
+    "savedLoginRow": {
+      "signIn": "เข้าสู่ระบบ",
+      "signInWith": "เข้าสู่ระบบด้วย {{name}}",
+      "whenThisServerSignsYou": "เมื่อเซิร์ฟเวอร์นี้ลงชื่อออกจากระบบ ให้เข้าสู่ระบบอีกครั้งโดยไม่ต้องพิมพ์รหัสผ่าน"
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "ยกเลิกการเชื่อมโยงแล้ว รายการ {{copied}} รายการถูกเก็บไว้ในอุปกรณ์นี้",
+      "unlinked": "ยกเลิกการเชื่อมโยงแล้ว",
+      "couldNotUnlinkTheServer": "ไม่สามารถยกเลิกการเชื่อมโยงเซิร์ฟเวอร์ได้",
+      "unlink": "ยกเลิกการเชื่อมโยง {{value}} หรือไม่",
+      "thisSignsOutOfThe": "{{deviceWord}} นี้จะลงชื่อออกจากระบบเซิร์ฟเวอร์ จะไม่มีการลบข้อมูลใดๆ บนเซิร์ฟเวอร์",
+      "keepACopyOnThis": "เก็บสำเนาไว้ในอุปกรณ์นี้",
+      "yourOwnHostsCredentialsAnd": "โฮสต์ รหัสผ่าน และสเนปป์ของคุณจะถูกย้ายไปยังอุปกรณ์นี้ โฮสต์ที่แชร์กับคุณจะไม่ถูกเก็บไว้",
+      "deleteFromThis": "ลบจาก {{deviceWord}} นี้",
+      "everythingThisHasForThe": "ทุกอย่างที่ {{deviceWord}} นี้อ้างอิงถึงเซิร์ฟเวอร์จะถูกลบออก"
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "เปลี่ยนภายใต้พร็อกซีด้านล่าง",
+      "updateTermixMobileFromYour": "อัปเดต Termix Mobile จากแอปสโตร์ของคุณ"
+    },
+    "savedLogin": {
+      "signInToTermix": "เข้าสู่ระบบ Termix",
+      "faceUnlock": "ปลดล็อกด้วยใบหน้า"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "รุ่นนี้ไม่สามารถตรวจสอบคีย์ที่ปักหมุดของเซิร์ฟเวอร์นี้หรือส่งใบรับรองได้"
+    },
+    "http": {
+      "thisServerDoesNotSupport": "เซิร์ฟเวอร์นี้ไม่รองรับฟีเจอร์นี้",
+      "theProxyWantsYouTo": "พร็อกซีต้องการให้คุณเข้าสู่ระบบ",
+      "endpointNotAvailableOnThis": "จุดสิ้นสุดไม่พร้อมใช้งานบนเซิร์ฟเวอร์นี้",
+      "unknownError": "ข้อผิดพลาดที่ไม่ทราบสาเหตุ"
+    },
+    "errors": {
+      "theProxyInFrontOf": "พร็อกซีที่อยู่ด้านหน้าของเซิร์ฟเวอร์นี้ต้องการให้คุณเข้าสู่ระบบอีกครั้ง",
+      "authenticationRequiredPleaseLogIn": "จำเป็นต้องมีการตรวจสอบสิทธิ์ กรุณาเข้าสู่ระบบอีกครั้ง",
+      "accessDeniedYouDoNot": "การเข้าถึงถูกปฏิเสธ คุณไม่มีสิทธิ์ดำเนินการนี้",
+      "thisFeatureIsTurnedOff": "ฟีเจอร์นี้ถูกปิดใช้งานบนเซิร์ฟเวอร์",
+      "thisServerDoesNotSupport": "เซิร์ฟเวอร์นี้ไม่รองรับฟีเจอร์นี้",
+      "resourceNotFoundTheRequested": "ไม่พบทรัพยากร รายการที่ร้องขออาจถูกลบไปแล้ว",
+      "conflictTheResourceAlreadyExists": "มีความขัดแย้ง ทรัพยากรนี้มีอยู่แล้วหรือกำลังถูกใช้งาน",
+      "validationErrorPleaseCheckYour": "ข้อผิดพลาดในการตรวจสอบ กรุณาตรวจสอบข้อมูลที่คุณป้อนและลองอีกครั้ง",
+      "serverErrorOccurredPleaseTry": "เกิดข้อผิดพลาดบนเซิร์ฟเวอร์ กรุณาลองอีกครั้งในภายหลัง",
+      "sslCertificateVerificationFailed": "การตรวจสอบใบรับรอง SSL ล้มเหลว",
+      "networkErrorPleaseCheckYour": "ข้อผิดพลาดเครือข่าย กรุณาตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง",
+      "failedTo": "ล้มเหลวในการ {{operation}}",
+      "unknownError": "ข้อผิดพลาดที่ไม่ทราบสาเหตุ",
+      "unexpectedErrorDuring": "เกิดข้อผิดพลาดที่ไม่คาดคิดระหว่าง {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "แอปไม่สามารถไว้วางใจ HTTPS สำหรับ IP ภายในนี้ได้ ให้ปักหมุดคีย์ของเซิร์ฟเวอร์ภายใต้พร็อกซีและใบรับรองไคลเอนต์ ใช้ใบรับรองที่ {{deviceWord}} ไว้วางใจ หรือใช้ HTTP บนเครือข่ายภายในหรือ VPN ที่ไว้วางใจ",
+        "thisServerIsBehindA": "เซิร์ฟเวอร์นี้อยู่ด้านหลังพร็อกซีการเข้าสู่ระบบ ให้ใช้ตัวเลือกการเข้าสู่ระบบภายนอกแทน",
+        "loginFailed": "การเข้าสู่ระบบล้มเหลว"
+      },
+      "files": {
+        "fileNotFound": "ไม่พบไฟล์",
+        "fileWriteOperationDidNot": "การดำเนินการเขียนไฟล์ไม่ส่งคืนสถานะสำเร็จ",
+        "couldNot": "ไม่สามารถ {{operation}} ได้ ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "บันทึกโฮสต์แล้ว แต่การตั้งค่าบางรายการล้มเหลว: {{value}}",
+        "unexpectedHostResponseFrom": "การตอบกลับจากโฮสต์ที่ไม่คาดคิดจาก {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "ตัวอย่างสดล้มเหลว"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "ไม่มีคำตอบ"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "เซิร์ฟเวอร์นี้ไม่ได้แสดงคีย์ที่ปักหมุดไว้ ดังนั้นหน้าเว็บจึงไม่ถูกเปิดขึ้น"
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "{{what}} นั้นไม่มีอีกต่อไป",
+      "aHostCannotBeIts": "โฮสต์ไม่สามารถเป็นโฮสต์หลักของตัวเองได้",
+      "parentHostNotFound": "ไม่พบโฮสต์หลัก",
+      "aHostCanTGo": "โฮสต์ไม่สามารถอยู่ภายใต้โฮสต์ย่อยของตัวเองได้",
+      "thisIsSharedWithYou": "{{what}} นี้ถูกแชร์กับคุณ มีเพียงเจ้าของเท่านั้นที่สามารถเปลี่ยนแปลงได้",
+      "nameIsRequired": "จำเป็นต้องระบุชื่อ",
+      "nameAndCommandAreRequired": "จำเป็นต้องระบุชื่อและคำสั่ง",
+      "aFolderWithThatName": "มีโฟลเดอร์ชื่อนี้อยู่แล้ว"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "อุปกรณ์นี้ไม่สามารถบันทึก {{what}} ที่นี่ได้"
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "สเนปป์นี้ถูกแชร์กับคุณและไม่สามารถเปลี่ยนแปลงได้"
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "ใช้วลีรหัสผ่านที่มีความยาวอย่างน้อย 8 ตัวอักษร",
+      "thisIsNotATermix": "นี่ไม่ใช่ไฟล์สำรองของ Termix",
+      "thisBackupIsFromA": "การสำรองข้อมูลนี้มาจากเวอร์ชันใหม่ของ Termix กรุณาอัปเดตแอปก่อน",
+      "wrongPassphraseOrTheFile": "รหัสผ่านไม่ถูกต้อง หรือไฟล์เสียหาย"
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "เวอร์ชันนี้ไม่สามารถเข้ารหัสข้อมูลท้องถิ่นได้"
+    },
+    "keys": {
+      "unlockTermixFirst": "ปลดล็อก Termix ก่อน",
+      "thatIsNotADatabase": "นี่ไม่ใช่คีย์ฐานข้อมูล",
+      "couldNotSaveTheDatabase": "ไม่สามารถบันทึกคีย์ฐานข้อมูลได้"
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "ข้อมูลนี้ถูกบันทึกโดยเวอร์ชันใหม่ของ Termix โปรดอัปเดตแอปเพื่อเปิดใช้งาน"
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "อุปกรณ์นี้ไม่ซิงค์ข้อมูล",
+      "localDataIsNotAvailable": "ไม่มีข้อมูลท้องถิ่นที่นี่",
+      "unlockTermixFirst": "ปลดล็อก Termix ก่อน"
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "ไม่สามารถเชื่อมต่อได้",
+      "thisWayCanTRun": "วิธีนี้ไม่สามารถรันคำสั่งได้"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "รหัสผ่าน Sudo",
+      "password": "รหัสผ่าน",
+      "run": "รัน",
+      "thatPasswordWasWrong": "รหัสผ่านนั้นไม่ถูกต้อง",
+      "onNeedsRoot": "{{reason}} บน {{hostName}} ต้องการสิทธิ์ root",
+      "needsRootForThis": "{{hostName}} ต้องการสิทธิ์ root สำหรับสิ่งนี้",
+      "itIsKeptUntilYou": "จะถูกเก็บไว้จนกว่าคุณจะปิดแอป"
+    },
+    "run": {
+      "theHostTookTooLong": "โฮสต์ใช้เวลานานเกินไปในการตอบกลับ",
+      "connectionLost": "การเชื่อมต่อขาดหาย"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "สิ่งนี้ต้องการสิทธิ์ root โปรดล็อกอินเป็น root ตั้งค่า sudo โดยไม่ต้องใช้รหัสผ่าน หรือบันทึกรหัสผ่าน sudo สำหรับโฮสต์นี้",
+      "theSudoPasswordWasWrong": "รหัสผ่าน sudo ไม่ถูกต้อง",
+      "commandFailed": "คำสั่งล้มเหลว"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet ในเทอร์มินัลต้องการการเชื่อมต่อจาก {{deviceWord}}"
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "ฟีเจอร์ {{id}} ถูกลงทะเบียนไว้แล้ว"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "ที่อยู่",
+      "theIpOrHostName": "IP หรือชื่อโฮสต์ที่อยู่ใต้ชื่อ",
+      "username": "ชื่อผู้ใช้",
+      "theUserBeforeTheAddress": "ผู้ใช้ที่อยู่ก่อนหน้าที่อยู่",
+      "port": "พอร์ต",
+      "thePortAfterTheAddress": "พอร์ตที่อยู่หลังที่อยู่",
+      "hostIcon": "ไอคอนโฮสต์",
+      "theIconSetOnThe": "ไอคอนที่ตั้งบนโฮสต์",
+      "pinIcon": "ไอคอนปักหมุด",
+      "marksPinnedHosts": "แสดงโฮสต์ที่ปักหมุด",
+      "sharedBadge": "ป้ายแชร์",
+      "marksHostsSharedWithYou": "แสดงโฮสต์ที่แชร์กับคุณ",
+      "protocolBadges": "ป้ายโปรโตคอล",
+      "sshRdpDockerAndOther": "ชิป SSH, RDP, Docker และอื่นๆ",
+      "tags": "แท็ก",
+      "theHostSTags": "แท็กของโฮสต์",
+      "cpuAndRam": "CPU และ RAM",
+      "liveUsageBarsOnOnline": "แถบการใช้งานแบบเรียลไทม์บนโฮสต์ออนไลน์",
+      "statusColors": "สีสถานะ",
+      "greenBarWhenOnlineRed": "แถบสีเขียวเมื่อออนไลน์ สีแดงเมื่อออฟไลน์"
+    },
+    "uiPrefs": {
+      "small": "เล็ก",
+      "default": "ค่าเริ่มต้น",
+      "large": "ใหญ่",
+      "comfortable": "สบายตา",
+      "compact": "กะทัดรัด"
+    },
+    "errors": {
+      "somethingWentWrong": "เกิดข้อผิดพลาด"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "การล็อกคีย์ด้วยรหัสผ่านต้องใช้แอป Termix ไม่ใช่การดูตัวอย่างบนเว็บ"
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "ทันที",
+      "after15Seconds": "หลังจาก 15 วินาที",
+      "after1Minute": "หลังจาก 1 นาที",
+      "after5Minutes": "หลังจาก 5 นาที"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "ความลับของอุปกรณ์หายไป",
+      "noSealedKey": "ไม่มีคีย์ที่ปิดผนึก",
+      "theSealedKeyIsDamaged": "คีย์ที่ปิดผนึกเสียหาย",
+      "wrongPin": "PIN ไม่ถูกต้อง",
+      "theSealedKeyDidNot": "ไม่สามารถเปิดคีย์ที่ปิดผนึกได้",
+      "biometricsCanTOpenThe": "ระบบชีวมิติไม่สามารถเปิดคีย์ได้"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "อัปเดตแอป",
+      "onYourServerNeedsA": "{{name}} บนเซิร์ฟเวอร์ของคุณต้องการเวอร์ชันใหม่ของ Termix บน {{deviceWord}} นี้",
+      "updateThePlugin": "อัปเดตปลั๊กอิน",
+      "onYourServerIsToo": "{{name}} บนเซิร์ฟเวอร์ของคุณล้าสมัยเกินไปสำหรับแอปนี้ ให้ผู้ดูแลระบบอัปเดตในปลั๊กอิน"
+    },
+    "frameBridge": {
+      "blockedByTheApp": "ถูกบล็อกโดยแอป",
+      "theAppDoesNotLet": "แอปไม่อนุญาตให้ปลั๊กอินใช้เส้นทางนี้",
+      "thisBuildCanTReach": "เวอร์ชันนี้ไม่สามารถเข้าถึงเซิร์ฟเวอร์นี้ได้อย่างปลอดภัย"
+    },
+    "support": {
+      "needsANewerVersionOf": "ต้องการเวอร์ชันใหม่ของแอป",
+      "updateThePluginOnThe": "อัปเดตปลั๊กอินบนเซิร์ฟเวอร์",
+      "theAppHasItsOwn": "แอปมีรูปแบบของตัวเอง",
+      "notInTheAppYet": "ยังไม่มีในแอป",
+      "linkAServerToUse": "เชื่อมโยงเซิร์ฟเวอร์เพื่อใช้งาน",
+      "opensInTheAppFrom": "เปิดในแอปจากเซิร์ฟเวอร์",
+      "runsOnTheServer": "ทำงานบนเซิร์ฟเวอร์",
+      "throughTheServer": "ผ่านเซิร์ฟเวอร์",
+      "inTheApp": "ในแอป",
+      "webView": "มุมมองเว็บ",
+      "onTheServer": "บนเซิร์ฟเวอร์",
+      "appLook": "รูปแบบแอป",
+      "notInTheApp": "ไม่มีในแอป",
+      "safeMode": "โหมดปลอดภัย",
+      "notRunning": "ไม่ได้ทำงาน",
+      "notInstalled": "ไม่ได้ติดตั้ง",
+      "notOnThisServer": "ไม่มีบนเซิร์ฟเวอร์นี้",
+      "thePluginIsNotInstalled": "ไม่ได้ติดตั้งปลั๊กอินบนเซิร์ฟเวอร์นี้",
+      "turnedOffOnTheServer": "ปิดใช้งานบนเซิร์ฟเวอร์",
+      "itOpensHereAgainWhen": "จะเปิดที่นี่อีกครั้งเมื่อผู้ดูแลระบบเปิดใช้งาน",
+      "notRunningOnTheServer": "ไม่ได้ทำงานบนเซิร์ฟเวอร์",
+      "theServerIsInSafe": "เซิร์ฟเวอร์อยู่ในโหมดปลอดภัย ดังนั้นเฉพาะปลั๊กอินรูปแบบเท่านั้นที่ทำงาน",
+      "thePluginDidNotStart": "ปลั๊กอินไม่เริ่มต้น ผู้ดูแลระบบสามารถตรวจสอบได้ในปลั๊กอิน",
+      "thisPluginIsNotAvailable": "ปลั๊กอินนี้ไม่พร้อมใช้งาน",
+      "itIsNotMadeFor": "ไม่ได้สร้างสำหรับแอป",
+      "offOnThisServer": "ปิดใช้งานบนเซิร์ฟเวอร์นี้",
+      "notRunningOnThisServer": "ไม่ได้ทำงานบนเซิร์ฟเวอร์นี้",
+      "notOnThisServer2": "ไม่มีบนเซิร์ฟเวอร์นี้",
+      "notInTheAppYet2": "ยังไม่มีในแอป | บนเซิร์ฟเวอร์นี้",
+      "worksOnThis": "ใช้งานได้บน {{deviceWord}} นี้",
+      "andServer": "{{DeviceWord}} และเซิร์ฟเวอร์",
+      "deviceOnly": "เฉพาะ {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "โหลดใหม่"
+    },
+    "pluginSettings": {
+      "loading": "กำลังโหลดการตั้งค่า",
+      "forEveryone": "สำหรับทุกคนบนเซิร์ฟเวอร์",
+      "justForYou": "เฉพาะคุณเท่านั้น",
+      "couldNotSave": "ไม่สามารถบันทึกการตั้งค่าได้",
+      "nothingYouCanChange": "ไม่มีอะไรให้คุณแก้ไขที่นี่ ผู้ดูแลระบบเท่านั้นที่สามารถเปลี่ยนการตั้งค่าเหล่านี้ได้",
+      "notANumber": "นี่ไม่ใช่ตัวเลข",
+      "atLeast": "ต้องเป็น {{min}} ขึ้นไป",
+      "atMost": "ต้องไม่เกิน {{max}}"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "ตัดการเชื่อมต่อทั้งหมด",
+      "showOpenSessions": "แสดงเซสชันที่เปิดอยู่",
+      "termixShowsANotificationWhile": "Termix แสดงการแจ้งเตือนขณะเซสชันเปิดอยู่ เพื่อให้ Android รัน它们在พื้นหลัง",
+      "sessionsOpen_other": "มี {{count}} เซสชันเปิดอยู่",
+      "tunnelsActive_other": "มี {{count}} ทันเนลใช้งานอยู่",
+      "notConnected": "ไม่ได้เชื่อมต่อ",
+      "waitingForNetwork": "กำลังรอเครือข่าย",
+      "connecting": "กำลังเชื่อมต่อ",
+      "connected": "เชื่อมต่อแล้ว",
+      "reconnecting": "กำลังเชื่อมต่อใหม่",
+      "failed": "ล้มเหลว",
+      "closed": "ปิดแล้ว"
+    },
+    "companionPane": {
+      "resizeThePanel": "ปรับขนาดแผง {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "ปิด",
+      "closeAllTabs": "ปิดแท็บทั้งหมด {{count}} แท็บหรือไม่?",
+      "everySessionEnds": "ทุกเซสชันจะสิ้นสุด",
+      "closeAll": "ปิดทั้งหมด",
+      "noActiveConnections": "ไม่มีการเชื่อมต่อที่ใช้งานอยู่",
+      "pickAHostFromThe": "เลือกโฮสต์จากรายการเพื่อเริ่มเซสชัน แท็บที่คุณเปิดบนอุปกรณ์อื่นจะแสดงที่นี่เช่นกัน",
+      "connectToAHostTo": "เชื่อมต่อกับโฮสต์เพื่อเริ่มเซสชัน แท็บที่คุณเปิดบนอุปกรณ์อื่นจะแสดงที่นี่เช่นกัน",
+      "open": "เปิด",
+      "background": "พื้นหลัง",
+      "sessionsFromOtherDevicesOr": "เซสชันจากอุปกรณ์อื่นหรือแท็บที่ทำงานพื้นหลัง แตะเพื่อเรียกคืน",
+      "liveTapToReconnect": "ใช้งานอยู่ แตะเพื่อเชื่อมต่อใหม่",
+      "tapToReopen": "แตะเพื่อเปิดใหม่"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "ถูกปิดใช้งานบนเซิร์ฟเวอร์",
+      "comesBackHereWhenAn": "{{title}} จะกลับมาที่นี่เมื่อผู้ดูแลระบบเปิดปลั๊กอินอีกครั้ง",
+      "closeTab": "ปิดแท็บ"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "การเชื่อมต่อ",
+        "hideHostList": "ซ่อนรายการโฮสต์",
+        "showHostList": "แสดงรายการโฮสต์",
+        "backToHosts": "กลับไปยังโฮสต์",
+        "showKeyboard": "แสดงแป้นพิมพ์",
+        "hideKeyboard": "ซ่อนแป้นพิมพ์",
+        "hideKeysPanel": "ซ่อนแผงคีย์",
+        "showKeysPanel": "แสดงแผงคีย์"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "แตะเพื่อดูตัวเลือกแท็บ กดค้างเพื่อเลื่อน",
+        "holdToMove": "กดค้างเพื่อเลื่อน",
+        "close": "ปิด {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "กำลังรอเครือข่าย",
+        "connectionFailed": "การเชื่อมต่อล้มเหลว",
+        "reconnecting": "กำลังเชื่อมต่อใหม่"
+      }
+    },
+    "sessionMenu": {
+      "rename": "เปลี่ยนชื่อ",
+      "newTabOnThisHost": "แท็บใหม่บนโฮสต์นี้",
+      "here": "{{title}} ที่นี่",
+      "hidePanel": "ซ่อนแผง {{title}}",
+      "showPanel": "แสดงแผง {{title}}",
+      "endSplitView": "ออกจากมุมมองแยก",
+      "splitViewWith": "มุมมองแยกกับ...",
+      "moveLeft": "เลื่อนซ้าย",
+      "moveRight": "เลื่อนขวา",
+      "closeTab": "ปิดแท็บ",
+      "closeAllTabs": "ปิดแท็บทั้งหมด",
+      "closeAllTabs2": "ปิดแท็บทั้งหมด {{count}} แท็บหรือไม่",
+      "everySessionEnds": "เซสชันทั้งหมดจะสิ้นสุด",
+      "closeAll": "ปิดทั้งหมด",
+      "splitViewWith2": "มุมมองแยกกับ",
+      "renameTab": "เปลี่ยนชื่อแท็บ",
+      "leaveItEmptyToUse": "เว้นว่างไว้เพื่อใช้ชื่อโฮสต์"
+    },
+    "resizeHostList": "ปรับขนาดรายการโฮสต์",
+    "resizeSplitView": "ปรับขนาดมุมมองแยก",
+    "connections": "การเชื่อมต่อ",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "การตรวจสอบสิทธิ์สองปัจจัย",
+        "enterThe6DigitCode": "ป้อนรหัส 6 หลักจากแอปตรวจสอบสิทธิ์ของคุณ",
+        "cancel": "ยกเลิก",
+        "verify": "ตรวจสอบ",
+        "codeExpiresInSGet": "รหัสหมดอายุใน {{totpCountdown}} วินาที รับรหัสใหม่",
+        "warpgateAuthentication": "การตรวจสอบสิทธิ์ Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "ยืนยัน URL การตรวจสอบสิทธิ์ Warpgate และคีย์ความปลอดภัย",
+        "authenticate": "ตรวจสอบสิทธิ์",
+        "warpgateUrl": "URL Warpgate",
+        "securityKeyOptional": "คีย์ความปลอดภัย (ไม่บังคับ)",
+        "authenticationRequired": "จำเป็นต้องตรวจสอบสิทธิ์",
+        "thisHostNeedsCredentialsTo": "โฮสต์นี้ต้องการข้อมูลประจำตัวเพื่อเชื่อมต่อ",
+        "connect": "เชื่อมต่อ",
+        "password": "รหัสผ่าน",
+        "sshKey": "คีย์ SSH",
+        "pastePrivateKey": "วางคีย์ส่วนตัว",
+        "keyPassphraseOptional": "รหัสผ่านของคีย์ (ไม่บังคับ)"
+      },
+      "connectionError": {
+        "tryAgain": "ลองอีกครั้ง",
+        "close": "ปิด",
+        "connectThroughTheServer": "เชื่อมต่อผ่านเซิร์ฟเวอร์",
+        "connectFromThis": "เชื่อมต่อจาก{{deviceWord}}นี้",
+        "triedFromThis": "ได้ลองเชื่อมต่อจาก{{deviceWord}}นี้แล้ว",
+        "triedThroughTheServer": "ได้ลองเชื่อมต่อผ่านเซิร์ฟเวอร์แล้ว"
+      },
+      "execGate": {
+        "connecting": "กำลังเชื่อมต่อ..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "เกิดข้อผิดพลาดบางอย่าง",
+        "retry": "ลองอีกครั้ง",
+        "refresh": "รีเฟรช",
+        "nothingToShow": "ไม่มีอะไรให้แสดง"
+      },
+      "useConnectionLog": {
+        "logsCopied": "คัดลอกบันทึกแล้ว",
+        "connectionLog": "บันทึกการเชื่อมต่อ ({{count}})",
+        "copyLog": "คัดลอกบันทึก",
+        "waitingForConnection": "กำลังรอการเชื่อมต่อ…",
+        "noLogEntries": "ไม่มีรายการบันทึก"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "ไม่สามารถบันทึกวิธีการเชื่อมต่อของโฮสต์นี้ได้"
+      },
+      "useSessionConnect": {
+        "connected": "เชื่อมต่อแล้ว",
+        "connectingTo": "กำลังเชื่อมต่อกับ {{name}}…",
+        "connectionLost": "การเชื่อมต่อขาดหาย",
+        "failedToConnect": "เชื่อมต่อไม่สำเร็จ",
+        "invalidCode": "รหัสไม่ถูกต้อง",
+        "warpgateAuthenticationFailed": "การตรวจสอบสิทธิ์ผ่าน Warpgate ล้มเหลว",
+        "authenticationCancelled": "ยกเลิกการตรวจสอบสิทธิ์"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "การค้นหาและคำสั่ง",
+    "addHost": "เพิ่มโฮสต์",
+    "keyboardShortcuts": "ทางลัดบนแป้นพิมพ์",
+    "home": "หน้าแรก",
+    "hosts": "โฮสต์",
+    "sessions": "เซสชัน",
+    "tools": "เครื่องมือ",
+    "settings": "การตั้งค่า",
+    "terminal": "เทอร์มินัล",
+    "shortcutSheet": {
+      "keyboardShortcuts": "ทางลัดบนแป้นพิมพ์"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "โฮสต์และโฟลเดอร์",
+      "yourHostsFoldersAndHosts": "โฮสต์และโฟลเดอร์ของคุณ รวมถึงโฮสต์ที่แชร์กับคุณ",
+      "credentials": "ข้อมูลรับรอง",
+      "savedPasswordsAndKeysAnd": "รหัสผ่านและคีย์ที่บันทึกไว้ รวมถึงข้อมูลรับรองที่แชร์กับคุณ",
+      "snippets": "สนิปเป็ต",
+      "snippetsAndTheirFolders": "สนิปเป็ตและโฟลเดอร์ของสนิปเป็ต",
+      "hostDefaults": "ค่าเริ่มต้นของโฮสต์",
+      "defaultSettingsForNewHosts": "การตั้งค่าเริ่มต้นสำหรับโฮสต์ใหม่",
+      "preferences": "การตั้งค่าส่วนบุคคล",
+      "settingsThatFollowYouBetween": "การตั้งค่าที่ติดตามคุณระหว่างอุปกรณ์"
+    },
+    "link": {
+      "noSuchServerAccount": "ไม่พบบัญชีเซิร์ฟเวอร์นี้",
+      "signInFirst": "ลงชื่อเข้าใช้ก่อน",
+      "thisServerAccountBelongsTo": "บัญชีเซิร์ฟเวอร์นี้ принадлежит {{value}} ลงชื่อเข้าใช้ในฐานะผู้ใช้ดังกล่าว หรือเพิ่มเซิร์ฟเวอร์อีกครั้งสำหรับผู้ใช้ปัจจุบัน"
+    },
+    "reasons": {
+      "signedOut": "ออกจากระบบแล้ว",
+      "thisSSignInTo": "การลงชื่อเข้าใช้เซิร์ฟเวอร์ของ{{deviceWord}}นี้หมดอายุแล้ว",
+      "theServerEndedThisS": "เซิร์ฟเวอร์ได้ปิดเซสชันของ{{deviceWord}}นี้ อาจมีการออกจากระบบจากอุปกรณ์อื่น",
+      "proxySignInNeeded": "จำเป็นต้องลงชื่อเข้าใช้พร็อกซี",
+      "theProxyInFrontOf": "พร็อกซีที่อยู่ด้านหน้าเซิร์ฟเวอร์นี้ต้องการให้คุณลงชื่อเข้าใช้อีกครั้ง",
+      "proxyPasswordNeeded": "จำเป็นต้องใช้รหัสผ่านพร็อกซี",
+      "theProxyInFrontOf2": "พร็อกซีที่อยู่ด้านหน้าเซิร์ฟเวอร์นี้ขอรหัสผ่าน",
+      "certificateRefused": "ปฏิเสธใบรับรอง",
+      "theServerDidNotAccept": "เซิร์ฟเวอร์ไม่ยอมรับใบรับรองของ{{deviceWord}}นี้",
+      "untrustedServer": "เซิร์ฟเวอร์ที่ไม่น่าเชื่อถือ",
+      "theServerSCertificateIs": "ใบรับรองของเซิร์ฟเวอร์ไม่ได้รับการไว้วางใจจาก{{deviceWord}}นี้",
+      "serverKeyChanged": "คีย์ของเซิร์ฟเวอร์เปลี่ยนไป",
+      "theServerShowsAnotherKey": "เซิร์ฟเวอร์แสดงคีย์ที่แตกต่างจากคีย์ที่ปักหมุดไว้ หากคุณเปลี่ยนใบรับรองแล้ว ให้ปักหมุดคีย์ใหม่",
+      "offline": "ออฟไลน์",
+      "canTReachTheServer": "ไม่สามารถเข้าถึงเซิร์ฟเวอร์ได้ ระบบซิงค์จะลองอีกครั้งในไม่ช้า",
+      "serverProblem": "ปัญหาที่เซิร์ฟเวอร์",
+      "theServerHadAProblem": "เซิร์ฟเวอร์เกิดปัญหา ระบบซิงค์จะลองอีกครั้งในไม่ช้า",
+      "updateNeeded": "จำเป็นต้องอัปเดต",
+      "thisServerUsesANewer": "เซิร์ฟเวอร์นี้ใช้เวอร์ชันซิงค์ที่ใหม่กว่า กรุณาอัปเดตแอป",
+      "notATermixServer": "ไม่ใช่เซิร์ฟเวอร์ Termix",
+      "theAddressDoesNotAnswer": "ที่อยู่นี้ไม่ตอบกลับเหมือนเซิร์ฟเวอร์ Termix",
+      "syncIsOff": "ปิดซิงค์อยู่",
+      "theSyncPluginIsOff": "ปลั๊กอินซิงค์ถูกปิดอยู่บนเซิร์ฟเวอร์นี้ ให้ผู้ดูแลระบบเปิดใช้งานในเมนูปลั๊กอิน",
+      "differentUser": "ผู้ใช้คนละคนกัน",
+      "youSignedInAsA": "คุณเข้าสู่ระบบด้วยผู้ใช้ที่แตกต่างจากบัญชีของเซิร์ฟเวอร์นี้",
+      "syncStopped": "ซิงค์หยุดทำงาน",
+      "somethingWentWrong": "เกิดข้อผิดพลาดบางอย่าง",
+      "signInAgain": "เข้าสู่ระบบอีกครั้ง",
+      "signInToTheProxy": "เข้าสู่ระบบพร็อกซี",
+      "enterThePassword": "ป้อนรหัสผ่าน",
+      "tryAgain": "ลองอีกครั้ง",
+      "checkThePin": "ตรวจสอบพิน",
+      "checkForUpdates": "ตรวจสอบการอัปเดต",
+      "pickACertificate": "เลือกใบรับรอง"
+    },
+    "settings": {
+      "noSuchSetting": "ไม่มีค่าการตั้งค่านี้",
+      "snippetFolder": "โฟลเดอร์ Snippet",
+      "hostDefault": "ค่าเริ่มต้นของโฮสต์"
+    },
+    "errors": {
+      "theServerDidNotAccept": "เซิร์ฟเวอร์ไม่ยอมรับใบรับรองของ {{deviceWord}} นี้",
+      "theServerSCertificateIs": "ใบรับรองของเซิร์ฟเวอร์ไม่ได้รับการไว้วางใจ",
+      "canTReachTheServer": "ไม่สามารถเข้าถึงเซิร์ฟเวอร์ได้",
+      "signedOut": "ออกจากระบบแล้ว",
+      "theProxyAskedForIts": "พร็อกซีขอรหัสผ่าน",
+      "theProxyWantsYouTo": "พร็อกซีต้องการให้คุณเข้าสู่ระบบ",
+      "theSyncPluginIsOff": "ปลั๊กอินซิงค์ถูกปิดอยู่บนเซิร์ฟเวอร์นี้",
+      "serverError": "ข้อผิดพลาดของเซิร์ฟเวอร์ {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "เซิร์ฟเวอร์แสดงคีย์ที่แตกต่างจากคีย์ที่ปักหมุดไว้"
+    },
+    "remote": {
+      "thisIsNotATermix": "นี่ไม่ใช่เซิร์ฟเวอร์ Termix",
+      "theProxyWantsYouTo": "พร็อกซีต้องการให้คุณเข้าสู่ระบบ",
+      "thisServerUsesANewer": "เซิร์ฟเวอร์นี้ใช้เวอร์ชันซิงค์ที่ใหม่กว่า กรุณาอัปเดตแอป"
+    },
+    "copy": {
+      "hostCount_other": "{{count}} โฮสต์",
+      "credentialCount_other": "{{count}} ข้อมูลการเข้าสู่ระบบ",
+      "snippetCount_other": "{{count}} Snippet",
+      "folderCount_other": "{{count}} โฟลเดอร์",
+      "nothingYet": "ยังไม่มีอะไร",
+      "listAnd": "{{list}} และ {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "ไม่สามารถเชื่อมต่อได้",
+      "connectingToFromThis": "กำลังเชื่อมต่อกับ {{name}} จาก {{deviceWord}} นี้",
+      "connectingToThroughTheServer": "กำลังเชื่อมต่อกับ {{name}} ผ่านเซิร์ฟเวอร์",
+      "reconnectingTry": "กำลังเชื่อมต่อใหม่ (ครั้งที่ {{retry}})",
+      "disconnected": "ตัดการเชื่อมต่อแล้ว",
+      "connected": "เชื่อมต่อแล้ว",
+      "reconnectedToTheSameSession": "เชื่อมต่อใหม่กับเซสชันเดิม",
+      "reconnectedWithANewShell": "เชื่อมต่อใหม่พร้อม shell ใหม่",
+      "couldNotReachTheHost": "ไม่สามารถเข้าถึงโฮสต์จาก {{deviceWord}} นี้ได้ กำลังลองเชื่อมต่อผ่านเซิร์ฟเวอร์",
+      "couldNotConnectThroughThe": "ไม่สามารถเชื่อมต่อผ่านเซิร์ฟเวอร์ได้ กำลังลองเชื่อมต่อจาก {{deviceWord}} นี้",
+      "connectionLost": "การเชื่อมต่อขาดหาย: {{reason}}",
+      "offlineWaitingForTheNetwork": "ออฟไลน์ กำลังรอเครือข่าย",
+      "nextTryInS": "จะลองอีกครั้งใน {{value}} วินาที",
+      "reconnectingTry2": "กำลังเชื่อมต่อใหม่ (ครั้งที่ {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "โฮสต์หยุดตอบกลับ",
+      "networkLost": "สัญญาณเครือข่ายขาดหาย",
+      "network": "เครือข่าย: {{type}}{{value}}",
+      "lowPowerModeOn": "เปิดโหมดประหยัดพลังงาน",
+      "lowPowerModeOff": "ปิดโหมดประหยัดพลังงาน",
+      "droppedTypedCharacters": "forms: { \"other\": \"ละเลยตัวอักษรที่พิมพ์ไป {{count}} ตัว\" }",
+      "youDidNotTrustThe": "คุณไม่ได้ไว้วางใจคีย์ของโฮสต์",
+      "checkTheKeyWithWhoever": "ตรวจสอบคีย์กับผู้ที่ดูแลโฮสต์ แล้วลองอีกครั้ง",
+      "loginCancelled": "ยกเลิกการเข้าสู่ระบบแล้ว",
+      "connectAgainWhenYouAre": "เชื่อมต่ออีกครั้งเมื่อคุณพร้อม",
+      "typedInputIsOver64": "ข้อมูลป้อนเข้าที่พิมพ์ยาวเกิน 64 KB ส่วนที่เก่าที่สุดถูกละเลย",
+      "appInTheBackground": "แอปทำงานในพื้นหลัง",
+      "appInTheForeground": "แอปทำงานในพื้นหน้า",
+      "thisConnectionCanTRun": "การเชื่อมต่อนี้ไม่สามารถรันคำสั่งได้"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "ตรวจสอบที่อยู่และพอร์ต รวมถึงตรวจสอบว่าเซิร์ฟเวอร์สามารถเข้าถึงโฮสต์ได้",
+      "checkTheAddressAndPort2": "ตรวจสอบที่อยู่และพอร์ต รวมถึงตรวจสอบว่า {{deviceWord}} นี้สามารถเข้าถึงโฮสต์ได้",
+      "checkTheProxySettingsOf": "ตรวจสอบการตั้งค่าพร็อกซีของโฮสต์นี้",
+      "checkTheKeyWithWhoever": "ตรวจสอบคีย์กับผู้ที่ดูแลโฮสต์ก่อนที่คุณจะไว้วางใจ",
+      "checkTheUsernameAndLogin": "ตรวจสอบชื่อผู้ใช้และข้อมูลเข้าสู่ระบบในหน้าแก้ไขโฮสต์",
+      "checkThatTheServerIs": "ตรวจสอบว่าเซิร์ฟเวอร์ทำงานอยู่และคุณยังเข้าสู่ระบบอยู่",
+      "tryAgainIfItKeeps": "ลองอีกครั้ง หากการเชื่อมต่อหลุดบ่อย ให้ตรวจสอบเครือข่าย",
+      "connectAgainWhenYouAre": "เชื่อมต่ออีกครั้งเมื่อคุณพร้อม",
+      "pickAnotherWayToConnect": "เลือกวิธีอื่นในการเชื่อมต่อกับโฮสต์นี้",
+      "connectThisHostThroughA": "เชื่อมต่อกับโฮสต์นี้ผ่านเซิร์ฟเวอร์ Termix",
+      "pickTheJumpHostsAgain": "เลือกโฮสต์กระโดดอีกครั้งในหน้าแก้ไขโฮสต์",
+      "thisIsATailscaleAddress": "นี่คือที่อยู่ Tailscale ตรวจสอบว่า Tailscale เชื่อมต่ออยู่บน {{deviceWord}} นี้แล้ว",
+      "theSavedKeyCanT": "ไม่สามารถอ่านคีย์ที่บันทึกไว้ได้ กรุณาลอกวางอีกครั้งในหน้าแก้ไขโฮสต์",
+      "signInToThisServer": "เข้าสู่ระบบเซิร์ฟเวอร์นี้อีกครั้ง",
+      "openThisHostInThe": "เปิดโฮสต์นี้ในเว็บแอป Termix",
+      "canTConnectThisWay": "ไม่สามารถเชื่อมต่อด้วยวิธีนี้",
+      "couldNotReachTheHost": "ไม่สามารถเข้าถึงโฮสต์ได้",
+      "theProxyDidNotLet": "พร็อกซีไม่อนุญาตให้เชื่อมต่อผ่าน",
+      "theHostKeyWasNot": "คีย์ของโฮสต์ไม่ได้รับการไว้วางใจ",
+      "theLoginWasRefused": "การเข้าสู่ระบบถูกปฏิเสธ",
+      "theTermixServerDidNot": "เซิร์ฟเวอร์ Termix ไม่ตอบกลับ",
+      "theConnectionDropped": "การเชื่อมต่อหลุด",
+      "loginCancelled": "ยกเลิกการเข้าสู่ระบบ"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH agent",
+        "thisHostSignsInWith": "โฮสต์นี้เข้าสู่ระบบด้วย \"{{authType}}\" ซึ่งต้องใช้เซิร์ฟเวอร์ Termix กรุณาเชื่อมโยงเซิร์ฟเวอร์เพื่อเชื่อมต่อ",
+        "thisHostUsesA1password": "โฮสต์นี้ใช้การอ้างอิงจาก 1Password ซึ่งต้องใช้เซิร์ฟเวอร์ Termix ที่มี Secret Sources กรุณาเชื่อมโยงเซิร์ฟเวอร์และเชื่อมต่อกับโฮสต์นี้ผ่านเซิร์ฟเวอร์นั้น",
+        "signInWithFirstOpen": "กรุณาเข้าสู่ระบบด้วย {{title}} ก่อน เปิดเทอร์มินัลไปยังโฮสต์นี้หนึ่งครั้ง แล้วลองอีกครั้ง",
+        "theSignInAndThe": "การเข้าสู่ระบบและใบรับรองอยู่บนเซิร์ฟเวอร์",
+        "theHasNoSshAgent": "{{deviceWord}} นี้ไม่มี SSH agent",
+        "needsATermixServerBecause": "{{title}} ต้องการเซิร์ฟเวอร์ Termix เนื่องจาก {{why}} กรุณาเชื่อมโยงเซิร์ฟเวอร์และเชื่อมต่อกับโฮสต์นี้ผ่านเซิร์ฟเวอร์นั้น"
+      },
+      "chain": {
+        "aJumpHostOfThis": "โฮสต์กระโดดของโฮสต์นี้ไม่ได้อีกต่อไป"
+      },
+      "localShell": {
+        "theConnectionWasCut": "การเชื่อมต่อถูกตัด",
+        "theShellChannelClosed": "ช่องทางการทำงานของเชลล์ปิดลง",
+        "jumpHost": "โฮสต์กระโดด {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "รหัสไม่ถูกต้อง ลองอีกครั้ง:",
+        "authenticationFailed": "การตรวจสอบสิทธิ์ล้มเหลว: {{message}}",
+        "theHostKeyWasNot": "คีย์ของโฮสต์ไม่ได้รับการไว้วางใจ",
+        "loginCancelled": "ยกเลิกการเข้าสู่ระบบแล้ว",
+        "notConnected": "ไม่ได้เชื่อมต่อ",
+        "signingInAs": "กำลังเข้าสู่ระบบด้วยชื่อผู้ใช้ {{user}} โดยใช้ {{method}}",
+        "methodKey": "คีย์",
+        "methodPassword": "รหัสผ่าน",
+        "methodNone": "ไม่มีข้อมูลการเข้าสู่ระบบที่บันทึกไว้"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "การเชื่อมต่อถูกตัด"
+      },
+      "thisBuildHasNoSsh": "เวอร์ชันนี้ไม่มีเอนจิน SSH กรุณาใช้แอปจากสโตร์ หรือเชื่อมโยงเซิร์ฟเวอร์ Termix เพื่อเชื่อมต่อ",
+      "theHostsOnThisAre": "โฮสต์บน {{deviceWord}} นี้อาจยังไม่พร้อมใช้งาน",
+      "thisServerSHostsAre": "โฮสต์ของเซิร์ฟเวอร์นี้ไม่ได้อยู่บน {{deviceWord}} นี้ เปิดใช้งานปลั๊กอิน Sync บนเซิร์ฟเวอร์เพื่อเชื่อมต่อจาก {{deviceWord}}",
+      "resolve": {
+        "theSavedLoginIsNot": "ข้อมูลการเข้าสู่ระบบที่บันทึกไว้สำหรับโฮสต์นี้ไม่ได้อยู่บน {{deviceWord}} นี้ ดังนั้นเฉพาะเซิร์ฟเวอร์เท่านั้นที่สามารถเข้าสู่ระบบได้"
+      }
+    },
+    "origin": {
+      "canTConnect": "ไม่สามารถเชื่อมต่อได้",
+      "canTConnectFromThe": "ไม่สามารถเชื่อมต่อจาก {{deviceWord}} นี้ได้",
+      "canTReachTheServer": "ไม่สามารถเข้าถึงเซิร์ฟเวอร์ได้",
+      "theOnlyConnectsToSsh": "อุปกรณ์ {{deviceWord}} นี้เชื่อมต่อกับโฮสต์ SSH และ Telnet เท่านั้น",
+      "connectThisHostThroughThe": "เชื่อมต่อกับโฮสต์นี้ผ่านเซิร์ฟเวอร์",
+      "connectThisHostFromThe": "เชื่อมต่อกับโฮสต์นี้จาก {{deviceWord}}",
+      "termixServer": "เซิร์ฟเวอร์ Termix",
+      "usesThisWhenItCan": "ใช้ {{deviceWord}} นี้เมื่อสามารถเข้าถึงโฮสต์ได้ มิฉะนั้นจะใช้เซิร์ฟเวอร์",
+      "thisConnectsToTheHost": "{{deviceWord}} นี้เชื่อมต่อกับโฮสต์โดยตรง",
+      "theTermixServerConnectsTo": "เซิร์ฟเวอร์ Termix จะเชื่อมต่อกับโฮสต์แทนคุณ",
+      "anSshConnection": "การเชื่อมต่อ SSH",
+      "aTermixServer": "เซิร์ฟเวอร์ Termix",
+      "aConnectionFromThe": "การเชื่อมต่อจาก {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} ถูกปิดใช้งานบนเซิร์ฟเวอร์นี้ {{how}} เพื่อใช้งาน",
+      "isOffOnThisServer2": "{{title}} ถูกปิดใช้งานบนเซิร์ฟเวอร์นี้",
+      "anotherWayToConnect": "วิธีอื่นในการเชื่อมต่อ",
+      "needsToUseIt": "{{title}} ต้องการ {{what}} {{how}} เพื่อใช้งาน",
+      "needsWhichThisHostCan": "{{title}} ต้องการ {{what}} ซึ่งโฮสต์นี้ไม่สามารถใช้งานได้ตอนนี้",
+      "thisDevice": "{{deviceWord}} นี้",
+      "automatic": "อัตโนมัติ"
+    },
+    "relay": {
+      "youAreSignedOutOf": "คุณออกจากระบบเซิร์ฟเวอร์นี้แล้ว เข้าสู่ระบบเพื่อเชื่อมต่อผ่านเซิร์ฟเวอร์",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux ไม่ได้ติดตั้งบนโฮสต์นี้ ใช้ shell ธรรมดาแทน",
+        "tapRetryToBringIt": "แตะลองใหม่เพื่อเรียกกลับมาที่นี่",
+        "thisSessionWasOpenedOn": "เซสชันนี้เปิดขึ้นบนอุปกรณ์อื่น",
+        "noServerUrlFoundLink": "ไม่พบ URL ของเซิร์ฟเวอร์ ลิงก์เซิร์ฟเวอร์อีกครั้ง",
+        "signedOutOfThisServer": "ออกจากระบบเซิร์ฟเวอร์นี้แล้ว เข้าสู่ระบบอีกครั้ง",
+        "signInWithInYour": "เข้าสู่ระบบด้วย {{title}} ในเบราว์เซอร์ของคุณ หน้าต่างนี้จะปิดเมื่อเสร็จสิ้น",
+        "theSocketClosedWhileThe": "Socket ปิดลงขณะแอปอยู่เบื้องหลัง",
+        "noWebsocketUrlAvailableServer": "ไม่มี URL WebSocket ให้ใช้ - เซิร์ฟเวอร์ไม่ได้กำหนดค่า",
+        "connectionTimeoutServerNotResponding": "หมดเวลาการเชื่อมต่อ - เซิร์ฟเวอร์ไม่ตอบสนอง",
+        "verificationCode": "รหัสยืนยัน:",
+        "hostKeyVerificationRequiredBut": "จำเป็นต้องตรวจสอบคีย์โฮสต์ แต่ไม่มีตัวจัดการที่ลงทะเบียน",
+        "hostKeyChangedButNo": "คีย์โฮสต์เปลี่ยนไป แต่ไม่มีตัวจัดการที่ลงทะเบียน",
+        "thisHostNeedsASign": "โฮสต์นี้ต้องการการเข้าสู่ระบบที่เฉพาะเว็บแอปเท่านั้นที่รองรับ",
+        "invalidCodeTryAgain": "รหัสไม่ถูกต้อง ลองอีกครั้ง:",
+        "unknownError": "ข้อผิดพลาดที่ไม่ทราบสาเหตุ",
+        "connectionClosed": "การเชื่อมต่อปิดลง",
+        "connectionClosed2": "การเชื่อมต่อปิดลง ({{code}})",
+        "theServerClosedTheConnection": "เซิร์ฟเวอร์ปิดการเชื่อมต่อ",
+        "theSocketClosed": "Socket ปิดลง ({{code}})",
+        "signIn": "เข้าสู่ระบบ {{title}}",
+        "signInFailed": "เข้าสู่ระบบ {{title}} ล้มเหลว",
+        "isNotSetUpOn": "{{title}} ไม่ได้ตั้งค่าบนเซิร์ฟเวอร์",
+        "signInTimedOut": "หมดเวลาการเข้าสู่ระบบ {{title}}",
+        "authenticationFailed": "การตรวจสอบสิทธิ์ล้มเหลว: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "บันทึกโฮสต์และเชื่อมต่อกับมันเพื่อตรวจสอบ",
+      "loggedInAsOn": "เข้าสู่ระบบเป็น {{username}} บน {{host}}",
+      "theHostAskedForMore": "โฮสต์ขอมากกว่ารหัสผ่าน เช่น รหัส บันทึกโฮสต์และเชื่อมต่อเพื่อเสร็จสิ้นการเข้าสู่ระบบ"
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "รอเครือข่าย",
+      "couldNotOpenTheTunnel": "ไม่สามารถเปิดอุโมงค์ได้",
+      "theConnectionDropped": "การเชื่อมต่อหลุด",
+      "iosStoppedThisTunnelWhile": "iOS หยุดอุโมงค์นี้ขณะแอปอยู่เบื้องหลัง เริ่มอีกครั้งเพื่อเปิดมัน",
+      "connecting": "กำลังเชื่อมต่อ",
+      "connected": "เชื่อมต่อแล้ว",
+      "retrying": "กำลังลองใหม่",
+      "waiting": "กำลังรอ",
+      "failed": "ล้มเหลว"
+    },
+    "gateways": {
+      "error": "ข้อผิดพลาด",
+      "gateways": "เกตเวย์",
+      "gatewaysCanOnlyBeChanged": "เกตเวย์สามารถเปลี่ยนแปลงได้เฉพาะใน Termix บนเว็บ",
+      "noHandshake": "ไม่มีการจับมือ",
+      "rulesMissing": "ขาดกฎ",
+      "up": "ออนไลน์",
+      "pending": "รอดำเนินการ",
+      "applying": "กำลังดำเนินการ",
+      "down": "ปิด",
+      "unreachable": "ไม่สามารถเข้าถึงได้"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "ยังไม่มี tunnel เพิ่ม tunnel เพื่อ forward port จาก endpoint host ไปยัง host นี้",
+      "tunnel": "Tunnel {{value}}",
+      "removeTunnel": "ลบ tunnel {{value}}",
+      "mode": "โหมด",
+      "local": "Local",
+      "remote": "Remote",
+      "dynamic": "Dynamic",
+      "targetHost": "Target host",
+      "onThisHostForTunnels": "บน host นี้ สำหรับ tunnel ที่ {{deviceWord}} รัน",
+      "bindHost": "Bind host",
+      "endpointHost": "Endpoint host",
+      "addAnotherHostFirstTunnels": "เพิ่ม host อื่นก่อน Tunnel จะทำงานผ่าน host ที่บันทึกไว้",
+      "sourcePort": "Source port",
+      "endpointPort": "Endpoint port",
+      "maxRetries": "จำนวนการลองใหม่สูงสุด",
+      "retryEveryS": "ลองใหม่ทุก (วินาที)",
+      "startOnItsOwn": "เริ่มทำงานอัตโนมัติ",
+      "addTunnel": "เพิ่ม tunnel",
+      "tunnelNeedsPortsFrom1": "Tunnel {{value}} ต้องการ port ระหว่าง 1 ถึง 65535"
+    },
+    "register": {
+      "tunnels": "Tunnels",
+      "startAndStopSavedTunnels": "เริ่มและหยุด tunnel ที่บันทึกไว้",
+      "tunnel": "TUNNEL",
+      "tunnel2": "Tunnel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "คัดลอก local endpoint แล้ว",
+      "tunnel": "Tunnel | {{sourcePort}}",
+      "portMapping": "การแมป Port",
+      "connect": "เชื่อมต่อ",
+      "disconnect": "ตัดการเชื่อมต่อ",
+      "cancel": "ยกเลิก",
+      "connected": "เชื่อมต่อแล้ว",
+      "connecting": "กำลังเชื่อมต่อ",
+      "disconnecting": "กำลังตัดการเชื่อมต่อ",
+      "error": "ข้อผิดพลาด",
+      "retrying": "กำลังลองใหม่ ({{value}}/{{value2}})",
+      "waitingS": "รอ {{value}} วินาที",
+      "waiting": "กำลังรอ",
+      "disconnected": "ตัดการเชื่อมต่อแล้ว"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "กำลังเริ่ม tunnel บน port {{sourcePort}}",
+      "connectingTunnelOnPort": "กำลังเชื่อมต่อ tunnel บน port {{sourcePort}}",
+      "disconnectingPort": "กำลังตัดการเชื่อมต่อ port {{sourcePort}}",
+      "cancellingPort": "กำลังยกเลิก port {{sourcePort}}",
+      "failedToTunnel": "ไม่สามารถ {{action}} tunnel ได้",
+      "tunnels": "Tunnels | {{count}} | {{value}}",
+      "loadingTunnels": "กำลังโหลด tunnels…",
+      "noSshTunnelsConfiguredFor": "ไม่มีการกำหนดค่า SSH tunnel สำหรับ host นี้ เพิ่ม tunnel จากฟอร์ม host",
+      "runOn": "รันบน",
+      "server": "เซิร์ฟเวอร์",
+      "this": "{{deviceWord}} นี้",
+      "tunnelsOnThisStopWhen": "Tunnel บน {{deviceWord}} นี้จะหยุดทำงานเมื่อปิดแอป บน iOS จะหยุดทำงานหลังจากแอปไปทำงานพื้นหลังไม่นาน",
+      "failedToFetchTunnelStatuses": "ไม่สามารถดึงสถานะ tunnel ได้",
+      "thisBuildCanTOpen": "เวอร์ชันนี้ไม่สามารถเปิด tunnel บน {{deviceWord}} ได้",
+      "sourceHostNotFound": "ไม่พบ source host",
+      "endpointHostNotFound": "ไม่พบ endpoint host: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tunnels",
+      "tunnelCount_other": "{{count}} tunnels",
+      "runningOnServer": "{{connected}} รันบนเซิร์ฟเวอร์"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "เครื่องมือจัดการข้อมูลรับรอง"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "ไม่พบ Docker ติดตั้งบนโฮสต์นี้",
+        "dockerDidNotAnswer": "Docker ไม่มีการตอบกลับ",
+        "thatIsNotAValid": "ชื่อสแต็กไม่ถูกต้อง"
+      }
+    },
+    "containerDetail": {
+      "stop": "หยุดทำงาน",
+      "start": "เริ่มทำงาน",
+      "restart": "เริ่มใหม่",
+      "remove": "ลบ",
+      "logs": "บันทึกเหตุการณ์",
+      "stats": "สถิติ",
+      "console": "คอนโซล",
+      "logsCopied": "คัดลอกบันทึกเหตุการณ์แล้ว",
+      "copy": "คัดลอก",
+      "containerIsNotRunningNo": "คอนเทนเนอร์ไม่ได้ทำงานอยู่ จึงไม่มีสถิติแบบเรียลไทม์",
+      "cpu": "CPU",
+      "memory": "หน่วยความจำ",
+      "networkIO": "เครือข่าย I/O",
+      "blockIO": "บล็อก I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "โหลดบันทึกเหตุการณ์ไม่สำเร็จ",
+      "failedToLoadStats": "โหลดสถิติไม่สำเร็จ",
+      "noOutput": "(ไม่มีผลลัพธ์)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "กำลังเชื่อมต่อกับ Docker...",
+    "remove": "ต้องการลบ {{name}} หรือไม่",
+    "stop": "ต้องการหยุด {{name}} หรือไม่",
+    "theContainerIsStoppedAnd": "คอนเทนเนอร์ถูกหยุดและลบแล้ว โวลุ่มยังคงอยู่",
+    "anythingRunningInItStops": "กระบวนการทั้งหมดภายในจะถูกหยุดทำงาน",
+    "remove2": "ลบ",
+    "stop2": "หยุดทำงาน",
+    "dockerThis": "Docker | {{deviceWord}} นี้",
+    "lookingForDocker": "กำลังค้นหา Docker...",
+    "dockerIsNotAvailableOn": "Docker ไม่พร้อมใช้งานบนโฮสต์นี้",
+    "noContainersFound": "ไม่พบคอนเทนเนอร์",
+    "noContainersMatchYourFilters": "ไม่พบคอนเทนเนอร์ที่ตรงกับตัวกรองของคุณ",
+    "useSudo": "ใช้ sudo",
+    "refresh": "รีเฟรช",
+    "containers": "คอนเทนเนอร์",
+    "stacks": "สแต็ก",
+    "searchContainers": "ค้นหาคอนเทนเนอร์...",
+    "all": "ทั้งหมด",
+    "running": "กำลังทำงาน",
+    "stopped": "หยุดทำงาน",
+    "start": "เริ่มทำงาน",
+    "restart": "เริ่มใหม่",
+    "pause": "หยุดชั่วคราว",
+    "unpause": "ยกเลิกการหยุดชั่วคราว",
+    "moreActions": "การดำเนินการเพิ่มเติม",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker ไม่มีการตอบกลับ",
+      "docker": "Docker",
+      "noContainers": "ไม่มีคอนเทนเนอร์"
+    },
+    "dockerConsole": {
+      "attachingTo": "กำลังเชื่อมต่อกับ {{name}}...",
+      "consoleDisconnected": "คอนโซลถูกตัดการเชื่อมต่อ",
+      "reconnect": "เชื่อมต่อใหม่",
+      "failedToLoadTheConsole": "โหลดคอนโซลไม่สำเร็จ",
+      "thisSessionHasNoServer": "เซสชันนี้ไม่มีเซิร์ฟเวอร์"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "คอนเทนเนอร์ บันทึกเหตุการณ์ และสถิติ"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "สแต็กถูกปิดใช้งานบนเซิร์ฟเวอร์นี้",
+      "couldNotLoadStacks": "ไม่สามารถโหลดสแต็กได้",
+      "noStacks": "ไม่มีสแต็ก",
+      "composeProjectsOnThisHost": "โปรเจกต์ Compose บนโฮสต์นี้จะแสดงที่นี่",
+      "ofRunning": "{{running}} จาก {{total}} กำลังทำงาน",
+      "couldNotLoadTheStack": "ไม่สามารถโหลดสแต็กได้",
+      "services": "บริการ",
+      "nothingIsRunning": "ไม่มีอะไรกำลังทำงาน",
+      "composeFile": "ไฟล์ Compose",
+      "partlyUp": "ทำงานบางส่วน",
+      "notDeployed": "ยังไม่ติดตั้ง",
+      "running": "กำลังทำงาน",
+      "stopped": "หยุดทำงาน",
+      "paused": "หยุดชั่วคราว"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "นั่นไม่ใช่ ID ของคอนเทนเนอร์ที่ถูกต้อง",
+      "consoleFailed": "คอนโซลล้มเหลว",
+      "notAuthenticated": "ไม่ได้ตรวจสอบสิทธิ์",
+      "consoleError": "ข้อผิดพลาดของคอนโซล",
+      "connectionFailed": "การเชื่อมต่อล้มเหลว"
+    },
+    "dockerDidNotAnswer": "Docker ไม่มีการตอบกลับ",
+    "failedToLoadContainers": "ไม่สามารถโหลดคอนเทนเนอร์ได้",
+    "failedTo": "ไม่สามารถ {{action}} ได้"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "เซิร์ฟเวอร์ไม่ได้ส่งไฟล์",
+        "cancelled": "ยกเลิกแล้ว",
+        "isGone": "{{path}} หายไป",
+        "canTGoToThe": "{{name}} ไม่สามารถย้ายไปถังขยะได้"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "ID ของรายการในถังขยะไม่ถูกต้อง",
+        "invalidTrashMetadata": "ข้อมูลเมตาของถังขยะไม่ถูกต้อง",
+        "thisPathCanTBe": "เส้นทางนี้ไม่สามารถย้ายไปถังขยะได้",
+        "aFileAlreadyExistsAt": "มีไฟล์อยู่แล้วที่เส้นทางเดิม"
+      },
+      "sftp": {
+        "commandFailed": "คำสั่งล้มเหลว: {{command}}",
+        "alreadyExists": "{{name}} มีอยู่แล้ว",
+        "alreadyExistsThere": "{{path}} มีอยู่แล้วที่นั่น",
+        "canTGoToThe": "{{name}} ไม่สามารถย้ายไปถังขยะได้: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "เทอร์มินัลไม่ได้เปิดอยู่",
+      "clearHistory": "ล้างประวัติ",
+      "stopFollowingTheTerminal": "หยุดติดตามเทอร์มินัล",
+      "followTheTerminal": "ติดตามเทอร์มินัล",
+      "goToTheTerminalS": "ไปที่โฟลเดอร์ของเทอร์มินัล",
+      "cdTheTerminalHere": "เปลี่ยนไดเรกทอรีของเทอร์มินัลมาที่นี่",
+      "folderHistory": "ประวัติโฟลเดอร์",
+      "mostUsedFirstThenRecent": "ใช้บ่อยที่สุดก่อน แล้วตามด้วยล่าสุด",
+      "noFoldersYet": "ยังไม่มีโฟลเดอร์"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "ไม่สามารถเชื่อมต่อได้",
+        "couldNotSaveHowThis": "ไม่สามารถบันทึกวิธีการเชื่อมต่อของโฮสต์นี้ได้",
+        "thisWayCanTOpen": "วิธีนี้ไม่สามารถเปิดไฟล์ได้"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "ไม่สามารถเปิดโฟลเดอร์นี้ได้",
+      "cancel": "ยกเลิก",
+      "noFoldersHere": "ไม่มีโฟลเดอร์ที่นี่"
+    },
+    "couldNotOpenThisFolder": "ไม่สามารถเปิดโฟลเดอร์นี้ได้",
+    "couldNotSaveToThe": "ไม่สามารถบันทึกไปยังโฟลเดอร์ได้",
+    "failed": "{{label}} ล้มเหลว",
+    "uploading": "กำลังอัปโหลด {{name}}",
+    "uploadingFiles": "กำลังอัปโหลดไฟล์ {{count}} ไฟล์",
+    "downloadingToFilesOnMy": "กำลังดาวน์โหลดไปยัง ไฟล์, บน iPhone ของฉัน, Termix",
+    "downloading": "กำลังดาวน์โหลด {{name}}",
+    "downloadingFiles": "กำลังดาวน์โหลดไฟล์ {{count}} ไฟล์",
+    "openALargeFile": "เปิดไฟล์ขนาดใหญ่?",
+    "isBigForAEditor": "{{name}} มีขนาดใหญ่สำหรับโปรแกรมแก้ไขบน {{deviceWord}} อาจทำงานช้า",
+    "open": "เปิด",
+    "thisLooksLikeABinary": "นี่ดูเหมือนจะเป็นไฟล์ไบนารี",
+    "openItInAnotherApp": "เปิดในแอปอื่นแทน?",
+    "openWith": "เปิดด้วย",
+    "tooBigForTheEditor": "ไฟล์ใหญ่เกินไปสำหรับตัวแก้ไข",
+    "isOver10MbDownload": "{{name}} มีขนาดเกิน 10 MB ต้องการดาวน์โหลดแทนหรือไม่?",
+    "download": "ดาวน์โหลด",
+    "delete": "ลบ {{what}} หรือไม่?",
+    "moveToTheTrash": "ย้าย {{what}} ไปยังถังขยะหรือไม่?",
+    "thisCanTBeUndone": "การดำเนินการนี้ไม่สามารถย้อนกลับได้",
+    "youCanRestoreItFrom": "คุณสามารถกู้คืนจากถังขยะได้",
+    "delete2": "ลบ",
+    "moveToTrash": "ย้ายไปยังถังขยะ",
+    "deleteForGood": "ลบถาวรหรือไม่?",
+    "deleteItForGoodInstead": "{{message}} ต้องการลบถาวรแทนหรือไม่? การดำเนินการนี้ไม่สามารถย้อนกลับได้",
+    "deleteFailed": "ลบไม่สำเร็จ",
+    "connectingThroughTheServer": "กำลังเชื่อมต่อผ่านเซิร์ฟเวอร์...",
+    "connectingFromThis": "กำลังเชื่อมต่อจาก {{deviceWord}} นี้...",
+    "connecting": "กำลังเชื่อมต่อ...",
+    "edit": "แก้ไข",
+    "downloadFolder": "ดาวน์โหลดโฟลเดอร์",
+    "share": "แชร์",
+    "rename": "เปลี่ยนชื่อ",
+    "copyTo": "คัดลอกไปยัง",
+    "moveTo": "ย้ายไปยัง",
+    "cut": "ตัด",
+    "copy": "คัดลอก",
+    "permissions": "สิทธิ์",
+    "properties": "คุณสมบัติ",
+    "makeALinkHere": "สร้างลิงก์ที่นี่",
+    "copyPath": "คัดลอกพาธ",
+    "pathCopied": "คัดลอกพาธแล้ว",
+    "done": "เสร็จสิ้น",
+    "selectAll": "เลือกทั้งหมด",
+    "filterByName": "กรองตามชื่อ",
+    "closeSearch": "ปิดการค้นหา",
+    "search": "ค้นหา",
+    "changeSort": "เปลี่ยนการเรียงลำดับ",
+    "paste": "วาง {{count}} รายการ",
+    "upload": "อัปโหลด",
+    "transfers2": "การถ่ายโอน",
+    "more": "เพิ่มเติม",
+    "nothingMatches": "ไม่พบผลลัพธ์ที่ตรงกัน",
+    "emptyFolder": "โฟลเดอร์ว่าง",
+    "uploadFilesOrMakeA": "อัปโหลดไฟล์หรือสร้างไฟล์ใหม่",
+    "newFolder": "โฟลเดอร์ใหม่",
+    "newFile": "ไฟล์ใหม่",
+    "select": "เลือก",
+    "hideHiddenFiles": "ซ่อนไฟล์ที่ซ่อนอยู่",
+    "showHiddenFiles": "แสดงไฟล์ที่ซ่อนอยู่",
+    "trash": "ถังขยะ",
+    "folderProperties": "คุณสมบัติของโฟลเดอร์",
+    "refresh": "รีเฟรช",
+    "rename2": "เปลี่ยนชื่อ {{name}}",
+    "newLink": "ลิงก์ใหม่",
+    "aLinkInThatPoints": "ลิงก์ใน {{path}} ที่ชี้ไปยัง {{path2}}",
+    "name": "ชื่อ",
+    "create": "สร้าง",
+    "copyHere": "คัดลอกที่นี่",
+    "moveHere": "ย้ายที่นี่",
+    "fileViewer": {
+      "saved": "บันทึก {{name}} แล้ว",
+      "couldNotSaveTheFile": "ไม่สามารถบันทึกไฟล์ได้",
+      "discardChanges": "ยกเลิกการเปลี่ยนแปลงหรือไม่?",
+      "hasChangesThatAreNot": "{{name}} มีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก",
+      "discard": "ยกเลิกการเปลี่ยนแปลง",
+      "readOnly": "{{path}} | อ่านอย่างเดียว",
+      "find": "ค้นหา",
+      "smallerText": "ตัวเลขน้อยลง",
+      "biggerText": "ตัวเลขน้อยขึ้น",
+      "turnOffLineWrap": "ปิดการขึ้นบรรทัดใหม่",
+      "wrapLines": "ขึ้นบรรทัดใหม่",
+      "save": "บันทึก"
+    },
+    "hostSection": {
+      "startIn": "เริ่มต้นที่",
+      "theFolderTheFileManager": "โฟลเดอร์ที่ตัวจัดการไฟล์เปิดขึ้นเป็นอันดับแรก",
+      "files": "ไฟล์"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "ไปที่ {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "การดำเนินการเพิ่มเติม",
+        "moreFor": "เพิ่มเติมสำหรับ {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "สิทธิ์",
+      "cancel": "ยกเลิก",
+      "apply": "นำไปใช้ ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "ไม่สามารถเปิดได้",
+      "openWith": "เปิดด้วย",
+      "share": "แชร์"
+    },
+    "propertiesView": {
+      "properties": "คุณสมบัติ",
+      "path": "เส้นทาง",
+      "type": "ประเภท",
+      "pointsTo": "ชี้ไปที่",
+      "size": "ขนาด",
+      "countFolderSize": "คำนวณขนาดโฟลเดอร์",
+      "permissions": "สิทธิ์",
+      "change": "เปลี่ยน",
+      "owner": "เจ้าของ",
+      "group": "กลุ่ม",
+      "modified": "แก้ไขล่าสุด",
+      "opened": "เปิดล่าสุด",
+      "linkToA": "ลิงก์ไปยัง {{value}}",
+      "notShownForFolders": "ไม่แสดงสำหรับโฟลเดอร์",
+      "file": "ไฟล์",
+      "folder": "โฟลเดอร์",
+      "link": "ลิงก์"
+    },
+    "register": {
+      "fileManager": "ตัวจัดการไฟล์",
+      "files": "ไฟล์",
+      "browseEditAndMoveFiles": "เรียกดู แก้ไข และย้ายไฟล์",
+      "files2": "ไฟล์",
+      "fileManagerAndTransfers": "ตัวจัดการไฟล์และการถ่ายโอน"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "การถ่ายโอนล้มเหลว"
+      },
+      "transfersPanel": {
+        "pause": "หยุดชั่วคราว",
+        "resume": "ดำเนินการต่อ",
+        "tryAgain": "ลองอีกครั้ง",
+        "open": "เปิด",
+        "cancel": "ยกเลิก",
+        "transfers": "การถ่ายโอน",
+        "goingOf": "{{active}} กำลังดำเนินการ | {{done}} จาก {{total}}",
+        "clearFinished": "ล้างรายการที่เสร็จสิ้น",
+        "cancelAll": "ยกเลิกทั้งหมด",
+        "noTransfersYet": "ยังไม่มีรายการถ่ายโอน",
+        "waiting": "กำลังรอ",
+        "paused": "หยุดชั่วคราว",
+        "done": "เสร็จสิ้น",
+        "failed": "ล้มเหลว",
+        "cancelled": "ยกเลิกแล้ว"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "ไม่สามารถโหลดถังขยะได้",
+      "restored": "กู้คืน {{name}} แล้ว",
+      "failedToRestore": "กู้คืนไม่สำเร็จ",
+      "failedToDelete": "ลบไม่สำเร็จ",
+      "trashEmptied": "ล้างถังขยะแล้ว",
+      "failedToEmptyTrash": "ล้างถังขยะไม่สำเร็จ",
+      "trash": "ถังขยะ",
+      "itemsAreRemovedAfterDays": "รายการจะถูกลบออกหลังจาก {{retentionDays}} วัน",
+      "close": "ปิด",
+      "emptyTrash": "ล้างถังขยะ",
+      "trashIsEmpty": "ถังขยะว่างเปล่า",
+      "restore": "กู้คืน {{name}}",
+      "deleteForGood": "ลบ {{name}} ถาวร"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "เมื่อสักครู่"
+      }
+    },
+    "getting": "กำลังดึง {{name}}",
+    "itemCount_other": "{{count}} รายการ",
+    "copiedWhat": "คัดลอก {{what}} แล้ว",
+    "movedWhat": "ย้าย {{what}} แล้ว",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} มีไฟล์มากกว่า {{limit}} ไฟล์ โปรดดาวน์โหลดโฟลเดอร์ที่มีขนาดเล็กกว่า"
+    },
+    "downloadingToFilesOnMyIpad": "กำลังดาวน์โหลดไปยัง ไฟล์, บน iPad ของฉัน, Termix",
+    "size": "ขนาด",
+    "date": "วันที่"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "ลิงก์บริการ",
+      "openInHomepage": "เปิดในหน้าแรก",
+      "thisWidgetOnlyShowsOn": "วิดเจ็ตนี้จะแสดงเฉพาะบนหน้าเต็มเท่านั้น"
+    },
+    "register": {
+      "serviceLinks": "ลิงก์บริการ",
+      "homepage": "หน้าแรก"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "ไม่ได้ตั้งค่าฟีด",
+        "couldNotLoadTheFeed": "ไม่สามารถโหลดฟีดได้",
+        "theFeedIsEmpty": "ฟีดว่างเปล่า",
+        "noLocationSet": "ไม่ได้ตั้งค่าตำแหน่ง",
+        "couldNotLoadTheWeather": "ไม่สามารถโหลดสภาพอากาศได้",
+        "noUrlSet": "ไม่ได้ตั้งค่า URL",
+        "couldNotLoadTheData": "ไม่สามารถโหลดข้อมูลได้",
+        "noPictureSet": "ไม่ได้ตั้งค่ารูปภาพ",
+        "badResponse": "การตอบกลับไม่ถูกต้อง"
+      },
+      "services": "บริการ",
+      "service": "บริการ",
+      "serviceLinks": "ลิงก์บริการ",
+      "bookmarks": "บุ๊กมาร์ก",
+      "links2": "ลิงก์",
+      "search": "ค้นหา",
+      "clock": "นาฬิกา",
+      "countdown": "นับถอยหลัง",
+      "calendar": "ปฏิทิน",
+      "notes": "บันทึกย่อ",
+      "banner": "แบนเนอร์",
+      "ping": "Ping",
+      "host": "โฮสต์",
+      "hosts": "โฮสต์",
+      "quickConnect": "เชื่อมต่อด่วน",
+      "feed": "ฟีด",
+      "weather": "สภาพอากาศ",
+      "customApi": "API แบบกำหนดเอง",
+      "picture": "รูปภาพ",
+      "widget": "วิดเจ็ต",
+      "links": {
+        "noServicesYet": "ยังไม่มีบริการ",
+        "noLinkSet": "ไม่ได้ตั้งค่าลิงก์",
+        "noLinksYet": "ยังไม่มีลิงก์",
+        "noSearchEngineSet": "ไม่ได้ตั้งค่าเครื่องมือค้นหา",
+        "search": "ค้นหา",
+        "noShortcutsYet": "ยังไม่มีทางลัด",
+        "search2": "ค้นหา {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "ไม่สามารถเปิดลิงก์ได้"
+      },
+      "status": {
+        "noUrlsYet": "ยังไม่มี URL",
+        "down": "ออฟไลน์",
+        "noHostsPicked": "ยังไม่ได้เลือกโฮสต์"
+      },
+      "text": {
+        "noNotesYet": "ยังไม่มีบันทึก",
+        "noTextYet": "ยังไม่มีข้อความ"
+      },
+      "time": {
+        "noDateSet": "ยังไม่ได้ตั้งวันที่",
+        "timeIsUp": "หมดเวลาแล้ว"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "ไม่สามารถบันทึกค่าเริ่มต้นได้",
+    "couldNotResetTheDefault": "ไม่สามารถรีเซ็ตค่าเริ่มต้นได้",
+    "back": "ย้อนกลับ",
+    "hostDefaults": "ค่าเริ่มต้นของโฮสต์",
+    "newHostsStartFromThese": "โฮสต์ใหม่จะใช้ค่าเหล่านี้",
+    "managedOnTheServer": "จัดการบนเซิร์ฟเวอร์",
+    "defaultsForThisServerAre": "ค่าเริ่มต้นสำหรับเซิร์ฟเวอร์นี้ถูกตั้งค่าในเว็บแอป",
+    "level": "ระดับ",
+    "yourDefaultsOrOneFolder": "ค่าเริ่มต้นของคุณ หรือของโฟลเดอร์หนึ่งโฟลเดอร์",
+    "myDefaults": "ค่าเริ่มต้นของฉัน",
+    "theServerSets": " เซิร์ฟเวอร์ตั้งค่า {{adminCount}} รายการ",
+    "aFolderWinsOverYour": "โฟลเดอร์จะครอบคลุมการตั้งค่าเริ่มต้นของคุณ และการตั้งค่าเริ่มต้นของคุณจะครอบคลุมการตั้งค่าของเซิร์ฟเวอร์ โฮสต์จะเก็บค่าที่คุณตั้งค่าไว้เองเสมอ{{value}}",
+    "save": "บันทึก",
+    "authentication": "การตรวจสอบสิทธิ์",
+    "none": "ไม่มี",
+    "reset": "รีเซ็ต",
+    "model": {
+      "username": "ชื่อผู้ใช้",
+      "sshPort": "พอร์ต SSH",
+      "authentication": "การตรวจสอบสิทธิ์",
+      "aSavedCredentialForNew": "ข้อมูลรับรองที่บันทึกไว้สำหรับโฮสต์ใหม่",
+      "forceKeyboardInteractive": "บังคับใช้การโต้ตอบผ่านคีย์บอร์ด",
+      "keepaliveInterval": "ช่วงเวลา Keepalive",
+      "seconds0TurnsItOff": "วินาที, 0 เพื่อปิดใช้งาน",
+      "keepaliveTries": "จำนวนครั้งในการลอง Keepalive",
+      "allowOldAlgorithms": "อนุญาตอัลกอริทึมเก่า",
+      "agentForwarding": "การส่งต่อเอเจนต์",
+      "environmentVariables": "ตัวแปรสภาพแวดล้อม",
+      "oneNameValuePerLine": "หนึ่ง NAME=value ต่อหนึ่งบรรทัด",
+      "checkIfTheHostIs": "ตรวจสอบว่าโฮสต์ออนไลน์หรือไม่",
+      "checkInterval": "ช่วงเวลาการตรวจสอบ",
+      "secondsEmptyUsesTheServer": "วินาที, เว้นว่างไว้จะใช้ค่าของเซิร์ฟเวอร์",
+      "socks5Proxy": "พร็อกซี SOCKS5",
+      "setInTheWebApp": "ตั้งค่าในเว็บแอป",
+      "jumpHosts": "โฮสต์กระโดด",
+      "portKnocking": "การเคาะพอร์ต",
+      "notSet": "ไม่ได้ตั้งค่า",
+      "fromTheServer": "จากเซิร์ฟเวอร์",
+      "fromYourDefaults": "จากค่าเริ่มต้นของคุณ",
+      "builtIn": "ในตัว"
+    },
+    "register": {
+      "hostDefaults": "ค่าเริ่มต้นของโฮสต์",
+      "portUserAndOptionsFor": "พอร์ต ผู้ใช้ และตัวเลือกสำหรับโฮสต์ใหม่"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "ยังไม่มีข้อมูล",
+      "cpu": "CPU",
+      "memory": "หน่วยความจำ",
+      "disk": "ดิสก์",
+      "history": "ประวัติ",
+      "loading": "กำลังโหลด..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "ไม่สามารถอ่านเมตริกได้",
+      "metrics": "เมตริก",
+      "cpu": "CPU",
+      "memory": "หน่วยความจำ",
+      "disk": "ดิสก์",
+      "noRecentSampleOpenThe": "ไม่มีข้อมูลล่าสุด เปิดเมตริกของโฮสต์เพื่อเริ่มเก็บข้อมูล"
+    },
+    "register": {
+      "enableMetrics": "เปิดใช้งานเมตริก",
+      "cpuMemoryDiskAndNetwork": "CPU, หน่วยความจำ, ดิสก์ และเครือข่ายผ่าน SSH",
+      "hostMetrics": "เมตริกโฮสต์",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "เมตริก",
+      "cpuMemoryDiskAndNetwork2": "CPU, หน่วยความจำ, ดิสก์ และเครือข่าย"
+    },
+    "serverStats": {
+      "hostMetricsThis": "เมตริกโฮสต์ | {{deviceWord}} นี้",
+      "hostMetrics": "เมตริกโฮสต์",
+      "ran": "รัน {{name}}",
+      "loadingMetrics": "กำลังโหลดเมตริก...",
+      "couldNotReadMetricsFrom": "ไม่สามารถอ่านเมตริกจากโฮสต์นี้ได้",
+      "failedToLoadMetrics": "โหลดเมตริกไม่สำเร็จ",
+      "thisSessionHasNoServer": "เซสชันนี้ไม่มีเซิร์ฟเวอร์",
+      "twoFactorRequiredForThis": "ต้องใช้การยืนยันตัวตนสองขั้นตอนสำหรับสถิติของโฮสต์นี้",
+      "failedToStartMetrics": "เริ่มเมตริกไม่สำเร็จ",
+      "failedToRun": "รัน {{name}} ไม่สำเร็จ"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "ต่อคอร์: {{value}}",
+        "cores": "คอร์",
+        "load": "โหลด",
+        "user": "ผู้ใช้",
+        "system": "ระบบ",
+        "ioWait": "รอ IO",
+        "steal": "Steal"
+      },
+      "diskWidget": {
+        "disk": "ดิสก์ {{mount}}",
+        "disk2": "ดิสก์",
+        "used": "ใช้แล้ว",
+        "total": "ทั้งหมด",
+        "free": "ว่าง"
+      },
+      "firewallWidget": {
+        "firewall": "ไฟร์วอลล์",
+        "rules": "{{type}} | กฎ {{ruleCount}} รายการ",
+        "noFirewallDetected": "ไม่พบไฟร์วอลล์"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "หน่วยความจำ",
+        "temp": "อุณหภูมิ",
+        "power": "พลังงาน",
+        "fan": "พัดลม"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "กิจกรรมการเข้าสู่ระบบ",
+        "noLoginActivityRecorded": "ไม่มีการบันทึกกิจกรรมการเข้าสู่ระบบ",
+        "logins": "การเข้าสู่ระบบ",
+        "uniqueIps": "IP ที่ไม่ซ้ำกัน",
+        "failed": "ล้มเหลว",
+        "recent": "ล่าสุด"
+      },
+      "memoryWidget": {
+        "memory": "หน่วยความจำ",
+        "used": "ใช้แล้ว",
+        "total": "ทั้งหมด",
+        "cached": "แคช",
+        "free": "ว่าง"
+      },
+      "networkWidget": {
+        "network": "เครือข่าย",
+        "noInterfaces": "ไม่มีอินเทอร์เฟซ",
+        "up": "อัปโหลด",
+        "down": "ดาวน์โหลด"
+      },
+      "portsWidget": {
+        "listeningPorts": "พอร์ตที่รับฟัง",
+        "noListeningPorts": "ไม่มีพอร์ตที่รับฟัง"
+      },
+      "processesWidget": {
+        "sortBy": "เรียงตาม {{label}}",
+        "processes": "กระบวนการ",
+        "running": "{{value}} กำลังทำงาน | {{total}}",
+        "noProcessData": "ไม่มีข้อมูลกระบวนการ",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "คำสั่ง"
+      },
+      "systemWidget": {
+        "system": "ระบบ",
+        "hostname": "ชื่อโฮสต์",
+        "os": "ระบบปฏิบัติการ",
+        "kernel": "เคอร์เนล",
+        "arch": "สถาปัตยกรรม",
+        "noSystemInfo": "ไม่มีข้อมูลระบบ"
+      },
+      "temperatureWidget": {
+        "temperature": "อุณหภูมิ"
+      },
+      "uptimeWidget": {
+        "uptime": "เวลาทำงานต่อเนื่อง"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "คัดลอกพร้อมรหัสผ่านแล้ว",
+      "copiedTheLink": "คัดลอกลิงก์แล้ว",
+      "shareHost": "แชร์โฮสต์",
+      "thatHostNoLongerExists": "โฮสต์นี้ไม่มีอีกแล้ว",
+      "scanThisInTermixOn": "สแกนโค้ดนี้ใน Termix บน {{deviceWord}} อื่น ภายใต้การนำเข้าและส่งออก โค้ดนี้มีที่อยู่ พอร์ต และผู้ใช้ แต่ไม่มีรหัสผ่านหรือคีย์",
+      "copyLink": "คัดลอกลิงก์",
+      "copyLinkWithPassword": "คัดลอกลิงก์พร้อมรหัสผ่าน"
+    },
+    "includePasswordsAndKeys": "รวมรหัสผ่านและคีย์หรือไม่?",
+    "anyoneWhoGetsThisFile": "ทุกคนที่ได้รับไฟล์นี้สามารถเข้าสู่ระบบโฮสต์เหล่านี้ได้ กรุณาเก็บรักษาให้ปลอดภัย",
+    "includeThem": "รวมไว้ด้วย",
+    "pickAtLeastOneHost": "เลือกโฮสต์อย่างน้อยหนึ่งตัว",
+    "couldNotMakeTheFile": "ไม่สามารถสร้างไฟล์ได้",
+    "copiedToTheClipboard": "คัดลอกไปยังคลิปบอร์ดแล้ว",
+    "importAndExport": "นำเข้าและส่งออก",
+    "moveHostsInAndOut": "ย้ายโฮสต์เข้าและออก",
+    "import": "นำเข้า",
+    "aTermixHostFileAn": "ไฟล์โฮสต์ Termix, ไฟล์กำหนดค่า SSH, หรือลิงก์โฮสต์หรือ QR code จาก {{deviceWord}} อื่น",
+    "export": "ส่งออก",
+    "allHosts": "โฮสต์ทั้งหมด",
+    "picked": "เลือก {{size}} ตัว",
+    "pickHosts": "เลือกโฮสต์",
+    "includePasswordsAndKeys2": "รวมรหัสผ่านและคีย์",
+    "offMakesAFileSafe": "การปิดทำให้ไฟล์ปลอดภัยต่อการแชร์ โฮสต์ที่ใช้ข้อมูลการเข้าสู่ระบบที่บันทึกไว้จะอ้างอิงถึงชื่อของมัน",
+    "shareAFile": "แชร์ไฟล์",
+    "copy": "คัดลอก",
+    "importPanel": {
+      "couldNotReadThat": "ไม่สามารถอ่านได้",
+      "couldNotReadThatFile": "ไม่สามารถอ่านไฟล์นั้นได้",
+      "importFailed": "การนำเข้าล้มเหลว",
+      "chooseAFile": "เลือกไฟล์",
+      "paste": "วาง",
+      "scanACode": "สแกนโค้ด",
+      "couldNotBeRead": "{{count}} ไม่สามารถอ่านได้",
+      "updateHostsThatExist": "อัปเดตโฮสต์ที่มีอยู่แล้ว",
+      "sameAddressPortAndUser": "ที่อยู่ พอร์ต และผู้ใช้เดียวกัน มิฉะนั้นจะถูกข้าม",
+      "cancel": "ยกเลิก",
+      "import": "นำเข้า",
+      "andMore": "และอีก {{value}} ตัว"
+    },
+    "qrCode": {
+      "qrCode": "QR code"
+    },
+    "register": {
+      "importAndExport": "นำเข้าและส่งออก",
+      "moveHostsInOrOut": "ย้ายโฮสต์เข้าหรือออกด้วยไฟล์หรือ QR code",
+      "shareHost": "แชร์โฮสต์"
+    },
+    "scanSheet": {
+      "scanAHostCode": "สแกนโค้ดโฮสต์",
+      "pointTheCameraAtA": "ชี้กล้องไปที่ QR code ของโฮสต์ Termix",
+      "termixNeedsTheCameraTo": "Termix ต้องการกล้องเพื่อสแกนโค้ด จะไม่มีการบันทึกภาพใดๆ",
+      "allowTheCamera": "อนุญาตให้ใช้กล้อง"
+    },
+    "read": {
+      "termixFile": "ไฟล์ Termix",
+      "sshConfig": "SSH config",
+      "thereIsNothingToImport": "ไม่มีอะไรให้นำเข้า",
+      "thatIsNotATermix": "นี่ไม่ใช่ลิงก์โฮสต์ของ Termix",
+      "linkHost": "1 โฮสต์: {{name}}",
+      "sourceHosts_other": "{{what}} พร้อม {{count}} โฮสต์"
+    },
+    "saveYourTermixHosts": "บันทึกโฮสต์ Termix ของคุณ"
+  },
+  "operations": {
+    "approvals": {
+      "done": "เสร็จสิ้น",
+      "rejected": "ถูกปฏิเสธ",
+      "approvals": "การอนุมัติ",
+      "nothingIsWaiting": "ไม่มีอะไรรออยู่",
+      "actionsARuleHoldsFor": "การดำเนินการที่ต้องรอการอนุมัติตามกฎจะแสดงที่นี่",
+      "approveAndRun": "อนุมัติและดำเนินการ",
+      "reject": "ปฏิเสธ",
+      "couldNotLoadApprovals": "ไม่สามารถโหลดการอนุมัติได้",
+      "couldNotDecide": "ไม่สามารถตัดสินใจได้"
+    },
+    "approvalsCard": {
+      "approved": "อนุมัติแล้ว",
+      "rejected": "ถูกปฏิเสธ",
+      "waitingForApproval": "รอการอนุมัติ",
+      "approve": "อนุมัติ",
+      "reject": "ปฏิเสธ",
+      "couldNotDecide": "ไม่สามารถตัดสินใจได้",
+      "seeAll": "ดูทั้งหมด"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "ไม่สามารถย้อนกลับได้ ต้องการดำเนินการหรือไม่?",
+      "run": "ดำเนินการ",
+      "sentForApproval": "ส่งเพื่อรอการอนุมัติ",
+      "target": "เป้าหมาย",
+      "theItemOnTheHost": "รายการบนโฮสต์ เช่น คอนเทนเนอร์",
+      "dryRun": "จำลองการทำงาน",
+      "back": "ย้อนกลับ",
+      "actions": "การดำเนินการ",
+      "noActionsForThisHost": "ไม่มีการดำเนินการสำหรับโฮสต์นี้",
+      "turnOnAPluginLike": "เปิดใช้งานปลั๊กอิน เช่น Docker หรือ Services สำหรับโฮสต์นี้บนเซิร์ฟเวอร์",
+      "destructive": "ทำลายล้าง",
+      "changes": "การเปลี่ยนแปลง",
+      "theActionCouldNotRun": "ไม่สามารถดำเนินการได้",
+      "couldNotLoadActions": "ไม่สามารถโหลดการดำเนินการได้"
+    },
+    "register": {
+      "actions": "การดำเนินการ",
+      "waitingForApproval": "รอการอนุมัติ",
+      "approvals": "การอนุมัติ",
+      "actionsWaitingForAPerson": "การดำเนินการที่รอให้บุคคลยืนยัน",
+      "runHistory": "ประวัติการดำเนินการ",
+      "everyActionAnyoneRanFrom": "การดำเนินการทั้งหมดที่ใครก็ตามรันจากอุปกรณ์ใดๆ"
+    },
+    "runHistory": {
+      "cancelThisRun": "ยกเลิกการดำเนินการนี้หรือไม่?",
+      "cancelRun": "ยกเลิกการดำเนินการ",
+      "keep": "เก็บไว้",
+      "undoThisRun": "ย้อนกลับการดำเนินการนี้หรือไม่?",
+      "thisRunsTheActionS": "นี้จะรันการย้อนกลับของการดำเนินการด้วยข้อมูลนำเข้าเดิม",
+      "undo": "ย้อนกลับ",
+      "cancelled": "ยกเลิกแล้ว",
+      "itAlreadyFinished": "เสร็จสิ้นแล้ว",
+      "done": "เสร็จสิ้น",
+      "runHistory": "ประวัติการดำเนินการ",
+      "nothingHasRunYet": "ยังไม่มีอะไรถูกดำเนินการ",
+      "dryRun": "จำลองการทำงาน",
+      "cancel": "ยกเลิก",
+      "couldNotLoadHistory": "ไม่สามารถโหลดประวัติได้",
+      "couldNotCancel": "ไม่สามารถยกเลิกได้",
+      "couldNotUndo": "ไม่สามารถย้อนกลับได้"
+    },
+    "api": {
+      "needsApproval": "ต้องการการอนุมัติ",
+      "needsSignIn": "ต้องการเข้าสู่ระบบ",
+      "done": "เสร็จสิ้น",
+      "failed": "ล้มเหลว",
+      "running": "กำลังทำงาน",
+      "interrupted": "ถูกขัดจังหวะ",
+      "rejected": "ถูกปฏิเสธ",
+      "cancelled": "ถูกยกเลิก",
+      "expired": "หมดอายุ"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "เปิดใช้งาน {{value}}",
+      "moreSettingsForThisAre": "การตั้งค่าเพิ่มเติมสำหรับรายการนี้จะมีอยู่ในแอป Termix บนเว็บ",
+      "pluginHostSettings": "การตั้งค่าโฮสต์ปลั๊กอิน"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} ต้องเป็นตัวเลข",
+      "mustBeAtLeast": "{{field}} ต้องมีค่าอย่างน้อย {{min}}",
+      "mustBeAtMost": "{{field}} ต้องมีค่าไม่เกิน {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "ลิงก์เซิร์ฟเวอร์เพื่อใช้งาน",
+      "runsOnYourTermixServer": "{{name}} ทำงานบนเซิร์ฟเวอร์ Termix ของคุณ"
+    },
+    "pluginWebView": {
+      "canTLoad": "ไม่สามารถโหลด {{name}} ได้",
+      "theServerDidNotSend": "เซิร์ฟเวอร์ไม่ได้ส่งปลั๊กอินมา ตรวจสอบว่าเซิร์ฟเวอร์เปิดอยู่แล้วลองอีกครั้ง",
+      "openThisLink": "เปิดลิงก์นี้หรือไม่?",
+      "open": "เปิด",
+      "needsANewerVersionOf": "ต้องการเวอร์ชันใหม่ของแอป",
+      "usesPartsOfTermixThis": "{{name}} ใช้ส่วนประกอบของ Termix ที่แอปนี้ยังไม่มี",
+      "didNotStart": "{{name}} ไม่สามารถเริ่มต้นได้",
+      "thisScreenIsNotIn": "หน้าจอนี้ไม่มีในเวอร์ชันปลั๊กอินบนเซิร์ฟเวอร์",
+      "thePluginHitAnError": "ปลั๊กอินพบข้อผิดพลาดขณะเริ่มต้น",
+      "youReOffline": "คุณออฟไลน์อยู่",
+      "runsOnYourServerSo": "{{name}} ทำงานบนเซิร์ฟเวอร์ของคุณ จึงจำเป็นต้องมีการเชื่อมต่อ จะเปิดขึ้นอีกครั้งเมื่อคุณออนไลน์",
+      "tryAgain": "ลองอีกครั้ง"
+    },
+    "shell": {
+      "thatHostIsNotOn": "โฮสต์นั้นยังไม่มีใน {{deviceWord}} นี้",
+      "theAppCanTOpen": "แอปไม่สามารถเปิดสิ่งนั้นจากที่นี่ได้",
+      "thatHostIsNotOn2": "โฮสต์นั้นยังไม่มีใน {{deviceWord}} นี้"
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "รหัสผ่าน",
+      "unchangedIfBlank": "จะไม่เปลี่ยนแปลงหากเว้นว่าง",
+      "port": "พอร์ต",
+      "domain": "โดเมน",
+      "displaySoundAndClipboardSettings": "การตั้งค่าการแสดงผล เสียง และคลิปบอร์ดจะมีอยู่ในแอป Termix บนเว็บ",
+      "portMustBeFrom1": "พอร์ต {{label}} ต้องอยู่ระหว่าง 1 ถึง 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "การเชื่อมต่อเดสก์ท็อปร่มระยะไกลขาดหาย",
+        "signIn": "เข้าสู่ระบบ {{label}}",
+        "itWillNotBeSaved": "{{error}} จะไม่ถูกบันทึก",
+        "enterTheLoginForIt": "กรอกข้อมูลเข้าสู่ระบบสำหรับ {{title}} จะไม่ถูกบันทึก",
+        "reconnecting": "กำลังเชื่อมต่อใหม่ {{label}}",
+        "connecting": "กำลังเชื่อมต่อ {{label}}",
+        "connectionFailed": "การเชื่อมต่อล้มเหลว",
+        "disconnected": "ตัดการเชื่อมต่อ",
+        "reconnect": "เชื่อมต่อใหม่",
+        "connectThroughTheServer": "เชื่อมต่อผ่านเซิร์ฟเวอร์",
+        "pasteToRemote": "วางไปยังระยะไกล",
+        "typeClipboard": "พิมพ์จากคลิปบอร์ด",
+        "copyRemoteClipboard": "คัดลอกคลิปบอร์ดระยะไกล",
+        "theComputerSCertificateWas": "ใบรับรองของคอมพิวเตอร์ไม่ได้รับการไว้วางใจ",
+        "thatLoginWasRefusedTry": "การเข้าระบบนั้นถูกปฏิเสธ ลองอีกครั้ง"
+      },
+      "target": {
+        "trustThisComputer": "ไว้วางใจคอมพิวเตอร์นี้หรือไม่?",
+        "theCanTCheckS": "{{deviceWord}} ไม่สามารถตรวจสอบใบรับรองของ {{hostName}} ได้ ตรวจสอบให้แน่ใจว่าลายนิ้วมือนี้ตรงกับลายนิ้วมือบนคอมพิวเตอร์ก่อนดำเนินการต่อ\n\n{{fingerprint}}",
+        "trustAndConnect": "ไว้วางใจและเชื่อมต่อ",
+        "certificateChanged": "ใบรับรองเปลี่ยนแปลง",
+        "showsAnotherCertificateThanLast": "{{hostName}} แสดงใบรับรองที่แตกต่างจากครั้งก่อน สิ่งนี้เกิดขึ้นหลังจากคอมพิวเตอร์สร้างใบรับรองใหม่ หรือเมื่อมีบุคคลอื่นดักฟังอยู่ระหว่างทาง\n\nลายนิ้วมือใหม่:\n{{fingerprint}}",
+        "trustTheNewOne": "ไว้วางใจใบรับรองใหม่"
+      }
+    },
+    "register": {
+      "remoteDesktop": "เดสก์ท็อปร่มระยะไกล",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "เสร็จสิ้น",
+      "keyboard": "คีย์บอร์ด",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "การตั้งค่า",
+      "remoteSettings": "การตั้งค่าระยะไกล",
+      "mouseMode": "โหมดเมาส์",
+      "touch": "สัมผัส",
+      "trackpad": "แทร็คแพด",
+      "tapWhereYouWantTo": "แตะที่ตำแหน่งที่ต้องการคลิก กดค้างไว้เพื่อคลิกขวา ลากเพื่อลาก",
+      "dragToMoveThePointer": "ลากเพื่อเลื่อนเคอร์เซอร์ แตะเพื่อคลิก แตะสองนิ้วเพื่อคลิกขวา แตะแล้วลากเพื่อลาก",
+      "zoomXPinchAnywhereTo": "ซูม: {{value}}x แตะสองนิ้วเพื่อซูม",
+      "reset": "รีเซ็ต",
+      "cancel": "ยกเลิก",
+      "connect": "เชื่อมต่อ",
+      "username": "ชื่อผู้ใช้",
+      "domainOptional": "โดเมน (ไม่บังคับ)",
+      "domain": "โดเมน",
+      "password": "รหัสผ่าน",
+      "leftArrow": "ลูกศรซ้าย",
+      "upArrow": "ลูกศรขึ้น",
+      "downArrow": "ลูกศรลง",
+      "rightArrow": "ลูกศรขวา",
+      "rdpSignIn": "เข้าสู่ระบบ RDP"
+    },
+    "theRemoteDesktopDropped": "การเชื่อมต่อเดสก์ท็อประยะไกลถูกตัดขาด",
+    "theyWillNotBeSaved": "{{errorMessage}} ข้อมูลจะไม่ถูกบันทึก",
+    "enterCredentialsForTheyWill": "ใส่ข้อมูลเข้าสู่ระบบสำหรับ {{title}} ข้อมูลจะไม่ถูกบันทึก",
+    "connecting": "กำลังเชื่อมต่อ",
+    "connectionFailed": "การเชื่อมต่อล้มเหลว",
+    "disconnected": "การเชื่อมต่อถูกตัดขาด",
+    "reconnect": "เชื่อมต่อใหม่",
+    "route": {
+      "thisHostCanTOpen": "โฮสต์นี้ไม่สามารถเปิดเดสก์ท็อประยะไกลจากที่นี่ได้"
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "ถูกบล็อกโดยแอป"
+    },
+    "failedToStartRemoteSession": "ไม่สามารถเริ่มเซสชันระยะไกลได้",
+    "thatLoginWasRefusedTry": "การเข้าสู่ระบบถูกปฏิเสธ ลองอีกครั้ง",
+    "theRemoteRefusedTheSaved": "ฝั่งระยะไกลปฏิเสธข้อมูลเข้าสู่ระบบที่บันทึกไว้ ตรวจสอบข้อมูลเข้าสู่ระบบ RDP บนโฮสต์นี้",
+    "remoteSessionFailed": "เซสชันระยะไกลล้มเหลว",
+    "remoteSessionReturnedAnInvalid": "เซสชันระยะไกลส่งข้อความที่ไม่ถูกต้องกลับมา",
+    "failedToLoadTheRemote": "ไม่สามารถโหลดไคลเอนต์เดสก์ท็อประยะไกลได้"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "ไม่มีบันทึก",
+      "thisHostDoesNotKeep": "โฮสต์นี้ไม่เก็บบันทึก systemd",
+      "all": "ทั้งหมด",
+      "warnings": "คำเตือน",
+      "errors": "ข้อผิดพลาด",
+      "stop": "หยุด",
+      "follow": "ติดตาม",
+      "nothingLogged": "ไม่มีบันทึก",
+      "tryAnotherLevel": "ลองระดับอื่น",
+      "couldNotReadTheJournal": "ไม่สามารถอ่านบันทึกได้"
+    },
+    "register": {
+      "services": "บริการ",
+      "startStopAndReadLogs": "เริ่ม หยุด และอ่านบันทึก"
+    },
+    "readingServices": "กำลังอ่านบริการ...",
+    "thisHostHasNoSystemd": "โฮสต์นี้ไม่มี systemd หรือ OpenRC",
+    "noServicesMatch": "ไม่พบบริการที่ตรงกัน",
+    "noServicesFound": "ไม่พบบริการ",
+    "services": "บริการ",
+    "journal": "บันทึก",
+    "searchServices": "ค้นหาบริการ...",
+    "all": "ทั้งหมด",
+    "running": "กำลังทำงาน",
+    "failed": "ล้มเหลว ({{failed}})",
+    "failed2": "ล้มเหลว",
+    "servicesCard": {
+      "services": "บริการ",
+      "noSystemdOrOpenrc": "ไม่มี systemd หรือ OpenRC",
+      "failed": "{{failed}} ล้มเหลว",
+      "allRunning": "ทั้งหมดกำลังทำงาน",
+      "couldNotReadServices": "ไม่สามารถอ่านบริการได้"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "จะยังคงหยุดอยู่จนกว่าจะเริ่มใหม่หรือโฮสต์บูต",
+      "itStopsForAMoment": "จะหยุดชั่วคราวแล้วเริ่มใหม่",
+      "stop": "หยุด",
+      "restart": "เริ่มใหม่",
+      "is": "{{name}} อยู่ในสถานะ {{state}}",
+      "start": "เริ่ม",
+      "journal": "บันทึก",
+      "couldNotReadTheService": "ไม่สามารถอ่านบริการได้",
+      "couldNot": "ไม่สามารถ {{action}} {{name}} ได้",
+      "startsAtBoot": "เริ่มเมื่อบูต",
+      "mainPid": "PID หลัก",
+      "activeSince": "ใช้งานตั้งแต่",
+      "unitFile": "ไฟล์ Unit",
+      "notSet": "[ไม่ได้ตั้งค่า]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "ไม่ได้เข้าสู่ระบบ",
+        "followFailed": "ติดตามล้มเหลว",
+        "connectionFailed": "การเชื่อมต่อล้มเหลว"
+      }
+    },
+    "couldNotReadServices": "ไม่สามารถอ่านบริการได้",
+    "services2": "บริการ{{where}}",
+    "title": "บริการ",
+    "failedCount": "{{count}} ล้มเหลว"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "การแชร์เซสชัน",
+      "shareLink": "แชร์ลิงก์"
+    },
+    "shareSessionView": {
+      "canWatch": "สามารถดูได้",
+      "canType": "สามารถพิมพ์ได้",
+      "n1Hour": "1 ชั่วโมง",
+      "n8Hours": "8 ชั่วโมง",
+      "n1Day": "1 วัน",
+      "n7Days": "7 วัน",
+      "never": "ไม่มีกำหนด",
+      "shareSession": "แชร์เซสชัน",
+      "anyoneWithTheLinkCan": "ทุกคนที่มีลิงก์สามารถเปิดเทอร์มินัลนี้ได้ในขณะที่กำลังทำงาน คุณสามารถเพิกถอนลิงก์ได้ใน Termix",
+      "peopleWithTheLink": "ผู้ที่มีลิงก์",
+      "expiresAfter": "หมดอายุหลังจาก",
+      "link": "ลิงก์",
+      "copy": "คัดลอก",
+      "share": "แชร์",
+      "makeLink": "สร้างลิงก์",
+      "theServerGaveNoLink": "เซิร์ฟเวอร์ไม่ได้ให้ลิงก์",
+      "couldNotMakeALink": "ไม่สามารถสร้างลิงก์ได้",
+      "linkCopied": "คัดลอกลิงก์แล้ว"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "ไม่มีโฟลเดอร์"
+    },
+    "hostPicker": {
+      "selectNone": "ยกเลิกการเลือกทั้งหมด",
+      "selectAll": "เลือกทั้งหมด",
+      "done": "เสร็จสิ้น"
+    },
+    "register": {
+      "snippets": "Snippets",
+      "snippets2": "SNIPPETS",
+      "savedCommandsToRunOn": "คำสั่งที่บันทึกไว้เพื่อรันบนโฮสต์ใดก็ได้"
+    },
+    "runHosts": {
+      "noWayToReachThis": "ไม่สามารถเข้าถึงโฮสต์นี้ได้จากที่นี่",
+      "exitedWith": "ออกด้วยรหัส {{exitCode}}",
+      "thisCanTRunIt": "{{deviceWord}} นี้ไม่สามารถรันได้",
+      "noServerIsLinked": "ไม่มีเซิร์ฟเวอร์ที่เชื่อมโยง"
+    },
+    "runOnHostsSheet": {
+      "run": "รัน",
+      "run2": "รัน \"{{name}}\"",
+      "runsOverSshOnEach": "รันผ่าน SSH บนแต่ละโฮสต์ ไม่เปิดเทอร์มินัล",
+      "close": "ปิด",
+      "hosts": "โฮสต์",
+      "pickHosts": "เลือกโฮสต์",
+      "workedFailed": "{{value}} สำเร็จ, {{failed}} ล้มเหลว",
+      "runOn2": "รันบน",
+      "runOn_other": "รัน {{name}} บน {{count}} โฮสต์?",
+      "hostsPicked_other": "เลือก {{count}} โฮสต์แล้ว"
+    },
+    "snippetsBar": {
+      "searchSnippets": "ค้นหา snippets",
+      "pastesTheNote": "วางบันทึก",
+      "runsTheSnippet": "รัน snippet",
+      "noSnippetsMatch": "ไม่มี snippets ที่ตรงกัน",
+      "noSnippetsYet": "ยังไม่มี snippets",
+      "addSnippetsInSettingsSnippets": "เพิ่ม snippets ใน การตั้งค่า, Snippets",
+      "run": "รัน",
+      "insertWithoutRunning": "แทรกโดยไม่รัน",
+      "copy": "คัดลอก"
+    },
+    "snippetsCard": {
+      "snippets": "Snippets",
+      "run": "รัน {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "ไม่มี snippets สำหรับส่งออก",
+      "couldNotMakeTheFile": "ไม่สามารถสร้างไฟล์ได้",
+      "copiedToTheClipboard": "คัดลอกไปยังคลิปบอร์ดแล้ว",
+      "couldNotImport": "ไม่สามารถนำเข้าได้",
+      "couldNotReadThatFile": "ไม่สามารถอ่านไฟล์นั้นได้",
+      "importAndExport": "นำเข้าและส่งออก",
+      "theSameFileTheWeb": "ไฟล์เดียวกันที่เว็บแอปใช้",
+      "export": "ส่งออก",
+      "shareAFile": "แชร์ไฟล์",
+      "copy": "คัดลอก",
+      "import": "นำเข้า",
+      "updateSnippetsThatExist": "อัปเดต snippets ที่มีอยู่",
+      "sameNameInTheSame": "ชื่อเดียวกันในโฟลเดอร์เดียวกัน มิฉะนั้นจะข้าม",
+      "chooseAFile": "เลือกไฟล์",
+      "paste": "วาง",
+      "saveYourSnippets": "บันทึก snippets ของคุณ"
+    },
+    "useSnippetRunner": {
+      "run": "รัน {{name}}?",
+      "run2": "รัน",
+      "fillInTheValuesFor": "กรอกค่าสำหรับ snippet นี้",
+      "cancel": "ยกเลิก",
+      "insert": "แทรก",
+      "noTerminalIsOpen": "ไม่มีเทอร์มินัลที่เปิดอยู่"
+    },
+    "variables": {
+      "input": "ป้อนข้อมูล {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "那不是有效的 JSON 文件",
+      "theFileNeedsASnippets": "ไฟล์ต้องมีรายการ snippets หรือโฟลเดอร์",
+      "snippetNameAndContentAre": "Snippet {{value}}: ต้องมีชื่อและเนื้อหา",
+      "folder": "โฟลเดอร์ {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "กำลังโหลดอุปกรณ์ Tailscale…",
+      "searchTailscaleDevices": "ค้นหาอุปกรณ์ Tailscale…",
+      "searchTailscaleDevices2": "ค้นหาอุปกรณ์ Tailscale",
+      "clearDeviceSearch": "ล้างการค้นหาอุปกรณ์",
+      "refreshTailscaleDevices": "รีเฟรชอุปกรณ์ Tailscale",
+      "device": "อุปกรณ์",
+      "noTailnetAddress": "ไม่มีที่อยู่ tailnet",
+      "tailscaleDevice": "อุปกรณ์ Tailscale",
+      "tailscaleDevices": "อุปกรณ์ Tailscale",
+      "addAHostThatConnects": "เพิ่มโฮสต์ที่เชื่อมต่อผ่าน Tailscale SSH",
+      "username": "ชื่อผู้ใช้",
+      "sshUsernameFor": "ชื่อผู้ใช้ SSH สำหรับ {{value}}",
+      "addHost": "เพิ่มโฮสต์",
+      "noTailscaleDevicesMatchYour": "ไม่พบอุปกรณ์ Tailscale ที่ตรงกับคำค้นหาของคุณ",
+      "noTailscaleDevicesFound": "ไม่พบอุปกรณ์ Tailscale",
+      "noTailscaleApiKeyIs": "ยังไม่ได้กำหนดค่าคีย์ API ของ Tailscale บนเซิร์ฟเวอร์นี้ โปรดติดต่อผู้ดูแลระบบเพื่อเพิ่มคีย์",
+      "youDoNotHavePermission": "คุณไม่มีสิทธิ์ในการแสดงรายการอุปกรณ์ Tailscale",
+      "couldNotLoadTailscaleDevices": "ไม่สามารถโหลดอุปกรณ์ Tailscale ได้ กรุณารีเฟรชเพื่อลองอีกครั้ง",
+      "tailscaleIsUnavailableOnThis": "Tailscale ไม่พร้อมใช้งานบนเซิร์ฟเวอร์นี้"
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "กำลังเชื่อมต่อใหม่ | พยายามครั้งที่ {{attempt}}",
+      "reconnectingInSTry": "กำลังเชื่อมต่อใหม่ใน {{secs}} วินาที | พยายามครั้งที่ {{attempt}}",
+      "offlineWaitingForNetwork": "ออฟไลน์ กำลังรอเครือข่าย",
+      "sendToTheNewShell": "ส่ง {{what}} ไปยัง shell ใหม่หรือไม่?",
+      "reconnectNow": "เชื่อมต่อใหม่เลย",
+      "send": "ส่ง",
+      "discard": "ยกเลิก",
+      "typedChars_other": "อักขระที่พิมพ์ {{count}} ตัว",
+      "waiting": "{{what}} กำลังรอ"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "คัดลอกบันทึกการเชื่อมต่อแล้ว",
+      "connectionLog": "บันทึกการเชื่อมต่อ",
+      "copyItIntoABug": "คัดลอกไปใส่ในรายงานข้อบกพร่อง ที่อยู่และชื่อผู้ใช้จะไม่ถูกแสดง",
+      "copy": "คัดลอก"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "ล้างประวัติสำหรับโฮสต์นี้หรือไม่?",
+        "clear": "ล้าง",
+        "searchHistory": "ค้นหาประวัติ",
+        "typesTheCommandWithoutRunning": "พิมพ์คำสั่งโดยไม่รัน",
+        "noCommandsMatch": "ไม่มีคำสั่งที่ตรงกัน",
+        "noHistoryYet": "ยังไม่มีประวัติ",
+        "commandsYouRunOnThis": "คำสั่งที่คุณรันบนโฮสต์นี้จะแสดงที่นี่",
+        "run": "รัน",
+        "typeWithoutRunning": "พิมพ์โดยไม่รัน",
+        "copy": "คัดลอก",
+        "delete": "ลบ",
+        "historyCleared": "ล้างประวัติแล้ว"
+      },
+      "suggestionStrip": {
+        "use": "ใช้ {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "การตั้งค่าแอป",
+      "delete": "ลบ (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "ชื่อแท็บจาก shell",
+      "programsCanSetTheTab": "โปรแกรมสามารถตั้งค่าชื่อแท็บได้",
+      "openTmux": "เปิด tmux",
+      "attachToATmuxSession": "เข้าร่วมเซสชัน tmux หรือเริ่มเซสชันใหม่",
+      "reconnectOnDrop": "เชื่อมต่อใหม่เมื่อหลุด",
+      "keepTabOpenOnExit": "คงแท็บไว้เมื่อออก",
+      "pressEnterToConnectAgain": "กด Enter เพื่อเชื่อมต่ออีกครั้ง",
+      "saveCommandHistory": "บันทึกประวัติคำสั่ง",
+      "offerToFillPasswordPrompts": "เสนอให้กรอกช่องป้อนรหัสผ่าน",
+      "offerToFillSudoPrompts": "เสนอให้กรอกช่องป้อน sudo",
+      "usesTheSudoPasswordFrom": "ใช้รหัสผ่าน sudo จากแท็บ SSH",
+      "none": "ไม่มี",
+      "look": "ลักษณะ",
+      "theme": "ธีม",
+      "font": "ฟอนต์",
+      "cursor": "เคอร์เซอร์",
+      "bell": "เสียงแจ้งเตือน",
+      "scrollbackLines": "จำนวนบรรทัดที่เลื่อนย้อนหลังได้",
+      "app": "แอป",
+      "behavior": "การทำงาน",
+      "backspaceSends": "Backspace ส่ง",
+      "startupSnippet": "คำสั่งเริ่มต้น",
+      "runsOnceTheShellIs": "ทำงานเมื่อ shell พร้อมใช้งาน",
+      "fillWithoutAsking": "กรอกอัตโนมัติโดยไม่ถาม",
+      "onThisOnlyOnceYou": "เฉพาะบน{{deviceWord}}นี้ หลังจากเลือก 'กรอกอัตโนมัติเสมอ'",
+      "connection": "การเชื่อมต่อ",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "วินาทีระหว่าง ping, 0 เพื่อปิดใช้งาน",
+      "default": "ค่าเริ่มต้น",
+      "keepaliveSeconds": "Keepalive (วินาที)",
+      "missedPings": "Ping ที่พลาด",
+      "dropTheConnectionAfterThis": "ตัดการเชื่อมต่อหากไม่มีคำตอบจำนวนนี้",
+      "missedPingsBeforeDrop": "จำนวน Ping ที่พลาดก่อนตัดการเชื่อมต่อ",
+      "environment": "Environment",
+      "removeVariable": "ลบตัวแปร",
+      "addVariable": "เพิ่มตัวแปร"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "คีย์บอร์ด"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "แถว",
+        "keys": "ปุ่ม",
+        "sendsAKeyCode": "ส่งรหัสปุ่ม",
+        "stickyModifier": "ปุ่มปรับแต่งแบบค้าง",
+        "appAction": "การกระทำของแอป",
+        "tmuxPrefixThen": "tmux prefix แล้วตามด้วย {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "แถวปุ่ม",
+        "onlyFor": "เฉพาะสำหรับ {{name}}",
+        "usingTheAppSRows": "ใช้แถวของแอป การเปลี่ยนแปลงที่นี่มีผลเฉพาะกับ {{name}}",
+        "useTheAppSRows": "ใช้แถวของแอป"
+      },
+      "keyButton": {
+        "locked": "ล็อค"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "ยกเลิก",
+        "remove": "ลบ {{what}} หรือไม่?",
+        "remove2": "ลบ",
+        "dragToReorder": "ลากเพื่อเรียงลำดับ",
+        "rowName": "ชื่อแถว",
+        "groupName": "ชื่อกลุ่ม",
+        "add": "เพิ่ม",
+        "addKey": "เพิ่มปุ่ม",
+        "addRow": "เพิ่มแถว",
+        "addGroup": "เพิ่มกลุ่ม",
+        "tmuxPrefix": "tmux prefix",
+        "name": "ชื่อ",
+        "rename": "เปลี่ยนชื่อ",
+        "keys": "ปุ่ม {{value}}",
+        "noKeys": "ไม่มีปุ่ม",
+        "remove3": "ลบ {{label}}",
+        "keys2": "ปุ่ม",
+        "custom": "กำหนดเอง",
+        "add2": "เพิ่ม {{label}}",
+        "typeText": "พิมพ์ข้อความ",
+        "runCommand": "รันคำสั่ง",
+        "ctrlKey": "ปุ่ม Ctrl",
+        "label": "ป้ายชื่อ",
+        "optional": "ไม่บังคับ",
+        "letter": "ตัวอักษร",
+        "command": "คำสั่ง",
+        "text": "ข้อความ",
+        "resetToDefault": "รีเซ็ตเป็นค่าเริ่มต้น"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "เปลี่ยนปุ่มใน การตั้งค่า > คีย์บอร์ด"
+      },
+      "keyRowBar": {
+        "keyRow": "แถวปุ่ม {{label}}",
+        "tapForTheNextRow": "แตะเพื่อไปยังแถวถัดไป หรือกดค้างเพื่อเลือกแถว",
+        "keyRows": "แถวปุ่ม"
+      },
+      "model": {
+        "clear": "ล้าง",
+        "main": "หลัก",
+        "keys": "ปุ่ม",
+        "arrows": "ลูกศร",
+        "symbols": "สัญลักษณ์",
+        "actions": "การกระทำ",
+        "nav": "นำทาง",
+        "move": "ย้าย",
+        "function": "ฟังก์ชัน",
+        "brackets": "วงเล็บ",
+        "punctuation": "เครื่องหมายวรรคตอน",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "หน้าต่างย่อย",
+        "copy": "คัดลอก",
+        "split": "แบ่ง ─",
+        "split2": "แบ่ง │",
+        "newWin": "หน้าต่างใหม่",
+        "prevWin": "หน้าต่างก่อนหน้า",
+        "nextWin": "หน้าต่างถัดไป",
+        "pane": "หน้าต่างย่อย ←",
+        "pane2": "หน้าต่างย่อย ↓",
+        "pane3": "หน้าต่างย่อย ↑",
+        "pane4": "หน้าต่างย่อย →",
+        "copyMode": "โหมดคัดลอก",
+        "pasteBuf": "วางจากบัฟเฟอร์",
+        "killPane": "ปิดหน้าต่างย่อย"
+      }
+    },
+    "output": {
+      "openLink": "เปิดลิงก์หรือไม่",
+      "open": "เปิด",
+      "pasteLines": "วาง {{lines}} บรรทัดหรือไม่",
+      "pasteThisText": "วางข้อความนี้หรือไม่",
+      "theShellMayRunIt": "Shell อาจรันคำสั่งนี้ทันที\n\n{{text}}",
+      "paste": "วาง",
+      "letTheProgramReadYour": "อนุญาตให้โปรแกรมอ่านคลิปบอร์ดของคุณหรือไม่",
+      "itAskedForWhatYou": "โปรแกรมขอข้อมูลที่คุณคัดลอกไว้ล่าสุด",
+      "allow": "อนุญาต",
+      "letTheProgramCopyTo": "อนุญาตให้โปรแกรมคัดลอกไปยังคลิปบอร์ดของคุณหรือไม่"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "กรอกรหัสผ่านที่บันทึกไว้หรือไม่",
+      "asksForTheSudoPassword": "{{hostName}} ขอรหัสผ่าน sudo",
+      "asksForAPassword": "{{hostName}} ขอรหัสผ่าน",
+      "fillPassword": "กรอกรหัสผ่าน",
+      "alwaysFillOnThisHost": "กรอกอัตโนมัติเสมอสำหรับโฮสต์นี้",
+      "asksNoMoreOnThis": "จะไม่ถามอีกใน {{deviceWord}} นี้ ปิดการตั้งค่านี้ในแท็บ Terminal ของโฮสต์",
+      "notNow": "ไม่ตอนนี้"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal และ keepalive",
+      "history": "HISTORY",
+      "find": "ค้นหา",
+      "tmuxWindows": "หน้าต่าง tmux",
+      "connectionLog": "บันทึกการเชื่อมต่อ",
+      "keyRowsForThisHost": "แถวปุ่มสำหรับโฮสต์นี้"
+    },
+    "searchBar": {
+      "noResults": "ไม่พบผลลัพธ์",
+      "matchCase": "ตรงตัวพิมพ์ใหญ่-เล็ก",
+      "wholeWord": "คำทั้งหมด",
+      "regularExpression": "นิพจน์ปกติ",
+      "find": "ค้นหา",
+      "closeFind": "ปิดการค้นหา"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "ระบบ",
+      "block": "บล็อก",
+      "bar": "แท่ง",
+      "underline": "ขีดเส้นใต้",
+      "off": "ปิด",
+      "sound": "เสียง",
+      "flash": "แฟลช",
+      "both": "ทั้งสองอย่าง"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "แท็บใหม่บนโฮสต์นี้",
+      "closeTab": "ปิดแท็บ",
+      "nextTab": "แท็บถัดไป",
+      "previousTab": "แท็บก่อนหน้า",
+      "goToTab": "ไปที่แท็บ",
+      "find": "ค้นหา",
+      "fontSize": "ขนาดฟอนต์",
+      "paste": "วาง",
+      "escape": "Escape",
+      "copyAndPaste": "คัดลอกและวาง"
+    },
+    "reconnecting": "กำลังเชื่อมต่อใหม่...",
+    "waitingForNetwork": "กำลังรอเครือข่าย...",
+    "waitingForYou": "กำลังรอคุณ...",
+    "connecting": "กำลังเชื่อมต่อ...",
+    "terminalView": {
+      "scrollToBottom": "เลื่อนลงล่างสุด",
+      "onlyWebLinksCanOpen": "สามารถเปิดเฉพาะลิงก์เว็บจากเทอร์มินัลได้",
+      "couldNotOpenLink": "ไม่สามารถเปิดลิงก์ได้",
+      "copiedFromTheTerminal": "คัดลอกจากเทอร์มินัลแล้ว"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "เปิดเซสชัน tmux",
+        "newSession": "เซสชันใหม่",
+        "plainShell": "เชลล์ธรรมดา",
+        "tmuxWindows": "หน้าต่าง tmux",
+        "newWindow": "หน้าต่างใหม่",
+        "windowCount_other": "{{count}} หน้าต่าง",
+        "attached": "{{count}} เชื่อมต่ออยู่",
+        "activeNow": "ใช้งานอยู่ตอนนี้",
+        "activeMinAgo": "ใช้งานเมื่อ {{count}} นาทีที่แล้ว",
+        "activeHoursAgo": "ใช้งานเมื่อ {{count}} ชั่วโมงที่แล้ว",
+        "activeDaysAgo_other": "ใช้งานเมื่อ {{count}} วันที่แล้ว"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "คัดลอก",
+        "selectAll": "เลือกทั้งหมด",
+        "cancel": "ยกเลิก",
+        "scrollToBottom": "เลื่อนลงล่างสุด",
+        "couldNotCopy": "ไม่สามารถคัดลอกได้",
+        "webviewError": "ข้อผิดพลาด WebView: {{description}}",
+        "webviewHttpError": "ข้อผิดพลาด HTTP ของ WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "ไม่มีรหัสผ่านที่บันทึกไว้สำหรับโฮสต์นี้",
+    "backInTmuxSession": "กลับสู่เซสชัน tmux {{tmuxName}}",
+    "backInScreenSession": "กลับสู่เซสชัน screen {{name}}",
+    "theServerSessionEndedThis": "เซสชันเซิร์ฟเวอร์สิ้นสุดลง นี่คือเชลล์ใหม่",
+    "termixWasClosedSoThe": "Termix ถูกปิด ทำให้เชลล์เก่าสิ้นสุดลง นี่คือเชลล์ใหม่",
+    "theConnectionDroppedAndThe": "การเชื่อมต่อขาดและเชลล์เก่าสิ้นสุดลง นี่คือเชลล์ใหม่",
+    "disconnectedFrom": "ตัดการเชื่อมต่อจาก {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "การตรวจสอบสิทธิ์สองปัจจัย",
+      "codesFromAnAuthenticatorApp": "รหัสจากแอป Authenticator สำหรับบัญชีเซิร์ฟเวอร์ของคุณ"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "ที่อยู่ MAC",
+      "neededToWakeThisHost": "จำเป็นสำหรับการปลุกโฮสต์นี้ด้วย Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "ใช้ที่อยู่ MAC เช่น 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "ส่ง Wake-on-LAN ไปยัง {{name}} แล้ว",
+      "failedToSendWakeOn": "ส่งแพ็กเก็ต Wake-on-LAN ไม่สำเร็จ",
+      "noServer": "ไม่มีเซิร์ฟเวอร์"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "ปลุก {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "ต้องการแชร์สถิติการใช้งานแบบไม่ระบุตัวตนหรือไม่?",
+      "termixWouldSendAShort": "Termix จะส่งรายงานสั้นๆ วันละครั้ง คุณสามารถเปลี่ยนการตั้งค่านี้ได้ตลอดเวลาในหน้าการตั้งค่า",
+      "noThanks": "ไม่ขอบคุณ",
+      "share": "แชร์",
+      "theReportHasTheApp": "รายงานประกอบด้วยเวอร์ชันแอป ประเภท {{deviceWord}} จำนวนโฮสต์และเซสชันโดยประมาณ ฟีเจอร์ที่คุณใช้ และสถานะการเชื่อมต่อ รายงานนี้ไม่มีชื่อโฮสต์ ชื่อผู้ใช้ ที่อยู่ เส้นทาง คำสั่ง หรือชื่อเซิร์ฟเวอร์",
+      "seeExactlyWhatIsSent": "ดูข้อมูลที่ส่งอย่างละเอียด"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "กำลังโหลดข้อมูลเวอร์ชัน…",
+      "updateAvailable": "มีอัปเดตพร้อมใช้งาน",
+      "newVersionAvailable": "มีเวอร์ชันใหม่พร้อมใช้งาน",
+      "aNewerVersionOfThe": "มีเวอร์ชันใหม่ของแอปมือถือพร้อมใช้งาน ฟีเจอร์บางอย่างอาจทำงานไม่ถูกต้องจนกว่าคุณจะอัปเดต",
+      "versionInformation": "ข้อมูลเวอร์ชัน",
+      "installed": "ติดตั้งแล้ว",
+      "latest": "ล่าสุด",
+      "unknown": "ไม่ทราบ",
+      "tag": "แท็ก",
+      "continueAnyway": "ดำเนินการต่อ anyway"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "คัดลอกแล้ว",
+      "copy": "คัดลอก",
+      "hostKeyChanged": "คีย์โฮสต์เปลี่ยนไป",
+      "verifyHostKey": "ตรวจสอบคีย์โฮสต์",
+      "cancel": "ยกเลิก",
+      "acceptNewKey": "ยอมรับคีย์ใหม่",
+      "connectAndTrust": "เชื่อมต่อและไว้วางใจ",
+      "theHostSSshKey": "คีย์ SSH ของโฮสต์เปลี่ยนไปตั้งแต่การเชื่อมต่อครั้งล่าสุด ซึ่งอาจหมายความว่ามีการดักจับการเชื่อมต่อ",
+      "youAreConnectingToThis": "คุณกำลังเชื่อมต่อกับโฮสต์นี้เป็นครั้งแรก โปรดตรวจสอบลายนิ้วมือก่อนไว้วางใจ",
+      "previousKey": "คีย์ก่อนหน้า",
+      "newFingerprint": "ลายนิ้วมือใหม่",
+      "hostFingerprint": "ลายนิ้วมือโฮสต์"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "จำเป็นต้องใส่รหัสผ่านคีย์",
+      "enterThePassphraseForYour": "ใส่รหัสผ่านคีย์สำหรับคีย์ SSH ของคุณ",
+      "cancel": "ยกเลิก",
+      "connect": "เชื่อมต่อ",
+      "keyPassphrase": "รหัสผ่านคีย์"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "จำเป็นต้องตรวจสอบสิทธิ์ SSH",
+      "cancel": "ยกเลิก",
+      "connect": "เชื่อมต่อ",
+      "password": "รหัสผ่าน",
+      "sshKey": "คีย์ SSH",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nวางคีย์ส่วนตัวของคุณที่นี่...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "รหัสผ่านคีย์ (ไม่บังคับ)",
+      "keyboardInteractiveAuthIsNot": "การตรวจสอบสิทธิ์แบบ Keyboard-interactive ไม่พร้อมใช้งาน กรุณาใส่ข้อมูลเข้าสู่ระบบโดยตรง",
+      "authenticationFailedPleaseReEnter": "การตรวจสอบสิทธิ์ล้มเหลว กรุณาใส่ข้อมูลเข้าสู่ระบบอีกครั้ง",
+      "connectionTimedOutPleaseTry": "การเชื่อมต่อหมดเวลา กรุณาลองอีกครั้งด้วยข้อมูลเข้าสู่ระบบของคุณ"
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "การตรวจสอบ Tailscale SSH",
+      "completeTheTailscaleSshCheck": "ดำเนินการตรวจสอบ Tailscale SSH ในเบราว์เซอร์ของคุณเพื่อดำเนินการต่อ",
+      "cancel": "ยกเลิก",
+      "copyUrl": "คัดลอก URL",
+      "openBrowser": "เปิดเบราว์เซอร์",
+      "urlCopied": "คัดลอก URL แล้ว",
+      "failedToCopy": "คัดลอกไม่สำเร็จ",
+      "couldNotOpenBrowser": "ไม่สามารถเปิดเบราว์เซอร์ได้"
+    },
+    "tOTPDialog": {
+      "cancel": "ยกเลิก",
+      "submit": "ส่ง",
+      "verify": "ยืนยัน",
+      "password": "รหัสผ่าน",
+      "pasteCode": "วางรหัส",
+      "passwordRequired": "จำเป็นต้องใช้รหัสผ่าน",
+      "twoFactorAuthentication": "การยืนยันตัวตนแบบสองปัจจัย",
+      "enterYourPasswordToContinue": "ป้อนรหัสผ่านของคุณเพื่อดำเนินการต่อ",
+      "enterThe6DigitCode": "ป้อนรหัส 6 หลักจากแอปยืนยันตัวตนของคุณ"
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "การยืนยันตัวตน Warpgate",
+      "authenticateViaTheWarpgatePortal": "ยืนยันตัวตนผ่านหน้าเว็บ Warpgate แล้วแตะดำเนินการต่อ",
+      "cancel": "ยกเลิก",
+      "openBrowser": "เปิดเบราว์เซอร์",
+      "continue": "ดำเนินการต่อ",
+      "securityKey": "คีย์ความปลอดภัย",
+      "authUrl": "URL ยืนยันตัวตน",
+      "copied": "คัดลอกแล้ว",
+      "copy": "คัดลอก",
+      "urlCopied": "คัดลอก URL แล้ว",
+      "failedToCopy": "คัดลอกไม่สำเร็จ",
+      "couldNotOpenBrowser": "ไม่สามารถเปิดเบราว์เซอร์ได้"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "{{deviceWord}} นี้"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "กิจกรรมล่าสุด",
+        "files": "ไฟล์",
+        "terminal": "เทอร์มินัล"
+      },
+      "alertsCard": {
+        "notifications": "การแจ้งเตือน",
+        "seeAll": "ดูทั้งหมด"
+      },
+      "server": "เซิร์ฟเวอร์",
+      "openSessions": "เซสชันที่เปิดอยู่",
+      "quickAccess": "เข้าถึงด่วน",
+      "notifications": "การแจ้งเตือน",
+      "pinnedHosts": "โฮสต์ที่ปักหมุด",
+      "recentHosts": "โฮสต์ล่าสุด",
+      "recentActivity": "กิจกรรมล่าสุด",
+      "pinnedCard": {
+        "addYourFirstHost": "เพิ่มโฮสต์แรกของคุณ",
+        "hostsYouOpenShowUp": "โฮสต์ที่คุณเปิดจะแสดงที่นี่ และโฮสต์ที่ปักหมุดจะแสดงการ์ดแบบเรียลไทม์",
+        "addHost": "เพิ่มโฮสต์",
+        "linkAServer": "ลิงก์เซิร์ฟเวอร์",
+        "pinAHostToSee": "ปักหมุดโฮสต์เพื่อดูที่นี่",
+        "pinnedHostsShowTheirMetrics": "โฮสต์ที่ปักหมุดจะแสดงเมตริก Docker และบริการอย่างรวดเร็ว กดค้างที่โฮสต์เพื่อปักหมุด",
+        "goToHosts": "ไปที่โฮสต์",
+        "pinned": "ปักหมุดแล้ว",
+        "opensTheTerminalHoldFor": "เปิดเทอร์มินัล กดค้างเพื่อดูเพิ่มเติม",
+        "turnOnDockerOrServices": "เปิดใช้งาน Docker หรือ Services สำหรับโฮสต์นี้ หรือแตะเพื่อเชื่อมต่อ",
+        "opens": "เปิด {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "เข้าถึงด่วน",
+        "quickConnect": "เชื่อมต่อด่วน",
+        "userHostPortWithoutSaving": "user@host:port โดยไม่ต้องบันทึก"
+      },
+      "recentCard": {
+        "recent": "ล่าสุด"
+      },
+      "serverCard": {
+        "server": "เซิร์ฟเวอร์",
+        "version": "เวอร์ชัน",
+        "uptime": "เวลาทำงาน",
+        "database": "ฐานข้อมูล",
+        "hosts": "โฮสต์",
+        "online": "ออนไลน์",
+        "offline": "ออฟไลน์",
+        "logins": "การเข้าสู่ระบบ"
+      },
+      "sessionsCard": {
+        "openSessions": "เซสชันที่เปิดอยู่",
+        "connected": "เชื่อมต่อแล้ว"
+      }
+    },
+    "resetHome": "รีเซ็ตหน้าหลักหรือไม่",
+    "cardsGoBackToThe": "การ์ดจะกลับไปยังลำดับเริ่มต้นและการ์ดที่แสดง",
+    "reset": "รีเซ็ต",
+    "doneEditingHome": "เสร็จสิ้นการแก้ไขหน้าหลัก",
+    "editHome": "แก้ไขหน้าหลัก",
+    "dragToReorder": "ลาก {{title}} เพื่อเรียงลำดับใหม่",
+    "show": "แสดง {{title}}",
+    "dragCardsToReorderThem": "ลากการ์ดเพื่อเรียงลำดับใหม่ ปิดการ์ดเพื่อซ่อน การ์ดที่ไม่มีข้อมูลจะซ่อนอยู่โดยอัตโนมัติ",
+    "resetToDefault": "รีเซ็ตเป็นค่าเริ่มต้น",
+    "done": "เสร็จสิ้น",
+    "serverReachBanner": {
+      "stillCanTReachThe": "ยังคงไม่สามารถเข้าถึงเซิร์ฟเวอร์ได้",
+      "canTReach": "ไม่สามารถเข้าถึง {{account}} ได้",
+      "youCanKeepWorkingWith": "คุณสามารถทำงานต่อด้วยสำเนาใน {{deviceWord}} นี้ได้ การเปลี่ยนแปลงจะอัปโหลดเมื่อเชื่อมต่อกลับได้",
+      "hostsSetToConnectFrom": "โฮสต์ที่ตั้งค่าให้เชื่อมต่อจาก {{deviceWord}} นี้ยังคงใช้งานได้",
+      "tryAgain": "ลองอีกครั้ง",
+      "noAnswer": "ไม่มีคำตอบ"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "โปรไฟล์ Vault",
+      "none": "ไม่มี",
+      "signsInWithInYour": "เข้าสู่ระบบด้วย {{title}} ในเบราว์เซอร์ผ่านเซิร์ฟเวอร์ Termix ของคุณ เชื่อมต่อโฮสต์นี้ผ่านเซิร์ฟเวอร์",
+      "needsATermixServerLink": "{{title}} ต้องการเซิร์ฟเวอร์ Termix เชื่อมต่อหนึ่งเพื่อใช้การเข้าสู่ระบบนี้",
+      "isOffOnThisServer": "{{title}} ถูกปิดใช้งานบนเซิร์ฟเวอร์นี้ โฮสต์นี้จะคงการตั้งค่าการเข้าสู่ระบบไว้"
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "ไม่สามารถโหลดข้อมูลประจำตัวได้",
+      "deleted": "ลบ \"{{name}}\" แล้ว",
+      "couldNotDeleteTheCredential": "ไม่สามารถลบข้อมูลประจำตัวได้",
+      "credentials": "ข้อมูลประจำตัว",
+      "add": "เพิ่ม",
+      "searchCredentials": "ค้นหาข้อมูลประจำตัว",
+      "clearSearch": "ล้างการค้นหา",
+      "loadingCredentials": "กำลังโหลดข้อมูลประจำตัว...",
+      "noCredentialsMatchYourSearch": "ไม่มีข้อมูลประจำตัวที่ตรงกับการค้นหาของคุณ",
+      "noCredentialsYet": "ยังไม่มีข้อมูลประจำตัว",
+      "addCredential": "เพิ่มข้อมูลประจำตัว",
+      "edit": "แก้ไข",
+      "delete": "ลบ",
+      "deleteCredential": "ลบข้อมูลประจำตัว",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" จะถูกลบอย่างถาวร โฮสต์ที่ใช้ข้อมูลนี้จะสูญเสียข้อมูลประจำตัวที่บันทึกไว้",
+      "cancel": "ยกเลิก",
+      "hostCount_other": "{{count}} โฮสต์",
+      "sshKey": "คีย์ SSH"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "แทนที่คีย์หรือไม่",
+        "theNewKeyTakesThe": "คีย์ใหม่จะแทนที่คีย์ปัจจุบัน โฮสต์ที่ไว้วางใจเฉพาะคีย์เก่าจะหยุดยอมรับข้อมูลประจำตัวนี้",
+        "replace": "แทนที่",
+        "newKeyMadeCopyThe": "สร้างคีย์ใหม่แล้ว คัดลอกคีย์สาธารณะไปยังโฮสต์ของคุณ",
+        "couldNotMakeAKey": "ไม่สามารถสร้างคีย์ได้",
+        "couldNotReadThatCertificate": "ไม่สามารถอ่านไฟล์ใบรับรองนั้นได้",
+        "leaveWithoutSaving": "ออกโดยไม่บันทึกหรือไม่",
+        "yourChangesToThisCredential": "การเปลี่ยนแปลงของคุณต่อข้อมูลประจำตัวนี้จะสูญหาย",
+        "leave": "ออก",
+        "credentialSaved": "บันทึกข้อมูลประจำตัวแล้ว",
+        "credentialAdded": "เพิ่มข้อมูลประจำตัวแล้ว",
+        "couldNotSaveTheCredential": "ไม่สามารถบันทึกข้อมูลประจำตัวได้",
+        "enterAHostToTest": "ป้อนโฮสต์เพื่อทดสอบ เช่น 10.0.0.5 หรือ box:2222",
+        "enterTheUsernameFirst": "ป้อนชื่อผู้ใช้ก่อน",
+        "editCredential": "แก้ไขข้อมูลประจำตัว",
+        "newCredential": "ข้อมูลประจำตัวใหม่",
+        "cancel": "ยกเลิก",
+        "save": "บันทึก",
+        "credential": "ข้อมูลรับรอง",
+        "name": "ชื่อ",
+        "productionKey": "คีย์สำหรับใช้งานจริง",
+        "username": "ชื่อผู้ใช้",
+        "signInWith": "ลงชื่อเข้าใช้ด้วย",
+        "password": "รหัสผ่าน",
+        "sshKey": "คีย์ SSH",
+        "unchangedIfBlank": "จะไม่เปลี่ยนแปลงหากเว้นว่าง",
+        "key": "คีย์",
+        "fileOrPaste": "ไฟล์หรือวางข้อความ",
+        "makeANewKey": "สร้างคีย์ใหม่",
+        "aKeyIsSavedChoose": "มีคีย์ที่บันทึกไว้แล้ว เลือกไฟล์หรือวางข้อความเพื่อแทนที่",
+        "type": "ประเภท",
+        "ed25519AndEcdsaAreMade": "Ed25519 และ ECDSA จะสร้างบน {{deviceWord}} นี้ ส่วน RSA จะสร้างบนเซิร์ฟเวอร์ของคุณ",
+        "madeOnThisEd25519Works": "สร้างบน {{deviceWord}} นี้ Ed25519 ใช้งานได้เกือบทุกที่",
+        "passphrase": "วลีผ่าน",
+        "optionalLocksTheNewKey": "ไม่บังคับ ล็อกคีย์ใหม่บน {{deviceWord}} นี้และบนดิสก์",
+        "makeKey": "สร้างคีย์",
+        "publicKey": "คีย์สาธารณะ",
+        "addThisLineToSsh": "เพิ่มบรรทัดนี้ลงใน ~/.ssh/authorized_keys บนโฮสต์ของคุณ",
+        "publicKeyCopied": "คัดลอกคีย์สาธารณะแล้ว",
+        "copyPublicKey": "คัดลอกคีย์สาธารณะ",
+        "certificate": "ใบรับรอง",
+        "aCertificateYourCaSigned": "ใบรับรองที่ CA ของคุณลงนามสำหรับคีย์นี้ สำหรับโฮสต์ที่ไว้วางใจ CA",
+        "chooseCertificateFile": "เลือกไฟล์ใบรับรอง",
+        "thisDoesNotLookLike": "ดูเหมือนไม่ใช่ใบรับรอง OpenSSH",
+        "test": "ทดสอบ",
+        "hostToTestOn": "โฮสต์สำหรับทดสอบ",
+        "n10005Or": "10.0.0.5 หรือ box.lan:2222",
+        "pickASavedHost": "เลือกโฮสต์ที่บันทึกไว้",
+        "details": "รายละเอียด",
+        "description": "คำอธิบาย",
+        "whatThisCredentialIsFor": "ข้อมูลรับรองนี้ใช้สำหรับอะไร",
+        "folder": "โฟลเดอร์",
+        "serverKeys": "คีย์เซิร์ฟเวอร์",
+        "testOnAHost": "ทดสอบบนโฮสต์",
+        "rsaKeysNeedALinked": "คีย์ RSA ต้องการเซิร์ฟเวอร์ที่เชื่อมโยง"
+      },
+      "model": {
+        "giveThisCredentialAName": "ตั้งชื่อให้ข้อมูลรับรองนี้",
+        "addAPrivateKeyOr": "เพิ่มคีย์ส่วนตัว หรือสร้างคีย์ใหม่"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "นี่คือใบรับรองโฮสต์ ไม่ใช่ใบรับรองผู้ใช้",
+        "thisCertificateIsNotValid": "ใบรับรองนี้ยังไม่ถูกต้อง",
+        "thisCertificateHasExpired": "ใบรับรองนี้หมดอายุแล้ว",
+        "itIsForAKey": "ใช้สำหรับคีย์ {{keyType}} แต่คีย์นี้เป็น {{keyType2}}",
+        "forAnyUser": "สำหรับผู้ใช้ทุกคน",
+        "validFromNoEndDate": "ถูกต้องตั้งแต่วันที่ {{validAfter}} ไม่มีวันหมดอายุ",
+        "signedBy": "ลงนามโดย {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "ชื่อผู้ใช้",
+        "fromTheCredential": "จากข้อมูลรับรอง: {{credentialUser}}",
+        "signInWith": "ลงชื่อเข้าใช้ด้วย",
+        "password": "รหัสผ่าน",
+        "key": "คีย์",
+        "credential": "ข้อมูลรับรอง",
+        "none": "ไม่มี",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "เชื่อมต่อด้วย Tailscale SSH ไม่เก็บรหัสผ่านหรือคีย์",
+        "tailscaleIsNotOnFor": "Tailscale ไม่ได้เปิดใช้งานสำหรับ {{value}} โฮสต์นี้จะเก็บข้อมูลการลงชื่อเข้าใช้ Tailscale ไว้",
+        "unchangedIfBlank": "จะไม่เปลี่ยนแปลงหากเว้นว่าง",
+        "noCredentialsYetTapThe": "ยังไม่มีข้อมูลรับรอง แตะไอคอนคีย์ในโฮสต์เพื่อเพิ่ม",
+        "useCredential": "ใช้ข้อมูลรับรอง {{name}}",
+        "sudoPassword": "รหัสผ่าน sudo",
+        "typedIntoSudoPromptsWhen": "ป้อนลงในช่องขอสิทธิ์ sudo เมื่อส่วนเทอร์มินัลเปิดใช้งานไว้",
+        "notSet": "ไม่ได้ตั้งค่า",
+        "thisServer": "เซิร์ฟเวอร์นี้"
+      },
+      "colorIconField": {
+        "color": "สี",
+        "noColor": "ไม่มีสี",
+        "color2": "สี {{c}}",
+        "icon": "ไอคอน",
+        "noIcon": "ไม่มีไอคอน",
+        "none": "ไม่มี",
+        "icon2": "ไอคอน {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "ต้องการออกโดยไม่บันทึกหรือไม่?",
+        "yourChangesToThisHost": "การเปลี่ยนแปลงของคุณสำหรับโฮสต์นี้จะหายไป",
+        "leave": "ออก",
+        "couldNotSaveHowThis": "ไม่สามารถบันทึกการเชื่อมต่อของโฮสต์นี้ได้",
+        "hostSaved": "บันทึกโฮสต์แล้ว",
+        "hostAdded": "เพิ่มโฮสต์แล้ว",
+        "couldNotSaveTheHost": "ไม่สามารถบันทึกโฮสต์ได้",
+        "enterTheHostSAddress": "ป้อนที่อยู่ของโฮสต์ก่อน",
+        "turnOnSshToTest": "เปิดใช้งาน SSH เพื่อทดสอบการเข้าสู่ระบบ",
+        "pickACredentialFirst": "เลือกข้อมูลรับรองก่อน",
+        "editHost": "แก้ไขโฮสต์",
+        "newHost": "โฮสต์ใหม่",
+        "cancel": "ยกเลิก",
+        "save": "บันทึก",
+        "host": "โฮสต์",
+        "name": "ชื่อ",
+        "myServer": "เซิร์ฟเวอร์ของฉัน",
+        "address": "ที่อยู่",
+        "port": "พอร์ต",
+        "portAndUsernameComeFrom": "พอร์ตและชื่อผู้ใช้จะใช้ค่าเริ่มต้นของโฮสต์จนกว่าคุณจะเปลี่ยน",
+        "folder": "โฟลเดอร์",
+        "production": "Production",
+        "useAFolderInstead": "ใช้โฟลเดอร์แทน",
+        "putItUnderAHost": "วางไว้ภายใต้โฮสต์แทน",
+        "pinToTop": "ปักหมุดไว้ด้านบน",
+        "colorAndIcon": "สีและไอคอน",
+        "notes": "หมายเหตุ",
+        "anythingWorthRememberingAboutThis": "สิ่งใดก็ตามที่ควรจดจำเกี่ยวกับโฮสต์นี้",
+        "protocols": "โปรโตคอล",
+        "terminalFilesAndMore": "เทอร์มินัล ไฟล์ และอื่นๆ",
+        "connectFrom": "เชื่อมต่อจาก",
+        "features": "ฟีเจอร์",
+        "otherProtocols": "โปรโตคอลอื่นๆ",
+        "more": "เพิ่มเติม",
+        "theTestRunsFromThis": "การทดสอบจะทำงานจาก {{deviceWord}} นี้ โฮสต์นี้เชื่อมต่อผ่านเซิร์ฟเวอร์ ดังนั้นจึงยังคงใช้งานได้แม้ว่า {{deviceWord}} จะไม่สามารถเข้าถึงได้"
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Jump hosts",
+        "connectsThroughTheseInOrder": "เชื่อมต่อผ่านรายการเหล่านี้ตามลำดับ แล้วจึงไปยังโฮสต์นี้",
+        "reachThisHostThroughOther": "เข้าถึงโฮสต์นี้ผ่านโฮสต์อื่นก่อน",
+        "moveUp": "เลื่อนขึ้น",
+        "moveDown": "เลื่อนลง",
+        "removeJumpHost": "ลบ jump host",
+        "addJumpHost": "เพิ่ม jump host",
+        "pickASavedHostTo": "เลือกโฮสต์ที่บันทึกไว้เพื่อเชื่อมต่อผ่าน",
+        "searchHosts": "ค้นหาโฮสต์",
+        "noOtherHostsToPick": "ไม่มีโฮสต์อื่นให้เลือก โฮสต์ไม่สามารถ jump ผ่านตัวเองหรือโฮสต์ที่เชื่อมต่อผ่านมันอยู่แล้วได้",
+        "missingHost": "ไม่พบโฮสต์ #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "เปิดใช้งานโปรโตคอลอย่างน้อยหนึ่งโปรโตคอล",
+        "pickACredential": "เลือกข้อมูลรับรอง",
+        "enterTheHostSAddress": "ป้อนที่อยู่ของโฮสต์",
+        "theAddressCanTHave": "ที่อยู่ไม่สามารถมีช่องว่างได้",
+        "portMustBeFrom1": "พอร์ตต้องอยู่ระหว่าง 1 ถึง 65535",
+        "enterTheSshUsername": "ป้อนชื่อผู้ใช้ SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "โฮสต์จะแสดงเป็นรายการย่อยภายใต้โฮสต์ที่คุณเลือก",
+        "searchHosts": "ค้นหาโฮสต์",
+        "noHostsToPickA": "ไม่มีโฮสต์ให้เลือก โฮสต์ไม่สามารถอยู่ภายใต้ตัวเอง โฮสต์ย่อยของมันเอง หรือโฮสต์ที่แชร์ได้",
+        "parentHost": "โฮสต์หลัก",
+        "subHostsFollowTheFolder": "โฮสต์ย่อยจะอยู่ในโฟลเดอร์เดียวกับโฮสต์หลัก",
+        "pickParentHost": "เลือกโฮสต์หลัก",
+        "missingHost": "ไม่พบโฮสต์ #{{value}}",
+        "pickAHost": "เลือกโฮสต์",
+        "clearParentHost": "ล้างโฮสต์หลัก"
+      },
+      "tagsField": {
+        "tags": "แท็ก",
+        "typeATagAndPress": "พิมพ์แท็กแล้วกด Enter",
+        "removeTag": "ลบแท็ก {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "ไม่สามารถบันทึกการเชื่อมต่อของโฮสต์นี้ได้",
+      "addressCopied": "คัดลอกที่อยู่แล้ว",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "เชื่อมต่อจาก",
+      "dismiss": "ปิด",
+      "unpin": "ยกเลิกปักหมุด",
+      "pinToHome": "ปักหมุดที่หน้าหลัก",
+      "select": "เลือก",
+      "editHost": "แก้ไขโฮสต์",
+      "copyAddress": "คัดลอกที่อยู่",
+      "addSubHost": "เพิ่มโฮสต์ย่อย",
+      "cloneHost": "โคลนโฮสต์",
+      "deleteHost": "ลบโฮสต์",
+      "connectThroughTheServer": "เชื่อมต่อผ่านเซิร์ฟเวอร์",
+      "connectFromThis": "เชื่อมต่อจาก{{deviceWord}}นี้"
+    },
+    "defaultYourOrder": "ค่าเริ่มต้น (ลำดับของคุณ)",
+    "nameAZ": "ชื่อ (A-Z)",
+    "nameZA": "ชื่อ (Z-A)",
+    "ipAscending": "IP (น้อยไปมาก)",
+    "ipDescending": "IP (มากไปน้อย)",
+    "onlineFirst": "ออนไลน์ก่อน",
+    "offlineFirst": "ออฟไลน์ก่อน",
+    "pinnedFirst": "ปักหมุดก่อน",
+    "status": "สถานะ",
+    "online": "ออนไลน์",
+    "offline": "ออฟไลน์",
+    "pinned": "ปักหมุด",
+    "protocol": "โปรโตคอล",
+    "features": "ฟีเจอร์",
+    "hostsCanOnlyMoveInside": "โฮสต์สามารถย้ายได้เฉพาะภายในโฟลเดอร์ของตัวเองเท่านั้น",
+    "couldNotUpdateTheHosts": "ไม่สามารถอัปเดตโฮสต์ได้",
+    "sharedHostsCanTBe": "ไม่สามารถลบโฮสต์ที่แชร์ได้ที่นี่",
+    "delete2": "ลบ",
+    "noneOfTheseHostsOpen": "โฮสต์เหล่านี้ไม่มีตัวเปิดเทอร์มินัล",
+    "couldNotPinTheHost": "ไม่สามารถปักหมุดโฮสต์ได้",
+    "deleted": "ลบ {{name}} แล้ว",
+    "failedToDeleteHost": "ลบโฮสต์ไม่สำเร็จ",
+    "cloned": "โคลน {{name}} แล้ว",
+    "failedToCloneHost": "โคลนโฮสต์ไม่สำเร็จ",
+    "reorderWorksWithTheDefault": "การเรียงลำดับใหม่ทำงานได้เฉพาะกับการเรียงลำดับแบบค่าเริ่มต้น โดยไม่มีการค้นหาหรือตัวกรอง",
+    "couldNotSaveTheOrder": "ไม่สามารถบันทึกลำดับได้",
+    "noHostsYet": "ยังไม่มีโฮสต์",
+    "addAHostToConnect": "เพิ่มโฮสต์เพื่อเชื่อมต่อด้วยเพียงหนึ่งครั้ง",
+    "addHost": "เพิ่มโฮสต์",
+    "quickConnect2": "เชื่อมต่อด่วน",
+    "linkAServer": "ลิงก์เซิร์ฟเวอร์",
+    "noHostsMatch": "ไม่พบโฮสต์ที่ตรงกัน",
+    "clearSearchAndFilters": "ล้างการค้นหาและตัวกรอง",
+    "more": "เพิ่มเติม",
+    "dragAHostByIts": "ลากโฮสต์ที่จุดจับเพื่อเคลื่อนย้ายภายในโฟลเดอร์",
+    "done": "เสร็จสิ้น",
+    "filterHosts": "กรองโฮสต์",
+    "clearFilterText": "ล้างข้อความกรอง",
+    "sortHosts": "เรียงลำดับโฮสต์",
+    "removeFilter": "ลบตัวกรอง {{value}}",
+    "loadingHosts": "กำลังโหลดโฮสต์…",
+    "moveUnderAHost": "ย้ายภายใต้โฮสต์",
+    "moveToFolder": "ย้ายไปยังโฟลเดอร์",
+    "leaveItEmptyToTake": "เว้นว่างไว้เพื่อเอาโฮสต์ออกจากโฟลเดอร์",
+    "folderLikeProdWeb": "โฟลเดอร์ เช่น Prod / Web",
+    "move": "ย้าย",
+    "hosts": "โฮสต์",
+    "selectHosts": "เลือกโฮสต์",
+    "reorderHosts": "จัดลำดับโฮสต์ใหม่",
+    "customizeList": "ปรับแต่งรายการ",
+    "chooseWhatEachHostRow": "เลือกสิ่งที่แต่ละแถวของโฮสต์แสดง",
+    "credentials2": "ข้อมูลรับรอง",
+    "savedPasswordsAndKeys": "รหัสผ่านและคีย์ที่บันทึกไว้",
+    "tailscaleDevices": "อุปกรณ์ Tailscale",
+    "refresh": "รีเฟรช",
+    "rowDensityFollowsSettingsAppearance": "ความหนาแน่นของแถวจะตามการตั้งค่า, ธีม",
+    "clearAllFilters": "ล้างตัวกรองทั้งหมด",
+    "tags": "แท็ก",
+    "stopSelecting": "หยุดการเลือก",
+    "selected": "เลือกแล้ว {{count}} รายการ",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "ไม่สามารถอ่านไฟล์คีย์นั้นได้",
+        "theClipboardIsEmpty": "คลิปบอร์ดว่างเปล่า",
+        "privateKey": "คีย์ส่วนตัว",
+        "chooseFile": "เลือกไฟล์",
+        "paste": "วาง",
+        "unchangedIfBlank": "ไม่เปลี่ยนแปลงหากว่าง",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "วลีผ่าน",
+        "onlyIfTheKeyHas": "เฉพาะหากคีย์มี",
+        "theKeyIsCheckedWhen": "คีย์จะถูกตรวจสอบเมื่อคุณเชื่อมต่อ",
+        "thePastedKey": "คีย์ที่วาง"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "เปิด",
+        "moreActions": "การดำเนินการเพิ่มเติม",
+        "opensTheTerminalHoldFor": "เปิดเทอร์มินัล กดค้างไว้เพื่อดูเพิ่มเติม",
+        "shared": "แชร์",
+        "drag": "ลาก {{name}}",
+        "showSubHosts_other": "แสดง {{count}} โฮสต์ย่อยของ {{name}}",
+        "hideSubHosts_other": "ซ่อน {{count}} โฮสต์ย่อยของ {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "โฟลเดอร์ {{name}}, {{total}} โฮสต์"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "ต้องระบุโฮสต์และชื่อผู้ใช้",
+      "hostSaved": "บันทึกโฮสต์แล้ว",
+      "couldNotSaveTheHost": "ไม่สามารถบันทึกโฮสต์ได้",
+      "quickConnect": "เชื่อมต่อด่วน",
+      "connectToAHostWithout": "เชื่อมต่อกับโฮสต์โดยไม่บันทึก",
+      "hostIp": "โฮสต์ / IP",
+      "port": "พอร์ต",
+      "username": "ชื่อผู้ใช้",
+      "password": "รหัสผ่าน",
+      "key": "คีย์",
+      "privateKey": "คีย์ส่วนตัว",
+      "saveToMyHosts": "บันทึก到我的主机",
+      "keepThisHostAfterConnecting": "连接后保留此主机",
+      "cancel": "取消",
+      "connect": "连接"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "正在从服务器获取您的主机",
+      "yourHostsStayOnThis": "{{message}} 在此期间，您的主机保留在此 {{deviceWord}} 上。"
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "此主机的密钥已更改",
+      "trustThisHost": "信任此主机？",
+      "trust": "信任",
+      "stopTest": "停止测试",
+      "testConnection": "测试连接",
+      "connecting": "正在连接..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "加载主机失败。"
+    },
+    "sharedLeftAsTheyAre_other": "{{done}}。{{count}} 个共享主机保持不变。",
+    "deleteHosts_other": "删除 {{count}} 个主机？",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "没有名为 {{name}} 的文件夹"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "主机 \"{{name}}\"：端口无效",
+        "hostJumpIsNotIn": "主机 \"{{name}}\"：跳转 {{value}} 不在文件中，因此被排除",
+        "credential": "凭据 {{name}}：{{error}}",
+        "noValidHostEntriesFound": "在 SSH 配置文件中未找到有效的 Host 条目",
+        "credentialWasNotFound": "{{label}}：未找到凭据 {{value}}"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "主机 {{value}}：重复的导出主机 ID {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}：缺少必填字段 (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}：authType 无效。必须是 {{value}} 之一",
+        "usernameRequiredForSshConnections": "{{label}}：SSH 连接需要用户名",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}：凭据身份验证需要 credentialAlias",
+        "thatIsNotAValid": "这不是有效的 JSON 文件",
+        "hostsArrayIsRequiredAnd": "需要主机数组且不能为空",
+        "jumpHostCycle": "{{label}}：跳转主机循环",
+        "jumpHostIsNotIn": "{{label}}：跳转主机 {{id}} 不在文件中"
+      }
+    },
+    "movedTo": "已移动到 {{value}}",
+    "movedOutOfFolders": "已移出文件夹",
+    "movedUnder": "已移动到 {{value}} 下",
+    "openTerminals": "打开终端",
+    "theHost": "主机"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "隐藏密码",
+      "showPassword": "显示密码",
+      "enterAUsernameAndPassword": "输入用户名和密码",
+      "useAtLeast6Characters": "密码至少使用 6 个字符",
+      "thePasswordsDonTMatch": "密码不匹配",
+      "makeTheAdminAccount": "创建管理员账户",
+      "makeAnAccount": "创建账户",
+      "thisIsTheFirstAccount": "这是服务器上的第一个账户，因此它将管理服务器。",
+      "pickAUsernameAndPassword": "为此服务器选择用户名和密码。",
+      "username": "用户名",
+      "password": "密码",
+      "passwordAgain": "再次输入密码",
+      "makeAccount": "创建账户",
+      "back": "返回",
+      "haveAnAccountSignIn": "已有账户？登录",
+      "resetCodeMadeItIs": "已生成重置代码。它在服务器日志中",
+      "enterYourUsername": "输入您的用户名",
+      "enterTheResetCode": "输入重置代码",
+      "passwordChangedSignInWith": "密码已更改。现在使用它登录",
+      "resetPassword": "重置密码",
+      "enterYourUsernameTheServer": "输入您的用户名。服务器会将重置代码写入其日志。",
+      "sendResetCode": "发送重置代码",
+      "enterThe6DigitCode": "ป้อนรหัส 6 หลักจากบันทึกของเซิร์ฟเวอร์",
+      "resetCode": "รีเซ็ตรหัส",
+      "checkCode": "ตรวจสอบรหัส",
+      "newPassword": "รหัสผ่านใหม่",
+      "saveNewPassword": "บันทึกรหัสผ่านใหม่",
+      "backToSignIn": "กลับไปยังหน้าเข้าสู่ระบบ",
+      "couldNotMakeTheAccount": "ไม่สามารถสร้างบัญชีได้",
+      "couldNotStartTheReset": "ไม่สามารถเริ่มการรีเซ็ตได้",
+      "thatCodeDidnTWork": "รหัสนี้ใช้งานไม่ได้",
+      "couldNotChangeThePassword": "ไม่สามารถเปลี่ยนรหัสผ่านได้"
+    },
+    "browserStep": {
+      "signInFailed": "เข้าสู่ระบบไม่สำเร็จ",
+      "signInCanceled": "ยกเลิกการเข้าสู่ระบบ",
+      "couldNotOpenTheSign": "ไม่สามารถเปิดเบราว์เซอร์สำหรับเข้าสู่ระบบได้",
+      "couldNotOpenTheSign2": "ไม่สามารถเปิดหน้าเข้าสู่ระบบได้",
+      "certificateProblem": "ปัญหาเกี่ยวกับใบรับรอง",
+      "back": "ย้อนกลับ",
+      "signIn": "เข้าสู่ระบบ",
+      "reload": "โหลดใหม่",
+      "finishSigningInInYour": "ดำเนินการเข้าสู่ระบบให้เสร็จสิ้นในเบราว์เซอร์ของคุณ",
+      "useAnySignInYour": "ใช้วิธีการเข้าสู่ระบบใดก็ได้ที่เซิร์ฟเวอร์ของคุณรองรับ เช่น Passkey หรือ Security Key แอปจะทำงานต่อเมื่อคุณเข้าสู่ระบบสำเร็จแล้ว",
+      "theAppPicksUpOnce": "แอปจะทำงานต่อเมื่อผู้ให้บริการเข้าสู่ระบบของคุณดำเนินการเสร็จสิ้น",
+      "signingIn": "กำลังเข้าสู่ระบบ...",
+      "openBrowserAgain": "เปิดเบราว์เซอร์อีกครั้ง",
+      "theServerTurnedTheSession": "เซิร์ฟเวอร์ปฏิเสธเซสชันนี้ โปรดลองอีกครั้ง",
+      "signedInButTheApp": "เข้าสู่ระบบสำเร็จแล้ว แต่แอปไม่สามารถเชื่อมต่อกับ Termix ได้ โปรกซีอาจกำลังบล็อกการเชื่อมต่อ",
+      "thatSignInLinkIs": "ลิงก์เข้าสู่ระบบนี้มาจากครั้งที่แล้ว โปรดเข้าสู่ระบบอีกครั้ง",
+      "signInAgain": "เข้าสู่ระบบอีกครั้ง",
+      "openTheBrowserAgainWhen": "เปิดเบราว์เซอร์อีกครั้งเมื่อคุณพร้อม",
+      "theWebPageSignedIn": "หน้าเว็บเข้าสู่ระบบสำเร็จแล้วแต่ไม่ได้ส่งเซสชันมา โปรดอัปเดตเซิร์ฟเวอร์แล้วลองอีกครั้ง",
+      "theCanTCheckThis": "{{deviceWord}} ไม่สามารถตรวจสอบใบรับรองของเซิร์ฟเวอร์นี้ได้ โปรดติดตั้ง Root CA ของเซิร์ฟเวอร์ลงใน {{deviceWord}} {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "ต้องการใช้ {{name}} เพื่อเข้าสู่ระบบครั้งถัดไปหรือไม่?",
+      "ifThisServerSignsYou": "หากเซิร์ฟเวอร์นี้ล็อกคุณออก คุณสามารถเข้าสู่ระบบด้วย {{name}} แทนการพิมพ์รหัสผ่าน รหัสผ่านจะยังคงเก็บไว้ใน {{deviceWord}} นี้",
+      "use": "ใช้ {{name}}",
+      "notNow": "ไม่ใช่ตอนนี้",
+      "couldNotSaveTheLogin": "ไม่สามารถบันทึกข้อมูลการเข้าสู่ระบบได้",
+      "thatSADifferentUser": "นี่เป็นผู้ใช้คนละคนกัน",
+      "signedIn": "เข้าสู่ระบบสำเร็จ",
+      "close": "ปิด",
+      "linkYourTermixServer": "เชื่อมโยงเซิร์ฟเวอร์ Termix ของคุณ",
+      "yourHostsCredentialsSnippetsAnd": "โฮสต์ ข้อมูลการเข้าสู่ระบบ สนิปเป็ต และการตั้งค่าของคุณจะซิงค์กับเซิร์ฟเวอร์นั้น และคุณจะได้รับปลั๊กอินจากเซิร์ฟเวอร์นั้น ทุกอย่างยังคงทำงานบน {{deviceWord}} นี้ได้แม้ว่าเซิร์ฟเวอร์จะออฟไลน์",
+      "checking": "กำลังตรวจสอบ {{host}}...",
+      "proxyAndClientCertificate": "โปรกซีและใบรับรองไคลเอนต์",
+      "couldNotReachThatServer": "ไม่สามารถเข้าถึงเซิร์ฟเวอร์นั้นได้ โปรดตรวจสอบที่อยู่ หรือตั้งค่าโปรกซีหรือใบรับรองไคลเอนต์",
+      "couldNotReachThatServer2": "ไม่สามารถเข้าถึงเซิร์ฟเวอร์นั้นได้",
+      "syncCouldNotStartYet": "ยังไม่สามารถเริ่มซิงค์ได้ ระบบจะลองอีกครั้งโดยอัตโนมัติ",
+      "checkingTheServer": "กำลังตรวจสอบเซิร์ฟเวอร์",
+      "signIn": "เข้าสู่ระบบ",
+      "makeAnAccount": "สร้างบัญชี",
+      "resetPassword": "รีเซ็ตรหัสผ่าน",
+      "oneMoreStep": "อีกขั้นตอนเดียว",
+      "almostDone": "ใกล้เสร็จแล้ว",
+      "linkAServer": "เชื่อมโยงเซิร์ฟเวอร์"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "ข้อมูลการเข้าสู่ระบบที่บันทึกไว้ใช้งานไม่ได้แล้ว",
+      "enterYourUsernameAndPassword": "ป้อนชื่อผู้ใช้และรหัสผ่านของคุณ",
+      "thisServerIsBehindA": "เซิร์ฟเวอร์นี้อยู่เบื้องหลังโปรกซีการเข้าสู่ระบบ",
+      "signInWith": "เข้าสู่ระบบด้วย {{saved}}",
+      "signInWith2": "เข้าสู่ระบบด้วย",
+      "password": "รหัสผ่าน",
+      "username": "ชื่อผู้ใช้",
+      "signIn": "เข้าสู่ระบบ",
+      "forgotPassword": "ลืมรหัสผ่าน?",
+      "makeAnAccount": "สร้างบัญชี",
+      "or": "หรือ",
+      "continueWith": "ดำเนินการต่อด้วย {{label}}",
+      "signInWithAPasskey": "เข้าสู่ระบบด้วย Passkey หรือ Security Key",
+      "opensYourServerAposS": "เปิดหน้าเข้าสู่ระบบของเซิร์ฟเวอร์ของคุณในเบราว์เซอร์ Face ID ลายนิ้วมือ NFC และคีย์ USB ใช้งานได้ทั้งหมด ต้องใช้ Termix เวอร์ชัน 26.11.3 หรือใหม่กว่า",
+      "signInInTheBrowser": "เข้าสู่ระบบในเบราว์เซอร์",
+      "opensYourServerAposS2": "เปิดหน้าเข้าสู่ระบบของเซิร์ฟเวอร์ของคุณ สำหรับสิ่งที่แอปไม่สามารถทำได้ที่นี่ ต้องใช้ Termix เวอร์ชัน 26.10.6 หรือใหม่กว่า",
+      "thisServerHasNoSign": "เซิร์ฟเวอร์นี้ไม่ได้เปิดใช้งานระบบเข้าสู่ระบบที่แอปสามารถใช้ได้ โปรดติดต่อผู้ดูแลเซิร์ฟเวอร์ หรือลองเข้าสู่ระบบผ่านเบราว์เซอร์ด้านบน",
+      "signInWithYourPassword": "เข้าสู่ระบบด้วยรหัสผ่านของคุณ",
+      "signInFailed": "เข้าสู่ระบบไม่สำเร็จ",
+      "openingItsSignInPage": "กำลังเปิดหน้าเข้าสู่ระบบ"
+    },
+    "smallSteps": {
+      "serverAddress": "ที่อยู่เซิร์ฟเวอร์",
+      "likeTermixExampleComOr": "เช่น termix.example.com หรือ 192.168.1.20:30001",
+      "checking": "กำลังตรวจสอบ...",
+      "continue": "ดำเนินการต่อ",
+      "proxyAndClientCertificate": "พร็อกซีและใบรับรองไคลเอนต์",
+      "aServerWithASelf": "เซิร์ฟเวอร์ที่ใช้ใบรับรองลงนามด้วยตนเอง จำเป็นต้องติดตั้ง Root CA บน {{deviceWord}} นี้ก่อน HTTP ธรรมดาใช้งานได้ภายในเครือข่ายของคุณเอง",
+      "enterTheCode": "ป้อนรหัส",
+      "code": "รหัส",
+      "the6DigitCodeFrom": "รหัส 6 หลักจากแอป Authenticator ของคุณ หรือรหัสสำรอง",
+      "checkCode": "ตรวจสอบรหัส",
+      "thisAccountAsksForA": "บัญชีนี้ต้องการคีย์ความปลอดภัยหลังจากใส่รหัสผ่าน กรุณาเข้าสู่ระบบผ่านหน้าเว็บของเซิร์ฟเวอร์ในเบราว์เซอร์เพื่อใช้งาน",
+      "useASecurityKeyIn": "ใช้ Security Key ในเบราว์เซอร์",
+      "backToSignIn": "กลับไปยังหน้าเข้าสู่ระบบ",
+      "bringThisAposSHosts": "ต้องการนำโฮสต์จาก {{deviceWord}} นี้ไปด้วยหรือไม่?",
+      "thisHasTheyStayOn": "{{deviceWord}} นี้มี {{what}} ข้อมูลเหล่านี้จะยังคงอยู่บนอุปกรณ์นี้ไม่ว่าจะเลือกอย่างไร",
+      "merge": "ผสานรวม",
+      "copyThemToTooSo": "คัดลอกไปยัง {{serverName}} ด้วย เพื่อให้ข้อมูลซิงค์กัน โฮสต์ที่ดูเหมือนกันกับโฮสต์บนเซิร์ฟเวอร์จะถูกข้ามไป",
+      "replace": "แทนที่",
+      "useOnlyWhatIsOn": "ใช้เฉพาะข้อมูลที่มีอยู่บน {{serverName}} สำหรับบัญชีนี้ จะไม่มีการคัดลอกข้อมูล",
+      "thatCodeDidnTWork": "รหัสนั้นใช้งานไม่ได้",
+      "hostsCredentialsOrSnippets": "โฮสต์, ข้อมูลการเข้าสู่ระบบ หรือ Snippets"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "ลิงก์เซิร์ฟเวอร์นี้ก่อน",
+      "thatHostIsnTHere": "ไม่พบโฮสต์นั้น",
+      "couldNotOpenThatHost": "ไม่สามารถเปิดโฮสต์นั้นได้",
+      "noHostWithIdOn": "ไม่พบโฮสต์ที่มี id {{hostId}} บน {{account}}",
+      "isnTLinkedInThe": "{{value}} ยังไม่ได้ลิงก์ในแอป"
+    }
+  },
+  "notifications": {
+    "notifications": "การแจ้งเตือน",
+    "markAllRead": "ทำเครื่องหมายทั้งหมดว่าอ่านแล้ว",
+    "clearReadNotifications": "ล้างการแจ้งเตือนที่อ่านแล้ว",
+    "unread2": "ยังไม่ได้อ่าน",
+    "all": "ทั้งหมด",
+    "noUnreadNotifications": "ไม่มีการแจ้งเตือนที่ยังไม่ได้อ่าน",
+    "nothingHere": "ไม่มีอะไรที่นี่",
+    "markRead": "ทำเครื่องหมายว่าอ่านแล้ว",
+    "delete": "ลบ",
+    "couldNotLoadNotifications": "ไม่สามารถโหลดการแจ้งเตือนได้",
+    "couldNotMarkRead": "ไม่สามารถทำเครื่องหมายว่าอ่านแล้วได้",
+    "couldNotDelete": "ไม่สามารถลบได้",
+    "couldNotClear": "ไม่สามารถล้างได้"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "นำเข้า",
+      "hosts": "โฮสต์",
+      "aTermixHostFileYour": "ไฟล์โฮสต์ของ Termix, ไฟล์ ~/.ssh/config ของคุณ หรือลิงก์โฮสต์หรือ QR Code จาก {{deviceWord}} อื่น ข้อมูลจะถูกบันทึกบน {{deviceWord}} นี้",
+      "backup": "สำรองข้อมูล",
+      "aBackupThisAppMade": "ไฟล์สำรองที่แอปนี้สร้างไว้ และล็อกด้วยวลีผ่าน จะนำโฮสต์ ข้อมูลการเข้าสู่ระบบ และ Snippets กลับคืนมา",
+      "restoreABackup": "กู้คืนข้อมูลสำรอง",
+      "done": "เสร็จสิ้น",
+      "skipForNow": "ข้ามไปก่อน",
+      "sshFilesAndRemoteDesktops": "SSH, ไฟล์ และเดสก์ท็อปรีโมตจาก {{deviceWord}} ของคุณ คุณต้องการเริ่มต้นอย่างไร?",
+      "useWithoutAServer": "ใช้โดยไม่ต้องมีเซิร์ฟเวอร์",
+      "hostsCredentialsAndSnippetsAre": "โฮสต์ ข้อมูลการเข้าสู่ระบบ และสคริปต์จะถูกเก็บไว้แบบเข้ารหัสบน{{deviceWord}}นี้ คุณสามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ตลอดเวลาในภายหลัง",
+      "linkATermixServer": "เชื่อมต่อกับเซิร์ฟเวอร์ Termix",
+      "syncYourHostsCredentialsSnippets": "ซิงค์โฮสต์ ข้อมูลการเข้าสู่ระบบ สคริปต์ และการตั้งค่ากับเซิร์ฟเวอร์ของคุณ และใช้ปลั๊กอินของเซิร์ฟเวอร์",
+      "bringHostsFromATermix": "นำเข้าโฮสต์จากไฟล์ Termix, การตั้งค่า SSH, รหัส QR หรือไฟล์สำรองข้อมูล",
+      "thisDevice": "อุปกรณ์นี้"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "ค้นหาโฮสต์ สคริปต์ การดำเนินการ",
+      "clearSearch": "ล้างการค้นหา",
+      "nothingMatches": "ไม่พบผลลัพธ์ที่ตรงกัน",
+      "typeToSearch": "พิมพ์เพื่อค้นหา",
+      "findAHostToConnect": "ค้นหาโฮสต์เพื่อเชื่อมต่อ สคริปต์ การตั้งค่า หรือการดำเนินการ",
+      "suggested": "แนะนำ | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "เรียกใช้ใน {{title}}",
+      "copiedRunItFromThe": "คัดลอกแล้ว เปิดสคริปต์ในเทอร์มินัลเพื่อกรอกค่า",
+      "copiedOpenATerminalTo": "คัดลอกแล้ว เปิดเทอร์มินัลเพื่อเรียกใช้สคริปต์",
+      "addHost": "เพิ่มโฮสต์",
+      "quickConnect": "เชื่อมต่ออย่างรวดเร็ว",
+      "switchAccount": "สลับบัญชี",
+      "linkAServer": "เชื่อมต่อกับเซิร์ฟเวอร์",
+      "fromYourServer": "จากเซิร์ฟเวอร์ของคุณ",
+      "settings": "การตั้งค่า",
+      "accountsAppearanceSecurity": "บัญชี ธีม ความปลอดภัย"
+    },
+    "search": {
+      "hosts": "โฮสต์",
+      "snippets": "สคริปต์",
+      "actions": "การดำเนินการ",
+      "settings": "การตั้งค่า"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "ไม่สามารถโหลดเซสชันได้",
+      "sessionRevoked": "ยกเลิกเซสชันแล้ว",
+      "failedToRevokeSession": "ไม่สามารถยกเลิกเซสชันได้",
+      "allSessionsRevoked": "ยกเลิกเซสชันทั้งหมดแล้ว",
+      "failedToRevokeAllSessions": "ไม่สามารถยกเลิกเซสชันทั้งหมดได้",
+      "activeSessions": "เซสชันที่ใช้งานอยู่",
+      "signOutAllOtherSessions": "ออกจากระบบในเซสชันอื่นๆ ทั้งหมด",
+      "loading": "กำลังโหลด…",
+      "noActiveSessionsFound": "ไม่พบเซสชันที่ใช้งานอยู่",
+      "unknownDevice": "อุปกรณ์ที่ไม่รู้จัก",
+      "lastActive": "ใช้งานล่าสุดเมื่อ {{lastActiveAt}}",
+      "created": "สร้างเมื่อ {{createdAt}}",
+      "revokeSession": "ยกเลิกเซสชัน",
+      "revokeSession2": "ยกเลิกเซสชัน?",
+      "thisWillSignOutThat": "การดำเนินการนี้จะออกจากระบบบนอุปกรณ์นั้น",
+      "revoke": "ยกเลิก",
+      "revokeAllSessions": "ยกเลิกเซสชันทั้งหมด?",
+      "thisWillSignOutEvery": "การดำเนินการนี้จะออกจากระบบบนอุปกรณ์ทุกเครื่อง คุณยังคงเข้าสู่ระบบบนอุปกรณ์นี้",
+      "cancel": "ยกเลิก",
+      "revokeAll": "ยกเลิกทั้งหมด"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "ไม่สามารถโหลดคีย์ API ได้",
+      "failedToCreateApiKey": "ไม่สามารถสร้างคีย์ API ได้",
+      "deleteApiKey": "ลบคีย์ API?",
+      "willStopWorkingRightAway": "\"{{name}}\" จะหยุดทำงานทันที",
+      "apiKeyDeleted": "ลบคีย์ API แล้ว",
+      "failedToDeleteApiKey": "ไม่สามารถลบคีย์ API ได้",
+      "apiKeys": "คีย์ API",
+      "newApiKey": "คีย์ API ใหม่",
+      "loading": "กำลังโหลด…",
+      "apiKeysAllowProgrammaticAccess": "คีย์ API อนุญาตให้เข้าถึง Termix ผ่านโปรแกรม รหัสลับจะแสดงเพียงครั้งเดียว กรุณาเก็บรักษาอย่างปลอดภัย",
+      "noApiKeysYet": "ยังไม่มีคีย์ API",
+      "created": "สร้างเมื่อ {{createdAt}}",
+      "lastUsed": "ใช้งานล่าสุดเมื่อ {{lastUsedAt}}",
+      "expires": "หมดอายุเมื่อ {{expiresAt}}",
+      "delete": "ลบ {{name}}",
+      "keyCreatedCopyItNow": "สร้างคีย์แล้ว คัดลอกตอนนี้เลย",
+      "newApiKey2": "API Key ใหม่",
+      "thisTokenWonTBe": "โทเค็นนี้จะไม่แสดงอีก",
+      "apiKeyCopied": "คัดลอก API key แล้ว",
+      "copy": "คัดลอก",
+      "done": "เสร็จสิ้น",
+      "cancel": "ยกเลิก",
+      "create": "สร้าง",
+      "name": "ชื่อ *",
+      "eGCiPipeline": "เช่น CI Pipeline",
+      "user": "ผู้ใช้ *",
+      "noUsersAvailable": "ไม่มีผู้ใช้ที่พร้อมใช้งาน",
+      "expiresAtOptional": "หมดอายุเมื่อ (ไม่บังคับ)",
+      "yyyyMmDd": "ปป/ดด/วว",
+      "yearMonthDay": "ปี / เดือน / วัน"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "ให้เซสชันทำงานต่อไป",
+      "showsANotificationWhileSessions": "แสดงการแจ้งเตือนขณะเซสชันเปิดอยู่ เพื่อให้ Android รักษาเซสชันไว้แม้คุณจะออกจากแอป",
+      "batteryOptimization": "การเพิ่มประสิทธิภาพแบตเตอรี่",
+      "termixIsNotRestrictedSo": "Termix ไม่ถูกจำกัด ดังนั้นเซสชันจึงสามารถเปิดไว้ได้แม้หน้าจอจะปิดอยู่",
+      "androidMayStillStopSessions": "Android อาจหยุดเซสชันเพื่อประหยัดแบตเตอรี่ได้ เปิดการตั้งค่าแบตเตอรี่ ค้นหา Termix แล้วเลือก ไม่เพิ่มประสิทธิภาพ หรือ ไม่จำกัด",
+      "openBatterySettings": "เปิดการตั้งค่าแบตเตอรี่",
+      "notificationsAreOff": "ปิดการแจ้งเตือนแล้ว",
+      "sessionsStillRunButThe": "เซสชันยังคงทำงานอยู่ แต่รายการเซสชันที่เปิดอยู่และปุ่มตัดการเชื่อมต่อทั้งหมดจะซ่อนอยู่",
+      "openNotificationSettings": "เปิดการตั้งค่าการแจ้งเตือน",
+      "thisBuildCanTKeep": "เวอร์ชันนี้ไม่สามารถรักษาเซสชันให้ทำงานในพื้นหลังได้ เซสชันจะเชื่อมต่อใหม่เมื่อคุณกลับมา",
+      "lowPowerMode": "โหมดประหยัดพลังงาน",
+      "batterySaver": "ตัวประหยัดแบตเตอรี่",
+      "isOnTermixChecksConnections": "{{value}} เปิดอยู่ Termix จะตรวจสอบการเชื่อมต่อน้อยลงและรอเวลานานขึ้นระหว่างการพยายามเชื่อมต่อใหม่",
+      "backgroundSessions": "เซสชันพื้นหลัง",
+      "iosStopsAppsSoonAfter": "iOS จะหยุดแอปหลังจากที่คุณออกจากแอปไม่นาน ดังนั้นเซสชันจึงไม่สามารถทำงานในพื้นหลังได้ เซสชันจะเชื่อมต่อใหม่เมื่อคุณกลับมา และ tmux หรือ screen จะทำงานต่อจากจุดที่คุณหยุดไว้"
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "หยุดแล้ว",
+        "active": "ใช้งานอยู่",
+        "linkAServer": "ลิงก์เซิร์ฟเวอร์",
+        "eachServerKeepsItsOwn": "แต่ละเซิร์ฟเวอร์จะเก็บสำเนาของโฮสต์ ข้อมูลประจำตัว และการตั้งค่าของคุณไว้บน {{deviceWord}} นี้เอง",
+        "signedInAs": "เข้าสู่ระบบเป็น",
+        "role": "บทบาท",
+        "administrator": "ผู้ดูแลระบบ",
+        "user": "ผู้ใช้",
+        "serverVersion": "เวอร์ชันเซิร์ฟเวอร์",
+        "signOut": "ออกจากระบบ",
+        "youAreSignedOutOf": "คุณออกจากระบบของเซิร์ฟเวอร์นี้แล้ว",
+        "signIn": "เข้าสู่ระบบ",
+        "passwordChanged": "เปลี่ยนรหัสผ่านแล้ว",
+        "couldNotChangeThePassword": "ไม่สามารถเปลี่ยนรหัสผ่านได้",
+        "changePassword": "เปลี่ยนรหัสผ่าน",
+        "enterYourCurrentPasswordThen": "กรอกรหัสผ่านปัจจุบันของคุณ แล้วเลือกรหัสผ่านใหม่",
+        "cancel": "ยกเลิก",
+        "change": "เปลี่ยน",
+        "currentPassword": "รหัสผ่านปัจจุบัน",
+        "newPassword": "รหัสผ่านใหม่",
+        "accountDeleted": "ลบบัญชีแล้ว",
+        "couldNotDeleteTheAccount": "ไม่สามารถลบบัญชีได้",
+        "deleteServerAccount": "ลบบัญชีเซิร์ฟเวอร์",
+        "thisPermanentlyDeletesYourAccount": "การดำเนินการนี้จะลบบัญชีของคุณบนเซิร์ฟเวอร์และข้อมูลทั้งหมดอย่างถาวร ไม่สามารถย้อนกลับได้",
+        "delete": "ลบ",
+        "confirmYourPassword": "ยืนยันรหัสผ่านของคุณ",
+        "worksWithoutAServer": "ใช้งานได้โดยไม่ต้องมีเซิร์ฟเวอร์",
+        "signedOut": "ออกจากระบบแล้ว",
+        "readsLive": "อ่านแบบเรียลไทม์",
+        "toReview": "{{count}} รายการที่ต้องตรวจสอบ",
+        "synced": "ซิงค์แล้ว",
+        "syncing": "กำลังซิงค์",
+        "offline": "ออฟไลน์"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "แชร์สถิติการใช้งานแบบไม่ระบุตัวตน",
+        "aShortReportOnceA": "รายงานสั้นๆ รายวัน ไม่มีการส่งข้อมูลโฮสต์ ชื่อ หรือที่อยู่",
+        "nextReport": "รายงานถัดไป",
+        "seeExactlyWhatWouldBe": "ดูข้อมูลที่จะถูกส่งอย่างละเอียด",
+        "couldNotBuildTheReport": "ไม่สามารถสร้างรายงานได้",
+        "preview": "ตัวอย่าง",
+        "thisIsExactlyWhatWould": "นี่คือข้อมูลที่พร้อมจะส่งในขณะนี้",
+        "resetInstallId": "รีเซ็ตรหัสการติดตั้ง",
+        "futureReportsWillLookLike": "รายงานในอนาคตจะดูเหมือนการติดตั้งใหม่",
+        "resetTheInstallId": "รีเซ็ตรหัสการติดตั้งหรือไม่",
+        "futureReportsWillLookLike2": "รายงานในอนาคตจะดูเหมือนการติดตั้งใหม่",
+        "reset": "รีเซ็ต",
+        "installIdReset": "รีเซ็ตรหัสการติดตั้งแล้ว"
+      },
+      "appearanceControls": {
+        "theme": "ธีม",
+        "accentColor": "สีเน้น",
+        "textSize": "ขนาดตัวอักษร",
+        "sizeOfTextAcrossThe": "ขนาดตัวอักษรทั่วทั้งแอป (ไม่รวมเทอร์มินัล)",
+        "density": "ความหนาแน่น",
+        "howTallListRowsAnd": "ความสูงของแถวรายการและการตั้งค่า"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "โฮสต์ ข้อมูลการเข้าสู่ระบบ และสนิปเป็ตจะถูกเก็บไว้ในไฟล์ที่เข้ารหัสบน {{deviceWord}} นี้ สถิติการใช้งานจะปิดอยู่จนกว่าคุณจะเปิดใช้งานด้านล่าง เซิร์ฟเวอร์ที่ลิงก์ไว้จะรับเฉพาะข้อมูลที่คุณอนุญาตให้ซิงค์เท่านั้น",
+        "recentHosts": "โฮสต์ล่าสุด",
+        "forgetTheHostsYouOpened": "ลืมโฮสต์ที่คุณเปิดใช้งานเมื่อเร็วๆ นี้ในทุกบัญชี",
+        "recentHostsCleared": "ล้างโฮสต์ล่าสุดแล้ว",
+        "clear": "ล้าง",
+        "couldNotCheckForUpdates": "ไม่สามารถตรวจสอบการอัปเดตได้",
+        "versionIsOutUpdateFrom": "มีเวอร์ชัน {{version}} ออกแล้ว อัปเดตจากสโตร์ของคุณ",
+        "youHaveTheNewestVersion": "คุณใช้เวอร์ชันล่าสุดแล้ว",
+        "termixMobile": "Termix Mobile",
+        "updates": "การอัปเดต",
+        "check": "ตรวจสอบ"
+      },
+      "pinSheet": {
+        "waitSeconds": "รอ {{value}} วินาที",
+        "digits": "{{PIN_LENGTH}} หลัก"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN ไม่ตรงกัน",
+        "appLockIsOn": "เปิดใช้งาน App Lock แล้ว",
+        "turnOffAppLock": "ปิด App Lock",
+        "enterYourPinToConfirm": "กรอก PIN เพื่อยืนยัน",
+        "appLockIsOff": "ปิด App Lock แล้ว",
+        "appLock": "App Lock",
+        "askForFaceIdTouch": "ขอ Face ID, Touch ID หรือ PIN เพื่อเปิดแอป",
+        "askForAPinTo": "ขอ PIN เพื่อเปิดแอป",
+        "pinChanged": "เปลี่ยน PIN แล้ว",
+        "couldNotChangeThePin": "ไม่สามารถเปลี่ยน PIN ได้",
+        "changePin": "เปลี่ยน PIN",
+        "lockAfter": "ล็อกหลังจาก",
+        "howLongTheAppCan": "ระยะเวลาที่แอปสามารถอยู่หน้าจออื่นก่อนจะล็อก",
+        "hideInAppSwitcher": "ซ่อนในสวิตช์แอป",
+        "showABlankScreenIn": "แสดงหน้าจอว่างเปล่าในรายการแอปล่าสุด",
+        "chooseA4DigitPin": "เลือก PIN 4 หลัก",
+        "confirmPin": "ยืนยัน PIN",
+        "enterTheSamePinAgain": "กรอก PIN เดิมอีกครั้ง",
+        "currentPin": "PIN ปัจจุบัน",
+        "enterYourCurrentPin": "กรอก PIN ปัจจุบันของคุณ",
+        "newPin": "PIN ใหม่",
+        "chooseANew4Digit": "เลือก PIN ใหม่ 4 หลัก",
+        "confirmNewPin": "ยืนยัน PIN ใหม่",
+        "enterTheNewPinAgain": "กรอก PIN ใหม่อีกครั้ง"
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "วิดเจ็ตหน้าจอหลัก",
+        "showYourHostsSnippetsAnd": "แสดงโฮสต์ สนิปเป็ต และปุ่มเปิด-ปิดบนหน้าจอหลัก",
+        "showAddresses": "แสดงที่อยู่",
+        "showUserHostUnderEach": "แสดง user@host ใต้ชื่อเซิร์ฟเวอร์แต่ละตัว",
+        "includeOfflineHosts": "รวมโฮสต์ที่ออฟไลน์",
+        "offShowsOnlyServersThat": "ปิดจะแสดงเฉพาะเซิร์ฟเวอร์ที่ออนไลน์",
+        "pinnedHostsOnly": "เฉพาะโฮสต์ที่ปักหมุด",
+        "showOnlyTheHostsYou": "แสดงเฉพาะโฮสต์ที่คุณปักหมุด",
+        "snippetsWidget": "วิดเจ็ตสนิปเป็ต",
+        "showSavedCommandsOnThe": "แสดงคำสั่งที่บันทึกไว้บนหน้าจอหลัก",
+        "showCommandPreview": "แสดงตัวอย่างคำสั่ง",
+        "showTheFirstLineOf": "แสดงบรรทัดแรกของแต่ละคำสั่ง"
+      }
+    },
+    "fileSettings": {
+      "files": "ไฟล์",
+      "fileManagerOnThis": "ตัวจัดการไฟล์บน{{deviceWord}}นี้",
+      "browsing": "การเรียกดู",
+      "transfersAtOnce": "การถ่ายโอนพร้อมกัน",
+      "downloadsAndUploadsThatRun": "การดาวน์โหลดและอัปโหลดที่ทำงานพร้อมกัน",
+      "editor": "ตัวแก้ไข",
+      "textSize": "ขนาดข้อความ",
+      "filesBesideTheTerminal": "ไฟล์ข้างเทอร์มินัล",
+      "side": "ด้าน",
+      "whereThePanelSitsOn": "ตำแหน่งของแผงบนแท็บเล็ต",
+      "right": "ขวา",
+      "left": "ซ้าย",
+      "howOftenToCheck": "ความถี่ในการตรวจสอบ",
+      "folderHistory": "ประวัติโฟลเดอร์",
+      "foldersKeptPerHost": "จำนวนโฟลเดอร์ที่เก็บต่อโฮสต์",
+      "showHiddenFiles": "แสดงไฟล์ที่ซ่อนอยู่",
+      "filesAndFoldersThatStart": "ไฟล์และโฟลเดอร์ที่ขึ้นต้นด้วยจุด",
+      "askBeforeMovingToThe": "ถามก่อนย้ายไปยังถังขยะ",
+      "deletingForGoodAlwaysAsks": "การลบถาวรจะถามเสมอ",
+      "wrapLongLines": "ขึ้นบรรทัดใหม่เมื่อข้อความยาว",
+      "openWithNewTerminals": "เปิดด้วยเทอร์มินัลใหม่",
+      "onATabletShowThe": "บนแท็บเล็ต ให้แสดงแผงไฟล์เมื่อเปิดเทอร์มินัล",
+      "followTheTerminal": "ติดตามเทอร์มินัล",
+      "openTheFolderTheTerminal": "เปิดโฟลเดอร์ที่เทอร์มินัลอยู่เมื่อคุณใช้คำสั่ง cd"
+    },
+    "keyboardCustomization": {
+      "small": "เล็ก",
+      "medium": "กลาง",
+      "large": "ใหญ่",
+      "ms": "{{v}} มล.",
+      "keyboard": "คีย์บอร์ด",
+      "keyRowsAboveTheKeyboard": "แถวปุ่มเหนือคีย์บอร์ด",
+      "rows": "แถว",
+      "keys": "ปุ่ม",
+      "aHostCanHaveIts": "โฮสต์สามารถมีแถวของตัวเองได้: แตะแท็บที่เปิดในเซสชันแล้วเลือกแถวปุ่มสำหรับโฮสต์นี้",
+      "keySize": "ขนาดปุ่ม",
+      "vibrateOnKeyPress": "สั่นเมื่อกดปุ่ม",
+      "repeatAfter": "ทำซ้ำหลังจาก",
+      "howLongToHoldAn": "ระยะเวลาในการกดปุ่มลูกศรหรือ Backspace",
+      "repeatEvery": "ทำซ้ำทุก",
+      "hardwareKeyboard": "คีย์บอร์ดฮาร์ดแวร์",
+      "allShortcuts": "ทางลัดทั้งหมด",
+      "show": "แสดง"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "ไม่สามารถสร้างสำรองได้",
+      "deleteLocalData": "ลบข้อมูลท้องถิ่นหรือไม่?",
+      "hostsCredentialsSnippetsAndHistory": "โฮสต์ ข้อมูลประจำตัว สนิปเป็ต และประวัติที่บันทึกไว้บน{{deviceWord}}นี้สำหรับ{{account}}จะถูกลบ การดำเนินการนี้ไม่สามารถย้อนกลับได้ กรุณาสำรองข้อมูลก่อนหากคุณต้องการเก็บไว้",
+      "delete": "ลบ",
+      "localDataDeleted": "ลบข้อมูลท้องถิ่นแล้ว",
+      "couldNotDeleteLocalData": "ไม่สามารถลบข้อมูลท้องถิ่นได้",
+      "localData": "ข้อมูลท้องถิ่น",
+      "localDataIsOnlySaved": "ข้อมูลท้องถิ่นจะถูกบันทึกเฉพาะในแอป {{deviceWord}} เท่านั้น",
+      "savedOnThisForThe": "บันทึกไว้บน {{deviceWord}} นี้สำหรับ {{account}} ไฟล์ถูกเข้ารหัสด้วยคีย์ที่ไม่เคยออกจาก {{deviceWord}} นี้",
+      "hosts": "โฮสต์",
+      "credentials": "ข้อมูลรับรอง",
+      "snippets": "สเนปเป็ต",
+      "size": "ขนาด",
+      "dataVersion": "เวอร์ชันข้อมูล",
+      "backup": "สำรองข้อมูล",
+      "aBackupFileHoldsYour": "ไฟล์สำรองข้อมูลจะเก็บรหัสผ่านและคีย์ของคุณ โดยล็อกด้วยวลีผ่านที่คุณเลือก ไม่มีใครสามารถเปิดไฟล์นี้ได้หากไม่มีวลีผ่านนั้น",
+      "exportBackup": "ส่งออกข้อมูลสำรอง",
+      "importBackup": "นำเข้าข้อมูลสำรอง",
+      "removesEverythingThisAccountSaved": "ลบทุกอย่างที่บัญชีนี้บันทึกไว้บน {{deviceWord}} นี้ เซิร์ฟเวอร์ที่เชื่อมโยงไว้จะยังคงมีสำเนาของตัวเอง",
+      "deleteLocalData2": "ลบข้อมูลท้องถิ่น",
+      "backupPassphrase": "วลีผ่านสำหรับสำรองข้อมูล",
+      "atLeast8CharactersYou": "อย่างน้อย 8 ตัวอักษร คุณจำเป็นต้องใช้เพื่อคืนค่าข้อมูลสำรอง",
+      "passphrase": "วลีผ่าน",
+      "next": "ถัดไป",
+      "typeItAgain": "พิมพ์อีกครั้ง",
+      "export": "ส่งออก",
+      "saveYourTermixBackup": "บันทึกข้อมูลสำรอง Termix ของคุณ"
+    },
+    "logs": {
+      "logs": "บันทึกเหตุการณ์",
+      "latestLinesFromThisRun": "บรรทัดล่าสุดจากการรันนี้ ที่อยู่เซิร์ฟเวอร์ รหัสผ่าน และโทเค็นจะถูกซ่อนไว้",
+      "logsCopied": "คัดลอกบันทึกเหตุการณ์แล้ว",
+      "copy": "คัดลอก",
+      "share": "แชร์",
+      "clear": "ล้าง",
+      "noLogsYet": "ยังไม่มีบันทึกเหตุการณ์",
+      "nothingHasBeenLogged": "ยังไม่มีอะไรถูกบันทึกไว้"
+    },
+    "plugins": {
+      "worksOnThis": "ใช้งานได้บน {{deviceWord}} นี้",
+      "needsTheServer": "จำเป็นต้องใช้เซิร์ฟเวอร์",
+      "notInTheApp": "ไม่มีในแอป",
+      "needsANewerVersionOf": "จำเป็นต้องใช้เวอร์ชันใหม่ของแอป",
+      "updateThePluginOnThe": "อัปเดตปลั๊กอินบนเซิร์ฟเวอร์",
+      "inTheApp": "ในแอป",
+      "onThisServer": "บนเซิร์ฟเวอร์นี้",
+      "version": "เวอร์ชัน",
+      "needsPluginApi": "จำเป็นต้องใช้ API ปลั๊กอิน",
+      "thisAppHas": "แอปนี้มี",
+      "note": "หมายเหตุ",
+      "open": "เปิด",
+      "openFromAHostS": "เปิด {{name}} จากเมนูของโฮสต์",
+      "plugins": "ปลั๊กอิน",
+      "everything": "ทั้งหมด",
+      "thisDeviceWorksWithNo": "อุปกรณ์นี้ทำงานได้โดยไม่ต้องใช้เซิร์ฟเวอร์ เชื่อมโยงเซิร์ฟเวอร์เพื่อเพิ่มฟีเจอร์ที่ต้องการ",
+      "pluginsOnAndHowEach": "ปลั๊กอินบน {{account}} และวิธีที่แต่ละตัวแสดงในแอป ดึงลงเพื่อตรวจสอบอีกครั้ง",
+      "whatRunsOnThisAnd": "สิ่งที่ทำงานบน {{deviceWord}} นี้ และสิ่งที่ผ่าน {{account}}",
+      "noPluginList": "ไม่มีรายการปลั๊กอิน",
+      "theServerDidNotSend": "เซิร์ฟเวอร์ไม่ได้ส่งปลั๊กอินของมัน ดึงลงเพื่อลองอีกครั้ง",
+      "serversOlderThan29": "เซิร์ฟเวอร์ที่เก่ากว่า 2.9 มีฟีเจอร์ทั้งหมดในตัว",
+      "nothingToShow": "ไม่มีอะไรให้แสดง",
+      "notSentByThisServer": "ไม่ได้ส่งโดยเซิร์ฟเวอร์นี้"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "แทนที่ข้อมูลท้องถิ่นหรือไม่?",
+      "everythingSavedOnThisFor": "ทุกอย่างที่บันทึกไว้บน {{deviceWord}} นี้สำหรับ {{accountName}} จะถูกแทนที่ด้วยข้อมูลสำรอง",
+      "continue": "ดำเนินการต่อ",
+      "couldNotReadThatFile": "ไม่สามารถอ่านไฟล์นั้นได้",
+      "backupRestored": "คืนค่าข้อมูลสำรองแล้ว",
+      "couldNotRestoreTheBackup": "ไม่สามารถคืนค่าข้อมูลสำรองได้",
+      "backupPassphrase": "วลีผ่านสำหรับสำรองข้อมูล",
+      "thePassphraseUsedWhenThe": "วลีผ่านที่ใช้เมื่อสร้างข้อมูลสำรอง",
+      "passphrase": "วลีผ่าน",
+      "restore": "กู้คืน"
+    },
+    "schema": {
+      "items": {
+        "accounts": "บัญชี",
+        "thisDeviceAndLinkedServers": "อุปกรณ์นี้และเซิร์ฟเวอร์ที่เชื่อมโยง พร้อมสถานะการซิงค์",
+        "syncAndProxy": "การซิงค์และพร็อกซี",
+        "whatSyncsConflictsProxyAnd": "สิ่งที่ซิงค์ ความขัดแย้ง พร็อกซี และการยกเลิกการเชื่อมโยง",
+        "serverAccount": "บัญชีเซิร์ฟเวอร์",
+        "whoIsSignedInOn": "ผู้ใช้งานที่เข้าสู่ระบบในเซิร์ฟเวอร์ปัจจุบัน",
+        "activeSessions": "เซสชันที่ใช้งานอยู่",
+        "devicesSignedInToThe": "อุปกรณ์ที่เข้าสู่ระบบในเซิร์ฟเวอร์",
+        "apiKeys": "คีย์ API",
+        "keysForScriptsAndTools": "คีย์สำหรับสคริปต์และเครื่องมือ",
+        "changePassword": "เปลี่ยนรหัสผ่าน",
+        "passwordOfYourServerAccount": "รหัสผ่านของบัญชีเซิร์ฟเวอร์ของคุณ",
+        "deleteServerAccount": "ลบบัญชีเซิร์ฟเวอร์",
+        "removeYourAccountFromThe": "ลบบัญชีของคุณออกจากเซิร์ฟเวอร์",
+        "theme": "ธีม",
+        "darkLightDraculaNordAnd": "มืด, สว่าง, Dracula, Nord และอื่นๆ",
+        "accentColor": "สีเน้น",
+        "textSize": "ขนาดข้อความ",
+        "sizeOfTextAcrossThe": "ขนาดข้อความทั่วทั้งแอป",
+        "density": "ความหนาแน่น",
+        "howTallListRowsAnd": "ความสูงของแถวรายการและการตั้งค่า",
+        "homeScreenWidgets": "วิดเจ็ตหน้าจอหลัก",
+        "hostsAndSnippetsOnThe": "โฮสต์และสเนปเป็ตบนหน้าจอหลัก",
+        "terminal": "เทอร์มินัล",
+        "fontThemeCursorScrollback": "ฟอนต์, ธีม, เคอร์เซอร์, การเลื่อนย้อนกลับ",
+        "keyboard": "คีย์บอร์ด",
+        "layoutKeysPresets": "เลย์เอาต์, คีย์, การตั้งค่าเริ่มต้น",
+        "appLock": "ล็อคแอป",
+        "askForFaceIdTouch": "ขอ Face ID, Touch ID หรือ PIN เพื่อเปิดแอป",
+        "lockAfter": "ล็อคหลังจาก",
+        "howLongTheAppCan": "ระยะเวลาที่แอปสามารถอยู่นอกสายตาได้ก่อนจะล็อค",
+        "hideInAppSwitcher": "ซ่อนในสวิตเซอร์แอป",
+        "showABlankScreenIn": "แสดงหน้าจอว่างเปล่าในรายการแอปล่าสุด",
+        "changePin": "เปลี่ยน PIN",
+        "backgroundSessions": "เซสชันพื้นหลัง",
+        "whatHappensToOpenSessions": "สิ่งที่เกิดขึ้นกับเซสชันที่เปิดอยู่เมื่อคุณออกจากแอป",
+        "serverAlerts": "การแจ้งเตือนจากเซิร์ฟเวอร์",
+        "alertsFromTheAlertsPlugin": "การแจ้งเตือนจากปลั๊กอิน Alerts บนเซิร์ฟเวอร์ของคุณ",
+        "whatStaysOnThis": "สิ่งที่เก็บไว้ใน {{deviceWord}} นี้",
+        "hostsCredentialsAndSnippetsAre": "โฮสต์, ข้อมูลประจำตัว และสเนปเป็ตจะถูกเก็บไว้ที่นี่ในรูปแบบเข้ารหัส",
+        "recentHosts": "โฮสต์ล่าสุด",
+        "forgetTheHostsYouOpened": "ลืมโฮสต์ที่คุณเปิดใช้งานเมื่อไม่นานนี้",
+        "shareAnonymousUsageStatistics": "แชร์สถิติการใช้งานแบบไม่ระบุตัวตน",
+        "aShortReportOnceA": "รายงานสั้นๆ วันละครั้ง ไม่มีโฮสต์ ชื่อ หรือที่อยู่",
+        "nextReport": "รายงานถัดไป",
+        "seeExactlyWhatWouldBe": "ดูสิ่งที่จะถูกส่งไปอย่างชัดเจน",
+        "resetInstallId": "รีเซ็ต ID การติดตั้ง",
+        "futureReportsWillLookLike": "รายงานในอนาคตจะดูเหมือนการติดตั้งใหม่",
+        "serverUsageStatistics": "สถิติการใช้งานเซิร์ฟเวอร์",
+        "telemetrySettingsOnYourServer": "การตั้งค่าเทเลเมทรีบนเซิร์ฟเวอร์ของคุณ",
+        "plugins": "ปลั๊กอิน",
+        "whatTheServerAddsAnd": "สิ่งที่เซิร์ฟเวอร์เพิ่มเข้ามาและตำแหน่งที่ทำงาน",
+        "localData": "ข้อมูลท้องถิ่น",
+        "backupRestoreAndDeleteWhat": "สำรอง, กู้คืน และลบสิ่งที่บันทึกไว้ใน {{deviceWord}} นี้",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "เวอร์ชันและการอัปเดต",
+        "logs": "บันทึก",
+        "latestLinesFromThisRun": "บรรทัดล่าสุดจากการรันนี้ สำหรับรายงานข้อบกพร่อง",
+        "pushNotifications": "การแจ้งเตือนแบบพุช",
+        "pushNotificationsDescription": "การแจ้งเตือนจากเซิร์ฟเวอร์ของคุณบนโทรศัพท์เครื่องนี้"
+      },
+      "sections": {
+        "accountsAndSync": "บัญชีและการซิงค์",
+        "thisDeviceLinkedServersAnd": "อุปกรณ์นี้ เซิร์ฟเวอร์ที่เชื่อมโยง และสิ่งที่ซิงค์",
+        "appearance": "รูปลักษณ์",
+        "themeAccentTextSizeAnd": "ภาษา ธีม สีเน้น ขนาดข้อความ และความหนาแน่น",
+        "terminal": "เทอร์มินัล",
+        "fontColorsAndBackgroundSessions": "ฟอนต์ สี และเซสชันพื้นหลัง",
+        "keyboard": "คีย์บอร์ด",
+        "keyRowsAndShortcuts": "แถวคีย์และทางลัด",
+        "security": "ความปลอดภัย",
+        "appLockFaceIdAnd": "การล็อกแอป Face ID และ PIN",
+        "notifications": "การแจ้งเตือน",
+        "alertsFromYourServer": "การแจ้งเตือนจากเซิร์ฟเวอร์ของคุณ",
+        "privacyAndUsageStatistics": "ความเป็นส่วนตัวและสถิติการใช้งาน",
+        "whatStaysOnThis": "สิ่งที่เก็บไว้ใน{{deviceWord}}นี้",
+        "plugins": "ปลั๊กอิน",
+        "whatTheServerAddsTo": "สิ่งที่เซิร์ฟเวอร์เพิ่มเข้ามาในแอป",
+        "backupAndData": "การสำรองข้อมูลและข้อมูล",
+        "backUpRestoreImportAnd": "สำรอง คืนค่า นำเข้า และส่งออก",
+        "aboutAndLogs": "เกี่ยวกับและบันทึกเหตุการณ์",
+        "versionAndLogsForBug": "เวอร์ชันและบันทึกเหตุการณ์สำหรับรายงานข้อผิดพลาด"
+      }
+    },
+    "settings": "การตั้งค่า",
+    "searchSettings": "ค้นหาการตั้งค่า",
+    "noSettingsMatch": "ไม่มีการตั้งค่าที่ตรงกัน",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "ไม่สามารถโหลดสแนปเล็ตได้",
+      "copied": "คัดลอกแล้ว: {{name}}",
+      "nameIsRequired": "จำเป็นต้องระบุชื่อ",
+      "contentIsRequired": "จำเป็นต้องระบุเนื้อหา",
+      "snippetUpdated": "อัปเดตสแนปเล็ตแล้ว",
+      "snippetCreated": "สร้างสแนปเล็ตแล้ว",
+      "failedToSaveSnippet": "ไม่สามารถบันทึกสแนปเล็ตได้",
+      "snippetDeleted": "ลบสแนปเล็ตแล้ว",
+      "failedToDeleteSnippet": "ไม่สามารถลบสแนปเล็ตได้",
+      "folderNameIsRequired": "จำเป็นต้องระบุชื่อโฟลเดอร์",
+      "folderCreated": "สร้างโฟลเดอร์แล้ว",
+      "failedToCreateFolder": "ไม่สามารถสร้างโฟลเดอร์ได้",
+      "folderDeleted": "ลบโฟลเดอร์แล้ว",
+      "failedToDeleteFolder": "ไม่สามารถลบโฟลเดอร์ได้",
+      "folderRenamed": "เปลี่ยนชื่อโฟลเดอร์แล้ว",
+      "failedToRenameFolder": "ไม่สามารถเปลี่ยนชื่อโฟลเดอร์ได้",
+      "failedToSaveOrder": "ไม่สามารถบันทึกลำดับได้",
+      "moveUp": "เลื่อนขึ้น",
+      "moveDown": "เลื่อนลง",
+      "runOnHosts": "เรียกใช้ {{name}} บนโฮสต์",
+      "copy": "คัดลอก {{name}}",
+      "delete": "ลบ {{name}}",
+      "renameFolder": "เปลี่ยนชื่อโฟลเดอร์",
+      "deleteFolder": "ลบโฟลเดอร์",
+      "noSnippetsInThisFolder": "ไม่มีสแนปเล็ตในโฟลเดอร์นี้",
+      "snippets": "สแนปเล็ต",
+      "importAndExport": "นำเข้าและส่งออก",
+      "folder": "โฟลเดอร์",
+      "new": "ใหม่",
+      "loading": "กำลังโหลด…",
+      "couldNotLoadSnippets": "ไม่สามารถโหลดสแนปเล็ตได้",
+      "checkTheConnectionToYour": "ตรวจสอบการเชื่อมต่อกับเซิร์ฟเวอร์ของคุณแล้วลองอีกครั้ง",
+      "tryAgain": "ลองอีกครั้ง",
+      "noSnippetsYet": "ยังไม่มีสแนปเล็ต",
+      "createYourFirstSnippetOr": "สร้างสแนปเล็ตแรกของคุณ หรือเพิ่มสแนปเล็ตจากแอปเว็บหรือเดสก์ท็อปของ Termix",
+      "createSnippet": "สร้างสแนปเล็ต",
+      "askBeforeRunning": "ถามก่อนดำเนินการ",
+      "confirmBeforeASnippetRuns": "ยืนยันก่อนเรียกใช้ snippet ในเทอร์มินัล",
+      "editSnippet": "แก้ไข Snippet",
+      "newSnippet": "สร้าง Snippet ใหม่",
+      "cancel": "ยกเลิก",
+      "save": "บันทึก",
+      "create": "สร้าง",
+      "name": "ชื่อ",
+      "eGUpdatePackages": "เช่น อัปเดตแพ็กเกจ",
+      "content": "เนื้อหา",
+      "descriptionOptional": "คำอธิบาย (ไม่บังคับ)",
+      "shortDescription": "คำอธิบายสั้นๆ",
+      "folderOptional": "โฟลเดอร์ (ไม่บังคับ)",
+      "selectFolder": "เลือกโฟลเดอร์",
+      "noFolder": "ไม่มีโฟลเดอร์",
+      "targetHostsOptional": "โฮสต์เป้าหมาย (ไม่บังคับ)",
+      "none": "ไม่มี",
+      "note": "หมายเหตุ",
+      "pastedIntoTheTerminalWithout": "วางลงในเทอร์มินัลโดยไม่ดำเนินการ",
+      "targetHosts": "โฮสต์เป้าหมาย",
+      "copy2": "คัดลอก",
+      "edit": "แก้ไข",
+      "runOnHosts2": "ดำเนินการบนโฮสต์",
+      "delete2": "ลบ",
+      "deleteSnippet": "ลบ Snippet",
+      "deleteThisCannotBeUndone": "ต้องการลบ \"{{name}}\" หรือไม่ การดำเนินการนี้ไม่สามารถย้อนกลับได้",
+      "renameFolder2": "เปลี่ยนชื่อโฟลเดอร์",
+      "rename": "เปลี่ยนชื่อ",
+      "folderName": "ชื่อโฟลเดอร์",
+      "eGSystem": "เช่น ระบบ",
+      "newFolder": "สร้างโฟลเดอร์ใหม่",
+      "deleteFolder2": "ลบโฟลเดอร์",
+      "deleteSnippetsInThisFolder": "ต้องการลบ \"{{name}}\" หรือไม่ Snippet ในโฟลเดอร์นี้จะถูกจัดเป็นไม่มีหมวดหมู่"
+    },
+    "sync": {
+      "notYet": "ยังไม่เคย",
+      "justNow": "เมื่อสักครู่",
+      "stopped": "หยุดทำงาน",
+      "signInToThisServer": "เข้าสู่ระบบเซิร์ฟเวอร์นี้ใหม่เพื่อซิงค์ข้อมูล",
+      "couldNotChangeThat": "ไม่สามารถเปลี่ยนแปลงได้",
+      "sync": "ซิงค์",
+      "thisDeviceDoesNotSync": "อุปกรณ์นี้ไม่ซิงค์ข้อมูล เชื่อมต่อกับเซิร์ฟเวอร์ Termix เพื่อเก็บโฮสต์ของคุณไว้บนอุปกรณ์มากกว่าหนึ่งเครื่อง",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} จะเก็บโฮสต์ ข้อมูลประจำตัว snippet และการตั้งค่าให้สอดคล้องกับ {{deviceWord}} นี้ สำเนาหนึ่งชุดจะเก็บไว้บน {{deviceWord}} นี้ เพื่อให้ใช้งานได้แม้ไม่มีอินเทอร์เน็ต",
+      "lastSynced": "ซิงค์ล่าสุดเมื่อ {{value}}",
+      "live": "สด",
+      "syncNow": "ซิงค์ตอนนี้",
+      "fix": "แก้ไข",
+      "thisServerReadsLiveAnd": "เซิร์ฟเวอร์นี้ดึงข้อมูลแบบสดและไม่เก็บสำเนาไว้บน {{deviceWord}}",
+      "turnOnTheSyncPlugin": "เปิดใช้งานปลั๊กอิน Sync ในหน้าปลั๊กอินของเซิร์ฟเวอร์ จากนั้นเข้าสู่ระบบที่นี่อีกครั้งเพื่อเก็บสำเนาไว้บน {{deviceWord}} นี้",
+      "whatSyncs": "สิ่งที่ซิงค์",
+      "turnedOffThatDataStays": "ปิดใช้งาน ข้อมูลนั้นจะเก็บไว้เฉพาะบน {{deviceWord}} นี้",
+      "conflicts": "ความขัดแย้ง",
+      "changedHereAndOnThe": "มีการเปลี่ยนแปลงทั้งที่นี่และบนเซิร์ฟเวอร์ในเวลาเดียวกัน ใช้เวอร์ชันจากเซิร์ฟเวอร์",
+      "useServer": "ใช้ข้อมูลจากเซิร์ฟเวอร์",
+      "keepMine": "เก็บข้อมูลของฉัน",
+      "notSavedOnTheServer": "ไม่ได้บันทึกบนเซิร์ฟเวอร์",
+      "theServerRefusedTheseChanges": "เซิร์ฟเวอร์ปฏิเสธการเปลี่ยนแปลงเหล่านี้ ข้อมูลจะยังคงอยู่บน {{deviceWord}} นี้",
+      "tryAgain": "ลองอีกครั้ง",
+      "proxy": "พร็อกซี",
+      "onlyNeededWhenAReverse": "จำเป็นเฉพาะเมื่อมี reverse proxy อยู่หน้าเซิร์ฟเวอร์",
+      "unlink": "ยกเลิกการเชื่อมโยง",
+      "unlinkThisServer": "ยกเลิกการเชื่อมโยงเซิร์ฟเวอร์นี้",
+      "minAgo": "{{value}} นาทีที่แล้ว",
+      "signedOut": "ออกจากระบบแล้ว",
+      "waitingToSync": "กำลังรอซิงค์",
+      "synced": "ซิงค์แล้ว",
+      "syncing": "กำลังซิงค์",
+      "offline": "ออฟไลน์"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "พื้นหลัง",
+        "text": "ข้อความ",
+        "cursor": "เคอร์เซอร์",
+        "textUnderCursor": "ข้อความใต้เคอร์เซอร์",
+        "selection": "ส่วนที่เลือก",
+        "black": "ดำ",
+        "red": "แดง",
+        "green": "เขียว",
+        "yellow": "เหลือง",
+        "blue": "น้ำเงิน",
+        "magenta": "ม่วงแดง",
+        "cyan": "ฟ้าอมเขียว",
+        "white": "ขาว",
+        "brightBlack": "ดำสว่าง",
+        "brightRed": "แดงสว่าง",
+        "brightGreen": "เขียวนสว่าง",
+        "brightYellow": "เหลืองสว่าง",
+        "brightBlue": "น้ำเงินสว่าง",
+        "brightMagenta": "ม่วงแดงสว่าง",
+        "brightCyan": "ฟ้าอมเขียวนสว่าง",
+        "brightWhite": "ขาวสว่าง",
+        "customTheme": "ธีมแบบกำหนดเอง",
+        "colorsAsHexLike1e1e2e": "สีในรูปแบบ hex เช่น #1e1e2e",
+        "cancel": "ยกเลิก",
+        "save": "บันทึก",
+        "isNotAHexColor": "{{label}} ไม่ใช่สี hex"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "กะทัดรัด",
+      "default": "ค่าเริ่มต้น",
+      "relaxed": "สบายตา",
+      "spacious": "กว้างขวาง",
+      "none": "ไม่มี",
+      "couldNotSave": "ไม่สามารถบันทึกได้",
+      "pickASizeFromTo": "เลือกขนาดระหว่าง {{MIN_FONT_SIZE}} ถึง {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "รีเซ็ตการตั้งค่าเทอร์มินัล",
+      "terminal": "เทอร์มินัล",
+      "aHostCanSetIts": "โฮสต์สามารถตั้งค่าธีมและเคอร์เซอร์ของตัวเองใน Termix ได้ ซึ่งจะมีผลเหนือกว่าการตั้งค่าเหล่านี้",
+      "theme": "ธีม",
+      "custom": "แบบกำหนดเอง",
+      "font": "ฟอนต์",
+      "active": "ใช้งานอยู่",
+      "sizeAndSpacing": "ขนาดและระยะห่าง",
+      "pinchTheTerminalToChange": "ใช้สองนิ้วบีบเทอร์มินัลเพื่อเปลี่ยนขนาดได้ด้วย การตั้งค่าฟอนต์ขนาดใหญ่ใน{{deviceWord}}การตั้งค่าของคุณจะทำให้ตัวอักษรใหญ่ขึ้น",
+      "custom2": "แบบกำหนดเอง {{fontSize}}",
+      "lineHeight": "ความสูงบรรทัด",
+      "letterSpacing": "ระยะห่างระหว่างตัวอักษร",
+      "ligatures": "ลิกเจอร์",
+      "cursor": "เคอร์เซอร์",
+      "blink": "กระพริบ",
+      "bell": "เสียงแจ้งเตือน",
+      "vibrate": "สั่น",
+      "onTheBellAndWhen": "เมื่อมีเสียงแจ้งเตือนและเมื่อกดค้างเพื่อเลือก",
+      "scrollback": "เลื่อนย้อนกลับ",
+      "linesKeptAboveTheScreen": "จำนวนบรรทัดที่เก็บไว้เหนือหน้าจอ ใช้กับเทอร์มินัลใหม่เท่านั้น",
+      "linksAndKeys": "ลิงก์และคีย์",
+      "askBeforeOpeningLinks": "ถามก่อนเปิดลิงก์",
+      "doubleTapSendsTab": "แตะสองครั้งเพื่อส่ง Tab",
+      "longPressStillSelectsText": "กดค้างยังเลือกข้อความได้",
+      "optionSendsAlt": "Option ส่ง Alt",
+      "onAHardwareKeyboardOff": "บนคีย์บอร์ดกายภาพ ปิดจะพิมพ์สัญลักษณ์เหมือนบน Mac",
+      "history": "ประวัติ",
+      "suggestCommands": "แนะนำคำสั่ง",
+      "showsPastCommandsThatStart": "คำสั่งที่เคยใช้ขณะพิมพ์",
+      "resetToDefault": "รีเซ็ตเป็นค่าเริ่มต้น",
+      "fontSize": "ขนาดฟอนต์",
+      "aSizeFromTo": "ขนาดตั้งแต่ {{MIN_FONT_SIZE}} ถึง {{MAX_FONT_SIZE}}",
+      "cancel": "ยกเลิก",
+      "apply": "ใช้",
+      "resetTerminalSettings": "รีเซ็ตการตั้งค่าเทอร์มินัลหรือไม่",
+      "themeFontSizeCursorBell": "ธีม ฟอนต์ ขนาด เคอร์เซอร์ เสียงแจ้งเตือน และอื่นๆ จะกลับเป็นค่าเริ่มต้น",
+      "reset": "รีเซ็ต",
+      "followsAppTheme": "ตามธีมของแอป"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "เริ่มการตั้งค่า 2FA ล้มเหลว",
+      "twoFactorAuthenticationEnabled": "เปิดใช้งานการยืนยันตัวตนสองขั้นตอนแล้ว",
+      "invalidCodeTryAgain": "รหัสไม่ถูกต้อง ลองอีกครั้ง",
+      "twoFactorAuthenticationDisabled": "ปิดใช้งานการยืนยันตัวตนสองขั้นตอนแล้ว",
+      "failedToDisable2fa": "ปิดใช้งาน 2FA ล้มเหลว",
+      "failedToFetchBackupCodes": "ดึงรหัสสำรองล้มเหลว",
+      "secretCopied": "คัดลอกคีย์ลับแล้ว",
+      "backupCodesCopied": "คัดลอกรหัสสำรองแล้ว",
+      "twoFactorAuthentication": "การยืนยันตัวตนสองขั้นตอน",
+      "loading": "กำลังโหลด…",
+      "scanThisQrCodeWith": "สแกน QR โค้ดนี้ด้วยแอป Authenticator ของคุณ (เช่น Google Authenticator, Authy ฯลฯ) จากนั้นป้อนรหัส 6 หลักเพื่อยืนยัน",
+      "verifyAmpEnable": "ยืนยันและเปิดใช้งาน",
+      "cancel": "ยกเลิก",
+      "saveYourBackupCodes": "บันทึกคีย์สำรองของคุณ",
+      "storeTheseSomewhereSafeEach": "เก็บคีย์เหล่านี้ไว้ในที่ปลอดภัย คีย์แต่ละรหัสใช้ได้เพียงครั้งเดียวหากคุณสูญเสียการเข้าถึงแอป Authenticator",
+      "copyAllCodes": "คัดลอกคีย์ทั้งหมด",
+      "done": "เสร็จสิ้น",
+      "yourAccountIsProtectedWith": "บัญชีของคุณได้รับการป้องกันด้วยแอป Authenticator",
+      "addAnExtraLayerOf": "เพิ่มชั้นความปลอดภัยให้กับบัญชีของคุณ",
+      "viewBackupCodes": "ดูรหัสสำรอง",
+      "disable2fa": "ปิดใช้งาน 2FA",
+      "enable2fa": "เปิดใช้งาน 2FA",
+      "disableTwoFactorAuthentication": "ปิดใช้งานการยืนยันตัวตนสองขั้นตอน",
+      "enterACodeFromYour": "ป้อนรหัสจากแอป Authenticator ของคุณเพื่อยืนยัน คุณสามารถเปิดใช้งาน 2FA ใหม่ได้ทุกเมื่อ",
+      "enterYourPasswordToConfirm": "ป้อนรหัสผ่านของคุณเพื่อยืนยัน คุณสามารถเปิดใช้งาน 2FA ใหม่ได้ทุกเมื่อ",
+      "disable": "ปิดใช้งาน",
+      "yourPassword": "รหัสผ่านของคุณ",
+      "n2faIsEnabled": "เปิดใช้งาน 2FA แล้ว",
+      "n2faIsNotEnabled": "ยังไม่เปิดใช้งาน 2FA"
+    },
+    "language": {
+      "label": "ภาษา",
+      "description": "แอปจะรีโหลดเพื่อเปลี่ยน",
+      "system": "เหมือนกับอุปกรณ์"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "ไม่มีโฮสต์ SSH ที่นี่",
+      "couldNotReadWhatWas": "ไม่สามารถอ่านสิ่งที่แชร์ได้",
+      "stopTheUploads": "หยุดการอัปโหลดหรือไม่",
+      "stopAndLeave": "หยุดและออก",
+      "sendTo": "ส่งไปยัง {{name}}",
+      "sendToAHost": "ส่งไปยังโฮสต์",
+      "nothingToSend": "ไม่มีอะไรให้ส่ง",
+      "close": "ปิด",
+      "done": "เสร็จสิ้น",
+      "cancel": "ยกเลิก",
+      "uploadHere": "อัปโหลดที่นี่",
+      "uploadsStillGoing_other": "การอัปโหลด {{count}} รายการยังคงดำเนินอยู่ การออกจะหยุดการทำงาน",
+      "filesSize_other": "{{count}} ไฟล์ | {{size}}",
+      "readingWhatWasShared": "กำลังอ่านสิ่งที่ถูกแชร์"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "ข้อผิดพลาด",
+      "worksWithoutAServer": "ใช้งานได้โดยไม่ต้องใช้เซิร์ฟเวอร์",
+      "accountSwitch": "บัญชี {{account}} เปลี่ยนบัญชี",
+      "search": "ค้นหา",
+      "notificationsUnread": "การแจ้งเตือน, มี {{unread}} รายการที่ยังไม่ได้อ่าน",
+      "notifications": "การแจ้งเตือน",
+      "signedIn": "เข้าสู่ระบบแล้ว",
+      "signedOut": "ออกจากระบบแล้ว",
+      "copyOnThis": "คัดลอกบน {{deviceWord}} นี้"
+    },
+    "bottomBar": {
+      "home": "หน้าแรก",
+      "hosts": "โฮสต์",
+      "sessions": "เซสชัน",
+      "tools": "เครื่องมือ",
+      "settings": "การตั้งค่า",
+      "open": "{{label}}, เปิดอยู่ {{count}} รายการ"
+    },
+    "sideBar": {
+      "open": "{{label}}, เปิดอยู่ {{count}} รายการ"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "เลือกโฮสต์",
+      "searchHosts": "ค้นหาโฮสต์",
+      "clearSearch": "ล้างการค้นหา",
+      "noHostsMatch": "ไม่พบโฮสต์ที่ตรงกัน",
+      "noHostsCanUseThis": "ไม่มีโฮสต์ใดสามารถใช้สิ่งนี้ได้",
+      "turnItOnForA": "เปิดใช้งานสำหรับโฮสต์ในตัวแก้ไขโฮสต์"
+    },
+    "noToolsHereYet": "ยังไม่มีเครื่องมือที่นี่",
+    "onAHost": "บนโฮสต์",
+    "saved": "บันทึกแล้ว",
+    "fromYourServer": "จากเซิร์ฟเวอร์ของคุณ"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "ยกเลิก",
+      "delete": "ลบ",
+      "confirm": "ยืนยัน"
+    },
+    "contextMenu": {
+      "closeMenu": "ปิดเมนู"
+    },
+    "inlineView": {
+      "back": "ย้อนกลับ"
+    },
+    "listRow": {
+      "moreActions": "การกระทำเพิ่มเติม"
+    },
+    "pinPad": {
+      "useBiometrics": "ใช้ข้อมูลชีวภาพ",
+      "delete": "ลบ"
+    },
+    "popover": {
+      "close": "ปิด"
+    },
+    "promptSheet": {
+      "cancel": "ยกเลิก"
+    },
+    "sheet": {
+      "close": "ปิด"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "คีย์นี้ถูกล็อก กรุณาใส่รหัสผ่าน",
+      "thatPassphraseDoesnTOpen": "รหัสผ่านนี้ไม่สามารถเปิดคีย์นี้ได้",
+      "thisDoesnTLookLike": "สิ่งนี้ดูเหมือนไม่ใช่คีย์ส่วนตัว",
+      "loadedAndChangedItTo": "โหลด {{name}} และแปลงเป็นรูปแบบ OpenSSH",
+      "loadedItNeedsItsPassphrase": "โหลด {{name}} แล้ว ต้องการรหัสผ่านเพื่อเชื่อมต่อ"
+    },
+    "ago": {
+      "justNow": "เมื่อสักครู่"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "ไม่สามารถโหลดโฮสต์ของคุณได้",
+      "failedOn": "{{name}} ล้มเหลวบน {{name2}}",
+      "on": "{{name}} บน {{name2}}: {{value}}",
+      "ranOn": "รัน {{name}} บน {{name2}}",
+      "runOn": "รัน \"{{name}}\" บน",
+      "runSnippet": "รันสคริปต์",
+      "loadingHosts": "กำลังโหลดโฮสต์…",
+      "noHostsAvailable": "ไม่มีโฮสต์พร้อมใช้งาน",
+      "addAHostInTermix": "เพิ่มโฮสต์ใน Termix เพื่อรันสคริปต์จากหน้าจอหลักของคุณ",
+      "lastUsed": "ใช้งานล่าสุด",
+      "failedToRunSnippet": "ไม่สามารถรันสคริปต์ได้"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "สคริปต์นั้นไม่มีอีกต่อไป",
+      "couldNotOpenThatSnippet": "ไม่สามารถเปิดสคริปต์นั้นได้",
+      "thatHostNoLongerExists": "โฮสต์นั้นไม่มีอีกต่อไป",
+      "couldNotOpenThatHost": "ไม่สามารถเปิดโฮสต์นั้นได้"
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "หน้าแรก"
+      },
+      "hosts": {
+        "hosts": "โฮสต์"
+      },
+      "sessions": {
+        "sessions": "เซสชัน",
+        "connectToATermixServer": "เชื่อมต่อกับเซิร์ฟเวอร์ Termix เพื่อเปิดเทอร์มินัล ทันเนล และเซสชันไฟล์"
+      }
+    },
+    "layout": {
+      "initializing": "กำลังเริ่มต้น…",
+      "cancel": "ยกเลิก"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "โฮสต์นี้ไม่มีที่อยู่ MAC ที่ถูกต้อง",
+    "thisBuildCanTSend": "เวอร์ชันนี้ไม่สามารถส่งแพ็กเก็ต Wake-on-LAN ได้",
+    "couldNotSendThePacket": "ไม่สามารถส่งแพ็กเก็ตได้ ตรวจสอบว่าเปิด Wi-Fi ไว้"
+  },
+  "common": {
+    "hostCount_other": "{{count}} โฮสต์",
+    "device": {
+      "phone": "โทรศัพท์",
+      "tablet": "แท็บเล็ต"
+    },
+    "thisDeviceLower": "{{deviceWord}} นี้"
+  },
+  "hostAccess": {
+    "title": "การแชร์",
+    "action": "แชร์กับผู้อื่น",
+    "levels": {
+      "connect": "เชื่อมต่อ",
+      "view": "ดู",
+      "edit": "แก้ไข",
+      "manage": "จัดการ"
+    },
+    "levelHints": {
+      "connect": "เปิดเซสชันได้เท่านั้น การตั้งค่าโฮสต์จะยังคงถูกซ่อนไว้",
+      "view": "เชื่อมต่อได้ และดูการตั้งค่าโฮสต์ ข้อมูลลับจะไม่แสดง",
+      "edit": "ดูได้ และแก้ไขการตั้งค่าอื่นๆ ที่ไม่ใช่ข้อมูลเข้าสู่ระบบ",
+      "manage": "แก้ไขได้ และแชร์โฮสต์หรือเปลี่ยนแปลง/ลบสิทธิ์การเข้าถึง"
+    },
+    "until": "จนถึง {{date}}",
+    "sharedBy": "โดย {{name}}",
+    "couldNotLoad": "ไม่สามารถโหลดรายชื่อผู้มีสิทธิ์เข้าถึงได้",
+    "shared": "แชร์โฮสต์แล้ว",
+    "couldNotShare": "ไม่สามารถแชร์โฮสต์ได้",
+    "updated": "เปลี่ยนสิทธิ์การเข้าถึงแล้ว",
+    "couldNotUpdate": "ไม่สามารถเปลี่ยนสิทธิ์การเข้าถึงได้",
+    "removeTitle": "ลบ {{name}} หรือไม่?",
+    "removeHint": "พวกเขา将无法再使用此主机。",
+    "remove": "ลบ",
+    "removed": "ลบสิทธิ์การเข้าถึงแล้ว",
+    "couldNotRemove": "ไม่สามารถลบสิทธิ์การเข้าถึงได้",
+    "whoHasAccess": "ใครมีสิทธิ์เข้าถึง",
+    "loading": "กำลังโหลด...",
+    "nobodyYet": "มีเพียงคุณเท่านั้นที่สามารถใช้โฮสต์นี้ได้",
+    "changeAccessFor": "เปลี่ยนสิทธิ์การเข้าถึงสำหรับ {{name}}",
+    "shareWith": "แชร์กับ",
+    "users": "ผู้ใช้",
+    "roles": "บทบาท",
+    "searchUsers": "ค้นหาผู้ใช้",
+    "searchRoles": "ค้นหารolle",
+    "noUsers": "ไม่มีผู้ใช้รายอื่นให้แชร์ด้วย",
+    "noRoles": "ไม่มีบทบาทให้แชร์ด้วย",
+    "options": "สิทธิ์การเข้าถึง",
+    "level": "ระดับ",
+    "expires": "หมดอายุ",
+    "expiry": {
+      "never": "ไม่หมดอายุ",
+      "1h": "ในอีก 1 ชั่วโมง",
+      "1d": "ในอีก 1 วัน",
+      "7d": "ในอีก 7 วัน",
+      "30d": "ในอีก 30 วัน"
+    },
+    "pickSomeone": "เลือกผู้ที่จะแชร์ด้วย",
+    "shareCount_other": "แชร์กับ {{count}} คน",
+    "removeAccess": "ลบสิทธิ์การเข้าถึง"
+  },
+  "push": {
+    "channels": {
+      "alerts": "การแจ้งเตือนจากเซิร์ฟเวอร์",
+      "critical": "การแจ้งเตือนสำคัญจากเซิร์ฟเวอร์"
+    },
+    "severity": {
+      "info": "ทั้งหมด",
+      "warning": "คำเตือนและระดับที่รุนแรงกว่า",
+      "critical": "เฉพาะระดับวิกฤต"
+    },
+    "settings": {
+      "on": "การแจ้งเตือนจะแสดงบนโทรศัพท์เครื่องนี้",
+      "off": "ปิด",
+      "toggle": "การแจ้งเตือนแบบพุชสำหรับ {{server}}",
+      "minSeverity": "ส่งมาให้ฉัน",
+      "denied": "การแจ้งเตือนสำหรับ Termix ถูกปิดใช้งาน โปรดเปิดใช้งานในการตั้งค่าของโทรศัพท์",
+      "openSettings": "เปิดการตั้งค่า",
+      "outdated": "เซิร์ฟเวอร์นี้ต้องการปลั๊กอิน Alerts เวอร์ชัน 1.4.0 หรือใหม่กว่าสำหรับการแจ้งเตือนแบบพุช โปรดให้ผู้ดูแลระบบอัปเดตปลั๊กอิน",
+      "unavailable": "เข้าสู่ระบบเซิร์ฟเวอร์นี้และเปิดใช้งานปลั๊กอิน Alerts เพื่อรับการแจ้งเตือน",
+      "error": "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ Termix จะลองอีกครั้งเมื่อเปิดแอปครั้งถัดไป",
+      "notInThisBuild": "เวอร์ชันนี้ไม่สามารถแสดงการแจ้งเตือนได้",
+      "noServers": "ลิงก์กับเซิร์ฟเวอร์เพื่อรับการแจ้งเตือนจากเซิร์ฟเวอร์นั้นที่นี่",
+      "pushHint": "การแจ้งเตือนจะถูกส่งผ่าน Expo และ Apple หรือ Google พร้อมหัวข้อและข้อความ เลือกประเภทการแจ้งเตือนที่ต้องการในกฎของ Alerts บนเซิร์ฟเวอร์",
+      "pollHint": "เวอร์ชันนี้ไม่มีบริการของ Google ดังนั้น Termix จะตรวจสอบการแจ้งเตือนใหม่ในพื้นหลังประมาณทุก 15 นาที"
+    }
+  }
+}

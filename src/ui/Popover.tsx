@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Modal, Pressable, View } from "react-native";
 import { useUiColors } from "@/contexts/ThemeContext";
 import { useWindowInfo } from "@/utils/window-class";
+import { areaAt } from "@/utils/fold";
+import { t } from "@/i18n";
 
 export interface PopoverAnchor {
   /** Window coordinates, from measureInWindow. */
@@ -30,9 +32,15 @@ export function Popover({
   const ui = useUiColors();
   const win = useWindowInfo();
   const [panelWidth, setPanelWidth] = useState(0);
-  // Keeps a panel near the right edge inside the window.
+  // Keeps a panel near an edge inside the window, and on the anchor's side of a bent fold.
+  const area = anchor
+    ? areaAt(win.fold, anchor, win.width, win.height)
+    : { x: 0, width: win.width };
   const left = anchor
-    ? Math.max(4, Math.min(anchor.x - 4, win.width - panelWidth - 4))
+    ? Math.max(
+        area.x + 4,
+        Math.min(anchor.x - 4, area.x + area.width - panelWidth - 4),
+      )
     : 0;
   return (
     <Modal
@@ -45,7 +53,7 @@ export function Popover({
       <Pressable
         style={{ flex: 1 }}
         onPress={onClose}
-        accessibilityLabel="Close"
+        accessibilityLabel={t("ui.popover.close")}
       >
         {anchor ? (
           <View

@@ -3,7 +3,8 @@ import type { AccountClient } from "@/core/api/AccountClient";
 import type { ApiModules } from "@/core/api/modules";
 import { AppError } from "@/core/errors";
 import { AccountStore } from "./store";
-import type { Account } from "./types";
+import { accountLabelAmong, type Account } from "./types";
+import { t } from "@/i18n";
 
 export * from "./types";
 export { AccountStore, sameServerUrl } from "./store";
@@ -11,6 +12,14 @@ export { hasUsableData } from "./usable";
 
 /** The app's account list. Clients come from here, never from a global. */
 export const accounts = new AccountStore();
+
+/** An account's name, told apart from other linked servers with the same name. */
+export function accountLabel(account: Account): string {
+  return accountLabelAmong(
+    account,
+    accounts.list().filter((a) => !("pending" in a && a.pending)),
+  );
+}
 
 export function activeClient(): AccountClient | null {
   return accounts.activeClient();
@@ -24,7 +33,7 @@ export function clientFor(accountId: string): AccountClient | null {
 export function requireActiveClient(): AccountClient {
   const client = accounts.activeClient();
   if (!client) {
-    throw new AppError("Link a Termix server to use this", "NO_SERVER");
+    throw new AppError(t("accounts.linkATermixServerTo"), "NO_SERVER");
   }
   return client;
 }
@@ -32,7 +41,7 @@ export function requireActiveClient(): AccountClient {
 /** API of a client from a hook, or an error when there is no server. */
 export function apiOf(client: AccountClient | null): ApiModules {
   if (!client) {
-    throw new AppError("Link a Termix server to use this", "NO_SERVER");
+    throw new AppError(t("accounts.linkATermixServerTo"), "NO_SERVER");
   }
   return client.api;
 }

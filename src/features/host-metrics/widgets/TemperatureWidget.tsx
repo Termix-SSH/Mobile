@@ -4,6 +4,7 @@ import { ServerMetrics } from "@/types";
 import { Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { WidgetCard, Meter } from "./WidgetCard";
+import { t } from "@/i18n";
 
 // Most CPUs throttle near 100 C, so the bar fills toward that.
 const HOT = 100;
@@ -20,7 +21,7 @@ export function TemperatureWidget({ metrics }: { metrics: ServerMetrics }) {
   return (
     <WidgetCard
       icon={<Thermometer size={15} color={color("accent-brand")} />}
-      title="Temperature"
+      title={t("hostMetrics.widgets.temperatureWidget.temperature")}
       trailing={
         <Text className="text-xs text-muted-foreground">
           {highest.toFixed(0)} °C

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "277751732209",
+    "project_id": "termix-dff34",
+    "storage_bucket": "termix-dff34.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277751732209:android:a62224cef4dcecadc91650",
+        "android_client_info": {
+          "package_name": "com.karmaa.termix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwDSCvo-bacxXukiofDqvSS467y6JZHq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

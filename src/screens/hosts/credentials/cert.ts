@@ -3,6 +3,7 @@ import {
   isSshEngineAvailable,
   type SshCertInfo,
 } from "@/modules/termix-ssh";
+import { t } from "@/i18n";
 
 export type CertCheck =
   | { kind: "empty" }
@@ -38,22 +39,28 @@ export function describeCertificate(
     `ID ${info.keyId || "none"} | serial ${info.serial}`,
     info.principals.length
       ? `For ${info.principals.join(", ")}`
-      : "For any user",
+      : t("hosts.credentials.cert.forAnyUser"),
     info.validBefore >= NEVER
-      ? `Valid from ${day(info.validAfter)}, no end date`
+      ? t("hosts.credentials.cert.validFromNoEndDate", {
+          validAfter: day(info.validAfter),
+        })
       : `Valid ${day(info.validAfter)} to ${day(info.validBefore)}`,
-    `Signed by ${info.caSha256}`,
+    t("hosts.credentials.cert.signedBy", { caSha256: info.caSha256 }),
   ];
   const problems: string[] = [];
-  if (info.isHost) problems.push("This is a host certificate, not a user one.");
+  if (info.isHost)
+    problems.push(t("hosts.credentials.cert.thisIsAHostCertificate"));
   if (now < info.validAfter)
-    problems.push("This certificate is not valid yet.");
+    problems.push(t("hosts.credentials.cert.thisCertificateIsNotValid"));
   if (info.validBefore < NEVER && now > info.validBefore) {
-    problems.push("This certificate has expired.");
+    problems.push(t("hosts.credentials.cert.thisCertificateHasExpired"));
   }
   if (keyType && baseKeyType(info.keyType) !== baseKeyType(keyType)) {
     problems.push(
-      `It is for a ${baseKeyType(info.keyType)} key, but this key is ${keyType}.`,
+      t("hosts.credentials.cert.itIsForAKey", {
+        keyType: baseKeyType(info.keyType),
+        keyType2: keyType,
+      }),
     );
   }
   return { lines, problems };

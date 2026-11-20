@@ -21,6 +21,7 @@ import {
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { Button, Input, Sheet, SheetBody, Tabs } from "@/ui";
 import type { RdpCredentials } from "./rdp-login";
+import { t } from "@/i18n";
 
 export const KEY_STRIP_HEIGHT = 44;
 
@@ -210,12 +211,12 @@ export function RemoteKeyStrip({
             onPress={() => toggle(k)}
             label={
               k === "ctrl"
-                ? "Ctrl"
+                ? t("remoteDesktop.remoteChrome.ctrl")
                 : k === "alt"
-                  ? "Alt"
+                  ? t("remoteDesktop.remoteChrome.alt")
                   : k === "shift"
-                    ? "Shift"
-                    : "Win"
+                    ? t("remoteDesktop.remoteChrome.shift")
+                    : t("remoteDesktop.remoteChrome.win")
             }
           />
         ))}
@@ -230,12 +231,14 @@ export function RemoteKeyStrip({
             onPress={() => Keyboard.dismiss()}
           >
             <X size={13} color="#fff" />
-            <Text style={[styles.keyText, { color: "#fff" }]}>Done</Text>
+            <Text style={[styles.keyText, { color: "#fff" }]}>
+              {t("remoteDesktop.remoteChrome.done")}
+            </Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             accessibilityRole="button"
-            accessibilityLabel="Keyboard"
+            accessibilityLabel={t("remoteDesktop.remoteChrome.keyboard")}
             style={styles.iconKey}
             onPress={onKeyboard}
           >
@@ -243,31 +246,40 @@ export function RemoteKeyStrip({
           </TouchableOpacity>
         )}
         <StripDivider />
-        <StripKey label="Esc" onPress={() => press(0xff1b)} />
-        <StripKey label="Tab" onPress={() => press(0xff09)} />
+        <StripKey
+          label={t("remoteDesktop.remoteChrome.esc")}
+          onPress={() => press(0xff1b)}
+        />
+        <StripKey
+          label={t("remoteDesktop.remoteChrome.tab")}
+          onPress={() => press(0xff09)}
+        />
         <StripDivider />
-        {icon(ChevronLeft, 0xff51, "Left arrow")}
-        {icon(ChevronUp, 0xff52, "Up arrow")}
-        {icon(ChevronDown, 0xff54, "Down arrow")}
-        {icon(ChevronRight, 0xff53, "Right arrow")}
+        {icon(ChevronLeft, 0xff51, t("remoteDesktop.remoteChrome.leftArrow"))}
+        {icon(ChevronUp, 0xff52, t("remoteDesktop.remoteChrome.upArrow"))}
+        {icon(ChevronDown, 0xff54, t("remoteDesktop.remoteChrome.downArrow"))}
+        {icon(ChevronRight, 0xff53, t("remoteDesktop.remoteChrome.rightArrow"))}
         <StripDivider />
         {[
-          { label: "Home", k: 0xff50 },
-          { label: "End", k: 0xff57 },
+          { label: t("remoteDesktop.remoteChrome.home"), k: 0xff50 },
+          { label: t("remoteDesktop.remoteChrome.end"), k: 0xff57 },
           { label: "PgUp", k: 0xff55 },
           { label: "PgDn", k: 0xff56 },
-          { label: "Bksp", k: 0xff08 },
-          { label: "Del", k: 0xffff },
-          { label: "Enter", k: 0xff0d },
+          { label: t("remoteDesktop.remoteChrome.bksp"), k: 0xff08 },
+          { label: t("remoteDesktop.remoteChrome.del"), k: 0xffff },
+          { label: t("remoteDesktop.remoteChrome.enter"), k: 0xff0d },
         ].map(({ label, k }) => (
           <StripKey key={label} label={label} onPress={() => press(k)} />
         ))}
         <StripDivider />
         <StripKey label="CAD" onPress={() => send(CTRL_ALT_DEL)} />
-        <StripKey label="Win" onPress={() => send([0xffeb])} />
+        <StripKey
+          label={t("remoteDesktop.remoteChrome.win")}
+          onPress={() => send([0xffeb])}
+        />
         <StripDivider />
         <StripKey
-          label="Fn"
+          label={t("remoteDesktop.remoteChrome.fn")}
           active={showF}
           onPress={() => setShowF((v) => !v)}
         />
@@ -278,7 +290,7 @@ export function RemoteKeyStrip({
         <StripDivider />
         <TouchableOpacity
           accessibilityRole="button"
-          accessibilityLabel="Settings"
+          accessibilityLabel={t("remoteDesktop.remoteChrome.settings")}
           style={styles.iconKey}
           onPress={onSettings}
         >
@@ -341,31 +353,41 @@ export function RemoteSettingsSheet({
     <Sheet
       visible={visible}
       onClose={onClose}
-      title="Remote Settings"
+      title={t("remoteDesktop.remoteChrome.remoteSettings")}
       scroll={false}
     >
       <View style={styles.section}>
-        <Text style={styles.label}>Mouse Mode</Text>
+        <Text style={styles.label}>
+          {t("remoteDesktop.remoteChrome.mouseMode")}
+        </Text>
         <Tabs
           options={[
-            { id: "touch" as MouseMode, label: "Touch" },
-            { id: "trackpad" as MouseMode, label: "Trackpad" },
+            {
+              id: "touch" as MouseMode,
+              label: t("remoteDesktop.remoteChrome.touch"),
+            },
+            {
+              id: "trackpad" as MouseMode,
+              label: t("remoteDesktop.remoteChrome.trackpad"),
+            },
           ]}
           value={mouseMode}
           onChange={onMouseMode}
         />
         <Text style={styles.desc}>
           {mouseMode === "touch"
-            ? "Tap where you want to click. Hold for a right click, drag to drag."
-            : "Drag to move the pointer. Tap to click, two finger tap to right click, tap then drag to drag."}
+            ? t("remoteDesktop.remoteChrome.tapWhereYouWantTo")
+            : t("remoteDesktop.remoteChrome.dragToMoveThePointer")}
         </Text>
       </View>
       <View style={styles.zoomRow}>
         <Text style={styles.zoomLabel}>
-          Zoom: {zoom.toFixed(1)}x. Pinch anywhere to zoom
+          {t("remoteDesktop.remoteChrome.zoomXPinchAnywhereTo", {
+            value: zoom.toFixed(1),
+          })}
         </Text>
         <Button variant="muted" size="sm" onPress={onResetZoom}>
-          Reset
+          {t("remoteDesktop.remoteChrome.reset")}
         </Button>
       </View>
       {children}
@@ -376,7 +398,7 @@ export function RemoteSettingsSheet({
 /** Asks for a login that is used once and never saved. */
 export function RdpSignInSheet({
   visible,
-  title = "RDP sign-in",
+  title = t("remoteDesktop.remoteChrome.rdpSignIn"),
   showDomain = true,
   description,
   initialUsername,
@@ -418,7 +440,7 @@ export function RdpSignInSheet({
       footer={
         <View className="flex-row justify-end gap-2">
           <Button variant="muted" onPress={onCancel}>
-            Cancel
+            {t("remoteDesktop.remoteChrome.cancel")}
           </Button>
           <Button
             variant="muted"
@@ -434,16 +456,18 @@ export function RdpSignInSheet({
               onConnect(credentials);
             }}
           >
-            Connect
+            {t("remoteDesktop.remoteChrome.connect")}
           </Button>
         </View>
       }
     >
       <SheetBody>
         <View className="gap-3">
-          <Text style={{ color: c.fg }}>Username</Text>
+          <Text style={{ color: c.fg }}>
+            {t("remoteDesktop.remoteChrome.username")}
+          </Text>
           <Input
-            accessibilityLabel="Username"
+            accessibilityLabel={t("remoteDesktop.remoteChrome.username")}
             value={username}
             onChangeText={setUsername}
             autoCapitalize="none"
@@ -451,9 +475,11 @@ export function RdpSignInSheet({
           />
           {showDomain ? (
             <>
-              <Text style={{ color: c.fg }}>Domain (optional)</Text>
+              <Text style={{ color: c.fg }}>
+                {t("remoteDesktop.remoteChrome.domainOptional")}
+              </Text>
               <Input
-                accessibilityLabel="Domain"
+                accessibilityLabel={t("remoteDesktop.remoteChrome.domain")}
                 value={domain}
                 onChangeText={setDomain}
                 autoCapitalize="none"
@@ -461,9 +487,11 @@ export function RdpSignInSheet({
               />
             </>
           ) : null}
-          <Text style={{ color: c.fg }}>Password</Text>
+          <Text style={{ color: c.fg }}>
+            {t("remoteDesktop.remoteChrome.password")}
+          </Text>
           <Input
-            accessibilityLabel="Password"
+            accessibilityLabel={t("remoteDesktop.remoteChrome.password")}
             value={password}
             onChangeText={setPassword}
             secureTextEntry

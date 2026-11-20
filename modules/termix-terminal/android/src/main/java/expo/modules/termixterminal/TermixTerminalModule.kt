@@ -25,6 +25,7 @@ class TermixTerminalModule : Module() {
       Prop("fontFamily") { view: TermixTerminalView, family: String? -> view.setFontFamily(family) }
       Prop("lineHeight") { view: TermixTerminalView, value: Float? -> view.setLineHeight(value ?: 1f) }
       Prop("letterSpacing") { view: TermixTerminalView, value: Float? -> view.setLetterSpacing(value ?: 0f) }
+      Prop("ligatures") { view: TermixTerminalView, on: Boolean? -> view.setLigatures(on ?: true) }
       Prop("cursor") { view: TermixTerminalView, cursor: CursorRecord? ->
         view.setCursor(cursor?.style, cursor?.blink ?: true)
       }
@@ -34,6 +35,7 @@ class TermixTerminalModule : Module() {
       }
       Prop("accentColor") { view: TermixTerminalView, color: String? -> view.setAccentColor(color) }
       Prop("watchPrompt") { view: TermixTerminalView, on: Boolean? -> view.setPromptWatch(on == true) }
+      Prop("doubleTapTab") { view: TermixTerminalView, on: Boolean? -> view.setDoubleTapTab(on == true) }
       // iOS only: a hidden iOS surface stops drawing. Android draws on demand.
       Prop("surfaceVisible") { _: TermixTerminalView, _: Boolean? -> }
       // iOS only; Android reads Alt from the keyboard itself.

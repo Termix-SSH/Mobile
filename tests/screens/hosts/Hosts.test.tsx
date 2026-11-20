@@ -30,6 +30,7 @@ jest.mock("@/components/Screen", () => ({
 jest.mock("@/screens/shell/AppHeader", () => ({
   AccountButton: () => null,
   SearchButton: () => null,
+  NotificationsButton: () => null,
 }));
 jest.mock("@/screens/home/ServerReachBanner", () => ({
   ServerReachBanner: () => null,
@@ -67,6 +68,7 @@ jest.mock("@/core/features", () => ({
   useHostFilters: () => [],
   useSettingsLinks: () => [],
   useHostBadges: () => [],
+  useHostRowData: () => [],
 }));
 jest.mock("@/screens/hosts/useOpenHost", () => ({
   useOpenHost: () => mockOpenHost,
@@ -88,8 +90,6 @@ jest.mock("@/screens/hosts/useHostsData", () => ({
     folderColors: {},
     loading: false,
     refreshing: false,
-    alerts: [],
-    dismissAlert: jest.fn(),
     metrics: {},
     getHostStatus: () => "online",
     refresh: jest.fn(),

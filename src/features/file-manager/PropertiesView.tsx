@@ -5,6 +5,7 @@ import { toUserMessage } from "@/core/errors";
 import type { FileBackend, FileEntry } from "./backend/types";
 import { isFolderLike } from "./list/FileRow";
 import { formatDateTime, formatFileSize, modeText } from "./utils/fileUtils";
+import { t } from "@/i18n";
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -23,7 +24,11 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
   );
 }
 
-const TYPE_LABEL = { file: "File", directory: "Folder", link: "Link" };
+const TYPE_LABEL = {
+  file: t("fileManager.propertiesView.file"),
+  directory: t("fileManager.propertiesView.folder"),
+  link: t("fileManager.propertiesView.link"),
+};
 
 /** Everything the host says about one file or folder. */
 export function PropertiesView({
@@ -72,23 +77,28 @@ export function PropertiesView({
       open={open}
       onClose={onClose}
       title={info.name}
-      subtitle="Properties"
+      subtitle={t("fileManager.propertiesView.properties")}
     >
       <View>
-        <Row label="Path" value={info.path} />
+        <Row label={t("fileManager.propertiesView.path")} value={info.path} />
         <Row
-          label="Type"
+          label={t("fileManager.propertiesView.type")}
           value={
             info.type === "link" && info.targetType
-              ? `Link to a ${info.targetType === "directory" ? "folder" : "file"}`
+              ? t("fileManager.propertiesView.linkToA", {
+                  value: info.targetType === "directory" ? "folder" : "file",
+                })
               : TYPE_LABEL[info.type]
           }
         />
         {info.type === "link" ? (
-          <Row label="Points to" value={info.linkTarget ?? "Unknown"} />
+          <Row
+            label={t("fileManager.propertiesView.pointsTo")}
+            value={info.linkTarget ?? "Unknown"}
+          />
         ) : null}
         <Row
-          label="Size"
+          label={t("fileManager.propertiesView.size")}
           value={
             folder ? (
               folderSize === "loading" ? (
@@ -101,10 +111,10 @@ export function PropertiesView({
                   variant="muted"
                   onPress={() => void countSize()}
                 >
-                  Count folder size
+                  {t("fileManager.propertiesView.countFolderSize")}
                 </Button>
               ) : (
-                "Not shown for folders"
+                t("fileManager.propertiesView.notShownForFolders")
               )
             ) : (
               `${formatFileSize(info.size)} (${info.size.toLocaleString("en-US")} bytes)`
@@ -112,7 +122,7 @@ export function PropertiesView({
           }
         />
         <Row
-          label="Permissions"
+          label={t("fileManager.propertiesView.permissions")}
           value={
             mode.octal ? (
               <View className="flex-row items-center gap-3">
@@ -124,7 +134,7 @@ export function PropertiesView({
                   variant="muted"
                   onPress={() => onPermissions(info)}
                 >
-                  Change
+                  {t("fileManager.propertiesView.change")}
                 </Button>
               </View>
             ) : (
@@ -133,20 +143,26 @@ export function PropertiesView({
           }
         />
         <Row
-          label="Owner"
+          label={t("fileManager.propertiesView.owner")}
           value={
             info.owner ?? (info.uid != null ? String(info.uid) : "Unknown")
           }
         />
         <Row
-          label="Group"
+          label={t("fileManager.propertiesView.group")}
           value={
             info.group ?? (info.gid != null ? String(info.gid) : "Unknown")
           }
         />
-        <Row label="Modified" value={formatDateTime(info.mtime)} />
+        <Row
+          label={t("fileManager.propertiesView.modified")}
+          value={formatDateTime(info.mtime)}
+        />
         {info.atime ? (
-          <Row label="Opened" value={formatDateTime(info.atime)} />
+          <Row
+            label={t("fileManager.propertiesView.opened")}
+            value={formatDateTime(info.atime)}
+          />
         ) : null}
         {error ? (
           <Text className="pt-3 text-xs text-destructive-text">{error}</Text>
