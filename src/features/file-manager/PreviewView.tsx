@@ -1,7 +1,7 @@
 import { Platform, Pressable, View } from "react-native";
 import { Image } from "expo-image";
 import { useVideoPlayer, VideoView } from "expo-video";
-import { WebView } from "react-native-webview";
+import { WebView } from "@/ui/web-view";
 import { ExternalLink, Share2 } from "lucide-react-native";
 import { InlineView } from "@/ui";
 import { useUiColors } from "@/contexts/ThemeContext";

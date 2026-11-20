@@ -8,7 +8,7 @@ import {
   Pressable,
   useWindowDimensions,
 } from "react-native";
-import { WebView } from "react-native-webview";
+import { WebView, type WebViewHandle } from "@/ui/web-view";
 import { LOCAL_PAGE_ORIGINS, stayOnLocalPage } from "@/utils/webview";
 import { RotateCcw } from "lucide-react-native";
 import { Text } from "@/ui";
@@ -49,7 +49,7 @@ export function DockerConsole({
   isVisible: boolean;
 }) {
   const color = useThemeColor();
-  const webViewRef = useRef<WebView>(null);
+  const webViewRef = useRef<WebViewHandle>(null);
   const terminalRef = useRef<TerminalViewApi>(null);
   const sizeRef = useRef({ cols: 80, rows: 24 });
   const { resolvedTheme } = useTheme();

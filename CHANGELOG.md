@@ -52,6 +52,7 @@
 - The Suggest commands description in Terminal settings is no longer cut off
 - Two linked servers with the same name now show their addresses, so you can tell them apart in tabs, lists and the server menu
 - Opening files, Docker, Host Metrics, a tunnel or a remote desktop now shows in recent activity, not only the terminal
+- The app no longer crashes on iOS when a page with several web views opens, like Homepage with widgets from other plugins
 - Homepage no longer goes black a moment after it opens on a phone
 - Signing in through the browser with a passkey, security key or other method no longer comes back with "sent no session back" (needs Termix 26.11.3 or newer)
 - Going back to the Hosts tab no longer reloads the whole list; it refreshes in the background

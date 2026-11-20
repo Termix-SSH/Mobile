@@ -8,7 +8,11 @@ import {
 } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { ArrowLeft, Globe, RefreshCw } from "lucide-react-native";
-import { WebView, type WebViewNavigation } from "react-native-webview";
+import {
+  WebView,
+  type WebViewHandle,
+  type WebViewNavigation,
+} from "@/ui/web-view";
 import { Button, Text } from "@/ui";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { toast } from "@/utils/toast";
@@ -71,7 +75,7 @@ export function BrowserStep({
   const color = useThemeColor();
   const bg = color("background");
   const accent = color("accent-brand");
-  const webViewRef = useRef<WebView>(null);
+  const webViewRef = useRef<WebViewHandle>(null);
   const [source, setSource] = useState<{ uri: string } | null>(null);
   const [url, setUrl] = useState("");
   const [authUrl, setAuthUrl] = useState<string | null>(null);

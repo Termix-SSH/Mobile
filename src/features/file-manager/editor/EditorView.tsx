@@ -7,7 +7,11 @@ import {
 } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { Asset } from "expo-asset";
-import { WebView, type WebViewMessageEvent } from "react-native-webview";
+import {
+  WebView,
+  type WebViewHandle,
+  type WebViewMessageEvent,
+} from "@/ui/web-view";
 import { LOCAL_PAGE_ORIGINS, stayOnLocalPage } from "@/utils/webview";
 import { useTheme, useUiColors } from "@/contexts/ThemeContext";
 import { readLocalText } from "@/utils/localFile";
@@ -60,7 +64,7 @@ export const EditorView = forwardRef<
 >(({ text, name, path, readOnly, fontSize, wrap, onDirty, onSave }, ref) => {
   const colors = useUiColors();
   const { isDark } = useTheme();
-  const web = useRef<WebView>(null);
+  const web = useRef<WebViewHandle>(null);
   const [script, setScript] = useState<string | null>(null);
   const waiting = useRef<((text: string) => void)[]>([]);
   const ready = useRef(false);

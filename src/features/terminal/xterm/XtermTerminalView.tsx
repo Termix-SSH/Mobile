@@ -13,7 +13,7 @@ import {
   View,
   type LayoutChangeEvent,
 } from "react-native";
-import { WebView } from "react-native-webview";
+import { WebView, type WebViewHandle } from "@/ui/web-view";
 import { LOCAL_PAGE_ORIGINS, stayOnLocalPage } from "@/utils/webview";
 import { ChevronDown } from "lucide-react-native";
 import * as Clipboard from "expo-clipboard";
@@ -78,7 +78,7 @@ export const XtermTerminalView = forwardRef<XtermTerminalApi, Props>(
     ref,
   ) {
     const ui = useUiColors();
-    const webViewRef = useRef<WebView>(null);
+    const webViewRef = useRef<WebViewHandle>(null);
     const [htmlContent, setHtmlContent] = useState("");
     const [isSelecting, setIsSelecting] = useState(false);
     const [selectedText, setSelectedText] = useState("");

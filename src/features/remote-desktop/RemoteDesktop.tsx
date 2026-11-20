@@ -19,7 +19,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { WebView } from "react-native-webview";
+import { WebView, type WebViewHandle } from "@/ui/web-view";
 import {
   inlineJson,
   LOCAL_PAGE_ORIGINS,
@@ -115,7 +115,7 @@ export function RemoteDesktop({
     height: 720,
   });
 
-  const webViewRef = useRef<WebView>(null);
+  const webViewRef = useRef<WebViewHandle>(null);
   const inputRef = useRef<TextInput>(null);
 
   // Behind a client certificate or proxy the socket goes through the app.

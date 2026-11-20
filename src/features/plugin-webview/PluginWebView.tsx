@@ -10,7 +10,11 @@ import {
 import { ActivityIndicator, Linking, View } from "react-native";
 import { Asset } from "expo-asset";
 import { useNetworkState } from "expo-network";
-import { WebView, type WebViewMessageEvent } from "react-native-webview";
+import {
+  WebView,
+  type WebViewHandle,
+  type WebViewMessageEvent,
+} from "@/ui/web-view";
 import type { ShouldStartLoadRequest } from "react-native-webview/lib/WebViewTypes";
 import { CloudOff, Download, TriangleAlert } from "lucide-react-native";
 import { THEME_VARS } from "@/constants/theme";
@@ -98,7 +102,7 @@ export const PluginWebView = forwardRef<
     const { resolvedTheme, isDark, accent } = useTheme();
     const confirm = useConfirm();
     const network = useNetworkState();
-    const web = useRef<WebView>(null);
+    const web = useRef<WebViewHandle>(null);
     const bridge = useRef<FrameBridge | null>(null);
     const backWaiters = useRef<((handled: boolean) => void)[]>([]);
     const describeWaiters = useRef(

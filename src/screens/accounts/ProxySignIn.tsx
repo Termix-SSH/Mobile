@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-import { WebView } from "react-native-webview";
+import { WebView } from "@/ui/web-view";
 import {
   PIN_REFUSED_TEXT,
   usePinnedServerCheck,
